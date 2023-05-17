@@ -1,0 +1,52 @@
+package com.at.apcss.co.user.service.impl;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.at.apcss.co.user.mapper.ComUserMapper;
+import com.at.apcss.co.user.service.ComUserService;
+import com.at.apcss.co.user.vo.ComUserVO;
+
+/**
+ * 사용자정보에 대한 서비스 구현 클래스를 정의한다
+ * @author 신정철
+ * @since 2023.05.16
+ * @version 1.0
+ * @see
+ *
+ * <pre>
+ * << 개정이력(Modification Information) >>
+ *
+ *  수정일      	수정자          수정내용
+ *  ----------  ----------    ---------------------------
+ *  2023.05.16  신정철          최초 생성
+ *
+ * </pre>
+ */
+@Service("comUserService")
+public class ComUserServiceImpl implements ComUserService {
+
+	@Autowired
+	private ComUserMapper comUserMapper;
+	
+	@Override
+	public ComUserVO selectComUser(ComUserVO comUserVO) {
+		
+		System.out.println("aaa");
+		ComUserVO comUserRsltVO = comUserMapper.selectComUser(comUserVO);
+		System.out.println("bbb");
+		return comUserRsltVO;
+	}
+
+	@Override
+	public ComUserVO selectComUser(String userId) {
+		
+		ComUserVO comUserVO = new ComUserVO();
+		comUserVO.setUserId(userId);
+		
+		return selectComUser(comUserVO);
+	}
+
+}
