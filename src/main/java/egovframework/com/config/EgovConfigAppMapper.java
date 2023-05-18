@@ -41,7 +41,7 @@ import org.springframework.jdbc.support.lob.DefaultLobHandler;
 @PropertySources({
 	@PropertySource("classpath:/application.properties")
 })
-@MapperScan(basePackages = {"com.at.apcss"}, 
+@MapperScan(basePackages = {"com.at.apcss"},
 	annotationClass = org.apache.ibatis.annotations.Mapper.class)
 public class EgovConfigAppMapper {
 	@Autowired
@@ -50,11 +50,11 @@ public class EgovConfigAppMapper {
 	@Autowired
 	Environment env;
 
-	private String dbType;
+	//private String dbType;
 
 	@PostConstruct
 	void init() {
-		dbType = env.getProperty("Globals.DbType");
+		//dbType = env.getProperty("Globals.DbType");
 	}
 
 	@Bean
@@ -79,7 +79,7 @@ public class EgovConfigAppMapper {
 				//pathMatchingResourcePatternResolver
 				//	.getResources("classpath:/egovframework/mapper/let/**/*_" + dbType + ".xml"));
 				pathMatchingResourcePatternResolver
-					.getResources("classpath:/mapper/com/at/apcss/**/**/*_" + dbType + ".xml"));
+					.getResources("classpath:/mapper/com/at/apcss/**/**/*.xml"));
 		} catch (IOException e) {
 			// TODO Exception 처리 필요
 		}
