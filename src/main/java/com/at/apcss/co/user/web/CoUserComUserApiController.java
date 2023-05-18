@@ -10,8 +10,11 @@ import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.hsqldb.lib.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.user.service.ComUserService;
@@ -77,7 +80,8 @@ public class CoUserComUserApiController extends BaseController {
 			resultMap.put("resultMessage", "성공 !!!");
 		} else {
 			resultMap.put("resultVO", comUserResultVO);
-			resultMap.put("resultCode", "300");
+			resultMap.put("resultCode", "500");
+			resultMap.put("resultMessage", "사용자정보없음");
 			// resultMap.put("resultMessage", egovMessageSource.getMessage("fail.common.login"));
 		}
 
@@ -85,4 +89,31 @@ public class CoUserComUserApiController extends BaseController {
 
 	}
 
+	@GetMapping(value = "/co/user/selectUserById/{id}")
+	@ResponseBody
+	public HashMap<String, Object> selectUserById(@PathVariable String id, HttpServletRequest request) throws Exception {
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		logger.debug("param ID: {}", id);
+		
+		ComUserVO comUserResultVO = comUserService.selectComUser(id);
+
+		if (comUserResultVO != null && !StringUtil.isEmpty(comUserResultVO.getUserId())) {
+			
+			logger.debug("comUser info {} {}", comUserResultVO.getUserId(), comUserResultVO.getUserNm());
+			logger.debug(comUserResultVO.toString());
+			
+			resultMap.put("resultVO", comUserResultVO);
+			resultMap.put("resultCode", "200");
+			resultMap.put("resultMessage", "성공 !!!");
+		} else {
+			resultMap.put("resultVO", comUserResultVO);
+			resultMap.put("resultCode", "500");
+			resultMap.put("resultMessage", "사용자정보없음");
+			// resultMap.put("resultMessage", egovMessageSource.getMessage("fail.common.login"));
+		}
+
+		return resultMap;
+
+	}
 }
