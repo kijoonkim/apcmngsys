@@ -1,9 +1,10 @@
 package com.at.apcss.co.cd.mapper;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.co.user.vo.ComUserVO;
 /**
  * 공통코드 Mapper
  * @author FINEVT 개발팀 김호
@@ -28,6 +29,6 @@ public interface ComCdMapper {
 	 * @param ComCd
 	 * @return
 	 */
-	public ComUserVO selectComCd(ComCdVO comCdVO);
+	ArrayList<ComCdVO> selectComCd(ComCdVO comCdVO);
 
 }
