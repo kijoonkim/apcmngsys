@@ -1,6 +1,6 @@
 package com.at.apcss.co.user.service.impl;
 
-import javax.annotation.Resource;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,10 +33,8 @@ public class ComUserServiceImpl implements ComUserService {
 	
 	@Override
 	public ComUserVO selectComUser(ComUserVO comUserVO) {
-		
-		System.out.println("aaa");
+
 		ComUserVO comUserRsltVO = comUserMapper.selectComUser(comUserVO);
-		System.out.println("bbb");
 		return comUserRsltVO;
 	}
 
@@ -47,6 +45,13 @@ public class ComUserServiceImpl implements ComUserService {
 		comUserVO.setUserId(userId);
 		
 		return selectComUser(comUserVO);
+	}
+
+	@Override
+	public List<ComUserVO> selectComUserList(ComUserVO comUserVO) {
+		
+		List<ComUserVO> resultList = comUserMapper.selectComUserList(comUserVO);
+		return resultList;
 	}
 
 }
