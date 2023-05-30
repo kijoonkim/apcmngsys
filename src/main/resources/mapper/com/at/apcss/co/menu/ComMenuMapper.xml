@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ComMenuMapper.xml                                    				-->
+<!-- DESC : 메뉴 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.co.menu.mapper.ComMenuMapper">
+
+	<resultMap type="com.at.apcss.co.menu.vo.ComMenuVO" id="comMenuMap">
+		<result property="menuId" column="MENU_ID" />
+		<result property="menuNm" column="MENU_NM" />
+		<result property="upMenuId" column="UP_MENU_ID" />
+		<result property="menuType" column="MENU_TYPE" />
+		<result property="userType" column="USER_TYPE" />
+		<result property="pageUrl" column="PAGE_URL" />
+		<result property="indctSeq" column="INDCT_SEQ" />
+		<result property="apcCd" column="APC_CD" />
+		<result property="sysId" column="SYS_ID" />
+		<result property="upMenuNm" column="UP_MENU_NM" />
+		<result property="menuLvl" column="MENU_LVL" />
+		<result property="menuSeq" column="MENU_SEQ" />	
+	</resultMap>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectComMenu				-->
+	<!-- DESC : 메뉴 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.24  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComMenu" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultMap="comMenuMap">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectComMenu */
+				  CM.MENU_ID    AS MENU_ID
+				, CM.MENU_NM    AS MENU_NM
+				, CM.UP_MENU_ID AS UP_MENU_ID
+				, CM.MENU_TYPE  AS MENU_TYPE
+				, CM.USER_TYPE  AS USER_TYPE
+				, CM.PAGE_URL   AS PAGE_URL
+				, CM.INDCT_SEQ  AS INDCT_SEQ
+				, CM.APC_CD   	AS APC_CD
+			  FROM TB_COM_MENU CM
+			 WHERE CM.MENU_ID = #{menuId}
+    	]]>
+    </select>
+    
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectComMenuList			-->
+	<!-- DESC : 메뉴 테이블 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.24  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComMenuList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultMap="comMenuMap">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectComMenuList */
+				  CM.MENU_ID    AS MENU_ID
+				, CM.MENU_NM    AS MENU_NM
+				, CM.UP_MENU_ID AS UP_MENU_ID
+				, CM.MENU_TYPE  AS MENU_TYPE
+				, CM.USER_TYPE  AS USER_TYPE
+				, CM.PAGE_URL   AS PAGE_URL
+				, CM.INDCT_SEQ  AS INDCT_SEQ
+				, CM.APC_CD   	AS APC_CD
+			  FROM TB_COM_MENU CM
+			 WHERE CM.DEL_YN = 'N'
+    	]]>
+
+		<if test='menuId != null and menuId != ""'>
+			AND CM.MENU_ID = #{menuId}
+		</if>
+		<if test='menuNm != null and menuNm != ""'>
+			AND CM.MENU_NM LIKE '%' || #{menuNm} || '%'
+		</if>
+
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuTreeList		-->
+	<!-- DESC : 메뉴 트리 목록 조회.                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.24  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectMenuTreeList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultMap="comMenuMap">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuTreeList */
+				  MN.LVL		AS MENU_LVL
+				, MN.SEQ		AS MENU_SEQ
+				, MN.SYS_ID		AS SYS_ID
+				, MN.UP_MENU_ID	AS UP_MENU_ID
+				, UM.MENU_NM	AS UP_MENU_NM
+				, MN.MENU_ID	AS MENU_ID
+				, MN.MENU_NM	AS MENU_NM
+				, MN.MENU_TYPE  AS MENU_TYPE
+				, MN.USER_TYPE	AS USER_TYPE
+				, MN.PAGE_URL	AS PAGE_URL
+				, MN.APC_CD		AS APC_CD
+				, MN.INDCT_SEQ	AS INDCT_SEQ
+			  FROM (
+				SELECT
+					  LEVEL		AS LVL
+					, ROWNUM 	AS SEQ
+					, SUBSTR(MN.MENU_ID, 1, 2) AS SYS_ID
+					, MN.UP_MENU_ID	AS UP_MENU_ID
+					, MN.MENU_ID	AS MENU_ID
+					, MN.MENU_NM	AS MENU_NM
+					, MN.MENU_TYPE  AS MENU_TYPE
+					, MN.USER_TYPE	AS USER_TYPE
+					, MN.PAGE_URL	AS PAGE_URL
+					, MN.APC_CD		AS APC_CD
+					, MN.INDCT_SEQ	AS INDCT_SEQ					
+				  FROM TB_COM_MENU MN
+				 WHERE MN.DEL_YN = 'N'
+    	]]>
+			<if test='sysId != null and sysId != ""'>
+				   AND SUBSTR(MN.MENU_ID, 1, 2) = #{sysId}
+			</if>
+			<if test='apcCd != null and apcCd != ""'>
+				   AND MN.APC_CD = #{apcCd}
+			</if>
+    	<![CDATA[
+				 START WITH MN.UP_MENU_ID IS NULL
+			    CONNECT BY PRIOR MN.MENU_ID = MN.UP_MENU_ID
+			    ORDER SIBLINGS BY MN.INDCT_SEQ, MN.MENU_ID
+			  	) MN
+			  	, TB_COM_MENU UM
+			 WHERE MN.UP_MENU_ID = UM.MENU_ID(+)
+			   AND UM.DEL_YN(+) = 'N'			 
+    	]]>
+    </select>
+
+</mapper>

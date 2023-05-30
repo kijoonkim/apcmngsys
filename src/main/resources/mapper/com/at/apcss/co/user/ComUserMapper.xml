@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ComUserMapper.xml                                    				-->
+<!-- DESC : 사용자 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.co.user.mapper.ComUserMapper">
+
+	<resultMap type="com.at.apcss.co.user.vo.ComUserVO" id="comUserResultMap">
+        <result property="userId" column="USER_ID"/>
+        <result property="userNm" column="USER_NM"/>
+		<result property="userType" column="USER_TYPE" />
+		<result property="userStts" column="USER_STTS" />
+		<result property="eml" column="EML" />
+		<result property="mblTelno" column="MBL_TELNO" />
+		<result property="apcCd" column="APC_CD" />
+		<result property="ogdpNm" column="OGDP_NM" />
+		<result property="chrgdCertYn" column="CHRGD_CERT_YN" />
+		<result property="chrgdCertType" column="CHRGD_CERT_TYPE" />
+		<result property="lckYn" column="LCK_YN" />
+		<result property="lgnFailNmtm" column="LGN_FAIL_NMTM" />
+		<result property="endLgnDt" column="END_LGN_DT" />
+		<result property="endLgnIp" column="END_LGN_IP" />		
+	</resultMap>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectComUser                    -->
+	<!-- DESC : 사용자 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComUser" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultMap="comUserResultMap">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.user.ComUserMapper.selectComUser */
+				  CU.USER_ID            AS USER_ID
+				, CU.USER_NM            AS USER_NM
+				, CU.USER_TYPE          AS USER_TYPE
+				, CU.USER_STTS          AS USER_STTS
+				, CU.EML                AS EML
+				, CU.MBL_TELNO          AS MBL_TELNO
+				, CU.APC_CD             AS APC_CD
+				, CU.OGDP_NM            AS OGDP_NM
+				, CU.CHRGD_CERT_YN      AS CHRGD_CERT_YN
+				, CU.CHRGD_CERT_TYPE    AS CHRGD_CERT_TYPE
+				, CU.LCK_YN             AS LCK_YN
+				, CU.LGN_FAIL_NMTM      AS LGN_FAIL_NMTM
+				, CU.END_LGN_DT         AS END_LGN_DT
+				, CU.END_LGN_IP         AS END_LGN_IP
+				, CU.DEL_YN                 AS DEL_YN
+				, CU.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
+				, CU.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
+				, CU.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
+				, CU.SYS_LAST_CHNG_DT       AS SYS_LAST_CHNG_DT
+				, CU.SYS_LAST_CHNG_USER_ID  AS SYS_LAST_CHNG_USER_ID
+				, CU.SYS_LAST_CHNG_PRGRM_ID AS SYS_LAST_CHNG_PRGRM_ID
+
+			  FROM TB_COM_USER CU
+			 WHERE CU.USER_ID = #{userId}
+    	]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectComUserList                -->
+	<!-- DESC : 사용자 테이블 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComUserList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultMap="comUserResultMap">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.user.ComUserMapper.selectComUserList */
+				  CU.USER_ID            AS USER_ID
+				, CU.USER_NM            AS USER_NM
+				, CU.USER_TYPE          AS USER_TYPE
+				, CU.USER_STTS          AS USER_STTS
+				, CU.EML                AS EML
+				, CU.MBL_TELNO          AS MBL_TELNO
+				, CU.APC_CD             AS APC_CD
+				, CU.OGDP_NM            AS OGDP_NM
+				, CU.CHRGD_CERT_YN      AS CHRGD_CERT_YN
+				, CU.CHRGD_CERT_TYPE    AS CHRGD_CERT_TYPE
+				, CU.LCK_YN             AS LCK_YN
+				, CU.LGN_FAIL_NMTM      AS LGN_FAIL_NMTM
+				, CU.END_LGN_DT         AS END_LGN_DT
+				, CU.END_LGN_IP         AS END_LGN_IP
+				, CU.DEL_YN                 AS DEL_YN
+				, CU.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
+				, CU.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
+				, CU.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
+				, CU.SYS_LAST_CHNG_DT       AS SYS_LAST_CHNG_DT
+				, CU.SYS_LAST_CHNG_USER_ID  AS SYS_LAST_CHNG_USER_ID
+				, CU.SYS_LAST_CHNG_PRGRM_ID AS SYS_LAST_CHNG_PRGRM_ID
+
+			  FROM TB_COM_USER CU
+			 WHERE CU.DEL_YN = 'N'
+    	]]>
+    	
+		<if test='userId != null and userId != ""'>
+			   AND CU.USER_ID = #{userId}
+		</if>
+		<if test='userNm != null and userNm != ""'>
+			   AND CU.USER_NM LIKE '%' || #{userNm} || '%'
+		</if>
+		<if test='userType != null and userType != ""'>
+			   AND CU.USER_TYPE = #{userType}
+		</if>
+		<if test='userStts != null and userStts != ""'>
+			   AND CU.USER_STTS = #{userStts}
+		</if>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND CU.APC_CD = #{apcCd}
+		</if>
+		<if test='ogdpNm != null and ogdpNm != ""'>
+			   AND CU.OGDP_NM LIKE '%' || #{ogdpNm} || '%'
+		</if>
+		
+    	<![CDATA[
+    		 ORDER BY USER_ID, USER_NM
+    	]]>	
+    </select>
+
+</mapper>

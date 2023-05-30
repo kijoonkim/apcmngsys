@@ -4,6 +4,10 @@ import lombok.Data;
 
 @Data
 public class ComUserVO {
+	
+	/**
+	 * COM_USER
+	 */
 	private String userId;
 	private String userNm;
 	private String pswd;
@@ -16,7 +20,8 @@ public class ComUserVO {
 	private String chrgdCertYn;
 	private String chrgdCertType;
 	private String lckYn;
-	private String lgnFailYn;
+	private int lgnFailNmtm;
 	private String endLgnDt;
 	private String endLgnIp;
+
 }
