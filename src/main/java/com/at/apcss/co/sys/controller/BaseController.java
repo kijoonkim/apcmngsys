@@ -1,9 +1,14 @@
 package com.at.apcss.co.sys.controller;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.vo.ComPageVO;
 
@@ -69,6 +74,42 @@ public abstract class BaseController {
 		}
 		
 		return true;
+	}
+	
+	/*
+	protected <T> ResponseEntity<T> setSuccessEntity(T t) {
+		return new ResponseEntity<T>(t, HttpStatus.OK);
+	}
+	 */
+	protected ResponseEntity<HashMap<String, Object>> getSuccessResponseEntity(HashMap<String, Object> resultMap) {
+		
+		resultMap.put(ComConstants.PROP_RESULT_STATUS, ComConstants.RESULT_STATUS_OK);
+		resultMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.CON_BLANK);
+		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, ComConstants.CON_BLANK);
+		
+		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.OK);
+	}
+	
+	protected ResponseEntity<Map<String, Object>> getErrorResponseEntity(String errorCode, String errorMessage) {
+		
+		HashMap<String, Object> resultMap = new HashMap<>();
+		
+		resultMap.put(ComConstants.PROP_RESULT_STATUS, ComConstants.RESULT_STATUS_ERROR);
+		resultMap.put(ComConstants.PROP_RESULT_CODE, errorCode);
+		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, errorMessage);
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
+	}
+	
+	protected ResponseEntity<HashMap<String, Object>> getErrorResponseEntity(Exception e) {
+		
+		HashMap<String, Object> resultMap = new HashMap<>();
+		
+		resultMap.put(ComConstants.PROP_RESULT_STATUS, ComConstants.RESULT_STATUS_ERROR);
+		resultMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.RESULT_CODE_DEFAULT);
+		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, e.getMessage());
+
+		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
 	}
 	
 //	@Autowired

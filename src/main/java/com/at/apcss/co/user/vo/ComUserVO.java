@@ -2,9 +2,11 @@ package com.at.apcss.co.user.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ComUserVO extends ComVO {
 	
 	/**
