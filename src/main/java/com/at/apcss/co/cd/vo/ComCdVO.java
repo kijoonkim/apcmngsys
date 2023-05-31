@@ -2,8 +2,8 @@ package com.at.apcss.co.cd.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 공통코드 VO
@@ -21,15 +21,16 @@ import lombok.EqualsAndHashCode;
  *
  *  </pre>
  */
-@Data
-@EqualsAndHashCode(callSuper=false)
-public class ComCdVO extends ComVO{
+@Getter
+@Setter
+public class ComCdVO extends ComVO {
 
 	private String cdId;
 	private String cdNm;
 	private String cdExpln;
 	private String cdVl;
 	private String cdVlNm;
+	private String cdVlExpln;
     private String indctSeq;
 	private String delYn;
 	private String apcCd;

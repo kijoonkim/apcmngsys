@@ -3,12 +3,14 @@ package com.at.apcss.co.authrt.vo;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.at.apcss.co.sys.vo.ComVO;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ComAuthVO {
+public class ComAuthVO extends ComVO {
 	
 	private String authrtId;
 	private String authrtNm;
