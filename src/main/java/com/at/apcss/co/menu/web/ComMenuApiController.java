@@ -1,13 +1,14 @@
 package com.at.apcss.co.menu.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.menu.service.ComMenuService;
 import com.at.apcss.co.menu.vo.ComMenuVO;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -43,68 +45,55 @@ public class ComMenuApiController extends BaseController {
 	
 	@GetMapping(value = "/co/menu/menus/{id}")
 	@ResponseBody
-	public HashMap<String, Object> selectMenuById(@PathVariable String id, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectMenuById(@PathVariable String id, HttpServletRequest request) throws Exception {
+		
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		ComMenuVO resultVO;
 		
-		logger.debug("param ID: {}", id);
-		
-		ComMenuVO comMenuResultVO = comMenuService.selectComMenu(id);
-		
-		if (comMenuResultVO != null && !EgovStringUtil.isEmpty(comMenuResultVO.getMenuId())) {
-			logger.debug("comUser info {} {}", comMenuResultVO.getMenuId(), comMenuResultVO.getMenuNm());
-			logger.debug(comMenuResultVO.toString());
-			
-			resultMap.put("resultVO", comMenuResultVO);
-			resultMap.put("resultCode", "200");
-			resultMap.put("resultMessage", "성공 !!!");
-		} else {
-			resultMap.put("resultVO", comMenuResultVO);
-			resultMap.put("resultCode", "500");
-			resultMap.put("resultMessage", "메뉴정보없음");
-			// resultMap.put("resultMessage", egovMessageSource.getMessage("fail.common.login"));
+		try {
+			resultVO = comMenuService.selectComMenu(id);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
 		}
 		
-		return resultMap;
+		resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
+		
+		return getSuccessResponseEntity(resultMap);
 	}
 	
 	@PostMapping(value = "/co/menu/menus", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public HashMap<String, Object> selectComMenuList(@RequestBody ComMenuVO comMenuVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectComMenuList(@RequestBody ComMenuVO comMenuVO, HttpServletRequest request) throws Exception {
+		
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComMenuVO> resultList = new ArrayList<>();
 		
-		List<ComMenuVO> resultList = comMenuService.selectComMenuList(comMenuVO);
-		
-		if (resultList != null) {			
-			resultMap.put("resultList", resultList);
-			resultMap.put("resultCode", "200");
-			resultMap.put("resultMessage", "성공 !!!");
-		} else {
-			//resultMap.put("resultList", resultList);
-			resultMap.put("resultCode", "500");
-			resultMap.put("resultMessage", "메뉴정보없음");
-			// resultMap.put("resultMessage", egovMessageSource.getMessage("fail.common.login"));
+		try {
+			resultList = comMenuService.selectComMenuList(comMenuVO);
+		} catch (Exception e) {
+			
 		}
 		
-		return resultMap;
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		
+		return getSuccessResponseEntity(resultMap);
 	}
 	
 	@PostMapping(value = "/co/menu/menuTree", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public HashMap<String, Object> selectMenuTreeList(@RequestBody ComMenuVO comMenuVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectMenuTreeList(@RequestBody ComMenuVO comMenuVO, HttpServletRequest request) throws Exception {
+		
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
-		List<ComMenuVO> resultList = comMenuService.selectMenuTreeList(comMenuVO);
+		List<ComMenuVO> resultList = new ArrayList<>();
 		
-		if (resultList != null) {			
-			resultMap.put("resultList", resultList);
-			resultMap.put("resultCode", "200");
-			resultMap.put("resultMessage", "성공 !!!");
-		} else {
-			//resultMap.put("resultList", resultList);
-			resultMap.put("resultCode", "500");
-			resultMap.put("resultMessage", "메뉴정보없음");
-			// resultMap.put("resultMessage", egovMessageSource.getMessage("fail.common.login"));
+		try {
+			resultList = comMenuService.selectMenuTreeList(comMenuVO);
+		} catch (Exception e) {
+			
 		}
 		
-		return resultMap;
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		
+		return getSuccessResponseEntity(resultMap);
 	}
 	
 }

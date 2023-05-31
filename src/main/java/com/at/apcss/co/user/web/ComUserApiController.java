@@ -1,5 +1,6 @@
 package com.at.apcss.co.user.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,15 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.cmmn.trace.LeaveaTrace;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
-import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.user.service.ComUserService;
 import com.at.apcss.co.user.vo.ComUserVO;
@@ -64,86 +67,61 @@ public class ComUserApiController extends BaseController {
     private EgovJwtTokenUtil jwtTokenUtil;
 
 	@PostMapping(value = "/co/user/selectComUser.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public HashMap<String, Object> selectComUser(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectComUser(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+		
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		logger.debug("comUser info {} {}", comUserVO.getUserId(), comUserVO.getUserNm());
 		
-		ComUserVO comUserResultVO = comUserService.selectComUser(comUserVO);
+		ComUserVO resultVO;
 
-		if (comUserResultVO != null && !EgovStringUtil.isEmpty(comUserResultVO.getUserId())) {
-			
-			logger.debug("comUser info {} {}", comUserResultVO.getUserId(), comUserResultVO.getUserNm());
-			logger.debug(comUserResultVO.toString());
-			
-			resultMap.put("resultVO", comUserResultVO);
-			resultMap.put("resultCode", "200");
-			resultMap.put("resultMessage", "성공 !!!");
-		} else {
-			resultMap.put("resultVO", comUserResultVO);
-			resultMap.put("resultCode", "500");
-			resultMap.put("resultMessage", "사용자정보없음");
-			// resultMap.put("resultMessage", egovMessageSource.getMessage("fail.common.login"));
+		try {
+			resultVO = comUserService.selectComUser(comUserVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
 		}
-
-		return resultMap;
+		
+		resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
+		
+		return getSuccessResponseEntity(resultMap);
 
 	}
 
 	@GetMapping(value = "/co/user/users/{id}")
 	@ResponseBody
-	public HashMap<String, Object> selectUserById(@PathVariable String id, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectUserById(@PathVariable String id, HttpServletRequest request) throws Exception {
+		
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		
-		logger.debug("param ID: {}", id);
-		
-		ComUserVO comUserResultVO = comUserService.selectComUser(id);
+		ComUserVO resultVO;
 
-		if (comUserResultVO != null && !EgovStringUtil.isEmpty(comUserResultVO.getUserId())) {
-			
-			logger.debug("comUser info {} {}", comUserResultVO.getUserId(), comUserResultVO.getUserNm());
-			logger.debug(comUserResultVO.toString());
-			
-			resultMap.put("resultVO", comUserResultVO);
-			resultMap.put("resultCode", "200");
-			resultMap.put("resultMessage", "성공 !!!");
-		} else {
-			resultMap.put("resultVO", comUserResultVO);
-			resultMap.put("resultCode", "500");
-			resultMap.put("resultMessage", "사용자정보없음");
-			// resultMap.put("resultMessage", egovMessageSource.getMessage("fail.common.login"));
+		try {
+			resultVO = comUserService.selectComUser(id);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
 		}
-
-		return resultMap;
+		
+		resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
+		
+		return getSuccessResponseEntity(resultMap);
 	}
 	
 	@PostMapping(value = "/co/user/users", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public HashMap<String, Object> selectComUserList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectComUserList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
 		
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComUserVO> resultList = new ArrayList<>();
 		
 		logger.debug("param info {}", comUserVO.toString());
 		
 		try {
-			List<ComUserVO> resultList = comUserService.selectComUserList(comUserVO);
-			
-			if (resultList != null) {			
-				resultMap.put("resultList", resultList);
-				resultMap.put("resultCode", "200");
-				resultMap.put("resultMessage", "성공 !!!");
-			} else {
-				resultMap.put("resultCode", "500");
-				resultMap.put("resultMessage", "오류");
-				// resultMap.put("resultMessage", egovMessageSource.getMessage("fail.common.login"));
-			}
+			resultList = comUserService.selectComUserList(comUserVO);
 		} catch(Exception e) {
-			resultMap.put("resultCode", "500");
-			resultMap.put("resultMessage", e.getMessage());
-		} finally {
-			
+			return getErrorResponseEntity(e);
 		}
 		
-		return resultMap;
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		
+		return getSuccessResponseEntity(resultMap);
 	}
 	
 }
