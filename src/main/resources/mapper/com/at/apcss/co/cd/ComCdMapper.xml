@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ComCdMapper.xml                                    					-->
+<!-- DESC : 사용자 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.co.cd.mapper.ComCdMapper">
+
+	<resultMap type="com.at.apcss.co.cd.vo.ComCdVO" id="comCdMap">
+        <result property="cdId" 		column="CD_ID"/>
+        <result property="cdNm" 		column="CD_NM"/>
+        <result property="cdExpln" 		column="CD_EXPLN"/>
+        <result property="cdVl" 		column="CD_VL"/>
+        <result property="cdVlNm" 		column="CD_VL_NM"/>
+        <result property="cdVlExpln" 	column="CD_VL_EXPLN"/>
+        <result property="indctSeq" 	column="INDCT_SEQ"/>
+        <result property="apcCd" 		column="APC_CD"/>
+        
+        <result property="delYn" 		column="DEL_YN"/>
+        <result property="rowSeq" 		column="ROW_SEQ"/>
+        <result property="totalRecordCount"	column="TOTAL_RECORD_COUNT"/>
+        
+	</resultMap>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComCd                   -->
+	<!-- DESC : 공통코드 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComCd" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultMap="comCdMap">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectComCd */
+				   CC.CD_ID         AS CD_ID
+			     , CC.CD_NM         AS CD_NM
+			     , CC.CD_EXPLN      AS CD_EXPLN
+			     , CC.DEL_YN        AS DEL_YN
+			  FROM TB_COM_CD CC
+    	]]>
+		<where>
+			<if test='cdId != null and cdId != ""'>
+			   AND CD_ID = #{cdId}
+	    	</if>
+		</where>
+			<!-- OFFSET #{currentPageNo} ROWS FETCH FIRST #{rowCnt} ROWS ONLY -->
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdList				-->
+	<!-- DESC : 공통코드 테이블 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComCdList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultMap="comCdMap">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdList */
+				   CC.CD_ID         AS CD_ID
+			     , CC.CD_NM         AS CD_NM
+			     , CC.CD_EXPLN      AS CD_EXPLN
+			     , CC.DEL_YN        AS DEL_YN
+			  FROM TB_COM_CD CC
+    	]]>
+		<where>
+			<if test='cdId != null and cdId != ""'>
+			   AND CC.CD_ID = #{cdId}
+	    	</if>
+			<if test='delYn != null and delYn != ""'>
+			   AND CC.DEL_YN = #{delYn}
+	    	</if>
+		</where>
+    	<![CDATA[
+    		 ORDER BY CD_ID
+    	]]>
+			<!-- OFFSET #{currentPageNo} ROWS FETCH FIRST #{rowCnt} ROWS ONLY -->
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList			-->
+	<!-- DESC : 공통코드 상세 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComCdDtlList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultMap="comCdMap">
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList */
+				   CC.CD_ID         AS CD_ID
+			     , CC.CD_NM         AS CD_NM
+			     , CC.CD_EXPLN      AS CD_EXPLN
+			     , CD.CD_VL			AS CD_VL
+			     , CD.APC_CD		AS APC_CD
+			     , CD.CD_VL_NM		AS CD_VL_NM
+			     , CD.CD_EXPLN		AS CD_VL_EXPLN
+			     , CD.INDCT_SEQ		AS INDCT_SEQ
+			     , CD.DEL_YN		AS DEL_YN
+			  FROM
+			  	  TB_COM_CD CC
+			  	, TB_COM_CD_DTL CD
+			 WHERE CC.CD_ID = CD.CD_ID
+    	]]>
+			<if test='cdId != null and cdId != ""'>
+			   AND CC.CD_ID = #{cdId}
+	    	</if>
+			<if test='delYn != null and delYn != ""'>
+			   AND CC.DEL_YN = #{delYn}
+			   AND CD.DEL_YN = #{delYn}
+	    	</if>
+
+    	<![CDATA[
+			 ORDER BY CD_ID, INDCT_SEQ
+    	]]>
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    </select>
+
+</mapper>

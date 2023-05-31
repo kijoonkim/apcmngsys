@@ -1,11 +1,13 @@
 package com.at.apcss.co.menu.vo;
 
+import com.at.apcss.co.sys.vo.ComVO;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ComMenuVO {
+public class ComMenuVO extends ComVO {
 
 	private String menuId;
 	private String upMenuId;

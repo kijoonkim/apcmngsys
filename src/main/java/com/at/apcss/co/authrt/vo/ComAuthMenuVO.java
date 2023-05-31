@@ -9,4 +9,6 @@ import lombok.Setter;
 @Setter
 public class ComAuthMenuVO extends ComMenuVO {
 	private String authrtId;
+	private String authrtNm;
+	private String useYn;
 }

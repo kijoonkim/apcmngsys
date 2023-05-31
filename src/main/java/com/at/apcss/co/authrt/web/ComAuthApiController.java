@@ -163,6 +163,35 @@ public class ComAuthApiController extends BaseController {
 		return resultMap;
 	}
 	
+	@PostMapping(value = "/co/authrt/authMenuTree", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public HashMap<String, Object> selectComAuthMenuTreeList(@RequestBody ComAuthMenuVO comAuthMenuVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			List<ComAuthMenuVO> resultList = comAuthService.selectComAuthMenuTreeList(comAuthMenuVO);
+			
+			if (resultList != null) {			
+				resultMap.put("resultList", resultList);
+				resultMap.put("resultCode", "200");
+				resultMap.put("resultMessage", "성공 !!!");
+			} else {
+				//resultMap.put("resultList", resultList);
+				resultMap.put("resultCode", "500");
+				resultMap.put("resultMessage", "메뉴정보없음");
+				// resultMap.put("resultMessage", egovMessageSource.getMessage("fail.common.login"));
+			}
+		} catch (Exception e) {
+			resultMap.put("resultCode", "500");
+			resultMap.put("resultMessage", e.getMessage());
+		} finally {
+			
+		}
+		
+		return resultMap;
+	}
+	
+	
 	@PostMapping(value = "/co/authrt/authUsers", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public HashMap<String, Object> selectComAuthUserList(@RequestBody ComAuthUserVO comAuthUserVO, HttpServletRequest request) throws Exception {
 		

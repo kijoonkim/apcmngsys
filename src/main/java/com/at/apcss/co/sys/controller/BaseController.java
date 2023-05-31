@@ -1,7 +1,11 @@
 package com.at.apcss.co.sys.controller;
 
+import java.lang.reflect.Method;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.vo.ComPageVO;
 
 import egovframework.com.cmm.EgovMessageSource;
 
@@ -11,6 +15,62 @@ public abstract class BaseController {
 	
 	protected EgovMessageSource message;
 
+	protected <T> boolean setPaginationInfo(ComPageVO comPageVO, T t) {
+		
+		if (comPageVO == null || !ComConstants.CON_YES.equals(comPageVO.getPagingYn())) {
+			return false;
+		}
+		
+		int currentPageNo = comPageVO.getCurrentPageNo();
+		int recordCountPerPage = comPageVO.getRecordCountPerPage();
+		int pageSize = comPageVO.getPageSize();
+		
+		if (currentPageNo < 1 || recordCountPerPage < 1 || pageSize < 1) {
+			return false;
+		}
+		
+		int totalRecordCount = 0;
+		int totalPageCount = 0;
+		int firstPageNoOnPageList = 0;
+		int lastPageNoOnPageList = 0;
+		int firstRecordIndex = (currentPageNo - 1) * recordCountPerPage + 1;
+		int lastRecordIndex = 0;
+		
+		String className = t.getClass().getName();
+		Class<?> targetClass;
+
+		try {
+			targetClass = Class.forName(className);
+			//Method getTotalRecordCount = targetClass.getDeclaredMethod("getTotalRecordCount", null);
+			Method getTotalRecordCount = targetClass.getMethod("getTotalRecordCount");
+			totalRecordCount = (int)getTotalRecordCount.invoke(t);
+			
+			totalPageCount = (totalRecordCount - 1) / recordCountPerPage + 1;
+			firstPageNoOnPageList = ((currentPageNo - 1) / pageSize) * pageSize + 1;
+			lastPageNoOnPageList = firstPageNoOnPageList + pageSize - 1;
+			if (lastPageNoOnPageList > totalPageCount) {
+				lastPageNoOnPageList = totalPageCount;
+			}
+			lastRecordIndex = currentPageNo < totalPageCount ? currentPageNo * recordCountPerPage : totalRecordCount;
+			
+			comPageVO.setTotalRecordCount(totalRecordCount);
+			comPageVO.setTotalPageCount(totalPageCount);
+			comPageVO.setFirstPageNoOnPageList(firstPageNoOnPageList);
+			comPageVO.setLastPageNoOnPageList(lastPageNoOnPageList);
+			comPageVO.setFirstRecordIndex(firstRecordIndex);
+			comPageVO.setLastRecordIndex(lastRecordIndex);
+			
+		} catch(ClassNotFoundException e) {
+			return false;
+		} catch(NoSuchMethodException e) {
+			return false;
+		} catch (Exception e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 //	@Autowired
 //	protected MessageSource message;
 
