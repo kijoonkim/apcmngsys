@@ -50,6 +50,22 @@ public class ComMenuServiceImpl implements ComMenuService {
 		return menuList;
 	}
 
+	@Override
+	public List<ComMenuVO> selectTopMenuList(ComMenuVO comMenuVO) {
+		
+		List<ComMenuVO> menuList = comMenuMapper.selectTopMenuList(comMenuVO);
+		
+		return menuList;
+	}
+
+	@Override
+	public List<ComMenuVO> selectLeftMenuList(ComMenuVO comMenuVO) {
+		
+		List<ComMenuVO> menuList = comMenuMapper.selectLeftMenuList(comMenuVO);
+		
+		return menuList;
+	}
+
 
 	
 	

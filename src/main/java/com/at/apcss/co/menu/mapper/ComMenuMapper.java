@@ -30,5 +30,19 @@ public interface ComMenuMapper {
 	 */
 	public List<ComMenuVO> selectMenuTreeList(ComMenuVO comMenuVO);
 	
+	/**
+	 * 대메뉴 목록 조회
+	 * @param comMenuVO
+	 * @return
+	 */
+	public List<ComMenuVO> selectTopMenuList(ComMenuVO comMenuVO);
+	
+	/**
+	 * 대메뉴 목록 조회
+	 * @param comMenuVO
+	 * @return
+	 */
+	public List<ComMenuVO> selectLeftMenuList(ComMenuVO comMenuVO);
+	
 	
 }

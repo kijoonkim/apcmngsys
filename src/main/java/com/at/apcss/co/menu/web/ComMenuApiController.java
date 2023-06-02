@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.menu.service.ComMenuService;
+import com.at.apcss.co.menu.vo.ComMenuJsonVO;
 import com.at.apcss.co.menu.vo.ComMenuVO;
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -96,4 +97,55 @@ public class ComMenuApiController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 	
+	@PostMapping(value = "/co/menu/topMenu", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectTopMenuList(@RequestBody ComMenuVO comMenuVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		List<ComMenuVO> resultList = new ArrayList<>();
+		List<ComMenuJsonVO> menuList = new ArrayList<>();
+		
+		try {
+			resultList = comMenuService.selectTopMenuList(comMenuVO);
+			
+			if (resultList != null && !resultList.isEmpty()) {
+				for ( ComMenuVO rslt : resultList ) {
+					
+					ComMenuJsonVO menu = new ComMenuJsonVO();
+					menu.setId(rslt.getMenuId());
+					menu.setPid(rslt.getUpMenuId());
+					menu.setOrder(rslt.getIndctSeq());
+					menu.setText(rslt.getMenuNm());
+					menu.setUrl(rslt.getPageUrl());
+					
+					menuList.add(menu);
+				}
+			}			
+		} catch (Exception e) {
+			
+		}
+		
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		resultMap.put("menuList", menuList);
+				
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	@PostMapping(value = "/co/menu/leftMenu", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectLeftMenuList(@RequestBody ComMenuVO comMenuVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		List<ComMenuVO> resultList = new ArrayList<>();
+		
+		try {
+			resultList = comMenuService.selectLeftMenuList(comMenuVO);
+		} catch (Exception e) {
+			
+		}
+		
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		
+		return getSuccessResponseEntity(resultMap);
+	}
 }

@@ -14,7 +14,7 @@ public class ComMenuVO extends ComVO {
 	private String menuNm;
 	private String menuType;
 	private String pageUrl;
-	private String indctSeq;
+	private int indctSeq;
 	private String userType;
 	private String apcCd;
 	private String sysId;
