@@ -302,14 +302,16 @@
      * Set LEFT MENU
      * menuNo 값으로 (비동기식으로)서버로 부터 데이터를 요청
      */
-    const fn_setLeftMenu = function(_menuId) {
+    const fn_setLeftMenu = function(_menuNo, _menuId) {
 		
-        var menuInfo = _.find(menuJson, {id: _menuId});
+        var menuInfo = _.find(menuJson, {id: _menuNo});
         var pMenuId = menuInfo.pid;
+        var pMenuNm = menuInfo.value;
         
         if (gfn_isEmpty(pMenuId)) {
-        	pMenuId = _menuId;
-        }        
+        	pMenuId = _menuNo;
+        	pMenuNm = menuInfo.text;
+        }
 
     	fetch("/co/menu/leftMenu", {
     		  method: "POST",
@@ -339,10 +341,17 @@
 
 		            //if (pMenuId !== "0") {
 		            if (!gfn_isEmpty(menuInfo.pid)) {
-		                var pIdx = _.findLastIndex(sideJsonData, {id: _menuId});
-		                sideJsonData[pIdx].class = "active";
+		                var pIdx = _.findLastIndex(sideJsonData, {id: menuInfo.pid});
+		                if (pIdx >= 0) {
+		                	sideJsonData[pIdx].class = "active";	
+		                }
 		            }
-		            var idx = _.findLastIndex(sideJsonData, {id: _menuId});
+		            
+		            if (_menuId != undefined) {
+		            	_menuNo = _menuId;
+		            }
+		            
+		            var idx = _.findLastIndex(sideJsonData, {id: _menuNo});
 		            if (idx >= 0) {
 		            	sideJsonData[idx].class = "active";
 		            }
@@ -352,7 +361,9 @@
 		           	if (!gfn_isEmpty(menuInfo.pid)) {
 		                SBUxMethod.expandSideMenu("side_menu", pMenuId, 1, true);
 		            }
-
+		           	
+		           	var title = pMenuNm;        	
+		            document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = title;
 				}
     		);
     }
@@ -372,7 +383,7 @@
         if (url == undefined) {
             return;
         }
-        console.log("url", url);
+        
         fn_actionGoPage(
             url
             , _target
@@ -380,11 +391,17 @@
             , data.text
             , data.pid
         );
+        
+        /*
         //[LEFT-MENU] menu-title 변경
         if (_target === "TOP") {
         	let title = gfn_isEmpty(data.value) ? data.text : data.value;        	
             document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = title;
+        } else if (_target === "LEFT") {
+        	let title = gfn_isEmpty(data.value) ? data.text : data.value;        	
+            document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = title;
         }
+        */
     }
         
     //화면 이동
@@ -464,7 +481,7 @@
        		);        		
         
         menuJsonB.push(
-        		{"order": "30", "id": menuNo, "pid": upMenuNo, "text": menuNm}
+        		{"order": "40", "id": menuNo, "pid": upMenuNo, "text": menuNm}
    		);
         
         /*
@@ -480,25 +497,35 @@
         */
         SBUxMethod.refresh('breadcrumb');
     }
+    
     //선택한 탭메뉴의 정보를 가져와 메뉴정보 설정
     function fn_setMenuInfo(args) {
-        var idx = _.findLastIndex(tabJsonData, {text: args});
+        
+    	var idx = _.findLastIndex(tabJsonData, {text: args});
         var tabObj = tabJsonData[idx];
         var tabId = tabObj.targetid;
         var menuId = tabId.substring(tabId.indexOf("_")+1);
+        
+        console.log("tabObj", tabObj);
+        
+        var menuInfo = _.find(sideJsonData, {id: menuId});
+        var upMenuNo = menuInfo.pid;
+        var upMenuInfo = _.find(menuJson, {id: upMenuNo});
+        var topMenuNo = upMenuInfo.pid;
+        if (gfn_isEmpty(topMenuNo)) {
+        	topMenuNo = upMenuNo;
+        }
+        
         //LEFT MENU
-        var leftMenuNo;
-        if (menuId.indexOf("mng") > -1) {
-            leftMenuNo = "mng";
-        }
-        else if (menuId.indexOf("hist") > -1) {
-            leftMenuNo = "hist";
-        }
-        fn_setLeftMenu(leftMenuNo, menuId);
-        fn_setBreadcrumbs(leftMenuNo, tabObj.text);
+        fn_setLeftMenu(topMenuNo, menuId);
+        fn_setBreadcrumbs(menuNo, tabObj.text);
+        
         //[LEFT-MENU] menu-title 변경
-        var data = _.find(menuJson, {id: leftMenuNo});
+        /*
+        var data = _.find(menuJson, {id: topMenuNo});
+        console.log("menuinfo data", data);
         document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = data.text;
+        */
     }
     
 
