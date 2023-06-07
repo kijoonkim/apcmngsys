@@ -33,13 +33,12 @@ public class MainController {
 			if (resultList != null && !resultList.isEmpty()) {
 				for ( ComMenuVO rslt : resultList ) {
 					
-					ComMenuJsonVO menu = new ComMenuJsonVO();
-					
+					ComMenuJsonVO menu = new ComMenuJsonVO();					
 					menu.setId(rslt.getMenuId());
 					menu.setPid(rslt.getUpMenuId());
 					menu.setOrder(rslt.getIndctSeq());
 					menu.setText(rslt.getMenuNm());
-					menu.setLink(rslt.getPageUrl() == null ? ComConstants.CON_BLANK : rslt.getPageUrl());
+					//menu.setLink(rslt.getPageUrl() == null ? ComConstants.CON_BLANK : rslt.getPageUrl());
 					menu.setTopMenuNm(rslt.getUpMenuNm() == null ? ComConstants.CON_BLANK : rslt.getUpMenuNm());
 					menu.setUrl(rslt.getPageUrl() == null ? ComConstants.CON_BLANK : rslt.getPageUrl());
 					menu.setValue(rslt.getUpMenuNm() == null ? ComConstants.CON_BLANK : rslt.getUpMenuNm());
