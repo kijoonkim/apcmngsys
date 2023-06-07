@@ -305,7 +305,8 @@
     const maxTebMenuCnt = 10;//메뉴탭 최대 허용 개수(10)
     function fn_actionGoPage(_url, _menuGubun, _menuNo, _menuNm, _topMenuNo) {
         if (_menuGubun === "TOP") {
-            fn_setLeftMenu(_menuNo);
+            console.log("_menuNo", _menuNo);
+        	fn_setLeftMenu(_menuNo);
             //fn_setLeftMenu(_topMenuNo);
         }
         else if (_menuGubun === "LEFT") {
@@ -394,12 +395,16 @@
      */
     const fn_setLeftMenu = function(menuNo, menuId) {
 		
-        var menuInfo = _.find(menuJson, {id: menuId});
+        var menuInfo = _.find(menuJson, {id: menuNo});
         var pMenuId;
         if (menuId != undefined) {
             return;
         }
-		
+        
+        pMenuId = menuInfo.pid;
+        
+        console.log("pMenuId", pMenuId);
+        
     	fetch("/co/menu/leftMenu", {
     		  method: "POST",
     		  headers: {
@@ -422,16 +427,16 @@
 							text: item.menuNm,
 							url: item.pageUrl
 						}
-						sideJsonData.push(item);
+						sideJsonData.push(menu);
 					});
 					console.log("sideJsonData", sideJsonData);
 					
 		            //if (pMenuId !== "0") {
 		            if (!gfn_isEmpty(pMenuId)) {
-		                var pIdx = _.findLastIndex(sideJsonData, {id: menuInfo.pid});
+		                var pIdx = _.findLastIndex(sideJsonData, {id: menuNo});
 		                sideJsonData[pIdx].class = "active";
 		            }
-		            var idx = _.findLastIndex(sideJsonData, {id: menuId});
+		            var idx = _.findLastIndex(sideJsonData, {id: menuNo});
 		            sideJsonData[idx].class = "active";
 		            SBUxMethod.refresh("side_menu");
 		            //if (pMenuId != undefined && pMenuId !== "0") {
