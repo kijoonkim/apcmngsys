@@ -20,13 +20,13 @@
         }
     </script>
     <script src="/resource/sbux/SBUx.js"></script>
-    <!------------------ 컴포넌트 테마 CSS ------------------>      
+    <!------------------ 컴포넌트 테마 CSS ------------------>
 	<link href="/resource/css/blue_comp_style.css" rel="stylesheet" type="text/css">
-    <!------------------ 스타일 테마 CSS ------------------>      
+    <!------------------ 스타일 테마 CSS ------------------>
 	<link href="/resource/css/blue_style.css" rel="stylesheet" type="text/css">
     <style>
-        /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다. 
-        실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/  
+        /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
+        실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
         .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333;}
         .sbt-A-wrap .main {display:table;  width:100%; height:500px;}
         .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px; }
@@ -53,27 +53,15 @@
                 <div class="sbt-wrap-full">
                     <!--Button 영역-->
                     <div class="sbt-search-button" style="text-align:right;">
-                        <sbux-button id="btn_create" name="btn_create" uitype="normal" wrap-class="sbt-btn-reset"
-                            text="신규"
-                            onclick="fn_create"
-                        ></sbux-button>
-                        <sbux-button id="btn_delete" name="btn_delete" uitype="normal" wrap-class="sbt-btn-reset"
-                            text="삭제"
-                            onclick="fn_delete"
-                        ></sbux-button>
-                        <sbux-button id="btn_save" name="btn_save" uitype="normal" wrap-class="sbt-btn-reset"
-                            text="저장"
-                            onclick="fn_save"
-                        ></sbux-button>
-                        <sbux-button id="btn_search" name="btn_search" uitype="normal" wrap-class="sbt-btn-search"
-                            text="조회"
-                            onclick="fn_search"
-                        ></sbux-button>
+                        <sbux-button id="btn_create" name="btn_create" uitype="normal" wrap-class="sbt-btn-reset" text="신규" onclick="fn_create"></sbux-button>
+                        <sbux-button id="btn_delete" name="btn_delete" uitype="normal" wrap-class="sbt-btn-reset" text="삭제" onclick="fn_delete"></sbux-button>
+                        <sbux-button id="btn_save" name="btn_save" uitype="normal" wrap-class="sbt-btn-reset" text="저장"onclick="fn_save"></sbux-button>
+                        <sbux-button id="btn_search" name="btn_search" uitype="normal" wrap-class="sbt-btn-search" text="조회" onclick="fn_search"></sbux-button>
                     </div>
                     <!--조회 영역-->
 			        <div class="sbt-con-wrap">
-                        <form id="frm" name="frm" method="post"></form>
-				        <div class="sbt-search-wrap"> 
+                        <form id="frm" name="frm" method="post">
+				        <div class="sbt-search-wrap">
                             <div class="sbt-wrap-body-con">
                                 <div class="sbt-wrap-body">
                                     <div class="sbt-search-row">
@@ -83,11 +71,7 @@
                                                 <sbux-label id="srchLabel_1" name="label_norm" uitype="normal" text="시스템구분" wrap-class="sbt-label"></sbux-label>
                                             </div>
                                             <div class="sbt-col-right">
-                                                <sbux-select id="srchCombo" name="srchCombo" uitype="single"
-                                                    jsondata-ref="jsonSearchCombo"
-                                                    unselected-text="선택"
-                                                    style="width:200px;"
-                                                ></sbux-select>
+                                                <sbux-select id="comBoSysId" name="comBoSysId" uitype="single" jsondata-ref="jsonSearchCombo" unselected-text="선택" style="width:200px;"></sbux-select>
                                             </div>
                                         </div>
                                     </div>
@@ -98,6 +82,7 @@
                     </div>
                 </div>
                 <div class="sbt-con-wrap">
+                	<ul>
                     <li style="display:inline-block;float:left;width: 49.5%;vertical-align:top;">
                     <div class="sbt-grid-wrap">
                         <div class="sbt-wrap-body">
@@ -193,6 +178,7 @@
                         </div>
                     </div>
                     </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -204,13 +190,13 @@
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_createGrid();
     });
+    var grid; // 그리드를 담기위한 객체 선언
+    var gridData = []; // 그리드의 참조 데이터 주소 선언
     //조회조건
     var jsonSearchCombo = [
-        {'text': '관리명1', 'value': 'value1'},
-        {'text': '관리명2', 'value': 'value2'},
-        {'text': '관리명3', 'value': 'value3'},
-        {'text': '관리명4', 'value': 'value4'},
-        {'text': '관리명5', 'value': 'value5'}
+        {'text': '정보지원시스템', 'value': 'AM'},
+        {'text': '시스템관리', 'value': 'CO'},
+        {'text': '생산관리', 'value': 'PM'}
     ];
     //신규 작성
     function fn_create(nRow) {
@@ -278,13 +264,51 @@
     //목록 조회
     function fn_search() {
         //시스템구분 확인
-        var srchCombo = SBUxMethod.get("srchCombo");
-        if (!srchCombo) {
+        var sysId = SBUxMethod.get("comBoSysId");
+        if (!sysId) {
             alert("시스템구분을 선택하세요.");
             return;
         }
-        fn_setGridData("init");
+        searchList(sysId);
     }
+
+    //목록 조회
+    function searchList(sysId){
+    	var newGridData = [];
+    	fetch("/co/menu/menuList", {
+  		  	method: "POST",
+  		  	headers: {
+  		    "Content-Type": "application/json",
+  		  	},
+  		  	body: JSON.stringify({
+  		  		sysId: sysId
+  			}),
+  		})
+  		.then((response) => response.json())
+  		.then(
+				(data) => {
+					console.log(data);
+					sideJsonData = [];
+
+					data.resultList.forEach((item, index) => {
+						const menuList = {
+							level: item.menuLvl,
+							upMenuId: item.upMenuId,
+							upMenuNm: item.upMenuNm,
+							apcCd : item.apcCd,
+							order: item.indctSeq,
+							menuId : item.menuId,
+							menuNm : item.menuNm
+						}
+						newGridData.push(menuList);
+					});
+					console.log("newGridData", newGridData);
+					gridData = newGridData;
+					datagrid.rebuild();
+				}
+  		);
+	}
+
     //grid 초기화
     var objMenuList = {
         "ADD": {
@@ -309,8 +333,7 @@
     function ctxt_delRow() {
         fn_delete();
     };
-    var grid; // 그리드를 담기위한 객체 선언
-    var gridData = []; // 그리드의 참조 데이터 주소 선언
+
     function fn_createGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'SBGridArea';
@@ -343,7 +366,7 @@
         }
         SBUxMethod.set("gubun", "M");
         //Set Menu Info
-        var sysGubun = _.find(jsonSearchCombo, {value: SBUxMethod.get("srchCombo")});
+        var sysGubun = _.find(jsonSearchCombo, {value: SBUxMethod.get("comBoSysId")});
         SBUxMethod.set("sysGb", sysGubun.text);
         SBUxMethod.set("sysCd", sysGubun.value);
         var rowData = datagrid.getRowData(nRow);
@@ -356,39 +379,6 @@
         SBUxMethod.set("order", rowData.order);
         SBUxMethod.set("pType", rowData.pType);
         SBUxMethod.set("uType", rowData.uType);
-    }
-    function fn_setGridData(args) {
-        var params = $('#frm').serialize();
-        console.log("form data ::::: " + params);
-        gridData = [
-            {level: 0, upMenuId: '',        upMenuNm: '',          apcCd: '',       order: 0,  pType: '', uType: '', menuId: 'SYS_MNG', menuNm: '시스템관리'},
-            {level: 1, upMenuId: 'SYS_MNG', upMenuNm: '시스템관리', apcCd: 'apc001', order: 1,  pType: '', uType: '', menuId: 'MNG_100', menuNm: '메뉴관리'},
-            {level: 1, upMenuId: 'SYS_MNG', upMenuNm: '시스템관리', apcCd: 'apc002', order: 2,  pType: '', uType: '', menuId: 'MNG_200', menuNm: '화면관리'},
-            {level: 1, upMenuId: 'SYS_MNG', upMenuNm: '시스템관리', apcCd: 'apc003', order: 3,  pType: '', uType: '', menuId: 'MNG_300', menuNm: '권한관리'},
-            {level: 2, upMenuId: 'MNG_300', upMenuNm: '권한관리',   apcCd: 'apc004', order: 4,  pType: '', uType: '', menuId: 'MNG_310', menuNm: '권한그룹관리'},
-            {level: 2, upMenuId: 'MNG_300', upMenuNm: '권한관리',   apcCd: 'apc005', order: 5,  pType: '', uType: '', menuId: 'MNG_320', menuNm: '권한별 사용자관리'},
-            {level: 1, upMenuId: 'SYS_MNG', upMenuNm: '시스템관리', apcCd: 'apc006', order: 6,  pType: '', uType: '', menuId: 'MNG_400', menuNm: '사용자관리'},
-            {level: 2, upMenuId: 'MNG_400', upMenuNm: '사용자관리', apcCd: 'apc007', order: 7,  pType: '', uType: '', menuId: 'MNG_410', menuNm: '사용자관리'},
-            {level: 2, upMenuId: 'MNG_400', upMenuNm: '사용자관리', apcCd: 'apc008', order: 8,  pType: '', uType: '', menuId: 'MNG_420', menuNm: '사용자별 권한관리'},
-            {level: 1, upMenuId: 'SYS_MNG', upMenuNm: '시스템관리', apcCd: 'apc009', order: 9,  pType: '', uType: '', menuId: 'MNG_500', menuNm: '메시지관리'},
-            {level: 1, upMenuId: 'SYS_MNG', upMenuNm: '시스템관리', apcCd: 'apc010', order: 10, pType: '', uType: '', menuId: 'MNG_600', menuNm: '공통코드'},
-            {level: 2, upMenuId: 'MNG_600', upMenuNm: '공통코드',   apcCd: 'apc011', order: 11, pType: '', uType: '', menuId: 'MNG_610', menuNm: '공통코드관리'},
-            {level: 2, upMenuId: 'MNG_600', upMenuNm: '공통코드',   apcCd: 'apc012', order: 12, pType: '', uType: '', menuId: 'MNG_620', menuNm: '센터별 공통코드관리'},
-            {level: 1, upMenuId: 'SYS_MNG', upMenuNm: '시스템관리', apcCd: 'apc013', order: 13, pType: '', uType: '', menuId: 'MNG_700', menuNm: '이력관리'}
-        ];
-        datagrid.rebuild();
-        if (args === "init") {
-            //Set Menu Info Init
-            SBUxMethod.set("sysGb", "");
-            SBUxMethod.set("upMenuId", "");
-            SBUxMethod.set("upMenuNm", "");
-            SBUxMethod.set("menuId", "");
-            SBUxMethod.set("apcCd", "");
-            SBUxMethod.set("menuNm", "");
-            SBUxMethod.set("order", "");
-            SBUxMethod.set("pType", "");
-            SBUxMethod.set("uType", "");
-        }
     }
 </script>
 <!-- //inline scripts related to this page -->
