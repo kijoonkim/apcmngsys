@@ -292,10 +292,10 @@
             , data.text
             , data.pid
         );
-        */
-		
+        
        	let title = gfn_isEmpty(data.value) ? data.text : data.value;        	
         document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = title;
+        */
     }
     
     /**
@@ -364,6 +364,16 @@
 		           	
 		           	var title = pMenuNm;        	
 		            document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = title;
+		            
+		            if (idx >= 0 && _menuId == undefined && !gfn_isEmpty(sideJsonData[idx].url)) {
+		            	fn_actionGoPage(
+		            			  sideJsonData[idx].url
+			                    , "LEFT"
+			                    , sideJsonData[idx].id
+			                    , sideJsonData[idx].text
+			                    , sideJsonData[idx].pid
+			                );
+		            }
 				}
     		);
     }
