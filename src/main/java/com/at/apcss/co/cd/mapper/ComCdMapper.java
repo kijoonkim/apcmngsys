@@ -30,60 +30,68 @@ public interface ComCdMapper {
 	 * @return
 	 */
 	public ComCdVO selectComCd(ComCdVO comCdVO);
-	
+
 	/**
 	 * 공통코드 목록 조회
 	 * @param comCdVO
 	 * @return
 	 */
 	public List<ComCdVO> selectComCdList(ComCdVO comCdVO);
-	
+
 	/**
 	 * 공통코드 상세 목록 조회
 	 * @param comCdVO
 	 * @return
 	 */
 	public List<ComCdVO> selectComCdDtlList(ComCdVO comCdVO);
-	
+
 	/**
 	 * 공통코드 등록
 	 * @param comCdVO
 	 * @return inserted count
 	 */
 	public int insertComCd(ComCdVO comCdVO);
-	
+
 	/**
 	 * 공통코드 변경
 	 * @param comCdVO
 	 * @return updated count
 	 */
 	public int updateComCd(ComCdVO comCdVO);
-	
+
 	/**
-	 * 공통코드 삭제 
+	 * 공통코드 삭제
 	 * @param comCdVO
 	 * @return deleted count
 	 */
 	public int deleteComCd(ComCdVO comCdVO);
-	
+
 	/**
 	 * 공통코드 상세 등록
 	 * @param comCdVO
 	 * @return inserted count
 	 */
 	public int insertComCdDtl(ComCdVO comCdVO);
-	
+
 	/**
 	 * 공통코드 상세 변경
 	 * @param comCdVO
 	 * @return updated count
 	 */
 	public int updateComCdDtl(ComCdVO comCdVO);
-	
+
 	/**
 	 * 공통코드 상세 삭제
 	 * @param comCdVO
 	 * @return deleted count
 	 */
 	public int deleteComCdDtl(ComCdVO comCdVO);
+
+	/**
+	 * 콤보박스 공통코드 리스트
+	 * @param comCdVO
+	 * @return List<ComCdVO>
+	 * @throws Exception
+	 */
+	public List<ComCdVO> selectComBoCdDtlList(ComCdVO comCdVO);
 }

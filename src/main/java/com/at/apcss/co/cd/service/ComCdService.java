@@ -20,7 +20,7 @@ public interface ComCdService {
 	 * @throws Exception
 	 */
 	public List<ComCdVO> selectComCdList(ComCdVO comCdVO) throws Exception;
-	
+
 	/**
 	 * 공통코드 상세 목록 조회
 	 * @param comCdVO
@@ -36,7 +36,7 @@ public interface ComCdService {
 	 * @throws Exception
 	 */
 	public int insertComCd(ComCdVO comCdVO) throws Exception;
-	
+
 	/**
 	 * 공통코드 변경
 	 * @param comCdVO
@@ -44,7 +44,7 @@ public interface ComCdService {
 	 * @throws Exception
 	 */
 	public int updateComCd(ComCdVO comCdVO) throws Exception;
-	
+
 	/**
 	 * 공통코드 삭제
 	 * @param comCdVO
@@ -52,7 +52,7 @@ public interface ComCdService {
 	 * @throws Exception
 	 */
 	public int deleteComCd(ComCdVO comCdVO) throws Exception;
-	
+
 	/**
 	 * 공통코드 상세 등록
 	 * @param comCdVO
@@ -60,7 +60,7 @@ public interface ComCdService {
 	 * @throws Exception
 	 */
 	public int insertComCdDtl(ComCdVO comCdVO) throws Exception;
-	
+
 	/**
 	 * 공통코드 상세 변경
 	 * @param comCdVO
@@ -68,7 +68,7 @@ public interface ComCdService {
 	 * @throws Exception
 	 */
 	public int updateComCdDtl(ComCdVO comCdVO) throws Exception;
-	
+
 	/**
 	 * 공통코드 상세 삭제
 	 * @param comCdVO
@@ -76,5 +76,13 @@ public interface ComCdService {
 	 * @throws Exception
 	 */
 	public int deleteComCdDtl(ComCdVO comCdVO) throws Exception;
-	
+
+	/**
+	 * 콤보박스 공통코드 리스트
+	 * @param comCdVO
+	 * @return List<ComCdVO>
+	 * @throws Exception
+	 */
+	public List<ComCdVO> selectComBoCdDtlList(ComCdVO comCdVO) throws Exception;
+
 }

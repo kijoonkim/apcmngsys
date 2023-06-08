@@ -22,39 +22,57 @@ public class ComCdApiController extends BaseController {
 
 	@Resource(name = "comCdService")
 	private ComCdService comCdService;
-	
-	
+
+
 	@PostMapping(value = "/co/cd/comCds", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectComCdList(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<ComCdVO> resultList;
-		
+
 		try {
 			resultList = comCdService.selectComCdList(comCdVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	@PostMapping(value = "/co/cd/comCdDtls", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectComCdDtlList(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<ComCdVO> resultList;
-		
+
 		try {
 			resultList = comCdService.selectComCdDtlList(comCdVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/co/cd/comBoCdDtls", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectComBoCdDtlList(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
+		logger.debug("/co/cd/comBoCdDtls >>> 호출 >>> ");
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComCdVO> resultList;
+
+		try {
+			resultList = comCdService.selectComBoCdDtlList(comCdVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
 		return getSuccessResponseEntity(resultMap);
 	}
 }
