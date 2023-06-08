@@ -28,7 +28,7 @@ public class ComMenuController extends BaseController {
 	@RequestMapping("/co/menu/menuMng.do")
 	public String doMain() {
 
-		return "apcss/co/menu/ComMenuManage";
+		return "apcss/co/menu/comMenuManage";
 	}
 
 	@PostMapping(value = "/co/menu/menuList", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
@@ -47,7 +47,8 @@ public class ComMenuController extends BaseController {
 	@PostMapping(value = "/co/menu/menuInsert", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> menuInsert(@RequestBody ComMenuVO comMenuVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
+		int result = comMenuService.menuInsert(comMenuVO);
+		resultMap.put("result", result);
 		return getSuccessResponseEntity(resultMap);
 	}
 }

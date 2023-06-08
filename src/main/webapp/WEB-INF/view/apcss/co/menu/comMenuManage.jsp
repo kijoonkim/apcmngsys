@@ -113,64 +113,49 @@
                                 <tr>
                                     <th>상위메뉴</th>
                                     <td>
-                                        <sbux-input id="upMenuNm" name="upMenuNm" uitype="text"
-                                            style="width:100%"
-                                            readonly
-                                        ></sbux-input>
+                                        <sbux-input id="upMenuNm" name="upMenuNm" uitype="text" style="width:100%" readonly></sbux-input>
                                         <sbux-input id="upMenuId" name="upMenuId" uitype="hidden"></sbux-input>
                                     </td>
                                     <th>시스템구분</th>
                                     <td>
-                                        <sbux-input id="sysGb" name="sysGb" uitype="text"
-                                            style="width:100%"
-                                            readonly
-                                        ></sbux-input>
+                                        <sbux-input id="sysGb" name="sysGb" uitype="text" style="width:100%" readonly></sbux-input>
                                         <sbux-input id="sysCd" name="sysCd" uitype="hidden"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>메뉴ID</th>
                                     <td>
-                                        <sbux-input id="menuId" name="menuId" uitype="text"
-                                            required
-                                            style="width:100%"
-                                            readonly
-                                        ></sbux-input>
+                                        <sbux-input id="menuId" name="menuId" uitype="text" required style="width:100%" readonly ></sbux-input>
                                     </td>
                                     <th>APC코드</th>
                                     <td>
-                                        <sbux-input id="apcCd" name="apcCd" uitype="text"
-                                            required
-                                            style="width:100%"
-                                        ></sbux-input>
+                                        <sbux-input id="apcCd" name="apcCd" uitype="text" required style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>메뉴명</th>
                                     <td>
-                                        <sbux-input id="menuNm" name="menuNm" uitype="text"
-                                            style="width:100%"
-                                        ></sbux-input>
+                                        <sbux-input id="menuNm" name="menuNm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th>표시순서</th>
                                     <td>
-                                        <sbux-input id="order" name="order" uitype="text"
-                                            style="width:100%"
-                                        ></sbux-input>
+                                        <sbux-input id="order" name="order" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>화면유형</th>
                                     <td>
-                                        <sbux-input id="pType" name="pType" uitype="text"
-                                            style="width:100%"
-                                        ></sbux-input>
+                                    	<sbux-select id="comBoMenuType" name="comBoMenuType" uitype="single" jsondata-ref="jsonComboMenuType" onChange="selectChange(comBoMenuType)" unselected-text="선택" style="width:100%"></sbux-select>
                                     </td>
                                     <th>사용자유형</th>
                                     <td>
-                                        <sbux-input id="uType" name="uType" uitype="text"
-                                            style="width:100%"
-                                        ></sbux-input>
+                                    	<sbux-select id="comBoUserType" name="comBoUserType" uitype="single" jsondata-ref="jsonComboUserType" unselected-text="선택" style="width:100%"></sbux-select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>화면URL</th>
+                                    <td colspan="3">
+                                    	<sbux-input id="pageUrl" name="pageUrl" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                             </table>
@@ -186,6 +171,7 @@
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
+
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_createGrid();
@@ -198,6 +184,36 @@
         {'text': '시스템관리', 'value': 'CO'},
         {'text': '생산관리', 'value': 'PM'}
     ];
+    //var jsonSearchCombo = comCdLoad("SYS_ID")
+    var jsonComboUserType = comCdLoad("USER_TYPE");
+    var jsonComboMenuType = comCdLoad("MENU_TYPE");
+
+    function comCdLoad(cdId){
+    	const jsonComboData = [];
+    	fetch("/co/cd/comBoCdDtls", {
+  		  	method: "POST",
+  		  	headers: {
+  		    	"Content-Type": "application/json",
+  		  	},
+  		  	body: JSON.stringify({
+  		  		cdId: cdId
+  			}),
+  		})
+  		.then((response) => response.json())
+  		.then(
+				(data) => {
+					data.resultList.forEach((item, index) => {
+						const cdVlList = {
+							'text': item.cdVlNm,
+							'value': item.cdVl
+						}
+						jsonComboData.push(cdVlList);
+					});
+				}
+  		);
+    	return jsonComboData;
+    }
+
     //신규 작성
     function fn_create(nRow) {
         if (nRow == undefined) {
@@ -207,20 +223,24 @@
                 return;
             }
         }
+        if(datagrid.getRowData(datagrid.getRow()).menuType == "02"){
+        	alert("상위메뉴를 선택하세요.");
+            return;
+        }
         SBUxMethod.set("gubun", "C");
-        var sysGubun = _.find(jsonSearchCombo, {value: SBUxMethod.get("srchCombo")});
+        var sysGubun = _.find(jsonSearchCombo, {value: SBUxMethod.get("comBoSysId")});
         SBUxMethod.set("sysGb", sysGubun.text);
         SBUxMethod.set("sysCd", sysGubun.value);
         var rowData = datagrid.getRowData(nRow);
         SBUxMethod.set("upMenuId", rowData.menuId);
         SBUxMethod.set("upMenuNm", rowData.menuNm);
-        SBUxMethod.attr("menuId", "readonly", false);
+        SBUxMethod.attr("menuId", "readonly");
         SBUxMethod.set("menuId", "");
         SBUxMethod.set("apcCd", "");
         SBUxMethod.set("menuNm", "");
         SBUxMethod.set("order", "");
-        SBUxMethod.set("pType", "");
-        SBUxMethod.set("uType", "");
+        SBUxMethod.set("comBoMenuType", "");
+        SBUxMethod.set("comBoUserType", "");
     }
     //선택 삭제
     function fn_delete() {
@@ -243,22 +263,36 @@
         var saveMsg;
         if (gubun === "C") {//신규
             //validate check
-            if (!SBUxMethod.get("menuId")) {
-                alert("메뉴ID를 입력하세요.");
-                return;
-            }
             if (!SBUxMethod.get("menuNm")) {
                 alert("메뉴명을 입력하세요.");
                 return;
             }
+            if (!SBUxMethod.get("apcCd")) {
+                alert("APC코드를 입력하세요.");
+                return;
+            }
+            if (!SBUxMethod.get("comBoMenuType")) {
+                alert("화면유형을 선택해주세요.");
+                return;
+            }
+            if (!SBUxMethod.get("comBoUserType")) {
+                alert("사용자유형을 선택해주세요.");
+                return;
+            }
+
             saveMsg = "저장 하시겠습니까?";
         }
         else if (gubun === "M") {//수정
             saveMsg = "수정 하시겠습니까?";
         }
         if (confirm(saveMsg)) {
-            var params = $('#frm1').serialize();
-            console.log("form data ::::: " + params);
+
+        	if(gubun === "C"){
+        		menuInsert();
+        	}else{
+        		menuUpDate();
+        	}
+
         }
     }
     //목록 조회
@@ -287,9 +321,6 @@
   		.then((response) => response.json())
   		.then(
 				(data) => {
-					console.log(data);
-					sideJsonData = [];
-
 					data.resultList.forEach((item, index) => {
 						const menuList = {
 							level: item.menuLvl,
@@ -298,16 +329,74 @@
 							apcCd : item.apcCd,
 							order: item.indctSeq,
 							menuId : item.menuId,
-							menuNm : item.menuNm
+							menuNm : item.menuNm,
+							menuType : item.menuType,
+							userType : item.userType,
+							pageUrl : item.pageUrl
 						}
 						newGridData.push(menuList);
 					});
-					console.log("newGridData", newGridData);
 					gridData = newGridData;
 					datagrid.rebuild();
 				}
   		);
 	}
+
+
+    // 메뉴 등록
+    function menuInsert(){
+
+    	let upMenuId = SBUxMethod.get('upMenuId');
+    	let menuNm = SBUxMethod.get('menuNm');
+    	let apcCd = SBUxMethod.get('apcCd');
+    	let order = SBUxMethod.get('order');
+    	let comBoMenuType = SBUxMethod.get('comBoMenuType');
+    	let comBoUserType = SBUxMethod.get('comBoUserType');
+    	let pageUrl = SBUxMethod.get('pageUrl');
+
+    	if(order === null || order === ""){
+	    	let orderArray = [];
+    		gridData.forEach((item, index)=>{
+    			console.log("item.upMenuId >>>>> " + item.upMenuId);
+        		if(item.upMenuId == upMenuId){
+        			orderArray.push(item.order)
+        		}
+        	});
+    		order = Math.max.apply(null, orderArray) + 1;
+    	}
+
+    	fetch("/co/menu/menuInsert", {
+  		  	method: "POST",
+  		  	headers: {
+  		    	"Content-Type": "application/json",
+  		  	},
+  		  	body: JSON.stringify({
+  		  		apcCd : apcCd,
+  		  		upMenuId : upMenuId,
+  		  		menuNm : menuNm,
+  		  		menuType : menuType,
+  		  		userType : userType,
+  		  		indctSeq : order,
+  		  		pageUrl : pageUrl
+  			}),
+  		})
+  		.then((response) => response.json())
+  		.then(
+				(data) => {
+					if(data.result == "1"){
+						alert("신규 등록 되었습니다.");
+						fn_search();
+					}else{
+						alert("등록중 오류가 발생 되었습니다.");
+					}
+				}
+  		);
+    }
+
+    // 메뉴 수정
+    function menuUpdate(){
+
+    }
 
     //grid 초기화
     var objMenuList = {
@@ -377,8 +466,24 @@
         SBUxMethod.set("apcCd", rowData.apcCd);
         SBUxMethod.set("menuNm", rowData.menuNm);
         SBUxMethod.set("order", rowData.order);
-        SBUxMethod.set("pType", rowData.pType);
-        SBUxMethod.set("uType", rowData.uType);
+        SBUxMethod.set("comBoMenuType", rowData.menuType);
+        SBUxMethod.set("comBoUserType", rowData.userType);
+        SBUxMethod.set("pageUrl", rowData.pageUrl);
+        if(rowData.menuType == "01"){
+        	SBUxMethod.attr("pageUrl", "readonly","true");
+        }else{
+        	SBUxMethod.attr("pageUrl", "readonly","false");
+        }
+    }
+
+    function selectChange(args){
+    	if(SBUxMethod.get('comBoMenuType') == "01"){
+    		SBUxMethod.set("pageUrl", "");
+    		SBUxMethod.attr("pageUrl", "readonly","true");
+    	}else{
+    		SBUxMethod.set("pageUrl", datagrid.getRowData(datagrid.getRow()).pageUrl);
+    		SBUxMethod.attr("pageUrl", "readonly","false");
+    	}
     }
 </script>
 <!-- //inline scripts related to this page -->

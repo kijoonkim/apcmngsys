@@ -21,11 +21,11 @@
         <result property="cdVlExpln" 	column="CD_VL_EXPLN"/>
         <result property="indctSeq" 	column="INDCT_SEQ"/>
         <result property="apcCd" 		column="APC_CD"/>
-        
+
         <result property="delYn" 		column="DEL_YN"/>
         <result property="rowSeq" 		column="ROW_SEQ"/>
         <result property="totalRecordCount"	column="TOTAL_RECORD_COUNT"/>
-        
+
 	</resultMap>
 
 	<!-- ==========================================================================	-->
@@ -83,7 +83,7 @@
     	]]>
 			<!-- OFFSET #{currentPageNo} ROWS FETCH FIRST #{rowCnt} ROWS ONLY -->
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList			-->
 	<!-- DESC : 공통코드 상세 목록 조회.                                             		-->
@@ -132,6 +132,24 @@
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
     	</if>
+    </select>
+
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComBoCdDtlList			-->
+	<!-- DESC : 콤보박스 공통코드 상세 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.08  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComBoCdDtlList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultMap="comCdMap">
+    	<![CDATA[
+    	SELECT CD_VL
+		     , CD_VL_NM
+		  FROM TB_COM_CD_DTL
+    	]]>
+		 WHERE CD_ID = #{cdId}
     </select>
 
 </mapper>

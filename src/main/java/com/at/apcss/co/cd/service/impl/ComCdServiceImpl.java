@@ -24,7 +24,7 @@ public class ComCdServiceImpl implements ComCdService {
 
 	@Override
 	public List<ComCdVO> selectComCdList(ComCdVO comCdVO) throws Exception {
-		
+
 		List<ComCdVO> resultList = new ArrayList<>();
 		resultList = comCdMapper.selectComCdList(comCdVO);
 		return resultList;
@@ -32,7 +32,7 @@ public class ComCdServiceImpl implements ComCdService {
 
 	@Override
 	public List<ComCdVO> selectComCdDtlList(ComCdVO comCdVO) throws Exception {
-		
+
 		List<ComCdVO> resultList = new ArrayList<>();
 		resultList = comCdMapper.selectComCdDtlList(comCdVO);
 		return resultList;
@@ -72,6 +72,13 @@ public class ComCdServiceImpl implements ComCdService {
 	public int deleteComCdDtl(ComCdVO comCdVO) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<ComCdVO> selectComBoCdDtlList(ComCdVO comCdVO) throws Exception {
+		List<ComCdVO> resultList = new ArrayList<>();
+		resultList = comCdMapper.selectComBoCdDtlList(comCdVO);
+		return resultList;
 	}
 
 
