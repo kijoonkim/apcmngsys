@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
@@ -8,28 +7,11 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-    <link href="/resource/css/template_com.css" rel="stylesheet" type="text/css">
-    <script>
-        var SBUxConfig = {
-            Path: '/resource/sbux/',
-            SBGrid: {
-                Version2_5: true
-            },
-            SBChart: {
-                Version2_0: true
-            }
-        }
-    </script>
-    <script src="/resource/sbux/SBUx.js"></script>
-    <script src="/resource/script/common.js"></script>
-    <!------------------ 컴포넌트 테마 CSS ------------------>      
-    <link href="/resource/css/blue_comp_style.css" rel="stylesheet" type="text/css">
-    <!------------------ 스타일 테마 CSS ------------------>      
-    <link href="/resource/css/blue_style.css" rel="stylesheet" type="text/css">
+	<%@ include file="../frame/inc/headerMeta.jsp" %>
+	<%@ include file="../frame/inc/headerScript.jsp" %>
+	
+    <title>APCSS</title>
+    
     <style>
         /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다. 
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/  
@@ -59,7 +41,7 @@
             </sbux-menu>
         </div>
         <div class="main">
-            <!--left (sidemenu)-->
+            <!--left (sidemenu) -->
             <div class="left">
                 <div class="sbt-all-left">
                     <sbux-sidemenu id="idxSide_menu" name="side_menu" uitype="normal"
@@ -267,11 +249,11 @@
         , 'contentlink': ''
         , 'cssstyle': 'display:none'
     }];
-        
+	
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
+    	gfn_setComCdSelect("cmbMenuType", jsonComCdMenuType, "MENU_TYPE");
     });
-    
     
     const fn_selectTopMenu = (_id) => {
     	
@@ -302,7 +284,7 @@
      * Set LEFT MENU
      * menuNo 값으로 (비동기식으로)서버로 부터 데이터를 요청
      */
-    const fn_setLeftMenu = function(_menuNo, _menuId) {
+    async function fn_setLeftMenu(_menuNo, _menuId) {
 		
         var menuInfo = _.find(menuJson, {id: _menuNo});
         var pMenuId = menuInfo.pid;
@@ -312,7 +294,66 @@
         	pMenuId = _menuNo;
         	pMenuNm = menuInfo.text;
         }
+        
+        const postJsonPromise = gfn_postJSON("/co/menu/leftMenu", {upMenuId: pMenuId});
+        const data = await postJsonPromise;
+        
+        try {
+        	sideJsonData.length = 0;
+        	data.resultList.forEach((item, index) => {
+				const menu = {
+					id: item.menuId,
+					pid: item.upMenuId,
+					order: item.indctSeq,
+					text: item.menuNm,
+					url: item.pageUrl
+				}
+				sideJsonData.push(menu);
+			});
+			console.log("sideJsonData", sideJsonData);
 
+            //if (pMenuId !== "0") {
+            if (!gfn_isEmpty(menuInfo.pid)) {
+                var pIdx = _.findLastIndex(sideJsonData, {id: menuInfo.pid});
+                if (pIdx >= 0) {
+                	sideJsonData[pIdx].class = "active";	
+                }
+            }
+            
+            if (_menuId != undefined) {
+            	_menuNo = _menuId;
+            }
+            
+            var idx = _.findLastIndex(sideJsonData, {id: _menuNo});
+            if (idx >= 0) {
+            	sideJsonData[idx].class = "active";
+            }
+            
+            SBUxMethod.refresh("side_menu");
+           	if (!gfn_isEmpty(menuInfo.pid)) {
+                SBUxMethod.expandSideMenu("side_menu", pMenuId, 1, true);
+            }
+           	
+           	var title = pMenuNm;        	
+            document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = title;
+            
+            if (idx >= 0 && _menuId == undefined && !gfn_isEmpty(sideJsonData[idx].url)) {
+            	fn_actionGoPage(
+            			  sideJsonData[idx].url
+	                    , "LEFT"
+	                    , sideJsonData[idx].id
+	                    , sideJsonData[idx].text
+	                    , sideJsonData[idx].pid
+	                );
+            }
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+        
+        /*        
     	fetch("/co/menu/leftMenu", {
     		  method: "POST",
     		  headers: {
@@ -376,6 +417,7 @@
 		            }
 				}
     		);
+        */
     }
     
     //Left Menu Click
@@ -594,12 +636,7 @@
     }
     */
     
-    
-    //ifrmae 높이 자동 설정
-    function fn_resizeFrame(that){
-        iframe_height = that.contentWindow.document.body.scrollHeight + 17;
-        $(that).height(iframe_height);
-    }
+
     //메뉴탭을 모두 닫으면 업무 영역 숨김 처리
     function fn_chkTabList() {
         if (SBUxMethod.getTabsCount('tab_menu') == 1) {

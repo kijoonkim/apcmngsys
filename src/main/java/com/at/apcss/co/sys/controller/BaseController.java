@@ -20,6 +20,14 @@ public abstract class BaseController {
 	
 	protected EgovMessageSource message;
 
+	protected String getUserId() {
+		return "tempUser";
+	}
+	
+	protected String getPrgrmId() {
+		return "tempProgram";
+	}
+	
 	protected <T> boolean setPaginationInfo(ComPageVO comPageVO, T t) {
 		
 		if (comPageVO == null || !ComConstants.CON_YES.equals(comPageVO.getPagingYn())) {
