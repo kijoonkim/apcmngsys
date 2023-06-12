@@ -31,12 +31,13 @@ public class ComMenuController extends BaseController {
 		return "apcss/co/menu/comMenuManage";
 	}
 
-	@PostMapping(value = "/co/menu/menuList", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	// 메뉴 목록 조회
+	@PostMapping(value = "/co/menu/selectMenuList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(@RequestBody ComMenuVO comMenuVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<ComMenuVO> resultList = new ArrayList<ComMenuVO>();
 		try {
-			 resultList = comMenuService.selectMenuTreeList(comMenuVO);
+			 resultList = comMenuService.selectMenuList(comMenuVO);
 		}catch (Exception e) {
 			logger.debug("호출 중 실패");
 		}
@@ -44,10 +45,43 @@ public class ComMenuController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/co/menu/menuInsert", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> menuInsert(@RequestBody ComMenuVO comMenuVO, HttpServletRequest requset) throws Exception{
+	// 메뉴 등록
+	@PostMapping(value = "/co/menu/insertMenu.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertMenu(@RequestBody ComMenuVO comMenuVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		int result = comMenuService.menuInsert(comMenuVO);
+		logger.debug("insertNenu 호출 :: ");
+
+		// 임시
+		comMenuVO.setSysFrstInptUserId("SYS");
+		comMenuVO.setSysFrstInptPrgrmId("CO_001");
+		comMenuVO.setSysLastChgUserId("SYS");
+		comMenuVO.setSysLastChgPrgrmId("CO_001");
+		int result = comMenuService.insertMenu(comMenuVO);
+		resultMap.put("result", result);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 메뉴 수정
+	@PostMapping(value = "/co/menu/updateMenu.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateMenu(@RequestBody ComMenuVO comMenuVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		logger.debug("updateMenu 호출 :: ");
+
+		// 임시
+		comMenuVO.setSysLastChgUserId("SYS");
+		comMenuVO.setSysLastChgPrgrmId("CO_001");
+		int result = comMenuService.updateMenu(comMenuVO);
+		resultMap.put("result", result);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 메뉴 삭제
+	@PostMapping(value = "/co/menu/deleteMenu.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteMenu(@RequestBody ComMenuVO comMenuVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		logger.debug("deleteMenu 호출 :: ");
+
+		int result = comMenuService.deleteMenu(comMenuVO);
 		resultMap.put("result", result);
 		return getSuccessResponseEntity(resultMap);
 	}

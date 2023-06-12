@@ -67,8 +67,24 @@ public class ComMenuServiceImpl implements ComMenuService {
 	}
 
 	@Override
-	public int menuInsert(ComMenuVO comMenuVO) throws Exception {
-		return comMenuMapper.menuInsert(comMenuVO);
+	public int insertMenu(ComMenuVO comMenuVO) throws Exception {
+		return comMenuMapper.insertMenu(comMenuVO);
+	}
+
+	@Override
+	public int updateMenu(ComMenuVO comMenuVO) {
+		return comMenuMapper.updateMenu(comMenuVO);
+	}
+
+	@Override
+	public List<ComMenuVO> selectMenuList(ComMenuVO comMenuVO) {
+		List<ComMenuVO> menuList = comMenuMapper.selectMenuList(comMenuVO);
+		return menuList;
+	}
+
+	@Override
+	public int deleteMenu(ComMenuVO comMenuVO) {
+		return comMenuMapper.deleteMenu(comMenuVO);
 	}
 
 
