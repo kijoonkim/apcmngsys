@@ -70,7 +70,7 @@
                             callback-after-close="fn_chkTabList"
                         ></sbux-tabs>
                         <div class="tab-content">
-                            <iframe id="idxfrmJson" name="frmJson" onload="fn_resizeFrame(this);"
+                            <iframe id="idxfrmJson" name="frmJson"
                                 style="overflow-x:hidden;overflow:auto;width:100%;min-height:650px;border:0px;"
                             ></iframe>
                         </div>
@@ -252,7 +252,12 @@
 	
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-    	gfn_setComCdSelect("cmbMenuType", jsonComCdMenuType, "MENU_TYPE");
+    	document.querySelector("iframe").addEventListener("load", function(iFrm) {
+    		console.log("iFrm", iFrm);
+    		let iframe_height = iFrm.contentWindow.document.body.scrollHeight + 17;
+    		iFrm.style.height = iframe_height;
+    	});
+    	
     });
     
     const fn_selectTopMenu = (_id) => {
@@ -635,6 +640,13 @@
         }
     }
     */
+
+	// ifrmae 높이 자동 설정
+  	function fn_resizeFrame(that){
+		iframe_height = that.contentWindow.document.body.scrollHeight + 17;
+		that.style.height = iframe_height;
+		//$(that).height(iframe_height);
+	}
     
 
     //메뉴탭을 모두 닫으면 업무 영역 숨김 처리

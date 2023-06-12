@@ -3,15 +3,8 @@
  * 
  */
 
-
 /** @type {string} */
 const URL_COM_CDS = "/co/cd/comCdDtls";
-
-    //ifrmae 높이 자동 설정
-    function fn_resizeFrame(that){
-        iframe_height = that.contentWindow.document.body.scrollHeight + 17;
-        $(that).height(iframe_height);
-    }
 
 /**
  * async post by json
@@ -145,3 +138,4 @@ const gfn_nvl = function (str, defaultStr) {
 
     return gfn_isEmpty(str) ? defaultStr : str;
 }
+
