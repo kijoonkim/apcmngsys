@@ -261,22 +261,146 @@
     	]]>
     </select>
 
-    <insert id="menuInsert" parameterType="com.at.apcss.co.menu.vo.ComMenuVO">
-    	INSERT IN TO TB_COM_MENU
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.insertMenu				-->
+	<!-- DESC : 메뉴 등록.                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertMenu" parameterType="com.at.apcss.co.menu.vo.ComMenuVO">
+    	INSERT INTO TB_COM_MENU
     		(
     			APC_CD
     		  , MENU_ID
-
     		  , UP_MENU_ID
     		  , MENU_NM
     		  , MENU_TYPE
     		  , INDCT_SEQ
     		  , USER_TYPE
     		  , PAGE_URL
-
+    		  , SYS_FRST_INPT_DT
+    		  , SYS_FRST_INPT_USER_ID
+    		  , SYS_FRST_INPT_PRGRM_ID
+    		  , SYS_LAST_CHG_DT
+    		  , SYS_LAST_CHG_USER_ID
+    		  , SYS_LAST_CHG_PRGRM_ID
 
     		)
+   		VALUES
+   			(
+   			    #{apcCd}
+   			  , FN_GET_COM_MENU_ID(#{upMenuId})
+   			  , #{upMenuId}
+   			  , #{menuNm}
+   			  , #{menuType}
+   			  , #{indctSeq}
+   			  , #{userType}
+   			  , #{pageUrl}
+   			  , SYSDATE
+   			  , #{sysFrstInptUserId}
+   			  , #{sysFrstInptPrgrmId}
+   			  , SYSDATE
+   			  , #{sysLastChgUserId}
+   			  , #{sysLastChgPrgrmId}
+   			)
 
     </insert>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.updateMenu				-->
+	<!-- DESC : 메뉴 수정.                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateMenu" parameterType="com.at.apcss.co.menu.vo.ComMenuVO">
+    	UPDATE TB_COM_MENU
+    	   SET MENU_NM 					= #{menuNm}
+    	     , APC_CD 					= #{apcCd}
+    	     , INDCT_SEQ				= #{indctSeq}
+    	     , MENU_TYPE				= #{menuType}
+    	     , USER_TYPE    			= #{userType}
+    	     , PAGE_URL					= #{pageUrl}
+    	     , SYS_LAST_CHG_DT			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+    	 WHERE MENU_ID 					= #{menuId}
+    </update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuList			-->
+	<!-- DESC : 메뉴 조회.                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectMenuList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultMap="comMenuMap">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuTreeList */
+				  MN.LVL		AS MENU_LVL
+				, MN.SEQ		AS MENU_SEQ
+				, MN.SYS_ID		AS SYS_ID
+				, MN.UP_MENU_ID	AS UP_MENU_ID
+				, UM.MENU_NM	AS UP_MENU_NM
+				, MN.MENU_ID	AS MENU_ID
+				, MN.MENU_NM	AS MENU_NM
+				, MN.MENU_TYPE  AS MENU_TYPE
+				, MN.USER_TYPE	AS USER_TYPE
+				, MN.PAGE_URL	AS PAGE_URL
+				, MN.APC_CD		AS APC_CD
+				, MN.INDCT_SEQ	AS INDCT_SEQ
+				, MN.DEL_YN 	AS DEL_YN
+			  FROM (
+				SELECT
+					  LEVEL		AS LVL
+					, ROWNUM 	AS SEQ
+					, SUBSTR(MN.MENU_ID, 1, 2) AS SYS_ID
+					, MN.UP_MENU_ID	AS UP_MENU_ID
+					, MN.MENU_ID	AS MENU_ID
+					, MN.MENU_NM	AS MENU_NM
+					, MN.MENU_TYPE  AS MENU_TYPE
+					, MN.USER_TYPE	AS USER_TYPE
+					, MN.PAGE_URL	AS PAGE_URL
+					, MN.APC_CD		AS APC_CD
+					, MN.INDCT_SEQ	AS INDCT_SEQ
+					, MN.DEL_YN		AS DEL_YN
+				  FROM TB_COM_MENU MN
+				 WHERE 1=1
+    	]]>
+			<if test='sysId != null and sysId != ""'>
+				   AND SUBSTR(MN.MENU_ID, 1, 2) = #{sysId}
+			</if>
+			<if test='apcCd != null and apcCd != ""'>
+				   AND MN.APC_CD = #{apcCd}
+			</if>
+    	<![CDATA[
+				 START WITH MN.UP_MENU_ID IS NULL
+			    CONNECT BY PRIOR MN.MENU_ID = MN.UP_MENU_ID
+			     ORDER SIBLINGS BY MN.INDCT_SEQ, MN.MENU_ID
+			  	) MN
+			  	, TB_COM_MENU UM
+			 WHERE MN.UP_MENU_ID = UM.MENU_ID(+)
+			   AND UM.DEL_YN(+) = 'N'
+    	]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.deleteMenu				-->
+	<!-- DESC : 메뉴 삭제.                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.12  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteMenu" parameterType="com.at.apcss.co.menu.vo.ComMenuVO">
+		DELETE FROM TB_COM_MENU
+		 WHERE MENU_ID 	= #{menuId}
+	</delete>
 
 </mapper>

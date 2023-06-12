@@ -154,8 +154,12 @@
                                 </tr>
                                 <tr>
                                     <th>화면URL</th>
-                                    <td colspan="3">
+                                    <td>
                                     	<sbux-input id="pageUrl" name="pageUrl" uitype="text" style="width:100%"></sbux-input>
+                                    </td>
+                                    <th>사용유무</th>
+                                    <td>
+                                    	<sbux-select id="comBoDelYn" name="comBoDelYn" uitype="single" jsondata-ref="jsonComBoDelYn" unselected-text="선택" style="width:100%"></sbux-select>
                                     </td>
                                 </tr>
                             </table>
@@ -178,18 +182,24 @@
     });
     var grid; // 그리드를 담기위한 객체 선언
     var gridData = []; // 그리드의 참조 데이터 주소 선언
-    //조회조건
+    //조회조건(임시)
     var jsonSearchCombo = [
         {'text': '정보지원시스템', 'value': 'AM'},
         {'text': '시스템관리', 'value': 'CO'},
         {'text': '생산관리', 'value': 'PM'}
     ];
-    //var jsonSearchCombo = comCdLoad("SYS_ID")
-    var jsonComboUserType = comCdLoad("USER_TYPE");
-    var jsonComboMenuType = comCdLoad("MENU_TYPE");
+    // 사용유무 (임시)
+    var jsonComBoDelYn = [
+    	{'text': 'YES', 'value' : 'N'},
+    	{'text': 'NO', 'value' : 'Y'}
+    ];
+    var jsonComboUserType = comCdLoad("USER_TYPE");		// 사용자유형
+    var jsonComboMenuType = comCdLoad("MENU_TYPE");		// 화면유형
 
+
+    // 공통코드 COMBO 호출
     function comCdLoad(cdId){
-    	const jsonComboData = [];
+    	let jsonComboData = [];
     	fetch("/co/cd/comBoCdDtls", {
   		  	method: "POST",
   		  	headers: {
@@ -203,7 +213,7 @@
   		.then(
 				(data) => {
 					data.resultList.forEach((item, index) => {
-						const cdVlList = {
+						let cdVlList = {
 							'text': item.cdVlNm,
 							'value': item.cdVl
 						}
@@ -241,6 +251,8 @@
         SBUxMethod.set("order", "");
         SBUxMethod.set("comBoMenuType", "");
         SBUxMethod.set("comBoUserType", "");
+        SBUxMethod.set("pageUrl", "");
+        SBUxMethod.set("comBoDelYn", "N");	// 기본값 사용여부(N)
     }
     //선택 삭제
     function fn_delete() {
@@ -251,7 +263,7 @@
         }
         var delMsg = "삭제하시겠습니까?";
         if (confirm(delMsg)) {
-            console.log("DELETE MENUID ::::: " + menuId);
+            deleteMenu();
         }
     }
     //저장
@@ -286,11 +298,11 @@
             saveMsg = "수정 하시겠습니까?";
         }
         if (confirm(saveMsg)) {
-
         	if(gubun === "C"){
+        		console.log("신규 ");
         		menuInsert();
         	}else{
-        		menuUpDate();
+        		updateMenu();
         	}
 
         }
@@ -309,10 +321,10 @@
     //목록 조회
     function searchList(sysId){
     	var newGridData = [];
-    	fetch("/co/menu/menuList", {
+    	fetch("/co/menu/selectMenuList.do", {
   		  	method: "POST",
   		  	headers: {
-  		    "Content-Type": "application/json",
+  		    	"Content-Type": "application/json",
   		  	},
   		  	body: JSON.stringify({
   		  		sysId: sysId
@@ -332,7 +344,8 @@
 							menuNm : item.menuNm,
 							menuType : item.menuType,
 							userType : item.userType,
-							pageUrl : item.pageUrl
+							pageUrl : item.pageUrl,
+							delYn : item.delYn
 						}
 						newGridData.push(menuList);
 					});
@@ -346,38 +359,36 @@
     // 메뉴 등록
     function menuInsert(){
 
-    	let upMenuId = SBUxMethod.get('upMenuId');
-    	let menuNm = SBUxMethod.get('menuNm');
-    	let apcCd = SBUxMethod.get('apcCd');
-    	let order = SBUxMethod.get('order');
-    	let comBoMenuType = SBUxMethod.get('comBoMenuType');
-    	let comBoUserType = SBUxMethod.get('comBoUserType');
-    	let pageUrl = SBUxMethod.get('pageUrl');
+    	let upMenuId 		= SBUxMethod.get('upMenuId');		// 상위메뉴ID
+    	let menuNm 			= SBUxMethod.get('menuNm');			// 메뉴이름
+    	let apcCd 			= SBUxMethod.get('apcCd');			// APC코드
+    	let order 			= SBUxMethod.get('order');			// 정렬순서
+    	let comBoMenuType 	= SBUxMethod.get('comBoMenuType');	// 메뉴유형
+    	let comBoUserType 	= SBUxMethod.get('comBoUserType');	// 사용자유형
+    	let pageUrl 		= SBUxMethod.get('pageUrl');		// 화면URL
 
     	if(order === null || order === ""){
 	    	let orderArray = [];
     		gridData.forEach((item, index)=>{
-    			console.log("item.upMenuId >>>>> " + item.upMenuId);
         		if(item.upMenuId == upMenuId){
         			orderArray.push(item.order)
         		}
         	});
     		order = Math.max.apply(null, orderArray) + 1;
     	}
-
-    	fetch("/co/menu/menuInsert", {
+		fetch("/co/menu/insertMenu.do", {
   		  	method: "POST",
   		  	headers: {
   		    	"Content-Type": "application/json",
   		  	},
   		  	body: JSON.stringify({
-  		  		apcCd : apcCd,
-  		  		upMenuId : upMenuId,
-  		  		menuNm : menuNm,
-  		  		menuType : menuType,
-  		  		userType : userType,
-  		  		indctSeq : order,
-  		  		pageUrl : pageUrl
+  		  		apcCd 		: apcCd,
+  		  		upMenuId 	: upMenuId,
+	  		  	menuNm 		: menuNm,
+	  		  	indctSeq 	: order,
+	  		  	menuType 	: comBoMenuType,
+	  		    userType 	: comBoUserType,
+	  		  	pageUrl 	: pageUrl
   			}),
   		})
   		.then((response) => response.json())
@@ -387,15 +398,97 @@
 						alert("신규 등록 되었습니다.");
 						fn_search();
 					}else{
-						alert("등록중 오류가 발생 되었습니다.");
+						alert("등록 중 오류가 발생 되었습니다.");
+					}
+				}
+  		);
+
+    }
+
+    // 메뉴 수정
+    function updateMenu(){
+    	let menuId 			= SBUxMethod.get('menuId');			// 메뉴ID(PK)
+    	let menuNm 			= SBUxMethod.get('menuNm');			// 메뉴이름
+    	let apcCd 			= SBUxMethod.get('apcCd');			// APC코드
+    	let order 			= SBUxMethod.get('order');			// 정렬순서
+    	let comBoMenuType 	= SBUxMethod.get('comBoMenuType');	// 메뉴타입
+    	let comBoUserType 	= SBUxMethod.get('comBoUserType');	// 사용자유형
+    	let pageUrl 		= SBUxMethod.get('pageUrl');		// 화면URL
+    	let delYn 			= SBUxMethod.get('comBoDelYn');		// 사용유무
+
+    	if(order === null || order === ""){
+	    	let orderArray = [];
+    		gridData.forEach((item, index)=>{
+        		if(item.upMenuId == upMenuId){
+        			orderArray.push(item.order)
+        		}
+        	});
+    		order = Math.max.apply(null, orderArray) + 1;
+    	}
+		fetch("/co/menu/updateMenu.do", {
+  		  	method: "POST",
+  		  	headers: {
+  		    	"Content-Type": "application/json",
+  		  	},
+  		  	body: JSON.stringify({
+  		  		apcCd 		: apcCd,
+  		  		menuId 		: menuId,
+	  		  	menuNm 		: menuNm,
+	  		  	indctSeq 	: order,
+	  		  	menuType 	: comBoMenuType,
+	  		    userType 	: comBoUserType,
+	  		  	pageUrl 	: pageUrl,
+	  		  	delYn 		: delYn
+  			}),
+  		})
+  		.then((response) => response.json())
+  		.then(
+				(data) => {
+					if(data.result == "1"){
+						alert("수정 되었습니다.");
+						fn_search();
+					}else{
+						alert("수정 중 오류가 발생 되었습니다.");
 					}
 				}
   		);
     }
 
-    // 메뉴 수정
-    function menuUpdate(){
+    // 메뉴 삭제
+    function deleteMenu(){
+    	let menuId = SBUxMethod.get('menuId');		// 메뉴ID(PK)
 
+		fetch("/co/menu/deleteMenu.do", {
+  		  	method: "POST",
+  		  	headers: {
+  		    	"Content-Type": "application/json",
+  		  	},
+  		  	body: JSON.stringify({
+  		  		menuId : menuId
+  			}),
+  		})
+  		.then((response) => response.json())
+  		.then(
+				(data) => {
+					if(data.result == "1"){
+						alert("삭제 되었습니다.");
+						fn_search();
+						SBUxMethod.set("upMenuId", "");
+				        SBUxMethod.set("upMenuNm", "");
+				        SBUxMethod.attr("menuId", "readonly");
+				        SBUxMethod.set("menuId", "");
+				        SBUxMethod.set("apcCd", "");
+				        SBUxMethod.set("menuNm", "");
+				        SBUxMethod.set("order", "");
+				        SBUxMethod.set("comBoMenuType", "");
+				        SBUxMethod.set("comBoUserType", "");
+				        SBUxMethod.set("pageUrl", "");
+				        SBUxMethod.set("comBoDelYn", "");
+					}else{
+						alert("삭제 중 오류가 발생 되었습니다.");
+					}
+				}
+  		);
     }
 
     //grid 초기화
@@ -447,7 +540,7 @@
         datagrid = _SBGrid.create(SBGridProperties);
         datagrid.bind('click', 'fn_view');
     }
-    //
+    // 상세 정보
     function fn_view() {
         var nRow = datagrid.getRow();
         if (nRow < 2) {
@@ -468,14 +561,23 @@
         SBUxMethod.set("order", rowData.order);
         SBUxMethod.set("comBoMenuType", rowData.menuType);
         SBUxMethod.set("comBoUserType", rowData.userType);
-        SBUxMethod.set("pageUrl", rowData.pageUrl);
+        // PAGE_URL NULL 일때 빈칸처리"
+        if(SBUxMethod.get("pageUrl") == null || SBUxMethod.get("pageUrl") == "null" || SBUxMethod.get("pageUrl") == "" ){
+	        SBUxMethod.set("pageUrl", "");
+        }else{
+	        SBUxMethod.set("pageUrl", rowData.pageUrl);
+        }
+
+        // 화면유형 : 01 -> 입력불가, 02 -> PAGE_URL 입력
         if(rowData.menuType == "01"){
         	SBUxMethod.attr("pageUrl", "readonly","true");
         }else{
         	SBUxMethod.attr("pageUrl", "readonly","false");
         }
+        SBUxMethod.set("comBoDelYn", rowData.delYn);
     }
 
+    // 화면유형 ChangeEvent : 화면유형(01) PAGE_URL -> NULL, 화면유형(02) -> PAGE_URL(MAPPING_URL)
     function selectChange(args){
     	if(SBUxMethod.get('comBoMenuType') == "01"){
     		SBUxMethod.set("pageUrl", "");
@@ -486,7 +588,6 @@
     	}
     }
 </script>
-<!-- //inline scripts related to this page -->
 
 </body>
 </html>

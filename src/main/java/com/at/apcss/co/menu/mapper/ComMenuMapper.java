@@ -49,7 +49,28 @@ public interface ComMenuMapper {
 	 * @param comMenuVO
 	 * @return
 	 */
-	public int menuInsert(ComMenuVO comMenuVO);
+	public int insertMenu(ComMenuVO comMenuVO);
+
+	/**
+	 * 메뉴 수정
+	 * @param comMenuVO
+	 * @return
+	 */
+	public int updateMenu(ComMenuVO comMenuVO);
+
+	/**
+	 * 메뉴 목록 조회
+	 * @param comMenuVO
+	 * @return
+	 */
+	public List<ComMenuVO> selectMenuList(ComMenuVO comMenuVO);
+
+	/**
+	 * 메뉴 삭제
+	 * @param comMenuVO
+	 * @return
+	 */
+	public int deleteMenu(ComMenuVO comMenuVO);
 
 
 }
