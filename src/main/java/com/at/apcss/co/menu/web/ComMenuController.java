@@ -25,8 +25,9 @@ public class ComMenuController extends BaseController {
 	@Resource(name = "comMenuService")
 	private ComMenuService comMenuService;
 
+	// 메뉴 관리
 	@RequestMapping("/co/menu/menuMng.do")
-	public String doMain() {
+	public String doMenu() {
 
 		return "apcss/co/menu/comMenuManage";
 	}
@@ -84,5 +85,12 @@ public class ComMenuController extends BaseController {
 		int result = comMenuService.deleteMenu(comMenuVO);
 		resultMap.put("result", result);
 		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 화면 관리
+	@RequestMapping("/co/menu/uiMng.do")
+	public String doUi() {
+
+		return "apcss/co/menu/comUiManage";
 	}
 }
