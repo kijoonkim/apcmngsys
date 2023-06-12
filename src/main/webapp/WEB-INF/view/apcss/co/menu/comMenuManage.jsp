@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
     <link href="/resource/css/template_com.css" rel="stylesheet" type="text/css">
     <script>
         var SBUxConfig = {
@@ -562,7 +561,7 @@
         SBUxMethod.set("comBoMenuType", rowData.menuType);
         SBUxMethod.set("comBoUserType", rowData.userType);
         // PAGE_URL NULL 일때 빈칸처리"
-        if(SBUxMethod.get("pageUrl") == null || SBUxMethod.get("pageUrl") == "null" || SBUxMethod.get("pageUrl") == "" ){
+        if(rowData.userType == null || rowData.userType == "null" || rowData.userType == "" ){
 	        SBUxMethod.set("pageUrl", "");
         }else{
 	        SBUxMethod.set("pageUrl", rowData.pageUrl);
