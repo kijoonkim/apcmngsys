@@ -1,0 +1,14 @@
+
+.sbt-btn-reset.sbux-btn,
+.sbt-btn-search.sbux-btn{
+    padding:0 10px !important; 
+    height: 30px;
+    line-height: 30px;
+    font-size:14px!important; 
+    box-sizing: border-box;
+}
+.sbt-btn-reset.sbux-btn>span,
+.sbt-btn-search.sbux-btn>span{
+    display:inline;
+    font-size:14px!important; 
+}

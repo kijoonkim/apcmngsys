@@ -36,12 +36,7 @@ public class LoginVO implements Serializable{
 	private String passwordHint;
 	/** 비밀번호 정답 */
 	private String passwordCnsr;
-	/** 사용자구분 */
-	private String userSe;
-	/** 조직(부서)ID */
-	private String orgnztId;
-	/** 조직(부서)명 */
-	private String orgnztNm;
+
 	/** 고유아이디 */
 	private String uniqId;
 	/** 로그인 후 이동할 페이지 */
@@ -55,6 +50,18 @@ public class LoginVO implements Serializable{
 	/** 디지털원패스 사용자세션값 */
 	private String onepassIntfToken;
 
+	private String userType;
+	private String userStts;
+	private String mblTelno;
+	private String apcCd;
+	private String ogdpNm;
+	private String chrgdCertYn;
+	private String chrgdCertType;
+	private String lckYn;
+	private int lgnFailNmtm;
+	private String endLgnDt;
+	private String endLgnIp;
+	
 	/**
 	 * id attribute 를 리턴한다.
 	 * @return String
@@ -153,34 +160,7 @@ public class LoginVO implements Serializable{
 	public void setPasswordCnsr(String passwordCnsr) {
 		this.passwordCnsr = passwordCnsr;
 	}
-	/**
-	 * userSe attribute 를 리턴한다.
-	 * @return String
-	 */
-	public String getUserSe() {
-		return userSe;
-	}
-	/**
-	 * userSe attribute 값을 설정한다.
-	 * @param userSe String
-	 */
-	public void setUserSe(String userSe) {
-		this.userSe = userSe;
-	}
-	/**
-	 * orgnztId attribute 를 리턴한다.
-	 * @return String
-	 */
-	public String getOrgnztId() {
-		return orgnztId;
-	}
-	/**
-	 * orgnztId attribute 값을 설정한다.
-	 * @param orgnztId String
-	 */
-	public void setOrgnztId(String orgnztId) {
-		this.orgnztId = orgnztId;
-	}
+	
 	/**
 	 * uniqId attribute 를 리턴한다.
 	 * @return String
@@ -237,19 +217,7 @@ public class LoginVO implements Serializable{
 	public void setDn(String dn) {
 		this.dn = dn;
 	}
-	/**
-	 * @return the orgnztNm
-	 */
-	public String getOrgnztNm() {
-		return orgnztNm;
-	}
-	/**
-	 * @param orgnztNm the orgnztNm to set
-	 */
-	public void setOrgnztNm(String orgnztNm) {
-		this.orgnztNm = orgnztNm;
-	}
-	
+		
 	/**
 	 * 디지털원패스 사용자키를 리턴한다.
 	 * @return onepassUserkey
@@ -279,4 +247,70 @@ public class LoginVO implements Serializable{
 		this.onepassIntfToken = onepassIntfToken;
 	}
 
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+	public String getUserStts() {
+		return userStts;
+	}
+	public void setUserStts(String userStts) {
+		this.userStts = userStts;
+	}
+	public String getMblTelno() {
+		return mblTelno;
+	}
+	public void setMblTelno(String mblTelno) {
+		this.mblTelno = mblTelno;
+	}
+	public String getApcCd() {
+		return apcCd;
+	}
+	public void setApcCd(String apcCd) {
+		this.apcCd = apcCd;
+	}
+	public String getOgdpNm() {
+		return ogdpNm;
+	}
+	public void setOgdpNm(String ogdpNm) {
+		this.ogdpNm = ogdpNm;
+	}
+	public String getChrgdCertYn() {
+		return chrgdCertYn;
+	}
+	public void setChrgdCertYn(String chrgdCertYn) {
+		this.chrgdCertYn = chrgdCertYn;
+	}
+	public String getChrgdCertType() {
+		return chrgdCertType;
+	}
+	public void setChrgdCertType(String chrgdCertType) {
+		this.chrgdCertType = chrgdCertType;
+	}
+	public String getLckYn() {
+		return lckYn;
+	}
+	public void setLckYn(String lckYn) {
+		this.lckYn = lckYn;
+	}
+	public int getLgnFailNmtm() {
+		return lgnFailNmtm;
+	}
+	public void setLgnFailNmtm(int lgnFailNmtm) {
+		this.lgnFailNmtm = lgnFailNmtm;
+	}
+	public String getEndLgnDt() {
+		return endLgnDt;
+	}
+	public void setEndLgnDt(String endLgnDt) {
+		this.endLgnDt = endLgnDt;
+	}
+	public String getEndLgnIp() {
+		return endLgnIp;
+	}
+	public void setEndLgnIp(String endLgnIp) {
+		this.endLgnIp = endLgnIp;
+	}
 }

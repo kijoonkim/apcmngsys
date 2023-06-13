@@ -26,7 +26,7 @@ public interface LoginDAO {
 	
 	public LoginVO actionCrtfctLogin(LoginVO vo) throws Exception;
 	
-	public LoginVO selectUserId(LoginVO vo) throws Exception;
+	public LoginVO searchId(LoginVO vo) throws Exception;
 	
-	public LoginVO selectPassword(LoginVO vo) throws Exception;
+	public LoginVO searchPassword(LoginVO vo) throws Exception;
 }
