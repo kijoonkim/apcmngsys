@@ -451,6 +451,14 @@
         $(that).height(iframe_height);
     }    
 
+    function fn_SlideButton(type,b){
+        if(type == "show"){
+            $(".sbt-A-wrap .left").css({width:0})
+        }else{
+             $(".sbt-A-wrap .left").css({width:200})
+        }
+    }
+    
     //메뉴탭을 모두 닫으면 업무 영역 숨김 처리
     function fn_chkTabList() {
         if (SBUxMethod.getTabsCount('tab_menu') == 1) {
@@ -712,6 +720,12 @@
                 <brand-item text="APC정보지원" image-src="/resource/images/header_logo.png">
                 </brand-item>
             </sbux-menu>
+			<div class="user-info-wrap">
+                <span class="name-t">홍길동</span>님 반갑습니다.
+                <ul class="user-login-menu">
+                    <li><a href="#">로그아웃</a></li>
+                </ul>
+            </div>
         </div>
         <div class="main">
             <!--left (sidemenu) -->
@@ -723,6 +737,7 @@
                         show-slide-button="true"
                         menu-title="메뉴"
                         storage-data="object"
+                        callback-slide-button="fn_SlideButton"
                         onclick="fn_selectMenu('LEFT', 'side_menu')"
                     ></sbux-sidemenu>
                 </div>

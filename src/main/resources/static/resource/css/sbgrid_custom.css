@@ -1,14 +1,104 @@
-
 .sbt-btn-reset.sbux-btn,
-.sbt-btn-search.sbux-btn{
-    padding:0 10px !important; 
-    height: 30px;
-    line-height: 30px;
-    font-size:14px!important; 
-    box-sizing: border-box;
+.sbt-btn-search.sbux-btn {
+  padding: 0 10px !important;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px !important;
+  box-sizing: border-box;
 }
-.sbt-btn-reset.sbux-btn>span,
-.sbt-btn-search.sbux-btn>span{
-    display:inline;
-    font-size:14px!important; 
+
+.sbt-btn-reset.sbux-btn > span,
+.sbt-btn-search.sbux-btn > span {
+  display: inline;
+  font-size: 14px !important;
+}
+
+/*login*/
+.apc-wrap {
+  width: 100%;
+  height: 100vh;
+}
+.apc-wrap .apc-login-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f5f5;
+}
+.apc-wrap .apc-login-wrap .apc-login-box {
+  width: 500px;
+  padding: 3em 2em;
+  background: #fff;
+  box-sizing: border-box;
+  box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.2);
+}
+.apc-wrap .apc-login-wrap .apc-login-box h3 label {
+  display: inline-block;
+  padding-bottom: 1em;
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
+}
+.apc-wrap .apc-login-wrap .apc-login-box .apc-id-wrap {
+  margin-bottom: 5px;
+}
+.apc-wrap .apc-login-wrap .apc-login-box .apc-chk-wrap {
+  padding: 10px 0;
+  width: 100%;
+  display: inline-block;
+  text-align: right;
+}
+.apc-wrap .apc-login-wrap .apc-login-box .apc-login-wrap button {
+  width: 100%;
+  height: 40px;
+  background: #50506c;
+  color: #fff;
+  border: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+.apc-wrap .apc-login-wrap .apc-login-box .apc-login-wrap button:hover {
+  background: #3a3a4f;
+}
+
+.sbt-all-header {
+  display: flex;
+  align-items: center;
+  background: #149fff;
+}
+.sbt-all-header nav.sbux-meu-static-top {
+  background: none;
+}
+.sbt-all-header .user-info-wrap {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  color: #fff;
+}
+.sbt-all-header .user-info-wrap span.name-t {
+  font-weight: bold;
+}
+.sbt-all-header .user-info-wrap ul.user-login-menu {
+  display: inline-flex;
+  align-items: center;
+  padding-left: 10px;
+}
+.sbt-all-header .user-info-wrap ul.user-login-menu li {
+  margin: 0 5px;
+  background: #fff;
+  height: 30px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+.sbt-all-header .user-info-wrap ul.user-login-menu li a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: #000000;
+  font-size: 12px;
+  text-decoration: none;
 }
