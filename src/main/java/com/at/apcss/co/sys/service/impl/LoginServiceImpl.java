@@ -55,7 +55,7 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 	@Override
 	public LoginVO searchId(LoginVO vo) throws Exception {
 		// 1. 이름, 이메일주소가 DB와 일치하는 사용자 ID를 조회한다.
-    	LoginVO loginVO = loginDAO.actionLogin(vo);
+    	LoginVO loginVO = loginDAO.searchId(vo);
     	
     	// 2. 결과를 리턴한다.
     	if (loginVO != null && !StringUtils.hasText(loginVO.getId())) {
@@ -73,7 +73,7 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 		boolean result = true;
 		
 		// 1. 아이디, 이름, 이메일주소, 비밀번호 힌트, 비밀번호 정답이 DB와 일치하는 사용자 Password를 조회한다.
-    	LoginVO loginVO = loginDAO.selectPassword(vo);
+    	LoginVO loginVO = loginDAO.searchPassword(vo);
     	if (loginVO == null || StringUtils.hasText(loginVO.getPassword())) {
     		return false;
     	}

@@ -7,213 +7,26 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <title>APCSS</title>
 	<%@ include file="../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../frame/inc/headerScript.jsp" %>
 	
-    <title>APCSS</title>
-    
     <style>
         /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다. 
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/  
         .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333;}
-        .sbt-A-wrap .main {display:table;  width:100%; height:764px;}
-        .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px; }
+        .sbt-A-wrap .main {display:table;  width:100%; height:100%;}
+        .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px;}
         .sbt-A-wrap .left .sbt-all-left {height: 100%;}
         .sbt-A-wrap .content {display:table-cell;}
         .sbux-sidemeu {position: relative; z-index: 1;}
         .footer {
             display: flex; align-items: center; justify-content: center; font-size: 16px;
-            background:rgb(42, 48, 65); height:150px; padding:10px; box-sizing: border-box;  color:#dddddd;
+            background:rgb(42, 48, 65); height:0px; padding:10px; box-sizing: border-box;  color:#dddddd;
         }
     </style>
 </head>
 <body>
-    <div class="sbt-A-wrap">    
-        <!-- header (menu) -->
-        <div class="sbt-all-header">
-            <sbux-menu id="idxTop_json" name="top_menu" uitype="normal"
-                jsondata-ref="menuJson"
-                is-fixed="false"
-                wrap-style="width:100%"
-                storage-data="object"
-                onclick="fn_selectTopMenu('top_menu')">
-                <brand-item text="APC정보지원"></brand-item>
-            </sbux-menu>
-        </div>
-        <div class="main">
-            <!--left (sidemenu) -->
-            <div class="left">
-                <div class="sbt-all-left">
-                    <sbux-sidemenu id="idxSide_menu" name="side_menu" uitype="normal"
-                        jsondata-ref="sideJsonData"
-                        show-filter-box="true"
-                        show-slide-button="true"
-                        menu-title="메뉴"
-                        storage-data="object"
-                        onclick="fn_selectMenu('LEFT', 'side_menu')"
-                    ></sbux-sidemenu>
-                </div>
-            </div>
-            <!--main content-->
-            <div class="content">
-                <sbux-breadcrumb id="breadcrumb" name="breadcrumb" uitype="text" jsondata-ref="menuJsonB">
-                </sbux-breadcrumb>
-                <!--full content-->
-                <div class="sbt-wrap-full">
-                    <!--탭 입력 영역-->
-                    <div class="sbt-input-tab">
-                        <!--탭 영역-->
-                        <sbux-tabs id="tab_menu" name="tab_menu" uitype="normal"
-                            jsondata-ref="tabJsonData"
-                            storage-data="text"
-                            onclick="fn_setMenuInfo(tab_menu)"
-                            callback-after-close="fn_chkTabList"
-                        ></sbux-tabs>
-                        <div class="tab-content">
-                            <iframe id="idxfrmJson" name="frmJson"
-                                style="overflow-x:hidden;overflow:auto;width:100%;min-height:650px;border:0px;"
-                            ></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer">
-            footer
-        </div>
-    </div>
-    <!-- Modal -->
-    <div>
-        <sbux-modal id="jsModal" name="jsModal" uitype="middle"
-            header-title="Modal TITLE"
-            body-html-id="modalBody"
-            footer-is-close-button="false"
-            style="width:1000px"
-        ></sbux-modal>
-    </div>
-    <div id="modalBody">
-        <div class="main">
-            <!--main content-->
-            <div class="content">
-                <!--full content-->
-                <div class="sbt-wrap-full">
-                    <!--Button 영역-->
-                    <div class="sbt-search-button" style="text-align:right;">
-                        <sbux-button id="btn_search" name="btn_search" uitype="normal" text="조회" wrap-class="sbt-btn-search"
-                            onclick="fn_search"
-                        ></sbux-button>
-                        <sbux-button id="btn_save" name="btn_save" uitype="normal" text="등록" wrap-class="sbt-btn-reset"
-                            onclick="fn_save"
-                        ></sbux-button>
-                        <sbux-button id="btn_close" name="btn_close" uitype="normal" text="종료" wrap-class="sbt-btn-reset"
-                            onclick="fn_close"
-                        ></sbux-button>
-                    </div>
-                    <!--조회 영역-->
-			        <div class="sbt-con-wrap">
-                        <form id="frm" name="frm" method="post"></form>
-				        <div class="sbt-search-wrap"> 
-                            <div class="sbt-wrap-body-con">
-                                <div class="sbt-wrap-body">
-                                    <div class="sbt-search-row">
-                                        <!--col -->
-                                        <div class="sbt-search-col popup-search-col">
-                                            <div class="sbt-col-left">
-                                                <sbux-label id="srchLabel_1" name="label_norm" uitype="normal" text="품목명" wrap-class="sbt-label"></sbux-label>
-                                            </div>
-                                            <div class="sbt-col-right">
-                                                <sbux-input id="srchKeyword" name="srchKeyword" uitype="text"
-                                                    style="width:200px"
-                                                ></sbux-input>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </form>
-                    </div>
-                    <!--SBGrid 영역-->
-                    <div class="sbt-con-wrap">
-                        <li style="display:inline-block;width: 39.5%;vertical-align:top;">
-                        <div class="sbt-grid-wrap">
-                            <div class="sbt-wrap-body">
-                                <div class="sbt-grid">
-                                    <!-- SBGrid를 호출합니다. -->
-                                    <div id="SBGridArea" style="height:150px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        </li>
-                        <li style="display:inline-block;float:right;width: 59.5%;vertical-align:top;">
-                            <div class="sbt-grid-wrap"> 
-                                <div class="sbt-wrap-body">
-                                    <div class="sbt-grid">
-                                        <!-- SBGrid를 호출합니다. -->
-                                        <div id="SBGridArea2" style="height:150px;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            </li>
-                    </div>
-                </div>
-                <div class="sbt-con-wrap">
-                    <div class="sbt-grid-wrap"> 
-                        <div class="sbt-wrap-header">
-                            <span>icon</span>
-                            <h3>품목명<span id="select_text"></span></h3>
-                        </div>
-                        <li style="display:inline-block;float:left;width: 33%;vertical-align:top;">
-                            <div class="sbt-wrap-body">
-                                <div>
-                                    <span>품종등록</span>
-                                    <sbux-button id="btn_add_1" name="btn_add_1" uitype="normal" text="추가"
-                                        button-size="small"
-                                        onclick="fn_procRow2('ADD', 'grid_1')"
-                                        disabled
-                                    ></sbux-button>
-                                </div>
-                                <div class="sbt-grid">
-                                    <div id="SBGridArea_1" style="height:150px;"></div>
-                                </div>
-                            </div>
-                        </li>
-                        <li style="display:inline-block;width: 33.3%;vertical-align:top;">
-                            <div class="sbt-wrap-body">
-                                <div>
-                                    <span>등급등록</span>
-                                    <sbux-button id="btn_add_2" name="btn_add_2" uitype="normal" text="추가"
-                                        button-size="small"
-                                        onclick="fn_procRow2('ADD', 'grid_2')"
-                                        disabled
-                                    ></sbux-button>
-                                </div>
-                                <div class="sbt-grid">
-                                    <div id="SBGridArea_2" style="height:150px;"></div>
-                                </div>
-                            </div>
-                        </li>
-                        <li style="display:inline-block;float:right;width: 33.3%;vertical-align:top;">
-                            <div class="sbt-wrap-body">
-                                <div>
-                                    <span>규격등록</span>
-                                    <sbux-button id="btn_add_3" name="btn_add_3" uitype="normal" text="추가"
-                                        button-size="small"
-                                        onclick="fn_procRow2('ADD', 'grid_3')"
-                                        disabled
-                                    ></sbux-button>
-                                </div>
-                                <div class="sbt-grid">
-                                    <div id="SBGridArea_3" style="height:150px;"></div>
-                                </div>
-                            </div>
-                        </li>
-                    </div>
-            </div>
-        </div>
-    </div>
-
-
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     //SBUx topmenu 컴포넌트의 json 데이터
@@ -252,12 +65,6 @@
 	
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-    	document.querySelector("iframe").addEventListener("load", function(iFrm) {
-    		console.log("iFrm", iFrm);
-    		let iframe_height = iFrm.contentWindow.document.body.scrollHeight + 17;
-    		iFrm.style.height = iframe_height;
-    	});
-    	
     });
     
     const fn_selectTopMenu = (_id) => {
@@ -584,10 +391,7 @@
         document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = data.text;
         */
     }
-    
 
-    
-    
     /**
      * Set LEFT MENU
      * menuNo 값으로 (비동기식으로)서버로 부터 데이터를 요청
@@ -641,13 +445,11 @@
     }
     */
 
-	// ifrmae 높이 자동 설정
-  	function fn_resizeFrame(that){
-		iframe_height = that.contentWindow.document.body.scrollHeight + 17;
-		that.style.height = iframe_height;
-		//$(that).height(iframe_height);
-	}
-    
+    //ifrmae 높이 자동 설정
+    function fn_resizeFrame(that){
+        iframe_height = that.contentWindow.document.body.scrollHeight + 17;
+        $(that).height(iframe_height);
+    }    
 
     //메뉴탭을 모두 닫으면 업무 영역 숨김 처리
     function fn_chkTabList() {
@@ -898,5 +700,189 @@
 </script>
 <!-- //inline scripts related to this page -->
 
+    <div class="sbt-A-wrap">    
+        <!-- header (menu) -->
+        <div class="sbt-all-header">
+            <sbux-menu id="idxTop_json" name="top_menu" uitype="normal"
+                jsondata-ref="menuJson"
+                is-fixed="false"
+                wrap-style="width:100%"
+                storage-data="object"
+                onclick="fn_selectTopMenu('top_menu')">
+                <brand-item text="APC정보지원" image-src="/resource/images/header_logo.png">
+                </brand-item>
+            </sbux-menu>
+        </div>
+        <div class="main">
+            <!--left (sidemenu) -->
+            <div class="left">
+                <div class="sbt-all-left">
+                    <sbux-sidemenu id="idxSide_menu" name="side_menu" uitype="normal"
+                        jsondata-ref="sideJsonData"
+                        show-filter-box="true"
+                        show-slide-button="true"
+                        menu-title="메뉴"
+                        storage-data="object"
+                        onclick="fn_selectMenu('LEFT', 'side_menu')"
+                    ></sbux-sidemenu>
+                </div>
+            </div>
+            <!--main content-->
+            <div class="content">
+                <sbux-breadcrumb id="breadcrumb" name="breadcrumb" uitype="text" jsondata-ref="menuJsonB">
+                </sbux-breadcrumb>
+                <!--full content-->
+                <div class="sbt-wrap-full">
+                    <!--탭 입력 영역-->
+                    <div class="sbt-input-tab">
+                        <!--탭 영역-->
+                        <sbux-tabs id="tab_menu" name="tab_menu" uitype="normal"
+                            jsondata-ref="tabJsonData"
+                            storage-data="text"
+                            onclick="fn_setMenuInfo(tab_menu)"
+                            callback-after-close="fn_chkTabList"
+                        ></sbux-tabs>
+                        <div class="tab-content">
+                            <iframe id="idxfrmJson" name="frmJson" onload="fn_resizeFrame(this);"
+                                style="overflow-x:hidden;overflow:auto;width:100%;min-height:650px;border:0px;"
+                            ></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+        </div>
+    </div>
+    <!-- Modal -->
+    <div>
+        <sbux-modal id="jsModal" name="jsModal" uitype="middle"
+            header-title="Modal TITLE"
+            body-html-id="modalBody"
+            footer-is-close-button="false"
+            style="width:1000px"
+        ></sbux-modal>
+    </div>
+    <div id="modalBody">
+        <div class="main">
+            <!--main content-->
+            <div class="content">
+                <!--full content-->
+                <div class="sbt-wrap-full">
+                    <!--Button 영역-->
+                    <div class="sbt-search-button" style="text-align:right;">
+                        <sbux-button id="btn_search" name="btn_search" uitype="normal" text="조회" wrap-class="sbt-btn-search"
+                            onclick="fn_search"
+                        ></sbux-button>
+                        <sbux-button id="btn_save" name="btn_save" uitype="normal" text="등록" wrap-class="sbt-btn-reset"
+                            onclick="fn_save"
+                        ></sbux-button>
+                        <sbux-button id="btn_close" name="btn_close" uitype="normal" text="종료" wrap-class="sbt-btn-reset"
+                            onclick="fn_close"
+                        ></sbux-button>
+                    </div>
+                    <!--조회 영역-->
+			        <div class="sbt-con-wrap">
+                        <form id="frm" name="frm" method="post"></form>
+				        <div class="sbt-search-wrap"> 
+                            <div class="sbt-wrap-body-con">
+                                <div class="sbt-wrap-body">
+                                    <div class="sbt-search-row">
+                                        <!--col -->
+                                        <div class="sbt-search-col popup-search-col">
+                                            <div class="sbt-col-left">
+                                                <sbux-label id="srchLabel_1" name="label_norm" uitype="normal" text="품목명" wrap-class="sbt-label"></sbux-label>
+                                            </div>
+                                            <div class="sbt-col-right">
+                                                <sbux-input id="srchKeyword" name="srchKeyword" uitype="text"
+                                                    style="width:200px"
+                                                ></sbux-input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    <!--SBGrid 영역-->
+                    <div class="sbt-con-wrap">
+                        <li style="display:inline-block;width: 39.5%;vertical-align:top;">
+                        <div class="sbt-grid-wrap">
+                            <div class="sbt-wrap-body">
+                                <div class="sbt-grid">
+                                    <!-- SBGrid를 호출합니다. -->
+                                    <div id="SBGridArea" style="height:150px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        </li>
+                        <li style="display:inline-block;float:right;width: 59.5%;vertical-align:top;">
+                            <div class="sbt-grid-wrap"> 
+                                <div class="sbt-wrap-body">
+                                    <div class="sbt-grid">
+                                        <!-- SBGrid를 호출합니다. -->
+                                        <div id="SBGridArea2" style="height:150px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            </li>
+                    </div>
+                </div>
+                <div class="sbt-con-wrap">
+                    <div class="sbt-grid-wrap"> 
+                        <div class="sbt-wrap-header">
+                            <span>icon</span>
+                            <h3>품목명<span id="select_text"></span></h3>
+                        </div>
+                        <li style="display:inline-block;float:left;width: 33%;vertical-align:top;">
+                            <div class="sbt-wrap-body">
+                                <div>
+                                    <span>품종등록</span>
+                                    <sbux-button id="btn_add_1" name="btn_add_1" uitype="normal" text="추가"
+                                        button-size="small"
+                                        onclick="fn_procRow2('ADD', 'grid_1')"
+                                        disabled
+                                    ></sbux-button>
+                                </div>
+                                <div class="sbt-grid">
+                                    <div id="SBGridArea_1" style="height:150px;"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li style="display:inline-block;width: 33.3%;vertical-align:top;">
+                            <div class="sbt-wrap-body">
+                                <div>
+                                    <span>등급등록</span>
+                                    <sbux-button id="btn_add_2" name="btn_add_2" uitype="normal" text="추가"
+                                        button-size="small"
+                                        onclick="fn_procRow2('ADD', 'grid_2')"
+                                        disabled
+                                    ></sbux-button>
+                                </div>
+                                <div class="sbt-grid">
+                                    <div id="SBGridArea_2" style="height:150px;"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li style="display:inline-block;float:right;width: 33.3%;vertical-align:top;">
+                            <div class="sbt-wrap-body">
+                                <div>
+                                    <span>규격등록</span>
+                                    <sbux-button id="btn_add_3" name="btn_add_3" uitype="normal" text="추가"
+                                        button-size="small"
+                                        onclick="fn_procRow2('ADD', 'grid_3')"
+                                        disabled
+                                    ></sbux-button>
+                                </div>
+                                <div class="sbt-grid">
+                                    <div id="SBGridArea_3" style="height:150px;"></div>
+                                </div>
+                            </div>
+                        </li>
+                    </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

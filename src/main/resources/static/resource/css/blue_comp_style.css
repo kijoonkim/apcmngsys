@@ -298,7 +298,10 @@ nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-bd-wrap {
   width: auto;
   /*height:auto;*/
   overflow: visible;
-  margin-left: 145px;
+  /* logo이미지 width 계산하여 적용함
+   * margin-left: 145px;
+   */
+  margin-left: 198px;
   padding-bottom: 0;
 }
 nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul {
@@ -345,7 +348,7 @@ nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul > li a.s
   height: 6px;
   margin-left: -4px;
   margin-right: -3px;
-  background: url(images/sbicons-navbar-item.png) no-repeat -45px -46px;
+  background: url(../sbux/assets/css/default/images/sbicons-navbar-item.png) no-repeat -45px -46px;
   border: 0;
 }
 nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul > li a.sbux-meu-top-item-tgl span.sbux-meu-top-item-txt-wrap {
@@ -459,7 +462,7 @@ nav.sbux-meu-fixed-bottom {
   bottom: 0;
 }
 nav.sbux-meu-fixed-bottom .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul > li a.sbux-meu-top-item-tgl span.sbux-meu-top-item-caret {
-  background: url(images/sbicons-navbar-item.png) no-repeat -45px -63px;
+  background: url(../sbux/assets/css/default/images/sbicons-navbar-item.png) no-repeat -45px -63px;
 }
 nav.sbux-meu-fixed-top {
   top: 0;
@@ -560,7 +563,7 @@ nav.sbux-meu-fixed-bottom .sbux-meu-sub-layer {
   top: -7px;
   height: 14px;
   padding: 0 0 0 5px;
-  background: url(images/dot.png) -12px 6px no-rfaepeat;
+  background: url(../sbux/assets/css/default/images/dot.png) -12px 6px no-rfaepeat;
   line-height: 0px;
 }
 .sbux-meu-sub-layer ul.sbux-meu-all-bd-ul li.sbux-meu-all-top-item-wrap > ul.sbux-meu-all-sub-wrap > li ul li:after {
@@ -631,7 +634,7 @@ nav.sbux-meu-fixed-bottom .sbux-meu-sub-layer {
   top: -7px;
   height: 14px;
   padding: 0 0 0 5px;
-  background: url(images/dot.png) -12px 6px no-repeat;
+  background: url(../sbux/assets/css/default/images/dot.png) -12px 6px no-repeat;
   line-height: 0px;
 }
 .sbux-meu-sub-layer ul.sbux-meu-suball-bd-ul > li ul.sbux-meu-suball-sub-wrap li ul li:after {
@@ -1768,7 +1771,7 @@ body > form .sbux-nor-input {
   display: inline-block;
   width: 5px;
   height: 9px;
-  background: url(images/bre/sbux-bre-menu-arrow.png) no-repeat;
+  background: url(../sbux/assets/css/default/images/bre/sbux-bre-menu-arrow.png) no-repeat;
   content: "";
 }
 .sbux-bre-wrap > ul.sbux-bre-item-wrap li.sbux-bre-item .sbux-bre-ddl ul.sbux-bre-ddl-menu li a.sbux-bre-link span.sbux-bre-ellipsis {
@@ -1795,7 +1798,7 @@ body > form .sbux-nor-input {
   display: inline-block;
   width: 5px;
   height: 9px;
-  background: url(images/bre/sbux-bre-menu-arrow-hover.png) no-repeat;
+  background: url(../sbux/assets/css/default/images/bre/sbux-bre-menu-arrow-hover.png) no-repeat;
   content: "";
 }
 .sbux-bre-wrap > ul.sbux-bre-item-wrap li.sbux-bre-item .sbux-bre-ddl ul.sbux-bre-ddl-menu li.active a {
@@ -6197,7 +6200,7 @@ table.sbux-pik-pop-day thead th .sbux-pik-sel-wrap .sbux-pik-sel {
   min-width: auto !important;
   height: 20px !important;
   padding: 0 17px 0 5px;
-  background: url(images/sbicons-selectbox.png) no-repeat center right 2px #fff;
+  background: url(../sbux/assets/css/default/images/sbicons-selectbox.png) no-repeat center right 2px #fff;
   border: none !important;
   border-radius: 5px;
   box-sizing: border-box;
@@ -6514,7 +6517,7 @@ table.sbux-pik-pop-month thead th .sbux-pik-sel-wrap .sbux-pik-sel {
   min-width: auto !important;
   height: 20px !important;
   padding: 0 17px 0 5px;
-  background: url(images/sbicons-selectbox.png) no-repeat center right 2px #fff;
+  background: url(../sbux/assets/css/default/images/sbicons-selectbox.png) no-repeat center right 2px #fff;
   border: none !important;
   border-radius: 5px;
   box-sizing: border-box;
@@ -6715,7 +6718,7 @@ table.sbux-pik-pop-year thead th .sbux-pik-sel-wrap .sbux-pik-sel {
   min-width: auto !important;
   height: 20px !important;
   padding: 0 17px 0 5px;
-  background: url(images/sbicons-selectbox.png) no-repeat center right 2px #fff;
+  background: url(../sbux/assets/css/default/images/sbicons-selectbox.png) no-repeat center right 2px #fff;
   border: none !important;
   border-radius: 5px;
   box-sizing: border-box;
@@ -9182,7 +9185,7 @@ span.sbux-chk-wrap label .sbux-chk-box {
   vertical-align: middle;
   border-radius: 3px;
   background: #fff;
-  /*background:url(images/sbicons-check.png) no-repeat 0 0*/
+  /*background:url(../sbux/assets/css/default/images/sbicons-check.png) no-repeat 0 0*/
   border: 1px solid #bbc4d1;
   border-radius: 2px;
   box-sizing: border-box;
@@ -9200,7 +9203,7 @@ span.sbux-chk-wrap label .sbux-chk-box-readonly {
   border: 1px solid #d9d9d9;
   border-radius: 3px;
   box-sizing: border-box;
-  /*background: url(images/sbicons-check.png) no-repeat -40px 0;*/
+  /*background: url(../sbux/assets/css/default/images/sbicons-check.png) no-repeat -40px 0;*/
 }
 span.sbux-chk-wrap label.disabled,
 span.sbux-chk-wrap label.readonly,
@@ -9253,7 +9256,7 @@ span.sbux-chk-wrap label .sbux-chk-txt {
   position: relative;
   padding: 6px 20px 6px 12px;
   min-width: 100px;
-  background: url(images/sbicons-selectbox.png) no-repeat 95% 50% #fff;
+  background: url(../sbux/assets/css/default/images/sbicons-selectbox.png) no-repeat 95% 50% #fff;
   border: 1px solid #bbc4d1;
   border-radius: 5px;
   box-sizing: border-box;
@@ -9265,14 +9268,14 @@ span.sbux-chk-wrap label .sbux-chk-txt {
 .sbux-sel option:checked,
 .sbux-sel option:active {
   color: #fff;
-  background: url(images/selectbox-focusbg.png) repeat #fff;
+  background: url(../sbux/assets/css/default/images/selectbox-focusbg.png) repeat #fff;
 }
 .sbux-sel[disabled],
 .sbux-sel.disabled {
   cursor: default;
   pointer-events: none;
   opacity: 1;
-  background: url(images/sbicons-selectbox-disabled.png) no-repeat 95% 50% #efefef;
+  background: url(../sbux/assets/css/default/images/sbicons-selectbox-disabled.png) no-repeat 95% 50% #efefef;
   border-color: #d9d9d9;
 }
 .sbux-sel[readonly],
@@ -9280,7 +9283,7 @@ span.sbux-chk-wrap label .sbux-chk-txt {
   cursor: default;
   pointer-events: none;
   opacity: 1;
-  background: url(images/sbicons-selectbox-disabled.png) no-repeat 95% 50% #efefef;
+  background: url(../sbux/assets/css/default/images/sbicons-selectbox-disabled.png) no-repeat 95% 50% #efefef;
   border-color: #d9d9d9;
 }
 .sbux-sel.sbux-sel-focus {
@@ -9307,7 +9310,7 @@ a.sbux-sel {
 a.sbux-sel[disabled],
 a.sbux-sel.disabled {
   cursor: default;
-  background: url(images/sbicons-selectbox-disabled.png) no-repeat 95% 50% #efefef;
+  background: url(../sbux/assets/css/default/images/sbicons-selectbox-disabled.png) no-repeat 95% 50% #efefef;
 }
 a.sbux-sel[readonly],
 a.sbux-sel.readonly {
@@ -9320,7 +9323,7 @@ a.sbux-sel span.sbux-sel-chk-btn-txt {
 .sbux-sel option:checked,
 .sbux-sel option:active {
   color: #fff !important;
-  background: url(images/selectbox-focusbg.png) repeat #414559;
+  background: url(../sbux/assets/css/default/images/selectbox-focusbg.png) repeat #414559;
 }
 .sbux-sel-chk {
   /*position:absolute;*/
@@ -10178,14 +10181,14 @@ fieldset.readonly .sbux-lbl-expr {
   color: #eee;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   /*border:1px solid #d8d8d8;*/
-  /*background: url(images/ie-spacer.gif);*/
+  /*background: url(../sbux/assets/css/default/images/ie-spacer.gif);*/
 }
 .sbux-ale-dark .sbux-ale-top {
   height: 10px;
-  /*background: url(images/sbuxalert.png) no-repeat left -30px;*/
+  /*background: url(../sbux/assets/css/default/images/sbuxalert.png) no-repeat left -30px;*/
 }
 .sbux-ale-dark .sbux-ale-item {
-  /*background: url(images/sbuxalert.png) no-repeat left -40px;*/
+  /*background: url(../sbux/assets/css/default/images/sbuxalert.png) no-repeat left -40px;*/
   padding: 2px 11px 8px 11px;
   font-size: 12px;
 }
@@ -10247,7 +10250,7 @@ fieldset.readonly .sbux-lbl-expr {
   font-weight: bold;
 }
 .sbux-ale-dark .sbux-ale-bottom {
-  /*background: url(images/sbuxalert.png) no-repeat left bottom;*/
+  /*background: url(../sbux/assets/css/default/images/sbuxalert.png) no-repeat left bottom;*/
   height: 8px;
   margin: 0;
 }
@@ -10318,17 +10321,17 @@ fieldset.readonly .sbux-lbl-expr {
   margin: 0 0 10px 0;
   background: #ffffff;
   border-radius: 10px;
-  /*background: url(images/ie-spacer.gif);*/
+  /*background: url(../sbux/assets/css/default/images/ie-spacer.gif);*/
   color: #222;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   border: 1px solid #d8d8d8;
 }
 .sbux-ale-light .sbux-ale-top {
   height: 10px;
-  /*background: url(images/sbuxalert-light.png) no-repeat left -30px;*/
+  /*background: url(../sbux/assets/css/default/images/sbuxalert-light.png) no-repeat left -30px;*/
 }
 .sbux-ale-light .sbux-ale-item {
-  /*background: url(images/sbuxalert-light.png) no-repeat left -40px;*/
+  /*background: url(../sbux/assets/css/default/images/sbuxalert-light.png) no-repeat left -40px;*/
   padding: 2px 11px 8px 11px;
   font-size: 12px;
 }
@@ -10392,7 +10395,7 @@ fieldset.readonly .sbux-lbl-expr {
 .sbux-ale-light .sbux-ale-bottom {
   height: 8px;
   margin: 0;
-  /*background: url(images/sbuxalert-light.png) no-repeat left bottom;*/
+  /*background: url(../sbux/assets/css/default/images/sbuxalert-light.png) no-repeat left bottom;*/
 }
 .sbux-ale-light.hover .sbux-ale-close {
   position: absolute;
@@ -10571,7 +10574,7 @@ fieldset.readonly .sbux-lbl-expr {
   display: block;
   width: 10px;
   height: 10px;
-  background: url(images/ico_close2.png) 0px 0px no-repeat;
+  background: url(../sbux/assets/css/default/images/ico_close.png) 0px 0px no-repeat;
 }
 .sbux-tabs-wrap > ul.sbux-tabs-nor-bd li.sbux-tabs-item > a:hover,
 .sbux-tabs-wrap ul.sbux-tabs-inbox-bd li.sbux-tabs-item > a:hover {
@@ -10605,7 +10608,7 @@ fieldset.readonly .sbux-lbl-expr {
 }
 .sbux-tabs-wrap > ul.sbux-tabs-nor-bd li.sbux-tabs-item.active .sbux-tabs-close-btn,
 .sbux-tabs-wrap ul.sbux-tabs-inbox-bd li.sbux-tabs-item.active .sbux-tabs-close-btn {
-  background: url(images/ico_close.png) 0px 0px no-repeat;
+  background: url(../sbux/assets/css/default/images/ico_close2.png) 0px 0px no-repeat;
 }
 .sbux-tabs-wrap > ul.sbux-tabs-nor-bd li.sbux-tabs-item:hover.active > a,
 .sbux-tabs-wrap ul.sbux-tabs-inbox-bd li.sbux-tabs-item:hover.active > a {
@@ -10686,7 +10689,7 @@ fieldset.readonly .sbux-lbl-expr {
   display: block;
   width: 10px;
   height: 10px;
-  background: url(images/ico_close.png) 0px 0px no-repeat;
+  background: url(../sbux/assets/css/default/images/ico_close.png) 0px 0px no-repeat;
 }
 .sbux-tabs-wrap > ul.sbux-tabs-nor-bd li.sbux-tabs-item.sbux-cancel-drag,
 .sbux-tabs-wrap ul.sbux-tabs-inbox-bd li.sbux-tabs-item.sbux-cancel-drag {
@@ -11103,7 +11106,7 @@ fieldset.readonly .sbux-lbl-expr {
   display: block;
   width: 10px;
   height: 10px;
-  background: url(images/ico_close2.png) 0px 0px no-repeat;
+  background: url(../sbux/assets/css/default/images/ico_close2.png) 0px 0px no-repeat;
 }
 .sbux-tabs-wrap.sbux-tabs-webacc ul.sbux-tabs-nor-bd > li.sbux-tabs-item > a:hover,
 .sbux-tabs-wrap.sbux-tabs-webacc ul.sbux-tabs-inbox-bd > li.sbux-tabs-item > a:hover {
@@ -11141,7 +11144,7 @@ fieldset.readonly .sbux-lbl-expr {
   display: block;
   width: 10px;
   height: 10px;
-  background: url(images/ico_close.png) 0px 0px no-repeat;
+  background: url(../sbux/assets/css/default/images/ico_close.png) 0px 0px no-repeat;
 }
 .sbux-tabs-wrap.sbux-tabs-webacc ul.sbux-tabs-nor-bd > li.sbux-tabs-item.sbux-tabs-item-disabled,
 .sbux-tabs-wrap.sbux-tabs-webacc ul.sbux-tabs-inbox-bd > li.sbux-tabs-item.sbux-tabs-item-disabled {
@@ -12253,7 +12256,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 18px;
   height: 18px;
   background: #c9d0e0;
-  background: transparent url(images/windows/min.png) center no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/windows/min.png) center no-repeat;
 }
 .sbux-win-container .sbux-win-titlebar .sbux-win-maximize-btn {
   position: absolute;
@@ -12263,7 +12266,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 18px;
   height: 18px;
   background: #c9d0e0;
-  background: transparent url(images/windows/max.png) center no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/windows/max.png) center no-repeat;
 }
 .sbux-win-container .sbux-win-titlebar .sbux-win-close-btn {
   position: absolute;
@@ -12274,7 +12277,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   height: 18px;
   background: #c9d0e0;
   border-radius: 50%;
-  background: transparent url(images/windows/close.png) center no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/windows/close.png) center no-repeat;
 }
 .sbux-win-container .sbux-win-titlebar .sbux-win-multi-btn {
   position: absolute;
@@ -12285,7 +12288,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   height: 18px;
   background: #c9d0e0;
   border-radius: 50%;
-  background: transparent url(images/windows/multi.png) center no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/windows/multi.png) center no-repeat;
 }
 .sbux-win-container .sbux-win-titlebar .sbux-win-vsplit-btn {
   position: absolute;
@@ -12295,7 +12298,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 18px;
   height: 18px;
   background: #c9d0e0;
-  background: transparent url(images/windows/vsplit.png) center no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/windows/vsplit.png) center no-repeat;
 }
 .sbux-win-container .sbux-win-titlebar .sbux-win-stepsplit-btn {
   position: absolute;
@@ -12305,7 +12308,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 18px;
   height: 18px;
   background: #c9d0e0;
-  background: transparent url(images/windows/stepsplit.png) center no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/windows/stepsplit.png) center no-repeat;
 }
 .sbux-win-container .sbux-win-titlebar .sbux-win-hsplit-btn {
   position: absolute;
@@ -12315,7 +12318,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 18px;
   height: 18px;
   background: #c9d0e0;
-  background: transparent url(images/windows/hsplit.png) center no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/windows/hsplit.png) center no-repeat;
 }
 .sbux-win-container .sbux-win-titlebar .sbux-win-vsplit-active {
   position: absolute;
@@ -12325,7 +12328,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 18px;
   height: 18px;
   background: #c9d0e0;
-  background: transparent url(images/windows/vsplit-active.png) center no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/windows/vsplit-active.png) center no-repeat;
 }
 .sbux-win-container .sbux-win-titlebar .sbux-win-stepsplit-active {
   position: absolute;
@@ -12335,7 +12338,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 18px;
   height: 18px;
   background: #c9d0e0;
-  background: transparent url(images/windows/stepsplit-active.png) center no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/windows/stepsplit-active.png) center no-repeat;
 }
 .sbux-win-container .sbux-win-titlebar .sbux-win-hsplit-active {
   position: absolute;
@@ -12345,7 +12348,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 18px;
   height: 18px;
   background: #c9d0e0;
-  background: transparent url(images/windows/hsplit-active.png) center no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/windows/hsplit-active.png) center no-repeat;
 }
 .sbux-win-container .sbux-win-titlebar .sbux-win-hidden {
   visibility: hidden;
@@ -12366,7 +12369,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
 .sbux-win-container .sbux-win-statusbar {
   position: relative;
   height: 19px;
-  background: transparent url(images/windows/bottom_mid.gif) repeat-x;
+  background: transparent url(../sbux/assets/css/default/images/windows/bottom_mid.gif) repeat-x;
   border-left: 1px solid #c9d0e0;
   overflow: hidden;
   box-sizing: border-box;
@@ -12378,7 +12381,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   cursor: se-resize;
   width: 9px;
   height: 19px;
-  background: transparent url(images/windows/sizer.gif) no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/windows/sizer.gif) no-repeat;
 }
 .sbux-win-container .sbux-win-statusbar .sbux-win-resizeicon-left {
   position: absolute;
@@ -12387,7 +12390,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   cursor: ne-resize;
   width: 9px;
   height: 19px;
-  background: transparent url(images/windows/sizer-left.gif) no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/windows/sizer-left.gif) no-repeat;
 }
 .sbux-win-backdrop {
   position: fixed;
@@ -12880,7 +12883,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/doc.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/doc.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-hwp {
@@ -12888,7 +12891,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/hwp.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/hwp.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-jpg {
@@ -12896,7 +12899,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/jpgico.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/jpgico.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-loading {
@@ -12904,7 +12907,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/loading.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/loading.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-pdf {
@@ -12912,7 +12915,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/pdf.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/pdf.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-ppt {
@@ -12920,7 +12923,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/ppt.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/ppt.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-txt {
@@ -12928,7 +12931,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/txt.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/txt.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-unknown {
@@ -12936,7 +12939,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/unknown.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/unknown.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-xls {
@@ -12944,7 +12947,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/xls.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/xls.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-zip {
@@ -12952,7 +12955,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/zip.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/zip.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-wvx {
@@ -12960,7 +12963,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/wvx.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/wvx.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-wmx {
@@ -12968,7 +12971,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/wmx.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/wmx.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-wmv {
@@ -12976,7 +12979,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/wmv.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/wmv.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-wmp {
@@ -12984,7 +12987,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/wmp.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/wmp.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-wma {
@@ -12992,7 +12995,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/wma.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/wma.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-wax {
@@ -13000,7 +13003,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/wax.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/wax.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-wav {
@@ -13008,7 +13011,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/wav.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/wav.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-vm {
@@ -13016,7 +13019,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/vm.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/vm.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-tiff {
@@ -13024,7 +13027,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/tiff.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/tiff.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-tif {
@@ -13032,7 +13035,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/tif.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/tif.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-swf {
@@ -13040,7 +13043,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/swf.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/swf.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-sound {
@@ -13048,7 +13051,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/sound.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/sound.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-snd {
@@ -13056,7 +13059,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/snd.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/snd.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-rmi {
@@ -13064,7 +13067,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/rmi.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/rmi.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-psd {
@@ -13072,7 +13075,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/psd.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/psd.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-png {
@@ -13080,7 +13083,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/png.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/png.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-mpv2 {
@@ -13088,7 +13091,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/mpv2.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/mpv2.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-mpg {
@@ -13096,7 +13099,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/mpg.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/mpg.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-mpeg {
@@ -13104,7 +13107,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/mpeg.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/mpeg.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-mpe {
@@ -13112,7 +13115,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/mpe.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/mpe.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-mpa {
@@ -13120,7 +13123,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/mpa.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/mpa.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-mp3 {
@@ -13128,7 +13131,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/mp3.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/mp3.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-mp2v {
@@ -13136,7 +13139,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/mp2v.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/mp2v.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-mp2 {
@@ -13144,7 +13147,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/mp2.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/mp2.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-midi {
@@ -13152,7 +13155,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/midi.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/midi.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-log {
@@ -13160,7 +13163,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/log.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/log.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-js {
@@ -13168,7 +13171,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/js.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/js.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-jar {
@@ -13176,7 +13179,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/jar.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/jar.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-html {
@@ -13184,7 +13187,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/html.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/html.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-hlp {
@@ -13192,7 +13195,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/hlp.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/hlp.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-gif {
@@ -13200,7 +13203,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/gifico.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/gifico.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-folder {
@@ -13208,7 +13211,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/folder.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/folder.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-fla {
@@ -13216,7 +13219,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/fla.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/fla.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-file {
@@ -13224,7 +13227,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/file.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/file.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-exe {
@@ -13232,7 +13235,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/exe.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/exe.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-dll {
@@ -13240,7 +13243,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/dll.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/dll.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-dat {
@@ -13248,7 +13251,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/dat.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/dat.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-chm {
@@ -13256,7 +13259,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/chm.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/chm.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-bmp {
@@ -13264,7 +13267,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/bmp.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/bmp.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-bat {
@@ -13272,7 +13275,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/bat.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/bat.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-avi {
@@ -13280,7 +13283,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/avi.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/avi.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-au {
@@ -13288,7 +13291,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/au.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/au.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-pptx {
@@ -13296,7 +13299,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/pptx.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/pptx.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-asa {
@@ -13304,7 +13307,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/asa.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/asa.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-asax {
@@ -13312,7 +13315,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/asax.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/asax.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-ascx {
@@ -13320,7 +13323,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/ascx.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/ascx.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-asmx {
@@ -13328,7 +13331,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/asmx.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/asmx.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-com {
@@ -13336,7 +13339,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/com.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/com.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-config {
@@ -13344,7 +13347,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/config.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/config.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-cs {
@@ -13352,7 +13355,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/cs.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/cs.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-css {
@@ -13360,7 +13363,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/css.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/css.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-disco {
@@ -13368,7 +13371,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/disco.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/disco.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-inc {
@@ -13376,7 +13379,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/inc.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/inc.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-mdb {
@@ -13384,7 +13387,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/mdb.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/mdb.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-mid {
@@ -13392,7 +13395,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/mid.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/mid.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-mov {
@@ -13400,7 +13403,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/mov.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/mov.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-move {
@@ -13408,7 +13411,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/moveico.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/moveico.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-vb {
@@ -13416,7 +13419,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/vb.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/vb.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-vbs {
@@ -13424,7 +13427,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/vbs.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/vbs.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-vsdisco {
@@ -13432,7 +13435,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/vsdisco.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/vsdisco.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-wri {
@@ -13440,7 +13443,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/wri.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/wri.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-arj {
@@ -13448,7 +13451,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/arj.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/arj.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-cab {
@@ -13456,7 +13459,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/cab.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/cab.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-ini {
@@ -13464,7 +13467,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/ini.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/ini.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-sys {
@@ -13472,7 +13475,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/sys.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/sys.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-rar {
@@ -13480,7 +13483,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/rar.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/rar.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-docx {
@@ -13488,7 +13491,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/docx.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/docx.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap .sbux-upl-ico-xlsx {
@@ -13496,7 +13499,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   width: 16px;
   height: 16px;
   padding: 0 1px;
-  background: url(../images/xlsx.gif) no-repeat;
+  background: url(../../sbux/assets/css/default/images/xlsx.gif) no-repeat;
   vertical-align: top;
 }
 .sbux-upl-wrap .sbux-upl-con-wrap .sbux-upl-main li div.sbux-upl-file-wrap > span {
@@ -14186,7 +14189,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
 }
 .sbux-edt .sbux-edt-cont {
   border: 1px solid #3C769D;
-  /* background:#FFF url(images/editor/bg-container.png) repeat-x top left; */
+  /* background:#FFF url(../sbux/assets/css/default/images/editor/bg-container.png) repeat-x top left; */
   padding: 5px 5px 2px 5px;
   font: 12px Verdana, Arial, Helvetica, sans-serif;
 }
@@ -14209,7 +14212,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   display: block;
 }
 .sbux-edt .sbux-edt-cont .sbux-edt-header ul .sbux-edt-ddl {
-  background: transparent url(images/editor/menu.png) no-repeat 115% 50%;
+  background: transparent url(../sbux/assets/css/default/images/editor/menu.png) no-repeat 115% 50%;
   margin-right: 5px;
 }
 .sbux-edt .sbux-edt-cont .sbux-edt-header ul .sbux-edt-ddl li {
@@ -14241,7 +14244,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   border-bottom: 1px solid #3C769D;
 }
 .sbux-edt .sbux-edt-cont .sbux-edt-header ul ul .sbux-edt-ddl {
-  background: #F5F5F5 url(images/editor/submenu.png) no-repeat 100% 50%;
+  background: #F5F5F5 url(../sbux/assets/css/default/images/editor/submenu.png) no-repeat 100% 50%;
 }
 .sbux-edt .sbux-edt-cont .sbux-edt-header ul ul ul {
   position: absolute;
@@ -14276,7 +14279,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   font: 12px 'Malgun Gothic', Arial, sans-serif;
   padding: 8px;
   border: 1px solid #3C769D;
-  /* background:#FFF url(images/editor/bg-editor.png) no-repeat;*/
+  /* background:#FFF url(../sbux/assets/css/default/images/editor/bg-editor.png) no-repeat;*/
   clear: both;
   line-height: 18px;
   overflow: auto;
@@ -14297,7 +14300,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   height: 5px;
   margin-left: auto;
   margin-right: auto;
-  background-image: url(images/editor/handle.png);
+  background-image: url(../sbux/assets/css/default/images/editor/handle.png);
   cursor: n-resize;
 }
 .sbux-edt-prefrm {
@@ -14312,74 +14315,74 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
 }
 /***************************************************************************************/
 .html .sbux-edt-editor {
-  background-image: url(images/editor/bg-editor-html.png);
+  background-image: url(../sbux/assets/css/default/images/editor/bg-editor-html.png);
 }
 .markdown .sbux-edt-editor {
-  background-image: url(images/editor/bg-editor-markdown.png);
+  background-image: url(../sbux/assets/css/default/images/editor/bg-editor-markdown.png);
 }
 .textile .sbux-edt-editor {
-  background-image: url(images/editor/bg-editor-textile.png);
+  background-image: url(../sbux/assets/css/default/images/editor/bg-editor-textile.png);
 }
 .bbcode .sbux-edt-editor {
-  background-image: url(images/editor/bg-editor-bbcode.png);
+  background-image: url(../sbux/assets/css/default/images/editor/bg-editor-bbcode.png);
 }
 .wiki .sbux-edt-editor,
 .dotclear .sbux-edt-editor {
-  background-image: url(images/editor/bg-editor-wiki.png);
+  background-image: url(../sbux/assets/css/default/images/editor/bg-editor-wiki.png);
 }
 .sbux-edt .sbux-edt-btn a {
   background-size: 16px 16px;
 }
 .sbux-edt .sbux-edt-btn-h1 a {
-  background-image: url(images/editor/h1.png);
+  background-image: url(../sbux/assets/css/default/images/editor/h1.png);
 }
 .sbux-edt .sbux-edt-btn-h2 a {
-  background-image: url(images/editor/h2.png);
+  background-image: url(../sbux/assets/css/default/images/editor/h2.png);
 }
 .sbux-edt .sbux-edt-btn-h3 a {
-  background-image: url(images/editor/h3.png);
+  background-image: url(../sbux/assets/css/default/images/editor/h3.png);
 }
 .sbux-edt .sbux-edt-btn-h4 a {
-  background-image: url(images/editor/h4.png);
+  background-image: url(../sbux/assets/css/default/images/editor/h4.png);
 }
 .sbux-edt .sbux-edt-btn-h5 a {
-  background-image: url(images/editor/h5.png);
+  background-image: url(../sbux/assets/css/default/images/editor/h5.png);
 }
 .sbux-edt .sbux-edt-btn-h6 a {
-  background-image: url(images/editor/h6.png);
+  background-image: url(../sbux/assets/css/default/images/editor/h6.png);
 }
 .sbux-edt .sbux-edt-btn-paragraph a {
-  background-image: url(images/editor/paragraph.png);
+  background-image: url(../sbux/assets/css/default/images/editor/paragraph.png);
 }
 .sbux-edt .sbux-edt-btn-bold a {
-  background-image: url(images/editor/bold.png);
+  background-image: url(../sbux/assets/css/default/images/editor/bold.png);
 }
 .sbux-edt .sbux-edt-btn-underline a {
-  background-image: url(images/editor/underline.png);
+  background-image: url(../sbux/assets/css/default/images/editor/underline.png);
 }
 .sbux-edt .sbux-edt-btn-italic a {
-  background-image: url(images/editor/italic.png);
+  background-image: url(../sbux/assets/css/default/images/editor/italic.png);
 }
 .sbux-edt .sbux-edt-btn-stroke a {
-  background-image: url(images/editor/stroke.png);
+  background-image: url(../sbux/assets/css/default/images/editor/stroke.png);
 }
 .sbux-edt .sbux-edt-btn-list-bullet a {
-  background-image: url(images/editor/list-bullet.png);
+  background-image: url(../sbux/assets/css/default/images/editor/list-bullet.png);
 }
 .sbux-edt .sbux-edt-btn-list-numeric a {
-  background-image: url(images/editor/list-numeric.png);
+  background-image: url(../sbux/assets/css/default/images/editor/list-numeric.png);
 }
 .sbux-edt .sbux-edt-btn-picture a {
-  background-image: url(images/editor/picture.png);
+  background-image: url(../sbux/assets/css/default/images/editor/picture.png);
 }
 .sbux-edt .sbux-edt-btn-link a {
-  background-image: url(images/editor/link.png);
+  background-image: url(../sbux/assets/css/default/images/editor/link.png);
 }
 .sbux-edt .sbux-edt-btn-clean a {
-  background-image: url(images/editor/clean.png);
+  background-image: url(../sbux/assets/css/default/images/editor/clean.png);
 }
 .sbux-edt .sbux-edt-btn-preview a {
-  background-image: url(images/editor/preview.png);
+  background-image: url(../sbux/assets/css/default/images/editor/preview.png);
 }
 /***********************************************************/
 /* tabindex settup */
@@ -14429,7 +14432,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   height: 18px;
   background: #c9d0e0;
   border-radius: 50%;
-  background: transparent url(images/viewer/min.png) center no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/viewer/min.png) center no-repeat;
 }
 .sbux-win-viewer-container .sbux-win-viewer-titlebar .sbux-win-viewer-maximize-btn {
   position: absolute;
@@ -14440,7 +14443,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   height: 18px;
   background: #c9d0e0;
   border-radius: 50%;
-  background: transparent url(images/viewer/max.png) center no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/viewer/max.png) center no-repeat;
 }
 .sbux-win-viewer-container .sbux-win-viewer-titlebar .sbux-win-viewer-close-btn {
   position: absolute;
@@ -14451,7 +14454,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   height: 18px;
   background: #c9d0e0;
   border-radius: 50%;
-  background: transparent url(images/viewer/close.png) center no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/viewer/close.png) center no-repeat;
 }
 .sbux-win-viewer-container .sbux-win-viewer-titlebar .sbux-win-viewer-multi-btn {
   position: absolute;
@@ -14462,7 +14465,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   height: 18px;
   background: #c9d0e0;
   border-radius: 50%;
-  background: transparent url(images/viewer/multi.png) center no-repeat;
+  background: transparent url(../sbux/assets/css/default/images/viewer/multi.png) center no-repeat;
 }
 .sbux-win-viewer-container .sbux-win-viewer-content {
   height: calc(100% - 30px);
@@ -14511,7 +14514,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
 .sbux-viewer-close::before,
 .sbux-viewer-navbar-toggle::before,
 .sbux-viewer-download::before {
-  background-image: url(images/viewer/sbux-viewer-iconset.png);
+  background-image: url(../sbux/assets/css/default/images/viewer/sbux-viewer-iconset.png);
   background-repeat: no-repeat;
   background-size: 420px;
   color: transparent;
@@ -15008,7 +15011,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   display: inline-block;
   width: 20px;
   height: 20px;
-  /*background-image: url("./images/carousel-pau
+  /*background-image: url("./../sbux/assets/css/default/images/carousel-pau
 			seBtn.png"); */
   opacity: 0.5;
   font-size: 30px;
@@ -15023,7 +15026,7 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
   display: none;
   width: 20px;
   height: 20px;
-  /*background-image: url("./images/carousel-playBtn.png"); */
+  /*background-image: url("./../sbux/assets/css/default/images/carousel-playBtn.png"); */
   opacity: 0.5;
   font-size: 30px;
   text-shadow: 1px 1px #000;

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : LoginMapper.xml                                    					-->
+<!-- DESC : login mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.06.13  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.co.sys.mapper.LoginMapper">
+
+	<resultMap type="com.at.apcss.co.sys.vo.LoginVO" id="loginMap">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>
+		<result property="password" column="password"/>
+	</resultMap>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.sys.mapper.LoginMapper.actionLogin                  -->
+	<!-- DESC : 로그인 처리.                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.18  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="actionLogin" parameterType="com.at.apcss.co.sys.vo.LoginVO" resultMap="loginMap">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.sys.mapper.LoginMapper.actionLogin */
+				  CU.USER_ID		AS ID
+				, CU.USER_NM		AS NAME
+				, CU.PSWD			AS PASSWORD
+				, CU.USER_TYPE		AS USER_TYPE
+				, CU.USER_STTS		AS USER_STTS
+				, CU.EML			AS EMAIL
+				, CU.MBL_TELNO		AS MBL_TELNO
+				, CU.CHRGDCERT_YN	AS CHRGDCERT_YN
+				, CU.CHRGDCERT_TYPE	AS CHRGDCERT_TYPE
+				, CU.LGN_FAIL_NMTM	AS LGN_FAIL_NMTM
+				, CU.END_LGN_DT		AS END_LGN_DT
+				, CU.END_LGN_IP		AS END_LGN_IP
+				, CU.DEL_YN			AS DEL_YN
+			  FROM TB_COM_USER CU
+			 WHERE CU.USER_ID = #{id}
+			   AND CU.PSWD = #{password}
+			   AND CU.USER_TYPE = '01'	-- 사용자 상태: 01 사용
+			   AND CU.DEL_YN = 'N'
+    	]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.sys.mapper.LoginMapper.searchId                  	-->
+	<!-- DESC : 아이디 찾기.                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.18  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="searchId" parameterType="com.at.apcss.co.sys.vo.LoginVO" resultMap="loginMap">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.sys.mapper.LoginMapper.searchId */
+				  CU.USER_ID		AS ID
+			  FROM TB_COM_USER CU
+			 WHERE CU.USER_NM = #{name}
+			   AND CU.EML = #{email}
+			   AND CU.USER_TYPE = '01'	-- 사용자 상태: 01 사용
+			   AND CU.DEL_YN = 'N'
+    	]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.sys.mapper.LoginMapper.searchPassword   			-->
+	<!-- DESC : 비밀번호 찾기.                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.18  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="searchPassword" parameterType="com.at.apcss.co.sys.vo.LoginVO" resultMap="loginMap">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.sys.mapper.LoginMapper.searchPassword */
+				  CU.USER_ID		AS ID
+				, CU.PSWD			AS PASSWORD
+			  FROM TB_COM_USER CU
+			 WHERE CU.USER_ID = #{id}
+			   AND CU.EML = #{email}
+			   AND CU.USER_TYPE = '01'	-- 사용자 상태: 01 사용
+			   AND CU.DEL_YN = 'N'
+    	]]>
+    </select>
+
+</mapper>
