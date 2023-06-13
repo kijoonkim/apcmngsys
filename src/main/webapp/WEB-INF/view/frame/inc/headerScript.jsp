@@ -13,6 +13,7 @@
     </script>
     <script src="/resource/sbux/SBUx.js"></script>
     <script src="/resource/script/common.js"></script>
+    
     <!------------------ 컴포넌트 테마 CSS ------------------>     
     <link href="/resource/css/blue_comp_style.css" rel="stylesheet" type="text/css">
     <!------------------ 스타일 테마 CSS ------------------>      

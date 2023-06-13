@@ -28,39 +28,44 @@
     </style>
 </head>
 <body>
-    <div>
-        <h3>
-            <sbux-label id="idxLabel_norm" name="label_norm" uitype="normal" text="Login" style="font-size:20px;"></sbux-label></span>
-        </h3>
-        <form id="frm" name="frm" method="post" action="./main.html">
-            <div>
-                <sbux-input id="userId" name="userId" uitype="text"
-                    required
-                    style="width:200px"
-                    placeholder="아이디"
-                ></sbux-input>
+    <div class="apc-wrap">
+        <div class="apc-login-wrap">
+            <div class="apc-login-box">
+                <h3>
+                    <sbux-label id="idxLabel_norm" name="label_norm" uitype="normal" text="Login"></sbux-label></span>
+                </h3>
+                <form id="frm" name="frm" method="post" action="./main.html">
+                    <div class="apc-id-wrap">
+                        <sbux-input id="userId" name="userId" uitype="text"
+                            required
+                            style="width:100%"
+                            placeholder="아이디"
+                        ></sbux-input>
+                    </div>
+                    <div class="apc-pw-wrap">
+                        <sbux-input id="password" name="password" uitype="password"
+                            required
+                            style="width:100%"
+                            placeholder="비밀번호"
+                        ></sbux-input>
+                    </div>
+                    <div class="apc-chk-wrap">
+                        <sbux-checkbox id="saveUserIdYn" name="saveUserIdYn" uitype="normal"
+                            text="아이디저장"
+                            true-value="Y"
+                            false-value="N" 
+                        ></sbux-checkbox>
+                    </div>
+                    <div class="apc-login-wrap">
+                        <sbux-button id="btn_submit" name="btn_submit" uitype="submit"
+                            text="로그인"
+                            onclick="fn_beforeSubmit"
+                        ></sbux-button>
+                    </div>
+                </form>
             </div>
-            <div>
-                <sbux-input id="password" name="password" uitype="password"
-                    required
-                    style="width:200px"
-                    placeholder="비밀번호"
-                ></sbux-input>
-            </div>
-            <div>
-                <sbux-checkbox id="saveUserIdYn" name="saveUserIdYn" uitype="normal"
-                    text="아이디저장"
-                    true-value="Y"
-                    false-value="N"
-                ></sbux-checkbox>
-            </div>
-            <div>
-                <sbux-button id="btn_submit" name="btn_submit" uitype="submit"
-                    text="로그인"
-                    onclick="fn_beforeSubmit"
-                ></sbux-button>
-            </div>
-        </form>
+        </div>
+
     </div>
     
 <!-- inline scripts related to this page -->
