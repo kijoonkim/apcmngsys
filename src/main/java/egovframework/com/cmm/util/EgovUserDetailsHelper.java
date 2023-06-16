@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
-import egovframework.com.cmm.LoginVO;
+import com.at.apcss.co.sys.vo.LoginVO;
 
 import org.egovframe.rte.fdl.string.EgovObjectUtil;
 
@@ -36,8 +36,8 @@ public class EgovUserDetailsHelper {
 		 * @return Object - 사용자 ValueObject
 		 */
 		public static Object getAuthenticatedUser() {
-			return (LoginVO)RequestContextHolder.currentRequestAttributes().getAttribute("LoginVO", RequestAttributes.SCOPE_SESSION)==null ?
-					new LoginVO() : (LoginVO) RequestContextHolder.currentRequestAttributes().getAttribute("LoginVO", RequestAttributes.SCOPE_SESSION);
+			return (LoginVO)RequestContextHolder.currentRequestAttributes().getAttribute("loginVO", RequestAttributes.SCOPE_SESSION)==null ?
+					new LoginVO() : (LoginVO) RequestContextHolder.currentRequestAttributes().getAttribute("loginVO", RequestAttributes.SCOPE_SESSION);
 
 		}
 
@@ -62,7 +62,7 @@ public class EgovUserDetailsHelper {
 		 * @return Boolean - 인증된 사용자 여부(TRUE / FALSE)
 		 */
 		public static Boolean isAuthenticated() {
-			if (EgovObjectUtil.isNull(RequestContextHolder.currentRequestAttributes().getAttribute("LoginVO", RequestAttributes.SCOPE_SESSION))) {
+			if (EgovObjectUtil.isNull(RequestContextHolder.currentRequestAttributes().getAttribute("loginVO", RequestAttributes.SCOPE_SESSION))) {
 				// log.debug("## authentication object is null!!");
 				return Boolean.FALSE;
 			}

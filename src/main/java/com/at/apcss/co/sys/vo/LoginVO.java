@@ -2,6 +2,9 @@ package com.at.apcss.co.sys.vo;
 
 import java.io.Serializable;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @Class Name : LoginVO.java
  * @Description : Login VO class
@@ -50,6 +53,9 @@ public class LoginVO implements Serializable{
 	/** 디지털원패스 사용자세션값 */
 	private String onepassIntfToken;
 
+	
+	private String userId;
+	private String pswd;
 	private String userType;
 	private String userStts;
 	private String mblTelno;
@@ -312,5 +318,17 @@ public class LoginVO implements Serializable{
 	}
 	public void setEndLgnIp(String endLgnIp) {
 		this.endLgnIp = endLgnIp;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getPswd() {
+		return pswd;
+	}
+	public void setPswd(String pswd) {
+		this.pswd = pswd;
 	}
 }

@@ -13,7 +13,7 @@
 	<logger name="org.egovframe" level="DEBUG" />
 	<logger name="jdbc.sqltiming" level="DEBUG" />
 	<logger name="org.springframework" level="DEBUG" />
-
+	<logger name="jdbc.sqlonly" level="INFO" />
 	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />
 	</root>

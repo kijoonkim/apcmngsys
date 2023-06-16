@@ -11,21 +11,7 @@
 	<%@ include file="../frame/inc/headerScript.jsp" %>
 	
     <title>로그인</title>
-    
-    <style>
-        /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다. 
-        실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/  
-        .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333;}
-        .sbt-A-wrap .main {display:table;  width:100%; height:764px;}
-        .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px; }
-        .sbt-A-wrap .left .sbt-all-left {height: 100%;}
-        .sbt-A-wrap .content {display:table-cell;}
-        .sbux-sidemeu {position: relative; z-index: 1;}
-        .footer {
-            display: flex; align-items: center; justify-content: center; font-size: 16px;
-            background:rgb(42, 48, 65); height:150px; padding:10px; box-sizing: border-box;  color:#dddddd;
-        }
-    </style>
+
 </head>
 <body>
     <div class="apc-wrap">
@@ -34,9 +20,10 @@
                 <h3>
                     <sbux-label id="idxLabel_norm" name="label_norm" uitype="normal" text="Login"></sbux-label></span>
                 </h3>
-                <form id="frm" name="frm" method="post" action="./main.html">
+                <form id="frm" name="frm" method="post" action="/actionLogin.do">
                     <div class="apc-id-wrap">
-                        <sbux-input id="userId" name="userId" uitype="text"
+                    	
+                        <sbux-input id="id" name="id" uitype="text"
                             required
                             style="width:100%"
                             placeholder="아이디"
@@ -50,14 +37,14 @@
                         ></sbux-input>
                     </div>
                     <div class="apc-chk-wrap">
-                        <sbux-checkbox id="saveUserIdYn" name="saveUserIdYn" uitype="normal"
+                        <sbux-checkbox id="chkSaveIdYn" name="chkSaveIdYn" uitype="normal"
                             text="아이디저장"
                             true-value="Y"
                             false-value="N" 
                         ></sbux-checkbox>
                     </div>
                     <div class="apc-login-wrap">
-                        <sbux-button id="btn_submit" name="btn_submit" uitype="submit"
+                        <sbux-button id="btnSubmit" name="btnSubmit" uitype="submit"
                             text="로그인"
                             onclick="fn_beforeSubmit"
                         ></sbux-button>
@@ -72,7 +59,7 @@
 <script type="text/javascript">
     //로그인 버튼 클릭
     function fn_beforeSubmit() {
-        var userId = SBUxMethod.get("userId");
+        var userId = SBUxMethod.get("id");
         var password = SBUxMethod.get("password");
         if (!userId) {
             alert("아이디를 입력하세요.");
@@ -82,20 +69,47 @@
             alert("비밀번호를 입력하세요.");
             return;
         }
+        
         //사용자아이디 쿠키 설정
         fn_setCookie();
     }
+    
     //사용자아이디 쿠키 설정
     function fn_setCookie() {
-        var saveUserIdYn = SBUxMethod.get("saveUserIdYn");
-        if (saveUserIdYn === "Y") {
+    	// 사용자아이디
+    	let userId = SBUxMethod.get("id");
+    	let saveIdYn = SBUxMethod.get("chkSaveIdYn").chkSaveIdYn;
+                
+        if (saveIdYn === "Y") {
             //cookie 에 사용자아이디, 아이디체크 여부(Y) 저장
-            //사용자아이디 : SBUxMethod.get("userId")
+            // 기본적으로 30일동안 기억하게 함. 일수를 조절하려면 * 30에서 숫자를 조절하면 됨
+            //let expireDate = new Date();
+            //expireDate.setTime(expireDate.getTime() + 1000 * 3600 * 24 * 30);	// 30일
+            gfn_setCookie("savedUserId", userId, {"max-age": 3600 * 24 * 30});	// 30일
 	    }
         else {
             //cookie 에 사용자아이디, 아이디체크 여부 만료(expires: -1) 처리
+        	gfn_setCookie("savedUserId", userId, {"max-age": -1});
 	    }
     }
+    
+    function fn_setUserId() {
+    	let savedUserId = gfn_getCookie("savedUserId");
+    	if (savedUserId) {
+    		SBUxMethod.set("id", savedUserId);
+    		SBUxMethod.set("chkSaveIdYn", "Y");
+    	}
+    }
+    
+    // only document
+    window.addEventListener('DOMContentLoaded', function(e) {
+        // setting saved userId 
+        fn_setUserId();
+    });
+    
+    
+
+    
 </script>
 <!-- //inline scripts related to this page -->
 

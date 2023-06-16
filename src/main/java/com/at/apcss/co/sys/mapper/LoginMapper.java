@@ -20,7 +20,7 @@ import com.at.apcss.co.sys.vo.LoginVO;
  *  </pre>
  */
 @Mapper
-public interface LoginDAO {
+public interface LoginMapper {
 
 	public LoginVO actionLogin(LoginVO vo) throws Exception;
 	

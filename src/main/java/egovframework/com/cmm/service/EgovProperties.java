@@ -60,7 +60,7 @@ public class EgovProperties {
 
 	// 프로퍼티 파일의 위치 prefix
 	// /target/classes/egovframework
-	//public static final String RELATIVE_PATH_PREFIX = "classpath:" + FILE_SEPARATOR + "egovframework";
+	public static final String RELATIVE_PATH_PREFIX = "classpath:" + FILE_SEPARATOR + "egovframework";
 
 	// 프로퍼티 파일의 위치 
 	// /target/classes/egovframework/egovProps/globals.properties
@@ -129,12 +129,12 @@ public class EgovProperties {
 		return value;
 	}
 	
-	/**
+	/**  주석해제 : 신정철
 	 * 주어진 파일에서 인자로 주어진 문자열을 Key값으로 하는 프로퍼티 상대 경로값을 절대 경로값으로 반환한다
 	 * @param fileName String
 	 * @param key String
 	 * @return String
-
+	 */
 	public static String getPathProperty(String fileName, String key){
 		FileInputStream fis = null;
 		try{
@@ -158,7 +158,7 @@ public class EgovProperties {
 			}
 		}
 	}
-	*/
+	
 
 	/**
 	 * 주어진 파일에서 인자로 주어진 문자열을 Key값으로 하는 프로퍼티 값을 반환한다
