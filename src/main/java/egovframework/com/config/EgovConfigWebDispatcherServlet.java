@@ -63,6 +63,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 //				"/cop/com/*.do",
 //				"/cop/bbs/*Master*.do",
 //				"/**/*.do",
+//				"/actionMain.do",
 				"/uat/uia/*.do")
 			.excludePathPatterns(
 				"/uat/uia/actionLogin.do",

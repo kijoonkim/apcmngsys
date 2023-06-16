@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.co.sys.mapper.LoginDAO;
+import com.at.apcss.co.sys.mapper.LoginMapper;
 import com.at.apcss.co.sys.service.LoginService;
 import com.at.apcss.co.sys.vo.LoginVO;
 
@@ -21,7 +21,7 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 
 	
 	@Autowired
-    private LoginDAO loginDAO;
+    private LoginMapper loginMapper;
     
 
 	@Override
@@ -31,15 +31,30 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 		String enpassword = EgovFileScrty.encryptPassword(vo.getPassword(), vo.getId());
 		vo.setPassword(enpassword);
 		
+		System.out.println(String.format("enpassword: %s", enpassword));
+		
 		// 2. 아이디와 암호화된 비밀번호가 DB와 일치하는지 확인한다.
-    	LoginVO loginVO = loginDAO.actionLogin(vo);
+    	LoginVO loginVO = loginMapper.actionLogin(vo);
+    	
+    	System.out.println(loginVO == null);
+    	System.out.println(StringUtils.hasText(loginVO.getId()));
+    	System.out.println(StringUtils.hasText(loginVO.getPassword()));
+    	
+    	if (loginVO != null) {
+    		System.out.println(String.format("loginVO: %s", loginVO.toString()));
+    		System.out.println(String.format("getId: %s", loginVO.getId()));
+    		System.out.println(String.format("getPassword: %s", loginVO.getPassword()));
+    		
+    	}
     	
     	// 3. 결과를 리턴한다.
     	if (loginVO != null 
-    			&& !StringUtils.hasText(loginVO.getId()) 
-    			&& !StringUtils.hasText(loginVO.getPassword())) {
+    			&& StringUtils.hasText(loginVO.getId()) 
+    			&& StringUtils.hasText(loginVO.getPassword())) {
+    		System.out.println(String.format("loginVO: %s", loginVO.toString()));
     		return loginVO;
     	} else {
+    		System.out.println(String.format("no id"));
     		loginVO = new LoginVO();
     	}
     	
@@ -55,7 +70,7 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 	@Override
 	public LoginVO searchId(LoginVO vo) throws Exception {
 		// 1. 이름, 이메일주소가 DB와 일치하는 사용자 ID를 조회한다.
-    	LoginVO loginVO = loginDAO.searchId(vo);
+    	LoginVO loginVO = loginMapper.searchId(vo);
     	
     	// 2. 결과를 리턴한다.
     	if (loginVO != null && !StringUtils.hasText(loginVO.getId())) {
@@ -73,7 +88,7 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 		boolean result = true;
 		
 		// 1. 아이디, 이름, 이메일주소, 비밀번호 힌트, 비밀번호 정답이 DB와 일치하는 사용자 Password를 조회한다.
-    	LoginVO loginVO = loginDAO.searchPassword(vo);
+    	LoginVO loginVO = loginMapper.searchPassword(vo);
     	if (loginVO == null || StringUtils.hasText(loginVO.getPassword())) {
     		return false;
     	}

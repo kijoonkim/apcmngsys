@@ -10,7 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
 
-import egovframework.com.cmm.LoginVO;
+import com.at.apcss.co.sys.vo.LoginVO;
+
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 
 /**

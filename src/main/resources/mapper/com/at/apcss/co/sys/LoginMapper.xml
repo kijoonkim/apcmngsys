@@ -13,10 +13,12 @@
 <mapper namespace="com.at.apcss.co.sys.mapper.LoginMapper">
 
 	<resultMap type="com.at.apcss.co.sys.vo.LoginVO" id="loginMap">
-		<result property="id" column="id"/>
-		<result property="name" column="name"/>
-		<result property="email" column="email"/>
-		<result property="password" column="password"/>
+		<result property="id" column="ID"/>
+		<result property="name" column="NAME"/>
+		<result property="email" column="EMAIL"/>
+		<result property="password" column="PASSWORD"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="pswd" column="PSWD"/>
 	</resultMap>
 
 	<!-- ==========================================================================	-->
@@ -33,13 +35,15 @@
 				  CU.USER_ID		AS ID
 				, CU.USER_NM		AS NAME
 				, CU.PSWD			AS PASSWORD
+				, CU.USER_ID		AS USER_ID
+				, CU.PSWD			AS PSWD
 				, CU.USER_TYPE		AS USER_TYPE
 				, CU.USER_STTS		AS USER_STTS
 				, CU.EML			AS EMAIL
 				, CU.MBL_TELNO		AS MBL_TELNO
-				, CU.CHRGDCERT_YN	AS CHRGDCERT_YN
-				, CU.CHRGDCERT_TYPE	AS CHRGDCERT_TYPE
-				, CU.LGN_FAIL_NMTM	AS LGN_FAIL_NMTM
+				, CU.CHRGD_CERT_YN		AS CHRGDCERT_YN
+				, CU.CHRGD_CERT_TYPE	AS CHRGDCERT_TYPE
+				, CU.LGN_FAIL_NMTM		AS LGN_FAIL_NMTM
 				, CU.END_LGN_DT		AS END_LGN_DT
 				, CU.END_LGN_IP		AS END_LGN_IP
 				, CU.DEL_YN			AS DEL_YN

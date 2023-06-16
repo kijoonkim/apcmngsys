@@ -17,7 +17,26 @@ package egovframework.com.cmm.service;
  */
 
 public class Globals {
-    //파일 업로드 원 파일명
+
+	//OS 유형
+    public static final String OS_TYPE = EgovProperties.getProperty("Globals.OsType");
+    //DB 유형
+    public static final String DB_TYPE = EgovProperties.getProperty("Globals.DbType");
+    //메인 페이지
+    public static final String MAIN_PAGE = EgovProperties.getProperty("Globals.MainPage");
+    //ShellFile 경로
+    public static final String SHELL_FILE_PATH = EgovProperties.getProperty("Globals.ShellFilePath");
+    //퍼로퍼티 파일 위치
+    public static final String CONF_PATH = EgovProperties.getProperty("Globals.ConfPath");
+    //Server정보 프로퍼티 위치
+     public static final String SERVER_CONF_PATH = EgovProperties.getProperty("Globals.ServerConfPath");
+    //Client정보 프로퍼티 위치
+    public static final String CLIENT_CONF_PATH = EgovProperties.getProperty("Globals.ClientConfPath");
+    //파일포맷 정보 프로퍼티 위치
+    public static final String FILE_FORMAT_PATH = EgovProperties.getProperty("Globals.FileFormatPath");
+
+	
+	//파일 업로드 원 파일명
 	public static final String ORIGIN_FILE_NM = "originalFileName";
 	//파일 확장자
 	public static final String FILE_EXT = "fileExtension";
@@ -27,4 +46,8 @@ public class Globals {
 	public static final String UPLOAD_FILE_NM = "uploadFileName";
 	//파일경로
 	public static final String FILE_PATH = "filePath";
+	
+	
+	
+	
 }

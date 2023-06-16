@@ -14,7 +14,7 @@
     <style>
         /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다. 
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/  
-        .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333;}
+        .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333; height:auto}
         .sbt-A-wrap .main {display:table;  width:100%; height:100%;}
         .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px;}
         .sbt-A-wrap .left .sbt-all-left {height: 100%;}
@@ -447,15 +447,15 @@
 
     //ifrmae 높이 자동 설정
     function fn_resizeFrame(that){
-        iframe_height = that.contentWindow.document.body.scrollHeight + 17;
+        let iframe_height = that.contentWindow.document.body.scrollHeight + 17;
         $(that).height(iframe_height);
     }    
 
     function fn_SlideButton(type,b){
         if(type == "show"){
-            $(".sbt-A-wrap .left").css({width:0})
+            $(".sbt-A-wrap .left").css({width:0});
         }else{
-             $(".sbt-A-wrap .left").css({width:200})
+             $(".sbt-A-wrap .left").css({width:200});
         }
     }
     
@@ -765,8 +765,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="footer">
         </div>
     </div>
     <!-- Modal -->
