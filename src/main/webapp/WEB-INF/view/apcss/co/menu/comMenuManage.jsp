@@ -181,17 +181,13 @@
     });
     var grid; // 그리드를 담기위한 객체 선언
     var gridData = []; // 그리드의 참조 데이터 주소 선언
-    //조회조건(임시)
-    var jsonSearchCombo = [
-        {'text': '정보지원시스템', 'value': 'AM'},
-        {'text': '시스템관리', 'value': 'CO'},
-        {'text': '생산관리', 'value': 'PM'}
-    ];
     // 사용유무 (임시)
     var jsonComBoDelYn = [
     	{'text': 'YES', 'value' : 'N'},
     	{'text': 'NO', 'value' : 'Y'}
     ];
+
+    var jsonSearchCombo   = comCdLoad("SYS_ID");		//조회조건(시스템ID)
     var jsonComboUserType = comCdLoad("USER_TYPE");		// 사용자유형
     var jsonComboMenuType = comCdLoad("MENU_TYPE");		// 화면유형
 

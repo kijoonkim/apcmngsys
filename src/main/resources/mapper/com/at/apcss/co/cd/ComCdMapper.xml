@@ -148,8 +148,9 @@
     	SELECT CD_VL
 		     , CD_VL_NM
 		  FROM TB_COM_CD_DTL
-    	]]>
 		 WHERE CD_ID = #{cdId}
+		 ORDER BY INDCT_SEQ ASC
+    	]]>
     </select>
 
 </mapper>
