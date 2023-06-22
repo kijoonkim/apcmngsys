@@ -918,11 +918,8 @@
 		}
 	}
 
-  	//grid 초기화
-    var grid; // 그리드를 담기위한 객체 선언
-    var userAuthMngGridData = [
-    	{"no": "1", "userCd" : "1234", "userNm":"홍길동", "jbttlNm" : "개발", "tkcgTaskNm": "풀","chrgdCertYn": "Y", "lckYn": "Y", "useYn":"Y", "rmrk": "비고비고"}
-    ]; // 그리드의 참조 데이터 주소 선언
+	// APC사용자 권한설정
+    var userAuthMngGridData = []; // 그리드의 참조 데이터 주소 선언
     function fn_userAuthMngCreateGrid() {
     	let SBGridProperties = {};
 	    SBGridProperties.parentid = 'userAuthMngGridArea';
@@ -953,10 +950,10 @@
     	console.log("비밀번호 초기화");
     }
 
-    var fcltMngGridData = [
-    	{"no": "1", "fcltCd" : "0000", "fcltNm":"설비","rmrk": "비고비고"}
-    ]; // 그리드의 참조 데이터 주소 선언
+    // 설비 등록
+    var fcltMngGridData = []; // 그리드의 참조 데이터 주소 선언
     function fn_fcltMngCreateGrid() {
+    	fcltMngGridData = [];
     	let SBGridProperties = {};
 	    SBGridProperties.parentid = 'fcltMngGridArea';
 	    SBGridProperties.id = 'fcltMngDatagrid';
@@ -969,19 +966,26 @@
             {caption: ["설비 코드"], 	ref: 'fcltCd',  	type:'output',  width:'100px',    style:'text-align:center'},
             {caption: ["설비 명"], 		ref: 'fcltNm',   	type:'output',  width:'200px',    style:'text-align:center'},
             {caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'450px',    style:'text-align:center'},
-            {caption: ["처리"], 		ref: 'fcltCd',   	type:'button',  width:'100px',    style:'text-align:center', typeinfo : {buttonvalue : '삭제', 	callback : fn_deleteFclt}}
+            {caption: ["처리"], 		ref: 'fcltCd',   	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+            	if(strValue== null || strValue == ""){
+            		return "<button type='button' onClick='fn_procRow(\"ADD\", \"fcltMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+            	}else{
+			        return "<button type='button' onClick='fn_procRow(\"DEL\", \"fcltMngDatagrid\", " + nRow + ")'>삭제</button>";
+            	}
+        	}}
         ];
         window.fcltMngDatagrid = _SBGrid.create(SBGridProperties);
+        fcltMngDatagrid.addRow();
     }
 
     function fn_deleteFclt(){
 
     }
 
-    var warehouseMngGridData = [
-    	{"no": "1", "warehouseSeCd" : "0000", "warehouseSeNm":"창고","rmrk": "비고비고"}
-    ]; // 그리드의 참조 데이터 주소 선언
+    // 창고 등록
+    var warehouseMngGridData = []; // 그리드의 참조 데이터 주소 선언
     function fn_warehouseMngCreateGrid() {
+    	warehouseMngGridData = [];
     	let SBGridProperties = {};
 	    SBGridProperties.parentid = 'warehouseMngGridArea';
 	    SBGridProperties.id = 'warehouseMngDatagrid';
@@ -994,17 +998,22 @@
             {caption: ["설비 코드"], 	ref: 'warehouseSeCd',  type:'output',  width:'100px',    style:'text-align:center'},
             {caption: ["설비 명"], 		ref: 'warehouseSeNm',   	type:'output',  width:'200px',    style:'text-align:center'},
             {caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'450px',    style:'text-align:center'},
-            {caption: ["처리"], 		ref: 'fcltCd',   	type:'button',  width:'100px',    style:'text-align:center', typeinfo : {buttonvalue : '삭제', 	callback : fn_deleteWarehouse}}
+            {caption: ["처리"], 		ref: 'fcltCd',   	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+            	if(strValue== null || strValue == ""){
+            		return "<button type='button' onClick='fn_procRow(\"ADD\", \"warehouseMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+            	}else{
+			        return "<button type='button' onClick='fn_procRow(\"DEL\", \"warehouseMngDatagrid\", " + nRow + ")'>삭제</button>";
+            	}
+            }}
         ];
         window.warehouseMngDatagrid = _SBGrid.create(SBGridProperties);
+        warehouseMngDatagrid.addRow();
     }
     function fn_deleteWarehouse(){
 
     }
 
 
-  //grid 초기화
-    var grid; // 그리드를 담기위한 객체 선언
     var gridData = []; // 그리드의 참조 데이터 주소 선언
     function fn_itemMngCreateGrid() {
     	let SBGridProperties = {};
@@ -1037,40 +1046,58 @@
         ];
         datagrid.refresh();
     }
-    //
-    function fn_procRow(gubun, nRow) {
+
+    // Row 추가 및 삭제 기능
+    function fn_procRow(gubun, grid, nRow, nCol) {
         if (gubun === "ADD") {
-            var rowData = datagrid.getRowData(nRow);
-            datagrid2.addRow(true, rowData);
-            datagrid.deleteRow(nRow);
+            if (grid === "cnptMngDatagrid") {
+            	cnptMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	cnptMngDatagrid.addRow(true);
+            }else if (grid === "fcltMngDatagrid") {
+            	fcltMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	fcltMngDatagrid.addRow(true);
+            }else if (grid === "warehouseMngDatagrid") {
+            	warehouseMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	warehouseMngDatagrid.addRow(true);
+            }else if(grid === "pltMngDatagrid"){
+            	pltMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	pltMngDatagrid.addRow(true);
+            }else if(grid === "bkMngDatagrid"){
+            	bkMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	bkMngDatagrid.addRow(true);
+            }else if(grid === "pckgMngDatagrid"){
+            	pckgMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	pckgMngDatagrid.addRow(true);
+            }else if(grid === "trsprtMngDatagrid"){
+            	trsprtMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	trsprtMngDatagrid.addRow(true);
+            }else if(grid === "vhclMngDatagrid"){
+            	vhclMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	vhclMngDatagrid.addRow(true);
+            }else if(grid === "spmtTrsprtMngDatagrid"){
+            	spmtTrsprtMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	spmtTrsprtMngDatagrid.addRow(true);
+            }
         }
         else if (gubun === "DEL") {
-            var rowData = datagrid2.getRowData(nRow);
-            datagrid.addRow(true, rowData);
-            datagrid2.deleteRow(nRow);
-        }
-    }
-    function fn_procRow2(gubun, grid, nRow) {
-        if (gubun === "ADD") {
-            if (grid === "grid_1") {
-                datagrid_1.addRow(true);
-            }
-            else if (grid === "grid_2") {
-                datagrid_2.addRow(true);
-            }
-            else if (grid === "grid_3") {
-                datagrid_3.addRow(true);
-            }
-        }
-        else if (gubun === "DEL") {
-            if (grid === "grid_1") {
-                datagrid_1.deleteRow(nRow);
-            }
-            else if (grid === "grid_2") {
-                datagrid_2.deleteRow(nRow);
-            }
-            else if (grid === "grid_3") {
-                datagrid_3.deleteRow(nRow);
+            if (grid === "cnptMngDatagrid") {
+            	cnptMngDatagrid.deleteRow(nRow);
+            }else if (grid === "fcltMngDatagrid") {
+            	fcltMngDatagrid.deleteRow(nRow);
+            }else if (grid === "warehouseMngDatagrid") {
+            	warehouseMngDatagrid.deleteRow(nRow);
+            }else if (grid === "pltMngDatagrid") {
+            	pltMngDatagrid.deleteRow(nRow);
+            }else if (grid === "bkMngDatagrid") {
+            	bkMngDatagrid.deleteRow(nRow);
+            }else if (grid === "pckgMngDatagrid") {
+            	pckgMngDatagrid.deleteRow(nRow);
+            }else if (grid === "trsprtMngDatagrid") {
+            	trsprtMngDatagrid.deleteRow(nRow);
+            }else if (grid === "vhclMngDatagrid") {
+            	vhclMngDatagrid.deleteRow(nRow);
+            }else if (grid === "spmtTrsprtMngDatagrid") {
+            	spmtTrsprtMngDatagrid.deleteRow(nRow);
             }
         }
     }
@@ -1215,10 +1242,12 @@
 		{'label': 'Y', 'value': 'Y'},
 		{'label': 'N', 'value': 'N'}
 	]
-    var pltMngGridData = [
-    	{"cd": "0001", "pltNm" : "사과팔레트", "unitWght":"20", "useYn":"Y", "delYn": "N"}
-    ]; // 그리드의 참조 데이터 주소 선언
+
+	// 팔레트/박스 등록
+	// 팔레트 정보
+    var pltMngGridData = []; // 그리드의 참조 데이터 주소 선언
     function fn_pltMngCreateGrid() {
+    	pltMngGridData = [];
         let SBGridProperties = {};
 	    SBGridProperties.parentid = 'pltMngGridArea';
 	    SBGridProperties.id = 'pltMngDatagrid';
@@ -1233,19 +1262,24 @@
             {caption: ["팔레트 정보","사용유무"], 	ref: 'useYn',   	type:'combo',  width:'100px',    style:'text-align:center',
             			typeinfo : {ref:'combofilteringData', label:'label', value:'value', displayui : true}},
             {caption: ["팔레트 정보","처리"], 		ref: 'delYn',   	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                return "<button type='button' onClick='fn_procRow2(\"DEL\", \"grid_3\", " + nRow + ")'>삭제</button>";
-            }}
+            	if(strValue== null || strValue == ""){
+            		return "<button type='button' onClick='fn_procRow(\"ADD\", \"pltMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+            	}else{
+			        return "<button type='button' onClick='fn_procRow(\"DEL\", \"pltMngDatagrid\", " + nRow + ")'>삭제</button>";
+            	}
+		    }}
         ];
         window.pltMngDatagrid = _SBGrid.create(SBGridProperties);
+        pltMngDatagrid.addRow();
     }
     function fn_deletePltBk(){
 
     }
 
-    var bkMngGridData = [
-    	{"cd": "0001", "pltNm" : "사과", "unitWght":"1", "useYn":"Y", "delYn": "N"}
-    ]; // 그리드의 참조 데이터 주소 선언
+    // 박스 정보
+    var bkMngGridData = []; // 그리드의 참조 데이터 주소 선언
     function fn_bkMngCreateGrid() {
+    	bkMngGridData = [];
         let SBGridProperties = {};
 	    SBGridProperties.parentid = 'bkMngGridArea';
 	    SBGridProperties.id = 'bkMngDatagrid';
@@ -1260,15 +1294,21 @@
             {caption: ["박스 정보","사용유무"], 	ref: 'useYn',   	type:'combo',  width:'100px',    style:'text-align:center',
     					typeinfo : {ref:'combofilteringData', label:'label', value:'value', displayui : true}},
    			{caption: ["박스 정보","처리"], 		ref: 'delYn',   	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-		        return "<button type='button' onClick='fn_procRow2(\"DEL\", \"grid_3\", " + nRow + ")'>삭제</button>";
+            	if(strValue== null || strValue == ""){
+            		return "<button type='button' onClick='fn_procRow(\"ADD\", \"bkMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+            	}else{
+			        return "<button type='button' onClick='fn_procRow(\"DEL\", \"bkMngDatagrid\", " + nRow + ")'>삭제</button>";
+            	}
 		    }}
         ];
         window.bkMngDatagrid = _SBGrid.create(SBGridProperties);
+        bkMngDatagrid.addRow();
     }
-    var pckgMngGridData = [
-    	{"cd": "0001", "pckgNm" : "사과 20Box", "useYn":"Y", "delYn": "N"}
-    ]; // 그리드의 참조 데이터 주소 선언
+
+    // 상품출하
+    var pckgMngGridData = []; // 그리드의 참조 데이터 주소 선언
     function fn_pckgMngCreateGrid() {
+    	pckgMngGridData = [];
         let SBGridProperties = {};
 	    SBGridProperties.parentid = 'pckgMngGridArea';
 	    SBGridProperties.id = 'pckgMngDatagrid';
@@ -1282,12 +1322,18 @@
             {caption: ["사용유무"], 			ref: 'useYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
     					typeinfo : {ref:'combofilteringData', label:'label', value:'value', displayui : true}},
    			{caption: ["처리"], 				ref: 'delYn',   	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-		        return "<button type='button' onClick='fn_procRow2(\"DEL\", \"grid_3\", " + nRow + ")'>삭제</button>";
+            	if(strValue== null || strValue == ""){
+            		return "<button type='button' onClick='fn_procRow(\"ADD\", \"pckgMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+            	}else{
+			        return "<button type='button' onClick='fn_procRow(\"DEL\", \"pckgMngDatagrid\", " + nRow + ")'>삭제</button>";
+            	}
 		    }}
         ];
         window.pckgMngDatagrid = _SBGrid.create(SBGridProperties);
+        pckgMngDatagrid.addRow();
     }
 
+    // 원물육안 등급
     var otrdEyeMngGridData = [
     	{"cd": "01", "otrdEyeNm" : "1등급", "useYn":"Y"},
     	{"cd": "02", "otrdEyeNm" : "2등급", "useYn":"Y"},
@@ -1313,11 +1359,10 @@
     }
 
 
-    var vhclMngGridData = [
-    	{"vhclNo": "서울12가4567", "drvrNm" : "홍길동", "bankCd":"001", "actno" : "000-0000-0000000", "dpstr" : "홍길동", "rmrk" : "비고비고", "delYn" : "N"},
-    	{"vhclNo": "", "drvrNm" : "", "bankCd":"", "actno" : "", "dpstr" : "", "rmrk" : "", "delYn" :  ""}
-    ]; // 그리드의 참조 데이터 주소 선언
+    // 입고차량정보 등록
+    var vhclMngGridData = []; // 그리드의 참조 데이터 주소 선언
     function fn_vhclMngCreateGrid() {
+    	vhclMngGridData = [];
         let SBGridProperties = {};
 	    SBGridProperties.parentid = 'vhclMngGridArea';
 	    SBGridProperties.id = 'vhclMngDatagrid';
@@ -1335,20 +1380,20 @@
             {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'200px',    style:'text-align:center'},
             {caption: ["처리"], 		ref: 'delYn',   type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
-            		return "<button type='button' onClick='fn_procRow2(\"ADD\", \"grid_3\", " + nRow + ")'>추가</button>";
+            		return "<button type='button' onClick='fn_procRow(\"ADD\", \"vhclMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
             	}else{
-			        return "<button type='button' onClick='fn_procRow2(\"DEL\", \"grid_3\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' onClick='fn_procRow(\"DEL\", \"vhclMngDatagrid\", " + nRow + ")'>삭제</button>";
             	}
 		    }}
         ];
         window.vhclMngDatagrid = _SBGrid.create(SBGridProperties);
+        vhclMngDatagrid.addRow();
     }
 
-    var trsprtMngGridData = [
-    	{"trsprtRgnCd": "001", "trsprtRgnNm" : "서울", "trsprtCst":"200000", "rmrk" : "비고비고", "delYn" : "N"},
-    	{"trsprtRgnCd": "", "trsprtRgnNm" : "", "trsprtCst":"", "rmrk" : "", "delYn" : ""}
-    ]; // 그리드의 참조 데이터 주소 선언
+    // 운송지역별 운임비용 등록
+    var trsprtMngGridData = []; // 그리드의 참조 데이터 주소 선언
     function fn_trsprtMngCreateGrid() {
+    	trsprtMngGridData = [];
         let SBGridProperties = {};
 	    SBGridProperties.parentid = 'trsprtMngGridArea';
 	    SBGridProperties.id = 'trsprtMngDatagrid';
@@ -1363,20 +1408,21 @@
             {caption: ["비고"], 			ref: 'rmrk',  			type:'input',  width:'300px',    style:'text-align:center'},
             {caption: ["처리"], 			ref: 'delYn',   		type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
-            		return "<button type='button' onClick='fn_procRow2(\"ADD\", \"grid_3\", " + nRow + ")'>추가</button>";
+            		return "<button type='button' onClick='fn_procRow(\"ADD\", \"trsprtMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
             	}else{
-			        return "<button type='button' onClick='fn_procRow2(\"DEL\", \"grid_3\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' onClick='fn_procRow(\"DEL\", \"trsprtMngDatagrid\", " + nRow + ")'>삭제</button>";
             	}
 		    }}
         ];
         window.trsprtMngDatagrid = _SBGrid.create(SBGridProperties);
+        trsprtMngDatagrid.addRow();
     }
 
-    var spmtTrsprtMngGridData = [
-    	{"trsprtCoCd": "001", "trsprtCoNm" : "서울", "telno":"010-0000-0000", "fxno":"055-000-0000", "rmrk" : "비고비고", "delYn" : "N"},
-    	{"trsprtCoCd": "", "trsprtCoNm" : "", "telno":"", "fxno":"", "rmrk" : "", "delYn" : ""}
-    ]; // 그리드의 참조 데이터 주소 선언
+
+    // 출하운송회사 등록
+    var spmtTrsprtMngGridData = []; // 그리드의 참조 데이터 주소 선언
     function fn_spmtTrsprtMngCreateGrid() {
+    	spmtTrsprtMngGridData = [];
         let SBGridProperties = {};
 	    SBGridProperties.parentid = 'spmtTrsprtMngGridArea';
 	    SBGridProperties.id = 'spmtTrsprtMngDatagrid';
@@ -1392,20 +1438,20 @@
             {caption: ["비고"], 			ref: 'rmrk',  		type:'input',  width:'300px',    style:'text-align:center'},
             {caption: ["처리"], 			ref: 'delYn',   	type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
-            		return "<button type='button' onClick='fn_procRow2(\"ADD\", \"grid_3\", " + nRow + ")'>추가</button>";
+            		return "<button type='button' onClick='fn_procRow(\"ADD\", \"spmtTrsprtMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
             	}else{
-			        return "<button type='button' onClick='fn_procRow2(\"DEL\", \"grid_3\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' onClick='fn_procRow(\"DEL\", \"spmtTrsprtMngDatagrid\", " + nRow + ")'>삭제</button>";
             	}
 		    }}
         ];
         window.spmtTrsprtMngDatagrid = _SBGrid.create(SBGridProperties);
+        spmtTrsprtMngDatagrid.addRow();
     }
 
     var cnptMngGridData = [
-    	{"cnptCd": "001", "cnptNm" : "서울마트", "typeCd":"01", "brno":"000-0000000-000", "picNm":"홍길동","telno":"010-0000-0000", "rmrk" : "비고비고", "delYn" : "N"},
-    	{"cnptCd": "", "cnptNm" : "", "typeCd":"", "brno":"", "picNm":"", "telno":"", "rmrk" : "", "delYn" : ""}
     ]; // 그리드의 참조 데이터 주소 선언
     function fn_cnptMngCreateGrid() {
+    	cnptMngGridData = [];
         let SBGridProperties = {};
 	    SBGridProperties.parentid = 'cnptMngGridArea';
 	    SBGridProperties.id = 'cnptMngDatagrid';
@@ -1423,14 +1469,16 @@
             {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'300px',    style:'text-align:center'},
             {caption: ["처리"], 		ref: 'delYn',   type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
-            		return "<button type='button' onClick='fn_procRow2(\"ADD\", \"grid_3\", " + nRow + ")'>추가</button>";
+            		return "<button type='button' onClick='fn_procRow(\"ADD\", \"cnptMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
             	}else{
-			        return "<button type='button' onClick='fn_procRow2(\"DEL\", \"grid_3\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' onClick='fn_procRow(\"DEL\", \"cnptMngDatagrid\", " + nRow + ")'>삭제</button>";
             	}
 		    }}
         ];
         window.cnptMngDatagrid = _SBGrid.create(SBGridProperties);
+	    cnptMngDatagrid.addRow();
     }
+
 
     var ordrMngGridData = [
     	{"martNm": "이마트", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
