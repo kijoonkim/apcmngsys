@@ -81,5 +81,11 @@ public class ComCdServiceImpl implements ComCdService {
 		return resultList;
 	}
 
+	@Override
+	public ComCdVO selectComCdDtl(ComCdVO comCdVO) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

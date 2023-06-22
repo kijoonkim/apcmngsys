@@ -9,4 +9,8 @@ import lombok.Setter;
 @Setter
 public class ComMsgVO extends ComVO{
 
+	private String msgKey;
+	private String msgCn;
+	private String msgKnd;
+	private String rmrk;
 }
