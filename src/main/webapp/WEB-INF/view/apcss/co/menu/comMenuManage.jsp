@@ -59,7 +59,6 @@
                     </div>
                     <!--조회 영역-->
 			        <div class="sbt-con-wrap">
-                        <form id="frm" name="frm" method="post">
 				        <div class="sbt-search-wrap">
                             <div class="sbt-wrap-body-con">
                                 <div class="sbt-wrap-body">
@@ -77,7 +76,6 @@
                                 </div>
                             </div>
                         </div>
-                        </form>
                     </div>
                 </div>
                 <div class="sbt-con-wrap">
@@ -87,7 +85,7 @@
                         <div class="sbt-wrap-body">
                             <div class="sbt-grid">
                                 <!-- SBGrid를 호출합니다. -->
-                                <div id="SBGridArea" style="width:100%;height:300px;"></div>
+                                <div id="SBGridArea" style="width:100%;height:500px;"></div>
                             </div>
                         </div>
                     </div>
@@ -99,8 +97,6 @@
                             <h3>메뉴상세정보</h3>
                         </div>
                         <div class="sbt-wrap-body">
-                            <form id="frm1" name="frm1" method="post">
-                            <!-- 저장 구분(C: 신규, M: 수정)-->
                             <sbux-input id="gubun" name="gubun" uitype="hidden"></sbux-input>
                             <table class="tbl">
                                 <colgroup>
@@ -162,7 +158,6 @@
                                     </td>
                                 </tr>
                             </table>
-                            </form>
                         </div>
                     </div>
                     </li>
