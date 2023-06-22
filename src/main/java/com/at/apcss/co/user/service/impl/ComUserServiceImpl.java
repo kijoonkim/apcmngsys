@@ -54,4 +54,16 @@ public class ComUserServiceImpl implements ComUserService {
 		return resultList;
 	}
 
+	@Override
+	public int updateComUser(ComUserVO comUserVO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateComUserAprv(ComUserVO comUserVO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

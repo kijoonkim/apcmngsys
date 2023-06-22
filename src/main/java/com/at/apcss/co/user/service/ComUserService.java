@@ -22,4 +22,18 @@ public interface ComUserService {
 	 */
 	public List<ComUserVO> selectComUserList(ComUserVO comUserVO);
 	
+	/**
+	 * 사용자 승인상태를 변경한다.
+	 * @param comUserVO
+	 * @return
+	 */
+	public int updateComUser(ComUserVO comUserVO);
+	
+	/**
+	 * 사용자 정보를 변경한다.
+	 * @param comUserVO
+	 * @return
+	 */
+	public int updateComUserAprv(ComUserVO comUserVO);
+	
 }

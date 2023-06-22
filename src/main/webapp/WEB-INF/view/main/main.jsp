@@ -721,10 +721,12 @@
                 </brand-item>
             </sbux-menu>
 			<div class="user-info-wrap">
-                <span class="name-t">홍길동</span>님 반갑습니다.
+				<c:if test="${loginVO != null && loginVO.id != null}">
+                <span class="name-t">${loginVO.name}</span>님 반갑습니다.
                 <ul class="user-login-menu">
-                    <li><a href="#">로그아웃</a></li>
+                    <li><a href="/actionLogout.do">로그아웃</a></li>
                 </ul>
+                </c:if>
             </div>
         </div>
         <div class="main">

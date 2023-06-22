@@ -30,6 +30,14 @@ public interface ComCdService {
 	public List<ComCdVO> selectComCdDtlList(ComCdVO comCdVO) throws Exception;
 
 	/**
+	 * 공통코드 상세 정보 조회
+	 * @param comCdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public ComCdVO selectComCdDtl(ComCdVO comCdVO) throws Exception;
+	
+	/**
 	 * 공통코드 등록
 	 * @param comCdVO
 	 * @return inserted count

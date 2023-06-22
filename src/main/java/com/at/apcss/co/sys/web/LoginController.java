@@ -139,4 +139,16 @@ public class LoginController extends BaseController {
 		}
 	}
 	
+	
+	@RequestMapping(value = "/actionLogout.do")
+	public String actionLogout(HttpServletRequest request, ModelMap model) throws Exception {
+		
+		// 1. Security 연도
+		
+		request.getSession().setAttribute("loginVO", null);
+		request.getSession().setAttribute("accessUser", null);
+		
+		return "redirect:/main.do";
+	}
+	
 }

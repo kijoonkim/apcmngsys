@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.co.menu.mapper.ComMenuMapper;
 import com.at.apcss.co.menu.service.ComMenuService;
 import com.at.apcss.co.menu.vo.ComMenuVO;
+import com.at.apcss.co.menu.vo.ComUiVO;
 
 @Service("comMenuService")
 public class ComMenuServiceImpl implements ComMenuService {
@@ -85,6 +86,36 @@ public class ComMenuServiceImpl implements ComMenuService {
 	@Override
 	public int deleteMenu(ComMenuVO comMenuVO) {
 		return comMenuMapper.deleteMenu(comMenuVO);
+	}
+
+	@Override
+	public List<ComUiVO> selectComUiList(ComUiVO comUiVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ComUiVO selectComUi(ComUiVO comUiVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insertComUi(ComUiVO comUiVO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateComUi(ComUiVO comUiVO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteComUi(ComUiVO comUiVO) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 
