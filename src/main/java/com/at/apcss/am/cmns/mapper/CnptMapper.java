@@ -1,6 +1,10 @@
 package com.at.apcss.am.cmns.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.at.apcss.am.cmns.vo.CnptVO;
 
 /**
  * 거래처정보 Mapper 인터페이스
@@ -19,4 +23,43 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface CnptMapper {
 
+	/**
+	 * 거래처정보 단건 조회
+	 * @param CnptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public CnptVO selectCnpt(CnptVO cnptVO) throws Exception;
+	
+	/**
+	 * 거래처정보 목록 조회
+	 * @param CnptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<CnptVO> selectCnptList(CnptVO cnptVO) throws Exception;
+
+	/**
+	 * 거래처정보 등록
+	 * @param CnptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertCnpt(CnptVO cnptVO) throws Exception;
+
+	/**
+	 * 거래처정보 변경
+	 * @param CnptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateCnpt(CnptVO cnptVO) throws Exception;
+
+	/**
+	 * 거래처정보 삭제
+	 * @param CnptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteCnpt(CnptVO cnptVO) throws Exception;
 }

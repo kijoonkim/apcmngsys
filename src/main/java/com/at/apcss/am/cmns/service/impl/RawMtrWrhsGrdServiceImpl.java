@@ -1,8 +1,13 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.cmns.mapper.RawMtrWrhsGrdMapper;
 import com.at.apcss.am.cmns.service.RawMtrWrhsGrdService;
+import com.at.apcss.am.cmns.vo.RawMtrWrhsGrdVO;
 
 /**
  * @Class Name : RawMtrWrhsGrdServiceImpl.java
@@ -21,5 +26,48 @@ import com.at.apcss.am.cmns.service.RawMtrWrhsGrdService;
  */
 @Service("rawMtrWrhsGrdService")
 public class RawMtrWrhsGrdServiceImpl implements RawMtrWrhsGrdService {
+	
+	@Autowired
+	private RawMtrWrhsGrdMapper rawMtrWrhsGrdMapper;
+	
+	@Override
+	public RawMtrWrhsGrdVO selectRawMtrWrhsGrd(RawMtrWrhsGrdVO rawMtrWrhsGrdVO) throws Exception {
+
+		RawMtrWrhsGrdVO resultVO = rawMtrWrhsGrdMapper.selectRawMtrWrhsGrd(rawMtrWrhsGrdVO);
+		
+		return resultVO;
+	}
+
+	@Override
+	public List<RawMtrWrhsGrdVO> selectRawMtrWrhsGrdList(RawMtrWrhsGrdVO rawMtrWrhsGrdVO) throws Exception {
+
+		List<RawMtrWrhsGrdVO> resultList = rawMtrWrhsGrdMapper.selectRawMtrWrhsGrdList(rawMtrWrhsGrdVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public int insertRawMtrWrhsGrd(RawMtrWrhsGrdVO rawMtrWrhsGrdVO) throws Exception {
+
+		int insertedCnt = rawMtrWrhsGrdMapper.insertRawMtrWrhsGrd(rawMtrWrhsGrdVO);
+		
+		return insertedCnt;
+	}
+
+	@Override
+	public int updateRawMtrWrhsGrd(RawMtrWrhsGrdVO rawMtrWrhsGrdVO) throws Exception {
+
+		int updatedCnt = rawMtrWrhsGrdMapper.updateRawMtrWrhsGrd(rawMtrWrhsGrdVO);
+		
+		return updatedCnt;
+	}
+
+	@Override
+	public int deleteRawMtrWrhsGrd(RawMtrWrhsGrdVO rawMtrWrhsGrdVO) throws Exception {
+
+		int deletedCnt = rawMtrWrhsGrdMapper.deleteRawMtrWrhsGrd(rawMtrWrhsGrdVO);
+		
+		return deletedCnt;
+	}
 
 }

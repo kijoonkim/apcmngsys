@@ -1,8 +1,13 @@
 package com.at.apcss.am.clcln.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper;
 import com.at.apcss.am.clcln.service.ClclnPrfmncService;
+import com.at.apcss.am.clcln.vo.ClclnPrfmncVO;
 
 /**
  * @Class Name : ClclnPrfmncServiceImpl.java
@@ -21,5 +26,24 @@ import com.at.apcss.am.clcln.service.ClclnPrfmncService;
  */
 @Service("clclnPrfmncService")
 public class ClclnPrfmncServiceImpl implements ClclnPrfmncService {
+
+	@Autowired
+	private ClclnPrfmncMapper clclnPrfmncMapper;
+	
+	@Override
+	public ClclnPrfmncVO selectClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
+		
+		ClclnPrfmncVO rtnVO = clclnPrfmncMapper.selectClclnPrfmnc(clclnPrfmncVO);
+		
+		return rtnVO;
+	}
+
+	@Override
+	public List<ClclnPrfmncVO> selectClclnPrfmncList(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
+		
+		List<ClclnPrfmncVO> rtnList = clclnPrfmncMapper.selectClclnPrfmncList(clclnPrfmncVO);
+		
+		return rtnList;
+	}
 
 }

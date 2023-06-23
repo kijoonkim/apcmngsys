@@ -1,8 +1,13 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper;
 import com.at.apcss.am.cmns.service.RgnTrsprtCstService;
+import com.at.apcss.am.cmns.vo.RgnTrsprtCstVO;
 
 /**
  * @Class Name : RgnTrsprtCstServiceImpl.java
@@ -21,5 +26,48 @@ import com.at.apcss.am.cmns.service.RgnTrsprtCstService;
  */
 @Service("rgnTrsprtCstService")
 public class RgnTrsprtCstServiceImpl implements RgnTrsprtCstService {
+	
+	@Autowired
+	private RgnTrsprtCstMapper rgnTrsprtCstMapper;
+	
+	@Override
+	public RgnTrsprtCstVO selectRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
+		
+		RgnTrsprtCstVO resultVO = rgnTrsprtCstMapper.selectRgnTrsprtCst(rgnTrsprtCstVO);
+		
+		return resultVO;
+	}
+
+	@Override
+	public List<RgnTrsprtCstVO> selectRgnTrsprtCstList(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
+		
+		List<RgnTrsprtCstVO> resultList = rgnTrsprtCstMapper.selectRgnTrsprtCstList(rgnTrsprtCstVO);
+
+		return resultList;
+	}
+
+	@Override
+	public int insertRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
+		
+		int insertedCnt = rgnTrsprtCstMapper.insertRgnTrsprtCst(rgnTrsprtCstVO);
+		
+		return insertedCnt;
+	}
+
+	@Override
+	public int updateRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
+
+		int updatedCnt = rgnTrsprtCstMapper.updateRgnTrsprtCst(rgnTrsprtCstVO);
+		
+		return updatedCnt;
+	}
+
+	@Override
+	public int deleteRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
+
+		int deletedCnt = rgnTrsprtCstMapper.deleteRgnTrsprtCst(rgnTrsprtCstVO);
+		
+		return deletedCnt;
+	}
 
 }

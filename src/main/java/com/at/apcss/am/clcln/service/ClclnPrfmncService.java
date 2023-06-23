@@ -1,5 +1,9 @@
 package com.at.apcss.am.clcln.service;
 
+import java.util.List;
+
+import com.at.apcss.am.clcln.vo.ClclnPrfmncVO;
+
 /**
  * 정산실적 Service 인터페이스
  * @author 신정철
@@ -15,5 +19,20 @@ package com.at.apcss.am.clcln.service;
  * </pre>
  */
 public interface ClclnPrfmncService {
-
+	
+	/**
+	 * 정산실적 단건 조회
+	 * @param clclnPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public ClclnPrfmncVO selectClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
+	
+	/**
+	 * 정산실적 목록 조회
+	 * @param clclnPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ClclnPrfmncVO> selectClclnPrfmncList(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
 }

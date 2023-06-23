@@ -1,8 +1,13 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.cmns.mapper.PltBxMapper;
 import com.at.apcss.am.cmns.service.PltBxService;
+import com.at.apcss.am.cmns.vo.PltBxVO;
 
 /**
  * @Class Name : PltBxServiceImpl.java
@@ -21,5 +26,48 @@ import com.at.apcss.am.cmns.service.PltBxService;
  */
 @Service("pltBxService")
 public class PltBxServiceImpl implements PltBxService {
+	
+	@Autowired
+	private PltBxMapper pltBxMapper;
+	
+	@Override
+	public PltBxVO selectPltBx(PltBxVO pltBxVO) throws Exception {
+
+		PltBxVO resultVO = pltBxMapper.selectPltBx(pltBxVO);
+		
+		return resultVO;
+	}
+
+	@Override
+	public List<PltBxVO> selectPltBxList(PltBxVO pltBxVO) throws Exception {
+		
+		List<PltBxVO> resultList = pltBxMapper.selectPltBxList(pltBxVO);
+				
+		return resultList;
+	}
+
+	@Override
+	public int insertPltBx(PltBxVO pltBxVO) throws Exception {
+		
+		int insertedCnt = pltBxMapper.insertPltBx(pltBxVO);
+		
+		return insertedCnt;
+	}
+
+	@Override
+	public int updatePltBx(PltBxVO pltBxVO) throws Exception {
+		
+		int updatedCnt = pltBxMapper.updatePltBx(pltBxVO);
+		
+		return updatedCnt;
+	}
+
+	@Override
+	public int deletePltBx(PltBxVO pltBxVO) throws Exception {
+		
+		int deletedCnt = pltBxMapper.deletePltBx(pltBxVO);
+		
+		return deletedCnt;
+	}
 
 }

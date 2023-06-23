@@ -1,6 +1,10 @@
 package com.at.apcss.am.clcln.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.at.apcss.am.clcln.vo.ClclnPrfmncVO;
 
 /**
  * 정산실적 Mapper 인터페이스
@@ -18,5 +22,22 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ClclnPrfmncMapper {
-
+	
+	/**
+	 * 정산실적 단건 조회
+	 * @param clclnPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public ClclnPrfmncVO selectClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO);
+	
+	/**
+	 * 정산실적 목록 조회
+	 * @param clclnPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ClclnPrfmncVO> selectClclnPrfmncList(ClclnPrfmncVO clclnPrfmncVO);
+	
+	
 }
