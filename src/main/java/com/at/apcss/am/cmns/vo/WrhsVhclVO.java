@@ -2,6 +2,9 @@ package com.at.apcss.am.cmns.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @Class Name : WrhsVhclVO.java
  * @Description : 입고차량 정보에 대한 VO 클래스
@@ -17,6 +20,36 @@ import com.at.apcss.co.sys.vo.ComVO;
  * 2023.06.21  신정철        최초 생성
  * </pre>
  */
+@Getter
+@Setter
 public class WrhsVhclVO extends ComVO {
-
+	
+	/**
+	 * APC코드
+	 */
+	private String apcCd;
+	/**
+	 * 차량번호
+	 */
+	private String vhclNo;
+	/**
+	 * 기사명
+	 */
+	private String drvrNm;
+	/**
+	 * 은행코드
+	 */
+	private String bankCd;
+	/**
+	 * 계좌번호
+	 */
+	private String actno;
+	/**
+	 * 예금주명
+	 */
+	private String dpstr;
+	/**
+	 * 비고
+	 */
+	private String rmrk;
 }

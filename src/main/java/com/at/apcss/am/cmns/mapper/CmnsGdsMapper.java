@@ -1,6 +1,10 @@
 package com.at.apcss.am.cmns.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.at.apcss.am.cmns.vo.CmnsGdsVO;
 
 /**
  * 상품정보 Mapper 인터페이스
@@ -18,5 +22,45 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CmnsGdsMapper {
-
+	
+	/**
+	 * 상품정보 단건 조회
+	 * @param cmnsGdsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public CmnsGdsVO selectCmnsGds(CmnsGdsVO cmnsGdsVO) throws Exception;
+	
+	/**
+	 * 상품정보 목록 조회
+	 * @param cmnsGdsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<CmnsGdsVO> selectCmnsGdsList(CmnsGdsVO cmnsGdsVO) throws Exception;
+	
+	/**
+	 * 상품정보 등록
+	 * @param cmnsGdsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertCmnsGds(CmnsGdsVO cmnsGdsVO) throws Exception;
+	
+	/**
+	 * 상품정보 변경
+	 * @param cmnsGdsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateCmnsGds(CmnsGdsVO cmnsGdsVO) throws Exception;
+	
+	/**
+	 * 상품정보 삭제
+	 * @param cmnsGdsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteCmnsGds(CmnsGdsVO cmnsGdsVO) throws Exception;
+	
 }

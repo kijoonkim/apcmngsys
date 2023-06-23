@@ -1,6 +1,7 @@
 package com.at.apcss.am.cmns.vo;
 
-import com.at.apcss.co.sys.vo.ComVO;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @Class Name : CmnsVrtyVO.java
@@ -17,6 +18,16 @@ import com.at.apcss.co.sys.vo.ComVO;
  * 2023.06.21  신정철        최초 생성
  * </pre>
  */
-public class CmnsVrtyVO extends ComVO {
-
+@Getter
+@Setter
+public class CmnsVrtyVO extends CmnsItemVO {
+	
+	/**
+	 * 품종코드
+	 */
+	private String vrtyCd;
+	/**
+	 * 품종명
+	 */
+	private String vrtyNm;
 }

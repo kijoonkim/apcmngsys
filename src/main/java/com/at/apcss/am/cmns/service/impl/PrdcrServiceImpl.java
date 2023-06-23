@@ -1,8 +1,13 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.cmns.mapper.PrdcrMapper;
 import com.at.apcss.am.cmns.service.PrdcrService;
+import com.at.apcss.am.cmns.vo.PrdcrVO;
 
 /**
  * @Class Name : PrdcrServiceImpl.java
@@ -21,5 +26,48 @@ import com.at.apcss.am.cmns.service.PrdcrService;
  */
 @Service("prdcrService")
 public class PrdcrServiceImpl implements PrdcrService {
+	
+	@Autowired
+	private PrdcrMapper prdcrMapper;
+	
+	@Override
+	public PrdcrVO selectPrdcr(PrdcrVO prdcrVO) throws Exception {
+		
+		PrdcrVO resultVO = prdcrMapper.selectPrdcr(prdcrVO);
+
+		return resultVO;
+	}
+
+	@Override
+	public List<PrdcrVO> selectPrdcrList(PrdcrVO prdcrVO) throws Exception {
+		
+		List<PrdcrVO> resultList = prdcrMapper.selectPrdcrList(prdcrVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public int insertPrdcr(PrdcrVO prdcrVO) throws Exception {
+
+		int insertedCnt = prdcrMapper.insertPrdcr(prdcrVO);
+
+		return insertedCnt;
+	}
+
+	@Override
+	public int updatePrdcr(PrdcrVO prdcrVO) throws Exception {
+
+		int updatedCnt = prdcrMapper.updatePrdcr(prdcrVO);
+
+		return updatedCnt;
+	}
+
+	@Override
+	public int deletePrdcr(PrdcrVO prdcrVO) throws Exception {
+
+		int deletedCnt = prdcrMapper.deletePrdcr(prdcrVO);
+
+		return deletedCnt;
+	}
 
 }

@@ -1,8 +1,13 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.cmns.mapper.WrhsVhclMapper;
 import com.at.apcss.am.cmns.service.WrhsVhclService;
+import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 
 /**
  * @Class Name : WrhsVhclServiceImpl.java
@@ -21,5 +26,48 @@ import com.at.apcss.am.cmns.service.WrhsVhclService;
  */
 @Service("wrhsVhclService")
 public class WrhsVhclServiceImpl implements WrhsVhclService {
+	
+	@Autowired
+	private WrhsVhclMapper wrhsVhclMapper;
+	
+	@Override
+	public WrhsVhclVO selectWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception {
+		
+		WrhsVhclVO resultVO = wrhsVhclMapper.selectWrhsVhcl(wrhsVhclVO);
+		
+		return resultVO;
+	}
+
+	@Override
+	public List<WrhsVhclVO> selectWrhsVhclList(WrhsVhclVO wrhsVhclVO) throws Exception {
+
+		List<WrhsVhclVO> resultList = wrhsVhclMapper.selectWrhsVhclList(wrhsVhclVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public int insertWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception {
+
+		int insertedCnt = wrhsVhclMapper.insertWrhsVhcl(wrhsVhclVO);
+		
+		return insertedCnt;
+	}
+
+	@Override
+	public int updateWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception {
+
+		int updatedCnt = wrhsVhclMapper.updateWrhsVhcl(wrhsVhclVO);
+		
+		return updatedCnt;
+	}
+
+	@Override
+	public int deleteWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception {
+
+		int deletedCnt = wrhsVhclMapper.deleteWrhsVhcl(wrhsVhclVO);
+		
+		return deletedCnt;
+	}
 
 }
