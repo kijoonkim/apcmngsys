@@ -18,4 +18,16 @@ public class ComApcController extends BaseController{
 	public String doApc() {
 		return "apcss/co/apc/comApcManage";
 	}
+
+	@RequestMapping(value = "/co/guide/comGuideComponent.do")
+	public String doGuideComponent() {
+		logger.debug("GuideComponent page 호출 ");
+		return "apcss/co/guide/comGuideComponent";
+	}
+
+	@RequestMapping(value = "/co/guide/comGuideGrid.do")
+	public String doGuideGrid() {
+		logger.debug("comGuideGrid page 호출 ");
+		return "apcss/co/guide/comGuideGrid";
+	}
 }

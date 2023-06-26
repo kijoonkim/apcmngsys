@@ -19,6 +19,7 @@
 		<result property="password" column="PASSWORD"/>
 		<result property="userId" column="USER_ID"/>
 		<result property="pswd" column="PSWD"/>
+		<result property="apcCd" column="APC_CD"/>
 	</resultMap>
 
 	<!-- ==========================================================================	-->
@@ -41,6 +42,7 @@
 				, CU.USER_STTS		AS USER_STTS
 				, CU.EML			AS EMAIL
 				, CU.MBL_TELNO		AS MBL_TELNO
+				, CU.APC_CD			AS APC_CD
 				, CU.CHRGD_CERT_YN		AS CHRGDCERT_YN
 				, CU.CHRGD_CERT_TYPE	AS CHRGDCERT_TYPE
 				, CU.LGN_FAIL_NMTM		AS LGN_FAIL_NMTM

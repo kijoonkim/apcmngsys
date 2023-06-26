@@ -23,6 +23,8 @@
 	<link href="/resource/css/blue_comp_style.css" rel="stylesheet" type="text/css">
     <!------------------ 스타일 테마 CSS ------------------>
 	<link href="/resource/css/blue_style.css" rel="stylesheet" type="text/css">
+    <!------------------ 커스텀 테마 CSS ------------------>
+    <link href="/resource/css/sbgrid_custom.css" rel="stylesheet" type="text/css">
     <style>
         /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
@@ -37,11 +39,12 @@
             background:rgb(42, 48, 65); height:150px; padding:10px; box-sizing: border-box;  color:#dddddd;
         }
         /** table css */
-        table{border-collapse: collapse;border-spacing: 0;}
+        /* table{border-collapse: collapse;border-spacing: 0;}
         table,th{text-align:center;}
         table,td{padding:5px;}
-        .tbl{width: 100%;border-top: 2px solid #888;border-bottom: 1px solid #ddd;text-align: left;}
+        .tbl{width: 100%;border-top: 2px solid #888;border-bottom: 1px solid #ddd;text-align: left;} */
     </style>
+
 </head>
 <body>
     <div class="sbt-A-wrap">
@@ -81,85 +84,85 @@
                 <div class="sbt-con-wrap">
                 	<ul>
                     <li style="display:inline-block;float:left;width: 49.5%;vertical-align:top;">
-                    <div class="sbt-grid-wrap">
-                        <div class="sbt-wrap-body">
-                            <div class="sbt-grid">
-                                <!-- SBGrid를 호출합니다. -->
-                                <div id="SBGridArea" style="width:100%;height:500px;"></div>
-                            </div>
-                        </div>
-                    </div>
+	                    <div class="sbt-grid-wrap">
+	                        <div class="sbt-wrap-body">
+	                            <div class="sbt-grid">
+	                                <!-- SBGrid를 호출합니다. -->
+	                                <div id="menuTreeArea" style="width:100%;height:300px;"></div>
+	                            </div>
+	                        </div>
+	                    </div>
                     </li>
                     <li style="display:inline-block;float:right;width: 49.5%;vertical-align:top;">
-                    <div class="sbt-grid-wrap">
-                        <div class="sbt-wrap-header">
-                            <span>icon</span>
-                            <h3>메뉴상세정보</h3>
-                        </div>
-                        <div class="sbt-wrap-body">
-                            <sbux-input id="gubun" name="gubun" uitype="hidden"></sbux-input>
-                            <table class="tbl">
-                                <colgroup>
-                                    <col style="width:20%">
-                                    <col style="width:30%">
-                                    <col style="width:20%">
-                                    <col style="width:30%">
-                                </colgroup>
-                                <tr>
-                                    <th>상위메뉴</th>
-                                    <td>
-                                        <sbux-input id="upMenuNm" name="upMenuNm" uitype="text" style="width:100%" readonly></sbux-input>
-                                        <sbux-input id="upMenuId" name="upMenuId" uitype="hidden"></sbux-input>
-                                    </td>
-                                    <th>시스템구분</th>
-                                    <td>
-                                        <sbux-input id="sysGb" name="sysGb" uitype="text" style="width:100%" readonly></sbux-input>
-                                        <sbux-input id="sysCd" name="sysCd" uitype="hidden"></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>메뉴ID</th>
-                                    <td>
-                                        <sbux-input id="menuId" name="menuId" uitype="text" required style="width:100%" readonly ></sbux-input>
-                                    </td>
-                                    <th>APC코드</th>
-                                    <td>
-                                        <sbux-input id="apcCd" name="apcCd" uitype="text" required style="width:100%"></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>메뉴명</th>
-                                    <td>
-                                        <sbux-input id="menuNm" name="menuNm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                    <th>표시순서</th>
-                                    <td>
-                                        <sbux-input id="order" name="order" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>화면유형</th>
-                                    <td>
-                                    	<sbux-select id="comBoMenuType" name="comBoMenuType" uitype="single" jsondata-ref="jsonComboMenuType" onChange="selectChange(comBoMenuType)" unselected-text="선택" style="width:100%"></sbux-select>
-                                    </td>
-                                    <th>사용자유형</th>
-                                    <td>
-                                    	<sbux-select id="comBoUserType" name="comBoUserType" uitype="single" jsondata-ref="jsonComboUserType" unselected-text="선택" style="width:100%"></sbux-select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>화면URL</th>
-                                    <td>
-                                    	<sbux-input id="pageUrl" name="pageUrl" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                    <th>사용유무</th>
-                                    <td>
-                                    	<sbux-select id="comBoDelYn" name="comBoDelYn" uitype="single" jsondata-ref="jsonComBoDelYn" unselected-text="선택" style="width:100%"></sbux-select>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
+	                    <div class="sbt-grid-wrap">
+	                        <div class="sbt-wrap-header">
+	                            <span>icon</span>
+	                            <h3>메뉴상세정보</h3>
+	                        </div>
+	                        <div class="sbt-wrap-body">
+	                            <sbux-input id="gubun" name="gubun" uitype="hidden"></sbux-input>
+	                            <table class="tbl">
+	                                <colgroup>
+	                                    <col style="width:20%">
+	                                    <col style="width:30%">
+	                                    <col style="width:20%">
+	                                    <col style="width:30%">
+	                                </colgroup>
+	                                <tr>
+	                                    <th>상위메뉴</th>
+	                                    <td>
+	                                        <sbux-input id="upMenuNm" name="upMenuNm" uitype="text" style="width:100%" readonly></sbux-input>
+	                                        <sbux-input id="upMenuId" name="upMenuId" uitype="hidden"></sbux-input>
+	                                    </td>
+	                                    <th>시스템구분</th>
+	                                    <td>
+	                                        <sbux-input id="sysGb" name="sysGb" uitype="text" style="width:100%" readonly></sbux-input>
+	                                        <sbux-input id="sysCd" name="sysCd" uitype="hidden"></sbux-input>
+	                                    </td>
+	                                </tr>
+	                                <tr>
+	                                    <th>메뉴ID</th>
+	                                    <td>
+	                                        <sbux-input id="menuId" name="menuId" uitype="text" required style="width:100%" readonly ></sbux-input>
+	                                    </td>
+	                                    <th>APC코드</th>
+	                                    <td>
+	                                        <sbux-input id="apcCd" name="apcCd" uitype="text" required style="width:100%"></sbux-input>
+	                                    </td>
+	                                </tr>
+	                                <tr>
+	                                    <th>메뉴명</th>
+	                                    <td>
+	                                        <sbux-input id="menuNm" name="menuNm" uitype="text" style="width:100%"></sbux-input>
+	                                    </td>
+	                                    <th>표시순서</th>
+	                                    <td>
+	                                        <sbux-input id="order" name="order" uitype="text" style="width:100%"></sbux-input>
+	                                    </td>
+	                                </tr>
+	                                <tr>
+	                                    <th>화면유형</th>
+	                                    <td>
+	                                    	<sbux-select id="comBoMenuType" name="comBoMenuType" uitype="single" jsondata-ref="jsonComboMenuType" onChange="selectChange(comBoMenuType)" unselected-text="선택" style="width:100%"></sbux-select>
+	                                    </td>
+	                                    <th>사용자유형</th>
+	                                    <td>
+	                                    	<sbux-select id="comBoUserType" name="comBoUserType" uitype="single" jsondata-ref="jsonComboUserType" unselected-text="선택" style="width:100%"></sbux-select>
+	                                    </td>
+	                                </tr>
+	                                <tr>
+	                                    <th>화면URL</th>
+	                                    <td>
+	                                    	<sbux-input id="pageUrl" name="pageUrl" uitype="text" style="width:100%"></sbux-input>
+	                                    </td>
+	                                    <th>사용유무</th>
+	                                    <td>
+	                                    	<sbux-select id="comBoDelYn" name="comBoDelYn" uitype="single" jsondata-ref="jsonComBoDelYn" unselected-text="선택" style="width:100%"></sbux-select>
+	                                    </td>
+	                                </tr>
+	                            </table>
+	                        </div>
+	                    </div>
                     </li>
                     </ul>
                 </div>
@@ -508,7 +511,7 @@
 
     function fn_createGrid() {
         var SBGridProperties = {};
-	    SBGridProperties.parentid = 'SBGridArea';
+	    SBGridProperties.parentid = 'menuTreeArea';
 	    SBGridProperties.id = 'datagrid';
 	    SBGridProperties.jsonref = 'gridData';
         SBGridProperties.contextmenu = true;
