@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ComCdMapper.xml                                    					-->
+<!-- DESC : 사용자 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.co.apc.mapper.ComApcMapper">
+
+	<resultMap type="com.at.apcss.co.apc.vo.ComApcVO" id="comApcMap">
+        <result property="apcCd" column="APC_CD"/>
+		<result property="orgrnApcNm" column="ORGRN_APC_NM"/>
+		<result property="ctpv" column="CTPV"/>
+		<result property="sigun" column="SIGUN"/>
+		<result property="mbNm" column="MB_NM"/>
+		<result property="orgnlAddr" column="ORGNL_ADDR"/>
+		<result property="orgnlTelno" column="ORGNL_TELNO"/>
+		<result property="apcNm" column="APC_NM"/>
+		<result property="apcBrno" column="APC_BRNO"/>
+		<result property="bankNm" column="BANK_NM"/>
+		<result property="dpstr" column="DPSTR"/>
+		<result property="actno" column="ACTNO"/>
+		<result property="addr" column="ADDR"/>
+		<result property="telno" column="TELNO"/>
+		<result property="faxNo" column="FAX_NO"/>
+	</resultMap>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList			-->
+	<!-- DESC : 공통코드 상세 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcInfo" parameterType="com.at.apcss.co.apc.vo.ComApcVO" resultMap="comApcMap">
+    	SELECT AI.APC_CD            AS APC_CD
+		     , AI.ORGRN_APC_NM      AS ORGRN_APC_NM
+		     , AI.CTPV              AS CTPU
+		     , AI.SIGUN             AS SIGUN
+		     , AI.MB_NM             AS MB_NM
+		     , AI.ORGNL_ADDR        AS ORGNL_ADDR
+		     , AI.ORGNL_TELNO       AS ORGNL_TELNO
+		     , AI.APC_NM            AS APC_NM
+		     , AI.APC_BRNO          AS APC_BRNO
+		     , AI.BANK_NM           AS BANK_NM
+		     , AI.DPSTR             AS DPSTR
+		     , AI.ACTNO             AS ACTNO
+		     , AI.ADDR              AS ADDR
+		     , AI.TELNO             AS TELNO
+		     , AI.FAX_NO            AS FAX_NO
+		  FROM TB_APC_INFO AI
+		 WHERE APC_CD = #{apcCd}
+    </select>
+</mapper>
+
+
