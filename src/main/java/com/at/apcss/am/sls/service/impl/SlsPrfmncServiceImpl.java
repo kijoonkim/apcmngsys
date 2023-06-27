@@ -1,8 +1,13 @@
 package com.at.apcss.am.sls.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.sls.mapper.SlsPrfmncMapper;
 import com.at.apcss.am.sls.service.SlsPrfmncService;
+import com.at.apcss.am.sls.vo.SlsPrfmncVO;
 
 /**
  * @Class Name : SlsPrfmncServiceImpl.java
@@ -21,5 +26,48 @@ import com.at.apcss.am.sls.service.SlsPrfmncService;
  */
 @Service("slsPrfmncService")
 public class SlsPrfmncServiceImpl implements SlsPrfmncService {
+
+	@Autowired
+	private SlsPrfmncMapper slsPrfmncMapper;
+	
+	@Override
+	public SlsPrfmncVO selectSlsPrfmnc(SlsPrfmncVO slsPrfmncVO) throws Exception {
+		
+		SlsPrfmncVO resultVO = slsPrfmncMapper.selectSlsPrfmnc(slsPrfmncVO);
+		
+		return resultVO;
+	}
+
+	@Override
+	public List<SlsPrfmncVO> selectSlsPrfmncList(SlsPrfmncVO slsPrfmncVO) throws Exception {
+
+		List<SlsPrfmncVO> resultList = slsPrfmncMapper.selectSlsPrfmncList(slsPrfmncVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public int insertSlsPrfmnc(SlsPrfmncVO slsPrfmncVO) throws Exception {
+
+		int insertedCnt = slsPrfmncMapper.insertSlsPrfmnc(slsPrfmncVO);
+		
+		return insertedCnt;
+	}
+
+	@Override
+	public int updateSlsPrfmnc(SlsPrfmncVO slsPrfmncVO) throws Exception {
+
+		int updatedCnt = slsPrfmncMapper.updateSlsPrfmnc(slsPrfmncVO);
+		
+		return updatedCnt;
+	}
+
+	@Override
+	public int deleteSlsPrfmnc(SlsPrfmncVO slsPrfmncVO) throws Exception {
+
+		int deletedCnt = slsPrfmncMapper.deleteSlsPrfmnc(slsPrfmncVO);
+		
+		return deletedCnt;
+	}
 
 }

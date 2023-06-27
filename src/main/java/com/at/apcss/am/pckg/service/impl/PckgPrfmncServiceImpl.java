@@ -1,8 +1,13 @@
 package com.at.apcss.am.pckg.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.pckg.mapper.PckgPrfmncMapper;
 import com.at.apcss.am.pckg.service.PckgPrfmncService;
+import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
 
 /**
  * @Class Name : PckgPrfmncServiceImpl.java
@@ -21,5 +26,48 @@ import com.at.apcss.am.pckg.service.PckgPrfmncService;
  */
 @Service("pckgPrfmncService")
 public class PckgPrfmncServiceImpl implements PckgPrfmncService {
+
+	@Autowired
+	private PckgPrfmncMapper pckgPrfmncMapper;
+	
+	@Override
+	public PckgPrfmncVO selectPckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception {
+
+		PckgPrfmncVO resultVO = pckgPrfmncMapper.selectPckgPrfmnc(pckgPrfmncVO);
+		
+		return resultVO;
+	}
+
+	@Override
+	public List<PckgPrfmncVO> selectPckgPrfmncList(PckgPrfmncVO pckgPrfmncVO) throws Exception {
+
+		List<PckgPrfmncVO> resultList = pckgPrfmncMapper.selectPckgPrfmncList(pckgPrfmncVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public int insertPckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception {
+
+		int insertedCnt = pckgPrfmncMapper.insertPckgPrfmnc(pckgPrfmncVO);
+		
+		return insertedCnt;
+	}
+
+	@Override
+	public int updatePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception {
+
+		int updatedCnt = pckgPrfmncMapper.updatePckgPrfmnc(pckgPrfmncVO);
+		
+		return updatedCnt;
+	}
+
+	@Override
+	public int deletePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception {
+
+		int deletedCnt = pckgPrfmncMapper.deletePckgPrfmnc(pckgPrfmncVO);
+		
+		return deletedCnt;
+	}
 
 }

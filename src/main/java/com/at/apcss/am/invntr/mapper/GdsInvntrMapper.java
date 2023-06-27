@@ -1,6 +1,10 @@
 package com.at.apcss.am.invntr.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 
 /**
  * 상품재고관리 Mapper 인터페이스
@@ -19,4 +23,44 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface GdsInvntrMapper {
 
+	/**
+	 * 상품재고 단건 조회
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public GdsInvntrVO selectGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
+	/**
+	 * 상품재고 목록 조회
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<GdsInvntrVO> selectGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
+	/**
+	 * 상품재고 등록
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
+	/**
+	 * 상품재고 변경
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
+	/**
+	 * 상품재고 삭제
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
 }

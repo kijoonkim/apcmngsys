@@ -2,6 +2,9 @@ package com.at.apcss.am.sort.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @Class Name : SortPrfmncVO.java
  * @Description : 선별실적정보에 대한 VO 클래스
@@ -17,6 +20,82 @@ import com.at.apcss.co.sys.vo.ComVO;
  * 2023.06.21  신정철        최초 생성
  * </pre>
  */
+@Getter
+@Setter
 public class SortPrfmncVO extends ComVO {
+	
+	/**
+	 * APC코드
+	 */
+	private String apcCd;
 
+	/**
+	 * 선별번호
+	 */
+	private String sortNo;
+
+	/**
+	 * 등급코드
+	 */
+	private String grdCd;
+
+	/**
+	 * 등급명
+	 */
+	private String grdNm;
+
+	/**
+	 * 투입일자
+	 */
+	private String inptYmd;
+
+	/**
+	 * 설비코드
+	 */
+	private String fcltCd;
+
+	/**
+	 * 대표생산자코드
+	 */
+	private String rprsPrdcrCd;
+
+	/**
+	 * 품목코드
+	 */
+	private String itemCd;
+
+	/**
+	 * 품종코드
+	 */
+	private String vrtyCd;
+
+	/**
+	 * 규격코드
+	 */
+	private String spcfctCd;
+
+	/**
+	 * 창고구분코드
+	 */
+	private String warehouseSeCd;
+
+	/**
+	 * 수량
+	 */
+	private int qntt;
+
+	/**
+	 * 중량
+	 */
+	private double wght;
+
+	/**
+	 * 선별지시번호
+	 */
+	private String sortCmndNo;
+
+	/**
+	 * 비고
+	 */
+	private String rmrk;
 }

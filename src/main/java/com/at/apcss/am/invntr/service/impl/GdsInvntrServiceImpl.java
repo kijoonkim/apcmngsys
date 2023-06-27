@@ -1,8 +1,13 @@
 package com.at.apcss.am.invntr.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.invntr.mapper.GdsInvntrMapper;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 
 /**
  * @Class Name : GdsInvntrServiceImpl.java
@@ -21,5 +26,49 @@ import com.at.apcss.am.invntr.service.GdsInvntrService;
  */
 @Service("gdsInvntrService")
 public class GdsInvntrServiceImpl implements GdsInvntrService {
+
+	
+	@Autowired
+	private GdsInvntrMapper gdsInvntrMapper;
+	
+	@Override
+	public GdsInvntrVO selectGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
+		
+		GdsInvntrVO resultVO = gdsInvntrMapper.selectGdsInvntr(gdsInvntrVO);
+		
+		return resultVO;
+	}
+
+	@Override
+	public List<GdsInvntrVO> selectGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
+
+		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectGdsInvntrList(gdsInvntrVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public int insertGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
+
+		int insertedCnt = gdsInvntrMapper.insertGdsInvntr(gdsInvntrVO);
+		
+		return insertedCnt;
+	}
+
+	@Override
+	public int updateGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
+
+		int updatedCnt = gdsInvntrMapper.updateGdsInvntr(gdsInvntrVO);
+		
+		return updatedCnt;
+	}
+
+	@Override
+	public int deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
+
+		int deletedCnt = gdsInvntrMapper.deleteGdsInvntr(gdsInvntrVO);
+		
+		return deletedCnt;
+	}
 
 }

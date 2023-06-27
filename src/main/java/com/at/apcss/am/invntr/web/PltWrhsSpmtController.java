@@ -1,12 +1,12 @@
-package com.at.apcss.am.spmt.web;
+package com.at.apcss.am.invntr.web;
 
 import org.springframework.stereotype.Controller;
 
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
- * @Class Name : PltSpmtController.java
- * @Description : 팔레트/박스 출고에 대한 Controller 클래스
+ * @Class Name : PltWrhsSpmtController.java
+ * @Description : 팔레트입출고관리 대한 Controller 클래스
  * @author 신정철
  * @since 2023.06.21
  * @version 1.0
@@ -20,6 +20,6 @@ import com.at.apcss.co.sys.controller.BaseController;
  * </pre>
  */
 @Controller
-public class PltSpmtController extends BaseController {
+public class PltWrhsSpmtController extends BaseController {
 
 }

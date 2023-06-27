@@ -1,5 +1,9 @@
 package com.at.apcss.am.ordr.service;
 
+import java.util.List;
+
+import com.at.apcss.am.ordr.vo.OrdrVO;
+
 /**
  * 발주정보 Service 인터페이스
  * @author 신정철
@@ -16,4 +20,43 @@ package com.at.apcss.am.ordr.service;
  */
 public interface OrdrService {
 
+	/**
+	 * 발주정보 단건 조회
+	 * @param ordrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public OrdrVO selectOrdr(OrdrVO ordrVO) throws Exception;
+	
+	/**
+	 * 발주정보 목록 조회
+	 * @param ordrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<OrdrVO> selectOrdrList(OrdrVO ordrVO) throws Exception;
+	
+	/**
+	 * 발주정보 등록
+	 * @param ordrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertOrdr(OrdrVO ordrVO) throws Exception;
+	
+	/**
+	 * 발주정보 변경
+	 * @param ordrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateOrdr(OrdrVO ordrVO) throws Exception;
+	
+	/**
+	 * 발주정보 삭제
+	 * @param ordrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteOrdr(OrdrVO ordrVO) throws Exception;
 }

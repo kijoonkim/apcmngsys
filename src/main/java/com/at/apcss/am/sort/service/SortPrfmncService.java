@@ -1,5 +1,9 @@
 package com.at.apcss.am.sort.service;
 
+import java.util.List;
+
+import com.at.apcss.am.sort.vo.SortPrfmncVO;
+
 /**
  * 선별실적 Service 인터페이스
  * @author 신정철
@@ -15,5 +19,44 @@ package com.at.apcss.am.sort.service;
  * </pre>
  */
 public interface SortPrfmncService {
+	
+	/**
+	 * 선별실적 단건 조회
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public SortPrfmncVO selectSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception;
 
+	/**
+	 * 선별실적 목록 조회
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortPrfmncVO> selectSortPrfmncList(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+	/**
+	 * 선별실적 등록
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+	/**
+	 * 선별실적 변경
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+	/**
+	 * 선별실적 삭제
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception;
 }

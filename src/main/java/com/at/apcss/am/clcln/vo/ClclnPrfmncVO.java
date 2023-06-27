@@ -67,23 +67,23 @@ public class ClclnPrfmncVO extends ComVO {
 	/**
 	 * 등급1
 	 */
-	private String grd1;
+	private int grd1;
 	/**
 	 * 등급2
 	 */
-	private String grd2;
+	private int grd2;
 	/**
 	 * 등급3
 	 */
-	private String grd3;
+	private int grd3;
 	/**
 	 * 등급4
 	 */
-	private String grd4;
+	private int grd4;
 	/**
 	 * 등급5
 	 */
-	private String grd5;
+	private int grd5;
 	/**
 	 * 수량
 	 */

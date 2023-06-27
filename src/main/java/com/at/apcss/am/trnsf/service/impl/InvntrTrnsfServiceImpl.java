@@ -1,8 +1,13 @@
 package com.at.apcss.am.trnsf.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.trnsf.mapper.InvntrTrnsfMapper;
 import com.at.apcss.am.trnsf.service.InvntrTrnsfService;
+import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
 
 /**
  * @Class Name : InvntrTrnsfServiceImpl.java
@@ -22,4 +27,46 @@ import com.at.apcss.am.trnsf.service.InvntrTrnsfService;
 @Service("invntrTrnsfService")
 public class InvntrTrnsfServiceImpl implements InvntrTrnsfService {
 
+	@Autowired
+	private InvntrTrnsfMapper invntrTrnsfMapper;
+	
+	@Override
+	public InvntrTrnsfVO selectInvntrTrnsf(InvntrTrnsfVO invntrTrnsfVO) throws Exception {
+		
+		InvntrTrnsfVO resultVO = invntrTrnsfMapper.selectInvntrTrnsf(invntrTrnsfVO);
+		
+		return resultVO;
+	}
+
+	@Override
+	public List<InvntrTrnsfVO> selectInvntrTrnsfList(InvntrTrnsfVO invntrTrnsfVO) throws Exception {
+		
+		List<InvntrTrnsfVO> resultList = invntrTrnsfMapper.selectInvntrTrnsfList(invntrTrnsfVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public int insertInvntrTrnsf(InvntrTrnsfVO invntrTrnsfVO) throws Exception {
+		
+		int insertedCnt = invntrTrnsfMapper.insertInvntrTrnsf(invntrTrnsfVO);
+		
+		return insertedCnt;
+	}
+
+	@Override
+	public int updateInvntrTrnsf(InvntrTrnsfVO invntrTrnsfVO) throws Exception {
+		
+		int updatedCnt = invntrTrnsfMapper.updateInvntrTrnsf(invntrTrnsfVO);
+		
+		return updatedCnt;
+	}
+
+	@Override
+	public int deleteInvntrTrnsf(InvntrTrnsfVO invntrTrnsfVO) throws Exception {
+		
+		int deletedCnt = invntrTrnsfMapper.deleteInvntrTrnsf(invntrTrnsfVO);
+		
+		return deletedCnt ;
+	}
 }

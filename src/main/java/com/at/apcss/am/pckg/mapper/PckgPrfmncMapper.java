@@ -1,6 +1,10 @@
 package com.at.apcss.am.pckg.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
 
 /**
  * 포장실적 Mapper 인터페이스
@@ -18,5 +22,44 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface PckgPrfmncMapper {
+	
+	/**
+	 * 포장실적 단건 조회
+	 * @param pckgPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public PckgPrfmncVO selectPckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception;
 
+	/**
+	 * 포장실적 목록 조회
+	 * @param pckgPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PckgPrfmncVO> selectPckgPrfmncList(PckgPrfmncVO pckgPrfmncVO) throws Exception;
+
+	/**
+	 * 포장실적 등록
+	 * @param pckgPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertPckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception;
+
+	/**
+	 * 포장실적 변경
+	 * @param pckgPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updatePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception;
+
+	/**
+	 * 포장실적 삭제
+	 * @param pckgPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deletePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception;	
 }

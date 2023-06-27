@@ -1,5 +1,9 @@
 package com.at.apcss.am.whrs.service;
 
+import java.util.List;
+
+import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
+
 /**
  * 원물입고 Service 인터페이스
  * @author 신정철
@@ -15,5 +19,44 @@ package com.at.apcss.am.whrs.service;
  * </pre>
  */
 public interface RawMtrWrhsService {
+	
+	/**
+	 * 원물입고 단건 조회
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public RawMtrWrhsVO selectRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
+	/**
+	 * 원물입고 목록 조회
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrWrhsVO> selectRawMtrWrhsList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 원물입고 등록
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 원물입고 변경
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 원물입고 삭제
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }

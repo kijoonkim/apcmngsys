@@ -1,4 +1,4 @@
-package com.at.apcss.am.sort.vo;
+package com.at.apcss.am.invntr.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
@@ -6,10 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @Class Name : SortInptPrfmncVO.java
- * @Description : 선별투입실적정보에 대한 VO 클래스
+ * @Class Name : PltWrhsSpmtVO.java
+ * @Description : 팔레트 입출고에 대한 VO 클래스
  * @author 신정철
- * @since 2023.06.21
+ * @since 2023.06.26
  * @version 1.0
  * @see
  *
@@ -22,7 +22,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class SortInptPrfmncVO extends ComVO {
+public class PltWrhsSpmtVO extends ComVO {
 	
 	/**
 	 * APC코드
@@ -30,24 +30,24 @@ public class SortInptPrfmncVO extends ComVO {
 	private String apcCd;
 
 	/**
-	 * 입고번호
+	 * 작업일자
 	 */
-	private String wrhsNo;
+	private String jobYmd;
 
 	/**
-	 * 투입일자
+	 * 입출고 구분코드
 	 */
-	private String inptYmd;
+	private String wrhsSpmtSeCd;
 
 	/**
-	 * 품목코드
+	 * 팔레트/박스 구분코드
 	 */
-	private String itemCd;
+	private String pltBxSeCd;
 
 	/**
-	 * 품종코드
+	 * 팔레트/박스 코드
 	 */
-	private String vrtyCd;
+	private String pltBxCd;
 
 	/**
 	 * 생산자코드
@@ -55,24 +55,24 @@ public class SortInptPrfmncVO extends ComVO {
 	private String prdcrCd;
 
 	/**
+	 * 순번
+	 */
+	private int seqNo;
+
+	/**
+	 * 팔레트명칭
+	 */
+	private String pltNm;
+
+	/**
+	 * 단중
+	 */
+	private double unitWght;
+
+	/**
 	 * 수량
 	 */
 	private int qntt;
-
-	/**
-	 * 중량
-	 */
-	private double wght;
-
-	/**
-	 * 선별번호
-	 */
-	private String sortNo;
-
-	/**
-	 * 선별지시번호
-	 */
-	private String sortCmndNo;
 
 	/**
 	 * 비고
