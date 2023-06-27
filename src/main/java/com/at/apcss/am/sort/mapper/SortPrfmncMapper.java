@@ -1,6 +1,10 @@
 package com.at.apcss.am.sort.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.at.apcss.am.sort.vo.SortPrfmncVO;
 
 /**
  * 선별실적 Mapper 인터페이스
@@ -18,5 +22,44 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SortPrfmncMapper {
+	
+	/**
+	 * 선별실적 단건 조회
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public SortPrfmncVO selectSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception;
 
+	/**
+	 * 선별실적 목록 조회
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortPrfmncVO> selectSortPrfmncList(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+	/**
+	 * 선별실적 등록
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+	/**
+	 * 선별실적 변경
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+	/**
+	 * 선별실적 삭제
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception;
 }

@@ -1,8 +1,13 @@
 package com.at.apcss.am.sort.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.sort.mapper.SortPrfmncMapper;
 import com.at.apcss.am.sort.service.SortPrfmncService;
+import com.at.apcss.am.sort.vo.SortPrfmncVO;
 
 /**
  * @Class Name : SortPrfmncServiceImpl.java
@@ -21,5 +26,48 @@ import com.at.apcss.am.sort.service.SortPrfmncService;
  */
 @Service("sortPrfmncService")
 public class SortPrfmncServiceImpl implements SortPrfmncService {
+
+	@Autowired
+	private SortPrfmncMapper sortPrfmncMapper;
+	
+	@Override
+	public SortPrfmncVO selectSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+		SortPrfmncVO resultVO = sortPrfmncMapper.selectSortPrfmnc(sortPrfmncVO);
+		
+		return resultVO;
+	}
+
+	@Override
+	public List<SortPrfmncVO> selectSortPrfmncList(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+		List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortPrfmncList(sortPrfmncVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public int insertSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+		int insertedCnt = sortPrfmncMapper.insertSortPrfmnc(sortPrfmncVO);
+		
+		return insertedCnt;
+	}
+
+	@Override
+	public int updateSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+		int updatedCnt = sortPrfmncMapper.updateSortPrfmnc(sortPrfmncVO);
+		
+		return updatedCnt;
+	}
+
+	@Override
+	public int deleteSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+		int deletedCnt = sortPrfmncMapper.deleteSortPrfmnc(sortPrfmncVO);
+		
+		return deletedCnt;
+	}
 
 }

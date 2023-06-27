@@ -2,6 +2,9 @@ package com.at.apcss.am.sls.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @Class Name : SlsPrfmncVO.java
  * @Description : 매출실적에 대한 VO 클래스
@@ -17,6 +20,102 @@ import com.at.apcss.co.sys.vo.ComVO;
  * 2023.06.21  신정철        최초 생성
  * </pre>
  */
+@Getter
+@Setter
 public class SlsPrfmncVO extends ComVO {
+	
+	/**
+	 * APC코드
+	 */
+	private String apcCd;
 
+	/**
+	 * 매출일자
+	 */
+	private String slsYmd;
+
+	/**
+	 * 매출순번
+	 */
+	private int slsSeqNo;
+
+	/**
+	 * 거래처코드
+	 */
+	private String cnptCd;
+
+	/**
+	 * 거래처명
+	 */
+	private String cnptNm;
+
+	/**
+	 * 상품코드
+	 */
+	private String gdsCd;
+
+	/**
+	 * 상품명
+	 */
+	private String gdsNm;
+
+	/**
+	 * 품목코드
+	 */
+	private String itemCd;
+
+	/**
+	 * 품종코드
+	 */
+	private String vrtyCd;
+
+	/**
+	 * 규격코드
+	 */
+	private String spcfctCd;
+
+	/**
+	 * 등급코드
+	 */
+	private String grdCd;
+
+	/**
+	 * 브랜드코드
+	 */
+	private String brndCd;
+
+	/**
+	 * 출하일자
+	 */
+	private String spmtYmd;
+
+	/**
+	 * 수량
+	 */
+	private int qntt;
+
+	/**
+	 * 중량
+	 */
+	private double wght;
+
+	/**
+	 * 매출단가
+	 */
+	private double slsUntprc;
+
+	/**
+	 * 계산금액
+	 */
+	private double rkngAmt;
+
+	/**
+	 * 확정금액
+	 */
+	private double cfmtnAmt;
+
+	/**
+	 * 확정여부
+	 */
+	private String cfmtnYn;
 }

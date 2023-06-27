@@ -2,6 +2,9 @@ package com.at.apcss.am.pckg.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @Class Name : PckgPrfmncVO.java
  * @Description : 포장실적에 대한 VO 클래스
@@ -17,6 +20,77 @@ import com.at.apcss.co.sys.vo.ComVO;
  * 2023.06.21  신정철        최초 생성
  * </pre>
  */
+@Getter
+@Setter
 public class PckgPrfmncVO extends ComVO {
-
+	
+	/**
+	 * APC코드
+	 */
+	private String apcCd;
+	
+	/**
+	 * 포장번호
+	 */
+	private String pckgNo;
+	
+	/**
+	 * 포장순번
+	 */
+	private String pckgSeqNo;
+	
+	/**
+	 * 포장일자
+	 */
+	private String pckgYmd;
+	
+	/**
+	 * 설비코드
+	 */
+	private String fcltCd;
+	
+	/**
+	 * 대표생산자코드
+	 */
+	private String rprsPrdcrCd;
+	
+	/**
+	 * 품목코드
+	 */
+	private String itemCd;
+	
+	/**
+	 * 품종코드
+	 */
+	private String vrtyCd;
+	
+	/**
+	 * 규격코드
+	 */
+	private String spcfctCd;
+	
+	/**
+	 * 창고구분코드
+	 */
+	private String warehouseSeCd;
+	
+	/**
+	 * 포장수량
+	 */
+	private int pckgQntt;
+	
+	/**
+	 * 포장중량
+	 */
+	private double pckgWght;
+	
+	/**
+	 * 포장지시번호
+	 */
+	private String pckgCmndNo;
+	
+	/**
+	 * 비고
+	 */
+	private String rmrk;
 }

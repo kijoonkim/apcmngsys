@@ -1,8 +1,13 @@
 package com.at.apcss.am.spmt.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper;
 import com.at.apcss.am.spmt.service.SpmtPrfmncService;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 
 /**
  * @Class Name : SpmtPrfmncServiceImpl.java
@@ -21,5 +26,72 @@ import com.at.apcss.am.spmt.service.SpmtPrfmncService;
  */
 @Service("spmtPrfmncService")
 public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
+
+	@Autowired
+	private SpmtPrfmncMapper spmtPrfmncMapper;
+	
+	@Override
+	public SpmtPrfmncVO selectSpmtPrfmnc(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+
+		SpmtPrfmncVO resultVO = spmtPrfmncMapper.selectSpmtPrfmnc(spmtPrfmncVO);
+		
+		return resultVO;
+	}
+
+	@Override
+	public List<SpmtPrfmncVO> selectSpmtPrfmncList(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+
+		List<SpmtPrfmncVO> resultList = spmtPrfmncMapper.selectSpmtPrfmncList(spmtPrfmncVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public int insertSpmtPrfmncCom(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+
+		int insertedCnt = spmtPrfmncMapper.insertSpmtPrfmncCom(spmtPrfmncVO);
+		
+		return insertedCnt;
+	}
+
+	@Override
+	public int updateSpmtPrfmncCom(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+
+		int updatedCnt = spmtPrfmncMapper.updateSpmtPrfmncCom(spmtPrfmncVO);
+		
+		return updatedCnt;
+	}
+
+	@Override
+	public int deleteSpmtPrfmncCom(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+
+		int deletedCnt = spmtPrfmncMapper.deleteSpmtPrfmncCom(spmtPrfmncVO);
+		
+		return deletedCnt;
+	}
+
+	@Override
+	public int insertSpmtPrfmncDtl(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+
+		int insertedCnt = spmtPrfmncMapper.insertSpmtPrfmncDtl(spmtPrfmncVO);
+		
+		return insertedCnt;
+	}
+
+	@Override
+	public int updateSpmtPrfmncDtl(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+
+		int updatedCnt = spmtPrfmncMapper.updateSpmtPrfmncDtl(spmtPrfmncVO);
+		
+		return updatedCnt;
+	}
+
+	@Override
+	public int deleteSpmtPrfmncDtl(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+
+		int deletedCnt = spmtPrfmncMapper.deleteSpmtPrfmncDtl(spmtPrfmncVO);
+		
+		return deletedCnt;
+	}
 
 }

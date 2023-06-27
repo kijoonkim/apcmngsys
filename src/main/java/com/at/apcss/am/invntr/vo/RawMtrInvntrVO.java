@@ -2,6 +2,9 @@ package com.at.apcss.am.invntr.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @Class Name : RawMtrInvntrVO.java
  * @Description : 원물재고정보에 대한 VO 클래스
@@ -17,6 +20,127 @@ import com.at.apcss.co.sys.vo.ComVO;
  * 2023.06.21  신정철        최초 생성
  * </pre>
  */
+@Getter
+@Setter
 public class RawMtrInvntrVO extends ComVO {
 
+	/**
+	 * APC코드
+	 */
+	private String apcCd;
+		
+	/**
+	 * 입고번호
+	 */
+	private String wrhsNo;
+	
+	/**
+	 * 팔레트번호
+	 */
+	private String pltNo;
+	
+	/**
+	 * 입고일자
+	 */
+	private String wrhsYmd;
+	
+	/**
+	 * 생산자코드
+	 */
+	private String prdcrCd;
+	
+	/**
+	 * 생산자명
+	 */
+	private String prdcrNm;
+	
+	/**
+	 * 품목코드
+	 */
+	private String itemCd;
+	
+	/**
+	 * 품종코드
+	 */
+	private String vrtyCd;
+	
+	/**
+	 * 상품구분코드
+	 */
+	private String gdsSeCd;
+	
+	/**
+	 * 입고구분코드
+	 */
+	private String wrhsSeCd;
+	
+	/**
+	 * 운송구분코드
+	 */
+	private String trsptSeCd;
+	
+	/**
+	 * 창고구분코드
+	 */
+	private String warehouseSeCd;
+	
+	/**
+	 * 박스종류
+	 */
+	private String bxKnd;
+	
+	/**
+	 * 입고수량
+	 */
+	private int wrhsQntt;
+	
+	/**
+	 * 입고중량
+	 */
+	private double wrhsWght;
+	
+	/**
+	 * 투입수량
+	 */
+	private int inptQntt;
+	
+	/**
+	 * 투입중량
+	 */
+	private double inptWght;
+	
+	/**
+	 * 재고수량
+	 */
+	private int invntrQntt;
+	
+	/**
+	 * 재고중량
+	 */
+	private double invntrWght;
+	
+	/**
+	 * 육안등급1
+	 */
+	private int otrdEye1;
+	
+	/**
+	 * 육안등급2
+	 */
+	private int otrdEye2;
+	
+	/**
+	 * 육안등급3
+	 */
+	private int otrdEye3;
+	
+	/**
+	 * 육안등급4
+	 */
+	private int otrdEye4;
+	
+	/**
+	 * 육안등급5
+	 */
+	private int otrdEye5;
 }

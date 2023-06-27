@@ -1,5 +1,9 @@
 package com.at.apcss.am.invntr.service;
 
+import java.util.List;
+
+import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
+
 /**
  * 원물재고 Service 인터페이스
  * @author 신정철
@@ -16,4 +20,43 @@ package com.at.apcss.am.invntr.service;
  */
 public interface RawMtrInvntrService {
 
+	/**
+	 * 원물재고 단건 조회
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public RawMtrInvntrVO selectRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	
+	/**
+	 * 원물재고 목록 조회
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrInvntrVO> selectRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	
+	/**
+	 * 원물재고 등록
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	
+	/**
+	 * 원물재고 변경
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	
+	/**
+	 * 원물재고 삭제
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 }

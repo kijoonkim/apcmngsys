@@ -1,4 +1,4 @@
-package com.at.apcss.am.whrs.vo;
+package com.at.apcss.am.wgh.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @Class Name : RawMtrWrhsVO.java
- * @Description : 원물입고에 대한 VO 클래스
+ * @Class Name : WghPrfmncVO.java
+ * @Description : 계량실적에 대한 VO 클래스
  * @author 신정철
  * @since 2023.06.21
  * @version 1.0
@@ -22,7 +22,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class RawMtrWrhsVO extends ComVO {
+public class WghPrfmncVO extends ComVO {
 	
 	/**
 	 * APC코드
@@ -30,24 +30,14 @@ public class RawMtrWrhsVO extends ComVO {
 	private String apcCd;
 
 	/**
-	 * 입고번호
-	 */
-	private String wrhsNo;
-
-	/**
 	 * 계량번호
 	 */
 	private String wghNo;
 
 	/**
-	 * 팔레트번호
+	 * 계량일자
 	 */
-	private String pltNo;
-
-	/**
-	 * 입고일자
-	 */
-	private String wrhsYmd;
+	private String wghYmd;
 
 	/**
 	 * 생산자코드
@@ -85,19 +75,29 @@ public class RawMtrWrhsVO extends ComVO {
 	private String trsprtSeCd;
 
 	/**
-	 * 창고구분코드
+	 * 차량번호
 	 */
-	private String warehouseSeCd;
+	private String vhclNo;
 
 	/**
-	 * 박스종류
+	 * 전체중량
 	 */
-	private String bxKnd;
+	private double wholWght;
 
 	/**
-	 * 박스수량
+	 * 공차중량
 	 */
-	private int bxQntt;
+	private double emptVhclWght;
+
+	/**
+	 * 감량율
+	 */
+	private double rdcdRt;
+
+	/**
+	 * 감량
+	 */
+	private double rdcdWght;
 
 	/**
 	 * 입고중량
@@ -135,12 +135,37 @@ public class RawMtrWrhsVO extends ComVO {
 	private String rmrk;
 
 	/**
-	 * 총중량
+	 * 계량순번
 	 */
-	private double wholWght;
+	private int wghSeqNo;
 
 	/**
-	 * 공차중량
+	 * 팔레트박스구분코드
 	 */
-	private double emptVhclWght;
+	private String pltBxSeCd;
+
+	/**
+	 * 팔레트종류
+	 */
+	private String pltKnd;
+
+	/**
+	 * 박스종류
+	 */
+	private String bxKnd;
+
+	/**
+	 * 단중
+	 */
+	private double unitWght;
+
+	/**
+	 * 수량
+	 */
+	private int qntt;
+
+	/**
+	 * 중량
+	 */
+	private double wght;
 }

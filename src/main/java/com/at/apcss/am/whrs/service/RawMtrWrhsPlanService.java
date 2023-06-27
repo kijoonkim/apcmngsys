@@ -1,5 +1,9 @@
 package com.at.apcss.am.whrs.service;
 
+import java.util.List;
+
+import com.at.apcss.am.whrs.vo.RawMtrWrhsPlanVO;
+
 /**
  * 원물입고 계획 Service 인터페이스
  * @author 신정철
@@ -15,5 +19,44 @@ package com.at.apcss.am.whrs.service;
  * </pre>
  */
 public interface RawMtrWrhsPlanService {
+	
+	/**
+	 * 원물입고계획 단건 조회
+	 * @param rawMtrWrhsPlanVO
+	 * @return
+	 * @throws Exception
+	 */
+	public RawMtrWrhsPlanVO selectRawMtrWrhsPlan(RawMtrWrhsPlanVO rawMtrWrhsPlanVO) throws Exception;
 
+	/**
+	 * 원물입고계획 목록 조회
+	 * @param rawMtrWrhsPlanVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrWrhsPlanVO> selectRawMtrWrhsPlanList(RawMtrWrhsPlanVO rawMtrWrhsPlanVO) throws Exception;
+
+	/**
+	 * 원물입고계획 등록
+	 * @param rawMtrWrhsPlanVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertRawMtrWrhsPlan(RawMtrWrhsPlanVO rawMtrWrhsPlanVO) throws Exception;
+
+	/**
+	 * 원물입고계획 변경
+	 * @param rawMtrWrhsPlanVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateRawMtrWrhsPlan(RawMtrWrhsPlanVO rawMtrWrhsPlanVO) throws Exception;
+
+	/**
+	 * 원물입고계획 삭제
+	 * @param rawMtrWrhsPlanVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteRawMtrWrhsPlan(RawMtrWrhsPlanVO rawMtrWrhsPlanVO) throws Exception;
 }

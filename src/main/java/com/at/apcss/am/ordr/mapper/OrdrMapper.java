@@ -1,6 +1,10 @@
 package com.at.apcss.am.ordr.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.at.apcss.am.ordr.vo.OrdrVO;
 
 /**
  * 발주정보 Mapper 인터페이스
@@ -19,4 +23,43 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface OrdrMapper {
 
+	/**
+	 * 발주정보 단건 조회
+	 * @param ordrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public OrdrVO selectOrdr(OrdrVO ordrVO) throws Exception;
+	
+	/**
+	 * 발주정보 목록 조회
+	 * @param ordrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<OrdrVO> selectOrdrList(OrdrVO ordrVO) throws Exception;
+	
+	/**
+	 * 발주정보 등록
+	 * @param ordrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertOrdr(OrdrVO ordrVO) throws Exception;
+	
+	/**
+	 * 발주정보 변경
+	 * @param ordrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateOrdr(OrdrVO ordrVO) throws Exception;
+	
+	/**
+	 * 발주정보 삭제
+	 * @param ordrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteOrdr(OrdrVO ordrVO) throws Exception;
 }

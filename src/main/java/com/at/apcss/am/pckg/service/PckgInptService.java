@@ -1,5 +1,9 @@
 package com.at.apcss.am.pckg.service;
 
+import java.util.List;
+
+import com.at.apcss.am.pckg.vo.PckgInptVO;
+
 /**
  * 포장투입 Service 인터페이스
  * @author 신정철
@@ -15,5 +19,44 @@ package com.at.apcss.am.pckg.service;
  * </pre>
  */
 public interface PckgInptService {
+	
+	/**
+	 * 포장투입실적 단건 조회
+	 * @param pckgInptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public PckgInptVO selectPckgInpt(PckgInptVO pckgInptVO) throws Exception;
 
+	/**
+	 * 포장투입실적 목록 조회
+	 * @param pckgInptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PckgInptVO> selectPckgInptList(PckgInptVO pckgInptVO) throws Exception;
+
+	/**
+	 * 포장투입실적 등록
+	 * @param pckgInptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertPckgInpt(PckgInptVO pckgInptVO) throws Exception;
+
+	/**
+	 * 포장투입실적 변경
+	 * @param pckgInptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updatePckgInpt(PckgInptVO pckgInptVO) throws Exception;
+
+	/**
+	 * 포장투입실적 삭제
+	 * @param pckgInptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deletePckgInpt(PckgInptVO pckgInptVO) throws Exception;
 }

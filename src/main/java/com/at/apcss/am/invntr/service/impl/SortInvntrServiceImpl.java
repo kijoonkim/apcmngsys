@@ -1,8 +1,13 @@
 package com.at.apcss.am.invntr.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.invntr.mapper.SortInvntrMapper;
 import com.at.apcss.am.invntr.service.SortInvntrService;
+import com.at.apcss.am.invntr.vo.SortInvntrVO;
 
 /**
  * @Class Name : SortInvntrServiceImpl.java
@@ -22,4 +27,46 @@ import com.at.apcss.am.invntr.service.SortInvntrService;
 @Service("sortInvntrService")
 public class SortInvntrServiceImpl implements SortInvntrService {
 
+	@Autowired
+	private SortInvntrMapper sortInvntrMapper;
+	
+	@Override
+	public SortInvntrVO selectSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
+		
+		SortInvntrVO resultVO = sortInvntrMapper.selectSortInvntr(sortInvntrVO);
+		
+		return resultVO;
+	}
+
+	@Override
+	public List<SortInvntrVO> selectSortInvntrList(SortInvntrVO sortInvntrVO) throws Exception {
+		
+		List<SortInvntrVO> resultList = sortInvntrMapper.selectSortInvntrList(sortInvntrVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public int insertSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
+
+		int insertedCnt = sortInvntrMapper.insertSortInvntr(sortInvntrVO);
+		
+		return insertedCnt;
+	}
+
+	@Override
+	public int updateSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
+
+		int updatedCnt = sortInvntrMapper.updateSortInvntr(sortInvntrVO);
+		
+		return updatedCnt;
+	}
+
+	@Override
+	public int deleteSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
+
+		int deletedCnt = sortInvntrMapper.deleteSortInvntr(sortInvntrVO);
+		
+		return deletedCnt;
+	}
 }

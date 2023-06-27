@@ -1,5 +1,9 @@
 package com.at.apcss.am.spmt.service;
 
+import java.util.List;
+
+import com.at.apcss.am.spmt.vo.SpmtCmndVO;
+
 /**
  * 출고지시 Service 인터페이스
  * @author 신정철
@@ -15,5 +19,44 @@ package com.at.apcss.am.spmt.service;
  * </pre>
  */
 public interface SpmtCmndService {
+	
+	/**
+	 * 출고지시 단건 조회
+	 * @param spmtCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public SpmtCmndVO selectSpmtCmnd(SpmtCmndVO spmtCmndVO) throws Exception;
 
+	/**
+	 * 출고지시 목록 조회
+	 * @param spmtCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SpmtCmndVO> selectSpmtCmndList(SpmtCmndVO spmtCmndVO) throws Exception;
+
+	/**
+	 * 출고지시 등록
+	 * @param spmtCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSpmtCmnd(SpmtCmndVO spmtCmndVO) throws Exception;
+
+	/**
+	 * 출고지시 변경
+	 * @param spmtCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateSpmtCmnd(SpmtCmndVO spmtCmndVO) throws Exception;
+
+	/**
+	 * 출고지시 삭제
+	 * @param spmtCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSpmtCmnd(SpmtCmndVO spmtCmndVO) throws Exception;
 }

@@ -108,7 +108,7 @@
 			     , CD.CD_VL			AS CD_VL
 			     , CD.APC_CD		AS APC_CD
 			     , CD.CD_VL_NM		AS CD_VL_NM
-			     , CD.CD_EXPLN		AS CD_VL_EXPLN
+			     , CD.CD_VL_EXPLN	AS CD_VL_EXPLN
 			     , CD.INDCT_SEQ		AS INDCT_SEQ
 			     , CD.DEL_YN		AS DEL_YN
 			  FROM

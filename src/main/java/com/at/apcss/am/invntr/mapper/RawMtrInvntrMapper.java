@@ -1,6 +1,10 @@
 package com.at.apcss.am.invntr.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 
 /**
  * 원물재고 Mapper 인터페이스
@@ -19,4 +23,43 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface RawMtrInvntrMapper {
 
+	/**
+	 * 원물재고 단건 조회
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public RawMtrInvntrVO selectRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	
+	/**
+	 * 원물재고 목록 조회
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrInvntrVO> selectRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	
+	/**
+	 * 원물재고 등록
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	
+	/**
+	 * 원물재고 변경
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	
+	/**
+	 * 원물재고 삭제
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 }

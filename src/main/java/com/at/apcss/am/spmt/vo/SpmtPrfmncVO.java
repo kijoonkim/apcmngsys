@@ -2,6 +2,9 @@ package com.at.apcss.am.spmt.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @Class Name : SpmtPrfmncVO.java
  * @Description : 출고실적에 대한 VO 클래스
@@ -17,6 +20,127 @@ import com.at.apcss.co.sys.vo.ComVO;
  * 2023.06.21  신정철        최초 생성
  * </pre>
  */
+@Getter
+@Setter
 public class SpmtPrfmncVO extends ComVO {
+	
+	/**
+	 * APC코드
+	 */
+	private String apcCd;
 
+	/**
+	 * 출하번호
+	 */
+	private String spmtNo;
+
+	/**
+	 * 출하일자
+	 */
+	private String spmtYmd;
+
+	/**
+	 * 거래처코드
+	 */
+	private String cnptCd;
+
+	/**
+	 * 거래처명
+	 */
+	private String cnptNm;
+
+	/**
+	 * 운송회사코드
+	 */
+	private String trsprtCoCd;
+
+	/**
+	 * 운송회사명
+	 */
+	private String trsptCoNm;
+
+	/**
+	 * 차량번호
+	 */
+	private String vhclNo;
+
+	/**
+	 * 배송지
+	 */
+	private String dldtn;
+
+	/**
+	 * 운임비용
+	 */
+	private double trsprtCst;
+
+	/**
+	 * 비고
+	 */
+	private String rmrk;
+
+	/**
+	 * 포장번호
+	 */
+	private String pckgNo;
+
+	/**
+	 * 포장순번
+	 */
+	private int pckgSeqNo;
+
+	/**
+	 * 품목코드
+	 */
+	private String itemCd;
+
+	/**
+	 * 품종코드
+	 */
+	private String vrtyCd;
+
+	/**
+	 * 상품구분코드
+	 */
+	private String gdsSeCd;
+
+	/**
+	 * 규격코드
+	 */
+	private String spcfctCd;
+
+	/**
+	 * 출하수량
+	 */
+	private int spmtQntt;
+
+	/**
+	 * 출하중량
+	 */
+	private double spmtWght;
+
+	/**
+	 * 포장구분코드
+	 */
+	private String pckgSeCd;
+
+	/**
+	 * 브랜드코드
+	 */
+	private String brndCd;
+
+	/**
+	 * 상품코드
+	 */
+	private String gdsCd;
+
+	/**
+	 * 생산자코드
+	 */
+	private String prdcrCd;
+
+	/**
+	 * 출하지시번호
+	 */
+	private String spmtCmndNo;
 }

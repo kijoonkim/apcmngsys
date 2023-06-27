@@ -1,8 +1,13 @@
 package com.at.apcss.am.ordr.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.ordr.mapper.OrdrMapper;
 import com.at.apcss.am.ordr.service.OrdrService;
+import com.at.apcss.am.ordr.vo.OrdrVO;
 
 /**
  * @Class Name : OrdrServiceImpl.java
@@ -21,5 +26,48 @@ import com.at.apcss.am.ordr.service.OrdrService;
  */
 @Service("ordrService")
 public class OrdrServiceImpl implements OrdrService {
+
+	@Autowired
+	private OrdrMapper ordrMapper;
+	
+	@Override
+	public OrdrVO selectOrdr(OrdrVO ordrVO) throws Exception {
+
+		OrdrVO resultVO = ordrMapper.selectOrdr(ordrVO);
+		
+		return resultVO;
+	}
+
+	@Override
+	public List<OrdrVO> selectOrdrList(OrdrVO ordrVO) throws Exception {
+
+		List<OrdrVO> resultList = ordrMapper.selectOrdrList(ordrVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public int insertOrdr(OrdrVO ordrVO) throws Exception {
+
+		int insertedCnt = ordrMapper.insertOrdr(ordrVO);
+		
+		return insertedCnt;
+	}
+
+	@Override
+	public int updateOrdr(OrdrVO ordrVO) throws Exception {
+
+		int updatedCnt = ordrMapper.updateOrdr(ordrVO);
+		
+		return updatedCnt;
+	}
+
+	@Override
+	public int deleteOrdr(OrdrVO ordrVO) throws Exception {
+
+		int deletedCnt = ordrMapper.deleteOrdr(ordrVO);
+		
+		return deletedCnt;
+	}
 
 }

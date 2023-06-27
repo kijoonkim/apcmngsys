@@ -1,5 +1,9 @@
 package com.at.apcss.am.pckg.service;
 
+import java.util.List;
+
+import com.at.apcss.am.pckg.vo.PckgCmndVO;
+
 /**
  * 포장지시 Service 인터페이스
  * @author 신정철
@@ -16,4 +20,43 @@ package com.at.apcss.am.pckg.service;
  */
 public interface PckgCmndService {
 
+	/**
+	 * 포장지시 
+	 * @param pckgCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public PckgCmndVO selectPckgCmnd(PckgCmndVO pckgCmndVO) throws Exception;
+	
+	/**
+	 * 포장지시 
+	 * @param pckgCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PckgCmndVO> selectPckgCmndList(PckgCmndVO pckgCmndVO) throws Exception;
+	
+	/**
+	 * 포장지시 
+	 * @param pckgCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertPckgCmnd(PckgCmndVO pckgCmndVO) throws Exception;
+	
+	/**
+	 * 포장지시 
+	 * @param pckgCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updatePckgCmnd(PckgCmndVO pckgCmndVO) throws Exception;
+	
+	/**
+	 * 포장지시 
+	 * @param pckgCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deletePckgCmnd(PckgCmndVO pckgCmndVO) throws Exception;
 }
