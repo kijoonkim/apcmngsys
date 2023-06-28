@@ -29,8 +29,11 @@
 <body>
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
+
+	let sysPrgrmId = "main";
+
     //SBUx topmenu 컴포넌트의 json 데이터
-    
+
     /*
     var menuJson = [
         {"id": "1", "pid": "0", "order": "1", "text": "대메뉴1"},
@@ -273,11 +276,10 @@
     const fn_actionGoPage = function (_url, _menuGubun, _menuNo, _menuNm, _topMenuNo) {     
     	if (_menuGubun === "TOP") {
             fn_setLeftMenu(_menuNo);
-        }
-        else if (_menuGubun === "LEFT") {
-        	
+        } else if (_menuGubun === "LEFT") {
         	//Set 브레드크럼 내비게이션
             fn_setBreadcrumbs(_menuNo, _menuNm);
+            
             //메뉴탭 생성 및 화면 요청
             var tabName = "TAB_" + _menuNo;
             if ( $('#' + tabName).length == 0 ) {
@@ -296,6 +298,7 @@
                     , 'closeicon': true
                 };
                 SBUxMethod.addTab('tab_menu', jsonTabSelect);
+                fn_afterAddTab(_menuNo)
             }
             else {
                 SBUxMethod.selectTab(tabName);
@@ -303,9 +306,58 @@
         }
     }
     
+    /**
+     * @param {string} _menuId
+     */
+	function fn_afterAddTab(_menuId) {
+    	
+    	sysPrgrmId = _menuId;
+    	
+    	fetch("/sys/actionNewTab.do", {
+  		  	method: "POST",
+  		  	headers: {
+  		  		"Content-Type": "application/json",
+  		  	},
+  		  	body: JSON.stringify({
+  		  		sysPrgrmId : _menuId
+  			}),
+  		})
+  		.then((response) => response.json())
+  		.then(
+				(data) => {
+					console.log(data);
+				}
+  		);
+    }
+
+     /**
+      * @param {string} menuNo
+      */
+ 	function fn_afterSeletTab(_menuId) {
+     	
+		sysPrgrmId = _menuId;
+
+     	fetch("/sys/actionOldTab.do", {
+  		  	method: "POST",
+  		  	headers: {
+  		  		"Content-Type": "application/json",
+  		  	},
+  		  	body: JSON.stringify({
+  		  		sysPrgrmId : _menuId
+  			}),
+  		})
+  		.then((response) => response.json())
+  		.then(
+				(data) => {
+					console.log(data);
+				}
+  		);
+	}
+    
     //Set breadcrumbs
     function fn_setBreadcrumbs(menuNo, menuNm) {
-       	/*
+
+    	/*
     	var upMenuNo;
         if (menuNo.indexOf("mng") > -1) {
             upMenuNo = "mng";
@@ -370,7 +422,7 @@
         var tabId = tabObj.targetid;
         var menuId = tabId.substring(tabId.indexOf("_")+1);
         
-        console.log("tabObj", tabObj);
+        console.log("## tabObj", tabObj);
         
         var menuInfo = _.find(sideJsonData, {id: menuId});
         var upMenuNo = menuInfo.pid;
@@ -382,7 +434,12 @@
         
         //LEFT MENU
         fn_setLeftMenu(topMenuNo, menuId);
-        fn_setBreadcrumbs(menuNo, tabObj.text);
+        
+        fn_setBreadcrumbs(menuId, tabObj.text);
+		
+        if (sysPrgrmId !== menuId) {
+        	fn_afterSeletTab(menuId);	
+        }
         
         //[LEFT-MENU] menu-title 변경
         /*
@@ -465,11 +522,17 @@
             $('.tab-content').hide();
             //side menu init
 		    //document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = "메뉴";
-		    sideJsonData = [];
-		    SBUxMethod.refresh("side_menu");
+		    //sideJsonData = [];
+		    //SBUxMethod.refresh("side_menu");
             //breadCrumbs init
-            menuJsonB = [];
+            //menuJsonB = [];
+            menuJsonB.length = 0;
+            menuJsonB.push(
+    			{"order": "10", "id": "id_1", "pid": "", "text": "홈"}
+    		);
             SBUxMethod.refresh('breadcrumb');
+            
+            fn_afterSeletTab("main");            
 	    }
         else {
             fn_setMenuInfo(SBUxMethod.get('tab_menu'));

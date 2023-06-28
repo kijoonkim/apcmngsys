@@ -30,4 +30,6 @@ public class ComVO extends ComPageVO {
 	private String sysLastChgUserId ;	// 최종변경사용자ID
 	private String sysLastChgPrgrmId;	// 최종변경프로그램ID
 	
+	private String sysUserId;
+	private String sysPrgrmId;
 }

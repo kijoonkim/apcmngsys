@@ -6,18 +6,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.service.LoginService;
 import com.at.apcss.co.sys.vo.LoginVO;
 
-import egovframework.com.cmm.EgovMessageSource;
-import egovframework.com.cmm.service.Globals;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.utl.fcc.service.EgovStringUtil;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -60,6 +56,8 @@ public class LoginController extends BaseController {
 			HttpSession httpSession,
 			ModelMap model) throws Exception {
 		
+		request.getSession().setAttribute("sysPrgrmId", "login");
+		
 		// 권한체크시 에러 페이지 이동
 		String authError = request.getParameter("authError") == null ? "" : (String)request.getParameter("authError");
 		if (authError != null && authError.equals("1")) {
@@ -79,12 +77,7 @@ public class LoginController extends BaseController {
 			HttpSession httpSession,
 			ModelMap model) throws Exception {
 		
-		logger.debug("actionLogin.do");
-		logger.debug(loginVO.toString());
-		
 		LoginVO resultVO = loginService.actionLogin(loginVO);
-		//String userIp = EgovClntInfo.getClntIP(request);
-		//resultVO.setIp(userIp);
 		
 		if (resultVO != null && resultVO.getId() != null && StringUtils.hasText(resultVO.getId())) {
 			// 로그인 정보를 세션에 저장
@@ -127,7 +120,6 @@ public class LoginController extends BaseController {
 		
 		// 2. 메뉴조회
 		
-		
 		// 메인 이동
 		//String mainPage = Globals.MAIN_PAGE;
 		String mainPage = "/main.do";
@@ -139,7 +131,6 @@ public class LoginController extends BaseController {
 		}
 	}
 	
-	
 	@RequestMapping(value = "/actionLogout.do")
 	public String actionLogout(HttpServletRequest request, ModelMap model) throws Exception {
 		
@@ -147,6 +138,7 @@ public class LoginController extends BaseController {
 		
 		request.getSession().setAttribute("loginVO", null);
 		request.getSession().setAttribute("accessUser", null);
+		request.getSession().setAttribute("sysPrgrmId", null);
 		
 		return "redirect:/main.do";
 	}
