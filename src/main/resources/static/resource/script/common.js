@@ -6,6 +6,9 @@
 /** @type {string} */
 const URL_COM_CDS = "/co/cd/comCdDtls";
 
+/** @type {string} */
+const STR_BLANK = "";
+
 /**
  * async post by json
  * @param {string} _url
@@ -183,5 +186,4 @@ const gfn_setCookie = function (name, value, options = {}) {
 	document.cookie = updatedCookie;
 	console.log(document.cookie);
 }
-
 

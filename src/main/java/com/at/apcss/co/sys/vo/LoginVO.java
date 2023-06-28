@@ -2,9 +2,6 @@ package com.at.apcss.co.sys.vo;
 
 import java.io.Serializable;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * @Class Name : LoginVO.java
  * @Description : Login VO class

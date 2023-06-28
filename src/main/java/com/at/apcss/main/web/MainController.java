@@ -1,13 +1,9 @@
 package com.at.apcss.main.web;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
-
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +21,9 @@ public class MainController {
 	private ComMenuService comMenuService;
 	
 	@RequestMapping("/main.do")
-	public String doMain(Model model, HttpSession httpSession) {
+	public String doMain(Model model, HttpServletRequest request) {
+		
+		request.getSession().setAttribute("sysPrgrmId", "main");
 		
 		List<String> menuList = new ArrayList<>();
 		try {

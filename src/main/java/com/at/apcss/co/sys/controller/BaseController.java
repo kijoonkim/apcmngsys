@@ -8,11 +8,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.vo.ComPageVO;
+import com.at.apcss.co.sys.vo.LoginVO;
 
 import egovframework.com.cmm.EgovMessageSource;
+import egovframework.com.cmm.util.EgovUserDetailsHelper;
 
 public abstract class BaseController {
 	
@@ -21,11 +25,20 @@ public abstract class BaseController {
 	protected EgovMessageSource message;
 
 	protected String getUserId() {
-		return "tempUser";
+		
+		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		
+		if (loginVO != null) {
+			return loginVO.getId();
+		}
+		
+		return null;
 	}
 	
 	protected String getPrgrmId() {
-		return "tempProgram";
+		
+		String prgrmId = (String) RequestContextHolder.currentRequestAttributes().getAttribute("sysPrgrmId", RequestAttributes.SCOPE_SESSION);
+		return prgrmId;
 	}
 	
 	protected <T> boolean setPaginationInfo(ComPageVO comPageVO, T t) {

@@ -2,6 +2,7 @@ package com.at.apcss.co.constants;
 
 public class ComConstants {
 	
+	public final static String PROP_SYS_PRGRM_ID = "sysPrgrmId";
 	
 	public final static String PAGINATION_MAP = "paginationMap";
 	
