@@ -5,8 +5,8 @@
 	font-weight: normal;
 	src: url('../../font/NanumMyeongjo.eot');
 	src: url('../../font/NanumMyeongjo.eot?#iefix') format('embedded-opentype'),
-		local(NanumMyeongjo), url('../../../font/NanumMyeongjo.woff') format('woff'),
-		url('../../../font/NanumMyeongjo.ttf') format('truetype');
+		local(NanumMyeongjo), url('/resource/font/NanumMyeongjo.woff') format('woff'),
+		url('/resource/font/NanumMyeongjo.ttf') format('truetype');
 }
 
 
