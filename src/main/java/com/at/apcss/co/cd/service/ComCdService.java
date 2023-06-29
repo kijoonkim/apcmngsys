@@ -36,7 +36,7 @@ public interface ComCdService {
 	 * @throws Exception
 	 */
 	public ComCdVO selectComCdDtl(ComCdVO comCdVO) throws Exception;
-	
+
 	/**
 	 * 공통코드 등록
 	 * @param comCdVO
@@ -92,5 +92,21 @@ public interface ComCdService {
 	 * @throws Exception
 	 */
 	public List<ComCdVO> selectComBoCdDtlList(ComCdVO comCdVO) throws Exception;
+
+	/**
+	 * 공통코드 중복 체크
+	 * @param comCdVO
+	 * @return result
+	 * @throws Exception
+	 */
+	public int duplicateCheckCdId(ComCdVO comCdVO) throws Exception;
+
+	/**
+	 * 공통코드 상세 중복 체크
+	 * @param comCdVO
+	 * @return result
+	 * @throws Exception
+	 */
+	public int duplicateCheckCdIdDtl(ComCdVO comCdVO) throws Exception;
 
 }
