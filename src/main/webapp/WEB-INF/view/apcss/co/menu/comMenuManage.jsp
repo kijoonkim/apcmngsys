@@ -34,10 +34,6 @@
         .sbt-A-wrap .left .sbt-all-left {height: 100%;}
         .sbt-A-wrap .content {display:table-cell;}
         .sbux-sidemeu {position: relative; z-index: 1;}
-        .footer {
-            display: flex; align-items: center; justify-content: center; font-size: 16px;
-            background:rgb(42, 48, 65); height:150px; padding:10px; box-sizing: border-box;  color:#dddddd;
-        }
         /** table css */
         /* table{border-collapse: collapse;border-spacing: 0;}
         table,th{text-align:center;}

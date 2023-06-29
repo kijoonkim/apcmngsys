@@ -40,38 +40,32 @@ public class ComCdServiceImpl implements ComCdService {
 
 	@Override
 	public int insertComCd(ComCdVO comCdVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return comCdMapper.insertComCd(comCdVO);
 	}
 
 	@Override
 	public int updateComCd(ComCdVO comCdVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return comCdMapper.updateComCd(comCdVO);
 	}
 
 	@Override
 	public int deleteComCd(ComCdVO comCdVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return comCdMapper.deleteComCd(comCdVO);
 	}
 
 	@Override
 	public int insertComCdDtl(ComCdVO comCdVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return comCdMapper.insertComCdDtl(comCdVO);
 	}
 
 	@Override
 	public int updateComCdDtl(ComCdVO comCdVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return comCdMapper.updateComCdDtl(comCdVO);
 	}
 
 	@Override
 	public int deleteComCdDtl(ComCdVO comCdVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return comCdMapper.deleteComCdDtl(comCdVO);
 	}
 
 	@Override
@@ -85,6 +79,16 @@ public class ComCdServiceImpl implements ComCdService {
 	public ComCdVO selectComCdDtl(ComCdVO comCdVO) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int duplicateCheckCdId(ComCdVO comCdVO) throws Exception {
+		return comCdMapper.duplicateCheckCdId(comCdVO);
+	}
+
+	@Override
+	public int duplicateCheckCdIdDtl(ComCdVO comCdVO) throws Exception {
+		return comCdMapper.duplicateCheckCdIdDtl(comCdVO);
 	}
 
 

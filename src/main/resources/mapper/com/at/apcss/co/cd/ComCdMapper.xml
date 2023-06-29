@@ -62,6 +62,13 @@
 	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectComCdList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultMap="comCdMap">
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
     	<![CDATA[
 			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdList */
 				   CC.CD_ID         AS CD_ID
@@ -72,7 +79,10 @@
     	]]>
 		<where>
 			<if test='cdId != null and cdId != ""'>
-			   AND CC.CD_ID = #{cdId}
+			   AND CC.CD_ID LIKE #{cdId} || '%'
+	    	</if>
+			<if test='cdNm != null and cdNm != ""'>
+			   AND CC.CD_NM LIKE #{cdNm} || '%'
 	    	</if>
 			<if test='delYn != null and delYn != ""'>
 			   AND CC.DEL_YN = #{delYn}
@@ -81,7 +91,11 @@
     	<![CDATA[
     		 ORDER BY CD_ID
     	]]>
-			<!-- OFFSET #{currentPageNo} ROWS FETCH FIRST #{rowCnt} ROWS ONLY -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
     </select>
 
 	<!-- ==========================================================================	-->
@@ -115,10 +129,8 @@
 			  	  TB_COM_CD CC
 			  	, TB_COM_CD_DTL CD
 			 WHERE CC.CD_ID = CD.CD_ID
-    	]]>
-			<if test='cdId != null and cdId != ""'>
 			   AND CC.CD_ID = #{cdId}
-	    	</if>
+    	]]>
 			<if test='delYn != null and delYn != ""'>
 			   AND CC.DEL_YN = #{delYn}
 			   AND CD.DEL_YN = #{delYn}
@@ -137,7 +149,7 @@
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComBoCdDtlList			-->
-	<!-- DESC : 콤보박스 공통코드 상세 목록 조회.                                             		-->
+	<!-- DESC : 콤보박스 공통코드 상세 목록 조회.                                   -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -152,5 +164,194 @@
 		 ORDER BY INDCT_SEQ ASC
     	]]>
     </select>
+
+    <!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.duplicateCheckCdId			-->
+	<!-- DESC : CD_ID 중복 체크.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="duplicateCheckCdId" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="_int">
+    	<![CDATA[
+    	SELECT COUNT(*)
+		  FROM TB_COM_CD
+		 WHERE CD_ID = #{cdId}
+    	]]>
+    </select>
+
+    <!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.insertComCd					-->
+	<!-- DESC : 공통코드 등록  		                                           		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertComCd" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+    	<![CDATA[
+    	INSERT INTO TB_COM_CD
+    		(
+				CD_ID
+			  , CD_NM
+			  , CD_EXPLN
+			  , SYS_FRST_INPT_DT
+			  , SYS_FRST_INPT_USER_ID
+			  , SYS_FRST_INPT_PRGRM_ID
+			  , SYS_LAST_CHG_DT
+			  , SYS_LAST_CHG_USER_ID
+			  , SYS_LAST_CHG_PRGRM_ID
+    		)
+		VALUES
+    		(
+			    #{cdId}
+			  , #{cdNm}
+			  , #{cdExpln}
+			  , SYSDATE
+			  , #{sysFrstInptUserId}
+			  , #{sysFrstInptPrgrmId}
+			  , SYSDATE
+			  , #{sysLastChgUserId}
+			  , #{sysLastChgPrgrmId}
+			)
+    	]]>
+    </insert>
+
+    <!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComCd					-->
+	<!-- DESC : 공통코드 수정  		                                           		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateComCd" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+    	<![CDATA[
+    	UPDATE TB_COM_CD
+    	   SET CD_NM 					= #{cdNm}
+    	     , CD_EXPLN 				= #{cdExpln}
+    	     , SYS_LAST_CHG_DT 			= SYSDATE
+    	     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+    	     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    	 WHERE CD_ID = #{cdId}
+    	]]>
+    </update>
+    <!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.deleteComCd					-->
+	<!-- DESC : 공통코드 삭제  		                                           		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteComCd" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+		<![CDATA[
+		DELETE FROM TB_COM_CD
+		 WHERE CD_ID = #{cdId}
+		]]>
+	</delete>
+
+    <!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.duplicateCheckCdIdDtl			-->
+	<!-- DESC : 공통코드 상세 중복 체크.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="duplicateCheckCdIdDtl" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="_int">
+    	<![CDATA[
+    	SELECT COUNT(*)
+		  FROM TB_COM_CD_DTL
+		 WHERE CD_ID  	= #{cdId}
+		   AND CD_VL  	= #{cdVl}
+		   AND APC_CD 	= #{apcCd}
+    	]]>
+    </select>
+
+    <!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.insertComCdDtl				-->
+	<!-- DESC : 공통코드 상세 등록  		                                        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertComCdDtl" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+    	<![CDATA[
+    	INSERT INTO TB_COM_CD_DTL
+    		(
+				CD_ID
+			  , CD_VL
+			  , APC_CD
+			  , INDCT_SEQ
+			  , CD_VL_NM
+			  , CD_VL_EXPLN
+			  , SYS_FRST_INPT_DT
+			  , SYS_FRST_INPT_USER_ID
+			  , SYS_FRST_INPT_PRGRM_ID
+			  , SYS_LAST_CHG_DT
+			  , SYS_LAST_CHG_USER_ID
+			  , SYS_LAST_CHG_PRGRM_ID
+    		)
+		VALUES
+    		(
+			    #{cdId}
+			  , #{cdVl}
+			  , #{apcCd}
+			  , #{indctSeq}
+			  , #{cdVlNm}
+			  , #{cdVlExpln}
+			  , SYSDATE
+			  , #{sysFrstInptUserId}
+			  , #{sysFrstInptPrgrmId}
+			  , SYSDATE
+			  , #{sysLastChgUserId}
+			  , #{sysLastChgPrgrmId}
+			)
+    	]]>
+    </insert>
+
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComCdDtl					-->
+	<!-- DESC : 공통코드 상세 수정  		                                           		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateComCdDtl" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+    	<![CDATA[
+    	UPDATE TB_COM_CD_DTL
+    	   SET CD_VL				 	= #{cdVl}
+    	     , CD_VL_NM 				= #{cdVlNm}
+    	     , CD_VL_EXPLN 				= #{cdVlExpln}
+    	     , INDCT_SEQ				= #{indctSeq}
+    	     , SYS_LAST_CHG_DT 			= SYSDATE
+    	     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+    	     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    	 WHERE CD_ID 	= #{cdId}
+    	   AND CD_VL 	= #{cdVl}
+    	   AND APC_CD 	= #{apcCd}
+    	]]>
+    </update>
+
+    <!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.deleteComCdDtl					-->
+	<!-- DESC : 공통코드 삭제  		                                           		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteComCdDtl" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+		<![CDATA[
+		DELETE FROM TB_COM_CD_DTL
+		 WHERE CD_ID 	= #{cdId}
+		   AND CD_VL 	= #{cdVl}
+		   AND APC_CD 	= #{apcCd}
+		]]>
+	</delete>
 
 </mapper>
