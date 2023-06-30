@@ -276,6 +276,10 @@
         const data = await postJsonPromise;
         
         try {
+        	
+        	/** @type {number} **/
+    		let totalRecordCount = 0;
+        	
         	jsonComMsgList.length = 0;
         	data.resultList.forEach((item, index) => {
 				const msg = {
@@ -292,15 +296,15 @@
 					sysLastChgPrgrmId: item.sysLastChgPrgrmId					
 				}
 				jsonComMsgList.push(msg);
+				
+				if (index === 0) {
+					totalRecordCount = item.totalRecordCount;	
+				}
 			});
         	
-        	/** @type {number} **/
-    		let totalRecordCount = 0;
+        	console.log("totalRecordCount", totalRecordCount);
         	
         	if (jsonComMsgList.length > 0) {
-        		
-        		/** @type {number} **/
-        		let totalRecordCount = data.resultList[0].totalRecordCount;
         		
         		if(grdComMsgList.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
         			grdComMsgList.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
@@ -308,17 +312,13 @@
 				}else{
 					grdComMsgList.refresh()
 				}
-        		
-        		//document.querySelector('#listCount').innerHTML = totalRecordCount;
-        		//$('#listCount').text(data.resultList[0].totalRecordCount);
-        		
         	} else {
         		grdComMsgList.setPageTotalCount(totalRecordCount);
         		grdComMsgList.rebuild();
         	}
         	
-        	document.querySelector('#listCount').innerHTML = totalRecordCount;
-        	
+        	document.querySelector('#listCount').innerText = totalRecordCount;
+
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
