@@ -12,5 +12,6 @@ public class ComMsgVO extends ComVO{
 	private String msgKey;
 	private String msgCn;
 	private String msgKnd;
+	private String msgKndNm;
 	private String rmrk;
 }
