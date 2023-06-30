@@ -54,13 +54,13 @@ async function gfn_getComCdDtls (_cdId, _apcCd = "0000") {
 
 /**
  * sbux-select 데이터 설정
- * @param {string} _name
+ * @param {string} _gridId
  * @param {any[]} _jsondataRef
  * @param {string} _cdId
  * @param {string} _apcCd
  * @returns {void}
  */
-async function gfn_setComCdSelect(_name, _jsondataRef, _cdId, _apcCd) {
+async function gfn_setComCdSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
 	
 	if (gfn_isEmpty(_cdId)) {
 		return;
@@ -85,6 +85,46 @@ async function gfn_setComCdSelect(_name, _jsondataRef, _cdId, _apcCd) {
 		
 	}
 }
+
+
+/**
+ * sbux-select 데이터 설정
+ * @param {Array.<string>} _gridIdList
+ * @param {any[]} _jsondataRef
+ * @param {string} _cdId
+ * @param {string} _apcCd
+ * @returns {void}
+ */
+async function gfn_setComCdSBSelect(_gridIdList, _jsondataRef, _cdId, _apcCd) {
+	
+	if (gfn_isEmpty(_cdId)) {
+		return;
+	}
+	
+	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd});
+	const data = await postJsonPromise;
+	console.log("cdDtls", data);
+	console.log("cdDtlList", JSON.stringify(data.resultList));
+	
+	try {
+		_jsondataRef.length = 0;
+		data.resultList.forEach((item) => {
+			const cdVl = {
+				text: item.cdVlNm,
+				value: item.cdVl
+			}
+			_jsondataRef.push(cdVl);
+		});
+		
+		_gridIdList.forEach((_sbGridId) => {
+			SBUxMethod.refresh(_sbGridId);	
+		});
+		
+	} catch (e) {
+		
+	}
+}
+
 
 
 /**
