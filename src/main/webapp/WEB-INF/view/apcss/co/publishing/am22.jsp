@@ -121,7 +121,19 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
+
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
 
 <section class="content container-fluid">
 				<div class="box box-solid">
@@ -164,159 +176,158 @@
 							<tbody>
 								<tr>
 									<th scope="row">APC 명</th>
-										<td colspan="6" class="td_input">
+									<td colspan="6" class="td_input"  style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
-										</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
+									</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
 								</tr>
 								<tr>
 									<th scope="row">생산자</th>
-										<td colspan="6" class="td_input">
-											<input type="text" class="form-control input-sm">
-												<td colspan="2" class="td_input">
-													<button class="btn btn-xs btn-outline-dark" type="button">조회</button>
-										</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-									<td colspan="2"> → 초성 검색기능 적용</td>
+									<td colspan="6" class="td_input"  style="border-right: hidden;">
+										<input type="text" class="form-control input-sm">
+									<td colspan="2" class="td_input"  style="border-right: hidden;">
+										<button class="btn btn-xs btn-outline-dark" type="button">조회</button>
+									</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2" style="border-right: hidden;"> → 초성 검색기능 적용</td>
 								</tr>
 								<tr>
 									<th scope="row">품목 / 품종</th>
-										<td colspan="2"class="td_input">
-											<select class="form-control input-sm">
+									<td colspan="2"class="td_input" style="border-right: hidden;">
+										<select class="form-control input-sm">
+										<option>선택</option>
+										</select>
+									</td>
+									<td colspan="4"class="td_input" style="border-right: hidden;">
+										<select class="form-control input-sm">
 											<option>선택</option>
-											</select>
-										</td>
-										<td colspan="4"class="td_input">
-											<select class="form-control input-sm">
-											<option>선택</option>
-											</select>
-										</td>
-										 <td colspan="2"class="td_input">
-											<p class="ad_input_row">
-												<input type="checkbox" class="check" id="check_all">
-												<label class="check_label" for="check_all">고정</label>
-											</p>
-											</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-									<td colspan="4"> → 생산자 기본설정 값에 따라 자동으로 설정 or 고정 선택 시 해당품종 유지</td>
+										</select>
+									</td>
+									<td colspan="2"class="td_input"  style="border-right: hidden;">
+										<p class="ad_input_row">
+											<input type="checkbox" class="check" id="check_all">
+											<label class="check_label" for="check_all">고정</label>
+										</p>
+									</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="4" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정 or 고정 선택 시 해당품종 유지</td>
 								</tr>
 								<tr>
-											<th scope="row">계량일자</th>
-										<td colspan="6"class="td_input">
-											<div class="dp_inline wd_125 va_m">
-												<div class="input-group date">
-													<div class="input-group-addon">
-														<i class="fa fa-calendar"></i>
-													</div>
-													<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
+									<th scope="row">계량일자</th>
+									<td colspan="6"class="td_input" style="border-right: hidden;">
+										<div class="dp_inline wd_125 va_m">
+											<div class="input-group date">
+												<div class="input-group-addon">
+													<i class="fa fa-calendar"></i>
 												</div>
+												<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
 											</div>
-										</td>
-									<td>&nbsp;</td>
-												<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-									<td colspan="2"> → 기본 현재일자로 지정</td>
+										</div>
+									</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2"  style="border-right: hidden;"> → 기본 현재일자로 지정</td>
 								</tr>
 								<tr>
 									<th scope="row">차량번호/성명</th>
 									<td class="td_input"><input type="text"
 										class="form-control input-sm" placeholder="입력"title="">
-										</td>
-											<td colspan="2" class="td_input">
-											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
-										</td>
-										<td colspan="3"class="td_input"><input type="text"
-										class="form-control input-sm" placeholder="입력"disabled>
-										</td>
+									</td>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+									</td>
+									<td colspan="3"class="td_input" style="border-right: hidden;">
+										<input type="text" class="form-control input-sm" placeholder="입력"disabled>
+									</td>
 								</tr>
 								<tr>
 									<th scope="row">전체/공차증량</th>
-									<td class="td_input"><input type="text"
-										class="form-control input-sm" placeholder=""title="">
-										</td>
-									<td colspan="3"class="td_input"><input type="text"
-										class="form-control input-sm" placeholder=""title="">
-										</td>
-										<td colspan="2"class="td_input"><label class="bold">감량 %</label></td>
-										<td class="td_input">
-											<select class="form-control input-sm">
-											</select>
-										</td>
-									 <td class="td_input">
-											<p class="ad_input_row">
-												<input type="checkbox" class="check" id="check_all">
-												<label class="check_label" for="check_all">고정</label>
+									<td class="td_input"  style="border-right: hidden;">
+										<input type="text" class="form-control input-sm" placeholder=""title="">
+									</td>
+									<td colspan="3"class="td_input"  style="border-right: hidden;">
+										<input type="text" class="form-control input-sm" placeholder=""title="">
+									</td>
+									<td colspan="2"class="td_input" style="border-right: hidden;"><label class="bold">감량 %</label></td>
+									<td class="td_input">
+										<select class="form-control input-sm"></select>
+									</td>
+									<td class="td_input" style="border-right: hidden;">
+										<p class="ad_input_row">
+											<input type="checkbox" class="check" id="check_all">
+											<label class="check_label" for="check_all">고정</label>
 										</p>
 									</td>
-										<td>&nbsp;</td>
-									<td class="td_input"><label class="bold">감량 Kg</label></td>
-										<td class="td_input">
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;" class="td_input"><label class="bold">감량 Kg</label></td>
+									<td class="td_input" style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
-										</td>
-										<td>&nbsp;</td>
+									</td>
+									<td style="border-right: hidden;">&nbsp;</td>
 									<td class="td_input"><label class="bold">실중량 Kg</label></td>
-										<td class="td_input">
+									<td class="td_input">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
-										</td>
+									</td>
 								</tr>
 								<tr>
 									<th scope="row">입고창고</th>
-										<td colspan=class="td_input">
-											<select class="form-control input-sm">
+									<td class="td_input"  style="border-right: hidden;">
+										<select class="form-control input-sm">
 											<option>선택</option>
-											</select>
-										</td>
-										 <td colspan="3"class="td_input">
-											<p class="ad_input_row">
-												<input type="checkbox" class="check" id="check_all">
-												<label class="check_label" for="check_all">고정</label>
-											</p>
+										</select>
+									</td>
+									<td colspan="3"class="td_input" style="border-right: hidden;">
+										<p class="ad_input_row">
+											<input type="checkbox" class="check" id="check_all">
+											<label class="check_label" for="check_all">고정</label>
+										</p>
 									</td>
 								</tr>
-									 <tr>
-									 	 <th scope="row">팔레트/박스</th>
-									 	 <td><button class="btn btn-xs btn-outline-dark" type="button">입력</button></td>
-										<td colspan="3"class="td_input">
+								<tr>
+									<th scope="row"  style="border-right: hidden;">팔레트/박스</th>
+								 	<td style="border-right: hidden;"><button class="btn btn-xs btn-outline-dark" type="button">입력</button></td>
+									<td colspan="3"class="td_input" style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
 									</td>
-										<td colspan="2"class="td_input"><label class="bold">Kg</label></td>
-										<td class="td_input">
+									<td colspan="2"class="td_input" style="border-right: hidden;"><label class="bold">Kg</label></td>
+									<td class="td_input" style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
 									</td>
-										<td colspan="2"class="td_input"><label class="bold">Kg</label></td>
-									</tr>
-									 <tr>
-									 	 <th scope="row">입고등급</th>
-									 	 <td><button class="btn btn-xs btn-outline-dark" type="button">입력</button></td>
-										<td class="td_input">
+									<td colspan="2"class="td_input" style="border-right: hidden;"><label class="bold">Kg</label></td>
+								</tr>
+								<tr>
+									<th scope="row" >입고등급</th>
+									<td style="border-right: hidden;"><button class="btn btn-xs btn-outline-dark" type="button">입력</button></td>
+									<td class="td_input" style="border-right: hidden;">
+										<input type="text" class="form-control input-sm" placeholder="" disabled >
+									</td>
+									<td class="td_input" style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
 									</td>
-										<td class="td_input">
+									<td class="td_input" style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
 									</td>
-										<td class="td_input">
+									<td class="td_input"  style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
 									</td>
-											<td class="td_input">
+									<td class="td_input"  style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
 									</td>
-											<td class="td_input">
+								</tr>
+								<tr>
+									<th scope="row">정산중량</th>
+									<td class="td_input"  style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
 									</td>
-									</tr>
-									 <tr>
-									 	 <th scope="row">정산중량</th>
-										<td class="td_input">
-										<input type="text" class="form-control input-sm" placeholder="" disabled>
-									</td>
-										<td class="td_input"><label class="bold">Kg</label></td>
-									</tr>
+									<td class="td_input"  style="border-right: hidden;"><label class="bold">Kg</label></td>
+								</tr>
 							</tbody>
 						</table>
 						<!--[pp] //검색 -->
@@ -332,7 +343,6 @@
 									class="table table-bordered table-hover tbl_col tbl_fixed">
 									<caption>검색결과 목록</caption>
 									<colgroup>
-
 										<col style="width: 5%">
 										<col style="width: 3%">
 										<col style="width: 4%">
@@ -393,7 +403,19 @@
 				</div>
 			</section>
 
-<!--[pp] //본문내용영역 -->
+
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

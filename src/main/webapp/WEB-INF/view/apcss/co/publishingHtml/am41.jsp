@@ -121,7 +121,19 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
+
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
 
 <section class="content container-fluid">
 					<div class="box box-solid">
@@ -152,11 +164,11 @@
 								<tbody>
 									<tr>
 										<th scope="row">APC명</th>
-									<td colspan="2" class="td_input"><input type="text"
-										class="form-control input-sm" placeholder=""disabled>
+										<td colspan="2" class="td_input" style="border-right: hidden;">
+											<input type="text" class="form-control input-sm" placeholder=""disabled>
 										</td>
 										<th scope="row">기준일자</th>
-										<td colspan="2" class="td_input">
+										<td colspan="2" class="td_input" style="border-right: hidden;">
 											<div class="dp_inline wd_125 va_m">
 												<div class="input-group date">
 													<div class="input-group-addon">
@@ -167,52 +179,56 @@
 											</div>
 										</td>
 										<th scope="row">재고구분</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+												<option></option>
 											</select>
 										</td>
-
 									</tr>
 									<tr>
 										<th scope="row">품목/품종</th>
-									   	<td class="td_input">
+									   	<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
-												</select>
-												</td>
-										<td class="td_input">
+											</select>
+										</td>
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
-												<option>선택</option>
+												<option></option>
 											</select>
 										</td>
 										<th scope="row">규격</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+												<option></option>
 											</select>
 										</td>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<th scope="row">창고/구분</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+												<option></option>
 											</select>
 										</td>
 									</tr>
 									<tr>
 									    <th scope="row">생산자</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm">
-												<td class="td_input">
-													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+										<td class="td_input" style="border-right: hidden;">
+											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 										</td>
 										<th scope="row">상품구분</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+												<option></option>
 											</select>
 										</td>
-										<td>&nbsp;</td>
-										<th scope="row">입고구분</th>
-										<td class="td_input">
+										<td style="border-right: hidden;">&nbsp;</td>
+										<th scope="row" style="border-right: hidden;">입고구분</th>
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+												<option></option>
 											</select>
 										</td>
 									</tr>
@@ -226,9 +242,8 @@
 										<button type="button" class="btn btn-md btn-outline-danger">원물재고 내역</button>
 										<button type="button" class="btn btn-md btn-outline-danger">선별재고 내역</button>
 										<button type="button" class="btn btn-md btn-outline-danger">상품재고 내역</button>
-										<th>　　탭 화면으로 구성<th>
 								</div>
-									<div class="table-responsive tbl_scroll_sm">
+								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
@@ -275,7 +290,7 @@
 											</tr>
 										</thead>
 										<tbody>
-										<tr>
+											<tr>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -313,10 +328,6 @@
 											</tr>
 										</tbody>
 									</table>
-
-
-								</div>
-							<td>&nbsp;</td>
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
@@ -338,7 +349,7 @@
 											<col style="width: 3%">
 										</colgroup>
 										<thead>
-										<tr>
+											<tr>
                                                 <th rowspan="2">선별번호</th>
 												<th rowspan="2">등급</th>
                                                 <th rowspan="2">투입일자</th>
@@ -362,7 +373,7 @@
 											</tr>
 										</thead>
 										<tbody>
-										<tr>
+											<tr>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -398,9 +409,6 @@
 											</tr>
 										</tbody>
 									</table>
-
-
-
 								</div>
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
@@ -449,7 +457,7 @@
 											</tr>
 										</thead>
 										<tbody>
-										<tr>
+											<tr>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -496,7 +504,19 @@
 					</div>
 				</section>
 
-<!--[pp] //본문내용영역 -->
+
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

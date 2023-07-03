@@ -121,9 +121,22 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
 
-				<section class="content container-fluid">
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
+
+
+<section class="content container-fluid">
 					<div class="box box-solid">
 						<div class="box-header">
 							<h3 class="box-title">▶ 선별실적등록</h3>
@@ -162,7 +175,7 @@
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
 										<th scope="row">입고일자</th>
-										<td colspan="2" class="td_input">
+										<td colspan="2" class="td_input" style="border-right: hidden;">
 											<div class="dp_inline wd_125 va_m">
 												<div class="input-group date">
 													<div class="input-group-addon">
@@ -180,30 +193,33 @@
 													<input type="text" name="datepicker" placeholder="2023-01-31" class="form-control pull-right input-sm">
 												</div>
 											</div>
-											</td>
+										</td>
 									</tr>
 									<tr>
 										<th scope="row">품목/품종</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+												<option></option>
 											</select>
-											</td>
-										<td class="td_input">
+										</td>
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+												<option></option>
 											</select>
 										</td>
 										<th scope="row">생산자</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+												<option></option>
 											</select>
-										 </td>
-												<td class="td_input">
-													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
-												</td>
+										</td>
+										<td class="td_input" style="border-right: hidden;">
+											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+										</td>
 										<th scope="row">참고</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
-											<option>단일선택</option>
+												<option>단일선택</option>
 											</select>
 										</td>
 									</tr>
@@ -300,45 +316,45 @@
 										</tbody>
 									</table>
 									<table class="table table-bordered tbl_row tbl_fixed">
-								<caption>검색 조건 설정</caption>
-								<colgroup>
-									<col style="width: 8%">
-									<col style="width: 10%">
-									<col style="width: 10%">
-									<col style="width: 8%">
-									<col style="width: 10%">
-									<col style="width: 10%">
-									<col style="width: 8%">
-									<col style="width: 10%">
-									<col style="width: 10%">
-								</colgroup>
-								<tbody>
-									<tr>
-										<th scope="row">선별일자</th>
-										<td class="td_input">
-											<div class="dp_inline wd_125 va_m">
-												<div class="input-group date">
-													<div class="input-group-addon">
-														<i class="fa fa-calendar"></i>
+										<caption>검색 조건 설정</caption>
+										<colgroup>
+											<col style="width: 8%">
+											<col style="width: 10%">
+											<col style="width: 10%">
+											<col style="width: 8%">
+											<col style="width: 10%">
+											<col style="width: 10%">
+											<col style="width: 8%">
+											<col style="width: 10%">
+											<col style="width: 10%">
+										</colgroup>
+										<tbody>
+											<tr>
+												<th scope="row">선별일자</th>
+												<td class="td_input" style="border-right: hidden;">
+													<div class="dp_inline wd_125 va_m">
+														<div class="input-group date">
+															<div class="input-group-addon">
+																<i class="fa fa-calendar"></i>
+															</div>
+															<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
+														</div>
 													</div>
-													<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
-												</div>
-											</div>
-										<th scope="row">설비</th>
-										<td class="td_input">
-										<select class="form-control input-sm">
-										<option>선택</option>
-											</select>
-											</td>
-										<th scope="row">선별 투입량</th>
-										   <td class="td_input">
-										<input type="text" class="form-control input-sm" placeholder="" disabled>
-										<td><label class="bold">Kg
-										</label>
-										</td>
-									     </tr>
-								      </tbody>
-							            </table>
+												<th scope="row">설비</th>
+												<td class="td_input" style="border-right: hidden;">
+													<select class="form-control input-sm">
+														<option>선택</option>
+													</select>
+												</td>
+												<th scope="row">선별 투입량</th>
+												<td class="td_input" style="border-right: hidden;">
+														<input type="text" class="form-control input-sm" placeholder="" disabled>
+												<td style="border-right: hidden;"><label class="bold">Kg
+													</label>
+												</td>
+											</tr>
+										</tbody>
+						            </table>
 							<div class="ad_section_top">
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
@@ -348,9 +364,9 @@
 									<button type="button" class="btn btn-sm btn-danger">내려받기</button>
 									<button type="button" class="btn btn-sm btn-danger">올리기</button>
 								</div>
-								</div>
-												<table class="table table-bordered table-hover tbl_col tbl_fixed">
-										<caption>검색결과 목록</caption>
+							</div>
+							<table class="table table-bordered table-hover tbl_col tbl_fixed">
+								<caption>검색결과 목록</caption>
 										<colgroup>
 											<col style="width: 4%">
 											<col style="width: 5%">
@@ -421,8 +437,9 @@
 												</td>
 												<td class="td_input">
 													<button type="button" class="btn btn-xs btn-outline-danger">삭제</button>
+												</td>
 											</tr>
-<tr>
+											<tr>
 											    <th scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
@@ -451,31 +468,44 @@
 												<td>&nbsp;</td>
 												<td class="td_input">
 													<button type="button" class="btn btn-xs btn-outline-danger">추가</button>
+												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
 							    	<table class="table table-bordered tbl_row tbl_fixed">
 							    		<colgroup>
-									<col style="width: 100%">
-								</colgroup>
-								  <tbody>
-									<tr>
-										<th scope="row">1. 선별투입등록 시 생산자 기준으로 선별실적을 등록하면 원산지 추적이 가능하지만, 생산자 구분없이 선별실적을 등록하는 경우는 원산지 추적이 불가함<br>
-										하지만 특정 APC에서는 입고 시점까지 생산자를 관리하므로 처리는 가능하도록 함.<br>
-										2. 포장실적을 별도 관리하지 않는 경우 포장실적 자동등록 시 선별등급은 상품등급과 동일하게 처리</th>
-										<td colspan= "2" class="td_input">
-											<input type="text" class="form-control input-sm" placeholder="입력하세요." title="입력하세요.">
-										</td>
-							        </tr>
-							      </tbody>
+											<col style="width: 100%">
+										</colgroup>
+								   		<tbody>
+											<tr>
+												<th scope="row" class="ta_l">1. 선별투입등록 시 생산자 기준으로 선별실적을 등록하면 원산지 추적이 가능하지만, 생산자 구분없이 선별실적을 등록하는 경우는 원산지 추적이 불가함<br>
+													하지만 특정 APC에서는 입고 시점까지 생산자를 관리하므로 처리는 가능하도록 함.<br>
+													2. 포장실적을 별도 관리하지 않는 경우 포장실적 자동등록 시 선별등급은 상품등급과 동일하게 처리
+												</th>
+												<td colspan= "2" class="td_input">
+													<input type="text" class="form-control input-sm" placeholder="입력하세요." title="입력하세요.">
+												</td>
+											</tr>
+										</tbody>
                                   </table>
 							<!--[pp] //검색결과 -->
 						</div>
 					</div>
 				</section>
 
-<!--[pp] //본문내용영역 -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

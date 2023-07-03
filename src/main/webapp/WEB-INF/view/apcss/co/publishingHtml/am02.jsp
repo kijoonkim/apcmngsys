@@ -121,9 +121,21 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
 
-		<section class="content container-fluid">
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
+
+<section class="content container-fluid">
 					<div class="box box-solid">
 						<div class="box-header">
 							<h3 class="box-title"> ▶ APC환경설정</h3>
@@ -152,21 +164,20 @@
 									<col style="width: 7%">
 									<col style="width: 2%">
 									<col style="width: 9%">
-									<col style="width: 1%">
 								</colgroup>
 								<tbody>
 									<tr>
 										<th scope="row">APC코드</th>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<td>&nbsp;</td>
 										<td>
 											<input type="text" class="form-control input-sm" placeholder="변경불가" disabled>
 										</td>
-										<td scope="row">&nbsp;</td>
+										<td scope="row" colspan="8">&nbsp;</td>
 									</tr>
 									<tr>
 										<th rowspan="2">APC정보</th>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<td scope="row">명칭</td>
 										<td scope="row">
 											<input type="text" class="form-control input-sm" placeholder="" title="">
@@ -179,13 +190,13 @@
 										<td scope="row">
 											<input type="text" class="form-control input-sm" placeholder="" title="">
 										</td>
-										<td scope="row">팩스</td>
+										<td scope="row">팩스번호</td>
 										<td scope="row">
 											<input type="text" class="form-control input-sm" placeholder="" title="">
 										</td>
 									</tr>
 									<tr>
-										<td scope="row">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<td scope="row">사업번호</td>
 										<td scope="row">
 											<input type="text" class="form-control input-sm" placeholder="" title="">
@@ -207,43 +218,43 @@
 									</tr>
 									<tr>
 										<th scope="row">APC구분</th>
-										<td>&nbsp;</td>
-									<td colspan="2"class="td_input">
-								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1">
-									<label class="radio_label" for="radio1">농협　</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="radio" name="radio_dis" class="radio" id="radio_dis_on" checked>
-									<label class="radio_label" for="radio_dis_on">법인</label>
-								</p>
-								</td>
+										<td style="border-right: hidden;">&nbsp;</td>
+										<td colspan="2"class="td_input">
+											<p class="ad_input_row">
+												<input type="radio" name="radio" class="radio" id="radio1">
+												<label class="radio_label" for="radio1">농협　</label>
+											</p>
+											<p class="ad_input_row">
+												<input type="radio" name="radio_dis" class="radio" id="radio_dis_on" checked>
+												<label class="radio_label" for="radio_dis_on">법인</label>
+											</p>
+										</td>
 									</tr>
 									<tr>
 										<th scope="row">생산자 정산기준</th>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<td colspan="9" class="td_input">
-								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1">
-									<label class="radio_label" for="radio1">원물입고기준</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1" checked>
-									<label class="radio_label" for="radio1">선별완료기준</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1">
-									<label class="radio_label" for="radio1">포장완료기준</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1">
-									<label class="radio_label" for="radio1">출하완료기준</label>
-								</p>
+											<p class="ad_input_row">
+												<input type="radio" name="radio" class="radio" id="radio1">
+												<label class="radio_label" for="radio1">원물입고기준</label>
+											</p>
+											<p class="ad_input_row">
+												<input type="radio" name="radio" class="radio" id="radio1" checked>
+												<label class="radio_label" for="radio1">선별완료기준</label>
+											</p>
+											<p class="ad_input_row">
+												<input type="radio" name="radio" class="radio" id="radio1">
+												<label class="radio_label" for="radio1">포장완료기준</label>
+											</p>
+											<p class="ad_input_row">
+												<input type="radio" name="radio" class="radio" id="radio1">
+												<label class="radio_label" for="radio1">출하완료기준</label>
+											</p>
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">사용자관리</th>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<td colspan="2"class="td_input">
 											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">사용자권한 설정</button>
 										</td>
@@ -255,7 +266,7 @@
 									</tr>
 									<tr>
 										<th scope="row">운용설비관리</th>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<td class="td_input" colspan="2">
 											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">설비 등록</button>
 										</td>
@@ -267,7 +278,7 @@
 									</tr>
 									<tr>
 										<th scope="row">저장창고 관리</th>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<td class="td_input" colspan="2">
 											<button style="width:100%; height:30px;">창고 등록</button>
 										</td>
@@ -279,7 +290,7 @@
 									</tr>
 									<tr>
 										<th scope="row">품목 관리</th>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<td class="td_input" colspan="2">
 											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">품목 등록</button>
 										</td>
@@ -291,7 +302,7 @@
 									</tr>
 									<tr>
 										<th scope="row">원물 팔레트/박스</th>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<td class="td_input" colspan="2">
 											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">팔레트/박스 등록</button>
 										</td>
@@ -303,7 +314,7 @@
 									</tr>
 									<tr>
 										<th scope="row">원물육안등급</th>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<td class="td_input" colspan="2">
 											<button style="width:100%; height:30px;">원물육안등급 등록</button>
 										</td>
@@ -315,7 +326,7 @@
 									</tr>
 									<tr>
 										<th scope="row">입고차량 관리</th>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<td class="td_input" colspan="2">
 											<button style="width:100%; height:30px;">입고차량/운임 등록</button>
 										</td>
@@ -327,7 +338,7 @@
 									</tr>
 									<tr>
 										<th scope="row">출하운송사 관리</th>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<td class="td_input" colspan="2">
 											<button style="width:100%; height:30px;">출하 운송회사 등록</button>
 										</td>
@@ -339,7 +350,7 @@
 									</tr>
 									<tr>
 										<th scope="row">거래처 관리</th>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<td class="td_input" colspan="2">
 											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">거래처 등록</button>
 										</td>
@@ -353,9 +364,7 @@
 									</tr>
 								</tbody>
 							</table>
-							<tr>
-								<td>&nbsp;</td>
-								</tr>
+
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<div class="box-body">
@@ -512,7 +521,7 @@
 													</p>
 												</td>
 												<td>
-													<p style="color:#ff0000";>발주정보관리 필수</p>
+													<p style="color:#ff0000">발주정보관리 필수</p>
 												</td>
 												<td>
 													<p class="ad_input_row">
@@ -591,12 +600,23 @@
 							</div>
 
 						</div>
-						<!--[pp] //검색결과 -->
 					</div>
 				</div>
 			</section>
 
-<!--[pp] //본문내용영역 -->
+
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

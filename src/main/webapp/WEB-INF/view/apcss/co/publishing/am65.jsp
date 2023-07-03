@@ -121,7 +121,19 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
+
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
 
 <section class="content container-fluid">
 					<div class="box box-solid">
@@ -142,8 +154,8 @@
 								<caption>검색 조건 설정</caption>
 								<colgroup>
 									<col style="width: 5%">
-									<col style="width: 10%">
-									<col style="width: 5%">
+									<col style="width: 15%">
+									<col style="width: 9%">
 									<col style="width: 25%">
 									<col style="width: 7%">
 									<col style="width: 17%">
@@ -167,7 +179,7 @@
 										<th class="ta_r">품목</th>
 										<th class="ta_r">
 											<div class="fl_group fl_rpgroup">
-												<div class="dp_inline wd_125 va_m">
+												<div class="dp_inline wd_180 va_m">
 													<select class="form-control">
 														<option></option>
 													</select>
@@ -178,7 +190,7 @@
 										<th class="ta_r">품종</th>
 										<th class="ta_r">
 											<div class="fl_group fl_rpgroup">
-												<div class="dp_inline wd_125 va_m">
+												<div class="dp_inline wd_180 va_m">
 													<select class="form-control">
 														<option>멀티선택</option>
 													</select>
@@ -191,21 +203,23 @@
 									<tr>
 										<th>규격</th>
 										<th class="td_input">
+											<select class="form-control" style="width: 80%;">
+												<option></option>
+											</select>
+										</th>
+										<th class="ta_r">상품등급</th>
+										<th class="ta_r">
+											<select class="form-control" style="width: 70%;">
+												<option></option>
+											</select>
+										</th>
+										<th class="ta_r">브랜드</th>
+										<th>
 											<select class="form-control">
 												<option></option>
 											</select>
 										</th>
-										<th>상품등급</th>
-										<th class="ta_r">
-												<select class="form-control">
-													<option>단일선택</option>
-												</select>
-										</th>
-										<th>브랜드</th>
-										<th>
-											<input type="text" class="form-control input-sm" placeholder="">
-										</th>
-										<th></th>
+										<th>&nbsp;</th>
 									</tr>
 
 									<tr>
@@ -215,9 +229,9 @@
 												<option></option>
 											</select>
 										</th>
-										<th>포장구분</th>
+										<th class="ta_r">포장구분</th>
 										<th>
-											<select class="form-control">
+											<select class="form-control" style="width: 70%;">
 												<option></option>
 											</select>
 										</th>
@@ -230,19 +244,15 @@
 							</div>
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">
-									<li><span>상품입고내역</span></li>
+									<li><span>상품코드내역</span></li>
 								</ul>
-								<label>중량합계 99,999Kg</label>
 							</div>
-
 							<b>&nbsp;<b>
-								<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 98%;">
+								<table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<colgroup>
 										<col style="width: 8%">
 										<col style="width: 8%">
 										<col style="width: 10%">
-										<col style="width: 8%">
-										<col style="width: 8%">
 										<col style="width: 8%">
 										<col style="width: 8%">
 										<col style="width: 8%">
@@ -254,40 +264,34 @@
 									<thead>
 										<tr>
 											<th scope="row">
-												입고번호
+												상품코드
 											</th>
 											<th scope="row">
-												팔레트번호
-											</th>
-											<th scope="row">
-												입고일자
-											</th>
-											<th scope="row">
-												상품구분
+												상품명
 											</th>
 											<th scope="row">
 												품목
 											</th>
 											<th scope="row">
-												품종
+												규격
 											</th>
 											<th scope="row">
-												거래처
+												상품등급
 											</th>
 											<th scope="row">
-												수량
+												브랜드
+											</th>
+											<th scope="row">
+												산지
+											</th>
+											<th scope="row">
+												포장구분
+											</th>
+											<th scope="row" >
+												입수
 											</th>
 											<th scope="row" >
 												중량
-											</th>
-											<th scope="row" >
-												박스종류
-											</th>
-											<th scope="row" >
-												창고
-											</th>
-											<th scope="row" >
-												비고
 											</th>
 										</tr>
 									</thead>
@@ -303,8 +307,6 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
 										</tr>
 										<tr>
 											<td>&nbsp;</td>
@@ -317,12 +319,8 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
 										</tr>
 										<tr>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -335,15 +333,26 @@
 											<td>&nbsp;</td>
 										</tr>
 									</tbody>
-								   </table>
-
+								  </table>
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
-						</section>
+					</div>
+				</section>
 
 
-<!--[pp] //본문내용영역 -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

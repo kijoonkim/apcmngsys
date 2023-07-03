@@ -121,7 +121,19 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
+
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
 
 <section class="content container-fluid">
 					<div class="box box-solid">
@@ -195,17 +207,17 @@
 							<b>&nbsp;<b>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 98%;">
 									<colgroup>
-										<col style="width: 8%">
-										<col style="width: 8%">
-										<col style="width: 10%">
-										<col style="width: 8%">
-										<col style="width: 8%">
-										<col style="width: 8%">
-										<col style="width: 8%">
-										<col style="width: 8%">
-										<col style="width: 8%">
-										<col style="width: 8%">
-										<col style="width: 10%">
+										<col style="width: 12%">
+										<col style="width: 25%">
+										<col style="width: 12%">
+										<col style="width: 6%">
+										<col style="width: 6%">
+										<col style="width: 6%">
+										<col style="width: 6%">
+										<col style="width: 6%">
+										<col style="width: 6%">
+										<col style="width: 6%">
+										<col style="width: 6%">
 									</colgroup>
 									<thead>
 										<tr>
@@ -350,16 +362,32 @@
 												</p>
 											</td>
 											<td>&nbsp;</td>
-											<td>입고/출고</td>
-											<td>팔레트/박스</td>
+											<td>
+												<select class="select2">
+													<option selected>입고/출고</option>
+												</select>
+											</td>
+											<td>
+												<select class="select2">
+													<option selected>팔레트/박스</option>
+												</select>
+											</td>
+											<td>
+												<select class="select2">
+													<option selected></option>
+												</select>
+											</td>
 											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
+											<td>
+												<select class="select2">
+													<option selected></option>
+												</select>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>
-												<button type="button" class="btn btn-sm btn-outline-danger" style="width: 40%;">삭제</button>
+												<button type="button" class="btn btn-xs btn-outline-danger">삭제</button>
 											</td>
 										</tr>
 										<tr>
@@ -370,16 +398,32 @@
 												</p>
 											</td>
 											<td>&nbsp;</td>
+											<td>
+												<select class="select2">
+													<option selected></option>
+												</select>
+											</td>
+											<td>
+												<select class="select2">
+													<option selected></option>
+												</select>
+											</td>
+											<td>
+												<select class="select2">
+													<option selected></option>
+												</select>
+											</td>
 											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
+											<td>
+												<select class="select2">
+													<option selected></option>
+												</select>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>
-												<button type="button" class="btn btn-sm btn-outline-danger" style="width: 40%;">추가</button>
+												<button type="button" class="btn btn-xs btn-outline-danger">추가</button>
 											</td>
 										</tr>
 										<tr>
@@ -390,11 +434,27 @@
 												</p>
 											</td>
 											<td>&nbsp;</td>
+											<td>
+												<select class="select2">
+													<option selected></option>
+												</select>
+											</td>
+											<td>
+												<select class="select2">
+													<option selected></option>
+												</select>
+											</td>
+											<td>
+												<select class="select2">
+													<option selected></option>
+												</select>
+											</td>
 											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
+											<td>
+												<select class="select2">
+													<option selected></option>
+												</select>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -405,10 +465,22 @@
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
-						</section>
+					</div>
+				</section>
 
 
-<!--[pp] //본문내용영역 -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

@@ -121,7 +121,18 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
+
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
 
 <section class="content container-fluid">
 				<div class="box box-solid">
@@ -160,14 +171,14 @@
 							<tbody>
 								<tr>
 									<th scope="row">APC 명</th>
-										<td colspan="6" class="td_input">
+									<td colspan="6" class="td_input" style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
-										</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>
+									</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">
 										<p class="ad_input_row">
 											<input type="checkbox" class="check" id="check_default">
 											<label class="check_label" for="check_default">생산자 기본값 자동등록</label>
@@ -176,169 +187,169 @@
 								</tr>
 								<tr>
 									<th scope="row">생산자</th>
-										<td colspan="6" class="td_input">
-											<input type="text" class="form-control input-sm">
-												<td colspan="2" class="td_input">
-													<button class="btn btn-xs btn-outline-dark" type="button">조회</button>
-										</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-									<td colspan="2"> → 초성 검색기능 적용</td>
+									<td colspan="6" class="td_input"  style="border-right: hidden;">
+										<input type="text" class="form-control input-sm">
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<button class="btn btn-xs btn-outline-dark" type="button">조회</button>
+									</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2" style="border-right: hidden;"> → 초성 검색기능 적용</td>
 								</tr>
 								<tr>
 									<th scope="row">품목 / 품종</th>
-										<td colspan="2"class="td_input">
-											<select class="form-control input-sm">
-											<option>선택</option>
-											</select>
-										</td>
-										<td colspan="4"class="td_input">
-											<select class="form-control input-sm">
-											<option>선택</option>
-											</select>
-										</td>
-										 <td colspan="2"class="td_input">
-											<p class="ad_input_row">
-												<input type="checkbox" class="check" id="check_all">
-												<label class="check_label" for="check_all">고정</label>
-											</p>
-											</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-									<td colspan="2"> → 생산자 기본설정 값에 따라 자동으로 설정 or 고정 선택 시 해당품종 유지</td>
-								</tr>
-								<tr>
-											<th scope="row">입고일자</th>
-										<td colspan="6"class="td_input">
-											<div class="dp_inline wd_125 va_m">
-												<div class="input-group date">
-													<div class="input-group-addon">
-														<i class="fa fa-calendar"></i>
-													</div>
-													<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
-												</div>
-											</div>
-										</td>
-									<td>&nbsp;</td>
-												<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-									<td colspan="2"> → 기본 현재일자로 지정</td>
-								</tr>
-								<tr>
-									<th scope="row">입고수량/중량</th>
-									<td class="td_input"><input type="text"
-										class="form-control input-sm" placeholder=""title="">
-										</td>
-										<td colspan="3" class="td_input">
-										<input type="text" class="form-control input-sm" placeholder="평균"title="">
-										</td>
-											<td colspan="2" class="td_input">
-											<p class="ad_input_row">
-												<input type="checkbox" class="check" id="check_all">
-												<label class="check_label" for="check_all">고정</label>
-											</p>
-											</td>
-										<td>Kg</td>
-										<td class="td_input"><input type="text"
-										class="form-control input-sm" placeholder=""title="">
-										</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-									<td colspan="2"> → 박스수량과 평균중량 입력 시 KG 자동계산(숫자 키 패드 적용검토)</td>
-								</tr>
-								<tr>
-									<th scope="row">입고구분</th>
-										<td colspan="8" class="td_input">
-								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1" checked>
-									<label class="radio_label" for="radio1">일반매입</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1">
-									<label class="radio_label" for="radio1">공선</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1">
-									<label class="radio_label" for="radio1">매취</label>
-								</p>
-										</td>
-										<td>&nbsp;</td>
-										<td>&nbsp;</td>
-									<td colspan="2"> → 생산자 기본설정 값에 따라 자동으로 설정</td>
-								</tr>
-								<tr>
-										<th scope="row">상품구분</th>
-										<td colspan="8" class="td_input">
-								<p class="ad_input_row">
-									<input type="radio" name="radio_dis" class="radio" id="radio_dis_on" checked>
-									<label class="radio_label" for="radio_dis_on">일반</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1">
-									<label class="radio_label" for="radio1">GAP</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1">
-									<label class="radio_label" for="radio1">무농약</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1">
-									<label class="radio_label" for="radio1">유기농</label>
-								</p>
-								</td>
-										<td>&nbsp;</td>
-										<td>&nbsp;</td>
-									<td colspan="2"> → 생산자 기본설정 값에 따라 자동으로 설정</td>
-								</tr>
-								<tr>
-									<th scope="row">운송구분</th>
-										<td colspan="8" class="td_input">
-								<p class="ad_input_row">
-									<input type="radio" name="radio_dis" class="radio" id="radio_dis_on" checked>
-									<label class="radio_label" for="radio_dis_on">자가</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1">
-									<label class="radio_label" for="radio1">용역</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1">
-									<label class="radio_label" for="radio1">기타</label>
-								</p>
-										</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-									<td colspan="2"> → 생산자 기본설정 값에 따라 자동으로 설정</td>
-								</tr>
-									 <tr>
-									 	 <th scope="row">입고등급</th>
-									 	 <td><button class="btn btn-xs btn-outline-dark" type="button">입력</button></td>
-										<td class="td_input">
-										<input type="text" class="form-control input-sm" placeholder="" disabled>
+									<td colspan="2"class="td_input" style="border-right: hidden;">
+										<select class="form-control input-sm">
+										<option>선택</option>
+										</select>
 									</td>
-										<td class="td_input">
-										<input type="text" class="form-control input-sm" placeholder="" disabled>
-									</td>
-										<td class="td_input">
-										<input type="text" class="form-control input-sm" placeholder="" disabled>
-									</td>
-											<td class="td_input">
-										<input type="text" class="form-control input-sm" placeholder="" disabled>
-									</td>
-											<td class="td_input">
-										<input type="text" class="form-control input-sm" placeholder="" disabled>
-									</td>
-									</tr>
-									<tr>
-							<th scope="row">박스종류</th>
-									<td class="td_input">
+									<td colspan="4"class="td_input" style="border-right: hidden;">
 										<select class="form-control input-sm">
 											<option>선택</option>
 										</select>
 									</td>
-										<td>&nbsp;</td>
-									<td colspan="2" class="td_input">
+									<td colspan="2"class="td_input" style="border-right: hidden;">
+										<p class="ad_input_row">
+											<input type="checkbox" class="check" id="check_all">
+											<label class="check_label" for="check_all">고정</label>
+										</p>
+									</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정 or 고정 선택 시 해당품종 유지</td>
+								</tr>
+								<tr>
+									<th scope="row">입고일자</th>
+									<td colspan="6"class="td_input" style="border-right: hidden;">
+										<div class="dp_inline wd_125 va_m">
+											<div class="input-group date">
+												<div class="input-group-addon">
+													<i class="fa fa-calendar"></i>
+												</div>
+												<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
+											</div>
+										</div>
+									</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2" style="border-right: hidden;"> → 기본 현재일자로 지정</td>
+								</tr>
+								<tr>
+									<th scope="row">입고수량/중량</th>
+									<td class="td_input" style="border-right: hidden;">
+										<input type="text" class="form-control input-sm" placeholder=""title="">
+									</td>
+									<td colspan="3" class="td_input" style="border-right: hidden;">
+										<input type="text" class="form-control input-sm" placeholder="평균"title="">
+									</td>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<p class="ad_input_row">
+											<input type="checkbox" class="check" id="check_all">
+											<label class="check_label" for="check_all">고정</label>
+										</p>
+									</td>
+									<td style="border-right: hidden;">Kg</td>
+									<td class="td_input" style="border-right: hidden;">
+										<input type="text" class="form-control input-sm" placeholder=""title="">
+									</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;" colspan="2"> → 박스수량과 평균중량 입력 시 KG 자동계산(숫자 키 패드 적용검토)</td>
+								</tr>
+								<tr>
+									<th scope="row">입고구분</th>
+									<td colspan="8" class="td_input" style="border-right: hidden;">
+										<p class="ad_input_row">
+											<input type="radio" name="radio" class="radio" id="radio1" checked>
+											<label class="radio_label" for="radio1">일반매입</label>
+										</p>
+										<p class="ad_input_row">
+											<input type="radio" name="radio" class="radio" id="radio1">
+											<label class="radio_label" for="radio1">공선</label>
+										</p>
+										<p class="ad_input_row">
+											<input type="radio" name="radio" class="radio" id="radio1">
+											<label class="radio_label" for="radio1">매취</label>
+										</p>
+									</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정</td>
+								</tr>
+								<tr>
+									<th scope="row">상품구분</th>
+									<td colspan="8" class="td_input"  style="border-right: hidden;">
+										<p class="ad_input_row">
+											<input type="radio" name="radio_dis" class="radio" id="radio_dis_on" checked>
+											<label class="radio_label" for="radio_dis_on">일반</label>
+										</p>
+										<p class="ad_input_row">
+											<input type="radio" name="radio" class="radio" id="radio1">
+											<label class="radio_label" for="radio1">GAP</label>
+										</p>
+										<p class="ad_input_row">
+											<input type="radio" name="radio" class="radio" id="radio1">
+											<label class="radio_label" for="radio1">무농약</label>
+										</p>
+										<p class="ad_input_row">
+											<input type="radio" name="radio" class="radio" id="radio1">
+											<label class="radio_label" for="radio1">유기농</label>
+										</p>
+										</td>
+										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
+										<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정</td>
+								</tr>
+								<tr>
+									<th scope="row" style="border-right: hidden;">운송구분</th>
+									<td colspan="8" style="border-right: hidden;" class="td_input">
+										<p class="ad_input_row">
+											<input type="radio" name="radio_dis" class="radio" id="radio_dis_on" checked>
+											<label class="radio_label" for="radio_dis_on">자가</label>
+										</p>
+										<p class="ad_input_row">
+											<input type="radio" name="radio" class="radio" id="radio1">
+											<label class="radio_label" for="radio1">용역</label>
+										</p>
+										<p class="ad_input_row">
+											<input type="radio" name="radio" class="radio" id="radio1">
+											<label class="radio_label" for="radio1">기타</label>
+										</p>
+									</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정</td>
+								</tr>
+			 					<tr>
+								 	<th scope="row">입고등급</th>
+								 	<td style="border-right: hidden;"><button class="btn btn-xs btn-outline-dark" type="button">입력</button></td>
+									<td class="td_input" style="border-right: hidden;">
+										<input type="text" class="form-control input-sm" placeholder="" disabled>
+									</td>
+									<td class="td_input" style="border-right: hidden;">
+										<input type="text" class="form-control input-sm" placeholder="" disabled>
+									</td>
+									<td class="td_input" style="border-right: hidden;">
+										<input type="text" class="form-control input-sm" placeholder="" disabled>
+									</td>
+									<td class="td_input" style="border-right: hidden;">
+										<input type="text" class="form-control input-sm" placeholder="" disabled>
+									</td>
+									<td class="td_input" style="border-right: hidden;">
+										<input type="text" class="form-control input-sm" placeholder="" disabled>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">박스종류</th>
+									<td class="td_input" style="border-right: hidden;">
+										<select class="form-control input-sm">
+											<option>선택</option>
+										</select>
+									</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
 										<p class="ad_input_row">
 											<input type="checkbox" class="check" id="check_default">
 											<label class="check_label" for="check_default">고정</label>
@@ -347,13 +358,13 @@
 								</tr>
 								<tr>
 									<th scope="row">입고창고</th>
-									<td class="td_input">
+									<td class="td_input" style="border-right: hidden;">
 										<select class="form-control input-sm">
 											<option>선택</option>
 										</select>
 									</td>
-											<td>&nbsp;</td>
-									<td colspan="2" class="td_input">
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
 										<p class="ad_input_row">
 											<input type="checkbox" class="check" id="check_default">
 											<label class="check_label" for="check_default">고정</label>
@@ -456,7 +467,20 @@
 				</div>
 			</section>
 
-<!--[pp] //본문내용영역 -->
+
+
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

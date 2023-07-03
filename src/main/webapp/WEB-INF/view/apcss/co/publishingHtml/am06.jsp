@@ -121,85 +121,111 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
 
-<!--[pp] 본문내용영역 -->
-				<section class="content container-fluid">
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
+
+<section class="content container-fluid">
 					<div class="box box-solid">
-							<div class="box-header">
-								<h3 class="box-title"> ▶ 창고 등록 (팝업)</h3>
-								<div class="ad_tbl_top">
-									<div class="ad_tbl_toplist">
-										<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-										<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-										<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-									</div>
+						<div class="box-header">
+							<h3 class="box-title"> ▶ 창고 등록 (팝업)</h3>
+							<div class="ad_tbl_top">
+								<div class="ad_tbl_toplist">
+									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
 								</div>
 							</div>
+						</div>
 
 						<div class="box-body">
-								<!--[pp] 검색 -->
-								<table class="table table-bordered tbl_row tbl_fixed">
-									<caption>검색 조건 설정</caption>
-									<colgroup>
-										<col style="width: 8%">
-										<col style="width: 18%">
-										<col style="width: auto">
-									</colgroup>
-									<tbody>
-										<tr>
-											<th scope="row">APC명</th>
-											<th>
-												<input type="text" class="form-control input-sm" placeholder="" disabled>
-											</th>
-											<th>&nbsp;</th>
-										</tr>
-									</tbody>
-								</table>
+							<!--[pp] 검색 -->
+							<table class="table table-bordered tbl_row tbl_fixed">
+								<caption>검색 조건 설정</caption>
+								<colgroup>
+									<col style="width: 8%">
+									<col style="width: 18%">
+									<col style="width: auto">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th scope="row">APC명</th>
+										<th>
+											<input type="text" class="form-control input-sm" placeholder="" disabled>
+										</th>
+										<th>&nbsp;</th>
+									</tr>
+								</tbody>
+							</table>
 
-								<!--[pp] //검색 -->
-								<!--[pp] 검색결과 -->
-								<div class="ad_section_top">
-										<table class="table table-bordered table-hover tbl_col tbl_fixed">
-											<caption>검색결과 목록</caption>
-											<colgroup>
-												<col style="width: 5%">
-												<col style="width: 8%">
-												<col style="width: 8%">
-												<col style="width: 40%">
-												<col style="width: 5%">
-											</colgroup>
-											<thead>
-												<tr>
-													<th scope="col">순번</th>
-													<th scope="col">창고 코드</th>
-													<th scope="col">창고 명</th>
-													<th scope="col">비고</th>
-													<th scope="col">처리</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>1</td>
-													<td>자동생성</td>
-													<td>&nbsp;</td>
-													<td>&nbsp;</td>
-													<td><button type="button" class="btn btn-xs btn-outline-danger">삭제</button></td>
-												</tr>
-												<tr>
-													<td>2</td>
-													<td>&nbsp;</td>
-													<td>&nbsp;</td>
-													<td>&nbsp;</td>
-													<td><button type="button" class="btn btn-xs btn-outline-danger">추가</button></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
+							<!--[pp] //검색 -->
+							<!--[pp] 검색결과 -->
+							<div class="ad_section_top">
+									<table class="table table-bordered table-hover tbl_col tbl_fixed">
+										<caption>검색결과 목록</caption>
+										<colgroup>
+											<col style="width: 5%">
+											<col style="width: 8%">
+											<col style="width: 8%">
+											<col style="width: 40%">
+											<col style="width: 5%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">순번</th>
+												<th scope="col">창고 코드</th>
+												<th scope="col">창고 명</th>
+												<th scope="col">비고</th>
+												<th scope="col">처리</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>1</td>
+												<td>자동생성</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td><button type="button" class="btn btn-xs btn-outline-danger">삭제</button></td>
+											</tr>
+											<tr>
+												<td>2</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td><button type="button" class="btn btn-xs btn-outline-danger">추가</button></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								</div>
 							</div>
-							</div>
-							<!--[pp] //검색결과 -->
-						</section>
+						</div>
+					</div>
+				</section>
+
+
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

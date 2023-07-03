@@ -121,7 +121,19 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
+
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
 
 <section class="content container-fluid">
 					<div class="box box-solid">
@@ -129,8 +141,9 @@
 							<h3 class="box-title"> ▶ 투입지시조회</h3>
 						</div>
 							<div class="mg_t5 ta_r">
-								<button type="button" class="btn btn-sm btn-primary">투입지시서</button>
 								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
 								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
 							</div>
 
@@ -144,23 +157,23 @@
 									<col style="width: 6%">
 									<col style="width: 3%">
 									<col style="width: 7%">
+									<col style="width: 9%">
+									<col style="width: 8%">
 									<col style="width: 7%">
 									<col style="width: 7%">
+									<col style="width: 7%">
+									<col style="width: 6%">
 									<col style="width: 3%">
-									<col style="width: 7%">
-									<col style="width: 7%">
-									<col style="width: 7%">
-									<col style="width: 5%">
 								</colgroup>
 								<tbody>
 									<tr>
 										<th scope="row">APC명</th>
-										<td colspan= "2" class="td_input">
+										<td colspan= "2" class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<th scope="row">지시일자</th>
-										<td colspan="2" class="td_input">
+										<td colspan="2" class="td_input"  style="border-right: hidden;">
 											<div class="dp_inline wd_125 va_m">
 												<div class="input-group date">
 													<div class="input-group-addon">
@@ -178,35 +191,36 @@
 													<input type="text" name="datepicker" placeholder="2023-01-31" class="form-control pull-right input-sm">
 												</div>
 											</div>
-											</td>
-											<td>&nbsp;</td>
-										<th scope="row">품목/품종</th>
-										<td class="td_input">
+										</td>
+										<td style="border-right: hidden;">&nbsp;</td>
+										<th scope="row" style="border-right: hidden;">품목/품종</th>
+										<td class="td_input"  style="border-right: hidden;">
 											<select class="form-control input-sm">
+												<option></option>
 											</select>
-											</td>
-										<td class="td_input">
+										</td>
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 											</select>
 										</td>
-											</tr>
-										 <tr>
+									</tr>
+									<tr>
 										<th scope="row">생산자</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
-											</select>
-										 </td>
-												<td class="td_input">
-													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
-												</td>
-										<td>&nbsp;</td>
-										<th scope="row">참고</th>
-										<td class="td_input">
-											<select class="form-control input-sm">
-											<option>단일선택</option>
 											</select>
 										</td>
-										</tr>
+										<td class="td_input"  style="border-right: hidden;">
+											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+										</td>
+										<td style="border-right: hidden;">&nbsp;</td>
+										<th scope="row">참고</th>
+										<td class="td_input" style="border-right: hidden;">
+											<select class="form-control input-sm">
+												<option>단일선택</option>
+											</select>
+										</td>
+									</tr>
 								</tbody>
 							</table>
 
@@ -284,10 +298,22 @@
 															</div>
 							<!--[pp] //검색결과 -->
 						</div>
-						</section>
+					</div>
+				</section>
 
 
-<!--[pp] //본문내용영역 -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->
