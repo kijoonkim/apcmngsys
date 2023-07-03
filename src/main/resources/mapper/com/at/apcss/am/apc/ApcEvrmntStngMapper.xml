@@ -10,9 +10,9 @@
 <!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.co.apc.mapper.ComApcMapper">
+<mapper namespace="com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper">
 
-	<resultMap type="com.at.apcss.co.apc.vo.ComApcVO" id="comApcMap">
+	<resultMap type="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" id="apcEvrmntStngMap">
         <result property="apcCd" column="APC_CD"/>
 		<result property="orgrnApcNm" column="ORGRN_APC_NM"/>
 		<result property="ctpv" column="CTPV"/>
@@ -39,7 +39,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcInfo" parameterType="com.at.apcss.co.apc.vo.ComApcVO" resultMap="comApcMap">
+    <select id="selectApcInfo" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" resultMap="apcEvrmntStngMap">
     	SELECT AI.APC_CD            AS APC_CD
 		     , AI.ORGRN_APC_NM      AS ORGRN_APC_NM
 		     , AI.CTPV              AS CTPU

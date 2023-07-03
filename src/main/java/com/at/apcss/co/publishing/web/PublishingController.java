@@ -5,14 +5,14 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.at.apcss.co.apc.service.ComApcService;
+import com.at.apcss.am.apc.service.ApcEvrmntStngService;
 import com.at.apcss.co.sys.controller.BaseController;
 
 @Controller
 public class PublishingController extends BaseController{
 
 	@Resource(name = "comApcService")
-	private ComApcService comApcService;
+	private ApcEvrmntStngService apcEvrmntStngService;
 
 	@RequestMapping(value = "/co/publishing/am01.do")
 	public String am01() {
