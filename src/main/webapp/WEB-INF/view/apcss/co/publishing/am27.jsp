@@ -121,7 +121,19 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
+
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
 
 <section class="content container-fluid">
 					<div class="box box-solid">
@@ -142,7 +154,7 @@
 								<caption>검색 조건 설정</caption>
 							<colgroup>
 									<col style="width: 7%">
-									<col style="width: 6%">
+									<col style="width: 9%">
 									<col style="width: 6%">
 									<col style="width: 3%">
 									<col style="width: 7%">
@@ -157,12 +169,12 @@
 								<tbody>
 									<tr>
 										<th scope="row">APC명</th>
-										<td colspan= "2" class="td_input">
+										<td colspan= "2" class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<th scope="row">입고일자</th>
-										<td colspan="2" class="td_input">
+										<td colspan="3" class="td_input">
 											<div class="dp_inline wd_125 va_m">
 												<div class="input-group date">
 													<div class="input-group-addon">
@@ -180,31 +192,29 @@
 													<input type="text" name="datepicker" placeholder="2023-01-31" class="form-control pull-right input-sm">
 												</div>
 											</div>
-											</td>
-											<td>&nbsp;</td>
 										<th scope="row">품목/품종</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 											</select>
-											</td>
-										<td class="td_input">
+										</td>
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 											</select>
 										</td>
 									</tr>
 									<tr>
 									    <th scope="row">생산자</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												</select>
-												<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 										</td>
-										<td>&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>
 										<th scope="row">창고</th>
-										<td class="td_input">
+										<td class="td_input"  style="border-right: hidden;">
 											<select class="form-control input-sm"><option>선택</option>
-										</select>
+											</select>
 										</td>
 									</tr>
 								</tbody>
@@ -276,7 +286,7 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 											</tr>
-                                               <tr>
+                                            <tr>
 											    <th scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
@@ -296,7 +306,7 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 											</tr>
-											   <tr>
+										   <tr>
 											    <th scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
@@ -315,9 +325,9 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
-												</tr>
-											</tbody>
-										</table>
+											</tr>
+										</tbody>
+									</table>
 												<td>&nbsp;</td>
 								<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
@@ -459,14 +469,25 @@
 									</div>
 						<!--[pp] //검색결과 -->
 								</div>
-
 							</div>
 							<!--[pp] //검색결과 -->
-
 						</div>
-						</section>
+					</div>
+				</section>
 
-<!--[pp] //본문내용영역 -->
+
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

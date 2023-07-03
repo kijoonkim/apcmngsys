@@ -121,9 +121,21 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
 
-				<section class="content container-fluid">
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
+
+<section class="content container-fluid">
 					<div class="box box-solid">
 						<div class="box-header">
 							<h3 class="box-title">▶ 발주정보조회</h3>
@@ -155,8 +167,8 @@
 								<tbody>
 									<tr>
 										<th scope="row">APC명</th>
-								    	<td colspan="2" class="td_input"><input type="text"
-										class="form-control input-sm" placeholder=""disabled>
+								    	<td colspan="2" class="td_input">
+											<input type="text" class="form-control input-sm" placeholder=""disabled>
 										</td>
 								        <th scope="row">접수여부</th>
 										<td colspan="2" class="td_input">
@@ -186,18 +198,18 @@
 				                	</tr>
 									<tr>
 										<th scope="row">발주유형</th>
-										<td colspan="2" class="td_input">
+										<td colspan="2" class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
 											</select>
 										</td>
 										<th scope="row">품목/품종</th>
-									    <td class="td_input">
+									    <td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
-												</select>
-												</td>
-									    <td class="td_input">
+											</select>
+										</td>
+									    <td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
 											</select>
@@ -205,11 +217,11 @@
 									</tr>
 									<tr>
 									    <th scope="row">거래처명</th>
-										<td colspan="2" class="td_input">
+										<td colspan="2" class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm">
 										</td>
 										<th scope="row">납기일자</th>
-										<td colspan="2" class="td_input">
+										<td colspan="2" class="td_input" style="border-right: hidden;">
 											<div class="dp_inline wd_125 va_m">
 												<div class="input-group date">
 													<div class="input-group-addon">
@@ -220,15 +232,16 @@
 											</div>
 										</td>
 										<th scope="row">상품명</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm">
 												<td class="td_input">
 													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 											</select>
 										</td>
 									</tr>
+									<tr>
 										<th scope="row">지시일자</th>
-										<td colspan="2" class="td_input">
+										<td colspan="2" class="td_input" style="border-right: hidden;">
 											<div class="dp_inline wd_125 va_m">
 												<div class="input-group date">
 													<div class="input-group-addon">
@@ -239,15 +252,15 @@
 											</div>
 										</td>
 										<th scope="row">생산설비</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 									         	<option>선택</option>
 									        </select>
 										</td>
-										<td>
-									          <div class="ad_tbl_toplist">
-								          	<button type="button" class="btn btn-sm btn-outline-success"></i>생산지시 등록</button>
-								           </div>
+										<td colspan="4" class="ta_r">
+											<div class="ad_tbl_toplist">
+												  <button type="button" class="btn btn-sm btn-outline-success"></i>생산지시 등록</button>
+										   </div>
 										</td>
 									</tr>
 								</tbody>
@@ -314,7 +327,11 @@
 												</th>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
-												<td>&nbsp;</td>
+												<td>
+													<select class="form-control input-sm">
+														<option></option>
+													</select>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -334,7 +351,11 @@
 												</th>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
-												<td>&nbsp;</td>
+												<td>
+													<select class="form-control input-sm">
+														<option></option>
+													</select>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -490,7 +511,19 @@
 					</div>
 				</section>
 
-<!--[pp] //본문내용영역 -->
+
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

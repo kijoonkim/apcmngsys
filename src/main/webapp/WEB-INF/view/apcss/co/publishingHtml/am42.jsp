@@ -121,9 +121,21 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
 
-				<section class="content container-fluid">
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
+
+<section class="content container-fluid">
 					<div class="box box-solid">
 						<div class="box-header">
 							<h3 class="box-title"> ▶ 재고정보등록</h3>
@@ -155,55 +167,64 @@
 								<tbody>
 									<tr>
 										<th scope="row">APC명</th>
-									    <td colspan="2" class="td_input"><input type="text"
-										class="form-control input-sm" placeholder=""disabled>
+									    <td colspan="2" class="td_input" style="border-right: hidden;">
+											<input type="text" class="form-control input-sm" placeholder=""disabled>
 										</td>
 										<th scope="row">재고구분</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+												<option></option>
 											</select>
 										</td>
+										<td colspan="4"></td>
 									</tr>
 									<tr>
 										<th scope="row">품목/품종</th>
-										   	<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
-												</select>
-												</td>
-										<td class="td_input">
+											</select>
+										</td>
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
 											</select>
 										</td>
 										<th scope="row">규격</th>
-										<td colspan="2" class="td_input">
+										<td colspan="2" class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+											<option></option>
 											</select>
 										</td>
 										<th scope="row">창고구분</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+											<option></option>
 											</select>
 										</td>
+										<td></td>
 									</tr>
 									<tr>
 									    <th scope="row">생산자</th>
 										<td class="td_input">
 											<input type="text" class="form-control input-sm">
-												<td class="td_input">
-													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+										</td>
+										<td class="td_input">
+											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 										</td>
 										<th scope="row">상품구분</th>
 										<td colspan="2" class="td_input">
 											<select class="form-control input-sm">
+											<option></option>
 											</select>
 										</td>
 										<th scope="row">입고구분</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+											<option></option>
 											</select>
 										</td>
+										<td></td>
 									</tr>
 								</tbody>
 							</table>
@@ -215,7 +236,6 @@
 										<button type="button" class="btn btn-md btn-outline-danger">원물재고 내역</button>
 										<button type="button" class="btn btn-md btn-outline-danger">선별재고 내역</button>
 										<button type="button" class="btn btn-md btn-outline-danger">상품재고 내역</button>
-										<th>　　탭 화면으로 구성<th>
 								</div>
 									<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
@@ -268,55 +288,54 @@
 										<tbody>
 										<tr>
 											<th scope="row" class="td_input">
-													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1">
-														<label class="check_label ta_i" for="check1">선택</label>
-													</p>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-											</tr>
-											<tr>
+												<p class="ad_input_row">
+													<input type="checkbox" class="check" id="check1">
+													<label class="check_label ta_i" for="check1">선택</label>
+												</p>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
 											<th scope="row" class="td_input">
-													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1">
-														<label class="check_label ta_i" for="check1">선택</label>
-													</p>
-												</th>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							<td>&nbsp;</td>
+												<p class="ad_input_row">
+													<input type="checkbox" class="check" id="check1">
+													<label class="check_label ta_i" for="check1">선택</label>
+												</p>
+											</th>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
@@ -366,56 +385,56 @@
 										<tbody>
 										<tr>
 											<th scope="row" class="td_input">
-													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1">
-														<label class="check_label ta_i" for="check1">선택</label>
-													</p>
-												</th>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-											</tr>
-											<tr>
+												<p class="ad_input_row">
+													<input type="checkbox" class="check" id="check1">
+													<label class="check_label ta_i" for="check1">선택</label>
+												</p>
+											</th>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
 											<th scope="row" class="td_input">
-													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1">
-														<label class="check_label ta_i" for="check1">선택</label>
-													</p>
-												</th>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<div class="table-responsive tbl_scroll_sm">
-									<table class="table table-bordered table-hover tbl_col tbl_fixed">
-										<caption>검색결과 목록</caption>
+												<p class="ad_input_row">
+													<input type="checkbox" class="check" id="check1">
+													<label class="check_label ta_i" for="check1">선택</label>
+												</p>
+											</th>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="table-responsive tbl_scroll_sm">
+								<table class="table table-bordered table-hover tbl_col tbl_fixed">
+									<caption>검색결과 목록</caption>
 										<colgroup>
 											<col style="width: 3%">
 											<col style="width: 6%">
@@ -464,54 +483,54 @@
 										<tbody>
 										<tr>
 											<th scope="row" class="td_input">
-													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1">
-														<label class="check_label ta_i" for="check1">선택</label>
-													</p>
-												</th>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-											</tr>
-											<tr>
+												<p class="ad_input_row">
+													<input type="checkbox" class="check" id="check1">
+													<label class="check_label ta_i" for="check1">선택</label>
+												</p>
+											</th>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
 											<th scope="row" class="td_input">
-													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1">
-														<label class="check_label ta_i" for="check1">선택</label>
-													</p>
-												</th>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-											</tr>
-										</tbody>
-									</table>
+												<p class="ad_input_row">
+													<input type="checkbox" class="check" id="check1">
+													<label class="check_label ta_i" for="check1">선택</label>
+												</p>
+											</th>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+									</tbody>
+								</table>
 
 								</div>
 
@@ -521,7 +540,19 @@
 					</div>
 				</section>
 
-<!--[pp] //본문내용영역 -->
+
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

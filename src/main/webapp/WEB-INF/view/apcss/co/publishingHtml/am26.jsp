@@ -121,9 +121,20 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
 
-				<section class="content container-fluid">
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
+<section class="content container-fluid">
 					<div class="box box-solid">
 						<div class="box-header">
 							<h3 class="box-title"> ▶ 발주정보 등록</h3>
@@ -143,8 +154,8 @@
 								<caption>검색 조건 설정</caption>
 								<colgroup>
 									<col style="width: 10%">
-									<col style="width: 9%">
-									<col style="width: 9%">
+									<col style="width: 10%">
+									<col style="width: 10%">
 									<col style="width: 10%">
 									<col style="width: 8%">
 									<col style="width: 8%">
@@ -155,11 +166,11 @@
 								</colgroup>
 								<tbody>
 									<tr>
-								<th scope="row">APC명</th>
+										<th scope="row">APC명</th>
 										<td colspan= "2" class="td_input">
-										<input type="text" class="form-control input-sm" placeholder="" disabled>
+											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
-										</tr>
+									</tr>
 										<tr>
 										<th scope="row">생산일자</th>
 										<td colspan= "2" class="td_input">
@@ -182,91 +193,91 @@
 											</div>
 										</td>
 										<th scope="row">품목/품종</th>
-										<td class="td_input">
+										<td class="td_input"  style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>단일선택</option>
 											</select>
 										</td>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="멀티선택" title="">
-											</td>
-												<td><button class="btn btn-xs btn-outline-dark" type="button">찾기</button></td>
-										    <th scope="row">생산자</th>
-												<td class="td_input">
+										</td>
+										<td style="border-right: hidden;"><button class="btn btn-xs btn-outline-dark" type="button">찾기</button></td>
+										<th scope="row">생산자</th>
+										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="멀티선택" title="">
-											</td>
-												<td><button class="btn btn-xs btn-outline-dark" type="button">찾기</button></td>
+										</td>
+										<td style="border-right: hidden;"><button class="btn btn-xs btn-outline-dark" type="button">찾기</button></td>
 									</tr>
 									<tr>
 										<th scope="row">입고구분</th>
-										<td colspan="2" class="td_input">
-								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_default" checked>
-									<label class="check_label" for="check_default">일반매입</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_default">
-									<label class="check_label" for="check_default">공선</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_default">
-									<label class="check_label" for="check_default">매취</label>
-								</p>
+										<td colspan="2" class="td_input" style="border-right: hidden;">
+											<p class="ad_input_row">
+												<input type="checkbox" class="check" id="check_default" checked>
+												<label class="check_label" for="check_default">일반매입</label>
+											</p>
+											<p class="ad_input_row">
+												<input type="checkbox" class="check" id="check_default">
+												<label class="check_label" for="check_default">공선</label>
+											</p>
+											<p class="ad_input_row">
+												<input type="checkbox" class="check" id="check_default">
+												<label class="check_label" for="check_default">매취</label>
+											</p>
 										</td>
 										<th scope="row">상품</th>
-										<td colspan="3" class="td_input">
-								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_default" checked>
-									<label class="check_label" for="check_default">일반</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_default">
-									<label class="check_label" for="check_default">GAP</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_default">
-									<label class="check_label" for="check_default">무농약</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_default">
-									<label class="check_label" for="check_default">유기농</label>
-								</p>
+										<td colspan="3" class="td_input" style="border-right: hidden;">
+											<p class="ad_input_row">
+												<input type="checkbox" class="check" id="check_default" checked>
+												<label class="check_label" for="check_default">일반</label>
+											</p>
+											<p class="ad_input_row">
+												<input type="checkbox" class="check" id="check_default">
+												<label class="check_label" for="check_default">GAP</label>
+											</p>
+											<p class="ad_input_row">
+												<input type="checkbox" class="check" id="check_default">
+												<label class="check_label" for="check_default">무농약</label>
+											</p>
+											<p class="ad_input_row">
+												<input type="checkbox" class="check" id="check_default">
+												<label class="check_label" for="check_default">유기농</label>
+											</p>
 										</td>
 								    	<th scope="row">운송</th>
-										<td colspan="2" class="td_input">
-								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_default" checked>
-									<label class="check_label" for="check_default">자가</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_default">
-									<label class="check_label" for="check_default">용역</label>
-								</p>
-								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_default">
-									<label class="check_label" for="check_default">기타</label>
-								</p>
+										<td colspan="2" class="td_input" style="border-right: hidden;">
+											<p class="ad_input_row">
+											<input type="checkbox" class="check" id="check_default" checked>
+												<label class="check_label" for="check_default">자가</label>
+											</p>
+											<p class="ad_input_row">
+												<input type="checkbox" class="check" id="check_default">
+												<label class="check_label" for="check_default">용역</label>
+											</p>
+											<p class="ad_input_row">
+												<input type="checkbox" class="check" id="check_default">
+												<label class="check_label" for="check_default">기타</label>
+											</p>
 										</td>
 									</tr>
 									<tr>
-									  <th scope="row">창고</th>
-										<td class="td_input">
+									    <th scope="row">창고</th>
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
-											<option>선택</option>
-												</select>
+												<option>선택</option>
+											</select>
 										</td>
-										<td>&nbsp;</td>
-										 <th scope="row">차량번호</th>
-												<td class="td_input">
+										<td style="border-right: hidden;">&nbsp;</td>
+										<th scope="row">차량번호</th>
+										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="선택" title="">
-											</td>
-												<td><button class="btn btn-xs btn-outline-dark" type="button">찾기</button></td>
-										<td>&nbsp;</td>
-											 <th scope="row">계량번호</th>
-												<td class="td_input">
+										</td>
+										<td style="border-right: hidden;"><button class="btn btn-xs btn-outline-dark" type="button">찾기</button></td>
+										<td style="border-right: hidden;">&nbsp;</td>
+										<th scope="row">계량번호</th>
+										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="선택" title="">
-											</td>
-											<td><button class="btn btn-xs btn-outline-dark" type="button">찾기</button></td>
+										</td>
+										<td style="border-right: hidden;"><button class="btn btn-xs btn-outline-dark" type="button">찾기</button></td>
 									</tr>
 								</tbody>
 							</table>
@@ -416,9 +427,23 @@
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
-						</section>
+					</div>
+				</section>
 
-<!--[pp] //본문내용영역 -->
+
+
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

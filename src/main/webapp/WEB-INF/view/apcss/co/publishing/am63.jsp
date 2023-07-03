@@ -121,7 +121,20 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
+
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
+
 
 <section class="content container-fluid">
 					<div class="box box-solid">
@@ -181,8 +194,8 @@
 										<th class="ta_r">생산자</th>
 										<th class="ta_r">
 											<p class="dp_inline ad_search_row search_sm ad_search_row wd_p100">
-												<input type="text" class="form-control input-sm" placeholder="">
-												<button type="button" class="btn btn-sm btn-primary btn_form btn_search"><i class="fa fa-search"></i>검색</button>
+												<input type="text" class="form-control input-sm" placeholder="" disabled>
+												<button type="button" class="btn btn-sm btn-primary btn_form btn_search">찾기</button>
 											</p>
 										</th>
 										<th></th>
@@ -194,12 +207,12 @@
 								<caption>검색 조건 설정</caption>
 								<colgroup>
 									<col style="width: 5%">
-									<col style="width: 22%">
+									<col style="width: 25%">
 									<col style="width: 5%">
 									<col style="width: 13%">
 									<col style="width: 7%">
-									<col style="width: 17%">
-									<col style="width: 7%">
+									<col style="width: 15%">
+									<col style="width: 9%">
 									<col style="width: 3%">
 								</colgroup>
 								<tbody>
@@ -212,11 +225,11 @@
 														<div class="input-group-addon">
 															<i class="fa fa-calendar"></i>
 														</div>
-														<input type="text" name="datepicker" placeholder="" class="form-control pull-right" disabled>
+														<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right" disabled>
 													</div>
 												</div>
 												시간
-												<input type="text" class="form-control input-sm" placeholder="" style="width: 30%;">
+												<input type="text" class="form-control input-sm" placeholder="12:00" style="width: 30%;" disabled>
 											</div>
 										</th>
 										<th class="ta_r">품목</th>
@@ -230,7 +243,7 @@
 											<div class="fl_group fl_rpgroup">
 												<p class="dp_inline ad_search_row search_sm ad_search_row wd_p100">
 													<select class="form-control">
-														<option></option>
+														<option>단일선택</option>
 													</select>
 													<button type="button" class="btn btn-sm btn-primary btn_form btn_search">찾기</button>
 												</p>
@@ -250,8 +263,12 @@
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check_all">
 													<label class="check_label" for="check_all">일반매입</label>
+												</p>
+												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check_all">
 													<label class="check_label" for="check_all">공선</label>
+												</p>
+												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check_all">
 													<label class="check_label" for="check_all">매취</label>
 												</p>
@@ -263,10 +280,16 @@
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check_all" checked>
 													<label class="check_label" for="check_all">일반</label>
+												</p>
+												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check_all">
 													<label class="check_label" for="check_all">GAP</label>
+												</p>
+												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check_all">
 													<label class="check_label" for="check_all">무농약</label>
+												</p>
+												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check_all">
 													<label class="check_label" for="check_all">유기농</label>
 												</p>
@@ -278,8 +301,12 @@
 												<p class="ad_input_col">
 													<input type="checkbox" class="check" id="check_all" checked>
 													<label class="check_label" for="check_all">자가</label>
+												</p>
+												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check_all">
 													<label class="check_label" for="check_all">용역</label>
+												</p>
+												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check_all">
 													<label class="check_label" for="check_all">기타</label>
 												</p>
@@ -292,8 +319,9 @@
 										<th>
 											<div class="fl_group fl_rpgroup">
 												<input type="text" class="form-control input-sm" placeholder="" style="width: 30%;" disabled>
+												&nbsp;
 												<input type="text" class="form-control input-sm" placeholder="" style="width: 30%;">
-												Kg
+												&nbsp; Kg
 											</div>
 										</th>
 										<th>비고</th>
@@ -386,7 +414,7 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>
-												<button type="button" class="btn btn-sm btn-outline-danger" style="width: 40%;">삭제</button>
+												<button type="button" class="btn btn-xs btn-outline-danger">삭제</button>
 											</td>
 										</tr>
 										<tr>
@@ -402,7 +430,7 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>
-												<button type="button" class="btn btn-sm btn-outline-danger" style="width: 40%;">추가</button>
+												<button type="button" class="btn btn-xs btn-outline-danger">추가</button>
 											</td>
 										</tr>
 										<tr>
@@ -425,9 +453,21 @@
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
-						</section>
+					</div>
+				</section>
 
-<!--[pp] //본문내용영역 -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

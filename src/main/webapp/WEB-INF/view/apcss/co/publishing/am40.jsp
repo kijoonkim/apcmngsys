@@ -121,7 +121,18 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
+
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
 
 <section class="content container-fluid">
 				<div class="box box-solid">
@@ -129,10 +140,10 @@
 						<h3 class="box-title">▶ 출하실적등록 (테블릿)</h3>
 						<div class="ad_tbl_top">
 							<div class="ad_tbl_toplist">
-											<p class="ad_input_row">
-												<input type="checkbox" class="check" id="check_all">
-												<label class="check_label" for="check_all">송품장 자동발행</label>
-											</p>
+								<p class="ad_input_row">
+									<input type="checkbox" class="check" id="check_all">
+									<label class="check_label" for="check_all">송품장 자동발행</label>
+								</p>
 								<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
 								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
 								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
@@ -158,106 +169,106 @@
 							<tbody>
 								<tr>
 									<th scope="row">APC명</th>
-										<td colspan="2 class="td_input">
+									<td colspan="2" class="td_input" style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled="">
-										</td>
+									</td>
+									<td colspan="6"></td>
 								</tr>
 								<tr>
 									<th scope="row">출하지시번호</th>
-										<td colspan="2" class="td_input">
-											<input type="text" class="form-control input-sm">
-												<td class="td_input">
-													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
-											</select>
-											<p class="ad_input_row">
-												<input type="checkbox" class="check" id="check_all">
-												<label class="check_label" for="check_all">고정</label>
-											</p>
-										</td>
-									<td colspan="2"> → 출하지시번호 스캔 or 팝업 조회</td>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<input type="text" class="form-control input-sm">
+									<td class="td_input" style="border-right: hidden;">
+										<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+										<p class="ad_input_row">
+											<input type="checkbox" class="check" id="check_all">
+											<label class="check_label" for="check_all">고정</label>
+										</p>
+									</td>
+									<td colspan="2" style="border-right: hidden;"> → 출하지시번호 스캔 or 팝업 조회</td>
+									<td colspan="3"></td>
 								</tr>
 								<tr>
 									<th scope="row">포장번호/순번</th>
-										<td colspan="2" class="td_input">
-											<input type="text" class="form-control input-sm">
-												<td class="td_input">
-													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
-											</select>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<input type="text" class="form-control input-sm">
+									<td class="td_input" style="border-right: hidden;">
+										<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 									</td>
-									<td colspan="2"> → 포장번호 스캔 or 팝업 조회</td>
+									<td colspan="2" style="border-right: hidden;"> → 포장번호 스캔 or 팝업 조회</td>
+									<td colspan="3"></td>
 								</tr>
 								<tr>
 									<th scope="row">출하수량/중량</th>
-									<td class="td_input"><input type="text"
-										class="form-control input-sm" placeholder=""title="">
-										</td>
-										<td class="td_input">
+									<td class="td_input" style="border-right: hidden;">
+										<input type="text"class="form-control input-sm" placeholder=""title="">
+									</td>
+									<td class="td_input" style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled="">
-										</td>
-										<td>Kg</td>
-										</td>
+									</td>
+									<td style="border-right: hidden;">Kg</td>
+									<td colspan="5"></td>
 								</tr>
 								<tr>
 									<th scope="row">품종/규격</th>
-									<td class="td_input"><input type="text"
-										class="form-control input-sm" placeholder="" disabled="">
-										</td>
-									<td class="td_input"><input type="text"
-										class="form-control input-sm" placeholder="" disabled="">
-										</td>
-									<td>&nbsp;</td>
-									<td colspan="2"> → 출하지시번호를 통한 품종/규격 조회</td>
+									<td style="border-right: hidden;" class="td_input">
+										<input type="text" class="form-control input-sm" placeholder="" disabled="">
+									</td>
+									<td class="td_input"  style="border-right: hidden;"><input type="text"	class="form-control input-sm" placeholder="" disabled="">
+									</td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 품종/규격 조회</td>
+									<td colspan="3"></td>
 								</tr>
 								<tr>
 									<th scope="row">상품명</th>
-									<td colspan="2" class="td_input"><input type="text"
-										class="form-control input-sm" placeholder="" disabled=""></td>
-									<td>&nbsp;</td>
-									<td colspan="2"> → 출하지시번호를 통한 상품명 조회</td>
+									<td style="border-right: hidden;" colspan="2" class="td_input"><input type="text" class="form-control input-sm" placeholder="" disabled=""></td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;" colspan="2"> → 출하지시번호를 통한 상품명 조회</td>
+									<td colspan="3"></td>
 								</tr>
 								<tr>
-									<th scope="row">상품등급</th>
-									<td class="td_input"><input type="text"
-										class="form-control input-sm" placeholder=""disabled=""></td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td colspan="2"> → 출하지시번호를 통한 상품등급 조회</td>
+									<th style="border-right: hidden;" scope="row">상품등급</th>
+									<td class="td_input" style="border-right: hidden;">
+										<input type="text"class="form-control input-sm" placeholder=""disabled="">
+									</td>
+									<td style="border-right: hidden;" colspan="2"></td>
+									<td style="border-right: hidden;" colspan="2"> → 출하지시번호를 통한 상품등급 조회</td>
+									<td colspan="3"></td>
 								</tr>
 								<tr>
 									<th scope="row">포장구분</th>
-									<td class="td_input"><input type="text"
-										class="form-control input-sm" placeholder="" disabled=""></td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td colspan="2"> → 출하지시번호를 통한 포장구분 조회</td>
+									<td class="td_input" style="border-right: hidden;"><input type="text" class="form-control input-sm" placeholder="" disabled=""></td>
+									<td colspan="2" style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 포장구분 조회</td>
+									<td colspan="3" style="border-right: hidden;">&nbsp;</td>
 								</tr>
 								<tr>
 									<th scope="row">거래처</th>
-									<td colspan="2" class="td_input"><input type="text"
-										class="form-control input-sm" placeholder=""disabled=""></td>
-									<td>&nbsp;</td>
-									<td colspan="2"> → 출하지시번호를 통한 거래처 정보 조회</td>
+									<td colspan="2" class="td_input" style="border-right: hidden;"><input type="text" class="form-control input-sm" placeholder=""disabled=""></td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 거래처 정보 조회</td>
+									<td colspan="3" style="border-right: hidden;"></td>
 								</tr>
 								<tr>
 									<th scope="row">운송회사</th>
-									<td colspan="2" class="td_input"><input type="text"
-										class="form-control input-sm" placeholder=""disabled=""></td>
-									<td>&nbsp;</td>
-
-									<td colspan="2"> → 출하지시번호를 통한 운송회사 정보 조회</td>
+									<td colspan="2" style="border-right: hidden;" class="td_input"><input type="text" class="form-control input-sm" placeholder=""disabled=""></td>
+									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 운송회사 정보 조회</td>
+									<td colspan="3" style="border-right: hidden;"></td>
 								</tr>
 								<tr>
-									<th scope="row">차량번호</th>
-									<td colspan="2" class="td_input">
-											<input type="text" class="form-control input-sm">
-											</select>
-												<td>
-												<p class="ad_input_row">
-												<input type="checkbox" class="check" id="check_all">
-												<label class="check_label" for="check_all">고정</label>
-												</td>
-											</p>
-                                     </tr>
+									<th scope="row" style="border-right: hidden;">차량번호</th>
+									<td colspan="2" class="td_input" style="border-right: hidden;">
+										<input type="text" class="form-control input-sm">
+									<td style="border-right: hidden;">
+										<p class="ad_input_row">
+											<input type="checkbox" class="check" id="check_all">
+											<label class="check_label" for="check_all">고정</label>
+										</p>
+									</td>
+									<td colspan="5"></td>
+                                </tr>
 							</tbody>
 						</table>
 						<!--[pp] //검색 -->
@@ -265,13 +276,11 @@
 						<div class="ad_section_top">
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">
-									<td>&nbsp;</td>
 									<li><span>출하대상내역</span></li>
-									<td>&nbsp;</td>
 									<li><span>출하대상 수량/중량 : 99/99,999 kg</span></li>
 								</ul>
-								</div>
-								</div>
+							</div>
+						</div>
 							<div class="table-responsive tbl_scroll_sm">
 								<table
 									class="table table-bordered table-hover tbl_col tbl_fixed">
@@ -323,8 +332,8 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td><button type="button"
-													class="btn btn-xs btn-outline-danger">삭제</button>
+											<td>
+												<button type="button" class="btn btn-xs btn-outline-danger">삭제</button>
 											</td>
 										</tr>
 										<tr>
@@ -340,7 +349,8 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											</td>
+											<td>&nbsp;</td>
+										</tr>
 										<tr>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -354,7 +364,7 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											</td>
+											<td>&nbsp;</td>
 										</tr>
 									</tbody>
 								</table>
@@ -363,9 +373,23 @@
 						</div>
 						<!--[pp] //검색결과 -->
 					</div>
-					</section>
+				</div>
+			</section>
 
-<!--[pp] //본문내용영역 -->
+
+
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

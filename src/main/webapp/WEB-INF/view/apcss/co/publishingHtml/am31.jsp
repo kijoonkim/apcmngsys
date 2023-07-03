@@ -121,7 +121,18 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
+
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
 
 <section class="content container-fluid">
 				<div class="box box-solid">
@@ -129,15 +140,13 @@
 						<h3 class="box-title">▶ 선별투입등록(테블릿)</h3>
 						<div class="ad_tbl_top">
 							<div class="ad_tbl_toplist">
-								<button type="button" class="btn btn-sm btn-danger">초기화</button>
-								<button type="button" class="btn btn-sm btn-danger">조회</button>
-								<button type="button" class="btn btn-sm btn-danger">등록</button>
-								<button type="button" class="btn btn-sm btn-danger">삭제</button>
-								<button type="button" class="btn btn-sm btn-danger">종료</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
 							</div>
 						</div>
 					</div>
-					<div></div>
 					<div class="box-body">
 						<!--[pp] 검색 -->
 						<table class="table table-bordered tbl_row tbl_fixed">
@@ -153,111 +162,116 @@
 								<tr>
 								<tr>
 									<th scope="row">APC명</th>
-										<td colspan="3" class="td_input">
-											<input type="text" class="form-control input-sm" placeholder="" disabled>
-										</td>
+									<td colspan="3" class="td_input"  style="border-right:hidden ;">
+										<input type="text" class="form-control input-sm" placeholder="" disabled>
+									</td>
+									<td colspan="1"></td>
 								</tr>
 								<tr>
 									<th scope="row">선별기명</th>
-										<td colspan= "3" class="td_input">
-											<select class="form-control input-sm">
-											</select>
-										</td>
-										<td>
-											<p class="ad_input_row">
-												<input type="checkbox" class="check" id="check_all">
-												<label class="check_label" for="check_all">고정</label>
-											</p>
-											</td>
-										</tr>
+									<td colspan= "3" class="td_input"  style="border-right:hidden ;">
+										<select class="form-control input-sm">
+										</select>
+									</td>
+									<td>
+										<p class="ad_input_row">
+											<input type="checkbox" class="check" id="check_all">
+											<label class="check_label" for="check_all">고정</label>
+										</p>
+									</td>
+								</tr>
 								<tr>
-										<th scope="row">팔레트번호</th>
-										<td colspan="3" class="td_input">
-											<input type="text" class="form-control input-sm">
-												<td class="td_input">
-													<button class="btn btn-xs btn-outline-dark" type="button"> 조회 </button>
-									    </td>
-						            </tr>
+									<th scope="row">팔레트번호</th>
+									<td colspan="3" class="td_input" style="border-right:hidden ;">
+										<input type="text" class="form-control input-sm">
+									<td class="td_input" >
+										<button class="btn btn-xs btn-outline-dark" type="button"> 조회 </button>
+								    </td>
+					            </tr>
 								<tr>
-										<th scope="row">투입지시번호</th>
-										<td colspan="3" class="td_input">
-											<input type="text" class="form-control input-sm">
-												<td class="td_input">
-													<button class="btn btn-xs btn-outline-success" type="button">조회</button>
-									    </td>
-									    </tr>
+									<th scope="row">투입지시번호</th>
+									<td colspan="3" class="td_input" style="border-right:hidden ;">
+										<input type="text" class="form-control input-sm">
+									<td class="td_input">
+										<button class="btn btn-xs btn-outline-success" type="button">조회</button>
+								    </td>
+							    </tr>
 								<tr>
-										<th scope="row">투입일자</th>
-										<td class="td_input">
-											<div class="dp_inline wd_125 va_m">
-												<div class="input-group date">
-													<div class="input-group-addon">
-														<i class="fa fa-calendar"></i>
-													</div>
-													<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
+									<th scope="row">투입일자</th>
+									<td  class="td_input" style="border-right:hidden ;">
+										<div class="dp_inline wd_125 va_m">
+											<div class="input-group date">
+												<div class="input-group-addon">
+													<i class="fa fa-calendar"></i>
 												</div>
+												<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
 											</div>
-										</td>
+										</div>
+									</td>
+									<td colspan="2" style="border-left:hidden ;"></td>
 								</tr>
 								<tr>
 									<th scope="row">투입수량/중량</th>
-									<td class="td_input"><input type="text"
-										class="form-control input-sm" placeholder=""title="">
-										</td>
-									<td class="td_input"><input type="text"
-										class="form-control input-sm" placeholder=""title="">
-										<td><label class="bold">Kg</label></td>
+									<td class="td_input" style="border-right:hidden ;">
+										<input type="text" class="form-control input-sm" placeholder=""title="">
+									</td>
+									<td class="td_input" style="border-right:hidden ;">
+										<input type="text" class="form-control input-sm" placeholder=""title="">
+									<td style="border-right:hidden ;"><label class="bold">Kg</label></td>
+									<td></td>
 								</tr>
 								<tr>
-
 									<th scope="row">품목 / 품종</th>
-										<td class="td_input">
-											<select class="form-control input-sm" disabled>
+									<td class="td_input" style="border-right:hidden ;">
+										<select class="form-control input-sm" disabled>
 											<option>선택</option>
-											</select>
-										</td>
-										<td class="td_input">
-											<select class="form-control input-sm" disabled>
-										<option>선택</option>
-											</select>
-										</td>
+										</select>
+									</td>
+									<td class="td_input" style="border-right:hidden ;">
+										<select class="form-control input-sm" disabled>
+											<option>선택</option>
+										</select>
+									</td>
+									<td colspan="2"></td>
 								</tr>
 								<tr>
 									<th scope="row">생산지</th>
-									<td colspan= "3" class="td_input"><input type="text"
-										class="form-control input-sm" placeholder="" disabled>
-										</td>
+									<td colspan= "3" class="td_input" style="border-right:hidden ;">
+										<input type="text" class="form-control input-sm" placeholder="" disabled>
+									</td>
+									<td colspan="1"></td>
 								</tr>
 								<tr>
-										<th scope="row">입고일자</th>
-										<td class="td_input">
-											<div class="dp_inline wd_125 va_m">
-												<div class="input-group date">
-													<div class="input-group-addon">
-														<i class="fa fa-calendar"></i>
-													</div>
-													<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
+									<th scope="row">입고일자</th>
+									<td class="td_input" style="border-right:hidden ;">
+										<div class="dp_inline wd_125 va_m">
+											<div class="input-group date">
+												<div class="input-group-addon">
+													<i class="fa fa-calendar"></i>
 												</div>
+												<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
 											</div>
-										</td>
+										</div>
+									</td>
+									<td colspan="3"></td>
 								</tr>
 									<tr>
 									<th scope="row">박스종류</th>
-										<td class="td_input">
-											<select class="form-control input-sm" disabled>
+									<td class="td_input" style="border-right:hidden ;">
+										<select class="form-control input-sm" disabled>
 											<option>선택</option>
-											</select>
-										</td>
-									</tr>
-									<tr>
+										</select>
+									</td>
+									<td colspan="3"></td>
+								</tr>
+								<tr>
 									<th scope="row">원물창고</th>
-										<td class="td_input">
-											<select class="form-control input-sm" disabled>
+									<td class="td_input" style="border-right:hidden ;">
+										<select class="form-control input-sm" disabled>
 											<option>선택</option>
-											</select>
-										</td>
-									</tr>
-
+										</select>
+									</td>
+								</tr>
 							</tbody>
 						</table>
 						<!--[pp] //검색 -->
@@ -352,9 +366,23 @@
 						</div>
 						<!--[pp] //검색결과 -->
 					</div>
-					</section>
+				</div>
+			</section>
 
-<!--[pp] //본문내용영역 -->
+
+
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->

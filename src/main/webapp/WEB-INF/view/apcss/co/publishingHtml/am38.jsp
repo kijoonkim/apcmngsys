@@ -121,9 +121,20 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
 
-<!--[pp] 본문내용영역 -->
 
-				<section class="content container-fluid">
+
+
+
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
+<section class="content container-fluid">
 					<div class="box box-solid">
 						<div class="box-header">
 							<h3 class="box-title"> ▶ 출하지시조회</h3>
@@ -152,9 +163,9 @@
 								</colgroup>
 								<tbody>
 									<tr>
-								<th scope="row">APC명</th>
-										<td colspan="2" class="td_input">
-										<input type="text" class="form-control input-sm" placeholder="" disabled>
+										<th scope="row">APC명</th>
+										<td colspan="2" class="td_input" style="border-right: hidden;">
+											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
 									</tr>
 									<tr>
@@ -179,40 +190,42 @@
 											</div>
 										</td>
 										<th scope="row">거래처</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm">
-											</td>
-												<td class="td_input">
-													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 										</td>
-										<th scope="row">운송회사</th>
 										<td class="td_input">
+											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+										</td>
+										<th scope="row" style="border-right: hidden;">운송회사</th>
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
 											</select>
 										</td>
+										<td></td>
 									</tr>
 									<tr>
 										<th scope="row">품종</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
 											</select>
 										</td>
-											<td>&nbsp;</td>
+										<td>&nbsp;</td>
 										<th scope="row">규격</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
 											</select>
 										</td>
 										<td>&nbsp;</td>
 										<th scope="row">포장구분</th>
-										<td class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
 											</select>
 										</td>
+										<td></td>
 									</tr>
 								</tbody>
 							</table>
@@ -294,9 +307,23 @@
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
-						</section>
+					</div>
+				</section>
 
-<!--[pp] //본문내용영역 -->
+
+
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+
+
+
+
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->
