@@ -1,4 +1,4 @@
-package com.at.apcss.co.apc.vo;
+package com.at.apcss.am.apc.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ComApcVO extends ComVO{
+public class ApcEvrmntStngVO extends ComVO{
 
 	private String apcCd;
 	private String orgrnApcNm;

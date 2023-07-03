@@ -1,22 +1,22 @@
-package com.at.apcss.co.apc.web;
+package com.at.apcss.am.apc.web;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.at.apcss.co.apc.service.ComApcService;
+import com.at.apcss.am.apc.service.ApcEvrmntStngService;
 import com.at.apcss.co.sys.controller.BaseController;
 
 @Controller
-public class ComApcController extends BaseController{
+public class ApcEvrmntStngController extends BaseController{
 
 	@Resource(name = "comApcService")
-	private ComApcService comApcService;
+	private ApcEvrmntStngService apcEvrmntStngService;
 
-	@RequestMapping(value = "/co/apc/apcMng.do")
+	@RequestMapping(value = "/am/apc/apcEvrmntStng.do")
 	public String doApc() {
-		return "apcss/co/apc/comApcManage";
+		return "apcss/am/apc/apcEvrmntStng";
 	}
 
 	@RequestMapping(value = "/co/guide/comGuideComponent.do")
