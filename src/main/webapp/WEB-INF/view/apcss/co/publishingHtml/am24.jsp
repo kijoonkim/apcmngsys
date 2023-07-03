@@ -84,6 +84,7 @@
 
 		<!-- js -->
 		<script src="/resource/src/jquery/js/jquery-3.5.1.min.js"></script>
+<script src="/resource/src/jquery/js/jquery.mousewheel.min.js"></script>
 		<!--[if lt IE 9]>
 		<script src="/resource/src/jquery/js/jquery-1.12.3.min.js"></script>
 		<script src="/resource/src/jquery/js/html5shiv.js"></script>
