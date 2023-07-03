@@ -12,36 +12,37 @@ public interface ComMenuService {
 	 * @param comMenuVO
 	 * @return
 	 */
-	public ComMenuVO selectComMenu(ComMenuVO comMenuVO);
-	public ComMenuVO selectComMenu(String menuId);
+	public ComMenuVO selectComMenu(ComMenuVO comMenuVO) throws Exception;
+
+	public ComMenuVO selectComMenu(String menuId) throws Exception;
 
 	/**
 	 * 메뉴목록 조회
 	 * @param comMenuVO
 	 * @return
 	 */
-	public List<ComMenuVO> selectComMenuList(ComMenuVO comMenuVO);
+	public List<ComMenuVO> selectComMenuList(ComMenuVO comMenuVO) throws Exception;
 
 	/**
 	 * 메뉴트리 목록 조회
 	 * @param comMenuVO
 	 * @return
 	 */
-	public List<ComMenuVO> selectMenuTreeList(ComMenuVO comMenuVO);
+	public List<ComMenuVO> selectMenuTreeList(ComMenuVO comMenuVO) throws Exception;
 
 	/**
 	 * 대메뉴 목록 조회
 	 * @param comMenuVO
 	 * @return
 	 */
-	public List<ComMenuVO> selectTopMenuList(ComMenuVO comMenuVO);
+	public List<ComMenuVO> selectTopMenuList(ComMenuVO comMenuVO) throws Exception;
 
 	/**
 	 * 메뉴트리 목록 조회
 	 * @param comMenuVO
 	 * @return
 	 */
-	public List<ComMenuVO> selectLeftMenuList(ComMenuVO comMenuVO);
+	public List<ComMenuVO> selectLeftMenuList(ComMenuVO comMenuVO) throws Exception;
 
 	/**
 	 * 메뉴 등록
@@ -55,56 +56,70 @@ public interface ComMenuService {
 	 * @param comMenuVO
 	 * @return
 	 */
-	public int updateMenu(ComMenuVO comMenuVO);
+	public int updateMenu(ComMenuVO comMenuVO) throws Exception;
 
 	/**
 	 * 메뉴 목록 조회
 	 * @param comMenuVO
 	 * @return
 	 */
-	public List<ComMenuVO> selectMenuList(ComMenuVO comMenuVO);
+	public List<ComMenuVO> selectMenuList(ComMenuVO comMenuVO) throws Exception;
 
 	/**
 	 * 메뉴 삭제
 	 * @param comMenuVO
 	 * @return
 	 */
-	public int deleteMenu(ComMenuVO comMenuVO);
+	public int deleteMenu(ComMenuVO comMenuVO) throws Exception;
 
 	/**
 	 * 화면 목록을 조회한다.
 	 * @param comUiVO
 	 * @return List<ComUiVO>
 	 */
-	public List<ComUiVO> selectComUiList(ComUiVO comUiVO);
-	
+	public List<ComUiVO> selectComUiList(ComUiVO comUiVO) throws Exception;
+
 	/**
 	 * 화면 정보를 조회한다.
 	 * @param comUiVO
 	 * @return ComUiVO
 	 */
-	public ComUiVO selectComUi(ComUiVO comUiVO);
-	
+	public ComUiVO selectComUi(ComUiVO comUiVO) throws Exception;
+
 	/**
 	 * 화면 정보를 등록한다.
 	 * @param comUiVO
 	 * @return
 	 */
-	public int insertComUi(ComUiVO comUiVO);
-	
+	public int insertComUi(ComUiVO comUiVO) throws Exception;
+
 	/**
 	 * 화면 정보를 변경한다.
 	 * @param comUiVO
 	 * @return
 	 */
-	public int updateComUi(ComUiVO comUiVO);
-	
+	public int updateComUi(ComUiVO comUiVO) throws Exception;
+
 	/**
 	 * 화면 정보를 삭제한다.
 	 * @param comUiVO
 	 * @return
 	 */
-	public int deleteComUi(ComUiVO comUiVO);
-	
-	
+	public int deleteComUi(ComUiVO comUiVO) throws Exception;
+
+	/**
+	 * 화면관리 목록 조회한다.
+	 * @param comMenuVO
+	 * @return List<ComMenuVO>
+	 */
+	public List<ComMenuVO> selectMenuUiList(ComMenuVO comMenuVO) throws Exception;
+
+	/**
+	 * 화면관리 UI 목록 조회한다.
+	 * @param comUiVO
+	 * @return List<ComUiVO>
+	 */
+	public List<ComUiVO> selectUiList(ComUiVO comUiVO) throws Exception;
+
+
 }

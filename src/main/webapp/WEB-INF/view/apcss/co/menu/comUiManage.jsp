@@ -16,10 +16,13 @@
         }
     </script>
     <script src="/resource/sbux/SBUx.js"></script>
+    <script src="/resource/script/common.js"></script>
     <!------------------ 컴포넌트 테마 CSS ------------------>
 	<link href="/resource/css/blue_comp_style.css" rel="stylesheet" type="text/css">
     <!------------------ 스타일 테마 CSS ------------------>
 	<link href="/resource/css/blue_style.css" rel="stylesheet" type="text/css">
+
+	<link href="/resource/css/sbgrid_custom.css" rel="stylesheet" type="text/css">
     <style>
         /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
@@ -34,10 +37,10 @@
             background:rgb(42, 48, 65); height:150px; padding:10px; box-sizing: border-box;  color:#dddddd;
         }
         /** table css */
-        table{border-collapse: collapse;border-spacing: 0;}
+        /* table{border-collapse: collapse;border-spacing: 0;}
         table,th{text-align:center;}
         table,td{padding:5px;}
-        .tbl{width: 100%;border-top: 2px solid #888;border-bottom: 1px solid #ddd;text-align: left;}
+        .tbl{width: 100%;border-top: 2px solid #888;border-bottom: 1px solid #ddd;text-align: left;} */
     </style>
 <meta charset="UTF-8">
 </head>
@@ -50,22 +53,9 @@
                 <div class="sbt-wrap-full">
                     <!--Button 영역-->
                     <div class="sbt-search-button" style="text-align:right;">
-                        <sbux-button id="btn_create" name="btn_create" uitype="normal" wrap-class="sbt-btn-reset"
-                            text="신규"
-                            onclick="fn_create"
-                        ></sbux-button>
-                        <sbux-button id="btn_delete" name="btn_delete" uitype="normal" wrap-class="sbt-btn-reset"
-                            text="삭제"
-                            onclick="fn_delete"
-                        ></sbux-button>
-                        <sbux-button id="btn_save" name="btn_save" uitype="normal" wrap-class="sbt-btn-reset"
-                            text="저장"
-                            onclick="fn_save"
-                        ></sbux-button>
-                        <sbux-button id="btn_search" name="btn_search" uitype="normal" wrap-class="sbt-btn-search"
-                            text="조회"
-                            onclick="fn_search"
-                        ></sbux-button>
+                        <sbux-button id="btnSave" name="btnSave" uitype="normal" wrap-class="sbt-btn-reset" text="저장" onclick="fn_save" disabled></sbux-button>
+                        <sbux-button id="btnDelete" name="btnDelete" uitype="normal" wrap-class="sbt-btn-reset" text="삭제" onclick="fn_delete" disabled></sbux-button>
+                        <sbux-button id="btnSearch" name="btnSearch" uitype="normal" wrap-class="sbt-btn-search" text="조회" onclick="fn_search" ></sbux-button>
                     </div>
                     <!--조회 영역-->
 			        <div class="sbt-con-wrap">
@@ -77,38 +67,28 @@
                                         <!--col -->
                                         <div class="sbt-search-col popup-search-col">
                                             <div class="sbt-col-left">
-                                                <sbux-label id="srchLabel_1" name="label_norm" uitype="normal" text="시스템구분"></sbux-label>
+                                                <sbux-label id="lebelSysId" name="lebelSysId" uitype="normal" text="시스템구분"></sbux-label>
                                             </div>
                                             <div class="sbt-col-right">
-                                                <sbux-select id="srchCombo" name="srchCombo" uitype="single"
-                                                    jsondata-ref="jsonSearchCombo"
-                                                    unselected-text="선택"
-                                                    style="width:120px;"
-                                                ></sbux-select>
+                                                <sbux-select id="srchComboSysId" name="srchComboSysId" uitype="single" jsondata-ref="jsonSearchComboSysId" unselected-text="선택" style="width:120px;"></sbux-select>
                                             </div>
                                         </div>
                                         <!--col -->
                                         <div class="sbt-search-col popup-search-col">
                                             <div class="sbt-col-left">
-                                                <sbux-label id="srchLabel_2" name="label_norm" uitype="normal" text="화면ID"></sbux-label>
+                                                <sbux-label id="lebelMenuId" name="lebelMenuId" uitype="normal" text="화면ID"></sbux-label>
                                             </div>
                                             <div class="sbt-col-right">
-                                                <sbux-input id="srchPageId" name="srchPageId" uitype="text"
-                                                    style="width:200px"
-                                                    placeholder="화면ID 입력"
-                                                ></sbux-input>
+                                                <sbux-input id="srchMenuId" name="srchMenuId" uitype="text" style="width:200px" placeholder="화면ID 입력"></sbux-input>
                                             </div>
                                         </div>
                                         <!--col -->
                                         <div class="sbt-search-col popup-search-col">
                                             <div class="sbt-col-left">
-                                                <sbux-label id="srchLabel_3" name="label_norm" uitype="normal" text="화면명"></sbux-label>
+                                                <sbux-label id="lebelMenuNm" name="lebelMenuNm" uitype="normal" text="화면명"></sbux-label>
                                             </div>
                                             <div class="sbt-col-right">
-                                                <sbux-input id="srchpageName" name="srchpageName" uitype="text"
-                                                    style="width:200px"
-                                                    placeholder="화면명 입력"
-                                                ></sbux-input>
+                                                <sbux-input id="srchMenuNm" name="srchMenuNm" uitype="text" style="width:200px" placeholder="화면명 입력"></sbux-input>
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +106,7 @@
                         </div>
                         <div class="sbt-wrap-body">
                             <div class="sbt-grid">
-                                <div id="SBGridArea" style="height:340px;"></div>
+                                <div id="menuGridArea" style="height:250px;"></div>
                             </div>
                         </div>
                     </div>
@@ -153,66 +133,58 @@
                                 <tr>
                                     <th>화면ID</th>
                                     <td>
-                                        <sbux-input id="pageId" name="pageId" uitype="text" style="width:100%" readonly></sbux-input>
+                                        <sbux-input id="menuId" name="menuId" uitype="text" style="width:100%" readonly></sbux-input>
                                     </td>
                                     <th>화면명</th>
                                     <td>
-                                        <sbux-input id="pageNm" name="pageNm" uitype="text" style="width:100%" ></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>화면설명</th>
-                                    <td colspan="3">
-                                        <sbux-input id="cont" name="cont" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="menuNm" name="menuNm" uitype="text" style="width:100%" ></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>화면경로</th>
                                     <td colspan="3">
-                                        <sbux-input id="url" name="url" uitype="text" style="width:100%" ></sbux-input>
+                                        <sbux-input id="pageUrl" name="pageUrl" uitype="text" style="width:100%" ></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>화면유형</th>
                                     <td>
-                                        <sbux-input id="type" name="type" uitype="text" style="width:100%" ></sbux-input>
+                                        <sbux-input id="menuTypeNm" name="menuTypeNm" uitype="text" style="width:100%" readonly></sbux-input>
                                     </td>
                                     <th>사용여부</th>
                                     <td>
-                                        <sbux-select id="useYn" name="useYn" uitype="single">
-                                            <option-item value="Y">사용</option-item>
-                                            <option-item value="N">미사용</option-item>
+                                        <sbux-select id="delYn" name="delYn"  uitype="single" jsondata-ref="jsonViewComboUseYn" unselected-text="선택">
                                         </sbux-select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>최초등록자</th>
                                     <td>
-                                        <sbux-input id="creUserId" name="creUserId" uitype="text" style="width:100%" readonly></sbux-input>
+                                        <sbux-input id="sysFrstInptUserId" name="sysFrstInptUserId" uitype="text" style="width:100%" readonly></sbux-input>
                                     </td>
                                     <th>최종변경자</th>
                                     <td>
-                                        <sbux-input id="updUserId" name="updUserId" uitype="text" style="width:100%" readonly></sbux-input>
+                                        <sbux-input id="sysLastChgUserId" name="sysLastChgUserId" uitype="text" style="width:100%" readonly></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>최초등록일시</th>
                                     <td>
-                                        <sbux-input id="creDateTime" name="creDateTime" uitype="text" style="width:100%" readonly ></sbux-input>
+                                        <sbux-input id="sysFrstInptDt" name="sysFrstInptDt" uitype="text" style="width:100%" readonly ></sbux-input>
                                     </td>
                                     <th>최종변경일시</th>
                                     <td>
-                                        <sbux-input id="updDateTime" name="updDateTime" uitype="text" style="width:100%" readonly></sbux-input>
+                                        <sbux-input id="sysLastChgDt" name="sysLastChgDt" uitype="text" style="width:100%" readonly></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>최초등록프로그램</th>
                                     <td>
-                                        <sbux-input id="creProgram" name="creProgram" uitype="text" style="width:100%" readonly></sbux-input>
+                                        <sbux-input id="sysFrstInptPrgrmId" name="sysFrstInptPrgrmId" uitype="text" style="width:100%" readonly></sbux-input>
                                     </td>
                                     <th>최종변경프로그램</th>
                                     <td>
-                                        <sbux-input id="updProgram" name="updProgram" uitype="text" style="width:100%" readonly></sbux-input>
+                                        <sbux-input id="sysLastChgPrgrmId" name="sysLastChgPrgrmId" uitype="text" style="width:100%" readonly></sbux-input>
                                     </td>
                                 </tr>
                             </table>
@@ -226,15 +198,15 @@
                             <span>icon</span>
                             <h3 style="width:90%">개체목록
                                 <div style="float:right">
-                                    <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" onclick="fn_addRow" disabled></sbux-button>&nbsp;
-                                    <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" onclick="fn_deleteRow" disabled></sbux-button>
+                                    <sbux-button id="btnAdd" name="btnAdd" uitype="normal" text="행추가" onclick="fn_addRow" disabled></sbux-button>&nbsp;
+                                    <sbux-button id="btnDel" name="btnDel" uitype="normal" text="행삭제" onclick="fn_deleteRow" disabled></sbux-button>
                                 </div>
                             </h3>
                         </div>
                         <div class="sbt-wrap-body">
                             <div class="sbt-grid">
                                 <!-- SBGrid를 호출합니다. -->
-                                <div id="SBGridArea2" style="height:300px;"></div>
+                                <div id="uiGridArea" style="height:230px;"></div>
                             </div>
                         </div>
                     </div>
@@ -249,38 +221,19 @@
 <script type="text/javascript">
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-        fn_createGrid();
-        fn_createGrid2();
+    	fn_createMenuGrid();
+    	fn_createMenuUiGrid();
     });
     //조회조건
-    var jsonSearchCombo = [
-    	{'text': '정보지원시스템', 'value': 'AM'},
-        {'text': '시스템관리', 'value': 'CO'},
-        {'text': '생산관리', 'value': 'PM'}
-    ];
-    //신규 작성
-    function fn_create() {
-        SBUxMethod.set("gubun", "C");
-        //전체 행의 선택 해제
-        datagrid.clearSelection();
-        //상세정보 초기화
-        SBUxMethod.attr("pageId", "readonly", false);
-        SBUxMethod.set("pageId", "");
-        SBUxMethod.set("pageNm", "");
-        SBUxMethod.set("cont", "");
-        SBUxMethod.set("url", "");
-        SBUxMethod.set("type", "");
-        SBUxMethod.set("useYn", "Y");
-        SBUxMethod.set("creUserId", "");
-        SBUxMethod.set("creDateTime", "");
-        SBUxMethod.set("creProgram", "");
-        SBUxMethod.set("updUserId", "");
-        SBUxMethod.set("updDateTime", "");
-        SBUxMethod.set("updProgram", "");
-        //개체목록 초기화
-        gridData2 = [];
-        datagrid2.refresh();
-    }
+    var jsonSearchComboSysId = [];
+    var jsonViewComboUseYn = [];
+    gfn_setComCdSelect('srchComboSysId', jsonSearchComboSysId ,	'SYS_ID', '0000');		// 검색 조건(시스템구분)
+    gfn_setComCdSelect('useYn', 		 jsonViewComboUseYn , 	'USE_YN', '0000');		// 화면 상세(사용유무)
+    //gfn_setComCdSelectGrid('useYn', 		 delYnComboData , 		'USE_YN', '0000');	// 그리드 (표시유무)
+    //gfn_setComCdSelectGrid('delYn', 		 delYnComboData , 		'USE_YN', '0000');	// 그리드 (표시유무)
+    //gfn_setComCdSelectGrid('entyType', 		 entyTypeComboData , 		'ENTY_TYPE', '0000');	// 그리드 (표시유무)
+
+
     //선택 삭제
     function fn_delete() {
         var delList = new Array();
@@ -301,28 +254,103 @@
         }
     }
     //저장
-    function fn_save() {
-        //validate check
-        if (!SBUxMethod.get("pageId")) {
-            alert("화면ID를 입력하세요.");
-            return;
-        }
-        if (!SBUxMethod.get("pageNm")) {
+    async function fn_save() {
+
+        if (!SBUxMethod.get("menuNm")) {
             alert("화면명를 입력하세요.");
             return;
         }
-        //form data - gubun: C(INSERT), M(UPDATE)
-        var params = $('#frm1').serialize();
-        console.log("form data ::::: " + params);
-        //grid data - DELETE INSERT
-        var gridList = datagrid2.getGridDataAll();
-        console.log("grid data ::::: " + JSON.stringify(gridList));
+        if (!SBUxMethod.get("pageUrl")) {
+            alert("화면경로를 입력하세요.");
+            return;
+        }
+        if (!SBUxMethod.get("delYn")) {
+            alert("사용유무를 선택해주세요.");
+            return;
+        }
+        let updateResult = 0;
+        let insertResult = 0;
+        var rowData = menuDatagrid.getRowData(menuDatagrid.getRow());
+
+        insertComUiList = [];
+
+        let gridList = uiDataGrid.getGridDataAll();
+        for(var i=0; i < gridList.length; i++){
+        	if(gridList[i].checked === 'Y'){
+        		insertComUiList.push(gridList[i]);
+        	}
+        }
+
+        if((!(SBUxMethod.get("munuNm") === rowData.numeNm && SBUxMethod.get("pageUrl") === rowData.pageUrl && SBUxMethod.get("delYn") === rowData.delYn)) || insertComUiList.length == 0){
+        	alert("변경 된 내용이 없습니다.");
+        	return;
+        }
+        var seveMsg = "저장 하시겠습니까?";
+        if(confirm(seveMsg)){
+
+	        if(!(SBUxMethod.get("munuNm") === rowData.numeNm && SBUxMethod.get("pageUrl") === rowData.pageUrl && SBUxMethod.get("delYn") === rowData.delYn)){
+	        	updateResult = fn_callUpdateMenu();
+	        }
+	        if(insertComUiList.length > 0){
+	        	insertResult = fn_callInsertComUi(insertComUiList);
+	        }
+        }
+
+        if(updateResult + insertResult > 0){
+        	fn_setGridData();
+        	alert("저장 되었습니다.");
+        }
     }
+
+    async function fn_callUpdateMenu(){
+        let menuId = SBUxMethod.get('menuId');
+        let menuNm = SBUxMethod.get('menuNm');
+        let pageUrl = SBUxMethod.get('pageUrl');
+        let useYn = SBUxMethod.get('delYn');
+        let delYn;
+        if(useYn == "Y"){
+        	delYn == 'N';
+        }else if(useYn == 'N'){
+        	delYn == 'Y'
+        }
+        let menuVO = {
+        		menuId : menuId,
+        		menuNm : menuNm,
+        		pageUrl : pageUrl,
+        		delYn : delYn
+        }
+        let postJsonPromise = gfn_postJSON("/co/menu/updateMenu.do", menuVO);
+        let data = await postJsonPromise;
+        try{
+        	return data.result;
+
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+    }
+
+    async function fn_callInsertComUi(comUiList){
+        let postJsonPromise = gfn_postJSON("/co/menu/insertComUiList.do", comUiList);
+        let data = await postJsonPromise;
+        try{
+        	return data.result;
+
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+    }
+
     //목록 조회
     function fn_search() {
         //시스템구분 확인
-        var srchCombo = SBUxMethod.get("srchCombo");
-        if (!srchCombo) {
+        var srchComboSysId = SBUxMethod.get("srchComboSysId");
+        if (!srchComboSysId) {
             alert("시스템구분을 선택하세요.");
             return;
         }
@@ -331,30 +359,37 @@
     }
     //상세정보 보기
     function fn_view(args) {
-        var nCol = datagrid.getCol();
+        var nCol = menuDatagrid.getCol();
         if (args == undefined) {
             //특정 열 부터 이벤트 적용
             if (nCol < 2) {
                 return;
             }
         }
-        var nRow = datagrid.getRow();
+        var nRow = menuDatagrid.getRow();
         if (nRow < 1) {
             return;
         }
         SBUxMethod.set("gubun", "M");
-        var rowData = datagrid.getRowData(nRow);
-        SBUxMethod.set("pageId", rowData.pageId);
-        SBUxMethod.set("pageNm", rowData.pageNm);
-        SBUxMethod.set("cont", rowData.cont);
-        SBUxMethod.set("url", rowData.url);
+        var rowData = menuDatagrid.getRowData(nRow);
+        SBUxMethod.set("menuId", rowData.menuId);
+        SBUxMethod.set("menuNm", rowData.menuNm);
+        SBUxMethod.set("menuTypeNm", rowData.menuTypeNm);
+        SBUxMethod.set("pageUrl", rowData.pageUrl);
         SBUxMethod.set("type", rowData.type);
-        SBUxMethod.set("useYn", rowData.useYn);
-        SBUxMethod.set("creUserId", rowData.creUserId);
-        SBUxMethod.set("creDateTime", rowData.creDateTime);
-        SBUxMethod.set("creProgram", rowData.creProgram);
+        SBUxMethod.set("delYn", rowData.delYn);
+        SBUxMethod.set("sysFrstInptUserId", rowData.sysFrstInptUserId);
+        SBUxMethod.set("sysFrstInptPrgrmId", rowData.sysFrstInptPrgrmId);
+        SBUxMethod.set("sysFrstInptDt", rowData.sysFrstInptDt);
+        SBUxMethod.set("sysLastChgUserId", rowData.sysLastChgUserId);
+        SBUxMethod.set("sysLastChgPrgrmId", rowData.sysLastChgPrgrmId);
+        SBUxMethod.set("sysLastChgDt", rowData.sysLastChgDt);
+
         //선택 행 개체목록 조회
-        fn_setGridData2();
+        fn_setUiGridData();
+      	//버튼 활성화
+        SBUxMethod.attr("btnSave", "disabled", false);
+        SBUxMethod.attr("btnDelete", "disabled", false);
     }
     //그리드 체크박스 전체 선택
     function fn_checkAll(grid, obj) {
@@ -366,158 +401,173 @@
             grid.setCellData(i+1, getColRef, checkedYn, true, false);
         }
     }
-    //grid 초기화
-    var grid; // 그리드를 담기위한 객체 선언
-    var gridData = []; // 그리드의 참조 데이터 주소 선언
-    function fn_createGrid() {
+
+    var menuGridData = []; // 그리드의 참조 데이터 주소 선언
+    function fn_createMenuGrid() {
         var SBGridProperties = {};
-	    SBGridProperties.parentid = 'SBGridArea';
-	    SBGridProperties.id = 'datagrid';
-	    SBGridProperties.jsonref = 'gridData';
+	    SBGridProperties.parentid = 'menuGridArea';
+	    SBGridProperties.id = 'menuDatagrid';
+	    SBGridProperties.jsonref = 'menuGridData';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
-        SBGridProperties.rowheader = 'seq';
-		SBGridProperties.rowheadercaption = {seq: 'No'};
-        SBGridProperties.rowheaderwidth = {seq: '60'};
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = {
-			type: 'page   '
-			, count: 10
-			, size: 10
-			, showgoalpageui: true
-	    };
         SBGridProperties.columns = [
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(datagrid, this);'>"],
-                ref: 'checked', type: 'checkbox', style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["화면ID"],   ref: 'pageId',      type:'output',  width:'10%',    style:'text-align:center'},
-            {caption: ["화면명"],   ref: 'pageNm',      type:'output',  width:'10%',    style:'text-align:left'},
-            {caption: ["화면유형"], ref: 'type',        type:'output',  width:'10%',    style:'text-align:center'},
-            {caption: ["화면설명"], ref: 'cont',        type:'output',  width:'20%',    style:'text-align:left'},
-            {caption: ["화면경로"], ref: 'url',         type:'output',  width:'20%',    style:'text-align:left'},
-            {caption: ["사용여부"], ref: 'useYn',       type:'output',  width:'10%',    style:'text-align:center',
+            {caption: ["NO"],   		ref: 'rowSeq',      		type:'output',  width:'50px',    style:'text-align:center'},
+            {caption: ["화면ID"],   	ref: 'menuId',      		type:'output',  width:'150px',    style:'text-align:center'},
+            {caption: ["화면명"],   	ref: 'menuNm',      		type:'output',  width:'200px',    style:'text-align:left'},
+            {caption: ["화면유형"], 	ref: 'menuType',    		type:'output',  hidden: true},
+            {caption: ["화면유형"], 	ref: 'menuTypeNm',    		type:'output',  width:'100PX',    style:'text-align:center'},
+            {caption: ["화면경로"], 	ref: 'pageUrl',     		type:'output',  width:'250px',    style:'text-align:left'},
+            {caption: ["사용여부"], 	ref: 'delYn',       		type:'output',  width:'100px',    style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return strValue == "Y" ? "사용" : "미사용";
                 }
             },
-            {caption: ["등록자"],   ref: 'creUserNm',   type:'output',  width:'10%',    style:'text-align:center'},
-            {caption: ["등록일시"], ref: 'creDateTime', type:'output',  width:'10%',    style:'text-align:center'},
-            {caption: ["등록자ID"], ref: 'creUserId',   type:'output',      hidden: true},
-            {caption: ["등록프로그램"], ref: 'creProgram',  type:'output',  hidden: true},
-            {caption: ["최종변경자"],   ref: 'updUserNm',   type:'output',  hidden: true},
-            {caption: ["최종변경자ID"], ref: 'updUserId',   type:'output',  hidden: true},
-            {caption: ["최종변경일시"], ref: 'updDateTime', type:'output',  hidden: true},
-            {caption: ["최종변경프로그램"], ref: 'updProgram',  type:'output',  hidden: true}
+            {caption: ["등록자"],   		ref: 'sysFrstInptUserId',   type:'output',  width:'150px',    style:'text-align:center'},
+            {caption: ["등록프로그램"], 	ref: 'sysFrstInptPrgrmId', 	type:'output',  hidden: true},
+            {caption: ["등록일시"], 		ref: 'sysFrstInptDt', 		type:'output',  width:'200px',    style:'text-align:center'},
+            {caption: ["최종변경자"],   	ref: 'sysLastChgUserId',   	type:'output',  width:'150px',    style:'text-align:center'},
+            {caption: ["최종변경프로그램"], ref: 'sysLastCngPrgrmId', 	type:'output',  hidden: true},
+            {caption: ["최종변경일시"], 	ref: 'sysLastChgDt', 		type:'output',  width:'200px',    style:'text-align:center'},
+            {caption: ["APC코드"], 			ref: 'apcCd', 				type:'output',  hidden: true}
         ];
-        datagrid = _SBGrid.create(SBGridProperties);
-        datagrid.bind('click', 'fn_view');
+        menuDatagrid = _SBGrid.create(SBGridProperties);
+        menuDatagrid.bind('click', 'fn_view');
     }
-    function fn_setGridData(args) {
-        var params = $('#frm').serialize();
-        console.log("form data ::::: " + params);
-        /*
-        datagrid.lockGrid(true);
-        $.ajax({
-            url : "<c:url value='/admin/selectLogListGrid.do' />",
-            type : "POST",
-            data : param,
-            dataType : 'json',
-            async : false,
-            success : function(result) {
-                grid1_data = result.list;
-                datagrid.setPageTotalCount(result.listCount);
-                if(args == "init"){
-                    datagrid.rebuild();
-                }
-            },
-            complete  : function() {
-                datagrid.lockGrid(false);
-            }
-        });
-        */
-        gridData = [
-            {'pageId': 'page0001', 'pageNm': '화면1', 'type': '조회', 'cont': '화면1_설멍', 'url': '/page/page1.do', 'useYn': 'Y', 'creUserNm': '관리자', 'creUserId': 'admin', 'creDateTime': '2023-05-05 12:00:00'},
-            {'pageId': 'page0002', 'pageNm': '화면2', 'type': '조회', 'cont': '화면2_설멍', 'url': '/page/page2.do', 'useYn': 'Y', 'creUserNm': '관리자', 'creUserId': 'admin', 'creDateTime': '2023-05-05 12:00:00'},
-            {'pageId': 'page0003', 'pageNm': '화면3', 'type': '조회', 'cont': '화면3_설멍', 'url': '/page/page3.do', 'useYn': 'Y', 'creUserNm': '관리자', 'creUserId': 'admin', 'creDateTime': '2023-05-05 12:00:00'},
-            {'pageId': 'page0004', 'pageNm': '화면4', 'type': '조회', 'cont': '화면4_설멍', 'url': '/page/page4.do', 'useYn': 'N', 'creUserNm': '관리자', 'creUserId': 'admin', 'creDateTime': '2023-05-05 12:00:00'},
-            {'pageId': 'page0005', 'pageNm': '화면5', 'type': '조회', 'cont': '화면5_설멍', 'url': '/page/page5.do', 'useYn': 'Y', 'creUserNm': '관리자', 'creUserId': 'admin', 'creDateTime': '2023-05-05 12:00:00'}
-        ];
-        datagrid.setPageTotalCount(gridData.length);
-        if (args === "init") {
-            datagrid.rebuild();
-            if (gridData.length > 0) {
-                //첫 번째 행 선택
-                datagrid.setRow(datagrid.getFixedRows())
-                //선택 행 상세정보 보기
-                fn_view(args);
-            }
+
+    async function fn_setGridData(args) {
+        let sysId = SBUxMethod.get('srchComboSysId');
+        let menuId = SBUxMethod.get('srchMenuId');
+        let menuNm = SBUxMethod.get('srchMenuNm');
+        let menuVO = {
+        		sysId : sysId,
+        		menuId : menuId,
+        		menuNm : menuNm
+        }
+        let postJsonPromise = gfn_postJSON("/co/menu/selectMenuUiList.do", menuVO);
+        let data = await postJsonPromise;
+		let newMenuGridData = [];
+        try{
+        	data.resultList.forEach((item, index) => {
+				let menuList = {
+						rowSeq : item.rowSeq,
+						menuId : item.menuId,
+						menuNm : item.menuNm,
+						menuType : item.menuType,
+						menuTypeNm : item.menuTypeNm,
+						pageUrl : item.pageUrl,
+						delYn : item.delYn,
+						sysFrstInptUserId : item.sysFrstInptUserId,
+						sysFrstInptDt : item.sysFrstInptDt,
+						sysFrstInptPrgrmId : item.sysFrstInptPrgrmId,
+						sysLastChgUserId : item.sysLastChgUserId,
+						sysLastChgPrgrmId : item.sysLastChgPrgrmId,
+						sysLastChgDt : item.sysLastChgDt,
+						apcCd : item.apcCd
+				}
+				newMenuGridData.push(menuList);
+			});
+        	menuGridData = newMenuGridData;
+        	menuDatagrid.rebuild();
+
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
         }
     }
     //grid2 초기화
-    var grid2; // 그리드를 담기위한 객체 선언
-    var gridData2 = []; // 그리드의 참조 데이터 주소 선언
-    function fn_createGrid2() {
+    var uiGridData = []; // 그리드의 참조 데이터 주소 선언
+    function fn_createMenuUiGrid() {
         var SBGridProperties = {};
-	    SBGridProperties.parentid = 'SBGridArea2';
-	    SBGridProperties.id = 'datagrid2';
-	    SBGridProperties.jsonref = 'gridData2';
+	    SBGridProperties.parentid = 'uiGridArea';
+	    SBGridProperties.id = 'uiDataGrid';
+	    SBGridProperties.jsonref = 'uiGridData';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
             {caption : ["<input type='checkbox' onchange='fn_checkAll(datagrid2, this);'>"],
                 ref: 'checked', type: 'checkbox', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["id"],       ref: 'objId',   type:'input',  width:'20%',    style:'text-align:center'},
-            {caption: ["명칭"],     ref: 'objNm',   type:'input',  width:'20%',    style:'text-align:center'},
-            {caption: ["유형"],     ref: 'objType', type:'combo',   width:'22%',    style:'text-align:center',
-                typeinfo: {ref: 'typeComboData', label: 'label', value: 'value', oneclickedit: true, displayui: true}
+            {caption: ["id"],       ref: 'entyId',   	type:'input',  width:'200px',    style:'text-align:center'},
+            {caption: ["명칭"],     ref: 'entyNm',   	type:'input',  width:'200px',    style:'text-align:center'},
+            {caption: ["유형"],     ref: 'entyType', 	type:'combo',  width:'150px',    style:'text-align:center',
+                typeinfo: {ref: 'entyTypeComboData', label: 'label', value: 'value', oneclickedit: true, displayui: true, unselect: {label : '선택', value: ''}}
             },
-            {caption: ["센터"],     ref: 'center',  type:'input',  width:'20%',    style:'text-align:center'},
-            {caption: ["표시여부"], ref: 'dispYn',  type:'combo',  width:'18%',    style:'text-align:center',
-                typeinfo: {ref: 'dispYnComboData', label: 'label', value: 'value', oneclickedit: true, displayui: true}
-            }
+            {caption: ["표시여부"], ref: 'delYn',  		type:'combo',  width:'100px',    style:'text-align:center',
+                typeinfo: {ref: 'delYnComboData', label: 'label', value: 'value', oneclickedit: true, displayui: true, unselect: {label : '선택', value: ''}}
+            },
+            {caption: ["메뉴ID"],  		ref: 'menuId', 	type:'input', hidden : true},
+            {caption: ["행추가여부"],  	ref: 'addYn', 	type:'input', hidden : true}
+
+
         ];
-        datagrid2 = _SBGrid.create(SBGridProperties);
+        uiDataGrid = _SBGrid.create(SBGridProperties);
     }
     //
-    var typeComboData = [
-        {label: '버튼', value: 'BUTTON'},
-        {label: '그룹', value: 'GROUP'},
-        {label: '유효성', value: 'VALIDATE'}
+    var entyTypeComboData = [
+        {label: 'BUTTON', value: '01'},
+        {label: 'COMPONENT', value: '02'},
+        {label: 'GRID', value: '03'}
     ];
-    var dispYnComboData = [
-        {label: 'Y', value: 'Y'},
-        {label: 'N', value: 'N'}
+
+    var delYnComboData = [
+    	{label:'사용', value : 'N' },
+    	{label:'미사용', value : 'Y' }
     ];
     //
-    function fn_setGridData2() {
-        //Set Ajax data
-        var data = {
-            pageId: SBUxMethod.get("pageId")
+    async function fn_setUiGridData() {
+
+    	var nRow = menuDatagrid.getRow();
+        if (nRow < 1) {
+            return;
         }
-        gridData2 = [
-            {'objId': 'btnSearch', 'objNm': '조회', 'objType': 'BUTTON', 'center': '', 'dispYn': 'Y'},
-            {'objId': 'grpInsert', 'objNm': '등록GROUP', 'objType': 'GROUP', 'center': '', 'dispYn': 'Y'},
-            {'objId': 'ipbGrpId', 'objNm': '그룹id', 'objType': 'VALIDATE', 'center': '', 'dispYn': 'Y'}
-        ];
-        datagrid2.setPageTotalCount(gridData2.length);
-        datagrid2.rebuild();
+        var rowData = menuDatagrid.getRowData(nRow);
+
+        let menuId = rowData.menuId
+        let postJsonPromise = gfn_postJSON("/co/menu/selectUiList.do", {menuId : menuId});
+        let data = await postJsonPromise;
+		let newUiGridData = [];
+        try{
+        	data.resultList.forEach((item, index) => {
+				let uiList = {
+						menuId : item.menuId,
+						entyId : item.entyId,
+						entyNm : item.entyNm,
+						entyType : item.entyType,
+						delYn : item.delYn,
+						addYn : 'N'
+				}
+				newUiGridData.push(uiList);
+			});
+        	uiGridData = newUiGridData;
+        	uiDataGrid.rebuild();
+
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+
         //버튼 활성화
-        SBUxMethod.attr("btn_add", "disabled", false);
-        SBUxMethod.attr("btn_del", "disabled", false);
+        SBUxMethod.attr("btnAdd", "disabled", false);
+        SBUxMethod.attr("btnDel", "disabled", false);
     }
     //행 추가
     function fn_addRow() {
-        datagrid2.addRow();
+    	uiDataGrid.addRow(true, ['Y','','','','Y',SBUxMethod.get('menuId'),'Y']);
     }
     //선택된 행 삭제
     function fn_deleteRow() {
-        var gridList = datagrid2.getGridDataAll();
+        var gridList = uiDataGrid.getGridDataAll();
         for (var i=gridList.length-1; i>-1; i--) {
             if (gridList[i].checked === "Y") {
-                datagrid2.deleteRow(i+1);
+            	uiDataGrid.deleteRow(i+1);
             }
         }
         if (delList.length < 1) {
