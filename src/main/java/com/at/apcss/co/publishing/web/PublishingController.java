@@ -219,9 +219,41 @@ public class PublishingController extends BaseController{
 		return "apcss/co/publishing/am41";
 	}
 
+	@RequestMapping(value = "/co/publishing/am41_1.do")
+	public String am41_1() {
+		return "apcss/co/publishing/am41_1";
+	}
+
+	@RequestMapping(value = "/co/publishing/am41_2.do")
+	public String am41_2() {
+		return "apcss/co/publishing/am41_2";
+	}
+
+	@RequestMapping(value = "/co/publishing/am41_3.do")
+	public String am41_3() {
+		return "apcss/co/publishing/am41_3";
+	}
+
+
+
 	@RequestMapping(value = "/co/publishing/am42.do")
 	public String am42() {
 		return "apcss/co/publishing/am42";
+	}
+
+	@RequestMapping(value = "/co/publishing/am42_1.do")
+	public String am42_1() {
+		return "apcss/co/publishing/am42_1";
+	}
+
+	@RequestMapping(value = "/co/publishing/am42_2.do")
+	public String am42_2() {
+		return "apcss/co/publishing/am42_2";
+	}
+
+	@RequestMapping(value = "/co/publishing/am42_3.do")
+	public String am42_3() {
+		return "apcss/co/publishing/am42_3";
 	}
 
 	@RequestMapping(value = "/co/publishing/am43.do")
@@ -354,6 +386,21 @@ public class PublishingController extends BaseController{
 		return "apcss/co/publishing/am68";
 	}
 
+	@RequestMapping(value = "/co/publishing/am68_1.do")
+	public String am68_1() {
+		return "apcss/co/publishing/am68_1";
+	}
+
+	@RequestMapping(value = "/co/publishing/am68_2.do")
+	public String am68_2() {
+		return "apcss/co/publishing/am68_2";
+	}
+
+	@RequestMapping(value = "/co/publishing/am68_3.do")
+	public String am68_3() {
+		return "apcss/co/publishing/am68_3";
+	}
+
 	@RequestMapping(value = "/co/publishing/am69.do")
 	public String am69() {
 		return "apcss/co/publishing/am69";
@@ -363,6 +410,157 @@ public class PublishingController extends BaseController{
 	public String am70() {
 		return "apcss/co/publishing/am70";
 	}
+
+	@RequestMapping(value = "/co/publishing/am71.do")
+	public String am71() {
+		return "apcss/co/publishing/am71";
+	}
+
+	@RequestMapping(value = "/co/publishing/am72.do")
+	public String am72() {
+		return "apcss/co/publishing/am72";
+	}
+
+	@RequestMapping(value = "/co/publishing/am73.do")
+	public String am73() {
+		return "apcss/co/publishing/am73";
+	}
+
+	@RequestMapping(value = "/co/publishing/am74.do")
+	public String am74() {
+		return "apcss/co/publishing/am74";
+	}
+
+	@RequestMapping(value = "/co/publishing/am75.do")
+	public String am75() {
+		return "apcss/co/publishing/am75";
+	}
+
+	@RequestMapping(value = "/co/publishing/am76.do")
+	public String am76() {
+		return "apcss/co/publishing/am76";
+	}
+
+	@RequestMapping(value = "/co/publishing/am77.do")
+	public String am77() {
+		return "apcss/co/publishing/am77";
+	}
+
+	@RequestMapping(value = "/co/publishing/am78.do")
+	public String am78() {
+		return "apcss/co/publishing/am78";
+	}
+
+	@RequestMapping(value = "/co/publishing/am79.do")
+	public String am79() {
+		return "apcss/co/publishing/am79";
+	}
+
+	@RequestMapping(value = "/co/publishing/am80.do")
+	public String am80() {
+		return "apcss/co/publishing/am80";
+	}
+
+	@RequestMapping(value = "/co/publishing/am81.do")
+	public String am81() {
+		return "apcss/co/publishing/am81";
+	}
+
+	@RequestMapping(value = "/co/publishing/am82.do")
+	public String am82() {
+		return "apcss/co/publishing/am82";
+	}
+
+	@RequestMapping(value = "/co/publishing/am83.do")
+	public String am83() {
+		return "apcss/co/publishing/am83";
+	}
+
+	@RequestMapping(value = "/co/publishing/am84.do")
+	public String am84() {
+		return "apcss/co/publishing/am84";
+	}
+
+	@RequestMapping(value = "/co/publishing/am85.do")
+	public String am85() {
+		return "apcss/co/publishing/am85";
+	}
+
+	@RequestMapping(value = "/co/publishing/am86.do")
+	public String am86() {
+		return "apcss/co/publishing/am86";
+	}
+
+	@RequestMapping(value = "/co/publishing/am87.do")
+	public String am87() {
+		return "apcss/co/publishing/am78";
+	}
+
+	@RequestMapping(value = "/co/publishing/am88.do")
+	public String am88() {
+		return "apcss/co/publishing/am88";
+	}
+
+	@RequestMapping(value = "/co/publishing/am89.do")
+	public String am89() {
+		return "apcss/co/publishing/am89";
+	}
+
+	@RequestMapping(value = "/co/publishing/am90.do")
+	public String am90() {
+		return "apcss/co/publishing/am90";
+	}
+
+	@RequestMapping(value = "/co/publishing/am91.do")
+	public String am91() {
+		return "apcss/co/publishing/am91";
+	}
+
+	@RequestMapping(value = "/co/publishing/am92.do")
+	public String am92() {
+		return "apcss/co/publishing/am92";
+	}
+
+	@RequestMapping(value = "/co/publishing/am993.do")
+	public String am93() {
+		return "apcss/co/publishing/am93";
+	}
+
+	@RequestMapping(value = "/co/publishing/am94.do")
+	public String am94() {
+		return "apcss/co/publishing/am94";
+	}
+
+	@RequestMapping(value = "/co/publishing/am95.do")
+	public String am95() {
+		return "apcss/co/publishing/am95";
+	}
+
+	@RequestMapping(value = "/co/publishing/am96.do")
+	public String am96() {
+		return "apcss/co/publishing/am96";
+	}
+
+	@RequestMapping(value = "/co/publishing/am97.do")
+	public String am97() {
+		return "apcss/co/publishing/am97";
+	}
+
+	@RequestMapping(value = "/co/publishing/am98.do")
+	public String am98() {
+		return "apcss/co/publishing/am98";
+	}
+
+	@RequestMapping(value = "/co/publishing/am99.do")
+	public String am99() {
+		return "apcss/co/publishing/am99";
+	}
+
+	@RequestMapping(value = "/co/publishing/am100.do")
+	public String am100() {
+		return "apcss/co/publishing/am100";
+	}
+
 
 
 
