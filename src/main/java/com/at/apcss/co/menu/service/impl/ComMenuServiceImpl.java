@@ -17,7 +17,7 @@ public class ComMenuServiceImpl implements ComMenuService {
 	private ComMenuMapper comMenuMapper;
 
 	@Override
-	public ComMenuVO selectComMenu(ComMenuVO comMenuVO) {
+	public ComMenuVO selectComMenu(ComMenuVO comMenuVO) throws Exception {
 
 		ComMenuVO comMenuResultVO = comMenuMapper.selectComMenu(comMenuVO);
 
@@ -25,7 +25,7 @@ public class ComMenuServiceImpl implements ComMenuService {
 	}
 
 	@Override
-	public ComMenuVO selectComMenu(String menuId) {
+	public ComMenuVO selectComMenu(String menuId) throws Exception {
 
 		ComMenuVO comMenuVO = new ComMenuVO();
 		comMenuVO.setMenuId(menuId);
@@ -36,7 +36,7 @@ public class ComMenuServiceImpl implements ComMenuService {
 	}
 
 	@Override
-	public List<ComMenuVO> selectComMenuList(ComMenuVO comMenuVO) {
+	public List<ComMenuVO> selectComMenuList(ComMenuVO comMenuVO) throws Exception {
 
 		List<ComMenuVO> menuList = comMenuMapper.selectComMenuList(comMenuVO);
 
@@ -44,7 +44,7 @@ public class ComMenuServiceImpl implements ComMenuService {
 	}
 
 	@Override
-	public List<ComMenuVO> selectMenuTreeList(ComMenuVO comMenuVO) {
+	public List<ComMenuVO> selectMenuTreeList(ComMenuVO comMenuVO) throws Exception {
 
 		List<ComMenuVO> menuList = comMenuMapper.selectMenuTreeList(comMenuVO);
 
@@ -52,7 +52,7 @@ public class ComMenuServiceImpl implements ComMenuService {
 	}
 
 	@Override
-	public List<ComMenuVO> selectTopMenuList(ComMenuVO comMenuVO) {
+	public List<ComMenuVO> selectTopMenuList(ComMenuVO comMenuVO) throws Exception {
 
 		List<ComMenuVO> menuList = comMenuMapper.selectTopMenuList(comMenuVO);
 
@@ -60,7 +60,7 @@ public class ComMenuServiceImpl implements ComMenuService {
 	}
 
 	@Override
-	public List<ComMenuVO> selectLeftMenuList(ComMenuVO comMenuVO) {
+	public List<ComMenuVO> selectLeftMenuList(ComMenuVO comMenuVO) throws Exception {
 
 		List<ComMenuVO> menuList = comMenuMapper.selectLeftMenuList(comMenuVO);
 
@@ -73,49 +73,58 @@ public class ComMenuServiceImpl implements ComMenuService {
 	}
 
 	@Override
-	public int updateMenu(ComMenuVO comMenuVO) {
+	public int updateMenu(ComMenuVO comMenuVO) throws Exception {
 		return comMenuMapper.updateMenu(comMenuVO);
 	}
 
 	@Override
-	public List<ComMenuVO> selectMenuList(ComMenuVO comMenuVO) {
+	public List<ComMenuVO> selectMenuList(ComMenuVO comMenuVO) throws Exception {
 		List<ComMenuVO> menuList = comMenuMapper.selectMenuList(comMenuVO);
 		return menuList;
 	}
 
 	@Override
-	public int deleteMenu(ComMenuVO comMenuVO) {
+	public int deleteMenu(ComMenuVO comMenuVO) throws Exception {
 		return comMenuMapper.deleteMenu(comMenuVO);
 	}
 
 	@Override
-	public List<ComUiVO> selectComUiList(ComUiVO comUiVO) {
+	public List<ComUiVO> selectComUiList(ComUiVO comUiVO) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ComUiVO selectComUi(ComUiVO comUiVO) {
+	public ComUiVO selectComUi(ComUiVO comUiVO) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int insertComUi(ComUiVO comUiVO) {
+	public int insertComUi(ComUiVO comUiVO) throws Exception {
+		return comMenuMapper.insertComUi(comUiVO);
+	}
+
+	@Override
+	public int updateComUi(ComUiVO comUiVO) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int updateComUi(ComUiVO comUiVO) {
+	public int deleteComUi(ComUiVO comUiVO) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteComUi(ComUiVO comUiVO) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<ComMenuVO> selectMenuUiList(ComMenuVO comMenuVO) throws Exception {
+		return comMenuMapper.selectMenuUiList(comMenuVO);
+	}
+
+	@Override
+	public List<ComUiVO> selectUiList(ComUiVO comUiVO) throws Exception {
+		return comMenuMapper.selectUiList(comUiVO);
 	}
 
 

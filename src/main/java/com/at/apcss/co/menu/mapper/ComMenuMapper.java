@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.at.apcss.co.menu.vo.ComMenuVO;
+import com.at.apcss.co.menu.vo.ComUiVO;
 
 @Mapper
 public interface ComMenuMapper {
@@ -71,6 +72,27 @@ public interface ComMenuMapper {
 	 * @return
 	 */
 	public int deleteMenu(ComMenuVO comMenuVO);
+
+	/**
+	 * 화면관리 목록 조회
+	 * @param comMenuVO
+	 * @return List<ComMenuVO>
+	 */
+	public List<ComMenuVO> selectMenuUiList(ComMenuVO comMenuVO);
+
+	/**
+	 * 화면관리 UI 목록 조회
+	 * @param comMenuVO
+	 * @return List<ComMenuVO>
+	 */
+	public List<ComUiVO> selectUiList(ComUiVO comUiVO);
+
+	/**
+	 * 화면관리 UI 등록
+	 * @param comMenuVO
+	 * @return ComUiVO
+	 */
+	public int insertComUi(ComUiVO comUiVO);
 
 
 }

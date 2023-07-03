@@ -17,6 +17,7 @@
 		<result property="menuNm" column="MENU_NM" />
 		<result property="upMenuId" column="UP_MENU_ID" />
 		<result property="menuType" column="MENU_TYPE" />
+		<result property="menuTypeNm" column="MENU_TYPE_NM" />
 		<result property="userType" column="USER_TYPE" />
 		<result property="pageUrl" column="PAGE_URL" />
 		<result property="indctSeq" column="INDCT_SEQ" />
@@ -25,6 +26,21 @@
 		<result property="upMenuNm" column="UP_MENU_NM" />
 		<result property="menuLvl" column="MENU_LVL" />
 		<result property="menuSeq" column="MENU_SEQ" />
+		<result property="sysFrstInptUserId" column="SYS_FRST_INPT_USER_ID" />
+		<result property="sysFrstInptPrgrmId" column="SYS_FRST_INPT_PRGRM_ID" />
+		<result property="sysFrstInptDt" column="SYS_FRST_INPT_DT" />
+		<result property="sysLastChgUserId" column="SYS_LAST_CHG_USER_ID" />
+		<result property="sysLastChgPrgrmId" column="SYS_LAST_CHG_PRGRM_ID" />
+		<result property="sysLastChgDt" column="SYS_LAST_CHG_DT" />
+		<result property="rowSeq" column="ROW_SEQ" />
+	</resultMap>
+
+	<resultMap type="com.at.apcss.co.menu.vo.ComUiVO" id="comUiMap">
+		<result property="menuId" column="MENU_ID" />
+		<result property="entyId" column="ENTY_ID" />
+		<result property="entyNm" column="ENTY_NM" />
+		<result property="entyType" column="ENTY_TYPE" />
+		<result property="delYn" column="DEL_YN" />
 	</resultMap>
 
 	<!-- ==========================================================================	-->
@@ -74,7 +90,6 @@
 			  FROM TB_COM_MENU CM
 			 WHERE CM.DEL_YN = 'N'
     	]]>
-
 		<if test='menuId != null and menuId != ""'>
 			AND CM.MENU_ID = #{menuId}
 		</if>
@@ -165,7 +180,7 @@
 				, MN.PAGE_URL	AS PAGE_URL
 				, MN.APC_CD		AS APC_CD
 				, MN.INDCT_SEQ	AS INDCT_SEQ
-				
+
 			  FROM (
 				SELECT
 					  LEVEL		AS LVL
@@ -223,7 +238,7 @@
 				, MN.PAGE_URL	AS PAGE_URL
 				, MN.APC_CD		AS APC_CD
 				, MN.INDCT_SEQ	AS INDCT_SEQ
-				
+
 			  FROM (
 				SELECT
 					  LEVEL		AS LVL
@@ -398,5 +413,105 @@
 		DELETE FROM TB_COM_MENU
 		 WHERE MENU_ID 	= #{menuId}
 	</delete>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuUiList			-->
+	<!-- DESC : 화면 관리 목록 조회                                   				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.03  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectMenuUiList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultMap="comMenuMap">
+		<![CDATA[
+		SELECT ROWNUM					AS ROW_SEQ
+			 , CM.APC_CD                AS APC_CD
+		     , CM.MENU_ID               AS MENU_ID
+		     , CM.MENU_NM               AS MENU_NM
+		     , (SELECT FN_GET_COM_CD_VL_NM('MENU_TYPE', CM.MENU_TYPE) FROM DUAL) AS MENU_TYPE_NM
+     		 , CM.MENU_NM               AS MENU_NM
+		     , CM.INDCT_SEQ             AS INDCT_SEQ
+		     , CM.PAGE_URL              AS PAGE_URL
+		     , DECODE(CM.DEL_YN, 'N', 'Y', 'N')                AS DEL_YN
+		     , DECODE(CM.SYS_FRST_INPT_USER_ID, 'SYS', '관리자', 'admin', '관리자', CM.SYS_FRST_INPT_USER_ID)  AS SYS_FRST_INPT_USER_ID
+		     , CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+		     , TO_CHAR(CM.SYS_FRST_INPT_DT, 'YYYY-DD-MM HH24:MI')       AS SYS_FRST_INPT_DT
+		     , DECODE(CM.SYS_LAST_CHG_USER_ID, 'SYS', '관리자', 'admin', '관리자', CM.SYS_LAST_CHG_USER_ID)  AS SYS_LAST_CHG_USER_ID
+		     , CM.SYS_LAST_CHG_PRGRM_ID		AS SYS_LAST_CHG_PRGRM_ID
+		     , TO_CHAR(CM.SYS_LAST_CHG_DT, 'YYYY-DD-MM HH24:MI')       AS SYS_LAST_CHG_DT
+		 FROM TB_COM_MENU CM
+		WHERE MENU_TYPE = '02'
+		  AND SUBSTR(CM.MENU_ID, 1,2) = #{sysId}
+		]]>
+		<if test='menuId != null and menuId != ""'>
+		  AND CM.MENU_ID = #{menuId}
+		</if>
+		<if test='menuNm != null and menuNm != ""'>
+		  AND CM.MENU_NM = #{menuNm}
+		</if>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectUiList				-->
+	<!-- DESC : 화면 관리 UI 목록 조회                                   			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.03  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectUiList" parameterType="com.at.apcss.co.menu.vo.ComUiVO"  resultMap="comUiMap">
+		<![CDATA[
+	    SELECT CU.MENU_ID			AS MENU_ID
+		     , CU.ENTY_ID			AS ENTY_ID
+		     , CU.ENTY_TYPE			AS ENTY_TYPE
+		     , CU.ENTY_NM			AS ENTY_NM
+		     , DECODE(CU.DEL_YN, 'N', 'Y', 'Y', 'N') AS DEL_YN
+		  FROM TB_COM_UI CU
+		 WHERE CU.MENU_ID = #{menuId}
+		]]>
+
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectUiList				-->
+	<!-- DESC : 화면 관리 UI 등록		                                   			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.03  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertComUi" parameterType="com.at.apcss.co.menu.vo.ComUiVO">
+		<![CDATA[
+		INSERT INTO TB_COM_UI
+			(
+				MENU_ID
+			  , ENTY_ID
+			  , ENTY_NM
+			  , ENTY_TYPE
+			  , DEL_YN
+			  , SYS_FRST_INPT_DT
+			  , SYS_FRST_INPT_USER_ID
+			  , SYS_FRST_INPT_PRGRM_ID
+			  , SYS_LAST_CHG_DT
+			  , SYS_LAST_CHG_USER_ID
+			  , SYS_LAST_CHG_PRGRM_ID
+			)
+		VALUES
+			(
+				#{menuId}
+			  , #{entyId}
+			  , #{entyNm}
+			  , #{entyType}
+			  , #{delYn}
+			  , SYSDATE
+			  , #{sysFrstInptUserId}
+			  , #{sysFrstInptPrgrmId}
+			  , SYSDATE
+			  , #{sysLastChgUserId}
+			  , #{sysLastChgPrgrmId}
+			)
+		]]>
+	</insert>
 
 </mapper>
