@@ -20,32 +20,8 @@
         }
     </script>
     <script src="/resource/sbux/SBUx.js"></script>
-    <!------------------ 컴포넌트 테마 CSS ------------------>
-	<link href="/resource/css/blue_comp_style.css" rel="stylesheet" type="text/css">
-    <!------------------ 스타일 테마 CSS ------------------>
-	<link href="/resource/css/blue_style.css" rel="stylesheet" type="text/css">
-	<link href="/resource/css/sbgrid_custom.css" rel="stylesheet" type="text/css">
-    <style>
-        /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
-        실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
-        .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333;}
-        .sbt-A-wrap .main {display:table;  width:100%; height:500px;}
-        .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px; }
-        .sbt-A-wrap .left .sbt-all-left {height: 100%;}
-        .sbt-A-wrap .content {display:table-cell;}
-        .sbux-sidemeu {position: relative; z-index: 1;}
-        .footer {
-            display: flex; align-items: center; justify-content: center; font-size: 16px;
-            background:rgb(42, 48, 65); height:150px; padding:10px; box-sizing: border-box;  color:#dddddd;
-        }
-        .tbl>tbody>tr{height: 40px;}
-        .tbl>tbody>tr>td>button{width: 200px;}
-        .tbl>tbody>tr>td{padding-left: 5px;}
-    </style>
 
-<!-- SB 스타일 가이드 영역 완료 -->
-
-<!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 시작-->
+		<!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 시작-->
     	<!-- favicon -->
 		<link rel="apple-touch-icon" href="/resource/images/favicon.png">
 		<link rel="shortcut icon" href="/resource/images/favicon.ico">

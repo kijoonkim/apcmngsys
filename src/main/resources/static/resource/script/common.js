@@ -1,6 +1,6 @@
 'use strict';
 /**
- * 
+ *
  */
 
 /** @type {string} */
@@ -26,11 +26,11 @@ async function gfn_postJSON(_url, _param) {
 				body: JSON.stringify(_param),
 			}
 		);
-		
+
 		const result = await response.json();
 		console.log("success", result);
 		return result;
-		
+
 	} catch (e) {
 		if (!(e instanceof Error)) {
 			e = new Error(e);
@@ -41,7 +41,7 @@ async function gfn_postJSON(_url, _param) {
 
 /**
  * 공통코드 상세 리스트 가져오기
- * @param {string} _cdId	- 공통코드 
+ * @param {string} _cdId	- 공통코드
  * @param {string} _apcCd	- APC코드
  * @returns {any[]}
  */
@@ -61,16 +61,15 @@ async function gfn_getComCdDtls (_cdId, _apcCd = "0000") {
  * @returns {void}
  */
 async function gfn_setComCdSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
-	
+
 	if (gfn_isEmpty(_cdId)) {
 		return;
 	}
-	
+
 	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd});
 	const data = await postJsonPromise;
 	console.log("cdDtls", data);
-	console.log("cdDtlList", JSON.stringify(data.resultList));
-	
+
 	try {
 		_jsondataRef.length = 0;
 		data.resultList.forEach((item) => {
@@ -80,9 +79,9 @@ async function gfn_setComCdSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
 			}
 			_jsondataRef.push(cdVl);
 		});
-		SBUxMethod.refresh(_name);		
+		SBUxMethod.refresh(_name);
 	} catch (e) {
-		
+
 	}
 }
 
@@ -96,16 +95,16 @@ async function gfn_setComCdSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
  * @returns {void}
  */
 async function gfn_setComCdSBSelect(_gridIdList, _jsondataRef, _cdId, _apcCd) {
-	
+
 	if (gfn_isEmpty(_cdId)) {
 		return;
 	}
-	
+
 	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd});
 	const data = await postJsonPromise;
 	console.log("cdDtls", data);
 	console.log("cdDtlList", JSON.stringify(data.resultList));
-	
+
 	try {
 		_jsondataRef.length = 0;
 		data.resultList.forEach((item) => {
@@ -115,13 +114,13 @@ async function gfn_setComCdSBSelect(_gridIdList, _jsondataRef, _cdId, _apcCd) {
 			}
 			_jsondataRef.push(cdVl);
 		});
-		
+
 		_gridIdList.forEach((_sbGridId) => {
-			SBUxMethod.refresh(_sbGridId);	
+			SBUxMethod.refresh(_sbGridId);
 		});
-		
+
 	} catch (e) {
-		
+
 	}
 }
 
@@ -133,7 +132,7 @@ async function gfn_setComCdSBSelect(_gridIdList, _jsondataRef, _cdId, _apcCd) {
  * @return {boolean}
  */
 const gfn_isEmpty = function (str) {
-	
+
     if (typeof str == "boolean") {
         return str;
     } else if (typeof str == "string") {
@@ -205,15 +204,15 @@ const gfn_setCookie = function (name, value, options = {}) {
 		// 필요한 경우, 옵션 기본값을 설정할 수도 있습니다.
 		...options
 	};
-	
+
 	if (options.expires instanceof Date) {
 		options.expires = options.expires.toUTCString();
 	}
-	
+
 	console.log("name", name);
 	console.log("value", value);
 	console.log("options", options);
-	
+
 	let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
 	for ( let optionKey in options ) {
 		updatedCookie += "; " + optionKey;
@@ -222,7 +221,7 @@ const gfn_setCookie = function (name, value, options = {}) {
 			updatedCookie += "=" + optionValue;
 		}
 	}
-	
+
 	document.cookie = updatedCookie;
 	console.log(document.cookie);
 }
