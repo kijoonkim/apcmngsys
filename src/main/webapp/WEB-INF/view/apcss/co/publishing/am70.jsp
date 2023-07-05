@@ -176,7 +176,6 @@
 										</th>
 										<th class="ta_r">정산일자</th>
 										<th class="td_input">
-											<div class="form-group">
 												<div class="dp_inline wd_125 va_m">
 													<div class="input-group date">
 														<div class="input-group-addon">
@@ -194,12 +193,11 @@
 														<input type="text" name="datepicker" placeholder="종료일" class="form-control pull-right" disabled>
 													</div>
 												</div>
-											</div>
 										</th>
 
 										<th></th>
 									</tr>
-									<tr>
+									<tr>	
 										<th class="ta_r">확정여부</th>
 										<th class="td_input">
 											<select class="form-control" style="width: 50%;">
@@ -216,7 +214,7 @@
 												</div>
 												<button type="button" class="btn btn-sm btn-primary">찾기</button>
 											</div>
-										</th>
+										</th>										
 										<th class="ta_r">생산자</th>
 										<th class="td_input">
 											<div class="fl_group fl_rpgroup">
@@ -227,7 +225,7 @@
 												</div>
 												<button type="button" class="btn btn-sm btn-primary">찾기</button>
 											</div>
-										</th>
+										</th>										
 										<th></th>
 									</tr>
 								</tbody>
@@ -238,7 +236,7 @@
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">
 									<li><span>정산 내역</span></li>
-									<label> 매출 중량/ 금액: 99,999Kg/99,999₩</label>
+									<li><label> 매출 중량/ 금액: 99,999Kg/99,999₩</label></li>
 								</ul>
 							</div>
 
@@ -277,31 +275,31 @@
 											<th scope="row" rowspan="2">
 												상품구분
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												품목
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												품종
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												규격
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												브랜드
 											</th>
-											<th scope="row" colspan="5">
+											<th scope="row" colspan="5">												
 												등급
 											</th>
-											<th scope="row"  rowspan="2">
+											<th scope="row"  rowspan="2">												
 												수량
 											</th>
-											<th scope="row"  rowspan="2">
+											<th scope="row"  rowspan="2">												
 												중량
 											</th>
-											<th scope="row"  rowspan="2">
+											<th scope="row"  rowspan="2">												
 												계산금액
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												확정금액
 											</th>
 

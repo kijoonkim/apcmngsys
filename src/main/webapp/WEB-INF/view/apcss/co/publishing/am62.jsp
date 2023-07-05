@@ -142,6 +142,7 @@
 							<h3 class="box-title"> ▶ 원물입고 팔레트/박스 관리</h3>
 							<div class="ad_tbl_top">
 								<div class="ad_tbl_toplist">
+									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
 								</div>
@@ -168,9 +169,8 @@
 										<th class="ta_r">
 											<input type="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled>
 										</th>
-										<th class="ta_r">기준일자</th>
+										<th>기준일자</th>
 										<th class="td_input">
-											<div class="form-group">
 												<div class="dp_inline wd_125 va_m">
 													<div class="input-group date">
 														<div class="input-group-addon">
@@ -188,7 +188,6 @@
 														<input type="text" name="datepicker" placeholder="종료일" class="form-control pull-right">
 													</div>
 												</div>
-											</div>
 										</th>
 										<th class="ta_r">입/출고 구분</th>
 										<th class="ta_r">
@@ -234,13 +233,13 @@
 											<th scope="row" colspan="2">
 												전일재고
 											</th>
-											<th scope="row" colspan="2">
+											<th scope="row" colspan="2">												
 												입고
 											</th>
-											<th scope="row" colspan="2">
+											<th scope="row" colspan="2">												
 												출고
 											</th>
-											<th scope="row" colspan="2">
+											<th scope="row" colspan="2">												
 												현재고
 											</th>
 										</tr>

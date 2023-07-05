@@ -171,7 +171,7 @@
 										<th class="ta_r" colspan="2">
 											<input type="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled>
 										</th>
-
+										
 										<th class="ta_r">사용자명</th>
 										<th colspan="1" class="td_input">
 											<input type="text" class="form-control input-sm" placeholder="입력" title="입력하세요." >
@@ -180,13 +180,13 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
-
-							<div style="flex-direction: row; display: flex;">
-								<div>
-								<b>권한그룹목록</b>
+							
+							<div>
+								<div class="col-sm-4">
+									<b>권한그룹목록</b>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 95%;">
 									<colgroup>
 										<col style="width: 3%">
@@ -287,7 +287,7 @@
 								   </table>
 
 								</div>
-								<div>
+								<div class="col-sm-8">
 									<b>메뉴 목록</b>
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<colgroup>
@@ -306,29 +306,29 @@
 											<tr>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">선택</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all"></label>
 													</p>
 												</td>
 												<td>*메뉴관리</td>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check2" checked>
-														<label class="check_label ta_i" for="check2">전체</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">전체</label>
 													</p>
 												</td>
 												<td>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">조회</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">조회</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">저장</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">저장</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">신규</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">신규</label>
 													</p>
 												</td>
 											</tr>
@@ -336,32 +336,32 @@
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">선택</label>
+														<label class="check_label ta_i" for="check1"></label>
 													</p>
 												</td>
 												<td>*화면관리</td>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check2" checked>
-														<label class="check_label ta_i" for="check2">전체</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">전체</label>
 													</p>
 												</td>
 												<td>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">조회</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">조회</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">저장</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">저장</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">신규</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">신규</label>
 													</p>
 												</td>
 											</tr>
-
+											
 											<tr>
 												<td></td>
 												<td>*권한관리</td>
@@ -372,28 +372,28 @@
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">선택</label>
+														<label class="check_label ta_i" for="check1"></label>
 													</p>
 												</td>
 												<td>-권한그룹관리</td>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check2" checked>
-														<label class="check_label ta_i" for="check2">전체</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">전체</label>
 													</p>
 												</td>
 												<td>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">조회</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">조회</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">저장</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">저장</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">신규</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">신규</label>
 													</p>
 												</td>
 											</tr>
@@ -401,28 +401,28 @@
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">선택</label>
+														<label class="check_label ta_i" for="check1"></label>
 													</p>
 												</td>
 												<td>-권한별 사용자관리</td>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check2" checked>
-														<label class="check_label ta_i" for="check2">전체</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">전체</label>
 													</p>
 												</td>
 												<td>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">조회</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">조회</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">저장</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">저장</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">신규</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">신규</label>
 													</p>
 												</td>
 											</tr>
@@ -436,28 +436,28 @@
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">선택</label>
+														<label class="check_label ta_i" for="check1"></label>
 													</p>
 												</td>
 												<td>-사용자 관리</td>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check2" checked>
-														<label class="check_label ta_i" for="check2">전체</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">전체</label>
 													</p>
 												</td>
 												<td>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">조회</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">조회</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">저장</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">저장</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">신규</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">신규</label>
 													</p>
 												</td>
 											</tr>
@@ -465,28 +465,28 @@
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">선택</label>
+														<label class="check_label ta_i" for="check1"></label>
 													</p>
 												</td>
 												<td>-사용자별 권한관리</td>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check2" checked>
-														<label class="check_label ta_i" for="check2">전체</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">전체</label>
 													</p>
 												</td>
 												<td>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">조회</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">조회</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">저장</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">저장</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">신규</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">신규</label>
 													</p>
 												</td>
 											</tr>
@@ -494,28 +494,28 @@
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">선택</label>
+														<label class="check_label ta_i" for="check1"></label>
 													</p>
 												</td>
 												<td>메시지관리</td>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check2" checked>
-														<label class="check_label ta_i" for="check2">전체</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">전체</label>
 													</p>
 												</td>
 												<td>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">조회</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">조회</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">저장</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">저장</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">신규</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">신규</label>
 													</p>
 												</td>
 											</tr>
@@ -529,7 +529,7 @@
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">선택</label>
+														<label class="check_label ta_i" for="check1"></label>
 													</p>
 												</td>
 											</tr>
@@ -541,53 +541,53 @@
 											</tr>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check2" checked>
-														<label class="check_label ta_i" for="check2">전체</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all"></label>
 													</p>
 												</td>
 												<td>-공통코드관리</td>
 												<td>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">조회</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">조회</label>
 													</p>
 												</td>
 												<td>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">조회</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">조회</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">저장</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">저장</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">신규</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">신규</label>
 													</p>
 												</td>
 											<tr>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">선택</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all"></label>
 													</p>
 												</td>
 												<td>-센터별 공통코드관리</td>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check2">
-														<label class="check_label ta_i" for="check2">전체</label>
+														<input type="checkbox" class="check" id="check_all">
+														<label class="check_label" for="check_all">전체</label>
 													</p>
 												</td>
 												<td>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1" checked>
-														<label class="check_label ta_i" for="check1">조회</label>
+														<input type="checkbox" class="check" id="check_all" checked>
+														<label class="check_label" for="check_all">조회</label>
 													</p>
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1">
-														<label class="check_label ta_i" for="check1">저장</label>
+														<input type="checkbox" class="check" id="check_all" >
+														<label class="check_label" for="check_all">저장</label>
 													</p>
 												</td>
 											</tr>

@@ -170,7 +170,7 @@
 										<th class="ta_r">
 											<input type="text" class="form-control input-sm" placeholder="" title="입력하세요." disabled>
 										</th>
-
+										
 										<!-- <th class="ta_r">작업일자</th> -->
 										<th scope="row">작업일자</th>
 										<th class="td_input">
@@ -209,7 +209,7 @@
 										<col style="width: 10%">
 										<col style="width: 10%">
 										<col style="width: 20%">
-
+										
 									</colgroup>
 									<thead>
 										<tr>
@@ -325,7 +325,11 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td>&nbsp;</td>
+											<td>
+												<select class="form-control input-sm" style="height: 40%;">
+													<option></option>
+												</select>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -336,7 +340,11 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td>&nbsp;</td>
+											<td>
+												<select class="form-control input-sm" style="height: 40%;">
+													<option></option>
+												</select>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -347,7 +355,11 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td>&nbsp;</td>
+											<td>
+												<select class="form-control input-sm" style="height: 40%;">
+													<option></option>
+												</select>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -359,6 +371,7 @@
 								</div>
 							</div>
 						</div>
+					</div>
 				</section>
 
 

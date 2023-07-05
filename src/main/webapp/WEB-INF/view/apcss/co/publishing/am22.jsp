@@ -142,7 +142,8 @@
 						<h3 class="box-title">▶ 원물계량등록(테블릿)</h3>
 						<div class="ad_tbl_top">
 							<div class="ad_tbl_toplist">
-								<button type="button" class="btn btn-sm btn-primary">계량확인표</button>
+								<button type="button" class="btn btn-md btn-primary">계량확인서</button>
+								&nbsp;								
 								<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
 								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
 								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
@@ -155,7 +156,7 @@
 					<div class="box-body">
 						<!--[pp] 검색 -->
 						<table class="table table-bordered tbl_row tbl_fixed">
-							<caption>검색 조건 설정</caption>
+							<caption>검색 조건 설정</caption>							
 							<colgroup>
 								<col style="width: 5%">
 								<col style="width: 4%">
@@ -180,10 +181,8 @@
 									<td colspan="6" class="td_input"  style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
 									</td>
-									<td style="border-right: hidden;">&nbsp;</td>
-									<td style="border-right: hidden;">&nbsp;</td>
-									<td style="border-right: hidden;">&nbsp;</td>
-									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="9">&nbsp;</td>
+									
 								</tr>
 								<tr>
 									<th scope="row">생산자</th>
@@ -192,10 +191,10 @@
 									<td colspan="2" class="td_input"  style="border-right: hidden;">
 										<button class="btn btn-xs btn-outline-dark" type="button">조회</button>
 									</td>
-									<td style="border-right: hidden;">&nbsp;</td>
-									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 									<td colspan="2" style="border-right: hidden;"> → 초성 검색기능 적용</td>
-								</tr>
+									<td colspan="3"></td>									
+								</tr>								
 								<tr>
 									<th scope="row">품목 / 품종</th>
 									<td colspan="2"class="td_input" style="border-right: hidden;">
@@ -212,11 +211,12 @@
 										<p class="ad_input_row">
 											<input type="checkbox" class="check" id="check_all">
 											<label class="check_label" for="check_all">고정</label>
-										</p>
+										</p>	
 									</td>
-									<td style="border-right: hidden;">&nbsp;</td>
-									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="2" style="border-right: hidden;">&nbsp;</td>	
 									<td colspan="4" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정 or 고정 선택 시 해당품종 유지</td>
+									<td colspan="1" >&nbsp;</td>			
+
 								</tr>
 								<tr>
 									<th scope="row">계량일자</th>
@@ -230,11 +230,9 @@
 											</div>
 										</div>
 									</td>
-									<td style="border-right: hidden;">&nbsp;</td>
-									<td style="border-right: hidden;">&nbsp;</td>
-									<td style="border-right: hidden;">&nbsp;</td>
-									<td style="border-right: hidden;">&nbsp;</td>
+									<td colspan="4" style="border-right: hidden;">&nbsp;</td>
 									<td colspan="2"  style="border-right: hidden;"> → 기본 현재일자로 지정</td>
+									<td colspan="3">&nbsp;</td>
 								</tr>
 								<tr>
 									<th scope="row">차량번호/성명</th>
@@ -246,8 +244,9 @@
 									</td>
 									<td colspan="3"class="td_input" style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="입력"disabled>
-									</td>
-								</tr>
+									</td>			
+									<td colspan="9"class="td_input">
+								</tr>														
 								<tr>
 									<th scope="row">전체/공차증량</th>
 									<td class="td_input"  style="border-right: hidden;">
@@ -264,9 +263,9 @@
 										<p class="ad_input_row">
 											<input type="checkbox" class="check" id="check_all">
 											<label class="check_label" for="check_all">고정</label>
-										</p>
+										</p>	
 									</td>
-									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>	
 									<td style="border-right: hidden;" class="td_input"><label class="bold">감량 Kg</label></td>
 									<td class="td_input" style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
@@ -275,7 +274,8 @@
 									<td class="td_input"><label class="bold">실중량 Kg</label></td>
 									<td class="td_input">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
-									</td>
+									</td>			
+									<td>&nbsp;</td>
 								</tr>
 								<tr>
 									<th scope="row">입고창고</th>
@@ -288,20 +288,22 @@
 										<p class="ad_input_row">
 											<input type="checkbox" class="check" id="check_all">
 											<label class="check_label" for="check_all">고정</label>
-										</p>
+										</p>	
 									</td>
-								</tr>
-								<tr>
-									<th scope="row"  style="border-right: hidden;">팔레트/박스</th>
-								 	<td style="border-right: hidden;"><button class="btn btn-xs btn-outline-dark" type="button">입력</button></td>
-									<td colspan="3"class="td_input" style="border-right: hidden;">
+									<td colspan="11"class="td_input">
+									</tr>
+									<tr>
+										<th scope="row"  style="border-right: hidden;">팔레트/박스</th>
+										<td style="border-right: hidden;"><button class="btn btn-xs btn-outline-dark" type="button">입력</button></td>
+										<td colspan="3"class="td_input" style="border-right: hidden;">
+											<input type="text" class="form-control input-sm" placeholder="" disabled>
+										</td>
+										<td colspan="2"class="td_input" style="border-right: hidden;"><label class="bold">Kg</label></td>
+										<td class="td_input" style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
 									</td>
 									<td colspan="2"class="td_input" style="border-right: hidden;"><label class="bold">Kg</label></td>
-									<td class="td_input" style="border-right: hidden;">
-										<input type="text" class="form-control input-sm" placeholder="" disabled>
-									</td>
-									<td colspan="2"class="td_input" style="border-right: hidden;"><label class="bold">Kg</label></td>
+									<td colspan="6"class="td_input">
 								</tr>
 								<tr>
 									<th scope="row" >입고등급</th>
@@ -321,6 +323,8 @@
 									<td class="td_input"  style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
 									</td>
+									<td colspan="9"class="td_input">
+
 								</tr>
 								<tr>
 									<th scope="row">정산중량</th>
@@ -328,6 +332,7 @@
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
 									</td>
 									<td class="td_input"  style="border-right: hidden;"><label class="bold">Kg</label></td>
+									<td colspan="13"class="td_input">
 								</tr>
 							</tbody>
 						</table>

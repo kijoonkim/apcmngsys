@@ -183,7 +183,7 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<div class="ad_tbl_top">
@@ -210,7 +210,7 @@
 											<p class="ad_input_row">
 												<input type="checkbox" class="check" id="check1" >
 												<label class="check_label ta_i" for="check1">선택</label>
-											</p>
+											</p>	
 										</th>
 										<th>No</th>
 										<th>화면ID</th>
@@ -228,7 +228,7 @@
 											<p class="ad_input_row">
 												<input type="checkbox" class="check" id="check1" >
 												<label class="check_label ta_i" for="check1">선택</label>
-											</p>
+											</p>	
 										</td>
 										<td>1</td>
 										<td></td>
@@ -239,12 +239,12 @@
 										<td></td>
 										<td></td>
 										<td></td>
-									</tr>
+									</tr>	
 									<tr><td>
 											<p class="ad_input_row">
 												<input type="checkbox" class="check" id="check1" >
 												<label class="check_label ta_i" for="check1">선택</label>
-											</p>
+											</p>	
 										</td>
 										<td></td>
 										<td></td>
@@ -255,12 +255,12 @@
 										<td></td>
 										<td></td>
 										<td></td>
-									</tr>
+									</tr>	
 									<tr><td>
 											<p class="ad_input_row">
 												<input type="checkbox" class="check" id="check1" >
 												<label class="check_label ta_i" for="check1">선택</label>
-											</p>
+											</p>	
 										</td>
 										<td></td>
 										<td></td>
@@ -271,12 +271,12 @@
 										<td></td>
 										<td></td>
 										<td></td>
-									</tr>
+									</tr>	
 									<tr><td>
 											<p class="ad_input_row">
 												<input type="checkbox" class="check" id="check1" >
 												<label class="check_label ta_i" for="check1">선택</label>
-											</p>
+											</p>	
 										</td>
 										<td></td>
 										<td></td>
@@ -287,12 +287,12 @@
 										<td></td>
 										<td></td>
 										<td></td>
-									</tr>
+									</tr>	
 									<tr><td>
 											<p class="ad_input_row">
 												<input type="checkbox" class="check" id="check1" >
 												<label class="check_label ta_i" for="check1">선택</label>
-											</p>
+											</p>	
 										</td>
 										<td></td>
 										<td></td>
@@ -303,12 +303,12 @@
 										<td></td>
 										<td></td>
 										<td></td>
-									</tr>
+									</tr>	
 									<tr><td>
 											<p class="ad_input_row">
 												<input type="checkbox" class="check" id="check1" >
 												<label class="check_label ta_i" for="check1">선택</label>
-											</p>
+											</p>	
 										</td>
 										<td></td>
 										<td></td>
@@ -319,12 +319,12 @@
 										<td></td>
 										<td></td>
 										<td></td>
-									</tr>
+									</tr>	
 									<tr><td>
 											<p class="ad_input_row">
 												<input type="checkbox" class="check" id="check1" >
 												<label class="check_label ta_i" for="check1">선택</label>
-											</p>
+											</p>	
 										</td>
 										<td></td>
 										<td></td>
@@ -335,12 +335,12 @@
 										<td></td>
 										<td></td>
 										<td></td>
-									</tr>
+									</tr>	
 									<tr><td>
 											<p class="ad_input_row">
 												<input type="checkbox" class="check" id="check1" >
 												<label class="check_label ta_i" for="check1">선택</label>
-											</p>
+											</p>	
 										</td>
 										<td></td>
 										<td></td>
@@ -351,12 +351,12 @@
 										<td></td>
 										<td></td>
 										<td></td>
-									</tr>
+									</tr>	
 									<tr><td>
 											<p class="ad_input_row">
 												<input type="checkbox" class="check" id="check1" >
 												<label class="check_label ta_i" for="check1">선택</label>
-											</p>
+											</p>	
 										</td>
 										<td></td>
 										<td></td>
@@ -367,21 +367,27 @@
 										<td></td>
 										<td></td>
 										<td></td>
-									</tr>
+									</tr>	
 									<tr>
 										<td colspan="3">
 											<select class="form-control input-sm">
-												<option>시스템관리</option>
-											</select>
+												<option>100</option>
+											</select>										
 										</td>
 										<td colspan="7"></td>
-									</tr>
+									</tr>	
 								</tbody>
-							</table>
-
+							</table>	
+							<br>
+							<br>
 							<div style="flex-direction: row; display: flex;">
 								<div>
 								<b>화면상세정보</b>
+								<div class="ad_tbl_top">
+									<div class="ad_tbl_toplist" >
+										<br>
+									</div>
+								</div>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 95%;">
 									<colgroup>
 										<col style="width: 25%">
@@ -459,9 +465,9 @@
 								<div>
 									<b>개체목록</b>
 									<div class="ad_tbl_top">
-										<div class="ad_tbl_toplist">
-											<button type="button" class="btn btn-sm btn-outline-danger">행추가</button>
-											<button type="button" class="btn btn-sm btn-outline-danger">행삭제</button>
+										<div class="ad_tbl_toplist" >
+											<button type="button" class="btn btn-sm btn-outline-danger" >행추가</button>
+											<button type="button" class="btn btn-sm btn-outline-danger" >행삭제</button>
 										</div>
 									</div>
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
@@ -479,7 +485,7 @@
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" >
 														<label class="check_label ta_i" for="check1">선택</label>
-													</p>
+													</p>	
 												</th>
 												<th>id</th>
 												<th>명칭</th>
@@ -501,7 +507,7 @@
 												<td>
 													<select class="form-control input-sm">
 														<option>버튼</option>
-													</select>
+													</select>	
 												</td>
 												<td></td>
 												<td></td>
@@ -518,7 +524,7 @@
 												<td>
 													<select class="form-control input-sm">
 														<option>그룹</option>
-													</select>
+													</select>	
 												</td>
 												<td></td>
 												<td></td>
@@ -535,7 +541,7 @@
 												<td>
 													<select class="form-control input-sm">
 														<option>유효성</option>
-													</select>
+													</select>	
 												</td>
 												<td></td>
 												<td></td>

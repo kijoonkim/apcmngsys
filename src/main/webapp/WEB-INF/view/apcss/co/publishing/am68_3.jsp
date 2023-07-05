@@ -172,7 +172,7 @@
 											&nbsp;
 										</th>
 									</tr>
-									<tr>
+									<tr>	
 										<th class="ta_r">품목/품종</th>
 										<th class="td_input">
 											<div class="fl_group fl_rpgroup">
@@ -190,14 +190,14 @@
 										<th class="ta_r">
 											<select class="form-control">
 												<option></option>
-											</select>
-										</th>
+											</select>										
+										</th>	
 										<th class="ta_r">창고구분</th>
 										<th class="ta_r">
 											<select class="form-control">
 												<option></option>
-											</select>
-										</th>
+											</select>										
+										</th>	
 										<th></th>
 									</tr>
 									<tr>
@@ -221,7 +221,7 @@
 										</th>
 										<th>&nbsp;</th>
 									</tr>
-
+									
 								</tbody>
 							</table>
 							<div>
@@ -253,9 +253,9 @@
 													<option></option>
 												</select>
 											</td>
-										</tr>
+										</tr>	
 									</tbody>
-								</table>
+								</table>	
 
 										<table class="table table-bordered table-hover tbl_col tbl_fixed" >
 											<colgroup>
@@ -290,34 +290,34 @@
 													<th scope="row" rowspan="2">
 														포장일자
 													</th>
-													<th scope="row" rowspan="2">
+													<th scope="row" rowspan="2">												
 														설비
 													</th>
-													<th scope="row" rowspan="2">
+													<th scope="row" rowspan="2">												
 														생산자
 													</th>
-													<th scope="row" rowspan="2">
+													<th scope="row" rowspan="2">												
 														품목
 													</th>
-													<th scope="row" rowspan="2">
+													<th scope="row" rowspan="2">												
 														품종
 													</th>
-													<th scope="row" rowspan="2">
+													<th scope="row" rowspan="2">												
 														규격
 													</th>
-													<th scope="row"  rowspan="2">
+													<th scope="row"  rowspan="2">												
 														등급
 													</th>
-													<th scope="row"  rowspan="2">
+													<th scope="row"  rowspan="2">												
 														현물창고
 													</th>
-													<th scope="row"  colspan="2">
+													<th scope="row"  colspan="2">												
 														재고
 													</th>
-													<th scope="row"  rowspan="2">
+													<th scope="row"  rowspan="2">												
 														이송창고
 													</th>
-													<th scope="row"  colspan="2">
+													<th scope="row"  colspan="2">												
 														이송
 													</th>
 												</tr>
@@ -330,7 +330,7 @@
 											</thead>
 											<tbody>
 												<tr>
-													<td>
+													<td>														
 														<p class="ad_input_row">
 															<input type="checkbox" class="check" id="check_all">
 															<label class="check_label" for="check_all"></label>
@@ -354,7 +354,7 @@
 													<td>&nbsp;</td>
 												</tr>
 												<tr>
-													<td>
+													<td>														
 														<p class="ad_input_row">
 															<input type="checkbox" class="check" id="check_all">
 															<label class="check_label" for="check_all"></label>
@@ -378,7 +378,7 @@
 													<td>&nbsp;</td>
 												</tr>
 											</tbody>
-										</table>
+										</table>			
 								</div>
 							</div>
 							<!--[pp] //검색결과 -->

@@ -172,7 +172,7 @@
 											&nbsp;
 										</th>
 									</tr>
-									<tr>
+									<tr>	
 										<th class="ta_r">상품코드</th>
 										<th class="td_input">
 											<input type="text" class="form-control input-sm" placeholder="">
@@ -187,7 +187,7 @@
 												</div>
 												<button type="button" class="btn btn-sm btn-outline-danger">찾기</button>
 											</div>
-										</th>
+										</th>	
 										<th class="ta_r">품종</th>
 										<th class="ta_r">
 											<div class="fl_group fl_rpgroup">
@@ -198,7 +198,7 @@
 												</div>
 												<button type="button" class="btn btn-sm btn-outline-danger">찾기</button>
 											</div>
-										</th>
+										</th>	
 										<th></th>
 									</tr>
 									<tr>
@@ -222,7 +222,7 @@
 										</th>
 										<th>&nbsp;</th>
 									</tr>
-
+									
 									<tr>
 										<th>산지</th>
 										<th>
@@ -276,22 +276,22 @@
 											<th scope="row">
 												규격
 											</th>
-											<th scope="row">
+											<th scope="row">												
 												상품등급
 											</th>
-											<th scope="row">
+											<th scope="row">												
 												브랜드
 											</th>
-											<th scope="row">
+											<th scope="row">												
 												산지
 											</th>
-											<th scope="row">
+											<th scope="row">												
 												포장구분
 											</th>
-											<th scope="row" >
+											<th scope="row" >												
 												입수
 											</th>
-											<th scope="row" >
+											<th scope="row" >												
 												중량
 											</th>
 										</tr>

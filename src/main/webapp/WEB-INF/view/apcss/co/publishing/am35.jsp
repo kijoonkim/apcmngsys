@@ -168,7 +168,7 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th scope="row">APC 명</th>
+										<th scope="row">APC 명</th>								
 										<th colspan="2">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
 										<th>&nbsp;</th>
@@ -199,7 +199,7 @@
 													</div>
 													<input type="text" name="datepicker" placeholder="2023.01.31" class="form-control pull-right input-sm">
 												</div>
-											</div>
+											</div>										
 										</th>
 										<th scope="row">품목/품종</th>
 										<th class="td_input">
@@ -223,7 +223,7 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 								<div class="ad_tbl_top">
@@ -355,7 +355,7 @@
 								</tbody>
 							</table>
 						</div>
-
+								
 						<div class="table-responsive tbl_scroll_sm">
 							<div class="ad_section_top">
 							<div class="ad_tbl_top">

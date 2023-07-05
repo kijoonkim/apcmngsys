@@ -170,19 +170,19 @@
 										<th class="ta_r">시스템구분</th>
 										<th class="ta_r" colspan="2">
 											<select class="form-control input-sm">
-												<option>시스템관리</option>
+												<option>100</option>
 											</select>
 										</th>
 										<th colspan="6"></th>
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
-
-							<div style="flex-direction: row; display: flex;">
-								<div>
+							<br>
+							<div>
+								<div class="col-sm-3">
 								<b>메뉴목록</b>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 95%;">
 									<colgroup>
@@ -222,11 +222,12 @@
 										</tr>
 									</thead>
 									<tbody>
-									</tbody>
+									</tbody>	
 									</table>
 
 								</div>
-								<div>
+								
+								<div class="col-sm-9">
 									<b>메뉴 상세정보</b>
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<colgroup>
@@ -258,12 +259,13 @@
 												<th>화면유형</th>
 												<td></td>
 												<th>사용자유형</th>
-												<td>
+												<td>												
 												</td>
 											</tr>
 										</thead>
 									</table>
-									<b>메뉴 상세정보</b>
+									<br>
+									<b>확인버튼 및 개체 목록</b>
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<colgroup>
 											<col style="width: 3%">
@@ -277,7 +279,7 @@
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" >
 														<label class="check_label ta_i" for="check1">선택</label>
-													</p>
+													</p>	
 												</th>
 												<th>id</th>
 												<th>명칭</th>
@@ -290,7 +292,7 @@
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" >
 														<label class="check_label ta_i" for="check1">선택</label>
-													</p>
+													</p>	
 												</td>
 												<td>btnSearch</td>
 												<td>조회</td>
@@ -310,7 +312,7 @@
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" >
 														<label class="check_label ta_i" for="check1">선택</label>
-													</p>
+													</p>	
 												</td>
 												<td>grpInsert</td>
 												<td>등록GROUP</td>

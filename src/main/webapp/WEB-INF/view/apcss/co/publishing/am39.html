@@ -299,7 +299,8 @@
 							<h3 class="box-title"> ▶ 출하실적 등록</h3>
 							<div class="ad_tbl_top">
 								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-primary">송품장</button>
+									<button type="button" class="btn btn-md btn-primary">송품장</button>
+									&nbsp;&nbsp;&nbsp;
 									<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
@@ -356,6 +357,7 @@
 												<option>선택</option>
 											</select>
 										</td>
+										<td rowspan="2"><button type="button" class="btn btn-md btn-outline-danger">재고조회</button></td>
 									</tr>
 									<tr>
 										<th scope="row">품목/품종</th>
@@ -394,7 +396,6 @@
 												<option>선택</option>
 											</select>
 										</td>
-										<td><button type="button" class="btn btn-sm btn-outline-danger">재고조회</button></td>
 									</tr>
 								</tbody>
 							</table>														
@@ -506,6 +507,8 @@
 										</tr>
 									</tbody>
 								</table>
+								<br>
+
 								<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
@@ -592,7 +595,7 @@
 										<td style="border-right: hidden;">&nbsp;</td>
 										<th scope="row">차량번호</th>
 										<td class="td_input" style="border-right: hidden;">
-											<input type="text" class="form-control input-sm" placeholder="" title="">
+											<input type="text" class="form-control input-sm" placeholder="" title="" disabled>
 										</td>
 										<td></td>
 									</tr>
@@ -614,7 +617,7 @@
 										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="입력" title="입력">
 										</td>
-										<td></td>	
+										<td class="ta_l">원</td>	
 									</tr>
 									<tr>
 										<th scope="row">비고</th>
@@ -624,16 +627,19 @@
 									</tr>
 								</tbody>
 							</table>
+								<b>&nbsp;</b>
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>출하 내역</span></li>
 									<li><span>출하수량/중량 : 99/99,999 kg</span></li>
 									</ul>
 								</div>										
-								<div class="ad_tbl_toplist">
-									<button type="button" classㄴ="btn btn-sm btn-outline-dark"></i>내려받기</button>
-									<button type="button" classㄴ="btn btn-sm btn-outline-dark"></i>올리기</button>
+								<div class="ad_tbl_top">
+									<div class="ad_tbl_toplist">
+										<button type="button" classㄴ="btn btn-sm btn-outline-dark"></i>내려받기</button>
+										<button type="button" classㄴ="btn btn-sm btn-outline-dark"></i>올리기</button>
 									</div>
+								</div>	
 								</div>
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">

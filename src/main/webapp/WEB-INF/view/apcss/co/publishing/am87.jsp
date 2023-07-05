@@ -167,12 +167,12 @@
 												<option>전체</option>
 											</select>
 										</th>
-										<th><input type="text" class="form-control input-sm" placeholder="검색어 입력" title=""></th>
+										<th><input type="text" class="form-control input-sm" placeholder="검색어 입력" title=""></th>	
 										<th></th>
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<br>
@@ -300,17 +300,17 @@
 												<col style="width: 25%">
 											</colgroup>
 											<tbody>
-												<tr>
+												<tr>	
 													<th scope="row">메세지KEY</th>
-													<td class="ta_l" colspan="3">MSG0001</td>
+													<td class="ta_l" colspan="3">MSG0001</td>	
 												</tr>
-												<tr>
+												<tr>	
 													<th scope="row">메세지KEY</th>
-													<td class="ta_l" colspan="3">(0)와/과 {1}은/는 동시에 입력하여야 합니다.</td>
+													<td class="ta_l" colspan="3">(0)와/과 {1}은/는 동시에 입력하여야 합니다.</td>	
 												</tr>
-												<tr>
+												<tr>	
 													<th scope="row">비고</th>
-													<td class="ta_l" colspan="3">유효성 체크 메시지</td>
+													<td class="ta_l" colspan="3">유효성 체크 메시지</td>	
 												</tr>
 												<tr>
 													<th>최초등록ID</th>
@@ -330,7 +330,7 @@
 													<th>변경프로그램</th>
 													<td>&nbsp;</td>
 												</tr>
-											</tbody>
+											</tbody> 
 										</table>
 								</div>
 							</div>

@@ -191,7 +191,7 @@
 													</div>
 													<input type="text" name="datepicker" placeholder="2023.01.31" class="form-control pull-right input-sm">
 												</div>
-											</div>
+											</div>										
 										</td>
 
 										<th scope="row">창고구분</th>
@@ -200,6 +200,8 @@
 												<option>선택</option>
 											</select>
 										</td>
+										<td rowspan="2"><button type="button" class="btn btn-md btn-outline-danger">발주조회</button></td>
+
 									</tr>
 									<tr>
 										<th scope="row">품목/품종</th>
@@ -207,7 +209,7 @@
 											<select class="form-control input-sm">
 												<option>선택</option>
 												</select>
-										</td>
+										</td>								
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
@@ -225,17 +227,16 @@
 												<option>선택</option>
 											</select>
 										</td>
-										<td><button type="button" class="btn btn-sm btn-outline-danger">발주조회</button></td>
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>　출하지시대상 내역</span></li>
-									<li><span>　　선택수량/중량 : 99/99,999 Kg</span></li>
+									<li><span>　　선택수량/중량 : 99/99,999 Kg</span></li>	
 									</ul>
 								</div>
 								<div class="ad_tbl_toplist">
@@ -244,7 +245,7 @@
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
-
+																				
 											<col style="width: 5%">
 											<col style="width: 8%">
 											<col style="width: 8%">
@@ -272,7 +273,7 @@
 												<th scope="col">재고수량</th>
 												<th scope="col">지시수량</th>
 												<th scope="col">지시중량</th>
-
+												
 											</tr>
 										</thead>
 										<tbody>
@@ -334,6 +335,7 @@
 										</tr>
 									</tbody>
 								</table>
+								<b>&nbsp;</b>
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
@@ -358,12 +360,12 @@
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm" disabled>
 												<option></option>
-											</select>
+											</select>								                        
 										</td>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm" disabled>
 												<option></option>
-											</select>
+											</select>								                        
 										</td>
 										<td style="border-right: hidden;">&nbsp;</td>
 										<th scope="row">배송처</th>
@@ -389,7 +391,7 @@
 												<option>선택</option>
 											</select>
 										</td>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>							
 										<th scope="row">상품등급</th>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
@@ -431,9 +433,9 @@
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>　출하지시 내역</span></li>
-									<li><span>　　출하지시 수량/중량 : 99/99,999 Kg</span></li>
+									<li><span>　　출하지시 수량/중량 : 99/99,999 Kg</span></li>	
 									</ul>
-								</div>
+								</div>	
 								</div>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<caption>검색결과 목록</caption>
@@ -470,7 +472,7 @@
 										</tr>
 									</thead>
 									<tbody>
-									<tr>
+										<tr>
 											<th scope="row" class="td_input">
 												<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
@@ -488,7 +490,7 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-										</tr>
+										</tr>	
 										<tr>
 											<th scope="row" class="td_input">
 												<p class="ad_input_row">

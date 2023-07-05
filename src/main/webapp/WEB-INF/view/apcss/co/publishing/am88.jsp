@@ -178,12 +178,12 @@
 												<label class="radio_label" for="radio_dis_on">명</label>
 											</p>
 										</th>
-										<th><input type="text" class="form-control input-sm" placeholder="코드 또는 코드명" title=""></th>
+										<th><input type="text" class="form-control input-sm" placeholder="코드 또는 코드명" title=""></th>	
 										<th></th>
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<br>

@@ -170,7 +170,6 @@
 										</th>
 										<th class="ta_r">이송일자</th>
 										<th class="td_input">
-											<div class="form-group">
 												<div class="dp_inline wd_125 va_m">
 													<div class="input-group date">
 														<div class="input-group-addon">
@@ -188,7 +187,6 @@
 														<input type="text" name="datepicker" placeholder="종료일" class="form-control pull-right" disabled>
 													</div>
 												</div>
-											</div>
 										</th>
 										<th class="ta_r">이송APC</th>
 										<th class="ta_r">
@@ -199,7 +197,7 @@
 
 										<th></th>
 									</tr>
-									<tr>
+									<tr>	
 										<th class="ta_r">품목/품종</th>
 										<th class="td_input">
 											<div class="fl_group fl_rpgroup">
@@ -212,7 +210,7 @@
 													<option>선택</option>
 												</select>
 											</div>
-										</th>
+										</th>										
 										<th class="ta_r">규격</th>
 										<th class="td_input">
 											<select class="form-control"  style="width: 70%;">
@@ -251,7 +249,7 @@
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">
 									<li><span>이송 내역</span></li>
-									<label> 매출 중량/ 금액: 99,999Kg/99,999₩</label>
+									<li><label> 매출 중량/ 금액: 99,999Kg/99,999₩</label></li>
 								</ul>
 							</div>
 
@@ -265,10 +263,10 @@
 										<col style="width: 7%">
 										<col style="width: 7%">
 										<col style="width: 7%">
-										<col style="width: 5%">
-										<col style="width: 5%">
-										<col style="width: 5%">
-										<col style="width: 5%">
+										<col style="width: 4%">
+										<col style="width: 4%">
+										<col style="width: 4%">
+										<col style="width: 4%">
 										<col style="width: 7%">
 										<col style="width: 7%">
 										<col style="width: 7%">
@@ -289,37 +287,37 @@
 											<th scope="row" rowspan="2">
 												포장번호순번
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												입고일자
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												생산자
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												품종
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												상품구분
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												입고구분
 											</th>
-											<th scope="row"  rowspan="2">
+											<th scope="row"  rowspan="2">												
 												운송구분
 											</th>
-											<th scope="row"  rowspan="2">
+											<th scope="row"  rowspan="2">												
 												현물창고
 											</th>
-											<th scope="row"  rowspan="2">
+											<th scope="row"  rowspan="2">												
 												이송창고
 											</th>
-											<th scope="row" colspan="2">
+											<th scope="row" colspan="2">												
 												이송
 											</th>
-											<th scope="row"  rowspan="2">
+											<th scope="row"  rowspan="2">												
 												금액
 											</th>
-											<th scope="row"  rowspan="2">
+											<th scope="row"  rowspan="2">												
 												운반비
 											</th>
 										</tr>

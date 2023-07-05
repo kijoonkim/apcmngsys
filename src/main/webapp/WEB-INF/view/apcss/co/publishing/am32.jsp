@@ -195,14 +195,14 @@
 												</div>
 											</div>
 										</td>
-									</tr>
+									</tr>			
 									<tr>
 										<th scope="row">품목/품종</th>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option></option>
 											</select>
-										</td>
+										</td>										
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option></option>
@@ -219,11 +219,11 @@
 										</td>
 										<th scope="row">참고</th>
 										<td class="td_input" style="border-right: hidden;">
-											<select class="form-control input-sm">
+											<select class="form-control input-sm">									
 												<option>단일선택</option>
 											</select>
 										</td>
-									</tr>
+									</tr>	
 								</tbody>
 							</table>
 							<!--[pp] //검색 -->
@@ -271,7 +271,7 @@
 												<th scope="col">중량</th>
 												<th scope="col">수량</th>
 												<th scope="col">중량</th>
-											</tr>
+											</tr>	
 										</thead>
 										<tbody>
 											<tr>
@@ -300,7 +300,7 @@
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
+												</th>	
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -316,6 +316,7 @@
 											</tr>
 										</tbody>
 									</table>
+									<br>
 									<table class="table table-bordered tbl_row tbl_fixed">
 										<caption>검색 조건 설정</caption>
 										<colgroup>
@@ -352,10 +353,10 @@
 														<input type="text" class="form-control input-sm" placeholder="" disabled>
 												<td style="border-right: hidden;"><label class="bold">Kg
 													</label>
-												</td>
+												</td>									
 											</tr>
 										</tbody>
-						            </table>
+						            </table>							            							            
 							<div class="ad_section_top">
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
@@ -365,7 +366,7 @@
 									<button type="button" class="btn btn-sm btn-danger">내려받기</button>
 									<button type="button" class="btn btn-sm btn-danger">올리기</button>
 								</div>
-							</div>
+							</div>					        		    							        
 							<table class="table table-bordered table-hover tbl_col tbl_fixed">
 								<caption>검색결과 목록</caption>
 										<colgroup>
@@ -393,17 +394,17 @@
 												<th scope="col">설비</th>
 												<th scope="col">규격</th>
 												<th scope="col">특</th>
-												<th scope="col">상</th>
+												<th scope="col">상</th>											
 												<th scope="col">중</th>
-												<th scope="col">하</th>
+												<th scope="col">하</th>											
 												<th scope="col">&nbsp;</th>
-												<th scope="col">&nbsp;</th>
+												<th scope="col">&nbsp;</th>												
 												<th scope="col">합계</th>
 												<th scope="col">kg</th>
-												<th scope="col">저장창고</th>
+												<th scope="col">저장창고</th>												
 												<th scope="col">비고</th>
 												<th scope="col">라벨</th>
-												<th scope="col">처리</th>
+												<th scope="col">처리</th>												
 											</tr>
 										</thead>
 										<tbody>
@@ -417,9 +418,9 @@
 												<td>2023-05-01</td>
 												<td>&nbsp;</td>
 										        <td class="td_input">
-									        	<select class="form-control input-sm">
-									        	</select>
-									        	</td>
+													<select class="form-control input-sm">
+													</select>
+									        	</td>			        
 												<td>7</td>
 												<td>41</td>
 												<td>11</td>
@@ -438,20 +439,20 @@
 												</td>
 												<td class="td_input">
 													<button type="button" class="btn btn-xs btn-outline-danger">삭제</button>
-												</td>
+												</td>	
 											</tr>
 											<tr>
 											    <th scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
-														<label class="check_label ta_i" for="check1">선택</label>
+														<label class="check_label ta_i" for="check1"></label>
 													</p>
 												</th>
 												<td>2023-05-01</td>
 												<td>&nbsp;</td>
 										        <td class="td_input">
-									        	<select class="form-control input-sm">
-									        	</select>
+										        	<select class="form-control input-sm">
+										        	</select>
 									        	</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -462,18 +463,21 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 										        <td class="td_input">
-									        	<select class="form-control input-sm">
-									        	</select>
+										        	<select class="form-control input-sm">
+										        	</select>
 									        	</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td class="td_input">
 													<button type="button" class="btn btn-xs btn-outline-danger">추가</button>
-												</td>
+												</td>	
 											</tr>
 										</tbody>
 									</table>
 								</div>
+								<br>
+								<br>
+								<br>
 							    	<table class="table table-bordered tbl_row tbl_fixed">
 							    		<colgroup>
 											<col style="width: 100%">
@@ -484,9 +488,6 @@
 													하지만 특정 APC에서는 입고 시점까지 생산자를 관리하므로 처리는 가능하도록 함.<br>
 													2. 포장실적을 별도 관리하지 않는 경우 포장실적 자동등록 시 선별등급은 상품등급과 동일하게 처리
 												</th>
-												<td colspan= "2" class="td_input">
-													<input type="text" class="form-control input-sm" placeholder="입력하세요." title="입력하세요.">
-												</td>
 											</tr>
 										</tbody>
                                   </table>

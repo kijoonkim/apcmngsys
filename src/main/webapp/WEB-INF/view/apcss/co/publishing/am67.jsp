@@ -172,7 +172,7 @@
 										<th colspan="5"></th>
 									</tr>
 									<tr>
-
+										
 										<th class="ta_r">매출일자</th>
 										<th class="td_input">
 											<div class="form-group">
@@ -222,7 +222,7 @@
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">
 									<li><span>매출 내역</span></li>
-									<label> 매출 중량/ 금액: 99,999Kg/99,999₩</label>
+									<li><label> 매출 중량/ 금액: 99,999Kg/99,999₩</label></li>
 								</ul>
 							</div>
 
@@ -252,25 +252,25 @@
 											<th scope="row" rowspan="2">
 												상품명
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												상품코드
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												품종
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												규격
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												브랜드
 											</th>
-											<th scope="row"  rowspan="2">
+											<th scope="row"  rowspan="2">												
 												단가
 											</th>
-											<th scope="row" colspan="2">
+											<th scope="row" colspan="2">												
 												출하
 											</th>
-											<th scope="row"  rowspan="2">
+											<th scope="row"  rowspan="2">												
 												매출금액
 											</th>
 										</tr>

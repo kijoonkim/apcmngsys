@@ -166,7 +166,7 @@
 										<th class="ta_r" colspan="2">
 											<input type="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled>
 										</th>
-
+										
 										<th class="ta_r">계량번호</th>
 										<th colspan="1" class="td_input">
 											<input type="text" class="form-control input-sm" placeholder="입력" title="입력하세요." disabled>
@@ -175,7 +175,7 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<label>&nbsp;</label>
@@ -219,7 +219,7 @@
 											<td>3</td>
 											<td>100</td>
 											<td>300</td>
-											<td>
+											<td>									
 												<button type="button" class="btn btn-xs btn-outline-danger">삭제</button>
 											</td>
 										</tr>
@@ -228,7 +228,7 @@
 											<td></td>
 											<td></td>
 											<td></td>
-											<td>
+											<td>									
 												<button type="button" class="btn btn-xs btn-outline-danger">추가</button>
 											</td>
 										</tr>
@@ -282,7 +282,7 @@
 												<td>3</td>
 												<td>100</td>
 												<td>300</td>
-												<td>
+												<td>									
 													<button type="button" class="btn btn-xs btn-outline-danger">삭제</button>
 												</td>
 											</tr>
@@ -291,7 +291,7 @@
 												<td></td>
 												<td></td>
 												<td></td>
-												<td>
+												<td>									
 													<button type="button" class="btn btn-xs btn-outline-danger">추가</button>
 												</td>
 											</tr>

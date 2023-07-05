@@ -134,8 +134,6 @@
 <!-- ============================================================================================================== -->
 <!-- ============================================================================================================== -->
 <!-- ============================================================================================================== -->
-
-
 <section class="content container-fluid">
 					<div class="box box-solid">
 						<div class="box-header">
@@ -148,7 +146,7 @@
 								</div>
 							</div>
 						</div>
-
+						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -161,7 +159,7 @@
 								<tbody>
 									<tr>
 										<th scope="row">APC명</th>
-										<th>
+										<th>											
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</th>
 										<th>
@@ -169,7 +167,7 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<div class="ad_section_top">
@@ -236,9 +234,6 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td class="td_input">
-													<select class="form-control input-sm">
-														<option></option>
-													</select>
 												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -288,7 +283,7 @@
 												</td>
 												<td>&nbsp;</td>
 											</tr>
-											<tr>
+											<tr>											
 											<td class="ta_l">노브랜드</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>

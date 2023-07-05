@@ -218,7 +218,7 @@
 											<select class="form-control input-sm">
 											<option></option>
 											</select>
-										</td>
+										</td>										
 										<th scope="row">입고구분</th>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
@@ -229,7 +229,7 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<div class="ad_section_top">
@@ -241,7 +241,7 @@
 									<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
-										<colgroup>
+										<colgroup>																				
 											<col style="width: 3%">
 											<col style="width: 7%">
 											<col style="width: 5%">
@@ -335,7 +335,7 @@
 											<td>&nbsp;</td>
 										</tr>
 									</tbody>
-								</table>
+								</table>																												
 							</div>
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
@@ -431,7 +431,7 @@
 											<td>&nbsp;</td>
 										</tr>
 									</tbody>
-								</table>
+								</table>															
 							</div>
 							<div class="table-responsive tbl_scroll_sm">
 								<table class="table table-bordered table-hover tbl_col tbl_fixed">
@@ -532,9 +532,9 @@
 										</tr>
 									</tbody>
 								</table>
-
+									
 								</div>
-
+								
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>

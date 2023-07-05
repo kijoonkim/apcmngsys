@@ -177,8 +177,7 @@
                     <th class="ta_r" colspan="2">
                       <input
                         type="text"
-                        class="form-control input-sm"
-                        style="background-color: gray"
+                        class="form-control input-sm" disabled
                       />
                     </th>
                     <th colspan="1">사용자명</th>
@@ -197,17 +196,11 @@
               <!--[pp] //검색 -->
               <!--[pp] 검색결과 -->
 
-              <div style="flex-direction: row; display: flex">
-                <div>
-                  <b
-                    >권한그룹목록<button
-                      type="button"
-                      class="btn btn-sm btn-outline-danger"
-                      style="float: right; margin-right: 10px"
-                    >
-                      행추가
-                    </button></b
-                  >
+              <br>
+              <br>
+              <div>
+                <div class="col-sm-3">
+                  <b>권한그룹목록</b>
                   <table
                     class="table table-bordered table-hover tbl_col tbl_fixed asdasd"
                     style="width: 100%"
@@ -224,12 +217,12 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td>A01</td>
-                        <td>관리자</td>
+                        <td></td>
+                        <td></td>
                       </tr>
                       <tr>
-                        <td>B01</td>
-                        <td>테스트</td>
+                        <td></td>
+                        <td></td>
                       </tr>
                       <tr>
                         <td></td>
@@ -298,7 +291,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div>
+                <div class="col-sm-9">
                   <b>메뉴 목록</b>
                   <table
                     class="table table-bordered table-hover tbl_col tbl_fixed"
@@ -321,7 +314,7 @@
                       <tr>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1"  checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -330,7 +323,7 @@
                         <td>*메뉴관리</td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -339,28 +332,28 @@
                         </td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           조회
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           저장
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           삭제
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -371,7 +364,7 @@
                       <tr>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -380,7 +373,7 @@
                         <td>*화면</td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -389,28 +382,28 @@
                         </td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           조회
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           저장
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           삭제
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -427,7 +420,7 @@
                       <tr>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -436,7 +429,7 @@
                         <td>-권한그룹관리</td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -445,28 +438,28 @@
                         </td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           조회
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           저장
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           삭제
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -477,7 +470,7 @@
                       <tr>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -486,7 +479,7 @@
                         <td>-권한별 사용자관리</td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -495,28 +488,28 @@
                         </td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           조회
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           저장
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           삭제
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -533,7 +526,7 @@
                       <tr>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -542,7 +535,7 @@
                         <td>-사용자관리</td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -551,28 +544,28 @@
                         </td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           조회
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           저장
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           삭제
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -583,7 +576,7 @@
                       <tr>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -592,7 +585,7 @@
                         <td>-사용자별권한관리</td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -601,28 +594,28 @@
                         </td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           조회
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           저장
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           삭제
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -633,7 +626,7 @@
                       <tr>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -642,7 +635,7 @@
                         <td>*매시지관리</td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -651,28 +644,28 @@
                         </td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           조회
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           저장
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           삭제
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -689,7 +682,7 @@
                       <tr>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -698,7 +691,7 @@
                         <td>-공통코드관리</td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -707,28 +700,28 @@
                         </td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           조회
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           저장
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           삭제
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -739,7 +732,7 @@
                       <tr>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
@@ -757,14 +750,14 @@
                         </td>
                         <td>
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1" checked/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >
                           </p>
                           조회
                           <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
+                            <input type="checkbox" class="check" id="check1"/>
                             <label class="check_label ta_i" for="check1"
                               >선택</label
                             >

@@ -201,7 +201,7 @@
 										<td class="td_input" style="border-right: hidden;">
 											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 										</td>
-										</td>
+										</td>			
 										<th scope="row">품종</th>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
@@ -245,7 +245,7 @@
 										<td>&nbsp;</td>
 										<li><span>선별 내역</span></li>
 										<td>&nbsp;</td>
-									<li><span>선별수량/중량 : 99/99,999 Kg</span></li>
+									<li><span>선별수량/중량 : 99/99,999 Kg</span></li>	
 									</ul>
 								</div>
 								<div class="table-responsive tbl_scroll_sm">
@@ -303,7 +303,7 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 											</tr>
-											<tr>
+											<tr>	
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -318,7 +318,7 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 											</tr>
-											<tr>
+											<tr>	
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -361,13 +361,13 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 											</tr>
-											<tr>
+											<tr>	
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 											</tr>
-											<tr>
+											<tr>	
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>

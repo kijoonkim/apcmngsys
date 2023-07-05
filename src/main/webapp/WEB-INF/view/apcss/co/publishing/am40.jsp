@@ -205,9 +205,9 @@
 										<input type="text"class="form-control input-sm" placeholder=""title="">
 									</td>
 									<td class="td_input" style="border-right: hidden;">
-										<input type="text" class="form-control input-sm" placeholder="" disabled="">
+										<input type="text" class="form-control input-sm" placeholder="" disabled="">								
 									</td>
-									<td style="border-right: hidden;">Kg</td>
+									<td style="border-right: hidden;">Kg</td>																
 									<td colspan="5"></td>
 								</tr>
 								<tr>
@@ -266,7 +266,7 @@
 										<p class="ad_input_row">
 											<input type="checkbox" class="check" id="check_all">
 											<label class="check_label" for="check_all">고정</label>
-										</p>
+										</p>	
 									</td>
 									<td colspan="5"></td>
                                 </tr>
@@ -278,7 +278,7 @@
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">
 									<li><span>출하대상내역</span></li>
-									<li><span>출하대상 수량/중량 : 99/99,999 kg</span></li>
+									<li><span>출하대상 수량/중량 : 99/99,999 kg</span></li>								
 								</ul>
 							</div>
 						</div>

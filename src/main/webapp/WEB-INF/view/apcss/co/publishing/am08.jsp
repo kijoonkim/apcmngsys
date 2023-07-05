@@ -135,7 +135,6 @@
 <!-- ============================================================================================================== -->
 <!-- ============================================================================================================== -->
 
-
 <section class="content container-fluid">
 					<div class="row">
 						<div class="col-lg-8 col-md-8">
@@ -148,7 +147,7 @@
 									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
 								</div>
 							</div>
-							</div>
+							</div>				
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -161,15 +160,15 @@
 								<tbody>
 									<tr>
 										<th scope="row">APC명</th>
-
-										<th>
+										
+										<th>											
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</th>
 										<th>&nbsp;</th>
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 								<div class="table-responsive tbl_scroll_sm">
@@ -177,7 +176,7 @@
 										<ul class="ad_tbl_count">
 											<li><span>원물입고</span></li>
 										</ul>
-									</div>
+									</div>									
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
@@ -351,10 +350,10 @@
 							</div>
 							</div>
 
+							<!--[pp] //검색결과 -->
 						</div>
 					</div>
 				</section>
-
 
 <!-- ============================================================================================================== -->
 <!-- ============================================================================================================== -->

@@ -201,7 +201,7 @@
 
 										<th></th>
 									</tr>
-									<tr>
+									<tr>	
 										<th class="ta_r">확정여부</th>
 										<th class="td_input">
 											<select class="form-control" style="width: 50%;">
@@ -211,14 +211,14 @@
 										<th class="ta_r">품종</th>
 										<th class="td_input">
 											<div class="fl_group fl_rpgroup">
-												<div class="dp_inline wd_125 va_m">
+												<div class="dp_inline wd_200 va_m">
 													<select class="form-control"  style="width: 100%;">
 														<option>멀티선택</option>
 													</select>
 												</div>
 												<button type="button" class="btn btn-sm btn-primary">찾기</button>
 											</div>
-										</th>
+										</th>										
 										<th class="ta_r">생산자</th>
 										<th class="td_input">
 											<div class="fl_group fl_rpgroup">
@@ -229,7 +229,7 @@
 												</div>
 												<button type="button" class="btn btn-sm btn-primary">찾기</button>
 											</div>
-										</th>
+										</th>										
 										<th></th>
 									</tr>
 								</tbody>
@@ -240,7 +240,7 @@
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">
 									<li><span>정산 내역</span></li>
-									<label> 매출 중량/ 금액: 99,999Kg/99,999₩</label>
+									<li><label> 매출 중량/ 금액: 99,999Kg/99,999₩</label></li>
 								</ul>
 								<div class="ad_tbl_toplist">
 									<div class="dp_inline wd_125 va_m">
@@ -254,6 +254,7 @@
 									<button type="button" class="btn btn-sm btn-primary btn_form btn_search">정산자료생성</button>
 								</div>
 							</div>
+								<br>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<colgroup>
 										<col style="width: 7%">
@@ -294,34 +295,34 @@
 											<th scope="row" rowspan="2">
 												상품구분
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												품목
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												품종
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												규격
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												브랜드
 											</th>
-											<th scope="row" colspan="5">
+											<th scope="row" colspan="5">												
 												등급
 											</th>
-											<th scope="row"  rowspan="2">
+											<th scope="row"  rowspan="2">												
 												수량
 											</th>
-											<th scope="row"  rowspan="2">
+											<th scope="row"  rowspan="2">												
 												중량
 											</th>
-											<th scope="row"  rowspan="2">
+											<th scope="row"  rowspan="2">												
 												계산금액
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												확정금액
 											</th>
-											<th scope="row" rowspan="2">
+											<th scope="row" rowspan="2">												
 												확정여부
 											</th>
 
@@ -449,6 +450,7 @@
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
+					</div>
 				</section>
 
 <!-- ============================================================================================================== -->

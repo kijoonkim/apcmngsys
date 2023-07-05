@@ -176,7 +176,7 @@
 											&nbsp;
 										</th>
 									</tr>
-									<tr>
+									<tr>	
 										<th class="ta_r">입고일자</th>
 										<th class="td_input">
 											<div class="form-group">
@@ -209,7 +209,7 @@
 													<input type="checkbox" class="check" id="check_all">
 													<label class="check_label" for="check_all">유기농</label>
 												</p>
-											</div>
+											</div>		
 										</th>
 										<th colspan="4"></th>
 									</tr>
@@ -252,7 +252,7 @@
 										<th>
 											<select class="form-control">
 												<option></option>
-											</select>
+											</select>										
 										</th>
 										<th class="ta_r">창고</th>
 										<th>
@@ -261,7 +261,7 @@
 											</select>
 										</th>
 										<th class="ta_r">비고</th>
-										<th colspan="3">
+										<th colspan="3">												
 											<input type="text" class="form-control input-sm" placeholder="">
 										</th>
 										<th></th>
@@ -308,28 +308,28 @@
 											<th scope="row">
 												상품구분
 											</th>
-											<th scope="row">
+											<th scope="row">												
 												품목
 											</th>
-											<th scope="row">
+											<th scope="row">												
 												품종
 											</th>
-											<th scope="row">
+											<th scope="row">												
 												거래처
 											</th>
-											<th scope="row">
+											<th scope="row">												
 												수량
 											</th>
-											<th scope="row" >
+											<th scope="row" >												
 												중량
 											</th>
-											<th scope="row" >
+											<th scope="row" >												
 												박스종류
 											</th>
-											<th scope="row" >
+											<th scope="row" >												
 												창고
 											</th>
-											<th scope="row" >
+											<th scope="row" >												
 												비고
 											</th>
 										</tr>

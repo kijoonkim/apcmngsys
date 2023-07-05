@@ -136,7 +136,6 @@
 <!-- ============================================================================================================== -->
 
 
-
 <section class="content container-fluid">
 					<div class="box box-solid">
 						<div class="box-header">
@@ -196,7 +195,7 @@
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
-
+																				
 											<col style="width: 6%">
 											<col style="width: 5%">
 											<col style="width: 6%">
@@ -222,7 +221,7 @@
 												<th scope="col">사용유무</th>
 												<th scope="col">잠김여부</th>
 												<th scope="col">최종접속일시</th>
-
+												
 											</tr>
 										</thead>
 										<tbody>
@@ -297,6 +296,7 @@
 						</div>
 					</div>
 				</section>
+
 
 <!-- ============================================================================================================== -->
 <!-- ============================================================================================================== -->

@@ -149,7 +149,7 @@
 								</div>
 							</div>
 						</div>
-
+						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -164,8 +164,8 @@
 								<tbody>
 									<tr>
 										<th scope="row">APC명</th>
-
-										<th>
+										
+										<th>											
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</th>
 										<th scope="row">차량번호</th>
@@ -176,16 +176,16 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<div class="ad_section_top">
-
+								
 									<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
-
+																				
 											<col style="width: 3%">
 											<col style="width: 5%">
 											<col style="width: 5%">
