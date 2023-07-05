@@ -23,7 +23,7 @@
     <select id="selectComMsg" parameterType="com.at.apcss.co.msg.vo.ComMsgVO" resultType="com.at.apcss.co.msg.vo.ComMsgVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.co.msg.mapper.ComMsgMapper.selectComMsg */
-				, CM.MSG_KEY	AS MSG_KEY
+				  CM.MSG_KEY	AS MSG_KEY
 				, CM.MSG_CN		AS MSG_CN
 				, CM.MSG_KND	AS MSG_KND
 				, CM.RMRK		AS RMRK

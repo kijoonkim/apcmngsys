@@ -12,10 +12,11 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.menu.service.ComMenuService;
 import com.at.apcss.co.menu.vo.ComMenuJsonVO;
 import com.at.apcss.co.menu.vo.ComMenuVO;
+import com.at.apcss.co.sys.controller.BaseController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
-public class MainController {
+public class MainController extends BaseController {
 	
 	@Resource(name = "comMenuService")
 	private ComMenuService comMenuService;
@@ -27,6 +28,7 @@ public class MainController {
 		
 		List<String> menuList = new ArrayList<>();
 		try {
+			
 			List<ComMenuVO> resultList = comMenuService.selectTopMenuList(new ComMenuVO());
 			if (resultList != null && !resultList.isEmpty()) {
 				for ( ComMenuVO rslt : resultList ) {

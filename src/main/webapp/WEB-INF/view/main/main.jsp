@@ -100,7 +100,7 @@
      * menuNo 값으로 (비동기식으로)서버로 부터 데이터를 요청
      */
     async function fn_setLeftMenu(_menuNo, _menuId) {
-		
+
         var menuInfo = _.find(menuJson, {id: _menuNo});
         var pMenuId = menuInfo.pid;
         var pMenuNm = menuInfo.value;
@@ -238,8 +238,7 @@
     //Left Menu Click
     function fn_selectMenu(_target, _id) {	
     	
-        var data = SBUxMethod.get(_id);
-        
+    	var data = SBUxMethod.get(_id);        
         console.log("data", data);
         console.log("data.customData", data.customData);
         if (_target === "TOP" && gfn_isEmpty(data.pid)) {

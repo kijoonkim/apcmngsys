@@ -105,10 +105,8 @@
     window.addEventListener('DOMContentLoaded', function(e) {
         // setting saved userId 
         fn_setUserId();
+        
     });
-    
-    
-
     
 </script>
 <!-- //inline scripts related to this page -->

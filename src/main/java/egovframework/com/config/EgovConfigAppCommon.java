@@ -1,8 +1,13 @@
 package egovframework.com.config;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +19,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.msg.mapper.ComMessageSource;
+import com.at.apcss.co.msg.service.ComMsgService;
+import com.at.apcss.co.msg.vo.ComMsgVO;
+
+import ch.qos.logback.classic.Logger;
 import egovframework.com.cmm.EgovComTraceHandler;
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.ImagePaginationRenderer;
@@ -67,18 +78,30 @@ public class EgovConfigAppCommon {
 	/**
 	 * @return [Resource 설정] 메세지 Properties 경로 설정
 	 */
-	@Bean
+	@Bean(name = "bundlMessageSource")
 	public ReloadableResourceBundleMessageSource messageSource() {
 		ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource = new ReloadableResourceBundleMessageSource();
-		
 		reloadableResourceBundleMessageSource.setBasenames(
 			"classpath:/egovframework/message/com/message-common",
 			"classpath:/org/egovframe/rte/fdl/idgnr/messages/idgnr",
 			"classpath:/org/egovframe/rte/fdl/property/messages/properties");
 		reloadableResourceBundleMessageSource.setCacheSeconds(60);
+
 		return reloadableResourceBundleMessageSource;
 	}
 
+	/**
+	 * @return [Resource 설정] 메세지 소스 등록
+	 */
+	@Bean(name = "messageSource")
+	public ComMessageSource comMessageSource() {
+		ComMessageSource comMessageSource = new ComMessageSource();
+		System.out.println(messageSource().toString());
+		comMessageSource.setReloadableResourceBundleMessageSource(messageSource());
+		
+		return comMessageSource;
+	}
+	
 	/**
 	 * @return [Resource 설정] 메세지 소스 등록
 	 */

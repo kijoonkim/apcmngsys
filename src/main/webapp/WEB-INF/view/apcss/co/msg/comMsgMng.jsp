@@ -235,6 +235,7 @@
         
         grdComMsgList = _SBGrid.create(SBGridProperties);
         grdComMsgList.bind('click', 'fn_view');
+        grdComMsgList.bind('beforepagechanged', 'fn_pagingComMsgList');
     }
 
     //목록 조회
@@ -245,6 +246,15 @@
     	let pageNo = 1;
         
     	fn_setGrdComMsgList(pageSize, pageNo);
+    }
+
+    /**
+     * 
+     */
+    const fn_pagingComMsgList = async function() {
+    	let recordCountPerPage = grdComMsgList.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdComMsgList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+    	fn_setGrdComMsgList(recordCountPerPage, currentPageNo);
     }
     
     /**

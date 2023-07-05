@@ -2,16 +2,21 @@ package com.at.apcss.co.sys.controller;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.msg.mapper.ComMessageSource;
+import com.at.apcss.co.msg.vo.ComMsgVO;
 import com.at.apcss.co.sys.vo.ComPageVO;
 import com.at.apcss.co.sys.vo.LoginVO;
 
@@ -23,6 +28,9 @@ public abstract class BaseController {
 	public final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	protected EgovMessageSource message;
+	
+	@Autowired
+	protected ComMessageSource messageSource;
 
 	protected String getUserId() {
 		
@@ -131,6 +139,22 @@ public abstract class BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, e.getMessage());
 
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
+	}
+	
+	protected String getMessage(String code) {
+		return messageSource.getMessage(code);
+	}
+	
+	protected String getMessage(String code, Object[] args) {
+		return messageSource.getMessage(code, args, Locale.getDefault());
+	}
+	
+	protected String getMessage(String code, Object[] args, Locale locale) {
+		return messageSource.getMessage(code, args, locale);
+	}
+	
+	protected List<ComMsgVO> getMessageList() throws Exception {
+		return messageSource.getComMessageList();
 	}
 	
 //	@Autowired
