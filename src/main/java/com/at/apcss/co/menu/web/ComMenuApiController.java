@@ -72,7 +72,7 @@ public class ComMenuApiController extends BaseController {
 		try {
 			resultList = comMenuService.selectComMenuList(comMenuVO);
 		} catch (Exception e) {
-
+			return getErrorResponseEntity(e);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);

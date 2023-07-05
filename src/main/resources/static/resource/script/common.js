@@ -66,6 +66,9 @@ async function gfn_setComCdSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
 		return;
 	}
 
+	gfn_setComCdSBSelect(_gridId, _jsondataRef, _cdId, _apcCd);
+
+	/*
 	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd});
 	const data = await postJsonPromise;
 	console.log("cdDtls", data);
@@ -83,12 +86,13 @@ async function gfn_setComCdSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
 	} catch (e) {
 
 	}
+	*/
 }
 
 
 /**
  * sbux-select 데이터 설정
- * @param {Array.<string>} _gridIdList
+ * @param {(string|string[])} _gridIdList
  * @param {any[]} _jsondataRef
  * @param {string} _cdId
  * @param {string} _apcCd
@@ -102,8 +106,6 @@ async function gfn_setComCdSBSelect(_gridIdList, _jsondataRef, _cdId, _apcCd) {
 
 	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd});
 	const data = await postJsonPromise;
-	console.log("cdDtls", data);
-	console.log("cdDtlList", JSON.stringify(data.resultList));
 
 	try {
 		_jsondataRef.length = 0;
@@ -115,9 +117,13 @@ async function gfn_setComCdSBSelect(_gridIdList, _jsondataRef, _cdId, _apcCd) {
 			_jsondataRef.push(cdVl);
 		});
 
-		_gridIdList.forEach((_sbGridId) => {
-			SBUxMethod.refresh(_sbGridId);
-		});
+		if (Array.isArray(_gridIdList)) {
+			_gridIdList.forEach((_sbGridId) => {
+				SBUxMethod.refresh(_sbGridId);
+			});
+		} else {
+			SBUxMethod.refresh(_gridId);
+		}
 
 	} catch (e) {
 
@@ -225,4 +231,67 @@ const gfn_setCookie = function (name, value, options = {}) {
 	document.cookie = updatedCookie;
 	console.log(document.cookie);
 }
+
+const gv_comMsgList = [];
+
+const gfn_getComMsgList = async function() {
+	
+	const comMsgPromise = gfn_postJSON("/co/msg/comMsgs", {delYn: "N"});        
+	const data = await comMsgPromise;
+
+    try {
+    	gv_comMsgList.length = 0;
+    	data.resultList.forEach((item) => {
+			const menu = {
+				msgKey: item.msgKey,
+				msgCn: item.msgCn,
+				rmrk: item.rmrk,
+				msgKnd: item.msgKnd,
+				msgKndNm: item.msgKndNm
+			}
+			gv_comMsgList.push(menu);
+		});
+		
+		console.log("gv_comMsgList", gv_comMsgList);
+		
+	} catch (e) {
+	}
+}
+
+/**
+ * @param {string} _msgKey
+ * @param {string[]} _arguments
+ * @returns {string}
+ */
+const gfn_getComMsg = function (_msgKey, ..._arguments) {
+	
+	let msgCn = gv_comMsgList.find((msg) => {
+		return msg.msgKey == _msgKey;
+	}).msgCn;
+	
+	if (gfn_isEmpty(msgCn)) {
+		return _msgKey;
+	}
+
+	let args = Array.prototype.slice.call(arguments, 1);
+	
+	let msg = msgCn.replace(/{(\d+)}/g, function(match, number) { 
+			return typeof args[number] != 'undefined' ? args[number] : match;
+		});
+	
+	// sample
+	// var foo = gfn_getComMsg("I0002", "출근", "일찍");
+	
+	return msg;
+}
+
+/**
+ * 실행부
+ */
+
+/**
+ * 공통메시지 가져오기 (페이지 로드 시)
+ */
+gfn_getComMsgList();
+
 
