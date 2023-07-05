@@ -142,7 +142,8 @@
 							<h3 class="box-title"> ▶ 출하실적 등록</h3>
 							<div class="ad_tbl_top">
 								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-primary">송품장</button>
+									<button type="button" class="btn btn-md btn-primary">송품장</button>
+									&nbsp;&nbsp;&nbsp;
 									<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
@@ -172,7 +173,7 @@
 								<th scope="row">APC명</th>
 										<td colspan= "2" class="td_input">
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
-										</td>
+										</td>								
 										<th scope="row">생산일자</th>
 										<td colspan= "2" class="td_input">
 											<div class="dp_inline wd_125 va_m">
@@ -191,7 +192,7 @@
 													</div>
 													<input type="text" name="datepicker" placeholder="2023.01.31" class="form-control pull-right input-sm">
 												</div>
-											</div>
+											</div>										
 										</td>
 										<th scope="row">창고구분</th>
 										<td class="td_input" style="border-right: hidden;">
@@ -199,6 +200,7 @@
 												<option>선택</option>
 											</select>
 										</td>
+										<td rowspan="2"><button type="button" class="btn btn-md btn-outline-danger">재고조회</button></td>
 									</tr>
 									<tr>
 										<th scope="row">품목/품종</th>
@@ -237,16 +239,15 @@
 												<option>선택</option>
 											</select>
 										</td>
-										<td><button type="button" class="btn btn-sm btn-outline-danger">재고조회</button></td>
 									</tr>
 								</tbody>
-							</table>
+							</table>														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
-										<li><span>출하대상 내역</span></li>
-									<li><span>선택수량/중량 : 99/99,999 kg</span></li>
+										<li><span>출하대상 내역</span></li>	
+									<li><span>선택수량/중량 : 99/99,999 kg</span></li>	
 									</ul>
 								</div>
 								<div class="ad_tbl_toplist">
@@ -349,6 +350,8 @@
 										</tr>
 									</tbody>
 								</table>
+								<br>
+
 								<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
@@ -371,9 +374,9 @@
 										<th scope="row">지시번호</th>
 										<td colspan= "2" class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm">
-										</td>
+										</td>		
 										<td class="td_input" style="border-right: hidden;">
-											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>											
 										</td>
 										<td style="border-right: hidden;">&nbsp;</td>
 										<td style="border-right: hidden;">&nbsp;</td>
@@ -385,7 +388,7 @@
 											<input type="text" class="form-control input-sm" placeholder="" title="">
 										</td>
 										<td style="border-right: hidden;">Kg</td>
-										<td colspan="3"></td>
+										<td colspan="3"></td>	
 									</tr>
 									<tr>
 										<th scope="row">출하일자</th>
@@ -423,19 +426,19 @@
 										</td>
 										<td style="border-right: hidden;">KG</td>
 										<td class="td_input" style="border-right: hidden;">
-											<input type="text" class="form-control input-sm" placeholder="" title="">
+											<input type="text" class="form-control input-sm" placeholder="" title="">	
 								     	<td>&nbsp;</td>
 										<th scope="row">운송회사</th>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
 											</select>
-										</td>
+										</td>	
 										<td style="border-right: hidden;">&nbsp;</td>
 										<td style="border-right: hidden;">&nbsp;</td>
 										<th scope="row">차량번호</th>
 										<td class="td_input" style="border-right: hidden;">
-											<input type="text" class="form-control input-sm" placeholder="" title="">
+											<input type="text" class="form-control input-sm" placeholder="" title="" disabled>
 										</td>
 										<td></td>
 									</tr>
@@ -444,7 +447,7 @@
 										<td colspan= "2" class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
-											</select>
+											</select>	
 										<td style="border-right: hidden;">&nbsp;</td>
 										<td style="border-right: hidden;">&nbsp;</td>
 										<td>&nbsp;</td>
@@ -457,7 +460,7 @@
 										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="입력" title="입력">
 										</td>
-										<td></td>
+										<td class="ta_l">원</td>	
 									</tr>
 									<tr>
 										<th scope="row">비고</th>
@@ -467,16 +470,19 @@
 									</tr>
 								</tbody>
 							</table>
+								<b>&nbsp;</b>
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>출하 내역</span></li>
 									<li><span>출하수량/중량 : 99/99,999 kg</span></li>
 									</ul>
-								</div>
-								<div class="ad_tbl_toplist">
-									<button type="button" classㄴ="btn btn-sm btn-outline-dark"></i>내려받기</button>
-									<button type="button" classㄴ="btn btn-sm btn-outline-dark"></i>올리기</button>
+								</div>										
+								<div class="ad_tbl_top">
+									<div class="ad_tbl_toplist">
+										<button type="button" classㄴ="btn btn-sm btn-outline-dark"></i>내려받기</button>
+										<button type="button" classㄴ="btn btn-sm btn-outline-dark"></i>올리기</button>
 									</div>
+								</div>	
 								</div>
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
@@ -520,7 +526,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
+										<tr>	
 											<th scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">

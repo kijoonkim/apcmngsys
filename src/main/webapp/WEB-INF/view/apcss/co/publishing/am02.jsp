@@ -135,7 +135,6 @@
 <!-- ============================================================================================================== -->
 <!-- ============================================================================================================== -->
 
-
 <section class="content container-fluid">
 					<div class="box box-solid">
 						<div class="box-header">
@@ -147,7 +146,7 @@
 								</div>
 							</div>
 						</div>
-
+						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -167,43 +166,43 @@
 									<col style="width: 9%">
 								</colgroup>
 								<tbody>
-									<tr>
+									<tr>	
 										<th scope="row">APC코드</th>
-										<td style="border-right: hidden;">&nbsp;</td>
-										<td>&nbsp;</td>
-										<td>
+										<td style="border-right: hidden;">&nbsp;</td>	
+										<td>&nbsp;</td>	
+										<td>											
 											<input type="text" class="form-control input-sm" placeholder="변경불가" disabled>
 										</td>
 										<td scope="row" colspan="8">&nbsp;</td>
 									</tr>
 									<tr>
 										<th rowspan="2">APC정보</th>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>	
 										<td scope="row">명칭</td>
-										<td scope="row">
+										<td scope="row">											
 											<input type="text" class="form-control input-sm" placeholder="" title="">
 										</td>
 										<td scope="row">주소</td>
-										<td colspan="3"scope="row">
+										<td colspan="3"scope="row">											
 											<input type="text" class="form-control input-sm" placeholder="" title="">
 										</td>
 										<td scope="row">전화번호</td>
-										<td scope="row">
+										<td scope="row">											
 											<input type="text" class="form-control input-sm" placeholder="" title="">
 										</td>
 										<td scope="row">팩스번호</td>
-										<td scope="row">
+										<td scope="row">											
 											<input type="text" class="form-control input-sm" placeholder="" title="">
 										</td>
 									</tr>
 									<tr>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>	
 										<td scope="row">사업번호</td>
-										<td scope="row">
+										<td scope="row">											
 											<input type="text" class="form-control input-sm" placeholder="" title="">
 										</td>
 										<td scope="row">계좌번호</td>
-										<td colspan="3"scope="row">
+										<td colspan="3"scope="row">											
 											<input type="text" class="form-control input-sm" placeholder="" title="">
 										</td>
 										<td scope="row">입금은행</td>
@@ -213,13 +212,13 @@
 										</td>
 
 										<td scope="row">예금주명</td>
-										<td scope="row">
+										<td scope="row">											
 											<input type="text" class="form-control input-sm" placeholder="" title="">
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">APC구분</th>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>	
 										<td colspan="2"class="td_input">
 											<p class="ad_input_row">
 												<input type="radio" name="radio" class="radio" id="radio1">
@@ -229,11 +228,11 @@
 												<input type="radio" name="radio_dis" class="radio" id="radio_dis_on" checked>
 												<label class="radio_label" for="radio_dis_on">법인</label>
 											</p>
-										</td>
+										</td>								
 									</tr>
 									<tr>
 										<th scope="row">생산자 정산기준</th>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>	
 										<td colspan="9" class="td_input">
 											<p class="ad_input_row">
 												<input type="radio" name="radio" class="radio" id="radio1">
@@ -251,119 +250,119 @@
 												<input type="radio" name="radio" class="radio" id="radio1">
 												<label class="radio_label" for="radio1">출하완료기준</label>
 											</p>
-										</td>
+										</td>									
 									</tr>
 									<tr>
 										<th scope="row">사용자관리</th>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>	
 										<td colspan="2"class="td_input">
-											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">사용자권한 설정</button>
-										</td>
+											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">사용자권한 설정</button>									
+										</td> 
 										<td>필수</td>
 										<td>&nbsp;</td>
 										<td colspan="4">
-											설명) APC관리자가 사용자별 권한정보를 설정
+											설명) APC관리자가 사용자별 권한정보를 설정									
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">운용설비관리</th>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>	
 										<td class="td_input" colspan="2">
-											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">설비 등록</button>
-										</td>
+											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">설비 등록</button>											
+										</td> 
 										<td>필수</td>
 										<td>&nbsp;</td>
 										<td colspan="4">
-											Ex) 선별1호기, 선별2호기... / 포장라인, 포장라인2...
+											Ex) 선별1호기, 선별2호기... / 포장라인, 포장라인2...									
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">저장창고 관리</th>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>	
 										<td class="td_input" colspan="2">
-											<button style="width:100%; height:30px;">창고 등록</button>
-										</td>
+											<button style="width:100%; height:30px;">창고 등록</button>										
+										</td> 
 										<td>&nbsp;</td>
 										<td>&nbsp;</td>
 										<td colspan="4">
-											Ex) 원물창고1, 원물창고2... / 상품창고1, 상품창고2... / A창고, B창고...
+											Ex) 원물창고1, 원물창고2... / 상품창고1, 상품창고2... / A창고, B창고...									
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">품목 관리</th>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>	
 										<td class="td_input" colspan="2">
-											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">품목 등록</button>
-										</td>
+											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">품목 등록</button>									
+										</td> 
 										<td>필수</td>
 										<td>&nbsp;</td>
 										<td colspan="4">
-											설명) 품목등록, 품목에 종속된 품종, 선별등급, 규격 정보 등록
+											설명) 품목등록, 품목에 종속된 품종, 선별등급, 규격 정보 등록									
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">원물 팔레트/박스</th>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>	
 										<td class="td_input" colspan="2">
-											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">팔레트/박스 등록</button>
-										</td>
+											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">팔레트/박스 등록</button>									
+										</td> 
 										<td>필수</td>
 										<td>&nbsp;</td>
 										<td colspan="4">
-											설명) 원물입고 시 사용되는 팔레트와 박스정보 및 출하 포장단위 관리
+											설명) 원물입고 시 사용되는 팔레트와 박스정보 및 출하 포장단위 관리									
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">원물육안등급</th>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>	
 										<td class="td_input" colspan="2">
-											<button style="width:100%; height:30px;">원물육안등급 등록</button>
-										</td>
+											<button style="width:100%; height:30px;">원물육안등급 등록</button>										
+										</td> 
 										<td>&nbsp;</td>
 										<td>&nbsp;</td>
 										<td colspan="4">
-											설명) 원물입고 시 육안등급을 관리하는 경우 (최대 5종까지 관리)
+											설명) 원물입고 시 육안등급을 관리하는 경우 (최대 5종까지 관리)									
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">입고차량 관리</th>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>	
 										<td class="td_input" colspan="2">
-											<button style="width:100%; height:30px;">입고차량/운임 등록</button>
-										</td>
+											<button style="width:100%; height:30px;">입고차량/운임 등록</button>												
+										</td> 
 										<td>&nbsp;</td>
 										<td>&nbsp;</td>
 										<td colspan="4">
-											설명) 원물입고 차량의 운반비 송금계좌정보 및 지역별 운임비용 관리
+											설명) 원물입고 차량의 운반비 송금계좌정보 및 지역별 운임비용 관리									
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">출하운송사 관리</th>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>	
 										<td class="td_input" colspan="2">
-											<button style="width:100%; height:30px;">출하 운송회사 등록</button>
-										</td>
+											<button style="width:100%; height:30px;">출하 운송회사 등록</button>										
+										</td> 
 										<td>&nbsp;</td>
 										<td>&nbsp;</td>
 										<td colspan="4">
-											설명) 출하실적 및 송품장 발행을 위한 운송회사정보 관리
+											설명) 출하실적 및 송품장 발행을 위한 운송회사정보 관리								
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">거래처 관리</th>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>	
 										<td class="td_input" colspan="2">
-											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">거래처 등록</button>
-										</td>
+											<button style="width:100%; height:30px;" class="btn btn-sm btn-outline-dark">거래처 등록</button>											
+										</td> 
 										<td>
-											필수
+											필수									
 										</td>
 										<td>&nbsp;</td>
 										<td colspan="4">
-											설명) 거래처 정보 및 발주서 접속정보 관리(대형마트 발주서 정보는 선택사항)
+											설명) 거래처 정보 및 발주서 접속정보 관리(대형마트 발주서 정보는 선택사항)								
 										</td>
 									</tr>
-								</tbody>
+								</tbody> 
 							</table>
 
 							<!--[pp] //검색 -->
@@ -597,12 +596,12 @@
 											</tr>
 									</tbody>
 								</table>
-
+							
 							</div>
 
 						</div>
+						<!--[pp] //검색결과 -->
 					</div>
-				</div>
 			</section>
 
 

@@ -134,8 +134,6 @@
 <!-- ============================================================================================================== -->
 <!-- ============================================================================================================== -->
 <!-- ============================================================================================================== -->
-
-
 <section class="content container-fluid">
 					<div class="box box-solid">
 						<div class="box-header">
@@ -148,7 +146,7 @@
 								</div>
 							</div>
 						</div>
-
+						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -163,18 +161,18 @@
 								<tbody>
 									<tr>
 										<th scope="row">APC명</th>
-										<th>
+										<th>											
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</th>
 										<th scope="row">사용자명</th>
-										<th>
+										<th>											
 											<input type="text" class="form-control input-sm" placeholder="" title="">
 										</th>
 										<th>&nbsp;</th>
 									</tr>
-								</tbody>
+								</tbody> 
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<div class="ad_section_top">
@@ -236,7 +234,8 @@
 								</div>
 								</div>
 							</div>
-					</section>
+							<!--[pp] //검색결과 -->
+								</section>
 
 
 <!-- ============================================================================================================== -->

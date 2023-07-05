@@ -190,7 +190,7 @@
 									<td class="td_input">
 										<button class="btn btn-xs btn-outline-dark" type="button"> 조회 </button>
 								  	</td>
-						        </tr>
+						        </tr>								
 								<tr>
 									<th scope="row">생산지시번호</th>
 									<td colspan="3" class="td_input" style="border-right: hidden;">
@@ -219,8 +219,8 @@
 										<input type="text" class="form-control input-sm" placeholder=""title="">
 									</td>
 									<td class="td_input" style="border-right: hidden;"><input type="text" class="form-control input-sm" placeholder=""title="">
-									</td>
-									<td style="border-right: hidden;"><label class="bold">Kg</label></td>
+									</td>	
+									<td style="border-right: hidden;"><label class="bold">Kg</label></td>									
 									<td>&nbsp;</td>
 								</tr>
 								<tr>
@@ -244,7 +244,7 @@
 									</td>
 									<td class="td_input" style="border-right: hidden;"><input type="text"
 										class="form-control input-sm" placeholder="" disabled>
-									<td style="border-right: hidden;"><label class="bold">Kg</label></td>
+									<td style="border-right: hidden;"><label class="bold">Kg</label></td>									
 								</tr>
 								<tr>
 									<th scope="row">규 격 명</th>
@@ -264,7 +264,7 @@
 									<li><span>포장투입 내역</span></li>
 								</ul>
 							</div>
-							<div class="table-responsive tbl_scroll_sm">
+							<div class="table-responsive tbl_scroll_sm">								
 							<table	class="table table-bordered table-hover tbl_col tbl_fixed">
 									<caption>검색결과 목록</caption>
 									<colgroup>

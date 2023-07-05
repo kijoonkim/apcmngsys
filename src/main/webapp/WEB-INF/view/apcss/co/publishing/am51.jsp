@@ -186,7 +186,7 @@
 													</div>
 													<input type="text" name="datepicker" placeholder="2023.01.31" class="form-control pull-right input-sm">
 												</div>
-											</div>
+											</div>										
 										</th>
 										<th>&nbsp;</th>
 										<th>&nbsp;</th>
@@ -219,7 +219,7 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 								<div class="ad_tbl_top">
@@ -236,7 +236,7 @@
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
-
+																				
 											<col style="width: 3%">
 											<col style="width: 5%">
 											<col style="width: 6%">
@@ -260,7 +260,7 @@
 												<th scope="col">전화번호</th>
 												<th scope="col">직책 명</th>
 												<th scope="col">담당업무</th>
-
+												
 											</tr>
 										</thead>
 										<tbody>

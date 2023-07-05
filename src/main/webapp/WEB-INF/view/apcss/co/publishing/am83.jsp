@@ -170,9 +170,9 @@
 										<th class="ta_r" colspan="2">
 											<select class="form-control input-sm">
 												<option>시스템관리</option>
-											</select>
+											</select>										
 										</th>
-
+										
 										<th class="ta_r">권한명</th>
 										<th colspan="1" class="td_input">
 											<input type="text" class="form-control input-sm" placeholder="권한명 입력" title="권한명 입력" >
@@ -181,19 +181,19 @@
 									</tr>
 								</tbody>
 							</table>
-
+										<br>				
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
-
+							
 							<div >
 								<div class="col-sm-4">
-
+									<br>
+									<b>권한그룹목록</b>
 									<div class="ad_tbl_top">
-										<div class="ad_tbl_toplist">
+										<div class="ad_tbl_toplist" style="float: right;">
 											<button type="button" class="btn btn-sm btn-outline-danger">행추가</button>
 										</div>
 									</div>
-									<b>권한그룹목록</b>
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<colgroup>
 										<col style="width: 25%">
@@ -294,6 +294,11 @@
 									<b>
 										<br>
 										권한그룹정보<br></b>
+										<div class="ad_tbl_top">
+											<div class="ad_tbl_toplist" style="float: right;">
+												<br>
+											</div>
+										</div>
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<colgroup>
 											<col style="width: 25%">
@@ -338,7 +343,7 @@
 														<input type="checkbox" class="check" id="check1" checked>
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-
+													
 												</td>
 												<td>*메뉴관리</td>
 												<td scope="row" class="td_input">
@@ -399,14 +404,14 @@
 													</p>
 												</td>
 											</tr>
-
+											
 											<tr>
 												<td></td>
 												<td>*권한관리</td>
 												<td></td>
 												<td></td>
 											</tr>
-
+										
 											<tr>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
@@ -479,7 +484,7 @@
 												<td></td>
 												<td></td>
 											</tr>
-
+										
 											<tr>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
@@ -552,7 +557,7 @@
 												<td></td>
 												<td></td>
 											</tr>
-
+										
 											<tr>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
@@ -617,7 +622,7 @@
 												<td></td>
 												<td></td>
 											</tr>
-
+											
 										</tbody>
 									</table>
 								</div>

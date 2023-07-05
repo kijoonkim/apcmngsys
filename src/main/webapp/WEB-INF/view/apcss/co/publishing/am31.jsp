@@ -163,7 +163,7 @@
 								<tr>
 								<tr>
 									<th scope="row">APC명</th>
-									<td colspan="3" class="td_input"  style="border-right:hidden ;">
+									<td colspan="3" class="td_input"  style="border-right:hidden ;"> 
 										<input type="text" class="form-control input-sm" placeholder="" disabled>
 									</td>
 									<td colspan="1"></td>
@@ -188,7 +188,7 @@
 									<td class="td_input" >
 										<button class="btn btn-xs btn-outline-dark" type="button"> 조회 </button>
 								    </td>
-					            </tr>
+					            </tr>								
 								<tr>
 									<th scope="row">투입지시번호</th>
 									<td colspan="3" class="td_input" style="border-right:hidden ;">
@@ -219,7 +219,7 @@
 									<td class="td_input" style="border-right:hidden ;">
 										<input type="text" class="form-control input-sm" placeholder=""title="">
 									<td style="border-right:hidden ;"><label class="bold">Kg</label></td>
-									<td></td>
+									<td></td>									
 								</tr>
 								<tr>
 									<th scope="row">품목 / 품종</th>

@@ -192,7 +192,7 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 								<div class="ad_tbl_top">
@@ -206,7 +206,7 @@
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
-
+																				
 											<col style="width: 3%">
 											<col style="width: 5%">
 											<col style="width: 6%">
@@ -236,7 +236,7 @@
 												<th scope="col">사용유무</th>
 												<th scope="col">잠김여부</th>
 												<th scope="col">최종접속일시</th>
-
+												
 											</tr>
 										</thead>
 										<tbody>
@@ -258,8 +258,16 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
+												<td>
+													<select class="form-control input-sm">
+														<option></option>
+													</select>
+												</td>
+												<td>
+													<select class="form-control input-sm">
+														<option></option>
+													</select>
+												</td>
 												<td>&nbsp;</td>
 											</tr>
 											<tr>
@@ -280,8 +288,17 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
+
+												<td>
+													<select class="form-control input-sm">
+														<option></option>
+													</select>
+												</td>
+												<td>
+													<select class="form-control input-sm">
+														<option></option>
+													</select>
+												</td>
 												<td>&nbsp;</td>
 											</tr>
 											<tr>
@@ -302,7 +319,16 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
-												<td>&nbsp;</td>
+												<td>
+													<select class="form-control input-sm">
+														<option></option>
+													</select>
+												</td>
+												<td>
+													<select class="form-control input-sm">
+														<option></option>
+													</select>
+												</td>
 												<td>&nbsp;</td>
 											</tr>
 										</tbody>

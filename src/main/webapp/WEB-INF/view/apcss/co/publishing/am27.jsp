@@ -148,7 +148,7 @@
 									<button type="button" class="btn btn-sm btn-outline-dark">종료</button>
 								</div>
 						</div>
-						  </div>
+						  </div>			
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -201,7 +201,7 @@
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 											</select>
-										</td>
+										</td>	
 									</tr>
 									<tr>
 									    <th scope="row">생산자</th>
@@ -225,7 +225,7 @@
 										<li><span>　투입대상 내역</span></li>
 										<li><span>　　　선택중량 : 99.999Kg</span></li>
 									</ul>
-								</div>
+								</div>								
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
@@ -242,7 +242,7 @@
 											<col style="width: 3%">
 											<col style="width: 3%">
 											<col style="width: 3%">
-											<col style="width: 18%">
+											<col style="width: 18%">										
 										</colgroup>
 									<thead>
 										<tr>
@@ -293,7 +293,7 @@
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
+												</th>											
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -362,20 +362,20 @@
 										<th scope="row">투입설비</th>
 										<td class="td_input">
 											<select class="form-control input-sm">
-												<option>선택</option>
+												<option>선택</option>	
 										</select>
 										</td>
 									</tr>
 									</tbody>
-							</table>
+							</table>														
 							 <div class="ad_section_top">
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>　투입지시 내역</span></li>
-									<li><span>　　　지시중량 : 99,999 Kg</span></li>
+									<li><span>　　　지시중량 : 99,999 Kg</span></li>	
 									</ul>
-								</div>
-								</div>
+								</div>	
+								</div>							
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
@@ -390,7 +390,7 @@
 											<col style="width: 8%">
 											<col style="width: 3%">
 											<col style="width: 3%">
-											<col style="width: 15%">
+											<col style="width: 15%">								
 										</colgroup>
 										<thead>
 										<tr>
@@ -467,7 +467,7 @@
 											</tr>
 										</tbody>
 									</table>
-									</div>
+									</div>									
 						<!--[pp] //검색결과 -->
 								</div>
 							</div>

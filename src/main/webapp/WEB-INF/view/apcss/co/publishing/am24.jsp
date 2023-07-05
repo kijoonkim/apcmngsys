@@ -141,7 +141,7 @@
 						<h3 class="box-title">▶ 원물입고등록(테블릿)</h3>
 						<div class="ad_tbl_top">
 							<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-primary">원물인식표</button>
+									<button type="button" class="btn btn-sm btn-primary">원물인식표</button>								
 								<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
 								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
 								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
@@ -154,7 +154,7 @@
 					<div class="box-body">
 						<!--[pp] 검색 -->
 						<table class="table table-bordered tbl_row tbl_fixed">
-							<caption>검색 조건 설정</caption>
+							<caption>검색 조건 설정</caption>							
 							<colgroup>
 								<col style="width: 9%">
 								<col style="width: 6%">
@@ -195,8 +195,8 @@
 									</td>
 									<td style="border-right: hidden;">&nbsp;</td>
 									<td style="border-right: hidden;">&nbsp;</td>
-									<td colspan="2" style="border-right: hidden;"> → 초성 검색기능 적용</td>
-								</tr>
+									<td colspan="2" style="border-right: hidden;"> → 초성 검색기능 적용</td>									
+								</tr>								
 								<tr>
 									<th scope="row">품목 / 품종</th>
 									<td colspan="2"class="td_input" style="border-right: hidden;">
@@ -213,10 +213,10 @@
 										<p class="ad_input_row">
 											<input type="checkbox" class="check" id="check_all">
 											<label class="check_label" for="check_all">고정</label>
-										</p>
+										</p>	
 									</td>
-									<td style="border-right: hidden;">&nbsp;</td>
-									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>	
+									<td style="border-right: hidden;">&nbsp;</td>			
 									<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정 or 고정 선택 시 해당품종 유지</td>
 								</tr>
 								<tr>
@@ -233,8 +233,8 @@
 									</td>
 									<td style="border-right: hidden;">&nbsp;</td>
 									<td style="border-right: hidden;">&nbsp;</td>
-									<td style="border-right: hidden;">&nbsp;</td>
-									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>	
+									<td style="border-right: hidden;">&nbsp;</td>			
 									<td colspan="2" style="border-right: hidden;"> → 기본 현재일자로 지정</td>
 								</tr>
 								<tr>
@@ -243,22 +243,22 @@
 										<input type="text" class="form-control input-sm" placeholder=""title="">
 									</td>
 									<td colspan="3" class="td_input" style="border-right: hidden;">
-										<input type="text" class="form-control input-sm" placeholder="평균"title="">
+										<input type="text" class="form-control input-sm" placeholder="평균"title="">							
 									</td>
 									<td colspan="2" class="td_input" style="border-right: hidden;">
 										<p class="ad_input_row">
 											<input type="checkbox" class="check" id="check_all">
 											<label class="check_label" for="check_all">고정</label>
-										</p>
+										</p>	
 									</td>
-									<td style="border-right: hidden;">Kg</td>
+									<td style="border-right: hidden;">Kg</td>	
 									<td class="td_input" style="border-right: hidden;">
 										<input type="text" class="form-control input-sm" placeholder=""title="">
-									</td>
-									<td style="border-right: hidden;">&nbsp;</td>
-									<td style="border-right: hidden;">&nbsp;</td>
+									</td>	
+									<td style="border-right: hidden;">&nbsp;</td>	
+									<td style="border-right: hidden;">&nbsp;</td>			
 									<td style="border-right: hidden;" colspan="2"> → 박스수량과 평균중량 입력 시 KG 자동계산(숫자 키 패드 적용검토)</td>
-								</tr>
+								</tr>														
 								<tr>
 									<th scope="row">입고구분</th>
 									<td colspan="8" class="td_input" style="border-right: hidden;">
@@ -275,9 +275,9 @@
 											<label class="radio_label" for="radio1">매취</label>
 										</p>
 									</td>
-									<td style="border-right: hidden;">&nbsp;</td>
-									<td style="border-right: hidden;">&nbsp;</td>
-									<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정</td>
+									<td style="border-right: hidden;">&nbsp;</td>	
+									<td style="border-right: hidden;">&nbsp;</td>	
+									<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정</td>					
 								</tr>
 								<tr>
 									<th scope="row">상품구분</th>
@@ -298,10 +298,10 @@
 											<input type="radio" name="radio" class="radio" id="radio1">
 											<label class="radio_label" for="radio1">유기농</label>
 										</p>
-										</td>
-										<td style="border-right: hidden;">&nbsp;</td>
-										<td style="border-right: hidden;">&nbsp;</td>
-										<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정</td>
+										</td>	
+										<td style="border-right: hidden;">&nbsp;</td>		
+										<td style="border-right: hidden;">&nbsp;</td>	
+										<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정</td>				
 								</tr>
 								<tr>
 									<th scope="row" style="border-right: hidden;">운송구분</th>
@@ -318,10 +318,10 @@
 											<input type="radio" name="radio" class="radio" id="radio1">
 											<label class="radio_label" for="radio1">기타</label>
 										</p>
-									</td>
+									</td>	
 									<td style="border-right: hidden;">&nbsp;</td>
-									<td style="border-right: hidden;">&nbsp;</td>
-									<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정</td>
+									<td style="border-right: hidden;">&nbsp;</td>	
+									<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정</td>							
 								</tr>
 			 					<tr>
 								 	<th scope="row">입고등급</th>
@@ -364,7 +364,7 @@
 											<option>선택</option>
 										</select>
 									</td>
-									<td style="border-right: hidden;">&nbsp;</td>
+									<td style="border-right: hidden;">&nbsp;</td>	
 									<td colspan="2" class="td_input" style="border-right: hidden;">
 										<p class="ad_input_row">
 											<input type="checkbox" class="check" id="check_default">

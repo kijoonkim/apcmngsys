@@ -148,7 +148,7 @@
 								</div>
 							</div>
 						</div>
-
+						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -191,7 +191,7 @@
 													</div>
 													<input type="text" name="datepicker" placeholder="2023.01.31" class="form-control pull-right input-sm">
 												</div>
-											</div>
+											</div>										
 										</td>
 										<th scope="row">품목</th>
 										<td class="td_input" style="border-right: hidden;">
@@ -219,14 +219,14 @@
 											<select class="form-control input-sm">
 												<option></option>
 											</select>
-										</td>
+										</td>	
 										<td style="border-right: hidden;">&nbsp;</td>
 										<th scope="row" style="border-right: hidden;">저장창고</th>
 										<td colspan= "2" class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option></option>
 											</select>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>												
 										<th scope="row">규격</th>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
@@ -234,7 +234,7 @@
 											</select>
 										</td>
 										<td>&nbsp;</td>
-									</tr>
+									</tr>									
 									<tr>
 										<th scope="row" style="border-right: hidden;">대표생산자</th>
 										<td class="td_input">
@@ -251,7 +251,7 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 								<div class="ad_tbl_top">
@@ -259,14 +259,14 @@
 										<td>&nbsp;</td>
 										<li><span>포장내역</span></li>
 										<td>&nbsp;</td>
-									<li><span>포장수량/중량 : 99/99,999 Kg</span></li>
+									<li><span>포장수량/중량 : 99/99,999 Kg</span></li>	
 									</ul>
 								</div>
 									<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
-
+																				
 											<col style="width: 6%">
 											<col style="width: 6%">
 											<col style="width: 6%">

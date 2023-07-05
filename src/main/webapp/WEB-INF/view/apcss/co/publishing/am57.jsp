@@ -136,6 +136,336 @@
 <!-- ============================================================================================================== -->
 
 
+<section class="content container-fluid">
+					<div class="box box-solid">
+						<div class="box-header">
+							<h3 class="box-title"> ▶ 발주정보 등록</h3>
+								<div class="ad_tbl_top">
+								<div class="ad_tbl_toplist">
+									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+								</div>
+							</div>
+						</div>
+						<div>
+						</div>
+						<div class="box-body">
+							<!--[pp] 검색 -->
+							<table class="table table-bordered tbl_row tbl_fixed">
+								<caption>검색 조건 설정</caption>
+								<colgroup>
+									<col style="width: 10%">
+									<col style="width: 24%">
+									<col style="width: 10%">
+									<col style="width: 24%">
+									<col style="width: 10%">
+									<col style="width: 23%">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th scope="row">조회일자</th>
+										<th class="td_input" scope="col">
+											<div class="dp_inline wd_125 va_m">
+												<div class="input-group date">
+													<div class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</div>
+													<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
+												</div>
+											</div>
+										</th>
+										<th></th>
+										<th></th>
+										<th class="td_input">재고구분</th>
+										<th>											
+											<select class="form-control input-sm" disabled>
+												<option></option>
+											</select>
+										</th>
+									</tr>
+									<tr>								
+										<th scope="row">품목/품종</th>
+										<th scope="row">
+											<div class="fl_group fl_rpgroup">
+												<select class="form-control fl_fixed mg_r5 wd_110">
+													<option>선택</option>
+													<option>option 2</option>
+													<option>option 3</option>
+													<option>option 4</option>
+													<option>option 5</option>
+												</select>
+												<select class="form-control fl_fixed mg_r5 wd_130">
+													<option>선택</option>
+													<option>option 2</option>
+													<option>option 3</option>
+													<option>option 4</option>
+													<option>option 5</option>
+												</select>
+											</div>
+										</th>
+										<th scope="row">규격</th>
+										<th scope="row">
+											<select class="form-control input-sm" disabled>
+												<option>선택</option>
+											</select>
+										</th>
+										<th>
+											창고구분
+										</th>
+										<th scope="row" class="ta_r">
+											<select class="form-control input-sm" >
+												<option>선택</option>
+											</select>
+										</th>
+									</tr>
+									<tr>
+										<th scope="row">생산자</th>
+										<th scope="row" class="ta_r">
+											<div class="fl_group fl_rpgroup">
+												<input type="text" class="form-control input-sm" placeholder="" title="입력하세요."  disabled>						
+												<button type="button" class="btn btn-sm btn-outline-danger">찾기</button>
+											</div>	
+											</th>
+										<th scope="row">상품구분</th>
+										<th scope="row" class="ta_r">
+											<select class="form-control input-sm" >
+												<option>선택</option>
+											</select>
+										</th>
+										<th scope="row">입고구분</th>
+										<th scope="row" class="ta_r">
+											<select class="form-control input-sm" >
+												<option>선택</option>
+											</select>
+										</th>
+									</tr>
+								</tbody>
+							</table>
+							<button type="button" class="btn btn-lg btn-outline-danger">접속이력</button>
+							<button type="button" class="btn btn-lg btn-outline-danger">화면열람이력</button>
+							<button type="button" class="btn btn-lg btn-outline-danger">송수신이력</button>
+							<button type="button" class="btn btn-lg btn-outline-danger">배치실행이력</button>
+							
+							<div id = "tab_content_3" class="tab_content_common">
+								<table class="table table-bordered tbl_row tbl_fixed">
+									<caption>검색 조건 설정</caption>
+									<colgroup>
+										<col style="width: 10%">
+										<col style="width: 15%">
+										<col style="width: 10%">
+										<col style="width: 10%">
+										<col style="width: 10%">
+										<col style="width: 10%">
+										<col style="width: 20%">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th scope="row">조회일자</th>
+											<th>
+												<div class="fl_group fl_rpgroup">
+													<div class="dp_inline wd_125 va_m">
+														<div class="input-group date">
+															<div class="input-group-addon">
+																<i class="fa fa-calendar"></i>
+															</div>
+															<input type="text" name="datepicker" placeholder="시작일" class="form-control pull-right">
+														</div>
+													</div>
+													~
+													<div class="dp_inline wd_125 va_m">
+														<div class="input-group date">
+															<div class="input-group-addon">
+																<i class="fa fa-calendar"></i>
+															</div>
+															<input type="text" name="datepicker" placeholder="종료일" class="form-control pull-right">
+														</div>
+													</div>
+												</div>
+											</th>
+											<th scope="row">송수신구분</th>
+											<th class="td_input">
+												<select class="form-control input-sm">
+													<option>선택</option>
+												</select>
+											</th>
+											<th scope="row">인터페이스명</th>
+											<th class="td_input">
+												<input type="text" class="form-control input-sm" placeholder="">
+											</th>
+											<th>&nbsp;</th>
+										</tr>
+									</tbody>
+								</table>
+								<div class="ad_tbl_top">
+									<ul class="ad_tbl_count">
+										<li><span>송수신이력 정보</span></li>
+									</ul>
+								</div>
+								<table class="table table-bordered table-hover tbl_col tbl_fixed">
+									<caption>검색결과 목록</caption>
+									<colgroup>
+										<col style="width: 14%">
+										<col style="width: 15%">
+										<col style="width: 15%">
+										<col style="width: 14%">
+										<col style="width: 14%">
+										<col style="width: 14%">
+										<col style="width: 14%">
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">처리일시</th>
+											<th scope="col">인터페이스ID</th>
+											<th scope="col">인터페이스명</th>
+											<th scope="col">송수신구분</th>
+											<th scope="col">처리결과</th>
+											<th scope="col">접속일시</th>
+											<th scope="col">종료일시</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+									</tbody>
+								</table>	
+							</div>
+							<div id = "tab_content_4" class="tab_content_common">
+								<table class="table table-bordered tbl_row tbl_fixed">
+									<caption>검색 조건 설정</caption>
+									<colgroup>
+										<col style="width: 10%">
+										<col style="width: 15%">
+										<col style="width: 10%">
+										<col style="width: 10%">
+										<col style="width: 10%">
+										<col style="width: 10%">
+										<col style="width: 20%">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th scope="row">조회일자</th>
+											<th>
+												<div class="fl_group fl_rpgroup">
+													<div class="dp_inline wd_125 va_m">
+														<div class="input-group date">
+															<div class="input-group-addon">
+																<i class="fa fa-calendar"></i>
+															</div>
+															<input type="text" name="datepicker" placeholder="시작일" class="form-control pull-right">
+														</div>
+													</div>
+													~
+													<div class="dp_inline wd_125 va_m">
+														<div class="input-group date">
+															<div class="input-group-addon">
+																<i class="fa fa-calendar"></i>
+															</div>
+															<input type="text" name="datepicker" placeholder="종료일" class="form-control pull-right">
+														</div>
+													</div>
+												</div>
+											</th>
+											<th scope="row">프로그램 명</th>
+											<th class="td_input">
+												<input type="text" class="form-control input-sm" placeholder="">
+											</th>
+											<th>&nbsp;</th>
+											<th>&nbsp;</th>
+											<th>&nbsp;</th>
+										</tr>
+									</tbody>
+								</table>
+								<div class="ad_tbl_top">
+									<ul class="ad_tbl_count">
+										<li><span>배치실행이력 정보</span></li>
+									</ul>
+								</div>
+								<table class="table table-bordered table-hover tbl_col tbl_fixed">
+									<caption>검색결과 목록</caption>
+									<colgroup>
+										<col style="width: 14%">
+										<col style="width: 15%">
+										<col style="width: 15%">
+										<col style="width: 14%">
+										<col style="width: 14%">
+										<col style="width: 14%">
+										<col style="width: 14%">
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">처리일자</th>
+											<th scope="col">순번</th>
+											<th scope="col">프로그램ID</th>
+											<th scope="col">프로그램명</th>
+											<th scope="col">시작일시</th>
+											<th scope="col">종료일시</th>
+											<th scope="col">처리결과</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+									</tbody>
+								</table>	
+							</div>
+
+								</div>
+							</div>
+							</div>
+							<!--[pp] //검색결과 -->
+						</div>
+					</div>
+				</section>
 
 
 

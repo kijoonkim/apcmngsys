@@ -142,9 +142,9 @@
 							<h3 class="box-title"> ▶ APC정보관리</h3>
 							<div class="ad_tbl_top">
 								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+									<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
 								</div>
 							</div>
@@ -183,7 +183,7 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 								<div class="ad_tbl_top">
@@ -197,7 +197,7 @@
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
-
+																				
 											<col style="width: 3%">
 											<col style="width: 5%">
 											<col style="width: 6%">
@@ -227,7 +227,7 @@
 												<th scope="col">주소</th>
 												<th scope="col">팩스번호</th>
 												<th scope="col">전화번호</th>
-
+												
 											</tr>
 										</thead>
 										<tbody>
@@ -253,9 +253,10 @@
 											<tr>
 												<th scope="row" class="td_input">
 													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1">
-														<label class="check_label ta_i" for="check1">선택</label>
+														<input type="checkbox" class="check" id="check_all">
+														<label class="check_label" for="check_all"></label>
 													</p>
+
 												</th>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -276,7 +277,7 @@
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
+												</th>	
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>

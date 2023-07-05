@@ -229,7 +229,7 @@
 										<th colspan="2"class="td_input">
 											<input type="text" class="form-control input-sm">
 												<th class="td_input">
-													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>											
 										</th>
 											<th scope="row">상품명</th>
 										<th colspan="3"class="td_input">
@@ -310,7 +310,7 @@
 									</tr>
 								</tbody>
 							</table>
-
+							
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<div class="ad_section_top">
@@ -401,7 +401,7 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
-												<td>&nbsp;</td>
+												<td>&nbsp;</td> 
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -469,9 +469,9 @@
 											</tr>
 										</tbody>
 									</table>
-
+																				
 								</div>
-
+								
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>

@@ -148,7 +148,7 @@
 								</div>
 							</div>
 						</div>
-
+						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -163,8 +163,8 @@
 								<tbody>
 									<tr>
 										<th scope="row">APC명</th>
-
-										<th>
+										
+										<th>											
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</th>
 										<th scope="row">생산자명</th>
@@ -175,16 +175,16 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<div class="ad_section_top">
-
+								
 									<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
-
+																				
 											<col style="width: 2%">
 											<col style="width: 2%">
 											<col style="width: 5%">
@@ -242,7 +242,7 @@
 														<option></option>
 													</select>
 												</td>
-												<td><button type="button" class="btn btn-xs btn-outline-danger">찾기</button></td>
+												<td class="ta_r" ><button type="button" class="btn btn-xs btn-outline-danger">찾기</button></td>
 												<td>&nbsp;</td>
 												<td><button type="button" class="btn btn-xs btn-outline-danger">삭제</button></td>
 											</tr>
@@ -278,7 +278,7 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td><button type="button" class="btn btn-xs btn-outline-danger">추가</button></td>
-											</tr>
+											</tr>										
 											<tr>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -311,7 +311,7 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
-											</tr>
+											</tr>										
 											<tr>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -344,7 +344,7 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
-											</tr>
+											</tr>										
 											<tr>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -377,7 +377,7 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
-											</tr>
+											</tr>										
 										</tbody>
 									</table>
 								</div>

@@ -383,9 +383,6 @@
                   <button type="button" class="btn btn-sm btn-outline-danger">
                     삭제
                   </button>
-                  <button type="button" class="btn btn-sm btn-outline-danger">
-                    종료
-                  </button>
                 </div>
               </div>
             </div>
@@ -409,20 +406,19 @@
                 </colgroup>
                 <tbody>
                   <tr>
-                    <th class="ta_r">APC코드</th>
+                    <th class="ta_r">검색조건</th>
                     <th class="ta_r" colspan="2">
+                      <select class="form-control input-sm">
+                        <option>전체</option>
+                      </select>
+                    </th>
+                    <th colspan="6">
                       <input
                         type="text"
                         class="form-control input-sm"
                         placeholder="입력"
-                        style="width: 100%"
+                        style="width: 20%"
                       />
-                    </th>
-                    <th class="ta_r">원본 APC명</th>
-                    <th colspan="5">
-                      <select class="form-control input-sm" style="width: 40%">
-                        <option>전체</option>
-                      </select>
                     </th>
                   </tr>
                 </tbody>
@@ -430,13 +426,157 @@
 
               <!--[pp] //검색 -->
               <!--[pp] 검색결과 -->
+              <br>
+              <div>
+                <div class="col-sm-3">
+                  <b>권한그룹목록</b>
+                  <div class="ad_tbl_top">
+										<div class="ad_tbl_toplist" style="float: right;">
+                      <br>										
+                    </div>
+									</div>
+                  <table class="table table-bordered table-hover tbl_col tbl_fixed asdasd"style="width: 100%">
+                    <colgroup>
+                      <col style="width: 20%" />
+                      <col style="width: 80%" />
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>권한명</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>A01</td>
+                        <td>관리자</td>
+                      </tr>
+                      <tr>
+                        <td>B01</td>
+                        <td>테스트</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="dataTables_paginate paging_simple_numbers ta_c">
+                    <select
+                      class="form-control input-sm"
+                      style="width: 20%; float: left"
+                    >
+                      <option>100</option>
+                    </select>
+                    <ul class="pagination">
+                      <li class="paginate_button first disabled">
+                        <a href="javascript:void(0);" title="첫페이지 목록"
+                          ><i class="fa fa-angle-double-left"></i
+                        ></a>
+                      </li>
+                      <li class="paginate_button previous disabled">
+                        <a href="javascript:void(0);" title="이전목록"
+                          ><i class="fa fa-angle-left"></i
+                        ></a>
+                      </li>
+                      <li class="paginate_button active">
+                        <a href="javascript:void(0);">1</a>
+                      </li>
+                      <li class="paginate_button">
+                        <a href="javascript:void(0);">2</a>
+                      </li>
+                      <li class="paginate_button">
+                        <a href="javascript:void(0);">3</a>
+                      </li>
+                      <li class="paginate_button">
+                        <a href="javascript:void(0);">4</a>
+                      </li>
+                      <li class="paginate_button">
+                        <a href="javascript:void(0);">5</a>
+                      </li>
+                      <li class="paginate_button next">
+                        <a href="javascript:void(0);" title="다음목록"
+                          ><i class="fa fa-angle-right"></i
+                        ></a>
+                      </li>
+                      <li class="paginate_button last">
+                        <a href="javascript:void(0);" title="마지막페이지 목록"
+                          ><i class="fa fa-angle-double-right"></i
+                        ></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                
+								<div class="col-sm-9">
+									<b >사용자목록 </b>
+									<div class="ad_tbl_top">
+										<div class="ad_tbl_toplist" style="float: right;">
+											<button type="button" class="btn btn-sm btn-outline-danger">행추가</button>
+										</div>
+									</div>
 
-              <div style="display: flex; flex-direction: row">
-                <div>
-                  <b>메뉴 목록</b>
-                  <table
-                    class="table table-bordered table-hover tbl_col tbl_fixed"
-                  >
+                  <table class="table table-bordered table-hover tbl_col tbl_fixed" style="line-height: 20px;">
                     <colgroup>
                       <col style="width: 10%" />
                       <col style="width: 10%" />
@@ -448,27 +588,19 @@
                       <col style="width: 10%" />
                       <col style="width: 10%" />
                       <col style="width: 10%" />
-                      <col style="width: 10%" />
-                      <col style="width: 10%" />
-                      <col style="width: 10%" />
-                      <col style="width: 10%" />
                     </colgroup>
                     <thead>
                       <tr>
-                        <th>선택</th>
-                        <th>APC코드</th>
-                        <th>원본APC명</th>
-                        <th>시도 명</th>
-                        <th>시군 명</th>
-                        <th>주체 명</th>
-                        <th>원본주소</th>
-                        <th>원본전화번호</th>
-                        <th>APC명</th>
-                        <th>사업자번호</th>
-                        <th>주소</th>
-                        <th>팩스번호</th>
-                        <th>전화번호</th>
-                        <th>처리</th>
+                        <th></th>
+                        <th>NO</th>
+                        <th>ID</th>
+                        <th>사용자명</th>
+                        <th>센터명</th>
+                        <th>유형</th>
+                        <th>상태</th>
+                        <th>등록자ID</th>
+                        <th>프로그램ID</th>
+                        <th>등록일시</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -481,26 +613,15 @@
                             >
                           </p>
                         </td>
+                        <td>1</td>
+                        <td>TEST</td>
+                        <td>테스트</td>
+                        <td>통합</td>
+                        <td>관리자</td>
+                        <td>정상</td>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-danger"
-                          >
-                            삭제
-                          </button>
-                        </td>
                       </tr>
                       <tr>
                         <td>
@@ -520,17 +641,6 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-danger"
-                          >
-                            추가
-                          </button>
-                        </td>
                       </tr>
                       <tr>
                         <td>
@@ -545,6 +655,230 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="ad_input_row">
+                            <input type="checkbox" class="check" id="check1" />
+                            <label class="check_label ta_i" for="check1"
+                              >선택</label
+                            >
+                          </p>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="ad_input_row">
+                            <input type="checkbox" class="check" id="check1" />
+                            <label class="check_label ta_i" for="check1"
+                              >선택</label
+                            >
+                          </p>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="ad_input_row">
+                            <input type="checkbox" class="check" id="check1" />
+                            <label class="check_label ta_i" for="check1"
+                              >선택</label
+                            >
+                          </p>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="ad_input_row">
+                            <input type="checkbox" class="check" id="check1" />
+                            <label class="check_label ta_i" for="check1"
+                              >선택</label
+                            >
+                          </p>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="ad_input_row">
+                            <input type="checkbox" class="check" id="check1" />
+                            <label class="check_label ta_i" for="check1"
+                              >선택</label
+                            >
+                          </p>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="ad_input_row">
+                            <input type="checkbox" class="check" id="check1" />
+                            <label class="check_label ta_i" for="check1"
+                              >선택</label
+                            >
+                          </p>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="ad_input_row">
+                            <input type="checkbox" class="check" id="check1" />
+                            <label class="check_label ta_i" for="check1"
+                              >선택</label
+                            >
+                          </p>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="ad_input_row">
+                            <input type="checkbox" class="check" id="check1" />
+                            <label class="check_label ta_i" for="check1"
+                              >선택</label
+                            >
+                          </p>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="ad_input_row">
+                            <input type="checkbox" class="check" id="check1" />
+                            <label class="check_label ta_i" for="check1"
+                              >선택</label
+                            >
+                          </p>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="ad_input_row">
+                            <input type="checkbox" class="check" id="check1" />
+                            <label class="check_label ta_i" for="check1"
+                              >선택</label
+                            >
+                          </p>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="ad_input_row">
+                            <input type="checkbox" class="check" id="check1" />
+                            <label class="check_label ta_i" for="check1"
+                              >선택</label
+                            >
+                          </p>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="ad_input_row">
+                            <input type="checkbox" class="check" id="check1" />
+                            <label class="check_label ta_i" for="check1"
+                              >선택</label
+                            >
+                          </p>
+                        </td>
                         <td></td>
                         <td></td>
                         <td></td>

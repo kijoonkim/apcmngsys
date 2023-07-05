@@ -148,7 +148,7 @@
 								</div>
 							</div>
 						</div>
-
+						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -169,7 +169,7 @@
 										<th scope="row">APC명</th>
 								    	<td colspan="2" class="td_input" style="border-right:hidden ;">
 								    		<input type= "text" class= "form-control input-sm" placeholder="" disabled="" >
-										</td>
+										</td>									
 										<th scope="row" style="border-right:hidden ;">지시일자</th>
 										<td colspan="2" class="td_input" style="border-right:hidden ;">
 											<div class="dp_inline wd_125 va_m">
@@ -188,7 +188,7 @@
 													</div>
 													<input type="text" name="datepicker" placeholder="2023-01-31" class="form-control pull-right input-sm">
 												</div>
-											</div>
+											</div>										
 										</td>
 				                	</tr>
 									<tr>
@@ -221,12 +221,12 @@
 									    <td class="td_input" style="border-right:hidden ;">
 											<select class="form-control input-sm">
 												<option></option>
-											</select>
+											</select>											
 									    <td class="td_input" style="border-right:hidden ;">
 											<select class="form-control input-sm" disabled>
 												<option></option>
 											</select>
-										</td>
+										</td>	
 										<th scope="row">규격</th>
 										<td class="td_input" style="border-right:hidden ;">
 											<select class="form-control input-sm" disabled>
@@ -237,23 +237,23 @@
 										<td class="td_input" style="border-right:hidden ;">
 											<input type="text" class="form-control input-sm">
 										</td>
-									</tr>
+									</tr>								
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>지시 내역</span></li>
-									<li><span>지시수량/중량 : 99 / 99,999 Kg</span></li>
+									<li><span>지시수량/중량 : 99 / 99,999 Kg</span></li>	
 									</ul>
 								</div>
 									<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
-
+																				
 											<col style="width: 3%">
 											<col style="width: 5%">
 											<col style="width: 5%">

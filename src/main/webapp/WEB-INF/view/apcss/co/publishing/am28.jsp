@@ -147,7 +147,7 @@
 								<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
 								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
 							</div>
-
+						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -199,13 +199,13 @@
 											<select class="form-control input-sm">
 												<option></option>
 											</select>
-										</td>
+										</td>										
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 											</select>
 										</td>
 									</tr>
-									<tr>
+									<tr>			
 										<th scope="row">생산자</th>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
@@ -232,7 +232,7 @@
 										<li><span>　투입지시 내역</span></li>
 										<li><span>　　　지시중량 : 99.999Kg　　　　실적중량 : 99.999Kg</span></li>
 									</ul>
-								</div>
+								</div>								
 								<table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<colgroup>
 										<col style="width: 7%">

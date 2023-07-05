@@ -141,7 +141,7 @@
 							<h3 class="box-title"> ▶ 원물입고등록</h3>
 							<div class="ad_tbl_top">
 								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-primary">원물인식표</button>
+									<button type="button" class="btn btn-sm btn-primary">원물인식표</button>								
 									<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
@@ -268,7 +268,7 @@
 											<select class="form-control input-sm">
 												<option>단일선택</option>
 											</select>
-										</td>
+										</td>										
 										<th scope="row">수량/중량</th>
 										<td class="td_input"style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" title="">
@@ -278,7 +278,7 @@
 										</td>
 										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" title="">
-										<td><label class="bold">Kg</label></td>
+										<td><label class="bold">Kg</label></td>											
 									</tr>
 									 <tr>
 										<th scope="row">팔레트번호</th>
@@ -289,7 +289,7 @@
 										<td style="border-right: hidden;">&nbsp;</td>
 										<td style="border-right: hidden;">&nbsp;</td>
 										<td style="border-right: hidden;">&nbsp;</td>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>																																					
 										<th scope="row">박스종류</th>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
@@ -346,10 +346,10 @@
 										<td colspan= "2" class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
-									</tr>
+									</tr> 					
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 									<div class="ad_tbl_top">
@@ -366,7 +366,7 @@
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
-
+																				
 											<col style="width: 7%">
 											<col style="width: 7%">
 											<col style="width: 5%">
@@ -431,7 +431,7 @@
 											</tr>
 										</tbody>
 									</table>
-									<td>&nbsp;</td>
+									<td>&nbsp;</td>																					
 								</div>
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
@@ -477,7 +477,7 @@
 											</tr>
 										</tbody>
 									</table>
-									<td>&nbsp;</td>
+									<td>&nbsp;</td>																								
 								</div>
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
@@ -488,7 +488,7 @@
 											<col style="width: 10%">
 											<col style="width: 10%">
 											<col style="width: 10%">
-
+											
 										</colgroup>
 										<thead>
 											<tr>
@@ -500,9 +500,9 @@
 											</tr>
 										</thead>
 									</table>
-
+									
 								</div>
-
+								
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>

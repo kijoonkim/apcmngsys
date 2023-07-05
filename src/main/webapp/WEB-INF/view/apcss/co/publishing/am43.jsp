@@ -150,7 +150,7 @@
 								</div>
 							</div>
 
-
+							
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
@@ -170,7 +170,7 @@
 										<th scope="row">APC명</th>
 								    	<td colspan="2" class="td_input">
 											<input type="text" class="form-control input-sm" placeholder=""disabled>
-										</td>
+										</td>									
 								        <th scope="row">접수여부</th>
 										<td colspan="2" class="td_input">
 											<select class="form-control input-sm">
@@ -194,7 +194,7 @@
 													</div>
 													<input type="text" name="datepicker" placeholder="2023.01.31" class="form-control pull-right input-sm">
 												</div>
-											</div>
+											</div>										
 										</td>
 				                	</tr>
 									<tr>
@@ -220,7 +220,7 @@
 									    <th scope="row">거래처명</th>
 										<td colspan="2" class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm">
-										</td>
+										</td>	
 										<th scope="row">납기일자</th>
 										<td colspan="2" class="td_input" style="border-right: hidden;">
 											<div class="dp_inline wd_125 va_m">
@@ -256,24 +256,24 @@
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 									         	<option>선택</option>
-									        </select>
+									        </select>					
 										</td>
 										<td colspan="4" class="ta_r">
 											<div class="ad_tbl_toplist">
 												  <button type="button" class="btn btn-sm btn-outline-success"></i>생산지시 등록</button>
-										   </div>
+										   </div>				
 										</td>
-									</tr>
+									</tr>										
 								</tbody>
 							</table>
-
+							
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<div class="ad_section_top">
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>발주 내역</span></li>
-									</ul>
+									</ul>									
 								<div class="ad_tbl_toplist">
 									<button type="button" class="btn btn-sm btn-outline-dark">일괄접수</button>
 									</div>
@@ -343,7 +343,7 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 											</tr>
-											<tr>
+											<tr>	
                                                <th scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
@@ -370,7 +370,7 @@
 										</tbody>
 									</table>
 								</div>
-								  <td>&nbsp;</td>
+								  <td>&nbsp;</td>								  
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
@@ -426,7 +426,7 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 											</tr>
-											<tr>
+											<tr>	
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -489,7 +489,7 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 											</tr>
-											<tr>
+											<tr>	
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -503,9 +503,9 @@
 											</tr>
 										</tbody>
 									</table>
-
+									
 								</div>
-
+								
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>

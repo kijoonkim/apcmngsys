@@ -193,22 +193,16 @@
 
               <!--[pp] //검색 -->
               <!--[pp] 검색결과 -->
-
-              <div style="display: flex; flex-direction: row">
-                <div>
-                  <b
-                    >메뉴목록<button
-                      type="button"
-                      class="btn btn-sm btn-outline-danger"
-                      style="float: right; margin-right: 10px"
-                    >
-                      행추가
-                    </button></b
-                  >
-                  <table
-                    class="table table-bordered table-hover tbl_col tbl_fixed asdasd"
-                    style="width: 100%"
-                  >
+              <br>
+              <div>
+                <div class="col-sm-3">
+                  <b>권한그룹목록</b>
+                  <div class="ad_tbl_top">
+										<div class="ad_tbl_toplist" style="float: right;">
+                      <br>										
+                    </div>
+									</div>
+                  <table class="table table-bordered table-hover tbl_col tbl_fixed asdasd"style="width: 100%">
                     <colgroup>
                       <col style="width: 20%" />
                       <col style="width: 80%" />
@@ -340,11 +334,16 @@
                     </ul>
                   </div>
                 </div>
-                <div>
-                  <b>메뉴 목록</b>
-                  <table
-                    class="table table-bordered table-hover tbl_col tbl_fixed"
-                  >
+                
+								<div class="col-sm-9">
+									<b >사용자목록 </b>
+									<div class="ad_tbl_top">
+										<div class="ad_tbl_toplist" style="float: right;">
+											<button type="button" class="btn btn-sm btn-outline-danger">행추가</button>
+										</div>
+									</div>
+
+                  <table class="table table-bordered table-hover tbl_col tbl_fixed" style="line-height: 20px;">
                     <colgroup>
                       <col style="width: 10%" />
                       <col style="width: 10%" />

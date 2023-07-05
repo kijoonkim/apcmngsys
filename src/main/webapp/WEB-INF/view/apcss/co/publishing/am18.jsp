@@ -147,7 +147,7 @@
 								</div>
 							</div>
 						</div>
-
+						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -162,8 +162,8 @@
 								<tbody>
 									<tr>
 										<th scope="row">APC명</th>
-
-										<th>
+										
+										<th>											
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</th>
 										<th scope="row">계량번호</th>
@@ -174,21 +174,17 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
+							
 							<div class="ad_section_top">
-								<div class="table-responsive tbl_scroll_sm">
-									<table class="table table-bordered table-hover tbl_col tbl_fixed">
+								<div>
+									<div class="col-sm-6">
+										<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
-
-											<col style="width: 8%">
-											<col style="width: 4%">
-											<col style="width: 5%">
-											<col style="width: 5%">
-											<col style="width: 3%">
-											<col style="width: 1%">
+																				
 											<col style="width: 8%">
 											<col style="width: 4%">
 											<col style="width: 5%">
@@ -198,19 +194,11 @@
 										<thead>
 											<tr>
                                                 <th colspan="5">팔레트</th>
- 												<td>&nbsp;</td>
-												<th colspan="5">박스</th>
 											</tr>
 											<tr>
 												<th scope="col">팔레트종류</th>
 												<th scope="col">수량</th>
 												<th scope="col">팔레트단중</th>
-												<th scope="col">중량 Kg</th>
-												<th scope="col">처리</th>
-												<td>&nbsp;</td>
-												<th scope="col">박스종류</th>
-												<th scope="col">수량</th>
-												<th scope="col">박스단중</th>
 												<th scope="col">중량 Kg</th>
 												<th scope="col">처리</th>
 											</tr>
@@ -225,7 +213,51 @@
 												<td>
 													<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
 												</td>
+											</tr>
+											<tr>
+												<td><select class="form-control input-sm">
+												</select></td>
 												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>
+													<button type="button" class="btn btn-sm btn-outline-danger">추가</button>
+												</td>
+											</tr>
+											<tr>
+												<td class="td_input"><label class="bold">합계</label></td>
+												<td>3</td>
+												<td>&nbsp;</td>
+												<td>300</td>
+												<td>&nbsp;</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="col-sm-6">
+									<table class="table table-bordered table-hover tbl_col tbl_fixed">
+										<caption>검색결과 목록</caption>
+										<colgroup>
+											<col style="width: 8%">
+											<col style="width: 4%">
+											<col style="width: 5%">
+											<col style="width: 5%">
+											<col style="width: 3%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th colspan="5">박스</th>
+											</tr>
+											<tr>
+												<th scope="col">박스종류</th>
+												<th scope="col">수량</th>
+												<th scope="col">박스단중</th>
+												<th scope="col">중량 Kg</th>
+												<th scope="col">처리</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
 												<td><select class="form-control input-sm">
 												<option>PVC박스</option></select></td>
 												<td>150</td>
@@ -244,23 +276,8 @@
 												<td>
 													<button type="button" class="btn btn-sm btn-outline-danger">추가</button>
 												</td>
-                                                <td>&nbsp;</td>
-												<td><select class="form-control input-sm">
-												</select></td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>
-													<button type="button" class="btn btn-sm btn-outline-danger">추가</button>
-												</td>
 											</tr>
 											<tr>
-												<td class="td_input"><label class="bold">합계</label></td>
-												<td>3</td>
-												<td>&nbsp;</td>
-												<td>300</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
 												<td class="td_input"><label class="bold">합계</label></td>
 												<td>150</td>
 												<td>&nbsp;</td>
@@ -270,6 +287,7 @@
 										</tbody>
 									</table>
 								</div>
+							</div>	
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>

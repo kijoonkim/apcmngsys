@@ -147,8 +147,8 @@
 									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
 							</div>
-						</div>
-
+						</div>				
+						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -163,8 +163,8 @@
 								<tbody>
 									<tr>
 										<th scope="row">APC명</th>
-
-										<th>
+										
+										<th>											
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</th>
 										<th scope="row">계량번호</th>
@@ -175,11 +175,11 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<div class="ad_section_top">
-
+								
 									<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
@@ -215,7 +215,7 @@
 						</div>
 					</div>
 					</div>
-					</div>
+					</div>				
 				</section>
 
 

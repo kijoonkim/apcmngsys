@@ -150,7 +150,7 @@
 								</div>
 							</div>
 						</div>
-
+						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -172,7 +172,7 @@
 										<th scope="row">APC명</th>
 								    	<td colspan="2" class="td_input" style="border-right:hidden ;">
 								    		<input type= "text" class= "form-control input-sm" placeholder="" disabled>
-										</td>
+										</td>									
 										<th scope="row">지시일자</th>
 										<td class="td_input" style="border-right:hidden ;">
 											<div class="dp_inline wd_125 va_m">
@@ -190,7 +190,7 @@
 									    <td class="td_input" style="border-right:hidden ;">
 											<select class="form-control input-sm">
 												<option></option>
-											</select>
+											</select>											
 									    <td class="td_input" style="border-right:hidden ;">
 											<select class="form-control input-sm">
 												<option></option>
@@ -205,7 +205,7 @@
 										<td class="td_input" style="border-right:hidden ;">
 											<input type="text" class="form-control input-sm">
 										</td>
-									</tr>
+									</tr>	
 									<tr>
 										<th scope="row">생산설비</th>
 										<td class="td_input" style="border-right:hidden ;">
@@ -221,7 +221,7 @@
 											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 									    </td>
 									</tr>
-									<tr>
+									<tr>								
 										<th scope="row">납기일자</th>
 										<td colspan= "2" class="td_input" style="border-right:hidden ;">
 											<div class="dp_inline wd_125 va_m">
@@ -251,10 +251,10 @@
 										<td colspan= "2" class="td_input">
 											<input type="text" class="form-control input-sm" placeholder="" disabled="" >
 										</td>
-									</tr>
+									</tr>						
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 								<div class="ad_tbl_top">
@@ -267,7 +267,7 @@
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
-
+																				
 											<col style="width: 3%">
 											<col style="width: 5%">
 											<col style="width: 5%">
@@ -304,7 +304,7 @@
 														<input type="checkbox" class="check" id="check_default">
 														<label class="check_label ta_i" for="check_default">전체선택</label>
 													</p>
-												</th>
+												</th>	
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -323,7 +323,7 @@
 														<input type="checkbox" class="check" id="check_default">
 														<label class="check_label ta_i" for="check_default">전체선택</label>
 													</p>
-												</th>
+												</th>	
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>

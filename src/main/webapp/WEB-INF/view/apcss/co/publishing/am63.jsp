@@ -172,7 +172,6 @@
 										</th>
 										<th class="ta_r">기준일자</th>
 										<th class="td_input">
-											<div class="form-group">
 												<div class="dp_inline wd_125 va_m">
 													<div class="input-group date">
 														<div class="input-group-addon">
@@ -190,7 +189,6 @@
 														<input type="text" name="datepicker" placeholder="종료일" class="form-control pull-right" disabled>
 													</div>
 												</div>
-											</div>
 										</th>
 										<th class="ta_r">생산자</th>
 										<th class="ta_r">
@@ -208,9 +206,9 @@
 								<caption>검색 조건 설정</caption>
 								<colgroup>
 									<col style="width: 5%">
-									<col style="width: 25%">
+									<col style="width: 20%">
 									<col style="width: 5%">
-									<col style="width: 13%">
+									<col style="width: 18%">
 									<col style="width: 7%">
 									<col style="width: 15%">
 									<col style="width: 9%">
@@ -229,14 +227,14 @@
 														<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right" disabled>
 													</div>
 												</div>
-												시간
+												<P style="line-height: 34px ;">&nbsp;&nbsp; 시간&nbsp;</P>
 												<input type="text" class="form-control input-sm" placeholder="12:00" style="width: 30%;" disabled>
 											</div>
 										</th>
 										<th class="ta_r">품목</th>
 										<th class="td_input">
 											<select class="form-control">
-												<option></option>
+												<option>단일선택</option>
 											</select>
 										</th>
 										<th class="ta_r">생산자/품종</th>
@@ -246,7 +244,7 @@
 													<select class="form-control">
 														<option>단일선택</option>
 													</select>
-													<button type="button" class="btn btn-sm btn-primary btn_form btn_search">찾기</button>
+													<button type="button" class="btn btn-xs btn-primary btn_form btn_search">찾기</button>
 												</p>
 											</div>
 										</th>
@@ -255,7 +253,7 @@
 												<option>단일선택</option>
 											</select>
 										</th>
-										<th></th>
+										<th></th>	
 									</tr>
 									<tr>
 										<th>입고구분</th>
@@ -273,7 +271,7 @@
 													<input type="checkbox" class="check" id="check_all">
 													<label class="check_label" for="check_all">매취</label>
 												</p>
-											</div>
+											</div>	
 										</th>
 										<th>상품구분</th>
 										<th>
@@ -294,14 +292,14 @@
 													<input type="checkbox" class="check" id="check_all">
 													<label class="check_label" for="check_all">유기농</label>
 												</p>
-											</div>
+											</div>	
 										</th>
 										<th>운송</th>
 										<th>
 											<div class="fl_group fl_rpgroup">
-												<p class="ad_input_col">
-													<input type="checkbox" class="check" id="check_all" checked>
-													<label class="check_label" for="check_all">자가</label>
+												<p class="ad_input_row" >
+													<input type="checkbox" class="check" id="check_all"  checked>
+													<label class="check_label" for="check_all"  >자가</label>
 												</p>
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check_all">
@@ -325,11 +323,11 @@
 												&nbsp; Kg
 											</div>
 										</th>
-										<th>비고</th>
+										<th>비고</th>	
 										<th colspan="3">
 											<input type="text" class="form-control input-sm" placeholder="">
 										</th>
-										<th colspan="2">&nbsp;</th>
+										<th colspan="2">&nbsp;</th>	
 									</tr>
 								</tbody>
 							</table>
@@ -375,28 +373,28 @@
 											<th scope="row">
 												품종
 											</th>
-											<th scope="row">
+											<th scope="row">												
 												생산자
 											</th>
-											<th scope="row">
+											<th scope="row">												
 												상품구분
 											</th>
-											<th scope="row">
+											<th scope="row">												
 												입고구분
 											</th>
-											<th scope="row">
+											<th scope="row">												
 												운송구분
 											</th>
-											<th scope="row" >
+											<th scope="row" >												
 												계획수량
 											</th>
-											<th scope="row" >
+											<th scope="row" >												
 												계획중량
 											</th>
-											<th scope="row" >
+											<th scope="row" >												
 												비고
 											</th>
-											<th scope="row" >
+											<th scope="row" >												
 												처리
 											</th>
 										</tr>

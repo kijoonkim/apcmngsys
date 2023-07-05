@@ -145,7 +145,7 @@
 									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
 								</div>
 							</div>
-						</div>
+						</div>						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -223,8 +223,8 @@
 											<select class="form-control input-sm">
 												<option></option>
 											</select>
-										</td>
-										<td style="border-right: hidden;">&nbsp;</td>
+										</td>		
+										<td style="border-right: hidden;">&nbsp;</td>								
 										<th scope="row" style="border-right: hidden;">입고구분</th>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
@@ -234,7 +234,7 @@
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<div class="ad_section_top">
@@ -243,7 +243,7 @@
 										<button type="button" class="btn btn-lg btn-outline-danger">선별재고 내역</button>
 										<button type="button" class="btn btn-lg btn-outline-danger">상품재고 내역</button>
 								</div>
-
+								
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
@@ -329,9 +329,9 @@
 											</tr>
 										</tbody>
 									</table>
-
+									
 								</div>
-
+								
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>

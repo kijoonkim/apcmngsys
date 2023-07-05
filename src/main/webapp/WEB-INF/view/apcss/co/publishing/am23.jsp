@@ -143,6 +143,7 @@
 							<div class="ad_tbl_top">
 								<div class="ad_tbl_toplist">
 									<button type="button" class="btn btn-sm btn-primary">계량확인서</button>
+									&nbsp;								
 									<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
 									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
@@ -256,7 +257,7 @@
 												<input type="radio" name="radio" class="radio" id="radio1">
 												<label class="radio_label" for="radio1">유기농</label>
 											</p>
-										</td>
+										</td>									
 										<th scope="row">운송구분</th>
 										<td colspan="3" class="td_input">
 											<p class="ad_input_row">
@@ -293,9 +294,9 @@
 												<input type="checkbox" class="check" id="check_all">
 												<label class="check_label" for="check_all">고정</label>
 											</p>
-										</td>
+										</td>								
 										<th scope="row">감량Kg</th>
-										<td class="td_input">
+										<td class="td_input"  style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
 										<td style="border-right: hidden;">&nbsp;</td>
@@ -315,17 +316,17 @@
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
 										<td colspan="2" class="td_input">
-											<button class="btn btn-xs btn-outline-dark" type="button">입력</button></td>
+											<button class="btn btn-xs btn-outline-dark" type="button">입력</button></td>									
 										<th scope="row">박스 Kg</th>
 										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
-										</td>
-										<td style="border-right: hidden;">&nbsp;</td>
+										</td>	
+										<td style="border-right: hidden;">&nbsp;</td>									
 										<th scope="row">정산중량 Kg</th>
 										<td class="td_input"  style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" title="">
 										</td>
-										<td style="border-right: hidden;">&nbsp;</td>
+										<td style="border-right: hidden;">&nbsp;</td>									
 										<th colspan="2">정산중량=전체중량-공차중량-감량팔레트중량-박스중량</th>
 									</tr>
 									<tr>
@@ -358,11 +359,11 @@
 										<th scope="row">비고</th>
 										<td colspan="4"class="td_input">
 											<input type="text" class="form-control input-sm" placeholder="" title="">
-										</td>
+										</td>										
 									</tr>
 								</tbody>
 							</table>
-
+														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 									<div class="ad_tbl_top">
@@ -379,7 +380,7 @@
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
-
+																				
 											<col style="width: 7%">
 											<col style="width: 5%">
 											<col style="width: 4%">
@@ -449,6 +450,7 @@
 										</tbody>
 									</table>
 								</div>
+								<b>&nbsp;</b>
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
