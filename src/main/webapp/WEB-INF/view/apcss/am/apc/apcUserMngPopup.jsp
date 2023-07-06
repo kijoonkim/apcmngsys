@@ -34,11 +34,11 @@
 					<tr>
 						<th scope="row">APC명</th>
 						<th>
-							<input type="text" class="form-control input-sm" placeholder="" disabled>
+							<sbux-input id=userAuthApcNm name="userAuthApcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 						</th>
 						<th scope="row">사용자명</th>
 						<th>
-							<input type="text" class="form-control input-sm" placeholder="" title="">
+							<sbux-input id=userAuthUserNm name="userAuthUserNm" uitype="text" class="form-control input-sm"></sbux-input>
 						</th>
 						<th>&nbsp;</th>
 					</tr>
