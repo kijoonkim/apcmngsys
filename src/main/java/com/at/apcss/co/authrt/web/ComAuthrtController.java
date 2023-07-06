@@ -30,14 +30,14 @@ public class ComAuthrtController extends BaseController{
 	private ComAuthrtService comAuthrtService;
 
 	// 권한그룹관리
-	@RequestMapping("/co/authrt/authrtMng.do")
+	@RequestMapping("/co/authrt/comAuthrtMng.do")
 	public String doAuth() {
-		
+
 		return "apcss/co/authrt/comAuthrtMng";
 	}
-	
+
 	// 권한그룹별 사용자관리
-	@RequestMapping("/co/authrt/authrtUserMng.do")
+	@RequestMapping("/co/authrt/comAuthrtUserMng.do")
 	public String doAuthUser() {
 
 		return "apcss/co/authrt/comAuthrtUserMng";
