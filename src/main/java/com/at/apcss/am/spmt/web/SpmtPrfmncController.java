@@ -24,9 +24,9 @@ import com.at.apcss.co.sys.controller.BaseController;
 public class SpmtPrfmncController extends BaseController {
 
 	// 출하실적등록
-	@RequestMapping(value = "/am/spmt/regFormSpmtPrfmnc.do")
+	@RequestMapping(value = "/am/spmt/regSpmtPrfmnc.do")
 	public String doRegFormSpmtPrfmnc() {
-		return "apcss/am/spmt/regFormSpmtPrfmnc";
+		return "apcss/am/spmt/regSpmtPrfmnc";
 	}
 
 	// 출하실적조회
@@ -36,9 +36,9 @@ public class SpmtPrfmncController extends BaseController {
 	}
 
 	// 출하실적등록 태블릿
-	@RequestMapping(value = "/am/spmt/regFormSpmtPrfmncTablet.do")
+	@RequestMapping(value = "/am/spmt/regSpmtPrfmncTablet.do")
 	public String doRegFormSpmtPrfmncTablet() {
-		return "apcss/am/spmt/regFormSpmtPrfmncTablet";
+		return "apcss/am/spmt/regSpmtPrfmncTablet";
 	}
 
 }

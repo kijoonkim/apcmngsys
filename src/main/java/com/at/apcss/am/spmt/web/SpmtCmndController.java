@@ -24,9 +24,9 @@ import com.at.apcss.co.sys.controller.BaseController;
 public class SpmtCmndController extends BaseController {
 
 	// 출하지시등록
-	@RequestMapping(value = "/am/spmt/regFormSpmtCmnd.do")
+	@RequestMapping(value = "/am/spmt/regSpmtCmnd.do")
 	public String doRegFormSpmtCmnd() {
-		return "apcss/am/spmt/regFormSpmtCmnd";
+		return "apcss/am/spmt/regSpmtCmnd";
 	}
 
 	// 출하지시조회

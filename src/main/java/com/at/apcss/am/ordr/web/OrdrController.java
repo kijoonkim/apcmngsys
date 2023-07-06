@@ -30,8 +30,8 @@ public class OrdrController extends BaseController {
 	}
 
 	// 발주정보등록
-	@RequestMapping(value = "/am/ordr/regFormOutordrInfo.do")
+	@RequestMapping(value = "/am/ordr/regOutordrInfo.do")
 	public String doRegFormOutordrInfo() {
-		return "apcss/am/ordr/regFormOutordrInfo";
+		return "apcss/am/ordr/regOutordrInfo";
 	}
 }

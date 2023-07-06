@@ -30,9 +30,9 @@ public class ClclnPrfmncController extends BaseController {
 	}
 
 	// 매출확정등록
-	@RequestMapping(value = "/am/clcln/regFormClclnPrfmnc.do")
+	@RequestMapping(value = "/am/clcln/regClclnPrfmnc.do")
 	public String doRegFormClclnPrfmnc() {
-		return "apcss/am/clcln/regFormClclnPrfmnc";
+		return "apcss/am/clcln/regClclnPrfmnc";
 	}
 }
 

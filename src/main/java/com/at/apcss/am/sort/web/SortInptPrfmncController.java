@@ -24,9 +24,9 @@ import com.at.apcss.co.sys.controller.BaseController;
 public class SortInptPrfmncController extends BaseController {
 
 	// 선별실적등록
-	@RequestMapping(value = "/am/sort/regFormSortInptPrfmnc.do")
+	@RequestMapping(value = "/am/sort/regSortInptPrfmnc.do")
 	public String doRegFormSortInptPrfmnc() {
-		return "apcss/am/sort/regFormSortInptPrfmnc";
+		return "apcss/am/sort/regSortInptPrfmnc";
 	}
 
 	// 선별실적조회
@@ -36,8 +36,8 @@ public class SortInptPrfmncController extends BaseController {
 	}
 
 	// 선별실적등록(태블릿)
-	@RequestMapping(value = "/am/sort/regFormSortInptPrfmncTablet.do")
+	@RequestMapping(value = "/am/sort/regSortInptPrfmncTablet.do")
 	public String doRegFormSortInptCmndTablet() {
-		return "apcss/am/sort/regFormSortInptPrfmncTablet";
+		return "apcss/am/sort/regSortInptPrfmncTablet";
 	}
 }

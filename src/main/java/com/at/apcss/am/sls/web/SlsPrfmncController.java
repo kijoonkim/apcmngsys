@@ -30,8 +30,8 @@ public class SlsPrfmncController extends BaseController {
 	}
 
 	// 정산등록
-	@RequestMapping(value = "/am/sls/regFormslsPrfmnc.do")
+	@RequestMapping(value = "/am/sls/regSlsPrfmnc.do")
 	public String doRegFormSlsPrfmnc() {
-		return "apcss/am/sls/regFormSlsPrfmnc";
+		return "apcss/am/sls/regSlsPrfmnc";
 	}
 }

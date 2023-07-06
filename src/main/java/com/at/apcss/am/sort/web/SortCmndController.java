@@ -24,9 +24,9 @@ import com.at.apcss.co.sys.controller.BaseController;
 public class SortCmndController extends BaseController {
 
 	// 선별지시등록
-	@RequestMapping(value = "/am/sort/regFormSortCmnd.do")
+	@RequestMapping(value = "/am/sort/regSortCmnd.do")
 	public String doRegFormSortCmnd() {
-		return "apcss/am/sort/regFormSortCmnd";
+		return "apcss/am/sort/regSortCmnd";
 	}
 
 	// 선별지시조회

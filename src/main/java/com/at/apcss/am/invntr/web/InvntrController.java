@@ -27,5 +27,9 @@ public class InvntrController extends BaseController {
 	public String doInvntr() {
 		return "apcss/am/invntr/invntr";
 	}
+	@RequestMapping(value = "/am/invntr/regInvntr.do")
+	public String doRegFormInvntr() {
+		return "apcss/am/invntr/regInvntr";
+	}
 
 }

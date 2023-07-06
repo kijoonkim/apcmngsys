@@ -25,9 +25,9 @@ public class PckgInptController extends BaseController {
 
 
 	// 포장실적등록
-	@RequestMapping(value = "/am/pckg/regFormPckgInpt.do")
+	@RequestMapping(value = "/am/pckg/regPckgInpt.do")
 	public String doRegFormPckgInpt() {
-		return "apcss/am/pckg/regFormPckgInpt";
+		return "apcss/am/pckg/regPckgInpt";
 	}
 
 	// 포장실적조회
@@ -36,9 +36,9 @@ public class PckgInptController extends BaseController {
 		return "apcss/am/pckg/pckgInpt";
 	}
 	// 포장실적등록
-	@RequestMapping(value = "/am/pckg/regFormPckgInptTablet.do")
+	@RequestMapping(value = "/am/pckg/regPckgInptTablet.do")
 	public String doRegFormPckInptTablet() {
-		return "apcss/am/pckg/regFormPckgInptTablet";
+		return "apcss/am/pckg/regPckgInptTablet";
 	}
 
 	// 상품코드조회

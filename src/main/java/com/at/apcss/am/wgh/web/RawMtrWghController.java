@@ -40,15 +40,15 @@ public class RawMtrWghController {
 	}
 
 	// 원물입고등록
-	@RequestMapping(value = "/am/wgh/regFormRawMtrWrhsPrfmnc.do")
+	@RequestMapping(value = "/am/wgh/regRawMtrWrhsPrfmnc.do")
 	public String doRegFormRawMtrWrhsPrfmnc() {
-		return "apcss/am/wgh/regFormRawMtrWrhsPrfmnc";
+		return "apcss/am/wgh/regRawMtrWrhsPrfmnc";
 	}
 
 	// 원물입고등록(태블릿)
-	@RequestMapping(value = "/am/wgh/regFormRawMtrWrhsPrfmncTablet.do")
+	@RequestMapping(value = "/am/wgh/regRawMtrWrhsPrfmncTablet.do")
 	public String doRegFormRawMtrWrhsPrfmncTeblet() {
-		return "apcss/am/wgh/regFormRawMtrWrhsPrfmncTeblet";
+		return "apcss/am/wgh/regRawMtrWrhsPrfmncTeblet";
 	}
 
 	// 원물입고 팔레트/박스관리
