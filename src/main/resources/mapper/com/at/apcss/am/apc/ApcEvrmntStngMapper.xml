@@ -44,17 +44,17 @@
 		     , AI.ORGRN_APC_NM      AS ORGRN_APC_NM
 		     , AI.CTPV              AS CTPU
 		     , AI.SIGUN             AS SIGUN
-		     , AI.MB_NM             AS MB_NM
+		     , AI.MB_CD             AS MB_CD
 		     , AI.ORGNL_ADDR        AS ORGNL_ADDR
 		     , AI.ORGNL_TELNO       AS ORGNL_TELNO
 		     , AI.APC_NM            AS APC_NM
 		     , AI.APC_BRNO          AS APC_BRNO
-		     , AI.BANK_NM           AS BANK_NM
+		     , AI.BANK_CD           AS BANK_CD
 		     , AI.DPSTR             AS DPSTR
 		     , AI.ACTNO             AS ACTNO
 		     , AI.ADDR              AS ADDR
 		     , AI.TELNO             AS TELNO
-		     , AI.FAX_NO            AS FAX_NO
+		     , AI.FX_NO             AS FX_NO
 		  FROM TB_APC_INFO AI
 		 WHERE APC_CD = #{apcCd}
     </select>

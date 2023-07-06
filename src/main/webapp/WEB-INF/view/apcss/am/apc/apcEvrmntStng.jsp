@@ -664,9 +664,34 @@
     </div>
 </body>
 <script type="text/javascript">
+
+	window.addEventListener('DOMContentLoaded', function(e) {
+		SBUxMethod.set("apcCd", '9999');
+		selectApcInfo();
+	})
+
 	var jsonComboBankNm = [];
 	var jsonComboGridBankNm = [];
 	gfn_setComCdSelect('comboBankNm', jsonComboBankNm ,	'BANK_CD', '0000');		// 검색 조건(시스템구분)
+
+	async function selectApcInfo(){
+		let apcCd = SBUxMethod.get("apcCd");
+    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcInfo", {apcCd : apcCd});
+        let data = await postJsonPromise;
+		let resultVO = data.resultVO;
+        try{
+
+        	SBUxMethod.set("apcNm", resultVO.orgrnApcNm);
+        	SBUxMethod.set("telno", resultVO.orgnlTelno);
+        	SBUxMethod.set("addr", resultVO.orgnlAddr);
+
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
 
 	function fn_modal(targetName){
 		if(targetName == "userAuthMngBtn"){
@@ -709,6 +734,9 @@
 	// APC사용자 권한설정
     var userAuthMngGridData = []; // 그리드의 참조 데이터 주소 선언
     function fn_userAuthMngCreateGrid() {
+
+    	SBUxMethod.set("userAuthApcNm", SBUxMethod.get("apcNm"));
+
     	let SBGridProperties = {};
 	    SBGridProperties.parentid = 'userAuthMngGridArea';
 	    SBGridProperties.id = 'userAuthMngDatagrid';
