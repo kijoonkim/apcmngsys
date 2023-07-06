@@ -7,7 +7,7 @@ import com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper;
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
 import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
 
-@Service("comApcService")
+@Service("apcEvrmntStngService")
 public class ApcEvrmntStngServiceImpl implements ApcEvrmntStngService{
 
 	@Autowired

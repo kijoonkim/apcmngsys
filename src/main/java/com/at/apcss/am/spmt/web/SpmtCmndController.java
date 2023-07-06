@@ -1,6 +1,7 @@
 package com.at.apcss.am.spmt.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -21,5 +22,17 @@ import com.at.apcss.co.sys.controller.BaseController;
  */
 @Controller
 public class SpmtCmndController extends BaseController {
+
+	// 출하지시등록
+	@RequestMapping(value = "/am/spmt/regFormSpmtCmnd.do")
+	public String doRegFormSpmtCmnd() {
+		return "apcss/am/spmt/regFormSpmtCmnd";
+	}
+
+	// 출하지시조회
+	@RequestMapping(value = "/am/spmt/spmtCmnd.do")
+	public String doSpmtCmnd() {
+		return "apcss/am/spmt/spmtCmnd";
+	}
 
 }

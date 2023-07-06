@@ -18,7 +18,7 @@ import com.at.apcss.co.sys.controller.BaseController;
 @RestController
 public class ApcEvrmntStngAipController extends BaseController {
 
-	@Resource(name = "comApcService")
+	@Resource(name = "apcEvrmntStngService")
 	private ApcEvrmntStngService apcEvrmntStngService;
 
 	@PostMapping(value = "/co/apc/selectApcInfo", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})

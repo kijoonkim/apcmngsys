@@ -11,7 +11,7 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class PublishingController extends BaseController{
 
-	@Resource(name = "comApcService")
+	@Resource(name = "apcEvrmntStngService")
 	private ApcEvrmntStngService apcEvrmntStngService;
 
 	@RequestMapping(value = "/co/publishing/am01.do")
