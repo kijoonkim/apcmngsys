@@ -1,6 +1,7 @@
 package com.at.apcss.am.invntr.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -21,5 +22,10 @@ import com.at.apcss.co.sys.controller.BaseController;
  */
 @Controller
 public class InvntrController extends BaseController {
+
+	@RequestMapping(value = "/am/invntr/invntr.do")
+	public String doInvntr() {
+		return "apcss/am/invntr/invntr";
+	}
 
 }

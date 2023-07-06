@@ -576,19 +576,19 @@
 							<th>생산작업자관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="test1" name="test1" uitype="normal" ></sbux-checkbox>
+									<sbux-checkbox id="oprtrUseYn" name="oprtrUseYn" uitype="normal" ></sbux-checkbox>
 									<label class="check_label" for="check_default">사용</label>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="test2" name="test2" uitype="normal" ></sbux-checkbox>
+									<sbux-checkbox id="oprtrSortPrfmncTrsmYn" name="oprtrSortPrfmncTrsmYn" uitype="normal" ></sbux-checkbox>
 									<label class="check_label" for="check_default">작업자 선별실적</label>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="test3" name="test3" uitype="normal" ></sbux-checkbox>
+									<sbux-checkbox id="oprtrPckgPrfmncTrsmYn" name="oprtrPckgPrfmncTrsmYn" uitype="normal" ></sbux-checkbox>
 									<label class="check_label" for="check_default">작업자 포장실적</label>
 								</p>
 							</td>

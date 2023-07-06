@@ -1,6 +1,7 @@
 package com.at.apcss.am.pckg.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -22,4 +23,15 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class PckgCmndController extends BaseController {
 
+	// 포장지시등록
+	@RequestMapping(value = "/am/pckg/regFormPckgCmnd.do")
+	public String doRegFormPckgmnd() {
+		return "apcss/am/pckg/regFormPckgCmnd";
+	}
+
+	// 포장지시조회
+	@RequestMapping(value = "/am/pckg/pckgCmnd.do")
+	public String doPckgCmnd() {
+		return "apcss/am/pckg/pckgCmnd";
+	}
 }

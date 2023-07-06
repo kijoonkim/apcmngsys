@@ -11,7 +11,7 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class ApcEvrmntStngController extends BaseController{
 
-	@Resource(name = "comApcService")
+	@Resource(name = "apcEvrmntStngService")
 	private ApcEvrmntStngService apcEvrmntStngService;
 
 	@RequestMapping(value = "/am/apc/apcEvrmntStng.do")

@@ -1,6 +1,7 @@
 package com.at.apcss.am.sort.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -21,5 +22,17 @@ import com.at.apcss.co.sys.controller.BaseController;
  */
 @Controller
 public class SortCmndController extends BaseController {
+
+	// 선별지시등록
+	@RequestMapping(value = "/am/sort/regFormSortCmnd.do")
+	public String doRegFormSortCmnd() {
+		return "apcss/am/sort/regFormSortCmnd";
+	}
+
+	// 선별지시조회
+	@RequestMapping(value = "/am/sort/sortCmnd.do")
+	public String doSortCmnd() {
+		return "apcss/am/sort/sortCmnd";
+	}
 
 }
