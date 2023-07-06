@@ -24,9 +24,9 @@ import com.at.apcss.co.sys.controller.BaseController;
 public class PckgCmndController extends BaseController {
 
 	// 포장지시등록
-	@RequestMapping(value = "/am/pckg/regFormPckgCmnd.do")
+	@RequestMapping(value = "/am/pckg/regPckgCmnd.do")
 	public String doRegFormPckgmnd() {
-		return "apcss/am/pckg/regFormPckgCmnd";
+		return "apcss/am/pckg/regPckgCmnd";
 	}
 
 	// 포장지시조회
