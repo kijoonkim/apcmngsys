@@ -18,7 +18,7 @@
 		<result property="userType" column="USER_TYPE" />
 		<result property="userStts" column="USER_STTS" />
 		<result property="eml" column="EML" />
-		<result property="mblTelno" column="MBL_TELNO" />
+		<result property="telNo" column="TEL_NO" />
 		<result property="apcCd" column="APC_CD" />
 		<result property="ogdpNm" column="OGDP_NM" />
 		<result property="chrgdCertYn" column="CHRGD_CERT_YN" />
@@ -26,7 +26,7 @@
 		<result property="lckYn" column="LCK_YN" />
 		<result property="lgnFailNmtm" column="LGN_FAIL_NMTM" />
 		<result property="endLgnDt" column="END_LGN_DT" />
-		<result property="endLgnIp" column="END_LGN_IP" />		
+		<result property="endLgnIp" column="END_LGN_IP" />
 	</resultMap>
 
 	<!-- ==========================================================================	-->
@@ -45,7 +45,7 @@
 				, CU.USER_TYPE          AS USER_TYPE
 				, CU.USER_STTS          AS USER_STTS
 				, CU.EML                AS EML
-				, CU.MBL_TELNO          AS MBL_TELNO
+				, CU.TEL_NO          	AS TEL_NO
 				, CU.APC_CD             AS APC_CD
 				, CU.OGDP_NM            AS OGDP_NM
 				, CU.CHRGD_CERT_YN      AS CHRGD_CERT_YN
@@ -83,7 +83,7 @@
 				, CU.USER_TYPE          AS USER_TYPE
 				, CU.USER_STTS          AS USER_STTS
 				, CU.EML                AS EML
-				, CU.MBL_TELNO          AS MBL_TELNO
+				, CU.TEL_NO          	AS TELNO
 				, CU.APC_CD             AS APC_CD
 				, CU.OGDP_NM            AS OGDP_NM
 				, CU.CHRGD_CERT_YN      AS CHRGD_CERT_YN
@@ -103,7 +103,7 @@
 			  FROM TB_COM_USER CU
 			 WHERE CU.DEL_YN = 'N'
     	]]>
-    	
+
 		<if test='userId != null and userId != ""'>
 			   AND CU.USER_ID = #{userId}
 		</if>
@@ -122,10 +122,10 @@
 		<if test='ogdpNm != null and ogdpNm != ""'>
 			   AND CU.OGDP_NM LIKE '%' || #{ogdpNm} || '%'
 		</if>
-		
+
     	<![CDATA[
     		 ORDER BY USER_ID, USER_NM
-    	]]>	
+    	]]>
     </select>
 
 </mapper>

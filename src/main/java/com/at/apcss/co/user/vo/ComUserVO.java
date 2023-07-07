@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ComUserVO extends ComVO {
-	
+
 	/**
 	 * COM_USER
 	 */
@@ -18,12 +18,15 @@ public class ComUserVO extends ComVO {
 	private String userType;
 	private String userStts;
 	private String eml;
-	private String mblTelno;
+	private String telNo;
 	private String apcCd;
 	private String ogdpNm;
+	private String jbttlNm;
+	private String tkcgTaskNm;
 	private String chrgdCertYn;
 	private String chrgdCertType;
 	private String lckYn;
+	private String rmrk;
 	private int lgnFailNmtm;
 	private String endLgnDt;
 	private String endLgnIp;

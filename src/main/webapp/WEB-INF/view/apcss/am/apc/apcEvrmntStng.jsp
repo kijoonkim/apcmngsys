@@ -693,6 +693,10 @@
         }
 	}
 
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
+
 	function fn_modal(targetName){
 		if(targetName == "userAuthMngBtn"){
 			fn_userAuthMngCreateGrid();
@@ -730,41 +734,6 @@
 			fn_ordrMngCreateGrid();
 		}
 	}
-
-	// APC사용자 권한설정
-    var userAuthMngGridData = []; // 그리드의 참조 데이터 주소 선언
-    function fn_userAuthMngCreateGrid() {
-
-    	SBUxMethod.set("userAuthApcNm", SBUxMethod.get("apcNm"));
-
-    	let SBGridProperties = {};
-	    SBGridProperties.parentid = 'userAuthMngGridArea';
-	    SBGridProperties.id = 'userAuthMngDatagrid';
-	    SBGridProperties.jsonref = 'userAuthMngGridData';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["순번"], 		ref: 'no',  		type:'output',  width:'50px',     style:'text-align:center'},
-            {caption: ["사용자 코드"], 	ref: 'userCd',  	type:'output',  width:'100px',    style:'text-align:center'},
-            {caption: ["사용자 명"], 	ref: 'userNm',   	type:'output',  width:'100px',    style:'text-align:center'},
-            {caption: ["직책"], 		ref: 'jbttlNm',   	type:'output',  width:'100px',    style:'text-align:center'},
-            {caption: ["담당업무"], 	ref: 'tkcgTaskNm',  type:'output',  width:'100px',    style:'text-align:center'},
-            {caption: ["권한"], 		ref: 'chrgdCertYn', type:'button',  width:'100px',    style:'text-align:center', typeinfo : {buttonvalue : '사용승인', 	callback : fn_Approval}},
-            {caption: ["비밀번호"], 	ref: 'lckYn',   	type:'button',  width:'100px',    style:'text-align:center', typeinfo : {buttonvalue : '초기화', 	callback : fn_PwReSet}},
-            {caption: ["사용유무"], 	ref: 'useYn',   	type:'output',  width:'100px',    style:'text-align:center'},
-            {caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'150px',    style:'text-align:center'}
-        ];
-        window.userAuthMngDatagrid = _SBGrid.create(SBGridProperties);
-    }
-    function fn_Approval() {
-    	console.log("사용승인");
-    	var nRow = userAuthMngDatagrid.getRow();
-    	var nCol = userAuthMngDatagrid.getCol();
-    }
-    function fn_PwReSet(){
-    	console.log("비밀번호 초기화");
-    }
 
     // 설비 등록
     var fcltMngGridData = []; // 그리드의 참조 데이터 주소 선언
