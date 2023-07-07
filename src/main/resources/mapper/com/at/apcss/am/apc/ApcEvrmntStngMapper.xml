@@ -30,14 +30,36 @@
 		<result property="faxNo" column="FAX_NO"/>
 	</resultMap>
 
+	<resultMap type="com.at.apcss.co.user.vo.ComUserVO" id="apcUserMap">
+        <result property="rowSeq" column="ROW_REQ"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userNm" column="USER_NM"/>
+		<result property="userType" column="USER_TYPE" />
+		<result property="userStts" column="USER_STTS" />
+		<result property="eml" column="EML" />
+		<result property="telNo" column="TEL_NO" />
+		<result property="apcCd" column="APC_CD" />
+		<result property="ogdpNm" column="OGDP_NM" />
+		<result property="jbttlNm" column="JBTTL_NM" />
+		<result property="tkcgTaskNm" column="TKCG_TASK_NM" />
+		<result property="chrgdCertYn" column="CHRGD_CERT_YN" />
+		<result property="chrgdCertType" column="CHRGD_CERT_TYPE" />
+		<result property="lckYn" column="LCK_YN" />
+		<result property="delYn" column="DEL_YN" />
+		<result property="rmrk" column="RMRK" />
+		<result property="lgnFailNmtm" column="LGN_FAIL_NMTM" />
+		<result property="endLgnDt" column="END_LGN_DT" />
+		<result property="endLgnIp" column="END_LGN_IP" />
+	</resultMap>
+
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList			-->
-	<!-- DESC : 공통코드 상세 목록 조회.                                             		-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcInfo		-->
+	<!-- DESC : APC 정보 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+	<!-- 2023.07.07  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectApcInfo" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" resultMap="apcEvrmntStngMap">
     	SELECT AI.APC_CD            AS APC_CD
@@ -57,6 +79,37 @@
 		     , AI.FX_NO             AS FX_NO
 		  FROM TB_APC_INFO AI
 		 WHERE APC_CD = #{apcCd}
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc..mapper.ApcEvrmntStngMapper.selectApcUserList	-->
+	<!-- DESC : APC 사용자 목록 조회.                                          		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.07  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcUserList" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" resultMap="apcUserMap">
+    	SELECT ROWNUM               AS ROW_SEQ
+		     , CU.USER_ID           AS USER_ID
+		     , CU.USER_NM           AS USER_NM
+		     , CU.USER_TYPE         AS USER_TYPE
+		     , CU.USER_STTS         AS USER_STTS
+		     , CU.EML               AS EML
+		     , CU.TEL_NO            AS TEL_NO
+		     , CU.APC_CD            AS APC_CD
+		     , CU.OGDP_NM           AS OGDP_NM
+		     , CU.JBTTL_NM          AS JBTTL_NM
+		     , CU.TKCG_TASK_NM      AS TKCG_TASK_NM
+		     , CU.CHRGD_CERT_YN     AS CHRGD_CERT_YN
+		     , CU.CHRGD_CERT_TYPE   AS CHRGD_CERT_TYPE
+		     , CU.LCK_YN            AS LCK_YN
+		     , CU.LGN_FAIL_NMTM     AS LGN_FAIL_NMTM
+		     , CU.RMRK     			AS RMRK
+		     , DECODE(CU.DEL_YN, 'N', 'Y', 'Y', 'N')    AS DEL_YN
+		  FROM TB_COM_USER CU
+		 WHERE USER_TYPE IN ('10', '11')
+		   AND CU.APC_CD = #{apcCd}
     </select>
 </mapper>
 
