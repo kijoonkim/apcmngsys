@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.egovframe.template</groupId>
-	<artifactId>simpleHomePage</artifactId> 
+	<artifactId>apcss</artifactId> 
 	<packaging>war</packaging>
 	<version>1.0.0</version>
 	<name>egovframework</name>
@@ -48,6 +48,11 @@
 		    <id>projectRepository</id> 
 		    <name>Project Repository</name> 
 		    <url>file://${project.basedir}/src/main/webapp/WEB-INF/lib</url>
+		</repository>
+		<repository>
+		    <id>localRepository</id> 
+		    <name>Local Repository</name> 
+		    <url>file://opt/local/maven_repository_4_1</url>
 		</repository>
 	</repositories>
 
@@ -231,10 +236,11 @@
 		-->
 
 		<!-- validator -->
+		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>7.0.4.Final</version>
+		    <groupId>org.hibernate.validator</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>7.0.4.Final</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
