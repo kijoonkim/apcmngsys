@@ -12,22 +12,6 @@
 
 <mapper namespace="com.at.apcss.co.cd.mapper.ComCdMapper">
 
-	<resultMap type="com.at.apcss.co.cd.vo.ComCdVO" id="comCdMap">
-        <result property="cdId" 		column="CD_ID"/>
-        <result property="cdNm" 		column="CD_NM"/>
-        <result property="cdExpln" 		column="CD_EXPLN"/>
-        <result property="cdVl" 		column="CD_VL"/>
-        <result property="cdVlNm" 		column="CD_VL_NM"/>
-        <result property="cdVlExpln" 	column="CD_VL_EXPLN"/>
-        <result property="indctSeq" 	column="INDCT_SEQ"/>
-        <result property="apcCd" 		column="APC_CD"/>
-
-        <result property="delYn" 		column="DEL_YN"/>
-        <result property="rowSeq" 		column="ROW_SEQ"/>
-        <result property="totalRecordCount"	column="TOTAL_RECORD_COUNT"/>
-
-	</resultMap>
-
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComCd                   -->
 	<!-- DESC : 공통코드 테이블 단건조회.                                             		-->
@@ -36,7 +20,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComCd" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultMap="comCdMap">
+    <select id="selectComCd" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectComCd */
 				   CC.CD_ID         AS CD_ID
@@ -61,7 +45,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComCdList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultMap="comCdMap">
+    <select id="selectComCdList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
     			  ROWNUM AS ROW_SEQ
@@ -106,7 +90,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComCdDtlList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultMap="comCdMap">
+    <select id="selectComCdDtlList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
     			  ROWNUM AS ROW_SEQ
@@ -155,7 +139,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.08  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComBoCdDtlList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultMap="comCdMap">
+    <select id="selectComBoCdDtlList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
     	SELECT CD_VL
 		     , CD_VL_NM

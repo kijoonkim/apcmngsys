@@ -30,7 +30,7 @@ public class ComUserServiceImpl implements ComUserService {
 
 	@Autowired
 	private ComUserMapper comUserMapper;
-	
+
 	@Override
 	public ComUserVO selectComUser(ComUserVO comUserVO) {
 
@@ -40,30 +40,28 @@ public class ComUserServiceImpl implements ComUserService {
 
 	@Override
 	public ComUserVO selectComUser(String userId) {
-		
+
 		ComUserVO comUserVO = new ComUserVO();
 		comUserVO.setUserId(userId);
-		
+
 		return selectComUser(comUserVO);
 	}
 
 	@Override
 	public List<ComUserVO> selectComUserList(ComUserVO comUserVO) {
-		
+
 		List<ComUserVO> resultList = comUserMapper.selectComUserList(comUserVO);
 		return resultList;
 	}
 
 	@Override
 	public int updateComUser(ComUserVO comUserVO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return comUserMapper.updateComUser(comUserVO);
 	}
 
 	@Override
 	public int updateComUserAprv(ComUserVO comUserVO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return comUserMapper.updateComUserAprv(comUserVO);
 	}
 
 }

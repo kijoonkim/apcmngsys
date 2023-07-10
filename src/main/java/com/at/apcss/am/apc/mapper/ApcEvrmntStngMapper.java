@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.user.vo.ComUserVO;
 /**
  * APC환경설정 Mapper
@@ -26,15 +27,23 @@ import com.at.apcss.co.user.vo.ComUserVO;
 public interface ApcEvrmntStngMapper {
 	/**
 	 * APC 정보 조회
-	 * @param ApcEvrmntStngVO
+	 * @param ComUserVO
 	 * @return ApcEvrmntStngVO
 	 */
-	ApcEvrmntStngVO selectApcInfo(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+	ApcEvrmntStngVO selectApcInfo(ComUserVO comUserVO) throws Exception;
+
 	/**
 	 * APC 사용자 목록 조회
-	 * @param ApcEvrmntStngVO
+	 * @param ComUserVO
 	 * @return List<ComUserVO>
 	 */
-	List<ComUserVO> selectApcUserList(ApcEvrmntStngVO apcEvrmntStngVO);
+	List<ComUserVO> selectApcUserList(ComUserVO comUserVO) throws Exception;
+
+	/**
+	 * APC 설비 목록 조회
+	 * @param ComCdVO
+	 * @return List<ComCdVO>
+	 */
+	List<ComUserVO> selectFcltList(ComCdVO comCdVO) throws Exception;
 
 }
