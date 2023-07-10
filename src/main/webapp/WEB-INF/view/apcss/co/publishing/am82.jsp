@@ -477,9 +477,9 @@
 									<div>
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<colgroup>
-											<col style="width: 3%">
+											<col style="width: 5%">
 											<col style="width: 23%">
-											<col style="width: 27%">
+											<col style="width: 25%">
 											<col style="width: 22%">
 											<col style="width: 10%">
 											<col style="width: 15%">
@@ -490,7 +490,9 @@
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" >
 														<label class="check_label ta_i" for="check1">선택</label>
-													</p>	
+													</p>
+
+											
 												</th>
 												<th>id</th>
 												<th>명칭</th>
@@ -501,10 +503,10 @@
 										</thead>
 										<tbody>
 											<tr>
-												<td>
+												<td class=ta_c>
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" >
-														<label class="check_label ta_i" for="check1">선택</label>
+														<label class="check_label ta_c" for="check1"></label>
 													</p>
 												</td>
 												<td>btnSearch</td>
@@ -518,11 +520,12 @@
 												<td></td>
 											</tr>
 											<tr>
-												<td>
+												<td class=ta_c>
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" >
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
+													
 												</td>
 												<td>grpInsert</td>
 												<td>등록GROUP</td>
@@ -535,7 +538,7 @@
 												<td></td>
 											</tr>
 											<tr>
-												<td>
+												<td class=ta_c>
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1" >
 														<label class="check_label ta_i" for="check1">선택</label>

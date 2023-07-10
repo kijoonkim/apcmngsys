@@ -135,79 +135,69 @@
 <!-- ============================================================================================================== -->
 <!-- ============================================================================================================== -->
 
- <section class="content container-fluid">
-          <div class="box box-solid">
-            <div class="box-header">
-              <h3 class="box-title">▶ 권한그룹별 사용자관리</h3>
-              <div class="ad_tbl_top">
-                <div class="ad_tbl_toplist">
-                  <button type="button" class="btn btn-sm btn-outline-danger">
-                    조회
-                  </button>
-                  <button type="button" class="btn btn-sm btn-primary">
-                    등록
-                  </button>
-                  <button type="button" class="btn btn-sm btn-outline-danger">
-                    삭제
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div></div>
-            <div class="box-body">
-              <!--[pp] 검색 -->
-              <div>
-              <table class="table table-bordered tbl_row tbl_fixed">
-                <caption>
-                  검색 조건 설정
-                </caption>
-                <colgroup>
-                  <col style="width: 3%" />
-                  <col style="width: 5%" />
-                  <col style="width: 5%" />
-                  <col style="width: 5%" />
-                  <col style="width: 10%" />
-                  <col style="width: 3%" />
-                  <col style="width: 5%" />
-                  <col style="width: 5%" />
-                  <col style="width: 4%" />
-                </colgroup>
-                <tbody>
-                  <tr>
-                    <th class="ta_r">검색조건</th>
-                    <th class="ta_r" colspan="2">
-                      <select class="form-control input-sm">
-                        <option>전체</option>
-                      </select>
-                    </th>
-                    <th colspan="6">
-                      <input
-                        type="text"
-                        class="form-control input-sm"
-                        placeholder="검색어 입력"
-                        style="width: 20%"
-                      />
-                    </th>
-                  </tr>
-                </tbody>
-              </table>
-			</div>
-              <!--[pp] //검색 -->
-              <!--[pp] 검색결과 -->
-              <br>
-              <div class="row">
-                <div class="col-sm-3">
-                  	<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span style="color: black;">코드목록</span></li>
-						</ul>
-						<div class="ad_tbl_toplist">
+<section class="content container-fluid">
+					<div class="box box-solid">
+						<div class="box-header">
+							<h3 class="box-title"> ▶ 공통코드관리 (AT)</h3>
+							<div class="ad_tbl_top">
+								<div class="ad_tbl_toplist">
+									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+									<button type="button" class="btn btn-sm btn-primary">등록</button>
+									<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
+								</div>
+							</div>
 						</div>
-					</div>
-                  <div>
-<!--                   <table class="table table-bordered table-hover tbl_col tbl_fixed asdasd"style="width: 100%"> -->
-                  <table class="table table-bordered table-hover tbl_col tbl_fixed" style="line-height: 20px;">
-                    <colgroup>
+
+						<div class="box-body">
+							<!--[pp] 검색 -->
+							<div  class="row">
+							<table class="table table-bordered tbl_row tbl_fixed">
+								<caption>검색 조건 설정</caption>
+								<colgroup>
+									<col style="width: 10%">
+									<col style="width: 15%">
+									<col style="width: 15%">
+									<col style="width: 20%">
+									<col style="width: 40%">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>APC명</th>
+										<th>
+											<select class="form-control input-sm">
+												<option></option>
+											</select>
+										</th>
+										<th class="td_input">
+											<p class="ad_input_row">
+												<input type="radio" name="radio" class="radio" id="radio1">
+												<label class="radio_label" for="radio1">코드　</label>
+											</p>
+											<p class="ad_input_row">
+												<input type="radio" name="radio_dis" class="radio" id="radio_dis_on" checked>
+												<label class="radio_label" for="radio_dis_on">명</label>
+											</p>
+										</th>
+										<th><input type="text" class="form-control input-sm" placeholder="코드 또는 코드명" title=""></th>	
+										<th></th>
+									</tr>
+								</tbody>
+							</table>
+							</div>						
+							<!--[pp] //검색 -->
+							<!--[pp] 검색결과 -->
+							<br>
+							<div class="row">
+								<div class="col-sm-5">
+									<div class="ad_tbl_top">
+										<ul class="ad_tbl_count">
+											<li><span style="color: black;">코드목록</span></li>
+											<li><span style="color: black; font-weight: lighter;">조회건수 12</span></li>
+										</ul>
+									</div>
+									<div  class="row">
+									<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 95%;">
+										<colgroup>
 											<col style="width: 25%">
 											<col style="width: 25%">
 											<col style="width: 25%">
@@ -317,68 +307,41 @@
 												<td>&nbsp;</td>
 											</tr>
 										</tbody>
-                  </table>
-                  </div>
-                  <div class="dataTables_paginate paging_simple_numbers ta_c">
-                    <select
-                      class="form-control input-sm"
-                      style="width: 20%; float: left"
-                    >
-                      <option>100</option>
-                    </select>
-                    <ul class="pagination">
-                      <li class="paginate_button first disabled">
-                        <a href="javascript:void(0);" title="첫페이지 목록"
-                          ><i class="fa fa-angle-double-left"></i
-                        ></a>
-                      </li>
-                      <li class="paginate_button previous disabled">
-                        <a href="javascript:void(0);" title="이전목록"
-                          ><i class="fa fa-angle-left"></i
-                        ></a>
-                      </li>
-                      <li class="paginate_button active">
-                        <a href="javascript:void(0);">1</a>
-                      </li>
-                      <li class="paginate_button">
-                        <a href="javascript:void(0);">2</a>
-                      </li>
-                      <li class="paginate_button">
-                        <a href="javascript:void(0);">3</a>
-                      </li>
-                      <li class="paginate_button">
-                        <a href="javascript:void(0);">4</a>
-                      </li>
-                      <li class="paginate_button">
-                        <a href="javascript:void(0);">5</a>
-                      </li>
-                      <li class="paginate_button next">
-                        <a href="javascript:void(0);" title="다음목록"
-                          ><i class="fa fa-angle-right"></i
-                        ></a>
-                      </li>
-                      <li class="paginate_button last">
-                        <a href="javascript:void(0);" title="마지막페이지 목록"
-                          ><i class="fa fa-angle-double-right"></i
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                
-					<div class="col-sm-9">
-						<div class="ad_tbl_top">
-							<ul class="ad_tbl_count">
-								<li><span style="color: black;">사용자목록</span></li>
-								<li><label style="color: black;">조회건수 00건</lavel></li>
-							</ul>
-							<div class="ad_tbl_toplist">
-								<button type="button" class="btn btn-xs btn-outline-danger">행추가</button>
-							</div>
-					</div>
-					<div>
-                  <table class="table table-bordered table-hover tbl_col tbl_fixed" style="line-height: 20px;">
-                    <colgroup>
+									</table>
+									</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-3 pd_t10">
+											<select class="form-control">
+												<option value="100">100</option>
+											</select>
+										</div>
+										<div class="col-sm-9 ta_c">
+											<div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+												<ul class="pagination">
+													<li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li>
+													<li class="paginate_button active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li>
+													<li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li>
+													<li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li>
+													<li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">Next</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								
+								<div class="col-sm-7">
+									<div class="ad_tbl_top">
+										<ul class="ad_tbl_count">
+											<li><span style="color: black;">상세코드 목록</span></li>
+											<li><span style="color: black; font-weight: lighter;">조회건수 12</span></li>
+										</ul>
+									 	<div class="ad_tbl_toplist">
+											<button type="button" class="btn btn-sm btn-outline-danger">행추가</button>
+										</div>
+									</div>
+									<div class="row">
+									<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 100%;">
+										<colgroup>
 											<col style="width: 20%">
 											<col style="width: 20%">
 											<col style="width: 20%">
@@ -504,61 +467,32 @@
 												<td>&nbsp;</td>
 											</tr>
 										</tbody>
-                  </table>
-                </div>
-                
-                  <div class="dataTables_paginate paging_simple_numbers ta_c">
-                    <select
-                      class="form-control input-sm"
-                      style="width: 20%; float: left"
-                    >
-                      <option>100</option>
-                    </select>
-                    <ul class="pagination">
-                      <li class="paginate_button first disabled">
-                        <a href="javascript:void(0);" title="첫페이지 목록"
-                          ><i class="fa fa-angle-double-left"></i
-                        ></a>
-                      </li>
-                      <li class="paginate_button previous disabled">
-                        <a href="javascript:void(0);" title="이전목록"
-                          ><i class="fa fa-angle-left"></i
-                        ></a>
-                      </li>
-                      <li class="paginate_button active">
-                        <a href="javascript:void(0);">1</a>
-                      </li>
-                      <li class="paginate_button">
-                        <a href="javascript:void(0);">2</a>
-                      </li>
-                      <li class="paginate_button">
-                        <a href="javascript:void(0);">3</a>
-                      </li>
-                      <li class="paginate_button">
-                        <a href="javascript:void(0);">4</a>
-                      </li>
-                      <li class="paginate_button">
-                        <a href="javascript:void(0);">5</a>
-                      </li>
-                      <li class="paginate_button next">
-                        <a href="javascript:void(0);" title="다음목록"
-                          ><i class="fa fa-angle-right"></i
-                        ></a>
-                      </li>
-                      <li class="paginate_button last">
-                        <a href="javascript:void(0);" title="마지막페이지 목록"
-                          ><i class="fa fa-angle-double-right"></i
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
-                
-              </div>
-              <!--[pp] //검색결과 -->
-            </div>
-          </div>
-        </section>
-
+									</table>
+									</div>
+									<div class="row">
+										<div class="col-sm-3 pd_t10">
+											<select class="form-control">
+												<option value="100">100</option>
+											</select>
+										</div>
+										<div class="col-sm-9 ta_c">
+											<div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+												<ul class="pagination">
+													<li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li>
+													<li class="paginate_button active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li>
+													<li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li>
+													<li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li>
+													<li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">Next</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+							<!--[pp] //검색결과 -->
+						
+					</div>
+					</div>
+					</div>
+				</section>
 
 <!-- ============================================================================================================== -->
 <!-- ============================================================================================================== -->

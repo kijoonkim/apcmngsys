@@ -493,7 +493,7 @@ public class PublishingController extends BaseController{
 
 	@RequestMapping(value = "/co/publishing/am87.do")
 	public String am87() {
-		return "apcss/co/publishing/am78";
+		return "apcss/co/publishing/am87";
 	}
 
 	@RequestMapping(value = "/co/publishing/am88.do")

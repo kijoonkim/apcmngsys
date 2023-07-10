@@ -138,7 +138,7 @@
 <section class="content container-fluid">
 					<div class="box box-solid">
 						<div class="box-header">
-							<h3 class="box-title"> ▶ APC사용자별권한관리</h3>
+							<h3 class="box-title"> ▶ 작업자실적등록</h3>
 							<div class="ad_tbl_top">
 								<div class="ad_tbl_toplist">
 									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
