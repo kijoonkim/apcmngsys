@@ -229,27 +229,27 @@
 													<div class="input-group-addon">
 													<i class="fa fa-calendar"></i>
 												</div>
-												<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control input-sm" placeholder="" disabled="" >
+												<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control input-sm" placeholder="" disabled>
 												</div>
 											</div>
 										</td>
 										<th scope="row" style="border-right:hidden ;">상품명</th>
 										<td class="td_input" style="border-right:hidden ;">
-											<input type="text" class="form-control input-sm" placeholder="" disabled="" >
+											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
 										<td style="border-right:hidden ;">&nbsp;</td>
 										<th scope="row" style="border-right:hidden ;">발주수량/입수</th>
 										<td class="td_input" style="border-right:hidden ;">
-											<input type="text" class="form-control input-sm" placeholder="" disabled="" >
+											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
 										<td class="td_input" style="border-right:hidden ;">
-											<input type="text" class="form-control input-sm" placeholder="" disabled="" >
+											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
 									</tr>
 							        <tr>
 										<th scope="row">발주번호</th>
 										<td colspan= "2" class="td_input">
-											<input type="text" class="form-control input-sm" placeholder="" disabled="" >
+											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
 									</tr>						
 								</tbody>
@@ -342,7 +342,6 @@
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
-					</div>
 				</section>
 
 

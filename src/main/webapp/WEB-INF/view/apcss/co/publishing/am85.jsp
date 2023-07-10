@@ -158,6 +158,7 @@
             <div></div>
             <div class="box-body">
               <!--[pp] 검색 -->
+              <div>
               <table class="table table-bordered tbl_row tbl_fixed">
                 <caption>
                   검색 조건 설정
@@ -193,13 +194,14 @@
                   </tr>
                 </tbody>
               </table>
-
+			</div>
               <!--[pp] //검색 -->
               <!--[pp] 검색결과 -->
 
               <div style="display: flex; flex-direction: row">
                 <div>
                   <b>메뉴 목록</b>
+                  <div>
                   <table
                     class="table table-bordered table-hover tbl_col tbl_fixed"
                   >
@@ -262,7 +264,7 @@
                         <td>
                           <button
                             type="button"
-                            class="btn btn-sm btn-outline-danger"
+                            class="btn btn-xs btn-outline-danger"
                           >
                             삭제
                           </button>
@@ -292,7 +294,7 @@
                         <td>
                           <button
                             type="button"
-                            class="btn btn-sm btn-outline-danger"
+                            class="btn btn-xs btn-outline-danger"
                           >
                             추가
                           </button>
@@ -323,6 +325,7 @@
                       </tr>
                     </tbody>
                   </table>
+                  </div>
                 </div>
               </div>
               <!--[pp] //검색결과 -->

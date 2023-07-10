@@ -152,6 +152,7 @@
 						</div>
 						<div class="box-body">
 							<!--[pp] 검색 -->
+							<div>
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
@@ -169,10 +170,12 @@
 									</tr>
 								</tbody>
 							</table>
+							</div>
 							<br>
 							<!-- 1번째 그리드-->
 							<div>
 								<b>작업자 목록</b>
+								<div>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed" >
 									<colgroup>
 										<col style="width: 10%">
@@ -252,9 +255,9 @@
 									</tbody>
 								</table>
 								</div>
+								</div>
+								</div>
 							</div>
-						</div>
-					</div>
 				</section>
 
 

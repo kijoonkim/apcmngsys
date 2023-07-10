@@ -156,6 +156,7 @@
             <div></div>
             <div class="box-body">
               <!--[pp] 검색 -->
+              <div>
               <table class="table table-bordered tbl_row tbl_fixed">
                 <caption>
                   검색 조건 설정
@@ -190,7 +191,7 @@
                   </tr>
                 </tbody>
               </table>
-
+			</div>
               <!--[pp] //검색 -->
               <!--[pp] 검색결과 -->
               <br>
@@ -202,6 +203,7 @@
                       <br>										
                     </div>
 									</div>
+                  <div>
                   <table class="table table-bordered table-hover tbl_col tbl_fixed asdasd"style="width: 100%">
                     <colgroup>
                       <col style="width: 20%" />
@@ -288,6 +290,7 @@
                       </tr>
                     </tbody>
                   </table>
+                  </div>
                   <div class="dataTables_paginate paging_simple_numbers ta_c">
                     <select
                       class="form-control input-sm"

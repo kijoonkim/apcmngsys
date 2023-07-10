@@ -171,7 +171,7 @@
 								<tr>
 									<th scope="row">APC명</th>
 									<td colspan="2" class="td_input" style="border-right: hidden;">
-										<input type="text" class="form-control input-sm" placeholder="" disabled="">
+										<input type="text" class="form-control input-sm" placeholder="" disabled>
 									</td>
 									<td colspan="6"></td>
 								</tr>
@@ -205,7 +205,7 @@
 										<input type="text"class="form-control input-sm" placeholder=""title="">
 									</td>
 									<td class="td_input" style="border-right: hidden;">
-										<input type="text" class="form-control input-sm" placeholder="" disabled="">								
+										<input type="text" class="form-control input-sm" placeholder="" disabled>								
 									</td>
 									<td style="border-right: hidden;">Kg</td>																
 									<td colspan="5"></td>
@@ -213,9 +213,9 @@
 								<tr>
 									<th scope="row">품종/규격</th>
 									<td style="border-right: hidden;" class="td_input">
-										<input type="text" class="form-control input-sm" placeholder="" disabled="">
+										<input type="text" class="form-control input-sm" placeholder="" disabled>
 									</td>
-									<td class="td_input"  style="border-right: hidden;"><input type="text"	class="form-control input-sm" placeholder="" disabled="">
+									<td class="td_input"  style="border-right: hidden;"><input type="text"	class="form-control input-sm" placeholder="" disabled>
 									</td>
 									<td style="border-right: hidden;">&nbsp;</td>
 									<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 품종/규격 조회</td>
@@ -223,7 +223,7 @@
 								</tr>
 								<tr>
 									<th scope="row">상품명</th>
-									<td style="border-right: hidden;" colspan="2" class="td_input"><input type="text" class="form-control input-sm" placeholder="" disabled=""></td>
+									<td style="border-right: hidden;" colspan="2" class="td_input"><input type="text" class="form-control input-sm" placeholder="" disabled></td>
 									<td style="border-right: hidden;">&nbsp;</td>
 									<td style="border-right: hidden;" colspan="2"> → 출하지시번호를 통한 상품명 조회</td>
 									<td colspan="3"></td>
@@ -231,7 +231,7 @@
 								<tr>
 									<th style="border-right: hidden;" scope="row">상품등급</th>
 									<td class="td_input" style="border-right: hidden;">
-										<input type="text"class="form-control input-sm" placeholder=""disabled="">
+										<input type="text"class="form-control input-sm" placeholder=""disabled>
 									</td>
 									<td style="border-right: hidden;" colspan="2"></td>
 									<td style="border-right: hidden;" colspan="2"> → 출하지시번호를 통한 상품등급 조회</td>
@@ -239,21 +239,21 @@
 								</tr>
 								<tr>
 									<th scope="row">포장구분</th>
-									<td class="td_input" style="border-right: hidden;"><input type="text" class="form-control input-sm" placeholder="" disabled=""></td>
+									<td class="td_input" style="border-right: hidden;"><input type="text" class="form-control input-sm" placeholder="" disabled></td>
 									<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 									<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 포장구분 조회</td>
 									<td colspan="3" style="border-right: hidden;">&nbsp;</td>
 								</tr>
 								<tr>
 									<th scope="row">거래처</th>
-									<td colspan="2" class="td_input" style="border-right: hidden;"><input type="text" class="form-control input-sm" placeholder=""disabled=""></td>
+									<td colspan="2" class="td_input" style="border-right: hidden;"><input type="text" class="form-control input-sm" placeholder=""disabled></td>
 									<td style="border-right: hidden;">&nbsp;</td>
 									<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 거래처 정보 조회</td>
 									<td colspan="3" style="border-right: hidden;"></td>
 								</tr>
 								<tr>
 									<th scope="row">운송회사</th>
-									<td colspan="2" style="border-right: hidden;" class="td_input"><input type="text" class="form-control input-sm" placeholder=""disabled=""></td>
+									<td colspan="2" style="border-right: hidden;" class="td_input"><input type="text" class="form-control input-sm" placeholder=""disabled></td>
 									<td style="border-right: hidden;">&nbsp;</td>
 									<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 운송회사 정보 조회</td>
 									<td colspan="3" style="border-right: hidden;"></td>
@@ -374,7 +374,6 @@
 						</div>
 						<!--[pp] //검색결과 -->
 					</div>
-				</div>
 			</section>
 
 

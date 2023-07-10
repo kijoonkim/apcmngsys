@@ -169,7 +169,7 @@
 									<tr>
 										<th scope="row">APC명</th>
 										<td colspan="2" class="td_input" style="border-right: hidden;">
-											<input type="text" class="form-control input-sm" placeholder="" disabled="">
+											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
 									</tr>
 									<tr>
@@ -256,9 +256,7 @@
 							<!--[pp] 검색결과 -->
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
-										<td>&nbsp;</td>
 										<li><span>포장내역</span></li>
-										<td>&nbsp;</td>
 									<li><span>포장수량/중량 : 99/99,999 Kg</span></li>	
 									</ul>
 								</div>
@@ -360,7 +358,6 @@
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
-					</div>
 				</section>
 
 

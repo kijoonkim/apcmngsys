@@ -150,6 +150,7 @@
 						</div>
 						<div class="box-body">
 							<!--[pp] 검색 -->
+							<div>
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
@@ -183,7 +184,7 @@
 									</tr>
 								</tbody>
 							</table>
-														
+							</div>						
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<div class="ad_tbl_top">
@@ -191,6 +192,7 @@
 									<li><span>화면목록</span></li>
 								</ul>
 							</div>
+							<div>
 							<table class="table table-bordered table-hover tbl_col tbl_fixed">
 								<colgroup>
 									<col style="width: 3%">
@@ -377,7 +379,8 @@
 										<td colspan="7"></td>
 									</tr>	
 								</tbody>
-							</table>	
+							</table>
+							</div>	
 							<br>
 							<br>
 							<div style="flex-direction: row; display: flex;">
@@ -388,6 +391,7 @@
 										<br>
 									</div>
 								</div>
+								<div>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 95%;">
 									<colgroup>
 										<col style="width: 25%">
@@ -460,7 +464,7 @@
 										</tr>
 									</thead>
 								</table>
-
+								</div>	
 								</div>
 								<div>
 									<b>개체목록</b>
@@ -470,6 +474,7 @@
 											<button type="button" class="btn btn-sm btn-outline-danger" >행삭제</button>
 										</div>
 									</div>
+									<div>
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<colgroup>
 											<col style="width: 3%">
@@ -548,6 +553,7 @@
 											</tr>
 										</tbody>
 									</table>
+								</div>
 								</div>
 							</div>
 							<!--[pp] //검색결과 -->

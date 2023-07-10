@@ -152,6 +152,7 @@
 						</div>
 						<div class="box-body">
 							<!--[pp] 검색 -->
+							<div>
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
@@ -194,11 +195,13 @@
 									</tr>
 								</tbody>
 							</table>
+							</div>
 							<br>
 							<!-- 1번째 그리드-->
 							<div>
 								<div>
 								<b>생산실적 내역</b>
+								<div>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed" >
 									<colgroup>
 										<col style="width: 15%">
@@ -267,6 +270,7 @@
 									</tbody>
 								</table>
 								</div>
+								</div>
 							</div>
 							<br>
 							<!-- 1번째 그리드-->
@@ -280,6 +284,7 @@
 										<button type="button" class="btn btn-sm btn-outline-danger">올리기</button>
 									</div>
 								</div>
+								<div>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed" >
 									<colgroup>
 										<col style="width: 10%">
@@ -368,6 +373,7 @@
 										</tr>
 									</tbody>
 								</table>
+								</div>
 								</div>
 							</div>
 						</div>
