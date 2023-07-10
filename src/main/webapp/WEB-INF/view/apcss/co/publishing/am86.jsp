@@ -153,9 +153,10 @@
                 </div>
               </div>
             </div>
-            <div></div>
+
             <div class="box-body">
               <!--[pp] 검색 -->
+			<div>	
               <table class="table table-bordered tbl_row tbl_fixed">
                 <caption>
                   검색 조건 설정
@@ -192,15 +193,16 @@
                   </tr>
                 </tbody>
               </table>
-
+			</div>	
               <!--[pp] //검색 -->
               <!--[pp] 검색결과 -->
 
               <br>
               <br>
-              <div>
+              <div class="row">
                 <div class="col-sm-3">
                   <b>권한그룹목록</b>
+                  <div>
                   <table
                     class="table table-bordered table-hover tbl_col tbl_fixed asdasd"
                     style="width: 100%"
@@ -216,83 +218,71 @@
                       </tr>
                     </thead>
                     <tbody>
+                      
                       <tr>
-                        <td></td>
+                        <td>&nbsp;</td>
                         <td></td>
                       </tr>
                       <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
+                        <td>&nbsp;</td>
                         <td></td>
                       </tr>
                       <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
+                        <td>&nbsp;</td>
                         <td></td>
                       </tr>
                       <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
+                        <td>&nbsp;</td>
                         <td></td>
                       </tr>
                       <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
+                        <td>&nbsp;</td>
                         <td></td>
                       </tr>
                       <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
+                        <td>&nbsp;</td>
                         <td></td>
                       </tr>
                       <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
+                        <td>&nbsp;</td>
                         <td></td>
                       </tr>
                       <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
+                        <td>&nbsp;</td>
                         <td></td>
                       </tr>
                       <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
+                        <td>&nbsp;</td>
                         <td></td>
                       </tr>
                       <tr>
-                        <td></td>
+                        <td>&nbsp;</td>
                         <td></td>
                       </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                      </tr>
+
                     </tbody>
                   </table>
+                  </div>
                 </div>
                 <div class="col-sm-9">
                   <b>메뉴 목록</b>
+                  <div>
                   <table
                     class="table table-bordered table-hover tbl_col tbl_fixed"
                   >
@@ -767,6 +757,7 @@
                       </tr>
                     </tbody>
                   </table>
+                  </div>
                 </div>
               </div>
               <!--[pp] //검색결과 -->

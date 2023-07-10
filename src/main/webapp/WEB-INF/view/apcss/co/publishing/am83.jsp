@@ -187,13 +187,14 @@
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							
-							<div >
+							<div class ="row">
 								<div class="col-sm-4">
-									<br>
-									<b>권한그룹목록</b>
 									<div class="ad_tbl_top">
-										<div class="ad_tbl_toplist" style="float: right;">
-											<button type="button" class="btn btn-sm btn-outline-danger">행추가</button>
+										<ul class="ad_tbl_count">
+											<li><span style="color: black;">권한그룹목록</span></li>
+										</ul>
+									 	<div class="ad_tbl_toplist">
+											<button type="button" class="btn btn-xs btn-outline-danger">행추가</button>
 										</div>
 									</div>
 									<div>
@@ -277,31 +278,38 @@
 											<th>&nbsp;</th>
 											<th>&nbsp;</th>
 										</tr>
-										<tr>
-											<th>&nbsp;</th>
-											<th>&nbsp;</th>
-										</tr>
-										<tr>
-											<th>&nbsp;</th>
-											<th>&nbsp;</th>
-										</tr>
-										<tr>
-											<th>&nbsp;</th>
-											<th>&nbsp;</th>
-										</tr>
 									</tbody>
 								   </table>
 								</div>
+																	<div class="row">
+										<div class="col-sm-3 pd_t10">
+											<select class="form-control">
+												<option value="100">100</option>
+											</select>
+										</div>
+										<div class="col-sm-9 ta_c">
+											<div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+												<ul class="pagination">
+													<li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li>
+													<li class="paginate_button active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li>
+													<li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li>
+													<li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li>
+													<li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">Next</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
 								</div>
 								<div class="col-sm-8">
 									<b>
-										<br>
-										권한그룹정보<br></b>
 										<div class="ad_tbl_top">
-											<div class="ad_tbl_toplist" style="float: right;">
-												<br>
+											<ul class="ad_tbl_count">
+												<li><span style="color: black;">권한그룹목록</span></li>
+											</ul>
+										 	<div class="ad_tbl_toplist">
 											</div>
 										</div>
+									
 									<div>
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<colgroup>
@@ -325,7 +333,9 @@
 											</tr>
 										</thead>
 									</table>
+									
 									</div>
+									
 									<b>
 										<br>메뉴목록<br></b>
 									<div>

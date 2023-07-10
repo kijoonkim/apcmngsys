@@ -144,7 +144,7 @@
                   <button type="button" class="btn btn-sm btn-outline-danger">
                     조회
                   </button>
-                  <button type="button" class="btn btn-sm btn-outline-danger">
+                  <button type="button" class="btn btn-sm btn-primary">
                     등록
                   </button>
                   <button type="button" class="btn btn-sm btn-outline-danger">
@@ -184,7 +184,7 @@
                       <input
                         type="text"
                         class="form-control input-sm"
-                        placeholder="입력"
+                        placeholder="검색어 입력"
                         style="width: 20%"
                       />
                     </th>
@@ -195,14 +195,15 @@
               <!--[pp] //검색 -->
               <!--[pp] 검색결과 -->
               <br>
-              <div>
+              <div class="row">
                 <div class="col-sm-3">
-                  <b>권한그룹목록</b>
-                  <div class="ad_tbl_top">
-										<div class="ad_tbl_toplist" style="float: right;">
-                      <br>										
-                    </div>
-									</div>
+                  	<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li><span style="color: black;">권한그룹목록</span></li>
+						</ul>
+						<div class="ad_tbl_toplist">
+						</div>
+					</div>
                   <div>
                   <table class="table table-bordered table-hover tbl_col tbl_fixed asdasd"style="width: 100%">
                     <colgroup>
@@ -225,67 +226,60 @@
                         <td>테스트</td>
                       </tr>
                       <tr>
+                        <td>&nbsp;</td>
                         <td></td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                      </tr>
+                      
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
                         <td></td>
                       </tr>
                       <tr>
                         <td></td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
                         <td></td>
                       </tr>
                       <tr>
                         <td></td>
-                        <td></td>
+                        <td>&nbsp;</td>
                       </tr>
                       <tr>
                         <td></td>
-                        <td></td>
+                        <td>&nbsp;</td>
                       </tr>
                       <tr>
                         <td></td>
-                        <td></td>
+                        <td>&nbsp;</td>
                       </tr>
                       <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
+                        <td>&nbsp;</td>
                         <td></td>
                       </tr>
                     </tbody>
@@ -338,14 +332,17 @@
                   </div>
                 </div>
                 
-								<div class="col-sm-9">
-									<b >사용자목록 </b>
-									<div class="ad_tbl_top">
-										<div class="ad_tbl_toplist" style="float: right;">
-											<button type="button" class="btn btn-sm btn-outline-danger">행추가</button>
-										</div>
-									</div>
-
+					<div class="col-sm-9">
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span style="color: black;">사용자목록</span></li>
+								<li><label style="color: black;">조회건수 00건</lavel></li>
+							</ul>
+							<div class="ad_tbl_toplist">
+								<button type="button" class="btn btn-xs btn-outline-danger">행추가</button>
+							</div>
+					</div>
+					<div>
                   <table class="table table-bordered table-hover tbl_col tbl_fixed" style="line-height: 20px;">
                     <colgroup>
                       <col style="width: 10%" />

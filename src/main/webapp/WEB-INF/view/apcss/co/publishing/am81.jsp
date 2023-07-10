@@ -149,7 +149,7 @@
 							</div>
 						</div>
 						<div>
-						</div>
+						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<div>
@@ -171,22 +171,22 @@
 										<th class="ta_r">시스템구분</th>
 										<th class="ta_r" colspan="2">
 											<select class="form-control input-sm">
-												<option>100</option>
+												<option>시스템관리</option>
 											</select>
 										</th>
 										<th colspan="6"></th>
 									</tr>
 								</tbody>
 							</table>
-							<div>
+							</div>
 														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<br>
-							<div>
+							<div class ="row">
 								<div class="col-sm-3">
 								<b>메뉴목록</b>
-								<div>
+								<div class ="row">
 								<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 95%;">
 									<colgroup>
 										<col style="width: 100%">
@@ -233,7 +233,7 @@
 								
 								<div class="col-sm-9">
 									<b>메뉴 상세정보</b>
-									<div>
+									<div  class ="row">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<colgroup>
 											<col style="width: 25%">
@@ -273,7 +273,7 @@
 									<br>
 									
 									<b>확인버튼 및 개체 목록</b>
-									<div>
+									<div class ="row">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<colgroup>
 											<col style="width: 3%">
