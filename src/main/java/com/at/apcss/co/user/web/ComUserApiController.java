@@ -49,7 +49,7 @@ public class ComUserApiController extends BaseController {
 
 	@Resource(name = "comUserService")
 	private ComUserService comUserService;
-	
+
 	/** EgovMessageSource */
 	@Resource(name = "egovMessageSource")
 	EgovMessageSource egovMessageSource;
@@ -61,18 +61,18 @@ public class ComUserApiController extends BaseController {
 	/** TRACE */
 	@Resource(name = "leaveaTrace")
 	LeaveaTrace leaveaTrace;
-	
+
 	/** JWT */
 	@Autowired
     private EgovJwtTokenUtil jwtTokenUtil;
 
 	@PostMapping(value = "/co/user/selectComUser.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectComUser(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		
+
 		logger.debug("comUser info {} {}", comUserVO.getUserId(), comUserVO.getUserNm());
-		
+
 		ComUserVO resultVO;
 
 		try {
@@ -80,9 +80,9 @@ public class ComUserApiController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
-		
+
 		return getSuccessResponseEntity(resultMap);
 
 	}
@@ -90,7 +90,7 @@ public class ComUserApiController extends BaseController {
 	@GetMapping(value = "/co/user/users/{id}")
 	@ResponseBody
 	public ResponseEntity<HashMap<String, Object>> selectUserById(@PathVariable String id, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		ComUserVO resultVO;
 
@@ -99,29 +99,48 @@ public class ComUserApiController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/co/user/users", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectComUserList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<ComUserVO> resultList = new ArrayList<>();
-		
+
 		logger.debug("param info {}", comUserVO.toString());
-		
+
 		try {
 			resultList = comUserService.selectComUserList(comUserVO);
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
+	@PostMapping(value = "/co/user/updateComUserAprv", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateComUserAprv(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+		logger.debug("updateComUserAprv 호출 <><><><> ");
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+		try {
+			comUserVO.setSysLastChgUserId(getUserId());
+			comUserVO.setSysLastChgPrgrmId(getPrgrmId());
+			result = comUserService.updateComUserAprv(comUserVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }

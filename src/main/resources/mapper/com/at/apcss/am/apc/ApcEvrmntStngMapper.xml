@@ -2,55 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <!-- ==========================================================================	-->
-<!-- NAME : ComCdMapper.xml                                    					-->
-<!-- DESC : 사용자 정보 mapper                                             			-->
+<!-- NAME : ApcEvrmntStngMapper.xml                                   			-->
+<!-- DESC : APC 환경설정 mapper                                             	-->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
-<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+<!-- 2023.07.07  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
 <mapper namespace="com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper">
-
-	<resultMap type="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" id="apcEvrmntStngMap">
-        <result property="apcCd" column="APC_CD"/>
-		<result property="orgrnApcNm" column="ORGRN_APC_NM"/>
-		<result property="ctpv" column="CTPV"/>
-		<result property="sigun" column="SIGUN"/>
-		<result property="mbNm" column="MB_NM"/>
-		<result property="orgnlAddr" column="ORGNL_ADDR"/>
-		<result property="orgnlTelno" column="ORGNL_TELNO"/>
-		<result property="apcNm" column="APC_NM"/>
-		<result property="apcBrno" column="APC_BRNO"/>
-		<result property="bankNm" column="BANK_NM"/>
-		<result property="dpstr" column="DPSTR"/>
-		<result property="actno" column="ACTNO"/>
-		<result property="addr" column="ADDR"/>
-		<result property="telno" column="TELNO"/>
-		<result property="faxNo" column="FAX_NO"/>
-	</resultMap>
-
-	<resultMap type="com.at.apcss.co.user.vo.ComUserVO" id="apcUserMap">
-        <result property="rowSeq" column="ROW_REQ"/>
-        <result property="userId" column="USER_ID"/>
-        <result property="userNm" column="USER_NM"/>
-		<result property="userType" column="USER_TYPE" />
-		<result property="userStts" column="USER_STTS" />
-		<result property="eml" column="EML" />
-		<result property="telNo" column="TEL_NO" />
-		<result property="apcCd" column="APC_CD" />
-		<result property="ogdpNm" column="OGDP_NM" />
-		<result property="jbttlNm" column="JBTTL_NM" />
-		<result property="tkcgTaskNm" column="TKCG_TASK_NM" />
-		<result property="chrgdCertYn" column="CHRGD_CERT_YN" />
-		<result property="chrgdCertType" column="CHRGD_CERT_TYPE" />
-		<result property="lckYn" column="LCK_YN" />
-		<result property="delYn" column="DEL_YN" />
-		<result property="rmrk" column="RMRK" />
-		<result property="lgnFailNmtm" column="LGN_FAIL_NMTM" />
-		<result property="endLgnDt" column="END_LGN_DT" />
-		<result property="endLgnIp" column="END_LGN_IP" />
-	</resultMap>
 
 
 	<!-- ==========================================================================	-->
@@ -61,24 +21,26 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.07  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcInfo" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" resultMap="apcEvrmntStngMap">
+    <select id="selectApcInfo" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
+    	<![CDATA[
     	SELECT AI.APC_CD            AS APC_CD
-		     , AI.ORGRN_APC_NM      AS ORGRN_APC_NM
-		     , AI.CTPV              AS CTPU
-		     , AI.SIGUN             AS SIGUN
+		     , AI.REG_APC_NM        AS REG_APC_NM
+		     , AI.CTPV_NM           AS CTPU_NM
+		     , AI.SIGUN_NM          AS SIGUN_NM
 		     , AI.MB_CD             AS MB_CD
-		     , AI.ORGNL_ADDR        AS ORGNL_ADDR
-		     , AI.ORGNL_TELNO       AS ORGNL_TELNO
+		     , AI.REG_ADDR        	AS REG_ADDR
+		     , AI.REG_TELNO       	AS REG_TELNO
 		     , AI.APC_NM            AS APC_NM
-		     , AI.APC_BRNO          AS APC_BRNO
+		     , AI.BRNO          	AS BRNO
 		     , AI.BANK_CD           AS BANK_CD
 		     , AI.DPSTR             AS DPSTR
 		     , AI.ACTNO             AS ACTNO
 		     , AI.ADDR              AS ADDR
-		     , AI.TELNO             AS TELNO
-		     , AI.FX_NO             AS FX_NO
+		     , AI.TELNO            	AS TELNO
+		     , AI.FXNO             	AS FXNO
 		  FROM TB_APC_INFO AI
 		 WHERE APC_CD = #{apcCd}
+		]]>
     </select>
 
 	<!-- ==========================================================================	-->
@@ -89,14 +51,15 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.07  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcUserList" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" resultMap="apcUserMap">
+    <select id="selectApcUserList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">
+    	<![CDATA[
     	SELECT ROWNUM               AS ROW_SEQ
 		     , CU.USER_ID           AS USER_ID
 		     , CU.USER_NM           AS USER_NM
 		     , CU.USER_TYPE         AS USER_TYPE
 		     , CU.USER_STTS         AS USER_STTS
 		     , CU.EML               AS EML
-		     , CU.TEL_NO            AS TEL_NO
+		     , CU.TELNO             AS TELNO
 		     , CU.APC_CD            AS APC_CD
 		     , CU.OGDP_NM           AS OGDP_NM
 		     , CU.JBTTL_NM          AS JBTTL_NM
@@ -109,8 +72,38 @@
 		     , DECODE(CU.DEL_YN, 'N', 'Y', 'Y', 'N')    AS DEL_YN
 		  FROM TB_COM_USER CU
 		 WHERE USER_TYPE IN ('10', '11')
+		   AND USER_STTS IN ('01', '99')
 		   AND CU.APC_CD = #{apcCd}
+		]]>
+		<if test='userNm != null and userNm != ""'>
+		   AND CU.USER_NM = #{userNm}
+		</if>
     </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc..mapper.ApcEvrmntStngMapper.selectApcUserList	-->
+	<!-- DESC : APC 설비 목록 조회.                                          		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.10  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectFcltList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    	<![CDATA[
+    	SELECT ROWNUM               AS ROW_SEQ
+		     , CD.CD_ID             AS CD_ID
+		     , CD.CD_VL             AS CD_VL
+		     , CD.CD_VL_NM			AS CD_VL_NM
+		     , CD.APC_CD            AS APC_CD
+		     , CD.CD_VL_EXPLN       AS CD_VL_EXPLN
+		     , CD.DEL_YN            AS DEL_YN
+		  FROM TB_COM_CD_DTL CD
+		 WHERE CD_ID 		= 'FCLT_CD'
+		   AND CD.APC_CD 	= #{apcCd}
+		]]>
+    </select>
+
+
 </mapper>
 
 

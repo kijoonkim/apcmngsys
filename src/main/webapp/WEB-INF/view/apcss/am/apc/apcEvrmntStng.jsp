@@ -665,14 +665,16 @@
 </body>
 <script type="text/javascript">
 
+	var comboUesYnJsData = [];
+	var jsonComboBankNm = [];
+	var jsonComboGridBankNm = [];
+	gfn_setComCdSBSelect('comboBankNm', jsonComboBankNm ,	'BANK_CD', '0000');				// 검색 조건(시스템구분)
+	gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000");
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("apcCd", '9999');
 		selectApcInfo();
 	})
 
-	var jsonComboBankNm = [];
-	var jsonComboGridBankNm = [];
-	gfn_setComCdSelect('comboBankNm', jsonComboBankNm ,	'BANK_CD', '0000');		// 검색 조건(시스템구분)
 
 	async function selectApcInfo(){
 		let apcCd = SBUxMethod.get("apcCd");
@@ -681,9 +683,9 @@
 		let resultVO = data.resultVO;
         try{
 
-        	SBUxMethod.set("apcNm", resultVO.orgrnApcNm);
-        	SBUxMethod.set("telno", resultVO.orgnlTelno);
-        	SBUxMethod.set("addr", resultVO.orgnlAddr);
+        	SBUxMethod.set("apcNm", resultVO.regApcNm);
+        	SBUxMethod.set("telNo", resultVO.regTelNo);
+        	SBUxMethod.set("addr", resultVO.regAddr);
 
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -734,34 +736,6 @@
 			fn_ordrMngCreateGrid();
 		}
 	}
-
-    // 설비 등록
-    var fcltMngGridData = []; // 그리드의 참조 데이터 주소 선언
-    function fn_fcltMngCreateGrid() {
-    	fcltMngGridData = [];
-    	let SBGridProperties = {};
-	    SBGridProperties.parentid = 'fcltMngGridArea';
-	    SBGridProperties.id = 'fcltMngDatagrid';
-	    SBGridProperties.jsonref = 'fcltMngGridData';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["순번"], 		ref: 'no',  		type:'input',  width:'50px',     style:'text-align:center'},
-            {caption: ["설비 코드"], 	ref: 'fcltCd',  	type:'input',  width:'100px',    style:'text-align:center'},
-            {caption: ["설비 명"], 		ref: 'fcltNm',   	type:'input',  width:'200px',    style:'text-align:center'},
-            {caption: ["비고"], 		ref: 'rmrk',   		type:'input',  width:'250px',    style:'text-align:center'},
-            {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-            	if(strValue== null || strValue == ""){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"fcltMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
-            	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"fcltMngDatagrid\", " + nRow + ")'>삭제</button>";
-            	}
-            }}
-        ];
-        window.fcltMngDatagrid = _SBGrid.create(SBGridProperties);
-        fcltMngDatagrid.addRow();
-    }
 
     // 창고 등록
     var warehouseMngGridData = []; // 그리드의 참조 데이터 주소 선언
@@ -836,6 +810,7 @@
             	cnptMngDatagrid.addRow(true);
             }else if (grid === "fcltMngDatagrid") {
             	fcltMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	fcltMngDatagrid.setCellData(nRow, nCol+1, SBUxMethod.get("apcCd"), true);
             	fcltMngDatagrid.addRow(true);
             }else if (grid === "warehouseMngDatagrid") {
             	warehouseMngDatagrid.setCellData(nRow, nCol, "N", true);
@@ -864,7 +839,16 @@
             if (grid === "cnptMngDatagrid") {
             	cnptMngDatagrid.deleteRow(nRow);
             }else if (grid === "fcltMngDatagrid") {
-            	fcltMngDatagrid.deleteRow(nRow);
+            	console.log(fcltMngDatagrid.getRowStatus(nRow));
+            	if(fcltMngDatagrid.getRowStatus(nRow) == 0 || fcltMngDatagrid.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			fn_deleteFclt(nRow);
+		            	fcltMngDatagrid.deleteRow(nRow);
+            		}
+            	}else{
+	            	fcltMngDatagrid.deleteRow(nRow);
+            	}
             }else if (grid === "warehouseMngDatagrid") {
             	warehouseMngDatagrid.deleteRow(nRow);
             }else if (grid === "pltMngDatagrid") {

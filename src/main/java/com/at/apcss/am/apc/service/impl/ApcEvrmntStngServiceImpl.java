@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper;
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
 import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.user.vo.ComUserVO;
 
 @Service("apcEvrmntStngService")
@@ -17,13 +18,18 @@ public class ApcEvrmntStngServiceImpl implements ApcEvrmntStngService{
 	private ApcEvrmntStngMapper apcEvrmntStngMapper;
 
 	@Override
-	public ApcEvrmntStngVO selectApcInfo(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception {
-		return apcEvrmntStngMapper.selectApcInfo(apcEvrmntStngVO);
+	public ApcEvrmntStngVO selectApcInfo(ComUserVO comUserVO) throws Exception {
+		return apcEvrmntStngMapper.selectApcInfo(comUserVO);
 	}
 
 	@Override
-	public List<ComUserVO> selectApcUserList(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception {
-		return apcEvrmntStngMapper.selectApcUserList(apcEvrmntStngVO);
+	public List<ComUserVO> selectApcUserList(ComUserVO comUserVO) throws Exception {
+		return apcEvrmntStngMapper.selectApcUserList(comUserVO);
+	}
+
+	@Override
+	public List<ComUserVO> selectFcltList(ComCdVO comCdVO) throws Exception {
+		return apcEvrmntStngMapper.selectFcltList(comCdVO);
 	}
 
 }

@@ -60,15 +60,13 @@ async function gfn_getComCdDtls (_cdId, _apcCd = "0000") {
  * @param {string} _apcCd
  * @returns {void}
  */
-async function gfn_setComCdSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
+async function gfn_setComCdGridSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
 
 	if (gfn_isEmpty(_cdId)) {
 		return;
 	}
 
-	gfn_setComCdSBSelect(_gridId, _jsondataRef, _cdId, _apcCd);
 
-	/*
 	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd});
 	const data = await postJsonPromise;
 	console.log("cdDtls", data);
@@ -77,7 +75,7 @@ async function gfn_setComCdSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
 		_jsondataRef.length = 0;
 		data.resultList.forEach((item) => {
 			const cdVl = {
-				text: item.cdVlNm,
+				label: item.cdVlNm,
 				value: item.cdVl
 			}
 			_jsondataRef.push(cdVl);
@@ -86,7 +84,7 @@ async function gfn_setComCdSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
 	} catch (e) {
 
 	}
-	*/
+
 }
 
 
@@ -235,8 +233,8 @@ const gfn_setCookie = function (name, value, options = {}) {
 const gv_comMsgList = [];
 
 const gfn_getComMsgList = async function() {
-	
-	const comMsgPromise = gfn_postJSON("/co/msg/comMsgs", {delYn: "N"});        
+
+	const comMsgPromise = gfn_postJSON("/co/msg/comMsgs", {delYn: "N"});
 	const data = await comMsgPromise;
 
     try {
@@ -251,9 +249,9 @@ const gfn_getComMsgList = async function() {
 			}
 			gv_comMsgList.push(menu);
 		});
-		
+
 		console.log("gv_comMsgList", gv_comMsgList);
-		
+
 	} catch (e) {
 	}
 }
@@ -264,24 +262,24 @@ const gfn_getComMsgList = async function() {
  * @returns {string}
  */
 const gfn_getComMsg = function (_msgKey, ..._arguments) {
-	
+
 	let msgCn = gv_comMsgList.find((msg) => {
 		return msg.msgKey == _msgKey;
 	}).msgCn;
-	
+
 	if (gfn_isEmpty(msgCn)) {
 		return _msgKey;
 	}
 
 	let args = Array.prototype.slice.call(arguments, 1);
-	
-	let msg = msgCn.replace(/{(\d+)}/g, function(match, number) { 
+
+	let msg = msgCn.replace(/{(\d+)}/g, function(match, number) {
 			return typeof args[number] != 'undefined' ? args[number] : match;
 		});
-	
+
 	// sample
 	// var foo = gfn_getComMsg("I0002", "출근", "일찍");
-	
+
 	return msg;
 }
 

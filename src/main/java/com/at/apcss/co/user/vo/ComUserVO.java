@@ -18,7 +18,7 @@ public class ComUserVO extends ComVO {
 	private String userType;
 	private String userStts;
 	private String eml;
-	private String telNo;
+	private String telno;
 	private String apcCd;
 	private String ogdpNm;
 	private String jbttlNm;

@@ -10,19 +10,21 @@ import lombok.Setter;
 public class ApcEvrmntStngVO extends ComVO{
 
 	private String apcCd;
-	private String orgrnApcNm;
-	private String ctpv;
-	private String sigun;
-	private String mbNm;
-	private String orgnlAddr;
-	private String orgnlTelno;
+	private String regApcNm;
+	private String ctpvNm;
+	private String sigunNm;
+	private String mbCd;
+	private String regAddr;
+	private String regZip;
+	private String regTelno;
 	private String apcNm;
-	private String apcBrno;
+	private String brno;
 	private String bankNm;
 	private String dpstr;
 	private String actno;
 	private String addr;
+	private String zip;
 	private String telno;
-	private String faxNo;
+	private String fxno;
 
 }

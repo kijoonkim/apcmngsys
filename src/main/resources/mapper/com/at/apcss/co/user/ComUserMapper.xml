@@ -12,23 +12,6 @@
 
 <mapper namespace="com.at.apcss.co.user.mapper.ComUserMapper">
 
-	<resultMap type="com.at.apcss.co.user.vo.ComUserVO" id="comUserResultMap">
-        <result property="userId" column="USER_ID"/>
-        <result property="userNm" column="USER_NM"/>
-		<result property="userType" column="USER_TYPE" />
-		<result property="userStts" column="USER_STTS" />
-		<result property="eml" column="EML" />
-		<result property="telNo" column="TEL_NO" />
-		<result property="apcCd" column="APC_CD" />
-		<result property="ogdpNm" column="OGDP_NM" />
-		<result property="chrgdCertYn" column="CHRGD_CERT_YN" />
-		<result property="chrgdCertType" column="CHRGD_CERT_TYPE" />
-		<result property="lckYn" column="LCK_YN" />
-		<result property="lgnFailNmtm" column="LGN_FAIL_NMTM" />
-		<result property="endLgnDt" column="END_LGN_DT" />
-		<result property="endLgnIp" column="END_LGN_IP" />
-	</resultMap>
-
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectComUser                    -->
 	<!-- DESC : 사용자 테이블 단건조회.                                             		-->
@@ -37,7 +20,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComUser" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultMap="comUserResultMap">
+    <select id="selectComUser" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.co.user.ComUserMapper.selectComUser */
 				  CU.USER_ID            AS USER_ID
@@ -45,7 +28,7 @@
 				, CU.USER_TYPE          AS USER_TYPE
 				, CU.USER_STTS          AS USER_STTS
 				, CU.EML                AS EML
-				, CU.TEL_NO          	AS TEL_NO
+				, CU.TELNO          	AS TELNO
 				, CU.APC_CD             AS APC_CD
 				, CU.OGDP_NM            AS OGDP_NM
 				, CU.CHRGD_CERT_YN      AS CHRGD_CERT_YN
@@ -75,30 +58,35 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComUserList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultMap="comUserResultMap">
+    <select id="selectComUserList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.co.user.ComUserMapper.selectComUserList */
-				  CU.USER_ID            AS USER_ID
-				, CU.USER_NM            AS USER_NM
-				, CU.USER_TYPE          AS USER_TYPE
-				, CU.USER_STTS          AS USER_STTS
-				, CU.EML                AS EML
-				, CU.TEL_NO          	AS TELNO
-				, CU.APC_CD             AS APC_CD
-				, CU.OGDP_NM            AS OGDP_NM
-				, CU.CHRGD_CERT_YN      AS CHRGD_CERT_YN
-				, CU.CHRGD_CERT_TYPE    AS CHRGD_CERT_TYPE
-				, CU.LCK_YN             AS LCK_YN
-				, CU.LGN_FAIL_NMTM      AS LGN_FAIL_NMTM
-				, CU.END_LGN_DT         AS END_LGN_DT
-				, CU.END_LGN_IP         AS END_LGN_IP
-				, CU.DEL_YN                 AS DEL_YN
-				, CU.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
-				, CU.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
-				, CU.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
-				, CU.SYS_LAST_CHNG_DT       AS SYS_LAST_CHNG_DT
-				, CU.SYS_LAST_CHNG_USER_ID  AS SYS_LAST_CHNG_USER_ID
-				, CU.SYS_LAST_CHNG_PRGRM_ID AS SYS_LAST_CHNG_PRGRM_ID
+			       ROWNUM				 	AS ROW_SEQ
+		     	 , CU.USER_ID            	AS USER_ID
+				 , CU.USER_NM            	AS USER_NM
+				 , CU.USER_TYPE          	AS USER_TYPE
+				 , CU.USER_STTS          	AS USER_STTS
+				 , CU.EML                	AS EML
+				 , CU.TELNO          	 	AS TELNO
+				 , CU.APC_CD             	AS APC_CD
+				 , CU.OGDP_NM            	AS OGDP_NM
+				 , CU.CHRGD_CERT_YN      	AS CHRGD_CERT_YN
+				 , CU.CHRGD_CERT_TYPE    	AS CHRGD_CERT_TYPE
+				 , CU.LCK_YN             	AS LCK_YN
+				 , CU.LGN_FAIL_NMTM      	AS LGN_FAIL_NMTM
+				 , CU.END_LGN_DT         	AS END_LGN_DT
+				 , CU.END_LGN_IP         	AS END_LGN_IP
+				 , CU.RMRK				 	AS RMRK
+				 , CU.JBTTL_NM 				AS JBTTL_NM
+				 , CU.TKCG_TASK_NM 			AS TKCG_TASK_NM
+				 , CU.RMRK 					AS RMRK
+				 , CU.DEL_YN                 AS DEL_YN
+				 , CU.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
+				 , CU.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
+				 , CU.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
+				 , CU.SYS_LAST_CHNG_DT       AS SYS_LAST_CHNG_DT
+				 , CU.SYS_LAST_CHNG_USER_ID  AS SYS_LAST_CHNG_USER_ID
+				 , CU.SYS_LAST_CHNG_PRGRM_ID AS SYS_LAST_CHNG_PRGRM_ID
 
 			  FROM TB_COM_USER CU
 			 WHERE CU.DEL_YN = 'N'
@@ -128,4 +116,44 @@
     	]]>
     </select>
 
+
+    <update id="updateComUserAprv" parameterType="com.at.apcss.co.user.vo.ComUserVO">
+    	<![CDATA[
+    	UPDATE TB_COM_USER
+    	   SET USER_STTS 				= #{userStts}
+    	     , SYS_LAST_CHG_DT 			= SYSDATE
+    	     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+    	     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    	 WHERE USER_ID 					= #{userId}
+    	]]>
+    </update>
+
+    <update id="updateComUser" parameterType="com.at.apcss.co.user.vo.ComUserVO">
+    	<![CDATA[
+    	UPDATE TB_COM_USER
+    	   SET SYS_LAST_CHG_DT 			= SYSDATE
+    	     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+    	     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    	]]>
+    	<if test='jbttlNm != null and jbttlNm != ""'>
+    		 , JBTTL_NM 				= #{jbttlNm}
+    	</if>
+    	<if test='tkcgTaskNm != null and tkcgTaskNm != ""'>
+    		 , TKCG_TASK_NM 			= #{tkcgTaskNm}
+    	</if>
+    	<if test='rmrk != null and rmrk != ""'>
+    		 , RMRK 					= #{rmrk}
+    	</if>
+    	<if test='delYn != null and delYn != ""'>
+    		<if test='delYn == "Y"'>
+	    	, DEL_YN 					= 'N'
+    		</if>
+    		<if test='delYn == "N"'>
+	    	, DEL_YN 					= 'Y'
+    		</if>
+    	</if>
+		<![CDATA[
+    	 WHERE USER_ID 					= #{userId}
+    	]]>
+    </update>
 </mapper>
