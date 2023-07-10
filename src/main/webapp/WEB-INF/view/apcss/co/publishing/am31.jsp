@@ -199,8 +199,8 @@
 							    </tr>
 								<tr>
 									<th scope="row">투입일자</th>
-									<td  class="td_input" style="border-right:hidden ;">
-										<div class="dp_inline wd_125 va_m">
+									<td class="td_input" style="border-right:hidden ;">
+										<div class="dp_inline wd_125 va_m" >
 											<div class="input-group date">
 												<div class="input-group-addon">
 													<i class="fa fa-calendar"></i>

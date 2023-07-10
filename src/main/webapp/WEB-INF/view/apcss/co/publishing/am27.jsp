@@ -329,7 +329,6 @@
 											</tr>
 										</tbody>
 									</table>
-												<td>&nbsp;</td>
 								<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 							<colgroup>
@@ -473,7 +472,6 @@
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
-					</div>
 				</section>
 
 

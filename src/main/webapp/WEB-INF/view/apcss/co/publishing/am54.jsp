@@ -539,6 +539,7 @@
 												<td></td>
 												<td></td>
 											</tr>
+											<tr>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check_all" checked>
@@ -566,6 +567,7 @@
 														<label class="check_label" for="check_all">신규</label>
 													</p>
 												</td>
+											</tr>	
 											<tr>
 												<td scope="row" class="td_input">
 													<p class="ad_input_row">

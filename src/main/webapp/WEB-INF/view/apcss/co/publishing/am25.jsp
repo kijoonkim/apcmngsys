@@ -431,7 +431,6 @@
 											</tr>
 										</tbody>
 									</table>
-									<td>&nbsp;</td>																					
 								</div>
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
@@ -477,7 +476,6 @@
 											</tr>
 										</tbody>
 									</table>
-									<td>&nbsp;</td>																								
 								</div>
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
@@ -506,7 +504,6 @@
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
-					</div>
 				</section>
 
 

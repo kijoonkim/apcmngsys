@@ -151,6 +151,7 @@
 						</div>
 						<div class="box-body">
 							<!--[pp] 검색 -->
+							<div>
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
@@ -307,6 +308,7 @@
 											</tr>
 										</tbody>
 									</table>
+									</div>
 									<div class="row">
 										<div class="col-sm-3 pd_t10">
 											<select class="form-control">
@@ -336,6 +338,7 @@
 											<button type="button" class="btn btn-sm btn-outline-danger">행추가</button>
 										</div>
 									</div>
+									<div>
 									<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 100%;">
 										<colgroup>
 											<col style="width: 20%">
@@ -464,6 +467,7 @@
 											</tr>
 										</tbody>
 									</table>
+									</div>
 									<div class="row">
 										<div class="col-sm-3 pd_t10">
 											<select class="form-control">

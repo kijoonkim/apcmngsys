@@ -164,14 +164,15 @@
 									<col style="width: 10%">
 								</colgroup>
 								<tbody>
-								<th scope="row">APC명</th>
-									<td colspan="2" class="td_input" style="border-right: hidden;">
-								    	<div class="form-group">
-											<input type="text" class="form-control" placeholder="" disabled="">
-										</div>
-									</td>
-								</tr>
+									<tr>		
+										<th scope="row">APC명</th>
+										<td colspan="2" class="td_input" style="border-right: hidden;">
+									    	<div class="form-group">
+												<input type="text" class="form-control" placeholder="" disabled>
+											</div>
+										</td>
 									</tr>
+
 									<tr>
 										<th scope="row">선별일자</th>
 										<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -201,30 +202,36 @@
 										<td class="td_input" style="border-right: hidden;">
 											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 										</td>
-										</td>			
 										<th scope="row">품종</th>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>멀티선택</option>
+											</select>
+										</td>		
 												<td class="td_input" style="border-right: hidden;">
 													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 												</td>
-											</select>
-										</td>
 									</tr>
+									<tr>
 										<th scope="row">선별기</th>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+												<option></option>
+											</select>
 										</td>
 										<td style="border-right: hidden;">&nbsp;</td>
 										<th scope="row">저장창고</th>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+												<option></option>
+											</select>
 										</td>
 										<td style="border-right: hidden;">&nbsp;</td>
 										<th scope="row">규격</th>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
+												<option></option>
+											</select>
 										</td>
 										<td style="border-right: hidden;">&nbsp;</td>
 									</tr>
@@ -232,7 +239,9 @@
 										<th scope="row">대표생산자</th>
 										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
-												<td class="td_input" style="border-right: hidden;">
+											</select>
+										</td>		
+										<td class="td_input" style="border-right: hidden;">
 													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 										</td>
 									</tr>
@@ -242,9 +251,7 @@
 							<!--[pp] 검색결과 -->
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
-										<td>&nbsp;</td>
 										<li><span>선별 내역</span></li>
-										<td>&nbsp;</td>
 									<li><span>선별수량/중량 : 99/99,999 Kg</span></li>	
 									</ul>
 								</div>
@@ -335,8 +342,7 @@
 											</tr>
 										</tbody>
 									</table>
-												<td>&nbsp;</td>
-												<table class="table table-bordered table-hover tbl_col tbl_fixed">
+									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
 										<colgroup>
 											<col style="width: 10%">
@@ -355,7 +361,6 @@
 										<tbody>
 											<tr>
 											<tr>
-												</th>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>

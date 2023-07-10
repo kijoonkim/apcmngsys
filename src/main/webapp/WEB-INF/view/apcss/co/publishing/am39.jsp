@@ -422,7 +422,7 @@
 										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" title="">
 										<td class="td_input" style="border-right: hidden;">
-											<input type="text" class="form-control input-sm" placeholder="평균" disabled="">
+											<input type="text" class="form-control input-sm" placeholder="평균" disabled>
 										</td>
 										<td style="border-right: hidden;">KG</td>
 										<td class="td_input" style="border-right: hidden;">
@@ -479,8 +479,8 @@
 								</div>										
 								<div class="ad_tbl_top">
 									<div class="ad_tbl_toplist">
-										<button type="button" classㄴ="btn btn-sm btn-outline-dark"></i>내려받기</button>
-										<button type="button" classㄴ="btn btn-sm btn-outline-dark"></i>올리기</button>
+										<button type="button" class="btn btn-sm btn-outline-dark">내려받기</button>
+										<button type="button" class="btn btn-sm btn-outline-dark">올리기</button>
 									</div>
 								</div>	
 								</div>
@@ -601,7 +601,6 @@
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
-					</div>
 				</section>
 
 

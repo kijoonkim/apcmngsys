@@ -135,208 +135,188 @@
 <!-- ============================================================================================================== -->
 <!-- ============================================================================================================== -->
 
-<section class="content container-fluid">
+				<section class="content container-fluid">
 					<div class="box box-solid">
 						<div class="box-header">
-							<h3 class="box-title"> ▶ 메시지관리</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
-								</div>
+							<h3 class="box-title"> ▶ 투입지시조회</h3>
+						</div>
+							<div class="mg_t5 ta_r">
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
 							</div>
-						</div>
-						<div>
-						</div>
+						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<div>
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
+									<col style="width: 7%">
+									<col style="width: 8%">
 									<col style="width: 10%">
-									<col style="width: 15%">
-									<col style="width: 15%">
-									<col style="width: 60%">
+									<col style="width: 3%">
+									<col style="width: 7%">
+									<col style="width: 9%">
+									<col style="width: 8%">
+									<col style="width: 7%">
+									<col style="width: 7%">
+									<col style="width: 7%">
+									<col style="width: 6%">
+									<col style="width: 3%">
 								</colgroup>
 								<tbody>
 									<tr>
-										<th>검색조건</th>
-										<th>
+										<th scope="row">APC명</th>
+										<td colspan= "2" class="td_input" style="border-right: hidden;">
+											<input type="text" class="form-control input-sm" placeholder="" disabled>
+										</td>
+										<td colspan="9"></td>
+									</tr>
+									<tr>
+
+										<th scope="row">출하일자</th>
+										<td colspan="2" class="td_input"  style="border-right: hidden;">
+											<div class="dp_inline wd_125 va_m">
+												<div class="input-group date">
+													<div class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</div>
+													<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
+												</div>
+											</div>
+											~
+											<div class="dp_inline wd_125 va_m">
+												<div class="input-group date">
+													<div class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</div>
+													<input type="text" name="datepicker" placeholder="2023-01-31" class="form-control pull-right input-sm">
+												</div>
+											</div>
+										</td>
+										<td style="border-right: hidden;">&nbsp;</td>
+										<th scope="row" style="border-right: hidden;">품종</th>
+										<td colspan="1" class="td_input"  style="border-right: hidden;">
 											<select class="form-control input-sm">
-												<option>전체</option>
+												<option>멀티선택</option>
 											</select>
-										</th>
-										<th><input type="text" class="form-control input-sm" placeholder="검색어 입력" title=""></th>	
-										<th></th>
+										</td>										
+										<td class="td_input" style="border-right: hidden;">
+											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+										</td>
+										<th scope="row" style="border-right: hidden;">거래처</th>
+										<td colspan="2" class="td_input"  style="border-right: hidden;">
+											<select class="form-control input-sm">
+												<option></option>
+											</select>
+										</td>										
+										<td class="td_input" style="border-right: hidden;">
+											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+										</td>
+									</tr>
+									<tr>			
+										<th scope="row">배송지</th>
+										<td class="td_input" style="border-right: hidden;">
+											<select class="form-control input-sm">
+											</select>
+										</td>
+										<td class="td_input"  style="border-right: hidden;">
+											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+										</td>
+										<td style="border-right: hidden;">&nbsp;</td>
+										<th scope="row">운송사</th>
+										<td class="td_input" style="border-right: hidden;">
+											<select class="form-control input-sm">
+											</select>
+										</td>
+										<td></td>
+										<th scope="row">차량번호</th>
+										<td colspan="2" class="td_input" style="border-right: hidden;">
+											<input type="text" name="datepicker" placeholder="" class="form-control pull-right input-sm">
+										</td>
 									</tr>
 								</tbody>
 							</table>
-							</div>							
+							</div>
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
-							<br>
-							<div class="row">
-								<div class="col-sm-7">
-									<div class="ad_tbl_top"  style="width: 98%;">
-										<ul class="ad_tbl_count">
-											<li><span class="font_default" >메시지목록</span></li>
-											<li><span class="font_default normal" >조회건수 00건</span></li>
-										</ul>
-										<div class="ad_tbl_toplist">
-											<button type="button" class="btn btn-sm btn-outline-danger">행추가</button>
-										</div>
-									</div>
-									<div class="ad_manager_list" style="width: 98%;">
-										<div>
-										<table class="table tbl_col table-bordered table-hover">
-											<caption>권한목록 상세정보</caption>
-											<colgroup>
-												<col style="width: 5%">
-												<col style="width: 10%">
-												<col style="width: 15%">
-												<col style="width: 40%">
-												<col style="width: 20%">
-											</colgroup>
-											<thead>
-												<tr>
-													<th scope="row" class="td_input">
-														<p class="ad_input_row">
-															<input type="checkbox" class="check" id="check1">
-															<label class="check_label ta_i" for="check1">선택</label>
-														</p>
-													</th>
-													<th scope="col">No</th>
-													<th scope="col">메시지Key</th>
-													<th>메시지내용</th>
-													<th>메시지종류</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<th scope="row" class="td_input">
-														<p class="ad_input_row">
-															<input type="checkbox" class="check" id="check1">
-															<label class="check_label ta_i" for="check1">선택</label>
-														</p>
-													</th>
-													<td class="ta_r">1</td>
-													<td>MSG0001</td>
-													<td class="ta_l">(0)와/과 {1}은/는 동시에 입력...</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<th scope="row" class="td_input">
-														<p class="ad_input_row">
-															<input type="checkbox" class="check" id="check1">
-															<label class="check_label ta_i" for="check1">선택</label>
-														</p>
-													</th>
-													<td class="ta_r">2</td>
-													<td>MSG0002</td>
-													<td class="ta_l">(0)을/를 입력하십시오.</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<th scope="row" class="td_input">
-														<p class="ad_input_row">
-															<input type="checkbox" class="check" id="check2">
-															<label class="check_label ta_i" for="check2">선택</label>
-														</p>
-													</th>
-													<td class="ta_r">3</td>
-													<td>MSG0003</td>
-													<td class="ta_l">정상처리 되었습니다.</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<th scope="row" class="td_input">
-														<p class="ad_input_row">
-															<input type="checkbox" class="check" id="check3">
-															<label class="check_label ta_i" for="check3">선택</label>
-														</p>
-													</th>
-													<td class="ta_r">4</td>
-													<td>MSG0004</td>
-													<td class="ta_l">(0)이/가 {1}보다 작습니다.</td>
-													<td>&nbsp;</td>
-												</tr>
-											</tbody>
-										</table>
-										</div>
-									</div>
-									<div class=" pd_l5 pd_r5" style="width: 98%;">
-										<div class="row" style="border: 1px solid #ddd;">
-											<div class="col-sm-3 pd_t5">
-												<select class="form-control">
-													<option value="100">100</option>
-												</select>
-											</div>
-											<div class="col-sm-9 ta_c">
-												<div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-													<ul class="pagination mg_10">
-														<li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li>
-														<li class="paginate_button active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li>
-														<li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li>
-														<li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li>
-														<li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">Next</a></li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-5">
 									<div class="ad_tbl_top">
-										<ul class="ad_tbl_count">
-											<li><span class="font_default">메세지상세정보</span></li>
-										</ul>
-									</div>
-									<div style="border: 1px solid #ddd;">
-										<div>
-										<table class="table table-bordered tbl_row tbl_fixed">
-											<caption>검색 조건 설정</caption>
-											<colgroup>
-												<col style="width: 25%">
-												<col style="width: 25%">
-												<col style="width: 25%">
-												<col style="width: 25%">
-											</colgroup>
-											<tbody>
-												<tr>	
-													<th scope="row">메세지KEY</th>
-													<td class="ta_l" colspan="3">MSG0001</td>	
-												</tr>
-												<tr>	
-													<th scope="row">메세지KEY</th>
-													<td class="ta_l" colspan="3">(0)와/과 {1}은/는 동시에 입력하여야 합니다.</td>	
-												</tr>
-												<tr>	
-													<th scope="row">비고</th>
-													<td class="ta_l" colspan="3">유효성 체크 메시지</td>	
-												</tr>
-												<tr>
-													<th>최초등록ID</th>
-													<td>test001</td>
-													<th>최종변경자ID</th>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<th>최초등록일시</th>
-													<td>&nbsp;</td>
-													<th>최종변경일시</th>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<th>등록프로그램</th>
-													<td>&nbsp;</td>
-													<th>변경프로그램</th>
-													<td>&nbsp;</td>
-												</tr>
-											</tbody> 
-										</table>
-										</div>
+									<ul class="ad_tbl_count">
+										<li><span>　투입지시 내역</span></li>
+										<li><label>　　　지시중량 : 99.999Kg　　　　실적중량 : 99.999Kg</label></li>
+									</ul>
+								</div>
+								<div>								
+								<table class="table table-bordered table-hover tbl_col tbl_fixed">
+									<colgroup>
+										<col style="width: 7%">
+										<col style="width: 7%">
+										<col style="width: 7%">
+										<col style="width: 7%">
+										<col style="width: 4%">
+										<col style="width: 9%">
+										<col style="width: 4%">
+										<col style="width: 4%">
+										<col style="width: 4%">
+										<col style="width: 4%">
+										<col style="width: 4%">
+										<col style="width: 4%">
+									</colgroup>
+									<thead>
+										<tr>
+											<th rowspan="2">출하일지</th>
+											<th rowspan="2">상품명</th>
+											<th rowspan="2">품종</th>
+											<th rowspan="2">규격</th>
+											<th rowspan="2">브랜드</th>
+											<th rowspan="2">거래처</th>
+											<th rowspan="2">배송지</th>
+											<th rowspan="2">운송사</th>
+											<th rowspan="2">차량번호</th>
+											<th rowspan="2">운반비</th>
+											<th colspan="2">출하</th>
+										</tr>
+										<tr>
+											<th scope="col">수량</th>
+											<th scope="col">중량</th>
+										</tr>
+
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<th colspan="9">합계</th>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+									</thead>
+								</table>
 								</div>
 							</div>
 							<!--[pp] //검색결과 -->

@@ -152,6 +152,7 @@
 						</div>
 						<div class="box-body">
 							<!--[pp] 검색 -->
+							<div>
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
@@ -177,6 +178,7 @@
 									</tr>
 								</tbody>
 							</table>
+							<div>
 														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
@@ -184,6 +186,7 @@
 							<div>
 								<div class="col-sm-3">
 								<b>메뉴목록</b>
+								<div>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 95%;">
 									<colgroup>
 										<col style="width: 100%">
@@ -226,9 +229,11 @@
 									</table>
 
 								</div>
+								</div>
 								
 								<div class="col-sm-9">
 									<b>메뉴 상세정보</b>
+									<div>
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<colgroup>
 											<col style="width: 25%">
@@ -264,8 +269,11 @@
 											</tr>
 										</thead>
 									</table>
+									</div>
 									<br>
+									
 									<b>확인버튼 및 개체 목록</b>
+									<div>
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<colgroup>
 											<col style="width: 3%">
@@ -320,6 +328,7 @@
 											</tr>
 										</tbody>
 									</table>
+								</div>
 								</div>
 							</div>
 							<!--[pp] //검색결과 -->

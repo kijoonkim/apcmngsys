@@ -237,7 +237,6 @@
 											<input type="text" class="form-control input-sm">
 												<td class="td_input">
 													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
-											</select>
 										</td>
 									</tr>
 									<tr>
@@ -260,7 +259,7 @@
 										</td>
 										<td colspan="4" class="ta_r">
 											<div class="ad_tbl_toplist">
-												  <button type="button" class="btn btn-sm btn-outline-success"></i>생산지시 등록</button>
+												  <button type="button" class="btn btn-sm btn-outline-success">생산지시 등록</button>
 										   </div>				
 										</td>
 									</tr>										
@@ -370,7 +369,6 @@
 										</tbody>
 									</table>
 								</div>
-								  <td>&nbsp;</td>								  
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
@@ -445,7 +443,6 @@
 										</tbody>
 									</table>
 								</div>
-								 <td>&nbsp;</td>
 								<div class="table-responsive tbl_scroll_sm">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<caption>검색결과 목록</caption>
