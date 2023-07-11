@@ -40,10 +40,10 @@ public interface ApcEvrmntStngMapper {
 	List<ComUserVO> selectApcUserList(ComUserVO comUserVO) throws Exception;
 
 	/**
-	 * APC 설비 목록 조회
+	 * APC 설비, 장비 목록 조회
 	 * @param ComCdVO
 	 * @return List<ComCdVO>
 	 */
-	List<ComUserVO> selectFcltList(ComCdVO comCdVO) throws Exception;
+	List<ComUserVO> selectRsrcList(ComCdVO comCdVO) throws Exception;
 
 }

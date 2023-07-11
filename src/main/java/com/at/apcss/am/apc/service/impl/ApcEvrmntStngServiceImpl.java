@@ -28,8 +28,8 @@ public class ApcEvrmntStngServiceImpl implements ApcEvrmntStngService{
 	}
 
 	@Override
-	public List<ComUserVO> selectFcltList(ComCdVO comCdVO) throws Exception {
-		return apcEvrmntStngMapper.selectFcltList(comCdVO);
+	public List<ComUserVO> selectRsrcList(ComCdVO comCdVO) throws Exception {
+		return apcEvrmntStngMapper.selectRsrcList(comCdVO);
 	}
 
 }

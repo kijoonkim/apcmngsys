@@ -282,7 +282,16 @@
 		VALUES
     		(
 			    #{cdId}
+    	]]>
+    	<choose>
+    		<when test='cdVl != null and cdVl != ""'>
 			  , #{cdVl}
+    		</when>
+    		<otherwise>
+    		  , (SELECT FN_GET_ID_COM_CD_VL(#{apcCd}, #{cdId}) FROM DUAL)
+    		</otherwise>
+    	</choose>
+    	<![CDATA[
 			  , #{apcCd}
 			  , #{indctSeq}
 			  , #{cdVlNm}
