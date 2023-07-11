@@ -27,12 +27,12 @@ public interface ApcEvrmntStngService {
 	List<ComUserVO> selectApcUserList(ComUserVO comUserVO) throws Exception;
 
 	/**
-	 * APC 실버 목록 조회
+	 * APC 실버, 장비 목록 조회
 	 * @param ComCdVO
 	 * @return List<ComCdVO>
 	 * @throws Exception
 	 */
-	List<ComUserVO> selectFcltList(ComCdVO comCdVO) throws Exception;
+	List<ComUserVO> selectRsrcList(ComCdVO comCdVO) throws Exception;
 
 
 }

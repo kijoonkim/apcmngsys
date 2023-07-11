@@ -81,14 +81,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc..mapper.ApcEvrmntStngMapper.selectApcUserList	-->
-	<!-- DESC : APC 설비 목록 조회.                                          		-->
+	<!-- NAME : com.at.apcss.am.apc..mapper.ApcEvrmntStngMapper.selectRsrcList		-->
+	<!-- DESC : APC 설비,장비 목록 조회.                                          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.10  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    <select id="selectRsrcList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
     	SELECT ROWNUM               AS ROW_SEQ
 		     , CD.CD_ID             AS CD_ID
@@ -98,7 +98,7 @@
 		     , CD.CD_VL_EXPLN       AS CD_VL_EXPLN
 		     , CD.DEL_YN            AS DEL_YN
 		  FROM TB_COM_CD_DTL CD
-		 WHERE CD_ID 		= 'FCLT_CD'
+		 WHERE CD.CD_ID 	= #{cdId}
 		   AND CD.APC_CD 	= #{apcCd}
 		]]>
     </select>

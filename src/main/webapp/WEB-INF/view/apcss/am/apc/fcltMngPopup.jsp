@@ -77,6 +77,7 @@
 	        	}
 	        }},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
+	        {caption: ["공통ID"], 		ref: 'cdId',   		type:'input',  hidden : true}
 	    ];
 	    window.fcltMngDatagrid = _SBGrid.create(SBGridProperties);
 	    fn_selectFcltList();
@@ -89,7 +90,7 @@
 
 	async function fn_callSelectFcltList(){
 		let apcCd = SBUxMethod.get("apcCd");
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectFcltList", {apcCd : apcCd});
+    	let postJsonPromise = gfn_postJSON("/am/apc/selectRsrcList", {apcCd : apcCd, cdId : 'FCLT_CD'});
         let data = await postJsonPromise;
         let newFcltGridData = [];
         try{
@@ -101,6 +102,7 @@
 				  , cdVlExpln : item.cdVlExpln
 				  , delYn : 	item.delYn
 				  , apcCd : 	item.apcCd
+				  , cdId : 		item.cdId
 				}
 				newFcltGridData.push(fcltList);
 			});
@@ -141,72 +143,24 @@
 			alert("등록 할 내용이 없습니다.");
 			return;
 		}
-		if(insertList.length > 0){
-			insertListResult =+ fn_callInsertFcltList(insertList);
-		}
-		if(updateList.length > 0){
-			updateListResult =+ fn_callUpdateFcltList(updateList);
-		}
+		let regMsg = "등록 하시겠습니까?";
+		if(confirm(regMsg)){
 
-		if(insertListResult + updateListResult > 0 ){
-			fn_callSelectFcltList();
-			alert("등록 되었습니다.");
+			if(insertList.length > 0){
+				insertListResult = await fn_callInsertRsrcList(insertList);
+			}
+			if(updateList.length > 0){
+				updateListResult = await fn_callUpdateRsrcList(updateList);
+			}
+			if(insertListResult + updateListResult > 0 ){
+				fn_callSelectFcltList();
+				alert("등록 되었습니다.");
+			}
 		}
 
 
 
 	}
-
-	async function fn_callInsertFcltList(comCdList){
-		let postJsonPromise = gfn_postJSON("/am/apc/insertFcltList", comCdList);
-        let data = await postJsonPromise;
-
-        try{
-       		return data.result;
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-
-	}
-
-	async function fn_callUpdateFcltList(comCdList){
-		let postJsonPromise = gfn_postJSON("/am/apc/updateFcltList", comCdList);
-        let data = await postJsonPromise;
-        try{
-       		return data.result;
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-	}
-
-	async function fn_deleteFclt(nRow){
-		let comCdVO = fcltMngDatagrid.getRowData(nRow);
-		let postJsonPromise = gfn_postJSON("/am/apc/deleteFclt", comCdVO);
-        let data = await postJsonPromise;
-
-        try{
-        	if(data.result > 0){
-        		alert("삭제 되었습니다.");
-        	}else{
-        		alert("삭제 도중 오류가 발생 되었습니다.");
-        	}
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-
-	}
-
 
 </script>
 </html>

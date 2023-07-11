@@ -99,15 +99,15 @@ public class ApcEvrmntStngAipController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// APC 환경설정 - 설비 목록 조회
-	@PostMapping(value = "/am/apc/selectFcltList", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectFcltList(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
+	// APC 환경설정 - 설비, 장비 목록 조회
+	@PostMapping(value = "/am/apc/selectRsrcList", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRsrcList(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
 		logger.debug("selectApcInfo 호출 <><><><> ");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<ComUserVO> resultList = new ArrayList<>();
 		try {
-			resultList = apcEvrmntStngService.selectFcltList(comCdVO);
+			resultList = apcEvrmntStngService.selectRsrcList(comCdVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -118,8 +118,8 @@ public class ApcEvrmntStngAipController extends BaseController {
 	}
 
 	// APC 환경설정 - 설비 등록
-	@PostMapping(value = "/am/apc/insertFcltList", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertFcltList(@RequestBody List<ComCdVO> comCdList, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/apc/insertRsrcList", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertRsrcList(@RequestBody List<ComCdVO> comCdList, HttpServletRequest request) throws Exception {
 		logger.debug("insertFcltList 호출 <><><><> ");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
@@ -130,7 +130,6 @@ public class ApcEvrmntStngAipController extends BaseController {
 				comCdVO.setSysFrstInptUserId(getUserId());
 				comCdVO.setSysLastChgPrgrmId(getPrgrmId());
 				comCdVO.setSysLastChgUserId(getUserId());
-				comCdVO.setCdId("FCLT_CD");
 				result =+ comCdSerivce.insertComCdDtl(comCdVO);
 			}
 
@@ -144,8 +143,8 @@ public class ApcEvrmntStngAipController extends BaseController {
 	}
 
 	// APC 환경설정 - 설비 변경
-	@PostMapping(value = "/am/apc/updateFcltList", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateFcltList(@RequestBody List<ComCdVO> comCdList, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/apc/updateRsrcList", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateRsrcList(@RequestBody List<ComCdVO> comCdList, HttpServletRequest request) throws Exception {
 		logger.debug("updateFcltList 호출 <><><><> ");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
@@ -154,7 +153,6 @@ public class ApcEvrmntStngAipController extends BaseController {
 			for (ComCdVO comCdVO : comCdList) {
 				comCdVO.setSysLastChgPrgrmId(getPrgrmId());
 				comCdVO.setSysLastChgUserId(getUserId());
-				comCdVO.setCdId("FCLT_CD");
 				result =+ comCdSerivce.updateComCdDtl(comCdVO);
 			}
 
@@ -168,14 +166,13 @@ public class ApcEvrmntStngAipController extends BaseController {
 	}
 
 	// APC 환경설정 - 설비 삭제
-	@PostMapping(value = "/am/apc/deleteFclt", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> deleteFclt(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/apc/deleteRsrc", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteRsrc(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
 		logger.debug("deleteFcltList 호출 <><><><> ");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		int result = 0;
 		try {
-			comCdVO.setCdId("FCLT_CD");
 			result = +comCdSerivce.deleteComCdDtl(comCdVO);
 
 		} catch (Exception e) {
