@@ -35,7 +35,7 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
-
+		System.out.println("@@@@@@@@@@@@@@@@");
 		LOGGER.debug("EgovWebApplicationInitializer START-============================================");
 
 		// -------------------------------------------------------------
@@ -77,12 +77,11 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 	 * Servlet Context를 등록한다.
 	 */
 	private void addWebServletContext(ServletContext servletContext) {
-		AnnotationConfigWebApplicationContext webApplicationContext = new
-		AnnotationConfigWebApplicationContext();
+		AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
 		webApplicationContext.register(EgovConfigWebDispatcherServlet.class);
 		
-		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("action",
-		new DispatcherServlet(webApplicationContext));
+		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("action", new DispatcherServlet(webApplicationContext));
+		//ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(webApplicationContext));
 		dispatcher.setLoadOnStartup(1);
 		
 		dispatcher.addMapping("*.do"); 
