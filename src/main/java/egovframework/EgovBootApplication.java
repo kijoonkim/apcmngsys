@@ -14,7 +14,7 @@ import egovframework.com.config.EgovWebApplicationInitializer;
 @ServletComponentScan
 @SpringBootApplication
 @Import({EgovWebApplicationInitializer.class})
-public class EgovBootApplication {	//extends SpringBootServletInitializer {
+public class EgovBootApplication extends SpringBootServletInitializer {
 	
 	
 	public static void main(String[] args) {
