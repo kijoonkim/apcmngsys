@@ -191,9 +191,9 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-	        {caption: ["코드"], 				ref: 'cdVl',  		type:'input',  width:'150px',    style:'text-align:center'},
-	        {caption: ["출하 포장단위 명"], 	ref: 'cdVlNm',  	type:'input',  width:'300px',    style:'text-align:center'},
-	        {caption: ["비고"], 				ref: 'cdVlExpln',   type:'input',  width:'250px',    style:'text-align:center'},
+	        {caption: ["코드"], 				ref: 'cdVl',  		type:'output',  hidden : true},
+	        {caption: ["출하 포장단위 명"], 	ref: 'cdVlNm',  	type:'input',  width:'350px',    style:'text-align:center'},
+	        {caption: ["비고"], 				ref: 'cdVlExpln',   type:'input',  width:'300px',    style:'text-align:center'},
 	        {caption: ["사용유무"], 			ref: 'delYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
 						typeinfo : {ref:'comboReverseYnJsData', 	label:'label', value:'value', displayui : true}},
 			{caption: ["처리"], 				ref: 'delYn',   	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -269,8 +269,6 @@
 
 		// 팔레트 등록 data 분류
 		for(var i=2; i<=pltGridData.length+1; i++ ){
-			console.log("i >>>>> ", i);
-			console.log("delYn", pltMngDatagrid.getRowData(i).delYn);
 			if(!(pltMngDatagrid.getRowData(i).delYn == "" || pltMngDatagrid.getRowData(i).delYn == null)){
 				if(pltMngDatagrid.getRowData(i).pltBxCd == null || pltMngDatagrid.getRowData(i).pltBxCd == ""){
 					alert("팔레트 코드는 필수 값 입니다.");
@@ -296,7 +294,6 @@
 					updatePltList.push(pltMngDatagrid.getRowData(i));
 				}
 			}
-			console.log("i >>>>>>>>>>>>> ", i)
 		}
 
 		// 박스 등록 data 분류
@@ -393,6 +390,7 @@
 		}
 	}
 
+	// 팔레트/박스 등록 호출
 	async function fn_callInsertPltBxList(pltBxList){
 		console.log("call >> ")
 		let postJsonPromise = gfn_postJSON("/am/cmns/insertPltBxList", pltBxList);
@@ -410,6 +408,7 @@
 		}
 	}
 
+	// 팔레트/박스 변경 호출
 	async function fn_callUpdatePltBxList(pltBxList){
 		let postJsonPromise = gfn_postJSON("/am/cmns/updatePltBxList", pltBxList);
         let data = await postJsonPromise;
@@ -426,6 +425,7 @@
 		}
 	}
 
+	// 팔레트/박스 삭제 호출
 	async function fn_deletepltBx(pltBxVO){
 		let postJsonPromise = gfn_postJSON("/am/cmns/deletePltBx", pltBxVO);
         let data = await postJsonPromise;
@@ -442,11 +442,6 @@
     		}
     		console.error("failed", e.message);
 		}
-	}
-
-	async function fn_insertPckgList(insertPckgList){
-
-
 	}
 
 </script>

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
 import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.at.apcss.am.cmns.service.WrhsVhclService;
+import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -36,6 +38,10 @@ public class ApcEvrmntStngAipController extends BaseController {
 	// 공통코드
 	@Resource(name = "comCdService")
 	private ComCdService comCdSerivce;
+
+	// 차량정보
+	@Resource(name = "wrhsVhclService")
+	private WrhsVhclService wrhsVhclService;
 
 	// APC 환경설정 - APC 정보 조회
 	@PostMapping(value = "/am/apc/selectApcInfo", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
@@ -185,5 +191,24 @@ public class ApcEvrmntStngAipController extends BaseController {
 	}
 
 
-	// APC 환경설정 - 품목
+	// APC 환경설정 - 입고차량정보 목록 조회
+	@PostMapping(value = "/am/apc/selectWrhsVhclList", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectWrhsVhclList(@RequestBody WrhsVhclVO wrhsVhclVO, HttpServletRequest request) throws Exception {
+		logger.debug("selectWrhsVhclList 호출 <><><><> ");
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<WrhsVhclVO> resultList = new ArrayList<>();
+		try {
+
+			resultList = wrhsVhclService.selectWrhsVhclList(wrhsVhclVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }

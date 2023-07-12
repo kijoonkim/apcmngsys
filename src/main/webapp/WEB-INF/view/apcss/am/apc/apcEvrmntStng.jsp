@@ -226,15 +226,27 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">품목 관리</th>
+							<th scope="row">품목/품종 관리</th>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input" colspan="2">
-								<sbux-button id="itemMngBtn" name="itemMngBtn" uitype="modal" text="품목 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="itemMngModal" onclick="fn_modal('itemMngBtn')"></sbux-button>
+								<sbux-button id="itemMngBtn" name="itemMngBtn" uitype="modal" text="품목/품종 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="itemMngModal" onclick="fn_modal('itemMngBtn')"></sbux-button>
 							</td>
 							<td>필수</td>
 							<td>&nbsp;</td>
 							<td colspan="7">
-								설명) 품목등록, 품목에 종속된 품종, 선별등급, 규격 정보 등록
+								설명) 품목등록, 품목에 종속된 품종 등록
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">등급/규격 관리</th>
+							<td style="border-right: hidden;">&nbsp;</td>
+							<td class="td_input" colspan="2">
+								<sbux-button id="otrdEyeBtn" name="otrdEyeBtn" uitype="modal" text="등급/규격 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="otrdEyeMngModal" onclick="fn_modal('otrdEyeMngBtn')"></sbux-button>
+							</td>
+							<td>필수</td>
+							<td>&nbsp;</td>
+							<td colspan="7">
+								설명) 품목에 종속된 선별등급, 규격 정보 등록
 							</td>
 						</tr>
 						<tr>
@@ -250,22 +262,10 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">등급 관리</th>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td class="td_input" colspan="2">
-								<sbux-button id="otrdEyeBtn" name="otrdEyeBtn" uitype="modal" text="원물육안등급 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="otrdEyeMngModal" onclick="fn_modal('otrdEyeMngBtn')"></sbux-button>
-							</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td colspan="7">
-								설명) 원물입고 시 등급을 관리하는 경우
-							</td>
-						</tr>
-						<tr>
 							<th scope="row">입고차량 관리</th>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input" colspan="2">
-								<sbux-button id="vhclBtn" name="vhclBtn" uitype="modal" text="입고차량/운임 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="vhclMngModal" onclick="fn_modal('vhclMngBtn')"></sbux-button>
+								<sbux-button id="vhclBtn" name="vhclBtn" uitype="modal" text="입고차량/운임 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="vhclMngModal" onclick="fn_modal('wrhsVhclMngBtn')"></sbux-button>
 							</td>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
@@ -607,7 +607,7 @@
     </div>
     <!--품목 등록 Modal -->
     <div>
-        <sbux-modal id="itemMngModal" name="itemMngModal" uitype="middle" header-title="품목 등록" body-html-id="itemMngmodalBody" footer-is-close-button="false"style="width:1200px"></sbux-modal>
+        <sbux-modal id="itemMngModal" name="itemMngModal" uitype="middle" header-title="품목 등록" body-html-id="itemMngmodalBody" footer-is-close-button="false"style="width:1250px"></sbux-modal>
     </div>
     <div id="itemMngmodalBody">
     	<jsp:include page="/WEB-INF/view/apcss/am/apc/itemMngPopup.jsp"></jsp:include>
@@ -628,10 +628,10 @@
     </div>
     <!-- 입고차량정보 등록 Modal -->
     <div>
-        <sbux-modal id="vhclMngModal" name="vhclMngModal" uitype="middle" header-title="입고차량정보 등록" body-html-id="vhclMngModalBody" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="wrhsVhclMngModal" name="wrhsVhclMngModal" uitype="middle" header-title="입고차량정보 등록" body-html-id="wrhsVhclMngModalBody" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="vhclMngModalBody">
-    	<jsp:include page="/WEB-INF/view/apcss/am/apc/vhclMngPopup.jsp"></jsp:include>
+    <div id="wrhsVhclMngModalBody">
+    	<jsp:include page="/WEB-INF/view/apcss/am/apc/wrhsVhclMngPopup.jsp"></jsp:include>
     </div>
     <!-- 출하운송회사 등록 Modal -->
     <div>
@@ -714,8 +714,8 @@
 		if(targetName == 'otrdEyeMngBtn'){
 			fn_otrdEyeMngCreateGrid();
 		}
-		if(targetName == 'vhclMngBtn'){
-			fn_vhclMngCreateGrid();
+		if(targetName == 'wrhsVhclMngBtn'){
+			fn_wrhsVhclMngCreateGrid();
 			fn_trsprtMngCreateGrid();
 		}
 		if(targetName == 'spmtTrsprtBtn'){
@@ -1088,38 +1088,6 @@
     					typeinfo : {ref:'combofilteringData', label:'label', value:'value', displayui : true}}
         ];
         window.otrdEyeMngDatagrid = _SBGrid.create(SBGridProperties);
-    }
-
-
-    // 입고차량정보 등록
-    var vhclMngGridData = []; // 그리드의 참조 데이터 주소 선언
-    function fn_vhclMngCreateGrid() {
-    	vhclMngGridData = [];
-        let SBGridProperties = {};
-	    SBGridProperties.parentid = 'vhclMngGridArea';
-	    SBGridProperties.id = 'vhclMngDatagrid';
-	    SBGridProperties.jsonref = 'vhclMngGridData';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["차량번호"], 	ref: 'vhclNo',  type:'input',  width:'120px',    style:'text-align:center'},
-            {caption: ["기사명"], 		ref: 'drvrNm',  type:'input',  width:'80px',    style:'text-align:center'},
-            {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'120px',    style:'text-align:center',
-            			typeinfo : {ref:'jsonComboGridBankNm', label:'label', value:'value', displayui : true}},
-            {caption: ["계좌번호"], 	ref: 'actno',  	type:'input',  width:'180px',    style:'text-align:center'},
-            {caption: ["예금주"], 		ref: 'dpstr',  	type:'input',  width:'80px',    style:'text-align:center'},
-            {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'200px',    style:'text-align:center'},
-            {caption: ["처리"], 		ref: 'delYn',   type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-            	if(strValue== null || strValue == ""){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"vhclMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
-            	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"vhclMngDatagrid\", " + nRow + ")'>삭제</button>";
-            	}
-		    }}
-        ];
-        window.vhclMngDatagrid = _SBGrid.create(SBGridProperties);
-        vhclMngDatagrid.addRow();
     }
 
     // 운송지역별 운임비용 등록
