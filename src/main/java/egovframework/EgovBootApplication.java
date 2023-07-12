@@ -7,10 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Import;
+
+import egovframework.com.config.EgovWebApplicationInitializer;
 
 @ServletComponentScan
 @SpringBootApplication
-//@Import({EgovWebApplicationInitializer.class})
+@Import({EgovWebApplicationInitializer.class})
 public class EgovBootApplication extends SpringBootServletInitializer {
 	
 	
@@ -22,9 +25,9 @@ public class EgovBootApplication extends SpringBootServletInitializer {
         application.run(args);
         */
 		SpringApplication springApplication = new SpringApplication(EgovBootApplication.class);
-		//springApplication.setBannerMode(Banner.Mode.OFF);
+		springApplication.setBannerMode(Banner.Mode.OFF);
 		//springApplication.setLogStartupInfo(false);
-		//springApplication.setWebApplicationType(WebApplicationType.SERVLET);
+		springApplication.setWebApplicationType(WebApplicationType.SERVLET);
 		springApplication.run(args);
 		
 		System.out.println("##### EgovBootApplication End #####");
