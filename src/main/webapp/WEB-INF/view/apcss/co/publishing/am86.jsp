@@ -112,7 +112,31 @@
 
 
 
-
+	<style>
+  		div.input-group-addon {
+			padding: 5px;  		
+  		
+  		table.table-bordered td{
+  			
+  		} 
+  		table.table-bordered th{
+			border-bottom: 1px solid #ffffff !important;
+  		} 
+  		table.table-bordered td{
+			border-right:hidden !important;
+  		} 
+  		btn.btn-xs {
+  			font-size: x-small; !important;
+  		}
+  		select.form-control.input-sm {
+    		background-size: 34px !important;
+    		padding: 3px !important;
+		}
+		td.select_box {
+			padding: 0px !important;
+		}
+}
+	</style>
 
 
 
@@ -175,21 +199,21 @@
                 <tbody>
                   <tr>
                     <th class="ta_r">APC명</th>
-                    <th class="ta_r" colspan="2">
-                      <input
+                    <td class="ta_r" colspan="2">
+                      <input style="padding:0;"
                         type="text"
                         class="form-control input-sm" disabled
                       />
-                    </th>
+                    </td>
                     <th colspan="1">사용자명</th>
-                    <th colspan="5">
-                      <input
+                    <td colspan="5"style=" font-size: x-small;">
+                      <input style="font-size: x-small;"
                         type="text"
                         class="form-control input-sm"
                         placeholder="입력"
                         style="width: 20%"
                       />
-                    </th>
+                    </td>
                   </tr>
                 </tbody>
               </table>

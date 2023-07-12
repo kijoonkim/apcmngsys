@@ -112,9 +112,14 @@
 
 
 
-
-
-
+	<style>
+  		.table th {
+    		border-bottom: 1px solid #ffffff !important;
+  		}
+  		div.input-group-addon {
+			padding: 5px;  		
+  		}
+	</style>
 
 </head>
 <body>
@@ -140,9 +145,12 @@
 						<div class="box-header">
 							<h3 class="box-title"> ▶ 투입지시조회</h3>
 						</div>
-							<div class="mg_t5 ta_r">
-								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							<div class="ad_tbl_top">
+								<div class="ad_tbl_toplist">
+									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+									&nbsp;&nbsp;&nbsp;
+								</div>
 							</div>
 						
 						<div class="box-body">
@@ -152,8 +160,8 @@
 								<caption>검색 조건 설정</caption>
 								<colgroup>
 									<col style="width: 7%">
-									<col style="width: 8%">
-									<col style="width: 10%">
+									<col style="width: 9%">
+									<col style="width: 9%">
 									<col style="width: 3%">
 									<col style="width: 7%">
 									<col style="width: 9%">
@@ -166,8 +174,8 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th scope="row">APC명</th>
-										<td colspan= "2" class="td_input" style="border-right: hidden;">
+										<th scope="row" style="border-bottom:1px solid white " >APC명</th>
+										<td colspan= "2" class="td_input" style="border-right:hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
 										<td colspan="9"></td>
@@ -176,21 +184,21 @@
 
 										<th scope="row">출하일자</th>
 										<td colspan="2" class="td_input"  style="border-right: hidden;">
-											<div class="dp_inline wd_125 va_m">
+											<div class="dp_inline wd_120 va_m">
 												<div class="input-group date">
-													<div class="input-group-addon">
+													<div class="input-group-addon" style="">
 														<i class="fa fa-calendar"></i>
 													</div>
-													<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
+													<input type="text" name="datepicker" placeholder="2023.01.01" class="form-control pull-right input-sm">
 												</div>
 											</div>
 											~
-											<div class="dp_inline wd_125 va_m">
+											<div class="dp_inline wd_120 va_m">
 												<div class="input-group date">
 													<div class="input-group-addon">
 														<i class="fa fa-calendar"></i>
 													</div>
-													<input type="text" name="datepicker" placeholder="2023-01-31" class="form-control pull-right input-sm">
+													<input type="text" name="datepicker" placeholder="2023.01.31" class="form-control pull-right input-sm">
 												</div>
 											</div>
 										</td>
@@ -202,7 +210,7 @@
 											</select>
 										</td>										
 										<td class="td_input" style="border-right: hidden;">
-											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+											<button style="font-size: x-small;" class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 										</td>
 										<th scope="row" style="border-right: hidden;">거래처</th>
 										<td colspan="2" class="td_input"  style="border-right: hidden;">
@@ -211,17 +219,17 @@
 											</select>
 										</td>										
 										<td class="td_input" style="border-right: hidden;">
-											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+											<button style="font-size: x-small;" class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 										</td>
 									</tr>
 									<tr>			
 										<th scope="row">배송지</th>
-										<td class="td_input" style="border-right: hidden;">
+										<td class="td_input" style="border-right: hidden;" >
 											<select class="form-control input-sm">
 											</select>
 										</td>
 										<td class="td_input"  style="border-right: hidden;">
-											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+											<button style="font-size: x-small;" class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 										</td>
 										<td style="border-right: hidden;">&nbsp;</td>
 										<th scope="row">운송사</th>
@@ -243,7 +251,7 @@
 									<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>　투입지시 내역</span></li>
-										<li><label>　　　지시중량 : 99.999Kg　　　　실적중량 : 99.999Kg</label></li>
+										<li><label style="font-size: small;">　　　지시중량 : 99.999Kg　　　　실적중량 : 99.999Kg</label></li>
 									</ul>
 								</div>
 								<div>								
@@ -321,7 +329,6 @@
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
-					</div>
 				</section>
 
 

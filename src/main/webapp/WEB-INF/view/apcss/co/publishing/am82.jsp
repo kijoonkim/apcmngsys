@@ -112,7 +112,31 @@
 
 
 
+<style>
+  		div.input-group-addon {
+			padding: 5px;  		
+  		
+  		table.table-bordered td{
+  			
+  		} 
+  		table.table-bordered th{
+			border-bottom: 1px solid #ffffff !important;
+  		} 
+  		table.table-bordered td{
+			border-right:hidden !important;
+  		} 
+  		btn.btn-xs {
+  			font-size: x-small; !important;
+  		}
+  		select.form-control.input-sm {
+    		background-size: 34px !important;
+    		padding: 3px !important;
+		}
+		td.select_box {
+			padding: 0px !important;
+		}
 
+	</style>
 
 
 
@@ -154,33 +178,33 @@
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
-									<col style="width: 3%">
+									<col style="width: 5%">
 									<col style="width: 5%">
 									<col style="width: 5%">
 									<col style="width: 5%">
 									<col style="width: 10%">
-									<col style="width: 3%">
+									<col style="width: 5%">
 									<col style="width: 5%">
 									<col style="width: 5%">
 									<col style="width: 4%">
 								</colgroup>
 								<tbody>
 									<tr>
-										<th class="ta_r">시스템구분</th>
-										<th class="ta_r" colspan="2">
+										<th class="ta_c">시스템구분</th>
+										<td class="ta_r" colspan="2">
 											<select class="form-control input-sm">
 												<option>시스템관리</option>
 											</select>
-										</th>
-										<th class="ta_r">화면ID</th>
-										<th class="ta_r" colspan="1">
-											<input type="text" class="form-control fl_fluid" placeholder="화면ID 입력">
-										</th>
-										<th class="ta_r">화면명</th>
-										<th class="ta_r" colspan="2">
-											<input type="text" class="form-control fl_fluid" placeholder="화면명 입력">
-										</th>
-										<th></th>
+										</td>
+										<th class="ta_c">화면ID</th>
+										<td class="ta_r" colspan="1">
+											<input style="font-size:small;" type="text" class="form-control fl_fluid" placeholder="화면ID 입력">
+										</td>
+										<th class="ta_c">화면명</th>
+										<td class="ta_r" colspan="2" style="border-right:hidden;">
+											<input style="font-size:small;" type="text" class="form-control fl_fluid" placeholder="화면명 입력">
+										</td>
+										<td></td>
 									</tr>
 								</tbody>
 							</table>
@@ -470,8 +494,8 @@
 									<b>개체목록</b>
 									<div class="ad_tbl_top">
 										<div class="ad_tbl_toplist" >
-											<button type="button" class="btn btn-sm btn-outline-danger" >행추가</button>
-											<button type="button" class="btn btn-sm btn-outline-danger" >행삭제</button>
+											<button type="button" class="btn btn-xs btn-outline-danger" style="font-size:small;" >행추가</button>
+											<button type="button" class="btn btn-xs btn-outline-danger" style="font-size:small;" >행삭제</button>
 										</div>
 									</div>
 									<div>

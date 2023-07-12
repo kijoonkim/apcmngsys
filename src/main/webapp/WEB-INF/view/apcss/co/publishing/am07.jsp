@@ -112,7 +112,13 @@
 
 
 
-
+<style>
+	.table td input[disabled]{
+	padding:0;}
+	.tbl_row tr::last-child{
+		border-right: 0px;
+	} 
+</style>
 
 
 
@@ -161,17 +167,16 @@
 									<col style="width: auto">
 								</colgroup>
 								<tbody>
-									<tr>
+									<tr> 
 										<th scope="row">APC명</th>
-										<th>
+										<td>
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
-										</th>
+										</td>
 										<th scope="row">품목명</th>
-										<th>
-											<input type="text" class="form-control input-sm" placeholder="품목명 검색"
-												title="">
-										</th>
-										<th>&nbsp;</th>
+										<td  style="border-right-style: hidden;">
+											<input style="font-size:x-small;" type="text" class="form-control input-sm" placeholder="품목명 검색" title="" style>
+										</td>
+										<td>&nbsp;</td>
 									</tr>
 								</tbody>
 							</table>
@@ -184,6 +189,7 @@
 						<div class="row">
 
 							<div class="col-sm-4">
+								<div>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<caption>검색결과 목록</caption>
 									<colgroup>
@@ -202,7 +208,7 @@
 										<tr>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td><button type="button" class="btn btn-xs btn-outline-danger">선택</button>
+											<td><button type="button" class="btn btn-xs btn-outline-danger" style="font-size: xx-small;">선택</button>
 											</td>
 										</tr>
 										<tr>
@@ -218,11 +224,11 @@
 									</tbody>
 								</table>
 							</div>
-
+							</div>
 
 
 							<div class="col-sm-8">
-
+								<div>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<caption>검색결과 목록</caption>
 									<colgroup>
@@ -251,7 +257,7 @@
 											<td>완료</td>
 											<td>완료</td>
 											<td>&nbsp;</td>
-											<td><button type="button" class="btn btn-xs btn-outline-danger">삭제</button>
+											<td><button type="button" class="btn btn-xs btn-outline-danger"  style="font-size: xx-small;">삭제</button>
 											</td>
 										</tr>
 										<tr>
@@ -272,7 +278,7 @@
 										</tr>
 									</tbody>
 								</table>
-							</div>
+								</div>
 							</div>
 							<b>&nbsp;</b>
 						</div>
@@ -289,10 +295,10 @@
 								<tbody>
 									<tr>
 										<th scope="row">품목명</th>
-										<th>
+										<td style="border-right-style: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
-										</th>
-										<th colspan="3" scope="row"></th>
+										</td>
+										<td colspan="3" scope="row"></td>
 
 									</tr>
 								</tbody>
@@ -300,10 +306,15 @@
 						</div>
 
 						<div class="row">
-							<div class="col-sm-3">
-								<b>선별등급등록</b>
+							<div class="col-sm-6">
+									<div class="ad_tbl_top"  style="width: 98%;">
+										<ul class="ad_tbl_count">
+											<li><span class="font_default" >품종등록</span></li>
+										</ul>
 
-								<table class="table table-bordered tbl_row tbl_fixed mg_t10">
+									</div>
+
+								<table class="table table-bordered tbl_col tbl_fixed mg_t10">
 									<colgroup>
 										<col style="width: 25%">
 										<col style="width: 50%">
@@ -320,25 +331,29 @@
 										<tr>
 											<td></td>
 											<td></td>
-											<td><button type="button" class="btn btn-xs btn-outline-danger">삭제</button></td>
-										</tr>
+											<td class="ta_c"><button type="button" class="btn btn-xs btn-outline-danger"  style="font-size: xx-small;">선택</button></td>
+										</tr>										
 										<tr>
 											<td>&nbsp;</td>
 											<td></td>
 											<td></td>
-										</tr>
+										</tr>										
 										<tr>
 											<td>&nbsp;</td>
 											<td></td>
 											<td></td>
-										</tr>
+										</tr>										
 									</tbody>
-								</table>
+								</table>	
 							</div>
-							<div class="col-sm-3">
-								<b>&nbsp;</b>
-
-								<table class="table table-bordered tbl_row tbl_fixed mg_t10">
+							<div class="col-sm-6">
+								<div class="ad_tbl_top"  style="width: 98%;">
+										<ul class="ad_tbl_count">
+											<li><span class="font_default" >&nbsp;</span></li>
+										</ul>
+								</div>
+									
+								<table class="table table-bordered tbl_col tbl_fixed mg_t10">
 									<colgroup>
 										<col style="width: 25%">
 										<col style="width: 50%">
@@ -355,98 +370,32 @@
 										<tr>
 											<td></td>
 											<td></td>
-											<td><button type="button" class="btn btn-xs btn-outline-danger">삭제</button></td>
-										</tr>
+											<td class="ta_c"><button type="button" class="btn btn-xs btn-outline-danger"  style="font-size: xx-small;">삭제</button></td>
+										</tr>										
 										<tr>
 											<td></td>
 											<td></td>
-											<td><button type="button" class="btn btn-xs btn-outline-danger">추가</button></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td>&nbsp;</td>
-											<td></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<div class="col-sm-3">
-								<b>선별등급등록</b>
-								<table class="table table-bordered tbl_row tbl_fixed mg_t10">
-									<colgroup>
-										<col style="width: 25%">
-										<col style="width: 50%">
-										<col style="width: 25%">
-									</colgroup>
-									<thead>
-										<tr>
-											<th>코드</th>
-											<th>등급명</th>
-											<th>처리</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td></td>
-											<td></td>
-											<td><button type="button" class="btn btn-xs btn-outline-danger">삭제</button>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td><button type="button" class="btn btn-xs btn-outline-danger">추가</button>
-										</tr>
+											<td class="ta_c"><button type="button" class="btn btn-xs btn-outline-danger"  style="font-size: xx-small;">추가</button></td>
+										</tr>										
 										<tr>
 											<td></td>
 											<td>&nbsp;</td>
 											<td></td>
-										</tr>
+										</tr>										
 									</tbody>
-								</table>
+								</table>	
 							</div>
-							<div class="col-sm-3">
-								<b>규격등록</b>
-								<table class="table table-bordered tbl_row tbl_fixed mg_t10">
-									<colgroup>
-										<col style="width: 25%">
-										<col style="width: 50%">
-										<col style="width: 25%">
-									</colgroup>
-									<thead>
-										<tr>
-											<th>코드</th>
-											<th>규격명</th>
-											<th>처리</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td></td>
-											<td></td>
-											<td><button type="button" class="btn btn-xs btn-outline-danger">삭제</button>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td><button type="button" class="btn btn-xs btn-outline-danger">추가</button>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-											<td>&nbsp;</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+							
 
 
+						</div>
 						</div>
 
 
 
 						<!--[pp] //검색결과 -->
 					</div>
-
+				
 			</section>
 
 

@@ -40,8 +40,29 @@
         .tbl>tbody>tr{height: 40px;}
         .tbl>tbody>tr>td>button{width: 200px;}
         .tbl>tbody>tr>td{padding-left: 5px;}
+  		div.input-group-addon {
+			padding: 5px;  		
+  		
+  		table.table-bordered td{
+  			
+  		} 
+  		table.table-bordered th{
+			border-bottom: 1px solid #ffffff !important;
+  		} 
+  		table.table-bordered td{
+			border-right:hidden !important;
+  		} 
+  		btn.btn-xs {
+  			font-size: x-small; !important;
+  		}
+  		select.form-control.input-sm {
+    		background-size: 34px !important;
+    		padding: 3px !important;
+		}
+		td.select_box {
+			padding: 0px !important;
+		}
     </style>
-
 
 
 
@@ -167,18 +188,18 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th class="ta_r">시스템구분</th>
-										<th class="ta_r" colspan="2">
+										<th class="ta_c">시스템구분</th>
+										<td class="ta_r" colspan="2">
 											<select class="form-control input-sm">
 												<option>시스템관리</option>
 											</select>										
-										</th>
+										</td>
 										
-										<th class="ta_r">권한명</th>
-										<th colspan="1" class="td_input">
-											<input type="text" class="form-control input-sm" placeholder="권한명 입력" title="권한명 입력" >
-										</th>
-										<th colspan="4">&nbsp;</th>
+										<th class="ta_c">권한명</th>
+										<td colspan="1" class="td_input" style="border-right:hidden;">
+											<input style="font-size:small;" type="text" class="form-control input-sm" placeholder="권한명 입력" title="권한명 입력" >
+										</td>
+										<td colspan="4">&nbsp;</td>
 									</tr>
 								</tbody>
 							</table>
@@ -194,7 +215,7 @@
 											<li><span style="color: black;">권한그룹목록</span></li>
 										</ul>
 									 	<div class="ad_tbl_toplist">
-											<button type="button" class="btn btn-xs btn-outline-danger">행추가</button>
+											<button type="button" class="btn btn-xs btn-outline-danger" style="font-size:small;">행추가</button>
 										</div>
 									</div>
 									<div>

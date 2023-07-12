@@ -40,7 +40,16 @@
         .tbl>tbody>tr{height: 40px;}
         .tbl>tbody>tr>td>button{width: 200px;}
         .tbl>tbody>tr>td{padding-left: 5px;}
+		.table td input[disabled]{
+			padding:0;
+		}
+		.tbl_row tr::last-child{
+			border-right: 0px;
+		}
     </style>
+<style>
+ 
+</style>
 
 
 
@@ -115,13 +124,37 @@
 
 
 
+	<style>
+  		div.input-group-addon {
+			padding: 5px;  		
+  		
+  		table.table-bordered td{
+  			
+  		} 
+  		table.table-bordered th{
+			border-bottom: 1px solid #ffffff !important;
+  		} 
+  		table.table-bordered td{
+			border-right:hidden !important;
+  		} 
+  		btn.btn-xs {
+  			font-size: x-small; !important;
+  		}
+  		select.form-control.input-sm {
+    		background-size: 34px !important;
+    		padding: 3px !important;
+		}
+		td.select_box {
+			padding: 0px !important;
+		}
+}
+	</style>
 
 </head>
 <body>
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
-
 
 
 
@@ -167,14 +200,14 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th class="ta_r">APC명</th>
-										<th class="ta_r">
+										<th class="ta_c">APC명</th>
+										<td class="ta_r">
 											<input type="text" class="form-control input-sm" placeholder="" title="입력하세요." disabled>
-										</th>
+										</td>
 										
 										<!-- <th class="ta_r">작업일자</th> -->
 										<th scope="row">작업일자</th>
-										<th class="td_input">
+										<td class="td_input">
 											<div class="dp_inline wd_125 va_m">
 												<div class="input-group date">
 													<div class="input-group-addon">
@@ -183,15 +216,15 @@
 													<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
 												</div>
 											</div>
-										</th>
-										<th scope="row"></th>
+										</td>
+										<td scope="row"></td>
 										<th scope="row">작업구분</th>
-										<th class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선별/포장</option>
 											</select>
-										</th>
-										<th scope="row"></th>
+										</td>
+										<td scope="row"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -280,8 +313,9 @@
 										<li><span style="color: black;">작업자별 실적 내역</span></li>
 									</ul>
 								 	<div class="ad_tbl_toplist">
-										<button type="button" class="btn btn-sm btn-outline-danger">내려받기</button>
-										<button type="button" class="btn btn-sm btn-outline-danger">올리기</button>
+										<button style="font-size: x-small;" type="button" class="btn btn-sm btn-outline-danger">내려받기</button>
+										&nbsp;
+										<button style="font-size: x-small;" type="button" class="btn btn-sm btn-outline-danger">올리기</button>
 									</div>
 								</div>
 								<div>
@@ -315,7 +349,7 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td>
+											<td style="padding: 0px;" >
 												<select class="form-control input-sm">
 													<option></option>
 												</select>
@@ -324,13 +358,13 @@
 											<td>1800</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td><button type="button" class="btn btn-xs btn-outline-primary">삭제</button></td>
+											<td><button type="button" class="btn btn-xs btn-outline-primary" style="font-size: x-small;">삭제</button></td>
 										</tr>
 										<tr>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td>
+											<td style="padding: 0px;">
 												<select class="form-control input-sm" style="height: 40%;">
 													<option></option>
 												</select>
@@ -339,13 +373,13 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td><button type="button" class="btn btn-xs btn-outline-primary">추가</button></td>
+											<td><button type="button" class="btn btn-xs btn-outline-primary" style="font-size: x-small;">추가</button></td>
 										</tr>
 										<tr>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td>
+											<td style="padding: 0px;">
 												<select class="form-control input-sm" style="height: 40%;">
 													<option></option>
 												</select>
@@ -360,7 +394,7 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td>
+											<td style="padding: 0px;">
 												<select class="form-control input-sm" style="height: 40%;">
 													<option></option>
 												</select>

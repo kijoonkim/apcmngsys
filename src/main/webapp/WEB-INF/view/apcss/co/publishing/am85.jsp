@@ -112,7 +112,31 @@
 
 
 
+	<style>
+  		div.input-group-addon {
+			padding: 5px;  		
+  		
+  		table.table-bordered td{
+  			
+  		} 
+  		table.table-bordered th{
+			border-bottom: 1px solid #ffffff !important;
+  		} 
+  		table.table-bordered td{
+			border-right:hidden !important;
+  		} 
+  		btn.btn-xs {
+  			font-size: x-small; !important;
+  		}
+  		select.form-control.input-sm {
+    		background-size: 34px !important;
+    		padding: 3px !important;
+		}
+		td.select_box {
+			padding: 0px !important;
+		}
 
+	</style>
 
 
 
@@ -164,7 +188,7 @@
                   검색 조건 설정
                 </caption>
                 <colgroup>
-                  <col style="width: 3%" />
+                  <col style="width: 5%" />
                   <col style="width: 5%" />
                   <col style="width: 5%" />
                   <col style="width: 5%" />
@@ -176,21 +200,21 @@
                 </colgroup>
                 <tbody>
                   <tr>
-                    <th class="ta_r">APC코드</th>
-                    <th class="ta_r" colspan="2">
+                    <th class="ta_c">APC코드</th>
+                    <td class="ta_r" colspan="2">
                       <input
                         type="text"
                         class="form-control input-sm"
                         placeholder="입력"
                         style="width: 100%"
                       />
-                    </th>
-                    <th class="ta_r">원본 APC명</th>
-                    <th colspan="5">
+                    </td>
+                    <th class="ta_c">원본 APC명</th>
+                    <td colspan="5">
                       <select class="form-control input-sm" style="width: 40%">
                         <option>전체</option>
                       </select>
-                    </th>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -262,7 +286,7 @@
                         <td></td>
                         <td></td>
                         <td>
-                          <button
+                          <button  style="font-size:small"
                             type="button"
                             class="btn btn-xs btn-outline-danger"
                           >
@@ -292,7 +316,7 @@
                         <td></td>
                         <td></td>
                         <td>
-                          <button
+                          <button style="font-size:small"
                             type="button"
                             class="btn btn-xs btn-outline-danger"
                           >

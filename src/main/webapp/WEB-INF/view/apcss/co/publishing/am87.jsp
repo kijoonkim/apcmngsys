@@ -112,7 +112,31 @@
 
 
 
-
+	<style>
+  		div.input-group-addon {
+			padding: 5px;  		
+  		
+  		table.table-bordered td{
+  			
+  		} 
+  		table.table-bordered th{
+			border-bottom: 1px solid #ffffff !important;
+  		} 
+  		table.table-bordered td{
+			border-right:hidden !important;
+  		} 
+  		btn.btn-xs {
+  			font-size: x-small; !important;
+  		}
+  		select.form-control.input-sm {
+    		background-size: 34px !important;
+    		padding: 3px !important;
+		}
+		td.select_box {
+			padding: 0px !important;
+		}
+}
+	</style>
 
 
 
@@ -163,13 +187,13 @@
 								<tbody>
 									<tr>
 										<th>검색조건</th>
-										<th>
+										<td style="border-right:hidden;">
 											<select class="form-control input-sm">
 												<option>전체</option>
 											</select>
-										</th>
-										<th><input type="text" class="form-control input-sm" placeholder="검색어 입력" title=""></th>	
-										<th></th>
+										</td>
+										<td style="border-right:hidden;"><input style="font-size:x-small;" type="text" class="form-control input-sm" placeholder="검색어 입력" title=""></td>	
+										<td></td>
 									</tr>
 								</tbody>
 							</table>
@@ -182,10 +206,10 @@
 									<div class="ad_tbl_top"  style="width: 98%;">
 										<ul class="ad_tbl_count">
 											<li><span class="font_default" >메시지목록</span></li>
-											<li><span class="font_default normal" >조회건수 00건</span></li>
+											<li><span style="font-size:x-small;" class="font_default normal" >조회건수 00건</span></li>
 										</ul>
 										<div class="ad_tbl_toplist">
-											<button type="button" class="btn btn-sm btn-outline-danger">행추가</button>
+											<button style="font-size:small;" type="button" class="btn btn-xs btn-outline-danger">행추가</button>
 										</div>
 									</div>
 									<div class="ad_manager_list" style="width: 98%;">

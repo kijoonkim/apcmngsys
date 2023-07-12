@@ -40,6 +40,28 @@
         .tbl>tbody>tr{height: 40px;}
         .tbl>tbody>tr>td>button{width: 200px;}
         .tbl>tbody>tr>td{padding-left: 5px;}
+     		div.input-group-addon {
+			padding: 5px;  		
+  		
+  		table.table-bordered td{
+  			
+  		} 
+  		table.table-bordered th{
+			border-bottom: 1px solid #ffffff !important;
+  		} 
+  		table.table-bordered td{
+			border-right:hidden !important;
+  		} 
+  		btn.btn-xs {
+  			font-size: x-small; !important;
+  		}
+  		select.form-control.input-sm {
+    		background-size: 34px !important;
+    		padding: 3px !important;
+		}
+		td.select_box {
+			padding: 0px !important;
+		}
     </style>
 
 
@@ -115,7 +137,6 @@
 
 
 
-
 </head>
 <body>
 
@@ -156,7 +177,7 @@
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
-									<col style="width: 3%">
+									<col style="width: 5%">
 									<col style="width: 5%">
 									<col style="width: 5%">
 									<col style="width: 5%">
@@ -168,13 +189,13 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th class="ta_r">시스템구분</th>
-										<th class="ta_r" colspan="2">
+										<th class="ta_c">시스템구분</th>
+										<td class="ta_r" colspan="2"   style="border-right:hidden;">
 											<select class="form-control input-sm">
 												<option>시스템관리</option>
 											</select>
-										</th>
-										<th colspan="6"></th>
+										</td>
+										<td colspan="6"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -276,9 +297,9 @@
 									<div class ="row">
 									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<colgroup>
-											<col style="width: 3%">
+											<col style="width: 5%">
 											<col style="width: 25%">
-											<col style="width: 40%">
+											<col style="width: 38%">
 											<col style="width: 27%">
 										</colgroup>
 										<thead>

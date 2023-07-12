@@ -40,8 +40,29 @@
         .tbl>tbody>tr{height: 40px;}
         .tbl>tbody>tr>td>button{width: 200px;}
         .tbl>tbody>tr>td{padding-left: 5px;}
+  		div.input-group-addon {
+			padding: 5px;  		
+  		
+  		table.table-bordered td{
+  			
+  		} 
+  		table.table-bordered th{
+			border-bottom: 1px solid #ffffff !important;
+  		} 
+  		table.table-bordered td{
+			border-right:hidden !important;
+  		} 
+  		btn.btn-xs {
+  			font-size: x-small; !important;
+  		}
+  		select.form-control.input-sm {
+    		background-size: 34px !important;
+    		padding: 3px !important;
+		}
+		td.select_box {
+			padding: 0px !important;
+		}
     </style>
-
 
 
 
@@ -162,7 +183,7 @@
                   검색 조건 설정
                 </caption>
                 <colgroup>
-                  <col style="width: 3%" />
+                  <col style="width: 5%" />
                   <col style="width: 5%" />
                   <col style="width: 5%" />
                   <col style="width: 5%" />
@@ -174,20 +195,20 @@
                 </colgroup>
                 <tbody>
                   <tr>
-                    <th class="ta_r">검색조건</th>
-                    <th class="ta_r" colspan="2">
+                    <th class="ta_c">검색조건</th>
+                    <td style="border-right:hidden; class="ta_r" colspan="2">
                       <select class="form-control input-sm">
                         <option>전체</option>
                       </select>
-                    </th>
-                    <th colspan="6">
-                      <input
+                    </td>
+                    <td colspan="6">
+                      <input style="font-size:small;"
                         type="text"
                         class="form-control input-sm"
                         placeholder="검색어 입력"
                         style="width: 20%"
                       />
-                    </th>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -336,10 +357,10 @@
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
 								<li><span style="color: black;">사용자목록</span></li>
-								<li><label style="color: black;">조회건수 00건</lavel></li>
+								<li><label style="font-size: small;">조회건수 00건</lavel></li>
 							</ul>
 							<div class="ad_tbl_toplist">
-								<button type="button" class="btn btn-xs btn-outline-danger">행추가</button>
+								<button type="button" class="btn btn-xs btn-outline-danger" style="font-size:small;">행추가</button>
 							</div>
 					</div>
 					<div>

@@ -40,7 +40,24 @@
         .tbl>tbody>tr{height: 40px;}
         .tbl>tbody>tr>td>button{width: 200px;}
         .tbl>tbody>tr>td{padding-left: 5px;}
-    </style>
+  		div.input-group-addon {
+			padding: 5px;  		
+  		
+  		table.table-bordered td{
+  			
+  		} 
+  		table.table-bordered th{
+			border-bottom: 1px solid #ffffff !important;
+  		} 
+  		table.table-bordered td{
+			border-right:hidden !important;
+  		} 
+  		btn.btn-xs {
+  			font-size: x-small; !important;
+  		}
+  		
+	</style>
+    
 
 
 
@@ -112,6 +129,13 @@
 
 
 
+<style>
+	.table td input[disabled]{
+	padding:0;}
+	.tbl_row tr::last-child{
+		border-right: 0px;
+	} 
+</style>
 
 
 
@@ -163,10 +187,10 @@
 								<tbody>
 									<tr>
 										<th>APC명</th>
-										<th class="ta_r">
+										<td class="ta_r" style="border-right:hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" title="입력하세요." disabled>
-										</th>
-										<th></th>
+										</td>
+										<td></td>
 									</tr>
 								</tbody>
 							</table>
@@ -214,7 +238,8 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td><button type="button" class="btn btn-xs btn-outline-primary">삭제</button></td>
+											<td><button style="font-size: x-small;" type="button" class="btn btn-xs btn-outline-primary">삭제</button></td>
+											
 										</tr>
 										<tr>
 											<td>&nbsp;</td>
@@ -226,7 +251,7 @@
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
-											<td><button type="button" class="btn btn-xs btn-outline-primary">추가</button></td>
+											<td><button style="font-size: x-small;" type="button" class="btn btn-xs btn-outline-primary">추가</button></td>
 										</tr>
 										<tr>
 											<td>&nbsp;</td>
