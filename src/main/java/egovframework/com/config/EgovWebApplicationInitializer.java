@@ -51,7 +51,7 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 		// -------------------------------------------------------------
 		// Egov Web ServletContextListener 설정 - System property setting
 		// -------------------------------------------------------------
-		servletContext.addListener(new egovframework.com.config.EgovWebServletContextListener());
+		//servletContext.addListener(new egovframework.com.config.EgovWebServletContextListener());
 
 		// -------------------------------------------------------------
 		// 필터설정
