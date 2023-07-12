@@ -41,21 +41,25 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 		// -------------------------------------------------------------
 		// Spring Root Context 설정
 		// -------------------------------------------------------------
+		LOGGER.debug("### Root");
 		addRootContext(servletContext);
 
 		// -------------------------------------------------------------
 		// Spring Servlet Context 설정
 		// -------------------------------------------------------------
+		LOGGER.debug("### Servlet");
 		addWebServletContext(servletContext);
 
 		// -------------------------------------------------------------
 		// Egov Web ServletContextListener 설정 - System property setting
 		// -------------------------------------------------------------
+		LOGGER.debug("### Config");
 		servletContext.addListener(new egovframework.com.config.EgovWebServletContextListener());
 
 		// -------------------------------------------------------------
 		// 필터설정
 		// -------------------------------------------------------------
+		LOGGER.debug("### Filter");		
 		addFilters(servletContext);
 		
 		LOGGER.debug("EgovWebApplicationInitializer END-============================================");

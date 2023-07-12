@@ -14,7 +14,7 @@ import egovframework.com.config.EgovWebApplicationInitializer;
 @ServletComponentScan
 @SpringBootApplication
 @Import({EgovWebApplicationInitializer.class})
-public class EgovBootApplication extends SpringBootServletInitializer {
+public class EgovBootApplication {	//extends SpringBootServletInitializer {
 	
 	
 	public static void main(String[] args) {
@@ -32,17 +32,19 @@ public class EgovBootApplication extends SpringBootServletInitializer {
 		
 		System.out.println("##### EgovBootApplication End #####");
 	}
-
+	
+	/*
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(EgovBootApplication.class);
 	}
 	
-	/*
+
 	public EgovBootApplication() {
 		super();
 		setRegisterErrorPageFilter(false);
 		// ErrorPageFilter disable
 	}
 	*/
+	
 }
