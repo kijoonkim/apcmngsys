@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : PltBxMapper.xml                                   					-->
+<!-- DESC : 팔레트/박스 mapper                                             		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.07.11  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.PltBxMapper">
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PltBxMapper.selectPltBx					-->
+	<!-- DESC : 팔레트/박스 목록 조회.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.11  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectPltBxList" parameterType="com.at.apcss.am.cmns.vo.PltBxVO" resultType="com.at.apcss.am.cmns.vo.PltBxVO">
+    	<![CDATA[
+    	SELECT PB.APC_CD            AS APC_CD
+		     , PB.PLT_BX_SE_CD      AS PLT_BX_SE_CD
+		     , PB.PLT_BX_CD         AS PLT_BX_CD
+		     , PB.PLT_BX_NM         AS PLT_BX_NM
+		     , PB.UNIT_WGHT         AS UNIT_WGHT
+		     , PB.BSS_INVNTR_QNTT   AS BSS_INVNTR_QNTT
+		     , PB.USE_YN            AS USE_YN
+		     , PB.DEL_YN            AS DEL_YN
+		  FROM TB_PLT_BX_INFO PB
+		 WHERE APC_CD 		= #{apcCd}
+		   AND PLT_BX_SE_CD = #{pltBxSeCd}
+		]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PltBxMapper.insertPltBx					-->
+	<!-- DESC : 팔레트/박스 등록.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.11  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertPltBx" parameterType="com.at.apcss.am.cmns.vo.PltBxVO">
+    	<![CDATA[
+    	INSERT INTO TB_PLT_BX_INFO
+    		(
+    			APC_CD
+    		  , PLT_BX_SE_CD
+    		  , PLT_BX_CD
+    		  , PLT_BX_NM
+    		  , UNIT_WGHT
+    		  , UNIT_CD
+    		  , BSS_INVNTR_QNTT
+    		  , USE_YN
+    		  , DEL_YN
+    		  , SYS_FRST_INPT_DT
+    		  , SYS_FRST_INPT_USER_ID
+    		  , SYS_FRST_INPT_PRGRM_ID
+    		  , SYS_LAST_CHG_DT
+    		  , SYS_LAST_CHG_USER_ID
+    		  , SYS_LAST_CHG_PRGRM_ID
+    		)
+   		VALUES
+   			(
+   				#{apcCd}
+    		  , #{pltBxSeCd}
+    		  , #{pltBxCd}
+    		  , #{pltBxNm}
+    		  , #{unitWght}
+			  , #{unitCd}
+    		  , #{bssInvntrQntt}
+    		  , #{useYn}
+    		  , #{delYn}
+    		  , SYSDATE
+    		  , #{sysFrstInptUserId}
+    		  , #{sysFrstInptPrgrmId}
+    		  , SYSDATE
+    		  , #{sysLastChgUserId}
+    		  , #{sysLastChgPrgrmId}
+   			)
+    	]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PltBxMapper.updatePltBx					-->
+	<!-- DESC : 팔레트/박스 변경.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.11  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updatePltBx" parameterType="com.at.apcss.am.cmns.vo.PltBxVO">
+		<![CDATA[
+		UPDATE TB_PLT_BX_INFO
+		   SET SYS_LAST_CHG_DT 			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			 , PLT_BX_CD				= #{pltBxCd}
+    		 , PLT_BX_NM				= #{pltBxNm}
+    		 , UNIT_WGHT				= #{unitWght}
+    		 , UNIT_CD					= #{unitCd}
+    		 , BSS_INVNTR_QNTT			= #{bssInvntrQntt}
+    		 , USE_YN					= #{useYn}
+		 WHERE APC_CD 		= #{apcCd}
+		   AND PLT_BX_SE_CD = #{pltBkSeCd}
+		   AND PLT_BX_CD  	= #{pltBkCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PltBxMapper.deletePltBx					-->
+	<!-- DESC : 팔레트/박스 삭제.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.11  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deletePltBx" parameterType="com.at.apcss.am.cmns.vo.PltBxVO">
+		<![CDATA[
+		DELETE FROM TB_PLT_BX_INFO
+		 WHERE APC_CD		= #{apcCd}
+		   AND PLT_BX_SE_CD	= #{pltBxSeCd}
+		   AND PLT_BX_CD	= #{pltBxCd}
+		]]>
+	</delete>
+
+</mapper>
+
+
