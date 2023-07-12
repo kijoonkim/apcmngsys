@@ -22,9 +22,9 @@ public class EgovBootApplication extends SpringBootServletInitializer {
         application.run(args);
         */
 		SpringApplication springApplication = new SpringApplication(EgovBootApplication.class);
-		//springApplication.setBannerMode(Banner.Mode.OFF);
+		springApplication.setBannerMode(Banner.Mode.OFF);
 		//springApplication.setLogStartupInfo(false);
-		//springApplication.setWebApplicationType(WebApplicationType.SERVLET);
+		springApplication.setWebApplicationType(WebApplicationType.SERVLET);
 		springApplication.run(args);
 		
 		System.out.println("##### EgovBootApplication End #####");

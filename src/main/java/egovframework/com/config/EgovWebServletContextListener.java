@@ -33,9 +33,11 @@ public class EgovWebServletContextListener implements ServletContextListener {
 	public void setEgovProfileSetting() {
 		try {
 			LOGGER.debug("===========================Start EgovServletContextLoad START ===========");
+			/*
 			System.setProperty("spring.profiles.active",
 					EgovProperties.getProperty("Globals.DbType") + "," + EgovProperties.getProperty("Globals.Auth"));
 			LOGGER.debug("Setting spring.profiles.active>" + System.getProperty("spring.profiles.active"));
+			*/
 			LOGGER.debug("===========================END   EgovServletContextLoad END ===========");
 		} catch (IllegalArgumentException e) {
 			LOGGER.error("[IllegalArgumentException] Try/Catch...usingParameters Runing : " + e.getMessage());
