@@ -41,7 +41,7 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 		// -------------------------------------------------------------
 		// Spring Root Context 설정
 		// -------------------------------------------------------------
-		addRootContext(servletContext);
+		//addRootContext(servletContext);
 
 		// -------------------------------------------------------------
 		// Spring Servlet Context 설정
