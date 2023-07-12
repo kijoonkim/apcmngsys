@@ -9,11 +9,9 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Import;
 
-import egovframework.com.config.EgovWebApplicationInitializer;
-
 @ServletComponentScan
 @SpringBootApplication
-@Import({EgovWebApplicationInitializer.class})
+//@Import({EgovWebApplicationInitializer.class})
 public class EgovBootApplication extends SpringBootServletInitializer {
 	
 	
@@ -33,13 +31,13 @@ public class EgovBootApplication extends SpringBootServletInitializer {
 		System.out.println("##### EgovBootApplication End #####");
 	}
 	
-	/*
+
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(EgovBootApplication.class);
 	}
 	
-
+	/*
 	public EgovBootApplication() {
 		super();
 		setRegisterErrorPageFilter(false);

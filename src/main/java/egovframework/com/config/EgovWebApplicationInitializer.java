@@ -29,10 +29,10 @@ import org.springframework.web.servlet.DispatcherServlet;
  * </pre>
  *
  */
-public class EgovWebApplicationInitializer implements WebApplicationInitializer {
+public class EgovWebApplicationInitializer { // implements WebApplicationInitializer {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovWebApplicationInitializer.class);
-
+/*
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		System.out.println("@@@@@@@@@@@@@@@@");
@@ -64,7 +64,7 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 		
 		LOGGER.debug("EgovWebApplicationInitializer END-============================================");
 	}
-
+*/
 	/**
 	 * @param servletContext
 	 * Root Context를 등록한다.
