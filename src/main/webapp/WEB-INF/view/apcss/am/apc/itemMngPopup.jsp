@@ -9,7 +9,7 @@
 	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-header">
-				<h3 class="box-title"> ▶ 품목 등록 (팝업)</h3>
+				<h3 class="box-title"> ▶ 품목/품종 등록 (팝업)</h3>
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
 						<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
@@ -172,7 +172,7 @@
 
 				<div class="row">
 					<div class="col-sm-3">
-						<b>선별등급등록</b>
+						<b>품종등록</b>
 
 						<table class="table table-bordered tbl_row tbl_fixed mg_t10">
 							<colgroup>
@@ -313,4 +313,7 @@
 			</div>
 	</section>
 </body>
+<script type="text/javascript">
+
+</script>
 </html>
