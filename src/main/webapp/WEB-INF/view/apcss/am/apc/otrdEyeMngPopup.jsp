@@ -11,7 +11,7 @@
 			<!-- [pp] 기본 레이아웃 -->
 			<div class="box box-solid">
 				<div class="box-header">
-				<h3 class="box-title"> ▶ 원물육안등급 선택 (팝업)</h3>
+				<h3 class="box-title"> ▶ 정산등급 선택 (팝업)</h3>
 				<div class="ad_tbl_top">
 						<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
 						<button type="button" class="btn btn-sm btn-outline-danger">종료</button>

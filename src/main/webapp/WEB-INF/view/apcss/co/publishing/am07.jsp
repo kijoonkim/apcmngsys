@@ -218,11 +218,11 @@
 									</tbody>
 								</table>
 							</div>
-						
+
 
 
 							<div class="col-sm-8">
-								
+
 								<table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<caption>검색결과 목록</caption>
 									<colgroup>
@@ -321,19 +321,19 @@
 											<td></td>
 											<td></td>
 											<td><button type="button" class="btn btn-xs btn-outline-danger">삭제</button></td>
-										</tr>										
+										</tr>
 										<tr>
 											<td>&nbsp;</td>
 											<td></td>
 											<td></td>
-										</tr>										
+										</tr>
 										<tr>
 											<td>&nbsp;</td>
 											<td></td>
 											<td></td>
-										</tr>										
+										</tr>
 									</tbody>
-								</table>	
+								</table>
 							</div>
 							<div class="col-sm-3">
 								<b>&nbsp;</b>
@@ -356,19 +356,19 @@
 											<td></td>
 											<td></td>
 											<td><button type="button" class="btn btn-xs btn-outline-danger">삭제</button></td>
-										</tr>										
+										</tr>
 										<tr>
 											<td></td>
 											<td></td>
 											<td><button type="button" class="btn btn-xs btn-outline-danger">추가</button></td>
-										</tr>										
+										</tr>
 										<tr>
 											<td></td>
 											<td>&nbsp;</td>
 											<td></td>
-										</tr>										
+										</tr>
 									</tbody>
-								</table>	
+								</table>
 							</div>
 							<div class="col-sm-3">
 								<b>선별등급등록</b>
@@ -390,19 +390,19 @@
 											<td></td>
 											<td></td>
 											<td><button type="button" class="btn btn-xs btn-outline-danger">삭제</button>
-										</tr>										
+										</tr>
 										<tr>
 											<td></td>
 											<td></td>
 											<td><button type="button" class="btn btn-xs btn-outline-danger">추가</button>
-										</tr>										
+										</tr>
 										<tr>
 											<td></td>
 											<td>&nbsp;</td>
 											<td></td>
-										</tr>										
+										</tr>
 									</tbody>
-								</table>		
+								</table>
 							</div>
 							<div class="col-sm-3">
 								<b>규격등록</b>
@@ -424,19 +424,19 @@
 											<td></td>
 											<td></td>
 											<td><button type="button" class="btn btn-xs btn-outline-danger">삭제</button>
-										</tr>										
+										</tr>
 										<tr>
 											<td></td>
 											<td></td>
 											<td><button type="button" class="btn btn-xs btn-outline-danger">추가</button>
-										</tr>										
+										</tr>
 										<tr>
 											<td></td>
 											<td></td>
 											<td>&nbsp;</td>
-										</tr>										
+										</tr>
 									</tbody>
-								</table>		
+								</table>
 							</div>
 
 
@@ -446,7 +446,7 @@
 
 						<!--[pp] //검색결과 -->
 					</div>
-				
+
 			</section>
 
 
