@@ -23,7 +23,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PltBxVO extends ComVO {
-
 	/**
 	 * APC코드
 	 */
@@ -45,7 +44,16 @@ public class PltBxVO extends ComVO {
 	 */
 	private double unitWght;
 	/**
+	 * 단위
+	 */
+	private String unitCd;
+	/**
 	 * 사용유무
 	 */
 	private String useYn;
+
+	/**
+	 * 기초재고수량
+	 */
+	private int bssInvntrQntt;
 }
