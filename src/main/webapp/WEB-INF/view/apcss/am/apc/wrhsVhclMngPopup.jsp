@@ -55,7 +55,7 @@
 							<li><span>운송지역별 운임비용 등록</span></li>
 						</ul>
 					</div>
-					<div id="trsprtMngGridArea" style="height:150px; width: 100%;"></div>
+					<div id="rgnTrsprtCstMngGridArea" style="height:150px; width: 100%;"></div>
 				</div>
 			</div>
 			<!--[pp] //검색결과 -->
@@ -92,7 +92,7 @@
 			        return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"wrhsVhclMngDatagrid\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-		    {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
+		    {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
 	    ];
 	    window.wrhsVhclMngDatagrid = _SBGrid.create(SBGridProperties);
 	    fn_selectWrhsVhclList();
@@ -105,12 +105,12 @@
 
 	async function fn_callSelectWrhsVhclList(){
 		let apcCd = SBUxMethod.get("apcCd");
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectWrhsVhclList", {apcCd : apcCd});
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
         let newWrhsVhclGridData = [];
         try{
         	data.resultList.forEach((item, index) => {
-				let wrhsVhclList = {
+				let wrhsVhcl = {
 					vhclNo 	: item.vhclNo
 				  , drvrNm 	: item.drvrNm
 				  , bankCd 	: item.bankCd
@@ -120,7 +120,7 @@
 				  , delYn 	: item.delYn
 				  , apcCd	: item.apcCd
 				}
-				newWrhsVhclGridData.push(wrhsVhclList);
+				newWrhsVhclGridData.push(wrhsVhcl);
 			});
         	wrhsVhclMngGridData = newWrhsVhclGridData;
         	wrhsVhclMngDatagrid.rebuild();
@@ -134,13 +134,13 @@
 	}
 
 	// 운송지역별 운임비용 등록
-    var trsprtMngGridData = []; // 그리드의 참조 데이터 주소 선언
-    async function fn_trsprtMngCreateGrid() {
+    var rgnTrsprtCstMngGridData = []; // 그리드의 참조 데이터 주소 선언
+    async function fn_rgnTrsprtCstMngCreateGrid() {
     	trsprtMngGridData = [];
         let SBGridProperties = {};
-	    SBGridProperties.parentid = 'trsprtMngGridArea';
-	    SBGridProperties.id = 'trsprtMngDatagrid';
-	    SBGridProperties.jsonref = 'trsprtMngGridData';
+	    SBGridProperties.parentid = 'rgnTrsprtCstMngGridArea';
+	    SBGridProperties.id = 'rgnTrsprtCstMngDatagrid';
+	    SBGridProperties.jsonref = 'rgnTrsprtCstMngGridData';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -148,46 +148,45 @@
         SBGridProperties.columns = [
             {caption: ["코드"], 			ref: 'trsprtRgnCd',  	type:'input',  width:'100px',     style:'text-align:center'},
             {caption: ["운송지역"], 		ref: 'trsprtRgnNm',  	type:'input',  width:'200px',    style:'text-align:center'},
-            {caption: ["운송비용(원)"], 	ref: 'trsprtCst',  		type:'input',  width:'200px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["운송비용(원)"], 	ref: 'trsprtCst',  		type:'input',  width:'200px',    style:'text-align:right', format : {type:'number', rule:'#,### 원'} },
             {caption: ["비고"], 			ref: 'rmrk',  			type:'input',  width:'300px',    style:'text-align:center'},
             {caption: ["처리"], 			ref: 'delYn',   		type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
-            		return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"trsprtMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+            		return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"rgnTrsprtCstMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
             	}else{
-			        return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"trsprtMngDatagrid\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"rgnTrsprtCstMngDatagrid\", " + nRow + ")'>삭제</button>";
             	}
-		    }}
+		    }},
+		    {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
         ];
-        window.trsprtMngDatagrid = _SBGrid.create(SBGridProperties);
-        trsprtMngDatagrid.addRow();
+        window.rgnTrsprtCstMngDatagrid = _SBGrid.create(SBGridProperties);
+        fn_selectRgnTrsprtCstList();
     }
 
-    async function fn_selectTrsprtList(){
-		fn_callSelectTrsprtList();
+    async function fn_selectRgnTrsprtCstList(){
+		fn_callSelectRgnTrsprtCstList();
 	}
 
-	async function fn_callSelectTrsprtList(){
+	async function fn_callSelectRgnTrsprtCstList(){
 		let apcCd = SBUxMethod.get("apcCd");
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectRgnTrsprtCstList", {apcCd : apcCd});
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectRgnTrsprtCstList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        let newTrsprtGridData = [];
+        let newRgnTrsprtCstGridData = [];
         try{
         	data.resultList.forEach((item, index) => {
-				let trsprt = {
-					vhclNo 	: item.vhclNo
-				  , drvrNm 	: item.drvrNm
-				  , bankCd 	: item.bankCd
-				  , actno 	: item.actno
-				  , dpstr 	: item.dpstr
-				  , rmrk 	: item.rmrk
-				  , delYn 	: item.delYn
-				  , apcCd	: item.apcCd
+				let rgnTrsprtCst = {
+				    trsprtRgnCd 	: item.trsprtRgnCd
+				  , trsprtRgnNm 	: item.trsprtRgnNm
+				  , trsprtCst 		: item.trsprtCst
+				  , rmrk 			: item.rmrk
+				  , delYn 			: item.delYn
+				  , apcCd			: item.apcCd
 				}
-				newTrsprtGridData.push(trsprt);
+				newRgnTrsprtCstGridData.push(rgnTrsprtCst);
 			});
-        	trsprtMngGridData = newTrsprtGridData;
-        	trsprtMngDatagrid.rebuild();
-        	trsprtMngDatagrid.addRow();
+        	rgnTrsprtCstMngGridData = newRgnTrsprtCstGridData;
+        	rgnTrsprtCstMngDatagrid.rebuild();
+        	rgnTrsprtCstMngDatagrid.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

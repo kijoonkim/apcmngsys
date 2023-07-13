@@ -90,7 +90,7 @@
 
 	async function fn_callSelectWarehouseList(){
 		let apcCd = SBUxMethod.get("apcCd");
-		let postJsonPromise = gfn_postJSON("/am/apc/selectRsrcList", {apcCd : apcCd, cdId : 'WAREHOUSE_SE_CD'});
+		let postJsonPromise = gfn_postJSON("/am/apc/selectRsrcList.do", {apcCd : apcCd, cdId : 'WAREHOUSE_SE_CD'});
 	    let data = await postJsonPromise;
 	    let newWarehouseGridData = [];
 	    try{

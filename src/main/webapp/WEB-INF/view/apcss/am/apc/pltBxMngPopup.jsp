@@ -24,16 +24,17 @@
 						<caption>검색 조건 설정</caption>
 						<colgroup>
 							<col style="width: 10%">
-							<col style="width: 40%">
-							<col style="width: 60%">
+							<col style="width: 20%">
+							<col style="width: auto">
 						</colgroup>
 						<tbody>
 							<tr>
 								<th scope="row">APC명</th>
-
 								<th>
 									<sbux-input id=pltbxApcNm name="pltbxApcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 								</th>
+								<th>&nbsp;</th>
+								<th>&nbsp;</th>
 								<th>&nbsp;</th>
 							</tr>
 						</tbody>
@@ -84,7 +85,7 @@
 	        {caption: ["팔레트 정보","코드"], 			ref: 'pltBxCd',  		type:'input',  width:'100px',     style:'text-align:center'},
 	        {caption: ["팔레트 정보","팔레트 명"], 		ref: 'pltBxNm',  		type:'input',  width:'250px',    style:'text-align:center'},
 	        {caption: ["팔레트 정보","단중"], 			ref: 'unitWght',   		type:'input',  width:'150px',    style:'text-align:center'},
-	        {caption: ["박스 정보","단위"], 			ref: 'unitCd',   		type:'combo',  width:'100px',    style:'text-align:center',
+	        {caption: ["팔레트 정보","단위"], 			ref: 'unitCd',   		type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'comboUnitCdJsData', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
 	        {caption: ["팔레트 정보","기초재고수량"], 	ref: 'bssInvntrQntt',  	type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["팔레트 정보","사용유무"], 		ref: 'useYn',   		type:'combo',  width:'100px',    style:'text-align:center',
@@ -146,7 +147,7 @@
 	// 팔레트/박스 목록 조회
 	async function fn_callSelectPltbxList(pltBxSeCd){
 		let apcCd = SBUxMethod.get("apcCd");
-    	let postJsonPromise = gfn_postJSON("/am/cmns/selectPltBxList", {apcCd : apcCd, pltBxSeCd : pltBxSeCd});
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectPltBxList.do", {apcCd : apcCd, pltBxSeCd : pltBxSeCd});
         let data = await postJsonPromise;
         let newPltbxGridData = [];
         try{
@@ -220,7 +221,7 @@
 	// 출하단위포장 목록 조회
 	async function fn_callSelectPckgList(){
 		let apcCd = SBUxMethod.get("apcCd");
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectRsrcList", {apcCd : apcCd, cdId : 'PCKG_SE_CD'});
+    	let postJsonPromise = gfn_postJSON("/am/apc/selectRsrcList.do", {apcCd : apcCd, cdId : 'PCKG_SE_CD'});
         let data = await postJsonPromise;
         let newPckgGridData = [];
         try{
@@ -396,7 +397,7 @@
 	// 팔레트/박스 등록 호출
 	async function fn_callInsertPltBxList(pltBxList){
 		console.log("call >> ")
-		let postJsonPromise = gfn_postJSON("/am/cmns/insertPltBxList", pltBxList);
+		let postJsonPromise = gfn_postJSON("/am/cmns/insertPltBxList.do", pltBxList);
         let data = await postJsonPromise;
 
         try{
@@ -413,7 +414,7 @@
 
 	// 팔레트/박스 변경 호출
 	async function fn_callUpdatePltBxList(pltBxList){
-		let postJsonPromise = gfn_postJSON("/am/cmns/updatePltBxList", pltBxList);
+		let postJsonPromise = gfn_postJSON("/am/cmns/updatePltBxList.do", pltBxList);
         let data = await postJsonPromise;
 
         try{
@@ -430,7 +431,7 @@
 
 	// 팔레트/박스 삭제 호출
 	async function fn_deletepltBx(pltBxVO){
-		let postJsonPromise = gfn_postJSON("/am/cmns/deletePltBx", pltBxVO);
+		let postJsonPromise = gfn_postJSON("/am/cmns/deletePltBx.do", pltBxVO);
         let data = await postJsonPromise;
 
         try{

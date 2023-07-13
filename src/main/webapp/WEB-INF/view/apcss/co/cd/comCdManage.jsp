@@ -521,14 +521,14 @@
     // 공통코드 중복 체크 호출
     async function fn_duplicateCheckCdId(cdId){
 
-    	let postJsonPromise = gfn_postJSON("/co/cd/duplicateCheckCdId", {cdId : cdId});
+    	let postJsonPromise = gfn_postJSON("/co/cd/duplicateCheckCdId.do", {cdId : cdId});
         let data = await postJsonPromise;
 		return data.result;
     }
 
     // 공통코드 상세 중복 체크 호출
     async function fn_duplicateCheckCdIdDtl(comCdVO){
-    	let postJsonPromise = gfn_postJSON("/co/cd/duplicateCheckCdIdDtl", comCdVO);
+    	let postJsonPromise = gfn_postJSON("/co/cd/duplicateCheckCdIdDtl.do", comCdVO);
         let data = await postJsonPromise;
 		return data.result;
     }
@@ -536,7 +536,7 @@
     // 공통코드 등록
     async function fn_callInsertComCd(comCdList){
 
-    	let postJsonPromise = gfn_postJSON("/co/cd/insertComCdList", comCdList);
+    	let postJsonPromise = gfn_postJSON("/co/cd/insertComCdList.do", comCdList);
         let data = await postJsonPromise;
 
         try{
@@ -557,7 +557,7 @@
     // 공통코드 수정
     async function fn_callUpdateComCd(comCdList){
 
-    	let postJsonPromise = gfn_postJSON("/co/cd/updateComCdList", comCdList);
+    	let postJsonPromise = gfn_postJSON("/co/cd/updateComCdList.do", comCdList);
         let data = await postJsonPromise;
 
         try{
@@ -578,7 +578,7 @@
     // 공통코드 삭제
     async function fn_callDeleteComCd(comCdList){
 
-    	let postJsonPromise = gfn_postJSON("/co/cd/deleteComCdList", comCdList);
+    	let postJsonPromise = gfn_postJSON("/co/cd/deleteComCdList.do", comCdList);
         let data = await postJsonPromise;
 
         try{
@@ -599,7 +599,7 @@
     // 공통코드 상세 등록
     async function fn_callInsertComCdDtl(comCdList){
 
-    	let postJsonPromise = gfn_postJSON("/co/cd/insertComCdDtlList", comCdList);
+    	let postJsonPromise = gfn_postJSON("/co/cd/insertComCdDtlList.do", comCdList);
         let data = await postJsonPromise;
 
         try{
@@ -620,7 +620,7 @@
  	// 공통코드 상세 수정
     async function fn_callUpdateComCdDtl(comCdList){
 
-    	let postJsonPromise = gfn_postJSON("/co/cd/updateComCdList", comCdList);
+    	let postJsonPromise = gfn_postJSON("/co/cd/updateComCdList.do", comCdList);
         let data = await postJsonPromise;
 
         try{
@@ -642,7 +642,7 @@
  	// 공통코드 상세 삭제
     async function fn_callDeleteComCdDtl(comCdList){
 
-    	let postJsonPromise = gfn_postJSON("/co/cd/deleteComCdDtlList", comCdList);
+    	let postJsonPromise = gfn_postJSON("/co/cd/deleteComCdDtlList.do", comCdList);
         let data = await postJsonPromise;
 
         try{

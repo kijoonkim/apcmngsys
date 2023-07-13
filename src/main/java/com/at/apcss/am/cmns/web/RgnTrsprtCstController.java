@@ -1,0 +1,47 @@
+package com.at.apcss.am.cmns.web;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.at.apcss.am.cmns.service.RgnTrsprtCstService;
+import com.at.apcss.am.cmns.vo.RgnTrsprtCstVO;
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.controller.BaseController;
+
+@Controller
+public class RgnTrsprtCstController extends BaseController {
+
+	// 지역별운임비
+	@Resource(name = "rgnTrsprtCstService")
+	private RgnTrsprtCstService rgnTrsprtCstService;
+
+	// APC 환경설정 - 지역별 운임비 목록 조회
+	@PostMapping(value = "/am/cmns/selectRgnTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectRgnTrsprtCstList(@RequestBody RgnTrsprtCstVO rgnTrsprtCstVO, HttpServletRequest request) throws Exception {
+		logger.debug("selectRgnTrsprtCstList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<RgnTrsprtCstVO> resultList = new ArrayList<>();
+		try {
+
+			resultList = rgnTrsprtCstService.selectRgnTrsprtCstList(rgnTrsprtCstVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+}

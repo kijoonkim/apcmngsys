@@ -1,7 +1,21 @@
 package com.at.apcss.am.cmns.web;
 
-import org.springframework.stereotype.Controller;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.at.apcss.am.cmns.service.PltBxService;
+import com.at.apcss.am.cmns.vo.PltBxVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -21,5 +35,93 @@ import com.at.apcss.co.sys.controller.BaseController;
  */
 @Controller
 public class PltBxController extends BaseController {
+	@Resource(name = "pltBxService")
+	private PltBxService pltBxService;
 
+
+	// APC 환경설정 - 팔레트/박스 목록 조회
+	@PostMapping(value = "/am/cmns/selectPltBxList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPltBxList(@RequestBody PltBxVO pltBxVO, HttpServletRequest request) throws Exception {
+		logger.debug("selectPltBxList 호출 <><><><> ");
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PltBxVO> resultList = new ArrayList<>();
+		try {
+
+			resultList = pltBxService.selectPltBxList(pltBxVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC 환경설정 - 팔레트/박스 등록
+	@PostMapping(value = "/am/cmns/insertPltBxList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertPltBxList(@RequestBody List<PltBxVO> pltBxList, HttpServletRequest request) throws Exception {
+		logger.debug("insertPltBxList 호출 <><><><> ");
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+		try {
+			for (PltBxVO pltBxVO : pltBxList) {
+				pltBxVO.setSysFrstInptPrgrmId(getPrgrmId());
+				pltBxVO.setSysFrstInptUserId(getUserId());
+				pltBxVO.setSysLastChgPrgrmId(getPrgrmId());
+				pltBxVO.setSysLastChgUserId(getUserId());
+				result =+ pltBxService.insertPltBx(pltBxVO);
+			}
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC 환경설정 - 팔레트/박스 등록
+	@PostMapping(value = "/am/cmns/updatePltBxList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updatePltBxList(@RequestBody List<PltBxVO> pltBxList, HttpServletRequest request) throws Exception {
+		logger.debug("updatePltBxList 호출 <><><><> ");
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+		try {
+			for (PltBxVO pltBxVO : pltBxList) {
+				pltBxVO.setSysLastChgPrgrmId(getPrgrmId());
+				pltBxVO.setSysLastChgUserId(getUserId());
+				result =+ pltBxService.updatePltBx(pltBxVO);
+			}
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC 환경설정 - 팔레트/박스 등록
+	@PostMapping(value = "/am/cmns/deletePltBx.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deletePltBx(@RequestBody PltBxVO pltBxVO, HttpServletRequest request) throws Exception {
+		logger.debug("deletePltBx 호출 <><><><> ");
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+		try {
+				result = pltBxService.deletePltBx(pltBxVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
