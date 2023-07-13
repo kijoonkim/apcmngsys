@@ -12,9 +12,9 @@
 				<h3 class="box-title"> ▶ 거래처 등록(팝업)</h3>
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+						<sbux-button id="btnCnptSach" name="btnCnptach" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectCnptList()"></sbux-button>
+						<sbux-button id="btnCnptReg" name="btnCnptReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertCnptList"></sbux-button>
+						<sbux-button id="btnCnptEnd" name="btnCnptEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('cnptMngModal')"></sbux-button>
 					</div>
 				</div>
 			</div>
@@ -32,7 +32,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
-								<input type="text" class="form-control input-sm" placeholder="" disabled>
+								<sbux-input id=cnptApcNm name="cnptApcNm" uitype="text" class="form-control pull-right input-sm" disabled></sbux-input>
 							</th>
 							<th>
 							</th>
@@ -63,4 +63,67 @@
 		</div>
 	</section>
 </body>
+<script type="text/javascript">
+	var cnptMngGridData = [
+    ]; // 그리드의 참조 데이터 주소 선언
+    function fn_cnptMngCreateGrid() {
+    	cnptMngGridData = [];
+        let SBGridProperties = {};
+	    SBGridProperties.parentid = 'cnptMngGridArea';
+	    SBGridProperties.id = 'cnptMngDatagrid';
+	    SBGridProperties.jsonref = 'cnptMngGridData';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["코드"], 		ref: 'cnptCd',  type:'input',  width:'80px',     style:'text-align:center'},
+            {caption: ["거래처명"], 	ref: 'cnptNm',  type:'input',  width:'150px',    style:'text-align:center'},
+            {caption: ["유형"], 		ref: 'typeCd',  type:'combo',  width:'100px',    style:'text-align:center'},
+            {caption: ["사업자번호"], 	ref: 'brno',  	type:'input',  width:'150px',    style:'text-align:center'},
+            {caption: ["담당자"], 		ref: 'picNm',  	type:'input',  width:'100px',    style:'text-align:center'},
+            {caption: ["전화번호"], 	ref: 'telno',  	type:'input',  width:'120px',    style:'text-align:center'},
+            {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'300px',    style:'text-align:center'},
+            {caption: ["처리"], 		ref: 'delYn',   type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            	if(strValue== null || strValue == ""){
+            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"cnptMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+            	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"cnptMngDatagrid\", " + nRow + ")'>삭제</button>";
+            	}
+		    }}
+        ];
+        window.cnptMngDatagrid = _SBGrid.create(SBGridProperties);
+	    cnptMngDatagrid.addRow();
+    }
+
+
+    var ordrMngGridData = [
+    	{"martNm": "이마트", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
+    	{"martNm": "노브랜드", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
+    	{"martNm": "트레이더스", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
+    	{"martNm": "GS리테일(슈파)", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
+    	{"martNm": "홈플러스", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
+    	{"martNm": "에브리데이", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
+    	{"martNm": "SSG", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
+    ]; // 그리드의 참조 데이터 주소 선언
+
+    function fn_ordrMngCreateGrid() {
+        let SBGridProperties = {};
+	    SBGridProperties.parentid = 'ordrMngGridArea';
+	    SBGridProperties.id = 'ordrMngDatagrid';
+	    SBGridProperties.jsonref = 'ordrMngGridData';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["대형마트 명"], 		ref: 'martNm',  	type:'input',  width:'150px',     style:'text-align:center'},
+            {caption: ["발주정보 URL"], 	ref: 'ordrUrl',  	type:'input',  width:'250px',    style:'text-align:center'},
+            {caption: ["사용자ID"], 		ref: 'userId',  	type:'input',  width:'150px',    style:'text-align:center'},
+            {caption: ["패스워드"], 		ref: 'userPw',  	type:'input',  width:'150px',    style:'text-align:center'},
+            {caption: ["사용유무"], 		ref: 'useYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
+						typeinfo : {ref:'combofilteringData', label:'label', value:'value', displayui : true}},
+            {caption: ["최종처리일시"], 	ref: 'prcsDt',  	type:'input',  width:'150px',    style:'text-align:center'}
+        ];
+        window.ordrMngDatagrid = _SBGrid.create(SBGridProperties);
+    }
+</script>
 </html>

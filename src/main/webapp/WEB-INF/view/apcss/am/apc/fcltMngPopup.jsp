@@ -24,8 +24,8 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 15%">
-						<col style="width: 25%">
+						<col style="width: 10%">
+						<col style="width: 20%">
 						<col style="width: auto">
 					</colgroup>
 					<tbody>
@@ -91,7 +91,7 @@
 
 	async function fn_callSelectFcltList(){
 		let apcCd = SBUxMethod.get("apcCd");
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectRsrcList", {apcCd : apcCd, cdId : 'FCLT_CD'});
+    	let postJsonPromise = gfn_postJSON("/am/apc/selectRsrcList.do", {apcCd : apcCd, cdId : 'FCLT_CD'});
         let data = await postJsonPromise;
         let newFcltGridData = [];
         try{

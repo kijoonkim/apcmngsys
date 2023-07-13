@@ -24,10 +24,10 @@
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
-					<col style="width: 8%">
-					<col style="width: 18%">
-					<col style="width: 8%">
-					<col style="width: 18%">
+					<col style="width: 10%">
+					<col style="width: 20%">
+					<col style="width: 10%">
+					<col style="width: 20%">
 					<col style="width: auto">
 				</colgroup>
 				<tbody>
@@ -37,9 +37,9 @@
 							<sbux-input id=userAuthApcNm name="userAuthApcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 						</th>
 						<th scope="row">사용자명</th>
-						<td>
+						<th>
 							<sbux-input id=userAuthUserNm name="userAuthUserNm" uitype="text" class="form-control input-sm"></sbux-input>
-						</td>
+						</th>
 						<th>&nbsp;</th>
 					</tr>
 				</tbody>
@@ -105,7 +105,7 @@
 	async function fn_callSelectUserList(){
 		let apcCd = SBUxMethod.get("apcCd");
 		let userNm = SBUxMethod.get("userAuthUserNm");
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcUserList", {apcCd : apcCd, userNm : userNm});
+    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcUserList.do", {apcCd : apcCd, userNm : userNm});
         let data = await postJsonPromise;
         let newUserGridData = [];
         try{
@@ -137,7 +137,7 @@
 	async function fn_updateComUserAprv() {
     	let nRow = userAuthMngDatagrid.getRow();
     	let userId = userAuthMngDatagrid.getRowData(nRow).userId;
-    	let postJsonPromise = gfn_postJSON("/co/user/updateComUserAprv", {userId : userId, userStts : '99'});
+    	let postJsonPromise = gfn_postJSON("/co/user/updateComUserAprv.do", {userId : userId, userStts : '99'});
     	let data = await postJsonPromise;
     	try{
     		if(data.result == 0){
@@ -176,7 +176,7 @@
 			alert("등록 할 내용이 없습니다.");
 			return;
 		}
-		let postJsonPromise = gfn_postJSON("/am/apc/updateComUserList", updateList);
+		let postJsonPromise = gfn_postJSON("/am/apc/updateComUserList.do", updateList);
         let data = await postJsonPromise;
         try{
         	if(data.result > 0){

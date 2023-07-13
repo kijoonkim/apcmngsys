@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : SpmtTrsprtMapper.xml                                   				-->
+<!-- DESC : 출하운송회사정보 운임 mapper                                    	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.07.13  	김홓        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.spmt.mapper.SpmtTrsprtMapper">
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtTrsprtMapper.selectSpmtTrsprtList	-->
+	<!-- DESC : 출하운송회사정보 목록 조회.	                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.12  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectSpmtTrsprtList" parameterType="com.at.apcss.am.spmt.vo.SpmtTrsprtVO" resultType="com.at.apcss.am.spmt.vo.SpmtTrsprtVO">
+    	<![CDATA[
+    	SELECT ST.APC_CD            AS APC_CD
+		     , ST.TRSPRT_CO_CD      AS TRSPRT_CO_CD
+		     , ST.TRSPRT_CO_NM      AS TRSPRT_CO_NM
+		     , ST.TELNO             AS TELNO
+		     , ST.FXNO              AS FXNO
+		     , ST.RMRK              AS RMRK
+		     , ST.DEL_YN            AS DEL_YN
+		  FROM TB_SPMT_TRSPRT_CO_INFO ST
+		 WHERE ST.APC_CD = #{apcCD}
+		]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtTrsprtMapper.insertSpmtTrsprt		-->
+	<!-- DESC : 출하운송회사정보 등록.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertSpmtTrsprt" parameterType="com.at.apcss.am.spmt.vo.SpmtTrsprtVO">
+    	<![CDATA[
+    	INSERT INTO TB_SPMT_TRSPRT_CO_INFO
+    		(
+    			APC_CD
+    		  , TRSPRT_CO_CD
+		      , TRSPRT_CO_NM
+		      , TELNO
+		      , FXNO
+    		  , RMRK
+    		  , DEL_YN
+    		  , SYS_FRST_INPT_DT
+    		  , SYS_FRST_INPT_USER_ID
+    		  , SYS_FRST_INPT_PRGRM_ID
+    		  , SYS_LAST_CHG_DT
+    		  , SYS_LAST_CHG_USER_ID
+    		  , SYS_LAST_CHG_PRGRM_ID
+    		)
+   		VALUES
+   			(
+   				#{apcCd}
+    		  , #{trsprtCoCd}
+    		  , #{trsprtCoNm}
+    		  , #{telno}
+    		  , #{fxno}
+    		  , #{rmrk}
+    		  , #{delYn}
+    		  , SYSDATE
+    		  , #{sysFrstInptUserId}
+    		  , #{sysFrstInptPrgrmId}
+    		  , SYSDATE
+    		  , #{sysLastChgUserId}
+    		  , #{sysLastChgPrgrmId}
+   			)
+    	]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtTrsprtMapper.updateSpmtTrsprt		-->
+	<!-- DESC : 출하운송회사정보 변경.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateSpmtTrsprt" parameterType="com.at.apcss.am.spmt.vo.SpmtTrsprtVO">
+		<![CDATA[
+		UPDATE TB_SPMT_TRSPRT_CO_INFO
+		   SET SYS_LAST_CHG_DT 			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			 , TRSPRT_CO_NM				= #{trsprtCoNm}
+    		 , TELNO					= #{telno}
+    		 , FANO						= #{fxno}
+    		 , RMRK						= #{rmrk}
+    		 , DEL_YN					= #{delYn}
+		 WHERE APC_CD 					= #{apcCd}
+		   AND TRSPRT_CO_CD 			= #{trsprtCoCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtTrsprtMapper.deleteSpmtTrsprt		-->
+	<!-- DESC : 출하운송회사정보 삭제.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteSpmtTrsprt" parameterType="com.at.apcss.am.spmt.vo.SpmtTrsprtVO">
+		<![CDATA[
+		DELETE FROM TB_SPMT_TRSPRT_CO_INFO
+		 WHERE APC_CD			= #{apcCd}
+		   AND TRSPRT_CO_CD 	= #{trsprtCoCd}
+		]]>
+	</delete>
+
+</mapper>
+
+
