@@ -19,3 +19,7 @@
     <link href="/resource/css/blue_style.css" rel="stylesheet" type="text/css">
     <!------------------ 커스텀 테마 CSS ------------------>  
     <link href="/resource/css/sbgrid_custom.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript">
+		const comUiJson = ${comUiJson};
+		gfn_setSysPrgrmId(comUiJson.menuId);
+	</script>

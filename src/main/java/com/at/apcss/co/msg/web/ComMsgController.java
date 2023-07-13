@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +48,10 @@ public class ComMsgController extends BaseController{
 	
 	// 메시지 조회
 	@PostMapping(value = "/co/msg/selectComMsgList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectMenuList(@RequestBody ComMsgVO comMsgVO, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody ComMsgVO comMsgVO, HttpServletRequest request) throws Exception{
+		
+		logger.debug("$$$ programId : {}", getPrgrmId());
+		
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<ComMsgVO> resultList = new ArrayList<>();
 		

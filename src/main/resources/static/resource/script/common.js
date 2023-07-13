@@ -8,24 +8,45 @@ const URL_COM_CDS = "/co/cd/comCdDtls";
 
 /** @type {string} */
 const STR_BLANK = "";
+const postHeaders = {
+    "Content-Type": "application/json"
+}
+
+/**
+ * set post header programId
+ * @param {string} sysPrgrmId
+ */
+const gfn_setSysPrgrmId = function(sysPrgrmId) {
+    postHeaders.sysPrgrmId = sysPrgrmId
+}
 
 /**
  * async post by json
  * @param {string} _url
  * @param {*} _param
+ * @param {object} _param
+ * @param {[string]} sysPrgrmId
  * @returns {any}
  */
-async function gfn_postJSON(_url, _param) {
-	try {
-		const response = await fetch(
-			_url, {
-				method: "POST",
-				headers: {
-						"Content-Type": "application/json"
-					},
-				body: JSON.stringify(_param),
-			}
-		);
+async function gfn_postJSON(_url, _param, sysPrgrmId) {
+    
+    const header = {
+        "Content-Type": "application/json",
+        "sysPrgrmId": postHeaders.sysPrgrmId
+    }
+    
+    if (sysPrgrmId) {
+        header.sysPrgrmId = sysPrgrmId;
+    }
+    
+    try {
+        const response = await fetch(
+            _url, {
+                method: "POST",
+                headers: header,
+                body: JSON.stringify(_param),
+            }
+        );
 
 		const result = await response.json();
 		console.log("success", result);
@@ -287,9 +308,8 @@ const gfn_getComMsg = function (_msgKey, ..._arguments) {
  * 실행부
  */
 
-/**
- * 공통메시지 가져오기 (페이지 로드 시)
- */
-gfn_getComMsgList();
-
+	/**
+	 * 공통메시지 가져오기 (페이지 로드 시)
+	 */
+	gfn_getComMsgList();
 
