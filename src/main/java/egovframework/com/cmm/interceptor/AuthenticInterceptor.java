@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
 
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.vo.LoginVO;
 
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
@@ -43,6 +44,9 @@ public class AuthenticInterceptor extends WebContentInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException {
 
+		// set program id
+		request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, request.getHeader(ComConstants.PROP_SYS_PRGRM_ID));
+		
 		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 
 		if (loginVO.getId() != null) {

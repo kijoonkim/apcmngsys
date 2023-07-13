@@ -24,11 +24,8 @@ public class ComMsgApiController extends BaseController {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<ComMsgVO> resultList = new ArrayList<>();
-		logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 001");
 		try {
-			logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 002");
 			resultList = getMessageList();
-			logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 003");
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

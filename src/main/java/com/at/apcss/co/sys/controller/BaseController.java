@@ -28,7 +28,7 @@ public abstract class BaseController {
 	public final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	protected EgovMessageSource message;
-	
+
 	@Autowired
 	protected ComMessageSource messageSource;
 

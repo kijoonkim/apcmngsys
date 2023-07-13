@@ -155,7 +155,7 @@
 			   SET
 			 	  MSG_CN	= #{msgCn}
 			 	, MSG_KND 	= #{msgKnd}
-			 	, RMRK 		= #{rmrk}
+			 	, RMRK 		= #{rmrk, jdbcType=VARCHAR}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

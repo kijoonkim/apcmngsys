@@ -30,8 +30,10 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
-	let sysPrgrmId = "main";
-
+	let prvTabMenuId = "";
+	
+	//const sysPrgrmId = "main";
+	//gfn_setSysPrgrmId(sysPrgrmId);
     //SBUx topmenu 컴포넌트의 json 데이터
 
     /*
@@ -238,10 +240,9 @@
     //Left Menu Click
     function fn_selectMenu(_target, _id) {	
     	
-    	var data = SBUxMethod.get(_id);        
-        console.log("data", data);
-        console.log("data.customData", data.customData);
-        if (_target === "TOP" && gfn_isEmpty(data.pid)) {
+    	var data = SBUxMethod.get(_id);
+
+		if (_target === "TOP" && gfn_isEmpty(data.pid)) {
         //if (_target === "TOP" && data.pid == 0) {
             return;
         }
@@ -293,10 +294,11 @@
                     , 'targetid': tabName
                     , 'targetvalue': tabName + '_value'
                     , 'targetname': 'frmJson'
-                    , 'link': _url
+                    , 'link': '/co/menu/openPage.do/' + _menuNo	// _url
                     , 'closeicon': true
                 };
                 SBUxMethod.addTab('tab_menu', jsonTabSelect);
+                
                 fn_afterAddTab(_menuNo)
             }
             else {
@@ -310,8 +312,8 @@
      */
 	function fn_afterAddTab(_menuId) {
     	
-    	sysPrgrmId = _menuId;
-    	
+    	prvTabMenuId = _menuId;
+    	 
     	fetch("/sys/actionNewTab.do", {
   		  	method: "POST",
   		  	headers: {
@@ -334,8 +336,8 @@
       */
  	function fn_afterSeletTab(_menuId) {
      	
-		sysPrgrmId = _menuId;
-
+      	prvTabMenuId = _menuId;
+      	
      	fetch("/sys/actionOldTab.do", {
   		  	method: "POST",
   		  	headers: {

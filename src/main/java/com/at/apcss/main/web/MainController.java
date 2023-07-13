@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.menu.service.ComMenuService;
 import com.at.apcss.co.menu.vo.ComMenuJsonVO;
 import com.at.apcss.co.menu.vo.ComMenuVO;
+import com.at.apcss.co.menu.vo.ComUiJsonVO;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,16 +27,23 @@ public class MainController extends BaseController {
 	@RequestMapping("/main.do")
 	public String doMain(Model model, HttpServletRequest request) {
 		
-		request.getSession().setAttribute("sysPrgrmId", "main");
-		
 		List<String> menuList = new ArrayList<>();
 		try {
+			
+			String menuId = "main";
+			ComUiJsonVO comUiJsonVO = new ComUiJsonVO();
+			comUiJsonVO.setMenuId(menuId);
+			ObjectMapper objMapper = new ObjectMapper();
+			String comUiJsonString = objMapper.writeValueAsString(comUiJsonVO);
+			model.addAttribute("comUiJson", comUiJsonString);
+			
+			request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);
 			
 			List<ComMenuVO> resultList = comMenuService.selectTopMenuList(new ComMenuVO());
 			if (resultList != null && !resultList.isEmpty()) {
 				for ( ComMenuVO rslt : resultList ) {
 					
-					ComMenuJsonVO menu = new ComMenuJsonVO();					
+					ComMenuJsonVO menu = new ComMenuJsonVO();
 					menu.setId(rslt.getMenuId());
 					menu.setPid(rslt.getUpMenuId());
 					menu.setOrder(rslt.getIndctSeq());

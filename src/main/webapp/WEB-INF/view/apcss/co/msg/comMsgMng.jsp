@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
+    <title>${comMenuVO.menuNm}</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
-
 </head>
 <body>
 	<div class="sbt-A-wrap">
@@ -179,6 +182,8 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 	
+	// ${comMenuVO.menuId}
+	
 	// 공통코드 JSON
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
 	
@@ -267,16 +272,15 @@
     	fn_clearForm();
     	
 		grdComMsgList.clearStatus();
-		
+
 		let msgKnd = SBUxMethod.get("srch-select-msgKnd");
 		let msgKey = SBUxMethod.get("srch-input-msgKey");
 		let msgCn = SBUxMethod.get("srch-input-msgCn");
 		
-        const postJsonPromise = gfn_postJSON("/co/msg/selectComMsgList.do", {        	
-        	
+        const postJsonPromise = gfn_postJSON("/co/msg/selectComMsgList.do", {
         	msgKnd: msgKnd,
         	msgKey: msgKey,
-        	msgCn: msgCn,        	
+        	msgCn: msgCn,
         	// pagination
 	  		pagingYn : 'Y',
 			currentPageNo : pageNo,
@@ -560,7 +564,8 @@
             return;
 		}
 		
-        var rowData = grdComMsgList.getRowData(nRow);        
+        let rowData = grdComMsgList.getRowData(nRow);
+
         SBUxMethod.set("dtl-input-orgnMsgKey", rowData.msgKey);
         SBUxMethod.set("dtl-select-msgKnd", rowData.msgKnd);
         SBUxMethod.set("dtl-input-msgKey", rowData.msgKey);
