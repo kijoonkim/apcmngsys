@@ -64,6 +64,7 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	        {caption: ["순번"], 		ref: 'rowSeq',  		type:'input',  width:'50px',     style:'text-align:center'},
 	        {caption: ["창고 코드"], 	ref: 'cdVl',  			type:'input',  width:'100px',    style:'text-align:center'},
@@ -71,9 +72,9 @@
 	        {caption: ["비고"], 		ref: 'cdVlExpln',   	type:'input',  width:'250px',    style:'text-align:center'},
 	        {caption: ["처리"], 		ref: 'delYn',   		type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"warehouseMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        		return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"warehouseMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"warehouseMngDatagrid\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"warehouseMngDatagrid\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},

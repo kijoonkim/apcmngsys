@@ -117,7 +117,7 @@
     		border-bottom: 1px solid #ffffff !important;
   		}
   		div.input-group-addon {
-			padding: 5px;  		
+			padding: 5px;
   		}
 	</style>
 
@@ -152,7 +152,7 @@
 									&nbsp;&nbsp;&nbsp;
 								</div>
 							</div>
-						
+
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<div>
@@ -208,7 +208,7 @@
 											<select class="form-control input-sm">
 												<option>멀티선택</option>
 											</select>
-										</td>										
+										</td>
 										<td class="td_input" style="border-right: hidden;">
 											<button style="font-size: x-small;" class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 										</td>
@@ -217,12 +217,12 @@
 											<select class="form-control input-sm">
 												<option></option>
 											</select>
-										</td>										
+										</td>
 										<td class="td_input" style="border-right: hidden;">
 											<button style="font-size: x-small;" class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 										</td>
 									</tr>
-									<tr>			
+									<tr>
 										<th scope="row">배송지</th>
 										<td class="td_input" style="border-right: hidden;" >
 											<select class="form-control input-sm">
@@ -240,7 +240,7 @@
 										<td></td>
 										<th scope="row">차량번호</th>
 										<td colspan="2" class="td_input" style="border-right: hidden;">
-											<input type="text" name="datepicker" placeholder="" class="form-control pull-right input-sm">
+											<input type="text" name="" placeholder="" class="form-control pull-right input-sm">
 										</td>
 									</tr>
 								</tbody>
@@ -254,7 +254,7 @@
 										<li><label style="font-size: small;">　　　지시중량 : 99.999Kg　　　　실적중량 : 99.999Kg</label></li>
 									</ul>
 								</div>
-								<div>								
+								<div>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<colgroup>
 										<col style="width: 7%">

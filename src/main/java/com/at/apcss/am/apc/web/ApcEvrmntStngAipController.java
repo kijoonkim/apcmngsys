@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
 import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
 import com.at.apcss.am.cmns.service.WrhsVhclService;
+import com.at.apcss.am.cmns.vo.RgnTrsprtCstVO;
 import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.cd.vo.ComCdVO;
@@ -201,6 +202,27 @@ public class ApcEvrmntStngAipController extends BaseController {
 		try {
 
 			resultList = wrhsVhclService.selectWrhsVhclList(wrhsVhclVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+	// APC 환경설정 - 입고차량정보 목록 조회
+	@PostMapping(value = "/am/apc/selectRgnTrsprtCstList", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRgnTrsprtCstList(@RequestBody RgnTrsprtCstVO rgnTrsprtCstVO, HttpServletRequest request) throws Exception {
+		logger.debug("selectRgnTrsprtCstList 호출 <><><><> ");
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<WrhsVhclVO> resultList = new ArrayList<>();
+		try {
+
+			//resultList = wrhsVhclService.selectWrhsVhclList(wrhsVhclVO);
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);

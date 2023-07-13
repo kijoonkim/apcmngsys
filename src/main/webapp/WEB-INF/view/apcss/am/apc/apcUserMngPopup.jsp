@@ -37,9 +37,9 @@
 							<sbux-input id=userAuthApcNm name="userAuthApcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 						</th>
 						<th scope="row">사용자명</th>
-						<th>
+						<td>
 							<sbux-input id=userAuthUserNm name="userAuthUserNm" uitype="text" class="form-control input-sm"></sbux-input>
-						</th>
+						</td>
 						<th>&nbsp;</th>
 					</tr>
 				</tbody>
@@ -70,6 +70,7 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	        {caption: ["순번"], 		ref: 'rowSeq',  	type:'output',  width:'50px',     style:'text-align:center'},
 	        {caption: ["사용자 ID"], 	ref: 'userId',  	type:'output',  width:'100px',    style:'text-align:center'},
@@ -78,19 +79,20 @@
 	        {caption: ["담당업무"], 	ref: 'tkcgTaskNm',  type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["권한"], 		ref: 'userStts', 	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue === "01"){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
+            		return "<button type='button' style='font-size: small;' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
             	}else{
 			        return "승인완료";
             	}
 		    }},
 		    {caption: ["비밀번호"], 		ref: 'lckYn',   type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue == "Y"){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_pwReSet(" + nRow + ")'>초기화</button>";
+            		return "<button type='button' style='font-size: small;' class='btn btn-xs btn-outline-dark' onClick='fn_pwReSet(" + nRow + ")'>초기화</button>";
             	}
 		    }},
 		    {caption: ["사용유무"], 	ref: 'delYn',   	type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : true}},
-	        {caption: ["비고"], 		ref: 'rmrk',   		type:'input',   width:'150px',    style:'text-align:center'}
+	        {caption: ["비고"], 		ref: 'rmrk',   		type:'input',   width:'150px',    style:'text-align:center'},
+	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	    ];
 	    window.userAuthMngDatagrid = _SBGrid.create(SBGridProperties);
 	    fn_selectUserList();
@@ -109,15 +111,16 @@
         try{
         	data.resultList.forEach((item, index) => {
 				let userList = {
-					rowSeq : item.rowSeq
-				  , userId : item.userId
-				  , userNm : item.userNm
-				  , jbttlNm : item.jbttlNm
-				  , tkcgTaskNm : item.tkcgTaskNm
-				  , userStts : item.userStts
-				  , lckYn : item.lckYn
-				  , delYn : item.delYn
-				  , rmrk : item.rmrk
+					rowSeq 		: item.rowSeq
+				  , userId 		: item.userId
+				  , userNm 		: item.userNm
+				  , jbttlNm 	: item.jbttlNm
+				  , tkcgTaskNm 	: item.tkcgTaskNm
+				  , userStts 	: item.userStts
+				  , lckYn 		: item.lckYn
+				  , delYn 		: item.delYn
+				  , rmrk 		: item.rmrk
+				  , apcCd 		: item.apcCd
 				}
 				newUserGridData.push(userList);
 			});

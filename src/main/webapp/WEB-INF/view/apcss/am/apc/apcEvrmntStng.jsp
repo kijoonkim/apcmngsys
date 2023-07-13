@@ -21,7 +21,6 @@
     </script>
     <script src="/resource/sbux/SBUx.js"></script>
     <script src="/resource/script/common.js"></script>
-    <link href="/resource/css/blue_style.css" rel="stylesheet" type="text/css">
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 시작-->
     <!-- favicon -->
@@ -58,6 +57,12 @@
 	<!-- js -->
 	<script src="/resource/src/jquery/js/jquery-3.5.1.min.js"></script>
 	<script src="/resource/src/jquery/js/jquery.mousewheel.min.js"></script>
+		<!--[if lt IE 9]>
+	<script src="/resource/src/jquery/js/jquery-1.12.3.min.js"></script>
+	<script src="/resource/src/jquery/js/html5shiv.js"></script>
+	<script src="/resource/src/jquery/js/IE9.js"></script>
+	<script src="/resource/src/jquery/js/respond.min.js"></script>
+	<![endif]-->
 	<script src="/resource/src/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/resource/src/bootstrap-adminLTE/js/adminlte.js"></script>
 	<script src="/resource/src/bootstrap-adminLTE/js/demo.js"></script>
@@ -72,10 +77,22 @@
 	<script src="/resource/src/select2/js/select2.min.js"></script>
 	<script src="/resource/src/apexchart/js/apexcharts.js"></script>
 	<script src="/resource/js/admin/pp_ui.js"></script>
-	<!-- //js -->
+		<!-- //js -->
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 완료-->
+
+
+
+	<style>
+  		.table th {
+    		border-bottom: 1px solid #ffffff !important;
+  		}
+  		div.input-group-addon {
+			padding: 5px;
+  		}
+	</style>
+
 
 
 </head>
@@ -116,7 +133,7 @@
 							<th scope="row">APC코드</th>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td>&nbsp;</td>
-							<td>
+							<td scope="row">
 								<sbux-input id="apcCd" name="apcCd" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 						</tr>
@@ -152,7 +169,7 @@
 
 							</td>
 							<td scope="row">입금은행</td>
-							<td class="td_input">
+							<td >
 								<sbux-select id="comboBankNm" name="comboBankNm" uitype="single" jsondata-ref="jsonComboBankNm" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 
@@ -265,7 +282,7 @@
 							<th scope="row">입고차량 관리</th>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input" colspan="2">
-								<sbux-button id="vhclBtn" name="vhclBtn" uitype="modal" text="입고차량/운임 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="vhclMngModal" onclick="fn_modal('wrhsVhclMngBtn')"></sbux-button>
+								<sbux-button id="vhclBtn" name="vhclBtn" uitype="modal" text="입고차량/운임 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="wrhsVhclMngModal" onclick="fn_modal('wrhsVhclMngBtn')"></sbux-button>
 							</td>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
@@ -655,10 +672,12 @@
 	var jsonComboBankNm = [];
 	var jsonComboGridBankNm = [];
 	var comboUnitCdJsData = [];
+	var comboGridBankCdJsData = [];
 	gfn_setComCdSBSelect('comboBankNm', jsonComboBankNm ,	'BANK_CD', '0000');				// 검색 조건(시스템구분)
 	gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000");
 	gfn_setComCdGridSelect('bxMngDatagrid', comboUnitCdJsData, "UNIT_CD", "0000");
 	gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000");
+	gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000");
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("apcCd", '9999');
 		selectApcInfo();
@@ -846,9 +865,10 @@
             }else if(grid === "trsprtMngDatagrid"){
             	trsprtMngDatagrid.setCellData(nRow, nCol, "N", true);
             	trsprtMngDatagrid.addRow(true);
-            }else if(grid === "vhclMngDatagrid"){
-            	vhclMngDatagrid.setCellData(nRow, nCol, "N", true);
-            	vhclMngDatagrid.addRow(true);
+            }else if(grid === "wrhsVhclMngDatagrid"){
+            	wrhsVhclMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	wrhsVhclMngDatagrid.setCellData(nRow, 7, SBUxMethod.get("apcCd"), true);
+            	wrhsVhclMngDatagrid.addRow(true);
             }else if(grid === "spmtTrsprtMngDatagrid"){
             	spmtTrsprtMngDatagrid.setCellData(nRow, nCol, "N", true);
             	spmtTrsprtMngDatagrid.addRow(true);
@@ -915,8 +935,8 @@
             	}
             }else if (grid === "trsprtMngDatagrid") {
             	trsprtMngDatagrid.deleteRow(nRow);
-            }else if (grid === "vhclMngDatagrid") {
-            	vhclMngDatagrid.deleteRow(nRow);
+            }else if (grid === "wrhsVhclMngDatagrid") {
+            	wrhsVhclMngDatagrid.deleteRow(nRow);
             }else if (grid === "spmtTrsprtMngDatagrid") {
             	spmtTrsprtMngDatagrid.deleteRow(nRow);
             }
@@ -1088,34 +1108,6 @@
     					typeinfo : {ref:'combofilteringData', label:'label', value:'value', displayui : true}}
         ];
         window.otrdEyeMngDatagrid = _SBGrid.create(SBGridProperties);
-    }
-
-    // 운송지역별 운임비용 등록
-    var trsprtMngGridData = []; // 그리드의 참조 데이터 주소 선언
-    function fn_trsprtMngCreateGrid() {
-    	trsprtMngGridData = [];
-        let SBGridProperties = {};
-	    SBGridProperties.parentid = 'trsprtMngGridArea';
-	    SBGridProperties.id = 'trsprtMngDatagrid';
-	    SBGridProperties.jsonref = 'trsprtMngGridData';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["코드"], 			ref: 'trsprtRgnCd',  	type:'input',  width:'100px',     style:'text-align:center'},
-            {caption: ["운송지역"], 		ref: 'trsprtRgnNm',  	type:'input',  width:'200px',    style:'text-align:center'},
-            {caption: ["운송비용(원)"], 	ref: 'trsprtCst',  		type:'input',  width:'200px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["비고"], 			ref: 'rmrk',  			type:'input',  width:'300px',    style:'text-align:center'},
-            {caption: ["처리"], 			ref: 'delYn',   		type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-            	if(strValue== null || strValue == ""){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"trsprtMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
-            	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"trsprtMngDatagrid\", " + nRow + ")'>삭제</button>";
-            	}
-		    }}
-        ];
-        window.trsprtMngDatagrid = _SBGrid.create(SBGridProperties);
-        trsprtMngDatagrid.addRow();
     }
 
 

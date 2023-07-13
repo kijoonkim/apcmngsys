@@ -12,9 +12,9 @@
 				<h3 class="box-title"> ▶ 입고차량정보 등록 (팝업)</h3>
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+						<sbux-button id="btnWrhsVhclSach" name="btnWrhsVhclSach" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectWrhsVhclList()"></sbux-button>
+						<sbux-button id="btnWrhsVhclReg" name="btnWrhsVhclReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertWrhsVhclList"></sbux-button>
+						<sbux-button id="btnWrhsVhclEnd" name="btnWrhsVhclEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('wrhsVhclMngModal')"></sbux-button>
 					</div>
 				</div>
 			</div>
@@ -32,7 +32,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
-								<sbux-input id=vhclApcNm name="vhclApcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id=wrhsVhclApcNm name="wrhsVhclApcNm" uitype="text" class="form-control pull-right input-sm" disabled></sbux-input>
 							</th>
 							<th>&nbsp;</th>
 						</tr>
@@ -47,7 +47,7 @@
 							<li><span>차량정보</span></li>
 						</ul>
 					</div>
-					<div id="vhclMngGridArea" style="height:150px; width: 100%;"></div>
+					<div id="wrhsVhclMngGridArea" style="height:150px; width: 100%;"></div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
 					<div class="ad_tbl_top">
@@ -65,8 +65,10 @@
 <script type="text/javascript">
 	//입고차량정보 등록
 	var wrhsVhclMngGridData = []; // 그리드의 참조 데이터 주소 선언
-	function fn_wrhsVhclMngCreateGrid() {
-		vhclMngGridData = [];
+	async function fn_wrhsVhclMngCreateGrid() {
+		SBUxMethod.set("wrhsVhclApcNm", SBUxMethod.get("apcNm"));
+
+		wrhsVhclMngGridData = [];
 	    let SBGridProperties = {};
 	    SBGridProperties.parentid = 'wrhsVhclMngGridArea';
 	    SBGridProperties.id = 'wrhsVhclMngDatagrid';
@@ -74,24 +76,27 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	        {caption: ["차량번호"], 	ref: 'vhclNo',  type:'input',  width:'120px',    style:'text-align:center'},
 	        {caption: ["기사명"], 		ref: 'drvrNm',  type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'120px',    style:'text-align:center',
-	        			typeinfo : {ref:'jsonComboGridBankNm', label:'label', value:'value', displayui : true}},
+	        			typeinfo : {ref:'comboGridBankCdJsData', label:'label', value:'value', displayui : true, unselect: {label : '입력', value: ''}}},
 	        {caption: ["계좌번호"], 	ref: 'actno',  	type:'input',  width:'180px',    style:'text-align:center'},
 	        {caption: ["예금주"], 		ref: 'dpstr',  	type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'200px',    style:'text-align:center'},
 	        {caption: ["처리"], 		ref: 'delYn',   type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"vhclMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        		return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"wrhsVhclMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"vhclMngDatagrid\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"wrhsVhclMngDatagrid\", " + nRow + ")'>삭제</button>";
 	        	}
-		    }}
+		    }},
+		    {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	    ];
 	    window.wrhsVhclMngDatagrid = _SBGrid.create(SBGridProperties);
-	    wrhsVhclMngDatagrid.addRow();
+	    fn_selectWrhsVhclList();
+
 	}
 
 	async function fn_selectWrhsVhclList(){
@@ -105,7 +110,7 @@
         let newWrhsVhclGridData = [];
         try{
         	data.resultList.forEach((item, index) => {
-				let userList = {
+				let wrhsVhclList = {
 					vhclNo 	: item.vhclNo
 				  , drvrNm 	: item.drvrNm
 				  , bankCd 	: item.bankCd
@@ -113,11 +118,13 @@
 				  , dpstr 	: item.dpstr
 				  , rmrk 	: item.rmrk
 				  , delYn 	: item.delYn
+				  , apcCd	: item.apcCd
 				}
-				newWrhsVhclGridData.push(userList);
+				newWrhsVhclGridData.push(wrhsVhclList);
 			});
         	wrhsVhclMngGridData = newWrhsVhclGridData;
         	wrhsVhclMngDatagrid.rebuild();
+        	wrhsVhclMngDatagrid.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -125,5 +132,70 @@
     		console.error("failed", e.message);
         }
 	}
+
+	// 운송지역별 운임비용 등록
+    var trsprtMngGridData = []; // 그리드의 참조 데이터 주소 선언
+    async function fn_trsprtMngCreateGrid() {
+    	trsprtMngGridData = [];
+        let SBGridProperties = {};
+	    SBGridProperties.parentid = 'trsprtMngGridArea';
+	    SBGridProperties.id = 'trsprtMngDatagrid';
+	    SBGridProperties.jsonref = 'trsprtMngGridData';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
+        SBGridProperties.columns = [
+            {caption: ["코드"], 			ref: 'trsprtRgnCd',  	type:'input',  width:'100px',     style:'text-align:center'},
+            {caption: ["운송지역"], 		ref: 'trsprtRgnNm',  	type:'input',  width:'200px',    style:'text-align:center'},
+            {caption: ["운송비용(원)"], 	ref: 'trsprtCst',  		type:'input',  width:'200px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["비고"], 			ref: 'rmrk',  			type:'input',  width:'300px',    style:'text-align:center'},
+            {caption: ["처리"], 			ref: 'delYn',   		type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            	if(strValue== null || strValue == ""){
+            		return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"trsprtMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+            	}else{
+			        return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"trsprtMngDatagrid\", " + nRow + ")'>삭제</button>";
+            	}
+		    }}
+        ];
+        window.trsprtMngDatagrid = _SBGrid.create(SBGridProperties);
+        trsprtMngDatagrid.addRow();
+    }
+
+    async function fn_selectTrsprtList(){
+		fn_callSelectTrsprtList();
+	}
+
+	async function fn_callSelectTrsprtList(){
+		let apcCd = SBUxMethod.get("apcCd");
+    	let postJsonPromise = gfn_postJSON("/am/apc/selectRgnTrsprtCstList", {apcCd : apcCd});
+        let data = await postJsonPromise;
+        let newTrsprtGridData = [];
+        try{
+        	data.resultList.forEach((item, index) => {
+				let trsprt = {
+					vhclNo 	: item.vhclNo
+				  , drvrNm 	: item.drvrNm
+				  , bankCd 	: item.bankCd
+				  , actno 	: item.actno
+				  , dpstr 	: item.dpstr
+				  , rmrk 	: item.rmrk
+				  , delYn 	: item.delYn
+				  , apcCd	: item.apcCd
+				}
+				newTrsprtGridData.push(trsprt);
+			});
+        	trsprtMngGridData = newTrsprtGridData;
+        	trsprtMngDatagrid.rebuild();
+        	trsprtMngDatagrid.addRow();
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+
+
 </script>
 </html>
