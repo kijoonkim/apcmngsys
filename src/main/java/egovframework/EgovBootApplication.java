@@ -16,7 +16,7 @@ import org.springframework.core.env.Environment;
 //@Import({EgovWebApplicationInitializer.class})
 public class EgovBootApplication extends SpringBootServletInitializer {
 	
-	
+	/*
 	@Autowired
     private static Environment environment;
 
@@ -24,6 +24,7 @@ public class EgovBootApplication extends SpringBootServletInitializer {
     public EgovBootApplication(Environment environment) {
         EgovBootApplication.environment = environment;
     }
+    */
 	
 	public static void main(String[] args) throws Exception {
 		System.out.println("##### EgovBootApplication Start #####");
@@ -43,7 +44,7 @@ public class EgovBootApplication extends SpringBootServletInitializer {
 		
 		System.out.println("##### EgovBootApplication End #####");
 	}
-	
+	/*
 	public void contextLoads() throws Exception {
         System.out.println("EgovBootApplication 실행");
         System.out.println("profile 값 :: " + environment.getProperty("spring.profiles.active"));
@@ -51,6 +52,7 @@ public class EgovBootApplication extends SpringBootServletInitializer {
         String username = environment.getProperty("spring.test.username");
         System.out.println("USERNAME :: " + username);
     }
+    */
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
