@@ -22,7 +22,7 @@ public class EgovBootApplication extends SpringBootServletInitializer {
 
     @Autowired
     public EgovBootApplication(Environment environment) {
-        this.environment = environment;
+        EgovBootApplication.environment = environment;
     }
 	
 	public static void main(String[] args) throws Exception {
@@ -38,14 +38,14 @@ public class EgovBootApplication extends SpringBootServletInitializer {
 		springApplication.setWebApplicationType(WebApplicationType.SERVLET);
 		springApplication.run(args);
 		
-		EgovBootApplication app = new EgovBootApplication(environment);
-		app.contextLoads();
+		//EgovBootApplication app = new EgovBootApplication(environment);
+		//app.contextLoads();
 		
 		System.out.println("##### EgovBootApplication End #####");
 	}
 	
 	public void contextLoads() throws Exception {
-        System.out.println("DemoApplication 실행");
+        System.out.println("EgovBootApplication 실행");
         System.out.println("profile 값 :: " + environment.getProperty("spring.profiles.active"));
 
         String username = environment.getProperty("spring.test.username");
