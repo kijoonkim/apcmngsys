@@ -78,6 +78,10 @@ public class EgovConfigAppDatasource {
 		System.out.println(String.format("userName: %s", userName));
 		System.out.println(String.format("password: %s", password));
 		
+
+		System.out.println(String.format("@@profile 값 :: %s", env.getProperty("spring.profiles.active")));
+		System.out.println(String.format("@@USERNAME 값 :: %s", env.getProperty("spring.test.username")));
+		
 	}
 
 	/**
