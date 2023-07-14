@@ -6,10 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${comMenuVO.menuNm}</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -135,7 +131,7 @@
 		                                <tr>
 		                                    <th>비고</th>
 		                                    <td colspan="3">
-		                                        <sbux-textarea id="dtl-textarea-rmrk" name="dtl-textarea-rmrk" uitype="normal" contenteditable="true" is-content-html="true" rows="2" cols="85" auto-resize="true" maxlength="1000" style="width:100%"></sbux-textarea>
+		                                    	<sbux-input id="dtl-input-rmrk" name="dtl-input-rmrk" uitype="text" style="width:100%"></sbux-input>
 		                                    </td>
 		                                </tr>
 		                                <tr>
@@ -243,7 +239,9 @@
         grdComMsgList.bind('beforepagechanged', 'fn_pagingComMsgList');
     }
 
-    //목록 조회
+    /**
+     * 목록 조회
+     */
     const fn_search = async function() {
         
     	// set pagination
@@ -348,7 +346,7 @@
         SBUxMethod.set("dtl-input-msgKey", null);
         SBUxMethod.attr("dtl-input-msgKey", "readonly", false);
         SBUxMethod.set("dtl-input-msgCn", null);
-        SBUxMethod.set("dtl-textarea-rmrk", null);
+        SBUxMethod.set("dtl-input-rmrk", null);
         SBUxMethod.set("dtl-input-sysFrstInptUserId", null);
         SBUxMethod.set("dtl-input-sysLastChgUserId", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
@@ -362,7 +360,7 @@
         SBUxMethod.set("dtl-input-msgKey", null);
         SBUxMethod.attr("dtl-input-msgKey", "readonly", true);
         SBUxMethod.set("dtl-input-msgCn", null);
-        SBUxMethod.set("dtl-textarea-rmrk", null);
+        SBUxMethod.set("dtl-input-rmrk", null);
         SBUxMethod.set("dtl-input-sysFrstInptUserId", null);
         SBUxMethod.set("dtl-input-sysLastChgUserId", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
@@ -396,7 +394,7 @@
         SBUxMethod.set("dtl-input-msgKnd", rowData.msgKnd);
         SBUxMethod.set("dtl-input-msgKey", rowData.msgKey);
         SBUxMethod.set("dtl-input-msgCn", rowData.msgCn);
-        SBUxMethod.set("dtl-textarea-rmrk", rowData.rmrk);
+        SBUxMethod.set("dtl-input-rmrk", rowData.rmrk);
         SBUxMethod.set("dtl-input-sysFrstInptUserId", rowData.sysFrstInptUserId);
         SBUxMethod.set("dtl-input-sysLastChgUserId", rowData.sysLastChgUserId);
         SBUxMethod.set("dtl-input-sysFrstInptDt", rowData.sysFrstInptDt);
@@ -425,7 +423,7 @@
 			msgKey: SBUxMethod.get('dtl-input-msgKey'),
 			msgKnd: SBUxMethod.get('dtl-select-msgKnd'),
 			msgCn: SBUxMethod.get('dtl-input-msgCn'),
-			rmrk: SBUxMethod.get('dtl-textarea-rmrk')    	        	
+			rmrk: SBUxMethod.get('dtl-input-rmrk')    	        	
 		});
         
         const data = await postJsonPromise;
@@ -455,7 +453,7 @@
 			msgKey: SBUxMethod.get('dtl-input-orgnMsgKey'),
 			msgKnd: SBUxMethod.get('dtl-select-msgKnd'),
 			msgCn: SBUxMethod.get('dtl-input-msgCn'),
-			rmrk: SBUxMethod.get('dtl-textarea-rmrk')
+			rmrk: SBUxMethod.get('dtl-input-rmrk')
 		});
         
         const data = await postJsonPromise;
@@ -570,7 +568,7 @@
         SBUxMethod.set("dtl-select-msgKnd", rowData.msgKnd);
         SBUxMethod.set("dtl-input-msgKey", rowData.msgKey);
         SBUxMethod.set("dtl-input-msgCn", rowData.msgCn);
-        SBUxMethod.set("dtl-textarea-rmrk", rowData.rmrk);
+        SBUxMethod.set("dtl-input-rmrk", rowData.rmrk);
         SBUxMethod.set("dtl-input-sysFrstInptUserId", rowData.sysFrstInptUserId);
         SBUxMethod.set("dtl-input-sysLastChgUserId", rowData.sysLastChgUserId);
         SBUxMethod.set("dtl-input-sysFrstInptDt", rowData.sysFrstInptDt);

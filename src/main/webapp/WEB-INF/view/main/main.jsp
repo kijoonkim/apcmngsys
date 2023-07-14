@@ -7,7 +7,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>APCSS</title>
 	<%@ include file="../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../frame/inc/headerScript.jsp" %>
 	

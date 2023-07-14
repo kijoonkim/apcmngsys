@@ -141,7 +141,7 @@ async function gfn_setComCdSBSelect(_gridIdList, _jsondataRef, _cdId, _apcCd) {
 				SBUxMethod.refresh(_sbGridId);
 			});
 		} else {
-			SBUxMethod.refresh(_gridId);
+			SBUxMethod.refresh(_gridIdList);
 		}
 
 	} catch (e) {
