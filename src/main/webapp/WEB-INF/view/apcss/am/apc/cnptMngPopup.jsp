@@ -75,25 +75,63 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
         SBGridProperties.columns = [
-            {caption: ["코드"], 		ref: 'cnptCd',  type:'input',  width:'80px',     style:'text-align:center'},
-            {caption: ["거래처명"], 	ref: 'cnptNm',  type:'input',  width:'150px',    style:'text-align:center'},
-            {caption: ["유형"], 		ref: 'typeCd',  type:'combo',  width:'100px',    style:'text-align:center'},
-            {caption: ["사업자번호"], 	ref: 'brno',  	type:'input',  width:'150px',    style:'text-align:center'},
-            {caption: ["담당자"], 		ref: 'picNm',  	type:'input',  width:'100px',    style:'text-align:center'},
-            {caption: ["전화번호"], 	ref: 'telno',  	type:'input',  width:'120px',    style:'text-align:center'},
-            {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'300px',    style:'text-align:center'},
-            {caption: ["처리"], 		ref: 'delYn',   type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            {caption: ["코드"], 		ref: 'cnptCd',  	type:'output', width:'80px',     style:'text-align:center'},
+            {caption: ["거래처명"], 	ref: 'cnptNm',  	type:'input',  width:'150px',    style:'text-align:center'},
+            {caption: ["유형"], 		ref: 'cnptType',   	type:'combo',  width:'100px',    style:'text-align:center',
+				typeinfo : {ref:'comboGridCnptTypeJsData', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
+            {caption: ["사업자번호"], 	ref: 'brno',  		type:'input',  width:'150px',    style:'text-align:center'},
+            {caption: ["담당자"], 		ref: 'picNm',  		type:'input',  width:'100px',    style:'text-align:center'},
+            {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'120px',    style:'text-align:center'},
+            {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'200px',    style:'text-align:center'},
+            {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"cnptMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+            		return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"cnptMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
             	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"cnptMngDatagrid\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"cnptMngDatagrid\", " + nRow + ")'>삭제</button>";
             	}
 		    }}
         ];
         window.cnptMngDatagrid = _SBGrid.create(SBGridProperties);
-	    cnptMngDatagrid.addRow();
+        fn_selectCnptList();
     }
+
+    async function fn_selectCnptList(){
+		fn_callSelectCnptList();
+	}
+
+
+	async function fn_callSelectCnptList(){
+		let apcCd = SBUxMethod.get("apcCd");
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectCnptList.do", {apcCd : apcCd});
+        let data = await postJsonPromise;
+        let newCnptGridData = [];
+        try{
+        	data.resultList.forEach((item, index) => {
+				let cnpt = {
+					cnptCd 		: item.cnptCd
+				  , cnptNm 		: item.cnptNm
+				  , cnptType 	: item.cnptType
+				  , brno 		: item.brno
+				  , picNm 		: item.picNm
+				  , telno 		: item.telno
+				  , rmrk 		: item.rmrk
+				  , delYn 		: item.delYn
+				  , apcCd 		: item.apcCd
+				}
+				newCnptGridData.push(cnpt);
+			});
+        	cnptMngGridData = newCnptGridData;
+        	cnptMngDatagrid.rebuild();
+        	cnptMngDatagrid.addRow();
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
 
 
     var ordrMngGridData = [
@@ -120,7 +158,7 @@
             {caption: ["사용자ID"], 		ref: 'userId',  	type:'input',  width:'150px',    style:'text-align:center'},
             {caption: ["패스워드"], 		ref: 'userPw',  	type:'input',  width:'150px',    style:'text-align:center'},
             {caption: ["사용유무"], 		ref: 'useYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
-						typeinfo : {ref:'combofilteringData', label:'label', value:'value', displayui : true}},
+						typeinfo : {ref:'comboReverseYnJsData', label:'label', value:'value', displayui : true}},
             {caption: ["최종처리일시"], 	ref: 'prcsDt',  	type:'input',  width:'150px',    style:'text-align:center'}
         ];
         window.ordrMngDatagrid = _SBGrid.create(SBGridProperties);

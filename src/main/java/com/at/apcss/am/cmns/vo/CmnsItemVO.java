@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CmnsItemVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -36,4 +36,17 @@ public class CmnsItemVO extends ComVO {
 	 * 품목명
 	 */
 	private String itemNm;
+
+	/**
+	 * 등록품종수
+	 */
+	private String vrtrCnt;
+	/**
+	 * 등록규격수
+	 */
+	private String spcfctCnt;
+	/**
+	 * 등록등급수
+	 */
+	private String grdCnt;
 }

@@ -82,7 +82,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["팔레트 정보","코드"], 			ref: 'pltBxCd',  		type:'input',  width:'100px',     style:'text-align:center'},
+	        {caption: ["팔레트 정보","코드"], 			ref: 'pltBxCd',  		type:'output',  width:'100px',     style:'text-align:center'},
 	        {caption: ["팔레트 정보","팔레트 명"], 		ref: 'pltBxNm',  		type:'input',  width:'250px',    style:'text-align:center'},
 	        {caption: ["팔레트 정보","단중"], 			ref: 'unitWght',   		type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["팔레트 정보","단위"], 			ref: 'unitCd',   		type:'combo',  width:'100px',    style:'text-align:center',
@@ -121,7 +121,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["박스 정보","코드"], 		ref: 'pltBxCd',  		type:'input',  width:'100px',     style:'text-align:center'},
+	        {caption: ["박스 정보","코드"], 		ref: 'pltBxCd',  		type:'output',  width:'100px',     style:'text-align:center'},
 	        {caption: ["박스 정보","박스 명"], 		ref: 'pltBxNm',  		type:'input',  width:'250px',    style:'text-align:center'},
 	        {caption: ["박스 정보","단중"], 		ref: 'unitWght',   		type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["박스 정보","단위"], 		ref: 'unitCd',   		type:'combo',  width:'100px',    style:'text-align:center',
@@ -221,7 +221,7 @@
 	// 출하단위포장 목록 조회
 	async function fn_callSelectPckgList(){
 		let apcCd = SBUxMethod.get("apcCd");
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectRsrcList.do", {apcCd : apcCd, cdId : 'PCKG_SE_CD'});
+    	let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {apcCd : apcCd, cdId : 'PCKG_SE_CD'});
         let data = await postJsonPromise;
         let newPckgGridData = [];
         try{

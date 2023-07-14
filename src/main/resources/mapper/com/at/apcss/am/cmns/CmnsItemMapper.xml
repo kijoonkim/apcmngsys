@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : CmnsItemMapper.xml                                   				-->
+<!-- DESC : 품목 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.07.14  	김 호        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.CmnsItemMapper">
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList		-->
+	<!-- DESC : 품목 전체 목록 조회.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectCmnsItemList" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+    	<![CDATA[
+    	SELECT IC.ITEM_CD
+		     , IC.ITEM_NM
+		     , IC.DEL_YN
+		  FROM TB_ITEM_CRTR IC
+		 WHERE IC.DEL_YN = 'N'
+		   AND NOT EXISTS (
+                    SELECT X.ITEM_CD
+                      FROM TB_APC_ITEM_CRTR X
+                     WHERE X.APC_CD = #{apcCd}
+                       AND X.ITEM_CD = IC.ITEM_CD
+                      )
+		]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcCmnsItemList	-->
+	<!-- DESC : 품목 전체 목록 조회.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcCmnsItemList" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+    	<![CDATA[
+    	SELECT AIC.APC_CD
+		     , AIC.ITEM_CD
+		     , AIC.ITEM_NM
+		     , AIC.DEL_YN
+		     , (SELECT COUNT(*) FROM TB_APC_VRTY_CRTR WHERE APC_CD = #{apcCd}) AS VRTR_CNT
+		     , (SELECT COUNT(*) FROM TB_APC_SPCFCT_CRTR WHERE APC_CD = #{apcCd}) AS SPCFCT_CNT
+		     , (SELECT COUNT(*) FROM TB_APC_GRD_CRTR WHERE APC_CD = #{apcCd}) AS GRD_CNT
+		  FROM TB_APC_ITEM_CRTR AIC
+		 WHERE AIC.DEL_YN = 'N'
+		   AND APC_CD = #{apcCd}
+		]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.insertCmnsItem			-->
+	<!-- DESC : 품목 등록.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertCmnsItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+    	<![CDATA[
+    	INSERT INTO TB_APC_ITEM_CRTR
+    		(
+    			APC_CD
+    		  , ITEM_CD
+    		  , ITEM_NM
+    		  , SYS_FRST_INPT_DT
+    		  , SYS_FRST_INPT_USER_ID
+    		  , SYS_FRST_INPT_PRGRM_ID
+    		  , SYS_LAST_CHG_DT
+    		  , SYS_LAST_CHG_USER_ID
+    		  , SYS_LAST_CHG_PRGRM_ID
+    		)
+   		VALUES
+   			(
+   				#{apcCd}
+    		  , #{itemCd}
+    		  , #{itemNm}
+    		  , SYSDATE
+    		  , #{sysFrstInptUserId}
+    		  , #{sysFrstInptPrgrmId}
+    		  , SYSDATE
+    		  , #{sysLastChgUserId}
+    		  , #{sysLastChgPrgrmId}
+   			)
+    	]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.updateCmnsItem			-->
+	<!-- DESC : 품목 변경.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateCmnsItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+		<![CDATA[
+		UPDATE TB_CNPT_INFO
+		   SET SYS_LAST_CHG_DT 			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			 , CNPT_NM					= #{cnptNm}
+    		 , BRNO						= #{brno}
+    		 , CNPT_TYPE				= #{cnptType}
+    		 , PIC_NM					= #{picNm}
+    		 , TELNO					= #{telno}
+    		 , RMRK						= #{rmrk}
+		 WHERE APC_CD 					= #{apcCd}
+		   AND CNPT_CD 					= #{cnptCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.deleteCmnsItem				-->
+	<!-- DESC : 품목 삭제.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteCmnsItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+		<![CDATA[
+		DELETE FROM TB_APC_ITEM_CRTR
+		 WHERE APC_CD		= #{apcCd}
+		   AND ITEM_CD 		= #{itemCd}
+		]]>
+	</delete>
+
+</mapper>
+
+
