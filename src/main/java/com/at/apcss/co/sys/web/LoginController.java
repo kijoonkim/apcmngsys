@@ -10,6 +10,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.at.apcss.co.menu.vo.ComMenuVO;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.service.LoginService;
 import com.at.apcss.co.sys.vo.LoginVO;
@@ -56,7 +58,14 @@ public class LoginController extends BaseController {
 			HttpSession httpSession,
 			ModelMap model) throws Exception {
 		
-		request.getSession().setAttribute("sysPrgrmId", "login");
+		String menuId = "login";
+		request.getSession().setAttribute("sysPrgrmId", menuId);
+		model.addAttribute("comUiJson", String.format("{menuId:'%s'}", menuId));
+		
+		ComMenuVO pageVO = new ComMenuVO();
+		pageVO.setMenuId(menuId);
+		pageVO.setMenuNm("로그인");
+		model.addAttribute("comMenuVO", pageVO);
 		
 		// 권한체크시 에러 페이지 이동
 		String authError = request.getParameter("authError") == null ? "" : (String)request.getParameter("authError");
