@@ -37,6 +37,11 @@ public class MainController extends BaseController {
 			String comUiJsonString = objMapper.writeValueAsString(comUiJsonVO);
 			model.addAttribute("comUiJson", comUiJsonString);
 			
+			ComMenuVO pageVO = new ComMenuVO();
+			pageVO.setMenuId(menuId);
+			pageVO.setMenuNm("메인페이지");
+			model.addAttribute("comMenuVO", pageVO);
+			
 			request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);
 			
 			List<ComMenuVO> resultList = comMenuService.selectTopMenuList(new ComMenuVO());
