@@ -727,12 +727,12 @@
 			fn_warehouseMngCreateGrid();
 		}
 		if(targetName == 'itemMngBtn'){
-			fn_itemMngCreateGrid();
-            fn_itemMngCreateGrid2();
-            fn_itemMngCreateGrid_1();
-            fn_itemMngCreateGrid_2();
-            fn_itemMngCreateGrid_3();
-            fn_itemMngCreateGrid_4();
+			fn_itemCreateGrid();
+            fn_apcItemCreateGrid();
+            //fn_itemMngCreateGrid_1();
+            //fn_itemMngCreateGrid_2();
+            //fn_itemMngCreateGrid_3();
+            //fn_itemMngCreateGrid_4();
 		}
 		if(targetName == 'pltBxMngBtn'){
 			fn_pltMngCreateGrid();
@@ -805,40 +805,6 @@
 		}
 
 	}
-
-
-    var gridData = []; // 그리드의 참조 데이터 주소 선언
-    function fn_itemMngCreateGrid() {
-    	let SBGridProperties = {};
-	    SBGridProperties.parentid = 'itemMngGridArea';
-	    SBGridProperties.id = 'datagrid';
-	    SBGridProperties.jsonref = 'gridData';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["코드"], ref: 'field1',  type:'output',  width:'25%',    style:'text-align:center'},
-            {caption: ["명칭"], ref: 'field2',  type:'output',  width:'55%',    style:'text-align:left'},
-            {caption: ["선택"], ref: 'empty',   type:'output',  width:'20%',    style:'text-align:center',
-                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' onClick='fn_procRow(\"ADD\", " + nRow + ")'>선택</button>";
-                }
-            }
-        ];
-        datagrid = _SBGrid.create(SBGridProperties);
-    }
-    function fn_setGridData(args) {
-    var params = $('#frm').serialize();
-        console.log("form data ::::: " + params);
-        gridData = [
-            {'field1': 'code001', 'field2': '명칭001'},
-            {'field1': 'code002', 'field2': '명칭002'},
-            {'field1': 'code003', 'field2': '명칭003'},
-            {'field1': 'code004', 'field2': '명칭004'},
-            {'field1': 'code005', 'field2': '명칭005'}
-        ];
-        datagrid.refresh();
-    }
 
     // Row 추가 및 삭제 기능
     async function fn_procRow(gubun, grid, nRow, nCol) {
@@ -959,147 +925,6 @@
             }
         }
     }
-    //grid2 초기화
-    var grid2; // 그리드를 담기위한 객체 선언
-    var gridData2 = []; // 그리드의 참조 데이터 주소 선언
-    function fn_itemMngCreateGrid2() {
-    	let SBGridProperties = {};
-	    SBGridProperties.parentid = 'itemMngGridArea2';
-	    SBGridProperties.id = 'datagrid2';
-	    SBGridProperties.jsonref = 'gridData2';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["코드"],     ref: 'field1',  type:'output',  width:'20%',    style:'text-align:center'},
-            {caption: ["명칭"],     ref: 'field2',  type:'output',  width:'25%',    style:'text-align:left',
-                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return '<a href="javascript:void(0);" onClick="fn_selectRow(' + nRow + ');">' + strValue + '</a>';
-                }
-            },
-            {caption: ["품종등록"], ref: 'field3',  type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["등급등록"], ref: 'field4',  type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["규격등록"], ref: 'field5',  type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["처리"],     ref: 'empty',   type:'output',  width:'10%',    style:'text-align:center',
-                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' onClick='fn_procRow(\"DEL\", " + nRow + ")'>삭제</button>";
-                }
-            }
-        ];
-        datagrid2 = _SBGrid.create(SBGridProperties);
-    }
-
-    //sub grid 초기화
-    var grid_1, grid_2, grid_3, grid_4; // 그리드를 담기위한 객체 선언
-    var gridData_1 = [], gridData_2 = [], gridData_3 = [], gridData_4 = []; // 그리드의 참조 데이터 주소 선언
-    function fn_itemMngCreateGrid_1() {
-    	let SBGridProperties = {};
-	    SBGridProperties.parentid = 'itemMngGridAreaSub1';
-	    SBGridProperties.id = 'datagrid_1';
-	    SBGridProperties.jsonref = 'gridData_1';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["코드"], ref: 'field1',  type:'output',  width:'25%',    style:'text-align:center;background-color:#E0E0E0'},
-            {caption: ["명칭"], ref: 'field2',  type:'input',   width:'55%',    style:'text-align:left'},
-            {caption: ["처리"], ref: 'empty',   type:'output',  width:'20%',    style:'text-align:center',
-                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' onClick='fn_procRow2(\"DEL\", \"grid_1\", " + nRow + ")'>삭제</button>";
-                }
-            }
-        ];
-        datagrid_1 = _SBGrid.create(SBGridProperties);
-    }
-
-    function fn_itemMngCreateGrid_2() {
-    	let SBGridProperties = {};
-	    SBGridProperties.parentid = 'itemMngGridAreaSub2';
-	    SBGridProperties.id = 'datagrid_2';
-	    SBGridProperties.jsonref = 'gridData_2';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["코드"], ref: 'field1',  type:'output',  width:'25%',    style:'text-align:center;background-color:#E0E0E0'},
-            {caption: ["명칭"], ref: 'field2',  type:'input',  width:'55%',    style:'text-align:left'},
-            {caption: ["처리"], ref: 'empty',   type:'output',  width:'20%',    style:'text-align:center',
-                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' onClick='fn_procRow2(\"DEL\", \"grid_2\", " + nRow + ")'>삭제</button>";
-                }
-            }
-        ];
-        datagrid_2 = _SBGrid.create(SBGridProperties);
-    }
-    function fn_itemMngCreateGrid_3() {
-    	let SBGridProperties = {};
-	    SBGridProperties.parentid = 'itemMngGridAreaSub3';
-	    SBGridProperties.id = 'datagrid_3';
-	    SBGridProperties.jsonref = 'gridData_3';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["코드"], ref: 'field1',  type:'output',  width:'25%',    style:'text-align:center;background-color:#E0E0E0'},
-            {caption: ["등급명"], ref: 'field2',  type:'input',  width:'55%',    style:'text-align:left'},
-            {caption: ["처리"], ref: 'empty',   type:'output',  width:'20%',    style:'text-align:center',
-                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' onClick='fn_procRow2(\"DEL\", \"grid_3\", " + nRow + ")'>삭제</button>";
-                }
-            }
-        ];
-        datagrid_3 = _SBGrid.create(SBGridProperties);
-    }
-
-    function fn_itemMngCreateGrid_4() {
-    	let SBGridProperties = {};
-	    SBGridProperties.parentid = 'itemMngGridAreaSub4';
-	    SBGridProperties.id = 'datagrid_4';
-	    SBGridProperties.jsonref = 'gridData_4';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["코드"], ref: 'field1',  type:'output',  width:'25%',    style:'text-align:center;background-color:#E0E0E0'},
-            {caption: ["규격명"], ref: 'field2',  type:'input',  width:'55%',    style:'text-align:left'},
-            {caption: ["처리"], ref: 'empty',   type:'output',  width:'20%',    style:'text-align:center',
-                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' onClick='fn_procRow2(\"DEL\", \"grid_3\", " + nRow + ")'>삭제</button>";
-                }
-            }
-        ];
-        datagrid_4 = _SBGrid.create(SBGridProperties);
-    }
-    //Set Grid Data
-    function fn_setGridData_1(obj) {
-        console.log("obj ::::: " + obj);
-        //var params = $('#frm').serialize();
-        //console.log("form data ::::: " + params);
-        gridData_1 = [
-            {'field1': 'code001', 'field2': '품종명칭001'},
-            {'field1': 'code002', 'field2': '품종명칭002'}
-        ];
-        datagrid_1.refresh();
-    }
-    function fn_setGridData_2(obj) {
-        var params = JSON.stringify(obj);
-        console.log("data ::::: " + params);
-        gridData_2 = [
-            {'field1': 'code001', 'field2': '등급명001'}
-        ];
-        datagrid_2.refresh();
-    }
-    function fn_setGridData_3(obj) {
-        var params = JSON.stringify(obj);
-        console.log("data ::::: " + params);
-        gridData_3 = [];
-        datagrid_3.refresh();
-    }
-
-	var combofilteringData = [
-		{'label': 'Y', 'value': 'Y'},
-		{'label': 'N', 'value': 'N'}
-	]
 
     // 원물육안 등급
     var otrdEyeMngGridData = [

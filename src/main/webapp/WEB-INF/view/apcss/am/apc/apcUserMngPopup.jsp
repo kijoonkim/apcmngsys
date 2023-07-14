@@ -92,7 +92,7 @@
 		    {caption: ["사용유무"], 	ref: 'delYn',   	type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : true}},
 	        {caption: ["비고"], 		ref: 'rmrk',   		type:'input',   width:'150px',    style:'text-align:center'},
-	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
+	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
 	    ];
 	    window.userAuthMngDatagrid = _SBGrid.create(SBGridProperties);
 	    fn_selectUserList();

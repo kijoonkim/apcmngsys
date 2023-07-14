@@ -1,7 +1,21 @@
 package com.at.apcss.am.cmns.web;
 
-import org.springframework.stereotype.Controller;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.at.apcss.am.cmns.service.CmnsItemService;
+import com.at.apcss.am.cmns.vo.CmnsItemVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -21,5 +35,92 @@ import com.at.apcss.co.sys.controller.BaseController;
  */
 @Controller
 public class CmnsItemController extends BaseController {
+
+	@Resource(name = "cmnsItemService")
+	private CmnsItemService cmnsItemService;
+
+	// APC 환경설정 - 품목 목록 조회
+	@PostMapping(value = "/am/cmns/selectCmnsItemList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectCmnsItemList(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
+		logger.debug("selectCmnsItemList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<CmnsItemVO> resultList = new ArrayList<>();
+
+		try {
+
+			resultList = cmnsItemService.selectCmnsItemList(cmnsItemVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC 환경설정 - APC 품목 목록 조회
+	@PostMapping(value = "/am/cmns/selectApcCmnsItemList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectApcCmnsItemList(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
+		logger.debug("selectApcCmnsItemList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<CmnsItemVO> resultList = new ArrayList<>();
+
+		try {
+
+			resultList = cmnsItemService.selectApcCmnsItemList(cmnsItemVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC 환경설정 - APC 품목 등록
+	@PostMapping(value = "/am/cmns/insertApcCmnsItem.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertApcCmnsItem(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
+		logger.debug("insertApcCmnsItem 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result =0;
+		try {
+			cmnsItemVO.setSysFrstInptPrgrmId(getPrgrmId());
+			cmnsItemVO.setSysFrstInptUserId(getUserId());
+			cmnsItemVO.setSysLastChgPrgrmId(getPrgrmId());
+			cmnsItemVO.setSysLastChgUserId(getUserId());
+			result = cmnsItemService.insertCmnsItem(cmnsItemVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC 환경설정 - APC 품목 등록
+	@PostMapping(value = "/am/cmns/deleteApcCmnsItem.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteApcCmnsItem(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
+		logger.debug("deleteApcCmnsItem 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result =0;
+		try {
+			result = cmnsItemService.deleteCmnsItem(cmnsItemVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 
 }

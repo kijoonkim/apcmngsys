@@ -26,15 +26,15 @@ import com.at.apcss.am.cmns.vo.CmnsItemVO;
  */
 @Service("cmnsItemService")
 public class CmnsItemServiceImpl implements CmnsItemService {
-	
+
 	@Autowired
 	private CmnsItemMapper cmnsItemMapper;
-	
+
 	@Override
 	public CmnsItemVO selectCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
-		
+
 		CmnsItemVO resultVO = cmnsItemMapper.selectCmnsItem(cmnsItemVO);
-		
+
 		return resultVO;
 	}
 
@@ -42,32 +42,38 @@ public class CmnsItemServiceImpl implements CmnsItemService {
 	public List<CmnsItemVO> selectCmnsItemList(CmnsItemVO cmnsItemVO) throws Exception {
 
 		List<CmnsItemVO> resultList = cmnsItemMapper.selectCmnsItemList(cmnsItemVO);
-		
+
 		return resultList;
 	}
 
 	@Override
-	public int insertCmnsCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
+	public int insertCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
 
-		int insertedCnt = cmnsItemMapper.insertCmnsCmnsItem(cmnsItemVO);
-		
+		int insertedCnt = cmnsItemMapper.insertCmnsItem(cmnsItemVO);
+
 		return insertedCnt;
 	}
 
 	@Override
-	public int updateCmnsCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
+	public int updateCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
 
-		int updatedCnt = cmnsItemMapper.updateCmnsCmnsItem(cmnsItemVO);
-		
+		int updatedCnt = cmnsItemMapper.updateCmnsItem(cmnsItemVO);
+
 		return updatedCnt;
 	}
 
 	@Override
-	public int deleteCmnsCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
+	public int deleteCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
 
-		int deletedCnt = cmnsItemMapper.deleteCmnsCmnsItem(cmnsItemVO);
-		
+		int deletedCnt = cmnsItemMapper.deleteCmnsItem(cmnsItemVO);
+
 		return deletedCnt;
+	}
+
+	@Override
+	public List<CmnsItemVO> selectApcCmnsItemList(CmnsItemVO cmnsItemVO) throws Exception {
+		List<CmnsItemVO> resultList = cmnsItemMapper.selectApcCmnsItemList(cmnsItemVO);
+		return resultList;
 	}
 
 }

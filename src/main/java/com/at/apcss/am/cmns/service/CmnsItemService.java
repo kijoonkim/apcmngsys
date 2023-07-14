@@ -23,42 +23,50 @@ public interface CmnsItemService {
 	/**
 	 * 품목정보 단건 조회
 	 * @param cmnsItemVO
-	 * @return
+	 * @return CmnsItemVO
 	 * @throws Exception
 	 */
 	public CmnsItemVO selectCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
-	
+
 	/**
 	 * 품목정보 목록 조회
 	 * @param cmnsItemVO
-	 * @return
+	 * @return List<CmnsItemVO>
 	 * @throws Exception
 	 */
 	public List<CmnsItemVO> selectCmnsItemList(CmnsItemVO cmnsItemVO) throws Exception;
-	
+
+	/**
+	 * APC 품목정보 목록 조회
+	 * @param cmnsItemVO
+	 * @return List<CmnsItemVO>
+	 * @throws Exception
+	 */
+	public List<CmnsItemVO> selectApcCmnsItemList(CmnsItemVO cmnsItemVO) throws Exception;
+
 	/**
 	 * 품목정보 등록
 	 * @param cmnsItemVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertCmnsCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
-	
+	public int insertCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
+
 	/**
 	 * 품목정보 변경
 	 * @param cmnsItemVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateCmnsCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
-	
+	public int updateCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
+
 	/**
 	 * 품목정보 삭제
 	 * @param cmnsItemVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteCmnsCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
-	
-	
+	public int deleteCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
+
+
 }
