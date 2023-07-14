@@ -320,7 +320,7 @@
 							<th scope="row">생산작업자 관리</th>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input" colspan="2">
-								<sbux-button id="oprtrMngBtn" name="oprtrMngBtn" uitype="modal" text="작업자 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="oprtrMngModal" onclick="fn_modal('oprtrMngBtn')"></sbux-button>
+								<sbux-button id="oprtrMngBtn" name="oprtrMngBtn" uitype="modal" text="생산작업자 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="oprtrMngModal" onclick="fn_modal('oprtrMngBtn')"></sbux-button>
 							</td>
 							<td>
 							</td>
@@ -664,6 +664,13 @@
     <div id="cnptMngModalBody">
     	<jsp:include page="/WEB-INF/view/apcss/am/apc/cnptMngPopup.jsp"></jsp:include>
     </div>
+    <!-- 생산작업자 등록 Modal -->
+    <div>
+        <sbux-modal id="oprtrMngModal" name="oprtrMngModal" uitype="middle" header-title="거래처 등록" body-html-id="oprtrMngModalBody" footer-is-close-button="false" style="width:1200px"></sbux-modal>
+    </div>
+    <div id="oprtrMngModalBody">
+    	<jsp:include page="/WEB-INF/view/apcss/am/apc/oprtrMngPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 
@@ -673,11 +680,13 @@
 	var jsonComboGridBankNm = [];
 	var comboUnitCdJsData = [];
 	var comboGridBankCdJsData = [];
+	var comboGridCnptTypeJsData = [];
 	gfn_setComCdSBSelect('comboBankNm', jsonComboBankNm ,	'BANK_CD', '0000');				// 검색 조건(시스템구분)
 	gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000");
 	gfn_setComCdGridSelect('bxMngDatagrid', comboUnitCdJsData, "UNIT_CD", "0000");
 	gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000");
 	gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000");
+	gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000");
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("apcCd", '9999');
 		selectApcInfo();
@@ -742,6 +751,8 @@
 		}if(targetName == 'cnptMngBtn'){
 			fn_cnptMngCreateGrid();
 			fn_ordrMngCreateGrid();
+		}if(targetName == 'oprtrMngBtn'){
+			fn_oprtrMngCreateGrid();
 		}
 	}
 
@@ -873,6 +884,9 @@
             }else if(grid === "spmtTrsprtMngDatagrid"){
             	spmtTrsprtMngDatagrid.setCellData(nRow, nCol, "N", true);
             	spmtTrsprtMngDatagrid.addRow(true);
+            }else if(grid === "oprtrMngDatagrid"){
+            	oprtrMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	oprtrMngDatagrid.addRow(true);
             }
         }
         else if (gubun === "DEL") {
@@ -940,6 +954,8 @@
             	wrhsVhclMngDatagrid.deleteRow(nRow);
             }else if (grid === "spmtTrsprtMngDatagrid") {
             	spmtTrsprtMngDatagrid.deleteRow(nRow);
+            }else if (grid === "oprtrMngDatagrid") {
+            	oprtrMngDatagrid.deleteRow(nRow);
             }
         }
     }

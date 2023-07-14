@@ -109,6 +109,11 @@
 			     , CD.CD_VL_EXPLN	AS CD_VL_EXPLN
 			     , CD.INDCT_SEQ		AS INDCT_SEQ
 			     , CD.DEL_YN		AS DEL_YN
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			   	 , ROWNUM 			AS ROW_SEQ
+    	</if>
+    	<![CDATA[
 			  FROM
 			  	  TB_COM_CD CC
 			  	, TB_COM_CD_DTL CD
@@ -118,6 +123,9 @@
 			<if test='delYn != null and delYn != ""'>
 			   AND CC.DEL_YN = #{delYn}
 			   AND CD.DEL_YN = #{delYn}
+	    	</if>
+			<if test='apcCd != null and apcCd != ""'>
+			   AND CD.APC_CD = #{apcCd}
 	    	</if>
 
     	<![CDATA[

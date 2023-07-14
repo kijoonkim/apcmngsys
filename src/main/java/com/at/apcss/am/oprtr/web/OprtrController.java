@@ -1,4 +1,4 @@
-package com.at.apcss.am.cmns.web;
+package com.at.apcss.am.oprtr.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,42 +13,42 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.cmns.service.CnptService;
-import com.at.apcss.am.cmns.vo.CnptVO;
+import com.at.apcss.am.oprtr.service.OprtrService;
+import com.at.apcss.am.oprtr.vo.OprtrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
-
 /**
- * @Class Name : CnptController.java
- * @Description : 거래처 정보관리에 대한 Controller 클래스
- * @author 신정철
- * @since 2023.06.21
+ * @Class Name : OprtrController.java
+ * @Description : 생산작업자 관련 Controller 클래스
+ * @author 김호
+ * @since 2023.07.13
  * @version 1.0
  * @see
  *
- * <pre>
+ *      <pre>
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  신정철        최초 생성
- * </pre>
+ * 2023.07.13  김호        최초 생성
+ *      </pre>
  */
 @Controller
-public class CnptController extends BaseController {
+public class OprtrController extends BaseController{
 
-	@Resource(name = "cnptService")
-	private CnptService cnptService;
+	@Resource(name= "oprtrService")
+	private OprtrService oprtrService;
+
 
 	// APC 환경설정 - 입고차량정보 목록 조회
-	@PostMapping(value = "/am/cmns/selectCnptList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectCnptList(@RequestBody CnptVO cnptVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectCnptList 호출 <><><><> ");
+	@PostMapping(value = "/am/oprtr/selectOprtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectOprtrList(@RequestBody OprtrVO oprtrVO, HttpServletRequest request) throws Exception {
+		logger.debug("selectOprtrList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<CnptVO> resultList = new ArrayList<>();
+		List<OprtrVO> resultList = new ArrayList<>();
 		try {
 
-			resultList = cnptService.selectCnptList(cnptVO);
+			resultList = oprtrService.selectOprtrList(oprtrVO);
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);

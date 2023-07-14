@@ -91,7 +91,7 @@
 
 	async function fn_callSelectFcltList(){
 		let apcCd = SBUxMethod.get("apcCd");
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectRsrcList.do", {apcCd : apcCd, cdId : 'FCLT_CD'});
+    	let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {apcCd : apcCd, cdId : 'FCLT_CD'});
         let data = await postJsonPromise;
         let newFcltGridData = [];
         try{
