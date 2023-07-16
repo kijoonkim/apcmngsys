@@ -50,66 +50,68 @@
 
 
 
+
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 시작-->
-    <!-- favicon -->
-		<link rel="apple-touch-icon" href="/resource/images/favicon.png">
-		<link rel="shortcut icon" href="/resource/images/favicon.ico">
-		<!-- //favicon -->
+   <!-- favicon -->
+      <link rel="apple-touch-icon" href="../../../images/favicon.png">
+      <link rel="shortcut icon" href="../../../images/favicon.ico">
+      <!-- //favicon -->
 
-		<!-- [pp] icon -->
-		<link rel="stylesheet" href="/resource/src/font-awesome/css/font-awesome.min.css">
-		<!-- [pp] font-awesome 파이어폭스 미출력 에러 대응 -->
-		<link rel="stylesheet" href="/resource/css/font-awesome/4.7.0/css/font-awesome.css">
-		<!-- [pp] //font-awesome 파이어폭스 미출력 에러 대응 -->
-		<link rel="stylesheet" href="/resource/src/remixicon/fonts/remixicon.css">
-		<!-- [pp] //icon -->
+      <!-- [pp] icon -->
+      <link rel="stylesheet" href="../../../src/font-awesome/css/font-awesome.min.css">
+      <!-- [pp] font-awesome 파이어폭스 미출력 에러 대응 -->
+<!--       <link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"> -->
+         <link rel="stylesheet" href="/resource/css/font-awesome/4.7.0/css/font-awesome.css">
+      <!-- [pp] //font-awesome 파이어폭스 미출력 에러 대응 -->
+      <link rel="stylesheet" href="../../../src/remixicon/fonts/remixicon.css">
+      <!-- [pp] //icon -->
 
-		<!-- css -->
-		<link rel="stylesheet" href="/resource/src/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="/resource/src/bootstrap-adminLTE/css/AdminLTE.css">
-		<link rel="stylesheet" href="/resource/src/bootstrap-adminLTE/css/_all-skins.min.css">
-		<link rel="stylesheet" href="/resource/src/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
-		<link rel="stylesheet" href="/resource/src/dataTables/css/dataTables.bootstrap.min.css">
-		<link rel="stylesheet" href="/resource/src/dataTables/css/select.dataTables.min.css">
-		<link rel="stylesheet" href="/resource/src/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css">
-		<link rel="stylesheet" href="/resource/src/select2/css/select2.css">
-		<link rel="stylesheet" href="/resource/src/apexchart/css/apexcharts.css">
-		<link rel="stylesheet" href="/resource/css/dl_global.css">
-		<link rel="stylesheet" href="/resource/css/admin/dl_common.css">
-		<link rel="stylesheet" href="/resource/css/admin/dl_custom.css">
-		<link rel="stylesheet" href="/resource/css/admin/dl_table.css">
-		<link rel="stylesheet" href="/resource/css/admin/dl_ui.css">
-		<link rel="stylesheet" href="/resource/css/admin/dl_popup.css">
-		<!-- //css -->
+      <!-- css -->
+      <link rel="stylesheet" href="../../../src/bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../../../src/bootstrap-adminLTE/css/AdminLTE.css">
+      <link rel="stylesheet" href="../../../src/bootstrap-adminLTE/css/_all-skins.min.css">
+      <link rel="stylesheet" href="../../../src/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
+      <link rel="stylesheet" href="../../../src/dataTables/css/dataTables.bootstrap.min.css">
+      <link rel="stylesheet" href="../../../src/dataTables/css/select.dataTables.min.css">
+      <link rel="stylesheet" href="../../../src/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css">
+      <link rel="stylesheet" href="../../../src/select2/css/select2.css">
+      <link rel="stylesheet" href="../../../src/apexchart/css/apexcharts.css">
+      <link rel="stylesheet" href="../../../css/dl_global.css">
+      <link rel="stylesheet" href="../../../css/admin/dl_common.css">
+      <link rel="stylesheet" href="../../../css/admin/dl_custom.css">
+      <link rel="stylesheet" href="../../../css/admin/dl_table.css">
+      <link rel="stylesheet" href="../../../css/admin/dl_ui.css">
+      <link rel="stylesheet" href="../../../css/admin/dl_popup.css">
+      <!-- //css -->
 
-		<!-- js -->
-		<script src="/resource/src/jquery/js/jquery-3.5.1.min.js"></script>
-<script src="/resource/src/jquery/js/jquery.mousewheel.min.js"></script>
-		<!--[if lt IE 9]>
-		<script src="/resource/src/jquery/js/jquery-1.12.3.min.js"></script>
-		<script src="/resource/src/jquery/js/html5shiv.js"></script>
-		<script src="/resource/src/jquery/js/IE9.js"></script>
-		<script src="/resource/src/jquery/js/respond.min.js"></script>
-		<![endif]-->
-		<script src="/resource/src/bootstrap/js/bootstrap.min.js"></script>
-		<script src="/resource/src/bootstrap-adminLTE/js/adminlte.js"></script>
-		<script src="/resource/src/bootstrap-adminLTE/js/demo.js"></script>
-		<script src="/resource/src/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-		<script src="/resource/src/dataTables/js/jquery.dataTables.min.js"></script>
-		<script src="/resource/src/dataTables/js/dataTables.bootstrap.min.js"></script>
-		<script src="/resource/src/dataTables/js/dataTables.buttons.min.js"></script>
-		<script src="/resource/src/dataTables/js/dataTables.select.min.js"></script>
-		<script src="/resource/src/dataTables/js/jszip.min.js"></script>
-		<script src="/resource/src/dataTables/js/pdfmake.min.js"></script>
-		<script src="/resource/src/mCustomScrollbar/js/jquery.mCustomScrollbar.min.js"></script>
-		<script src="/resource/src/select2/js/select2.min.js"></script>
-		<script src="/resource/src/apexchart/js/apexcharts.js"></script>
-		<script src="/resource/js/admin/pp_ui.js"></script>
-		<!-- //js -->
+      <!-- js -->
+<!--       <script src="../../../src/jquery/js/jquery-3.5.1.min.js"></script> -->
+      <script src="/resource/src/jquery/js/jquery-3.5.1.min.js"></script>
+        <script src="/resource/src/jquery/js/jquery.mousewheel.min.js"></script>
+      <!--[if lt IE 9]>
+      <script src="../../../src/jquery/js/jquery-1.12.3.min.js"></script>
+      <script src="../../../src/jquery/js/html5shiv.js"></script>
+      <script src="../../../src/jquery/js/IE9.js"></script>
+      <script src="../../../src/jquery/js/respond.min.js"></script>
+      <![endif]-->
+      <script src="../../../src/bootstrap/js/bootstrap.min.js"></script>
+      <script src="../../../src/bootstrap-adminLTE/js/adminlte.js"></script>
+      <script src="../../../src/bootstrap-adminLTE/js/demo.js"></script>
+      <script src="../../../src/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+      <script src="../../../src/dataTables/js/jquery.dataTables.min.js"></script>
+      <script src="../../../src/dataTables/js/dataTables.bootstrap.min.js"></script>
+      <script src="../../../src/dataTables/js/dataTables.buttons.min.js"></script>
+      <script src="../../../src/dataTables/js/dataTables.select.min.js"></script>
+      <script src="../../../src/dataTables/js/jszip.min.js"></script>
+      <script src="../../../src/dataTables/js/pdfmake.min.js"></script>
+      <script src="../../../src/mCustomScrollbar/js/jquery.mCustomScrollbar.min.js"></script>
+      <script src="../../../src/select2/js/select2.min.js"></script>
+      <script src="../../../src/apexchart/js/apexcharts.js"></script>
+      <script src="../../../js/admin/pp_ui.js"></script>
+      <!-- //js -->
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 완료-->
-
 
 
 
@@ -151,34 +153,33 @@
 						</div>
 						<div class="box-body">
 							<!--[pp] 검색 -->
-							<table class="table table-bordered tbl_row tbl_fixed">
+								<table class="table table-bordered table-hover tbl_col tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
-									<col style="width: 5%">
-									<col style="width: 15%">
-									<col style="width: 9%">
+									<col style="width: 7%">
 									<col style="width: 25%">
 									<col style="width: 7%">
-									<col style="width: 17%">
-									<col style="width: 11%">
+									<col style="width: 25%">
+									<col style="width: 7%">
+									<col style="width: 25%">
 								</colgroup>
-								<tbody>
+								<thead>
 									<tr>
-										<th class="ta_r">APC명</th>
-										<th class="ta_r">
+										<th class="ta_c">APC명</th>
+										<td class="ta_r"  style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled>
-										</th>
-										<th colspan="5">
+										</td>
+										<td colspan="4">
 											&nbsp;
-										</th>
+										</td>
 									</tr>
 									<tr>	
-										<th class="ta_r">상품코드</th>
-										<th class="td_input">
+										<th class="ta_c">상품코드</th>
+										<td class="td_input">
 											<input type="text" class="form-control input-sm" placeholder="">
-										</th>
-										<th class="ta_r">품목</th>
-										<th class="ta_r">
+										</td>
+										<th class="ta_c">품목</th>
+										<td class="ta_r">
 											<div class="fl_group fl_rpgroup">
 												<div class="dp_inline wd_180 va_m">
 													<select class="form-control">
@@ -187,9 +188,9 @@
 												</div>
 												<button type="button" class="btn btn-sm btn-outline-danger">찾기</button>
 											</div>
-										</th>	
-										<th class="ta_r">품종</th>
-										<th class="ta_r">
+										</td>	
+										<th class="ta_c">품종</th>
+										<td class="ta_r">
 											<div class="fl_group fl_rpgroup">
 												<div class="dp_inline wd_180 va_m">
 													<select class="form-control">
@@ -198,47 +199,45 @@
 												</div>
 												<button type="button" class="btn btn-sm btn-outline-danger">찾기</button>
 											</div>
-										</th>	
-										<th></th>
+										</td>	
 									</tr>
 									<tr>
 										<th>규격</th>
-										<th class="td_input">
+										<td class="td_input">
 											<select class="form-control" style="width: 80%;">
 												<option></option>
 											</select>
-										</th>
-										<th class="ta_r">상품등급</th>
-										<th class="ta_r">
+										</td>
+										<th class="ta_c">상품등급</th>
+										<td class="ta_r">
 											<select class="form-control" style="width: 70%;">
 												<option></option>
 											</select>
-										</th>
-										<th class="ta_r">브랜드</th>
-										<th>
+										</td>
+										<th class="ta_c">브랜드</th>
+										<td>
 											<select class="form-control">
 												<option></option>
 											</select>
-										</th>
-										<th>&nbsp;</th>
+										</td>
 									</tr>
 									
 									<tr>
 										<th>산지</th>
-										<th>
+										<td>
 											<select class="form-control">
 												<option></option>
 											</select>
-										</th>
-										<th class="ta_r">포장구분</th>
-										<th>
+										</td>
+										<th class="ta_c">포장구분</th>
+										<td style="border-right: hidden;">
 											<select class="form-control" style="width: 70%;">
 												<option></option>
 											</select>
-										</th>
-										<th colspan="3"></th>
+										</td>
+										<td colspan="2"></td>
 									</tr>
-								</tbody>
+								</thead>
 							</table>
 
 							<div class="ad_tbl_top">
@@ -248,7 +247,7 @@
 									<li><span>상품코드내역</span></li>
 								</ul>
 							</div>
-							<b>&nbsp;<b>
+							<br>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<colgroup>
 										<col style="width: 8%">
@@ -338,7 +337,6 @@
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
-					</div>
 				</section>
 
 
