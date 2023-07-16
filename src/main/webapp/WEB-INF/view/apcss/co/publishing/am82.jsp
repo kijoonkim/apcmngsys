@@ -40,6 +40,11 @@
         .tbl>tbody>tr{height: 40px;}
         .tbl>tbody>tr>td>button{width: 200px;}
         .tbl>tbody>tr>td{padding-left: 5px;}
+    	#last_line{
+    		border-right:hidden;
+    		border-left:hidden;
+    		border-bottom:hidden;
+    	}
     </style>
 
 
@@ -50,66 +55,68 @@
 
 
 
+
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 시작-->
-    <!-- favicon -->
-		<link rel="apple-touch-icon" href="/resource/images/favicon.png">
-		<link rel="shortcut icon" href="/resource/images/favicon.ico">
-		<!-- //favicon -->
+   <!-- favicon -->
+      <link rel="apple-touch-icon" href="../../../images/favicon.png">
+      <link rel="shortcut icon" href="../../../images/favicon.ico">
+      <!-- //favicon -->
 
-		<!-- [pp] icon -->
-		<link rel="stylesheet" href="/resource/src/font-awesome/css/font-awesome.min.css">
-		<!-- [pp] font-awesome 파이어폭스 미출력 에러 대응 -->
-		<link rel="stylesheet" href="/resource/css/font-awesome/4.7.0/css/font-awesome.css">
-		<!-- [pp] //font-awesome 파이어폭스 미출력 에러 대응 -->
-		<link rel="stylesheet" href="/resource/src/remixicon/fonts/remixicon.css">
-		<!-- [pp] //icon -->
+      <!-- [pp] icon -->
+      <link rel="stylesheet" href="../../../src/font-awesome/css/font-awesome.min.css">
+      <!-- [pp] font-awesome 파이어폭스 미출력 에러 대응 -->
+<!--       <link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"> -->
+         <link rel="stylesheet" href="/resource/css/font-awesome/4.7.0/css/font-awesome.css">
+      <!-- [pp] //font-awesome 파이어폭스 미출력 에러 대응 -->
+      <link rel="stylesheet" href="../../../src/remixicon/fonts/remixicon.css">
+      <!-- [pp] //icon -->
 
-		<!-- css -->
-		<link rel="stylesheet" href="/resource/src/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="/resource/src/bootstrap-adminLTE/css/AdminLTE.css">
-		<link rel="stylesheet" href="/resource/src/bootstrap-adminLTE/css/_all-skins.min.css">
-		<link rel="stylesheet" href="/resource/src/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
-		<link rel="stylesheet" href="/resource/src/dataTables/css/dataTables.bootstrap.min.css">
-		<link rel="stylesheet" href="/resource/src/dataTables/css/select.dataTables.min.css">
-		<link rel="stylesheet" href="/resource/src/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css">
-		<link rel="stylesheet" href="/resource/src/select2/css/select2.css">
-		<link rel="stylesheet" href="/resource/src/apexchart/css/apexcharts.css">
-		<link rel="stylesheet" href="/resource/css/dl_global.css">
-		<link rel="stylesheet" href="/resource/css/admin/dl_common.css">
-		<link rel="stylesheet" href="/resource/css/admin/dl_custom.css">
-		<link rel="stylesheet" href="/resource/css/admin/dl_table.css">
-		<link rel="stylesheet" href="/resource/css/admin/dl_ui.css">
-		<link rel="stylesheet" href="/resource/css/admin/dl_popup.css">
-		<!-- //css -->
+      <!-- css -->
+      <link rel="stylesheet" href="../../../src/bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../../../src/bootstrap-adminLTE/css/AdminLTE.css">
+      <link rel="stylesheet" href="../../../src/bootstrap-adminLTE/css/_all-skins.min.css">
+      <link rel="stylesheet" href="../../../src/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
+      <link rel="stylesheet" href="../../../src/dataTables/css/dataTables.bootstrap.min.css">
+      <link rel="stylesheet" href="../../../src/dataTables/css/select.dataTables.min.css">
+      <link rel="stylesheet" href="../../../src/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css">
+      <link rel="stylesheet" href="../../../src/select2/css/select2.css">
+      <link rel="stylesheet" href="../../../src/apexchart/css/apexcharts.css">
+      <link rel="stylesheet" href="../../../css/dl_global.css">
+      <link rel="stylesheet" href="../../../css/admin/dl_common.css">
+      <link rel="stylesheet" href="../../../css/admin/dl_custom.css">
+      <link rel="stylesheet" href="../../../css/admin/dl_table.css">
+      <link rel="stylesheet" href="../../../css/admin/dl_ui.css">
+      <link rel="stylesheet" href="../../../css/admin/dl_popup.css">
+      <!-- //css -->
 
-		<!-- js -->
-		<script src="/resource/src/jquery/js/jquery-3.5.1.min.js"></script>
-<script src="/resource/src/jquery/js/jquery.mousewheel.min.js"></script>
-		<!--[if lt IE 9]>
-		<script src="/resource/src/jquery/js/jquery-1.12.3.min.js"></script>
-		<script src="/resource/src/jquery/js/html5shiv.js"></script>
-		<script src="/resource/src/jquery/js/IE9.js"></script>
-		<script src="/resource/src/jquery/js/respond.min.js"></script>
-		<![endif]-->
-		<script src="/resource/src/bootstrap/js/bootstrap.min.js"></script>
-		<script src="/resource/src/bootstrap-adminLTE/js/adminlte.js"></script>
-		<script src="/resource/src/bootstrap-adminLTE/js/demo.js"></script>
-		<script src="/resource/src/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-		<script src="/resource/src/dataTables/js/jquery.dataTables.min.js"></script>
-		<script src="/resource/src/dataTables/js/dataTables.bootstrap.min.js"></script>
-		<script src="/resource/src/dataTables/js/dataTables.buttons.min.js"></script>
-		<script src="/resource/src/dataTables/js/dataTables.select.min.js"></script>
-		<script src="/resource/src/dataTables/js/jszip.min.js"></script>
-		<script src="/resource/src/dataTables/js/pdfmake.min.js"></script>
-		<script src="/resource/src/mCustomScrollbar/js/jquery.mCustomScrollbar.min.js"></script>
-		<script src="/resource/src/select2/js/select2.min.js"></script>
-		<script src="/resource/src/apexchart/js/apexcharts.js"></script>
-		<script src="/resource/js/admin/pp_ui.js"></script>
-		<!-- //js -->
+      <!-- js -->
+<!--       <script src="../../../src/jquery/js/jquery-3.5.1.min.js"></script> -->
+      <script src="/resource/src/jquery/js/jquery-3.5.1.min.js"></script>
+        <script src="/resource/src/jquery/js/jquery.mousewheel.min.js"></script>
+      <!--[if lt IE 9]>
+      <script src="../../../src/jquery/js/jquery-1.12.3.min.js"></script>
+      <script src="../../../src/jquery/js/html5shiv.js"></script>
+      <script src="../../../src/jquery/js/IE9.js"></script>
+      <script src="../../../src/jquery/js/respond.min.js"></script>
+      <![endif]-->
+      <script src="../../../src/bootstrap/js/bootstrap.min.js"></script>
+      <script src="../../../src/bootstrap-adminLTE/js/adminlte.js"></script>
+      <script src="../../../src/bootstrap-adminLTE/js/demo.js"></script>
+      <script src="../../../src/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+      <script src="../../../src/dataTables/js/jquery.dataTables.min.js"></script>
+      <script src="../../../src/dataTables/js/dataTables.bootstrap.min.js"></script>
+      <script src="../../../src/dataTables/js/dataTables.buttons.min.js"></script>
+      <script src="../../../src/dataTables/js/dataTables.select.min.js"></script>
+      <script src="../../../src/dataTables/js/jszip.min.js"></script>
+      <script src="../../../src/dataTables/js/pdfmake.min.js"></script>
+      <script src="../../../src/mCustomScrollbar/js/jquery.mCustomScrollbar.min.js"></script>
+      <script src="../../../src/select2/js/select2.min.js"></script>
+      <script src="../../../src/apexchart/js/apexcharts.js"></script>
+      <script src="../../../js/admin/pp_ui.js"></script>
+      <!-- //js -->
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 완료-->
-
 
 
 <style>
@@ -198,11 +205,11 @@
 										</td>
 										<th class="ta_c">화면ID</th>
 										<td class="ta_r" colspan="1">
-											<input style="font-size:small;" type="text" class="form-control fl_fluid" placeholder="화면ID 입력">
+											<input  type="text" class="form-control fl_fluid" placeholder="화면ID 입력">
 										</td>
 										<th class="ta_c">화면명</th>
 										<td class="ta_r" colspan="2" style="border-right:hidden;">
-											<input style="font-size:small;" type="text" class="form-control fl_fluid" placeholder="화면명 입력">
+											<input  type="text" class="form-control fl_fluid" placeholder="화면명 입력">
 										</td>
 										<td></td>
 									</tr>
@@ -395,12 +402,56 @@
 										<td></td>
 									</tr>	
 									<tr>
-										<td colspan="3">
-											<select class="form-control input-sm">
-												<option>100</option>
-											</select>										
+										<td colspan="10" id="last_line">
+										  <div class="dataTables_paginate paging_simple_numbers ta_c">
+						                    <select 
+						                    
+						                      class="form-control input-sm"
+						                      style="width: 20%; float: left"
+						                    >
+						                      <option>100</option>
+						                    </select>
+						                    <ul class="pagination" style="position:relative; right:12em;">
+						                      <li class="paginate_button first disabled">
+						                        <a href="javascript:void(0);" title="첫페이지 목록"
+						                          ><i class="fa fa-angle-double-left"></i
+						                        ></a>
+						                      </li>
+						                      <li class="paginate_button previous disabled">
+						                        <a href="javascript:void(0);" title="이전목록"
+						                          ><i class="fa fa-angle-left"></i
+						                        ></a>
+						                      </li>
+						                      <li class="paginate_button active">
+						                        <a href="javascript:void(0);">1</a>
+						                      </li>
+						                      <li class="paginate_button">
+						                        <a href="javascript:void(0);">2</a>
+						                      </li>
+						                      <li class="paginate_button">
+						                        <a href="javascript:void(0);">3</a>
+						                      </li>
+						                      <li class="paginate_button">
+						                        <a href="javascript:void(0);">4</a>
+						                      </li>
+						                      <li class="paginate_button">
+						                        <a href="javascript:void(0);">5</a>
+						                      </li>
+						                      <li class="paginate_button next">
+						                        <a href="javascript:void(0);" title="다음목록"
+						                          ><i class="fa fa-angle-right"></i
+						                        ></a>
+						                      </li>
+						                      <li class="paginate_button last">
+						                        <a href="javascript:void(0);" title="마지막페이지 목록"
+						                          ><i class="fa fa-angle-double-right"></i
+						                        ></a>
+						                      </li>
+						                    </ul>
+						                  </div>
+																				
+											
 										</td>
-										<td colspan="7"></td>
 									</tr>	
 								</tbody>
 							</table>
@@ -494,8 +545,8 @@
 									<b>개체목록</b>
 									<div class="ad_tbl_top">
 										<div class="ad_tbl_toplist" >
-											<button type="button" class="btn btn-xs btn-outline-danger" style="font-size:small;" >행추가</button>
-											<button type="button" class="btn btn-xs btn-outline-danger" style="font-size:small;" >행삭제</button>
+											<button type="button" class="btn btn-xs btn-outline-danger"  >행추가</button>
+											<button type="button" class="btn btn-xs btn-outline-danger"  >행삭제</button>
 										</div>
 									</div>
 									<div>
