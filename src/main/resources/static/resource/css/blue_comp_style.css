@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -5285,8 +5285,8 @@ ul.sbux-tre-bd li.sbux-tre-li-selected > .sbux-tre-wrap-selected .glyphicon-ok {
   font-family: 'Font Awesome 5 Free';
   font-style: normal;
   font-weight: 900;
-  src: url("../fonts/fontawesome/webfonts/fa-solid-900.eot");
-  src: url("../fonts/fontawesome/webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("../fonts/fontawesome/webfonts/fa-solid-900.woff2") format("woff2"), url("../fonts/fontawesome/webfonts/fa-solid-900.woff") format("woff"), url("../fonts/fontawesome/webfonts/fa-solid-900.ttf") format("truetype");
+  src: url("../sbux/assets/css/fonts/fontawesome/webfonts/fa-solid-900.eot");
+  src: url("../sbux/assets/css/fonts/fontawesome/webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("../sbux/assets/css/fonts/fontawesome/webfonts/fa-solid-900.woff2") format("woff2"), url("../sbux/assets/css/fonts/fontawesome/webfonts/fa-solid-900.woff") format("woff"), url("../sbux/assets/css/fonts/fontawesome/webfonts/fa-solid-900.ttf") format("truetype");
 }
 .fa,
 .fas {
@@ -15667,10 +15667,10 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
 .sbux-col-block {
   width: 100%;
 }
-/*, 
-.col-top-left,.col-top-center,   .col-top-right,  
+/*,
+.col-top-left,.col-top-center,   .col-top-right,
 .col-center-left,  .col-center-center, .col-center-right,
 .col-bottom-left, .col-bottom-center,.col-bottom-right,
-.col-left-between, .col-left-around, 
+.col-left-between, .col-left-around,
 .col-center-between, .col-center-around,
 .col-right-between, .col-right-around */

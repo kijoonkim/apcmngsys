@@ -112,16 +112,6 @@
 
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 완료-->
-
-	<style>
-  		.table th {
-    		border-bottom: 1px solid #ffffff !important;
-  		}
-  		div.input-group-addon {
-			padding: 5px;
-  		}
-	</style>
-
 </head>
 <body>
 
