@@ -12,7 +12,7 @@
 				<h3 class="box-title"> ▶ 생산작업자 등록 (팝업)</h3>
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnOprtrSach" name="btnOprtrSach" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectOprtrList()"></sbux-button>
+						<sbux-button id="btnOprtrSech" name="btnOprtrSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectOprtrList()"></sbux-button>
 						<sbux-button id="btnOprtrReg" name="btnOprtrReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertOprtrList"></sbux-button>
 						<sbux-button id="btnOprtrEnd" name="btnOprtrEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('oprtrMngModal')"></sbux-button>
 					</div>
@@ -77,9 +77,9 @@
 	        {caption: ["예금주명"], 	ref: 'dpstr',   type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"oprtrMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"oprtrMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"oprtrMngDatagrid\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"oprtrMngDatagrid\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
