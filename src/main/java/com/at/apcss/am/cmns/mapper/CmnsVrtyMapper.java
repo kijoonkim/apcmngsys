@@ -30,15 +30,22 @@ public interface CmnsVrtyMapper {
 	 * @throws Exception
 	 */
 	public CmnsVrtyVO selectCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
-	
+
 	/**
 	 * 품종정보 목록 조회
 	 * @param cmnsVrtyVO
-	 * @return
+	 * @return List<CmnsVrtyVO>
 	 * @throws Exception
 	 */
 	public List<CmnsVrtyVO> selectCmnsVrtyList(CmnsVrtyVO cmnsVrtyVO) throws Exception;
-	
+
+	/**
+	 * APC품종정보 목록 조회
+	 * @param cmnsVrtyVO
+	 * @return List<CmnsVrtyVO>
+	 * @throws Exception
+	 */
+	public List<CmnsVrtyVO> selectApcCmnsVrtyList(CmnsVrtyVO cmnsVrtyVO) throws Exception;
 	/**
 	 * 품종정보 등록
 	 * @param cmnsVrtyVO
@@ -46,7 +53,7 @@ public interface CmnsVrtyMapper {
 	 * @throws Exception
 	 */
 	public int insertCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
-	
+
 	/**
 	 * 품종정보 변경
 	 * @param cmnsVrtyVO
@@ -54,7 +61,7 @@ public interface CmnsVrtyMapper {
 	 * @throws Exception
 	 */
 	public int updateCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
-	
+
 	/**
 	 * 품종정보 삭제
 	 * @param cmnsVrtyVO
@@ -62,4 +69,6 @@ public interface CmnsVrtyMapper {
 	 * @throws Exception
 	 */
 	public int deleteCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
+
+
 }
