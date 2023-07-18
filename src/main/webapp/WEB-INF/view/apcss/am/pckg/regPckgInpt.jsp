@@ -17,9 +17,9 @@
 				<h3 class="box-title"> ▶ 포장실적등록</h3>
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+						<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+						<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-danger" text="등록" onclick="fn_insert"></sbux-button>
+						<sbux-button id="btnEnd" name="btnEnd" uitype="normal" class="btn btn-sm btn-outline-danger" text="종료"></sbux-button>
 					</div>
 				</div>
 			</div>
@@ -30,71 +30,40 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 10%">
-						<col style="width: 12%">
-						<col style="width: 8%">
-						<col style="width: 10%">
-						<col style="width: 9%">
-						<col style="width: 9%">
-						<col style="width: 3%">
-						<col style="width: 5%">
-						<col style="width: 9%">
+						<col style="width: 7%">
 						<col style="width: 15%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 9%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row">APC 명</th>
-							<th colspan="2">
-							<input type="text" class="form-control input-sm" placeholder="" disabled>
-							<th>&nbsp;</th>
-							<th>&nbsp;</th>
-							<th>&nbsp;</th>
-							<th>&nbsp;</th>
-							<th>&nbsp;</th>
-							<th>&nbsp;</th>
-							<th>&nbsp;</th>
-							<th>&nbsp;</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-apcName" name="srch-inp-apcName" uitype="text" class="form-control input-sm" disabled></sbux-input>
+							</td>
 						</tr>
 						<tr>
 							<th scope="row">선별일자</th>
-							<th colspan="2" class="th_input">
-								<div class="dp_inline wd_100 va_m">
-									<div class="input-group date">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-										<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
-									</div>
-								</div>
-								~
-								<div class="dp_inline wd_100 va_m">
-									<div class="input-group date">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-										<input type="text" name="datepicker" placeholder="2023.01.31" class="form-control pull-right input-sm">
-									</div>
-								</div>
-							</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker id="srch-dtp-sltDate" name="srch-dtp-sltDate" uitype="range" class="form-control pull-right input-sm"></sbux-datepicker>
+							</td>
 							<th scope="row">품목/품종</th>
-							<th class="td_input">
-								<select class="form-control fl_fixed mg_r5 wd_110">
-									<option></option>
-								</select>
-							</th>
-							<th class="td_input">
-								<select class="form-control fl_fixed mg_r5 wd_110">
-								</select>
-							</th>
-							<th>&nbsp;</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control fl_fixed mg_r5 wd_110"></sbux-select>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control fl_fixed mg_r5 wd_110"></sbux-select>
+							</td>
+							<td></td>
 							<th scope="row">규격</th>
-							<th class="td_input">
-								<select class="form-control fl_fixed mg_r5 wd_110">
-									<option></option>
-								</select>
-							</th>
-							<th>&nbsp;</th>
-						    <th>&nbsp;</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control fl_fixed mg_r5 wd_110"></sbux-select>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -146,10 +115,10 @@
 							</thead>
 							<tbody>
 								<tr>
-							<th scope="row" class="td_input">
+									<th scope="row" class="td_input">
 										<p class="ad_input_row">
-											<input type="checkbox" class="check" id="check1">
-											<label class="check_label ta_i" for="check1">선택</label>
+											<sbux-checkbox id="chk-1" name="chk-1" uitype="normal" class="check"></sbux-checkbox>
+											<sbux-label id="lbl-chk-1" name="lbl-chk-1" uitype="normal" for-id="chk-1" class="check_label ta_i"></sbux-label>
 										</p>
 									</th>
 									<td>&nbsp;</td>
@@ -166,10 +135,10 @@
 
 								</tr>
 								<tr>
-							<th scope="row" class="td_input">
+									<th scope="row" class="td_input">
 										<p class="ad_input_row">
-											<input type="checkbox" class="check" id="check1">
-											<label class="check_label ta_i" for="check1">선택</label>
+											<sbux-checkbox id="chk-2" name="chk-2" uitype="normal" class="check"></sbux-checkbox>
+											<sbux-label id="lbl-chk-2" name="lbl-chk-2" uitype="normal" for-id="chk-2" class="check_label ta_i"></sbux-label>
 										</p>
 									</th>
 									<td>&nbsp;</td>
@@ -191,41 +160,35 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 9%">
-						<col style="width: 14%">
-						<col style="width: 8%">
-						<col style="width: 13%">
-						<col style="width: 8%">
-						<col style="width: 4%">
 						<col style="width: 7%">
+						<col style="width: 15%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 9%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
 						<col style="width: 3%">
-						<col style="width: auto">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row">포장일자</th>
-					          <th class="td_input">
-								<div class="dp_inline wd_125 va_m">
-									<div class="input-group date">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-										<input type="text" name="datepicker" placeholder="2023.01.01" class="form-control pull-right input-sm">
-									</div>
-								</div>
-							</th>
+				          	<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker id="srch-dtp-pckgDate" name="srch-dtp-pckgDate" uitype="popup" class="form-control pull-right input-sm"></sbux-datepicker>
+							</td>
 							<th scope="row">포장기</th>
-								<th class="td_input">
-								<select class="form-control fl_fixed mg_r5 wd_140">
-								<option>선택</option>
-								</select>
-								</th>
-								<th scope="row">출하수량</th>
-							<th class="td_input">
-								<input type="text" class="form-control input-sm" placeholder="" disabled></th>
-							<th class="td_input">
-								<input type="text" class="form-control input-sm" placeholder="" disabled><th>Kg</th>
-							<th>&nbsp;</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-pckg" name="srch-slt-pckg" uitype="single" unselected-text="선택" class="form-control fl_fixed mg_r5 wd_140"></sbux-select>
+							</td>
+							<td></td>
+							<th scope="row">출하수량</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-shpgotAmt1" name="srch-inp-shpgotAmt1" type="text" class="form-control input-sm" disabled></sbux-input>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-shpgotAmt2" name="srch-inp-shpgotAmt2" type="text" class="form-control input-sm" disabled></sbux-input>
+							</td>
+							<td>Kg</td>
 						</tr>
 					</tbody>
 				</table>
@@ -247,11 +210,11 @@
 							<col style="width: 6%">
 							<col style="width: 5%">
 							<col style="width: 5%">
-							<col style="width: 5%">
-							<col style="width: 5%">
+							<col style="width: 6%">
+							<col style="width: 6%">
 							<col style="width: 16%">
-							<col style="width: 4%">
-							<col style="width: 4%">
+							<col style="width: 3%">
+							<col style="width: 3%">
 						</colgroup>
 						<thead>
 							<tr>
@@ -271,36 +234,26 @@
 								<tr>
 									<td>2023-05-01</td>
 									<td>&nbsp;</td>
-									<td><select class="form-control input-sm">
-									<option></option></select></td>
+									<td><sbux-select id="dtl-slt-spcfct1" name="dtl-slt-spcfct1" uitype="single" class="form-control input-sm"></sbux-select></td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
-									<td><select class="form-control input-sm">
-									</select></td>
-									<td>
-									<select class="form-control input-sm">
-									</select>
-									</td>
+									<td><sbux-select id="dtl-slt-gdsGrd1" name="dtl-slt-gdsGrd1" uitype="single" class="form-control input-sm"></sbux-select></td>
+									<td><sbux-select id="dtl-slt-strg1" name="dtl-slt-strg1" uitype="single" class="form-control input-sm"></sbux-select></td>
 									<td>&nbsp;</td>
-									<td><button type="button" class="btn btn-sm btn-outline-primary">발행</button></td>
-									<td><button type="button" class="btn btn-sm btn-outline-danger">삭제</button></td>
+									<td><sbux-button id="btnLblIssu" name="btnLblIssu" uitype="normal" class="btn btn-sm btn-outline-primary" text="발행"></sbux-button></td>
+									<td><sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button></td>
 								</tr>
 								<tr>
 									<td>2023-05-01</td>
 									<td>&nbsp;</td>
-									<td><select class="form-control input-sm">
-									<option></option></select></td>
+									<td><sbux-select id="dtl-slt-spcfct2" name="dtl-slt-spcfct2" uitype="single" class="form-control input-sm"></sbux-select></td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
-									<td><select class="form-control input-sm">
-									<option></option></select></td>
-									<td>
-									<select class="form-control input-sm">
-									<option></option></select>
-									</td>
+									<td><sbux-select id="dtl-slt-gdsGrd2" name="dtl-slt-gdsGrd2" uitype="single" class="form-control input-sm"></sbux-select></td>
+									<td><sbux-select id="dtl-slt-strg2" name="dtl-slt-strg2" uitype="single" class="form-control input-sm"></sbux-select></td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
-									<td><button type="button" class="btn btn-sm btn-outline-danger">추가</button></td>
+									<td><sbux-button id="btnAddPrfmnc" name="btnAddPrfmnc" uitype="normal" class="btn btn-sm btn-outline-danger" text="추가"></sbux-button></td>
 								</tr>
 							</tbody>
 						</table>
