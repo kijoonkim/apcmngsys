@@ -162,15 +162,16 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 작업자 등록(팝업)</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 작업자등록(팝업)</h3>
 							</div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
 						<div>
 						</div>

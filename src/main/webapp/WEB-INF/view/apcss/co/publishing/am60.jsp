@@ -113,7 +113,14 @@
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 완료-->
 
-
+	<style>
+  		.table th {
+    		border-bottom: 1px solid #ffffff !important;
+  		}
+  		div.input-group-addon {
+			padding: 5px;
+  		}
+	</style>
 
 
 
@@ -140,47 +147,47 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 사용자목록조회</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 사용자목록조회</h3>
 							</div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
-						<div>
-						</div>
+
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
-									<col style="width: 10%">
+									<col style="width: 7%">
 									<col style="width: 15%">
+									<col style="width: 7%">
 									<col style="width: 10%">
-									<col style="width: 10%">
-									<col style="width: 10%">
+									<col style="width: 7%">
 									<col style="width: 20%">
 									<col style="width: 10%">
 								</colgroup>
 								<tbody>
 									<tr>
 										<th scope="row">사용자ID</th>
-										<th>
+										<td>
 											<input type="text" class="form-control input-sm" placeholder="">
-										</th>
+										</td>
 										<th scope="row">사용자명</th>
-										<th class="td_input">
+										<td class="td_input">
 											<input type="text" class="form-control input-sm" placeholder="">
-										</th>
+										</td>
 										<th scope="row">APC명</th>
-										<th class="td_input">
+										<td style="border-right: hidden;" class="td_input">
 											<select class="form-control input-sm" disabled>
 												<option>선택</option>
 											</select>
-										</th>
-										<th>&nbsp;</th>
+										</td>
+										<td>&nbsp;</td>
 									</tr>
 								</tbody>
 							</table>

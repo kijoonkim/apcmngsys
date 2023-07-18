@@ -24,7 +24,7 @@
 	<link href="/resource/css/blue_comp_style.css" rel="stylesheet" type="text/css">
     <!------------------ 스타일 테마 CSS ------------------>
 	<link href="/resource/css/blue_style.css" rel="stylesheet" type="text/css">
-    <style>
+  <style>
         /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
         .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333;}
@@ -40,8 +40,14 @@
         .tbl>tbody>tr{height: 40px;}
         .tbl>tbody>tr>td>button{width: 200px;}
         .tbl>tbody>tr>td{padding-left: 5px;}
-    </style>
 
+  		.box-body>table.table th {
+    		border-bottom: 1px solid #ffffff !important;
+  		}
+  		div.input-group-addon {
+			padding: 5px;
+  		}
+	</style>
 
 
 
@@ -140,19 +146,19 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title">▶ 발주정보조회</h3>
-						</div>
-						<div class="box-body">
-						   <div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-dark">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-dark">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-dark">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 사용자승인등록</h3>
 							</div>
-
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
 							
+						</div>
+						
+							<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
@@ -268,6 +274,7 @@
 								</tbody>
 							</table>
 							
+							
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
 							<div class="ad_section_top">
@@ -275,8 +282,8 @@
 									<ul class="ad_tbl_count">
 										<li><span>발주 내역</span></li>
 									</ul>									
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-dark">일괄접수</button>
+									<div class="ad_tbl_toplist">
+										<button type="button" class="btn btn-sm btn-outline-dark">일괄접수</button>
 									</div>
 								</div>
 								<div class="table-responsive tbl_scroll_sm">

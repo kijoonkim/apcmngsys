@@ -37,10 +37,15 @@
             display: flex; align-items: center; justify-content: center; font-size: 16px;
             background:rgb(42, 48, 65); height:150px; padding:10px; box-sizing: border-box;  color:#dddddd;
         }
-        .tbl>tbody>tr{height: 40px;}
-        .tbl>tbody>tr>td>button{width: 200px;}
-        .tbl>tbody>tr>td{padding-left: 5px;}
-    </style>
+
+
+  		.table th {
+    		border-bottom: 1px solid #ffffff !important;
+  		}
+  		div.input-group-addon {
+			padding: 5px;
+  		}
+	</style>
 
 
 
@@ -140,39 +145,39 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 원물입고 팔레트/박스 관리</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 원물입고 팔레트/박스관리</h3>
 							</div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
 						<div>
 						</div>
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
-								<caption>검색 조건 설정</caption>
 								<colgroup>
-									<col style="width: 5%">
-									<col style="width: 10%">
-									<col style="width: 5%">
-									<col style="width: 25%">
 									<col style="width: 7%">
+									<col style="width: 14%">
+									<col style="width: 5%">
+									<col style="width: 17%">
 									<col style="width: 7%">
-									<col style="width: 21%">
+									<col style="width: 14%">
+									<col style="width: 14%">
 								</colgroup>
 								<tbody>
 									<tr>
-										<th class="ta_r">APC명</th>
-										<th class="ta_r">
+										<th class="ta_c">APC명</th>
+										<td class="ta_r">
 											<input type="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled>
-										</th>
+										</td>
 										<th>기준일자</th>
-										<th class="td_input">
+										<td class="td_input">
 												<div class="dp_inline wd_125 va_m">
 													<div class="input-group date">
 														<div class="input-group-addon">
@@ -190,24 +195,24 @@
 														<input type="text" name="datepicker" placeholder="종료일" class="form-control pull-right">
 													</div>
 												</div>
-										</th>
-										<th class="ta_r">입/출고 구분</th>
-										<th class="ta_r">
+										</td>
+										<th class="ta_c">입/출고 구분</th>
+										<td class="ta_r" style="border-right: hidden;">
 											<select class="select2">
 												<option selected></option>
 											</select>
-										</th>
-										<th></th>
+										</td>
+										<td></td>
 									</tr>
 								</tbody>
 							</table>
+							<br>
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">
 									<li><span>팔레트/박스 재고현황</span></li>
 								</ul>
 							</div>
-							<b>&nbsp;<b>
-								<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 98%;">
+								<table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<colgroup>
 										<col style="width: 12%">
 										<col style="width: 25%">
@@ -298,13 +303,13 @@
 										</tr>
 									</tbody>
 								   </table>
+							<br>
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">
 									<li><span>입출 내역</span></li>
 								</ul>
 							</div>
-							<b>&nbsp;<b>
-								<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 98%;">
+								<table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<colgroup>
 										<col style="width: 3%">
 										<col style="width: 8%">
@@ -467,7 +472,7 @@
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
-					</div>
+					
 				</section>
 
 

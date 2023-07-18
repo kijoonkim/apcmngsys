@@ -40,9 +40,14 @@
         .tbl>tbody>tr{height: 40px;}
         .tbl>tbody>tr>td>button{width: 200px;}
         .tbl>tbody>tr>td{padding-left: 5px;}
-    </style>
 
-
+  		.table th {
+    		border-bottom: 1px solid #ffffff !important;
+  		}
+  		div.input-group-addon {
+			padding: 5px;
+  		}
+	</style>
 
 
 <!-- SB 스타일 가이드 영역 완료 -->
@@ -140,16 +145,15 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 발주정보 등록</h3>
-								<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 이력조회</h3>
 							</div>
-						</div>
-						<div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
 						<div class="box-body">
 							<!--[pp] 검색 -->
@@ -166,8 +170,8 @@
 								<tbody>
 									<tr>
 										<th scope="row">조회일자</th>
-										<th class="td_input" scope="col">
-											<div class="dp_inline wd_125 va_m">
+										<td class="td_input" scope="col" style="border-right:hidden; ">
+											<div class="dp_inline wd_160 va_m">
 												<div class="input-group date">
 													<div class="input-group-addon">
 														<i class="fa fa-calendar"></i>
@@ -175,19 +179,18 @@
 													<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
 												</div>
 											</div>
-										</th>
-										<th></th>
-										<th></th>
+										</td>
+										<td colspan="2"></td>
 										<th class="td_input">재고구분</th>
-										<th>											
+										<td>											
 											<select class="form-control input-sm" disabled>
 												<option></option>
 											</select>
-										</th>
+										</td>
 									</tr>
 									<tr>								
 										<th scope="row">품목/품종</th>
-										<th scope="row">
+										<td scope="row">
 											<div class="fl_group fl_rpgroup">
 												<select class="form-control fl_fixed mg_r5 wd_110">
 													<option>선택</option>
@@ -204,45 +207,46 @@
 													<option>option 5</option>
 												</select>
 											</div>
-										</th>
+										</td>
 										<th scope="row">규격</th>
-										<th scope="row">
+										<td scope="row">
 											<select class="form-control input-sm" disabled>
 												<option>선택</option>
 											</select>
-										</th>
+										</td>
 										<th>
 											창고구분
 										</th>
-										<th scope="row" class="ta_r">
+										<td scope="row" class="ta_r">
 											<select class="form-control input-sm" >
 												<option>선택</option>
 											</select>
-										</th>
+										</td>
 									</tr>
 									<tr>
 										<th scope="row">생산자</th>
-										<th scope="row" class="ta_r">
+										<td scope="row" class="ta_r">
 											<div class="fl_group fl_rpgroup">
 												<input type="text" class="form-control input-sm" placeholder="" title="입력하세요."  disabled>						
 												<button type="button" class="btn btn-sm btn-outline-danger">찾기</button>
 											</div>	
-											</th>
+										</td>
 										<th scope="row">상품구분</th>
-										<th scope="row" class="ta_r">
+										<td scope="row" class="ta_r">
 											<select class="form-control input-sm" >
 												<option>선택</option>
 											</select>
-										</th>
+										</td>
 										<th scope="row">입고구분</th>
-										<th scope="row" class="ta_r">
+										<td scope="row" class="ta_r">
 											<select class="form-control input-sm" >
 												<option>선택</option>
 											</select>
-										</th>
+										</td>
 									</tr>
 								</tbody>
 							</table>
+							<br>
 							<button type="button" class="btn btn-lg btn-outline-danger">접속이력</button>
 							<button type="button" class="btn btn-lg btn-outline-danger">화면열람이력</button>
 							<button type="button" class="btn btn-lg btn-outline-danger">송수신이력</button>
@@ -263,7 +267,7 @@
 									<tbody>
 										<tr>
 											<th scope="row">조회일자</th>
-											<th>
+											<td>
 												<div class="fl_group fl_rpgroup">
 													<div class="dp_inline wd_125 va_m">
 														<div class="input-group date">
@@ -283,18 +287,18 @@
 														</div>
 													</div>
 												</div>
-											</th>
+											</td>
 											<th scope="row">송수신구분</th>
-											<th class="td_input">
+											<td class="td_input">
 												<select class="form-control input-sm">
 													<option>선택</option>
 												</select>
-											</th>
+											</td>
 											<th scope="row">인터페이스명</th>
-											<th class="td_input">
+											<td class="td_input" style="border-right: hidden;">
 												<input type="text" class="form-control input-sm" placeholder="">
-											</th>
-											<th>&nbsp;</th>
+											</td>
+											<td>&nbsp;</td>
 										</tr>
 									</tbody>
 								</table>
@@ -371,7 +375,7 @@
 									<tbody>
 										<tr>
 											<th scope="row">조회일자</th>
-											<th>
+											<td>
 												<div class="fl_group fl_rpgroup">
 													<div class="dp_inline wd_125 va_m">
 														<div class="input-group date">
@@ -391,14 +395,11 @@
 														</div>
 													</div>
 												</div>
-											</th>
+											</td>
 											<th scope="row">프로그램 명</th>
-											<th class="td_input">
-												<input type="text" class="form-control input-sm" placeholder="">
-											</th>
-											<th>&nbsp;</th>
-											<th>&nbsp;</th>
-											<th>&nbsp;</th>
+											<td class="td_input" colspan="4">
+												<input type="text" class="form-control input-sm" placeholder="" style="width: 40%;">
+											</td>
 										</tr>
 									</tbody>
 								</table>

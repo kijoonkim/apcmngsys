@@ -40,8 +40,13 @@
         .tbl>tbody>tr{height: 40px;}
         .tbl>tbody>tr>td>button{width: 200px;}
         .tbl>tbody>tr>td{padding-left: 5px;}
-    </style>
-
+  		.table th {
+    		border-bottom: 1px solid #ffffff !important;
+  		}
+  		div.input-group-addon {
+			padding: 5px;
+  		}
+	</style>
 
 
 
@@ -140,16 +145,17 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 사용자승인등록</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 사용자승인등록</h3>
 							</div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
 						<div>
 						</div>
@@ -158,20 +164,20 @@
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
-									<col style="width: 3%">
 									<col style="width: 7%">
 									<col style="width: 7%">
-									<col style="width: 5%">
+									<col style="width: 7%">
+									<col style="width: 7%">
 									<col style="width: 15%">
 									<col style="width: 3%">
-									<col style="width: 5%">
+									<col style="width: 7%">
 									<col style="width: 5%">
 									<col style="width: 4%">
 								</colgroup>
 								<tbody>
 									<tr>
-										<th class="ta_r">조회일자</th>
-										<th colspan="2" class="td_input">
+										<th class="ta_c">조회일자</th>
+										<td colspan="2" class="td_input" style="border-right: hidden;">
 											<div class="dp_inline wd_120 va_m">
 												<div class="input-group date">
 													<div class="input-group-addon">
@@ -189,35 +195,29 @@
 													<input type="text" name="datepicker" placeholder="2023.01.31" class="form-control pull-right input-sm">
 												</div>
 											</div>										
-										</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
+										</td>
+										<td colspan="6">&nbsp;</td>
 									</tr>
 									<tr>
-										<th class="ta_r">승인여부</th>
-										<th>
+										<th class="ta_c">승인여부</th>
+										<td style="border-right: hidden;">
 											<div class="fl_group fl_rpgroup">
 												<select class="form-control fl_fixed mg_r5 wd_130" disabled>
 													<option>선택</option>
 												</select>
 											</div>
-										</th>
-										<th>&nbsp;</th>
-										<th class="ta_r">APC명</th>
-										<th colspan="2"class="td_input">
+										</td>
+										<td>&nbsp;</td>
+										<th class="ta_c">APC명</th>
+										<td colspan="2"class="td_input">
 											<select class="form-control input-sm">
 												<option>선택</option>
 											</select>
-										</th>
-										<th class="ta_r">사용자명</th>
-										<th class="td_input">
-											<input type="text" class="form-control input-sm" placeholder="" title="">
-										</th>
-										<th>&nbsp;</th>
+										</td>
+										<th class="ta_c">사용자명</th>
+										<td class="td_input" colspan="2">
+											<input type="text" class="form-control input-sm" placeholder="" title="" style="width: 80%;">
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -266,17 +266,17 @@
 											</tr>
 										</thead>
 										<tbody>
-										<tr>
-											<th scope="row" class="td_input">
-													<p class="ad_input_row">
-														<input type="checkbox" class="check" id="check1">
-														<label class="check_label ta_i" for="check1">선택</label>
-													</p>
-												</th>
-										<td class="td_input">
-											<select class="form-control input-sm">
-											</select>
-										</td>
+											<tr>
+												<td scope="row" class="td_input">
+														<p class="ad_input_row">
+															<input type="checkbox" class="check" id="check1">
+															<label class="check_label ta_i" for="check1">선택</label>
+														</p>
+												</td>
+												<td class="td_input">
+													<select class="form-control input-sm">
+													</select>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -287,16 +287,16 @@
 												<td>&nbsp;</td>
 											</tr>
 											<tr>
-											<th scope="row" class="td_input">
+												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
-										<td class="td_input">
-											<select class="form-control input-sm">
-											</select>
-										</td>
+												</td>
+												<td class="td_input">
+													<select class="form-control input-sm">
+													</select>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -307,15 +307,16 @@
 												<td>&nbsp;</td>
 											</tr>
 											<tr>
-											<th scope="row" class="td_input">
+												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-										<td class="td_input">
-											<select class="form-control input-sm">
-											</select>
-										</td>
+												</td>	
+												<td class="td_input">
+													<select class="form-control input-sm">
+													</select>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>

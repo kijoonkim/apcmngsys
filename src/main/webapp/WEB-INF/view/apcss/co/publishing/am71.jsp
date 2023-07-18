@@ -156,23 +156,24 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 정산자료등록</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 정산자료등록</h3>
 							</div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
 						<div>
 						</div>
 						<div class="box-body">
 							<!--[pp] 검색 -->
-								<table class="table table-bordered table-hover tbl_col tbl_fixed">
+							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
 									<col style="width: 7%">
@@ -183,7 +184,7 @@
 									<col style="width: 22%">
 
 								</colgroup>
-								<thead>
+								<tbody>
 									<tr>
 										<th class="ta_c">APC명</th>
 										<td class="ta_c">
@@ -249,7 +250,7 @@
 											</div>
 										</td>										
 									</tr>
-								</thead>
+								</tbody>
 							</table>
 
 							<div class="ad_tbl_top">

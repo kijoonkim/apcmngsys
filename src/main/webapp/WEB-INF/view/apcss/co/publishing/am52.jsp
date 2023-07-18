@@ -40,8 +40,14 @@
         .tbl>tbody>tr{height: 40px;}
         .tbl>tbody>tr>td>button{width: 200px;}
         .tbl>tbody>tr>td{padding-left: 5px;}
-    </style>
 
+  		.table th {
+    		border-bottom: 1px solid #ffffff !important;
+  		}
+  		div.input-group-addon {
+			padding: 5px;
+  		}
+	</style>
 
 
 
@@ -140,57 +146,56 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 사용자정보변경</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 사용자정보변경</h3>
 							</div>
-						</div>
-						<div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
-									<col style="width: 3%">
-									<col style="width: 5%">
-									<col style="width: 5%">
+									<col style="width: 7%">
 									<col style="width: 10%">
-									<col style="width: 3%">
+									<col style="width: 7%">
 									<col style="width: 10%">
-									<col style="width: 5%">
-									<col style="width: 5%">
-									<col style="width: 6%">
+									<col style="width: 7%">
+									<col style="width: 10%">
+									<col style="width: 7%">
+									<col style="width: 7%">
+									<col style="width: 10%">
 								</colgroup>
 								<tbody>
 									<tr>
-										<th class="ta_r">사용자ID</th>
-										<th>
+										<th class="ta_c">사용자ID</th>
+										<td>
 											<input type="text" class="form-control input-sm" placeholder="" title="입력하세요." >
-										</th>
+										</td>
 										<th>사용자명</th>
-										<th class="td_input">
+										<td class="td_input">
 											<input type="text" class="form-control input-sm" placeholder="" title="입력하세요." >
-										</th>
+										</td>
 
-										<th class="ta_r">APC명</th>
-										<th colspan="2"class="td_input">
+										<th class="ta_c">APC명</th>
+										<td colspan="2"class="td_input">
 											<select class="form-control input-sm" >
 												<option>선택</option>
 											</select>
-										</th>
-										<th class="ta_r">유형</th>
-										<th class="ta_l">
+										</td>
+										<th class="ta_c">유형</th>
+										<td class="ta_l">
 											<select class="form-control input-sm" >
 												<option></option>
 											</select>
-										</th>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -242,13 +247,13 @@
 											</tr>
 										</thead>
 										<tbody>
-										<tr>
-											<th scope="row" class="td_input">
+											<tr>
+												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>
@@ -273,12 +278,12 @@
 												<td>&nbsp;</td>
 											</tr>
 											<tr>
-											<th scope="row" class="td_input">
+												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>
@@ -304,12 +309,12 @@
 												<td>&nbsp;</td>
 											</tr>
 											<tr>
-												<th scope="row" class="td_input">
+												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>
