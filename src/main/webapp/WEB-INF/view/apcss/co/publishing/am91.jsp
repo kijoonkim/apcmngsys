@@ -61,7 +61,7 @@
       <link rel="stylesheet" href="../../../src/font-awesome/css/font-awesome.min.css">
       <!-- [pp] font-awesome 파이어폭스 미출력 에러 대응 -->
 <!--       <link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"> -->
-         <link rel="stylesheet" href="/resource/css/font-awesome/4.7.0/css/font-awesome.css">
+         <link rel="stylesheet" href="../../../css/font-awesome/4.7.0/css/fontawesome.css">
       <!-- [pp] //font-awesome 파이어폭스 미출력 에러 대응 -->
       <link rel="stylesheet" href="../../../src/remixicon/fonts/remixicon.css">
       <!-- [pp] //icon -->
@@ -86,8 +86,8 @@
 
       <!-- js -->
 <!--       <script src="../../../src/jquery/js/jquery-3.5.1.min.js"></script> -->
-      <script src="/resource/src/jquery/js/jquery-3.5.1.min.js"></script>
-        <script src="/resource/src/jquery/js/jquery.mousewheel.min.js"></script>
+      <script src="../../../src/jquery/js/jquery-3.5.1.min.js"></script>
+        <script src="../../../src/jquery/js/jquery.mousewheel.min.js"></script>
       <!--[if lt IE 9]>
       <script src="../../../src/jquery/js/jquery-1.12.3.min.js"></script>
       <script src="../../../src/jquery/js/html5shiv.js"></script>
@@ -133,7 +133,7 @@
 
 				<section class="content container-fluid">
 					<div class="box box-solid" >
-						
+
 						<div class="box-header" style="display:flex; justify-content: flex-start;" >
 							<div>
 								<h3 class="box-title" style="line-height: 30px;"> ▶ 투입지시조회</h3>
@@ -142,7 +142,7 @@
 								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
 								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
 							</div>
-							
+
 						</div>
 
 						<div class="box-body">
@@ -167,10 +167,16 @@
 								<tbody>
 									<tr>
 										<th scope="row" style="border-bottom:1px solid white " >APC명</th>
-										<td colspan= "2" class="td_input" style="border-right:hidden;">
+										<td class="td_input" style="border-right:hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
-										<td colspan="9"></td>
+										<th>1</th>
+										<td>2</td>
+										<th>3</th>
+										<td>4</td>
+										<th>5</th>
+										<td>6</td>
+										<th>7</th>
 									</tr>
 									<tr>
 
