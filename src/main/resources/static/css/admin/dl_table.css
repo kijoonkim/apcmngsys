@@ -63,6 +63,7 @@ table {
 table th{
 	font-size: 13px; vertical-align: middle; text-align: center;
 	border-color: #e8f1f9 !important;
+	border-bottom: 1px solid #ffffff !important;
 	word-wrap: break-word;
 }
 table td{
