@@ -17,11 +17,11 @@
 				<h3 class="box-title">▶ 포장투입등록 (테블릿)</h3>
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+						<sbux-button type="button" class="btn btn-sm btn-outline-danger" text="초기화"></sbux-button>
+						<sbux-button type="button" class="btn btn-sm btn-outline-danger" text="조회"></sbux-button>
+						<sbux-button type="button" class="btn btn-sm btn-outline-danger" text="등록"></sbux-button>
+						<sbux-button type="button" class="btn btn-sm btn-outline-danger" text="삭제"></sbux-button>
+						<sbux-button type="button" class="btn btn-sm btn-outline-danger" text="종료"></sbux-button>
 					</div>
 				</div>
 			</div>
@@ -41,7 +41,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled>
+								<sbux-input type="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
 							<td></td>
 						</tr>
@@ -54,7 +54,7 @@
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_all">
+									<sbux-input type="checkbox" class="check" id="check_all"></sbux-input>
 									<label class="check_label" for="check_all">고정</label>
 								</p>
 							</td>
@@ -62,17 +62,17 @@
 						<tr>
 							<th scope="row">선별번호/등급</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm">
+								<sbux-input type="text" class="form-control input-sm"></sbux-input>
 							<td class="td_input">
-								<button class="btn btn-xs btn-outline-dark" type="button"> 조회 </button>
+								<sbux-button class="btn btn-xs btn-outline-dark" type="button" text=" 조회 "></sbux-button>
 						  	</td>
 				        </tr>
 						<tr>
 							<th scope="row">생산지시번호</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm">
+								<sbux-input type="text" class="form-control input-sm"></sbux-input>
 							<td class="td_input" style="border-right: hidden;">
-								<button class="btn btn-xs btn-outline-success" type="button">조회</button>
+								<sbux-button class="btn btn-xs btn-outline-success" type="button" text="조회"></sbux-button>
 						    </td>
 						</tr>
 						<tr>
@@ -83,7 +83,7 @@
 										<div class="input-group-addon">
 											<i class="fa fa-calendar"></i>
 										</div>
-										<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
+										<sbux-input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm"></sbux-input>
 									</div>
 								</div>
 							</td>
@@ -92,9 +92,9 @@
 						<tr>
 							<th scope="row">투입수량/중량</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder=""title="">
+								<sbux-input type="text" class="form-control input-sm" placeholder=""title=""></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;"><input type="text" class="form-control input-sm" placeholder=""title="">
+							<td class="td_input" style="border-right: hidden;"><sbux-input type="text" class="form-control input-sm" placeholder=""title=""></sbux-input>
 							</td>
 							<td style="border-right: hidden;"><label class="bold">Kg</label></td>
 							<td>&nbsp;</td>
@@ -115,17 +115,17 @@
 						</tr>
 						<tr>
 							<th scope="row">선별수량/중량</th>
-							<td class="td_input" style="border-right: hidden;"><input type="text"
-								class="form-control input-sm" placeholder="" disabled>
+							<td class="td_input" style="border-right: hidden;"><sbux-input type="text"
+								class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;"><input type="text"
-								class="form-control input-sm" placeholder="" disabled>
+							<td class="td_input" style="border-right: hidden;"><sbux-input type="text"
+								class="form-control input-sm" placeholder="" disabled></sbux-input>
 							<td style="border-right: hidden;"><label class="bold">Kg</label></td>
 						</tr>
 						<tr>
 							<th scope="row">규 격 명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;"><input type="text"
-								class="form-control input-sm" placeholder="" disabled>
+							<td colspan="3" class="td_input" style="border-right: hidden;"><sbux-input type="text"
+								class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
 							<td>&nbsp;</td>
 						</tr>

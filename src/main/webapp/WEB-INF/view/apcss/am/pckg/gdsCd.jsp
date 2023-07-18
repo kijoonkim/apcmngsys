@@ -17,8 +17,8 @@
 				<h3 class="box-title"> ▶ 상품코드조회</h3>
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+						<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+						<sbux-button id="btnEnd" name="btnEnd" uitype="normal" class="btn btn-sm btn-outline-danger" text="종료"></sbux-button>
 					</div>
 				</div>
 			</div>
@@ -29,89 +29,79 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 5%">
-						<col style="width: 15%">
-						<col style="width: 9%">
-						<col style="width: 25%">
 						<col style="width: 7%">
-						<col style="width: 17%">
-						<col style="width: 11%">
+						<col style="width: 6%">
+						<col style="width: 9%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 9%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 9%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th class="ta_r">APC명</th>
-							<th class="ta_r">
-								<input type="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled>
-							</th>
-							<th colspan="5">
-								&nbsp;
-							</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-apcName" name="srch-inp-apcName" uitype="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled></sbux-input>
+							</td>
 						</tr>
 						<tr>
 							<th class="ta_r">상품코드</th>
-							<th class="td_input">
-								<input type="text" class="form-control input-sm" placeholder="">
-							</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-gdsCode" name="srch-inp-gdsCode" uitype="text" class="form-control input-sm"></sbux-input>
+							</td>
+							<td></td>
 							<th class="ta_r">품목</th>
-							<th class="ta_r">
+							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<select class="form-control">
-											<option></option>
-										</select>
+										<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control"></sbux-select>
 									</div>
-									<button type="button" class="btn btn-sm btn-outline-danger">찾기</button>
 								</div>
-							</th>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="btnSrchItem" name="btnSrchItem" uitype="normal" class="btn btn-sm btn-outline-danger" text="찾기"></sbux-button>
+							</td>
 							<th class="ta_r">품종</th>
-							<th class="ta_r">
+							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<select class="form-control">
-											<option>멀티선택</option>
-										</select>
+										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" unselected-text="멀티선택" class="form-control"></sbux-select>
 									</div>
-									<button type="button" class="btn btn-sm btn-outline-danger">찾기</button>
 								</div>
-							</th>
-							<th></th>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="btnSrchVrty" name="btnSrchVrty" uitype="normal" class="btn btn-sm btn-outline-danger" text="찾기"></sbux-button>
+							</td>
 						</tr>
 						<tr>
 							<th>규격</th>
-							<th class="td_input">
-								<select class="form-control" style="width: 80%;">
-									<option></option>
-								</select>
-							</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" class="form-control" style="width: 80%;"></sbux-select>
+							</td>
+							<td></td>
 							<th class="ta_r">상품등급</th>
-							<th class="ta_r">
-								<select class="form-control" style="width: 70%;">
-									<option></option>
-								</select>
-							</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" class="form-control" style="width: 70%;"></sbux-select>
+							</td>
+							<td></td>
 							<th class="ta_r">브랜드</th>
-							<th>
-								<select class="form-control">
-									<option></option>
-								</select>
-							</th>
-							<th>&nbsp;</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-brand" name="srch-slt-brand" uitype="single" class="form-control"></sbux-select>
+							</td>
+							<td></td>
 						</tr>
-
 						<tr>
 							<th>산지</th>
-							<th>
-								<select class="form-control">
-									<option></option>
-								</select>
-							</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-plor" name="srch-slt-plor" uitype="single" class="form-control"></sbux-select>
+							</td>
+							<td></td>
 							<th class="ta_r">포장구분</th>
-							<th>
-								<select class="form-control" style="width: 70%;">
-									<option></option>
-								</select>
-							</th>
-							<th colspan="3"></th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-pckgKind" name="srch-slt-pckgKind" uitype="single" class="form-control"></sbux-select>
+							</td>
 						</tr>
 					</tbody>
 				</table>
