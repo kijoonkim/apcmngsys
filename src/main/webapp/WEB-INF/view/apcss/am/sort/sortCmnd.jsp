@@ -13,16 +13,17 @@
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
-			<div class="box-header">
-				<h3 class="box-title"> ▶ 선별지시조회</h3>
-			</div>
-				<div class="mg_t5 ta_r">
-					<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-					<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-					<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
-					<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+			<div class="box-header" style="display:flex; justify-content: flex-start;">
+				<div>
+					<h3 class="box-title">▶ 선별지시조회</h3>
 				</div>
-
+				<div style="margin-left: auto;">
+					<sbux-button id="srch-btn-search" name="srch-btn-search" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
+					<sbux-button id="srch-btn-insert" name="srch-btn-insert" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
+					<sbux-button id="srch-btn-delete" name="srch-btn-delete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
+					<sbux-button id="srch-btn-terminate" name="srch-btn-terminate" uitype="button" class="btn btn-sm btn-outline-danger">종료</sbux-button>
+				</div>
+			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -33,54 +34,40 @@
 						<col style="width: 6%">
 						<col style="width: 3%">
 						<col style="width: 7%">
-						<col style="width: 9%">
-						<col style="width: 8%">
-						<col style="width: 7%">
-						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 3%">
+						<col style="width: 6%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row">APC명</th>
 							<td colspan= "2" class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled>
-							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<th scope="row">지시일자</th>
-							<td colspan="2" class="td_input"  style="border-right: hidden;">
-								<div class="dp_inline wd_125 va_m">
-									<div class="input-group date">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-										<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
-									</div>
-								</div>
-								~
-								<div class="dp_inline wd_125 va_m">
-									<div class="input-group date">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-										<input type="text" name="datepicker" placeholder="2023-01-31" class="form-control pull-right input-sm">
-									</div>
-								</div>
-							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<th scope="row" style="border-right: hidden;">품목/품종</th>
-							<td class="td_input"  style="border-right: hidden;">
-								<select class="form-control input-sm">
-									<option></option>
-								</select>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<select class="form-control input-sm">
-								</select>
+<!-- 								<input type="text" class="form-control input-sm" placeholder="" disabled> -->
+								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" disabled/>
 							</td>
 						</tr>
 						<tr>
+							<th scope="row">지시일자</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker uitype="popup" id="srch-dtp-startCmndDate" name="srch-dtp-startDate">
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker uitype="popup" id="srch-dtp-endCmndDate" name="srch-dtp-endDate">
+							</td>
+							<td>&nbsp;</td>
+							<th scope="row" style="border-right: hidden;">품목/품종</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
+							</td>
+<!-- 							<td class="td_input" style="border-right: hidden;"/> -->
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
+							</td>
+							<td>&nbsp;</td>
 							<th scope="row">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<select class="form-control input-sm">
@@ -89,92 +76,84 @@
 							<td class="td_input"  style="border-right: hidden;">
 								<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
+							<td>&nbsp;</td>
+							
+						</tr>
+						<tr>
 							<th scope="row">참고</th>
 							<td class="td_input" style="border-right: hidden;">
 								<select class="form-control input-sm">
 									<option>단일선택</option>
 								</select>
 							</td>
+						
+						
+						
+						
+						
 						</tr>
 					</tbody>
 				</table>
-
-				<!--[pp] //검색 -->
-				<!--[pp] 검색결과 -->
-						<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>　투입지시 내역</span></li>
-							<li><span>　　　지시중량 : 99.999Kg　　　　실적중량 : 99.999Kg</span></li>
-						</ul>
-					</div>
-					<table class="table table-bordered table-hover tbl_col tbl_fixed">
-						<colgroup>
-							<col style="width: 7%">
-							<col style="width: 7%">
-							<col style="width: 7%">
-							<col style="width: 7%">
-							<col style="width: 4%">
-							<col style="width: 9%">
-							<col style="width: 4%">
-							<col style="width: 4%">
-							<col style="width: 4%">
-							<col style="width: 4%">
-							<col style="width: 18%">
-						</colgroup>
-						<thead>
-							<tr>
-								<th rowspan="2">지시번호</th>
-								<th rowspan="2">지시일자</th>
-								<th rowspan="2">생산자</th>
-								<th rowspan="2">품종</th>
-								<th rowspan="2">창고</th>
-								<th rowspan="2">팔레트번호</th>
-								<th colspan="2">투입지시</th>
-								<th colspan="2">투입실적</th>
-								<th rowspan="2">비고</th>
-							</tr>
-							<tr>
-								<th scope="col">수량</th>
-								<th scope="col">중량</th>
-								<th scope="col">수량</th>
-								<th scope="col">중량</th>
-							</tr>
-						</thead>
-
-						<tbody>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-						</tbody>
-					</table>
-												</div>
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>투입지시 내역</span></li>
+						<li><span>　　　지시중량 : 99.999Kg　　　　실적중량 : 99.999Kg</span></li>
+					</ul>
+				</div>
+	            <div class="sbt-wrap-body">
+	                    <div class="sbt-grid">
+	                        <div id="inptCmndDsctnGridArea" style="height:340px;"></div>
+	                    </div>
+	               	</div>
+				</div>
 				<!--[pp] //검색결과 -->
 			</div>
 		</div>
 	</section>
 </body>
+<script type="text/javascript">
+	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
+	
+	// only document
+	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_createGrid2();
+	});
+
+	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
+	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
+	
+	function fn_createGrid2() {
+	    var SBGridProperties = {};
+	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
+	    SBGridProperties.id = 'inptCmndDsctnList';
+	    SBGridProperties.jsonref = 'jsoninptCmndDsctnList';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+	    };
+	    SBGridProperties.columns = [
+	        {caption: ["지시번호","지시번호"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["지시일자","지시일자"], 	ref: 'msgCn',     	type:'output',  width:'130px',    style:'text-align:left'},
+	        {caption: ["생산자","생산자"],  	ref: 'msgKndNm',    type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["품종","품종"],  	ref: 'msgKndNm',    type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["창고","창고"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
+	        {caption: ["팔레트번호","팔레트번호"],  	ref: 'msgKndNm',    type:'output',  width:'150px',    style:'text-align:center'},
+	        {caption: ["투입지시","수량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
+	        {caption: ["투입지시","중량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
+	        {caption: ["투입실적","수량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
+	        {caption: ["투입실적","중량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
+	        {caption: ["비고","비고"],  	ref: 'msgKndNm',    type:'output',  width:'180px',    style:'text-align:center'},
+	    ];
+	    
+	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
+
+	}
+</script>
 </html>
