@@ -61,7 +61,7 @@
       <link rel="stylesheet" href="../../../src/font-awesome/css/font-awesome.min.css">
       <!-- [pp] font-awesome 파이어폭스 미출력 에러 대응 -->
 <!--       <link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"> -->
-         <link rel="stylesheet" href="../../../css/font-awesome/4.7.0/css/fontawesome.css">
+      <link rel="stylesheet" href="../../../src/font-awesome/css/fontawesome.css">
       <!-- [pp] //font-awesome 파이어폭스 미출력 에러 대응 -->
       <link rel="stylesheet" href="../../../src/remixicon/fonts/remixicon.css">
       <!-- [pp] //icon -->
@@ -167,16 +167,10 @@
 								<tbody>
 									<tr>
 										<th scope="row" style="border-bottom:1px solid white " >APC명</th>
-										<td class="td_input" style="border-right:hidden;">
+										<td colspan= "2" class="td_input" style="border-right:hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
-										<th>1</th>
-										<td>2</td>
-										<th>3</th>
-										<td>4</td>
-										<th>5</th>
-										<td>6</td>
-										<th>7</th>
+										<td colspan="9"></td>
 									</tr>
 									<tr>
 
