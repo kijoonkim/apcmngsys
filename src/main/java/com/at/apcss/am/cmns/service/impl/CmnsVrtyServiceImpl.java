@@ -26,15 +26,15 @@ import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
  */
 @Service("cmnsVrtyService")
 public class CmnsVrtyServiceImpl implements CmnsVrtyService {
-	
+
 	@Autowired
 	private CmnsVrtyMapper cmnsVrtyMapper;
-	
+
 	@Override
 	public CmnsVrtyVO selectCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
-		
+
 		CmnsVrtyVO resultVO = cmnsVrtyMapper.selectCmnsVrty(cmnsVrtyVO);
-		
+
 		return resultVO;
 	}
 
@@ -42,7 +42,13 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public List<CmnsVrtyVO> selectCmnsVrtyList(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		List<CmnsVrtyVO> resultList = cmnsVrtyMapper.selectCmnsVrtyList(cmnsVrtyVO);
-		
+
+		return resultList;
+	}
+
+	@Override
+	public List<CmnsVrtyVO> selectApcCmnsVrtyList(CmnsVrtyVO cmnsVrtyVO) throws Exception {
+		List<CmnsVrtyVO> resultList = cmnsVrtyMapper.selectApcCmnsVrtyList(cmnsVrtyVO);
 		return resultList;
 	}
 
@@ -50,7 +56,7 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public int insertCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		int insertedCnt = cmnsVrtyMapper.insertCmnsVrty(cmnsVrtyVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -58,7 +64,7 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public int updateCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		int updatedCnt = cmnsVrtyMapper.updateCmnsVrty(cmnsVrtyVO);
-		
+
 		return updatedCnt;
 	}
 
@@ -66,8 +72,10 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public int deleteCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		int deletedCnt = cmnsVrtyMapper.deleteCmnsVrty(cmnsVrtyVO);
-		
+
 		return deletedCnt;
 	}
+
+
 
 }

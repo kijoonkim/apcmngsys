@@ -10,19 +10,6 @@
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
-
-	<style>
-  		.table th {
-    		border-bottom: 1px solid #ffffff !important;
-  		}
-  		div.input-group-addon {
-			padding: 5px;
-  		}
-	</style>
-
-
-
-</head>
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
@@ -658,10 +645,8 @@
 		if(targetName == 'itemMngBtn'){
 			fn_itemCreateGrid();
             fn_apcItemCreateGrid();
-            //fn_itemMngCreateGrid_1();
-            //fn_itemMngCreateGrid_2();
-            //fn_itemMngCreateGrid_3();
-            //fn_itemMngCreateGrid_4();
+            fn_vrtyCreateGrid();
+            fn_apcVrtyCreateGrid();
 		}
 		if(targetName == 'pltBxMngBtn'){
 			fn_pltMngCreateGrid();
@@ -782,6 +767,11 @@
             }else if(grid === "oprtrMngDatagrid"){
             	oprtrMngDatagrid.setCellData(nRow, nCol, "N", true);
             	oprtrMngDatagrid.addRow(true);
+            }else if(grid === "apcVrtyDataGrid"){
+            	apcVrtyDataGrid.setCellData(nRow, nCol, "N", true);
+            	apcVrtyDataGrid.setCellData(nRow, 3, SBUxMethod.get("apcCd"), true);
+            	apcVrtyDataGrid.setCellData(nRow, 4, apcItemDataGrid.getRowData(apcItemDataGrid.getRow()).itemCd, true);
+            	apcVrtyDataGrid.addRow(true);
             }
         }
         else if (gubun === "DEL") {

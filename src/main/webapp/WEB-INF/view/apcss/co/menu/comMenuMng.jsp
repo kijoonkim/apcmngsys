@@ -141,9 +141,9 @@
     var jsonSearchCombo   = comCdLoad("SYS_ID");		//조회조건(시스템ID)
     var jsonComboUserType = comCdLoad("USER_TYPE");		// 사용자유형
     var jsonComboMenuType = comCdLoad("MENU_TYPE");		// 화면유형
-    var jsonComDelYn = 
+    var jsonComDelYn =
     */
-    	
+
 	var jsonComSysId 	= [];	// 시스템유형	srch-select-sysId		SYS_ID
     var jsonComMenuType = [];	// 메뉴유형	dtl-select-menuType		MENU_TYPE
     var jsonComUserType = [];	// 사용자유형	dtl-select-userType		USER_TYPE
@@ -152,28 +152,28 @@
     // grid 초기화
     var grdMenuTreeList; // 그리드를 담기위한 객체 선언
     var jsonMenuTreeList = []; // 그리드의 참조 데이터 주소 선언
-    
+
 	// only document
-	window.addEventListener('DOMContentLoaded', function(e) {		
+	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid();
 		fn_initSBSelect();
-	});    
-    
+	});
+
     /**
      *
      */
     const fn_initSBSelect = async function() {
-		
+
     	// 조회 SB select
 	 	gfn_setComCdSBSelect('srch-select-sysId', jsonComSysId, 'SYS_ID');	// 시스템유형
-	 	
+
 	 	// 상세 SB select
-	 	gfn_setComCdSBSelect('dtl-select-menuType', jsonComMenuType, 'MENU_TYPE');	// 메뉴유형	 	
-	 	gfn_setComCdSBSelect('dtl-select-userType', jsonComUserType, 'USER_TYPE');	// 사용자유형	 	
+	 	gfn_setComCdSBSelect('dtl-select-menuType', jsonComMenuType, 'MENU_TYPE');	// 메뉴유형
+	 	gfn_setComCdSBSelect('dtl-select-userType', jsonComUserType, 'USER_TYPE');	// 사용자유형
 	 	gfn_setComCdSBSelect('dtl-select-delYn', jsonComDelYn, 'REVERSE_YN');		// 삭제유무
     }
-    
-    
+
+
     /**
      * @name fn_createGrid
      * @description 그리드 초기화
@@ -221,7 +221,7 @@
             "callback": fn_ctxtDelRow
         }
     };
-    
+
 	/**
      * @name fn_ctxtAddRow
      * @description 메뉴추가 (CTXT)
@@ -233,7 +233,7 @@
             fn_create(nRow);
         }
     };
-    
+
 	/**
      * @name fn_ctxtDelRow
      * @description 메뉴삭제 (CTXT)
@@ -241,14 +241,14 @@
     function fn_ctxtDelRow() {
     	fn_delete();
     };
-    
+
     /**
      * @name fn_create
      * @description 신규 작성
      * @param {number} nRow	행번호
      */
     function fn_create(nRow) {
-        
+
     	if (nRow == undefined) {
             nRow = grdMenuTreeList.getRow();
             if (nRow < 1) {
@@ -257,19 +257,19 @@
                 return;
             }
         }
-        
+
     	var rowData = grdMenuTreeList.getRowData(nRow);
-    	
+
         if (rowData.menuType == "02") {
         	//alert("상위메뉴를 선택하세요.");
         	alert(gfn_getComMsg("W0001", "상위메뉴"));	//	W0001	{0}을/를 선택하세요.
             return;
         }
-        
+
         var sysIdInfo = _.find(jsonComSysId, {value: SBUxMethod.get("srch-select-sysId")});
         SBUxMethod.set("dtl-input-sysNm", sysIdInfo.text);
         SBUxMethod.set("dtl-input-sysId", sysIdInfo.value);
-        
+
         SBUxMethod.set("dtl-input-upMenuId", rowData.menuId);
         SBUxMethod.set("dtl-input-upMenuNm", rowData.menuNm);
         SBUxMethod.attr("dtl-input-menuId", "readonly");
@@ -282,24 +282,24 @@
         SBUxMethod.set("dtl-input-pageUrl", "");
         SBUxMethod.set("dtl-select-delYn", "N");	// 기본값 사용여부(N)
     }
-	
+
 
  	/**
      * @name fn_save
      * @description 저장
      */
     function fn_save() {
-    	
+
     	// validate check
     	if (!SBUxMethod.get("dtl-input-upMenuId")) {
     		return;	// 상위메뉴가 없으면 return
     	}
-    	
+
     	// check 메뉴명
         if (!SBUxMethod.get("dtl-input-menuNm")) {
         	alert(gfn_getComMsg("W0002", "메뉴명"));	//	W0002	{0}을/를 입력하세요.
             return;
-        }        
+        }
     	// check APC코드
         if (!SBUxMethod.get("dtl-input-apcCd")) {
             alert(gfn_getComMsg("W0002", "APC코드"));	//	W0002	{0}을/를 입력하세요.
@@ -315,17 +315,17 @@
             alert(gfn_getComMsg("W0001", "사용자유형"));	//	W0001	{0}을/를 선택하세요.
             return;
         }
-    	
+
     	/**
     	 * @type {string}
     	 */
     	let menuId = SBUxMethod.get("dtl-input-menuId");
-    	
+
     	/**
     	 * @type {string}
     	 */
     	let saveMsg = "";
-    	
+
         if (gfn_isEmpty(menuId)) {	//신규
             saveMsg = gfn_getComMsg("Q0001", "등록");	//	Q0001	{0} 하시겠습니까?
 			fn_insertMenu(confirm(saveMsg));
@@ -334,7 +334,7 @@
             fn_updateMenu(confirm(saveMsg));
         }
     }
-    
+
  	/**
      * @name fn_delete
      * @description 메뉴삭제
@@ -346,31 +346,31 @@
             alert(gfn_getComMsg("W0001", "메뉴"));	//	W0001	{0}을/를 선택하세요.
             return;
         }
-        
+
         let delMsg = gfn_getComMsg("Q0001", "삭제");	//	Q0001	{0} 하시겠습니까?
-        
-		fn_deleteMenu(confirm(delMsg));        
+
+		fn_deleteMenu(confirm(delMsg));
     }
-    
- 	
+
+
  	/**
      * @name fn_search
      * @description 조회 버튼
      */
     const fn_search = async function() {
-        
+
         if (!SBUxMethod.get("srch-select-sysId")) {
         	alert(gfn_getComMsg("W0001", "시스템구분"));	//	W0001	{0}을/를 선택하세요.
             return;
         }
-    	
+
     	// set pagination
     	let pageSize = grdMenuTreeList.getPageSize();
     	let pageNo = 1;
-        
+
     	fn_setGrdMenuTreeList(pageSize, pageNo);
     }
-    
+
     /**
      * @name fn_setGrdMenuTreeList
      * @description 메뉴트리 조회
@@ -378,14 +378,14 @@
      * @param {number} pageNo
      */
     const fn_setGrdMenuTreeList = async function(pageSize, pageNo) {
-    	
-    	// form clear 
+
+    	// form clear
     	fn_clearForm();
-    	
+
     	grdMenuTreeList.clearStatus();
 
 		let sysId = SBUxMethod.get("srch-select-sysId");
-		
+
         const postJsonPromise = gfn_postJSON("/co/menu/selectMenuList.do", {
         	sysId: sysId,
         	// pagination
@@ -393,14 +393,14 @@
 			currentPageNo : pageNo,
  		  	recordCountPerPage : pageSize
 		});
-        
+
         const data = await postJsonPromise;
-        
+
         try {
-        	
+
         	/** @type {number} **/
     		let totalRecordCount = 0;
-        	
+
         	jsonMenuTreeList.length = 0;
         	data.resultList.forEach((item, index) => {
 				const menu = {
@@ -417,10 +417,10 @@
 					delYn : item.delYn
 				}
 				jsonMenuTreeList.push(menu);
-				
+
 				totalRecordCount = jsonMenuTreeList.length;
 			});
-        	
+
         	grdMenuTreeList.rebuild();
         	//document.querySelector('#listCount').innerText = totalRecordCount;
 
@@ -431,8 +431,8 @@
     		console.error("failed", e.message);
     		alert(gfn_getComMsg("E0001"));	//	E0001	오류가 발생하였습니다.
         }
-    } 
-    
+    }
+
     /**
      * @name fn_insertMenu
      * @description 메뉴등록
@@ -443,7 +443,7 @@
 		if (!isConfirmed) {
 			return;
 		}
-		
+
     	let upMenuId 		= SBUxMethod.get('dtl-input-upMenuId');		// 상위메뉴ID
     	let menuNm 			= SBUxMethod.get('dtl-input-menuNm');			// 메뉴이름
     	let apcCd 			= SBUxMethod.get('dtl-input-apcCd');			// APC코드
@@ -461,7 +461,7 @@
         	});
     		order = Math.max.apply(null, orderArray) + 1;
     	}
-    	
+
     	const postJsonPromise = gfn_postJSON("/co/menu/insertMenu.do", {
 		  		apcCd 		: apcCd,
   		  		upMenuId 	: upMenuId,
@@ -469,11 +469,11 @@
 	  		  	indctSeq 	: order,
 	  		  	menuType 	: menuType,
 	  		    userType 	: userType,
-	  		  	pageUrl 	: pageUrl  	        	
+	  		  	pageUrl 	: pageUrl
 		});
-    	
+
 		const data = await postJsonPromise;
-        
+
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		alert(gfn_getComMsg("I0001"));	// I0001	처리 되었습니다.
@@ -482,7 +482,7 @@
         		alert(data.resultMessage);
         		alert(gfn_getComMsg("E0001"));	//	E0001	오류가 발생하였습니다.
         	}
-        } catch(e) {        	
+        } catch(e) {
         }
     }
 
@@ -490,13 +490,13 @@
      * @name updateMenu
      * @description 메뉴정보 변경
      * @param {boolean} isConfirmed
-     */     
+     */
 	const fn_updateMenu = async function(isConfirmed) {
 
 		if (!isConfirmed) {
 			return;
 		}
-		
+
     	let menuId 			= SBUxMethod.get('dtl-input-menuId');		// 메뉴ID(PK)
     	let upMenuId 		= SBUxMethod.get('dtl-input-upMenuId');		// 상위메뉴ID
     	let menuNm 			= SBUxMethod.get('dtl-input-menuNm');		// 메뉴이름
@@ -506,7 +506,7 @@
     	let userType 		= SBUxMethod.get('dtl-select-userType');	// 사용자유형
     	let pageUrl 		= SBUxMethod.get('dtl-input-pageUrl');		// 화면URL
     	let delYn 			= SBUxMethod.get('dtl-select-delYn');		// 사용유무
-    	
+
     	const postJsonPromise = gfn_postJSON("/co/menu/updateMenu.do", {
 	  		apcCd 		: apcCd,
 	  		menuId 		: menuId,
@@ -514,11 +514,11 @@
   		  	indctSeq 	: order,
   		  	menuType 	: menuType,
   		    userType 	: userType,
-  		  	pageUrl 	: pageUrl  	        	
+  		  	pageUrl 	: pageUrl
 		});
-	
+
 		const data = await postJsonPromise;
-	    
+
 	    try {
 	    	if (_.isEqual("S", data.resultStatus)) {
 	    		alert(gfn_getComMsg("I0001"));	// I0001	처리 되었습니다.
@@ -527,30 +527,30 @@
 	    		alert(data.resultMessage);
 	    		alert(gfn_getComMsg("E0001"));	//	E0001	오류가 발생하였습니다.
 	    	}
-	    } catch(e) {        	
+	    } catch(e) {
 	    }
-    	
+
     }
 
     /**
      * @name fn_deleteMenu
      * @description 메뉴정보 삭제
      * @param {boolean} isConfirmed
-     */     
+     */
    	const fn_deleteMenu = async function(isConfirmed) {
 
  		if (!isConfirmed) {
  			return;
  		}
- 		
+
 		let menuId = SBUxMethod.get('dtl-input-menuId');		// 메뉴ID(PK)
 
 		const postJsonPromise = gfn_postJSON("/co/menu/deleteMenu.do", {
-			menuId 		: menuId 	        	
+			menuId 		: menuId
 		});
-	
+
 		const data = await postJsonPromise;
-	    
+
 	    try {
 	    	if (_.isEqual("S", data.resultStatus)) {
 	    		alert(gfn_getComMsg("I0001"));	// I0001	처리 되었습니다.
@@ -559,28 +559,29 @@
 	    		alert(data.resultMessage);
 	    		alert(gfn_getComMsg("E0001"));	//	E0001	오류가 발생하였습니다.
 	    	}
-	    } catch(e) {        	
+	    } catch(e) {
 	    }
     }
 
-	
+
     /**
      * @name fn_view
      * @description 선택메뉴 상세정보 표시
      */
     const fn_view = function () {
-    	
+
         let nRow = grdMenuTreeList.getRow();
+        console.log("nROw",nRow)
         if (nRow < 2) {
             return;
         }
-        
+
         var rowData = grdMenuTreeList.getRowData(nRow);
-        
+
         var sysIdInfo = _.find(jsonComSysId, {value: SBUxMethod.get("srch-select-sysId")});
         SBUxMethod.set("dtl-input-sysNm", sysIdInfo.text);
         SBUxMethod.set("dtl-input-sysId", sysIdInfo.value);
-        
+
         SBUxMethod.set("dtl-input-upMenuId", rowData.upMenuId);
         SBUxMethod.set("dtl-input-upMenuNm", rowData.upMenuNm);
         SBUxMethod.attr("dtl-input-menuId", "readonly", true);
@@ -592,7 +593,7 @@
         SBUxMethod.set("dtl-select-userType", rowData.userType);
         SBUxMethod.set("dtl-input-pageUrl", rowData.pageUrl);
         SBUxMethod.set("dtl-select-delYn", rowData.delYn);	// 기본값 사용여부(N)
-        
+
         // 화면유형 : 01 -> 입력불가, 02 -> PAGE_URL 입력
         if(rowData.menuType == "01"){
         	SBUxMethod.attr("dtl-input-pageUrl", "readonly", "true");
@@ -600,7 +601,7 @@
         	SBUxMethod.attr("dtl-input-pageUrl", "readonly", "false");
         }
     }
-    
+
     /**
      * @name fn_clearForm
      * @description 상세정보 초기화
@@ -618,11 +619,11 @@
         SBUxMethod.set("dtl-input-pageUrl", "");
         SBUxMethod.set("dtl-select-delYn", "");
     }
-    
+
     /**
      * ui event
      */
-    
+
     /**
      * @name onSelectMenuTypeChange
      * @description 화면유형 ChangeEvent : 화면유형(01) PAGE_URL -> NULL, 화면유형(02) -> PAGE_URL(MAPPING_URL)
