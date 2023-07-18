@@ -132,17 +132,18 @@
 <!-- ============================================================================================================== -->
 
 				<section class="content container-fluid">
-					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 투입지시조회</h3>
-						</div>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-									&nbsp;&nbsp;&nbsp;
-								</div>
+					<div class="box box-solid" >
+						
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 투입지시조회</h3>
 							</div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
+						</div>
 
 						<div class="box-body">
 							<!--[pp] 검색 -->
