@@ -24,7 +24,7 @@
 	<link href="/resource/css/blue_comp_style.css" rel="stylesheet" type="text/css">
     <!------------------ 스타일 테마 CSS ------------------>
 	<link href="/resource/css/blue_style.css" rel="stylesheet" type="text/css">
-    <style>
+   <style>
         /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
         .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333;}
@@ -40,7 +40,14 @@
         .tbl>tbody>tr{height: 40px;}
         .tbl>tbody>tr>td>button{width: 200px;}
         .tbl>tbody>tr>td{padding-left: 5px;}
-    </style>
+
+  		.box-body>table.table th {
+    		border-bottom: 1px solid #ffffff !important;
+  		}
+  		div.input-group-addon {
+			padding: 5px;
+  		}
+	</style>
 
 
 

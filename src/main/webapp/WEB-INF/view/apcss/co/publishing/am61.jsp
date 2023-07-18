@@ -114,7 +114,18 @@
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 완료-->
 
 
-
+	<style>
+  		.table th {
+    		border-bottom: 1px solid #ffffff !important;
+  		}
+  		div.input-group-addon {
+			padding: 5px;
+  		}
+  		        .tbl>tbody>tr{height: 40px;}
+        .tbl>tbody>tr>td>button{width: 200px;}
+        .tbl>tbody>tr>td{padding-left: 5px;}
+  		}
+	</style>
 
 
 
@@ -140,14 +151,15 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 원물입고 팔레트/박스 불줄등록(팝업)</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 원물입고 팔레트/박스 불출등록(팝업)</h3>
 							</div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
 						<div>
 						</div>
@@ -156,24 +168,24 @@
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
-									<col style="width: 5%">
-									<col style="width: 10%">
-									<col style="width: 5%">
 									<col style="width: 7%">
-									<col style="width: 22%">
+									<col style="width: 10%">
+									<col style="width: 7%">
+									<col style="width: 17%">
+									<col style="width: 12%">
 								</colgroup>
 								<tbody>
 									<tr>
-										<th class="ta_r">APC명</th>
-										<th class="ta_r" colspan="2">
+										<th class="ta_c">APC명</th>
+										<td class="ta_r" colspan="2">
 											<input type="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled>
-										</th>
+										</td>
 										
-										<th class="ta_r">계량번호</th>
-										<th colspan="1" class="td_input">
+										<th class="ta_c">계량번호</th>
+										<td colspan="1" class="td_input" style="border-right: hidden; ">
 											<input type="text" class="form-control input-sm" placeholder="입력" title="입력하세요." disabled>
-										</th>
-										<th colspan="4">&nbsp;</th>
+										</td>
+										<td colspan="4">&nbsp;</td>
 									</tr>
 								</tbody>
 							</table>

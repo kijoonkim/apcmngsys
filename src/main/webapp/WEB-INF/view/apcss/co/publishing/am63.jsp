@@ -40,9 +40,13 @@
         .tbl>tbody>tr{height: 40px;}
         .tbl>tbody>tr>td>button{width: 200px;}
         .tbl>tbody>tr>td{padding-left: 5px;}
-    </style>
-
-
+  		.table th {
+    		border-bottom: 1px solid #ffffff !important;
+  		}
+  		div.input-group-addon {
+			padding: 5px;
+  		}
+	</style>
 
 
 <!-- SB 스타일 가이드 영역 완료 -->
@@ -141,15 +145,16 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 원물입고계획 등록</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 원물입고계획 등록</h3>
 							</div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
 						<div>
 						</div>
@@ -158,9 +163,9 @@
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
-									<col style="width: 5%">
+									<col style="width: 7%">
 									<col style="width: 10%">
-									<col style="width: 5%">
+									<col style="width: 7%">
 									<col style="width: 25%">
 									<col style="width: 7%">
 									<col style="width: 17%">
@@ -168,13 +173,13 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th class="ta_r">APC명</th>
-										<th class="ta_r">
+										<th class="ta_c">APC명</th>
+										<td class="ta_r">
 											<input type="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled>
-										</th>
-										<th class="ta_r">기준일자</th>
-										<th class="td_input">
-												<div class="dp_inline wd_125 va_m">
+										</td>
+										<th class="ta_c">기준일자</th>
+										<td class="td_input">
+												<div class="dp_inline wd_150 va_m">
 													<div class="input-group date">
 														<div class="input-group-addon">
 															<i class="fa fa-calendar"></i>
@@ -183,7 +188,7 @@
 													</div>
 												</div>
 												~
-												<div class="dp_inline wd_125 va_m">
+												<div class="dp_inline wd_150 va_m">
 													<div class="input-group date">
 														<div class="input-group-addon">
 															<i class="fa fa-calendar"></i>
@@ -191,25 +196,25 @@
 														<input type="text" name="datepicker" placeholder="종료일" class="form-control pull-right" disabled>
 													</div>
 												</div>
-										</th>
-										<th class="ta_r">생산자</th>
-										<th class="ta_r">
+										</td>
+										<th class="ta_c">생산자</th>
+										<td class="ta_r" style="border-right: hidden;">
 											<p class="dp_inline ad_search_row search_sm ad_search_row wd_p100">
 												<input type="text" class="form-control input-sm" placeholder="" disabled>
 												<button type="button" class="btn btn-sm btn-primary btn_form btn_search">찾기</button>
 											</p>
-										</th>
-										<th></th>
+										</td>
+										<td></td>
 									</tr>
 								</tbody>
 							</table>
-							<b>&nbsp;<b>
+							<br>
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
-									<col style="width: 5%">
+									<col style="width: 7%">
 									<col style="width: 20%">
-									<col style="width: 5%">
+									<col style="width: 7%">
 									<col style="width: 18%">
 									<col style="width: 7%">
 									<col style="width: 15%">
@@ -218,8 +223,8 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th class="ta_r">계획일자</th>
-										<th class="ta_r">
+										<th class="ta_c">계획일자</th>
+										<td class="ta_r">
 											<div class="fl_group fl_rpgroup">
 												<div class="dp_inline wd_125 va_m">
 													<div class="input-group date">
@@ -232,15 +237,15 @@
 												<P style="line-height: 34px ;">&nbsp;&nbsp; 시간&nbsp;</P>
 												<input type="text" class="form-control input-sm" placeholder="12:00" style="width: 30%;" disabled>
 											</div>
-										</th>
-										<th class="ta_r">품목</th>
-										<th class="td_input">
+										</td>
+										<th class="ta_c">품목</th>
+										<td class="td_input">
 											<select class="form-control">
 												<option>단일선택</option>
 											</select>
-										</th>
-										<th class="ta_r">생산자/품종</th>
-										<th class="ta_r">
+										</td>
+										<th class="ta_c">생산자/품종</th>
+										<td class="ta_r" style="border-right: hidden;">
 											<div class="fl_group fl_rpgroup">
 												<p class="dp_inline ad_search_row search_sm ad_search_row wd_p100">
 													<select class="form-control">
@@ -249,17 +254,17 @@
 													<button type="button" class="btn btn-xs btn-primary btn_form btn_search">찾기</button>
 												</p>
 											</div>
-										</th>
-										<th>
-											<select class="form-control">
+										</td>
+										<td style="border-right: hidden;">
+											<select class="form-control" style="border-right: hidden;">
 												<option>단일선택</option>
 											</select>
-										</th>
-										<th></th>	
+										</td>
+										<td></td>	
 									</tr>
 									<tr>
 										<th>입고구분</th>
-										<th>
+										<td>
 											<div class="fl_group fl_rpgroup">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check_all">
@@ -274,9 +279,9 @@
 													<label class="check_label" for="check_all">매취</label>
 												</p>
 											</div>	
-										</th>
+										</td>
 										<th>상품구분</th>
-										<th>
+										<td>
 											<div class="fl_group fl_rpgroup">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check_all" checked>
@@ -295,9 +300,9 @@
 													<label class="check_label" for="check_all">유기농</label>
 												</p>
 											</div>	
-										</th>
+										</td>
 										<th>운송</th>
-										<th>
+										<td style="border-right: hidden;">
 											<div class="fl_group fl_rpgroup">
 												<p class="ad_input_row" >
 													<input type="checkbox" class="check" id="check_all"  checked>
@@ -312,24 +317,24 @@
 													<label class="check_label" for="check_all">기타</label>
 												</p>
 											</div>
-										</th>
-										<th colspan="2"></th>
+										</td>
+										<td colspan="2"></td>
 									</tr>
 									<tr>
 										<th>수량/중량</th>
-										<th>
+										<td>
 											<div class="fl_group fl_rpgroup">
 												<input type="text" class="form-control input-sm" placeholder="" style="width: 30%;" disabled>
 												&nbsp;
 												<input type="text" class="form-control input-sm" placeholder="" style="width: 30%;">
 												&nbsp; Kg
 											</div>
-										</th>
+										</td>
 										<th>비고</th>	
-										<th colspan="3">
+										<td colspan="3" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="">
-										</th>
-										<th colspan="2">&nbsp;</th>	
+										</td>
+										<td colspan="2">&nbsp;</td>	
 									</tr>
 								</tbody>
 							</table>
@@ -345,7 +350,7 @@
 								</div>
 							</div>
 
-							<b>&nbsp;<b>
+							<br>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 98%;">
 									<colgroup>
 										<col style="width: 8%">
@@ -454,7 +459,6 @@
 							</div>
 							<!--[pp] //검색결과 -->
 						</div>
-					</div>
 				</section>
 
 <!-- ============================================================================================================== -->

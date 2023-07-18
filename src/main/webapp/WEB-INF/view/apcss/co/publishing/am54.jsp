@@ -40,8 +40,14 @@
         .tbl>tbody>tr{height: 40px;}
         .tbl>tbody>tr>td>button{width: 200px;}
         .tbl>tbody>tr>td{padding-left: 5px;}
-    </style>
 
+  		.box-body>table.table th {
+    		border-bottom: 1px solid #ffffff !important;
+  		}
+  		div.input-group-addon {
+			padding: 5px;
+  		}
+	</style>
 
 
 
@@ -140,15 +146,16 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ APC사용자별권한관리</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ APC사용자별권한관리</h3>
 							</div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
 						<div>
 						</div>
@@ -157,10 +164,10 @@
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
-									<col style="width: 3%">
+									<col style="width: 7%">
 									<col style="width: 5%">
 									<col style="width: 5%">
-									<col style="width: 5%">
+									<col style="width: 7%">
 									<col style="width: 15%">
 									<col style="width: 3%">
 									<col style="width: 5%">
@@ -169,23 +176,22 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th class="ta_r">APC명</th>
-										<th class="ta_r" colspan="2">
+										<th class="ta_c">APC명</th>
+										<td class="ta_r" colspan="2">
 											<input type="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled>
-										</th>
+										</td>
 										
-										<th class="ta_r">사용자명</th>
-										<th colspan="1" class="td_input">
-											<input type="text" class="form-control input-sm" placeholder="입력" title="입력하세요." >
-										</th>
-										<th colspan="4">&nbsp;</th>
+										<th class="ta_c">사용자명</th>
+										<td colspan="5" class="td_input">
+											<input type="text" class="form-control input-sm" placeholder="입력" title="입력하세요." style="width: 40%;">
+										</td>
 									</tr>
 								</tbody>
 							</table>
 														
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
-							
+							<br>
 							<div>
 								<div class="col-sm-4">
 									<b>권한그룹목록</b>

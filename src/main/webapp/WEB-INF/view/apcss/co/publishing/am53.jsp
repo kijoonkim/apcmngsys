@@ -40,8 +40,14 @@
         .tbl>tbody>tr{height: 40px;}
         .tbl>tbody>tr>td>button{width: 200px;}
         .tbl>tbody>tr>td{padding-left: 5px;}
-    </style>
 
+  		.table th {
+    		border-bottom: 1px solid #ffffff !important;
+  		}
+  		div.input-group-addon {
+			padding: 5px;
+  		}
+	</style>
 
 
 
@@ -140,16 +146,17 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ APC정보관리</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ APC정보관리</h3>
 							</div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
 						<div>
 						</div>
@@ -158,10 +165,10 @@
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
-									<col style="width: 3%">
+									<col style="width: 7%">
 									<col style="width: 5%">
 									<col style="width: 5%">
-									<col style="width: 5%">
+									<col style="width: 7%">
 									<col style="width: 15%">
 									<col style="width: 3%">
 									<col style="width: 5%">
@@ -170,18 +177,16 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th class="ta_r">APC코드</th>
-										<th class="ta_r">
-											<input type="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." >
-										</th>
-											<th>&nbsp;</th>
-										<th class="ta_r">원본 APC명</th>
-										<th colspan="2" class="td_input">
-											<select class="form-control input-sm" >
+										<th class="ta_c">APC코드</th>
+										<td class="ta_r" colspan="2">
+											<input type="text" class="form-control input-sm" placeholder="입력" title="입력하세요." style="width: 50$">
+										</td>
+										<th class="ta_c">원본 APC명</th>
+										<td colspan="5" class="td_input">
+											<select class="form-control input-sm"  style="width: 40%">
 												<option>선택</option>
 											</select>
-										</th>
-										<th colspan="3">&nbsp;</th>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -234,12 +239,12 @@
 										</thead>
 										<tbody>
 											<tr>
-												<th scope="row" class="td_input">
+												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -253,13 +258,13 @@
 												<td>&nbsp;</td>
 											</tr>
 											<tr>
-												<th scope="row" class="td_input">
+												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check_all">
 														<label class="check_label" for="check_all"></label>
 													</p>
 
-												</th>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -274,12 +279,12 @@
 												<td>&nbsp;</td>
 											</tr>
 											<tr>
-												<th scope="row" class="td_input">
+												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>	
+												</td>	
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
