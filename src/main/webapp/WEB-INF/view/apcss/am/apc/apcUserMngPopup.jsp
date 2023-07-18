@@ -9,7 +9,6 @@
 	<section class="content container-fluid">
 	<div class="box box-solid">
 		<div class="box-header">
-			<h3 class="box-title"> ▶ APC사용자 권한설정 (팝업)</h3>
 			<div class="ad_tbl_top">
 				<div class="ad_tbl_toplist">
 					<sbux-button id="btnUserSech" name="btnUserSach" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectUserList()"></sbux-button>

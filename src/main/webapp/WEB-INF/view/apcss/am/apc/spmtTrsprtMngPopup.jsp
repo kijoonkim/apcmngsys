@@ -9,7 +9,6 @@
 	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-header">
-				<h3 class="box-title"> ▶ 출하운송회사 등록 (팝업)</h3>
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSpmtTrsprtSech" name="btnSpmtTrsprtSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSpmtTrsprtList()"></sbux-button>

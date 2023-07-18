@@ -10,7 +10,6 @@
 		<div class="row">
 			<div class="box box-solid">
 				<div class="box-header">
-					<h3 class="box-title"> ▶ 팔레트/박스 등록 (팝업)</h3>
 					<div class="ad_tbl_top">
 						<div class="ad_tbl_toplist">
 						<sbux-button id="btnPltbxReg" name="btnPltbxReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertPltBxList"></sbux-button>
