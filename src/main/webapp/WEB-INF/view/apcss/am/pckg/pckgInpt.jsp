@@ -66,7 +66,7 @@
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchItem" name="btnSrchItem" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
+								<sbux-button id="btnSrchItem" name="btnSrchItem" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-itemCrtr" onclick="fn_modalItem"></sbux-button>
 							</td>
 							<td class="td_input" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">품종</th>
@@ -142,6 +142,13 @@
 			</div>
 		</div>
 	</section>
+	<!-- 품목 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-itemCrtr" name="modal-itemCrtr" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemCrtr" footer-is-close-button="false" style="width:600px"></sbux-modal>
+    </div>
+    <div id="body-modal-itemCrtr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/itemCrtrPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 
