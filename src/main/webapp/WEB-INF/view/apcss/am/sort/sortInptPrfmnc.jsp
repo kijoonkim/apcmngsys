@@ -51,13 +51,6 @@
 					</tr>
 						<tr>
 							<th scope="row">선별일자</th>
-<!-- 							<td colspan="3" class="td_input" style="border-right: hidden;"> -->
-<!-- 								<sbux-datepicker id="srch-inp-sortYmd" name="srch-inp-sortYmd" uitype="popup" placeholder="시작일" class="form-control pull-right input-sm"></sbux-datepicker> -->
-<!-- 								~ -->
-<!-- 								<sbux-datepicker id="srch-inp-endSortYmd" name="srch-inp-endSortYmd" uitype="popup" placeholder="종료일" class="form-control pull-right input-sm"></sbux-datepicker> -->
-<!-- 							</td> -->
-							
-							
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-inp-sortYmd" name="srch-inp-sortYmd" uitype="popup"></sbux-datepicker>
 							</td>
