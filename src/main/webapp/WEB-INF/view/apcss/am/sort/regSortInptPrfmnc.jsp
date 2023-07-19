@@ -14,19 +14,18 @@
 	<section class="content container-fluid">
 		<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
-			<div>
-				<h3 class="box-title" style="line-height: 30px;"> ▶ 선별실적등록</h3>
+				<div>
+					<h3 class="box-title" style="line-height: 30px;"> ▶ 선별실적등록</h3>
+				</div>
+				<div style="margin-left: auto;">
+					<p class="ad_input_row">
+									<sbux-checkbox id="check_all" name="check_all" uitype="normal" text="포장실적 자동등록" class="check"></sbux-checkbox>
+							</p>
+						<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-dark"></sbux-button>
+						<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-dark"></sbux-button>
+						<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-dark"></sbux-button>
+				</div>
 			</div>
-			<div style="margin-left: auto;">
-				<p class="ad_input_row">
-								<sbux-checkbox id="check_all" name="check_all" uitype="normal" text="포장실적 자동등록" class="check"></sbux-checkbox>
-						</p>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-dark"></sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-dark"></sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-dark"></sbux-button>
-			</div>
-		</div>
-			
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
