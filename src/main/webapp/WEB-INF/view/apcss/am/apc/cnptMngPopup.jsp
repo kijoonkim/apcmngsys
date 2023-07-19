@@ -23,9 +23,9 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 8%">
+						<col style="width: 10%">
 						<col style="width: 20%">
-						<col style="width: 65%">
+						<col style="width: auto">
 					</colgroup>
 					<tbody>
 						<tr>

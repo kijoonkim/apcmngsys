@@ -63,7 +63,8 @@
 								<sbux-input uitype="hidden" id="inp-itemCd" name="inp-itemCd" class="form-control input-sm"></sbux-input>
 							</td>
 							<td style="border-right: hidden;">
-								<sbux-button id="btnSrchItem" name="btnSrchItem" class="btn btn-xs btn-outline-dark" uitype="button">찾기</sbux-button>
+								<!-- <sbux-button id="btnSrchItem" name="btnSrchItem" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-itemCrtr" onclick="fn_modalItem"></sbux-button> -->
+								<sbux-button id="btnSrchItem" name="btnSrchItem" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="select-itemCd" name="select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="단일선택" class="form-control input-sm"></sbux-select>
@@ -78,49 +79,49 @@
 							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio id="rdo-wrhsSeCd_1" name="rdo-wrhsSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
-									<label class="radio_label" for="radio1">일반매입</label>
+									<sbux-label class="radio_label" for-id="rdo-wrhsSeCd_1" text="일반매입"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="rdo-wrhsSeCd_2" name="rdo-wrhsSeCd" uitype="normal" class="radio_label" value="2"></sbux-radio>
-									<label class="radio_label" for="radio1">공선</label>
+									<sbux-label class="radio_label" for-id="rdo-wrhsSeCd_2" text="공선"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="rdo-wrhsSeCd_3" name="rdo-wrhsSeCd" uitype="normal" class="radio_label" value="3"></sbux-radio>
-									<label class="radio_label" for="radio1">매취</label>
+									<sbux-label class="radio_label" for-id="rdo-wrhsSeCd_3" text="매취"></sbux-label>
 								</p>
 							</td>
 							<th scope="row">상품구분</th>
 							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio id="rdo-gdsSeCd_1" name="rdo-gdsSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
-									<label class="radio_label" for="radio1">일반</label>
+									<sbux-label class="radio_label" for-id="rdo-gdsSeCd_1" text="일반"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="rdo-gdsSeCd_2" name="rdo-gdsSeCd" uitype="normal" class="radio_label" value="2"></sbux-radio>
-									<label class="radio_label" for="radio1">GAP</label>
+									<sbux-label class="radio_label" for-id="rdo-gdsSeCd_2" text="GAP"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="rdo-gdsSeCd_3" name="rdo-gdsSeCd" uitype="normal" class="radio_label" value="3"></sbux-radio>
-									<label class="radio_label" for="radio1">무농약</label>
+									<sbux-label class="radio_label" for-id="rdo-gdsSeCd_3" text="무농약"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="rdo-gdsSeCd_4" name="rdo-gdsSeCd" uitype="normal" class="radio_label" value="4"></sbux-radio>
-									<label class="radio_label" for="radio1">유기농</label>
+									<sbux-label class="radio_label" for-id="rdo-gdsSeCd_4" text="유기농"></sbux-label>
 								</p>
 							</td>
 							<th scope="row">운송구분</th>
 							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio id="rdo-trsprtSeCd_1" name="rdo-trsprtSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
-									<label class="radio_label" for="radio1">자가</label>
+									<sbux-label class="radio_label" for-id="rdo-trsprtSeCd_1" text="자가"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="rdo-trsprtSeCd_2" name="rdo-trsprtSeCd" uitype="normal" class="radio_label" value="2"></sbux-radio>
-									<label class="radio_label" for="radio1">용역</label>
+									<sbux-label class="radio_label" for-id="rdo-trsprtSeCd_2" text="용역"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="rdo-trsprtSeCd_3" name="rdo-trsprtSeCd" uitype="normal" class="radio_label" value="3"></sbux-radio>
-									<label class="radio_label" for="radio1">기타</label>
+									<sbux-label class="radio_label" for-id="rdo-trsprtSeCd_3" text="기타"></sbux-label>
 								</p>
 							</td>
 						</tr>
@@ -141,7 +142,7 @@
 							</td>
 							<td style="border-right: hidden;">
 								<sbux-checkbox id="chk-fxng" name="chk-fxng" uitype="normal" ></sbux-checkbox>
-								<label class="check_label" for="check_default" >고정</label>
+								<sbux-label class="check_label" for-id="chk-fxng" >고정</sbux-label>
 							</td>
 							<td></td>
 						</tr>
@@ -161,7 +162,7 @@
 								<sbux-input uitype="text" id="inp-vhclno" name="inp-vhclno" class="form-control input-sm"></sbux-input>
 							</td>
 							<td style="border-right: hidden;">
-								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" uitype="button">찾기</sbux-button>
+								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"></sbux-button>
 							</td>
 							<td></td>
 						</tr>
@@ -171,7 +172,7 @@
 								<sbux-input uitype="text" id="inp-pltWght" name="inp-pltWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchPltBx" name="btnSrchPltBx" class="btn btn-xs btn-outline-dark" uitype="button">입력</sbux-button>
+								<sbux-button id="btnSrchPltBx" name="btnSrchPltBx" class="btn btn-xs btn-outline-dark" text="입력" uitype="modal" target-id="modal-pltBx" onclick="fn_modalPltBx"></sbux-button>
 							</td>
 							<td></td>
 							<th scope="row">박스 Kg</th>
@@ -224,6 +225,37 @@
 				<!--[pp] //검색결과 -->
 		</div>
 	</section>
+	<!-- 품목 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-itemCrtr" name="modal-itemCrtr" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemCrtr" footer-is-close-button="false" style="width:600px"></sbux-modal>
+    </div>
+    <div id="body-modal-itemCrtr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/itemCrtrPopup.jsp"></jsp:include>
+    </div>
+
+    <!-- 사용자 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+    </div>
+    <div id="body-modal-prdcr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    </div>
+
+    <!-- 차량 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-vhcl" name="modal-vhcl" uitype="middle" header-title="차량 선택" body-html-id="body-modal-vhcl" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-vhcl">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vhclPopup.jsp"></jsp:include>
+    </div>
+
+    <!-- 팔레트/박스 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="원물입고 팔레트/박스 입고등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" style="width:1200px"></sbux-modal>
+    </div>
+    <div id="body-modal-pltBx">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/pltBxPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 
@@ -236,7 +268,6 @@
  		gfn_setComCdSBSelect('rdo-wrhsSeCd', jsonRadioWrhsSeCd, 'WRHS_SE_CD');	// 시스템유형
 
 	} */
-
 
 	function fn_createWghPrfmncGrid() {
         var SBGridProperties = {};
@@ -269,6 +300,25 @@
         ];
         grdWghPrfmnc = _SBGrid.create(SBGridProperties);
     }
+
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
+
+	function fn_ItemModal(targetName){
+		if(targetName == "btnSrchItem"){
+			fn_createItemGrid();
+		}
+		if(targetName == "btnSrchPrdcr"){
+			fn_createPrdcrGrid();
+		}
+		if(targetName == "btnSrchVhcl"){
+			fn_createPltBxGrid();
+		}
+		if(targetName == "btnSrchPltBx"){
+			fn_createPltBxGrid();
+		}
+	}
 
 
 </script>
