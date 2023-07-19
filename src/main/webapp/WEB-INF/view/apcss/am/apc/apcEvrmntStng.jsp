@@ -13,13 +13,12 @@
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
-			<div class="box-header">
-				<h3 class="box-title"> ▶ APC환경설정</h3>
-				<div class="ad_tbl_top">
-					<div class="ad_tbl_toplist">
-						<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-					</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title" style="line-height: 30px;"> ▶ APC환경설정</h3>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
 				</div>
 			</div>
 
@@ -220,7 +219,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th colspan="6">APC 사용메뉴 선택<button type="button" class="btn btn-sm btn-outline-danger" style="float:right;">간편설정</button></th>
+							<th colspan="6" class="th_label">APC 사용메뉴 선택<button type="button" class="btn btn-sm btn-outline-danger" style="float:right;">간편설정</button></th>
 						</tr>
 						<tr>
 							<th scope="row">계량정보 관리</th>

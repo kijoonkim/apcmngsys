@@ -48,7 +48,7 @@
 			<!--[pp] 검색결과 -->
 			<div class="ad_section_top">
 					<!-- SBGrid를 호출합니다. -->
-					<div id="userAuthMngGridArea" style="height:250px; width: 100%;"></div>
+					<div id="userAuthMngGridArea" style="height:250px;"></div>
 				</div>
 				</div>
 			</div>
