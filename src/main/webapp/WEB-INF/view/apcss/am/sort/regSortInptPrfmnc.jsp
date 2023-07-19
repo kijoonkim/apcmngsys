@@ -80,7 +80,7 @@
 								</sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="srch-btn-slt-prdcrNm" name="srch-btn-slt-prdcrNm" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
+								<sbux-button id="srch-btn-slt-prdcrNm" name="srch-btn-slt-prdcrNm" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
 							</td>
 							<td class="td_input" ></td>
 						</tr>
@@ -146,7 +146,6 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>선별실적 내역</span></li>
-							<li><label style="font-size:x-small;">지시중량 : 99.999Kg &nbsp; 실적중량 : 99.999Kg</label></li>
 						</ul>
 						<sbux-button id="btnDown" name="btnDown" uitype="normal" text="내려받기" class="btn btn-sm btn-danger"></sbux-button>
 						<sbux-button id="btnUp" name="btnUp" uitype="normal" text="올리기" class="btn btn-sm btn-danger"></sbux-button>
@@ -157,6 +156,13 @@
 			</div>
 		</div>
 	</section>
+	<!-- 사용자 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+    </div>
+    <div id="body-modal-prdcr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    </div>
 	<script type="text/javascript">
 	
 	// ${comMenuVO.menuId}
@@ -610,6 +616,10 @@
         	grdComMsgList.setCellData(i+1, 1, checkedYn, true, false);
         }
     }
+    
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
     
 </script>
 </body>

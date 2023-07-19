@@ -63,13 +63,13 @@
 								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm"></sbux-select> 
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="srch-btn-item" name="srch-btn-item" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
+								<sbux-button id="srch-btn-item" name="srch-btn-item" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-itemCrtr" onclick="fn_modalPrdcr"></sbux-button>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="select_single" name="select_single" uitype="single" class="form-control input-sm">
-									<option-item>멀티선택</option-item>
+								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm">
+									<option-item>선택</option-item>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-button id="srch-btn-vrty" name="srch-btn-vrty" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 									</td>
@@ -102,7 +102,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<select class="form-control input-sm">
 									<td class="td_input" style="border-right: hidden;">
-										<sbux-button id="srch-btn-rprsPrdcr" name="srch-btn-rprsPrdcr" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
+										<sbux-button id="btn-srch-prdcr" name="btn-srch-prdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
 									</td>
 								</select>
 							</td>
@@ -115,7 +115,6 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>선별 내역</span></li>
-							<li><label style="font-size:x-small;">지시중량 : 99.999Kg &nbsp; 실적중량 : 99.999Kg</label></li>
 						</ul>
 					</div>
 					<div id="sb-area-grdSortDsctn" style="height:340px;"></div>
@@ -123,6 +122,21 @@
 			</div>
 		</div>
 	</section>
+	<!-- 사용자 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+    </div>
+    <div id="body-modal-prdcr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    </div>
+    <!--  품목 선택 Modal -->
+   	<div>
+        <sbux-modal id="modal-itemCrtr" name="modal-itemCrtr" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemCrtr" footer-is-close-button="false" style="width:600px"></sbux-modal>
+    </div>
+    <div id="body-modal-itemCrtr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/itemCrtrPopup.jsp"></jsp:include>
+    </div>
+    
 	<script type="text/javascript">
 	
 	// ${comMenuVO.menuId}
@@ -534,6 +548,10 @@
         	grdComMsgList.setCellData(i+1, 1, checkedYn, true, false);
         }
     }
+    
+    function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
     
     </script>
 </body>
