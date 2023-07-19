@@ -196,6 +196,10 @@
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
+	
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
 </script>
 
 </html>

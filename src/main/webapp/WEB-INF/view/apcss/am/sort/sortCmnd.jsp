@@ -71,7 +71,7 @@
 								</select>
 							</td>
 							<td class="td_input"  style="border-right: hidden;">
-								<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+								<sbux-button id="srch-btn-providerSrch" name="srch-btn-providerSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
 							</td>
 							<td>&nbsp;</td>
 							
@@ -99,6 +99,14 @@
 			</div>
 		</div>
 	</section>
+	
+    <!-- 사용자 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+    </div>
+    <div id="body-modal-prdcr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
@@ -143,6 +151,10 @@
 	    
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
+	}
+	
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
 	}
 </script>
 </html>

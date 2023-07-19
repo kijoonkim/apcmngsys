@@ -170,7 +170,7 @@
 								<sbux-input uitype="text" id="srch-inp-vhcl" name="srch-inp-vhcl" class="form-control input-sm"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button uitype="normal" id="srch-btn-vhcl" name="srch-btn-vhcl" class="btn btn-xs btn-outline-dark" text="찾기"/>
+								<sbux-button id="srch-btn-vhcl" name="srch-btn-vhcl" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"/>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -250,6 +250,13 @@
 			</div>
 		</div>
 	</section>
+    <!-- 차량 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-vhcl" name="modal-vhcl" uitype="middle" header-title="차량 선택" body-html-id="body-modal-vhcl" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-vhcl">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vhclPopup.jsp"></jsp:include>
+    </div>
 </body>
 
 <script type="text/javascript">
@@ -328,6 +335,10 @@
 	    
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
+	}
+	
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
 	}
 </script>
 </html>
