@@ -66,7 +66,7 @@
 							<td colspan="6" class="td_input"  style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-prdcr" name="srch-inp-prdcr" class="form-control input-sm"/>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-button uitype="normal" id="srch-btn-prdcr" name="srch-btn-prdcr" class="btn btn-xs btn-outline-dark" text="조회"/>
+								<sbux-button id="srch-btn-prdcr" name="srch-btn-prdcr" class="btn btn-xs btn-outline-dark" text="조회" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
@@ -224,6 +224,14 @@
 			</div>
 		</div>
 	</section>
+	
+	    <!-- 사용자 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+    </div>
+    <div id="body-modal-prdcr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
@@ -271,6 +279,10 @@
 	    
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
+	}
+	
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
 	}
 </script>
 </html>

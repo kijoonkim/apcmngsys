@@ -79,7 +79,7 @@
 								<sbux-input uitype="text" id="srch-inp-prdcr" name="srch-inp-prdcr" class="form-control input-sm" placeholder="선택"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button uitype="normal" id="srch-btn-prdcrSrch" name="srch-btn-prdcrSrch" class="btn btn-xs btn-outline-dark" text="찾기"/>
+								<sbux-button id="srch-btn-prdcrSrch" name="srch-btn-prdcrSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
 							</td>
 							<td>&nbsp;</td>
 						</tr>
@@ -135,7 +135,7 @@
 								<sbux-input uitype="text" id="srch-inp-vhclNo" name="srch-inp-vhclNo" class="form-control input-sm" placeholder="선택"/>
 							</td>
 							<td style="border-right: hidden;">
-								<sbux-button uitype="normal" id="srch-btn-vhclNoSrch" name="srch-btn-vhclNoSrch" class="btn btn-xs btn-outline-dark" text="찾기"/>
+								<sbux-button id="srch-btn-vhclNoSrch" name="srch-btn-vhclNoSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"/>
 							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">계량번호</th>
@@ -171,6 +171,23 @@
 			</div>
 		</div>
 	</section>
+	
+	
+    <!-- 사용자 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+    </div>
+    <div id="body-modal-prdcr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    </div>
+
+    <!-- 차량 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-vhcl" name="modal-vhcl" uitype="middle" header-title="차량 선택" body-html-id="body-modal-vhcl" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-vhcl">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vhclPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
@@ -256,6 +273,10 @@
 	    
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
+	}
+	
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
 	}
 </script>
 
