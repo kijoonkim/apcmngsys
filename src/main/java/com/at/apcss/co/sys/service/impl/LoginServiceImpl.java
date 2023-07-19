@@ -67,6 +67,39 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 		return null;
 	}
 
+
+	@Override
+	public LoginVO actionSSOLogin(LoginVO vo) throws Exception {
+		
+		// TODO
+		// FIXME SSO 통합인증 추가할 것
+		
+		// 2. 아이디와 암호화된 비밀번호가 DB와 일치하는지 확인한다.
+    	LoginVO loginVO = loginMapper.actionSSOLogin(vo);
+    	
+    	System.out.println(loginVO == null);
+    	
+    	if (loginVO != null) {
+    		System.out.println(String.format("loginVO: %s", loginVO.toString()));
+    		System.out.println(String.format("getId: %s", loginVO.getId()));
+    		System.out.println(String.format("getPassword: %s", loginVO.getPassword()));
+    	}
+    	
+    	// 3. 결과를 리턴한다.
+    	if (loginVO != null 
+    			&& StringUtils.hasText(loginVO.getId()) 
+    			&& StringUtils.hasText(loginVO.getPassword())) {
+    		System.out.println(String.format("loginVO: %s", loginVO.toString()));
+    		return loginVO;
+    	} else {
+    		System.out.println(String.format("no id"));
+    		loginVO = new LoginVO();
+    	}
+    	
+		return loginVO;
+	}
+
+	
 	@Override
 	public LoginVO searchId(LoginVO vo) throws Exception {
 		// 1. 이름, 이메일주소가 DB와 일치하는 사용자 ID를 조회한다.

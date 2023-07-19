@@ -1,8 +1,6 @@
 package com.at.apcss.co.msg.service.impl;
 
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +52,11 @@ public class ComMsgServiceImpl implements ComMsgService{
 	public List<ComMsgVO> selectComMsgList(ComMsgVO comMsgVO) throws Exception {
 		
 		List<ComMsgVO> resultList = comMsgMapper.selectComMsgList(comMsgVO);
-		
+		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
+		for (ComMsgVO msg : resultList ) {
+			System.out.printf("msgCn : %s", msg.getMsgCn());
+			System.out.println();
+		}
 		return resultList;
 	}
 

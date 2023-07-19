@@ -129,7 +129,7 @@
 	   			    #{msgKey}
 	   			  , #{msgCn}
 	   			  , #{msgKnd}
-	   			  , #{rmrk, jdbcType=VARCHAR}
+	   			  , #{rmrk}
 	   			  , SYSDATE
 	   			  , #{sysFrstInptUserId}
 	   			  , #{sysFrstInptPrgrmId}
@@ -155,7 +155,7 @@
 			   SET
 			 	  MSG_CN	= #{msgCn}
 			 	, MSG_KND 	= #{msgKnd}
-			 	, RMRK 		= #{rmrk, jdbcType=VARCHAR}
+			 	, RMRK 		= #{rmrk}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
