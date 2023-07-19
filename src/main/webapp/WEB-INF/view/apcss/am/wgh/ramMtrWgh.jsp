@@ -64,7 +64,7 @@
 							</td>
 							<td style="border-right: hidden;">
 								<!-- <sbux-button id="btnSrchItem" name="btnSrchItem" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-itemCrtr" onclick="fn_modalItem"></sbux-button> -->
-								<sbux-button id="btnSrchItem" name="btnSrchItem" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
+								<sbux-button id="btnSrchPrdcr" name="btnSrchPrdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="select-itemCd" name="select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="단일선택" class="form-control input-sm"></sbux-select>
@@ -304,22 +304,5 @@
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
-
-	function fn_ItemModal(targetName){
-		if(targetName == "btnSrchItem"){
-			fn_createItemGrid();
-		}
-		if(targetName == "btnSrchPrdcr"){
-			fn_createPrdcrGrid();
-		}
-		if(targetName == "btnSrchVhcl"){
-			fn_createPltBxGrid();
-		}
-		if(targetName == "btnSrchPltBx"){
-			fn_createPltBxGrid();
-		}
-	}
-
-
 </script>
 </html>
