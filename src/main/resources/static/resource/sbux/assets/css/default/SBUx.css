@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -6049,8 +6049,11 @@ div.sbux-pik-group {
   margin: 5px 5px 5px 2px;
 }
 span.sbux-pik-group {
-  margin: 5px 5px 5px 2px;
+  margin: 0px;
 }
+/* span.sbux-pik-group {
+  margin: 5px 5px 5px 2px;
+} */
 /* popup calender */
 div.sbux-pik-pop-body td.sbux-pik-sunday .sbux-btn {
   color: #af2921;
@@ -16084,10 +16087,10 @@ ul.sbux-ctx-meu-list li.sbux-ctx-meu-item > ul.sbux-ctx-meu-list {
 .sbux-col-block {
   width: 100%;
 }
-/*, 
-.col-top-left,.col-top-center,   .col-top-right,  
+/*,
+.col-top-left,.col-top-center,   .col-top-right,
 .col-center-left,  .col-center-center, .col-center-right,
 .col-bottom-left, .col-bottom-center,.col-bottom-right,
-.col-left-between, .col-left-around, 
+.col-left-between, .col-left-around,
 .col-center-between, .col-center-around,
 .col-right-between, .col-right-around */
