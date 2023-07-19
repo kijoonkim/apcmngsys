@@ -161,14 +161,14 @@
 						 	<td style="border-right: hidden;">
 						 		<sbux-button id="btnSrchPltBx" name="btnSrchPltBx" class="btn btn-xs btn-outline-dark" text="입력" uitype="modal" target-id="modal-pltBx" onclick="fn_modalPltBx"></sbux-button>
 						 	</td>
-							<td colspan="3"class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="inp-pltWght" name="inp-pltWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
-							<td colspan="2"class="td_input" style="border-right: hidden;"><label class="bold">Kg</label></td>
+							<td colspan="2" class="td_input" style="border-right: hidden;"><label class="bold">Kg</label></td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="inp-bxWght" name="inp-bxWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
-							<td colspan="2"class="td_input" style="border-right: hidden;"><label class="bold">Kg</label></td>
+							<td colspan="2" class="td_input" style="border-right: hidden;"><label class="bold">Kg</label></td>
 						</tr>
 						<tr>
 							<th scope="row" >입고등급</th>

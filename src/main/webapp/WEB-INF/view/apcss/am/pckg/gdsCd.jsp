@@ -13,15 +13,16 @@
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
-			<div class="box-header">
-				<h3 class="box-title"> ▶ 상품코드조회</h3>
-				<div class="ad_tbl_top">
-					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
-						<sbux-button id="btnEnd" name="btnEnd" uitype="normal" class="btn btn-sm btn-outline-danger" text="종료"></sbux-button>
-					</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title" style="line-height: 30px;"> ▶ 상품코드조회</h3>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnEnd" name="btnEnd" uitype="normal" class="btn btn-sm btn-outline-danger" text="종료"></sbux-button>
 				</div>
 			</div>
+			
 			<div>
 			</div>
 			<div class="box-body">
@@ -49,160 +50,133 @@
 						<tr>
 							<th class="ta_r">상품코드</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-gdsCode" name="srch-inp-gdsCode" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-gdsCd" name="srch-inp-gdsCd" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
-							<td></td>
+							<td class="td_input" style="border-right: hidden;"></td>
 							<th class="ta_r">품목</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control"></sbux-select>
+										<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchItem" name="btnSrchItem" uitype="normal" class="btn btn-sm btn-outline-danger" text="찾기"></sbux-button>
+								<sbux-button id="btnSrchItem" name="btnSrchItem" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-itemCrtr" onclick="fn_modalItem"></sbux-button>
 							</td>
 							<th class="ta_r">품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" unselected-text="멀티선택" class="form-control"></sbux-select>
+										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" unselected-text="멀티선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchVrty" name="btnSrchVrty" uitype="normal" class="btn btn-sm btn-outline-danger" text="찾기"></sbux-button>
+								<sbux-button id="btnSrchVrty" name="btnSrchVrty" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
 							</td>
 						</tr>
 						<tr>
 							<th>규격</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" class="form-control" style="width: 80%;"></sbux-select>
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
+										<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
 							</td>
-							<td></td>
+							<td class="td_input" style="border-right: hidden;"></td>
 							<th class="ta_r">상품등급</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" class="form-control" style="width: 70%;"></sbux-select>
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
+										<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
 							</td>
-							<td></td>
+							<td class="td_input" style="border-right: hidden;"></td>
 							<th class="ta_r">브랜드</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-brand" name="srch-slt-brand" uitype="single" class="form-control"></sbux-select>
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
+										<sbux-select id="srch-slt-brand" name="srch-slt-brand" uitype="single" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
 							</td>
-							<td></td>
+							<td class="td_input" style="border-right: hidden;"></td>
 						</tr>
 						<tr>
 							<th>산지</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-plor" name="srch-slt-plor" uitype="single" class="form-control"></sbux-select>
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
+										<sbux-select id="srch-slt-plor" name="srch-slt-plor" uitype="single" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
 							</td>
-							<td></td>
+							<td class="td_input" style="border-right: hidden;"></td>
 							<th class="ta_r">포장구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-pckgKind" name="srch-slt-pckgKind" uitype="single" class="form-control"></sbux-select>
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
+										<sbux-select id="srch-slt-pckgKind" name="srch-slt-pckgKind" uitype="single" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 
-				<div class="ad_tbl_top">
-				</div>
+				<!--[pp] //검색결과 -->
+				<!--[pp] //검색결과 -->
+				<div class="ad_tbl_top"></div>
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li><span>상품코드내역</span></li>
 					</ul>
 				</div>
-					<table class="table table-bordered table-hover tbl_col tbl_fixed">
-						<colgroup>
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 10%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 10%">
-						</colgroup>
-						<thead>
-							<tr>
-								<th scope="row">
-									상품코드
-								</th>
-								<th scope="row">
-									상품명
-								</th>
-								<th scope="row">
-									품목
-								</th>
-								<th scope="row">
-									규격
-								</th>
-								<th scope="row">
-									상품등급
-								</th>
-								<th scope="row">
-									브랜드
-								</th>
-								<th scope="row">
-									산지
-								</th>
-								<th scope="row">
-									포장구분
-								</th>
-								<th scope="row" >
-									입수
-								</th>
-								<th scope="row" >
-									중량
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-						</tbody>
-					  </table>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdGdsCd" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
 		</div>
 	</section>
+	<!-- 품목 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-itemCrtr" name="modal-itemCrtr" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemCrtr" footer-is-close-button="false" style="width:600px"></sbux-modal>
+    </div>
+    <div id="body-modal-itemCrtr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/itemCrtrPopup.jsp"></jsp:include>
+    </div>
 </body>
+<script type="text/javascript">
+
+	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_createGdsCdGrid();
+	})
+	
+	function fn_createGdsCdGrid() {
+        var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdGdsCd';
+	    SBGridProperties.id = 'grdGdsCd';
+	    SBGridProperties.jsonref = 'jsonGdsCd';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+            {caption: ['상품코드'], ref: 'gdsCd', width: '100px', type: 'output'},
+            {caption: ['상품명'], ref: 'gdsName', width: '100px', type: 'output'},
+            {caption: ['품목'], ref: 'item', width: '100px', type: 'output'},
+            {caption: ['규격'], ref: 'spcfct', width: '100px', type: 'output'},
+            {caption: ['상품등급'], ref: 'gdsGrd', width: '100px', type: 'output'},
+            {caption: ['브랜드'], ref: 'brand', width: '100px', type: 'output'},
+            {caption: ['산지'], ref: 'plor', width: '100px', type: 'output'},
+            {caption: ['포장구분'], ref: 'pckgKind', width: '100px', type: 'output'},
+            {caption: ['입수'], ref: 'cryn', width: '100px', type: 'output'},
+            {caption: ['중량'], ref: 'wght', width: '100px', type: 'output'}
+        ];
+        grdGdsCd = _SBGrid.create(SBGridProperties);
+    }
+</script>
 </html>
