@@ -166,7 +166,7 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th scope="row">APC명</th>
+										<th scope="row" class="th_label">APC명</th>
 										<td colspan= "2" class="td_input" style="border-right:hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
