@@ -13,28 +13,15 @@
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
-<!-- 			<div class="box-header"> -->
-<!-- 				<h3 class="box-title"> ▶ 포장지시등록</h3> -->
-<!-- 				<div class="ad_tbl_top"> -->
-<!-- 					<div class="ad_tbl_toplist"> -->
-<!-- 						<button type="button" class="btn btn-sm btn-outline-danger">초기화</button> -->
-<!-- 						<button type="button" class="btn btn-sm btn-outline-danger">조회</button> -->
-<!-- 						<button type="button" class="btn btn-sm btn-outline-danger">등록</button> -->
-<!-- 						<button type="button" class="btn btn-sm btn-outline-danger">삭제</button> -->
-<!-- 						<button type="button" class="btn btn-sm btn-outline-danger">종료</button> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-					<h3 class="box-title">▶ 선별지시조회</h3>
+					<h3 class="box-title">▶ 포장지시등록</h3>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
-					<sbux-button id="btnTerminate" name="btnTerminate" uitype="button" class="btn btn-sm btn-outline-danger">종료</sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -59,7 +46,7 @@
 					<tbody>
 						<tr>
 							<th scope="row">APC명</th>
-							<td colspan= "2" class="td_input" style="border-right: hidden;">
+							<td colspan= "3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" disabled/>
 							</td>
 						</tr>
@@ -73,7 +60,6 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 							</td>
-<!-- 							<td class="td_input" style="border-right: hidden;"/> -->
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
 							</td>
@@ -93,9 +79,6 @@
 							<th scope="row">생산설비</th>
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-select uitype="single" id="srch-slt-prdctnFclt" name="srch-slt-prdctnFclt" class="form-control input-sm"/>
-<!-- 								<select class="form-control input-sm"> -->
-<!-- 									<option>선택</option> -->
-<!-- 								</select> -->
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row">거래처</th>
@@ -129,7 +112,6 @@
 						<tr>
 							<th scope="row">발주번호</th>
 							<td class="td_input" style="border-right:hidden ;">
-<!-- 								<input type="text" class="form-control input-sm" placeholder="" disabled="" > -->
 								<sbux-input uitype="text" id="srch-inp-gdsNo" name="srch-inp-gdsNo" class="form-control input-sm" disabled/>
 							</td>
 						</tr>
@@ -141,89 +123,12 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>생산지시 내역</span></li>
-							<li><span>지시수량/중량 : 99 / 99,999 Kg</span></li>
 						</ul>
 					</div>
 					<div class="sbt-wrap-body">
 						<div class="sbt-grid">
 							<div id="inptCmndDsctnGridArea" style="height:340px;"></div>
 						</div>
-					</div>
-						<div class="table-responsive tbl_scroll_sm">
-						<table class="table table-bordered table-hover tbl_col tbl_fixed">
-							<caption>검색결과 목록</caption>
-							<colgroup>
-
-								<col style="width: 3%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-							</colgroup>
-							<thead>
-								<tr>
-									<th scope="col">선택</th>
-									<th scope="col">지시번호</th>
-									<th scope="col">생산설비</th>
-									<th scope="col">거래처</th>
-									<th scope="col">납기일자</th>
-									<th scope="col">품종</th>
-									<th scope="col">규격</th>
-									<th scope="col">상품명</th>
-									<th scope="col">발주수량</th>
-									<th scope="col">입수</th>
-									<th scope="col">지시수량</th>
-									<th scope="col">지시중량</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th scope="col" class="td_input">
-										<p class="ad_input_row">
-											<input type="checkbox" class="check" id="check_default">
-											<label class="check_label ta_i" for="check_default">전체선택</label>
-										</p>
-									</th>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-								</tr>
-								<tr>
-									<th scope="col" class="td_input">
-										<p class="ad_input_row">
-											<input type="checkbox" class="check" id="check_default">
-											<label class="check_label ta_i" for="check_default">전체선택</label>
-										</p>
-									</th>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-								</tr>
-							</tbody>
-						</table>
 					</div>
 				</div>
 				<!--[pp] //검색결과 -->
@@ -260,7 +165,6 @@
 	    };
 	    SBGridProperties.columns = [
             {caption: ["선택"], ref: 'checked', type: 'checkbox', width : '60px', style: 'text-align:center'},
-// 	        {caption: ["선택"],		ref: 'msgKey',      type:'output',  width:'60px',    style:'text-align:center'},
 	        {caption: ["지시번호"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
 	        {caption: ["생산설비"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
 	        {caption: ["납기일자"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},

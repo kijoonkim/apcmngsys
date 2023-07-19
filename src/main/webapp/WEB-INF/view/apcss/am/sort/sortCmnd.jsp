@@ -18,10 +18,9 @@
 					<h3 class="box-title">▶ 선별지시조회</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="srch-btn-search" name="srch-btn-search" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
-					<sbux-button id="srch-btn-insert" name="srch-btn-insert" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
-					<sbux-button id="srch-btn-delete" name="srch-btn-delete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
-					<sbux-button id="srch-btn-terminate" name="srch-btn-terminate" uitype="button" class="btn btn-sm btn-outline-danger">종료</sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -45,8 +44,7 @@
 					<tbody>
 						<tr>
 							<th scope="row">APC명</th>
-							<td colspan= "2" class="td_input" style="border-right: hidden;">
-<!-- 								<input type="text" class="form-control input-sm" placeholder="" disabled> -->
+							<td colspan= "3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" disabled/>
 							</td>
 						</tr>
@@ -63,7 +61,6 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 							</td>
-<!-- 							<td class="td_input" style="border-right: hidden;"/> -->
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
 							</td>
@@ -80,24 +77,16 @@
 							
 						</tr>
 						<tr>
-							<th scope="row">참고</th>
+							<th scope="row">창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<select class="form-control input-sm">
-									<option>단일선택</option>
-								</select>
+								<sbux-select uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm"/>
 							</td>
-						
-						
-						
-						
-						
 						</tr>
 					</tbody>
 				</table>
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li><span>투입지시 내역</span></li>
-						<li><span>　　　지시중량 : 99.999Kg　　　　실적중량 : 99.999Kg</span></li>
 					</ul>
 				</div>
 	            <div class="sbt-wrap-body">
