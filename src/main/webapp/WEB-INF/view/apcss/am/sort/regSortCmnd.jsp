@@ -18,10 +18,9 @@
 					<h3 class="box-title">▶ 선별지시등록</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="srch-btn-search" name="srch-btn-search" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
-					<sbux-button id="srch-btn-insert" name="srch-btn-insert" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
-					<sbux-button id="srch-btn-delete" name="srch-btn-delete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
-					<sbux-button id="srch-btn-terminate" name="srch-btn-terminate" uitype="button" class="btn btn-sm btn-outline-danger">종료</sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -44,8 +43,8 @@
 					<tbody>
 						<tr>
 							<th scope="row">APC명</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" class="form-control input-sm" disabled/>
 							</td>
 						</tr>
 						<tr>		
@@ -71,7 +70,7 @@
 								<sbux-select uitype="single" id="srch-slt-provider" name="srch-slt-provider" class="form-control input-sm"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button uitype="normal" id="srch-btn-provider" name="srch-btn-provider" class="btn btn-xs btn-outline-dark" text="찾기"/>
+								<sbux-button uitype="normal" id="srch-btn-providerSrch" name="srch-btn-providerSrch" class="btn btn-xs btn-outline-dark" text="찾기"/>
 							</td>
 							<td>&nbsp;</td>
 						</tr>
@@ -87,7 +86,6 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>투입대상 내역</span></li>
-							<li><span>　　　선택중량 : 99.999Kg</span></li>
 						</ul>
 					</div>
 				</div>
