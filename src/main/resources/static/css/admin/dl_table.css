@@ -3,7 +3,7 @@
 /* 테이블 관련 설정 */
 .tbl_fixed{ table-layout: fixed; }
 .bg_tr{ background: #f4f4f4 !important; }
-.th_label { text-align: center; }
+.th_label { text-align: left; }
 .td_input { padding: 3px !important; }
 .td_input .input-sm {
 	height: 28px;
