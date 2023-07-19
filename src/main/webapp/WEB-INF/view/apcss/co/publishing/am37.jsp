@@ -147,17 +147,19 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 출하지시등록</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 출하지시등록</h3>
 							</div>
+							<div style="margin-left: auto;">
+								&nbsp;
+								<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
 						<div>
 						</div>
@@ -245,7 +247,7 @@
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>　출하지시대상 내역</span></li>
-									<li><span>　　선택수량/중량 : 99/99,999 Kg</span></li>	
+									<li><label style="font-size: x-small;">선택수량/중량 : 99/99,999 Kg</label></li>	
 									</ul>
 								</div>
 								<div class="ad_tbl_toplist">
@@ -287,11 +289,12 @@
 										</thead>
 										<tbody>
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">
 													<label class="check_label ta_i" for="check1">선택</label>
 												</p>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -305,12 +308,12 @@
 											<td>&nbsp;</td>
 										</tr>
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">
 													<label class="check_label ta_i" for="check1">선택</label>
 												</p>
-											</th>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -324,12 +327,12 @@
 											<td>&nbsp;</td>
 										</tr>
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">
 													<label class="check_label ta_i" for="check1">선택</label>
 												</p>
-											</th>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -442,7 +445,7 @@
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>　출하지시 내역</span></li>
-									<li><span>　　출하지시 수량/중량 : 99/99,999 Kg</span></li>	
+									<li><label  style="font-size: x-small;">　　출하지시 수량/중량 : 99/99,999 Kg</label></li>	
 									</ul>
 								</div>	
 								</div>
@@ -482,12 +485,12 @@
 									</thead>
 									<tbody>
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-											</th>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -501,12 +504,12 @@
 											<td>&nbsp;</td>
 										</tr>	
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">
 													<label class="check_label ta_i" for="check1">선택</label>
 												</p>
-											</th>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -521,12 +524,12 @@
 											<td>&nbsp;</td>
 										</tr>
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">
 													<label class="check_label ta_i" for="check1">선택</label>
 												</p>
-											</th>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>

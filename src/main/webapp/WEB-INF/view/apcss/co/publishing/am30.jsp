@@ -147,15 +147,16 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 생산지시조회</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-primary">생산지시서</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+					<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 생산지시조회</h3>
 							</div>
+							<div style="margin-left: auto;">
+									<button type="button" class="btn btn-sm btn-primary">생산지지서</button>
+									<button type="button" class="btn btn-sm btn-outline-dark">조회</button>
+									<button type="button" class="btn btn-sm btn-outline-dark">종료</button>
+							</div>
+							
 						</div>
 						
 						<div class="box-body">
@@ -214,7 +215,7 @@
 											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 										</td>
 										<th scope="row">납기일자</th>
-										<td colspan="2" class="td_input" style="border-right:hidden ;">
+										<td colspan="2" class="td_input">
 											<div class="dp_inline wd_125 va_m">
 												<div class="input-group date">
 													<div class="input-group-addon">
@@ -255,7 +256,7 @@
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>지시 내역</span></li>
-									<li><span>지시수량/중량 : 99 / 99,999 Kg</span></li>	
+									<li><label style="font-size: x-small;">지시수량/중량 : 99 / 99,999 Kg</label></li>	
 									</ul>
 								</div>
 									<div class="table-responsive tbl_scroll_sm">

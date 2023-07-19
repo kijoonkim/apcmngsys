@@ -61,7 +61,7 @@
       <link rel="stylesheet" href="../../../src/font-awesome/css/font-awesome.min.css">
       <!-- [pp] font-awesome 파이어폭스 미출력 에러 대응 -->
 <!--       <link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"> -->
-      <link rel="stylesheet" href="../../../src/font-awesome/css/fontawesome.css">
+         <link rel="stylesheet" href="../../../css/font-awesome/4.7.0/css/font-awesome.css">
       <!-- [pp] //font-awesome 파이어폭스 미출력 에러 대응 -->
       <link rel="stylesheet" href="../../../src/remixicon/fonts/remixicon.css">
       <!-- [pp] //icon -->
@@ -86,7 +86,7 @@
 
       <!-- js -->
 <!--       <script src="../../../src/jquery/js/jquery-3.5.1.min.js"></script> -->
-      <script src="../../../src/jquery/js/jquery-3.5.1.min.js"></script>
+      <script src="/../../../src/jquery/js/jquery-3.5.1.min.js"></script>
         <script src="../../../src/jquery/js/jquery.mousewheel.min.js"></script>
       <!--[if lt IE 9]>
       <script src="../../../src/jquery/js/jquery-1.12.3.min.js"></script>
@@ -132,8 +132,7 @@
 <!-- ============================================================================================================== -->
 
 				<section class="content container-fluid">
-					<div class="box box-solid" >
-
+					<div class="box box-solid">
 						<div class="box-header" style="display:flex; justify-content: flex-start;" >
 							<div>
 								<h3 class="box-title" style="line-height: 30px;"> ▶ 투입지시조회</h3>
@@ -142,7 +141,7 @@
 								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
 								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
 							</div>
-
+							
 						</div>
 
 						<div class="box-body">
@@ -166,7 +165,7 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th scope="row" class="th_label">APC명</th>
+										<th scope="row" style="border-bottom:1px solid white " >APC명</th>
 										<td colspan= "2" class="td_input" style="border-right:hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>

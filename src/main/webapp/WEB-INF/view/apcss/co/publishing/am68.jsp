@@ -310,13 +310,15 @@
 													운송
 												</th>
 												<th scope="row"  rowspan="2">												
-													현물창고
+													현물<br>
+													창고<br>
 												</th>
 												<th scope="row"  colspan="2">												
 													재고
 												</th>
 												<th scope="row"  rowspan="2">												
-													이송창고
+													이송<br>
+													창고<br>
 												</th>
 												<th scope="row"  colspan="2">												
 													이송
@@ -433,7 +435,8 @@
 														규격
 													</th>
 													<th scope="row"  rowspan="2">												
-														현물창고
+														현물<br>
+														창고<br>
 													</th>
 													<th scope="row"  colspan="2">												
 														재고
@@ -558,7 +561,8 @@
 														등급
 													</th>
 													<th scope="row"  rowspan="2">												
-														현물창고
+														현물<br>
+														창고<br>
 													</th>
 													<th scope="row"  colspan="2">												
 														재고

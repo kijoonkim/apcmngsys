@@ -148,7 +148,7 @@
 					<div class="box box-solid">
 						<div class="box-header" style="display:flex; justify-content: flex-start;" >
 							<div>
-								<h3 class="box-title" style="line-height: 30px;"> ▶ 사용자승인등록</h3>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 발주정보조회</h3>
 							</div>
 							<div style="margin-left: auto;">
 								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
@@ -328,12 +328,12 @@
 										<tbody>
 											<tr>
 											<tr>
-												<th scope="row" class="td_input">
+												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>
@@ -352,12 +352,12 @@
 												<td>&nbsp;</td>
 											</tr>
 											<tr>	
-                                               <th scope="row" class="td_input">
+                                               <td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>

@@ -147,15 +147,16 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 포장실적등록</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 포장실적등록</h3>
 							</div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
 						<div>
 						</div>
@@ -178,20 +179,14 @@
 								<tbody>
 									<tr>
 										<th scope="row">APC 명</th>								
-										<th colspan="2">
-										<input type="text" class="form-control input-sm" placeholder="" disabled>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
+										<td colspan="2" style="border-right: hidden;">
+											<input type="text" class="form-control input-sm" placeholder="" disabled>
+										</td>
+										<td colspan="8">&nbsp;</td>
 									</tr>
 									<tr>
 										<th scope="row">선별일자</th>
-										<th colspan="2" class="th_input">
+										<td colspan="2" class="th_input">
 											<div class="dp_inline wd_100 va_m">
 												<div class="input-group date">
 													<div class="input-group-addon">
@@ -209,26 +204,25 @@
 													<input type="text" name="datepicker" placeholder="2023.01.31" class="form-control pull-right input-sm">
 												</div>
 											</div>										
-										</th>
+										</td>
 										<th scope="row">품목/품종</th>
-										<th class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control fl_fixed mg_r5 wd_110">
 												<option></option>
 											</select>
-										</th>
-										<th class="td_input">
+										</td>
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control fl_fixed mg_r5 wd_110">
 											</select>
-										</th>
-										<th>&nbsp;</th>
+										</td>
+										<td>&nbsp;</td>
 										<th scope="row">규격</th>
-										<th class="td_input">
-											<select class="form-control fl_fixed mg_r5 wd_110">
+										<td colspan="2" class="td_input" style="border-right: hidden;">
+											<select class="form-control fl_fixed mg_r5 wd_140">
 												<option></option>
 											</select>
-										</th>
-										<th>&nbsp;</th>
-									    <th>&nbsp;</th>
+										</td>
+										<td colspan="1">&nbsp;</td>
 									</tr>
 								</tbody>
 							</table>
@@ -280,12 +274,12 @@
 										</thead>
 										<tbody>
 											<tr>
-										<th scope="row" class="td_input">
+												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -300,12 +294,12 @@
 
 											</tr>
 											<tr>
-										<th scope="row" class="td_input">
+												<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -368,7 +362,7 @@
 							<div class="ad_section_top">
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">
-									<li><span>　포장실적 내역</span></li>
+									<li><span>포장실적 내역</span></li>
 								</ul>
 							</div>
 

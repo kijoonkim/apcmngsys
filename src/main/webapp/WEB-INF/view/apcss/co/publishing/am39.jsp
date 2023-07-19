@@ -147,18 +147,19 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 출하실적 등록</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-md btn-primary">송품장</button>
-									&nbsp;&nbsp;&nbsp;
-									<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 출하실적등록</h3>
 							</div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-primary">송품장</button>
+								&nbsp;
+								<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
 						<div>
 						</div>
@@ -301,12 +302,12 @@
 										</thead>
 										<tbody>
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">
 													<label class="check_label ta_i" for="check1">선택</label>
 												</p>
-											</th>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -320,12 +321,12 @@
 											<td>&nbsp;</td>
 										</tr>
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">
 													<label class="check_label ta_i" for="check1">선택</label>
 												</p>
-											</th>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -339,12 +340,12 @@
 											<td>&nbsp;</td>
 										</tr>
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">
 													<label class="check_label ta_i" for="check1">선택</label>
 												</p>
-											</th>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -479,17 +480,20 @@
 									</tr>
 								</tbody>
 							</table>
-								<b>&nbsp;</b>
-								<div class="ad_tbl_top">
-									<ul class="ad_tbl_count">
-										<li><span>출하 내역</span></li>
-									<li><span>출하수량/중량 : 99/99,999 kg</span></li>
-									</ul>
-								</div>										
-								<div class="ad_tbl_top">
-									<div class="ad_tbl_toplist">
-										<button type="button" class="btn btn-sm btn-outline-dark">내려받기</button>
-										<button type="button" class="btn btn-sm btn-outline-dark">올리기</button>
+							<br>
+
+								<div class="ad_tbl_top" style="display:flex; justify-content: flex-start;" >
+									<div>
+										<ul class="ad_tbl_count">
+											<li><span>출하 내역</span></li>
+											<li><label  style="font-size: x-small;">출하수량/중량 : 99/99,999 kg</label></li>
+										</ul>
+									</div>
+									<div class="ad_tbl_top"  style="margin-left: auto;">
+										<div class="ad_tbl_toplist" >
+											<button type="button" class="btn btn-sm btn-outline-dark">내려받기</button>
+											<button type="button" class="btn btn-sm btn-outline-dark">올리기</button>
+										</div>
 									</div>
 								</div>	
 								</div>

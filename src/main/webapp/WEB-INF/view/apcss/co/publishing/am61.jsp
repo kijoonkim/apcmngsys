@@ -171,8 +171,8 @@
 									<col style="width: 7%">
 									<col style="width: 10%">
 									<col style="width: 7%">
-									<col style="width: 17%">
-									<col style="width: 12%">
+									<col style="width: 7%">
+									<col style="width: 22%">
 								</colgroup>
 								<tbody>
 									<tr>
@@ -195,7 +195,7 @@
 							<label>&nbsp;</label>
 							<div style="flex-direction: row; display: flex;">
 								<div>
-									<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 99%;">
+									<table class="table table-bordered table-hover tbl_col tbl_fixed"ㄴ>
 									<colgroup>
 										<col style="width: 30%">
 										<col style="width: 15%">
@@ -229,7 +229,11 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td>PVC팔레트</td>
+											<td>												
+												<select class="form-control">
+													<option>PVC팔레트</option>
+												</select>
+											</td>
 											<td>3</td>
 											<td>100</td>
 											<td>300</td>
@@ -238,7 +242,11 @@
 											</td>
 										</tr>
 										<tr>
-											<td></td>
+											<td>
+												<select class="form-control">
+													<option></option>
+												</select>
+											</td>
 											<td></td>
 											<td></td>
 											<td></td>
@@ -258,7 +266,7 @@
 
 								</div>
 								<div>
-									<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 98%;">
+									<table class="table table-bordered table-hover tbl_col tbl_fixed">
 										<colgroup>
 											<col style="width: 30%">
 											<col style="width: 15%">
@@ -292,7 +300,11 @@
 										</thead>
 										<tbody>
 											<tr>
-												<td>PVC팔레트</td>
+												<td>
+													<select class="form-control">
+														<option>PVC박스</option>
+													</select>
+												</td>
 												<td>3</td>
 												<td>100</td>
 												<td>300</td>
@@ -301,7 +313,11 @@
 												</td>
 											</tr>
 											<tr>
-												<td></td>
+												<td>
+													<select class="form-control">
+														<option>PVC박스</option>
+													</select>
+												</td>
 												<td></td>
 												<td></td>
 												<td></td>
