@@ -13,6 +13,11 @@ public class ComConstants {
 	public final static String PROP_RESULT_MAP = "resultMap";
 	public final static String PROP_RESULT_LIST = "resultList";
 	
+	public final static String PROP_INSERTED_CNT = "insertedCnt";
+	public final static String PROP_UPDATED_CNT = "updatedCnt";
+	public final static String PROP_DELETED_CNT = "deletedCnt";
+	
+	
 	public final static String RESULT_STATUS_OK = "S";
 	public final static String RESULT_STATUS_ERROR = "E";
 	

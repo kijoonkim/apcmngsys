@@ -50,13 +50,17 @@ public class ComMsgController extends BaseController{
 	@PostMapping(value = "/co/msg/selectComMsgList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody ComMsgVO comMsgVO, HttpServletRequest request) throws Exception{
 		
-		logger.debug("$$$ programId : {}", getPrgrmId());
-		
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<ComMsgVO> resultList = new ArrayList<>();
 		
 		try {
 			 resultList = comMsgService.selectComMsgList(comMsgVO);
+			 
+			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
+			 for (ComMsgVO msg : resultList ) {
+				 logger.debug("msgCn : {}", msg.getMsgCn());
+			 }
+			 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

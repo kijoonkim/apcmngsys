@@ -80,7 +80,6 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "/actionLogin.do")
 	public String actionLogin(
 			@RequestBody LoginVO loginVO,
-			//@ModelAttribute("loginVO")LoginVO loginVO,
 			HttpServletRequest request,
 			HttpServletResponse response,
 			HttpSession httpSession,
@@ -103,6 +102,33 @@ public class LoginController extends BaseController {
 			return "redirect:/login.do";
 		}
 	}
+	
+	@RequestMapping(value = "/actionSSOLogin.do")
+	public String actionSSOLogin(HttpServletRequest request) throws Exception {
+		
+		String id = request.getParameter("id");
+		
+		LoginVO loginVO = new LoginVO();
+		loginVO.setId(id);
+		
+		LoginVO resultVO = loginService.actionSSOLogin(loginVO);
+		
+		if (resultVO != null && resultVO.getId() != null && StringUtils.hasText(resultVO.getId())) {
+			// 로그인 정보를 세션에 저장
+			//httpSession.setAttribute("loginVO", resultVO);
+			request.getSession().setAttribute("loginVO", resultVO);
+			
+			// 로그인 인증세션
+			//httpSession.setAttribute("accessUser", resultVO.getId());
+			request.getSession().setAttribute("accessUser", resultVO.getId());
+			
+			return "redirect:/actionMain.do";
+		} else {
+			//model.addAttribute("loginMessage", message.getMessage("fail.common.login", request.getLocale()));
+			return "redirect:/login.do";
+		}
+	}
+	
 	
 	/**
 	 * 로그인 후 메인화면으로 들어간다

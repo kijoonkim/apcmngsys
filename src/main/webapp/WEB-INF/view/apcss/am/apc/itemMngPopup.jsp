@@ -70,9 +70,9 @@
 					<table class="table table-bordered tbl_row tbl_fixed mg_t10">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
-							<col style="width: 7%">
+							<col style="width: 10%">
 							<col style="width: 20%">
-							<col style="width: 7%">
+							<col style="width: 10%">
 							<col style="width: 20%">
 							<col style="width: auto">
 						</colgroup>
@@ -225,7 +225,7 @@
 	}
 
 	async function fn_selectApcItemList(){
-		fn_callSelectApcItemList()
+		fn_callSelectApcItemList();
 	}
 
 	async function fn_callSelectApcItemList(){
@@ -329,13 +329,13 @@
 	}
 
 	async function fn_selectVrtyList(){
-		fn_callSelectVrtyList()
+		fn_callSelectVrtyList();
 	}
 
 	async function fn_callSelectVrtyList(){
 
 		let nRow = apcItemDataGrid.getRow();
-        if (nRow < 2) {
+        if (nRow < 1) {
             return;
         }
 
@@ -365,6 +365,8 @@
     		}
     		console.error("failed", e.message);
         }
+        
+        //fn_selectApcVrtyList();
 	}
 
 	// APC 품종 목록 조회
@@ -397,13 +399,13 @@
 	}
 
 	async function fn_selectApcVrtyList(){
-		fn_callSelectApcVrtyList()
+		fn_callSelectApcVrtyList();
 	}
 
 	async function fn_callSelectApcVrtyList(){
 
 		let nRow = apcItemDataGrid.getRow();
-        if (nRow < 2) {
+        if (nRow < 1) {
             return;
         }
 
@@ -412,7 +414,7 @@
 		let apcCd = SBUxMethod.get("apcCd");
 		let itemCd = rowData.itemCd;
 		let vrtyNm = SBUxMethod.get("vrtyNm");
-    	let postJsonPromise = gfn_postJSON("/am/cmns/selectApcCmnsVrtyList.do", {apcCd : apcCd, itemCd : itemCd, vrtyNm : vrtyNm});
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectApcVrtyList.do", {apcCd : apcCd, itemCd : itemCd, vrtyNm : vrtyNm});
         let data = await postJsonPromise;
         let newApvVrtyGridData = [];
         try{
@@ -438,7 +440,7 @@
 	}
 
 	async function fn_apcVrtyList(){
-		fn_selectVrtyList();
+		await fn_selectVrtyList();
 		fn_selectApcVrtyList();
 	}
 
@@ -448,19 +450,16 @@
 	}
 
 	async function fn_callInsertApcVrty(cmnsVrtyVO){
-		let postJsonPromise = gfn_postJSON("/am/cmns/insertApcCmnsVrty.do", cmnsVrtyVO);
+		let postJsonPromise = gfn_postJSON("/am/cmns/insertApcVrty.do", cmnsVrtyVO);
         let data = await postJsonPromise;
-        try{
-        	if(data.result > 0){
+        
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
         		fn_apcVrtyList();
-        	}else{
-        		alert("등록 중 실패하였습니다.")
+        	} else {
+        		alert(data.resultMessage);
         	}
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+        } catch(e) {        	
         }
 	}
 
@@ -470,19 +469,15 @@
 	}
 
 	async function fn_callDeleteVrty(cmnsVrtyVO){
-		let postJsonPromise = gfn_postJSON("/am/cmns/deleteApcCmnsVrty.do", cmnsVrtyVO);
+		let postJsonPromise = gfn_postJSON("/am/cmns/deleteApcVrty.do", cmnsVrtyVO);
         let data = await postJsonPromise;
-        try{
-        	if(data.result > 0){
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
         		fn_apcVrtyList();
-        	}else{
-        		alert("삭제 중 실패하였습니다.")
+        	} else {
+        		alert(data.resultMessage);
         	}
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+        } catch(e) {        	
         }
 	}
 

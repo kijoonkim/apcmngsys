@@ -7,12 +7,35 @@
  * js constant
  */
 
-/** 
- * @description 공통코드 url
- * @type {string}
+/** URL
+ * 품목, 품종, 규격, 등급
+ * APC 품목, 품종, 규격, 등급
+ * 거래처
+ * 상품
+ * 팔레트/박스
+ * 생산자
+ * 입고차량
  */
-const URL_COM_CDS = "/co/cd/comCdDtls";
 
+const URL_COM_CDS 		= "/co/cd/comCdDtls";		// 공통코드
+
+const URL_MST_ITEMS 	= "/am/cmns/cmnsItems";		//	품목 마스터
+const URL_MST_VRTYS 	= "/am/cmns/cmnsVrtys";		//	품종 마스터
+const URL_MST_SPCFCTS 	= "/am/cmns/cmnsSpcfcts";	//	규격 마스터
+const URL_MST_GRDS 		= "/am/cmns/cmnsGrds";		//	등급 마스터
+
+const URL_APC_ITEMS 	= "/am/cmns/apcItems";		//	APC 품목
+const URL_APC_VRTYS 	= "/am/cmns/apcVrtys";		//	APC 품종
+const URL_APC_SPCFCTS 	= "/am/cmns/apcSpcfcts";	//	APC 규격
+const URL_APC_GRDS 		= "/am/cmns/apcGrds";		//	APC 등급
+
+const URL_CNPT_INFO		= "/am/cmns/cnptInfos";		//	거래처
+const URL_GDS_INFO		= "/am/cmns/gdsInfos";		//	상품
+const URL_PLT_BX_INFO	= "/am/cmns/pltBxInfos";	//	팔레트/박스
+const TB_PRDCR_INFO		= "/am/cmns/prdcrInfos";	//	생산자
+const URL_WRHS_VHCL		= "/am/cmns/wrhsVhcls";		//	입고차량
+/** END URL
+ */
 
 /**
  * @type {string}
@@ -27,7 +50,6 @@ const STR_BLANK = "";
 const postHeaders = {
     "Content-Type": "application/json"
 }
-
 
 /**
  * global function
@@ -99,18 +121,17 @@ async function gfn_getComCdDtls (_cdId, _apcCd = "0000") {
 	return JSON.stringify(data.resultList);
 }
 
-
 /**
  * @name gfn_setComCdSBSelect
  * @description sbux-select 데이터 설정
  * @function
- * @param {(string|string[])} _gridIdList
+ * @param {(string|string[])} _targetIds
  * @param {any[]} _jsondataRef
  * @param {string} _cdId
  * @param {string} _apcCd
  * @returns {void}
  */
-async function gfn_setComCdSBSelect(_gridIdList, _jsondataRef, _cdId, _apcCd) {
+async function gfn_setComCdSBSelect(_targetIds, _jsondataRef, _cdId, _apcCd) {
 
 	if (gfn_isEmpty(_cdId)) {
 		return;
@@ -124,17 +145,18 @@ async function gfn_setComCdSBSelect(_gridIdList, _jsondataRef, _cdId, _apcCd) {
 		data.resultList.forEach((item) => {
 			const cdVl = {
 				text: item.cdVlNm,
+				label: item.cdVlNm,
 				value: item.cdVl
 			}
 			_jsondataRef.push(cdVl);
 		});
 
-		if (Array.isArray(_gridIdList)) {
-			_gridIdList.forEach((_sbGridId) => {
-				SBUxMethod.refresh(_sbGridId);
+		if (Array.isArray(_targetIds)) {
+			_targetIds.forEach((_targetId) => {
+				SBUxMethod.refresh(_targetId);
 			});
 		} else {
-			SBUxMethod.refresh(_gridIdList);
+			SBUxMethod.refresh(_targetIds);
 		}
 
 	} catch (e) {
@@ -174,6 +196,331 @@ async function gfn_setComCdGridSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
 	} catch (e) {
 	}
 }
+
+
+/**
+ * @name gfn_setSBSelectJson
+ * @description set SBUX-select options by jsonData
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {any[]} _sourceJson
+ */
+const gfn_setSBSelectJson = function (_targetIds, _jsondataRef, _sourceJson) {
+	
+	if (gfn_isEmpty(_targetIds)) {
+		return;
+	}
+
+	try {
+		_jsondataRef.length = 0;
+		_sourceJson.forEach((item) => {
+			const tempItem = {
+				text: item.cmnsNm,
+				label: item.cmnsNm,
+				value: item.cmnsCd
+			}
+			_jsondataRef.push(tempItem);
+		});
+
+		if (Array.isArray(_targetIds)) {
+			_targetIds.forEach((_targetId) => {
+				SBUxMethod.refresh(_targetId);
+			});
+		} else {
+			SBUxMethod.refresh(_targetIds);
+		}
+	} catch (e) {
+	}
+}
+
+/**
+ * @name gfn_getMstItem
+ * @description  품목 마스터 목록 가져오기
+ * @function
+ * @returns {any[]}
+ */
+async function gfn_getMstItem () {
+	const postJsonPromise = gfn_postJSON(URL_MST_ITEMS, {delYn: "N"});
+	const data = await postJsonPromise;
+	return JSON.stringify(data.resultList);
+}
+
+/**
+ * @name gfn_setMstItemSBSelect
+ * @description set SBUX-select options from 품목 마스터
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ */
+const gfn_setMstItemSBSelect = async function (_targetIds, _jsondataRef) {
+	const postJsonPromise = gfn_postJSON(URL_MST_ITEMS, {delYn: "N"});
+	const data = await postJsonPromise;
+	
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.itemCd;
+			item.cmnsNm = item.itemNm;
+			sourceJson.push(item);
+		});
+	
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+/**
+ * @name gfn_getMstVrty
+ * @description  품종 마스터 목록 가져오기
+ * @function
+ * @param {string} _itemCd	품목코드
+ * @returns {any[]}
+ */
+async function gfn_getMstVrty (_itemCd) {
+	const postJsonPromise = gfn_postJSON(URL_MST_VRTYS, {itemCd: _itemCd, delYn: "N"});
+	const data = await postJsonPromise;
+	return JSON.stringify(data.resultList);
+}
+
+/**
+ * @name gfn_setMstVrtySBSelect
+ * @description set SBUX-select options from 품종 마스터
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _itemCd	품목코드
+ */
+const gfn_setMstVrtySBSelect = async function (_targetIds, _jsondataRef, _itemCd) {
+	const postJsonPromise = gfn_postJSON(URL_MST_VRTYS, {itemCd: _itemCd, delYn: "N"});
+	const data = await postJsonPromise;
+	
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.vrtyCd;
+			item.cmnsNm = item.vrtyNm;
+			sourceJson.push(item);
+		});
+	
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+/**
+ * @name gfn_getMstSpcfcts
+ * @description  규격 마스터 목록 가져오기
+ * @function
+ * @param {string} _itemCd	품목코드
+ * @returns {any[]}
+ */
+async function gfn_getMstSpcfcts (_itemCd) {
+	const postJsonPromise = gfn_postJSON(URL_MST_SPCFCTS, {itemCd: _itemCd, delYn: "N"});
+	const data = await postJsonPromise;
+	return JSON.stringify(data.resultList);
+}
+
+/**
+ * @name gfn_setMstSpcfctsSBSelect
+ * @description set SBUX-select options from 규격 마스터
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _itemCd	품목코드
+ */
+const gfn_setMstSpcfctsSBSelect = async function (_targetIds, _jsondataRef, _itemCd) {
+	const postJsonPromise = gfn_postJSON(URL_MST_SPCFCTS, {itemCd: _itemCd, delYn: "N"});
+	const data = await postJsonPromise;
+	
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.spcfctCd;
+			item.cmnsNm = item.spcfctNm;
+			sourceJson.push(item);
+		});
+	
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+/**
+ * @name gfn_getMstGrds
+ * @description  등급 마스터 목록 가져오기
+ * @function
+ * @param {string} _itemCd	품목코드
+ * @returns {any[]}
+ */
+async function gfn_getMstGrds (_itemCd) {
+	const postJsonPromise = gfn_postJSON(URL_MST_GRDS, {itemCd: _itemCd, delYn: "N"});
+	const data = await postJsonPromise;
+	return JSON.stringify(data.resultList);
+}
+
+/**
+ * @name gfn_setMstGrdsSBSelect
+ * @description set SBUX-select options from 등급 마스터
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _itemCd	품목코드
+ */
+const gfn_setMstGrdsSBSelect = async function (_targetIds, _jsondataRef, _itemCd) {
+	const postJsonPromise = gfn_postJSON(URL_MST_GRDS, {itemCd: _itemCd, delYn: "N"});
+	const data = await postJsonPromise;
+	
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.grdCd;
+			item.cmnsNm = item.grdNm;
+			sourceJson.push(item);
+		});
+	
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+
+
+/**
+ * @name gfn_getApcItem
+ * @description  APC 품목 목록 가져오기
+ * @function
+ * @param {string} _apcCd	- APC코드
+ * @returns {any[]}
+ */
+async function gfn_getApcItem (_apcCd) {
+	const postJsonPromise = gfn_postJSON(URL_APC_ITEMS, {apcCd: _apcCd, delYn: "N"});
+	const data = await postJsonPromise;
+	return JSON.stringify(data.resultList);
+}
+
+/**
+ * @name gfn_setApcItemSBSelect
+ * @description set SBUX-select options from APC 품목
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd
+ */
+const gfn_setApcItemSBSelect = async function (_targetIds, _jsondataRef, _apcCd) {
+	const postJsonPromise = gfn_postJSON(URL_APC_ITEMS, {apcCd: _apcCd, delYn: "N"});
+	const data = await postJsonPromise;
+	
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.itemCd;
+			item.cmnsNm = item.itemNm;
+			sourceJson.push(item);
+		});
+	
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+/**
+ * @name gfn_getApcVrty
+ * @description  APC 품종 목록 가져오기
+ * @function
+ * @param {string} _apcCd	APC코드
+ * @param {string} _itemCd	품목코드
+ * @returns {any[]}
+ */
+async function gfn_getApcVrty (_apcCd, _itemCd) {
+	const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"});
+	const data = await postJsonPromise;
+	return JSON.stringify(data.resultList);
+}
+
+/**
+ * @name gfn_setApcVrtySBSelect
+ * @description set SBUX-select options from APC 품종
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd	APC코드
+ * @param {string} _itemCd	품목코드
+ */
+const gfn_setApcVrtySBSelect = async function (_targetIds, _jsondataRef, _apcCd, _itemCd) {
+	const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"});
+	const data = await postJsonPromise;
+	
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.vrtyCd;
+			item.cmnsNm = item.vrtyNm;
+			sourceJson.push(item);
+		});
+	
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+
+/**
+ * @name gfn_getApcSpcfcts
+ * @description  APC 규격 목록 가져오기
+ * @function
+ * @param {string} _apcCd	APC코드
+ * @param {string} _itemCd	품목코드
+ * @returns {any[]}
+ */
+async function gfn_getApcSpcfcts (_apcCd, _itemCd) {
+	const postJsonPromise = gfn_postJSON(URL_APC_SPCFCTS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"});
+	const data = await postJsonPromise;
+	return JSON.stringify(data.resultList);
+}
+
+/**
+ * @name gfn_setApcSpcfctsSBSelect
+ * @description set SBUX-select options from APC 규격
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd	APC코드
+ * @param {string} _itemCd	품목코드
+ */
+const gfn_setApcSpcfctsSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _itemCd) {
+	const postJsonPromise = gfn_postJSON(URL_APC_SPCFCTS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"});
+	const data = await postJsonPromise;
+	
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.spcfctCd;
+			item.cmnsNm = item.spcfctNm;
+			sourceJson.push(item);
+		});
+	
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+/**
+ * @name gfn_getApcGrds
+ * @description  APC 등급 목록 가져오기
+ * @function
+ * @param {string} _apcCd	APC코드
+ * @param {string} _itemCd	품목코드
+ * @returns {any[]}
+ */
+async function gfn_getApcGrds (_apcCd, _itemCd) {
+	const postJsonPromise = gfn_postJSON(URL_APC_GRDS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"});
+	const data = await postJsonPromise;
+	return JSON.stringify(data.resultList);
+}
+
+/**
+ * @name gfn_setApcGrdsSBSelect
+ * @description set SBUX-select options from APC 등급
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd	APC코드
+ * @param {string} _itemCd	품목코드
+ */
+const gfn_setApcGrdsSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _itemCd) {
+	const postJsonPromise = gfn_postJSON(URL_APC_GRDS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"});
+	const data = await postJsonPromise;
+	
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.grdCd;
+			item.cmnsNm = item.grdNm;
+			sourceJson.push(item);
+		});
+	
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
 
 
 
@@ -271,7 +618,7 @@ const gfn_setCookie = function (_name, _value, _options = {}) {
 	_options = {
 		path: '/',
 		// 필요한 경우, 옵션 기본값을 설정할 수도 있습니다.
-		...options
+		..._options
 	};
 
 	if (_options.expires instanceof Date) {
@@ -313,6 +660,7 @@ const gfn_getComMsgList = async function() {
     try {
     	gv_comMsgList.length = 0;
     	data.resultList.forEach((item) => {
+			console.log("msg", item.msgCn);
 			const msg = {
 				msgKey: item.msgKey,
 				msgCn: item.msgCn,
@@ -345,7 +693,9 @@ const gfn_getComMsg = function (_msgKey, ..._arguments) {
 	}
 
 	let args = Array.prototype.slice.call(arguments, 1);
-
+	msgCn = msgCn.replace("\\\\", "\\");
+	console.log(msgCn);
+	
 	let msg = msgCn.replace(/{(\d+)}/g, function(match, number) {
 			return typeof args[number] != 'undefined' ? args[number] : match;
 		});
@@ -364,7 +714,10 @@ const gfn_getComMsg = function (_msgKey, ..._arguments) {
  * @param {string[]} _arguments
  */
 const gfn_comAlert = function (_msgKey, ..._arguments) {
-	return alert(gfn_getComMsg(_msgKey, _arguments));
+	let msg = gfn_getComMsg(_msgKey, _arguments);
+	console.log(msg);
+	alert(msg);
+	// return alert(gfn_getComMsg(_msgKey, _arguments));
 }
 
 /**
