@@ -255,7 +255,7 @@
 												</p>
 											</div>
 										</td>
-										<td style="border-right: hidden;">
+										<td class="ta_l" style="border-right: hidden;">
 											<select class="form-control" style="border-right: hidden;">
 												<option>단일선택</option>
 											</select>
@@ -351,7 +351,7 @@
 							</div>
 
 							<br>
-								<table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 98%;">
+								<table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<colgroup>
 										<col style="width: 8%">
 										<col style="width: 8%">

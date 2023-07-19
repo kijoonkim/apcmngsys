@@ -240,7 +240,10 @@
 												<option></option>
 											</select>
 										</td>
-										<th class="ta_c">입고구분</th>
+										<th class="ta_c">
+										입고
+										구분
+										</th>
 										<td class="td_input"  style="border-right:hidden;">
 											<select class="form-control" style="width: 60%;">
 												<option></option>
@@ -309,16 +312,20 @@
 												상품구분
 											</th>
 											<th scope="row" rowspan="2">												
-												입고구분
+												입고<br>
+												구분<br>
 											</th>
 											<th scope="row"  rowspan="2">												
-												운송구분
+												운송<br>
+												구분<br>
 											</th>
 											<th scope="row"  rowspan="2">												
-												현물창고
+												현물<br>
+												창고<br>
 											</th>
 											<th scope="row"  rowspan="2">												
-												이송창고
+												이송<br>
+												창고<br>
 											</th>
 											<th scope="row" colspan="2">												
 												이송

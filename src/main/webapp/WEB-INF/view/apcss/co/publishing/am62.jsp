@@ -164,7 +164,7 @@
 								<colgroup>
 									<col style="width: 7%">
 									<col style="width: 14%">
-									<col style="width: 5%">
+									<col style="width: 7%">
 									<col style="width: 17%">
 									<col style="width: 7%">
 									<col style="width: 14%">

@@ -147,17 +147,18 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 생산지시등록</h3>
-							<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
-									<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-								</div>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 생산지시등록</h3>
 							</div>
+							<div style="margin-left: auto;">
+									<button type="button" class="btn btn-sm btn-outline-dark">초기화</button>
+									<button type="button" class="btn btn-sm btn-outline-dark">조회</button>
+									<button type="button" class="btn btn-sm btn-outline-dark">등록</button>
+									<button type="button" class="btn btn-sm btn-outline-dark">삭제</button>
+									<button type="button" class="btn btn-sm btn-outline-dark">종료</button>
+							</div>
+							
 						</div>
 						
 						<div class="box-body">
@@ -184,7 +185,7 @@
 										</td>									
 										<th scope="row">지시일자</th>
 										<td class="td_input" style="border-right:hidden ;">
-											<div class="dp_inline wd_125 va_m">
+											<div class="dp_inline wd_125 va_m"  style="border-right:hidden ;">
 												<div class="input-group date">
 													<div class="input-group-addon">
 														<i class="fa fa-calendar"></i>
@@ -193,6 +194,7 @@
 												</div>
 											</div>
 										</td>
+										<td colspan="5"  ></td>
 				                	</tr>
 									<tr>
 										<th scope="row">품목/품종</th>
@@ -214,6 +216,7 @@
 										<td class="td_input" style="border-right:hidden ;">
 											<input type="text" class="form-control input-sm">
 										</td>
+										<td colspan="2"  ></td>
 									</tr>	
 									<tr>
 										<th scope="row">생산설비</th>
@@ -229,6 +232,7 @@
 										<td class="td_input" style="border-right:hidden ;">
 											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
 									    </td>
+										<td colspan="4" ></td>
 									</tr>
 									<tr>								
 										<th scope="row">납기일자</th>
@@ -248,18 +252,20 @@
 										</td>
 										<td style="border-right:hidden ;">&nbsp;</td>
 										<th scope="row" style="border-right:hidden ;">발주수량/입수</th>
-										<td class="td_input" style="border-right:hidden ;">
+										<td class="td_input"  style="border-right:hidden ;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
 										<td class="td_input" style="border-right:hidden ;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
+										<td colspan="1" ></td>
 									</tr>
 							        <tr>
 										<th scope="row">발주번호</th>
-										<td colspan= "2" class="td_input">
+										<td colspan= "2" class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
 										</td>
+										<td colspan="7"></td>
 									</tr>						
 								</tbody>
 							</table>
@@ -269,7 +275,7 @@
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>생산지시 내역</span></li>
-										<li><span>지시수량/중량 : 99 / 99,999 Kg</span></li>
+										<li><label style="font-size: x-small;">지시수량/중량 : 99 / 99,999 Kg</label></li>
 									</ul>
 								</div>
 									<div class="table-responsive tbl_scroll_sm">
@@ -308,12 +314,12 @@
 										</thead>
 										<tbody>
 											<tr>
-												<th scope="col" class="td_input">
+												<td scope="col" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check_default">
 														<label class="check_label ta_i" for="check_default">전체선택</label>
 													</p>
-												</th>	
+												</td>	
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -327,12 +333,12 @@
 												<td>&nbsp;</td>
 											</tr>
 											<tr>
-												<th scope="col" class="td_input">
+												<td scope="col" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check_default">
 														<label class="check_label ta_i" for="check_default">전체선택</label>
 													</p>
-												</th>	
+												</td>	
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>

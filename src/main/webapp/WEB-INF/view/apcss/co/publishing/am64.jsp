@@ -280,11 +280,11 @@
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">
 									<li><span>상품입고 내역</span></li>
-									<li><label> 중량합계 금액: 99,999Kg</label></li>
+									<li><label style="font-size: x-small;" > 중량합계 금액: 99,999Kg</label></li>
 								</ul>
 							</div>
 							<br>
-							 <table class="table table-bordered table-hover tbl_col tbl_fixed" style="width: 98%;">
+							 <table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<colgroup>
 										<col style="width: 8%">
 										<col style="width: 8%">
