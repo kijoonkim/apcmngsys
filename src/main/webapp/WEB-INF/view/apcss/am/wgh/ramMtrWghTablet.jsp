@@ -9,13 +9,6 @@
     <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
-
-
-
-
-
-
-
 </head>
 <body>
 	<section class="content container-fluid">
@@ -71,7 +64,7 @@
 							<td colspan="6" class="td_input"  style="border-right: hidden;">
 								<sbux-input id="inp-prdcrNm" name="inp-prdcrNm" uitype="text" class="form-control input-sm">
 							<td colspan="2" class="td_input"  style="border-right: hidden;">
-								<sbux-button id="btnSrchPrdcr" name="btnSrchPrdcr" class="btn btn-xs btn-outline-dark" uitype="button">조회</sbux-button>
+								<sbux-button id="btnSrchPrdcr" name="btnSrchPrdcr" class="btn btn-xs btn-outline-dark" text="조회" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
@@ -116,7 +109,7 @@
 								<sbux-input uitype="text" id="inp-vhclno" name="inp-vhclno" class="form-control input-sm"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" uitype="button">찾기</sbux-button>
+								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"></sbux-button>
 							</td>
 							<td colspan="3"class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="inp-drvrNm" name="inp-drvrNm" class="form-control input-sm" disabled></sbux-input>
@@ -165,7 +158,9 @@
 						</tr>
 						<tr>
 							<th scope="row"  style="border-right: hidden;">팔레트/박스</th>
-						 	<td style="border-right: hidden;"><button class="btn btn-xs btn-outline-dark" type="button">입력</button></td>
+						 	<td style="border-right: hidden;">
+						 		<sbux-button id="btnSrchPltBx" name="btnSrchPltBx" class="btn btn-xs btn-outline-dark" text="입력" uitype="modal" target-id="modal-pltBx" onclick="fn_modalPltBx"></sbux-button>
+						 	</td>
 							<td colspan="3"class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="inp-pltWght" name="inp-pltWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
@@ -207,6 +202,29 @@
 			</div>
 		</div>
 	</section>
+	<!-- 사용자 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+    </div>
+    <div id="body-modal-prdcr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    </div>
+
+    <!-- 차량 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-vhcl" name="modal-vhcl" uitype="middle" header-title="차량 선택" body-html-id="body-modal-vhcl" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-vhcl">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vhclPopup.jsp"></jsp:include>
+    </div>
+
+    <!-- 팔레트/박스 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="원물입고 팔레트/박스 입고등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" style="width:1200px"></sbux-modal>
+    </div>
+    <div id="body-modal-pltBx">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/pltBxPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -245,6 +263,10 @@
 	        {caption: ['비고'], ref: 'rmrk', width: '100px', type: 'output'}
 	    ];
 	    grdWghPrfmnc = _SBGrid.create(SBGridProperties);
+	}
+
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
 	}
 </script>
 </html>
