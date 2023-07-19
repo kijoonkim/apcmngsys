@@ -22,7 +22,7 @@
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-dark"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-dark"></sbux-button>
 			</div>
-			</div>
+		</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -88,7 +88,7 @@
 					<ul class="ad_tbl_count">
 						<li><span>작업자별 실적 내역</span></li>
 					</ul>
-					<div class="ad_tbl_toplist">
+					<div class="ad_tbl_bottom">
 						<sbux-button id="btnDown" name="btnDown" uitype="normal" text="내려받기" class="btn btn-sm btn-outline-danger"></sbux-button>
 						<sbux-button id="btnUp" name="btnUp" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger"></sbux-button>
 					</div>
