@@ -62,7 +62,7 @@
 	var jsonComTrsprtSeCd 	= [];	// 운송구분 trsprtSeCd	Grid
 	var jsonComClclnCrtr 	= [];	// 정산기준 clclnCrtr	Grid
 
-	const fn_initSBSelectPrdcr = async function() {
+	/* const fn_initSBSelectPrdcr = async function() {
 
 		// 그리드 SB select
 	 	gfn_setComCdGridSelect('grdPrdcr', jsonComTrsprtSeCd, 'ITEM_CD');		// 품목
@@ -72,7 +72,7 @@
 	 	gfn_setComCdGridSelect('grdPrdcr', jsonComGdsSeCd, 'TRSPRT_SE_CD');		// 운송구분
 	 	gfn_setComCdGridSelect('grdPrdcr', jsonComWrhsSeCd, 'CLCLN_CRTR');		// 정산기준
 
-	}
+	} */
 
 
 	var jsonPrdcr = [];
