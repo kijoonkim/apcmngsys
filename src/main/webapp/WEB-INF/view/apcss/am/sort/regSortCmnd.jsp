@@ -125,7 +125,6 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>투입지시 내역</span></li>
-							<li><span>　　　지시중량 : 99,999 Kg</span></li>
 						</ul>
 					</div>
 				</div>

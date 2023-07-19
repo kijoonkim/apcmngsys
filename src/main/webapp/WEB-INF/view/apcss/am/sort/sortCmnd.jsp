@@ -45,7 +45,6 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<td colspan= "3" class="td_input" style="border-right: hidden;">
-<!-- 								<input type="text" class="form-control input-sm" placeholder="" disabled> -->
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" disabled/>
 							</td>
 						</tr>
@@ -62,7 +61,6 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 							</td>
-<!-- 							<td class="td_input" style="border-right: hidden;"/> -->
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
 							</td>
@@ -79,17 +77,10 @@
 							
 						</tr>
 						<tr>
-							<th scope="row">참고</th>
+							<th scope="row">창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<select class="form-control input-sm">
-									<option>단일선택</option>
-								</select>
+								<sbux-select uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm"/>
 							</td>
-						
-						
-						
-						
-						
 						</tr>
 					</tbody>
 				</table>

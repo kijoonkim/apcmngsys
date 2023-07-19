@@ -13,18 +13,6 @@
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
-<!-- 			<div class="box-header"> -->
-<!-- 				<h3 class="box-title"> ▶ 포장지시등록</h3> -->
-<!-- 				<div class="ad_tbl_top"> -->
-<!-- 					<div class="ad_tbl_toplist"> -->
-<!-- 						<button type="button" class="btn btn-sm btn-outline-danger">초기화</button> -->
-<!-- 						<button type="button" class="btn btn-sm btn-outline-danger">조회</button> -->
-<!-- 						<button type="button" class="btn btn-sm btn-outline-danger">등록</button> -->
-<!-- 						<button type="button" class="btn btn-sm btn-outline-danger">삭제</button> -->
-<!-- 						<button type="button" class="btn btn-sm btn-outline-danger">종료</button> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<h3 class="box-title">▶ 포장지시등록</h3>
@@ -72,7 +60,6 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 							</td>
-<!-- 							<td class="td_input" style="border-right: hidden;"/> -->
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
 							</td>
@@ -92,9 +79,6 @@
 							<th scope="row">생산설비</th>
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-select uitype="single" id="srch-slt-prdctnFclt" name="srch-slt-prdctnFclt" class="form-control input-sm"/>
-<!-- 								<select class="form-control input-sm"> -->
-<!-- 									<option>선택</option> -->
-<!-- 								</select> -->
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row">거래처</th>
@@ -128,7 +112,6 @@
 						<tr>
 							<th scope="row">발주번호</th>
 							<td class="td_input" style="border-right:hidden ;">
-<!-- 								<input type="text" class="form-control input-sm" placeholder="" disabled="" > -->
 								<sbux-input uitype="text" id="srch-inp-gdsNo" name="srch-inp-gdsNo" class="form-control input-sm" disabled/>
 							</td>
 						</tr>
@@ -182,7 +165,6 @@
 	    };
 	    SBGridProperties.columns = [
             {caption: ["선택"], ref: 'checked', type: 'checkbox', width : '60px', style: 'text-align:center'},
-// 	        {caption: ["선택"],		ref: 'msgKey',      type:'output',  width:'60px',    style:'text-align:center'},
 	        {caption: ["지시번호"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
 	        {caption: ["생산설비"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
 	        {caption: ["납기일자"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
