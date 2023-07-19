@@ -28,11 +28,10 @@
 
 	<!-- [pp] icon -->
 	<link rel="stylesheet" href="../../../src/font-awesome/css/font-awesome.min.css">
-	<!-- [pp] font-awesome 파이어폭스 미출력 에러 대응 -->
-	<!--       <link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"> -->
-	<link rel="stylesheet" href="/resource/css/font-awesome/4.7.0/css/font-awesome.css">
-	<!-- [pp] //font-awesome 파이어폭스 미출력 에러 대응 -->
-	<link rel="stylesheet" href="../../../src/remixicon/fonts/remixicon.css">
+    <!-- [pp] font-awesome 파이어폭스 미출력 에러 대응 -->
+    <link rel="stylesheet" href="../../../src/font-awesome/css/fontawesome.css">
+    <!-- [pp] //font-awesome 파이어폭스 미출력 에러 대응 -->
+    <link rel="stylesheet" href="../../../src/remixicon/fonts/remixicon.css">
 	<!-- [pp] //icon -->
 
 	<!-- css -->

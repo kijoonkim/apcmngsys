@@ -59,7 +59,7 @@
 						<tr>
 							<th scope="row">APC 명</th>
 							<td colspan="6" class="td_input"  style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled>
+								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
@@ -69,45 +69,38 @@
 						<tr>
 							<th scope="row">생산자</th>
 							<td colspan="6" class="td_input"  style="border-right: hidden;">
-								<input type="text" class="form-control input-sm">
+								<sbux-input id="inp-prdcrNm" name="inp-prdcrNm" uitype="text" class="form-control input-sm">
 							<td colspan="2" class="td_input"  style="border-right: hidden;">
-								<button class="btn btn-xs btn-outline-dark" type="button">조회</button>
+								<sbux-button id="btnSrchPrdcr" name="btnSrchPrdcr" class="btn btn-xs btn-outline-dark" uitype="button">조회</sbux-button>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2" style="border-right: hidden;"> → 초성 검색기능 적용</td>
+							<td colspan="2" style="border-right: hidden;"></td>
 						</tr>
 						<tr>
 							<th scope="row">품목 / 품종</th>
 							<td colspan="2"class="td_input" style="border-right: hidden;">
-								<select class="form-control input-sm">
-								<option>선택</option>
-								</select>
+								<sbux-select id="select-itemCd" name="select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="단일선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<td colspan="4"class="td_input" style="border-right: hidden;">
-								<select class="form-control input-sm">
-									<option>선택</option>
-								</select>
+								<sbux-select id="select-vrtyCd" name="select-vrtyCd" uitype="single" jsondata-ref="jsonComVrtyCd" unselected-text="단일선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<td colspan="2"class="td_input"  style="border-right: hidden;">
 								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_all">
-									<label class="check_label" for="check_all">고정</label>
+									<sbux-checkbox id="chk-fxng" name="chk-fxng" uitype="normal" ></sbux-checkbox>
+									<label class="check_label" for="check_default" >고정</label>
 								</p>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="4" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정 or 고정 선택 시 해당품종 유지</td>
+							<td colspan="4" style="border-right: hidden;"></td>
 						</tr>
 						<tr>
 							<th scope="row">계량일자</th>
 							<td colspan="6"class="td_input" style="border-right: hidden;">
 								<div class="dp_inline wd_125 va_m">
 									<div class="input-group date">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-										<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
+										<sbux-datepicker id="dtp-wrhsYmd" name="dtp-wrhsYmd" uitype="popup" ></sbux-datepicker>
 									</div>
 								</div>
 							</td>
@@ -115,60 +108,58 @@
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2"  style="border-right: hidden;"> → 기본 현재일자로 지정</td>
+							<td colspan="2"  style="border-right: hidden;"></td>
 						</tr>
 						<tr>
 							<th scope="row">차량번호/성명</th>
-							<td class="td_input"><input type="text"
-								class="form-control input-sm" placeholder="입력"title="">
+							<td class="td_input">
+								<sbux-input uitype="text" id="inp-vhclno" name="inp-vhclno" class="form-control input-sm"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" uitype="button">찾기</sbux-button>
 							</td>
 							<td colspan="3"class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="입력"disabled>
+								<sbux-input uitype="text" id="inp-drvrNm" name="inp-drvrNm" class="form-control input-sm" disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">전체/공차증량</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder=""title="">
+								<sbux-input uitype="text" id="inp-wholWght" name="inp-wholWght" class="form-control input-sm"></sbux-input>
 							</td>
 							<td colspan="3"class="td_input"  style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder=""title="">
+								<sbux-input uitype="text" id="inp-emptVhclWght" name="inp-emptVhclWght" class="form-control input-sm"></sbux-input>
 							</td>
 							<td colspan="2"class="td_input" style="border-right: hidden;"><label class="bold">감량 %</label></td>
 							<td class="td_input">
-								<select class="form-control input-sm"></select>
+								<sbux-input uitype="text" id="inp-rdctRt" name="inp-rdctRt" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_all">
-									<label class="check_label" for="check_all">고정</label>
+									<sbux-checkbox id="rdctRt-chk-fxng" name="rdctRt-chk-fxng" uitype="normal" ></sbux-checkbox>
+									<label class="check_label" for="check_default" >고정</label>
 								</p>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;" class="td_input"><label class="bold">감량 Kg</label></td>
 							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled>
+								<sbux-input uitype="text" id="inp-rdcdWght" name="inp-rdcdWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input"><label class="bold">실중량 Kg</label></td>
 							<td class="td_input">
-								<input type="text" class="form-control input-sm" placeholder="" disabled>
+								<sbux-input uitype="text" id="inp-actlWght" name="inp-actlWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">입고창고</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<select class="form-control input-sm">
-									<option>선택</option>
-								</select>
+								<sbux-select id="select-warehouseSeCd" name="select-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouseSeCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<td colspan="3"class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_all">
-									<label class="check_label" for="check_all">고정</label>
+									<sbux-checkbox id="warehouseSeCd-chk-fxng" name="warehouseSeCd-chk-fxng" uitype="normal" ></sbux-checkbox>
+									<label class="check_label" for="check_default" >고정</label>
 								</p>
 							</td>
 						</tr>
@@ -176,37 +167,24 @@
 							<th scope="row"  style="border-right: hidden;">팔레트/박스</th>
 						 	<td style="border-right: hidden;"><button class="btn btn-xs btn-outline-dark" type="button">입력</button></td>
 							<td colspan="3"class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled>
+								<sbux-input uitype="text" id="inp-pltWght" name="inp-pltWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td colspan="2"class="td_input" style="border-right: hidden;"><label class="bold">Kg</label></td>
 							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled>
+								<sbux-input uitype="text" id="inp-bxWght" name="inp-bxWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td colspan="2"class="td_input" style="border-right: hidden;"><label class="bold">Kg</label></td>
 						</tr>
 						<tr>
 							<th scope="row" >입고등급</th>
-							<td style="border-right: hidden;"><button class="btn btn-xs btn-outline-dark" type="button">입력</button></td>
 							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled >
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled>
-							</td>
-							<td class="td_input"  style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled>
-							</td>
-							<td class="td_input"  style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled>
+								<sbux-select id="select-grdCd" name="select-grdCd" uitype="single" jsondata-ref="jsonComGrdCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">정산중량</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled>
+								<sbux-input uitype="text" id="inp-clclnWght" name="inp-clclnWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td class="td_input"  style="border-right: hidden;"><label class="bold">Kg</label></td>
 						</tr>
@@ -214,75 +192,59 @@
 				</table>
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-				<div class="ad_section_top">
+				<div class="ad_tbl_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>개량등록 내역</span></li>
 						</ul>
 					</div>
-					<div class="table-responsive tbl_scroll_sm">
-						<table
-							class="table table-bordered table-hover tbl_col tbl_fixed">
-							<caption>검색결과 목록</caption>
-							<colgroup>
-								<col style="width: 5%">
-								<col style="width: 3%">
-								<col style="width: 4%">
-								<col style="width: 3%">
-								<col style="width: 3%">
-								<col style="width: 5%">
-								<col style="width: 4%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 4%">
-								<col style="width: 7%">
-							</colgroup>
-							<thead>
-								<tr>
-									<th scope="col">계량일자</th>
-									<th scope="col">순번</th>
-									<th scope="col">생산자</th>
-									<th scope="col">품목</th>
-									<th scope="col">품종</th>
-									<th scope="col">차량번호</th>
-									<th scope="col">기사명</th>
-									<th scope="col">전체중량</th>
-									<th scope="col">공차중량</th>
-									<th scope="col">감량</th>
-									<th scope="col">실중량</th>
-									<th scope="col">정산중량</th>
-									<th scope="col">창고</th>
-									<th scope="col">비고</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-
 				</div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:200px;"></div>
+				</div>
+
 				<!--[pp] //검색결과 -->
 			</div>
 		</div>
 	</section>
 </body>
+<script type="text/javascript">
+	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_createWghPrfmncGrid();
+	})
+
+	/* const fn_initSBSelect = async function() {
+
+			gfn_setComCdSBSelect('rdo-wrhsSeCd', jsonRadioWrhsSeCd, 'WRHS_SE_CD');	// 시스템유형
+
+	} */
+
+
+	function fn_createWghPrfmncGrid() {
+	    var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdWghPrfmnc';
+	    SBGridProperties.id = 'grdWghPrfmnc';
+	    SBGridProperties.jsonref = 'jsonWghPrfmnc';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.columns = [
+	        {caption: ['계량일자'], ref: 'wghno', width: '100px', type: 'output'},
+	        {caption: ['순번'], ref: 'wghSn', width: '100px', type: 'output'},
+	        {caption: ['생산자'], ref: 'prdcrNm', width: '100px', type: 'output'},
+	        {caption: ['품목'], ref: 'itemNm', width: '100px', type: 'output'},
+	        {caption: ['품종'], ref: 'vrtyNm', width: '100px', type: 'output'},
+	        {caption: ['차량번호'], ref: 'vhclno', width: '100px', type: 'output'},
+	        {caption: ['기사명'], ref: 'drvrNm', width: '100px', type: 'output'},
+	        {caption: ['전체중량'], ref: 'wholWght', width: '100px', type: 'output'},
+	        {caption: ['공차중량'], ref: 'emptVhclWght', width: '100px', type: 'output'},
+	        {caption: ['감량Kg'], ref: 'rdcdWght', width: '100px', type: 'output'},
+	        {caption: ['실중량'], ref: 'actlWght', width: '100px', type: 'output'},
+	        {caption: ['정산중량'], ref: 'clclnWght', width: '100px', type: 'output'},
+	        {caption: ['창고'], ref: 'warehouseSeNm', width: '100px', type: 'output'},
+	        {caption: ['비고'], ref: 'rmrk', width: '100px', type: 'output'}
+	    ];
+	    grdWghPrfmnc = _SBGrid.create(SBGridProperties);
+	}
+</script>
 </html>

@@ -47,14 +47,14 @@
 						<tr>
 							<th scope="row" style="border-bottom:1px solid white " >APC명</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
-								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm"  disabled>
+								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
 							</td>
 							<td colspan="8"></td>
 						</tr>
 						<tr>
 							<th scope="row">계량일자</th>
 							<td class="td_input" style="border-right:hidden;" >
-								<sbux-datepicker id="dtp-wrhsYmd" name="dtp-wrhsYmd" uitype="popup" >
+								<sbux-datepicker id="dtp-wrhsYmd" name="dtp-wrhsYmd" uitype="popup" ></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row">생산자/품목</th>
@@ -137,7 +137,7 @@
 							<td colspan="2"></td>
 							<th scope="row">감량 %</th>
 							<td class="td_input" style="border-right:hidden;">
-								<sbux-select id="select-rdctn" name="select-rdctnRt" uitype="single" jsondata-ref="jsonComRdctn" unselected-text="" class="form-control input-sm"></sbux-select>
+								<sbux-input uitype="text" id="inp-rdctRt" name="inp-rdctRt" class="form-control input-sm"></sbux-input>
 							</td>
 							<td style="border-right: hidden;">
 								<sbux-checkbox id="chk-fxng" name="chk-fxng" uitype="normal" ></sbux-checkbox>
@@ -148,27 +148,27 @@
 						<tr>
 							<th scope="row">감량 Kg</th>
 							<td class="td_input" style="border-right:hidden;">
-								<sbux-input uitype="text" id="inp-rdctnRt" name="inp-rdctn" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="inp-rdcdWght" name="inp-rdcdWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row">실중량 Kg</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="inp-actlWght" name="inp-actlWght" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="inp-actlWght" name="inp-actlWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row">차량번호</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="inp-carNo" name="inp-carNo" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="inp-vhclno" name="inp-vhclno" class="form-control input-sm"></sbux-input>
 							</td>
 							<td style="border-right: hidden;">
-								<sbux-button id="btnSrchCarNo" name="btnSrchCarNo" class="btn btn-xs btn-outline-dark" uitype="button">찾기</sbux-button>
+								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" uitype="button">찾기</sbux-button>
 							</td>
 							<td></td>
 						</tr>
 						<tr>
 							<th scope="row">팔레트 Kg</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="inp-pltWght" name="inp-pltWght" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="inp-pltWght" name="inp-pltWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchPltBx" name="btnSrchPltBx" class="btn btn-xs btn-outline-dark" uitype="button">입력</sbux-button>
@@ -176,12 +176,12 @@
 							<td></td>
 							<th scope="row">박스 Kg</th>
 							<td class="td_input" >
-								<sbux-input uitype="text" id="inp-bxWght" name="inp-bxWght" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="inp-bxWght" name="inp-bxWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row">정산중량 Kg</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-input uitype="text" id="inp-clclnWght" name="inp-clclnWght" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="inp-clclnWght" name="inp-clclnWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td colspan="2"></td>
 						</tr>
@@ -213,16 +213,16 @@
 						<li><label style="font-size:x-small;">　　　지시중량 : 99.999Kg　　　　실적중량 : 99.999Kg</label></li>
 					</ul>
 				 <div class="ad_tbl_toplist">
-					<button type="button" class="btn btn-sm btn-outline-danger">내려받기</button>
-					<button type="button" class="btn btn-sm btn-outline-danger">올리기</button>
+					<sbux-button uitype="btnDwnld" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" >내려받기</sbux-button>
+					<sbux-button uitype="btnUld" class="btn btn-sm btn-outline-danger" onclick="fn_uld">올리기</sbux-button>
 					</div>
 				</div>
-					<div class="table-responsive tbl_scroll_sm">
-						<div id="sb-area-grdWghPrfmnc" style="width:100%;height:300px;"></div>
-					</div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:300px;"></div>
 				</div>
-				<!--[pp] //검색결과 -->
 			</div>
+				<!--[pp] //검색결과 -->
+		</div>
 	</section>
 </body>
 <script type="text/javascript">
