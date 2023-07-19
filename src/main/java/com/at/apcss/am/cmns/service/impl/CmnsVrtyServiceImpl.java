@@ -10,8 +10,8 @@ import com.at.apcss.am.cmns.service.CmnsVrtyService;
 import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
 
 /**
- * @Class Name : CmnsItemServiceImpl.java
- * @Description : 품목정보관리 서비스를 정의하기 위한 서비스 구현 클래스
+ * @Class Name : CmnsVrtyServiceImpl.java
+ * @Description : 품종정보관리 서비스를 정의하기 위한 서비스 구현 클래스
  * @author 신정철
  * @since 2023.06.21
  * @version 1.0
@@ -26,15 +26,15 @@ import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
  */
 @Service("cmnsVrtyService")
 public class CmnsVrtyServiceImpl implements CmnsVrtyService {
-
+	
 	@Autowired
 	private CmnsVrtyMapper cmnsVrtyMapper;
-
+	
 	@Override
 	public CmnsVrtyVO selectCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
-
+		
 		CmnsVrtyVO resultVO = cmnsVrtyMapper.selectCmnsVrty(cmnsVrtyVO);
-
+		
 		return resultVO;
 	}
 
@@ -42,13 +42,7 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public List<CmnsVrtyVO> selectCmnsVrtyList(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		List<CmnsVrtyVO> resultList = cmnsVrtyMapper.selectCmnsVrtyList(cmnsVrtyVO);
-
-		return resultList;
-	}
-
-	@Override
-	public List<CmnsVrtyVO> selectApcCmnsVrtyList(CmnsVrtyVO cmnsVrtyVO) throws Exception {
-		List<CmnsVrtyVO> resultList = cmnsVrtyMapper.selectApcCmnsVrtyList(cmnsVrtyVO);
+		
 		return resultList;
 	}
 
@@ -56,7 +50,7 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public int insertCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		int insertedCnt = cmnsVrtyMapper.insertCmnsVrty(cmnsVrtyVO);
-
+		
 		return insertedCnt;
 	}
 
@@ -64,7 +58,7 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public int updateCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		int updatedCnt = cmnsVrtyMapper.updateCmnsVrty(cmnsVrtyVO);
-
+		
 		return updatedCnt;
 	}
 
@@ -72,10 +66,48 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public int deleteCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		int deletedCnt = cmnsVrtyMapper.deleteCmnsVrty(cmnsVrtyVO);
-
+		
 		return deletedCnt;
 	}
 
+	@Override
+	public CmnsVrtyVO selectApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
+		
+		CmnsVrtyVO resultVO = cmnsVrtyMapper.selectApcVrty(cmnsVrtyVO);
+		
+		return resultVO;
+	}
 
+	@Override
+	public List<CmnsVrtyVO> selectApcVrtyList(CmnsVrtyVO cmnsVrtyVO) throws Exception {
+
+		List<CmnsVrtyVO> resultList = cmnsVrtyMapper.selectApcVrtyList(cmnsVrtyVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public int insertApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
+
+		int insertedCnt = cmnsVrtyMapper.insertApcVrty(cmnsVrtyVO);
+		
+		return insertedCnt;
+	}
+
+	@Override
+	public int updateApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
+
+		int updatedCnt = cmnsVrtyMapper.updateApcVrty(cmnsVrtyVO);
+		
+		return updatedCnt;
+	}
+
+	@Override
+	public int deleteApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
+
+		int deletedCnt = cmnsVrtyMapper.deleteApcVrty(cmnsVrtyVO);
+		
+		return deletedCnt;
+	}
 
 }

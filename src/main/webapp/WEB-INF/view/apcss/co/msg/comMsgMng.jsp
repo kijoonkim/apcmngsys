@@ -341,7 +341,8 @@
     
     
     //신규 작성
-    function fn_create() {    	
+    function fn_create() {
+    	SBUxMethod.set("dtl-input-orgnMsgKey", null);
     	SBUxMethod.set("dtl-select-msgKnd", null);
         SBUxMethod.set("dtl-input-msgKey", null);
         SBUxMethod.attr("dtl-input-msgKey", "readonly", false);
@@ -356,6 +357,7 @@
     }
     
     const fn_clearForm = function() {
+    	SBUxMethod.set("dtl-input-orgnMsgKey", null);
     	SBUxMethod.set("dtl-select-msgKnd", null);
         SBUxMethod.set("dtl-input-msgKey", null);
         SBUxMethod.attr("dtl-input-msgKey", "readonly", true);
@@ -575,7 +577,6 @@
         SBUxMethod.set("dtl-input-sysLastChgDt", rowData.sysLastChgDt);
         SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", rowData.sysFrstInptPrgrmId);
         SBUxMethod.set("dtl-input-sysLastChgPrgrmId", rowData.sysLastChgPrgrmId);
-        
     }
     
     //그리드 체크박스 전체 선택

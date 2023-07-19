@@ -3,6 +3,7 @@
 /* 테이블 관련 설정 */
 .tbl_fixed{ table-layout: fixed; }
 .bg_tr{ background: #f4f4f4 !important; }
+.th_label { text-align: left; }
 .td_input { padding: 3px !important; }
 .td_input .input-sm {
 	height: 28px;
@@ -61,7 +62,7 @@ table {
 	border-style: solid;
 }
 table th{
-	font-size: 13px; vertical-align: middle; text-align: center;
+	font-size: 13px; vertical-align: middle; text-align: right;
 	border-color: #e8f1f9 !important;
 	border-bottom: 1px solid #ffffff !important;
 	word-wrap: break-word;
@@ -147,7 +148,7 @@ div.dataTables_wrapper div.dataTables_processing {
 	/* 처리중 박스 */
 	z-index: 1;
 	color: #40b8ea; font-weight: 600;
-	border-width: 2px; border-color: #40b8ea; 
+	border-width: 2px; border-color: #40b8ea;
 }
 .dataTables_scrollBody thead th {
 	padding-top: 0 !important;
@@ -156,7 +157,7 @@ div.dataTables_wrapper div.dataTables_processing {
 table.dataTable tbody td.select-radio,table.dataTable tbody th.select-radio{position:relative}table.dataTable tbody td.select-radio:before,table.dataTable tbody td.select-radio:after,table.dataTable tbody th.select-radio:before,table.dataTable tbody th.select-radio:after{display:block;position:absolute;top:1.2em;left:50%;width:12px;height:12px;box-sizing:border-box}table.dataTable tbody td.select-radio:before,table.dataTable tbody th.select-radio:before{content:' ';margin-top:-6px;margin-left:-6px;border:1px solid black;border-radius:6px}table.dataTable tr.selected td.select-radio:after,table.dataTable tr.selected th.select-radio:after{content:'\2714';margin-top:-11px;margin-left:-4px;text-align:center;text-shadow:1px 1px #B0BED9, -1px -1px #B0BED9, 1px -1px #B0BED9, -1px 1px #B0BED9}
 
 @media all and (max-width:767px){
-	
+
 	.ad_tbl_top {
 		height: auto;
 		text-align: left;
@@ -174,7 +175,7 @@ table.dataTable tbody td.select-radio,table.dataTable tbody th.select-radio{posi
 		padding: 5px;
 		text-align: right;
 	}
-	
+
 	/* data table */
 	.dataTables_wrapper  > .row > div{
 		text-align: right !important;
@@ -188,6 +189,6 @@ table.dataTable tbody td.select-radio,table.dataTable tbody th.select-radio{posi
 	.dt-buttons {
 		margin-top: 10px;
 	}
-	
+
 }
 

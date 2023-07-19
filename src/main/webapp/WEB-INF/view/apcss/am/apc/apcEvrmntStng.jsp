@@ -13,13 +13,12 @@
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
-			<div class="box-header">
-				<h3 class="box-title"> ▶ APC환경설정</h3>
-				<div class="ad_tbl_top">
-					<div class="ad_tbl_toplist">
-						<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-					</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title" style="line-height: 30px;"> ▶ APC환경설정</h3>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
 				</div>
 			</div>
 
@@ -28,74 +27,66 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 8%">
-						<col style="width: 1%">
+						<col style="width: 7%">
 						<col style="width: 3%">
-						<col style="width: 10%">
-						<col style="width: 2%">
-						<col style="width: 1%">
-						<col style="width: 2%">
-						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 3%">
 						<col style="width: 15%">
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 3%">
-						<col style="width: 9%">
+						<col style="width: 7%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row">APC코드</th>
-							<td style="border-right: hidden;">&nbsp;</td>
 							<td>&nbsp;</td>
-							<td scope="row">
+							<td scope="row" style="border-right: hidden;">
 								<sbux-input id="apcCd" name="apcCd" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<th rowspan="2">APC정보</th>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td scope="row">명칭</td>
-							<td scope="row">
+							<td scope="row" align="right">명칭</td>
+							<td scope="row" >
 								<sbux-input id="apcNm" name="apcNm" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
-							<td scope="row" colspan="2">주소</td>
-							<td colspan="3"scope="row">
+							<td scope="row" align="right">주소</td>
+							<td scope="row">
 								<sbux-input id="addr" name="addr" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
-							<td scope="row" >전화번호</td>
+							<td scope="row" align="right">전화번호</td>
 							<td scope="row">
 								<sbux-input id="telno" name="telno" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
-							<td scope="row">팩스번호</td>
+							<td scope="row" align="right">팩스번호</td>
 							<td scope="row">
 								<sbux-input id="fxno" name="fxno" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 						</tr>
 						<tr>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td scope="row">사업번호</td>
+							<td scope="row" align="right">사업번호</td>
 							<td scope="row">
 								<sbux-input id="apcBrno" name="apcBrno" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
-							<td scope="row" colspan="2">계좌번호</td>
-							<td colspan="3"scope="row">
+							<td scope="row" align="right">계좌번호</td>
+							<td scope="row">
 								<sbux-input id="actno" name="actno" uitype="text" class="form-control input-sm"></sbux-input>
 
 							</td>
-							<td scope="row">입금은행</td>
+							<td scope="row" align="right">입금은행</td>
 							<td >
 								<sbux-select id="comboBankNm" name="comboBankNm" uitype="single" jsondata-ref="jsonComboBankNm" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 
-							<td scope="row">예금주명</td>
+							<td scope="row" align="right">예금주명</td>
 							<td scope="row">
 								<sbux-input id="dpstr" name="dpstr" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">APC구분</th>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2"class="td_input">
+							<th scope="row" >APC구분</th>
+							<td colspan="8"class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio id="apcGubun1" name="apcGubun" uitype="normal" class="radio_label"></sbux-radio>
 									<label class="radio_label" for="radio1">농협</label>
@@ -108,11 +99,10 @@
 						</tr>
 						<tr>
 							<th scope="row">정산기준(대표)</th>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2" class="td_input">
+							<td colspan="8" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio id="prdcrGubun1" name="prdcrGubun" uitype="normal"  class="radio_label"></sbux-radio>
-									<label class="radio_label" for="radio1">원물입고</label>
+									<label class="radio_label" for="radio1">입고</label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="prdcrGubun2" name="prdcrGubun" uitype="normal"  class="radio_label" checked></sbux-radio>
@@ -122,125 +112,92 @@
 						</tr>
 						<tr>
 							<th scope="row">APC사용자 관리</th>
-							<td style="border-right: hidden;">&nbsp;</td>
 							<td colspan="2"class="td_input">
 								<sbux-button id="userAuthMngBtn" name="userAuthMngBtn" uitype="modal" text="사용자권한 설정" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="userAuthMngModal" onclick="fn_modal('userAuthMngBtn')"></sbux-button>
 							</td>
-							<td>필수</td>
-							<td>&nbsp;</td>
-							<td colspan="7">
-								설명) APC관리자가 사용자별 권한정보를 설정
+							<td colspan="6">
+								업무지원시스템을 사용할 일반사용자를 승인합니다. (신규가입은 포탈을 이용하세요)
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">운용설비 관리</th>
-							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input" colspan="2">
 								<sbux-button id="fcltMngBtn" name="fcltMngBtn" uitype="modal" text="설비 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="fcltMngModal" onclick="fn_modal('fcltMngBtn')"></sbux-button>
 							</td>
-							<td>필수</td>
-							<td>&nbsp;</td>
-							<td colspan="7">
-								Ex) 선별1호기, 선별2호기... / 포장라인, 포장라인2...
+							<td colspan="6">
+								APC에서 운영하고 있는 선별기와 포장기를 등록하세요. (선별1호기, 선별2호기... / 포장1호기, 포장2호기...)
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">저장창고 관리</th>
-							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input" colspan="2">
 								<sbux-button id="warehouseMngBtn" name="warehouseMngBtn" uitype="modal" text="창고 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="warehouseMngModal" onclick="fn_modal('warehouseMngBtn')"></sbux-button>
 							</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td colspan="7">
-								Ex) 원물창고1, 원물창고2... / 상품창고1, 상품창고2... / A창고, B창고...
+							<td colspan="6">
+								APC에서 운영하고 있는 창고를 등록하세요. (원물창고1, 원물창고2... / 선별창고1 ... / 포장창고1..)
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">품목/품종 관리</th>
-							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input" colspan="2">
 								<sbux-button id="itemMngBtn" name="itemMngBtn" uitype="modal" text="품목/품종 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="itemMngModal" onclick="fn_modal('itemMngBtn')"></sbux-button>
 							</td>
-							<td>필수</td>
-							<td>&nbsp;</td>
-							<td colspan="7">
-								설명) 품목등록, 품목에 종속된 품종 등록
+							<td colspan="6">
+								APC에서 관리하고 있는 품목과 품종을 선택하세요. (여러 개의 품목과 품종을 관리할 수 있습니다)
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">등급/규격 관리</th>
-							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input" colspan="2">
 								<sbux-button id="otrdEyeBtn" name="otrdEyeBtn" uitype="modal" text="등급/규격 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="otrdEyeMngModal" onclick="fn_modal('otrdEyeMngBtn')"></sbux-button>
 							</td>
-							<td>필수</td>
-							<td>&nbsp;</td>
-							<td colspan="7">
-								설명) 품목에 종속된 선별등급, 규격 정보 등록
+							<td colspan="6">
+								선택한 품목별로 APC에서 관리하는 등급과 규격을 등록하세요.
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">원물 팔레트/박스</th>
-							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input" colspan="2">
 								<sbux-button id="pltBxBtn" name="pltBxBtn" uitype="modal" text="팔레트/박스 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="pltBxMngModal" onclick="fn_modal('pltBxMngBtn')"></sbux-button>
 							</td>
-							<td>필수</td>
-							<td>&nbsp;</td>
-							<td colspan="7">
-								설명) 원물입고 시 사용되는 팔레트와 박스정보 및 출하 포장단위 관리
+							<td colspan="6">
+								APC에서 관리하고 있는 팔레트와 박스의 종류 및 기초재고수량을 등록합니다. (계근대를 사용하는 경우 단중을 입력해야 합니다)
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">입고차량 관리</th>
-							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input" colspan="2">
 								<sbux-button id="vhclBtn" name="vhclBtn" uitype="modal" text="입고차량/운임 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="wrhsVhclMngModal" onclick="fn_modal('wrhsVhclMngBtn')"></sbux-button>
 							</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td colspan="7">
-								설명) 원물입고 차량의 운반비 송금계좌정보 및 지역별 운임비용 관리
+							<td colspan="6">
+								원물입고 시 차량번호를 관리하는 경우 차량번호를 입력하세요. (차후 추가등록도 가능합니다)
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">출하운송사 관리</th>
-							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input" colspan="2">
 								<sbux-button id="spmtTrsprtBtn" name="spmtTrsprtBtn" uitype="modal" text="출하 운송회사 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="spmtTrsprtMngModal" onclick="fn_modal('spmtTrsprtBtn')"></sbux-button>
 							</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td colspan="7">
-								설명) 출하실적 및 송품장 발행을 위한 운송회사정보 관리
+							<td colspan="6">
+								상품출하시 운용하고 있는 운송사 정보를 등록하세요. (출하처리 시 필요한 정보입니다)
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">거래처 관리</th>
-							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input" colspan="2">
 								<sbux-button id="cnptMngBtn" name="cnptMngBtn" uitype="modal" text="거래처 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="cnptMngModal" onclick="fn_modal('cnptMngBtn')"></sbux-button>
 							</td>
-							<td>
-								필수
-							</td>
-							<td>&nbsp;</td>
-							<td colspan="7">
-								설명) 거래처 정보 및 발주서 접속정보 관리(대형마트 발주서 정보는 선택사항)
+							<td colspan="6">
+								상품출하시 관리하고 있는 거래처 정보를 등록하세요. (출하처리 시 필요한 정보입니다)
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">생산작업자 관리</th>
-							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input" colspan="2">
 								<sbux-button id="oprtrMngBtn" name="oprtrMngBtn" uitype="modal" text="생산작업자 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="oprtrMngModal" onclick="fn_modal('oprtrMngBtn')"></sbux-button>
 							</td>
-							<td>
-							</td>
-							<td>&nbsp;</td>
-							<td colspan="7">
-								설명) 선별 및 포장 작업자 관리
+							<td colspan="6">
+								선별작업 또는 포장작업 시 작업하는 작업자 정보를 등록하세요. (차후 작업자별 작업시간을 관리하기 위한 정보입니다)
 							</td>
 						</tr>
 					</tbody>
@@ -262,7 +219,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th colspan="6">APC 사용메뉴 선택<button type="button" class="btn btn-sm btn-outline-danger" style="float:right;">간편설정</button></th>
+							<th colspan="6" class="th_label">APC 사용메뉴 선택<button type="button" class="btn btn-sm btn-outline-danger" style="float:right;">간편설정</button></th>
 						</tr>
 						<tr>
 							<th scope="row">계량정보 관리</th>

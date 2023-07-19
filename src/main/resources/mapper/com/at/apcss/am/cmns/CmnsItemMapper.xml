@@ -23,23 +23,27 @@
 	<!-- ==========================================================================	-->
     <select id="selectCmnsItemList" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
     	<![CDATA[
-
-    	SELECT /*  com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList */
-    		   IC.ITEM_CD
-		     , IC.ITEM_NM
-		     , IC.DEL_YN
-		  FROM TB_ITEM_CRTR IC
-		 WHERE IC.DEL_YN = 'N'
-		   AND NOT EXISTS (
-                    SELECT X.ITEM_CD
+	    	SELECT /*  com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList */
+	    		   IC.ITEM_CD
+			     , IC.ITEM_NM
+			     , IC.DEL_YN
+			  FROM TB_ITEM_CRTR IC
+			 WHERE IC.DEL_YN = 'N'
+		]]>
+			<if test='itemCd != null and itemCd != ""'>
+			  AND IC.ITEM_CD LIKE #{itemCd} || '%'
+			</if>
+			<if test='itemNm != null and itemNm != ""'>
+			  AND IC.ITEM_NM LIKE '%' || #{itemNm} || '%'
+			</if>
+			<if test='apcCd != null and apcCd != ""'>
+			  AND NOT EXISTS (
+                    SELECT 1
                       FROM TB_APC_ITEM_CRTR X
                      WHERE X.APC_CD = #{apcCd}
                        AND X.ITEM_CD = IC.ITEM_CD
-                      )
-		]]>
-		<if test='itemNm != null and itemNm != ""'>
-		  AND IC.ITEM_NM LIKE #{itemNm} || '%'
-		</if>
+                  )
+			</if>
     </select>
 
 	<!-- ==========================================================================	-->
@@ -52,16 +56,17 @@
 	<!-- ==========================================================================	-->
     <select id="selectApcCmnsItemList" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
     	<![CDATA[
-    	SELECT AIC.APC_CD
-		     , AIC.ITEM_CD
-		     , AIC.ITEM_NM
-		     , AIC.DEL_YN
-		     , (SELECT COUNT(*) FROM TB_APC_VRTY_CRTR WHERE APC_CD = #{apcCd}) AS VRTR_CNT
-		     , (SELECT COUNT(*) FROM TB_APC_SPCFCT_CRTR WHERE APC_CD = #{apcCd}) AS SPCFCT_CNT
-		     , (SELECT COUNT(*) FROM TB_APC_GRD_CRTR WHERE APC_CD = #{apcCd}) AS GRD_CNT
-		  FROM TB_APC_ITEM_CRTR AIC
-		 WHERE AIC.DEL_YN = 'N'
-		   AND APC_CD = #{apcCd}
+	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcCmnsItemList */
+	    		  AIC.APC_CD
+			    , AIC.ITEM_CD
+			    , AIC.ITEM_NM
+			    , AIC.DEL_YN
+			    , (SELECT COUNT(*) FROM TB_APC_VRTY_CRTR WHERE APC_CD = AIC.APC_CD) AS VRTR_CNT
+			    , (SELECT COUNT(*) FROM TB_APC_SPCFCT_CRTR WHERE APC_CD = AIC.APC_CD) AS SPCFCT_CNT
+			    , (SELECT COUNT(*) FROM TB_APC_GRD_CRTR WHERE APC_CD = AIC.APC_CD) AS GRD_CNT
+			  FROM TB_APC_ITEM_CRTR AIC
+			 WHERE AIC.DEL_YN = 'N'
+			   AND AIC.APC_CD = #{apcCd}
 		]]>
     </select>
 
@@ -75,30 +80,31 @@
 	<!-- ==========================================================================	-->
     <insert id="insertCmnsItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO">
     	<![CDATA[
-    	INSERT INTO TB_APC_ITEM_CRTR
-    		(
-    			APC_CD
-    		  , ITEM_CD
-    		  , ITEM_NM
-    		  , SYS_FRST_INPT_DT
-    		  , SYS_FRST_INPT_USER_ID
-    		  , SYS_FRST_INPT_PRGRM_ID
-    		  , SYS_LAST_CHG_DT
-    		  , SYS_LAST_CHG_USER_ID
-    		  , SYS_LAST_CHG_PRGRM_ID
-    		)
-   		VALUES
-   			(
-   				#{apcCd}
-    		  , #{itemCd}
-    		  , #{itemNm}
-    		  , SYSDATE
-    		  , #{sysFrstInptUserId}
-    		  , #{sysFrstInptPrgrmId}
-    		  , SYSDATE
-    		  , #{sysLastChgUserId}
-    		  , #{sysLastChgPrgrmId}
-   			)
+    		INSERT /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.insertCmnsItem */
+    			INTO TB_APC_ITEM_CRTR
+	    		(
+	    			  APC_CD
+	    		  	, ITEM_CD
+	    		  	, ITEM_NM
+	    		  	, SYS_FRST_INPT_DT
+	    		  	, SYS_FRST_INPT_USER_ID
+	    		  	, SYS_FRST_INPT_PRGRM_ID
+	    		  	, SYS_LAST_CHG_DT
+	    		  	, SYS_LAST_CHG_USER_ID
+	    		  	, SYS_LAST_CHG_PRGRM_ID
+	    		)
+   			VALUES
+	   			(
+	   				  #{apcCd}
+	    		  	, #{itemCd}
+	    		  	, #{itemNm}
+	    		  	, SYSDATE
+	    		  	, #{sysFrstInptUserId}
+	    		  	, #{sysFrstInptPrgrmId}
+	    		  	, SYSDATE
+	    		  	, #{sysLastChgUserId}
+	    		  	, #{sysLastChgPrgrmId}
+	   			)
     	]]>
     </insert>
 
@@ -112,18 +118,20 @@
 	<!-- ==========================================================================	-->
 	<update id="updateCmnsItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO">
 		<![CDATA[
-		UPDATE TB_CNPT_INFO
-		   SET SYS_LAST_CHG_DT 			= SYSDATE
-    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
-    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-			 , CNPT_NM					= #{cnptNm}
-    		 , BRNO						= #{brno}
-    		 , CNPT_TYPE				= #{cnptType}
-    		 , PIC_NM					= #{picNm}
-    		 , TELNO					= #{telno}
-    		 , RMRK						= #{rmrk}
-		 WHERE APC_CD 					= #{apcCd}
-		   AND CNPT_CD 					= #{cnptCd}
+			UPDATE
+				TB_CNPT_INFO
+			   SET
+			   	  SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+				, CNPT_NM				= #{cnptNm}
+	    		, BRNO					= #{brno}
+	    		, CNPT_TYPE				= #{cnptType}
+	    		, PIC_NM				= #{picNm}
+	    		, TELNO					= #{telno}
+	    		, RMRK					= #{rmrk}
+			 WHERE APC_CD = #{apcCd}
+			   AND CNPT_CD	= #{cnptCd}
 		]]>
 	</update>
 
@@ -137,9 +145,10 @@
 	<!-- ==========================================================================	-->
 	<delete id="deleteCmnsItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO">
 		<![CDATA[
-		DELETE FROM TB_APC_ITEM_CRTR
-		 WHERE APC_CD		= #{apcCd}
-		   AND ITEM_CD 		= #{itemCd}
+			DELETE /* com.at.apcss.am.cmns.mapper.CnptMapper.deleteCmnsItem */
+				FROM TB_APC_ITEM_CRTR
+			 WHERE APC_CD		= #{apcCd}
+			   AND ITEM_CD 		= #{itemCd}
 		]]>
 	</delete>
 

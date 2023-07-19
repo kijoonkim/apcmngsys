@@ -4,6 +4,20 @@ import java.util.Map;
 
 import com.at.apcss.co.sys.vo.LoginVO;
 
+/**
+ * 로그인 Service 인터페이스
+ * @author 신정철
+ * @since 2023.06.21
+ * @version 1.0
+ * @see
+ *
+ * <pre>
+ * << 개정이력(Modification Information) >>
+ * 수정일        수정자        수정내용
+ * ----------  ----------  ---------------------------
+ * 2023.06.21  신정철        최초 생성
+ * </pre>
+ */
 public interface LoginService {
 	
 	/**
@@ -22,6 +36,14 @@ public interface LoginService {
 	 */
 	public LoginVO actionCrtfctLogin(LoginVO vo) throws Exception;
     
+	/**
+	 * SSO 로그인을 처리한다
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	public LoginVO actionSSOLogin(LoginVO vo) throws Exception;
+	
     /**
 	 * 아이디를 찾는다.
 	 * @param vo LoginVO
