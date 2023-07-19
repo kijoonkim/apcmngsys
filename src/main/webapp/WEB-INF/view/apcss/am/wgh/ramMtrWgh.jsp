@@ -54,7 +54,7 @@
 						<tr>
 							<th scope="row">계량일자</th>
 							<td class="td_input" style="border-right:hidden;" >
-								<sbux-datepicker id="dtp-wrhsYmd" name="dtp-wrhsYmd" uitype="popup" ></sbux-datepicker>
+								<sbux-datepicker id="dtp-wrhsYmd" name="dtp-wrhsYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row">생산자/품목</th>
@@ -62,23 +62,23 @@
 								<sbux-input uitype="text" id="inp-itemNm" name="inp-itemNm" class="form-control input-sm"></sbux-input>
 								<sbux-input uitype="hidden" id="inp-itemCd" name="inp-itemCd" class="form-control input-sm"></sbux-input>
 							</td>
-							<td style="border-right: hidden;">
+							<td class="td_input" style="border-right: hidden;">
 								<!-- <sbux-button id="btnSrchItem" name="btnSrchItem" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-itemCrtr" onclick="fn_modalItem"></sbux-button> -->
 								<sbux-button id="btnSrchPrdcr" name="btnSrchPrdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="select-itemCd" name="select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="단일선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="select-itemCd" name="select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<th scope="row">품종</th>
 							<td class="td_input" style="border-right: hidden;" >
-								<sbux-select id="select-vrtyCd" name="select-vrtyCd" uitype="single" jsondata-ref="jsonComVrtyCd" unselected-text="단일선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="select-vrtyCd" name="select-vrtyCd" uitype="single" jsondata-ref="jsonComVrtyCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">입고구분</th>
 							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
-									<sbux-radio id="rdo-wrhsSeCd_1" name="rdo-wrhsSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
+									<sbux-radio id="rdo-wrhsSeCd_1" name="rdo-wrhsSeCd" uitype="normal" class="radio_label" value="1"></sbux-radio>
 									<sbux-label class="radio_label" for-id="rdo-wrhsSeCd_1" text="일반매입"></sbux-label>
 								</p>
 								<p class="ad_input_row">
@@ -86,7 +86,7 @@
 									<sbux-label class="radio_label" for-id="rdo-wrhsSeCd_2" text="공선"></sbux-label>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="rdo-wrhsSeCd_3" name="rdo-wrhsSeCd" uitype="normal" class="radio_label" value="3"></sbux-radio>
+									<sbux-radio id="rdo-wrhsSeCd_3" name="rdo-wrhsSeCd" uitype="normal" class="radio_label" value="3" checked></sbux-radio>
 									<sbux-label class="radio_label" for-id="rdo-wrhsSeCd_3" text="매취"></sbux-label>
 								</p>
 							</td>
@@ -141,8 +141,6 @@
 								<sbux-input uitype="text" id="inp-rdctRt" name="inp-rdctRt" class="form-control input-sm"></sbux-input>
 							</td>
 							<td style="border-right: hidden;">
-								<sbux-checkbox id="chk-fxng" name="chk-fxng" uitype="normal" ></sbux-checkbox>
-								<sbux-label class="check_label" for-id="chk-fxng" >고정</sbux-label>
 							</td>
 							<td></td>
 						</tr>
@@ -161,7 +159,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="inp-vhclno" name="inp-vhclno" class="form-control input-sm"></sbux-input>
 							</td>
-							<td style="border-right: hidden;">
+							<td class="td_input"  style="border-right: hidden;">
 								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"></sbux-button>
 							</td>
 							<td></td>
@@ -180,7 +178,7 @@
 								<sbux-input uitype="text" id="inp-bxWght" name="inp-bxWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td colspan="2"></td>
-							<th scope="row">정산중량 Kg</th>
+							<th scope="row">입고중량 Kg</th>
 							<td class="td_input"  style="border-right: hidden;">
 								<sbux-input uitype="text" id="inp-clclnWght" name="inp-clclnWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
@@ -198,10 +196,9 @@
 							</td>
 							<td colspan="2"></td>
 							<th scope="row">비고</th>
-							<td class="td_input"  style="border-right: hidden;">
+							<td colspan="3" class="td_input">
 								<sbux-input uitype="text" id="inp-rmrk" name="inp-rmrk" class="form-control input-sm"></sbux-input>
 							</td>
-							<td colspan="2"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -211,7 +208,6 @@
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li><span>원물계량 내역</span></li>
-						<li><label style="font-size:x-small;">　　　지시중량 : 99.999Kg　　　　실적중량 : 99.999Kg</label></li>
 					</ul>
 				 <div class="ad_tbl_toplist">
 					<sbux-button uitype="btnDwnld" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" >내려받기</sbux-button>
@@ -261,6 +257,12 @@
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createWghPrfmncGrid();
+
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("dtp-wrhsYmd", year+month+day);
 	})
 
 	/* const fn_initSBSelect = async function() {
