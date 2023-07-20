@@ -11,9 +11,9 @@
 			<div class="box-header">
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSearchVrty" name="btnSearchVrty" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_searchVrty">조회</sbux-button>
-						<sbux-button id="btnChoiceVrty" name="btnChoiceVrty" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_chcVrty">선택</sbux-button>
-						<sbux-button id="btnEndVrty" name="btnEndVrty" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-vrtyCrtr')">종료</sbux-button>
+						<sbux-button id="btnSearchVrty" name="btnSearchVrty" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchVrty">조회</sbux-button>
+						<sbux-button id="btnChoiceVrty" name="btnChoiceVrty" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="fn_chcVrty">선택</sbux-button>
+						<sbux-button id="btnEndVrty" name="btnEndVrty" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-vrtyCrtr')">종료</sbux-button>
 					</div>
 				</div>
 			</div>

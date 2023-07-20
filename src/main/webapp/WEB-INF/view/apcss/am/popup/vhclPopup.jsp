@@ -11,9 +11,9 @@
 			<div class="box-header">
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSearchVhcl" name="btnSearchVhcl" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_sarchVhcl">조회</sbux-button>
-						<sbux-button id="btnInsertVhcl" name="btnInsertVhcl" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_insertVhcl">등록</sbux-button>
-						<sbux-button id="btnEndVhcl" name="btnEndVhcl" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-vhcl')">종료</sbux-button>
+						<sbux-button id="btnSearchVhcl" name="btnSearchVhcl" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_sarchVhcl"></sbux-button>
+						<sbux-button id="btnInsertVhcl" name="btnInsertVhcl" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertVhcl"></sbux-button>
+						<sbux-button id="btnEndVhcl" name="btnEndVhcl" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-vhcl')"></sbux-button>
 					</div>
 				</div>
 			</div>
@@ -120,6 +120,10 @@
 
 	function fn_modalVhcl(){
 		fn_createVhclGrid();
+	}
+
+	async function fn_insertVhcl(){
+
 	}
 </script>
 </html>
