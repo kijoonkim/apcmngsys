@@ -25,6 +25,7 @@
 					<sbux-button id="btnEnd" name="btnEnd" uitype="normal" class="btn btn-sm btn-outline-danger" text="종료"></sbux-button>
 				</div>
 			</div>
+			
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -85,13 +86,13 @@
 						<tr>
 							<th scope="row">투입수량/중량</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-input id="srch-inp-inptAmtWght1" name="srch-inp-inptAmtWght1" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-inptQty" name="srch-inp-inptQty" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-inptAmtWght2" name="srch-inp-inptAmtWght2" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-inptWght" name="srch-inp-inptWght" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-label id="srch-lbl-inptAmtWght" name="srch-lbl-inptAmtWght" uitype="normal" text="Kg" class="bold"></sbux-label>
+								<sbux-label id="srch-lbl-inptQtyWght" name="srch-lbl-inptQtyWght" uitype="normal" text="Kg" class="bold"></sbux-label>
 							</td>
 							<td class="td_input">&nbsp;</td>
 						</tr>
@@ -116,13 +117,13 @@
 						<tr>
 							<th scope="row">선별수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-sltAmtWght1" name="srch-inp-sltAmtWght1" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="srch-inp-sltQty" name="srch-inp-sltQty" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-sltAmtWght2" name="srch-inp-sltAmtWght2" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="srch-inp-sltWght" name="srch-inp-sltWght" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-label id="srch-lbl-sltAmtWght" name="srch-lbl-sltAmtWght" uitype="normal" text="Kg" class="bold"></sbux-label>
+								<sbux-label id="srch-lbl-sltQtyWght" name="srch-lbl-sltQtyWght" uitype="normal" text="Kg" class="bold"></sbux-label>
 							</td>
 							<td class="td_input"></td>
 						</tr>
@@ -177,7 +178,7 @@
             {caption: ['생산지시번호'], ref: 'prdctnOrdrNo', width: '100px', type: 'output'},
             {caption: ['품목'], ref: 'item', width: '100px', type: 'output'},
             {caption: ['품종'], ref: 'vrty', width: '100px', type: 'output'},
-            {caption: ['투입수량'], ref: 'inptAmt', width: '100px', type: 'output'},
+            {caption: ['투입수량'], ref: 'inptQty', width: '100px', type: 'output'},
             {caption: ['투입중량'], ref: 'inptWght', width: '100px', type: 'output'},
             {caption: ['규격명'], ref: 'spcfctName', width: '100px', type: 'output'},
             {caption: ['비고'], ref: 'rmrk', width: '100px', type: 'output'}

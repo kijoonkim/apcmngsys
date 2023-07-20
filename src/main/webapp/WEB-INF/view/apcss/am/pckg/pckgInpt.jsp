@@ -181,9 +181,9 @@
             {caption: ['포장기','포장기'], ref: 'pckg', width: '100px', type: 'output'},
             {caption: ['대표생산자','대표생산자'], ref: 'rprsPrdctr', width: '100px', type: 'output'},
             {caption: ['창고','창고'], ref: 'strg', width: '100px', type: 'output'},
-            {caption: ['포장','수량'], ref: 'pckgAmt', width: '100px', type: 'output'},
+            {caption: ['포장','수량'], ref: 'pckgQty', width: '100px', type: 'output'},
             {caption: ['포장','중량'], ref: 'pckgWght', width: '100px', type: 'output'},
-            {caption: ['출하','수량'], ref: 'shpgotAmt', width: '100px', type: 'output'},
+            {caption: ['출하','수량'], ref: 'shpgotQty', width: '100px', type: 'output'},
             {caption: ['출하','중량'], ref: 'shpgotWght', width: '100px', type: 'output'}
         ];
         grdPckgInpt = _SBGrid.create(SBGridProperties);
