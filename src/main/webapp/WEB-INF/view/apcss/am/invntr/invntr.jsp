@@ -136,7 +136,7 @@
 	
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
-// 		fn_createGrid1();
+		fn_createGrid1();
 // 		fn_createGrid2();
 // 		fn_createGrid3();
 		
@@ -144,19 +144,22 @@
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-wrhsYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-crtrYmd", year+month+day);
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 	
 	function fn_sample1(){
+		_SBGrid.destroy('inptCmndDsctnList');
 		fn_createGrid1();
 	}
 	function fn_sample2(){
+		_SBGrid.destroy('inptCmndDsctnList');
 		fn_createGrid2();
 	}
 	function fn_sample3(){
+		_SBGrid.destroy('inptCmndDsctnList');
 		fn_createGrid3();
 	}
 	function fn_createGrid1() {
@@ -197,13 +200,13 @@
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
-	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
+// 	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList2 = []; // 그리드의 참조 데이터 주소 선언
 	
 	function fn_createGrid2() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
-	    SBGridProperties.id = 'inptCmndDsctnList2';
+	    SBGridProperties.id = 'inptCmndDsctnList';
 	    SBGridProperties.jsonref = 'jsoninptCmndDsctnList2';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
@@ -237,13 +240,13 @@
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
-	var inptCmndDsctnList3; // 그리드를 담기위한 객체 선언
+// 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList3 = []; // 그리드의 참조 데이터 주소 선언
 	
 	function fn_createGrid3() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
-	    SBGridProperties.id = 'inptCmndDsctnList3';
+	    SBGridProperties.id = 'inptCmndDsctnList';
 	    SBGridProperties.jsonref = 'jsoninptCmndDsctnList3';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
