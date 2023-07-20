@@ -40,7 +40,8 @@
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 9%">
+						<col style="width: 6%">
+						<col style="width: 3%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -68,14 +69,14 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-toOrdrDate" name="srch-dtp-toOrdrDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td class="td_input"></td>
+							<td colspan="2" class="td_input"></td>
 						</tr>
 						<tr>
 							<th scope="row">거래처</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
 							</td>
 							<th scope="row">상품명</th>
@@ -86,7 +87,7 @@
 								<sbux-button id="btnSrchGdsName" name="btnSrchGdsName" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
 							</td>
 							<th scope="row">배송처</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-spmtAddr" name="srch-inp-spmtAddr" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input"></td>
@@ -138,7 +139,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-untQty" name="srch-inp-untQty" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
-							<td class="td_input"></td>
+							<td colspan="2" class="td_input"></td>
 						</tr>
 						<tr>
 						    <th scope="row">박스단가</th>
@@ -178,10 +179,10 @@
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-dtp-fromOrdrDate", year+month+day);
-		SBUxMethod.set("srch-dtp-toOrdrDate", year+month+day);
 	})
 	
-	var jsonRegOutordrInfoList = ['test','test']; // 그리드의 참조 데이터 주소 선언
+// 	var jsonRegOutordrInfoList = ['test','test']; // 그리드의 참조 데이터 주소 선언
+	var jsonRegOutordrInfoList = [];
 	
 	var comboUesYnJsData1 = ['선택']
 	

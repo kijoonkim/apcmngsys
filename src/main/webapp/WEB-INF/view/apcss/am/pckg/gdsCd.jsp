@@ -135,13 +135,6 @@
 			</div>
 		</div>
 	</section>
-	<!-- 품목 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-itemCrtr" name="modal-itemCrtr" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemCrtr" footer-is-close-button="false" style="width:600px"></sbux-modal>
-    </div>
-    <div id="body-modal-itemCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/itemCrtrPopup.jsp"></jsp:include>
-    </div>
 </body>
 <script type="text/javascript">
 
@@ -171,9 +164,5 @@
         ];
         grdGdsCd = _SBGrid.create(SBGridProperties);
     }
-	
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
-	}
 </script>
 </html>

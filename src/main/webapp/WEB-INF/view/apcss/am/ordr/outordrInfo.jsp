@@ -18,6 +18,7 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ 발주정보조회</h3>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" class="btn btn-sm btn-outline-success" text="생산지시 등록"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" text="조회" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-dark" text="등록" onclick="fn_insert"></sbux-button>
 				</div>
@@ -30,7 +31,8 @@
 					<colgroup>
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 9%">
+						<col style="width: 6%">
+						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
@@ -44,7 +46,7 @@
 					<tbody>
 						<tr>
 							<th scope="row">APC명</th>
-					    	<td colspan="2" class="td_input">
+					    	<td colspan="3" class="td_input">
 								<sbux-input id="srch-inp-apcName" name="srch-inp-apcName" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 					        <th scope="row">접수여부</th>
@@ -73,7 +75,7 @@
 									</div>
 								</div>
 							</td>
-							<td class="td_input"></td>
+							<td colspan="2" class="td_input"></td>
 							<th scope="row">품목/품종</th>
 						    <td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -93,7 +95,7 @@
 						</tr>
 						<tr>
 						    <th scope="row">거래처명</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnptName" name="srch-inp-cnptName" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
@@ -115,7 +117,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-cmndDate" name="srch-dtp-cmndDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">생산설비</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -124,10 +126,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="5" class="td_input" style="border-right: hidden;"></td>
-							<td colspan="2" class="td_input">
-								<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" class="btn btn-xs btn-outline-success" text="생산지시 등록"></sbux-button>
-							</td>
+							<td colspan="7" class="td_input"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -168,11 +167,11 @@
 		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-dtp-fromOrdrDate", year+month+day);
 		SBUxMethod.set("srch-dtp-toOrdrDate", year+month+day);
-		SBUxMethod.set("srch-dtp-dudt", year+month+day);
 		SBUxMethod.set("srch-dtp-cmndDate", year+month+day);
 	})
 	
-	var jsonOutordrInfoList = ['test','test']; // 그리드의 참조 데이터 주소 선언
+// 	var jsonOutordrInfoList = ['test','test']; // 그리드의 참조 데이터 주소 선언
+	var jsonOutordrInfoList = [];
 	
 	var comboUesYnJsData1 = ['']
 	
