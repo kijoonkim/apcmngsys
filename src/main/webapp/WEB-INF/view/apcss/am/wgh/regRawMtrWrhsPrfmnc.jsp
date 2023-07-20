@@ -72,7 +72,7 @@
 								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" class="form-control pull-right input-sm"/>
 							</td>
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
-							<th scope="row">입고</th>
+							<th scope="row">입고구분</th>
 							<td colspan="6" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-wrhs1" name="srch-rdo-wrhs" uitype="normal" class="radio_label" text="일반매입" checked/>
@@ -85,7 +85,7 @@
 								</p>
 							</td>
 							
-							<th scope="row">상품</th>
+							<th scope="row">상품구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-gds1" name="srch-rdo-gds" uitype="normal" class="radio_label" text="일반" checked/>
@@ -101,7 +101,7 @@
 								</p>
 							</td>
 						<tr>
-							<th scope="row">운송</th>
+							<th scope="row">운송구분</th>
 							<td colspan="15" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-trsprt1" name="srch-rdo-trsprt" uitype="normal" class="radio_label" text="자가" checked/>
@@ -123,10 +123,10 @@
 							<td colspan="4">&nbsp;</td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-gds" name="srch-slt-gds" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-gds" name="srch-slt-gds" class="form-control input-sm"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
 							</td>
 							<td>&nbsp;</td>
 						</tr>
@@ -151,14 +151,14 @@
 							<td colspan="4" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">박스종류</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-boxKnd" name="srch-slt-boxKnd" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-boxKnd" name="srch-slt-boxKnd" class="form-control input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row">창고</th>
 							<td colspan="6" class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-wrhs" name="srch-slt-wrhs" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-wrhs" name="srch-slt-wrhs" class="form-control input-sm"/>
 							</td>
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">차량/운임</th>
@@ -185,7 +185,7 @@
 						<tr>
 							<th scope="row">등급</th>
 							<td colspan="6" class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-rate" name="srch-slt-rate" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-rate" name="srch-slt-rate" class="form-control input-sm"/>
 							</td>
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">계량번호</th>

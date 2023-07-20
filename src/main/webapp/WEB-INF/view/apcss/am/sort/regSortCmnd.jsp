@@ -58,15 +58,15 @@
 							<td>&nbsp;</td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
+								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm" unselected-text="선택"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
+								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm" unselected-text="선택"/>
 							</td>
 							<td>&nbsp;</td>
 						    <th scope="row">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-provider" name="srch-slt-provider" class="form-control input-sm"/>
+								<sbux-select uitype="single" id="srch-slt-provider" name="srch-slt-provider" class="form-control input-sm" unselected-text="선택"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-providerSrch" name="srch-btn-providerSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
@@ -76,7 +76,7 @@
 						<tr>
 							<th scope="row">창고</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-container" name="srch-slt-container" class="form-control input-sm" placeholder="선택"/>
+								<sbux-select uitype="single" id="srch-slt-container" name="srch-slt-container" class="form-control input-sm" unselected-text="선택"/>
 							</td>
 						</tr>
 					</tbody>
@@ -101,6 +101,9 @@
 							<col style="width: 7%">
 							<col style="width: 6%">
 							<col style="width: 9%">
+							<col style="width: 7%">
+							<col style="width: 6%">
+							<col style="width: 9%">
 					</colgroup>
 					<tr>
 						<th scope="row">지시일자</th>
@@ -110,9 +113,9 @@
 						<td>&nbsp;</td>
 						<th scope="row">투입설비</th>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-select uitype="single" id="srch-slt-inptEqupmnt" name="srch-slt-inptEqupmnt" class="form-control input-sm"/>
+							<sbux-select uitype="single" id="srch-slt-inptEqupmnt" name="srch-slt-inptEqupmnt" class="form-control input-sm" unselected-text="선택"/>
 						</td>
-						<td>&nbsp;</td>
+						<td colspan="4">&nbsp;</td>
 					</tr>
 				</table>
 				<div class="ad_tbl_top">

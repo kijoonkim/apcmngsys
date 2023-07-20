@@ -75,10 +75,10 @@
 						<tr>
 							<th scope="row">품목 / 품종</th>
 							<td colspan="2"class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 							</td>
 							<td colspan="4"class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
 							<td colspan="2"class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-checkbox uitype="normal"id="chk-itemVrtyfxng" name="chk-itemVrtyfxng" uitype="normal" class="form-control input-sm" text="고정"/>
@@ -177,13 +177,13 @@
 	 					<tr>
 						 	<th scope="row">입고등급</th>
 					 		<td class="td_input" style="border-right: hidden;">
-					 			<sbux-select uitype="single" id="srch-slt-wrhsRate" name="srch-slt-wrhsRate" class="form-control input-sm"/>
+					 			<sbux-select unselected-text="선택" uitype="single" id="srch-slt-wrhsRate" name="srch-slt-wrhsRate" class="form-control input-sm"/>
 					 		</td>
 						</tr>
 						<tr>
 							<th scope="row">박스종류</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-boxKnd" name="srch-slt-boxKnd" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-boxKnd" name="srch-slt-boxKnd" class="form-control input-sm"/>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -195,7 +195,7 @@
 						<tr>
 							<th scope="row">입고창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-wrhsWarehouse" name="srch-slt-wrhsWarehouse" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-wrhsWarehouse" name="srch-slt-wrhsWarehouse" class="form-control input-sm"/>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">

@@ -59,10 +59,10 @@
 							<td>&nbsp;</td>
 							<th scope="row" style="border-right: hidden;">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
+								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm" unselected-text="선택"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
+								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm" unselected-text="선택"/>
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row">생산자</th>
@@ -79,7 +79,7 @@
 						<tr>
 							<th scope="row">창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm"/>
+								<sbux-select uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm" unselected-text="선택"/>
 							</td>
 						</tr>
 					</tbody>
