@@ -63,21 +63,15 @@
 							<td style="border-right: hidden;"></td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-itemNm" name="srch-slt-itemNm" uitype="single" class="form-control input-sm">
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="srch-slt-itemNm" name="srch-slt-itemNm" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-vrtyNm" name="srch-slt-vrtyNm" uitype="single" class="form-control input-sm">
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="srch-slt-vrtyNm" name="srch-slt-vrtyNm" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td></td>
 							<th scope="row">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-prdcrNm" name="srch-slt-prdcrNm" uitype="single" class="form-control input-sm">
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="srch-slt-prdcrNm" name="srch-slt-prdcrNm" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-slt-prdcrNm" name="srch-btn-slt-prdcrNm" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
@@ -87,9 +81,7 @@
 						<tr>
 							<th scope="row">창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-Warehouse" name="srch-slt-Warehouse" uitype="single" class="form-control input-sm">
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="srch-slt-Warehouse" name="srch-slt-Warehouse" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 						</tr>
 					</tbody>
@@ -130,9 +122,7 @@
 									<td colspan="2"></td>
 									<th scope="row">설비</th>
 									<td class="td_input" style="border-right: hidden;">
-									<sbux-select id="srch-slt-fcltCd" name="srch-slt-fcltCd" uitype="single" class="form-control input-sm">
-										<option-item>선택</option-item>
-									</sbux-select>
+									<sbux-select id="srch-slt-fcltCd" name="srch-slt-fcltCd" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 									</td>
 									<td colspan="2"></td>
 									<th scope="row">선별 투입량</th>

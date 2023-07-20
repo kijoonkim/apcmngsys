@@ -53,31 +53,25 @@
 						<tr>
 							<th scope="row">생산일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" uitype="popup" ></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-EndPrdctnYmd" name="srch-dtp-EndPrdctnYmd" uitype="popup" ></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-EndPrdctnYmd" name="srch-dtp-EndPrdctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input"></td>
 							
 							<th scope="row">창고구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-warehouseSe" name="srch-slt-warehouseSe" uitype="single" class="form-control input-sm">
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="srch-slt-warehouseSe" name="srch-slt-warehouseSe" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input"></td>
 						
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm">
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm">
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input"></td>
 						</tr>
@@ -85,379 +79,57 @@
 							<th scope="row">상품</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<input type="radio" name="radio_dis" class="radio" id="radio_dis_on" disabled="disabled" checked>
-									<label class="radio_label" for="radio_dis_on">일반</label>
+									<sbux-radio id="rdo-wrhsSeCd_1" name="rdo-wrhsSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
+									<sbux-label class="radio_label" for-id="rdo-wrhsSeCd_1" text="일반"></sbux-label>
 								</p>
 								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1">
-									<label class="radio_label" for="radio1">GAP</label>
+									<sbux-radio id="rdo-wrhsSeCd_2" name="rdo-wrhsSeCd" uitype="normal" class="radio_label" value="2"></sbux-radio>
+									<sbux-label class="radio_label" for-id="rdo-wrhsSeCd_2" text="GAP"></sbux-label>
 								</p>
 								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1">
-									<label class="radio_label" for="radio1">무농약</label>
+									<sbux-radio id="rdo-wrhsSeCd_3" name="rdo-wrhsSeCd" uitype="normal" class="radio_label" value="3"></sbux-radio>
+									<sbux-label class="radio_label" for-id="rdo-wrhsSeCd_3" text="무농약"></sbux-label>
 								</p>
 								<p class="ad_input_row">
-									<input type="radio" name="radio" class="radio" id="radio1">
-									<label class="radio_label" for="radio1">유기농</label>
+									<sbux-radio id="rdo-wrhsSeCd_4" name="rdo-wrhsSeCd" uitype="normal" class="radio_label" value="4"></sbux-radio>
+									<sbux-label class="radio_label" for-id="rdo-wrhsSeCd_4" text="유기농"></sbux-label>
 								</p>
 							</td>
+							<td style="border-right: hidden;"></td>
 							<th scope="row">규격</th>
 							<td class="td_input" style="border-right: hidden;">
-								<select class="form-control input-sm">
-									<option>선택</option>
-								</select>
+								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
-							<td><button type="button" class="btn btn-sm btn-outline-danger">재고조회</button></td>
+							<td style="border-right: hidden;">
+								<sbux-button id="srch-btn-invnrtInq" name="srch-btn-invnrtInq" uitype="normal" text="재고조회" class="btn btn-xs btn-outline-dark"></sbux-button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
+				<div class="table-responsive tbl_scroll_sm">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>출하대상 내역</span></li>
-						<li><span>선택수량/중량 : 99/99,999 kg</span></li>
 						</ul>
 					</div>
 					<div class="ad_tbl_toplist">
 					</div>
-						<div class="table-responsive tbl_scroll_sm">
-						<table class="table table-bordered table-hover tbl_col tbl_fixed">
-							<caption>검색결과 목록</caption>
-							<colgroup>
-								<col style="width: 4%">
-								<col style="width: 5%">
-								<col style="width: 7%">
-								<col style="width: 5%">
-								<col style="width: 7%">
-								<col style="width: 7%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-								<col style="width: 5%">
-							</colgroup>
-							<thead>
-								<tr>
-									<th rowspan="2">선택</th>
-									<th rowspan="2">품종</th>
-									<th rowspan="2">상품구분</th>
-									<th rowspan="2">규격</th>
-									<th rowspan="2">생산일자</th>
-									<th rowspan="2">포장번호</th>
-									<th colspan="2">재고</th>
-									<th colspan="2">출하지시</th>
-									<th colspan="2">출하</th>
-								</tr>
-								<tr>
-									<th scope="col">수량</th>
-									<th scope="col">중량</th>
-									<th scope="col">수량</th>
-									<th scope="col">중량</th>
-									<th scope="col">수량</th>
-									<th scope="col">중량</th>
-								</tr>
-							</thead>
-							<tbody>
-							<tr>
-								<th scope="row" class="td_input">
-									<p class="ad_input_row">
-										<input type="checkbox" class="check" id="check1">
-										<label class="check_label ta_i" for="check1">선택</label>
-									</p>
-								</th>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<th scope="row" class="td_input">
-									<p class="ad_input_row">
-										<input type="checkbox" class="check" id="check1">
-										<label class="check_label ta_i" for="check1">선택</label>
-									</p>
-								</th>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<th scope="row" class="td_input">
-									<p class="ad_input_row">
-										<input type="checkbox" class="check" id="check1">
-										<label class="check_label ta_i" for="check1">선택</label>
-									</p>
-								</th>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-						</tbody>
-					</table>
-					<table class="table table-bordered tbl_row tbl_fixed">
-					<caption>검색 조건 설정</caption>
-					<colgroup>
-						<col style="width: 7%">
-						<col style="width: 5%">
-						<col style="width: 5%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 10%">
-						<col style="width: 7%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-					</colgroup>
-					<tbody>
-						<tr>
-							<th scope="row">지시번호</th>
-							<td colspan= "2" class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm">
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
-							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<th scope="row">지시수량</th>
-							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" title="">
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" title="">
-							</td>
-							<td style="border-right: hidden;">Kg</td>
-							<td colspan="3"></td>
-						</tr>
-						<tr>
-							<th scope="row">출하일자</th>
-							<td colspan="4" class="td_input" style="border-right: hidden;">
-								<div class="dp_inline wd_125 va_m">
-									<div class="input-group date">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-										<input type="text" name="datepicker" placeholder="2023.01.01" class="form-control pull-right input-sm">
-									</div>
-								</div>
-							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<th scope="row">거래처</th>
-							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" title=""></td>
-							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="입력" title="입력"></td>
-							<td style="border-right: hidden;"><button class="btn btn-xs btn-outline-dark" type="button">찾기</button></td>
-							<th scope="row">상품등급</th>
-							<td class="td_input" style="border-right: hidden;">
-								<select class="form-control input-sm">
-									<option>선택</option>
-								</select>
-							</td>
-							<td></td>
-						</tr>
-						<tr>
-							<th scope="row">출하수량</th>
-							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" title="">
-							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="평균" disabled="">
-							</td>
-							<td style="border-right: hidden;">KG</td>
-							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" title="">
-					     	<td>&nbsp;</td>
-							<th scope="row">운송회사</th>
-							<td class="td_input" style="border-right: hidden;">
-								<select class="form-control input-sm">
-									<option>선택</option>
-								</select>
-							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<th scope="row">차량번호</th>
-							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" title="">
-							</td>
-							<td></td>
-						</tr>
-						<tr>
-							<th scope="row">포장구분</th>
-							<td colspan= "2" class="td_input" style="border-right: hidden;">
-								<select class="form-control input-sm">
-									<option>선택</option>
-								</select>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td>&nbsp;</td>
-							<th scope="row">배송처</th>
-							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="선택" title="선택">
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td>&nbsp;</td>
-							<th scope="row">운임비용</th>
-							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="입력" title="입력">
-							</td>
-							<td></td>
-						</tr>
-						<tr>
-							<th scope="row">비고</th>
-							<td colspan= "8" class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" title="">
-							</td>
-						</tr>
-					</tbody>
-				</table>
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>출하 내역</span></li>
-							<li><span>출하수량/중량 : 99/99,999 kg</span></li>
-						</ul>
-						<button type="button" class="btn btn-sm btn-outline-dark">내려받기</button>
-						<button type="button" class="btn btn-sm btn-outline-dark">올리기</button>
-					</div>
 					<div class="table-responsive tbl_scroll_sm">
-						<table class="table table-bordered table-hover tbl_col tbl_fixed">
-							<caption>검색결과 목록</caption>
-							<colgroup>
-							<col style="width: 3%">
-							<col style="width: 6%">
-							<col style="width: 5%">
-							<col style="width: 3%">
-							<col style="width: 3%">
-							<col style="width: 3%">
-							<col style="width: 3%">
-							<col style="width: 3%">
-							<col style="width: 3%">
-							<col style="width: 6%">
-							<col style="width: 6%">
-							<col style="width: 6%">
-							<col style="width: 6%">
-							<col style="width: 6%">
-							<col style="width: 6%">
-							<col style="width: 7%">
-						</colgroup>
-						<thead>
-							<tr>
-								<th scope="col">선택</th>
-								<th scope="col">출하일자</th>
-								<th scope="col">거래처</th>
-								<th scope="col">품종</th>
-								<th scope="col">규격</th>
-								<th scope="col">상품</th>
-								<th scope="col">등급</th>
-								<th scope="col">수량</th>
-								<th scope="col">중량</th>
-								<th scope="col">운송회사</th>
-								<th scope="col">차량번호</th>
-								<th scope="col">배송처</th>
-								<th scope="col">운임비용</th>
-								<th scope="col">포장구분</th>
-								<th scope="col">지시번호</th>
-								<th scope="col">비고</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row" class="td_input">
-									<p class="ad_input_row">
-										<input type="checkbox" class="check" id="check1">
-										<label class="check_label ta_i" for="check1">선택</label>
-									</p>
-									</th>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<th scope="row" class="td_input">
-									<p class="ad_input_row">
-										<input type="checkbox" class="check" id="check1">
-										<label class="check_label ta_i" for="check1">선택</label>
-									</p>
-								</th>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<th scope="row" class="td_input">
-									<p class="ad_input_row">
-										<input type="checkbox" class="check" id="check1">
-										<label class="check_label ta_i" for="check1">선택</label>
-									</p>
-								</th>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							</tbody>
-						</table>
+						<div id="sb-area-spmtTrgtDsctn" style="height:300px;"></div>
+					</div>
+					
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span>출하 내역</span></li>
+							</ul>
+							<button type="button" class="btn btn-sm btn-outline-dark">내려받기</button>
+							<button type="button" class="btn btn-sm btn-outline-dark">올리기</button>
+						</div>
+							<div class="table-responsive tbl_scroll_sm">
+								<div id="sb-area-spmtTrgtDsctn2" style="height:300px;"></div>
+							</div>
 					</div>
 				</div>
 				<!--[pp] //검색결과 -->
@@ -465,4 +137,78 @@
 		</div>
 	</section>
 </body>
+<script type="text/javascript">
+
+	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_createSpmtTrgtDsctnGrid();
+
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("dtp-wrhsYmd", year+month+day);
+	})
+
+	/* const fn_initSBSelect = async function() {
+
+ 		gfn_setComCdSBSelect('rdo-wrhsSeCd', jsonRadioWrhsSeCd, 'WRHS_SE_CD');	// 시스템유형
+
+	} */
+
+	function fn_createSpmtTrgtDsctnGrid() {
+        var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-spmtTrgtDsctn';
+	    SBGridProperties.id = 'grdWghPrfmnc';
+	    SBGridProperties.jsonref = 'jsonWghPrfmnc';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+            {caption: ['선택','선택'], 			ref: 'wghno',		width: '15%', type: 'output'},
+            {caption: ['품종','품종'], 			ref: 'prdcrNm', 	width: '15%', type: 'output'},
+            {caption: ['상품구분','상품구분'],		ref: 'itemNm', 		width: '15%', type: 'output'},
+            {caption: ['규격','규격'], 			ref: 'vrtyNm', 		width: '15%', type: 'output'},
+            {caption: ['생산일자','생산일자'], 		ref: 'gdsSeNm', 	width: '15%', type: 'output'},
+            {caption: ['포장번호','포장번호'], 		ref: 'wrhsSeNm', 	width: '15%', type: 'output'},
+            {caption: ['재고','수량'], 			ref: 'trsprtSeNm', 	width: '15%', type: 'output'},
+            {caption: ['재고','중량'], 			ref: 'wholWght', 	width: '15%', type: 'output'},
+            {caption: ['출하지시','수량'], 			ref: 'emptVhclWght',width: '15%', type: 'output'},
+            {caption: ['출하지시','중량'], 			ref: 'rdcdRt', 		width: '15%', type: 'output'},
+            {caption: ['출하','수량'], 			ref: 'rdcdWght', 	width: '15%', type: 'output'},
+            {caption: ['출하','중량'], 			ref: 'actlWght', 	width: '15%', type: 'output'}
+        ];
+        
+        var SBGridProperties2 = {};
+	    SBGridProperties2.parentid = 'sb-area-spmtTrgtDsctn2';
+	    SBGridProperties2.id = 'grdWghPrfmnc2';
+	    SBGridProperties2.jsonref = 'jsonWghPrfmnc2';
+        SBGridProperties2.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties2.selectmode = 'byrow';
+	    SBGridProperties2.extendlastcol = 'scroll';
+        SBGridProperties2.columns = [
+            {caption: ['선택'], 			ref: 'wghno',		width: '15%', type: 'output'},
+            {caption: ['출하일자'], 			ref: 'prdcrNm', 	width: '15%', type: 'output'},
+            {caption: ['거래처'],		ref: 'itemNm', 		width: '15%', type: 'output'},
+            {caption: ['품종'], 			ref: 'vrtyNm', 		width: '15%', type: 'output'},
+            {caption: ['규격'], 		ref: 'gdsSeNm', 	width: '15%', type: 'output'},
+            {caption: ['상품'], 		ref: 'wrhsSeNm', 	width: '15%', type: 'output'},
+            {caption: ['등급'], 			ref: 'trsprtSeNm', 	width: '15%', type: 'output'},
+            {caption: ['수량'], 			ref: 'wholWght', 	width: '15%', type: 'output'},
+            {caption: ['중량'], 			ref: 'emptVhclWght',width: '15%', type: 'output'},
+            {caption: ['운송회사'], 			ref: 'rdcdRt', 		width: '15%', type: 'output'},
+            {caption: ['차량번호'], 			ref: 'rdcdWght', 	width: '15%', type: 'output'},
+            {caption: ['배송처'], 			ref: 'actlWght', 	width: '15%', type: 'output'},
+            {caption: ['운임비용'], 			ref: 'actlWght', 	width: '15%', type: 'output'},
+            {caption: ['포장구분'], 			ref: 'actlWght', 	width: '15%', type: 'output'},
+            {caption: ['지시번호'], 			ref: 'actlWght', 	width: '15%', type: 'output'},
+            {caption: ['비고'], 			ref: 'actlWght', 	width: '15%', type: 'output'},
+        ];
+        grdWghPrfmnc = _SBGrid.create(SBGridProperties);
+        grdWghPrfmnc2 = _SBGrid.create(SBGridProperties2);
+    }
+
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
+</script>
 </html>

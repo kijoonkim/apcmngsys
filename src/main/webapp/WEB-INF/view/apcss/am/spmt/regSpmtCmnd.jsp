@@ -87,7 +87,7 @@
 								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="발주조회" class="btn btn-sm btn-outline-danger"></sbux-button>
+								<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="발주조회" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
 							<td colspan="5"></td>
 						</tr>
@@ -98,7 +98,7 @@
 				<!--[pp] 검색결과 -->
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
-							<li><span>　출하지시대상 내역</span></li>
+							<li><span>출하지시대상 내역</span></li>
 						</ul>
 					</div>
 					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:300px;"></div>
@@ -188,7 +188,7 @@
 			
 			<div class="ad_tbl_top">
 				<ul class="ad_tbl_count">
-					<li><span>　출하지시 내역</span></li>
+					<li><span>출하지시 내역</span></li>
 				</ul>
 			</div>
 			<div id="sb-area-grdSpmtCmndDsctn" style="height:300px;"></div>
