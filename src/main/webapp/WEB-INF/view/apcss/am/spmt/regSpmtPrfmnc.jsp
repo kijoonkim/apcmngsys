@@ -124,8 +124,8 @@
 							<ul class="ad_tbl_count">
 								<li><span>출하 내역</span></li>
 							</ul>
-							<button type="button" class="btn btn-sm btn-outline-dark">내려받기</button>
-							<button type="button" class="btn btn-sm btn-outline-dark">올리기</button>
+							<sbux-button id="btnDown" name="srch-btn-invnrtInq" uitype="normal" text="내려받기" class="btn btn-sm btn-outline-dark"></sbux-button>
+							<sbux-button id="btnUp" name="srch-btn-invnrtInq" uitype="normal" text="올리기" class="btn btn-sm btn-outline-dark"></sbux-button>
 						</div>
 							<div class="table-responsive tbl_scroll_sm">
 								<div id="sb-area-spmtTrgtDsctn2" style="height:300px;"></div>
