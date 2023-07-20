@@ -52,15 +52,15 @@
 						<tr>
 							<th scope="row">선별일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-sortYmd" name="srch-inp-sortYmd" uitype="popup"></sbux-datepicker>
+								<sbux-datepicker id="srch-inp-sortYmd" name="srch-inp-sortYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-endSortYmd" name="srch-inp-endSortYmd" uitype="popup"></sbux-datepicker>
+								<sbux-datepicker id="srch-inp-endSortYmd" name="srch-inp-endSortYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
 							<th scope="row">품목</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm"></sbux-select> 
+								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select> 
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-item" name="srch-btn-item" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-itemCrtr" onclick="fn_modalPrdcr"></sbux-button>
@@ -68,8 +68,7 @@
 							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm">
-									<option-item>선택</option-item>
+								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" unselected-text="선택">
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-button id="srch-btn-vrty" name="srch-btn-vrty" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 									</td>
@@ -80,19 +79,19 @@
 						<tr>
 							<th scope="row">선별기</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-sort" name="srch-slt-sort" uitype="single" class="form-control input-sm"></sbux-select>       
+								<sbux-select id="srch-slt-sort" name="srch-slt-sort" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>       
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
 							<td class="td_input" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">저장창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-strgWarehouse" name="srch-slt-strgWarehouse" uitype="single" class="form-control input-sm"></sbux-select>  
+								<sbux-select id="srch-slt-strgWarehouse" name="srch-slt-strgWarehouse" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>  
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td></td>
 							<th scope="row">규격</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control input-sm"></sbux-select>  
+								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>  
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td></td>
@@ -100,13 +99,13 @@
 						<tr>
 							<th scope="row">대표생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<select class="form-control input-sm">
+								<sbux-select id="srch-slt-rprsPrdcr" name="srch-slt-rprsPrdcr" uitype="single" class="form-control input-sm" unselected-text="선택">
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-button id="btn-srch-prdcr" name="btn-srch-prdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
 									</td>
 								</select>
 							</td>
-							<td></td>
+							<td class="td_input" style="border-right: hidden;"></td>
 						</tr>
 					</tbody>
 				</table>
