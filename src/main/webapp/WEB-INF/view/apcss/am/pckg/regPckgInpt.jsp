@@ -277,28 +277,5 @@
         ];
         grdPckgInptDsctn = _SBGrid.create(SBGridProperties);
     }
-	
-	/* function fn_createPckgInptDsctnGrid() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdPckgInptDsctn';
-	    SBGridProperties.id = 'grdPckgInptDsctn';
-	    SBGridProperties.jsonref = 'jsonPckgInptDsctn';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ['포장일자'], ref: 'pckgDate', width: '100px', type: 'output'},
-            {caption: ['포장기'], ref: 'pckg', width: '100px', type: 'output'},
-            {caption: ['규격'], ref: 'spcfct', width: '100px', type : 'inputcombo', typeinfo : {ref:'comboData', label:'', value:'value', oneclickedit: true, displayui : true}},
-            {caption: ['포장수량'], ref: 'pckgQty', width: '100px', type: 'output'},
-            {caption: ['포장중량'], ref: 'pckgWght', width: '100px', type: 'output'},
-            {caption: ['상품등급'], ref: 'gdsGrd', width: '100px', type : 'inputcombo', typeinfo : {ref:'comboData', label:'', value:'value', oneclickedit: true, displayui : true}},
-            {caption: ['창고'], ref: 'strg', width: '100px', type : 'inputcombo', typeinfo : {ref:'comboData', label:'', value:'value', oneclickedit: true, displayui : true}},
-            {caption: ['비고'], ref: 'rmrk', width: '100px', type: 'output'},
-            {caption: ['라벨'], ref: 'lbl', width: '100px', type : 'button' , typeinfo : {buttonvalue: '발행', callback: fnCallback}},
-            {caption: ['처리'], ref: 'prcs', width: '100px', type : 'button' , typeinfo : {buttonvalue: '삭제', callback: fn_delete}}
-        ];
-        grdPckgInptDsctn = _SBGrid.create(SBGridProperties);
-    } */
 </script>
 </html>
