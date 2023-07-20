@@ -75,13 +75,13 @@
 							<th scope="row">입고구분</th>
 							<td colspan="6" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<sbux-radio id="srch-rdo-wrhs1" name="srch-rdo-wrhs" uitype="normal" class="radio_label" text="일반매입" checked/>
+									<sbux-radio id="srch-rdo-wrhs1" name="srch-rdo-wrhs" uitype="normal" class="radio_label" text="일반매입"/>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-wrhs2" name="srch-rdo-wrhs" uitype="normal" class="radio_label" text="공선"/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="srch-rdo-wrhs3" name="srch-rdo-wrhs" uitype="normal" class="radio_label" text="매취"/>
+									<sbux-radio id="srch-rdo-wrhs3" name="srch-rdo-wrhs" uitype="normal" class="radio_label" text="매취" checked/>
 								</p>
 							</td>
 							
@@ -199,7 +199,7 @@
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
-						<li><span>　원물입고 내역</span></li>
+						<li><span>원물입고 내역</span></li>
 					</ul>
 				<div class="ad_tbl_toplist">
 					<sbux-button uitype="normal" id="btnDwnld" name="btnDwnld" class="btn btn-xs btn-outline-dark" text="찾기"/>

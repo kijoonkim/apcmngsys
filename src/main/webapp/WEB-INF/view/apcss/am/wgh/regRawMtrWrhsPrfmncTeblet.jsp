@@ -124,13 +124,13 @@
 							<th scope="row">입고구분</th>
 							<td colspan="8" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<sbux-radio id="srch-rdo-wrhsSe1" name="srch-rdo-wrhsSe" uitype="normal" class="radio_label" text="일반매입" checked/>
+									<sbux-radio id="srch-rdo-wrhsSe1" name="srch-rdo-wrhsSe" uitype="normal" class="radio_label" text="일반매입"/>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-wrhsSe2" name="srch-rdo-wrhsSe" uitype="normal" class="radio_label" text="공선"/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="srch-rdo-wrhsSe3" name="srch-rdo-wrhsSe" uitype="normal" class="radio_label" text="매취"/>
+									<sbux-radio id="srch-rdo-wrhsSe3" name="srch-rdo-wrhsSe" uitype="normal" class="radio_label" text="매취" checked/>
 								</p>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
