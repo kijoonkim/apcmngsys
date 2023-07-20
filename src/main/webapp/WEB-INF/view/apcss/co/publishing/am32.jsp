@@ -148,21 +148,23 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title">▶ 선별실적등록</h3>
-								<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-										<p class="ad_input_row">
-												<input type="checkbox" class="check" id="check_all">
-												<label class="check_label" for="check_all">포장실적 자동등록</label>
-											</p>
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 선별실적등록</h3>
+							</div>
+							<div style="margin-left: auto;">
+									<p class="ad_input_row">
+										<input type="checkbox" class="check" id="check_all">
+										<label class="check_label" for="check_all">포장실적 자동등록</label>
+									</p>
 									<button type="button" class="btn btn-sm btn-outline-dark">조회</button>
 									<button type="button" class="btn btn-sm btn-outline-dark">등록</button>
 									<button type="button" class="btn btn-sm btn-outline-dark">삭제</button>
 									<button type="button" class="btn btn-sm btn-outline-dark">종료</button>
-								</div>
+							</div>
+							
 						</div>
-						</div>
+						
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -370,10 +372,10 @@
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>선별실적 내역</span></li>
-										<li><span>선별수량/중량 : 99/99,999 kg</span></li>
+										<li><label style="font-size: x-small;">선별수량/중량 : 99/99,999 kg</label></li>
 									</ul>
-									<button type="button" class="btn btn-sm btn-danger">내려받기</button>
-									<button type="button" class="btn btn-sm btn-danger">올리기</button>
+									<button type="button" class="btn btn-sm btn-outline-dark">내려받기</button>
+									<button type="button" class="btn btn-sm btn-outline-dark">올리기</button>
 								</div>
 							</div>					        		    							        
 							<table class="table table-bordered table-hover tbl_col tbl_fixed">
@@ -494,7 +496,7 @@
 								   		<tbody>
 											<tr>
 												<th scope="row" class="ta_l">1. 선별투입등록 시 생산자 기준으로 선별실적을 등록하면 원산지 추적이 가능하지만, 생산자 구분없이 선별실적을 등록하는 경우는 원산지 추적이 불가함<br>
-													하지만 특정 APC에서는 입고 시점까지 생산자를 관리하므로 처리는 가능하도록 함.<br>
+													&nbsp;하지만 특정 APC에서는 입고 시점까지 생산자를 관리하므로 처리는 가능하도록 함.<br>
 													2. 포장실적을 별도 관리하지 않는 경우 포장실적 자동등록 시 선별등급은 상품등급과 동일하게 처리
 												</th>
 											</tr>

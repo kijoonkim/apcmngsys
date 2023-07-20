@@ -13,80 +13,75 @@
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
-			<div class="box-header">
-				<h3 class="box-title"> ▶ 출하실적 등록</h3>
-				<div class="ad_tbl_top">
-					<div class="ad_tbl_toplist">
-						<button type="button" class="btn btn-sm btn-primary">송품장</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-					</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title" style="line-height: 30px;"> ▶ 출하실적 등록</h3>
 				</div>
-			</div>
-			<div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal" text="송품장" class="btn btn-sm btn-primary"></sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger"></sbux-button>
+				</div>
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
-						<col style="width: 10%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
 					</colgroup>
 					<tbody>
 						<tr>
-					<th scope="row">APC명</th>
-							<td colspan= "2" class="td_input">
-							<input type="text" class="form-control input-sm" placeholder="" disabled>
+							<th scope="row">APC명</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
-							<th scope="row">생산일자</th>
-							<td colspan= "2" class="td_input">
-								<div class="dp_inline wd_125 va_m">
-									<div class="input-group date">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-										<input type="text" name="datepicker" placeholder="2023.01.01" class="form-control pull-right input-sm">
-									</div>
-								</div>
-								~
-								<div class="dp_inline wd_125 va_m">
-									<div class="input-group date">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-										<input type="text" name="datepicker" placeholder="2023.01.31" class="form-control pull-right input-sm">
-									</div>
-								</div>
-							</td>
-							<th scope="row">창고구분</th>
-							<td class="td_input" style="border-right: hidden;">
-								<select class="form-control input-sm">
-									<option>선택</option>
-								</select>
-							</td>
+							<td colspan="8"></td>
 						</tr>
 						<tr>
+							<th scope="row">생산일자</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" uitype="popup" ></sbux-datepicker>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker id="srch-dtp-EndPrdctnYmd" name="srch-dtp-EndPrdctnYmd" uitype="popup" ></sbux-datepicker>
+							</td>
+							<td class="td_input"></td>
+							
+							<th scope="row">창고구분</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-warehouseSe" name="srch-slt-warehouseSe" uitype="single" class="form-control input-sm">
+									<option-item>선택</option-item>
+								</sbux-select>
+							</td>
+							<td colspan="2" class="td_input"></td>
+						
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<select class="form-control input-sm">
-									<option>선택</option>
-								</select>
+								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm">
+									<option-item>선택</option-item>
+								</sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<select class="form-control input-sm">
-									<option>선택</option>
-								</select>
+								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm">
+									<option-item>선택</option-item>
+								</sbux-select>
 							</td>
+							<td class="td_input"></td>
+						</tr>
+						<tr>
 							<th scope="row">상품</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">

@@ -231,7 +231,7 @@
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">
 									<li><span>매출 내역</span></li>
-									<li><label> 매출 중량/ 금액: 99,999Kg/99,999₩</label></li>
+									<li><label style="font-size:x-small;"> 매출 중량/ 금액: 99,999Kg/99,999₩</label></li>
 								</ul>
 							</div>
 

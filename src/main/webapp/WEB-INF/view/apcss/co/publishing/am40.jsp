@@ -146,7 +146,7 @@
 
 <section class="content container-fluid">
 				<div class="box box-solid">
-											<div class="box-header" style="display:flex; justify-content: flex-start;" >
+						<div class="box-header" style="display:flex; justify-content: flex-start;" >
 							<div>
 								<h3 class="box-title" style="line-height: 30px;"> ▶ 출하실적등록(테블릿)</h3>
 							</div>
@@ -287,7 +287,7 @@
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">
 									<li><span>출하대상내역</span></li>
-									<li><span>출하대상 수량/중량 : 99/99,999 kg</span></li>								
+									<li><label style="font-size: x-small;">출하대상 수량/중량 : 99/99,999 kg</label></li>								
 								</ul>
 							</div>
 						</div>

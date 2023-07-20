@@ -147,16 +147,18 @@
 
 <section class="content container-fluid">
 					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title"> ▶ 투입지시조회</h3>
-						</div>
-							<div class="mg_t5 ta_r">
-								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-								<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
-								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+					<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 투입지시조회</h3>
 							</div>
-						
+							<div style="margin-left: auto;">
+									<button type="button" class="btn btn-sm btn-outline-dark">조회</button>
+									<button type="button" class="btn btn-sm btn-outline-dark">등록</button>
+									<button type="button" class="btn btn-sm btn-outline-dark">삭제</button>
+									<button type="button" class="btn btn-sm btn-outline-dark">종료</button>
+							</div>
+							
+						</div>
 						<div class="box-body">
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
@@ -239,7 +241,7 @@
 									<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>　투입지시 내역</span></li>
-										<li><span>　　　지시중량 : 99.999Kg　　　　실적중량 : 99.999Kg</span></li>
+										<li><label style="font-size: x-small;">　　　지시중량 : 99.999Kg　　&nbsp;&nbsp;&nbsp;&nbsp;　　실적중량 : 99.999Kg</label></li>
 									</ul>
 								</div>								
 								<table class="table table-bordered table-hover tbl_col tbl_fixed">

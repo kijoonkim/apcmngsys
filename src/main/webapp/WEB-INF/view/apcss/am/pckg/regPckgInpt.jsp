@@ -45,31 +45,31 @@
 					<tbody>
 						<tr>
 							<th scope="row">APC 명</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-apcName" name="srch-inp-apcName" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">선별일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-fromSltDate" name="srch-dtp-fromSltDate" uitype="popup"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-fromSltDate" name="srch-dtp-fromSltDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-toSltDate" name="srch-dtp-toSltDate" uitype="popup"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-toSltDate" name="srch-dtp-toSltDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -78,10 +78,11 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
+							<td class="td_input"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -104,7 +105,6 @@
 									</p>
 								</th>
 							</tr> -->
-				<div class="ad_tbl_top"></div>	
 				<div class="ad_tbl_top"></div>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -117,14 +117,15 @@
 						<col style="width: 9%">
 						<col style="width: 7%">
 						<col style="width: 6%">
+						<col style="width: 1%">
 						<col style="width: 6%">
-						<col style="width: 3%">
+						<col style="width: 2%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row">포장일자</th>
 				          	<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-pckgDate" name="srch-dtp-pckgDate" uitype="popup"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-pckgDate" name="srch-dtp-pckgDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">포장기</th>
@@ -140,10 +141,11 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-shpgotAmt1" name="srch-inp-shpgotAmt1" type="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
+							<td class="td_input" style="border-right: hidden;">&nbsp;/</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-shpgotAmt2" name="srch-inp-shpgotAmt2" type="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">Kg</td>
+							<td class="td_input">Kg</td>
 						</tr>
 					</tbody>
 				</table>
@@ -161,11 +163,11 @@
 					<tr>
 						<td>2023-05-01</td>
 						<td>&nbsp;</td>
-						<td><sbux-select id="dtl-slt-spcfct1" name="dtl-slt-spcfct1" uitype="single" class="form-control input-sm"></sbux-select></td>
+						<td><sbux-select id="dtl-slt-spcfct1" name="dtl-slt-spcfct1" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select></td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
-						<td><sbux-select id="dtl-slt-gdsGrd1" name="dtl-slt-gdsGrd1" uitype="single" class="form-control input-sm"></sbux-select></td>
-						<td><sbux-select id="dtl-slt-strg1" name="dtl-slt-strg1" uitype="single" class="form-control input-sm"></sbux-select></td>
+						<td><sbux-select id="dtl-slt-gdsGrd1" name="dtl-slt-gdsGrd1" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select></td>
+						<td><sbux-select id="dtl-slt-strg1" name="dtl-slt-strg1" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select></td>
 						<td>&nbsp;</td>
 						<td><sbux-button id="btnLblIssu" name="btnLblIssu" uitype="normal" class="btn btn-sm btn-outline-primary" text="발행"></sbux-button></td>
 						<td><sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button></td>
@@ -173,11 +175,11 @@
 					<tr>
 						<td>2023-05-01</td>
 						<td>&nbsp;</td>
-						<td><sbux-select id="dtl-slt-spcfct2" name="dtl-slt-spcfct2" uitype="single" class="form-control input-sm"></sbux-select></td>
+						<td><sbux-select id="dtl-slt-spcfct2" name="dtl-slt-spcfct2" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select></td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
-						<td><sbux-select id="dtl-slt-gdsGrd2" name="dtl-slt-gdsGrd2" uitype="single" class="form-control input-sm"></sbux-select></td>
-						<td><sbux-select id="dtl-slt-strg2" name="dtl-slt-strg2" uitype="single" class="form-control input-sm"></sbux-select></td>
+						<td><sbux-select id="dtl-slt-gdsGrd2" name="dtl-slt-gdsGrd2" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select></td>
+						<td><sbux-select id="dtl-slt-strg2" name="dtl-slt-strg2" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select></td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
 						<td><sbux-button id="btnAddPrfmnc" name="btnAddPrfmnc" uitype="normal" class="btn btn-sm btn-outline-danger" text="추가"></sbux-button></td>
@@ -191,18 +193,28 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createPckgTrDsctnGrid();
 		fn_createPckgInptDsctnGrid();
+		
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("srch-dtp-fromSltDate", year+month+day);
+		SBUxMethod.set("srch-dtp-toSltDate", year+month+day);
+		SBUxMethod.set("srch-dtp-pckgDate", year+month+day);
 	})
+
+	var jsonPckgTrDsctnList = ['test','test','test','test','test','test','test','test','test','test','test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
 	
 	function fn_createPckgTrDsctnGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPckgTrDsctn';
 	    SBGridProperties.id = 'grdPckgTrDsctn';
-	    SBGridProperties.jsonref = 'jsonPckgTrDsctn';
+	    SBGridProperties.jsonref = 'jsonPckgTrDsctnList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ['선택','선택'], ref: 'slt', width: '100px', type : 'checkbox', typeinfo : {uncheckedvalue : 'F', checkedvalue : 'T'}},
+            {caption: ['선택','선택'], ref: 'slt', width: '100px', type : 'checkbox'},
             {caption: ['선별번호/등급','선별번호/등급'], ref: 'sltNoGrd', width: '100px', type: 'output'},
             {caption: ['생산지시번호','생산지시번호'], ref: 'prdctnOrdrNo', width: '100px', type: 'output'},
             {caption: ['품종','품종'], ref: 'vrty', width: '100px', type: 'output'},
@@ -218,25 +230,50 @@
         grdPckgTrDsctn = _SBGrid.create(SBGridProperties);
     }
 	
+	var jsonPckgInptDsctnList = ['test','test']; // 그리드의 참조 데이터 주소 선언
+	
+	var comboUesYnJsData1 = ['규격']
+	var comboUesYnJsData2 = ['상품등급']
+	var comboUesYnJsData3 = ['창고']
+	
 	function fn_createPckgInptDsctnGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPckgInptDsctn';
 	    SBGridProperties.id = 'grdPckgInptDsctn';
-	    SBGridProperties.jsonref = 'jsonPckgInptDsctn';
+	    SBGridProperties.jsonref = 'jsonPckgInptDsctnList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption: ['포장일자'], ref: 'pckgDate', width: '100px', type: 'output'},
             {caption: ['포장기'], ref: 'pckg', width: '100px', type: 'output'},
-            {caption: ['규격'], ref: 'spcfct', width: '100px', type : 'output'},
+            {caption: ['규격'], ref: 'spcfct', width: '100px', type : 'inputcombo', 
+            	typeinfo : {ref:'comboUesYnJsData1', label:'label', value:'value', oneclickedit: true, displayui : true}},
             {caption: ['포장수량'], ref: 'pckgAmt', width: '100px', type: 'output'},
             {caption: ['포장중량'], ref: 'pckgWght', width: '100px', type: 'output'},
-            {caption: ['상품등급'], ref: 'gdsGrd', width: '100px', type : 'output'},
-            {caption: ['창고'], ref: 'strg', width: '100px', type : 'output'},
+            {caption: ['상품등급'], ref: 'gdsGrd', width: '100px', type : 'inputcombo', 
+            	typeinfo : {ref:'comboUesYnJsData2', label:'label', value:'value', oneclickedit: true, displayui : true}},
+            {caption: ['창고'], ref: 'strg', width: '100px', type : 'inputcombo', 
+            	typeinfo : {ref:'comboUesYnJsData3', label:'label', value:'value', oneclickedit: true, displayui : true}},
             {caption: ['비고'], ref: 'rmrk', width: '100px', type: 'output'},
-            {caption: ['라벨'], ref: 'lbl', width: '100px', type : 'output'},
-            {caption: ['처리'], ref: 'prcs', width: '100px', type : 'output'}
+            {caption: ['라벨'], ref: 'lbl', width: '100px', type : 'button', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+//             	if(strValue === "01"){
+//         		return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
+//         		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
+        		return "<button type='button' class='btn btn-xs btn-outline-danger'>발행</button>";
+//         	}else{
+//			        return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
+//         	}
+	    }},
+            {caption: ['처리'], ref: 'prcs', width: '100px', type : 'button', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+//             	if(strValue === "01"){
+//         		return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
+//         		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
+        		return "<button type='button' class='btn btn-xs btn-outline-danger'>삭제</button>";
+//         	}else{
+//			        return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
+//         	}
+	    }}
         ];
         grdPckgInptDsctn = _SBGrid.create(SBGridProperties);
     }

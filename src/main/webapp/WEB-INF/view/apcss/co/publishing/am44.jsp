@@ -183,30 +183,21 @@
 								<tbody>
 									<tr>
 										<th scope="row">APC명</th>
-									    <th colspan="3" class="td_input"><input type="text"
-										class="form-control input-sm" placeholder=""disabled>
-										</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
+									    <td colspan="3" class="td_input" style="border-right: hidden;">
+									    	<input type="text" class="form-control input-sm" placeholder="" disabled>
+										</td>
+										<td colspan="9">&nbsp;</td>
 									</tr>
 									<tr>
 										<th scope="row">발주형태</th>
-										<th class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
 											</select>
-										</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
+										</td>
+										<td colspan="2" >&nbsp;</td>
 										<th scope="row">발주일자</th>
-										<th class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<div class="dp_inline wd_125 va_m">
 												<div class="input-group date">
 													<div class="input-group-addon">
@@ -215,12 +206,10 @@
 													<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
 												</div>
 											</div>
-										</th>
-											<th>&nbsp;</th>
-											<th>&nbsp;</th>
-											<th>&nbsp;</th>
+										</td>
+										<td colspan="3" style="border-right: hidden;">&nbsp;</td>
 										<th scope="row">납기일자</th>
-										<th class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<div class="dp_inline wd_125 va_m">
 												<div class="input-group date">
 													<div class="input-group-addon">
@@ -229,93 +218,83 @@
 													<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
 												</div>
 											</div>
-										</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
+										</td>
+										<td colspan="2">&nbsp;</td>
 									</tr>
 									<tr>
-										    <th scope="row">거래처</th>
-										<th colspan="2"class="td_input">
+										<th scope="row">거래처</th>
+										<td colspan="2"class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm">
-												<th class="td_input">
-													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>											
-										</th>
-											<th scope="row">상품명</th>
-										<th colspan="3"class="td_input">
+										</td>
+										<td class="td_input" style="border-right: hidden;">
+											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>											
+										</td>
+										<th scope="row">상품명</th>
+										<td colspan="3"class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm">
-												<th class="td_input">
-													<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
-										</th>
+										</td>
+										<td class="td_input" style="border-right: hidden;">
+											<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+										</td>
 										<th scope="row">배송처</th>
-										<th colspan="2"class="td_input">
+										<td colspan="2"class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" title="">
-										</th>
-										<th>&nbsp;</th>
+										</td>
+										<td>&nbsp;</td>
 									</tr>
 									<tr>
 										<th scope="row">품목/품종</th>
-									   	<th class="td_input">
+									   	<td class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
 											</select>
-										<th colspan="2"class="td_input">
+										</td>	
+										<td colspan="2"class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 												<option>선택</option>
 											</select>
-										</th>
+										</td>
 										<th scope="row">규격</th>
-									   	<th colspan="2"class="td_input">
+									   	<td colspan="2"class="td_input" style="border-right: hidden;">
 											<select class="form-control input-sm">
 											</select>
-										</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
+										</td>
+										<td colspan="6">&nbsp;</td>
 									</tr>
 									<tr>
 									    <th scope="row">발주금액/세액</th>
-										<th class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" title="">
-										<th class="td_input">
+										</td>	
+										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
-										</th>
-										<th>&nbsp;</th>
+										</td>
+										<td>&nbsp;</td>
 									    <th scope="row">발주수량/입수</th>
-										<th class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" title="">
-										<th class="td_input">
+										</td>	
+										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" title="">
-										</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
+										</td>
+										<td colspan="2">&nbsp;</td>
 										<th scope="row">낱개수량</th>
-										<th class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
-										</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
+										</td>
+										<td colspan="2">&nbsp;</td>
 									</tr>
 									<tr>
 									    <th scope="row">박스단가</th>
-										<th class="td_input">
+										<td class="td_input" style="border-right: hidden;">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
-										</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
+										</td>
+										<td colspan="2">&nbsp;</td>
 										<th scope="row">낱개단가</th>
-										<th class="td_input">
+										<td style="border-right: hidden;" class="td_input">
 											<input type="text" class="form-control input-sm" placeholder="" disabled>
-										</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
-										<th>&nbsp;</th>
+										</td>
+										<td colspan="7">&nbsp;</td>
 									</tr>
 								</tbody>
 							</table>
@@ -363,12 +342,12 @@
 										</thead>
 										<tbody>
 										  <tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -382,12 +361,12 @@
 												<td>&nbsp;</td>
 											</tr>
 											<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
@@ -401,12 +380,12 @@
 												<td>&nbsp;</td>
 											</tr>
 											<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 													<p class="ad_input_row">
 														<input type="checkbox" class="check" id="check1">
 														<label class="check_label ta_i" for="check1">선택</label>
 													</p>
-												</th>
+												</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>

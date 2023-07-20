@@ -146,16 +146,17 @@
 
 
 <section class="content container-fluid">
-					<div class="box box-solid">
-						<div class="box-header">
-							<h3 class="box-title">▶ 선별실적조회</h3>
-								<div class="ad_tbl_top">
-								<div class="ad_tbl_toplist">
-									<button type="button" class="btn btn-sm btn-success">선별확인서</button>
-									<button type="button" class="btn btn-sm btn-outline-dark">조회</button>
-									<button type="button" class="btn btn-sm btn-outline-dark">종료</button>
-								</div>
-						</div>
+				<div class="box box-solid">
+					<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 선별실적조회</h3>
+							</div>
+							<div style="margin-left: auto;">
+								<button type="button" class="btn btn-sm btn-success">선별확인서</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							</div>
+							
 						</div>
 						<div class="box-body">
 							<!--[pp] 검색 -->
@@ -261,7 +262,7 @@
 								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>선별 내역</span></li>
-									<li><span>선별수량/중량 : 99/99,999 Kg</span></li>	
+									<li><label style="font-size: x-small;">선별수량/중량 : 99/99,999 Kg</label></li>	
 									</ul>
 								</div>
 								<div class="table-responsive tbl_scroll_sm">

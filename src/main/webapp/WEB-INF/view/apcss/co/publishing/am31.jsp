@@ -146,17 +146,18 @@
 
 <section class="content container-fluid">
 				<div class="box box-solid">
-					<div class="box-header">
-						<h3 class="box-title">▶ 선별투입등록(테블릿)</h3>
-						<div class="ad_tbl_top">
-							<div class="ad_tbl_toplist">
-								<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
-								<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-								<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
-								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+					<div class="box-header" style="display:flex; justify-content: flex-start;" >
+							<div>
+								<h3 class="box-title" style="line-height: 30px;"> ▶ 선별투입등록(테블릿)</h3>
 							</div>
+							<div style="margin-left: auto;">
+									<button type="button" class="btn btn-sm btn-outline-dark">초기화</button>
+									<button type="button" class="btn btn-sm btn-outline-dark">등록</button>
+									<button type="button" class="btn btn-sm btn-outline-dark">삭제</button>
+									<button type="button" class="btn btn-sm btn-outline-dark">종료</button>
+							</div>
+							
 						</div>
-					</div>
 					<div class="box-body">
 						<!--[pp] 검색 -->
 						<table class="table table-bordered tbl_row tbl_fixed">
@@ -208,17 +209,17 @@
 							    </tr>
 								<tr>
 									<th scope="row">투입일자</th>
-									<td class="td_input" style="border-right:hidden ;">
-										<div class="dp_inline wd_125 va_m" >
-											<div class="input-group date">
-												<div class="input-group-addon">
+									<td colspan="2" style="border-right: hidden;" class="td_input">
+										<div class="dp_inline wd_125 va_m"  style="border-right:hidden ;">
+											<div class="input-group date"  style="border-right:hidden ;">
+												<div class="input-group-addon" style="border-right:hidden ;">
 													<i class="fa fa-calendar"></i>
 												</div>
 												<input type="text" name="datepicker" placeholder="2023-01-01" class="form-control pull-right input-sm">
 											</div>
 										</div>
 									</td>
-									<td colspan="2" style="border-left:hidden ;"></td>
+									<td colspan="2"></td>
 								</tr>
 								<tr>
 									<th scope="row">투입수량/중량</th>

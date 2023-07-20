@@ -51,17 +51,17 @@
 						<tr>
 							<th scope="row">포장일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-fromPckgDate" name="srch-dtp-fromPckgDate" uitype="popup"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-fromPckgDate" name="srch-dtp-fromPckgDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-toPckgDate" name="srch-dtp-toPckgDate" uitype="popup"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-toPckgDate" name="srch-dtp-toPckgDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">품목</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -73,11 +73,11 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" unselected-text="멀티선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input">
 								<sbux-button id="btnSrchVrty" name="btnSrchVrty" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
 							</td>
 						</tr>
@@ -86,7 +86,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-pckg" name="srch-slt-pckg" uitype="single" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-pckg" name="srch-slt-pckg" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -95,7 +95,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-strg" name="srch-slt-strg" uitype="single" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-strg" name="srch-slt-strg" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							<td colspan= "2" class="td_input" style="border-right: hidden;">&nbsp;</td>
@@ -103,11 +103,11 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td class="td_input" style="border-right: hidden;">&nbsp;</td>
+							<td class="td_input">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row" style="border-right: hidden;">대표생산자</th>
@@ -121,7 +121,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -151,9 +151,15 @@
     </div>
 </body>
 <script type="text/javascript">
-
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createPckgInptGrid();
+		
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("srch-dtp-fromPckgDate", year+month+day);
+		SBUxMethod.set("srch-dtp-toPckgDate", year+month+day);
 	})
 	
 	function fn_createPckgInptGrid() {
@@ -182,5 +188,9 @@
         ];
         grdPckgInpt = _SBGrid.create(SBGridProperties);
     }
+
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
 </script>
 </html>

@@ -167,13 +167,11 @@
 								<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>
 								<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
 							</div>
-							
-						</div>
-						<div>
+
 						</div>
 						<div class="box-body">
 							<!--[pp] 검색 -->
-							<table class="table table-bordered tbl_row tbl_fixed">
+							<table class="table table-bordered tbl_row tbl_fixed" style="table-layout: fixed;">
 								<caption>검색 조건 설정</caption>
 								<colgroup>
 									<col style="width: 7%">
@@ -185,7 +183,7 @@
 
 								</colgroup>
 								<tbody>
-									<tr>
+									<tr class="table table-bordered tbl_row tbl_fixed" style="table-layout: fixed;">
 										<th class="ta_c">APC명</th>
 										<td class="ta_c">
 											<input type="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled>

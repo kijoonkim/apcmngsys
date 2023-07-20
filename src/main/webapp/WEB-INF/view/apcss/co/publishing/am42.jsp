@@ -298,11 +298,12 @@
 										</thead>
 										<tbody>
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">
 													<label class="check_label ta_i" for="check1">선택</label>
 												</p>
+											</td>	
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -321,12 +322,12 @@
 											<td>&nbsp;</td>
 										</tr>
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">
 													<label class="check_label ta_i" for="check1">선택</label>
 												</p>
-											</th>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -395,12 +396,12 @@
 										</thead>
 										<tbody>
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">
 													<label class="check_label ta_i" for="check1">선택</label>
 												</p>
-											</th>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -418,12 +419,12 @@
 											<td>&nbsp;</td>
 										</tr>
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">
 													<label class="check_label ta_i" for="check1">선택</label>
 												</p>
-											</th>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -493,12 +494,12 @@
 										</thead>
 										<tbody>
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">
 													<label class="check_label ta_i" for="check1">선택</label>
 												</p>
-											</th>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -517,12 +518,12 @@
 											<td>&nbsp;</td>
 										</tr>
 										<tr>
-											<th scope="row" class="td_input">
+											<td scope="row" class="td_input">
 												<p class="ad_input_row">
 													<input type="checkbox" class="check" id="check1">
 													<label class="check_label ta_i" for="check1">선택</label>
 												</p>
-											</th>
+											</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
