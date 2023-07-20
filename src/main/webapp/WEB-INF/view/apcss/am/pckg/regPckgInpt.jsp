@@ -20,7 +20,6 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-danger" text="등록" onclick="fn_insert"></sbux-button>
-					<sbux-button id="btnEnd" name="btnEnd" uitype="normal" class="btn btn-sm btn-outline-danger" text="종료"></sbux-button>
 				</div>
 			</div>
 			
@@ -89,7 +88,7 @@
 				<!--[pp] //검색결과 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
-						<li><span>포장대상내역</span></li>
+						<li><span>선별재고 내역</span></li>
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -136,7 +135,7 @@
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
-							<th scope="row">출하수량</th>
+							<th scope="row">출하수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-shpgotQty" name="srch-inp-shpgotQty" type="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
@@ -202,7 +201,8 @@
 		SBUxMethod.set("srch-dtp-pckgDate", year+month+day);
 	})
 
-	var jsonPckgTrDsctnList = ['test','test','test','test','test','test','test','test','test','test','test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
+// 	var jsonPckgTrDsctnList = ['test','test','test','test','test','test','test','test','test','test','test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
+	var jsonPckgTrDsctnList = [];
 	
 	function fn_createPckgTrDsctnGrid() {
         var SBGridProperties = {};
@@ -229,7 +229,8 @@
         grdPckgTrDsctn = _SBGrid.create(SBGridProperties);
     }
 	
-	var jsonPckgInptDsctnList = ['test','test']; // 그리드의 참조 데이터 주소 선언
+// 	var jsonPckgInptDsctnList = ['test','test']; // 그리드의 참조 데이터 주소 선언
+	var jsonPckgInptDsctnList = [];
 	
 	var comboUesYnJsData1 = ['규격']
 	var comboUesYnJsData2 = ['상품등급']
@@ -254,7 +255,7 @@
             	typeinfo : {ref:'comboUesYnJsData2', label:'label', value:'value', oneclickedit: true, displayui : true}},
             {caption: ['창고'], ref: 'strg', width: '100px', type : 'inputcombo', 
             	typeinfo : {ref:'comboUesYnJsData3', label:'label', value:'value', oneclickedit: true, displayui : true}},
-            {caption: ['비고'], ref: 'rmrk', width: '100px', type: 'output'},
+            {caption: ['비고'], ref: 'rmrk', width: '400px', type: 'output'},
             {caption: ['라벨'], ref: 'lbl', width: '100px', type : 'button', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 //             	if(strValue === "01"){
 //         		return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
