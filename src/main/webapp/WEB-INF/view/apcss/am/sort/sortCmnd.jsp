@@ -67,19 +67,13 @@
 							<td>&nbsp;</td>
 							<th scope="row">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-prdcr" name="srch-slt-prdcr" class="form-control input-sm" unselected-text="선택"/>
+								<sbux-input uitype="text" id="srch-inp-provider" name="srch-inp-provider" class="form-control input-sm"/>
 							</td>
 							<td class="td_input"  style="border-right: hidden;">
 								<sbux-button id="srch-btn-providerSrch" name="srch-btn-providerSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
 							</td>
 							<td>&nbsp;</td>
 							
-						</tr>
-						<tr>
-							<th scope="row">창고</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm" unselected-text="선택"/>
-							</td>
 						</tr>
 					</tbody>
 				</table>

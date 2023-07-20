@@ -20,7 +20,6 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -66,18 +65,12 @@
 							<td>&nbsp;</td>
 						    <th scope="row">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-provider" name="srch-slt-provider" class="form-control input-sm" unselected-text="선택"/>
+								<sbux-input uitype="text" id="srch-inp-provider" name="srch-inp-provider" class="form-control input-sm"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-providerSrch" name="srch-btn-providerSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
 							</td>
 							<td>&nbsp;</td>
-						</tr>
-						<tr>
-							<th scope="row">창고</th>
-							<td class="td_input"  style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-container" name="srch-slt-container" class="form-control input-sm" unselected-text="선택"/>
-							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -118,10 +111,20 @@
 						<td colspan="4">&nbsp;</td>
 					</tr>
 				</table>
+<!-- 				<div class="ad_tbl_top"> -->
+<!-- 					<ul class="ad_tbl_count"> -->
+<!-- 						<li><span>투입지시 내역</span></li> -->
+<!-- 					</ul> -->
+<!-- 				</div> -->
+				
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li><span>투입지시 내역</span></li>
 					</ul>
+					<div class="ad_tbl_toplist">
+						<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
+						<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
+					</div>
 				</div>
                 <div class="sbt-wrap-body">
                     <div class="sbt-grid">
@@ -152,8 +155,8 @@
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-strtWrhsYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-endWrhsYmd", year+month+day);
+// 		SBUxMethod.set("srch-dtp-strtWrhsYmd", year+month+day);
+// 		SBUxMethod.set("srch-dtp-endWrhsYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-cmndYmd", year+month+day);
 	});
 

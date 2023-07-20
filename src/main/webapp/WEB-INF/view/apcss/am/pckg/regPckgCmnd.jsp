@@ -85,7 +85,7 @@
 						    <td class="td_input" style="border-right:hidden ;">
 						    	<sbux-input uitype="text" id="srch-inp-cnpt" name="srch-inp-cnpt" class="form-control input-sm"/>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-button uitype="normal" id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기"/>
+								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"/>
 						    </td>
 						    <td colspan="2">&nbsp;</td>
 						</tr>
@@ -135,6 +135,14 @@
 			</div>
 		</div>
 	</section>
+	
+    <!-- 거래처 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-cnpt">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
@@ -149,7 +157,7 @@
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-dtp-cmndYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-dudtYmd", year+month+day);
+// 		SBUxMethod.set("srch-dtp-dudtYmd", year+month+day);
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
@@ -187,6 +195,10 @@
 	    
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
+	}
+	
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
 	}
 </script>
 </html>

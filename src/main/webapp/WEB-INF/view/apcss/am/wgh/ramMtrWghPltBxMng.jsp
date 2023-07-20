@@ -49,7 +49,7 @@
 										</td>
 									</tr>
 									<tr>
-										<th class="ta_r">기준일자</th>
+										<th class="ta_r">작업일자</th>
 										<td class="td_input" style="border-right: hidden;">
 											<sbux-datepicker uitype="popup" id="srch-dtp-strtCrtrYmd" name="srch-dtp-strtCrtrYmd" class="form-control pull-right input-sm"/>
 										</td>
@@ -121,13 +121,6 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 20,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
 
 		
 	    SBGridProperties.columns = [

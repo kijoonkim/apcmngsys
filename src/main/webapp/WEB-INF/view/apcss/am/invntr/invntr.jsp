@@ -115,37 +115,16 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="ad_tbl_top">
-					<ul class="ad_tbl_count">
-						<li><span>원물계량 내역</span></li>
-					</ul>
-				 <div class="ad_tbl_toplist">
-						<sbux-button uitype="normal" id="srch-btn-rawmtrInvntrDsctn" name="srch-btn-rawmtrInvntrDsctn" class="btn btn-md btn-outline-danger" text="원물재고 내역"/>
-						<sbux-button uitype="normal" id="srch-btn-sortInvntrDsctn" name="srch-btn-sortInvntrDsctn" class="btn btn-md btn-outline-danger" text="선별재고 내역"/>
-						<sbux-button uitype="normal" id="srch-btn-gdsInvntrDsctn" name="srch-btn-gdsInvntrDsctn" class="btn btn-md btn-outline-danger" text="상품재고 내역"/>
-					</div>
-				</div>
-<!-- 				<div class="ad_tbl_toplist"> -->
-<!-- <!-- 					<sbux-button uitype="btnDwnld" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" >내려받기</sbux-button> --> -->
-<!-- <!-- 					<sbux-button uitype="btnUld" class="btn btn-sm btn-outline-danger" onclick="fn_uld">올리기</sbux-button> --> -->
-<!-- 						<sbux-button uitype="normal" id="srch-btn-rawmtrInvntrDsctn" name="srch-btn-rawmtrInvntrDsctn" class="btn btn-md btn-outline-danger" text="원물재고 내역"/> -->
-<!-- 						<sbux-button uitype="normal" id="srch-btn-sortInvntrDsctn" name="srch-btn-sortInvntrDsctn" class="btn btn-md btn-outline-danger" text="선별재고 내역"/> -->
-<!-- 						<sbux-button uitype="normal" id="srch-btn-gdsInvntrDsctn" name="srch-btn-gdsInvntrDsctn" class="btn btn-md btn-outline-danger" text="상품재고 내역"/> -->
-<!-- 				</div> -->
+
 				
 				<div class="sbt-wrap-body">
+					<div class="ad_tbl_toplist">
+							<sbux-button uitype="normal" id="srch-btn-rawmtrInvntrDsctn" name="srch-btn-rawmtrInvntrDsctn" class="btn btn-md btn-outline-danger" text="원물재고 내역" onclick="fn_sample1()"></sbux-button>
+							<sbux-button uitype="normal" id="srch-btn-sortInvntrDsctn" name="srch-btn-sortInvntrDsctn" class="btn btn-md btn-outline-danger" text="선별재고 내역" onclick="fn_sample2()"></sbux-button>
+							<sbux-button uitype="normal" id="srch-btn-gdsInvntrDsctn" name="srch-btn-gdsInvntrDsctn" class="btn btn-md btn-outline-danger" text="상품재고 내역" onclick="fn_sample3()"></sbux-button>
+					</div>
                     <div class="sbt-grid">
-                        <div id="inptCmndDsctnGridArea" style="height:200px;"></div>
-                    </div>
-               	</div>
-               	<div class="sbt-wrap-body">
-                    <div class="sbt-grid">
-                        <div id="inptCmndDsctnGridArea2" style="height:200px;"></div>
-                    </div>
-               	</div>
-               	<div class="sbt-wrap-body">
-                    <div class="sbt-grid">
-                        <div id="inptCmndDsctnGridArea3" style="height:200px;"></div>
+                        <div id="inptCmndDsctnGridArea" style="height:300px;"></div>
                     </div>
                	</div>
 			</div>
@@ -157,9 +136,9 @@
 	
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_createGrid1();
-		fn_createGrid2();
-		fn_createGrid3();
+// 		fn_createGrid1();
+// 		fn_createGrid2();
+// 		fn_createGrid3();
 		
 		let today = new Date();
 		let year = today.getFullYear();
@@ -171,6 +150,15 @@
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 	
+	function fn_sample1(){
+		fn_createGrid1();
+	}
+	function fn_sample2(){
+		fn_createGrid2();
+	}
+	function fn_sample3(){
+		fn_createGrid3();
+	}
 	function fn_createGrid1() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
@@ -214,7 +202,7 @@
 	
 	function fn_createGrid2() {
 	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'inptCmndDsctnGridArea2';
+	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
 	    SBGridProperties.id = 'inptCmndDsctnList2';
 	    SBGridProperties.jsonref = 'jsoninptCmndDsctnList2';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
@@ -254,7 +242,7 @@
 	
 	function fn_createGrid3() {
 	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'inptCmndDsctnGridArea3';
+	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
 	    SBGridProperties.id = 'inptCmndDsctnList3';
 	    SBGridProperties.jsonref = 'jsoninptCmndDsctnList3';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
