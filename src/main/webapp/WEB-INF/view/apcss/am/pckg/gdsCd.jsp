@@ -57,7 +57,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -68,11 +68,11 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" unselected-text="멀티선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input">
 								<sbux-button id="btnSrchVrty" name="btnSrchVrty" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
 							</td>
 						</tr>
@@ -81,7 +81,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -90,7 +90,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -99,18 +99,18 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-brand" name="srch-slt-brand" uitype="single" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-brand" name="srch-slt-brand" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input"></td>
 						</tr>
 						<tr>
 							<th>산지</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-plor" name="srch-slt-plor" uitype="single" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-plor" name="srch-slt-plor" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -119,7 +119,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-pckgKind" name="srch-slt-pckgKind" uitype="single" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-pckgKind" name="srch-slt-pckgKind" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -129,7 +129,6 @@
 
 				<!--[pp] //검색결과 -->
 				<!--[pp] //검색결과 -->
-				<div class="ad_tbl_top"></div>
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li><span>상품코드내역</span></li>
@@ -178,5 +177,9 @@
         ];
         grdGdsCd = _SBGrid.create(SBGridProperties);
     }
+	
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
 </script>
 </html>
