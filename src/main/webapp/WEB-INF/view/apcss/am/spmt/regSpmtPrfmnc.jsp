@@ -100,7 +100,9 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
-							<td><sbux-button id="srch-btn-invnrtInq" name="srch-btn-invnrtInq" uitype="normal" text="재고조회" class="btn btn-sm btn-outline-danger"></sbux-button></td>
+							<td style="border-right: hidden;">
+								<sbux-button id="srch-btn-invnrtInq" name="srch-btn-invnrtInq" uitype="normal" text="재고조회" class="btn btn-xs btn-outline-dark"></sbux-button>
+							</td>
 						</tr>
 					</tbody>
 				</table>

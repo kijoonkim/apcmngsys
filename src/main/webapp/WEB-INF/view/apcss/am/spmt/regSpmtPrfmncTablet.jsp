@@ -18,8 +18,7 @@
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
 						<p class="ad_input_row">
-							<input type="checkbox" class="check" id="check_all">
-							<label class="check_label" for="check_all">송품장 자동발행</label>
+							<sbux-checkbox id="chk-docSpmt" name="chk-docSpmt" uitype="normal" text="송품장 자동발행" class="check"></sbux-checkbox>
 						</p>
 						<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
 						<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
@@ -47,19 +46,18 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled="">
+								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled=""></sbux-input>
 							</td>
 							<td colspan="6"></td>
 						</tr>
 						<tr>
 							<th scope="row">출하지시번호</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm">
+								<sbux-input id="srch-inp-spmtCmndNo" name="srch-inp-spmtCmndNo" uitype="text" class="form-control input-sm"></sbux-input>
 							<td class="td_input" style="border-right: hidden;">
-								<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+								<sbux-button id="srch-btn-inp-spmtCmndNo" name="srch-btn-inp-spmtCmndNo" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_all">
-									<label class="check_label" for="check_all">고정</label>
+									<sbux-checkbox id="chk-fxng" name="chk-fxng" uitype="normal" text="고정" class="check"></sbux-checkbox>
 								</p>
 							</td>
 							<td colspan="2" style="border-right: hidden;"> → 출하지시번호 스캔 or 팝업 조회</td>
@@ -68,9 +66,9 @@
 						<tr>
 							<th scope="row">포장번호/순번</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm">
+								<sbux-input id="srch-inp-frmlNo" name="srch-inp-frmlNo" uitype="text" class="form-control input-sm"></sbux-input>
 							<td class="td_input" style="border-right: hidden;">
-								<button class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+								<sbux-button id="btn-" name="btn_norm" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
 							<td colspan="2" style="border-right: hidden;"> → 포장번호 스캔 or 팝업 조회</td>
 							<td colspan="3"></td>
@@ -78,10 +76,10 @@
 						<tr>
 							<th scope="row">출하수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<input type="text"class="form-control input-sm" placeholder=""title="">
+								<sbux-input id="srch-inp-smptQntt" name="srch-inp-smptQntt" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm" placeholder="" disabled="">
+								<sbux-input id="srch-inp-smptWght" name="srch-inp-smptWght" uitype="text" class="form-control input-sm" placeholder="" disabled=""></sbux-input>
 							</td>
 							<td style="border-right: hidden;">Kg</td>
 							<td colspan="5"></td>
@@ -89,9 +87,10 @@
 						<tr>
 							<th scope="row">품종/규격</th>
 							<td style="border-right: hidden;" class="td_input">
-								<input type="text" class="form-control input-sm" placeholder="" disabled="">
+								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
-							<td class="td_input"  style="border-right: hidden;"><input type="text"	class="form-control input-sm" placeholder="" disabled="">
+							<td class="td_input"  style="border-right: hidden;">
+								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" disabled=""></sbux-input>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 품종/규격 조회</td>
@@ -99,15 +98,17 @@
 						</tr>
 						<tr>
 							<th scope="row">상품명</th>
-							<td style="border-right: hidden;" colspan="2" class="td_input"><input type="text" class="form-control input-sm" placeholder="" disabled=""></td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;" colspan="2"> → 출하지시번호를 통한 상품명 조회</td>
-							<td colspan="3"></td>
+								<td style="border-right: hidden;" colspan="2" class="td_input">
+									<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" disabled=""></sbux-input>
+								</td>
+								<td style="border-right: hidden;">&nbsp;</td>
+								<td style="border-right: hidden;" colspan="2"> → 출하지시번호를 통한 상품명 조회</td>
+								<td colspan="3"></td>
 						</tr>
 						<tr>
 							<th style="border-right: hidden;" scope="row">상품등급</th>
 							<td class="td_input" style="border-right: hidden;">
-								<input type="text"class="form-control input-sm" placeholder=""disabled="">
+								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder=""disabled=""></sbux-input>
 							</td>
 							<td style="border-right: hidden;" colspan="2"></td>
 							<td style="border-right: hidden;" colspan="2"> → 출하지시번호를 통한 상품등급 조회</td>
@@ -115,21 +116,27 @@
 						</tr>
 						<tr>
 							<th scope="row">포장구분</th>
-							<td class="td_input" style="border-right: hidden;"><input type="text" class="form-control input-sm" placeholder="" disabled=""></td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder=""disabled=""></sbux-input>
+							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 							<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 포장구분 조회</td>
 							<td colspan="3" style="border-right: hidden;">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row">거래처</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;"><input type="text" class="form-control input-sm" placeholder=""disabled=""></td>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder=""disabled=""></sbux-input>
+							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 거래처 정보 조회</td>
 							<td colspan="3" style="border-right: hidden;"></td>
 						</tr>
 						<tr>
 							<th scope="row">운송회사</th>
-							<td colspan="2" style="border-right: hidden;" class="td_input"><input type="text" class="form-control input-sm" placeholder=""disabled=""></td>
+							<td colspan="2" style="border-right: hidden;" class="td_input">
+								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder=""disabled=""></sbux-input>
+							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 운송회사 정보 조회</td>
 							<td colspan="3" style="border-right: hidden;"></td>
@@ -137,11 +144,10 @@
 						<tr>
 							<th scope="row" style="border-right: hidden;">차량번호</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<input type="text" class="form-control input-sm">
+								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder=""disabled=""></sbux-input>
 							<td style="border-right: hidden;">
 								<p class="ad_input_row">
-									<input type="checkbox" class="check" id="check_all">
-									<label class="check_label" for="check_all">고정</label>
+									<sbux-checkbox id="chk-fxng2" name="chk-fxng2" uitype="normal" text="고정" class="check"></sbux-checkbox>
 								</p>
 							</td>
 							<td colspan="5"></td>
@@ -150,107 +156,61 @@
 				</table>
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-				<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>출하대상내역</span></li>
-							<li><span>출하대상 수량/중량 : 99/99,999 kg</span></li>
 						</ul>
 					</div>
-				</div>
 					<div class="table-responsive tbl_scroll_sm">
-						<table
-							class="table table-bordered table-hover tbl_col tbl_fixed">
-							<caption>검색결과 목록</caption>
-							<colgroup>
-
-								<col style="width: 7%">
-								<col style="width: 7%">
-								<col style="width: 4%">
-								<col style="width: 4%">
-								<col style="width: 4%">
-								<col style="width: 4%">
-								<col style="width: 5%">
-								<col style="width: 7%">
-								<col style="width: 7%">
-								<col style="width: 5%">
-								<col style="width: 7%">
-								<col style="width: 7%">
-								<col style="width: 4%">
-							</colgroup>
-							<thead>
-								<tr>
-									<th scope="col">지시번호</th>
-									<th scope="col">포장번호</th>
-									<th scope="col">수량</th>
-									<th scope="col">중량</th>
-									<th scope="col">품종</th>
-									<th scope="col">규격</th>
-									<th scope="col">상품명</th>
-									<th scope="col">상품등급</th>
-									<th scope="col">포장구분</th>
-									<th scope="col">거래처</th>
-									<th scope="col">운송회사</th>
-									<th scope="col">차량번호</th>
-									<th scope="col">처리</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>
-										<button type="button" class="btn btn-xs btn-outline-danger">삭제</button>
-									</td>
-								</tr>
-								<tr>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-								</tr>
-								<tr>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-								</tr>
-							</tbody>
-						</table>
+						<div id="sb-area-spmtTrgtDsctn" style="height:300px;"></div>
 					</div>
-
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
 		</div>
 	</section>
 </body>
+<script type="text/javascript">
+
+	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_createSpmtTrgtDsctnGrid();
+
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("dtp-wrhsYmd", year+month+day);
+	})
+
+	function fn_createSpmtTrgtDsctnGrid() {
+        var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-spmtTrgtDsctn';
+	    SBGridProperties.id = 'grdWghPrfmnc';
+	    SBGridProperties.jsonref = 'jsonWghPrfmnc';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+            {caption: ['지시번호'], 		ref: 'wghno',		width: '15%', type: 'output'},
+            {caption: ['포장번호'], 		ref: 'prdcrNm', 	width: '15%', type: 'output'},
+            {caption: ['수량'],			ref: 'itemNm', 		width: '15%', type: 'output'},
+            {caption: ['중량'], 			ref: 'vrtyNm', 		width: '15%', type: 'output'},
+            {caption: ['품종'], 			ref: 'gdsSeNm', 	width: '15%', type: 'output'},
+            {caption: ['규격'], 			ref: 'wrhsSeNm', 	width: '15%', type: 'output'},
+            {caption: ['상품명'], 		ref: 'trsprtSeNm', 	width: '15%', type: 'output'},
+            {caption: ['상품등급'], 		ref: 'wholWght', 	width: '15%', type: 'output'},
+            {caption: ['포장구분'], 		ref: 'emptVhclWght',width: '15%', type: 'output'},
+            {caption: ['거래처'], 		ref: 'rdcdRt', 		width: '15%', type: 'output'},
+            {caption: ['운송회사'], 		ref: 'rdcdWght', 	width: '15%', type: 'output'},
+            {caption: ['차량번호'], 		ref: 'actlWght', 	width: '15%', type: 'output'},
+            {caption: ['처리'], 			ref: 'actlWght', 	width: '15%', type: 'output'}
+        ];
+        
+        grdWghPrfmnc = _SBGrid.create(SBGridProperties);
+    }
+
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
+</script>
 </html>
