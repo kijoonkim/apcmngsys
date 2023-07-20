@@ -49,7 +49,7 @@
 										</td>
 									</tr>
 									<tr>
-										<th class="ta_r">기준일자</th>
+										<th class="ta_r">작업일자</th>
 										<td class="td_input" style="border-right: hidden;">
 											<sbux-datepicker uitype="popup" id="srch-dtp-strtCrtrYmd" name="srch-dtp-strtCrtrYmd" class="form-control pull-right input-sm"/>
 										</td>
@@ -59,7 +59,7 @@
 										<td style="border-right: hidden;">&nbsp;</td>
 										<th class="ta_r">입/출고 구분</th>
 										<td class="td_input" style="border-right: hidden;">
-											<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
+											<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 										</td>
 										<td colspan="6">&nbsp;</td>
 									</tr>
@@ -110,7 +110,7 @@
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 	
 	window.jsoninptCmndDsctnList =  [
-		['test'],
+		[],
 	];
 	function fn_createGrid() {
 	    var SBGridProperties = {};
@@ -121,13 +121,6 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 20,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
 
 		
 	    SBGridProperties.columns = [
@@ -149,7 +142,7 @@
 
 	}
 	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList2 = ['test']; // 그리드의 참조 데이터 주소 선언
+	var jsoninptCmndDsctnList2 = []; // 그리드의 참조 데이터 주소 선언
 	
 	var comboUesYnJsData = ['입고/출고']
 	var comboUesYnJsData1 = ['팔레트/박스']

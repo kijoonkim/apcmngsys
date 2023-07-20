@@ -71,31 +71,29 @@
 							<th class="ta_r">입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" class="form-control pull-right input-sm"/>
-							</th>
+							</td>
 							<td colspan="2">&nbsp;</td>
-							<th class="ta_r">상품구분</th>
+							<th scope="row">상품구분</th>
 							<td colspan="15" class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<p class="ad_input_row">
-										<sbux-checkbox uitype="normal"id="chk-gdsSe1" name="chk-gdsSe" uitype="normal" class="form-control input-sm" text="일반" checked/>
-									</p>
-									<p class="ad_input_row">
-										<sbux-checkbox uitype="normal"id="chk-gdsSe2" name="chk-gdsSe" uitype="normal" class="form-control input-sm" text="GAP"/>
-									</p>
-									<p class="ad_input_row">
-										<sbux-checkbox uitype="normal"id="chk-gdsSe3" name="chk-gdsSe" uitype="normal" class="form-control input-sm" text="무농약"/>
-									</p>
-									<p class="ad_input_row">
-										<sbux-checkbox uitype="normal"id="chk-gdsSe4" name="chk-gdsSe" uitype="normal" class="form-control input-sm" text="유기농"/>
-									</p>
-								</div>
+								<p class="ad_input_row">
+									<sbux-radio id="srch-rdo-gds1" name="srch-rdo-gds" uitype="normal" class="radio_label" text="일반" checked/>
+								</p>
+								<p class="ad_input_row">
+									<sbux-radio id="srch-rdo-gds2" name="srch-rdo-gds" uitype="normal" class="radio_label" text="GAP"/>
+								</p>
+								<p class="ad_input_row">
+									<sbux-radio id="srch-rdo-gds3" name="srch-rdo-gds" uitype="normal" class="radio_label" text="무농약"/>
+								</p>
+								<p class="ad_input_row">
+									<sbux-radio id="srch-rdo-gds4" name="srch-rdo-gds" uitype="normal" class="radio_label" text="유기농"/>
+								</p>
 							</td>
 							
-							<th scope="row">거래처</th>
+							<th scope="row">매입처</th>
 						    <td class="td_input" style="border-right:hidden ;">
 								<sbux-input uitype="text" id="srch-inp-cnpt" name="srch-inp-cnpt" class="form-control input-sm"/>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-button uitype="normal" id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기"/>
+								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"/>
 							</td>
 							<td>&nbsp;</td>
 						</tr>
@@ -104,10 +102,10 @@
 						<tr>
 							<th class="ta_r">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row">수량/중량</th>
@@ -125,7 +123,7 @@
 							</td>
 							<th>박스종류</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-bxKnd" name="srch-slt-bxKnd" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-bxKnd" name="srch-slt-bxKnd" class="form-control input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
 						</tr>
@@ -133,7 +131,7 @@
 						<tr>
 							<th class="ta_r">창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th class="ta_r">비고</th>
@@ -158,7 +156,13 @@
 			</div>
 		</div>
 	</section>
-
+    <!-- 거래처 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="매입처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-cnpt">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">	
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
@@ -174,7 +178,7 @@
 		SBUxMethod.set("srch-dtp-wrhsYmd", year+month+day);
 	});
 
-	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
+	var inptCmndDsctnList =  []; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 	
 	function fn_createGrid2() {

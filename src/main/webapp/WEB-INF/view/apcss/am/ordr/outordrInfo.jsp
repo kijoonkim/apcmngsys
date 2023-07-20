@@ -18,9 +18,9 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ 발주정보조회</h3>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" class="btn btn-sm btn-outline-success" text="생산지시 등록"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" text="조회" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-dark" text="등록" onclick="fn_insert"></sbux-button>
-					<sbux-button id="btnEnd" name="btnEnd" uitype="normal" class="btn btn-sm btn-outline-dark" text="종료"></sbux-button>
 				</div>
 			</div>
 			
@@ -31,7 +31,8 @@
 					<colgroup>
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 9%">
+						<col style="width: 6%">
+						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
@@ -45,7 +46,7 @@
 					<tbody>
 						<tr>
 							<th scope="row">APC명</th>
-					    	<td colspan="2" class="td_input">
+					    	<td colspan="3" class="td_input">
 								<sbux-input id="srch-inp-apcName" name="srch-inp-apcName" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 					        <th scope="row">접수여부</th>
@@ -74,7 +75,7 @@
 									</div>
 								</div>
 							</td>
-							<td class="td_input"></td>
+							<td colspan="2" class="td_input"></td>
 							<th scope="row">품목/품종</th>
 						    <td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -94,7 +95,7 @@
 						</tr>
 						<tr>
 						    <th scope="row">거래처명</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnptName" name="srch-inp-cnptName" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
@@ -116,7 +117,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-cmndDate" name="srch-dtp-cmndDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">생산설비</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -125,10 +126,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="5" class="td_input" style="border-right: hidden;"></td>
-							<td colspan="2" class="td_input">
-								<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" class="btn btn-xs btn-outline-success" text="생산지시 등록"></sbux-button>
-							</td>
+							<td colspan="7" class="td_input"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -162,8 +160,6 @@
 <script type="text/javascript">
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createOutordrInfoGrid();
-		fn_createOutordrGdsInfoGrid();
-		fn_createOutordrCntrInfoGrid();
 		
 		let today = new Date();
 		let year = today.getFullYear();
@@ -171,13 +167,13 @@
 		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-dtp-fromOrdrDate", year+month+day);
 		SBUxMethod.set("srch-dtp-toOrdrDate", year+month+day);
-		SBUxMethod.set("srch-dtp-dudt", year+month+day);
 		SBUxMethod.set("srch-dtp-cmndDate", year+month+day);
 	})
 	
-	var jsonOutordrInfoList = ['test','test']; // 그리드의 참조 데이터 주소 선언
+// 	var jsonOutordrInfoList = ['test','test']; // 그리드의 참조 데이터 주소 선언
+	var jsonOutordrInfoList = [];
 	
-	var comboUesYnJsData1 = ['규격']
+	var comboUesYnJsData1 = ['']
 	
 	function fn_createOutordrInfoGrid() {
         var SBGridProperties = {};
@@ -188,64 +184,38 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-        	{caption: [''], ref: 'gdsCd', width: '100px', type: 'checkbox'},
-            {caption: ['접수일자'], ref: 'gdsName', width: '100px', type: 'output'},
-            {caption: ['발주유형'], ref: 'item', width: '100px', type: 'output'},
-            {caption: ['접수여부'], ref: 'spcfct', width: '100px', type : 'inputcombo', 
+        	{caption: [''], ref: 'slt', width: '100px', type: 'checkbox'},
+            {caption: ['접수일자'], ref: 'rcptDate', width: '100px', type: 'output'},
+            {caption: ['발주유형'], ref: 'ordrType', width: '100px', type: 'output'},
+            {caption: ['접수여부'], ref: 'rcptYn', width: '100px', type : 'inputcombo', 
             	typeinfo : {ref:'comboUesYnJsData1', label:'label', value:'value', oneclickedit: true, displayui : true}},
-            {caption: ['발주번호'], ref: 'gdsGrd', width: '100px', type: 'output'},
-            {caption: ['거래처명'], ref: 'brand', width: '100px', type: 'output'},
-            {caption: ['납기일자'], ref: 'plor', width: '100px', type: 'output'},
-            {caption: ['발주일자'], ref: 'pckgKind', width: '100px', type: 'output'},
+            {caption: ['발주번호'], ref: 'ordrNo', width: '100px', type: 'output'},
+            {caption: ['거래처명'], ref: 'cnptName', width: '100px', type: 'output'},
+            {caption: ['납기일자'], ref: 'dudt', width: '100px', type: 'output'},
+            {caption: ['발주일자'], ref: 'ordrDate', width: '100px', type: 'output'},
             {caption: ['주문자'], ref: 'cryn', width: '100px', type: 'output'},
-            {caption: ['공급자명'], ref: 'wght', width: '100px', type: 'output'},
+            {caption: ['공급자명'], ref: 'splyName', width: '100px', type: 'output'},
             {caption: ['상품명'], ref: 'gdsName', width: '100px', type: 'output'},
-            {caption: ['상품코드'], ref: 'item', width: '100px', type: 'output'},
-            {caption: ['배송지'], ref: 'spcfct', width: '100px', type: 'output'}
-        ];
-        grdOutordrInfo = _SBGrid.create(SBGridProperties);
-    }
-	
-	function fn_createOutordrGdsInfoGrid() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdOutordrGdsInfo';
-	    SBGridProperties.id = 'grdOutordrGdsInfo';
-	    SBGridProperties.jsonref = 'jsonOutordrInfoList';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-        	{caption: ['품목'], ref: 'gdsCd', width: '100px', type: 'output'},
-            {caption: ['품종'], ref: 'gdsName', width: '100px', type: 'output'},
-            {caption: ['규격'], ref: 'item', width: '100px', type: 'output'},
-            {caption: ['입수'], ref: 'spcfct', width: '100px', type: 'output'},
-            {caption: ['발주수량'], ref: 'gdsGrd', width: '100px', type: 'output'},
-            {caption: ['낱개수량'], ref: 'brand', width: '100px', type: 'output'},
-            {caption: ['단위'], ref: 'plor', width: '100px', type: 'output'},
-            {caption: ['박스단가'], ref: 'pckgKind', width: '100px', type: 'output'},
-            {caption: ['발주단가'], ref: 'cryn', width: '100px', type: 'output'},
-            {caption: ['발주단위'], ref: 'wght', width: '100px', type: 'output'},
-            {caption: ['LOT'], ref: 'plor', width: '100px', type: 'output'},
-            {caption: ['세액'], ref: 'pckgKind', width: '100px', type: 'output'},
-            {caption: ['발주금액'], ref: 'cryn', width: '100px', type: 'output'},
-            {caption: ['입고형태'], ref: 'wght', width: '100px', type: 'output'}
-        ];
-        grdOutordrGdsInfo = _SBGrid.create(SBGridProperties);
-    }
-	
-	function fn_createOutordrCntrInfoGrid() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdOutordrCntrInfo';
-	    SBGridProperties.id = 'grdOutordrCntrInfo';
-	    SBGridProperties.jsonref = 'jsonOutordrInfoList';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-        	{caption: ['문서번호'], ref: 'gdsCd', width: '100px', type: 'output'},
-            {caption: ['도크정보'], ref: 'gdsName', width: '100px', type: 'output'},
-            {caption: ['센터구분'], ref: 'item', width: '100px', type: 'output'},
-            {caption: ['바이어명'], ref: 'spcfct', width: '100px', type: 'output'},
+            {caption: ['상품코드'], ref: 'gdsCd', width: '100px', type: 'output'},
+            {caption: ['배송지'], ref: 'spmtAddr', width: '100px', type: 'output'},
+            {caption: ['품목'], ref: 'item', width: '100px', type: 'output'},
+            {caption: ['품종'], ref: 'vrty', width: '100px', type: 'output'},
+            {caption: ['규격'], ref: 'spcfct', width: '100px', type: 'output'},
+            {caption: ['입수'], ref: 'acqs', width: '100px', type: 'output'},
+            {caption: ['발주수량'], ref: 'ordrQty', width: '100px', type: 'output'},
+            {caption: ['낱개수량'], ref: 'untQty', width: '100px', type: 'output'},
+            {caption: ['단위'], ref: 'unit', width: '100px', type: 'output'},
+            {caption: ['박스단가'], ref: 'boxPrc', width: '100px', type: 'output'},
+            {caption: ['발주단가'], ref: 'ordrPrc', width: '100px', type: 'output'},
+            {caption: ['발주단위'], ref: 'ordrUnt', width: '100px', type: 'output'},
+            {caption: ['LOT'], ref: 'lot', width: '100px', type: 'output'},
+            {caption: ['세액'], ref: 'txAmt', width: '100px', type: 'output'},
+            {caption: ['발주금액'], ref: 'ordrAmt', width: '100px', type: 'output'},
+            {caption: ['입고형태'], ref: 'wrhsForm', width: '100px', type: 'output'},
+            {caption: ['문서번호'], ref: 'docNo', width: '100px', type: 'output'},
+            {caption: ['도크정보'], ref: 'dockInfo', width: '100px', type: 'output'},
+            {caption: ['센터구분'], ref: 'cntrSe', width: '100px', type: 'output'},
+            {caption: ['바이어명'], ref: 'byrName', width: '100px', type: 'output'},
             {caption: ['센터입하일'], ref: 'gdsGrd', width: '100px', type: 'output'},
             {caption: ['센터명'], ref: 'brand', width: '100px', type: 'output'},
             {caption: ['납품구분'], ref: 'plor', width: '100px', type: 'output'},
@@ -253,7 +223,7 @@
             {caption: ['접수APC (농협)'], ref: 'cryn', width: '100px', type: 'output'},
             {caption: ['생산지시번호'], ref: 'wght', width: '100px', type: 'output'}
         ];
-        grdOutordrCntrInfo = _SBGrid.create(SBGridProperties);
+        grdOutordrInfo = _SBGrid.create(SBGridProperties);
     }
 </script>
 </html>

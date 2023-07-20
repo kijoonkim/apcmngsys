@@ -52,7 +52,7 @@
 							</td>
 							<td colspan="9">&nbsp;</td>
 						<tr>
-							<th class="ta_r">기준일자</th>
+							<th class="ta_r">조회일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-strtCrtrYmd" name="srch-dtp-strtCrtrYmd" class="form-control pull-right input-sm"/>
 							</th>
@@ -97,13 +97,10 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-strtPlanYmd" name="srch-dtp-strtPlanYmd" class="form-control pull-right input-sm"/>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-endPlanYmd" name="srch-dtp-endPlanYmd" class="form-control pull-right input-sm"/>
-							</td>
-							<td>&nbsp;</td>
+							<td colspan="2">&nbsp;</td>
 							<th class="ta_r">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-prdcr" name="srch-slt-prdcr" class="form-control input-sm"/>
+								<sbux-input uitype="text" id="srch-inp-prdcr" name="srch-inp-prdcr" class="form-control input-sm"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-prdcrSrch" name="srch-btn-prdcrSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
@@ -111,58 +108,52 @@
 							<td>&nbsp;</td>
 							<th class="ta_r">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
 							</td>
 							<td>&nbsp;</td>
 						</tr>
 						<tr>
-							<th class="ta_r">입고구분</th>
+							<th scope="row">입고구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<p class="ad_input_row">
-										<sbux-checkbox uitype="normal"id="chk-wrhsSe1" name="chk-wrhsSe" uitype="normal" class="form-control input-sm" text="일반매입"/>
-									</p>
-									<p class="ad_input_row">
-										<sbux-checkbox uitype="normal"id="chk-wrhsSe2" name="chk-wrhsSe" uitype="normal" class="form-control input-sm" text="공선"/>
-									</p>
-									<p class="ad_input_row">
-										<sbux-checkbox uitype="normal"id="chk-wrhsSe3" name="chk-wrhsSe" uitype="normal" class="form-control input-sm" text="매취"/>
-									</p>
-								</div>
+								<p class="ad_input_row">
+									<sbux-radio id="srch-rdo-wrhs1" name="srch-rdo-wrhs" uitype="normal" class="radio_label" text="일반매입"/>
+								</p>
+								<p class="ad_input_row">
+									<sbux-radio id="srch-rdo-wrhs2" name="srch-rdo-wrhs" uitype="normal" class="radio_label" text="공선"/>
+								</p>
+								<p class="ad_input_row">
+									<sbux-radio id="srch-rdo-wrhs3" name="srch-rdo-wrhs" uitype="normal" class="radio_label" text="매취" checked/>
+								</p>
 							</td>
-							<th class="ta_r">상품구분</th>
+							<th scope="row">상품구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<p class="ad_input_row">
-										<sbux-checkbox uitype="normal"id="chk-gdsSe1" name="chk-gdsSe" uitype="normal" class="form-control input-sm" text="일반" checked/>
-									</p>
-									<p class="ad_input_row">
-										<sbux-checkbox uitype="normal"id="chk-gdsSe2" name="chk-gdsSe" uitype="normal" class="form-control input-sm" text="GAP"/>
-									</p>
-									<p class="ad_input_row">
-										<sbux-checkbox uitype="normal"id="chk-gdsSe3" name="chk-gdsSe" uitype="normal" class="form-control input-sm" text="무농약"/>
-									</p>
-									<p class="ad_input_row">
-										<sbux-checkbox uitype="normal"id="chk-gdsSe4" name="chk-gdsSe" uitype="normal" class="form-control input-sm" text="유기농"/>
-									</p>
-								</div>
+								<p class="ad_input_row">
+									<sbux-radio id="srch-rdo-gds1" name="srch-rdo-gds" uitype="normal" class="radio_label" text="일반" checked/>
+								</p>
+								<p class="ad_input_row">
+									<sbux-radio id="srch-rdo-gds2" name="srch-rdo-gds" uitype="normal" class="radio_label" text="GAP"/>
+								</p>
+								<p class="ad_input_row">
+									<sbux-radio id="srch-rdo-gds3" name="srch-rdo-gds" uitype="normal" class="radio_label" text="무농약"/>
+								</p>
+								<p class="ad_input_row">
+									<sbux-radio id="srch-rdo-gds4" name="srch-rdo-gds" uitype="normal" class="radio_label" text="유기농"/>
+								</p>
 							</td>
-							<th class="ta_r">운송</th>
-							<td colspan="3" class="td_input">
-								<div class="fl_group fl_rpgroup">
-									<p class="ad_input_col">
-										<sbux-checkbox uitype="normal"id="chk-trsprt1" name="chk-trsprt" uitype="normal" class="form-control input-sm" text="자가" checked/>
-									</p>
-									<p class="ad_input_row">
-										<sbux-checkbox uitype="normal"id="chk-trsprt2" name="chk-trsprt" uitype="normal" class="form-control input-sm" text="용역"/>
-									</p>
-									<p class="ad_input_row">
-										<sbux-checkbox uitype="normal"id="chk-trsprt3" name="chk-trsprt" uitype="normal" class="form-control input-sm" text="기타"/>
-									</p>
-								</div>
+							<th scope="row">운송구분</th>
+							<td colspan="3">
+								<p class="ad_input_row">
+									<sbux-radio id="srch-rdo-trsprt1" name="srch-rdo-trsprt" uitype="normal" class="radio_label" text="자가" checked/>
+								</p>
+								<p class="ad_input_row">
+									<sbux-radio id="srch-rdo-trsprt2" name="srch-rdo-trsprt" uitype="normal" class="radio_label" text="용역"/>
+								</p>
+								<p class="ad_input_row">
+									<sbux-radio id="srch-rdo-trsprt3" name="srch-rdo-trsprt" uitype="normal" class="radio_label" text="기타"/>
+								</p>
 							</td>
 						</tr>
 						<tr>
@@ -178,10 +169,10 @@
 									<sbux-label uitype="normal" id="lbl-kg" name="lbl-chc" text="Kg"/>
 							</td>
 							<th class="ta_r">비고</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-rmrk" name="srch-inp-rmrk" class="form-control input-sm" placeholder="" />
 							</td>
-							<td colspan="6">&nbsp;</td>
+							<td colspan="4">&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -224,11 +215,10 @@
 		SBUxMethod.set("srch-dtp-strtCrtrYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-endCrtrYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-strtPlanYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-endPlanYmd", year+month+day);
 	});
 
 	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList2 = ['test']; // 그리드의 참조 데이터 주소 선언
+	var jsoninptCmndDsctnList2 = []; // 그리드의 참조 데이터 주소 선언
 
 	function fn_createGrid2() {
 	    var SBGridProperties = {};
@@ -247,18 +237,18 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	        {caption: ["계획일자"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["계획시간"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["품목"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["품종"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["생산자"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["상품구분"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["입고구분"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["운송구분"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["계획수량"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["계획중량"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'userStts', 	type:'button',  width:'105px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["계획일자"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["계획시간"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["품목"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["품종"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["생산자"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["상품구분"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["입고구분"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["운송구분"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["계획수량"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["계획중량"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["처리"], 		ref: 'userStts', 	type:'button',  width:'140px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 //             	if(strValue === "01"){
 //             		return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
 //             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";

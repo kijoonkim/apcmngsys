@@ -65,17 +65,17 @@
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-vrty" name="srch-inp-vrty" class="form-control input-sm" placeholder="선택" />
+								<sbux-input uitype="text" id="srch-inp-vrty" name="srch-inp-vrty" class="form-control input-sm"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button uitype="normal" id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기"/>
 							</td>
 							<th scope="row">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-prdcr" name="srch-inp-prdcr" class="form-control input-sm" placeholder="선택"/>
+								<sbux-input uitype="text" id="srch-inp-prdcr" name="srch-inp-prdcr" class="form-control input-sm"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-prdcrSrch" name="srch-btn-prdcrSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
@@ -86,34 +86,34 @@
 							<th scope="row">입고구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-wrhsKnd1" name="chk-wrhsKnd" uitype="normal" class="form-control input-sm" text="일반매입" checked/>
+									<sbux-checkbox uitype="normal"id="chk-wrhsKnd1" name="chk-wrhsKnd1" uitype="normal" class="form-control input-sm" text="일반매입"/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-wrhsKnd2" name="chk-wrhsKnd" uitype="normal" class="form-control input-sm" text="공선"/>
+									<sbux-checkbox uitype="normal"id="chk-wrhsKnd2" name="chk-wrhsKnd2" uitype="normal" class="form-control input-sm" text="공선"/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-wrhsKnd3" name="chk-wrhsKnd" uitype="normal" class="form-control input-sm" text="매취"/>
+									<sbux-checkbox uitype="normal"id="chk-wrhsKnd3" name="chk-wrhsKnd3" uitype="normal" class="form-control input-sm" text="매취" checked/>
 								</p>
 							</td>
-							<th scope="row">상품</th>
+							<th scope="row">상품구분</th>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-gsd1" name="chk-gsd" uitype="normal" class="form-control input-sm" text="일반" checked/>
+									<sbux-checkbox uitype="normal"id="chk-gsd1" name="chk-gsd1" uitype="normal" class="form-control input-sm" text="일반"/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-gsd2" name="chk-gsd" uitype="normal" class="form-control input-sm" text="GAP"/>
+									<sbux-checkbox uitype="normal"id="chk-gsd2" name="chk-gsd2" uitype="normal" class="form-control input-sm" text="GAP"/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-gsd3" name="chk-gsd" uitype="normal" class="form-control input-sm" text="무농약"/>
+									<sbux-checkbox uitype="normal"id="chk-gsd3" name="chk-gsd3" uitype="normal" class="form-control input-sm" text="무농약"/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-gsd4" name="chk-gsd" uitype="normal" class="form-control input-sm" text="유기농"/>
+									<sbux-checkbox uitype="normal"id="chk-gsd4" name="chk-gsd4" uitype="normal" class="form-control input-sm" text="유기농"/>
 								</p>
 							</td>
-					    	<th scope="row">운송</th>
+					    	<th scope="row">운송구분</th>
 							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-trsprt1" name="chk-trsprt1" uitype="normal" class="form-control input-sm" text="자가" checked/>
+									<sbux-checkbox uitype="normal"id="chk-trsprt1" name="chk-trsprt1" uitype="normal" class="form-control input-sm" text="자가"/>
 								</p>
 								<p class="ad_input_row">
 									<sbux-checkbox uitype="normal"id="chk-trsprt2" name="chk-trsprt2" uitype="normal" class="form-control input-sm" text="용역"/>
@@ -126,30 +126,24 @@
 						<tr>
 						    <th scope="row">창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm"/>
 							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">차량번호</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-vhclNo" name="srch-inp-vhclNo" class="form-control input-sm" placeholder="선택"/>
+								<sbux-input uitype="text" id="srch-inp-vhclNo" name="srch-inp-vhclNo" class="form-control input-sm"/>
 							</td>
 							<td style="border-right: hidden;">
 								<sbux-button id="srch-btn-vhclNoSrch" name="srch-btn-vhclNoSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"/>
 							</td>
-							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
-							<th scope="row">계량번호</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-wghNo" name="srch-inp-wghNo" class="form-control input-sm" placeholder="선택"/>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-button uitype="normal" id="srch-btn-wghNoSrch" name="srch-btn-wghNoSrch" class="btn btn-xs btn-outline-dark" text="찾기"/>
-							</td>
+							<td colspan="5" style="border-right: hidden;">&nbsp;</td>
+
 						</tr>
 					</tbody>
 				</table>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
-							<li><span>　원물입고 내역</span></li>
+							<li><span>원물입고 내역</span></li>
 						</ul>
 					</div>
 					<div class="sbt-wrap-body">
@@ -194,7 +188,7 @@
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 	
 	window.jsoninptCmndDsctnList =  [
-		['test'],
+		[],
 	];
 	
 	function fn_createGrid() {

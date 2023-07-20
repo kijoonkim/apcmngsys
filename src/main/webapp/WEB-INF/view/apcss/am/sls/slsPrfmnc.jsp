@@ -13,271 +13,149 @@
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
-			<div class="box-header">
-				<h3 class="box-title"> ▶ 정산정보조회</h3>
-				<div class="ad_tbl_top">
-					<div class="ad_tbl_toplist">
-						<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-					</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title" style="line-height: 30px;"> ▶ 정산정보조회</h3>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
-			<div>
-			</div>
+			
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 6%">
-						<col style="width: 19%">
-						<col style="width: 5%">
-						<col style="width: 17%">
 						<col style="width: 7%">
-						<col style="width: 25%">
-						<col style="width: 2%">
+						<col style="width: 6%">
+						<col style="width: 9%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 9%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th class="ta_r">APC명</th>
-							<th class="ta_r">
-								<input type="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled>
-							</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled></sbux-input>
+							</td>
 							<th class="ta_r">정산기준</th>
-							<th class="ta_r">
-								<select class="form-control">
-									<option>선택</option>
-								</select>
-							</th>
-							<th class="ta_r">정산일자</th>
-							<th class="td_input">
-								<div class="form-group">
-									<div class="dp_inline wd_125 va_m">
-										<div class="input-group date">
-											<div class="input-group-addon">
-												<i class="fa fa-calendar"></i>
-											</div>
-											<input type="text" name="datepicker" placeholder="시작일" class="form-control pull-right" disabled>
-										</div>
-									</div>
-									~
-									<div class="dp_inline wd_125 va_m">
-										<div class="input-group date">
-											<div class="input-group-addon">
-												<i class="fa fa-calendar"></i>
-											</div>
-											<input type="text" name="datepicker" placeholder="종료일" class="form-control pull-right" disabled>
-										</div>
+							<td class="td_input" style="border-right: hidden;">
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
+										<sbux-select id="srch-slt-clclnCrtr" name="srch-slt-clclnCrtr" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
-							</th>
-
-							<th></th>
+							</td>
+							<td class="td_input" style="border-right: hidden;"></td>
+							<th class="ta_r">정산일자</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker id="srch-dtp-fromClclnYmd" name="srch-dtp-fromClclnYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker id="srch-dtp-toClclnYmd" name="srch-dtp-toClclnYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+							</td>
 						</tr>
 						<tr>
 							<th class="ta_r">확정여부</th>
-							<th class="td_input">
-								<select class="form-control" style="width: 50%;">
-									<option>선택</option>
-								</select>
-							</th>
+							<td class="td_input" style="border-right: hidden;">
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
+										<sbux-select id="srch-slt-cfmtnYn" name="srch-slt-cfmtnYn" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
+							</td>
+							<td class="td_input" style="border-right: hidden;"></td>
 							<th class="ta_r">품종</th>
-							<th class="td_input">
+							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_125 va_m">
-										<select class="form-control"  style="width: 100%;">
-											<option>멀티선택</option>
-										</select>
+									<div class="dp_inline wd_180 va_m">
+										<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
-									<button type="button" class="btn btn-sm btn-primary">찾기</button>
 								</div>
-							</th>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="btnSrchVrtyCd" name="btnSrchVrtyCd" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
+							</td>
 							<th class="ta_r">생산자</th>
-							<th class="td_input">
+							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_125 va_m">
-										<select class="form-control"  style="width: 100%;">
-											<option>선택</option>
-										</select>
+									<div class="dp_inline wd_180 va_m">
+										<sbux-select id="srch-slt-prdcrNm" name="srch-slt-prdcrNm" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
-									<button type="button" class="btn btn-sm btn-primary">찾기</button>
 								</div>
-							</th>
-							<th></th>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="btnSrchPrdcrNm" name="btnSrchPrdcrNm" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
-
-				<div class="ad_tbl_top">
-				</div>
+				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li><span>정산 내역</span></li>
-						<li><span> 정산 중량/금액: 99,999Kg/99,999₩</span></li>
 					</ul>
 				</div>
-
-					<table class="table table-bordered table-hover tbl_col tbl_fixed">
-						<colgroup>
-							<col style="width: 7%">
-							<col style="width: 7%">
-							<col style="width: 7%">
-							<col style="width: 7%">
-							<col style="width: 7%">
-							<col style="width: 7%">
-							<col style="width: 7%">
-							<col style="width: 7%">
-							<col style="width: 2%">
-							<col style="width: 2%">
-							<col style="width: 2%">
-							<col style="width: 2%">
-							<col style="width: 2%">
-							<col style="width: 7%">
-							<col style="width: 7%">
-							<col style="width: 7%">
-							<col style="width: 7%">
-
-						</colgroup>
-						<thead>
-							<tr>
-								<th scope="row" rowspan="2">
-									정산일자
-								</th>
-								<th scope="row" rowspan="2">
-									생산자
-								</th>
-								<th scope="row" rowspan="2">
-									입고구분
-								</th>
-								<th scope="row" rowspan="2">
-									상품구분
-								</th>
-								<th scope="row" rowspan="2">
-									품목
-								</th>
-								<th scope="row" rowspan="2">
-									품종
-								</th>
-								<th scope="row" rowspan="2">
-									규격
-								</th>
-								<th scope="row" rowspan="2">
-									브랜드
-								</th>
-								<th scope="row" colspan="5">
-									등급
-								</th>
-								<th scope="row"  rowspan="2">
-									수량
-								</th>
-								<th scope="row"  rowspan="2">
-									중량
-								</th>
-								<th scope="row"  rowspan="2">
-									계산금액
-								</th>
-								<th scope="row" rowspan="2">
-									확정금액
-								</th>
-
-							</tr>
-							<tr>
-								<th>1</th>
-								<th>2</th>
-								<th>3</th>
-								<th>4</th>
-								<th>5</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<th colspan="13">합계</th>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdSlsPrfmnc" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
 		</div>
 	</section>
 </body>
+<script type="text/javascript">
+	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_createSlsPrfmncGrid();
+		
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("srch-dtp-fromClclnYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-toClclnYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-clclnYmd", year+month+day);
+	})
+	
+// 	var jsonSlsPrfmncList = ['test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
+	var jsonSlsPrfmncList = [];
+	
+	var comboUesYnJsData1 = ['선택']
+	
+	function fn_createSlsPrfmncGrid() {
+        var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdSlsPrfmnc';
+	    SBGridProperties.id = 'grdSlsPrfmnc';
+	    SBGridProperties.jsonref = 'jsonSlsPrfmncList';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+            {caption: ['정산일자','정산일자'], ref: 'clclnYmd', width: '100px', type: 'output'},
+            {caption: ['생산자','생산자'], ref: 'prdcrNm', width: '100px', type: 'output'},
+            {caption: ['입고구분','입고구분'], ref: 'wrhsSeCd', width: '100px', type : 'output'},
+            {caption: ['상품구분','상품구분'], ref: 'gdsSeCd', width: '100px', type: 'output'},
+            {caption: ['품목','품목'], ref: 'itemCd', width: '100px', type: 'output'},
+            {caption: ['품종','품종'], ref: 'vrtyCd', width: '100px', type: 'output'},
+            {caption: ['규격','규격'], ref: 'spcfctCd', width: '100px', type: 'output'},
+            {caption: ['브랜드','브랜드'], ref: 'brndCd', width: '100px', type: 'output'},
+            {caption: ['등급','1'], ref: 'grdCd1', width: '100px', type: 'output'},
+            {caption: ['등급','2'], ref: 'grdCd2', width: '100px', type: 'output'},
+            {caption: ['등급','3'], ref: 'grdCd3', width: '100px', type: 'output'},
+            {caption: ['등급','4'], ref: 'grdCd4', width: '100px', type: 'output'},
+            {caption: ['등급','5'], ref: 'grdCd5', width: '100px', type: 'output'},
+            {caption: ['수량','수량'], ref: 'qntt', width: '100px', type: 'output'},
+            {caption: ['중량','중량'], ref: 'wght', width: '100px', type: 'output'},
+            {caption: ['계산금액','계산금액'], ref: 'rkngAmt', width: '100px', type: 'output'},
+            {caption: ['확정금액','확정금액'], ref: 'cfmtnAmt', width: '100px', type: 'output'}
+        ];
+        grdRegSlsPrfmnc = _SBGrid.create(SBGridProperties);
+    }
+</script>
 </html>

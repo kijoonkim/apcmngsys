@@ -68,36 +68,28 @@
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-prdcr" name="srch-btn-prdcr" class="btn btn-xs btn-outline-dark" text="조회" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2" style="border-right: hidden;"> → 초성 검색기능 적용</td>
+							<td colspan="4">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row">품목 / 품종</th>
 							<td colspan="2"class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 							</td>
 							<td colspan="4"class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
 							<td colspan="2"class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-checkbox uitype="normal"id="chk-itemVrtyfxng" name="chk-itemVrtyfxng" uitype="normal" class="form-control input-sm" text="고정"/>
 								</p>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정 or 고정 선택 시 해당품종 유지</td>
+							<td colspan="4">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row">입고일자</th>
 							<td colspan="6"class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" class="form-control pull-right input-sm"/>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2" style="border-right: hidden;"> → 기본 현재일자로 지정</td>
+							<td colspan="4">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row">입고수량/중량</th>
@@ -116,26 +108,22 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-qnttAvg" name="srch-inp-qnttAvg" class="form-control input-sm"/>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;" colspan="2"> → 박스수량과 평균중량 입력 시 KG 자동계산(숫자 키 패드 적용검토)</td>
+							<td colspan="4">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row">입고구분</th>
 							<td colspan="8" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<sbux-radio id="srch-rdo-wrhsSe1" name="srch-rdo-wrhsSe" uitype="normal" class="radio_label" text="일반매입" checked/>
+									<sbux-radio id="srch-rdo-wrhsSe1" name="srch-rdo-wrhsSe" uitype="normal" class="radio_label" text="일반매입"/>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-wrhsSe2" name="srch-rdo-wrhsSe" uitype="normal" class="radio_label" text="공선"/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="srch-rdo-wrhsSe3" name="srch-rdo-wrhsSe" uitype="normal" class="radio_label" text="매취"/>
+									<sbux-radio id="srch-rdo-wrhsSe3" name="srch-rdo-wrhsSe" uitype="normal" class="radio_label" text="매취" checked/>
 								</p>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정</td>
+							<td colspan="4">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row">상품구분</th>
@@ -152,10 +140,8 @@
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-gdsSe4" name="srch-rdo-gdsSe" uitype="normal" class="radio_label" text="유기농"/>
 								</p>
-								</td>
-								<td style="border-right: hidden;">&nbsp;</td>
-								<td style="border-right: hidden;">&nbsp;</td>
-								<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정</td>
+							</td>
+							<td colspan="4">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row" style="border-right: hidden;">운송구분</th>
@@ -170,20 +156,19 @@
 									<sbux-radio id="srch-rdo-trsprt3" name="srch-rdo-trsprt" uitype="normal" class="radio_label" text="기타"/>
 								</p>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2" style="border-right: hidden;"> → 생산자 기본설정 값에 따라 자동으로 설정</td>
+							<td colspan="4">&nbsp;</td>
 						</tr>
 	 					<tr>
 						 	<th scope="row">입고등급</th>
 					 		<td class="td_input" style="border-right: hidden;">
-					 			<sbux-select uitype="single" id="srch-slt-wrhsRate" name="srch-slt-wrhsRate" class="form-control input-sm"/>
+					 			<sbux-select unselected-text="선택" uitype="single" id="srch-slt-wrhsRate" name="srch-slt-wrhsRate" class="form-control input-sm"/>
 					 		</td>
+					 		<td colspan="11">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row">박스종류</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-boxKnd" name="srch-slt-boxKnd" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-boxKnd" name="srch-slt-boxKnd" class="form-control input-sm"/>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -191,11 +176,12 @@
 									<sbux-checkbox uitype="normal"id="chk-boxKndFxng" name="chk-boxKndFxng" uitype="normal" class="form-control input-sm" text="고정"/>
 								</p>
 							</td>
+							<td colspan="8">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row">입고창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-wrhsWarehouse" name="srch-slt-wrhsWarehouse" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-wrhsWarehouse" name="srch-slt-wrhsWarehouse" class="form-control input-sm"/>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -203,6 +189,7 @@
 									<sbux-checkbox uitype="normal"id="chk-whrsWarehouseFxng" name="chk-whrsWarehouseFxng" uitype="normal" class="form-control input-sm" text="고정"/>
 								</p>
 							</td>
+							<td colspan="8">&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>

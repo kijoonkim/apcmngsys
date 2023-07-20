@@ -20,11 +20,9 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-danger" text="등록" onclick="fn_insert"></sbux-button>
-					<sbux-button id="btnEnd" name="btnEnd" uitype="normal" class="btn btn-sm btn-outline-danger" text="종료"></sbux-button>
 				</div>
 			</div>
-			<div>
-			</div>
+			
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -90,7 +88,7 @@
 				<!--[pp] //검색결과 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
-						<li><span>포장대상내역</span></li>
+						<li><span>선별재고 내역</span></li>
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -137,13 +135,13 @@
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
-							<th scope="row">출하수량</th>
+							<th scope="row">출하수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-shpgotAmt1" name="srch-inp-shpgotAmt1" type="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="srch-inp-shpgotQty" name="srch-inp-shpgotQty" type="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">&nbsp;/</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-shpgotAmt2" name="srch-inp-shpgotAmt2" type="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="srch-inp-shpgotWght" name="srch-inp-shpgotWght" type="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td class="td_input">Kg</td>
 						</tr>
@@ -203,7 +201,8 @@
 		SBUxMethod.set("srch-dtp-pckgDate", year+month+day);
 	})
 
-	var jsonPckgTrDsctnList = ['test','test','test','test','test','test','test','test','test','test','test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
+// 	var jsonPckgTrDsctnList = ['test','test','test','test','test','test','test','test','test','test','test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
+	var jsonPckgTrDsctnList = [];
 	
 	function fn_createPckgTrDsctnGrid() {
         var SBGridProperties = {};
@@ -220,17 +219,18 @@
             {caption: ['품종','품종'], ref: 'vrty', width: '100px', type: 'output'},
             {caption: ['규격','규격'], ref: 'spcfct', width: '100px', type: 'output'},
             {caption: ['대표생산자','대표생산자'], ref: 'rprsPrdctr', width: '100px', type: 'output'},
-            {caption: ['선별재고','수량'], ref: 'sltStkAmt', width: '100px', type: 'output'},
+            {caption: ['선별재고','수량'], ref: 'sltStkQty', width: '100px', type: 'output'},
             {caption: ['선별재고','중량'], ref: 'sltStkWght', width: '100px', type: 'output'},
-            {caption: ['포장지시','수량'], ref: 'pckgOrdrAmt', width: '100px', type: 'output'},
+            {caption: ['포장지시','수량'], ref: 'pckgOrdrQty', width: '100px', type: 'output'},
             {caption: ['포장지시','중량'], ref: 'pckgOrdrWght', width: '100px', type: 'output'},
-            {caption: ['포장투입','수량'], ref: 'pckgInptAmt', width: '100px', type: 'output'},
+            {caption: ['포장투입','수량'], ref: 'pckgInptQty', width: '100px', type: 'output'},
             {caption: ['포장투입','중량'], ref: 'pckgInptWght', width: '100px', type: 'output'}
         ];
         grdPckgTrDsctn = _SBGrid.create(SBGridProperties);
     }
 	
-	var jsonPckgInptDsctnList = ['test','test']; // 그리드의 참조 데이터 주소 선언
+// 	var jsonPckgInptDsctnList = ['test','test']; // 그리드의 참조 데이터 주소 선언
+	var jsonPckgInptDsctnList = [];
 	
 	var comboUesYnJsData1 = ['규격']
 	var comboUesYnJsData2 = ['상품등급']
@@ -249,13 +249,13 @@
             {caption: ['포장기'], ref: 'pckg', width: '100px', type: 'output'},
             {caption: ['규격'], ref: 'spcfct', width: '100px', type : 'inputcombo', 
             	typeinfo : {ref:'comboUesYnJsData1', label:'label', value:'value', oneclickedit: true, displayui : true}},
-            {caption: ['포장수량'], ref: 'pckgAmt', width: '100px', type: 'output'},
+            {caption: ['포장수량'], ref: 'pckgQty', width: '100px', type: 'output'},
             {caption: ['포장중량'], ref: 'pckgWght', width: '100px', type: 'output'},
             {caption: ['상품등급'], ref: 'gdsGrd', width: '100px', type : 'inputcombo', 
             	typeinfo : {ref:'comboUesYnJsData2', label:'label', value:'value', oneclickedit: true, displayui : true}},
             {caption: ['창고'], ref: 'strg', width: '100px', type : 'inputcombo', 
             	typeinfo : {ref:'comboUesYnJsData3', label:'label', value:'value', oneclickedit: true, displayui : true}},
-            {caption: ['비고'], ref: 'rmrk', width: '100px', type: 'output'},
+            {caption: ['비고'], ref: 'rmrk', width: '400px', type: 'output'},
             {caption: ['라벨'], ref: 'lbl', width: '100px', type : 'button', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 //             	if(strValue === "01"){
 //         		return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
@@ -277,28 +277,5 @@
         ];
         grdPckgInptDsctn = _SBGrid.create(SBGridProperties);
     }
-	
-	/* function fn_createPckgInptDsctnGrid() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdPckgInptDsctn';
-	    SBGridProperties.id = 'grdPckgInptDsctn';
-	    SBGridProperties.jsonref = 'jsonPckgInptDsctn';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ['포장일자'], ref: 'pckgDate', width: '100px', type: 'output'},
-            {caption: ['포장기'], ref: 'pckg', width: '100px', type: 'output'},
-            {caption: ['규격'], ref: 'spcfct', width: '100px', type : 'inputcombo', typeinfo : {ref:'comboData', label:'', value:'value', oneclickedit: true, displayui : true}},
-            {caption: ['포장수량'], ref: 'pckgAmt', width: '100px', type: 'output'},
-            {caption: ['포장중량'], ref: 'pckgWght', width: '100px', type: 'output'},
-            {caption: ['상품등급'], ref: 'gdsGrd', width: '100px', type : 'inputcombo', typeinfo : {ref:'comboData', label:'', value:'value', oneclickedit: true, displayui : true}},
-            {caption: ['창고'], ref: 'strg', width: '100px', type : 'inputcombo', typeinfo : {ref:'comboData', label:'', value:'value', oneclickedit: true, displayui : true}},
-            {caption: ['비고'], ref: 'rmrk', width: '100px', type: 'output'},
-            {caption: ['라벨'], ref: 'lbl', width: '100px', type : 'button' , typeinfo : {buttonvalue: '발행', callback: fnCallback}},
-            {caption: ['처리'], ref: 'prcs', width: '100px', type : 'button' , typeinfo : {buttonvalue: '삭제', callback: fn_delete}}
-        ];
-        grdPckgInptDsctn = _SBGrid.create(SBGridProperties);
-    } */
 </script>
 </html>
