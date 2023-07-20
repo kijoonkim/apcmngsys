@@ -229,12 +229,7 @@
 
 	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList2 = ['test']; // 그리드의 참조 데이터 주소 선언
-	
-	var comboUesYnJsData = ['입고/출고']
-	var comboUesYnJsData1 = ['팔레트/박스']
-	var comboUesYnJsData2 = ['명칭']
-	var comboUesYnJsData3 = ['생산자']
-	
+
 	function fn_createGrid2() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea2';
