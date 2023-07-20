@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-				<h3 class="box-title" style="line-height: 30px;"> ▶ 선별투입등록(테블릿)</h3>
+				<h3 class="box-title" style="line-height: 30px;">▶선별투입등록(테블릿)</h3>
 				</div>
 				<div style="margin-left: auto;">
 					<p class="ad_input_row">
@@ -50,7 +50,9 @@
 						<tr>
 							<th scope="row">선별기명</th>
 							<td colspan= "2" class="td_input"  style="border-right:hidden ;">
-								<sbux-select id="slt-fcltNm" name="slt-fcltNm" uitype="single" class="form-control input-sm"></sbux-select>
+								<sbux-select id="slt-fcltNm" name="slt-fcltNm" uitype="single" class="form-control input-sm">
+									<option-item>선택</option-item>
+								</sbux-select>
 							</td>
 							<td colspan="2">
 								<p class="ad_input_row">
@@ -77,7 +79,7 @@
 						<tr>
 							<th scope="row">투입일자</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-datepicker id="srch-dtp-inptYmd" name="srch-dtp-inptYmd" uitype="popup"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-inptYmd" name="srch-dtp-inptYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td colspan="2" style="border-left:hidden;"></td>
 						</tr>
@@ -116,7 +118,7 @@
 						<tr>
 							<th scope="row">입고일자</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" uitype="popup"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td colspan="2" style="border-left:hidden;"></td>
 						</tr>

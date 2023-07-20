@@ -49,10 +49,10 @@
 						<tr>
 							<th scope="row">지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsStartYmd" name="dtp-wrhsStartYmd" uitype="popup" ></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-wrhsStartYmd" name="dtp-wrhsStartYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsEndYmd" name="dtp-wrhsEndYmd" uitype="popup" ></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-wrhsEndYmd" name="dtp-wrhsEndYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input"></td>
 							<th scope="row">거래처</th>
@@ -66,32 +66,24 @@
 							
 							<th scope="row" style="border-right: hidden;">운송회사</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="select_single" name="select_single" uitype="single" class="form-control input-sm">
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input" colspan="2"></td>
 						</tr>
 						<tr>
 							<th scope="row">품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="select_single" name="select_single" uitype="single" class="form-control input-sm">
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row">규격</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="select_single" name="select_single" uitype="single" class="form-control input-sm">
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input" colspan="2"></td>
 							<th scope="row">포장구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="select_single" name="select_single" uitype="single" class="form-control input-sm">
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="srch-slt-frmlSe" name="select_single" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 						</tr>
 					</tbody>
