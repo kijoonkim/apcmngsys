@@ -50,9 +50,7 @@
 						<tr>
 							<th scope="row">선별기명</th>
 							<td colspan= "2" class="td_input"  style="border-right:hidden ;">
-								<sbux-select id="slt-fcltNm" name="slt-fcltNm" uitype="single" class="form-control input-sm">
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="slt-fcltNm" name="slt-fcltNm" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td colspan="2">
 								<p class="ad_input_row">
@@ -97,14 +95,10 @@
 						<tr>
 							<th scope="row">품목 / 품종</th>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-select id="slt-item" name="slt-item" uitype="single" class="form-control input-sm" disabled>
-									<option-item>선택</option-item>
-								</sbux-select> 
+								<sbux-select id="slt-item" name="slt-item" uitype="single" class="form-control input-sm" disabled unselected-text="선택"></sbux-select> 
 							</td>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-select id="slt-vrty" name="slt-vrty" uitype="single" class="form-control input-sm" disabled>
-									<option-item>선택</option-item>
-								</sbux-select> 
+								<sbux-select id="slt-vrty" name="slt-vrty" uitype="single" class="form-control input-sm" disabled unselected-text="선택"></sbux-select> 
 							</td>
 							<td colspan="2"></td>
 						</tr>
@@ -125,18 +119,14 @@
 							<tr>
 							<th scope="row">박스종류</th>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-select id="slt-bxKnd" name="slt-bxKnd" uitype="single" class="form-control input-sm" disabled>
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="slt-bxKnd" name="slt-bxKnd" uitype="single" class="form-control input-sm" disabled unselected-text="선택"></sbux-select>
 							</td>
 							<td colspan="3"></td>
 						</tr>
 						<tr>
 							<th scope="row">원물창고</th>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-select id="slt-rawMtrWarehouse" name="slt-rawMtrWarehouse" uitype="single" class="form-control input-sm" disabled>
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="slt-rawMtrWarehouse" name="slt-rawMtrWarehouse" uitype="single" class="form-control input-sm" disabled unselected-text="선택"></sbux-select>
 							</td>
 						</tr>
 					</tbody>
