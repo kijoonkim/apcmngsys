@@ -71,7 +71,7 @@
 						<tr>
 							<th scope="row">납기일자</th>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-input uitype="text" id="srch-inp-dudtYmd" name="srch-inp-dudtYmd" class="form-control input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-dudtYmd" name="srch-dtp-dudtYmd" class="form-control pull-right input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row">품목/품종</th>
@@ -128,6 +128,7 @@
 		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-dtp-strtCmndYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-endCmndYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-dudtYmd", year+month+day);
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언

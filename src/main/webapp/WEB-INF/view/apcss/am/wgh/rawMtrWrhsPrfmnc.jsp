@@ -86,16 +86,16 @@
 							<th scope="row">입고구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-wrhsKnd1" name="chk-wrhsKnd" uitype="normal" class="form-control input-sm" text="일반매입" checked/>
+									<sbux-checkbox uitype="normal"id="chk-wrhsKnd1" name="chk-wrhsKnd" uitype="normal" class="form-control input-sm" text="일반매입"/>
 								</p>
 								<p class="ad_input_row">
 									<sbux-checkbox uitype="normal"id="chk-wrhsKnd2" name="chk-wrhsKnd" uitype="normal" class="form-control input-sm" text="공선"/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-wrhsKnd3" name="chk-wrhsKnd" uitype="normal" class="form-control input-sm" text="매취"/>
+									<sbux-checkbox uitype="normal"id="chk-wrhsKnd3" name="chk-wrhsKnd" uitype="normal" class="form-control input-sm" text="매취" checked/>
 								</p>
 							</td>
-							<th scope="row">상품</th>
+							<th scope="row">상품구분</th>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-checkbox uitype="normal"id="chk-gsd1" name="chk-gsd" uitype="normal" class="form-control input-sm" text="일반" checked/>
@@ -110,7 +110,7 @@
 									<sbux-checkbox uitype="normal"id="chk-gsd4" name="chk-gsd" uitype="normal" class="form-control input-sm" text="유기농"/>
 								</p>
 							</td>
-					    	<th scope="row">운송</th>
+					    	<th scope="row">운송구분</th>
 							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
 									<sbux-checkbox uitype="normal"id="chk-trsprt1" name="chk-trsprt1" uitype="normal" class="form-control input-sm" text="자가" checked/>
@@ -143,7 +143,7 @@
 				</table>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
-							<li><span>　원물입고 내역</span></li>
+							<li><span>원물입고 내역</span></li>
 						</ul>
 					</div>
 					<div class="sbt-wrap-body">
