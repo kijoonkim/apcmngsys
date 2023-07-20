@@ -149,7 +149,7 @@
 						<tr>
 							<th scope="row">등급/규격 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="otrdEyeBtn" name="otrdEyeBtn" uitype="modal" text="등급/규격 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="otrdEyeMngModal" onclick="fn_modal('otrdEyeMngBtn')"></sbux-button>
+								<sbux-button id="otrdEyeBtn" name="otrdEyeBtn" uitype="modal" text="등급/규격 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="grdSpcfctMngModalBody" onclick="fn_modal('otrdEyeMngBtn')"></sbux-button>
 							</td>
 							<td colspan="6">
 								선택한 품목별로 APC에서 관리하는 등급과 규격을 등록하세요.
@@ -219,7 +219,9 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th colspan="6" class="th_label">APC 사용메뉴 선택<button type="button" class="btn btn-sm btn-outline-danger" style="float:right;">간편설정</button></th>
+							<th colspan="6" class="th_label">APC 사용메뉴 선택
+								<sbux-button id="btnSimpleStng" name="btnSimpleStng" class="btn btn-sm btn-outline-danger" text="간편설정" uitype="modal" style="float:right;" target-id="modal-simpleStng" ></sbux-button>
+							</th>
 						</tr>
 						<tr>
 							<th scope="row">계량정보 관리</th>
@@ -474,7 +476,7 @@
 	</section>
 	<!-- 사용자권한 설정 Modal -->
     <div>
-        <sbux-modal id="userAuthMngModal" name="userAuthMngModal" uitype="middle" header-title="APC사용자 권한설정" body-html-id="userAuthMngModalBody" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="userAuthMngModal" name="userAuthMngModal" uitype="middle" header-title="APC사용자 권한설정" body-html-id="userAuthMngModalBody" footer-is-close-button="false" style="width:1400px"></sbux-modal>
     </div>
     <div id="userAuthMngModalBody">
     	<jsp:include page="/WEB-INF/view/apcss/am/apc/apcUserMngPopup.jsp"></jsp:include>
@@ -493,12 +495,19 @@
     <div id="warehouseMngModalBody">
     	<jsp:include page="/WEB-INF/view/apcss/am/apc/warehouseMngPopup.jsp"></jsp:include>
     </div>
-    <!--품목 등록 Modal -->
+    <!--품목/품종 등록 Modal -->
     <div>
         <sbux-modal id="itemMngModal" name="itemMngModal" uitype="middle" header-title="품목 등록" body-html-id="itemMngmodalBody" footer-is-close-button="false"style="width:1250px"></sbux-modal>
     </div>
     <div id="itemMngmodalBody">
     	<jsp:include page="/WEB-INF/view/apcss/am/apc/itemMngPopup.jsp"></jsp:include>
+    </div>
+    <!-- 등급/규격 등록 Modal -->
+    <div>
+        <sbux-modal id="grdSpcfctMngModal" name="grdSpcfctMngModal" uitype="middle" header-title="정산등급 등록" body-html-id="grdSpcfctMngModalBody" footer-is-close-button="false" style="width:800px"></sbux-modal>
+    </div>
+    <div id="grdSpcfctMngModalBody">
+    	<jsp:include page="/WEB-INF/view/apcss/am/apc/grdSpcfctMngPopup.jsp"></jsp:include>
     </div>
     <!-- 팔레트/박스 등록 Modal -->
     <div>
@@ -506,13 +515,6 @@
     </div>
     <div id="pltBxMngModalBody">
     	<jsp:include page="/WEB-INF/view/apcss/am/apc/pltBxMngPopup.jsp"></jsp:include>
-    </div>
-    <!-- 원물육안등급 Modal -->
-    <div>
-        <sbux-modal id="otrdEyeMngModal" name="otrdEyeMngModal" uitype="middle" header-title="정산등급 등록" body-html-id="otrdEyeMngModalBody" footer-is-close-button="false" style="width:800px"></sbux-modal>
-    </div>
-    <div id="otrdEyeMngModalBody">
-    	<jsp:include page="/WEB-INF/view/apcss/am/apc/otrdEyeMngPopup.jsp"></jsp:include>
     </div>
     <!-- 입고차량정보 등록 Modal -->
     <div>
@@ -541,6 +543,14 @@
     </div>
     <div id="oprtrMngModalBody">
     	<jsp:include page="/WEB-INF/view/apcss/am/apc/oprtrMngPopup.jsp"></jsp:include>
+    </div>
+
+    <!-- 간편설정 Modal -->
+    <div>
+        <sbux-modal id="modal-simpleStng" name="modal-simpleStng" uitype="middle" header-title="간편설정" body-html-id="body-modal-simpleStng" footer-is-close-button="false" style="width:1200px"></sbux-modal>
+    </div>
+    <div id="body-modal-simpleStng">
+    	<jsp:include page="/WEB-INF/view/apcss/am/apc/simpleStngPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
