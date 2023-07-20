@@ -50,11 +50,10 @@
 						<tr>		
 							<th scope="row">입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
-<!-- 								<sbux-datepicker uitype="range" id="srch-dtp-rangeDate" name="srch-dtp-rangeDate"> -->
-								<sbux-datepicker uitype="popup" id="srch-dtp-startDate" name="srch-dtp-startDate">
+								<sbux-datepicker uitype="popup" id="srch-dtp-strtWrhsYmd" name="srch-dtp-strtWrhsYmd" class="form-control pull-right input-sm">
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-endDate" name="srch-dtp-endDate">
+								<sbux-datepicker uitype="popup" id="srch-dtp-endWrhsYmd" name="srch-dtp-endWrhsYmd" class="form-control pull-right input-sm">
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row">품목/품종</th>
@@ -82,51 +81,44 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="ad_section_top">
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>투입대상 내역</span></li>
-						</ul>
-					</div>
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>투입대상 내역</span></li>
+					</ul>
 				</div>
 				<div class="sbt-wrap-body">
 					<div class="sbt-grid">
 						<div id="inptTrgtDsctnGridArea" style="height:340px;"></div>
 					</div>
 				</div>
-				<div class="ad_section_top">
-					<div class="ad_tbl_top">
-						<table class="table table-bordered tbl_row tbl_fixed">
-							<caption>검색 조건 설정</caption>
-							<colgroup>
-									<col style="width: 7%">
-									<col style="width: 6%">
-									<col style="width: 9%">
-									<col style="width: 7%">
-									<col style="width: 6%">
-									<col style="width: 9%">
-							</colgroup>
-							<tr>
-								<th scope="row">지시일자</th>
-								<td class="td_input" style="border-right: hidden;">
-									<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" class="form-control pull-right input-sm"/>
-								</td>
-								<td>&nbsp;</td>
-								<th scope="row">투입설비</th>
-								<td class="td_input" style="border-right: hidden;">
-									<sbux-select uitype="single" id="srch-slt-inptEqupmnt" name="srch-slt-inptEqupmnt" class="form-control input-sm"/>
-								</td>
-								<td>&nbsp;</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-				<div class="ad_section_top">
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>투입지시 내역</span></li>
-						</ul>
-					</div>
+				<br/>
+				<table class="table table-bordered tbl_row tbl_fixed">
+					<caption>검색 조건 설정</caption>
+					<colgroup>
+							<col style="width: 7%">
+							<col style="width: 6%">
+							<col style="width: 9%">
+							<col style="width: 7%">
+							<col style="width: 6%">
+							<col style="width: 9%">
+					</colgroup>
+					<tr>
+						<th scope="row">지시일자</th>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" class="form-control pull-right input-sm" class="form-control pull-right input-sm"/>
+						</td>
+						<td>&nbsp;</td>
+						<th scope="row">투입설비</th>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-select uitype="single" id="srch-slt-inptEqupmnt" name="srch-slt-inptEqupmnt" class="form-control input-sm"/>
+						</td>
+						<td>&nbsp;</td>
+					</tr>
+				</table>
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>투입지시 내역</span></li>
+					</ul>
 				</div>
                 <div class="sbt-wrap-body">
                     <div class="sbt-grid">
@@ -139,7 +131,7 @@
 	
     <!-- 사용자 선택 Modal -->
     <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
@@ -152,6 +144,14 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid1();
 		fn_createGrid2();
+		
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("srch-dtp-strtWrhsYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-endWrhsYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-cmndYmd", year+month+day);
 	});
 
 	var inptTrgtDsctnList; // 그리드를 담기위한 객체 선언

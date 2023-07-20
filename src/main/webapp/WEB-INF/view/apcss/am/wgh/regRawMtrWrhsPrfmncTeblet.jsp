@@ -206,14 +206,12 @@
 						</tr>
 					</tbody>
 				</table>
-				<!--[pp] //검색 -->
-				<!--[pp] 검색결과 -->
-				<div class="ad_section_top">
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>입고등록 내역</span></li>
-						</ul>
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>입고등록 내역</span></li>
+					</ul>
 				</div>
+
 				<div class="sbt-wrap-body">
 					<div class="sbt-grid">
 						<div id="inptCmndDsctnGridArea" style="height:340px;"></div>
@@ -239,7 +237,12 @@
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid();
-		fn_createGrid2();
+		
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("srch-dtp-wrhsYmd", year+month+day);
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
