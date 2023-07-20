@@ -23,8 +23,7 @@
 					<sbux-button id="btnEnd" name="btnEnd" uitype="normal" class="btn btn-sm btn-outline-danger" text="종료"></sbux-button>
 				</div>
 			</div>
-			<div>
-			</div>
+			
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -139,11 +138,11 @@
 							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">출하수량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-shpgotAmt1" name="srch-inp-shpgotAmt1" type="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="srch-inp-shpgotQty" name="srch-inp-shpgotQty" type="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">&nbsp;/</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-shpgotAmt2" name="srch-inp-shpgotAmt2" type="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="srch-inp-shpgotWght" name="srch-inp-shpgotWght" type="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td class="td_input">Kg</td>
 						</tr>
@@ -220,11 +219,11 @@
             {caption: ['품종','품종'], ref: 'vrty', width: '100px', type: 'output'},
             {caption: ['규격','규격'], ref: 'spcfct', width: '100px', type: 'output'},
             {caption: ['대표생산자','대표생산자'], ref: 'rprsPrdctr', width: '100px', type: 'output'},
-            {caption: ['선별재고','수량'], ref: 'sltStkAmt', width: '100px', type: 'output'},
+            {caption: ['선별재고','수량'], ref: 'sltStkQty', width: '100px', type: 'output'},
             {caption: ['선별재고','중량'], ref: 'sltStkWght', width: '100px', type: 'output'},
-            {caption: ['포장지시','수량'], ref: 'pckgOrdrAmt', width: '100px', type: 'output'},
+            {caption: ['포장지시','수량'], ref: 'pckgOrdrQty', width: '100px', type: 'output'},
             {caption: ['포장지시','중량'], ref: 'pckgOrdrWght', width: '100px', type: 'output'},
-            {caption: ['포장투입','수량'], ref: 'pckgInptAmt', width: '100px', type: 'output'},
+            {caption: ['포장투입','수량'], ref: 'pckgInptQty', width: '100px', type: 'output'},
             {caption: ['포장투입','중량'], ref: 'pckgInptWght', width: '100px', type: 'output'}
         ];
         grdPckgTrDsctn = _SBGrid.create(SBGridProperties);
@@ -249,7 +248,7 @@
             {caption: ['포장기'], ref: 'pckg', width: '100px', type: 'output'},
             {caption: ['규격'], ref: 'spcfct', width: '100px', type : 'inputcombo', 
             	typeinfo : {ref:'comboUesYnJsData1', label:'label', value:'value', oneclickedit: true, displayui : true}},
-            {caption: ['포장수량'], ref: 'pckgAmt', width: '100px', type: 'output'},
+            {caption: ['포장수량'], ref: 'pckgQty', width: '100px', type: 'output'},
             {caption: ['포장중량'], ref: 'pckgWght', width: '100px', type: 'output'},
             {caption: ['상품등급'], ref: 'gdsGrd', width: '100px', type : 'inputcombo', 
             	typeinfo : {ref:'comboUesYnJsData2', label:'label', value:'value', oneclickedit: true, displayui : true}},
@@ -290,7 +289,7 @@
             {caption: ['포장일자'], ref: 'pckgDate', width: '100px', type: 'output'},
             {caption: ['포장기'], ref: 'pckg', width: '100px', type: 'output'},
             {caption: ['규격'], ref: 'spcfct', width: '100px', type : 'inputcombo', typeinfo : {ref:'comboData', label:'', value:'value', oneclickedit: true, displayui : true}},
-            {caption: ['포장수량'], ref: 'pckgAmt', width: '100px', type: 'output'},
+            {caption: ['포장수량'], ref: 'pckgQty', width: '100px', type: 'output'},
             {caption: ['포장중량'], ref: 'pckgWght', width: '100px', type: 'output'},
             {caption: ['상품등급'], ref: 'gdsGrd', width: '100px', type : 'inputcombo', typeinfo : {ref:'comboData', label:'', value:'value', oneclickedit: true, displayui : true}},
             {caption: ['창고'], ref: 'strg', width: '100px', type : 'inputcombo', typeinfo : {ref:'comboData', label:'', value:'value', oneclickedit: true, displayui : true}},
