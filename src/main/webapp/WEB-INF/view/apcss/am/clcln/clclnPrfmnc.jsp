@@ -13,210 +13,141 @@
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
-			<div class="box-header">
-				<h3 class="box-title"> ▶ 매출실적조회</h3>
-				<div class="ad_tbl_top">
-					<div class="ad_tbl_toplist">
-						<button type="button" class="btn btn-sm btn-primary">거래명세표</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-					</div>
-				</div>
-			</div>
+		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
+				<h3 class="box-title" style="line-height: 30px;"> ▶ 매출실적조회</h3>
 			</div>
+			<div style="margin-left: auto;">
+				<sbux-button id="btnSlipDlng" name="btnSlipDlng" uitype="normal" text="거래명세표" class="btn btn-sm btn-primary"></sbux-button>
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
+			</div>
+		</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 8%">
-						<col style="width: 25%">
-						<col style="width: 5%">
-						<col style="width: 25%">
-						<col style="width: 5%">
-						<col style="width: 25%">
-						<col style="width: 7%">
+					<col style="width: 7%">
+					<col style="width: 6%">
+					<col style="width: 6%">
+					<col style="width: 3%">
+					<col style="width: 7%">
+					<col style="width: 6%">
+					<col style="width: 6%">
+					<col style="width: 3%">
+					<col style="width: 7%">
+					<col style="width: 6%">
+					<col style="width: 6%">
+					<col style="width: 3%">
 					</colgroup>
 					<tbody>
 						<tr>
-							<th class="ta_r">APC명</th>
-							<th class="ta_r">
-								<input type="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled>
-							</th>
-							<th colspan="5"></th>
+							<th scope="row" style="border-bottom:1px solid white " >APC명</th>
+							<td colspan= "3" class="td_input" style="border-right:hidden;">
+								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							</td>
+							<td colspan="8"></td>
 						</tr>
 						<tr>
-
-							<th class="ta_r">매출일자</th>
-							<th class="td_input">
-								<div class="form-group">
-									<div class="dp_inline wd_125 va_m">
-										<div class="input-group date">
-											<div class="input-group-addon">
-												<i class="fa fa-calendar"></i>
-											</div>
-											<input type="text" name="datepicker" placeholder="시작일" class="form-control pull-right" disabled>
-										</div>
-									</div>
-									~
-									<div class="dp_inline wd_125 va_m">
-										<div class="input-group date">
-											<div class="input-group-addon">
-												<i class="fa fa-calendar"></i>
-											</div>
-											<input type="text" name="datepicker" placeholder="종료일" class="form-control pull-right" disabled>
-										</div>
-									</div>
-								</div>
-							</th>
-							<th class="ta_r">품종</th>
-							<th class="td_input">
-								<p class="dp_inline ad_search_row search_sm ad_search_row wd_p80">
-									<select class="form-control input-sm wd_160">
-										<option>선택하세요</option>
-									</select>
-									<button type="button" class="btn btn-sm btn-primary btn_form btn_search">찾기</button>
-								</p>
-							</th>
-							<th class="ta_r">거래처</th>
-							<th class="ta_r">
-								<p class="dp_inline ad_search_row search_sm ad_search_row wd_p80">
-									<select class="form-control input-sm wd_160">
-										<option>선택하세요</option>
-									</select>
-									<button type="button" class="btn btn-sm btn-primary btn_form btn_search">찾기</button>
-								</p>
-							</th>
-							<th></th>
+							<th scope="row">매출일자</th>
+							<td class="td_input"  style="border-right: hidden;">
+								<sbux-datepicker id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+							</td>
+							<td class="td_input"  style="border-right: hidden;">
+								<sbux-datepicker id="srch-dtp-endPrdctnYmd" name="srch-dtp-endPrdctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+							</td>
+							<td></td>
+							<th scope="row">품목/품종</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							</td>
+							<td	class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-vrty" name="srch-inp-vrty" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="srch-btn-itemVrty" name="srch-btn-itemVrty" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
+							</td>
+							<th scope="row">거래처</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-snpt" name="srch-slt-snpt" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="srch-btn-snpt" name="srch-btn-snpt" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
+							</td>
 					</tbody>
 				</table>
-
-				<div class="ad_tbl_top">
+				
+				<div class="table-responsive tbl_scroll_sm">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li><span>매출 내역</span></li>
+						</ul>
+					</div>
+					<div class="ad_tbl_toplist">
+					</div>
+					<div class="table-responsive tbl_scroll_sm">
+						<div id="sb-area-slsDsctn" style="height:300px;"></div>
+					</div>
 				</div>
-				<div class="ad_tbl_top">
-					<ul class="ad_tbl_count">
-						<li><span>매출 내역</span></li>
-						<li><span> 매출 중량/ 금액: 99,999Kg/99,999₩</span></li>
-					</ul>
-				</div>
-					<table class="table table-bordered table-hover tbl_col tbl_fixed">
-						<colgroup>
-							<col style="width: 6%">
-							<col style="width: 8%">
-							<col style="width: 10%">
-							<col style="width: 8%">
-							<col style="width: 4%">
-							<col style="width: 4%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 10%">
-						</colgroup>
-						<thead>
-							<tr>
-								<th scope="row" rowspan="2">
-									매출일자
-								</th>
-								<th scope="row" rowspan="2">
-									거래처
-								</th>
-								<th scope="row" rowspan="2">
-									상품명
-								</th>
-								<th scope="row" rowspan="2">
-									상품코드
-								</th>
-								<th scope="row" rowspan="2">
-									품종
-								</th>
-								<th scope="row" rowspan="2">
-									규격
-								</th>
-								<th scope="row" rowspan="2">
-									브랜드
-								</th>
-								<th scope="row"  rowspan="2">
-									단가
-								</th>
-								<th scope="row" colspan="2">
-									출하
-								</th>
-								<th scope="row"  rowspan="2">
-									매출금액
-								</th>
-							</tr>
-							<tr>
-								<th>수량</th>
-								<th>중량</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<th colspan="8">합계</th>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
 		</div>
 	</section>
 </body>
+<script type="text/javascript">
+
+	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_createslsDsctnGrid();
+
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("srch-dtp-startPrdctnYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-endPrdctnYmd", year+month+day);
+	})
+
+	/* const fn_initSBSelect = async function() {
+
+ 		gfn_setComCdSBSelect('rdo-wrhsSeCd', jsonRadioWrhsSeCd, 'WRHS_SE_CD');	// 시스템유형
+
+	} */
+
+	function fn_createslsDsctnGrid() {
+        var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-slsDsctn';
+	    SBGridProperties.id = 'grdWghPrfmnc';
+	    SBGridProperties.jsonref = 'jsonWghPrfmnc';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+            {caption: ['선택','선택'], 			ref: 'wghno',		width: '15%', type: 'output'},
+            {caption: ['정산일자','정산일자'], 			ref: 'prdcrNm', 	width: '15%', type: 'output'},
+            {caption: ['생산자','생산자'],		ref: 'itemNm', 		width: '15%', type: 'output'},
+            {caption: ['입고구분','입고구분'], 			ref: 'vrtyNm', 		width: '15%', type: 'output'},
+            {caption: ['상품구분','상품구분'], 		ref: 'gdsSeNm', 	width: '15%', type: 'output'},
+            {caption: ['품목','품목'], 		ref: 'wrhsSeNm', 	width: '15%', type: 'output'},
+            {caption: ['품종','품종'], 			ref: 'trsprtSeNm', 	width: '15%', type: 'output'},
+            {caption: ['규격','규격'], 			ref: 'wholWght', 	width: '15%', type: 'output'},
+            {caption: ['브랜드','브랜드'], 			ref: 'emptVhclWght',width: '15%', type: 'output'},
+            {caption: ['등급','1'], 			ref: 'rdcdRt', 		width: '15%', type: 'output'},
+            {caption: ['등급','2'], 			ref: 'rdcdRt', 		width: '15%', type: 'output'},
+            {caption: ['등급','3'], 			ref: 'rdcdRt', 		width: '15%', type: 'output'},
+            {caption: ['등급','4'], 			ref: 'rdcdRt', 		width: '15%', type: 'output'},
+            {caption: ['등급','5'], 			ref: 'rdcdRt', 		width: '15%', type: 'output'},
+            {caption: ['수량','수량'], 			ref: 'rdcdWght', 	width: '15%', type: 'output'},
+            {caption: ['중량','중량'], 			ref: 'actlWght', 	width: '15%', type: 'output'},
+            {caption: ['계산금액','계산금액'], 			ref: 'actlWght', 	width: '15%', type: 'output'},
+            {caption: ['확장금액','확장금액'], 			ref: 'actlWght', 	width: '15%', type: 'output'},
+            {caption: ['확정여부','확정여부'], 			ref: 'actlWght', 	width: '15%', type: 'output'}
+        ];
+        grdWghPrfmnc = _SBGrid.create(SBGridProperties);
+    }
+
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
+</script>
 </html>

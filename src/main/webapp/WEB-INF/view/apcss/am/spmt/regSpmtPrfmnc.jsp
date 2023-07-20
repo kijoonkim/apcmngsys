@@ -19,6 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal" text="송품장" class="btn btn-sm btn-primary"></sbux-button>
+					<sbux-button id="srch-btn-invnrtInq" name="srch-btn-invnrtInq" uitype="normal" text="재고조회" class="btn btn-sm btn-outline-danger"></sbux-button>
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger"></sbux-button>
@@ -101,31 +102,33 @@
 								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td style="border-right: hidden;">
-								<sbux-button id="srch-btn-invnrtInq" name="srch-btn-invnrtInq" uitype="normal" text="재고조회" class="btn btn-xs btn-outline-dark"></sbux-button>
+								
 							</td>
 						</tr>
 					</tbody>
 				</table>
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
+				
 				<div class="table-responsive tbl_scroll_sm">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
-							<li><span>출하대상 내역</span></li>
+							<li><span>상품재고 내역</span></li>
 						</ul>
 					</div>
-					<div class="ad_tbl_toplist">
+						<div class="ad_tbl_toplist">
 					</div>
 					<div class="table-responsive tbl_scroll_sm">
 						<div id="sb-area-spmtTrgtDsctn" style="height:300px;"></div>
 					</div>
-					
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
 								<li><span>출하 내역</span></li>
 							</ul>
-							<sbux-button id="btnDown" name="srch-btn-invnrtInq" uitype="normal" text="내려받기" class="btn btn-sm btn-outline-dark"></sbux-button>
-							<sbux-button id="btnUp" name="srch-btn-invnrtInq" uitype="normal" text="올리기" class="btn btn-sm btn-outline-dark"></sbux-button>
+							<div class="ad_tbl_toplist">
+							<sbux-button id="btnDown" name="srch-btn-invnrtInq" uitype="normal" text="내려받기" class="btn btn-xs btn-outline-dark"></sbux-button>
+							<sbux-button id="btnUp" name="srch-btn-invnrtInq" uitype="normal" text="올리기" class="btn btn-xs btn-outline-dark"></sbux-button>
+							</div>
 						</div>
 							<div class="table-responsive tbl_scroll_sm">
 								<div id="sb-area-spmtTrgtDsctn2" style="height:300px;"></div>
@@ -146,7 +149,8 @@
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("dtp-wrhsYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-startPrdctnYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-EndPrdctnYmd", year+month+day);
 	})
 
 	/* const fn_initSBSelect = async function() {
