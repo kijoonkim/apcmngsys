@@ -89,11 +89,11 @@
 								</p>
 							</td>
 							
-							<th scope="row">거래처</th>
+							<th scope="row">매입처</th>
 						    <td class="td_input" style="border-right:hidden ;">
 								<sbux-input uitype="text" id="srch-inp-cnpt" name="srch-inp-cnpt" class="form-control input-sm"/>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-button uitype="normal" id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기"/>
+								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"/>
 							</td>
 							<td>&nbsp;</td>
 						</tr>
@@ -156,7 +156,13 @@
 			</div>
 		</div>
 	</section>
-
+    <!-- 거래처 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="매입처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-cnpt">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">	
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
@@ -172,8 +178,8 @@
 		SBUxMethod.set("srch-dtp-wrhsYmd", year+month+day);
 	});
 
-	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
+	var inptCmndDsctnList =  []; // 그리드를 담기위한 객체 선언
+	var jsoninptCmndDsctnList = ['test']; // 그리드의 참조 데이터 주소 선언
 	
 	function fn_createGrid2() {
 	    var SBGridProperties = {};

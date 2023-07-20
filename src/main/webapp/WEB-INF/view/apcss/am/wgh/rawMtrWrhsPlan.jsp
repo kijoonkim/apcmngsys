@@ -52,7 +52,7 @@
 							</td>
 							<td colspan="9">&nbsp;</td>
 						<tr>
-							<th class="ta_r">기준일자</th>
+							<th class="ta_r">조회일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-strtCrtrYmd" name="srch-dtp-strtCrtrYmd" class="form-control pull-right input-sm"/>
 							</th>
@@ -97,13 +97,10 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-strtPlanYmd" name="srch-dtp-strtPlanYmd" class="form-control pull-right input-sm"/>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-endPlanYmd" name="srch-dtp-endPlanYmd" class="form-control pull-right input-sm"/>
-							</td>
-							<td>&nbsp;</td>
+							<td colspan="2">&nbsp;</td>
 							<th class="ta_r">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-prdcr" name="srch-slt-prdcr" class="form-control input-sm"/>
+								<sbux-input uitype="text" id="srch-inp-prdcr" name="srch-inp-prdcr" class="form-control input-sm"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-prdcrSrch" name="srch-btn-prdcrSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
@@ -147,7 +144,7 @@
 								</p>
 							</td>
 							<th scope="row">운송구분</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
+							<td colspan="3">
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-trsprt1" name="srch-rdo-trsprt" uitype="normal" class="radio_label" text="자가" checked/>
 								</p>
@@ -172,10 +169,10 @@
 									<sbux-label uitype="normal" id="lbl-kg" name="lbl-chc" text="Kg"/>
 							</td>
 							<th class="ta_r">비고</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-rmrk" name="srch-inp-rmrk" class="form-control input-sm" placeholder="" />
 							</td>
-							<td colspan="6">&nbsp;</td>
+							<td colspan="4">&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -218,7 +215,6 @@
 		SBUxMethod.set("srch-dtp-strtCrtrYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-endCrtrYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-strtPlanYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-endPlanYmd", year+month+day);
 	});
 
 	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
@@ -241,18 +237,18 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	        {caption: ["계획일자"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["계획시간"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["품목"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["품종"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["생산자"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["상품구분"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["입고구분"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["운송구분"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["계획수량"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["계획중량"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'userStts', 	type:'button',  width:'105px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["계획일자"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["계획시간"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["품목"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["품종"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["생산자"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["상품구분"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["입고구분"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["운송구분"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["계획수량"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["계획중량"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["처리"], 		ref: 'userStts', 	type:'button',  width:'140px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 //             	if(strValue === "01"){
 //             		return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
 //             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
