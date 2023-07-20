@@ -13,20 +13,19 @@
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
-			<div class="box-header">
-				<h3 class="box-title">▶ 출하실적등록 (테블릿)</h3>
-				<div class="ad_tbl_top">
-					<div class="ad_tbl_toplist">
-						<p class="ad_input_row">
-							<sbux-checkbox id="chk-docSpmt" name="chk-docSpmt" uitype="normal" text="송품장 자동발행" class="check"></sbux-checkbox>
-						</p>
-						<button type="button" class="btn btn-sm btn-outline-danger">초기화</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">등록</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
-					</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title" style="line-height: 30px;">▶ 출하실적등록 (태블릿)</h3>
+				</div>
+				<div style="margin-left: auto;">
+					<p class="ad_input_row">
+						<sbux-checkbox id="chk-docSpmt" name="chk-docSpmt" uitype="normal" text="송품장 자동발행" class="check"></sbux-checkbox>
+					</p>
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnEnd" name="btnEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger"></sbux-button>
 				</div>
 			</div>
-			<div></div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -60,7 +59,7 @@
 									<sbux-checkbox id="chk-fxng" name="chk-fxng" uitype="normal" text="고정" class="check"></sbux-checkbox>
 								</p>
 							</td>
-							<td colspan="2" style="border-right: hidden;"> → 출하지시번호 스캔 or 팝업 조회</td>
+							<td colspan="2" style="border-right: hidden;"></td>
 							<td colspan="3"></td>
 						</tr>
 						<tr>
@@ -70,7 +69,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btn-" name="btn_norm" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
-							<td colspan="2" style="border-right: hidden;"> → 포장번호 스캔 or 팝업 조회</td>
+							<td colspan="2" style="border-right: hidden;"></td>
 							<td colspan="3"></td>
 						</tr>
 						<tr>
@@ -93,7 +92,7 @@
 								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" disabled=""></sbux-input>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 품종/규격 조회</td>
+							<td colspan="2" style="border-right: hidden;"></td>
 							<td colspan="3"></td>
 						</tr>
 						<tr>
@@ -102,7 +101,7 @@
 									<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" disabled=""></sbux-input>
 								</td>
 								<td style="border-right: hidden;">&nbsp;</td>
-								<td style="border-right: hidden;" colspan="2"> → 출하지시번호를 통한 상품명 조회</td>
+								<td style="border-right: hidden;" colspan="2"></td>
 								<td colspan="3"></td>
 						</tr>
 						<tr>
@@ -111,7 +110,7 @@
 								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder=""disabled=""></sbux-input>
 							</td>
 							<td style="border-right: hidden;" colspan="2"></td>
-							<td style="border-right: hidden;" colspan="2"> → 출하지시번호를 통한 상품등급 조회</td>
+							<td style="border-right: hidden;" colspan="2"></td>
 							<td colspan="3"></td>
 						</tr>
 						<tr>
@@ -120,7 +119,7 @@
 								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder=""disabled=""></sbux-input>
 							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 포장구분 조회</td>
+							<td colspan="2" style="border-right: hidden;"></td>
 							<td colspan="3" style="border-right: hidden;">&nbsp;</td>
 						</tr>
 						<tr>
@@ -129,7 +128,7 @@
 								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder=""disabled=""></sbux-input>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 거래처 정보 조회</td>
+							<td colspan="2" style="border-right: hidden;"></td>
 							<td colspan="3" style="border-right: hidden;"></td>
 						</tr>
 						<tr>
@@ -138,7 +137,7 @@
 								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder=""disabled=""></sbux-input>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2" style="border-right: hidden;"> → 출하지시번호를 통한 운송회사 정보 조회</td>
+							<td colspan="2" style="border-right: hidden;"></td>
 							<td colspan="3" style="border-right: hidden;"></td>
 						</tr>
 						<tr>

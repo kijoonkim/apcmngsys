@@ -18,6 +18,7 @@
 				<h3 class="box-title" style="line-height: 30px;">▶출하지시등록</h3>
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="발주조회" class="btn btn-sm btn-outline-danger"></sbux-button>
 				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger"></sbux-button>
@@ -45,18 +46,18 @@
 					<tbody>
 						<tr>
 							<th scope="row">APC명</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
-							<td colspan="9"></td>
+							<td colspan="8"></td>
 						</tr>
 						<tr>
 							<th scope="row">발주일자</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-outordrYmd1" name="srch-inp-jobYmd1" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-inp-outordrYmd1" name="srch-inp-outordrYmd1" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-outordrYmd2" name="srch-inp-jobYmd2" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-inp-outordrYmd2" name="srch-inp-outordrYmd2" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input"  style="border-right: hidden;"></td>
 
@@ -76,18 +77,18 @@
 						</tr>
 						<tr>
 							<th scope="row">거래처</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm"></sbux-input>
+							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btn-srch-inp-cnpt" name="btn-srch-inp-cnpt" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">규격</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="발주조회" class="btn btn-xs btn-outline-dark"></sbux-button>
+								
 							</td>
 							<td colspan="5"></td>
 						</tr>
@@ -101,8 +102,9 @@
 							<li><span>출하지시대상 내역</span></li>
 						</ul>
 					</div>
+
 					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:300px;"></div>
-					
+					<br/>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -122,23 +124,22 @@
 					<tbody>
 						<tr>
 							<th scope="row">거래처</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
-							<td colspan="2"></td>
+							<td></td>
 					  		<th scope="row">품목/품종/규격</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm" disabled unselected-text="선택"></sbux-select>       
+								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>       
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" disabled unselected-text="선택"></sbux-select>
+								<sbux-input id="srch-inp-vrty" name="srch-inp-vrty" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">배송처</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-dldtn" name="srch-inp-dldtn" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
-							<td style="border-right: hidden;"></td>
 							<td></td>
 						</tr>
 						<tr>
@@ -148,10 +149,10 @@
 							</td>
 							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
 							<th scope="row">운송회사</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select> 
 							</td>
-							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
+							<td class="td_input"  style="border-right: hidden;"></td>
 							<th scope="row">상품등급</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
@@ -200,15 +201,16 @@
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createregSpmtCmndGrid();
-		fn_createSpmtCmndDsctnGrid();
+		
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("srch-inp-outordrYmd1", year+month+day);
+		SBUxMethod.set("srch-inp-outordrYmd2", year+month+day);
+		SBUxMethod.set("srch-inp-cmndYmd", year+month+day);
+		
 	})
-
-	/* const fn_initSBSelect = async function() {
-
- 		gfn_setComCdSBSelect('rdo-wrhsSeCd', jsonRadioWrhsSeCd, 'WRHS_SE_CD');	// 시스템유형
-
-	} */
-
 
 	function fn_createregSpmtCmndGrid() {
         var SBGridProperties = {};
@@ -219,11 +221,6 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-        	{caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-                width: '3px'
-            },
             {caption: ['선택'], 		ref: 'wghno', 			width: '10%', type: 'output'},
             {caption: ['거래처'], 	ref: 'prdcrNm', 		width: '10%', type: 'output'},
             {caption: ['상품명'], 	ref: 'itemNm', 			width: '10%', type: 'output'},
@@ -237,23 +234,15 @@
             {caption: ['지시수량'], 	ref: 'rdcdWght', 		width: '10%', type: 'output'},
             {caption: ['지시중량'], 	ref: 'actlWght', 		width: '10%', type: 'output'}
         ];
-        grdWghPrfmnc = _SBGrid.create(SBGridProperties);
-    }
-
-	function fn_createSpmtCmndDsctnGrid() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdSpmtCmndDsctn';
-	    SBGridProperties.id = 'grdWghPrfmnc2';
-	    SBGridProperties.jsonref = 'jsonWghPrfmnc2';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-        	{caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-                width: '3px'
-            },
+        
+        var SBGridProperties1 = {};
+	    SBGridProperties1.parentid = 'sb-area-grdSpmtCmndDsctn';
+	    SBGridProperties1.id = 'grdWghPrfmnc1';
+	    SBGridProperties1.jsonref = 'jsonWghPrfmnc1';
+        SBGridProperties1.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties1.selectmode = 'byrow';
+	    SBGridProperties1.extendlastcol = 'scroll';
+        SBGridProperties1.columns = [
             {caption: ['선택'], 		ref: 'wghno', 			width: '10%', type: 'output'},
             {caption: ['지시일자'], 	ref: 'prdcrNm', 		width: '10%', type: 'output'},
             {caption: ['거래처'], 	ref: 'itemNm', 			width: '10%', type: 'output'},
@@ -269,6 +258,11 @@
             {caption: ['비고'], 		ref: 'actlWght', 		width: '10%', type: 'output'}
         ];
         grdWghPrfmnc = _SBGrid.create(SBGridProperties);
+        grdWghPrfmnc = _SBGrid.create(SBGridProperties1);
+    }
+
+	function fn_createSpmtCmndDsctnGrid() {
+        
     }
 </script>
 </html>

@@ -43,46 +43,35 @@
 					<tbody>
 					<tr>
 						<th scope="row">APC명</th>
-						<td colspan="3" class="td_input" style="border-right: hidden;">
-					    	<div class="form-group">
-								<sbux-input id="srch-inp-apcCd" name="input_text" uitype="text" class="form-control" placeholder="" disabled=""></sbux-input>
-							</div>
-						</td>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							</td>
+							<td colspan="8"></td>
 					</tr>
 						<tr>
 							<th scope="row">선별일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-sortYmd" name="srch-inp-sortYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-inp-startsortYmd" name="srch-inp-startsortYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-inp-endSortYmd" name="srch-inp-endSortYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
-							<th scope="row">품목</th>
+							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select> 
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="srch-btn-item" name="srch-btn-item" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-itemCrtr" onclick="fn_modalPrdcr"></sbux-button>
+								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
-							<th scope="row">품종</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" unselected-text="선택">
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-button id="srch-btn-vrty" name="srch-btn-vrty" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
-									</td>
-								</sbux-select>
-							</td>
-							<td></td>
-						</tr>
-						<tr>
 							<th scope="row">선별기</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-sort" name="srch-slt-sort" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>       
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
-							<td class="td_input" style="border-right: hidden;">&nbsp;</td>
+							<td colspan="2" class="td_input"></td>
+						</tr>
+						<tr>
 							<th scope="row">저장창고</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-strgWarehouse" name="srch-slt-strgWarehouse" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>  
@@ -95,17 +84,14 @@
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td></td>
-						</tr>
-						<tr>
 							<th scope="row">대표생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-rprsPrdcr" name="srch-slt-rprsPrdcr" uitype="single" class="form-control input-sm" unselected-text="선택">
-									<td class="td_input" style="border-right: hidden;">
-										<sbux-button id="btn-srch-prdcr" name="btn-srch-prdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
-									</td>
-								</select>
+								<sbux-input id="srch-inp-prdcr" name="srch-inp-prdcr" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="btn-srch-prdcr" name="btn-srch-prdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
+							</td>
+							<td></td>
 						</tr>
 					</tbody>
 				</table>
@@ -148,10 +134,13 @@
     	
     	fn_createSortDsctnGrid();
 
-    	gfn_setComCdSBSelect(
-    			['srch-select-msgKnd', 'dtl-select-msgKnd'],
-    			jsonComMsgKnd,
-			'MSG_KND');
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("srch-inp-startsortYmd", year+month+day);
+		SBUxMethod.set("srch-inp-endSortYmd", year+month+day);
+    	
     });
     
     //grid 초기화

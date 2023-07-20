@@ -43,7 +43,8 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-acpCd" name="srch-inp-acpCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+<!-- 							<sbux-input id="srch-inp-acpCd" name="srch-inp-acpCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input> -->
+								<sbux-input id="srch-inp-acpCd" name="srch-inp-acpCd" uitype="text" class="form-control input-sm"  disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -56,26 +57,28 @@
 							</td>
 							<td class="td_input"></td>
 							<th scope="row">거래처</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btn_norm" name="btn_norm" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
 							<td class="td_input"></td>
 							
 							<th scope="row" style="border-right: hidden;">운송회사</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
-							<td class="td_input" colspan="2"></td>
+							<td class="td_input"></td>
 						</tr>
 						<tr>
-							<th scope="row">품종</th>
+							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
-							<td colspan="2">&nbsp;</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+							</td>
+							<td>&nbsp;</td>
 							<th scope="row">규격</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
