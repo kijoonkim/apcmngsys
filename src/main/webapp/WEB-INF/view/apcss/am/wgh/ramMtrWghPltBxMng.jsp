@@ -59,7 +59,7 @@
 										<td style="border-right: hidden;">&nbsp;</td>
 										<th class="ta_r">입/출고 구분</th>
 										<td class="td_input" style="border-right: hidden;">
-											<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
+											<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 										</td>
 										<td colspan="6">&nbsp;</td>
 									</tr>

@@ -65,7 +65,7 @@
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-vrty" name="srch-inp-vrty" class="form-control input-sm" placeholder="선택" />
@@ -126,7 +126,7 @@
 						<tr>
 						    <th scope="row">창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm"/>
 							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">차량번호</th>
@@ -136,14 +136,8 @@
 							<td style="border-right: hidden;">
 								<sbux-button id="srch-btn-vhclNoSrch" name="srch-btn-vhclNoSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"/>
 							</td>
-							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
-							<th scope="row">계량번호</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-wghNo" name="srch-inp-wghNo" class="form-control input-sm" placeholder="선택"/>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-button uitype="normal" id="srch-btn-wghNoSrch" name="srch-btn-wghNoSrch" class="btn btn-xs btn-outline-dark" text="찾기"/>
-							</td>
+							<td colspan="5" style="border-right: hidden;">&nbsp;</td>
+
 						</tr>
 					</tbody>
 				</table>
