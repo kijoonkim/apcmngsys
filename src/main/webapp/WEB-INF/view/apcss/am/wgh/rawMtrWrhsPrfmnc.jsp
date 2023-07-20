@@ -52,16 +52,15 @@
 							<th scope="row" >APC명</th>
 							<td colspan= "3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" class="form-control input-sm" disabled/>
-<!-- 								<input type="text" class="form-control input-sm" placeholder="" disabled> -->
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">생산일자</th>
 							<td class="td_input"style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd">
+								<sbux-datepicker uitype="popup" id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" class="form-control pull-right input-sm"/>
 								
 							<td class="td_input"style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-endPrdctnYmd" name="srch-dtp-endPrdctnYmd">
+								<sbux-datepicker uitype="popup" id="srch-dtp-endPrdctnYmd" name="srch-dtp-endPrdctnYmd" class="form-control pull-right input-sm"/>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">품목/품종</th>
@@ -148,10 +147,7 @@
 						</tr>
 					</tbody>
 				</table>
-
-				<!--[pp] //검색 -->
-				<!--[pp] 검색결과 -->
-						<div class="ad_tbl_top">
+					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>　원물입고 내역</span></li>
 						</ul>
@@ -161,21 +157,11 @@
 							<div id="inptCmndDsctnGridArea" style="height:340px;"></div>
 						</div>
 					</div>
-						<div class="sbt-wrap-body">
-							<div class="sbt-grid">
-								<div id="inptCmndDsctnGridArea2" style="height:340px;"></div>
-							</div>
-						</div>
-				</div>
-				<!--[pp] //검색결과 -->
 			</div>
 		</div>
 	</section>
-	
-	
-    <!-- 사용자 선택 Modal -->
     <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
@@ -195,14 +181,20 @@
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid();
-		fn_createGrid2();
+		
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("srch-dtp-startPrdctnYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-endPrdctnYmd", year+month+day);
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 	
 	window.jsoninptCmndDsctnList =  [
-		['test','test','test','test','test','test','test','test','test','test','test','test','test','test','test'],
+		['test'],
 	];
 	
 	function fn_createGrid() {
@@ -240,35 +232,10 @@
 	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
 	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
 	        {caption: ["입고중량"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	    ];
-	    
-	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
-
-	}
-	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList2 = []; // 그리드의 참조 데이터 주소 선언
-	
-	function fn_createGrid2() {
-	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'inptCmndDsctnGridArea2';
-	    SBGridProperties.id = 'inptCmndDsctnList2';
-	    SBGridProperties.jsonref = 'jsoninptCmndDsctnList2';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.explorerbar = 'sortmove';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 20,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
-	    SBGridProperties.columns = [
 	        {caption: ["보관창고"],		ref: 'msgKey',      type:'output',  width:'200px',    style:'text-align:center'},
 	        {caption: ["계량번호"],		ref: 'msgKey',      type:'output',  width:'200px',    style:'text-align:center'},
 	        {caption: ["팔레트번호"],		ref: 'msgKey',      type:'output',  width:'200px',    style:'text-align:center'},
-	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'800px',    style:'text-align:center'},
+	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'200px',    style:'text-align:center'},
 	    ];
 	    
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);

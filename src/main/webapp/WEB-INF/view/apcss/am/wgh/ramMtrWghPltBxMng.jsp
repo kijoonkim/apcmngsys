@@ -51,10 +51,10 @@
 									<tr>
 										<th class="ta_r">기준일자</th>
 										<td class="td_input" style="border-right: hidden;">
-											<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" class="form-control pull-right input-sm"/>
+											<sbux-datepicker uitype="popup" id="srch-dtp-strtCrtrYmd" name="srch-dtp-strtCrtrYmd" class="form-control pull-right input-sm"/>
 										</td>
 										<td class="td_input" style="border-right: hidden;">
-											<sbux-datepicker uitype="popup" id="srch-dtp-scmndYmd" name="srch-dtp-cmndYmd" class="form-control pull-right input-sm"/>
+											<sbux-datepicker uitype="popup" id="srch-dtp-endCrtrYmd" name="srch-dtp-endCrtrYmd" class="form-control pull-right input-sm"/>
 										</td>
 										<td style="border-right: hidden;">&nbsp;</td>
 										<th class="ta_r">입/출고 구분</th>
@@ -70,7 +70,6 @@
 									<li><span>팔레트/박스 재고현황</span></li>
 								</ul>
 							</div>
-							<b>&nbsp;<b>
 							<div class="sbt-wrap-body">
 								<div class="sbt-grid">
 									<div id="inptCmndDsctnGridArea" style="height:340px;"></div>
@@ -81,7 +80,6 @@
 									<li><span>입출 내역</span></li>
 								</ul>
 							</div>
-							<b>&nbsp;<b>
 							<div class="sbt-wrap-body">
 								<div class="sbt-grid">
 									<div id="inptCmndDsctnGridArea2" style="height:340px;"></div>
@@ -99,13 +97,20 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid();
 		fn_createGrid2();
+		
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("srch-dtp-strtCrtrYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-endCrtrYmd", year+month+day);
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 	
 	window.jsoninptCmndDsctnList =  [
-		['test','test','test','test','test','test','test','test','test','test','test','test','test','test','test'],
+		['test'],
 	];
 	function fn_createGrid() {
 	    var SBGridProperties = {};
@@ -144,7 +149,7 @@
 
 	}
 	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList2 = ['test','test','test','test','test','test','test','test','test','test','test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
+	var jsoninptCmndDsctnList2 = ['test']; // 그리드의 참조 데이터 주소 선언
 	
 	var comboUesYnJsData = ['입고/출고']
 	var comboUesYnJsData1 = ['팔레트/박스']
