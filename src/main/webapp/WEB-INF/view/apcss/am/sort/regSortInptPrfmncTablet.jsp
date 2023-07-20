@@ -156,7 +156,9 @@
 	</section>
 </body>
 <script type="text/javascript">
-	
+function fn_closeModal(modalId){
+	SBUxMethod.closeModal(modalId);
+}
 	// ${comMenuVO.menuId}
 	
 	// 공통코드 JSON

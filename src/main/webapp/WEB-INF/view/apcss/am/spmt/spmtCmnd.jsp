@@ -60,15 +60,14 @@
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
+							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btn_norm" name="btn_norm" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
-							<td class="td_input"></td>
-							
 							<th scope="row" style="border-right: hidden;">운송회사</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
-							<td class="td_input"></td>
+							<td></td>
 						</tr>
 						<tr>
 							<th scope="row">품목/품종</th>
@@ -88,6 +87,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-frmlSe" name="select_single" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
+							<td class="td_input" style="border-right: hidden;"></td>
 						</tr>
 					</tbody>
 				</table>

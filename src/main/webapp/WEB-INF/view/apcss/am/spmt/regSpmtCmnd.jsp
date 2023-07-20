@@ -88,7 +88,6 @@
 								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								
 							</td>
 							<td colspan="5"></td>
 						</tr>

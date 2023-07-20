@@ -120,7 +120,7 @@
 							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 							<td colspan="2" style="border-right: hidden;"></td>
-							<td colspan="3" style="border-right: hidden;">&nbsp;</td>
+							<td colspan="3">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row">거래처</th>
@@ -129,7 +129,7 @@
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td colspan="2" style="border-right: hidden;"></td>
-							<td colspan="3" style="border-right: hidden;"></td>
+							<td colspan="3"></td>
 						</tr>
 						<tr>
 							<th scope="row">운송회사</th>
@@ -138,7 +138,7 @@
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td colspan="2" style="border-right: hidden;"></td>
-							<td colspan="3" style="border-right: hidden;"></td>
+							<td colspan="3""></td>
 						</tr>
 						<tr>
 							<th scope="row" style="border-right: hidden;">차량번호</th>

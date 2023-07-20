@@ -59,10 +59,10 @@
 							<td></td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td	class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-vrty" name="srch-inp-vrty" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-itemVrty" name="srch-btn-itemVrty" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
@@ -71,7 +71,7 @@
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-snpt" name="srch-slt-snpt" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input"">
 								<sbux-button id="srch-btn-snpt" name="srch-btn-snpt" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
 					</tbody>
