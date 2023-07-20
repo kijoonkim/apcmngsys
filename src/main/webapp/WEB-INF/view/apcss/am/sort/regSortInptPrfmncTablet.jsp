@@ -15,11 +15,11 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-				<h3 class="box-title" style="line-height: 30px;">▶선별투입등록(테블릿)</h3>
+				<h3 class="box-title" style="line-height: 30px;">▶선별실적등록(테블릿)</h3>
 				</div>
 				<div style="margin-left: auto;">
 					<p class="ad_input_row">
-						<sbux-checkbox id="check_all" name="check_all" uitype="normal" text="포장실적 자동등록" class="check"></sbux-checkbox>
+						<sbux-checkbox id="chk-frmlPrfmncAtmtcReg" name="chk-frmlPrfmncAtmtcReg" uitype="normal" text="포장실적 자동등록" class="check"></sbux-checkbox>
 					</p>
 						<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
 						<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger"></sbux-button>
@@ -50,9 +50,7 @@
 						<tr>
 							<th scope="row">선별기명</th>
 							<td colspan= "2" class="td_input"  style="border-right:hidden ;">
-								<sbux-select id="slt-fcltNm" name="slt-fcltNm" uitype="single" class="form-control input-sm">
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="slt-fcltNm" name="slt-fcltNm" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td colspan="2">
 								<p class="ad_input_row">
@@ -97,14 +95,10 @@
 						<tr>
 							<th scope="row">품목 / 품종</th>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-select id="slt-item" name="slt-item" uitype="single" class="form-control input-sm" disabled>
-									<option-item>선택</option-item>
-								</sbux-select> 
+								<sbux-select id="slt-item" name="slt-item" uitype="single" class="form-control input-sm" disabled unselected-text="선택"></sbux-select> 
 							</td>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-select id="slt-vrty" name="slt-vrty" uitype="single" class="form-control input-sm" disabled>
-									<option-item>선택</option-item>
-								</sbux-select> 
+								<sbux-select id="slt-vrty" name="slt-vrty" uitype="single" class="form-control input-sm" disabled unselected-text="선택"></sbux-select> 
 							</td>
 							<td colspan="2"></td>
 						</tr>
@@ -125,18 +119,14 @@
 							<tr>
 							<th scope="row">박스종류</th>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-select id="slt-bxKnd" name="slt-bxKnd" uitype="single" class="form-control input-sm" disabled>
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="slt-bxKnd" name="slt-bxKnd" uitype="single" class="form-control input-sm" disabled unselected-text="선택"></sbux-select>
 							</td>
 							<td colspan="3"></td>
 						</tr>
 						<tr>
 							<th scope="row">원물창고</th>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-select id="slt-rawMtrWarehouse" name="slt-rawMtrWarehouse" uitype="single" class="form-control input-sm" disabled>
-									<option-item>선택</option-item>
-								</sbux-select>
+								<sbux-select id="slt-rawMtrWarehouse" name="slt-rawMtrWarehouse" uitype="single" class="form-control input-sm" disabled unselected-text="선택"></sbux-select>
 							</td>
 						</tr>
 					</tbody>

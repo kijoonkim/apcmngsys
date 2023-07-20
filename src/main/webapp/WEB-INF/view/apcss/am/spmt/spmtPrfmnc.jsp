@@ -11,5 +11,192 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
+	<section class="content container-fluid">
+	<div class="box box-solid">
+		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+			<div>
+				<h3 class="box-title" style="line-height: 30px;"> ▶ 출하실적조회</h3>
+			</div>
+			<div style="margin-left: auto;">
+				<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+			</div>
+		</div>
+		<div class="box-body">
+			<!--[pp] 검색 -->
+			<div>
+			<table class="table table-bordered tbl_row tbl_fixed">
+				<caption>검색 조건 설정</caption>
+				<colgroup>
+					<col style="width: 7%">
+					<col style="width: 9%">
+					<col style="width: 9%">
+					<col style="width: 3%">
+					<col style="width: 7%">
+					<col style="width: 9%">
+					<col style="width: 8%">
+					<col style="width: 7%">
+					<col style="width: 7%">
+					<col style="width: 7%">
+					<col style="width: 6%">
+					<col style="width: 3%">
+				</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
+						<td colspan= "2" class="td_input" style="border-right:hidden;">
+							<input type="text" class="form-control input-sm" placeholder="" disabled>
+						</td>
+						<td colspan="9"></td>
+					</tr>
+					<tr>
+
+						<th scope="row">출하일자</th>
+						<td colspan="2" class="td_input"  style="border-right: hidden;">
+							<div class="dp_inline wd_120 va_m">
+								<div class="input-group date">
+									<div class="input-group-addon" style="">
+										<i class="fa fa-calendar"></i>
+									</div>
+									<input type="text" name="datepicker" placeholder="2023.01.01" class="form-control pull-right input-sm">
+								</div>
+							</div>
+							~
+							<div class="dp_inline wd_120 va_m">
+								<div class="input-group date">
+									<div class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</div>
+									<input type="text" name="datepicker" placeholder="2023.01.31" class="form-control pull-right input-sm">
+								</div>
+							</div>
+						</td>
+						<td style="border-right: hidden;">&nbsp;</td>
+						<th scope="row" style="border-right: hidden;">품종</th>
+						<td colspan="1" class="td_input"  style="border-right: hidden;">
+							<select class="form-control input-sm">
+								<option>멀티선택</option>
+							</select>
+						</td>
+						<td class="td_input" style="border-right: hidden;">
+							<button style="font-size: x-small;" class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+						</td>
+						<th scope="row" style="border-right: hidden;">거래처</th>
+						<td colspan="2" class="td_input"  style="border-right: hidden;">
+							<select class="form-control input-sm">
+								<option></option>
+							</select>
+						</td>
+						<td class="td_input" style="border-right: hidden;">
+							<button style="font-size: x-small;" class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th scope="row">배송지</th>
+						<td class="td_input" style="border-right: hidden;" >
+							<select class="form-control input-sm">
+							</select>
+						</td>
+						<td class="td_input"  style="border-right: hidden;">
+							<button style="font-size: x-small;" class="btn btn-xs btn-outline-dark" type="button">찾기</button>
+						</td>
+						<td style="border-right: hidden;">&nbsp;</td>
+						<th scope="row">운송사</th>
+						<td class="td_input" style="border-right: hidden;">
+							<select class="form-control input-sm">
+							</select>
+						</td>
+						<td></td>
+						<th scope="row">차량번호</th>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+							<input type="text" name="" placeholder="" class="form-control pull-right input-sm">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			<!--[pp] //검색 -->
+			<!--[pp] 검색결과 -->
+					<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>출하 내역</span></li>
+					</ul>
+				</div>
+				<div>
+				<table class="table table-bordered table-hover tbl_col tbl_fixed">
+					<colgroup>
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 4%">
+						<col style="width: 9%">
+						<col style="width: 4%">
+						<col style="width: 4%">
+						<col style="width: 4%">
+						<col style="width: 4%">
+						<col style="width: 4%">
+						<col style="width: 4%">
+					</colgroup>
+					<thead>
+						<tr>
+							<th rowspan="2">출하일지</th>
+							<th rowspan="2">상품명</th>
+							<th rowspan="2">품종</th>
+							<th rowspan="2">규격</th>
+							<th rowspan="2">브랜드</th>
+							<th rowspan="2">거래처</th>
+							<th rowspan="2">배송지</th>
+							<th rowspan="2">운송사</th>
+							<th rowspan="2">차량번호</th>
+							<th rowspan="2">운반비</th>
+							<th colspan="2">출하</th>
+						</tr>
+						<tr>
+							<th scope="col">수량</th>
+							<th scope="col">중량</th>
+						</tr>
+
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<th colspan="9">합계</th>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+					</thead>
+				</table>
+				</div>
+			</div>
+			<!--[pp] //검색결과 -->
+		</div>
+	</section>
 </body>
 </html>
