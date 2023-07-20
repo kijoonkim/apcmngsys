@@ -57,21 +57,22 @@
 								<sbux-datepicker id="dtp-wrhsYmd" name="dtp-wrhsYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
-							<th scope="row">생산자/품목</th>
+							<th scope="row">생산자</th>
 							<td class="td_input" style="border-right:hidden;">
-								<sbux-input uitype="text" id="inp-itemNm" name="inp-itemNm" class="form-control input-sm"></sbux-input>
-								<sbux-input uitype="hidden" id="inp-itemCd" name="inp-itemCd" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="inp-prdcrNm" name="inp-prdcrNm" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<!-- <sbux-button id="btnSrchItem" name="btnSrchItem" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-itemCrtr" onclick="fn_modalItem"></sbux-button> -->
 								<sbux-button id="btnSrchPrdcr" name="btnSrchPrdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
 							</td>
+							<td class="td_input" style="border-right: hidden;"></td>
+							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="select-itemCd" name="select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<!-- <sbux-button id="btnSrchItem" name="btnSrchItem" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-itemCrtr" onclick="fn_modalItem"></sbux-button> -->
 							</td>
-							<th scope="row">품종</th>
 							<td class="td_input" style="border-right: hidden;" >
 								<sbux-select id="select-vrtyCd" name="select-vrtyCd" uitype="single" jsondata-ref="jsonComVrtyCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<!-- <sbux-button id="btnSrchVrty" name="btnSrchVrty" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrtyCrtr" onclick="fn_modalVrty"></sbux-button> -->
 							</td>
 						</tr>
 						<tr>
@@ -198,6 +199,7 @@
 							<th scope="row">비고</th>
 							<td colspan="3" class="td_input">
 								<sbux-input uitype="text" id="inp-rmrk" name="inp-rmrk" class="form-control input-sm"></sbux-input>
+								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" class="btn btn-xs btn-outline-dark" text="입력" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"></sbux-button>
 							</td>
 						</tr>
 					</tbody>
@@ -215,7 +217,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:340px;"></div>
 				</div>
 			</div>
 				<!--[pp] //검색결과 -->
@@ -231,7 +233,7 @@
 
     <!-- 사용자 선택 Modal -->
     <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
@@ -252,6 +254,22 @@
     <div id="body-modal-pltBx">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/pltBxPopup.jsp"></jsp:include>
     </div>
+
+    <!-- 품종 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
+    </div>
+    <div id="body-modal-vrtyCrtr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    </div>
+
+    <!-- 거래처 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-cnpt">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 
@@ -270,6 +288,8 @@
  		gfn_setComCdSBSelect('rdo-wrhsSeCd', jsonRadioWrhsSeCd, 'WRHS_SE_CD');	// 시스템유형
 
 	} */
+
+	var jsonWghPrfmnc = [];
 
 	function fn_createWghPrfmncGrid() {
         var SBGridProperties = {};

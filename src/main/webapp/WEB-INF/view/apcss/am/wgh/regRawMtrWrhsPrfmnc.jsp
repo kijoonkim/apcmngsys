@@ -25,10 +25,6 @@
 					<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
 				</div>
 			</div>
-			
-			
-			<div>
-			</div>
 			<div class="box-body">
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -60,8 +56,8 @@
 						
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 3%">
 						<col style="width: 6%">
+						<col style="width: 3%">
 						
 					</colgroup>
 					<tbody>
@@ -73,7 +69,7 @@
 						</tr>
 							<th scope="row">입고일자</th>
 							<td colspan="6" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" class="form-control pull-right input-sm"/>
 							</td>
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">입고</th>
@@ -117,21 +113,22 @@
 									<sbux-radio id="srch-rdo-trsprt3" name="srch-rdo-trsprt" uitype="normal" class="radio_label" text="기타"/>
 								</p>
 							</td>
-							<th scope="row">품목</th>
-							<td colspan= "2" class="td_input" style="border-right: hidden;">
+							<th scope="row">생산자</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input uitype="text" id="srch-inp-prdcr" name="srch-inp-prdcr" class="form-control input-sm"/>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="srch-btn-prdcr" name="srch-btn-prdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
+							</td>
+							<td colspan="4">&nbsp;</td>
+							<th scope="row">품목/품종</th>
+							<td class="td_input" style="border-right: hidden;">
 								<sbux-select uitype="single" id="srch-slt-gds" name="srch-slt-gds" class="form-control input-sm"/>
-							</td>
-	             			<td colspan="4" style="border-right: hidden;">&nbsp;</td>
-							<th scope="row">생산지/품종</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-plor" name="srch-inp-plor" class="form-control input-sm"/>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-button uitype="normal" id="srch-btn-plor" name="srch-btn-plor" class="btn btn-xs btn-outline-dark" text="찾기"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
 							</td>
+							<td>&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row">수량/중량</th>
@@ -155,9 +152,8 @@
 							<th scope="row">박스종류</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select uitype="single" id="srch-slt-boxKnd" name="srch-slt-boxKnd" class="form-control input-sm"/>
-<!-- 								<select class="form-control input-sm"> -->
-<!-- 								</select> -->
 							</td>
+							<td colspan="2">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row">창고</th>
@@ -184,7 +180,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-rmrk" name="srch-inp-rmrk" class="form-control input-sm"/>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
+							<td colspan="2">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row">등급</th>
@@ -201,55 +197,31 @@
 				</table>
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-						<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>　원물입고 내역</span></li>
-						</ul>
-					<div class="ad_tbl_toplist">
-						<sbux-button uitype="normal" id="btnDwnld" name="btnDwnld" class="btn btn-xs btn-outline-dark" text="찾기"/>
-						<sbux-button uitype="normal" id="btnUld" name="btnUld" class="btn btn-xs btn-outline-dark" text="찾기"/>
-						</div>
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>　원물입고 내역</span></li>
+					</ul>
+				<div class="ad_tbl_toplist">
+					<sbux-button uitype="normal" id="btnDwnld" name="btnDwnld" class="btn btn-xs btn-outline-dark" text="찾기"/>
+					<sbux-button uitype="normal" id="btnUld" name="btnUld" class="btn btn-xs btn-outline-dark" text="찾기"/>
 					</div>
-					<div class="sbt-wrap-body">
-						<div class="sbt-grid">
-							<div id="inptCmndDsctnGridArea" style="height:340px;"></div>
-						</div>
-					</div>
-
-					<div class="sbt-wrap-body">
-						<div class="sbt-grid">
-							<div id="inptCmndDsctnGridArea2" style="height:340px;"></div>
-						</div>
-					</div>
-					<div class="table-responsive tbl_scroll_sm">
-						<table class="table table-bordered table-hover tbl_col tbl_fixed">
-							<caption>검색결과 목록</caption>
-							<colgroup>
-								<col style="width: 30%">
-								<col style="width: 10%">
-								<col style="width: 10%">
-								<col style="width: 10%">
-								<col style="width: 10%">
-
-							</colgroup>
-							<thead>
-								<tr>
-									<th scope="col">합계</th>
-									<th scope="col">수량</th>
-									<td scope="col">&nbsp;</td>
-									<th scope="col">Kg중량</th>
-									<td>&nbsp;</td>
-								</tr>
-							</thead>
-						</table>
-
-					</div>
-
 				</div>
-				<!--[pp] //검색결과 -->
+				<div class="sbt-wrap-body">
+					<div class="sbt-grid">
+						<div id="inptCmndDsctnGridArea" style="height:340px;"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
+		
+    <!-- 생산자 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+    </div>
+    <div id="body-modal-prdcr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    </div>
     <!-- 차량 선택 Modal -->
     <div>
         <sbux-modal id="modal-vhcl" name="modal-vhcl" uitype="middle" header-title="차량 선택" body-html-id="body-modal-vhcl" footer-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -265,7 +237,13 @@
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid();
-		fn_createGrid2();
+// 		fn_createGrid2();
+
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("srch-dtp-wrhsYmd", year+month+day);
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
@@ -299,31 +277,6 @@
 	        {caption: ["입고구분"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["운송구분"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["등급"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	    ];
-	    
-	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
-
-	}
-	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList2 = []; // 그리드의 참조 데이터 주소 선언
-	
-	function fn_createGrid2() {
-	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'inptCmndDsctnGridArea2';
-	    SBGridProperties.id = 'inptCmndDsctnList2';
-	    SBGridProperties.jsonref = 'jsoninptCmndDsctnList2';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.explorerbar = 'sortmove';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 20,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
-	    SBGridProperties.columns = [
 	        {caption: ["차량번호"],		ref: 'msgKey',      type:'output',  width:'60px',    style:'text-align:center'},
 	        {caption: ["박스수량"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
 	        {caption: ["중량 Kg"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
@@ -336,6 +289,38 @@
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
+// 	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
+// 	var jsoninptCmndDsctnList2 = []; // 그리드의 참조 데이터 주소 선언
+	
+// 	function fn_createGrid2() {
+// 	    var SBGridProperties = {};
+// 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea2';
+// 	    SBGridProperties.id = 'inptCmndDsctnList2';
+// 	    SBGridProperties.jsonref = 'jsoninptCmndDsctnList2';
+// 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+// 	    SBGridProperties.selectmode = 'byrow';
+// 	    SBGridProperties.explorerbar = 'sortmove';
+// 	    SBGridProperties.extendlastcol = 'scroll';
+// 	    SBGridProperties.paging = {
+// 			'type' : 'page',
+// 		  	'count' : 5,
+// 		  	'size' : 20,
+// 		  	'sorttype' : 'page',
+// 		  	'showgoalpageui' : true
+// 	    };
+// 	    SBGridProperties.columns = [
+// 	        {caption: ["차량번호"],		ref: 'msgKey',      type:'output',  width:'60px',    style:'text-align:center'},
+// 	        {caption: ["박스수량"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
+// 	        {caption: ["중량 Kg"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
+// 	        {caption: ["박스종류"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
+// 	        {caption: ["보관창고"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
+// 	        {caption: ["계량번호"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
+// 	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
+// 	    ];
+	    
+// 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
+
+// 	}
 	
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
