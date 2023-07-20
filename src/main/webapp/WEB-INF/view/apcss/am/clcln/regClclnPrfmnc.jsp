@@ -13,7 +13,7 @@
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
 				<h3 class="box-title" style="line-height: 30px;"> ▶ 매출확정등록</h3>
 			</div>
@@ -72,15 +72,14 @@
 							<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 						</td>
 						<td class="td_input">
-							<sbux-button id="srch-btn-itemVrty" name="srch-btn-itemVrty" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 						</td>
 					</tr>
 					<tr>
 						<th scope="row">거래처</th>
-						<td colspan="2" class="td_input" style="border-right: hidden;">
+						<td class="td_input" style="border-right: hidden;">
 							<sbux-select id="srch-slt-cnpt" name="srch-slt-cnpt" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 						</td>
-						<td class="td_input" style="border-right: hidden;">
+						<td class="td_input">
 							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 						</td>
 					</tr>

@@ -92,6 +92,7 @@
 						<td colspan="2" class="td_input" style="border-right: hidden;">
 							<sbux-select id="srch-slt-trsprt" name="srch-slt-trsprt" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 						</td>
+						<td></td>
 					</tr>
 					<tr>
 						<th scope="row">차량번호</th>
