@@ -68,7 +68,7 @@
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2" style="border-right: hidden;"></td>
+							<td colspan="5"></td>
 						</tr>
 						<tr>
 							<th scope="row">품목 / 품종</th>
@@ -78,30 +78,24 @@
 							<td colspan="4"class="td_input" style="border-right: hidden;">
 								<sbux-select id="select-vrtyCd" name="select-vrtyCd" uitype="single" jsondata-ref="jsonComVrtyCd" unselected-text="단일선택" class="form-control input-sm"></sbux-select>
 							</td>
-							<td colspan="2"class="td_input"  style="border-right: hidden;">
+							<td colspan="3"class="td_input"  style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-checkbox id="chk-fxng" name="chk-fxng" uitype="normal" ></sbux-checkbox>
 									<label class="check_label" for="check_default" >고정</label>
 								</p>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
 							<td colspan="4" style="border-right: hidden;"></td>
 						</tr>
 						<tr>
 							<th scope="row">계량일자</th>
-							<td colspan="6"class="td_input" style="border-right: hidden;">
-								<div class="dp_inline wd_125 va_m">
-									<div class="input-group date">
-										<sbux-datepicker id="dtp-wrhsYmd" name="dtp-wrhsYmd" uitype="popup" ></sbux-datepicker>
-									</div>
-								</div>
+							<td colspan="6" class="td_input" style="border-right: hidden;">
+								<sbux-datepicker id="dtp-wrhsYmd" name="dtp-wrhsYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="2"  style="border-right: hidden;"></td>
+							<td colspan="5"></td>
 						</tr>
 						<tr>
 							<th scope="row">차량번호/성명</th>
@@ -111,7 +105,7 @@
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"></sbux-button>
 							</td>
-							<td colspan="3"class="td_input" style="border-right: hidden;">
+							<td colspan="4"class="td_input" >
 								<sbux-input uitype="text" id="inp-drvrNm" name="inp-drvrNm" class="form-control input-sm" disabled></sbux-input>
 							</td>
 						</tr>
@@ -140,16 +134,17 @@
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td class="td_input"><label class="bold">실중량 Kg</label></td>
-							<td class="td_input">
+							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="inp-actlWght" name="inp-actlWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
+							<td></td>
 						</tr>
 						<tr>
 							<th scope="row">입고창고</th>
 							<td class="td_input"  style="border-right: hidden;">
 								<sbux-select id="select-warehouseSeCd" name="select-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouseSeCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
-							<td colspan="3"class="td_input" style="border-right: hidden;">
+							<td colspan="14"class="td_input" >
 								<p class="ad_input_row">
 									<sbux-checkbox id="warehouseSeCd-chk-fxng" name="warehouseSeCd-chk-fxng" uitype="normal" ></sbux-checkbox>
 									<label class="check_label" for="check_default" >고정</label>
@@ -168,20 +163,21 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="inp-bxWght" name="inp-bxWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"><label class="bold">Kg</label></td>
+							<td colspan="8" class="td_input" ><label class="bold">Kg</label></td>
 						</tr>
 						<tr>
 							<th scope="row" >입고등급</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="select-grdCd" name="select-grdCd" uitype="single" jsondata-ref="jsonComGrdCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
+							<td colspan="14"></td>
 						</tr>
 						<tr>
 							<th scope="row">정산중량</th>
 							<td class="td_input"  style="border-right: hidden;">
 								<sbux-input uitype="text" id="inp-clclnWght" name="inp-clclnWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
-							<td class="td_input"  style="border-right: hidden;"><label class="bold">Kg</label></td>
+							<td colspan="14" class="td_input" ><label class="bold">Kg</label></td>
 						</tr>
 					</tbody>
 				</table>
@@ -204,7 +200,7 @@
 	</section>
 	<!-- 사용자 선택 Modal -->
     <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
@@ -236,7 +232,7 @@
 			gfn_setComCdSBSelect('rdo-wrhsSeCd', jsonRadioWrhsSeCd, 'WRHS_SE_CD');	// 시스템유형
 
 	} */
-
+	var jsonWghPrfmnc = [];
 
 	function fn_createWghPrfmncGrid() {
 	    var SBGridProperties = {};
