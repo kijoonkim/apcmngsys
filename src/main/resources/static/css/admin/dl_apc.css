@@ -5,12 +5,12 @@
 
 /* .case_b{width:1200px; margin:20px auto;} */
 .case_b{width:100%; margin:20px auto;}
-.case_b .case_in{background: #e8f1f9; width: 95%; position: relative; height: 45px; padding: 10px;  }
+.case_b .case_in{background: #e8f1f9; width: 100%; position: relative; height: 45px; padding: 10px;  }
 .case_b .case_in p{ position: absolute; top: 12px; left: 10px;  }
 .case_b .case_in p input{   vertical-align:top; margin-right:5px; }
 .case_b .case_in .in{width: 90%; position: absolute; top:5px; left: 100px; }
 .case_b .case_in ul{width: 100%; display: flex; overflow: hidden;   }
-.case_b .case_in ul::after{content: ""; background: #343434; height: 1px; width: 100%; position: absolute; top: 15px; right: 0;}
+.case_b .case_in ul::before{content: ""; background: #343434; height: 1px; width: 100%; position: absolute; top: 15px; right: 0;}
 .case_b .case_in li{ margin-left: 10px; width:85px; height:30px; text-align: center; font-size: 14px; line-height:30px; color: #343434;  z-index:999;}
 .case_b .case_in li:first-child{margin-left: 0;}
 .case_b .case_in li.blue1_b{width: 9%; background: #488fbb; color: #fff; border: 1px #343434 solid;}

@@ -26,20 +26,27 @@
 						<caption>검색 조건 설정</caption>
 						<colgroup>
 							<col style="width: 7%">
-							<col style="width: 20%">
+							<col style="width: 15%">
 							<col style="width: 7%">
-							<col style="width: 20%">
+							<col style="width: 15%">
+							<col style="width: 7%">
+							<col style="width: 15%">
 							<col style="width: auto">
 						</colgroup>
 						<tbody>
 							<tr>
 								<th scope="row">APC명</th>
 								<th>
-									<sbux-input id=itemApcNm name="itemApcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+									<sbux-input id=spcfct-inp-apcNm name="spcfct-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 								</th>
 								<th scope="row">품목명</th>
-								<th  style="border-right-style: hidden;">
-									<sbux-input id=itemNm name="itemNm" uitype="text" class="form-control input-sm"></sbux-input>
+								<th style="border-right-style: hidden;">
+									<sbux-input id=spcfct-inp-itemNm name="spcfct-inp-itemNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+									<sbux-input id=spcfct-inp-itemCd name="spcfct-inp-itemCd" uitype="hidden" class="form-control input-sm"></sbux-input>
+								</th>
+								<th scope="row">규격명</th>
+								<th style="border-right-style: hidden;">
+									<sbux-input id=spcfct-inp-spcfctNm name="spcfct-inp-spcfctNm" uitype="text" class="form-control input-sm"></sbux-input>
 								</th>
 								<th>&nbsp;</th>
 							</tr>
@@ -55,14 +62,14 @@
 
 					<div class="col-sm-6">
 						<div>
-							<div id="itemGridArea" style="height:157px; width: 100%;"></div>
+							<div id="grdGridArea" style="height:157px; width: 100%;"></div>
 						</div>
 					</div>
 
 
 					<div class="col-sm-6">
 						<div>
-							<div id="apcItemGridArea" style="height:157px; width: 100%;"></div>
+							<div id="apcGrdGridArea" style="height:157px; width: 100%;"></div>
 						</div>
 					</div>
 					<b>&nbsp;</b>
@@ -81,12 +88,11 @@
 							<tr>
 								<th scope="row">품목명</th>
 								<th style="border-right-style: hidden;">
-									<sbux-input id=vrtyItemNm name="vrtyItemNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
-									<sbux-input id=vrtyItemCd name="vrtyItemCd" uitype="hidden" class="form-control input-sm"></sbux-input>
+									<sbux-input id=spcfct-inp-itemNm name="spcfct-inp-itemNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 								</th>
-								<th scope="row">품종명</th>
+								<th scope="row">규격명</th>
 								<th style="border-right-style: hidden;">
-									<sbux-input id=vrtyNm name="vrtyNm" uitype="text" class="form-control input-sm"></sbux-input>
+									<sbux-input id=spcfct-inp-spcfctNm name="spcfct-inp-spcfctNm" uitype="text" class="form-control input-sm"></sbux-input>
 								</th>
 								<th>&nbsp;</th>
 							</tr>
@@ -119,7 +125,6 @@
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
-
 	</section>
 </body>
 </html>
