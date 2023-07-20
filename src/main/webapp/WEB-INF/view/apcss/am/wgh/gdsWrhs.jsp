@@ -179,7 +179,7 @@
 	});
 
 	var inptCmndDsctnList =  []; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList = ['test']; // 그리드의 참조 데이터 주소 선언
+	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 	
 	function fn_createGrid2() {
 	    var SBGridProperties = {};

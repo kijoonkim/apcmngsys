@@ -98,9 +98,9 @@
 				
 				<div class="sbt-wrap-body">
 					<div class="ad_tbl_toplist">
-							<sbux-button uitype="normal" id="srch-btn-rawmtrInvntrDsctn" name="srch-btn-rawmtrInvntrDsctn" class="btn btn-md btn-outline-danger" text="원물재고 내역" onclick="fn_sample1()"></sbux-button>
-							<sbux-button uitype="normal" id="srch-btn-sortInvntrDsctn" name="srch-btn-sortInvntrDsctn" class="btn btn-md btn-outline-danger" text="선별재고 내역" onclick="fn_sample2()"></sbux-button>
-							<sbux-button uitype="normal" id="srch-btn-gdsInvntrDsctn" name="srch-btn-gdsInvntrDsctn" class="btn btn-md btn-outline-danger" text="상품재고 내역" onclick="fn_sample3()"></sbux-button>
+							<sbux-button uitype="normal" id="srch-btn-rawmtrInvntrDsctn" name="srch-btn-rawmtrInvntrDsctn" class="btn btn-sm btn-outline-danger" text="원물재고 내역" onclick="fn_sample1()"></sbux-button>
+							<sbux-button uitype="normal" id="srch-btn-sortInvntrDsctn" name="srch-btn-sortInvntrDsctn" class="btn btn-sm btn-outline-danger" text="선별재고 내역" onclick="fn_sample2()"></sbux-button>
+							<sbux-button uitype="normal" id="srch-btn-gdsInvntrDsctn" name="srch-btn-gdsInvntrDsctn" class="btn btn-sm btn-outline-danger" text="상품재고 내역" onclick="fn_sample3()"></sbux-button>
 					</div>
                     <div class="sbt-grid">
                         <div id="inptCmndDsctnGridArea" style="height:300px;"></div>
@@ -128,7 +128,7 @@
 	});
 
 	var inptCmndDsctnList = []; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList = ['TEST']; // 그리드의 참조 데이터 주소 선언
+	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 	
 	function fn_sample1(){
 		_SBGrid.destroy('inptCmndDsctnList');
@@ -170,10 +170,10 @@
 	        {caption: ["입고","입고"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["운송","운송"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["현물창고","현물창고"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["재고","수량"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["재고","수량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	        {caption: ["재고","중량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	        {caption: ["이송창고","이송창고"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["이송","수량"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["이송","수량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	        {caption: ["이송","중량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	    ];
 	    
@@ -210,10 +210,10 @@
 	        {caption: ["품종","품종"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["규격","규격"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["현물창고","현물창고"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["재고","수량"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["재고","수량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	        {caption: ["재고","중량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	        {caption: ["이송창고","이송창고"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["이송","수량"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["이송","수량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	        {caption: ["이송","중량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	    ];
 	    
@@ -251,10 +251,10 @@
 	        {caption: ["규격","규격"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["등급","등급"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["현물창고","현물창고"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["재고","수량"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["재고","수량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	        {caption: ["재고","중량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	        {caption: ["이송창고","이송창고"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["이송","수량"],		ref: 'msgKey',      type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["이송","수량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	        {caption: ["이송","중량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	    ];
 	    
