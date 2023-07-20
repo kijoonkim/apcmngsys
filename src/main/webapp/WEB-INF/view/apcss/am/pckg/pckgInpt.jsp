@@ -20,7 +20,6 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnDocSort" name="btnDocSort" uitype="normal" class="btn btn-sm btn-success" text="선별확인서" onclick="fn_docSort"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
-					<sbux-button id="btnEnd" name="btnEnd" uitype="normal" class="btn btn-sm btn-outline-danger" text="종료"></sbux-button>
 				</div>
 			</div>
 			
@@ -57,7 +56,7 @@
 								<sbux-datepicker id="srch-dtp-toPckgDate" name="srch-dtp-toPckgDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
-							<th scope="row">품목</th>
+							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -66,22 +65,13 @@
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchItem" name="btnSrchItem" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-itemCrtr" onclick="fn_modalItem"></sbux-button>
-							</td>
-							<td class="td_input" style="border-right: hidden;">&nbsp;</td>
-							<th scope="row">품종</th>
-							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td class="td_input">
-								<sbux-button id="btnSrchVrty" name="btnSrchVrty" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
-							</td>
-						</tr>
-						<tr>
+							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">포장기</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -90,7 +80,9 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">&nbsp;</td>
+							<td class="td_input"></td>
+						</tr>
+						<tr>
 							<th scope="row" style="border-right: hidden;">저장창고</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -98,6 +90,7 @@
 										<sbux-select id="srch-slt-strg" name="srch-slt-strg" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
+							</td>
 							<td colspan= "2" class="td_input" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">규격</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -107,16 +100,16 @@
 									</div>
 								</div>
 							</td>
-							<td class="td_input">&nbsp;</td>
-						</tr>
-						<tr>
+							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
 							<th scope="row" style="border-right: hidden;">대표생산자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-rprsPrdctr" name="srch-inp-rprsPrdctr" uitype="text" class="form-control input-sm" title="대표생산자"></sbux-input>
 						    </td>
-						    <td colspan="2" class="td_input" style="border-right: hidden;">
+						    <td class="td_input">
 					    		<sbux-button id="btnSrchRprsPrdctr" name="btnSrchRprsPrdctr" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
 							</td>
+						</tr>
+						<tr>
 							<th scope="row">상품등급</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">

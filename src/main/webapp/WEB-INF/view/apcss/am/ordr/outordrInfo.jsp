@@ -20,7 +20,6 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" text="조회" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-dark" text="등록" onclick="fn_insert"></sbux-button>
-					<sbux-button id="btnEnd" name="btnEnd" uitype="normal" class="btn btn-sm btn-outline-dark" text="종료"></sbux-button>
 				</div>
 			</div>
 			
@@ -162,8 +161,6 @@
 <script type="text/javascript">
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createOutordrInfoGrid();
-		fn_createOutordrGdsInfoGrid();
-		fn_createOutordrCntrInfoGrid();
 		
 		let today = new Date();
 		let year = today.getFullYear();
@@ -177,7 +174,7 @@
 	
 	var jsonOutordrInfoList = ['test','test']; // 그리드의 참조 데이터 주소 선언
 	
-	var comboUesYnJsData1 = ['규격']
+	var comboUesYnJsData1 = ['']
 	
 	function fn_createOutordrInfoGrid() {
         var SBGridProperties = {};
@@ -201,21 +198,8 @@
             {caption: ['공급자명'], ref: 'splyName', width: '100px', type: 'output'},
             {caption: ['상품명'], ref: 'gdsName', width: '100px', type: 'output'},
             {caption: ['상품코드'], ref: 'gdsCd', width: '100px', type: 'output'},
-            {caption: ['배송지'], ref: 'spmtAddr', width: '100px', type: 'output'}
-        ];
-        grdOutordrInfo = _SBGrid.create(SBGridProperties);
-    }
-	
-	function fn_createOutordrGdsInfoGrid() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdOutordrGdsInfo';
-	    SBGridProperties.id = 'grdOutordrGdsInfo';
-	    SBGridProperties.jsonref = 'jsonOutordrInfoList';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-        	{caption: ['품목'], ref: 'item', width: '100px', type: 'output'},
+            {caption: ['배송지'], ref: 'spmtAddr', width: '100px', type: 'output'},
+            {caption: ['품목'], ref: 'item', width: '100px', type: 'output'},
             {caption: ['품종'], ref: 'vrty', width: '100px', type: 'output'},
             {caption: ['규격'], ref: 'spcfct', width: '100px', type: 'output'},
             {caption: ['입수'], ref: 'acqs', width: '100px', type: 'output'},
@@ -228,21 +212,8 @@
             {caption: ['LOT'], ref: 'lot', width: '100px', type: 'output'},
             {caption: ['세액'], ref: 'txAmt', width: '100px', type: 'output'},
             {caption: ['발주금액'], ref: 'ordrAmt', width: '100px', type: 'output'},
-            {caption: ['입고형태'], ref: 'wrhsForm', width: '100px', type: 'output'}
-        ];
-        grdOutordrGdsInfo = _SBGrid.create(SBGridProperties);
-    }
-	
-	function fn_createOutordrCntrInfoGrid() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdOutordrCntrInfo';
-	    SBGridProperties.id = 'grdOutordrCntrInfo';
-	    SBGridProperties.jsonref = 'jsonOutordrInfoList';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-        	{caption: ['문서번호'], ref: 'docNo', width: '100px', type: 'output'},
+            {caption: ['입고형태'], ref: 'wrhsForm', width: '100px', type: 'output'},
+            {caption: ['문서번호'], ref: 'docNo', width: '100px', type: 'output'},
             {caption: ['도크정보'], ref: 'dockInfo', width: '100px', type: 'output'},
             {caption: ['센터구분'], ref: 'cntrSe', width: '100px', type: 'output'},
             {caption: ['바이어명'], ref: 'byrName', width: '100px', type: 'output'},
@@ -253,7 +224,7 @@
             {caption: ['접수APC (농협)'], ref: 'cryn', width: '100px', type: 'output'},
             {caption: ['생산지시번호'], ref: 'wght', width: '100px', type: 'output'}
         ];
-        grdOutordrCntrInfo = _SBGrid.create(SBGridProperties);
+        grdOutordrInfo = _SBGrid.create(SBGridProperties);
     }
 </script>
 </html>

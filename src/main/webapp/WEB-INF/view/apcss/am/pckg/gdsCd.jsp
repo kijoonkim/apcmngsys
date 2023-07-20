@@ -19,7 +19,6 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
-					<sbux-button id="btnEnd" name="btnEnd" uitype="normal" class="btn btn-sm btn-outline-danger" text="종료"></sbux-button>
 				</div>
 			</div>
 			
@@ -35,7 +34,8 @@
 						<col style="width: 9%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 9%">
+						<col style="width: 6%">
+						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 9%">
@@ -53,7 +53,7 @@
 								<sbux-input id="srch-inp-gdsCd" name="srch-inp-gdsCd" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
-							<th class="ta_r">품목</th>
+							<th class="ta_r">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -62,21 +62,13 @@
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchItem" name="btnSrchItem" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-itemCrtr" onclick="fn_modalItem"></sbux-button>
-							</td>
-							<th class="ta_r">품종</th>
-							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td class="td_input">
-								<sbux-button id="btnSrchVrty" name="btnSrchVrty" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
-							</td>
-						</tr>
-						<tr>
+							<td class="td_input" style="border-right: hidden;"></td>
 							<th>규격</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -85,7 +77,9 @@
 									</div>
 								</div>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input"></td>
+						</tr>
+						<tr>
 							<th class="ta_r">상품등급</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -103,9 +97,7 @@
 									</div>
 								</div>
 							</td>
-							<td class="td_input"></td>
-						</tr>
-						<tr>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 							<th>산지</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -114,7 +106,9 @@
 									</div>
 								</div>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input"></td>
+						</tr>
+						<tr>
 							<th class="ta_r">포장구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">

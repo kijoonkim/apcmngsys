@@ -22,7 +22,6 @@
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-danger" text="등록" onclick="fn_insert"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
-					<sbux-button id="btnEnd" name="btnEnd" uitype="normal" class="btn btn-sm btn-outline-danger" text="종료"></sbux-button>
 				</div>
 			</div>
 			
@@ -163,165 +162,16 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<table class="table table-bordered table-hover tbl_col tbl_fixed">
-						<caption>검색결과 목록</caption>
-						<colgroup>
-							<col style="width: 5%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-						</colgroup>
-						<thead>
-							<tr>
-								<th scope="col">선택</th>
-								<th scope="col">발주유형</th>
-								<th scope="col">발주일자</th>
-								<th scope="col">납기일자</th>
-								<th scope="col">거래처</th>
-								<th scope="col">상품명</th>
-								<th scope="col">상품코드</th>
-								<th scope="col">배송처</th>
-								<th scope="col">품목</th>
-								<th scope="col">품종</th>
-								<th scope="col">규격</th>
-								<th scope="col">발주금액</th>
-							</tr>
-						</thead>
-						<tbody>
-						  <tr>
-							<th scope="row" class="td_input">
-									<p class="ad_input_row">
-										<input type="checkbox" class="check" id="check1">
-										<label class="check_label ta_i" for="check1">선택</label>
-									</p>
-								</th>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-							<th scope="row" class="td_input">
-									<p class="ad_input_row">
-										<input type="checkbox" class="check" id="check1">
-										<label class="check_label ta_i" for="check1">선택</label>
-									</p>
-								</th>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-							<th scope="row" class="td_input">
-									<p class="ad_input_row">
-										<input type="checkbox" class="check" id="check1">
-										<label class="check_label ta_i" for="check1">선택</label>
-									</p>
-								</th>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-						</tbody>
-					</table>
-					<table class="table table-bordered table-hover tbl_col tbl_fixed">
-						<caption>검색결과 목록</caption>
-						<colgroup>
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-							<col style="width: 8%">
-						</colgroup>
-						<thead>
-							<tr>
-								<th scope="col">세액</th>
-								<th scope="col">발주수량</th>
-								<th scope="col">입수</th>
-								<th scope="col">낱개수량</th>
-								<th scope="col">박스단가</th>
-								<th scope="col">낱개단가</th>
-								<th scope="col">등록일자</th>
-								<th scope="col">등록자</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-						</tbody>
-					</table>
+					<div id="sb-area-grdRegOutordrInfo" style="width:100%;height:300px;"></div>
 				</div>
-				<!--[pp] //검색결과 -->
+				<!--[pp] 검색결과 -->
 			</div>
 		</div>
 	</section>
 </body>
 <script type="text/javascript">
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_createRegOutordrInfoGrid1();
-		fn_createOutordrGdsInfoGrid2();
+		fn_createRegOutordrInfoGrid();
 		
 		let today = new Date();
 		let year = today.getFullYear();
@@ -333,12 +183,12 @@
 	
 	var jsonRegOutordrInfoList = ['test','test']; // 그리드의 참조 데이터 주소 선언
 	
-	var comboUesYnJsData1 = ['규격']
+	var comboUesYnJsData1 = ['선택']
 	
-	function fn_createRegOutordrInfoGrid1() {
+	function fn_createRegOutordrInfoGrid() {
         var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdRegOutordrInfo1';
-	    SBGridProperties.id = 'grdRegOutordrInfo1';
+	    SBGridProperties.parentid = 'sb-area-grdRegOutordrInfo';
+	    SBGridProperties.id = 'grdRegOutordrInfo';
 	    SBGridProperties.jsonref = 'jsonRegOutordrInfoList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
@@ -355,21 +205,8 @@
             {caption: ['품목'], ref: 'cryn', width: '100px', type: 'output'},
             {caption: ['품종'], ref: 'wght', width: '100px', type: 'output'},
             {caption: ['규격'], ref: 'gdsName', width: '100px', type: 'output'},
-            {caption: ['발주금액'], ref: 'item', width: '100px', type: 'output'}
-        ];
-        grdOutordrInfo = _SBGrid.create(SBGridProperties);
-    }
-	
-	function fn_createOutordrGdsInfoGrid2() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdRegOutordrInfo2';
-	    SBGridProperties.id = 'grdRegOutordrInfo2';
-	    SBGridProperties.jsonref = 'jsonRegOutordrInfoList';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-        	{caption: ['세액'], ref: 'gdsCd', width: '100px', type: 'output'},
+            {caption: ['발주금액'], ref: 'item', width: '100px', type: 'output'},
+            {caption: ['세액'], ref: 'gdsCd', width: '100px', type: 'output'},
             {caption: ['발주수량'], ref: 'gdsName', width: '100px', type: 'output'},
             {caption: ['입수'], ref: 'item', width: '100px', type: 'output'},
             {caption: ['낱개수량'], ref: 'spcfct', width: '100px', type: 'output'},
@@ -378,7 +215,7 @@
             {caption: ['등록일자'], ref: 'plor', width: '100px', type: 'output'},
             {caption: ['등록자'], ref: 'pckgKind', width: '100px', type: 'output'}
         ];
-        grdOutordrGdsInfo = _SBGrid.create(SBGridProperties);
+        grdOutordrInfo = _SBGrid.create(SBGridProperties);
     }
 </script>
 </html>
