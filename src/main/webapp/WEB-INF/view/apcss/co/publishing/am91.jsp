@@ -241,12 +241,20 @@
 							</div>
 							<!--[pp] //검색 -->
 							<!--[pp] 검색결과 -->
-									<div class="ad_tbl_top">
+							<div style="margin-left: auto;">
+								<div class="ad_tbl_top">
 									<ul class="ad_tbl_count">
 										<li><span>　투입지시 내역</span></li>
 										<li><label style="font-size:x-small;">　　　지시중량 : 99.999Kg　　　　실적중량 : 99.999Kg</label></li>
 									</ul>
+
+
+									    <input type="text" name="datepicker" placeholder="2023.01.01" >
+										<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
+										<button type="button" class="btn btn-sm btn-outline-danger">종료</button>
+							  		 </div>
 								</div>
+
 								<div>
 								<table class="table table-bordered table-hover tbl_col tbl_fixed">
 									<colgroup>
