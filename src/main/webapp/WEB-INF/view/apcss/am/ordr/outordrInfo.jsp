@@ -188,20 +188,20 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-        	{caption: [''], ref: 'gdsCd', width: '100px', type: 'checkbox'},
-            {caption: ['접수일자'], ref: 'gdsName', width: '100px', type: 'output'},
-            {caption: ['발주유형'], ref: 'item', width: '100px', type: 'output'},
-            {caption: ['접수여부'], ref: 'spcfct', width: '100px', type : 'inputcombo', 
+        	{caption: [''], ref: 'slt', width: '100px', type: 'checkbox'},
+            {caption: ['접수일자'], ref: 'rcptDate', width: '100px', type: 'output'},
+            {caption: ['발주유형'], ref: 'ordrType', width: '100px', type: 'output'},
+            {caption: ['접수여부'], ref: 'rcptYn', width: '100px', type : 'inputcombo', 
             	typeinfo : {ref:'comboUesYnJsData1', label:'label', value:'value', oneclickedit: true, displayui : true}},
-            {caption: ['발주번호'], ref: 'gdsGrd', width: '100px', type: 'output'},
-            {caption: ['거래처명'], ref: 'brand', width: '100px', type: 'output'},
-            {caption: ['납기일자'], ref: 'plor', width: '100px', type: 'output'},
-            {caption: ['발주일자'], ref: 'pckgKind', width: '100px', type: 'output'},
+            {caption: ['발주번호'], ref: 'ordrNo', width: '100px', type: 'output'},
+            {caption: ['거래처명'], ref: 'cnptName', width: '100px', type: 'output'},
+            {caption: ['납기일자'], ref: 'dudt', width: '100px', type: 'output'},
+            {caption: ['발주일자'], ref: 'ordrDate', width: '100px', type: 'output'},
             {caption: ['주문자'], ref: 'cryn', width: '100px', type: 'output'},
-            {caption: ['공급자명'], ref: 'wght', width: '100px', type: 'output'},
+            {caption: ['공급자명'], ref: 'splyName', width: '100px', type: 'output'},
             {caption: ['상품명'], ref: 'gdsName', width: '100px', type: 'output'},
-            {caption: ['상품코드'], ref: 'item', width: '100px', type: 'output'},
-            {caption: ['배송지'], ref: 'spcfct', width: '100px', type: 'output'}
+            {caption: ['상품코드'], ref: 'gdsCd', width: '100px', type: 'output'},
+            {caption: ['배송지'], ref: 'spmtAddr', width: '100px', type: 'output'}
         ];
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
     }
@@ -215,20 +215,20 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-        	{caption: ['품목'], ref: 'gdsCd', width: '100px', type: 'output'},
-            {caption: ['품종'], ref: 'gdsName', width: '100px', type: 'output'},
-            {caption: ['규격'], ref: 'item', width: '100px', type: 'output'},
-            {caption: ['입수'], ref: 'spcfct', width: '100px', type: 'output'},
-            {caption: ['발주수량'], ref: 'gdsGrd', width: '100px', type: 'output'},
-            {caption: ['낱개수량'], ref: 'brand', width: '100px', type: 'output'},
-            {caption: ['단위'], ref: 'plor', width: '100px', type: 'output'},
-            {caption: ['박스단가'], ref: 'pckgKind', width: '100px', type: 'output'},
-            {caption: ['발주단가'], ref: 'cryn', width: '100px', type: 'output'},
-            {caption: ['발주단위'], ref: 'wght', width: '100px', type: 'output'},
-            {caption: ['LOT'], ref: 'plor', width: '100px', type: 'output'},
-            {caption: ['세액'], ref: 'pckgKind', width: '100px', type: 'output'},
-            {caption: ['발주금액'], ref: 'cryn', width: '100px', type: 'output'},
-            {caption: ['입고형태'], ref: 'wght', width: '100px', type: 'output'}
+        	{caption: ['품목'], ref: 'item', width: '100px', type: 'output'},
+            {caption: ['품종'], ref: 'vrty', width: '100px', type: 'output'},
+            {caption: ['규격'], ref: 'spcfct', width: '100px', type: 'output'},
+            {caption: ['입수'], ref: 'acqs', width: '100px', type: 'output'},
+            {caption: ['발주수량'], ref: 'ordrQty', width: '100px', type: 'output'},
+            {caption: ['낱개수량'], ref: 'untQty', width: '100px', type: 'output'},
+            {caption: ['단위'], ref: 'unit', width: '100px', type: 'output'},
+            {caption: ['박스단가'], ref: 'boxPrc', width: '100px', type: 'output'},
+            {caption: ['발주단가'], ref: 'ordrPrc', width: '100px', type: 'output'},
+            {caption: ['발주단위'], ref: 'ordrUnt', width: '100px', type: 'output'},
+            {caption: ['LOT'], ref: 'lot', width: '100px', type: 'output'},
+            {caption: ['세액'], ref: 'txAmt', width: '100px', type: 'output'},
+            {caption: ['발주금액'], ref: 'ordrAmt', width: '100px', type: 'output'},
+            {caption: ['입고형태'], ref: 'wrhsForm', width: '100px', type: 'output'}
         ];
         grdOutordrGdsInfo = _SBGrid.create(SBGridProperties);
     }
@@ -242,10 +242,10 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-        	{caption: ['문서번호'], ref: 'gdsCd', width: '100px', type: 'output'},
-            {caption: ['도크정보'], ref: 'gdsName', width: '100px', type: 'output'},
-            {caption: ['센터구분'], ref: 'item', width: '100px', type: 'output'},
-            {caption: ['바이어명'], ref: 'spcfct', width: '100px', type: 'output'},
+        	{caption: ['문서번호'], ref: 'docNo', width: '100px', type: 'output'},
+            {caption: ['도크정보'], ref: 'dockInfo', width: '100px', type: 'output'},
+            {caption: ['센터구분'], ref: 'cntrSe', width: '100px', type: 'output'},
+            {caption: ['바이어명'], ref: 'byrName', width: '100px', type: 'output'},
             {caption: ['센터입하일'], ref: 'gdsGrd', width: '100px', type: 'output'},
             {caption: ['센터명'], ref: 'brand', width: '100px', type: 'output'},
             {caption: ['납품구분'], ref: 'plor', width: '100px', type: 'output'},
