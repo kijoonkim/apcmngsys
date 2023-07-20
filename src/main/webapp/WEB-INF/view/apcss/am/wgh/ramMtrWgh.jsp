@@ -200,7 +200,7 @@
 							<td colspan="3" class="td_input">
 								<sbux-input uitype="text" id="inp-rmrk" name="inp-rmrk" class="form-control input-sm"></sbux-input>
 								<!-- <sbux-button id="btnSrchCnpt" name="btnSrchCnpt" class="btn btn-xs btn-outline-dark" text="입력" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"></sbux-button> -->
-								<sbux-button id="btnSrchTrsprtCst" name="btnSrchTrsprtCst" class="btn btn-xs btn-outline-dark" text="입력" uitype="modal" target-id="modal-trsprtCst" onclick="fn_modalTrsprtCst"></sbux-button>
+								<!-- <sbux-button id="btnSrchTrsprtCst" name="btnSrchTrsprtCst" class="btn btn-xs btn-outline-dark" text="입력" uitype="modal" target-id="modal-trsprtCst" onclick="fn_modalTrsprtCst"></sbux-button> -->
 
 							</td>
 						</tr>
