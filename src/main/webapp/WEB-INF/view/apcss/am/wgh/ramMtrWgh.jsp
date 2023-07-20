@@ -18,11 +18,11 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ 원물계량등록</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnDocRawMtrWgh" name="btnDocRawMtrWgh" uitype="button" class="btn btn-sm btn-primary">계량확인서</sbux-button>
-					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
+					<sbux-button id="btnDocRawMtrWgh" name="btnDocRawMtrWgh" uitype="normal" text="계량확인서" class="btn btn-sm btn-primary"></sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -54,7 +54,7 @@
 						<tr>
 							<th scope="row">계량일자</th>
 							<td class="td_input" style="border-right:hidden;" >
-								<sbux-datepicker id="dtp-wrhsYmd" name="dtp-wrhsYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="dtp-wrhsYmd" name="dtp-wrhsYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row">생산자</th>
@@ -199,7 +199,9 @@
 							<th scope="row">비고</th>
 							<td colspan="3" class="td_input">
 								<sbux-input uitype="text" id="inp-rmrk" name="inp-rmrk" class="form-control input-sm"></sbux-input>
-								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" class="btn btn-xs btn-outline-dark" text="입력" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"></sbux-button>
+								<!-- <sbux-button id="btnSrchCnpt" name="btnSrchCnpt" class="btn btn-xs btn-outline-dark" text="입력" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"></sbux-button> -->
+								<sbux-button id="btnSrchTrsprtCst" name="btnSrchTrsprtCst" class="btn btn-xs btn-outline-dark" text="입력" uitype="modal" target-id="modal-trsprtCst" onclick="fn_modalTrsprtCst"></sbux-button>
+
 							</td>
 						</tr>
 					</tbody>
@@ -212,8 +214,8 @@
 						<li><span>원물계량 내역</span></li>
 					</ul>
 				 <div class="ad_tbl_toplist">
-					<sbux-button uitype="btnDwnld" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" >내려받기</sbux-button>
-					<sbux-button uitype="btnUld" class="btn btn-sm btn-outline-danger" onclick="fn_uld">올리기</sbux-button>
+					<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="내려받기" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld" >내려받기</sbux-button>
+					<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-xs btn-outline-danger" onclick="fn_uld">올리기</sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -269,6 +271,14 @@
     </div>
     <div id="body-modal-cnpt">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
+
+    <!-- 거래처 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-trsprtCst" name="modal-trsprtCst" uitype="middle" header-title="원물운임비용등록" body-html-id="body-modal-trsprtCst" footer-is-close-button="false" style="width:1350px"></sbux-modal>
+    </div>
+    <div id="body-modal-trsprtCst">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/trsprtCstPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
