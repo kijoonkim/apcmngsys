@@ -39,16 +39,16 @@
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 3%">
-						<col style="width: 3%">
+						<col style="width: 9%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row">APC명</th>
-					    	<td colspan="3" class="td_input">
+					    	<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-apcName" name="srch-inp-apcName" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
+	                	</tr>
+						<tr>
 					        <th scope="row">접수여부</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -61,12 +61,10 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-fromOrdrDate" name="srch-dtp-fromOrdrDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-toOrdrDate" name="srch-dtp-toOrdrDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td class="td_input"></td>
-	                	</tr>
-						<tr>
 							<th scope="row">발주유형</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -75,7 +73,9 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="2" class="td_input"></td>
+							<td class="td_input"></td>
+						</tr>
+						<tr>
 							<th scope="row">품목/품종</th>
 						    <td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -91,28 +91,28 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="6" class="td_input"></td>
-						</tr>
-						<tr>
+							<td class="td_input" style="border-right: hidden;"></td>
 						    <th scope="row">거래처명</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnptName" name="srch-inp-cnptName" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-cnpt" onclick="fn_modalCnpt"></sbux-button>
+							</td>
 							<th scope="row">납기일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-dudt" name="srch-dtp-dudt" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input"></td>
+						</tr>
+						<tr>
 							<th scope="row">상품명</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-gdsName" name="srch-inp-gdsName" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchGdsName" name="btnSrchGdsName" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
 							</td>
-						</tr>
-						<tr>
 							<th scope="row">지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-cmndDate" name="srch-dtp-cmndDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
@@ -126,7 +126,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="7" class="td_input"></td>
+							<td class="td_input"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -156,6 +156,13 @@
 			</div>
 		</div>
 	</section>
+	<!-- 거래처 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-cnpt">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -225,5 +232,9 @@
         ];
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
     }
+
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
 </script>
 </html>
