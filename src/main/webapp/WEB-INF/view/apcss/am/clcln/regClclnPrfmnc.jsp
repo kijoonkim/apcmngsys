@@ -76,11 +76,12 @@
 					</tr>
 					<tr>
 						<th scope="row">거래처</th>
-						<td class="td_input" style="border-right: hidden;">
-							<sbux-select id="srch-slt-cnpt" name="srch-slt-cnpt" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+<!-- 							<sbux-select id="srch-slt-cnpt" name="srch-slt-cnpt" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select> -->
+							<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm"></sbux-input>
 						</td>
-						<td class="td_input">
-							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 						</td>
 					</tr>
 				</tbody>
@@ -114,6 +115,13 @@
 			</div>
 		</div>
 	</section>
+	    <!-- 거래처 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-cnpt">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 

@@ -61,7 +61,7 @@
 								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btn_norm" name="btn_norm" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
+								<sbux-button id="btn_norm" name="btn_norm" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
 							<th scope="row" style="border-right: hidden;">운송회사</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -106,6 +106,20 @@
 				</div>
 				<!--[pp] //검색결과 -->
 	</section>
+	<!-- 거래처 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-cnpt">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
+    <!-- 품종 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
+    </div>
+    <div id="body-modal-vrtyCrtr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 

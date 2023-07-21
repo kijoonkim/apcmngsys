@@ -145,15 +145,16 @@
 			</div>
 		</div>
 	</section>
-	<!-- 사용자 선택 Modal -->
+
+    <!-- 생산자 선택 Modal -->
     <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
+
 	<script type="text/javascript">
-	
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createInptPremncGrid1();
 
@@ -215,143 +216,9 @@
 	    grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
 	    grdWghPrfmnc2 = _SBGrid.create(SBGridProperties2);
 	}
-	
-	// ${comMenuVO.menuId}
-	
-	// 공통코드 JSON
-// 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
-	
-//     // only document
-//     window.addEventListener('DOMContentLoaded', function(e) {
-    	
-//     	fn_createInptPremncGrid1();
-//     });
-    
-//     //grid 초기화
-//     var grdComMsgList; // 그리드를 담기위한 객체 선언
-//     var jsonComMsgList = []; // 그리드의 참조 데이터 주소 선언
-    
-//     function fn_createInptPremncGrid1() {
-//         var SBGridProperties1 = {};
-// 	    SBGridProperties1.parentid = 'sb-area-grdInptPremnc';
-// 	    SBGridProperties1.id = 'grdComMsgList1';
-// 	    SBGridProperties1.jsonref = 'jsonComMsgList1';
-//         SBGridProperties1.emptyrecords = '데이터가 없습니다.';
-//         SBGridProperties1.selectmode = 'byrow';
-// 	    SBGridProperties1.explorerbar = 'sortmove';
-// 	    SBGridProperties1.extendlastcol = 'scroll';
-// 	    SBGridProperties1.paging = {
-// 			'type' : 'page',
-// 		  	'count' : 5,
-// 		  	'size' : 20,
-// 		  	'sorttype' : 'page',
-// 		  	'showgoalpageui' : true
-// 	    };
-//         SBGridProperties1.columns = [
-//             {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>","<input type='checkbox' onchange='fn_checkAll(this);'>"],
-//                 ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-//                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-//                 width: '6px'
-//             },
-//             {caption: ["입고일자","입고일자"],		ref: 'msgKey',      type:'output',  width:'16%'},
-//             {caption: ["팔레트번호","팔레트번호"], 	ref: 'msgCn',     	type:'output',  width:'16%'},
-//             {caption: ["지시번호","지시번호"], 	 	ref: 'msgKndNm',    type:'output',  width:'16%'},
-//             {caption: ["생산자","생산자"],    		ref: 'rmrk',        type:'output',  width:'16%'},
-//             {caption: ["품종","품종"],	    		ref: 'creUserId',   type:'output',  width:'16%'},
-//             {caption: ["창고","창고"],	    		ref: 'creDateTime', type:'output',  width:'16%'},
-//             {caption: ["원물재고","수량"],  		ref: 'updUserId',   type:'output',  width:'8%'},
-//             {caption: ["원물재고","중량"],  		ref: 'updUserId',   type:'output',  width:'8%'},
-//             {caption: ["투입지시","수량"],  		ref: 'updDateTime', type:'output',  width:'8%'},
-//             {caption: ["투입지시","중량"],  		ref: 'updDateTime', type:'output',  width:'8%'},
-//             {caption: ["투입","수량"], 			ref: 'creProgram',  type:'output',  width:'8%'},
-//             {caption: ["투입","중량"], 			ref: 'creProgram',  type:'output',  width:'8%'}
-//         ];
-        
-//         var SBGridPropertie2s = {};
-// 	    SBGridProperties2.parentid = 'sb-area-grdPremnc';
-// 	    SBGridProperties2.id = 'grdComMsgList2';
-// 	    SBGridProperties2.jsonref = 'jsonComMsgList2';
-//         SBGridProperties2.emptyrecords = '데이터가 없습니다.';
-//         SBGridProperties2.selectmode = 'byrow';
-// 	    SBGridProperties2.explorerbar = 'sortmove';
-// 	    SBGridProperties2.extendlastcol = 'scroll';
-// 	    SBGridProperties2.paging = {
-// 			'type' : 'page',
-// 		  	'count' : 5,
-// 		  	'size' : 20,
-// 		  	'sorttype' : 'page',
-// 		  	'showgoalpageui' : true
-// 	    };
-//         SBGridProperties2.columns = [
-//             {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-//                 ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-//                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-//                 width: '6px'
-//             },
-//             {caption: ["선별일자"],	ref: 'msgKey',      type:'output',  width:'7.46%'},
-//             {caption: ["설비"], 		ref: 'msgCn',     	type:'output',  width:'7.46%'},
-//             {caption: ["규격"], 	 	ref: 'msgKndNm',    type:'output',  width:'7.46%'},
-//             {caption: ["특"],    	ref: 'rmrk',        type:'output',  width:'7.46%'},
-//             {caption: ["상"],	    ref: 'creUserId',   type:'output',  width:'7.46%'},
-//             {caption: ["중"],	    ref: 'creDateTime', type:'output',  width:'7.46%'},
-//             {caption: ["하"],  		ref: 'updUserId',   type:'output',  width:'7.46%'},
-//             {caption: ["합계"], 	 	ref: 'updUserId',   type:'output',  width:'7.46%'},
-//             {caption: ["kg"],  		ref: 'updDateTime', type:'output',  width:'7.46%'},
-//             {caption: ["저장창고"],  	ref: 'updDateTime', type:'output',  width:'7.46%'},
-//             {caption: ["비고"], 		ref: 'creProgram',  type:'output',  width:'7.46%'},
-//             {caption: ["라벨"], 		ref: 'creProgram',  type:'output',  width:'7.46%'},
-//             {caption: ["처리"], 		ref: 'creProgram',  type:'output',  width:'7.46%'}
-//         ];
-        
-//         grdComMsgList1 = _SBGrid.create(SBGridProperties1);
-//         grdComMsgList2 = _SBGrid.create(SBGridProperties2);
-//     }
-    
-//     function fn_createPremncGrid() {
-//         var SBGridProperties = {};
-// 	    SBGridProperties.parentid = 'sb-area-grdPremnc';
-// 	    SBGridProperties.id = 'grdComMsgList1';
-// 	    SBGridProperties.jsonref = 'jsonComMsgList1';
-//         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-//         SBGridProperties.selectmode = 'byrow';
-// 	    SBGridProperties.explorerbar = 'sortmove';
-// 	    SBGridProperties.extendlastcol = 'scroll';
-// 	    SBGridProperties.paging = {
-// 			'type' : 'page',
-// 		  	'count' : 5,
-// 		  	'size' : 20,
-// 		  	'sorttype' : 'page',
-// 		  	'showgoalpageui' : true
-// 	    };
-//         SBGridProperties.columns = [
-//             {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-//                 ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-//                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-//                 width: '6px'
-//             },
-//             {caption: ["선별일자"],	ref: 'msgKey',      type:'output',  width:'7.46%'},
-//             {caption: ["설비"], 		ref: 'msgCn',     	type:'output',  width:'7.46%'},
-//             {caption: ["규격"], 	 	ref: 'msgKndNm',    type:'output',  width:'7.46%'},
-//             {caption: ["특"],    	ref: 'rmrk',        type:'output',  width:'7.46%'},
-//             {caption: ["상"],	    ref: 'creUserId',   type:'output',  width:'7.46%'},
-//             {caption: ["중"],	    ref: 'creDateTime', type:'output',  width:'7.46%'},
-//             {caption: ["하"],  		ref: 'updUserId',   type:'output',  width:'7.46%'},
-//             {caption: ["합계"], 	 	ref: 'updUserId',   type:'output',  width:'7.46%'},
-//             {caption: ["kg"],  		ref: 'updDateTime', type:'output',  width:'7.46%'},
-//             {caption: ["저장창고"],  	ref: 'updDateTime', type:'output',  width:'7.46%'},
-//             {caption: ["비고"], 		ref: 'creProgram',  type:'output',  width:'7.46%'},
-//             {caption: ["라벨"], 		ref: 'creProgram',  type:'output',  width:'7.46%'},
-//             {caption: ["처리"], 		ref: 'creProgram',  type:'output',  width:'7.46%'}
-//         ];
-        
-//         grdComMsgList = _SBGrid.create(SBGridProperties);
-//         grdComMsgList.bind('click', 'fn_view');
-//         grdComMsgList.bind('beforepagechanged', 'fn_pagingComMsgList');
-//     }
-    
-// 	function fn_closeModal(modalId){
-// 		SBUxMethod.closeModal(modalId);
-// 	}
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
     
 </script>
 </body>
