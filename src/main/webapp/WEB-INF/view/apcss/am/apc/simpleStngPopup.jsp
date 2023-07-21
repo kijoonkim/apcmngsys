@@ -250,5 +250,72 @@
          </div>
       </div>
    </div>
+
+
+
+
+
+   <div class="case_b">
+
+		<div class="case_in">
+			<p><input type="radio" name="simpleCase" value="case1" >case1</p>
+			<div class="in">
+				<ul>
+					<li class="blue1_b"><span>계량</span></li>
+					<li class="line"><span>&nbsp;</span></li> <!-- 라인만 있는 경우 -->
+					<li class="wh_b"><span>선별지시</span></li>
+					<li class="wh_b"><span>선별투입</span></li>
+					<li class="blue2_b"><span>선별실적</span></li>
+					<li class="wh_b"><span>포장지시</span></li>
+					<li class="wh_b"><span>포장투입</span></li>
+					<li class="sk_b"><span>포장실적</span></li>
+					<li class="wh_b"><span>출하지시</span></li>
+					<li class="blue2_b"><span>출하실적</span></li>
+					<li class="wh_b"><span>발주등록</span></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="case_in">
+				<p><input type="radio" name="simpleCase" value="case2" >case2</p>
+				<div class="in">
+					<ul>
+						<li class="blue1_b"><span>계량</span></li>
+						<li class="line"><span>&nbsp;</span></li>
+						<li class="line"><span>&nbsp;</span></li>
+						<li class="line"><span>&nbsp;</span></li>
+						<li class="blue2_b"><span>선별실적</span></li>
+						<li class="wh_b"><span>포장지시</span></li>
+						<li class="wh_b"><span>포장투입</span></li>
+						<li class="sk_b"><span>포장실적</span></li>
+						<li class="wh_b"><span>출하지시</span></li>
+						<li class="blue2_b"><span>출하실적</span></li>
+						<li class="wh_b"><span>발주등록</span></li>
+					</ul>
+				</div>
+			</div>
+
+		<div class="case_in">
+			<p><input type="radio" name="simpleCase" value="case3" >case3</p>
+			<div class="in">
+				<ul>
+					<li class="noline">&nbsp;</li><!-- 라인이 없는 경우 -->
+					<li class="blue1_b"><span>계량</span></li>
+					<li class="wh_b"><span>선별지시</span></li>
+					<li class="wh_b"><span>선별투입</span></li>
+					<li class="blue2_b"><span>선별실적</span></li>
+					<li class="wh_b"><span>포장지시</span></li>
+					<li class="wh_b"><span>포장투입</span></li>
+					<li class="sk_b"><span>포장실적</span></li>
+					<li class="wh_b"><span>출하지시</span></li>
+					<li class="blue2_b"><span>출하실적</span></li>
+					<li class="wh_b"><span>발주등록</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
 </body>
 </html>
