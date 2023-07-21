@@ -119,6 +119,12 @@ public abstract class BaseController {
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.OK);
 	}
 	
+	protected ResponseEntity<HashMap<String, Object>> getErrorResponseEntity(HashMap<String, Object> resultMap) {
+		
+		resultMap.put(ComConstants.PROP_RESULT_STATUS, ComConstants.RESULT_STATUS_ERROR);
+		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.OK);
+	}
+	
 	protected ResponseEntity<Map<String, Object>> getErrorResponseEntity(String errorCode, String errorMessage) {
 		
 		HashMap<String, Object> resultMap = new HashMap<>();

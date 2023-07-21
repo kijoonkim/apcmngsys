@@ -1,7 +1,7 @@
 package com.at.apcss.co.authrt.service;
 
+import java.util.HashMap;
 import java.util.List;
-
 import com.at.apcss.co.authrt.vo.ComAuthrtMenuVO;
 import com.at.apcss.co.authrt.vo.ComAuthrtUiVO;
 import com.at.apcss.co.authrt.vo.ComAuthrtUserVO;
@@ -25,6 +25,35 @@ public interface ComAuthrtService {
 	public List<ComAuthrtVO> selectComAuthrtList(ComAuthrtVO comAuthrtVO) throws Exception;
 	
 	/**
+	 * 권한정보 등록
+	 * @param comAuthVO
+	 * @return
+	 */
+	public int insertComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
+	
+	/**
+	 * 권한정보 변경
+	 * @param comAuthVO
+	 * @return
+	 */
+	public int updateComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
+	
+	/**
+	 * 권한정보 삭제
+	 * @param comAuthVO
+	 * @return
+	 */
+	public int deleteComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
+	
+	/**
+	 * 권한메뉴 단건 조회
+	 * @param comAuthrtMenuVO
+	 * @return
+	 * @throws Exception
+	 */
+	public ComAuthrtMenuVO selectComAuthrtMenu(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception;
+	
+	/**
 	 * 권한 메뉴 목록 조회
 	 * @param ComAuthrtMenuVO
 	 * @return
@@ -43,7 +72,17 @@ public interface ComAuthrtService {
 	 * @param ComAuthrtMenuVO
 	 * @return
 	 */
-	public List<ComAuthrtMenuVO> selectComAuthrtMenuTreeList(ComAuthrtMenuVO comAuthrtMenuVO);
+	public List<ComAuthrtMenuVO> selectComAuthrtMenuTreeList(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception;
+	
+	/**
+	 * 권한 메뉴 목록 등록
+	 * @param comAuthrtVO
+	 * @param ComAuthrtMenuList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertComAuthrtMenuList(ComAuthrtVO comAuthrtVO) throws Exception;	
+	
 	
 	/**
 	 * 권한별 메뉴정보를 등록한다.

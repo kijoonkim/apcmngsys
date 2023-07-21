@@ -1,14 +1,29 @@
 package com.at.apcss.co.authrt.vo;
 
-import com.at.apcss.co.menu.vo.ComMenuVO;
+import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ComAuthrtMenuVO extends ComMenuVO {
+public class ComAuthrtMenuVO extends ComVO {
+	
 	private String authrtId;
 	private String authrtNm;
 	private String useYn;
+	private String entyList;
+	private String menuId;
+	private String upMenuId;
+	private String menuNm;
+	private String menuType;
+	private String menuTypeNm;
+	private String pageUrl;
+	private int indctSeq;
+	private String userType;
+	private String apcCd;
+	private String sysId;
+	private String upMenuNm;
+	private int menuSeq;
+	private int menuLvl;
 }

@@ -84,12 +84,6 @@ public class ComMsgController extends BaseController{
 		comMsgVO.setSysLastChgUserId(getUserId());
 		comMsgVO.setSysLastChgPrgrmId(getPrgrmId());
 		
-		logger.debug("getMsgKey(): {}", comMsgVO.getMsgKey());
-		logger.debug("getMsgCn(): {}", comMsgVO.getMsgCn());
-		logger.debug("getMsgKnd(): {}", comMsgVO.getMsgKnd());
-		logger.debug("getRmrk(): {}", comMsgVO.getRmrk());
-		
-		
 		int insertedCnt = 0;
 		
 		try {
@@ -99,7 +93,7 @@ public class ComMsgController extends BaseController{
 			return getErrorResponseEntity(e);
 		}
 		
-		resultMap.put("insertedCnt", insertedCnt);
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
 		
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -115,11 +109,6 @@ public class ComMsgController extends BaseController{
 		comMsgVO.setSysLastChgUserId(getUserId());
 		comMsgVO.setSysLastChgPrgrmId(getPrgrmId());
 		
-		logger.debug("getMsgKey(): {}", comMsgVO.getMsgKey());
-		logger.debug("getMsgCn(): {}", comMsgVO.getMsgCn());
-		logger.debug("getMsgKnd(): {}", comMsgVO.getMsgKnd());
-		logger.debug("getRmrk(): {}", comMsgVO.getRmrk());
-		
 		int updatedCnt = 0;
 		
 		try {
@@ -129,7 +118,7 @@ public class ComMsgController extends BaseController{
 			return getErrorResponseEntity(e);
 		}
 		
-		resultMap.put("updatedCnt", updatedCnt);
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
 		
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -145,11 +134,6 @@ public class ComMsgController extends BaseController{
 		comMsgVO.setSysLastChgUserId(getUserId());
 		comMsgVO.setSysLastChgPrgrmId(getPrgrmId());
 		
-		logger.debug("getMsgKey(): {}", comMsgVO.getMsgKey());
-		logger.debug("getMsgCn(): {}", comMsgVO.getMsgCn());
-		logger.debug("getMsgKnd(): {}", comMsgVO.getMsgKnd());
-		logger.debug("getRmrk(): {}", comMsgVO.getRmrk());
-		
 		int deletedCnt = 0;
 		
 		try {
@@ -159,7 +143,7 @@ public class ComMsgController extends BaseController{
 			return getErrorResponseEntity(e);
 		}
 		
-		resultMap.put("deletedCnt", deletedCnt);
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 		
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -175,11 +159,6 @@ public class ComMsgController extends BaseController{
 		for ( ComMsgVO comMsgVO : comMsgList ) {
 			comMsgVO.setSysLastChgUserId(getUserId());
 			comMsgVO.setSysLastChgPrgrmId(getPrgrmId());
-			
-			logger.debug("getMsgKey(): {}", comMsgVO.getMsgKey());
-			logger.debug("getMsgCn(): {}", comMsgVO.getMsgCn());
-			logger.debug("getMsgKnd(): {}", comMsgVO.getMsgKnd());
-			logger.debug("getRmrk(): {}", comMsgVO.getRmrk());
 		}
 				
 		int deletedCnt = 0;
@@ -191,7 +170,7 @@ public class ComMsgController extends BaseController{
 			return getErrorResponseEntity(e);
 		}
 		
-		resultMap.put("deletedCnt", deletedCnt);
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 		
 		return getSuccessResponseEntity(resultMap);
 	}
