@@ -48,8 +48,6 @@
 							</td>
 							<td colspan="8"></td>
 						</tr>
-						
-						
 						<tr>
 							<th class="ta_r">이송일자</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -61,43 +59,67 @@
 							<td></td>
 							<th class="ta_r">이송APC</th>
 							<td class="td_input" style="border-right: hidden;">
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
 										<sbux-select id="srch-slt-trspApc" name="srch-slt-trspApc" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
 							</td>
 							<td colspan="2"></td>
 							<th class="ta_r">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
 										<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
 										<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
 							</td>
 							<td ></td>
 						</tr>
-						
-						
 						<tr>
-						<th class="ta_r">규격</th>
+							<th class="ta_r">규격</th>
 							<td class="td_input" style="border-right: hidden;">
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
 										<sbux-select id="srch-slt-crtr" name="srch-slt-crtr" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
 							</td>
 							<td colspan="2"></td>
-						<th class="ta_r">창고구분</th>
+							<th class="ta_r">창고구분</th>
 							<td class="td_input" style="border-right: hidden;">
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
 										<sbux-select id="srch-slt-warehouseKnd" name="srch-slt-warehouseKnd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
 							</td>
 							<td colspan="2"></td>
-						<th class="ta_r">상품구분</th>
+							<th class="ta_r">상품구분</th>
 							<td class="td_input" style="border-right: hidden;">
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
 										<sbux-select id="srch-slt-gdsKnd" name="srch-slt-gdsKnd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
 							</td>
 							<td colspan="2"></td>
 						</tr>
-						
-						
 						<tr>
-						<th class="ta_r">입고구분</th>
+							<th class="ta_r">입고구분</th>
 							<td class="td_input" style="border-right: hidden;">
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
 										<sbux-select id="srch-slt-vrtyCd" name="srch-slt-wrhsKnd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
 							</td>
 							<td colspan="10"></td>
 						</tr>
