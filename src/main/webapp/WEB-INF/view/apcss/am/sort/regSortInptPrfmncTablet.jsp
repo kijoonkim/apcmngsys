@@ -104,7 +104,7 @@
 						<tr>
 							<th scope="row">품목 / 품종</th>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" title="" disabled></sbux-input> 
+								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" title="" disabled></sbux-input>
 							</td>
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-input id="srch-inp-vrty" name="srch-inp-vrty" uitype="text" class="form-control input-sm" placeholder="" title="" disabled></sbux-input>
@@ -154,6 +154,13 @@
 			</div>
 		</div>
 	</section>
+    <!-- 팔레트/박스 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="원물입고 팔레트/박스 입고등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" style="width:1200px"></sbux-modal>
+    </div>
+    <div id="body-modal-pltBx">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/pltBxPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 function fn_closeModal(modalId){

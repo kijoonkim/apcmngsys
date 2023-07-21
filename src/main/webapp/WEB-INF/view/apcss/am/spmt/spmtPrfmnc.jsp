@@ -70,16 +70,16 @@
 							<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 						</td>
 						<td>
-							<sbux-button id="srch-btn-itemVrty" name="srch-btn-itemVrty" uitype="normal" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							<sbux-button id="srch-btn-itemVrty" name="srch-btn-itemVrty" uitype="modal" target-id="modal-vrtyCrtr" onclick="fn_modalVrty" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 						</td>
 					</tr>
 					<tr>
 						<th scope="row" style="border-right: hidden;">거래처</th>
 						<td colspan="2" class="td_input"  style="border-right: hidden;">
-							<sbux-select id="srch-slt-cnpt" name="srch-slt-cnpt" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+							<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="normal" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 						</td>
 						<th scope="row">배송지</th>
 						<td colspan="2" class="td_input" style="border-right: hidden;" >
@@ -118,6 +118,20 @@
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
+	<!-- 거래처 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-cnpt">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
+        <!-- 품종 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
+    </div>
+    <div id="body-modal-vrtyCrtr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 
