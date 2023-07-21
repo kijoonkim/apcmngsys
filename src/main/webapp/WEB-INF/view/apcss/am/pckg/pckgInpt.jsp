@@ -106,7 +106,7 @@
 								<sbux-input id="srch-inp-rprsPrdctr" name="srch-inp-rprsPrdctr" uitype="text" class="form-control input-sm" title="대표생산자"></sbux-input>
 						    </td>
 						    <td class="td_input">
-					    		<sbux-button id="btnSrchRprsPrdctr" name="btnSrchRprsPrdctr" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
+					    		<sbux-button id="btnSrchRprsPrdcr" name="btnSrchRprsPrdcr" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
 							</td>
 						</tr>
 						<tr>
@@ -135,6 +135,13 @@
 			</div>
 		</div>
 	</section>
+	 <!-- 생산자 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+    </div>
+    <div id="body-modal-prdcr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -174,5 +181,9 @@
         ];
         grdPckgInpt = _SBGrid.create(SBGridProperties);
     }
+
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
 </script>
 </html>
