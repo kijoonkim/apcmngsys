@@ -77,7 +77,7 @@
 								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
+								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-cnpt" onclick="fn_modalCnpt"></sbux-button>
 							</td>
 							<th scope="row">상품명</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -169,6 +169,13 @@
 			</div>
 		</div>
 	</section>
+	<!-- 거래처 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-cnpt">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -218,5 +225,9 @@
         ];
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
     }
+
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
 </script>
 </html>
