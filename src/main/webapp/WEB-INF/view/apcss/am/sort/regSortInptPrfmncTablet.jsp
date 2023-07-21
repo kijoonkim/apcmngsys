@@ -46,7 +46,7 @@
 							<td colspan="3" class="td_input"  style="border-right:hidden ;">
 								<sbux-input id="inp-apcCd" name="inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
-							<td colspan="2" class="td_input"  style="border-right:hidden ;"></td>
+							<td colspan="2" class="td_input"></td>
 						</tr>
 						<tr>
 							<th scope="row">선별기명</th>

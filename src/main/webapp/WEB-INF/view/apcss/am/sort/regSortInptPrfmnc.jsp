@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
-				<h3 class="box-title" style="line-height: 30px;">▶선별실적등록</h3>
+				<h3 class="box-title" style="line-height: 30px;"> ▶ 선별실적등록</h3>
 			</div>
 			<div style="margin-left: auto;">
 				<p class="ad_input_row">
@@ -90,6 +90,7 @@
 					<div class="table-responsive tbl_scroll_sm">
 						<div id="sb-area-grdInptPremnc" style="height:300px;"></div>
 					</div>
+					<br />
 <!-- 					<div class="ad_section_bottom"></div> -->
 						<table class="table table-bordered tbl_row tbl_fixed">
 							<caption>검색 조건 설정</caption>
