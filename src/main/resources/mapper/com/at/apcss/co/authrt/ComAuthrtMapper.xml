@@ -12,78 +12,6 @@
 
 <mapper namespace="com.at.apcss.co.authrt.mapper.ComAuthrtMapper">
 
-	<!-- 권한 -->
-	<resultMap type="com.at.apcss.co.authrt.vo.ComAuthrtVO" id="comAuthrtMap">
-		<result property="authrtId" column="AUTHRT_ID" />
-		<result property="authrtNm" column="AUTHRT_NM" />
-		<result property="authrtType" column="AUTHRT_TYPE" />
-		<result property="authrtRmrk" column="AUTHRT_RMRK" />
-	</resultMap>
-	
-	<!-- 권한메뉴 -->
-	<resultMap type="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO" id="comAuthrtMenuMap">
-		<result property="menuId" column="MENU_ID" />
-		<result property="menuNm" column="MENU_NM" />
-		<result property="upMenuId" column="UP_MENU_ID" />
-		<result property="menuType" column="MENU_TYPE" />
-		<result property="userType" column="USER_TYPE" />
-		<result property="pageUrl" column="PAGE_URL" />
-		<result property="indctSeq" column="INDCT_SEQ" />
-		<result property="apcCd" column="APC_CD" />
-		<result property="sysId" column="SYS_ID" />
-		<result property="upMenuNm" column="UP_MENU_NM" />
-		<result property="menuLvl" column="MENU_LVL" />
-		<result property="menuSeq" column="MENU_SEQ" />
-		
-		<result property="authrtId" column="AUTHRT_ID" />
-		<result property="authrtNm" column="AUTHRT_NM" />
-		<result property="useYn" column="USE_YN" />
-	</resultMap>
-
-	<!-- 권한 UI -->
-	<resultMap type="com.at.apcss.co.authrt.vo.ComAuthrtUiVO" id="comAuthrtUiMap">
-		<result property="menuId" column="MENU_ID" />
-		<result property="menuNm" column="MENU_NM" />
-		<result property="upMenuId" column="UP_MENU_ID" />
-		<result property="menuType" column="MENU_TYPE" />
-		<result property="userType" column="USER_TYPE" />
-		<result property="pageUrl" column="PAGE_URL" />
-		<result property="indctSeq" column="INDCT_SEQ" />
-		<result property="apcCd" column="APC_CD" />
-		<result property="sysId" column="SYS_ID" />
-		<result property="upMenuNm" column="UP_MENU_NM" />
-		<result property="menuLvl" column="MENU_LVL" />
-		<result property="menuSeq" column="MENU_SEQ" />
-		
-		<result property="authrtId" column="AUTHRT_ID" />
-		<result property="entyId" column="ENTY_ID" />
-		<result property="entyType" column="ENTY_TYPE" />
-		<result property="aplcnType" column="APLCN_TYPE" />
-		<result property="indctYn" column="INDCT_YN" />
-	</resultMap>
-
-
-	<!-- 권한 User -->
-	<resultMap type="com.at.apcss.co.authrt.vo.ComAuthrtUserVO" id="comAuthrtUserMap">
-        <result property="userId" column="USER_ID"/>
-        <result property="userNm" column="USER_NM"/>
-		<result property="userType" column="USER_TYPE" />
-		<result property="userStts" column="USER_STTS" />
-		<result property="eml" column="EML" />
-		<result property="mblTelno" column="MBL_TELNO" />
-		<result property="apcCd" column="APC_CD" />
-		<result property="ogdpNm" column="OGDP_NM" />
-		<result property="chrgdCertYn" column="CHRGD_CERT_YN" />
-		<result property="chrgdCertType" column="CHRGD_CERT_TYPE" />
-		<result property="lckYn" column="LCK_YN" />
-		<result property="lgnFailNmtm" column="LGN_FAIL_NMTM" />
-		<result property="endLgnDt" column="END_LGN_DT" />
-		<result property="endLgnIp" column="END_LGN_IP" />		
-
-		<result property="authrtId" column="AUTHRT_ID" />
-		<result property="authrtNm" column="AUTHRT_NM" />
-	</resultMap>
-
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrt		-->
 	<!-- DESC : 권한 단건조회.                                             				-->
@@ -92,7 +20,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComAuthrt" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO" resultMap="comAuthrtMap">
+    <select id="selectComAuthrt" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrt */
 				  CA.AUTHRT_ID      AS AUTHRT_ID
@@ -119,13 +47,30 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComAuthrtList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO" resultMap="comAuthrtMap">
+    <select id="selectComAuthrtList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
     	<![CDATA[
 			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtList */
 				  CA.AUTHRT_ID      AS AUTHRT_ID
 		        , CA.AUTHRT_NM      AS AUTHRT_NM
 				, CA.AUTHRT_TYPE    AS AUTHRT_TYPE
 				, CA.AUTHRT_RMRK    AS AUTHRT_RMRK
+				, CA.APC_CD			AS APC_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('AUTHRT_TYPE', CA.AUTHRT_TYPE) FROM DUAL) AS AUTHRT_TYPE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('APC_CD', CA.APC_CD) FROM DUAL) AS APC_NM				
+    	]]>
+		<if test='sysId != null and sysId != ""'>
+				, #{sysId}			AS SYS_ID
+		</if>
+    	<![CDATA[
 			  FROM TB_COM_AUTH CA
 			 WHERE CA.DEL_YN = 'N'
     	]]>
@@ -138,9 +83,115 @@
 		<if test='authrtType != null and authrtType != ""'>
 			   AND CA.AUTHRT_TYPE = #{authrtType}
 		</if>
-		<if test='authrtNm != null and authrtNm != ""'>
-			   AND CA.AUTHRT_RMRK LIKE '%' || #{authrtNm} || '%'
+		<if test='authrtRmrk != null and authrtRmrk != ""'>
+			   AND CA.AUTHRT_RMRK LIKE '%' || #{authrtRmrk} || '%'
 		</if>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertComAuthrt		-->
+	<!-- DESC : 권한 등록.                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertComAuthrt" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO">
+    	<![CDATA[
+			INSERT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertComAuthrt */
+				INTO TB_COM_AUTH (				
+					  AUTHRT_ID
+					, AUTHRT_NM
+					, AUTHRT_TYPE
+					, AUTHRT_RMRK
+					, APC_CD	    		  	
+	    		  	, SYS_FRST_INPT_DT
+	    		  	, SYS_FRST_INPT_USER_ID
+	    		  	, SYS_FRST_INPT_PRGRM_ID
+	    		  	, SYS_LAST_CHG_DT
+	    		  	, SYS_LAST_CHG_USER_ID
+	    		  	, SYS_LAST_CHG_PRGRM_ID
+				) VALUES (
+					  FN_GET_ID_COM_AUTH(#{apcCd})
+					, #{authrtNm}
+					, #{authrtType}
+					, #{authrtRmrk}
+					, #{apcCd}
+					, SYSDATE
+	   			  	, #{sysFrstInptUserId}
+	   			  	, #{sysFrstInptPrgrmId}
+	   			  	, SYSDATE
+	   			  	, #{sysLastChgUserId}
+	   			  	, #{sysLastChgPrgrmId}
+				)
+    	]]>
+    </insert>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.updateComAuthrt		-->
+	<!-- DESC : 권한 변경.                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateComAuthrt" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO">
+    	<![CDATA[
+			UPDATE /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.updateComAuthrt */
+	    		TB_COM_AUTH
+			   SET
+			   	  AUTHRT_NM 	= #{authrtNm}
+	    	    , AUTHRT_TYPE 	= #{authrtType}
+	    	    , AUTHRT_RMRK	= #{authrtRmrk}
+	    	    , SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+	    	 WHERE AUTHRT_ID = #{authrtId}
+    	]]>
+    </update>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrt		-->
+	<!-- DESC : 권한 삭제.                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteComAuthrt" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO">
+    	<![CDATA[
+			DELETE /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrt */
+	    		FROM TB_COM_AUTH
+	    	 WHERE AUTHRT_ID = #{authrtId}
+    	]]>
+    </delete>
+    
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtMenu	-->
+	<!-- DESC : 권한 메뉴 단건 조회.                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComAuthrtMenu" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO" >
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtMenu */
+				  AM.AUTHRT_ID
+				, AM.MENU_ID
+				, AM.DEL_YN
+			  FROM TB_COM_AUTH_MENU AM
+			 WHERE AM.AUTHRT_ID = #{authrtId}
+			   AND AM.MENU_ID = #{menuId}
+    	]]>
     </select>
     
 	<!-- ==========================================================================	-->
@@ -151,7 +202,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComAuthrtMenuList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO" resultMap="comAuthrtMenuMap">
+    <select id="selectComAuthrtMenuList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO" >
     	<![CDATA[
 			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtMenuList */
 				  CA.AUTHRT_ID      AS AUTHRT_ID
@@ -201,7 +252,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComAuthrtUiList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO" resultMap="comAuthrtUiMap">
+    <select id="selectComAuthrtUiList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtVO" >
     	<![CDATA[
 			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtUiList */
 				  CA.AUTHRT_ID  	AS AUTHRT_ID
@@ -246,7 +297,7 @@
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2023.05.30  	jcshin        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-    <select id="selectComAuthrtMenuTreeList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO" resultMap="comAuthrtMenuMap">
+    <select id="selectComAuthrtMenuTreeList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthMapper.selectComAuthrtMenuTreeList */
 				  MN.LVL			AS MENU_LVL
@@ -265,6 +316,7 @@
 				, CA.AUTHRT_NM		AS AUTHRT_NM
 				, CA.AUTHRT_TYPE	AS AUTHRT_TYPE
 				, NVL2(AM.MENU_ID, 'Y', 'N') AS USE_YN
+				, NULL				AS ENTY_LIST
 			  FROM (
 				SELECT
 					  LEVEL		AS LVL
@@ -280,7 +332,7 @@
 					, MN.INDCT_SEQ	AS INDCT_SEQ					
 				  FROM TB_COM_MENU MN
 				 WHERE MN.DEL_YN = 'N'
-				 START WITH MN.UP_MENU_ID IS NULL
+				 START WITH MN.MENU_ID = #{sysId}
 			    CONNECT BY PRIOR MN.MENU_ID = MN.UP_MENU_ID
 			     ORDER SIBLINGS BY MN.INDCT_SEQ, MN.MENU_ID
 			  	) MN
@@ -300,7 +352,6 @@
 			  	LEFT JOIN TB_COM_AUTH_MENU AM
 			  	  ON AM.MENU_ID = MN.MENU_ID
 			  	 AND AM.AUTHRT_ID = CA.AUTHRT_ID
-			  	 AND AM.DEL_YN = 'N'
 			  	     
 			  	LEFT JOIN TB_COM_AUTH_UI AU
 			  	  ON AU.AUTHRT_ID = AM.AUTHRT_ID
@@ -308,7 +359,7 @@
 			  	 AND AU.ENTY_ID = CU.ENTY_ID
 			  	 AND AU.DEL_YN = 'N'
 			  	 
-			 WHERE 1=1			   
+			 WHERE 1=1
 		   
     	]]>    
     </select>
@@ -321,7 +372,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComAuthrtUserList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO" resultMap="comAuthrtUserMap">
+    <select id="selectComAuthrtUserList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.co.authrt.ComAuthMapper.selectComAuthrtUserList */
 				  CA.AUTHRT_ID          AS AUTHRT_ID
@@ -379,5 +430,77 @@
     		 ORDER BY AUTHRT_ID, USER_ID, USER_NM
     	]]>	
     </select>
+    
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertComAuthrtMenu	-->
+	<!-- DESC : 권한 메뉴 등록.                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertComAuthrtMenu" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO">
+    	<![CDATA[
+			INSERT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertComAuthrtMenu */
+				INTO TB_COM_AUTH_MENU (				
+					  AUTHRT_ID
+					, MENU_ID	    		  	
+	    		  	, SYS_FRST_INPT_DT
+	    		  	, SYS_FRST_INPT_USER_ID
+	    		  	, SYS_FRST_INPT_PRGRM_ID
+	    		  	, SYS_LAST_CHG_DT
+	    		  	, SYS_LAST_CHG_USER_ID
+	    		  	, SYS_LAST_CHG_PRGRM_ID
+				) VALUES (
+					  #{authrtId}
+					, #{menuId}
+					, SYSDATE
+	   			  	, #{sysFrstInptUserId}
+	   			  	, #{sysFrstInptPrgrmId}
+	   			  	, SYSDATE
+	   			  	, #{sysLastChgUserId}
+	   			  	, #{sysLastChgPrgrmId}
+				)
+    	]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.updateComAuthrtMenu	-->
+	<!-- DESC : 권한 메뉴 변경.                                            				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateComAuthrtMenu" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO">
+    	<![CDATA[
+			UPDATE /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.updateComAuthrtMenu */
+	    		TB_COM_AUTH_MENU
+			   SET
+	    	      SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+	    	 WHERE AUTHRT_ID = #{authrtId}
+	    	   AND MENU_ID = #{menuId}
+    	]]>
+    </update>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrtMenu	-->
+	<!-- DESC : 권한 메뉴 삭제.                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteComAuthrtMenu" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO">
+    	<![CDATA[
+			DELETE /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrtMenu */
+	    		FROM TB_COM_AUTH_MENU
+	    	 WHERE AUTHRT_ID = #{authrtId}
+	    	   AND MENU_ID = #{menuId}
+    	]]>
+    </delete>
     
 </mapper>
