@@ -23,8 +23,8 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 10%">
-						<col style="width: 20%">
+						<col style="width: 15.5%">
+						<col style="width: 31%">
 						<col style="width: auto">
 					</colgroup>
 					<tbody>
@@ -65,7 +65,6 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["순번"], 		ref: 'rowSeq',  		type:'input',  width:'50px',     style:'text-align:center'},
 	        {caption: ["창고 코드"], 	ref: 'cdVl',  			type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["창고 명"], 		ref: 'cdVlNm',   		type:'input',  width:'200px',    style:'text-align:center'},
 	        {caption: ["비고"], 		ref: 'cdVlExpln',   	type:'input',  width:'250px',    style:'text-align:center'},

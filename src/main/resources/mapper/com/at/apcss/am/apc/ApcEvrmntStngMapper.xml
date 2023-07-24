@@ -76,7 +76,7 @@
 		   AND CU.APC_CD = #{apcCd}
 		]]>
 		<if test='userNm != null and userNm != ""'>
-		   AND CU.USER_NM = #{userNm}
+		   AND CU.USER_NM LIKE '%' ||  #{userNm} || '%'
 		</if>
     </select>
 

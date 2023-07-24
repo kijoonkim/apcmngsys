@@ -227,20 +227,17 @@
 							<th scope="row">계량정보 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="wghMngYn" name="wghMngYn" uitype="normal"></sbux-checkbox>
-									<label class="check_label" for="check_default" >사용</label>
+									<sbux-checkbox id="wghMngYn" name="wghMngYn" uitype="normal" text="사용"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 		                     	<p class="ad_input_row">
-									<sbux-checkbox id="wghMblUseYn" name="wghMblUseYn" uitype="normal" ></sbux-checkbox>
-				                    <label class="check_label" for="check_default">테블릿사용</label>
-		                  	</p>
+									<sbux-checkbox id="wghMblUseYn" name="wghMblUseYn" uitype="normal" text="테블릿사용" ></sbux-checkbox>
+		                  		</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="wghIdntyDocPblcnYn" name="wghIdntyDocPblcnYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">계량확인서 발행</label>
+									<sbux-checkbox id="wghIdntyDocPblcnYn" name="wghIdntyDocPblcnYn" uitype="normal" text="계량확인서 발행" ></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -249,26 +246,22 @@
 							<th rowspan="2">원물입고 관리</th>
 							<td rowspan="2">
 								<p class="ad_input_row">
-									<sbux-checkbox id="rawMtrWrhsMngYn" name="rawMtrWrhsMngYn" uitype="normal" checked readonly></sbux-checkbox>
-									<label class="check_label" for="check_default" >사용</label>
+									<sbux-checkbox id="rawMtrWrhsMngYn" name="rawMtrWrhsMngYn" uitype="normal" text="사용" checked readonly></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="rawMtrWrhsMblUseYn" name="rawMtrWrhsMblUseYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">테블릿사용</label>
+									<sbux-checkbox id="rawMtrWrhsMblUseYn" name="rawMtrWrhsMblUseYn" uitype="normal" text="테블릿사용" ></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="rawMtrIdentTagPblcnYn" name="rawMtrIdentTagPblcnYn" uitype="normal" checked readonly></sbux-checkbox>
-									<label class="check_label" for="check_default">원물인식표 발행</label>
+									<sbux-checkbox id="rawMtrIdentTagPblcnYn" name="rawMtrIdentTagPblcnYn" uitype="normal" text="원물인식표 발행" checked readonly></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="pltBxMngYn" name="pltBxMngYn" uitype="normal" checked readonly></sbux-checkbox>
-									<label class="check_label" for="check_default">팔레트/박스정보관리</label>
+									<sbux-checkbox id="pltBxMngYn" name="pltBxMngYn" uitype="normal" text="팔레트/박스정보관리" checked readonly></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -276,14 +269,12 @@
 						<tr>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="rawMtrWrhsPlanMngYn" name="rawMtrWrhsPlanMngYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default" >원물입고계획관리</label>
+									<sbux-checkbox id="rawMtrWrhsPlanMngYn" name="rawMtrWrhsPlanMngYn" uitype="normal" text="원물입고계획관리" ></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="gdsWrhsMngYn" name="gdsWrhsMngYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">상품입고관리</label>
+									<sbux-checkbox id="gdsWrhsMngYn" name="gdsWrhsMngYn" uitype="normal" text="상품입고관리"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -292,14 +283,12 @@
 							<th>선별지시 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="sortCmndMngYn" name="sortCmndMngYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default" >사용</label>
+									<sbux-checkbox id="sortCmndMngYn" name="sortCmndMngYn" uitype="normal" text="사용"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="sortCmndDocPblcnYn" name="sortCmndDocPblcnYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">선별지시서 발행</label>
+									<sbux-checkbox id="sortCmndDocPblcnYn" name="sortCmndDocPblcnYn" uitype="normal" text="선별지시서 발행"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -309,14 +298,12 @@
 							<th>포장지시 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="pckgCmndMngYn" name="pckgCmndMngYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">사용</label>
+									<sbux-checkbox id="pckgCmndMngYn" name="pckgCmndMngYn" uitype="normal" text="사용"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="pckgCmndDocPblcnYn" name="pckgCmndDocPblcnYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">포장지시서 발행</label>
+									<sbux-checkbox id="pckgCmndDocPblcnYn" name="pckgCmndDocPblcnYn" uitype="normal" text="포장지시서 발행"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -326,25 +313,21 @@
 							<th>선별 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="sortMngYn" name="sortMngYn" uitype="normal" checked readonly></sbux-checkbox>
-									<label class="check_label" for="check_default">사용</label>
+									<sbux-checkbox id="sortMngYn" name="sortMngYn" uitype="normal" text="사용" checked readonly></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="sortMblUseYn" name="sortMblUseYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">테블릿사용 (선별투입)</label>
+									<sbux-checkbox id="sortMblUseYn" name="sortMblUseYn" uitype="normal" text="테블릿사용 (선별투입)"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="sortLabelPblcnYn" name="sortLabelPblcnYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">선별라벨 발행</label>
+									<sbux-checkbox id="sortLabelPblcnYn" name="sortLabelPblcnYn" uitype="normal" text="선별라벨 발행"></sbux-checkbox>
 								</p>
 							</td>
 							<td><p class="ad_input_row">
-									<sbux-checkbox id="sortIdntyDocPblcnYn" name="sortIdntyDocPblcnYn" uitype="normal" checked readonly></sbux-checkbox>
-									<label class="check_label" for="check_default">선별확인서 발행</label>
+									<sbux-checkbox id="sortIdntyDocPblcnYn" name="sortIdntyDocPblcnYn" uitype="normal" text="선별확인서 발행" checked readonly></sbux-checkbox>
 								</p>
 							</td>
 						</tr>
@@ -352,20 +335,17 @@
 							<th>포장 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="pckgMngYn" name="pckgMngYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">사용</label>
+									<sbux-checkbox id="pckgMngYn" name="pckgMngYn" uitype="normal" text="사용"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="pckgMblUseYn" name="pckgMblUseYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">테블릿사용 (포장투입)</label>
+									<sbux-checkbox id="pckgMblUseYn" name="pckgMblUseYn" uitype="normal" text="테블릿사용 (포장투입)"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="gdsLblPblcnYn" name="gdsLblPblcnYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">상품라벨 발행</label>
+									<sbux-checkbox id="gdsLblPblcnYn" name="gdsLblPblcnYn" uitype="normal" text="상품라벨 발행"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -374,14 +354,12 @@
 							<th>출하지시 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="spmtCmndMngYn" name="spmtCmndMngYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">사용</label>
+									<sbux-checkbox id="spmtCmndMngYn" name="spmtCmndMngYn" uitype="normal" text="사용"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="spmtCmndDocPblcnYn" name="spmtCmndDocPblcnYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">출하지시서 발행</label>
+									<sbux-checkbox id="spmtCmndDocPblcnYn" name="spmtCmndDocPblcnYn" uitype="normal" text="출하지시서 발행"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -391,30 +369,29 @@
 							<th>출하 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="spmtMngYn" name="spmtMngYn" uitype="normal" checked readonly></sbux-checkbox>
-									<label class="check_label" for="check_default">사용</label>
+									<sbux-checkbox id="spmtMngYn" name="spmtMngYn" uitype="normal" text="사용" checked readonly></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="spmtMblUseYn" name="spmtMblUseYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">테블릿 사용</label>
+									<sbux-checkbox id="spmtMblUseYn" name="spmtMblUseYn" uitype="normal" text="테블릿 사용"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="spmtDocPblcnYn" name="spmtDocPblcnYn" uitype="normal" checked readonly></sbux-checkbox>
-									<label class="check_label" for="check_default">송품장발행</label>
+									<sbux-checkbox id="spmtDocPblcnYn" name="spmtDocPblcnYn" uitype="normal" text="송품장발행" checked readonly></sbux-checkbox>
 								</p>
 							</td>
-							<td>&nbsp;</td>
+							<td><p class="ad_input_row">
+									<sbux-checkbox id="invntrTrnsfYn" name="invntrTrnsfYn" uitype="normal" text="재고이송"></sbux-checkbox>
+								</p>
+							</td>
 						</tr>
 						<tr>
 							<th>정산 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="clclnMngYn" name="clclnMngYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">사용</label>
+									<sbux-checkbox id="clclnMngYn" name="clclnMngYn" uitype="normal" text="사용"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -425,8 +402,7 @@
 							<th>발주정보 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="ordrMngYn" name="ordrMngYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">사용</label>
+									<sbux-checkbox id="ordrMngYn" name="ordrMngYn" uitype="normal" text="사용"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -437,20 +413,17 @@
 							<th>농협전송 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="trsmMngYn" name="trsmMngYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">사용</label>
+									<sbux-checkbox id="trsmMngYn" name="trsmMngYn" uitype="normal" text="사용"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="sortDataTrsmYn" name="sortDataTrsmYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">선별정보 전송</label>
+									<sbux-checkbox id="sortDataTrsmYn" name="sortDataTrsmYn" uitype="normal" text="선별정보 전송"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="clclnDataTrsmYn" name="clclnDataTrsmYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">정산자료 전송</label>
+									<sbux-checkbox id="clclnDataTrsmYn" name="clclnDataTrsmYn" uitype="normal" text="정산자료 전송"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -459,8 +432,7 @@
 							<th>생산작업자 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="oprtrUseYn" name="oprtrUseYn" uitype="normal" ></sbux-checkbox>
-									<label class="check_label" for="check_default">사용</label>
+									<sbux-checkbox id="oprtrUseYn" name="oprtrUseYn" uitype="normal" text="사용"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
@@ -476,73 +448,73 @@
 	</section>
 	<!-- 사용자권한 설정 Modal -->
     <div>
-        <sbux-modal id="userAuthMngModal" name="userAuthMngModal" uitype="middle" header-title="APC사용자 권한설정" body-html-id="userAuthMngModalBody" footer-is-close-button="false" style="width:1400px"></sbux-modal>
+        <sbux-modal id="userAuthMngModal" name="userAuthMngModal" uitype="middle" header-title="APC사용자 권한설정" body-html-id="userAuthMngModalBody" footer-is-close-button="false" style="width:1200px"></sbux-modal>
     </div>
     <div id="userAuthMngModalBody">
-    	<jsp:include page="/WEB-INF/view/apcss/am/apc/apcUserMngPopup.jsp"></jsp:include>
+    	<jsp:include page="../apc/apcUserMngPopup.jsp"></jsp:include>
     </div>
     <!-- 설비 등록 Modal -->
     <div>
         <sbux-modal id="fcltMngModal" name="fcltMngModal" uitype="middle" header-title="설비 등록" body-html-id="fcltMngModalBody" footer-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="fcltMngModalBody">
-    	<jsp:include page="/WEB-INF/view/apcss/am/apc/fcltMngPopup.jsp"></jsp:include>
+    	<jsp:include page="../apc/fcltMngPopup.jsp"></jsp:include>
     </div>
     <!-- 창고 등록 Modal -->
     <div>
         <sbux-modal id="warehouseMngModal" name="warehouseMngModal" uitype="middle" header-title="창고 등록" body-html-id="warehouseMngModalBody" footer-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="warehouseMngModalBody">
-    	<jsp:include page="/WEB-INF/view/apcss/am/apc/warehouseMngPopup.jsp"></jsp:include>
+    	<jsp:include page="../apc/warehouseMngPopup.jsp"></jsp:include>
     </div>
     <!--품목/품종 등록 Modal -->
     <div>
-        <sbux-modal id="itemMngModal" name="itemMngModal" uitype="middle" header-title="품목/품종 등록" body-html-id="itemMngmodalBody" footer-is-close-button="false"style="width:1250px"></sbux-modal>
+        <sbux-modal id="itemMngModal" name="itemMngModal" uitype="middle" header-title="품목/품종 등록" body-html-id="itemMngmodalBody" footer-is-close-button="false"style="width:1200px"></sbux-modal>
     </div>
     <div id="itemMngmodalBody">
-    	<jsp:include page="/WEB-INF/view/apcss/am/apc/itemMngPopup.jsp"></jsp:include>
+    	<jsp:include page="../apc/itemMngPopup.jsp"></jsp:include>
     </div>
     <!-- 등급/규격 등록 Modal -->
     <div>
-        <sbux-modal id="grdSpcfctMngModal" name="grdSpcfctMngModal" uitype="middle" header-title="등급/규격 등록" body-html-id="grdSpcfctMngModalBody" footer-is-close-button="false" style="width:1250px"></sbux-modal>
+        <sbux-modal id="grdSpcfctMngModal" name="grdSpcfctMngModal" uitype="middle" header-title="등급/규격 등록" body-html-id="grdSpcfctMngModalBody" footer-is-close-button="false" style="width:1200px"></sbux-modal>
     </div>
     <div id="grdSpcfctMngModalBody">
-    	<jsp:include page="/WEB-INF/view/apcss/am/apc/grdSpcfctMngPopup.jsp"></jsp:include>
+    	<jsp:include page="../apc/grdSpcfctMngPopup.jsp"></jsp:include>
     </div>
     <!-- 팔레트/박스 등록 Modal -->
     <div>
         <sbux-modal id="pltBxMngModal" name="pltBxMngModal" uitype="middle" header-title="팔레트/박스 등록" body-html-id="pltBxMngModalBody" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="pltBxMngModalBody">
-    	<jsp:include page="/WEB-INF/view/apcss/am/apc/pltBxMngPopup.jsp"></jsp:include>
+    	<jsp:include page="../apc/pltBxMngPopup.jsp"></jsp:include>
     </div>
     <!-- 입고차량정보 등록 Modal -->
     <div>
         <sbux-modal id="wrhsVhclMngModal" name="wrhsVhclMngModal" uitype="middle" header-title="입고차량정보 등록" body-html-id="wrhsVhclMngModalBody" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="wrhsVhclMngModalBody">
-    	<jsp:include page="/WEB-INF/view/apcss/am/apc/wrhsVhclMngPopup.jsp"></jsp:include>
+    	<jsp:include page="../apc/wrhsVhclMngPopup.jsp"></jsp:include>
     </div>
     <!-- 출하운송회사 등록 Modal -->
     <div>
         <sbux-modal id="spmtTrsprtMngModal" name="spmtTrsprtMngModal" uitype="middle" header-title="출하운송회사 등록" body-html-id="spmtTrsprtMngModalBody" footer-is-close-button="false" style="width:900px"></sbux-modal>
     </div>
     <div id="spmtTrsprtMngModalBody">
-    	<jsp:include page="/WEB-INF/view/apcss/am/apc/spmtTrsprtMngPopup.jsp"></jsp:include>
+    	<jsp:include page="../apc/spmtTrsprtMngPopup.jsp"></jsp:include>
     </div>
     <!-- 입고차량정보 등록 Modal -->
     <div>
         <sbux-modal id="cnptMngModal" name="cnptMngModal" uitype="middle" header-title="거래처 등록" body-html-id="cnptMngModalBody" footer-is-close-button="false" style="width:1200px"></sbux-modal>
     </div>
     <div id="cnptMngModalBody">
-    	<jsp:include page="/WEB-INF/view/apcss/am/apc/cnptMngPopup.jsp"></jsp:include>
+    	<jsp:include page="../apc/cnptMngPopup.jsp"></jsp:include>
     </div>
     <!-- 생산작업자 등록 Modal -->
     <div>
-        <sbux-modal id="oprtrMngModal" name="oprtrMngModal" uitype="middle" header-title="거래처 등록" body-html-id="oprtrMngModalBody" footer-is-close-button="false" style="width:1200px"></sbux-modal>
+        <sbux-modal id="oprtrMngModal" name="oprtrMngModal" uitype="middle" header-title="생산자 등록" body-html-id="oprtrMngModalBody" footer-is-close-button="false" style="width:1200px"></sbux-modal>
     </div>
     <div id="oprtrMngModalBody">
-    	<jsp:include page="/WEB-INF/view/apcss/am/apc/oprtrMngPopup.jsp"></jsp:include>
+    	<jsp:include page="../apc/oprtrMngPopup.jsp"></jsp:include>
     </div>
 
     <!-- 간편설정 Modal -->
@@ -550,7 +522,7 @@
         <sbux-modal id="modal-simpleStng" name="modal-simpleStng" uitype="middle" header-title="간편설정" body-html-id="body-modal-simpleStng" footer-is-close-button="false" style="width:1200px"></sbux-modal>
     </div>
     <div id="body-modal-simpleStng">
-    	<jsp:include page="/WEB-INF/view/apcss/am/apc/simpleStngPopup.jsp"></jsp:include>
+    	<jsp:include page="../apc/simpleStngPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -571,7 +543,8 @@
 	gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000");
 	gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000");
 	window.addEventListener('DOMContentLoaded', function(e) {
-		SBUxMethod.set("apcCd", '9999');
+		//SBUxMethod.set("apcCd", gv_apcCd);
+		SBUxMethod.set("apcCd", "9999");
 		selectApcInfo();
 	})
 
@@ -622,6 +595,9 @@
 		}
 		if(targetName == 'grdMngBtn'){
 			fn_createGrdGrid();
+			fn_createGrdSpcfct();
+			fn_createGrdApcSpcfct();
+			fn_initSBSelectItem();
 		}
 		if(targetName == 'wrhsVhclMngBtn'){
 			fn_wrhsVhclMngCreateGrid();
@@ -739,6 +715,16 @@
             	apcVrtyDataGrid.setCellData(nRow, 3, SBUxMethod.get("apcCd"), true);
             	apcVrtyDataGrid.setCellData(nRow, 4, apcItemDataGrid.getRowData(apcItemDataGrid.getRow()).itemCd, true);
             	apcVrtyDataGrid.addRow(true);
+            }else if(grid === "grdGrd"){
+            	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
+	            	grdGrd.setCellData(nRow, nCol, "N", true);
+	            	grdGrd.setCellData(nRow, 3, SBUxMethod.get("apcCd"), true);
+	            	grdGrd.setCellData(nRow, 4, SBUxMethod.get("spcfct-select-itemCd"), true);
+	            	grdGrd.addRow(true);
+            	}else{
+            		alert("품목을 선택해주세요.")
+            		return;
+            	}
             }
         }
         else if (gubun === "DEL") {
@@ -808,6 +794,23 @@
             	spmtTrsprtMngDatagrid.deleteRow(nRow);
             }else if (grid === "oprtrMngDatagrid") {
             	oprtrMngDatagrid.deleteRow(nRow);
+            }else if (grid === "grdGrd") {
+            	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
+
+	            	if(grdGrd.getRowStatus(nRow) == 0 || grdGrd.getRowStatus(nRow) == 2){
+	            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+	            		if(confirm(delMsg)){
+	            			var cmnsGrdVO = grdGrd.getRowData(nRow);
+	            			fn_deleteGrd(cmnsGrdVO);
+	            			grdGrd.deleteRow(nRow);
+	            		}
+	            	}else{
+	            		grdGrd.deleteRow(nRow);
+	            	}
+            	}else{
+            		alert("품목을 선택해주세요.")
+            		return;
+            	}
             }
         }
     }

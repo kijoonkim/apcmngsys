@@ -58,91 +58,91 @@ public class CmnsGrdController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 등급 마스터 등록
 	@PostMapping(value = "/am/cmns/insertCmnsGrd.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertCmnsGrd(@RequestBody CmnsGrdVO cmnsGrdVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		// validation check
-		
+
 		// audit 항목
 		cmnsGrdVO.setSysFrstInptUserId(getUserId());
 		cmnsGrdVO.setSysFrstInptPrgrmId(getPrgrmId());
 		cmnsGrdVO.setSysLastChgUserId(getUserId());
 		cmnsGrdVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int insertedCnt = 0;
-		
+
 		try {
 			insertedCnt = cmnsGrdService.insertCmnsGrd(cmnsGrdVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 등급 마스터 변경
 	@PostMapping(value = "/am/cmns/updateCmnsGrd.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateCmnsGrd(@RequestBody CmnsGrdVO cmnsGrdVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		// validation check
-		
+
 		// audit 항목
 		cmnsGrdVO.setSysFrstInptUserId(getUserId());
 		cmnsGrdVO.setSysFrstInptPrgrmId(getPrgrmId());
 		cmnsGrdVO.setSysLastChgUserId(getUserId());
 		cmnsGrdVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int updatedCnt = 0;
-		
+
 		try {
 			updatedCnt = cmnsGrdService.updateCmnsGrd(cmnsGrdVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 등급 마스터 삭제
 	@PostMapping(value = "/am/cmns/deleteCmnsGrd.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteCmnsGrd(@RequestBody CmnsGrdVO cmnsGrdVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		// validation check
-		
+
 		// audit 항목
 		cmnsGrdVO.setSysFrstInptUserId(getUserId());
 		cmnsGrdVO.setSysFrstInptPrgrmId(getPrgrmId());
 		cmnsGrdVO.setSysLastChgUserId(getUserId());
 		cmnsGrdVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int deletedCnt = 0;
-		
+
 		try {
 			deletedCnt = cmnsGrdService.deleteCmnsGrd(cmnsGrdVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// APC 등급 목록 조회
 	@PostMapping(value = "/am/cmns/selectApcGrdList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcGrdList(@RequestBody CmnsGrdVO cmnsGrdVO, HttpServletRequest request) throws Exception {
@@ -162,62 +162,62 @@ public class CmnsGrdController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 
 	// APC 등급 등록
 	@PostMapping(value = "/am/cmns/insertApcGrd.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertApcGrd(@RequestBody CmnsGrdVO cmnsGrdVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		// validation check
-		
+
 		// audit 항목
 		cmnsGrdVO.setSysFrstInptUserId(getUserId());
 		cmnsGrdVO.setSysFrstInptPrgrmId(getPrgrmId());
 		cmnsGrdVO.setSysLastChgUserId(getUserId());
 		cmnsGrdVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int insertedCnt = 0;
-		
+
 		try {
 			insertedCnt = cmnsGrdService.insertApcGrd(cmnsGrdVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 
 	// APC 등급 변경
 	@PostMapping(value = "/am/cmns/updateApcGrd.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateApcGrd(@RequestBody CmnsGrdVO cmnsGrdVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		// validation check
-		
+
 		// audit 항목
 		cmnsGrdVO.setSysFrstInptUserId(getUserId());
 		cmnsGrdVO.setSysFrstInptPrgrmId(getPrgrmId());
 		cmnsGrdVO.setSysLastChgUserId(getUserId());
 		cmnsGrdVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int updatedCnt = 0;
-		
+
 		try {
 			updatedCnt = cmnsGrdService.updateApcGrd(cmnsGrdVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -226,26 +226,82 @@ public class CmnsGrdController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> deleteApcGrd(@RequestBody CmnsGrdVO cmnsGrdVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		// validation check
-		
+
 		// audit 항목
 		cmnsGrdVO.setSysFrstInptUserId(getUserId());
 		cmnsGrdVO.setSysFrstInptPrgrmId(getPrgrmId());
 		cmnsGrdVO.setSysLastChgUserId(getUserId());
 		cmnsGrdVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int deletedCnt = 0;
-		
+
 		try {
 			deletedCnt = cmnsGrdService.deleteApcGrd(cmnsGrdVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC 등급List 등록
+	@PostMapping(value = "/am/cmns/insertApcGrdList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertApcGrdList(@RequestBody List<CmnsGrdVO> cmnsGrdList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		// validation check
+		int insertedCnt = 0;
+		try {
+			for (CmnsGrdVO cmnsGrdVO : cmnsGrdList) {
+				// audit 항목
+				cmnsGrdVO.setSysFrstInptUserId(getUserId());
+				cmnsGrdVO.setSysFrstInptPrgrmId(getPrgrmId());
+				cmnsGrdVO.setSysLastChgUserId(getUserId());
+				cmnsGrdVO.setSysLastChgPrgrmId(getPrgrmId());
+				insertedCnt =+ cmnsGrdService.insertApcGrd(cmnsGrdVO);
+			}
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC 등급List 변경
+	@PostMapping(value = "/am/cmns/updateApcGrdList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateApcGrdList(@RequestBody List<CmnsGrdVO> cmnsGrdList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		// validation check
+		int updatedCnt = 0;
+		try {
+			for (CmnsGrdVO cmnsGrdVO : cmnsGrdList) {
+				// audit 항목
+				cmnsGrdVO.setSysLastChgUserId(getUserId());
+				cmnsGrdVO.setSysLastChgPrgrmId(getPrgrmId());
+
+				updatedCnt =+ cmnsGrdService.updateApcGrd(cmnsGrdVO);
+			}
+
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+
 		return getSuccessResponseEntity(resultMap);
 	}
 }
