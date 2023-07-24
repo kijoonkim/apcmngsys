@@ -42,9 +42,9 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcName" name="srch-inp-apcName" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
-							<td class="td_input"></td>
+							<td></td>
 						</tr>
 						<tr>
 							<th scope="row">포장기</th>
@@ -61,78 +61,78 @@
 						<tr>
 							<th scope="row">선별번호/등급</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-sltNoGrd" name="srch-inp-sltNoGrd" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-sortnoGrd" name="srch-inp-sortnoGrd" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-button id="btnSrchSltNoGrd" name="btnSrchSltNoGrd" uitype="normal" class="btn btn-xs btn-outline-dark" text=" 조회 " onclick="fn_search"></sbux-button>
+								<sbux-button id="btnSrchSortnoGrd" name="btnSrchSortnoGrd" uitype="normal" class="btn btn-xs btn-outline-dark" text=" 조회 " onclick="fn_search"></sbux-button>
 						  	</td>
 				        </tr>
 						<tr>
 							<th scope="row">생산지시번호</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-prdctnOrdrNo" name="srch-inp-prdctnOrdrNo" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-prdctnCmndno" name="srch-inp-prdctnCmndno" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-button id="btnSrchPrdctnOrdrNo" name="btnSrchPrdctnOrdrNo" uitype="normal" class="btn btn-xs btn-outline-dark" text="조회" onclick="fn_search"></sbux-button>
+								<sbux-button id="btnSrchPrdctnCmndno" name="btnSrchPrdctnCmndno" uitype="normal" class="btn btn-xs btn-outline-dark" text="조회" onclick="fn_search"></sbux-button>
 						    </td>
 						</tr>
 						<tr>
 							<th scope="row">투입일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-inptDate" name="srch-dtp-inptDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-inptYmd" name="srch-dtp-inptYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td colspan="3" class="td_input">&nbsp;</td>
+							<td colspan="3"></td>
 						</tr>
 						<tr>
 							<th scope="row">투입수량/중량</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-input id="srch-inp-inptQty" name="srch-inp-inptQty" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-inptQntt" name="srch-inp-inptQntt" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-inptWght" name="srch-inp-inptWght" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-label id="srch-lbl-inptQtyWght" name="srch-lbl-inptQtyWght" uitype="normal" text="Kg" class="bold"></sbux-label>
+								<sbux-label id="srch-lbl-inptQnttWght" name="srch-lbl-inptQnttWght" uitype="normal" text="Kg" class="bold"></sbux-label>
 							</td>
-							<td class="td_input">&nbsp;</td>
+							<td</td>
 						</tr>
 						<tr>
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td colspan="2" class="td_input">&nbsp;</td>
+							<td colspan="2"</td>
 						</tr>
 						<tr>
 							<th scope="row">선별수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-sltQty" name="srch-inp-sltQty" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="srch-inp-sortQntt" name="srch-inp-sortQntt" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-sltWght" name="srch-inp-sltWght" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="srch-inp-sortWght" name="srch-inp-sortWght" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-label id="srch-lbl-sltQtyWght" name="srch-lbl-sltQtyWght" uitype="normal" text="Kg" class="bold"></sbux-label>
+								<sbux-label id="srch-lbl-sortQnttWght" name="srch-lbl-sortQnttWght" uitype="normal" text="Kg" class="bold"></sbux-label>
 							</td>
-							<td class="td_input"></td>
+							<td></td>
 						</tr>
 						<tr>
 							<th scope="row">규 격 명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-							<sbux-input id="srch-inp-spcfctName" name="srch-inp-spcfctName" uitype="text" class="form-control input-sm" disabled></sbux-input>
+							<sbux-input id="srch-inp-spcfctNm" name="srch-inp-spcfctNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
-							<td class="td_input">&nbsp;</td>
+							<td></td>
 						</tr>
 					</tbody>
 				</table>
@@ -172,15 +172,15 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ['투입일자'], ref: 'inptDate', width: '100px', type: 'output'},
-            {caption: ['포장기명'], ref: 'pckgName', width: '100px', type: 'output'},
-            {caption: ['선별번호/등급'], ref: 'sltNoGrd', width: '100px', type: 'output'},
-            {caption: ['생산지시번호'], ref: 'prdctnOrdrNo', width: '100px', type: 'output'},
-            {caption: ['품목'], ref: 'item', width: '100px', type: 'output'},
-            {caption: ['품종'], ref: 'vrty', width: '100px', type: 'output'},
-            {caption: ['투입수량'], ref: 'inptQty', width: '100px', type: 'output'},
+            {caption: ['투입일자'], ref: 'inptYmd', width: '100px', type: 'output'},
+            {caption: ['포장기명'], ref: 'pckgNm', width: '100px', type: 'output'},
+            {caption: ['선별번호/등급'], ref: 'sortnoGrd', width: '100px', type: 'output'},
+            {caption: ['생산지시번호'], ref: 'prdctnCmndno', width: '100px', type: 'output'},
+            {caption: ['품목'], ref: 'itemCd', width: '100px', type: 'output'},
+            {caption: ['품종'], ref: 'vrtyCd', width: '100px', type: 'output'},
+            {caption: ['투입수량'], ref: 'inptQntt', width: '100px', type: 'output'},
             {caption: ['투입중량'], ref: 'inptWght', width: '100px', type: 'output'},
-            {caption: ['규격명'], ref: 'spcfctName', width: '100px', type: 'output'},
+            {caption: ['규격명'], ref: 'spcfctNm', width: '100px', type: 'output'},
             {caption: ['비고'], ref: 'rmrk', width: '100px', type: 'output'}
         ];
         grdPckgInptTablet = _SBGrid.create(SBGridProperties);

@@ -45,7 +45,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 					    	<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcName" name="srch-inp-apcName" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 	                	</tr>
 						<tr>
@@ -56,68 +56,69 @@
 										<sbux-select id="srch-slt-rcptYn" name="srch-slt-rcptYn" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
+							</td>
+							<td colspan="2"></td>
 							<th scope="row">발주일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-fromOrdrDate" name="srch-dtp-fromOrdrDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-fromOutordrYmd" name="srch-dtp-fromOutordrYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-toOrdrDate" name="srch-dtp-toOrdrDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-toOutordrYmd" name="srch-dtp-toOutordrYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td class="td_input"></td>
+							<td></td>
 							<th scope="row">발주유형</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-ordrType" name="srch-slt-ordrType" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-outordrType" name="srch-slt-outordrType" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td class="td_input"></td>
+							<td></td>
 						</tr>
 						<tr>
 							<th scope="row">품목/품종</th>
 						    <td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
 						    <td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td></td>
 						    <th scope="row">거래처명</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-cnptName" name="srch-inp-cnptName" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-cnpt" onclick="fn_modalCnpt"></sbux-button>
+								<sbux-button id="btnSrchCnptNm" name="btnSrchCnptNm" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-cnpt" onclick="fn_modalCnpt"></sbux-button>
 							</td>
 							<th scope="row">납기일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-dudt" name="srch-dtp-dudt" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-dudtYmd" name="srch-dtp-dudtYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td class="td_input"></td>
+							<td></td>
 						</tr>
 						<tr>
 							<th scope="row">상품명</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-gdsName" name="srch-inp-gdsName" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-gdsNm" name="srch-inp-gdsNm" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchGdsName" name="btnSrchGdsName" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
+								<sbux-button id="btnSrchGdsNm" name="btnSrchGdsNm" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
 							</td>
 							<th scope="row">지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-cmndDate" name="srch-dtp-cmndDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
+							<td colspan="2"></td>
 							<th scope="row">생산설비</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -126,7 +127,7 @@
 									</div>
 								</div>
 							</td>
-							<td class="td_input"></td>
+							<td></td>
 						</tr>
 					</tbody>
 				</table>
@@ -192,43 +193,43 @@
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
         	{caption: [''], ref: 'slt', width: '100px', type: 'checkbox'},
-            {caption: ['접수일자'], ref: 'rcptDate', width: '100px', type: 'output'},
-            {caption: ['발주유형'], ref: 'ordrType', width: '100px', type: 'output'},
+            {caption: ['접수일자'], ref: 'rcptYmd', width: '100px', type: 'output'},
+            {caption: ['발주유형'], ref: 'outordrType', width: '100px', type: 'output'},
             {caption: ['접수여부'], ref: 'rcptYn', width: '100px', type : 'inputcombo', 
             	typeinfo : {ref:'comboUesYnJsData1', label:'label', value:'value', oneclickedit: true, displayui : true}},
-            {caption: ['발주번호'], ref: 'ordrNo', width: '100px', type: 'output'},
-            {caption: ['거래처명'], ref: 'cnptName', width: '100px', type: 'output'},
-            {caption: ['납기일자'], ref: 'dudt', width: '100px', type: 'output'},
-            {caption: ['발주일자'], ref: 'ordrDate', width: '100px', type: 'output'},
-            {caption: ['주문자'], ref: 'cryn', width: '100px', type: 'output'},
-            {caption: ['공급자명'], ref: 'splyName', width: '100px', type: 'output'},
-            {caption: ['상품명'], ref: 'gdsName', width: '100px', type: 'output'},
+            {caption: ['발주번호'], ref: 'outordrno', width: '100px', type: 'output'},
+            {caption: ['거래처명'], ref: 'cnptNm', width: '100px', type: 'output'},
+            {caption: ['납기일자'], ref: 'dudtYmd', width: '100px', type: 'output'},
+            {caption: ['발주일자'], ref: 'outordrYmd', width: '100px', type: 'output'},
+            {caption: ['주문자'], ref: 'ordrCd', width: '100px', type: 'output'},
+            {caption: ['공급자명'], ref: 'splyPrsn', width: '100px', type: 'output'},
+            {caption: ['상품명'], ref: 'gdsNm', width: '100px', type: 'output'},
             {caption: ['상품코드'], ref: 'gdsCd', width: '100px', type: 'output'},
-            {caption: ['배송지'], ref: 'spmtAddr', width: '100px', type: 'output'},
-            {caption: ['품목'], ref: 'item', width: '100px', type: 'output'},
-            {caption: ['품종'], ref: 'vrty', width: '100px', type: 'output'},
-            {caption: ['규격'], ref: 'spcfct', width: '100px', type: 'output'},
-            {caption: ['입수'], ref: 'acqs', width: '100px', type: 'output'},
-            {caption: ['발주수량'], ref: 'ordrQty', width: '100px', type: 'output'},
-            {caption: ['낱개수량'], ref: 'untQty', width: '100px', type: 'output'},
-            {caption: ['단위'], ref: 'unit', width: '100px', type: 'output'},
-            {caption: ['박스단가'], ref: 'boxPrc', width: '100px', type: 'output'},
-            {caption: ['발주단가'], ref: 'ordrPrc', width: '100px', type: 'output'},
-            {caption: ['발주단위'], ref: 'ordrUnt', width: '100px', type: 'output'},
+            {caption: ['배송지'], ref: 'dldtnCd', width: '100px', type: 'output'},
+            {caption: ['품목'], ref: 'itemCd', width: '100px', type: 'output'},
+            {caption: ['품종'], ref: 'vrtyCd', width: '100px', type: 'output'},
+            {caption: ['규격'], ref: 'spcfctCd', width: '100px', type: 'output'},
+            {caption: ['입수'], ref: 'bxGdsQntt', width: '100px', type: 'output'},
+            {caption: ['발주수량'], ref: 'outordrQntt', width: '100px', type: 'output'},
+            {caption: ['낱개수량'], ref: 'pieceQntt', width: '100px', type: 'output'},
+            {caption: ['단위'], ref: 'unitCd', width: '100px', type: 'output'},
+            {caption: ['박스단가'], ref: 'bxUntprc', width: '100px', type: 'output'},
+            {caption: ['발주단가'], ref: 'outordrUntrc', width: '100px', type: 'output'},
+            {caption: ['발주단위'], ref: 'outordrUnit', width: '100px', type: 'output'},
             {caption: ['LOT'], ref: 'lot', width: '100px', type: 'output'},
             {caption: ['세액'], ref: 'txAmt', width: '100px', type: 'output'},
-            {caption: ['발주금액'], ref: 'ordrAmt', width: '100px', type: 'output'},
-            {caption: ['입고형태'], ref: 'wrhsForm', width: '100px', type: 'output'},
-            {caption: ['문서번호'], ref: 'docNo', width: '100px', type: 'output'},
+            {caption: ['발주금액'], ref: 'outordrAmt', width: '100px', type: 'output'},
+            {caption: ['입고형태'], ref: 'wrhsType', width: '100px', type: 'output'},
+            {caption: ['문서번호'], ref: 'docno', width: '100px', type: 'output'},
             {caption: ['도크정보'], ref: 'dockInfo', width: '100px', type: 'output'},
             {caption: ['센터구분'], ref: 'cntrSe', width: '100px', type: 'output'},
-            {caption: ['바이어명'], ref: 'byrName', width: '100px', type: 'output'},
-            {caption: ['센터입하일'], ref: 'gdsGrd', width: '100px', type: 'output'},
-            {caption: ['센터명'], ref: 'brand', width: '100px', type: 'output'},
-            {caption: ['납품구분'], ref: 'plor', width: '100px', type: 'output'},
-            {caption: ['기타'], ref: 'pckgKind', width: '100px', type: 'output'},
-            {caption: ['접수APC (농협)'], ref: 'cryn', width: '100px', type: 'output'},
-            {caption: ['생산지시번호'], ref: 'wght', width: '100px', type: 'output'}
+            {caption: ['바이어명'], ref: 'buyerNm', width: '100px', type: 'output'},
+            {caption: ['센터입하일'], ref: 'cntrRcvdWrhsYmd', width: '100px', type: 'output'},
+            {caption: ['센터명'], ref: 'cntrNm', width: '100px', type: 'output'},
+            {caption: ['납품구분'], ref: 'dlvgdsSeCd', width: '100px', type: 'output'},
+            {caption: ['기타'], ref: 'etc', width: '100px', type: 'output'},
+            {caption: ['접수APC (농협)'], ref: 'rcptCfmtnApcCd', width: '100px', type: 'output'},
+            {caption: ['생산지시번호'], ref: 'prdctnCmndno', width: '100px', type: 'output'}
         ];
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
     }

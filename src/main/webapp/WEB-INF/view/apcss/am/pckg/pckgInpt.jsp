@@ -44,69 +44,69 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcName" name="srch-inp-apcName" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">포장일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-fromPckgDate" name="srch-dtp-fromPckgDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-fromPckgYmd" name="srch-dtp-fromPckgYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-toPckgDate" name="srch-dtp-toPckgDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-toPckgYmd" name="srch-dtp-toPckgYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td></td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td></td>
 							<th scope="row">포장기</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-pckg" name="srch-slt-pckg" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-pckgSeCd" name="srch-slt-pckgSeCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td class="td_input"></td>
+							<td></td>
 						</tr>
 						<tr>
 							<th scope="row" style="border-right: hidden;">저장창고</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-strg" name="srch-slt-strg" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td colspan= "2" class="td_input" style="border-right: hidden;">&nbsp;</td>
+							<td colspan= "2"></td>
 							<th scope="row">규격</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
+							<td colspan="2"></td>
 							<th scope="row" style="border-right: hidden;">대표생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-rprsPrdctr" name="srch-inp-rprsPrdctr" uitype="text" class="form-control input-sm" title="대표생산자"></sbux-input>
+								<sbux-input id="srch-inp-rprsPrdcrCd" name="srch-inp-rprsPrdcrCd" uitype="text" class="form-control input-sm" title="대표생산자"></sbux-input>
 						    </td>
 						    <td class="td_input">
-					    		<sbux-button id="btnSrchRprsPrdcr" name="btnSrchRprsPrdcr" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
+					    		<sbux-button id="btnSrchRprsPrdcrCd" name="btnSrchRprsPrdcrCd" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
 							</td>
 						</tr>
 						<tr>
@@ -151,8 +151,8 @@
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-fromPckgDate", year+month+day);
-		SBUxMethod.set("srch-dtp-toPckgDate", year+month+day);
+		SBUxMethod.set("srch-dtp-fromPckgYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-toPckgYmd", year+month+day);
 	})
 	
 	function fn_createPckgInptGrid() {
@@ -165,19 +165,19 @@
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption: ['포장내역','포장내역'], ref: 'pckgDsctn', width: '100px', type: 'output'},
-            {caption: ['포장일자','포장일자'], ref: 'pckgDate', width: '100px', type: 'output'},
-            {caption: ['지시번호','지시번호'], ref: 'ordrNm', width: '100px', type: 'output'},
-            {caption: ['품종','품종'], ref: 'vrty', width: '100px', type: 'output'},
-            {caption: ['규격','규격'], ref: 'spcfct', width: '100px', type: 'output'},
+            {caption: ['포장일자','포장일자'], ref: 'pckgYmd', width: '100px', type: 'output'},
+            {caption: ['지시번호','지시번호'], ref: 'pckgCmndno', width: '100px', type: 'output'},
+            {caption: ['품종','품종'], ref: 'vrtyCd', width: '100px', type: 'output'},
+            {caption: ['규격','규격'], ref: 'spcfctCd', width: '100px', type: 'output'},
             {caption: ['상품등급','상품등급'], ref: 'gdsGrd', width: '100px', type: 'output'},
             {caption: ['중량','중량'], ref: 'wght', width: '100px', type: 'output'},
             {caption: ['포장기','포장기'], ref: 'pckg', width: '100px', type: 'output'},
-            {caption: ['대표생산자','대표생산자'], ref: 'rprsPrdctr', width: '100px', type: 'output'},
-            {caption: ['창고','창고'], ref: 'strg', width: '100px', type: 'output'},
-            {caption: ['포장','수량'], ref: 'pckgQty', width: '100px', type: 'output'},
+            {caption: ['대표생산자','대표생산자'], ref: 'rprsPrdcrCd', width: '100px', type: 'output'},
+            {caption: ['창고','창고'], ref: 'warehouseSeCd', width: '100px', type: 'output'},
+            {caption: ['포장','수량'], ref: 'pckgQntt', width: '100px', type: 'output'},
             {caption: ['포장','중량'], ref: 'pckgWght', width: '100px', type: 'output'},
-            {caption: ['출하','수량'], ref: 'shpgotQty', width: '100px', type: 'output'},
-            {caption: ['출하','중량'], ref: 'shpgotWght', width: '100px', type: 'output'}
+            {caption: ['출하','수량'], ref: 'spmtQntt', width: '100px', type: 'output'},
+            {caption: ['출하','중량'], ref: 'spmtWght', width: '100px', type: 'output'}
         ];
         grdPckgInpt = _SBGrid.create(SBGridProperties);
     }

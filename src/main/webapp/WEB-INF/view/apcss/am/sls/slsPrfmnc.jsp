@@ -55,7 +55,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
+							<td colspan="2"></td>
 							<th class="ta_r">정산일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-fromClclnYmd" name="srch-dtp-fromClclnYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
@@ -63,7 +63,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-toClclnYmd" name="srch-dtp-toClclnYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td></td>
 							<th class="ta_r">확정여부</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -72,7 +72,7 @@
 									</div>
 								</div>
 							</td>
-							<td class="td_input"></td>
+							<td></td>
 						</tr>
 						<tr>
 							<th class="ta_r">품목/품종</th>
@@ -90,13 +90,13 @@
 									</div>
 								</div>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td></td>
 							<th class="ta_r">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-prdcrNm" name="srch-inp-prdcrNm" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchPrdcrNm" name="btnSrchPrdcrNm" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
+								<sbux-button id="btnSrchPrdcrCd" name="btnSrchPrdcrCd" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
 							</td>
 						</tr>
 					</tbody>
@@ -149,14 +149,14 @@
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
         	{caption: ['정산일자'], ref: 'clclnYmd', width: '100px', type: 'output'},
-            {caption: ['생산자'], ref: 'prdcrNm', width: '100px', type: 'output'},
+            {caption: ['생산자'], ref: 'prdcrCd', width: '100px', type: 'output'},
             {caption: ['입고구분'], ref: 'wrhsSeCd', width: '100px', type : 'output'},
             {caption: ['상품구분'], ref: 'gdsSeCd', width: '100px', type: 'output'},
             {caption: ['품목'], ref: 'itemCd', width: '100px', type: 'output'},
             {caption: ['품종'], ref: 'vrtyCd', width: '100px', type: 'output'},
             {caption: ['규격'], ref: 'spcfctCd', width: '100px', type: 'output'},
             {caption: ['브랜드'], ref: 'brndCd', width: '100px', type: 'output'},
-            {caption: ['등급'], ref: 'grdCd1', width: '100px', type: 'output'},
+            {caption: ['등급'], ref: 'grdCd', width: '100px', type: 'output'},
             {caption: ['수량'], ref: 'qntt', width: '100px', type: 'output'},
             {caption: ['중량'], ref: 'wght', width: '100px', type: 'output'},
             {caption: ['계산금액'], ref: 'rkngAmt', width: '100px', type: 'output'},
