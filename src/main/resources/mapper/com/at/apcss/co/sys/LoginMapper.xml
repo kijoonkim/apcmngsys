@@ -52,12 +52,12 @@
 			  FROM TB_COM_USER CU
 			 WHERE CU.USER_ID = #{id}
 			   AND CU.PSWD = #{password}
-			   AND CU.USER_TYPE = '01'	-- 사용자 상태: 01 사용
+			   AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
 			   AND CU.DEL_YN = 'N'
     	]]>
     </select>
-    
-    
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.sys.mapper.LoginMapper.actionSSOLogin               -->
 	<!-- DESC : SSO 로그인 처리.                                             			-->
@@ -91,8 +91,8 @@
 			   AND CU.DEL_YN = 'N'
     	]]>
     </select>
-    
-    
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.sys.mapper.LoginMapper.searchId                  	-->
 	<!-- DESC : 아이디 찾기.                                             				-->
