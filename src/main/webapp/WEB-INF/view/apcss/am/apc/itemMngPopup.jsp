@@ -24,9 +24,11 @@
 					<table class="table table-bordered tbl_row tbl_fixed">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
-							<col style="width: 7%">
+							<col style="width: 10%">
 							<col style="width: 20%">
-							<col style="width: 7%">
+							<col style="width: 10%">
+							<col style="width: 20%">
+							<col style="width: 10%">
 							<col style="width: 20%">
 							<col style="width: auto">
 						</colgroup>
@@ -41,6 +43,8 @@
 									<sbux-input id=itemNm name="itemNm" uitype="text" class="form-control input-sm"></sbux-input>
 								</th>
 								<th>&nbsp;</th>
+								<th>&nbsp;</th>
+								<th>&nbsp;</th>
 							</tr>
 						</tbody>
 					</table>
@@ -54,14 +58,14 @@
 
 					<div class="col-sm-4">
 						<div>
-							<div id="itemGridArea" style="height:157px; width: 100%;"></div>
+							<div id="itemGridArea" style="height:159px; width: 100%;"></div>
 						</div>
 					</div>
 
 
 					<div class="col-sm-8">
 						<div>
-							<div id="apcItemGridArea" style="height:157px; width: 100%;"></div>
+							<div id="apcItemGridArea" style="height:159px; width: 100%;"></div>
 						</div>
 					</div>
 					<b>&nbsp;</b>
@@ -70,6 +74,8 @@
 					<table class="table table-bordered tbl_row tbl_fixed mg_t10">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
+							<col style="width: 10%">
+							<col style="width: 20%">
 							<col style="width: 10%">
 							<col style="width: 20%">
 							<col style="width: 10%">
@@ -88,6 +94,8 @@
 									<sbux-input id=vrtyNm name="vrtyNm" uitype="text" class="form-control input-sm"></sbux-input>
 								</th>
 								<th>&nbsp;</th>
+								<th>&nbsp;</th>
+								<th>&nbsp;</th>
 							</tr>
 						</tbody>
 					</table>
@@ -95,11 +103,11 @@
 
 				<div class="row">
 					<div class="col-sm-6">
-							<div class="ad_tbl_top"  style="width: 98%;">
-								<ul class="ad_tbl_count">
-									<li><span>품종등록</span></li>
-								</ul>
-							</div>
+						<div class="ad_tbl_top"  style="width: 98%;">
+							<ul class="ad_tbl_count">
+								<li><span>품종등록</span></li>
+							</ul>
+						</div>
 						<div>
 							<div id="vrtyGridArea" style="height:157px; width: 100%;"></div>
 						</div>
@@ -190,28 +198,10 @@
 	    SBGridProperties.clickeventarea = {empty: true, fixed: true};
 	    SBGridProperties.columns = [
 	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["품종등록"],     ref: 'vrtrCnt',  	type:'output',  width:'140px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-            	if(strValue === '0'){
-            		return "";
-            	}else{
-			        return "등록";
-            	}
-		    }},
-	        {caption: ["규격등록"],     ref: 'spcfctCnt',  	type:'output',  width:'140px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-            	if(strValue === '0'){
-            		return "";
-            	}else{
-			        return "등록";
-            	}
-		    }},
-	        {caption: ["등급등록"],     ref: 'grdCnt',  	type:'output',  width:'140px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-            	if(strValue === '0'){
-            		return "";
-            	}else{
-			        return "등록";
-            	}
-		    }},
+	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'200px',    style:'text-align:center'},
+	        {caption: ["품종등록"],     ref: 'vrtrCnt',  	type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["규격등록"],     ref: 'spcfctCnt',  	type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["등급등록"],     ref: 'grdCnt',  	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["삭제"], 	ref: 'empty',   type:'output',  width:'100PX',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteItem(" + nRow + ")'>삭제</button>";
@@ -365,7 +355,7 @@
     		}
     		console.error("failed", e.message);
         }
-        
+
         //fn_selectApcVrtyList();
 	}
 
@@ -381,7 +371,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
 	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'output',  width:'300px',    style:'text-align:center'},
+	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'input',  	width:'300px',    style:'text-align:center'},
 	        {caption: ["선택"], 	ref: 'delYn',   type:'output',  width:'100PX',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	            	if(strValue== null || strValue == ""){
@@ -452,14 +442,14 @@
 	async function fn_callInsertApcVrty(cmnsVrtyVO){
 		let postJsonPromise = gfn_postJSON("/am/cmns/insertApcVrty.do", cmnsVrtyVO);
         let data = await postJsonPromise;
-        
+
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		fn_apcVrtyList();
         	} else {
         		alert(data.resultMessage);
         	}
-        } catch(e) {        	
+        } catch(e) {
         }
 	}
 
@@ -477,7 +467,7 @@
         	} else {
         		alert(data.resultMessage);
         	}
-        } catch(e) {        	
+        } catch(e) {
         }
 	}
 

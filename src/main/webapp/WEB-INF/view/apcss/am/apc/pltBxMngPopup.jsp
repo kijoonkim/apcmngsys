@@ -22,8 +22,8 @@
 					<table class="table table-bordered tbl_row tbl_fixed">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
-							<col style="width: 10%">
-							<col style="width: 20%">
+							<col style="width: 12%">
+							<col style="width: 24%">
 							<col style="width: auto">
 						</colgroup>
 						<tbody>
@@ -85,10 +85,10 @@
 	        {caption: ["팔레트 정보","팔레트 명"], 		ref: 'pltBxNm',  		type:'input',  width:'250px',    style:'text-align:center'},
 	        {caption: ["팔레트 정보","단중"], 			ref: 'unitWght',   		type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["팔레트 정보","단위"], 			ref: 'unitCd',   		type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'comboUnitCdJsData', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
+				typeinfo : {ref:'comboUnitCdJsData', label:'label', value:'value', displayui : true}},
 	        {caption: ["팔레트 정보","기초재고수량"], 	ref: 'bssInvntrQntt',  	type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["팔레트 정보","사용유무"], 		ref: 'useYn',   		type:'combo',  width:'100px',    style:'text-align:center',
-	        			typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
+	        			typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : true}},
 	        {caption: ["팔레트 정보","처리"], 			ref: 'delYn',   			type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"pltMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
