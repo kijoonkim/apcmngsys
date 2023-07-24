@@ -20,6 +20,7 @@
 		<result property="userId" column="USER_ID"/>
 		<result property="pswd" column="PSWD"/>
 		<result property="apcCd" column="APC_CD"/>
+		<result property="apcNm" column="APC_NM"/>
 	</resultMap>
 
 	<!-- ==========================================================================	-->
@@ -43,6 +44,7 @@
 				, CU.EML			AS EMAIL
 				, CU.TELNO			AS TELNO
 				, CU.APC_CD			AS APC_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('APC_CD', CU.APC_CD) FROM DUAL) AS APC_NM
 				, CU.CHRGD_CERT_YN		AS CHRGD_CERT_YN
 				, CU.CHRGD_CERT_TYPE	AS CHRGD_CERT_TYPE
 				, CU.LGN_FAIL_NMTM		AS LGN_FAIL_NMTM
@@ -79,6 +81,7 @@
 				, CU.EML			AS EMAIL
 				, CU.TELNO			AS TELNO
 				, CU.APC_CD			AS APC_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('APC_CD', CU.APC_CD) FROM DUAL) AS APC_NM
 				, CU.CHRGD_CERT_YN		AS CHRGD_CERT_YN
 				, CU.CHRGD_CERT_TYPE	AS CHRGD_CERT_TYPE
 				, CU.LGN_FAIL_NMTM		AS LGN_FAIL_NMTM
@@ -87,7 +90,7 @@
 				, CU.DEL_YN			AS DEL_YN
 			  FROM TB_COM_USER CU
 			 WHERE CU.USER_ID = #{id}
-			   AND CU.USER_TYPE = '01'	-- 사용자 상태: 01 사용
+			   AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
 			   AND CU.DEL_YN = 'N'
     	]]>
     </select>
@@ -108,7 +111,7 @@
 			  FROM TB_COM_USER CU
 			 WHERE CU.USER_NM = #{name}
 			   AND CU.EML = #{email}
-			   AND CU.USER_TYPE = '01'	-- 사용자 상태: 01 사용
+			   AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
 			   AND CU.DEL_YN = 'N'
     	]]>
     </select>
@@ -129,7 +132,7 @@
 			  FROM TB_COM_USER CU
 			 WHERE CU.USER_ID = #{id}
 			   AND CU.EML = #{email}
-			   AND CU.USER_TYPE = '01'	-- 사용자 상태: 01 사용
+			   AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
 			   AND CU.DEL_YN = 'N'
     	]]>
     </select>

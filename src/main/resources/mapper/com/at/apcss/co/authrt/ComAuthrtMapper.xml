@@ -503,4 +503,205 @@
     	]]>
     </delete>
     
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectTopMenuTreeList		-->
+	<!-- DESC : 권한 TOP메뉴 목록 조회.                                             			-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2023.05.30  	jcshin        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+    <select id="selectTopMenuTreeList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthMapper.selectTopMenuTreeList */
+				  MN.LVL			AS MENU_LVL
+				, MN.SEQ			AS MENU_SEQ
+				, MN.SYS_ID			AS SYS_ID
+				, MN.UP_MENU_ID		AS UP_MENU_ID
+				, UM.MENU_NM		AS UP_MENU_NM
+				, MN.MENU_ID		AS MENU_ID
+				, MN.MENU_NM		AS MENU_NM
+				, MN.MENU_TYPE  	AS MENU_TYPE
+				, MN.USER_TYPE		AS USER_TYPE
+				, MN.PAGE_URL		AS PAGE_URL
+				, MN.APC_CD			AS APC_CD
+				, MN.INDCT_SEQ		AS INDCT_SEQ
+				, AUTH.AUTHRT_ID	AS AUTHRT_ID
+				, AUTH.AUTHRT_NM	AS AUTHRT_NM
+				, AUTH.AUTHRT_TYPE	AS AUTHRT_TYPE
+				, NVL2(AUTH.MENU_ID, 'Y', 'N') AS USE_YN
+			  FROM (
+				SELECT
+					  LEVEL		AS LVL
+					, ROWNUM 	AS SEQ
+					, SUBSTR(MN.MENU_ID, 1, 2) AS SYS_ID
+					, MN.UP_MENU_ID	AS UP_MENU_ID
+					, MN.MENU_ID	AS MENU_ID
+					, MN.MENU_NM	AS MENU_NM
+					, MN.MENU_TYPE  AS MENU_TYPE
+					, MN.USER_TYPE	AS USER_TYPE
+					, MN.PAGE_URL	AS PAGE_URL
+					, MN.APC_CD		AS APC_CD
+					, MN.INDCT_SEQ	AS INDCT_SEQ					
+				  FROM TB_COM_MENU MN
+				 WHERE MN.DEL_YN = 'N'
+				 START WITH MN.UP_MENU_ID IS NULL
+			    CONNECT BY PRIOR MN.MENU_ID = MN.UP_MENU_ID
+			     ORDER SIBLINGS BY MN.INDCT_SEQ, MN.MENU_ID
+			  	) MN
+			  	
+			  	LEFT JOIN TB_COM_MENU UM
+			  	  ON UM.MENU_ID = MN.UP_MENU_ID
+			  	 AND UM.DEL_YN = 'N'
+			  	 
+			  	LEFT JOIN TB_COM_UI CU
+			  	  ON CU.MENU_ID = MN.MENU_ID
+			  	 AND CU.DEL_YN = 'N'
+		
+				LEFT JOIN (
+					SELECT
+						  LISTAGG(CA.AUTHRT_ID, ',') WITHIN GROUP (ORDER BY CA.AUTHRT_ID) AS AUTHRT_ID
+						, LISTAGG(CA.AUTHRT_NM, ',') WITHIN GROUP (ORDER BY CA.AUTHRT_ID) AS AUTHRT_NM
+						, NULL AS AUTHRT_TYPE
+						, AM.MENU_ID
+					  FROM TB_COM_AUTH CA					  
+					  LEFT JOIN TB_COM_AUTH_MENU AM
+					    ON AM.AUTHRT_ID = CA.AUTHRT_ID
+					   AND AM.DEL_YN = 'N'
+					 WHERE CA.DEL_YN = 'N'
+    	]]>
+				<if test='authrtId != null and authrtId != ""'>
+					   AND CA.AUTHRT_ID = #{authrtId}
+				</if>
+				<if test='authrtIdList != null and !authrtIdList.isEmpty()'>
+					   AND CA.AUTHRT_ID IN
+					   <foreach collection="authrtIdList" item="item" index="index" separator="," open="(" close=")">
+					   	#{item}
+					   </foreach>
+				</if>
+    	<![CDATA[
+
+					 GROUP BY AM.MENU_ID
+				) AUTH
+			  ON AUTH.MENU_ID = MN.MENU_ID
+		 	 WHERE MN.LVL <= 2
+    	]]>    
+    </select>
+    
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectSideMenuTreeList	-->
+	<!-- DESC : 권한 TOP메뉴 목록 조회.                                             			-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2023.05.30  	jcshin        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+    <select id="selectSideMenuTreeList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthMapper.selectSideMenuTreeList */
+				  MN.LVL			AS MENU_LVL
+				, MN.SEQ			AS MENU_SEQ
+				, MN.SYS_ID			AS SYS_ID
+				, MN.UP_MENU_ID		AS UP_MENU_ID
+				, UM.MENU_NM		AS UP_MENU_NM
+				, MN.MENU_ID		AS MENU_ID
+				, MN.MENU_NM		AS MENU_NM
+				, MN.MENU_TYPE  	AS MENU_TYPE
+				, MN.USER_TYPE		AS USER_TYPE
+				, MN.PAGE_URL		AS PAGE_URL
+				, MN.APC_CD			AS APC_CD
+				, MN.INDCT_SEQ		AS INDCT_SEQ
+				, AUTH.AUTHRT_ID	AS AUTHRT_ID
+				, AUTH.AUTHRT_NM	AS AUTHRT_NM
+				, AUTH.AUTHRT_TYPE	AS AUTHRT_TYPE
+				, NVL2(AUTH.MENU_ID, 'Y', 'N') AS USE_YN
+			  FROM (
+				SELECT
+					  LEVEL		AS LVL
+					, ROWNUM 	AS SEQ
+					, SUBSTR(MN.MENU_ID, 1, 2) AS SYS_ID
+					, MN.UP_MENU_ID	AS UP_MENU_ID
+					, MN.MENU_ID	AS MENU_ID
+					, MN.MENU_NM	AS MENU_NM
+					, MN.MENU_TYPE  AS MENU_TYPE
+					, MN.USER_TYPE	AS USER_TYPE
+					, MN.PAGE_URL	AS PAGE_URL
+					, MN.APC_CD		AS APC_CD
+					, MN.INDCT_SEQ	AS INDCT_SEQ					
+				  FROM TB_COM_MENU MN
+				 WHERE MN.DEL_YN = 'N'
+				 START WITH MN.UP_MENU_ID = #{upMenuId}
+			    CONNECT BY PRIOR MN.MENU_ID = MN.UP_MENU_ID
+			     ORDER SIBLINGS BY MN.INDCT_SEQ, MN.MENU_ID
+			  	) MN
+			  	
+			  	LEFT JOIN TB_COM_MENU UM
+			  	  ON UM.MENU_ID = MN.UP_MENU_ID
+			  	 AND UM.DEL_YN = 'N'
+			  	 
+			  	LEFT JOIN TB_COM_UI CU
+			  	  ON CU.MENU_ID = MN.MENU_ID
+			  	 AND CU.DEL_YN = 'N'
+		
+				LEFT JOIN (
+					SELECT
+						  LISTAGG(CA.AUTHRT_ID, ',') WITHIN GROUP (ORDER BY CA.AUTHRT_ID) AS AUTHRT_ID
+						, LISTAGG(CA.AUTHRT_NM, ',') WITHIN GROUP (ORDER BY CA.AUTHRT_ID) AS AUTHRT_NM
+						, NULL AS AUTHRT_TYPE
+						, AM.MENU_ID
+					  FROM TB_COM_AUTH CA					  
+					  LEFT JOIN TB_COM_AUTH_MENU AM
+					    ON AM.AUTHRT_ID = CA.AUTHRT_ID
+					   AND AM.DEL_YN = 'N'
+					 WHERE CA.DEL_YN = 'N'
+    	]]>
+				<if test='authrtId != null and authrtId != ""'>
+					   AND CA.AUTHRT_ID = #{authrtId}
+				</if>
+				<if test='authrtIdList != null and !authrtIdList.isEmpty()'>
+					   AND CA.AUTHRT_ID IN
+					   <foreach collection="authrtIdList" item="item" index="index" separator="," open="(" close=")">
+					   	#{item}
+					   </foreach>
+				</if>
+    	<![CDATA[
+
+					 GROUP BY AM.MENU_ID
+				) AUTH
+			  ON AUTH.MENU_ID = MN.MENU_ID
+			 WHERE 1=1
+    	]]>    
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtListByUserId	-->
+	<!-- DESC : 권한 목록 조회.                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComAuthrtListByUserId" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtListByUserId */
+				  CA.AUTHRT_ID      AS AUTHRT_ID
+		        , CA.AUTHRT_NM      AS AUTHRT_NM
+				, CA.AUTHRT_TYPE    AS AUTHRT_TYPE
+				, CA.AUTHRT_RMRK    AS AUTHRT_RMRK
+				, CA.APC_CD			AS APC_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('AUTHRT_TYPE', CA.AUTHRT_TYPE) FROM DUAL) AS AUTHRT_TYPE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('APC_CD', CA.APC_CD) FROM DUAL) AS APC_NM				
+    	]]>
+		<if test='sysId != null and sysId != ""'>
+				, #{sysId}			AS SYS_ID
+		</if>
+    	<![CDATA[
+			  FROM TB_COM_AUTH CA
+			  JOIN TB_COM_AUTH_USER AU
+			    ON AU.AUTHRT_ID = CA.AUTHRT_ID
+			   AND AU.DEL_YN = 'N'
+			 WHERE CA.DEL_YN = 'N'
+			   AND AU.USER_ID = #{userId}
+    	]]>
+    </select>
 </mapper>
