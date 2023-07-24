@@ -25,12 +25,12 @@ public class ＷholExmnSchdlMngController extends BaseController {
 
 	// 전수조사일정관리
 	@RequestMapping(value = "/fm/fclt/wholExmnSchdlMng.do")
-	public String doRegFormSpmtCmnd() {
+	public String wholExmnSchdlMng() {
 		return "apcss/fm/fclt/wholExmnSchdlMng";
 	}
 	// 전수조사일정관리
 	@RequestMapping(value = "/fm/fclt/wholExmnSchdlMngReg.do")
-	public String doRegFormSpmtCmndReg() {
+	public String wholExmnSchdlMngReg() {
 		return "apcss/fm/fclt/wholExmnSchdlMngReg";
 	}
 

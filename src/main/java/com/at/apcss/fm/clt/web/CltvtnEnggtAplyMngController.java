@@ -25,14 +25,9 @@ public class CltvtnEnggtAplyMngController extends BaseController {
 
 	// 재배약정신청관리
 	@RequestMapping(value = "/fm/clt/cltvtnEnggtAplyMng.do")
-	public String doRegFormSpmtCmnd() {
+	public String cltvtnEnggtAplyMng() {
 		return "apcss/fm/clt/cltvtnEnggtAplyMng";
 	}
 
-	// 재배약정신청조회
-	/*
-	 * @RequestMapping(value = "fm/clt/cltvtnEnggtAplyMng.do") public String
-	 * doSpmtCmnd() { return "apcss/fm/clt/cltvtnEnggtAplyMng"; }
-	 */
 
 }

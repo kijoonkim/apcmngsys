@@ -25,12 +25,12 @@ public class FcltDtaMngInfoController extends BaseController {
 
 	// 스마트데이터화
 	@RequestMapping(value = "/fm/fclt/fcltDtaMngInfo.do")
-	public String doRegFormSpmtCmnd() {
+	public String fcltDtaMngInfo() {
 		return "apcss/fm/fclt/fcltDtaMngInfo";
 	}
 	// 스마트데이터화
 	@RequestMapping(value = "/fm/fclt/fcltDtaMngInfoReg.do")
-	public String doRegFormSpmtCmndReg() {
+	public String fcltDtaMngInfoReg() {
 		return "apcss/fm/fclt/fcltDtaMngInfoReg";
 	}
 

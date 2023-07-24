@@ -25,12 +25,12 @@ public class FcltSortMchnOperInfoController extends BaseController {
 
 	// 선별기운영기간
 	@RequestMapping(value = "/fm/fclt/fcltSortMchnOperInfo.do")
-	public String doRegFormSpmtCmnd() {
+	public String fcltSortMchnOperInfo() {
 		return "apcss/fm/fclt/fcltSortMchnOperInfo";
 	}
 	// 선별기운영기간
 	@RequestMapping(value = "/fm/fclt/fcltSortMchnOperInfoReg.do")
-	public String doRegFormSpmtCmndReg() {
+	public String fcltSortMchnOperInfoReg() {
 		return "apcss/fm/fclt/fcltSortMchnOperInfoReg";
 	}
 

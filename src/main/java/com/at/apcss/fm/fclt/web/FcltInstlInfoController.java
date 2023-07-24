@@ -24,13 +24,13 @@ import com.at.apcss.co.sys.controller.BaseController;
 public class FcltInstlInfoController extends BaseController {
 
 	// 시설설치보안
-	@RequestMapping(value = "/fm/fclt/FcltInstlInfo.do")
-	public String doRegFormSpmtCmnd() {
+	@RequestMapping(value = "/fm/fclt/fcltInstlInfo.do")
+	public String fcltInstlInfo() {
 		return "apcss/fm/fclt/fcltInstlInfo";
 	}
 	// 시설설치보안
-	@RequestMapping(value = "/fm/fclt/FcltInstlInfoReg.do")
-	public String doRegFormSpmtCmndReg() {
+	@RequestMapping(value = "/fm/fclt/fcltInstlInfoReg.do")
+	public String fcltInstlInfoReg() {
 		return "apcss/fm/fclt/fcltInstlInfoReg";
 	}
 
