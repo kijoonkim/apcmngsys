@@ -25,14 +25,14 @@ public class FcltAtmtcMchnInfoController extends BaseController {
 
 	// 스마트자동화
 	@RequestMapping(value = "/fm/fclt/fcltAtmtcMchnInfo.do")
-	public String doRegFormSpmtCmnd() {
+	public String fcltAtmtcMchnInfo() {
 		return "apcss/fm/fclt/fcltAtmtcMchnInfo";
 	}
 
 
 	// 스마트자동화
 		@RequestMapping(value = "/fm/fclt/fcltAtmtcMchnInfoReg.do")
-		public String doRegFormSpmtCmndReg() {
+		public String fcltAtmtcMchnInfoReg() {
 			return "apcss/fm/fclt/fcltAtmtcMchnInfoReg";
 		}
 

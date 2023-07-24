@@ -25,12 +25,12 @@ public class FcltUnityMngInfoController extends BaseController {
 
 	// 통합관리시스템에
 	@RequestMapping(value = "/fm/fclt/fcltUnityMngInfo.do")
-	public String doRegFormSpmtCmnd() {
+	public String fcltUnityMngInfo() {
 		return "apcss/fm/fclt/fcltUnityMngInfo";
 	}
 	// 통합관리시스템에
 	@RequestMapping(value = "/fm/fclt/fcltUnityMngInfoReg.do")
-	public String doRegFormSpmtCmndReg() {
+	public String fcltUnityMngInfoReg() {
 		return "apcss/fm/fclt/fcltUnityMngInfoReg";
 	}
 

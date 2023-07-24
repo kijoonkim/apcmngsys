@@ -25,12 +25,12 @@ public class FcltLwtpStrgMchnOperInfoController extends BaseController {
 
 	// 저온저장고운영
 	@RequestMapping(value = "/fm/fclt/fcltLwtpStrgMchnOperInfo.do")
-	public String doRegFormSpmtCmnd() {
+	public String fcltLwtpStrgMchnOperInfo() {
 		return "apcss/fm/fclt/fcltLwtpStrgMchnOperInfo";
 	}
 	// 저온저장고운영
 	@RequestMapping(value = "/fm/fclt/fcltLwtpStrgMchnOperInfoReg.do")
-	public String doRegFormSpmtCmndReg() {
+	public String fcltLwtpStrgMchnOperInfoReg() {
 		return "apcss/fm/fclt/fcltLwtpStrgMchnOperInfoReg";
 	}
 

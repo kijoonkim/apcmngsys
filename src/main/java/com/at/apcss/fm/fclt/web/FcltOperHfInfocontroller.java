@@ -25,12 +25,12 @@ public class FcltOperHfInfocontroller extends BaseController {
 
 	// 시설고용인력
 	@RequestMapping(value = "/fm/fclt/fcltOperHfInfo.do")
-	public String doRegFormSpmtCmnd() {
+	public String fcltOperHfInfo() {
 		return "apcss/fm/fclt/fcltOperHfInfo";
 	}
 	// 시설고용인력
 	@RequestMapping(value = "/fm/fclt/fcltOperHfInfoReg.do")
-	public String doRegFormSpmtCmndReg() {
+	public String fcltOperHfInfoReg() {
 		return "apcss/fm/fclt/fcltOperHfInfoReg";
 	}
 

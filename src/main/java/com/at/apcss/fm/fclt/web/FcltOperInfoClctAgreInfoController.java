@@ -25,12 +25,12 @@ public class FcltOperInfoClctAgreInfoController extends BaseController {
 
 	// 개인정보이용동의
 	@RequestMapping(value = "/fm/fclt/fcltOperInfoClctAgreInfo.do")
-	public String doRegFormSpmtCmnd() {
+	public String fcltOperInfoClctAgreInfo() {
 		return "apcss/fm/fclt/fcltOperInfoClctAgreInfo";
 	}
 	// 개인정보이용동의
 	@RequestMapping(value = "/fm/fclt/fcltOperInfoClctAgreInfoReg.do")
-	public String doRegFormSpmtCmndReg() {
+	public String fcltOperInfoClctAgreInfoReg() {
 		return "apcss/fm/fclt/fcltOperInfoClctAgreInfoReg";
 	}
 

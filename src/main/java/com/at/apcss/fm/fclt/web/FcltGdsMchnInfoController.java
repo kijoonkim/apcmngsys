@@ -25,12 +25,12 @@ public class FcltGdsMchnInfoController extends BaseController {
 
 	// 상품화설비현황
 	@RequestMapping(value = "/fm/fclt/fcltGdsMchnInfo.do")
-	public String doRegFormSpmtCmnd() {
+	public String fcltGdsMchnInfo() {
 		return "apcss/fm/fclt/fcltGdsMchnInfo";
 	}
 	// 상품화설비현황
 	@RequestMapping(value = "/fm/fclt/fcltGdsMchnInfoReg.do")
-	public String doRegFormSpmtCmndReg() {
+	public String fcltGdsMchnInfoReg() {
 		return "apcss/fm/fclt/fcltGdsMchnInfoReg";
 	}
 
