@@ -149,7 +149,7 @@
 						<tr>
 							<th scope="row">등급/규격 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="otrdEyeBtn" name="otrdEyeBtn" uitype="modal" text="등급/규격 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="grdSpcfctMngModalBody" onclick="fn_modal('otrdEyeMngBtn')"></sbux-button>
+								<sbux-button id="otrdEyeBtn" name="otrdEyeBtn" uitype="modal" text="등급/규격 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="grdSpcfctMngModal" onclick="fn_modal('grdMngBtn')"></sbux-button>
 							</td>
 							<td colspan="6">
 								선택한 품목별로 APC에서 관리하는 등급과 규격을 등록하세요.
@@ -497,14 +497,14 @@
     </div>
     <!--품목/품종 등록 Modal -->
     <div>
-        <sbux-modal id="itemMngModal" name="itemMngModal" uitype="middle" header-title="품목 등록" body-html-id="itemMngmodalBody" footer-is-close-button="false"style="width:1250px"></sbux-modal>
+        <sbux-modal id="itemMngModal" name="itemMngModal" uitype="middle" header-title="품목/품종 등록" body-html-id="itemMngmodalBody" footer-is-close-button="false"style="width:1250px"></sbux-modal>
     </div>
     <div id="itemMngmodalBody">
     	<jsp:include page="/WEB-INF/view/apcss/am/apc/itemMngPopup.jsp"></jsp:include>
     </div>
     <!-- 등급/규격 등록 Modal -->
     <div>
-        <sbux-modal id="grdSpcfctMngModal" name="grdSpcfctMngModal" uitype="middle" header-title="정산등급 등록" body-html-id="grdSpcfctMngModalBody" footer-is-close-button="false" style="width:800px"></sbux-modal>
+        <sbux-modal id="grdSpcfctMngModal" name="grdSpcfctMngModal" uitype="middle" header-title="등급/규격 등록" body-html-id="grdSpcfctMngModalBody" footer-is-close-button="false" style="width:1250px"></sbux-modal>
     </div>
     <div id="grdSpcfctMngModalBody">
     	<jsp:include page="/WEB-INF/view/apcss/am/apc/grdSpcfctMngPopup.jsp"></jsp:include>
@@ -620,8 +620,8 @@
 			fn_bxMngCreateGrid();
 			fn_pckgMngCreateGrid();
 		}
-		if(targetName == 'otrdEyeMngBtn'){
-			fn_otrdEyeMngCreateGrid();
+		if(targetName == 'grdMngBtn'){
+			fn_createGrdGrid();
 		}
 		if(targetName == 'wrhsVhclMngBtn'){
 			fn_wrhsVhclMngCreateGrid();
