@@ -18,19 +18,18 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="box-body">
 				<div>
 					<!--[pp] 검색 -->
 					<table class="table table-bordered tbl_row tbl_fixed">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
-							<col style="width: 7%">
-							<col style="width: 15%">
-							<col style="width: 7%">
-							<col style="width: 15%">
-							<col style="width: 7%">
-							<col style="width: 15%">
+							<col style="width: 10%">
+							<col style="width: 20%">
+							<col style="width: 10%">
+							<col style="width: 20%">
+							<col style="width: 10%">
+							<col style="width: 20%">
 							<col style="width: auto">
 						</colgroup>
 						<tbody>
@@ -44,7 +43,7 @@
 									<sbux-input id=spcfct-inp-itemNm name="spcfct-inp-itemNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 									<sbux-input id=spcfct-inp-itemCd name="spcfct-inp-itemCd" uitype="hidden" class="form-control input-sm"></sbux-input>
 								</th>
-								<th scope="row">규격명</th>
+								<th scope="row">등급명</th>
 								<th style="border-right-style: hidden;">
 									<sbux-input id=spcfct-inp-spcfctNm name="spcfct-inp-spcfctNm" uitype="text" class="form-control input-sm"></sbux-input>
 								</th>
@@ -62,14 +61,14 @@
 
 					<div class="col-sm-6">
 						<div>
-							<div id="grdGridArea" style="height:157px; width: 100%;"></div>
+							<div id="sb-area-grdGrd" style="height:157px; width: 100%;"></div>
 						</div>
 					</div>
 
 
 					<div class="col-sm-6">
 						<div>
-							<div id="apcGrdGridArea" style="height:157px; width: 100%;"></div>
+							<!-- <div id="apcGrdGridArea" style="height:157px; width: 100%;"></div> -->
 						</div>
 					</div>
 					<b>&nbsp;</b>
@@ -78,6 +77,8 @@
 					<table class="table table-bordered tbl_row tbl_fixed mg_t10">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
+							<col style="width: 10%">
+							<col style="width: 20%">
 							<col style="width: 10%">
 							<col style="width: 20%">
 							<col style="width: 10%">
@@ -95,6 +96,7 @@
 									<sbux-input id=spcfct-inp-spcfctNm name="spcfct-inp-spcfctNm" uitype="text" class="form-control input-sm"></sbux-input>
 								</th>
 								<th>&nbsp;</th>
+								<th>&nbsp;</th>
 							</tr>
 						</tbody>
 					</table>
@@ -108,7 +110,7 @@
 								</ul>
 							</div>
 						<div>
-							<div id="vrtyGridArea" style="height:157px; width: 100%;"></div>
+							<!-- <div id="vrtyGridArea" style="height:157px; width: 100%;"></div> -->
 						</div>
 					</div>
 					<div class="col-sm-6">
@@ -118,7 +120,7 @@
 								</ul>
 						</div>
 						<div>
-							<div id="apcVrtyGridArea" style="height:157px; width: 100%;"></div>
+							<!-- <div id="apcVrtyGridArea" style="height:157px; width: 100%;"></div> -->
 						</div>
 					</div>
 				</div>
@@ -127,4 +129,62 @@
 			</div>
 	</section>
 </body>
+<script type="text/javascript">
+	var jsonGrd = [];
+
+	function fn_createGrdGrid() {
+
+		SBUxMethod.set("spcfct-inp-apcNm", SBUxMethod.get("apcNm"));
+
+   		 var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdGrd';
+	    SBGridProperties.id = 'grdGrd';
+	    SBGridProperties.jsonref = 'jsonGrd';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.columns = [
+	        {caption: ["코드"],     ref: 'grdCd',  type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["명칭"],     ref: 'grdNm',  type:'output',  width:'150px',    style:'text-align:center'},
+	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'100PX',    style:'text-align:center',
+	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_addGrd(" + nRow + ")'>선택</button>";
+	        }},
+	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
+
+	    ];
+	    grdGrd = _SBGrid.create(SBGridProperties);
+	    fn_selectGrdList();
+	}
+
+	async function fn_selectGrdList(){
+		fn_callSelectGrdList()
+	}
+
+	async function fn_callSelectGrdList(){
+		let apcCd = SBUxMethod.get("apcCd");
+		let itemCd = "0101";
+		let grdNm = SBUxMethod.get("grdNm");
+		let postJsonPromise = gfn_postJSON("/am/cmns/selectApcGrdList.do", {apcCd : apcCd, itemCd : itemCd, grdNm : grdNm});
+	    let data = await postJsonPromise;
+	    let newGrdGridData = [];
+	    try{
+	    	data.resultList.forEach((item, index) => {
+				let grdVO = {
+					grdCd 		: item.grdCd
+				  , grdNm 		: item.grdNm
+				  , apcCd		: apcCd
+				}
+				newGrdGridData.push(grdVO);
+			});
+	    	jsonGrd = newGrdGridData;
+	    	grdGrd.rebuild();
+	    }catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+	    }
+	}
+</script>
 </html>
