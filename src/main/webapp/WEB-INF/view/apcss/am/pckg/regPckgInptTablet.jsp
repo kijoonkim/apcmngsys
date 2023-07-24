@@ -94,7 +94,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-label id="srch-lbl-inptQnttWght" name="srch-lbl-inptQnttWght" uitype="normal" text="Kg" class="bold"></sbux-label>
 							</td>
-							<td</td>
+							<td></td>
 						</tr>
 						<tr>
 							<th scope="row">품목/품종</th>
@@ -112,7 +112,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="2"</td>
+							<td colspan="2"></td>
 						</tr>
 						<tr>
 							<th scope="row">선별수량/중량</th>
