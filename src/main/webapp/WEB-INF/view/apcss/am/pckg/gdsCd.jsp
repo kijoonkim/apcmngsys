@@ -44,7 +44,7 @@
 						<tr>
 							<th class="ta_r">APC명</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcName" name="srch-inp-apcName" uitype="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled></sbux-input>
+								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -52,32 +52,32 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-gdsCd" name="srch-inp-gdsCd" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td></td>
 							<th class="ta_r">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td></td>
 							<th>규격</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td class="td_input"></td>
+							<td></td>
 						</tr>
 						<tr>
 							<th class="ta_r">상품등급</th>
@@ -88,32 +88,32 @@
 									</div>
 								</div>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td></td>
 							<th class="ta_r">브랜드</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-brand" name="srch-slt-brand" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-brndCd" name="srch-slt-brndCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="2">
 							<th>산지</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-plor" name="srch-slt-plor" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-plorCd" name="srch-slt-plorCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td class="td_input"></td>
+							<td></td>
 						</tr>
 						<tr>
 							<th class="ta_r">포장구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-pckgKind" name="srch-slt-pckgKind" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-pckgSeCd" name="srch-slt-pckgSeCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -152,14 +152,14 @@
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption: ['상품코드'], ref: 'gdsCd', width: '100px', type: 'output'},
-            {caption: ['상품명'], ref: 'gdsName', width: '100px', type: 'output'},
-            {caption: ['품목'], ref: 'item', width: '100px', type: 'output'},
-            {caption: ['규격'], ref: 'spcfct', width: '100px', type: 'output'},
+            {caption: ['상품명'], ref: 'gdsNm', width: '100px', type: 'output'},
+            {caption: ['품목'], ref: 'itemCd', width: '100px', type: 'output'},
+            {caption: ['규격'], ref: 'spcfctCd', width: '100px', type: 'output'},
             {caption: ['상품등급'], ref: 'gdsGrd', width: '100px', type: 'output'},
-            {caption: ['브랜드'], ref: 'brand', width: '100px', type: 'output'},
-            {caption: ['산지'], ref: 'plor', width: '100px', type: 'output'},
-            {caption: ['포장구분'], ref: 'pckgKind', width: '100px', type: 'output'},
-            {caption: ['입수'], ref: 'cryn', width: '100px', type: 'output'},
+            {caption: ['브랜드'], ref: 'brndCd', width: '100px', type: 'output'},
+            {caption: ['산지'], ref: 'plorCd', width: '100px', type: 'output'},
+            {caption: ['포장구분'], ref: 'pckgSeCd', width: '100px', type: 'output'},
+            {caption: ['입수'], ref: 'bxGdsQntt', width: '100px', type: 'output'},
             {caption: ['중량'], ref: 'wght', width: '100px', type: 'output'}
         ];
         grdGdsCd = _SBGrid.create(SBGridProperties);
