@@ -14,6 +14,4 @@ public class ComUtil {
 		
 		return resultMap;
 	}
-	
-
 }

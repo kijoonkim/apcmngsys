@@ -111,7 +111,9 @@
         	pMenuNm = menuInfo.text;
         }
         
-        const postJsonPromise = gfn_postJSON("/co/menu/leftMenu", {upMenuId: pMenuId});
+        //const postJsonPromise = gfn_postJSON("/co/menu/leftMenu", {upMenuId: pMenuId});
+        const postJsonPromise = gfn_postJSON("/co/authrt/selectSideMenuTreeList.do", {upMenuId: pMenuId});
+        
         const data = await postJsonPromise;
         
         try {
@@ -786,6 +788,7 @@
 			<div class="user-info-wrap">
 				<c:if test="${loginVO != null && loginVO.id != null}">
                 <span class="name-t">${loginVO.name}</span>님 반갑습니다.
+                <span class="name-t">${loginVO.apcNm}</span>
                 <ul class="user-login-menu">
                     <li><a href="/actionLogout.do">로그아웃</a></li>
                 </ul>

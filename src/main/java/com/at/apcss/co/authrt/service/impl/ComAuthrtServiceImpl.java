@@ -1,5 +1,6 @@
 package com.at.apcss.co.authrt.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.BeanUtils;
@@ -15,6 +16,7 @@ import com.at.apcss.co.authrt.vo.ComAuthrtUserVO;
 import com.at.apcss.co.authrt.vo.ComAuthrtVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 @Service("comAuthrtService")
 public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtService {
@@ -165,15 +167,13 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 	@Override
 	public HashMap<String, Object> insertComAuthrtMenuList(ComAuthrtVO comAuthrtVO) throws Exception {
 		
-		logger.debug("$$$$$	333	$$$$$$$$$$$$$$");
-		
 		List<ComAuthrtMenuVO> comAuthrtMenuList = comAuthrtVO.getComAuthrtMenuList();
 		
-		logger.debug("$$$$$	444	$$$$$$$$$$$$$$");
-		if (comAuthrtMenuList == null) {
-			logger.debug("comAuthrtMenuList is null");
+		for ( ComAuthrtMenuVO menu : comAuthrtMenuList ) {
+			if (ComConstants.CON_YES.equals(menu.getUseYn()) && StringUtils.hasText(menu.getUpMenuId())) {
+				setUseAuthrtList(comAuthrtMenuList, menu.getUpMenuId());
+			}
 		}
-		logger.debug("comAuthrtMenuList.size {}", comAuthrtMenuList.size());
 		
 		for ( ComAuthrtMenuVO menu : comAuthrtMenuList ) {
 			
@@ -189,10 +189,10 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
 					);
-			logger.debug("$$$$$	555	$$$$$$$$$$$$$$");
+
 			ComAuthrtMenuVO orgnVO = selectComAuthrtMenu(comAuthrtMenuVO);
-			logger.debug("$$$$$	666	$$$$$$$$$$$$$$");
 			boolean voExists = orgnVO != null && StringUtils.hasText(orgnVO.getAuthrtId());
+			
 			// FIXME ComAuthUi 정보 등록			
 			if (ComConstants.CON_YES.equals(menu.getUseYn())) {
 				// 기등록 메뉴id 인지 확인
@@ -214,6 +214,82 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		}
 		
 		return null;
+	}
+
+	/**
+	 * 하위메뉴 권한 등록 시 상위메뉴 사용 설정
+	 * @param menuList
+	 * @param upMenuId
+	 */
+	private void setUseAuthrtList(List<ComAuthrtMenuVO> menuList, String upMenuId) {
+		if (!StringUtils.hasText(upMenuId)) {
+			return;
+		}
+		
+		for ( ComAuthrtMenuVO menu : menuList ) {
+			if (upMenuId.equals(menu.getMenuId()) && !ComConstants.CON_YES.equals(menu.getUseYn()) ) {
+				menu.setUseYn(ComConstants.CON_YES);
+				if (StringUtils.hasText(menu.getUpMenuId())) {
+					setUseAuthrtList(menuList, menu.getUpMenuId());
+					break;
+				}
+			}
+		}
+	}
+	
+	
+	@Override
+	public List<ComAuthrtMenuVO> selectTopMenuTreeList(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception {
+		
+		if (StringUtils.hasText(comAuthrtMenuVO.getUserId())) {
+			
+			List<String> authrtIdList = new ArrayList<>();
+			
+			ComAuthrtVO comAuthrtVO = new ComAuthrtVO();
+			comAuthrtVO.setUserId(comAuthrtMenuVO.getUserId());
+			
+			List<ComAuthrtVO> comAuthrtList = selectComAuthrtListByUserId(comAuthrtVO);
+			for ( ComAuthrtVO authrt : comAuthrtList ) {
+				authrtIdList.add(authrt.getAuthrtId());
+			}
+			
+			comAuthrtMenuVO.setAuthrtIdList(authrtIdList);
+		}
+		
+		List<ComAuthrtMenuVO> rtnList = comAuthrtMapper.selectTopMenuTreeList(comAuthrtMenuVO);
+		
+		return rtnList;
+	}
+
+	@Override
+	public List<ComAuthrtMenuVO> selectSideMenuTreeList(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception {
+		
+		if (StringUtils.hasText(comAuthrtMenuVO.getUserId())) {
+			
+			List<String> authrtIdList = new ArrayList<>();
+			
+			ComAuthrtVO comAuthrtVO = new ComAuthrtVO();
+			comAuthrtVO.setUserId(comAuthrtMenuVO.getUserId());
+			
+			List<ComAuthrtVO> comAuthrtList = selectComAuthrtListByUserId(comAuthrtVO);
+			for ( ComAuthrtVO authrt : comAuthrtList ) {
+				authrtIdList.add(authrt.getAuthrtId());
+			}
+			
+			comAuthrtMenuVO.setAuthrtIdList(authrtIdList);
+		}
+		
+		List<ComAuthrtMenuVO> rtnList = comAuthrtMapper.selectSideMenuTreeList(comAuthrtMenuVO);
+		
+		return rtnList;
+	}
+
+	@Override
+	public List<ComAuthrtVO> selectComAuthrtListByUserId(ComAuthrtVO comAuthrtVO) throws Exception {
+
+		List<ComAuthrtVO> rtnList = comAuthrtMapper.selectComAuthrtListByUserId(comAuthrtVO);
+		
+		return rtnList;
 	}
 
 

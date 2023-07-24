@@ -104,4 +104,28 @@ public interface ComAuthrtMapper {
 	 * @return
 	 */
 	public List<ComAuthrtUserVO> selectComAuthrtUserList(ComAuthrtUserVO comAuthUserVO);
+	
+	
+	/**
+	 * 권한 top 메뉴트리 목록 조회	: depth 2까지
+	 * @param comAuthMenuVO
+	 * @return
+	 */
+	public List<ComAuthrtMenuVO> selectTopMenuTreeList(ComAuthrtMenuVO comAuthrtMenuVO);
+	
+	/**
+	 * 권한 Side 메뉴트리 목록 조회
+	 * @param comAuthMenuVO
+	 * @return
+	 */
+	public List<ComAuthrtMenuVO> selectSideMenuTreeList(ComAuthrtMenuVO comAuthrtMenuVO);
+	
+	/**
+	 * 권한목록 조회 by userId
+	 * @param comAuthrtVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComAuthrtVO> selectComAuthrtListByUserId(ComAuthrtVO comAuthrtVO);
+		
 }

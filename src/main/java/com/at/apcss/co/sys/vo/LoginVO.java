@@ -57,6 +57,7 @@ public class LoginVO implements Serializable{
 	private String userStts;
 	private String mblTelno;
 	private String apcCd;
+	private String apcNm;
 	private String ogdpNm;
 	private String chrgdCertYn;
 	private String chrgdCertType;
@@ -327,5 +328,11 @@ public class LoginVO implements Serializable{
 	}
 	public void setPswd(String pswd) {
 		this.pswd = pswd;
+	}
+	public String getApcNm() {
+		return apcNm;
+	}
+	public void setApcNm(String apcNm) {
+		this.apcNm = apcNm;
 	}
 }
