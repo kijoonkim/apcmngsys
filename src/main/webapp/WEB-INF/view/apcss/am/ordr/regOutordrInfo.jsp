@@ -62,12 +62,12 @@
 							<td colspan="2"></td>
 							<th scope="row">발주일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-fromOutordrYmd" name="srch-dtp-fromOutordrYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-outordrYmd" name="srch-dtp-outordrYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row">납기일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-toOutordrYmd" name="srch-dtp-toOutordrYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-dudtYmd" name="srch-dtp-dudtYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 						</tr>
@@ -185,7 +185,7 @@
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-fromOrdrDate", year+month+day);
+		SBUxMethod.set("srch-dtp-outordrYmd", year+month+day);
 	})
 	
 // 	var jsonRegOutordrInfoList = ['test','test']; // 그리드의 참조 데이터 주소 선언
