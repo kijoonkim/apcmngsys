@@ -173,9 +173,9 @@
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-fromOrdrDate", year+month+day);
-		SBUxMethod.set("srch-dtp-toOrdrDate", year+month+day);
-		SBUxMethod.set("srch-dtp-cmndDate", year+month+day);
+		SBUxMethod.set("srch-dtp-fromOutordrYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-toOutordrYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-cmndYmd", year+month+day);
 	})
 	
 // 	var jsonOutordrInfoList = ['test','test']; // 그리드의 참조 데이터 주소 선언

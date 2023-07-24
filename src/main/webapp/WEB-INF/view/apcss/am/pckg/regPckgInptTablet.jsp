@@ -160,7 +160,7 @@
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-inptDate", year+month+day);
+		SBUxMethod.set("srch-dtp-inptYmd", year+month+day);
 	})
 	
 	function fn_createPckgInptTabletGrid() {

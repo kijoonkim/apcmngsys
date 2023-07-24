@@ -123,7 +123,7 @@
 						<tr>
 							<th scope="row">포장일자</th>
 				          	<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-pckgDate" name="srch-dtp-pckgDate" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-pckgYmd" name="srch-dtp-pckgYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">포장기</th>
@@ -137,11 +137,11 @@
 							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">출하수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-shpgotQty" name="srch-inp-shpgotQty" type="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="srch-inp-spmtQntt" name="srch-inp-spmtQntt" type="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">&nbsp;/</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-shpgotWght" name="srch-inp-shpgotWght" type="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="srch-inp-spmtWght" name="srch-inp-spmtWght" type="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td class="td_input">Kg</td>
 						</tr>
@@ -196,9 +196,9 @@
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-fromSltDate", year+month+day);
-		SBUxMethod.set("srch-dtp-toSltDate", year+month+day);
-		SBUxMethod.set("srch-dtp-pckgDate", year+month+day);
+		SBUxMethod.set("srch-dtp-fromSortYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-toSortYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-pckgYmd", year+month+day);
 	})
 
 // 	var jsonPckgTrDsctnList = ['test','test','test','test','test','test','test','test','test','test','test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
