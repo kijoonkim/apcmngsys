@@ -131,7 +131,7 @@
 						<tr>
 							<th>박스종류</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-bxKnd" name="srch-slt-bxKnd" class="form-control input-sm" jsondata-ref=""></sbux-select>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-bx" name="srch-slt-bx" class="form-control input-sm" jsondata-ref="jsonComBx"></sbux-select>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th class="ta_r">창고</th>
@@ -174,12 +174,15 @@
 	var jsonComItem				= [];	// 품목 		itemCd		검색
 	var jsonComVrty				= [];	// 품종 		vrtyCd		검색
 	var jsonComSpcfct			= [];	// 규격 		spcfcCd		검색
+	var jsonComBx				= [];	// 규격 		spcfcCd		검색
 	var jsonComWarehouseSeCd	= [];	// 팔레트/박스 	warehouse	검색
 	const fn_initSBSelect = async function() {
 
 		// 검색 SB select
 	 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd', jsonComWarehouseSeCd, 	'WAREHOUSE_SE_CD', gv_apcCd);			// 창고
+	 	gfn_setPltBxSBSelect('srch-slt-bx', 	jsonComBx,  gv_apcCd, 'B');			// 박스
 	 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_apcCd);	// 품목
+	 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_apcCd);	// 품종
 	}
 
 	function fn_selectItem(){

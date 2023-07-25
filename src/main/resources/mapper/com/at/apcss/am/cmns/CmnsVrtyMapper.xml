@@ -32,7 +32,7 @@
 			   AND VC.VRTY_CD = #{vrtyCd}
 		]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsVrtyMapper.selectCmnsVrtyList		-->
 	<!-- DESC : 품종 마스터 목록 조회.	                                       			-->
@@ -51,7 +51,7 @@
 			  FROM TB_VRTY_CRTR VC
 			 WHERE VC.ITEM_CD = #{itemCd}
 		]]>
-		
+
 		<if test='vrtyCd != null and vrtyCd != ""'>
 			   AND VC.VRTY_CD LIKE #{vrtyCd} || '%'
 		</if>
@@ -70,7 +70,7 @@
 			   			   AND X.ITEM_CD = VC.ITEM_CD
 			   		)
 		</if>
-		
+
     </select>
 
     <!-- ==========================================================================	-->
@@ -176,7 +176,7 @@
 			   AND AVC.APC_CD = #{apcCd}
 		]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsVrtyMapper.selectApcVrtyList		-->
 	<!-- DESC : APC 품종 목록 조회.	                                       				-->
@@ -193,10 +193,12 @@
 				, AVC.VRTY_NM
 			    , AVC.DEL_YN
 			  FROM TB_APC_VRTY_CRTR AVC
-			 WHERE AVC.ITEM_CD = #{itemCd}
-			   AND AVC.APC_CD = #{apcCd}
+			 WHERE AVC.APC_CD = #{apcCd}
 		]]>
-		
+
+		<if test='itemCd != null and itemCd != ""'>
+			   AND AVC.ITEM_CD = #{itemCd}
+		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
 			   AND AVC.VRTY_CD LIKE #{vrtyCd} || '%'
 		</if>
@@ -206,7 +208,7 @@
 		<if test='delYn != null and delYn != ""'>
 			   AND AVC.DEL_YN = #{delYn}
 		</if>
-		
+
     </select>
 
     <!-- ==========================================================================	-->

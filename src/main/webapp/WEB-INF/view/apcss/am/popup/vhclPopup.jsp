@@ -38,7 +38,7 @@
 							</th>
 							<th scope="row">차량번호</th>
 							<th class="td_input">
-								<sbux-input id="vhcl-inp-vhclNm" name="vhcl-inp-vhclNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="vhcl-inp-vhclno" name="vhcl-inp-vhclno" uitype="text" class="form-control input-sm" ></sbux-input>
 							</th>
 							<th>&nbsp;</th>
 						</tr>
@@ -58,10 +58,10 @@
 
 	var jsonComBankCd 		= [];	// 은행 bankCd		Grid
 
-	const fn_initSBSelectPrdcr = async function() {
+	const fn_initSBSelectVhcl = async function() {
 
 		// 그리드 SB select
-	 	gfn_setComCdGridSelect('grdVhcl', jsonComBankCd, 'BANK_CD');		// 은행
+	 	gfn_setComCdGridSelect('grdVhcl', jsonComBankCd, 'BANK_CD');	// 은행
 
 	}
 
@@ -70,6 +70,7 @@
 	function fn_createVhclGrid() {
 
 		SBUxMethod.set("vhcl-inp-apcNm", gv_apcNm);
+		fn_initSBSelectVhcl();
 
 		jsonVhcl = [];
 	    var SBGridProperties = {};
@@ -80,13 +81,13 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-	        {caption: ['차량번호'], 	ref: 'vhclno', 	width: '100px', type: 'output'},
-	        {caption: ['기사명'], 		ref: 'drvrNm', 	width: '100px', type: 'output'},
-	        {caption: ['예금주명'], 	ref: 'dpstr', 	width: '100px', type: 'output'},
+	        {caption: ['차량번호'], 	ref: 'vhclno', 	width: '100px', type: 'output', style:'text-align:center'},
+	        {caption: ['기사명'], 		ref: 'drvrNm', 	width: '100px', type: 'output', style:'text-align:center'},
+	        {caption: ['예금주명'], 	ref: 'dpstr', 	width: '100px', type: 'output', style:'text-align:center'},
 	        {caption: ['은행'], 		ref: 'bankCd', 	type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonComBankCd', 	label:'label', value:'value', displayui : true}},
-	        {caption: ['계좌번호'], 	ref: 'actno', 	width: '100px', type: 'output'},
-	        {caption: ['비고'], 		ref: 'rmrk', 	width: '220px', type: 'input'},
+	        {caption: ['계좌번호'], 	ref: 'actno', 	width: '120px', type: 'output', style:'text-align:center'},
+	        {caption: ['비고'], 		ref: 'rmrk', 	width: '200px', type: 'input'},
 	        {caption: ['최종처리일시'], ref: 'sysLastChgDt', 	width: '100px', type: 'input'},
 	        {caption: ["처리"], 		ref: 'delYn',   type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
@@ -99,7 +100,44 @@
 
 	    ];
 	    grdVhcl = _SBGrid.create(SBGridProperties);
+	    fn_sarchVhcl();
 	    grdVhcl.addRow(true);
+	}
+
+	async function fn_sarchVhcl(){
+		callSelectVhclList();
+	}
+
+	async function callSelectVhclList(){
+		let apcCd 	= gv_apcCd;
+		let vhclno	= SBUxMethod.get("vhcl-inp-vhclno");
+		let postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {apcCd : apcCd, vhclno : vhclno});
+        let data = await postJsonPromise;
+        let newJsonVhcl = [];
+        try{
+        	data.resultList.forEach((item, index) => {
+				let vhclVO = {
+					vhclno		: item.vhclno
+				  , drvrNm 		: item.drvrNm
+				  , dpstr 		: item.dpstr
+				  , bankCd 		: item.bankCd
+				  , actno 		: item.actno
+				  , sysLastChgDt : item.sysLastChgDt
+				  , delYn 		: item.delYn
+				  , rmrk 		: item.rmrk
+				  , apcCd 		: item.apcCd
+				}
+				newJsonVhcl.push(vhclVO);
+			});
+        	jsonVhcl = newJsonVhcl;
+        	grdVhcl.rebuild();
+        	grdVhcl.addRow(true);
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
 	}
 
 
