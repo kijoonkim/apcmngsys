@@ -24,7 +24,7 @@
 					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
 				</div>
 			</div>
-			
+
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -79,17 +79,17 @@
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
-						
+
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 3%">
 						<col style="width: 6%">
-						
+
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
-						
+
 					</colgroup>
 					<tbody>
 						<tr>
@@ -205,11 +205,11 @@
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
-	
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid2();
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
@@ -241,16 +241,16 @@
 	    SBGridProperties.columns = [
 	        {caption: ["계획일자"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["계획시간"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["품목"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["품종"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["품목"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["품종"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["생산자"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["상품구분"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["입고구분"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["운송구분"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["계획수량"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["계획중량"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'userStts', 	type:'button',  width:'140px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["상품구분"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["입고구분"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["운송구분"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["계획수량"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["계획중량"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'380px',    style:'text-align:center'},
+	        {caption: ["처리"], 		ref: 'userStts', 	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 //             	if(strValue === "01"){
 //             		return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
 //             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
@@ -260,11 +260,11 @@
 //             	}
 		    }},
 	    ];
-	    
+
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
-	
+
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}

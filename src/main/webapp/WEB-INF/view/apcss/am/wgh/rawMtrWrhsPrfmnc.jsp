@@ -24,8 +24,8 @@
 					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
 				</div>
 			</div>
-			
-			
+
+
 			<div>
 			</div>
 			<div class="box-body">
@@ -58,7 +58,7 @@
 							<th scope="row">생산일자</th>
 							<td class="td_input"style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" class="form-control pull-right input-sm"/>
-								
+
 							<td class="td_input"style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-endPrdctnYmd" name="srch-dtp-endPrdctnYmd" class="form-control pull-right input-sm"/>
 							</td>
@@ -168,11 +168,11 @@
     <div id="body-modal-vhcl">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/vhclPopup.jsp"></jsp:include>
     </div>
-    
-    
+
+
     <!-- 품종 선택 Modal -->
     <div>
-        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
+        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="body-modal-vrtyCrtr">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
@@ -180,11 +180,11 @@
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
-	
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid();
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
@@ -195,11 +195,11 @@
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
-	
+
 	window.jsoninptCmndDsctnList =  [
 		[],
 	];
-	
+
 	function fn_createGrid() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
@@ -217,7 +217,7 @@
 		  	'showgoalpageui' : true
 	    };
 
-		
+
 	    SBGridProperties.columns = [
 	        {caption: ["입고일자"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["순번"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
@@ -240,11 +240,11 @@
 	        {caption: ["팔레트번호"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'200px',    style:'text-align:center'},
 	    ];
-	    
+
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
-	
+
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
