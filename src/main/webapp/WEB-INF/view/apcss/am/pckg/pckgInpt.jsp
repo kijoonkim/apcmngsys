@@ -163,6 +163,13 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+		};
         SBGridProperties.columns = [
             {caption: ['포장내역','포장내역'], ref: 'pckgDsctn', width: '100px', type: 'output'},
             {caption: ['포장일자','포장일자'], ref: 'pckgYmd', width: '100px', type: 'output'},

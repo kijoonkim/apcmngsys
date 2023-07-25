@@ -224,6 +224,13 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+		};
         SBGridProperties.columns = [
             {caption: ['선택','선택'], ref: 'slt', width: '100px', type : 'checkbox'},
             {caption: ['선별번호/등급','선별번호/등급'], ref: 'sltNoGrd', width: '100px', type: 'output'},
@@ -256,6 +263,13 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+		};
         SBGridProperties.columns = [
             {caption: ['포장일자'], ref: 'pckgYmd', width: '100px', type: 'output'},
             {caption: ['포장기'], ref: 'pckg', width: '100px', type: 'output'},
@@ -268,26 +282,42 @@
             {caption: ['창고'], ref: 'warehouseSeCd', width: '100px', type : 'inputcombo',
             	typeinfo : {ref:'comboUesYnJsData3', label:'label', value:'value', oneclickedit: true, displayui : true}},
             {caption: ['비고'], ref: 'rmrk', width: '400px', type: 'output'},
-            {caption: ['라벨'], ref: 'lbl', width: '100px', type : 'button', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-//             	if(strValue === "01"){
-//         		return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
-//         		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
-        		return "<button type='button' class='btn btn-xs btn-outline-danger'>발행</button>";
-//         	}else{
-//			        return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
-//         	}
-	    }},
-            {caption: ['처리'], ref: 'prcs', width: '100px', type : 'button', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-//             	if(strValue === "01"){
-//         		return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
-//         		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
-        		return "<button type='button' class='btn btn-xs btn-outline-danger'>삭제</button>";
-//         	}else{
-//			        return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
-//         	}
-	    }}
+            {caption: ['라벨'], ref: 'lbl', width: '100px', type : 'button', style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            	if(strValue== null || strValue == ""){
+            		return "<button type='button' hidden></button>";
+            	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick=''>발행</button>";
+            	}
+            }},
+            {caption: ['처리'], ref: 'prcs', width: '100px', type : 'button', style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            	if(strValue== null || strValue == ""){
+            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowPckgInptDsctn(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
+            	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowPckgInptDsctn(\"DEL\", " + nRow + ")'>삭제</button>";
+            	}
+            }}
         ];
         grdPckgInptDsctn = _SBGrid.create(SBGridProperties);
+        grdPckgInptDsctn.addRow(true);
     }
+	
+	function fn_procRowPckgInptDsctn(gubun, nRow, nCol){
+		if (gubun === "ADD") {
+			grdPckgInptDsctn.setCellData(nRow, nCol, "N", true);
+			grdPckgInptDsctn.addRow(true);
+		}
+		else if(gubun === "DEL"){
+			if(grdPckgInptDsctn.getRowStatus(nRow) == 0 || grdPckgInptDsctn.getRowStatus(nRow) == 2){
+        		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+        		if(confirm(delMsg)){
+        			var apcVO = grdPckgInptDsctn.getRowData(nRow);
+        			//fn_deletePrdcr(prdcrVO);
+        			grdPckgInptDsctn.deleteRow(nRow);
+        		}
+        	}else{
+        		grdPckgInptDsctn.deleteRow(nRow);
+        	}
+		}
+	}
 </script>
 </html>

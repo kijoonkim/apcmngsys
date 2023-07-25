@@ -18,9 +18,9 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ APC정보관리</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-danger" text="등록" onclick="fn_insert"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -74,10 +74,8 @@
 	})
 	
 // 	var jsonRegSlsPrfmncList = ['test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
-	var jsonApcInfoMngList = ['test','test','test'];
-	
-	var comboUesYnJsData1 = ['선택']
-	
+	var jsonApcInfoMngList = [];
+
 	function fn_createApcInfoMngGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdApcInfoMng';
@@ -86,6 +84,13 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+		};
         SBGridProperties.columns = [
         	{caption: ['선택'], ref: 'slt', width: '100px', type: 'checkbox'},
             {caption: ['APC코드'], ref: 'apcCd', width: '100px', type: 'output'},
@@ -100,11 +105,35 @@
             {caption: ['주소'], ref: 'addr', width: '100px', type: 'output'},
             {caption: ['팩스번호'], ref: 'fxno', width: '100px', type: 'output'},
             {caption: ['전화번호'], ref: 'telno', width: '100px', type: 'output'},
-            {caption: ['처리'], ref: 'prcs', width: '100px', type: 'output'},
-            {caption: ['처리'], ref: 'prcs', width: '100px', type : 'button', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-        		return "<button type='button' class='btn btn-xs btn-outline-danger'>삭제</button>";}},
+            {caption: ['처리'], ref: 'prcs', width: '100px', type : 'button', style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            	if(strValue== null || strValue == ""){
+            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowApcInfo(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
+            	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowApcInfo(\"DEL\", " + nRow + ")'>삭제</button>";
+            	}
+            }}
         ];
         grdApcInfoMng = _SBGrid.create(SBGridProperties);
+        grdApcInfoMng.addRow(true);
     }
+	
+	function fn_procRowApcInfo(gubun, nRow, nCol){
+		if (gubun === "ADD") {
+			grdApcInfoMng.setCellData(nRow, nCol, "N", true);
+			grdApcInfoMng.addRow(true);
+		}
+		else if(gubun === "DEL"){
+			if(grdApcInfoMng.getRowStatus(nRow) == 0 || grdApcInfoMng.getRowStatus(nRow) == 2){
+        		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+        		if(confirm(delMsg)){
+        			var apcVO = grdApcInfoMng.getRowData(nRow);
+        			//fn_deletePrdcr(prdcrVO);
+        			grdApcInfoMng.deleteRow(nRow);
+        		}
+        	}else{
+        		grdApcInfoMng.deleteRow(nRow);
+        	}
+		}
+	}
 </script>
 </html>
