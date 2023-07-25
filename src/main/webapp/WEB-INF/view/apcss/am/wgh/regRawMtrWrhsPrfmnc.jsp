@@ -45,7 +45,7 @@
 						<col style="width: 1%">
 						<col style="width: 1%">
 						<col style="width: 1%">
-						
+
 						<col style="width: 7%">
 						<col style="width: 1%">
 						<col style="width: 1%">
@@ -62,12 +62,12 @@
 						<col style="width: 1%">
 						<col style="width: 1%">
 						<col style="width: 1%">
-						
+
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
-						
+
 					</colgroup>
 					<tbody>
 						<tr>
@@ -93,7 +93,7 @@
 									<sbux-radio id="srch-rdo-wrhs3" name="srch-rdo-wrhs" uitype="normal" class="radio_label" text="매취" checked/>
 								</p>
 							</td>
-							
+
 							<th scope="row">상품구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
@@ -210,7 +210,8 @@
 						<li><span>원물입고 내역</span></li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button uitype="normal" id="btnDwnld" name="btnDwnld" class="btn btn-xs btn-outline-dark" text="찾기"/>
+						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="내려받기" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld" >내려받기</sbux-button>
+						<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-xs btn-outline-danger" onclick="fn_uld">올리기</sbux-button>
 					</div>
 				</div>
 				<div class="sbt-wrap-body">
@@ -221,7 +222,7 @@
 			</div>
 		</div>
 	</section>
-		
+
     <!-- 생산자 선택 Modal -->
     <div>
         <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
@@ -247,7 +248,7 @@
 
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
-	
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid();
@@ -262,7 +263,7 @@
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
-	
+
 	function fn_createGrid() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
@@ -280,7 +281,7 @@
 		  	'showgoalpageui' : true
 	    };
 
-		
+
 	    SBGridProperties.columns = [
 	        {caption: ["입고번호"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["팔레트번호번호"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
@@ -299,11 +300,11 @@
 	        {caption: ["계량번호"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
 	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
 	    ];
-	    
+
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
-	
+
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
