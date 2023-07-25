@@ -32,4 +32,9 @@ public class ApcEvrmntStngServiceImpl implements ApcEvrmntStngService{
 		return apcEvrmntStngMapper.selectRsrcList(comCdVO);
 	}
 
+	@Override
+	public ApcEvrmntStngVO selectUserAprvReg(ComUserVO comUserVO) throws Exception {
+		return null;
+	}
+
 }
