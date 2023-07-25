@@ -65,7 +65,7 @@
 			<!--[pp] 검색결과 -->
 			<br>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtDsctn" style="height:300px;"></div>
+					<div id="sb-area-spmtDsctn" style="height:0px;"></div>
 				</div>
 
 			</div>
