@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : PrdcrMapper.xml                                   					-->
+<!-- DESC : 생산자 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.07.25  	김 호        	Initial Creation                            	-->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.PrdcrMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.selectPrdcrList				-->
+	<!-- DESC : 생산자 목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectPrdcrList" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO" resultType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.PrdcrMapper.selectPrdcrList */
+				   PR.APC_CD        AS APC_CD
+			     , PR.PRDCR_CD      AS PRDCR_CD
+			     , PR.PRDCR_NM      AS PRDCR_NM
+			     , PR.PRDCR_FRST_NM AS PRDCR_FRST_NM
+			     , PR.RPRS_ITEM_CD  AS RPRS_ITEM_CD
+			     , PR.RPRS_VRTY_CD  AS RPRS_VRTY_CD
+			     , PR.GDS_SE_CD     AS GDS_SE_CD
+			     , PR.WRHS_SE_CD    AS WRHS_SE_CD
+			     , PR.TRSPRT_SE_CD  AS TRSPRT_SE_CD
+			     , PR.CLCLN_CRTR	AS CLCLN_CRTR
+			     , PR.VHCLNO        AS VHCLNO
+			     , PR.RMRK          AS RMRK
+			     , PR.DEL_YN        AS DEL_YN
+			  FROM TB_PRDCR_INFO PR
+			 WHERE PR.APC_CD = #{apcCd}
+		]]>
+		<if test=' prdcrNm != null and prdcrNm !=""'>
+			   AND PR.PRDCR_NM LIKE '%' || #{prdcrNm} || '%'
+		</if>
+    </select>
+
+</mapper>
