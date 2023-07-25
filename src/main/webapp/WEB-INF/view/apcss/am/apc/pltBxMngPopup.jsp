@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="row">
 			<div class="box box-solid">
 				<div class="box-header">

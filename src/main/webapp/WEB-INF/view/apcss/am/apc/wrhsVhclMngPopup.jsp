@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header">
 				<div class="ad_tbl_top">
@@ -199,8 +199,8 @@
     		console.error("failed", e.message);
         }
 	}
-	
-	
+
+
 	async function fn_procRow(type, id, i){
 		if(id == "wrhsVhclMngDatagrid"){
 			if (type == "ADD"){
@@ -229,28 +229,28 @@
 				return
 			}
 		}
-		
+
 		var isEqual1 = await chkEqualObj(wrhsVhclMngGridData, newWrhsVhclGridData);
 		console.log(isEqual1);
 		if (isEqual1){
 			alert("등록 할 내용이 없습니다.");
 			return;
 		}
-	
+
 
 		let regMsg = "등록 하시겠습니까?";
 		if(confirm(regMsg)){
 			alert("등록 되었습니다.");
 		}
 	}
-	
+
 	async function chkEqualObj(obj1, obj2){
 		console.log("obj1", obj1);
 		console.log("obj2", obj2);
-		
+
 		var obj1Len = obj1.filter(e => e["delYn"] == "N").length;
 		var obj2Len = obj2.filter(e => e["delYn"] == "N").length;
-		
+
 		if (obj1Len != obj2Len)
 			return false;
 
@@ -261,7 +261,7 @@
 
 		if (JSON.stringify(obj1keys) != JSON.stringify(obj2keys))
 			return false;
-		
+
 		for(var i=0; i<obj1Len; i++){
 			for(var j=0; j<obj1keys.length; j++){
 				if(obj1[i][obj1keys[j]] != obj2[i][obj1keys[j]])
