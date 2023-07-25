@@ -68,7 +68,7 @@
 			<!--[pp] 검색결과 -->
 
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtDsctn" style="height:0px;"></div>
+					<div id="sb-area-spmtDsctn" style="height:300px;"></div>
 				</div>
 				<br>
 					<div><label>운영자개요 상세내역</label></div>
