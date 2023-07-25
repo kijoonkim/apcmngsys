@@ -578,7 +578,8 @@
 
 	async function selectApcInfo(){
 		let apcCd = SBUxMethod.get("apcCd");
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcInfo.do", {apcCd : apcCd});
+    	let postJsonPromise = gfn_postJSON("/am/userInfo/userAprvReg.do", {apcCd : apcCd});
+    	
         let data = await postJsonPromise;
 		let resultVO = data.resultVO;
         try{

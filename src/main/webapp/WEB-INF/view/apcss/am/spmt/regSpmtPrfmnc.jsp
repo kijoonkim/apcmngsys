@@ -121,23 +121,121 @@
 					<div class="table-responsive tbl_scroll_sm">
 						<div id="sb-area-spmtTrgtDsctn" style="height:300px;"></div>
 					</div>
-						<div class="ad_tbl_top">
-							<ul class="ad_tbl_count">
-								<li><span>출하 내역</span></li>
-							</ul>
-							<div class="ad_tbl_toplist">
-							<sbux-button id="btnDown" name="srch-btn-invnrtInq" uitype="normal" text="내려받기" class="btn btn-xs btn-outline-dark"></sbux-button>
-							<sbux-button id="btnUp" name="srch-btn-invnrtInq" uitype="normal" text="올리기" class="btn btn-xs btn-outline-dark"></sbux-button>
-							</div>
-						</div>
-							<div class="table-responsive tbl_scroll_sm">
-								<div id="sb-area-spmtTrgtDsctn2" style="height:300px;"></div>
-							</div>
-					</div>
 				</div>
-				<!--[pp] //검색결과 -->
+					
+				<div class="ad_tbl_top"></div>
+					
+				<table class="table table-bordered tbl_row tbl_fixed">
+				<caption>검색 조건 설정</caption>
+				<colgroup>
+					<col style="width: 7%">
+					<col style="width: 6%">
+					<col style="width: 6%">
+					<col style="width: 3%">
+					<col style="width: 7%">
+					<col style="width: 6%">
+					<col style="width: 3%">
+					<col style="width: 6%">
+					<col style="width: 7%">
+					<col style="width: 6%">
+					<col style="width: 6%">
+					<col style="width: 3%">
+				</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row">지시번호</th>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-input id="srch-inp-cmndNo" name="srch-inp-cmndNo" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+						</td>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-button id="srch-btn-cmndNo" name="srch-btn-cmndNo" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
+						</td>
+						<td class="td_input" style="border-right: hidden;"></td>
+						<th scope="row">지시수량</th>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-input id="srch-inp-cmndQntt" name="srch-inp-cmndQntt" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						</td>
+						<td class="td_input" style="border-right: hidden;">
+							Kg
+						</td>
+						<td class="td_input" style="border-right: hidden;"></td>
+						<th scope="row">출하일자</th>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-datepicker id="srch-dtp-smptYmd" name="srch-dtp-smptYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">거래처</th>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+							<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+						</td>
+						<td class="td_input"></td>
+						
+						<th scope="row">상품등급</th>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+						</td>
+						<td colspan="2" class="td_input"></td>
+					
+						<th scope="row">출하수량</th>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-input id="srch-inp-smptQntt" name="srch-inp-smptQntt" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+						</td>
+						<td colspan="2" class="td_input"></td>
+					</tr>
+					<tr>
+						<th scope="row">운송회사</th>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+							<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+						</td>
+						<td class="td_input" style="border-right: hidden;"></td>
+						<th scope="row">차량번호</th>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-input id="srch-inp-vhclNo" name="srch-inp-vhclNo" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						</td>
+						<td colspan="2" class="td_input" style="border-right: hidden;"></td>
+						<th scope="row">포장구분</th>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-select id="srch-slt-frmlSe" name="srch-slt-frmlSe" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+						</td>
+						<td colspan="2" class="td_input"></td>
+					</tr>
+					<tr>
+						<th scope="row">배송처</th>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+							<sbux-input id="srch-inp-dldtn" name="srch-inp-dldtn" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+						</td>
+						<td class="td_input" style="border-right: hidden;"></td>
+						<th scope="row">운임비용</th>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-input id="srch-inp-trsprtCst" name="srch-inp-trsprtCst" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+						</td>
+						<td colspan="2"></td>
+						<th scope="row">비고</th>
+						<td colspan="3" class="td_input">
+							<sbux-input id="srch-inp-rmrk" name="srch-inp-rmrk" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+				
+				
+				
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li><span>출하 내역</span></li>
+						</ul>
+						<div class="ad_tbl_toplist">
+						<sbux-button id="btnDown" name="srch-btn-invnrtInq" uitype="normal" text="내려받기" class="btn btn-xs btn-outline-dark"></sbux-button>
+						<sbux-button id="btnUp" name="srch-btn-invnrtInq" uitype="normal" text="올리기" class="btn btn-xs btn-outline-dark"></sbux-button>
+						</div>
+					</div>
+						<div class="table-responsive tbl_scroll_sm">
+							<div id="sb-area-spmtTrgtDsctn2" style="height:300px;"></div>
+						</div>
+				</div>
 			</div>
-		</div>
+			<!--[pp] //검색결과 -->
 	</section>
 </body>
 <script type="text/javascript">
@@ -151,6 +249,7 @@
 		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-dtp-startPrdctnYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-EndPrdctnYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-smptYmd", year+month+day);
 	})
 
 	/* const fn_initSBSelect = async function() {

@@ -105,8 +105,8 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	SBUxMethod.set("srch-dtp-inqYmd1", year+month+day);
 	SBUxMethod.set("srch-dtp-inqYmd2", year+month+day);
 })
-
-function fn_createJobPrfmncGrid() {
+var rgnTrsprtCstMngGridData = []; // 그리드의 참조 데이터 주소 선언
+async function fn_createJobPrfmncGrid() {
     var SBGridProperties1 = {};
 	    SBGridProperties1.parentid = 'sb-area-grdJobPrfmnc';
 	    SBGridProperties1.id = 'grdComMsgList';
@@ -115,20 +115,56 @@ function fn_createJobPrfmncGrid() {
 	    SBGridProperties1.selectmode = 'byrow';
 	    SBGridProperties1.extendlastcol = 'scroll';
 	    SBGridProperties1.columns = [
-	         {caption: ["선택"],			ref: 'msgKey',      type:'output',  width:'15%'},
-	         {caption: ["승인여부"], 		ref: 'msgCn',     	type:'input',  	width:'15%'},
-	         {caption: ["사용자ID"], 	 	ref: 'msgKndNm',    type:'output',  width:'15%'},
-	         {caption: ["사용자명"],    	ref: 'rmrk',        type:'output',  width:'15%'},
-	         {caption: ["APC명"],	    ref: 'creUserId',   type:'output',  width:'15%'},
-	         {caption: ["사용자유형"],	    ref: 'creDateTime', type:'output',  width:'15%'},
-	         {caption: ["메일주소"],  		ref: 'updUserId',   type:'output',  width:'15%'},
-	         {caption: ["전화번호"],  		ref: 'updUserId',   type:'output',  width:'15%'},
-	         {caption: ["직책명"],  		ref: 'updUserId',   type:'output',  width:'15%'},
-	         {caption: ["담당업무"],  		ref: 'updUserId',   type:'output',  width:'15%'}
+	         {caption: ["선택"],			ref: 'chc',      	type:'output',  width:'15%'},
+	         {caption: ["승인여부"], 		ref: 'aprvYn',     	type:'input',  	width:'15%'},
+	         {caption: ["사용자ID"], 	 	ref: 'userId',    	type:'output',  width:'15%'},
+	         {caption: ["사용자명"],    	ref: 'userNm',      type:'output',  width:'15%'},
+	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'15%'},
+	         {caption: ["사용자유형"],	    ref: 'userType', 	type:'output',  width:'15%'},
+	         {caption: ["메일주소"],  		ref: 'eml',  		type:'output',  width:'15%'},
+        	 {caption: ["전화번호"],  		ref: 'telno',   	type:'output',  width:'15%'},
+	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'output',  width:'15%'},
+	         {caption: ["담당업무"],  		ref: 'tkcgTask',   	type:'output',  width:'15%'}
     ];
     grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
+    fn_selectRgnTrsprtCstList();
 }
     
+    
+async function fn_selectRgnTrsprtCstList(){
+	fn_callSelectRgnTrsprtCstList();
+}
+
+async function fn_callSelectRgnTrsprtCstList(){
+	let apcCd = SBUxMethod.get("apcCd");
+	let postJsonPromise = gfn_postJSON("/am/cmns/selectRgnTrsprtCstList.do", {apcCd : apcCd});
+    let data = await postJsonPromise;
+    let newRgnTrsprtCstGridData = [];
+    try{
+    	data.resultList.forEach((item, index) => {
+			let rgnTrsprtCst = {
+					chc 	: item.chc
+			  , aprvYn 		: item.aprvYn
+			  , userId 		: item.userId
+			  , userNm 		: item.userNm
+			  , apcNm 		: item.apcNm
+			  , userType	: item.userType
+			  , eml			: item.eml
+			  , telno		: item.jbttlNm
+			  , tkcgTask	: item.tkcgTask
+			}
+			newRgnTrsprtCstGridData.push(rgnTrsprtCst);
+		});
+    	rgnTrsprtCstMngGridData = newRgnTrsprtCstGridData;
+    	rgnTrsprtCstMngDatagrid.rebuild();
+    	rgnTrsprtCstMngDatagrid.addRow();
+    }catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e.message);
+    }
+}
 </script>
 
 </html>

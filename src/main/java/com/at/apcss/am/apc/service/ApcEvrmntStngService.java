@@ -15,7 +15,9 @@ public interface ApcEvrmntStngService {
 	 * @throws Exception
 	 */
 	ApcEvrmntStngVO selectApcInfo(ComUserVO comUserVO) throws Exception;
-
+	
+	
+	ApcEvrmntStngVO selectUserAprvReg(ComUserVO comUserVO) throws Exception;
 
 
 	/**
