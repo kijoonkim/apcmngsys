@@ -63,13 +63,18 @@
 <script type="text/javascript">
 
 	var jsonComUnitCd 		= [];	// 대표품종 unitCd		Grid
-
+	var jsonComPltBxNm		= [];
 	const fn_initSBSelectPltBx = async function() {
 
 		// 그리드 SB select
-	 	gfn_setComCdGridSelect('grdPlt', jsonComBankCd, 'UNIT_CD');		// 품목
+	 	gfn_setComCdGridSelect('grdPlt', jsonComUnitCd, 	'UNIT_CD');			// 단위
 
 	}
+
+	window.addEventListener('DOMContentLoaded', function(e) {
+		SBUxMethod.set("pltBx-inp-apcNm", gv_apcNm);
+		fn_initSBSelectPltBx();
+	})
 
 
 	var jsonPlt = [];
@@ -83,12 +88,13 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-	        {caption: ["팔레트","종류"], 		ref: 'pltBxNm',  		type:'input',  width:'150px',    style:'text-align:center'},
+	        {caption: ["팔레트","종류"], 		ref: 'pltBxNm',   		type:'combo',  width:'170px',    style:'text-align:center',
+				typeinfo : {ref:'jsonComPltBxNm', label:'label', value:'value', displayui : true}},
 	        {caption: ["팔레트","수량"], 		ref: 'bssInvntrQntt',  	type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["팔레트","단중"], 		ref: 'unitWght',   		type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["팔레트","단위"], 		ref: 'unitCd',   		type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonComUnitCd', label:'label', value:'value', displayui : true}},
-			{caption: ["팔레트","처리"], 		ref: 'delYn',   	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+			{caption: ["팔레트","처리"], 		ref: 'delYn',   	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowPltBx(\"ADD\", \"grdPlt\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
@@ -116,12 +122,13 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-	    	{caption: ["박스","종류"], 		ref: 'pltBxNm',  		type:'input',  width:'150px',    style:'text-align:center'},
+	    	{caption: ["박스","종류"], 		ref: 'pltBxNm',   		type:'combo',  width:'170px',    style:'text-align:center',
+				typeinfo : {ref:'jsonComPltBxNm', label:'label', value:'value', displayui : true}},
 	        {caption: ["박스","수량"], 		ref: 'bssInvntrQntt',  	type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["박스","단중"], 		ref: 'unitWght',   		type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["박스","단위"], 		ref: 'unitCd',   		type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonComUnitCd', label:'label', value:'value', displayui : true}},
-			{caption: ["박스","처리"], 		ref: 'delYn',   	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+			{caption: ["박스","처리"], 		ref: 'delYn',   	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowPltBx(\"ADD\", \"grdBx\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{

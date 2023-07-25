@@ -23,10 +23,10 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 15%">
-						<col style="width: 30%">
-						<col style="width: 15%">
-						<col style="width: 30%">
+						<col style="width: 16%">
+						<col style="width: 32%">
+						<col style="width: 16%">
+						<col style="width: 32%">
 						<col style="width: auto">
 					</colgroup>
 					<tbody>
@@ -54,6 +54,10 @@
 	</section>
 </body>
 <script type="text/javascript">
+
+	window.addEventListener('DOMContentLoaded', function(e) {
+		SBUxMethod.set("vrty-inp-apcNm", gv_apcNm);
+	})
 	var jsonVrty = [];
 	function fn_createVrtyGrid() {
 	    var SBGridProperties = {};
