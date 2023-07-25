@@ -47,19 +47,19 @@
 						<tr>
 							<th scope="row" style="border-bottom:1px solid white " >APC명</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
-								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
+								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
 							</td>
 							<td colspan="8"></td>
 						</tr>
 						<tr>
 							<th scope="row">계량일자</th>
 							<td class="td_input" style="border-right:hidden;" >
-								<sbux-datepicker id="dtp-wrhsYmd" name="dtp-wrhsYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row">생산자</th>
 							<td class="td_input" style="border-right:hidden;">
-								<sbux-input uitype="text" id="inp-prdcrNm" name="inp-prdcrNm" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="srch-inp-prdcrNm" name="srch-inp-prdcrNm" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchPrdcr" name="btnSrchPrdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
@@ -67,11 +67,11 @@
 							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="select-itemCd" name="select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" jsondata-ref="jsonComItem" unselected-text="선택" class="form-control input-sm" onchange="fn_selectItem"></sbux-select>
 								<!-- <sbux-button id="btnSrchItem" name="btnSrchItem" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-itemCrtr" onclick="fn_modalItem"></sbux-button> -->
 							</td>
 							<td class="td_input" style="border-right: hidden;" >
-								<sbux-select id="select-vrtyCd" name="select-vrtyCd" uitype="single" jsondata-ref="jsonComVrtyCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" jsondata-ref="jsonComVrty" unselected-text="선택" class="form-control input-sm"></sbux-select>
 								<!-- <sbux-button id="btnSrchVrty" name="btnSrchVrty" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrtyCrtr" onclick="fn_modalVrty"></sbux-button> -->
 							</td>
 						</tr>
@@ -188,12 +188,12 @@
 						<tr>
 							<th scope="row">보관창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="select-warehouseSeCd" name="select-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouseSeCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouse" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row">등급</th>
 							<td class="td_input" >
-								<sbux-select id="select-grdCd" name="select-grdCd" uitype="single" jsondata-ref="jsonComGrdCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id=""srch-slt-grdCd"" name="srch-slt-grdCd" uitype="single" jsondata-ref="jsonComGrd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row">비고</th>
@@ -230,7 +230,7 @@
         <sbux-modal id="modal-itemCrtr" name="modal-itemCrtr" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemCrtr" footer-is-close-button="false" style="width:600px"></sbux-modal>
     </div>
     <div id="body-modal-itemCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/itemCrtrPopup.jsp"></jsp:include>
+    	<jsp:include page="../..//am/popup/itemCrtrPopup.jsp"></jsp:include>
     </div>
 
     <!-- 생산자 선택 Modal -->
@@ -238,7 +238,7 @@
         <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    	<jsp:include page="../..//am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
 
     <!-- 차량 선택 Modal -->
@@ -246,7 +246,7 @@
         <sbux-modal id="modal-vhcl" name="modal-vhcl" uitype="middle" header-title="차량 선택" body-html-id="body-modal-vhcl" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-vhcl">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vhclPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/vhclPopup.jsp"></jsp:include>
     </div>
 
     <!-- 팔레트/박스 선택 Modal -->
@@ -254,7 +254,7 @@
         <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="원물입고 팔레트/박스 입고등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" style="width:1200px"></sbux-modal>
     </div>
     <div id="body-modal-pltBx">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/pltBxPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/pltBxPopup.jsp"></jsp:include>
     </div>
 
     <!-- 품종 선택 Modal -->
@@ -262,7 +262,7 @@
         <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
     </div>
     <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
     </div>
 
     <!-- 거래처 선택 Modal -->
@@ -270,7 +270,7 @@
         <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-cnpt">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/cnptPopup.jsp"></jsp:include>
     </div>
 
     <!-- 원물운임비용등록 선택 Modal -->
@@ -278,10 +278,27 @@
         <sbux-modal id="modal-trsprtCst" name="modal-trsprtCst" uitype="middle" header-title="원물운임비용등록" body-html-id="body-modal-trsprtCst" footer-is-close-button="false" style="width:1350px"></sbux-modal>
     </div>
     <div id="body-modal-trsprtCst">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/trsprtCstPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/trsprtCstPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
+
+	var jsonComItem			= [];	// 품목 		itemCd		검색
+	var jsonComVrty			= [];	// 품종 		vrtyCd		검색
+	var jsonComGrd			= [];	// 등급 		vrtyCd		검색
+	var jsonComWarehouse	= [];	// 팔레트/박스 	warehouse	검색
+	const fn_initSBSelect = async function() {
+
+		// 검색 SB select
+	 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd', jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_apcCd);			// 창고
+	 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_apcCd);	// 품목
+	}
+
+	function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonComVrty, 	gv_apcCd, itemCd);		// 품종
+		gfn_setApcGrdsSBSelect('srch-slt-grdCd', 	jsonComGrd, 	gv_apcCd, itemCd);		// 등급
+	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createWghPrfmncGrid();
@@ -290,7 +307,10 @@
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("dtp-wrhsYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-wrhsYmd", year+month+day);
+		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
+
+		fn_initSBSelect();
 	})
 
 	/* const fn_initSBSelect = async function() {
