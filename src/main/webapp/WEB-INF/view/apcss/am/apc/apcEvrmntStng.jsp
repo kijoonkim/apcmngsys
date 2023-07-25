@@ -42,14 +42,14 @@
 							<th scope="row">APC코드</th>
 							<td>&nbsp;</td>
 							<td scope="row" style="border-right: hidden;">
-								<sbux-input id="apcCd" name="apcCd" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="inp-apcCd" name="inp-apcCd" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<th rowspan="2">APC정보</th>
 							<td scope="row" align="right">명칭</td>
 							<td scope="row" >
-								<sbux-input id="apcNm" name="apcNm" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td scope="row" align="right">주소</td>
 							<td scope="row">
@@ -502,7 +502,7 @@
     <div id="spmtTrsprtMngModalBody">
     	<jsp:include page="../apc/spmtTrsprtMngPopup.jsp"></jsp:include>
     </div>
-    <!-- 입고차량정보 등록 Modal -->
+    <!-- 거래처 등록 Modal -->
     <div>
         <sbux-modal id="cnptMngModal" name="cnptMngModal" uitype="middle" header-title="거래처 등록" body-html-id="cnptMngModalBody" footer-is-close-button="false" style="width:1200px"></sbux-modal>
     </div>
@@ -536,27 +536,33 @@
 	var comboUnitCdJsData = [];
 	var comboGridBankCdJsData = [];
 	var comboGridCnptTypeJsData = [];
-	gfn_setComCdSBSelect('comboBankNm', jsonComboBankNm ,	'BANK_CD', '0000');				// 검색 조건(시스템구분)
-	gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000");
-	gfn_setComCdGridSelect('bxMngDatagrid', comboUnitCdJsData, "UNIT_CD", "0000");
-	gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000");
-	gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000");
-	gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000");
+
+	const fn_initSBSelect = async function() {
+		gfn_setComCdSBSelect('comboBankNm', jsonComboBankNm ,	'BANK_CD', '0000');				// 검색 조건(시스템구분)
+		gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000");
+		gfn_setComCdGridSelect('grdPlt', comboUnitCdJsData, "UNIT_CD", "0000");
+		gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000");
+		gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000");
+		gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000");
+	}
+
+
 	window.addEventListener('DOMContentLoaded', function(e) {
 		//SBUxMethod.set("apcCd", gv_apcCd);
-		SBUxMethod.set("apcCd", "9999");
+		SBUxMethod.set("inp-apcCd", "9999");
 		selectApcInfo();
+		fn_initSBSelect();
 	})
 
 
 	async function selectApcInfo(){
-		let apcCd = SBUxMethod.get("apcCd");
+		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/apc/selectApcInfo.do", {apcCd : apcCd});
         let data = await postJsonPromise;
 		let resultVO = data.resultVO;
         try{
 
-        	SBUxMethod.set("apcNm", resultVO.regApcNm);
+        	SBUxMethod.set("inp-apcNm", resultVO.regApcNm);
         	SBUxMethod.set("telNo", resultVO.regTelNo);
         	SBUxMethod.set("addr", resultVO.regAddr);
 
@@ -669,56 +675,58 @@
             if (grid === "cnptMngDatagrid") {
             	cnptMngDatagrid.setCellData(nRow, nCol, "N", true);
             	cnptMngDatagrid.addRow(true);
-            }else if (grid === "fcltMngDatagrid") {
-            	fcltMngDatagrid.setCellData(nRow, nCol, "N", true);
-            	fcltMngDatagrid.setCellData(nRow, 5, SBUxMethod.get("apcCd"), true);
-            	fcltMngDatagrid.setCellData(nRow, 6, "FCLT_CD", true);
-            	fcltMngDatagrid.addRow(true);
-            }else if (grid === "warehouseMngDatagrid") {
-            	warehouseMngDatagrid.setCellData(nRow, nCol, "N", true);
-            	warehouseMngDatagrid.setCellData(nRow, 5, SBUxMethod.get("apcCd"), true);
-            	warehouseMngDatagrid.setCellData(nRow, 6, "WAREHOUSE_SE_CD", true);
-            	warehouseMngDatagrid.addRow(true);
-            }else if(grid === "pltMngDatagrid"){
-            	pltMngDatagrid.setCellData(nRow, nCol, "N", true);
-            	pltMngDatagrid.setCellData(nRow, 5, "Y", true);
-            	pltMngDatagrid.setCellData(nRow, 7, "P", true);
-            	pltMngDatagrid.setCellData(nRow, 8, SBUxMethod.get("apcCd"), true);
-            	pltMngDatagrid.addRow(true);
-            }else if(grid === "bxMngDatagrid"){
-            	bxMngDatagrid.setCellData(nRow, nCol, "N", true);
-            	bxMngDatagrid.setCellData(nRow, 5, "Y", true);
-            	bxMngDatagrid.setCellData(nRow, 7, "B", true);
-            	bxMngDatagrid.setCellData(nRow, 8, SBUxMethod.get("apcCd"), true);
-            	bxMngDatagrid.addRow(true);
-            }else if(grid === "pckgMngDatagrid"){
-            	pckgMngDatagrid.setCellData(nRow, nCol, "Y", true);
-            	pckgMngDatagrid.setCellData(nRow, 5, SBUxMethod.get("apcCd"), true);
-            	pckgMngDatagrid.setCellData(nRow, 6, "PCKG_SE_CD", true);
-            	pckgMngDatagrid.addRow(true);
+            }else if (grid === "grdFclt") {
+            	grdFclt.setCellData(nRow, nCol, "N", true);
+            	grdFclt.setCellData(nRow, 4, SBUxMethod.get("inp-apcCd"), true);
+            	grdFclt.setCellData(nRow, 5, "FCLT_CD", true);
+            	grdFclt.addRow(true);
+            }else if (grid === "grdWarehouse") {
+            	grdWarehouse.setCellData(nRow, nCol, "N", true);
+            	grdWarehouse.setCellData(nRow, 4, SBUxMethod.get("inp-apcCd"), true);
+            	grdWarehouse.setCellData(nRow, 5, "WAREHOUSE_SE_CD", true);
+            	grdWarehouse.addRow(true);
+            }else if(grid === "grdPlt"){
+            	grdPlt.setCellData(nRow, nCol, "N", true);
+            	grdPlt.setCellData(nRow, 3, "K", true);
+            	grdPlt.setCellData(nRow, 5, "Y", true);
+            	grdPlt.setCellData(nRow, 7, "P", true);
+            	grdPlt.setCellData(nRow, 8, SBUxMethod.get("inp-apcCd"), true);
+            	grdPlt.addRow(true);
+            }else if(grid === "grdBx"){
+            	grdBx.setCellData(nRow, nCol, "N", true);
+            	grdBx.setCellData(nRow, 5, "Y", true);
+            	grdBx.setCellData(nRow, 3, "K", true);
+            	grdBx.setCellData(nRow, 7, "B", true);
+            	grdBx.setCellData(nRow, 8, SBUxMethod.get("inp-apcCd"), true);
+            	grdBx.addRow(true);
+            }else if(grid === "grdPckg"){
+            	grdPckg.setCellData(nRow, nCol, "N", true);
+            	grdPckg.setCellData(nRow, 5, SBUxMethod.get("inp-apcCd"), true);
+            	grdPckg.setCellData(nRow, 6, "PCKG_SE_CD", true);
+            	grdPckg.addRow(true);
             }else if(grid === "rgnTrsprtCstMngDatagrid"){
             	rgnTrsprtCstMngDatagrid.setCellData(nRow, nCol, "N", true);
-            	rgnTrsprtCstMngDatagrid.setCellData(nRow, 5, SBUxMethod.get("apcCd"), true);
+            	rgnTrsprtCstMngDatagrid.setCellData(nRow, 5, SBUxMethod.get("inp-apcCd"), true);
             	rgnTrsprtCstMngDatagrid.addRow(true);
             }else if(grid === "wrhsVhclMngDatagrid"){
             	wrhsVhclMngDatagrid.setCellData(nRow, nCol, "N", true);
-            	wrhsVhclMngDatagrid.setCellData(nRow, 7, SBUxMethod.get("apcCd"), true);
+            	wrhsVhclMngDatagrid.setCellData(nRow, 7, SBUxMethod.get("inp-apcCd"), true);
             	wrhsVhclMngDatagrid.addRow(true);
             }else if(grid === "spmtTrsprtMngDatagrid"){
             	spmtTrsprtMngDatagrid.setCellData(nRow, nCol, "N", true);
             	spmtTrsprtMngDatagrid.addRow(true);
-            }else if(grid === "oprtrMngDatagrid"){
-            	oprtrMngDatagrid.setCellData(nRow, nCol, "N", true);
-            	oprtrMngDatagrid.addRow(true);
-            }else if(grid === "apcVrtyDataGrid"){
-            	apcVrtyDataGrid.setCellData(nRow, nCol, "N", true);
-            	apcVrtyDataGrid.setCellData(nRow, 3, SBUxMethod.get("apcCd"), true);
-            	apcVrtyDataGrid.setCellData(nRow, 4, apcItemDataGrid.getRowData(apcItemDataGrid.getRow()).itemCd, true);
-            	apcVrtyDataGrid.addRow(true);
+            }else if(grid === "grdOprtr"){
+            	grdOprtr.setCellData(nRow, nCol, "N", true);
+            	grdOprtr.addRow(true);
+            }else if(grid === "grdApcVrty"){
+            	grdApcVrty.setCellData(nRow, nCol, "N", true);
+            	grdApcVrty.setCellData(nRow, 3, SBUxMethod.get("inp-apcCd"), true);
+            	grdApcVrty.setCellData(nRow, 4, grdApcItem.getRowData(apcItemDataGrid.getRow()).itemCd, true);
+            	grdApcVrty.addRow(true);
             }else if(grid === "grdGrd"){
             	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
 	            	grdGrd.setCellData(nRow, nCol, "N", true);
-	            	grdGrd.setCellData(nRow, 3, SBUxMethod.get("apcCd"), true);
+	            	grdGrd.setCellData(nRow, 3, SBUxMethod.get("inp-apcCd"), true);
 	            	grdGrd.setCellData(nRow, 4, SBUxMethod.get("spcfct-select-itemCd"), true);
 	            	grdGrd.addRow(true);
             	}else{
@@ -730,61 +738,61 @@
         else if (gubun === "DEL") {
             if (grid === "cnptMngDatagrid") {
             	cnptMngDatagrid.deleteRow(nRow);
-            }else if (grid === "fcltMngDatagrid") {
-            	if(fcltMngDatagrid.getRowStatus(nRow) == 0 || fcltMngDatagrid.getRowStatus(nRow) == 2){
+            }else if (grid === "grdFclt") {
+            	if(grdFclt.getRowStatus(nRow) == 0 || grdFclt.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
-            			var comCdVO = fcltMngDatagrid.getRowData(nRow);
+            			var comCdVO = grdFclt.getRowData(nRow);
             			fn_deleteRsrc(comCdVO);
-		            	fcltMngDatagrid.deleteRow(nRow);
+            			grdFclt.deleteRow(nRow);
             		}
             	}else{
-	            	fcltMngDatagrid.deleteRow(nRow);
+            		grdFclt.deleteRow(nRow);
             	}
-            }else if (grid === "warehouseMngDatagrid") {
-            	if(warehouseMngDatagrid.getRowStatus(nRow) == 0 || warehouseMngDatagrid.getRowStatus(nRow) == 2){
+            }else if (grid === "grdWarehouse") {
+            	if(grdWarehouse.getRowStatus(nRow) == 0 || grdWarehouse.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
-            			var comCdVO = warehouseMngDatagrid.getRowData(nRow);
+            			var comCdVO = grdWarehouse.getRowData(nRow);
             			fn_deleteRsrc(comCdVO);
-            			warehouseMngDatagrid.deleteRow(nRow);
+            			grdWarehouse.deleteRow(nRow);
             		}
             	}else{
             		warehouseMngDatagrid.deleteRow(nRow);
             	}
-            }else if (grid === "pltMngDatagrid") {
-            	if(pltMngDatagrid.getRowStatus(nRow) == 0 || pltMngDatagrid.getRowStatus(nRow) == 2){
+            }else if (grid === "grdPlt") {
+            	if(grdPlt.getRowStatus(nRow) == 0 || grdPlt.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
-            			var pltBxVO = pltMngDatagrid.getRowData(nRow);
+            			var pltBxVO = grdPlt.getRowData(nRow);
             			console.log(pltBxVO);
             			fn_deletepltBx(pltBxVO);
-            			pltMngDatagrid.deleteRow(nRow);
+            			grdPlt.deleteRow(nRow);
             		}
             	}else{
             		pltMngDatagrid.deleteRow(nRow);
             	}
-            }else if (grid === "bxMngDatagrid") {
-            	if(bxMngDatagrid.getRowStatus(nRow) == 0 || bxMngDatagrid.getRowStatus(nRow) == 2){
+            }else if (grid === "grdBx") {
+            	if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
-            			var pltBxVO = bxMngDatagrid.getRowData(nRow);
+            			var pltBxVO = grdBx.getRowData(nRow);
             			fn_deletepltBx(pltBxVO);
-            			bxMngDatagrid.deleteRow(nRow);
+            			grdBx.deleteRow(nRow);
             		}
             	}else{
-            		bxMngDatagrid.deleteRow(nRow);
+            		grdBx.deleteRow(nRow);
             	}
-            }else if (grid === "pckgMngDatagrid") {
-            	if(pckgMngDatagrid.getRowStatus(nRow) == 0 || pckgMngDatagrid.getRowStatus(nRow) == 2){
+            }else if (grid === "grdPckg") {
+            	if(grdPckg.getRowStatus(nRow) == 0 || grdPckg.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
-            			var comCdVO = pckgMngDatagrid.getRowData(nRow);
+            			var comCdVO = grdPckg.getRowData(nRow);
             			fn_deleteRsrc(comCdVO);
-            			pckgMngDatagrid.deleteRow(nRow);
+            			grdPckg.deleteRow(nRow);
             		}
             	}else{
-            		pckgMngDatagrid.deleteRow(nRow);
+            		grdPckg.deleteRow(nRow);
             	}
             }else if (grid === "rgnTrsprtCstMngDatagrid") {
             	rgnTrsprtCstMngDatagrid.deleteRow(nRow);
@@ -792,8 +800,8 @@
             	wrhsVhclMngDatagrid.deleteRow(nRow);
             }else if (grid === "spmtTrsprtMngDatagrid") {
             	spmtTrsprtMngDatagrid.deleteRow(nRow);
-            }else if (grid === "oprtrMngDatagrid") {
-            	oprtrMngDatagrid.deleteRow(nRow);
+            }else if (grid === "grdOprtr") {
+            	grdOprtr.deleteRow(nRow);
             }else if (grid === "grdGrd") {
             	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
 
@@ -814,33 +822,6 @@
             }
         }
     }
-
-    // 원물육안 등급
-    var otrdEyeMngGridData = [
-    	{"cd": "01", "otrdEyeNm" : "", "useYn":"Y"},
-    	{"cd": "02", "otrdEyeNm" : "", "useYn":"Y"},
-    	{"cd": "03", "otrdEyeNm" : "", "useYn":"Y"},
-    	{"cd": "04", "otrdEyeNm" : "", "useYn":"Y"},
-    	{"cd": "05", "otrdEyeNm" : "", "useYn":"Y"}
-    ]; // 그리드의 참조 데이터 주소 선언
-    function fn_otrdEyeMngCreateGrid() {
-        let SBGridProperties = {};
-	    SBGridProperties.parentid = 'otrdEyeMngGridArea';
-	    SBGridProperties.id = 'otrdEyeMngDatagrid';
-	    SBGridProperties.jsonref = 'otrdEyeMngGridData';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["코드"], 	ref: 'cd',  		type:'output',  width:'100px',    style:'text-align:center'},
-            {caption: ["등급명"], 	ref: 'otrdEyeNm',  	type:'input',  width:'200px',    style:'text-align:center'},
-            {caption: ["단가"], 	ref: 'otrdEyeNm',  	type:'input',  width:'100px',    style:'text-align:center'},
-            {caption: ["사용유무"], ref: 'useYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
-    					typeinfo : {ref:'combofilteringData', label:'label', value:'value', displayui : true}}
-        ];
-        window.otrdEyeMngDatagrid = _SBGrid.create(SBGridProperties);
-    }
-
 
 </script>
 </html>
