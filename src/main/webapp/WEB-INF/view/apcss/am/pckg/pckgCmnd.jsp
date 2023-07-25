@@ -38,8 +38,8 @@
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 3%">
 						<col style="width: 6%">
+						<col style="width: 3%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -62,12 +62,12 @@
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row">거래처</th>
-						    <td class="td_input" style="border-right:hidden ;">
+						    <td colspan="2"class="td_input" style="border-right:hidden ;">
 								<sbux-input uitype="text" id="srch-inp-cnpt" name="srch-inp-cnpt" class="form-control input-sm"/>
-							<td class="td_input" style="border-right:hidden ;">
+							<td class="td_input">
 								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"/>
 							</td>
-							<td>&nbsp;</td>
+<!-- 							<td>&nbsp;</td> -->
 						<tr>
 							<th scope="row">납기일자</th>
 							<td class="td_input" style="border-right:hidden ;">
@@ -140,7 +140,7 @@
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
+	var jsoninptCmndDsctnList = ["test"]; // 그리드의 참조 데이터 주소 선언
 	
 	function fn_createGrid2() {
 	    var SBGridProperties = {};
@@ -159,20 +159,20 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
- 	        {caption: ["순번","순번"],		ref: 'msgKey',      type:'output',  width:'40px',    style:'text-align:center'},
-	        {caption: ["지시번호","지시번호"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["생산설비","생산설비"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["거래처","거래처"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["품종","품종"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["규격","규격"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["납기일자","납기일자"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["상품명","상품명"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["발주","수량"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["발주","중량"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["지시","수량"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["지시","중량"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["실적","수량"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["실적","중량"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
+ 	        {caption: ["순번","순번"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["지시번호","지시번호"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["생산설비","생산설비"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["거래처","거래처"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["품종","품종"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["규격","규격"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["납기일자","납기일자"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["상품명","상품명"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["발주","수량"],		ref: 'msgKey',      type:'output',  width:'90px',    style:'text-align:center'},
+	        {caption: ["발주","중량"],		ref: 'msgKey',      type:'output',  width:'90px',    style:'text-align:center'},
+	        {caption: ["지시","수량"],		ref: 'msgKey',      type:'output',  width:'90px',    style:'text-align:center'},
+	        {caption: ["지시","중량"],		ref: 'msgKey',      type:'output',  width:'90px',    style:'text-align:center'},
+	        {caption: ["실적","수량"],		ref: 'msgKey',      type:'output',  width:'90px',    style:'text-align:center'},
+	        {caption: ["실적","중량"],		ref: 'msgKey',      type:'output',  width:'90px',    style:'text-align:center'},
 	    ];
 	    
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
