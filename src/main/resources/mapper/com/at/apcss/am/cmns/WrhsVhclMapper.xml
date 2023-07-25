@@ -31,9 +31,13 @@
 		     , WV.DPSTR             AS DPSTR
 		     , WV.RMRK              AS RMRK
 		     , WV.DEL_YN            AS DEL_YN
+		     , TO_CHAR(WV.SYS_LAST_CHG_DT, 'YYYY-DD-MM HH')   AS SYS_LAST_CHG_DT
 		  FROM TB_WRHS_VHCL_INFO WV
 		 WHERE WV.APC_CD = #{apcCd}
 		]]>
+		<if test='vhclno != null and vhclno !=""'>
+		   AND WV.VHCLNO LIKE '%' || #{vhclno} || '%'
+		</if>
     </select>
 
     <!-- ==========================================================================	-->

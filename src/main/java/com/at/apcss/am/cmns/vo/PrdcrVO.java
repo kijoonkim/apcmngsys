@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PrdcrVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -68,4 +68,9 @@ public class PrdcrVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
+
+	/**
+	 * 정산기준
+	 */
+	private String clclnCrtr;
 }

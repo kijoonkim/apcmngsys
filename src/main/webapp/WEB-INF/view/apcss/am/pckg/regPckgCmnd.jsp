@@ -53,20 +53,20 @@
 						<tr>
 							<th scope="row">지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-cmndDate" name="srch-dtp-cmndYmd" class="form-control pull-right input-sm">
+								<sbux-datepicker uitype="popup" id="srch-dtp-cmndDate" name="srch-dtp-cmndYmd" class="form-control pull-right input-sm"></sbux-datepicker>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm" />
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" class="form-control input-sm" jsondata-ref="jsonComVrty"></sbux-select>
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row">규격</th>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spcfct" name="srch-slt-spcfct" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" class="form-control input-sm" jsondata-ref="jsonComSpcfct"></sbux-select>
 							</td>
 							<td colspan="3">&nbsp;</td>
 						</tr>
@@ -78,7 +78,7 @@
 							<td colspan="2">&nbsp;</td>
 							<th scope="row">생산설비</th>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-prdctnFclt" name="srch-slt-prdctnFclt" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-fclt" name="srch-slt-fclt" class="form-control input-sm" jsondata-ref="jsonComFclt"></sbux-select>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row">거래처</th>
@@ -135,7 +135,7 @@
 			</div>
 		</div>
 	</section>
-	
+
     <!-- 거래처 선택 Modal -->
     <div>
         <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -146,23 +146,41 @@
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
-	
+
+	var jsonComItem				= [];	// 품목 		itemCd		검색
+	var jsonComVrty				= [];	// 품종 		vrtyCd		검색
+	var jsonComSpcfct			= [];	// 규격 		spcfcCd		검색
+	var jsonComFclt				= [];	// 설비 			fcltCd		검색
+	const fn_initSBSelect = async function() {
+
+		// 검색 SB select
+	 	gfn_setComCdSBSelect('srch-slt-fclt', 			jsonComFclt, 			'FCLT_CD', gv_apcCd);			// 설비
+	 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, gv_apcCd);	// 품목
+	}
+
+	function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_apcCd, itemCd);			// 품종
+		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_apcCd, itemCd);		// 규격
+	}
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid2();
-		
-		
+
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-dtp-cmndYmd", year+month+day);
-// 		SBUxMethod.set("srch-dtp-dudtYmd", year+month+day);
+		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
+		fn_initSBSelect();
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = ["test"]; // 그리드의 참조 데이터 주소 선언
-	
+
 	function fn_createGrid2() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
@@ -192,11 +210,11 @@
 	        {caption: ["지시수량"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
 	        {caption: ["지시중량"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
 	    ];
-	    
+
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
-	
+
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}

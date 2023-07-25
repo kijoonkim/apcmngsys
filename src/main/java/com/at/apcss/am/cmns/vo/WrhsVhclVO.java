@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WrhsVhclVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -31,7 +31,7 @@ public class WrhsVhclVO extends ComVO {
 	/**
 	 * 차량번호
 	 */
-	private String vhclNo;
+	private String vhclno;
 	/**
 	 * 기사명
 	 */

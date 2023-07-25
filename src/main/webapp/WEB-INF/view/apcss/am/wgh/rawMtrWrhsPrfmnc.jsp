@@ -64,7 +64,7 @@
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem"></sbux-select>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" class="form-control input-sm" ></sbux-input>
@@ -125,7 +125,7 @@
 						<tr>
 						    <th scope="row">창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" jsondata-ref="jsonComWarehouseSeCd"></sbux-select>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" jsondata-ref="jsonComWarehouseSeCd"></sbux-select>
 							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">차량번호</th>

@@ -19,7 +19,7 @@
 			</div>
 			<div style="margin-left: auto;">
 				<p class="ad_input_row">
-					<sbux-checkbox id="check_all" name="check_all" uitype="normal" text="포장실적 자동등록" class="check"></sbux-checkbox>
+					<sbux-checkbox id="check_all" name="check_all" uitype="normal" text="포장실적 자동등록" ></sbux-checkbox>
 				</p>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-dark"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-dark"></sbux-button>
@@ -48,7 +48,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
 							<td colspan="8"></td>
 						</tr>
@@ -63,10 +63,10 @@
 							<td style="border-right: hidden;"></td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-itemNm" name="srch-slt-itemNm" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonItem" onchange="fn_selectItem"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-vrtyNm" name="srch-slt-vrtyNm" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonVrty"></sbux-select>
 							</td>
 							<td></td>
 							<th scope="row">생산자</th>
@@ -117,7 +117,7 @@
 									<td colspan="2"></td>
 									<th scope="row">설비</th>
 									<td class="td_input" style="border-right: hidden;">
-									<sbux-select id="srch-slt-fcltCd" name="srch-slt-fcltCd" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+									<sbux-select id="srch-slt-fcltCd" name="srch-slt-fcltCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComFclt"></sbux-select>
 									</td>
 									<td colspan="2"></td>
 									<th scope="row">선별 투입량</th>
@@ -152,10 +152,26 @@
         <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
 
-	<script type="text/javascript">
+<script type="text/javascript">
+	var jsonItem				= [];	// 품목 		itemCd		검색
+	var jsonVrty				= [];	// 품종 		vrtyCd		검색
+	var jsonComFclt				= [];	// 설비 		fcltCd		검색
+	const fn_initSBSelect = async function() {
+
+		// 검색 SB select
+	 	gfn_setComCdSBSelect('srch-slt-fcltCd', 	jsonComFclt, 'FCLT_CD', gv_apcCd);		// 설비
+	 	gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonItem, gv_apcCd);		// 품목
+	 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonVrty, gv_apcCd);		// 품종
+	}
+
+	function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonVrty, gv_apcCd, itemCd);		// 품종
+	}
+
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createInptPremncGrid1();
 
@@ -166,6 +182,9 @@
 		SBUxMethod.set("srch-dtp-wrhsYmd1", year+month+day);
 		SBUxMethod.set("srch-dtp-wrhsYmd2", year+month+day);
 		SBUxMethod.set("srch-dtp-inptYmd", year+month+day);
+		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
+
+		fn_initSBSelect();
 	})
 
 	function fn_createInptPremncGrid1() {
@@ -190,7 +209,7 @@
 	             {caption: ["투입","수량"], 			ref: 'creProgram',  type:'output',  width:'8%'},
 	             {caption: ["투입","중량"], 			ref: 'creProgram',  type:'output',  width:'8%'}
 	    ];
-		    
+
 	    var SBGridProperties2 = {};
 		    SBGridProperties2.parentid = 'sb-area-grdInptPremnc2';
 		    SBGridProperties2.id = 'grdComMsgList2';
@@ -212,15 +231,15 @@
 	             {caption: ["비고"], 		ref: 'creProgram',  type:'output',  width:'10%'},
 	             {caption: ["라벨"], 		ref: 'creProgram',  type:'output',  width:'10%'},
 	             {caption: ["처리"], 		ref: 'creProgram',  type:'output',  width:'10%'}
-		        
+
 	    ];
-	    grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
-	    grdWghPrfmnc2 = _SBGrid.create(SBGridProperties2);
+		grdComMsgList = _SBGrid.create(SBGridProperties1);
+	    grdComMsgList2 = _SBGrid.create(SBGridProperties2);
 	}
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
-    
+
 </script>
 </body>
 </html>
