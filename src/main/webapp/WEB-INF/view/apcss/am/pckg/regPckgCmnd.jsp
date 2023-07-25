@@ -82,12 +82,12 @@
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row">거래처</th>
-						    <td class="td_input" style="border-right:hidden ;">
+						    <td colspan="3" class="td_input" style="border-right:hidden ;">
 						    	<sbux-input uitype="text" id="srch-inp-cnpt" name="srch-inp-cnpt" class="form-control input-sm"/>
-							<td class="td_input" style="border-right:hidden ;">
+							<td class="td_input">
 								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"/>
 						    </td>
-						    <td colspan="2">&nbsp;</td>
+<!-- 						    <td colspan="2">&nbsp;</td> -->
 						</tr>
 						<tr>
 							<th scope="row">납기일자</th>
@@ -96,10 +96,10 @@
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row" style="border-right:hidden ;">상품명</th>
-							<td class="td_input" style="border-right:hidden ;">
+							<td colspan="2" class="td_input" style="border-right:hidden ;">
 								<sbux-input uitype="text" id="srch-inp-gdsNm" name="srch-inp-gdsNm" class="form-control input-sm" disabled/>
 							</td>
-							<td colspan="2">&nbsp;</td>
+							<td >&nbsp;</td>
 							<th scope="row" style="border-right:hidden ;">발주수량/입수</th>
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-input uitype="text" id="srch-inp-outordrQntt" name="srch-inp-outordrQntt" class="form-control input-sm" disabled/>
@@ -161,7 +161,7 @@
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
+	var jsoninptCmndDsctnList = ["test"]; // 그리드의 참조 데이터 주소 선언
 	
 	function fn_createGrid2() {
 	    var SBGridProperties = {};
