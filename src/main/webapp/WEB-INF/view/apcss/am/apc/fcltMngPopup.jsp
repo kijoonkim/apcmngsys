@@ -11,9 +11,9 @@
 			<div class="box-header">
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnFcltSech" name="btnFcltSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectFcltList()"></sbux-button>
-						<sbux-button id="btnFcltReg" name="btnFcltReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertFcltList"></sbux-button>
-						<sbux-button id="btnFcltEnd" name="btnFcltEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('fcltMngModal')"></sbux-button>
+						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectFcltList()"></sbux-button>
+						<sbux-button id="btnInsertFclt" name="btnInsertFclt" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertFcltList"></sbux-button>
+						<sbux-button id="btnEndFclt" name="btnEndFclt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('fcltMngModal')"></sbux-button>
 					</div>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
-								<sbux-input id=fcltApcNm name="fcltApcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id=fclt-inp-apcNm name="fclt-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</th>
 							<th>&nbsp;</th>
 						</tr>
@@ -42,7 +42,7 @@
 				<!--[pp] 검색결과 -->
 				<div class="ad_section_top">
 					<!-- SBGrid를 호출합니다. -->
-					<div id="fcltMngGridArea" style="height:250px; width: 100%;"></div>
+					<div id="sb-area-grdFclt" style="height:250px; width: 100%;"></div>
 				</div>
 			</div>
 		</div>
@@ -50,16 +50,17 @@
 </body>
 <script type="text/javascript">
 	//설비 등록
-	var fcltMngGridData = []; // 그리드의 참조 데이터 주소 선언
+	var jsonFclt = []; // 그리드의 참조 데이터 주소 선언
 	async function fn_fcltMngCreateGrid() {
 
-		SBUxMethod.set("fcltApcNm", SBUxMethod.get("apcNm"));
+		SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
-		fcltMngGridData = [];
+		jsonFclt = [];
+
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'fcltMngGridArea';
-	    SBGridProperties.id = 'fcltMngDatagrid';
-	    SBGridProperties.jsonref = 'fcltMngGridData';
+	    SBGridProperties.parentid = 'sb-area-grdFclt';
+	    SBGridProperties.id = 'grdFclt';
+	    SBGridProperties.jsonref = 'jsonFclt';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -70,15 +71,15 @@
 	        {caption: ["비고"], 		ref: 'cdVlExpln',   type:'input',  width:'250px',    style:'text-align:center'},
 	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"fcltMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdFclt\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"fcltMngDatagrid\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdFclt\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["공통ID"], 		ref: 'cdId',   		type:'input',  hidden : true}
 	    ];
-	    window.fcltMngDatagrid = _SBGrid.create(SBGridProperties);
+	    window.grdFclt = _SBGrid.create(SBGridProperties);
 	    fn_selectFcltList();
 	}
 
@@ -91,10 +92,10 @@
 		let apcCd = SBUxMethod.get("apcCd");
     	let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {apcCd : apcCd, cdId : 'FCLT_CD'});
         let data = await postJsonPromise;
-        let newFcltGridData = [];
+        let newJsonFclt = [];
         try{
         	data.resultList.forEach((item, index) => {
-				let fcltList = {
+				let fcltVO = {
 					rowSeq : 	item.rowSeq
 				  , cdVl :	 	item.cdVl
 				  , cdVlNm : 	item.cdVlNm
@@ -103,11 +104,11 @@
 				  , apcCd : 	item.apcCd
 				  , cdId : 		item.cdId
 				}
-				newFcltGridData.push(fcltList);
+				newJsonFclt.push(fcltVO);
 			});
-        	fcltMngGridData = newFcltGridData;
-        	fcltMngDatagrid.rebuild();
-        	fcltMngDatagrid.addRow();
+        	jsonFclt = newJsonFclt;
+        	grdFclt.rebuild();
+        	grdFclt.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -117,24 +118,24 @@
 	}
 
 	async function fn_insertFcltList(){
-		let gridData = fcltMngDatagrid.getGridDataAll();
+		let gridData = grdFclt.getGridDataAll();
 		let insertList = [];
 		let updateList = [];
-		let insertListResult = 0;
-		let updateListResult = 0;
+		let insertCnt = 0;
+		let updateCnt = 0;
 		for(var i=1; i<=gridData.length; i++ ){
-			if(fcltMngDatagrid.getRowData(i).delYn == 'N'){
+			if(grdFclt.getRowData(i).delYn == 'N'){
 
-				if(fcltMngDatagrid.getRowData(i).cdVlNm == null || fcltMngDatagrid.getRowData(i).cdVlNm == ""){
+				if(grdFclt.getRowData(i).cdVlNm == null || grdFclt.getRowData(i).cdVlNm == ""){
 					alert("설비 명은 필수 값 입니다.");
 					return;
 				}
 
-				if(fcltMngDatagrid.getRowStatus(i) === 3){
-					insertList.push(fcltMngDatagrid.getRowData(i));
+				if(grdFclt.getRowStatus(i) === 3){
+					insertList.push(grdFclt.getRowData(i));
 				}
-				if(fcltMngDatagrid.getRowStatus(i) === 2){
-					updateList.push(fcltMngDatagrid.getRowData(i));
+				if(grdFclt.getRowStatus(i) === 2){
+					updateList.push(grdFclt.getRowData(i));
 				}
 			}
 		}
@@ -146,12 +147,12 @@
 		if(confirm(regMsg)){
 
 			if(insertList.length > 0){
-				insertListResult = await fn_callInsertRsrcList(insertList);
+				insertCnt = await fn_callInsertRsrcList(insertList);
 			}
 			if(updateList.length > 0){
-				updateListResult = await fn_callUpdateRsrcList(updateList);
+				updateCnt = await fn_callUpdateRsrcList(updateList);
 			}
-			if(insertListResult + updateListResult > 0 ){
+			if(insertCnt + updateCnt > 0 ){
 				fn_callSelectFcltList();
 				alert("등록 되었습니다.");
 			}

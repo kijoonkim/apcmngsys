@@ -105,11 +105,11 @@
 	var jsonApcSpcfct = [];
 
 	const fn_initSBSelectItem = async function() {
-		gfn_setApcItemSBSelect("spcfct-select-itemCd", jsonComItemCd, SBUxMethod.get("apcCd"));
+		gfn_setApcItemSBSelect("spcfct-select-itemCd", jsonComItemCd, SBUxMethod.get("inp-apcCd"));
 	}
 	function fn_createGrdGrid() {
 
-		SBUxMethod.set("spcfct-inp-apcNm", SBUxMethod.get("apcNm"));
+		SBUxMethod.set("spcfct-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
    		 var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdGrd';
@@ -141,7 +141,7 @@
 
 
 	async function fn_callSelectGrdList(){
-		let apcCd = SBUxMethod.get("apcCd");
+		let apcCd = SBUxMethod.get("inp-apcCd");
 		let itemCd = SBUxMethod.get("spcfct-select-itemCd");
 		let postJsonPromise = gfn_postJSON("/am/cmns/selectApcGrdList.do", {apcCd : apcCd, itemCd : itemCd});
 	    let data = await postJsonPromise;
@@ -196,7 +196,7 @@
 	}
 
 	async function fn_callSelectSpcfctList(){
-		let apcCd = SBUxMethod.get("apcCd");
+		let apcCd = SBUxMethod.get("inp-apcCd");
 		let itemCd = SBUxMethod.get("spcfct-select-itemCd");
 		let postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsSpcfctList.do", {apcCd : apcCd, itemCd : itemCd});
 	    let data = await postJsonPromise;
@@ -249,7 +249,7 @@
 	}
 
 	async function fn_callSelectApcSpcfctList(){
-		let apcCd = SBUxMethod.get("apcCd");
+		let apcCd = SBUxMethod.get("inp-apcCd");
 		let itemCd = SBUxMethod.get("spcfct-select-itemCd");
 		let postJsonPromise = gfn_postJSON("/am/cmns/selectApcSpcfctList.do", {apcCd : apcCd, itemCd : itemCd});
 	    let data = await postJsonPromise;

@@ -62,7 +62,7 @@
 	//APC사용자 권한설정
 	var userAuthMngGridData = []; // 그리드의 참조 데이터 주소 선언
 	async function fn_userAuthMngCreateGrid() {
-		SBUxMethod.set("userAuthApcNm", SBUxMethod.get("apcNm"));
+		SBUxMethod.set("userAuthApcNm", SBUxMethod.get("inp-apcNm"));
 		SBUxMethod.set("userAuthUserNm", "");
 
 
@@ -106,7 +106,7 @@
 	}
 
 	async function fn_callSelectUserList(){
-		let apcCd = SBUxMethod.get("apcCd");
+		let apcCd = SBUxMethod.get("inp-apcCd");
 		let userNm = SBUxMethod.get("userAuthUserNm");
     	let postJsonPromise = gfn_postJSON("/am/apc/selectApcUserList.do", {apcCd : apcCd, userNm : userNm});
         let data = await postJsonPromise;
