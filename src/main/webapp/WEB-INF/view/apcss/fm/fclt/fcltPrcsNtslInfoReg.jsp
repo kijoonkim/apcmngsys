@@ -65,7 +65,7 @@
 			<!--[pp] 검색결과 -->
 			<br>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtDsctn" style="height:300px;"></div>
+					<div id="sb-area-spmtDsctn" style="height:0px;"></div>
 				</div>
 				<br>
 			<div><label>산지유통판매처 상세내역</label></div>
@@ -87,7 +87,10 @@
 						<tbody>
 							<tr>
 								<th>대형유통업체(백화점 포함)</th>
-								<th>식자재업체(학교급식, 가공업체 포함)</th>
+								<th>식자재업체<br>
+								(학교급식, 가공업체 포함)<br>
+
+								</th>
 								<th>도매시장(공판장 포함)</th>
 								<th>소매업체 직판</th>
 								<th>수출</th>

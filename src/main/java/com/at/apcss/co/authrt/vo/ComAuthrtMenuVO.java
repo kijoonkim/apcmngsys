@@ -1,5 +1,8 @@
 package com.at.apcss.co.authrt.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -26,4 +29,14 @@ public class ComAuthrtMenuVO extends ComVO {
 	private String upMenuNm;
 	private int menuSeq;
 	private int menuLvl;
+	private String userId;
+	private List<String> authrtIdList;
+	
+	public List<String> getAuthrtIdList() {
+		return this.authrtIdList == null ? null : authrtIdList.stream().collect(Collectors.toList());
+	}
+	
+	public void setAuthrtIdList(List<String> authrtIdList) {
+		this.authrtIdList = authrtIdList == null ? null : authrtIdList.stream().collect(Collectors.toList());
+	}
 }

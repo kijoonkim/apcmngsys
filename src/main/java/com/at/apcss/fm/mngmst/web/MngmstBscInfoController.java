@@ -1,4 +1,4 @@
-package com.at.apcss.fm.fclt.web;
+package com.at.apcss.fm.mngmst.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
- * @Class Name : FcltInfoController.java
- * @Description : 시설현황 대한 Controller 클래스
+ * @Class Name : MngmstBscInfoController.java
+ * @Description : 경영체정보에 대한 Controller 클래스
  * @author 정연두
  * @since 2023.06.21
  * @version 1.0
@@ -21,18 +21,16 @@ import com.at.apcss.co.sys.controller.BaseController;
  * </pre>
  */
 @Controller
-public class FcltInfoController extends BaseController {
+public class MngmstBscInfoController extends BaseController {
 
-	// 시설현황
-	@RequestMapping(value = "/fm/fclt/fcltInfo.do")
-	public String doRegFormSpmtCmnd() {
-		return "apcss/fm/fclt/fcltInfo";
+	// 경영체정보
+	@RequestMapping(value = "/fm/mngmst/mngmstBscInfo.do")
+	public String mngmstBscInfo() {
+		return "apcss/fm/mngmst/mngmstBscInfo";
 	}
-	// 시설현황
-	@RequestMapping(value = "/fm/fclt/fcltInfoReg.do")
-	public String doRegFormSpmtCmndReg() {
-		return "apcss/fm/fclt/fcltInfoReg";
-	}
+
+
+		}
 
 	// 재배약정신청조회
 	/*

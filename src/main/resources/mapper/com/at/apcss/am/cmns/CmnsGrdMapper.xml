@@ -32,7 +32,7 @@
 			   AND VC.GRD_CD = #{grdCd}
 		]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGrdMapper.selectCmnsGrdList			-->
 	<!-- DESC : 등급 마스터 목록 조회.	                                       			-->
@@ -51,7 +51,7 @@
 			  FROM TB_GRD_CRTR GC
 			 WHERE GC.ITEM_CD = #{itemCd}
 		]]>
-		
+
 		<if test='grdCd != null and grdCd != ""'>
 			   AND GC.GRD_CD LIKE #{grdCd} || '%'
 		</if>
@@ -70,7 +70,7 @@
 			   			   AND X.ITEM_CD = GC.ITEM_CD
 			   		)
 		</if>
-		
+
     </select>
 
     <!-- ==========================================================================	-->
@@ -176,7 +176,7 @@
 			   AND AGC.APC_CD = #{apcCd}
 		]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGrdMapper.selectApcGrdList		-->
 	<!-- DESC : APC 등급 목록 조회.	                                       				-->
@@ -192,11 +192,12 @@
 				, AGC.GRD_CD
 				, AGC.GRD_NM
 			    , AGC.DEL_YN
+			    , AGC.APC_CD
 			  FROM TB_APC_GRD_CRTR AGC
 			 WHERE AGC.ITEM_CD = #{itemCd}
 			   AND AGC.APC_CD = #{apcCd}
 		]]>
-		
+
 		<if test='grdCd != null and grdCd != ""'>
 			   AND AGC.GRD_CD LIKE #{grdCd} || '%'
 		</if>
@@ -206,7 +207,7 @@
 		<if test='delYn != null and delYn != ""'>
 			   AND AGC.DEL_YN = #{delYn}
 		</if>
-		
+
     </select>
 
     <!-- ==========================================================================	-->
@@ -237,7 +238,7 @@
 	   			(
 	   				  #{apcCd}
 	   				, #{itemCd}
-	   				, #{grdCd}
+	   				, FN_GET_ID_APC_GRD(#{apcCd}, #{itemCd})
 					, #{grdNm}
 					, SYSDATE
 					, #{sysFrstInptUserId}

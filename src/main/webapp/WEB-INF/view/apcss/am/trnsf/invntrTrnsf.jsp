@@ -46,7 +46,6 @@
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled></sbux-input>
 							</td>
-							<td colspan="8"></td>
 						</tr>
 						<tr>
 							<th class="ta_r">이송일자</th>
@@ -61,7 +60,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-trspApc" name="srch-slt-trspApc" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-trnsfSn" name="srch-slt-trnsfSn" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -88,7 +87,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-crtr" name="srch-slt-crtr" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -97,7 +96,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-warehouseKnd" name="srch-slt-warehouseKnd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -106,7 +105,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-gdsKnd" name="srch-slt-gdsKnd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-gdsSeCd" name="srch-slt-gdsSeCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -117,11 +116,10 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-vrtyCd" name="srch-slt-wrhsKnd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-wrhsSeCd" name="srch-slt-wrhsSeCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td colspan="10"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -161,22 +159,22 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ['이송APC','이송APC'], ref: 'pckgDsctn', width: '100px', type: 'output'},
-            {caption: ['입고번호','입고번호'], ref: 'pckgDate', width: '100px', type: 'output'},
-            {caption: ['선별번호등급','선별번호등급'], ref: 'ordrNm', width: '100px', type: 'output'},
-            {caption: ['포장번호순번','포장번호순번'], ref: 'vrty', width: '100px', type: 'output'},
-            {caption: ['입고일자','입고일자'], ref: 'spcfct', width: '100px', type: 'output'},
-            {caption: ['생산자','생산자'], ref: 'gdsGrd', width: '100px', type: 'output'},
-            {caption: ['품종','품종'], ref: 'wght', width: '100px', type: 'output'},
-            {caption: ['상품구분','상품구분'], ref: 'pckg', width: '100px', type: 'output'},
-            {caption: ['입고구분','입고구분'], ref: 'rprsPrdctr', width: '100px', type: 'output'},
-            {caption: ['운송구분','운송구분'], ref: 'strg', width: '100px', type: 'output'},
-            {caption: ['현물창고','현물창고'], ref: 'pckgQty', width: '100px', type: 'output'},
-            {caption: ['이송창고','이송창고'], ref: 'pckgWght', width: '100px', type: 'output'},
-            {caption: ['이송','수량'], ref: 'shpgotQty', width: '100px', type: 'output'},
-            {caption: ['이송','중량'], ref: 'shpgotWght', width: '100px', type: 'output'},
-            {caption: ['금액','금액'], ref: 'shpgotQty', width: '100px', type: 'output'},
-            {caption: ['운반비','운반비'], ref: 'shpgotQty', width: '100px', type: 'output'}
+            {caption: ['이송APC','이송APC'], ref: 'trnsfSn', width: '100px', type: 'output'},
+            {caption: ['입고번호','입고번호'], ref: 'wrhsno', width: '100px', type: 'output'},
+            {caption: ['선별번호등급','선별번호등급'], ref: 'sortnoGrd', width: '100px', type: 'output'},
+            {caption: ['포장번호순번','포장번호순번'], ref: 'pckgSn', width: '100px', type: 'output'},
+            {caption: ['입고일자','입고일자'], ref: 'wrhsYmd', width: '100px', type: 'output'},
+            {caption: ['생산자','생산자'], ref: 'prdcrCd', width: '100px', type: 'output'},
+            {caption: ['품종','품종'], ref: 'vrtyCd', width: '100px', type: 'output'},
+            {caption: ['상품구분','상품구분'], ref: 'gdsSeCd', width: '100px', type: 'output'},
+            {caption: ['입고구분','입고구분'], ref: 'wrhsSeCd', width: '100px', type: 'output'},
+            {caption: ['운송구분','운송구분'], ref: 'trsprtSeCd', width: '100px', type: 'output'},
+            {caption: ['현물창고','현물창고'], ref: 'warehouse', width: '100px', type: 'output'},
+            {caption: ['이송창고','이송창고'], ref: 'trnsfWarehouse', width: '100px', type: 'output'},
+            {caption: ['이송','수량'], ref: 'trnsfQntt', width: '100px', type: 'output'},
+            {caption: ['이송','중량'], ref: 'trnsfWght', width: '100px', type: 'output'},
+            {caption: ['금액','금액'], ref: 'amt', width: '100px', type: 'output'},
+            {caption: ['운반비','운반비'], ref: 'trsprtCst', width: '100px', type: 'output'}
         ];
         grdInvntrTrnsf = _SBGrid.create(SBGridProperties);
     }

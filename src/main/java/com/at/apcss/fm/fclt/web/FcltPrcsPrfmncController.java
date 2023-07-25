@@ -25,12 +25,12 @@ public class FcltPrcsPrfmncController extends BaseController {
 
 	// 산지유통처리실적
 	@RequestMapping(value = "/fm/fclt/fcltPrcsPrfmnc.do")
-	public String doRegFormSpmtCmnd() {
+	public String fcltPrcsPrfmnc() {
 		return "apcss/fm/fclt/fcltPrcsPrfmnc";
 	}
 	// 산지유통처리실적
 	@RequestMapping(value = "/fm/fclt/fcltPrcsPrfmncReg.do")
-	public String doRegFormSpmtCmndReg() {
+	public String fcltPrcsPrfmncReg() {
 		return "apcss/fm/fclt/fcltPrcsPrfmncReg";
 	}
 

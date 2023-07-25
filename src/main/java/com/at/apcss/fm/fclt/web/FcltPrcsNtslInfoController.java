@@ -24,13 +24,13 @@ import com.at.apcss.co.sys.controller.BaseController;
 public class FcltPrcsNtslInfoController extends BaseController {
 
 	// 산지유통판매처
-	@RequestMapping(value = "/fm/fclt/FcltPrcsNtslInfo.do")
-	public String doRegFormSpmtCmnd() {
+	@RequestMapping(value = "/fm/fclt/fcltPrcsNtslInfo.do")
+	public String fcltPrcsNtslInfo() {
 		return "apcss/fm/fclt/fcltPrcsNtslInfo";
 	}
 	// 산지유통판매처
-	@RequestMapping(value = "/fm/fclt/FcltPrcsNtslInfoReg.do")
-	public String doRegFormSpmtCmndReg() {
+	@RequestMapping(value = "/fm/fclt/fcltPrcsNtslInfoReg.do")
+	public String fcltPrcsNtslInfoReg() {
 		return "apcss/fm/fclt/fcltPrcsNtslInfoReg";
 	}
 

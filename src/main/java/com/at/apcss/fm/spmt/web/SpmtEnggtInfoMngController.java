@@ -23,16 +23,10 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class SpmtEnggtInfoMngController extends BaseController {
 
-	// 출하약정현장관리
+	// 출하약정관리
 	@RequestMapping(value = "/fm/spmt/spmtEnggtInfoMng.do")
-	public String doRegFormSpmtCmnd() {
+	public String spmtEnggtInfoMng() {
 		return "apcss/fm/spmt/spmtEnggtInfoMng";
 	}
-
-	// 재배약정신청조회
-	/*
-	 * @RequestMapping(value = "fm/clt/cltvtnEnggtAplyMng.do") public String
-	 * doSpmtCmnd() { return "apcss/fm/clt/cltvtnEnggtAplyMng"; }
-	 */
 
 }

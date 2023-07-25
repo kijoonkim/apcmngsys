@@ -59,7 +59,7 @@
 						<tr>
 							<th scope="row">작업일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-jobYmd" name="srch-inp-jobYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-jobYmd" name="srch-inp-jobYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td colspan="2" style="border-right: hidden;"></td>
 							

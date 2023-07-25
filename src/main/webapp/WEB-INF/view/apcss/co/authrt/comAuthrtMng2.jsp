@@ -706,11 +706,12 @@
     	
     	const menuList = grdComAuthMenu.getGridDataAll();
 		
-    	
-    	
     	const comAuthrtMenuList = [];
     	for ( let i=1; i<=menuList.length; i++ ){
+    		
     		const menu = grdComAuthMenu.getRowData(i);
+    		
+    		// 상위메뉴id 확인
     		comAuthrtMenuList.push({
     			apcCd: menu.apcCd,
     			authrtId: menu.authrtId,

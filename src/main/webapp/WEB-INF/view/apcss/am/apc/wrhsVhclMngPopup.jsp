@@ -23,16 +23,20 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 10%">
-						<col style="width: 20%">
+						<col style="width: 12%">
+						<col style="width: 24%">
+						<col style="width: 12%">
+						<col style="width: 24%">
 						<col style="width: auto">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
-								<sbux-input id=wrhsVhclApcNm name="wrhsVhclApcNm" uitype="text" class="form-control pull-right input-sm" disabled></sbux-input>
+								<sbux-input id=wrhsVhcl-inp-apcNm name="wrhsVhcl-inp-apcNm" uitype="text" class="form-control pull-right input-sm" disabled></sbux-input>
 							</th>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
 							<th>&nbsp;</th>
 						</tr>
 					</tbody>
@@ -65,7 +69,7 @@
 	//입고차량정보 등록
 	var wrhsVhclMngGridData = []; // 그리드의 참조 데이터 주소 선언
 	async function fn_wrhsVhclMngCreateGrid() {
-		SBUxMethod.set("wrhsVhclApcNm", SBUxMethod.get("apcNm"));
+		SBUxMethod.set("wrhsVhcl-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
 		wrhsVhclMngGridData = [];
 	    let SBGridProperties = {};
@@ -103,7 +107,7 @@
 	}
 
 	async function fn_callSelectWrhsVhclList(){
-		let apcCd = SBUxMethod.get("apcCd");
+		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
         let newWrhsVhclGridData = [];
@@ -167,7 +171,7 @@
 	}
 
 	async function fn_callSelectRgnTrsprtCstList(){
-		let apcCd = SBUxMethod.get("apcCd");
+		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectRgnTrsprtCstList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
         let newRgnTrsprtCstGridData = [];

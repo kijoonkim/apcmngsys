@@ -25,12 +25,12 @@ public class FcltItemPrfmncController extends BaseController {
 
 	// 산지유통품목처리실적
 	@RequestMapping(value = "/fm/fclt/fcltItemPrfmnc.do")
-	public String doRegFormSpmtCmnd() {
+	public String fcltItemPrfmnc() {
 		return "apcss/fm/fclt/fcltItemPrfmnc";
 	}
 	// 산지유통품목처리실적
 	@RequestMapping(value = "/fm/fclt/fcltItemPrfmncReg.do")
-	public String doRegFormSpmtCmndReg() {
+	public String fcltItemPrfmncReg() {
 		return "apcss/fm/fclt/fcltItemPrfmncReg";
 	}
 

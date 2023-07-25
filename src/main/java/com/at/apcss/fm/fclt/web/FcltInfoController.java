@@ -25,12 +25,12 @@ public class FcltInfoController extends BaseController {
 
 	// 시설현황
 	@RequestMapping(value = "/fm/fclt/fcltInfo.do")
-	public String doRegFormSpmtCmnd() {
+	public String fcltInfo() {
 		return "apcss/fm/fclt/fcltInfo";
 	}
 	// 시설현황
 	@RequestMapping(value = "/fm/fclt/fcltInfoReg.do")
-	public String doRegFormSpmtCmndReg() {
+	public String fcltInfoReg() {
 		return "apcss/fm/fclt/fcltInfoReg";
 	}
 

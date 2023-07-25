@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <link href="/resource/css/template_com.css" rel="stylesheet" type="text/css">
     <script>
         var SBUxConfig = {
@@ -83,6 +84,18 @@
 
     <!-- ComUi json -->
 	<script type="text/javascript">
+
 		const comUiJson = ${comUiJson};
 		gfn_setSysPrgrmId(comUiJson.menuId);
+
+	<c:choose>
+		<c:when test="${loginVO != null && loginVO.id != null}">
+			const gv_apcCd = '${loginVO.apcCd}';
+			const gv_apcNm = '${loginVO.apcNm}';
+		</c:when>
+		<c:otherwise>
+			const gv_apcCd = '';
+		</c:otherwise>
+	</c:choose>
+
 	</script>
