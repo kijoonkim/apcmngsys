@@ -1,7 +1,9 @@
 package egovframework.com.config;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -13,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
 import org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource;
 import org.springframework.transaction.interceptor.RollbackRuleAttribute;
 import org.springframework.transaction.interceptor.RuleBasedTransactionAttribute;
@@ -73,8 +76,24 @@ public class EgovConfigAppTransaction {
 		RuleBasedTransactionAttribute txAttribute = new RuleBasedTransactionAttribute();
 		txAttribute.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
 		txAttribute.setRollbackRules(Collections.singletonList(new RollbackRuleAttribute(Exception.class)));
-		txMethods.put("*", txAttribute);
+		//txMethods.put("*", txAttribute);
 
+    	DefaultTransactionAttribute readOnlyAttribute = new DefaultTransactionAttribute(TransactionDefinition.PROPAGATION_REQUIRED);
+    	readOnlyAttribute.setReadOnly(true);
+    	txMethods.put("select*", readOnlyAttribute);
+    	
+    	List<RollbackRuleAttribute> rollbackRules = new ArrayList<RollbackRuleAttribute>();
+    	rollbackRules.add(new RollbackRuleAttribute(Exception.class));
+    	
+    	RuleBasedTransactionAttribute writeAttribute = new RuleBasedTransactionAttribute();
+    	writeAttribute.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+    	writeAttribute.setRollbackRules(rollbackRules);
+    	
+    	txMethods.put("insert*", writeAttribute);
+    	txMethods.put("update*", writeAttribute);
+    	txMethods.put("delete*", writeAttribute);
+    	txMethods.put("multi*", writeAttribute);
+    	
 		return txMethods;
 	}
 
@@ -86,7 +105,7 @@ public class EgovConfigAppTransaction {
 	public Advisor txAdvisor(DataSourceTransactionManager txManager) {
 		AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
 		pointcut.setExpression(
-			"execution(* egovframework.let..impl.*Impl.*(..)) or execution(* egovframework.com..*Impl.*(..))");
+			"execution(* com.at..impl.*Impl.*(..)) or execution(* egovframework.let..impl.*Impl.*(..)) or execution(* egovframework.com..*Impl.*(..))");
 		return new DefaultPointcutAdvisor(pointcut, txAdvice(txManager));
 	}
 }

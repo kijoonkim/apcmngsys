@@ -9,10 +9,10 @@
 <head>
 	<%@ include file="../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../frame/inc/headerScript.jsp" %>
-	
+
     <style>
-        /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다. 
-        실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/  
+        /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
+        실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
         .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333; height:auto}
         .sbt-A-wrap .main {display:table;  width:100%; height:100%;}
         .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px;}
@@ -30,7 +30,7 @@
 <script type="text/javascript">
 
 	let prvTabMenuId = "";
-	
+
 	//const sysPrgrmId = "main";
 	//gfn_setSysPrgrmId(sysPrgrmId);
     //SBUx topmenu 컴포넌트의 json 데이터
@@ -44,11 +44,11 @@
         {"id": "modal", "pid": "2", "order": "3", "text": "모달"},
     ];
     */
-	
+
 	var menuJson = ${topMenuList};
 
 	console.log("menuJson", menuJson);
-	
+
     //SBUx sidemenu 컴포넌트의 json 데이터
     var sideJsonData = [];
     //
@@ -66,13 +66,13 @@
         , 'contentlink': ''
         , 'cssstyle': 'display:none'
     }];
-	
+
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
     });
-    
+
     const fn_selectTopMenu = (_id) => {
-    	
+
 		var data = SBUxMethod.get(_id);
 
         var url = data.customData == undefined ? "" : data.customData.url;
@@ -81,7 +81,7 @@
         }
 
         fn_setLeftMenu(data.id);
-        
+
         /*
         fn_actionGoPage(
             url
@@ -90,12 +90,12 @@
             , data.text
             , data.pid
         );
-        
-       	let title = gfn_isEmpty(data.value) ? data.text : data.value;        	
+
+       	let title = gfn_isEmpty(data.value) ? data.text : data.value;
         document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = title;
         */
     }
-    
+
     /**
      * Set LEFT MENU
      * menuNo 값으로 (비동기식으로)서버로 부터 데이터를 요청
@@ -105,17 +105,17 @@
         var menuInfo = _.find(menuJson, {id: _menuNo});
         var pMenuId = menuInfo.pid;
         var pMenuNm = menuInfo.value;
-        
+
         if (gfn_isEmpty(pMenuId)) {
         	pMenuId = _menuNo;
         	pMenuNm = menuInfo.text;
         }
-        
+
         //const postJsonPromise = gfn_postJSON("/co/menu/leftMenu", {upMenuId: pMenuId});
         const postJsonPromise = gfn_postJSON("/co/authrt/selectSideMenuTreeList.do", {upMenuId: pMenuId});
-        
+
         const data = await postJsonPromise;
-        
+
         try {
         	sideJsonData.length = 0;
         	data.resultList.forEach((item, index) => {
@@ -134,27 +134,27 @@
             if (!gfn_isEmpty(menuInfo.pid)) {
                 var pIdx = _.findLastIndex(sideJsonData, {id: menuInfo.pid});
                 if (pIdx >= 0) {
-                	sideJsonData[pIdx].class = "active";	
+                	sideJsonData[pIdx].class = "active";
                 }
             }
-            
+
             if (_menuId != undefined) {
             	_menuNo = _menuId;
             }
-            
+
             var idx = _.findLastIndex(sideJsonData, {id: _menuNo});
             if (idx >= 0) {
             	sideJsonData[idx].class = "active";
             }
-            
+
             SBUxMethod.refresh("side_menu");
            	if (!gfn_isEmpty(menuInfo.pid)) {
                 SBUxMethod.expandSideMenu("side_menu", pMenuId, 1, true);
             }
-           	
-           	var title = pMenuNm;        	
+
+           	var title = pMenuNm;
             document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = title;
-            
+
             if (idx >= 0 && _menuId == undefined && !gfn_isEmpty(sideJsonData[idx].url)) {
             	fn_actionGoPage(
             			  sideJsonData[idx].url
@@ -170,8 +170,8 @@
     		}
     		console.error("failed", e.message);
         }
-        
-        /*        
+
+        /*
     	fetch("/co/menu/leftMenu", {
     		  method: "POST",
     		  headers: {
@@ -202,28 +202,28 @@
 		            if (!gfn_isEmpty(menuInfo.pid)) {
 		                var pIdx = _.findLastIndex(sideJsonData, {id: menuInfo.pid});
 		                if (pIdx >= 0) {
-		                	sideJsonData[pIdx].class = "active";	
+		                	sideJsonData[pIdx].class = "active";
 		                }
 		            }
-		            
+
 		            if (_menuId != undefined) {
 		            	_menuNo = _menuId;
 		            }
-		            
+
 		            var idx = _.findLastIndex(sideJsonData, {id: _menuNo});
 		            if (idx >= 0) {
 		            	sideJsonData[idx].class = "active";
 		            }
-		            
+
 		            SBUxMethod.refresh("side_menu");
 	                //if (pMenuId != undefined && pMenuId !== "0") {
 		           	if (!gfn_isEmpty(menuInfo.pid)) {
 		                SBUxMethod.expandSideMenu("side_menu", pMenuId, 1, true);
 		            }
-		           	
-		           	var title = pMenuNm;        	
+
+		           	var title = pMenuNm;
 		            document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = title;
-		            
+
 		            if (idx >= 0 && _menuId == undefined && !gfn_isEmpty(sideJsonData[idx].url)) {
 		            	fn_actionGoPage(
 		            			  sideJsonData[idx].url
@@ -237,10 +237,10 @@
     		);
         */
     }
-    
+
     //Left Menu Click
-    function fn_selectMenu(_target, _id) {	
-    	
+    function fn_selectMenu(_target, _id) {
+
     	var data = SBUxMethod.get(_id);
 
 		if (_target === "TOP" && gfn_isEmpty(data.pid)) {
@@ -251,7 +251,7 @@
         if (url == undefined) {
             return;
         }
-        
+
         fn_actionGoPage(
             url
             , _target
@@ -259,28 +259,28 @@
             , data.text
             , data.pid
         );
-        
+
         /*
         //[LEFT-MENU] menu-title 변경
         if (_target === "TOP") {
-        	let title = gfn_isEmpty(data.value) ? data.text : data.value;        	
+        	let title = gfn_isEmpty(data.value) ? data.text : data.value;
             document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = title;
         } else if (_target === "LEFT") {
-        	let title = gfn_isEmpty(data.value) ? data.text : data.value;        	
+        	let title = gfn_isEmpty(data.value) ? data.text : data.value;
             document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = title;
         }
         */
     }
-        
+
     //화면 이동
     const maxTebMenuCnt = 10;//메뉴탭 최대 허용 개수(10)
-    const fn_actionGoPage = function (_url, _menuGubun, _menuNo, _menuNm, _topMenuNo) {     
+    const fn_actionGoPage = function (_url, _menuGubun, _menuNo, _menuNm, _topMenuNo) {
     	if (_menuGubun === "TOP") {
             fn_setLeftMenu(_menuNo);
         } else if (_menuGubun === "LEFT") {
         	//Set 브레드크럼 내비게이션
             fn_setBreadcrumbs(_menuNo, _menuNm);
-            
+
             //메뉴탭 생성 및 화면 요청
             var tabName = "TAB_" + _menuNo;
             if ( $('#' + tabName).length == 0 ) {
@@ -299,7 +299,7 @@
                     , 'closeicon': true
                 };
                 SBUxMethod.addTab('tab_menu', jsonTabSelect);
-                
+
                 fn_afterAddTab(_menuNo)
             }
             else {
@@ -307,14 +307,14 @@
             }
         }
     }
-    
+
     /**
      * @param {string} _menuId
      */
 	function fn_afterAddTab(_menuId) {
-    	
+
     	prvTabMenuId = _menuId;
-    	 
+
     	fetch("/sys/actionNewTab.do", {
   		  	method: "POST",
   		  	headers: {
@@ -336,9 +336,9 @@
       * @param {string} menuNo
       */
  	function fn_afterSeletTab(_menuId) {
-     	
+
       	prvTabMenuId = _menuId;
-      	
+
      	fetch("/sys/actionOldTab.do", {
   		  	method: "POST",
   		  	headers: {
@@ -355,7 +355,7 @@
 				}
   		);
 	}
-    
+
     //Set breadcrumbs
     function fn_setBreadcrumbs(menuNo, menuNm) {
 
@@ -383,7 +383,7 @@
         menuJsonB.push(
 			{"order": "10", "id": "id_1", "pid": "", "text": "홈"}
 		);
-        
+
       	//부모메뉴정보
         var menuInfo = _.find(sideJsonData, {id: menuNo});
         var upMenuNo = menuInfo.pid;
@@ -396,12 +396,12 @@
         }
        	menuJsonB.push(
        			{"order": "30", "id": upMenuInfo.id, "pid": upMenuInfo.pid, "text": upMenuInfo.text}
-       		);        		
-        
+       		);
+
         menuJsonB.push(
         		{"order": "40", "id": menuNo, "pid": upMenuNo, "text": menuNm}
    		);
-        
+
         /*
         if (menuInfo != undefined) {
             var pMenuNo = menuInfo.pid;
@@ -415,17 +415,17 @@
         */
         SBUxMethod.refresh('breadcrumb');
     }
-    
+
     //선택한 탭메뉴의 정보를 가져와 메뉴정보 설정
     function fn_setMenuInfo(args) {
-        
+
     	var idx = _.findLastIndex(tabJsonData, {text: args});
         var tabObj = tabJsonData[idx];
         var tabId = tabObj.targetid;
         var menuId = tabId.substring(tabId.indexOf("_")+1);
-        
+
         console.log("## tabObj", tabObj);
-        
+
         var menuInfo = _.find(sideJsonData, {id: menuId});
         var upMenuNo = menuInfo.pid;
         var upMenuInfo = _.find(menuJson, {id: upMenuNo});
@@ -433,16 +433,16 @@
         if (gfn_isEmpty(topMenuNo)) {
         	topMenuNo = upMenuNo;
         }
-        
+
         //LEFT MENU
         fn_setLeftMenu(topMenuNo, menuId);
-        
+
         fn_setBreadcrumbs(menuId, tabObj.text);
-		
+
         if (sysPrgrmId !== menuId) {
-        	fn_afterSeletTab(menuId);	
+        	fn_afterSeletTab(menuId);
         }
-        
+
         //[LEFT-MENU] menu-title 변경
         /*
         var data = _.find(menuJson, {id: topMenuNo});
@@ -508,7 +508,7 @@
     function fn_resizeFrame(that){
         let iframe_height = that.contentWindow.document.body.scrollHeight + 17;
         $(that).height(iframe_height);
-    }    
+    }
 
     function fn_SlideButton(type,b){
         if(type == "show"){
@@ -517,7 +517,7 @@
              $(".sbt-A-wrap .left").css({width:200});
         }
     }
-    
+
     //메뉴탭을 모두 닫으면 업무 영역 숨김 처리
     function fn_chkTabList() {
         if (SBUxMethod.getTabsCount('tab_menu') == 1) {
@@ -533,8 +533,8 @@
     			{"order": "10", "id": "id_1", "pid": "", "text": "홈"}
     		);
             SBUxMethod.refresh('breadcrumb');
-            
-            fn_afterSeletTab("main");            
+
+            fn_afterSeletTab("main");
 	    }
         else {
             fn_setMenuInfo(SBUxMethod.get('tab_menu'));
@@ -773,7 +773,7 @@
 </script>
 <!-- //inline scripts related to this page -->
 
-    <div class="sbt-A-wrap">    
+    <div class="sbt-A-wrap">
         <!-- header (menu) -->
         <div class="sbt-all-header">
             <sbux-menu id="idxTop_json" name="top_menu" uitype="normal"
@@ -787,8 +787,7 @@
             </sbux-menu>
 			<div class="user-info-wrap">
 				<c:if test="${loginVO != null && loginVO.id != null}">
-                <span class="name-t">${loginVO.name}</span>님 반갑습니다.
-                <span class="name-t">${loginVO.apcNm}</span>
+					<span class="name-t">${loginVO.name}</span>님 반갑습니다.
                 <ul class="user-login-menu">
                     <li><a href="/actionLogout.do">로그아웃</a></li>
                 </ul>
@@ -805,6 +804,7 @@
                         show-slide-button="true"
                         menu-title="메뉴"
                         storage-data="object"
+                        is-expand-only-select="true"
                         callback-slide-button="fn_SlideButton"
                         onclick="fn_selectMenu('LEFT', 'side_menu')"
                     ></sbux-sidemenu>
@@ -865,7 +865,7 @@
                     <!--조회 영역-->
 			        <div class="sbt-con-wrap">
                         <form id="frm" name="frm" method="post"></form>
-				        <div class="sbt-search-wrap"> 
+				        <div class="sbt-search-wrap">
                             <div class="sbt-wrap-body-con">
                                 <div class="sbt-wrap-body">
                                     <div class="sbt-search-row">
@@ -899,7 +899,7 @@
                         </div>
                         </li>
                         <li style="display:inline-block;float:right;width: 59.5%;vertical-align:top;">
-                            <div class="sbt-grid-wrap"> 
+                            <div class="sbt-grid-wrap">
                                 <div class="sbt-wrap-body">
                                     <div class="sbt-grid">
                                         <!-- SBGrid를 호출합니다. -->
@@ -911,7 +911,7 @@
                     </div>
                 </div>
                 <div class="sbt-con-wrap">
-                    <div class="sbt-grid-wrap"> 
+                    <div class="sbt-grid-wrap">
                         <div class="sbt-wrap-header">
                             <span>icon</span>
                             <h3>품목명<span id="select_text"></span></h3>

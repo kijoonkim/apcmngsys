@@ -115,7 +115,7 @@
 							<td colspan="2"class="td_input">
 								<sbux-button id="userAuthMngBtn" name="userAuthMngBtn" uitype="modal" text="사용자권한 설정" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="userAuthMngModal" onclick="fn_modal('userAuthMngBtn')"></sbux-button>
 							</td>
-							<td colspan="6">
+							<td colspan="6" style="color:#999">
 								업무지원시스템을 사용할 일반사용자를 승인합니다. (신규가입은 포탈을 이용하세요)
 							</td>
 						</tr>
@@ -124,7 +124,7 @@
 							<td class="td_input" colspan="2">
 								<sbux-button id="fcltMngBtn" name="fcltMngBtn" uitype="modal" text="설비 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="fcltMngModal" onclick="fn_modal('fcltMngBtn')"></sbux-button>
 							</td>
-							<td colspan="6">
+							<td colspan="6" style="color:#999">
 								APC에서 운영하고 있는 선별기와 포장기를 등록하세요. (선별1호기, 선별2호기... / 포장1호기, 포장2호기...)
 							</td>
 						</tr>
@@ -133,7 +133,7 @@
 							<td class="td_input" colspan="2">
 								<sbux-button id="warehouseMngBtn" name="warehouseMngBtn" uitype="modal" text="창고 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="warehouseMngModal" onclick="fn_modal('warehouseMngBtn')"></sbux-button>
 							</td>
-							<td colspan="6">
+							<td colspan="6" style="color:#999">
 								APC에서 운영하고 있는 창고를 등록하세요. (원물창고1, 원물창고2... / 선별창고1 ... / 포장창고1..)
 							</td>
 						</tr>
@@ -142,7 +142,7 @@
 							<td class="td_input" colspan="2">
 								<sbux-button id="itemMngBtn" name="itemMngBtn" uitype="modal" text="품목/품종 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="itemMngModal" onclick="fn_modal('itemMngBtn')"></sbux-button>
 							</td>
-							<td colspan="6">
+							<td colspan="6" style="color:#999">
 								APC에서 관리하고 있는 품목과 품종을 선택하세요. (여러 개의 품목과 품종을 관리할 수 있습니다)
 							</td>
 						</tr>
@@ -151,7 +151,7 @@
 							<td class="td_input" colspan="2">
 								<sbux-button id="otrdEyeBtn" name="otrdEyeBtn" uitype="modal" text="등급/규격 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="grdSpcfctMngModal" onclick="fn_modal('grdMngBtn')"></sbux-button>
 							</td>
-							<td colspan="6">
+							<td colspan="6" style="color:#999">
 								선택한 품목별로 APC에서 관리하는 등급과 규격을 등록하세요.
 							</td>
 						</tr>
@@ -160,7 +160,7 @@
 							<td class="td_input" colspan="2">
 								<sbux-button id="pltBxBtn" name="pltBxBtn" uitype="modal" text="팔레트/박스 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="pltBxMngModal" onclick="fn_modal('pltBxMngBtn')"></sbux-button>
 							</td>
-							<td colspan="6">
+							<td colspan="6" style="color:#999">
 								APC에서 관리하고 있는 팔레트와 박스의 종류 및 기초재고수량을 등록합니다. (계근대를 사용하는 경우 단중을 입력해야 합니다)
 							</td>
 						</tr>
@@ -169,7 +169,7 @@
 							<td class="td_input" colspan="2">
 								<sbux-button id="vhclBtn" name="vhclBtn" uitype="modal" text="입고차량/운임 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="wrhsVhclMngModal" onclick="fn_modal('wrhsVhclMngBtn')"></sbux-button>
 							</td>
-							<td colspan="6">
+							<td colspan="6" style="color:#999">
 								원물입고 시 차량번호를 관리하는 경우 차량번호를 입력하세요. (차후 추가등록도 가능합니다)
 							</td>
 						</tr>
@@ -178,7 +178,7 @@
 							<td class="td_input" colspan="2">
 								<sbux-button id="spmtTrsprtBtn" name="spmtTrsprtBtn" uitype="modal" text="출하 운송회사 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="spmtTrsprtMngModal" onclick="fn_modal('spmtTrsprtBtn')"></sbux-button>
 							</td>
-							<td colspan="6">
+							<td colspan="6" style="color:#999">
 								상품출하시 운용하고 있는 운송사 정보를 등록하세요. (출하처리 시 필요한 정보입니다)
 							</td>
 						</tr>
@@ -187,7 +187,7 @@
 							<td class="td_input" colspan="2">
 								<sbux-button id="cnptMngBtn" name="cnptMngBtn" uitype="modal" text="거래처 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="cnptMngModal" onclick="fn_modal('cnptMngBtn')"></sbux-button>
 							</td>
-							<td colspan="6">
+							<td colspan="6" style="color:#999">
 								상품출하시 관리하고 있는 거래처 정보를 등록하세요. (출하처리 시 필요한 정보입니다)
 							</td>
 						</tr>
@@ -196,7 +196,7 @@
 							<td class="td_input" colspan="2">
 								<sbux-button id="oprtrMngBtn" name="oprtrMngBtn" uitype="modal" text="생산작업자 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="oprtrMngModal" onclick="fn_modal('oprtrMngBtn')"></sbux-button>
 							</td>
-							<td colspan="6">
+							<td colspan="6" style="color:#999">
 								선별작업 또는 포장작업 시 작업하는 작업자 정보를 등록하세요. (차후 작업자별 작업시간을 관리하기 위한 정보입니다)
 							</td>
 						</tr>

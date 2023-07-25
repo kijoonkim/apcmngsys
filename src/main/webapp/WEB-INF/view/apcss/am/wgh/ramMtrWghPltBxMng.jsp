@@ -60,7 +60,7 @@
 										<td style="border-right: hidden;">&nbsp;</td>
 										<th class="ta_r">입/출고 구분</th>
 										<td class="td_input" style="border-right: hidden;">
-											<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
+											<sbux-select unselected-text="전체" uitype="single" id="srch-slt-wrhsSpmtSe" name="srch-slt-wrhsSpmtSe" class="form-control input-sm" jsondata-ref="jsonComWrhsSpmtSe"></sbux-select>
 										</td>
 										<td colspan="6">&nbsp;</td>
 									</tr>
@@ -96,8 +96,14 @@
 
 </body>
 <script type="text/javascript">
-	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
+	var jsonComMsgKnd 		= [];	// srch.select.comMsgKnd
+	var jsonComWrhsSpmtSe	= [];	// 설비 fcltCd		검색
 
+	const fn_initSBSelect = async function() {
+
+		// 검색 SB select
+	 	gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComwrhsSpmtSe, 		'WRHS_SPMT_SE', gv_apcCd);			// 설비
+	}
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid();
@@ -109,6 +115,8 @@
 		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-dtp-strtCrtrYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-endCrtrYmd", year+month+day);
+
+		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
@@ -196,7 +204,7 @@
 		    }},
 	    ];
 
-	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
+	    inptCmndDsctnList2 = _SBGrid.create(SBGridProperties);
 
 	}
 

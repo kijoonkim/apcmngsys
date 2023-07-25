@@ -521,7 +521,43 @@ const gfn_setApcGrdsSBSelect = async function (_targetIds, _jsondataRef, _apcCd,
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 }
 
+/** 팔레트/박스 */
+/**
+ * @name gfn_getPltBxs
+ * @description  APC별 팔레트/박스 목록 가져오기
+ * @function
+ * @param {string} _apcCd		APC코드
+ * @param {string} _pltBxSeCd	팔레트/박스 구분코드
+ * @returns {any[]}
+ */
+async function gfn_getPltBxs (_apcCd, _pltBxSeCd) {
+	const postJsonPromise = gfn_postJSON(URL_PLT_BX_INFO, {apcCd: _apcCd, pltBxSeCd: _pltBxSeCd, delYn: "N"});
+	const data = await postJsonPromise;
+	return JSON.stringify(data.resultList);
+}
 
+/**
+ * @name gfn_setPltBxSBSelect
+ * @description set SBUX-select options from APC별 팔레트/박스
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd	APC코드
+ * @param {string} _pltBxSeCd	팔레트/박스 구분코드
+ */
+const gfn_setPltBxSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _pltBxSeCd) {
+	const postJsonPromise = gfn_postJSON(URL_PLT_BX_INFO, {apcCd: _apcCd, pltBxSeCd: _pltBxSeCd, delYn: "N"});
+	const data = await postJsonPromise;
+	
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.pltBxCd;
+			item.cmnsNm = item.pltBxNm;
+			sourceJson.push(item);
+		});
+	
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
 
 
 /**
@@ -732,6 +768,28 @@ const gfn_comConfirm = function (_msgKey, ..._arguments) {
 	return confirm(gfn_getComMsg(_msgKey, _arguments));
 }
 
+
+/** MODAL */
+/**
+ * @name fn_closeModal
+ * @description close SBModal
+ * @function
+ * @param {string} _modalId 	modal id
+ * @param {function} _callback 	callback function
+ * @param {[any]} _args			arguments
+ */
+const gfn_closeModal = function (_modalId, _callbackFnc, ..._args){
+	
+	SBUxMethod.closeModal(_modalId);
+	
+	if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
+		if (gfn_isEmpty(_args)) {
+			_callbackFnc();
+		} else {
+			_callbackFnc(_args);
+		}
+	}
+}
 
 
 /**

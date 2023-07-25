@@ -58,10 +58,10 @@
 							<td>&nbsp;</td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm" unselected-text="선택"/>
+								<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm" unselected-text="선택"/>
+								<sbux-select uitype="single" id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComVrty"></sbux-select>
 							</td>
 							<td>&nbsp;</td>
 						    <th scope="row">생산자</th>
@@ -76,7 +76,7 @@
 						<tr>
 							<th scope="row">창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm" unselected-text="선택"/>
+								<sbux-select uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComWarehouse"></sbux-select>
 							</td>
 						</tr>
 					</tbody>
@@ -113,7 +113,7 @@
 						<td>&nbsp;</td>
 						<th scope="row">투입설비</th>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-select uitype="single" id="srch-slt-inptEqupmnt" name="srch-slt-inptEqupmnt" class="form-control input-sm" unselected-text="선택"/>
+							<sbux-select uitype="single" id="srch-slt-inptFclt" name="srch-slt-inptFclt" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComFclt"></sbux-select>
 						</td>
 						<td colspan="4">&nbsp;</td>
 					</tr>
@@ -153,6 +153,23 @@
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
 
+	var jsonComItem			= [];	// 품목 		itemCd		검색
+	var jsonComVrty			= [];	// 품종 		vrtyCd		검색
+	var jsonComWarehouse	= [];	// 창고 		warehouseSeCd	검색
+	var jsonComFclt			= [];	// 설비 		fcltCd		검색
+	const fn_initSBSelect = async function() {
+
+		// 검색 SB select
+	 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_apcCd);	// 창고
+	 	gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComFclt, 		'FCLT_CD', gv_apcCd);			// 설비
+	 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, gv_apcCd);				// 품목
+	}
+
+	function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_apcCd, itemCd);		// 품종
+	}
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid1();
@@ -165,6 +182,8 @@
 // 		SBUxMethod.set("srch-dtp-strtWrhsYmd", year+month+day);
 // 		SBUxMethod.set("srch-dtp-endWrhsYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-cmndYmd", year+month+day);
+		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
+		fn_initSBSelect();
 	});
 
 	var inptTrgtDsctnList; // 그리드를 담기위한 객체 선언

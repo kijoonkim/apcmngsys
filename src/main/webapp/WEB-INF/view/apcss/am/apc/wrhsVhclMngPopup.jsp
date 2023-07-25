@@ -12,7 +12,7 @@
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnWrhsVhclSech" name="btnWrhsVhclSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectWrhsVhclList()"></sbux-button>
-						<sbux-button id="btnWrhsVhclReg" name="btnWrhsVhclReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertWrhsVhclList"></sbux-button>
+						<sbux-button id="btnWrhsVhclReg" name="btnWrhsVhclReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertWrhsVhclList()"></sbux-button>
 						<sbux-button id="btnWrhsVhclEnd" name="btnWrhsVhclEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('wrhsVhclMngModal')"></sbux-button>
 					</div>
 				</div>
@@ -106,11 +106,12 @@
 		fn_callSelectWrhsVhclList();
 	}
 
+	var newWrhsVhclGridData = [];
 	async function fn_callSelectWrhsVhclList(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        let newWrhsVhclGridData = [];
+        newWrhsVhclGridData = [];
         try{
         	data.resultList.forEach((item, index) => {
 				let wrhsVhcl = {
@@ -125,7 +126,7 @@
 				}
 				newWrhsVhclGridData.push(wrhsVhcl);
 			});
-        	wrhsVhclMngGridData = newWrhsVhclGridData;
+        	wrhsVhclMngGridData = newWrhsVhclGridData.slice();
         	wrhsVhclMngDatagrid.rebuild();
         	wrhsVhclMngDatagrid.addRow();
         }catch (e) {
@@ -170,11 +171,12 @@
 		fn_callSelectRgnTrsprtCstList();
 	}
 
+    var newRgnTrsprtCstGridData = [];
 	async function fn_callSelectRgnTrsprtCstList(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectRgnTrsprtCstList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        let newRgnTrsprtCstGridData = [];
+        newRgnTrsprtCstGridData = [];
         try{
         	data.resultList.forEach((item, index) => {
 				let rgnTrsprtCst = {
@@ -187,7 +189,7 @@
 				}
 				newRgnTrsprtCstGridData.push(rgnTrsprtCst);
 			});
-        	rgnTrsprtCstMngGridData = newRgnTrsprtCstGridData;
+        	rgnTrsprtCstMngGridData = newRgnTrsprtCstGridData.slice();
         	rgnTrsprtCstMngDatagrid.rebuild();
         	rgnTrsprtCstMngDatagrid.addRow();
         }catch (e) {
@@ -197,7 +199,77 @@
     		console.error("failed", e.message);
         }
 	}
+	
+	
+	async function fn_procRow(type, id, i){
+		if(id == "wrhsVhclMngDatagrid"){
+			if (type == "ADD"){
+				wrhsVhclMngGridData[i-1].delYn = "N";
+				wrhsVhclMngDatagrid.addRow();
+			}
+			else{
+				wrhsVhclMngDatagrid.deleteRow(i);
+			}
+		}
+		else{
+			if (type == "ADD"){
+				rgnTrsprtCstMngGridData[i-1].delYn = "N";
+				rgnTrsprtCstMngDatagrid.addRow();
+			}
+			else{
+				rgnTrsprtCstMngDatagrid.deleteRow(i);
+			}
+		}
+	}
 
+	async function fn_insertWrhsVhclList(){
+		for(var i=0; i<wrhsVhclMngGridData.length; i++){
+			if(wrhsVhclMngGridData[i].delYn == "N" && (wrhsVhclMngGridData[i].vhclNo == null || wrhsVhclMngGridData[i].vhclNo == "")){
+				alert("차량번호는 필수 값 입니다.");
+				return
+			}
+		}
+		
+		var isEqual1 = await chkEqualObj(wrhsVhclMngGridData, newWrhsVhclGridData);
+		console.log(isEqual1);
+		if (isEqual1){
+			alert("등록 할 내용이 없습니다.");
+			return;
+		}
+	
+
+		let regMsg = "등록 하시겠습니까?";
+		if(confirm(regMsg)){
+			alert("등록 되었습니다.");
+		}
+	}
+	
+	async function chkEqualObj(obj1, obj2){
+		console.log("obj1", obj1);
+		console.log("obj2", obj2);
+		
+		var obj1Len = obj1.filter(e => e["delYn"] == "N").length;
+		var obj2Len = obj2.filter(e => e["delYn"] == "N").length;
+		
+		if (obj1Len != obj2Len)
+			return false;
+
+		var obj1keys = Object.keys(obj1[0]);
+		obj1keys.sort();
+		var obj2keys = Object.keys(obj2[0]);
+		obj2keys.sort();
+
+		if (JSON.stringify(obj1keys) != JSON.stringify(obj2keys))
+			return false;
+		
+		for(var i=0; i<obj1Len; i++){
+			for(var j=0; j<obj1keys.length; j++){
+				if(obj1[i][obj1keys[j]] != obj2[i][obj1keys[j]])
+					return false;
+			}
+		}
+		return true;
+	}
 
 </script>
 </html>
