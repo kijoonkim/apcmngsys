@@ -19,7 +19,6 @@
 					<h3 class="box-title"> ▶ 입고실적조회</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnCmndDocPckg" name="btnCmndDocPckg" uitype="button" class="btn btn-sm btn-primary">초기화</sbux-button>
 					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
 				</div>
@@ -57,18 +56,18 @@
 						<tr>
 							<th scope="row">생산일자</th>
 							<td class="td_input"style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" class="form-control pull-right input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" class="form-control pull-right input-sm"></sbux-datepicker>
 
 							<td class="td_input"style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-endPrdctnYmd" name="srch-dtp-endPrdctnYmd" class="form-control pull-right input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-endPrdctnYmd" name="srch-dtp-endPrdctnYmd" class="form-control pull-right input-sm"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-vrty" name="srch-inp-vrty" class="form-control input-sm"/>
+								<sbux-input uitype="text" id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrtyCrtr" onclick="fn_modalVrty"/>
@@ -126,7 +125,7 @@
 						<tr>
 						    <th scope="row">창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" jsondata-ref="jsonComWarehouseSeCd"></sbux-select>
 							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">차량번호</th>
@@ -158,7 +157,7 @@
         <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
 
     <!-- 차량 선택 Modal -->
@@ -166,7 +165,7 @@
         <sbux-modal id="modal-vhcl" name="modal-vhcl" uitype="middle" header-title="차량 선택" body-html-id="body-modal-vhcl" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-vhcl">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vhclPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/vhclPopup.jsp"></jsp:include>
     </div>
 
 
@@ -175,11 +174,20 @@
         <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
+
+	var jsonComItem				= [];	// 품목 		itemCd			검색
+	var jsonComWarehouseSeCd	= [];	// 창고 		warehouseSeCd	검색
+
+	const fn_initSBSelect = async function() {
+		// 검색 SB select
+		gfn_setComCdSBSelect('srch-slt-warehouseSeCd', jsonComWarehouseSeCd, 	'WAREHOUSE_SE_CD', gv_apcCd);	// 창고
+	 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_apcCd);		// 품목
+	}
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -191,6 +199,9 @@
 		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-dtp-startPrdctnYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-endPrdctnYmd", year+month+day);
+		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
+
+		fn_initSBSelect();
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
