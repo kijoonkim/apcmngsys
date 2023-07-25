@@ -129,7 +129,7 @@
 							<td></td>
 					  		<th scope="row">품목/품종/규격</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>       
+								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-vrty" name="srch-inp-vrty" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
@@ -149,7 +149,7 @@
 							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
 							<th scope="row">운송회사</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select> 
+								<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input"  style="border-right: hidden;"></td>
 							<th scope="row">상품등급</th>
@@ -185,7 +185,7 @@
 						</tr>
 					</tbody>
 				</table>
-			
+
 			<div class="ad_tbl_top">
 				<ul class="ad_tbl_count">
 					<li><span>출하지시 내역</span></li>
@@ -207,7 +207,7 @@
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createregSpmtCmndGrid();
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
@@ -215,7 +215,7 @@
 		SBUxMethod.set("srch-inp-outordrYmd1", year+month+day);
 		SBUxMethod.set("srch-inp-outordrYmd2", year+month+day);
 		SBUxMethod.set("srch-inp-cmndYmd", year+month+day);
-		
+		MNGMST_BSC_INFO
 	})
 
 	function fn_createregSpmtCmndGrid() {
@@ -240,7 +240,7 @@
             {caption: ['지시수량'], 	ref: 'rdcdWght', 		width: '10%', type: 'output'},
             {caption: ['지시중량'], 	ref: 'actlWght', 		width: '10%', type: 'output'}
         ];
-        
+
         var SBGridProperties1 = {};
 	    SBGridProperties1.parentid = 'sb-area-grdSpmtCmndDsctn';
 	    SBGridProperties1.id = 'grdWghPrfmnc1';

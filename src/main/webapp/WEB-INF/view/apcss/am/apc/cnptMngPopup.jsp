@@ -31,7 +31,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
-								<sbux-input id=cnptApcNm name="cnptApcNm" uitype="text" class="form-control pull-right input-sm" disabled></sbux-input>
+								<sbux-input id=cnpt-inp-apcNm name="cnpt-inp-apcNm" uitype="text" class="form-control pull-right input-sm" disabled></sbux-input>
 							</th>
 							<th>
 							</th>
@@ -66,6 +66,7 @@
 	var cnptMngGridData = [
     ]; // 그리드의 참조 데이터 주소 선언
     function fn_cnptMngCreateGrid() {
+    	SBUxMethod.set("cnpt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
     	cnptMngGridData = [];
         let SBGridProperties = {};
 	    SBGridProperties.parentid = 'cnptMngGridArea';
@@ -78,13 +79,13 @@
         SBGridProperties.columns = [
             {caption: ["코드"], 		ref: 'cnptCd',  	type:'output', width:'80px',     style:'text-align:center'},
             {caption: ["거래처명"], 	ref: 'cnptNm',  	type:'input',  width:'150px',    style:'text-align:center'},
-            {caption: ["유형"], 		ref: 'cnptType',   	type:'combo',  width:'100px',    style:'text-align:center',
+            {caption: ["유형"], 		ref: 'cnptType',   	type:'combo',  width:'150px',    style:'text-align:center',
 				typeinfo : {ref:'comboGridCnptTypeJsData', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
             {caption: ["사업자번호"], 	ref: 'brno',  		type:'input',  width:'150px',    style:'text-align:center'},
             {caption: ["담당자"], 		ref: 'picNm',  		type:'input',  width:'100px',    style:'text-align:center'},
             {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'120px',    style:'text-align:center'},
-            {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'200px',    style:'text-align:center'},
-            {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'270px',    style:'text-align:center'},
+            {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"cnptMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
             	}else{
@@ -102,7 +103,7 @@
 
 
 	async function fn_callSelectCnptList(){
-		let apcCd = SBUxMethod.get("apcCd");
+		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectCnptList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
         let newCnptGridData = [];

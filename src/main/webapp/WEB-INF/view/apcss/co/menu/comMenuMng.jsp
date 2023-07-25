@@ -340,7 +340,7 @@
      * @description 메뉴삭제
      */
     function fn_delete() {
-        let menuId = SBUxMethod.get("srch-input-menuId");
+        let menuId = SBUxMethod.get("dtl-input-menuId");
         if (!menuId) {
             //alert("메뉴를 선택하세요.");
             alert(gfn_getComMsg("W0001", "메뉴"));	//	W0001	{0}을/를 선택하세요.

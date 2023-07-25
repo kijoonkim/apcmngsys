@@ -66,7 +66,7 @@
 			<br>
 
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtDsctn" style="height:300px;"></div>
+					<div id="sb-area-spmtDsctn" style="height:0px;"></div>
 				</div>
 							<div><label>저온저장고운영 상세내역</label></div>
 <br>

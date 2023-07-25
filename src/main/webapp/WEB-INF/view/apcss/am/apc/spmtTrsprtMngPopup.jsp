@@ -23,16 +23,20 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 10%">
-						<col style="width: 20%">
+						<col style="width: 14%">
+						<col style="width: 28%">
+						<col style="width: 14%">
+						<col style="width: 28%">
 						<col style="width: auto">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
-								<sbux-input id=spmtTrsprtApcNm name="spmtTrsprtApcNm" uitype="text" class="form-control pull-right input-sm" disabled></sbux-input>
+								<sbux-input id=spmtTrsprt-inp-apcNm name="spmtTrsprt-inp-apcNm" uitype="text" class="form-control pull-right input-sm" disabled></sbux-input>
 							</th>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
 							<th>&nbsp;</th>
 						</tr>
 					</tbody>
@@ -59,7 +63,7 @@
 	//출하운송회사 등록
 	var spmtTrsprtMngGridData = []; // 그리드의 참조 데이터 주소 선언
 	function fn_spmtTrsprtMngCreateGrid() {
-
+		SBUxMethod.set("spmtTrsprt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
 		spmtTrsprtMngGridData = [];
 	    let SBGridProperties = {};
@@ -92,7 +96,7 @@
 	}
 
 	async function fn_callSelectSpmtTrsprtList(){
-		let apcCd = SBUxMethod.get("apcCd");
+		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtTrsprtList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
         let newSpmtTrsprtGridData = [];

@@ -32,7 +32,7 @@
 			   AND VC.SPCFCT_CD = #{spcfctCd}
 		]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectCmnsSpcfctList	-->
 	<!-- DESC : 규격 마스터 목록 조회.	                                       			-->
@@ -51,7 +51,7 @@
 			  FROM TB_SPCFCT_CRTR GC
 			 WHERE GC.ITEM_CD = #{itemCd}
 		]]>
-		
+
 		<if test='spcfctCd != null and spcfctCd != ""'>
 			   AND GC.SPCFCT_CD LIKE #{spcfctCd} || '%'
 		</if>
@@ -70,7 +70,7 @@
 			   			   AND X.ITEM_CD = GC.ITEM_CD
 			   		)
 		</if>
-		
+
     </select>
 
     <!-- ==========================================================================	-->
@@ -176,7 +176,7 @@
 			   AND AGC.APC_CD = #{apcCd}
 		]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfctList		-->
 	<!-- DESC : APC 규격 목록 조회.	                                       				-->
@@ -189,6 +189,7 @@
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfctList */
 				  AGC.ITEM_CD
+				, AGC.APC_CD
 				, AGC.SPCFCT_CD
 				, AGC.SPCFCT_NM
 			    , AGC.DEL_YN
@@ -196,7 +197,7 @@
 			 WHERE AGC.ITEM_CD = #{itemCd}
 			   AND AGC.APC_CD = #{apcCd}
 		]]>
-		
+
 		<if test='spcfctCd != null and spcfctCd != ""'>
 			   AND AGC.SPCFCT_CD LIKE #{spcfctCd} || '%'
 		</if>
@@ -206,7 +207,7 @@
 		<if test='delYn != null and delYn != ""'>
 			   AND AGC.DEL_YN = #{delYn}
 		</if>
-		
+
     </select>
 
     <!-- ==========================================================================	-->

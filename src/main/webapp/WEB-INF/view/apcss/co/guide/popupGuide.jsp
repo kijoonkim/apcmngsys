@@ -114,7 +114,7 @@
         <sbux-modal id="modal-itemCrtr" name="modal-itemCrtr" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemCrtr" footer-is-close-button="false" style="width:600px"></sbux-modal>
     </div>
     <div id="body-modal-itemCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/itemCrtrPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/itemCrtrPopup.jsp"></jsp:include>
     </div>
 
     <!-- 생산자 선택 Modal -->
@@ -122,7 +122,7 @@
         <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
 
     <!-- 차량 선택 Modal -->
@@ -130,7 +130,7 @@
         <sbux-modal id="modal-vhcl" name="modal-vhcl" uitype="middle" header-title="차량 선택" body-html-id="body-modal-vhcl" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-vhcl">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vhclPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/vhclPopup.jsp"></jsp:include>
     </div>
 
     <!-- 팔레트/박스 선택 Modal -->
@@ -138,7 +138,7 @@
         <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="원물입고 팔레트/박스 입고등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" style="width:1200px"></sbux-modal>
     </div>
     <div id="body-modal-pltBx">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/pltBxPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/pltBxPopup.jsp"></jsp:include>
     </div>
 
     <!-- 품종 선택 Modal -->
@@ -146,7 +146,7 @@
         <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
     </div>
     <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
     </div>
 
     <!-- 거래처 선택 Modal -->
@@ -154,7 +154,7 @@
         <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-cnpt">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/cnptPopup.jsp"></jsp:include>
     </div>
 
     <!-- 원물운임비용등록 Modal -->
@@ -162,7 +162,7 @@
         <sbux-modal id="modal-trsprtCst" name="modal-trsprtCst" uitype="middle" header-title="원물운임비용등록" body-html-id="body-modal-trsprtCst" footer-is-close-button="false" style="width:1350px"></sbux-modal>
     </div>
     <div id="body-modal-trsprtCst">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/trsprtCstPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/trsprtCstPopup.jsp"></jsp:include>
     </div>
 
 <script type="text/javascript">

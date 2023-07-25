@@ -11,9 +11,9 @@
 			<div class="box-header">
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnOprtrSech" name="btnOprtrSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectOprtrList()"></sbux-button>
-						<sbux-button id="btnOprtrReg" name="btnOprtrReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertOprtrList"></sbux-button>
-						<sbux-button id="btnOprtrEnd" name="btnOprtrEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('oprtrMngModal')"></sbux-button>
+						<sbux-button id="btnSearchOprtr" name="btnSearchOprtr" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectOprtrList"></sbux-button>
+						<sbux-button id="btnInsertOprtr" name="btnInsertOprtr" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertOprtrList"></sbux-button>
+						<sbux-button id="btnEndOprtr" name="btnEndOprtr" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('oprtrMngModal')"></sbux-button>
 					</div>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
-								<sbux-input id=oprtrApcNm name="oprtrApcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id=oprtr-inp-apcNm name="oprtr-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</th>
 							<th>&nbsp;</th>
 						</tr>
@@ -42,7 +42,7 @@
 				<!--[pp] 검색결과 -->
 				<div class="ad_section_top">
 					<!-- SBGrid를 호출합니다. -->
-					<div id="oprtrMngGridArea" style="height:250px; width: 100%;"></div>
+					<div id="sb-area-grdOprtr" style="height:250px; width: 100%;"></div>
 				</div>
 			</div>
 		</div>
@@ -50,16 +50,16 @@
 </body>
 <script type="text/javascript">
 	//설비 등록
-	var oprtrMngGridData = []; // 그리드의 참조 데이터 주소 선언
+	var jsonOprtr = []; // 그리드의 참조 데이터 주소 선언
 	async function fn_oprtrMngCreateGrid() {
 
-		SBUxMethod.set("oprtrApcNm", SBUxMethod.get("apcNm"));
+		SBUxMethod.set("oprtr-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
 		oprtrMngGridData = [];
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'oprtrMngGridArea';
-	    SBGridProperties.id = 'oprtrMngDatagrid';
-	    SBGridProperties.jsonref = 'oprtrMngGridData';
+	    SBGridProperties.parentid = 'sb-area-grdOprtr';
+	    SBGridProperties.id = 'grdOprtr';
+	    SBGridProperties.jsonref = 'jsonOprtr';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -68,23 +68,23 @@
 	        {caption: ["작업자명"], 	ref: 'flnm',  	type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["생년월일"], 	ref: 'brdt',   	type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["전화번호"], 	ref: 'telno',   type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["주소"], 		ref: 'addr',    type:'input',  width:'200px',    style:'text-align:center'},
+	        {caption: ["주소"], 		ref: 'addr',    type:'input',  width:'250px',    style:'text-align:center'},
 	        {caption: ["입사일자"], 	ref: 'jncmp',   type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'120px',    style:'text-align:center',
     			typeinfo : {ref:'comboGridBankCdJsData', label:'label', value:'value', displayui : true, unselect: {label : '입력', value: ''}}},
 	        {caption: ["계좌번호"], 	ref: 'actno',   type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["예금주명"], 	ref: 'dpstr',   type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"oprtrMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdOprtr\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"oprtrMngDatagrid\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdOprtr\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
 	    ];
-	    window.oprtrMngDatagrid = _SBGrid.create(SBGridProperties);
-	    oprtrMngDatagrid.addRow();
+	    window.grdOprtr = _SBGrid.create(SBGridProperties);
+	    grdOprtr.addRow();
 	    fn_selectOprtrList();
 	}
 
@@ -93,13 +93,13 @@
 	}
 
 	async function fn_callSelectOprtrList(){
-		let apcCd = SBUxMethod.get("apcCd");
+		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        let newOprtrGridData = [];
+        let newJsonOprtr = [];
         try{
         	data.resultList.forEach((item, index) => {
-				let oprtr = {
+				let oprtrVO = {
 					flnm : 		item.flnm
 				  , brdt :	 	item.brdt
 				  , telno : 	item.telno
@@ -111,11 +111,11 @@
 				  , delYn : 	item.delYn
 				  , apcCd : 	item.apcCd
 				}
-				newOprtrGridData.push(oprtr);
+				newJsonOprtr.push(oprtrVO);
 			});
-        	oprtrMngGridData = newOprtrGridData;
-        	oprtrMngDatagrid.rebuild();
-        	oprtrMngDatagrid.addRow();
+        	jsonOprtr = newJsonOprtr;
+        	grdOprtr.rebuild();
+        	grdOprtr.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -125,24 +125,24 @@
 	}
 
 	async function fn_insertOprtrList(){
-		let gridData = oprtrMngDatagrid.getGridDataAll();
+		let gridData = grdOprtr.getGridDataAll();
 		let insertList = [];
 		let updateList = [];
-		let insertListResult = 0;
-		let updateListResult = 0;
+		let insertCnt = 0;
+		let updateCnt = 0;
 		for(var i=1; i<=gridData.length; i++ ){
-			if(oprtrMngDatagrid.getRowData(i).delYn == 'N'){
+			if(grdOprtr.getRowData(i).delYn == 'N'){
 
-				if(oprtrMngDatagrid.getRowData(i).cdVlNm == null || oprtrMngDatagrid.getRowData(i).cdVlNm == ""){
+				if(grdOprtr.getRowData(i).flnm == null || grdOprtr.getRowData(i).flnm == ""){
 					alert("작업자 명은 필수 값 입니다.");
 					return;
 				}
 
-				if(oprtrMngDatagrid.getRowStatus(i) === 3){
-					insertList.push(oprtrMngDatagrid.getRowData(i));
+				if(grdOprtr.getRowStatus(i) === 3){
+					insertList.push(grdOprtr.getRowData(i));
 				}
-				if(oprtrMngDatagrid.getRowStatus(i) === 2){
-					updateList.push(oprtrMngDatagrid.getRowData(i));
+				if(grdOprtr.getRowStatus(i) === 2){
+					updateList.push(grdOprtr.getRowData(i));
 				}
 			}
 		}
@@ -154,10 +154,10 @@
 		if(confirm(regMsg)){
 
 			if(insertList.length > 0){
-				insertListResult = await fn_callInsertOprtrList(insertList);
+				insertCnt = await fn_callInsertOprtrList(insertList);
 			}
 			if(updateList.length > 0){
-				updateListResult = await fn_callUpdateOprtrList(updateList);
+				updateCnt = await fn_callUpdateOprtrList(updateList);
 			}
 			if(insertListResult + updateListResult > 0 ){
 				fn_callSelectFcltList();
