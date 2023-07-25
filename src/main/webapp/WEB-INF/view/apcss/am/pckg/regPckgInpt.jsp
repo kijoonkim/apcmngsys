@@ -212,6 +212,13 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+		};
         SBGridProperties.columns = [
             {caption: ['선택','선택'], ref: 'slt', width: '100px', type : 'checkbox'},
             {caption: ['선별번호/등급','선별번호/등급'], ref: 'sltNoGrd', width: '100px', type: 'output'},
@@ -244,6 +251,13 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+		};
         SBGridProperties.columns = [
             {caption: ['포장일자'], ref: 'pckgYmd', width: '100px', type: 'output'},
             {caption: ['포장기'], ref: 'pckg', width: '100px', type: 'output'},

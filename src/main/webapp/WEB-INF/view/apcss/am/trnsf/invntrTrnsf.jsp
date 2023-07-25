@@ -158,6 +158,13 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+		};
         SBGridProperties.columns = [
             {caption: ['이송APC','이송APC'], ref: 'trnsfSn', width: '100px', type: 'output'},
             {caption: ['입고번호','입고번호'], ref: 'wrhsno', width: '100px', type: 'output'},
