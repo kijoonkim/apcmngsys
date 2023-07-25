@@ -121,24 +121,28 @@
 							<td colspan="3">
 								<sbux-label uitype="normal" id="lbl-chc" name="lbl-chc" class="blod" text="Kg"/>
 							</td>
-							<th>박스종류</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-bxKnd" name="srch-slt-bxKnd" class="form-control input-sm"/>
+							<th scope="row">규격</th>
+							<td class="td_input" style="border-right:hidden ;">
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spcfct" name="srch-slt-spcfct" class="form-control input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
 						</tr>
 						
 						<tr>
-							<th class="ta_r">창고</th>
+							<th>박스종류</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-bxKnd" name="srch-slt-bxKnd" class="form-control input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
+							<th class="ta_r">창고</th>
+							<td colspan="6" class="td_input" style="border-right: hidden;">
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm"/>
+							</td>
+							<td colspan="9">&nbsp;</td>
 							<th class="ta_r">비고</th>
-							<td colspan="15" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-rmrk" name="srch-inp-rmrk" class="form-control input-sm"/>
 							</td>
-							<td colspan="4">&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -179,7 +183,7 @@
 	});
 
 	var inptCmndDsctnList =  []; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
+	var jsoninptCmndDsctnList = ["test"]; // 그리드의 참조 데이터 주소 선언
 	
 	function fn_createGrid2() {
 	    var SBGridProperties = {};
@@ -216,8 +220,8 @@
 
 	}
 	
-// 	function fn_closeModal(modalId){
-// 		SBUxMethod.closeModal(modalId);
-// 	}
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
 </script>
 </html>

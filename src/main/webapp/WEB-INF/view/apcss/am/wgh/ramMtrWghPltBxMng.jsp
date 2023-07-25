@@ -21,7 +21,8 @@
 								<h3 class="box-title">▶ 원물입고 팔레트/박스 관리</h3>
 							</div>
 							<div style="margin-left: auto;">
-								<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
+								<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
+								<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
 							</div>
 						</div>
 						<div class="box-body">
@@ -77,8 +78,12 @@
 							</div>
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">
-									<li><span>입출 내역</span></li>
+									<li><span>원물입고 계획</span></li>
 								</ul>
+								<div class="ad_tbl_toplist">
+									<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
+									<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
+								</div>
 							</div>
 							<div class="sbt-wrap-body">
 								<div class="sbt-grid">
@@ -124,17 +129,17 @@
 
 		
 	    SBGridProperties.columns = [
-	        {caption: ["구분","구분"],		ref: 'msgKey',      type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["명칭","명칭"],		ref: 'msgKey',      type:'output',  width:'320px',    style:'text-align:center'},
-	        {caption: ["단중","단중"],		ref: 'msgKey',      type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["전일재고","수량	"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["전일재고","중량"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["입고","수량	"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["입고","중량"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["출고","수량	"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["출고","중량"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["현재고","수량"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["현재고","중량"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["구분","구분"],		ref: 'msgKey',      type:'output',  width:'170px',    style:'text-align:center'},
+	        {caption: ["명칭","명칭"],		ref: 'msgKey',      type:'output',  width:'170px',    style:'text-align:center'},
+	        {caption: ["단중","단중"],		ref: 'msgKey',      type:'output',  width:'170px',    style:'text-align:center'},
+	        {caption: ["전일재고","수량	"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["전일재고","중량"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["입고","수량	"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["입고","중량"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["출고","수량	"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["출고","중량"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["현재고","수량"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["현재고","중량"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
 
 	    ];
 	    
@@ -142,7 +147,7 @@
 
 	}
 	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList2 = []; // 그리드의 참조 데이터 주소 선언
+	var jsoninptCmndDsctnList2 = ["test"]; // 그리드의 참조 데이터 주소 선언
 	
 	var comboUesYnJsData = ['입고/출고']
 	var comboUesYnJsData1 = ['팔레트/박스']
@@ -166,21 +171,21 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	        {caption: ["선택"],		ref: 'msgKey',      type:'checkbox',  width:'50px',    style:'text-align:center'},
-	        {caption: ["작업일자"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["입출고구분"], 	ref: 'delYn',   	type:'combo',  width:'120px',    style:'text-align:center',
+	        {caption: ["선택"],		ref: 'msgKey',      type:'checkbox',  width:'70px',    style:'text-align:center'},
+	        {caption: ["작업일자"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["입출고구분"], 	ref: 'delYn',   	type:'combo',  width:'140px',    style:'text-align:center',
 				typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : true}},
-	        {caption: ["구분"], 	ref: 'delYn',   	type:'combo',  width:'120px',    style:'text-align:center',
+	        {caption: ["구분"], 	ref: 'delYn',   	type:'combo',  width:'140px',    style:'text-align:center',
 				typeinfo : {ref:'comboUesYnJsData1', label:'label', value:'value', displayui : true}},
-	        {caption: ["명칭"], 	ref: 'delYn',   	type:'combo',  width:'120px',    style:'text-align:center',
+	        {caption: ["명칭"], 	ref: 'delYn',   	type:'combo',  width:'140px',    style:'text-align:center',
 				typeinfo : {ref:'comboUesYnJsData2', label:'label', value:'value', displayui : true}},
-	        {caption: ["단중"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["생산자"], 	ref: 'delYn',   	type:'combo',  width:'120px',    style:'text-align:center',
+	        {caption: ["단중"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["생산자"], 	ref: 'delYn',   	type:'combo',  width:'140px',    style:'text-align:center',
 				typeinfo : {ref:'comboUesYnJsData3', label:'label', value:'value', displayui : true}},
-	        {caption: ["수량"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["중량"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'userStts', 	type:'button',  width:'120px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["수량"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["중량"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["처리"], 		ref: 'userStts', 	type:'button',  width:'140px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 //             	if(strValue === "01"){
 //             		return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
 //             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";

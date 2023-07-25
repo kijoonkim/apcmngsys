@@ -81,6 +81,10 @@
 					<ul class="ad_tbl_count">
 						<li><span>투입지시 내역</span></li>
 					</ul>
+					<div class="ad_tbl_toplist">
+						<sbux-button id="btnDwnld" name="btnDwnld" uitype="button" class="btn btn-sm btn-outline-danger">내려받기</sbux-button>
+						<sbux-button id="btnUld" name="btnUld" uitype="button" class="btn btn-sm btn-outline-danger">올려받기</sbux-button>
+					</div>
 				</div>
 	            <div class="sbt-wrap-body">
 	                    <div class="sbt-grid">
@@ -116,7 +120,7 @@
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
+	var jsoninptCmndDsctnList = ["test"]; // 그리드의 참조 데이터 주소 선언
 	
 	function fn_createGrid2() {
 	    var SBGridProperties = {};

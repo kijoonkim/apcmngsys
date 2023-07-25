@@ -18,8 +18,9 @@
 					<h3 class="box-title">▶ 선별지시등록</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
+					<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -72,6 +73,12 @@
 							</td>
 							<td>&nbsp;</td>
 						</tr>
+						<tr>
+							<th scope="row">창고</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select uitype="single" id="srch-slt-warehouse" name="srch-slt-warehouse" class="form-control input-sm" unselected-text="선택"/>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 				<div class="ad_tbl_top">
@@ -119,7 +126,7 @@
 				
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
-						<li><span>투입지시 내역</span></li>
+						<li><span>선별지시 내역</span></li>
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
@@ -211,19 +218,21 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	        {caption: ["선택","선택"],		ref: 'msgKey',      type:'output',  width:'50px',    style:'text-align:center'},
-	        {caption: ["입고일자","입고일자"], 	ref: 'msgCn',     	type:'output',  width:'100px',    style:'text-align:left'},
-	        {caption: ["팔레트번호","팔레트번호"],  	ref: 'msgKndNm',    type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["생산자","생산자"],  	ref: 'msgKndNm',    type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["품종","품종"],  	ref: 'msgKndNm',    type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["창고","창고"],  	ref: 'msgKndNm',    type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["입고","수량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
-	        {caption: ["입고","중량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
-	        {caption: ["재고","수량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
-	        {caption: ["재고","중량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
-	        {caption: ["지시","수량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
-	        {caption: ["지시","중량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
-	        {caption: ["비고","비고"],  	ref: 'msgKndNm',    type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["선택","선택"],		ref: 'msgKey',      type:'checkbox',  width:'50px',    style:'text-align:center'},
+	        {caption: ["지시번호","지시번호"], 	ref: 'msgCn',     	type:'output',  width:'130px',    style:'text-align:left'},
+	        {caption: ["지시일자","지시일자"],  	ref: 'msgKndNm',    type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["투입설비","투입설비"],  	ref: 'msgKndNm',    type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["생산자","생산자"],  	ref: 'msgKndNm',    type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["품종","품종"],  	ref: 'msgKndNm',    type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["창고","창고"],  	ref: 'msgKndNm',    type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["팔레트번호","팔레트번호"],  	ref: 'msgKndNm',    type:'output',  width:'130px',    style:'text-align:center'},
+// 	        {caption: ["입고","수량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
+// 	        {caption: ["입고","중량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
+// 	        {caption: ["재고","수량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
+// 	        {caption: ["재고","중량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
+	        {caption: ["지시","수량"],  	ref: 'msgKndNm',    type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["지시","중량"],  	ref: 'msgKndNm',    type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["비고","비고"],  	ref: 'msgKndNm',    type:'output',  width:'130px',    style:'text-align:center'},
 	    ];
 	    
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);

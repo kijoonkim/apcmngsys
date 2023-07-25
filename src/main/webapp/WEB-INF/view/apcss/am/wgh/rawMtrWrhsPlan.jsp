@@ -20,8 +20,8 @@
 					<h3 class="box-title"> ▶ 원물입고계획 등록</h3>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
 				</div>
 			</div>
 			
@@ -181,8 +181,10 @@
 						<li><span>원물입고 계획</span></li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<button type="button" class="btn btn-sm btn-outline-danger">내려받기</button>
-						<button type="button" class="btn btn-sm btn-outline-danger">올려받기</button>
+						<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
+						<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
+						<sbux-button id="btnDwnld" name="btnDwnld" uitype="button" class="btn btn-sm btn-outline-danger">내려받기</sbux-button>
+						<sbux-button id="btnUld" name="btnUld" uitype="button" class="btn btn-sm btn-outline-danger">올려받기</sbux-button>
 					</div>
 				</div>
 				<div class="sbt-wrap-body">
@@ -218,7 +220,7 @@
 	});
 
 	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList2 = []; // 그리드의 참조 데이터 주소 선언
+	var jsoninptCmndDsctnList2 = ["test"]; // 그리드의 참조 데이터 주소 선언
 
 	function fn_createGrid2() {
 	    var SBGridProperties = {};

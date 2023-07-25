@@ -47,12 +47,21 @@
 						<col style="width: 1%">
 						
 						<col style="width: 7%">
-						<col style="width: 4%">
-						<col style="width: 2%">
-						<col style="width: 1.5%">
-						<col style="width: 4%">
-						<col style="width: 2%">
-						<col style="width: 1.5%">
+						<col style="width: 1%">
+						<col style="width: 1%">
+						<col style="width: 1%">
+						<col style="width: 1%">
+						<col style="width: 1%">
+						<col style="width: 1%">
+						<col style="width: 1%">
+						<col style="width: 1%">
+						<col style="width: 1%">
+						<col style="width: 1%">
+						<col style="width: 1%">
+						<col style="width: 1%">
+						<col style="width: 1%">
+						<col style="width: 1%">
+						<col style="width: 1%">
 						
 						<col style="width: 7%">
 						<col style="width: 6%">
@@ -73,7 +82,7 @@
 							</td>
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">입고구분</th>
-							<td colspan="6" class="td_input" style="border-right: hidden;">
+							<td colspan="15" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-wrhs1" name="srch-rdo-wrhs" uitype="normal" class="radio_label" text="일반매입"/>
 								</p>
@@ -114,13 +123,13 @@
 								</p>
 							</td>
 							<th scope="row">생산자</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="12" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-prdcr" name="srch-inp-prdcr" class="form-control input-sm"/>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-prdcr" name="srch-btn-prdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
 							</td>
-							<td colspan="4">&nbsp;</td>
+<!-- 							<td colspan="4">&nbsp;</td> -->
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-gds" name="srch-slt-gds" class="form-control input-sm"/>
@@ -145,10 +154,10 @@
 								<sbux-label uitype="normal" id="lbl-chc" name="lbl-chc" class="blod" text="Kg"/>
 							</td>
 							<th scope="row">팔레트번호</th>
-							<td colspan= "2" class="td_input" style="border-right: hidden;">
+							<td colspan= "6" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-pltNo" name="srch-inp-pltNo" class="form-control input-sm"/>
 							</td>
-							<td colspan="4" style="border-right: hidden;">&nbsp;</td>
+							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">박스종류</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-boxKnd" name="srch-slt-boxKnd" class="form-control input-sm"/>
@@ -162,25 +171,24 @@
 							</td>
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">차량/운임</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-vhcl" name="srch-inp-vhcl" class="form-control input-sm"/>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-vhcl" name="srch-btn-vhcl" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"/>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-trsprt" name="srch-inp-trsprt" class="form-control input-sm" disabled/>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-trsprt" name="srch-btn-trsprt" class="btn btn-xs btn-outline-dark" text="등록" uitype="modal" target-id="modal-trsprtCst" onclick="fn_modalTrsprtCst"/>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
+							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">비고</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-rmrk" name="srch-inp-rmrk" class="form-control input-sm"/>
 							</td>
-							<td colspan="2">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row">등급</th>
@@ -189,7 +197,7 @@
 							</td>
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row">계량번호</th>
-							<td colspan= "2" class="td_input" style="border-right: hidden;">
+							<td colspan= "6" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-wghNo" name="srch-inp-wghNo" class="form-control input-sm" disabled/>
 							</td>
 						</tr>

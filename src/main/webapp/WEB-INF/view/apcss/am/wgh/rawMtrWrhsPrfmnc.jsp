@@ -71,7 +71,7 @@
 								<sbux-input uitype="text" id="srch-inp-vrty" name="srch-inp-vrty" class="form-control input-sm"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button uitype="normal" id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기"/>
+								<sbux-button id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrtyCrtr" onclick="fn_modalVrty"/>
 							</td>
 							<th scope="row">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -98,7 +98,7 @@
 							<th scope="row">상품구분</th>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-gsd1" name="chk-gsd1" uitype="normal" class="form-control input-sm" text="일반"/>
+									<sbux-checkbox uitype="normal"id="chk-gsd1" name="chk-gsd1" uitype="normal" class="form-control input-sm" text="일반" checked/>
 								</p>
 								<p class="ad_input_row">
 									<sbux-checkbox uitype="normal"id="chk-gsd2" name="chk-gsd2" uitype="normal" class="form-control input-sm" text="GAP"/>
@@ -113,7 +113,7 @@
 					    	<th scope="row">운송구분</th>
 							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-trsprt1" name="chk-trsprt1" uitype="normal" class="form-control input-sm" text="자가"/>
+									<sbux-checkbox uitype="normal"id="chk-trsprt1" name="chk-trsprt1" uitype="normal" class="form-control input-sm" text="자가" checked/>
 								</p>
 								<p class="ad_input_row">
 									<sbux-checkbox uitype="normal"id="chk-trsprt2" name="chk-trsprt2" uitype="normal" class="form-control input-sm" text="용역"/>
@@ -168,6 +168,15 @@
     <div id="body-modal-vhcl">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/vhclPopup.jsp"></jsp:include>
     </div>
+    
+    
+    <!-- 품종 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
+    </div>
+    <div id="body-modal-vrtyCrtr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
@@ -215,20 +224,20 @@
 	        {caption: ["생산자"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["품목"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["품종"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["입고구분"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["운송구분"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["상품구분"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["차량구분"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["입고구분"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["운송구분"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["상품구분"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["차량구분"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["운송료"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
-	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
-	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
-	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
-	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
+	        {caption: ["등급"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
+// 	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
+// 	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
+// 	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
+// 	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
 	        {caption: ["입고중량"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["보관창고"],		ref: 'msgKey',      type:'output',  width:'200px',    style:'text-align:center'},
-	        {caption: ["계량번호"],		ref: 'msgKey',      type:'output',  width:'200px',    style:'text-align:center'},
-	        {caption: ["팔레트번호"],		ref: 'msgKey',      type:'output',  width:'200px',    style:'text-align:center'},
+	        {caption: ["보관창고"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["계량번호"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["팔레트번호"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'200px',    style:'text-align:center'},
 	    ];
 	    
