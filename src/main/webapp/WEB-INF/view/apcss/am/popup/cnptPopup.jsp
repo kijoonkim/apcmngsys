@@ -22,10 +22,10 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 10%">
-						<col style="width: 20%">
-						<col style="width: 10%">
-						<col style="width: 20%">
+						<col style="width: 12%">
+						<col style="width: 24%">
+						<col style="width: 12%">
+						<col style="width: 24%">
 						<col style="width: auto">
 					</colgroup>
 					<tbody>
@@ -53,6 +53,10 @@
 	</section>
 </body>
 <script type="text/javascript">
+
+	window.addEventListener('DOMContentLoaded', function(e) {
+		SBUxMethod.set("cnpt-inp-apcNm", gv_apcNm);
+	})
 	var jsonCnpt = [];
 	function fn_createCnptGrid() {
 	    var SBGridProperties = {};

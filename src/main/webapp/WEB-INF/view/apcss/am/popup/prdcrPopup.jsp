@@ -11,8 +11,9 @@
 			<div class="box-header">
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSearchPrdcr" name="btnSearchPrdcr" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_sarchPrdcr"></sbux-button>
-						<sbux-button id="btnInsertPrdcr" name="btnInsertPrdcr" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertPrdcr"></sbux-button>
+						<sbux-button id="btnSearchPrdcr" name="btnSearchPrdcr" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchPrdcr"></sbux-button>
+						<sbux-button id="btnEditorPrdcr" name="btnEditorPrdcr" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="fn_editorPrdcr"></sbux-button>
+						<sbux-button id="btnInsertPrdcr" name="btnInsertPrdcr" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertPrdcr"disabled></sbux-button>
 						<sbux-button id="btnEndPrdcr" name="btnEndPrdcr" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-prdcr')"></sbux-button>
 					</div>
 				</div>
@@ -23,10 +24,10 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 10%">
-						<col style="width: 20%">
-						<col style="width: 10%">
-						<col style="width: 20%">
+						<col style="width: 11%">
+						<col style="width: 22%">
+						<col style="width: 11%">
+						<col style="width: 22%">
 						<col style="width: auto">
 					</colgroup>
 					<tbody>
@@ -77,6 +78,7 @@
 
 	var jsonPrdcr = [];
 	function fn_createPrdcrGrid() {
+		SBUxMethod.set("prdcr-inp-apcNm", gv_apcNm);
 		jsonPrdcr = [];
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPrdcr';
@@ -87,21 +89,21 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
 	        {caption: ['생산자명'], 	ref: 'prdcrNm', 	width: '100px', type: 'output'},
-	        {caption: ['대표품목'], 	ref: 'rprsItemCd', 	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComRrsItemCd', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
-	        {caption: ['대표품종'], 	ref: 'rprsVrtyCd', 	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComRprsVrtyCd', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
-	        {caption: ['상품구분'], 	ref: 'gdsSeCd', 	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComGdsSeCd', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
-	        {caption: ['입고구분'], 	ref: 'wrhsSeCd', 	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComWrhsSeCd', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
-	        {caption: ['운송구분'], 	ref: 'trsprtSeCd', 	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComTrsprtSeCd', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
-	        {caption: ['정산기준'], 	ref: 'clclnCrtr', 	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComClclnCrtr', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
+	        {caption: ['대표품목'], 	ref: 'rprsItemCd', 	type:'combo',  width:'80px',    style:'text-align:center',
+				typeinfo : {ref:'jsonComRrsItemCd', label:'label', value:'value', displayui : true}},
+	        {caption: ['대표품종'], 	ref: 'rprsVrtyCd', 	type:'combo',  width:'80px',    style:'text-align:center',
+				typeinfo : {ref:'jsonComRprsVrtyCd', label:'label', value:'value', displayui : true}},
+	        {caption: ['상품구분'], 	ref: 'gdsSeCd', 	type:'combo',  width:'80px',    style:'text-align:center',
+				typeinfo : {ref:'jsonComGdsSeCd', label:'label', value:'value',  displayui : true}},
+	        {caption: ['입고구분'], 	ref: 'wrhsSeCd', 	type:'combo',  width:'80px',    style:'text-align:center',
+				typeinfo : {ref:'jsonComWrhsSeCd', label:'label', value:'value',  displayui : true}},
+	        {caption: ['운송구분'], 	ref: 'trsprtSeCd', 	type:'combo',  width:'80px',    style:'text-align:center',
+				typeinfo : {ref:'jsonComTrsprtSeCd', label:'label', value:'value', displayui : true}},
+	        {caption: ['정산기준'], 	ref: 'clclnCrtr', 	type:'combo',  width:'80px',    style:'text-align:center',
+				typeinfo : {ref:'jsonComClclnCrtr', label:'label', value:'value', displayui : true}},
 	        {caption: ['차량번호'], 	ref: 'vhclno', 		width: '100px', type: 'output'},
-	        {caption: ['비고'], 		ref: 'rmrk', 		width: '100px', type: 'input'},
-	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ['비고'], 		ref: 'rmrk', 		width: '240px', type: 'input'},
+	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowPrdcr(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
             	}else{

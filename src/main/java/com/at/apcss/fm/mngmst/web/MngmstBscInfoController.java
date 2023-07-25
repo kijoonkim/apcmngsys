@@ -13,12 +13,12 @@ import com.at.apcss.co.sys.controller.BaseController;
  * @version 1.0
  * @see
  *
- * <pre>
+ *      <pre>
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
  * 2023.06.21  정연두        최초 생성
- * </pre>
+ *      </pre>
  */
 @Controller
 public class MngmstBscInfoController extends BaseController {
@@ -29,13 +29,10 @@ public class MngmstBscInfoController extends BaseController {
 		return "apcss/fm/mngmst/mngmstBscInfo";
 	}
 
-
-		}
-
-	// 재배약정신청조회
-	/*
-	 * @RequestMapping(value = "fm/clt/cltvtnEnggtAplyMng.do") public String
-	 * doSpmtCmnd() { return "apcss/fm/clt/cltvtnEnggtAplyMng"; }
-	 */
-
 }
+
+// 재배약정신청조회
+/*
+ * @RequestMapping(value = "fm/clt/cltvtnEnggtAplyMng.do") public String
+ * doSpmtCmnd() { return "apcss/fm/clt/cltvtnEnggtAplyMng"; }
+ */

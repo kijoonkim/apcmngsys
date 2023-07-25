@@ -12,7 +12,8 @@
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSearchVhcl" name="btnSearchVhcl" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_sarchVhcl"></sbux-button>
-						<sbux-button id="btnInsertVhcl" name="btnInsertVhcl" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertVhcl"></sbux-button>
+						<sbux-button id="btnEditorVhcl" name="btnEditorVhcl" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="fn_editorVhcl"></sbux-button>
+						<sbux-button id="btnInsertVhcl" name="btnInsertVhcl" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertVhcl" disabled></sbux-button>
 						<sbux-button id="btnEndVhcl" name="btnEndVhcl" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-vhcl')"></sbux-button>
 					</div>
 				</div>
@@ -23,10 +24,10 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 10%">
-						<col style="width: 20%">
-						<col style="width: 10%">
-						<col style="width: 20%">
+						<col style="width: 12%">
+						<col style="width: 24%">
+						<col style="width: 12%">
+						<col style="width: 24%">
 						<col style="width: auto">
 					</colgroup>
 					<tbody>
@@ -67,6 +68,9 @@
 
 	var jsonVhcl = [];
 	function fn_createVhclGrid() {
+
+		SBUxMethod.set("vhcl-inp-apcNm", gv_apcNm);
+
 		jsonVhcl = [];
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdVhcl';
@@ -80,11 +84,11 @@
 	        {caption: ['기사명'], 		ref: 'drvrNm', 	width: '100px', type: 'output'},
 	        {caption: ['예금주명'], 	ref: 'dpstr', 	width: '100px', type: 'output'},
 	        {caption: ['은행'], 		ref: 'bankCd', 	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComBankCd', 	label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
+				typeinfo : {ref:'jsonComBankCd', 	label:'label', value:'value', displayui : true}},
 	        {caption: ['계좌번호'], 	ref: 'actno', 	width: '100px', type: 'output'},
-	        {caption: ['비고'], 		ref: 'rmrk', 	width: '150px', type: 'input'},
+	        {caption: ['비고'], 		ref: 'rmrk', 	width: '220px', type: 'input'},
 	        {caption: ['최종처리일시'], ref: 'sysLastChgDt', 	width: '100px', type: 'input'},
-	        {caption: ["처리"], 		ref: 'delYn',   type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["처리"], 		ref: 'delYn',   type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowVhcl(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
             	}else{

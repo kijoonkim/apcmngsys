@@ -24,7 +24,8 @@
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
-						<col style="width: 16%">
+						<col style="width: 12%">
+						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 12%">
 						<col style="width: 3%">
@@ -38,13 +39,14 @@
 							<th class="td_input">
 								<sbux-input id="trsprtCst-inp-apcNm" name="trsprtCst-inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
 							</th>
-							<th colspan="6">&nbsp;</th>
+							<th colspan="7">&nbsp;</th>
 						</tr>
 						<tr>
 							<th scope="row">운송일자</th>
 							<th class="td_input">
 								<sbux-datepicker id="trsprtCst-dtp-trsprtYmd" name="trsprtCst-dtp-trsprtYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</th>
+							<th>&nbsp;</th>
 							<th scope="row">생산자명</th>
 							<th class="td_input">
 								<sbux-input id="trsprtCst-inp-prdcrNm" name="trsprtCst-inp-prdcrNm" uitype="text" class="form-control input-sm" ></sbux-input>
@@ -73,6 +75,24 @@
 	</section>
 </body>
 <script type="text/javascript">
+
+	var jsonComTrsprtSeCd 		= [];	// 운송구분 trsprtSeCd		Grid
+	var jsonComTrsprtRgnCd		= [];	// 운송지역	trsprtRgnCd		Grid
+	var jsonComBankCd			= [];	// 은행코드	bankCd			Grid
+	const fn_initSBSelectTrsprtCst = async function() {
+
+		// 그리드 SB select
+	 	gfn_setComCdGridSelect('grdTrsprtCst', jsonComTrsprtSeCd, 	'TRSPRT_SE_CD');	// 운송구분
+	 	gfn_setComCdGridSelect('grdTrsprtCst', jsonComTrsprtRgnCd, 	'TRSPRT_RGN_CD');	// 운송지역
+	 	gfn_setComCdGridSelect('grdTrsprtCst', jsonComBankCd, 		'BANK_CD');			// 은행코드
+
+	}
+
+	window.addEventListener('DOMContentLoaded', function(e) {
+		SBUxMethod.set("trsprtCst-inp-apcNm", gv_apcNm);
+		fn_initSBSelectTrsprtCst();
+	})
+
 	var jsonTrsprtCst = [];
 	function fn_createTrsprtCstGrid() {
 		jsonTrsprtCst = [];
@@ -87,18 +107,18 @@
 	        {caption: ['생산자'], 		ref: 'prdcrNm', 	width: '100px', type: 'output'},
 	        {caption: ['운송일자'], 	ref: 'trsprtYmd', 	width: '100px', type: 'output'},
 	        {caption: ['운송구분'], 	ref: 'trsprtSeCd', 	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComTrsprtSeCd', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
+				typeinfo : {ref:'jsonComTrsprtSeCd', label:'label', value:'value', displayui : true}},
 	        {caption: ['차량번호'], 	ref: 'vhclno', 		width: '100px', type: 'output'},
 	        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', 	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComTrsprtSeCd', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
+				typeinfo : {ref:'jsonComTrsprtRgnCd', label:'label', value:'value', displayui : true}},
 	        {caption: ['중량'], 		ref: 'wrhsWght', 	width: '100px', type: 'output'},
 	        {caption: ['운임비용'], 	ref: 'bankCd', 	width: '100px', type: 'output'},
 	        {caption: ['은행'], 	ref: 'trsprtRgnCd', 	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComBankCd', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
+				typeinfo : {ref:'jsonComBankCd', label:'label', value:'value', displayui : true}},
 	        {caption: ['계좌'], 		ref: 'actno', 		width: '100px', type: 'output'},
 	        {caption: ['예금주'], 		ref: 'dpstr', 		width: '80px', type: 'output'},
-	        {caption: ['비고'], 		ref: 'RMRK', 		width: '150px', type: 'output'},
-	        {caption: ["처리"], 		ref: 'delYn',   	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ['비고'], 		ref: 'RMRK', 		width: '240px', type: 'output'},
+	        {caption: ["처리"], 		ref: 'delYn',   	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowTrsprtCst(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
