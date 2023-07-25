@@ -97,12 +97,12 @@
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
-	
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid();
 		fn_createGrid2();
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
@@ -113,7 +113,7 @@
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
-	
+
 	window.jsoninptCmndDsctnList =  [
 		[],
 	];
@@ -127,7 +127,7 @@
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
 
-		
+
 	    SBGridProperties.columns = [
 	        {caption: ["구분","구분"],		ref: 'msgKey',      type:'output',  width:'170px',    style:'text-align:center'},
 	        {caption: ["명칭","명칭"],		ref: 'msgKey',      type:'output',  width:'170px',    style:'text-align:center'},
@@ -142,18 +142,18 @@
 	        {caption: ["현재고","중량"],		ref: 'msgKey',      type:'output',  width:'130px',    style:'text-align:center'},
 
 	    ];
-	    
+
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
 	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList2 = ["test"]; // 그리드의 참조 데이터 주소 선언
-	
+
 	var comboUesYnJsData = ['입고/출고']
 	var comboUesYnJsData1 = ['팔레트/박스']
 	var comboUesYnJsData2 = ['명칭']
 	var comboUesYnJsData3 = ['생산자']
-	
+
 	function fn_createGrid2() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea2';
@@ -184,8 +184,8 @@
 				typeinfo : {ref:'comboUesYnJsData3', label:'label', value:'value', displayui : true}},
 	        {caption: ["수량"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["중량"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'userStts', 	type:'button',  width:'140px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'300px',    style:'text-align:center'},
+	        {caption: ["처리"], 		ref: 'userStts', 	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 //             	if(strValue === "01"){
 //             		return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
 //             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
@@ -195,11 +195,11 @@
 //             	}
 		    }},
 	    ];
-	    
+
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
-	
+
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}

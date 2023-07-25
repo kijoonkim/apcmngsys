@@ -47,7 +47,7 @@
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" class="form-control input-sm" disabled/>
 							</td>
 						</tr>
-						<tr>		
+						<tr>
 							<th scope="row">입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-strtWrhsYmd" name="srch-dtp-strtWrhsYmd" class="form-control pull-right input-sm">
@@ -123,7 +123,7 @@
 <!-- 						<li><span>투입지시 내역</span></li> -->
 <!-- 					</ul> -->
 <!-- 				</div> -->
-				
+
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li><span>선별지시 내역</span></li>
@@ -141,7 +141,7 @@
 			</div>
 		</div>
 	</section>
-	
+
     <!-- 사용자 선택 Modal -->
     <div>
         <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
@@ -152,12 +152,12 @@
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
-	
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid1();
 		fn_createGrid2();
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
@@ -169,7 +169,7 @@
 
 	var inptTrgtDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptTrgtDsctnList = []; // 그리드의 참조 데이터 주소 선언
-	
+
 	function fn_createGrid1() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptTrgtDsctnGridArea';
@@ -193,14 +193,15 @@
 	        {caption: ["지시","중량"],  	ref: 'msgKndNm',    type:'output',  width:'70px',    style:'text-align:center'},
 	        {caption: ["비고","비고"],  	ref: 'msgKndNm',    type:'output',  width:'90px',    style:'text-align:center'},
 	    ];
-	    
+
 	    inptTrgtDsctnList = _SBGrid.create(SBGridProperties);
+	    inptTrgtDsctnList.addRow(true);
 
 	}
-	
+
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
-	
+
 	function fn_createGrid2() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
@@ -234,11 +235,12 @@
 	        {caption: ["지시","중량"],  	ref: 'msgKndNm',    type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["비고","비고"],  	ref: 'msgKndNm',    type:'output',  width:'130px',    style:'text-align:center'},
 	    ];
-	    
+
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
+	    inptCmndDsctnList.addRow(true);
 
 	}
-	
+
 
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);

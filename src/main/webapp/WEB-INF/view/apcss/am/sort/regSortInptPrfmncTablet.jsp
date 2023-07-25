@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-				<h3 class="box-title" style="line-height: 30px;">▶선별실적등록(테블릿)</h3>
+				<h3 class="box-title" style="line-height: 30px;">▶선별투입등록(테블릿)</h3>
 				</div>
 				<div style="margin-left: auto;">
 					<p class="ad_input_row">
@@ -167,28 +167,28 @@ function fn_closeModal(modalId){
 	SBUxMethod.closeModal(modalId);
 }
 	// ${comMenuVO.menuId}
-	
+
 	// 공통코드 JSON
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
-	
+
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-    	
+
     	fn_createSortInptDsctnGrid();
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-dtp-inptYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-wrhsYmd", year+month+day);
-    	
+
     });
-    
+
     //grid 초기화
     var grdComMsgList; // 그리드를 담기위한 객체 선언
     var jsonComMsgList = []; // 그리드의 참조 데이터 주소 선언
-    
+
     function fn_createSortInptDsctnGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdSortInptDsctn';
@@ -219,7 +219,7 @@ function fn_closeModal(modalId){
             {caption: ["원물창고"], 		ref: 'creProgram',  type:'output',  width:'9%',    style:'text-align:center'},
             {caption: ["비고"], 			ref: 'creProgram',  type:'output',  width:'9%',    style:'text-align:center'}
         ];
-        
+
         grdComMsgList = _SBGrid.create(SBGridProperties);
         grdComMsgList.bind('click', 'fn_view');
         grdComMsgList.bind('beforepagechanged', 'fn_pagingComMsgList');
@@ -228,38 +228,38 @@ function fn_closeModal(modalId){
      * 목록 조회
      */
     const fn_search = async function() {
-        
+
     	// set pagination
     	let pageSize = grdComMsgList.getPageSize();
     	let pageNo = 1;
-        
+
     	fn_setGrdComMsgList(pageSize, pageNo);
     }
 
     /**
-     * 
+     *
      */
     const fn_pagingComMsgList = async function() {
     	let recordCountPerPage = grdComMsgList.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdComMsgList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
     	fn_setGrdComMsgList(recordCountPerPage, currentPageNo);
     }
-    
+
     /**
      * @param {number} pageSize
      * @param {number} pageNo
      */
     const fn_setGrdComMsgList = async function(pageSize, pageNo) {
-    	
-    	// form clear 
+
+    	// form clear
     	fn_clearForm();
-    	
+
 		grdComMsgList.clearStatus();
 
 		let msgKnd = SBUxMethod.get("srch-select-msgKnd");
 		let msgKey = SBUxMethod.get("srch-input-msgKey");
 		let msgCn = SBUxMethod.get("srch-input-msgCn");
-		
+
         const postJsonPromise = gfn_postJSON("/co/msg/selectComMsgList.do", {
         	msgKnd: msgKnd,
         	msgKey: msgKey,
@@ -269,14 +269,14 @@ function fn_closeModal(modalId){
 			currentPageNo : pageNo,
  		  	recordCountPerPage : pageSize
 		});
-        
+
         const data = await postJsonPromise;
-        
+
         try {
-        	
+
         	/** @type {number} **/
     		let totalRecordCount = 0;
-        	
+
         	jsonComMsgList.length = 0;
         	data.resultList.forEach((item, index) => {
 				const msg = {
@@ -290,19 +290,19 @@ function fn_closeModal(modalId){
 					sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,
 					sysLastChgDt: item.sysLastChgDt,
 					sysLastChgUserId: item.sysLastChgUserId,
-					sysLastChgPrgrmId: item.sysLastChgPrgrmId					
+					sysLastChgPrgrmId: item.sysLastChgPrgrmId
 				}
 				jsonComMsgList.push(msg);
-				
+
 				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;	
+					totalRecordCount = item.totalRecordCount;
 				}
 			});
-        	
+
         	console.log("totalRecordCount", totalRecordCount);
-        	
+
         	if (jsonComMsgList.length > 0) {
-        		
+
         		if(grdComMsgList.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
         			grdComMsgList.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
         			grdComMsgList.rebuild();
@@ -313,7 +313,7 @@ function fn_closeModal(modalId){
         		grdComMsgList.setPageTotalCount(totalRecordCount);
         		grdComMsgList.rebuild();
         	}
-        	
+
         	document.querySelector('#listCount').innerText = totalRecordCount;
 
         } catch (e) {
@@ -322,11 +322,11 @@ function fn_closeModal(modalId){
     		}
     		console.error("failed", e.message);
         }
-    } 
-    
-    
+    }
+
+
     //신규 작성
-    function fn_create() {    	
+    function fn_create() {
     	SBUxMethod.set("dtl-select-msgKnd", null);
         SBUxMethod.set("dtl-input-msgKey", null);
         SBUxMethod.attr("dtl-input-msgKey", "readonly", false);
@@ -339,7 +339,7 @@ function fn_closeModal(modalId){
         SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);
         SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);
     }
-    
+
     const fn_clearForm = function() {
     	SBUxMethod.set("dtl-select-msgKnd", null);
         SBUxMethod.set("dtl-input-msgKey", null);
@@ -353,27 +353,27 @@ function fn_closeModal(modalId){
         SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);
         SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);
     }
-        
+
     //저장
     const fn_save = async function() {
-    	
+
     	let msgKey = SBUxMethod.get("dtl-input-orgnMsgKey");
-    	
+
     	if (!SBUxMethod.get("dtl-select-msgKnd")) {
             alert("메시지종류를 선택하세요.");
             return;
         }
-    	
+
     	if (!SBUxMethod.get("dtl-input-msgKey")) {
             alert("메시지Key를 입력하세요.");
             return;
         }
-    	
+
     	if (!SBUxMethod.get("dtl-input-msgCn")) {
             alert("메시지내용을 입력하세요.");
             return;
         }
-    	
+
     	/*
         SBUxMethod.set("dtl-input-orgnMsgKey", rowData.msgKey);
         SBUxMethod.set("dtl-input-msgKnd", rowData.msgKnd);
@@ -401,18 +401,18 @@ function fn_closeModal(modalId){
      * @param {boolean} isConfirmed
      */
     const fn_subInsert = async function (isConfirmed){
-    	
+
     	 if (!isConfirmed) return;
-    	
+
     	const postJsonPromise = gfn_postJSON("/co/msg/insertComMsg.do", {
 			msgKey: SBUxMethod.get('dtl-input-msgKey'),
 			msgKnd: SBUxMethod.get('dtl-select-msgKnd'),
 			msgCn: SBUxMethod.get('dtl-input-msgCn'),
-			rmrk: SBUxMethod.get('dtl-input-rmrk')    	        	
+			rmrk: SBUxMethod.get('dtl-input-rmrk')
 		});
-        
+
         const data = await postJsonPromise;
-        
+
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		alert("처리 되었습니다.");
@@ -420,29 +420,29 @@ function fn_closeModal(modalId){
         	} else {
         		alert(data.resultMessage);
         	}
-        } catch(e) {        	
+        } catch(e) {
         }
-        
+
         // 결과 확인 후 재조회
         console.log("insert result", data);
     }
-     
+
 	/**
      * @param {boolean} isConfirmed
      */
 	const fn_subUpdate = async function (isConfirmed){
-    	
+
 		if (!isConfirmed) return;
-    	
+
     	const postJsonPromise = gfn_postJSON("/co/msg/updateComMsg.do", {
 			msgKey: SBUxMethod.get('dtl-input-orgnMsgKey'),
 			msgKnd: SBUxMethod.get('dtl-select-msgKnd'),
 			msgCn: SBUxMethod.get('dtl-input-msgCn'),
 			rmrk: SBUxMethod.get('dtl-input-rmrk')
 		});
-        
+
         const data = await postJsonPromise;
-        
+
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		alert("처리 되었습니다.");
@@ -450,22 +450,22 @@ function fn_closeModal(modalId){
         	} else {
         		alert(data.resultMessage);
         	}
-        } catch(e) {        	
+        } catch(e) {
         }
-        
+
         // 결과 확인 후 재조회
         console.log("update result", data);
     }
 
-    
+
     //선택 삭제
     function fn_delete() {
-    	
+
     	/**
          * @type {any[]}
          */
         let list = [];
-        
+
         /**
          * @type {any[]}
          */
@@ -475,14 +475,14 @@ function fn_closeModal(modalId){
         		list.push({msgKey: row.msgKey});
         	}
         });
-        
+
         if (list.length == 0) {
         	alert("삭제할 대상이 없습니다.");
         	return;
         }
-        
+
         fn_subDelete(confirm("삭제 하시겠습니까?"), list);
-        
+
         /*
         for ( let i = 0; i < gridList.length; i++) {
             if (gridList[i].checked === "Y") {
@@ -507,19 +507,19 @@ function fn_closeModal(modalId){
         }
         */
     }
-    
+
 	/**
      * @param {boolean} isConfirmed
      * @param {any[]} list
      */
     const fn_subDelete = async function (isConfirmed, list){
-     	
+
  		if (!isConfirmed) return;
-     	
+
      	const postJsonPromise = gfn_postJSON("/co/msg/deleteComMsgList.do", list);
-         
+
          const data = await postJsonPromise;
-         
+
          try {
          	if (_.isEqual("S", data.resultStatus)) {
          		alert("처리 되었습니다.");
@@ -527,16 +527,16 @@ function fn_closeModal(modalId){
          	} else {
          		alert(data.resultMessage);
          	}
-         } catch(e) {        	
+         } catch(e) {
          }
-         
+
          // 결과 확인 후 재조회
          console.log("update result", data);
     }
-    
+
     //상세정보 보기
     function fn_view() {
-        
+
     	var nCol = grdComMsgList.getCol();
         //특정 열 부터 이벤트 적용
         if (nCol < 1) {
@@ -546,7 +546,7 @@ function fn_closeModal(modalId){
 		if (nRow < 1) {
             return;
 		}
-		
+
         let rowData = grdComMsgList.getRowData(nRow);
 
         SBUxMethod.set("dtl-input-orgnMsgKey", rowData.msgKey);
@@ -560,9 +560,9 @@ function fn_closeModal(modalId){
         SBUxMethod.set("dtl-input-sysLastChgDt", rowData.sysLastChgDt);
         SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", rowData.sysFrstInptPrgrmId);
         SBUxMethod.set("dtl-input-sysLastChgPrgrmId", rowData.sysLastChgPrgrmId);
-        
+
     }
-    
+
     //그리드 체크박스 전체 선택
     function fn_checkAll(obj){
         var gridList = grdComMsgList.getGridDataAll();
@@ -571,6 +571,6 @@ function fn_closeModal(modalId){
         	grdComMsgList.setCellData(i+1, 1, checkedYn, true, false);
         }
     }
-    
+
 </script>
 </html>
