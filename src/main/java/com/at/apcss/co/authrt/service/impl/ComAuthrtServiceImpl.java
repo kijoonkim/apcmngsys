@@ -16,7 +16,6 @@ import com.at.apcss.co.authrt.vo.ComAuthrtUserVO;
 import com.at.apcss.co.authrt.vo.ComAuthrtVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
 
 @Service("comAuthrtService")
 public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtService {
@@ -142,14 +141,18 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 	@Override
 	public ComAuthrtUserVO selectComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ComAuthrtUserVO rtnVO = comAuthrtMapper.selectComAuthrtUser(comAuthrtUserVO);
+		
+		return rtnVO;
 	}
 
 	@Override
 	public int insertComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+
+		int insertedCnt = comAuthrtMapper.insertComAuthrtUser(comAuthrtUserVO);
+		
+		return insertedCnt;
 	}
 
 	@Override
@@ -160,8 +163,10 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 	@Override
 	public int deleteComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+
+		int deletedCnt = comAuthrtMapper.deleteComAuthrtUser(comAuthrtUserVO);
+		
+		return deletedCnt;
 	}
 
 	@Override
@@ -292,7 +297,69 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		return rtnList;
 	}
 
+	@Override
+	public List<ComAuthrtUserVO> selectAuthrtTrgtUserList(ComAuthrtUserVO comAuthrtUserVO) throws Exception {
+		
+		List<ComAuthrtUserVO> rtnList = comAuthrtMapper.selectAuthrtTrgtUserList(comAuthrtUserVO);
+		
+		return rtnList;
+	}
 
+	@Override
+	public HashMap<String, Object> insertComAuthrtUserList(ComAuthrtVO comAuthrtVO) throws Exception {
 
+		List<ComAuthrtUserVO> comAuthrtUserList = comAuthrtVO.getComAuthrtUserList();
+		
+		for ( ComAuthrtUserVO user : comAuthrtUserList ) {
+			
+			ComAuthrtUserVO comAuthrtUserVO = new ComAuthrtUserVO();
+			BeanUtils.copyProperties(comAuthrtVO, comAuthrtUserVO);
 
+			BeanUtils.copyProperties(user, comAuthrtUserVO,
+						ComConstants.PROP_COL_AUTHRT_ID,
+						ComConstants.PROP_SYS_FRST_INPT_DT,
+						ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+						ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+						ComConstants.PROP_SYS_LAST_CHG_DT,
+						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
+					);
+			logger.debug("getAuthrtId : {}", comAuthrtUserVO.getAuthrtId());
+			//ComAuthrtUserVO orgnVO = selectComAuthrtUser(comAuthrtUserVO);
+			//boolean voExists = orgnVO != null && StringUtils.hasText(orgnVO.getAuthrtId());
+			
+			insertComAuthrtUser(comAuthrtUserVO);
+		}
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteComAuthrtUserList(ComAuthrtVO comAuthrtVO) throws Exception {
+
+		List<ComAuthrtUserVO> comAuthrtUserList = comAuthrtVO.getComAuthrtUserList();
+		
+		for ( ComAuthrtUserVO user : comAuthrtUserList ) {
+			
+			ComAuthrtUserVO comAuthrtUserVO = new ComAuthrtUserVO();
+			BeanUtils.copyProperties(comAuthrtVO, comAuthrtUserVO);
+			
+			BeanUtils.copyProperties(user, comAuthrtUserVO,
+						ComConstants.PROP_COL_AUTHRT_ID,
+						ComConstants.PROP_SYS_FRST_INPT_DT,
+						ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+						ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+						ComConstants.PROP_SYS_LAST_CHG_DT,
+						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
+					);
+
+			//ComAuthrtUserVO orgnVO = selectComAuthrtUser(comAuthrtUserVO);
+			//boolean voExists = orgnVO != null && StringUtils.hasText(orgnVO.getAuthrtId());
+			
+			deleteComAuthrtUser(comAuthrtUserVO);
+		}
+		
+		return null;
+	}
 }

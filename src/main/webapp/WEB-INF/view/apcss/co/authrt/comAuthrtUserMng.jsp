@@ -3,759 +3,692 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-    <link href="/resource/css/template_com.css" rel="stylesheet" type="text/css">
-    <script>
-        var SBUxConfig = {
-            Path: '/resource/sbux/',
-            SBGrid: {
-                Version2_5: true
-            },
-            SBChart: {
-                Version2_0: true
-            }
-        }
-    </script>
-    <script src="/resource/sbux/SBUx.js"></script>
-    <!------------------ 컴포넌트 테마 CSS ------------------>
-	<link href="/resource/css/blue_comp_style.css" rel="stylesheet" type="text/css">
-    <!------------------ 스타일 테마 CSS ------------------>
-	<link href="/resource/css/blue_style.css" rel="stylesheet" type="text/css">
-<!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 시작-->
-    <!-- favicon -->
-	<link rel="apple-touch-icon" href="/resource/images/favicon.png">
-	<link rel="shortcut icon" href="/resource/images/favicon.ico">
-	<!-- //favicon -->
-
-	<!-- [pp] icon -->
-	<link rel="stylesheet" href="/resource/src/font-awesome/css/font-awesome.min.css">
-	<!-- [pp] font-awesome 파이어폭스 미출력 에러 대응 -->
-	<link rel="stylesheet" href="/resource/css/font-awesome/4.7.0/css/font-awesome.css">
-	<!-- [pp] //font-awesome 파이어폭스 미출력 에러 대응 -->
-	<link rel="stylesheet" href="/resource/src/remixicon/fonts/remixicon.css">
-	<!-- [pp] //icon -->
-
-	<!-- css -->
-	<link rel="stylesheet" href="/resource/src/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/resource/src/bootstrap-adminLTE/css/AdminLTE.css">
-	<link rel="stylesheet" href="/resource/src/bootstrap-adminLTE/css/_all-skins.min.css">
-	<link rel="stylesheet" href="/resource/src/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
-	<link rel="stylesheet" href="/resource/src/dataTables/css/dataTables.bootstrap.min.css">
-	<link rel="stylesheet" href="/resource/src/dataTables/css/select.dataTables.min.css">
-	<link rel="stylesheet" href="/resource/src/mCustomScrollbar/css/jquery.mCustomScrollbar.min.css">
-	<link rel="stylesheet" href="/resource/src/select2/css/select2.css">
-	<link rel="stylesheet" href="/resource/src/apexchart/css/apexcharts.css">
-	<link rel="stylesheet" href="/resource/css/dl_global.css">
-	<link rel="stylesheet" href="/resource/css/admin/dl_common.css">
-	<link rel="stylesheet" href="/resource/css/admin/dl_custom.css">
-	<link rel="stylesheet" href="/resource/css/admin/dl_table.css">
-	<link rel="stylesheet" href="/resource/css/admin/dl_ui.css">
-	<link rel="stylesheet" href="/resource/css/admin/dl_popup.css">
-	<!-- //css -->
-
-	<!-- js -->
-	<script src="/resource/src/jquery/js/jquery-3.5.1.min.js"></script>
-	<script src="/resource/src/jquery/js/jquery.mousewheel.min.js"></script>
-	<script src="/resource/src/bootstrap/js/bootstrap.min.js"></script>
-	<script src="/resource/src/bootstrap-adminLTE/js/adminlte.js"></script>
-	<script src="/resource/src/bootstrap-adminLTE/js/demo.js"></script>
-	<script src="/resource/src/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-	<script src="/resource/src/dataTables/js/jquery.dataTables.min.js"></script>
-	<script src="/resource/src/dataTables/js/dataTables.bootstrap.min.js"></script>
-	<script src="/resource/src/dataTables/js/dataTables.buttons.min.js"></script>
-	<script src="/resource/src/dataTables/js/dataTables.select.min.js"></script>
-	<script src="/resource/src/dataTables/js/jszip.min.js"></script>
-	<script src="/resource/src/dataTables/js/pdfmake.min.js"></script>
-	<script src="/resource/src/mCustomScrollbar/js/jquery.mCustomScrollbar.min.js"></script>
-	<script src="/resource/src/select2/js/select2.min.js"></script>
-	<script src="/resource/src/apexchart/js/apexcharts.js"></script>
-	<script src="/resource/js/admin/pp_ui.js"></script>
-	<!-- //js -->
-
-<!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 완료-->
+	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
-          <div class="box box-solid">
-            <div class="box-header">
-              <h3 class="box-title">▶ 권한그룹별 사용자관리</h3>
-              <div class="ad_tbl_top">
-                <div class="ad_tbl_toplist">
-                  <button type="button" class="btn btn-sm btn-outline-danger">
-                    조회
-                  </button>
-                  <button type="button" class="btn btn-sm btn-outline-danger">
-                    등록
-                  </button>
-                  <button type="button" class="btn btn-sm btn-outline-danger">
-                    삭제
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div></div>
-            <div class="box-body">
-              <!--[pp] 검색 -->
-              <table class="table table-bordered tbl_row tbl_fixed">
-                <caption>
-                  검색 조건 설정
-                </caption>
-                <colgroup>
-                  <col style="width: 3%" />
-                  <col style="width: 5%" />
-                  <col style="width: 5%" />
-                  <col style="width: 5%" />
-                  <col style="width: 10%" />
-                  <col style="width: 3%" />
-                  <col style="width: 5%" />
-                  <col style="width: 5%" />
-                  <col style="width: 4%" />
-                </colgroup>
-                <tbody>
-                  <tr>
-                    <th class="ta_r">검색조건</th>
-                    <th class="ta_r" colspan="2">
-                      <select class="form-control input-sm">
-                        <option>전체</option>
-                      </select>
-                    </th>
-                    <th colspan="6">
-                      <input
-                        type="text"
-                        class="form-control input-sm"
-                        placeholder="입력"
-                        style="width: 20%"
-                      />
-                    </th>
-                  </tr>
-                </tbody>
-              </table>
 
-              <!--[pp] //검색 -->
-              <!--[pp] 검색결과 -->
-              <br>
-              <div>
-                <div class="col-sm-3">
-                  <b>권한그룹목록</b>
-                  <div class="ad_tbl_top">
-										<div class="ad_tbl_toplist" style="float: right;">
-                      <br>
+
+<!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
+
+<!-- section============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+
+<section class="content container-fluid">
+	<div class="box box-solid">
+		<div class="box-header" style="display:flex; justify-content: flex-start;">
+			<div>
+				<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+			</div>
+			<div style="margin-left: auto;">
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insert"></sbux-button>
+				<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
+			</div>
+		</div>
+		<div>
+		</div>
+		<div class="box-body">		
+			<div>
+				<table class="table table-bordered tbl_row tbl_fixed">
+					<caption>검색 조건 설정</caption>
+					<colgroup>
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+						
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+						
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row">권한그룹명</th>
+							<td colspan="3" class="td_input"style="border-right: hidden;">
+								<sbux-input uitype="text" id="srch-inp-authrtNm" name="srch-inp-authrtNm" class="form-control input-sm" onkeyenter="fn_search"/>
+							</td>
+
+							<th scope="row">APC</th>
+							<td colspan="3" class="td_input"  style="border-right: hidden;">
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-apcCd" name="srch-slt-apcCd" jsondata-ref="jsonComApcCd" class="form-control input-sm" />
+							</td>
+							
+							<th scope="row">사용자</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input uitype="text" id="srch-inp-userNm" name="srch-inp-userNm" class="form-control input-sm"/>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="srch-btn-user" name="srch-btn-user" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-user" onclick="fn_modalUser()" desabled />
+							</td>
+							<td colspan="2">&nbsp;</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<br>				
+			<!--[pp] //검색 -->
+			<!--[pp] 검색결과 -->							
+			<div class ="row h-100">
+				<div class="col-sm-4">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="color: black;">권한그룹목록</span>
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+							</li>
+						</ul>
+					 	<div class="ad_tbl_toplist">
+						</div>
+					</div>
+                    <div class="sbt-grid-wrap">
+                        <div class="sbt-wrap-body">
+                            <div class="sbt-grid">
+                                <!-- SBGrid를 호출합니다. -->
+                                <div id="sb-area-grdComAuth" style="width:100%;height:500px;"></div>
+                            </div>
+                        </div>
                     </div>
-									</div>
-                  <table class="table table-bordered table-hover tbl_col tbl_fixed asdasd"style="width: 100%">
-                    <colgroup>
-                      <col style="width: 20%" />
-                      <col style="width: 80%" />
-                    </colgroup>
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>권한명</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>A01</td>
-                        <td>관리자</td>
-                      </tr>
-                      <tr>
-                        <td>B01</td>
-                        <td>테스트</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div class="dataTables_paginate paging_simple_numbers ta_c">
-                    <select
-                      class="form-control input-sm"
-                      style="width: 20%; float: left"
-                    >
-                      <option>100</option>
-                    </select>
-                    <ul class="pagination">
-                      <li class="paginate_button first disabled">
-                        <a href="javascript:void(0);" title="첫페이지 목록"
-                          ><i class="fa fa-angle-double-left"></i
-                        ></a>
-                      </li>
-                      <li class="paginate_button previous disabled">
-                        <a href="javascript:void(0);" title="이전목록"
-                          ><i class="fa fa-angle-left"></i
-                        ></a>
-                      </li>
-                      <li class="paginate_button active">
-                        <a href="javascript:void(0);">1</a>
-                      </li>
-                      <li class="paginate_button">
-                        <a href="javascript:void(0);">2</a>
-                      </li>
-                      <li class="paginate_button">
-                        <a href="javascript:void(0);">3</a>
-                      </li>
-                      <li class="paginate_button">
-                        <a href="javascript:void(0);">4</a>
-                      </li>
-                      <li class="paginate_button">
-                        <a href="javascript:void(0);">5</a>
-                      </li>
-                      <li class="paginate_button next">
-                        <a href="javascript:void(0);" title="다음목록"
-                          ><i class="fa fa-angle-right"></i
-                        ></a>
-                      </li>
-                      <li class="paginate_button last">
-                        <a href="javascript:void(0);" title="마지막페이지 목록"
-                          ><i class="fa fa-angle-double-right"></i
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+				</div>
+				<div class="col-sm-8">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li><span style="color: black;">권한그룹정보</span></li>
+						</ul>
+					 	<div class="ad_tbl_toplist">
+						</div>
+					</div>
+					<div>
+						<sbux-input id="dtl-inp-apcCd" name="dtl-inp-apcCd" uitype="hidden"></sbux-input>
+						<table class="table table-bordered table-hover tbl_col tbl_fixed">
+							<colgroup>
+								<col style="width: 20%">
+								<col style="width: 30%">
+								<col style="width: 20%">
+								<col style="width: 30%">
+							</colgroup>
+							<thead>
+								<tr>
+									<th>권한ID</th>									
+									<td>
+										<sbux-input id="dtl-inp-authrtId" name="dtl-inp-authrtId" uitype="text" style="width:100%" readonly ></sbux-input>
+									</td>
+									<th>권한명</th>
+									<td>
+										<sbux-input id="dtl-inp-authrtNm" name="dtl-inp-authrtNm" uitype="text" style="width:100%" readonly ></sbux-input>
+									</td>
+								</tr>
+								<tr>
+									<th>권한유형</th>
+									<td>
+										<sbux-input id="dtl-inp-authrtTypeNm" name="dtl-inp-authrtTypeNm" uitype="text" style="width:100%" readonly></sbux-input>
+									</td>
+									<th>APC명</th>
+									<td>
+										<sbux-input id="dtl-inp-apcNm" name="dtl-inp-apcNm" uitype="text" uitype="text" style="width:100%" readonly ></sbux-input>
+									</td>
+								</tr>								
+							</thead>
+						</table>					
+					</div>
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="color: black;">사용자 목록</span>
+								<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+							</li>
+						</ul>
+					 	<div class="ad_tbl_toplist">
+					 		<sbux-button id="btnAddUser" name="btnAddUser" uitype="modal" text="사용자추가" class="btn btn-xs btn-outline-dark" target-id="modal-comAuthUser" onclick="fn_addUser()" disabled ></sbux-button>
+						</div>
+					</div>
+					<div>
+						<div class="sbt-grid-wrap">
+	                        <div class="sbt-wrap-body">
+	                            <div class="sbt-grid">
+	                                <!-- SBGrid를 호출합니다. -->
+	                                <div id="sb-area-grdComAuthUser" style="width:100%;height:370px;"></div>
+	                            </div>
+	                        </div>
+	                    </div>
+					</div>
+				</div>
+			</div>
+			<!--[pp] //검색결과 -->
+		</div>
+	</div>
+</section>
 
-								<div class="col-sm-9">
-									<b >사용자목록 </b>
-									<div class="ad_tbl_top">
-										<div class="ad_tbl_toplist" style="float: right;">
-											<button type="button" class="btn btn-sm btn-outline-danger">행추가</button>
-										</div>
-									</div>
+    <div>
+        <sbux-modal id="modal-comAuthUser" name="modal-comAuthUser" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-comAuthUser" footer-is-close-button="false" style="width:800px"></sbux-modal>
+    </div>
+    <div id="body-modal-comAuthUser">
+    	<jsp:include page="../../co/popup/comAuthUserPopup.jsp"></jsp:include>
+    </div>
 
-                  <table class="table table-bordered table-hover tbl_col tbl_fixed" style="line-height: 20px;">
-                    <colgroup>
-                      <col style="width: 10%" />
-                      <col style="width: 10%" />
-                      <col style="width: 15%" />
-                      <col style="width: 10%" />
-                      <col style="width: 15%" />
-                      <col style="width: 15%" />
-                      <col style="width: 10%" />
-                      <col style="width: 10%" />
-                      <col style="width: 10%" />
-                      <col style="width: 10%" />
-                    </colgroup>
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>NO</th>
-                        <th>ID</th>
-                        <th>사용자명</th>
-                        <th>센터명</th>
-                        <th>유형</th>
-                        <th>상태</th>
-                        <th>등록자ID</th>
-                        <th>프로그램ID</th>
-                        <th>등록일시</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td>1</td>
-                        <td>TEST</td>
-                        <td>테스트</td>
-                        <td>통합</td>
-                        <td>관리자</td>
-                        <td>정상</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="ad_input_row">
-                            <input type="checkbox" class="check" id="check1" />
-                            <label class="check_label ta_i" for="check1"
-                              >선택</label
-                            >
-                          </p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <!--[pp] //검색결과 -->
-            </div>
-          </div>
-        </section>
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- ============================================================================================================== -->
+<!-- section============================================================================================================== -->
+
+<!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-    // only document
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_createGrid();
-        fn_createGrid2();
-    });
-    //조회조건
-    var jsonSearchCombo = [
-        {'text': '관리명1', 'value': 'value1'},
-        {'text': '관리명2', 'value': 'value2'},
-        {'text': '관리명3', 'value': 'value3'},
-        {'text': '관리명4', 'value': 'value4'},
-        {'text': '관리명5', 'value': 'value5'}
-    ];
-    //신규 작성
-    function fn_create() {
+    
+	/* 공통코드 */
+	var jsonComApcCd = [];	// APC코드	srch-slt-apcCd	APC_CD
+	
+    /* SBGrid */
+    var grdComAuth;			// 권한그룸 목록
+    var grdComAuthUser;		// 권한사용자 목록
+    
+    /* SBGrid Data (JSON) */
+    var jsonComAuth = [];
+    var jsonComAuthUser = [];
+    
+    
+	// only document
+	window.addEventListener('DOMContentLoaded', function(e) {		
+		fn_createGrdComAuth();
+		fn_createGrdComAuthUser();
+		
+		fn_initSBSelect();
+	});    
+    
+    /**
+     *
+     */
+    const fn_initSBSelect = async function() {
+    	// 조회 SB select
+	 	gfn_setComCdSBSelect('srch-slt-apcCd', jsonComApcCd, 'APC_CD');	// APC코드	srch-slt-apcCd	APC_CD
+    }
+    
+    /**
+     * @name fn_createGrdComAuth
+     * @description 권한그룹 그리드 초기화
+     * @function
+     */
+    const fn_createGrdComAuth = function() {
+        var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdComAuth';
+	    SBGridProperties.id = 'grdComAuth';
+	    SBGridProperties.jsonref = 'jsonComAuth';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+	    };
+        SBGridProperties.columns = [
+        	{caption: ["No."],		ref: 'rowSeq',			type:'output',  width:'10%',    style:'text-align:right'},
+        	{caption: ["권한ID"],		ref: 'authrtId',		type:'output',  width:'20%',    style:'text-align:left'},
+            {caption: ["권한명"],		ref: 'authrtNm',    	type:'output',  width:'30%',    style:'text-align:left'},
+            {caption: ["권한유형"],	ref: 'authrtTypeNm',	type:'output',  width:'20%',    style:'text-align:left'},
+            {caption: ["APC명"],		ref: 'apcNm',    		type:'output',  width:'20%',    style:'text-align:left'},
+            {caption: ["권한설명"],	ref: 'rmrk',        	type:'output',  hidden: true},
+            {caption: ["APC코드"],	ref: 'apcCd',        	type:'output',  hidden: true},
+            {caption: ["권한유형코드"],	ref: 'authrtType',      type:'output',  hidden: true}
+        ];
+        
+        //document.getElementById('sb-area-grdComAuth').style.height = "500px";
+        
+        grdComAuth = _SBGrid.create(SBGridProperties);
+        grdComAuth.bind('click', 'fn_view');
+        grdComAuth.bind('beforepagechanged', 'fn_pagingGrdComAuth');
+    }
 
+    const fn_pagingGrdComAuth = async function() {
+    	let recordCountPerPage = grdComAuth.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdComAuth.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+    	fn_setGrdComAuth(recordCountPerPage, currentPageNo);
     }
-    //삭제
+    
+    /**
+     * @name fn_createGrdComAuthUser
+     * @description 권한사용자 그리드 초기화
+     * @function
+     */
+    const fn_createGrdComAuthUser = function() {
+        var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdComAuthUser';
+	    SBGridProperties.id = 'grdComAuthUser';
+	    SBGridProperties.jsonref = 'jsonComAuthUser';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+	    };
+        SBGridProperties.columns = [
+            {caption : ["<input type='checkbox' onchange='fn_checkAllAuthUser(this);'>"],
+                ref: 'checked', type: 'checkbox',   style: 'text-align:center'
+            },
+        	{caption: ["No."],		ref: 'rowSeq',			type:'output',  width:'10%',    style:'text-align:right'},
+        	{caption: ["사용자ID"],	ref: 'userId',			type:'output',  width:'20%',    style:'text-align:left'},
+            {caption: ["사용자명"],	ref: 'userNm',    		type:'output',  width:'30%',    style:'text-align:left'},
+            {caption: ["사용자유형"],	ref: 'userTypeNm',		type:'output',  width:'20%',    style:'text-align:left'},
+            {caption: ["APC명"],		ref: 'apcNm',    		type:'output',  width:'20%',    style:'text-align:left'},
+            {caption: ["APC코드"],	ref: 'apcCd',        	type:'output',  hidden: true},
+            {caption: ["권한ID"],		ref: 'authrtId',      	type:'output',  hidden: true}
+        ];
+        
+        grdComAuthUser = _SBGrid.create(SBGridProperties);
+    }
+
+ 	/**
+     * @name fn_insert
+     * @description 등록
+     */
+    function fn_insert() {
+    	fn_insertComAuthUser();
+    }
+    
+ 	/**
+     * @name fn_delete
+     * @description 삭제
+     */
     function fn_delete() {
-        var chkList = datagrid2.getCheckedRowData(0);
-        if (chkList.length == 0) {
-            alert("삭제 할 대상이 없습니다.");
-            return;
-        }
-        var delList = new Array();
-        for (var rowData of chkList) {
-            var data = rowData.data;
-            if (data.checked === "Y") {
-                delList.push(data.userId);
-            }
-        }
-        var delMsg = "삭제 하시겠습니까?";
-        if (confirm(delMsg)) {
-            var params = "authId=" + selAuthId + "&delUserId=" + delList.join(",");
-            console.log("data ::::: " + params);
+    	fn_deleteComAuthUser();
+    }
+    
+ 	/**
+     * @name fn_search
+     * @description 조회 버튼
+     */
+    const fn_search = async function() {
+		
+    	// set pagination
+    	grdComAuth.rebuild();
+    	let pageSize = grdComAuth.getPageSize();
+    	let pageNo = 1;
+        
+    	// form clear 
+    	fn_clearForm();
+    	// grid clear
+    	jsonComAuth.length = 0;
+    	jsonComAuthUser.length = 0;
+    	grdComAuthUser.refresh();    	
+    	SBUxMethod.attr('btnAddUser', 'disabled', true);
+    	
+    	fn_setGrdComAuth(pageSize, pageNo);
+    }
+    
+    /**
+     * @name fn_setGrdComAuth
+     * @description 권한그룹 조회
+     * @param {number} pageSize
+     * @param {number} pageNo
+     */
+    const fn_setGrdComAuth = async function(pageSize, pageNo) {
+
+    	grdComAuth.clearStatus();
+
+		let authrtNm = SBUxMethod.get("srch-inp-authrtNm");
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		
+        const postJsonPromise = gfn_postJSON("/co/authrt/selectComAuthrtList.do", {
+        	authrtNm: authrtNm,
+        	apcCd: apcCd,
+        	// pagination
+	  		pagingYn : 'Y',
+			currentPageNo : pageNo,
+ 		  	recordCountPerPage : pageSize
+		});
+        
+        const data = await postJsonPromise;
+        
+		try {
+        	
+        	/** @type {number} **/
+    		let totalRecordCount = 0;
+        	
+        	jsonComAuth.length = 0;
+
+        	data.resultList.forEach((item, index) => {
+				const authrt = {
+					rowSeq: item.rowSeq,
+					authrtId: item.authrtId,
+					authrtNm: item.authrtNm,
+					authrtType: item.authrtType,
+					authrtTypeNm: item.authrtTypeNm,
+					authrtRmrk: item.authrtRmrk,
+					apcCd: item.apcCd,
+					apcNm: item.apcNm,
+					sysId: item.sysId
+				}
+				jsonComAuth.push(authrt);
+				
+				if (index === 0) {
+					totalRecordCount = item.totalRecordCount;	
+				}
+			});
+        	
+        	if (jsonComAuth.length > 0) {
+        		
+        		if(grdComAuth.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+        			grdComAuth.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+        			grdComAuth.rebuild();
+				}else{
+					grdComAuth.refresh();
+				}
+        	} else {
+        		grdComAuth.setPageTotalCount(totalRecordCount);
+        		grdComAuth.rebuild();
+        	}
+        	
+        	document.querySelector('#listCount').innerText = totalRecordCount;
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
         }
     }
-    //저장
-    function fn_save() {
-        var gridList = datagrid2.getGridDataAll();
-        var userList = new Array();
-        for (data of gridList) {
-            userList.push(data.userId);
+
+    /**
+     * @name fn_setGrdComAuthUser
+     * @description 권한사용자 조회
+     * @param {number} pageSize
+     * @param {number} pageNo
+     * @param {string} authrtId	권한그룹id
+     */
+    const fn_setGrdComAuthUser = async function(pageSize, pageNo, authrtId) {
+     	
+     	grdComAuthUser.clearStatus();
+		
+		const postJsonPromise = gfn_postJSON("/co/authrt/selectComAuthrtUserList.do", {
+         	authrtId: authrtId,
+        	// pagination
+	  		pagingYn : 'Y',
+			currentPageNo : pageNo,
+ 		  	recordCountPerPage : pageSize
+ 		});
+		
+		const data = await postJsonPromise;
+         
+		try {
+        	
+        	/** @type {number} **/
+    		let totalRecordCount = 0;
+        	
+        	jsonComAuthUser.length = 0;
+        	data.resultList.forEach((item, index) => {
+				const user = {
+					rowSeq: item.rowSeq,
+					authrtId: item.authrtId,
+					userId: item.userId,
+					userNm: item.userNm,
+					apcCd: item.apcCd,
+					apcNm: item.apcNm
+				}
+				jsonComAuthUser.push(user);
+				
+				if (index === 0) {
+					totalRecordCount = item.totalRecordCount;	
+				}
+			});
+        	
+        	if (jsonComAuthUser.length > 0) {
+        		
+        		if(grdComAuth.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+        			grdComAuthUser.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+        			grdComAuthUser.rebuild();
+				}else{
+					grdComAuthUser.refresh();
+				}
+        	} else {
+        		grdComAuthUser.setPageTotalCount(totalRecordCount);
+        		grdComAuthUser.rebuild();
+        	}
+        	
+        	document.querySelector('#listCount2').innerText = totalRecordCount;
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
         }
-        var params = "authId=" + selAuthId
-            + "userIds=" + userList.join(",");
-        console.log("save Params ::::: " + params);
-    }
-    //목록 조회
-    function fn_search() {
-        //시스템구분 확인
-        var srchCombo = SBUxMethod.get("srchCombo");
-        if (!srchCombo) {
-            alert("시스템구분을 선택하세요.");
-            return;
-        }
-        //권한그룹목록
-        fn_setGridData();
-        //사용자목록 init
-        datagrid2.setTreeCheckboxAll(false);
-    }
-    //상세정보 보기
-    var selAuthId;
-    function fn_view() {
-        var nRow = datagrid.getRow();
+     }
+
+    /**
+     * @name fn_view
+     * @description 선택메뉴 상세정보 표시
+     */
+    const fn_view = function () {
+    	
+        let nRow = grdComAuth.getRow();
         if (nRow < 1) {
             return;
         }
-        var rowData = datagrid.getRowData(nRow);
-        selAuthId = rowData.authId;
-        fn_setGridData2(selAuthId);
+        
+        SBUxMethod.attr('btnAddUser', 'disabled', false);
+        
+        let rowData = grdComAuth.getRowData(nRow);        
+        SBUxMethod.set("dtl-inp-authrtId", rowData.authrtId);
+        SBUxMethod.set("dtl-inp-authrtNm", rowData.authrtNm);
+        SBUxMethod.set("dtl-inp-authrtTypeNm", rowData.authrtTypeNm);
+        SBUxMethod.set("dtl-inp-authrtRmrk", rowData.authrtRmrk);
+        SBUxMethod.set("dtl-inp-apcCd", rowData.apcCd);
+        SBUxMethod.set("dtl-inp-apcNm", rowData.apcNm);
+        
+        grdComAuthUser.rebuild();
+        fn_setGrdComAuthUser(grdComAuthUser.getPageSize(), 1, rowData.authrtId);
     }
-    //그리드 체크박스 전체 선택
-    function fn_checkAll(obj){
-        var gridList = datagrid2.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        for (var i=0; i<gridList.length; i++ ){
-            datagrid2.setCellData(i+1, 0, checkedYn, true, false);
+    
+    /**
+     * @name fn_clearForm
+     * @description 상세정보 초기화
+     */
+    const fn_clearForm = function() {
+        SBUxMethod.set("dtl-inp-authrtId", null);
+        SBUxMethod.set("dtl-inp-authrtNm", null);
+        SBUxMethod.set("dtl-inp-authrtTypeNm", null);
+        SBUxMethod.set("dtl-inp-authrtRmrk", null);
+        SBUxMethod.set("dtl-inp-apcCd", null);
+        SBUxMethod.set("dtl-inp-apcNm", null);
+    }
+    
+    /**
+     * @name fn_insertComAuthUser
+     * @description 권한사용자 등록
+     * @function
+     */
+    const fn_insertComAuthUser = async function() {
+    	
+    	const allUsers = grdComAuthUser.getGridDataAll();
+    	const users = [];
+    	for ( let i=1; i<=allUsers.length; i++ ) {
+    		let rowSts = grdComAuthUser.getRowStatus(i);
+    		if (rowSts === 1 || rowSts === 3) {
+    			const rowData = grdComAuthUser.getRowData(i);
+    			users.push({
+    				userId: rowData.userId
+    			});
+    		}
+    	} 
+    	
+    	if (users.length == 0) {
+    		gfn_comAlert("W0003", "등록");		//	W0003	{0}할 대상이 없습니다.
+            return;
+    	}
+    	
+    	if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+    	
+    	const authrtId = SBUxMethod.get("dtl-inp-authrtId");
+    	const postJsonPromise = gfn_postJSON("/co/authrt/insertComAuthrtUserList.do", {
+    		'authrtId': authrtId, 
+    		'comAuthrtUserList': users
+    	});
+    	
+		const data = await postJsonPromise;	    
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_view();
+        	} else {
+        		//alert(data.resultMessage);
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {        	
         }
     }
-    //grid 초기화
-    var grid; // 그리드를 담기위한 객체 선언
-    var gridData = []; // 그리드의 참조 데이터 주소 선언
-    function fn_createGrid() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'SBGridArea';
-	    SBGridProperties.id = 'datagrid';
-	    SBGridProperties.jsonref = 'gridData';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["권한ID"],   ref: 'authId',  type:'output',  width:'30%',    style:'text-align:center'},
-            {caption: ["권한명"],   ref: 'authNm',  type:'output',  width:'70%',    style:'text-align:center'}
-        ];
-        datagrid = _SBGrid.create(SBGridProperties);
-        datagrid.bind('click', 'fn_view');
+    
+    
+    /**
+     * @name fn_deleteComAuthUser
+     * @description 권한사용자 삭제
+     * @function
+     */
+    const fn_deleteComAuthUser = async function() {
+    	
+    	const allUsers = grdComAuthUser.getGridDataAll();
+    	const users = [];
+    	for ( let i=1; i<=allUsers.length; i++ ) {
+    		let rowSts = grdComAuthUser.getRowStatus(i);
+    		if (rowSts !== 1 && rowSts !== 3) {
+    			const rowData = grdComAuthUser.getRowData(i);
+    			if (rowData.checked === 'true') {
+    				users.push({
+        				userId: rowData.userId,
+        				authrtId: rowData.authrtId
+        			});
+    			}
+    		}
+    	} 
+    	
+    	if (users.length == 0) {
+    		gfn_comAlert("W0003", "삭제");		//	W0003	{0}할 대상이 없습니다.
+            return;
+    	}
+    	
+    	if (!gfn_comConfirm("Q0001", "삭제")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+    	
+    	const postJsonPromise = gfn_postJSON("/co/authrt/deleteComAuthrtUserList.do", {
+    		'authrtId': users[0].authrtId, 
+    		'comAuthrtUserList': users
+    	});
+    	
+		const data = await postJsonPromise;	    
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_view();
+        	} else {
+        		//alert(data.resultMessage);
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {        	
+        }
     }
-    function fn_setGridData() {
-        var params = $('#frm').serialize();
-        console.log("form data ::::: " + params);
-        gridData = [
-            {'authId': 'A01', 'authNm': '시스템관리자'},
-            {'authId': 'A02', 'authNm': '전체관리자'},
-            {'authId': 'A03', 'authNm': '업무관리자'},
-            {'authId': 'A04', 'authNm': '개발자'},
-            {'authId': 'A05', 'authNm': '테스트'}
-        ];
-        datagrid.refresh();
+    
+    
+	/**
+	 * @name fn_addUser
+	 * @description 권한 사용자 추가 (popup 호출)
+	 * @function
+	 */
+	const fn_addUser = function() {
+		
+		let nRow = grdComAuth.getRow();
+        if (nRow < 1) {
+            return;
+        }
+		
+        let rowData = grdComAuth.getRowData(nRow);
+		
+        let authrtId = rowData.authrtId;
+        let apcCd = rowData.apcCd;
+        let apcNm = rowData.apcNm;
+        
+		popComAuthUser.init(authrtId, apcCd, apcNm, fn_setUsers);
+
+	}
+	
+	/**
+	 * @name fn_setUsers
+	 * @description 권한등록 대상 사용자 popup 후처리
+	 * @function
+	 */
+	const fn_setUsers = function(users) {
+		console.log("users", users);
+		if (gfn_isEmpty(users)) {
+			return;
+		}
+		console.log("111");
+		
+		const orgnUsers = [];
+		const allData = grdComAuthUser.getGridDataAll();
+		for ( let i=1; i<=allData.length; i++) {
+			orgnUsers.push(grdComAuthUser.getRowData(i));
+		}
+		
+		users.forEach((item, index) => {
+			// userId check
+			let chkData = gfn_getJsonFilter(orgnUsers, "userId", item.userId);
+			if (gfn_isEmpty(chkData)) {
+				// addRow
+				console.log(item);
+				grdComAuthUser.addRow(true, {
+					userId: item.userId,
+					userNm: item.userNm,
+					userTypeNm: item.userTypeNm,
+					apcNm: item.apcNm,
+					apcCd: item.apcCd,
+					authrtId: item.authrtId
+				}, true);
+			}
+		});
+	}
+
+    /**
+     * ui event
+     */
+
+    /**
+     * @name fn_checkAllAuthUser
+     * @description 권한사용자 all check
+     * @param {checkbox} obj
+     */
+	const fn_checkAllAuthUser = function(obj) {
+    	const data = grdComAuthUser.getGridDataAll();
+        for ( let i=0; i<data.length; i++ ){
+        	grdComAuthAuth.setCellData(i+1, 1, obj.checked, true, false);
+        }
     }
-    //grid2 초기화
-    var grid2; // 그리드를 담기위한 객체 선언
-    var gridData2 = []; // 그리드의 참조 데이터 주소 선언
-    function fn_createGrid2() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'SBGridArea2';
-	    SBGridProperties.id = 'datagrid2';
-	    SBGridProperties.jsonref = 'gridData2';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox', style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["ID"],           ref: 'userId',      type: 'output', width: '12%',   style:'text-align:center'},
-            {caption: ["사용자명"],     ref: 'userNm',      type: 'output', width: '12%',   style:'text-align:center'},
-            {caption: ["센터명"],       ref: 'cntrNm',      type: 'output', width: '12%',   style:'text-align:center'},
-            {caption: ["유형"],         ref: 'type',        type: 'output', width: '12%',   style:'text-align:center'},
-            {caption: ["상태"],         ref: 'state',       type: 'output', width: '12%',   style:'text-align:center'},
-            {caption: ["등록자ID"],     ref: 'creUserId',   type: 'output', width: '12%',   style:'text-align:center'},
-            {caption: ["프로그램ID"],   ref: 'progmId',     type: 'output', width: '14%',   style:'text-align:center'},
-            {caption: ["등록일시"],     ref: 'creDateTime', type: 'output', width: '14%',   style:'text-align:center'}
-        ];
-        datagrid2 = _SBGrid.create(SBGridProperties);
-    }
-    function fn_setGridData2(authId) {
-        console.log("data ::::: " + authId);
-        gridData2 = [
-            {'userId': 'userId_01', 'userNm': '사용자_01', 'cntrNm': '통합', 'type': '관리자', 'state': '정상', 'creUserId': 'admin', 'progmId': 'PROGRAM_01', 'creDateTime': '2023-05-01 12:00:00'},
-            {'userId': 'userId_02', 'userNm': '사용자_02', 'cntrNm': '통합', 'type': '관리자', 'state': '정상', 'creUserId': 'admin', 'progmId': 'PROGRAM_02', 'creDateTime': '2023-05-01 12:00:00'}
-        ];
-        document.getElementById("listCount").innerHTML = (gridData2.length).toString();
-        datagrid2.refresh();
-    }
+     
 </script>
+
 </body>
 </html>

@@ -77,7 +77,6 @@ public interface ComAuthrtService {
 	/**
 	 * 권한 메뉴 목록 등록
 	 * @param comAuthrtVO
-	 * @param ComAuthrtMenuList
 	 * @return
 	 * @throws Exception
 	 */
@@ -111,7 +110,14 @@ public interface ComAuthrtService {
 	 * @param comAuthUserVO
 	 * @return
 	 */
-	public List<ComAuthrtUserVO> selectComAuthrtUserList(ComAuthrtUserVO comAuthUserVO) throws Exception;
+	public List<ComAuthrtUserVO> selectComAuthrtUserList(ComAuthrtUserVO comAuthrtUserVO) throws Exception;
+	
+	/**
+	 * 권한 등록 대상 사용자 목록 조회
+	 * @param comAuthUserVO
+	 * @return
+	 */
+	public List<ComAuthrtUserVO> selectAuthrtTrgtUserList(ComAuthrtUserVO comAuthUserVO) throws Exception;
 	
 	/**
 	 * 권한 사용자정보를 조회한다.
@@ -122,21 +128,21 @@ public interface ComAuthrtService {
 	
 	/**
 	 * 권한 사용자정보를 등록한다.
-	 * @param comAuthUserVO
+	 * @param comAuthrtUserVO
 	 * @return
 	 */
 	public int insertComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO) throws Exception;
 	
 	/**
 	 * 권한 사용자정보를 변경한다.
-	 * @param comAuthUserVO
+	 * @param comAuthrtUserVO
 	 * @return
 	 */
 	public int updateComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO) throws Exception;
 	
 	/**
 	 * 권한 사용자정보를 삭제한다.
-	 * @param comAuthUserVO
+	 * @param comAuthrtUserVO
 	 * @return
 	 */
 	public int deleteComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO) throws Exception;
@@ -162,5 +168,21 @@ public interface ComAuthrtService {
 	 * @throws Exception
 	 */
 	public List<ComAuthrtVO> selectComAuthrtListByUserId(ComAuthrtVO comAuthrtVO) throws Exception;
+	
+	/**
+	 * 권한 사용자 목록 등록
+	 * @param comAuthrtVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertComAuthrtUserList(ComAuthrtVO comAuthrtVO) throws Exception;	
+	
+	/**
+	 * 권한 사용자 목록 삭제
+	 * @param comAuthrtVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteComAuthrtUserList(ComAuthrtVO comAuthrtVO) throws Exception;	
 	
 }

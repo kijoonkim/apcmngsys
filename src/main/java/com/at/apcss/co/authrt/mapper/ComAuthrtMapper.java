@@ -99,12 +99,26 @@ public interface ComAuthrtMapper {
 	public int deleteComAuthrtMenu(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception;
 	
 	/**
+	 * 권한 사용자정보를 조회한다.
+	 * @param comAuthUserVO
+	 * @return
+	 */
+	public ComAuthrtUserVO selectComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO);
+	
+	
+	/**
 	 * 권한 사용자 목록 조회
 	 * @param comAuthUserVO
 	 * @return
 	 */
-	public List<ComAuthrtUserVO> selectComAuthrtUserList(ComAuthrtUserVO comAuthUserVO);
+	public List<ComAuthrtUserVO> selectComAuthrtUserList(ComAuthrtUserVO comAuthrtUserVO);
 	
+	/**
+	 * 권한 등록 대상 사용자 목록 조회
+	 * @param comAuthUserVO
+	 * @return
+	 */
+	public List<ComAuthrtUserVO> selectAuthrtTrgtUserList(ComAuthrtUserVO comAuthrtUserVO);
 	
 	/**
 	 * 권한 top 메뉴트리 목록 조회	: depth 2까지
@@ -128,4 +142,20 @@ public interface ComAuthrtMapper {
 	 */
 	public List<ComAuthrtVO> selectComAuthrtListByUserId(ComAuthrtVO comAuthrtVO);
 		
+	
+	/**
+	 * 권한 사용자정보를 등록한다.
+	 * @param ComAuthrtUserVO
+	 * @return
+	 */
+	public int insertComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO);
+	
+	/**
+	 * 권한 사용자정보를 삭제한다.
+	 * @param ComAuthrtUserVO
+	 * @return
+	 */
+	public int deleteComAuthrtUser(ComAuthrtUserVO comAuthrtUserVO);
+	
+	
 }
