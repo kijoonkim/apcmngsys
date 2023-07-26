@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 <!-- 			<div class="box-header"> -->
 <!-- 				<h3 class="box-title"> ▶ 재고정보조회</h3> -->
@@ -22,7 +22,7 @@
 <!-- 					</div> -->
 <!-- 				</div> -->
 <!-- 			</div> -->
-			
+
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<h3 class="box-title">▶ 재고정보조회</h3>
@@ -58,7 +58,7 @@
 							</td>
 							<td colspan="9">&nbsp;</td>
 						</tr>
-						
+
 						<tr>
 							<th class="ta_r">기준일자</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -79,7 +79,7 @@
 							</td>
 							<td>&nbsp;</td>
 						</tr>
-						
+
 						<tr>
 							<th class="ta_r">규격</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -100,7 +100,7 @@
 							</td>
 							<td colspan="2">&nbsp;</td>
 						</tr>
-						
+
 						<tr>
 							<th class="ta_r">상품구분</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -116,7 +116,7 @@
 					</tbody>
 				</table>
 
-				
+
 				<div class="sbt-wrap-body">
 					<div class="ad_tbl_toplist">
 							<sbux-button uitype="normal" id="srch-btn-rawmtrInvntrDsctn" name="srch-btn-rawmtrInvntrDsctn" class="btn btn-sm btn-outline-danger" text="원물재고 내역" onclick="fn_sample1()"></sbux-button>
@@ -124,22 +124,22 @@
 							<sbux-button uitype="normal" id="srch-btn-gdsInvntrDsctn" name="srch-btn-gdsInvntrDsctn" class="btn btn-sm btn-outline-danger" text="상품재고 내역" onclick="fn_sample3()"></sbux-button>
 					</div>
                     <div class="sbt-grid">
-                        <div id="inptCmndDsctnGridArea" style="height:300px;"></div>
+                        <div id="inptCmndDsctnGridArea" style="height:450px;"></div>
                     </div>
                	</div>
 			</div>
 		</div>
 	</section>
 </body>
-<script type="text/javascript">	
+<script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
-	
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid1();
 // 		fn_createGrid2();
 // 		fn_createGrid3();
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
@@ -149,7 +149,7 @@
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
-	
+
 	function fn_sample1(){
 		_SBGrid.destroy('inptCmndDsctnList');
 		fn_createGrid1();
@@ -196,13 +196,13 @@
 	        {caption: ["현 재고","수량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	        {caption: ["현 재고","중량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	    ];
-	    
+
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
 // 	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList2 = []; // 그리드의 참조 데이터 주소 선언
-	
+
 	function fn_createGrid2() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
@@ -236,13 +236,13 @@
 	        {caption: ["현 재고","수량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	        {caption: ["현 재고","중량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	    ];
-	    
+
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
 // 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList3 = []; // 그리드의 참조 데이터 주소 선언
-	
+
 	function fn_createGrid3() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
@@ -277,11 +277,11 @@
 	        {caption: ["현 재고","수량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	        {caption: ["현 재고","중량"],		ref: 'msgKey',      type:'output',  width:'55px',    style:'text-align:center'},
 	    ];
-	    
+
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
-	
+
 // 	function fn_closeModal(modalId){
 // 		SBUxMethod.closeModal(modalId);
 // 	}

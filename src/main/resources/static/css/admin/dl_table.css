@@ -42,6 +42,10 @@
 	font-weight: 600; color: #3c6dbc;
 }
 
+.ad_tbl_toplist_datepk * {
+	margin: 0px 0;
+}
+
 .ad_tbl_toplist * {
 	margin: 2px 0;
 }

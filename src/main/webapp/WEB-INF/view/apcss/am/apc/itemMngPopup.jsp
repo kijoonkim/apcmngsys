@@ -60,14 +60,14 @@
 
 				<div class="row">
 
-					<div class="col-sm-4">
+					<div class="col-sm-6">
 						<div>
 							<div id="sb-area-grdItem" style="height:159px; width: 100%;"></div>
 						</div>
 					</div>
 
 
-					<div class="col-sm-8">
+					<div class="col-sm-6">
 						<div>
 							<div id="sb-area-grdApcItem" style="height:159px; width: 100%;"></div>
 						</div>
@@ -146,9 +146,9 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-	        {caption: ["코드"],     ref: 'itemCd',  type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'itemNm',  type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'100PX',    style:'text-align:center',
+	        {caption: ["코드"],     ref: 'itemCd',  type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["명칭"],     ref: 'itemNm',  type:'output',  width:'280px',    style:'text-align:center'},
+	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'80PX',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_addItem(" + nRow + ")'>선택</button>";
 	        }},
@@ -201,10 +201,10 @@
 	    SBGridProperties.clickeventarea = {empty: true, fixed: true};
 	    SBGridProperties.columns = [
 	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["품종등록"],     ref: 'vrtrCnt',  	type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["규격등록"],     ref: 'spcfctCnt',  	type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["등급등록"],     ref: 'grdCnt',  	type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["품종"],     ref: 'vrtrCnt',  	type:'output',  width:'60px',    style:'text-align:center'},
+	        {caption: ["규격"],     ref: 'spcfctCnt',  	type:'output',  width:'60px',    style:'text-align:center'},
+	        {caption: ["등급"],     ref: 'grdCnt',  	type:'output',  width:'60px',    style:'text-align:center'},
 	        {caption: ["삭제"], 	ref: 'empty',   type:'output',  width:'80PX',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteItem(" + nRow + ")'>삭제</button>";
@@ -378,7 +378,7 @@
 	        {caption: ["선택"], 	ref: 'delYn',   type:'output',  width:'80PX',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	            	if(strValue== null || strValue == ""){
-		        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"apcVrtyDataGrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+		        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdApcVrty\", " + nRow + ", " + nCol + ")'>추가</button>";
 		        	}else{
 		                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteVrty(" + nRow + ")'>삭제</button>";
 		        	}
