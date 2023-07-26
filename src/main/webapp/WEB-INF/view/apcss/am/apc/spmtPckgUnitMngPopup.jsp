@@ -8,19 +8,14 @@
 <body>
 	<section>
 		<div class="box box-solid">
-			<div class="box-header" style="display:flex; justify-content: flex-start;" >
-				<div>
-					<p>
-						<span>선택한 품목별로 APC에서 관리하는 등급과 규격을 등록하세요.</span>
-					</p>
-					<p>
-						<span style="color:black">등급 등록은 정산에 적용되는 정산기준 등급과 단가를 등록하세요.</span>
-					</p>
-				</div>
-				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchGrd" name="btnSearchGrd" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectGrdSpcfctList()"></sbux-button>
-					<sbux-button id="btnInsertGrd" name="btnInsertGrd" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertApcGrdList"></sbux-button>
-					<sbux-button id="btnEndGrd" name="btnEndGrd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-grdSpcfct')"></sbux-button>
+			<div class="box-header">
+				<div class="ad_tbl_top">
+					<div class="ad_tbl_toplist">
+						<sbux-button id="btnSearchGrd" name="btnSearchGrd" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectGrdSpcfctList()"></sbux-button>
+						<sbux-button id="btnInsertGrd" name="btnInsertGrd" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertApcGrdList"></sbux-button>
+						<sbux-button id="btnEndGrd" name="btnEndGrd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('grdSpcfctMngModal')"></sbux-button>
+
+					</div>
 				</div>
 			</div>
 			<div class="box-body">
@@ -29,12 +24,13 @@
 					<table class="table table-bordered tbl_row tbl_fixed">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
-							<col style="width: 100px">
-							<col style="width: 200px">
-							<col style="width: 100px">
-							<col style="width: 200px">
-							<col style="width: 100px">
-							<col style="width: 200px">
+							<col style="width: 10%">
+							<col style="width: 20%">
+							<col style="width: 10%">
+							<col style="width: 20%">
+							<col style="width: 10%">
+							<col style="width: 20%">
+							<col style="width: auto">
 						</colgroup>
 						<tbody>
 							<tr>
@@ -46,8 +42,11 @@
 								<th style="border-right-style: hidden;">
 									<sbux-select id="spcfct-select-itemCd" name="spcfct-select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 								</th>
-								<th>&nbsp;</th>
-								<th>&nbsp;</th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
 							</tr>
 						</tbody>
 					</table>
@@ -105,14 +104,14 @@
 	var jsonSpcfct = [];
 	var jsonApcSpcfct = [];
 
-	const fn_initSBSelectItem = async function() {
+	/* const fn_initSBSelectItem = async function() {
 		gfn_setApcItemSBSelect("spcfct-select-itemCd", jsonComItemCd, SBUxMethod.get("inp-apcCd"));
-	}
+	} */
 	function fn_createGrdGrid() {
 
 		SBUxMethod.set("spcfct-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
-   		 var SBGridProperties = {};
+   		var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdGrd';
 	    SBGridProperties.id = 'grdGrd';
 	    SBGridProperties.jsonref = 'jsonGrd';

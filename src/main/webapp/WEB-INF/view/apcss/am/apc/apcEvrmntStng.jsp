@@ -28,25 +28,24 @@
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
-						<col style="width: 3%">
+						<col style="width: 4%">
 						<col style="width: 7%">
-						<col style="width: 3%">
-						<col style="width: 15%">
-						<col style="width: 3%">
+						<col style="width: 4%">
+						<col style="width: 13%">
+						<col style="width: 4%">
 						<col style="width: 7%">
-						<col style="width: 3%">
+						<col style="width: 4%">
 						<col style="width: 7%">
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">APC코드</th>
-							<td>&nbsp;</td>
+							<th scope="row" rowspan="4">APC정보</th>
+							<td scope="row" align="right">코드</td>
 							<td scope="row" style="border-right: hidden;">
 								<sbux-input id="inp-apcCd" name="inp-apcCd" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
-							<th rowspan="2">APC정보</th>
 							<td scope="row" align="right">명칭</td>
 							<td scope="row" >
 								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm"></sbux-input>
@@ -85,8 +84,8 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" >APC구분</th>
-							<td colspan="8"class="td_input">
+							<td scope="row" align="right">구분</td>
+							<td class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio id="apcGubun1" name="apcGubun" uitype="normal" class="radio_label"></sbux-radio>
 									<label class="radio_label" for="radio1">농협</label>
@@ -96,10 +95,8 @@
 									<label class="radio_label" for="radio1">법인</label>
 								</p>
 							</td>
-						</tr>
-						<tr>
-							<th scope="row">정산기준(대표)</th>
-							<td colspan="8" class="td_input">
+							<td scope="row" align="right">정산기준</td>
+							<td colspan="5" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio id="prdcrGubun1" name="prdcrGubun" uitype="normal"  class="radio_label"></sbux-radio>
 									<label class="radio_label" for="radio1">입고</label>
@@ -113,7 +110,7 @@
 						<tr>
 							<th scope="row">APC사용자 관리</th>
 							<td colspan="2"class="td_input">
-								<sbux-button id="userAuthMngBtn" name="userAuthMngBtn" uitype="modal" text="사용자권한 설정" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="userAuthMngModal" onclick="fn_modal('userAuthMngBtn')"></sbux-button>
+								<sbux-button id="btnUserAuth" name="btnUserAuth" uitype="modal" text="사용자권한 설정" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-userAuth" onclick="fn_modal('btnUserAuth')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								업무지원시스템을 사용할 일반사용자를 승인합니다. (신규가입은 포탈을 이용하세요)
@@ -122,7 +119,7 @@
 						<tr>
 							<th scope="row">운용설비 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="fcltMngBtn" name="fcltMngBtn" uitype="modal" text="설비 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="fcltMngModal" onclick="fn_modal('fcltMngBtn')"></sbux-button>
+								<sbux-button id="btnFclt" name="btnFclt" uitype="modal" text="설비 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-fclt" onclick="fn_modal('btnFclt')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								APC에서 운영하고 있는 선별기와 포장기를 등록하세요. (선별1호기, 선별2호기... / 포장1호기, 포장2호기...)
@@ -131,7 +128,7 @@
 						<tr>
 							<th scope="row">저장창고 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="warehouseMngBtn" name="warehouseMngBtn" uitype="modal" text="창고 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="warehouseMngModal" onclick="fn_modal('warehouseMngBtn')"></sbux-button>
+								<sbux-button id="btnWarehouse" name="btnWarehouse" uitype="modal" text="창고 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-warehouse" onclick="fn_modal('btnWarehouse')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								APC에서 운영하고 있는 창고를 등록하세요. (원물창고1, 원물창고2... / 선별창고1 ... / 포장창고1..)
@@ -140,7 +137,7 @@
 						<tr>
 							<th scope="row">품목/품종 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="itemMngBtn" name="itemMngBtn" uitype="modal" text="품목/품종 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="itemMngModal" onclick="fn_modal('itemMngBtn')"></sbux-button>
+								<sbux-button id="btnItem" name="btnItem" uitype="modal" text="품목/품종 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-item" onclick="fn_modal('btnItem')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								APC에서 관리하고 있는 품목과 품종을 선택하세요. (여러 개의 품목과 품종을 관리할 수 있습니다)
@@ -149,16 +146,25 @@
 						<tr>
 							<th scope="row">등급/규격 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="otrdEyeBtn" name="otrdEyeBtn" uitype="modal" text="등급/규격 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="grdSpcfctMngModal" onclick="fn_modal('grdMngBtn')"></sbux-button>
+								<sbux-button id="btnGrdSpcfct" name="btnGrdSpcfct" uitype="modal" text="등급/규격 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-grdSpcfct" onclick="fn_modal('btnGrdSpcfct')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								선택한 품목별로 APC에서 관리하는 등급과 규격을 등록하세요.
 							</td>
 						</tr>
+						<!-- <tr>
+							<th scope="row">출하포장단위 관리</th>
+							<td class="td_input" colspan="2">
+								<sbux-button id="btnSpmtPckgUnit" name="btnSpmtPckgUnit" uitype="modal" text="출하포장단위 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spmtPckgUnit" onclick="fn_modal('btnSpmtPckgUnit')"></sbux-button>
+							</td>
+							<td colspan="6" style="color:#999">
+								선택한 품목별로 APC에서 관리하는 출하포장단위을 등록하세요.
+							</td>
+						</tr> -->
 						<tr>
 							<th scope="row">원물 팔레트/박스</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="pltBxBtn" name="pltBxBtn" uitype="modal" text="팔레트/박스 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="pltBxMngModal" onclick="fn_modal('pltBxMngBtn')"></sbux-button>
+								<sbux-button id="btnpltBx" name="btnpltBx" uitype="modal" text="팔레트/박스 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-pltBx" onclick="fn_modal('btnPltBx')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								APC에서 관리하고 있는 팔레트와 박스의 종류 및 기초재고수량을 등록합니다. (계근대를 사용하는 경우 단중을 입력해야 합니다)
@@ -167,7 +173,7 @@
 						<tr>
 							<th scope="row">입고차량 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="vhclBtn" name="vhclBtn" uitype="modal" text="입고차량/운임 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="wrhsVhclMngModal" onclick="fn_modal('wrhsVhclMngBtn')"></sbux-button>
+								<sbux-button id="btnVhcl" name="btnVhcl" uitype="modal" text="입고차량/운임 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-wrhsVhcl" onclick="fn_modal('btnWrhsVhcl')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								원물입고 시 차량번호를 관리하는 경우 차량번호를 입력하세요. (차후 추가등록도 가능합니다)
@@ -176,7 +182,7 @@
 						<tr>
 							<th scope="row">출하운송사 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="spmtTrsprtBtn" name="spmtTrsprtBtn" uitype="modal" text="출하 운송회사 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="spmtTrsprtMngModal" onclick="fn_modal('spmtTrsprtBtn')"></sbux-button>
+								<sbux-button id="btnSpmtTrsprt" name="btnSpmtTrsprt" uitype="modal" text="출하 운송회사 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spmtTrsprt" onclick="fn_modal('btnSpmtTrsprt')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								상품출하시 운용하고 있는 운송사 정보를 등록하세요. (출하처리 시 필요한 정보입니다)
@@ -185,7 +191,7 @@
 						<tr>
 							<th scope="row">거래처 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="cnptMngBtn" name="cnptMngBtn" uitype="modal" text="거래처 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="cnptMngModal" onclick="fn_modal('cnptMngBtn')"></sbux-button>
+								<sbux-button id="btnCnpt" name="btnCnpt" uitype="modal" text="거래처 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-cnpt" onclick="fn_modal('btnCnpt')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								상품출하시 관리하고 있는 거래처 정보를 등록하세요. (출하처리 시 필요한 정보입니다)
@@ -194,7 +200,7 @@
 						<tr>
 							<th scope="row">생산작업자 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="oprtrMngBtn" name="oprtrMngBtn" uitype="modal" text="생산작업자 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="oprtrMngModal" onclick="fn_modal('oprtrMngBtn')"></sbux-button>
+								<sbux-button id="btnOprtr" name="btnOprtr" uitype="modal" text="생산작업자 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-oprtr" onclick="fn_modal('btnOprtr')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								선별작업 또는 포장작업 시 작업하는 작업자 정보를 등록하세요. (차후 작업자별 작업시간을 관리하기 위한 정보입니다)
@@ -211,11 +217,11 @@
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
-						<col style="width: 3%">
+						<col style="width: 4%">
 						<col style="width: 9%">
 						<col style="width: 9%">
 						<col style="width: 9%">
-						<col style="width: 18%">
+						<col style="width: 16%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -457,72 +463,79 @@
 	</section>
 	<!-- 사용자권한 설정 Modal -->
     <div>
-        <sbux-modal id="userAuthMngModal" name="userAuthMngModal" uitype="middle" header-title="APC사용자 권한설정" body-html-id="userAuthMngModalBody" footer-is-close-button="false" style="width:1200px"></sbux-modal>
+        <sbux-modal id="modal-userAuth" name="modal-userAuth" uitype="middle" header-title="APC사용자 권한설정" body-html-id="body-modal-userAuth" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="userAuthMngModalBody">
+    <div id="body-modal-userAuth">
     	<jsp:include page="../apc/apcUserMngPopup.jsp"></jsp:include>
     </div>
     <!-- 설비 등록 Modal -->
     <div>
-        <sbux-modal id="fcltMngModal" name="fcltMngModal" uitype="middle" header-title="설비 등록" body-html-id="fcltMngModalBody" footer-is-close-button="false" style="width:800px"></sbux-modal>
+        <sbux-modal id="modal-fclt" name="modal-fclt" uitype="middle" header-title="설비 등록" body-html-id="body-modal-fclt" footer-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
-    <div id="fcltMngModalBody">
+    <div id="body-modal-fclt">
     	<jsp:include page="../apc/fcltMngPopup.jsp"></jsp:include>
     </div>
     <!-- 창고 등록 Modal -->
     <div>
-        <sbux-modal id="warehouseMngModal" name="warehouseMngModal" uitype="middle" header-title="창고 등록" body-html-id="warehouseMngModalBody" footer-is-close-button="false" style="width:800px"></sbux-modal>
+        <sbux-modal id="modal-warehouse" name="modal-warehouse" uitype="middle" header-title="창고 등록" body-html-id="body-modal-warehouse" footer-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
-    <div id="warehouseMngModalBody">
+    <div id="body-modal-warehouse">
     	<jsp:include page="../apc/warehouseMngPopup.jsp"></jsp:include>
     </div>
     <!--품목/품종 등록 Modal -->
     <div>
-        <sbux-modal id="itemMngModal" name="itemMngModal" uitype="middle" header-title="품목/품종 등록" body-html-id="itemMngmodalBody" footer-is-close-button="false"style="width:1200px"></sbux-modal>
+        <sbux-modal id="modal-item" name="modal-item" uitype="middle" header-title="품목/품종 등록" body-html-id="body-modal-item" footer-is-close-button="false"style="width:1000px"></sbux-modal>
     </div>
-    <div id="itemMngmodalBody">
+    <div id="body-modal-item">
     	<jsp:include page="../apc/itemMngPopup.jsp"></jsp:include>
     </div>
     <!-- 등급/규격 등록 Modal -->
     <div>
-        <sbux-modal id="grdSpcfctMngModal" name="grdSpcfctMngModal" uitype="middle" header-title="등급/규격 등록" body-html-id="grdSpcfctMngModalBody" footer-is-close-button="false" style="width:1200px"></sbux-modal>
+        <sbux-modal id="modal-grdSpcfct" name="modal-grdSpcfct" uitype="middle" header-title="등급/규격 등록" body-html-id="body-modal-grdSpcfct" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="grdSpcfctMngModalBody">
+    <div id="body-modal-grdSpcfct">
     	<jsp:include page="../apc/grdSpcfctMngPopup.jsp"></jsp:include>
     </div>
+    <!-- 출하포장단위 등록 Modal -->
+    <%-- <div>
+        <sbux-modal id="modal-spmtPckgUnit" name="modal-spmtPckgUnit" uitype="middle" header-title="춣하포장단위 등록" body-html-id="body-modal-spmtPckgUnit" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-spmtPckgUnit">
+    	<jsp:include page="../apc/spmtPckgUnitMngPopup.jsp"></jsp:include>
+    </div> --%>
     <!-- 팔레트/박스 등록 Modal -->
     <div>
-        <sbux-modal id="pltBxMngModal" name="pltBxMngModal" uitype="middle" header-title="팔레트/박스 등록" body-html-id="pltBxMngModalBody" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="팔레트/박스 등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="pltBxMngModalBody">
+    <div id="body-modal-pltBx">
     	<jsp:include page="../apc/pltBxMngPopup.jsp"></jsp:include>
     </div>
     <!-- 입고차량정보 등록 Modal -->
     <div>
-        <sbux-modal id="wrhsVhclMngModal" name="wrhsVhclMngModal" uitype="middle" header-title="입고차량정보 등록" body-html-id="wrhsVhclMngModalBody" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-wrhsVhcl" name="modal-wrhsVhcl" uitype="middle" header-title="입고차량정보 등록" body-html-id="body-modal-wrhsVhcl" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="wrhsVhclMngModalBody">
+    <div id="body-modal-wrhsVhcl">
     	<jsp:include page="../apc/wrhsVhclMngPopup.jsp"></jsp:include>
     </div>
     <!-- 출하운송회사 등록 Modal -->
     <div>
-        <sbux-modal id="spmtTrsprtMngModal" name="spmtTrsprtMngModal" uitype="middle" header-title="출하운송회사 등록" body-html-id="spmtTrsprtMngModalBody" footer-is-close-button="false" style="width:900px"></sbux-modal>
+        <sbux-modal id="modal-spmtTrsprt" name="modal-spmtTrsprt" uitype="middle" header-title="출하운송회사 등록" body-html-id="body-modal-spmtTrsprt" footer-is-close-button="false" style="width:900px"></sbux-modal>
     </div>
-    <div id="spmtTrsprtMngModalBody">
+    <div id="body-modal-spmtTrsprt">
     	<jsp:include page="../apc/spmtTrsprtMngPopup.jsp"></jsp:include>
     </div>
     <!-- 거래처 등록 Modal -->
     <div>
-        <sbux-modal id="cnptMngModal" name="cnptMngModal" uitype="middle" header-title="거래처 등록" body-html-id="cnptMngModalBody" footer-is-close-button="false" style="width:1200px"></sbux-modal>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 등록" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="cnptMngModalBody">
+    <div id="body-modal-cnpt">
     	<jsp:include page="../apc/cnptMngPopup.jsp"></jsp:include>
     </div>
     <!-- 생산작업자 등록 Modal -->
     <div>
-        <sbux-modal id="oprtrMngModal" name="oprtrMngModal" uitype="middle" header-title="생산자 등록" body-html-id="oprtrMngModalBody" footer-is-close-button="false" style="width:1200px"></sbux-modal>
+        <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산자 등록" body-html-id="body-modal-oprtr" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="oprtrMngModalBody">
+    <div id="body-modal-oprtr">
     	<jsp:include page="../apc/oprtrMngPopup.jsp"></jsp:include>
     </div>
 
@@ -588,42 +601,42 @@
 	}
 
 	function fn_modal(targetName){
-		if(targetName == "userAuthMngBtn"){
+		if(targetName == "btnUserAuth"){
 			fn_userAuthMngCreateGrid();
 		}
-		if(targetName == 'fcltMngBtn'){
+		if(targetName == 'btnFclt'){
 			fn_fcltMngCreateGrid();
 		}
-		if(targetName == 'warehouseMngBtn'){
+		if(targetName == 'btnWarehouse'){
 			fn_warehouseMngCreateGrid();
 		}
-		if(targetName == 'itemMngBtn'){
+		if(targetName == 'btnItem'){
 			fn_itemCreateGrid();
             fn_apcItemCreateGrid();
             fn_vrtyCreateGrid();
             fn_apcVrtyCreateGrid();
 		}
-		if(targetName == 'pltBxMngBtn'){
+		if(targetName == 'btnPltBx'){
 			fn_pltMngCreateGrid();
 			fn_bxMngCreateGrid();
 			fn_pckgMngCreateGrid();
 		}
-		if(targetName == 'grdMngBtn'){
+		if(targetName == 'btnGrdSpcfct'){
 			fn_createGrdGrid();
 			fn_createGrdSpcfct();
 			fn_createGrdApcSpcfct();
 			fn_initSBSelectItem();
 		}
-		if(targetName == 'wrhsVhclMngBtn'){
+		if(targetName == 'btnWrhsVhcl'){
 			fn_wrhsVhclMngCreateGrid();
 			fn_rgnTrsprtCstMngCreateGrid();
 		}
-		if(targetName == 'spmtTrsprtBtn'){
+		if(targetName == 'btnSpmtTrsprt'){
 			fn_spmtTrsprtMngCreateGrid();
-		}if(targetName == 'cnptMngBtn'){
+		}if(targetName == 'btnCnpt'){
 			fn_cnptMngCreateGrid();
 			fn_ordrMngCreateGrid();
-		}if(targetName == 'oprtrMngBtn'){
+		}if(targetName == 'btnOprtr'){
 			fn_oprtrMngCreateGrid();
 		}
 	}
