@@ -8,29 +8,33 @@
 <body>
 	<section>
 		<div class="box box-solid">
-			<div class="box-header">
-				<div class="ad_tbl_top">
-					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSearchItem" name="btnSearchItem" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectItemList()"></sbux-button>
-						<sbux-button id="btnInsertItem" name="btnInsertItem" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertApcVrtyList"></sbux-button>
-						<sbux-button id="btnEndItem" name="btnEndItem" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('itemMngModal')"></sbux-button>
-					</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<p>
+						<span style="font-weight:bold;">APC에서 관리하고 있는 품목과 품종을 선택하세요.(여러가지 품목과 품종을 관리할 수 있습니다.)</span>
+					</p>
+					<p>
+						<span style="color:black; font-weight:bold;">품목은 농식품부 표준코드를 준수하며, 품종은 APC별 사용자 정의로 등록할 수 있습니다.</span>
+					</p>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSearchItem" name="btnSearchItem" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectItemList()"></sbux-button>
+					<sbux-button id="btnInsertItem" name="btnInsertItem" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertApcVrtyList"></sbux-button>
+					<sbux-button id="btnEndItem" name="btnEndItem" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-item')"></sbux-button>
 				</div>
 			</div>
-
 			<div class="box-body">
 				<div>
 					<!--[pp] 검색 -->
 					<table class="table table-bordered tbl_row tbl_fixed">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
-							<col style="width: 10%">
-							<col style="width: 20%">
-							<col style="width: 10%">
-							<col style="width: 20%">
-							<col style="width: 10%">
-							<col style="width: 20%">
-							<col style="width: auto">
+							<col style="width: 100px">
+							<col style="width: 200px">
+							<col style="width: 100px">
+							<col style="width: 200px">
+							<col style="width: 100px">
+							<col style="width: 200px">
 						</colgroup>
 						<tbody>
 							<tr>
@@ -74,13 +78,12 @@
 					<table class="table table-bordered tbl_row tbl_fixed mg_t10">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
-							<col style="width: 10%">
-							<col style="width: 20%">
-							<col style="width: 10%">
-							<col style="width: 20%">
-							<col style="width: 10%">
-							<col style="width: 20%">
-							<col style="width: auto">
+							<col style="width: 100px">
+							<col style="width: 200px">
+							<col style="width: 100px">
+							<col style="width: 200px">
+							<col style="width: 100px">
+							<col style="width: 200px">
 						</colgroup>
 						<tbody>
 							<tr>
@@ -143,7 +146,7 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-	        {caption: ["코드"],     ref: 'itemCd',  type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["코드"],     ref: 'itemCd',  type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["명칭"],     ref: 'itemNm',  type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'100PX',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -197,12 +200,12 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.clickeventarea = {empty: true, fixed: true};
 	    SBGridProperties.columns = [
-	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'200px',    style:'text-align:center'},
+	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["품종등록"],     ref: 'vrtrCnt',  	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["규격등록"],     ref: 'spcfctCnt',  	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["등급등록"],     ref: 'grdCnt',  	type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["삭제"], 	ref: 'empty',   type:'output',  width:'100PX',    style:'text-align:center',
+	        {caption: ["삭제"], 	ref: 'empty',   type:'output',  width:'80PX',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteItem(" + nRow + ")'>삭제</button>";
 	        }},
@@ -304,9 +307,9 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'output',  width:'300px',    style:'text-align:center'},
-	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'100PX',    style:'text-align:center',
+	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'output',  width:'280px',    style:'text-align:center'},
+	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'80PX',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_addVrty(" + nRow + ")'>선택</button>";
 	        }},
@@ -370,9 +373,9 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'input',  	width:'300px',    style:'text-align:center'},
-	        {caption: ["선택"], 	ref: 'delYn',   type:'output',  width:'100PX',    style:'text-align:center',
+	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'input',  	width:'280px',    style:'text-align:center'},
+	        {caption: ["선택"], 	ref: 'delYn',   type:'output',  width:'80PX',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	            	if(strValue== null || strValue == ""){
 		        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"apcVrtyDataGrid\", " + nRow + ", " + nCol + ")'>추가</button>";

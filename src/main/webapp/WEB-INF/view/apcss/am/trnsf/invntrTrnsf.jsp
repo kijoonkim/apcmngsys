@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
@@ -141,7 +141,7 @@
 <script type="text/javascript">
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createInvntrTrnsfGrid();
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
@@ -149,7 +149,7 @@
 		SBUxMethod.set("srch-dtp-fromTrnsfYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-toTrnsfYmd", year+month+day);
 	})
-	
+
 	function fn_createInvntrTrnsfGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdInvntrTrnsf';

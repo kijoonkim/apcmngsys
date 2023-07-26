@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
@@ -25,7 +25,7 @@
 					<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
 				</div>
 			</div>
-			
+
 			<div></div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
@@ -209,7 +209,7 @@
 			</div>
 		</div>
 	</section>
-	
+
 	    <!-- 사용자 선택 Modal -->
     <div>
         <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
@@ -220,11 +220,11 @@
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
-	
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid();
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
@@ -234,7 +234,7 @@
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
-	
+
 	function fn_createGrid() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
@@ -252,7 +252,7 @@
 		  	'showgoalpageui' : true
 	    };
 
-		
+
 	    SBGridProperties.columns = [
 	        {caption: ["입고일자"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["순번"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
@@ -266,11 +266,11 @@
 	        {caption: ["입고창고"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
 	    ];
-	    
+
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
-	
+
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}

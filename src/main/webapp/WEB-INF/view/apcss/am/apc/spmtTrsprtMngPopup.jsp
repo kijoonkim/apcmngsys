@@ -8,16 +8,21 @@
 <body>
 	<section>
 		<div class="box box-solid">
-			<div class="box-header">
-				<div class="ad_tbl_top">
-					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSpmtTrsprtSech" name="btnSpmtTrsprtSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSpmtTrsprtList()"></sbux-button>
-						<sbux-button id="btnSpmtTrsprtReg" name="btnSpmtTrsprtReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSpmtTrsprtList"></sbux-button>
-						<sbux-button id="btnSpmtTrsprtEnd" name="btnSpmtTrsprtEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('spmtTrsprtMngModal')"></sbux-button>
-					</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<p>
+						<span style="font-weight:bold;">상품출하시 운용하고 있는 운송사 정보를 등록하세요.</span>
+					</p>
+					<p>
+						<span style="color:black; font-weight:bold;">출하처리 시 필요한 정보입니다.</span>
+					</p>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSpmtTrsprtSech" name="btnSpmtTrsprtSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSpmtTrsprtList()"></sbux-button>
+					<sbux-button id="btnSpmtTrsprtReg" name="btnSpmtTrsprtReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSpmtTrsprtList"></sbux-button>
+					<sbux-button id="btnSpmtTrsprtEnd" name="btnSpmtTrsprtEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-spmtTrsprt')"></sbux-button>
 				</div>
 			</div>
-
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -41,18 +46,15 @@
 						</tr>
 					</tbody>
 				</table>
-
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-				<div class="ad_section_top">
-					<div>
-						<div class="ad_tbl_top">
-							<ul class="ad_tbl_count">
-								<li><span>운송회사 목록</span></li>
-							</ul>
-						</div>
-						<div id="spmtTrsprtMngGridArea" style="height:300px;"></div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li><span>운송회사 목록</span></li>
+						</ul>
 					</div>
+					<div id="spmtTrsprtMngGridArea" style="height:300px; width: 100%;"></div>
 				</div>
 			</div>
 		<!--[pp] //검색결과 -->
@@ -78,8 +80,8 @@
 	        {caption: ["운송회사명"], 		ref: 'trsprtCoNm',  type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["전화번호"], 		ref: 'telno',  		type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["팩스번호"], 		ref: 'fxno',  		type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["비고"], 			ref: 'rmrk',  		type:'input',  width:'250px',    style:'text-align:center'},
-	        {caption: ["처리"], 			ref: 'delYn',   	type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["비고"], 			ref: 'rmrk',  		type:'input',  width:'330px',    style:'text-align:center'},
+	        {caption: ["처리"], 			ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"spmtTrsprtMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{

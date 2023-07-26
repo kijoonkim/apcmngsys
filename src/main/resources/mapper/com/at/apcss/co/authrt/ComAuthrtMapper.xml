@@ -65,7 +65,7 @@
 				, CA.AUTHRT_RMRK    AS AUTHRT_RMRK
 				, CA.APC_CD			AS APC_CD
 				, (SELECT FN_GET_COM_CD_VL_NM('AUTHRT_TYPE', CA.AUTHRT_TYPE) FROM DUAL) AS AUTHRT_TYPE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('APC_CD', CA.APC_CD) FROM DUAL) AS APC_NM				
+				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CA.APC_CD) AS APC_NM		
     	]]>
 		<if test='sysId != null and sysId != ""'>
 				, #{sysId}			AS SYS_ID
@@ -364,6 +364,47 @@
     	]]>    
     </select>
     
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtUser	-->
+	<!-- DESC : 권한 사용자 단건 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComAuthrtUser" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.authrt.ComAuthMapper.selectComAuthrtUser */
+				  CA.AUTHRT_ID          AS AUTHRT_ID
+			    , CA.AUTHRT_NM          AS AUTHRT_NM
+			    , CU.USER_ID            AS USER_ID
+			    , CU.USER_NM            AS USER_NM
+			    , CU.USER_TYPE          AS USER_TYPE
+			    , CU.USER_STTS          AS USER_STTS
+			    , CU.EML                AS EML
+			    , CU.APC_CD             AS APC_CD
+			    , CU.OGDP_NM            AS OGDP_NM
+			    , CU.CHRGD_CERT_YN      AS CHRGD_CERT_YN
+			    , CU.CHRGD_CERT_TYPE    AS CHRGD_CERT_TYPE
+			    , CU.LCK_YN             AS LCK_YN
+			    , CU.LGN_FAIL_NMTM      AS LGN_FAIL_NMTM
+			    , CU.END_LGN_DT         AS END_LGN_DT
+			    , CU.END_LGN_IP         AS END_LGN_IP
+			  FROM
+			      TB_COM_AUTH CA
+			  	, TB_COM_AUTH_USER AU
+			  	, TB_COM_USER CU
+			 WHERE CA.AUTHRT_ID = AU.AUTHRT_ID
+			   AND AU.USER_ID = CU.USER_ID
+			   AND CA.DEL_YN = 'N'
+			   AND AU.DEL_YN = 'N'
+			   AND CU.DEL_YN = 'N'
+			   AND CA.AUTHRT_ID = #{authrtId}
+			   AND AU.USER_ID = #{userId}
+    	]]>
+    </select>
+    
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtUserList	-->
 	<!-- DESC : 권한 사용자 목록 조회.                                             		-->
@@ -373,6 +414,15 @@
 	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectComAuthrtUserList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
     	<![CDATA[
 			SELECT /* com.at.apcss.co.authrt.ComAuthMapper.selectComAuthrtUserList */
 				  CA.AUTHRT_ID          AS AUTHRT_ID
@@ -382,7 +432,6 @@
 			    , CU.USER_TYPE          AS USER_TYPE
 			    , CU.USER_STTS          AS USER_STTS
 			    , CU.EML                AS EML
-			    , CU.MBL_TELNO          AS MBL_TELNO
 			    , CU.APC_CD             AS APC_CD
 			    , CU.OGDP_NM            AS OGDP_NM
 			    , CU.CHRGD_CERT_YN      AS CHRGD_CERT_YN
@@ -428,7 +477,14 @@
 		
     	<![CDATA[
     		 ORDER BY AUTHRT_ID, USER_ID, USER_NM
-    	]]>	
+    	]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
     </select>
     
     
@@ -690,7 +746,7 @@
 				, CA.AUTHRT_RMRK    AS AUTHRT_RMRK
 				, CA.APC_CD			AS APC_CD
 				, (SELECT FN_GET_COM_CD_VL_NM('AUTHRT_TYPE', CA.AUTHRT_TYPE) FROM DUAL) AS AUTHRT_TYPE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('APC_CD', CA.APC_CD) FROM DUAL) AS APC_NM				
+				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CA.APC_CD) AS APC_NM
     	]]>
 		<if test='sysId != null and sysId != ""'>
 				, #{sysId}			AS SYS_ID
@@ -704,4 +760,125 @@
 			   AND AU.USER_ID = #{userId}
     	]]>
     </select>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectAuthrtTrgtUserList	-->
+	<!-- DESC : 권한 등록 대상 사용자 목록 조회.                                             -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectAuthrtTrgtUserList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.authrt.ComAuthMapper.selectAuthrtTrgtUserList */
+				  CU.USER_ID            AS USER_ID
+			    , CU.USER_NM            AS USER_NM
+			    , CU.USER_TYPE          AS USER_TYPE
+			    , CU.USER_STTS          AS USER_STTS
+			    , CU.EML                AS EML
+			    , CU.APC_CD             AS APC_CD
+			    , CU.OGDP_NM            AS OGDP_NM
+			    , CU.CHRGD_CERT_YN      AS CHRGD_CERT_YN
+			    , CU.CHRGD_CERT_TYPE    AS CHRGD_CERT_TYPE
+			    , CU.LCK_YN             AS LCK_YN
+			    , CU.LGN_FAIL_NMTM      AS LGN_FAIL_NMTM
+			    , CU.END_LGN_DT         AS END_LGN_DT
+			    , CU.END_LGN_IP         AS END_LGN_IP
+				
+				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CU.APC_CD) AS APC_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('USER_TYPE', CU.USER_TYPE) FROM DUAL) AS USER_TYPE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('USER_STTS', CU.USER_STTS) FROM DUAL) AS USER_STTS_NM
+				
+				, #{authrtId}			AS AUTHRT_ID
+				
+			  FROM TB_COM_USER CU
+			 WHERE CU.DEL_YN = 'N'
+			   AND CU.USER_STTS = '01'
+			   AND NOT EXISTS (
+			   		SELECT 1
+			   		  FROM TB_COM_AUTH_USER X
+			   		 WHERE X.AUTHRT_ID = #{authrtId}
+			   		   AND X.USER_ID = CU.USER_ID
+			   		   AND X.DEL_YN = 'N'
+			   	)
+    	]]>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND CU.APC_CD = #{apcCd}
+		</if>
+		<if test='userNm != null and userNm != ""'>
+			   AND CU.USER_NM LIKE '%' || #{userNm} || '%'
+		</if>
+		
+    	<![CDATA[
+    		 ORDER BY USER_ID, USER_NM
+    	]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertComAuthrtUser	-->
+	<!-- DESC : 권한 사용자 등록.                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertComAuthrtUser" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO">
+    	<![CDATA[
+			INSERT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertComAuthrtUser */
+				INTO TB_COM_AUTH_USER (				
+					  AUTHRT_ID
+					, USER_ID    		  	
+	    		  	, SYS_FRST_INPT_DT
+	    		  	, SYS_FRST_INPT_USER_ID
+	    		  	, SYS_FRST_INPT_PRGRM_ID
+	    		  	, SYS_LAST_CHG_DT
+	    		  	, SYS_LAST_CHG_USER_ID
+	    		  	, SYS_LAST_CHG_PRGRM_ID
+				) VALUES (
+					  #{authrtId}
+					, #{userId}
+					, SYSDATE
+	   			  	, #{sysFrstInptUserId}
+	   			  	, #{sysFrstInptPrgrmId}
+	   			  	, SYSDATE
+	   			  	, #{sysLastChgUserId}
+	   			  	, #{sysLastChgPrgrmId}
+				)
+    	]]>
+    </insert>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrtUser	-->
+	<!-- DESC : 권한 사용자 삭제.                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteComAuthrtUser" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtUserVO">
+    	<![CDATA[
+			DELETE /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.deleteComAuthrtUser */
+	    		FROM TB_COM_AUTH_USER
+	    	 WHERE AUTHRT_ID = #{authrtId}
+	    	   AND USER_ID = #{userId}
+    	]]>
+    </delete>
+    
 </mapper>

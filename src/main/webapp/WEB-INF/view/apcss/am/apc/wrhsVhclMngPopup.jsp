@@ -8,13 +8,19 @@
 <body>
 	<section>
 		<div class="box box-solid">
-			<div class="box-header">
-				<div class="ad_tbl_top">
-					<div class="ad_tbl_toplist">
-						<sbux-button id="btnWrhsVhclSech" name="btnWrhsVhclSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectWrhsVhclList()"></sbux-button>
-						<sbux-button id="btnWrhsVhclReg" name="btnWrhsVhclReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertWrhsVhclList()"></sbux-button>
-						<sbux-button id="btnWrhsVhclEnd" name="btnWrhsVhclEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('wrhsVhclMngModal')"></sbux-button>
-					</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<p>
+						<span style="font-weight:bold;">원물입고 시 차량번호를 관리하는 경우 차량번호를 입력하세요.</span>
+					</p>
+					<p>
+						<span style="color:black; font-weight:bold">지역별 운임비용을 관리하는 경우 운임비용 기준정보를 등록하세요.</span>
+					</p>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnWrhsVhclSech" name="btnWrhsVhclSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectWrhsVhclList()"></sbux-button>
+					<sbux-button id="btnWrhsVhclReg" name="btnWrhsVhclReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertWrhsVhclList()"></sbux-button>
+					<sbux-button id="btnWrhsVhclEnd" name="btnWrhsVhclEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-wrhsVhcl')"></sbux-button>
 				</div>
 			</div>
 
@@ -23,11 +29,12 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 12%">
-						<col style="width: 24%">
-						<col style="width: 12%">
-						<col style="width: 24%">
-						<col style="width: auto">
+						<col style="width: 100px">
+						<col style="width: 200px">
+						<col style="width: 100px">
+						<col style="width: 200px">
+						<col style="width: 100px">
+						<col style="width: 200px">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -35,6 +42,7 @@
 							<th>
 								<sbux-input id=wrhsVhcl-inp-apcNm name="wrhsVhcl-inp-apcNm" uitype="text" class="form-control pull-right input-sm" disabled></sbux-input>
 							</th>
+							<th>&nbsp;</th>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
@@ -81,14 +89,14 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["차량번호"], 	ref: 'vhclNo',  type:'input',  width:'120px',    style:'text-align:center'},
+	        {caption: ["차량번호"], 	ref: 'vhclno',  type:'input',  width:'120px',    style:'text-align:center'},
 	        {caption: ["기사명"], 		ref: 'drvrNm',  type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'120px',    style:'text-align:center',
 	        			typeinfo : {ref:'comboGridBankCdJsData', label:'label', value:'value', displayui : true, unselect: {label : '입력', value: ''}}},
 	        {caption: ["계좌번호"], 	ref: 'actno',  	type:'input',  width:'180px',    style:'text-align:center'},
 	        {caption: ["예금주"], 		ref: 'dpstr',  	type:'input',  width:'80px',    style:'text-align:center'},
-	        {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'200px',    style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'delYn',   type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'280px',    style:'text-align:center'},
+	        {caption: ["처리"], 		ref: 'delYn',   type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"wrhsVhclMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
@@ -115,7 +123,7 @@
         try{
         	data.resultList.forEach((item, index) => {
 				let wrhsVhcl = {
-					vhclNo 	: item.vhclNo
+					vhclno 	: item.vhclno
 				  , drvrNm 	: item.drvrNm
 				  , bankCd 	: item.bankCd
 				  , actno 	: item.actno
@@ -153,12 +161,12 @@
             {caption: ["코드"], 			ref: 'trsprtRgnCd',  	type:'input',  width:'100px',     style:'text-align:center'},
             {caption: ["운송지역"], 		ref: 'trsprtRgnNm',  	type:'input',  width:'200px',    style:'text-align:center'},
             {caption: ["운송비용(원)"], 	ref: 'trsprtCst',  		type:'input',  width:'200px',    style:'text-align:right', format : {type:'number', rule:'#,### 원'} },
-            {caption: ["비고"], 			ref: 'rmrk',  			type:'input',  width:'300px',    style:'text-align:center'},
-            {caption: ["처리"], 			ref: 'delYn',   		type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            {caption: ["비고"], 			ref: 'rmrk',  			type:'input',  width:'360px',    style:'text-align:center'},
+            {caption: ["처리"], 			ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
-            		return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"rgnTrsprtCstMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"rgnTrsprtCstMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
             	}else{
-			        return "<button type='button' style='font-size: x-small;' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"rgnTrsprtCstMngDatagrid\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"rgnTrsprtCstMngDatagrid\", " + nRow + ")'>삭제</button>";
             	}
 		    }},
 		    {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}

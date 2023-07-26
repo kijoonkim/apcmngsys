@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
@@ -30,18 +30,18 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
+						<col style="width: 5%">
 						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
 						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 6%">
+						<col style="width: 2%">
+						<col style="width: 5%">
 						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
+						<col style="width: 2%">
+						<col style="width: 7%">
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 2%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -67,7 +67,7 @@
 							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" jsondata-ref="jsonItem" unselected-text="전체" class="form-control input-sm" onchange="fn_selectItem"></sbux-select>
+								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" jsondata-ref="jsonItem" unselected-text="전체" class="form-control input-sm" onchange="fn_selectItem" ></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;" >
 								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" jsondata-ref="jsonVrty" unselected-text="선택" class="form-control input-sm"></sbux-select>
@@ -226,7 +226,7 @@
         <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
-    	<jsp:include page="../..//am/popup/prdcrPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
 
     <!-- 차량 선택 Modal -->

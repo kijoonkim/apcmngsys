@@ -11,16 +11,16 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span style="font-weight:bold;">선택한 품목별로 APC에서 관리하는 등급과 규격을 등록하세요.</span>
+						<span style="font-weight:bold;">상품출하시 운용하고 있는 운송사 정보를 등록하세요.</span>
 					</p>
 					<p>
-						<span style="color:black; font-weight:bold;">등급 등록은 정산에 적용되는 정산기준 등급과 단가를 등록하세요.</span>
+						<span style="color:black; font-weight:bold;">출하처리 시 필요한 정보입니다.</span>
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchGrd" name="btnSearchGrd" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectGrdSpcfctList()"></sbux-button>
-					<sbux-button id="btnInsertGrd" name="btnInsertGrd" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertApcGrdList"></sbux-button>
-					<sbux-button id="btnEndGrd" name="btnEndGrd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-grdSpcfct')"></sbux-button>
+					<sbux-button id="btnSearchSmptPckgUnit" name="btnSearchGrd" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSmptPckgUnitList()"></sbux-button>
+					<sbux-button id="btnInsertSmptPckgUnit" name="btnInsertGrd" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSmptPckgUnit"></sbux-button>
+					<sbux-button id="btnEndSmptPckgUnit" name="btnEndGrd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-smptPckgUnit')"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -29,25 +29,29 @@
 					<table class="table table-bordered tbl_row tbl_fixed">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
-							<col style="width: 100px">
-							<col style="width: 200px">
-							<col style="width: 100px">
-							<col style="width: 200px">
-							<col style="width: 100px">
-							<col style="width: 200px">
+							<col style="width: 10%">
+							<col style="width: 20%">
+							<col style="width: 10%">
+							<col style="width: 20%">
+							<col style="width: 10%">
+							<col style="width: 20%">
+							<col style="width: auto">
 						</colgroup>
 						<tbody>
 							<tr>
 								<th scope="row">APC명</th>
 								<th>
-									<sbux-input id=spcfct-inp-apcNm name="spcfct-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+									<sbux-input id="smptPckgUnit-inp-apcNm" name="smptPckgUnit-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 								</th>
 								<th scope="row">품목명</th>
 								<th style="border-right-style: hidden;">
-									<sbux-select id="spcfct-select-itemCd" style="background-color:#ffffff;" name="spcfct-select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									<sbux-select id="smptPckgUnit-slt-itemCd" name="smptPckgUnit-slt-itemCd" uitype="single" jsondata-ref="jsonUnitItemCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 								</th>
-								<th>&nbsp;</th>
-								<th>&nbsp;</th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
 							</tr>
 						</tbody>
 					</table>
@@ -66,7 +70,7 @@
 							</ul>
 						</div>
 						<div>
-							<div id="sb-area-grdSpcfct" style="height:283px; width: 100%;"></div>
+							<div id="sb-area-grdSpcfct" style="height:159px; width: 100%;"></div>
 						</div>
 					</div>
 
@@ -78,7 +82,7 @@
 							</ul>
 						</div>
 						<div>
-							<div id="sb-area-grdApcSpcfct" style="height:283px; width: 100%;"></div>
+							<div id="sb-area-grdApcSpcfct" style="height:159px; width: 100%;"></div>
 						</div>
 					</div>
 					<div class="col-sm-4">
@@ -88,7 +92,7 @@
 							</ul>
 						</div>
 						<div>
-							<div id="sb-area-grdGrd" style="height:283px; width: 100%;"></div>
+							<div id="sb-area-grdSmptPckgUnit" style="height:159px; width: 100%;"></div>
 						</div>
 					</div>
 				</div>
@@ -99,30 +103,30 @@
 	</section>
 </body>
 <script type="text/javascript">
-	var jsonComItemCd = [];
+	var jsonUnitItemCd = [];
 
-	var jsonGrd = [];
+	var jsonSmptPckgUnit = [];
 	var jsonSpcfct = [];
 	var jsonApcSpcfct = [];
 
-	const fn_initSBSelectItem = async function() {
+	/* const fn_initSBSelectItem = async function() {
 		gfn_setApcItemSBSelect("spcfct-select-itemCd", jsonComItemCd, SBUxMethod.get("inp-apcCd"));
-	}
-	function fn_createGrdGrid() {
+	} */
+	function fn_createSmptPckgUnitGrid() {
 
-		SBUxMethod.set("spcfct-inp-apcNm", SBUxMethod.get("inp-apcNm"));
+		SBUxMethod.set("smptPckgUnit-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
-   		 var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdGrd';
-	    SBGridProperties.id = 'grdGrd';
+   		var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdSmptPckgUnit';
+	    SBGridProperties.id = 'grdSmptPckgUnit';
 	    SBGridProperties.jsonref = 'jsonGrd';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
 	        {caption: ["코드"],     	ref: 'grdCd',  type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     	ref: 'grdNm',  type:'input',  width:'130px',    style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["명칭"],     	ref: 'grdNm',  type:'input',  width:'150px',    style:'text-align:center'},
+	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdGrd\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
