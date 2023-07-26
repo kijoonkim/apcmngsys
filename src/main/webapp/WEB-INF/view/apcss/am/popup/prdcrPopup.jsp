@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header">
 				<div class="ad_tbl_top">
@@ -150,7 +150,6 @@
 			});
         	jsonPrdcr = newJsonPrdcr;
         	grdPrdcr.rebuild();
-        	grdPrdcr.addRow(true);
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

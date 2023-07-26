@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
@@ -210,12 +210,12 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 8%">
 						<col style="width: 7%">
+						<col style="width: 3%">
+						<col style="width: 9%">
+						<col style="width: 9%">
+						<col style="width: 9%">
 						<col style="width: 18%">
-						<col style="width: 18%">
-						<col style="width: 18%">
-						<col style="width: auto">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -240,6 +240,7 @@
 									<sbux-checkbox id="wghIdntyDocPblcnYn" name="wghIdntyDocPblcnYn" uitype="normal" text="계량확인서 발행" ></sbux-checkbox>
 								</p>
 							</td>
+							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 						</tr>
 						<tr>
@@ -293,6 +294,7 @@
 							</td>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
+							<td>&nbsp;</td>
 						</tr>
 						<tr>
 							<th>포장지시 관리</th>
@@ -306,6 +308,7 @@
 									<sbux-checkbox id="pckgCmndDocPblcnYn" name="pckgCmndDocPblcnYn" uitype="normal" text="포장지시서 발행"></sbux-checkbox>
 								</p>
 							</td>
+							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 						</tr>
@@ -330,6 +333,7 @@
 									<sbux-checkbox id="sortIdntyDocPblcnYn" name="sortIdntyDocPblcnYn" uitype="normal" text="선별확인서 발행" checked readonly></sbux-checkbox>
 								</p>
 							</td>
+							<td>&nbsp;</td>
 						</tr>
 						<tr>
 							<th>포장 관리</th>
@@ -349,6 +353,7 @@
 								</p>
 							</td>
 							<td>&nbsp;</td>
+							<td>&nbsp;</td>
 						</tr>
 						<tr>
 							<th>출하지시 관리</th>
@@ -362,6 +367,7 @@
 									<sbux-checkbox id="spmtCmndDocPblcnYn" name="spmtCmndDocPblcnYn" uitype="normal" text="출하지시서 발행"></sbux-checkbox>
 								</p>
 							</td>
+							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 						</tr>
@@ -386,6 +392,7 @@
 									<sbux-checkbox id="invntrTrnsfYn" name="invntrTrnsfYn" uitype="normal" text="재고이송"></sbux-checkbox>
 								</p>
 							</td>
+							<td>&nbsp;</td>
 						</tr>
 						<tr>
 							<th>정산 관리</th>
@@ -397,6 +404,7 @@
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
+							<td>&nbsp;</td>
 						</tr>
 						<tr>
 							<th>발주정보 관리</th>
@@ -405,6 +413,7 @@
 									<sbux-checkbox id="ordrMngYn" name="ordrMngYn" uitype="normal" text="사용"></sbux-checkbox>
 								</p>
 							</td>
+							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
@@ -427,6 +436,7 @@
 								</p>
 							</td>
 							<td>&nbsp;</td>
+							<td>&nbsp;</td>
 						</tr>
 						<tr>
 							<th>생산작업자 관리</th>
@@ -435,10 +445,9 @@
 									<sbux-checkbox id="oprtrUseYn" name="oprtrUseYn" uitype="normal" text="사용"></sbux-checkbox>
 								</p>
 							</td>
-							<td>
-							</td>
-							<td>
-							</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 						</tr>
 					</tbody>
@@ -548,8 +557,7 @@
 
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		//SBUxMethod.set("apcCd", gv_apcCd);
-		SBUxMethod.set("inp-apcCd", "9999");
+		SBUxMethod.set("inp-apcCd", gv_apcCd);
 		selectApcInfo();
 		fn_initSBSelect();
 	})
