@@ -10,19 +10,19 @@
 	<div class="box-header">
 		<div class="ad_tbl_top">
 			<div class="ad_tbl_toplist">
-				<sbux-button id="btnInsertSimpleStng" name="btnInsertSimpleStng" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertApcVrtyList"></sbux-button>
+				<sbux-button id="btnInsertSimpleStng" name="btnInsertSimpleStng" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSimpleStng"></sbux-button>
 				<sbux-button id="btnEndSimpleStng" name="btnEndSimpleStng" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-simpleStng')"></sbux-button>
 			</div>
 		</div>
 	</div>
    <div class="case_b">
       <div class="case_in">
-         <p><sbux-radio uitype="normal" id="simpleCase1" name="simpleCase" value="case1" text="case 1"></sbux-radio></p>
+         <p><sbux-radio uitype="normal" id="simpleCase1" name="simpleCase" value="CASE_01" text="case 1"></sbux-radio></p>
          <div class="in">
             <ul>
                <li class="blue1_b">
                		<sbux-label id="label-wgh-1" name="label-wgh-1" uitype="normal" text="계량" popover-html="true" popover-placement="bottom"
-               		sbux-popover="차량 계근대가 있는 경우<br>원물 입고시 계근대를 통해 입고중량을<br>관리 합니다"></sbux-label>
+               		></sbux-label>
                	</li>
                <li class="line">&nbsp;</li>
                <li class="wh_b">
@@ -58,10 +58,10 @@
          </div>
       </div>
       <div class="case_in">
-         <p><sbux-radio uitype="normal" id="simpleCase2" name="simpleCase" value="2" text="case 2"></sbux-radio></p>
+         <p><sbux-radio uitype="normal" id="simpleCase2" name="simpleCase" value="CASE_02" text="case 2"></sbux-radio></p>
          <div class="in">
             <ul>
-               <li class="blue1_b"><sbux-label id="123" name="123" uitype="normal" text="계량" toltip="아무개"></sbux-label></li>
+               <li class="blue1_b"><span>계량</span></li>
                <li class="line"><span>&nbsp;</span></li>
                <li class="wh_b"><span>선별지시</span></li>
                <li class="wh_b"><span>선별투입</span></li>
@@ -76,7 +76,7 @@
          </div>
       </div>
       <div class="case_in">
-         <p><sbux-radio uitype="normal" id="simpleCase3"  name="simpleCase" value="3" text="case 3"></sbux-radio></p>
+         <p><sbux-radio uitype="normal" id="simpleCase3"  name="simpleCase" value="CASE_03" text="case 3"></sbux-radio></p>
          <div class="in">
             <ul>
                <li class="blue1_b"><span>계량</span></li>
@@ -94,7 +94,7 @@
          </div>
       </div>
       <div class="case_in">
-         <p><sbux-radio uitype="normal" id="simpleCase4" name="simpleCase" value="4" text="case 4"></sbux-radio></p>
+         <p><sbux-radio uitype="normal" id="simpleCase4" name="simpleCase" value="CASE_04" text="case 4"></sbux-radio></p>
          <div class="in">
             <ul>
                <li class="blue1_b"><span>계량</span></li>
@@ -112,7 +112,7 @@
          </div>
       </div>
       <div class="case_in">
-         <p><sbux-radio uitype="normal" id="simpleCase5" name="simpleCase" value="5" text="case 5"></sbux-radio></p>
+         <p><sbux-radio uitype="normal" id="simpleCase5" name="simpleCase" value="CASE_05" text="case 5"></sbux-radio></p>
          <div class="in">
             <ul>
                <li class="blue1_b"><span>계량</span></li>
@@ -129,7 +129,7 @@
          </div>
       </div>
       <div class="case_in">
-         <p><sbux-radio uitype="normal" id="simpleCase6" name="simpleCase" value="6" text="case 6"></sbux-radio></p>
+         <p><sbux-radio uitype="normal" id="simpleCase6" name="simpleCase" value="CASE_06" text="case 6"></sbux-radio></p>
          <div class="in">
             <ul>
                <li class="noline">&nbsp;</li>
@@ -149,7 +149,7 @@
          </div>
       </div>
       <div class="case_in">
-         <p><sbux-radio uitype="normal" id="simpleCase7" name="simpleCase" value="7" text="case 7"></sbux-radio></p>
+         <p><sbux-radio uitype="normal" id="simpleCase7" name="simpleCase" value="CASE_07" text="case 7"></sbux-radio></p>
          <div class="in">
             <ul>
                <li class="noline">&nbsp;</li>
@@ -167,7 +167,7 @@
          </div>
       </div>
       <div class="case_in">
-         <p><sbux-radio uitype="normal" id="simpleCase8" name="simpleCase" value="8" text="case 8"></sbux-radio></p>
+         <p><sbux-radio uitype="normal" id="simpleCase8" name="simpleCase" value="CASE_08" text="case 8"></sbux-radio></p>
          <div class="in">
             <ul>
                <li class="noline">&nbsp;</li>
@@ -185,7 +185,7 @@
          </div>
       </div>
       <div class="case_in">
-         <p><sbux-radio uitype="normal" id="simpleCase9" name="simpleCase" value="9" text="case 9"></sbux-radio></p>
+         <p><sbux-radio uitype="normal" id="simpleCase9" name="simpleCase" value="CASE_09" text="case 9"></sbux-radio></p>
          <div class="in">
             <ul>
                <li class="noline">&nbsp;</li>
@@ -203,7 +203,7 @@
          </div>
       </div>
       <div class="case_in">
-         <p><sbux-radio uitype="normal" id="simpleCase10" name="simpleCase" value="10" text="case 10"></sbux-radio></p>
+         <p><sbux-radio uitype="normal" id="simpleCase10" name="simpleCase" value="CASE_10" text="case 10"></sbux-radio></p>
          <div class="in">
             <ul>
                <li class="noline">&nbsp;</li>
@@ -221,4 +221,25 @@
       </div>
    </div>
 </body>
+
+<script type="text/javascript">
+	async function fn_insertSimpleStng(){
+		let authrtCaseId = SBUxMethod.get('simpleCase');
+		let postJsonPromise = gfn_postJSON("/co/authrt/insertApcSimpleAuthrt.do", {apcCd : gv_apcCd, authrtCaseId : authrtCaseId});
+    	let data = await postJsonPromise;
+    	try{
+    		if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        	} else {
+        		//alert(data.resultMessage);
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+    	}catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+</script>
 </html>
