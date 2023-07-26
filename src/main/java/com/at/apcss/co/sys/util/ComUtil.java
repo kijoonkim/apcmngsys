@@ -14,4 +14,15 @@ public class ComUtil {
 		
 		return resultMap;
 	}
+	
+	public static final HashMap<String, Object> getResultMap(String errorCode, String errorMessages) {
+		
+		HashMap<String, Object> resultMap = new HashMap<>();
+		resultMap.put(ComConstants.PROP_RESULT_CODE, errorCode);
+		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, errorMessages);
+		
+		return resultMap;
+	}
+	
+	
 }
