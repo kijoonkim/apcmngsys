@@ -131,7 +131,6 @@
 			});
         	jsonVhcl = newJsonVhcl;
         	grdVhcl.rebuild();
-        	grdVhcl.addRow(true);
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

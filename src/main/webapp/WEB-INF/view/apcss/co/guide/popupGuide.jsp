@@ -159,7 +159,7 @@
 
     <!-- 원물운임비용등록 Modal -->
     <div>
-        <sbux-modal id="modal-trsprtCst" name="modal-trsprtCst" uitype="middle" header-title="원물운임비용등록" body-html-id="body-modal-trsprtCst" footer-is-close-button="false" style="width:1400px"></sbux-modal>
+        <sbux-modal id="modal-trsprtCst" name="modal-trsprtCst" uitype="middle" header-title="원물운임비용등록" body-html-id="body-modal-trsprtCst" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-trsprtCst">
     	<jsp:include page="../../am/popup/trsprtCstPopup.jsp"></jsp:include>

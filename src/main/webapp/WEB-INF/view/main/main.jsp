@@ -435,7 +435,9 @@
         }
 
         //LEFT MENU
-        fn_setLeftMenu(topMenuNo, menuId);
+        if($('#idxSide_menu')[0].style.width != '0px'){
+	        fn_setLeftMenu(topMenuNo, menuId); // 2023-07-26 추가
+        }
 
         fn_setBreadcrumbs(menuId, tabObj.text);
 

@@ -9,12 +9,18 @@
 	<section>
 		<div class="row">
 			<div class="box box-solid">
-				<div class="box-header">
-					<div class="ad_tbl_top">
-						<div class="ad_tbl_toplist">
+				<div class="box-header" style="display:flex; justify-content: flex-start;" >
+					<div>
+						<p>
+							<span>APC에서 관리하고 있는 팔레트와 박스의 종류 및 기초 재고수량을 등록하세요.</span>
+						</p>
+						<p>
+							<span style="color:black">계근대를 사용하는 경우는 단중을 입력해야 합니다.</span>
+						</p>
+					</div>
+					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchPltBx" name="btnSearchPltBx" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertPltBxList"></sbux-button>
-						<sbux-button id="btnEndPltBx" name="btnEndPltBx" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('pltBxMngModal')"></sbux-button>
-						</div>
+						<sbux-button id="btnEndPltBx" name="btnEndPltBx" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-pltBx')"></sbux-button>
 					</div>
 				</div>
 				<div class="box-body">
@@ -22,11 +28,12 @@
 					<table class="table table-bordered tbl_row tbl_fixed">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
-							<col style="width: 12%">
-							<col style="width: 24%">
-							<col style="width: 12%">
-							<col style="width: 24%">
-							<col style="width: auto">
+							<col style="width: 100px">
+							<col style="width: 200px">
+							<col style="width: 100px">
+							<col style="width: 200px">
+							<col style="width: 100px">
+							<col style="width: 200px">
 						</colgroup>
 						<tbody>
 							<tr>
@@ -34,6 +41,7 @@
 								<th>
 									<sbux-input id=pltBx-inp-apcNm name="pltBx-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 								</th>
+								<th>&nbsp;</th>
 								<th>&nbsp;</th>
 								<th>&nbsp;</th>
 								<th>&nbsp;</th>
@@ -84,7 +92,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	        {caption: ["팔레트 정보","코드"], 			ref: 'pltBxCd',  		type:'output',  width:'100px',     style:'text-align:center'},
-	        {caption: ["팔레트 정보","팔레트 명"], 		ref: 'pltBxNm',  		type:'input',  width:'250px',    style:'text-align:center'},
+	        {caption: ["팔레트 정보","팔레트 명"], 		ref: 'pltBxNm',  		type:'input',  width:'300px',    style:'text-align:center'},
 	        {caption: ["팔레트 정보","단중"], 			ref: 'unitWght',   		type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["팔레트 정보","단위"], 			ref: 'unitCd',   		type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'comboUnitCdJsData', label:'label', value:'value', displayui : true}},
@@ -122,7 +130,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	        {caption: ["박스 정보","코드"], 		ref: 'pltBxCd',  		type:'output',  width:'100px',     style:'text-align:center'},
-	        {caption: ["박스 정보","박스 명"], 		ref: 'pltBxNm',  		type:'input',  width:'250px',    style:'text-align:center'},
+	        {caption: ["박스 정보","박스 명"], 		ref: 'pltBxNm',  		type:'input',  width:'300px',    style:'text-align:center'},
 	        {caption: ["박스 정보","단중"], 		ref: 'unitWght',   		type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["박스 정보","단위"], 		ref: 'unitCd',   		type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'comboUnitCdJsData', label:'label', value:'value', displayui : true}},
@@ -152,7 +160,7 @@
         let newJsonPltBx = [];
         try{
         	data.resultList.forEach((item, index) => {
-				let pltbxList = {
+				let pltBxVO = {
 				    pltBxCd 		: item.pltBxCd
 				  , pltBxNm 		: item.pltBxNm
 				  , unitWght 		: item.unitWght
@@ -163,7 +171,7 @@
 				  , pltBxSeCd 		: item.pltBxSeCd
 				  , apcCd 			: item.apcCd
 				}
-				newJsonPltBx.push(pltbxList);
+				newJsonPltBx.push(pltBxVO);
 			});
         	if(pltBxSeCd === "P"){
         		jsonPlt = newJsonPltBx;
@@ -198,7 +206,7 @@
 	    SBGridProperties.columns = [
 	        {caption: ["코드"], 				ref: 'cdVl',  		type:'output',  hidden : true},
 	        {caption: ["출하 포장단위 명"], 	ref: 'cdVlNm',  	type:'input',  width:'350px',    style:'text-align:center'},
-	        {caption: ["비고"], 				ref: 'cdVlExpln',   type:'input',  width:'350px',    style:'text-align:center'},
+	        {caption: ["비고"], 				ref: 'cdVlExpln',   type:'input',  width:'400px',    style:'text-align:center'},
 	        {caption: ["사용유무"], 			ref: 'delYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
 						typeinfo : {ref:'comboReverseYnJsData', 	label:'label', value:'value', displayui : true}},
 			{caption: ["처리"], 				ref: 'delYn',   	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {

@@ -8,28 +8,24 @@
 <body>
 	<section>
 	<div class="box box-solid">
-		<div class="box-header">
-			<div class="ad_tbl_top">
-				<div class="ad_tbl_toplist">
-					<sbux-button id="btnUserSech" name="btnUserSach" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectUserList()"></sbux-button>
-					<sbux-button id="btnUserReg" name="btnUserReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_updataUserList"></sbux-button>
-					<sbux-button id="btnUserEnd" name="btnUserEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('userAuthMngModal')"></sbux-button>
-				</div>
+		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+			<div style="margin-left: auto;">
+				<sbux-button id="btnUserSech" name="btnUserSach" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectUserList()"></sbux-button>
+				<sbux-button id="btnUserReg" name="btnUserReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_updataUserList"></sbux-button>
+				<sbux-button id="btnUserEnd" name="btnUserEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-userAuth')"></sbux-button>
 			</div>
 		</div>
-
 		<div class="box-body">
 			<!--[pp] 검색 -->
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
-					<col style="width: 10%">
-					<col style="width: 20%">
-					<col style="width: 10%">
-					<col style="width: 20%">
-					<col style="width: 10%">
-					<col style="width: 20%">
-					<col style="width: auto">
+					<col style="width: 100px">
+					<col style="width: 200px">
+					<col style="width: 100px">
+					<col style="width: 200px">
+					<col style="width: 100px">
+					<col style="width: 200px">
 				</colgroup>
 				<tbody>
 					<tr>
@@ -41,7 +37,6 @@
 						<th>
 							<sbux-input id=userAuthUserNm name="userAuthUserNm" uitype="text" class="form-control input-sm"></sbux-input>
 						</th>
-						<th>&nbsp;</th>
 						<th>&nbsp;</th>
 						<th>&nbsp;</th>
 					</tr>

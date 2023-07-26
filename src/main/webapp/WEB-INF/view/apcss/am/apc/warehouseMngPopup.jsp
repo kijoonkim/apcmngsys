@@ -13,7 +13,7 @@
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSearchWarehouse" name="btnSearchWarehouse" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectWarehouseList"></sbux-button>
 						<sbux-button id="btnInsertWarehouse" name="btnInsertWarehouse" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertWarehouseList"></sbux-button>
-						<sbux-button id="btnEndWarehouse" name="btnEndWarehouse" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('warehouseMngModal')"></sbux-button>
+						<sbux-button id="btnEndWarehouse" name="btnEndWarehouse" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-warehouse')"></sbux-button>
 					</div>
 				</div>
 			</div>
@@ -23,9 +23,10 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 15.5%">
-						<col style="width: 31%">
-						<col style="width: auto">
+						<col style="width: 100px">
+						<col style="width: 200px">
+						<col style="width: 100px">
+						<col style="width: 200px">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -33,6 +34,7 @@
 							<th>
 								<sbux-input id=warehouse-inp-apcNm name="warehouse-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</th>
+							<th>&nbsp;</th>
 							<th>&nbsp;</th>
 						</tr>
 					</tbody>
@@ -68,8 +70,8 @@
 	    SBGridProperties.columns = [
 	        {caption: ["창고 코드"], 	ref: 'cdVl',  			type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["창고 명"], 		ref: 'cdVlNm',   		type:'input',  width:'200px',    style:'text-align:center'},
-	        {caption: ["비고"], 		ref: 'cdVlExpln',   	type:'input',  width:'250px',    style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'delYn',   		type:'button', width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        {caption: ["비고"], 		ref: 'cdVlExpln',   	type:'input',  width:'350px',    style:'text-align:center'},
+	        {caption: ["처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdWarehouse\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{

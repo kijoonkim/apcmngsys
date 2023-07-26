@@ -138,7 +138,7 @@ body {
   /*background: url(../images/sub/tem-icon-14.png);*/
 }
 .sbt-input-tab .tab-content {
-  padding: 10px !important;
+  padding: 10px;
 }
 .sbt-input-tab,
 .sbt-tab-wrap,
