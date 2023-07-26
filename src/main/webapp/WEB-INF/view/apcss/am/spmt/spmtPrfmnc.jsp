@@ -11,16 +11,16 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
-			<div>
-				<h3 class="box-title" style="line-height: 30px;"> ▶ 출하실적조회</h3>
+	<section>
+		<div class="box box-solid">
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title" style="line-height: 30px;"> ▶ 출하실적조회</h3>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
+				</div>
 			</div>
-			<div style="margin-left: auto;">
-				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
-			</div>
-		</div>
 		<div class="box-body">
 			<!--[pp] 검색 -->
 			<div>
@@ -113,7 +113,7 @@
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-spmtDsctn" style="height:300px;"></div>
 				</div>
-				
+
 			</div>
 			<!--[pp] //검색결과 -->
 		</div>

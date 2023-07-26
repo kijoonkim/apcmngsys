@@ -11,10 +11,10 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span>APC에서 관리하고 있는 품목과 품종을 선택하세요.(여러가지 품목과 품종을 관리할 수 있습니다.)</span>
+						<span style="font-weight:bold;">APC에서 관리하고 있는 품목과 품종을 선택하세요.(여러가지 품목과 품종을 관리할 수 있습니다.)</span>
 					</p>
 					<p>
-						<span style="color:black">품목은 농심품부 표준코드를 준수하며, 품종은 APC별 사용자 정의로 등록할 수 있습니다.</span>
+						<span style="color:black; font-weight:bold;">품목은 농식품부 표준코드를 준수하며, 품종은 APC별 사용자 정의로 등록할 수 있습니다.</span>
 					</p>
 				</div>
 				<div style="margin-left: auto;">

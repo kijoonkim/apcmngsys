@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
@@ -60,13 +60,13 @@
 								<sbux-datepicker id="srch-dtp-EndPrdctnYmd" name="srch-dtp-EndPrdctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input"></td>
-							
+
 							<th scope="row">창고구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-warehouseSe" name="srch-slt-warehouseSe" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input"></td>
-						
+
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
@@ -102,14 +102,14 @@
 								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td style="border-right: hidden;">
-								
+
 							</td>
 						</tr>
 					</tbody>
 				</table>
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-				
+
 				<div class="table-responsive tbl_scroll_sm">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -122,9 +122,9 @@
 						<div id="sb-area-spmtTrgtDsctn" style="height:300px;"></div>
 					</div>
 				</div>
-					
+
 				<div class="ad_tbl_top"></div>
-					
+
 				<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
@@ -170,13 +170,13 @@
 							<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
 						</td>
 						<td class="td_input"></td>
-						
+
 						<th scope="row">상품등급</th>
 						<td class="td_input" style="border-right: hidden;">
 							<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 						</td>
 						<td colspan="2" class="td_input"></td>
-					
+
 						<th scope="row">출하수량</th>
 						<td class="td_input" style="border-right: hidden;">
 							<sbux-input id="srch-inp-smptQntt" name="srch-inp-smptQntt" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
@@ -218,9 +218,9 @@
 					</tr>
 				</tbody>
 			</table>
-				
-				
-				
+
+
+
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>출하 내역</span></li>
@@ -280,7 +280,7 @@
             {caption: ['출하','수량'], 			ref: 'rdcdWght', 	width: '15%', type: 'output'},
             {caption: ['출하','중량'], 			ref: 'actlWght', 	width: '15%', type: 'output'}
         ];
-        
+
         var SBGridProperties2 = {};
 	    SBGridProperties2.parentid = 'sb-area-spmtTrgtDsctn2';
 	    SBGridProperties2.id = 'grdWghPrfmnc2';

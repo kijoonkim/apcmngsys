@@ -8,14 +8,19 @@
 <body>
 	<section>
 		<div class="box box-solid">
-			<div class="box-header">
-				<div class="ad_tbl_top">
-					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSearchGrd" name="btnSearchGrd" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectGrdSpcfctList()"></sbux-button>
-						<sbux-button id="btnInsertGrd" name="btnInsertGrd" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertApcGrdList"></sbux-button>
-						<sbux-button id="btnEndGrd" name="btnEndGrd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('grdSpcfctMngModal')"></sbux-button>
-
-					</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<p>
+						<span style="font-weight:bold;">상품출하시 운용하고 있는 운송사 정보를 등록하세요.</span>
+					</p>
+					<p>
+						<span style="color:black; font-weight:bold;">출하처리 시 필요한 정보입니다.</span>
+					</p>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSearchSmptPckgUnit" name="btnSearchGrd" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSmptPckgUnitList()"></sbux-button>
+					<sbux-button id="btnInsertSmptPckgUnit" name="btnInsertGrd" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSmptPckgUnit"></sbux-button>
+					<sbux-button id="btnEndSmptPckgUnit" name="btnEndGrd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-smptPckgUnit')"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -36,11 +41,11 @@
 							<tr>
 								<th scope="row">APC명</th>
 								<th>
-									<sbux-input id=spcfct-inp-apcNm name="spcfct-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+									<sbux-input id="smptPckgUnit-inp-apcNm" name="smptPckgUnit-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 								</th>
 								<th scope="row">품목명</th>
 								<th style="border-right-style: hidden;">
-									<sbux-select id="spcfct-select-itemCd" name="spcfct-select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									<sbux-select id="smptPckgUnit-slt-itemCd" name="smptPckgUnit-slt-itemCd" uitype="single" jsondata-ref="jsonUnitItemCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 								</th>
 								<th></th>
 								<th></th>
@@ -87,7 +92,7 @@
 							</ul>
 						</div>
 						<div>
-							<div id="sb-area-grdGrd" style="height:159px; width: 100%;"></div>
+							<div id="sb-area-grdSmptPckgUnit" style="height:159px; width: 100%;"></div>
 						</div>
 					</div>
 				</div>
@@ -98,22 +103,22 @@
 	</section>
 </body>
 <script type="text/javascript">
-	var jsonComItemCd = [];
+	var jsonUnitItemCd = [];
 
-	var jsonGrd = [];
+	var jsonSmptPckgUnit = [];
 	var jsonSpcfct = [];
 	var jsonApcSpcfct = [];
 
 	/* const fn_initSBSelectItem = async function() {
 		gfn_setApcItemSBSelect("spcfct-select-itemCd", jsonComItemCd, SBUxMethod.get("inp-apcCd"));
 	} */
-	function fn_createGrdGrid() {
+	function fn_createSmptPckgUnitGrid() {
 
-		SBUxMethod.set("spcfct-inp-apcNm", SBUxMethod.get("inp-apcNm"));
+		SBUxMethod.set("smptPckgUnit-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
    		var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdGrd';
-	    SBGridProperties.id = 'grdGrd';
+	    SBGridProperties.parentid = 'sb-area-grdSmptPckgUnit';
+	    SBGridProperties.id = 'grdSmptPckgUnit';
 	    SBGridProperties.jsonref = 'jsonGrd';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';

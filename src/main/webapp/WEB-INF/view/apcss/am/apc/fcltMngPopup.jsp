@@ -8,16 +8,21 @@
 <body>
 	<section>
 		<div class="box box-solid">
-			<div class="box-header">
-				<div class="ad_tbl_top">
-					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectFcltList()"></sbux-button>
-						<sbux-button id="btnInsertFclt" name="btnInsertFclt" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertFcltList"></sbux-button>
-						<sbux-button id="btnEndFclt" name="btnEndFclt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-fclt')"></sbux-button>
-					</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<p>
+						<span style="font-weight:bold;">APC에서 운영하고 있는 선별기와 포장기를 등록하세요.</span>
+					</p>
+					<p>
+						<span style="color:black; font-weight:bold;">설비가 없는 APC는 설비명을 "수작업" 으로 등록해야합니다.</span>
+					</p>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectFcltList()"></sbux-button>
+					<sbux-button id="btnInsertFclt" name="btnInsertFclt" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertFcltList"></sbux-button>
+					<sbux-button id="btnEndFclt" name="btnEndFclt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-fclt')"></sbux-button>
 				</div>
 			</div>
-
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -91,7 +96,7 @@
 
 
 	async function fn_callSelectFcltList(){
-		let apcCd = SBUxMethod.get("apcCd");
+		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {apcCd : apcCd, cdId : 'FCLT_CD'});
         let data = await postJsonPromise;
         let newJsonFclt = [];

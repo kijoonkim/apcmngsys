@@ -11,10 +11,10 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span>상품 출하시 관리하고 있는 거래처 정보를 등록하세요.</span>
+						<span style="font-weight:bold;">상품 출하시 관리하고 있는 거래처 정보를 등록하세요.</span>
 					</p>
 					<p>
-						<span style="color:black">대형마트 발주서 접수관리는 발주정보를 자동으로 수집하기 위한 입력정보 입니다.</span>
+						<span style="color:black; font-weight:bold;">대형마트 발주서 접수관리는 발주정보를 자동으로 수집하기 위한 입력정보 입니다.</span>
 					</p>
 				</div>
 				<div style="margin-left: auto;">
@@ -145,12 +145,12 @@
 
 
     var ordrMngGridData = [
-    	{"martNm": "이마트", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
-    	{"martNm": "노브랜드", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
-    	{"martNm": "트레이더스", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
-    	{"martNm": "GS리테일(슈파)", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
-    	{"martNm": "홈플러스", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
-    	{"martNm": "에브리데이", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
+    	{"martNm": "이마트", "ordrUrl" : "https://supply.nonghyup.com", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
+    	{"martNm": "노브랜드", "ordrUrl" : "https://supply.nonghyup.com", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
+    	{"martNm": "트레이더스", "ordrUrl" : "https://supply.nonghyup.com", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
+    	{"martNm": "GS리테일(슈파)", "ordrUrl" : "http://gs.escm21.net", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
+    	{"martNm": "홈플러스", "ordrUrl" : "https://activescm.co.kr/Homeplus/welcome.do", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
+    	{"martNm": "에브리데이", "ordrUrl" : "https://supply.nonghyup.com", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
     	{"martNm": "SSG", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
     ]; // 그리드의 참조 데이터 주소 선언
 
