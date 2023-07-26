@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
@@ -22,7 +22,7 @@
 					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
 				</div>
 			</div>
-			
+
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -48,6 +48,7 @@
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" disabled/>
 							</td>
 						</tr>
+						<tr>
 							<th scope="row" style="border-right:hidden ;">지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-startCmndDate" name="srch-dtp-strtCmndYmd" class="form-control pull-right input-sm"/>
@@ -99,22 +100,21 @@
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>지시 내역</span></li>
-						</ul>
-					</div>
-					<div class="sbt-wrap-body">
-						<div class="sbt-grid">
-							<div id="inptCmndDsctnGridArea" style="height:340px;"></div>
-						</div>
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>지시 내역</span></li>
+					</ul>
+				</div>
+				<div class="sbt-wrap-body">
+					<div class="sbt-grid">
+						<div id="inptCmndDsctnGridArea" style="height:450px;"></div>
 					</div>
 				</div>
-				<!--[pp] //검색결과 -->
 			</div>
+				<!--[pp] //검색결과 -->
 		</div>
 	</section>
-	
+
     <!-- 거래처 선택 Modal -->
     <div>
         <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -125,11 +125,11 @@
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
-	
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid2();
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
@@ -141,7 +141,7 @@
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = ["test"]; // 그리드의 참조 데이터 주소 선언
-	
+
 	function fn_createGrid2() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
@@ -174,11 +174,11 @@
 	        {caption: ["실적","수량"],		ref: 'msgKey',      type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["실적","중량"],		ref: 'msgKey',      type:'output',  width:'90px',    style:'text-align:center'},
 	    ];
-	    
+
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
-	
+
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}

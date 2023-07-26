@@ -209,7 +209,7 @@
 	}
 
 
-	async function fn_procRow(type, id, i){
+	/* async function fn_procRow(type, id, i){
 		if(id == "wrhsVhclMngDatagrid"){
 			if (type == "ADD"){
 				wrhsVhclMngGridData[i-1].delYn = "N";
@@ -228,7 +228,7 @@
 				rgnTrsprtCstMngDatagrid.deleteRow(i);
 			}
 		}
-	}
+	} */
 
 	async function fn_insertWrhsVhclList(){
 		for(var i=0; i<wrhsVhclMngGridData.length; i++){

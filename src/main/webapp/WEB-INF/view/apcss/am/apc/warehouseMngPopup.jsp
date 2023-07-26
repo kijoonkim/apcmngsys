@@ -14,7 +14,7 @@
 						<span style="font-weight:bold;">APC에서 운영하고 있는 창고를 등록하세요.</span>
 					</p>
 					<p>
-						<span style="color:black; font-weight:bold;">창고명은 입고, 선별, 포장 후 재고관기를 위한 위치정보로 사용됩니다.</span>
+						<span style="color:black; font-weight:bold;">창고명은 입고, 선별, 포장 후 재고관리를 위한 위치정보로 사용됩니다.</span>
 					</p>
 				</div>
 				<div style="margin-left: auto;">
