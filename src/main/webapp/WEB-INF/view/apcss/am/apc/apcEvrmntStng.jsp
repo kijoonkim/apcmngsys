@@ -792,7 +792,7 @@
             			grdPlt.deleteRow(nRow);
             		}
             	}else{
-            		pltMngDatagrid.deleteRow(nRow);
+            		grdPlt.deleteRow(nRow);
             	}
             }else if (grid === "grdBx") {
             	if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){
