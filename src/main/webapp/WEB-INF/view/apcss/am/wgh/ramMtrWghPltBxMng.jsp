@@ -14,85 +14,85 @@
 <body>
 
 <!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
-	<section class="content container-fluid">
-					<div class="box box-solid">
-						<div class="box-header" style="display:flex; justify-content: flex-start;">
-							<div>
-								<h3 class="box-title">▶ 원물입고 팔레트/박스 관리</h3>
-							</div>
-							<div style="margin-left: auto;">
-								<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
-								<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
-							</div>
-						</div>
-						<div class="box-body">
-							<table class="table table-bordered tbl_row tbl_fixed">
-								<caption>검색 조건 설정</caption>
-								<colgroup>
-									<col style="width: 7%">
-									<col style="width: 6%">
-									<col style="width: 6%">
-									<col style="width: 3%">
-									<col style="width: 7%">
-									<col style="width: 6%">
-									<col style="width: 6%">
-									<col style="width: 3%">
-									<col style="width: 7%">
-									<col style="width: 6%">
-									<col style="width: 6%">
-									<col style="width: 3%">
-								</colgroup>
-								<tbody>
-									<tr>
-										<th scope="row" >APC명</th>
-										<td colspan= "3" class="td_input" style="border-right: hidden;">
-											<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" class="form-control input-sm" disabled/>
-										</td>
-									</tr>
-									<tr>
-										<th class="ta_r">작업일자</th>
-										<td class="td_input" style="border-right: hidden;">
-											<sbux-datepicker uitype="popup" id="srch-dtp-strtCrtrYmd" name="srch-dtp-strtCrtrYmd" class="form-control pull-right input-sm"/>
-										</td>
-										<td class="td_input" style="border-right: hidden;">
-											<sbux-datepicker uitype="popup" id="srch-dtp-endCrtrYmd" name="srch-dtp-endCrtrYmd" class="form-control pull-right input-sm"/>
-										</td>
-										<td style="border-right: hidden;">&nbsp;</td>
-										<th class="ta_r">입/출고 구분</th>
-										<td class="td_input" style="border-right: hidden;">
-											<sbux-select unselected-text="전체" uitype="single" id="srch-slt-wrhsSpmtSe" name="srch-slt-wrhsSpmtSe" class="form-control input-sm" jsondata-ref="jsonComWrhsSpmtSe"></sbux-select>
-										</td>
-										<td colspan="6">&nbsp;</td>
-									</tr>
-								</tbody>
-							</table>
-							<div class="ad_tbl_top">
-								<ul class="ad_tbl_count">
-									<li><span>팔레트/박스 재고현황</span></li>
-								</ul>
-							</div>
-							<div class="sbt-wrap-body">
-								<div class="sbt-grid">
-									<div id="inptCmndDsctnGridArea" style="height:340px;"></div>
-								</div>
-							</div>
-							<div class="ad_tbl_top">
-								<ul class="ad_tbl_count">
-									<li><span>원물입고 계획</span></li>
-								</ul>
-								<div class="ad_tbl_toplist">
-									<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
-									<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
-								</div>
-							</div>
-							<div class="sbt-wrap-body">
-								<div class="sbt-grid">
-									<div id="inptCmndDsctnGridArea2" style="height:340px;"></div>
-								</div>
-							</div>
-						</div>
+	<section>
+		<div class="box box-solid">
+			<div class="box-header" style="display:flex; justify-content: flex-start;">
+				<div>
+					<h3 class="box-title">▶ 원물입고 팔레트/박스 관리</h3>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
+				</div>
+			</div>
+			<div class="box-body">
+				<table class="table table-bordered tbl_row tbl_fixed">
+					<caption>검색 조건 설정</caption>
+					<colgroup>
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row" >APC명</th>
+							<td colspan= "3" class="td_input" style="border-right: hidden;">
+								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" class="form-control input-sm" disabled/>
+							</td>
+						</tr>
+						<tr>
+							<th class="ta_r">작업일자</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker uitype="popup" id="srch-dtp-strtCrtrYmd" name="srch-dtp-strtCrtrYmd" class="form-control pull-right input-sm"/>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker uitype="popup" id="srch-dtp-endCrtrYmd" name="srch-dtp-endCrtrYmd" class="form-control pull-right input-sm"/>
+							</td>
+							<td style="border-right: hidden;">&nbsp;</td>
+							<th class="ta_r">입/출고 구분</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-wrhsSpmtSe" name="srch-slt-wrhsSpmtSe" class="form-control input-sm" jsondata-ref="jsonComWrhsSpmtSe"></sbux-select>
+							</td>
+							<td colspan="6">&nbsp;</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>팔레트/박스 재고현황</span></li>
+					</ul>
+				</div>
+				<div class="sbt-wrap-body">
+					<div class="sbt-grid">
+						<div id="inptCmndDsctnGridArea" style="height:340px;"></div>
 					</div>
-				</section>
+				</div>
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>원물입고 계획</span></li>
+					</ul>
+					<div class="ad_tbl_toplist">
+						<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
+						<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
+					</div>
+				</div>
+				<div class="sbt-wrap-body">
+					<div class="sbt-grid">
+						<div id="inptCmndDsctnGridArea2" style="height:340px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 </body>
 <script type="text/javascript">

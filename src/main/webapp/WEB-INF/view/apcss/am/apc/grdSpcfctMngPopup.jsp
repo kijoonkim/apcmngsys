@@ -11,10 +11,10 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span>선택한 품목별로 APC에서 관리하는 등급과 규격을 등록하세요.</span>
+						<span style="font-weight:bold;">선택한 품목별로 APC에서 관리하는 등급과 규격을 등록하세요.</span>
 					</p>
 					<p>
-						<span style="color:black">등급 등록은 정산에 적용되는 정산기준 등급과 단가를 등록하세요.</span>
+						<span style="color:black; font-weight:bold;">등급 등록은 정산에 적용되는 정산기준 등급과 단가를 등록하세요.</span>
 					</p>
 				</div>
 				<div style="margin-left: auto;">
@@ -44,7 +44,7 @@
 								</th>
 								<th scope="row">품목명</th>
 								<th style="border-right-style: hidden;">
-									<sbux-select id="spcfct-select-itemCd" name="spcfct-select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									<sbux-select id="spcfct-select-itemCd" style="background-color:#ffffff;" name="spcfct-select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 								</th>
 								<th>&nbsp;</th>
 								<th>&nbsp;</th>
@@ -66,7 +66,7 @@
 							</ul>
 						</div>
 						<div>
-							<div id="sb-area-grdSpcfct" style="height:159px; width: 100%;"></div>
+							<div id="sb-area-grdSpcfct" style="height:283px; width: 100%;"></div>
 						</div>
 					</div>
 
@@ -78,7 +78,7 @@
 							</ul>
 						</div>
 						<div>
-							<div id="sb-area-grdApcSpcfct" style="height:159px; width: 100%;"></div>
+							<div id="sb-area-grdApcSpcfct" style="height:283px; width: 100%;"></div>
 						</div>
 					</div>
 					<div class="col-sm-4">
@@ -88,7 +88,7 @@
 							</ul>
 						</div>
 						<div>
-							<div id="sb-area-grdGrd" style="height:159px; width: 100%;"></div>
+							<div id="sb-area-grdGrd" style="height:283px; width: 100%;"></div>
 						</div>
 					</div>
 				</div>
@@ -121,8 +121,8 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
 	        {caption: ["코드"],     	ref: 'grdCd',  type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     	ref: 'grdNm',  type:'input',  width:'150px',    style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["명칭"],     	ref: 'grdNm',  type:'input',  width:'130px',    style:'text-align:center'},
+	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdGrd\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{

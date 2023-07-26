@@ -30,18 +30,18 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+						<col style="width: 7%">
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 2%">
 					</colgroup>
 					<tbody>
 						<tr>
