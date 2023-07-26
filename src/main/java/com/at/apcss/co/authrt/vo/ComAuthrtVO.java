@@ -29,6 +29,8 @@ public class ComAuthrtVO extends ComVO {
 	
 	private List<ComAuthrtMenuVO> comAuthrtMenuList;
 	
+	private List<ComAuthrtUserVO> comAuthrtUserList;
+	
 	public List<String> getAuthMenuIdList() {
 		return this.authMenuIdList == null ? null : authMenuIdList.stream().collect(Collectors.toList());
 	}
@@ -43,6 +45,14 @@ public class ComAuthrtVO extends ComVO {
 	
 	public void setComAuthrtMenuList(List<ComAuthrtMenuVO> comAuthrtMenuList) {
 		this.comAuthrtMenuList = comAuthrtMenuList == null ? null : comAuthrtMenuList.stream().collect(Collectors.toList());
+	}
+	
+	public List<ComAuthrtUserVO> getComAuthrtUserList() {
+		return this.comAuthrtUserList == null ? null : comAuthrtUserList.stream().collect(Collectors.toList());
+	}
+	
+	public void setComAuthrtUserList(List<ComAuthrtUserVO> comAuthrtUserList) {
+		this.comAuthrtUserList = comAuthrtUserList == null ? null : comAuthrtUserList.stream().collect(Collectors.toList());
 	}
 	
 }

@@ -776,21 +776,44 @@ const gfn_comConfirm = function (_msgKey, ..._arguments) {
  * @function
  * @param {string} _modalId 	modal id
  * @param {function} _callback 	callback function
- * @param {[any]} _args			arguments
+ * @param {any} _arg			argument
  */
-const gfn_closeModal = function (_modalId, _callbackFnc, ..._args){
+const gfn_closeModal = function (_modalId, _callbackFnc, _arg){
 	
 	SBUxMethod.closeModal(_modalId);
 	
 	if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
-		if (gfn_isEmpty(_args)) {
+		if (gfn_isEmpty(_arg)) {
 			_callbackFnc();
 		} else {
-			_callbackFnc(_args);
+			_callbackFnc(_arg);
 		}
 	}
 }
 
+/**
+ * @name gfn_getJsonFilter
+ * @description 해당 조건의 json filter 적용
+ * @function
+ * @param {any} data
+ * @param {string} key
+ * @param {any} value
+ * @returns
+ */
+const gfn_getJsonFilter = function(data, key, value) {
+	
+	if (gfn_isEmpty(data)) {
+		return data;
+	}
+	
+	const filteredData = data.filter((obj) => {
+				console.log("obj[key]", obj[key]);
+				console.log("value", value);
+				return obj[key] === value;
+		});
+		
+	return filteredData;
+}
 
 /**
  * 실행부
