@@ -184,5 +184,25 @@ public interface ComAuthrtService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteComAuthrtUserList(ComAuthrtVO comAuthrtVO) throws Exception;	
+
+	
+	
+	/**
+	 * APC 사용 등록 시 APC의 권한그룹 등록 (관리자, 사용자)
+	 * @param comAuthrtVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertApcAuthrtId(ComAuthrtVO comAuthrtVO) throws Exception;
+	
+	/**
+	 * APC 메뉴간편설정 등록 시 APC의 권한 등록 (관리자, 사용자)
+	 * @param comAuthrtVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertApcSimpleAuthrt(ComAuthrtVO comAuthrtVO) throws Exception;
+	
+	
 	
 }
