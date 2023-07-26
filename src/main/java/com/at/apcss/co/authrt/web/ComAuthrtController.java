@@ -274,6 +274,7 @@ public class ComAuthrtController extends BaseController{
 		List<ComAuthrtMenuVO> resultList = new ArrayList<>();
 		
 		try {
+			comAuthrtMenuVO.setUserId(getUserId());
 			List<ComAuthrtMenuVO> authrtMenuList = comAuthrtService.selectSideMenuTreeList(comAuthrtMenuVO);
 			
 			for ( ComAuthrtMenuVO menu : authrtMenuList ) {
