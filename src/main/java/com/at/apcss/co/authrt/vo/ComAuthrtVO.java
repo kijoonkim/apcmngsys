@@ -24,6 +24,11 @@ public class ComAuthrtVO extends ComVO {
 	private String apcNm;
 	private String userId;
 	
+	/**
+	 * case id : CASE1 ~ CASE10
+	 */
+	private String authrtCaseId;
+	
 	private List<String> authMenuIdList;
 	private List<String> authUserIdList;
 	

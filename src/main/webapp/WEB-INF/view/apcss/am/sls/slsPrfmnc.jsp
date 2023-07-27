@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
@@ -21,7 +21,7 @@
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
-			
+
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -108,7 +108,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdSlsPrfmnc" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdSlsPrfmnc" style="width:100%;height:450px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -125,7 +125,7 @@
 <script type="text/javascript">
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createSlsPrfmncGrid();
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
@@ -133,10 +133,10 @@
 		SBUxMethod.set("srch-dtp-fromClclnYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-toClclnYmd", year+month+day);
 	})
-	
+
 // 	var jsonSlsPrfmncList = ['test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
 	var jsonSlsPrfmncList = [];
-	
+
 	function fn_createSlsPrfmncGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdSlsPrfmnc';

@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
@@ -22,7 +22,7 @@
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
-			
+
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -129,7 +129,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdPckgInpt" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdPckgInpt" style="width:100%;height:450px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -146,7 +146,7 @@
 <script type="text/javascript">
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createPckgInptGrid();
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
@@ -154,7 +154,7 @@
 		SBUxMethod.set("srch-dtp-fromPckgYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-toPckgYmd", year+month+day);
 	})
-	
+
 	function fn_createPckgInptGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPckgInpt';

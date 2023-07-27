@@ -14,8 +14,10 @@ import com.at.apcss.co.authrt.vo.ComAuthrtMenuVO;
 import com.at.apcss.co.authrt.vo.ComAuthrtUiVO;
 import com.at.apcss.co.authrt.vo.ComAuthrtUserVO;
 import com.at.apcss.co.authrt.vo.ComAuthrtVO;
+import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 @Service("comAuthrtService")
 public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtService {
@@ -358,6 +360,162 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 			//boolean voExists = orgnVO != null && StringUtils.hasText(orgnVO.getAuthrtId());
 			
 			deleteComAuthrtUser(comAuthrtUserVO);
+		}
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertApcAuthrtId(ComAuthrtVO comAuthrtVO) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertApcSimpleAuthrt(ComAuthrtVO comAuthrtVO) throws Exception {
+
+		String userId = comAuthrtVO.getSysLastChgUserId();
+		String prgrmId = comAuthrtVO.getSysLastChgPrgrmId();
+		
+		// APC코드, CASE 정보를 받아 권한메뉴, 권한UI 정보를 등록한다 (Template)  
+		
+		String refAuthrtIdAdmin = ComConstants.CON_BLANK;
+		String refAuthrtIdUser = ComConstants.CON_BLANK;
+		
+		String authrtCaseId = comAuthrtVO.getAuthrtCaseId();
+		String apcCd = comAuthrtVO.getApcCd();
+		
+		if (!StringUtils.hasText(authrtCaseId)) {
+			HashMap<String, Object> resultMap = ComUtil.getResultMap("W0005", "권한 CASE");
+			return resultMap;
+		}
+		if (!StringUtils.hasText(apcCd)) {
+			HashMap<String, Object> resultMap = ComUtil.getResultMap("W0005", "APC코드");
+			return resultMap;
+		}
+		
+		if (ApcConstants.AUTHRT_CASE_01.equals(authrtCaseId)) {
+			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_01_ADMIN;
+			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_01_USER;
+			
+		} else if (ApcConstants.AUTHRT_CASE_02.equals(authrtCaseId)) {
+			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_02_ADMIN;
+			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_02_USER;
+			
+		} else if (ApcConstants.AUTHRT_CASE_03.equals(authrtCaseId)) {
+			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_03_ADMIN;
+			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_03_USER;
+			
+		} else if (ApcConstants.AUTHRT_CASE_04.equals(authrtCaseId)) {
+			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_04_ADMIN;
+			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_04_USER;
+			
+		} else if (ApcConstants.AUTHRT_CASE_05.equals(authrtCaseId)) {
+			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_05_ADMIN;
+			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_05_USER;
+			
+		} else if (ApcConstants.AUTHRT_CASE_06.equals(authrtCaseId)) {
+			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_06_ADMIN;
+			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_06_USER;
+			
+		} else if (ApcConstants.AUTHRT_CASE_07.equals(authrtCaseId)) {
+			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_07_ADMIN;
+			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_07_USER;
+			
+		} else if (ApcConstants.AUTHRT_CASE_08.equals(authrtCaseId)) {
+			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_08_ADMIN;
+			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_08_USER;
+			
+		} else if (ApcConstants.AUTHRT_CASE_09.equals(authrtCaseId)) {
+			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_09_ADMIN;
+			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_09_USER;
+			
+		} else if (ApcConstants.AUTHRT_CASE_10.equals(authrtCaseId)) {
+			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_10_ADMIN;
+			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_10_USER;
+		} else {
+			refAuthrtIdAdmin = ComConstants.CON_BLANK;
+			refAuthrtIdUser = ComConstants.CON_BLANK;
+		}
+		
+		if (!StringUtils.hasText(authrtCaseId)) {
+			HashMap<String, Object> resultMap = ComUtil.getResultMap("W0005", "참조 권한ID");
+			return resultMap;
+		}
+		
+		// apc 권한 정보 조회 관리자
+		ComAuthrtVO authrtParam = new ComAuthrtVO();
+		authrtParam.setApcCd(apcCd);
+		authrtParam.setAuthrtType(ComConstants.CON_AUTHRT_TYPE_ADMIN);
+		List<ComAuthrtVO> adminAuthrtList = selectComAuthrtList(authrtParam);
+		
+		ComAuthrtMenuVO menuParam = new ComAuthrtMenuVO();
+		menuParam.setAuthrtId(refAuthrtIdAdmin);
+		List<ComAuthrtMenuVO> adminAuthrtMenuList = selectComAuthrtMenuList(menuParam);
+		
+		// admin 권한메뉴 select
+		// 권한 delete && insert
+		for ( ComAuthrtVO authrt : adminAuthrtList ) {
+			
+			String authrtId = authrt.getAuthrtId();
+			
+			// 기존 menu 삭제
+			ComAuthrtMenuVO pMenu = new ComAuthrtMenuVO();
+			pMenu.setAuthrtId(authrtId);
+			List<ComAuthrtMenuVO> orgnMenuList = selectComAuthrtMenuList(pMenu);
+			
+			// delete menu
+			for ( ComAuthrtMenuVO orgnMenu : orgnMenuList ) {
+				orgnMenu.setSysLastChgUserId(userId);
+				orgnMenu.setSysLastChgPrgrmId(prgrmId);
+				deleteComAuthrtMenu(orgnMenu);
+			}
+			
+			// insert menu
+			for ( ComAuthrtMenuVO newMenu : adminAuthrtMenuList ) {
+				newMenu.setAuthrtId(authrtId);
+				newMenu.setSysFrstInptUserId(userId);
+				newMenu.setSysFrstInptPrgrmId(prgrmId);
+				newMenu.setSysLastChgUserId(userId);
+				newMenu.setSysLastChgPrgrmId(prgrmId);
+				insertComAuthrtMenu(newMenu);
+			}
+		}
+		
+		// apc 권한 정보 조회 ##사용자
+		authrtParam.setAuthrtType(ComConstants.CON_AUTHRT_TYPE_USER);
+		List<ComAuthrtVO> userAuthrtList = selectComAuthrtList(authrtParam);
+		
+		menuParam.setAuthrtId(refAuthrtIdUser);
+		List<ComAuthrtMenuVO> userAuthrtMenuList = selectComAuthrtMenuList(menuParam);
+		
+		// user 권한메뉴 select
+		// 권한 delete && insert
+		for ( ComAuthrtVO authrt : userAuthrtList ) {
+			
+			String authrtId = authrt.getAuthrtId();
+			
+			// 기존 menu 삭제
+			ComAuthrtMenuVO pMenu = new ComAuthrtMenuVO();
+			pMenu.setAuthrtId(authrtId);
+			List<ComAuthrtMenuVO> orgnMenuList = selectComAuthrtMenuList(pMenu);
+			
+			// delete menu
+			for ( ComAuthrtMenuVO orgnMenu : orgnMenuList ) {
+				orgnMenu.setSysLastChgUserId(userId);
+				orgnMenu.setSysLastChgPrgrmId(prgrmId);
+				deleteComAuthrtMenu(orgnMenu);
+			}
+
+			// insert menu
+			for ( ComAuthrtMenuVO newMenu : userAuthrtMenuList ) {
+				newMenu.setAuthrtId(authrtId);
+				newMenu.setSysFrstInptUserId(userId);
+				newMenu.setSysFrstInptPrgrmId(prgrmId);
+				newMenu.setSysLastChgUserId(userId);
+				newMenu.setSysLastChgPrgrmId(prgrmId);
+				insertComAuthrtMenu(newMenu);
+			}
 		}
 		
 		return null;

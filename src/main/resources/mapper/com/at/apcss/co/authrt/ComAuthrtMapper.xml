@@ -86,6 +86,10 @@
 		<if test='authrtRmrk != null and authrtRmrk != ""'>
 			   AND CA.AUTHRT_RMRK LIKE '%' || #{authrtRmrk} || '%'
 		</if>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND CA.APC_CD = #{apcCd}
+		</if>
+		
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -202,14 +206,14 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComAuthrtMenuList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO" >
+    <select id="selectComAuthrtMenuList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO" >
     	<![CDATA[
 			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtMenuList */
 				  CA.AUTHRT_ID      AS AUTHRT_ID
 		        , CA.AUTHRT_NM      AS AUTHRT_NM
 				, CA.AUTHRT_TYPE    AS AUTHRT_TYPE
 				, CA.AUTHRT_RMRK    AS AUTHRT_RMRK
-				, CM.MENU_ID    	AS MENU_ID
+				, AM.MENU_ID    	AS MENU_ID
 				, CM.MENU_NM    	AS MENU_NM
 				, CM.UP_MENU_ID 	AS UP_MENU_ID
 				, CM.MENU_TYPE  	AS MENU_TYPE
@@ -219,10 +223,13 @@
 				, CM.APC_CD   		AS APC_CD
 			  FROM
 			  	  TB_COM_AUTH CA
+			  	, TB_COM_AUTH_MENU AM
 				, TB_COM_MENU CM
-			 WHERE CA.AUTHRT_ID = CM.AUTHRT_ID(+)
+			 WHERE CA.AUTHRT_ID = AM.AUTHRT_ID
+			   AND AM.MENU_ID = CM.MENU_ID
 			   AND CA.DEL_YN = 'N'
-			   AND CM.DEL_YN(+) = 'N'			   
+			   AND CM.DEL_YN = 'N'
+			   AND CM.DEL_YN = 'N'			   
     	]]>
 		<if test='authrtId != null and authrtId != ""'>
 			   AND CA.AUTHRT_ID = #{authrtId}
@@ -237,7 +244,7 @@
 			   AND CA.AUTHRT_RMRK LIKE '%' || #{authrtRmrk} || '%'
 		</if>
 		<if test='menuId != null and menuId != ""'>
-			AND CM.MENU_ID = #{menuId}
+			AND AM.MENU_ID = #{menuId}
 		</if>
 		<if test='menuNm != null and menuNm != ""'>
 			AND CM.MENU_NM LIKE '%' || #{menuNm} || '%'

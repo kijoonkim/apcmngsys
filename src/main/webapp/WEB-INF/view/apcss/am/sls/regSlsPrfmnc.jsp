@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
@@ -109,13 +109,26 @@
 					<ul class="ad_tbl_count">
 						<li><span>정산 내역</span></li>
 					</ul>
-					<div class="ad_tbl_toplist">
-<!-- 						<sbux-datepicker id="srch-dtp-clclnYmd" name="srch-dtp-clclnYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker> -->
-						<sbux-button id="btnCrtClclnData" name="btnCrtClclnData" uitype="normal" class="btn btn-xs btn-outline-dark btn_search" text="정산자료생성"></sbux-button>
+				 	<div class="ad_tbl_toplist_datepk">
+				 		<table class="table table-bordered tbl_row tbl_fixed">
+				 			<caption>검색 조건 설정</caption>
+						<colgroup>
+							<col style="width: auto">
+							<col style="width: 180px">
+							<col style="width: 82px">
+						</colgroup>
+						<tbody>
+							<tr>
+								<td style="border-left:hidden"></td>
+								<td class="td_input" style="border-right:hidden; border-left:hidden" ><sbux-datepicker id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker></td>
+								<td class="td_input" style="border-right:hidden;"><sbux-button id="btnCrtClclnData" name="btnCrtClclnData" uitype="normal" class="btn btn-xs btn-outline-dark btn_search" text="정산자료생성"></sbux-button></td>
+							</tr>
+						</tbody>
+				 		</table>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdRegSlsPrfmnc" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdRegSlsPrfmnc" style="width:100%;height:450px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 				</div>
@@ -132,7 +145,7 @@
 <script type="text/javascript">
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createRegSlsPrfmncGrid();
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
@@ -140,7 +153,7 @@
 		SBUxMethod.set("srch-dtp-fromClclnYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-toClclnYmd", year+month+day);
 	})
-	
+
 // 	var jsonRegSlsPrfmncList = ['test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
 	var jsonRegSlsPrfmncList = [];
 

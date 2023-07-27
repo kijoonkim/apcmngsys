@@ -38,4 +38,9 @@ public class ComConstants {
 	
 	public final static String CON_YES = "Y";
 	public final static String CON_NONE = "N";
+	
+	
+	public final static String CON_AUTHRT_TYPE_ADMIN = "20";
+	public final static String CON_AUTHRT_TYPE_USER = "21";
+	
 }

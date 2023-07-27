@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
@@ -62,18 +62,18 @@
 								<sbux-datepicker id="srch-dtp-jobYmd" name="srch-inp-jobYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td colspan="2" style="border-right: hidden;"></td>
-							
+
 							<th scope="row">작업구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-jobSe" name="srch-slt-jobSe" uitype="single" unselected-text="선택"></sbux-select>         
+								<sbux-select id="srch-slt-jobSe" name="srch-slt-jobSe" uitype="single" unselected-text="선택"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">&nbsp;</td>
 							<td colspan="4"></td>
 						</tr>
 					</tbody>
 				</table>
-				
-				
+
+
 				<!-- 1번째 그리드-->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
@@ -82,8 +82,8 @@
 				</div>
 				<div id="sb-area-grdWrtrPrfmncDsctn" style="height:300px;"></div>
 				<!-- 1번째 그리드-->
-				
-				
+
+
 <!-- 				<div class="ad_tbl_top"> -->
 <!-- 					<ul class="ad_tbl_count"> -->
 <!-- 						<li><span>원물계량 내역</span></li> -->
@@ -93,7 +93,7 @@
 <!-- 					<sbux-button uitype="btnUld" class="btn btn-sm btn-outline-danger" onclick="fn_uld">올리기</sbux-button> -->
 <!-- 					</div> -->
 <!-- 				</div> -->
-				
+
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li><span>작업자별 실적 내역</span></li>
@@ -140,7 +140,7 @@ function fn_createWghPrfmncGrid() {
 	         {caption: ["작업자수"],  	ref: 'updUserId',   type:'output',  width:'15%'},
 	         {caption: ["비고"],  	ref: 'updUserId',   type:'output',  width:'15%'}
     ];
-	    
+
     var SBGridProperties2 = {};
 	    SBGridProperties2.parentid = 'sb-area-grdWrtrPrfmncDsctn2';
 	    SBGridProperties2.id = 'grdComMsgList2';
@@ -158,11 +158,11 @@ function fn_createWghPrfmncGrid() {
 			{caption: ["작업시간"],  		ref: 'updUserId',   type:'output',  width:'15%'},
 			{caption: ["비고"], 	 		ref: 'updUserId',   type:'output',  width:'15%'},
 			{caption: ["처리"],  			ref: 'updDateTime', type:'output',  width:'15%'}
-	        
+
     ];
     grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
     grdWghPrfmnc2 = _SBGrid.create(SBGridProperties2);
 }
-    
+
 </script>
 </html>

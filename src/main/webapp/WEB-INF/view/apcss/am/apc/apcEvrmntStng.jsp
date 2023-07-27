@@ -731,9 +731,8 @@
             	rgnTrsprtCstMngDatagrid.setCellData(nRow, 5, SBUxMethod.get("inp-apcCd"), true);
             	rgnTrsprtCstMngDatagrid.addRow(true);
             }else if(grid === "wrhsVhclMngDatagrid"){
-            	wrhsVhclMngDatagrid.setCellData(nRow, nCol, "N", true);
-            	wrhsVhclMngDatagrid.setCellData(nRow, 7, SBUxMethod.get("inp-apcCd"), true);
-            	wrhsVhclMngDatagrid.addRow(true);
+            	wrhsVhclMngGridData[nRow-1].delYn = "N";
+				wrhsVhclMngDatagrid.addRow();
             }else if(grid === "spmtTrsprtMngDatagrid"){
             	spmtTrsprtMngDatagrid.setCellData(nRow, nCol, "N", true);
             	spmtTrsprtMngDatagrid.addRow(true);
@@ -743,9 +742,10 @@
             }else if(grid === "grdApcVrty"){
             	grdApcVrty.setCellData(nRow, nCol, "N", true);
             	grdApcVrty.setCellData(nRow, 3, SBUxMethod.get("inp-apcCd"), true);
-            	grdApcVrty.setCellData(nRow, 4, grdApcItem.getRowData(apcItemDataGrid.getRow()).itemCd, true);
+            	grdApcVrty.setCellData(nRow, 4, grdApcItem.getRowData(grdApcItem.getRow()).itemCd, true);
             	grdApcVrty.addRow(true);
             }else if(grid === "grdGrd"){
+            	console.log("grdGrd");
             	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
 	            	grdGrd.setCellData(nRow, nCol, "N", true);
 	            	grdGrd.setCellData(nRow, 3, SBUxMethod.get("inp-apcCd"), true);
@@ -792,7 +792,7 @@
             			grdPlt.deleteRow(nRow);
             		}
             	}else{
-            		pltMngDatagrid.deleteRow(nRow);
+            		grdPlt.deleteRow(nRow);
             	}
             }else if (grid === "grdBx") {
             	if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){

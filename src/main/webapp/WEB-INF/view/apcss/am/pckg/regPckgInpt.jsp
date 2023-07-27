@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
@@ -94,6 +94,7 @@
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-grdPckgTrDsctn" style="width:100%;height:300px;"></div>
 				</div>
+				<br/>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>

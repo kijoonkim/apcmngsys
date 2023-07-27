@@ -30,6 +30,8 @@ public class ComAuthrtMenuVO extends ComVO {
 	private int menuSeq;
 	private int menuLvl;
 	private String userId;
+	private String authrtType;
+	private String authrtRmrk;
 	private List<String> authrtIdList;
 	
 	public List<String> getAuthrtIdList() {

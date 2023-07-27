@@ -58,91 +58,91 @@ public class CmnsVrtyController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 품종 마스터 등록
 	@PostMapping(value = "/am/cmns/insertCmnsVrty.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertCmnsVrty(@RequestBody CmnsVrtyVO cmnsVrtyVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		// validation check
-		
+
 		// audit 항목
 		cmnsVrtyVO.setSysFrstInptUserId(getUserId());
 		cmnsVrtyVO.setSysFrstInptPrgrmId(getPrgrmId());
 		cmnsVrtyVO.setSysLastChgUserId(getUserId());
 		cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int insertedCnt = 0;
-		
+
 		try {
 			insertedCnt = cmnsVrtyService.insertCmnsVrty(cmnsVrtyVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 품종 마스터 변경
 	@PostMapping(value = "/am/cmns/updateCmnsVrty.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateCmnsVrty(@RequestBody CmnsVrtyVO cmnsVrtyVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		// validation check
-		
+
 		// audit 항목
 		cmnsVrtyVO.setSysFrstInptUserId(getUserId());
 		cmnsVrtyVO.setSysFrstInptPrgrmId(getPrgrmId());
 		cmnsVrtyVO.setSysLastChgUserId(getUserId());
 		cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int updatedCnt = 0;
-		
+
 		try {
 			updatedCnt = cmnsVrtyService.updateCmnsVrty(cmnsVrtyVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 품종 마스터 삭제
 	@PostMapping(value = "/am/cmns/deleteCmnsVrty.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteCmnsVrty(@RequestBody CmnsVrtyVO cmnsVrtyVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		// validation check
-		
+
 		// audit 항목
 		cmnsVrtyVO.setSysFrstInptUserId(getUserId());
 		cmnsVrtyVO.setSysFrstInptPrgrmId(getPrgrmId());
 		cmnsVrtyVO.setSysLastChgUserId(getUserId());
 		cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int deletedCnt = 0;
-		
+
 		try {
 			deletedCnt = cmnsVrtyService.deleteCmnsVrty(cmnsVrtyVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// APC 품종 목록 조회
 	@PostMapping(value = "/am/cmns/selectApcVrtyList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcVrtyList(@RequestBody CmnsVrtyVO cmnsVrtyVO, HttpServletRequest request) throws Exception {
@@ -162,62 +162,62 @@ public class CmnsVrtyController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 
 	// APC 품종 등록
 	@PostMapping(value = "/am/cmns/insertApcVrty.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertApcVrty(@RequestBody CmnsVrtyVO cmnsVrtyVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		// validation check
-		
+
 		// audit 항목
 		cmnsVrtyVO.setSysFrstInptUserId(getUserId());
 		cmnsVrtyVO.setSysFrstInptPrgrmId(getPrgrmId());
 		cmnsVrtyVO.setSysLastChgUserId(getUserId());
 		cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int insertedCnt = 0;
-		
+
 		try {
 			insertedCnt = cmnsVrtyService.insertApcVrty(cmnsVrtyVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 
 	// APC 품종 변경
 	@PostMapping(value = "/am/cmns/updateApcVrty.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateApcVrty(@RequestBody CmnsVrtyVO cmnsVrtyVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		// validation check
-		
+
 		// audit 항목
 		cmnsVrtyVO.setSysFrstInptUserId(getUserId());
 		cmnsVrtyVO.setSysFrstInptPrgrmId(getPrgrmId());
 		cmnsVrtyVO.setSysLastChgUserId(getUserId());
 		cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int updatedCnt = 0;
-		
+
 		try {
 			updatedCnt = cmnsVrtyService.updateApcVrty(cmnsVrtyVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -226,26 +226,56 @@ public class CmnsVrtyController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> deleteApcVrty(@RequestBody CmnsVrtyVO cmnsVrtyVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		// validation check
-		
+
 		// audit 항목
 		cmnsVrtyVO.setSysFrstInptUserId(getUserId());
 		cmnsVrtyVO.setSysFrstInptPrgrmId(getPrgrmId());
 		cmnsVrtyVO.setSysLastChgUserId(getUserId());
 		cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int deletedCnt = 0;
-		
+
 		try {
 			deletedCnt = cmnsVrtyService.deleteApcVrty(cmnsVrtyVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
+
+
+	// APC 품종 등록
+		@PostMapping(value = "/am/cmns/insertApcVrtyList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> insertApcVrtyList(@RequestBody List<CmnsVrtyVO> cmnsVrtyList, HttpServletRequest request) throws Exception {
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+			// validation check
+
+			// audit 항목
+			int insertedCnt = 0;
+
+			try {
+				for (CmnsVrtyVO cmnsVrtyVO : cmnsVrtyList) {
+					cmnsVrtyVO.setSysFrstInptUserId(getUserId());
+					cmnsVrtyVO.setSysFrstInptPrgrmId(getPrgrmId());
+					cmnsVrtyVO.setSysLastChgUserId(getUserId());
+					cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
+					insertedCnt = cmnsVrtyService.insertApcVrty(cmnsVrtyVO);
+				}
+			} catch (Exception e) {
+				logger.debug(e.getMessage());
+				return getErrorResponseEntity(e);
+			}
+
+			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+			return getSuccessResponseEntity(resultMap);
+		}
 }
