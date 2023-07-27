@@ -1,31 +1,54 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<title>무제 문서</title>
 </head>
+<style type="text/css">
+	
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+body{line-height:1;}
+ol, ul{list-style:none;}
+/* 위는 기본 스타일 있으면 들어있음 */
+
+.case_b{width:950px; margin:20px auto; }
+.case_b .case_in{background:#c4d4e0; width: 100%; position: relative; height: 50px; margin-bottom:10px;}
+.case_b .case_in > p{position: absolute; top: 15px; left:20px; color: #343434; font-size: 13px; font-weight: bold; line-height: 15px;}
+.case_b .case_in > p input{vertical-align:top; margin-right:5px;}
+.case_b .case_in .in{position: absolute; top:10px; left: 100px; }
+.case_b .case_in ul{width: 100%; display: flex; }
+
+.case_b .case_in li{ margin-left: 10px; width:67px; height:30px; text-align: center; font-size: 13px; line-height:30px; color: #343434; box-sizing:border-box; position: relative;  display: inline-block;}
+.case_b .case_in li span{display: block;}
+	
+.case_b .case_in li:first-child{margin-left: 0;}
+.case_b .case_in li.blue1_b{background: #488fbb; color: #fff;  border: 1px #434343 solid; cursor: pointer; }
+.case_b .case_in li.wh_b{background: #fff;  border: 1px #434343 solid;  cursor: pointer;}
+.case_b .case_in li.sk_b{background: #aac6db;  border: 1px #434343 solid;  cursor: pointer;}
+.case_b .case_in li.blue2_b{background: #2e6c9f; color: #fff;  border: 1px #434343 solid;  cursor: pointer;}
+	
+/* 마지막이거나 선이 없을때 */	
+.case_b .case_in li .x::before{content: ""; background:none; height: 0; width:0; position: absolute; top: 15px; left:66px; z-index: 1; }
+/* 기본 */	
+.case_b .case_in li .line01::before{content: ""; background: #343434; height: 1px; width:76px; position: absolute; top: 15px; left:66px; }
+/* 선만 있을때 */	
+.case_b .case_in li .line02::before{content: ""; background: #343434; height: 1px; width:78px; position: absolute; top: 16px; left:66px; }
+	
+/* tooltip */		
+.arrow_b{display: none; position:absolute; left:-10px; top:35px;  width:150px; height:auto;  padding: 8px; -webkit-border-radius: 8px;  -moz-border-radius: 8px; border-radius: 8px;  background: #343434;  color: #fff !important ; word-break: break-all;  font-size: 12px; font-weight: normal !important; line-height: 18px;  z-index: 9999 !important;  text-align: left;}
+.arrow_b:after{position: absolute;  bottom: 100%;  left:20%;  width: 0;  height: 0; margin-left: -10px;  border: solid transparent;  border-color: rgba(51, 51, 51, 0);  border-bottom-color: #343434;  border-width: 10px;  pointer-events: none;  content: " ";}
+.case_in li span:hover + .arrow_b {display: block; overflow: visible !important; z-index: 9999; }
+</style>
+
+
 <body>
-	<div class="box-header">
-		<div class="ad_tbl_top">
-			<div class="ad_tbl_toplist">
-				<sbux-button id="btnInsertSimpleStng" name="btnInsertSimpleStng" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSimpleStng"></sbux-button>
-				<sbux-button id="btnEndSimpleStng" name="btnEndSimpleStng" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-simpleStng')"></sbux-button>
-			</div>
-		</div>
-	</div>
-
-
-
-
-   <div class="case_b">
-
+		
+	<div class="case_b">
+		
 		<div class="case_in">
-<!-- 			<p><input type="radio" name="simpleCase" value="case1" >case1</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase1" name="simpleCase1" value="CASE_01" text="case 1"></sbux-radio></p>
+			<p><input type="radio" name="simpleCase" value="case1" >case1</p>
 			<div class="in">
-				<ul>
+				<ul>	
 					<li class="blue1_b">
 						<div class="line01">
 							<span>계량</span>
@@ -50,8 +73,8 @@
 								테블릿 또는 키오스크를 통해 선별에 투입되는 원물 재고를 선택합니다. 선별 투입 작업자가 필요합니다. <br>선별투입 등록을 하지 않아도 선별실적은 처리할 수 있습니다.
 							</p>
 						</div>
-					</li>
-					<li class="blue1_b">
+					</li>	
+					<li class="blue2_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -71,13 +94,13 @@
 							</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="sk_b">
 						<div class="line01">
 							<span>포장실적</span>
 							<p class="arrow_b">
 								포장실적 결과를 등록합니다.선별실적을 통해 포장실적을 자동으로 생성할 수도 있습니다. <br>선별과 포장이 동시에 처리되는 경우는 포장실적은 선택하지 마세요.
 							</p>
-						</div>
+						</div>		
 					</li>
 					<li class="wh_b">
 						<div class="line01">
@@ -85,11 +108,11 @@
 							<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue2_b">
 						<div class="line01">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
-						</div>
+						</div>	
 					</li>
 					<li class="wh_b">
 						<div class="x">
@@ -99,13 +122,12 @@
 					</li>
 				</ul>
 			</div>
-		</div>
-
+		</div>	
+		
 		<div class="case_in">
-<!-- 			<p><input type="radio" name="simpleCase" value="case2" >case2</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase2" name="simpleCase2" value="CASE_02" text="case 2"></sbux-radio></p>
+			<p><input type="radio" name="simpleCase" value="case2" >case2</p>
 			<div class="in">
-				<ul>
+				<ul>	
 					<li class="blue1_b">
 						<div class="line01">
 							<span>계량</span>
@@ -130,8 +152,8 @@
 								테블릿 또는 키오스크를 통해 선별에 투입되는 원물 재고를 선택합니다. 선별 투입 작업자가 필요합니다. <br>선별투입 등록을 하지 않아도 선별실적은 처리할 수 있습니다.
 							</p>
 						</div>
-					</li>
-					<li class="blue1_b">
+					</li>	
+					<li class="blue2_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -148,13 +170,13 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="sk_b">
 						<div class="line01">
 							<span>포장실적</span>
 							<p class="arrow_b">
 								포장실적 결과를 등록합니다.선별실적을 통해 포장실적을 자동으로 생성할 수도 있습니다. <br>선별과 포장이 동시에 처리되는 경우는 포장실적은 선택하지 마세요.
 							</p>
-						</div>
+						</div>		
 					</li>
 					<li class="wh_b">
 						<div class="line01">
@@ -162,11 +184,11 @@
 							<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue2_b">
 						<div class="line01">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
-						</div>
+						</div>	
 					</li>
 					<li class="wh_b">
 						<div class="x">
@@ -177,12 +199,11 @@
 				</ul>
 			</div>
 		</div>
-
+		
 		<div class="case_in">
-<!-- 			<p><input type="radio" name="simpleCase" value="case3" >case3</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase3" name="simpleCase3" value="CASE_03" text="case 3"></sbux-radio></p>
+			<p><input type="radio" name="simpleCase" value="case3" >case3</p>
 			<div class="in">
-				<ul>
+				<ul>	
 					<li class="blue1_b">
 						<div class="line01">
 							<span>계량</span>
@@ -205,7 +226,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue2_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -222,13 +243,13 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="sk_b">
 						<div class="line01">
 							<span>포장실적</span>
 							<p class="arrow_b">
 								포장실적 결과를 등록합니다.선별실적을 통해 포장실적을 자동으로 생성할 수도 있습니다. <br>선별과 포장이 동시에 처리되는 경우는 포장실적은 선택하지 마세요.
 							</p>
-						</div>
+						</div>		
 					</li>
 					<li class="wh_b">
 						<div class="line01">
@@ -236,11 +257,11 @@
 							<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue2_b">
 						<div class="line01">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
-						</div>
+						</div>	
 					</li>
 					<li class="wh_b">
 						<div class="x">
@@ -250,13 +271,12 @@
 					</li>
 				</ul>
 			</div>
-		</div>
-
+		</div>	
+		
 		<div class="case_in">
-<!-- 				<p><input type="radio" name="simpleCase" value="case4" >case4</p> -->
-				<p><sbux-radio uitype="normal" id="simpleCase4" name="simpleCase4" value="CASE_04" text="case 4"></sbux-radio></p>
+				<p><input type="radio" name="simpleCase" value="case4" >case4</p>
 				<div class="in">
-					<ul>
+					<ul>	
 						<li class="blue1_b">
 							<div class="line01">
 								<span>계량</span>
@@ -279,7 +299,7 @@
 								<span>&nbsp;</span>
 							</div>
 						</li>
-						<li class="blue1_b">
+						<li class="blue2_b">
 							<div class="line01">
 								<span>선별실적</span>
 								<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -306,11 +326,11 @@
 								<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 							</div>
 						</li>
-						<li class="blue1_b">
+						<li class="blue2_b">
 							<div class="line01">
 								<span>출하실적</span>
 								<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
-							</div>
+							</div>	
 						</li>
 						<li class="wh_b">
 							<div class="x">
@@ -320,13 +340,12 @@
 						</li>
 					</ul>
 				</div>
-			</div>
-
+			</div>	
+	
 		<div class="case_in">
-<!-- 			<p><input type="radio" name="simpleCase" value="case5" >case5</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase5" name="simpleCase5" value="CASE_05" text="case 5"></sbux-radio></p>
+			<p><input type="radio" name="simpleCase" value="case5" >case5</p>
 			<div class="in">
-				<ul>
+				<ul>	
 					<li class="blue1_b">
 						<div class="line01">
 							<span>계량</span>
@@ -348,7 +367,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue2_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -374,22 +393,21 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue2_b">
 						<div class="x">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
-						</div>
+						</div>	
 					</li>
-
+					
 				</ul>
 			</div>
 		</div>
-
+		
 		<div class="case_in">
-<!-- 			<p><input type="radio" name="simpleCase" value="case6" >case6</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase6" name="simpleCase6" value="CASE_06" text="case 6"></sbux-radio></p>
+			<p><input type="radio" name="simpleCase" value="case6" >case6</p>
 			<div class="in">
-				<ul>
+				<ul>	
 					<li>
 						<div class="">
 							<span>&nbsp;</span>
@@ -414,8 +432,8 @@
 								테블릿 또는 키오스크를 통해 선별에 투입되는 원물 재고를 선택합니다. 선별 투입 작업자가 필요합니다. <br>선별투입 등록을 하지 않아도 선별실적은 처리할 수 있습니다.
 							</p>
 						</div>
-					</li>
-					<li class="blue1_b">
+					</li>	
+					<li class="blue2_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -435,13 +453,13 @@
 							</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="sk_b">
 						<div class="line01">
 							<span>포장실적</span>
 							<p class="arrow_b">
 								포장실적 결과를 등록합니다.선별실적을 통해 포장실적을 자동으로 생성할 수도 있습니다. <br>선별과 포장이 동시에 처리되는 경우는 포장실적은 선택하지 마세요.
 							</p>
-						</div>
+						</div>		
 					</li>
 					<li class="wh_b">
 						<div class="line01">
@@ -449,11 +467,11 @@
 							<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue2_b">
 						<div class="line01">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
-						</div>
+						</div>	
 					</li>
 					<li class="wh_b">
 						<div class="x">
@@ -463,13 +481,12 @@
 					</li>
 				</ul>
 			</div>
-		</div>
+		</div>	
 
 		<div class="case_in">
-<!-- 			<p><input type="radio" name="simpleCase" value="case7" >case7</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase7" name="simpleCase7" value="CASE_07" text="case 7"></sbux-radio></p>
+			<p><input type="radio" name="simpleCase" value="case7" >case7</p>
 			<div class="in">
-				<ul>
+				<ul>	
 					<li>
 						<div class="">
 							<span>&nbsp;</span>
@@ -494,8 +511,8 @@
 								테블릿 또는 키오스크를 통해 선별에 투입되는 원물 재고를 선택합니다. 선별 투입 작업자가 필요합니다. <br>선별투입 등록을 하지 않아도 선별실적은 처리할 수 있습니다.
 							</p>
 						</div>
-					</li>
-					<li class="blue1_b">
+					</li>	
+					<li class="blue2_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -512,13 +529,13 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="sk_b">
 						<div class="line01">
 							<span>포장실적</span>
 							<p class="arrow_b">
 								포장실적 결과를 등록합니다.선별실적을 통해 포장실적을 자동으로 생성할 수도 있습니다. <br>선별과 포장이 동시에 처리되는 경우는 포장실적은 선택하지 마세요.
 							</p>
-						</div>
+						</div>		
 					</li>
 					<li class="wh_b">
 						<div class="line01">
@@ -526,11 +543,11 @@
 							<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue2_b">
 						<div class="line01">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
-						</div>
+						</div>	
 					</li>
 					<li class="wh_b">
 						<div class="x">
@@ -540,13 +557,12 @@
 					</li>
 				</ul>
 			</div>
-		</div>
-
+		</div>	
+		
 		<div class="case_in">
-<!-- 			<p><input type="radio" name="simpleCase" value="case8" >case8</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase8" name="simpleCase8" value="CASE_08" text="case 8"></sbux-radio></p>
+			<p><input type="radio" name="simpleCase" value="case8" >case8</p>
 			<div class="in">
-				<ul>
+				<ul>	
 					<li>
 						<div class="">
 							<span>&nbsp;</span>
@@ -569,7 +585,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue2_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -586,13 +602,13 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="sk_b">
 						<div class="line01">
 							<span>포장실적</span>
 							<p class="arrow_b">
 								포장실적 결과를 등록합니다.선별실적을 통해 포장실적을 자동으로 생성할 수도 있습니다. <br>선별과 포장이 동시에 처리되는 경우는 포장실적은 선택하지 마세요.
 							</p>
-						</div>
+						</div>		
 					</li>
 					<li class="wh_b">
 						<div class="line01">
@@ -600,11 +616,11 @@
 							<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue2_b">
 						<div class="line01">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
-						</div>
+						</div>	
 					</li>
 					<li class="wh_b">
 						<div class="x">
@@ -614,13 +630,12 @@
 					</li>
 				</ul>
 			</div>
-		</div>
-
+		</div>	
+		
 		<div class="case_in">
-<!-- 			<p><input type="radio" name="simpleCase" value="case9" >case9</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase9" name="simpleCase9" value="CASE_09" text="case 9"></sbux-radio></p>
+			<p><input type="radio" name="simpleCase" value="case9" >case9</p>
 			<div class="in">
-				<ul>
+				<ul>	
 					<li>
 						<div class="">
 							<span>&nbsp;</span>
@@ -643,7 +658,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue2_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -670,11 +685,11 @@
 							<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue2_b">
 						<div class="line01">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
-						</div>
+						</div>	
 					</li>
 					<li class="wh_b">
 						<div class="x">
@@ -684,13 +699,12 @@
 					</li>
 				</ul>
 			</div>
-		</div>
-
+		</div>	
+		
 		<div class="case_in">
-<!-- 			<p><input type="radio" name="simpleCase" value="case10" >case10</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase10" name="simpleCase10" value="CASE_10" text="case 10"></sbux-radio></p>
+			<p><input type="radio" name="simpleCase" value="case10" >case10</p>
 			<div class="in">
-				<ul>
+				<ul>	
 					<li>
 						<div class="">
 							<span>&nbsp;</span>
@@ -713,7 +727,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue2_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -739,49 +753,19 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue2_b">
 						<div class="x">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
-						</div>
+						</div>	
 					</li>
 				</ul>
 			</div>
 		</div>
-
+		
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	
+	
 </body>
-
-<script type="text/javascript">
-	async function fn_insertSimpleStng(){
-		let authrtCaseId = SBUxMethod.get('simpleCase');
-		let postJsonPromise = gfn_postJSON("/co/authrt/insertApcSimpleAuthrt.do", {apcCd : gv_apcCd, authrtCaseId : authrtCaseId});
-    	let data = await postJsonPromise;
-    	try{
-    		if (_.isEqual("S", data.resultStatus)) {
-        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        	} else {
-        		//alert(data.resultMessage);
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        	}
-    	}catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
-	}
-</script>
 </html>
