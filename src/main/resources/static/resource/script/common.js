@@ -32,7 +32,7 @@ const URL_APC_GRDS 		= "/am/cmns/apcGrds";		//	APC 등급
 const URL_CNPT_INFO		= "/am/cmns/cnptInfos";		//	거래처
 const URL_GDS_INFO		= "/am/cmns/gdsInfos";		//	상품
 const URL_PLT_BX_INFO	= "/am/cmns/pltBxInfos";	//	팔레트/박스
-const TB_PRDCR_INFO		= "/am/cmns/prdcrInfos";	//	생산자
+const URL_PRDCR_INFO	= "/am/cmns/prdcrInfos";	//	생산자
 const URL_WRHS_VHCL		= "/am/cmns/wrhsVhcls";		//	입고차량
 /** END URL
  */
@@ -559,6 +559,44 @@ const gfn_setPltBxSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 }
 
+/** 생산자정보 */
+/**
+ * @name gfn_getPrdcrs
+ * @description  APC별 생산자 목록 가져오기
+ * @function
+ * @param {string} _apcCd		APC코드
+ * @returns {any[]}
+ */
+const gfn_getPrdcrs = async function(_apcCd) {
+	const postJsonPromise = gfn_postJSON(URL_PRDCR_INFO, {apcCd: _apcCd, delYn: "N"});
+	const data = await postJsonPromise;
+	return JSON.stringify(data.resultList);
+}
+
+/**
+ * @name gfn_setPrdcrSBSelect
+ * @description set SBUX-select options from APC별 생산자
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd	APC코드
+ */
+const gfn_setPrdcrSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _pltBxSeCd) {
+	const postJsonPromise = gfn_postJSON(URL_PRDCR_INFO, {apcCd: _apcCd, delYn: "N"});
+	const data = await postJsonPromise;
+	
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.pltBxCd;
+			item.cmnsNm = item.pltBxNm;
+			sourceJson.push(item);
+		});
+	
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+
+
 
 /**
  * utility
@@ -771,7 +809,7 @@ const gfn_comConfirm = function (_msgKey, ..._arguments) {
 
 /** MODAL */
 /**
- * @name fn_closeModal
+ * @name gfn_closeModal
  * @description close SBModal
  * @function
  * @param {string} _modalId 	modal id

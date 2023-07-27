@@ -29,6 +29,10 @@ public class PrdcrVO extends ComVO {
 	 */
 	private String apcCd;
 	/**
+	 * APC명
+	 */
+	private String apcNm;
+	/**
 	 * 생산자코드
 	 */
 	private String prdcrCd;
@@ -45,25 +49,45 @@ public class PrdcrVO extends ComVO {
 	 */
 	private String rprsItemCd;
 	/**
+	 * 대표품목명
+	 */
+	private String rprsItemNm;
+	/**
 	 * 대표품종코드
 	 */
 	private String rprsVrtyCd;
+	/**
+	 * 대표품종명
+	 */
+	private String rprsVrtyNm;
 	/**
 	 * 상품구분코드
 	 */
 	private String gdsSeCd;
 	/**
+	 * 상품구분명
+	 */
+	private String gdsSeNm;	
+	/**
 	 * 입고구분코드
 	 */
 	private String wrhsSeCd;
+	/**
+	 * 입고구분명
+	 */
+	private String wrhsSeNm;
 	/**
 	 * 운송구분코드
 	 */
 	private String trsprtSeCd;
 	/**
+	 * 운송구분명
+	 */
+	private String trsprtSeNm;
+	/**
 	 * 차량번호
 	 */
-	private String vhclNo;
+	private String vhclno;
 	/**
 	 * 비고
 	 */
@@ -73,4 +97,9 @@ public class PrdcrVO extends ComVO {
 	 * 정산기준
 	 */
 	private String clclnCrtr;
+	/**
+	 * 정산기준명
+	 */
+	private String clclnCrtrNm;
+	
 }
