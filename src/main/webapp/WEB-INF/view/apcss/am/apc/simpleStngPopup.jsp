@@ -26,7 +26,7 @@
 			<p><sbux-radio uitype="normal" id="simpleCase1" name="simpleCase1" value="CASE_01" text="case 1"></sbux-radio></p>
 			<div class="in">
 				<ul>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>계량</span>
 							<p class="arrow_b">APC에 차량 계근대가 있는 경우. 원물 입고 시 계근대를 통해 입고중량을 관리 합니다.</p>
@@ -51,7 +51,7 @@
 							</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -71,7 +71,7 @@
 							</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>포장실적</span>
 							<p class="arrow_b">
@@ -85,7 +85,7 @@
 							<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -106,7 +106,7 @@
 			<p><sbux-radio uitype="normal" id="simpleCase2" name="simpleCase2" value="CASE_02" text="case 2"></sbux-radio></p>
 			<div class="in">
 				<ul>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>계량</span>
 							<p class="arrow_b">APC에 차량 계근대가 있는 경우. 원물 입고 시 계근대를 통해 입고중량을 관리 합니다.</p>
@@ -131,7 +131,7 @@
 							</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -148,7 +148,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>포장실적</span>
 							<p class="arrow_b">
@@ -162,7 +162,7 @@
 							<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -183,7 +183,7 @@
 			<p><sbux-radio uitype="normal" id="simpleCase3" name="simpleCase3" value="CASE_03" text="case 3"></sbux-radio></p>
 			<div class="in">
 				<ul>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>계량</span>
 							<p class="arrow_b">APC에 차량 계근대가 있는 경우. 원물 입고 시 계근대를 통해 입고중량을 관리 합니다.</p>
@@ -205,7 +205,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -222,7 +222,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>포장실적</span>
 							<p class="arrow_b">
@@ -236,7 +236,7 @@
 							<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -257,7 +257,7 @@
 				<p><sbux-radio uitype="normal" id="simpleCase4" name="simpleCase4" value="CASE_04" text="case 4"></sbux-radio></p>
 				<div class="in">
 					<ul>
-						<li class="blue1_b">
+						<li class="blue_b">
 							<div class="line01">
 								<span>계량</span>
 								<p class="arrow_b">APC에 차량 계근대가 있는 경우. 원물 입고 시 계근대를 통해 입고중량을 관리 합니다.</p>
@@ -279,7 +279,7 @@
 								<span>&nbsp;</span>
 							</div>
 						</li>
-						<li class="blue1_b">
+						<li class="blue_b">
 							<div class="line01">
 								<span>선별실적</span>
 								<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -306,7 +306,7 @@
 								<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 							</div>
 						</li>
-						<li class="blue1_b">
+						<li class="blue_b">
 							<div class="line01">
 								<span>출하실적</span>
 								<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -327,7 +327,7 @@
 			<p><sbux-radio uitype="normal" id="simpleCase5" name="simpleCase5" value="CASE_05" text="case 5"></sbux-radio></p>
 			<div class="in">
 				<ul>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>계량</span>
 							<p class="arrow_b">APC에 차량 계근대가 있는 경우. 원물 입고 시 계근대를 통해 입고중량을 관리 합니다.</p>
@@ -348,7 +348,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -374,7 +374,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="x">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -395,7 +395,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>원물입고</span>
 							<p class="arrow_b">계근대 없이 원물을 입고 처리합니다. 원물 입고실적을 등록합니다.</p>
@@ -415,7 +415,7 @@
 							</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -435,7 +435,7 @@
 							</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>포장실적</span>
 							<p class="arrow_b">
@@ -449,7 +449,7 @@
 							<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -475,7 +475,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>원물입고</span>
 							<p class="arrow_b">계근대 없이 원물을 입고 처리합니다. 원물 입고실적을 등록합니다.</p>
@@ -495,7 +495,7 @@
 							</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -512,7 +512,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>포장실적</span>
 							<p class="arrow_b">
@@ -526,7 +526,7 @@
 							<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -552,7 +552,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>원물입고</span>
 							<p class="arrow_b">계근대 없이 원물을 입고 처리합니다. 원물 입고실적을 등록합니다.</p>
@@ -569,7 +569,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -586,7 +586,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>포장실적</span>
 							<p class="arrow_b">
@@ -600,7 +600,7 @@
 							<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -626,7 +626,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>원물입고</span>
 							<p class="arrow_b">계근대 없이 원물을 입고 처리합니다. 원물 입고실적을 등록합니다.</p>
@@ -643,7 +643,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -670,7 +670,7 @@
 							<p class="arrow_b">출하작업을 위한 출하지시를 관리합니다. 출하지시서를 출력할 수 있습니다. <br>출하실적 등록 시 지시정보를 참조할 수 있습니다.</p>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -696,7 +696,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>원물입고</span>
 							<p class="arrow_b">계근대 없이 원물을 입고 처리합니다. 원물 입고실적을 등록합니다.</p>
@@ -713,7 +713,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="line01">
 							<span>선별실적</span>
 							<p class="arrow_b">선별실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
@@ -739,7 +739,7 @@
 							<span>&nbsp;</span>
 						</div>
 					</li>
-					<li class="blue1_b">
+					<li class="blue_b">
 						<div class="x">
 							<span>출하실적</span>
 							<p class="arrow_b">출하실적 결과를 등록합니다. 필수 선택항목 입니다.</p>
