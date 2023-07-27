@@ -13,7 +13,7 @@
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSearchPltBx" name="btnSearchPltBx" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_sarchPltBx">조회</sbux-button>
 						<sbux-button id="btnInsertPltBx" name="btnInsertPltBx" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertPltBx">등록</sbux-button>
-						<sbux-button id="btnEndPltBx" name="btnEndPltBx" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-pltBx')">종료</sbux-button>
+						<sbux-button id="btnEndPltBx" name="btnEndPltBx" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-pltBx')">종료</sbux-button>
 					</div>
 				</div>
 			</div>

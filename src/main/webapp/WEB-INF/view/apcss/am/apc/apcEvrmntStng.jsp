@@ -541,7 +541,7 @@
 
     <!-- 간편설정 Modal -->
     <div>
-        <sbux-modal id="modal-simpleStng" name="modal-simpleStng" uitype="middle" header-title="간편설정" body-html-id="body-modal-simpleStng" footer-is-close-button="false" style="width:1200px"></sbux-modal>
+        <sbux-modal id="modal-simpleStng" name="modal-simpleStng" uitype="middle" header-title="간편설정" body-html-id="body-modal-simpleStng" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-simpleStng">
     	<jsp:include page="../apc/simpleStngPopup.jsp"></jsp:include>

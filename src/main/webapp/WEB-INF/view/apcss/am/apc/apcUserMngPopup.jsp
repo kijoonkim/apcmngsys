@@ -20,7 +20,7 @@
 			<div style="margin-left: auto;">
 				<sbux-button id="btnUserSech" name="btnUserSach" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectUserList()"></sbux-button>
 				<sbux-button id="btnUserReg" name="btnUserReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_updataUserList"></sbux-button>
-				<sbux-button id="btnUserEnd" name="btnUserEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-userAuth')"></sbux-button>
+				<sbux-button id="btnUserEnd" name="btnUserEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-userAuth')"></sbux-button>
 			</div>
 		</div>
 		<div class="box-body">

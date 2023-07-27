@@ -20,7 +20,7 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchWarehouse" name="btnSearchWarehouse" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectWarehouseList"></sbux-button>
 					<sbux-button id="btnInsertWarehouse" name="btnInsertWarehouse" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertWarehouseList"></sbux-button>
-					<sbux-button id="btnEndWarehouse" name="btnEndWarehouse" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-warehouse')"></sbux-button>
+					<sbux-button id="btnEndWarehouse" name="btnEndWarehouse" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-warehouse')"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">

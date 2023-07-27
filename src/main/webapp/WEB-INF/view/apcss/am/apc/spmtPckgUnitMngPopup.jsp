@@ -20,7 +20,7 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchSmptPckgUnit" name="btnSearchGrd" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSmptPckgUnitList()"></sbux-button>
 					<sbux-button id="btnInsertSmptPckgUnit" name="btnInsertGrd" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSmptPckgUnit"></sbux-button>
-					<sbux-button id="btnEndSmptPckgUnit" name="btnEndGrd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-smptPckgUnit')"></sbux-button>
+					<sbux-button id="btnEndSmptPckgUnit" name="btnEndGrd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-smptPckgUnit')"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
