@@ -372,6 +372,7 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'input',  	width:'280px',    style:'text-align:center'},
@@ -423,6 +424,7 @@
 			});
         	jsonApcVrty = newJsonApcVrty;
         	grdApcVrty.rebuild();
+        	grdApcVrty.setCellDisabled(0, 0, grdApcVrty.getRows() - 1, grdApcVrty.getCols() - 1, true);
         	grdApcVrty.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -476,10 +478,51 @@
 
 	async function fn_insertApcVrtyList(){
 
+		let gridData = grdApcVrty.getGridDataAll();
+		let insertList = [];
+		let insertedCnt = 0;
+		for(var i=1; i<=gridData.length; i++ ){
+			if(grdApcVrty.getRowData(i).delYn == 'N'){
+
+				if(grdApcVrty.getRowData(i).vrtyNm == null || grdApcVrty.getRowData(i).vrtyNm == ""){
+					alert("품종 명은 필수 값 입니다.");
+					return;
+				}
+
+				if(grdApcVrty.getRowStatus(i) === 3){
+					insertList.push(grdApcVrty.getRowData(i));
+				}
+			}
+		}
+		if(insertList.length == 0 && updateList.length == 0){
+			alert("등록 할 내용이 없습니다.");
+			return;
+		}
+		let regMsg = "등록 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			if(insertList.length > 0){
+				insertedCnt = await fn_callInsertApcVrtyList(insertList);
+			}
+			if(insertedCnt > 0 ){
+				fn_apcVrtyList();
+				alert("등록 되었습니다.");
+			}
+		}
+
 	}
 
 	async function fn_callInsertApcVrtyList(vrtyList){
-
+		let postJsonPromise = gfn_postJSON("/am/cmns/insertApcVrtyList.do", vrtyList);
+        let data = await postJsonPromise;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		return data.insertedCnt;
+        	} else {
+        		alert(data.resultMessage);
+        	}
+        } catch(e) {
+        }
 	}
 
 </script>
