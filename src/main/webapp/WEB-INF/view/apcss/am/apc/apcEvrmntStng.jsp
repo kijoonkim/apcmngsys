@@ -213,6 +213,14 @@
 			<!--[pp] //검색 -->
 			<!--[pp] 검색결과 -->
 			<div class="box-body">
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>APC 사용메뉴 선택</span></li>
+					</ul>
+				 	<div class="ad_tbl_toplist">
+						<sbux-button id="btnSimpleStng" name="btnSimpleStng" class="btn btn-xs btn-outline-danger" text="메뉴간편설정" uitype="modal" target-id="modal-simpleStng" ></sbux-button>
+					</div>
+				</div>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -224,11 +232,6 @@
 						<col style="width: 16%">
 					</colgroup>
 					<tbody>
-						<tr>
-							<th colspan="6" class="th_label">APC 사용메뉴 선택
-								<sbux-button id="btnSimpleStng" name="btnSimpleStng" class="btn btn-sm btn-outline-danger" text="간편설정" uitype="modal" style="float:right;" target-id="modal-simpleStng" ></sbux-button>
-							</th>
-						</tr>
 						<tr>
 							<th scope="row">계량정보 관리</th>
 							<td>

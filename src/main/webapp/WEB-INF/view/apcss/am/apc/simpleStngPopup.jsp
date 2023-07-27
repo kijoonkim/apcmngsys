@@ -7,23 +7,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="box-header">
-		<div class="ad_tbl_top">
-			<div class="ad_tbl_toplist">
-				<sbux-button id="btnInsertSimpleStng" name="btnInsertSimpleStng" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSimpleStng"></sbux-button>
-				<sbux-button id="btnEndSimpleStng" name="btnEndSimpleStng" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-simpleStng')"></sbux-button>
-			</div>
+	<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div>
+			<p>
+				<span style="font-weight:bold;">APC 업무 특성에 맞는 메뉴설정을 간편하게 할수 있습니다.</span>
+			</p>
+			<p>
+				<span style="color:black; font-weight:bold;">유형을 선택하면 메뉴가 자동으로 설정 됩니다.(재로그인 필요)</span>
+			</p>
+		</div>
+		<div style="margin-left: auto;">
+			<sbux-button id="btnInsertSimpleStng" name="btnInsertSimpleStng" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSimpleStng"></sbux-button>
+			<sbux-button id="btnEndSimpleStng" name="btnEndSimpleStng" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-simpleStng')"></sbux-button>
 		</div>
 	</div>
-
-
-
-
-   <div class="case_b">
+   	<div class="case_b">
 
 		<div class="case_in">
 <!-- 			<p><input type="radio" name="simpleCase" value="case1" >case1</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase1" name="simpleCase1" value="CASE_01" text="case 1"></sbux-radio></p>
+			<p><sbux-radio uitype="normal" id="simpleCase1" name="simpleCase1" value="CASE_01" text="유형 1"></sbux-radio></p>
 			<div class="in">
 				<ul>
 					<li class="blue_b">
@@ -103,7 +105,7 @@
 
 		<div class="case_in">
 <!-- 			<p><input type="radio" name="simpleCase" value="case2" >case2</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase2" name="simpleCase2" value="CASE_02" text="case 2"></sbux-radio></p>
+			<p><sbux-radio uitype="normal" id="simpleCase2" name="simpleCase2" value="CASE_02" text="유형 2"></sbux-radio></p>
 			<div class="in">
 				<ul>
 					<li class="blue_b">
@@ -180,7 +182,7 @@
 
 		<div class="case_in">
 <!-- 			<p><input type="radio" name="simpleCase" value="case3" >case3</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase3" name="simpleCase3" value="CASE_03" text="case 3"></sbux-radio></p>
+			<p><sbux-radio uitype="normal" id="simpleCase3" name="simpleCase3" value="CASE_03" text="유형 3"></sbux-radio></p>
 			<div class="in">
 				<ul>
 					<li class="blue_b">
@@ -254,7 +256,7 @@
 
 		<div class="case_in">
 <!-- 				<p><input type="radio" name="simpleCase" value="case4" >case4</p> -->
-				<p><sbux-radio uitype="normal" id="simpleCase4" name="simpleCase4" value="CASE_04" text="case 4"></sbux-radio></p>
+				<p><sbux-radio uitype="normal" id="simpleCase4" name="simpleCase4" value="CASE_04" text="유형 4"></sbux-radio></p>
 				<div class="in">
 					<ul>
 						<li class="blue_b">
@@ -324,7 +326,7 @@
 
 		<div class="case_in">
 <!-- 			<p><input type="radio" name="simpleCase" value="case5" >case5</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase5" name="simpleCase5" value="CASE_05" text="case 5"></sbux-radio></p>
+			<p><sbux-radio uitype="normal" id="simpleCase5" name="simpleCase5" value="CASE_05" text="유형 5"></sbux-radio></p>
 			<div class="in">
 				<ul>
 					<li class="blue_b">
@@ -387,7 +389,7 @@
 
 		<div class="case_in">
 <!-- 			<p><input type="radio" name="simpleCase" value="case6" >case6</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase6" name="simpleCase6" value="CASE_06" text="case 6"></sbux-radio></p>
+			<p><sbux-radio uitype="normal" id="simpleCase6" name="simpleCase6" value="CASE_06" text="유형 6"></sbux-radio></p>
 			<div class="in">
 				<ul>
 					<li>
@@ -467,7 +469,7 @@
 
 		<div class="case_in">
 <!-- 			<p><input type="radio" name="simpleCase" value="case7" >case7</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase7" name="simpleCase7" value="CASE_07" text="case 7"></sbux-radio></p>
+			<p><sbux-radio uitype="normal" id="simpleCase7" name="simpleCase7" value="CASE_07" text="유형 7"></sbux-radio></p>
 			<div class="in">
 				<ul>
 					<li>
@@ -544,7 +546,7 @@
 
 		<div class="case_in">
 <!-- 			<p><input type="radio" name="simpleCase" value="case8" >case8</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase8" name="simpleCase8" value="CASE_08" text="case 8"></sbux-radio></p>
+			<p><sbux-radio uitype="normal" id="simpleCase8" name="simpleCase8" value="CASE_08" text="유형 8"></sbux-radio></p>
 			<div class="in">
 				<ul>
 					<li>
@@ -618,7 +620,7 @@
 
 		<div class="case_in">
 <!-- 			<p><input type="radio" name="simpleCase" value="case9" >case9</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase9" name="simpleCase9" value="CASE_09" text="case 9"></sbux-radio></p>
+			<p><sbux-radio uitype="normal" id="simpleCase9" name="simpleCase9" value="CASE_09" text="유형 9"></sbux-radio></p>
 			<div class="in">
 				<ul>
 					<li>
@@ -688,7 +690,7 @@
 
 		<div class="case_in">
 <!-- 			<p><input type="radio" name="simpleCase" value="case10" >case10</p> -->
-			<p><sbux-radio uitype="normal" id="simpleCase10" name="simpleCase10" value="CASE_10" text="case 10"></sbux-radio></p>
+			<p><sbux-radio uitype="normal" id="simpleCase10" name="simpleCase10" value="CASE_10" text="유형 10"></sbux-radio></p>
 			<div class="in">
 				<ul>
 					<li>
