@@ -16,9 +16,15 @@ public interface ApcEvrmntStngService {
 	 */
 	ApcEvrmntStngVO selectApcInfo(ComUserVO comUserVO) throws Exception;
 	
+	/**
+	 * APC정보관리 APC내역 조회
+	 * @param ApcEvrmntStngVO
+	 * @return ApcEvrmntStngVO
+	 * @throws Exception
+	 */
+	ApcEvrmntStngVO selectApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
 	
 	ApcEvrmntStngVO selectUserAprvReg(ComUserVO comUserVO) throws Exception;
-
 
 	/**
 	 * APC 사용자 목록 조회

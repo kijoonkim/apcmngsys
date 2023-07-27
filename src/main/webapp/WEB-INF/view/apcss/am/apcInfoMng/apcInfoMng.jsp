@@ -18,7 +18,7 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ APC정보관리</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search()"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-danger" text="등록" onclick="fn_insert"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
 				</div>
@@ -45,7 +45,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-orgnlApcNm" name="srch-slt-orgnlApcNm" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-regApcNm" name="srch-slt-regApcNm" uitype="single" jsondata-ref="jsonComboRegApcNm" unselected-text="선택" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -57,7 +57,7 @@
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
-						<li><span>사용자 내역</span></li>
+						<li><span>APC 내역</span></li>
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -69,18 +69,27 @@
 	</section>
 </body>
 <script type="text/javascript">
+	var jsonComboRegApcNm = [];
+	
+	var apcInfoMngData = [];
+
+	const fn_initSBSelect = async function() {
+		gfn_setComCdSBSelect('srch-slt-regApcNm', jsonComboRegApcNm , 'REG_APC_NM', '0000');	// 검색 조건(시스템구분)
+	}
+	
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createApcInfoMngGrid();
+		SBUxMethod.set("srch-inp-apcCd", "9999");
+		fn_initSBSelect();
 	})
 	
 // 	var jsonRegSlsPrfmncList = ['test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
-	var jsonApcInfoMngList = [];
 
 	function fn_createApcInfoMngGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdApcInfoMng';
 	    SBGridProperties.id = 'grdApcInfoMng';
-	    SBGridProperties.jsonref = 'jsonApcInfoMngList';
+	    SBGridProperties.jsonref = 'apcInfoMngData';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -94,12 +103,12 @@
         SBGridProperties.columns = [
         	{caption: ['선택'], ref: 'slt', width: '100px', type: 'checkbox'},
             {caption: ['APC코드'], ref: 'apcCd', width: '100px', type: 'output'},
-            {caption: ['원본APC명'], ref: 'orgnlApcNm', width: '100px', type: 'output'},
+            {caption: ['원본APC명'], ref: 'regApcNm', width: '100px', type: 'output'},
             {caption: ['시도명'], ref: 'ctpvNm', width: '100px', type : 'output'},
             {caption: ['시군명'], ref: 'sigunNm', width: '100px', type: 'output'},
-            {caption: ['주체명'], ref: 'mbNm', width: '100px', type: 'output'},
-            {caption: ['원본주소'], ref: 'orgnlAddr', width: '100px', type: 'output'},
-            {caption: ['원본전화번호'], ref: 'orgnlTelno', width: '100px', type: 'output'},
+            {caption: ['주체명'], ref: 'mbCd', width: '100px', type: 'output'},
+            {caption: ['원본주소'], ref: 'regAddr', width: '100px', type: 'output'},
+            {caption: ['원본전화번호'], ref: 'regTelno', width: '100px', type: 'output'},
             {caption: ['APC명'], ref: 'apcNm', width: '100px', type: 'output'},
             {caption: ['사업자번호'], ref: 'brno', width: '100px', type: 'output'},
             {caption: ['주소'], ref: 'addr', width: '100px', type: 'output'},
@@ -134,6 +143,43 @@
         		grdApcInfoMng.deleteRow(nRow);
         	}
 		}
+	}
+	
+	async function fn_search(){
+		fn_searchApcDsctn();
+	}
+	
+	async function fn_searchApcDsctn(){
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let regApcNm = SBUxMethod.get("srch-slt-regApcNm");
+    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcDsctn.do", {apcCd : apcCd, regApcNm : regApcNm});
+        let data = await postJsonPromise;
+        let resultVO = data.resultVO;
+        let newApcInfoMngData = [];
+        try{
+			let apcDsctn = {
+				apcCd 		: resultVO.apcCd
+			  , regApcNm 	: resultVO.regApcNm
+			  , ctpvNm 		: resultVO.ctpvNm
+			  , sigunNm 	: resultVO.sigunNm
+			  , mbCd 		: resultVO.mbCd
+			  , regAddr 	: resultVO.regAddr
+			  , regTelno 	: resultVO.regTelno
+			  , apcNm 		: resultVO.apcNm
+			  , brno 		: resultVO.brno
+			  , addr 		: resultVO.addr
+			  , fxno 		: resultVO.fxno
+			  , telno 		: resultVO.telno
+			}
+			newApcInfoMngData.push(apcDsctn);
+        	apcInfoMngData = newApcInfoMngData;
+        	grdApcInfoMng.rebuild();
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
 	}
 </script>
 </html>
