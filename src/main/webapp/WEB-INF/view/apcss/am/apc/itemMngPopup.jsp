@@ -20,7 +20,7 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchItem" name="btnSearchItem" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectItemList()"></sbux-button>
 					<sbux-button id="btnInsertItem" name="btnInsertItem" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertApcVrtyList"></sbux-button>
-					<sbux-button id="btnEndItem" name="btnEndItem" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-item')"></sbux-button>
+					<sbux-button id="btnEndItem" name="btnEndItem" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-item')"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -61,6 +61,11 @@
 				<div class="row">
 
 					<div class="col-sm-6">
+						<div class="ad_tbl_top"  style="width: 98%;">
+							<ul class="ad_tbl_count">
+								<li><span>농수축산물표준품목</span></li>
+							</ul>
+						</div>
 						<div>
 							<div id="sb-area-grdItem" style="height:159px; width: 100%;"></div>
 						</div>
@@ -68,6 +73,11 @@
 
 
 					<div class="col-sm-6">
+						<div class="ad_tbl_top"  style="width: 98%;">
+							<ul class="ad_tbl_count">
+								<li><span>APC관리품목</span></li>
+							</ul>
+						</div>
 						<div>
 							<div id="sb-area-grdApcItem" style="height:159px; width: 100%;"></div>
 						</div>
@@ -108,7 +118,7 @@
 					<div class="col-sm-6">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
-								<li><span>품종등록</span></li>
+								<li><span>농수축산물표준품종</span></li>
 							</ul>
 						</div>
 						<div>
@@ -117,9 +127,9 @@
 					</div>
 					<div class="col-sm-6">
 						<div class="ad_tbl_top"  style="width: 98%;">
-								<ul class="ad_tbl_count">
-									<li><span class="font_default" >&nbsp;</span></li>
-								</ul>
+							<ul class="ad_tbl_count">
+								<li><span>APC관리품종</span></li>
+							</ul>
 						</div>
 						<div>
 							<div id="sb-area-grdApcVrty" style="height:157px; width: 100%;"></div>
@@ -198,7 +208,7 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.clickeventarea = {empty: true, fixed: true};
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'130px',    style:'text-align:center'},

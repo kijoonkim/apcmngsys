@@ -20,7 +20,7 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchGrd" name="btnSearchGrd" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectGrdSpcfctList()"></sbux-button>
 					<sbux-button id="btnInsertGrd" name="btnInsertGrd" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertApcGrdList"></sbux-button>
-					<sbux-button id="btnEndGrd" name="btnEndGrd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-grdSpcfct')"></sbux-button>
+					<sbux-button id="btnEndGrd" name="btnEndGrd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-grdSpcfct')"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -119,6 +119,7 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	        {caption: ["코드"],     	ref: 'grdCd',  type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["명칭"],     	ref: 'grdNm',  type:'input',  width:'130px',    style:'text-align:center'},

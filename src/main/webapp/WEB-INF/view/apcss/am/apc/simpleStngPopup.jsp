@@ -11,7 +11,7 @@
 		<div class="ad_tbl_top">
 			<div class="ad_tbl_toplist">
 				<sbux-button id="btnInsertSimpleStng" name="btnInsertSimpleStng" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSimpleStng"></sbux-button>
-				<sbux-button id="btnEndSimpleStng" name="btnEndSimpleStng" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-simpleStng')"></sbux-button>
+				<sbux-button id="btnEndSimpleStng" name="btnEndSimpleStng" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-simpleStng')"></sbux-button>
 			</div>
 		</div>
 	</div>
@@ -748,20 +748,7 @@
 				</ul>
 			</div>
 		</div>
-
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 
 <script type="text/javascript">
