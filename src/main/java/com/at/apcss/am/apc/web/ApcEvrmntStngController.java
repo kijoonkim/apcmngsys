@@ -56,6 +56,25 @@ public class ApcEvrmntStngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	// APC 정보관리 - APC 내역 조회
+		@PostMapping(value = "/am/apc/selectApcDsctn.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> selectApcDsctn(@RequestBody ApcEvrmntStngVO ApcEvrmntStngVO, HttpServletRequest request) throws Exception {
+
+			logger.debug("selectApcDsctn 호출 <><><><> ");
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			ApcEvrmntStngVO resultVO = new ApcEvrmntStngVO();
+			try {
+				resultVO = apcEvrmntStngService.selectApcDsctn(ApcEvrmntStngVO);
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			}
+
+			resultMap.put("resultVO", resultVO);
+
+			return getSuccessResponseEntity(resultMap);
+		}
 
 	// APC 환경설정 - 사용자 목록 조회
 	@PostMapping(value = "/am/apc/selectApcUserList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })

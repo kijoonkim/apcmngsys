@@ -150,6 +150,13 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+		};
         SBGridProperties.columns = [
             {caption: ['상품코드'], ref: 'gdsCd', width: '100px', type: 'output'},
             {caption: ['상품명'], ref: 'gdsNm', width: '100px', type: 'output'},

@@ -145,14 +145,6 @@
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-grdOutordrInfo" style="width:100%;height:300px;"></div>
 				</div>
-				<td>&nbsp;</td>
-				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdOutordrGdsInfo" style="width:100%;height:300px;"></div>
-				</div>
-				<td>&nbsp;</td>
-				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdOutordrCntrInfo" style="width:100%;height:300px;"></div>
-				</div>
 				<!--[pp] //검색결과 -->
 			</div>
 		</div>
@@ -191,6 +183,13 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+		};
         SBGridProperties.columns = [
         	{caption: [''], ref: 'slt', width: '100px', type: 'checkbox'},
             {caption: ['접수일자'], ref: 'rcptYmd', width: '100px', type: 'output'},

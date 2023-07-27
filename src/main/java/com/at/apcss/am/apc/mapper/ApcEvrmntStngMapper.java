@@ -31,6 +31,13 @@ public interface ApcEvrmntStngMapper {
 	 * @return ApcEvrmntStngVO
 	 */
 	ApcEvrmntStngVO selectApcInfo(ComUserVO comUserVO) throws Exception;
+	
+	/**
+	 * APC 내역 조회
+	 * @param ApcEvrmntStngVO
+	 * @return ApcEvrmntStngVO
+	 */
+	ApcEvrmntStngVO selectApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
 
 	/**
 	 * APC 사용자 목록 조회
