@@ -20,7 +20,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"  onclick="fn_selectUserList()"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger"></sbux-button>
 				</div>
 				
@@ -104,12 +104,16 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	let day = ('0' + today.getDate()).slice(-2);
 	SBUxMethod.set("srch-dtp-inqYmd1", year+month+day);
 	SBUxMethod.set("srch-dtp-inqYmd2", year+month+day);
+	apcNm = SBUxMethod.set("srch-inp-apcCd", "9999");
 })
 var rgnTrsprtCstMngGridData = []; // 그리드의 참조 데이터 주소 선언
+var jsonComMsgList = [];
 async function fn_createJobPrfmncGrid() {
     var SBGridProperties1 = {};
+    	
+    	
 	    SBGridProperties1.parentid = 'sb-area-grdJobPrfmnc';
-	    SBGridProperties1.id = 'grdComMsgList';
+	    SBGridProperties1.id = 'userJobPrfmncGrid';
 	    SBGridProperties1.jsonref = 'jsonComMsgList';
 	    SBGridProperties1.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties1.selectmode = 'byrow';
@@ -126,25 +130,28 @@ async function fn_createJobPrfmncGrid() {
 	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'output',  width:'15%'},
 	         {caption: ["담당업무"],  		ref: 'tkcgTask',   	type:'output',  width:'15%'}
     ];
-    grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
-    fn_selectRgnTrsprtCstList();
-}
-    
-    
-async function fn_selectRgnTrsprtCstList(){
-	fn_callSelectRgnTrsprtCstList();
+    window.userJobPrfmncGrid = _SBGrid.create(SBGridProperties1);
+    fn_selectUserList();
 }
 
-async function fn_callSelectRgnTrsprtCstList(){
-	let apcCd = SBUxMethod.get("apcCd");
-	let postJsonPromise = gfn_postJSON("/am/cmns/selectRgnTrsprtCstList.do", {apcCd : apcCd});
+async function fn_selectUserList(){
+	fn_callSelectUserList();
+}
+
+async function fn_callSelectUserList(comUserVO){
+	let apcCd = SBUxMethod.get("srch-inp-apcCd");
+	let inqYmd1 = SBUxMethod.get("srch-dtp-inqYmd1");
+	let inqYmd2 = SBUxMethod.get("srch-dtp-inqYmd2");
+	let aprvYn = SBUxMethod.get("srch-slt-aprvYn");
+	let userNm = SBUxMethod.get("srch-inp-userNm");
+	
+	let postJsonPromise = gfn_postJSON("/co/user/selectComUser.do", comUserVO);
     let data = await postJsonPromise;
     let newRgnTrsprtCstGridData = [];
     try{
     	data.resultList.forEach((item, index) => {
 			let rgnTrsprtCst = {
-					chc 	: item.chc
-			  , aprvYn 		: item.aprvYn
+			    aprvYn 		: item.aprvYn
 			  , userId 		: item.userId
 			  , userNm 		: item.userNm
 			  , apcNm 		: item.apcNm
@@ -162,7 +169,7 @@ async function fn_callSelectRgnTrsprtCstList(){
 		if (!(e instanceof Error)) {
 			e = new Error(e);
 		}
-		console.error("failed", e.message);
+// 		console.error("failed", e.message);
     }
 }
 </script>
