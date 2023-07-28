@@ -8,7 +8,24 @@
 .td_input .input-sm {
 	height: 28px;
 	padding: 4px 8px;
+/* 	border: 1px solid #e53c48; */
 }
+
+.td_input .input-sm-ast {
+	height: 28px;
+	padding: 4px 8px;
+/* 	border: 1px solid #e53c48; */
+}
+
+.input-sm-ast:focus{
+   border: 1px solid #e53c48;
+}
+
+.input-sm-ast:hover{
+   border: 1px solid #e53c48;
+}
+
+
 .bg_th {
 	background-color: #f4f4f4;
 }
