@@ -47,8 +47,6 @@
 
 	var menuJson = ${topMenuList};
 
-	console.log("menuJson", menuJson);
-
     //SBUx sidemenu 컴포넌트의 json 데이터
     var sideJsonData = [];
     //
@@ -128,7 +126,6 @@
 				}
 				sideJsonData.push(menu);
 			});
-			console.log("sideJsonData", sideJsonData);
 
             //if (pMenuId !== "0") {
             if (!gfn_isEmpty(menuInfo.pid)) {
@@ -423,8 +420,6 @@
         var tabObj = tabJsonData[idx];
         var tabId = tabObj.targetid;
         var menuId = tabId.substring(tabId.indexOf("_")+1);
-
-        console.log("## tabObj", tabObj);
 
         var menuInfo = _.find(sideJsonData, {id: menuId});
         var upMenuNo = menuInfo.pid;
