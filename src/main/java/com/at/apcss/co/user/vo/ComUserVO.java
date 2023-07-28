@@ -34,4 +34,6 @@ public class ComUserVO extends ComVO {
 	private String inqYmd1;
 	private String inqYmd2;
 	private String aprvYn;
+	private String userTypeNm;
+	private String userSttsNm;
 }
