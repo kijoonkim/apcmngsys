@@ -47,6 +47,10 @@
 				  GC.ITEM_CD
 				, GC.SPCFCT_CD
 				, GC.SPCFCT_NM
+				, GC.UNIT_CD
+				, GC.PCKG_STTS_CD
+				, GC.BX_GDS_QNTT
+				, GC.WGHT
 			    , GC.DEL_YN
 			  FROM TB_SPCFCT_CRTR GC
 			 WHERE GC.ITEM_CD = #{itemCd}
@@ -192,6 +196,10 @@
 				, AGC.APC_CD
 				, AGC.SPCFCT_CD
 				, AGC.SPCFCT_NM
+				, AGC.UNIT_CD
+				, AGC.PCKG_STTS_CD
+				, AGC.BX_GDS_QNTT
+				, AGC.WGHT
 			    , AGC.DEL_YN
 			  FROM TB_APC_SPCFCT_CRTR AGC
 			 WHERE AGC.ITEM_CD = #{itemCd}
