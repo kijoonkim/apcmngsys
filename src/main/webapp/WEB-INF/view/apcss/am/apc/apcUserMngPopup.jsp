@@ -18,7 +18,7 @@
 				</p>
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btnUserSech" name="btnUserSach" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectUserList()"></sbux-button>
+				<sbux-button id="btnUserSech" name="btnUserSach" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectUserList"></sbux-button>
 				<sbux-button id="btnUserReg" name="btnUserReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_updataUserList"></sbux-button>
 				<sbux-button id="btnUserEnd" name="btnUserEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-userAuth')"></sbux-button>
 			</div>
@@ -43,7 +43,7 @@
 						</th>
 						<th scope="row">사용자명</th>
 						<th>
-							<sbux-input id=userAuthUserNm name="userAuthUserNm" uitype="text" class="form-control input-sm"></sbux-input>
+							<sbux-input id=userAuthUserNm name="userAuthUserNm" uitype="text" class="form-control input-sm" onkeyenter="fn_selectUserList"></sbux-input>
 						</th>
 						<th>&nbsp;</th>
 						<th>&nbsp;</th>

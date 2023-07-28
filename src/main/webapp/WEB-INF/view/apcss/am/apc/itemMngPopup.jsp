@@ -14,12 +14,12 @@
 						<span style="font-weight:bold;">APC에서 관리하고 있는 품목과 품종을 선택하세요.(여러가지 품목과 품종을 관리할 수 있습니다.)</span>
 					</p>
 					<p>
-						<span style="color:black; font-weight:bold;">품목은 농식품부 표준코드를 준수하며, 품종은 APC별 사용자 정의로 등록할 수 있습니다.</span>
+						<span style="color:black; font-weight:bold;">품목은 농수축산물 표준코드를 준수하며, 품종은 APC별 사용자 정의로 등록할 수 있습니다.</span>
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchItem" name="btnSearchItem" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectItemList()"></sbux-button>
-					<sbux-button id="btnInsertItem" name="btnInsertItem" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertApcVrtyList"></sbux-button>
+					<sbux-button id="btnSearchItem" name="btnSearchItem" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchItemList"></sbux-button>
+					<sbux-button id="btnSaveItem" name="btnSaveItem" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_SevaApcVrtyList"></sbux-button>
 					<sbux-button id="btnEndItem" name="btnEndItem" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-item')"></sbux-button>
 				</div>
 			</div>
@@ -44,7 +44,7 @@
 								</th>
 								<th scope="row">품목명</th>
 								<th  style="border-right-style: hidden;">
-									<sbux-input id=item-inp-itemNm name="item-inp-itemNm" uitype="text" class="form-control input-sm"></sbux-input>
+									<sbux-input id=item-inp-itemNm name="item-inp-itemNm" uitype="text" class="form-control input-sm" onkeyenter="fn_searchItemList"></sbux-input>
 								</th>
 								<th>&nbsp;</th>
 								<th>&nbsp;</th>
@@ -56,14 +56,12 @@
 				</div>
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-				<b>&nbsp;</b>
-
 				<div class="row">
 
 					<div class="col-sm-6">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
-								<li><span>농수축산물표준품목</span></li>
+								<li><span>농수축산물표준 품목</span></li>
 							</ul>
 						</div>
 						<div>
@@ -75,7 +73,7 @@
 					<div class="col-sm-6">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
-								<li><span>APC관리품목</span></li>
+								<li><span>APC관리 품목</span></li>
 							</ul>
 						</div>
 						<div>
@@ -99,12 +97,12 @@
 							<tr>
 								<th scope="row">품목명</th>
 								<th style="border-right-style: hidden;">
-									<sbux-input id=vrty-inp-itemNm name="vrty-inp-itemNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
-									<sbux-input id=vrty-inp-itemCd name="vrty-inp-itemCd" uitype="hidden" class="form-control input-sm"></sbux-input>
+									<sbux-input id="vrty-inp-itemNm" name="vrty-inp-itemNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+									<sbux-input id="vrty-inp-itemCd" name="vrty-inp-itemCd" uitype="hidden" class="form-control input-sm"></sbux-input>
 								</th>
 								<th scope="row">품종명</th>
 								<th style="border-right-style: hidden;">
-									<sbux-input id=vrty-inp-vrtyNm name="vrty-inp-vrtyNm" uitype="text" class="form-control input-sm"></sbux-input>
+									<sbux-input id="vrty-inp-vrtyNm" name="vrty-inp-vrtyNm" uitype="text" class="form-control input-sm" onkeyenter="fn_searchVrtyList"></sbux-input>
 								</th>
 								<th>&nbsp;</th>
 								<th>&nbsp;</th>
@@ -118,7 +116,7 @@
 					<div class="col-sm-6">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
-								<li><span>농수축산물표준품종</span></li>
+								<li><span>농수축산물표준 품종</span></li>
 							</ul>
 						</div>
 						<div>
@@ -128,7 +126,7 @@
 					<div class="col-sm-6">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
-								<li><span>APC관리품종</span></li>
+								<li><span>APC관리 품종</span></li>
 							</ul>
 						</div>
 						<div>
@@ -166,10 +164,10 @@
 
 	    ];
 	    grdItem = _SBGrid.create(SBGridProperties);
-	    fn_selectItemList();
+	    fn_searchItemList();
 	}
 
-	async function fn_selectItemList(){
+	async function fn_searchItemList(){
 		fn_callSelectItemList()
 	}
 
@@ -223,11 +221,11 @@
 
 	    ];
 	    grdApcItem = _SBGrid.create(SBGridProperties);
-	    grdApcItem.bind('click', fn_apcVrtyList);
-	    fn_selectApcItemList();
+	    grdApcItem.bind('click', fn_searchVrtyList);
+	    fn_searchApcItemList();
 	}
 
-	async function fn_selectApcItemList(){
+	async function fn_searchApcItemList(){
 		fn_callSelectApcItemList();
 	}
 
@@ -269,8 +267,9 @@
         let data = await postJsonPromise;
         try{
         	if(data.result > 0){
-        		fn_selectApcItemList();
-        		fn_selectItemList()
+        		fn_searchApcItemList();
+        		fn_searchItemList();
+
         	}else{
         		alert("등록 중 실패하였습니다.")
         	}
@@ -292,8 +291,8 @@
         let data = await postJsonPromise;
         try{
         	if(data.result > 0){
-        		fn_selectApcItemList();
-        		fn_selectItemList();
+        		fn_searchApcItemList();
+        		fn_searchItemList();
         	}else{
         		alert("삭제 중 실패하였습니다.")
         	}
@@ -368,8 +367,6 @@
     		}
     		console.error("failed", e.message);
         }
-
-        //fn_selectApcVrtyList();
 	}
 
 	// APC 품종 목록 조회
@@ -399,14 +396,16 @@
 
 	    ];
 	    grdApcVrty = _SBGrid.create(SBGridProperties);
-	    fn_selectApcVrtyList();
+	    fn_searchApcVrtyList();
 	}
 
-	async function fn_selectApcVrtyList(){
+	async function fn_searchApcVrtyList(){
 		fn_callSelectApcVrtyList();
 	}
 
 	async function fn_callSelectApcVrtyList(){
+
+		console.log("호출")
 
 		let nRow = grdApcItem.getRow();
         if (nRow < 1) {
@@ -414,11 +413,19 @@
         }
 
         let rowData = grdApcItem.getRowData(nRow);
-		SBUxMethod.set("vrtyItemNm", rowData.itemNm);
+        if(SBUxMethod.get("vrty-inp-itemNm") == null || SBUxMethod.get("vrty-inp-itemNm") == ""){
+			SBUxMethod.set("vrty-inp-itemCd", rowData.itemCd);
+        }
+
 		let apcCd = SBUxMethod.get("inp-apcCd");
-		let itemCd = rowData.itemCd;
-		let vrtyNm = SBUxMethod.get("item-inp-vrtyNm");
-    	let postJsonPromise = gfn_postJSON("/am/cmns/selectApcVrtyList.do", {apcCd : apcCd, itemCd : itemCd, vrtyNm : vrtyNm});
+		let itemCd = "";
+		if(SBUxMethod.get("vrty-inp-itemCd") == null || SBUxMethod.get("vrty-inp-itemCd") == ""){
+			itemCd = rowData.itemCd;
+		}else{
+			itemCd = SBUxMethod.get("vrty-inp-itemCd");
+		}
+		console.log("itemCd",itemCd);
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectApcVrtyList.do", {apcCd : apcCd, itemCd : itemCd});
         let data = await postJsonPromise;
         let newJsonApcVrty = [];
         try{
@@ -444,9 +451,12 @@
         }
 	}
 
-	async function fn_apcVrtyList(){
-		await fn_selectVrtyList();
-		fn_selectApcVrtyList();
+	async function fn_searchVrtyList(){
+		let nRow = grdApcItem.getRow();
+		let rowData = grdApcItem.getRowData(nRow);
+
+		fn_selectVrtyList();
+		fn_searchApcVrtyList();
 	}
 
 	async function fn_addVrty(nRow){
@@ -460,7 +470,7 @@
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		fn_apcVrtyList();
+        		searchAll();
         	} else {
         		alert(data.resultMessage);
         	}
@@ -469,8 +479,13 @@
 	}
 
 	async function fn_deleteVrty(nRow){
-		let vrtyVO = grdApcVrty.getRowData(nRow);
-		fn_callDeleteVrty(vrtyVO)
+		if(grdApcVrty.getRowStatus(nRow) == 0 || grdApcVrty.getRowStatus(nRow) == 2){
+			let vrtyVO = grdApcVrty.getRowData(nRow);
+			fn_callDeleteVrty(vrtyVO)
+   			grdApcVrty.deleteRow(nRow);
+    	}else{
+    		grdApcVrty.deleteRow(nRow);
+    	}
 	}
 
 	async function fn_callDeleteVrty(cmnsVrtyVO){
@@ -478,7 +493,7 @@
         let data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		fn_apcVrtyList();
+        		searchAll();
         	} else {
         		alert(data.resultMessage);
         	}
@@ -486,7 +501,7 @@
         }
 	}
 
-	async function fn_insertApcVrtyList(){
+	async function fn_SevaApcVrtyList(){
 
 		let gridData = grdApcVrty.getGridDataAll();
 		let insertList = [];
@@ -515,7 +530,7 @@
 				insertedCnt = await fn_callInsertApcVrtyList(insertList);
 			}
 			if(insertedCnt > 0 ){
-				fn_apcVrtyList();
+				searchAll();
 				alert("등록 되었습니다.");
 			}
 		}
@@ -533,6 +548,13 @@
         	}
         } catch(e) {
         }
+	}
+
+	async function searchAll(){
+		await fn_searchItemList();
+		await fn_searchApcItemList();
+		await fn_searchVrtyList();
+		fn_searchApcVrtyList();
 	}
 
 </script>
