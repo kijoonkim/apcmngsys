@@ -19,10 +19,10 @@ public interface ApcEvrmntStngService {
 	/**
 	 * APC정보관리 APC내역 조회
 	 * @param ApcEvrmntStngVO
-	 * @return ApcEvrmntStngVO
+	 * @return List<ApcEvrmntStngVO>
 	 * @throws Exception
 	 */
-	ApcEvrmntStngVO selectApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+	List<ApcEvrmntStngVO> selectApcDsctnList(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
 	
 	ApcEvrmntStngVO selectUserAprvReg(ComUserVO comUserVO) throws Exception;
 

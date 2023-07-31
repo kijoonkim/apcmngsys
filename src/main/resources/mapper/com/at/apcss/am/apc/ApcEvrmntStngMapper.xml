@@ -51,7 +51,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.26  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcDsctn" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" resultType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
+    <select id="selectApcDsctnList" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" resultType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
     	<![CDATA[
     	SELECT AI.APC_CD            AS APC_CD
 		     , AI.REG_APC_NM        AS REG_APC_NM
@@ -69,7 +69,7 @@
 		     , AI.TELNO            	AS TELNO
 		     , AI.FXNO             	AS FXNO
 		  FROM TB_APC_INFO AI
-		 WHERE APC_CD = #{apcCd}
+		 WHERE AI.APC_CD = #{apcCd}
 		]]>
 		<if test='regApcNm != null and regApcNm != ""'>
 		   AND AI.REG_APC_NM LIKE '%' ||  #{regApcNm]} || '%'

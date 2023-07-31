@@ -43,11 +43,7 @@
 							</td>
 							<th class="ta_c">원본 APC명</th>
 							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-regApcNm" name="srch-slt-regApcNm" uitype="single" jsondata-ref="jsonComboRegApcNm" unselected-text="선택" class="form-control input-sm"></sbux-select>
-									</div>
-								</div>
+								<sbux-input id="srch-inp-regApcNm" name="srch-inp-regApcNm" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 						</tr>
 					</tbody>
@@ -73,18 +69,11 @@
 	
 	var apcInfoMngData = [];
 
-	const fn_initSBSelect = async function() {
-		gfn_setComCdSBSelect('srch-slt-regApcNm', jsonComboRegApcNm , 'REG_APC_NM', '0000');	// 검색 조건(시스템구분)
-	}
-	
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createApcInfoMngGrid();
-		SBUxMethod.set("srch-inp-apcCd", "9999");
-		fn_initSBSelect();
+		SBUxMethod.set("srch-inp-apcCd", "0001");
 	})
 	
-// 	var jsonRegSlsPrfmncList = ['test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
-
 	function fn_createApcInfoMngGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdApcInfoMng';
@@ -126,6 +115,7 @@
         grdApcInfoMng.addRow(true);
     }
 	
+	// 행 삭제 및 추가
 	function fn_procRowApcInfo(gubun, nRow, nCol){
 		if (gubun === "ADD") {
 			grdApcInfoMng.setCellData(nRow, nCol, "N", true);
@@ -145,33 +135,53 @@
 		}
 	}
 	
+// 	콤보박스 (검색 조건)
+// 	async function setRegApcNmSBSelect(_targetIds, _jsondataRef) {
+// 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+// 		let regApcNm = SBUxMethod.get("srch-slt-regApcNm");
+// 		let postJsonPromise = gfn_postJSON("/am/apc/selectApcDsctn.do", {apcCd: apcCd, regApcNm: regApcNm, delYn: "N"});
+// 		let data = await postJsonPromise;
+// 		let resultVO = data.resultVO;
+
+// 		let sourceJson = [];
+// 		let item = {
+// 				cmnsCd: resultVO.apcCd,
+// 				cmnsNm: resultVO.regApcNm
+// 			}
+// 		sourceJson.push(item);
+
+// 		gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+// 	}
+	
+	// 조회 버튼 기능
 	async function fn_search(){
-		fn_searchApcDsctn();
+		fn_callSelectApcDsctnList();
 	}
 	
-	async function fn_searchApcDsctn(){
+	async function fn_callSelectApcDsctnList(){
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let regApcNm = SBUxMethod.get("srch-slt-regApcNm");
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcDsctn.do", {apcCd : apcCd, regApcNm : regApcNm});
+		let regApcNm = SBUxMethod.get("srch-inp-regApcNm");
+    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcDsctnList.do", {apcCd: apcCd, regApcNm : regApcNm});
         let data = await postJsonPromise;
-        let resultVO = data.resultVO;
         let newApcInfoMngData = [];
         try{
-			let apcDsctn = {
-				apcCd 		: resultVO.apcCd
-			  , regApcNm 	: resultVO.regApcNm
-			  , ctpvNm 		: resultVO.ctpvNm
-			  , sigunNm 	: resultVO.sigunNm
-			  , mbCd 		: resultVO.mbCd
-			  , regAddr 	: resultVO.regAddr
-			  , regTelno 	: resultVO.regTelno
-			  , apcNm 		: resultVO.apcNm
-			  , brno 		: resultVO.brno
-			  , addr 		: resultVO.addr
-			  , fxno 		: resultVO.fxno
-			  , telno 		: resultVO.telno
-			}
-			newApcInfoMngData.push(apcDsctn);
+        	data.resultList.forEach((item, index) => {
+				let apcDsctn = {
+					apcCd 		: item.apcCd
+				  , regApcNm 	: item.regApcNm
+				  , ctpvNm 		: item.ctpvNm
+				  , sigunNm 	: item.sigunNm
+				  , mbCd 		: item.mbCd
+				  , regAddr 	: item.regAddr
+				  , regTelno 	: item.regTelno
+				  , apcNm 		: item.apcNm
+				  , brno 		: item.brno
+				  , addr 		: item.addr
+				  , fxno 		: item.fxno
+				  , telno 		: item.telno
+				}
+				newApcInfoMngData.push(apcDsctn);
+			});
         	apcInfoMngData = newApcInfoMngData;
         	grdApcInfoMng.rebuild();
         }catch (e) {

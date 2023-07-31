@@ -35,9 +35,9 @@ public interface ApcEvrmntStngMapper {
 	/**
 	 * APC 내역 조회
 	 * @param ApcEvrmntStngVO
-	 * @return ApcEvrmntStngVO
+	 * @return List<ApcEvrmntStngVO>
 	 */
-	ApcEvrmntStngVO selectApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+	List<ApcEvrmntStngVO> selectApcDsctnList(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
 
 	/**
 	 * APC 사용자 목록 조회
