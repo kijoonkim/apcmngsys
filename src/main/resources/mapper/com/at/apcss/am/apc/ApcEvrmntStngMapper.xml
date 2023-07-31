@@ -72,7 +72,7 @@
 		 WHERE AI.APC_CD = #{apcCd}
 		]]>
 		<if test='regApcNm != null and regApcNm != ""'>
-		   AND AI.REG_APC_NM LIKE '%' ||  #{regApcNm]} || '%'
+		   AND AI.REG_APC_NM LIKE '%' ||  #{regApcNm} || '%'
 		</if>
     </select>
 
