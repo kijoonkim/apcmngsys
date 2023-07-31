@@ -61,7 +61,7 @@ public class ApcEvrmntStngController extends BaseController{
 		@PostMapping(value = "/am/apc/selectApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 		public ResponseEntity<HashMap<String, Object>> selectApcDsctnList(@RequestBody ApcEvrmntStngVO ApcEvrmntStngVO, HttpServletRequest request) throws Exception {
 
-			logger.debug("selectApcDsctn 호출 <><><><> ");
+			logger.debug("selectApcDsctnList 호출 <><><><> ");
 
 			HashMap<String, Object> resultMap = new HashMap<String, Object>();
 			List<ApcEvrmntStngVO> resultList = new ArrayList<>();

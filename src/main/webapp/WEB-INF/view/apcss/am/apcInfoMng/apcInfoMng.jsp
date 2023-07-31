@@ -155,12 +155,12 @@
 	
 	// 조회 버튼 기능
 	async function fn_search(){
-		fn_searchApcDsctn();
+		fn_callSelectApcDsctnList();
 	}
 	
-	async function fn_searchApcDsctn(){
+	async function fn_callSelectApcDsctnList(){
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let regApcNm = SBUxMethod.get("srch-slt-regApcNm");
+		let regApcNm = SBUxMethod.get("srch-inp-regApcNm");
     	let postJsonPromise = gfn_postJSON("/am/apc/selectApcDsctnList.do", {apcCd: apcCd, regApcNm : regApcNm});
         let data = await postJsonPromise;
         let newApcInfoMngData = [];
