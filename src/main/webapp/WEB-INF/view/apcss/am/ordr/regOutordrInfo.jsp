@@ -190,9 +190,7 @@
 	
 // 	var jsonRegOutordrInfoList = ['test','test']; // 그리드의 참조 데이터 주소 선언
 	var jsonRegOutordrInfoList = [];
-	
-	var comboUesYnJsData1 = ['선택']
-	
+
 	function fn_createRegOutordrInfoGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdRegOutordrInfo';
@@ -201,6 +199,13 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+		};
         SBGridProperties.columns = [
         	{caption: ['선택'], ref: 'slt', width: '100px', type: 'checkbox'},
             {caption: ['발주유형'], ref: 'outordrType', width: '100px', type: 'output'},

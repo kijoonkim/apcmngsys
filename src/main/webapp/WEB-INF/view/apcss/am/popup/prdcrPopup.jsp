@@ -14,7 +14,7 @@
 						<sbux-button id="btnSearchPrdcr" name="btnSearchPrdcr" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchPrdcr"></sbux-button>
 						<sbux-button id="btnEditorPrdcr" name="btnEditorPrdcr" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="fn_editorPrdcr"></sbux-button>
 						<sbux-button id="btnInsertPrdcr" name="btnInsertPrdcr" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertPrdcr"disabled></sbux-button>
-						<sbux-button id="btnEndPrdcr" name="btnEndPrdcr" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-prdcr')"></sbux-button>
+						<sbux-button id="btnEndPrdcr" name="btnEndPrdcr" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-prdcr')"></sbux-button>
 					</div>
 				</div>
 			</div>
@@ -38,7 +38,9 @@
 							</th>
 							<th scope="row">생산자명</th>
 							<th class="td_input">
-								<sbux-input id="prdcr-inp-prdcrNm" name="prdcr-inp-prdcrNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input uitype="text" id="prdcr-inp-prdcrNm" name="prdcr-inp-prdcrNm" class="form-control input-sm"
+								placeholder="초성검색 기능입니다." autocomplete-ref="autoCompleteDataJsonPopup" autocomplete-text="name"
+    							onkeyup="keyUpInp(prdcr-inp-prdcrNm, 'prdcr-inp-prdcrNm', 'true')"></sbux-input>
 							</th>
 							<th>&nbsp;</th>
 						</tr>
@@ -62,24 +64,44 @@
 	var jsonComWrhsSeCd 	= [];	// 입고구분 wrhsSeCd	Grid
 	var jsonComTrsprtSeCd 	= [];	// 운송구분 trsprtSeCd	Grid
 	var jsonComClclnCrtr 	= [];	// 정산기준 clclnCrtr	Grid
+	var autoCompleteDataJsonPopup = [];	// 초성검색
+	var jsonDataPrdcrPopup = [];	// 초성검색 리스트
 
 	const fn_initSBSelectPrdcr = async function() {
 
 		// 그리드 SB select
-		gfn_setApcItemSBSelect('grdPrdcr', 	jsonItem, gv_apcCd);		// 품목
-	 	gfn_setApcVrtySBSelect('grdPrdcr', 	jsonVrty, gv_apcCd);		// 품종
-	 	gfn_setComCdGridSelect('grdPrdcr', jsonComGdsSeCd, 		'GDS_SE_CD');		// 상품구분
-	 	gfn_setComCdGridSelect('grdPrdcr', jsonComWrhsSeCd, 	'WRHS_SE_CD');		// 입고구분
-	 	gfn_setComCdGridSelect('grdPrdcr', jsonComTrsprtSeCd, 	'TRSPRT_SE_CD');	// 운송구분
-	 	gfn_setComCdGridSelect('grdPrdcr', jsonComClclnCrtr, 	'CLCLN_CRTR');		// 정산기준
+		await gfn_setApcItemSBSelect('grdPrdcr', 	jsonItem, gv_apcCd);		// 품목
+		await gfn_setApcVrtySBSelect('grdPrdcr', 	jsonVrty, gv_apcCd);		// 품종
+		await gfn_setComCdGridSelect('grdPrdcr', jsonComGdsSeCd, 		'GDS_SE_CD');		// 상품구분
+		await gfn_setComCdGridSelect('grdPrdcr', jsonComWrhsSeCd, 	'WRHS_SE_CD');		// 입고구분
+		await gfn_setComCdGridSelect('grdPrdcr', jsonComTrsprtSeCd, 	'TRSPRT_SE_CD');	// 운송구분
+		await gfn_setComCdGridSelect('grdPrdcr', jsonComClclnCrtr, 	'CLCLN_CRTR');		// 정산기준
+
+	 	jsonDataPrdcrPopup =  await gfn_getPrdcrs(gv_apcCd);
 
 	}
 
 
+	function keyUpInp(prdcrNm, modulId, popupYn){
+		if(popupYn == 'true'){
+			console.log("jsonDataPrdcrPopup", jsonDataPrdcrPopup);
+			autoCompleteDataJsonPopup = gfn_getFrst(prdcrNm, jsonDataPrdcrPopup, autoCompleteDataJsonPopup);
+			console.log("autoCompleteDataJsonPopup", autoCompleteDataJsonPopup);
+		}else{
+	    	autoCompleteDataJson = gfn_getFrst(prdcrNm, jsonDataPrdcr, autoCompleteDataJson);
+	    	console.log("jsonDataPrdcr", jsonDataPrdcr);
+	    	console.log("autoCompleteDataJson", autoCompleteDataJson);
+		}
+    	SBUxMethod.changeAutocompleteData(modulId, true);
+    }
+
+
+
 	var jsonPrdcr = [];
-	function fn_createPrdcrGrid() {
+	async function fn_createPrdcrGrid() {
+		SBUxMethod.attr('btnInsertPrdcr', 'disabled', true);
 		SBUxMethod.set("prdcr-inp-apcNm", gv_apcNm);
-		fn_initSBSelectPrdcr();
+		await fn_initSBSelectPrdcr();
 		jsonPrdcr = [];
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPrdcr';
@@ -88,6 +110,7 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	        {caption: ['생산자명'], 	ref: 'prdcrNm', 	width: '100px', type: 'input', style:'text-align:center'},
 	        {caption: ['대표품목'], 	ref: 'rprsItemCd', 	type:'combo',  width:'100px',    style:'text-align:center',
@@ -106,9 +129,9 @@
 	        {caption: ['비고'], 		ref: 'rmrk', 		width: '200px', type: 'input', style:'text-align:center'},
 	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowPrdcr(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
+            		return "<button type='button' class='btn btn-xs btn-outline-danger btnDisabled' onClick='fn_procRowPrdcr(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
             	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowPrdcr(\"DEL\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' class='btn btn-xs btn-outline-danger btnDisabled' onClick='fn_procRowPrdcr(\"DEL\", " + nRow + ")'>삭제</button>";
             	}
 		    }},
 	        {caption: ['APC코드'], 		ref: 'apcCd', 		hidden : true},
@@ -150,6 +173,8 @@
 			});
         	jsonPrdcr = newJsonPrdcr;
         	grdPrdcr.rebuild();
+        	grdPrdcr.setCellDisabled(0, 0, grdPrdcr.getRows() - 1, grdPrdcr.getCols() - 1, true);
+        	$('.btnDisabled').attr('disabled', true);
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -162,6 +187,7 @@
 	function fn_procRowPrdcr(gubun, nRow, nCol){
 		if (gubun === "ADD") {
 			grdPrdcr.setCellData(nRow, nCol, "N", true);
+			grdPrdcr.setCellData(nRow, 5, gv_apcCd, true);
 			grdPrdcr.addRow(true);
 		}
 		else if(gubun === "DEL"){
@@ -169,13 +195,119 @@
         		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
         		if(confirm(delMsg)){
         			var prdcrVO = grdPrdcr.getRowData(nRow);
-        			//fn_deletePrdcr(prdcrVO);
+        			fn_deletePrdcr(prdcrVO);
         			grdPrdcr.deleteRow(nRow);
         		}
         	}else{
         		grdPrdcr.deleteRow(nRow);
         	}
 		}
+	}
+
+	function fn_editorPrdcr(){
+    	$('.btnDisabled').attr('disabled', false);
+		grdPrdcr.setCellDisabled(0, 0, grdPrdcr.getRows() - 1, grdPrdcr.getCols() - 1, false);
+		grdPrdcr.addRow(true);
+		SBUxMethod.attr('btnInsertPrdcr', 'disabled', false);
+	}
+
+	async function fn_insertPrdcr(){
+		let gridData = grdPrdcr.getGridDataAll();
+		let insertList = [];
+		let updateList = [];
+		let insertCnt = 0;
+		let updateCnt = 0;
+		for(var i=1; i<=gridData.length; i++ ){
+			if(grdFclt.getRowData(i).delYn == 'N'){
+
+				if(grdPrdcr.getRowData(i).prdcrNm == null || grdPrdcr.getRowData(i).prdcrNm == ""){
+					alert("생산자 명은 필수 값 입니다.");
+					return;
+				}
+
+				if(grdPrdcr.getRowData(i).prdcrNm == null || grdPrdcr.getRowData(i).prdcrNm == ""){
+					alert("생산자 명은 필수 값 입니다.");
+					return;
+				}
+
+				if(grdPrdcr.getRowStatus(i) === 3){
+					insertList.push(grdPrdcr.getRowData(i));
+				}
+				if(grdPrdcr.getRowStatus(i) === 2){
+					updateList.push(grdPrdcr.getRowData(i));
+				}
+			}
+		}
+		if(insertList.length == 0 && updateList.length == 0){
+			alert("등록 할 내용이 없습니다.");
+			return;
+		}
+		let regMsg = "등록 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			if(insertList.length > 0){
+				insertCnt = await fn_callInsertPrdcrList(insertList);
+			}
+			if(updateList.length > 0){
+				updateCnt = await fn_callUpdatePrdcrList(updateList);
+			}
+			if(insertCnt + updateCnt > 0 ){
+				fn_searchPrdcr();
+				alert("등록 되었습니다.");
+			}
+		}
+	}
+
+	async function fn_callInsertPrdcrList(procrList){
+		let postJsonPromise = gfn_postJSON("/am/cmns/insertPrdcrList.do", procrList);
+        let data = await postJsonPromise;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		return data.insertedCnt;
+        	} else {
+        		alert(data.resultMessage);
+        	}
+        } catch(e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+
+	async function fn_callUpdatePrdcrList(procrList){
+		let postJsonPromise = gfn_postJSON("/am/cmns/updatePrdcrList.do", procrList);
+        let data = await postJsonPromise;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		return data.updatedCnt;
+        	} else {
+        		alert(data.resultMessage);
+        	}
+        } catch(e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+
+	async function fn_deletePrdcr(prdcrVO){
+		let postJsonPromise = gfn_postJSON("/am/cmns/deletePrdcr.do", prdcrVO);
+        let data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		alert("삭제 되었습니다.");
+        	} else {
+        		alert(data.resultMessage);
+        	}
+        } catch(e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
 	}
 
 	function fn_modalPrdcr(){

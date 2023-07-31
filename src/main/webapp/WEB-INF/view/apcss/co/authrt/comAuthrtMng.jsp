@@ -297,8 +297,7 @@
 					//result += "<button class='btn btn-xs btn-outline-danger' onClick='alert(" + nRow + ")'>테스트</button>";
 					return result;
 				}
-            },
-            
+            }            
         ];
         
         grdComAuthMenu = _SBGrid.create(SBGridProperties);
@@ -373,6 +372,7 @@
         }
     	
     	// set pagination
+    	grdComAuth.rebuild();
     	let pageSize = grdComAuth.getPageSize();
     	let pageNo = 1;
         

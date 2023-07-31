@@ -13,7 +13,7 @@
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSearchTrsprtCst" name="btnSearchTrsprtCst" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searctTrsprtCst"></sbux-button>
 						<sbux-button id="btnInsertTrsprtCst" name="btnInsertTrsprtCst" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertTrsprtCst"></sbux-button>
-						<sbux-button id="btnEndTrsprtCst" name="btnEndTrsprtCst" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-trsprtCst')"></sbux-button>
+						<sbux-button id="btnEndTrsprtCst" name="btnEndTrsprtCst" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-trsprtCst')"></sbux-button>
 					</div>
 				</div>
 			</div>

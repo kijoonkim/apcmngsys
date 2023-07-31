@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
@@ -21,9 +21,9 @@
 				<p class="ad_input_row">
 					<sbux-checkbox id="check_all" name="check_all" uitype="normal" text="포장실적 자동등록" ></sbux-checkbox>
 				</p>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-dark"></sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-dark"></sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-dark"></sbux-button>
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-dark"></sbux-button>
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-dark"></sbux-button>
+				<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-dark"></sbux-button>
 			</div>
 			</div>
 			<div class="box-body">
@@ -90,7 +90,7 @@
 					<div class="table-responsive tbl_scroll_sm">
 						<div id="sb-area-grdInptPremnc" style="height:300px;"></div>
 					</div>
-					<br />
+					<br/>
 <!-- 					<div class="ad_section_bottom"></div> -->
 						<table class="table table-bordered tbl_row tbl_fixed">
 							<caption>검색 조건 설정</caption>

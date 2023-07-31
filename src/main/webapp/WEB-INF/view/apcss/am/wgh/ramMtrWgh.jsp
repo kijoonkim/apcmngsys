@@ -30,18 +30,18 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+						<col style="width: 7%">
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 2%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -59,7 +59,9 @@
 							<td colspan="2"></td>
 							<th scope="row">생산자</th>
 							<td class="td_input" style="border-right:hidden;">
-								<sbux-input uitype="text" id="srch-inp-prdcrNm" name="srch-inp-prdcrNm" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="srch-inp-prdcrNm" name="srch-inp-prdcrNm" class="form-control input-sm"
+								placeholder="초성검색 기능입니다." autocomplete-ref="autoCompleteDataJson" autocomplete-text="name"
+    							onkeyup="keyUpInp(srch-inp-prdcrNm, 'srch-inp-prdcrNm', 'false')"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchPrdcr" name="btnSrchPrdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
@@ -215,7 +217,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:340px;"></div>
+					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:400px;"></div>
 				</div>
 			</div>
 				<!--[pp] //검색결과 -->
@@ -252,12 +254,15 @@
 	var jsonVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonGrd				= [];	// 등급 		vrtyCd		검색
 	var jsonComWarehouse	= [];	// 팔레트/박스 	warehouse	검색
+	var autoCompleteDataJson = [];
+    var jsonDataPrdcr = [];
 	const fn_initSBSelect = async function() {
 
 		// 검색 SB select
 	 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd', jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_apcCd);			// 창고
 	 	gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonItem, gv_apcCd);	// 품목
 		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonVrty, gv_apcCd);	// 품종
+		jsonDataPrdcr =  await gfn_getPrdcrs(gv_apcCd);
 	}
 
 	function fn_selectItem(){
@@ -275,7 +280,6 @@
 		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-dtp-wrhsYmd", year+month+day);
 		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-
 		fn_initSBSelect();
 	})
 
@@ -313,8 +317,5 @@
         grdWghPrfmnc = _SBGrid.create(SBGridProperties);
     }
 
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
-	}
 </script>
 </html>

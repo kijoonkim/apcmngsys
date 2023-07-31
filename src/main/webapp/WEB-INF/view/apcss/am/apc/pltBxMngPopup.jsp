@@ -12,15 +12,15 @@
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div>
 						<p>
-							<span>APC에서 관리하고 있는 팔레트와 박스의 종류 및 기초 재고수량을 등록하세요.</span>
+							<span style="font-weight:bold;">APC에서 관리하고 있는 팔레트와 박스의 종류 및 기초 재고수량을 등록하세요.</span>
 						</p>
 						<p>
-							<span style="color:black">계근대를 사용하는 경우는 단중을 입력해야 합니다.</span>
+							<span style="color:black; font-weight:bold;">계근대를 사용하는 경우는 단중을 입력해야 합니다.</span>
 						</p>
 					</div>
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchPltBx" name="btnSearchPltBx" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertPltBxList"></sbux-button>
-						<sbux-button id="btnEndPltBx" name="btnEndPltBx" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-pltBx')"></sbux-button>
+						<sbux-button id="btnEndPltBx" name="btnEndPltBx" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-pltBx')"></sbux-button>
 					</div>
 				</div>
 				<div class="box-body">

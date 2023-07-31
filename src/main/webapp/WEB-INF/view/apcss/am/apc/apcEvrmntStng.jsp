@@ -46,9 +46,9 @@
 							</td>
 						</tr>
 						<tr>
-							<td scope="row" align="right">명칭</td>
+							<td scope="row" align="right"><span class="data_required"></span>명칭</td>
 							<td scope="row" >
-								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm input-sm-ast"></sbux-input>
 							</td>
 							<td scope="row" align="right">주소</td>
 							<td scope="row">
@@ -213,6 +213,14 @@
 			<!--[pp] //검색 -->
 			<!--[pp] 검색결과 -->
 			<div class="box-body">
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>APC 사용메뉴 선택</span></li>
+					</ul>
+				 	<div class="ad_tbl_toplist">
+						<sbux-button id="btnSimpleStng" name="btnSimpleStng" class="btn btn-xs btn-outline-danger" text="메뉴간편설정" uitype="modal" target-id="modal-simpleStng" ></sbux-button>
+					</div>
+				</div>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -224,11 +232,6 @@
 						<col style="width: 16%">
 					</colgroup>
 					<tbody>
-						<tr>
-							<th colspan="6" class="th_label">APC 사용메뉴 선택
-								<sbux-button id="btnSimpleStng" name="btnSimpleStng" class="btn btn-sm btn-outline-danger" text="간편설정" uitype="modal" style="float:right;" target-id="modal-simpleStng" ></sbux-button>
-							</th>
-						</tr>
 						<tr>
 							<th scope="row">계량정보 관리</th>
 							<td>
@@ -541,7 +544,7 @@
 
     <!-- 간편설정 Modal -->
     <div>
-        <sbux-modal id="modal-simpleStng" name="modal-simpleStng" uitype="middle" header-title="간편설정" body-html-id="body-modal-simpleStng" footer-is-close-button="false" style="width:1200px"></sbux-modal>
+        <sbux-modal id="modal-simpleStng" name="modal-simpleStng" uitype="middle" header-title="메뉴간편설정" body-html-id="body-modal-simpleStng" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-simpleStng">
     	<jsp:include page="../apc/simpleStngPopup.jsp"></jsp:include>
@@ -623,9 +626,7 @@
 		}
 		if(targetName == 'btnGrdSpcfct'){
 			fn_createGrdGrid();
-			fn_createGrdSpcfct();
 			fn_createGrdApcSpcfct();
-			fn_initSBSelectItem();
 		}
 		if(targetName == 'btnWrhsVhcl'){
 			fn_wrhsVhclMngCreateGrid();
@@ -699,12 +700,12 @@
             	cnptMngDatagrid.addRow(true);
             }else if (grid === "grdFclt") {
             	grdFclt.setCellData(nRow, nCol, "N", true);
-            	grdFclt.setCellData(nRow, 4, SBUxMethod.get("inp-apcCd"), true);
+            	grdFclt.setCellData(nRow, 4, gv_apcCd, true);
             	grdFclt.setCellData(nRow, 5, "FCLT_CD", true);
             	grdFclt.addRow(true);
             }else if (grid === "grdWarehouse") {
             	grdWarehouse.setCellData(nRow, nCol, "N", true);
-            	grdWarehouse.setCellData(nRow, 4, SBUxMethod.get("inp-apcCd"), true);
+            	grdWarehouse.setCellData(nRow, 4, gv_apcCd, true);
             	grdWarehouse.setCellData(nRow, 5, "WAREHOUSE_SE_CD", true);
             	grdWarehouse.addRow(true);
             }else if(grid === "grdPlt"){
@@ -712,28 +713,27 @@
             	grdPlt.setCellData(nRow, 3, "K", true);
             	grdPlt.setCellData(nRow, 5, "Y", true);
             	grdPlt.setCellData(nRow, 7, "P", true);
-            	grdPlt.setCellData(nRow, 8, SBUxMethod.get("inp-apcCd"), true);
+            	grdPlt.setCellData(nRow, 8, gv_apcCd, true);
             	grdPlt.addRow(true);
             }else if(grid === "grdBx"){
             	grdBx.setCellData(nRow, nCol, "N", true);
             	grdBx.setCellData(nRow, 5, "Y", true);
             	grdBx.setCellData(nRow, 3, "K", true);
             	grdBx.setCellData(nRow, 7, "B", true);
-            	grdBx.setCellData(nRow, 8, SBUxMethod.get("inp-apcCd"), true);
+            	grdBx.setCellData(nRow, 8, gv_apcCd, true);
             	grdBx.addRow(true);
             }else if(grid === "grdPckg"){
             	grdPckg.setCellData(nRow, nCol, "N", true);
-            	grdPckg.setCellData(nRow, 5, SBUxMethod.get("inp-apcCd"), true);
+            	grdPckg.setCellData(nRow, 5, gv_apcCd, true);
             	grdPckg.setCellData(nRow, 6, "PCKG_SE_CD", true);
             	grdPckg.addRow(true);
             }else if(grid === "rgnTrsprtCstMngDatagrid"){
             	rgnTrsprtCstMngDatagrid.setCellData(nRow, nCol, "N", true);
-            	rgnTrsprtCstMngDatagrid.setCellData(nRow, 5, SBUxMethod.get("inp-apcCd"), true);
+            	rgnTrsprtCstMngDatagrid.setCellData(nRow, 5, gv_apcCd, true);
             	rgnTrsprtCstMngDatagrid.addRow(true);
             }else if(grid === "wrhsVhclMngDatagrid"){
-            	wrhsVhclMngDatagrid.setCellData(nRow, nCol, "N", true);
-            	wrhsVhclMngDatagrid.setCellData(nRow, 7, SBUxMethod.get("inp-apcCd"), true);
-            	wrhsVhclMngDatagrid.addRow(true);
+            	wrhsVhclMngGridData[nRow-1].delYn = "N";
+				wrhsVhclMngDatagrid.addRow();
             }else if(grid === "spmtTrsprtMngDatagrid"){
             	spmtTrsprtMngDatagrid.setCellData(nRow, nCol, "N", true);
             	spmtTrsprtMngDatagrid.addRow(true);
@@ -742,15 +742,25 @@
             	grdOprtr.addRow(true);
             }else if(grid === "grdApcVrty"){
             	grdApcVrty.setCellData(nRow, nCol, "N", true);
-            	grdApcVrty.setCellData(nRow, 3, SBUxMethod.get("inp-apcCd"), true);
-            	grdApcVrty.setCellData(nRow, 4, grdApcItem.getRowData(apcItemDataGrid.getRow()).itemCd, true);
+            	grdApcVrty.setCellData(nRow, 3, gv_apcCd, true);
+            	grdApcVrty.setCellData(nRow, 4, grdApcItem.getRowData(grdApcItem.getRow()).itemCd, true);
             	grdApcVrty.addRow(true);
             }else if(grid === "grdGrd"){
             	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
 	            	grdGrd.setCellData(nRow, nCol, "N", true);
-	            	grdGrd.setCellData(nRow, 3, SBUxMethod.get("inp-apcCd"), true);
+	            	grdGrd.setCellData(nRow, 3, gv_apcCd, true);
 	            	grdGrd.setCellData(nRow, 4, SBUxMethod.get("spcfct-select-itemCd"), true);
 	            	grdGrd.addRow(true);
+            	}else{
+            		alert("품목을 선택해주세요.")
+            		return;
+            	}
+            }else if(grid === "grdApcSpcfct"){
+            	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
+            		grdApcSpcfct.setCellData(nRow, nCol, "N", true);
+            		grdApcSpcfct.setCellData(nRow, 7, gv_apcCd, true);
+            		grdApcSpcfct.setCellData(nRow, 8, SBUxMethod.get("spcfct-select-itemCd"), true);
+            		grdApcSpcfct.addRow(true);
             	}else{
             		alert("품목을 선택해주세요.")
             		return;
@@ -792,7 +802,7 @@
             			grdPlt.deleteRow(nRow);
             		}
             	}else{
-            		pltMngDatagrid.deleteRow(nRow);
+            		grdPlt.deleteRow(nRow);
             	}
             }else if (grid === "grdBx") {
             	if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){
@@ -825,21 +835,27 @@
             }else if (grid === "grdOprtr") {
             	grdOprtr.deleteRow(nRow);
             }else if (grid === "grdGrd") {
-            	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
 
-	            	if(grdGrd.getRowStatus(nRow) == 0 || grdGrd.getRowStatus(nRow) == 2){
-	            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-	            		if(confirm(delMsg)){
-	            			var cmnsGrdVO = grdGrd.getRowData(nRow);
-	            			fn_deleteGrd(cmnsGrdVO);
-	            			grdGrd.deleteRow(nRow);
-	            		}
-	            	}else{
-	            		grdGrd.deleteRow(nRow);
-	            	}
+            	if(grdGrd.getRowStatus(nRow) == 0 || grdGrd.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var cmnsGrdVO = grdGrd.getRowData(nRow);
+            			fn_deleteGrd(cmnsGrdVO);
+            			grdGrd.deleteRow(nRow);
+            		}
             	}else{
-            		alert("품목을 선택해주세요.")
-            		return;
+            		grdGrd.deleteRow(nRow);
+            	}
+            }else if (grid === "grdApcSpcfct") {
+            	if(grdApcSpcfct.getRowStatus(nRow) == 0 || grdApcSpcfct.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var cmnsSpcfctVO = grdApcSpcfct.getRowData(nRow);
+            			fn_deleteSpcfct(cmnsSpcfctVO);
+            			grdApcSpcfct.deleteRow(nRow);
+            		}
+            	}else{
+            		grdApcSpcfct.deleteRow(nRow);
             	}
             }
         }

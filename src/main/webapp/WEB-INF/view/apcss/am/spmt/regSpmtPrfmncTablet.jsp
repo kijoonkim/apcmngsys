@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
@@ -204,7 +204,7 @@
             {caption: ['차량번호'], 		ref: 'actlWght', 	width: '15%', type: 'output'},
             {caption: ['처리'], 			ref: 'actlWght', 	width: '15%', type: 'output'}
         ];
-        
+
         grdWghPrfmnc = _SBGrid.create(SBGridProperties);
     }
 

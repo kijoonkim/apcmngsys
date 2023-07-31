@@ -11,16 +11,16 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span>선별작업 또는 포장작업 시 작업하는 작업자 정보를 등록하세요.</span>
+						<span style="font-weight:bold;">선별작업 또는 포장작업 시 작업하는 작업자 정보를 등록하세요.</span>
 					</p>
 					<p>
-						<span style="color:black">차후 작업자별 작업시간을 관리하기 위한 기초 정보입니다.</span>
+						<span style="color:black; font-weight:bold;">차후 작업자별 작업시간을 관리하기 위한 기초 정보입니다.</span>
 					</p>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchOprtr" name="btnSearchOprtr" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectOprtrList"></sbux-button>
 					<sbux-button id="btnInsertOprtr" name="btnInsertOprtr" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertOprtrList"></sbux-button>
-					<sbux-button id="btnEndOprtr" name="btnEndOprtr" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-oprtr')"></sbux-button>
+					<sbux-button id="btnEndOprtr" name="btnEndOprtr" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-oprtr')"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">

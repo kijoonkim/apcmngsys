@@ -11,19 +11,19 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
-			<div>
-				<h3 class="box-title" style="line-height: 30px;"> ▶ 매출확정등록</h3>
+				<div>
+					<h3 class="box-title" style="line-height: 30px;"> ▶ 매출확정등록</h3>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger"></sbux-button>
+				</div>
 			</div>
-			<div style="margin-left: auto;">
-				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger"></sbux-button>
-			</div>
-		</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -86,31 +86,33 @@
 					</tr>
 				</tbody>
 			</table>
-<!-- 				<div class="ad_tbl_top"> -->
-<!-- 					<ul class="ad_tbl_count"> -->
-<!-- 						<li><span>매출 내역</span></li> -->
-<!-- 					</ul> -->
-<!-- 					<div class="ad_tbl_toplist"> -->
-<!-- 						<div class="dp_inline wd_125 va_m"> -->
-<!-- 							<div class="input-group date"> -->
-<!-- 								<sbux-datepicker id="srch-dtp-startPr123dctnYmd" name="srch-dtp-startPr123dctnYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker> -->
-<!-- 							</div> -->
-<!-- 							<sbux-button id="srch-btn-cnpt1" name="srch-btn-cnpt1" uitype="normal" text="매출생성" class="class="btn btn-xs btn-outline-dark"></sbux-button> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-					<div class="table-responsive tbl_scroll_sm">
-						<div class="ad_tbl_top">
-							<ul class="ad_tbl_count">
-								<li><span>매출 내역</span></li>
-							</ul>
-						</div>
-						<div class="ad_tbl_toplist">
-						</div>
-					<div class="table-responsive tbl_scroll_sm">
-						<div id="sb-area-slsDsctn" style="height:300px;"></div>
-					</div>
+			<div class="ad_tbl_top">
+				<ul class="ad_tbl_count">
+					<li><span>매출 내역</span></li>
+				</ul>
+			 	<div class="ad_tbl_toplist_datepk">
+			 		<table class="table table-bordered tbl_row tbl_fixed">
+			 			<caption>검색 조건 설정</caption>
+					<colgroup>
+						<col style="width: auto">
+						<col style="width: 180px">
+						<col style="width: 62px">
+						<col style="width: 62px">
+					</colgroup>
+					<tbody>
+						<tr>
+							<td style="border-left:hidden"></td>
+							<td class="td_input" style="border-right:hidden; border-left:hidden" ><sbux-datepicker id="srch-dtp-startPr123dctnYmd" name="srch-dtp-startPr123dctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker></td>
+							<td class="td_input" style="border-right:hidden;"><sbux-button id="srch-btn-cnpt1" name="srch-btn-cnpt1" uitype="normal" text="매출생성" class="btn btn-xs btn-outline-dark"></sbux-button></td>
+							<td class="td_input" style="border-right:hidden;"><sbux-button id="srch-btn-cnpt2" name="srch-btn-cnpt2" uitype="normal" text="마감등록" class="btn btn-xs btn-outline-dark"></sbux-button></td>
+						</tr>
+					</tbody>
+			 		</table>
 				</div>
+			</div>
+			<div class="table-responsive tbl_scroll_sm">
+				<div id="sb-area-slsDsctn" style="height:450px;"></div>
+			</div>
 				<!--[pp] //검색결과 -->
 			</div>
 		</div>
@@ -120,7 +122,7 @@
         <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-cnpt">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/cnptPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">

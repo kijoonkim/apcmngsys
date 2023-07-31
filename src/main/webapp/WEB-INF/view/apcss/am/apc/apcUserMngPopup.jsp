@@ -9,10 +9,18 @@
 	<section>
 	<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+			<div>
+				<p>
+					<span style="font-weight:bold;">업무지원시스템을 사용할 APC의 일반사용자를 승인합니다.(사용자 신규가입은 포탈을 이용하세요.)</span>
+				</p>
+				<p>
+					<span style="color:black; font-weight:bold;">비밀번호 초기화를 하면 비밀번호는 사용자ID로 변경됩니다.</span>
+				</p>
+			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btnUserSech" name="btnUserSach" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectUserList()"></sbux-button>
+				<sbux-button id="btnUserSech" name="btnUserSach" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectUserList"></sbux-button>
 				<sbux-button id="btnUserReg" name="btnUserReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_updataUserList"></sbux-button>
-				<sbux-button id="btnUserEnd" name="btnUserEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-userAuth')"></sbux-button>
+				<sbux-button id="btnUserEnd" name="btnUserEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-userAuth')"></sbux-button>
 			</div>
 		</div>
 		<div class="box-body">
@@ -35,7 +43,7 @@
 						</th>
 						<th scope="row">사용자명</th>
 						<th>
-							<sbux-input id=userAuthUserNm name="userAuthUserNm" uitype="text" class="form-control input-sm"></sbux-input>
+							<sbux-input id=userAuthUserNm name="userAuthUserNm" uitype="text" class="form-control input-sm" onkeyenter="fn_selectUserList"></sbux-input>
 						</th>
 						<th>&nbsp;</th>
 						<th>&nbsp;</th>

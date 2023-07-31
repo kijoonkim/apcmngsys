@@ -54,7 +54,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">생산일자</th>
+							<th scope="row">입고일자</th>
 							<td class="td_input"style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" class="form-control pull-right input-sm"></sbux-datepicker>
 

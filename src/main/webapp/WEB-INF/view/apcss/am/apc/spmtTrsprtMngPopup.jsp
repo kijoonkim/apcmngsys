@@ -11,16 +11,16 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span>상품출하시 운용하고 있는 운송사 정보를 등록하세요.</span>
+						<span style="font-weight:bold;">상품출하시 운용하고 있는 운송사 정보를 등록하세요.</span>
 					</p>
 					<p>
-						<span style="color:black">출하처리 시 필요한 정보입니다.</span>
+						<span style="color:black; font-weight:bold;">출하처리 시 필요한 정보입니다.</span>
 					</p>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSpmtTrsprtSech" name="btnSpmtTrsprtSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSpmtTrsprtList()"></sbux-button>
 					<sbux-button id="btnSpmtTrsprtReg" name="btnSpmtTrsprtReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSpmtTrsprtList"></sbux-button>
-					<sbux-button id="btnSpmtTrsprtEnd" name="btnSpmtTrsprtEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-spmtTrsprt')"></sbux-button>
+					<sbux-button id="btnSpmtTrsprtEnd" name="btnSpmtTrsprtEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-spmtTrsprt')"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">

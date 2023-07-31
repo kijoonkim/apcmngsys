@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
@@ -127,7 +127,7 @@
 					</div>
 					<div class="sbt-wrap-body">
 						<div class="sbt-grid">
-							<div id="inptCmndDsctnGridArea" style="height:340px;"></div>
+							<div id="inptCmndDsctnGridArea" style="height:450px;"></div>
 						</div>
 					</div>
 				</div>

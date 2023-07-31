@@ -30,6 +30,7 @@
 				, CU.EML                AS EML
 				, CU.TELNO          	AS TELNO
 				, CU.APC_CD             AS APC_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('APC_CD', CU.APC_CD) FROM DUAL) AS APC_NM
 				, CU.OGDP_NM            AS OGDP_NM
 				, CU.CHRGD_CERT_YN      AS CHRGD_CERT_YN
 				, CU.CHRGD_CERT_TYPE    AS CHRGD_CERT_TYPE
@@ -59,6 +60,15 @@
 	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectComUserList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
     	<![CDATA[
 			SELECT /* com.at.apcss.co.user.ComUserMapper.selectComUserList */
 			       ROWNUM				 	AS ROW_SEQ
@@ -69,6 +79,7 @@
 				 , CU.EML                	AS EML
 				 , CU.TELNO          	 	AS TELNO
 				 , CU.APC_CD             	AS APC_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('APC_CD', CU.APC_CD) FROM DUAL) AS APC_NM				 
 				 , CU.OGDP_NM            	AS OGDP_NM
 				 , CU.CHRGD_CERT_YN      	AS CHRGD_CERT_YN
 				 , CU.CHRGD_CERT_TYPE    	AS CHRGD_CERT_TYPE
@@ -114,6 +125,13 @@
     	<![CDATA[
     		 ORDER BY USER_ID, USER_NM
     	]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
     </select>
 
 

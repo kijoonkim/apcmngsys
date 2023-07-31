@@ -12,7 +12,7 @@
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSearchCnpt" name="btnSearchCnpt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchCnpt">조회</sbux-button>
-						<sbux-button id="btnEndCnpt" name="btnEndCnpt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-cnpt')">종료</sbux-button>
+						<sbux-button id="btnEndCnpt" name="btnEndCnpt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-cnpt')">종료</sbux-button>
 					</div>
 				</div>
 			</div>

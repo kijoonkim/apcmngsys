@@ -11,16 +11,16 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span>원물입고 시 차량번호를 관리하는 경우 차량번호를 입력하세요.</span>
+						<span style="font-weight:bold;">원물입고 시 차량번호를 관리하는 경우 차량번호를 입력하세요.</span>
 					</p>
 					<p>
-						<span style="color:black">지역별 운임비용을 관리하는 경우 운임비용 기준정보를 등록하세요.</span>
+						<span style="color:black; font-weight:bold">지역별 운임비용을 관리하는 경우 운임비용 기준정보를 등록하세요.</span>
 					</p>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnWrhsVhclSech" name="btnWrhsVhclSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectWrhsVhclList()"></sbux-button>
 					<sbux-button id="btnWrhsVhclReg" name="btnWrhsVhclReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertWrhsVhclList()"></sbux-button>
-					<sbux-button id="btnWrhsVhclEnd" name="btnWrhsVhclEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-wrhsVhcl')"></sbux-button>
+					<sbux-button id="btnWrhsVhclEnd" name="btnWrhsVhclEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-wrhsVhcl')"></sbux-button>
 				</div>
 			</div>
 
@@ -209,7 +209,7 @@
 	}
 
 
-	async function fn_procRow(type, id, i){
+	/* async function fn_procRow(type, id, i){
 		if(id == "wrhsVhclMngDatagrid"){
 			if (type == "ADD"){
 				wrhsVhclMngGridData[i-1].delYn = "N";
@@ -228,7 +228,7 @@
 				rgnTrsprtCstMngDatagrid.deleteRow(i);
 			}
 		}
-	}
+	} */
 
 	async function fn_insertWrhsVhclList(){
 		for(var i=0; i<wrhsVhclMngGridData.length; i++){

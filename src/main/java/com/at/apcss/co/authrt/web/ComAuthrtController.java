@@ -12,11 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.at.apcss.co.authrt.service.ComAuthrtService;
 import com.at.apcss.co.authrt.vo.ComAuthrtMenuVO;
+import com.at.apcss.co.authrt.vo.ComAuthrtUserVO;
 import com.at.apcss.co.authrt.vo.ComAuthrtVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -43,20 +43,6 @@ public class ComAuthrtController extends BaseController{
 	@Resource(name = "comAuthrtService")
 	private ComAuthrtService comAuthrtService;
 
-	// 권한그룹관리
-	@RequestMapping("/co/authrt/comAuthrtMng.do")
-	public String doAuth() {
-
-		return "apcss/co/authrt/comAuthrtMng";
-	}
-
-	// 권한그룹별 사용자관리
-	@RequestMapping("/co/authrt/comAuthrtUserMng.do")
-	public String doAuthUser() {
-
-		return "apcss/co/authrt/comAuthrtUserMng";
-	}
-	
 	/**
 	 * 권한그룹 목록 조회
 	 * @param comAuthrtVO
@@ -288,6 +274,7 @@ public class ComAuthrtController extends BaseController{
 		List<ComAuthrtMenuVO> resultList = new ArrayList<>();
 		
 		try {
+			comAuthrtMenuVO.setUserId(getUserId());
 			List<ComAuthrtMenuVO> authrtMenuList = comAuthrtService.selectSideMenuTreeList(comAuthrtMenuVO);
 			
 			for ( ComAuthrtMenuVO menu : authrtMenuList ) {
@@ -304,4 +291,147 @@ public class ComAuthrtController extends BaseController{
 		
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	/**
+	 * 권한 사용자 목록 조회
+	 * @param comAuthrtUserVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/co/authrt/selectComAuthrtUserList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectComAuthrtUserList(@RequestBody ComAuthrtUserVO comAuthrtUserVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		List<ComAuthrtUserVO> resultList;
+		
+		try {
+			resultList = comAuthrtService.selectComAuthrtUserList(comAuthrtUserVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	/**
+	 * 권한 미등록 사용자 목록 조회
+	 * @param comAuthrtUserVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/co/authrt/selectAuthrtTrgtUserList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectAuthrtTrgtUserList(@RequestBody ComAuthrtUserVO comAuthrtUserVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		List<ComAuthrtUserVO> resultList;
+		
+		try {
+			resultList = comAuthrtService.selectAuthrtTrgtUserList(comAuthrtUserVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	/**
+	 * 권한사용자 목록 등록
+	 */
+	@PostMapping(value = "/co/authrt/insertComAuthrtUserList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertComAuthrtUserList(@RequestBody ComAuthrtVO comAuthrtVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			// validation check
+			
+			comAuthrtVO.setSysFrstInptUserId(getUserId());
+			comAuthrtVO.setSysFrstInptPrgrmId(getPrgrmId());
+			comAuthrtVO.setSysLastChgUserId(getUserId());
+			comAuthrtVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = comAuthrtService.insertComAuthrtUserList(comAuthrtVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	/**
+	 * 권한사용자 목록 삭제
+	 */
+	@PostMapping(value = "/co/authrt/deleteComAuthrtUserList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteComAuthrtUserList(@RequestBody ComAuthrtVO comAuthrtVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			// validation check
+			
+			comAuthrtVO.setSysFrstInptUserId(getUserId());
+			comAuthrtVO.setSysFrstInptPrgrmId(getPrgrmId());
+			comAuthrtVO.setSysLastChgUserId(getUserId());
+			comAuthrtVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = comAuthrtService.deleteComAuthrtUserList(comAuthrtVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	/**
+	 * APC 메뉴간편설정 등록 시 APC의 권한 등록 (관리자, 사용자)
+	 */
+	@PostMapping(value = "/co/authrt/insertApcSimpleAuthrt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertApcSimpleAuthrt(@RequestBody ComAuthrtVO comAuthrtVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			// validation check
+			
+			comAuthrtVO.setSysFrstInptUserId(getUserId());
+			comAuthrtVO.setSysFrstInptPrgrmId(getPrgrmId());
+			comAuthrtVO.setSysLastChgUserId(getUserId());
+			comAuthrtVO.setSysLastChgPrgrmId(getPrgrmId());
+			
+			HashMap<String, Object> rtnObj = comAuthrtService.insertApcSimpleAuthrt(comAuthrtVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
+	
 }

@@ -11,13 +11,14 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<h3 class="box-title">▶ 선별지시조회</h3>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnCmndDocSort" name="btnCmndDocSort" uitype="normal" text="선별지시서" class="btn btn-sm btn-primary"></sbux-button>
 					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
@@ -82,8 +83,6 @@
 						<li><span>투입지시 내역</span></li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnDwnld" name="btnDwnld" uitype="button" class="btn btn-sm btn-outline-danger">내려받기</sbux-button>
-						<sbux-button id="btnUld" name="btnUld" uitype="button" class="btn btn-sm btn-outline-danger">올려받기</sbux-button>
 					</div>
 				</div>
 	            <div class="sbt-wrap-body">

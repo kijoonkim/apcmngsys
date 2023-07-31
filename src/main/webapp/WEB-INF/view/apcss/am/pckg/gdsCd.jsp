@@ -11,7 +11,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
@@ -21,7 +21,7 @@
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
-			
+
 			<div>
 			</div>
 			<div class="box-body">
@@ -129,7 +129,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdGdsCd" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdGdsCd" style="width:100%;height:450px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -141,7 +141,7 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGdsCdGrid();
 	})
-	
+
 	function fn_createGdsCdGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdGdsCd';
@@ -150,6 +150,13 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+		};
         SBGridProperties.columns = [
             {caption: ['상품코드'], ref: 'gdsCd', width: '100px', type: 'output'},
             {caption: ['상품명'], ref: 'gdsNm', width: '100px', type: 'output'},

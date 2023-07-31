@@ -25,7 +25,7 @@
     	<![CDATA[
     	SELECT AI.APC_CD            AS APC_CD
 		     , AI.REG_APC_NM        AS REG_APC_NM
-		     , AI.CTPV_NM           AS CTPU_NM
+		     , AI.CTPV_NM           AS CTPV_NM
 		     , AI.SIGUN_NM          AS SIGUN_NM
 		     , AI.MB_CD             AS MB_CD
 		     , AI.REG_ADDR        	AS REG_ADDR
@@ -41,6 +41,39 @@
 		  FROM TB_APC_INFO AI
 		 WHERE APC_CD = #{apcCd}
 		]]>
+    </select>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcDsctn		-->
+	<!-- DESC : APC 내역 조회.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.26  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcDsctn" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" resultType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
+    	<![CDATA[
+    	SELECT AI.APC_CD            AS APC_CD
+		     , AI.REG_APC_NM        AS REG_APC_NM
+		     , AI.CTPV_NM           AS CTPV_NM
+		     , AI.SIGUN_NM          AS SIGUN_NM
+		     , AI.MB_CD             AS MB_CD
+		     , AI.REG_ADDR        	AS REG_ADDR
+		     , AI.REG_TELNO       	AS REG_TELNO
+		     , AI.APC_NM            AS APC_NM
+		     , AI.BRNO          	AS BRNO
+		     , AI.BANK_CD           AS BANK_CD
+		     , AI.DPSTR             AS DPSTR
+		     , AI.ACTNO             AS ACTNO
+		     , AI.ADDR              AS ADDR
+		     , AI.TELNO            	AS TELNO
+		     , AI.FXNO             	AS FXNO
+		  FROM TB_APC_INFO AI
+		 WHERE APC_CD = #{apcCd}
+		]]>
+		<if test='regApcNm != null and regApcNm != ""'>
+		   AND AI.REG_APC_NM LIKE '%' ||  #{regApcNm]} || '%'
+		</if>
     </select>
 
 	<!-- ==========================================================================	-->
