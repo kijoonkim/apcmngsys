@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : WghPrfmncMapper.xml                                   				-->
+<!-- DESC : 계량실적 mapper                                            				-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.wgh.mapper.WghPrfmncMapper">
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncList		-->
+	<!-- DESC : 계량실적 공통 목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectWghPrfmncList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncList */
+				  WC.APC_CD		AS APC_CD
+				, WC.WGHNO		AS WGHNO
+				, WC.WGH_YMD	AS WGH_YMD
+				, WC.VHCLNO		AS VHCLNO
+				, WC.WHOL_WGHT	AS WHOL_WGHT
+				, WC.EMPT_VHCL_WGHT	AS EMPT_VHCL_WGHT
+				, WC.RDCD_RT	AS RDCD_RT
+				, WC.RDCD_WGHT	AS RDCD_WGHT
+				, WC.WRHS_WGHT	AS WRHS_WGHT
+				, WC.RMRK		AS RMRK
+				, WC.DEL_YN		AS DEL_YN
+				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = WC.APC_CD) AS APC_NM
+			  FROM TB_WGH_PRFMNC_COM WC
+			 WHERE 1=1
+		]]>
+		
+		<if test='apcCd != null and apcCd != ""'>
+			   AND WC.APC_CD = #{apcCd}
+		</if>
+		<if test='wghno != null and wghno != ""'>
+			   AND WC.WGHNO = #{wghno}
+		</if>
+		<if test='delYn != null and delYn != ""'>
+			   AND WC.DEL_YN = #{delYn}
+		</if>
+		<if test='wghYmd != null and wghYmd != ""'>
+			   AND WC.WGH_YMD = #{wghYmd}
+		</if>
+		<if test='wghYmdFrom != null and wghYmdFrom != ""'>
+			   AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
+		</if>
+		<if test='wghYmdTo != null and wghYmdTo != ""'>
+			   AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
+		</if>
+		<![CDATA[
+			 ORDER BY APC_CD, WGH_YMD, WGHNO
+		]]>
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncCom		-->
+	<!-- DESC : 계량실적 공통 단건 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectWghPrfmncCom" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncCom */
+				  WC.APC_CD		AS APC_CD
+				, WC.WGHNO		AS WGHNO
+				, WC.WGH_YMD	AS WGH_YMD
+				, WC.VHCLNO		AS VHCLNO
+				, WC.WHOL_WGHT	AS WHOL_WGHT
+				, WC.EMPT_VHCL_WGHT	AS EMPT_VHCL_WGHT
+				, WC.RDCD_RT	AS RDCD_RT
+				, WC.RDCD_WGHT	AS RDCD_WGHT
+				, WC.WRHS_WGHT	AS WRHS_WGHT
+				, WC.RMRK		AS RMRK
+				, WC.DEL_YN		AS DEL_YN
+			  FROM TB_WGH_PRFMNC_COM WC
+			 WHERE WC.APC_CD = #{apcCd}
+			   AND WC.WGHNO = #{wghno}
+		]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncComList		-->
+	<!-- DESC : 계량실적 공통 목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectWghPrfmncComList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncComList */
+				  WC.APC_CD		AS APC_CD
+				, WC.WGHNO		AS WGHNO
+				, WC.WGH_YMD	AS WGH_YMD
+				, WC.VHCLNO		AS VHCLNO
+				, WC.WHOL_WGHT	AS WHOL_WGHT
+				, WC.EMPT_VHCL_WGHT	AS EMPT_VHCL_WGHT
+				, WC.RDCD_RT	AS RDCD_RT
+				, WC.RDCD_WGHT	AS RDCD_WGHT
+				, WC.WRHS_WGHT	AS WRHS_WGHT
+				, WC.RMRK		AS RMRK
+				, WC.DEL_YN		AS DEL_YN
+				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = WC.APC_CD) AS APC_NM
+			  FROM TB_WGH_PRFMNC_COM WC
+			 WHERE 1=1
+		]]>
+		
+		<if test='apcCd != null and apcCd != ""'>
+			   AND WC.APC_CD = #{apcCd}
+		</if>
+		<if test='wghno != null and wghno != ""'>
+			   AND WC.WGHNO = #{wghno}
+		</if>
+		<if test='delYn != null and delYn != ""'>
+			   AND WC.DEL_YN = #{delYn}
+		</if>
+		<if test='wghYmd != null and wghYmd != ""'>
+			   AND WC.WGH_YMD = #{wghYmd}
+		</if>
+		<if test='wghYmdFrom != null and wghYmdFrom != ""'>
+			   AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
+		</if>
+		<if test='wghYmdTo != null and wghYmdTo != ""'>
+			   AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
+		</if>
+		<![CDATA[
+			 ORDER BY APC_CD, WGH_YMD, WGHNO
+		]]>
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghPrfmncCom		-->
+	<!-- DESC : 계량실적 공통 등록.		                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertWghPrfmncCom" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghPrfmncCom */
+	    		INTO TB_WGH_PRFMNC_COM
+				(
+					  APC_CD
+					, WGHNO
+					, WGH_YMD
+					, VHCLNO
+					, WHOL_WGHT
+					, EMPT_VHCL_WGHT
+					, RDCD_RT
+					, RDCD_WGHT
+					, WRHS_WGHT
+					, RMRK
+		    		, SYS_FRST_INPT_DT
+		    		, SYS_FRST_INPT_USER_ID
+		    		, SYS_FRST_INPT_PRGRM_ID
+		    		, SYS_LAST_CHG_DT
+		    		, SYS_LAST_CHG_USER_ID
+		    		, SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+					  #{apcCd}
+					, #{wghno}
+					, #{wghYmd}
+					, #{vhclno}
+					, #{wholWght}
+					, #{emptVhclWght}
+					, #{rdcdRt}
+					, #{rdcdWght}
+					, #{wrhsWght}
+					, #{rmrk}
+		    		, SYSDATE
+		    		, #{sysFrstInptUserId}
+		    		, #{sysFrstInptPrgrmId}
+		    		, SYSDATE
+		    		, #{sysLastChgUserId}
+		    		, #{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncCom		-->
+	<!-- DESC : 계량실적 공통 변경.		                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateWghPrfmncCom" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateWghPrfmncCom */
+				TB_WGH_PRFMNC_COM
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    		
+				, WGH_YMD			= #{wghYmd}
+				, VHCLNO			= #{vhclno}
+				, WHOL_WGHT			= #{wholWght}
+				, EMPT_VHCL_WGHT	= #{emptVhclWght}
+				, RDCD_RT			= #{rdcdRt}
+				, RDCD_WGHT			= #{rdcdWght}
+				, WRHS_WGHT			= #{wrhsWght}
+				, RMRK				= #{rmrk}
+			
+			<if test='delYn != null and delYn != ""'>
+				, DEL_YN			= #{delYn}
+			</if>
+			
+			 WHERE APC_CD = #{apcCd}
+			   AND WGHNO = #{wghno}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncCom			-->
+	<!-- DESC : 계량실적 공통 삭제.		                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteWghPrfmncCom" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncCom */
+			  FROM TB_WGH_PRFMNC_COM
+			 WHERE APC_CD = #{apcCd}
+			   AND WGHNO = #{wghno}
+		]]>
+	</delete>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncDtl		-->
+	<!-- DESC : 계량실적 상세 단건 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectWghPrfmncDtl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncDtl */
+				  WD.APC_CD		AS APC_CD
+				, WD.WGHNO		AS WGHNO
+				, WD.WGH_SN		AS WGH_SN
+				, WD.PLT_BX_SE_CD	AS PLT_BX_SE_CD
+				, WD.PLT_KND	AS PLT_KND
+				, WD.BX_KND		AS BX_KND
+				, WD.GRD_CD		AS GRD_CD
+				, WD.UNIT_WGHT	AS UNIT_WGHT
+				, WD.QNTT		AS QNTT
+				, WD.WGHT		AS WGHT
+				, WD.DEL_YN		AS DEL_YN
+			  FROM TB_WGH_PRFMNC_DTL WD
+			 WHERE WC.APC_CD = #{apcCd}
+			   AND WC.WGHNO = #{wghno}
+			   AND WD.WGH_SN = #{wghSn}
+		]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncDtlList	-->
+	<!-- DESC : 계량실적 상세 목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectWghPrfmncDtlList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncDtlList */
+				  WD.APC_CD		AS APC_CD
+				, WD.WGHNO		AS WGHNO
+				, WD.WGH_SN		AS WGH_SN
+				, WD.PLT_BX_SE_CD	AS PLT_BX_SE_CD
+				, WD.PLT_KND	AS PLT_KND
+				, WD.BX_KND		AS BX_KND
+				, WD.GRD_CD		AS GRD_CD
+				, WD.UNIT_WGHT	AS UNIT_WGHT
+				, WD.QNTT		AS QNTT
+				, WD.WGHT		AS WGHT
+				, WD.DEL_YN		AS DEL_YN
+			  FROM TB_WGH_PRFMNC_DTL WD
+			 WHERE 1=1
+		]]>
+		<if test='delYn != null and delYn != ""'>
+			   AND WD.DEL_YN = #{delYn}
+		</if>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND WD.APC_CD = #{apcCd}
+		</if>
+		<if test='wghno != null and wghno != ""'>
+			   AND WD.WGHNO = #{wghno}
+		</if>
+		<if test='wghSn != null and wghSn != ""'>
+			   AND WD.WGH_SN = #{wghSn}
+		</if>
+		<if test='pltBxSeCd != null and pltBxSeCd != ""'>
+			   AND WD.PLT_BX_SE_CD = #{pltBxSeCd}
+		</if>
+		<if test='pltKnd != null and pltKnd != ""'>
+			   AND WD.PLT_KND = #{pltKnd}
+		</if>
+		<if test='bxKnd != null and bxKnd != ""'>
+			   AND WD.BX_KND = #{bxKnd}
+		</if>
+		<if test='grdCd != null and grdCd != ""'>
+			   AND WD.GRD_CD = #{grdCd}
+		</if>
+		<![CDATA[
+			 ORDER BY APC_CD, WGH_YMD, WGHNO, WGH_SN
+		]]>
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghPrfmncDtl		-->
+	<!-- DESC : 계량실적 상세 등록.		                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertWghPrfmncDtl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghPrfmncDtl */
+	    		INTO TB_WGH_PRFMNC_DTL
+				(
+					  APC_CD
+					, WGHNO
+					, WGH_SN
+					, PLT_BX_SE_CD
+					, PLT_KND
+					, BX_KND
+					, GRD_CD
+					, UNIT_WGHT
+					, QNTT
+					, WGHT
+		    		, SYS_FRST_INPT_DT
+		    		, SYS_FRST_INPT_USER_ID
+		    		, SYS_FRST_INPT_PRGRM_ID
+		    		, SYS_LAST_CHG_DT
+		    		, SYS_LAST_CHG_USER_ID
+		    		, SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+					  #{apcCd}
+					, #{wghno}
+					, #{wghSn}
+					, #{pltBxSeCd}
+					, #{pltKnd}
+					, #{grdCd}
+					, #{bxKnd}
+					, #{unitWght}
+					, #{qntt}
+					, #{wght}
+		    		, SYSDATE
+		    		, #{sysFrstInptUserId}
+		    		, #{sysFrstInptPrgrmId}
+		    		, SYSDATE
+		    		, #{sysLastChgUserId}
+		    		, #{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncDtl		-->
+	<!-- DESC : 계량실적 상세 변경.		                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateWghPrfmncDtl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateWghPrfmncDtl */
+				TB_WGH_PRFMNC_DTL
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    		
+				, PLT_BX_SE_CD 	= #{pltBxSeCd}
+				, PLT_KND 		= #{pltKnd}
+				, BX_KND 		= #{bxKnd}
+				, GRD_CD 		= #{grdCd}
+				, UNIT_WGHT 	= #{unitWght}
+				, QNTT 			= #{qntt}
+				, WGHT 			= #{wght}
+			
+			<if test='delYn != null and delYn != ""'>
+				, DEL_YN		= #{delYn}
+			</if>
+			
+			 WHERE APC_CD = #{apcCd}
+			   AND WGHNO = #{wghno}
+			   AND WGH_SN = #{wghSn}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncDtl		-->
+	<!-- DESC : 계량실적 상세 삭제.		                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteWghPrfmncDtl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncDtl */
+			  FROM TB_WGH_PRFMNC_DTL
+			 WHERE APC_CD = #{apcCd}
+			   AND WGHNO = #{wghno}
+			   AND WGH_SN = #{wghSn}
+		]]>
+	</delete>
+
+
+</mapper>

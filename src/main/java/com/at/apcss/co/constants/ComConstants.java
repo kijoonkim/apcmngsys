@@ -32,15 +32,33 @@ public class ComConstants {
 	public final static String RESULT_STATUS_OK = "S";
 	public final static String RESULT_STATUS_ERROR = "E";
 	
-	public final static String RESULT_CODE_DEFAULT = "400";
+	public final static String RESULT_CODE_DEFAULT = "E0002";
 	
 	public final static String CON_BLANK = "";
+	public final static String CON_SPACE = " ";
+	public final static String CON_UNDERLINE = "_";
+	public final static String CON_DASH = "-";
 	
 	public final static String CON_YES = "Y";
 	public final static String CON_NONE = "N";
 	
+	/* CODE 정보 */
 	
+	/* 권한유형 */	
+	public final static String CON_AUTHRT_TYPE_SYS = "00";
+	public final static String CON_AUTHRT_TYPE_AT = "10";
 	public final static String CON_AUTHRT_TYPE_ADMIN = "20";
 	public final static String CON_AUTHRT_TYPE_USER = "21";
 	
+	/* 사용자 유형 */
+	public final static String CON_USER_TYPE_SYS = "00";
+	public final static String CON_USER_TYPE_AT = "01";
+	public final static String CON_USER_TYPE_ADMIN = "10";
+	public final static String CON_USER_TYPE_USER = "11";
+	
+	/* 사용자 상태 */
+	public final static String CON_USER_STTS_STANDBY = "00";
+	public final static String CON_USER_STTS_VALID = "01";
+	public final static String CON_USER_STTS_LOCKED = "02";
+	public final static String CON_USER_STTS_UNUSE = "03";
 }
