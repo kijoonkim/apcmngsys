@@ -18,7 +18,7 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ APC정보관리</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search()"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-danger" text="등록" onclick="fn_insert"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
 				</div>
@@ -39,11 +39,11 @@
 						<tr>
 							<th class="ta_c">APC코드</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-apcCd" name="srch-inp-apcCd" class="form-control input-sm" placeholder="입력" title="입력하세요." disabled/>
+								<sbux-input uitype="text" id="srch-inp-apcCd" name="srch-inp-apcCd" class="form-control input-sm" placeholder="입력" title="입력하세요." onkeyenter="fn_search"/>
 							</td>
 							<th class="ta_c">원본 APC명</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-regApcNm" name="srch-inp-regApcNm" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-regApcNm" name="srch-inp-regApcNm" uitype="text" class="form-control input-sm" onkeyenter="fn_search"></sbux-input>
 							</td>
 						</tr>
 					</tbody>
@@ -65,13 +65,11 @@
 	</section>
 </body>
 <script type="text/javascript">
-	var jsonComboRegApcNm = [];
 	
 	var apcInfoMngData = [];
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createApcInfoMngGrid();
-		SBUxMethod.set("srch-inp-apcCd", "0001");
 	})
 	
 	function fn_createApcInfoMngGrid() {
@@ -92,18 +90,18 @@
         SBGridProperties.columns = [
         	{caption: ['선택'], ref: 'slt', width: '100px', type: 'checkbox'},
             {caption: ['APC코드'], ref: 'apcCd', width: '100px', type: 'output'},
-            {caption: ['원본APC명'], ref: 'regApcNm', width: '100px', type: 'output'},
-            {caption: ['시도명'], ref: 'ctpvNm', width: '100px', type : 'output'},
-            {caption: ['시군명'], ref: 'sigunNm', width: '100px', type: 'output'},
-            {caption: ['주체명'], ref: 'mbCd', width: '100px', type: 'output'},
-            {caption: ['원본주소'], ref: 'regAddr', width: '100px', type: 'output'},
-            {caption: ['원본전화번호'], ref: 'regTelno', width: '100px', type: 'output'},
-            {caption: ['APC명'], ref: 'apcNm', width: '100px', type: 'output'},
-            {caption: ['사업자번호'], ref: 'brno', width: '100px', type: 'output'},
-            {caption: ['주소'], ref: 'addr', width: '100px', type: 'output'},
-            {caption: ['팩스번호'], ref: 'fxno', width: '100px', type: 'output'},
-            {caption: ['전화번호'], ref: 'telno', width: '100px', type: 'output'},
-            {caption: ['처리'], ref: 'prcs', width: '100px', type : 'button', style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            {caption: ['원본APC명'], ref: 'regApcNm', width: '100px', type: 'input'},
+            {caption: ['시도명'], ref: 'ctpvNm', width: '100px', type : 'input'},
+            {caption: ['시군명'], ref: 'sigunNm', width: '100px', type: 'input'},
+            {caption: ['주체명'], ref: 'mbCd', width: '100px', type: 'input'},
+            {caption: ['원본주소'], ref: 'regAddr', width: '100px', type: 'input'},
+            {caption: ['원본전화번호'], ref: 'regTelno', width: '100px', type: 'input'},
+            {caption: ['APC명'], ref: 'apcNm', width: '100px', type: 'input'},
+            {caption: ['사업자번호'], ref: 'brno', width: '100px', type: 'input'},
+            {caption: ['주소'], ref: 'addr', width: '100px', type: 'input'},
+            {caption: ['팩스번호'], ref: 'fxno', width: '100px', type: 'input'},
+            {caption: ['전화번호'], ref: 'telno', width: '100px', type: 'input'},
+            {caption: ['처리'], ref: 'delYn', width: '100px', type : 'button', style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowApcInfo(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
             	}else{
@@ -112,26 +110,17 @@
             }}
         ];
         grdApcInfoMng = _SBGrid.create(SBGridProperties);
-        grdApcInfoMng.addRow(true);
+        grdApcInfoMng.addRow();
     }
 	
 	// 행 삭제 및 추가
-	function fn_procRowApcInfo(gubun, nRow, nCol){
-		if (gubun === "ADD") {
-			grdApcInfoMng.setCellData(nRow, nCol, "N", true);
-			grdApcInfoMng.addRow(true);
+	async function fn_procRowApcInfo(type, i){
+		if (type == "ADD"){
+			apcInfoMngData[i-1].delYn = "N";
+			grdApcInfoMng.addRow();
 		}
-		else if(gubun === "DEL"){
-			if(grdApcInfoMng.getRowStatus(nRow) == 0 || grdApcInfoMng.getRowStatus(nRow) == 2){
-        		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-        		if(confirm(delMsg)){
-        			var apcVO = grdApcInfoMng.getRowData(nRow);
-        			//fn_deletePrdcr(prdcrVO);
-        			grdApcInfoMng.deleteRow(nRow);
-        		}
-        	}else{
-        		grdApcInfoMng.deleteRow(nRow);
-        	}
+		else{
+			grdApcInfoMng.deleteRow(i);
 		}
 	}
 	
@@ -153,7 +142,7 @@
 // 		gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 // 	}
 	
-	// 조회 버튼 기능
+	// 조회 버튼
 	async function fn_search(){
 		fn_callSelectApcDsctnList();
 	}
@@ -179,11 +168,13 @@
 				  , addr 		: item.addr
 				  , fxno 		: item.fxno
 				  , telno 		: item.telno
+				  , delYn		: item.delYn
 				}
 				newApcInfoMngData.push(apcDsctn);
 			});
         	apcInfoMngData = newApcInfoMngData;
         	grdApcInfoMng.rebuild();
+        	grdApcInfoMng.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -191,5 +182,68 @@
     		console.error("failed", e.message);
         }
 	}
+	
+	// 등록 버튼
+	async function fn_insert(){
+		let gridData = grdApcInfoMng.getGridDataAll();
+		let updateList = [];
+		let insertList = [];
+		for(var i=0; i<gridData.length; i++){
+			if(gridData[i].delYn == "N" && (gridData[i].regApcNm == null || gridData[i].regApcNm == "")){
+				alert("원본 APC명은 필수 값 입니다.");
+				return
+			}
+			else{
+				if(grdApcInfoMng.getRowStatus(i) == 0){
+					updateList.push(gridData[i]);
+				}
+				else if(grdApcInfoMng.getRowStatus(i) == 2){
+					gridData[i].apcCd = "5555"
+					insertList.push(gridData[i]);
+				}
+			}
+		}
+		if(updateList.length == 0 && insertList.length == 0){
+			alert("등록 할 내용이 없습니다.");
+			return;
+		}
+		if(updateList.length != 0){
+			let postJsonPromise = gfn_postJSON("/am/apc/updateApcDsctnList.do", updateList);
+	        let data = await postJsonPromise;
+	        try{
+	        	if(data.result > 0){
+	        		//fn_callSelectUserList();
+	        		alert("수정 되었습니다.");
+	        	}else{
+	        		alert("수정 실패 하였습니다.");
+	        	}
+	
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
+		if(insertList.length != 0){
+			let postJsonPromise = gfn_postJSON("/am/apc/insertApcDsctnList.do", insertList);
+	        let data = await postJsonPromise;
+	        try{
+	        	if(data.result > 0){
+	        		//fn_callSelectUserList();
+	        		alert("등록 되었습니다.");
+	        	}else{
+	        		alert("등록 실패 하였습니다.");
+	        	}
+	
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
+	}
+	
 </script>
 </html>

@@ -24,6 +24,23 @@ public interface ApcEvrmntStngService {
 	 */
 	List<ApcEvrmntStngVO> selectApcDsctnList(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
 	
+	/**
+	 * APC정보관리 APC내역 수정
+	 * @param ApcEvrmntStngVO
+	 * @return 
+	 * @throws Exception
+	 */
+	int updateApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+	
+	/**
+	 * APC정보관리 APC내역 등록
+	 * @param ApcEvrmntStngVO
+	 * @return 
+	 * @throws Exception
+	 */
+	int insertApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+	
+	
 	ApcEvrmntStngVO selectUserAprvReg(ComUserVO comUserVO) throws Exception;
 
 	/**
