@@ -65,7 +65,6 @@ public class ComUserApiController extends BaseController {
 	/** JWT */
 	@Autowired
     private EgovJwtTokenUtil jwtTokenUtil;
-
 	@PostMapping(value = "/co/user/selectComUser.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectComUser(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
 
