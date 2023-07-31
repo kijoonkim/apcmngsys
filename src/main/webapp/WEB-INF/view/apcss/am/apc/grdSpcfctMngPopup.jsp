@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchGrd" name="btnSearchGrd" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectGrdSpcfctList()"></sbux-button>
-					<sbux-button id="btnInsertGrd" name="btnInsertGrd" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertApcGrdList"></sbux-button>
+					<sbux-button id="btnSaveGrd" name="btnSaveGrd" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_saveApcGrdList"></sbux-button>
 					<sbux-button id="btnEndGrd" name="btnEndGrd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-grdSpcfct')"></sbux-button>
 				</div>
 			</div>
@@ -55,26 +55,12 @@
 				</div>
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-				<b>&nbsp;</b>
-
 				<div class="row">
 
-					<div class="col-sm-4">
+					<div class="col-sm-8">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
 								<li><span>규격등록</span></li>
-							</ul>
-						</div>
-						<div>
-							<div id="sb-area-grdSpcfct" style="height:283px; width: 100%;"></div>
-						</div>
-					</div>
-
-
-					<div class="col-sm-4">
-						<div class="ad_tbl_top"  style="width: 98%;">
-							<ul class="ad_tbl_count">
-								<li><span>&nbsp;</span></li>
 							</ul>
 						</div>
 						<div>
@@ -102,11 +88,16 @@
 	var jsonComItemCd = [];
 
 	var jsonGrd = [];
-	var jsonSpcfct = [];
 	var jsonApcSpcfct = [];
+	var jsonSpcfctUnitCd = [];
+	var jsonSpcfctPckgSttsCd = [];
+	var jsonUseYn = [];
 
 	const fn_initSBSelectItem = async function() {
-		gfn_setApcItemSBSelect("spcfct-select-itemCd", jsonComItemCd, SBUxMethod.get("inp-apcCd"));
+		await gfn_setComCdGridSelect('grdApcSpcfct', jsonSpcfctUnitCd, 		'UNIT_CD', '0000');			// 단위
+		await gfn_setComCdGridSelect('grdApcSpcfct', jsonSpcfctPckgSttsCd, 	'PCKG_STTS_CD', '0000');	// 포장구분
+		await gfn_setComCdGridSelect('grdApcSpcfct', jsonUseYn, 			'REVERSE_YN', '0000');		// 포장구분
+		await gfn_setApcItemSBSelect("spcfct-select-itemCd", jsonComItemCd, SBUxMethod.get("inp-apcCd"));	// APC 품목
 	}
 	function fn_createGrdGrid() {
 
@@ -120,9 +111,11 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.frozenrows = 1
 	    SBGridProperties.columns = [
-	        {caption: ["코드"],     	ref: 'grdCd',  type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     	ref: 'grdNm',  type:'input',  width:'130px',    style:'text-align:center'},
+	        {caption: ["명칭"],     	ref: 'grdNm',  type:'input',  width:'140px',    style:'text-align:center'},
+	        {caption: ["사용유무"], 	ref: 'delYn',  type:'combo',  width:'80px',    style:'text-align:center',
+				typeinfo : {ref:'jsonUseYn', label:'label', value:'value',  displayui : true}},
 	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdGrd\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -170,78 +163,36 @@
 	    }
 	}
 
-	function fn_createGrdSpcfct() {
-
-   		var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdSpcfct';
-	    SBGridProperties.id = 'grdSpcfct';
-	    SBGridProperties.jsonref = 'jsonSpcfct';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.columns = [
-	        {caption: ["코드"],     ref: 'spcfctCd',  type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'spcfctNm',  type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'100PX',    style:'text-align:center',
-	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_addSpcfct(" + nRow + ")'>선택</button>";
-	        }},
-	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
-	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
-
-	    ];
-	    grdSpcfct = _SBGrid.create(SBGridProperties);
-	}
-
-	async function fn_selectSpcfctList(){
-		fn_callSelectSpcfctList()
-	}
-
-	async function fn_callSelectSpcfctList(){
-		let apcCd = SBUxMethod.get("inp-apcCd");
-		let itemCd = SBUxMethod.get("spcfct-select-itemCd");
-		let postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsSpcfctList.do", {apcCd : apcCd, itemCd : itemCd});
-	    let data = await postJsonPromise;
-	    let newSpcfctGridData = [];
-	    try{
-	    	data.resultList.forEach((item, index) => {
-				let spcfctVO = {
-					spcfctCd 	: item.spcfctCd
-				  , spcfctNm 	: item.spcfctNm
-				  , apcCd		: apcCd
-				  , itemCd		: item.itemCd
-				}
-				newSpcfctGridData.push(spcfctVO);
-			});
-	    	jsonSpcfct = newSpcfctGridData;
-	    	grdSpcfct.rebuild();
-	    }catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
-	    }
-	}
-
 	function fn_createGrdApcSpcfct() {
-
-   		 var SBGridProperties = {};
+		fn_initSBSelectItem();
+   		var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdApcSpcfct';
 	    SBGridProperties.id = 'grdApcSpcfct';
 	    SBGridProperties.jsonref = 'jsonApcSpcfct';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.frozenrows = 1;
 	    SBGridProperties.columns = [
-	        {caption: ["코드"],     ref: 'spcfctCd',  type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'spcfctNm',  type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["삭제"], 	ref: 'empty',   type:'output',  width:'100PX',    style:'text-align:center',
-	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteSpcfct(" + nRow + ")'>삭제</button>";
-	        }},
+	        {caption: ["규격명"],   ref: 'spcfctNm',  	type:'input',  width:'150px',    style:'text-align:center'},
+	        {caption: ["중량단위"], ref: 'unitCd',   	type:'combo',  width:'80px',    style:'text-align:center',
+				typeinfo : {ref:'jsonSpcfctUnitCd', 	itemcount: 3, label:'label', value:'value', displayui : true}},
+	        {caption: ["포장구분"], ref: 'pckgSttsCd',   	type:'combo',  width:'80px',    style:'text-align:center',
+				typeinfo : {ref:'jsonSpcfctPckgSttsCd', itemcount: 10, label:'label', value:'value', displayui : true}},
+	        {caption: ["평균입수"],	ref: 'bxGdsQntt',  	type:'input',  width:'80px',    style:'text-align:center'},
+	        {caption: ["단중"],     ref: 'wght',  		type:'input',  width:'80px',    style:'text-align:center'},
+	        {caption: ["사용유무"], 	ref: 'delYn',  type:'combo',  width:'80px',    style:'text-align:center',
+				typeinfo : {ref:'jsonUseYn', label:'label', value:'value',  displayui : true}},
+			{caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        	if(strValue== null || strValue == ""){
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdApcSpcfct\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdApcSpcfct\", " + nRow + ")'>삭제</button>";
+	        	}
+		    }},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
-
 	    ];
 	    grdApcSpcfct = _SBGrid.create(SBGridProperties);
 	}
@@ -263,11 +214,18 @@
 				  , spcfctNm 	: item.spcfctNm
 				  , apcCd		: item.apcCd
 				  , itemCd		: item.itemCd
+				  , unitCd		: item.unitCd
+				  , pckgSttsCd	: item.pckgSttsCd
+				  , bxGdsQntt	: item.bxGdsQntt
+				  , wght		: item.wght
+				  , useYn		: item.delYn
+				  , delYn		: item.delYn
 				}
 				newApcSpcfctGridData.push(spcfctVO);
 			});
 	    	jsonApcSpcfct = newApcSpcfctGridData;
 	    	grdApcSpcfct.rebuild();
+	    	grdApcSpcfct.addRow(true);
 	    }catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -275,7 +233,6 @@
 			console.error("failed", e.message);
 	    }
 	}
-
 	function fn_selectGrdSpcfctList(){
 
 		if(jsonComItemCd.length == 0){
@@ -287,13 +244,11 @@
 			return;
 		}
 
-		fn_selectSpcfctList();
 		fn_selectApcSpcfctList();
 		fn_selectGrdList();
 	}
 
 	async function fn_apcSpcfctList(){
-		fn_selectSpcfctList();
 		fn_selectApcSpcfctList();
 	}
 
@@ -326,7 +281,6 @@
         let data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		fn_apcSpcfctList();
         	} else {
         		alert(data.resultMessage);
         	}
@@ -334,13 +288,44 @@
         }
 	}
 
-	async function fn_insertApcGrdList(){
-		let gridData = grdGrd.getGridDataAll();
-		let insertList = [];
-		let updateList = [];
-		let insertListCnt = 0;
-		let updateListCnt = 0;
-		for(var i=1; i<=gridData.length; i++ ){
+	async function fn_saveApcGrdList(){
+		let spcfctGridData = grdApcSpcfct.getGridDataAll();
+		let GrdGridData = grdGrd.getGridDataAll();
+		let insertSpcfctList = [];
+		let updateSpcfctList = [];
+		let insertGrdList = [];
+		let updateGrdList = [];
+		let insertSpcfctCnt = 0;
+		let updateSpcfctCnt = 0;
+		let insertGrdCnt = 0;
+		let updateGrdCnt = 0;
+
+		for(var i=1; i<=spcfctGridData.length; i++ ){
+			if(grdApcSpcfct.getRowData(i).delYn == 'N'){
+
+				if(grdApcSpcfct.getRowData(i).spcfctNm == null || grdApcSpcfct.getRowData(i).spcfctNm == ""){
+					alert("규격 명은 필수 값 입니다.");
+					return;
+				}
+				if(grdApcSpcfct.getRowData(i).unitCd == null || grdApcSpcfct.getRowData(i).unitCd == ""){
+					alert("단위는 필수 선택 입니다.");
+					return;
+				}
+				if(grdApcSpcfct.getRowData(i).pckgSttsCd == null || grdApcSpcfct.getRowData(i).pckgSttsCd == ""){
+					alert("포장구분은 필수 선택 입니다.");
+					return;
+				}
+
+				if(grdApcSpcfct.getRowStatus(i) === 3){
+					insertSpcfctList.push(grdApcSpcfct.getRowData(i));
+				}
+				if(grdApcSpcfct.getRowStatus(i) === 2){
+					updateSpcfctList.push(grdApcSpcfct.getRowData(i));
+				}
+			}
+		}
+
+		for(var i=1; i<=GrdGridData.length; i++ ){
 			if(grdGrd.getRowData(i).delYn == 'N'){
 
 				if(grdGrd.getRowData(i).grdNm == null || grdGrd.getRowData(i).grdNm == ""){
@@ -349,30 +334,70 @@
 				}
 
 				if(grdGrd.getRowStatus(i) === 3){
-					insertList.push(grdGrd.getRowData(i));
+					insertGrdList.push(grdGrd.getRowData(i));
 				}
 				if(grdGrd.getRowStatus(i) === 2){
-					updateList.push(grdGrd.getRowData(i));
+					updateGrdList.push(grdGrd.getRowData(i));
 				}
 			}
 		}
-		if(insertList.length == 0 && updateList.length == 0){
+		if(insertSpcfctList.length == 0 && updateSpcfctList.length == 0 && insertGrdList.length == 0 && updateGrdList.length == 0){
 			alert("등록 할 내용이 없습니다.");
 			return;
 		}
 		let regMsg = "등록 하시겠습니까?";
 		if(confirm(regMsg)){
 
-			if(insertList.length > 0){
-				insertListCnt = await fn_callInsertGrdList(insertList);
+			if(insertSpcfctList.length > 0){
+				insertSpcfctCnt = await fn_callInsertSpcfctList(insertSpcfctList);
 			}
-			if(updateList.length > 0){
-				updateListCnt = await fn_callUpdateGrdList(updateList);
+			if(updateSpcfctList.length > 0){
+				updateSpcfctCnt = await fn_callUpdateSpcfctList(updateSpcfctList);
 			}
-			if(insertListCnt + updateListCnt > 0 ){
+			if(insertGrdList.length > 0){
+				insertGrdCnt = await fn_callInsertGrdList(insertGrdList);
+			}
+			if(updateGrdList.length > 0){
+				updateGrdCnt = await fn_callUpdateGrdList(updateGrdList);
+			}
+			if(insertSpcfctCnt + updateSpcfctCnt + insertGrdCnt + updateGrdCnt > 0 ){
+				fn_selectApcSpcfctList();
 				fn_selectGrdList();
 				alert("등록 되었습니다.");
 			}
+		}
+	}
+
+
+
+	async function fn_callInsertSpcfctList(cmnsSpcfctList){
+		let postJsonPromise = gfn_postJSON("/am/cmns/insertApcSpcfctList.do", cmnsSpcfctList);
+        let data = await postJsonPromise;
+
+        try{
+        	console.log("data >>> "+ data.insertedCnt);
+       		return data.insertedCnt;
+
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
+
+	}
+
+	async function fn_callUpdateSpcfctList(cmnsSpcfctList){
+		let postJsonPromise = gfn_postJSON("/am/cmns/updateApcSpcfctList.do", cmnsSpcfctList);
+        let data = await postJsonPromise;
+        try{
+       		return data.updateCnt;
+
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
 		}
 	}
 

@@ -95,7 +95,6 @@ async function gfn_postJSON(_url, _param, sysPrgrmId) {
         );
 
 		const result = await response.json();
-		console.log("success", result);
 		return result;
 
 	} catch (e) {
@@ -117,7 +116,6 @@ async function gfn_postJSON(_url, _param, sysPrgrmId) {
 async function gfn_getComCdDtls (_cdId, _apcCd = "0000") {
 	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd});
 	const data = await postJsonPromise;
-	console.log("cdDtls", data);
 	return JSON.stringify(data.resultList);
 }
 
@@ -778,7 +776,6 @@ const gfn_getComMsgList = async function() {
     try {
     	gv_comMsgList.length = 0;
     	data.resultList.forEach((item) => {
-			console.log("msg", item.msgCn);
 			const msg = {
 				msgKey: item.msgKey,
 				msgCn: item.msgCn,
@@ -812,7 +809,6 @@ const gfn_getComMsg = function (_msgKey, ..._arguments) {
 
 	let args = Array.prototype.slice.call(arguments, 1);
 	msgCn = msgCn.replace("\\\\", "\\");
-	console.log(msgCn);
 
 	let msg = msgCn.replace(/{(\d+)}/g, function(match, number) {
 			return typeof args[number] != 'undefined' ? args[number] : match;
@@ -833,7 +829,6 @@ const gfn_getComMsg = function (_msgKey, ..._arguments) {
  */
 const gfn_comAlert = function (_msgKey, ..._arguments) {
 	let msg = gfn_getComMsg(_msgKey, _arguments);
-	console.log(msg);
 	alert(msg);
 	// return alert(gfn_getComMsg(_msgKey, _arguments));
 }
@@ -889,8 +884,6 @@ const gfn_getJsonFilter = function(data, key, value) {
 	}
 
 	const filteredData = data.filter((obj) => {
-				console.log("obj[key]", obj[key]);
-				console.log("value", value);
 				return obj[key] === value;
 		});
 
