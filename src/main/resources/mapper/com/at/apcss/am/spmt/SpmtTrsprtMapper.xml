@@ -31,7 +31,7 @@
 		     , ST.RMRK              AS RMRK
 		     , ST.DEL_YN            AS DEL_YN
 		  FROM TB_SPMT_TRSPRT_CO_INFO ST
-		 WHERE ST.APC_CD = #{apcCD}
+		 WHERE ST.APC_CD = #{apcCd}
 		]]>
     </select>
 
@@ -64,7 +64,7 @@
    		VALUES
    			(
    				#{apcCd}
-    		  , #{trsprtCoCd}
+    		  , FN_GET_ID_SPMT_TRSPRT_CO(#{apcCd})
     		  , #{trsprtCoNm}
     		  , #{telno}
     		  , #{fxno}
@@ -96,7 +96,7 @@
     		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 			 , TRSPRT_CO_NM				= #{trsprtCoNm}
     		 , TELNO					= #{telno}
-    		 , FANO						= #{fxno}
+    		 , FXNO						= #{fxno}
     		 , RMRK						= #{rmrk}
     		 , DEL_YN					= #{delYn}
 		 WHERE APC_CD 					= #{apcCd}

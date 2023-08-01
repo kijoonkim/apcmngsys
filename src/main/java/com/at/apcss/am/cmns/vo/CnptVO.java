@@ -2,6 +2,7 @@ package com.at.apcss.am.cmns.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +23,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@EqualsAndHashCode(callSuper = false)
 public class CnptVO extends ComVO {
 	
 	/**

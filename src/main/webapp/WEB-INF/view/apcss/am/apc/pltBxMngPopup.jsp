@@ -266,6 +266,11 @@
 		// 출하포장단위 전체 Data
 		let pckgGridData = grdPckg.getGridDataAll();
 
+		// 팔레트 등록 data 분류
+		for(var i=2; i<=pltGridData.length+1; i++ ){
+			console.log(i, grdPlt.getRowStatus(i));
+			
+		}
 		let insertPltList = [];			// 팔레트 insertList
 		let updatePltList = [];			// 팔레트 updateList
 		let insertBxList = [];			// 박스 insrtList
