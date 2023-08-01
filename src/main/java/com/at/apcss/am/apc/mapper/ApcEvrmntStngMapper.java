@@ -38,6 +38,20 @@ public interface ApcEvrmntStngMapper {
 	 * @return List<ApcEvrmntStngVO>
 	 */
 	List<ApcEvrmntStngVO> selectApcDsctnList(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+	
+	/**
+	 * APC 내역 수정
+	 * @param ApcEvrmntStngVO
+	 * @return 
+	 */
+	int updateApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+	
+	/**
+	 * APC 내역 등록
+	 * @param ApcEvrmntStngVO
+	 * @return 
+	 */
+	int insertApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
 
 	/**
 	 * APC 사용자 목록 조회
