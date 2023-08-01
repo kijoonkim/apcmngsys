@@ -17,7 +17,7 @@
 			</p>
 		</div>
 		<div style="margin-left: auto;">
-			<sbux-button id="btnInsertSimpleStng" name="btnInsertSimpleStng" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSimpleStng"></sbux-button>
+			<sbux-button id="btnSaveSimpleStng" name="btnSaveSimpleStng" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveSimpleStng"></sbux-button>
 			<sbux-button id="btnEndSimpleStng" name="btnEndSimpleStng" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="fn_closeModal('modal-simpleStng')"></sbux-button>
 		</div>
 	</div>
@@ -670,10 +670,9 @@
 							<p class="arrow_b">계근대 없이 원물을 입고 처리합니다.<br> 원물 입고실적을 등록합니다.</p>
 						</div>
 					</li>
-					<li class="wh_b">
-						<div class="line01">
-							<span>선별지시</span>
-							<p class="arrow_b">선별작업을 위한 선별지시를 관리합니다.<br> 선별지시서를 출력할 수 있습니다.<br> 선별실적 등록 시 지시정보를 참조할 수<br> 있습니다</p>
+					<li>
+						<div class="line02">
+							<span>&nbsp;</span>
 						</div>
 					</li>
 					<li>
@@ -720,7 +719,7 @@
 </body>
 
 <script type="text/javascript">
-	async function fn_insertSimpleStng(){
+	async function fn_saveSimpleStng(){
 		let authrtCaseId = SBUxMethod.get('simpleCase');
 		let postJsonPromise = gfn_postJSON("/co/authrt/insertApcSimpleAuthrt.do", {apcCd : gv_apcCd, authrtCaseId : authrtCaseId});
     	let data = await postJsonPromise;
