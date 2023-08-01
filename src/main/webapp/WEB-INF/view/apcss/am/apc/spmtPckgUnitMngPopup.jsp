@@ -99,11 +99,12 @@
 		SBUxMethod.openModal('modal-spmtSlsUntprcReg');
 
 		let rowData = grdSpmtPckgUnit.getRowData(nRow);
-		console.log(jsonSPUGrdItemCd)
 		SBUxMethod.set("spmtSlsUntprcReg-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 		SBUxMethod.set("spmtSlsUntprcReg-inp-spmtPckgUnitNm", rowData.spmtPckgUnitNm);
 		SBUxMethod.set("spmtSlsUntprcReg-inp-itemNm", rowData.itemNm);
+		SBUxMethod.set("spmtSlsUntprcReg-inp-itemCd", rowData.itemCd);
 		SBUxMethod.set("spmtSlsUntprcReg-inp-vrtyNm", rowData.vrtyNm);
+		SBUxMethod.set("spmtSlsUntprcReg-inp-vrtyCd", rowData.vrtyCd);
 	}
 
 
