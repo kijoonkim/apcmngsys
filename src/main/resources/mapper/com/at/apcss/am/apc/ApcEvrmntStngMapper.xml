@@ -70,14 +70,18 @@
 		     , AI.FXNO             	AS FXNO
 		     , AI.DEL_YN			AS DEL_YN
 		  FROM TB_APC_INFO AI
-		 WHERE AI.DEL_YN = 'N'
 		]]>
-		<if test='apcCd != null and apcCd != ""'>
-		   AND AI.APC_CD = #{apcCd}
-		</if>
-		<if test='regApcNm != null and regApcNm != ""'>
-		   AND AI.REG_APC_NM LIKE '%' ||  #{regApcNm} || '%'
-		</if>
+		<where>
+			<if test='apcCd != null and apcCd != ""'>
+			   AND AI.APC_CD LIKE '%' ||  #{apcCd} || '%'
+			</if>
+			<if test='regApcNm != null and regApcNm != ""'>
+			   AND AI.REG_APC_NM LIKE '%' ||  #{regApcNm} || '%'
+			</if>
+			<if test='delYn != null and delYn != ""'>
+			   AND AI.DEL_YN = #{delYn}
+			</if>
+		</where>
     </select>
     
 	<!-- ==========================================================================	-->
@@ -94,7 +98,6 @@
 		   SET SYS_LAST_CHG_DT 			= SYSDATE
     		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
     		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-			 , APC_CD					= #{apcCd}
 		     , REG_APC_NM				= #{regApcNm}
 		     , CTPV_NM					= #{ctpvNm}
 		     , SIGUN_NM					= #{sigunNm}
@@ -108,7 +111,6 @@
 		     , FXNO						= #{telno}
 		     , DEL_YN					= #{delYn}
 		 WHERE APC_CD 		= #{apcCd}
-		   AND REG_APC_NM 	= #{regApcNm}
 		]]>
 	</update>
 
@@ -146,7 +148,7 @@
     		)
    		VALUES
    			(
-   				#{apcCd}
+   				'5557'
     		  , #{regApcNm}
     		  , #{ctpvNm}
     		  , #{sigunNm}

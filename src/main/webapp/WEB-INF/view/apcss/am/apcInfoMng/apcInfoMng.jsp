@@ -29,21 +29,30 @@
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 9%">
+						<col style="width: 15%">
+						<col style="width: 7%">
+						<col style="width: 15%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 31%">
+						<col style="width: 9%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th class="ta_c">APC코드</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-apcCd" name="srch-inp-apcCd" class="form-control input-sm" placeholder="입력" title="입력하세요." onkeyenter="fn_search"/>
 							</td>
 							<th class="ta_c">원본 APC명</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-regApcNm" name="srch-inp-regApcNm" uitype="text" class="form-control input-sm" onkeyenter="fn_search"></sbux-input>
+							</td>
+							<th class="ta_c">사용유무</th>
+							<td class="td_input" style="border-right: hidden;">
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
+										<sbux-select id="srch-slt-delYn" name="srch-slt-delYn" uitype="single" jsondata-ref="jsonComboDelYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
 							</td>
 						</tr>
 					</tbody>
@@ -55,6 +64,10 @@
 					<ul class="ad_tbl_count">
 						<li><span>APC 내역</span></li>
 					</ul>
+					<div class="ad_tbl_toplist">
+						<sbux-button id="btnAddRow" name="btnAddRow" uitype="normal" text="행추가" class='btn btn-xs btn-outline-danger' onClick="fn_procRowApcInfo('ADD')"></sbux-button>
+						<sbux-button id="btnDeleteRow" name="btnDeleteRow" uitype="normal" text="행삭제" class='btn btn-xs btn-outline-danger' onClick="fn_procRowApcInfo('DEL')"></sbux-button>
+					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-grdApcInfoMng" style="width:100%;height:300px;"></div>
@@ -66,13 +79,23 @@
 </body>
 <script type="text/javascript">
 	
+	var comboDelYnJsData = [];
+	var jsonComboDelYn = [];
+	
 	var apcInfoMngData = [];
 
+	const fn_initSBSelect = async function() {
+		gfn_setComCdSBSelect('srch-slt-delYn', jsonComboDelYn, 'DEL_YN', '0000');
+		gfn_setComCdGridSelect('grdApcInfoMng', comboDelYnJsData, "DEL_YN", "0000");
+	}
+	
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createApcInfoMngGrid();
+		fn_initSBSelect();
 	})
 	
 	function fn_createApcInfoMngGrid() {
+		apcInfoMngData = [];
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdApcInfoMng';
 	    SBGridProperties.id = 'grdApcInfoMng';
@@ -101,26 +124,26 @@
             {caption: ['주소'], ref: 'addr', width: '100px', type: 'input'},
             {caption: ['팩스번호'], ref: 'fxno', width: '100px', type: 'input'},
             {caption: ['전화번호'], ref: 'telno', width: '100px', type: 'input'},
-            {caption: ['처리'], ref: 'delYn', width: '100px', type : 'button', style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-            	if(strValue== null || strValue == ""){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowApcInfo(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
-            	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowApcInfo(\"DEL\", " + nRow + ")'>삭제</button>";
-            	}
-            }}
+            {caption: ['사용유무'], ref: 'delYn', width: '100px', type : 'combo',
+            	typeinfo : {ref:'comboDelYnJsData', label:'label', value:'value', oneclickedit: true, displayui : true}}
         ];
         grdApcInfoMng = _SBGrid.create(SBGridProperties);
-        grdApcInfoMng.addRow();
+        fn_callSelectApcDsctnList();
     }
 	
 	// 행 삭제 및 추가
-	async function fn_procRowApcInfo(type, i){
+	async function fn_procRowApcInfo(type){
 		if (type == "ADD"){
-			apcInfoMngData[i-1].delYn = "N";
-			grdApcInfoMng.addRow();
+			grdApcInfoMng.addRow(true, {'delYn':'N'});
+			fn_initSBSelect();
 		}
 		else{
-			grdApcInfoMng.deleteRow(i);
+			for(var i=0; i<apcInfoMngData.length; i++){
+				if(grdApcInfoMng.getGridDataAll()[i].slt && grdApcInfoMng.getGridDataAll()[i].apcCd == ""){
+					grdApcInfoMng.deleteRow(i+1);
+					i--;
+				}
+			}
 		}
 	}
 	
@@ -147,12 +170,16 @@
 		fn_callSelectApcDsctnList();
 	}
 	
+	let newApcInfoMngData = [];
+	
 	async function fn_callSelectApcDsctnList(){
+		apcInfoMngData = [];
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let regApcNm = SBUxMethod.get("srch-inp-regApcNm");
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcDsctnList.do", {apcCd: apcCd, regApcNm : regApcNm});
+		let delYn = SBUxMethod.get("srch-slt-delYn");
+    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcDsctnList.do", {apcCd: apcCd, regApcNm : regApcNm, delYn : delYn});
         let data = await postJsonPromise;
-        let newApcInfoMngData = [];
+        newApcInfoMngData = [];
         try{
         	data.resultList.forEach((item, index) => {
 				let apcDsctn = {
@@ -174,7 +201,6 @@
 			});
         	apcInfoMngData = newApcInfoMngData;
         	grdApcInfoMng.rebuild();
-        	grdApcInfoMng.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -184,52 +210,93 @@
 	}
 	
 	// 등록 버튼
+// 	async function fn_insert(){
+// 		let gridData = grdApcInfoMng.getGridDataAll();
+		
+// 		for(var i=0; i<gridData.length; i++){
+// 			console.log(i, grdApcInfoMng.getRowStatus(i+1), gridData[i]);
+// 		}
+
+// 		let updateList = [];
+// 		let insertList = [];
+// 		for(var i=0; i<gridData.length; i++){
+// 			if(gridData[i].delYn == "N" && (gridData[i].regApcNm == null || gridData[i].regApcNm == "")){
+// 				alert("원본 APC명은 필수 값 입니다.");
+// 				return
+// 			}
+// 			else{
+// 				if(grdApcInfoMng.getRowStatus(i+1) === 2){
+// 					updateList.push(gridData[i]);
+// 				}
+// 				else if(grdApcInfoMng.getRowStatus(i+1) === 3){
+// 					gridData[i].apcCd = "5556"
+// 					insertList.push(gridData[i]);
+// 				}
+// 			}
+// 		}
+// 		if(updateList.length == 0 && insertList.length == 0){
+// 			alert("등록 할 내용이 없습니다.");
+// 			return;
+// 		}
+// 		if(updateList.length != 0){
+// 			let postJsonPromise = gfn_postJSON("/am/apc/updateApcDsctnList.do", updateList);
+// 	        let data = await postJsonPromise;
+// 	        try{
+// 	        	if(data.result > 0){
+// 	        		//fn_callSelectUserList();
+// 	        		alert("수정 되었습니다.");
+// 	        	}else{
+// 	        		alert("수정 실패 하였습니다.");
+// 	        	}
+	
+// 	        }catch (e) {
+// 	        	if (!(e instanceof Error)) {
+// 	    			e = new Error(e);
+// 	    		}
+// 	    		console.error("failed", e.message);
+// 			}
+// 		}
+// 		if(insertList.length != 0){
+// 			let postJsonPromise = gfn_postJSON("/am/apc/insertApcDsctnList.do", insertList);
+// 	        let data = await postJsonPromise;
+// 	        try{
+// 	        	if(data.result > 0){
+// 	        		//fn_callSelectUserList();
+// 	        		alert("등록 되었습니다.");
+// 	        	}else{
+// 	        		alert("등록 실패 하였습니다.");
+// 	        	}
+	
+// 	        }catch (e) {
+// 	        	if (!(e instanceof Error)) {
+// 	    			e = new Error(e);
+// 	    		}
+// 	    		console.error("failed", e.message);
+// 			}
+// 		}
+// 	}
+	
 	async function fn_insert(){
-		let gridData = grdApcInfoMng.getGridDataAll();
-		let updateList = [];
-		let insertList = [];
-		for(var i=0; i<gridData.length; i++){
-			if(gridData[i].delYn == "N" && (gridData[i].regApcNm == null || gridData[i].regApcNm == "")){
+		for(var i=0; i<apcInfoMngData.length; i++){
+			if(apcInfoMngData[i].delYn == "N" && (apcInfoMngData[i].regApcNm == null || apcInfoMngData[i].regApcNm == "")){
 				alert("원본 APC명은 필수 값 입니다.");
 				return
 			}
-			else{
-				if(grdApcInfoMng.getRowStatus(i) == 0){
-					updateList.push(gridData[i]);
-				}
-				else if(grdApcInfoMng.getRowStatus(i) == 2){
-					gridData[i].apcCd = "5555"
-					insertList.push(gridData[i]);
-				}
-			}
 		}
-		if(updateList.length == 0 && insertList.length == 0){
-			alert("등록 할 내용이 없습니다.");
-			return;
-		}
-		if(updateList.length != 0){
-			let postJsonPromise = gfn_postJSON("/am/apc/updateApcDsctnList.do", updateList);
-	        let data = await postJsonPromise;
+		
+// 		var isEqual1 = await chkEqualObj(apcInfoMngData, newApcInfoMngData);
+// 		console.log(isEqual1);
+// 		if (isEqual1){
+// 			alert("등록 할 내용이 없습니다.");
+// 			return;
+// 		}
+		
+		let regMsg = "등록 하시겠습니까?";
+		if(confirm(regMsg)){
+			let postJsonPromise = gfn_postJSON("/am/apc/updateApcDsctnList.do", {origin : newApcInfoMngData, modified : apcInfoMngData});
+			let data = await postJsonPromise;
 	        try{
-	        	if(data.result > 0){
-	        		//fn_callSelectUserList();
-	        		alert("수정 되었습니다.");
-	        	}else{
-	        		alert("수정 실패 하였습니다.");
-	        	}
-	
-	        }catch (e) {
-	        	if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-			}
-		}
-		if(insertList.length != 0){
-			let postJsonPromise = gfn_postJSON("/am/apc/insertApcDsctnList.do", insertList);
-	        let data = await postJsonPromise;
-	        try{
-	        	if(data.result > 0){
+	        	if(data.insertedCnt > 0){
 	        		//fn_callSelectUserList();
 	        		alert("등록 되었습니다.");
 	        	}else{
@@ -245,5 +312,31 @@
 		}
 	}
 	
+	async function chkEqualObj(obj1, obj2){
+		console.log("obj1", obj1);
+		console.log("obj2", obj2);
+
+		var obj1Len = obj1.filter(e => e["delYn"] == "N").length;
+		var obj2Len = obj2.filter(e => e["delYn"] == "N").length;
+
+		if (obj1Len != obj2Len)
+			return false;
+
+		var obj1keys = Object.keys(obj1[0]);
+		obj1keys.sort();
+		var obj2keys = Object.keys(obj2[0]);
+		obj2keys.sort();
+
+		if (JSON.stringify(obj1keys) != JSON.stringify(obj2keys))
+			return false;
+
+		for(var i=0; i<obj1Len; i++){
+			for(var j=0; j<obj1keys.length; j++){
+				if(obj1[i][obj1keys[j]] != obj2[i][obj1keys[j]])
+					return false;
+			}
+		}
+		return true;
+	}
 </script>
 </html>
