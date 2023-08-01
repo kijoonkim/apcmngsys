@@ -694,9 +694,12 @@
 
     // Row 추가 및 삭제 기능
     async function fn_procRow(gubun, grid, nRow, nCol) {
-        if (gubun === "ADD") {
+    	console.log(gubun, grid, nRow, nCol);
+        if (gubun === "ADD") { 
             if (grid === "cnptMngDatagrid") {
-            	cnptMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	cnptMngGridData[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
+            	cnptMngGridData[nRow-1].delYn = "N";
+            	console.log(cnptMngGridData[nRow-1]);
             	cnptMngDatagrid.addRow(true);
             }else if (grid === "grdFclt") {
             	grdFclt.setCellData(nRow, nCol, "N", true);
@@ -733,9 +736,11 @@
             	rgnTrsprtCstMngDatagrid.addRow(true);
             }else if(grid === "wrhsVhclMngDatagrid"){
             	wrhsVhclMngGridData[nRow-1].delYn = "N";
+            	wrhsVhclMngGridData[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
 				wrhsVhclMngDatagrid.addRow();
             }else if(grid === "spmtTrsprtMngDatagrid"){
-            	spmtTrsprtMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	spmtTrsprtMngGridData[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
+            	spmtTrsprtMngGridData[nRow-1].delYn = "N";
             	spmtTrsprtMngDatagrid.addRow(true);
             }else if(grid === "grdOprtr"){
             	grdOprtr.setCellData(nRow, nCol, "N", true);
@@ -861,5 +866,32 @@
         }
     }
 
+    // 정희운. 두 List<Object>가 동일한지 비교하는 함수.
+	async function chkEqualObj(obj1, obj2){
+		console.log("obj1", obj1);
+		console.log("obj2", obj2);
+		
+		var obj1Len = obj1.length == 0 ? 0 : obj1.filter(e => e["delYn"] == "N").length;
+		var obj2Len = obj2.length == 0 ? 0 : obj2.filter(e => e["delYn"] == "N").length;
+
+		if (obj1Len != obj2Len)
+			return false;
+
+		var obj1keys = Object.keys(obj1[0]);
+		obj1keys.sort();
+		var obj2keys = Object.keys(obj2[0]);
+		obj2keys.sort();
+
+		if (JSON.stringify(obj1keys) != JSON.stringify(obj2keys))
+			return false;
+
+		for(var i=0; i<obj1Len; i++){
+			for(var j=0; j<obj1keys.length; j++){
+				if(obj1[i][obj1keys[j]] != obj2[i][obj1keys[j]])
+					return false;
+			}
+		}
+		return true;
+	}
 </script>
 </html>

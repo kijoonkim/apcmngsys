@@ -112,11 +112,13 @@
 	}
 
 
+    let newCnptGridData = [];
 	async function fn_callSelectCnptList(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectCnptList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        let newCnptGridData = [];
+	    newCnptGridData = [];
+	    cnptMngGridData = [];
         try{
         	data.resultList.forEach((item, index) => {
 				let cnpt = {
@@ -130,11 +132,12 @@
 				  , delYn 		: item.delYn
 				  , apcCd 		: item.apcCd
 				}
-				newCnptGridData.push(cnpt);
+				cnptMngGridData.push(Object.assign({}, cnpt));
+				newCnptGridData.push(Object.assign({}, cnpt));
 			});
-        	cnptMngGridData = newCnptGridData;
+        	console.log("cnptMngGridData", cnptMngGridData);
         	cnptMngDatagrid.rebuild();
-        	cnptMngDatagrid.addRow();
+         	cnptMngDatagrid.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -143,6 +146,40 @@
         }
 	}
 
+	async function fn_insertCnptList(){
+		for(var i=0; i<cnptMngGridData.length; i++){
+			if(cnptMngGridData[i].delYn == "N"){
+				if(cnptMngGridData[i].cnptNm == null || cnptMngGridData[i].cnptNm == ""){
+					console.log(cnptMngGridData[i]);
+					alert("거래처명은 필수 값 입니다.");
+					return
+				}
+				if(cnptMngGridData[i].cnptType == null || cnptMngGridData[i].cnptType == ""){
+					console.log(cnptMngGridData[i]);
+					alert("유형을 선택해주세요");
+					return
+				}
+			}
+		}
+		
+		var isEqual1 = await chkEqualObj(cnptMngGridData, newCnptGridData);
+		console.log(isEqual1);
+		if (isEqual1){
+			alert("등록 할 내용이 없습니다.");
+			return;
+		}
+
+		let regMsg = "등록 하시겠습니까?";
+		if(confirm(regMsg)){
+			let postJsonPromise = await gfn_postJSON("/am/cmns/compareCnptList.do", {origin : newCnptGridData, modified : cnptMngGridData});
+
+			alert("등록 되었습니다.");
+			
+			
+			fn_callSelectCnptList();
+		}
+	}
+	
 
     var ordrMngGridData = [
     	{"martNm": "이마트", "ordrUrl" : "https://supply.nonghyup.com", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
