@@ -18,7 +18,7 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ APC환경설정</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"></sbux-button>
 				</div>
 			</div>
 
@@ -152,7 +152,7 @@
 								선택한 품목별로 APC에서 관리하는 등급과 규격을 등록하세요.
 							</td>
 						</tr>
-						<!-- <tr>
+						<tr>
 							<th scope="row">출하포장단위 관리</th>
 							<td class="td_input" colspan="2">
 								<sbux-button id="btnSpmtPckgUnit" name="btnSpmtPckgUnit" uitype="modal" text="출하포장단위 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spmtPckgUnit" onclick="fn_modal('btnSpmtPckgUnit')"></sbux-button>
@@ -160,7 +160,7 @@
 							<td colspan="6" style="color:#999">
 								선택한 품목별로 APC에서 관리하는 출하포장단위을 등록하세요.
 							</td>
-						</tr> -->
+						</tr>
 						<tr>
 							<th scope="row">원물 팔레트/박스</th>
 							<td class="td_input" colspan="2">
@@ -500,12 +500,12 @@
     	<jsp:include page="../apc/grdSpcfctMngPopup.jsp"></jsp:include>
     </div>
     <!-- 출하포장단위 등록 Modal -->
-    <%-- <div>
+    <div>
         <sbux-modal id="modal-spmtPckgUnit" name="modal-spmtPckgUnit" uitype="middle" header-title="춣하포장단위 등록" body-html-id="body-modal-spmtPckgUnit" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-spmtPckgUnit">
     	<jsp:include page="../apc/spmtPckgUnitMngPopup.jsp"></jsp:include>
-    </div> --%>
+    </div>
     <!-- 팔레트/박스 등록 Modal -->
     <div>
         <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="팔레트/박스 등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -548,6 +548,14 @@
     </div>
     <div id="body-modal-simpleStng">
     	<jsp:include page="../apc/simpleStngPopup.jsp"></jsp:include>
+    </div>
+
+    <!-- 출하매출단가 등록 Modal -->
+    <div>
+        <sbux-modal id="modal-spmtSlsUntprcReg" name="modal-spmtSlsUntprcReg" uitype="middle" header-title="출하 매출단가 등록" body-html-id="body-modal-spmtSlsUntprcReg" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-spmtSlsUntprcReg">
+    	<jsp:include page="../apc/spmtSlsUntprcRegMngPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -639,6 +647,8 @@
 			fn_ordrMngCreateGrid();
 		}if(targetName == 'btnOprtr'){
 			fn_oprtrMngCreateGrid();
+		}if(targetName == 'btnSpmtPckgUnit'){
+			fn_createSpmtPckgUnitGrid();
 		}
 	}
 
@@ -693,7 +703,7 @@
 	}
 
     // Row 추가 및 삭제 기능
-    async function fn_procRow(gubun, grid, nRow, nCol) {
+    function fn_procRow(gubun, grid, nRow, nCol) {
         if (gubun === "ADD") {
             if (grid === "cnptMngDatagrid") {
             	cnptMngDatagrid.setCellData(nRow, nCol, "N", true);
@@ -765,6 +775,10 @@
             		alert("품목을 선택해주세요.")
             		return;
             	}
+            }else if(grid === "grdSmptPckgUnit"){
+           		grdSpmtPckgUnit.setCellData(nRow, nCol, "N", true);
+           		grdSpmtPckgUnit.setCellData(nRow, 8, gv_apcCd, true);
+           		grdSpmtPckgUnit.addRow(true);
             }
         }
         else if (gubun === "DEL") {
@@ -835,7 +849,6 @@
             }else if (grid === "grdOprtr") {
             	grdOprtr.deleteRow(nRow);
             }else if (grid === "grdGrd") {
-
             	if(grdGrd.getRowStatus(nRow) == 0 || grdGrd.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
@@ -856,6 +869,17 @@
             		}
             	}else{
             		grdApcSpcfct.deleteRow(nRow);
+            	}
+            }else if (grid === "grdSmptPckgUnit") {
+            	if(grdSpmtPckgUnit.getRowStatus(nRow) == 0 || grdSpmtPckgUnit.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var spmtPckgUnitVO = grdSpmtPckgUnit.getRowData(nRow);
+            			fn_deleteSpmtPckgUnit(spmtPckgUnitVO);
+            			grdSpmtPckgUnit.deleteRow(nRow);
+            		}
+            	}else{
+            		grdSpmtPckgUnit.deleteRow(nRow);
             	}
             }
         }

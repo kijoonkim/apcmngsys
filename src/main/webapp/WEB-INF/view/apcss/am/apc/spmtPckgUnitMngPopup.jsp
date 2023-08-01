@@ -18,9 +18,9 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchSmptPckgUnit" name="btnSearchGrd" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSmptPckgUnitList()"></sbux-button>
-					<sbux-button id="btnInsertSmptPckgUnit" name="btnInsertGrd" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSmptPckgUnit"></sbux-button>
-					<sbux-button id="btnEndSmptPckgUnit" name="btnEndGrd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-smptPckgUnit')"></sbux-button>
+					<sbux-button id="btnSearchSpmtPckgUnit" name="btnSearchSpmtPckgUnit" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSpmtPckgUnitList"></sbux-button>
+					<sbux-button id="btnSaveSpmtPckgUnit" name="btnSaveSpmtPckgUnit" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveSpmtPckgUnit"></sbux-button>
+					<sbux-button id="btnEndSpmtPckgUnit" name="btnEndSpmtPckgUnit" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-spmtPckgUnit')"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -29,27 +29,23 @@
 					<table class="table table-bordered tbl_row tbl_fixed">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
-							<col style="width: 10%">
-							<col style="width: 20%">
-							<col style="width: 10%">
-							<col style="width: 20%">
-							<col style="width: 10%">
-							<col style="width: 20%">
-							<col style="width: auto">
+							<col style="width: 100px">
+							<col style="width: 200px">
+							<col style="width: 100px">
+							<col style="width: 200px">
+							<col style="width: 100px">
+							<col style="width: 200px">
 						</colgroup>
 						<tbody>
 							<tr>
 								<th scope="row">APC명</th>
 								<th>
-									<sbux-input id="smptPckgUnit-inp-apcNm" name="smptPckgUnit-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+									<sbux-input id="spmtPckgUnit-inp-apcNm" name="spmtPckgUnit-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 								</th>
 								<th scope="row">품목명</th>
 								<th style="border-right-style: hidden;">
-									<sbux-select id="smptPckgUnit-slt-itemCd" name="smptPckgUnit-slt-itemCd" uitype="single" jsondata-ref="jsonUnitItemCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									<sbux-select id="spmtPckgUnit-slt-itemCd" name="spmtPckgUnit-slt-itemCd" style="background-color:#ffffff;"  uitype="single" jsondata-ref="jsonSPUItemCd" unselected-text="선택" class="form-control input-sm" onchange="fn_selectItem()"></sbux-select>
 								</th>
-								<th></th>
-								<th></th>
-								<th></th>
 								<th></th>
 								<th></th>
 							</tr>
@@ -62,38 +58,13 @@
 				<b>&nbsp;</b>
 
 				<div class="row">
-
-					<div class="col-sm-4">
-						<div class="ad_tbl_top"  style="width: 98%;">
-							<ul class="ad_tbl_count">
-								<li><span>규격등록</span></li>
-							</ul>
-						</div>
-						<div>
-							<div id="sb-area-grdSpcfct" style="height:159px; width: 100%;"></div>
-						</div>
+					<div class="ad_tbl_top"  style="width: 98%;">
+						<ul class="ad_tbl_count">
+							<li><span>출하포장단위</span></li>
+						</ul>
 					</div>
-
-
-					<div class="col-sm-4">
-						<div class="ad_tbl_top"  style="width: 98%;">
-							<ul class="ad_tbl_count">
-								<li><span>&nbsp;</span></li>
-							</ul>
-						</div>
-						<div>
-							<div id="sb-area-grdApcSpcfct" style="height:159px; width: 100%;"></div>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="ad_tbl_top"  style="width: 98%;">
-							<ul class="ad_tbl_count">
-								<li><span>등급등록</span></li>
-							</ul>
-						</div>
-						<div>
-							<div id="sb-area-grdSmptPckgUnit" style="height:159px; width: 100%;"></div>
-						</div>
+					<div>
+						<div id="sb-area-grdSpmtPckgUnit" style="height:223px; width: 100%;"></div>
 					</div>
 				</div>
 
@@ -101,70 +72,116 @@
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
+	<sbux-button id="btnSpmtSlsUntprcReg" name="btnSpmtSlsUntprcReg" uitype="modal" text="거래처 등록" style="width:100%; display:none" class="btn btn-sm btn-outline-dark" target-id="modal-spmtSlsUntprcReg" onclick="fn_modal('btnSpmtSlsUntprcReg')"></sbux-button>
 </body>
 <script type="text/javascript">
-	var jsonUnitItemCd = [];
 
-	var jsonSmptPckgUnit = [];
-	var jsonSpcfct = [];
-	var jsonApcSpcfct = [];
+	var jsonSpmtPckgUnit = [];
+	var jsonSPUItemCd = [];
+	var jsonSPUGrdItemCd = [];
+	var jsonSPUGrdVrtyCd = [];
+	var jsonSPUGrdSpcfctCd = [];
 
-	/* const fn_initSBSelectItem = async function() {
-		gfn_setApcItemSBSelect("spcfct-select-itemCd", jsonComItemCd, SBUxMethod.get("inp-apcCd"));
-	} */
-	function fn_createSmptPckgUnitGrid() {
+	const fn_initSBSelectSpmtPckgUnit = async function() {
+		await gfn_setApcItemSBSelect("spmtPckgUnit-slt-itemCd", jsonSPUItemCd, gv_apcCd);		// APC 품목(검색)
+		await gfn_setApcItemSBSelect("grdSpmtPckgUnit", 		jsonSPUGrdItemCd, gv_apcCd);		// APC 품목(저장)
+		await gfn_setApcVrtySBSelect("grdSpmtPckgUnit", 		jsonSPUGrdVrtyCd, gv_apcCd);		// APC 품종(저장)
+		await gfn_setApcSpcfctsSBSelect("grdSpmtPckgUnit", 		jsonSPUGrdSpcfctCd, gv_apcCd);		// APC 규격(저장)
+	}
 
-		SBUxMethod.set("smptPckgUnit-inp-apcNm", SBUxMethod.get("inp-apcNm"));
+	function fn_selectItem(){
+		SBUxMethod.set("save-inp-itemNm", SBUxMethod.getText("spmtPckgUnit-slt-itemCd"));
+		let selectItemCd = SBUxMethod.get("save-slt-itemCd");
+	}
 
+	function fn_modalClick(nRow){
+		fn_createSpmtSlsUntprcRegGrid();
+		SBUxMethod.openModal('modal-spmtSlsUntprcReg');
+
+		let rowData = grdSpmtPckgUnit.getRowData(nRow);
+		console.log(jsonSPUGrdItemCd)
+		SBUxMethod.set("spmtSlsUntprcReg-inp-apcNm", SBUxMethod.get("inp-apcNm"));
+		SBUxMethod.set("spmtSlsUntprcReg-inp-spmtPckgUnitNm", rowData.spmtPckgUnitNm);
+		SBUxMethod.set("spmtSlsUntprcReg-inp-itemNm", rowData.itemNm);
+		SBUxMethod.set("spmtSlsUntprcReg-inp-vrtyNm", rowData.vrtyNm);
+	}
+
+
+	async function fn_createSpmtPckgUnitGrid() {
+		await fn_initSBSelectSpmtPckgUnit();
+		jsonSpmtPckgUnit = [];
+		SBUxMethod.set("spmtPckgUnit-inp-apcNm", SBUxMethod.get("inp-apcNm"));
    		var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdSmptPckgUnit';
-	    SBGridProperties.id = 'grdSmptPckgUnit';
-	    SBGridProperties.jsonref = 'jsonGrd';
+	    SBGridProperties.parentid = 'sb-area-grdSpmtPckgUnit';
+	    SBGridProperties.id = 'grdSpmtPckgUnit';
+	    SBGridProperties.jsonref = 'jsonSpmtPckgUnit';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["코드"],     	ref: 'grdCd',  type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     	ref: 'grdNm',  type:'input',  width:'150px',    style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdGrd\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        {caption: ["품목"], 			ref: 'itemCd',   	type:'inputcombo',  width:'100px',    style:'text-align:center',
+				typeinfo : {ref:'jsonSPUGrdItemCd', 	itemcount: 10, label:'label', value:'value', displayui : true}},
+	        {caption: ["품종"], 			ref: 'vrtyCd',   	type:'inputcombo',  width:'100px',    style:'text-align:center',
+				typeinfo : {ref:'jsonSPUGrdVrtyCd', 	itemcount: 10, label:'label', value:'value', displayui : true}},
+	        {caption: ["규격"], 			ref: 'spcfctCd',   	type:'inputcombo',  width:'100px',    style:'text-align:center',
+				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	itemcount: 10, label:'label', value:'value', displayui : true}},
+	        {caption: ["출하 포장단위 명"], ref: 'spmtPckgUnitNm',  type:'input',  width:'380px',    style:'text-align:center'},
+	        {caption: ["판매단가"],     	ref: 'ntslUntprc',  type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+	        {caption: ["변경"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        	if((grdSpmtPckgUnit.getRowStatus(nRow) == 0 || grdSpmtPckgUnit.getRowStatus(nRow) == 2) && !(strValue== null || strValue == "")){
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_modalClick(" + nRow + ")'>단가</button>";
 	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdGrd\", " + nRow + ")'>삭제</button>";
+	        		return ;
 	        	}
 		    }},
-	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
-	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
-
+	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        	if(strValue== null || strValue == ""){
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdSmptPckgUnit\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdSmptPckgUnit\", " + nRow + ")'>삭제</button>";
+	        	}
+		    }},
+	        {caption: ["출하포장단위코드"], ref: 'spmtPckgUnitCd',	type:'input',  hidden : true},
+	        {caption: ["APC코드"], 			ref: 'apcCd',   		type:'input',  hidden : true},
+	        {caption: ["품목명"], 			ref: 'itemNm',   		type:'input',  hidden : true},
+	        {caption: ["품종명"], 			ref: 'vrtyNm',   		type:'input',  hidden : true},
+	        {caption: ["규격명"], 			ref: 'spcfctNm',   		type:'input',  hidden : true},
 	    ];
-	    grdGrd = _SBGrid.create(SBGridProperties);
+	    grdSpmtPckgUnit = _SBGrid.create(SBGridProperties);
+	    fn_selectSpmtPckgUnitList();
 	}
 
-	async function fn_selectGrdList(){
-		fn_callSelectGrdList()
+	async function fn_selectSpmtPckgUnitList(){
+		fn_callSelectSpmtPckgUnitList()
 	}
 
-
-	async function fn_callSelectGrdList(){
-		let apcCd = SBUxMethod.get("inp-apcCd");
-		let itemCd = SBUxMethod.get("spcfct-select-itemCd");
-		let postJsonPromise = gfn_postJSON("/am/cmns/selectApcGrdList.do", {apcCd : apcCd, itemCd : itemCd});
+	async function fn_callSelectSpmtPckgUnitList(){
+		let apcCd = gv_apcCd;
+		let itemCd = SBUxMethod.get("smptPckgUnit-slt-itemCd");
+		let postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtPckgUnitList.do", {apcCd : apcCd, itemCd : itemCd});
 	    let data = await postJsonPromise;
-	    let newGrdGridData = [];
+	    let newSpmtPckgUnitGridData = [];
 	    try{
 	    	data.resultList.forEach((item, index) => {
-				let grdVO = {
-					grdCd 		: item.grdCd
-				  , grdNm 		: item.grdNm
-				  , apcCd		: apcCd
-				  , itemCd		: item.itemCd
-				  , delYn		: item.delYn
+				let spmtPckgUnitVO = {
+					itemCd 			: item.itemCd
+				  , vrtyCd 			: item.vrtyCd
+				  , spcfctCd		: item.spcfctCd
+				  , spmtPckgUnitNm	: item.spmtPckgUnitNm
+				  , ntslUntprc		: item.ntslUntprc
+				  , delYn			: item.delYn
+				  , apcCd			: item.apcCd
+				  , spmtPckgUnitCd	: item.spmtPckgUnitCd
+				  , itemNm			: item.itemNm
+				  , vrtyNm			: item.vrtyNm
+				  , spcfctNm		: item.spcfctNm
 				}
-				newGrdGridData.push(grdVO);
+				newSpmtPckgUnitGridData.push(spmtPckgUnitVO);
 			});
-	    	jsonGrd = newGrdGridData;
-	    	grdGrd.rebuild();
-	    	grdGrd.addRow(true);
+	    	jsonSpmtPckgUnit = newSpmtPckgUnitGridData;
+	    	grdSpmtPckgUnit.rebuild();
+	    	grdSpmtPckgUnit.addRow(true);
 	    }catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -173,214 +190,69 @@
 	    }
 	}
 
-	function fn_createGrdSpcfct() {
 
-   		var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdSpcfct';
-	    SBGridProperties.id = 'grdSpcfct';
-	    SBGridProperties.jsonref = 'jsonSpcfct';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.columns = [
-	        {caption: ["코드"],     ref: 'spcfctCd',  type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'spcfctNm',  type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'100PX',    style:'text-align:center',
-	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_addSpcfct(" + nRow + ")'>선택</button>";
-	        }},
-	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
-	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
-
-	    ];
-	    grdSpcfct = _SBGrid.create(SBGridProperties);
-	}
-
-	async function fn_selectSpcfctList(){
-		fn_callSelectSpcfctList()
-	}
-
-	async function fn_callSelectSpcfctList(){
-		let apcCd = SBUxMethod.get("inp-apcCd");
-		let itemCd = SBUxMethod.get("spcfct-select-itemCd");
-		let postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsSpcfctList.do", {apcCd : apcCd, itemCd : itemCd});
-	    let data = await postJsonPromise;
-	    let newSpcfctGridData = [];
-	    try{
-	    	data.resultList.forEach((item, index) => {
-				let spcfctVO = {
-					spcfctCd 	: item.spcfctCd
-				  , spcfctNm 	: item.spcfctNm
-				  , apcCd		: apcCd
-				  , itemCd		: item.itemCd
-				}
-				newSpcfctGridData.push(spcfctVO);
-			});
-	    	jsonSpcfct = newSpcfctGridData;
-	    	grdSpcfct.rebuild();
-	    }catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
-	    }
-	}
-
-	function fn_createGrdApcSpcfct() {
-
-   		 var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdApcSpcfct';
-	    SBGridProperties.id = 'grdApcSpcfct';
-	    SBGridProperties.jsonref = 'jsonApcSpcfct';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.columns = [
-	        {caption: ["코드"],     ref: 'spcfctCd',  type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'spcfctNm',  type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["삭제"], 	ref: 'empty',   type:'output',  width:'100PX',    style:'text-align:center',
-	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteSpcfct(" + nRow + ")'>삭제</button>";
-	        }},
-	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
-	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
-
-	    ];
-	    grdApcSpcfct = _SBGrid.create(SBGridProperties);
-	}
-
-	async function fn_selectApcSpcfctList(){
-		fn_callSelectApcSpcfctList()
-	}
-
-	async function fn_callSelectApcSpcfctList(){
-		let apcCd = SBUxMethod.get("inp-apcCd");
-		let itemCd = SBUxMethod.get("spcfct-select-itemCd");
-		let postJsonPromise = gfn_postJSON("/am/cmns/selectApcSpcfctList.do", {apcCd : apcCd, itemCd : itemCd});
-	    let data = await postJsonPromise;
-	    let newApcSpcfctGridData = [];
-	    try{
-	    	data.resultList.forEach((item, index) => {
-				let spcfctVO = {
-					spcfctCd 	: item.spcfctCd
-				  , spcfctNm 	: item.spcfctNm
-				  , apcCd		: item.apcCd
-				  , itemCd		: item.itemCd
-				}
-				newApcSpcfctGridData.push(spcfctVO);
-			});
-	    	jsonApcSpcfct = newApcSpcfctGridData;
-	    	grdApcSpcfct.rebuild();
-	    }catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
-	    }
-	}
-
-	function fn_selectGrdSpcfctList(){
-
-		if(jsonComItemCd.length == 0){
-			alert("품목 먼저 등록해주세요.");
-			return;
-		}
-		if(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == ""){
-			alert("품목을 선택해주세요.");
-			return;
-		}
-
-		fn_selectSpcfctList();
-		fn_selectApcSpcfctList();
-		fn_selectGrdList();
-	}
-
-	async function fn_apcSpcfctList(){
-		fn_selectSpcfctList();
-		fn_selectApcSpcfctList();
-	}
-
-	async function fn_addSpcfct(nRow){
-		let spcfctVO = grdSpcfct.getRowData(nRow);
-		fn_callInsertApcSpcfct(spcfctVO);
-	}
-
-	async function fn_callInsertApcSpcfct(cmnsSpcfctVO){
-		let postJsonPromise = gfn_postJSON("/am/cmns/insertApcSpcfct.do", cmnsSpcfctVO);
-        let data = await postJsonPromise;
-
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		fn_apcSpcfctList();
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-	}
-
-	async function fn_deleteSpcfct(nRow){
-		let spcfctVO = grdApcSpcfct.getRowData(nRow);
-		fn_callDeleteSpcfct(spcfctVO)
-	}
-
-	async function fn_callDeleteSpcfct(cmnsSpcfctVO){
-		let postJsonPromise = gfn_postJSON("/am/cmns/deleteApcSpcfct.do", cmnsSpcfctVO);
-        let data = await postJsonPromise;
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		fn_apcSpcfctList();
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-	}
-
-	async function fn_insertApcGrdList(){
-		let gridData = grdGrd.getGridDataAll();
+	async function fn_saveSpmtPckgUnit(){
+		let gridData = grdSpmtPckgUnit.getGridDataAll();
 		let insertList = [];
 		let updateList = [];
-		let insertListCnt = 0;
-		let updateListCnt = 0;
+		let insertCnt = 0;
+		let updateCnt = 0;
 		for(var i=1; i<=gridData.length; i++ ){
-			if(grdGrd.getRowData(i).delYn == 'N'){
+			if(grdSpmtPckgUnit.getRowData(i).delYn == 'N'){
 
-				if(grdGrd.getRowData(i).grdNm == null || grdGrd.getRowData(i).grdNm == ""){
-					alert("등급 명은 필수 값 입니다.");
+				if(grdSpmtPckgUnit.getRowData(i).itemCd == null || grdSpmtPckgUnit.getRowData(i).itemCd == ""){
+					alert("품목은 필수 값 입니다.");
+					return;
+				}
+				if(grdSpmtPckgUnit.getRowData(i).vrtyCd == null || grdSpmtPckgUnit.getRowData(i).vrtyCd == ""){
+					alert("품종은 필수 값 입니다.");
+					return;
+				}
+				if(grdSpmtPckgUnit.getRowData(i).spcfctCd == null || grdSpmtPckgUnit.getRowData(i).spcfctCd == ""){
+					alert("규격은 필수 값 입니다.");
+					return;
+				}
+				if(grdSpmtPckgUnit.getRowData(i).spmtPckgUnitNm == null || grdSpmtPckgUnit.getRowData(i).spmtPckgUnitNm == ""){
+					alert("출하포장단위 명은 필수 값 입니다.");
+					return;
+				}
+				if(grdSpmtPckgUnit.getRowData(i).ntslUntprc == null || grdSpmtPckgUnit.getRowData(i).ntslUntprc == ""){
+					alert("단가는 필수 값 입니다.");
 					return;
 				}
 
-				if(grdGrd.getRowStatus(i) === 3){
-					insertList.push(grdGrd.getRowData(i));
+				if(grdSpmtPckgUnit.getRowStatus(i) == 3){
+					insertList.push(grdSpmtPckgUnit.getRowData(i));
 				}
-				if(grdGrd.getRowStatus(i) === 2){
-					updateList.push(grdGrd.getRowData(i));
+				if(grdSpmtPckgUnit.getRowStatus(i) == 2){
+					updateList.push(grdSpmtPckgUnit.getRowData(i));
 				}
 			}
 		}
 		if(insertList.length == 0 && updateList.length == 0){
-			alert("등록 할 내용이 없습니다.");
+			alert("저장 할 내용이 없습니다.");
 			return;
 		}
-		let regMsg = "등록 하시겠습니까?";
+
+		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
 			if(insertList.length > 0){
-				insertListCnt = await fn_callInsertGrdList(insertList);
+				insertCnt = await fn_callInsertSpmtPckgUnitList(insertList);
 			}
 			if(updateList.length > 0){
-				updateListCnt = await fn_callUpdateGrdList(updateList);
+				updateCnt = await fn_callUpdateSpmtPckgUnitList(updateList);
 			}
-			if(insertListCnt + updateListCnt > 0 ){
-				fn_selectGrdList();
-				alert("등록 되었습니다.");
+			if(insertCnt + updateCnt > 0 ){
+				fn_selectSpmtPckgUnitList();
+				alert("저장 되었습니다.");
 			}
 		}
 	}
 
-	async function fn_callInsertGrdList(cmnsGrdList){
-		let postJsonPromise = gfn_postJSON("/am/cmns/insertApcGrdList.do", cmnsGrdList);
+
+	async function fn_callInsertSpmtPckgUnitList(spmtPckgUnitList){
+		let postJsonPromise = gfn_postJSON("/am/cmns/insertSpmtPckgUnitList.do", spmtPckgUnitList);
         let data = await postJsonPromise;
 
         try{
@@ -396,11 +268,11 @@
 
 	}
 
-	async function fn_callUpdateGrdList(cmnsGrdList){
-		let postJsonPromise = gfn_postJSON("/am/cmns/updateApcGrdList.do", cmnsGrdList);
+	async function fn_callUpdateSpmtPckgUnitList(spmtPckgUnitList){
+		let postJsonPromise = gfn_postJSON("/am/cmns/updateSpmtPckgUnitList.do", spmtPckgUnitList);
         let data = await postJsonPromise;
         try{
-       		return data.updateCnt;
+       		return data.updatedCnt;
 
         }catch (e) {
         	if (!(e instanceof Error)) {
@@ -410,12 +282,14 @@
 		}
 	}
 
-
-	async function fn_deleteGrd(comsGrd){
-		let postJsonPromise = gfn_postJSON("/am/cmns/deleteApcGrd.do", comsGrd);
+	async function fn_deleteSpmtPckgUnit(spmtPckgUnitVO){
+		let postJsonPromise = gfn_postJSON("/am/cmns/deleteSpmtPckgUnit.do", spmtPckgUnitVO);
         let data = await postJsonPromise;
         try{
-       		return data.deleteCnt;
+       		if(data.deletedCnt > 0){
+       			fn_selectSpmtPckgUnitList();
+				alert("삭제 되었습니다.");
+       		}
 
         }catch (e) {
         	if (!(e instanceof Error)) {
@@ -424,7 +298,6 @@
     		console.error("failed", e.message);
 		}
 	}
-
 
 
 </script>
