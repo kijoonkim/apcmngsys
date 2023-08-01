@@ -141,6 +141,7 @@
 	</section>
 </body>
 <script type="text/javascript">
+	const chcItemCd="";
 
 	var jsonItem = []; // 그리드의 참조 데이터 주소 선언
 	async function fn_itemCreateGrid() {
@@ -168,7 +169,7 @@
 	}
 
 	async function fn_searchItemList(){
-		fn_callSelectItemList()
+		await fn_callSelectItemList()
 	}
 
 	async function fn_callSelectItemList(){
@@ -226,7 +227,7 @@
 	}
 
 	async function fn_searchApcItemList(){
-		fn_callSelectApcItemList();
+		await fn_callSelectApcItemList();
 	}
 
 	async function fn_callSelectApcItemList(){
@@ -331,20 +332,25 @@
 	}
 
 	async function fn_selectVrtyList(){
-		fn_callSelectVrtyList();
+		await fn_callSelectVrtyList();
 	}
 
 	async function fn_callSelectVrtyList(){
 
 		let nRow = grdApcItem.getRow();
-        if (nRow < 1) {
+        if (nRow < 1 && (SBUxMethod.get("vrty-inp-itemCd") == null || SBUxMethod.get("vrty-inp-itemCd") == "")) {
             return;
         }
-
         let rowData = grdApcItem.getRowData(nRow);
-		SBUxMethod.set("vrty-inp-itemNm", rowData.itemNm);
-		let apcCd = SBUxMethod.get("inp-apcCd");
-		let itemCd = rowData.itemCd;
+		let itemCd = "";
+		if(rowData == null || rowData == ""){
+			itemCd = SBUxMethod.get("vrty-inp-itemCd");
+		}else{
+			itemCd = rowData.itemCd;
+			SBUxMethod.set("vrty-inp-itemNm", rowData.itemNm);
+			SBUxMethod.set("vrty-inp-itemCd", rowData.itemCd);
+		}
+		let apcCd = gv_apcCd;
 		let vrtyNm = SBUxMethod.get("vrty-inp-vrtyNm");
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsVrtyList.do", {apcCd : apcCd, itemCd : itemCd, vrtyNm : vrtyNm});
         let data = await postJsonPromise;
@@ -400,31 +406,24 @@
 	}
 
 	async function fn_searchApcVrtyList(){
-		fn_callSelectApcVrtyList();
+		await fn_callSelectApcVrtyList();
 	}
 
 	async function fn_callSelectApcVrtyList(){
 
-		console.log("호출")
-
 		let nRow = grdApcItem.getRow();
-        if (nRow < 1) {
+        if (nRow < 1 && (SBUxMethod.get("vrty-inp-itemCd") == null || SBUxMethod.get("vrty-inp-itemCd") == "")) {
             return;
         }
-
         let rowData = grdApcItem.getRowData(nRow);
-        if(SBUxMethod.get("vrty-inp-itemNm") == null || SBUxMethod.get("vrty-inp-itemNm") == ""){
-			SBUxMethod.set("vrty-inp-itemCd", rowData.itemCd);
-        }
-
-		let apcCd = SBUxMethod.get("inp-apcCd");
 		let itemCd = "";
-		if(SBUxMethod.get("vrty-inp-itemCd") == null || SBUxMethod.get("vrty-inp-itemCd") == ""){
-			itemCd = rowData.itemCd;
-		}else{
+		if(rowData == null || rowData == ""){
 			itemCd = SBUxMethod.get("vrty-inp-itemCd");
+		}else{
+			itemCd = rowData.itemCd
 		}
-		console.log("itemCd",itemCd);
+		let apcCd = gv_apcCd;
+
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectApcVrtyList.do", {apcCd : apcCd, itemCd : itemCd});
         let data = await postJsonPromise;
         let newJsonApcVrty = [];
@@ -442,7 +441,7 @@
         	jsonApcVrty = newJsonApcVrty;
         	grdApcVrty.rebuild();
         	grdApcVrty.setCellDisabled(0, 0, grdApcVrty.getRows() - 1, grdApcVrty.getCols() - 1, true);
-        	grdApcVrty.addRow();
+        	grdApcVrty.addRow(true);
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -452,9 +451,6 @@
 	}
 
 	async function fn_searchVrtyList(){
-		let nRow = grdApcItem.getRow();
-		let rowData = grdApcItem.getRowData(nRow);
-
 		fn_selectVrtyList();
 		fn_searchApcVrtyList();
 	}
@@ -551,9 +547,8 @@
 	}
 
 	async function searchAll(){
-		await fn_searchItemList();
-		await fn_searchApcItemList();
-		await fn_searchVrtyList();
+		fn_searchApcItemList();
+		fn_selectVrtyList();
 		fn_searchApcVrtyList();
 	}
 
