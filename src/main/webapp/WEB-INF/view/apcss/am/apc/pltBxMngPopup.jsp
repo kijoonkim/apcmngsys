@@ -19,7 +19,7 @@
 						</p>
 					</div>
 					<div style="margin-left: auto;">
-						<sbux-button id="btnSearchPltBx" name="btnSearchPltBx" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertPltBxList"></sbux-button>
+						<sbux-button id="btnSearchPltBx" name="btnSearchPltBx" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertPltBxList"></sbux-button>
 						<sbux-button id="btnEndPltBx" name="btnEndPltBx" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-pltBx')"></sbux-button>
 					</div>
 				</div>
