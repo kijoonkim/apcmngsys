@@ -117,7 +117,7 @@
 				spmtTrsprtMngGridData.push(Object.assign({}, spmtTrsprt));
 				newSpmtTrsprtGridData.push(Object.assign({}, spmtTrsprt));
 			});
-        	console.log("spmtTrsprtMngGridData", spmtTrsprtMngGridData);
+        	console.log("spmtTrsprtMngGridData", spmtTrsprtMngGridData);git 
         	spmtTrsprtMngDatagrid.rebuild();
         	spmtTrsprtMngDatagrid.addRow();
         }catch (e) {
