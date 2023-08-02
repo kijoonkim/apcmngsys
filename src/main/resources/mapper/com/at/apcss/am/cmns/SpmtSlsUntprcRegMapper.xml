@@ -40,21 +40,22 @@
     <select id="selectSpmtSlsUntprcRegList" parameterType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO" resultType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.selectSpmtSlsUntprcRegList */
-				   SPU.APC_CD               AS APC_CD
-			     , SPU.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
-			     , SPU.SPMT_PCKG_UNIT_NM    AS SPMT_PCKG_UNIT_NM
-			     , SPU.ITEM_CD              AS ITEM_CD
-			     , SPU.VRTY_CD              AS VRTY_CD
-			     , SPU.SPCFCT_CD            AS SPCFCT_CD
-			     , SPU.NTSL_UNTPRC          AS NTSL_UNTPRC
-			     , SPU.DEL_YN               AS DEL_YN
-			  FROM TB_SPMT_PCKG_UNIT SPU
-		     WHERE SPU.APC_CD = #{apcCd}
+		     	   SUR.APC_CD               AS APC_CD
+			     , SUR.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
+			     , SUR.SPMT_SLS_UNTPRC_CD   AS SPMT_SLS_UNTPRC_CD
+			     , SUR.SPMT_SLS_UNTPRC      AS SPMT_SLS_UNTPRC
+			     , TO_CHAR(SUR.APLCN_CRTR_YMD, 'YYYY-MM-DD') AS APLCN_CRTR_YMD
+			     , SUR.RMRK                 AS RMRK
+			     , SUR.DEL_YN               AS DEL_YN
+			  FROM TB_SPMT_SLS_UNTPRC_REG   SUR
+			     , TB_SPMT_PCKG_UNIT        SPU
+			 WHERE SUR.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
+			   AND SUR.APC_CD = SPU.APC_CD
+			   AND SUR.APC_CD = #{apcCd}
+			   AND SPU.ITEM_CD	= #{itemCd}
+			   AND SPU.VRTY_CD	= #{vrtyCd}
+			   AND SPU.SPCFCT_CD= #{spcfctCd}
 		]]>
-
-		<if test='itemCd != null and itemCd != ""'>
-			   AND SPU.ITEM_CD		= #{itemCd}
-		</if>
 
     </select>
 

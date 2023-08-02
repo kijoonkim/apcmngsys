@@ -11,7 +11,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span style="font-weight:bold;">상품출하시 운용하고 있는 운송사 정보를 등록하세요.</span>
+						<span style="font-weight:bold;">상품출하시 운용하고 있는 출하포장단위 정보를 등록하세요.</span>
 					</p>
 					<p>
 						<span style="color:black; font-weight:bold;">출하처리 시 필요한 정보입니다.</span>
@@ -95,16 +95,20 @@
 	}
 
 	function fn_modalClick(nRow){
-		fn_createSpmtSlsUntprcRegGrid();
 		SBUxMethod.openModal('modal-spmtSlsUntprcReg');
 
 		let rowData = grdSpmtPckgUnit.getRowData(nRow);
 		SBUxMethod.set("spmtSlsUntprcReg-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 		SBUxMethod.set("spmtSlsUntprcReg-inp-spmtPckgUnitNm", rowData.spmtPckgUnitNm);
 		SBUxMethod.set("spmtSlsUntprcReg-inp-itemNm", rowData.itemNm);
-		SBUxMethod.set("spmtSlsUntprcReg-inp-itemCd", rowData.itemCd);
+		SBUxMethod.set("spmtSlsUntprcReg-hin-itemCd", rowData.itemCd);
 		SBUxMethod.set("spmtSlsUntprcReg-inp-vrtyNm", rowData.vrtyNm);
-		SBUxMethod.set("spmtSlsUntprcReg-inp-vrtyCd", rowData.vrtyCd);
+		SBUxMethod.set("spmtSlsUntprcReg-hin-vrtyCd", rowData.vrtyCd);
+		SBUxMethod.set("spmtSlsUntprcReg-inp-spcfctNm", rowData.spcfctNm);
+		SBUxMethod.set("spmtSlsUntprcReg-hin-spcfctCd", rowData.spcfctCd);
+
+		fn_createSpmtSlsUntprcRegGrid();
+		fn_callSelectSpmtSlsUntprcRegList(rowData);
 	}
 
 
@@ -121,12 +125,12 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["품목"], 			ref: 'itemCd',   	type:'inputcombo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonSPUGrdItemCd', 	itemcount: 10, label:'label', value:'value', displayui : true}},
-	        {caption: ["품종"], 			ref: 'vrtyCd',   	type:'inputcombo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonSPUGrdVrtyCd', 	itemcount: 10, label:'label', value:'value', displayui : true}},
-	        {caption: ["규격"], 			ref: 'spcfctCd',   	type:'inputcombo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	itemcount: 10, label:'label', value:'value', displayui : true}},
+	        {caption: ["품목"], 			ref: 'itemCd',   	type:'combo',  width:'100px',    style:'text-align:center',
+				typeinfo : {ref:'jsonSPUGrdItemCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+	        {caption: ["품종"], 			ref: 'vrtyCd',   	type:'combo',  width:'100px',    style:'text-align:center',
+				typeinfo : {ref:'jsonSPUGrdVrtyCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+	        {caption: ["규격"], 			ref: 'spcfctCd',   	type:'combo',  width:'100px',    style:'text-align:center',
+				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["출하 포장단위 명"], ref: 'spmtPckgUnitNm',  type:'input',  width:'380px',    style:'text-align:center'},
 	        {caption: ["판매단가"],     	ref: 'ntslUntprc',  type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
 	        {caption: ["변경"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -257,7 +261,6 @@
         let data = await postJsonPromise;
 
         try{
-        	console.log("data >>> "+ data.insertedCnt);
        		return data.insertedCnt;
 
         }catch (e) {

@@ -466,77 +466,77 @@
 	</section>
 	<!-- 사용자권한 설정 Modal -->
     <div>
-        <sbux-modal id="modal-userAuth" name="modal-userAuth" uitype="middle" header-title="APC사용자 권한설정" body-html-id="body-modal-userAuth" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-userAuth" name="modal-userAuth" uitype="middle" header-title="APC사용자 권한설정" body-html-id="body-modal-userAuth" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-userAuth">
     	<jsp:include page="../apc/apcUserMngPopup.jsp"></jsp:include>
     </div>
     <!-- 설비 등록 Modal -->
     <div>
-        <sbux-modal id="modal-fclt" name="modal-fclt" uitype="middle" header-title="설비 등록" body-html-id="body-modal-fclt" footer-is-close-button="false" style="width:800px"></sbux-modal>
+        <sbux-modal id="modal-fclt" name="modal-fclt" uitype="middle" header-title="설비 등록" body-html-id="body-modal-fclt" footer-is-close-button="false" header-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="body-modal-fclt">
     	<jsp:include page="../apc/fcltMngPopup.jsp"></jsp:include>
     </div>
     <!-- 창고 등록 Modal -->
     <div>
-        <sbux-modal id="modal-warehouse" name="modal-warehouse" uitype="middle" header-title="창고 등록" body-html-id="body-modal-warehouse" footer-is-close-button="false" style="width:800px"></sbux-modal>
+        <sbux-modal id="modal-warehouse" name="modal-warehouse" uitype="middle" header-title="창고 등록" body-html-id="body-modal-warehouse" footer-is-close-button="false" header-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="body-modal-warehouse">
     	<jsp:include page="../apc/warehouseMngPopup.jsp"></jsp:include>
     </div>
     <!--품목/품종 등록 Modal -->
     <div>
-        <sbux-modal id="modal-item" name="modal-item" uitype="middle" header-title="품목/품종 등록" body-html-id="body-modal-item" footer-is-close-button="false"style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-item" name="modal-item" uitype="middle" header-title="품목/품종 등록" body-html-id="body-modal-item" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-item">
     	<jsp:include page="../apc/itemMngPopup.jsp"></jsp:include>
     </div>
     <!-- 등급/규격 등록 Modal -->
     <div>
-        <sbux-modal id="modal-grdSpcfct" name="modal-grdSpcfct" uitype="middle" header-title="등급/규격 등록" body-html-id="body-modal-grdSpcfct" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-grdSpcfct" name="modal-grdSpcfct" uitype="middle" header-title="등급/규격 등록" body-html-id="body-modal-grdSpcfct" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-grdSpcfct">
     	<jsp:include page="../apc/grdSpcfctMngPopup.jsp"></jsp:include>
     </div>
     <!-- 출하포장단위 등록 Modal -->
     <div>
-        <sbux-modal id="modal-spmtPckgUnit" name="modal-spmtPckgUnit" uitype="middle" header-title="춣하포장단위 등록" body-html-id="body-modal-spmtPckgUnit" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-spmtPckgUnit" name="modal-spmtPckgUnit" uitype="middle" header-title="춣하포장단위 등록" body-html-id="body-modal-spmtPckgUnit" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-spmtPckgUnit">
     	<jsp:include page="../apc/spmtPckgUnitMngPopup.jsp"></jsp:include>
     </div>
     <!-- 팔레트/박스 등록 Modal -->
     <div>
-        <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="팔레트/박스 등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="팔레트/박스 등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-pltBx">
     	<jsp:include page="../apc/pltBxMngPopup.jsp"></jsp:include>
     </div>
     <!-- 입고차량정보 등록 Modal -->
     <div>
-        <sbux-modal id="modal-wrhsVhcl" name="modal-wrhsVhcl" uitype="middle" header-title="입고차량정보 등록" body-html-id="body-modal-wrhsVhcl" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-wrhsVhcl" name="modal-wrhsVhcl" uitype="middle" header-title="입고차량정보 등록" body-html-id="body-modal-wrhsVhcl" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-wrhsVhcl">
     	<jsp:include page="../apc/wrhsVhclMngPopup.jsp"></jsp:include>
     </div>
     <!-- 출하운송회사 등록 Modal -->
     <div>
-        <sbux-modal id="modal-spmtTrsprt" name="modal-spmtTrsprt" uitype="middle" header-title="출하운송회사 등록" body-html-id="body-modal-spmtTrsprt" footer-is-close-button="false" style="width:900px"></sbux-modal>
+        <sbux-modal id="modal-spmtTrsprt" name="modal-spmtTrsprt" uitype="middle" header-title="출하운송회사 등록" body-html-id="body-modal-spmtTrsprt" footer-is-close-button="false" header-is-close-button="false" style="width:900px"></sbux-modal>
     </div>
     <div id="body-modal-spmtTrsprt">
     	<jsp:include page="../apc/spmtTrsprtMngPopup.jsp"></jsp:include>
     </div>
     <!-- 거래처 등록 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 등록" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 등록" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-cnpt">
     	<jsp:include page="../apc/cnptMngPopup.jsp"></jsp:include>
     </div>
     <!-- 생산작업자 등록 Modal -->
     <div>
-        <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산자 등록" body-html-id="body-modal-oprtr" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산자 등록" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-oprtr">
     	<jsp:include page="../apc/oprtrMngPopup.jsp"></jsp:include>
@@ -544,7 +544,7 @@
 
     <!-- 간편설정 Modal -->
     <div>
-        <sbux-modal id="modal-simpleStng" name="modal-simpleStng" uitype="middle" header-title="메뉴간편설정" body-html-id="body-modal-simpleStng" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-simpleStng" name="modal-simpleStng" uitype="middle" header-title="메뉴간편설정" body-html-id="body-modal-simpleStng" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-simpleStng">
     	<jsp:include page="../apc/simpleStngPopup.jsp"></jsp:include>
@@ -552,7 +552,7 @@
 
     <!-- 출하매출단가 등록 Modal -->
     <div>
-        <sbux-modal id="modal-spmtSlsUntprcReg" name="modal-spmtSlsUntprcReg" uitype="middle" header-title="출하 매출단가 등록" body-html-id="body-modal-spmtSlsUntprcReg" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-spmtSlsUntprcReg" name="modal-spmtSlsUntprcReg" uitype="middle" header-title="출하 매출단가 등록" body-html-id="body-modal-spmtSlsUntprcReg" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-spmtSlsUntprcReg">
     	<jsp:include page="../apc/spmtSlsUntprcRegMngPopup.jsp"></jsp:include>
@@ -756,7 +756,7 @@
             }else if(grid === "grdApcVrty"){
             	grdApcVrty.setCellData(nRow, nCol, "N", true);
             	grdApcVrty.setCellData(nRow, 3, gv_apcCd, true);
-            	grdApcVrty.setCellData(nRow, 4, grdApcItem.getRowData(grdApcItem.getRow()).itemCd, true);
+            	grdApcSpcfct.setCellData(nRow, 8, SBUxMethod.get("spcfct-select-itemCd"), true);
             	grdApcVrty.addRow(true);
             }else if(grid === "grdGrd"){
             	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
@@ -892,16 +892,16 @@
 	async function chkEqualObj(obj1, obj2){
 		console.log("obj1", obj1);
 		console.log("obj2", obj2);
-		
+
 		var obj1Len = obj1.length == 0 ? 0 : obj1.filter(e => e["delYn"] == "N").length;
 		var obj2Len = obj2.length == 0 ? 0 : obj2.filter(e => e["delYn"] == "N").length;
 
 		if (obj1Len != obj2Len)
 			return false;
-		
+
 		if (obj1Len == 0 && obj2Len == 0)
 			return true;
-		
+
 		var obj1keys = Object.keys(obj1[0]);
 		obj1keys.sort();
 		var obj2keys = Object.keys(obj2[0]);

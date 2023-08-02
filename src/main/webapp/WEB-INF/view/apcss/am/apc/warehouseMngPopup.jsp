@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchWarehouse" name="btnSearchWarehouse" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectWarehouseList"></sbux-button>
-					<sbux-button id="btnInsertWarehouse" name="btnInsertWarehouse" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertWarehouseList"></sbux-button>
+					<sbux-button id="btnSaveWarehouse" name="btnSaveWarehouse" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveWarehouseList"></sbux-button>
 					<sbux-button id="btnEndWarehouse" name="btnEndWarehouse" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-warehouse')"></sbux-button>
 				</div>
 			</div>
@@ -73,9 +73,8 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["창고 코드"], 	ref: 'cdVl',  			type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["창고 명"], 		ref: 'cdVlNm',   		type:'input',  width:'200px',    style:'text-align:center'},
-	        {caption: ["비고"], 		ref: 'cdVlExpln',   	type:'input',  width:'350px',    style:'text-align:center'},
+	        {caption: ["창고 명"], 		ref: 'cdVlNm',   		type:'input',  width:'250px',    style:'text-align:center'},
+	        {caption: ["비고"], 		ref: 'cdVlExpln',   	type:'input',  width:'400px',    style:'text-align:center'},
 	        {caption: ["처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdWarehouse\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -123,7 +122,7 @@
 	    }
 	}
 
-	async function fn_insertWarehouseList(){
+	async function fn_saveWarehouseList(){
 		let gridData = grdWarehouse.getGridDataAll();
 		let insertList = [];
 		let updateList = [];
@@ -146,11 +145,11 @@
 			}
 		}
 		if(insertList.length == 0 && updateList.length == 0){
-			alert("등록 할 내용이 없습니다.");
+			alert("저장 할 내용이 없습니다.");
 			return;
 		}
 
-		let regMsg = "등록 하시겠습니까?";
+		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
 			if(insertList.length > 0){
@@ -161,7 +160,7 @@
 			}
 			if(insertCnt + updateCnt > 0 ){
 				fn_callSelectWarehouseList();
-				alert("등록 되었습니다.");
+				alert("저장 되었습니다.");
 			}
 		}
 

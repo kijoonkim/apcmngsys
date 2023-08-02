@@ -42,25 +42,28 @@
 								<th>
 									<sbux-input id="spmtSlsUntprcReg-inp-apcNm" name="spmtSlsUntprcReg-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 								</th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-							</tr>
-							<tr>
 								<th scope="row">포장단위명</th>
 								<th>
 									<sbux-input id="spmtSlsUntprcReg-inp-spmtPckgUnitNm" name="spmtSlsUntprcReg-inp-spmtPckgUnitNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 								</th>
+								<th></th>
+								<th></th>
+							</tr>
+							<tr>
 								<th scope="row">품목명</th>
 								<th style="border-right-style: hidden;">
 									<sbux-input id="spmtSlsUntprcReg-inp-itemNm" name="spmtSlsUntprcReg-inp-itemNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
-									<sbux-input id="spmtSlsUntprcReg-inp-itemCd" name="spmtSlsUntprcReg-inp-itemCd" uitype="hidden" class="form-control input-sm" disabled></sbux-input>
+									<sbux-input id="spmtSlsUntprcReg-hin-itemCd" name="spmtSlsUntprcReg-hin-itemCd" uitype="hidden" class="form-control input-sm"></sbux-input>
 								</th>
 								<th scope="row">품종명</th>
 								<th style="border-right-style: hidden;">
 									<sbux-input id="spmtSlsUntprcReg-inp-vrtyNm" name="spmtSlsUntprcReg-inp-vrtyNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
-									<sbux-input id="spmtSlsUntprcReg-inp-vrtyCd" name="spmtSlsUntprcReg-inp-vrtyCd" uitype="hidden" class="form-control input-sm" disabled></sbux-input>
+									<sbux-input id="spmtSlsUntprcReg-hin-vrtyCd" name="spmtSlsUntprcReg-hin-vrtyCd" uitype="hidden" class="form-control input-sm"></sbux-input>
+								</th>
+								<th scope="row">규격명</th>
+								<th style="border-right-style: hidden;">
+									<sbux-input id="spmtSlsUntprcReg-inp-spcfctNm" name="spmtSlsUntprcReg-inp-spcfctNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+									<sbux-input id="spmtSlsUntprcReg-hin-spcfctCd" name="spmtSlsUntprcReg-hin-spcfctCd" uitype="hidden" class="form-control input-sm"></sbux-input>
 								</th>
 							</tr>
 						</tbody>
@@ -103,9 +106,9 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["적용기준일자"], ref: 'aplcnCrtrYmd', 	type : 'datepicker', typeinfo : {oneclickedit: true},  width:'200px',    style:'text-align:center'},
-	        {caption: ["매출단가"],     ref: 'ntslUntprc',  	type:'input',  width:'150px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-	        {caption: ["비고"],     	ref: 'rmrk',  	type:'input',  width:'500px',    style:'text-align:center'},
+	        {caption: ["적용기준일자"], ref: 'aplcnCrtrYmd', 	type : 'datepicker', typeinfo: {dateformat: 'YYYY-MM-DD'}, format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYY-MM-DD'},  width:'200px',    style:'text-align:center'},
+	        {caption: ["매출단가"],     ref: 'spmtSlsUntprc',  	type:'input',  width:'150px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+	        {caption: ["비고"],     	ref: 'rmrk',  			type:'input',  width:'500px',    style:'text-align:center'},
 	        {caption: ["처리"], 		ref: 'delYn',  			type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdSpmtSlsUntprcReg\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -117,25 +120,27 @@
 	        {caption: ["APC코드"], 			ref: 'apcCd',   		type:'input',  hidden : true},
 	    ];
 	    grdSpmtSlsUntprcReg = _SBGrid.create(SBGridProperties);
-	    fn_selectSpmtSlsUntprcRegList();
 	}
 
 	async function fn_selectSpmtSlsUntprcRegList(){
 		fn_callSelectSpmtSlsUntprcRegList()
 	}
 
-	async function fn_callSelectSpmtSlsUntprcRegList(){
+	async function fn_callSelectSpmtSlsUntprcRegList(rowData){
+		console.log("roaData",rowData)
 		let apcCd = gv_apcCd;
-		let itemCd = SBUxMethod.get("spmtSlsUntprcReg-inp-itemCd");
-		let vrtyCd = SBUxMethod.get("spmtSlsUntprcReg-inp-vrtyCd");
-		let postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtSlsUntprcRegList.do", {apcCd : apcCd, itemCd : itemCd, vrtyCd : vrtyCd});
+		let itemCd = rowData.itemCd;
+		let vrtyCd = rowData.vrtyCd;
+		let spcfctCd = rowData.spcfctCd;
+		let postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtSlsUntprcRegList.do", {apcCd : apcCd, itemCd : itemCd, vrtyCd : vrtyCd, spcfctCd : spcfctCd});
 	    let data = await postJsonPromise;
 	    let newSpmtSlsUntprcRegGridData = [];
+	    console.log(data);
 	    try{
 	    	data.resultList.forEach((item, index) => {
 				let spmtSlsUntprcRegVO = {
 					aplcnCrtrYmd 	: item.aplcnCrtrYmd
-				  , ntslUntprc 		: item.ntslUntprc
+				  , spmtSlsUntprc 	: item.spmtSlsUntprc
 				  , rmrk			: item.rmrk
 				  , spmtPckgUnitCd	: item.spmtPckgUnitCd
 				  , delYn			: item.delYn
