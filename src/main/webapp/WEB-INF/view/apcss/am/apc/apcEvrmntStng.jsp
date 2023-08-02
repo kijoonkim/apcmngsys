@@ -717,13 +717,13 @@
             	cnptMngDatagrid.addRow(true);
             }else if (grid === "grdFclt") {
             	grdFclt.setCellData(nRow, nCol, "N", true);
-            	grdFclt.setCellData(nRow, 4, gv_apcCd, true);
-            	grdFclt.setCellData(nRow, 5, "FCLT_CD", true);
+            	grdFclt.setCellData(nRow, 3, gv_apcCd, true);
+            	grdFclt.setCellData(nRow, 4, "FCLT_CD", true);
             	grdFclt.addRow(true);
             }else if (grid === "grdWarehouse") {
             	grdWarehouse.setCellData(nRow, nCol, "N", true);
-            	grdWarehouse.setCellData(nRow, 4, gv_apcCd, true);
-            	grdWarehouse.setCellData(nRow, 5, "WAREHOUSE_SE_CD", true);
+            	grdWarehouse.setCellData(nRow, 3, gv_apcCd, true);
+            	grdWarehouse.setCellData(nRow, 4, "WAREHOUSE_SE_CD", true);
             	grdWarehouse.addRow(true);
             }else if(grid === "grdPlt"){
             	grdPlt.setCellData(nRow, nCol, "N", true);
