@@ -29,7 +29,7 @@
 			<div></div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 9%">
@@ -47,7 +47,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">APC 명</th>
+							<th scope="row" class="th_bg">APC 명</th>
 							<td colspan="6" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" class="form-control input-sm" placeholder="" disabled/>
 							</td>
@@ -62,7 +62,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">생산자</th>
+							<th scope="row" class="th_bg">생산자</th>
 							<td colspan="6" class="td_input"  style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-prdcr" name="srch-inp-prdcr" class="form-control input-sm"/>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -71,7 +71,7 @@
 							<td colspan="4">&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row">품목 / 품종</th>
+							<th scope="row" class="th_bg">품목 / 품종</th>
 							<td colspan="2"class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 							</td>
@@ -85,14 +85,14 @@
 							<td colspan="4">&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row">입고일자</th>
+							<th scope="row" class="th_bg">입고일자</th>
 							<td colspan="6"class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" class="form-control pull-right input-sm"/>
 							</td>
 							<td colspan="4">&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row">입고수량/중량</th>
+							<th scope="row" class="th_bg">입고수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-wrhsQntt" name="srch-inp-wrhsQntt" class="form-control input-sm"/>
 							</td>
@@ -111,7 +111,7 @@
 							<td colspan="4">&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row">입고구분</th>
+							<th scope="row" class="th_bg">입고구분</th>
 							<td colspan="8" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-wrhsSe1" name="srch-rdo-wrhsSe" uitype="normal" class="radio_label" text="일반매입"/>
@@ -126,7 +126,7 @@
 							<td colspan="4">&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row">상품구분</th>
+							<th scope="row" class="th_bg">상품구분</th>
 							<td colspan="8" class="td_input"  style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-gdsSe1" name="srch-rdo-gdsSe" uitype="normal" class="radio_label" text="일반" checked/>
@@ -144,7 +144,7 @@
 							<td colspan="4">&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row" style="border-right: hidden;">운송구분</th>
+							<th scope="row" class="th_bg" style="border-right: hidden;">운송구분</th>
 							<td colspan="8" style="border-right: hidden;" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-trsprt1" name="srch-rdo-trsprt" uitype="normal" class="radio_label" text="자가" checked/>
@@ -159,14 +159,14 @@
 							<td colspan="4">&nbsp;</td>
 						</tr>
 	 					<tr>
-						 	<th scope="row">입고등급</th>
+						 	<th scope="row" class="th_bg">입고등급</th>
 					 		<td class="td_input" style="border-right: hidden;">
 					 			<sbux-select unselected-text="선택" uitype="single" id="srch-slt-wrhsRate" name="srch-slt-wrhsRate" class="form-control input-sm"/>
 					 		</td>
 					 		<td colspan="11">&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row">박스종류</th>
+							<th scope="row" class="th_bg">박스종류</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-boxKnd" name="srch-slt-boxKnd" class="form-control input-sm"/>
 							</td>
@@ -179,7 +179,7 @@
 							<td colspan="8">&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row">입고창고</th>
+							<th scope="row" class="th_bg">입고창고</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-wrhsWarehouse" name="srch-slt-wrhsWarehouse" class="form-control input-sm"/>
 							</td>
