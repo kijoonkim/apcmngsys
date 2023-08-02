@@ -90,6 +90,7 @@
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createApcInfoMngGrid();
+        fn_search();
 		fn_initSBSelect();
 	})
 	
@@ -103,14 +104,14 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
     	SBGridProperties.paging = {
-			'type' : 'all',
+			'type' : 'page',
 		  	'count' : 5,
 		  	'size' : 20,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-        	{caption: ['선택'], ref: 'slt', width: '50px', type: 'checkbox'},
+        	{caption: ['선택'], ref: 'checked', width: '50px', type: 'checkbox'},
             {caption: ['APC코드'], ref: 'apcCd', width: '70px', type: 'output'},
             {caption: ['원본APC명'], ref: 'regApcNm', width: '200px', type: 'input'},
             {caption: ['시도명'], ref: 'ctpvNm', width: '70px', type : 'input'},
@@ -127,7 +128,7 @@
             	typeinfo : {ref:'comboDelYnJsData', label:'label', value:'value', oneclickedit: true, displayui : true}}
         ];
         grdApcInfoMng = _SBGrid.create(SBGridProperties);
-        fn_callSelectApcDsctnList();
+        grdApcInfoMng.bind( "afterpagechanged" , "fn_pagingApcInfoMng" );
     }
 	
 	// 행 삭제 및 추가
@@ -138,7 +139,7 @@
 		}
 		else{
 			for(var i=0; i<apcInfoMngData.length; i++){
-				if(grdApcInfoMng.getGridDataAll()[i].slt && grdApcInfoMng.getGridDataAll()[i].apcCd == ""){
+				if(grdApcInfoMng.getGridDataAll()[i].checked && grdApcInfoMng.getGridDataAll()[i].apcCd == ""){
 					grdApcInfoMng.deleteRow(i+1);
 					i--;
 				}
@@ -163,20 +164,24 @@
 
 // 		gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 // 	}
-	
-	// 조회 버튼
-	async function fn_search(){
-		fn_callSelectApcDsctnList();
-	}
+
+	// APC 내역 목록 조회 (조회 버튼)
+    async function fn_search() {
+    	let recordCountPerPage = grdApcInfoMng.getPageSize();  		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = 1;
+    	grdApcInfoMng.movePaging(currentPageNo);
+    }
 	
 	let newApcInfoMngData = [];
 	
-	async function fn_callSelectApcDsctnList(){
+	// APC 내역 목록 조회 호출
+	async function fn_callSelectApcDsctnList(recordCountPerPage, currentPageNo){
 		apcInfoMngData = [];
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let regApcNm = SBUxMethod.get("srch-inp-regApcNm");
 		let delYn = SBUxMethod.get("srch-slt-delYn");
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcDsctnList.do", {apcCd: apcCd, regApcNm : regApcNm, delYn : delYn});
+		let ApcEvrmntStngVO = {apcCd : apcCd, regApcNm : regApcNm, delYn : delYn, pagingYn : 'Y', currentPageNo : currentPageNo, recordCountPerPage : recordCountPerPage};
+    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcDsctnList.do", ApcEvrmntStngVO);
         let data = await postJsonPromise;
         newApcInfoMngData = [];
         try{
@@ -188,7 +193,7 @@
 				  , sigunNm 	: item.sigunNm
 				  , mbCd 		: item.mbCd
 				  , regAddr 	: item.regAddr
-				  , regTelno 	: item.regTelno
+				  , regTelno	: item.regTelno
 				  , apcNm 		: item.apcNm
 				  , brno 		: item.brno
 				  , addr 		: item.addr
@@ -199,7 +204,17 @@
 				apcInfoMngData.push(Object.assign({}, apcDsctn));
 				newApcInfoMngData.push(Object.assign({}, apcDsctn));
 			});
-        	grdApcInfoMng.rebuild();
+        	if(apcInfoMngData.length > 0){
+				if(grdApcInfoMng.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdApcInfoMng.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdApcInfoMng.rebuild();
+				}else{
+					grdApcInfoMng.refresh();
+				}
+			}else{
+				grdApcInfoMng.setPageTotalCount(0);
+				grdApcInfoMng.rebuild();
+			}
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -207,6 +222,13 @@
     		console.error("failed", e.message);
         }
 	}
+	
+	// 페이징
+    async function fn_pagingApcInfoMng(){
+    	let recordCountPerPage = grdApcInfoMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdApcInfoMng.getSelectPageIndex(); 
+    	fn_callSelectApcDsctnList(recordCountPerPage, currentPageNo);
+    }
 	
 	// 등록 버튼
 	async function fn_insert(){
@@ -246,8 +268,8 @@
 	}
 	
 	async function chkEqualObj(obj1, obj2){
-		console.log("obj1", obj1);
-		console.log("obj2", obj2);
+		console.log("modified", obj1);
+		console.log("origin", obj2);
 
 		var obj1Len = obj1.filter(e => e["delYn"] == "N").length;
 		var obj2Len = obj2.filter(e => e["delYn"] == "N").length;
