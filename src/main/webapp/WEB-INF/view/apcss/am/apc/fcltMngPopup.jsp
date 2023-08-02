@@ -83,7 +83,8 @@
 	        	}
 	        }},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
-	        {caption: ["공통ID"], 		ref: 'cdId',   		type:'input',  hidden : true}
+	        {caption: ["공통ID"], 		ref: 'cdId',   		type:'input',  hidden : true},
+	        {caption: ["설비 코드"], 	ref: 'cdVlCd',   	type:'input',  hidden:true},
 	    ];
 	    window.grdFclt = _SBGrid.create(SBGridProperties);
 	    fn_selectFcltList();

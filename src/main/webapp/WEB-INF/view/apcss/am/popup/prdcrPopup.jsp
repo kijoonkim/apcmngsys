@@ -13,7 +13,7 @@
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSearchPrdcr" name="btnSearchPrdcr" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchPrdcr"></sbux-button>
 						<sbux-button id="btnEditorPrdcr" name="btnEditorPrdcr" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="fn_editorPrdcr"></sbux-button>
-						<sbux-button id="btnInsertPrdcr" name="btnInsertPrdcr" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertPrdcr"disabled></sbux-button>
+						<sbux-button id="btnSavePrdcr" name="btnSavePrdcr" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertPrdcr"disabled></sbux-button>
 						<sbux-button id="btnEndPrdcr" name="btnEndPrdcr" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-prdcr')"></sbux-button>
 					</div>
 				</div>

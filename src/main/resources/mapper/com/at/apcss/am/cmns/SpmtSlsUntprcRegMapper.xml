@@ -44,7 +44,7 @@
 			     , SUR.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
 			     , SUR.SPMT_SLS_UNTPRC_CD   AS SPMT_SLS_UNTPRC_CD
 			     , SUR.SPMT_SLS_UNTPRC      AS SPMT_SLS_UNTPRC
-			     , TO_CHAR(SUR.APLCN_CRTR_YMD, 'YYYY-MM-DD') AS APLCN_CRTR_YMD
+			     , SUR.APLCN_CRTR_YMD		AS APLCN_CRTR_YMD
 			     , SUR.RMRK                 AS RMRK
 			     , SUR.DEL_YN               AS DEL_YN
 			  FROM TB_SPMT_SLS_UNTPRC_REG   SUR
@@ -92,7 +92,17 @@
 		    		, #{spmtSlsUntprcCd}
 		    		, #{spmtSlsUntprc}
 					, #{rmrk}
-					, SYSDATE
+    	]]>
+    	<choose>
+    		<when test='aplcnCrtrYmd !=null and aplcnCrtrYmd !=""'>
+	   				, #{aplcnCrtrYmd}
+    		</when>
+    		<otherwise>
+    		  		, TO_CHAR(SYSDATE, 'YYYYMMDD')
+    		</otherwise>
+    	</choose>
+    	<![CDATA[
+
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}

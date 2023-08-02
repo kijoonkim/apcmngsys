@@ -29,7 +29,7 @@
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -48,13 +48,13 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" >APC명</th>
+							<th scope="row" class="th_bg">APC명</th>
 							<td colspan= "3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" class="form-control input-sm" disabled/>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">입고일자</th>
+							<th scope="row" class="th_bg">입고일자</th>
 							<td class="td_input"style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" class="form-control pull-right input-sm"></sbux-datepicker>
 
@@ -62,7 +62,7 @@
 								<sbux-datepicker uitype="popup" id="srch-dtp-endPrdctnYmd" name="srch-dtp-endPrdctnYmd" class="form-control pull-right input-sm"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<th scope="row">품목/품종</th>
+							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input"  style="border-right: hidden;">
 								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem"></sbux-select>
 							</td>
@@ -72,7 +72,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrtyCrtr" onclick="fn_modalVrty"/>
 							</td>
-							<th scope="row">생산자</th>
+							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-prdcr" name="srch-inp-prdcr" class="form-control input-sm"/>
 							</td>
@@ -82,7 +82,7 @@
 							<td>&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row">입고구분</th>
+							<th scope="row" class="th_bg">입고구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-checkbox uitype="normal"id="chk-wrhsKnd1" name="chk-wrhsKnd1" uitype="normal" class="form-control input-sm" text="일반매입"/>
@@ -94,7 +94,7 @@
 									<sbux-checkbox uitype="normal"id="chk-wrhsKnd3" name="chk-wrhsKnd3" uitype="normal" class="form-control input-sm" text="매취" checked/>
 								</p>
 							</td>
-							<th scope="row">상품구분</th>
+							<th scope="row" class="th_bg">상품구분</th>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-checkbox uitype="normal"id="chk-gsd1" name="chk-gsd1" uitype="normal" class="form-control input-sm" text="일반" checked/>
@@ -109,7 +109,7 @@
 									<sbux-checkbox uitype="normal"id="chk-gsd4" name="chk-gsd4" uitype="normal" class="form-control input-sm" text="유기농"/>
 								</p>
 							</td>
-					    	<th scope="row">운송구분</th>
+					    	<th scope="row" class="th_bg">운송구분</th>
 							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
 									<sbux-checkbox uitype="normal"id="chk-trsprt1" name="chk-trsprt1" uitype="normal" class="form-control input-sm" text="자가" checked/>
@@ -123,12 +123,12 @@
 							</td>
 						</tr>
 						<tr>
-						    <th scope="row">창고</th>
+						    <th scope="row" class="th_bg">창고</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" jsondata-ref="jsonComWarehouseSeCd"></sbux-select>
 							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
-							<th scope="row">차량번호</th>
+							<th scope="row" class="th_bg">차량번호</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-vhclNo" name="srch-inp-vhclNo" class="form-control input-sm"/>
 							</td>

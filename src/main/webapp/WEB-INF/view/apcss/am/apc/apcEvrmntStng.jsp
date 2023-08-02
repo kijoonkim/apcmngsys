@@ -536,7 +536,7 @@
     </div>
     <!-- 생산작업자 등록 Modal -->
     <div>
-        <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산자 등록" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산작업자 등록" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-oprtr">
     	<jsp:include page="../apc/oprtrMngPopup.jsp"></jsp:include>
@@ -762,7 +762,7 @@
             }else if(grid === "grdApcVrty"){
             	grdApcVrty.setCellData(nRow, nCol, "N", true);
             	grdApcVrty.setCellData(nRow, 3, gv_apcCd, true);
-            	grdApcSpcfct.setCellData(nRow, 8, SBUxMethod.get("spcfct-select-itemCd"), true);
+            	grdApcVrty.setCellData(nRow, 4, SBUxMethod.get("vrty-inp-itemCd"), true);
             	grdApcVrty.addRow(true);
             }else if(grid === "grdGrd"){
             	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
@@ -788,11 +788,25 @@
            		grdSpmtPckgUnit.setCellData(nRow, nCol, "N", true);
            		grdSpmtPckgUnit.setCellData(nRow, 8, gv_apcCd, true);
            		grdSpmtPckgUnit.addRow(true);
+            }else if(grid === "grdSpmtSlsUntprcReg"){
+            	grdSpmtSlsUntprcReg.setCellData(nRow, nCol, "N", true);
+            	grdSpmtSlsUntprcReg.setCellData(nRow, 4, SBUxMethod.get("spmtSlsUntprcReg-inp-spmtPckgUnitCd"), true);
+            	grdSpmtSlsUntprcReg.setCellData(nRow, 5, gv_apcCd, true);
+            	grdSpmtSlsUntprcReg.addRow(true);
             }
         }
         else if (gubun === "DEL") {
             if (grid === "cnptMngDatagrid") {
-            	cnptMngDatagrid.deleteRow(nRow);
+            	if(cnptMngDatagrid.getRowStatus(nRow) == 0 || cnptMngDatagrid.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var cnpt = cnptMngDatagrid.getRowData(nRow);
+            			fn_deleteCnptList(cnpt);
+            			cnptMngDatagrid.deleteRow(nRow);
+            		}
+            	}else{
+            		cnptMngDatagrid.deleteRow(nRow);
+            	}
             }else if (grid === "grdFclt") {
             	if(grdFclt.getRowStatus(nRow) == 0 || grdFclt.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
@@ -816,45 +830,62 @@
             		warehouseMngDatagrid.deleteRow(nRow);
             	}
             }else if (grid === "grdPlt") {
-//             	if(grdPlt.getRowStatus(nRow) == 0 || grdPlt.getRowStatus(nRow) == 2){
-//             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-//             		if(confirm(delMsg)){
-//             			var pltBxVO = grdPlt.getRowData(nRow);
-//             			console.log(pltBxVO);
-//             			fn_deletepltBx(pltBxVO);
-//             			grdPlt.deleteRow(nRow);
-//             		}
-//             	}else{
+            	if(grdPlt.getRowStatus(nRow) == 0 || grdPlt.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var pltBxVO = grdPlt.getRowData(nRow);
+            			console.log(pltBxVO);
+            			fn_deletepltBx(pltBxVO);
+            			grdPlt.deleteRow(nRow);
+            		}
+            	}else{
            		grdPlt.deleteRow(nRow);
-//             	}
+            	}
             }else if (grid === "grdBx") {
-//             	if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){
-//             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-//             		if(confirm(delMsg)){
-//             			var pltBxVO = grdBx.getRowData(nRow);
-//             			fn_deletepltBx(pltBxVO);
-//             			grdBx.deleteRow(nRow);
-//             		}
-//             	}else{
+            	if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var pltBxVO = grdBx.getRowData(nRow);
+            			fn_deletepltBx(pltBxVO);
+            			grdBx.deleteRow(nRow);
+            		}
+            	}else{
            		grdBx.deleteRow(nRow);
-//             	}
-            }else if (grid === "grdPckg") {
-//             	if(grdPckg.getRowStatus(nRow) == 0 || grdPckg.getRowStatus(nRow) == 2){
-//             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-//             		if(confirm(delMsg)){
-//             			var comCdVO = grdPckg.getRowData(nRow);
-//             			fn_deleteRsrc(comCdVO);
-//             			grdPckg.deleteRow(nRow);
-//             		}
-//             	}else{
-           		grdPckg.deleteRow(nRow);
-//             	}
+            	}
             }else if (grid === "rgnTrsprtCstMngDatagrid") {
-            	rgnTrsprtCstMngDatagrid.deleteRow(nRow);
+            	if(rgnTrsprtCstMngDatagrid.getRowStatus(nRow) == 0 || rgnTrsprtCstMngDatagrid.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var rgnTrsprtCst = rgnTrsprtCstMngDatagrid.getRowData(nRow);
+            			fn_deleteRgnTrsprtCstList(rgnTrsprtCst);
+            			rgnTrsprtCstMngDatagrid.deleteRow(nRow);
+            		}
+            	}else{
+            		rgnTrsprtCstMngDatagrid.deleteRow(nRow);
+            	}
             }else if (grid === "wrhsVhclMngDatagrid") {
+            	if(wrhsVhclMngDatagrid.getRowStatus(nRow) == 0 || wrhsVhclMngDatagrid.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var wrhsVhclVo = wrhsVhclMngDatagrid.getRowData(nRow);
+            			fn_deleteWrhsVhclList(wrhsVhclVo);
+            			wrhsVhclMngDatagrid.deleteRow(nRow);
+            		}
+            	}else{
+            		wrhsVhclMngDatagrid.deleteRow(nRow);
+            	}
             	wrhsVhclMngDatagrid.deleteRow(nRow);
             }else if (grid === "spmtTrsprtMngDatagrid") {
-            	spmtTrsprtMngDatagrid.deleteRow(nRow);
+            	if(spmtTrsprtMngDatagrid.getRowStatus(nRow) == 0 || spmtTrsprtMngDatagrid.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var spmtTrsprt = spmtTrsprtMngDatagrid.getRowData(nRow);
+            			fn_deleteSpmtTrsprtList(spmtTrsprt);
+            			spmtTrsprtMngDatagrid.deleteRow(nRow);
+            		}
+            	}else{
+            		spmtTrsprtMngDatagrid.deleteRow(nRow);
+            	}
             }else if (grid === "grdOprtr") {
             	grdOprtr.deleteRow(nRow);
             }else if (grid === "grdGrd") {
@@ -889,6 +920,17 @@
             		}
             	}else{
             		grdSpmtPckgUnit.deleteRow(nRow);
+            	}
+            }else if (grid === "grdSpmtSlsUntprcReg") {
+            	if(grdSpmtSlsUntprcReg.getRowStatus(nRow) == 0 || grdSpmtSlsUntprcReg.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var spmtSlsUntprcRegVO = grdSpmtSlsUntprcReg.getRowData(nRow);
+            			fn_deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
+            			grdSpmtSlsUntprcReg.deleteRow(nRow);
+            		}
+            	}else{
+            		grdSpmtSlsUntprcReg.deleteRow(nRow);
             	}
             }
         }

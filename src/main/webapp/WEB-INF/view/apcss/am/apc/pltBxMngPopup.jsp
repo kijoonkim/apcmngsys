@@ -84,15 +84,17 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["팔레트 정보","코드"], 			ref: 'pltBxCd',  		type:'output',  width:'100px',     style:'text-align:center'},
+	        {caption: ["팔레트 정보","코드"], 			ref: 'pltBxCd',  		type:'output',  width:'100px',     style:'text-align:center', hidden : true},
 	        {caption: ["팔레트 정보","팔레트 명"], 		ref: 'pltBxNm',  		type:'input',  width:'300px',    style:'text-align:center'},
-	        {caption: ["팔레트 정보","단중"], 			ref: 'unitWght',   		type:'input',  width:'150px',    style:'text-align:center'},
-	        {caption: ["팔레트 정보","단위"], 			ref: 'unitCd',   		type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'comboUnitCdJsData', label:'label', value:'value', displayui : true}},
-	        {caption: ["팔레트 정보","기초재고수량"], 	ref: 'bssInvntrQntt',  	type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["팔레트 정보","사용유무"], 		ref: 'useYn',   		type:'combo',  width:'100px',    style:'text-align:center',
-	        			typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : true}},
-	        {caption: ["팔레트 정보","처리"], 			ref: 'delYn',   			type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["팔레트 정보","단중"], 			ref: 'unitWght',   		type:'input',  width:'180px',    style:'text-align:center'},
+	        {caption: ["팔레트 정보","단위"], 			ref: 'unitCd',   		type:'combo',  width:'130px',    style:'text-align:center',
+				typeinfo : {ref:'comboUnitCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
+
+
+	        {caption: ["팔레트 정보","기초재고수량"], 	ref: 'bssInvntrQntt',  	type:'input',  width:'130px',    style:'text-align:center'},
+	        {caption: ["팔레트 정보","사용유무"], 		ref: 'useYn',   		type:'combo',  width:'130px',    style:'text-align:center',
+	        			typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
+	        {caption: ["팔레트 정보","처리"], 			ref: 'delYn',   			type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdPlt\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
@@ -119,15 +121,15 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["박스 정보","코드"], 		ref: 'pltBxCd',  		type:'output',  width:'100px',     style:'text-align:center'},
+	        {caption: ["박스 정보","코드"], 		ref: 'pltBxCd',  		type:'output',  width:'100px',     style:'text-align:center', hidden : true},
 	        {caption: ["박스 정보","박스 명"], 		ref: 'pltBxNm',  		type:'input',  width:'300px',    style:'text-align:center'},
-	        {caption: ["박스 정보","단중"], 		ref: 'unitWght',   		type:'input',  width:'150px',    style:'text-align:center'},
-	        {caption: ["박스 정보","단위"], 		ref: 'unitCd',   		type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'comboUnitCdJsData', label:'label', value:'value', displayui : true}},
-	        {caption: ["박스 정보","기초재고수량"], ref: 'bssInvntrQntt',  	type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["박스 정보","사용유무"], 	ref: 'useYn',   		type:'combo',  width:'100px',    style:'text-align:center',
-						typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value',  displayui : true}},
-			{caption: ["박스 정보","처리"], 		ref: 'delYn',   	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["박스 정보","단중"], 		ref: 'unitWght',   		type:'input',  width:'180px',    style:'text-align:center'},
+	        {caption: ["박스 정보","단위"], 		ref: 'unitCd',   		type:'combo',  width:'130px',    style:'text-align:center',
+				typeinfo : {ref:'comboUnitCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
+	        {caption: ["박스 정보","기초재고수량"], ref: 'bssInvntrQntt',  	type:'input',  width:'130px',    style:'text-align:center'},
+	        {caption: ["박스 정보","사용유무"], 	ref: 'useYn',   		type:'combo',  width:'130px',    style:'text-align:center',
+						typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
+			{caption: ["박스 정보","처리"], 		ref: 'delYn',   	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdBx\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
@@ -176,7 +178,7 @@
     		console.error("failed", e.message);
         }
 	}
-	
+
 	// 박스 목록 조회
 	let newJsonBx = [];
 	async function fn_callSelectBxList(){
@@ -256,23 +258,27 @@
 			}
 		}
 
-		
+
 		var isEqual1 = await chkEqualObj(jsonPlt, newJsonPlt);
 		var isEqual2 = await chkEqualObj(jsonBx, newJsonBx);
 
-		
+
 		if(isEqual1 && isEqual2){
-			alert("등록 할 내용이 없습니다.");
+			alert("저장 할 내용이 없습니다.");
 			return;
 		}
-		let regMsg = "등록 하시겠습니까?";
+		let regMsg = "저장 하시겠습니까?";
 		if(await confirm(regMsg)){
 			let postJsonPromise1 = await gfn_postJSON("/am/cmns/comparePltBx.do", {origin : newJsonPlt, modified : jsonPlt});
 			let postJsonPromise2 = await gfn_postJSON("/am/cmns/comparePltBx.do", {origin : newJsonBx, modified : jsonBx});
 
-			
-			alert("등록 되었습니다.");
+
+			alert("저장 되었습니다.");
 		}
+	}
+	async function fn_deletepltBx(pltBxVO){
+		console.log("pltBxVO", pltBxVO);
+		let postJsonPromise2 = await gfn_postJSON("/am/cmns/deletePltBx.do", pltBxVO);
 	}
 
 </script>
