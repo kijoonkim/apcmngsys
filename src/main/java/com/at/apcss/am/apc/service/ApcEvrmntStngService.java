@@ -10,12 +10,12 @@ public interface ApcEvrmntStngService {
 
 	/**
 	 * APC환경설정 APC정보 조회
-	 * @param ComUserVO
+	 * @param ApcEvrmntStngVO
 	 * @return ApcEvrmntStngVO
 	 * @throws Exception
 	 */
-	ApcEvrmntStngVO selectApcInfo(ComUserVO comUserVO) throws Exception;
-	
+	ApcEvrmntStngVO selectApcInfo(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+
 	/**
 	 * APC정보관리 APC내역 조회
 	 * @param ApcEvrmntStngVO
@@ -23,24 +23,24 @@ public interface ApcEvrmntStngService {
 	 * @throws Exception
 	 */
 	List<ApcEvrmntStngVO> selectApcDsctnList(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
-	
+
 	/**
 	 * APC정보관리 APC내역 수정
 	 * @param ApcEvrmntStngVO
-	 * @return 
+	 * @return
 	 * @throws Exception
 	 */
 	int updateApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
-	
+
 	/**
 	 * APC정보관리 APC내역 등록
 	 * @param ApcEvrmntStngVO
-	 * @return 
+	 * @return
 	 * @throws Exception
 	 */
 	int insertApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
-	
-	
+
+
 	ApcEvrmntStngVO selectUserAprvReg(ComUserVO comUserVO) throws Exception;
 
 	/**

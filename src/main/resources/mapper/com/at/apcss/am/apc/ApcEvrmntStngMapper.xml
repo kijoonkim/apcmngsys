@@ -21,9 +21,10 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.07  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcInfo" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
+    <select id="selectApcInfo" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" resultType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
     	<![CDATA[
-    	SELECT AI.APC_CD            AS APC_CD
+    	SELECT /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcInfo */
+    		   AI.APC_CD            AS APC_CD
 		     , AI.REG_APC_NM        AS REG_APC_NM
 		     , AI.CTPV_NM           AS CTPV_NM
 		     , AI.SIGUN_NM          AS SIGUN_NM
