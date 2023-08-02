@@ -68,13 +68,13 @@
    		VALUES
    			(
    				#{apcCd}
-    		  , #{cnptCd}
+    		  , FN_GET_ID_CNPT(#{apcCd})
     		  , #{cnptNm}
     		  , #{brno}
     		  , #{cnptType}
 			  , #{picNm}
     		  , #{telno}
-    		  , #{RMRK}
+    		  , #{rmrk}
     		  , #{delYn}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}

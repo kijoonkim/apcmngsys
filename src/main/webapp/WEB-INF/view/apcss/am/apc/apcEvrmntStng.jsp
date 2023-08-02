@@ -630,7 +630,6 @@
 		if(targetName == 'btnPltBx'){
 			fn_pltMngCreateGrid();
 			fn_bxMngCreateGrid();
-			fn_pckgMngCreateGrid();
 		}
 		if(targetName == 'btnGrdSpcfct'){
 			fn_createGrdGrid();
@@ -703,10 +702,12 @@
 	}
 
     // Row 추가 및 삭제 기능
+
     function fn_procRow(gubun, grid, nRow, nCol) {
         if (gubun === "ADD") {
             if (grid === "cnptMngDatagrid") {
-            	cnptMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	cnptMngGridData[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
+            	cnptMngGridData[nRow-1].delYn = "N";
             	cnptMngDatagrid.addRow(true);
             }else if (grid === "grdFclt") {
             	grdFclt.setCellData(nRow, nCol, "N", true);
@@ -743,9 +744,11 @@
             	rgnTrsprtCstMngDatagrid.addRow(true);
             }else if(grid === "wrhsVhclMngDatagrid"){
             	wrhsVhclMngGridData[nRow-1].delYn = "N";
+            	wrhsVhclMngGridData[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
 				wrhsVhclMngDatagrid.addRow();
             }else if(grid === "spmtTrsprtMngDatagrid"){
-            	spmtTrsprtMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	spmtTrsprtMngGridData[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
+            	spmtTrsprtMngGridData[nRow-1].delYn = "N";
             	spmtTrsprtMngDatagrid.addRow(true);
             }else if(grid === "grdOprtr"){
             	grdOprtr.setCellData(nRow, nCol, "N", true);
@@ -807,39 +810,39 @@
             		warehouseMngDatagrid.deleteRow(nRow);
             	}
             }else if (grid === "grdPlt") {
-            	if(grdPlt.getRowStatus(nRow) == 0 || grdPlt.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
-            			var pltBxVO = grdPlt.getRowData(nRow);
-            			console.log(pltBxVO);
-            			fn_deletepltBx(pltBxVO);
-            			grdPlt.deleteRow(nRow);
-            		}
-            	}else{
-            		grdPlt.deleteRow(nRow);
-            	}
+//             	if(grdPlt.getRowStatus(nRow) == 0 || grdPlt.getRowStatus(nRow) == 2){
+//             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+//             		if(confirm(delMsg)){
+//             			var pltBxVO = grdPlt.getRowData(nRow);
+//             			console.log(pltBxVO);
+//             			fn_deletepltBx(pltBxVO);
+//             			grdPlt.deleteRow(nRow);
+//             		}
+//             	}else{
+           		grdPlt.deleteRow(nRow);
+//             	}
             }else if (grid === "grdBx") {
-            	if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
-            			var pltBxVO = grdBx.getRowData(nRow);
-            			fn_deletepltBx(pltBxVO);
-            			grdBx.deleteRow(nRow);
-            		}
-            	}else{
-            		grdBx.deleteRow(nRow);
-            	}
+//             	if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){
+//             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+//             		if(confirm(delMsg)){
+//             			var pltBxVO = grdBx.getRowData(nRow);
+//             			fn_deletepltBx(pltBxVO);
+//             			grdBx.deleteRow(nRow);
+//             		}
+//             	}else{
+           		grdBx.deleteRow(nRow);
+//             	}
             }else if (grid === "grdPckg") {
-            	if(grdPckg.getRowStatus(nRow) == 0 || grdPckg.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
-            			var comCdVO = grdPckg.getRowData(nRow);
-            			fn_deleteRsrc(comCdVO);
-            			grdPckg.deleteRow(nRow);
-            		}
-            	}else{
-            		grdPckg.deleteRow(nRow);
-            	}
+//             	if(grdPckg.getRowStatus(nRow) == 0 || grdPckg.getRowStatus(nRow) == 2){
+//             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+//             		if(confirm(delMsg)){
+//             			var comCdVO = grdPckg.getRowData(nRow);
+//             			fn_deleteRsrc(comCdVO);
+//             			grdPckg.deleteRow(nRow);
+//             		}
+//             	}else{
+           		grdPckg.deleteRow(nRow);
+//             	}
             }else if (grid === "rgnTrsprtCstMngDatagrid") {
             	rgnTrsprtCstMngDatagrid.deleteRow(nRow);
             }else if (grid === "wrhsVhclMngDatagrid") {
@@ -885,5 +888,35 @@
         }
     }
 
+    // 정희운. 두 List<Object>가 동일한지 비교하는 함수.
+	async function chkEqualObj(obj1, obj2){
+		console.log("obj1", obj1);
+		console.log("obj2", obj2);
+		
+		var obj1Len = obj1.length == 0 ? 0 : obj1.filter(e => e["delYn"] == "N").length;
+		var obj2Len = obj2.length == 0 ? 0 : obj2.filter(e => e["delYn"] == "N").length;
+
+		if (obj1Len != obj2Len)
+			return false;
+		
+		if (obj1Len == 0 && obj2Len == 0)
+			return true;
+		
+		var obj1keys = Object.keys(obj1[0]);
+		obj1keys.sort();
+		var obj2keys = Object.keys(obj2[0]);
+		obj2keys.sort();
+
+		if (JSON.stringify(obj1keys) != JSON.stringify(obj2keys))
+			return false;
+
+		for(var i=0; i<obj1Len; i++){
+			for(var j=0; j<obj1keys.length; j++){
+				if(obj1[i][obj1keys[j]] != obj2[i][obj1keys[j]])
+					return false;
+			}
+		}
+		return true;
+	}
 </script>
 </html>

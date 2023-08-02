@@ -90,18 +90,19 @@
 		    }}
 	    ];
 	    window.spmtTrsprtMngDatagrid = _SBGrid.create(SBGridProperties);
-	    spmtTrsprtMngDatagrid.addRow();
+	    fn_callSelectSpmtTrsprtList();
 	}
 
 	async function fn_selectSpmtTrsprtList(){
 		fn_callSelectSpmtTrsprtList();
 	}
-
+	let newSpmtTrsprtGridData = [];
 	async function fn_callSelectSpmtTrsprtList(){
+		spmtTrsprtMngGridData = [];
 		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtTrsprtList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        let newSpmtTrsprtGridData = [];
+        newSpmtTrsprtGridData = [];
         try{
         	data.resultList.forEach((item, index) => {
 				let spmtTrsprt = {
@@ -113,9 +114,10 @@
 				  , delYn 		: item.delYn
 				  , apcCd		: item.apcCd
 				}
-				newSpmtTrsprtGridData.push(spmtTrsprt);
+				spmtTrsprtMngGridData.push(Object.assign({}, spmtTrsprt));
+				newSpmtTrsprtGridData.push(Object.assign({}, spmtTrsprt));
 			});
-        	spmtTrsprtMngGridData = newWrhsVhclGridData;
+        	console.log("spmtTrsprtMngGridData", spmtTrsprtMngGridData);git 
         	spmtTrsprtMngDatagrid.rebuild();
         	spmtTrsprtMngDatagrid.addRow();
         }catch (e) {
@@ -125,5 +127,30 @@
     		console.error("failed", e.message);
         }
 	}
+	
+	async function fn_insertSpmtTrsprtList(){
+// 		for(var i=0; i<wrhsVhclMngGridData.length; i++){
+// 			if(wrhsVhclMngGridData[i].delYn == "N" && (wrhsVhclMngGridData[i].vhclno == null || wrhsVhclMngGridData[i].vhclno == "")){
+// 				console.log(wrhsVhclMngGridData[i]);
+// 				alert("차량번호는 필수 값 입니다.");
+// 				return
+// 			}
+// 		}
+		
+		var isEqual1 = await chkEqualObj(spmtTrsprtMngGridData, newSpmtTrsprtGridData);
+		console.log(isEqual1);
+		if (isEqual1){
+			alert("등록 할 내용이 없습니다.");
+			return;
+		}
+
+		let regMsg = "등록 하시겠습니까?";
+		if(confirm(regMsg)){
+			let postJsonPromise = gfn_postJSON("/am/cmns/compareSpmtTrsprtList.do", {origin : newSpmtTrsprtGridData, modified : spmtTrsprtMngGridData});
+
+			alert("등록 되었습니다.");
+		}
+	}
+
 </script>
 </html>

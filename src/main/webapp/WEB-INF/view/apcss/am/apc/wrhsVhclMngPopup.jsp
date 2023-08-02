@@ -117,6 +117,7 @@
 	var newWrhsVhclGridData = [];
 	async function fn_callSelectWrhsVhclList(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
+		console.log("apcCd", apcCd);
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
         newWrhsVhclGridData = [];
@@ -132,9 +133,9 @@
 				  , delYn 	: item.delYn
 				  , apcCd	: item.apcCd
 				}
-				newWrhsVhclGridData.push(wrhsVhcl);
+				newWrhsVhclGridData.push(Object.assign({}, wrhsVhcl));
+				wrhsVhclMngGridData.push(Object.assign({}, wrhsVhcl));
 			});
-        	wrhsVhclMngGridData = newWrhsVhclGridData.slice();
         	wrhsVhclMngDatagrid.rebuild();
         	wrhsVhclMngDatagrid.addRow();
         }catch (e) {
@@ -196,8 +197,8 @@
 				  , apcCd			: item.apcCd
 				}
 				newRgnTrsprtCstGridData.push(rgnTrsprtCst);
+				rgnTrsprtCstMngGridData.push(rgnTrsprtCst);
 			});
-        	rgnTrsprtCstMngGridData = newRgnTrsprtCstGridData.slice();
         	rgnTrsprtCstMngDatagrid.rebuild();
         	rgnTrsprtCstMngDatagrid.addRow();
         }catch (e) {
@@ -232,12 +233,13 @@
 
 	async function fn_insertWrhsVhclList(){
 		for(var i=0; i<wrhsVhclMngGridData.length; i++){
-			if(wrhsVhclMngGridData[i].delYn == "N" && (wrhsVhclMngGridData[i].vhclNo == null || wrhsVhclMngGridData[i].vhclNo == "")){
+			if(wrhsVhclMngGridData[i].delYn == "N" && (wrhsVhclMngGridData[i].vhclno == null || wrhsVhclMngGridData[i].vhclno == "")){
+				console.log(wrhsVhclMngGridData[i]);
 				alert("차량번호는 필수 값 입니다.");
 				return
 			}
 		}
-
+		
 		var isEqual1 = await chkEqualObj(wrhsVhclMngGridData, newWrhsVhclGridData);
 		console.log(isEqual1);
 		if (isEqual1){
@@ -245,38 +247,12 @@
 			return;
 		}
 
-
 		let regMsg = "등록 하시겠습니까?";
 		if(confirm(regMsg)){
+			let postJsonPromise = gfn_postJSON("/am/cmns/compareRgnTrsprtCstList.do", {origin : newWrhsVhclGridData, modified : wrhsVhclMngGridData});
+
 			alert("등록 되었습니다.");
 		}
-	}
-
-	async function chkEqualObj(obj1, obj2){
-		console.log("obj1", obj1);
-		console.log("obj2", obj2);
-
-		var obj1Len = obj1.filter(e => e["delYn"] == "N").length;
-		var obj2Len = obj2.filter(e => e["delYn"] == "N").length;
-
-		if (obj1Len != obj2Len)
-			return false;
-
-		var obj1keys = Object.keys(obj1[0]);
-		obj1keys.sort();
-		var obj2keys = Object.keys(obj2[0]);
-		obj2keys.sort();
-
-		if (JSON.stringify(obj1keys) != JSON.stringify(obj2keys))
-			return false;
-
-		for(var i=0; i<obj1Len; i++){
-			for(var j=0; j<obj1keys.length; j++){
-				if(obj1[i][obj1keys[j]] != obj2[i][obj1keys[j]])
-					return false;
-			}
-		}
-		return true;
 	}
 
 </script>

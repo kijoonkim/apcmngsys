@@ -29,6 +29,7 @@
 			    , PB.PLT_BX_CD          AS PLT_BX_CD
 			    , PB.PLT_BX_NM          AS PLT_BX_NM
 			    , PB.UNIT_WGHT          AS UNIT_WGHT
+			    , PB.UNIT_CD			AS UNIT_CD
 			    , PB.BSS_INVNTR_QNTT    AS BSS_INVNTR_QNTT
 			    , PB.USE_YN             AS USE_YN
 			    , PB.DEL_YN             AS DEL_YN

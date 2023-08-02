@@ -60,14 +60,6 @@
 						<div id="sb-area-grdPlt" style="height:213px; width: 100%;"></div>
 						<div id="sb-area-grdBx" style="height:213px; width: 100%"></div>
 					</div>
-					<div class="table-responsive tbl_scroll_sm">
-						<div class="ad_tbl_top">
-							<ul class="ad_tbl_count">
-								<li><span>출하포장단위</span></li>
-							</ul>
-						</div>
-						<div id="sb-area-grdPckg" style="height:213px; width: 100%"></div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -79,6 +71,7 @@
 	var jsonPlt = []; // 그리드의 참조 데이터 주소 선언
 	async function fn_pltMngCreateGrid() {
 
+		console.log("comboUnitCdJsData", comboUnitCdJsData);
 		SBUxMethod.set("pltBx-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
 		pltMngGridData = [];
@@ -110,12 +103,9 @@
 		    {caption: ["팔레트 정보","APC코드"], 				ref: 'apcCd',  		hidden : true}
 	    ];
 	    grdPlt = _SBGrid.create(SBGridProperties);
-	    fn_selectPltbxList("P");
+	    fn_callSelectPltList();
 	}
 
-	async function fn_selectPltbxList(pltBxSeCd){
-		fn_callSelectPltbxList(pltBxSeCd);
-	}
 	// 박스 정보 Grid 생성
 	var jsonBx = []; // 그리드의 참조 데이터 주소 선언
 	async function fn_bxMngCreateGrid() {
@@ -149,15 +139,17 @@
 
 	    ];
 	    grdBx = _SBGrid.create(SBGridProperties);
-	    fn_selectPltbxList("B");
+	    fn_callSelectBxList();
 	}
 
-	// 팔레트/박스 목록 조회
-	async function fn_callSelectPltbxList(pltBxSeCd){
+	// 팔레트 목록 조회
+	let newJsonPlt = [];
+	async function fn_callSelectPltList(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
-    	let postJsonPromise = gfn_postJSON("/am/cmns/selectPltBxList.do", {apcCd : apcCd, pltBxSeCd : pltBxSeCd});
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectPltBxList.do", {apcCd : apcCd, pltBxSeCd : "P"});
         let data = await postJsonPromise;
-        let newJsonPltBx = [];
+   		newJsonPlt = [];
+   		jsonPlt = [];
         try{
         	data.resultList.forEach((item, index) => {
 				let pltBxVO = {
@@ -171,18 +163,12 @@
 				  , pltBxSeCd 		: item.pltBxSeCd
 				  , apcCd 			: item.apcCd
 				}
-				newJsonPltBx.push(pltBxVO);
+				jsonPlt.push(Object.assign({}, pltBxVO));
+				newJsonPlt.push(Object.assign({}, pltBxVO));
 			});
-        	if(pltBxSeCd === "P"){
-        		jsonPlt = newJsonPltBx;
-        		grdPlt.rebuild();
-        		grdPlt.addRow();
-        	}
-        	if(pltBxSeCd === "B"){
-        		jsonBx = newJsonPltBx;
-        		grdBx.rebuild();
-        		grdBx.addRow(true);
-        	}
+        	console.log("newJsonPlt", newJsonPlt);
+        	grdPlt.rebuild();
+        	grdPlt.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -190,65 +176,34 @@
     		console.error("failed", e.message);
         }
 	}
-
-	// 출하포장단위 Grid 생성
-	var jsonPckg = []; // 그리드의 참조 데이터 주소 선언
-	async function fn_pckgMngCreateGrid() {
-		pckgMngGridData = [];
-	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdPckg';
-	    SBGridProperties.id = 'grdPckg';
-	    SBGridProperties.jsonref = 'jsonPckg';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.columns = [
-	        {caption: ["코드"], 				ref: 'cdVl',  		type:'output',  hidden : true},
-	        {caption: ["출하 포장단위 명"], 	ref: 'cdVlNm',  	type:'input',  width:'350px',    style:'text-align:center'},
-	        {caption: ["비고"], 				ref: 'cdVlExpln',   type:'input',  width:'400px',    style:'text-align:center'},
-	        {caption: ["사용유무"], 			ref: 'delYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
-						typeinfo : {ref:'comboReverseYnJsData', 	label:'label', value:'value', displayui : true}},
-			{caption: ["처리"], 				ref: 'delYn',   	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdPckg\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdPckg\", " + nRow + ")'>삭제</button>";
-	        	}
-		    }},
-		    {caption: ["APC코드"], 		ref: 'apcCd',   	hidden : true},
-	        {caption: ["공통ID"], 		ref: 'cdId',   		hidden : true}
-	    ];
-	    window.grdPckg = _SBGrid.create(SBGridProperties);
-	    fn_selectPckgList();
-	}
-
-	async function fn_selectPckgList(){
-		fn_callSelectPckgList();
-	}
-
-	// 출하단위포장 목록 조회
-	async function fn_callSelectPckgList(){
+	
+	// 박스 목록 조회
+	let newJsonBx = [];
+	async function fn_callSelectBxList(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
-    	let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {apcCd : apcCd, cdId : 'PCKG_SE_CD'});
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectPltBxList.do", {apcCd : apcCd, pltBxSeCd : "B"});
         let data = await postJsonPromise;
-        let newJsonPckg = [];
+    	newJsonBx = [];
+    	jsonBx = [];
         try{
         	data.resultList.forEach((item, index) => {
-				let pckgList = {
-					rowSeq : 	item.rowSeq
-				  , cdVl :	 	item.cdVl
-				  , cdVlNm : 	item.cdVlNm
-				  , cdVlExpln : item.cdVlExpln
-				  , delYn : 	item.delYn
-				  , apcCd : 	item.apcCd
-				  , cdId : 		item.cdId
+				let pltBxVO = {
+				    pltBxCd 		: item.pltBxCd
+				  , pltBxNm 		: item.pltBxNm
+				  , unitWght 		: item.unitWght
+				  , unitCd 			: item.unitCd
+				  , bssInvntrQntt 	: item.bssInvntrQntt
+				  , useYn 			: item.useYn
+				  , delYn 			: item.delYn
+				  , pltBxSeCd 		: item.pltBxSeCd
+				  , apcCd 			: item.apcCd
 				}
-				newJsonPckg.push(pckgList);
+				jsonBx.push(Object.assign({}, pltBxVO));
+				newJsonBx.push(Object.assign({}, pltBxVO));
 			});
-        	jsonPckg = newJsonPckg;
-        	grdPckg.rebuild();
-        	grdPckg.addRow(true);
+        	console.log("newJsonBx", newJsonBx);
+        	grdBx.rebuild();
+        	grdBx.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -263,22 +218,6 @@
 		let pltGridData = grdPlt.getGridDataAll();
 		// 박스 전체 Data
 		let bxGridData = grdBx.getGridDataAll();
-		// 출하포장단위 전체 Data
-		let pckgGridData = grdPckg.getGridDataAll();
-
-		let insertPltList = [];			// 팔레트 insertList
-		let updatePltList = [];			// 팔레트 updateList
-		let insertBxList = [];			// 박스 insrtList
-		let updateBxList = [];			// 박스 updateList
-		let insertPckgList = [];		// 출하포장단위 insertList
-		let updatePckgList = [];		// 출하포장단위 updateList
-
-		let insertPltCnt = 0;		// 팔레트 insert 결과값
-		let updatePltCnt = 0;		// 팔레트 update 결과값
-		let insertBxCnt = 0;		// 박스 isnert 결과값
-		let updateBxCnt = 0;		// 박스 update 결과값
-		let insertPckgCnt = 0;		// 출하포장단위 insert 결과값
-		let updatePckgCnt = 0;		// 출하포장단위 update 결과값
 
 		// 팔레트 등록 data 분류
 		for(var i=2; i<=pltGridData.length+1; i++ ){
@@ -294,13 +233,6 @@
 				if(grdPlt.getRowData(i).unitCd == null || grdPlt.getRowData(i).unitCd == ""){
 					alert("단위는 필수 선택 입니다.");
 					return;
-				}
-
-				if(grdPlt.getRowStatus(i) === 3){
-					insertPltList.push(grdPlt.getRowData(i));
-				}
-				if(grdPlt.getRowStatus(i) === 2){
-					updatePltList.push(grdPlt.getRowData(i));
 				}
 			}
 		}
@@ -321,131 +253,25 @@
 					alert("단위는 필수 선택 입니다.");
 					return;
 				}
-
-				if(grdBx.getRowStatus(i) === 3){
-					insertBxList.push(grdBx.getRowData(i));
-				}
-				if(grdBx.getRowStatus(i) === 2){
-					updateBxList.push(grdBx.getRowData(i));
-				}
 			}
 		}
 
+		
+		var isEqual1 = await chkEqualObj(jsonPlt, newJsonPlt);
+		var isEqual2 = await chkEqualObj(jsonBx, newJsonBx);
 
-		// 출하포장단위 등록 data 분류
-		for(var i=1; i<=pckgGridData.length; i++ ){
-			if(!(grdPckg.getRowData(i).delYn == "" || grdPckg.getRowData(i).delYn == null)){
-
-				if(grdPckg.getRowData(i).cdVlNm == null || grdPckg.getRowData(i).cdVlNm == ""){
-					alert("포장단위 명은 필수 값 입니다.");
-					return;
-				}
-
-				if(grdPckg.getRowStatus(i) === 3){
-					insertPckgList.push(grdPckg.getRowData(i));
-				}
-				if(grdPckg.getRowStatus(i) === 2){
-					updatePckgList.push(grdPckg.getRowData(i));
-				}
-			}
-		}
-
-		if(insertPltList.length + updatePltList.length + insertBxList.length + updateBxList.length + insertPckgList.length + updatePckgList.length == 0){
+		
+		if(isEqual1 && isEqual2){
 			alert("등록 할 내용이 없습니다.");
 			return;
 		}
 		let regMsg = "등록 하시겠습니까?";
-		if(confirm(regMsg)){
-			if(insertPltList.length > 0){
-				insertPltCnt = await fn_callInsertPltBxList(insertPltList);
-			}
-			if(updatePltList.length > 0){
-				updatePltCnt = await fn_callUpdatePltBxList(updatePltList);
-			}
+		if(await confirm(regMsg)){
+			let postJsonPromise1 = await gfn_postJSON("/am/cmns/comparePltBx.do", {origin : newJsonPlt, modified : jsonPlt});
+			let postJsonPromise2 = await gfn_postJSON("/am/cmns/comparePltBx.do", {origin : newJsonBx, modified : jsonBx});
 
-			if(insertBxList.length > 0){
-				insertBxCnt = await fn_callInsertPltBxList(insertBxList);
-			}
-			if(updateBxList.length > 0){
-				updateBxCnt = await fn_callUpdatePltBxList(updateBxList);
-			}
-
-			if(insertPckgList.length > 0){
-				insertPckgCnt = await fn_callInsertRsrcList(insertPckgList);
-			}
-			if(updatePckgList.length > 0){
-				updatePckgCnt = await fn_callUpdateRsrcList(updatePckgList);
-			}
-
-			if(insertPltCnt + updatePltCnt > 0){
-				fn_selectPltbxList("P");
-			}
-
-			if(insertBxCnt + updateBxCnt > 0){
-				fn_selectPltBxList("B");
-			}
-
-			if(insertPckgCnt + updatePckgCnt > 0){
-				fn_selectPckgList();
-			}
-
-			if(insertPltCnt + updatePltCnt + insertBxCnt + updateBxCnt + insertPckgCnt + updatePckgCnt > 0){
-				alert("등록 되었습니다.");
-			}
-		}
-	}
-
-	// 팔레트/박스 등록 호출
-	async function fn_callInsertPltBxList(pltBxList){
-		console.log("call >> ")
-		let postJsonPromise = gfn_postJSON("/am/cmns/insertPltBxList.do", pltBxList);
-        let data = await postJsonPromise;
-
-        try{
-        	console.log("data >>> "+ data.result);
-       		return data.result;
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-	}
-
-	// 팔레트/박스 변경 호출
-	async function fn_callUpdatePltBxList(pltBxList){
-		let postJsonPromise = gfn_postJSON("/am/cmns/updatePltBxList.do", pltBxList);
-        let data = await postJsonPromise;
-
-        try{
-        	console.log("data >>> "+ data.result);
-       		return data.result;
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-	}
-
-	// 팔레트/박스 삭제 호출
-	async function fn_deletepltBx(pltBxVO){
-		let postJsonPromise = gfn_postJSON("/am/cmns/deletePltBx.do", pltBxVO);
-        let data = await postJsonPromise;
-
-        try{
-        	if(data.result > 0){
-        		alert("삭제 되었습니다.");
-        	}else{
-        		alert("삭제 도중 오류가 발생 되었습니다.");
-        	}
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+			
+			alert("등록 되었습니다.");
 		}
 	}
 

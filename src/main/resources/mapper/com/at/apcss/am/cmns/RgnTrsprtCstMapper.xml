@@ -35,7 +35,7 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.insertWrhsVhcl		-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.insertRgnTrsprtCst		-->
 	<!-- DESC : 지역별 운임 등록.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
