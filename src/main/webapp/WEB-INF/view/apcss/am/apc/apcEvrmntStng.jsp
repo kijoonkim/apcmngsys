@@ -762,7 +762,7 @@
             }else if(grid === "grdApcVrty"){
             	grdApcVrty.setCellData(nRow, nCol, "N", true);
             	grdApcVrty.setCellData(nRow, 3, gv_apcCd, true);
-            	grdApcSpcfct.setCellData(nRow, 8, SBUxMethod.get("spcfct-select-itemCd"), true);
+            	grdApcVrty.setCellData(nRow, 4, SBUxMethod.get("vrty-inp-itemCd"), true);
             	grdApcVrty.addRow(true);
             }else if(grid === "grdGrd"){
             	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
@@ -788,6 +788,11 @@
            		grdSpmtPckgUnit.setCellData(nRow, nCol, "N", true);
            		grdSpmtPckgUnit.setCellData(nRow, 8, gv_apcCd, true);
            		grdSpmtPckgUnit.addRow(true);
+            }else if(grid === "grdSpmtSlsUntprcReg"){
+            	grdSpmtSlsUntprcReg.setCellData(nRow, nCol, "N", true);
+            	grdSpmtSlsUntprcReg.setCellData(nRow, 4, SBUxMethod.get("spmtSlsUntprcReg-inp-spmtPckgUnitCd"), true);
+            	grdSpmtSlsUntprcReg.setCellData(nRow, 5, gv_apcCd, true);
+            	grdSpmtSlsUntprcReg.addRow(true);
             }
         }
         else if (gubun === "DEL") {
@@ -889,6 +894,17 @@
             		}
             	}else{
             		grdSpmtPckgUnit.deleteRow(nRow);
+            	}
+            }else if (grid === "grdSpmtSlsUntprcReg") {
+            	if(grdSpmtSlsUntprcReg.getRowStatus(nRow) == 0 || grdSpmtSlsUntprcReg.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var spmtSlsUntprcRegVO = grdSpmtSlsUntprcReg.getRowData(nRow);
+            			fn_deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
+            			grdSpmtSlsUntprcReg.deleteRow(nRow);
+            		}
+            	}else{
+            		grdSpmtSlsUntprcReg.deleteRow(nRow);
             	}
             }
         }

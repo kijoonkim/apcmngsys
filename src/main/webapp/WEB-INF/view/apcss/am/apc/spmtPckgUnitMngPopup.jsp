@@ -100,6 +100,7 @@
 		let rowData = grdSpmtPckgUnit.getRowData(nRow);
 		SBUxMethod.set("spmtSlsUntprcReg-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 		SBUxMethod.set("spmtSlsUntprcReg-inp-spmtPckgUnitNm", rowData.spmtPckgUnitNm);
+		SBUxMethod.set("spmtSlsUntprcReg-inp-spmtPckgUnitCd", rowData.spmtPckgUnitCd);
 		SBUxMethod.set("spmtSlsUntprcReg-inp-itemNm", rowData.itemNm);
 		SBUxMethod.set("spmtSlsUntprcReg-hin-itemCd", rowData.itemCd);
 		SBUxMethod.set("spmtSlsUntprcReg-inp-vrtyNm", rowData.vrtyNm);
