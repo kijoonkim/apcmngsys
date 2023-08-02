@@ -13,7 +13,7 @@
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSearchVhcl" name="btnSearchVhcl" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_sarchVhcl"></sbux-button>
 						<sbux-button id="btnEditorVhcl" name="btnEditorVhcl" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="fn_editorVhcl"></sbux-button>
-						<sbux-button id="btnInsertVhcl" name="btnInsertVhcl" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertVhcl" disabled></sbux-button>
+						<sbux-button id="btnSaveVhcl" name="btnSaveVhcl" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertVhcl" disabled></sbux-button>
 						<sbux-button id="btnEndVhcl" name="btnEndVhcl" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-vhcl')"></sbux-button>
 					</div>
 				</div>

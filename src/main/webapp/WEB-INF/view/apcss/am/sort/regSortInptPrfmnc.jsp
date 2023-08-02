@@ -22,7 +22,7 @@
 					<sbux-checkbox id="check_all" name="check_all" uitype="normal" text="포장실적 자동등록" ></sbux-checkbox>
 				</p>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-dark"></sbux-button>
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-dark"></sbux-button>
+				<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-dark"></sbux-button>
 				<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-dark"></sbux-button>
 			</div>
 			</div>

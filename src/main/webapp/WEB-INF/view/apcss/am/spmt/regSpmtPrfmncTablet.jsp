@@ -22,7 +22,7 @@
 						<sbux-checkbox id="chk-docSpmt" name="chk-docSpmt" uitype="normal" text="송품장 자동발행" class="check"></sbux-checkbox>
 					</p>
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"></sbux-button>
 					<sbux-button id="btnEnd" name="btnEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger"></sbux-button>
 				</div>
 			</div>

@@ -20,10 +20,10 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" class="btn btn-sm btn-outline-success" text="생산지시 등록"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" text="조회" onclick="fn_search"></sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-dark" text="등록" onclick="fn_insert"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-dark" text="저장" onclick="fn_insert"></sbux-button>
 				</div>
 			</div>
-			
+
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -160,7 +160,7 @@
 <script type="text/javascript">
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createOutordrInfoGrid();
-		
+
 		let today = new Date();
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
@@ -169,12 +169,12 @@
 		SBUxMethod.set("srch-dtp-toOutordrYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-cmndYmd", year+month+day);
 	})
-	
+
 // 	var jsonOutordrInfoList = ['test','test']; // 그리드의 참조 데이터 주소 선언
 	var jsonOutordrInfoList = [];
-	
+
 	var comboUesYnJsData1 = ['']
-	
+
 	function fn_createOutordrInfoGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdOutordrInfo';
@@ -194,7 +194,7 @@
         	{caption: [''], ref: 'slt', width: '100px', type: 'checkbox'},
             {caption: ['접수일자'], ref: 'rcptYmd', width: '100px', type: 'output'},
             {caption: ['발주유형'], ref: 'outordrType', width: '100px', type: 'output'},
-            {caption: ['접수여부'], ref: 'rcptYn', width: '100px', type : 'inputcombo', 
+            {caption: ['접수여부'], ref: 'rcptYn', width: '100px', type : 'inputcombo',
             	typeinfo : {ref:'comboUesYnJsData1', label:'label', value:'value', oneclickedit: true, displayui : true}},
             {caption: ['발주번호'], ref: 'outordrno', width: '100px', type: 'output'},
             {caption: ['거래처명'], ref: 'cnptNm', width: '100px', type: 'output'},
