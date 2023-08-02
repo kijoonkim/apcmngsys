@@ -21,9 +21,10 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.07  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcInfo" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
+    <select id="selectApcInfo" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" resultType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
     	<![CDATA[
-    	SELECT AI.APC_CD            AS APC_CD
+    	SELECT /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcInfo */
+    		   AI.APC_CD            AS APC_CD
 		     , AI.REG_APC_NM        AS REG_APC_NM
 		     , AI.CTPV_NM           AS CTPV_NM
 		     , AI.SIGUN_NM          AS SIGUN_NM
@@ -42,16 +43,16 @@
 		 WHERE APC_CD = #{apcCd}
 		]]>
     </select>
-    
+
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcDsctn		-->
-	<!-- DESC : APC 내역 조회.	                                             		-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcDsctnList	-->
+	<!-- DESC : APC 내역 조회.	                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.26  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcDsctn" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" resultType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
+    <select id="selectApcDsctnList" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" resultType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
     	<![CDATA[
     	SELECT AI.APC_CD            AS APC_CD
 		     , AI.REG_APC_NM        AS REG_APC_NM
@@ -68,13 +69,108 @@
 		     , AI.ADDR              AS ADDR
 		     , AI.TELNO            	AS TELNO
 		     , AI.FXNO             	AS FXNO
+		     , AI.DEL_YN			AS DEL_YN
 		  FROM TB_APC_INFO AI
-		 WHERE APC_CD = #{apcCd}
 		]]>
-		<if test='regApcNm != null and regApcNm != ""'>
-		   AND AI.REG_APC_NM LIKE '%' ||  #{regApcNm]} || '%'
-		</if>
+		<where>
+			<if test='apcCd != null and apcCd != ""'>
+			   AND AI.APC_CD LIKE '%' ||  #{apcCd} || '%'
+			</if>
+			<if test='regApcNm != null and regApcNm != ""'>
+			   AND AI.REG_APC_NM LIKE '%' ||  #{regApcNm} || '%'
+			</if>
+			<if test='delYn != null and delYn != ""'>
+			   AND AI.DEL_YN = #{delYn}
+			</if>
+		</where>
     </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateApcDsctn		-->
+	<!-- DESC : APC 내역 수정.	   	                                    				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.31  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateApcDsctn" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
+		<![CDATA[
+		UPDATE TB_APC_INFO
+		   SET SYS_LAST_CHG_DT 			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+		     , REG_APC_NM				= #{regApcNm}
+		     , CTPV_NM					= #{ctpvNm}
+		     , SIGUN_NM					= #{sigunNm}
+		     , MB_CD					= #{mbCd}
+		     , REG_ADDR					= #{regAddr}
+		     , REG_TELNO				= #{regTelno}
+		     , APC_NM					= #{apcNm}
+	      	 , BRNO						= #{brno}
+		     , ADDR						= #{addr}
+		     , TELNO					= #{fxno}
+		     , FXNO						= #{telno}
+		     , DEL_YN					= #{delYn}
+		 WHERE APC_CD 		= #{apcCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.insertApcDsctn		-->
+	<!-- DESC : APC 내역 등록.	                                 	      				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.31  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertApcDsctn" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
+    	<![CDATA[
+    	INSERT INTO TB_APC_INFO
+    		(
+    			APC_CD
+		      , REG_APC_NM
+		      , CTPV_NM
+		      , SIGUN_NM
+		      , MB_CD
+		      , REG_ADDR
+		      , REG_TELNO
+		      , APC_NM
+		      , BRNO
+		      , ADDR
+		      , TELNO
+		      , FXNO
+		      , DEL_YN
+    		  , SYS_FRST_INPT_DT
+    		  , SYS_FRST_INPT_USER_ID
+    		  , SYS_FRST_INPT_PRGRM_ID
+    		  , SYS_LAST_CHG_DT
+    		  , SYS_LAST_CHG_USER_ID
+    		  , SYS_LAST_CHG_PRGRM_ID
+    		)
+   		VALUES
+   			(
+   				FN_GET_ID_APC_CD
+    		  , #{regApcNm}
+    		  , #{ctpvNm}
+    		  , #{sigunNm}
+    		  , #{mbCd}
+			  , #{regAddr}
+    		  , #{regTelno}
+    		  , #{apcNm}
+    		  , #{brno}
+    		  , #{addr}
+    		  , #{fxno}
+    		  , #{telno}
+    		  , #{delYn}
+    		  , SYSDATE
+    		  , #{sysFrstInptUserId}
+    		  , #{sysFrstInptPrgrmId}
+    		  , SYSDATE
+    		  , #{sysLastChgUserId}
+    		  , #{sysLastChgPrgrmId}
+   			)
+    	]]>
+    </insert>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.apc..mapper.ApcEvrmntStngMapper.selectApcUserList	-->
@@ -105,7 +201,7 @@
 		     , DECODE(CU.DEL_YN, 'N', 'Y', 'Y', 'N')    AS DEL_YN
 		  FROM TB_COM_USER CU
 		 WHERE USER_TYPE IN ('10', '11')
-		   AND USER_STTS IN ('01', '99')
+		   AND USER_STTS IN ('01', '00')
 		   AND CU.APC_CD = #{apcCd}
 		]]>
 		<if test='userNm != null and userNm != ""'>

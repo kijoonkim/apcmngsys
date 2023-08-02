@@ -22,13 +22,13 @@
 						<sbux-checkbox id="chk-docSpmt" name="chk-docSpmt" uitype="normal" text="송품장 자동발행" class="check"></sbux-checkbox>
 					</p>
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"></sbux-button>
 					<sbux-button id="btnEnd" name="btnEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 10%">
@@ -43,14 +43,14 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">APC명</th>
+							<th scope="row" class="th_bg">APC명</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled=""></sbux-input>
 							</td>
 							<td colspan="6"></td>
 						</tr>
 						<tr>
-							<th scope="row">출하지시번호</th>
+							<th scope="row" class="th_bg">출하지시번호</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-spmtCmndNo" name="srch-inp-spmtCmndNo" uitype="text" class="form-control input-sm"></sbux-input>
 							<td class="td_input" style="border-right: hidden;">
@@ -63,7 +63,7 @@
 							<td colspan="3"></td>
 						</tr>
 						<tr>
-							<th scope="row">포장번호/순번</th>
+							<th scope="row" class="th_bg">포장번호/순번</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-frmlNo" name="srch-inp-frmlNo" uitype="text" class="form-control input-sm"></sbux-input>
 							<td class="td_input" style="border-right: hidden;">
@@ -73,7 +73,7 @@
 							<td colspan="3"></td>
 						</tr>
 						<tr>
-							<th scope="row">출하수량/중량</th>
+							<th scope="row" class="th_bg">출하수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-smptQntt" name="srch-inp-smptQntt" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
@@ -84,7 +84,7 @@
 							<td colspan="5"></td>
 						</tr>
 						<tr>
-							<th scope="row">품종/규격</th>
+							<th scope="row" class="th_bg">품종/규격</th>
 							<td style="border-right: hidden;" class="td_input">
 								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
@@ -96,7 +96,7 @@
 							<td colspan="3"></td>
 						</tr>
 						<tr>
-							<th scope="row">상품명</th>
+							<th scope="row" class="th_bg">상품명</th>
 								<td style="border-right: hidden;" colspan="2" class="td_input">
 									<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" disabled=""></sbux-input>
 								</td>
@@ -105,7 +105,7 @@
 								<td colspan="3"></td>
 						</tr>
 						<tr>
-							<th style="border-right: hidden;" scope="row">상품등급</th>
+							<th class="th_bg" style="border-right: hidden;" scope="row">상품등급</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder=""disabled=""></sbux-input>
 							</td>
@@ -114,7 +114,7 @@
 							<td colspan="3"></td>
 						</tr>
 						<tr>
-							<th scope="row">포장구분</th>
+							<th scope="row" class="th_bg">포장구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder=""disabled=""></sbux-input>
 							</td>
@@ -123,7 +123,7 @@
 							<td colspan="3">&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row">거래처</th>
+							<th scope="row" class="th_bg">거래처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder=""disabled=""></sbux-input>
 							</td>
@@ -132,16 +132,16 @@
 							<td colspan="3"></td>
 						</tr>
 						<tr>
-							<th scope="row">운송회사</th>
+							<th scope="row" class="th_bg">운송회사</th>
 							<td colspan="2" style="border-right: hidden;" class="td_input">
 								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder=""disabled=""></sbux-input>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td colspan="2" style="border-right: hidden;"></td>
-							<td colspan="3""></td>
+							<td colspan="3"></td>
 						</tr>
 						<tr>
-							<th scope="row" style="border-right: hidden;">차량번호</th>
+							<th scope="row" class="th_bg" style="border-right: hidden;">차량번호</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder=""disabled=""></sbux-input>
 							<td style="border-right: hidden;">

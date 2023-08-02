@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectFcltList()"></sbux-button>
-					<sbux-button id="btnInsertFclt" name="btnInsertFclt" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertFcltList"></sbux-button>
+					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFcltList"></sbux-button>
 					<sbux-button id="btnEndFclt" name="btnEndFclt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-fclt')"></sbux-button>
 				</div>
 			</div>
@@ -73,9 +73,8 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["설비 코드"], 	ref: 'cdVl',  		type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["설비 명"], 		ref: 'cdVlNm',   	type:'input',  width:'200px',    style:'text-align:center'},
-	        {caption: ["비고"], 		ref: 'cdVlExpln',   type:'input',  width:'350px',    style:'text-align:center'},
+	        {caption: ["설비 명"], 		ref: 'cdVlNm',   	type:'input',  width:'250px',    style:'text-align:center'},
+	        {caption: ["비고"], 		ref: 'cdVlExpln',   type:'input',  width:'400px',    style:'text-align:center'},
 	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdFclt\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -84,7 +83,8 @@
 	        	}
 	        }},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
-	        {caption: ["공통ID"], 		ref: 'cdId',   		type:'input',  hidden : true}
+	        {caption: ["공통ID"], 		ref: 'cdId',   		type:'input',  hidden : true},
+	        {caption: ["설비 코드"], 	ref: 'cdVlCd',   	type:'input',  hidden:true},
 	    ];
 	    window.grdFclt = _SBGrid.create(SBGridProperties);
 	    fn_selectFcltList();
@@ -124,7 +124,7 @@
         }
 	}
 
-	async function fn_insertFcltList(){
+	async function fn_saveFcltList(){
 		let gridData = grdFclt.getGridDataAll();
 		let insertList = [];
 		let updateList = [];
@@ -147,10 +147,10 @@
 			}
 		}
 		if(insertList.length == 0 && updateList.length == 0){
-			alert("등록 할 내용이 없습니다.");
+			alert("저장 할 내용이 없습니다.");
 			return;
 		}
-		let regMsg = "등록 하시겠습니까?";
+		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
 			if(insertList.length > 0){
@@ -161,7 +161,7 @@
 			}
 			if(insertCnt + updateCnt > 0 ){
 				fn_callSelectFcltList();
-				alert("등록 되었습니다.");
+				alert("저장 되었습니다.");
 			}
 		}
 	}

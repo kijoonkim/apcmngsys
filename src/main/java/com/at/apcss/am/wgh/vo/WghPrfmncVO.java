@@ -1,5 +1,8 @@
 package com.at.apcss.am.wgh.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -28,6 +31,10 @@ public class WghPrfmncVO extends ComVO {
 	 * APC코드
 	 */
 	private String apcCd;
+	/**
+	 * APC코드명
+	 */
+	private String apcNm;
 
 	/**
 	 * 계량번호
@@ -38,7 +45,9 @@ public class WghPrfmncVO extends ComVO {
 	 * 계량일자
 	 */
 	private String wghYmd;
-
+	private String wghYmdFrom;
+	private String wghYmdTo;
+	
 	/**
 	 * 생산자코드
 	 */
@@ -52,27 +61,47 @@ public class WghPrfmncVO extends ComVO {
 	/**
 	 * 품목코드
 	 */
-	private String itemCd;
-
+	private String itemCd;	
+	/**
+	 * 품목명
+	 */
+	private String itemNm;
+	
 	/**
 	 * 품종코드
 	 */
 	private String vrtyCd;
+	/**
+	 * 품종명
+	 */
+	private String vrtyNm;
 
 	/**
 	 * 상품구분코드
 	 */
 	private String gdsSeCd;
-
+	/**
+	 * 상품구분명
+	 */
+	private String gdsSeNm;
+	
 	/**
 	 * 입고구분코드
 	 */
 	private String wrhsSeCd;
+	/**
+	 * 입고구분명
+	 */
+	private String wrhsSeNm;
 
 	/**
 	 * 운송구분코드
 	 */
 	private String trsprtSeCd;
+	/**
+	 * 운송구분명
+	 */
+	private String trsprtSeNm;
 
 	/**
 	 * 차량번호
@@ -168,4 +197,17 @@ public class WghPrfmncVO extends ComVO {
 	 * 중량
 	 */
 	private double wght;
+	
+	/**
+	 * 계량상세리스트
+	 */
+	List<WghPrfmncDtlVO> wghPrfmncDtlList;
+
+	public List<WghPrfmncDtlVO> getWghPrfmncDtlList() {
+		return this.wghPrfmncDtlList == null ? null : wghPrfmncDtlList.stream().collect(Collectors.toList());
+	}
+
+	public void setWghPrfmncDtlList(List<WghPrfmncDtlVO> wghPrfmncDtlList) {
+		this.wghPrfmncDtlList = wghPrfmncDtlList == null ? null : wghPrfmncDtlList.stream().collect(Collectors.toList());
+	} 
 }

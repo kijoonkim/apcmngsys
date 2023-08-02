@@ -113,4 +113,74 @@ public class CnptController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/am/cmns/compareOrdrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> compareOrdrList(@RequestBody Map<String, List<CnptVO>> cnptVO, HttpServletRequest request) throws Exception {
+		logger.debug("compareCnptList 호출 <><><><> ");
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		int insertCnt = 0;
+		try {
+			List<CnptVO> origin = cnptVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
+			List<CnptVO> modified = cnptVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
+
+			List<String> originPk = origin.stream().filter(e -> e.getCnptCd() != null && e.getCnptCd().equals("") == false).map(e -> e.getCnptCd()).collect(Collectors.toCollection(ArrayList::new));
+			List<String> modifiedPk = modified.stream().filter(e -> e.getCnptCd() != null && e.getCnptCd().equals("") == false).map(e -> e.getCnptCd()).collect(Collectors.toCollection(ArrayList::new));
+
+			List<CnptVO> insertList = new ArrayList<CnptVO>(modified).stream().filter(e -> e.getCnptCd() == null || e.getCnptCd().equals("")).collect(Collectors.toList());
+			for (CnptVO element : insertList) {
+				element.setSysFrstInptPrgrmId(getPrgrmId());
+				element.setSysFrstInptUserId(getUserId());
+				element.setSysLastChgPrgrmId(getPrgrmId());
+				element.setSysLastChgUserId(getUserId());
+				cnptService.insertCnpt(element);
+			}
+
+			List<CnptVO> deleteList = new ArrayList<CnptVO>(origin).stream().filter(e -> (modifiedPk.contains(e.getCnptCd()) == false && originPk.contains(e.getCnptCd()) == true)).collect(Collectors.toList());
+			for (CnptVO element : deleteList) {
+				cnptService.deleteCnpt(element);
+			}
+
+			List<CnptVO> updateList = new ArrayList<CnptVO>();
+			for (CnptVO ei : origin) {
+				for (CnptVO ej : modified) {
+					if (ei.getCnptCd().equals(ej.getCnptCd())) {
+						if (ei.hashCode() != ej.hashCode()) {
+							updateList.add(ej);
+						}
+						break;
+					}
+				}
+			}
+
+			for (CnptVO element : updateList) {
+				element.setSysLastChgPrgrmId(getPrgrmId());
+				element.setSysLastChgUserId(getUserId());
+				cnptService.updateCnpt(element);
+			}
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/cmns/deleteCnptList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deletePltBx(@RequestBody CnptVO cnptVO, HttpServletRequest request) throws Exception {
+		logger.debug("deleteCnptList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = 0;
+		try {
+			result = cnptService.deleteCnpt(cnptVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

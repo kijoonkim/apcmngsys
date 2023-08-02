@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnWrhsVhclSech" name="btnWrhsVhclSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectWrhsVhclList()"></sbux-button>
-					<sbux-button id="btnWrhsVhclReg" name="btnWrhsVhclReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertWrhsVhclList()"></sbux-button>
+					<sbux-button id="btnWrhsVhclReg" name="btnWrhsVhclReg" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertWrhsVhclList()"></sbux-button>
 					<sbux-button id="btnWrhsVhclEnd" name="btnWrhsVhclEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-wrhsVhcl')"></sbux-button>
 				</div>
 			</div>
@@ -91,8 +91,8 @@
 	    SBGridProperties.columns = [
 	        {caption: ["차량번호"], 	ref: 'vhclno',  type:'input',  width:'120px',    style:'text-align:center'},
 	        {caption: ["기사명"], 		ref: 'drvrNm',  type:'input',  width:'80px',    style:'text-align:center'},
-	        {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'120px',    style:'text-align:center',
-	        			typeinfo : {ref:'comboGridBankCdJsData', label:'label', value:'value', displayui : true, unselect: {label : '입력', value: ''}}},
+	        {caption: ["은행"], 		ref: 'bankCd',  type:'combo',  width:'120px',    style:'text-align:center',
+	        			typeinfo : {ref:'comboGridBankCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
 	        {caption: ["계좌번호"], 	ref: 'actno',  	type:'input',  width:'180px',    style:'text-align:center'},
 	        {caption: ["예금주"], 		ref: 'dpstr',  	type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'280px',    style:'text-align:center'},
@@ -121,6 +121,7 @@
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
         newWrhsVhclGridData = [];
+        wrhsVhclMngGridData = [];
         try{
         	data.resultList.forEach((item, index) => {
 				let wrhsVhcl = {
@@ -149,7 +150,7 @@
 	// 운송지역별 운임비용 등록
     var rgnTrsprtCstMngGridData = []; // 그리드의 참조 데이터 주소 선언
     async function fn_rgnTrsprtCstMngCreateGrid() {
-    	trsprtMngGridData = [];
+    	rgnTrsprtCstMngGridData = [];
         let SBGridProperties = {};
 	    SBGridProperties.parentid = 'rgnTrsprtCstMngGridArea';
 	    SBGridProperties.id = 'rgnTrsprtCstMngDatagrid';
@@ -159,10 +160,10 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
         SBGridProperties.columns = [
-            {caption: ["코드"], 			ref: 'trsprtRgnCd',  	type:'input',  width:'100px',     style:'text-align:center'},
-            {caption: ["운송지역"], 		ref: 'trsprtRgnNm',  	type:'input',  width:'200px',    style:'text-align:center'},
-            {caption: ["운송비용(원)"], 	ref: 'trsprtCst',  		type:'input',  width:'200px',    style:'text-align:right', format : {type:'number', rule:'#,### 원'} },
-            {caption: ["비고"], 			ref: 'rmrk',  			type:'input',  width:'360px',    style:'text-align:center'},
+            {caption: ["코드"], 			ref: 'trsprtRgnCd',  	type:'input',  width:'100px',     style:'text-align:center', hidden : true},
+            {caption: ["운송지역"], 		ref: 'trsprtRgnNm',  	type:'input',  width:'320px',    style:'text-align:center'},
+            {caption: ["운송비용(원)"], 	ref: 'trsprtCst',  		type:'input',  width:'260px',    style:'text-align:right', format : {type:'number', rule:'#,### 원'} },
+            {caption: ["비고"], 			ref: 'rmrk',  			type:'input',  width:'280px',    style:'text-align:center'},
             {caption: ["처리"], 			ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"rgnTrsprtCstMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -186,6 +187,7 @@
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectRgnTrsprtCstList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
         newRgnTrsprtCstGridData = [];
+        rgnTrsprtCstMngGridData = [];
         try{
         	data.resultList.forEach((item, index) => {
 				let rgnTrsprtCst = {
@@ -196,8 +198,9 @@
 				  , delYn 			: item.delYn
 				  , apcCd			: item.apcCd
 				}
-				newRgnTrsprtCstGridData.push(rgnTrsprtCst);
-				rgnTrsprtCstMngGridData.push(rgnTrsprtCst);
+
+				newRgnTrsprtCstGridData.push(Object.assign({}, rgnTrsprtCst));
+				rgnTrsprtCstMngGridData.push(Object.assign({}, rgnTrsprtCst));
 			});
         	rgnTrsprtCstMngDatagrid.rebuild();
         	rgnTrsprtCstMngDatagrid.addRow();
@@ -209,28 +212,6 @@
         }
 	}
 
-
-	/* async function fn_procRow(type, id, i){
-		if(id == "wrhsVhclMngDatagrid"){
-			if (type == "ADD"){
-				wrhsVhclMngGridData[i-1].delYn = "N";
-				wrhsVhclMngDatagrid.addRow();
-			}
-			else{
-				wrhsVhclMngDatagrid.deleteRow(i);
-			}
-		}
-		else{
-			if (type == "ADD"){
-				rgnTrsprtCstMngGridData[i-1].delYn = "N";
-				rgnTrsprtCstMngDatagrid.addRow();
-			}
-			else{
-				rgnTrsprtCstMngDatagrid.deleteRow(i);
-			}
-		}
-	} */
-
 	async function fn_insertWrhsVhclList(){
 		for(var i=0; i<wrhsVhclMngGridData.length; i++){
 			if(wrhsVhclMngGridData[i].delYn == "N" && (wrhsVhclMngGridData[i].vhclno == null || wrhsVhclMngGridData[i].vhclno == "")){
@@ -239,21 +220,32 @@
 				return
 			}
 		}
-		
+
 		var isEqual1 = await chkEqualObj(wrhsVhclMngGridData, newWrhsVhclGridData);
-		console.log(isEqual1);
-		if (isEqual1){
-			alert("등록 할 내용이 없습니다.");
+		var isEqual2 = await chkEqualObj(rgnTrsprtCstMngGridData, newRgnTrsprtCstGridData);
+		console.log(isEqual1 && isEqual2);
+		if (isEqual1 && isEqual2){
+			alert("저장 할 내용이 없습니다.");
 			return;
 		}
 
-		let regMsg = "등록 하시겠습니까?";
+		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
-			let postJsonPromise = gfn_postJSON("/am/cmns/compareRgnTrsprtCstList.do", {origin : newWrhsVhclGridData, modified : wrhsVhclMngGridData});
+			let postJsonPromise1 = gfn_postJSON("/am/cmns/compareWrhsVhclList.do", {origin : newWrhsVhclGridData, modified : wrhsVhclMngGridData});
+			let postJsonPromise2 = gfn_postJSON("/am/cmns/compareRgnTrsprtCstList.do", {origin : newRgnTrsprtCstGridData, modified : rgnTrsprtCstMngGridData});
 
-			alert("등록 되었습니다.");
+			alert("저장 되었습니다.");
+
+			fn_callSelectWrhsVhclList();
+			fn_callSelectRgnTrsprtCstList();
 		}
 	}
+	async function fn_deleteWrhsVhclList(wrhsVhclVo){
+		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteWrhsVhclList.do", wrhsVhclVo);
+	}
+	async function fn_deleteRgnTrsprtCstList(rgnTrsprtCst){
+		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteRgnTrsprtCstList.do", rgnTrsprtCst);
 
+	}
 </script>
 </html>

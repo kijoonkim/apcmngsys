@@ -71,8 +71,7 @@ public class SpmtTrsprtController extends BaseController {
 		try {
 			List<SpmtTrsprtVO> origin = spmtTrsprtVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
 			List<SpmtTrsprtVO> modified = spmtTrsprtVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-//			List<String> originPk = origin.stream().map(e -> e.getTrsprtCoCd()).collect(Collectors.toCollection(ArrayList::new));
-//			List<String> modifiedPk = modified.stream().map(e -> e.getTrsprtCoCd()).collect(Collectors.toCollection(ArrayList::new));
+
 			List<String> originPk = origin.stream().filter(e -> e.getTrsprtCoCd() != null && e.getTrsprtCoCd().equals("") == false).map(e -> e.getTrsprtCoCd()).collect(Collectors.toCollection(ArrayList::new));
 			List<String> modifiedPk = modified.stream().filter(e -> e.getTrsprtCoCd() != null && e.getTrsprtCoCd().equals("") == false).map(e -> e.getTrsprtCoCd()).collect(Collectors.toCollection(ArrayList::new));
 
@@ -83,11 +82,6 @@ public class SpmtTrsprtController extends BaseController {
 				element.setSysLastChgPrgrmId(getPrgrmId());
 				element.setSysLastChgUserId(getUserId());
 				spmtTrsprtService.insertSpmtTrsprt(element);
-			}
-
-			List<SpmtTrsprtVO> deleteList = new ArrayList<SpmtTrsprtVO>(origin).stream().filter(e -> (modifiedPk.contains(e.getTrsprtCoCd()) == false && originPk.contains(e.getTrsprtCoCd()) == true)).collect(Collectors.toList());
-			for (SpmtTrsprtVO element : deleteList) {
-				spmtTrsprtService.deleteSpmtTrsprt(element);
 			}
 
 			List<SpmtTrsprtVO> updateList = new ArrayList<SpmtTrsprtVO>();
@@ -116,4 +110,20 @@ public class SpmtTrsprtController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/cmns/deleteSpmtTrsprtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteSpmtTrsprtList(@RequestBody SpmtTrsprtVO spmtTrsprtVO, HttpServletRequest request) throws Exception {
+		logger.debug("deleteSpmtTrsprtList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = 0;
+		try {
+			result = spmtTrsprtService.deleteSpmtTrsprt(spmtTrsprtVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

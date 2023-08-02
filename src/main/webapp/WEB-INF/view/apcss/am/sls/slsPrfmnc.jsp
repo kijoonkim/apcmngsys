@@ -24,7 +24,7 @@
 
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -41,13 +41,13 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th class="ta_r">APC명</th>
+							<th scope="row" class="th_bg">APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
-							<th class="ta_r">정산기준</th>
+							<th scope="row" class="th_bg">정산기준</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -56,7 +56,7 @@
 								</div>
 							</td>
 							<td colspan="2"></td>
-							<th class="ta_r">정산일자</th>
+							<th scope="row" class="th_bg">정산일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-fromClclnYmd" name="srch-dtp-fromClclnYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
@@ -64,7 +64,7 @@
 								<sbux-datepicker id="srch-dtp-toClclnYmd" name="srch-dtp-toClclnYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td></td>
-							<th class="ta_r">확정여부</th>
+							<th scope="row" class="th_bg">확정여부</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -75,7 +75,7 @@
 							<td></td>
 						</tr>
 						<tr>
-							<th class="ta_r">품목/품종</th>
+							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -91,7 +91,7 @@
 								</div>
 							</td>
 							<td></td>
-							<th class="ta_r">생산자</th>
+							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>

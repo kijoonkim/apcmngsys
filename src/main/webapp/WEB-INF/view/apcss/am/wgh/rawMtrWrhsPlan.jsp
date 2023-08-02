@@ -27,7 +27,7 @@
 
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -45,22 +45,23 @@
 						<col style="width: 3%">
 					</colgroup>
 					<tbody>
-						</tr>
-							<th scope="row" >APC명</th>
+						<tr>
+							<th scope="row" class="th_bg">APC명</th>
 							<td colspan= "3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" class="form-control input-sm" disabled/>
 							</td>
 							<td colspan="9">&nbsp;</td>
+						</tr>
 						<tr>
-							<th class="ta_r">조회일자</th>
+							<th class="ta_r th_bg">조회일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-strtCrtrYmd" name="srch-dtp-strtCrtrYmd" class="form-control pull-right input-sm"/>
-							</th>
+							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-endCrtrYmd" name="srch-dtp-endCrtrYmd" class="form-control pull-right input-sm"/>
-							</th>
+							</td>
 							<td>&nbsp;</td>
-							<th class="ta_r">생산자</th>
+							<th class="ta_r th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-prcdcr" name="srch-inp-prcdcr" class="form-control input-sm" disabled/>
 							</td>
@@ -71,8 +72,8 @@
 						</tr>
 					</tbody>
 				</table>
-				<b>&nbsp;<b>
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<b>&nbsp;</b>
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -93,12 +94,12 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th class="ta_r">계획일자</th>
+							<th class="ta_r th_bg">계획일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-strtPlanYmd" name="srch-dtp-strtPlanYmd" class="form-control pull-right input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
-							<th class="ta_r">생산자</th>
+							<th class="ta_r th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-prdcr" name="srch-inp-prdcr" class="form-control input-sm"/>
 							</td>
@@ -106,7 +107,7 @@
 								<sbux-button id="srch-btn-prdcrSrch" name="srch-btn-prdcrSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
 							</td>
 							<td>&nbsp;</td>
-							<th class="ta_r">품목/품종</th>
+							<th class="ta_r th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 							</td>
@@ -116,7 +117,7 @@
 							<td>&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row">입고구분</th>
+							<th scope="row" class="th_bg">입고구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-wrhs1" name="srch-rdo-wrhs" uitype="normal" class="radio_label" text="일반매입"/>
@@ -128,7 +129,7 @@
 									<sbux-radio id="srch-rdo-wrhs3" name="srch-rdo-wrhs" uitype="normal" class="radio_label" text="매취" checked/>
 								</p>
 							</td>
-							<th scope="row">상품구분</th>
+							<th scope="row" class="th_bg">상품구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-gds1" name="srch-rdo-gds" uitype="normal" class="radio_label" text="일반" checked/>
@@ -143,7 +144,7 @@
 									<sbux-radio id="srch-rdo-gds4" name="srch-rdo-gds" uitype="normal" class="radio_label" text="유기농"/>
 								</p>
 							</td>
-							<th scope="row">운송구분</th>
+							<th scope="row" class="th_bg">운송구분</th>
 							<td colspan="3">
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-trsprt1" name="srch-rdo-trsprt" uitype="normal" class="radio_label" text="자가" checked/>
@@ -157,7 +158,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th class="ta_r">수량/중량</th>
+							<th class="ta_r th_bg">수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
 									<sbux-input uitype="text" id="srch-inp-qntt" name="srch-inp-qntt" class="form-control input-sm" disabled/>
 
@@ -168,7 +169,7 @@
 							<td class="td_input" style="border-right: hidden;">
 									<sbux-label uitype="normal" id="lbl-kg" name="lbl-chc" text="Kg"/>
 							</td>
-							<th class="ta_r">비고</th>
+							<th class="ta_r th_bg">비고</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-rmrk" name="srch-inp-rmrk" class="form-control input-sm" placeholder="" />
 							</td>

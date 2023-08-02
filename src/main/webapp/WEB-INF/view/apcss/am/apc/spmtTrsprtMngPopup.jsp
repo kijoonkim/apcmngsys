@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSpmtTrsprtSech" name="btnSpmtTrsprtSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSpmtTrsprtList()"></sbux-button>
-					<sbux-button id="btnSpmtTrsprtReg" name="btnSpmtTrsprtReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSpmtTrsprtList"></sbux-button>
+					<sbux-button id="btnSpmtTrsprtReg" name="btnSpmtTrsprtReg" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertSpmtTrsprtList"></sbux-button>
 					<sbux-button id="btnSpmtTrsprtEnd" name="btnSpmtTrsprtEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-spmtTrsprt')"></sbux-button>
 				</div>
 			</div>
@@ -75,12 +75,13 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["코드"], 			ref: 'trsprtCoCd',  type:'output',  width:'80px',     style:'text-align:center'},
-	        {caption: ["운송회사명"], 		ref: 'trsprtCoNm',  type:'input',  width:'150px',    style:'text-align:center'},
-	        {caption: ["전화번호"], 		ref: 'telno',  		type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["팩스번호"], 		ref: 'fxno',  		type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["비고"], 			ref: 'rmrk',  		type:'input',  width:'330px',    style:'text-align:center'},
+	        {caption: ["코드"], 			ref: 'trsprtCoCd',  type:'output',  width:'80px',     style:'text-align:center', hidden : true},
+	        {caption: ["운송회사명"], 		ref: 'trsprtCoNm',  type:'input',  width:'145px',    style:'text-align:center'},
+	        {caption: ["전화번호"], 		ref: 'telno',  		type:'input',  width:'145px',    style:'text-align:center'},
+	        {caption: ["팩스번호"], 		ref: 'fxno',  		type:'input',  width:'145px',    style:'text-align:center'},
+	        {caption: ["비고"], 			ref: 'rmrk',  		type:'input',  width:'320px',    style:'text-align:center'},
 	        {caption: ["처리"], 			ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"spmtTrsprtMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -96,7 +97,7 @@
 	async function fn_selectSpmtTrsprtList(){
 		fn_callSelectSpmtTrsprtList();
 	}
-	let newSpmtTrsprtGridData = [];
+	var newSpmtTrsprtGridData = [];
 	async function fn_callSelectSpmtTrsprtList(){
 		spmtTrsprtMngGridData = [];
 		let apcCd = SBUxMethod.get("inp-apcCd");
@@ -127,30 +128,24 @@
     		console.error("failed", e.message);
         }
 	}
-	
+
 	async function fn_insertSpmtTrsprtList(){
-// 		for(var i=0; i<wrhsVhclMngGridData.length; i++){
-// 			if(wrhsVhclMngGridData[i].delYn == "N" && (wrhsVhclMngGridData[i].vhclno == null || wrhsVhclMngGridData[i].vhclno == "")){
-// 				console.log(wrhsVhclMngGridData[i]);
-// 				alert("차량번호는 필수 값 입니다.");
-// 				return
-// 			}
-// 		}
-		
 		var isEqual1 = await chkEqualObj(spmtTrsprtMngGridData, newSpmtTrsprtGridData);
 		console.log(isEqual1);
 		if (isEqual1){
-			alert("등록 할 내용이 없습니다.");
+			alert("저장 할 내용이 없습니다.");
 			return;
 		}
 
-		let regMsg = "등록 하시겠습니까?";
+		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 			let postJsonPromise = gfn_postJSON("/am/cmns/compareSpmtTrsprtList.do", {origin : newSpmtTrsprtGridData, modified : spmtTrsprtMngGridData});
 
-			alert("등록 되었습니다.");
+			alert("저장 되었습니다.");
 		}
 	}
-
+	async function fn_deleteSpmtTrsprtList(spmtTrsprtMngDatagrid){
+		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteSpmtTrsprtList.do", spmtTrsprtMngDatagrid);
+	}
 </script>
 </html>
