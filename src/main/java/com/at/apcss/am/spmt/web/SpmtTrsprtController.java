@@ -84,11 +84,6 @@ public class SpmtTrsprtController extends BaseController {
 				spmtTrsprtService.insertSpmtTrsprt(element);
 			}
 
-			List<SpmtTrsprtVO> deleteList = new ArrayList<SpmtTrsprtVO>(origin).stream().filter(e -> (modifiedPk.contains(e.getTrsprtCoCd()) == false && originPk.contains(e.getTrsprtCoCd()) == true)).collect(Collectors.toList());
-			for (SpmtTrsprtVO element : deleteList) {
-				spmtTrsprtService.deleteSpmtTrsprt(element);
-			}
-
 			List<SpmtTrsprtVO> updateList = new ArrayList<SpmtTrsprtVO>();
 			for (SpmtTrsprtVO ei : origin) {
 				for (SpmtTrsprtVO ej : modified) {
@@ -115,4 +110,20 @@ public class SpmtTrsprtController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/cmns/deleteSpmtTrsprtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteSpmtTrsprtList(@RequestBody SpmtTrsprtVO spmtTrsprtVO, HttpServletRequest request) throws Exception {
+		logger.debug("deleteSpmtTrsprtList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = 0;
+		try {
+			result = spmtTrsprtService.deleteSpmtTrsprt(spmtTrsprtVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

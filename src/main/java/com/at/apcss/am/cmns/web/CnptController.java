@@ -166,4 +166,21 @@ public class CnptController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/am/cmns/deleteCnptList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deletePltBx(@RequestBody CnptVO cnptVO, HttpServletRequest request) throws Exception {
+		logger.debug("deleteCnptList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = 0;
+		try {
+			result = cnptService.deleteCnpt(cnptVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

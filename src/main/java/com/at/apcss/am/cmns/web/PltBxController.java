@@ -73,9 +73,6 @@ public class PltBxController extends BaseController {
 			List<PltBxVO> origin = pltBxVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
 			List<PltBxVO> modified = pltBxVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
 
-			List<String> originPk = origin.stream().filter(e -> e.getPltBxCd() != null && e.getPltBxCd().equals("") == false).map(e -> e.getPltBxCd()).collect(Collectors.toCollection(ArrayList::new));
-			List<String> modifiedPk = modified.stream().filter(e -> e.getPltBxCd() != null && e.getPltBxCd().equals("") == false).map(e -> e.getPltBxCd()).collect(Collectors.toCollection(ArrayList::new));
-
 			List<PltBxVO> insertList = new ArrayList<PltBxVO>(modified).stream().filter(e -> e.getPltBxCd() == null || e.getPltBxCd().equals("")).collect(Collectors.toList());
 			for (PltBxVO element : insertList) {
 				element.setSysFrstInptPrgrmId(getPrgrmId());
@@ -83,11 +80,6 @@ public class PltBxController extends BaseController {
 				element.setSysLastChgPrgrmId(getPrgrmId());
 				element.setSysLastChgUserId(getUserId());
 				pltBxService.insertPltBx(element);
-			}
-
-			List<PltBxVO> deleteList = new ArrayList<PltBxVO>(origin).stream().filter(e -> (modifiedPk.contains(e.getPltBxCd()) == false && originPk.contains(e.getPltBxCd()) == true)).collect(Collectors.toList());
-			for (PltBxVO element : deleteList) {
-				pltBxService.deletePltBx(element);
 			}
 
 			List<PltBxVO> updateList = new ArrayList<PltBxVO>();
