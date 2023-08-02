@@ -49,7 +49,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
 							</td>
 							<td colspan="8" class="td_input"></td>
 						</tr>
@@ -67,27 +67,12 @@
 						</tr>
 					</tbody>
 				</table>
-											
-				<!--[pp] //검색 -->
-				<!--[pp] 검색결과 -->
-				
-<!-- 				<div class="ad_tbl_top"> -->
-<!-- 					<ul class="ad_tbl_count"> -->
-<!-- 						<li><span>선별실적 내역</span></li> -->
-<!-- 					</ul> -->
-<!-- 					<div class="ad_tbl_toplist"> -->
-<!-- 						<sbux-button id="btnDown" name="btnDown" uitype="normal" text="내려받기" class="btn btn-xs btn-outline-danger"></sbux-button> -->
-<!-- 						<sbux-button id="btnUp" name="btnUp" uitype="normal" text="올리기" class="btn btn-xs btn-outline-danger"></sbux-button> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-				
-				
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>작업실적</span></li>
 						</ul>
 						<div class="ad_tbl_toplist">
-							<sbux-button id="btn-bndlPrfmnc" name="btn-bndlPrfmnc" uitype="normal" text="일관승인" class="btn btn-sm btn-outline-danger"></sbux-button>
+							<sbux-button id="btn-bndlPrfmnc" name="btn-bndlPrfmnc" uitype="normal" text="일괄승인" class="btn btn-sm btn-outline-danger" onclick=""></sbux-button>
 						</div>
 					</div>
 					<div id="sb-area-grdUserAprvReg" style="height:300px; margin-top:8px;"></div>
@@ -108,7 +93,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	SBUxMethod.set("srch-dtp-inqYmd1", year+month+day);
 	SBUxMethod.set("srch-dtp-inqYmd2", year+month+day);
 	//임시로 apcCd설정
-	apcNm = SBUxMethod.set("srch-inp-apcCd", "9999");
+// 	apcNm = SBUxMethod.set("srch-inp-apcCd", "9999");
 })
 var userAprvRegGridData = []; // 그리드의 참조 데이터 주소 선언
 async function fn_createUserAprvRegGrid() {
@@ -124,13 +109,13 @@ async function fn_createUserAprvRegGrid() {
 	         {caption: ["선택"],			ref: 'chc',      	type:'checkbox',width:'15%'},
 	         {caption: ["승인여부"], 		ref: 'aprvYn',     	type:'input',  	width:'15%'},
 	         {caption: ["사용자ID"], 	 	ref: 'userId',    	type:'output',  width:'15%'},
-	         {caption: ["사용자명"],    	ref: 'userNm',      type:'output',  width:'15%'},
-	         {caption: ["APC명"],	    ref: 'apcCd',   	type:'output',  width:'15%'},
-	         {caption: ["사용자유형"],	    ref: 'userType', 	type:'output',  width:'15%'},
-	         {caption: ["메일주소"],  		ref: 'eml',  		type:'output',  width:'15%'},
-        	 {caption: ["전화번호"],  		ref: 'telno',   	type:'output',  width:'15%'},
-	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'output',  width:'15%'},
-	         {caption: ["담당업무"],  		ref: 'tkcgTaskNm',  type:'output',  width:'15%'}
+	         {caption: ["사용자명"],    	ref: 'userNm',      type:'input',  width:'15%'},
+	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'input',  width:'15%'},
+	         {caption: ["사용자유형"],	    ref: 'userType', 	type:'input',  width:'15%'},
+	         {caption: ["메일주소"],  		ref: 'eml',  		type:'input',  width:'15%'},
+        	 {caption: ["전화번호"],  		ref: 'telno',   	type:'input',  width:'15%'},
+	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',  width:'15%'},
+	         {caption: ["담당업무"],  		ref: 'tkcgTaskNm',  type:'input',  width:'15%'}
     ];
     window.userAprvRegGridId= _SBGrid.create(SBGridProperties1);
     fn_selectUserList();
@@ -141,36 +126,46 @@ async function fn_selectUserList(){
 	fn_callSelectUserList();
 }
 
+var newUserAprvRegGridData = [];
 async function fn_callSelectUserList(){
-	let apcCd = SBUxMethod.get("srch-inp-apcCd");
-// 	let inqYmd1 = SBUxMethod.get("srch-dtp-inqYmd1");
-// 	let inqYmd2 = SBUxMethod.get("srch-dtp-inqYmd2");
+	let apcNm  = SBUxMethod.get("srch-inp-apcNm");
 	let aprvYn = SBUxMethod.get("srch-slt-aprvYn");
 	let userNm = SBUxMethod.get("srch-inp-userNm");
 	
-	var comUserVO = { apcCd: apcCd, aprvYn: aprvYn, userNm: userNm}
+	var comUserVO = { apcNm: apcNm, aprvYn: aprvYn, userNm: userNm}
 	
 	let postJsonPromise = gfn_postJSON("/co/user/users", comUserVO);
-    let data = await postJsonPromise;
-    let newUserAprvRegGridData = [];
+    let data = await postJsonPromise;                
+    newUserAprvRegGridData = [];
+    userAprvRegGridData = [];
     
     try{
     	data.resultList.forEach((item, index) => {
 			let userAprvReg = {
-			    userId		: item.userId
+			    aprvYn		: item.aprvYn
+			  , userId		: item.userId
 			  , userNm		: item.userNm
 			  , apcCd		: item.apcCd
+			  , apcNm		: item.apcNm            
 			  , userType	: item.userType
 			  , eml			: item.eml
 			  , telno		: item.telno
 			  , jbttlNm		: item.jbttlNm
 			  , tkcgTaskNm	: item.tkcgTaskNm
 			}
-			newUserAprvRegGridData.push(userAprvReg);
+// 			newUserAprvRegGridData.push(userAprvReg);
 			
+// 		});
+//     	userAprvRegGridData = newUserAprvRegGridData;
+//     	userAprvRegGridId.rebuild();
+    	
+    	
+			userAprvRegGridData.push(Object.assign({}, userAprvReg));
+			newUserAprvRegGridData.push(Object.assign({}, userAprvReg));
 		});
-    	userAprvRegGridData = newUserAprvRegGridData;
-    	userAprvRegGridId.rebuild();
+		console.log("newUserAprvRegGridData", newUserAprvRegGridData);
+		console.log("userAprvRegGridData", userAprvRegGridData);
+		userAprvRegGridId.rebuild();
     }catch (e) {
 		if (!(e instanceof Error)) {
 			e = new Error(e);
@@ -184,6 +179,7 @@ async function fn_reset(){
 	
 	console.log('초기화버튼 클릭');
 	
+	SBUxMethod.clear("srch-inp-apcNm");
 	SBUxMethod.clear("srch-slt-aprvYn");
 	SBUxMethod.clear("srch-inp-userNm");
 }
@@ -193,39 +189,28 @@ async function fn_updataUserList(){
 }
 
 async function fn_callUpdateUserList(){
-	let gridData = userAprvRegGridId.getGridDataAll();
-	let updateList = [];
-	for(var i=1; i<=gridData.length; i++ ){
-		console.log('gridData.length', gridData.length);
-		if(userAprvRegGridId.getRowStatus(i) === 2){
-			updateList.push(userAprvRegGridId.getRowData(i));
-			console.log('userAprvRegGridId.getRowData(i)', userAprvRegGridId.getRowData(i));
-		}
-	}
-	if(updateList.length == 0){
-		console.log('gridData.length', gridData.length);
-		console.log('updateList.length', updateList.length);
-		alert("등록 할 내용이 없습니다.");
-		return;
-	}
-	let postJsonPromise = gfn_postJSON("/co/user/updateComUserAprv", updateList);
-    let data = await postJsonPromise;
-    try{
-    	if(data.result > 0){
-    		fn_callSelectUserList();
-    		alert("등록 되었습니다.");
-    	}else{
-    		alert("등록 실패 하였습니다.");
-    	}
-
-    }catch (e) {
-    	if (!(e instanceof Error)) {
-			e = new Error(e);
-		}
-		console.error("failed", e.message);
+	console.log("userAprvRegGridData", userAprvRegGridData);
+	console.log("userAprvRegGridData.length", userAprvRegGridData.length);
+	
+	let regMsg = "등록 하시겠습니까?";
+	if(confirm(regMsg)){
+// 		let postJsonPromise = gfn_postJSON("/am/cmns/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
+		let postJsonPromise = gfn_postJSON("/co/user/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
+		alert("등록 되었습니다.");
 	}
 
 }
+
+async function fn_bndlAprv() {
+	for(var i=0; i<userAprvRegGridData.length; i++){
+		console.log("userAprvRegGridData[i]", userAprvRegGridData[i]);
+		if (Object.keys(userAprvRegGridData[i]).indexOf("chc") != -1){
+			console.log("i", i);
+			let postJsonPromise = gfn_postJSON("/co/user/updateComUserAprv", userAprvRegGridData[i]);
+		}
+	}
+}
+
 </script>
 
 </html>

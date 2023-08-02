@@ -59,7 +59,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComUserList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">
+    <select id="selectComUserList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">                  
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -75,11 +75,12 @@
 		     	 , CU.USER_ID            	AS USER_ID
 				 , CU.USER_NM            	AS USER_NM
 				 , CU.USER_TYPE          	AS USER_TYPE
-				 , CU.USER_STTS          	AS USER_STTS
-				 , CU.EML                	AS EML
+				 , CU.USER_STTS 			AS USER_STTS
+				 , (SELECT FN_GET_COM_CD_VL_NM('USER_STTS', CU.USER_STTS) FROM DUAL) AS aprvYn
+				 , CU.EML                		AS EML
 				 , CU.TELNO          	 	AS TELNO
 				 , CU.APC_CD             	AS APC_CD
-				, (SELECT FN_GET_COM_CD_VL_NM('APC_CD', CU.APC_CD) FROM DUAL) AS APC_NM				 
+				 , (SELECT X.REG_APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CU.APC_CD) AS APC_NM
 				 , CU.OGDP_NM            	AS OGDP_NM
 				 , CU.CHRGD_CERT_YN      	AS CHRGD_CERT_YN
 				 , CU.CHRGD_CERT_TYPE    	AS CHRGD_CERT_TYPE
@@ -98,9 +99,8 @@
 				 , CU.SYS_LAST_CHG_DT       AS SYS_LAST_CHG_DT
 				 , CU.SYS_LAST_CHG_USER_ID  AS SYS_LAST_CHG_USER_ID
 				 , CU.SYS_LAST_CHG_PRGRM_ID AS SYS_LAST_CHG_PRGRM_ID
-
 			  FROM TB_COM_USER CU
-			 WHERE CU.DEL_YN = 'N'
+			  WHERE CU.DEL_YN = 'N'
     	]]>
 
 		<if test='userId != null and userId != ""'>
@@ -149,9 +149,11 @@
     <update id="updateComUser" parameterType="com.at.apcss.co.user.vo.ComUserVO">
     	<![CDATA[
     	UPDATE TB_COM_USER
-    	   SET SYS_LAST_CHG_DT 			= SYSDATE
-    	     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
-    	     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    	   SET 
+    	   , USER_ID = #{userId}
+    	   , SYS_LAST_CHG_DT 			= SYSDATE
+    	   , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+    	   , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
     	]]>
     	<if test='jbttlNm != null and jbttlNm != ""'>
     		 , JBTTL_NM 				= #{jbttlNm}
