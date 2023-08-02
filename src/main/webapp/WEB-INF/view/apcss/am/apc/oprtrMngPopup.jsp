@@ -158,10 +158,10 @@
 			}
 		}
 		if(insertList.length == 0 && updateList.length == 0){
-			alert("등록 할 내용이 없습니다.");
+			alert("저장 할 내용이 없습니다.");
 			return;
 		}
-		let regMsg = "등록 하시겠습니까?";
+		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
 			if(insertList.length > 0){
@@ -172,7 +172,7 @@
 			}
 			if(insertListResult + updateListResult > 0 ){
 				fn_callSelectFcltList();
-				alert("등록 되었습니다.");
+				alert("저장 되었습니다.");
 			}
 		}
 	}
