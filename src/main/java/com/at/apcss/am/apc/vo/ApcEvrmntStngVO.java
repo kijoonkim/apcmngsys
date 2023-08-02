@@ -19,7 +19,7 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String regTelno;
 	private String apcNm;
 	private String brno;
-	private String bankNm;
+	private String bankCd;
 	private String dpstr;
 	private String actno;
 	private String addr;

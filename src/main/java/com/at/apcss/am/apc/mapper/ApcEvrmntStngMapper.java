@@ -30,26 +30,26 @@ public interface ApcEvrmntStngMapper {
 	 * @param ComUserVO
 	 * @return ApcEvrmntStngVO
 	 */
-	ApcEvrmntStngVO selectApcInfo(ComUserVO comUserVO) throws Exception;
-	
+	ApcEvrmntStngVO selectApcInfo(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+
 	/**
 	 * APC 내역 조회
 	 * @param ApcEvrmntStngVO
 	 * @return List<ApcEvrmntStngVO>
 	 */
 	List<ApcEvrmntStngVO> selectApcDsctnList(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
-	
+
 	/**
 	 * APC 내역 수정
 	 * @param ApcEvrmntStngVO
-	 * @return 
+	 * @return
 	 */
 	int updateApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
-	
+
 	/**
 	 * APC 내역 등록
 	 * @param ApcEvrmntStngVO
-	 * @return 
+	 * @return
 	 */
 	int insertApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
 

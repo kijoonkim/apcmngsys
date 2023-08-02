@@ -52,35 +52,35 @@
 							</td>
 							<td scope="row" align="right">주소</td>
 							<td scope="row">
-								<sbux-input id="addr" name="addr" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-addr" name="inp-addr" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td scope="row" align="right">전화번호</td>
 							<td scope="row">
-								<sbux-input id="telno" name="telno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-telno" name="inp-telno" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td scope="row" align="right">팩스번호</td>
 							<td scope="row">
-								<sbux-input id="fxno" name="fxno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-fxno" name="inp-fxno" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<td scope="row" align="right">사업번호</td>
 							<td scope="row">
-								<sbux-input id="apcBrno" name="apcBrno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-brno" name="inp-brno" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td scope="row" align="right">계좌번호</td>
 							<td scope="row">
-								<sbux-input id="actno" name="actno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-actno" name="inp-actno" uitype="text" class="form-control input-sm"></sbux-input>
 
 							</td>
 							<td scope="row" align="right">입금은행</td>
 							<td >
-								<sbux-select id="comboBankNm" name="comboBankNm" uitype="single" jsondata-ref="jsonComboBankNm" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="slt-bankCd" name="slt-bankCd" uitype="single" jsondata-ref="jsonComboBankNm" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 
 							<td scope="row" align="right">예금주명</td>
 							<td scope="row">
-								<sbux-input id="dpstr" name="dpstr" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-dpstr" name="inp-dpstr" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -571,33 +571,39 @@
 	var comboGridCnptTypeJsData = [];
 
 	const fn_initSBSelect = async function() {
-		gfn_setComCdSBSelect('comboBankNm', jsonComboBankNm ,	'BANK_CD', '0000');				// 검색 조건(시스템구분)
-		gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000");
-		gfn_setComCdGridSelect('grdPlt', comboUnitCdJsData, "UNIT_CD", "0000");
-		gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000");
-		gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000");
-		gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000");
+		await gfn_setComCdSBSelect('slt-bankCd', jsonComboBankNm ,	'BANK_CD', '0000');				// 검색 조건(시스템구분)
+		await gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000");
+		await gfn_setComCdGridSelect('grdPlt', comboUnitCdJsData, "UNIT_CD", "0000");
+		await gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000");
+		await gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000");
+		await gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000");
+		await selectApcInfo();
 	}
 
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("inp-apcCd", gv_apcCd);
-		selectApcInfo();
 		fn_initSBSelect();
 	})
 
 
 	async function selectApcInfo(){
-		let apcCd = SBUxMethod.get("inp-apcCd");
+		let apcCd = gv_apcCd;
     	let postJsonPromise = gfn_postJSON("/am/apc/selectApcInfo.do", {apcCd : apcCd});
 
         let data = await postJsonPromise;
 		let resultVO = data.resultVO;
+		console.log(resultVO);
         try{
 
         	SBUxMethod.set("inp-apcNm", resultVO.regApcNm);
-        	SBUxMethod.set("telNo", resultVO.regTelNo);
-        	SBUxMethod.set("addr", resultVO.regAddr);
+        	SBUxMethod.set("inp-telno", resultVO.regTelno);
+        	SBUxMethod.set("inp-addr", resultVO.regAddr);
+        	SBUxMethod.set("inp-fxno", resultVO.fxno);
+        	SBUxMethod.set("inp-actno", resultVO.actno);
+        	SBUxMethod.set("slt-bankCd", resultVO.bankCd);
+        	SBUxMethod.set("inp-dpstr", resultVO.dpstr);
+        	SBUxMethod.set("inp-brno", resultVO.brno);
 
         }catch (e) {
     		if (!(e instanceof Error)) {

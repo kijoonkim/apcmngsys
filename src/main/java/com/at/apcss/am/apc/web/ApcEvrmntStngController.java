@@ -42,14 +42,14 @@ public class ApcEvrmntStngController extends BaseController{
 
 	// APC 환경설정 - APC 정보 조회
 	@PostMapping(value = "/am/apc/selectApcInfo.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectApcInfo(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectApcInfo(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
 
 		logger.debug("selectApcInfo 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		ApcEvrmntStngVO resultVO = new ApcEvrmntStngVO();
 		try {
-			resultVO = apcEvrmntStngService.selectApcInfo(comUserVO);
+			resultVO = apcEvrmntStngService.selectApcInfo(apcEvrmntStngVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -58,7 +58,7 @@ public class ApcEvrmntStngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// APC 정보관리 - APC 내역 조회
 	@PostMapping(value = "/am/apc/selectApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcDsctnList(@RequestBody ApcEvrmntStngVO ApcEvrmntStngVO, HttpServletRequest request) throws Exception {
@@ -77,7 +77,7 @@ public class ApcEvrmntStngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-		
+
 	// APC 정보관리 - APC 내역 수정
 //	@PostMapping(value = "/am/apc/updateApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 //	public ResponseEntity<HashMap<String, Object>> updateApcDsctnList(@RequestBody List<ApcEvrmntStngVO> updateList, HttpServletRequest request) throws Exception {
@@ -99,7 +99,7 @@ public class ApcEvrmntStngController extends BaseController{
 //
 //		return getSuccessResponseEntity(resultMap);
 //	}
-	
+
 	// APC 정보관리 - APC 내역 등록
 	@PostMapping(value = "/am/apc/insertApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertApcDsctnList(@RequestBody List<ApcEvrmntStngVO> insertList, HttpServletRequest request) throws Exception {
@@ -124,7 +124,7 @@ public class ApcEvrmntStngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	
+
 	// APC 정보관리 - APC 내역 등록 (beta)
 	@PostMapping(value = "/am/apc/updateApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateApcDsctnList(@RequestBody Map<String, List<ApcEvrmntStngVO>> ApcEvrmntStngVO, HttpServletRequest request) throws Exception {
@@ -168,8 +168,8 @@ public class ApcEvrmntStngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	
+
+
 	// APC 환경설정 - 사용자 목록 조회
 	@PostMapping(value = "/am/apc/selectApcUserList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcUserList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
