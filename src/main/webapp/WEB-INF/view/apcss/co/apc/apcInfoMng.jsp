@@ -95,20 +95,20 @@
 	
 	function fn_createApcInfoMngGrid() {
 		apcInfoMngData = [];
-        var SBGridProperties = {};
+		var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdApcInfoMng';
 	    SBGridProperties.id = 'grdApcInfoMng';
 	    SBGridProperties.jsonref = 'apcInfoMngData';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = {
-			'type' : 'page',
+    	SBGridProperties.paging = {
+			'type' : 'all',
 		  	'count' : 5,
 		  	'size' : 20,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
-		};
+	    };
         SBGridProperties.columns = [
         	{caption: ['선택'], ref: 'slt', width: '50px', type: 'checkbox'},
             {caption: ['APC코드'], ref: 'apcCd', width: '70px', type: 'output'},
