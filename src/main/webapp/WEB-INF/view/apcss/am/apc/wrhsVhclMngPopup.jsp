@@ -92,7 +92,7 @@
 	        {caption: ["차량번호"], 	ref: 'vhclno',  type:'input',  width:'120px',    style:'text-align:center'},
 	        {caption: ["기사명"], 		ref: 'drvrNm',  type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["은행"], 		ref: 'bankCd',  type:'combo',  width:'120px',    style:'text-align:center',
-	        			typeinfo : {ref:'comboGridBankCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},			
+	        			typeinfo : {ref:'comboGridBankCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
 	        {caption: ["계좌번호"], 	ref: 'actno',  	type:'input',  width:'180px',    style:'text-align:center'},
 	        {caption: ["예금주"], 		ref: 'dpstr',  	type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'280px',    style:'text-align:center'},
@@ -198,7 +198,7 @@
 				  , delYn 			: item.delYn
 				  , apcCd			: item.apcCd
 				}
-				
+
 				newRgnTrsprtCstGridData.push(Object.assign({}, rgnTrsprtCst));
 				rgnTrsprtCstMngGridData.push(Object.assign({}, rgnTrsprtCst));
 			});
@@ -220,22 +220,22 @@
 				return
 			}
 		}
-		
+
 		var isEqual1 = await chkEqualObj(wrhsVhclMngGridData, newWrhsVhclGridData);
 		var isEqual2 = await chkEqualObj(rgnTrsprtCstMngGridData, newRgnTrsprtCstGridData);
 		console.log(isEqual1 && isEqual2);
 		if (isEqual1 && isEqual2){
-			alert("등록 할 내용이 없습니다.");
+			alert("저장 할 내용이 없습니다.");
 			return;
 		}
 
-		let regMsg = "등록 하시겠습니까?";
+		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 			let postJsonPromise1 = gfn_postJSON("/am/cmns/compareWrhsVhclList.do", {origin : newWrhsVhclGridData, modified : wrhsVhclMngGridData});
 			let postJsonPromise2 = gfn_postJSON("/am/cmns/compareRgnTrsprtCstList.do", {origin : newRgnTrsprtCstGridData, modified : rgnTrsprtCstMngGridData});
 
-			alert("등록 되었습니다.");
-			
+			alert("저장 되었습니다.");
+
 			fn_callSelectWrhsVhclList();
 			fn_callSelectRgnTrsprtCstList();
 		}
@@ -245,7 +245,7 @@
 	}
 	async function fn_deleteRgnTrsprtCstList(rgnTrsprtCst){
 		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteRgnTrsprtCstList.do", rgnTrsprtCst);
-		
+
 	}
 </script>
 </html>

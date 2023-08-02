@@ -161,26 +161,26 @@
 				}
 			}
 		}
-		
+
 		var isEqual1 = await chkEqualObj(cnptMngGridData, newCnptGridData);
 		console.log(isEqual1);
 		if (isEqual1){
-			alert("등록 할 내용이 없습니다.");
+			alert("저장 할 내용이 없습니다.");
 			return;
 		}
 
-		let regMsg = "등록 하시겠습니까?";
+		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 			let postJsonPromise1 = await gfn_postJSON("/am/cmns/compareCnptList.do", {origin : newCnptGridData, modified : cnptMngGridData});
 			let postJsonPromise2 = await gfn_postJSON("/am/cmns/compareOrdrList.do", {origin : newCnptGridData, modified : cnptMngGridData});
 
-			alert("등록 되었습니다.");
-			
-			
+			alert("저장 되었습니다.");
+
+
 			fn_callSelectCnptList();
 		}
 	}
-	
+
 	async function fn_deleteCnptList(cnpt){
 		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteCnptList.do", cnpt);
 	}

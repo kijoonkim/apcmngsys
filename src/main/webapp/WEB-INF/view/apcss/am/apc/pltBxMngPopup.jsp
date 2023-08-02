@@ -89,7 +89,7 @@
 	        {caption: ["팔레트 정보","단중"], 			ref: 'unitWght',   		type:'input',  width:'180px',    style:'text-align:center'},
 	        {caption: ["팔레트 정보","단위"], 			ref: 'unitCd',   		type:'combo',  width:'130px',    style:'text-align:center',
 				typeinfo : {ref:'comboUnitCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
-				
+
 
 	        {caption: ["팔레트 정보","기초재고수량"], 	ref: 'bssInvntrQntt',  	type:'input',  width:'130px',    style:'text-align:center'},
 	        {caption: ["팔레트 정보","사용유무"], 		ref: 'useYn',   		type:'combo',  width:'130px',    style:'text-align:center',
@@ -178,7 +178,7 @@
     		console.error("failed", e.message);
         }
 	}
-	
+
 	// 박스 목록 조회
 	let newJsonBx = [];
 	async function fn_callSelectBxList(){
@@ -258,22 +258,22 @@
 			}
 		}
 
-		
+
 		var isEqual1 = await chkEqualObj(jsonPlt, newJsonPlt);
 		var isEqual2 = await chkEqualObj(jsonBx, newJsonBx);
 
-		
+
 		if(isEqual1 && isEqual2){
-			alert("등록 할 내용이 없습니다.");
+			alert("저장 할 내용이 없습니다.");
 			return;
 		}
-		let regMsg = "등록 하시겠습니까?";
+		let regMsg = "저장 하시겠습니까?";
 		if(await confirm(regMsg)){
 			let postJsonPromise1 = await gfn_postJSON("/am/cmns/comparePltBx.do", {origin : newJsonPlt, modified : jsonPlt});
 			let postJsonPromise2 = await gfn_postJSON("/am/cmns/comparePltBx.do", {origin : newJsonBx, modified : jsonBx});
 
-			
-			alert("등록 되었습니다.");
+
+			alert("저장 되었습니다.");
 		}
 	}
 	async function fn_deletepltBx(pltBxVO){
