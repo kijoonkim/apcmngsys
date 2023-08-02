@@ -20,10 +20,10 @@
 					<h3 class="box-title">▶ 상품입고등록</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="nonormal"  text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="nonormal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="nonormal" text="저장" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="nonormal" text="삭제" class="btn btn-sm btn-outline-danger"></sbux-button>
 				</div>
 			</div>
 
