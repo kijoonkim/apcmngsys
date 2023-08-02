@@ -143,6 +143,8 @@
 			alert("등록 되었습니다.");
 		}
 	}
-
+	async function fn_deleteSpmtTrsprtList(spmtTrsprtMngDatagrid){
+		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteSpmtTrsprtList.do", spmtTrsprtMngDatagrid);
+	}
 </script>
 </html>

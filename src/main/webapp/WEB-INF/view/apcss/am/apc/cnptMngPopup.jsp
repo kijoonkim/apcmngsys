@@ -181,7 +181,9 @@
 		}
 	}
 	
-
+	async function fn_deleteCnptList(cnpt){
+		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteCnptList.do", cnpt);
+	}
     var ordrMngGridData = [
     	{"martNm": "이마트", "ordrUrl" : "https://supply.nonghyup.com", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
     	{"martNm": "노브랜드", "ordrUrl" : "https://supply.nonghyup.com", "userId":"", "userPw":"", "useYn":"","prcsDt":""},

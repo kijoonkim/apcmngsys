@@ -240,6 +240,12 @@
 			fn_callSelectRgnTrsprtCstList();
 		}
 	}
-
+	async function fn_deleteWrhsVhclList(wrhsVhclVo){
+		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteWrhsVhclList.do", wrhsVhclVo);
+	}
+	async function fn_deleteRgnTrsprtCstList(rgnTrsprtCst){
+		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteRgnTrsprtCstList.do", rgnTrsprtCst);
+		
+	}
 </script>
 </html>
