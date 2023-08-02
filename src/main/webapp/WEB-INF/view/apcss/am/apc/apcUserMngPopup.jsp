@@ -84,10 +84,10 @@
 	        {caption: ["직책"], 		ref: 'jbttlNm',   	type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["담당업무"], 	ref: 'tkcgTaskNm',  type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["권한"], 		ref: 'userStts', 	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-            	if(strValue === "01"){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
+            	if(strValue === "00"){
+            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ", \"01\")'>사용승인</button>";
             	}else{
-			        return "승인완료";
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ", \"00\")'>승인취소</button>";
             	}
 		    }},
 		    {caption: ["비밀번호"], 		ref: 'lckYn',   type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -140,16 +140,15 @@
         }
 	}
 
-	async function fn_updateComUserAprv() {
-    	let nRow = userAuthMngDatagrid.getRow();
+	async function fn_updateComUserAprv(nRow, usrtStts) {
     	let userId = userAuthMngDatagrid.getRowData(nRow).userId;
-    	let postJsonPromise = gfn_postJSON("/co/user/updateComUserAprv.do", {userId : userId, userStts : '99'});
+    	let postJsonPromise = gfn_postJSON("/co/user/updateComUserAprv", {userId : userId, userStts : usrtStts});
     	let data = await postJsonPromise;
     	try{
     		if(data.result == 0){
-    			alert("승인 실패 했습니다.");
+    			alert("처리 실패 했습니다.");
     		}else{
-    			alert("승인 되었습니다.");
+    			alert("처리 되었습니다.");
     			fn_callSelectUserList();
     		}
     	}catch (e) {

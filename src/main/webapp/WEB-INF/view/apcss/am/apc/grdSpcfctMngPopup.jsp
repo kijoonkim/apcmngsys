@@ -115,7 +115,7 @@
 	    SBGridProperties.columns = [
 	        {caption: ["명칭"],     	ref: 'grdNm',  type:'input',  width:'140px',    style:'text-align:center'},
 	        {caption: ["사용유무"], 	ref: 'delYn',  type:'combo',  width:'80px',    style:'text-align:center',
-				typeinfo : {ref:'jsonUseYn', label:'label', value:'value',  displayui : true}},
+				typeinfo : {ref:'jsonUseYn', label:'label', value:'value',  displayui : false}},
 	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdGrd\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -138,7 +138,7 @@
 	async function fn_callSelectGrdList(){
 		let apcCd = gv_apcCd;
 		let itemCd = SBUxMethod.get("spcfct-select-itemCd");
-		let postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtPckgUnitList.do", {apcCd : apcCd, itemCd : itemCd});
+		let postJsonPromise = gfn_postJSON("/am/cmns/selectApcGrdList.do", {apcCd : apcCd, itemCd : itemCd});
 	    let data = await postJsonPromise;
 	    let newGrdGridData = [];
 	    try{
@@ -155,6 +155,7 @@
 	    	jsonGrd = newGrdGridData;
 	    	grdGrd.rebuild();
 	    	grdGrd.addRow(true);
+	    	console.log("asdasdsd");
 	    }catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -177,13 +178,13 @@
 	    SBGridProperties.columns = [
 	        {caption: ["규격명"],   ref: 'spcfctNm',  	type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["중량단위"], ref: 'unitCd',   	type:'combo',  width:'80px',    style:'text-align:center',
-				typeinfo : {ref:'jsonSpcfctUnitCd', 	itemcount: 3, label:'label', value:'value', displayui : true}},
-	        {caption: ["포장구분"], ref: 'pckgSttsCd',   	type:'combo',  width:'80px',    style:'text-align:center',
-				typeinfo : {ref:'jsonSpcfctPckgSttsCd', itemcount: 10, label:'label', value:'value', displayui : true}},
-	        {caption: ["평균입수"],	ref: 'bxGdsQntt',  	type:'input',  width:'80px',    style:'text-align:center'},
-	        {caption: ["단중"],     ref: 'wght',  		type:'input',  width:'80px',    style:'text-align:center'},
+				typeinfo : {ref:'jsonSpcfctUnitCd', 	itemcount: 3, label:'label', value:'value', displayui : false}},
+	        {caption: ["포장구분"], ref: 'pckgSttsCd',   	type:'combo',  width:'100px',    style:'text-align:center',
+				typeinfo : {ref:'jsonSpcfctPckgSttsCd', itemcount: 10, label:'label', value:'value', displayui : false}},
+	        {caption: ["평균입수"],	ref: 'bxGdsQntt',  	type:'input',  width:'70px',    style:'text-align:center'},
+	        {caption: ["단중"],     ref: 'wght',  		type:'input',  width:'70px',    style:'text-align:center'},
 	        {caption: ["사용유무"], 	ref: 'delYn',  type:'combo',  width:'80px',    style:'text-align:center',
-				typeinfo : {ref:'jsonUseYn', label:'label', value:'value',  displayui : true}},
+				typeinfo : {ref:'jsonUseYn', label:'label', value:'value',  displayui : false}},
 			{caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdApcSpcfct\", " + nRow + ", " + nCol + ")'>추가</button>";

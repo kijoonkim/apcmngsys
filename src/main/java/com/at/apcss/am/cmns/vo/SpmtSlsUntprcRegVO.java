@@ -19,4 +19,9 @@ public class SpmtSlsUntprcRegVO extends SpmtPckgUnitVO{
 	 * 비고
 	 */
 	private String rmrk;
+
+	/**
+	 *   적용기준일자
+	 */
+	private String aplcnCrtrYmd;
 }

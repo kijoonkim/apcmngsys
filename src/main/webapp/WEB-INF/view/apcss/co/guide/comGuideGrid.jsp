@@ -159,7 +159,8 @@
             }},
             {caption: ["사용유무"], 	ref: 'useYn',   	type:'combo',   width:'100px',    style:'text-align:center',
     			typeinfo : {ref:'combofilteringData', label:'label', value:'value', displayui : true}},
-            {caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'150px',    style:'text-align:center'}
+            {caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'150px',    style:'text-align:center'},
+    		{caption: ["적용기준일자"], ref: 'aplcnCrtrYmd', 	type : 'datepicker', typeinfo: {dateformat: 'YYYY-MM-DD'}, format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYY-MM-DD'},  width:'200px',    style:'text-align:center'},
         ];
         window.datagrid = _SBGrid.create(SBGridProperties);
         datagrid.bind( "beforepagechanged" , "fn_Paging" );
