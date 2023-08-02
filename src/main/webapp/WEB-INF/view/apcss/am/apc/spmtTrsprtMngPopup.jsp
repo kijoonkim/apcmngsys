@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSpmtTrsprtSech" name="btnSpmtTrsprtSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSpmtTrsprtList()"></sbux-button>
-					<sbux-button id="btnSpmtTrsprtReg" name="btnSpmtTrsprtReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertSpmtTrsprtList"></sbux-button>
+					<sbux-button id="btnSpmtTrsprtReg" name="btnSpmtTrsprtReg" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertSpmtTrsprtList"></sbux-button>
 					<sbux-button id="btnSpmtTrsprtEnd" name="btnSpmtTrsprtEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-spmtTrsprt')"></sbux-button>
 				</div>
 			</div>
@@ -96,7 +96,7 @@
 	async function fn_selectSpmtTrsprtList(){
 		fn_callSelectSpmtTrsprtList();
 	}
-	let newSpmtTrsprtGridData = [];
+	var newSpmtTrsprtGridData = [];
 	async function fn_callSelectSpmtTrsprtList(){
 		spmtTrsprtMngGridData = [];
 		let apcCd = SBUxMethod.get("inp-apcCd");
@@ -117,7 +117,7 @@
 				spmtTrsprtMngGridData.push(Object.assign({}, spmtTrsprt));
 				newSpmtTrsprtGridData.push(Object.assign({}, spmtTrsprt));
 			});
-        	console.log("spmtTrsprtMngGridData", spmtTrsprtMngGridData);git 
+        	console.log("spmtTrsprtMngGridData", spmtTrsprtMngGridData); 
         	spmtTrsprtMngDatagrid.rebuild();
         	spmtTrsprtMngDatagrid.addRow();
         }catch (e) {
@@ -129,14 +129,6 @@
 	}
 	
 	async function fn_insertSpmtTrsprtList(){
-// 		for(var i=0; i<wrhsVhclMngGridData.length; i++){
-// 			if(wrhsVhclMngGridData[i].delYn == "N" && (wrhsVhclMngGridData[i].vhclno == null || wrhsVhclMngGridData[i].vhclno == "")){
-// 				console.log(wrhsVhclMngGridData[i]);
-// 				alert("차량번호는 필수 값 입니다.");
-// 				return
-// 			}
-// 		}
-		
 		var isEqual1 = await chkEqualObj(spmtTrsprtMngGridData, newSpmtTrsprtGridData);
 		console.log(isEqual1);
 		if (isEqual1){
