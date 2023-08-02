@@ -77,10 +77,10 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
 	        {caption: ["코드"], 			ref: 'trsprtCoCd',  type:'output',  width:'80px',     style:'text-align:center', hidden : true},
-	        {caption: ["운송회사명"], 		ref: 'trsprtCoNm',  type:'input',  width:'150px',    style:'text-align:center'},
-	        {caption: ["전화번호"], 		ref: 'telno',  		type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["팩스번호"], 		ref: 'fxno',  		type:'input',  width:'100px',    style:'text-align:center'},
-	        {caption: ["비고"], 			ref: 'rmrk',  		type:'input',  width:'330px',    style:'text-align:center'},
+	        {caption: ["운송회사명"], 		ref: 'trsprtCoNm',  type:'input',  width:'145px',    style:'text-align:center'},
+	        {caption: ["전화번호"], 		ref: 'telno',  		type:'input',  width:'145px',    style:'text-align:center'},
+	        {caption: ["팩스번호"], 		ref: 'fxno',  		type:'input',  width:'145px',    style:'text-align:center'},
+	        {caption: ["비고"], 			ref: 'rmrk',  		type:'input',  width:'320px',    style:'text-align:center'},
 	        {caption: ["처리"], 			ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"spmtTrsprtMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
