@@ -179,10 +179,10 @@ public class ComUserApiController extends BaseController {
 		
 		return getSuccessResponseEntity(resultMap);
 	}
-
+							
 	@PostMapping(value = "/co/user/compareComUserAprv.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> compareCnptList(@RequestBody Map<String, List<ComUserVO>> comUserVO, HttpServletRequest request) throws Exception {
-		logger.debug("compareComUserAprv 호출 <><><><> ");
+		logger.debug("compareComUser 호출 <><><><> ");
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		int insertCnt = 0;

@@ -120,7 +120,9 @@
 		<if test='ogdpNm != null and ogdpNm != ""'>
 			   AND CU.OGDP_NM LIKE '%' || #{ogdpNm} || '%'
 		</if>
-
+		<if test='apcNm != null and apcNm != ""'>
+			   AND (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CU.APC_CD) LIKE #{apcNm}
+		</if>
     	<![CDATA[
     		 ORDER BY USER_ID, USER_NM
     	]]>

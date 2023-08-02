@@ -72,7 +72,7 @@
 							<li><span>작업실적</span></li>
 						</ul>
 						<div class="ad_tbl_toplist">
-							<sbux-button id="btn-bndlPrfmnc" name="btn-bndlPrfmnc" uitype="normal" text="일괄승인" class="btn btn-sm btn-outline-danger" onclick=""></sbux-button>
+							<sbux-button id="btn-bndlPrfmnc" name="btn-bndlPrfmnc" uitype="normal" text="일괄승인" class="btn btn-sm btn-outline-danger" onclick="fn_bndlAprv()"></sbux-button>
 						</div>
 					</div>
 					<div id="sb-area-grdUserAprvReg" style="height:300px; margin-top:8px;"></div>
@@ -133,7 +133,7 @@ async function fn_callSelectUserList(){
 	let userNm = SBUxMethod.get("srch-inp-userNm");
 	
 	var comUserVO = { apcNm: apcNm, aprvYn: aprvYn, userNm: userNm}
-	
+	console.log('apcNm',apcNm);
 	let postJsonPromise = gfn_postJSON("/co/user/users", comUserVO);
     let data = await postJsonPromise;                
     newUserAprvRegGridData = [];
@@ -165,6 +165,7 @@ async function fn_callSelectUserList(){
 		});
 		console.log("newUserAprvRegGridData", newUserAprvRegGridData);
 		console.log("userAprvRegGridData", userAprvRegGridData);
+		console.log('aprvYn',aprvYn);
 		userAprvRegGridId.rebuild();
     }catch (e) {
 		if (!(e instanceof Error)) {
@@ -209,6 +210,7 @@ async function fn_bndlAprv() {
 			let postJsonPromise = gfn_postJSON("/co/user/updateComUserAprv", userAprvRegGridData[i]);
 		}
 	}
+	fn_selectUserList();
 }
 
 </script>
