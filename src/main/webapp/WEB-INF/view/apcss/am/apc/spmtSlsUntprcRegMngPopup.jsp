@@ -45,6 +45,7 @@
 								<th scope="row">포장단위명</th>
 								<th>
 									<sbux-input id="spmtSlsUntprcReg-inp-spmtPckgUnitNm" name="spmtSlsUntprcReg-inp-spmtPckgUnitNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+									<sbux-input id="spmtSlsUntprcReg-inp-spmtPckgUnitCd" name="spmtSlsUntprcReg-inp-spmtPckgUnitCd" uitype="hidden" class="form-control input-sm" disabled></sbux-input>
 								</th>
 								<th></th>
 								<th></th>
@@ -106,7 +107,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["적용기준일자"], ref: 'aplcnCrtrYmd', 	type : 'datepicker', typeinfo: {dateformat: 'YYYY-MM-DD'}, format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYY-MM-DD'},  width:'200px',    style:'text-align:center'},
+	        {caption: ["적용기준일자"], ref: 'aplcnCrtrYmd', 	type : 'datepicker', typeinfo: {dateformat: 'yyyy-mm-dd'}, format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'},  width:'200px',    style:'text-align:center'},
 	        {caption: ["매출단가"],     ref: 'spmtSlsUntprc',  	type:'input',  width:'150px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
 	        {caption: ["비고"],     	ref: 'rmrk',  			type:'input',  width:'500px',    style:'text-align:center'},
 	        {caption: ["처리"], 		ref: 'delYn',  			type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -169,8 +170,8 @@
 		for(var i=1; i<=gridData.length; i++ ){
 			if(grdSpmtSlsUntprcReg.getRowData(i).delYn == 'N'){
 
-				if(grdSpmtSlsUntprcReg.getRowData(i).itemCd == null || grdSpmtSlsUntprcReg.getRowData(i).itemCd == ""){
-					alert("품목은 필수 값 입니다.");
+				if(grdSpmtSlsUntprcReg.getRowData(i).aplcnCrtrYmd == null || grdSpmtSlsUntprcReg.getRowData(i).aplcnCrtrYmd == ""){
+					alert("적용기준일자는 필수 값 입니다.");
 					return;
 				}
 

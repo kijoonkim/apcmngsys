@@ -85,9 +85,9 @@
 	        {caption: ["담당업무"], 	ref: 'tkcgTaskNm',  type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["권한"], 		ref: 'userStts', 	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue === "00"){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ", \"01\")'>사용승인</button>";
+            		return "<button type='button' class='btn btn-xs btn-outline-danger' style='color:blue' onClick='fn_updateComUserAprv("+ nRow + ", \"01\")'>사용승인</button>";
             	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ", \"00\")'>승인취소</button>";
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' style='color:red' onClick='fn_updateComUserAprv("+ nRow + ", \"00\")'>승인취소</button>";
             	}
 		    }},
 		    {caption: ["비밀번호"], 		ref: 'lckYn',   type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -148,7 +148,6 @@
     		if(data.result == 0){
     			alert("처리 실패 했습니다.");
     		}else{
-    			alert("처리 되었습니다.");
     			fn_callSelectUserList();
     		}
     	}catch (e) {
