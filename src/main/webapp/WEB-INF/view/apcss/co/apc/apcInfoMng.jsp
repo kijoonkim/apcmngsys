@@ -20,7 +20,6 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-danger" text="등록" onclick="fn_insert"></sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -40,7 +39,7 @@
 						<tr>
 							<th class="ta_c">APC코드</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-apcCd" name="srch-inp-apcCd" class="form-control input-sm" placeholder="입력" title="입력하세요." onkeyenter="fn_search"/>
+								<sbux-input uitype="text" id="srch-inp-apcCd" name="srch-inp-apcCd" class="form-control input-sm" onkeyenter="fn_search"/>
 							</td>
 							<th class="ta_c">원본 APC명</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -111,20 +110,20 @@
 		  	'showgoalpageui' : true
 		};
         SBGridProperties.columns = [
-        	{caption: ['선택'], ref: 'slt', width: '100px', type: 'checkbox'},
-            {caption: ['APC코드'], ref: 'apcCd', width: '100px', type: 'output'},
-            {caption: ['원본APC명'], ref: 'regApcNm', width: '100px', type: 'input'},
-            {caption: ['시도명'], ref: 'ctpvNm', width: '100px', type : 'input'},
-            {caption: ['시군명'], ref: 'sigunNm', width: '100px', type: 'input'},
-            {caption: ['주체명'], ref: 'mbCd', width: '100px', type: 'input'},
-            {caption: ['원본주소'], ref: 'regAddr', width: '100px', type: 'input'},
+        	{caption: ['선택'], ref: 'slt', width: '50px', type: 'checkbox'},
+            {caption: ['APC코드'], ref: 'apcCd', width: '70px', type: 'output'},
+            {caption: ['원본APC명'], ref: 'regApcNm', width: '200px', type: 'input'},
+            {caption: ['시도명'], ref: 'ctpvNm', width: '70px', type : 'input'},
+            {caption: ['시군명'], ref: 'sigunNm', width: '70px', type: 'input'},
+            {caption: ['주체명'], ref: 'mbCd', width: '70px', type: 'input'},
+            {caption: ['원본주소'], ref: 'regAddr', width: '300px', type: 'input'},
             {caption: ['원본전화번호'], ref: 'regTelno', width: '100px', type: 'input'},
-            {caption: ['APC명'], ref: 'apcNm', width: '100px', type: 'input'},
+            {caption: ['APC명'], ref: 'apcNm', width: '200px', type: 'input'},
             {caption: ['사업자번호'], ref: 'brno', width: '100px', type: 'input'},
-            {caption: ['주소'], ref: 'addr', width: '100px', type: 'input'},
+            {caption: ['주소'], ref: 'addr', width: '300px', type: 'input'},
             {caption: ['팩스번호'], ref: 'fxno', width: '100px', type: 'input'},
             {caption: ['전화번호'], ref: 'telno', width: '100px', type: 'input'},
-            {caption: ['사용유무'], ref: 'delYn', width: '100px', type : 'combo',
+            {caption: ['사용유무'], ref: 'delYn', width: '70px', type : 'combo',
             	typeinfo : {ref:'comboDelYnJsData', label:'label', value:'value', oneclickedit: true, displayui : true}}
         ];
         grdApcInfoMng = _SBGrid.create(SBGridProperties);
@@ -197,9 +196,9 @@
 				  , telno 		: item.telno
 				  , delYn		: item.delYn
 				}
-				newApcInfoMngData.push(apcDsctn);
+				apcInfoMngData.push(Object.assign({}, apcDsctn));
+				newApcInfoMngData.push(Object.assign({}, apcDsctn));
 			});
-        	apcInfoMngData = newApcInfoMngData;
         	grdApcInfoMng.rebuild();
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -210,72 +209,6 @@
 	}
 	
 	// 등록 버튼
-// 	async function fn_insert(){
-// 		let gridData = grdApcInfoMng.getGridDataAll();
-		
-// 		for(var i=0; i<gridData.length; i++){
-// 			console.log(i, grdApcInfoMng.getRowStatus(i+1), gridData[i]);
-// 		}
-
-// 		let updateList = [];
-// 		let insertList = [];
-// 		for(var i=0; i<gridData.length; i++){
-// 			if(gridData[i].delYn == "N" && (gridData[i].regApcNm == null || gridData[i].regApcNm == "")){
-// 				alert("원본 APC명은 필수 값 입니다.");
-// 				return
-// 			}
-// 			else{
-// 				if(grdApcInfoMng.getRowStatus(i+1) === 2){
-// 					updateList.push(gridData[i]);
-// 				}
-// 				else if(grdApcInfoMng.getRowStatus(i+1) === 3){
-// 					gridData[i].apcCd = "5556"
-// 					insertList.push(gridData[i]);
-// 				}
-// 			}
-// 		}
-// 		if(updateList.length == 0 && insertList.length == 0){
-// 			alert("등록 할 내용이 없습니다.");
-// 			return;
-// 		}
-// 		if(updateList.length != 0){
-// 			let postJsonPromise = gfn_postJSON("/am/apc/updateApcDsctnList.do", updateList);
-// 	        let data = await postJsonPromise;
-// 	        try{
-// 	        	if(data.result > 0){
-// 	        		//fn_callSelectUserList();
-// 	        		alert("수정 되었습니다.");
-// 	        	}else{
-// 	        		alert("수정 실패 하였습니다.");
-// 	        	}
-	
-// 	        }catch (e) {
-// 	        	if (!(e instanceof Error)) {
-// 	    			e = new Error(e);
-// 	    		}
-// 	    		console.error("failed", e.message);
-// 			}
-// 		}
-// 		if(insertList.length != 0){
-// 			let postJsonPromise = gfn_postJSON("/am/apc/insertApcDsctnList.do", insertList);
-// 	        let data = await postJsonPromise;
-// 	        try{
-// 	        	if(data.result > 0){
-// 	        		//fn_callSelectUserList();
-// 	        		alert("등록 되었습니다.");
-// 	        	}else{
-// 	        		alert("등록 실패 하였습니다.");
-// 	        	}
-	
-// 	        }catch (e) {
-// 	        	if (!(e instanceof Error)) {
-// 	    			e = new Error(e);
-// 	    		}
-// 	    		console.error("failed", e.message);
-// 			}
-// 		}
-// 	}
-	
 	async function fn_insert(){
 		for(var i=0; i<apcInfoMngData.length; i++){
 			if(apcInfoMngData[i].delYn == "N" && (apcInfoMngData[i].regApcNm == null || apcInfoMngData[i].regApcNm == "")){
@@ -284,12 +217,12 @@
 			}
 		}
 		
-// 		var isEqual1 = await chkEqualObj(apcInfoMngData, newApcInfoMngData);
-// 		console.log(isEqual1);
-// 		if (isEqual1){
-// 			alert("등록 할 내용이 없습니다.");
-// 			return;
-// 		}
+		var isEqual1 = await chkEqualObj(apcInfoMngData, newApcInfoMngData);
+		console.log(isEqual1);
+		if (isEqual1){
+			alert("등록 할 내용이 없습니다.");
+			return;
+		}
 		
 		let regMsg = "등록 하시겠습니까?";
 		if(confirm(regMsg)){
@@ -297,7 +230,7 @@
 			let data = await postJsonPromise;
 	        try{
 	        	if(data.insertedCnt > 0){
-	        		//fn_callSelectUserList();
+	        		fn_callSelectApcDsctnList()
 	        		alert("등록 되었습니다.");
 	        	}else{
 	        		alert("등록 실패 하였습니다.");

@@ -149,7 +149,7 @@
     		)
    		VALUES
    			(
-   				'5557'
+   				FN_GET_ID_APC_CD
     		  , #{regApcNm}
     		  , #{ctpvNm}
     		  , #{sigunNm}
