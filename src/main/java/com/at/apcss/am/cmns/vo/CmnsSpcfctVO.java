@@ -11,17 +11,17 @@ import lombok.Setter;
  * @version 1.0
  * @see
  *
- * <pre>
+ *      <pre>
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
  * 2023.06.21  신정철        최초 생성
- * </pre>
+ *      </pre>
  */
 @Getter
 @Setter
 public class CmnsSpcfctVO extends CmnsItemVO {
-	
+
 	/**
 	 * 규격코드
 	 */
@@ -30,4 +30,22 @@ public class CmnsSpcfctVO extends CmnsItemVO {
 	 * 규격명
 	 */
 	private String spcfctNm;
+
+	/**
+	 * 단위
+	 */
+	private String unitCd;
+
+	/**
+	 * 포장구분
+	 */
+	private String pckgSttsCd;
+	/**
+	 * 평균입수
+	 */
+	private String bxGdsQntt;
+	/**
+	 * 단중
+	 */
+	private String wght;
 }

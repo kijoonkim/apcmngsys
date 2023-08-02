@@ -403,6 +403,41 @@ public class ComAuthrtController extends BaseController{
 	}
 	
 	/**
+	 * APC 사용 등록 시 APC의 권한그룹 등록 (관리자, 사용자)
+	 */
+	@PostMapping(value = "/co/authrt/insertApcAuthrtId.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertApcAuthrtId(@RequestBody ComAuthrtVO comAuthrtVO, HttpServletRequest request) throws Exception {
+		
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			// validation check
+			
+			comAuthrtVO.setSysFrstInptUserId(getUserId());
+			comAuthrtVO.setSysFrstInptPrgrmId(getPrgrmId());
+			comAuthrtVO.setSysLastChgUserId(getUserId());
+			comAuthrtVO.setSysLastChgPrgrmId(getPrgrmId());
+			
+			comAuthrtVO.setSysFrstInptUserId("tempUser");
+			comAuthrtVO.setSysFrstInptPrgrmId("tempPrgrm");
+			comAuthrtVO.setSysLastChgUserId("tempUser");
+			comAuthrtVO.setSysLastChgPrgrmId("tempPrgrm");
+			
+			HashMap<String, Object> rtnObj = comAuthrtService.insertApcAuthrtId(comAuthrtVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
+	/**
 	 * APC 메뉴간편설정 등록 시 APC의 권한 등록 (관리자, 사용자)
 	 */
 	@PostMapping(value = "/co/authrt/insertApcSimpleAuthrt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})

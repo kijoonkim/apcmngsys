@@ -4,11 +4,24 @@
 .tbl_fixed{ table-layout: fixed; }
 .bg_tr{ background: #f4f4f4 !important; }
 .th_label { text-align: left; }
+
 .td_input { padding: 3px !important; }
+.th_bg { background-color: #e8f1f9;}
+
 .td_input .input-sm {
 	height: 28px;
 	padding: 4px 8px;
 }
+
+.input-sm-ast:focus {
+	 border: 1px solid #e53c48;
+}
+
+.input-sm-ast:hover {
+	 border: 1px solid #e53c48;
+}
+
+
 .bg_th {
 	background-color: #f4f4f4;
 }
@@ -91,6 +104,7 @@ caption {
 	border-color: #fff !important;
 	background-color: #e8f1f9;
 }
+
 .tbl_row tbody tr th {
 	background-color: #e8f1f9;
 }
@@ -98,6 +112,7 @@ caption {
 .tbl_row_c tbody td {
 	text-align: center;
 }
+
 
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
 	vertical-align: middle;

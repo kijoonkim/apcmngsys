@@ -31,6 +31,7 @@ public class ComUserVO extends ComVO {
 	private int lgnFailNmtm;
 	private String endLgnDt;
 	private String endLgnIp;
+	private String aprvYn;
 	private String userTypeNm;
 	private String userSttsNm;
 }

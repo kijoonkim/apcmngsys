@@ -47,6 +47,10 @@
 				  GC.ITEM_CD
 				, GC.SPCFCT_CD
 				, GC.SPCFCT_NM
+				, GC.UNIT_CD
+				, GC.PCKG_STTS_CD
+				, GC.BX_GDS_QNTT
+				, GC.WGHT
 			    , GC.DEL_YN
 			  FROM TB_SPCFCT_CRTR GC
 			 WHERE GC.ITEM_CD = #{itemCd}
@@ -89,6 +93,10 @@
 					  ITEM_CD
 					, SPCFCT_CD
 		    		, SPCFCT_NM
+		    		, UNIT_CD
+					, PCKG_STTS_CD
+					, BX_GDS_QNTT
+					, WGHT
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -101,6 +109,10 @@
 	   				  #{itemCd}
 					, #{spcfctCd}
 		    		, #{spcfctNm}
+		    		, #{unitCd}
+					, #{pckgSttsCd}
+					, #{bxGdsQntt}
+					, #{wght}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}
@@ -128,6 +140,10 @@
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 				, SPCFCT_NM					= #{spcfctNm}
+				, UNIT_CD					= #{unitCd}
+				, PCKG_STTS_CD				= #{pckgSttsCd}
+				, BX_GDS_QNTT				= #{bxGdsQntt}
+				, WGHT  					= #{wght}
 	    		, DEL_YN					= #{delYn}
 			 WHERE ITEM_CD = #{itemCd}
 			   AND SPCFCT_CD = #{spcfctCd}
@@ -192,12 +208,17 @@
 				, AGC.APC_CD
 				, AGC.SPCFCT_CD
 				, AGC.SPCFCT_NM
+				, AGC.UNIT_CD
+				, AGC.PCKG_STTS_CD
+				, AGC.BX_GDS_QNTT
+				, AGC.WGHT
 			    , AGC.DEL_YN
 			  FROM TB_APC_SPCFCT_CRTR AGC
-			 WHERE AGC.ITEM_CD = #{itemCd}
-			   AND AGC.APC_CD = #{apcCd}
+			 WHERE AGC.APC_CD = #{apcCd}
 		]]>
-
+		<if test='itemCd != null and itemCd != ""'>
+			   AND AGC.ITEM_CD = #{itemCd}
+		</if>
 		<if test='spcfctCd != null and spcfctCd != ""'>
 			   AND AGC.SPCFCT_CD LIKE #{spcfctCd} || '%'
 		</if>
@@ -227,6 +248,10 @@
 	    			, ITEM_CD
 	    			, SPCFCT_CD
 					, SPCFCT_NM
+					, UNIT_CD
+					, PCKG_STTS_CD
+					, BX_GDS_QNTT
+					, WGHT
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -238,8 +263,12 @@
 	   			(
 	   				  #{apcCd}
 	   				, #{itemCd}
-	   				, #{spcfctCd}
+	   				, FN_GET_ID_APC_SPCFCT(#{apcCd}, #{itemCd})
 					, #{spcfctNm}
+					, #{unitCd}
+					, #{pckgSttsCd}
+					, #{bxGdsQntt}
+					, #{wght}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -267,6 +296,10 @@
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 				, SPCFCT_NM					= #{spcfctNm}
+				, UNIT_CD					= #{unitCd}
+				, PCKG_STTS_CD				= #{pckgSttsCd}
+				, BX_GDS_QNTT				= #{bxGdsQntt}
+				, WGHT  					= #{wght}
 	    		, DEL_YN					= #{delYn}
 			 WHERE ITEM_CD = #{itemCd}
 			   AND SPCFCT_CD = #{spcfctCd}

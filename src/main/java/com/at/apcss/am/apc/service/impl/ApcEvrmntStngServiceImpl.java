@@ -23,8 +23,18 @@ public class ApcEvrmntStngServiceImpl implements ApcEvrmntStngService{
 	}
 	
 	@Override
-	public ApcEvrmntStngVO selectApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception {
-		return apcEvrmntStngMapper.selectApcDsctn(ApcEvrmntStngVO);
+	public List<ApcEvrmntStngVO> selectApcDsctnList(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception {
+		return apcEvrmntStngMapper.selectApcDsctnList(ApcEvrmntStngVO);
+	}
+	
+	@Override
+	public int updateApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception {
+		return apcEvrmntStngMapper.updateApcDsctn(ApcEvrmntStngVO);
+	}
+	
+	@Override
+	public int insertApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception {
+		return apcEvrmntStngMapper.insertApcDsctn(ApcEvrmntStngVO);
 	}
 
 	@Override

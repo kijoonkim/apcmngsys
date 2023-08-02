@@ -18,7 +18,7 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ APC환경설정</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"></sbux-button>
 				</div>
 			</div>
 
@@ -46,9 +46,9 @@
 							</td>
 						</tr>
 						<tr>
-							<td scope="row" align="right">명칭</td>
+							<td scope="row" align="right"><span class="data_required"></span>명칭</td>
 							<td scope="row" >
-								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm input-sm-ast"></sbux-input>
 							</td>
 							<td scope="row" align="right">주소</td>
 							<td scope="row">
@@ -152,7 +152,7 @@
 								선택한 품목별로 APC에서 관리하는 등급과 규격을 등록하세요.
 							</td>
 						</tr>
-						<!-- <tr>
+						<tr>
 							<th scope="row">출하포장단위 관리</th>
 							<td class="td_input" colspan="2">
 								<sbux-button id="btnSpmtPckgUnit" name="btnSpmtPckgUnit" uitype="modal" text="출하포장단위 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spmtPckgUnit" onclick="fn_modal('btnSpmtPckgUnit')"></sbux-button>
@@ -160,7 +160,7 @@
 							<td colspan="6" style="color:#999">
 								선택한 품목별로 APC에서 관리하는 출하포장단위을 등록하세요.
 							</td>
-						</tr> -->
+						</tr>
 						<tr>
 							<th scope="row">원물 팔레트/박스</th>
 							<td class="td_input" colspan="2">
@@ -500,12 +500,12 @@
     	<jsp:include page="../apc/grdSpcfctMngPopup.jsp"></jsp:include>
     </div>
     <!-- 출하포장단위 등록 Modal -->
-    <%-- <div>
+    <div>
         <sbux-modal id="modal-spmtPckgUnit" name="modal-spmtPckgUnit" uitype="middle" header-title="춣하포장단위 등록" body-html-id="body-modal-spmtPckgUnit" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-spmtPckgUnit">
     	<jsp:include page="../apc/spmtPckgUnitMngPopup.jsp"></jsp:include>
-    </div> --%>
+    </div>
     <!-- 팔레트/박스 등록 Modal -->
     <div>
         <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="팔레트/박스 등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -548,6 +548,14 @@
     </div>
     <div id="body-modal-simpleStng">
     	<jsp:include page="../apc/simpleStngPopup.jsp"></jsp:include>
+    </div>
+
+    <!-- 출하매출단가 등록 Modal -->
+    <div>
+        <sbux-modal id="modal-spmtSlsUntprcReg" name="modal-spmtSlsUntprcReg" uitype="middle" header-title="출하 매출단가 등록" body-html-id="body-modal-spmtSlsUntprcReg" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-spmtSlsUntprcReg">
+    	<jsp:include page="../apc/spmtSlsUntprcRegMngPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -625,9 +633,7 @@
 		}
 		if(targetName == 'btnGrdSpcfct'){
 			fn_createGrdGrid();
-			fn_createGrdSpcfct();
 			fn_createGrdApcSpcfct();
-			fn_initSBSelectItem();
 		}
 		if(targetName == 'btnWrhsVhcl'){
 			fn_wrhsVhclMngCreateGrid();
@@ -640,6 +646,8 @@
 			fn_ordrMngCreateGrid();
 		}if(targetName == 'btnOprtr'){
 			fn_oprtrMngCreateGrid();
+		}if(targetName == 'btnSpmtPckgUnit'){
+			fn_createSpmtPckgUnitGrid();
 		}
 	}
 
@@ -694,20 +702,21 @@
 	}
 
     // Row 추가 및 삭제 기능
-    async function fn_procRow(gubun, grid, nRow, nCol) {
-        if (gubun === "ADD") { 
+
+    function fn_procRow(gubun, grid, nRow, nCol) {
+        if (gubun === "ADD") {
             if (grid === "cnptMngDatagrid") {
             	cnptMngGridData[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
             	cnptMngGridData[nRow-1].delYn = "N";
             	cnptMngDatagrid.addRow(true);
             }else if (grid === "grdFclt") {
             	grdFclt.setCellData(nRow, nCol, "N", true);
-            	grdFclt.setCellData(nRow, 4, SBUxMethod.get("inp-apcCd"), true);
+            	grdFclt.setCellData(nRow, 4, gv_apcCd, true);
             	grdFclt.setCellData(nRow, 5, "FCLT_CD", true);
             	grdFclt.addRow(true);
             }else if (grid === "grdWarehouse") {
             	grdWarehouse.setCellData(nRow, nCol, "N", true);
-            	grdWarehouse.setCellData(nRow, 4, SBUxMethod.get("inp-apcCd"), true);
+            	grdWarehouse.setCellData(nRow, 4, gv_apcCd, true);
             	grdWarehouse.setCellData(nRow, 5, "WAREHOUSE_SE_CD", true);
             	grdWarehouse.addRow(true);
             }else if(grid === "grdPlt"){
@@ -715,23 +724,23 @@
             	grdPlt.setCellData(nRow, 3, "K", true);
             	grdPlt.setCellData(nRow, 5, "Y", true);
             	grdPlt.setCellData(nRow, 7, "P", true);
-            	grdPlt.setCellData(nRow, 8, SBUxMethod.get("inp-apcCd"), true);
+            	grdPlt.setCellData(nRow, 8, gv_apcCd, true);
             	grdPlt.addRow(true);
             }else if(grid === "grdBx"){
             	grdBx.setCellData(nRow, nCol, "N", true);
             	grdBx.setCellData(nRow, 5, "Y", true);
             	grdBx.setCellData(nRow, 3, "K", true);
             	grdBx.setCellData(nRow, 7, "B", true);
-            	grdBx.setCellData(nRow, 8, SBUxMethod.get("inp-apcCd"), true);
+            	grdBx.setCellData(nRow, 8, gv_apcCd, true);
             	grdBx.addRow(true);
             }else if(grid === "grdPckg"){
             	grdPckg.setCellData(nRow, nCol, "N", true);
-            	grdPckg.setCellData(nRow, 5, SBUxMethod.get("inp-apcCd"), true);
+            	grdPckg.setCellData(nRow, 5, gv_apcCd, true);
             	grdPckg.setCellData(nRow, 6, "PCKG_SE_CD", true);
             	grdPckg.addRow(true);
             }else if(grid === "rgnTrsprtCstMngDatagrid"){
             	rgnTrsprtCstMngDatagrid.setCellData(nRow, nCol, "N", true);
-            	rgnTrsprtCstMngDatagrid.setCellData(nRow, 5, SBUxMethod.get("inp-apcCd"), true);
+            	rgnTrsprtCstMngDatagrid.setCellData(nRow, 5, gv_apcCd, true);
             	rgnTrsprtCstMngDatagrid.addRow(true);
             }else if(grid === "wrhsVhclMngDatagrid"){
             	wrhsVhclMngGridData[nRow-1].delYn = "N";
@@ -746,20 +755,33 @@
             	grdOprtr.addRow(true);
             }else if(grid === "grdApcVrty"){
             	grdApcVrty.setCellData(nRow, nCol, "N", true);
-            	grdApcVrty.setCellData(nRow, 3, SBUxMethod.get("inp-apcCd"), true);
+            	grdApcVrty.setCellData(nRow, 3, gv_apcCd, true);
             	grdApcVrty.setCellData(nRow, 4, grdApcItem.getRowData(grdApcItem.getRow()).itemCd, true);
             	grdApcVrty.addRow(true);
             }else if(grid === "grdGrd"){
-            	console.log("grdGrd");
             	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
 	            	grdGrd.setCellData(nRow, nCol, "N", true);
-	            	grdGrd.setCellData(nRow, 3, SBUxMethod.get("inp-apcCd"), true);
+	            	grdGrd.setCellData(nRow, 3, gv_apcCd, true);
 	            	grdGrd.setCellData(nRow, 4, SBUxMethod.get("spcfct-select-itemCd"), true);
 	            	grdGrd.addRow(true);
             	}else{
             		alert("품목을 선택해주세요.")
             		return;
             	}
+            }else if(grid === "grdApcSpcfct"){
+            	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
+            		grdApcSpcfct.setCellData(nRow, nCol, "N", true);
+            		grdApcSpcfct.setCellData(nRow, 7, gv_apcCd, true);
+            		grdApcSpcfct.setCellData(nRow, 8, SBUxMethod.get("spcfct-select-itemCd"), true);
+            		grdApcSpcfct.addRow(true);
+            	}else{
+            		alert("품목을 선택해주세요.")
+            		return;
+            	}
+            }else if(grid === "grdSmptPckgUnit"){
+           		grdSpmtPckgUnit.setCellData(nRow, nCol, "N", true);
+           		grdSpmtPckgUnit.setCellData(nRow, 8, gv_apcCd, true);
+           		grdSpmtPckgUnit.addRow(true);
             }
         }
         else if (gubun === "DEL") {
@@ -830,21 +852,37 @@
             }else if (grid === "grdOprtr") {
             	grdOprtr.deleteRow(nRow);
             }else if (grid === "grdGrd") {
-            	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
-
-	            	if(grdGrd.getRowStatus(nRow) == 0 || grdGrd.getRowStatus(nRow) == 2){
-	            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-	            		if(confirm(delMsg)){
-	            			var cmnsGrdVO = grdGrd.getRowData(nRow);
-	            			fn_deleteGrd(cmnsGrdVO);
-	            			grdGrd.deleteRow(nRow);
-	            		}
-	            	}else{
-	            		grdGrd.deleteRow(nRow);
-	            	}
+            	if(grdGrd.getRowStatus(nRow) == 0 || grdGrd.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var cmnsGrdVO = grdGrd.getRowData(nRow);
+            			fn_deleteGrd(cmnsGrdVO);
+            			grdGrd.deleteRow(nRow);
+            		}
             	}else{
-            		alert("품목을 선택해주세요.")
-            		return;
+            		grdGrd.deleteRow(nRow);
+            	}
+            }else if (grid === "grdApcSpcfct") {
+            	if(grdApcSpcfct.getRowStatus(nRow) == 0 || grdApcSpcfct.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var cmnsSpcfctVO = grdApcSpcfct.getRowData(nRow);
+            			fn_deleteSpcfct(cmnsSpcfctVO);
+            			grdApcSpcfct.deleteRow(nRow);
+            		}
+            	}else{
+            		grdApcSpcfct.deleteRow(nRow);
+            	}
+            }else if (grid === "grdSmptPckgUnit") {
+            	if(grdSpmtPckgUnit.getRowStatus(nRow) == 0 || grdSpmtPckgUnit.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var spmtPckgUnitVO = grdSpmtPckgUnit.getRowData(nRow);
+            			fn_deleteSpmtPckgUnit(spmtPckgUnitVO);
+            			grdSpmtPckgUnit.deleteRow(nRow);
+            		}
+            	}else{
+            		grdSpmtPckgUnit.deleteRow(nRow);
             	}
             }
         }
