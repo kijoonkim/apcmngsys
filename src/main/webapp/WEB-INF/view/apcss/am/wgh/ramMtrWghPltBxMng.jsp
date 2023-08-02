@@ -26,7 +26,7 @@
 				</div>
 			</div>
 			<div class="box-body">
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -44,13 +44,13 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" >APC명</th>
+							<th scope="row" class="th_bg">APC명</th>
 							<td colspan= "3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" class="form-control input-sm" disabled/>
 							</td>
 						</tr>
 						<tr>
-							<th class="ta_r">작업일자</th>
+							<th class="ta_r th_bg">작업일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-strtCrtrYmd" name="srch-dtp-strtCrtrYmd" class="form-control pull-right input-sm"/>
 							</td>
@@ -58,7 +58,7 @@
 								<sbux-datepicker uitype="popup" id="srch-dtp-endCrtrYmd" name="srch-dtp-endCrtrYmd" class="form-control pull-right input-sm"/>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<th class="ta_r">입/출고 구분</th>
+							<th class="ta_r th_bg">입/출고 구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-wrhsSpmtSe" name="srch-slt-wrhsSpmtSe" class="form-control input-sm" jsondata-ref="jsonComWrhsSpmtSe"></sbux-select>
 							</td>

@@ -24,7 +24,7 @@
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -43,7 +43,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" >APC명</th>
+							<th scope="row" class="th_bg" >APC명</th>
 							<td colspan= "4" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" class="form-control input-sm" disabled/>
 							</td>
@@ -51,7 +51,7 @@
 						</tr>
 
 						<tr>
-							<th class="ta_r">품목/품종</th>
+							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 							</td>
@@ -59,12 +59,12 @@
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
 							</td>
 							<td>&nbsp;</td>
-							<th class="ta_r">규격</th>
+							<th scope="row" class="th_bg">규격</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spcfct" name="srch-slt-warehouseSe" class="form-control input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
-							<th class="ta_r">창고구분</th>
+							<th scope="row" class="th_bg">창고구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-warehouseSe" name="srch-slt-warehouseSe" class="form-control input-sm"/>
 							</td>
@@ -72,7 +72,7 @@
 						</tr>
 
 						<tr>
-							<th class="ta_r">생산자</th>
+							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-prcdcr" name="srch-inp-prcdcr" class="form-control input-sm"/>
 							</td>
@@ -80,12 +80,12 @@
 								<sbux-button id="srch-btn-prdcr" name="srch-btn-prdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
-							<th class="ta_r">상품구분</th>
+							<th scope="row" class="th_bg">상품구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-gdsSe" name="srch-slt-gdsSe" class="form-control input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
-							<th class="ta_r">입고구분</th>
+							<th scope="row" class="th_bg">입고구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-wrhsSe" name="srch-slt-wrhsSe" class="form-control input-sm"/>
 							</td>

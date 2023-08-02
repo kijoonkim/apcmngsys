@@ -28,7 +28,7 @@
 			<div></div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 5%">
@@ -50,7 +50,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">APC 명</th>
+							<th scope="row" class="th_bg">APC 명</th>
 							<td colspan="6" class="td_input"  style="border-right: hidden;">
 								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
 							</td>
@@ -60,7 +60,7 @@
 							<td style="border-right: hidden;">&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row">생산자</th>
+							<th scope="row" class="th_bg">생산자</th>
 							<td colspan="6" class="td_input"  style="border-right: hidden;">
 								<sbux-input id="inp-prdcrNm" name="inp-prdcrNm" uitype="text" class="form-control input-sm">
 							<td colspan="2" class="td_input"  style="border-right: hidden;">
@@ -71,7 +71,7 @@
 							<td colspan="5"></td>
 						</tr>
 						<tr>
-							<th scope="row">품목 / 품종</th>
+							<th scope="row" class="th_bg">품목/품종</th>
 							<td colspan="2"class="td_input" style="border-right: hidden;">
 								<sbux-select id="select-itemCd" name="select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="단일선택" class="form-control input-sm"></sbux-select>
 							</td>
@@ -87,7 +87,7 @@
 							<td colspan="4" style="border-right: hidden;"></td>
 						</tr>
 						<tr>
-							<th scope="row">계량일자</th>
+							<th scope="row" class="th_bg">계량일자</th>
 							<td colspan="6" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="dtp-wrhsYmd" name="dtp-wrhsYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
@@ -98,7 +98,7 @@
 							<td colspan="5"></td>
 						</tr>
 						<tr>
-							<th scope="row">차량번호/성명</th>
+							<th scope="row" class="th_bg">차량번호/성명</th>
 							<td class="td_input">
 								<sbux-input uitype="text" id="inp-vhclno" name="inp-vhclno" class="form-control input-sm"></sbux-input>
 							</td>
@@ -110,7 +110,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">전체/공차증량</th>
+							<th scope="row" class="th_bg">전체/공차증량</th>
 							<td class="td_input"  style="border-right: hidden;">
 								<sbux-input uitype="text" id="inp-wholWght" name="inp-wholWght" class="form-control input-sm"></sbux-input>
 							</td>
@@ -140,7 +140,7 @@
 							<td></td>
 						</tr>
 						<tr>
-							<th scope="row">입고창고</th>
+							<th scope="row" class="th_bg" >입고창고</th>
 							<td class="td_input"  style="border-right: hidden;">
 								<sbux-select id="select-warehouseSeCd" name="select-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouseSeCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
@@ -152,7 +152,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row"  style="border-right: hidden;">팔레트/박스</th>
+							<th scope="row" class="th_bg" style="border-right: hidden;">팔레트/박스</th>
 						 	<td style="border-right: hidden;">
 						 		<sbux-button id="btnSrchPltBx" name="btnSrchPltBx" class="btn btn-xs btn-outline-dark" text="입력" uitype="modal" target-id="modal-pltBx" onclick="fn_modalPltBx"></sbux-button>
 						 	</td>
@@ -166,14 +166,14 @@
 							<td colspan="8" class="td_input" ><label class="bold">Kg</label></td>
 						</tr>
 						<tr>
-							<th scope="row" >입고등급</th>
+							<th scope="row" class="th_bg">입고등급</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="select-grdCd" name="select-grdCd" uitype="single" jsondata-ref="jsonComGrdCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<td colspan="14"></td>
 						</tr>
 						<tr>
-							<th scope="row">정산중량</th>
+							<th scope="row" class="th_bg">정산중량</th>
 							<td class="td_input"  style="border-right: hidden;">
 								<sbux-input uitype="text" id="inp-clclnWght" name="inp-clclnWght" class="form-control input-sm" disabled></sbux-input>
 							</td>

@@ -26,7 +26,7 @@
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -44,13 +44,13 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">APC명</th>
+							<th scope="row" class="th_bg">APC명</th>
 							<td colspan= "3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" disabled/>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">지시일자</th>
+							<th scope="row" class="th_bg">지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-strtCmndDate" name="srch-dtp-strtCmndYmd" class="form-control pull-right input-sm">
 							</td>
@@ -58,7 +58,7 @@
 								<sbux-datepicker uitype="popup" id="srch-dtp-endCmndDate" name="srch-dtp-endCmndYmd" class="form-control pull-right input-sm">
 							</td>
 							<td>&nbsp;</td>
-							<th scope="row" style="border-right: hidden;">품목/품종</th>
+							<th scope="row" class="th_bg" style="border-right: hidden;">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm" unselected-text="선택"/>
 							</td>
@@ -66,7 +66,7 @@
 								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm" unselected-text="선택"/>
 							</td>
 							<td>&nbsp;</td>
-							<th scope="row">생산자</th>
+							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-provider" name="srch-inp-provider" class="form-control input-sm"/>
 							</td>

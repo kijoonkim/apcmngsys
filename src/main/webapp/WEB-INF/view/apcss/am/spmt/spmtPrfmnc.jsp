@@ -24,7 +24,7 @@
 		<div class="box-body">
 			<!--[pp] 검색 -->
 			<div>
-			<table class="table table-bordered tbl_row tbl_fixed">
+			<table class="table table-bordered tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
 					<col style="width: 7%">
@@ -42,19 +42,19 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
+						<th scope="row" class="th_bg" style="border-bottom:1px solid white " >APC명</th>
 						<td colspan= "3" class="td_input" style="border-right:hidden;">
 							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
 						<td colspan="8"></td>
 					</tr>
 					<tr>
-						<th scope="row">창고</th>
+						<th scope="row" class="th_bg" >창고</th>
 						<td class="td_input"  style="border-right: hidden;">
 							<sbux-input id="srch-inp-warehouse" name="srch-inp-warehouse" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
-						<td colspan="2"></td>
-						<th scope="row">출하일자</th>
+						<td colspan="2" ></td>
+						<th scope="row" class="th_bg">출하일자</th>
 						<td class="td_input"  style="border-right: hidden;">
 							<sbux-datepicker id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 						</td>
@@ -62,7 +62,7 @@
 							<sbux-datepicker id="srch-dtp-endPrdctnYmd" name="srch-dtp-endPrdctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 						</td>
 						<td style="border-right: hidden;">&nbsp;</td>
-						<th scope="row" style="border-right: hidden;">품목/품종</th>
+						<th scope="row" class="th_bg" style="border-right: hidden;">품목/품종</th>
 						<td class="td_input"  style="border-right: hidden;">
 							<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 						</td>
@@ -74,28 +74,28 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope="row" style="border-right: hidden;">거래처</th>
+						<th scope="row" class="th_bg" style="border-right: hidden;">거래처</th>
 						<td colspan="2" class="td_input"  style="border-right: hidden;">
 							<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
 							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 						</td>
-						<th scope="row">배송지</th>
+						<th scope="row" class="th_bg">배송지</th>
 						<td colspan="2" class="td_input" style="border-right: hidden;" >
 							<sbux-select id="srch-slt-cnpt" name="srch-slt-cnpt" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 						</td>
 						<td class="td_input"  style="border-right: hidden;">
 							<sbux-button id="srch-btn-dldtn" name="srch-btn-dldtn" uitype="normal" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 						</td>
-						<th scope="row">운송사</th>
+						<th scope="row" class="th_bg">운송사</th>
 						<td colspan="2" class="td_input" style="border-right: hidden;">
 							<sbux-select id="srch-slt-trsprt" name="srch-slt-trsprt" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 						</td>
 						<td></td>
 					</tr>
 					<tr>
-						<th scope="row">차량번호</th>
+						<th scope="row" class="th_bg">차량번호</th>
 						<td class="td_input" style="border-right: hidden;">
 							<sbux-input id="srch-inp-vhclno" name="srch-inp-vhclno" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
