@@ -21,7 +21,7 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset()"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectUserList()"></sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_updataUserList"></sbux-button>
+					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_updataUserList()"></sbux-button>
 				</div>
 				
 			</div>
@@ -67,21 +67,6 @@
 						</tr>
 					</tbody>
 				</table>
-											
-				<!--[pp] //검색 -->
-				<!--[pp] 검색결과 -->
-				
-<!-- 				<div class="ad_tbl_top"> -->
-<!-- 					<ul class="ad_tbl_count"> -->
-<!-- 						<li><span>선별실적 내역</span></li> -->
-<!-- 					</ul> -->
-<!-- 					<div class="ad_tbl_toplist"> -->
-<!-- 						<sbux-button id="btnDown" name="btnDown" uitype="normal" text="내려받기" class="btn btn-xs btn-outline-danger"></sbux-button> -->
-<!-- 						<sbux-button id="btnUp" name="btnUp" uitype="normal" text="올리기" class="btn btn-xs btn-outline-danger"></sbux-button> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-				
-				
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>작업실적</span></li>
