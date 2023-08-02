@@ -62,7 +62,7 @@
    		VALUES
    			(
    				#{apcCd}
-    		  , #{trsprtRgnCd}
+    		  , FN_GET_ID_TRSPRT_RGN_CD(#{apcCd})
     		  , #{trsprtRgnNm}
     		  , #{trsprtCst}
     		  , #{rmrk}

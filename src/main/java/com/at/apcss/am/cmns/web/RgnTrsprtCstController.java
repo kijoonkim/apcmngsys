@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.cmns.service.RgnTrsprtCstService;
-import com.at.apcss.am.cmns.service.WrhsVhclService;
 import com.at.apcss.am.cmns.vo.RgnTrsprtCstVO;
-import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -29,8 +27,6 @@ public class RgnTrsprtCstController extends BaseController {
 	@Resource(name = "rgnTrsprtCstService")
 	private RgnTrsprtCstService rgnTrsprtCstService;
 
-	@Resource(name = "wrhsVhclService")
-	private WrhsVhclService wrhsVhclService;
 	// APC 환경설정 - 지역별 운임비 목록 조회
 	@PostMapping(value = "/am/cmns/selectRgnTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectRgnTrsprtCstList(@RequestBody RgnTrsprtCstVO rgnTrsprtCstVO, HttpServletRequest request) throws Exception {
@@ -52,37 +48,33 @@ public class RgnTrsprtCstController extends BaseController {
 	}
 	
 	@PostMapping(value = "/am/cmns/compareRgnTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertRgnTrsprtCstList(@RequestBody Map<String, List<WrhsVhclVO>> apcWrhsVhclVO, HttpServletRequest request) throws Exception {
-		logger.debug("insertRgnTrsprtCstList 호출 <><><><> ");
+	public ResponseEntity<HashMap<String, Object>> insertRgnTrsprtCstList(@RequestBody Map<String, List<RgnTrsprtCstVO>> rgnTrsprtCstVO, HttpServletRequest request) throws Exception {
+		logger.debug("compareRgnTrsprtCstList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		int insertCnt = 0;
 		try {
-			List<WrhsVhclVO> origin = apcWrhsVhclVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-			List<WrhsVhclVO> modified = apcWrhsVhclVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
+			List<RgnTrsprtCstVO> origin = rgnTrsprtCstVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
+			List<RgnTrsprtCstVO> modified = rgnTrsprtCstVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
 
-			List<String> originPk = origin.stream().map(e -> e.getVhclno()).collect(Collectors.toCollection(ArrayList::new));
-			List<String> modifiedPk = modified.stream().map(e -> e.getVhclno()).collect(Collectors.toCollection(ArrayList::new));
+			List<String> originPk = origin.stream().map(e -> e.getTrsprtRgnCd()).collect(Collectors.toCollection(ArrayList::new));
+			List<String> modifiedPk = modified.stream().map(e -> e.getTrsprtRgnCd()).collect(Collectors.toCollection(ArrayList::new));
 
-			List<WrhsVhclVO> insertList = new ArrayList<WrhsVhclVO>(modified).stream().filter(e -> (modifiedPk.contains(e.getVhclno()) == true && originPk.contains(e.getVhclno()) == false)).collect(Collectors.toList());
-			for (WrhsVhclVO element : insertList) {
+			List<RgnTrsprtCstVO> insertList = new ArrayList<RgnTrsprtCstVO>(modified).stream().filter(e -> (modifiedPk.contains(e.getTrsprtRgnCd()) == true && originPk.contains(e.getTrsprtRgnCd()) == false)).collect(Collectors.toList());
+			for (RgnTrsprtCstVO element : insertList) {
 				element.setSysFrstInptPrgrmId(getPrgrmId());
 				element.setSysFrstInptUserId(getUserId());
 				element.setSysLastChgPrgrmId(getPrgrmId());
 				element.setSysLastChgUserId(getUserId());
-				wrhsVhclService.insertWrhsVhcl(element);
+				rgnTrsprtCstService.insertRgnTrsprtCst(element);
 			}
 
-			List<WrhsVhclVO> deleteList = new ArrayList<WrhsVhclVO>(origin).stream().filter(e -> (modifiedPk.contains(e.getVhclno()) == false && originPk.contains(e.getVhclno()) == true)).collect(Collectors.toList());
-			for (WrhsVhclVO element : deleteList) {
-				wrhsVhclService.deleteWrhsVhcl(element);
-			}
 
-			List<WrhsVhclVO> updateList = new ArrayList<WrhsVhclVO>();
-			for (WrhsVhclVO ei : origin) {
-				for (WrhsVhclVO ej : modified) {
-					if (ei.getVhclno().equals(ej.getVhclno())) {
+			List<RgnTrsprtCstVO> updateList = new ArrayList<RgnTrsprtCstVO>();
+			for (RgnTrsprtCstVO ei : origin) {
+				for (RgnTrsprtCstVO ej : modified) {
+					if (ei.getTrsprtRgnCd().equals(ej.getTrsprtRgnCd())) {
 						if (ei.equals(ej) == false) {
 							ej.setSysLastChgPrgrmId(getPrgrmId());
 							ej.setSysLastChgUserId(getUserId());
@@ -93,8 +85,8 @@ public class RgnTrsprtCstController extends BaseController {
 				}
 			}
 
-			for (WrhsVhclVO element : updateList) {
-				wrhsVhclService.updateWrhsVhcl(element);
+			for (RgnTrsprtCstVO element : updateList) {
+				rgnTrsprtCstService.updateRgnTrsprtCst(element);
 			}
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);

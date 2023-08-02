@@ -121,6 +121,7 @@
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
         newWrhsVhclGridData = [];
+        wrhsVhclMngGridData = [];
         try{
         	data.resultList.forEach((item, index) => {
 				let wrhsVhcl = {
@@ -149,7 +150,7 @@
 	// 운송지역별 운임비용 등록
     var rgnTrsprtCstMngGridData = []; // 그리드의 참조 데이터 주소 선언
     async function fn_rgnTrsprtCstMngCreateGrid() {
-    	trsprtMngGridData = [];
+    	rgnTrsprtCstMngGridData = [];
         let SBGridProperties = {};
 	    SBGridProperties.parentid = 'rgnTrsprtCstMngGridArea';
 	    SBGridProperties.id = 'rgnTrsprtCstMngDatagrid';
@@ -186,6 +187,7 @@
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectRgnTrsprtCstList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
         newRgnTrsprtCstGridData = [];
+        rgnTrsprtCstMngGridData = [];
         try{
         	data.resultList.forEach((item, index) => {
 				let rgnTrsprtCst = {
@@ -196,8 +198,9 @@
 				  , delYn 			: item.delYn
 				  , apcCd			: item.apcCd
 				}
-				newRgnTrsprtCstGridData.push(rgnTrsprtCst);
-				rgnTrsprtCstMngGridData.push(rgnTrsprtCst);
+				
+				newRgnTrsprtCstGridData.push(Object.assign({}, rgnTrsprtCst));
+				rgnTrsprtCstMngGridData.push(Object.assign({}, rgnTrsprtCst));
 			});
         	rgnTrsprtCstMngDatagrid.rebuild();
         	rgnTrsprtCstMngDatagrid.addRow();
@@ -209,28 +212,6 @@
         }
 	}
 
-
-	/* async function fn_procRow(type, id, i){
-		if(id == "wrhsVhclMngDatagrid"){
-			if (type == "ADD"){
-				wrhsVhclMngGridData[i-1].delYn = "N";
-				wrhsVhclMngDatagrid.addRow();
-			}
-			else{
-				wrhsVhclMngDatagrid.deleteRow(i);
-			}
-		}
-		else{
-			if (type == "ADD"){
-				rgnTrsprtCstMngGridData[i-1].delYn = "N";
-				rgnTrsprtCstMngDatagrid.addRow();
-			}
-			else{
-				rgnTrsprtCstMngDatagrid.deleteRow(i);
-			}
-		}
-	} */
-
 	async function fn_insertWrhsVhclList(){
 		for(var i=0; i<wrhsVhclMngGridData.length; i++){
 			if(wrhsVhclMngGridData[i].delYn == "N" && (wrhsVhclMngGridData[i].vhclno == null || wrhsVhclMngGridData[i].vhclno == "")){
@@ -241,17 +222,22 @@
 		}
 		
 		var isEqual1 = await chkEqualObj(wrhsVhclMngGridData, newWrhsVhclGridData);
-		console.log(isEqual1);
-		if (isEqual1){
+		var isEqual2 = await chkEqualObj(rgnTrsprtCstMngGridData, newRgnTrsprtCstGridData);
+		console.log(isEqual1 && isEqual2);
+		if (isEqual1 && isEqual2){
 			alert("등록 할 내용이 없습니다.");
 			return;
 		}
 
 		let regMsg = "등록 하시겠습니까?";
 		if(confirm(regMsg)){
-			let postJsonPromise = gfn_postJSON("/am/cmns/compareRgnTrsprtCstList.do", {origin : newWrhsVhclGridData, modified : wrhsVhclMngGridData});
+			let postJsonPromise1 = gfn_postJSON("/am/cmns/compareWrhsVhclList.do", {origin : newWrhsVhclGridData, modified : wrhsVhclMngGridData});
+			let postJsonPromise2 = gfn_postJSON("/am/cmns/compareRgnTrsprtCstList.do", {origin : newRgnTrsprtCstGridData, modified : rgnTrsprtCstMngGridData});
 
 			alert("등록 되었습니다.");
+			
+			fn_callSelectWrhsVhclList();
+			fn_callSelectRgnTrsprtCstList();
 		}
 	}
 

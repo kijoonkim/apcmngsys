@@ -3,6 +3,8 @@ package com.at.apcss.am.cmns.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +57,55 @@ public class WrhsVhclController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/cmns/compareWrhsVhclList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertRgnTrsprtCstList(@RequestBody Map<String, List<WrhsVhclVO>> apcWrhsVhclVO, HttpServletRequest request) throws Exception {
+		logger.debug("compareWrhsVhclList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		int insertCnt = 0;
+		try {
+			List<WrhsVhclVO> origin = apcWrhsVhclVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
+			List<WrhsVhclVO> modified = apcWrhsVhclVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
+
+			List<String> originPk = origin.stream().map(e -> e.getVhclno()).collect(Collectors.toCollection(ArrayList::new));
+			List<String> modifiedPk = modified.stream().map(e -> e.getVhclno()).collect(Collectors.toCollection(ArrayList::new));
+
+			List<WrhsVhclVO> insertList = new ArrayList<WrhsVhclVO>(modified).stream().filter(e -> (modifiedPk.contains(e.getVhclno()) == true && originPk.contains(e.getVhclno()) == false)).collect(Collectors.toList());
+			for (WrhsVhclVO element : insertList) {
+				element.setSysFrstInptPrgrmId(getPrgrmId());
+				element.setSysFrstInptUserId(getUserId());
+				element.setSysLastChgPrgrmId(getPrgrmId());
+				element.setSysLastChgUserId(getUserId());
+				wrhsVhclService.insertWrhsVhcl(element);
+			}
+
+			List<WrhsVhclVO> updateList = new ArrayList<WrhsVhclVO>();
+			for (WrhsVhclVO ei : origin) {
+				for (WrhsVhclVO ej : modified) {
+					if (ei.getVhclno().equals(ej.getVhclno())) {
+						if (ei.equals(ej) == false) {
+							ej.setSysLastChgPrgrmId(getPrgrmId());
+							ej.setSysLastChgUserId(getUserId());
+							updateList.add(ej);
+						}
+						break;
+					}
+				}
+			}
+
+			for (WrhsVhclVO element : updateList) {
+				wrhsVhclService.updateWrhsVhcl(element);
+			}
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}
