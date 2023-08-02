@@ -875,7 +875,7 @@
             		wrhsVhclMngDatagrid.deleteRow(nRow);
             	}
             	wrhsVhclMngDatagrid.deleteRow(nRow);
-            }else if (grid === "spmtTrsprtMngDatagrid") { // 
+            }else if (grid === "spmtTrsprtMngDatagrid") {
             	if(spmtTrsprtMngDatagrid.getRowStatus(nRow) == 0 || spmtTrsprtMngDatagrid.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
