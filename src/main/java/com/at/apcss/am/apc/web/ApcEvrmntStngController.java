@@ -77,55 +77,8 @@ public class ApcEvrmntStngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
-	// APC 정보관리 - APC 내역 수정
-//	@PostMapping(value = "/am/apc/updateApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-//	public ResponseEntity<HashMap<String, Object>> updateApcDsctnList(@RequestBody List<ApcEvrmntStngVO> updateList, HttpServletRequest request) throws Exception {
-//		logger.debug("updateApcDsctnList 호출 <><><><> ");
-//
-//		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-//		int result = 0;
-//		try {
-//			for (ApcEvrmntStngVO ApcEvrmntStngVO : updateList) {
-//				ApcEvrmntStngVO.setSysLastChgPrgrmId(getPrgrmId());
-//				ApcEvrmntStngVO.setSysLastChgUserId(getUserId());
-//				result += apcEvrmntStngService.updateApcDsctn(ApcEvrmntStngVO);
-//			}
-//		} catch (Exception e) {
-//			return getErrorResponseEntity(e);
-//		}
-//
-//		resultMap.put("result", result);
-//
-//		return getSuccessResponseEntity(resultMap);
-//	}
-
+	
 	// APC 정보관리 - APC 내역 등록
-	@PostMapping(value = "/am/apc/insertApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertApcDsctnList(@RequestBody List<ApcEvrmntStngVO> insertList, HttpServletRequest request) throws Exception {
-		logger.debug("insertApcDsctnList 호출 <><><><> ");
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
-		try {
-			for (ApcEvrmntStngVO ApcEvrmntStngVO : insertList) {
-				ApcEvrmntStngVO.setSysFrstInptPrgrmId(getPrgrmId());
-				ApcEvrmntStngVO.setSysFrstInptUserId(getUserId());
-				ApcEvrmntStngVO.setSysLastChgPrgrmId(getPrgrmId());
-				ApcEvrmntStngVO.setSysLastChgUserId(getUserId());
-				result += apcEvrmntStngService.insertApcDsctn(ApcEvrmntStngVO);
-			}
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		resultMap.put("result", result);
-
-		return getSuccessResponseEntity(resultMap);
-	}
-
-
-	// APC 정보관리 - APC 내역 등록 (beta)
 	@PostMapping(value = "/am/apc/updateApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateApcDsctnList(@RequestBody Map<String, List<ApcEvrmntStngVO>> ApcEvrmntStngVO, HttpServletRequest request) throws Exception {
 		logger.debug("updateApcDsctnList 호출 <><><><> ");
