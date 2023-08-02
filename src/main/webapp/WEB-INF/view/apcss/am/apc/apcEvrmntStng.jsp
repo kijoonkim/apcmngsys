@@ -821,39 +821,28 @@
             		warehouseMngDatagrid.deleteRow(nRow);
             	}
             }else if (grid === "grdPlt") {
-//             	if(grdPlt.getRowStatus(nRow) == 0 || grdPlt.getRowStatus(nRow) == 2){
-//             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-//             		if(confirm(delMsg)){
-//             			var pltBxVO = grdPlt.getRowData(nRow);
-//             			console.log(pltBxVO);
-//             			fn_deletepltBx(pltBxVO);
-//             			grdPlt.deleteRow(nRow);
-//             		}
-//             	}else{
+            	if(grdPlt.getRowStatus(nRow) == 0 || grdPlt.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var pltBxVO = grdPlt.getRowData(nRow);
+            			console.log(pltBxVO);
+            			fn_deletepltBx(pltBxVO);
+            			grdPlt.deleteRow(nRow);
+            		}
+            	}else{
            		grdPlt.deleteRow(nRow);
-//             	}
+            	}
             }else if (grid === "grdBx") {
-//             	if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){
-//             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-//             		if(confirm(delMsg)){
-//             			var pltBxVO = grdBx.getRowData(nRow);
-//             			fn_deletepltBx(pltBxVO);
-//             			grdBx.deleteRow(nRow);
-//             		}
-//             	}else{
+            	if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var pltBxVO = grdBx.getRowData(nRow);
+            			fn_deletepltBx(pltBxVO);
+            			grdBx.deleteRow(nRow);
+            		}
+            	}else{
            		grdBx.deleteRow(nRow);
-//             	}
-            }else if (grid === "grdPckg") {
-//             	if(grdPckg.getRowStatus(nRow) == 0 || grdPckg.getRowStatus(nRow) == 2){
-//             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-//             		if(confirm(delMsg)){
-//             			var comCdVO = grdPckg.getRowData(nRow);
-//             			fn_deleteRsrc(comCdVO);
-//             			grdPckg.deleteRow(nRow);
-//             		}
-//             	}else{
-           		grdPckg.deleteRow(nRow);
-//             	}
+            	}
             }else if (grid === "rgnTrsprtCstMngDatagrid") {
             	rgnTrsprtCstMngDatagrid.deleteRow(nRow);
             }else if (grid === "wrhsVhclMngDatagrid") {

@@ -165,21 +165,21 @@ public class PltBxController extends BaseController {
 //	}
 //
 //
-//	// APC 환경설정 - 팔레트/박스 등록
-//	@PostMapping(value = "/am/cmns/deletePltBx.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-//	public ResponseEntity<HashMap<String, Object>> deletePltBx(@RequestBody PltBxVO pltBxVO, HttpServletRequest request) throws Exception {
-//		logger.debug("deletePltBx 호출 <><><><> ");
-//
-//		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-//		int result = 0;
-//		try {
-//				result = pltBxService.deletePltBx(pltBxVO);
-//		} catch (Exception e) {
-//			return getErrorResponseEntity(e);
-//		}
-//
-//		resultMap.put("result", result);
-//
-//		return getSuccessResponseEntity(resultMap);
-//	}
+	// APC 환경설정 - 팔레트/박스 등록
+	@PostMapping(value = "/am/cmns/deletePltBx.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deletePltBx(@RequestBody PltBxVO pltBxVO, HttpServletRequest request) throws Exception {
+		logger.debug("deletePltBx 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = 0;
+		try {
+			result = pltBxService.deletePltBx(pltBxVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

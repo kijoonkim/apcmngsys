@@ -274,6 +274,10 @@
 			alert("등록 되었습니다.");
 		}
 	}
+	async function fn_deletepltBx(pltBxVO){
+		console.log("pltBxVO", pltBxVO);
+		let postJsonPromise2 = await gfn_postJSON("/am/cmns/deletePltBx.do", pltBxVO);
+	}
 
 </script>
 </html>

@@ -171,7 +171,8 @@
 
 		let regMsg = "등록 하시겠습니까?";
 		if(confirm(regMsg)){
-			let postJsonPromise = await gfn_postJSON("/am/cmns/compareCnptList.do", {origin : newCnptGridData, modified : cnptMngGridData});
+			let postJsonPromise1 = await gfn_postJSON("/am/cmns/compareCnptList.do", {origin : newCnptGridData, modified : cnptMngGridData});
+			let postJsonPromise2 = await gfn_postJSON("/am/cmns/compareOrdrList.do", {origin : newCnptGridData, modified : cnptMngGridData});
 
 			alert("등록 되었습니다.");
 			
