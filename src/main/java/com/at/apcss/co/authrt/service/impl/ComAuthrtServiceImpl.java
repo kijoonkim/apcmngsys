@@ -3,6 +3,7 @@ package com.at.apcss.co.authrt.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,14 +19,19 @@ import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
+import com.at.apcss.co.user.mapper.ComUserMapper;
+import com.at.apcss.co.user.vo.ComUserVO;
 
 @Service("comAuthrtService")
 public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtService {
 
-	
-	
 	@Autowired
 	private ComAuthrtMapper comAuthrtMapper;
+
+
+	@Autowired
+	private ComUserMapper comUserMapper;
+	
 	
 	@Override
 	public ComAuthrtVO selectComAuthrt(ComAuthrtVO comAuthrtVO) {
@@ -260,6 +266,10 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				authrtIdList.add(authrt.getAuthrtId());
 			}
 			
+			if (authrtIdList.isEmpty()) {
+				return new ArrayList<ComAuthrtMenuVO>();
+			}
+			
 			comAuthrtMenuVO.setAuthrtIdList(authrtIdList);
 		}
 		
@@ -281,6 +291,10 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 			List<ComAuthrtVO> comAuthrtList = selectComAuthrtListByUserId(comAuthrtVO);
 			for ( ComAuthrtVO authrt : comAuthrtList ) {
 				authrtIdList.add(authrt.getAuthrtId());
+			}
+			
+			if (authrtIdList.isEmpty()) {
+				return new ArrayList<ComAuthrtMenuVO>();
 			}
 			
 			comAuthrtMenuVO.setAuthrtIdList(authrtIdList);
@@ -367,15 +381,189 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 	@Override
 	public HashMap<String, Object> insertApcAuthrtId(ComAuthrtVO comAuthrtVO) throws Exception {
-		// TODO Auto-generated method stub
+		
+		// audit
+		String sysUserId = comAuthrtVO.getSysLastChgUserId();
+		String sysPrgrmId = comAuthrtVO.getSysLastChgPrgrmId();
+		
+		// parameter
+		String apcCd = comAuthrtVO.getApcCd();
+		String userId = comAuthrtVO.getUserId();
+		
+		// APC 관리자 승인 등록 시 
+		// 10. 해당 APC의 권한그룹 등록 (관리자 승인 시 1회)
+		// 11. 관리자 권한에 권한메뉴 등록 (업무지원 + APC 환경설정)
+		// 20. 해당 userId 권한사용자 등록
+		
+		// 00. validation check
+		if (!StringUtils.hasText(apcCd)) {
+			HashMap<String, Object> resultMap = ComUtil.getResultMap("W0005", "APC코드");
+			return resultMap;
+		}
+		
+		if (!StringUtils.hasText(userId)) {
+			HashMap<String, Object> resultMap = ComUtil.getResultMap("W0005", "사용자ID");
+			return resultMap;
+		}
+		
+		// 사용자 유형 확인
+		ComUserVO paramUser = new ComAuthrtUserVO();
+		paramUser.setUserId(userId);
+		ComUserVO comUserVO = comUserMapper.selectComUser(paramUser);
+		if (comUserVO == null || !StringUtils.hasText(comUserVO.getUserId())) {
+			HashMap<String, Object> resultMap = ComUtil.getResultMap("W0005", "사용자정보");
+			return resultMap;
+		}
+		
+		if (!ComConstants.CON_USER_STTS_VALID.equals(comUserVO.getUserStts())) {
+			HashMap<String, Object> resultMap = ComUtil.getResultMap("W0005", "사용자정보");
+			return resultMap;
+		}
+		
+		String apcNm = comUserVO.getApcNm();
+		String userType = comUserVO.getUserType();
+		String authrtType = ComConstants.CON_BLANK;
+		
+		logger.debug("userType: {}", userType);
+		
+		if (ComConstants.CON_USER_TYPE_ADMIN.equals(userType)) {
+			authrtType = ComConstants.CON_AUTHRT_TYPE_ADMIN;
+		} else if (ComConstants.CON_USER_TYPE_USER.equals(userType)) {
+			authrtType = ComConstants.CON_AUTHRT_TYPE_USER;
+		} else {
+			HashMap<String, Object> resultMap = ComUtil.getResultMap("W0005", "사용자유형");
+			return resultMap;
+		}
+		logger.debug("authrtType: {}", authrtType);
+		
+		// apc 권한 정보 조회
+		ComAuthrtVO authrtParam = new ComAuthrtVO();
+		authrtParam.setApcCd(apcCd);
+		List<ComAuthrtVO> authrtList = selectComAuthrtList(authrtParam);
+		
+		logger.debug("authrtList.size(): {}", authrtList.size());
+		// 01. 해당 APC의 권한그룹 등록 (관리자 승인 시 1회)
+		// 권한그룹 등록 확인
+		if (ComConstants.CON_AUTHRT_TYPE_ADMIN.equals(authrtType)) {
+			
+			if (authrtList == null || authrtList.isEmpty()) {
+				// 권한 그룹 생성 admin + user
+				ComAuthrtVO newAuthrtVO = new ComAuthrtVO();
+				
+				newAuthrtVO.setSysFrstInptUserId(sysUserId);
+				newAuthrtVO.setSysFrstInptPrgrmId(sysPrgrmId);
+				newAuthrtVO.setSysLastChgUserId(sysUserId);
+				newAuthrtVO.setSysLastChgPrgrmId(sysPrgrmId);
+				
+				newAuthrtVO.setApcCd(apcCd);
+				
+				String apcAdminAuthrtNm = String.format("%s %s", apcNm, ApcConstants.PREFIX_AUTHRT_NM_ADMIN);
+				String apcUserAuthrtNm = String.format("%s %s", apcNm, ApcConstants.PREFIX_AUTHRT_NM_USER);
+				
+				// admin
+				newAuthrtVO.setAuthrtNm(apcAdminAuthrtNm);
+				newAuthrtVO.setAuthrtType(ComConstants.CON_AUTHRT_TYPE_ADMIN);
+				int insertedCnt = insertComAuthrt(newAuthrtVO);
+				if (insertedCnt != 1) {
+					throw new Exception("APC관리자 권한등록");
+//					HashMap<String, Object> resultMap = ComUtil.getResultMap("E0003", "APC관리자 권한등록");	// {0} 시 오류가 발생하였습니다.
+//					return resultMap;
+				}
+				
+				// user
+				newAuthrtVO.setAuthrtNm(apcUserAuthrtNm);
+				newAuthrtVO.setAuthrtType(ComConstants.CON_AUTHRT_TYPE_USER);
+				insertedCnt = insertComAuthrt(newAuthrtVO);
+				if (insertedCnt != 1) {
+					throw new Exception("APC사용자 권한등록");
+//					HashMap<String, Object> resultMap = ComUtil.getResultMap("E0003", "APC사용자 권한등록");	// {0} 시 오류가 발생하였습니다.
+//					return resultMap;
+				}
+								
+				// 등록 후 권한그룹 재조회
+				authrtList = selectComAuthrtList(authrtParam);
+				logger.debug("authrtList.size(): {}", authrtList.size());
+				// 관리자 권한에 권한메뉴 등록
+				String adminAuthrtId = ComConstants.CON_BLANK;
+				for ( ComAuthrtVO auth : authrtList ) {			
+					if (!StringUtils.hasText(adminAuthrtId)
+							&& ComConstants.CON_AUTHRT_TYPE_ADMIN.equals(auth.getAuthrtType())) {
+						adminAuthrtId = auth.getAuthrtId();
+						break;
+					}
+				}
+				
+				if (StringUtils.hasText(adminAuthrtId)) {
+					ComAuthrtMenuVO newAuthrtMenuVO = new ComAuthrtMenuVO();
+					newAuthrtMenuVO.setSysFrstInptUserId(sysUserId);
+					newAuthrtMenuVO.setSysFrstInptPrgrmId(sysPrgrmId);
+					newAuthrtMenuVO.setSysLastChgUserId(sysUserId);
+					newAuthrtMenuVO.setSysLastChgPrgrmId(sysPrgrmId);
+					
+					// 업무지원시스템 메뉴등록
+					newAuthrtMenuVO.setAuthrtId(adminAuthrtId);
+					newAuthrtMenuVO.setMenuId(ApcConstants.MENU_ID_AM);
+					insertedCnt = insertComAuthrtMenu(newAuthrtMenuVO);
+					if (insertedCnt != 1) {
+						throw new Exception("업무메뉴 권한등록");
+//						HashMap<String, Object> resultMap = ComUtil.getResultMap("E0003", "업무메뉴 권한등록");	// {0} 시 오류가 발생하였습니다.
+//						return resultMap;
+					}
+					
+					// APC환경설정 메뉴등록
+					newAuthrtMenuVO.setAuthrtId(adminAuthrtId);
+					newAuthrtMenuVO.setMenuId(ApcConstants.MENU_ID_AM_APC_EVRMNT_STNG);
+					
+					insertedCnt = insertComAuthrtMenu(newAuthrtMenuVO);
+					if (insertedCnt != 1) {
+						throw new Exception("업무메뉴 권한등록");
+//						HashMap<String, Object> resultMap = ComUtil.getResultMap("E0003", "업무메뉴 권한등록");	// {0} 시 오류가 발생하였습니다.
+//						return resultMap;
+					}
+				}
+			}
+		}
+		
+		// 20. 해당 userId 권한사용자 등록
+		String newAuthrtId = ComConstants.CON_BLANK;
+		for ( ComAuthrtVO auth : authrtList ) {			
+			if (!StringUtils.hasText(newAuthrtId)
+					&& authrtType.equals(auth.getAuthrtType())) {
+				newAuthrtId = auth.getAuthrtId();
+				break;
+			}
+		}
+		
+		if (StringUtils.hasText(newAuthrtId)) {
+			ComAuthrtUserVO newAuthrtUserVO = new ComAuthrtUserVO();
+			newAuthrtUserVO.setSysFrstInptUserId(sysUserId);
+			newAuthrtUserVO.setSysFrstInptPrgrmId(sysPrgrmId);
+			newAuthrtUserVO.setSysLastChgUserId(sysUserId);
+			newAuthrtUserVO.setSysLastChgPrgrmId(sysPrgrmId);
+			
+			newAuthrtUserVO.setAuthrtId(newAuthrtId);
+			newAuthrtUserVO.setUserId(userId);
+			
+			// 등록 확인
+			ComAuthrtUserVO authrtUserInfo = selectComAuthrtUser(newAuthrtUserVO);
+			if (authrtUserInfo == null || StringUtils.hasText(authrtUserInfo.getUserId())) {
+				int insertedCnt = insertComAuthrtUser(newAuthrtUserVO);
+				if (insertedCnt != 1) {
+					throw new Exception("사용자 권한등록");
+//					HashMap<String, Object> resultMap = ComUtil.getResultMap("E0003", "사용자 권한등록");	// {0} 시 오류가 발생하였습니다.
+//					return resultMap;
+				}
+			}
+		}
+
 		return null;
 	}
 
 	@Override
 	public HashMap<String, Object> insertApcSimpleAuthrt(ComAuthrtVO comAuthrtVO) throws Exception {
 
-		String userId = comAuthrtVO.getSysLastChgUserId();
-		String prgrmId = comAuthrtVO.getSysLastChgPrgrmId();
+		String sysUserId = comAuthrtVO.getSysLastChgUserId();
+		String sysPrgrmId = comAuthrtVO.getSysLastChgPrgrmId();
 		
 		// APC코드, CASE 정보를 받아 권한메뉴, 권한UI 정보를 등록한다 (Template)  
 		
@@ -466,18 +654,18 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 			
 			// delete menu
 			for ( ComAuthrtMenuVO orgnMenu : orgnMenuList ) {
-				orgnMenu.setSysLastChgUserId(userId);
-				orgnMenu.setSysLastChgPrgrmId(prgrmId);
+				orgnMenu.setSysLastChgUserId(sysUserId);
+				orgnMenu.setSysLastChgPrgrmId(sysPrgrmId);
 				deleteComAuthrtMenu(orgnMenu);
 			}
 			
 			// insert menu
 			for ( ComAuthrtMenuVO newMenu : adminAuthrtMenuList ) {
 				newMenu.setAuthrtId(authrtId);
-				newMenu.setSysFrstInptUserId(userId);
-				newMenu.setSysFrstInptPrgrmId(prgrmId);
-				newMenu.setSysLastChgUserId(userId);
-				newMenu.setSysLastChgPrgrmId(prgrmId);
+				newMenu.setSysFrstInptUserId(sysUserId);
+				newMenu.setSysFrstInptPrgrmId(sysPrgrmId);
+				newMenu.setSysLastChgUserId(sysUserId);
+				newMenu.setSysLastChgPrgrmId(sysPrgrmId);
 				insertComAuthrtMenu(newMenu);
 			}
 		}
@@ -502,18 +690,18 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 			
 			// delete menu
 			for ( ComAuthrtMenuVO orgnMenu : orgnMenuList ) {
-				orgnMenu.setSysLastChgUserId(userId);
-				orgnMenu.setSysLastChgPrgrmId(prgrmId);
+				orgnMenu.setSysLastChgUserId(sysUserId);
+				orgnMenu.setSysLastChgPrgrmId(sysPrgrmId);
 				deleteComAuthrtMenu(orgnMenu);
 			}
 
 			// insert menu
 			for ( ComAuthrtMenuVO newMenu : userAuthrtMenuList ) {
 				newMenu.setAuthrtId(authrtId);
-				newMenu.setSysFrstInptUserId(userId);
-				newMenu.setSysFrstInptPrgrmId(prgrmId);
-				newMenu.setSysLastChgUserId(userId);
-				newMenu.setSysLastChgPrgrmId(prgrmId);
+				newMenu.setSysFrstInptUserId(sysUserId);
+				newMenu.setSysFrstInptPrgrmId(sysPrgrmId);
+				newMenu.setSysLastChgUserId(sysUserId);
+				newMenu.setSysLastChgPrgrmId(sysPrgrmId);
 				insertComAuthrtMenu(newMenu);
 			}
 		}

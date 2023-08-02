@@ -43,5 +43,17 @@ public class ApcConstants {
     /* APC MENU */
     public final static String MENU_ID_AM = "AM";
     public final static String MENU_ID_AM_APC_EVRMNT_STNG = "AM_015";
+    
+    
+    /* APC 권한명 */
+    public final static String PREFIX_AUTHRT_NM_ADMIN = "APC관리자";
+    public final static String PREFIX_AUTHRT_NM_USER = "APC일반사용자";
+    
 	
+    
+    /* COLUMN PROPERTIES */
+    public final static String PROP_APC_CD = "apcCd";
+    public final static String PROP_WGHNO = "wghno";
+    
+    
 }

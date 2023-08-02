@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchGrd" name="btnSearchGrd" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectGrdSpcfctList()"></sbux-button>
-					<sbux-button id="btnSaveGrd" name="btnSaveGrd" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_saveApcGrdList"></sbux-button>
+					<sbux-button id="btnSaveGrd" name="btnSaveGrd" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveApcGrdList"></sbux-button>
 					<sbux-button id="btnEndGrd" name="btnEndGrd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-grdSpcfct')"></sbux-button>
 				</div>
 			</div>
@@ -97,7 +97,7 @@
 		await gfn_setComCdGridSelect('grdApcSpcfct', jsonSpcfctUnitCd, 		'UNIT_CD', '0000');			// 단위
 		await gfn_setComCdGridSelect('grdApcSpcfct', jsonSpcfctPckgSttsCd, 	'PCKG_STTS_CD', '0000');	// 포장구분
 		await gfn_setComCdGridSelect('grdApcSpcfct', jsonUseYn, 			'REVERSE_YN', '0000');		// 포장구분
-		await gfn_setApcItemSBSelect("spcfct-select-itemCd", jsonComItemCd, SBUxMethod.get("inp-apcCd"));	// APC 품목
+		await gfn_setApcItemSBSelect("spcfct-select-itemCd", jsonComItemCd, gv_apcCd);	// APC 품목
 	}
 	function fn_createGrdGrid() {
 
@@ -115,7 +115,7 @@
 	    SBGridProperties.columns = [
 	        {caption: ["명칭"],     	ref: 'grdNm',  type:'input',  width:'140px',    style:'text-align:center'},
 	        {caption: ["사용유무"], 	ref: 'delYn',  type:'combo',  width:'80px',    style:'text-align:center',
-				typeinfo : {ref:'jsonUseYn', label:'label', value:'value',  displayui : true}},
+				typeinfo : {ref:'jsonUseYn', label:'label', value:'value',  displayui : false}},
 	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdGrd\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -136,7 +136,7 @@
 
 
 	async function fn_callSelectGrdList(){
-		let apcCd = SBUxMethod.get("inp-apcCd");
+		let apcCd = gv_apcCd;
 		let itemCd = SBUxMethod.get("spcfct-select-itemCd");
 		let postJsonPromise = gfn_postJSON("/am/cmns/selectApcGrdList.do", {apcCd : apcCd, itemCd : itemCd});
 	    let data = await postJsonPromise;
@@ -155,6 +155,7 @@
 	    	jsonGrd = newGrdGridData;
 	    	grdGrd.rebuild();
 	    	grdGrd.addRow(true);
+	    	console.log("asdasdsd");
 	    }catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -177,13 +178,13 @@
 	    SBGridProperties.columns = [
 	        {caption: ["규격명"],   ref: 'spcfctNm',  	type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["중량단위"], ref: 'unitCd',   	type:'combo',  width:'80px',    style:'text-align:center',
-				typeinfo : {ref:'jsonSpcfctUnitCd', 	itemcount: 3, label:'label', value:'value', displayui : true}},
-	        {caption: ["포장구분"], ref: 'pckgSttsCd',   	type:'combo',  width:'80px',    style:'text-align:center',
-				typeinfo : {ref:'jsonSpcfctPckgSttsCd', itemcount: 10, label:'label', value:'value', displayui : true}},
-	        {caption: ["평균입수"],	ref: 'bxGdsQntt',  	type:'input',  width:'80px',    style:'text-align:center'},
-	        {caption: ["단중"],     ref: 'wght',  		type:'input',  width:'80px',    style:'text-align:center'},
+				typeinfo : {ref:'jsonSpcfctUnitCd', 	itemcount: 3, label:'label', value:'value', displayui : false}},
+	        {caption: ["포장구분"], ref: 'pckgSttsCd',   	type:'combo',  width:'100px',    style:'text-align:center',
+				typeinfo : {ref:'jsonSpcfctPckgSttsCd', itemcount: 10, label:'label', value:'value', displayui : false}},
+	        {caption: ["평균입수"],	ref: 'bxGdsQntt',  	type:'input',  width:'70px',    style:'text-align:center'},
+	        {caption: ["단중"],     ref: 'wght',  		type:'input',  width:'70px',    style:'text-align:center'},
 	        {caption: ["사용유무"], 	ref: 'delYn',  type:'combo',  width:'80px',    style:'text-align:center',
-				typeinfo : {ref:'jsonUseYn', label:'label', value:'value',  displayui : true}},
+				typeinfo : {ref:'jsonUseYn', label:'label', value:'value',  displayui : false}},
 			{caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdApcSpcfct\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -342,10 +343,10 @@
 			}
 		}
 		if(insertSpcfctList.length == 0 && updateSpcfctList.length == 0 && insertGrdList.length == 0 && updateGrdList.length == 0){
-			alert("등록 할 내용이 없습니다.");
+			alert("저장 할 내용이 없습니다.");
 			return;
 		}
-		let regMsg = "등록 하시겠습니까?";
+		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
 			if(insertSpcfctList.length > 0){
@@ -360,10 +361,11 @@
 			if(updateGrdList.length > 0){
 				updateGrdCnt = await fn_callUpdateGrdList(updateGrdList);
 			}
+			console.log(insertSpcfctCnt + updateSpcfctCnt + insertGrdCnt + updateGrdCnt)
 			if(insertSpcfctCnt + updateSpcfctCnt + insertGrdCnt + updateGrdCnt > 0 ){
+				alert("저장 되었습니다.");
 				fn_selectApcSpcfctList();
 				fn_selectGrdList();
-				alert("등록 되었습니다.");
 			}
 		}
 	}
@@ -391,7 +393,7 @@
 		let postJsonPromise = gfn_postJSON("/am/cmns/updateApcSpcfctList.do", cmnsSpcfctList);
         let data = await postJsonPromise;
         try{
-       		return data.updateCnt;
+       		return data.updatedCnt;
 
         }catch (e) {
         	if (!(e instanceof Error)) {
@@ -422,7 +424,7 @@
 		let postJsonPromise = gfn_postJSON("/am/cmns/updateApcGrdList.do", cmnsGrdList);
         let data = await postJsonPromise;
         try{
-       		return data.updateCnt;
+       		return data.updatedCnt;
 
         }catch (e) {
         	if (!(e instanceof Error)) {

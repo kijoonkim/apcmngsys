@@ -35,7 +35,7 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.insertWrhsVhcl		-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.insertRgnTrsprtCst		-->
 	<!-- DESC : 지역별 운임 등록.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -62,7 +62,7 @@
    		VALUES
    			(
    				#{apcCd}
-    		  , #{trsprtRgnCd}
+    		  , FN_GET_ID_TRSPRT_RGN_CD(#{apcCd})
     		  , #{trsprtRgnNm}
     		  , #{trsprtCst}
     		  , #{rmrk}

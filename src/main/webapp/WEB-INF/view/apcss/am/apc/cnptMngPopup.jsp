@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnCnptSech" name="btnCnptSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectCnptList()"></sbux-button>
-					<sbux-button id="btnCnptReg" name="btnCnptReg" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insertCnptList"></sbux-button>
+					<sbux-button id="btnCnptReg" name="btnCnptReg" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertCnptList"></sbux-button>
 					<sbux-button id="btnCnptEnd" name="btnCnptEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-cnpt')"></sbux-button>
 				</div>
 			</div>
@@ -87,14 +87,14 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
         SBGridProperties.columns = [
-            {caption: ["코드"], 		ref: 'cnptCd',  	type:'output', width:'80px',     style:'text-align:center'},
-            {caption: ["거래처명"], 	ref: 'cnptNm',  	type:'input',  width:'150px',    style:'text-align:center'},
-            {caption: ["유형"], 		ref: 'cnptType',   	type:'combo',  width:'150px',    style:'text-align:center',
-				typeinfo : {ref:'comboGridCnptTypeJsData', label:'label', value:'value', unselect: {label : '선택', value: ''}, displayui : true}},
-            {caption: ["사업자번호"], 	ref: 'brno',  		type:'input',  width:'150px',    style:'text-align:center'},
+            {caption: ["코드"], 		ref: 'cnptCd',  	type:'output', width:'80px',     style:'text-align:center',  hidden : true},
+            {caption: ["거래처명"], 	ref: 'cnptNm',  	type:'input',  width:'165px',    style:'text-align:center'},
+            {caption: ["유형"], 		ref: 'cnptType',   	type:'combo',  width:'155px',    style:'text-align:center',
+				typeinfo : {ref:'comboGridCnptTypeJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
+            {caption: ["사업자번호"], 	ref: 'brno',  		type:'input',  width:'165px',    style:'text-align:center'},
             {caption: ["담당자"], 		ref: 'picNm',  		type:'input',  width:'100px',    style:'text-align:center'},
-            {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'120px',    style:'text-align:center'},
-            {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'270px',    style:'text-align:center'},
+            {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'150px',    style:'text-align:center'},
+            {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'120px',    style:'text-align:center'},
             {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"cnptMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -112,11 +112,13 @@
 	}
 
 
+    let newCnptGridData = [];
 	async function fn_callSelectCnptList(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectCnptList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        let newCnptGridData = [];
+	    newCnptGridData = [];
+	    cnptMngGridData = [];
         try{
         	data.resultList.forEach((item, index) => {
 				let cnpt = {
@@ -130,11 +132,12 @@
 				  , delYn 		: item.delYn
 				  , apcCd 		: item.apcCd
 				}
-				newCnptGridData.push(cnpt);
+				cnptMngGridData.push(Object.assign({}, cnpt));
+				newCnptGridData.push(Object.assign({}, cnpt));
 			});
-        	cnptMngGridData = newCnptGridData;
+        	console.log("cnptMngGridData", cnptMngGridData);
         	cnptMngDatagrid.rebuild();
-        	cnptMngDatagrid.addRow();
+         	cnptMngDatagrid.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -143,7 +146,44 @@
         }
 	}
 
+	async function fn_insertCnptList(){
+		for(var i=0; i<cnptMngGridData.length; i++){
+			if(cnptMngGridData[i].delYn == "N"){
+				if(cnptMngGridData[i].cnptNm == null || cnptMngGridData[i].cnptNm == ""){
+					console.log(cnptMngGridData[i]);
+					alert("거래처명은 필수 값 입니다.");
+					return
+				}
+				if(cnptMngGridData[i].cnptType == null || cnptMngGridData[i].cnptType == ""){
+					console.log(cnptMngGridData[i]);
+					alert("유형을 선택해주세요");
+					return
+				}
+			}
+		}
 
+		var isEqual1 = await chkEqualObj(cnptMngGridData, newCnptGridData);
+		console.log(isEqual1);
+		if (isEqual1){
+			alert("저장 할 내용이 없습니다.");
+			return;
+		}
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+			let postJsonPromise1 = await gfn_postJSON("/am/cmns/compareCnptList.do", {origin : newCnptGridData, modified : cnptMngGridData});
+			let postJsonPromise2 = await gfn_postJSON("/am/cmns/compareOrdrList.do", {origin : newCnptGridData, modified : cnptMngGridData});
+
+			alert("저장 되었습니다.");
+
+
+			fn_callSelectCnptList();
+		}
+	}
+
+	async function fn_deleteCnptList(cnpt){
+		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteCnptList.do", cnpt);
+	}
     var ordrMngGridData = [
     	{"martNm": "이마트", "ordrUrl" : "https://supply.nonghyup.com", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
     	{"martNm": "노브랜드", "ordrUrl" : "https://supply.nonghyup.com", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
@@ -163,13 +203,13 @@
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["대형마트 명"], 		ref: 'martNm',  	type:'input',  width:'150px',     style:'text-align:center'},
-            {caption: ["발주정보 URL"], 	ref: 'ordrUrl',  	type:'input',  width:'250px',    style:'text-align:center'},
-            {caption: ["사용자ID"], 		ref: 'userId',  	type:'input',  width:'150px',    style:'text-align:center'},
-            {caption: ["패스워드"], 		ref: 'userPw',  	type:'input',  width:'150px',    style:'text-align:center'},
+            {caption: ["대형마트 명"], 		ref: 'martNm',  	type:'input',  width:'165px',     style:'text-align:center'},
+            {caption: ["발주정보 URL"], 	ref: 'ordrUrl',  	type:'input',  width:'320px',    style:'text-align:center'},
+            {caption: ["사용자ID"], 		ref: 'userId',  	type:'input',  width:'120px',    style:'text-align:center'},
+            {caption: ["패스워드"], 		ref: 'userPw',  	type:'input',  width:'120px',    style:'text-align:center'},
             {caption: ["사용유무"], 		ref: 'useYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
-						typeinfo : {ref:'comboReverseYnJsData', label:'label', value:'value', displayui : true}},
-            {caption: ["최종처리일시"], 	ref: 'prcsDt',  	type:'input',  width:'200px',    style:'text-align:center'}
+						typeinfo : {ref:'comboReverseYnJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
+            {caption: ["최종처리일시"], 	ref: 'prcsDt',  	type:'input',  width:'280px',    style:'text-align:center'}
         ];
         window.ordrMngDatagrid = _SBGrid.create(SBGridProperties);
     }

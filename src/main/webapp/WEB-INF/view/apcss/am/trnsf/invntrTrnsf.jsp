@@ -24,7 +24,7 @@
 
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -42,13 +42,13 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th class="ta_r">APC명</th>
+							<th scope="row" class="th_bg">APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
-							<th class="ta_r">이송일자</th>
+							<th scope="row" class="th_bg">이송일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-fromTrnsfYmd" name="srch-dtp-fromTrnsfYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
@@ -56,7 +56,7 @@
 								<sbux-datepicker id="srch-dtp-toTrnsfYmd" name="srch-dtp-toTrnsfYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td></td>
-							<th class="ta_r">이송APC</th>
+							<th scope="row" class="th_bg">이송APC</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -65,7 +65,7 @@
 								</div>
 							</td>
 							<td colspan="2"></td>
-							<th class="ta_r">품목/품종</th>
+							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -83,7 +83,7 @@
 							<td ></td>
 						</tr>
 						<tr>
-							<th class="ta_r">규격</th>
+							<th scope="row" class="th_bg">규격</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -92,7 +92,7 @@
 								</div>
 							</td>
 							<td colspan="2"></td>
-							<th class="ta_r">창고구분</th>
+							<th scope="row" class="th_bg">창고구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -101,7 +101,7 @@
 								</div>
 							</td>
 							<td colspan="2"></td>
-							<th class="ta_r">상품구분</th>
+							<th scope="row" class="th_bg">상품구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -112,7 +112,7 @@
 							<td colspan="2"></td>
 						</tr>
 						<tr>
-							<th class="ta_r">입고구분</th>
+							<th scope="row" class="th_bg">입고구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">

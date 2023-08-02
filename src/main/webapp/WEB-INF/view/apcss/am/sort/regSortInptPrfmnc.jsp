@@ -22,13 +22,13 @@
 					<sbux-checkbox id="check_all" name="check_all" uitype="normal" text="포장실적 자동등록" ></sbux-checkbox>
 				</p>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-dark"></sbux-button>
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-dark"></sbux-button>
+				<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-dark"></sbux-button>
 				<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-dark"></sbux-button>
 			</div>
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -46,14 +46,14 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">APC명</th>
+							<th scope="row" class="th_bg" >APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
 							<td colspan="8"></td>
 						</tr>
 						<tr>
-						<th scope="row">입고일자</th>
+						<th scope="row" class="th_bg">입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-wrhsYmd1" name="srch-dtp-wrhsYmd1" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
@@ -61,7 +61,7 @@
 								<sbux-datepicker id="srch-dtp-wrhsYmd2" name="srch-dtp-wrhsYmd2" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
-							<th scope="row">품목/품종</th>
+							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonItem" onchange="fn_selectItem"></sbux-select>
 							</td>
@@ -69,7 +69,7 @@
 								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonVrty"></sbux-select>
 							</td>
 							<td></td>
-							<th scope="row">생산자</th>
+							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-prdcrNm" name="srch-inp-prdcrNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
@@ -92,7 +92,7 @@
 					</div>
 					<br/>
 <!-- 					<div class="ad_section_bottom"></div> -->
-						<table class="table table-bordered tbl_row tbl_fixed">
+						<table class="table table-bordered tbl_fixed">
 							<caption>검색 조건 설정</caption>
 							<colgroup>
 								<col style="width: 7%">
@@ -110,16 +110,16 @@
 							</colgroup>
 							<tbody>
 								<tr>
-									<th scope="row">선별일자</th>
+									<th scope="row" class="th_bg">선별일자</th>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-datepicker id="srch-dtp-inptYmd" name="srch-dtp-inptYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 									</td>
 									<td colspan="2"></td>
-									<th scope="row">설비</th>
+									<th scope="row" class="th_bg">설비</th>
 									<td class="td_input" style="border-right: hidden;">
 									<sbux-select id="srch-slt-fcltCd" name="srch-slt-fcltCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComFclt"></sbux-select>
 									</td>
-									<td colspan="2"></td>
+									<td colspan="2" class="th_bg"></td>
 									<th scope="row">선별 투입량</th>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-input id="srch-inp-sortWght" name="srch-inp-sortWght" uitype="text" placeholder="" class="form-control input-sm" disabled>

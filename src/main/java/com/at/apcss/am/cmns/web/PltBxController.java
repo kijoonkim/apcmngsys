@@ -3,6 +3,8 @@ package com.at.apcss.am.cmns.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -60,62 +62,110 @@ public class PltBxController extends BaseController {
 	}
 
 	// APC 환경설정 - 팔레트/박스 등록
-	@PostMapping(value = "/am/cmns/insertPltBxList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertPltBxList(@RequestBody List<PltBxVO> pltBxList, HttpServletRequest request) throws Exception {
-		logger.debug("insertPltBxList 호출 <><><><> ");
+	@PostMapping(value = "/am/cmns/comparePltBx.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deletePltBx(@RequestBody Map<String, List<PltBxVO>> pltBxVO, HttpServletRequest request) throws Exception {
+		logger.debug("comparePltBx 호출 <><><><> ");
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		int result = 0;
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		int insertCnt = 0;
 		try {
-			for (PltBxVO pltBxVO : pltBxList) {
-				pltBxVO.setSysFrstInptPrgrmId(getPrgrmId());
-				pltBxVO.setSysFrstInptUserId(getUserId());
-				pltBxVO.setSysLastChgPrgrmId(getPrgrmId());
-				pltBxVO.setSysLastChgUserId(getUserId());
-				result =+ pltBxService.insertPltBx(pltBxVO);
+			List<PltBxVO> origin = pltBxVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
+			List<PltBxVO> modified = pltBxVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
+
+			List<PltBxVO> insertList = new ArrayList<PltBxVO>(modified).stream().filter(e -> e.getPltBxCd() == null || e.getPltBxCd().equals("")).collect(Collectors.toList());
+			for (PltBxVO element : insertList) {
+				element.setSysFrstInptPrgrmId(getPrgrmId());
+				element.setSysFrstInptUserId(getUserId());
+				element.setSysLastChgPrgrmId(getPrgrmId());
+				element.setSysLastChgUserId(getUserId());
+				pltBxService.insertPltBx(element);
 			}
 
+			List<PltBxVO> updateList = new ArrayList<PltBxVO>();
+			for (PltBxVO ei : origin) {
+				for (PltBxVO ej : modified) {
+					if (ei.getPltBxCd().equals(ej.getPltBxCd())) {
+						if (ei.hashCode() != ej.hashCode()) {
+							updateList.add(ej);
+						}
+						break;
+					}
+				}
+			}
+
+			for (PltBxVO element : updateList) {
+				element.setSysLastChgPrgrmId(getPrgrmId());
+				element.setSysLastChgUserId(getUserId());
+				pltBxService.updatePltBx(element);
+			}
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
 
-		resultMap.put("result", result);
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}
 
+//	// APC 환경설정 - 팔레트/박스 등록
+//	@PostMapping(value = "/am/cmns/insertPltBxList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+//	public ResponseEntity<HashMap<String, Object>> insertPltBxList(@RequestBody List<PltBxVO> pltBxList, HttpServletRequest request) throws Exception {
+//		logger.debug("insertPltBxList 호출 <><><><> ");
+//
+//		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+//		int result = 0;
+//		try {
+//			for (PltBxVO pltBxVO : pltBxList) {
+//				pltBxVO.setSysFrstInptPrgrmId(getPrgrmId());
+//				pltBxVO.setSysFrstInptUserId(getUserId());
+//				pltBxVO.setSysLastChgPrgrmId(getPrgrmId());
+//				pltBxVO.setSysLastChgUserId(getUserId());
+//				result =+ pltBxService.insertPltBx(pltBxVO);
+//			}
+//
+//		} catch (Exception e) {
+//			return getErrorResponseEntity(e);
+//		}
+//
+//		resultMap.put("result", result);
+//
+//		return getSuccessResponseEntity(resultMap);
+//	}
+//
+//	// APC 환경설정 - 팔레트/박스 등록
+//	@PostMapping(value = "/am/cmns/updatePltBxList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+//	public ResponseEntity<HashMap<String, Object>> updatePltBxList(@RequestBody List<PltBxVO> pltBxList, HttpServletRequest request) throws Exception {
+//		logger.debug("updatePltBxList 호출 <><><><> ");
+//
+//		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+//		int result = 0;
+//		try {
+//			for (PltBxVO pltBxVO : pltBxList) {
+//				pltBxVO.setSysLastChgPrgrmId(getPrgrmId());
+//				pltBxVO.setSysLastChgUserId(getUserId());
+//				result =+ pltBxService.updatePltBx(pltBxVO);
+//			}
+//
+//		} catch (Exception e) {
+//			return getErrorResponseEntity(e);
+//		}
+//
+//		resultMap.put("result", result);
+//
+//		return getSuccessResponseEntity(resultMap);
+//	}
+//
+//
 	// APC 환경설정 - 팔레트/박스 등록
-	@PostMapping(value = "/am/cmns/updatePltBxList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updatePltBxList(@RequestBody List<PltBxVO> pltBxList, HttpServletRequest request) throws Exception {
-		logger.debug("updatePltBxList 호출 <><><><> ");
-
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		int result = 0;
-		try {
-			for (PltBxVO pltBxVO : pltBxList) {
-				pltBxVO.setSysLastChgPrgrmId(getPrgrmId());
-				pltBxVO.setSysLastChgUserId(getUserId());
-				result =+ pltBxService.updatePltBx(pltBxVO);
-			}
-
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		resultMap.put("result", result);
-
-		return getSuccessResponseEntity(resultMap);
-	}
-
-	// APC 환경설정 - 팔레트/박스 등록
-	@PostMapping(value = "/am/cmns/deletePltBx.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	@PostMapping(value = "/am/cmns/deletePltBx.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deletePltBx(@RequestBody PltBxVO pltBxVO, HttpServletRequest request) throws Exception {
 		logger.debug("deletePltBx 호출 <><><><> ");
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
 		try {
-				result = pltBxService.deletePltBx(pltBxVO);
+			result = pltBxService.deletePltBx(pltBxVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

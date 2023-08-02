@@ -18,7 +18,7 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ APC환경설정</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"></sbux-button>
 				</div>
 			</div>
 
@@ -52,35 +52,35 @@
 							</td>
 							<td scope="row" align="right">주소</td>
 							<td scope="row">
-								<sbux-input id="addr" name="addr" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-addr" name="inp-addr" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td scope="row" align="right">전화번호</td>
 							<td scope="row">
-								<sbux-input id="telno" name="telno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-telno" name="inp-telno" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td scope="row" align="right">팩스번호</td>
 							<td scope="row">
-								<sbux-input id="fxno" name="fxno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-fxno" name="inp-fxno" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<td scope="row" align="right">사업번호</td>
 							<td scope="row">
-								<sbux-input id="apcBrno" name="apcBrno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-brno" name="inp-brno" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td scope="row" align="right">계좌번호</td>
 							<td scope="row">
-								<sbux-input id="actno" name="actno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-actno" name="inp-actno" uitype="text" class="form-control input-sm"></sbux-input>
 
 							</td>
 							<td scope="row" align="right">입금은행</td>
 							<td >
-								<sbux-select id="comboBankNm" name="comboBankNm" uitype="single" jsondata-ref="jsonComboBankNm" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="slt-bankCd" name="slt-bankCd" uitype="single" jsondata-ref="jsonComboBankNm" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 
 							<td scope="row" align="right">예금주명</td>
 							<td scope="row">
-								<sbux-input id="dpstr" name="dpstr" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-dpstr" name="inp-dpstr" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -152,7 +152,7 @@
 								선택한 품목별로 APC에서 관리하는 등급과 규격을 등록하세요.
 							</td>
 						</tr>
-						<!-- <tr>
+						<tr>
 							<th scope="row">출하포장단위 관리</th>
 							<td class="td_input" colspan="2">
 								<sbux-button id="btnSpmtPckgUnit" name="btnSpmtPckgUnit" uitype="modal" text="출하포장단위 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spmtPckgUnit" onclick="fn_modal('btnSpmtPckgUnit')"></sbux-button>
@@ -160,7 +160,7 @@
 							<td colspan="6" style="color:#999">
 								선택한 품목별로 APC에서 관리하는 출하포장단위을 등록하세요.
 							</td>
-						</tr> -->
+						</tr>
 						<tr>
 							<th scope="row">원물 팔레트/박스</th>
 							<td class="td_input" colspan="2">
@@ -466,77 +466,77 @@
 	</section>
 	<!-- 사용자권한 설정 Modal -->
     <div>
-        <sbux-modal id="modal-userAuth" name="modal-userAuth" uitype="middle" header-title="APC사용자 권한설정" body-html-id="body-modal-userAuth" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-userAuth" name="modal-userAuth" uitype="middle" header-title="APC사용자 권한설정" body-html-id="body-modal-userAuth" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-userAuth">
     	<jsp:include page="../apc/apcUserMngPopup.jsp"></jsp:include>
     </div>
     <!-- 설비 등록 Modal -->
     <div>
-        <sbux-modal id="modal-fclt" name="modal-fclt" uitype="middle" header-title="설비 등록" body-html-id="body-modal-fclt" footer-is-close-button="false" style="width:800px"></sbux-modal>
+        <sbux-modal id="modal-fclt" name="modal-fclt" uitype="middle" header-title="설비 등록" body-html-id="body-modal-fclt" footer-is-close-button="false" header-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="body-modal-fclt">
     	<jsp:include page="../apc/fcltMngPopup.jsp"></jsp:include>
     </div>
     <!-- 창고 등록 Modal -->
     <div>
-        <sbux-modal id="modal-warehouse" name="modal-warehouse" uitype="middle" header-title="창고 등록" body-html-id="body-modal-warehouse" footer-is-close-button="false" style="width:800px"></sbux-modal>
+        <sbux-modal id="modal-warehouse" name="modal-warehouse" uitype="middle" header-title="창고 등록" body-html-id="body-modal-warehouse" footer-is-close-button="false" header-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="body-modal-warehouse">
     	<jsp:include page="../apc/warehouseMngPopup.jsp"></jsp:include>
     </div>
     <!--품목/품종 등록 Modal -->
     <div>
-        <sbux-modal id="modal-item" name="modal-item" uitype="middle" header-title="품목/품종 등록" body-html-id="body-modal-item" footer-is-close-button="false"style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-item" name="modal-item" uitype="middle" header-title="품목/품종 등록" body-html-id="body-modal-item" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-item">
     	<jsp:include page="../apc/itemMngPopup.jsp"></jsp:include>
     </div>
     <!-- 등급/규격 등록 Modal -->
     <div>
-        <sbux-modal id="modal-grdSpcfct" name="modal-grdSpcfct" uitype="middle" header-title="등급/규격 등록" body-html-id="body-modal-grdSpcfct" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-grdSpcfct" name="modal-grdSpcfct" uitype="middle" header-title="등급/규격 등록" body-html-id="body-modal-grdSpcfct" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-grdSpcfct">
     	<jsp:include page="../apc/grdSpcfctMngPopup.jsp"></jsp:include>
     </div>
     <!-- 출하포장단위 등록 Modal -->
-    <%-- <div>
-        <sbux-modal id="modal-spmtPckgUnit" name="modal-spmtPckgUnit" uitype="middle" header-title="춣하포장단위 등록" body-html-id="body-modal-spmtPckgUnit" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    <div>
+        <sbux-modal id="modal-spmtPckgUnit" name="modal-spmtPckgUnit" uitype="middle" header-title="춣하포장단위 등록" body-html-id="body-modal-spmtPckgUnit" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-spmtPckgUnit">
     	<jsp:include page="../apc/spmtPckgUnitMngPopup.jsp"></jsp:include>
-    </div> --%>
+    </div>
     <!-- 팔레트/박스 등록 Modal -->
     <div>
-        <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="팔레트/박스 등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="팔레트/박스 등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-pltBx">
     	<jsp:include page="../apc/pltBxMngPopup.jsp"></jsp:include>
     </div>
     <!-- 입고차량정보 등록 Modal -->
     <div>
-        <sbux-modal id="modal-wrhsVhcl" name="modal-wrhsVhcl" uitype="middle" header-title="입고차량정보 등록" body-html-id="body-modal-wrhsVhcl" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-wrhsVhcl" name="modal-wrhsVhcl" uitype="middle" header-title="입고차량정보 등록" body-html-id="body-modal-wrhsVhcl" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-wrhsVhcl">
     	<jsp:include page="../apc/wrhsVhclMngPopup.jsp"></jsp:include>
     </div>
     <!-- 출하운송회사 등록 Modal -->
     <div>
-        <sbux-modal id="modal-spmtTrsprt" name="modal-spmtTrsprt" uitype="middle" header-title="출하운송회사 등록" body-html-id="body-modal-spmtTrsprt" footer-is-close-button="false" style="width:900px"></sbux-modal>
+        <sbux-modal id="modal-spmtTrsprt" name="modal-spmtTrsprt" uitype="middle" header-title="출하운송회사 등록" body-html-id="body-modal-spmtTrsprt" footer-is-close-button="false" header-is-close-button="false" style="width:900px"></sbux-modal>
     </div>
     <div id="body-modal-spmtTrsprt">
     	<jsp:include page="../apc/spmtTrsprtMngPopup.jsp"></jsp:include>
     </div>
     <!-- 거래처 등록 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 등록" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 등록" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-cnpt">
     	<jsp:include page="../apc/cnptMngPopup.jsp"></jsp:include>
     </div>
     <!-- 생산작업자 등록 Modal -->
     <div>
-        <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산자 등록" body-html-id="body-modal-oprtr" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산작업자 등록" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-oprtr">
     	<jsp:include page="../apc/oprtrMngPopup.jsp"></jsp:include>
@@ -544,10 +544,18 @@
 
     <!-- 간편설정 Modal -->
     <div>
-        <sbux-modal id="modal-simpleStng" name="modal-simpleStng" uitype="middle" header-title="메뉴간편설정" body-html-id="body-modal-simpleStng" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-simpleStng" name="modal-simpleStng" uitype="middle" header-title="메뉴간편설정" body-html-id="body-modal-simpleStng" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-simpleStng">
     	<jsp:include page="../apc/simpleStngPopup.jsp"></jsp:include>
+    </div>
+
+    <!-- 출하매출단가 등록 Modal -->
+    <div>
+        <sbux-modal id="modal-spmtSlsUntprcReg" name="modal-spmtSlsUntprcReg" uitype="middle" header-title="출하 매출단가 등록" body-html-id="body-modal-spmtSlsUntprcReg" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-spmtSlsUntprcReg">
+    	<jsp:include page="../apc/spmtSlsUntprcRegMngPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -563,33 +571,39 @@
 	var comboGridCnptTypeJsData = [];
 
 	const fn_initSBSelect = async function() {
-		gfn_setComCdSBSelect('comboBankNm', jsonComboBankNm ,	'BANK_CD', '0000');				// 검색 조건(시스템구분)
-		gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000");
-		gfn_setComCdGridSelect('grdPlt', comboUnitCdJsData, "UNIT_CD", "0000");
-		gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000");
-		gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000");
-		gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000");
+		await gfn_setComCdSBSelect('slt-bankCd', jsonComboBankNm ,	'BANK_CD', '0000');				// 검색 조건(시스템구분)
+		await gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000");
+		await gfn_setComCdGridSelect('grdPlt', comboUnitCdJsData, "UNIT_CD", "0000");
+		await gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000");
+		await gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000");
+		await gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000");
+		await selectApcInfo();
 	}
 
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("inp-apcCd", gv_apcCd);
-		selectApcInfo();
 		fn_initSBSelect();
 	})
 
 
 	async function selectApcInfo(){
-		let apcCd = SBUxMethod.get("inp-apcCd");
+		let apcCd = gv_apcCd;
     	let postJsonPromise = gfn_postJSON("/am/apc/selectApcInfo.do", {apcCd : apcCd});
 
         let data = await postJsonPromise;
 		let resultVO = data.resultVO;
+		console.log(resultVO);
         try{
 
         	SBUxMethod.set("inp-apcNm", resultVO.regApcNm);
-        	SBUxMethod.set("telNo", resultVO.regTelNo);
-        	SBUxMethod.set("addr", resultVO.regAddr);
+        	SBUxMethod.set("inp-telno", resultVO.regTelno);
+        	SBUxMethod.set("inp-addr", resultVO.regAddr);
+        	SBUxMethod.set("inp-fxno", resultVO.fxno);
+        	SBUxMethod.set("inp-actno", resultVO.actno);
+        	SBUxMethod.set("slt-bankCd", resultVO.bankCd);
+        	SBUxMethod.set("inp-dpstr", resultVO.dpstr);
+        	SBUxMethod.set("inp-brno", resultVO.brno);
 
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -622,7 +636,6 @@
 		if(targetName == 'btnPltBx'){
 			fn_pltMngCreateGrid();
 			fn_bxMngCreateGrid();
-			fn_pckgMngCreateGrid();
 		}
 		if(targetName == 'btnGrdSpcfct'){
 			fn_createGrdGrid();
@@ -639,6 +652,8 @@
 			fn_ordrMngCreateGrid();
 		}if(targetName == 'btnOprtr'){
 			fn_oprtrMngCreateGrid();
+		}if(targetName == 'btnSpmtPckgUnit'){
+			fn_createSpmtPckgUnitGrid();
 		}
 	}
 
@@ -693,20 +708,22 @@
 	}
 
     // Row 추가 및 삭제 기능
-    async function fn_procRow(gubun, grid, nRow, nCol) {
+
+    function fn_procRow(gubun, grid, nRow, nCol) {
         if (gubun === "ADD") {
             if (grid === "cnptMngDatagrid") {
-            	cnptMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	cnptMngGridData[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
+            	cnptMngGridData[nRow-1].delYn = "N";
             	cnptMngDatagrid.addRow(true);
             }else if (grid === "grdFclt") {
             	grdFclt.setCellData(nRow, nCol, "N", true);
-            	grdFclt.setCellData(nRow, 4, gv_apcCd, true);
-            	grdFclt.setCellData(nRow, 5, "FCLT_CD", true);
+            	grdFclt.setCellData(nRow, 3, gv_apcCd, true);
+            	grdFclt.setCellData(nRow, 4, "FCLT_CD", true);
             	grdFclt.addRow(true);
             }else if (grid === "grdWarehouse") {
             	grdWarehouse.setCellData(nRow, nCol, "N", true);
-            	grdWarehouse.setCellData(nRow, 4, gv_apcCd, true);
-            	grdWarehouse.setCellData(nRow, 5, "WAREHOUSE_SE_CD", true);
+            	grdWarehouse.setCellData(nRow, 3, gv_apcCd, true);
+            	grdWarehouse.setCellData(nRow, 4, "WAREHOUSE_SE_CD", true);
             	grdWarehouse.addRow(true);
             }else if(grid === "grdPlt"){
             	grdPlt.setCellData(nRow, nCol, "N", true);
@@ -733,9 +750,11 @@
             	rgnTrsprtCstMngDatagrid.addRow(true);
             }else if(grid === "wrhsVhclMngDatagrid"){
             	wrhsVhclMngGridData[nRow-1].delYn = "N";
+            	wrhsVhclMngGridData[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
 				wrhsVhclMngDatagrid.addRow();
             }else if(grid === "spmtTrsprtMngDatagrid"){
-            	spmtTrsprtMngDatagrid.setCellData(nRow, nCol, "N", true);
+            	spmtTrsprtMngGridData[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
+            	spmtTrsprtMngGridData[nRow-1].delYn = "N";
             	spmtTrsprtMngDatagrid.addRow(true);
             }else if(grid === "grdOprtr"){
             	grdOprtr.setCellData(nRow, nCol, "N", true);
@@ -743,7 +762,7 @@
             }else if(grid === "grdApcVrty"){
             	grdApcVrty.setCellData(nRow, nCol, "N", true);
             	grdApcVrty.setCellData(nRow, 3, gv_apcCd, true);
-            	grdApcVrty.setCellData(nRow, 4, grdApcItem.getRowData(grdApcItem.getRow()).itemCd, true);
+            	grdApcVrty.setCellData(nRow, 4, SBUxMethod.get("vrty-inp-itemCd"), true);
             	grdApcVrty.addRow(true);
             }else if(grid === "grdGrd"){
             	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
@@ -765,11 +784,29 @@
             		alert("품목을 선택해주세요.")
             		return;
             	}
+            }else if(grid === "grdSmptPckgUnit"){
+           		grdSpmtPckgUnit.setCellData(nRow, nCol, "N", true);
+           		grdSpmtPckgUnit.setCellData(nRow, 8, gv_apcCd, true);
+           		grdSpmtPckgUnit.addRow(true);
+            }else if(grid === "grdSpmtSlsUntprcReg"){
+            	grdSpmtSlsUntprcReg.setCellData(nRow, nCol, "N", true);
+            	grdSpmtSlsUntprcReg.setCellData(nRow, 4, SBUxMethod.get("spmtSlsUntprcReg-inp-spmtPckgUnitCd"), true);
+            	grdSpmtSlsUntprcReg.setCellData(nRow, 5, gv_apcCd, true);
+            	grdSpmtSlsUntprcReg.addRow(true);
             }
         }
         else if (gubun === "DEL") {
             if (grid === "cnptMngDatagrid") {
-            	cnptMngDatagrid.deleteRow(nRow);
+            	if(cnptMngDatagrid.getRowStatus(nRow) == 0 || cnptMngDatagrid.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var cnpt = cnptMngDatagrid.getRowData(nRow);
+            			fn_deleteCnptList(cnpt);
+            			cnptMngDatagrid.deleteRow(nRow);
+            		}
+            	}else{
+            		cnptMngDatagrid.deleteRow(nRow);
+            	}
             }else if (grid === "grdFclt") {
             	if(grdFclt.getRowStatus(nRow) == 0 || grdFclt.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
@@ -802,7 +839,7 @@
             			grdPlt.deleteRow(nRow);
             		}
             	}else{
-            		grdPlt.deleteRow(nRow);
+           		grdPlt.deleteRow(nRow);
             	}
             }else if (grid === "grdBx") {
             	if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){
@@ -813,29 +850,45 @@
             			grdBx.deleteRow(nRow);
             		}
             	}else{
-            		grdBx.deleteRow(nRow);
-            	}
-            }else if (grid === "grdPckg") {
-            	if(grdPckg.getRowStatus(nRow) == 0 || grdPckg.getRowStatus(nRow) == 2){
-            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-            		if(confirm(delMsg)){
-            			var comCdVO = grdPckg.getRowData(nRow);
-            			fn_deleteRsrc(comCdVO);
-            			grdPckg.deleteRow(nRow);
-            		}
-            	}else{
-            		grdPckg.deleteRow(nRow);
+           		grdBx.deleteRow(nRow);
             	}
             }else if (grid === "rgnTrsprtCstMngDatagrid") {
-            	rgnTrsprtCstMngDatagrid.deleteRow(nRow);
+            	if(rgnTrsprtCstMngDatagrid.getRowStatus(nRow) == 0 || rgnTrsprtCstMngDatagrid.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var rgnTrsprtCst = rgnTrsprtCstMngDatagrid.getRowData(nRow);
+            			fn_deleteRgnTrsprtCstList(rgnTrsprtCst);
+            			rgnTrsprtCstMngDatagrid.deleteRow(nRow);
+            		}
+            	}else{
+            		rgnTrsprtCstMngDatagrid.deleteRow(nRow);
+            	}
             }else if (grid === "wrhsVhclMngDatagrid") {
+            	if(wrhsVhclMngDatagrid.getRowStatus(nRow) == 0 || wrhsVhclMngDatagrid.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var wrhsVhclVo = wrhsVhclMngDatagrid.getRowData(nRow);
+            			fn_deleteWrhsVhclList(wrhsVhclVo);
+            			wrhsVhclMngDatagrid.deleteRow(nRow);
+            		}
+            	}else{
+            		wrhsVhclMngDatagrid.deleteRow(nRow);
+            	}
             	wrhsVhclMngDatagrid.deleteRow(nRow);
             }else if (grid === "spmtTrsprtMngDatagrid") {
-            	spmtTrsprtMngDatagrid.deleteRow(nRow);
+            	if(spmtTrsprtMngDatagrid.getRowStatus(nRow) == 0 || spmtTrsprtMngDatagrid.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var spmtTrsprt = spmtTrsprtMngDatagrid.getRowData(nRow);
+            			fn_deleteSpmtTrsprtList(spmtTrsprt);
+            			spmtTrsprtMngDatagrid.deleteRow(nRow);
+            		}
+            	}else{
+            		spmtTrsprtMngDatagrid.deleteRow(nRow);
+            	}
             }else if (grid === "grdOprtr") {
             	grdOprtr.deleteRow(nRow);
             }else if (grid === "grdGrd") {
-
             	if(grdGrd.getRowStatus(nRow) == 0 || grdGrd.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
@@ -857,9 +910,61 @@
             	}else{
             		grdApcSpcfct.deleteRow(nRow);
             	}
+            }else if (grid === "grdSmptPckgUnit") {
+            	if(grdSpmtPckgUnit.getRowStatus(nRow) == 0 || grdSpmtPckgUnit.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var spmtPckgUnitVO = grdSpmtPckgUnit.getRowData(nRow);
+            			fn_deleteSpmtPckgUnit(spmtPckgUnitVO);
+            			grdSpmtPckgUnit.deleteRow(nRow);
+            		}
+            	}else{
+            		grdSpmtPckgUnit.deleteRow(nRow);
+            	}
+            }else if (grid === "grdSpmtSlsUntprcReg") {
+            	if(grdSpmtSlsUntprcReg.getRowStatus(nRow) == 0 || grdSpmtSlsUntprcReg.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var spmtSlsUntprcRegVO = grdSpmtSlsUntprcReg.getRowData(nRow);
+            			fn_deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
+            			grdSpmtSlsUntprcReg.deleteRow(nRow);
+            		}
+            	}else{
+            		grdSpmtSlsUntprcReg.deleteRow(nRow);
+            	}
             }
         }
     }
 
+    // 정희운. 두 List<Object>가 동일한지 비교하는 함수.
+	async function chkEqualObj(obj1, obj2){
+		console.log("obj1", obj1);
+		console.log("obj2", obj2);
+
+		var obj1Len = obj1.length == 0 ? 0 : obj1.filter(e => e["delYn"] == "N").length;
+		var obj2Len = obj2.length == 0 ? 0 : obj2.filter(e => e["delYn"] == "N").length;
+
+		if (obj1Len != obj2Len)
+			return false;
+
+		if (obj1Len == 0 && obj2Len == 0)
+			return true;
+
+		var obj1keys = Object.keys(obj1[0]);
+		obj1keys.sort();
+		var obj2keys = Object.keys(obj2[0]);
+		obj2keys.sort();
+
+		if (JSON.stringify(obj1keys) != JSON.stringify(obj2keys))
+			return false;
+
+		for(var i=0; i<obj1Len; i++){
+			for(var j=0; j<obj1keys.length; j++){
+				if(obj1[i][obj1keys[j]] != obj2[i][obj1keys[j]])
+					return false;
+			}
+		}
+		return true;
+	}
 </script>
 </html>

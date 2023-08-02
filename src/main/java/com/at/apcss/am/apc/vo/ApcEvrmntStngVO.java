@@ -2,11 +2,13 @@ package com.at.apcss.am.apc.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode(callSuper = false)
 public class ApcEvrmntStngVO extends ComVO{
 
 	private String apcCd;
@@ -19,7 +21,7 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String regTelno;
 	private String apcNm;
 	private String brno;
-	private String bankNm;
+	private String bankCd;
 	private String dpstr;
 	private String actno;
 	private String addr;
