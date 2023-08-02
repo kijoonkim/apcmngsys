@@ -27,7 +27,7 @@
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 5%">
@@ -45,19 +45,19 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" style="border-bottom:1px solid white " >APC명</th>
+							<th scope="row" style="border-bottom:1px solid white " class="th_bg" >APC명</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
 							</td>
 							<td colspan="8"></td>
 						</tr>
 						<tr>
-							<th scope="row">계량일자</th>
+							<th scope="row" class="th_bg">계량일자</th>
 							<td class="td_input" style="border-right:hidden;" >
 								<sbux-datepicker id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
-							<th scope="row">생산자</th>
+							<th scope="row"  style="border-left:hidden;" >생산자</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-input uitype="text" id="srch-inp-prdcrNm" name="srch-inp-prdcrNm" class="form-control input-sm"
 								placeholder="초성검색 기능입니다." autocomplete-ref="autoCompleteDataJson" autocomplete-text="name"
