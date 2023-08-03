@@ -170,6 +170,7 @@ public class ComUserApiController extends BaseController {
 			}
 
 			for (ComUserVO element : updateList) {
+				
 				element.setSysLastChgPrgrmId(getPrgrmId());
 				element.setSysLastChgUserId(getUserId());
 				comUserService.updateComUser(element);
