@@ -118,12 +118,6 @@
 						<td colspan="4">&nbsp;</td>
 					</tr>
 				</table>
-<!-- 				<div class="ad_tbl_top"> -->
-<!-- 					<ul class="ad_tbl_count"> -->
-<!-- 						<li><span>투입지시 내역</span></li> -->
-<!-- 					</ul> -->
-<!-- 				</div> -->
-
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li><span>선별지시 내역</span></li>
@@ -160,9 +154,9 @@
 	const fn_initSBSelect = async function() {
 
 		// 검색 SB select
-	 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_apcCd);	// 창고
-	 	gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComFclt, 		'FCLT_CD', gv_apcCd);			// 설비
-	 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, gv_apcCd);				// 품목
+	 	await gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_apcCd);	// 창고
+	 	await gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComFclt, 		'FCLT_CD', gv_apcCd);			// 설비
+	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, gv_apcCd);				// 품목
 	}
 
 	function fn_selectItem(){
