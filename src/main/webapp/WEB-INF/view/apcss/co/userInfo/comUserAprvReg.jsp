@@ -196,7 +196,7 @@ async function fn_callUpdateUserList(){
 	let regMsg = "등록 하시겠습니까?";
 	if(confirm(regMsg)){
 // 		let postJsonPromise = gfn_postJSON("/am/cmns/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
-		let postJsonPromise = gfn_postJSON("/co/user/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
+		let postJsonPromise = await gfn_postJSON("/co/user/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
 		alert("등록 되었습니다.");
 	}
 
@@ -207,7 +207,7 @@ async function fn_bndlAprv() {
 		console.log("userAprvRegGridData[i]", userAprvRegGridData[i]);
 		if (Object.keys(userAprvRegGridData[i]).indexOf("chc") != -1){
 			console.log("i", i);
-			let postJsonPromise = gfn_postJSON("/co/user/updateComUserAprv", userAprvRegGridData[i]);
+			let postJsonPromise = await gfn_postJSON("/co/user/updateComUserAprv", userAprvRegGridData[i]);
 		}
 	}
 	fn_selectUserList();

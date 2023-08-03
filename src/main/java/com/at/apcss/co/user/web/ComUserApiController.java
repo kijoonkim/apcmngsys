@@ -124,41 +124,6 @@ public class ComUserApiController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
-//	@PostMapping(value = "/co/user/updateComUserAprv", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-//	public ResponseEntity<HashMap<String, Object>> updateComUserAprv(@RequestBody List<ComUserVO> comUserVO, HttpServletRequest request) throws Exception {
-//		logger.debug("updateComUserAprv 호출 <><><><> ");
-//
-//		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-//		int result = 0;
-//		try {
-//			System.out.println("comUserVO : " + comUserVO);
-//			
-//			
-//			
-////			for(String item : comUserVO) {
-////				System.out.println("for 안");
-////			}
-//			
-////			for(int i=0; i<comUserVO.size();i++) {
-////				System.out.println("for 안");
-////				
-////				comUserVO.setSysLastChgUserId(getUserId());
-////				comUserVO.setSysLastChgPrgrmId(getPrgrmId());
-////				result = comUserService.updateComUserAprv(comUserVO);
-////			}
-//			
-////			comUserVO.setSysLastChgUserId(getUserId());
-////			comUserVO.setSysLastChgPrgrmId(getPrgrmId());
-////			result = comUserService.updateComUserAprv(comUserVO);
-//		} catch (Exception e) {
-//			return getErrorResponseEntity(e);
-//		}
-//
-//		resultMap.put("result", result);
-//
-//		return getSuccessResponseEntity(resultMap);
-//	}
 	
 	@PostMapping(value = "/co/user/updateComUserAprv", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateComUserAprv(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
@@ -182,7 +147,7 @@ public class ComUserApiController extends BaseController {
 							
 	@PostMapping(value = "/co/user/compareComUserAprv.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> compareCnptList(@RequestBody Map<String, List<ComUserVO>> comUserVO, HttpServletRequest request) throws Exception {
-		logger.debug("compareComUser 호출 <><><><> ");
+		logger.debug("compareComUserAprv.do 호출 <><><><> ");
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		int insertCnt = 0;
