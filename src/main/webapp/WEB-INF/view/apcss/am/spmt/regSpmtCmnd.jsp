@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
-				<h3 class="box-title" style="line-height: 30px;">▶출하지시등록</h3>
+				<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="발주조회" class="btn btn-sm btn-outline-danger"></sbux-button>
@@ -26,7 +26,9 @@
 			</div>
 		</div>
 			<div class="box-body">
-				<!--[pp] 검색 -->
+				<!--[APC] START -->
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -45,13 +47,6 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">APC명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							</td>
-							<td colspan="8"></td>
-						</tr>
-						<tr>
 							<th scope="row" class="th_bg">발주일자</th>
 							<td class="td_input"  style="border-right: hidden;">
 								<sbux-datepicker id="srch-inp-outordrYmd1" name="srch-inp-outordrYmd1" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
@@ -63,15 +58,15 @@
 
 							<th scope="row" class="th_bg">창고구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-warehouseSe" name="srch-slt-warehouseSe" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="dtl-slt-warehouseSeCd" name="dtl-slt-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouse" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="dtl-slt-itemCd" name="dtl-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="전체" class="form-control input-sm" onchange="fn_selectItem" ></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-Vrty" name="srch-slt-Vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="dtl-slt-vrtyCd" name="dtl-slt-vrtyCd" uitype="single" jsondata-ref="jsonApcVrty" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<td class="td_input"></td>
 						</tr>
@@ -85,7 +80,7 @@
 							</td>
 							<th scope="row" class="th_bg">규격</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" class="form-control input-sm" jsondata-ref="jsonComSpcfct"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 							</td>
@@ -127,7 +122,7 @@
 								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
 							<td></td>
-					  		<th scope="row" class="th_bg">품목/품종/규격</th>
+					  		<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
@@ -205,6 +200,29 @@
 </body>
 <script type="text/javascript">
 
+	var jsonComWarehouse	= [];	// 창고 		warehouse	검색
+	var jsonApcItem			= [];	// 품목 		itemCd		검색
+	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
+	var jsonComSpcfct		= [];	// 규격 		spcfct		검색
+	var jsonComFclt			= [];	// 설비 		fcltCd		검색
+
+	const fn_initSBSelect = async function() {
+		// 검색 SB select
+		let rst = await Promise.all([
+
+			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', jsonComWarehouse, 'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
+			gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComFclt, 		'FCLT_CD', gv_selectedApcCd),			// 설비
+		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
+			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
+		]);
+	}
+
+	function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		//gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_apcCd, itemCd);			// 품종
+		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_apcCd, itemCd);		// 규격
+	}
+
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createregSpmtCmndGrid();
 
@@ -215,6 +233,8 @@
 		SBUxMethod.set("srch-inp-outordrYmd1", year+month+day);
 		SBUxMethod.set("srch-inp-outordrYmd2", year+month+day);
 		SBUxMethod.set("srch-inp-cmndYmd", year+month+day);
+
+		fn_initSBSelect();
 
 	})
 
@@ -264,7 +284,7 @@
             {caption: ['비고'], 		ref: 'actlWght', 		width: '10%', type: 'output'}
         ];
         grdWghPrfmnc = _SBGrid.create(SBGridProperties);
-        grdWghPrfmnc = _SBGrid.create(SBGridProperties1);
+        grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
     }
 
 	function fn_closeModal(modalId){

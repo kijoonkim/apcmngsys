@@ -52,12 +52,12 @@
 								<sbux-datepicker uitype="popup" id="srch-dtp-endCmndDate" name="srch-dtp-endCmndYmd" class="form-control pull-right input-sm">
 							</td>
 							<td>&nbsp;</td>
-							<th scope="row" class="th_bg" style="border-right: hidden;">품목/품종</th>
+							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm" unselected-text="선택"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm" unselected-text="선택"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" class="form-control input-sm" jsondata-ref="jsonComVrty"></sbux-select>
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">생산자</th>
@@ -116,9 +116,22 @@
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
-
+	var jsonComItem			= [];	// 품목 		itemCd		검색
+	var jsonComVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonPrdcr			= [];
     var jsonPrdcrAutocomplete = [];
+
+    const fn_initSBSelect = async function() {
+
+		// 검색 SB select
+	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd);		// 품목
+	 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd);		// 품종
+	}
+    function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		//gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_apcCd, itemCd);			// 품종
+		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_apcCd, itemCd);		// 규격
+	}
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -131,6 +144,9 @@
 		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-dtp-strtCmndYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-endCmndYmd", year+month+day);
+
+		fn_initSBSelect();
+
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언

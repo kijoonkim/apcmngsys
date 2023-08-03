@@ -20,7 +20,7 @@
 				</div>
 			</div>
 			<div class="box-body">
-				<!--[APC] START -->			
+				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
 				<!--[pp] 검색 -->
@@ -61,25 +61,25 @@
 							<td>&nbsp;</td>
 						    <th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input 
-									uitype="text" 
-									id="srch-inp-prdcrNm" 
-									name="srch-inp-prdcrNm" 
+								<sbux-input
+									uitype="text"
+									id="srch-inp-prdcrNm"
+									name="srch-inp-prdcrNm"
 									class="form-control input-sm"
-									placeholder="초성검색 기능입니다." 
-									autocomplete-ref="jsonPrdcrAutocomplete" 
+									placeholder="초성검색 기능입니다."
+									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
     								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
-    								autocomplete-select-callback="fn_onSelectPrdcrNm"    									
+    								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button 
-									id="btn-srch-prdcr" 
-									name="btn-srch-prdcr" 
-									class="btn btn-xs btn-outline-dark" 
-									text="찾기" uitype="modal" 
-									target-id="modal-prdcr" 
+								<sbux-button
+									id="btn-srch-prdcr"
+									name="btn-srch-prdcr"
+									class="btn btn-xs btn-outline-dark"
+									text="찾기" uitype="modal"
+									target-id="modal-prdcr"
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
@@ -162,27 +162,28 @@
 	var jsonComVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonComWarehouse	= [];	// 창고 		warehouseSeCd	검색
 	var jsonComFclt			= [];	// 설비 		fcltCd		검색
-	
+
     var jsonDataPrdcr = [];
     var jsonPrdcr			= [];
     var jsonPrdcrAutocomplete = [];
-    
+
 	const fn_initSBSelect = async function() {
 
 		// 검색 SB select
 	 	await gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd);	// 창고
 	 	await gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComFclt, 		'FCLT_CD', gv_selectedApcCd);			// 설비
 	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, gv_selectedApcCd);				// 품목
+	 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd);		// 품종
 	}
 
 	const fn_getPrdcrs = async function() {
 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
 		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
-	
+
 	function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd, itemCd);		// 품종
+		//gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd, itemCd);		// 품종
 	}
 
 	// only document
@@ -280,14 +281,14 @@
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
-	
-	
+
+
 	const fn_onChangeApc = async function() {
 		fn_clearPrdcr();
 		fn_initSBSelect();
 		fn_getPrdcrs();
 	}
-		
+
 	/**
 	 * @name fn_onKeyUpPrdcrNm
 	 * @description 생산자명 입력 시 event : autocomplete
@@ -297,7 +298,7 @@
 		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
     	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
-	
+
 	/**
 	 * @name fn_clearPrdcr
 	 * @description 생산자 폼 clear
@@ -306,7 +307,7 @@
 		SBUxMethod.set("srch-inp-prdcrCd", null);
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
 	}
-	
+
 	/**
 	 * @name fn_onSelectPrdcrNm
 	 * @description 생산자 autocomplete 선택 callback
@@ -315,12 +316,12 @@
 		SBUxMethod.set("srch-inp-prdcrCd", value);
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 	}
-    
-    
+
+
     const fn_choicePrdcr = function() {
 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
 	}
-	
+
 	const fn_setPrdcr = function(prdcr) {
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
@@ -328,7 +329,7 @@
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 		}
 	}
-	
+
 </script>
 
 </html>
