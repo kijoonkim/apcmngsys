@@ -216,7 +216,6 @@
 				}
 			}
 		}
-		console.log("insertList >> ",insertList)
 		if(insertList.length == 0 && updateList.length == 0){
 			alert("저장 할 내용이 없습니다.");
 			return;

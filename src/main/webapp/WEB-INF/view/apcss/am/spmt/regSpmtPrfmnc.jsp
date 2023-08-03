@@ -47,7 +47,7 @@
 						<tr>
 							<th scope="row" class="th_bg">APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
 							<td colspan="8"></td>
 						</tr>
@@ -63,16 +63,16 @@
 
 							<th scope="row" class="th_bg">창고구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-warehouseSe" name="srch-slt-warehouseSe" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComWarehouse"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input"></td>
 
 							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select uitype="single" id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComVrty"></sbux-select>
 							</td>
 							<td class="td_input"></td>
 						</tr>
@@ -99,7 +99,7 @@
 							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg">규격</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-vrty" name="srch-slt-vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" unselected-text="선택" class="form-control input-sm" jsondata-ref="jsonComSpcfct"></sbux-select>
 							</td>
 							<td style="border-right: hidden;">
 
@@ -159,62 +159,76 @@
 								Kg
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;"></td>
+						</tr>
+						<tr>
 							<th scope="row" class="th_bg">출하일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-smptYmd" name="srch-dtp-smptYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
-						</tr>
-						<tr>
+							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg">거래처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
 							</td>
-							<td class="td_input"></td>
-
+							<td class="td_input">
+								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기"  class="btn btn-xs btn-outline-dark"></sbux-button>
+							</td>
 							<th scope="row" class="th_bg">상품등급</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-grdCd" name="srch-slt-grdCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComGrd"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input"></td>
-
+						</tr>
+						<tr>
 							<th scope="row" class="th_bg">출하수량</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-smptQntt" name="srch-inp-smptQntt" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"></td>
-						</tr>
-						<tr>
 							<th scope="row" class="th_bg">운송회사</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComTrsprtCo"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg">차량번호</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-vhclNo" name="srch-inp-vhclNo" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
-							<th scope="row" class="th_bg">포장구분</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-frmlSe" name="srch-slt-frmlSe" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
-							</td>
-							<td colspan="2" class="td_input"></td>
+							<td colspan="2" class="td_input" ></td>
 						</tr>
 						<tr>
+							<th scope="row" class="th_bg">포장구분</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-pckgSeCd" name="srch-slt-pckgSeCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComPckgSeCd"></sbux-select>
+							</td>
+							<td colspan="2" class="td_input"></td>
 							<th scope="row" class="th_bg">배송처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-dldtn" name="srch-inp-dldtn" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;">
+							</td>
 							<th scope="row" class="th_bg">운임비용</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-trsprtCst" name="srch-inp-trsprtCst" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
 							</td>
-							<td colspan="2"></td>
+							<td colspan="2" class="td_input"></td>
+						</tr>
+						<tr>
 							<th scope="row" class="th_bg">비고</th>
-							<td colspan="3" class="td_input">
-								<sbux-input id="srch-inp-rmrk" name="srch-inp-rmrk" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-rmrk" name="srch-inp-rmrk" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
+							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -234,8 +248,40 @@
 			</div>
 			<!--[pp] //검색결과 -->
 	</section>
+	<!-- 거래처 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-cnpt">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
+
+	var jsonComItem			= [];	// 품목 		itemCd		검색
+	var jsonComVrty			= [];	// 품종 		vrtyCd		검색
+	var jsonComSpcfct		= [];	// 규격 		spcfctCd	검색
+	var jsonComGrd			= [];	// 등급			grdCd		검색
+	var jsonComWarehouse	= [];	// 창고 		warehouseSeCd	검색
+	var jsonComTrsprtCo		= [];	// 운송사 		trsprtCo	검색
+	var jsonComPckgSeCd		= [];	// 포장구분 	pckgSeCd	검색
+	const fn_initSBSelect = async function() {
+
+		// 검색 SB select
+	 	await gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_apcCd);	// 창고
+	 	await gfn_setComCdSBSelect('srch-slt-pckgSeCd', 		jsonComPckgSeCd, 	'PCKG_SE_CD', gv_apcCd);			// 설비
+	 	await gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', 		jsonComTrsprtCo, 	gv_apcCd);		// 운송사
+	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_apcCd);		// 품목
+	 	await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 		gv_apcCd);		// 품종
+
+	}
+
+	async function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		//gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_apcCd, itemCd);	// 품종
+		await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_apcCd, itemCd);		// 규격
+		await gfn_setApcGrdsSBSelect('srch-slt-grdCd', 			jsonComGrd, gv_apcCd, itemCd);			// 등급
+	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createSpmtTrgtDsctnGrid();
@@ -247,13 +293,10 @@
 		SBUxMethod.set("srch-dtp-startPrdctnYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-EndPrdctnYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-smptYmd", year+month+day);
+		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
+
+		fn_initSBSelect();
 	})
-
-	/* const fn_initSBSelect = async function() {
-
- 		gfn_setComCdSBSelect('rdo-wrhsSeCd', jsonRadioWrhsSeCd, 'WRHS_SE_CD');	// 시스템유형
-
-	} */
 
 	function fn_createSpmtTrgtDsctnGrid() {
         var SBGridProperties = {};
