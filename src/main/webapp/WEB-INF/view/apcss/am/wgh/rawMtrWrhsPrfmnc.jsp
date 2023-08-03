@@ -74,7 +74,9 @@
 							</td>
 							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-prdcr" name="srch-inp-prdcr" class="form-control input-sm"/>
+								<sbux-input uitype="text" id="srch-inp-prdcrNm" name="srch-inp-prdcrNm" class="form-control input-sm"
+								placeholder="초성검색 기능입니다." autocomplete-ref="autoCompleteDataJson" autocomplete-text="name"
+    							onkeyup="keyUpInp(srch-inp-prdcrNm, 'srch-inp-prdcrNm', 'false')"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-prdcrSrch" name="srch-btn-prdcrSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
@@ -182,11 +184,14 @@
 
 	var jsonComItem				= [];	// 품목 		itemCd			검색
 	var jsonComWarehouseSeCd	= [];	// 창고 		warehouseSeCd	검색
+	var autoCompleteDataJson = [];		// 생산자 초성검색 결과
+	var jsonDataPrdcr	= [];			// 생산자 전체리스트
 
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
-		gfn_setComCdSBSelect('srch-slt-warehouseSeCd', jsonComWarehouseSeCd, 	'WAREHOUSE_SE_CD', gv_apcCd);	// 창고
-	 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_apcCd);		// 품목
+		await gfn_setComCdSBSelect('srch-slt-warehouseSeCd', jsonComWarehouseSeCd, 	'WAREHOUSE_SE_CD', gv_apcCd);	// 창고
+	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_apcCd);		// 품목
+	 	jsonDataPrdcr =  await gfn_getPrdcrs(gv_apcCd);
 	}
 
 	// only document
