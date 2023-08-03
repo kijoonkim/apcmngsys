@@ -390,25 +390,25 @@
 		    };
         SBGridProperties.columns = [
         	{caption: ["No."], ref: 'rowSeq', type:'output',  width:'60px', style:'text-align:right'},
-        	{caption: ['계량번호'], ref: 'wghno', width: '100px', type: 'output'},
-            {caption: ['생산자'], ref: 'prdcrNm', width: '100px', type: 'output'},
-            {caption: ['품목'], ref: 'itemNm', width: '60px', type: 'output'},
-            {caption: ['품종'], ref: 'vrtyNm', width: '100px', type: 'output'},
-            {caption: ['상품구분'], ref: 'gdsSeNm', width: '60px', type: 'output'},
-            {caption: ['입고구분'], ref: 'wrhsSeNm', width: '60px', type: 'output'},
-            {caption: ['운송구분'], ref: 'trsprtSeNm', width: '60px', type: 'output'},
-            {caption: ['전체중량'], ref: 'wholWght', width: '100px', type: 'output'},
-            {caption: ['공차중량'], ref: 'emptVhclWght', width: '100px', type: 'output'},
-            {caption: ['감량%'], ref: 'rdcdRt', width: '100px', type: 'output'},
-            {caption: ['감량Kg'], ref: 'rdcdWght', width: '100px', type: 'output'},
-            {caption: ['실중량'], ref: 'actlWght', width: '100px', type: 'output'},
-            {caption: ['팔레트중량'], ref: 'pltWght', width: '100px', type: 'output'},
-            {caption: ['박스중량'], ref: 'bxWght', width: '100px', type: 'output'},
-            {caption: ['정산중량'], ref: 'clclnWght', width: '100px', type: 'output'},
-            {caption: ['등급'], ref: 'grdNm', width: '60px', type: 'output'},
-            {caption: ['차량번호'], ref: 'vhclno', width: '100px', type: 'output'},
-            {caption: ['보관창고'], ref: 'warehouseSeNm', width: '60px', type: 'output'},
-            {caption: ['비고'], ref: 'rmrk', width: '100px', type: 'output'}
+        	{caption: ['계량번호'], ref: 'wghno', width: '120px', type: 'output', style:'text-align:center'},
+            {caption: ['생산자'], ref: 'prdcrNm', width: '100px', type: 'output', style:'text-align:center'},
+            {caption: ['품목'], ref: 'itemNm', width: '60px', type: 'output', style:'text-align:center'},
+            {caption: ['품종'], ref: 'vrtyNm', width: '100px', type: 'output', style:'text-align:center'},
+            {caption: ['상품구분'], ref: 'gdsSeNm', width: '60px', type: 'output', style:'text-align:center'},
+            {caption: ['입고구분'], ref: 'wrhsSeNm', width: '60px', type: 'output', style:'text-align:center'},
+            {caption: ['운송구분'], ref: 'trsprtSeNm', width: '60px', type: 'output', style:'text-align:center'},
+            {caption: ['전체중량'], ref: 'wholWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['공차중량'], ref: 'emptVhclWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['감량%'], ref: 'rdcdRt', width: '60px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###.##'}},
+            {caption: ['감량Kg'], ref: 'rdcdWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['실중량'], ref: 'actlWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['팔레트중량'], ref: 'pltWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['박스중량'], ref: 'bxWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['정산중량'], ref: 'clclnWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['등급'], ref: 'grdNm', width: '60px', type: 'output', style:'text-align:center'},
+            {caption: ['차량번호'], ref: 'vhclno', width: '100px', type: 'output', style:'text-align:center'},
+            {caption: ['보관창고'], ref: 'warehouseSeNm', width: '60px', type: 'output', style:'text-align:center'},
+            {caption: ['비고'], ref: 'rmrk', width: '300px', type: 'output'}
         ];
         grdWghPrfmnc = _SBGrid.create(SBGridProperties);
     }
@@ -494,7 +494,6 @@
      */
     const fn_setGrdWghPrfmnc = async function(pageSize, pageNo) {
 
-  		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
   		let wrhsYmd = SBUxMethod.get("dtl-dtp-wrhsYmd");	// 계량일자
   		let prdcrCd = SBUxMethod.get("dtl-inp-prdcrCd");	// 생산자
   		let itemCd = SBUxMethod.get("dtl-slt-itemCd");	// 품목
@@ -504,7 +503,7 @@
   		let trsprtSeCd = SBUxMethod.get("dtl-rdo-trsprtSeCd");	// 운송구분
 
 		const postJsonPromise = gfn_postJSON("/am/wgh/selectWghPrfmncList.do", {
-			apcCd: apcCd,
+			apcCd: gv_selectedApcCd,
 			wrhsYmd: wrhsYmd,
 			prdcrCd: prdcrCd,
 			itemCd: itemCd,
@@ -535,6 +534,10 @@
   						wghYmd: item.wghYmd,
   						vhclno: item.vhclno,
   						prdcrCd: item.prdcrCd,
+  						itemCd: item.itemCd,
+  						itemNm: item.itemNm,
+  						vrtyCd: item.vrtyCd,
+  						vrtyNm: item.vrtyNm,	
   						wholWght: item.wholWght,
   						emptVhclWght: item.emptVhclWght,
   						rdcdRt: item.rdcdRt,
@@ -548,7 +551,13 @@
   						pltWght: item.pltWght,
   						bxWght: item.bxWght,
   						warehouseSeCd: item.warehouseSeCd,
-  						warehouseSeNm: item.warehouseSeNm
+  						warehouseSeNm: item.warehouseSeNm,
+  						gdsSeCd: item.gdsSeCd,
+  						gdsSeNm: item.gdsSeNm,
+  						wrhsSeCd: item.wrhsSeCd,
+  						wrhsSeNm: item.wrhsSeNm,
+  						trsprtSeCd: item.trsprtSeCd,
+  						trsprtSeNm: item.trsprtSeNm
   				}
   				jsonWghPrfmnc.push(wghPrfmnc);
 
@@ -595,7 +604,7 @@
 	const fn_onChangeSrchItemCd = async function(obj) {
 		let itemCd = obj.value;	//SBUxMethod.get("srch-slt-itemCd");
 		let result = await Promise.all([
-			//gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),	// 품종
+			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),	// 품종
 			gfn_setApcGrdsSBSelect('dtl-slt-grdCd', jsonApcGrd, gv_selectedApcCd, itemCd)		// 등급
 		]);
 	}
