@@ -8,15 +8,20 @@
 <body>
 	<section>
 		<div class="box box-solid">
-			<div class="box-header">
-				<div class="ad_tbl_top">
-					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSearchCnpt" name="btnSearchCnpt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchCnpt"></sbux-button>
-						<sbux-button id="btnEndCnpt" name="btnEndCnpt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-cnpt')"></sbux-button>
-					</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<p>
+						<span style="font-weight:bold;">거래처를 선택합니다.</span>
+					</p>
+					<p>
+						<span style="color:black; font-weight:bold;"></span>
+					</p>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSearchCnpt" name="btnSearchCnpt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchCnpt"></sbux-button>
+					<sbux-button id="btnEndCnpt" name="btnEndCnpt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-cnpt')"></sbux-button>
 				</div>
 			</div>
-
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -36,7 +41,7 @@
 							</th>
 							<th scope="row">거래처명</th>
 							<th class="td_input">
-								<sbux-input id="cnpt-inp-cnptNm" name="cnpt-inp-cnptNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="cnpt-inp-cnptNm" name="cnpt-inp-cnptNm" uitype="text" class="form-control input-sm" onkeyenter="fn_searchCnpt" ></sbux-input>
 							</th>
 							<th>&nbsp;</th>
 						</tr>
@@ -67,19 +72,57 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-	        {caption: ['거래처명'], 	ref: 'CnptNm',		width: '150px', type: 'output'},
-	        {caption: ['유형'], 		ref: 'cnptTypeNm', 	width: '100px', type: 'output'},
-	        {caption: ['사업자번호'], 	ref: 'brno', 		width: '100px', type: 'output'},
-	        {caption: ['담당자'], 		ref: 'picNm',		width: '80px', 	type: 'output'},
-	        {caption: ['전화번호'], 	ref: 'telno', 		width: '100px', type: 'output'},
-	        {caption: ['비고'], 		ref: 'rmrk', 		width: '200px', type: 'output'},
+	        {caption: ['거래처명'], 	ref: 'cnptNm',		width: '150px', type: 'output', style:'text-align:center'},
+	        {caption: ['유형'], 		ref: 'cnptTypeNm', 	width: '120px', type: 'output', style:'text-align:center'},
+	        {caption: ['사업자번호'], 	ref: 'brno', 		width: '100px', type: 'output', style:'text-align:center'},
+	        {caption: ['담당자'], 		ref: 'picNm',		width: '80px', 	type: 'output', style:'text-align:center'},
+	        {caption: ['전화번호'], 	ref: 'telno', 		width: '100px', type: 'output', style:'text-align:center'},
+	        {caption: ['비고'], 		ref: 'rmrk', 		width: '200px', type: 'output', style:'text-align:center'},
 	        {caption: ['APC코드'], 		ref: 'apcCd', 		hidden : true},
+	        {caption: ['거래처코드'], 	ref: 'cnptCd', 		hidden : true},
 	    ];
 	    grdCnpt = _SBGrid.create(SBGridProperties);
+	    fn_searchCnpt();
 	}
 
 	function fn_modalCnpt(){
 		fn_createCnptGrid();
+	}
+
+	async function fn_searchCnpt(){
+		callSelectCnptList();
+	}
+
+	async function callSelectCnptList(){
+		let apcCd 	= gv_apcCd;
+		let cnptNm	= SBUxMethod.get("cnpt-inp-cnptNm");
+		let postJsonPromise = gfn_postJSON("/am/cmns/selectCnptList.do", {apcCd : apcCd, cnptNm : cnptNm});
+        let data = await postJsonPromise;
+        let newJsonCnpt = [];
+        try{
+        	data.resultList.forEach((item, index) => {
+				let cnpt = {
+					cnptCd 		: item.cnptCd
+				  , cnptNm 		: item.cnptNm
+				  , cnptType 	: item.cnptType
+				  , cnptTypeNm 	: item.cnptTypeNm
+				  , brno 		: item.brno
+				  , picNm 		: item.picNm
+				  , telno 		: item.telno
+				  , rmrk 		: item.rmrk
+				  , delYn 		: item.delYn
+				  , apcCd 		: item.apcCd
+				}
+				newJsonCnpt.push(cnpt);
+			});
+        	jsonCnpt = newJsonCnpt;
+        	grdCnpt.rebuild();
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
 	}
 
 </script>

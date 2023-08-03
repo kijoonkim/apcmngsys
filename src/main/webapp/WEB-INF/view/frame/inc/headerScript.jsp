@@ -97,5 +97,6 @@
 		</c:otherwise>
 	</c:choose>
 		// 선택 APC코드 설정
-		gv_selectedApcCd = gv_apcCd;	
+		gv_selectedApcCd = gv_apcCd;
+		gv_selectedApcNm = gv_apcNm;
 	</script>
