@@ -176,7 +176,10 @@
     		</if>
     	</if>
     	<if test='eml != null and eml != ""'>
-    		 , eml 						= #{eml}
+    		 , EML 						= #{eml}
+    	</if>
+    	<if test='lckYn != null and lckYn != ""'>
+    		 , LCK_YN 						= #{lckYn}
     	</if>
 		<![CDATA[
     	 WHERE USER_ID 					= #{userId}
