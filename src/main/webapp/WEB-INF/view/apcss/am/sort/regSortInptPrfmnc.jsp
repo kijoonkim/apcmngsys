@@ -119,8 +119,8 @@
 									<td class="td_input" style="border-right: hidden;">
 									<sbux-select id="srch-slt-fcltCd" name="srch-slt-fcltCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComFclt"></sbux-select>
 									</td>
-									<td colspan="2" class="th_bg"></td>
-									<th scope="row">선별 투입량</th>
+									<td colspan="2"></td>
+									<th scope="row" class="th_bg">선별 투입량</th>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-input id="srch-inp-sortWght" name="srch-inp-sortWght" uitype="text" placeholder="" class="form-control input-sm" disabled>
 									</td>
