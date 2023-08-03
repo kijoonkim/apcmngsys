@@ -42,17 +42,17 @@
 		 */
 		const cfn_onChangeApc = function(obj) {
 			gv_selectedApcCd = obj.value;
-			
+
 			const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
 			apcInfo.forEach( (apc) => {
 				gv_selectedApcNm = apc.apcNm;
 				return false;
 			});
-			
+
 			if (typeof fn_onChangeApc === "function") {
 				fn_onChangeApc();
 			}
-			
+
 		}
 
 	</script>
@@ -61,7 +61,7 @@
 			<sbux-select id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="single" jsondata-ref="cjsonApcList" unselected-text="전체" class="form-control input-sm" onchange="cfn_onChangeApc(this)" ></sbux-select>
 		</c:when>
 		<c:otherwise>
-			<sbux-select id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="single" jsondata-ref="cjsonApcList" class="form-control input-sm" readonly></sbux-select>
+			<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
 		</c:otherwise>
 	</c:choose>
 							</td>
