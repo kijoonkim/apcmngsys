@@ -58,12 +58,12 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("vrty-inp-apcNm", gv_apcNm);
 	})
-	var jsonVrty = [];
+	var jsonVrtyPopUp = [];
 	function fn_createVrtyGrid() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdVrty';
 	    SBGridProperties.id = 'grdVrty';
-	    SBGridProperties.jsonref = 'jsonVrty';
+	    SBGridProperties.jsonref = 'jsonVrtyPopUp';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';

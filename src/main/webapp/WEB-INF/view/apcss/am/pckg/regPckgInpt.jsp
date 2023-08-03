@@ -121,7 +121,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-pckg" name="srch-slt-pckg" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-pckgCd" name="srch-slt-pckgCd" uitype="single" unselected-text="선택" class="form-control input-sm" jsondata-ref="jsonComFcltCd"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -148,31 +148,6 @@
 					<div id="sb-area-grdPckgInptDsctn" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
-				<!--
-					<tr>
-						<td>2023-05-01</td>
-						<td>&nbsp;</td>
-						<td><sbux-select id="dtl-slt-spcfct1" name="dtl-slt-spcfct1" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select></td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td><sbux-select id="dtl-slt-gdsGrd1" name="dtl-slt-gdsGrd1" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select></td>
-						<td><sbux-select id="dtl-slt-strg1" name="dtl-slt-strg1" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select></td>
-						<td>&nbsp;</td>
-						<td><sbux-button id="btnLblIssu" name="btnLblIssu" uitype="normal" class="btn btn-sm btn-outline-primary" text="발행"></sbux-button></td>
-						<td><sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button></td>
-					</tr>
-					<tr>
-						<td>2023-05-01</td>
-						<td>&nbsp;</td>
-						<td><sbux-select id="dtl-slt-spcfct2" name="dtl-slt-spcfct2" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select></td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td><sbux-select id="dtl-slt-gdsGrd2" name="dtl-slt-gdsGrd2" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select></td>
-						<td><sbux-select id="dtl-slt-strg2" name="dtl-slt-strg2" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select></td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td><sbux-button id="btnAddPrfmnc" name="btnAddPrfmnc" uitype="normal" class="btn btn-sm btn-outline-danger" text="추가"></sbux-button></td>
-					</tr> -->
 			</div>
 		</div>
 	</section>
@@ -182,17 +157,18 @@
 	var jsonItem				= [];	// 품목 		itemCd		검색
 	var jsonVrty				= [];	// 품종 		vrtyCd		검색
 	var jsonSpcfct				= [];	// 규격 		spcfctCd	검색
-	var jsonComFclt				= [];	// 설비 		fcltCd		검색
+	var jsonComFcltCd				= [];	// 설비 		fcltCd		검색
 	const fn_initSBSelect = async function() {
 
 		// 검색 SB select
-	 	gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonItem, gv_apcCd);		// 품목
-	 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonVrty, gv_apcCd);		// 품종
+	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonItem, gv_apcCd);		// 품목
+	 	await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonVrty, gv_apcCd);		// 품종
+	 	await gfn_setComCdSBSelect('srch-slt-pckgCd', 		jsonComFcltCd, 	'FCLT_CD', gv_apcCd);				// 선벌기
 	}
 
 	function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonVrty, gv_apcCd, itemCd);		// 품종
+		//gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonVrty, gv_apcCd, itemCd);		// 품종
 		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonSpcfct, gv_apcCd, itemCd);		// 규격
 	}
 
