@@ -107,7 +107,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["적용기준일자"], ref: 'aplcnCrtrYmd', 	type : 'datepicker', typeinfo: {dateformat: 'yyyy-mm-dd'}, format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'},  width:'200px',    style:'text-align:center'},
+	        {caption: ["적용기준일자"], ref: 'aplcnCrtrYmd', 	type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  width:'200px',    style:'text-align:center'},
 	        {caption: ["매출단가"],     ref: 'spmtSlsUntprc',  	type:'input',  width:'150px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
 	        {caption: ["비고"],     	ref: 'rmrk',  			type:'input',  width:'500px',    style:'text-align:center'},
 	        {caption: ["처리"], 		ref: 'delYn',  			type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
