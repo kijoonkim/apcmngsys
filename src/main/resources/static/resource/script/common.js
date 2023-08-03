@@ -52,6 +52,14 @@ const postHeaders = {
 }
 
 /**
+ * global variable
+ */
+/**
+ * @type {string}
+ */
+let gv_selectedApcCd = null;
+let gv_selectedApcNm = null;
+/**
  * global function
  */
 
@@ -571,11 +579,11 @@ const gfn_getPrdcrs = async function(_apcCd) {
 	const sourceJson = [];
 	data.resultList.forEach((item) => {
 			sourceJson.push({
-				procrCd: item.procrCd,
+				procrCd: item.prdcrCd,
 				prdcrNm: item.prdcrNm,
 				prdcrFrstNm: item.prdcrFrstNm,
 				name:item.prdcrNm,
-				value:item.procrCd
+				value:item.prdcrCd
 			});
 		});
 	return sourceJson;
@@ -592,6 +600,7 @@ const gfn_getPrdcrs = async function(_apcCd) {
  * @returns {any[]}
  */
 const gfn_getFrst = function(_prdcrNm, _jsondata, _jsondataRef ) {
+	
 	var arr = [];
 	// object 에 초성필드 추가 {name:"홍길동", diassembled:"ㅎㄱㄷ"}
     _jsondata.forEach(function (item) {
@@ -602,6 +611,7 @@ const gfn_getFrst = function(_prdcrNm, _jsondata, _jsondataRef ) {
         }, "");
         item.diassembled = cho;
     });
+	
     var result = Hangul.disassemble(_prdcrNm).join("");  // ㄺ=>ㄹㄱ
 
  	// 문자열 검색 || 초성검색
@@ -613,6 +623,55 @@ const gfn_getFrst = function(_prdcrNm, _jsondata, _jsondataRef ) {
     });
     _jsondataRef = arr;
 	return _jsondataRef;
+}
+
+/**
+ * @name gfn_setFrst
+ * @description  초성필드 생성
+ * @function
+ * @param {any[]} _jsonSource
+ * @returns {any[]}
+ */
+const gfn_setFrst = function(_jsonSource) {
+	
+	var _jsonTarget = [];
+	// object 에 초성필드 추가 {name:"홍길동", diassembled:"ㅎㄱㄷ"}
+    _jsonSource.forEach(function (item) {
+        var dis = Hangul.disassemble(item.name, true);
+        var cho = dis.reduce(function (prev, elem) {
+            elem = elem[0] ? elem[0] : elem;
+            return prev + elem;
+        }, "");
+        item.diassembled = cho;
+		_jsonTarget.push(item);
+    });
+	return _jsonTarget;
+}
+
+/**
+ * @name gfn_filterFrst
+ * @description  생산자 목록 초성검색
+ * @function
+ * @param {string} _prdcrNm		생산자이름
+ * @param {any[]} _jsonSource
+ * @returns {any[]}
+ */
+const gfn_filterFrst = function(_prdcrNm, _jsonSource) {
+	
+	var _jsonTarget = [];	
+    var result = Hangul.disassemble(_prdcrNm).join("");  // ㄺ=>ㄹㄱ
+
+ 	// 문자열 검색 || 초성검색
+    _jsonSource.filter(function (item) {
+        return item.name.includes(_prdcrNm) || item.diassembled.includes(result);
+    }).forEach(function (item) { // 검색결과 ul 아래에 li 로 추가
+    	_jsonTarget.push({
+			'name': item.name,
+			'value': item.value
+		});
+    });
+
+	return _jsonTarget;
 }
 
 /**
