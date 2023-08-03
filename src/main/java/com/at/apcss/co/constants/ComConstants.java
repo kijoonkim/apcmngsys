@@ -61,4 +61,12 @@ public class ComConstants {
 	public final static String CON_USER_STTS_VALID = "01";
 	public final static String CON_USER_STTS_LOCKED = "02";
 	public final static String CON_USER_STTS_UNUSE = "03";
+	
+	public final static String ROW_STS_INSERT = "I";
+	public final static String ROW_STS_UPDATE = "U";
+	public final static String ROW_STS_DELETE = "D";
+	
+	
+	
+	
 }

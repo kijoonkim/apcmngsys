@@ -40,11 +40,12 @@ public class ComMenuController extends BaseController {
 			ObjectMapper objMapper = new ObjectMapper();
 			String jsonString = objMapper.writeValueAsString(comUiJsonVO);
 			model.addAttribute("comUiJson", jsonString);
-			logger.debug("jsonString", jsonString);
 			
 			model.addAttribute("comMenuVO", pageVO);
 			
 			request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);
+			
+			//model.addAttribute("comApcList", request.getSession().getAttribute("comApcList"));
 			
 		} catch( Exception e) {
 		}
@@ -52,17 +53,4 @@ public class ComMenuController extends BaseController {
 		return "apcss/" + pageUrl;
 	}
 	
-	// 메뉴 관리
-	@RequestMapping("/co/menu/menuMng.do")
-	public String doMenu() {
-
-		return "apcss/co/menu/comMenuManage";
-	}
-
-	// 화면 관리
-	@RequestMapping("/co/menu/uiMng.do")
-	public String doUi() {
-
-		return "apcss/co/menu/comUiManage";
-	}
 }

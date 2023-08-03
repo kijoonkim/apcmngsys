@@ -8,7 +8,7 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
@@ -22,40 +22,87 @@
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 				</div>
 			</div>
-
 			<div class="box-body">
-				<!--[APC] START -->			
-					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
-				<!--[APC] END -->
-				
 				<!--[pp] 검색 -->
 				<sbux-input id="dtl-inp-prdcrCd" name="dtl-inp-prdcrCd" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_fixed">
+					<colgroup>
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+						<col style="width: 7%">
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row" style="border-bottom:1px solid white " class="th_bg" >APC명</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
+	<script type="text/javascript">
+	<c:choose>
+		<c:when test="${comApcList != null}">
+		var cjsonApcList = ${comApcList};
+		</c:when>
+		<c:otherwise>
+		var cjsonApcList = {};
+		</c:otherwise>
+	</c:choose>
+	<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
+		gv_selectedApcCd = null;
+	</c:if>
+		/**
+		 * @name
+		 * @description
+		 * @function
+		 * @param {string} _apcCd
+		 */
+		const cfn_onChangeApc = function(obj) {
+			gv_selectedApcCd = obj.value;
+		}
+		 
+	</script>
+	<c:choose>
+		<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
+			<sbux-select id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="single" jsondata-ref="cjsonApcList" unselected-text="전체" class="form-control input-sm" onchange="cfn_onChangeApc(this)" ></sbux-select>
+		</c:when>
+		<c:otherwise>
+			<sbux-select id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="single" jsondata-ref="cjsonApcList" class="form-control input-sm" readonly></sbux-select>
+		</c:otherwise>
+	</c:choose>
+							</td>
+							<td colspan="8"></td>
+						</tr>
+				</table>
+				
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
+						<col style="width: 5%">
 						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						
 						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 3%">
-						<col style="width: 3%">
-						
+						<col style="width: 2%">
+						<col style="width: 5%">
 						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 6%">
+						<col style="width: 2%">
+						<col style="width: 7%">
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 2%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg" >계량일자</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;" >
+							<td class="td_input" style="border-right:hidden;" >
 								<sbux-datepicker id="dtl-dtp-wrhsYmd" name="dtl-dtp-wrhsYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
+							<td colspan="2"></td>
 							<th scope="row" class="th_bg" >생산자</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-input 
@@ -67,32 +114,23 @@
 									autocomplete-ref="jsonPrdcrAutocomplete" 
 									autocomplete-text="name"
     								onkeyup="fn_onKeyUpPrdcrNm(dtl-inp-prdcrNm)"
-    								autocomplete-select-callback="fn_onSelectPrdcrNm"    									
    								></sbux-input>
 							</td>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-button 
-									id="btnSrchPrdcr" 
-									name="btnSrchPrdcr" 
-									class="btn btn-xs btn-outline-dark" 
-									text="찾기" 
-									uitype="modal" 
-									target-id="modal-prdcr" 
-									onclick="fn_choicePrdcr"
-								></sbux-button>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="btnSrchPrdcr" name="btnSrchPrdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
 							</td>
-							
-							<th scope="row" class="th_bg">품목/품종</th>
+							<td class="td_input" style="border-right: hidden;"></td>
+							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="dtl-slt-itemCd" name="dtl-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="전체" class="form-control input-sm" onchange="fn_onChangeSrchItemCd(this)" ></sbux-select>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;" >
+							<td class="td_input" style="border-right: hidden;" >
 								<sbux-select id="dtl-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" jsondata-ref="jsonApcVrty" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">입고구분</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
+							<th scope="row">입고구분</th>
+							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-wrhsSeCd_1" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="1"></sbux-radio>
 									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_1" text="일반매입"></sbux-label>
@@ -106,8 +144,8 @@
 									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_3" text="매취"></sbux-label>
 								</p>
 							</td>
-							<th scope="row" class="th_bg">상품구분</th>
-							<td colspan="4" class="td_input" style="border-right:hidden;">
+							<th scope="row">상품구분</th>
+							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-gdsSeCd_1" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
 									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_1" text="일반"></sbux-label>
@@ -125,8 +163,8 @@
 									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_4" text="유기농"></sbux-label>
 								</p>
 							</td>
-							<th scope="row" class="th_bg">운송구분</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
+							<th scope="row">운송구분</th>
+							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-trsprtSeCd_1" name="dtl-rdo-trsprtSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
 									<sbux-label class="radio_label" for-id="dtl-rdo-trsprtSeCd_1" text="자가"></sbux-label>
@@ -142,31 +180,29 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">전체중량 Kg</th>
+							<th scope="row">전체중량 Kg</th>
 							<td class="td_input" style="border-right:hidden;" >
 								<sbux-input 
 									uitype="text" 
 									id="dtl-inp-wholWght" 
 									name="dtl-inp-wholWght" 
 									class="form-control input-sm"
-									autocomplete="off"
 									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 								></sbux-input>
 							</td>
-							<td colspan="2" style="border-right:hidden;"></td>
-							<th scope="row" class="th_bg">공차중량 Kg</th>
+							<td colspan="2"></td>
+							<th scope="row">공차중량 Kg</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input 
 									uitype="text" 
 									id="dtl-inp-emptVhclWght" 
 									name="dtl-inp-emptVhclWght" 
 									class="form-control input-sm"
-									autocomplete="off"
 									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 								></sbux-input>
 							</td>
-							<td colspan="3" style="border-right:hidden;"></td>
-							<th scope="row" class="th_bg">감량 %</th>
+							<td colspan="2"></td>
+							<th scope="row">감량 %</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-input 
 									uitype="text" 
@@ -175,10 +211,12 @@
 									mask = "{ 'alias': 'decimal' , 'digits': 2, 'radixPoint': '.', 'autoFillDigits': false }"
 								></sbux-input>
 							</td>
-							<td colspan="2" style="border-right: hidden;"></td>
+							<td style="border-right: hidden;">
+							</td>
+							<td></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">감량 Kg</th>
+							<th scope="row">감량 Kg</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-input 
 									uitype="text" 
@@ -189,7 +227,7 @@
 								></sbux-input>
 							</td>
 							<td colspan="2"></td>
-							<th scope="row" class="th_bg">실중량 Kg</th>
+							<th scope="row">실중량 Kg</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input 
 									uitype="text" 
@@ -199,17 +237,18 @@
 									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 								></sbux-input>
 							</td>
-							<td colspan="3"></td>
-							<th scope="row" class="th_bg">차량번호</th>
+							<td colspan="2"></td>
+							<th scope="row">차량번호</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="dtl-inp-vhclno" name="dtl-inp-vhclno" class="form-control input-sm"></sbux-input>
 							</td>
-							<td colspan="2" class="td_input"  style="border-right: hidden;">
+							<td class="td_input"  style="border-right: hidden;">
 								<sbux-button id="btnSrchVhclno" name="btnSrchVhclno" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"></sbux-button>
 							</td>
+							<td></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">팔레트 Kg</th>
+							<th scope="row">팔레트 Kg</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input 
 									uitype="text" 
@@ -222,9 +261,9 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchPltBx" name="btnSrchPltBx" class="btn btn-xs btn-outline-dark" text="입력" uitype="modal" target-id="modal-pltBx" onclick="fn_modalPltBx"></sbux-button>
 								</td>
-							<td style="border-right: hidden;"></td>
-							<th scope="row" class="th_bg">박스 Kg</th>
-							<td class="td_input"  style="border-right: hidden;">
+							<td></td>
+							<th scope="row">박스 Kg</th>
+							<td class="td_input" >
 								<sbux-input 
 									uitype="text" 
 									id="dtl-inp-bxWght" 
@@ -233,8 +272,8 @@
 									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
 								></sbux-input>
 							</td>
-							<td colspan="3"></td>
-							<th scope="row" class="th_bg">입고중량 Kg</th>
+							<td colspan="2"></td>
+							<th scope="row">입고중량 Kg</th>
 							<td class="td_input"  style="border-right: hidden;">
 								<sbux-input 
 									uitype="text" 
@@ -247,17 +286,17 @@
 							<td colspan="2"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">보관창고</th>
+							<th scope="row">보관창고</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="dtl-slt-warehouseSeCd" name="dtl-slt-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouse" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<td colspan="2"></td>
-							<th scope="row" class="th_bg">등급</th>
+							<th scope="row">등급</th>
 							<td class="td_input" >
 								<sbux-select id="dtl-slt-grdCd" name="dtl-slt-grdCd" uitype="single" jsondata-ref="jsonApcGrd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
-							<td colspan="3"></td>
-							<th scope="row" class="th_bg">비고</th>
+							<td colspan="2"></td>
+							<th scope="row">비고</th>
 							<td colspan="3" class="td_input">
 								<sbux-input uitype="text" id="dtl-inp-rmrk" name="dtl-inp-rmrk" class="form-control input-sm"></sbux-input>
 							</td>
@@ -289,15 +328,7 @@
 	</section>
     <!-- 생산자 선택 Modal -->
     <div>
-        <sbux-modal 
-        	id="modal-prdcr" 
-        	name="modal-prdcr" 
-        	uitype="middle" 
-        	header-title="생산자 선택" 
-        	body-html-id="body-modal-prdcr" 
-        	footer-is-close-button="false" 
-        	style="width:1100px"
-       	></sbux-modal>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
@@ -343,12 +374,13 @@
      * 조회 조건 select combo 설정
      */
 	const fn_initSBSelect = async function() {
+
 		// 검색 SB select
 		let rst = await Promise.all([
-			
 			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', jsonComWarehouse, 'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
 		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
+			
 		]);
 	}
 
@@ -357,14 +389,9 @@
 		fn_createWghPrfmncGrid();
 		//SBUxMethod.set("dtl-inp-apcNm", gv_apcNm);
 		fn_initSBSelect();
-		fn_getPrdcrs();
+		jsonPrdcr = gfn_getPrdcrs(gv_selectedApcCd);
 	})
 
-	const fn_getPrdcrs = async function() {
-		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
-		jsonPrdcr = gfn_setFrst(jsonPrdcr);
-	} 
-	
 	const fn_createWghPrfmncGrid = function() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdWghPrfmnc';
@@ -574,16 +601,6 @@
 	
 	/** ui event */
 	
-	const fn_onChangeApc = async function() {
-		fn_clearPrdcr();
-		fn_initSBSelect();
-		fn_getPrdcrs();
-	}
-	
-	/**
-	 * @name fn_onChangeSrchItemCd
-	 * @description 품목 선택 변경 event
-	 */
 	const fn_onChangeSrchItemCd = async function(obj) {
 		let itemCd = obj.value;	//SBUxMethod.get("srch-slt-itemCd");		
 		let result = await Promise.all([
@@ -592,48 +609,16 @@
 		]);
 	}
 	
-	/**
-	 * @name fn_onKeyUpPrdcrNm
-	 * @description 생산자명 입력 시 event : autocomplete
-	 */
 	const fn_onKeyUpPrdcrNm = function(prdcrNm){
-		fn_clearPrdcr();
-		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
+		console.log(prdcrNm);
+		console.log("jsonPrdcr", jsonPrdcr);
+		console.log(111);
+		jsonPrdcrAutocomplete = gfn_getFrst(prdcrNm, jsonPrdcr, jsonPrdcrAutocomplete);
+		console.log(222);
+		console.log(jsonPrdcrAutocomplete);
     	SBUxMethod.changeAutocompleteData('dtl-inp-prdcrNm', true);
     }
 	
-	/**
-	 * @name fn_clearPrdcr
-	 * @description 생산자 폼 clear
-	 */
-	const fn_clearPrdcr = function() {
-		SBUxMethod.set("dtl-inp-prdcrCd", null);
-		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:''");
-	}
-	
-	/**
-	 * @name fn_onSelectPrdcrNm
-	 * @description 생산자 autocomplete 선택 callback
-	 */
-	function fn_onSelectPrdcrNm(value, label, item) {
-		SBUxMethod.set("dtl-inp-prdcrCd", value);
-		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-	}
-	
-	/**
-	 *
-	 */
-	const fn_choicePrdcr = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
-	}
-	
-	const fn_setPrdcr = function(prdcr) {
-		if (!gfn_isEmpty(prdcr)) {
-			SBUxMethod.set("dtl-inp-prdcrCd", prdcr.prdcrCd);
-			SBUxMethod.set("dtl-inp-prdcrNm", prdcr.prdcrNm);
-			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-		}
-	}
 	
 </script>
 </html>

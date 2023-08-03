@@ -46,7 +46,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		if (resultVO != null) {
 			WghPrfmncDtlVO paramDtl = new WghPrfmncDtlVO();
 			paramDtl.setApcCd(resultVO.getApcCd());
-			paramDtl.setWghNo(resultVO.getWghNo());
+			paramDtl.setWghno(resultVO.getWghno());
 			
 			List<WghPrfmncDtlVO> dtlList = wghPrfmncMapper.selectWghPrfmncDtlList(paramDtl);
 			
@@ -108,7 +108,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		// 상세 삭제 후 공통 삭제
 		WghPrfmncVO wghPrfmncInfo = selectWghPrfmnc(wghPrfmncVO);
 		
-		if (wghPrfmncInfo == null || !StringUtils.hasText(wghPrfmncInfo.getWghNo())) {
+		if (wghPrfmncInfo == null || !StringUtils.hasText(wghPrfmncInfo.getWghno())) {
 			// exception
 		}
 		

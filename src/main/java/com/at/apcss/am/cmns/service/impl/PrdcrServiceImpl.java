@@ -1,13 +1,20 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.cmns.mapper.PrdcrMapper;
 import com.at.apcss.am.cmns.service.PrdcrService;
 import com.at.apcss.am.cmns.vo.PrdcrVO;
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : PrdcrServiceImpl.java
@@ -25,7 +32,7 @@ import com.at.apcss.am.cmns.vo.PrdcrVO;
  * </pre>
  */
 @Service("prdcrService")
-public class PrdcrServiceImpl implements PrdcrService {
+public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 	
 	@Autowired
 	private PrdcrMapper prdcrMapper;
@@ -47,27 +54,64 @@ public class PrdcrServiceImpl implements PrdcrService {
 	}
 
 	@Override
-	public int insertPrdcr(PrdcrVO prdcrVO) throws Exception {
+	public HashMap<String, Object> insertPrdcr(PrdcrVO prdcrVO) throws Exception {
 
 		int insertedCnt = prdcrMapper.insertPrdcr(prdcrVO);
 
-		return insertedCnt;
+		return null;
 	}
 
 	@Override
-	public int updatePrdcr(PrdcrVO prdcrVO) throws Exception {
+	public HashMap<String, Object> updatePrdcr(PrdcrVO prdcrVO) throws Exception {
 
 		int updatedCnt = prdcrMapper.updatePrdcr(prdcrVO);
 
-		return updatedCnt;
+		return null;
 	}
 
 	@Override
-	public int deletePrdcr(PrdcrVO prdcrVO) throws Exception {
+	public HashMap<String, Object> deletePrdcr(PrdcrVO prdcrVO) throws Exception {
 
 		int deletedCnt = prdcrMapper.deletePrdcr(prdcrVO);
 
-		return deletedCnt;
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> multiPrdcrList(List<PrdcrVO> prdcrList) throws Exception {
+		// TODO Auto-generated method stub
+		
+		List<PrdcrVO> insertList = new ArrayList<>();
+		List<PrdcrVO> updateList = new ArrayList<>();
+		
+		for ( PrdcrVO prdcrVO : prdcrList ) {
+			PrdcrVO vo = new PrdcrVO();
+			BeanUtils.copyProperties(prdcrVO, vo);
+			
+			if (ComConstants.ROW_STS_INSERT.equals(prdcrVO.getRowSts())) {
+				insertList.add(vo);
+			}
+			if (ComConstants.ROW_STS_UPDATE.equals(prdcrVO.getRowSts())) {
+				updateList.add(vo);
+			}
+		}
+		
+		for ( PrdcrVO prdcrVO : insertList ) {
+
+			PrdcrVO newPrdcr = prdcrMapper.selectNewPrdcrCd(prdcrVO);
+			if (newPrdcr == null || !StringUtils.hasText(newPrdcr.getPrdcrCd())) {
+				throw new EgovBizException(getMessage("E0001"));
+			}
+			prdcrVO.setPrdcrCd(newPrdcr.getPrdcrCd());
+			prdcrMapper.insertPrdcr(prdcrVO);
+		}
+		
+		for ( PrdcrVO prdcrVO : updateList ) {
+			prdcrMapper.updatePrdcr(prdcrVO);
+		}
+		
+		
+		return null;
 	}
 
 }

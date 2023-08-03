@@ -3,19 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section>
+	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> ▶ 원물계량등록</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnDocRawMtrWgh" name="btnDocRawMtrWgh" uitype="normal" text="계량확인서" class="btn btn-sm btn-primary"></sbux-button>
@@ -27,11 +23,15 @@
 			</div>
 			<div></div>
 			<div class="box-body">
+				<!--[APC] START -->			
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
+				<sbux-input id="inp-prdcrCd" name="inp-prdcrCd" uitype="hidden"></sbux-input>
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 5%">
+						<col style="width: 6%">
 						<col style="width: 4%">
 						<col style="width: 1%">
 						<col style="width: 1%">
@@ -46,25 +46,22 @@
 						<col style="width: 2%">
 						<col style="width: 5%">
 						<col style="width: 5%">
-						<col style="width: 12%">
+						<col style="width: 11%">
 					</colgroup>
 					<tbody>
-						<tr>
-							<th scope="row" class="th_bg">APC 명</th>
-							<td colspan="6" class="td_input"  style="border-right: hidden;">
-								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
-							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-						</tr>
 						<tr>
 							<th scope="row" class="th_bg">생산자</th>
 							<td colspan="6" class="td_input"  style="border-right: hidden;">
 								<sbux-input id="inp-prdcrNm" name="inp-prdcrNm" uitype="text" class="form-control input-sm">
 							<td colspan="2" class="td_input"  style="border-right: hidden;">
-								<sbux-button id="btnSrchPrdcr" name="btnSrchPrdcr" class="btn btn-xs btn-outline-dark" text="조회" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
+								<sbux-button 
+									id="btnSrchPrdcrCd" 
+									name="btnSrchPrdcrCd" 
+									uitype="modal" 
+									class="btn btn-xs btn-outline-dark" 
+									text="찾기" target-id="modal-prdcr" 
+									onclick="fn_choicePrdcr">
+								</sbux-button>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
@@ -203,7 +200,7 @@
         <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
 
     <!-- 차량 선택 Modal -->
@@ -211,7 +208,7 @@
         <sbux-modal id="modal-vhcl" name="modal-vhcl" uitype="middle" header-title="차량 선택" body-html-id="body-modal-vhcl" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-vhcl">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vhclPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/vhclPopup.jsp"></jsp:include>
     </div>
 
     <!-- 팔레트/박스 선택 Modal -->
@@ -219,7 +216,7 @@
         <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="원물입고 팔레트/박스 입고등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" style="width:1200px"></sbux-modal>
     </div>
     <div id="body-modal-pltBx">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/pltBxPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/pltBxPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -263,6 +260,18 @@
 
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
+	}
+	
+	const fn_choicePrdcr = function() {
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+	}
+	
+	const fn_setPrdcr = function(prdcr) {
+		if (!gfn_isEmpty(prdcr)) {
+			SBUxMethod.set("inp-prdcrCd", prdcr.prdcrCd);
+			SBUxMethod.set("inp-prdcrNm", prdcr.prdcrNm);
+			//SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		}
 	}
 </script>
 </html>
