@@ -45,7 +45,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
 							</td>
 							<td colspan="8" class="td_input"></td>
 						</tr>
