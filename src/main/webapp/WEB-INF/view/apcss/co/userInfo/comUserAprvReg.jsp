@@ -185,6 +185,7 @@ async function fn_reset(){
 	SBUxMethod.clear("srch-inp-userNm");
 }
 
+//저장버튼
 async function fn_updataUserList(){
 	fn_callUpdateUserList();
 }
@@ -195,18 +196,24 @@ async function fn_callUpdateUserList(){
 	
 	let regMsg = "등록 하시겠습니까?";
 	if(confirm(regMsg)){
+		console.log('newUserAprvRegGridData',newUserAprvRegGridData);
+		console.log('userAprvRegGridData',userAprvRegGridData);
 // 		let postJsonPromise = gfn_postJSON("/am/cmns/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
 		let postJsonPromise = await gfn_postJSON("/co/user/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
 		alert("등록 되었습니다.");
 	}
+	fn_selectUserList();
 
 }
 
+//일괄승인
 async function fn_bndlAprv() {
 	for(var i=0; i<userAprvRegGridData.length; i++){
 		console.log("userAprvRegGridData[i]", userAprvRegGridData[i]);
 		if (Object.keys(userAprvRegGridData[i]).indexOf("chc") != -1){
 			console.log("i", i);
+// 			var aprvYn = "01";
+			userAprvRegGridData[i].userStts = "01";
 			let postJsonPromise = await gfn_postJSON("/co/user/updateComUserAprv", userAprvRegGridData[i]);
 		}
 	}
