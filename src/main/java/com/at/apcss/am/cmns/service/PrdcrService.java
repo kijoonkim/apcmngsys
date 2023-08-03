@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.PrdcrVO;
@@ -42,7 +43,7 @@ public interface PrdcrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertPrdcr(PrdcrVO prdcrVO) throws Exception;
+	public HashMap<String, Object> insertPrdcr(PrdcrVO prdcrVO) throws Exception;
 
 	/**
 	 * 생산자정보 변경
@@ -50,7 +51,7 @@ public interface PrdcrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updatePrdcr(PrdcrVO prdcrVO) throws Exception;
+	public HashMap<String, Object> updatePrdcr(PrdcrVO prdcrVO) throws Exception;
 
 	/**
 	 * 생산자정보 삭제
@@ -58,5 +59,14 @@ public interface PrdcrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deletePrdcr(PrdcrVO prdcrVO) throws Exception;
+	public HashMap<String, Object> deletePrdcr(PrdcrVO prdcrVO) throws Exception;
+	
+	/**
+	 * 생산자정보 등록
+	 * @param prdcrList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> multiPrdcrList(List<PrdcrVO> prdcrList) throws Exception;
+	
 }

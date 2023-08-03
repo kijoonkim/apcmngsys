@@ -66,6 +66,8 @@ public class LoginVO implements Serializable{
 	private String endLgnDt;
 	private String endLgnIp;
 	
+	private String apcAdminType;	
+	
 	/**
 	 * id attribute 를 리턴한다.
 	 * @return String
@@ -334,5 +336,11 @@ public class LoginVO implements Serializable{
 	}
 	public void setApcNm(String apcNm) {
 		this.apcNm = apcNm;
+	}
+	public String getApcAdminType() {
+		return apcAdminType;
+	}
+	public void setApcAdminType(String apcAdminType) {
+		this.apcAdminType = apcAdminType;
 	}
 }

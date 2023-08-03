@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : CmnsTaskNoMapper.xml                                   				-->
+<!-- DESC : 업무별 번호 발번 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.07.14  	김 호        	Initial Creation                            	-->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdTaskNo	-->
+	<!-- DESC : APC 업무별 번호 자동 발번 단건 조회.	                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.31  	김 호        		Initial Creation                           	-->
+	<!-- ==========================================================================	-->
+    <select id="selectFnGetIdTaskNo" parameterType="com.at.apcss.am.cmns.vo.CmnsTaskNoVO" resultType="com.at.apcss.am.cmns.vo.CmnsTaskNoVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdTaskNo */
+				FN_GET_ID_TASK_NO(#{taskId}, #{apcCd}, #{ymd}) AS TASK_NO 
+			  FROM DUAL
+		]]>
+    </select>
+
+</mapper>

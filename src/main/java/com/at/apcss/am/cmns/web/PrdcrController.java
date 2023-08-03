@@ -58,5 +58,58 @@ public class PrdcrController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	@PostMapping(value = "/am/cmns/multiPrdcrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiPrdcrList(@RequestBody List<PrdcrVO> prdcrList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			for ( PrdcrVO prdcrVO : prdcrList ) {
+				prdcrVO.setSysFrstInptUserId(getUserId());
+				prdcrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				prdcrVO.setSysLastChgUserId(getUserId());
+				prdcrVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+			
+			HashMap<String, Object> rtnObj = prdcrService.multiPrdcrList(prdcrList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	@PostMapping(value = "/am/cmns/deletePrdcr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deletePrdcr(@RequestBody PrdcrVO prdcrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			prdcrVO.setSysFrstInptUserId(getUserId());
+			prdcrVO.setSysFrstInptPrgrmId(getPrgrmId());
+			prdcrVO.setSysLastChgUserId(getUserId());
+			prdcrVO.setSysLastChgPrgrmId(getPrgrmId());
+			
+			HashMap<String, Object> rtnObj = prdcrService.deletePrdcr(prdcrVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
+	
 
 }

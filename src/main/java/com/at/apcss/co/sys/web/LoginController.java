@@ -1,20 +1,30 @@
 package com.at.apcss.co.sys.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.at.apcss.am.apc.service.ApcInfoService;
+import com.at.apcss.am.apc.vo.ApcInfoVO;
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.menu.vo.ComApcJsonVO;
 import com.at.apcss.co.menu.vo.ComMenuVO;
+import com.at.apcss.co.menu.vo.ComUiJsonVO;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.service.LoginService;
 import com.at.apcss.co.sys.vo.LoginVO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.utl.fcc.service.EgovStringUtil;
@@ -43,13 +53,10 @@ public class LoginController extends BaseController {
 	@Resource(name = "loginService")
 	private LoginService loginService;
 	
-	/*
-	@RequestMapping("/login.do")
-	public String doLogin(Model model, HttpSession httpSession) {
-		
-		return "main/login";
-	}
-	 */
+	/** ApcInfoService */
+	@Resource(name = "apcInfoService")
+	private ApcInfoService apcInfoService;
+	
 	
 	@RequestMapping("/login.do")
 	public String doLoginView(@ModelAttribute("loginVO") LoginVO loginVO,
@@ -58,14 +65,16 @@ public class LoginController extends BaseController {
 			HttpSession httpSession,
 			ModelMap model) throws Exception {
 		
+		
 		String menuId = "login";
-		request.getSession().setAttribute("sysPrgrmId", menuId);
+		request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);
 		model.addAttribute("comUiJson", String.format("{menuId:'%s'}", menuId));
 		
 		ComMenuVO pageVO = new ComMenuVO();
 		pageVO.setMenuId(menuId);
 		pageVO.setMenuNm("로그인");
 		model.addAttribute("comMenuVO", pageVO);
+		//model.addAttribute("comApcList", null);
 		
 		// 권한체크시 에러 페이지 이동
 		String authError = request.getParameter("authError") == null ? "" : (String)request.getParameter("authError");
@@ -88,14 +97,55 @@ public class LoginController extends BaseController {
 		LoginVO resultVO = loginService.actionLogin(loginVO);
 		
 		if (resultVO != null && resultVO.getId() != null && StringUtils.hasText(resultVO.getId())) {
+			
+			ApcInfoVO apcInfoVO = new ApcInfoVO();
+			
+			List<String> comApcList = new ArrayList<>();
+			ObjectMapper objMapper = new ObjectMapper();
+			
+			// 로그인 사용자가 시스템관리자, AT관리자 일 경우 APC리스트를 세션에 저장
+			String userType = resultVO.getUserType();
+			if (ComConstants.CON_USER_TYPE_SYS.equals(userType)
+					|| ComConstants.CON_USER_TYPE_AT.equals(userType)) {
+				apcInfoVO.setDelYn(ComConstants.CON_NONE);
+				List<ApcInfoVO> apcInfoList = apcInfoService.selectApcInfoList(apcInfoVO);
+				for ( ApcInfoVO apc : apcInfoList ) {
+					ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+					comApcJsonVO.setApcCd(apc.getApcCd());
+					comApcJsonVO.setApcNm(apc.getApcNm());
+					comApcJsonVO.setValue(apc.getApcCd());
+					comApcJsonVO.setText(apc.getApcNm());
+					comApcJsonVO.setLabel(apc.getApcNm());
+					
+					comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+				}
+				
+				resultVO.setApcAdminType(userType);
+				
+			} else {
+				ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+				comApcJsonVO.setApcCd(resultVO.getApcCd());
+				comApcJsonVO.setApcNm(resultVO.getApcNm());
+				comApcJsonVO.setValue(resultVO.getApcCd());
+				comApcJsonVO.setText(resultVO.getApcNm());
+				comApcJsonVO.setLabel(resultVO.getApcNm());
+				
+				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+			}
+			
+			
+			if (comApcList != null && !comApcList.isEmpty()) {
+				request.getSession().setAttribute("comApcList", comApcList);
+			} else {
+				request.getSession().setAttribute("comApcList", null);
+			}
+			
 			// 로그인 정보를 세션에 저장
-			//httpSession.setAttribute("loginVO", resultVO);
 			request.getSession().setAttribute("loginVO", resultVO);
 			
 			// 로그인 인증세션
-			//httpSession.setAttribute("accessUser", resultVO.getId());
 			request.getSession().setAttribute("accessUser", resultVO.getId());
-			
+						
 			return "redirect:/actionMain.do";
 		} else {
 			model.addAttribute("loginMessage", message.getMessage("fail.common.login", request.getLocale()));
@@ -114,6 +164,47 @@ public class LoginController extends BaseController {
 		LoginVO resultVO = loginService.actionSSOLogin(loginVO);
 		
 		if (resultVO != null && resultVO.getId() != null && StringUtils.hasText(resultVO.getId())) {
+			
+			ApcInfoVO apcInfoVO = new ApcInfoVO();
+			List<ComApcJsonVO> comApcList = new ArrayList<>();
+			
+			// 로그인 사용자가 시스템관리자, AT관리자 일 경우 APC리스트를 세션에 저장
+			String userType = resultVO.getUserType();
+			if (ComConstants.CON_USER_TYPE_SYS.equals(userType)
+					|| ComConstants.CON_USER_TYPE_AT.equals(userType)) {
+				apcInfoVO.setDelYn(ComConstants.CON_NONE);
+				List<ApcInfoVO> apcInfoList = apcInfoService.selectApcInfoList(apcInfoVO);
+				for ( ApcInfoVO apc : apcInfoList ) {
+					ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+					comApcJsonVO.setApcCd(apc.getApcCd());
+					comApcJsonVO.setApcNm(apc.getApcNm());
+					comApcJsonVO.setValue(resultVO.getApcCd());
+					comApcJsonVO.setText(resultVO.getApcNm());
+					comApcJsonVO.setLabel(resultVO.getApcNm());
+					
+					comApcList.add(comApcJsonVO);
+				}
+				
+				resultVO.setApcAdminType(userType);
+				
+			} else {
+				ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+				comApcJsonVO.setApcCd(resultVO.getApcCd());
+				comApcJsonVO.setApcNm(resultVO.getApcNm());
+				comApcJsonVO.setValue(resultVO.getApcCd());
+				comApcJsonVO.setText(resultVO.getApcNm());
+				comApcJsonVO.setLabel(resultVO.getApcNm());
+				
+				comApcList.add(comApcJsonVO);
+			}
+			
+			ObjectMapper objMapper = new ObjectMapper();
+			if (comApcList != null && !comApcList.isEmpty()) {
+				request.getSession().setAttribute("comApcList", objMapper.writeValueAsString(comApcList));
+			} else {
+				request.getSession().setAttribute("comApcList", null);
+			}
+			
 			// 로그인 정보를 세션에 저장
 			//httpSession.setAttribute("loginVO", resultVO);
 			request.getSession().setAttribute("loginVO", resultVO);
@@ -140,8 +231,6 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "/actionMain.do")
 	public String actionMain(HttpServletRequest request, ModelMap model) throws Exception {
 		
-		logger.debug("actionMain sub");
-		
 		// 1. Spring Security 사용자 권한처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
@@ -149,9 +238,8 @@ public class LoginController extends BaseController {
 			//model.addAttribute("loginMessage", message.getMessage("fail.common.login"));
 			return "redirect:/login.do";
 		}
-		logger.debug("2");
+		
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		logger.debug(EgovStringUtil.isNullToString(user.getId()));
 		
 		// 2. 메뉴조회
 		
@@ -174,6 +262,7 @@ public class LoginController extends BaseController {
 		request.getSession().setAttribute("loginVO", null);
 		request.getSession().setAttribute("accessUser", null);
 		request.getSession().setAttribute("sysPrgrmId", null);
+		request.getSession().setAttribute("comApcList", null);
 		
 		return "redirect:/main.do";
 	}

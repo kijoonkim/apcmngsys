@@ -33,20 +33,37 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncList */
-				  WC.APC_CD		AS APC_CD
-				, WC.WGHNO		AS WGHNO
-				, WC.WGH_YMD	AS WGH_YMD
-				, WC.VHCLNO		AS VHCLNO
-				, WC.WHOL_WGHT	AS WHOL_WGHT
-				, WC.EMPT_VHCL_WGHT	AS EMPT_VHCL_WGHT
-				, WC.RDCD_RT	AS RDCD_RT
-				, WC.RDCD_WGHT	AS RDCD_WGHT
-				, WC.WRHS_WGHT	AS WRHS_WGHT
-				, WC.RMRK		AS RMRK
-				, WC.DEL_YN		AS DEL_YN
+				  WC.APC_CD		    AS APC_CD
+				, WC.WGHNO		    AS WGHNO
+				, MAX(WC.WGH_YMD)   AS WGH_YMD
+				, MAX(WC.VHCLNO)    AS VHCLNO
+				, MAX(WC.PRDCR_CD)	AS PRDCR_CD
+				, MAX(WC.WHOL_WGHT) AS WHOL_WGHT
+				, MAX(WC.EMPT_VHCL_WGHT)    AS EMPT_VHCL_WGHT
+				, MAX(WC.RDCD_RT)   AS RDCD_RT
+				, MAX(WC.RDCD_WGHT) AS RDCD_WGHT
+				, MAX(WC.WRHS_WGHT) AS WRHS_WGHT
+				, MAX(WC.RMRK)      AS RMRK
 				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = WC.APC_CD) AS APC_NM
-			  FROM TB_WGH_PRFMNC_COM WC
-			 WHERE 1=1
+				, MAX((SELECT FN_GET_PRDCR_NM(WC.PRDCR_CD, WC.APC_CD) FROM DUAL)) AS PRDCR_NM
+                , (SELECT MAX(X.GRD_CD) FROM TB_WGH_PRFMNC_DTL X WHERE X.APC_CD = WC.APC_CD AND X.WGHNO = WC.WGHNO AND X.DEL_YN = 'N') AS GRD_CD
+                , MAX((SELECT FN_GET_GRD_NM((SELECT X.GRD_CD FROM TB_WGH_PRFMNC_DTL X WHERE X.APC_CD = WC.APC_CD AND X.WGHNO = WC.WGHNO AND X.DEL_YN = 'N'), WC.APC_CD) FROM DUAL)) AS GRD_NM
+                , (SELECT SUM(X.WGHT) FROM TB_WGH_PRFMNC_DTL X WHERE X.APC_CD = WC.APC_CD AND X.WGHNO = WC.WGHNO AND X.DEL_YN = 'N' AND X.PLT_BX_SE_CD = 'P') AS PLT_WGHT
+				, (SELECT SUM(X.WGHT) FROM TB_WGH_PRFMNC_DTL X WHERE X.APC_CD = WC.APC_CD AND X.WGHNO = WC.WGHNO AND X.DEL_YN = 'N' AND X.PLT_BX_SE_CD = 'B') AS BX_WGHT
+				, MAX(INV.WAREHOUSE_SE_CD) AS WAREHOUSE_SE_CD
+				, MAX((SELECT FN_GET_COM_CD_VL_NM(INV.WAREHOUSE_SE_CD, WC.APC_CD) FROM DUAL)) AS WAREHOUSE_SE_NM
+			  FROM
+			  	  TB_WGH_PRFMNC_COM WC
+				, TB_RAW_MTR_WRHS_PRFMNC WP
+				, TB_RAW_MTR_INVNTR INV
+				
+			 WHERE WC.APC_CD = WP.APC_CD
+			   AND WC.WGHNO = WP.WGHNO
+			   AND WP.APC_CD = INV.APC_CD
+			   AND WP.WRHSNO = INV.WRHSNO
+			   AND WC.DEL_YN = 'N'
+			   AND WP.DEL_YN = 'N'
+			   AND INV.DEL_YN = 'N'
 		]]>
 		
 		<if test='apcCd != null and apcCd != ""'>
@@ -54,9 +71,6 @@
 		</if>
 		<if test='wghno != null and wghno != ""'>
 			   AND WC.WGHNO = #{wghno}
-		</if>
-		<if test='delYn != null and delYn != ""'>
-			   AND WC.DEL_YN = #{delYn}
 		</if>
 		<if test='wghYmd != null and wghYmd != ""'>
 			   AND WC.WGH_YMD = #{wghYmd}
@@ -68,6 +82,7 @@
 			   AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
 		</if>
 		<![CDATA[
+		 	 GROUP BY WC.APC_CD, WC.WGHNO
 			 ORDER BY APC_CD, WGH_YMD, WGHNO
 		]]>
 
