@@ -134,7 +134,6 @@ public class ComUserApiController extends BaseController {
 		try {
 			comUserVO.setSysLastChgUserId(getUserId());
 			comUserVO.setSysLastChgPrgrmId(getPrgrmId());
-			comUserVO.setUserStts("01");
 			result = comUserService.updateComUserAprv(comUserVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
