@@ -85,18 +85,17 @@
 
     <!-- ComUi json -->
 	<script type="text/javascript">
-
 		const comUiJson = ${comUiJson};
 		gfn_setSysPrgrmId(comUiJson.menuId);
-
 	<c:choose>
 		<c:when test="${loginVO != null && loginVO.id != null}">
-			const gv_apcCd = '${loginVO.apcCd}';
-			const gv_apcNm = '${loginVO.apcNm}';
+		const gv_apcCd = '${loginVO.apcCd}';
+		const gv_apcNm = '${loginVO.apcNm}';
 		</c:when>
 		<c:otherwise>
-			const gv_apcCd = '';
+		const gv_apcCd = '';
 		</c:otherwise>
 	</c:choose>
-
+		// 선택 APC코드 설정
+		gv_selectedApcCd = gv_apcCd;	
 	</script>

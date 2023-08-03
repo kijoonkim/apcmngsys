@@ -40,6 +40,14 @@ public interface PrdcrMapper {
 	public List<PrdcrVO> selectPrdcrList(PrdcrVO prdcrVO) throws Exception;
 
 	/**
+	 * 생산자코드 발번
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public PrdcrVO selectNewPrdcrCd(PrdcrVO prdcrVO) throws Exception;
+	
+	/**
 	 * 생산자정보 등록
 	 * @param prdcrVO
 	 * @return

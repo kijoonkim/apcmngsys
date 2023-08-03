@@ -3,19 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section>
+	<section class="content container-fluid">
 		<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
-				<h3 class="box-title" style="line-height: 30px;"> ▶ 선별실적등록</h3>
+				<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 			</div>
 			<div style="margin-left: auto;">
 				<p class="ad_input_row">
@@ -27,6 +23,10 @@
 			</div>
 			</div>
 			<div class="box-body">
+				<!--[APC] START -->			
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
+				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -46,13 +46,6 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg" >APC명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							</td>
-							<td colspan="8"></td>
-						</tr>
-						<tr>
 						<th scope="row" class="th_bg">입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-wrhsYmd1" name="srch-dtp-wrhsYmd1" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
@@ -71,10 +64,24 @@
 							<td></td>
 							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-prdcrNm" name="srch-inp-prdcrNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<sbux-input 
+									id="srch-inp-prdcrNm" 
+									name="srch-inp-prdcrNm" 
+									uitype="text" 
+									class="form-control input-sm" 
+									placeholder="">
+								</sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="srch-btn-slt-prdcrNm" name="srch-btn-slt-prdcrNm" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
+								<sbux-button 
+									id="srch-btn-slt-prdcrNm" 
+									name="srch-btn-slt-prdcrNm" 
+									class="btn btn-xs btn-outline-dark" 
+									text="찾기" 
+									uitype="modal" 
+									target-id="modal-prdcr" 
+									onclick="fn_choicePrdcr"
+								></sbux-button>
 							</td>
 							<td class="td_input" ></td>
 						</tr>
@@ -240,6 +247,18 @@
 		SBUxMethod.closeModal(modalId);
 	}
 
+	const fn_choicePrdcr = function() {
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+	}
+	
+	const fn_setPrdcr = function(prdcr) {
+		if (!gfn_isEmpty(prdcr)) {
+			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
+			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
+			//SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		}
+	}
+	
 </script>
 </body>
 </html>

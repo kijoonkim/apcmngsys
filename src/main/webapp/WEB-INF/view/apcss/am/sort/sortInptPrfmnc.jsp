@@ -3,19 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section>
+	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> ▶ 선별실적조회</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnDocSort" name="btnDocSort" uitype="normal" text="선별확인서" class="btn btn-sm btn-success"></sbux-button>
@@ -23,6 +19,11 @@
 				</div>
 			</div>
 			<div class="box-body">
+				<!--[APC] START -->			
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
+				<!--[pp] 검색 -->
+				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -41,13 +42,6 @@
 						<col style="width: 3%">
 					</colgroup>
 					<tbody>
-					<tr>
-						<th scope="row" class="th_bg">APC명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							</td>
-							<td colspan="8"></td>
-					</tr>
 						<tr>
 							<th scope="row" class="th_bg">선별일자</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -86,12 +80,27 @@
 							<td></td>
 							<th scope="row" class="th_bg">대표생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-prdcrNm" name="srch-inp-prdcrNm" class="form-control input-sm"
-								placeholder="초성검색 기능입니다." autocomplete-ref="autoCompleteDataJson" autocomplete-text="name"
-    							onkeyup="keyUpInp(srch-inp-prdcrNm, 'srch-inp-prdcrNm', 'false')"></sbux-input>
+								<sbux-input 
+									uitype="text" 
+									id="srch-inp-prdcrNm" 
+									name="srch-inp-prdcrNm" 
+									class="form-control input-sm"
+									placeholder="초성검색 기능입니다." 
+									autocomplete-ref="jsonPrdcrAutocomplete" 
+									autocomplete-text="name"
+    								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
+    								autocomplete-select-callback="fn_onSelectPrdcrNm"    									
+   								></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btn-srch-prdcr" name="btn-srch-prdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
+								<sbux-button 
+									id="btn-srch-prdcr" 
+									name="btn-srch-prdcr" 
+									class="btn btn-xs btn-outline-dark" 
+									text="찾기" uitype="modal" 
+									target-id="modal-prdcr" 
+									onclick="fn_choicePrdcr"
+								></sbux-button>
 							</td>
 							<td></td>
 						</tr>
@@ -114,7 +123,7 @@
         <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
     <!--  품목 선택 Modal -->
    	<div>
@@ -133,22 +142,31 @@
 	var jsonComFcltCd		= [];	// 선별기 	fcltCd			검색
 	var autoCompleteDataJson = [];
     var jsonDataPrdcr = [];
+    
+    var jsonDataPrdcr = [];
+    var jsonPrdcr			= [];
+    var jsonPrdcrAutocomplete = [];
+    
 	const fn_initSBSelect = async function() {
 
 		// 검색 SB select
-	 	await gfn_setComCdSBSelect('srch-slt-fcltCd', 			jsonComFcltCd, 	'FCLT_CD', gv_apcCd);			// 선벌기
-	 	await gfn_setComCdSBSelect('srch-slt-strgWarehouse',	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_apcCd);			// 선벌기
-	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonItem, gv_apcCd);	// 품목
-	 	await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonVrty, gv_apcCd);	// 품종
-
-		jsonDataPrdcr =  await gfn_getPrdcrs(gv_apcCd);
+	 	await gfn_setComCdSBSelect('srch-slt-fcltCd', 			jsonComFcltCd, 	'FCLT_CD', gv_selectedApcCd);			// 선벌기
+	 	await gfn_setComCdSBSelect('srch-slt-strgWarehouse',	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd);			// 선벌기
+	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonItem, gv_selectedApcCd);	// 품목
+	 	await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonVrty, gv_selectedApcCd);	// 품종
 	}
 
+	const fn_getPrdcrs = async function() {
+		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
+		jsonPrdcr = gfn_setFrst(jsonPrdcr);
+	}
+	
 	async function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		//gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonVrty, 	gv_apcCd, itemCd);		// 품종
-		await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonSpcfct, gv_apcCd, itemCd);	// 규격
-		console.log(jsonSpcfct);
+		await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonSpcfct, gv_selectedApcCd, itemCd);	// 규격
+		
+		fn_getPrdcrs();
 	}
 
 	// 공통코드 JSON
@@ -165,7 +183,6 @@
 		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-inp-startsortYmd", year+month+day);
 		SBUxMethod.set("srch-inp-endSortYmd", year+month+day);
-		SBUxMethod.set("srch-inp-apcCd", gv_apcNm);
 		fn_initSBSelect();
 
     });
@@ -555,19 +572,58 @@
 
     }
 
-    //그리드 체크박스 전체 선택
-    function fn_checkAll(obj){
-        var gridList = grdComMsgList.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        for (var i=0; i<gridList.length; i++ ){
-        	grdComMsgList.setCellData(i+1, 1, checkedYn, true, false);
-        }
-    }
 
     function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
 
+    
+	const fn_onChangeApc = async function() {
+		fn_initSBSelect();
+		fn_getPrdcrs();
+	}
+		
+	/**
+	 * @name fn_onKeyUpPrdcrNm
+	 * @description 생산자명 입력 시 event : autocomplete
+	 */
+	const fn_onKeyUpPrdcrNm = function(prdcrNm){
+		fn_clearPrdcr();
+		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
+    	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
+    }
+	
+	/**
+	 * @name fn_clearPrdcr
+	 * @description 생산자 폼 clear
+	 */
+	const fn_clearPrdcr = function() {
+		SBUxMethod.set("srch-inp-prdcrCd", null);
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
+	}
+	
+	/**
+	 * @name fn_onSelectPrdcrNm
+	 * @description 생산자 autocomplete 선택 callback
+	 */
+	function fn_onSelectPrdcrNm(value, label, item) {
+		SBUxMethod.set("srch-inp-prdcrCd", value);
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+	}
+    
+    
+    const fn_choicePrdcr = function() {
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+	}
+	
+	const fn_setPrdcr = function(prdcr) {
+		if (!gfn_isEmpty(prdcr)) {
+			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
+			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		}
+	}
+	
     </script>
 </body>
 </html>

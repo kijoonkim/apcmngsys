@@ -21,6 +21,9 @@
 		<result property="pswd" column="PSWD"/>
 		<result property="apcCd" column="APC_CD"/>
 		<result property="apcNm" column="APC_NM"/>
+		<result property="userType" column="USER_TYPE"/>
+		<result property="userStts" column="USER_STTS"/>
+		
 	</resultMap>
 
 	<!-- ==========================================================================	-->

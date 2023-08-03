@@ -132,8 +132,21 @@
     	<!-- End 페이징 -->
     </select>
 
-
-    
+   	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.selectNewPrdcrCd			-->
+	<!-- DESC : 생산자 코드발번 조회.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <select id="selectNewPrdcrCd" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO" resultType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.PrdcrMapper.selectNewPrdcrCd */
+				   FN_GET_ID_PRDCR(#{apcCd}) AS PRDCR_CD
+			  FROM DUAL
+		]]>
+    </select>
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.insertPrdcr					-->
 	<!-- DESC : 생산자 등록.                                             				-->
@@ -211,10 +224,15 @@
 				, CLCLN_CRTR = #{clclnCrtr}
 				, VHCLNO = #{vhclno}
 				, RMRK = #{rmrk}
+    	]]>
+		<if test='delYn != null and delYn !=""'>
+			   	, DEL_YN= #{delYn}
+		</if>
+    	<![CDATA[
 	    	    , SYS_LAST_CHG_DT		= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-	    	 WHERE APC_CD = #{authrtId}
+	    	 WHERE APC_CD = #{apcCd}
 	    	   AND PRDCR_CD = #{prdcrCd}
     	]]>
     </update>
@@ -231,7 +249,7 @@
     	<![CDATA[
 			DELETE /* com.at.apcss.am.cmns.mapper.PrdcrMapper.deletePrdcr */
 			  FROM TB_PRDCR_INFO
-	    	 WHERE APC_CD = #{authrtId}
+	    	 WHERE APC_CD = #{apcCd}
 	    	   AND PRDCR_CD = #{prdcrCd}
     	]]>
     </delete>

@@ -32,4 +32,6 @@ public class ComVO extends ComPageVO {
 	
 	private String sysUserId;
 	private String sysPrgrmId;
+	
+	private String rowSts;
 }

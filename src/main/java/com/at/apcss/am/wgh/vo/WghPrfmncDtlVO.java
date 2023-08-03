@@ -32,7 +32,7 @@ public class WghPrfmncDtlVO extends ComVO {
 	/**
 	 * 계량번호
 	 */
-	private String wghNo;
+	private String wghno;
 
 	/**
 	 * 계량순번
