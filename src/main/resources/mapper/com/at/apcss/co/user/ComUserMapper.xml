@@ -151,8 +151,8 @@
     	<![CDATA[
     	UPDATE TB_COM_USER
     	   SET 
-    	   , USER_ID = #{userId}
-    	   , SYS_LAST_CHG_DT 			= SYSDATE
+    	     USER_ID 				= #{userId}
+    	   , SYS_LAST_CHG_DT 		= SYSDATE
     	   , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
     	   , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
     	]]>
