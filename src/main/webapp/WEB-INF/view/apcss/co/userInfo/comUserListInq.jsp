@@ -45,7 +45,7 @@
 									<tr>
 										<th scope="row">APC명</th>
 										<td colspan="3" class="td_input" style="border-right: hidden;">
-											<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+											<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 										</td>
 										<td colspan="8" class="td_input"></td>
 									</tr>
@@ -98,20 +98,67 @@ function fn_createUserListInqGrid() {
 	    SBGridProperties1.extendlastcol = 'scroll';
 	    SBGridProperties1.columns = [
 	         {caption: ["사용자ID"],		ref: 'userId',      type:'output',	width:'15%'},
-	         {caption: ["사용자명"], 		ref: 'userNm',     	type:'input',  	width:'15%'},
+	         {caption: ["사용자명"], 		ref: 'userNm',     	type:'output',  width:'15%'},
 	         {caption: ["APC명"], 	 	ref: 'apcNm',    	type:'output',  width:'15%'},
 	         {caption: ["사용자유형"],    	ref: 'userType',    type:'output',  width:'15%'},
 	         {caption: ["메일주소"],	    ref: 'eml',   		type:'output',  width:'15%'},
 	         {caption: ["전화번호"],	    ref: 'telno', 		type:'output',  width:'15%'},
 	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'output',  width:'15%'},
 	         {caption: ["담당업무"],  		ref: 'tkcgTaskNm',  type:'output',  width:'15%'},
-	         {caption: ["사용유무"],  		ref: 'reverseYn',  	type:'input',  	width:'15%'},
-	         {caption: ["잠김여부"],  		ref: 'lckYn',   	type:'input',  	width:'15%'},
+	         {caption: ["사용유무"],  		ref: 'reverseYn',  	type:'output',  width:'15%'},
+	         {caption: ["잠김여부"],  		ref: 'lckYn',   	type:'output',  width:'15%'},
 	         {caption: ["최종접속일시"],  	ref: 'endLgnDt',   	type:'output',  width:'15%'}
     ];
     window.userListInqGridId= _SBGrid.create(SBGridProperties1);
+    fn_selectUserList();
 }
-				
+
+async function fn_selectUserList(){
+	fn_callSelectUserList();
+}
+
+var newUserAprvRegGridData = [];
+async function fn_callSelectUserList(){
+	let apcNm  = SBUxMethod.get("srch-inp-apcCd");
+	let userId = SBUxMethod.get("srch-inp-userId");
+	let userNm = SBUxMethod.get("srch-inp-userNm");
+	
+	var comUserVO = { apcNm: apcNm, userId: userId, userNm: userNm}
+	console.log('apcNm',apcNm);
+	let postJsonPromise = gfn_postJSON("/co/user/users", comUserVO);
+    let data = await postJsonPromise;                
+    newUserListInqGridData = [];
+    userListInqGridData = [];
+    
+    try{
+    	data.resultList.forEach((item, index) => {
+			let userListInq = {
+				userId		: item.userId
+			  , userNm		: item.userNm
+			  , apcNm		: item.apcNm
+			  , userType	: item.userType
+			  , eml			: item.eml
+			  , telno		: item.telno
+			  , jbttlNm		: item.jbttlNm
+			  , tkcgTaskNm	: item.tkcgTaskNm
+			  , reverseYn	: item.reverseYn
+			  , lckYn		: item.lckYn
+			  , endLgnDt	: item.endLgnDt
+			}
+    	
+			userListInqGridData.push(Object.assign({}, userListInq));
+			newUserListInqGridData.push(Object.assign({}, userListInq));
+		});
+		console.log("newUserListInqGridData", newUserListInqGridData);
+		console.log("userListInqGridData", userListInqGridData);
+		userListInqGridId.rebuild();
+    }catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+ 		console.error("failed", e.message);
+    }
+}
 </script>
 </body>
 </html>
