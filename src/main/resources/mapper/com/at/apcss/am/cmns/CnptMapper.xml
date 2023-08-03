@@ -28,6 +28,7 @@
 		     , CT.CNPT_NM           AS CNPT_NM
 		     , CT.BRNO              AS BRNO
 		     , CT.CNPT_TYPE         AS CNPT_TYPE
+		     , (SELECT FN_GET_COM_CD_VL_NM('CNPT_TYPE', CT.CNPT_TYPE) FROM DUAL)  AS CNPT_TYPE_NM
 		     , CT.PIC_NM            AS PIC_NM
 		     , CT.TELNO             AS TELNO
 		     , CT.RMRK              AS RMRK
@@ -35,6 +36,9 @@
 		  FROM TB_CNPT_INFO CT
 		 WHERE APC_CD 		= #{apcCd}
 		]]>
+		<if test='cnptNm != null and cnptNm !=""'>
+		   AND CT.CNPT_NM LIKE '%' || #{cnptNm} || '%'
+		</if>
     </select>
 
     <!-- ==========================================================================	-->
