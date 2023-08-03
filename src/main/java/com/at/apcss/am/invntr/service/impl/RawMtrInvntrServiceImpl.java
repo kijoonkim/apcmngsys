@@ -1,13 +1,19 @@
 package com.at.apcss.am.invntr.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
+import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : RawMtrInvntrServiceImpl.java
@@ -25,7 +31,7 @@ import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
  * </pre>
  */
 @Service("rawMtrInvntrService")
-public class RawMtrInvntrServiceImpl implements RawMtrInvntrService {
+public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrInvntrService {
 
 	@Autowired
 	private RawMtrInvntrMapper rawMtrInvntrMapper;
@@ -47,27 +53,46 @@ public class RawMtrInvntrServiceImpl implements RawMtrInvntrService {
 	}
 
 	@Override
-	public int insertRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+	public HashMap<String, Object> insertRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
 		int insertedCnt = rawMtrInvntrMapper.insertRawMtrInvntr(rawMtrInvntrVO);
 		
-		return insertedCnt;
+		return null;
 	}
 
+
 	@Override
-	public int updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+	public HashMap<String, Object> insertRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
+		
+		int insertedCnt = 0;
+		for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
+			
+			insertedCnt = rawMtrInvntrMapper.insertRawMtrInvntr(rawMtrInvntrVO);
+			
+			if (insertedCnt != 0) {
+				
+			}
+		}
+		
+		return null;
+	}
+	
+	
+	@Override
+	public HashMap<String, Object> updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
 		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntr(rawMtrInvntrVO);
 		
-		return updatedCnt;
+		return null;
 	}
 
 	@Override
-	public int deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+	public HashMap<String, Object> deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
 		int deletedCnt = rawMtrInvntrMapper.deleteRawMtrInvntr(rawMtrInvntrVO);
 		
-		return deletedCnt;
+		return null;
 	}
+
 
 }
