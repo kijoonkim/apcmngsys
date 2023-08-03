@@ -1,5 +1,6 @@
 package com.at.apcss.am.invntr.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
@@ -42,7 +43,16 @@ public interface RawMtrInvntrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	public HashMap<String, Object> insertRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	
+	/**
+	 * 원물재고 등록
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception;
+	
 	
 	/**
 	 * 원물재고 변경
@@ -50,7 +60,7 @@ public interface RawMtrInvntrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	public HashMap<String, Object> updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 	
 	/**
 	 * 원물재고 삭제
@@ -58,5 +68,5 @@ public interface RawMtrInvntrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	public HashMap<String, Object> deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 }

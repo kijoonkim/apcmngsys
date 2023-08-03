@@ -1,7 +1,10 @@
 package com.at.apcss.am.wgh.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
@@ -9,10 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.wgh.mapper.WghPrfmncMapper;
 import com.at.apcss.am.wgh.service.WghPrfmncService;
 import com.at.apcss.am.wgh.vo.WghPrfmncDtlVO;
 import com.at.apcss.am.wgh.vo.WghPrfmncVO;
+import com.at.apcss.am.whrs.service.RawMtrWrhsService;
+import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
 import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
@@ -37,6 +43,12 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 	@Autowired
 	private WghPrfmncMapper wghPrfmncMapper;
+	
+	@Resource(name="cmnsTaskNoService")
+	private CmnsTaskNoService cmnsTaskNoService;
+	
+	@Resource(name="rawMtrWrhsService")
+	private RawMtrWrhsService rawMtrWrhsService;
 	
 	@Override
 	public WghPrfmncVO selectWghPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception {
@@ -68,12 +80,19 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	public HashMap<String, Object> insertWghPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception {
 
 		List<WghPrfmncDtlVO> wghPrfmncDtlList = wghPrfmncVO.getWghPrfmncDtlList();
-
-		// FIXME 계량번호, 팔레트번호 발번확인할 것
+		
+		String wghno = cmnsTaskNoService.selectWghno(wghPrfmncVO.getApcCd(), wghPrfmncVO.getWghYmd());
+		wghPrfmncVO.setWghno(wghno);
+		
+		List<RawMtrWrhsVO> rawMtrWrhsList = new ArrayList<>();
+		
+		String grdCd = ComConstants.CON_BLANK;
 		
 		int insertedCnt = wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
-		
+		int seq = 0;
 		for ( WghPrfmncDtlVO dtl : wghPrfmncDtlList ) {
+			
+			seq++;
 			WghPrfmncDtlVO wghPrfmncDtlVO = new WghPrfmncDtlVO();
 			BeanUtils.copyProperties(wghPrfmncVO, wghPrfmncDtlVO);
 			BeanUtils.copyProperties(dtl, wghPrfmncDtlVO,
@@ -86,9 +105,27 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
 					);
+			wghPrfmncDtlVO.setWghSn(seq);
 			wghPrfmncMapper.insertWghPrfmncDtl(wghPrfmncDtlVO);
+			
+			if (!StringUtils.hasText(grdCd)) {
+				grdCd = dtl.getGrdCd();
+			}
 		}
 		
+		wghPrfmncVO.setGrdCd(grdCd);
+		
+		//
+		// FIXME 계량번호로 입고실적, 원물재고 등록 호출 추가 할 것
+		RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
+		BeanUtils.copyProperties(wghPrfmncVO, rawMtrWrhsVO);
+		rawMtrWrhsVO.setWrhsYmd(wghPrfmncVO.getWghYmd());
+		rawMtrWrhsList.add(rawMtrWrhsVO);
+		
+		HashMap<String, Object> rtnObj = rawMtrWrhsService.insertRawMtrWrhsList(rawMtrWrhsList);
+		if (rtnObj != null) {
+			throw new Exception("입고처리오류");
+		}
 		
 		return null;
 	}

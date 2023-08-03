@@ -32,12 +32,12 @@ public class RawMtrInvntrVO extends ComVO {
 	/**
 	 * 입고번호
 	 */
-	private String wrhsNo;
+	private String wrhsno;
 	
 	/**
 	 * 팔레트번호
 	 */
-	private String pltNo;
+	private String pltno;
 	
 	/**
 	 * 입고일자
@@ -63,7 +63,10 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 품종코드
 	 */
 	private String vrtyCd;
-	
+	/**
+	 * 등급코드
+	 */
+	private String grdCd;
 	/**
 	 * 상품구분코드
 	 */
@@ -118,29 +121,10 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 재고중량
 	 */
 	private double invntrWght;
-	
+
 	/**
-	 * 육안등급1
+	 * 운송구분
 	 */
-	private int otrdEye1;
+	private String trsprtSeCd;
 	
-	/**
-	 * 육안등급2
-	 */
-	private int otrdEye2;
-	
-	/**
-	 * 육안등급3
-	 */
-	private int otrdEye3;
-	
-	/**
-	 * 육안등급4
-	 */
-	private int otrdEye4;
-	
-	/**
-	 * 육안등급5
-	 */
-	private int otrdEye5;
 }

@@ -1,7 +1,21 @@
 package com.at.apcss.am.whrs.web;
 
-import org.springframework.stereotype.Controller;
+import java.util.HashMap;
+import java.util.List;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.at.apcss.am.wgh.service.WghPrfmncService;
+import com.at.apcss.am.wgh.vo.WghPrfmncVO;
+import com.at.apcss.am.whrs.service.RawMtrWrhsService;
+import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -22,4 +36,39 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class RawMtrWrhsController extends BaseController {
 
+	@Resource(name = "rawMtrWrhsService")
+	private RawMtrWrhsService rawMtrWrhsService;
+
+	@PostMapping(value = "/am/whrs/insertRawMtrWrhsList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertRawMtrWrhsList(@RequestBody List<RawMtrWrhsVO> rawMtrWrhsList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			
+			for ( RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList ) {
+				rawMtrWrhsVO.setSysFrstInptUserId(getUserId());
+				rawMtrWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
+				rawMtrWrhsVO.setSysLastChgUserId(getUserId());
+				rawMtrWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
+				
+				rawMtrWrhsVO.setSysFrstInptUserId("admin");
+				rawMtrWrhsVO.setSysFrstInptPrgrmId("testprgrm");
+				rawMtrWrhsVO.setSysLastChgUserId("admin");
+				rawMtrWrhsVO.setSysLastChgPrgrmId("testprgrm");
+			}
+			
+			HashMap<String, Object> rtnObj = rawMtrWrhsService.insertRawMtrWrhsList(rawMtrWrhsList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 }

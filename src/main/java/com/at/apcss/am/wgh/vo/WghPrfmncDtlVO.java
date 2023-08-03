@@ -50,14 +50,9 @@ public class WghPrfmncDtlVO extends ComVO {
 	private String pltBxSeCd;
 
 	/**
-	 * 팔레트종류
+	 * 팔레트/박스 종류
 	 */
-	private String pltKnd;
-
-	/**
-	 * 박스종류
-	 */
-	private String bxKnd;
+	private String pltBxKnd;
 
 	/**
 	 * 단중
