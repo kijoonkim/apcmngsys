@@ -24,30 +24,30 @@ import com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO;
  * 2023.08.04  하민우        최초 생성
  * </pre>
  */
-@Service("RawMtrTrsprtCstService")
+@Service("rawMtrTrsprtCstService")
 public class RawMtrTrsprtCstServiceImpl implements RawMtrTrsprtCstService {
 	
 	@Autowired
-	private RawMtrTrsprtCstMapper RawMtrTrsprtCstMapper;
+	private RawMtrTrsprtCstMapper rawMtrTrsprtCstMapper;
 
 	@Override
 	public List<RawMtrTrsprtCstVO> selectRawMtrTrsprtCstList(RawMtrTrsprtCstVO RawMtrTrsprtCstVO) throws Exception {
-		return RawMtrTrsprtCstMapper.selectRawMtrTrsprtCstList(RawMtrTrsprtCstVO);
+		return rawMtrTrsprtCstMapper.selectRawMtrTrsprtCstList(RawMtrTrsprtCstVO);
 	}
 
 	@Override
 	public int insertRawMtrTrsprtCst(RawMtrTrsprtCstVO RawMtrTrsprtCstVO) throws Exception {
-		return RawMtrTrsprtCstMapper.insertRawMtrTrsprtCst(RawMtrTrsprtCstVO);
+		return rawMtrTrsprtCstMapper.insertRawMtrTrsprtCst(RawMtrTrsprtCstVO);
 	}
 
 	@Override
 	public int updateRawMtrTrsprtCst(RawMtrTrsprtCstVO RawMtrTrsprtCstVO) throws Exception {
-		return RawMtrTrsprtCstMapper.updateRawMtrTrsprtCst(RawMtrTrsprtCstVO);
+		return rawMtrTrsprtCstMapper.updateRawMtrTrsprtCst(RawMtrTrsprtCstVO);
 	}
 
 	@Override
 	public int deleteRawMtrTrsprtCst(RawMtrTrsprtCstVO RawMtrTrsprtCstVO) throws Exception {
-		return RawMtrTrsprtCstMapper.deleteRawMtrTrsprtCst(RawMtrTrsprtCstVO);
+		return rawMtrTrsprtCstMapper.deleteRawMtrTrsprtCst(RawMtrTrsprtCstVO);
 	}
 
 }
