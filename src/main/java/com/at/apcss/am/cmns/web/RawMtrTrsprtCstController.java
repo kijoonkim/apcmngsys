@@ -47,9 +47,9 @@ public class RawMtrTrsprtCstController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 	
-	@PostMapping(value = "/am/cmns/compareRawMtrTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertRawMtrTrsprtCstList(@RequestBody Map<String, List<RawMtrTrsprtCstVO>> RawMtrTrsprtCstVO, HttpServletRequest request) throws Exception {
-		logger.debug("compareRawMtrTrsprtCstList 호출 <><><><> ");
+	@PostMapping(value = "/am/cmns/updateRawMtrTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateRawMtrTrsprtCstList(@RequestBody Map<String, List<RawMtrTrsprtCstVO>> RawMtrTrsprtCstVO, HttpServletRequest request) throws Exception {
+		logger.debug("updateRawMtrTrsprtCstList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -58,10 +58,7 @@ public class RawMtrTrsprtCstController extends BaseController {
 			List<RawMtrTrsprtCstVO> origin = RawMtrTrsprtCstVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
 			List<RawMtrTrsprtCstVO> modified = RawMtrTrsprtCstVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
 
-			List<String> originPk = origin.stream().map(e -> e.getTrsprtRgnCd()).collect(Collectors.toCollection(ArrayList::new));
-			List<String> modifiedPk = modified.stream().map(e -> e.getTrsprtRgnCd()).collect(Collectors.toCollection(ArrayList::new));
-
-			List<RawMtrTrsprtCstVO> insertList = new ArrayList<RawMtrTrsprtCstVO>(modified).stream().filter(e -> (modifiedPk.contains(e.getTrsprtRgnCd()) == true && originPk.contains(e.getTrsprtRgnCd()) == false)).collect(Collectors.toList());
+			List<RawMtrTrsprtCstVO> insertList = new ArrayList<RawMtrTrsprtCstVO>(modified).stream().filter(e -> e.getApcCd() == null).collect(Collectors.toList());
 			for (RawMtrTrsprtCstVO element : insertList) {
 				element.setSysFrstInptPrgrmId(getPrgrmId());
 				element.setSysFrstInptUserId(getUserId());

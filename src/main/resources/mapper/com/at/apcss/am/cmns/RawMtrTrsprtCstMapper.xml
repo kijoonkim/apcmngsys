@@ -14,7 +14,7 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.selectWrhsVhclList-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.selectRawMtrTrsprtCstList-->
 	<!-- DESC : 원물운임비용 목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -60,21 +60,28 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.insertRgnTrsprtCst		-->
-	<!-- DESC : 지역별 운임 등록.	                                       			-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.insertRawMtrTrsprtCst-->
+	<!-- DESC : 원물운임비용 목록 등록.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.11  	김 호        	Initial Creation                            -->
+	<!-- 2023.08.04  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertRgnTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
+    <insert id="insertRawMtrTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO">
     	<![CDATA[
     	INSERT INTO TB_RGN_TRSPRT_CST_INFO
     		(
     			APC_CD
-    		  , TRSPRT_RGN_CD
-    		  , TRSPRT_RGN_NM
+		   	  , TRSPRT_YMD
+		   	  , VHCLNO
+		   	  , SN
+			  , TRSPRT_SE_CD
+			  , TRSPRT_RGN_NM
+			  , WRHS_WGHT
     		  , TRSPRT_CST
+			  , BANK_CD
+			  , ACTNO
+			  , DPSTR
     		  , RMRK
     		  , DEL_YN
     		  , SYS_FRST_INPT_DT
@@ -86,10 +93,17 @@
     		)
    		VALUES
    			(
-   				#{apcCd}
-    		  , FN_GET_ID_TRSPRT_RGN_CD(#{apcCd})
-    		  , #{trsprtRgnNm}
+			  , #{apcCd}
+			  , #{trsprtYmd}
+			  , #{vhclno}
+			  , // SN 함수 만들 예정
+			  , #{trsprtSeCd}
+			  , #{trsprtRgnNm}
+			  , #{wrhsWght}
     		  , #{trsprtCst}
+			  , #{bankCd}
+			  , #{actno}
+			  , #{dpstr}
     		  , #{rmrk}
     		  , #{delYn}
     		  , SYSDATE
@@ -103,41 +117,50 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.updateRgnTrsprtCst	-->
-	<!-- DESC : 지역별 운임 변경.	                                       			-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.updateRawMtrTrsprtCst-->
+	<!-- DESC : 원물운임비용 목록 수정.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.11  	김 호        	Initial Creation                            -->
+	<!-- 2023.08.04  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateRgnTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
+	<update id="updateRawMtrTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO">
 		<![CDATA[
 		UPDATE TB_RGN_TRSPRT_CST_INFO
-		   SET SYS_LAST_CHG_DT 			= SYSDATE
+		   SET SYS_LAST_CHG_DT			= SYSDATE
     		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
     		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			 , TRSPRT_SE_CD				= #{trsprtSeCd}
 			 , TRSPRT_RGN_NM			= #{trsprtRgnNm}
+			 , WRHS_WGHT				= #{wrhsWght}
     		 , TRSPRT_CST				= #{trsprtCst}
+			 , BANK_CD					= #{bankCd}
+			 , ACTNO					= #{actno}
+			 , DPSTR					= #{dpstr}
     		 , RMRK						= #{rmrk}
     		 , DEL_YN					= #{delYn}
-		 WHERE APC_CD 					= #{apcCd}
-		   AND TRSPRT_RGN_CD 			= #{trsprtRgnCd}
+		 WHERE APC_CD					= #{apcCd}
+		   AND TRSPRT_YMD				= #{trsprtYmd}
+		   AND VHCLNO					= #{vhclno}
+		   AND SN						= #{sn}
 		]]>
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.deleteRgnTrsprtCst	-->
-	<!-- DESC : 지역별 운임 삭제.	                                       			-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.deleteRawMtrTrsprtCst-->
+	<!-- DESC : 원물운임비용 목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.11  	김 호        	Initial Creation                            -->
+	<!-- 2023.08.04  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteRgnTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
+	<delete id="deleteRawMtrTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO">
 		<![CDATA[
-		DELETE FROM TB_RGN_TRSPRT_CST_INFO
-		 WHERE APC_CD			= #{apcCd}
-		   AND TRSPRT_RGN_CD 	= #{trsprtRgnCd}
+		DELETE FROM TB_RAW_MTR_TRSPRT_CST
+		 WHERE APC_CD		= #{apcCd}
+		   AND TRSPRT_YMD	= #{trsprtYmd}
+		   AND VHCLNO		= #{vhclno}
+		   AND SN			= #{sn}
 		]]>
 	</delete>
 
