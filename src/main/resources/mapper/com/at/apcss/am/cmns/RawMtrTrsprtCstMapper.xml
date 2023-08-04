@@ -36,11 +36,12 @@
 		     , TC.DPSTR				AS DPSTR
 		     , TC.RMRK              AS RMRK
 		     , TC.DEL_YN            AS DEL_YN
-		     , VI.DRVR_NM           AS DRVR_NM
+		     , pt0.DRVR_NM          AS DRVR_NM
 		  FROM TB_RAW_MTR_TRSPRT_CST TC
-		  	INNER JOIN TB_WRHS_VHCL_INFO VI
-		 	ON TC.APC_CD = VI.APC_CD
-		   AND TC.VHCLNO = VI.VHCLNO
+		  	INNER JOIN (SELECT VI.APC_CD, VI.VHCLNO, VI.DRVR_NM
+		  				  FROM TB_WRHS_VHCL_INFO VI) pt0
+		 	ON TC.APC_CD = pt0.APC_CD
+		   AND TC.VHCLNO = pt0.VHCLNO
 		 WHERE TC.APC_CD = #{apcCd}
 		]]>
 		<if test='trsprtYmd != null and trsprtYmd != ""'>
