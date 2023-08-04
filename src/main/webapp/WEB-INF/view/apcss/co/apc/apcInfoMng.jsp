@@ -103,6 +103,8 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'sortmove';
     	SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
@@ -239,7 +241,7 @@
 			}
 		}
 		
-		var isEqual1 = await chkEqualObj(apcInfoMngData, newApcInfoMngData);
+		var isEqual1 = await fn_chkGridDataModified(apcInfoMngData, newApcInfoMngData);
 		console.log(isEqual1);
 		if (isEqual1){
 			alert("등록 할 내용이 없습니다.");
@@ -267,7 +269,7 @@
 		}
 	}
 	
-	async function chkEqualObj(obj1, obj2){
+	async function fn_chkGridDataModified(obj1, obj2){
 		console.log("modified", obj1);
 		console.log("origin", obj2);
 
