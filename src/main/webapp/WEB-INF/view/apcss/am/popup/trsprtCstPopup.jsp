@@ -20,6 +20,7 @@
 
 			<div class="box-body">
 				<!--[pp] 검색 -->
+				<sbux-input id="trsprtCst-inp-prdcrCd" name="trsprtCst-inp-prdcrCd" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -49,10 +50,26 @@
 							<th></th>
 							<th scope="row">생산자명</th>
 							<th class="td_input">
-								<sbux-input id="trsprtCst-inp-prdcrNm" name="trsprtCst-inp-prdcrNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input
+									id="trsprtCst-inp-prdcrNm"
+									name="trsprtCst-inp-prdcrNm"
+									uitype="text"
+									class="form-control input-sm" 
+									autocomplete-ref="jsonPrdcrAutocomplete"
+									autocomplete-text="name"
+    								onkeyup="fn_onKeyUpPrdcrNm(trsprtCst-inp-prdcrNm)"
+    								autocomplete-select-callback="fn_onSelectPrdcrNm"
+    							></sbux-input>
 							</th>
 							<th class="td_input">
-								<sbux-button id="btnSrchPrdcrTrsprtCst" name="btnSrchPrdcrTrsprtCst" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
+								<sbux-button
+									id="btnSrchPrdcrTrsprtCst"
+									name="btnSrchPrdcrTrsprtCst"
+									class="btn btn-xs btn-outline-dark" 
+									text="찾기" uitype="modal"
+									target-id="modal-prdcr"
+									onclick="fn_choicePrdcr"
+								></sbux-button>
 							</th>
 							<th scope="row">차량번호</th>
 							<th class="td_input">
@@ -76,9 +93,14 @@
 </body>
 <script type="text/javascript">
 	var jsonTrsprtCst = [];
-
+	
 	var jsonComTrsprtSeCd 		= [];	// 운송구분 trsprtSeCd		Grid
 	var jsonComTrsprtRgnCd		= [];	// 운송지역	trsprtRgnCd		Grid
+
+    var jsonDataPrdcr = [];
+    var jsonPrdcr = [];
+    var jsonPrdcrAutocomplete = [];
+
 	const fn_initSBSelectTrsprtCst = async function() {
 
 		// 그리드 SB select
@@ -86,10 +108,22 @@
 	 	gfn_setComCdGridSelect('grdTrsprtCst', jsonComTrsprtRgnCd, 	'TRSPRT_RGN_CD');	// 운송지역
 
 	}
+	
+	// APC별 생산자 목록 및 초성 가져오기(?)
+	const fn_getPrdcrs = async function() {
+		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
+		jsonPrdcr = gfn_setFrst(jsonPrdcr);
+	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("trsprtCst-dtp-trsprtYmd", year+month+day);
 		SBUxMethod.set("trsprtCst-inp-apcNm", gv_apcNm);
 		fn_initSBSelectTrsprtCst();
+		fn_getPrdcrs();
 	})
 
 	var jsonTrsprtCst = [];
@@ -106,17 +140,15 @@
 		SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.columns = [
 	        {caption: ['생산자','생산자'], 		ref: 'prdcrNm', 	width: '70px',	style: 'text-align:center',		type: 'output'},
-		    {caption: ['생산자','생산자'], 		ref: 'prdcrCd', 	width: '60px',	style: 'text-align:center',		type: 'button', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-        		return "<span></span>"
-        		+ "<button type='button' class='btn btn-xs btn-outline-danger' onclick='fn_modalPrdcr'>찾기</button>";
+		    {caption: ['생산자','생산자'], 		ref: 'btnPrdcrNm', 	width: '60px',	style: 'text-align:center',		type: 'button', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+        		return "<button type='button' class='btn btn-xs btn-outline-danger' onclick='fn_modalPrdcr'>찾기</button>";
 		    }},
 	        {caption: ['운송일자','운송일자'], 	ref: 'trsprtYmd', 	width: '100px',	style: 'text-align:center',		type: 'input'},
 	        {caption: ['운송구분','운송구분'], 	ref: 'trsprtSeCd', 	width: '100px',	style: 'text-align:center',		type: 'combo',
 				typeinfo : {ref:'jsonComTrsprtSeCd', label:'label', value:'value', displayui : true}},
 	        {caption: ['차량번호','차량번호'], 	ref: 'vhclno',		width: '100px',	style: 'text-align:center',		type: 'output'},
 	        {caption: ['차량번호','차량번호'], 	ref: 'btnVhclno', 	width: '60px',	style: 'text-align:center',		type: 'button', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-        		return "<span></span>"
-        		+ "<button type='button' class='btn btn-xs btn-outline-danger' onclick='fn_modalVhcl'>찾기</button>";
+        		return "<button type='button' class='btn btn-xs btn-outline-danger' onclick='fn_modalVhcl'>찾기</button>";
 		    }},
 	        {caption: ['기사명','기사명'], 		ref: 'drvrNm',		width: '100px',	style: 'text-align:center',		type: 'output'},
 	        {caption: ['운송지역','운송지역'], 	ref: 'trsprtRgnCd', width: '100px', style: 'text-align:center', 	type: 'combo',
@@ -168,11 +200,11 @@
 	async function fn_searchTrsprtCst(){
 		jsonTrsprtCst = [];
 		let apcCd = gv_apcCd;
-		var prdcrCd;
-		//let prdcrCd = SBUxMethod.get("trsprtCst-inp-prdcrNm");
+		let prdcrCd = SBUxMethod.get("trsprtCst-inp-prdcrCd");
 		let trsprtYmd = SBUxMethod.get("trsprtCst-dtp-trsprtYmd");
 		let vhclno = SBUxMethod.get("trsprtCst-inp-vhclno");
-		let RawMtrTrsprtCstVO = {apcCd : apcCd, prdcrCd : prdcrCd, trsprtYmd : trsprtYmd, trsprtYmd : trsprtYmd, vhclno : vhclno};
+		let RawMtrTrsprtCstVO = {apcCd : apcCd, prdcrCd : prdcrCd, trsprtYmd : trsprtYmd, vhclno : vhclno};
+		console.log(RawMtrTrsprtCstVO);
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectRawMtrTrsprtCstList.do", RawMtrTrsprtCstVO);
         let data = await postJsonPromise;
         newjsonTrsprtCst = [];
@@ -374,6 +406,47 @@
 		}
 	}
 	
+	/**
+	 * @name fn_onKeyUpPrdcrNm
+	 * @description 생산자명 입력 시 event : autocomplete
+	 */
+	const fn_onKeyUpPrdcrNm = function(prdcrNm){
+		fn_clearPrdcr();
+		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
+    	SBUxMethod.changeAutocompleteData('trsprtCst-inp-prdcrNm', true);
+    }
+
+	/**
+	 * @name fn_clearPrdcr
+	 * @description 생산자 폼 clear
+	 */
+	const fn_clearPrdcr = function() {
+		SBUxMethod.set("trsprtCst-inp-prdcrCd", null);
+		SBUxMethod.attr("trsprtCst-inp-prdcrNm", "style", "background-color:''");
+	}
+
+	/**
+	 * @name fn_onSelectPrdcrNm
+	 * @description 생산자 autocomplete 선택 callback
+	 */
+	function fn_onSelectPrdcrNm(value, label, item) {
+		SBUxMethod.set("trsprtCst-inp-prdcrCd", value);
+		SBUxMethod.attr("trsprtCst-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+	}
+
+
+    const fn_choicePrdcr = function() {
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+	}
+
+	const fn_setPrdcr = function(prdcr) {
+		if (!gfn_isEmpty(prdcr)) {
+			SBUxMethod.set("trsprtCst-inp-prdcrCd", prdcr.prdcrCd);
+			SBUxMethod.set("trsprtCst-inp-prdcrNm", prdcr.prdcrNm);
+			SBUxMethod.attr("trsprtCst-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		}
+	}
+	
 	// 모달 호출
 	function fn_modalTrsprtCst(){
 		fn_createTrsprtCstGrid();
@@ -391,6 +464,11 @@
 		fn_setJsonTrsprtCst(4, vhclno);
 		fn_setJsonTrsprtCst(8, wrhsWght);
 		fn_setJsonTrsprtCst(15, "9999");
+	}
+
+	// 모달 종료
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
 	}
 </script>
 </html>
