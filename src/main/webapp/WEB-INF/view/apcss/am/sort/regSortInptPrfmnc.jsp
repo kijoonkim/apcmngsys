@@ -3,19 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section>
+	<section class="content container-fluid">
 		<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
-				<h3 class="box-title" style="line-height: 30px;"> ▶ 선별실적등록</h3>
+				<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 			</div>
 			<div style="margin-left: auto;">
 				<p class="ad_input_row">
@@ -27,8 +23,12 @@
 			</div>
 			</div>
 			<div class="box-body">
+				<!--[APC] START -->			
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
+				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -46,14 +46,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">APC명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							</td>
-							<td colspan="8"></td>
-						</tr>
-						<tr>
-						<th scope="row">입고일자</th>
+						<th scope="row" class="th_bg">입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-wrhsYmd1" name="srch-dtp-wrhsYmd1" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
@@ -61,7 +54,7 @@
 								<sbux-datepicker id="srch-dtp-wrhsYmd2" name="srch-dtp-wrhsYmd2" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
-							<th scope="row">품목/품종</th>
+							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonItem" onchange="fn_selectItem"></sbux-select>
 							</td>
@@ -69,12 +62,26 @@
 								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonVrty"></sbux-select>
 							</td>
 							<td></td>
-							<th scope="row">생산자</th>
+							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-prdcrNm" name="srch-inp-prdcrNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<sbux-input 
+									id="srch-inp-prdcrNm" 
+									name="srch-inp-prdcrNm" 
+									uitype="text" 
+									class="form-control input-sm" 
+									placeholder="">
+								</sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="srch-btn-slt-prdcrNm" name="srch-btn-slt-prdcrNm" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
+								<sbux-button 
+									id="srch-btn-slt-prdcrNm" 
+									name="srch-btn-slt-prdcrNm" 
+									class="btn btn-xs btn-outline-dark" 
+									text="찾기" 
+									uitype="modal" 
+									target-id="modal-prdcr" 
+									onclick="fn_choicePrdcr"
+								></sbux-button>
 							</td>
 							<td class="td_input" ></td>
 						</tr>
@@ -92,7 +99,7 @@
 					</div>
 					<br/>
 <!-- 					<div class="ad_section_bottom"></div> -->
-						<table class="table table-bordered tbl_row tbl_fixed">
+						<table class="table table-bordered tbl_fixed">
 							<caption>검색 조건 설정</caption>
 							<colgroup>
 								<col style="width: 7%">
@@ -110,17 +117,17 @@
 							</colgroup>
 							<tbody>
 								<tr>
-									<th scope="row">선별일자</th>
+									<th scope="row" class="th_bg">선별일자</th>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-datepicker id="srch-dtp-inptYmd" name="srch-dtp-inptYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 									</td>
 									<td colspan="2"></td>
-									<th scope="row">설비</th>
+									<th scope="row" class="th_bg">설비</th>
 									<td class="td_input" style="border-right: hidden;">
 									<sbux-select id="srch-slt-fcltCd" name="srch-slt-fcltCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComFclt"></sbux-select>
 									</td>
 									<td colspan="2"></td>
-									<th scope="row">선별 투입량</th>
+									<th scope="row" class="th_bg">선별 투입량</th>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-input id="srch-inp-sortWght" name="srch-inp-sortWght" uitype="text" placeholder="" class="form-control input-sm" disabled>
 									</td>
@@ -240,6 +247,18 @@
 		SBUxMethod.closeModal(modalId);
 	}
 
+	const fn_choicePrdcr = function() {
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+	}
+	
+	const fn_setPrdcr = function(prdcr) {
+		if (!gfn_isEmpty(prdcr)) {
+			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
+			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
+			//SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		}
+	}
+	
 </script>
 </body>
 </html>

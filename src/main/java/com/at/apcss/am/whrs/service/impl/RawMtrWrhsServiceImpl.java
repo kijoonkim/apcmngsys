@@ -1,11 +1,23 @@
 package com.at.apcss.am.whrs.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.invntr.service.RawMtrInvntrService;
+import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
+import com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper;
 import com.at.apcss.am.whrs.service.RawMtrWrhsService;
 import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : RawMtrWrhsServiceImpl.java
@@ -23,8 +35,18 @@ import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
  * </pre>
  */
 @Service("rawMtrWrhsService")
-public class RawMtrWrhsServiceImpl implements RawMtrWrhsService {
+public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhsService {
 
+	@Autowired
+	private RawMtrWrhsMapper rawMtrWrhsMapper;
+	
+	@Resource(name="cmnsTaskNoService")
+	private CmnsTaskNoService cmnsTaskNoService;
+	
+	@Resource(name="rawMtrInvntrService")
+	private RawMtrInvntrService rawMtrInvntrService;
+	
+	
 	@Override
 	public RawMtrWrhsVO selectRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
 		// TODO Auto-generated method stub
@@ -38,9 +60,53 @@ public class RawMtrWrhsServiceImpl implements RawMtrWrhsService {
 	}
 
 	@Override
-	public int insertRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+	public HashMap<String, Object> insertRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertRawMtrWrhsList(List<RawMtrWrhsVO> rawMtrWrhsList) throws Exception {
+
+		List<RawMtrInvntrVO> rawMtrInvntrList = new ArrayList<>();
+		
+		int insertedCnt = 0;
+		for ( RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList ) {
+			
+			String wrhsno = cmnsTaskNoService.selectWghno(rawMtrWrhsVO.getApcCd(), rawMtrWrhsVO.getWrhsYmd());
+			rawMtrWrhsVO.setWrhsno(wrhsno);
+			
+			if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
+				rawMtrWrhsVO.setPltno(wrhsno);
+			}
+			
+			insertedCnt = rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
+			
+			if (insertedCnt != 0) {
+				
+			}
+			
+			RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
+			BeanUtils.copyProperties(rawMtrWrhsVO, rawMtrInvntrVO);
+			rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getWrhsQntt());
+			rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getWrhsWght());
+			rawMtrInvntrList.add(rawMtrInvntrVO);
+		}
+		
+		// FIXME 입고번호로 재고 생성 추가
+		HashMap<String, Object> rtnObj = rawMtrInvntrService.insertRawMtrInvntrList(rawMtrInvntrList);
+		if (rtnObj != null) {
+			throw new Exception("원물재고등록오류");
+		}
+		
+		
+		return null;
+	}
+	
+	@Override
+	public HashMap<String, Object> insertRawMtrWrhsByWghno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		
+		return null;
 	}
 
 	@Override
@@ -54,5 +120,7 @@ public class RawMtrWrhsServiceImpl implements RawMtrWrhsService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 }

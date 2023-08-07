@@ -32,7 +32,7 @@ public class WghPrfmncDtlVO extends ComVO {
 	/**
 	 * 계량번호
 	 */
-	private String wghNo;
+	private String wghno;
 
 	/**
 	 * 계량순번
@@ -50,14 +50,9 @@ public class WghPrfmncDtlVO extends ComVO {
 	private String pltBxSeCd;
 
 	/**
-	 * 팔레트종류
+	 * 팔레트/박스 종류
 	 */
-	private String pltKnd;
-
-	/**
-	 * 박스종류
-	 */
-	private String bxKnd;
+	private String pltBxKnd;
 
 	/**
 	 * 단중

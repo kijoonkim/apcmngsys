@@ -45,7 +45,7 @@ public abstract class BaseController {
 	
 	protected String getPrgrmId() {
 		
-		String prgrmId = (String) RequestContextHolder.currentRequestAttributes().getAttribute("sysPrgrmId", RequestAttributes.SCOPE_SESSION);
+		String prgrmId = (String) RequestContextHolder.currentRequestAttributes().getAttribute(ComConstants.PROP_SYS_PRGRM_ID, RequestAttributes.SCOPE_SESSION);
 		return prgrmId;
 	}
 	

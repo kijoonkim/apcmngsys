@@ -2,11 +2,13 @@ package com.at.apcss.co.user.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode(callSuper = false)
 public class ComUserVO extends ComVO {
 
 	/**
@@ -34,4 +36,6 @@ public class ComUserVO extends ComVO {
 	private String aprvYn;
 	private String userTypeNm;
 	private String userSttsNm;
+	private String delYn;
+	private String reverseYn;
 }

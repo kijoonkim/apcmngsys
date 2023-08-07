@@ -3,19 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section>
+	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> ▶ 정산정보조회</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
@@ -23,8 +19,12 @@
 			</div>
 
 			<div class="box-body">
+				<!--[APC] START -->			
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -41,13 +41,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th class="ta_r">APC명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled></sbux-input>
-							</td>
-						</tr>
-						<tr>
-							<th class="ta_r">정산기준</th>
+							<th scope="row" class="th_bg">정산기준</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -56,7 +50,7 @@
 								</div>
 							</td>
 							<td colspan="2"></td>
-							<th class="ta_r">정산일자</th>
+							<th scope="row" class="th_bg">정산일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-fromClclnYmd" name="srch-dtp-fromClclnYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
@@ -64,7 +58,7 @@
 								<sbux-datepicker id="srch-dtp-toClclnYmd" name="srch-dtp-toClclnYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td></td>
-							<th class="ta_r">확정여부</th>
+							<th scope="row" class="th_bg">확정여부</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -75,7 +69,7 @@
 							<td></td>
 						</tr>
 						<tr>
-							<th class="ta_r">품목/품종</th>
+							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -91,12 +85,19 @@
 								</div>
 							</td>
 							<td></td>
-							<th class="ta_r">생산자</th>
+							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-prdcrNm" name="srch-inp-prdcrNm" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchPrdcrCd" name="btnSrchPrdcrCd" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
+								<sbux-button 
+									id="btnSrchPrdcrCd" 
+									name="btnSrchPrdcrCd" 
+									uitype="modal" 
+									class="btn btn-xs btn-outline-dark" 
+									text="찾기" target-id="modal-prdcr" 
+									onclick="fn_choicePrdcr">
+								</sbux-button>
 							</td>
 						</tr>
 					</tbody>
@@ -119,7 +120,7 @@
         <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -136,7 +137,8 @@
 
 // 	var jsonSlsPrfmncList = ['test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
 	var jsonSlsPrfmncList = [];
-
+	var grdSlsPrfmnc;
+	
 	function fn_createSlsPrfmncGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdSlsPrfmnc';
@@ -167,11 +169,24 @@
             {caption: ['계산금액'], ref: 'rkngAmt', width: '100px', type: 'output'},
             {caption: ['확정금액'], ref: 'cfmtnAmt', width: '100px', type: 'output'}
         ];
-        grdRegSlsPrfmnc = _SBGrid.create(SBGridProperties);
+        grdSlsPrfmnc = _SBGrid.create(SBGridProperties);
     }
 
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
+	
+	const fn_choicePrdcr = function() {
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+	}
+	
+	const fn_setPrdcr = function(prdcr) {
+		if (!gfn_isEmpty(prdcr)) {
+			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
+			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
+			//SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		}
+	}
+	
 </script>
 </html>

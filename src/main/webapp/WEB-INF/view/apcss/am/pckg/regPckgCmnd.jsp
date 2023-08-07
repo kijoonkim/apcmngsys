@@ -18,15 +18,15 @@
 					<h3 class="box-title">▶ 포장지시등록</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnReset" name="btnReset" uitype="nonormal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="nonormal" text="조회"class="btn btn-sm btn-outline-danger"></sbux-button>
-					<sbux-button id="btnSave" name="btnSave" uitype="nonormal" text="저장"class="btn btn-sm btn-outline-danger"></sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="nonormal" text="삭제"class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장"class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제"class="btn btn-sm btn-outline-danger"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -45,18 +45,18 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">APC명</th>
+							<th scope="row" class="th_bg">APC명</th>
 							<td colspan= "3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" disabled/>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">지시일자</th>
+							<th scope="row" class="th_bg">지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-cmndDate" name="srch-dtp-cmndYmd" class="form-control pull-right input-sm"></sbux-datepicker>
 							</td>
 							<td colspan="2">&nbsp;</td>
-							<th scope="row">품목/품종</th>
+							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
@@ -64,24 +64,24 @@
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" class="form-control input-sm" jsondata-ref="jsonComVrty"></sbux-select>
 							</td>
 							<td>&nbsp;</td>
-							<th scope="row">규격</th>
+							<th scope="row" class="th_bg">규격</th>
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" class="form-control input-sm" jsondata-ref="jsonComSpcfct"></sbux-select>
 							</td>
 							<td colspan="3">&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row">지시수량</th>
+							<th scope="row" class="th_bg">지시수량</th>
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-input uitype="text" id="srch-inp-cmndQntt" name="srch-inp-cmndQntt" class="form-control input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
-							<th scope="row">생산설비</th>
+							<th scope="row" class="th_bg">생산설비</th>
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-fclt" name="srch-slt-fclt" class="form-control input-sm" jsondata-ref="jsonComFclt"></sbux-select>
 							</td>
 							<td colspan="2">&nbsp;</td>
-							<th scope="row">거래처</th>
+							<th scope="row" class="th_bg">거래처</th>
 						    <td colspan="3" class="td_input" style="border-right:hidden ;">
 						    	<sbux-input uitype="text" id="srch-inp-cnpt" name="srch-inp-cnpt" class="form-control input-sm"/>
 							<td class="td_input">
@@ -90,17 +90,17 @@
 <!-- 						    <td colspan="2">&nbsp;</td> -->
 						</tr>
 						<tr>
-							<th scope="row">납기일자</th>
+							<th scope="row" class="th_bg">납기일자</th>
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-dudtYmd" name="srch-dtp-dudtYmd" class="form-control pull-right input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
-							<th scope="row" style="border-right:hidden ;">상품명</th>
+							<th scope="row"  class="th_bg"style="border-right:hidden ;">상품명</th>
 							<td colspan="2" class="td_input" style="border-right:hidden ;">
 								<sbux-input uitype="text" id="srch-inp-gdsNm" name="srch-inp-gdsNm" class="form-control input-sm" disabled/>
 							</td>
 							<td >&nbsp;</td>
-							<th scope="row" style="border-right:hidden ;">발주수량/입수</th>
+							<th scope="row"  class="th_bg"style="border-right:hidden ;">발주수량/입수</th>
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-input uitype="text" id="srch-inp-outordrQntt" name="srch-inp-outordrQntt" class="form-control input-sm" disabled/>
 							</td>
@@ -110,7 +110,7 @@
 							<td>&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row">발주번호</th>
+							<th scope="row" class="th_bg">발주번호</th>
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-input uitype="text" id="srch-inp-gdsNo" name="srch-inp-gdsNo" class="form-control input-sm" disabled/>
 							</td>
@@ -156,11 +156,12 @@
 		// 검색 SB select
 	 	gfn_setComCdSBSelect('srch-slt-fclt', 			jsonComFclt, 			'FCLT_CD', gv_apcCd);			// 설비
 	 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, gv_apcCd);	// 품목
+	 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_apcCd);			// 품종
 	}
 
 	function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_apcCd, itemCd);			// 품종
+		//gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_apcCd, itemCd);			// 품종
 		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_apcCd, itemCd);		// 규격
 	}
 

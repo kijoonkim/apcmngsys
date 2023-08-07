@@ -9275,7 +9275,7 @@ span.sbux-chk-wrap label .sbux-chk-txt {
   cursor: default;
   pointer-events: none;
   opacity: 1;
-  background: url(../sbux/assets/css/default/images/sbicons-selectbox-disabled.png) no-repeat 95% 50% #efefef;
+/*   background: url(../sbux/assets/css/default/images/sbicons-selectbox-disabled.png) no-repeat 95% 50% #efefef; */
   border-color: #d9d9d9;
 }
 .sbux-sel[readonly],
@@ -9283,7 +9283,7 @@ span.sbux-chk-wrap label .sbux-chk-txt {
   cursor: default;
   pointer-events: none;
   opacity: 1;
-  background: url(../sbux/assets/css/default/images/sbicons-selectbox-disabled.png) no-repeat 95% 50% #efefef;
+/*   background: url(../sbux/assets/css/default/images/sbicons-selectbox-disabled.png) no-repeat 95% 50% #efefef; */
   border-color: #d9d9d9;
 }
 .sbux-sel.sbux-sel-focus {
@@ -9310,7 +9310,7 @@ a.sbux-sel {
 a.sbux-sel[disabled],
 a.sbux-sel.disabled {
   cursor: default;
-  background: url(../sbux/assets/css/default/images/sbicons-selectbox-disabled.png) no-repeat 95% 50% #efefef;
+/*   background: url(../sbux/assets/css/default/images/sbicons-selectbox-disabled.png) no-repeat 95% 50% #efefef; */
 }
 a.sbux-sel[readonly],
 a.sbux-sel.readonly {

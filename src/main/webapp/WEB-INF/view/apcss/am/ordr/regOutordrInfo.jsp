@@ -27,7 +27,7 @@
 
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -45,13 +45,13 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">APC명</th>
+							<th scope="row" class="th_bg">APC명</th>
 						    <td colspan="3" class="td_input" style="border-right: hidden;">
 						    	<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">발주형태</th>
+							<th scope="row" class="th_bg">발주형태</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -60,40 +60,40 @@
 								</div>
 							</td>
 							<td colspan="2"></td>
-							<th scope="row">발주일자</th>
+							<th scope="row" class="th_bg">발주일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-outordrYmd" name="srch-dtp-outordrYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
-							<th scope="row">납기일자</th>
+							<th scope="row" class="th_bg">납기일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-dudtYmd" name="srch-dtp-dudtYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 						</tr>
 						<tr>
-							<th scope="row">거래처</th>
+							<th scope="row" class="th_bg">거래처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnptCd" name="srch-inp-cnptCd" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchCnptCd" name="btnSrchCnptCd" uitype="modal" class="btn btn-xs btn-outline-dark" text="찾기" target-id="modal-cnpt" onclick="fn_modalCnpt"></sbux-button>
 							</td>
-							<th scope="row">상품명</th>
+							<th scope="row" class="th_bg">상품명</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-gdsNm" name="srch-inp-gdsNm" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchGdsNm" name="btnSrchGdsNm" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
 							</td>
-							<th scope="row">배송처</th>
+							<th scope="row" class="th_bg">배송처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-dldtnCd" name="srch-inp-dldtnCd" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td></td>
 						</tr>
 						<tr>
-							<th scope="row">품목/품종</th>
+							<th scope="row" class="th_bg">품목/품종</th>
 						   	<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -109,7 +109,7 @@
 								</div>
 							</td>
 							<td></td>
-							<th scope="row">규격</th>
+							<th scope="row" class="th_bg">규격</th>
 						   	<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -119,7 +119,7 @@
 							</td>
 						</tr>
 						<tr>
-						    <th scope="row">발주금액/세액</th>
+						    <th scope="row" class="th_bg">발주금액/세액</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-outordrAmt" name="srch-inp-outordrAmt" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
@@ -127,7 +127,7 @@
 								<sbux-input id="srch-inp-txAmt" name="srch-inp-txAmt" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td></td>
-						    <th scope="row">발주수량/입수</th>
+						    <th scope="row" class="th_bg">발주수량/입수</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-outordrQntt" name="srch-inp-outordrQntt" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
@@ -135,19 +135,19 @@
 								<sbux-input id="srch-inp-bxGdsQntt" name="srch-inp-bxGdsQntt" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td></td>
-							<th scope="row">낱개수량</th>
+							<th scope="row" class="th_bg">낱개수량</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-pieceQntt" name="srch-inp-pieceQntt" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td colspan="2"></td>
 						</tr>
 						<tr>
-						    <th scope="row">박스단가</th>
+						    <th scope="row" class="th_bg">박스단가</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-bxUntprc" name="srch-inp-bxUntprc" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td colspan="2"></td>
-							<th scope="row">낱개단가</th>
+							<th scope="row" class="th_bg">낱개단가</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-pieceUntprc" name="srch-inp-pieceUntprc" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>

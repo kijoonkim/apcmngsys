@@ -1,7 +1,9 @@
 package com.at.apcss.am.whrs.service;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.wgh.vo.WghPrfmncVO;
 import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
 
 /**
@@ -42,7 +44,23 @@ public interface RawMtrWrhsService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	public HashMap<String, Object> insertRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	
+	/**
+	 * 원물입고 등록
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertRawMtrWrhsList(List<RawMtrWrhsVO> rawMtrWrhsList) throws Exception;
+	
+	/**
+	 * 계량번호를 통한 원물입고 등록
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertRawMtrWrhsByWghno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
 	/**
 	 * 원물입고 변경
@@ -59,4 +77,6 @@ public interface RawMtrWrhsService {
 	 * @throws Exception
 	 */
 	public int deleteRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	
+	
 }

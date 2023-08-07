@@ -32,17 +32,17 @@ public class RawMtrWrhsVO extends ComVO {
 	/**
 	 * 입고번호
 	 */
-	private String wrhsNo;
+	private String wrhsno;
 
 	/**
 	 * 계량번호
 	 */
-	private String wghNo;
+	private String wghno;
 
 	/**
 	 * 팔레트번호
 	 */
-	private String pltNo;
+	private String pltno;
 
 	/**
 	 * 입고일자
@@ -103,32 +103,7 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 입고중량
 	 */
 	private double wrhsWght;
-
-	/**
-	 * 육안등급1
-	 */
-	private String otrdEyeGrd1;
-
-	/**
-	 * 육안등급2
-	 */
-	private String otrdEyeGrd2;
-
-	/**
-	 * 육안등급3
-	 */
-	private String otrdEyeGrd3;
-
-	/**
-	 * 육안등급4
-	 */
-	private String otrdEyeGrd4;
-
-	/**
-	 * 육안등급5
-	 */
-	private String otrdEyeGrd5;
-
+	
 	/**
 	 * 비고
 	 */
@@ -143,4 +118,35 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 공차중량
 	 */
 	private double emptVhclWght;
+	
+	/**
+	 * 차량번호
+	 */
+	private String vhclno;
+
+	/**
+	 * 등급
+	 */
+	private String grdCd;
+	/**
+	 * 입고수량
+	 */
+	private int wrhsQntt;
+	/**
+	 * 투입수량
+	 */
+	private int inptQntt;
+	/**
+	 * 투입중량
+	 */
+	private double inptWght;
+	/**
+	 * 재고수량
+	 */
+	private int invntrQntt;
+	/**
+	 * 재고중량
+	 */
+	private double invntrWght;
+	
 }

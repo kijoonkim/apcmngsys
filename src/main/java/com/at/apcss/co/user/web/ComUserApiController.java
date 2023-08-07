@@ -3,6 +3,8 @@ package com.at.apcss.co.user.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -122,11 +124,11 @@ public class ComUserApiController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
+	
 	@PostMapping(value = "/co/user/updateComUserAprv", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateComUserAprv(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
 		logger.debug("updateComUserAprv 호출 <><><><> ");
-
+		
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		int result = 0;
 		try {
@@ -136,10 +138,49 @@ public class ComUserApiController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
-
+		
 		resultMap.put("result", result);
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+							
+	@PostMapping(value = "/co/user/compareComUserAprv.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> compareCnptList(@RequestBody Map<String, List<ComUserVO>> comUserVO, HttpServletRequest request) throws Exception {
+		logger.debug("compareComUserAprv.do 호출 <><><><> ");
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		int insertCnt = 0;
+		try {
+			List<ComUserVO> origin = comUserVO.get("origin").stream().collect(Collectors.toList());
+			List<ComUserVO> modified = comUserVO.get("modified").stream().collect(Collectors.toList());
+
+			List<String> originPk = origin.stream().filter(e -> e.getUserId() != null && e.getUserId().equals("") == false).map(e -> e.getUserId()).collect(Collectors.toCollection(ArrayList::new));
+			List<String> modifiedPk = modified.stream().filter(e -> e.getUserId() != null && e.getUserId().equals("") == false).map(e -> e.getUserId()).collect(Collectors.toCollection(ArrayList::new));
+
+			List<ComUserVO> updateList = new ArrayList<ComUserVO>();
+			for (ComUserVO ei : origin) {
+				for (ComUserVO ej : modified) {
+					if (ei.getUserId().equals(ej.getUserId())) {
+						if (ei.hashCode() != ej.hashCode() ) {
+							updateList.add(ej);
+						}
+						break;
+					}
+				}
+			}
+
+			for (ComUserVO element : updateList) {
+				
+				element.setSysLastChgPrgrmId(getPrgrmId());
+				element.setSysLastChgUserId(getUserId());
+				comUserService.updateComUser(element);
+			}
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
 }

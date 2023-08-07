@@ -39,7 +39,7 @@ public class WghPrfmncVO extends ComVO {
 	/**
 	 * 계량번호
 	 */
-	private String wghNo;
+	private String wghno;
 
 	/**
 	 * 계량일자
@@ -86,6 +86,16 @@ public class WghPrfmncVO extends ComVO {
 	private String gdsSeNm;
 	
 	/**
+	 * 등급
+	 */
+	private String grdCd;
+	
+	/**
+	 * 등급명
+	 */
+	private String grdNm;
+	
+	/**
 	 * 입고구분코드
 	 */
 	private String wrhsSeCd;
@@ -106,7 +116,7 @@ public class WghPrfmncVO extends ComVO {
 	/**
 	 * 차량번호
 	 */
-	private String vhclNo;
+	private String vhclno;
 
 	/**
 	 * 전체중량
@@ -132,31 +142,6 @@ public class WghPrfmncVO extends ComVO {
 	 * 입고중량
 	 */
 	private double wrhsWght;
-
-	/**
-	 * 육안등급1
-	 */
-	private String otrdEyeGrd1;
-
-	/**
-	 * 육안등급2
-	 */
-	private String otrdEyeGrd2;
-
-	/**
-	 * 육안등급3
-	 */
-	private String otrdEyeGrd3;
-
-	/**
-	 * 육안등급4
-	 */
-	private String otrdEyeGrd4;
-
-	/**
-	 * 육안등급5
-	 */
-	private String otrdEyeGrd5;
 
 	/**
 	 * 비고
@@ -198,6 +183,23 @@ public class WghPrfmncVO extends ComVO {
 	 */
 	private double wght;
 	
+	/**
+	 * 팔레트중량 
+	 */
+	private String pltWght;
+	/**
+	 * 박스중량
+	 */
+	private String bxWght;
+	/**
+	 * 창고구분
+	 */
+	private String warehouseSeCd;
+	/**
+	 * 창고구분
+	 */
+	private String warehouseSeNm;
+
 	/**
 	 * 계량상세리스트
 	 */

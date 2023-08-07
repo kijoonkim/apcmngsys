@@ -85,7 +85,7 @@
 	        {caption: ["담당업무"], 	ref: 'tkcgTaskNm',  type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["권한"], 		ref: 'userStts', 	type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue === "00"){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' style='color:blue' onClick='fn_updateComUserAprv("+ nRow + ", \"01\")'>사용승인</button>";
+            		return "<button type='button' class='btn btn-xs btn-outline-danger' style='color:blue' onClick='fn_updateComUserAprv("+ nRow + ", \"01\")'>승인대기</button>";
             	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' style='color:red' onClick='fn_updateComUserAprv("+ nRow + ", \"00\")'>승인취소</button>";
             	}

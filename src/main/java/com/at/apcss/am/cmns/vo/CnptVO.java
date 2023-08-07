@@ -25,7 +25,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 public class CnptVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -42,6 +42,10 @@ public class CnptVO extends ComVO {
 	 * 거래처유형
 	 */
 	private String cnptType;
+	/**
+	 * 거래처유형명
+	 */
+	private String cnptTypeNm;
 	/**
 	 * 사업자등록번호
 	 */
