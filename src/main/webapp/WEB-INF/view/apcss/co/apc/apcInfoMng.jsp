@@ -232,7 +232,7 @@
     	fn_callSelectApcDsctnList(recordCountPerPage, currentPageNo);
     }
 	
-	// 등록 버튼
+	// APC 내역 등록 (등록 버튼)
 	async function fn_insert(){
 		for(var i=0; i<apcInfoMngData.length; i++){
 			if(apcInfoMngData[i].delYn == "N" && (apcInfoMngData[i].regApcNm == null || apcInfoMngData[i].regApcNm == "")){
@@ -254,7 +254,7 @@
 			let data = await postJsonPromise;
 	        try{
 	        	if(data.insertedCnt > 0){
-	        		fn_callSelectApcDsctnList()
+	        		fn_callSelectApcDsctnList();
 	        		alert("등록 되었습니다.");
 	        	}else{
 	        		alert("등록 실패 하였습니다.");

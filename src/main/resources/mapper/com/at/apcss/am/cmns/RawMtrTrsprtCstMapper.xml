@@ -31,14 +31,19 @@
 		     , TC.TRSPRT_RGN_CD		AS TRSPRT_RGN_CD
 		     , TC.WRHS_WGHT			AS WRHS_WGHT
 		     , TC.TRSPRT_CST        AS TRSPRT_CST
-		     , TC.BANK_CD    	    AS BANK_CD
-		     , TC.ACTNO				AS ACTNO
-		     , TC.DPSTR				AS DPSTR
+		     , pt0.DRVR_NM          AS DRVR_NM
+		     , pt0.BANK_CD    	    AS BANK_CD
+		     , pt0.ACTNO			AS ACTNO
+		     , pt0.DPSTR			AS DPSTR
 		     , TC.RMRK              AS RMRK
 		     , TC.DEL_YN            AS DEL_YN
-		     , pt0.DRVR_NM          AS DRVR_NM
 		  FROM TB_RAW_MTR_TRSPRT_CST TC
-		  	INNER JOIN (SELECT VI.APC_CD, VI.VHCLNO, VI.DRVR_NM
+		  	INNER JOIN (SELECT VI.APC_CD
+		  					 , VI.VHCLNO
+		  					 , VI.DRVR_NM
+		  					 , VI.BANK_CD
+		  					 , VI.ACTNO
+		  					 , VI.DPSTR
 		  				  FROM TB_WRHS_VHCL_INFO VI) pt0
 		 	ON TC.APC_CD = pt0.APC_CD
 		   AND TC.VHCLNO = pt0.VHCLNO
@@ -77,12 +82,9 @@
 		   	  , VHCLNO
 		   	  , SN
 			  , TRSPRT_SE_CD
-			  , TRSPRT_RGN_NM
+			  , TRSPRT_RGN_CD
 			  , WRHS_WGHT
     		  , TRSPRT_CST
-			  , BANK_CD
-			  , ACTNO
-			  , DPSTR
     		  , RMRK
     		  , DEL_YN
     		  , SYS_FRST_INPT_DT
@@ -99,12 +101,9 @@
 			  , #{vhclno}
 			  , // SN 함수 만들 예정
 			  , #{trsprtSeCd}
-			  , #{trsprtRgnNm}
+			  , #{trsprtRgnCd}
 			  , #{wrhsWght}
     		  , #{trsprtCst}
-			  , #{bankCd}
-			  , #{actno}
-			  , #{dpstr}
     		  , #{rmrk}
     		  , #{delYn}
     		  , SYSDATE
@@ -132,12 +131,9 @@
     		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
     		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 			 , TRSPRT_SE_CD				= #{trsprtSeCd}
-			 , TRSPRT_RGN_NM			= #{trsprtRgnNm}
+			 , TRSPRT_RGN_CD			= #{trsprtRgnCd}
 			 , WRHS_WGHT				= #{wrhsWght}
     		 , TRSPRT_CST				= #{trsprtCst}
-			 , BANK_CD					= #{bankCd}
-			 , ACTNO					= #{actno}
-			 , DPSTR					= #{dpstr}
     		 , RMRK						= #{rmrk}
     		 , DEL_YN					= #{delYn}
 		 WHERE APC_CD					= #{apcCd}
