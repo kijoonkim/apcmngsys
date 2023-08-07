@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-				<h3 class="box-title" style="line-height: 30px;">▶선별투입등록(테블릿)</h3>
+				<h3 class="box-title" style="line-height: 30px;">▶선별투입등록(태블릿)</h3>
 				</div>
 				<div style="margin-left: auto;">
 					<p class="ad_input_row">

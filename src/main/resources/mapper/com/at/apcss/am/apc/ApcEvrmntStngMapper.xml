@@ -244,6 +244,27 @@
 		   AND CD.APC_CD 	= #{apcCd}
 		]]>
     </select>
+    
+    
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc..mapper.ApcEvrmntStngMapper.selectVrtyList		-->
+	<!-- DESC : 픔종 선택후 팝업 조회			                                          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.07  	김현호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectVrtyList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    	<![CDATA[
+    	SELECT 
+			 VC.ITEM_CD AS ITEM_CD
+			, (SELECT FN_GET_ITEM_NM('ITEM_CD', VC.ITEM_CD) FROM DUAL) AS ITEM_NM
+			,VC.VRTY_CD AS VRTY_CD
+			,VC.VRTY_NM AS VRTY_NM
+		FROM TB_VRTY_CRTR VC
+		]]>
+    </select>
 
 
 </mapper>

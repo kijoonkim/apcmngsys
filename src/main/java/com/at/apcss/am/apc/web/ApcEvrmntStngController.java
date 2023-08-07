@@ -164,5 +164,24 @@ public class ApcEvrmntStngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	// 품종선택 팝업
+		@PostMapping(value = "/am/apc/selectVrtyList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> selectVrtyList(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
+
+			logger.debug("selectVrtyList 호출 <><><><> ");
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<ComCdVO> resultList = new ArrayList<>();
+			try {
+				resultList = apcEvrmntStngService.selectVrtyList(comCdVO);
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			}
+
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+			return getSuccessResponseEntity(resultMap);
+		}
 
 }
