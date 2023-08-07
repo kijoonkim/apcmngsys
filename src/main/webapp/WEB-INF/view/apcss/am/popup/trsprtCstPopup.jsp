@@ -11,7 +11,7 @@
 			<div class="box-header">
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSearchTrsprtCst" name="btnSearchTrsprtCst" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searctTrsprtCst"></sbux-button>
+						<sbux-button id="btnSearchTrsprtCst" name="btnSearchTrsprtCst" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchTrsprtCst"></sbux-button>
 						<sbux-button id="btnSaveTrsprtCst" name="btnSaveTrsprtCst" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertTrsprtCst"></sbux-button>
 						<sbux-button id="btnEndTrsprtCst" name="btnEndTrsprtCst" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-trsprtCst')"></sbux-button>
 					</div>
@@ -37,16 +37,16 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<th class="td_input">
-								<sbux-input id="trsprtCst-inp-apcNm" name="trsprtCst-inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
+								<sbux-input id="trsprtCst-inp-apcNm" name="trsprtCst-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</th>
-							<th colspan="7">&nbsp;</th>
+							<th colspan="7"></th>
 						</tr>
 						<tr>
 							<th scope="row">운송일자</th>
 							<th class="td_input">
 								<sbux-datepicker id="trsprtCst-dtp-trsprtYmd" name="trsprtCst-dtp-trsprtYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</th>
-							<th>&nbsp;</th>
+							<th></th>
 							<th scope="row">생산자명</th>
 							<th class="td_input">
 								<sbux-input id="trsprtCst-inp-prdcrNm" name="trsprtCst-inp-prdcrNm" uitype="text" class="form-control input-sm" ></sbux-input>
@@ -75,16 +75,15 @@
 	</section>
 </body>
 <script type="text/javascript">
+	var jsonTrsprtCst = [];
 
 	var jsonComTrsprtSeCd 		= [];	// 운송구분 trsprtSeCd		Grid
 	var jsonComTrsprtRgnCd		= [];	// 운송지역	trsprtRgnCd		Grid
-	var jsonComBankCd			= [];	// 은행코드	bankCd			Grid
 	const fn_initSBSelectTrsprtCst = async function() {
 
 		// 그리드 SB select
 	 	gfn_setComCdGridSelect('grdTrsprtCst', jsonComTrsprtSeCd, 	'TRSPRT_SE_CD');	// 운송구분
 	 	gfn_setComCdGridSelect('grdTrsprtCst', jsonComTrsprtRgnCd, 	'TRSPRT_RGN_CD');	// 운송지역
-	 	gfn_setComCdGridSelect('grdTrsprtCst', jsonComBankCd, 		'BANK_CD');			// 은행코드
 
 	}
 
@@ -103,22 +102,32 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.columns = [
-	        {caption: ['생산자'], 		ref: 'prdcrNm', 	width: '100px', type: 'output'},
-	        {caption: ['운송일자'], 	ref: 'trsprtYmd', 	width: '100px', type: 'output'},
-	        {caption: ['운송구분'], 	ref: 'trsprtSeCd', 	type:'combo',  width:'100px',    style:'text-align:center',
+	        {caption: ['생산자','생산자'], 		ref: 'prdcrNm', 	width: '70px',	style: 'text-align:center',		type: 'output'},
+		    {caption: ['생산자','생산자'], 		ref: 'prdcrCd', 	width: '60px',	style: 'text-align:center',		type: 'button', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+        		return "<span></span>"
+        		+ "<button type='button' class='btn btn-xs btn-outline-danger' onclick='fn_modalPrdcr'>찾기</button>";
+		    }},
+	        {caption: ['운송일자','운송일자'], 	ref: 'trsprtYmd', 	width: '100px',	style: 'text-align:center',		type: 'input'},
+	        {caption: ['운송구분','운송구분'], 	ref: 'trsprtSeCd', 	width: '100px',	style: 'text-align:center',		type: 'combo',
 				typeinfo : {ref:'jsonComTrsprtSeCd', label:'label', value:'value', displayui : true}},
-	        {caption: ['차량번호'], 	ref: 'vhclno', 		width: '100px', type: 'output'},
-	        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', 	type:'combo',  width:'100px',    style:'text-align:center',
+	        {caption: ['차량번호','차량번호'], 	ref: 'vhclno',		width: '100px',	style: 'text-align:center',		type: 'output'},
+	        {caption: ['차량번호','차량번호'], 	ref: 'btnVhclno', 	width: '60px',	style: 'text-align:center',		type: 'button', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+        		return "<span></span>"
+        		+ "<button type='button' class='btn btn-xs btn-outline-danger' onclick='fn_modalVhcl'>찾기</button>";
+		    }},
+	        {caption: ['기사명','기사명'], 		ref: 'drvrNm',		width: '100px',	style: 'text-align:center',		type: 'output'},
+	        {caption: ['운송지역','운송지역'], 	ref: 'trsprtRgnCd', width: '100px', style: 'text-align:center', 	type: 'combo',
 				typeinfo : {ref:'jsonComTrsprtRgnCd', label:'label', value:'value', displayui : true}},
-	        {caption: ['중량'], 		ref: 'wrhsWght', 	width: '100px', type: 'output'},
-	        {caption: ['운임비용'], 	ref: 'bankCd', 	width: '100px', type: 'output'},
-	        {caption: ['은행'], 	ref: 'trsprtRgnCd', 	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComBankCd', label:'label', value:'value', displayui : true}},
-	        {caption: ['계좌'], 		ref: 'actno', 		width: '100px', type: 'output'},
-	        {caption: ['예금주'], 		ref: 'dpstr', 		width: '80px', type: 'output'},
-	        {caption: ['비고'], 		ref: 'RMRK', 		width: '240px', type: 'output'},
-	        {caption: ["처리"], 		ref: 'delYn',   	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ['중량','중량'], 		ref: 'wrhsWght', 	width: '100px',	style: 'text-align:center',		type: 'output'},
+	        {caption: ['운임비용','운임비용'],	ref: 'trsprtCst', 	width: '100px',	style: 'text-align:center',		type: 'input'},
+	        {caption: ['은행','은행'],			ref: 'bankCd', 		width: '100px',	style: 'text-align:center',		type: 'output'},
+	        {caption: ['계좌','계좌'],			ref: 'actno', 		width: '100px',	style: 'text-align:center',		type: 'output'},
+	        {caption: ['예금주','예금주'],	 	ref: 'dpstr', 		width: '80px',	style: 'text-align:center',		type: 'output'},
+	        {caption: ['비고','비고'],			ref: 'rmrk', 		width: '240px',									type: 'input'},
+	        {caption: ["처리","처리"],	 		ref: 'delYn',  		width:'80px',	style: 'text-align:center', 	type: 'button', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowTrsprtCst(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
@@ -126,20 +135,18 @@
 	        	}
 		    }},
 	        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
-
+	        {caption: ['순번'], ref: 'sn', hidden : true}
 	    ];
 	    grdTrsprtCst = _SBGrid.create(SBGridProperties);
+	    //grdTrsprtCst.setColStatus(0, false);
 	    grdTrsprtCst.addRow(true);
 	}
-
-	function fn_modalTrsprtCst(){
-		fn_createTrsprtCstGrid();
-	}
-
+	
+	// 행 추가 및 삭제
 	function fn_procRowTrsprtCst(gubun, nRow, nCol){
 		if (gubun === "ADD") {
 			grdTrsprtCst.setCellData(nRow, nCol, "N", true);
-			grdTrsprtCst.setCellData(nRow, 12, SBUxMethod.get("apcCd"), true);
+			grdTrsprtCst.setCellData(nRow, 15, gv_apcCd, true);
 			grdTrsprtCst.addRow(true);
 		}
 		else if(gubun === "DEL"){
@@ -147,7 +154,7 @@
         		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
         		if(confirm(delMsg)){
         			var rawMtrTrsprtCstVO = grdTrsprtCst.getRowData(nRow);
-        			//fn_deleteTrsprtCst(rawMtrTrsprtCstVO);
+        			fn_deleteTrsprtCst(rawMtrTrsprtCstVO);
         			grdTrsprtCst.deleteRow(nRow);
         		}
         	}else{
@@ -155,6 +162,235 @@
         	}
 		}
 	}
+	
+	// 원물운임비용 목록 조회 호출 (조회 버튼)
+	let newjsonTrsprtCst = [];
+	async function fn_searchTrsprtCst(){
+		jsonTrsprtCst = [];
+		let apcCd = gv_apcCd;
+		var prdcrCd;
+		//let prdcrCd = SBUxMethod.get("trsprtCst-inp-prdcrNm");
+		let trsprtYmd = SBUxMethod.get("trsprtCst-dtp-trsprtYmd");
+		let vhclno = SBUxMethod.get("trsprtCst-inp-vhclno");
+		let RawMtrTrsprtCstVO = {apcCd : apcCd, prdcrCd : prdcrCd, trsprtYmd : trsprtYmd, trsprtYmd : trsprtYmd, vhclno : vhclno};
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectRawMtrTrsprtCstList.do", RawMtrTrsprtCstVO);
+        let data = await postJsonPromise;
+        newjsonTrsprtCst = [];
+        try{
+        	data.resultList.forEach((item, index) => {
+				let trsprtCstList = {
+				    trsprtYmd 	: item.trsprtYmd
+				  , trsprtSeCd 	: item.trsprtSeCd
+				  , vhclno 		: item.vhclno
+				  , drvrNm 		: item.drvrNm
+				  , trsprtRgnCd : item.trsprtRgnCd
+				  , wrhsWght	: item.wrhsWght
+				  , trsprtCst 	: item.trsprtCst
+				  , bankCd 		: item.bankCd
+				  , actno 		: item.actno
+				  , dpstr 		: item.dpstr
+				  , rmrk 		: item.rmrk
+				  , delYn		: item.delYn
+				  , apcCd		: item.apcCd
+				  , sn			: item.sn
+				}
+				jsonTrsprtCst.push(Object.assign({}, trsprtCstList));
+				newjsonTrsprtCst.push(Object.assign({}, trsprtCstList));
+			});
+        	grdTrsprtCst.rebuild();
+    	    //grdTrsprtCst.setColStatus(0, false);
+        	grdTrsprtCst.addRow();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+	    }
+	}
+	
+	// 원물운임비용 등록 (등록 버튼)
+// 	async function fn_insertTrsprtCst(){
+// 		for(var i=0; i<jsonTrsprtCst.length; i++){
+// 			if(jsonTrsprtCst[i].delYn == 'N'){
+// 				if(jsonTrsprtCst[i].trsprtYmd == null || jsonTrsprtCst[i].trsprtYmd == ""){
+// 					alert("운송일자는 필수 값 입니다.");
+// 					return
+// 				}
+// 				if(jsonTrsprtCst[i].vhclno == null || jsonTrsprtCst[i].vhclno == ""){
+// 					alert("차량번호는 필수 값 입니다.");
+// 					return
+// 				}
+// 			}
+// 		}
+		
+// 		var isEqual1 = await fn_chkGridDataModified(apcInfoMngData, newApcInfoMngData);
+// 		console.log(isEqual1);
+// 		if (isEqual1){
+// 			alert("등록 할 내용이 없습니다.");
+// 			return;
+// 		}
+		
+// 		let regMsg = "등록 하시겠습니까?";
+// 		if(confirm(regMsg)){
+// 			let postJsonPromise = gfn_postJSON("/am/apc/updateApcDsctnList.do", {origin : newApcInfoMngData, modified : apcInfoMngData});
+// 			let data = await postJsonPromise;
+// 	        try{
+// 	        	if(data.insertedCnt > 0){
+// 	        		fn_callSelectApcDsctnList();
+// 	        		alert("등록 되었습니다.");
+// 	        	}else{
+// 	        		alert("등록 실패 하였습니다.");
+// 	        	}
+	
+// 	        }catch (e) {
+// 	        	if (!(e instanceof Error)) {
+// 	    			e = new Error(e);
+// 	    		}
+// 	    		console.error("failed", e.message);
+// 			}
+// 		}
+// 	}
+	
+// 	async function fn_chkGridDataModified(obj1, obj2){
+// 		console.log("modified", obj1);
+// 		console.log("origin", obj2);
 
+// 		var obj1Len = obj1.filter(e => e["delYn"] == "N").length;
+// 		var obj2Len = obj2.filter(e => e["delYn"] == "N").length;
+
+// 		if (obj1Len != obj2Len)
+// 			return false;
+
+// 		var obj1keys = Object.keys(obj1[0]);
+// 		obj1keys.sort();
+// 		var obj2keys = Object.keys(obj2[0]);
+// 		obj2keys.sort();
+
+// 		if (JSON.stringify(obj1keys) != JSON.stringify(obj2keys))
+// 			return false;
+
+// 		for(var i=0; i<obj1Len; i++){
+// 			for(var j=0; j<obj1keys.length; j++){
+// 				if(obj1[i][obj1keys[j]] != obj2[i][obj1keys[j]])
+// 					return false;
+// 			}
+// 		}
+// 		return true;
+// 	}
+
+	async function fn_insertTrsprtCst(){
+		let gridData = grdTrsprtCst.getGridDataAll();
+		let insertList = [];
+		let updateList = [];
+		let insertCnt = 0;
+		let updateCnt = 0;
+		for(var i=2; i<gridData.length; i++){
+			if(grdTrsprtCst.getRowData(i).delYn == 'N'){
+				if(grdTrsprtCst.getRowData(i).trsprtYmd == null || grdTrsprtCst.getRowData(i).trsprtYmd == ""){
+					alert("운송일자는 필수 값 입니다.");
+					return
+				}
+				if(grdTrsprtCst.getRowData(i).vhclno == null || grdTrsprtCst.getRowData(i).vhclno == ""){
+					alert("차량번호는 필수 값 입니다.");
+					return
+				}
+
+				if(grdTrsprtCst.getRowStatus(i) === 3){
+					insertList.push(grdTrsprtCst.getRowData(i));
+				}
+				if(grdTrsprtCst.getRowStatus(i) === 1 && grdTrsprtCst.getRowData(i).sn == null){
+					insertList.push(grdTrsprtCst.getRowData(i));
+				}
+				if(grdTrsprtCst.getRowStatus(i) === 2){
+					updateList.push(grdTrsprtCst.getRowData(i));
+				}
+			}
+		}
+		if(insertList.length == 0 && updateList.length == 0){
+			alert("저장 할 내용이 없습니다.");
+			return;
+		}
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			if(insertList.length > 0){
+				insertCnt = await fn_callInsertRawMtrTrsprtCstList(insertList);
+			}
+			if(updateList.length > 0){
+				updateCnt = await fn_callUpdateRawMtrTrsprtCstList(updateList);
+			}
+			if(insertCnt + updateCnt > 0 ){
+				fn_searchTrsprtCst();
+				alert("저장 되었습니다.");
+			}
+		}
+	}
+
+	async function fn_callInsertRawMtrTrsprtCstList(rawMtrTrsprtCstList){
+		let postJsonPromise = gfn_postJSON("/am/cmns/insertRawMtrTrsprtCstList.do", rawMtrTrsprtCstList);
+        let data = await postJsonPromise;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		return data.insertedCnt;
+        	} else {
+        		alert(data.resultMessage);
+        	}
+        } catch(e) {
+        }
+	}
+
+	async function fn_callUpdateRawMtrTrsprtCstList(rawMtrTrsprtCstList){
+		let postJsonPromise = gfn_postJSON("/am/cmns/updateRawMtrTrsprtCstList.do", rawMtrTrsprtCstList);
+        let data = await postJsonPromise;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		return data.updatedCnt;
+        	} else {
+        		alert(data.resultMessage);
+        	}
+        } catch(e) {
+        }
+	}
+	
+	// 원물운임비용 삭제
+	async function fn_deleteTrsprtCst(RawMtrTrsprtCstVO){
+		let postJsonPromise = gfn_postJSON("/am/cmns/deleteRawMtrTrsprtCstList.do", RawMtrTrsprtCstVO);
+        let data = await postJsonPromise;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		if(data.deletedCnt > 0){
+        			fn_searchTrsprtCst();
+        		}
+        	} else {
+        		alert(data.resultMessage);
+        	}
+        } catch(e) {
+        }
+	}
+	
+	async function fn_setJsonTrsprtCst(i, gridData){
+		if(gridData != null || gridData != ""){
+			grdTrsprtCst.setCellData(2, i, gridData);
+		}
+	}
+	
+	// 모달 호출
+	function fn_modalTrsprtCst(){
+		fn_createTrsprtCstGrid();
+		
+		let prdcrNm = "구만석";
+		let trsprtYmd = "20230803"
+		let trsprtSeCd = "1";
+		let vhclno = "224누3212";
+		let wrhsWght  = 45;
+		let newPrdcrNm = "이만석";
+
+		fn_setJsonTrsprtCst(0, prdcrNm);
+		fn_setJsonTrsprtCst(2, trsprtYmd);
+		fn_setJsonTrsprtCst(3, trsprtSeCd);
+		fn_setJsonTrsprtCst(4, vhclno);
+		fn_setJsonTrsprtCst(8, wrhsWght);
+		fn_setJsonTrsprtCst(15, "9999");
+	}
 </script>
 </html>
