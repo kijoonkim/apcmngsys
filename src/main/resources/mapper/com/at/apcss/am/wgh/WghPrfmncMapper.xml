@@ -28,11 +28,32 @@
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
     			, pt0.*
+    			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+    			, (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GRD_CD, pt0.APC_CD) FROM DUAL) AS GRD_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+    		  FROM (
+    	</if>
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		SELECT
+    			  pt0.*
+    			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+    			, (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GRD_CD, pt0.APC_CD) FROM DUAL) AS GRD_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
     		  FROM (
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncList */
+    		SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncList */
 				  WC.APC_CD		    AS APC_CD
 				, WC.WGHNO		    AS WGHNO
 				, MAX(WC.WGH_YMD)   AS WGH_YMD
@@ -45,13 +66,15 @@
 				, MAX(WC.WRHS_WGHT) AS WRHS_WGHT
 				, MAX(WC.RMRK)      AS RMRK
 				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = WC.APC_CD) AS APC_NM
-				, MAX((SELECT FN_GET_PRDCR_NM(WC.PRDCR_CD, WC.APC_CD) FROM DUAL)) AS PRDCR_NM
-                , (SELECT MAX(X.GRD_CD) FROM TB_WGH_PRFMNC_DTL X WHERE X.APC_CD = WC.APC_CD AND X.WGHNO = WC.WGHNO AND X.DEL_YN = 'N') AS GRD_CD
-                , MAX((SELECT FN_GET_GRD_NM((SELECT X.GRD_CD FROM TB_WGH_PRFMNC_DTL X WHERE X.APC_CD = WC.APC_CD AND X.WGHNO = WC.WGHNO AND X.DEL_YN = 'N'), WC.APC_CD) FROM DUAL)) AS GRD_NM
+				, (SELECT MAX(X.GRD_CD) FROM TB_WGH_PRFMNC_DTL X WHERE X.APC_CD = WC.APC_CD AND X.WGHNO = WC.WGHNO AND X.DEL_YN = 'N') AS GRD_CD
                 , (SELECT SUM(X.WGHT) FROM TB_WGH_PRFMNC_DTL X WHERE X.APC_CD = WC.APC_CD AND X.WGHNO = WC.WGHNO AND X.DEL_YN = 'N' AND X.PLT_BX_SE_CD = 'P') AS PLT_WGHT
 				, (SELECT SUM(X.WGHT) FROM TB_WGH_PRFMNC_DTL X WHERE X.APC_CD = WC.APC_CD AND X.WGHNO = WC.WGHNO AND X.DEL_YN = 'N' AND X.PLT_BX_SE_CD = 'B') AS BX_WGHT
 				, MAX(INV.WAREHOUSE_SE_CD) AS WAREHOUSE_SE_CD
-				, MAX((SELECT FN_GET_COM_CD_VL_NM(INV.WAREHOUSE_SE_CD, WC.APC_CD) FROM DUAL)) AS WAREHOUSE_SE_NM
+				, MAX(INV.ITEM_CD) AS ITEM_CD
+				, MAX(INV.VRTY_CD) AS VRTY_CD
+				, MAX(INV.GDS_SE_CD) AS GDS_SE_CD
+				, MAX(INV.WRHS_SE_CD) AS WRHS_SE_CD
+				, MAX(INV.TRSPRT_SE_CD) AS TRSPRT_SE_CD				
 			  FROM
 			  	  TB_WGH_PRFMNC_COM WC
 				, TB_RAW_MTR_WRHS_PRFMNC WP
@@ -91,6 +114,9 @@
     		  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		  ) pt0
     	</if>
     	<!-- End 페이징 -->
     </select>
@@ -207,6 +233,7 @@
 					, WGHNO
 					, WGH_YMD
 					, VHCLNO
+					, PRDCR_CD
 					, WHOL_WGHT
 					, EMPT_VHCL_WGHT
 					, RDCD_RT
@@ -226,6 +253,7 @@
 					, #{wghno}
 					, #{wghYmd}
 					, #{vhclno}
+					, #{prdcrCd}
 					, #{wholWght}
 					, #{emptVhclWght}
 					, #{rdcdRt}
@@ -261,6 +289,7 @@
 	    		
 				, WGH_YMD			= #{wghYmd}
 				, VHCLNO			= #{vhclno}
+				, PRDCR_CD			= #{prdcrCd}
 				, WHOL_WGHT			= #{wholWght}
 				, EMPT_VHCL_WGHT	= #{emptVhclWght}
 				, RDCD_RT			= #{rdcdRt}
@@ -310,8 +339,7 @@
 				, WD.WGHNO		AS WGHNO
 				, WD.WGH_SN		AS WGH_SN
 				, WD.PLT_BX_SE_CD	AS PLT_BX_SE_CD
-				, WD.PLT_KND	AS PLT_KND
-				, WD.BX_KND		AS BX_KND
+				, WD.PLT_BX_KND	AS PLT_BX_KND
 				, WD.GRD_CD		AS GRD_CD
 				, WD.UNIT_WGHT	AS UNIT_WGHT
 				, WD.QNTT		AS QNTT
@@ -348,8 +376,7 @@
 				, WD.WGHNO		AS WGHNO
 				, WD.WGH_SN		AS WGH_SN
 				, WD.PLT_BX_SE_CD	AS PLT_BX_SE_CD
-				, WD.PLT_KND	AS PLT_KND
-				, WD.BX_KND		AS BX_KND
+				, WD.PLT_BX_KND	AS PLT_BX_KND
 				, WD.GRD_CD		AS GRD_CD
 				, WD.UNIT_WGHT	AS UNIT_WGHT
 				, WD.QNTT		AS QNTT
@@ -373,11 +400,8 @@
 		<if test='pltBxSeCd != null and pltBxSeCd != ""'>
 			   AND WD.PLT_BX_SE_CD = #{pltBxSeCd}
 		</if>
-		<if test='pltKnd != null and pltKnd != ""'>
-			   AND WD.PLT_KND = #{pltKnd}
-		</if>
-		<if test='bxKnd != null and bxKnd != ""'>
-			   AND WD.BX_KND = #{bxKnd}
+		<if test='pltBxKnd != null and pltBxKnd != ""'>
+			   AND WD.PLT_BX_KND = #{pltBxKnd}
 		</if>
 		<if test='grdCd != null and grdCd != ""'>
 			   AND WD.GRD_CD = #{grdCd}
@@ -413,8 +437,7 @@
 					, WGHNO
 					, WGH_SN
 					, PLT_BX_SE_CD
-					, PLT_KND
-					, BX_KND
+					, PLT_BX_KND
 					, GRD_CD
 					, UNIT_WGHT
 					, QNTT
@@ -432,9 +455,8 @@
 					, #{wghno}
 					, #{wghSn}
 					, #{pltBxSeCd}
-					, #{pltKnd}
+					, #{pltBxKnd}
 					, #{grdCd}
-					, #{bxKnd}
 					, #{unitWght}
 					, #{qntt}
 					, #{wght}
@@ -466,8 +488,7 @@
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 	    		
 				, PLT_BX_SE_CD 	= #{pltBxSeCd}
-				, PLT_KND 		= #{pltKnd}
-				, BX_KND 		= #{bxKnd}
+				, PLT_BX_KND	= #{pltBxKnd}
 				, GRD_CD 		= #{grdCd}
 				, UNIT_WGHT 	= #{unitWght}
 				, QNTT 			= #{qntt}

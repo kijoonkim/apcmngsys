@@ -199,7 +199,7 @@ public class WghPrfmncVO extends ComVO {
 	 * 창고구분
 	 */
 	private String warehouseSeNm;
-	
+
 	/**
 	 * 계량상세리스트
 	 */

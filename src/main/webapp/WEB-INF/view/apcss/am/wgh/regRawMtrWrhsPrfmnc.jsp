@@ -174,7 +174,7 @@
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg">박스종류</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-boxKnd" name="srch-slt-boxKnd" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-box" name="srch-slt-box" class="form-control input-sm" jsondata-ref="jsonComBox"></sbux-select>
 							</td>
 							<td colspan="2">&nbsp;</td>
 						</tr>
@@ -268,6 +268,7 @@
 	var jsonComGrd				= [];	// 등급 		vrtyCd		검색
 	var jsonComSpcfct			= [];	// 규격 		spcfcCd		검색
 	var jsonComWarehouseSeCd	= [];	// 팔레트/박스 	warehouse	검색
+	var jsonComBox	= [];	// 팔레트/박스 	warehouse	검색
 
     var jsonDataPrdcr = [];
     var jsonPrdcr			= [];
@@ -276,8 +277,10 @@
 	const fn_initSBSelect = async function() {
 
 		// 검색 SB select
-	 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd', jsonComWarehouseSeCd, 	'WAREHOUSE_SE_CD', gv_selectedApcCd);			// 창고
-	 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd);	// 품목
+	 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouseSeCd, 	'WAREHOUSE_SE_CD', gv_selectedApcCd);			// 창고
+	 	gfn_setPltBxSBSelect('srch-slt-box', 			jsonComBox, 			gv_selectedApcCd, 'B');			// 박스
+	 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, gv_selectedApcCd);			// 품목
+	 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd);		// 품종
 	}
 
 
@@ -288,7 +291,7 @@
 
 	function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd, itemCd);			// 품종
+		//gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd, itemCd);			// 품종
 		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_selectedApcCd, itemCd);		// 규격
 		gfn_setApcGrdsSBSelect('srch-slt-grdCd', 		jsonComGrd, 	gv_selectedApcCd, itemCd);		// 등급
 	}
