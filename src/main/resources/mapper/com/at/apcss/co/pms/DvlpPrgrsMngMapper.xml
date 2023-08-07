@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : DvlpPrgrsMngMapper.xml                                    			-->
+<!-- DESC : 개발진행관리 정보 mapper                                            -->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.08.07  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDvlpPrgrsMngList-->
+	<!-- DESC : 개발진행관리 테이블 목록 조회.                                      -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.07  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectDvlpPrgrsMngList" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO" resultType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDvlpPrgrsMngList */
+			      DPM.PRGRM_ID          AS PRGRM_ID
+			    , DPM.PRGRM_NM          AS PRGRM_NM
+			    , DPM.STTS              AS STTS
+			    , DPM.CLSF              AS CLSF
+			    , DPM.DVLP_PLAN_YMD     AS DVLP_PLAN_YMD
+			    , DPM.DVLP_CMPTN_YMD    AS DVLP_CMPTN_YMD
+			    , DPM.TEST_PLAN_YMD     AS TEST_PLAN_YMD
+			    , DPM.TEST_CMPTN_YMD    AS TEST_CMPTN_YMD
+			    , DPM.RMRK              AS RMRK
+			    , (SELECT FN_GET_COM_CD_VL_NM('PIC',DPM.PIC) FROM DUAL)                AS PIC
+			    , DPM.DEL_YN            AS DEL_YN
+			    , (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID) AS DFCT_CNT
+			    , (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.ACTN_YMD IS NOT NULL) AS ACTN_CNT
+			    , TO_CHAR(DPM.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI') AS SYS_LAST_CHG_DT
+    	]]>
+    	<if test='dvlpPlanYmd != null and dvlpPlanYmd != ""'>
+    	<![CDATA[
+			    , CASE WHEN DPM.DVLP_PLAN_YMD > #{dvlpPlanYmd}
+			           THEN ''
+			           WHEN DPM.DVLP_PLAN_YMD <= #{dvlpPlanYmd} AND DPM.DVLP_CMPTN_YMD IS NULL
+			           THEN '지연'
+			           WHEN DPM.DVLP_PLAN_YMD <= #{dvlpPlanYmd} AND #{dvlpPlanYmd} < DPM.DVLP_CMPTN_YMD
+			           THEN '지연'
+			           WHEN DPM.DVLP_PLAN_YMD <= #{dvlpPlanYmd} AND #{dvlpPlanYmd} >= DPM.DVLP_CMPTN_YMD
+			           THEN '완료'
+			      END AS DVLP_STTS
+		]]>
+    	</if>
+    	<![CDATA[
+			 FROM TB_DVLP_PRGRS_MNG DPM
+    	]]>
+    	<where>
+			<if test='stts != null and stts != ""'>
+				AND DPM.STTS = #{stts}
+			</if>
+			<if test='clsf != null and clsf != ""'>
+				AND DPM.CLSF = #{clsf}
+			</if>
+			<if test='pic != null and pic != ""'>
+				AND DPM.PIC = #{pic}
+			</if>
+			<if test='prgrmNm != null and prgrmNm != ""'>
+				AND DPM.PRGRM_NM LIKE '%' || #{prgrmNm} || '%'
+			</if>
+		</where>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.updateDvlpPrgrsMng	-->
+	<!-- DESC : 개발진행관리 변경                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.07  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateDvlpPrgrsMng" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.co.msg.mapper.ComMsgMapper.updateComMsg */
+	    		TB_DVLP_PRGRS_MNG
+			   SET
+			 	  DVLP_PLAN_YMD     	= #{dvlpPlanYmd}
+			    , DVLP_CMPTN_YMD    	= #{dvlpCmptnYmd}
+			    , TEST_PLAN_YMD     	= #{testPlanYmd}
+			    , TEST_CMPTN_YMD    	= #{testCmptnYmd}
+				, SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			 WHERE PRGRM_ID	= #{prgrmId}
+    	]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDfctMngList		-->
+	<!-- DESC : 결함관리 테이블 목록 조회.                                      	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.07  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectDfctMngList" parameterType="com.at.apcss.co.pms.vo.DfctMngVO" resultType="com.at.apcss.co.pms.vo.DfctMngVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDfctMngList */
+			       DM.PRGRM_ID      AS PRGRM_ID
+			     , DM.DFCT_SN       AS DFCT_SN
+			     , DM.DFCT_CN       AS DFCT_CN
+			     , DM.REG_PRSN_NM   AS REG_PRSN_NM
+			     , DM.ACTN_RSLT     AS ACTN_RSLT
+			     , DM.OCRN_YMD	 	AS OCRN_YMD
+			     , DM.ACTN_YMD      AS ACTN_YMD
+			     , DM.DEL_YN		AS DEL_YN
+			  FROM TB_DFCT_MNG DM
+			 WHERE DM.PRGRM_ID = #{prgrmId}
+    	]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.insertDfctMng			-->
+	<!-- DESC : 결함관리 등록                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.07  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertDfctMng" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
+		<![CDATA[
+			INSERT INTO TB_DFCT_MNG  /* com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.insertDfctMng */
+				(
+					PRGRM_ID
+				  , DFCT_SN
+				  , DFCT_CN
+				  , REG_PRSN_NM
+				  , ACTN_RSLT
+				  , OCRN_YMD
+				  , ACTN_YMD
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+			VALUES
+				(
+				    #{prgrmId}
+				  , (SELECT FN_GET_ID_DFCT_SN(#{prgrmId}) FROM DUAL)
+				  , #{dfctCn}
+				  , #{regPrsnNm}
+				  , #{actnRslt}
+				  , TO_CHAR(SYSDATE, 'YYYYMMDD')
+				  , #{actnYmd}
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
+		]]>
+	</insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.updateDfctMng			-->
+	<!-- DESC : 결함관리 변경                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.07  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateDfctMng" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.co.msg.mapper.ComMsgMapper.updateComMsg */
+	    		TB_DFCT_MNG
+			   SET
+			      DFCT_CN    			= #{dfctCn}
+			    , REG_PRSN_NM     		= #{regPrsnNm}
+			    , ACTN_RSLT    			= #{actnRslt}
+			    , ACTN_YMD   			= #{actnYmd}
+				, SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			 WHERE PRGRM_ID	= #{prgrmId}
+			   AND DFCT_SN	= #{dfctSn}
+    	]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.deleteDfctMng			-->
+	<!-- DESC : 결함관리 삭제                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.07  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteDfctMng" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
+    	<![CDATA[
+	    	DELETE /* com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.deleteDfctMng */
+	    	   FROM TB_DFCT_MNG
+			  WHERE PRGRM_ID	= #{prgrmId}
+			    AND DFCT_SN		= #{dfctSn}
+    	]]>
+    </delete>
+
+
+</mapper>
