@@ -77,7 +77,7 @@
 							</td>
 							<td colspan="3"class="td_input"  style="border-right: hidden;">
 								<p class="ad_input_row">
-									<sbux-checkbox id="chk-fxng" name="chk-fxng" uitype="normal" ></sbux-checkbox>
+									<sbux-checkbox id="chk-fxng" name="chk-fxng" uitype="normal"></sbux-checkbox>
 									<label class="check_label" for="check_default" >고정</label>
 								</p>
 							</td>
@@ -109,18 +109,18 @@
 						<tr>
 							<th scope="row" class="th_bg">전체/공차증량</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-input uitype="text" id="inp-wholWght" name="inp-wholWght" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="inp-wholWght" name="inp-wholWght" class="form-control input-sm" onchange="fn_onChange(inp-wholWght)"></sbux-input>
 							</td>
 							<td colspan="3"class="td_input"  style="border-right: hidden;">
-								<sbux-input uitype="text" id="inp-emptVhclWght" name="inp-emptVhclWght" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="inp-emptVhclWght" name="inp-emptVhclWght" class="form-control input-sm" onchange="fn_onChange(inp-emptVhclWght)"></sbux-input>
 							</td>
 							<td colspan="2"class="td_input" style="border-right: hidden;"><label class="bold">감량 %</label></td>
 							<td class="td_input">
-								<sbux-input uitype="text" id="inp-rdctRt" name="inp-rdctRt" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="inp-rdctRt" name="inp-rdctRt" class="form-control input-sm" init="0" onchange="fn_onChangeRdctRt(inp-rdctRt)"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<sbux-checkbox id="rdctRt-chk-fxng" name="rdctRt-chk-fxng" uitype="normal" ></sbux-checkbox>
+									<sbux-checkbox id="rdctRt-chk-fxng" name="rdctRt-chk-fxng" uitype="normal" onchange="fn_changeRdctRtChkFxng(rdctRt-chk-fxng)"></sbux-checkbox>
 									<label class="check_label" for="check_default" >고정</label>
 								</p>
 							</td>
@@ -220,8 +220,11 @@
     </div>
 </body>
 <script type="text/javascript">
+	var defaultRdctRtChkFxng = "0";
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createWghPrfmncGrid();
+		
+		SBUxMethod.set('inp-rdctRt', defaultRdctRtChkFxng);
 	})
 
 	/* const fn_initSBSelect = async function() {
@@ -260,6 +263,51 @@
 
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
+	}
+	var regex = /[^0-9]/g;
+	function fn_onChange(id){
+		var emptVhclWght = SBUxMethod.get("inp-emptVhclWght").replace(regex, "");
+		var wholWght = SBUxMethod.get("inp-wholWght").replace(regex, "");
+		
+		SBUxMethod.set("inp-emptVhclWght", emptVhclWght);
+		SBUxMethod.set("inp-wholWght", wholWght);
+		
+		if(Number(emptVhclWght) > Number(wholWght)){
+			alert("공차중량은 전체중량보다 큰 값을 가질 수 없습니다.");
+			SBUxMethod.set("inp-emptVhclWght", "");
+			SBUxMethod.set("inp-wholWght", "");
+		}
+		calKg();
+	}
+	
+	function fn_onChangeRdctRt(id){
+		var RdctRt = SBUxMethod.get("inp-rdctRt").replace(regex, "");
+		SBUxMethod.set("inp-rdctRt", RdctRt);
+		if (RdctRt < 0 || RdctRt > 100){
+			alert("0~100 사이의 값을 입력해야합니다.");
+			SBUxMethod.set("inp-rdctRt", 0);
+		}
+		calKg();
+	}
+	
+	function fn_changeRdctRtChkFxng(id){
+		if(SBUxMethod.get("rdctRt-chk-fxng")["rdctRt-chk-fxng"] == false){
+			SBUxMethod.attr('inp-rdctRt', 'readonly', 'false')
+		}
+		else{
+			SBUxMethod.attr('inp-rdctRt', 'readonly', 'true')
+			defaultRdctRtChkFxng = SBUxMethod.get("inp-rdctRt");
+		}
+	}
+	
+	function calKg(){
+		var emptVhclWght = Number(SBUxMethod.get("inp-emptVhclWght"));
+		var wholWght = Number(SBUxMethod.get("inp-wholWght"));
+		
+		var RdctRt = Number(SBUxMethod.get("inp-rdctRt"));
+		
+		SBUxMethod.set("inp-rdcdWght", (wholWght-emptVhclWght)*((100-RdctRt)/100));
+		SBUxMethod.set("inp-actlWght", (wholWght-emptVhclWght));
 	}
 	
 	const fn_choicePrdcr = function() {
