@@ -100,24 +100,23 @@
 		let apcNm  = SBUxMethod.get("vrty-inp-apcNm");
 		let vrtyNm = SBUxMethod.get("vrty-inp-vrtyNm");
 		
-// 		let postJsonPromise = gfn_postJSON("/am/apc/selectVrtyList.do", {apcNm : apcNm, vrtyNm : vrtyNm} );
-		let postJsonPromise = gfn_postJSON("/am/apc/selectVrtyList.do", {vrtyNm : vrtyNm} );
+		let postJsonPromise = gfn_postJSON("/am/apc/selectVrtyList.do", {apcNm : apcNm, vrtyNm : vrtyNm} );
 	    let data = await postJsonPromise;                
 	    newJsonVrtyPopUp = [];
 	    jsonVrtyPopUp = [];
 	    
 	    try{
 	    	data.resultList.forEach((item, index) => {
-				let vrtyTest = {
+				let vrty = {
 				    itemCd		: item.itemCd
 				  , itemNm		: item.itemNm
 				  , vrtyCd		: item.vrtyCd
 				  , vrtyNm		: item.vrtyNm
 				  , apcCd		: item.apcCd
 				}
-				jsonVrtyPopUp.push(Object.assign({}, vrtyTest));
+				jsonVrtyPopUp.push(Object.assign({}, vrty));
 				console.log('jsonVrtyPopUp',jsonVrtyPopUp);
-				newJsonVrtyPopUp.push(Object.assign({}, vrtyTest));
+				newJsonVrtyPopUp.push(Object.assign({}, vrty));
 				console.log('newJsonVrtyPopUp',newJsonVrtyPopUp);
 			});
 			console.log("newJsonVrtyPopUp", newJsonVrtyPopUp);
