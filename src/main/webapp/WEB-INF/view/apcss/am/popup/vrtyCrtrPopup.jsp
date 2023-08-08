@@ -100,6 +100,18 @@
 		let apcNm  = SBUxMethod.get("vrty-inp-apcNm");
 		let vrtyNm = SBUxMethod.get("vrty-inp-vrtyNm");
 		
+		if(gv_apcCd == null && gv_apcCd == ""){
+			console.log('gv_apcCd = null');
+		}else if(gv_apcCd == " "){
+			console.log('gv_apcCd != null');
+			console.log('gv_apcCd', gv_apcCd);
+		}else{
+			console.log('gv_apcCd != nuuuull');
+		}
+// 		console.log('gv_apcCd',gv_apcCd);
+// 		console.log(gv_apcCd);
+// 		console.log('apcCd',apcCd);
+		
 		let postJsonPromise = gfn_postJSON("/am/apc/selectVrtyList.do", {apcNm : apcNm, vrtyNm : vrtyNm} );
 	    let data = await postJsonPromise;                
 	    newJsonVrtyPopUp = [];

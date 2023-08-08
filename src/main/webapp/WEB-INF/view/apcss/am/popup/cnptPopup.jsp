@@ -18,7 +18,7 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchCnpt" name="btnSearchCnpt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchCnpt"></sbux-button>
+					<sbux-button id="btnSearchCnpt" name="btnSearchCnpt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchCnpt()"></sbux-button>
 					<sbux-button id="btnEndCnpt" name="btnEndCnpt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-cnpt')"></sbux-button>
 				</div>
 			</div>
@@ -41,7 +41,7 @@
 							</th>
 							<th scope="row">거래처명</th>
 							<th class="td_input">
-								<sbux-input id="cnpt-inp-cnptNm" name="cnpt-inp-cnptNm" uitype="text" class="form-control input-sm" onkeyenter="fn_searchCnpt" ></sbux-input>
+								<sbux-input id="cnpt-inp-cnptNm" name="cnpt-inp-cnptNm" uitype="text" class="form-control input-sm" onkeyenter="fn_searchCnpt()" ></sbux-input>
 							</th>
 							<th>&nbsp;</th>
 						</tr>
