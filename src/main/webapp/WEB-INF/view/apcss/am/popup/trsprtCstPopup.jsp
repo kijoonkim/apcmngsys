@@ -73,10 +73,26 @@
 							</th>
 							<th scope="row">차량번호</th>
 							<th class="td_input">
-								<sbux-input id="trsprtCst-inp-vhclno" name="trsprtCst-inp-vhclno" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input
+									id="trsprtCst-inp-vhclno"
+									name="trsprtCst-inp-vhclno"
+									uitype="text"
+									class="form-control input-sm" 
+									autocomplete-ref="jsonVhclAutocomplete"
+									autocomplete-text="name"
+    								onkeyup="fn_onKeyUpVhclno(trsprtCst-inp-vhclno)"
+    								autocomplete-select-callback="fn_onSelectVhclno"
+    							></sbux-input>
 							</th>
 							<th class="td_input">
-								<sbux-button id="btnSrchVhclNoTrsprtCst" name="btnSrchVhclNoTrsprtCst" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"></sbux-button>
+								<sbux-button
+									id="btnSrchVhclNoTrsprtCst"
+									name="btnSrchVhclNoTrsprtCst"
+									class="btn btn-xs btn-outline-dark" 
+									text="찾기" uitype="modal"
+									target-id="modal-vhcl"
+									onclick="fn_choiceVhcl"
+								></sbux-button>
 							</th>
 						</tr>
 					</tbody>
@@ -100,6 +116,10 @@
     var jsonDataPrdcr = [];
     var jsonPrdcr = [];
     var jsonPrdcrAutocomplete = [];
+    
+    var jsonDataVhcl = [];
+    var jsonVhcl = [];
+    var jsonVhclAutocomplete = [];
 
 	const fn_initSBSelectTrsprtCst = async function() {
 
@@ -111,7 +131,7 @@
 	
 	// APC별 생산자 목록 및 초성 가져오기(?)
 	const fn_getPrdcrs = async function() {
-		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
+		jsonPrdcr = await gfn_getPrdcrs(gv_apcCd);
 		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
 
@@ -436,7 +456,7 @@
 
 
     const fn_choicePrdcr = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+		popPrdcr.init(gv_apcCd, gv_apcNm, fn_setPrdcr);
 	}
 
 	const fn_setPrdcr = function(prdcr) {
@@ -444,6 +464,47 @@
 			SBUxMethod.set("trsprtCst-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("trsprtCst-inp-prdcrNm", prdcr.prdcrNm);
 			SBUxMethod.attr("trsprtCst-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		}
+	}
+	
+	/**
+	 * @name fn_onKeyUpVhclno
+	 * @description 차량번호 입력 시 event : autocomplete
+	 */
+	const fn_onKeyUpVhclno = function(prdcrNm){
+		fn_clearVhcl();
+		jsonVhclAutocomplete = gfn_filterFrst(prdcrNm, jsonVhcl);
+    	SBUxMethod.changeAutocompleteData('trsprtCst-inp-vhclno', true);
+    }
+
+	/**
+	 * @name fn_clearVhcl
+	 * @description 차량번호 폼 clear
+	 */
+	const fn_clearVhcl = function() {
+		SBUxMethod.set("trsprtCst-inp-vhclno", null);
+		SBUxMethod.attr("trsprtCst-inp-vhclno", "style", "background-color:''");
+	}
+
+	/**
+	 * @name fn_onSelectVhclno
+	 * @description 차량번호 autocomplete 선택 callback
+	 */
+	function fn_onSelectVhclno(value, label, item) {
+		SBUxMethod.set("trsprtCst-inp-vhclno", value);
+		SBUxMethod.attr("trsprtCst-inp-vhclno", "style", "background-color:aquamarine");	//skyblue
+	}
+
+
+    const fn_choiceVhcl = function() {
+    	console.log("apcCd: ", gv_apcCd, " apcNm: ", gv_apcNm);
+		popVhcl.init(gv_apcCd, gv_apcNm, fn_setVhcl);
+	}
+
+	const fn_setVhcl = function(vhcl) {
+		if (!gfn_isEmpty(vhcl)) {
+			SBUxMethod.set("trsprtCst-inp-vhclno", vhcl.vhclno);
+			SBUxMethod.attr("trsprtCst-inp-vhclno", "style", "background-color:aquamarine");	//skyblue
 		}
 	}
 	
