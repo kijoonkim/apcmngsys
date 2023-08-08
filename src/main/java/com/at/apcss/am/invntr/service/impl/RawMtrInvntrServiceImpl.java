@@ -1,18 +1,13 @@
 package com.at.apcss.am.invntr.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
 import com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
-import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**

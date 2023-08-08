@@ -1,5 +1,6 @@
 package com.at.apcss.am.pckg.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.am.pckg.mapper.PckgPrfmncMapper;
 import com.at.apcss.am.pckg.service.PckgPrfmncService;
 import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : PckgPrfmncServiceImpl.java
@@ -25,7 +27,7 @@ import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
  * </pre>
  */
 @Service("pckgPrfmncService")
-public class PckgPrfmncServiceImpl implements PckgPrfmncService {
+public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmncService {
 
 	@Autowired
 	private PckgPrfmncMapper pckgPrfmncMapper;
@@ -47,27 +49,35 @@ public class PckgPrfmncServiceImpl implements PckgPrfmncService {
 	}
 
 	@Override
-	public int insertPckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception {
+	public HashMap<String, Object> insertPckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception {
 
 		int insertedCnt = pckgPrfmncMapper.insertPckgPrfmnc(pckgPrfmncVO);
 		
-		return insertedCnt;
+		return null;
 	}
 
+
 	@Override
-	public int updatePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception {
+	public HashMap<String, Object> insertPckgPrfmncList(List<PckgPrfmncVO> pckgPrfmncList) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	@Override
+	public HashMap<String, Object> updatePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception {
 
 		int updatedCnt = pckgPrfmncMapper.updatePckgPrfmnc(pckgPrfmncVO);
 		
-		return updatedCnt;
+		return null;
 	}
 
 	@Override
-	public int deletePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception {
+	public HashMap<String, Object> deletePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception {
 
 		int deletedCnt = pckgPrfmncMapper.deletePckgPrfmnc(pckgPrfmncVO);
 		
-		return deletedCnt;
+		return null;
 	}
 
 }

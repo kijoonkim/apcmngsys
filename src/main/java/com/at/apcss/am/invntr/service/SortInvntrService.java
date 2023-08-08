@@ -1,5 +1,6 @@
 package com.at.apcss.am.invntr.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
@@ -42,7 +43,15 @@ public interface SortInvntrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
+	public HashMap<String, Object> insertSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
+	
+	/**
+	 * 선별재고 목록 등록
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSortInvntrList(List<SortInvntrVO> sortInvntrList) throws Exception;
 	
 	/**
 	 * 선별재고 변경
@@ -50,7 +59,7 @@ public interface SortInvntrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
+	public HashMap<String, Object> updateSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
 	
 	/**
 	 * 선별재고 삭제
@@ -58,5 +67,5 @@ public interface SortInvntrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
+	public HashMap<String, Object> deleteSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
 }

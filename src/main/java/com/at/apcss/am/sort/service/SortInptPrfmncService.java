@@ -1,5 +1,6 @@
 package com.at.apcss.am.sort.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
@@ -42,15 +43,24 @@ public interface SortInptPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+	public HashMap<String, Object> insertSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
 
+	/**
+	 * 선별투입실적 목록 등록
+	 * @param sortInptPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSortInptPrfmncList(List<SortInptPrfmncVO> sortInptPrfmncList) throws Exception;
+
+	
 	/**
 	 * 선별투입실적 변경
 	 * @param sortInptPrfmncVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+	public HashMap<String, Object> updateSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
 
 	/**
 	 * 선별투입실적 삭제
@@ -58,5 +68,5 @@ public interface SortInptPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+	public HashMap<String, Object> deleteSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
 }
