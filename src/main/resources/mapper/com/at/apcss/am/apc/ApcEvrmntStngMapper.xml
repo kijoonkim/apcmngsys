@@ -258,15 +258,18 @@
     <select id="selectVrtyList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
     	SELECT 
-			 VC.ITEM_CD AS ITEM_CD
-			, (SELECT FN_GET_ITEM_NM('ITEM_CD', VC.ITEM_CD) FROM DUAL) AS ITEM_NM
-			,VC.VRTY_CD AS VRTY_CD
-			,VC.VRTY_NM AS VRTY_NM
-		FROM TB_VRTY_CRTR VC
-		WHERE ITEM_CD > 0
+			 AVC.ITEM_CD AS ITEM_CD
+			, (SELECT FN_GET_ITEM_NM(AVC.ITEM_CD,AVC.APC_CD) FROM DUAL) AS ITEM_NM
+			,AVC.VRTY_CD AS VRTY_CD
+			,AVC.VRTY_NM AS VRTY_NM
+		FROM TB_APC_VRTY_CRTR AVC
+    	WHERE  ITEM_CD > 0
 		]]>
 		<if test='vrtyNm != null and vrtyNm != ""'>
 			AND VRTY_NM = #{vrtyNm}
+		</if>
+		<if test='apcNm != null and apcNm != ""'>
+			AND APC_NM = #{acpNm}
 		</if>
     </select>
 
