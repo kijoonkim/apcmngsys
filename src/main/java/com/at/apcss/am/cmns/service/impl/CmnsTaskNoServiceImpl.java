@@ -66,6 +66,22 @@ public class CmnsTaskNoServiceImpl extends BaseServiceImpl implements CmnsTaskNo
 	}
 
 	@Override
+	public String selectPlanno(String apcCd, String ymd) throws Exception {
+		CmnsTaskNoVO paramVO = new CmnsTaskNoVO();
+		paramVO.setApcCd(apcCd);
+		paramVO.setYmd(ymd);
+		paramVO.setTaskId(AmConstants.TASK_ID_WRHS_PLAN);
+		
+		CmnsTaskNoVO resultVO = cmnsTaskNoMapper.selectFnGetIdTaskNo(paramVO);
+		
+		if (resultVO != null && StringUtils.hasText(resultVO.getTaskNo())) {
+			return resultVO.getTaskNo();
+		}
+		
+		return null;
+	}
+
+	@Override
 	public String selectSortno(String apcCd, String ymd) throws Exception {
 		
 		CmnsTaskNoVO paramVO = new CmnsTaskNoVO();
