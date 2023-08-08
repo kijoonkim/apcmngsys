@@ -115,12 +115,8 @@
 				  , apcCd		: item.apcCd
 				}
 				jsonVrtyPopUp.push(Object.assign({}, vrty));
-				console.log('jsonVrtyPopUp',jsonVrtyPopUp);
 				newJsonVrtyPopUp.push(Object.assign({}, vrty));
-				console.log('newJsonVrtyPopUp',newJsonVrtyPopUp);
 			});
-			console.log("newJsonVrtyPopUp", newJsonVrtyPopUp);
-			console.log("jsonVrtyPopUp", jsonVrtyPopUp);
 			grdVrty.rebuild();
 	    }catch (e) {
 			if (!(e instanceof Error)) {
