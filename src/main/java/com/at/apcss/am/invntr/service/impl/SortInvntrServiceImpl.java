@@ -1,5 +1,6 @@
 package com.at.apcss.am.invntr.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.am.invntr.mapper.SortInvntrMapper;
 import com.at.apcss.am.invntr.service.SortInvntrService;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : SortInvntrServiceImpl.java
@@ -25,7 +27,7 @@ import com.at.apcss.am.invntr.vo.SortInvntrVO;
  * </pre>
  */
 @Service("sortInvntrService")
-public class SortInvntrServiceImpl implements SortInvntrService {
+public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntrService {
 
 	@Autowired
 	private SortInvntrMapper sortInvntrMapper;
@@ -47,26 +49,43 @@ public class SortInvntrServiceImpl implements SortInvntrService {
 	}
 
 	@Override
-	public int insertSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
+	public HashMap<String, Object> insertSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
 
 		int insertedCnt = sortInvntrMapper.insertSortInvntr(sortInvntrVO);
 		
-		return insertedCnt;
+		return null;
 	}
 
 	@Override
-	public int updateSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
+	public HashMap<String, Object> insertSortInvntrList(List<SortInvntrVO> sortInvntrList) throws Exception {
+		
+		int insertedCnt = 0;
+		for ( SortInvntrVO sortInvntrVO : sortInvntrList ) {
+			
+			insertedCnt = sortInvntrMapper.insertSortInvntr(sortInvntrVO);
+			
+			if (insertedCnt != 0) {
+				
+			}
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public HashMap<String, Object> updateSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
 
 		int updatedCnt = sortInvntrMapper.updateSortInvntr(sortInvntrVO);
 		
-		return updatedCnt;
+		return null;
 	}
 
 	@Override
-	public int deleteSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
+	public HashMap<String, Object> deleteSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
 
 		int deletedCnt = sortInvntrMapper.deleteSortInvntr(sortInvntrVO);
 		
-		return deletedCnt;
+		return null;
 	}
+
 }

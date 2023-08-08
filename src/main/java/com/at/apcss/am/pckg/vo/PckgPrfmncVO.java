@@ -32,12 +32,12 @@ public class PckgPrfmncVO extends ComVO {
 	/**
 	 * 포장번호
 	 */
-	private String pckgNo;
+	private String pckgno;
 	
 	/**
 	 * 포장순번
 	 */
-	private String pckgSeqNo;
+	private String pckgSn;
 	
 	/**
 	 * 포장일자
@@ -53,6 +53,11 @@ public class PckgPrfmncVO extends ComVO {
 	 * 대표생산자코드
 	 */
 	private String rprsPrdcrCd;
+	
+	/**
+	 * 생산자코드
+	 */
+	private String prdcrCd;
 	
 	/**
 	 * 품목코드
@@ -87,7 +92,7 @@ public class PckgPrfmncVO extends ComVO {
 	/**
 	 * 포장지시번호
 	 */
-	private String pckgCmndNo;
+	private String pckgCmndno;
 	
 	/**
 	 * 비고

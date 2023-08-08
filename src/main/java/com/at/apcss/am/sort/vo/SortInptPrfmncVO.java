@@ -32,7 +32,7 @@ public class SortInptPrfmncVO extends ComVO {
 	/**
 	 * 입고번호
 	 */
-	private String wrhsNo;
+	private String wrhsno;
 
 	/**
 	 * 투입일자
@@ -67,12 +67,12 @@ public class SortInptPrfmncVO extends ComVO {
 	/**
 	 * 선별번호
 	 */
-	private String sortNo;
+	private String sortno;
 
 	/**
 	 * 선별지시번호
 	 */
-	private String sortCmndNo;
+	private String sortCmndno;
 
 	/**
 	 * 비고
