@@ -11,7 +11,7 @@
 			<div class="box-header">
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSearchVrty" name="btnSearchVrty" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchVrty">조회</sbux-button>
+						<sbux-button id="btnSearchVrty" name="btnSearchVrty" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectVrtyList()">조회</sbux-button>
 						<sbux-button id="btnChoiceVrty" name="btnChoiceVrty" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="fn_chcVrty">선택</sbux-button>
 						<sbux-button id="btnEndVrty" name="btnEndVrty" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-vrtyCrtr')">종료</sbux-button>
 					</div>
@@ -57,6 +57,8 @@
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("vrty-inp-apcNm", gv_apcNm);
+		fn_createVrtyGrid();		
+		
 	})
 	var jsonVrtyPopUp = [];
 	function fn_createVrtyGrid() {
@@ -74,16 +76,58 @@
             },
 	        {caption: ['품목코드'], ref: 'itemCd', width: '100px', type: 'output'},
 	        {caption: ['품목명'], ref: 'itemNm', width: '150px', type: 'output'},
-	        {caption: ['품종코드'], ref: 'vrtrCd', width: '100px', type: 'output'},
-	        {caption: ['품종명'], ref: 'vrtrNm', width: '150px', type: 'output'},
-	        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
+	        {caption: ['품종코드'], ref: 'vrtyCd', width: '100px', type: 'output'},
+	        {caption: ['품종명'], ref: 'vrtyNm', width: '150px', type: 'output'},
+	        {caption: ['APC코드'], ref: 'apcCd', hidden : true}
 
 	    ];
-	    grdVrty = _SBGrid.create(SBGridProperties);
+	    window.grdVrty = _SBGrid.create(SBGridProperties);
+	    fn_selectVrtyList();
 	}
 
 	function fn_modalVrty(){
 		fn_createVrtyGrid();
+	}
+	
+	//조회 버튼
+	async function fn_selectVrtyList(){
+		fn_callSelectVrtyList();
+	}
+
+	var jsonVrtyPopUp = [];
+	async function fn_callSelectVrtyList(){
+		let apcNm  = SBUxMethod.get("vrty-inp-apcNm");
+		let vrtyNm = SBUxMethod.get("vrty-inp-vrtyNm");
+		
+		var comCdVO = { apcNm :apcNm, vrtyNm: vrtyNm };
+		console.log('apcNm',apcNm);
+		let postJsonPromise = gfn_postJSON("/am/apc/selectVrtyList.do", comCdVO);
+	    let data = await postJsonPromise;                
+	    newJsonVrtyPopUp = [];
+	    jsonVrtyPopUp = [];
+	    
+	    try{
+	    	data.resultList.forEach((item, index) => {
+				let vrty = {
+				    itemCd		: item.itemCd
+				  , itemNm		: item.itemNm
+				  , vrtyCd		: item.vrtyCd
+				  , vrtyNm		: item.vrtyNm
+				  , apcCd		: item.apcCd
+				}	    	
+				jsonVrtyPopUp.push(Object.assign({}, vrty));
+				newJsonVrtyPopUp.push(Object.assign({}, vrty));
+			});
+			console.log("newJsonVrtyPopUp", newJsonVrtyPopUp);
+			console.log("jsonVrtyPopUp", jsonVrtyPopUp);
+			console.log('aprvYn',aprvYn);
+			grdVrty.rebuild();
+	    }catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+	 		console.error("failed", e.message);
+	    }
 	}
 
 </script>
