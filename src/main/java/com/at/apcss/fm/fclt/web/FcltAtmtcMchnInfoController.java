@@ -1,9 +1,25 @@
 package com.at.apcss.fm.fclt.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.at.apcss.fm.fclt.service.FcltAtmtcMchnInfoService;
+import com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO;
+
 
 /**
  * @Class Name : FcltAtmtcMchnInfoController.java
@@ -23,23 +39,143 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class FcltAtmtcMchnInfoController extends BaseController {
 
+
 	// 스마트자동화
-	@RequestMapping(value = "/fm/fclt/fcltAtmtcMchnInfo.do")
-	public String fcltAtmtcMchnInfo() {
+	@Resource(name= "fcltAtmtcMchnInfoService")
+	private FcltAtmtcMchnInfoService fcltAtmtcMchnInfoService;
+
+	// 스마트자동화 화면이동
+	@RequestMapping("/fm/fclt/fcltAtmtcMchnInfo.do")
+	public String doFcltAtmtcMchnInfo() {
 		return "apcss/fm/fclt/fcltAtmtcMchnInfo";
 	}
 
+	// 스마트자동화 조회
+	@PostMapping(value = "/fm/fclt/selectFcltAtmtcMchnInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO, HttpServletRequest request) throws Exception{
 
-	// 스마트자동화
-		@RequestMapping(value = "/fm/fclt/fcltAtmtcMchnInfoReg.do")
-		public String fcltAtmtcMchnInfoReg() {
-			return "apcss/fm/fclt/fcltAtmtcMchnInfoReg";
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltAtmtcMchnInfoVO> resultList = new ArrayList<>();
+
+		try {
+			 resultList = fcltAtmtcMchnInfoService.selectFcltAtmtcMchnInfoList(fcltAtmtcMchnInfoVO);
+
+			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
+			 for (FcltAtmtcMchnInfoVO msg : resultList ) {
+				 logger.debug("msgCn : {}", msg.getMsgCn());
+			 }
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
 		}
 
-	// 재배약정신청조회
-	/*
-	 * @RequestMapping(value = "fm/clt/cltvtnEnggtAplyMng.do") public String
-	 * doSpmtCmnd() { return "apcss/fm/clt/cltvtnEnggtAplyMng"; }
-	 */
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 스마트자동화 등록
+	@PostMapping(value = "/fm/fclt/insertFcltAtmtcMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertFcltAtmtcMchnInfo(@RequestBody FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		fcltAtmtcMchnInfoVO.setSysFrstInptUserId(getUserId());
+		fcltAtmtcMchnInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
+		fcltAtmtcMchnInfoVO.setSysLastChgUserId(getUserId());
+		fcltAtmtcMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int insertedCnt = 0;
+
+		try {
+			insertedCnt = fcltAtmtcMchnInfoService.insertFcltAtmtcMchnInfo(fcltAtmtcMchnInfoVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 스마트자동화 변경
+	@PostMapping(value = "/fm/fclt/updateFcltAtmtcMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateFcltAtmtcMchnInfo(@RequestBody FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		fcltAtmtcMchnInfoVO.setSysLastChgUserId(getUserId());
+		fcltAtmtcMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int updatedCnt = 0;
+
+		try {
+			updatedCnt = fcltAtmtcMchnInfoService.updateFcltAtmtcMchnInfo(fcltAtmtcMchnInfoVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 스마트자동화 삭제
+	@PostMapping(value = "/fm/fclt/deleteFcltAtmtcMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteFcltAtmtcMchnInfo(@RequestBody FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		fcltAtmtcMchnInfoVO.setSysLastChgUserId(getUserId());
+		fcltAtmtcMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int deletedCnt = 0;
+
+		try {
+			deletedCnt = fcltAtmtcMchnInfoService.deleteFcltAtmtcMchnInfo(fcltAtmtcMchnInfoVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 스마트자동화 목록 삭제
+	@PostMapping(value = "/fm/fclt/deleteFcltAtmtcMchnInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteFcltAtmtcMchnInfoList(@RequestBody List<FcltAtmtcMchnInfoVO> fcltAtmtcMchnInfoList, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		for (FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO : fcltAtmtcMchnInfoList ) {
+			fcltAtmtcMchnInfoVO.setSysLastChgUserId(getUserId());
+			fcltAtmtcMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+		}
+
+		int deletedCnt = 0;
+
+		try {
+			deletedCnt = fcltAtmtcMchnInfoService.deleteFcltAtmtcMchnInfoList(fcltAtmtcMchnInfoList);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

@@ -60,6 +60,13 @@ const postHeaders = {
  */
 let gv_selectedApcCd = null;
 let gv_selectedApcNm = null;
+
+
+/**
+ * @description
+ */
+
+
 /**
  * global function
  */
@@ -125,7 +132,7 @@ async function gfn_postJSON(_url, _param, sysPrgrmId) {
 async function gfn_getComCdDtls (_cdId, _apcCd = "0000") {
 	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd});
 	const data = await postJsonPromise;
-	return JSON.stringify(data.resultList);
+	return data.resultList;
 }
 
 /**
@@ -956,17 +963,24 @@ const gfn_closeModal = function (_modalId, _callbackFnc, _arg){
  * @function
  * @param {any} data
  * @param {string} key
- * @param {any} value
+ * @param {any} values
  * @returns
  */
-const gfn_getJsonFilter = function(data, key, value) {
+const gfn_getJsonFilter = function(data, key, values) {
 
 	if (gfn_isEmpty(data)) {
 		return data;
 	}
 
-	const filteredData = data.filter((obj) => {
-				return obj[key] === value;
+	const filteredData = data.filter((obj) => {	
+			
+			if (Array.isArray(values)) {
+				return values.some((val) => {
+					return obj[key] === val;
+				});
+			} else {
+				return obj[key] === values;
+			}
 		});
 
 	return filteredData;

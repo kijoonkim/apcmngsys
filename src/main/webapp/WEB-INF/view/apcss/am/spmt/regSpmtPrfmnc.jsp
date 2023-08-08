@@ -269,7 +269,7 @@
 
 		// 검색 SB select
 	 	await gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_apcCd);	// 창고
-	 	await gfn_setComCdSBSelect('srch-slt-pckgSeCd', 		jsonComPckgSeCd, 	'PCKG_SE_CD', gv_apcCd);			// 설비
+	 	await gfn_setComCdSBSelect('srch-slt-pckgSeCd', 		jsonComPckgSeCd, 	'PCKG_SE_CD', gv_apcCd);		// 포장구분
 	 	await gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', 		jsonComTrsprtCo, 	gv_apcCd);		// 운송사
 	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_apcCd);		// 품목
 	 	await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 		gv_apcCd);		// 품종
