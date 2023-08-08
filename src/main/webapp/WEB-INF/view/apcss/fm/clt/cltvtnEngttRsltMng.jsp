@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
-				<h3 class="box-title" style="line-height: 30px;">▶재배약정결과관리</h3>
+				<h3 class="box-title" style="line-height: 30px;">▶재배약정실적관리</h3>
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger"></sbux-button>
@@ -82,14 +82,14 @@
 				<!--[pp] 검색결과 -->
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
-							<li><span>재배약정결과 내역</span></li>
+							<li><span>재배약정실적 내역</span></li>
 						</ul>
 					</div>
 
 					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:300px;"></div>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
-							<li><span>재배약정결과 상세내역</span></li>
+							<li><span>재배약정실적 상세내역</span></li>
 						</ul>
 					</div>
 				<table class="table table-bordered tbl_row tbl_fixed">
