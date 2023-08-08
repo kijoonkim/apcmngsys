@@ -123,6 +123,13 @@ public class DvlpPrgrsMngController extends BaseController {
 				dfctMngVO.setSysLastChgUserId(getUserId());
 				if(ComConstants.ROW_STS_INSERT.equals(dfctMngVO.getRowSts())) {
 					insertedCnt += dvlpPrgrsMngService.insertDfctMng(dfctMngVO);
+
+					DvlpPrgrsMngVO dvlpPrgrsMngVO = new DvlpPrgrsMngVO();
+					dvlpPrgrsMngVO.setSysLastChgPrgrmId(getPrgrmId());
+					dvlpPrgrsMngVO.setSysLastChgUserId(getUserId());
+					dvlpPrgrsMngVO.setPrgrmId(dfctMngVO.getPrgrmId());
+					dvlpPrgrsMngVO.setStts("03");
+					dvlpPrgrsMngService.updateDvlpStts(dvlpPrgrsMngVO);
 				}
 				if(ComConstants.ROW_STS_UPDATE.equals(dfctMngVO.getRowSts())) {
 
