@@ -35,5 +35,10 @@ public class ComCdVO extends ComVO {
     private String indctSeq;
 	private String delYn;
 	private String apcCd;
+	private String apcNm;
+	private String itemCd;
+	private String itemNm;
+	private String vrtyCd;
+	private String vrtyNm;
 
 }
