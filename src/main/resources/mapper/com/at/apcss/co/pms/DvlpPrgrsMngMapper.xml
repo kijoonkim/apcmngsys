@@ -43,8 +43,8 @@
 			    , DPM.RMRK              AS RMRK
 			    , (SELECT FN_GET_COM_CD_VL_NM('PIC',DPM.PIC) FROM DUAL)                AS PIC
 			    , DPM.DEL_YN            AS DEL_YN
-			    , (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID) AS DFCT_CNT
-			    , (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.ACTN_YMD IS NOT NULL) AS ACTN_CNT
+			    , DECODE((SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID) , '0', '',  (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID)) AS DFCT_CNT
+			    , DECODE((SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.ACTN_YMD IS NOT NULL), '0', '',  (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.ACTN_YMD IS NOT NULL))AS ACTN_CNT
 			    , TO_CHAR(DPM.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI') AS SYS_LAST_CHG_DT
     	]]>
     	<if test='dvlpPlanYmd != null and dvlpPlanYmd != ""'>
@@ -99,14 +99,43 @@
 	    	UPDATE /* com.at.apcss.co.msg.mapper.ComMsgMapper.updateComMsg */
 	    		TB_DVLP_PRGRS_MNG
 			   SET
-			 	  DVLP_PLAN_YMD     	= #{dvlpPlanYmd}
-			    , DVLP_CMPTN_YMD    	= #{dvlpCmptnYmd}
-			    , TEST_PLAN_YMD     	= #{testPlanYmd}
-			    , TEST_CMPTN_YMD    	= #{testCmptnYmd}
-				, SYS_LAST_CHG_DT		= SYSDATE
+				  SYS_LAST_CHG_DT		= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+	    		, DVLP_PLAN_YMD     	= #{dvlpPlanYmd}
+	    		, DVLP_CMPTN_YMD    	= #{dvlpCmptnYmd}
+	    		, TEST_PLAN_YMD     	= #{testPlanYmd}
+	    		, TEST_CMPTN_YMD    	= #{testCmptnYmd}
 
+    	]]>
+	    <if test='dvlpCmptnYmd != null and dvlpCmptnYmd !="" and !(testCmptnYmd != null and testCmptnYmd != "") and stts != "03"'>
+	    		, STTS					= '02'
+	    </if>
+	    <if test='testCmptnYmd != null and testCmptnYmd !="" and dvlpCmptnYmd != null and dvlpCmptnYmd !=""'>
+	    		, STTS					= '04'
+	    </if>
+    	<![CDATA[
+			 WHERE PRGRM_ID	= #{prgrmId}
+    	]]>
+    </update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.updateDvlpStts		-->
+	<!-- DESC : 개발진행관리 변경                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.07  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateDvlpStts" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.co.msg.mapper.ComMsgMapper.updateDvlpStts */
+	    		TB_DVLP_PRGRS_MNG
+			   SET
+				  SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+	    		, STTS					= #{stts}
 			 WHERE PRGRM_ID	= #{prgrmId}
     	]]>
     </update>

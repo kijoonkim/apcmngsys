@@ -27,6 +27,11 @@ public class DvlpPrgrsMngServiceImpl implements DvlpPrgrsMngService {
 	}
 
 	@Override
+	public int updateDvlpStts(DvlpPrgrsMngVO dvlpPrgrsMngVO) throws Exception {
+		return dvlpPrgrsMngMapper.updateDvlpStts(dvlpPrgrsMngVO);
+	}
+
+	@Override
 	public List<DfctMngVO> selectDfctMngList(DfctMngVO dfctMngVO) throws Exception {
 		return dvlpPrgrsMngMapper.selectDfctMngList(dfctMngVO);
 	}
@@ -45,5 +50,7 @@ public class DvlpPrgrsMngServiceImpl implements DvlpPrgrsMngService {
 	public int deleteDfctMng(DfctMngVO dfctMngVO) throws Exception {
 		return dvlpPrgrsMngMapper.deleteDfctMng(dfctMngVO);
 	}
+
+
 
 }

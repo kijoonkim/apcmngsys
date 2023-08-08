@@ -37,6 +37,14 @@ public interface DvlpPrgrsMngService {
 	 */
 	public int updateDvlpPrgrsMng(DvlpPrgrsMngVO dvlpPrgrsMngVO) throws Exception;
 
+	/**
+	 * 개발진행관리 상태를 수정한다.
+	 * @param DvlpPrgrsMngVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateDvlpStts(DvlpPrgrsMngVO dvlpPrgrsMngVO) throws Exception;
+
 
 	/**
 	 * 결함관리 목록을 조회한다.

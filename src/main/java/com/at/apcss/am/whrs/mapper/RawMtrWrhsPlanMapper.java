@@ -6,10 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.at.apcss.am.whrs.vo.RawMtrWrhsPlanVO;
 
+
 /**
- * 원물입고계획 Mapper 인터페이스
- * @author 신정철
- * @since 2023.06.21
+ * 원물입고계획등록 Mapper 인터페이스
+ * @author
+ * @since 2023.08.08
  * @version 1.0
  * @see
  *
@@ -17,12 +18,11 @@ import com.at.apcss.am.whrs.vo.RawMtrWrhsPlanVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  신정철        최초 생성
+ * 2023.08.08     김호         최초 생성
  * </pre>
  */
 @Mapper
 public interface RawMtrWrhsPlanMapper {
-	
 	/**
 	 * 원물입고계획 단건 조회
 	 * @param rawMtrWrhsPlanVO
