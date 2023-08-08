@@ -94,7 +94,7 @@
 	var jsonComClclnCrtrPrdcrPop	= [];	// 정산기준 clclnCrtr	Grid
 	
 	var grdPrdcrPop = null;
-	var jsonPrdcrPop = []
+	var jsonPrdcrPop = [];
 
 	
 	/**

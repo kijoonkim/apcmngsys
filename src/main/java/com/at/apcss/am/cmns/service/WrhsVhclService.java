@@ -1,7 +1,9 @@
 package com.at.apcss.am.cmns.service;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 
 /**
@@ -59,4 +61,12 @@ public interface WrhsVhclService {
 	 * @throws Exception
 	 */
 	public int deleteWrhsVhcl(WrhsVhclVO wrhsVhclVO) throws Exception;
+	
+	/**
+	 * 입고차량정보 등록
+	 * @param vhclList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> multiVhclList(List<WrhsVhclVO> vhclList) throws Exception;
 }
