@@ -1,9 +1,25 @@
 package com.at.apcss.fm.fclt.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.at.apcss.fm.fclt.service.FcltPrcsPrfmncService;
+import com.at.apcss.fm.fclt.vo.FcltPrcsPrfmncVO;
+
 
 /**
  * @Class Name : FcltPrcsPrfmncController.java
@@ -23,21 +39,143 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class FcltPrcsPrfmncController extends BaseController {
 
+
 	// 산지유통처리실적
-	@RequestMapping(value = "/fm/fclt/fcltPrcsPrfmnc.do")
-	public String fcltPrcsPrfmnc() {
+	@Resource(name= "fcltPrcsPrfmncService")
+	private FcltPrcsPrfmncService fcltPrcsPrfmncService;
+
+	// 산지유통처리실적 화면이동
+	@RequestMapping("/fm/fclt/fcltPrcsPrfmnc.do")
+	public String doFcltPrcsPrfmnc() {
 		return "apcss/fm/fclt/fcltPrcsPrfmnc";
 	}
-	// 산지유통처리실적
-	@RequestMapping(value = "/fm/fclt/fcltPrcsPrfmncReg.do")
-	public String fcltPrcsPrfmncReg() {
-		return "apcss/fm/fclt/fcltPrcsPrfmncReg";
+
+	// 산지유통처리실적 조회
+	@PostMapping(value = "/fm/fclt/selectFcltPrcsPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltPrcsPrfmncVO fcltPrcsPrfmncVO, HttpServletRequest request) throws Exception{
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltPrcsPrfmncVO> resultList = new ArrayList<>();
+
+		try {
+			 resultList = fcltPrcsPrfmncService.selectFcltPrcsPrfmncList(fcltPrcsPrfmncVO);
+
+			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
+			 for (FcltPrcsPrfmncVO msg : resultList ) {
+				 logger.debug("msgCn : {}", msg.getMsgCn());
+			 }
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 재배약정신청조회
-	/*
-	 * @RequestMapping(value = "fm/clt/cltvtnEnggtAplyMng.do") public String
-	 * doSpmtCmnd() { return "apcss/fm/clt/cltvtnEnggtAplyMng"; }
-	 */
+	// 산지유통처리실적 등록
+	@PostMapping(value = "/fm/fclt/insertFcltPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertFcltPrcsPrfmnc(@RequestBody FcltPrcsPrfmncVO fcltPrcsPrfmncVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
+		// validation check
+
+		// audit 항목
+		fcltPrcsPrfmncVO.setSysFrstInptUserId(getUserId());
+		fcltPrcsPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+		fcltPrcsPrfmncVO.setSysLastChgUserId(getUserId());
+		fcltPrcsPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int insertedCnt = 0;
+
+		try {
+			insertedCnt = fcltPrcsPrfmncService.insertFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 산지유통처리실적 변경
+	@PostMapping(value = "/fm/fclt/updateFcltPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateFcltPrcsPrfmnc(@RequestBody FcltPrcsPrfmncVO fcltPrcsPrfmncVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		fcltPrcsPrfmncVO.setSysLastChgUserId(getUserId());
+		fcltPrcsPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int updatedCnt = 0;
+
+		try {
+			updatedCnt = fcltPrcsPrfmncService.updateFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 산지유통처리실적 삭제
+	@PostMapping(value = "/fm/fclt/deleteFcltPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteFcltPrcsPrfmnc(@RequestBody FcltPrcsPrfmncVO fcltPrcsPrfmncVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		fcltPrcsPrfmncVO.setSysLastChgUserId(getUserId());
+		fcltPrcsPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int deletedCnt = 0;
+
+		try {
+			deletedCnt = fcltPrcsPrfmncService.deleteFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 산지유통처리실적 목록 삭제
+	@PostMapping(value = "/fm/fclt/deleteFcltPrcsPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteFcltPrcsPrfmncList(@RequestBody List<FcltPrcsPrfmncVO> fcltPrcsPrfmncList, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		for (FcltPrcsPrfmncVO fcltPrcsPrfmncVO : fcltPrcsPrfmncList ) {
+			fcltPrcsPrfmncVO.setSysLastChgUserId(getUserId());
+			fcltPrcsPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+		}
+
+		int deletedCnt = 0;
+
+		try {
+			deletedCnt = fcltPrcsPrfmncService.deleteFcltPrcsPrfmncList(fcltPrcsPrfmncList);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
