@@ -18,22 +18,24 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchVhcl" name="btnSearchVhcl" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_sarchVhcl"></sbux-button>
-					<sbux-button id="btnEditorVhcl" name="btnEditorVhcl" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="fn_editorVhcl"></sbux-button>
-					<sbux-button id="btnCancelVhcl" name="btnCancelVhcl" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" style="display : none" onclick="fn_cancelVhcl"></sbux-button>
-					<sbux-button id="btnSaveVhcl" name="btnSaveVhcl" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertVhcl" disabled></sbux-button>
-					<sbux-button id="btnEndVhcl" name="btnEndVhcl" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-vhcl')"></sbux-button>
+					<sbux-button id="btnSearchVhcl" name="btnSearchVhcl" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popVhcl.search"></sbux-button>
+					<sbux-button id="btnEditVhcl" name="btnEditVhcl" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="popVhcl.edit"></sbux-button>
+					<sbux-button id="btnCancelVhcl" name="btnCancelVhcl" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" onclick="popVhcl.cancel"></sbux-button>
+					<sbux-button id="btnSaveVhcl" name="btnSaveVhcl" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popVhcl.save" disabled></sbux-button>
+					<sbux-button id="btnEndVhcl" name="btnEndVhcl" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popVhcl.close"></sbux-button>
 				</div>
 			</div>
+
 			<div class="box-body">
 				<!--[pp] 검색 -->
+				<sbux-input id="vhcl-inp-apcCd" name="vhcl-inp-apcCd" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 12%">
-						<col style="width: 24%">
-						<col style="width: 12%">
-						<col style="width: 24%">
+						<col style="width: 11%">
+						<col style="width: 22%">
+						<col style="width: 11%">
+						<col style="width: 22%">
 						<col style="width: auto">
 					</colgroup>
 					<tbody>
@@ -44,7 +46,11 @@
 							</th>
 							<th scope="row">차량번호</th>
 							<th class="td_input">
-								<sbux-input id="vhcl-inp-vhclno" name="vhcl-inp-vhclno" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input
+									uitype="text" id="vhcl-inp-vhclno" name="vhcl-inp-vhclno" 
+									class="form-control input-sm"
+    								onkeyenter="keyUpInp(vhcl-inp-vhclno, 'vhcl-inp-vhclno', 'true')">
+    							</sbux-input>
 							</th>
 							<th>&nbsp;</th>
 						</tr>
@@ -53,6 +59,16 @@
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="color: black;">차량번호 목록</span>
+								<span style="font-size:12px">(조회건수 <span id="vhcl-pop-cnt">0</span>건)</span>
+							</li>
+						</ul>
+					 	<div class="ad_tbl_toplist">
+						</div>
+					</div>
 					<div id="sb-area-grdVhcl" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
@@ -62,219 +78,338 @@
 </body>
 <script type="text/javascript">
 
-	var jsonComBankCd 		= [];	// 은행 bankCd		Grid
+	var jsonComBankCd = [];	// 은행 bankCd Grid
+	
+	/* grid 내 select json */
+	var jsonComBankCdVhclPop = [];	// 은행 bankCd Grid
+	
+	var grdVhclPop = null;
+	var jsonVhclPop = [];
 
-	const fn_initSBSelectVhcl = async function() {
-
-		// 그리드 SB select
-	 	await gfn_setComCdGridSelect('grdVhcl', jsonComBankCd, 'BANK_CD');	// 은행
-
-	}
-
-
-	var jsonVhcl = [];
-	function fn_createVhclGrid() {
-
-		SBUxMethod.set("vhcl-inp-apcNm", gv_apcNm);
-		fn_initSBSelectVhcl();
-
-		jsonVhcl = [];
-	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdVhcl';
-	    SBGridProperties.id = 'grdVhcl';
-	    SBGridProperties.jsonref = 'jsonVhcl';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.columns = [
-	        {caption: ['차량번호'], 	ref: 'vhclno', 	width: '100px', type: 'input', style:'text-align:center'},
-	        {caption: ['기사명'], 		ref: 'drvrNm', 	width: '100px', type: 'input', style:'text-align:center'},
-	        {caption: ['예금주명'], 	ref: 'dpstr', 	width: '100px', type: 'input', style:'text-align:center'},
-	        {caption: ['은행'], 		ref: 'bankCd', 	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComBankCd', 	label:'label', value:'value', displayui : false}},
-	        {caption: ['계좌번호'], 	ref: 'actno', 	width: '120px', type: 'input', style:'text-align:center'},
-	        {caption: ['비고'], 		ref: 'rmrk', 	width: '200px', type: 'input'},
-	        {caption: ['최종처리일시'], ref: 'sysLastChgDt', 	width: '140px', type: 'output',  style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'delYn',   type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-            	if(strValue== null || strValue == ""){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger btnDisabled' onClick='fn_procRowVhcl(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
-            	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger btnDisabled' onClick='fn_procRowVhcl(\"DEL\", " + nRow + ")'>삭제</button>";
-            	}
-		    }},
-	        {caption: ['APC코드'], 		ref: 'apcCd', 		hidden : true},
-
-	    ];
-	    grdVhcl = _SBGrid.create(SBGridProperties);
-	    fn_sarchVhcl();
-
-	}
-
-	async function fn_sarchVhcl(){
-		callSelectVhclList();
-	}
-
-	async function callSelectVhclList(){
-		let apcCd 	= gv_apcCd;
-		let vhclno	= SBUxMethod.get("vhcl-inp-vhclno");
-		let postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {apcCd : apcCd, vhclno : vhclno});
-        let data = await postJsonPromise;
-        let newJsonVhcl = [];
-        try{
-        	data.resultList.forEach((item, index) => {
-				let vhclVO = {
-					vhclno		: item.vhclno
-				  , drvrNm 		: item.drvrNm
-				  , dpstr 		: item.dpstr
-				  , bankCd 		: item.bankCd
-				  , actno 		: item.actno
-				  , sysLastChgDt : item.sysLastChgDt
-				  , delYn 		: item.delYn
-				  , rmrk 		: item.rmrk
-				  , apcCd 		: item.apcCd
+	
+	/**
+	 * @description 권한 사용자 선택 팝업
+	 */
+	const popVhcl = {
+		prgrmId: 'vhclPopup',
+		modalId: 'modal-vhcl',
+		gridId: 'grdVhclPop',
+		jsonId: 'jsonVhclPop',
+		areaId: "sb-area-grdVhcl",
+		prvApcCd: "",
+		objGrid: null,
+		gridJson: [],
+		callbackFnc: function() {},
+		init: async function(_apcCd, _apcNm, _callbackFnc) {
+			console.log("init VhclPop");
+			// set param
+			SBUxMethod.set("vhcl-inp-apcCd", _apcCd);
+			SBUxMethod.set("vhcl-inp-apcNm", _apcNm);
+			
+			SBUxMethod.show('btnEditVhcl');
+			SBUxMethod.hide('btnCancelVhcl');
+			SBUxMethod.attr('btnSaveVhcl', 'disabled', true);
+			SBUxMethod.attr('btnSearchVhcl', 'disabled', false);
+			
+			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
+				this.callbackFnc = _callbackFnc;	
+			}
+			
+			if (grdVhclPop === null || this.prvApcCd != _apcCd) {
+				let rst = await Promise.all([
+					gfn_setApcItemSBSelect('grdVhcl', jsonComBankCdVhclPop,'BANK_CD'),		// 은행
+				]);
+				this.createGrid();
+				this.search();
+			} else {
+				this.search();
+			}
+			
+			this.prvApcCd = _apcCd;
+		},
+		close: function(_prdcr) {
+			gfn_closeModal(this.modalId, this.callbackFnc, _prdcr);
+		},
+		createGrid: function(/** {boolean} */ isEditable) {
+			var SBGridProperties = {};
+		    SBGridProperties.parentid = this.areaId;	//'sb-area-grdComAuthUserPop';	//this.sbGridArea;	//'sb-area-grdComAuthUserPop';
+		    SBGridProperties.id = this.gridId;			//'grdComAuthUserPop';					//'grdComAuthUserPop';
+		    SBGridProperties.jsonref = this.jsonId;		//'jsonComAuthUserPop';		//'jsonComAuthUserPop';
+		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		    SBGridProperties.selectmode = 'byrow';
+		    SBGridProperties.explorerbar = 'sortmove';
+		    SBGridProperties.extendlastcol = 'scroll';
+		    SBGridProperties.oneclickedit = true;
+		    SBGridProperties.paging = {
+				'type' : 'page',
+			  	'count' : 5,
+			  	'size' : 20,
+			  	'sorttype' : 'page',
+			  	'showgoalpageui' : true
+		    };
+		    SBGridProperties.columns = [
+		    	{caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px',	type: 'input', 	style:'text-align:center'},
+		        {caption: ['기사명'], 	ref: 'drvrNm', 			width: '100px', type: 'input', 	style:'text-align:center'},
+		        {caption: ['예금주명'], 	ref: 'dpstr', 			width: '100px', type: 'input', 	style:'text-align:center'},
+		        {caption: ['은행'], 		ref: 'bankCd', 			width: '100px',	type:'combo',  	style:'text-align:center',
+					typeinfo : {ref:'jsonComBankCdVhclPop', 	label:'label', value:'value', displayui : false}},
+		        {caption: ['계좌번호'], 	ref: 'actno', 			width: '120px', type: 'input', 	style:'text-align:center'},
+		        {caption: ['비고'], 		ref: 'rmrk',			width: '200px', type: 'input'},
+		        {caption: ['최종처리일시'],	ref: 'sysLastChgDt',	width: '140px', type: 'output',	style:'text-align:center'},
+		        {caption: ["처리"], ref: 'delYn', 				width: '80px',	type:'button', 	style: 'text-align:center',
+		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+						if (!isEditable) {
+							return "";
+						}
+		            	if (gfn_isEmpty(strValue)){
+		            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popVhcl.add(" + nRow + ", " + nCol + ")'>추가</button>";
+		            	} else {
+					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popVhcl.del(" + nRow + ")'>삭제</button>";
+		            	}
+			    }},
+			    {caption: ['APC코드'], ref: 'apcCd', hidden : true}
+		    ];
+		    
+		    grdVhclPop = _SBGrid.create(SBGridProperties);
+		    //grdVhclPop.bind('beforepagechanged', 'popComAuthUser.paging');
+		    grdVhclPop.bind('dblclick', popVhcl.choice);	//'popVhclChoice');
+		    //this.search();
+		},
+		choice: function() {
+			let nRow = grdVhclPop.getRow();
+			let rowData = grdVhclPop.getRowData(nRow);
+			popVhcl.close(rowData);
+			
+			/*
+			const prdcr = [];
+			const allData = grdComAuthUserPop.getGridDataAll();
+			for ( let i=1; i<=allData.length; i++ ) {
+				let rowData = grdComAuthUserPop.getRowData(i);				
+				if (rowData.checked === 'true') {
+					users.push({
+						userId: rowData.userId,
+						userNm: rowData.userNm,
+						apcCd: rowData.apcCd,
+						apcNm: rowData.apcNm,
+						userType: rowData.userType,
+						userTypeNm: rowData.userTypeNm,
+						authrtId: rowData.authrtId
+					});
 				}
-				newJsonVhcl.push(vhclVO);
+			}
+			
+			if (users.length == 0) {
+				gfn_comAlert("W0004", "선택");	// W0004	{0}한 대상이 없습니다.
+				return;
+			}
+			
+			this.close(users);
+			*/
+		},
+		edit: async function() {
+			
+			SBUxMethod.hide('btnEditVhcl');
+			SBUxMethod.show('btnCancelVhcl');
+			SBUxMethod.attr('btnSaveVhcl', 'disabled', false);
+			SBUxMethod.attr('btnSearchVhcl', 'disabled', true);
+			
+			this.createGrid(true);
+			grdVhclPop.rebuild();
+			//grdVhclPop.refresh();
+			//var grdVhclPop = null;
+			//var jsonVhclPop = []
+			/*
+			document.querySelectorAll('.btnDisabled').forEach((el) => {
+			    	el.setAttribute('disabled', false);
+				});
+			 */
+			//$('.btnDisabled').attr('disabled', false);
+			grdVhclPop.setCellDisabled(0, 0, grdVhclPop.getRows() - 1, grdVhclPop.getCols() - 1, false);
+			//await this.search();
+			grdVhclPop.addRow(true);
+			
+		},
+		cancel: function() {
+			
+			SBUxMethod.show('btnEditVhcl');
+			SBUxMethod.hide('btnCancelVhcl');
+			SBUxMethod.attr('btnSaveVhcl', 'disabled', true);
+			SBUxMethod.attr('btnSearchVhcl', 'disabled', false);
+			
+			this.createGrid();
+			this.search();
+		},
+		/**
+		 * @param {number} nRow
+		 * @param {number} nCol
+		 */
+		add: function(nRow, nCol) {
+			grdVhclPop.setCellData(nRow, nCol, "N", true);
+			grdVhclPop.addRow(true);
+		},
+		del: async function(nRow) {
+			const apcCd = SBUxMethod.get("vhcl-inp-apcCd");
+			const rowSts = grdVhclPop.getRowStatus(nRow);			
+			if (rowSts == 0 || rowSts == 2){
+				if (!gfn_comConfirm("Q0001", "삭제")) {	//	Q0001	{0} 하시겠습니까?
+					return;
+				}
+				const rowData = grdVhclPop.getRowData(nRow);
+				const wrhsVhclVO = {
+					apcCd: apcCd,
+					vhclno: rowData.vhclno
+				}
+				const postJsonPromise = gfn_postJSON("/am/cmns/deleteWrhsVhclList.do", {
+					apcCd: apcCd,
+					vhclno: rowData.vhclno
+				}, this.prgrmId);	// 프로그램id 추가
+		    	
+				const data = await postJsonPromise;	    
+		        try {
+		        	if (_.isEqual("S", data.resultStatus)) {
+		        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+		        		this.search();
+		        	} else {
+		        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		        	}
+		        } catch(e) {        	
+		        }
+        	} else {
+        		grdVhclPop.deleteRow(nRow);
+        	}
+		},
+		save: async function() {
+			const apcCd = SBUxMethod.get("vhcl-inp-apcCd");
+			let allData = grdVhclPop.getGridDataAll();
+			
+			const vhclList = [];
+			
+			for ( let i=1; i<=allData.length; i++ ){
+				const rowData = grdVhclPop.getRowData(i);
+				const rowSts = grdVhclPop.getRowStatus(i);
+
+				if (gfn_isEmpty(rowData.vhclno)){
+					gfn_comAlert("W0002", "차량번호");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
+
+				if (rowSts === 3){
+					rowData.apcCd = apcCd;
+					rowData.rowSts = "I";
+					vhclList.push(rowData);
+				} else if (rowSts === 2){
+					rowData.rowSts = "U";
+					vhclList.push(rowData);
+				} else {
+					continue;
+				}
+			}
+			
+			if (vhclList.length == 0){
+				gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
+	            return;
+			}
+			
+			if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
+	    		return;
+	    	}
+	    	console.log(vhclList);
+	    	
+	    	const postJsonPromise = gfn_postJSON("/am/cmns/multiVhclList.do", vhclList, this.prgrmId);	// 프로그램id 추가
+	    	
+			const data = await postJsonPromise;	    
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+	        		this.search();
+	        	} else {
+	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        	}
+	        } catch(e) {        	
+	        }
+		},
+		search: async function() {
+			// set pagination
+			grdVhclPop.rebuild();
+	    	let pageSize = grdVhclPop.getPageSize();
+	    	let pageNo = 1;
+	        
+	    	// grid clear
+	    	jsonVhclPop.length = 0;
+	    	grdVhclPop.refresh();
+	    	//grdVhclPop.clearStatus();
+	    	this.setGrid(pageSize, pageNo);
+		},
+		setGrid: async function(pageSize, pageNo) {
+	    	
+	    	let apcCd = SBUxMethod.get("vhcl-inp-apcCd");
+			let vhclno = SBUxMethod.get("vhcl-inp-vhclno");
+			
+	        const postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {
+	        	apcCd: apcCd,
+	        	vhclno: vhclno,
+	        	// pagination
+		  		pagingYn : 'Y',
+				currentPageNo : pageNo,
+	 		  	recordCountPerPage : pageSize
 			});
-        	jsonVhcl = newJsonVhcl;
-        	grdVhcl.rebuild();
-        	grdVhcl.setCellDisabled(0, 0, grdVhcl.getRows() - 1, grdVhcl.getCols() - 1, true);
-    	    SBUxMethod.attr('btnSaveVhcl', 'disabled', true);
-    	    $('.btnDisabled').css('display', 'none');
-    	    $('#btnEditorVhcl').css('display', '');
-    	    $('#btnCancelVhcl').css('display', 'none');
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+	        
+	        const data = await postJsonPromise;
+	        
+			try {
+	        	/** @type {number} **/
+	    		let totalRecordCount = 0;
+	        	
+	    		jsonPrdcrPop.length = 0;
+	        	data.resultList.forEach((item, index) => {
+					const vhcl = {
+						rowSeq		: item.rowSeq,
+						vhclno		: item.vhclno,
+					    drvrNm 		: item.drvrNm,
+					    bankCd 		: item.bankCd,
+					    actno 		: item.actno,
+					    dpstr 		: item.dpstr,
+					    rmrk 		: item.rmrk,
+					    delYn 		: item.delYn,
+					    apcCd 		: item.apcCd
+					}
+					jsonVhclPop.push(vhcl);
+					
+					if (index === 0) {
+						totalRecordCount = item.totalRecordCount;	
+					}
+				});
+	        	
+	        	if (jsonVhclPop.length > 0) {	        		
+	        		if(grdVhclPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+	        			grdVhclPop.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+	        			grdVhclPop.rebuild();
+					}else{
+						grdVhclPop.refresh();
+					}
+	        	} else {
+	        		grdVhclPop.setPageTotalCount(totalRecordCount);
+	        		grdVhclPop.rebuild();
+	        	}
+	        	
+	        	grdVhclPop.setCellDisabled(0, 0, grdVhclPop.getRows() - 1, grdVhclPop.getCols() - 1, true);
+	        	
+	        	document.querySelector('#vhcl-pop-cnt').innerText = totalRecordCount;
+
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+	    },
+	    paging: function() {
+	    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+
+	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+	    }
 	}
-
-
-	function fn_procRowVhcl(gubun, nRow, nCol){
-		if (gubun === "ADD") {
-			grdVhcl.setCellData(nRow, nCol, "N", true);
-			grdVhcl.setCellData(nRow, 8, gv_apcCd, true);
-			grdVhcl.addRow(true);
-		}
-		else if(gubun === "DEL"){
-			if(grdVhcl.getRowStatus(nRow) == 0 || grdVhcl.getRowStatus(nRow) == 2){
-        		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-        		if(confirm(delMsg)){
-        			var vhclVO = grdVhcl.getRowData(nRow);
-        			fn_deleteVhcl(vhclVO);
-        			grdVhcl.deleteRow(nRow);
-        		}
-        	}else{
-        		grdVhcl.deleteRow(nRow);
-        	}
-		}
-	}
-
-	function fn_editorVhcl(){
-		grdVhcl.setCellDisabled(0, 0, grdVhcl.getRows() - 1, grdVhcl.getCols() - 1, false);
-		grdVhcl.setCellDisabled(0, 0, grdVhcl.getRows() - 1, 0, true);
-	    $('.btnDisabled').css('display', '');
-	    $('#btnEditorVhcl').css('display', 'none');
-	    $('#btnCancelVhcl').css('display', '');
-	    SBUxMethod.attr('btnSaveVhcl', 'disabled', false);
-	    grdVhcl.addRow(true);
-	}
-
-	function fn_cancelVhcl(){
-		fn_sarchVhcl();
-	}
-
-	function fn_modalVhcl(){
-		fn_createVhclGrid();
-	}
-
-	async function fn_insertVhcl(){
-		let gridData = grdVhcl.getGridDataAll();
-		let insertList = [];
-		let updateList = [];
-		let insertCnt = 0;
-		let updateCnt = 0;
-		for(var i=1; i<=gridData.length; i++ ){
-			if(grdVhcl.getRowData(i).delYn == 'N'){
-
-				if(grdVhcl.getRowData(i).vhclno == null || grdVhcl.getRowData(i).vhclno == ""){
-					alert("차량번호는 필수 값 입니다.");
-					return;
-				}
-				if(grdVhcl.getRowData(i).drvrNm == null || grdVhcl.getRowData(i).drvrNm == ""){
-					alert("기사명은 필수 값 입니다.");
-					return;
-				}
-
-				if(grdVhcl.getRowStatus(i) === 3){
-					insertList.push(grdVhcl.getRowData(i));
-				}
-				if(grdVhcl.getRowStatus(i) === 2){
-					updateList.push(grdVhcl.getRowData(i));
-				}
-			}
-		}
-		if(insertList.length == 0 && updateList.length == 0){
-			alert("저장 할 내용이 없습니다.");
-			return;
-		}
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
-
-			if(insertList.length > 0){
-				insertCnt = await fn_callInsertVhclList(insertList);
-			}
-			if(updateList.length > 0){
-				updateCnt = await fn_callUpdateVhclList(updateList);
-			}
-			if(insertCnt + updateCnt > 0 ){
-				fn_sarchVhcl();
-				alert("저장 되었습니다.");
-			}
-		}
-	}
-
-	async function fn_callInsertVhclList(wrhsVhclList){
-		let postJsonPromise = gfn_postJSON("/am/cmns/insertWrhsVhclList.do", wrhsVhclList);
-        let data = await postJsonPromise;
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		return data.insertedCnt;
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-	}
-
-	async function fn_callUpdateVhclList(wrhsVhclList){
-		let postJsonPromise = gfn_postJSON("/am/cmns/updateWrhsVhclList.do", wrhsVhclList);
-        let data = await postJsonPromise;
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		return data.updatedCnt;
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-	}
-
-	async function fn_deleteVhcl(wrhsVhclVO){
-		let postJsonPromise = gfn_postJSON("/am/cmns/updateWrhsVhclList.do", wrhsVhclVO);
-        let data = await postJsonPromise;
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		if(data.deletedCnt > 0){
-        			fn_sarchVhcl();
-        		}
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-	}
+	
 </script>
 </html>

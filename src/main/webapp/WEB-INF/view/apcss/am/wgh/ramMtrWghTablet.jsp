@@ -52,7 +52,18 @@
 						<tr>
 							<th scope="row" class="th_bg">생산자</th>
 							<td colspan="6" class="td_input"  style="border-right: hidden;">
-								<sbux-input id="inp-prdcrNm" name="inp-prdcrNm" uitype="text" class="form-control input-sm">
+<!-- 								<sbux-input id="inp-prdcrNm" name="inp-prdcrNm" uitype="text" class="form-control input-sm"> -->
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-prdcrNm"
+									name="dtl-inp-prdcrNm"
+									class="form-control input-sm"
+									placeholder="초성검색 기능입니다."
+									autocomplete-ref="jsonPrdcrAutocomplete"
+									autocomplete-text="name"
+    								onkeyup="fn_onKeyUpPrdcrNm(dtl-inp-prdcrNm)"
+    								autocomplete-select-callback="fn_onSelectPrdcrNm"
+   								></sbux-input>
 							<td colspan="2" class="td_input"  style="border-right: hidden;">
 								<sbux-button 
 									id="btnSrchPrdcrCd" 
@@ -70,10 +81,12 @@
 						<tr>
 							<th scope="row" class="th_bg">품목/품종</th>
 							<td colspan="2"class="td_input" style="border-right: hidden;">
-								<sbux-select id="select-itemCd" name="select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="단일선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="dtl-slt-itemCd" name="dtl-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="전체" class="form-control input-sm" onchange="fn_onChangeSrchItemCd(this)" ></sbux-select>
+<!-- 								<sbux-select id="select-itemCd" name="select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="단일선택" class="form-control input-sm"></sbux-select> -->
 							</td>
 							<td colspan="4"class="td_input" style="border-right: hidden;">
-								<sbux-select id="select-vrtyCd" name="select-vrtyCd" uitype="single" jsondata-ref="jsonComVrtyCd" unselected-text="단일선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="dtl-slt-vrtyCd" name="dtl-slt-vrtyCd" uitype="single" jsondata-ref="jsonApcVrty" unselected-text="선택" class="form-control input-sm"></sbux-select>
+<!-- 								<sbux-select id="select-vrtyCd" name="select-vrtyCd" uitype="single" jsondata-ref="jsonComVrtyCd" unselected-text="단일선택" class="form-control input-sm"></sbux-select> -->
 							</td>
 							<td colspan="3"class="td_input"  style="border-right: hidden;">
 								<p class="ad_input_row">
@@ -86,7 +99,7 @@
 						<tr>
 							<th scope="row" class="th_bg">계량일자</th>
 							<td colspan="6" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="dtp-wrhsYmd" name="dtp-wrhsYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-wrhsYmd" name="dtl-dtp-wrhsYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td style="border-right: hidden;">&nbsp;</td>
@@ -97,7 +110,17 @@
 						<tr>
 							<th scope="row" class="th_bg">차량번호/성명</th>
 							<td class="td_input">
-								<sbux-input uitype="text" id="inp-vhclno" name="inp-vhclno" class="form-control input-sm"></sbux-input>
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-vhclno"
+									name="dtl-inp-vhclno"
+									class="form-control input-sm"
+									autocomplete-ref="jsonVhclAutocomplete"
+									autocomplete-text="name"
+    								onkeyup="fn_onKeyUpVhclno(dtl-inp-vhclno)"
+    								autocomplete-select-callback="fn_onSelectVhclno"
+   								></sbux-input>
+<!-- 								<sbux-input uitype="text" id="inp-vhclno" name="inp-vhclno" class="form-control input-sm"></sbux-input> -->
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"></sbux-button>
@@ -139,7 +162,8 @@
 						<tr>
 							<th scope="row" class="th_bg" >입고창고</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-select id="select-warehouseSeCd" name="select-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouseSeCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="dtl-slt-warehouseSeCd" name="dtl-slt-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouse" unselected-text="선택" class="form-control input-sm"></sbux-select>
+<!-- 								<sbux-select id="select-warehouseSeCd" name="select-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouseSeCd" unselected-text="선택" class="form-control input-sm"></sbux-select> -->
 							</td>
 							<td colspan="14"class="td_input" >
 								<p class="ad_input_row">
@@ -220,18 +244,66 @@
     </div>
 </body>
 <script type="text/javascript">
+	var jsonApcItem			= [];	// 품목 		itemCd		검색
+	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
+	var jsonApcGrd			= [];	// 등급 		vrtyCd		검색
+	var jsonComWarehouse	= [];	// 창고 		warehouse	검색
+	var autoCompleteDataJson = [];
+	
+	var jsonDataPrdcr = [];
+	var jsonPrdcr			= [];
+	var jsonPrdcrAutocomplete = [];
+	
+	var jsonVhcl			= [];
+	var jsonVhclAutocomplete = [];
+	
 	var defaultRdctRtChkFxng = "0";
 	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_reset();
 		fn_createWghPrfmncGrid();
 		
 		SBUxMethod.set('inp-rdctRt', defaultRdctRtChkFxng);
+		fn_initSBSelect();
+		fn_clearForm();
+		fn_getPrdcrs();
+		fn_getVhcls();
 	})
-
-	/* const fn_initSBSelect = async function() {
-
-			gfn_setComCdSBSelect('rdo-wrhsSeCd', jsonRadioWrhsSeCd, 'WRHS_SE_CD');	// 시스템유형
-
-	} */
+	
+	const fn_getPrdcrs = async function() {
+		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
+		jsonPrdcr = gfn_setFrst(jsonPrdcr);
+	}
+	
+	const fn_getVhcls = async function() {
+		jsonVhcl = await gfn_getVhcls(gv_selectedApcCd);
+		jsonVhcl = gfn_setFrst(jsonVhcl);
+		console.log("jsonVhcl", jsonVhcl)
+	}
+	
+    /**
+     * 조회 조건 select combo 설정
+     */
+	const fn_initSBSelect = async function() {
+		// 검색 SB select
+		let rst = await Promise.all([
+			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', jsonComWarehouse, 'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
+		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
+			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
+		]);
+	}
+	
+	/**
+	 * @name fn_onChangeSrchItemCd
+	 * @description 품목 선택 변경 event
+	 */
+	const fn_onChangeSrchItemCd = async function(obj) {
+		let itemCd = obj.value;	//SBUxMethod.get("srch-slt-itemCd");
+		let result = await Promise.all([
+			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),	// 품종
+			gfn_setApcGrdsSBSelect('dtl-slt-grdCd', jsonApcGrd, gv_selectedApcCd, itemCd)		// 등급
+		]);
+	}
+	
 	var jsonWghPrfmnc = [];
 
 	function fn_createWghPrfmncGrid() {
@@ -316,10 +388,158 @@
 	
 	const fn_setPrdcr = function(prdcr) {
 		if (!gfn_isEmpty(prdcr)) {
-			SBUxMethod.set("inp-prdcrCd", prdcr.prdcrCd);
-			SBUxMethod.set("inp-prdcrNm", prdcr.prdcrNm);
-			//SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			// 생산자 set
+			SBUxMethod.set("dtl-inp-prdcrCd", prdcr.prdcrCd);
+			SBUxMethod.set("dtl-inp-prdcrNm", prdcr.prdcrNm);
+			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			
+			// 품목/품종 set
+			SBUxMethod.set("dtl-slt-itemCd", prdcr.rprsItemCd);
+			SBUxMethod.set("dtl-slt-vrtyCd", prdcr.rprsVrtyCd);
+
+ 			// 차량번호 set
+			SBUxMethod.set("dtl-inp-vhclno", prdcr.vhclno);
 		}
 	}
+	
+	/**
+	 * @name fn_onKeyUpPrdcrNm
+	 * @description 생산자명 입력 시 event : autocomplete
+	 */
+	const fn_onKeyUpPrdcrNm = function(prdcrNm){
+		fn_clearPrdcr();
+		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
+    	SBUxMethod.changeAutocompleteData('dtl-inp-prdcrNm', true);
+    }
+
+	/**
+	 * @name fn_clearPrdcr
+	 * @description 생산자 폼 clear
+	 */
+	const fn_clearPrdcr = async function() {
+		SBUxMethod.set("dtl-inp-prdcrCd", null);
+		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:''");
+	}
+
+	/**
+	 * @name fn_onSelectPrdcrNm
+	 * @description 생산자 autocomplete 선택 callback
+	 */
+	function fn_onSelectPrdcrNm(value, label, item) {
+		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
+		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
+			document.getElementById('btnSrchPrdcrCd').click();
+		}
+		else{
+			SBUxMethod.set("dtl-inp-prdcrCd", value);
+			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		}
+	}
+
+	/**
+	 * @name fn_onKeyUpVhclno
+	 * @description 차량번호 입력 시 event : autocomplete
+	 */
+	const fn_onKeyUpVhclno = function(vhclno){
+// 		fn_clearVhclno();
+		jsonVhclAutocomplete = gfn_filterFrst(vhclno, jsonVhcl);
+    	SBUxMethod.changeAutocompleteData('dtl-inp-vhclno', true);
+    }
+
+	/**
+	 * @name fn_clearVhclno
+	 * @description 차량번호 폼 clear
+	 */
+	const fn_clearVhclno = async function() {
+		SBUxMethod.set("dtl-inp-vhclno", null);
+		SBUxMethod.attr("dtl-inp-vhclno", "style", "background-color:''");
+	}
+
+	/**
+	 * @name fn_onSelectVhclno
+	 * @description 차량번호 autocomplete 선택 callback
+	 */
+	function fn_onSelectVhclno(value, label, item) {
+		SBUxMethod.set("dtl-inp-vhclno", value);
+		SBUxMethod.attr("dtl-inp-vhclno", "style", "background-color:aquamarine");	//skyblue
+	}
+
+	
+	/**
+     * @name fn_reset
+     * @description 초기화 버튼
+     */
+    const fn_reset = async function() {
+    	fn_clearForm();
+	}
+	
+	/**
+     * @name fn_clearForm
+     * @description form 초기화
+     * @function
+     */
+	const fn_clearForm = function() {
+
+		// 계량일자
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2);
+		let day = ('0' + today.getDate()).slice(-2);
+		let ymd = year + month + day;
+
+		SBUxMethod.set("dtl-dtp-wrhsYmd", ymd);
+
+// 		// 생산자
+// 		SBUxMethod.set("dtl-inp-prdcrCd", null);
+		SBUxMethod.set("dtl-inp-prdcrNm", null);
+
+// 		// 품목
+// 		SBUxMethod.set("dtl-slt-itemCd", null);
+// 		// 품종
+// 		SBUxMethod.set("dtl-slt-vrtyCd", null);
+// 		// 입고구분
+// 		SBUxMethod.set("dtl-rdo-wrhsSeCd", "3");
+// 		// 상품구분
+// 		SBUxMethod.set("dtl-rdo-gdsSeCd", "1");
+// 		// 운송구분
+// 		SBUxMethod.set("dtl-rdo-trsprtSeCd", "1");
+
+// 		// 전체중량
+// 		SBUxMethod.set("dtl-inp-wholWght", null);
+// 		// 공차중량
+// 		SBUxMethod.set("dtl-inp-emptVhclWght", null);
+// 		// 감량 (%)
+// 		SBUxMethod.set("dtl-inp-rdctRt", null);
+// 		// 감량kg
+// 		SBUxMethod.set("dtl-inp-rdcdWght", null);
+// 		// 실중량
+// 		SBUxMethod.set("dtl-inp-actlWght", null);
+// 		// 차량번호
+		SBUxMethod.set("dtl-inp-vhclno", null);
+	}
+	
+	/** 생산자정보 */
+	/**
+	 * @name fn_getvhcls
+	 * @description  APC별 차량 목록 가져오기
+	 * @function
+	 * @param {string} _apcCd		APC코드
+	 * @returns {any[]}
+	 */
+	const gfn_getVhcls = async function(_apcCd) {
+		const postJsonPromise = gfn_postJSON(URL_WRHS_VHCL, {apcCd: _apcCd, delYn: "N"});
+		const data = await postJsonPromise;
+		const sourceJson = [];
+		data.resultList.forEach((item) => {
+				sourceJson.push({
+					vhclno: item.vhclno,
+					drvrNm: item.drvrNm,
+					name: item.vhclno,
+ 					value: item.vhclno
+				});
+			});
+		return sourceJson;
+	}
+	
 </script>
 </html>

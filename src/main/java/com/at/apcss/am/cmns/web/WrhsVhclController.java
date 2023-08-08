@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.cmns.service.WrhsVhclService;
+import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -157,6 +158,32 @@ public class WrhsVhclController extends BaseController {
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updated);
 
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	@PostMapping(value = "/am/cmns/multiVhclList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiVhclList(@RequestBody List<WrhsVhclVO> vhclList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			for ( WrhsVhclVO wrhsVhclVO : vhclList ) {
+				wrhsVhclVO.setSysFrstInptUserId(getUserId());
+				wrhsVhclVO.setSysFrstInptPrgrmId(getPrgrmId());
+				wrhsVhclVO.setSysLastChgUserId(getUserId());
+				wrhsVhclVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+			
+			HashMap<String, Object> rtnObj = wrhsVhclService.multiVhclList(vhclList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
 		return getSuccessResponseEntity(resultMap);
 	}
 
