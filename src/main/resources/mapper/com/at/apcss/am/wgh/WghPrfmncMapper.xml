@@ -296,11 +296,11 @@
 				, RDCD_WGHT			= #{rdcdWght}
 				, WRHS_WGHT			= #{wrhsWght}
 				, RMRK				= #{rmrk}
-			
+		]]>
 			<if test='delYn != null and delYn != ""'>
 				, DEL_YN			= #{delYn}
 			</if>
-			
+		<![CDATA[
 			 WHERE APC_CD = #{apcCd}
 			   AND WGHNO = #{wghno}
 		]]>

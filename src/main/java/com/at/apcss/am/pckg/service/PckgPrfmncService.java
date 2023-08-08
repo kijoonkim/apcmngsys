@@ -1,5 +1,6 @@
 package com.at.apcss.am.pckg.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
@@ -42,7 +43,16 @@ public interface PckgPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertPckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception;
+	public HashMap<String, Object> insertPckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception;
+	
+	/**
+	 * 포장실적 목록 등록
+	 * @param pckgPrfmncList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertPckgPrfmncList(List<PckgPrfmncVO> pckgPrfmncList) throws Exception;
+	
 
 	/**
 	 * 포장실적 변경
@@ -50,7 +60,7 @@ public interface PckgPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updatePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception;
+	public HashMap<String, Object> updatePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception;
 
 	/**
 	 * 포장실적 삭제
@@ -58,5 +68,5 @@ public interface PckgPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deletePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception;
+	public HashMap<String, Object> deletePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception;
 }

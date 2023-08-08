@@ -1,8 +1,17 @@
 package com.at.apcss.am.invntr.service.impl;
 
+import java.util.HashMap;
+
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.service.InvntrService;
+import com.at.apcss.am.invntr.service.RawMtrInvntrService;
+import com.at.apcss.am.invntr.service.SortInvntrService;
+import com.at.apcss.am.invntr.vo.InvntrVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : InvntrServiceImpl.java
@@ -20,6 +29,35 @@ import com.at.apcss.am.invntr.service.InvntrService;
  * </pre>
  */
 @Service("invntrService")
-public class InvntrServiceImpl implements InvntrService {
+public class InvntrServiceImpl extends BaseServiceImpl implements InvntrService {
+
+	// 원물재고
+	@Resource(name="rawMtrInvntrService")
+	private RawMtrInvntrService rawMtrInvntrService;
+	
+	// 선별재고
+	@Resource(name="sortInvntrService")
+	private SortInvntrService sortInvntrService;
+	
+	// 상품재고
+	@Resource(name="gdsInvntrService")
+	private GdsInvntrService gdsInvntrService;
+	
+	
+	@Override
+	public HashMap<String, Object> insertInvntr(InvntrVO invntrVO) throws Exception {
+		// TODO Auto-generated method stub
+		
+		
+		
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateInvntr(InvntrVO invntrVO) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
