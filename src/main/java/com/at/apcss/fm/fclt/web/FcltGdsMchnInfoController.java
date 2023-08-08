@@ -1,9 +1,25 @@
 package com.at.apcss.fm.fclt.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.at.apcss.fm.fclt.service.FcltGdsMchnInfoService;
+import com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO;
+
 
 /**
  * @Class Name : FcltGdsMchnInfoController.java
@@ -23,21 +39,143 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class FcltGdsMchnInfoController extends BaseController {
 
+
 	// 상품화설비현황
-	@RequestMapping(value = "/fm/fclt/fcltGdsMchnInfo.do")
-	public String fcltGdsMchnInfo() {
+	@Resource(name= "fcltGdsMchnInfoService")
+	private FcltGdsMchnInfoService fcltGdsMchnInfoService;
+
+	// 상품화설비현황 화면이동
+	@RequestMapping("/fm/fclt/fcltGdsMchnInfo.do")
+	public String doFcltGdsMchnInfo() {
 		return "apcss/fm/fclt/fcltGdsMchnInfo";
 	}
-	// 상품화설비현황
-	@RequestMapping(value = "/fm/fclt/fcltGdsMchnInfoReg.do")
-	public String fcltGdsMchnInfoReg() {
-		return "apcss/fm/fclt/fcltGdsMchnInfoReg";
+
+	// 상품화설비현황 조회
+	@PostMapping(value = "/fm/fclt/selectFcltGdsMchnInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltGdsMchnInfoVO fcltGdsMchnInfoVO, HttpServletRequest request) throws Exception{
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltGdsMchnInfoVO> resultList = new ArrayList<>();
+
+		try {
+			 resultList = fcltGdsMchnInfoService.selectFcltGdsMchnInfoList(fcltGdsMchnInfoVO);
+
+			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
+			 for (FcltGdsMchnInfoVO msg : resultList ) {
+				 logger.debug("msgCn : {}", msg.getMsgCn());
+			 }
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 재배약정신청조회
-	/*
-	 * @RequestMapping(value = "fm/clt/cltvtnEnggtAplyMng.do") public String
-	 * doSpmtCmnd() { return "apcss/fm/clt/cltvtnEnggtAplyMng"; }
-	 */
+	// 상품화설비현황 등록
+	@PostMapping(value = "/fm/fclt/insertFcltGdsMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertFcltGdsMchnInfo(@RequestBody FcltGdsMchnInfoVO fcltGdsMchnInfoVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
+		// validation check
+
+		// audit 항목
+		fcltGdsMchnInfoVO.setSysFrstInptUserId(getUserId());
+		fcltGdsMchnInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
+		fcltGdsMchnInfoVO.setSysLastChgUserId(getUserId());
+		fcltGdsMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int insertedCnt = 0;
+
+		try {
+			insertedCnt = fcltGdsMchnInfoService.insertFcltGdsMchnInfo(fcltGdsMchnInfoVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 상품화설비현황 변경
+	@PostMapping(value = "/fm/fclt/updateFcltGdsMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateFcltGdsMchnInfo(@RequestBody FcltGdsMchnInfoVO fcltGdsMchnInfoVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		fcltGdsMchnInfoVO.setSysLastChgUserId(getUserId());
+		fcltGdsMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int updatedCnt = 0;
+
+		try {
+			updatedCnt = fcltGdsMchnInfoService.updateFcltGdsMchnInfo(fcltGdsMchnInfoVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 상품화설비현황 삭제
+	@PostMapping(value = "/fm/fclt/deleteFcltGdsMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteFcltGdsMchnInfo(@RequestBody FcltGdsMchnInfoVO fcltGdsMchnInfoVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		fcltGdsMchnInfoVO.setSysLastChgUserId(getUserId());
+		fcltGdsMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int deletedCnt = 0;
+
+		try {
+			deletedCnt = fcltGdsMchnInfoService.deleteFcltGdsMchnInfo(fcltGdsMchnInfoVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 상품화설비현황 목록 삭제
+	@PostMapping(value = "/fm/fclt/deleteFcltGdsMchnInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteFcltGdsMchnInfoList(@RequestBody List<FcltGdsMchnInfoVO> fcltGdsMchnInfoList, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		for (FcltGdsMchnInfoVO fcltGdsMchnInfoVO : fcltGdsMchnInfoList ) {
+			fcltGdsMchnInfoVO.setSysLastChgUserId(getUserId());
+			fcltGdsMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+		}
+
+		int deletedCnt = 0;
+
+		try {
+			deletedCnt = fcltGdsMchnInfoService.deleteFcltGdsMchnInfoList(fcltGdsMchnInfoList);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
