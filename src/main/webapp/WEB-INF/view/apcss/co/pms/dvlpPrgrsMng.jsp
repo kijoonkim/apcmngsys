@@ -104,6 +104,12 @@
 	var grdDvlpPrgs = null;
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2)
+		let day = ('0' + today.getDate()).slice(-2)
+		SBUxMethod.set("srch-dtp-dvlpPlanYmd", year+month+day);
+
 		dvlpPrgs.init();
 	})
 
@@ -140,34 +146,27 @@
 		    SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
-		    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 1000,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
 		    SBGridProperties.columns = [
-		    	{caption: ["상태"], 		ref: 'stts',   			type:'combo',  width:'120px',    style:'text-align:center',
+		    	{caption: ["상태"], 		ref: 'stts',   			type:'combo',  width:'100px',    style:'text-align:center',
 					typeinfo : {ref:'jsonGrdStts', label:'label', value:'value', displayui : false}},
-		    	{caption: ["분류"], 		ref: 'clsf',   			type:'combo',  width:'120px',    style:'text-align:center',
+		    	{caption: ["분류"], 		ref: 'clsf',   			type:'combo',  width:'100px',    style:'text-align:center',
 					typeinfo : {ref:'jsonGrdClsf', label:'label', value:'value', displayui : false}},
 		        {caption: ['완료구분'], 	ref: 'dvlpStts', 		width: '80px', type: 'output', style:'text-align:center'},
-		        {caption: ['프로그램명'], 	ref: 'prgrmNm', 		width: '300px', type: 'output', style:'text-align:center'},
-		        {caption: ['개발계획'], 	ref: 'dvlpPlanYmd', 	width: '150px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  style:'text-align:center'},
-		        {caption: ['개발완료'], 	ref: 'dvlpCmptnYmd', 	width: '150px',	type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  style:'text-align:center'},
-		        {caption: ['테스트계획'], 	ref: 'testPlanYmd', 	width: '150px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  style:'text-align:center'},
-		        {caption: ['테스트완료'], 	ref: 'testCmptnYmd', 	width: '150px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  style:'text-align:center'},
+		        {caption: ['프로그램명'], 	ref: 'prgrmNm', 		width: '300px', type: 'output', style:'text-align:left'},
+		        {caption: ['개발계획'], 	ref: 'dvlpPlanYmd', 	width: '100px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  style:'text-align:center'},
+		        {caption: ['개발완료'], 	ref: 'dvlpCmptnYmd', 	width: '100px',	type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  style:'text-align:center'},
+		        {caption: ['테스트계획'], 	ref: 'testPlanYmd', 	width: '100px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  style:'text-align:center'},
+		        {caption: ['테스트완료'], 	ref: 'testCmptnYmd', 	width: '100px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  style:'text-align:center'},
 		        {caption: ['담당자'], 		ref: 'pic', 			width: '100px', type: 'output', style:'text-align:center'},
-		        {caption: ['결함'], 		ref: 'dfctCnt', 		width: '100px', type: 'output', style:'text-align:center;', format : {type:'number', rule:'#,###'}},
+		        {caption: ['결함'], 		ref: 'dfctCnt', 		width: '100px', type: 'output', style:'color:red; text-align:center',  format : {type:'number', rule:'#,###'}},
 		        {caption: ['완료'], 		ref: 'actnCnt', 		width: '100px', type: 'output', style:'text-align:center', format : {type:'number', rule:'#,###'}},
 		        {caption: ['최종변경일시'], ref: 'sysLastChgDt', 	width: '120px', type: 'output', style:'text-align:center'},
+		        {caption: ['비고'], 		ref: 'rmrk', 	width: '150px', type: 'output', style:'text-align:center'},
 		        {caption: ['프로그램ID'], 	ref: 'prgrmId', 	hidden : true}
 		    ];
 
 		    grdDvlpPrgs = _SBGrid.create(SBGridProperties);
 		    grdDvlpPrgs.bind('click','fn_modalClick');
-		    grdDvlpPrgs.bind('beforepagechanged', 'fn_paging');
 		},
 		save: async function() {
 			let allData = grdDvlpPrgs.getGridDataAll();
@@ -210,15 +209,13 @@
 		search: async function() {
 			// set pagination
 			grdDvlpPrgs.rebuild();
-	    	let pageSize = grdDvlpPrgs.getPageSize();
-	    	let pageNo = 1;
 
 	    	// grid clear
 	    	jsonDvlpPrgs.length = 0;
 	    	grdDvlpPrgs.refresh();
-	    	this.setGrid(pageSize, pageNo);
+	    	this.setGrid();
 		},
-		setGrid: async function(pageSize, pageNo) {
+		setGrid: async function() {
 
 	    	let dvlpPlanYmd = SBUxMethod.get("srch-dtp-dvlpPlanYmd");
 	    	let stts = SBUxMethod.get("srch-slt-stts");
@@ -232,10 +229,6 @@
 	        	clsf		: clsf,
 	        	prgrmNm		: prgrmNm,
 	        	pic			: pic,
-	        	// pagination
-		  		pagingYn 	: 'Y',
-				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
 			});
 
 	        const data = await postJsonPromise;
@@ -269,20 +262,10 @@
 					}
 				});
 
-	        	if (jsonDvlpPrgs.length > 0) {
-	        		if(grdDvlpPrgs.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdDvlpPrgs.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdDvlpPrgs.rebuild();
-					}else{
-						grdDvlpPrgs.refresh();
-					}
-	        	} else {
-	        		grdDvlpPrgs.setPageTotalCount(totalRecordCount);
-	        		grdDvlpPrgs.rebuild();
-	        	}
+        		grdDvlpPrgs.rebuild();
 
 	        	grdDvlpPrgs.setCellDisabled(0, 0, grdDvlpPrgs.getRows() - 1, 1, true);
-	        	grdDvlpPrgs.setCellStyle('color', 1, 9, grdDvlpPrgs.getRows() - 1, 9, 'red');
+	        	//grdDvlpPrgs.setCellStyle('color', 1, 9, grdDvlpPrgs.getRows() - 1, 9, 'red');
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -291,30 +274,22 @@
 	    		console.error("failed", e.message);
 	        }
 	    },
-	    paging: function() {
-	    	let pageSize = grdDvlpPrgs.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let pageNo = grdDvlpPrgs.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-			this.setGrid(pageSize, pageNo);
-	    }
 
 	}
 
 	function fn_modalClick(){
 		var nRow = grdDvlpPrgs.getRow();
 		var nCol = grdDvlpPrgs.getCol();
+		var dfctCnt = grdDvlpPrgs.getRowData(nRow).dfctCnt;
 		var rowData = grdDvlpPrgs.getRowData(nRow);
 
-		if(nCol == 9){
+		if(nCol == 9 && nRow != 0){
 			SBUxMethod.openModal('modal-dfctMng');
 			SBUxMethod.set("dtl-inp-prgrmNm", rowData.prgrmNm);
 			SBUxMethod.set("dtl-inp-prgrmId", rowData.prgrmId);
 			SBUxMethod.set("dtl-inp-pic", rowData.pic);
 			dfctPopup.init(rowData);
 		}
-	}
-
-	function fn_paging(){
-		dvlpPrgs.paging();
 	}
 
 </script>
