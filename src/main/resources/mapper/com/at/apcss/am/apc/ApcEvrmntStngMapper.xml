@@ -249,7 +249,7 @@
     
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.apc..mapper.ApcEvrmntStngMapper.selectVrtyList		-->
-	<!-- DESC : 픔종 선택후 팝업 조회			                                          	-->
+	<!-- DESC : 픔종 선택후 팝업 조회			                                        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -263,7 +263,11 @@
 			,VC.VRTY_CD AS VRTY_CD
 			,VC.VRTY_NM AS VRTY_NM
 		FROM TB_VRTY_CRTR VC
+		WHERE ITEM_CD > 0
 		]]>
+		<if test='vrtyNm != null and vrtyNm != ""'>
+			AND VRTY_NM = #{vrtyNm}
+		</if>
     </select>
 
 

@@ -54,8 +54,7 @@ public class ApcEvrmntStngServiceImpl implements ApcEvrmntStngService{
 
 	@Override
 	public List<ComCdVO> selectVrtyList(ComCdVO comCdVO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return apcEvrmntStngMapper.selectVrtyList(comCdVO);
 	}
 
 }

@@ -74,11 +74,11 @@
                 ref: 'checked', type: 'checkbox', width: '50px', style: 'text-align:center', sortable: false,
                 typeinfo : {ignoreupdate : true}
             },
-	        {caption: ['품목코드'], ref: 'itemCd', width: '100px', type: 'output'},
-	        {caption: ['품목명'], ref: 'itemNm', width: '150px', type: 'output'},
-	        {caption: ['품종코드'], ref: 'vrtyCd', width: '100px', type: 'output'},
-	        {caption: ['품종명'], ref: 'vrtyNm', width: '150px', type: 'output'},
-	        {caption: ['APC코드'], ref: 'apcCd', hidden : true}
+	        {caption: ['품목코드'], 	ref: 'itemCd', width: '100px', type: 'output'},
+	        {caption: ['품목명'], 	ref: 'itemNm', width: '150px', type: 'output'},
+	        {caption: ['품종코드'], 	ref: 'vrtyCd', width: '100px', type: 'output'},
+	        {caption: ['품종명'], 	ref: 'vrtyNm', width: '150px', type: 'output'},
+	        {caption: ['APC코드'], 	ref: 'apcCd',  hidden : true}
 
 	    ];
 	    window.grdVrty = _SBGrid.create(SBGridProperties);
@@ -96,31 +96,32 @@
 
 	var jsonVrtyPopUp = [];
 	async function fn_callSelectVrtyList(){
+		let apcCd 	= gv_apcCd;
 		let apcNm  = SBUxMethod.get("vrty-inp-apcNm");
 		let vrtyNm = SBUxMethod.get("vrty-inp-vrtyNm");
 		
-		var comCdVO = { apcNm :apcNm, vrtyNm: vrtyNm };
-		console.log('apcNm',apcNm);
-		let postJsonPromise = gfn_postJSON("/am/apc/selectVrtyList.do", comCdVO);
+// 		let postJsonPromise = gfn_postJSON("/am/apc/selectVrtyList.do", {apcNm : apcNm, vrtyNm : vrtyNm} );
+		let postJsonPromise = gfn_postJSON("/am/apc/selectVrtyList.do", {vrtyNm : vrtyNm} );
 	    let data = await postJsonPromise;                
 	    newJsonVrtyPopUp = [];
 	    jsonVrtyPopUp = [];
 	    
 	    try{
 	    	data.resultList.forEach((item, index) => {
-				let vrty = {
+				let vrtyTest = {
 				    itemCd		: item.itemCd
 				  , itemNm		: item.itemNm
 				  , vrtyCd		: item.vrtyCd
 				  , vrtyNm		: item.vrtyNm
 				  , apcCd		: item.apcCd
-				}	    	
-				jsonVrtyPopUp.push(Object.assign({}, vrty));
-				newJsonVrtyPopUp.push(Object.assign({}, vrty));
+				}
+				jsonVrtyPopUp.push(Object.assign({}, vrtyTest));
+				console.log('jsonVrtyPopUp',jsonVrtyPopUp);
+				newJsonVrtyPopUp.push(Object.assign({}, vrtyTest));
+				console.log('newJsonVrtyPopUp',newJsonVrtyPopUp);
 			});
 			console.log("newJsonVrtyPopUp", newJsonVrtyPopUp);
 			console.log("jsonVrtyPopUp", jsonVrtyPopUp);
-			console.log('aprvYn',aprvYn);
 			grdVrty.rebuild();
 	    }catch (e) {
 			if (!(e instanceof Error)) {
