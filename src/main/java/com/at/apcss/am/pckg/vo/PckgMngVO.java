@@ -1,4 +1,4 @@
-package com.at.apcss.am.sort.vo;
+package com.at.apcss.am.pckg.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @Class Name : SortPrfmncVO.java
- * @Description : 선별실적정보에 대한 VO 클래스
+ * @Class Name : PckgInptVO.java
+ * @Description : 포장투입에 대한 VO 클래스
  * @author 신정철
  * @since 2023.06.21
  * @version 1.0
@@ -22,27 +22,22 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class SortPrfmncVO extends ComVO {
+public class PckgMngVO extends ComVO {
 	
 	/**
 	 * APC코드
 	 */
 	private String apcCd;
-
+	
 	/**
 	 * 선별번호
 	 */
-	private String sortno;
+	private String sortNo;
 
 	/**
 	 * 등급코드
 	 */
 	private String grdCd;
-
-	/**
-	 * 등급명
-	 */
-	private String grdNm;
 
 	/**
 	 * 투입일자
@@ -75,11 +70,6 @@ public class SortPrfmncVO extends ComVO {
 	private String spcfctCd;
 
 	/**
-	 * 창고구분코드
-	 */
-	private String warehouseSeCd;
-
-	/**
 	 * 수량
 	 */
 	private int qntt;
@@ -90,37 +80,17 @@ public class SortPrfmncVO extends ComVO {
 	private double wght;
 
 	/**
-	 * 선별지시번호
+	 * 포장번호
 	 */
-	private String sortCmndno;
+	private String pckgNo;
+
+	/**
+	 * 포장지시번호
+	 */
+	private String pckgCmndNo;
 
 	/**
 	 * 비고
 	 */
 	private String rmrk;
-	
-	/**
-	 * 입고번호
-	 */
-	private String wrhsno;
-	
-	/**
-	 * 생산자코드
-	 */
-	private String prdcrCd;
-	
-	/**
-	 * 상품구분
-	 */
-	private String gdsSeCd;
-	
-	/**
-	 * 입고구분
-	 */
-	private String wrhsSeCd;
-
-	/**
-	 * 선별투입실적 변경 필요 여부
-	 */
-	private String needsInptChgYn;
 }

@@ -32,7 +32,7 @@ public class SortInvntrVO extends ComVO {
 	/**
 	 * 선별번호
 	 */
-	private String sortNo;
+	private String sortno;
 	
 	/**
 	 * 등급코드

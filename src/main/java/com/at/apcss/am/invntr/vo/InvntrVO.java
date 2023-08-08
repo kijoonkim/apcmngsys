@@ -19,4 +19,6 @@ import com.at.apcss.co.sys.vo.ComVO;
  */
 public class InvntrVO extends ComVO {
 
+	
+	
 }

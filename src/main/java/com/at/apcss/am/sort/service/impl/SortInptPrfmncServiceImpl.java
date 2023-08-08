@@ -1,5 +1,6 @@
 package com.at.apcss.am.sort.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,27 +48,39 @@ public class SortInptPrfmncServiceImpl implements SortInptPrfmncService {
 	}
 
 	@Override
-	public int insertSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
+	public HashMap<String, Object> insertSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
 		
 		int insertedCnt = sortInptPrfmncMapper.insertSortInptPrfmnc(sortInptPrfmncVO);
 		
-		return insertedCnt;
+		return null;
 	}
 
 	@Override
-	public int updateSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
+	public HashMap<String, Object> insertSortInptPrfmncList(List<SortInptPrfmncVO> sortInptPrfmncList) throws Exception {
+
+		for ( SortInptPrfmncVO sortInptPrfmncVO : sortInptPrfmncList ) {
+			sortInptPrfmncMapper.insertSortInptPrfmnc(sortInptPrfmncVO);
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public HashMap<String, Object> updateSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
 		
 		int updatedCnt = sortInptPrfmncMapper.updateSortInptPrfmnc(sortInptPrfmncVO);
 		
-		return updatedCnt;
+		return null;
 	}
 
 	@Override
-	public int deleteSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
+	public HashMap<String, Object> deleteSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
 		
 		int deletedCnt = sortInptPrfmncMapper.deleteSortInptPrfmnc(sortInptPrfmncVO);
 		
-		return deletedCnt;
+		return null;
 	}
+
+
 
 }

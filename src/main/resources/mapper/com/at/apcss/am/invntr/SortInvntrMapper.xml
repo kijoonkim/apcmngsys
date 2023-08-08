@@ -2,54 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <!-- ==========================================================================	-->
-<!-- NAME : RawMtrInvntrMapper.xml                                   				-->
-<!-- DESC : 원물재고 mapper                                            				-->
+<!-- NAME : SortInvntrMapper.xml                                   				-->
+<!-- DESC : 선별재고 mapper                                            				-->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
 <!-- 2023.07.28  	신정철        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper">
+<mapper namespace="com.at.apcss.am.invntr.mapper.SortInvntrMapper">
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntr	-->
-	<!-- DESC : 원물재고 단건 조회.	                                       				-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntr		-->
+	<!-- DESC : 선별재고 단건 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRawMtrInvntr" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO" resultType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+    <select id="selectSortInvntr" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntr */
-				  WC.APC_CD		AS APC_CD
-				, WC.WGHNO		AS WGHNO
-				, WC.WGH_YMD	AS WGH_YMD
-				, WC.VHCLNO		AS VHCLNO
-				, WC.WHOL_WGHT	AS WHOL_WGHT
-				, WC.EMPT_VHCL_WGHT	AS EMPT_VHCL_WGHT
-				, WC.RDCD_RT	AS RDCD_RT
-				, WC.RDCD_WGHT	AS RDCD_WGHT
-				, WC.WRHS_WGHT	AS WRHS_WGHT
-				, WC.RMRK		AS RMRK
-				, WC.DEL_YN		AS DEL_YN
-			  FROM TB_RAW_MTR_INVNTR WC
-			 WHERE WC.APC_CD = #{apcCd}
-			   AND WC.WGHNO = #{wghno}
+	    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntr */
+				  SI.APC_CD			AS APC_CD
+				, SI.SORTNO			AS SORTNO
+				, SI.GRD_CD			AS GRD_CD
+				, SI.INPT_YMD		AS INPT_YMD
+				, SI.FCLT_CD		AS FCLT_CD
+				, SI.RPRS_PRDCR_CD	AS RPRS_PRDCR_CD
+				, SI.ITEM_CD		AS ITEM_CD
+				, SI.VRTY_CD		AS VRTY_CD
+				, SI.SPCFCT_CD		AS SPCFCT_CD
+				, SI.GDS_SE_CD		AS GDS_SE_CD
+				, SI.WRHS_SE_CD		AS WRHS_SE_CD
+				, SI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+				, SI.SORT_QNTT		AS SORT_QNTT
+				, SI.SORT_WGHT		AS SORT_WGHT
+				, SI.PCKG_QNTT		AS PCKG_QNTT
+				, SI.PCKG_WGHT		AS PCKG_WGHT
+				, SI.INVNTR_QNTT	AS INVNTR_QNTT
+				, SI.INVNTR_WGHT	AS INVNTR_WGHT
+				, SI.DEL_YN			AS DEL_YN
+			  FROM TB_SORT_INVNTR SI
+			 WHERE SI.APC_CD = #{apcCd}
+			   AND SI.SORTNO = #{sortno}
+			   AND SI.GRD_CD = #{grdCd}
 		]]>
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntrList	-->
-	<!-- DESC : 원물재고 목록 조회.	                                       				-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrList	-->
+	<!-- DESC : 선별재고 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRawMtrInvntrList" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO" resultType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+    <select id="selectSortInvntrList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -60,7 +69,7 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntrList */
+	    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrList */
 				  WC.APC_CD		    AS APC_CD
 				, WC.WGHNO		    AS WGHNO
 				, MAX(WC.WGH_YMD)   AS WGH_YMD
@@ -125,35 +134,34 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.insertRawMtrInvntr	-->
-	<!-- DESC : 재고 등록.		                                       					-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortInvntr		-->
+	<!-- DESC : 선별재고 등록.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertRawMtrInvntr" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+    <insert id="insertSortInvntr" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.insertRawMtrInvntr */
-	    		INTO TB_RAW_MTR_INVNTR
+	    	INSERT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortInvntr */
+	    		INTO TB_SORT_INVNTR
 				(
 					  APC_CD
-					, WRHSNO
-					, PLTNO
-					, WRHS_YMD
-					, PRDCR_CD
+					, SORTNO
+					, GRD_CD
+					, INPT_YMD
+					, FCLT_CD
+					, RPRS_PRDCR_CD
 					, ITEM_CD
 					, VRTY_CD
-					, GRD_CD
+					, SPCFCT_CD
 					, GDS_SE_CD
 					, WRHS_SE_CD
-					, TRSPRT_SE_CD
 					, WAREHOUSE_SE_CD
-					, BX_KND
-					, WRHS_QNTT
-					, WRHS_WGHT
-					, INPT_QNTT
-					, INPT_WGHT
+					, SORT_QNTT
+					, SORT_WGHT
+					, PCKG_QNTT
+					, PCKG_WGHT
 					, INVNTR_QNTT
 					, INVNTR_WGHT
 		    		, SYS_FRST_INPT_DT
@@ -166,22 +174,21 @@
 	   		VALUES
 	   			(
 					  #{apcCd}
-					, #{wrhsno}
-					, #{pltno}
-					, #{wrhsYmd}
-					, #{prdcrCd}
+					, #{sortno}
+					, #{grdCd}
+					, #{inptYmd}
+					, #{fcltCd}
+					, #{rprsPrdcrCd}
 					, #{itemCd}
 					, #{vrtyCd}
-					, #{grdCd}
+					, #{spcfctCd}
 					, #{gdsSeCd}
 					, #{wrhsSeCd}
-					, #{trsprtSeCd}
 					, #{warehouseSeCd}
-					, #{bxKnd}
-					, #{wrhsQntt}
-					, #{wrhsWght}
-					, #{inptQntt}
-					, #{inptWght}
+					, #{sortQntt}
+					, #{sortWght}
+					, #{pckgQntt}
+					, #{pckgWght}
 					, #{invntrQntt}
 					, #{invntrWght}
 		    		, SYSDATE
@@ -195,53 +202,63 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrInvntr	-->
-	<!-- DESC : 원물재고 변경.		                                       				-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntr		-->
+	<!-- DESC : 변경재고 등록.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateRawMtrInvntr" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+    <update id="updateSortInvntr" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrInvntr */
-				TB_RAW_MTR_INVNTR
+			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntr */
+				TB_SORT_INVNTR
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 	    		
-	    		, PLTNO		= #{pltno}
-				, WRHS_YMD	= #{wrhsYmd}
-				, PRDCR_CD	= #{prdcrCd}
-				, VHCLNO	= #{vhclno}
-				, WRHS_WGHT	= #{wrhsWght}
-				, BX_QNTT	= #{bxQntt}
-				, RMRK		= #{rmrk}
+				, INPT_YMD		= #{inptYmd}
+				, FCLT_CD		= #{fcltCd}
+				, RPRS_PRDCR_CD	= #{rprsPrdcrCd}
+				, ITEM_CD		= #{itemCd}
+				, VRTY_CD		= #{vrtyCd}
+				, SPCFCT_CD		= #{spcfctCd}
+				, GDS_SE_CD		= #{gdsSeCd}
+				, WRHS_SE_CD	= #{wrhsSeCd}
+				, WAREHOUSE_SE_CD	= #{warehouseSeCd}
+				, SORT_QNTT		= #{sortQntt}
+				, SORT_WGHT		= #{sortWght}
+				, PCKG_QNTT		= #{pckgQntt}
+				, PCKG_WGHT		= #{pckgWght}
+				, INVNTR_QNTT	= #{invntrQntt}
+				, INVNTR_WGHT	= #{invntrWght}
 		]]>
 			<if test='delYn != null and delYn != ""'>
 				, DEL_YN			= #{delYn}
 			</if>
 		<![CDATA[
 			 WHERE APC_CD = #{apcCd}
-			   AND WRHSNO = #{wghno}
+			   AND SORTNO = #{sortno}
+			   AND GRD_CD = #{grdCd}
 		]]>
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.deleteRawMtrInvntr	-->
-	<!-- DESC : 원물재고 삭제.		                                       				-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.deleteSortInvntr		-->
+	<!-- DESC : 변경재고 삭제.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteRawMtrInvntr" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+	<delete id="deleteSortInvntr" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.deleteRawMtrInvntr */
-			  FROM TB_RAW_MTR_INVNTR
+			DELETE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.deleteSortInvntr */
+			  FROM TB_SORT_INVNTR
 			 WHERE APC_CD = #{apcCd}
-			   AND WRHSNO = #{wghno}
+			   AND SORTNO = #{sortno}
+			   AND GRD_CD = #{grdCd}
 		]]>
 	</delete>
 
