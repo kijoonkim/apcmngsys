@@ -3,6 +3,7 @@ package com.at.apcss.co.pms.service;
 import java.util.List;
 
 import com.at.apcss.co.pms.vo.DfctMngVO;
+import com.at.apcss.co.pms.vo.DfctVO;
 import com.at.apcss.co.pms.vo.DvlpPrgrsMngVO;
 
 /**
@@ -77,4 +78,21 @@ public interface DvlpPrgrsMngService {
 	 * @throws Exception
 	 */
 	public int deleteDfctMng(DfctMngVO dfctMngVO) throws Exception;
+
+
+	/**
+	 * 결함관리 등록 및 변경.
+	 * @param List<DfctMngVO>
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int multiDfctList(List<DfctMngVO> dfctMngList) throws Exception;
+
+	/**
+	 * 프로그램개발진행진도 조회
+	 * @param DfctVO
+	 * @return List<DfctVO>
+	 * @throws Exception
+	 */
+	public List<DfctVO> selectDfct(DfctVO dfctVO) throws Exception;
 }
