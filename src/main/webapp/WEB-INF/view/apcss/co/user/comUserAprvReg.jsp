@@ -57,10 +57,10 @@
 							<th scope="row">승인여부</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-aprvYn" name="srch-slt-aprvYn" uitype="single" class="form-control input-sm" unselected-text="선택" >
-									<option-item value="승인대기">승인대기</option-item>
-									<option-item value="사용">사용</option-item>
-									<option-item value="대기">휴면</option-item>
-									<option-item value="미사용">미사용</option-item>
+									<option-item value="00">승인대기</option-item>
+									<option-item value="01">사용</option-item>
+									<option-item value="02">휴면</option-item>
+									<option-item value="03">미사용</option-item>
 								</sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
