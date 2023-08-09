@@ -757,7 +757,9 @@
             	spmtTrsprtMngGridData[nRow-1].delYn = "N";
             	spmtTrsprtMngDatagrid.addRow(true);
             }else if(grid === "grdOprtr"){
-            	grdOprtr.setCellData(nRow, nCol, "N", true);
+            	jsonOprtr[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
+            	jsonOprtr[nRow-1].delYn = "N";
+//             	grdOprtr.setCellData(nRow, nCol, "N", true);
             	grdOprtr.addRow(true);
             }else if(grid === "grdApcVrty"){
             	grdApcVrty.setCellData(nRow, nCol, "N", true);
@@ -887,7 +889,16 @@
             		spmtTrsprtMngDatagrid.deleteRow(nRow);
             	}
             }else if (grid === "grdOprtr") {
-            	grdOprtr.deleteRow(nRow);
+            	if(grdOprtr.getRowStatus(nRow) == 0 || grdOprtr.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var oprtrVO = grdOprtr.getRowData(nRow);
+            			fn_deleteOprtrList(oprtrVO);
+            			grdOprtr.deleteRow(nRow);
+            		}
+            	}else{
+            		grdOprtr.deleteRow(nRow);
+            	}
             }else if (grid === "grdGrd") {
             	if(grdGrd.getRowStatus(nRow) == 0 || grdGrd.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";

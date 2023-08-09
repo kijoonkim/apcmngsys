@@ -2,11 +2,13 @@ package com.at.apcss.am.oprtr.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode(callSuper = false)
 public class OprtrVO extends ComVO{
 
 	/*

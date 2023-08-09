@@ -3,6 +3,8 @@ package com.at.apcss.am.oprtr.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +57,74 @@ public class OprtrController extends BaseController{
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/cmns/compareOprtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> compareSpmtTrsprtList(@RequestBody Map<String, List<OprtrVO>> oprtrVO, HttpServletRequest request) throws Exception {
+		logger.debug("compareOprtrList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		int insertCnt = 0;
+		try {
+			List<OprtrVO> origin = oprtrVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
+			List<OprtrVO> modified = oprtrVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
+
+			List<OprtrVO> updateList = new ArrayList<OprtrVO>();
+			List<OprtrVO> insertList = new ArrayList<OprtrVO>();
+			boolean insrtChk = true;
+			for (OprtrVO ei : modified) {
+				insrtChk = true;
+				for (OprtrVO ej : origin) {
+					if (ei.getFlnm().equals(ej.getFlnm()) && ei.getBrdt().equals(ej.getBrdt())) {
+						if (ei.hashCode() != ej.hashCode()) {
+							updateList.add(ei);
+						}
+						insrtChk = false;
+						break;
+					}
+				}
+				if (insrtChk)
+					insertList.add(ei);
+			}
+
+			for (OprtrVO element : insertList) {
+				element.setSysFrstInptPrgrmId(getPrgrmId());
+				element.setSysFrstInptUserId(getUserId());
+				element.setSysLastChgPrgrmId(getPrgrmId());
+				element.setSysLastChgUserId(getUserId());
+				oprtrService.insertOprtr(element);
+			}
+
+			for (OprtrVO element : updateList) {
+				element.setSysLastChgPrgrmId(getPrgrmId());
+				element.setSysLastChgUserId(getUserId());
+				oprtrService.updateOprtr(element);
+			}
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/cmns/deleteOprtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteSpmtTrsprtList(@RequestBody OprtrVO oprtrVO, HttpServletRequest request) throws Exception {
+		logger.debug("deleteOprtrList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = 0;
+		try {
+			result = oprtrService.deleteOprtr(oprtrVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("result", result);
 
 		return getSuccessResponseEntity(resultMap);
 	}

@@ -105,7 +105,6 @@
 		   SET SYS_LAST_CHG_DT 			= SYSDATE
     		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
     		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-			 , BRDT						= #{brdt}
     		 , TELNO					= #{telno}
     		 , ADDR						= #{addr}
     		 , JNCMP					= #{jncmp}
@@ -116,6 +115,7 @@
     		 , DEL_YN					= #{delYn}
 		 WHERE APC_CD 					= #{apcCd}
 		   AND FLNM 					= #{flnm}
+		   AND BRDT 					= #{brdt}
 		]]>
 	</update>
 
@@ -132,6 +132,7 @@
 		DELETE FROM TB_OPRTR_MNG
 		 WHERE APC_CD			= #{apcCd}
 		   AND FLNM 			= #{flnm}
+ 		   AND BRDT 			= #{brdt}
 		]]>
 	</delete>
 
