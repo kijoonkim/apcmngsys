@@ -110,7 +110,7 @@
         }
 
         //const postJsonPromise = gfn_postJSON("/co/menu/leftMenu", {upMenuId: pMenuId});
-        const postJsonPromise = gfn_postJSON("/co/authrt/selectSideMenuTreeList.do", {upMenuId: pMenuId});
+        const postJsonPromise = gfn_postJSON("/co/authrt/selectSideMenuTreeList.do", {upMenuId: pMenuId}, "main", true);
 
         const data = await postJsonPromise;
 
@@ -767,9 +767,9 @@
         gridData_3 = [];
         datagrid_3.refresh();
     }
+    
 </script>
 <!-- //inline scripts related to this page -->
-
     <div class="sbt-A-wrap">
         <!-- header (menu) -->
         <div class="sbt-all-header">
@@ -962,5 +962,6 @@
             </div>
         </div>
     </div>
+	
 </body>
 </html>
