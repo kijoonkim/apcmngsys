@@ -74,7 +74,7 @@
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
-					<col style="width: 8%">
+					<col style="width: 9%">
 					<col style="width: 8%">
 					<col style="width: 7%">
 					<col style="width: 7%">
@@ -495,29 +495,17 @@
 		SBGridProperties.rowheadercaption = {seq: 'No'};
         SBGridProperties.rowheaderwidth = {seq: '60'};
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 20,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
+
         SBGridProperties.columns = [
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["메시지Key"],	ref: 'msgKey',      type:'output',  width:'30%',    style:'text-align:center'},
-            {caption: ["메시지내용"], 	ref: 'msgCn',     	type:'output',  width:'50%',    style:'text-align:left'},
-            {caption: ["메시지종류"],  	ref: 'msgKndNm',    type:'output',  width:'20%',    style:'text-align:center'},
-            {caption: ["비고"],      	ref: 'rmrk',        type:'output',  hidden: true},
-            {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
-            {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},
-            {caption: ["최종변경자ID"],	ref: 'updUserId',   type:'output',  hidden: true},
-            {caption: ["최종변경일시"], ref: 'updDateTime', type:'output',  hidden: true},
-            {caption: ["등록프로그램"], ref: 'creProgram',  type:'output',  hidden: true},
-            {caption: ["변경프로그램"], ref: 'updProgram',  type:'output',  hidden: true}
+
+        	{caption: ['선별기품목'], ref: 'wghno', width: '20%', type: 'output', style:'text-align:center'},
+            {caption: ['보유현황'], ref: 'prdcrNm', width: '20%', type: 'output', style:'text-align:center'},
+            {caption: ['처리능력(톤)'], ref: 'itemNm', width: '20%', type: 'output', style:'text-align:center'},
+            {caption: ['처리물량(톤)'], ref: 'vrtyNm', width: '20%', type: 'output', style:'text-align:center'},
+            {caption: ['연간가동시간(시간)'], ref: 'gdsSeNm', width: '20%', type: 'output', style:'text-align:center'},
+            {caption: ['평균가동일수'], ref: 'wrhsSeNm', width: '20%', type: 'output', style:'text-align:center'},
         ];
+
 
         grdComMsgList = _SBGrid.create(SBGridProperties);
         grdComMsgList.bind('click', 'fn_view');
