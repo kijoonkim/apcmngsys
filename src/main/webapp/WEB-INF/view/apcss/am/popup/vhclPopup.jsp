@@ -49,7 +49,7 @@
 								<sbux-input
 									uitype="text" id="vhcl-inp-vhclno" name="vhcl-inp-vhclno" 
 									class="form-control input-sm"
-    								onkeyenter="keyUpInp(vhcl-inp-vhclno, 'vhcl-inp-vhclno', 'true')">
+    								onkeyenter="popVhcl.search">
     							</sbux-input>
 							</th>
 							<th>&nbsp;</th>
@@ -268,7 +268,7 @@
 		        try {
 		        	if (_.isEqual("S", data.resultStatus)) {
 		        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-		        		grdVhclPop.deleteRow(nRow);
+		        		this.searchInEdit();
 		        	} else {
 		        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		        	}
@@ -322,14 +322,7 @@
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-	        		SBUxMethod.show('btnEditVhcl');
-	    			SBUxMethod.hide('btnCancelVhcl');
-	    			SBUxMethod.attr('btnSaveVhcl', 'disabled', true);
-	    			SBUxMethod.attr('btnSearchVhcl', 'disabled', false);
-	    			this.createGrid();
-	        		this.search();
-// 	        		this.createGrid(true);
-// 	    			grdVhclPop.rebuild();
+	        		this.searchInEdit();
 	        	} else {
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
@@ -346,7 +339,7 @@
 	    	jsonVhclPop.length = 0;
 	    	//grdVhclPop.refresh();
 	    	//grdVhclPop.clearStatus();
-	    	this.setGrid(pageSize, pageNo);
+	    	await this.setGrid(pageSize, pageNo);
 		},
 		setGrid: async function(pageSize, pageNo) {
 	    	
@@ -417,6 +410,13 @@
 	    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
 	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+	    },
+	    searchInEdit: async function() {
+	    	this.createGrid();
+    		await this.search();
+    		this.createGrid(true);
+			grdVhclPop.rebuild();
+    		grdVhclPop.addRow();
 	    }
 	}
 	
