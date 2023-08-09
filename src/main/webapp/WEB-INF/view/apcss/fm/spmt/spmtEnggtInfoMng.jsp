@@ -177,8 +177,11 @@
 							</td>
 
 							<th scope="row">세부사항</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-spcfct-cd" name="srch-spcfct-cd" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-enggtVlm" name="srch-inp-enggtVlm" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+							</td>
+							<td colspan="1" class="td_input" style="border-right: hidden;">
+								<sbux-button id="srch-btn-cnpt06" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="첨부" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
 							</td>
 							<td colspan="4" class="td_input"></td>
 						</tr>
@@ -246,11 +249,6 @@
 		               </div>
 		            </div>
 
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>출하약정실적 상세내역</span></li>
-						</ul>
-					</div>
 
 
 
