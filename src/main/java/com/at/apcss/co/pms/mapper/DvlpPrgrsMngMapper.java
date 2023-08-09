@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.at.apcss.co.pms.vo.DfctMngVO;
+import com.at.apcss.co.pms.vo.DfctVO;
 import com.at.apcss.co.pms.vo.DvlpPrgrsMngVO;
 /**
  * 개발진행관리 Mapper 인터페이스
@@ -78,4 +79,12 @@ public interface DvlpPrgrsMngMapper {
 	 * @throws Exception
 	 */
 	public int deleteDfctMng(DfctMngVO dfctMngVO) throws Exception;
+
+	/**
+	 * 프로그램개발진행진도 조회
+	 * @param DfctVO
+	 * @return List<DfctVO>
+	 * @throws Exception
+	 */
+	public List<DfctVO> selectDfct(DfctVO dfctVO) throws Exception;
 }
