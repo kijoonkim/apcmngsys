@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
 import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -78,50 +79,33 @@ public class ApcEvrmntStngController extends BaseController{
 	}
 	
 	// APC 정보관리 - APC 내역 등록
-	@PostMapping(value = "/am/apc/updateApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> updateApcDsctnList(@RequestBody Map<String, List<ApcEvrmntStngVO>> ApcEvrmntStngVO, HttpServletRequest request) throws Exception {
-		logger.debug("updateApcDsctnList 호출 <><><><> ");
-
+	@PostMapping(value = "/am/apc/multiApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiApcDsctnList(@RequestBody List<ApcEvrmntStngVO> apcDsctnList, HttpServletRequest request) throws Exception {
+		logger.debug("multiApcDsctnList 호출 <><><><> ");
+		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int insertedCnt = 0;
+		List<ApcEvrmntStngVO> updateList = new ArrayList<ApcEvrmntStngVO>();
 		try {
-			List<ApcEvrmntStngVO> origin = ApcEvrmntStngVO.get("origin").stream().collect(Collectors.toList());
-			List<ApcEvrmntStngVO> modified = ApcEvrmntStngVO.get("modified").stream().collect(Collectors.toList());
-
-			List<ApcEvrmntStngVO> insertList = new ArrayList<ApcEvrmntStngVO>(modified).stream().filter(e -> e.getApcCd() == null || e.getApcCd().equals("")).collect(Collectors.toList());
-			for (ApcEvrmntStngVO element : insertList) {
-				element.setSysFrstInptPrgrmId(getPrgrmId());
-				element.setSysFrstInptUserId(getUserId());
-				element.setSysLastChgPrgrmId(getPrgrmId());
-				element.setSysLastChgUserId(getUserId());
-				insertedCnt += apcEvrmntStngService.insertApcDsctn(element);
+			for ( ApcEvrmntStngVO ApcEvrmntStngVO : apcDsctnList ) {
+				ApcEvrmntStngVO.setSysFrstInptUserId(getUserId());
+				ApcEvrmntStngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				ApcEvrmntStngVO.setSysLastChgUserId(getUserId());
+				ApcEvrmntStngVO.setSysLastChgPrgrmId(getPrgrmId());
+				updateList.add(ApcEvrmntStngVO);
 			}
-
-			List<ApcEvrmntStngVO> updateList = new ArrayList<ApcEvrmntStngVO>();
-			for (ApcEvrmntStngVO ei : origin) {
-				for (ApcEvrmntStngVO ej : modified) {
-					if (ei.getApcCd().equals(ej.getApcCd())) {
-						if (ei.hashCode() != ej.hashCode()) {
-							updateList.add(ej);
-						} break;
-					}
-				}
+			
+			HashMap<String, Object> rtnObj = apcEvrmntStngService.multiApcDsctnList(updateList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
 			}
-			for (ApcEvrmntStngVO element : updateList) {
-				element.setSysLastChgPrgrmId(getPrgrmId());
-				element.setSysLastChgUserId(getUserId());
-				insertedCnt += apcEvrmntStngService.updateApcDsctn(element);
-			}
+			
 		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-
 		return getSuccessResponseEntity(resultMap);
 	}
-
-
+	
 	// APC 환경설정 - 사용자 목록 조회
 	@PostMapping(value = "/am/apc/selectApcUserList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcUserList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
