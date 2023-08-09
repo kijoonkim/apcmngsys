@@ -65,8 +65,7 @@
 	async function fn_oprtrMngCreateGrid() {
 
 		SBUxMethod.set("oprtr-inp-apcNm", SBUxMethod.get("inp-apcNm"));
-
-		oprtrMngGridData = [];
+		jsonOprtr = [];
 		let SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdOprtr';
 	    SBGridProperties.id = 'grdOprtr';
@@ -103,11 +102,13 @@
 		fn_callSelectOprtrList();
 	}
 
+    var newJsonOprtr = [];
 	async function fn_callSelectOprtrList(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        let newJsonOprtr = [];
+        newJsonOprtr = [];
+        jsonOprtr = [];
         try{
         	data.resultList.forEach((item, index) => {
 				let oprtrVO = {
@@ -122,9 +123,13 @@
 				  , delYn : 	item.delYn
 				  , apcCd : 	item.apcCd
 				}
-				newJsonOprtr.push(oprtrVO);
+// 				newJsonOprtr.push(oprtrVO);
+				
+				jsonOprtr.push(Object.assign({}, oprtrVO));
+				newJsonOprtr.push(Object.assign({}, oprtrVO));
 			});
-        	jsonOprtr = newJsonOprtr;
+//         	jsonOprtr = newJsonOprtr;
+			console.log("jsonOprtr", jsonOprtr);
         	grdOprtr.rebuild();
         	grdOprtr.addRow();
         }catch (e) {
@@ -157,25 +162,40 @@
 				}
 			}
 		}
-		if(insertList.length == 0 && updateList.length == 0){
+// 		if(insertList.length == 0 && updateList.length == 0){
+// 			alert("저장 할 내용이 없습니다.");
+// 			return;
+// 		}
+
+		var isEqual1 = await chkEqualObj(jsonOprtr, newJsonOprtr);
+		console.log(isEqual1);
+		if (isEqual1){
 			alert("저장 할 내용이 없습니다.");
 			return;
 		}
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
-			if(insertList.length > 0){
-				insertCnt = await fn_callInsertOprtrList(insertList);
-			}
-			if(updateList.length > 0){
-				updateCnt = await fn_callUpdateOprtrList(updateList);
-			}
-			if(insertListResult + updateListResult > 0 ){
-				fn_callSelectFcltList();
-				alert("저장 되었습니다.");
-			}
+// 			if(insertList.length > 0){
+// 				insertCnt = await fn_callInsertOprtrList(insertList);
+// 			}
+// 			if(updateList.length > 0){
+// 				updateCnt = await fn_callUpdateOprtrList(updateList);
+// 			}
+// 			if(insertListResult + updateListResult > 0 ){
+// 				fn_callSelectFcltList();
+// 				alert("저장 되었습니다.");
+// 			}
+			let postJsonPromise = gfn_postJSON("/am/cmns/compareOprtrList.do", {origin : newJsonOprtr, modified : jsonOprtr});
+
+			alert("저장 되었습니다.");
+
+
 		}
 	}
 
+	async function fn_deleteOprtrList(oprtrVO){
+		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteOprtrList.do", oprtrVO);
+	}
 </script>
 </html>

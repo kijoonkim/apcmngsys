@@ -397,8 +397,9 @@
 			SBUxMethod.set("dtl-slt-itemCd", prdcr.rprsItemCd);
 			SBUxMethod.set("dtl-slt-vrtyCd", prdcr.rprsVrtyCd);
 
- 			// 차량번호 set
+ 			// 차량번호/성명 set
 			SBUxMethod.set("dtl-inp-vhclno", prdcr.vhclno);
+			fn_setDrvrNm(prdcr.vhclno);
 		}
 	}
 	
@@ -462,6 +463,16 @@
 	function fn_onSelectVhclno(value, label, item) {
 		SBUxMethod.set("dtl-inp-vhclno", value);
 		SBUxMethod.attr("dtl-inp-vhclno", "style", "background-color:aquamarine");	//skyblue
+		fn_setDrvrNm(value);
+	}
+	
+	function fn_setDrvrNm(vhclno){
+		for(var i=0; i<jsonVhcl.length; i++){
+			if(jsonVhcl[i].vhclno === vhclno){
+				SBUxMethod.set("inp-drvrNm", jsonVhcl[i].drvrNm);
+				break;
+			}
+		}
 	}
 
 	
@@ -518,7 +529,7 @@
 		SBUxMethod.set("dtl-inp-vhclno", null);
 	}
 	
-	/** 생산자정보 */
+	/** 차량정보 */
 	/**
 	 * @name fn_getvhcls
 	 * @description  APC별 차량 목록 가져오기

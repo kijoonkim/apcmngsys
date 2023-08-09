@@ -36,7 +36,6 @@ public class OprtrServiceImpl implements OprtrService {
 
 	@Override
 	public List<OprtrVO> selectOprtrList(OprtrVO oprtrVO) throws Exception {
-		System.out.println("여기까지는 오냐");
 		return oprtrMapper.selectOprtrList(oprtrVO);
 	}
 
