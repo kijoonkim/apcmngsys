@@ -62,7 +62,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 			.addPathPatterns(
 //				"/cop/com/*.do",
 //				"/cop/bbs/*Master*.do",
-//				"/**/*.do",
+				"/**/*.do",
 				"/main.do",
 				"/actionMain.do",
 				"/uat/uia/*.do")
@@ -72,7 +72,10 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/uat/uia/actionLoginJWT.do",
 				"/uat/uia/egovLoginUsr.do",
 				"/uat/uia/egovLoginUsrAPI.do",
-				"/uat/uia/actionLogoutAPI.do"
+				"/uat/uia/actionLogoutAPI.do",
+				"/actionLogin.do",
+				"/actionLogout.do",
+				"/login.do"
 				);
 		registry.addInterceptor(new CustomAuthenticInterceptor())
 			.addPathPatterns(
