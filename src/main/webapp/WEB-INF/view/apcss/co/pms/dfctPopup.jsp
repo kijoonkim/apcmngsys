@@ -84,11 +84,11 @@
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.columns = [
-		        {caption: ['결함내용'], 		ref: 'dfctCn', 		width: '280px', type: 'input', style:'text-align:center'},
+		        {caption: ['검토요청내용'], 	ref: 'dfctCn', 		width: '280px', type: 'input', style:'text-align:center'},
 		        {caption: ['등록자'], 			ref: 'regPrsnNm', 	width: '80px', 	type: 'input', style:'text-align:center'},
 		        {caption: ['담당자 조치결과'], 	ref: 'actnRslt', 	width: '280px', type: 'input', style:'text-align:center'},
 		        {caption: ['최종변경일시'], 	ref: 'ocrnYmd', 	width: '100px', type: 'output', format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'},style:'text-align:center'},
-		        {caption: ['조치일자'], 		ref: 'actnYmd', 	width: '120px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  style:'text-align:center'},
+		        {caption: ['조치일자'], 		ref: 'actnYmd', 	width: '120px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true},  style:'text-align:center'},
 		        {caption: ["처리"], 			ref: 'delYn', type:'button', width:'80px', style: 'text-align:center',
 		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 		            	if (gfn_isEmpty(strValue)){
@@ -129,6 +129,7 @@
 		        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
 		        		this.search();
 		        		dvlpPrgs.search();
+		        		dvlpPrgs.searchDfct();
 		        	} else {
 		        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		        	}
@@ -152,7 +153,7 @@
 				if(!gfn_isEmpty(rowData.delYn)){
 
 					if (gfn_isEmpty(rowData.dfctCn)){
-						gfn_comAlert("W0002", "결함내용");		//	W0002	{0}을/를 입력하세요.
+						gfn_comAlert("W0002", "검토요청내용");		//	W0002	{0}을/를 입력하세요.
 			            return;
 					}
 					if (gfn_isEmpty(rowData.regPrsnNm)){

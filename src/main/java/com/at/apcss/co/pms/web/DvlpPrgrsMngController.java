@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.pms.service.DvlpPrgrsMngService;
 import com.at.apcss.co.pms.vo.DfctMngVO;
+import com.at.apcss.co.pms.vo.DfctVO;
 import com.at.apcss.co.pms.vo.DvlpPrgrsMngVO;
 import com.at.apcss.co.sys.controller.BaseController;
 /**
@@ -121,21 +122,8 @@ public class DvlpPrgrsMngController extends BaseController {
 				dfctMngVO.setSysFrstInptUserId(getPrgrmId());
 				dfctMngVO.setSysLastChgPrgrmId(getPrgrmId());
 				dfctMngVO.setSysLastChgUserId(getUserId());
-				if(ComConstants.ROW_STS_INSERT.equals(dfctMngVO.getRowSts())) {
-					insertedCnt += dvlpPrgrsMngService.insertDfctMng(dfctMngVO);
-
-					DvlpPrgrsMngVO dvlpPrgrsMngVO = new DvlpPrgrsMngVO();
-					dvlpPrgrsMngVO.setSysLastChgPrgrmId(getPrgrmId());
-					dvlpPrgrsMngVO.setSysLastChgUserId(getUserId());
-					dvlpPrgrsMngVO.setPrgrmId(dfctMngVO.getPrgrmId());
-					dvlpPrgrsMngVO.setStts("03");
-					dvlpPrgrsMngService.updateDvlpStts(dvlpPrgrsMngVO);
-				}
-				if(ComConstants.ROW_STS_UPDATE.equals(dfctMngVO.getRowSts())) {
-
-					updatedCnt += dvlpPrgrsMngService.updateDfctMng(dfctMngVO);
-				}
 			}
+			dvlpPrgrsMngService.multiDfctList(dfctMngList);
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -162,6 +150,27 @@ public class DvlpPrgrsMngController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+	// 개발진행관리 목록 조회
+	@PostMapping(value = "/co/pms/selectDfct.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectDfct(Model model, @RequestBody DfctVO dfctVO, HttpServletRequest request) throws Exception{
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<DfctVO> resultList = new ArrayList<>();
+
+		try {
+			 resultList = dvlpPrgrsMngService.selectDfct(dfctVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 
 		return getSuccessResponseEntity(resultMap);
 	}
