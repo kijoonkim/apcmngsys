@@ -69,7 +69,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdApcInfoMng" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdApcInfoMng" style="width:100%;height:600px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -84,8 +84,8 @@
 	var apcInfoMngData = [];
 
 	const fn_initSBSelect = async function() {
-		gfn_setComCdSBSelect('srch-slt-delYn', jsonComboDelYn, 'DEL_YN', '0000');
-		gfn_setComCdGridSelect('grdApcInfoMng', comboDelYnJsData, "DEL_YN", "0000");
+		gfn_setComCdSBSelect('srch-slt-delYn', jsonComboDelYn, 'REVERSE_YN', '0000');
+		gfn_setComCdGridSelect('grdApcInfoMng', comboDelYnJsData, "REVERSE_YN", "0000");
 	}
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -113,20 +113,20 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-        	{caption: ['선택'], ref: 'checked', width: '50px', type: 'checkbox'},
-            {caption: ['APC코드'], ref: 'apcCd', width: '70px', type: 'output'},
-            {caption: ['원본APC명'], ref: 'regApcNm', width: '200px', type: 'input'},
-            {caption: ['시도명'], ref: 'ctpvNm', width: '70px', type : 'input'},
-            {caption: ['시군명'], ref: 'sigunNm', width: '70px', type: 'input'},
-            {caption: ['주체명'], ref: 'mbCd', width: '70px', type: 'input'},
-            {caption: ['원본주소'], ref: 'regAddr', width: '300px', type: 'input'},
-            {caption: ['원본전화번호'], ref: 'regTelno', width: '100px', type: 'input'},
-            {caption: ['APC명'], ref: 'apcNm', width: '200px', type: 'input'},
-            {caption: ['사업자번호'], ref: 'brno', width: '100px', type: 'input'},
-            {caption: ['주소'], ref: 'addr', width: '300px', type: 'input'},
-            {caption: ['팩스번호'], ref: 'fxno', width: '100px', type: 'input'},
-            {caption: ['전화번호'], ref: 'telno', width: '100px', type: 'input'},
-            {caption: ['사용유무'], ref: 'delYn', width: '70px', type : 'combo',
+        	{caption: ['선택'],		ref: 'checked',  	width: '50px',		type: 'checkbox'},
+            {caption: ['APC코드'],	ref: 'apcCd',		width: '70px', 		type: 'output',		style:'text-align: right'},
+            {caption: ['원본APC명'], 	ref: 'regApcNm', 	width: '200px',		type: 'input',		style:'text-align: center'},
+            {caption: ['시도명'], 	ref: 'ctpvNm',	 	width: '70px', 		type: 'input',		style:'text-align: center'},
+            {caption: ['시군명'], 	ref: 'sigunNm',	 	width: '70px', 		type: 'input',		style:'text-align: center'},
+            {caption: ['주체명'], 	ref: 'mbCd', 	 	width: '70px', 		type: 'input',		style:'text-align: center'},
+            {caption: ['원본주소'], 	ref: 'regAddr',  	width: '300px',		type: 'input'},
+            {caption: ['원본전화번호'],	ref: 'regTelno', 	width: '100px', 	type: 'input',		style:'text-align: right'},
+            {caption: ['APC명'], 	ref: 'apcNm', 	 	width: '200px', 	type: 'input',		style:'text-align: center'},
+            {caption: ['사업자번호'],	ref: 'brno', 	 	width: '100px', 	type: 'input',		style:'text-align: right'},
+            {caption: ['주소'],	 	ref: 'addr', 	 	width: '300px', 	type: 'input',},
+            {caption: ['팩스번호'],	ref: 'fxno', 	 	width: '100px', 	type: 'input',		style:'text-align: right'},
+            {caption: ['전화번호'], 	ref: 'telno',	 	width: '100px', 	type: 'input',		style:'text-align: right'},
+            {caption: ['사용유무'], 	ref: 'delYn', 	 	width: '70px', 		type: 'combo',		style:'text-align: center',
             	typeinfo : {ref:'comboDelYnJsData', label:'label', value:'value', oneclickedit: true, displayui : true}}
         ];
         grdApcInfoMng = _SBGrid.create(SBGridProperties);
@@ -137,6 +137,7 @@
 	async function fn_procRowApcInfo(type){
 		if (type == "ADD"){
 			grdApcInfoMng.addRow(true, {'delYn':'N'});
+			grdApcInfoMng.setCellData(grdApcInfoMng.getGridDataAll().length, 0, true);
 			fn_initSBSelect();
 		}
 		else{
@@ -256,6 +257,7 @@
 	        	if(data.insertedCnt > 0){
 	        		fn_callSelectApcDsctnList();
 	        		alert("등록 되었습니다.");
+	        		fn_search();
 	        	}else{
 	        		alert("등록 실패 하였습니다.");
 	        	}
