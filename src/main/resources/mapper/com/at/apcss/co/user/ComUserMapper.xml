@@ -125,6 +125,9 @@
 		<if test='apcNm != null and apcNm != ""'>
 			   AND (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CU.APC_CD) LIKE #{apcNm}
 		</if>
+		<if test='aprvYn != null and aprvYn != ""'>
+			   AND CU.USER_STTS = #{aprvYn}
+		</if>
     	<![CDATA[
     		 ORDER BY USER_ID, USER_NM
     	]]>
