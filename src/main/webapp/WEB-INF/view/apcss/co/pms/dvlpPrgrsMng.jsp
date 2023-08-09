@@ -15,7 +15,7 @@
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="dvlpPrgs.search"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="dvlpPrgs.searchAll"></sbux-button>
 					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="dvlpPrgs.save"></sbux-button>
 				</div>
 			</div>
@@ -210,7 +210,7 @@
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-	        		this.search();
+	        		this.searchAll();
 	        	} else {
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
@@ -286,7 +286,7 @@
 		    SBGridProperties.id = this.gridIdDfct;
 		    SBGridProperties.jsonref = this.jsonIdDfct;
 		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		    SBGridProperties.selectmode = 'byrow';
+		    SBGridProperties.selectmode = 'free';
 		    SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
@@ -297,11 +297,11 @@
 		        {caption: ['개발대상'], 	ref: 'cnt1', 	width: '130px', type: 'output', style:'text-align:center'},
 		        {caption: ['개발완료'], 	ref: 'cnt2', 	width: '130px', type: 'output', style:'text-align:center'},
 		        {caption: ['개발지연'], 	ref: 'cnt3', 	width: '130px', type: 'output', style:'text-align:center'},
-		        {caption: ['개발진도'], 	ref: 'per1', 	width: '130px',	type: 'output', style:'text-align:center'},
+		        {caption: ['개발진도'], 	ref: 'per1', 	width: '130px',	type: 'output', style:'text-align:center;background:#FFF8DC;'},
 		        {caption: ['시험대상'], 	ref: 'cnt4', 	width: '130px', type: 'output', style:'text-align:center'},
 		        {caption: ['시험완료'], 	ref: 'cnt5', 	width: '130px', type: 'output', style:'text-align:center'},
 		        {caption: ['시험지연'], 	ref: 'cnt6', 	width: '130px', type: 'output', style:'text-align:center'},
-		        {caption: ['시험진도'], 	ref: 'per2', 	width: '130px', type: 'output', style:'text-align:center'},
+		        {caption: ['시험진도'], 	ref: 'per2', 	width: '130px', type: 'output', style:'text-align:center;background:#FFF8DC;'},
 		        {caption: ['검토요청'], 	ref: 'cnt7', 	width: '130px', type: 'output', style:'text-align:center'},
 		        {caption: ['조치완료'], 	ref: 'cnt8', 	width: '130px', type: 'output', style:'text-align:center'},
 		    ];
@@ -359,6 +359,10 @@
 	    		console.error("failed", e.message);
 	        }
 	    },
+	    searchAll: async function() {
+	    	this.search();
+	    	this.searchDfct();
+	    }
 
 	}
 
