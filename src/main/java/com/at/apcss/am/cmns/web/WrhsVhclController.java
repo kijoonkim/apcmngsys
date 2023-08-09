@@ -159,6 +159,35 @@ public class WrhsVhclController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	@PostMapping(value = "/am/cmns/multiVhclList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiVhclList(@RequestBody List<WrhsVhclVO> vhclList, HttpServletRequest request) throws Exception {
+		logger.debug("multiVhclList 호출 <><><><> ");
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<WrhsVhclVO> updateList = new ArrayList<WrhsVhclVO>();
+		try {
+			for ( WrhsVhclVO wrhsVhclVO : vhclList ) {
+				wrhsVhclVO.setVhclno(wrhsVhclVO.getVhclno().replaceAll(" ", ""));
+				wrhsVhclVO.setSysFrstInptUserId(getUserId());
+				wrhsVhclVO.setSysFrstInptPrgrmId(getPrgrmId());
+				wrhsVhclVO.setSysLastChgUserId(getUserId());
+				wrhsVhclVO.setSysLastChgPrgrmId(getPrgrmId());
+				updateList.add(wrhsVhclVO);
+			}
+			
+			HashMap<String, Object> rtnObj = wrhsVhclService.multiVhclList(updateList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		return getSuccessResponseEntity(resultMap);
+	}
 
 	@PostMapping(value = "/am/cmns/deleteWrhsVhclList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteWrhsVhclList(@RequestBody WrhsVhclVO wrhsVhclVO, HttpServletRequest request) throws Exception {

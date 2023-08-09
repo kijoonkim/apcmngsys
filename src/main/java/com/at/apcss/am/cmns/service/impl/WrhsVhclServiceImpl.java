@@ -1,13 +1,19 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.cmns.mapper.WrhsVhclMapper;
 import com.at.apcss.am.cmns.service.WrhsVhclService;
 import com.at.apcss.am.cmns.vo.WrhsVhclVO;
+import com.at.apcss.co.constants.ComConstants;
 
 /**
  * @Class Name : WrhsVhclServiceImpl.java
@@ -69,5 +75,33 @@ public class WrhsVhclServiceImpl implements WrhsVhclService {
 		
 		return deletedCnt;
 	}
-
+	
+	@Override
+	public HashMap<String, Object> multiVhclList(List<WrhsVhclVO> vhclList) throws Exception {
+		// TODO Auto-generated method stub
+	
+		List<WrhsVhclVO> insertList = new ArrayList<>();
+		List<WrhsVhclVO> updateList = new ArrayList<>();
+		
+		for ( WrhsVhclVO wrhsVhclVO : vhclList ) {
+			WrhsVhclVO vo = new WrhsVhclVO();
+			BeanUtils.copyProperties(wrhsVhclVO, vo);
+			
+			if (ComConstants.ROW_STS_INSERT.equals(wrhsVhclVO.getRowSts())) {
+				insertList.add(vo);
+			}
+			if (ComConstants.ROW_STS_UPDATE.equals(wrhsVhclVO.getRowSts())) {
+				updateList.add(vo);
+			}
+		}
+		
+		for ( WrhsVhclVO wrhsVhclVO : insertList ) {
+			wrhsVhclMapper.insertWrhsVhcl(wrhsVhclVO);
+		}
+		
+		for ( WrhsVhclVO wrhsVhclVO : updateList ) {
+			wrhsVhclMapper.updateWrhsVhcl(wrhsVhclVO);
+		}
+		return null;
+	}
 }
