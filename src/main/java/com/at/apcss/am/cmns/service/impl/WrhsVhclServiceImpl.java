@@ -12,7 +12,6 @@ import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.cmns.mapper.WrhsVhclMapper;
 import com.at.apcss.am.cmns.service.WrhsVhclService;
-import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import com.at.apcss.co.constants.ComConstants;
 
@@ -88,7 +87,7 @@ public class WrhsVhclServiceImpl implements WrhsVhclService {
 			WrhsVhclVO vo = new WrhsVhclVO();
 			BeanUtils.copyProperties(wrhsVhclVO, vo);
 			
-			if (ComConstants.ROW_STS_INSERT.equals(wrhsVhclVO)) {
+			if (ComConstants.ROW_STS_INSERT.equals(wrhsVhclVO.getRowSts())) {
 				insertList.add(vo);
 			}
 			if (ComConstants.ROW_STS_UPDATE.equals(wrhsVhclVO.getRowSts())) {

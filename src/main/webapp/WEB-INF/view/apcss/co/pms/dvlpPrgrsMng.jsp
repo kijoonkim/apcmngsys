@@ -15,7 +15,7 @@
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="dvlpPrgs.search"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="dvlpPrgs.searchAll"></sbux-button>
 					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="dvlpPrgs.save"></sbux-button>
 				</div>
 			</div>
@@ -79,7 +79,11 @@
 				<br>
 
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdDvlpPrgrs" style="width:100%;height:550px;"></div>
+					<div id="sb-area-grdDvlpPrgrs" style="width:100%;height:406px;"></div>
+				</div>
+				<br>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdDfct" style="width:100%;height:108px;"></div>
 				</div>
 			</div>
 				<!--[pp] //검색결과 -->
@@ -87,7 +91,7 @@
 	</section>
 	<!-- 출하매출단가 등록 Modal -->
     <div>
-        <sbux-modal id="modal-dfctMng" name="modal-dfctMng" uitype="middle" header-title="출하 매출단가 등록" body-html-id="body-modal-dfctMng" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-dfctMng" name="modal-dfctMng" uitype="middle" header-title="검토요청관리" body-html-id="body-modal-dfctMng" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-dfctMng">
     	<jsp:include page="../pms/dfctPopup.jsp"></jsp:include>
@@ -102,6 +106,7 @@
 	var jsonGrdClsf			= [];	// 분류 		clsf	그리드
 	var jsonGrdPic			= [];	// 담당자 		pic		그리드
 	var grdDvlpPrgs = null;
+	var grdDfct = null;
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let today = new Date();
@@ -119,6 +124,9 @@
 		gridId: 'grdDvlpPrgs',
 		jsonId: 'jsonDvlpPrgs',
 		areaId: "sb-area-grdDvlpPrgrs",
+		gridIdDfct: 'grdDfct',
+		jsonIdDfct: 'jsonDfct',
+		areaIdDfct: "sb-area-grdDfct",
 		init: async function() {
 
 			if (grdDvlpPrgs === null) {
@@ -131,21 +139,25 @@
 					gfn_setComCdGridSelect('grdDvlpPrgs', 	jsonGrdPic, "PIC", "0000")			// 담당자(그리드)
 				]);
 				this.createGrid();
+				this.createGridDfct();
 				this.search();
+				this.searchDfct();
 			} else {
 				this.search();
+				this.searchDfct();
 			}
 		},
 		createGrid: function(/** {boolean} */ isEditable) {
 			var SBGridProperties = {};
-		    SBGridProperties.parentid = this.areaId;	//'sb-area-grdComAuthUserPop';	//this.sbGridArea;	//'sb-area-grdComAuthUserPop';
-		    SBGridProperties.id = this.gridId;			//'grdComAuthUserPop';					//'grdComAuthUserPop';
-		    SBGridProperties.jsonref = this.jsonId;		//'jsonComAuthUserPop';		//'jsonComAuthUserPop';
+		    SBGridProperties.parentid = this.areaId;
+		    SBGridProperties.id = this.gridId;
+		    SBGridProperties.jsonref = this.jsonId;
 		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 		    SBGridProperties.selectmode = 'byrow';
 		    SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
+		    SBGridProperties.clickeventarea = {fixed: true, empty: false};
 		    SBGridProperties.columns = [
 		    	{caption: ["상태"], 		ref: 'stts',   			type:'combo',  width:'100px',    style:'text-align:center',
 					typeinfo : {ref:'jsonGrdStts', label:'label', value:'value', displayui : false}},
@@ -153,15 +165,15 @@
 					typeinfo : {ref:'jsonGrdClsf', label:'label', value:'value', displayui : false}},
 		        {caption: ['완료구분'], 	ref: 'dvlpStts', 		width: '80px', type: 'output', style:'text-align:center'},
 		        {caption: ['프로그램명'], 	ref: 'prgrmNm', 		width: '300px', type: 'output', style:'text-align:left'},
-		        {caption: ['개발계획'], 	ref: 'dvlpPlanYmd', 	width: '100px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  style:'text-align:center'},
-		        {caption: ['개발완료'], 	ref: 'dvlpCmptnYmd', 	width: '100px',	type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  style:'text-align:center'},
-		        {caption: ['테스트계획'], 	ref: 'testPlanYmd', 	width: '100px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  style:'text-align:center'},
-		        {caption: ['테스트완료'], 	ref: 'testCmptnYmd', 	width: '100px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  style:'text-align:center'},
+		        {caption: ['개발계획'], 	ref: 'dvlpPlanYmd', 	width: '100px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}, style:'text-align:center'},
+		        {caption: ['개발완료'], 	ref: 'dvlpCmptnYmd', 	width: '100px',	type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}, style:'text-align:center'},
+		        {caption: ['테스트계획'], 	ref: 'testPlanYmd', 	width: '100px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}, style:'text-align:center'},
+		        {caption: ['테스트완료'], 	ref: 'testCmptnYmd', 	width: '100px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}, style:'text-align:center'},
 		        {caption: ['담당자'], 		ref: 'pic', 			width: '100px', type: 'output', style:'text-align:center'},
-		        {caption: ['결함'], 		ref: 'dfctCnt', 		width: '100px', type: 'output', style:'color:red; text-align:center',  format : {type:'number', rule:'#,###'}},
-		        {caption: ['완료'], 		ref: 'actnCnt', 		width: '100px', type: 'output', style:'text-align:center', format : {type:'number', rule:'#,###'}},
+		        {caption: ['검토요청'], 	ref: 'dfctCnt', 		width: '100px', type: 'output', style:'color:red; text-align:center',  format : {type:'number', rule:'#,###'}},
+		        {caption: ['조치완료'], 	ref: 'actnCnt', 		width: '100px', type: 'output', style:'text-align:center', format : {type:'number', rule:'#,###'}},
 		        {caption: ['최종변경일시'], ref: 'sysLastChgDt', 	width: '120px', type: 'output', style:'text-align:center'},
-		        {caption: ['비고'], 		ref: 'rmrk', 	width: '150px', type: 'output', style:'text-align:center'},
+		        {caption: ['비고'], 		ref: 'rmrk', 			width: '150px', type: 'input', style:'text-align:center'},
 		        {caption: ['프로그램ID'], 	ref: 'prgrmId', 	hidden : true}
 		    ];
 
@@ -198,7 +210,7 @@
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-	        		this.search();
+	        		this.searchAll();
 	        	} else {
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
@@ -234,8 +246,6 @@
 	        const data = await postJsonPromise;
 
 			try {
-	        	/** @type {number} **/
-	    		let totalRecordCount = 0;
 
 	    		jsonDvlpPrgs.length = 0;
 	        	data.resultList.forEach((item, index) => {
@@ -257,15 +267,11 @@
 					}
 					jsonDvlpPrgs.push(dvlpPrgs);
 
-					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;
-					}
 				});
 
         		grdDvlpPrgs.rebuild();
 
 	        	grdDvlpPrgs.setCellDisabled(0, 0, grdDvlpPrgs.getRows() - 1, 1, true);
-	        	//grdDvlpPrgs.setCellStyle('color', 1, 9, grdDvlpPrgs.getRows() - 1, 9, 'red');
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -274,13 +280,95 @@
 	    		console.error("failed", e.message);
 	        }
 	    },
+	    createGridDfct: function(/** {boolean} */ isEditable) {
+			var SBGridProperties = {};
+		    SBGridProperties.parentid = this.areaIdDfct;
+		    SBGridProperties.id = this.gridIdDfct;
+		    SBGridProperties.jsonref = this.jsonIdDfct;
+		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		    SBGridProperties.selectmode = 'free';
+		    SBGridProperties.explorerbar = 'sortmove';
+		    SBGridProperties.extendlastcol = 'scroll';
+		    SBGridProperties.oneclickedit = true;
+		    SBGridProperties.clickeventarea = {fixed: true, empty: false};
+		    SBGridProperties.columns = [
+		    	{caption: [''], 			ref: 'gb', 		width: '130px', type: 'output', style:'text-align:center'},
+		    	{caption: ['전체'], 		ref: 'tot', 	width: '130px', type: 'output', style:'text-align:center'},
+		        {caption: ['개발대상'], 	ref: 'cnt1', 	width: '130px', type: 'output', style:'text-align:center'},
+		        {caption: ['개발완료'], 	ref: 'cnt2', 	width: '130px', type: 'output', style:'text-align:center'},
+		        {caption: ['개발지연'], 	ref: 'cnt3', 	width: '130px', type: 'output', style:'text-align:center'},
+		        {caption: ['개발진도'], 	ref: 'per1', 	width: '130px',	type: 'output', style:'text-align:center;background:#FFF8DC;'},
+		        {caption: ['시험대상'], 	ref: 'cnt4', 	width: '130px', type: 'output', style:'text-align:center'},
+		        {caption: ['시험완료'], 	ref: 'cnt5', 	width: '130px', type: 'output', style:'text-align:center'},
+		        {caption: ['시험지연'], 	ref: 'cnt6', 	width: '130px', type: 'output', style:'text-align:center'},
+		        {caption: ['시험진도'], 	ref: 'per2', 	width: '130px', type: 'output', style:'text-align:center;background:#FFF8DC;'},
+		        {caption: ['검토요청'], 	ref: 'cnt7', 	width: '130px', type: 'output', style:'text-align:center'},
+		        {caption: ['조치완료'], 	ref: 'cnt8', 	width: '130px', type: 'output', style:'text-align:center'},
+		    ];
+
+		    grdDfct = _SBGrid.create(SBGridProperties);
+		},
+		searchDfct: async function() {
+			// set pagination
+			grdDfct.rebuild();
+
+	    	// grid clear
+	    	jsonDfct.length = 0;
+	    	grdDfct.refresh();
+	    	this.setGridDfct();
+		},
+		setGridDfct: async function() {
+
+	    	let dvlpPlanYmd = SBUxMethod.get("srch-dtp-dvlpPlanYmd");
+
+	        const postJsonPromise = gfn_postJSON("/co/pms/selectDfct.do", {
+	        	dvlpPlanYmd	: dvlpPlanYmd
+			});
+
+	        const data = await postJsonPromise;
+
+			try {
+
+	    		jsonDfct.length = 0;
+	        	data.resultList.forEach((item, index) => {
+					const dfct = {
+						gb			: item.gb,
+						cnt1		: item.cnt1,
+						cnt2		: item.cnt2,
+						cnt3		: item.cnt3,
+						per1		: item.per1,
+						cnt4		: item.cnt4,
+						cnt5		: item.cnt5,
+						cnt6		: item.cnt6,
+						per2		: item.per2,
+						cnt7		: item.cnt7,
+						cnt8		: item.cnt8,
+						tot			: item.tot
+					}
+					jsonDfct.push(dfct);
+
+				});
+
+        		grdDfct.rebuild();
+
+
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+	    },
+	    searchAll: async function() {
+	    	this.search();
+	    	this.searchDfct();
+	    }
 
 	}
 
 	function fn_modalClick(){
 		var nRow = grdDvlpPrgs.getRow();
 		var nCol = grdDvlpPrgs.getCol();
-		var dfctCnt = grdDvlpPrgs.getRowData(nRow).dfctCnt;
 		var rowData = grdDvlpPrgs.getRowData(nRow);
 
 		if(nCol == 9 && nRow != 0){

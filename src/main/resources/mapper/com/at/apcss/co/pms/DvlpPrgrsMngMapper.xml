@@ -21,14 +21,6 @@
 	<!-- 2023.08.07  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectDvlpPrgrsMngList" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO" resultType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
 			SELECT /* com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDvlpPrgrsMngList */
@@ -43,8 +35,8 @@
 			    , DPM.RMRK              AS RMRK
 			    , (SELECT FN_GET_COM_CD_VL_NM('PIC',DPM.PIC) FROM DUAL)                AS PIC
 			    , DPM.DEL_YN            AS DEL_YN
-			    , DECODE((SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID) , '0', '',  (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID)) AS DFCT_CNT
-			    , DECODE((SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.ACTN_YMD IS NOT NULL), '0', '',  (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.ACTN_YMD IS NOT NULL))AS ACTN_CNT
+			    , NULLIF((SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID), 0) AS DFCT_CNT
+                , NULLIF((SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.ACTN_YMD IS NOT NULL), 0) AS ACTN_CNT
 			    , TO_CHAR(DPM.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI') AS SYS_LAST_CHG_DT
     	]]>
     	<if test='dvlpPlanYmd != null and dvlpPlanYmd != ""'>
@@ -77,13 +69,9 @@
 				AND DPM.PRGRM_NM LIKE '%' || #{prgrmNm} || '%'
 			</if>
 		</where>
-		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
-			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
-			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
+		<![CDATA[
+			 ORDER BY DPM.DVLP_PLAN_YMD
+    	]]>
     </select>
 
 	<!-- ==========================================================================	-->
@@ -97,7 +85,7 @@
     <update id="updateDvlpPrgrsMng" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.co.msg.mapper.ComMsgMapper.updateComMsg */
-	    		TB_DVLP_PRGRS_MNG
+	    		TB_DVLP_PRGRS_MNG DPM
 			   SET
 				  SYS_LAST_CHG_DT		= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
@@ -106,15 +94,7 @@
 	    		, DVLP_CMPTN_YMD    	= #{dvlpCmptnYmd}
 	    		, TEST_PLAN_YMD     	= #{testPlanYmd}
 	    		, TEST_CMPTN_YMD    	= #{testCmptnYmd}
-
-    	]]>
-	    <if test='dvlpCmptnYmd != null and dvlpCmptnYmd !="" and !(testCmptnYmd != null and testCmptnYmd != "") and stts != "03"'>
-	    		, STTS					= '02'
-	    </if>
-	    <if test='testCmptnYmd != null and testCmptnYmd !="" and dvlpCmptnYmd != null and dvlpCmptnYmd !=""'>
-	    		, STTS					= '04'
-	    </if>
-    	<![CDATA[
+	    		, RMRK					= #{rmrk}
 			 WHERE PRGRM_ID	= #{prgrmId}
     	]]>
     </update>
@@ -130,12 +110,28 @@
     <update id="updateDvlpStts" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.co.msg.mapper.ComMsgMapper.updateDvlpStts */
-	    		TB_DVLP_PRGRS_MNG
+	    		TB_DVLP_PRGRS_MNG DPM
 			   SET
 				  SYS_LAST_CHG_DT		= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-	    		, STTS					= #{stts}
+	    		, STTS					= (
+		    								CASE
+										        WHEN
+									                DPM.DVLP_CMPTN_YMD IS NOT NULL AND DPM.TEST_CMPTN_YMD IS NULL AND (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID) = (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.ACTN_YMD IS NOT NULL)
+									            THEN '02'
+									            WHEN
+									                DPM.TEST_CMPTN_YMD IS NOT NULL AND (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID) = (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID AND X.ACTN_YMD IS NOT NULL)
+									            THEN '04'
+									            WHEN
+									                DPM.DVLP_CMPTN_YMD IS NOT NULL AND (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID) = 0
+									            THEN '02'
+									            WHEN
+									                DPM.DVLP_CMPTN_YMD IS NULL AND DPM.TEST_CMPTN_YMD IS NULL AND (SELECT COUNT(*) FROM TB_DFCT_MNG X WHERE X.PRGRM_ID = DPM.PRGRM_ID) = 0
+									            THEN '01'
+									            ELSE '03'
+										    END
+										   )
 			 WHERE PRGRM_ID	= #{prgrmId}
     	]]>
     </update>
@@ -250,6 +246,49 @@
 			    AND DFCT_SN		= #{dfctSn}
     	]]>
     </delete>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDfct			-->
+	<!-- DESC : 프로그램개발진처도 조회.                                      		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.09  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectDfct" parameterType="com.at.apcss.co.pms.vo.DfctVO" resultType="com.at.apcss.co.pms.vo.DfctVO">
+    	<![CDATA[
+			SELECT  /* com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDfct */
+					GB
+			      , SUM(TOT)    AS TOT
+			      , SUM(CNT1)   AS CNT1
+			      , SUM(CNT2)   AS CNT2
+			      , SUM(CNT1) - SUM(CNT2)  AS CNT3
+			      , CASE WHEN SUM(CNT2) > 0 THEN ROUND(SUM(CNT2) * 100 / SUM(CNT1),1)||'%' ELSE null END PER1
+			      , SUM(CNT4)   AS CNT4
+			      , SUM(CNT5)   AS CNT5
+			      , SUM(CNT4) - SUM(CNT5)  AS CNT6
+			      , CASE WHEN SUM(CNT5) > 0 THEN ROUND(SUM(CNT5) * 100 / SUM(CNT4),1)||'%' ELSE null END PER2
+			      , SUM(ERRCNT1) AS CNT7
+			      , SUM(ERRCNT2) AS CNT8
+			FROM   (SELECT  CASE WHEN A.CLSF <= '07' THEN '업무지원'
+			                     WHEN A.CLSF  = '11' THEN '생산농가'
+			                     WHEN A.CLSF  = '12' THEN '포탈' END AS GB
+			              , 1    AS TOT
+			              , CASE WHEN A.DVLP_PLAN_YMD  <= #{dvlpPlanYmd} THEN 1 ELSE 0 END AS CNT1
+			              , CASE WHEN A.DVLP_CMPTN_YMD <= #{dvlpPlanYmd} THEN 1 ELSE 0 END AS CNT2
+			              , CASE WHEN A.TEST_PLAN_YMD  <= #{dvlpPlanYmd} THEN 1 ELSE 0 END AS CNT4
+			              , CASE WHEN A.TEST_CMPTN_YMD <= #{dvlpPlanYmd} THEN 1 ELSE 0 END AS CNT5
+			              , NVL(B.ERRCNT,0) AS ERRCNT1
+			              , NVL(C.ERRCNT,0) AS ERRCNT2
+			         FROM   USRAM.TB_DVLP_PRGRS_MNG A
+			              , (SELECT PRGRM_ID, COUNT(1) AS ERRCNT FROM USRAM.TB_DFCT_MNG GROUP BY PRGRM_ID) B
+			              , (SELECT PRGRM_ID, COUNT(1) AS ERRCNT FROM USRAM.TB_DFCT_MNG WHERE ACTN_YMD IS NOT NULL GROUP BY PRGRM_ID) C
+			        WHERE   A.PRGRM_ID = B.PRGRM_ID(+)
+			          AND   A.PRGRM_ID = C.PRGRM_ID(+)
+			       )
+			GROUP BY GB
+    	]]>
+    </select>
 
 
 </mapper>

@@ -49,7 +49,7 @@
 								<sbux-input
 									uitype="text" id="vhcl-inp-vhclno" name="vhcl-inp-vhclno" 
 									class="form-control input-sm"
-    								onkeyenter="keyUpInp(vhcl-inp-vhclno, 'vhcl-inp-vhclno', 'true')">
+    								onkeyenter="popVhcl.search">
     							</sbux-input>
 							</th>
 							<th>&nbsp;</th>
@@ -88,7 +88,7 @@
 
 	
 	/**
-	 * @description 권한 사용자 선택 팝업
+	 * @description 차량 선택 팝업
 	 */
 	const popVhcl = {
 		prgrmId: 'vhclPopup',
@@ -117,7 +117,7 @@
 			
 			if (grdVhclPop === null || this.prvApcCd != _apcCd) {
 				let rst = await Promise.all([
-					gfn_setApcItemSBSelect('grdVhcl', jsonComBankCdVhclPop,'BANK_CD'),		// 은행
+					gfn_setComCdSBSelect('grdVhcl', jsonComBankCdVhclPop,'BANK_CD'),		// 은행
 				]);
 				this.createGrid();
 				this.search();
@@ -268,7 +268,7 @@
 		        try {
 		        	if (_.isEqual("S", data.resultStatus)) {
 		        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-		        		this.search();
+		        		this.searchInEdit();
 		        	} else {
 		        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		        	}
@@ -287,21 +287,22 @@
 			for ( let i=1; i<=allData.length; i++ ){
 				const rowData = grdVhclPop.getRowData(i);
 				const rowSts = grdVhclPop.getRowStatus(i);
-
-				if (gfn_isEmpty(rowData.vhclno)){
-					gfn_comAlert("W0002", "차량번호");		//	W0002	{0}을/를 입력하세요.
-		            return;
-				}
-
-				if (rowSts === 3){
-					rowData.apcCd = apcCd;
-					rowData.rowSts = "I";
-					vhclList.push(rowData);
-				} else if (rowSts === 2){
-					rowData.rowSts = "U";
-					vhclList.push(rowData);
-				} else {
-					continue;
+				if (!gfn_isEmpty(rowData.delYn)){
+					if (gfn_isEmpty(rowData.vhclno)){
+						gfn_comAlert("W0002", "차량번호");		//	W0002	{0}을/를 입력하세요.
+			            return;
+					}
+	
+					if (rowSts === 3){
+						rowData.apcCd = apcCd;
+						rowData.rowSts = "I";
+						vhclList.push(rowData);
+					} else if (rowSts === 2){
+						rowData.rowSts = "U";
+						vhclList.push(rowData);
+					} else {
+						continue;
+					}
 				}
 			}
 			
@@ -321,7 +322,7 @@
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-	        		this.search();
+	        		this.searchInEdit();
 	        	} else {
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
@@ -336,9 +337,9 @@
 	        
 	    	// grid clear
 	    	jsonVhclPop.length = 0;
-	    	grdVhclPop.refresh();
+	    	//grdVhclPop.refresh();
 	    	//grdVhclPop.clearStatus();
-	    	this.setGrid(pageSize, pageNo);
+	    	await this.setGrid(pageSize, pageNo);
 		},
 		setGrid: async function(pageSize, pageNo) {
 	    	
@@ -363,15 +364,16 @@
 	    		jsonPrdcrPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const vhcl = {
-						rowSeq		: item.rowSeq,
-						vhclno		: item.vhclno,
-					    drvrNm 		: item.drvrNm,
-					    bankCd 		: item.bankCd,
-					    actno 		: item.actno,
-					    dpstr 		: item.dpstr,
-					    rmrk 		: item.rmrk,
-					    delYn 		: item.delYn,
-					    apcCd 		: item.apcCd
+						rowSeq			: item.rowSeq,
+						vhclno			: item.vhclno,
+					    drvrNm 			: item.drvrNm,
+					    bankCd 			: item.bankCd,
+					    actno 			: item.actno,
+					    dpstr 			: item.dpstr,
+					    rmrk 			: item.rmrk,
+					    delYn 			: item.delYn,
+					    apcCd 			: item.apcCd,
+					    sysLastChgDt	: item.sysLastChgDt
 					}
 					jsonVhclPop.push(vhcl);
 					
@@ -408,6 +410,13 @@
 	    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
 	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+	    },
+	    searchInEdit: async function() {
+	    	this.createGrid();
+    		await this.search();
+    		this.createGrid(true);
+			grdVhclPop.rebuild();
+    		grdVhclPop.addRow();
 	    }
 	}
 	

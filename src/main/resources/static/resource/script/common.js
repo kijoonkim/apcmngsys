@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 /**
  *
  */
@@ -61,6 +61,8 @@ const postHeaders = {
 let gv_selectedApcCd = null;
 let gv_selectedApcNm = null;
 
+const gv_loadingOptions = {modelNm : "main-loading"};
+
 
 /**
  * @description
@@ -80,6 +82,7 @@ let gv_selectedApcNm = null;
 const gfn_setSysPrgrmId = function(sysPrgrmId) {
     postHeaders.sysPrgrmId = sysPrgrmId
 }
+	
 
 /**
  * @name gfn_postJSON
@@ -87,21 +90,29 @@ const gfn_setSysPrgrmId = function(sysPrgrmId) {
  * @function
  * @param {string} _url
  * @param {object} _param
- * @param {[string]} sysPrgrmId
+ * @param {[string]} _sysPrgrmId
+ * @param {[boolean]} _hideProgress
  * @returns {any}
  */
-async function gfn_postJSON(_url, _param, sysPrgrmId) {
+async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
 
+	const showProgress = !_hideProgress;
     const header = {
         "Content-Type": "application/json",
         "sysPrgrmId": postHeaders.sysPrgrmId
     }
 
-    if (sysPrgrmId) {
-        header.sysPrgrmId = sysPrgrmId;
+    if (_sysPrgrmId) {
+        header.sysPrgrmId = _sysPrgrmId;
     }
 
     try {
+		
+		let startTime = new Date();
+		if (showProgress && typeof SBUxMethod === 'function') {
+			SBUxMethod.openProgress(gv_loadingOptions);
+		}
+		
         const response = await fetch(
             _url, {
                 method: "POST",
@@ -111,15 +122,33 @@ async function gfn_postJSON(_url, _param, sysPrgrmId) {
         );
 
 		const result = await response.json();
+		
+		if (showProgress && typeof SBUxMethod === 'function') {
+			const endTime = new Date();
+			if (endTime.getTime() > startTime + 500) {
+				SBUxMethod.closeProgress(gv_loadingOptions);
+			} else {
+				setTimeout(function() {
+			  		SBUxMethod.closeProgress(gv_loadingOptions);
+				}, 500);	
+			}			
+		}
+		
 		return result;
 
 	} catch (e) {
 		if (!(e instanceof Error)) {
 			e = new Error(e);
 		}
+		
+		if (showProgress && typeof SBUxMethod === 'function') {
+			SBUxMethod.closeProgress(gv_loadingOptions);
+		}
+		
 		console.error("failed", e.message);
 	}
 }
+
 
 /**
  * @name gfn_getComCdDtls
@@ -130,7 +159,7 @@ async function gfn_postJSON(_url, _param, sysPrgrmId) {
  * @returns {any[]}
  */
 async function gfn_getComCdDtls (_cdId, _apcCd = "0000") {
-	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd});
+	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd}, null, true);
 	const data = await postJsonPromise;
 	return data.resultList;
 }
@@ -151,7 +180,7 @@ async function gfn_setComCdSBSelect(_targetIds, _jsondataRef, _cdId, _apcCd) {
 		return;
 	}
 
-	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd});
+	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd}, null, true);
 	const data = await postJsonPromise;
 
 	try {
@@ -194,7 +223,7 @@ async function gfn_setComCdGridSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
 		return;
 	}
 
-	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd});
+	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd}, null, true);
 	const data = await postJsonPromise;
 
 	try {
@@ -255,7 +284,7 @@ const gfn_setSBSelectJson = function (_targetIds, _jsondataRef, _sourceJson) {
  * @returns {any[]}
  */
 async function gfn_getMstItem () {
-	const postJsonPromise = gfn_postJSON(URL_MST_ITEMS, {delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_MST_ITEMS, {delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 	return JSON.stringify(data.resultList);
 }
@@ -268,7 +297,7 @@ async function gfn_getMstItem () {
  * @param {any[]} _jsondataRef
  */
 const gfn_setMstItemSBSelect = async function (_targetIds, _jsondataRef) {
-	const postJsonPromise = gfn_postJSON(URL_MST_ITEMS, {delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_MST_ITEMS, {delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
 	const sourceJson = [];
@@ -289,7 +318,7 @@ const gfn_setMstItemSBSelect = async function (_targetIds, _jsondataRef) {
  * @returns {any[]}
  */
 async function gfn_getMstVrty (_itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_MST_VRTYS, {itemCd: _itemCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_MST_VRTYS, {itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 	return JSON.stringify(data.resultList);
 }
@@ -303,7 +332,7 @@ async function gfn_getMstVrty (_itemCd) {
  * @param {string} _itemCd	품목코드
  */
 const gfn_setMstVrtySBSelect = async function (_targetIds, _jsondataRef, _itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_MST_VRTYS, {itemCd: _itemCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_MST_VRTYS, {itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
 	const sourceJson = [];
@@ -324,7 +353,7 @@ const gfn_setMstVrtySBSelect = async function (_targetIds, _jsondataRef, _itemCd
  * @returns {any[]}
  */
 async function gfn_getMstSpcfcts (_itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_MST_SPCFCTS, {itemCd: _itemCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_MST_SPCFCTS, {itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 	return JSON.stringify(data.resultList);
 }
@@ -338,7 +367,7 @@ async function gfn_getMstSpcfcts (_itemCd) {
  * @param {string} _itemCd	품목코드
  */
 const gfn_setMstSpcfctsSBSelect = async function (_targetIds, _jsondataRef, _itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_MST_SPCFCTS, {itemCd: _itemCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_MST_SPCFCTS, {itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
 	const sourceJson = [];
@@ -359,7 +388,7 @@ const gfn_setMstSpcfctsSBSelect = async function (_targetIds, _jsondataRef, _ite
  * @returns {any[]}
  */
 async function gfn_getMstGrds (_itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_MST_GRDS, {itemCd: _itemCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_MST_GRDS, {itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 	return JSON.stringify(data.resultList);
 }
@@ -373,7 +402,7 @@ async function gfn_getMstGrds (_itemCd) {
  * @param {string} _itemCd	품목코드
  */
 const gfn_setMstGrdsSBSelect = async function (_targetIds, _jsondataRef, _itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_MST_GRDS, {itemCd: _itemCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_MST_GRDS, {itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
 	const sourceJson = [];
@@ -396,7 +425,7 @@ const gfn_setMstGrdsSBSelect = async function (_targetIds, _jsondataRef, _itemCd
  * @returns {any[]}
  */
 async function gfn_getApcItem (_apcCd) {
-	const postJsonPromise = gfn_postJSON(URL_APC_ITEMS, {apcCd: _apcCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_APC_ITEMS, {apcCd: _apcCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 	return JSON.stringify(data.resultList);
 }
@@ -410,7 +439,7 @@ async function gfn_getApcItem (_apcCd) {
  * @param {string} _apcCd
  */
 const gfn_setApcItemSBSelect = async function (_targetIds, _jsondataRef, _apcCd) {
-	const postJsonPromise = gfn_postJSON(URL_APC_ITEMS, {apcCd: _apcCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_APC_ITEMS, {apcCd: _apcCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
 	const sourceJson = [];
@@ -432,7 +461,7 @@ const gfn_setApcItemSBSelect = async function (_targetIds, _jsondataRef, _apcCd)
  * @returns {any[]}
  */
 async function gfn_getApcVrty (_apcCd, _itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 	return JSON.stringify(data.resultList);
 }
@@ -447,7 +476,7 @@ async function gfn_getApcVrty (_apcCd, _itemCd) {
  * @param {string} _itemCd	품목코드
  */
 const gfn_setApcVrtySBSelect = async function (_targetIds, _jsondataRef, _apcCd, _itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
 	const sourceJson = [];
@@ -470,7 +499,7 @@ const gfn_setApcVrtySBSelect = async function (_targetIds, _jsondataRef, _apcCd,
  * @returns {any[]}
  */
 async function gfn_getApcSpcfcts (_apcCd, _itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_APC_SPCFCTS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_APC_SPCFCTS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 	return JSON.stringify(data.resultList);
 }
@@ -485,7 +514,7 @@ async function gfn_getApcSpcfcts (_apcCd, _itemCd) {
  * @param {string} _itemCd	품목코드
  */
 const gfn_setApcSpcfctsSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_APC_SPCFCTS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_APC_SPCFCTS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
 	const sourceJson = [];
@@ -507,7 +536,7 @@ const gfn_setApcSpcfctsSBSelect = async function (_targetIds, _jsondataRef, _apc
  * @returns {any[]}
  */
 async function gfn_getApcGrds (_apcCd, _itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_APC_GRDS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_APC_GRDS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 	return JSON.stringify(data.resultList);
 }
@@ -522,7 +551,7 @@ async function gfn_getApcGrds (_apcCd, _itemCd) {
  * @param {string} _itemCd	품목코드
  */
 const gfn_setApcGrdsSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_APC_GRDS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_APC_GRDS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
 	const sourceJson = [];
@@ -545,7 +574,7 @@ const gfn_setApcGrdsSBSelect = async function (_targetIds, _jsondataRef, _apcCd,
  * @returns {any[]}
  */
 async function gfn_getPltBxs (_apcCd, _pltBxSeCd) {
-	const postJsonPromise = gfn_postJSON(URL_PLT_BX_INFO, {apcCd: _apcCd, pltBxSeCd: _pltBxSeCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_PLT_BX_INFO, {apcCd: _apcCd, pltBxSeCd: _pltBxSeCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 	return JSON.stringify(data.resultList);
 }
@@ -560,7 +589,7 @@ async function gfn_getPltBxs (_apcCd, _pltBxSeCd) {
  * @param {string} _pltBxSeCd	팔레트/박스 구분코드
  */
 const gfn_setPltBxSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _pltBxSeCd) {
-	const postJsonPromise = gfn_postJSON(URL_PLT_BX_INFO, {apcCd: _apcCd, pltBxSeCd: _pltBxSeCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_PLT_BX_INFO, {apcCd: _apcCd, pltBxSeCd: _pltBxSeCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
 	const sourceJson = [];
@@ -582,7 +611,7 @@ const gfn_setPltBxSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _
  * @param {string} _apcCd	APC코드
  */
 const gfn_setTrsprtsSBSelect = async function (_targetIds, _jsondataRef, _apcCd) {
-	const postJsonPromise = gfn_postJSON(URL_TRSPRT_CO_INFO, {apcCd: _apcCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_TRSPRT_CO_INFO, {apcCd: _apcCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
 	const sourceJson = [];
@@ -604,7 +633,7 @@ const gfn_setTrsprtsSBSelect = async function (_targetIds, _jsondataRef, _apcCd)
  * @returns {any[]}
  */
 const gfn_getPrdcrs = async function(_apcCd) {
-	const postJsonPromise = gfn_postJSON(URL_PRDCR_INFO, {apcCd: _apcCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_PRDCR_INFO, {apcCd: _apcCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 	const sourceJson = [];
 	data.resultList.forEach((item) => {
@@ -713,7 +742,7 @@ const gfn_filterFrst = function(_prdcrNm, _jsonSource) {
  * @param {string} _apcCd	APC코드
  */
 const gfn_setPrdcrSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _pltBxSeCd) {
-	const postJsonPromise = gfn_postJSON(URL_PRDCR_INFO, {apcCd: _apcCd, delYn: "N"});
+	const postJsonPromise = gfn_postJSON(URL_PRDCR_INFO, {apcCd: _apcCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
 	const sourceJson = [];
@@ -830,10 +859,6 @@ const gfn_setCookie = function (_name, _value, _options = {}) {
 		_options.expires = _options.expires.toUTCString();
 	}
 
-	console.log("name", _name);
-	console.log("value", _value);
-	console.log("options", _options);
-
 	let updatedCookie = encodeURIComponent(_name) + "=" + encodeURIComponent(_value);
 	for ( let optionKey in _options ) {
 		updatedCookie += "; " + optionKey;
@@ -859,7 +884,7 @@ const gv_comMsgList = [];
  */
 const gfn_getComMsgList = async function() {
 
-	const comMsgPromise = gfn_postJSON("/co/msg/comMsgs", {delYn: "N"});
+	const comMsgPromise = gfn_postJSON("/co/msg/comMsgs", {delYn: "N"}, null, true);
 	const data = await comMsgPromise;
 
     try {
@@ -994,4 +1019,3 @@ const gfn_getJsonFilter = function(data, key, values) {
 	 * 공통메시지 가져오기 (페이지 로드 시)
 	 */
 	gfn_getComMsgList();
-

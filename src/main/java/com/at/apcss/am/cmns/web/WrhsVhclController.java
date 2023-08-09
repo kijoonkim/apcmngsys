@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.cmns.service.WrhsVhclService;
-import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -163,18 +162,21 @@ public class WrhsVhclController extends BaseController {
 	
 	@PostMapping(value = "/am/cmns/multiVhclList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> multiVhclList(@RequestBody List<WrhsVhclVO> vhclList, HttpServletRequest request) throws Exception {
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		logger.debug("multiVhclList 호출 <><><><> ");
 		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<WrhsVhclVO> updateList = new ArrayList<WrhsVhclVO>();
 		try {
 			for ( WrhsVhclVO wrhsVhclVO : vhclList ) {
+				wrhsVhclVO.setVhclno(wrhsVhclVO.getVhclno().replaceAll(" ", ""));
 				wrhsVhclVO.setSysFrstInptUserId(getUserId());
 				wrhsVhclVO.setSysFrstInptPrgrmId(getPrgrmId());
 				wrhsVhclVO.setSysLastChgUserId(getUserId());
 				wrhsVhclVO.setSysLastChgPrgrmId(getPrgrmId());
+				updateList.add(wrhsVhclVO);
 			}
 			
-			HashMap<String, Object> rtnObj = wrhsVhclService.multiVhclList(vhclList);
+			HashMap<String, Object> rtnObj = wrhsVhclService.multiVhclList(updateList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
