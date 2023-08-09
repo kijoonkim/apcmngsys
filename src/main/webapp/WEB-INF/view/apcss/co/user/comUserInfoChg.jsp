@@ -62,7 +62,13 @@
 							<td colspan="2" class="td_input"></td>
 							<th scope="row">유형</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-userType" name="srch-slt-userType" uitype="single" class="form-control input-sm" unselected-text="선택" ></sbux-select>
+								<sbux-select id="srch-slt-userType" name="srch-slt-userType" uitype="single" class="form-control input-sm" unselected-text="선택" >
+									<option-item value="01">AT관리자</option-item>
+									<option-item value="10">APC관리자</option-item>
+									<option-item value="11">APC사용자</option-item>
+									<option-item value="20">농가사용자</option-item>
+									<option-item value="30">외부사용자</option-item>
+								</sbux-select>
 							</td>
 							<td colspan="2" class="td_input"></td>
 						</tr>
@@ -109,6 +115,7 @@ function fn_createUserInfoChgGrid() {
 	            return "<button type='button' class='btn btn-sm btn-outline-danger' onClick=''>초기화</button>"
 	         }},
 	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'15%', style:'text-align:center'},
+	         {caption: ["사용자유형"],   ref: 'userType',    type:'output',  width:'15%', style:'text-align:center'},
 	         {caption: ["메일주소"],	    ref: 'eml', 		type:'output',  width:'15%', style:'text-align:center'},
 	         {caption: ["전화번호"],  	ref: 'telno',   	type:'output',  width:'15%', style:'text-align:center'},
 	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'15%', style:'text-align:center'},
