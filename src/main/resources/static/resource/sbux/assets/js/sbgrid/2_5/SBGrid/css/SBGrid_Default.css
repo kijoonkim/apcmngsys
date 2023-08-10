@@ -167,15 +167,9 @@
 
 .sbgrid_inputbutton_button_st {
 	/*inputbutton 영역에 <button>에 적용되는 스타일 CSS 클래스*/
-/* 	width: 19px; */
-/* 	height: 18px; */
 	width: 19px;
 	height: 18px;
-	vertical-align : middle;
-/* 	content: " \f002"; */
-	background: url(../img/grid/button_it.png) center no-repeat;
-/* 	background: url(../img/grid/button.png) center no-repeat; */
-	background-position :center;
+	background: url(../img/grid/button.png) center no-repeat;
 	border: none;
 	cursor: Pointer;
 }
