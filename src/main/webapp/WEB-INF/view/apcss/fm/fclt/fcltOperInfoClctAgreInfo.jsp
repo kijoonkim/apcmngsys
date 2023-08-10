@@ -237,13 +237,7 @@
 		SBGridProperties.rowheadercaption = {seq: 'No'};
         SBGridProperties.rowheaderwidth = {seq: '60'};
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 20,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
+
         SBGridProperties.columns = [
             {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
                 ref: 'checked', type: 'checkbox',   style: 'text-align:center',

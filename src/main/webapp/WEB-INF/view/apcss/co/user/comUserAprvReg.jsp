@@ -56,7 +56,12 @@
 						<tr>
 							<th scope="row">승인여부</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-aprvYn" name="srch-slt-aprvYn" uitype="single" class="form-control fl_fixed mg_r5 wd_130" unselected-text="선택" style="height:100%; line-height:100%;"></sbux-select>
+								<sbux-select id="srch-slt-aprvYn" name="srch-slt-aprvYn" uitype="single" class="form-control input-sm" unselected-text="선택" >
+									<option-item value="00">승인대기</option-item>
+									<option-item value="01">사용</option-item>
+									<option-item value="02">휴면</option-item>
+									<option-item value="03">미사용</option-item>
+								</sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">사용자명</th>
@@ -106,16 +111,16 @@ async function fn_createUserAprvRegGrid() {
 	    SBGridProperties1.selectmode = 'byrow';
 	    SBGridProperties1.extendlastcol = 'scroll';
 	    SBGridProperties1.columns = [
-	         {caption: ["선택"],			ref: 'chc',      	type:'checkbox',width:'15%'},
-	         {caption: ["승인여부"], 		ref: 'aprvYn',     	type:'input',  	width:'15%'},
-	         {caption: ["사용자ID"], 	 	ref: 'userId',    	type:'output',  width:'15%'},
-	         {caption: ["사용자명"],    	ref: 'userNm',      type:'input',  width:'15%'},
-	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'input',  width:'15%'},
-	         {caption: ["사용자유형"],	    ref: 'userType', 	type:'input',  width:'15%'},
-	         {caption: ["메일주소"],  		ref: 'eml',  		type:'input',  width:'15%'},
-        	 {caption: ["전화번호"],  		ref: 'telno',   	type:'input',  width:'15%'},
-	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',  width:'15%'},
-	         {caption: ["담당업무"],  		ref: 'tkcgTaskNm',  type:'input',  width:'15%'}
+	         {caption: ["선택"],			ref: 'chc',      	type:'checkbox',width:'5px'},
+	         {caption: ["승인여부"], 	ref: 'aprvYn',     	type:'input',  	width:'15%', style:'text-align:center'},
+	         {caption: ["사용자ID"],  	ref: 'userId',    	type:'output',  width:'15%', style:'text-align:center'},
+	         {caption: ["사용자명"],    	ref: 'userNm',      type:'input',   width:'15%', style:'text-align:center'},
+	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'input',   width:'15%', style:'text-align:center'},
+	         {caption: ["사용자유형"],	ref: 'userType', 	type:'input',   width:'15%', style:'text-align:center'},
+	         {caption: ["메일주소"],  	ref: 'eml',  		type:'input',   width:'15%', style:'text-align:center'},
+        	 {caption: ["전화번호"],  	ref: 'telno',   	type:'input',   width:'15%', style:'text-align:center'},
+	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'15%', style:'text-align:center'},
+	         {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'input',   width:'15%', style:'text-align:center'}
     ];
     window.userAprvRegGridId= _SBGrid.create(SBGridProperties1);
     fn_selectUserList();

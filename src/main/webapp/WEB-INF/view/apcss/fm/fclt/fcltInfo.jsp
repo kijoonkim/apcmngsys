@@ -245,23 +245,14 @@
 		SBGridProperties.rowheadercaption = {seq: 'No'};
         SBGridProperties.rowheaderwidth = {seq: '60'};
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 20,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
+
         SBGridProperties.columns = [
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["메시지Key"],	ref: 'msgKey',      type:'output',  width:'30%',    style:'text-align:center'},
-            {caption: ["메시지내용"], 	ref: 'msgCn',     	type:'output',  width:'50%',    style:'text-align:left'},
-            {caption: ["메시지종류"],  	ref: 'msgKndNm',    type:'output',  width:'20%',    style:'text-align:center'},
-            {caption: ["비고"],      	ref: 'rmrk',        type:'output',  hidden: true},
-            {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
+
+            {caption: ["총 건축면적"],	ref: 'msgKey',      type:'output',  width:'20%',    style:'text-align:center'},
+            {caption: ["집하선 포장장"], 	ref: 'msgCn',     	type:'output',  width:'20%',    style:'text-align:center'},
+            {caption: ["비상품화시설"],  	ref: 'msgKndNm',    type:'output',  width:'20%',    style:'text-align:center'},
+            {caption: ["예냉고"],      	ref: 'rmrk',        type:'output',  width:'20%',    style:'text-align:center'},
+            {caption: ["저온저장"],	ref: 'creUserId',   type:'output',  width:'20%',    style:'text-align:center'},
             {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},
             {caption: ["최종변경자ID"],	ref: 'updUserId',   type:'output',  hidden: true},
             {caption: ["최종변경일시"], ref: 'updDateTime', type:'output',  hidden: true},

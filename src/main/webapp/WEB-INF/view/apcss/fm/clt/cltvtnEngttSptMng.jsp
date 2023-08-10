@@ -52,13 +52,13 @@
 						</tr>
 						<tr>
 							<th scope="row">약정일자</th>
-							<td class="td_input"  style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-outordrYmd1" name="srch-inp-outordrYmd1" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+							<td colspan="3" class="td_input"  style="border-right: hidden;">
+								<div style="display: flex;">
+									<sbux-datepicker id="srch-inp-enggtYmd2" name="srch-inp-enggtYmd2" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+									<span>~</span>
+									<sbux-datepicker id="srch-inp-enggtYmd3" name="srch-inp-enggtYmd3" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								</div>
 							</td>
-							<td class="td_input"  style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-outordrYmd2" name="srch-inp-outordrYmd2" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
-							</td>
-							<td class="td_input"  style="border-right: hidden;"></td>
 
 							<th scope="row">규격</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -188,7 +188,6 @@
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-
     	fn_createGrid();
 
     	gfn_setComCdSBSelect(
@@ -213,28 +212,18 @@
 		SBGridProperties.rowheadercaption = {seq: 'No'};
         SBGridProperties.rowheaderwidth = {seq: '60'};
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 20,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
         SBGridProperties.columns = [
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["메시지Key"],	ref: 'msgKey',      type:'output',  width:'30%',    style:'text-align:center'},
-            {caption: ["메시지내용"], 	ref: 'msgCn',     	type:'output',  width:'50%',    style:'text-align:left'},
-            {caption: ["메시지종류"],  	ref: 'msgKndNm',    type:'output',  width:'20%',    style:'text-align:center'},
-            {caption: ["비고"],      	ref: 'rmrk',        type:'output',  hidden: true},
-            {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
-            {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},
-            {caption: ["최종변경자ID"],	ref: 'updUserId',   type:'output',  hidden: true},
-            {caption: ["최종변경일시"], ref: 'updDateTime', type:'output',  hidden: true},
-            {caption: ["등록프로그램"], ref: 'creProgram',  type:'output',  hidden: true},
-            {caption: ["변경프로그램"], ref: 'updProgram',  type:'output',  hidden: true}
+
+            {caption: ["생산자"],	   ref: 'msgKey',      type:'output',  width:'17%',    style:'text-align:center'},
+            {caption: ["품목"], 	   ref: 'msgCn',     	type:'output',  width:'17%',    style:'text-align:center'},
+            {caption: ["품종"],     ref: 'msgKndNm',    type:'output',  width:'17%',    style:'text-align:center'},
+            {caption: ["약정일자"],  ref: 'rmrk',        type:'output',  width:'17%',    style:'text-align:center'},
+            {caption: ["약정수량"],  ref: 'creUserId',   type:'output',  width:'17%',    style:'text-align:center'},
+            {caption: ["예상수확량"], ref: 'creDateTime', type:'output',  width:'17%',    style:'text-align:center'},
+            {caption: ["최종변경자ID"], ref: 'updUserId',   type:'output',  hidden: true},
+            {caption: ["최종변경일시"],  ref: 'updDateTime', type:'output',  hidden: true},
+            {caption: ["등록프로그램"],  ref: 'creProgram',  type:'output',  hidden: true},
+            {caption: ["변경프로그램"],  ref: 'updProgram',  type:'output',  hidden: true}
         ];
 
         grdComMsgList = _SBGrid.create(SBGridProperties);
@@ -278,7 +267,7 @@
 		let msgKey = SBUxMethod.get("srch-input-msgKey");
 		let msgCn = SBUxMethod.get("srch-input-msgCn");
 
-        const postJsonPromise = gfn_postJSON("/fm/clt/selectCltvtnEngttSptMngList.do", {
+        const postJsonPromise = gfn_postJSON("/fm/clt/selectCltvtnEngttRsltMngList.do", {
         	msgKnd: msgKnd,
         	msgKey: msgKey,
         	msgCn: msgCn,
@@ -424,7 +413,7 @@
 
     	 if (!isConfirmed) return;
 
-    	const postJsonPromise = gfn_postJSON("/fm/clt/insertCltvtnEngttSptMng.do", {
+    	const postJsonPromise = gfn_postJSON("/fm/clt/insertCltvtnEngttRsltMng.do", {
 			msgKey: SBUxMethod.get('dtl-input-msgKey'),
 			msgKnd: SBUxMethod.get('dtl-select-msgKnd'),
 			msgCn: SBUxMethod.get('dtl-input-msgCn'),
@@ -454,7 +443,7 @@
 
 		if (!isConfirmed) return;
 
-    	const postJsonPromise = gfn_postJSON("/fm/clt/updateCltvtnEngttSptMng.do", {
+    	const postJsonPromise = gfn_postJSON("/fm/clt/updateCltvtnEngttRsltMng.do", {
 			msgKey: SBUxMethod.get('dtl-input-orgnMsgKey'),
 			msgKnd: SBUxMethod.get('dtl-select-msgKnd'),
 			msgCn: SBUxMethod.get('dtl-input-msgCn'),
@@ -536,7 +525,7 @@
 
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/clt/deleteCltvtnEngttSptMngList.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/clt/deleteCltvtnEngttRsltMngList.do", list);
 
          const data = await postJsonPromise;
 
@@ -592,5 +581,4 @@
     }
 
 </script>
-
 </html>
