@@ -113,9 +113,10 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.frozenrows = 1
 	    SBGridProperties.columns = [
-	        {caption: ["명칭"],     	ref: 'grdNm',  type:'input',  width:'140px',    style:'text-align:center'},
+	        {caption: ["명칭"],     	ref: 'grdNm',  type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["사용유무"], 	ref: 'delYn',  type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonUseYn', label:'label', value:'value',  displayui : false}},
+	        {caption: ["순번"],     	ref: 'sn',  type:'input',  width:'60px',    style:'text-align:center'},
 	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdGrd\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -146,6 +147,7 @@
 				let grdVO = {
 					grdCd 		: item.grdCd
 				  , grdNm 		: item.grdNm
+				  , sn			: item.sn
 				  , apcCd		: apcCd
 				  , itemCd		: item.itemCd
 				  , delYn		: item.delYn

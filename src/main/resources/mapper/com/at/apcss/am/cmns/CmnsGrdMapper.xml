@@ -26,6 +26,7 @@
 				  GC.ITEM_CD
 				, GC.GRD_CD
 				, GC.GRD_NM
+				, GC.SN
 			    , GC.DEL_YN
 			  FROM TB_GRD_CRTR GC
 			 WHERE VC.ITEM_CD = #{itemCd}
@@ -47,6 +48,7 @@
 				  GC.ITEM_CD
 				, GC.GRD_CD
 				, GC.GRD_NM
+				, GC.SN
 			    , GC.DEL_YN
 			  FROM TB_GRD_CRTR GC
 			 WHERE GC.ITEM_CD = #{itemCd}
@@ -89,6 +91,7 @@
 					  ITEM_CD
 					, GRD_CD
 		    		, GRD_NM
+		    		, SN
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -101,6 +104,7 @@
 	   				  #{itemCd}
 					, #{grdCd}
 		    		, #{grdNm}
+		    		, #{sn}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}
@@ -129,6 +133,7 @@
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 				, GRD_NM					= #{grdNm}
 	    		, DEL_YN					= #{delYn}
+	    		, SN						= #{sn}
 			 WHERE ITEM_CD = #{itemCd}
 			   AND GRD_CD = #{grdCd}
 		]]>
@@ -168,6 +173,7 @@
 				  AGC.ITEM_CD
 				, AGC.GRD_CD
 				, AGC.GRD_NM
+				, AGC.SN
 			    , AGC.DEL_YN
 			    , AGC.APC_CD
 			  FROM TB_APC_GRD_CRTR AGC
@@ -191,6 +197,7 @@
 				  AGC.ITEM_CD
 				, AGC.GRD_CD
 				, AGC.GRD_NM
+				, AGC.SN
 			    , AGC.DEL_YN
 			    , AGC.APC_CD
 			  FROM TB_APC_GRD_CRTR AGC
@@ -227,6 +234,7 @@
 	    			, ITEM_CD
 	    			, GRD_CD
 					, GRD_NM
+					, SN
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -240,6 +248,7 @@
 	   				, #{itemCd}
 	   				, FN_GET_ID_APC_GRD(#{apcCd}, #{itemCd})
 					, #{grdNm}
+					, #{sn}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -267,6 +276,7 @@
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 				, GRD_NM					= #{grdNm}
+				, SN						= #{sn}
 	    		, DEL_YN					= #{delYn}
 			 WHERE ITEM_CD = #{itemCd}
 			   AND GRD_CD = #{grdCd}
