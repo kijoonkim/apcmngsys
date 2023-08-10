@@ -31,7 +31,7 @@ public interface RawMtrTrsprtCstService {
 	/**
 	 * 원물운임비용 등록
 	 * @param RawMtrTrsprtCstVO
-	 * @return 
+	 * @return
 	 * @throws Exception
 	 */
 	public int insertRawMtrTrsprtCst(RawMtrTrsprtCstVO RawMtrTrsprtCstVO) throws Exception;
@@ -39,7 +39,7 @@ public interface RawMtrTrsprtCstService {
 	/**
 	 * 원물운임비용 수정
 	 * @param RawMtrTrsprtCstVO
-	 * @return 
+	 * @return
 	 * @throws Exception
 	 */
 	public int updateRawMtrTrsprtCst(RawMtrTrsprtCstVO RawMtrTrsprtCstVO) throws Exception;
@@ -47,8 +47,17 @@ public interface RawMtrTrsprtCstService {
 	/**
 	 * 원물운임비용 삭제
 	 * @param RawMtrTrsprtCstVO
-	 * @return 
+	 * @return
 	 * @throws Exception
 	 */
 	public int deleteRawMtrTrsprtCst(RawMtrTrsprtCstVO RawMtrTrsprtCstVO) throws Exception;
+
+	/**
+	 * 원물운임비용 멀티등록
+	 * @param RawMtrTrsprtCstVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int multiTrsprtCstList(List<RawMtrTrsprtCstVO> RawMtrTrsprtCstList) throws Exception;
+
 }

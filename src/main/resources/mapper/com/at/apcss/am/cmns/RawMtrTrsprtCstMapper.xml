@@ -3,7 +3,7 @@
 
 <!-- ==========================================================================	-->
 <!-- NAME : RawMtrTrsprtCstMapper.xml                                   		-->
-<!-- DESC : 원물운임비용등록 mapper                                             		-->
+<!-- DESC : 원물운임비용등록 mapper                                             -->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
@@ -13,69 +13,72 @@
 <mapper namespace="com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper">
 
 
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.selectRawMtrTrsprtCstList-->
-	<!-- DESC : 원물운임비용 목록 조회.	                                       			-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.04  	하민우        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
+	<!-- ================================================================================== -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.selectRawMtrTrsprtCstList -->
+	<!-- DESC : 원물운임비용 목록 조회.	                                       				-->
+	<!-- ==========================================================================	======= -->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	===================================================	-->
+	<!-- 2023.08.04  	하민우        	Initial Creation                            		-->
+	<!-- ==================================================================================	-->
     <select id="selectRawMtrTrsprtCstList" parameterType="com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO" resultType="com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
     	<![CDATA[
-    	SELECT TC.APC_CD            AS APC_CD
-		     , TC.TRSPRT_YMD		AS TRSPRT_YMD
-		     , TC.VHCLNO     		AS VHCLNO
-		     , TC.SN				AS SN
-		     , TC.TRSPRT_SE_CD      AS TRSPRT_SE_CD
-		     , TC.TRSPRT_RGN_CD		AS TRSPRT_RGN_CD
-		     , TC.WRHS_WGHT			AS WRHS_WGHT
-		     , TC.TRSPRT_CST        AS TRSPRT_CST
-		     , pt0.DRVR_NM          AS DRVR_NM
-		     , pt0.BANK_CD    	    AS BANK_CD
-		     , pt0.ACTNO			AS ACTNO
-		     , pt0.DPSTR			AS DPSTR
-		     , TC.RMRK              AS RMRK
-		     , TC.DEL_YN            AS DEL_YN
-		  FROM TB_RAW_MTR_TRSPRT_CST TC
-		  	INNER JOIN (SELECT VI.APC_CD
-		  					 , VI.VHCLNO
-		  					 , VI.DRVR_NM
-		  					 , VI.BANK_CD
-		  					 , VI.ACTNO
-		  					 , VI.DPSTR
-		  				  FROM TB_WRHS_VHCL_INFO VI) pt0
-		 	ON TC.APC_CD = pt0.APC_CD
-		   AND TC.VHCLNO = pt0.VHCLNO
-		 WHERE TC.APC_CD = #{apcCd}
+    	SELECT /* com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.selectRawMtrTrsprtCstList */
+    	       TC.APC_CD            AS APC_CD           -- APC코드
+		     , TC.TRSPRT_YMD		AS TRSPRT_YMD       -- 운송일자
+		     , TC.VHCLNO     		AS VHCLNO           -- 차량번호
+		     , TC.SN				AS SN               -- 순번
+		     , TC.TRSPRT_SE_CD      AS TRSPRT_SE_CD     -- 운송구분코드
+		     , TC.TRSPRT_RGN_CD		AS TRSPRT_RGN_CD    -- 운송지역코드
+		     , TC.WRHS_WGHT			AS WRHS_WGHT        -- 입고중량
+		     , TC.TRSPRT_CST        AS TRSPRT_CST       -- 운임비용
+		     , VI.DRVR_NM           AS DRVR_NM          -- 기사명
+		     , (SELECT USRAM.FN_GET_COM_CD_VL_NM('BANK_CD', TC.BANK_CD) FROM DUAL)    	    AS BANK_NM          -- 은행명
+		     , TC.BANK_CD    	    AS BANK_CD          -- 은행코드
+		     , TC.ACTNO			    AS ACTNO            -- 계좌번호
+		     , TC.DPSTR			    AS DPSTR            -- 예금주명
+		     , TC.RMRK              AS RMRK             -- 비고
+		     , TC.DEL_YN            AS DEL_YN           -- 삭제유무
+		  FROM TB_RAW_MTR_TRSPRT_CST    TC
+			 , TB_WRHS_VHCL_INFO        VI
+		 WHERE TC.APC_CD = VI.APC_CD
+		   AND TC.VHCLNO = VI.VHCLNO
+		   AND TC.APC_CD = #{apcCd}
+		   AND TC.TRSPRT_YMD = #{trsprtYmd}
 		]]>
-		<if test='trsprtYmd != null and trsprtYmd != ""'>
-			AND TC.TRSPRT_YMD = #{trsprtYmd}
+		<if test='vhclno != null and vhclno !=""'>
+		   AND TC.VHCLNO LIKE '%' || #{vhclno} || '%'
 		</if>
-		<if test='prdcrCd != null and prdcrCd != ""'>
-			AND TC.VHCLNO = (
-		 		SELECT PI.VHCLNO
-		   		  FROM TB_PRDCR_INFO PI
-		  		 WHERE PI.APC_CD = #{apcCd}
-		  		   AND PI.PRDCR_CD = #{prdcrCd}
-			)
-		</if>
-		<if test='vhclno != null and vhclno != ""'>
-			AND TC.VHCLNO = #{vhclno}
-		</if>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
     </select>
 
-    <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.insertRawMtrTrsprtCst-->
+    <!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.insertRawMtrTrsprtCst -->
 	<!-- DESC : 원물운임비용 목록 등록.	                                       			-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.04  	하민우        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2023.08.04  	하민우        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
     <insert id="insertRawMtrTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO">
     	<![CDATA[
-    	INSERT INTO TB_RGN_TRSPRT_CST_INFO
+    	/* com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.insertRawMtrTrsprtCst */
+    	INSERT INTO TB_RAW_MTR_TRSPRT_CST
     		(
     			APC_CD
 		   	  , TRSPRT_YMD
@@ -85,8 +88,10 @@
 			  , TRSPRT_RGN_CD
 			  , WRHS_WGHT
     		  , TRSPRT_CST
+    		  , BANK_CD
+    		  , ACTNO
+    		  , DPSTR
     		  , RMRK
-    		  , DEL_YN
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -96,16 +101,18 @@
     		)
    		VALUES
    			(
-			  , #{apcCd}
+			    #{apcCd}
 			  , #{trsprtYmd}
 			  , #{vhclno}
-			  , // SN 함수 만들 예정
+			  , (SELECT FN_GET_SN_TRSPRT_CST(#{apcCd}, #{trsprtYmd}, #{vhclno}) FROM DUAL)
 			  , #{trsprtSeCd}
 			  , #{trsprtRgnCd}
 			  , #{wrhsWght}
     		  , #{trsprtCst}
+    		  , #{bankCd}
+    		  , #{actno}
+    		  , #{dpstr}
     		  , #{rmrk}
-    		  , #{delYn}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
@@ -126,7 +133,7 @@
 	<!-- ==========================================================================	-->
 	<update id="updateRawMtrTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO">
 		<![CDATA[
-		UPDATE TB_RGN_TRSPRT_CST_INFO
+		UPDATE TB_RAW_MTR_TRSPRT_CST
 		   SET SYS_LAST_CHG_DT			= SYSDATE
     		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
     		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}

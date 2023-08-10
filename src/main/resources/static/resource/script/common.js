@@ -35,6 +35,7 @@ const URL_PLT_BX_INFO		= "/am/cmns/pltBxInfos";	//	팔레트/박스
 const URL_PRDCR_INFO		= "/am/cmns/prdcrInfos";	//	생산자
 const URL_WRHS_VHCL			= "/am/cmns/wrhsVhcls";		//	입고차량
 const URL_TRSPRT_CO_INFO	= "/am/spmt/spmtTrsprts";	//	운송사
+const URL_TRSPRT_CST_INFO	= "/am/cmns/trsprtCsts";	//	운송지역
 /** END URL
  */
 
@@ -82,7 +83,7 @@ const gv_loadingOptions = {modelNm : "main-loading"};
 const gfn_setSysPrgrmId = function(sysPrgrmId) {
     postHeaders.sysPrgrmId = sysPrgrmId
 }
-	
+
 
 /**
  * @name gfn_postJSON
@@ -107,12 +108,12 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
     }
 
     try {
-		
+
 		let startTime = new Date();
 		if (showProgress && typeof SBUxMethod === 'function') {
 			SBUxMethod.openProgress(gv_loadingOptions);
 		}
-		
+
         const response = await fetch(
             _url, {
                 method: "POST",
@@ -122,7 +123,7 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
         );
 
 		const result = await response.json();
-		
+
 		if (showProgress && typeof SBUxMethod === 'function') {
 			const endTime = new Date();
 			if (endTime.getTime() > startTime + 500) {
@@ -130,21 +131,21 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
 			} else {
 				setTimeout(function() {
 			  		SBUxMethod.closeProgress(gv_loadingOptions);
-				}, 500);	
-			}			
+				}, 500);
+			}
 		}
-		
+
 		return result;
 
 	} catch (e) {
 		if (!(e instanceof Error)) {
 			e = new Error(e);
 		}
-		
+
 		if (showProgress && typeof SBUxMethod === 'function') {
 			SBUxMethod.closeProgress(gv_loadingOptions);
 		}
-		
+
 		console.error("failed", e.message);
 	}
 }
@@ -601,6 +602,29 @@ const gfn_setPltBxSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _
 
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 }
+
+/**
+ * @name gfn_setTrsprtRgnSBSelect
+ * @description set SBUX-select options from APC별 운송지역
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd	APC코드
+ */
+const gfn_setTrsprtRgnSBSelect = async function (_targetIds, _jsondataRef, _apcCd) {
+	const postJsonPromise = gfn_postJSON(URL_TRSPRT_CST_INFO, {apcCd: _apcCd, delYn: "N"}, null, true);
+	const data = await postJsonPromise;
+
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.trsprtRgnCd;
+			item.cmnsNm = item.trsprtRgnNm;
+			sourceJson.push(item);
+		});
+
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
 /** 운송사 */
 /**
  * @name gfn_setTrsprtsSBSelect
@@ -997,8 +1021,8 @@ const gfn_getJsonFilter = function(data, key, values) {
 		return data;
 	}
 
-	const filteredData = data.filter((obj) => {	
-			
+	const filteredData = data.filter((obj) => {
+
 			if (Array.isArray(values)) {
 				return values.some((val) => {
 					return obj[key] === val;
