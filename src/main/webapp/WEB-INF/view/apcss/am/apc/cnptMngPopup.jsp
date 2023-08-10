@@ -64,7 +64,7 @@
 								<li><span>대형마트 발주서 접수관리</span></li>
 							</ul>
 						</div>
-						<div id="ordrMngGridArea" style="height:220px; width: 100%;"></div>
+						<div id="lgszMrktMngGridArea" style="height:220px; width: 100%;"></div>
 					</div>
 				</div>
 				<!--[pp] //검색결과 -->
@@ -109,6 +109,7 @@
 
     async function fn_selectCnptList(){
 		fn_callSelectCnptList();
+		fn_callSelectLgszMrktList();
 	}
 
 
@@ -163,8 +164,19 @@
 		}
 
 		var isEqual1 = await chkEqualObj(cnptMngGridData, newCnptGridData);
-		console.log(isEqual1);
-		if (isEqual1){
+		var isEqual2 = true;
+		var obj1keys = Object.keys(newLgszMrktMngGridData[0]);
+		for(var i=0; i<newLgszMrktMngGridData.length; i++){
+			for(var j=0; j<obj1keys.length; j++){
+				if(newLgszMrktMngGridData[i][obj1keys[j]] != lgszMrktMngGridData[i][obj1keys[j]]){
+					isEqual2 = false;
+					break;
+				}
+			}
+		}
+		
+		console.log(isEqual1 && isEqual2);
+		if (isEqual1 && isEqual2){
 			alert("저장 할 내용이 없습니다.");
 			return;
 		}
@@ -172,7 +184,7 @@
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 			let postJsonPromise1 = await gfn_postJSON("/am/cmns/compareCnptList.do", {origin : newCnptGridData, modified : cnptMngGridData});
-			let postJsonPromise2 = await gfn_postJSON("/am/cmns/compareOrdrList.do", {origin : newCnptGridData, modified : cnptMngGridData});
+			let postJsonPromise2 = await gfn_postJSON("/am/cmns/compareLgszMrktList.do", {origin : newLgszMrktMngGridData, modified : lgszMrktMngGridData});
 
 			alert("저장 되었습니다.");
 
@@ -184,34 +196,59 @@
 	async function fn_deleteCnptList(cnpt){
 		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteCnptList.do", cnpt);
 	}
-    var ordrMngGridData = [
-    	{"martNm": "이마트", "ordrUrl" : "https://supply.nonghyup.com", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
-    	{"martNm": "노브랜드", "ordrUrl" : "https://supply.nonghyup.com", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
-    	{"martNm": "트레이더스", "ordrUrl" : "https://supply.nonghyup.com", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
-    	{"martNm": "GS리테일(슈파)", "ordrUrl" : "http://gs.escm21.net", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
-    	{"martNm": "홈플러스", "ordrUrl" : "https://activescm.co.kr/Homeplus/welcome.do", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
-    	{"martNm": "에브리데이", "ordrUrl" : "https://supply.nonghyup.com", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
-    	{"martNm": "SSG", "ordrUrl" : "", "userId":"", "userPw":"", "useYn":"","prcsDt":""},
-    ]; // 그리드의 참조 데이터 주소 선언
-
-    function fn_ordrMngCreateGrid() {
+	
+    var lgszMrktMngGridData =[];
+    function fn_lgszMrktMngCreateGrid() {
         let SBGridProperties = {};
-	    SBGridProperties.parentid = 'ordrMngGridArea';
-	    SBGridProperties.id = 'ordrMngDatagrid';
-	    SBGridProperties.jsonref = 'ordrMngGridData';
+	    SBGridProperties.parentid = 'lgszMrktMngGridArea';
+	    SBGridProperties.id = 'lgszMrktMngDatagrid';
+	    SBGridProperties.jsonref = 'lgszMrktMngGridData';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["대형마트 명"], 		ref: 'martNm',  	type:'input',  width:'165px',     style:'text-align:center'},
-            {caption: ["발주정보 URL"], 	ref: 'ordrUrl',  	type:'input',  width:'320px',    style:'text-align:center'},
+            {caption: ["대형마트 명"], 		ref: 'lgszMrktNm',  	type:'input',  width:'165px',     style:'text-align:center'},
+            {caption: ["발주정보 URL"], 	ref: 'outordrInfoUrl',  	type:'input',  width:'320px',    style:'text-align:center'},
             {caption: ["사용자ID"], 		ref: 'userId',  	type:'input',  width:'120px',    style:'text-align:center'},
-            {caption: ["패스워드"], 		ref: 'userPw',  	type:'input',  width:'120px',    style:'text-align:center'},
+            {caption: ["패스워드"], 		ref: 'pswd',  	type:'input',  width:'120px',    style:'text-align:center'},
             {caption: ["사용유무"], 		ref: 'useYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
 						typeinfo : {ref:'comboReverseYnJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
-            {caption: ["최종처리일시"], 	ref: 'prcsDt',  	type:'input',  width:'280px',    style:'text-align:center'}
+            {caption: ["최종처리일시"], 	ref: 'lastPrcsDt',  	type:'input',  width:'280px',    style:'text-align:center'}
         ];
-        window.ordrMngDatagrid = _SBGrid.create(SBGridProperties);
+        window.lgszMrktMngDatagrid = _SBGrid.create(SBGridProperties);
+		fn_callSelectLgszMrktList();
     }
+    
+    let newLgszMrktMngGridData = [];
+	async function fn_callSelectLgszMrktList(){
+		let apcCd = SBUxMethod.get("inp-apcCd");
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectLgszMrktList.do", {apcCd : apcCd});
+        let data = await postJsonPromise;
+        newLgszMrktMngGridData = [];
+        lgszMrktMngGridData = [];
+        try{
+        	data.resultList.forEach((item, index) => {
+				let LgszMrkt = {
+					apcCd 					: item.apcCd
+					, lgszMrktCd 			: item.lgszMrktCd
+					, lgszMrktNm 			: item.lgszMrktNm
+					, outordrInfoUrl 		: item.outordrInfoUrl
+					, userId 				: item.userId
+					, pswd 					: item.pswd
+					, useYn 				: item.useYn
+					, lastPrcsDt 			: item.lastPrcsDt
+				}
+				lgszMrktMngGridData.push(Object.assign({}, LgszMrkt));
+				newLgszMrktMngGridData.push(Object.assign({}, LgszMrkt));
+			});
+        	console.log("newLgszMrktMngGridData", newLgszMrktMngGridData);
+        	lgszMrktMngDatagrid.rebuild();
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
 </script>
 </html>

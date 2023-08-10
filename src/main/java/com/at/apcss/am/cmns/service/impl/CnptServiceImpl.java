@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.am.cmns.mapper.CnptMapper;
 import com.at.apcss.am.cmns.service.CnptService;
 import com.at.apcss.am.cmns.vo.CnptVO;
+import com.at.apcss.am.cmns.vo.LgszMrktVO;
 
 /**
  * @Class Name : CnptServiceImpl.java
@@ -68,6 +69,22 @@ public class CnptServiceImpl implements CnptService {
 		int deletedCnt = cnptMapper.deleteCnpt(cnptVO);
 		
 		return deletedCnt;
+	}
+
+	@Override
+	public List<LgszMrktVO> selectLgszMrktList(LgszMrktVO lgszMrktVO) throws Exception {
+
+		List<LgszMrktVO> resultList = cnptMapper.selectLgszMrktList(lgszMrktVO);
+
+		return resultList;
+	}
+
+	@Override
+	public int updateLgszMrkt(LgszMrktVO lgszMrktVO) throws Exception {
+
+		int updatedCnt = cnptMapper.updateLgszMrkt(lgszMrktVO);
+
+		return updatedCnt;
 	}
 
 }
