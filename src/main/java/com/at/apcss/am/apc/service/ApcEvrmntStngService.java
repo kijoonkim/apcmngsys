@@ -70,7 +70,7 @@ public interface ApcEvrmntStngService {
 	
 	/**
 	 * 품종 팝업에서 조회
-	 * @param ComUserVO
+	 * @param ComCdVO
 	 * @return
 	 * @throws Exception
 	 */
