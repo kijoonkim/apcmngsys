@@ -6,38 +6,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/resource/css/template_com.css" rel="stylesheet" type="text/css">
-    <script>
-        var SBUxConfig = {
-            Path: '/resource/sbux/',
-            SBGrid: {
-                Version2_5: true
-            },
-            SBChart: {
-                Version2_0: true
-            }
-        }
-    </script>
-    <script src="/resource/sbux/SBUx.js"></script>
-    <!------------------ 컴포넌트 테마 CSS ------------------>
-	<link href="/resource/css/blue_comp_style.css" rel="stylesheet" type="text/css">
-    <!------------------ 스타일 테마 CSS ------------------>
-	<link href="/resource/css/blue_style.css" rel="stylesheet" type="text/css">
-    <style>
-        /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
-        실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
-        .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333;}
-        .sbt-A-wrap .main {display:table;  width:100%; height:500px;}
-        .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px; }
-        .sbt-A-wrap .left .sbt-all-left {height: 100%;}
-        .sbt-A-wrap .content {display:table-cell;}
-        .sbux-sidemeu {position: relative; z-index: 1;}
-        /** table css */
-        table{border-collapse: collapse;border-spacing: 0;}
-        table,th{text-align:center;}
-        table,td{padding:5px;}
-        .tbl{width: 100%;border-top: 2px solid #888;border-bottom: 1px solid #ddd;text-align: left;}
-    </style>
+    <%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
     <div class="sbt-A-wrap">
@@ -147,6 +117,7 @@
             {caption: ["사용자 명"], 	ref: 'userNm',   	type:'output',  width:'100px',    style:'text-align:center'},
             {caption: ["직책"], 		ref: 'jbttlNm',   	type:'output',  width:'100px',    style:'text-align:center'},
             {caption: ["담당업무"], 	ref: 'tkcgTaskNm',  type:'output',  width:'100px',    style:'text-align:center'},
+            {caption: ["inputButton"], 	ref: 'test',  type:'inputbutton',  width:'100px',    style:'text-align:center'},
             {caption: ["권한"], 		ref: 'chrgdCertYn', type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue === "N"){
             		return "<button type='button' onClick='fn_chrgdCert(\"APPOROVAL\", " + nRow + ", " + nCol + ")'>사용승인</button>";
