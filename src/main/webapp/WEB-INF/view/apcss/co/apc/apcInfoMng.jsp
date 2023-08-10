@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-danger" text="등록" onclick="fn_insert"></sbux-button>
+					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -123,11 +123,11 @@
             {caption: ['시군명'], 	ref: 'sigunNm',	 	width: '70px', 		type: 'input',		style:'text-align: center'},
 			{caption: ['주체명'], 	ref: 'mbCd', 	 	width: '70px', 		type: 'combo',		style:'text-align: center',
         		typeinfo : {ref:'comboMbCdJsData', label:'label', value:'value'}},
-            {caption: ['원본주소'], 	ref: 'regAddr',  	width: '300px',		type: 'input'},
+            {caption: ['원본주소'], 	ref: 'regAddr',  	width: '400px',		type: 'input'},
             {caption: ['원본전화번호'],	ref: 'regTelno', 	width: '100px', 	type: 'input',		style:'text-align: center'},
             {caption: ['APC명'], 	ref: 'apcNm', 	 	width: '200px', 	type: 'input',		style:'text-align: center'},
-            {caption: ['사업자번호'],	ref: 'brno', 	 	width: '100px', 	type: 'input',		style:'text-align: right'},
-            {caption: ['주소'],	 	ref: 'addr', 	 	width: '300px', 	type: 'input',},
+            {caption: ['사업자번호'],	ref: 'brno', 	 	width: '100px', 	type: 'input',		style:'text-align: center'},
+            {caption: ['주소'],	 	ref: 'addr', 	 	width: '400px', 	type: 'input',},
             {caption: ['팩스번호'],	ref: 'fxno', 	 	width: '100px', 	type: 'input',		style:'text-align: center'},
             {caption: ['전화번호'], 	ref: 'telno',	 	width: '100px', 	type: 'input',		style:'text-align: center'},
             {caption: ['사용유무'], 	ref: 'delYn', 	 	width: '70px', 		type: 'combo',		style:'text-align: center',
@@ -240,7 +240,7 @@
     }
 	
 	// APC 내역 등록 (등록 버튼)
-	async function fn_insert() {
+	async function fn_save() {
 		const apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let allData = grdApcInfoMng.getGridDataAll();
 		
