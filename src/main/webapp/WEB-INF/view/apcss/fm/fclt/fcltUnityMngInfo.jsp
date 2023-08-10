@@ -197,21 +197,15 @@
         SBGridProperties.rowheaderwidth = {seq: '60'};
 	    SBGridProperties.extendlastcol = 'scroll';
 
-        SBGridProperties.columns = [
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["메시지Key"],	ref: 'msgKey',      type:'output',  width:'30%',    style:'text-align:center'},
-            {caption: ["메시지내용"], 	ref: 'msgCn',     	type:'output',  width:'50%',    style:'text-align:left'},
-            {caption: ["메시지종류"],  	ref: 'msgKndNm',    type:'output',  width:'20%',    style:'text-align:center'},
-            {caption: ["비고"],      	ref: 'rmrk',        type:'output',  hidden: true},
-            {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
-            {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},
-            {caption: ["최종변경자ID"],	ref: 'updUserId',   type:'output',  hidden: true},
-            {caption: ["최종변경일시"], ref: 'updDateTime', type:'output',  hidden: true},
-            {caption: ["등록프로그램"], ref: 'creProgram',  type:'output',  hidden: true},
-            {caption: ["변경프로그램"], ref: 'updProgram',  type:'output',  hidden: true}
+	    SBGridProperties.columns = [
+            {caption: ["생산정보"],	ref: 'msgKey',      type:'output',  width:'14%',    style:'text-align:center'},
+            {caption: ["입고정보"], 	ref: 'msgCn',     	type:'output',  width:'14%',    style:'text-align:center'},
+            {caption: ["선별정보"],  	ref: 'msgKndNm',    type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["저장정보"],      	ref: 'rmrk1',        type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["포장정보"],      	ref: 'rmrk2',        type:'output',  width:'14%',    style:'text-align:center'},
+            {caption: ["출고정보"],      	ref: 'rmrk3',        type:'output',  width:'14%',    style:'text-align:center'},
+            {caption: ["정산정보"],      	ref: 'rmrk3',        type:'output',  width:'14%',    style:'text-align:center'}
+
         ];
 
         grdComMsgList = _SBGrid.create(SBGridProperties);

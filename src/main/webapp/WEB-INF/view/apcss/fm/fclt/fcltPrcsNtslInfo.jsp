@@ -192,20 +192,17 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["메시지Key"],	ref: 'msgKey',      type:'output',  width:'30%',    style:'text-align:center'},
-            {caption: ["메시지내용"], 	ref: 'msgCn',     	type:'output',  width:'50%',    style:'text-align:left'},
-            {caption: ["메시지종류"],  	ref: 'msgKndNm',    type:'output',  width:'20%',    style:'text-align:center'},
-            {caption: ["비고"],      	ref: 'rmrk',        type:'output',  hidden: true},
-            {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
-            {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},
-            {caption: ["최종변경자ID"],	ref: 'updUserId',   type:'output',  hidden: true},
-            {caption: ["최종변경일시"], ref: 'updDateTime', type:'output',  hidden: true},
-            {caption: ["등록프로그램"], ref: 'creProgram',  type:'output',  hidden: true},
-            {caption: ["변경프로그램"], ref: 'updProgram',  type:'output',  hidden: true}
+
+            {caption: ["대형유통업체(백화점 포함)"],	ref: 'msgKey',      type:'output',  width:'10%',    style:'text-align:center'},
+            {caption: ["식자재업체(학교급식, 가공업체 포함)	"], 	ref: 'msgCn',     	type:'output',  width:'10%',    style:'text-align:center'},
+            {caption: ["도매시장(공판장 포함)"],  	ref: 'msgKndNm',    type:'output',  width:'10%',    style:'text-align:center'},
+            {caption: ["소매업체 직판"],      	ref: 'rmrk',        type:'output',  width:'10%',    style:'text-align:center'},
+            {caption: ["수출"],	ref: 'creUserId',   type:'output',  width:'10%',    style:'text-align:center'},
+            {caption: ["홈쇼핑(TV매체))"],	ref: 'creDateTime', type:'output',  width:'10%',    style:'text-align:center'},
+            {caption: ["온라인B2B"],	ref: 'updUserId',   type:'output',  width:'10%',    style:'text-align:center'},
+            {caption: ["온라인(B2C)"], ref: 'updDateTime', type:'output',  width:'10%',    style:'text-align:center'},
+            {caption: ["기타"], ref: 'creProgram',  type:'output',  width:'10%',    style:'text-align:center'},
+            {caption: ["계"], ref: 'updProgram',  type:'output',  width:'10%',    style:'text-align:center'}
         ];
 
         grdComMsgList = _SBGrid.create(SBGridProperties);
