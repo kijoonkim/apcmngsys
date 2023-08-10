@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CmnsGrdVO extends CmnsItemVO {
-	
+
 	/**
 	 * 등급코드
 	 */
@@ -30,4 +30,8 @@ public class CmnsGrdVO extends CmnsItemVO {
 	 * 등급명
 	 */
 	private String grdNm;
+	/**
+	 * 순번
+	 */
+	private String sn;
 }
