@@ -11,9 +11,9 @@
 			<div class="box-header">
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnSearchPltBx" name="btnSearchPltBx" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_sarchPltBx"></sbux-button>
+						<sbux-button id="btnSearchPltBx" name="btnSearchPltBx" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popPltBx.search"></sbux-button>
 						<sbux-button id="btnSavePltBx" name="btnSavePltBx" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertPltBx"></sbux-button>
-						<sbux-button id="btnEndPltBx" name="btnEndPltBx" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-pltBx')"></sbux-button>
+						<sbux-button id="btnEndPltBx" name="btnEndPltBx" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popPltBx.close"></sbux-button>
 					</div>
 				</div>
 			</div>
@@ -55,6 +55,72 @@
 						<div id="sb-area-grdBx" style="width:100%;height:300px;"></div>
 					</div>
 				</div>
+				<div class="col-sm-6">
+					<table class="table table-bordered tbl_row tbl_fixed">
+						<caption>합계</caption>
+						<colgroup>
+							<col style="width: 155px">
+							<col style="width: 85px">
+							<col style="width: 85px">
+							<col style="width: 85px">
+							<col style="width: 60px">
+							<col style="width: 80px">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th scope="row">합계</th>
+								<td>
+									<sbux-input id="plt-inp-qntt" name="plt-inp-qntt" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td>
+									<sbux-input id="plt-inp-unitWght" name="plt-inp-unitWght" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td>
+									<sbux-input id="plt-inp-wght" name="plt-inp-wght" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td>
+									<sbux-input id="plt-inp-unitCd" name="plt-inp-unitCd" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td>
+									<sbux-input id="plt-inp-delYn" name="plt-inp-delYn" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-sm-6">
+					<table class="table table-bordered tbl_row tbl_fixed">
+						<caption>검색 조건 설정</caption>
+						<colgroup>
+							<col style="width: 155px">
+							<col style="width: 85px">
+							<col style="width: 85px">
+							<col style="width: 85px">
+							<col style="width: 60px">
+							<col style="width: 80px">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th scope="row">합계</th>
+								<td>
+									<sbux-input id="bx-inp-qntt" name="bx-inp-qntt" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td>
+									<sbux-input id="bx-inp-unitWght" name="bx-inp-unitWght" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td>
+									<sbux-input id="bx-inp-wght" name="bx-inp-wght" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td>
+									<sbux-input id="bx-inp-unitCd" name="bx-inp-unitCd" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td>
+									<sbux-input id="bx-inp-delYn" name="bx-inp-delYn" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 				<!--[pp] //검색결과 -->
 			</div>
 		</div>
@@ -62,204 +128,257 @@
 </body>
 <script type="text/javascript">
 
-	var jsonComUnitCd 		= [];	// 대표품종 unitCd		Grid
+	var jsonComUnitCd 		= [];
 	var jsonComPltNm		= [];
 	var jsonComBxNm		= [];
 	
 	const pltMap = {};
 	const bxMap = {};
-	const fn_initSBSelectPltBx = async function() {
-
-		// 그리드 SB select
-	 	gfn_setComCdGridSelect('grdPlt', jsonComUnitCd, 	'UNIT_CD');			// 단위
-	 	
- 		// 팔레트 SB select
-		var postJsonPromise = gfn_postJSON("/am/cmns/pltBxInfos", {apcCd: '0000', pltBxSeCd: 'P', delYn: "N"});
-		var data = await postJsonPromise;
-		data.resultList.forEach((item) => {
-			const pltBx = {
-				label: item.pltBxNm,
-				value: item.pltBxCd
-			}
-			pltMap[item.pltBxCd] = item;
-			jsonComPltNm.push(pltBx);
-		});
- 		console.log("jsonComPltNm", jsonComPltNm);
- 		console.log("pltMap", pltMap);
- 		
- 		// 박스 SB select
-		postJsonPromise = gfn_postJSON("/am/cmns/pltBxInfos", {apcCd: '0000', pltBxSeCd: 'B', delYn: "N"});
-		data = await postJsonPromise;
-		data.resultList.forEach((item) => {
-			const pltBx = {
-				label: item.pltBxNm,
-				value: item.pltBxCd
-			}
-			bxMap[item.pltBxCd] = item;
-			jsonComBxNm.push(pltBx);
-		});
- 		console.log("jsonComBxNm", jsonComBxNm);
- 		console.log("bxMap", bxMap);
-		
-	}
-
-	window.addEventListener('DOMContentLoaded', function(e) {
-		SBUxMethod.set("pltBx-inp-apcNm", gv_apcNm);
-		fn_initSBSelectPltBx();
-	})
-
-
+	
 	var jsonPlt = [];
-	function fn_createPltGrid() {
-		jsonPlt = [];
-	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdPlt';
-	    SBGridProperties.id = 'grdPlt';
-	    SBGridProperties.jsonref = 'jsonPlt';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.columns = [
-	        {caption: ["팔레트","종류"], 		ref: 'pltBxNm',   		type:'combo',  width:'155px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComPltNm', label:'label', value:'value', displayui : true}},
-	        {caption: ["팔레트","수량"], 		ref: 'bssInvntrQntt',  	type:'input',  width:'85px',    style:'text-align:center'},
-	        {caption: ["팔레트","단중"], 		ref: 'unitWght',   		type:'input',  width:'85px',    style:'text-align:center'},
-	        {caption: ["팔레트","중량"], 		ref: 'wght',   		type:'output',  width:'85px',    style:'text-align:center'},
-	        {caption: ["팔레트","단위"], 		ref: 'unitCd',   		type:'combo',  width:'60px',    style:'text-align:center',
-					typeinfo : {ref:'jsonComUnitCd', label:'label', value:'value', displayui : true}},
-			{caption: ["팔레트","처리"], 		ref: 'delYn',   	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowPltBx(\"ADD\", \"grdPlt\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowPltBx(\"DEL\", \"grdPlt\", " + nRow + ")'>삭제</button>";
-	        	}
-		    }},
-	    	{caption: ["박스 정보","코드"], 					ref: 'pltBxCd',  	hidden : true},
-		    {caption: ["박스 정보","팔레트/박스 구분코드"], 	ref: 'pltBxSeCd',  	hidden : true},
-		    {caption: ["박스 정보","APC코드"], 					ref: 'apcCd',  		hidden : true}
-
-	    ];
-	    grdPlt = _SBGrid.create(SBGridProperties);
-	    grdPlt.bind('valuechanged', fn_setPltUnitWght);
-	    grdPlt.addRow(true);
-	}
-	function fn_setPltUnitWght(){
-	    var nRow = grdPlt.getRow();
-	    var nCol = grdPlt.getCol();
-	    console.log(nRow, nCol);
-		if(nCol == 0){
-		    grdPlt.setCellData(nRow,nCol+2,pltMap[grdPlt.getCellData(nRow,nCol)].unitWght);
-		    jsonPlt[nRow-2].pltBxCd
-		}
-		else if(nCol == 1){
-			let wghtKg = grdPlt.getCellData(nRow, 1) * grdPlt.getCellData(nRow, 2);
-			if(pltMap[grdPlt.getCellData(nRow,0)].unitCd == 1) // unitCd: g
-				wghtKg = wghtKg * 1000;
-			else if (pltMap[grdPlt.getCellData(nRow,0)].unitCd == 3) // unitCd: Ton
-				wghtKg = wghtKg / 1000;
-			grdPlt.setCellData(nRow,nCol+2,wghtKg);
-		}
-	}
-	
-
 	var jsonBx = [];
-	function fn_createBxGrid() {
-		jsonBx = [];
-	    var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdBx';
-	    SBGridProperties.id = 'grdBx';
-	    SBGridProperties.jsonref = 'jsonBx';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.columns = [
-	    	{caption: ["박스","종류"], 		ref: 'pltBxNm',   		type:'combo',  width:'155px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComBxNm', label:'label', value:'value', displayui : true}},
-	        {caption: ["박스","수량"], 		ref: 'bssInvntrQntt',  	type:'input',  width:'85px',    style:'text-align:center'},
-	        {caption: ["박스","단중"], 		ref: 'unitWght',   		type:'input',  width:'85px',    style:'text-align:center'},
-	        {caption: ["박스","중량"], 		ref: 'wght',   		type:'output',  width:'85px',    style:'text-align:center'},
-	        {caption: ["박스","단위"], 		ref: 'unitCd',   		type:'combo',  width:'60px',    style:'text-align:center',
-				typeinfo : {ref:'jsonComUnitCd', label:'label', value:'value', displayui : true}},
-			{caption: ["박스","처리"], 		ref: 'delYn',   	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowPltBx(\"ADD\", \"grdBx\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowPltBx(\"DEL\", \"grdBx\", " + nRow + ")'>삭제</button>";
-	        	}
-		    }},
-	    	{caption: ["박스","코드"], 					ref: 'pltBxCd',  	hidden : true},
-		    {caption: ["박스","팔레트/박스 구분코드"], 	ref: 'pltBxSeCd',  	hidden : true},
-		    {caption: ["박스","APC코드"], 				ref: 'apcCd',  	hidden : true}
-
-	    ];
-	    grdBx = _SBGrid.create(SBGridProperties);
-	    grdBx.bind('valuechanged', fn_setBxUnitWght);
-	    grdBx.addRow(true);
-	}
 	
-	function fn_setBxUnitWght(){
-	    var nRow = grdBx.getRow();
-	    var nCol = grdBx.getCol();
-	    console.log(nRow, nCol);
-		if(nCol == 0){
-			grdBx.setCellData(nRow,nCol+2,bxMap[grdBx.getCellData(nRow,nCol)].unitWght);
-		}
-		else if(nCol == 1){
-			let wghtKg = grdBx.getCellData(nRow, 1) * grdBx.getCellData(nRow, 2);
-			if(bxMap[grdBx.getCellData(nRow,0)].unitCd == 1) // unitCd: g
-				wghtKg = wghtKg * 1000;
-			else if (bxMap[grdBx.getCellData(nRow,0)].unitCd == 3) // unitCd: Ton
-				wghtKg = wghtKg / 1000;
-			grdBx.setCellData(nRow,nCol+2,wghtKg);
-		}
-	}
+	var grdPlt = null;
+	var grdBx = null;
+	const popPltBx = {
+			prgrmId: 'pltBxPopup',
+			modalId: 'modal-pltBx',
+// 			gridId: 'grdPlt',
+// 			jsonId: 'jsonPlt',
+// 			areaId: "sb-area-grdPrdcr",
+// 			prvApcCd: "",
+			objGrid: null,
+// 			gridJson: [],
+			callbackFnc: function() {},
+			init: async function(_apcCd, _apcNm, _callbackFnc, _pltBxData) {
+				SBUxMethod.set("pltBx-inp-apcNm", gv_apcNm);
+				await this.initSBSelectPltBx();
+				
+				if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
+					this.callbackFnc = _callbackFnc;	
+				}
+				this.createPltGrid();
+				this.createBxGrid();
+				
+				this.search(_pltBxData);
+			},
+			close: function() {
+				pltBxData = {
+							jsonPlt: jsonPlt,
+							jsonBx: jsonBx,
+							totalPltWght: SBUxMethod.get("plt-inp-wght"),
+							totalBxWght: SBUxMethod.get("bx-inp-wght")
+						}
+				gfn_closeModal(this.modalId, this.callbackFnc, pltBxData);
+			},
+			createPltGrid: function() {
+				jsonPlt = [];
+			    var SBGridProperties = {};
+			    SBGridProperties.parentid = 'sb-area-grdPlt';
+			    SBGridProperties.id = 'grdPlt';
+			    SBGridProperties.jsonref = 'jsonPlt';
+			    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+			    SBGridProperties.selectmode = 'byrow';
+			    SBGridProperties.extendlastcol = 'scroll';
+			    SBGridProperties.columns = [
+			        {caption: ["팔레트","종류"], 		ref: 'pltBxNm',   		type:'combo',  width:'155px',    style:'text-align:center',
+						typeinfo : {ref:'jsonComPltNm', label:'label', value:'value', displayui : true}},
+			        {caption: ["팔레트","수량"], 		ref: 'bssInvntrQntt',  	type:'input',  width:'85px',    style:'text-align:center'},
+			        {caption: ["팔레트","단중"], 		ref: 'unitWght',   		type:'input',  width:'85px',    style:'text-align:center'},
+			        {caption: ["팔레트","중량"], 		ref: 'wght',   		type:'output',  width:'85px',    style:'text-align:center'},
+			        {caption: ["팔레트","단위"], 		ref: 'unitCd',   		type:'combo',  width:'60px',    style:'text-align:center',
+							typeinfo : {ref:'jsonComUnitCd', label:'label', value:'value', displayui : true}},
+					{caption: ["팔레트","처리"], 		ref: 'delYn',   	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+		            	if (gfn_isEmpty(strValue)){
+		            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popPltBx.add(\"grdPlt\", " + nRow + ", " + nCol + ")'>추가</button>";
+		            	} else {
+					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popPltBx.del(\"grdPlt\", " + nRow + ")'>삭제</button>";
+		            	}
+				    }},
+			    	{caption: ["박스 정보","코드"], 					ref: 'pltBxCd',  	hidden : true},
+				    {caption: ["박스 정보","팔레트/박스 구분코드"], 	ref: 'pltBxSeCd',  	hidden : true},
+				    {caption: ["박스 정보","APC코드"], 					ref: 'apcCd',  		hidden : true}
 
+			    ];
+			    grdPlt = _SBGrid.create(SBGridProperties);
+			    grdPlt.bind('valuechanged', popPltBx.setPltUnitWght);
+			    grdPlt.addRow(true);
+			},
+			createBxGrid: function() {
+				jsonBx = [];
+			    var SBGridProperties = {};
+			    SBGridProperties.parentid = 'sb-area-grdBx';
+			    SBGridProperties.id = 'grdBx';
+			    SBGridProperties.jsonref = 'jsonBx';
+			    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+			    SBGridProperties.selectmode = 'byrow';
+			    SBGridProperties.extendlastcol = 'scroll';
+			    SBGridProperties.columns = [
+			    	{caption: ["박스","종류"], 		ref: 'pltBxNm',   		type:'combo',  width:'155px',    style:'text-align:center',
+						typeinfo : {ref:'jsonComBxNm', label:'label', value:'value', displayui : true}},
+			        {caption: ["박스","수량"], 		ref: 'bssInvntrQntt',  	type:'input',  width:'85px',    style:'text-align:center'},
+			        {caption: ["박스","단중"], 		ref: 'unitWght',   		type:'input',  width:'85px',    style:'text-align:center'},
+			        {caption: ["박스","중량"], 		ref: 'wght',   		type:'output',  width:'85px',    style:'text-align:center'},
+			        {caption: ["박스","단위"], 		ref: 'unitCd',   		type:'combo',  width:'60px',    style:'text-align:center',
+						typeinfo : {ref:'jsonComUnitCd', label:'label', value:'value', displayui : true}},
+					{caption: ["박스","처리"], 		ref: 'delYn',   	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+		            	if (gfn_isEmpty(strValue)){
+		            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popPltBx.add(\"grdBx\", " + nRow + ", " + nCol + ")'>추가</button>";
+		            	} else {
+					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popPltBx.del(\"grdBx\", " + nRow + ")'>삭제</button>";
+		            	}
+				    }},
+			    	{caption: ["박스","코드"], 					ref: 'pltBxCd',  	hidden : true},
+				    {caption: ["박스","팔레트/박스 구분코드"], 	ref: 'pltBxSeCd',  	hidden : true},
+				    {caption: ["박스","APC코드"], 				ref: 'apcCd',  	hidden : true}
 
-	function fn_procRowPltBx(gubun, grid ,nRow, nCol){
-		if (gubun === "ADD") {
-			if(grid === "grdPlt"){
-				grdPlt.setCellData(nRow, nCol, "N", true);
-				grdPlt.setCellData(nRow, 6, "P", true);
-				grdPlt.setCellData(nRow, 7, SBUxMethod.get("apcCd"), true);
-				grdPlt.addRow(true);
-			}else if(grid ==="grdBx"){
-				grdBx.setCellData(nRow, nCol, "N", true);
-				grdBx.setCellData(nRow, 6, "B", true);
-				grdBx.setCellData(nRow, 7, SBUxMethod.get("apcCd"), true);
-				grdBx.addRow(true);
-			}
-		}
-		else if(gubun === "DEL"){
-			if(grid === "grdPlt"){
+			    ];
+			    grdBx = _SBGrid.create(SBGridProperties);
+			    grdBx.bind('valuechanged', popPltBx.setBxUnitWght);
+			    grdBx.addRow(true);
+			},
 
-				if(grdPlt.getRowStatus(nRow) == 0 || grdPlt.getRowStatus(nRow) == 2){
-	        		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-	        		if(confirm(delMsg)){
+			add: function(grid, nRow, nCol) {
+				if(grid === "grdPlt"){
+					grdPlt.setCellData(nRow, nCol, "N", true);
+					grdPlt.setCellData(nRow, 6, "P", true);
+					grdPlt.setCellData(nRow, 7, SBUxMethod.get("apcCd"), true);
+					grdPlt.addRow(true);
+				}else if(grid ==="grdBx"){
+					grdBx.setCellData(nRow, nCol, "N", true);
+					grdBx.setCellData(nRow, 6, "B", true);
+					grdBx.setCellData(nRow, 7, SBUxMethod.get("apcCd"), true);
+					grdBx.addRow(true);
+				}
+			},
+			del: async function(grid, nRow) {
+				if(grid === "grdPlt"){
+					if(grdPlt.getRowStatus(nRow) == 0 || grdPlt.getRowStatus(nRow) == 2){
+						if (!gfn_comConfirm("Q0001", "삭제")) {	//	Q0001	{0} 하시겠습니까?
+							return;
+						}
 	        			var pltBxVO = grdPlt.getRowData(nRow);
-	        			//fn_deletePltBx(pltBxVO);
 	        			grdPlt.deleteRow(nRow);
-	        		}
-	        	}else{
-	        		grdPlt.deleteRow(nRow);
-	        	}
-			}else if(grid === "grdBx"){
-				if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){
-	        		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-	        		if(confirm(delMsg)){
-	        			var pltBxVO = grdBx.getRowData(nRow);
-	        			//fn_deletePltBx(pltBxVO);
+		        	}else{
+		        		grdPlt.deleteRow(nRow);
+		        	}
+				}else if(grid === "grdBx"){
+					if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){
+						if (!gfn_comConfirm("Q0001", "삭제")) {	//	Q0001	{0} 하시겠습니까?
+							return;
+						}
+	        			var pltBxVO = grdPlt.getRowData(nRow);
 	        			grdBx.deleteRow(nRow);
-	        		}
-	        	}else{
-	        		grdBx.deleteRow(nRow);
-	        	}
-			}
-		}
-	}
+		        	}else{
+		        		grdBx.deleteRow(nRow);
+		        	}
+				}
+			},
+			save: async function() {
 
-	function fn_modalPltBx(){
-		fn_createPltGrid();
-		fn_createBxGrid();
-	}
+			},
+			search: async function(pltBxData) {
+				if(!gfn_isEmpty(pltBxData)){
+					if(!gfn_isEmpty(pltBxData.jsonPlt))
+						jsonPlt = pltBxData.jsonPlt;
+					
+					if(!gfn_isEmpty(pltBxData.jsonBx))
+						jsonBx = pltBxData.jsonBx;
+				}
+				
+				grdPlt.rebuild();
+				grdBx.rebuild();
+			},
+		    initSBSelectPltBx: async function() {
+			 	gfn_setComCdGridSelect('grdPlt', jsonComUnitCd, 'UNIT_CD', '0000');			// 단위
+			 	gfn_setComCdGridSelect('grdBx', jsonComUnitCd, 'UNIT_CD', '0000');			// 단위
+			 	
+		 		// 팔레트 SB select
+			 	jsonComPltNm = [];
+				var postJsonPromise = gfn_postJSON("/am/cmns/pltBxInfos", {apcCd: '0000', pltBxSeCd: 'P', delYn: "N"});
+				var data = await postJsonPromise;
+				data.resultList.forEach((item) => {
+					const pltBx = {
+						label: item.pltBxNm,
+						value: item.pltBxCd
+					}
+					pltMap[item.pltBxCd] = item;
+					jsonComPltNm.push(pltBx);
+				});
+		 		console.log("jsonComPltNm", jsonComPltNm);
+		 		console.log("pltMap", pltMap);
+		 		SBUxMethod.refresh('grdPlt');
+		 		
+		 		
+		 		// 박스 SB select
+		 		jsonComBxNm = [];
+				postJsonPromise = gfn_postJSON("/am/cmns/pltBxInfos", {apcCd: '0000', pltBxSeCd: 'B', delYn: "N"});
+				data = await postJsonPromise;
+				data.resultList.forEach((item) => {
+					const pltBx = {
+						label: item.pltBxNm,
+						value: item.pltBxCd
+					}
+					bxMap[item.pltBxCd] = item;
+					jsonComBxNm.push(pltBx);
+				});
+		 		console.log("jsonComBxNm", jsonComBxNm);
+		 		console.log("bxMap", bxMap);
+		 		SBUxMethod.refresh('grdBx');
+		    },
+		    setPltUnitWght: function() {
+			    var nRow = grdPlt.getRow();
+			    var nCol = grdPlt.getCol();
+				if(nCol == 0){
+				    grdPlt.setCellData(nRow,nCol+2,pltMap[grdPlt.getCellData(nRow,nCol)].unitWght);
+				    grdPlt.setCellData(nRow,nCol+4,pltMap[grdPlt.getCellData(nRow,nCol)].unitCd);
+				}
+				else if(nCol == 1){
+					grdPlt.setCellData(nRow,nCol+2,grdPlt.getCellData(nRow, 1) * grdPlt.getCellData(nRow, 2));
+				}
+				
+				var totalQntt = Number(0);
+				var totalWght = 0;
+				for(var i=0; i<jsonPlt.length; i++){
+					totalQntt += Number(jsonPlt[i].bssInvntrQntt);
+					
+					if (jsonPlt[i].unitCd == 1)
+						totalWght += jsonPlt[i].bssInvntrQntt * jsonPlt[i].unitWght / 1000
+					else if(jsonPlt[i].unitCd == 3)
+						totalWght += jsonPlt[i].bssInvntrQntt * jsonPlt[i].unitWght * 1000
+					else
+						totalWght += jsonPlt[i].bssInvntrQntt * jsonPlt[i].unitWght
+				}
+				SBUxMethod.set("plt-inp-qntt", totalQntt);
+				SBUxMethod.set("plt-inp-wght", totalWght);
+		    },
+		    setBxUnitWght: function() {
+			    var nRow = grdBx.getRow();
+			    var nCol = grdBx.getCol();
+			    console.log(nRow, nCol);
+				if(nCol == 0){
+					grdBx.setCellData(nRow,nCol+2,bxMap[grdBx.getCellData(nRow,nCol)].unitWght);
+					grdBx.setCellData(nRow,nCol+4,bxMap[grdBx.getCellData(nRow,nCol)].unitCd);
+				}
+				else if(nCol == 1){
+					grdBx.setCellData(nRow,nCol+2, grdBx.getCellData(nRow, 1) * grdBx.getCellData(nRow, 2));
+				}
+				
+				var totalQntt = Number(0);
+				var totalWght = 0;
+				for(var i=0; i<jsonPlt.length; i++){
+					totalQntt += Number(jsonBx[i].bssInvntrQntt);
+					
+					if (jsonBx[i].unitCd == 1)
+						totalWght += jsonBx[i].bssInvntrQntt * jsonBx[i].unitWght / 1000
+					else if(jsonBx[i].unitCd == 3)
+						totalWght += jsonBx[i].bssInvntrQntt * jsonBx[i].unitWght * 1000
+					else
+						totalWght += jsonBx[i].bssInvntrQntt * jsonBx[i].unitWght
+				}
+				SBUxMethod.set("bx-inp-qntt", totalQntt);
+				SBUxMethod.set("bx-inp-wght", totalWght);
+		    }
+		}
 </script>
 </html>
