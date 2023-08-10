@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-danger" text="등록" onclick="fn_insert"></sbux-button>
+					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -69,7 +69,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdApcInfoMng" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdApcInfoMng" style="width:100%;height:600px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -77,15 +77,17 @@
 	</section>
 </body>
 <script type="text/javascript">
-	
-	var comboDelYnJsData = [];
+
 	var jsonComboDelYn = [];
+	var comboDelYnJsData = [];
+	var comboMbCdJsData = [];
 	
 	var apcInfoMngData = [];
 
 	const fn_initSBSelect = async function() {
-		gfn_setComCdSBSelect('srch-slt-delYn', jsonComboDelYn, 'DEL_YN', '0000');
-		gfn_setComCdGridSelect('grdApcInfoMng', comboDelYnJsData, "DEL_YN", "0000");
+		gfn_setComCdSBSelect('srch-slt-delYn', jsonComboDelYn, 'REVERSE_YN', '0000');
+		gfn_setComCdGridSelect('grdApcInfoMng', comboDelYnJsData, "REVERSE_YN", "0000");
+		gfn_setComCdGridSelect('grdApcInfoMng', comboMbCdJsData, "MB_CD", "0000");
 	}
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -103,6 +105,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.explorerbar = 'sortmove';
     	SBGridProperties.paging = {
@@ -113,21 +116,22 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-        	{caption: ['선택'], ref: 'checked', width: '50px', type: 'checkbox'},
-            {caption: ['APC코드'], ref: 'apcCd', width: '70px', type: 'output'},
-            {caption: ['원본APC명'], ref: 'regApcNm', width: '200px', type: 'input'},
-            {caption: ['시도명'], ref: 'ctpvNm', width: '70px', type : 'input'},
-            {caption: ['시군명'], ref: 'sigunNm', width: '70px', type: 'input'},
-            {caption: ['주체명'], ref: 'mbCd', width: '70px', type: 'input'},
-            {caption: ['원본주소'], ref: 'regAddr', width: '300px', type: 'input'},
-            {caption: ['원본전화번호'], ref: 'regTelno', width: '100px', type: 'input'},
-            {caption: ['APC명'], ref: 'apcNm', width: '200px', type: 'input'},
-            {caption: ['사업자번호'], ref: 'brno', width: '100px', type: 'input'},
-            {caption: ['주소'], ref: 'addr', width: '300px', type: 'input'},
-            {caption: ['팩스번호'], ref: 'fxno', width: '100px', type: 'input'},
-            {caption: ['전화번호'], ref: 'telno', width: '100px', type: 'input'},
-            {caption: ['사용유무'], ref: 'delYn', width: '70px', type : 'combo',
-            	typeinfo : {ref:'comboDelYnJsData', label:'label', value:'value', oneclickedit: true, displayui : true}}
+        	{caption: ['선택'],		ref: 'checked',  	width: '50px',		type: 'checkbox'},
+            {caption: ['APC코드'],	ref: 'apcCd',		width: '70px', 		type: 'output',		style:'text-align: center'},
+            {caption: ['원본APC명'], 	ref: 'regApcNm', 	width: '200px',		type: 'input',		style:'text-align: center'},
+            {caption: ['시도명'], 	ref: 'ctpvNm',	 	width: '70px', 		type: 'input',		style:'text-align: center'},
+            {caption: ['시군명'], 	ref: 'sigunNm',	 	width: '70px', 		type: 'input',		style:'text-align: center'},
+			{caption: ['주체명'], 	ref: 'mbCd', 	 	width: '70px', 		type: 'combo',		style:'text-align: center',
+        		typeinfo : {ref:'comboMbCdJsData', label:'label', value:'value'}},
+            {caption: ['원본주소'], 	ref: 'regAddr',  	width: '400px',		type: 'input'},
+            {caption: ['원본전화번호'],	ref: 'regTelno', 	width: '100px', 	type: 'input',		style:'text-align: center'},
+            {caption: ['APC명'], 	ref: 'apcNm', 	 	width: '200px', 	type: 'input',		style:'text-align: center'},
+            {caption: ['사업자번호'],	ref: 'brno', 	 	width: '100px', 	type: 'input',		style:'text-align: center'},
+            {caption: ['주소'],	 	ref: 'addr', 	 	width: '400px', 	type: 'input',},
+            {caption: ['팩스번호'],	ref: 'fxno', 	 	width: '100px', 	type: 'input',		style:'text-align: center'},
+            {caption: ['전화번호'], 	ref: 'telno',	 	width: '100px', 	type: 'input',		style:'text-align: center'},
+            {caption: ['사용유무'], 	ref: 'delYn', 	 	width: '70px', 		type: 'combo',		style:'text-align: center',
+            	typeinfo : {ref:'comboDelYnJsData', label:'label', value:'value', oneclickedit: true}}
         ];
         grdApcInfoMng = _SBGrid.create(SBGridProperties);
         grdApcInfoMng.bind( "afterpagechanged" , "fn_pagingApcInfoMng" );
@@ -137,13 +141,16 @@
 	async function fn_procRowApcInfo(type){
 		if (type == "ADD"){
 			grdApcInfoMng.addRow(true, {'delYn':'N'});
+			grdApcInfoMng.setCellData(grdApcInfoMng.getGridDataAll().length, 0, true);
 			fn_initSBSelect();
 		}
 		else{
-			for(var i=0; i<apcInfoMngData.length; i++){
-				if(grdApcInfoMng.getGridDataAll()[i].checked && grdApcInfoMng.getGridDataAll()[i].apcCd == ""){
-					grdApcInfoMng.deleteRow(i+1);
-					i--;
+			for(var i=0; i<grdApcInfoMng.getGridDataAll().length; i++){
+				if(grdApcInfoMng.getGridDataAll()[i].checked == "true"){
+					if (grdApcInfoMng.getGridDataAll()[i].apcCd == "" || grdApcInfoMng.getGridDataAll()[i].apcCd == null){
+						grdApcInfoMng.deleteRow(i+1);
+						i--;
+					}
 				}
 			}
 		}
@@ -233,67 +240,57 @@
     }
 	
 	// APC 내역 등록 (등록 버튼)
-	async function fn_insert(){
-		for(var i=0; i<apcInfoMngData.length; i++){
-			if(apcInfoMngData[i].delYn == "N" && (apcInfoMngData[i].regApcNm == null || apcInfoMngData[i].regApcNm == "")){
-				alert("원본 APC명은 필수 값 입니다.");
-				return
+	async function fn_save() {
+		const apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let allData = grdApcInfoMng.getGridDataAll();
+		
+		const apcDsctnList = [];
+		
+		for ( let i=1; i<=allData.length; i++ ){
+			const rowData = grdApcInfoMng.getRowData(i);
+			const rowSts = grdApcInfoMng.getRowStatus(i);
+			console.log(grdApcInfoMng.getRowData(i).checked, rowData.checked);
+			if (rowData.checked == "true"){
+				if (gfn_isEmpty(rowData.regApcNm)){
+					gfn_comAlert("W0002", "원본APC명");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
+	
+				if (rowSts === 3){
+					rowData.rowSts = "I";
+					apcDsctnList.push(rowData);
+				} else if (rowSts === 2){
+					rowData.rowSts = "U";
+					apcDsctnList.push(rowData);
+				} else {
+					continue;
+				}
 			}
 		}
 		
-		var isEqual1 = await fn_chkGridDataModified(apcInfoMngData, newApcInfoMngData);
-		console.log(isEqual1);
-		if (isEqual1){
-			alert("등록 할 내용이 없습니다.");
-			return;
+		if (apcDsctnList.length == 0){
+			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
+            return;
 		}
 		
-		let regMsg = "등록 하시겠습니까?";
-		if(confirm(regMsg)){
-			let postJsonPromise = gfn_postJSON("/am/apc/updateApcDsctnList.do", {origin : newApcInfoMngData, modified : apcInfoMngData});
-			let data = await postJsonPromise;
-	        try{
-	        	if(data.insertedCnt > 0){
-	        		fn_callSelectApcDsctnList();
-	        		alert("등록 되었습니다.");
-	        	}else{
-	        		alert("등록 실패 하였습니다.");
-	        	}
-	
-	        }catch (e) {
-	        	if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-			}
-		}
-	}
-	
-	async function fn_chkGridDataModified(obj1, obj2){
-		console.log("modified", obj1);
-		console.log("origin", obj2);
-
-		var obj1Len = obj1.filter(e => e["delYn"] == "N").length;
-		var obj2Len = obj2.filter(e => e["delYn"] == "N").length;
-
-		if (obj1Len != obj2Len)
-			return false;
-
-		var obj1keys = Object.keys(obj1[0]);
-		obj1keys.sort();
-		var obj2keys = Object.keys(obj2[0]);
-		obj2keys.sort();
-
-		if (JSON.stringify(obj1keys) != JSON.stringify(obj2keys))
-			return false;
-
-		for(var i=0; i<obj1Len; i++){
-			for(var j=0; j<obj1keys.length; j++){
-				if(obj1[i][obj1keys[j]] != obj2[i][obj1keys[j]])
-					return false;
-			}
-		}
-		return true;
+		if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+    	console.log(apcDsctnList);
+    	
+    	const postJsonPromise = gfn_postJSON("/am/apc/multiApcDsctnList.do", apcDsctnList, this.prgrmId);	// 프로그램id 추가
+    	
+		const data = await postJsonPromise;	    
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_callSelectApcDsctnList();
+        		fn_search();
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {        	
+        }
 	}
 </script>
 </html>

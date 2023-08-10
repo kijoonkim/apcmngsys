@@ -74,7 +74,7 @@
 			      CU.USER_ID            	AS USER_ID
 				, CU.USER_NM            	AS USER_NM
 				, CU.PSWD					AS PSWD
-				, CU.USER_TYPE          	AS USER_TYPE
+				, (SELECT FN_GET_COM_CD_VL_NM('USER_TYPE', CU.USER_TYPE) FROM DUAL) AS USER_TYPE
 				, CU.USER_STTS          	AS USER_STTS
 				, (SELECT FN_GET_COM_CD_VL_NM('USER_STTS', CU.USER_STTS) FROM DUAL) AS aprvYn
 				, CU.EML                	AS EML
@@ -84,7 +84,7 @@
 				, CU.OGDP_NM            	AS OGDP_NM
 				, CU.CHRGD_CERT_YN      	AS CHRGD_CERT_YN
 				, CU.CHRGD_CERT_TYPE    	AS CHRGD_CERT_TYPE
-				, CU.LCK_YN             	AS LCK_YN
+				, (SELECT FN_GET_COM_CD_VL_NM('REVERSE_YN',CU.LCK_YN) FROM DUAL) AS LCK_YN
 				, CU.LGN_FAIL_NMTM      	AS LGN_FAIL_NMTM
 				, CU.END_LGN_DT         	AS END_LGN_DT
 				, CU.END_LGN_IP         	AS END_LGN_IP
@@ -93,7 +93,7 @@
 				, CU.TKCG_TASK_NM 			AS TKCG_TASK_NM
 				, CU.RMRK 					AS RMRK
 				, CU.DEL_YN                 AS DEL_YN
-				, (SELECT X.CD_VL_NM FROM TB_COM_CD_DTL X WHERE X.CD_ID = 'REVERSE_YN' AND X.CD_VL = CU.DEL_YN) AS REVERSE_YN
+				, (SELECT FN_GET_COM_CD_VL_NM('REVERSE_YN',CU.DEL_YN) FROM DUAL) AS REVERSE_YN
 				, CU.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
 				, CU.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
 				, CU.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
@@ -124,6 +124,9 @@
 		</if>
 		<if test='apcNm != null and apcNm != ""'>
 			   AND (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CU.APC_CD) LIKE #{apcNm}
+		</if>
+		<if test='aprvYn != null and aprvYn != ""'>
+			   AND CU.USER_STTS = #{aprvYn}
 		</if>
     	<![CDATA[
     		 ORDER BY USER_ID, USER_NM

@@ -62,7 +62,13 @@
 							<td colspan="2" class="td_input"></td>
 							<th scope="row">유형</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-userType" name="srch-slt-userType" uitype="single" class="form-control fl_fixed mg_r5 wd_130" unselected-text="선택" disabled style="height:100%; line-height:100%;"></sbux-select>
+								<sbux-select id="srch-slt-userType" name="srch-slt-userType" uitype="single" class="form-control input-sm" unselected-text="선택" >
+									<option-item value="01">AT관리자</option-item>
+									<option-item value="10">APC관리자</option-item>
+									<option-item value="11">APC사용자</option-item>
+									<option-item value="20">농가사용자</option-item>
+									<option-item value="30">외부사용자</option-item>
+								</sbux-select>
 							</td>
 							<td colspan="2" class="td_input"></td>
 						</tr>
@@ -102,18 +108,21 @@ function fn_createUserInfoChgGrid() {
 	    SBGridProperties1.selectmode = 'byrow';
 	    SBGridProperties1.extendlastcol = 'scroll';
 	    SBGridProperties1.columns = [
-	         {caption: ["선택"],			ref: 'chc',      	type:'checkbox',width:'15%'},
-	         {caption: ["사용자ID"], 		ref: 'userId',     	type:'input',  	width:'15%'},
-	         {caption: ["사용자명"], 	 	ref: 'userNm',    	type:'output',  width:'15%'},
-	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'output',  width:'15%'},
-	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'15%'},
-	         {caption: ["메일주소"],	    ref: 'eml', 		type:'output',  width:'15%'},
-	         {caption: ["전화번호"],  		ref: 'telno',   	type:'output',  width:'15%'},
-	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'output',  width:'15%'},
-	         {caption: ["담당업무"],  		ref: 'tkcgTaskNm',  type:'output',  width:'15%'},
-	         {caption: ["사용유무"],  		ref: 'reverseYn',   type:'input',  	width:'15%'},
-	         {caption: ["잠김여부"],  		ref: 'lckYn',   	type:'input',  	width:'15%'},
-	         {caption: ["최종접속일시"],  	ref: 'endLgnDt',  	type:'output',  width:'15%'}
+	         {caption: ["선택"],			ref: 'chc',      	type:'checkbox',width:'5px'},
+	         {caption: ["사용자ID"], 	ref: 'userId',     	type:'input',   width:'15%', style:'text-align:center'},
+	         {caption: ["사용자명"], 	ref: 'userNm',    	type:'output',  width:'15%', style:'text-align:center'},
+	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  width:'15%', style:'text-align:center', renderer: function() {
+	            return "<button type='button' class='btn btn-sm btn-outline-danger' onClick=''>초기화</button>"
+	         }},
+	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'15%', style:'text-align:center'},
+	         {caption: ["사용자유형"],   ref: 'userType',    type:'output',  width:'15%', style:'text-align:center'},
+	         {caption: ["메일주소"],	    ref: 'eml', 		type:'output',  width:'15%', style:'text-align:center'},
+	         {caption: ["전화번호"],  	ref: 'telno',   	type:'output',  width:'15%', style:'text-align:center'},
+	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'15%', style:'text-align:center'},
+	         {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'input',   width:'15%', style:'text-align:center'},
+	         {caption: ["사용유무"],  	ref: 'reverseYn',   type:'input',   width:'15%', style:'text-align:center'},
+	         {caption: ["잠김여부"],  	ref: 'lckYn',   	type:'input',   width:'15%', style:'text-align:center'},
+	         {caption: ["최종접속일시"], ref: 'endLgnDt',  	type:'output',  width:'15%'}
     ];
 //     grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
     window.userInfoChgGridId= _SBGrid.create(SBGridProperties1);

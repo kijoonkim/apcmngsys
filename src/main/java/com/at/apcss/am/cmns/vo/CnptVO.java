@@ -62,4 +62,6 @@ public class CnptVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
+	
+	private String delYN;
 }

@@ -50,10 +50,7 @@ public class SpmtEnggtInfoMngController extends BaseController {
 		return "apcss/fm/spmt/spmtEnggtInfoMng";
 	}
 
-	@RequestMapping("/fm/spmt/spmtEnggtRsltMng.do")
-	public String doSpmtEnggtRsltMng() {
-		return "apcss/fm/spmt/spmtEnggtRsltMng";
-	}
+
 
 	// 출하약정관리 조회
 	@PostMapping(value = "/fm/spmt/selectSpmtEnggtInfoMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
