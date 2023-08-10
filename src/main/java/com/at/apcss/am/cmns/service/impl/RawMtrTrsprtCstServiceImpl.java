@@ -2,12 +2,17 @@ package com.at.apcss.am.cmns.service.impl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper;
 import com.at.apcss.am.cmns.service.RawMtrTrsprtCstService;
+import com.at.apcss.am.cmns.service.WrhsVhclService;
 import com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO;
+import com.at.apcss.am.cmns.vo.WrhsVhclVO;
+import com.at.apcss.co.constants.ComConstants;
 
 /**
  * @Class Name : RawMtrTrsprtCstServiceImpl.java
@@ -26,9 +31,12 @@ import com.at.apcss.am.cmns.vo.RawMtrTrsprtCstVO;
  */
 @Service("rawMtrTrsprtCstService")
 public class RawMtrTrsprtCstServiceImpl implements RawMtrTrsprtCstService {
-	
+
 	@Autowired
 	private RawMtrTrsprtCstMapper rawMtrTrsprtCstMapper;
+
+	@Resource(name = "wrhsVhclService")
+	private WrhsVhclService wrhsVhclService;
 
 	@Override
 	public List<RawMtrTrsprtCstVO> selectRawMtrTrsprtCstList(RawMtrTrsprtCstVO RawMtrTrsprtCstVO) throws Exception {
@@ -48,6 +56,31 @@ public class RawMtrTrsprtCstServiceImpl implements RawMtrTrsprtCstService {
 	@Override
 	public int deleteRawMtrTrsprtCst(RawMtrTrsprtCstVO RawMtrTrsprtCstVO) throws Exception {
 		return rawMtrTrsprtCstMapper.deleteRawMtrTrsprtCst(RawMtrTrsprtCstVO);
+	}
+
+	@Override
+	public int multiTrsprtCstList(List<RawMtrTrsprtCstVO> RawMtrTrsprtCstList) throws Exception {
+		int cnt =0;
+		for (RawMtrTrsprtCstVO rawMtrTrsprtCstVO : RawMtrTrsprtCstList) {
+			WrhsVhclVO wrhsVhclVO = new WrhsVhclVO();
+
+			wrhsVhclVO.setVhclno(rawMtrTrsprtCstVO.getVhclno());
+			wrhsVhclVO.setApcCd(rawMtrTrsprtCstVO.getApcCd());
+			wrhsVhclVO = wrhsVhclService.selectWrhsVhcl(wrhsVhclVO);
+
+			rawMtrTrsprtCstVO.setBankCd(wrhsVhclVO.getBankCd());
+			rawMtrTrsprtCstVO.setActno(wrhsVhclVO.getActno());
+			rawMtrTrsprtCstVO.setDpstr(wrhsVhclVO.getDpstr());
+			if (ComConstants.ROW_STS_INSERT.equals(rawMtrTrsprtCstVO.getRowSts())) {
+				cnt += insertRawMtrTrsprtCst(rawMtrTrsprtCstVO);
+			}
+			if (ComConstants.ROW_STS_UPDATE.equals(rawMtrTrsprtCstVO.getRowSts())) {
+
+				cnt += updateRawMtrTrsprtCst(rawMtrTrsprtCstVO);
+			}
+
+		}
+		return cnt;
 	}
 
 }
