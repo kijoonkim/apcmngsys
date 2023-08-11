@@ -60,9 +60,7 @@
 // 		popVrty.search();
 // 	});
 	var jsonVrtyPopUp = [];
-	var callbackChoiceFnc = function(){
-		
-	};
+	var callbackChoiceFnc = function(){};
 	
 	const popVrty = {
 // 		prgrmId: 'prdcrPopup',
