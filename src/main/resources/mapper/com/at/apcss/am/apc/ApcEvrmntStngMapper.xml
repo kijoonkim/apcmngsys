@@ -268,9 +268,12 @@
 		<if test='vrtyNm != null and vrtyNm != ""'>
 			AND VRTY_NM = #{vrtyNm}
 		</if>
-		<if test='apcNm != null and apcNm != ""'>
-			AND APC_NM = #{acpNm}
+		<if test='apcCd != null and apcCd != ""'>
+			AND APC_CD = #{apcCd}
 		</if>
+		<![CDATA[
+			order by ITEM_CD
+		]]>
     </select>
 
 
