@@ -233,7 +233,7 @@
 		SBGridProperties.rowheadercaption = {seq: 'No'};
         SBGridProperties.rowheaderwidth = {seq: '60'};
 	    SBGridProperties.extendlastcol = 'scroll';
-
+	    SBGridProperties.columns = [
             {caption: ["품목"],	ref: 'msgKey',      type:'output',  width:'20%',    style:'text-align:center'},
             {caption: ["보유현황"], 	ref: 'msgCn',     	type:'output',  width:'20%',    style:'text-align:center'},
             {caption: ["규격"],  	ref: 'msgKndNm',    width:'20%',    style:'text-align:center'},

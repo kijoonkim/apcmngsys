@@ -28,30 +28,32 @@
 
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<sbux-input id="vhcl-inp-apcCd" name="vhcl-inp-apcCd" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 11%">
-						<col style="width: 22%">
-						<col style="width: 11%">
-						<col style="width: 22%">
-						<col style="width: auto">
+						<col style="width: 100px">
+						<col style="width: 200px">
+						<col style="width: 100px">
+						<col style="width: 200px">
+						<col style="width: 100px">
+						<col style="width: 200px">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
 								<sbux-input id="vhcl-inp-apcNm" name="vhcl-inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
+								<sbux-input id="vhcl-inp-apcCd" name="vhcl-inp-apcCd" uitype="hidden"></sbux-input>
 							</th>
 							<th scope="row">차량번호</th>
 							<th class="td_input">
 								<sbux-input
-									uitype="text" id="vhcl-inp-vhclno" name="vhcl-inp-vhclno" 
+									uitype="text" id="vhcl-inp-vhclno" name="vhcl-inp-vhclno"
 									class="form-control input-sm"
     								onkeyenter="popVhcl.search">
     							</sbux-input>
 							</th>
+							<th>&nbsp;</th>
 							<th>&nbsp;</th>
 						</tr>
 					</tbody>
@@ -79,14 +81,14 @@
 <script type="text/javascript">
 
 	var jsonComBankCd = [];	// 은행 bankCd Grid
-	
+
 	/* grid 내 select json */
 	var jsonComBankCdVhclPop = [];	// 은행 bankCd Grid
-	
+
 	var grdVhclPop = null;
 	var jsonVhclPop = [];
 
-	
+
 	/**
 	 * @description 차량 선택 팝업
 	 */
@@ -101,20 +103,19 @@
 		gridJson: [],
 		callbackFnc: function() {},
 		init: async function(_apcCd, _apcNm, _callbackFnc) {
-			console.log("init VhclPop");
 			// set param
 			SBUxMethod.set("vhcl-inp-apcCd", _apcCd);
 			SBUxMethod.set("vhcl-inp-apcNm", _apcNm);
-			
+
 			SBUxMethod.show('btnEditVhcl');
 			SBUxMethod.hide('btnCancelVhcl');
 			SBUxMethod.attr('btnSaveVhcl', 'disabled', true);
 			SBUxMethod.attr('btnSearchVhcl', 'disabled', false);
-			
+
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
-				this.callbackFnc = _callbackFnc;	
+				this.callbackFnc = _callbackFnc;
 			}
-			
+
 			if (grdVhclPop === null || this.prvApcCd != _apcCd) {
 				let rst = await Promise.all([
 					gfn_setComCdSBSelect('grdVhcl', jsonComBankCdVhclPop,'BANK_CD'),		// 은행
@@ -124,17 +125,17 @@
 			} else {
 				this.search();
 			}
-			
+
 			this.prvApcCd = _apcCd;
 		},
-		close: function(_prdcr) {
-			gfn_closeModal(this.modalId, this.callbackFnc, _prdcr);
+		close: function(_vhcl) {
+			gfn_closeModal(this.modalId, this.callbackFnc, _vhcl);
 		},
 		createGrid: function(/** {boolean} */ isEditable) {
 			var SBGridProperties = {};
-		    SBGridProperties.parentid = this.areaId;	//'sb-area-grdComAuthUserPop';	//this.sbGridArea;	//'sb-area-grdComAuthUserPop';
-		    SBGridProperties.id = this.gridId;			//'grdComAuthUserPop';					//'grdComAuthUserPop';
-		    SBGridProperties.jsonref = this.jsonId;		//'jsonComAuthUserPop';		//'jsonComAuthUserPop';
+		    SBGridProperties.parentid = this.areaId;
+		    SBGridProperties.id = this.gridId;
+		    SBGridProperties.jsonref = this.jsonId;
 		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 		    SBGridProperties.selectmode = 'byrow';
 		    SBGridProperties.explorerbar = 'sortmove';
@@ -151,8 +152,8 @@
 		    	{caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px',	type: 'input', 	style:'text-align:center'},
 		        {caption: ['기사명'], 	ref: 'drvrNm', 			width: '100px', type: 'input', 	style:'text-align:center'},
 		        {caption: ['예금주명'], 	ref: 'dpstr', 			width: '100px', type: 'input', 	style:'text-align:center'},
-		        {caption: ['은행'], 		ref: 'bankCd', 			width: '100px',	type:'combo',  	style:'text-align:center',
-					typeinfo : {ref:'jsonComBankCdVhclPop', 	label:'label', value:'value', displayui : false}},
+		        {caption: ['은행'], 		ref: 'bankCd', 			width: '100px',	type:'inputcombo',  	style:'text-align:center',
+					typeinfo : {ref:'jsonComBankCdVhclPop', itemcount: 10,	label:'label', value:'value', displayui : false}},
 		        {caption: ['계좌번호'], 	ref: 'actno', 			width: '120px', type: 'input', 	style:'text-align:center'},
 		        {caption: ['비고'], 		ref: 'rmrk',			width: '200px', type: 'input'},
 		        {caption: ['최종처리일시'],	ref: 'sysLastChgDt',	width: '140px', type: 'output',	style:'text-align:center'},
@@ -169,73 +170,35 @@
 			    }},
 			    {caption: ['APC코드'], ref: 'apcCd', hidden : true}
 		    ];
-		    
+
 		    grdVhclPop = _SBGrid.create(SBGridProperties);
-		    //grdVhclPop.bind('beforepagechanged', 'popComAuthUser.paging');
-		    grdVhclPop.bind('dblclick', popVhcl.choice);	//'popVhclChoice');
-		    //this.search();
+		    grdVhclPop.bind('dblclick', popVhcl.choice);
 		},
 		choice: function() {
 			let nRow = grdVhclPop.getRow();
 			let rowData = grdVhclPop.getRowData(nRow);
 			popVhcl.close(rowData);
-			
-			/*
-			const prdcr = [];
-			const allData = grdComAuthUserPop.getGridDataAll();
-			for ( let i=1; i<=allData.length; i++ ) {
-				let rowData = grdComAuthUserPop.getRowData(i);				
-				if (rowData.checked === 'true') {
-					users.push({
-						userId: rowData.userId,
-						userNm: rowData.userNm,
-						apcCd: rowData.apcCd,
-						apcNm: rowData.apcNm,
-						userType: rowData.userType,
-						userTypeNm: rowData.userTypeNm,
-						authrtId: rowData.authrtId
-					});
-				}
-			}
-			
-			if (users.length == 0) {
-				gfn_comAlert("W0004", "선택");	// W0004	{0}한 대상이 없습니다.
-				return;
-			}
-			
-			this.close(users);
-			*/
 		},
 		edit: async function() {
-			
+
 			SBUxMethod.hide('btnEditVhcl');
 			SBUxMethod.show('btnCancelVhcl');
 			SBUxMethod.attr('btnSaveVhcl', 'disabled', false);
 			SBUxMethod.attr('btnSearchVhcl', 'disabled', true);
-			
+
 			this.createGrid(true);
 			grdVhclPop.rebuild();
-			//grdVhclPop.refresh();
-			//var grdVhclPop = null;
-			//var jsonVhclPop = []
-			/*
-			document.querySelectorAll('.btnDisabled').forEach((el) => {
-			    	el.setAttribute('disabled', false);
-				});
-			 */
-			//$('.btnDisabled').attr('disabled', false);
-			grdVhclPop.setCellDisabled(0, 0, grdVhclPop.getRows() - 1, grdVhclPop.getCols() - 1, false);
-			//await this.search();
+			grdVhclPop.setCellDisabled(0, 0, grdVhclPop.getRows() - 1, 0, true);
 			grdVhclPop.addRow(true);
-			
+
 		},
 		cancel: function() {
-			
+
 			SBUxMethod.show('btnEditVhcl');
 			SBUxMethod.hide('btnCancelVhcl');
 			SBUxMethod.attr('btnSaveVhcl', 'disabled', true);
 			SBUxMethod.attr('btnSearchVhcl', 'disabled', false);
-			
+
 			this.createGrid();
 			this.search();
 		},
@@ -249,7 +212,7 @@
 		},
 		del: async function(nRow) {
 			const apcCd = SBUxMethod.get("vhcl-inp-apcCd");
-			const rowSts = grdVhclPop.getRowStatus(nRow);			
+			const rowSts = grdVhclPop.getRowStatus(nRow);
 			if (rowSts == 0 || rowSts == 2){
 				if (!gfn_comConfirm("Q0001", "삭제")) {	//	Q0001	{0} 하시겠습니까?
 					return;
@@ -263,8 +226,8 @@
 					apcCd: apcCd,
 					vhclno: rowData.vhclno
 				}, this.prgrmId);	// 프로그램id 추가
-		    	
-				const data = await postJsonPromise;	    
+
+				const data = await postJsonPromise;
 		        try {
 		        	if (_.isEqual("S", data.resultStatus)) {
 		        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
@@ -272,7 +235,7 @@
 		        	} else {
 		        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		        	}
-		        } catch(e) {        	
+		        } catch(e) {
 		        }
         	} else {
         		grdVhclPop.deleteRow(nRow);
@@ -281,9 +244,9 @@
 		save: async function() {
 			const apcCd = SBUxMethod.get("vhcl-inp-apcCd");
 			let allData = grdVhclPop.getGridDataAll();
-			
+
 			const vhclList = [];
-			
+
 			for ( let i=1; i<=allData.length; i++ ){
 				const rowData = grdVhclPop.getRowData(i);
 				const rowSts = grdVhclPop.getRowStatus(i);
@@ -292,7 +255,7 @@
 						gfn_comAlert("W0002", "차량번호");		//	W0002	{0}을/를 입력하세요.
 			            return;
 					}
-	
+
 					if (rowSts === 3){
 						rowData.apcCd = apcCd;
 						rowData.rowSts = "I";
@@ -305,20 +268,20 @@
 					}
 				}
 			}
-			
+
 			if (vhclList.length == 0){
 				gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
 	            return;
 			}
-			
+
 			if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
 	    		return;
 	    	}
 	    	console.log(vhclList);
-	    	
+
 	    	const postJsonPromise = gfn_postJSON("/am/cmns/multiVhclList.do", vhclList, this.prgrmId);	// 프로그램id 추가
-	    	
-			const data = await postJsonPromise;	    
+
+			const data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
@@ -326,7 +289,7 @@
 	        	} else {
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
-	        } catch(e) {        	
+	        } catch(e) {
 	        }
 		},
 		search: async function() {
@@ -334,7 +297,7 @@
 			grdVhclPop.rebuild();
 	    	let pageSize = grdVhclPop.getPageSize();
 	    	let pageNo = 1;
-	        
+
 	    	// grid clear
 	    	jsonVhclPop.length = 0;
 	    	//grdVhclPop.refresh();
@@ -342,10 +305,10 @@
 	    	await this.setGrid(pageSize, pageNo);
 		},
 		setGrid: async function(pageSize, pageNo) {
-	    	
+
 	    	let apcCd = SBUxMethod.get("vhcl-inp-apcCd");
 			let vhclno = SBUxMethod.get("vhcl-inp-vhclno");
-			
+
 	        const postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {
 	        	apcCd: apcCd,
 	        	vhclno: vhclno,
@@ -354,14 +317,14 @@
 				currentPageNo : pageNo,
 	 		  	recordCountPerPage : pageSize
 			});
-	        
+
 	        const data = await postJsonPromise;
-	        
+
 			try {
 	        	/** @type {number} **/
 	    		let totalRecordCount = 0;
-	        	
-	    		jsonPrdcrPop.length = 0;
+
+	    		jsonVhclPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const vhcl = {
 						rowSeq			: item.rowSeq,
@@ -376,13 +339,13 @@
 					    sysLastChgDt	: item.sysLastChgDt
 					}
 					jsonVhclPop.push(vhcl);
-					
+
 					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;	
+						totalRecordCount = item.totalRecordCount;
 					}
 				});
-	        	
-	        	if (jsonVhclPop.length > 0) {	        		
+
+	        	if (jsonVhclPop.length > 0) {
 	        		if(grdVhclPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 	        			grdVhclPop.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 	        			grdVhclPop.rebuild();
@@ -393,9 +356,9 @@
 	        		grdVhclPop.setPageTotalCount(totalRecordCount);
 	        		grdVhclPop.rebuild();
 	        	}
-	        	
+
 	        	grdVhclPop.setCellDisabled(0, 0, grdVhclPop.getRows() - 1, grdVhclPop.getCols() - 1, true);
-	        	
+
 	        	document.querySelector('#vhcl-pop-cnt').innerText = totalRecordCount;
 
 	        } catch (e) {
@@ -419,6 +382,6 @@
     		grdVhclPop.addRow();
 	    }
 	}
-	
+
 </script>
 </html>

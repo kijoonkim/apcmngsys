@@ -35,6 +35,7 @@ const URL_PLT_BX_INFO		= "/am/cmns/pltBxInfos";	//	팔레트/박스
 const URL_PRDCR_INFO		= "/am/cmns/prdcrInfos";	//	생산자
 const URL_WRHS_VHCL			= "/am/cmns/wrhsVhcls";		//	입고차량
 const URL_TRSPRT_CO_INFO	= "/am/spmt/spmtTrsprts";	//	운송사
+const URL_TRSPRT_CST_INFO	= "/am/cmns/trsprtCsts";	//	운송지역
 /** END URL
  */
 
@@ -82,7 +83,7 @@ const gv_loadingOptions = {modelNm : "main-loading"};
 const gfn_setSysPrgrmId = function(sysPrgrmId) {
     postHeaders.sysPrgrmId = sysPrgrmId
 }
-	
+
 
 /**
  * @name gfn_postJSON
@@ -107,12 +108,12 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
     }
 
     try {
-		
+
 		let startTime = new Date();
 		if (showProgress && typeof SBUxMethod === 'function') {
 			SBUxMethod.openProgress(gv_loadingOptions);
 		}
-		
+
         const response = await fetch(
             _url, {
                 method: "POST",
@@ -122,7 +123,7 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
         );
 
 		const result = await response.json();
-		
+
 		if (showProgress && typeof SBUxMethod === 'function') {
 			const endTime = new Date();
 			if (endTime.getTime() > startTime + 500) {
@@ -130,21 +131,21 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
 			} else {
 				setTimeout(function() {
 			  		SBUxMethod.closeProgress(gv_loadingOptions);
-				}, 500);	
-			}			
+				}, 500);
+			}
 		}
-		
+
 		return result;
 
 	} catch (e) {
 		if (!(e instanceof Error)) {
 			e = new Error(e);
 		}
-		
+
 		if (showProgress && typeof SBUxMethod === 'function') {
 			SBUxMethod.closeProgress(gv_loadingOptions);
 		}
-		
+
 		console.error("failed", e.message);
 	}
 }
@@ -261,7 +262,8 @@ const gfn_setSBSelectJson = function (_targetIds, _jsondataRef, _sourceJson) {
 			const tempItem = {
 				text: item.cmnsNm,
 				label: item.cmnsNm,
-				value: item.cmnsCd
+				value: item.cmnsCd,
+				mastervalue  : item.mastervalue
 			}
 			_jsondataRef.push(tempItem);
 		});
@@ -286,7 +288,7 @@ const gfn_setSBSelectJson = function (_targetIds, _jsondataRef, _sourceJson) {
 async function gfn_getMstItem () {
 	const postJsonPromise = gfn_postJSON(URL_MST_ITEMS, {delYn: "N"}, null, true);
 	const data = await postJsonPromise;
-	return JSON.stringify(data.resultList);
+	return ata.resultList;
 }
 
 /**
@@ -320,7 +322,7 @@ const gfn_setMstItemSBSelect = async function (_targetIds, _jsondataRef) {
 async function gfn_getMstVrty (_itemCd) {
 	const postJsonPromise = gfn_postJSON(URL_MST_VRTYS, {itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
-	return JSON.stringify(data.resultList);
+	return data.resultList;
 }
 
 /**
@@ -355,7 +357,7 @@ const gfn_setMstVrtySBSelect = async function (_targetIds, _jsondataRef, _itemCd
 async function gfn_getMstSpcfcts (_itemCd) {
 	const postJsonPromise = gfn_postJSON(URL_MST_SPCFCTS, {itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
-	return JSON.stringify(data.resultList);
+	return data.resultList;
 }
 
 /**
@@ -390,7 +392,7 @@ const gfn_setMstSpcfctsSBSelect = async function (_targetIds, _jsondataRef, _ite
 async function gfn_getMstGrds (_itemCd) {
 	const postJsonPromise = gfn_postJSON(URL_MST_GRDS, {itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
-	return JSON.stringify(data.resultList);
+	return data.resultList;
 }
 
 /**
@@ -427,7 +429,7 @@ const gfn_setMstGrdsSBSelect = async function (_targetIds, _jsondataRef, _itemCd
 async function gfn_getApcItem (_apcCd) {
 	const postJsonPromise = gfn_postJSON(URL_APC_ITEMS, {apcCd: _apcCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
-	return JSON.stringify(data.resultList);
+	return data.resultList;
 }
 
 /**
@@ -463,7 +465,7 @@ const gfn_setApcItemSBSelect = async function (_targetIds, _jsondataRef, _apcCd)
 async function gfn_getApcVrty (_apcCd, _itemCd) {
 	const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
-	return JSON.stringify(data.resultList);
+	return data.resultList;
 }
 
 /**
@@ -481,8 +483,9 @@ const gfn_setApcVrtySBSelect = async function (_targetIds, _jsondataRef, _apcCd,
 
 	const sourceJson = [];
 	data.resultList.forEach((item) => {
-			item.cmnsCd = item.vrtyCd;
-			item.cmnsNm = item.vrtyNm;
+			item.cmnsCd 		= item.vrtyCd;
+			item.cmnsNm 		= item.vrtyNm;
+			item.mastervalue 	= item.itemCd;
 			sourceJson.push(item);
 		});
 
@@ -501,7 +504,7 @@ const gfn_setApcVrtySBSelect = async function (_targetIds, _jsondataRef, _apcCd,
 async function gfn_getApcSpcfcts (_apcCd, _itemCd) {
 	const postJsonPromise = gfn_postJSON(URL_APC_SPCFCTS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
-	return JSON.stringify(data.resultList);
+	return data.resultList;
 }
 
 /**
@@ -519,8 +522,9 @@ const gfn_setApcSpcfctsSBSelect = async function (_targetIds, _jsondataRef, _apc
 
 	const sourceJson = [];
 	data.resultList.forEach((item) => {
-			item.cmnsCd = item.spcfctCd;
-			item.cmnsNm = item.spcfctNm;
+			item.cmnsCd 		= item.spcfctCd;
+			item.cmnsNm		 	= item.spcfctNm;
+			item.mastervalue 	= item.itemCd;
 			sourceJson.push(item);
 		});
 
@@ -538,7 +542,7 @@ const gfn_setApcSpcfctsSBSelect = async function (_targetIds, _jsondataRef, _apc
 async function gfn_getApcGrds (_apcCd, _itemCd) {
 	const postJsonPromise = gfn_postJSON(URL_APC_GRDS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
-	return JSON.stringify(data.resultList);
+	return data.resultList;
 }
 
 /**
@@ -556,8 +560,9 @@ const gfn_setApcGrdsSBSelect = async function (_targetIds, _jsondataRef, _apcCd,
 
 	const sourceJson = [];
 	data.resultList.forEach((item) => {
-			item.cmnsCd = item.grdCd;
-			item.cmnsNm = item.grdNm;
+			item.cmnsCd 		= item.grdCd;
+			item.cmnsNm 		= item.grdNm;
+			item.mastervalue 	= item.itemCd
 			sourceJson.push(item);
 		});
 
@@ -576,7 +581,7 @@ const gfn_setApcGrdsSBSelect = async function (_targetIds, _jsondataRef, _apcCd,
 async function gfn_getPltBxs (_apcCd, _pltBxSeCd) {
 	const postJsonPromise = gfn_postJSON(URL_PLT_BX_INFO, {apcCd: _apcCd, pltBxSeCd: _pltBxSeCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
-	return JSON.stringify(data.resultList);
+	return data.resultList;
 }
 
 /**
@@ -601,6 +606,29 @@ const gfn_setPltBxSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _
 
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 }
+
+/**
+ * @name gfn_setTrsprtRgnSBSelect
+ * @description set SBUX-select options from APC별 운송지역
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd	APC코드
+ */
+const gfn_setTrsprtRgnSBSelect = async function (_targetIds, _jsondataRef, _apcCd) {
+	const postJsonPromise = gfn_postJSON(URL_TRSPRT_CST_INFO, {apcCd: _apcCd, delYn: "N"}, null, true);
+	const data = await postJsonPromise;
+
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.trsprtRgnCd;
+			item.cmnsNm = item.trsprtRgnNm;
+			sourceJson.push(item);
+		});
+
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
 /** 운송사 */
 /**
  * @name gfn_setTrsprtsSBSelect
@@ -997,8 +1025,8 @@ const gfn_getJsonFilter = function(data, key, values) {
 		return data;
 	}
 
-	const filteredData = data.filter((obj) => {	
-			
+	const filteredData = data.filter((obj) => {
+
 			if (Array.isArray(values)) {
 				return values.some((val) => {
 					return obj[key] === val;

@@ -21,6 +21,7 @@
 				</div>
 			</div>
 			<div class="box-body">
+				<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -58,22 +59,25 @@
 							<td></td>
 							<th scope="row" >생산자선택</th>
 							<td class="td_input">
-								<sbux-input id="prdcr-inp-vprdcrNm" name="prdcr-inp-prdcrNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-prdcrNm"
+									name="dtl-inp-prdcrNm"
+									class="form-control input-sm"
+									placeholder="초성검색 기능입니다."
+									autocomplete-ref="jsonPrdcrAutocomplete"
+									autocomplete-text="name"
+    								onkeyup="fn_onKeyUpPrdcrNm(dtl-inp-prdcrNm)"
+    								autocomplete-select-callback="fn_onSelectPrdcrNm"
+   								></sbux-input>
+								<sbux-input id="prdcr-inp-prdcrCd" name="prdcr-inp-prdcrCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-button id="btnSrchPrdcr" name="btnSrchPrdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"></sbux-button>
+								<sbux-button id="btnSrchPrdcr" name="btnSrchPrdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_choicePrdcr"></sbux-button>
 							</td>
 							<td></td>
 						</tr>
 						<tr>
-							<th scope="row" >차량선택</th>
-							<td class="td_input">
-								<sbux-input id="vhcl-inp-vhclNm" name="vhcl-inp-vhclNm" uitype="text" class="form-control input-sm" ></sbux-input>
-							</td>
-							<td class="td_input">
-								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"></sbux-button>
-							</td>
-							<td></td>
 							<th scope="row" >팔레트/박스 선택</th>
 							<td class="td_input">
 								<sbux-input id="pltBx-inp-pltNm" name="pltBx-inp-pltNm" uitype="text" class="form-control input-sm" ></sbux-input>
@@ -94,14 +98,30 @@
 							<td></td>
 						</tr>
 						<tr>
-							<th scope="row" >원물운임비용등록</th>
+							<th scope="row" >차량선택</th>
 							<td class="td_input">
-								<sbux-input id="trsprtCst-inp-trsprtCstNm" name="trsprtCst-inp-trsprtCstNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="srch-inp-vhclno" name="srch-inp-vhclno" uitype="text" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-button id="btnSrchTrsprtCst" name="btnSrchTrsprtCst" class="btn btn-xs btn-outline-dark" text="입력" uitype="modal" target-id="modal-trsprtCst" onclick="fn_modalTrsprtCst"></sbux-button>
+								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_choiceVhcl"></sbux-button>
 							</td>
 							<td></td>
+
+							<th scope="row" >원물운임비용</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-trsprtCst" name="srch-inp-trsprtCst" uitype="text" class="form-control input-sm" ></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchTrsprtCst" name="btnSrchTrsprtCst" class="btn btn-xs btn-outline-dark" text="등록" uitype="modal" target-id="modal-trsprtCst" onclick="fn_choiceTrsprtCst"></sbux-button>
+							</td>
+							<td class="td_input">
+							</td>
+							<th scope="row" >입고일자</th>
+							<td class="td_input">
+								<sbux-datepicker id="srch-dtp-trsprtYmd" name="srch-dtp-trsprtYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+							</td>
+							<td class="td_input">
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -166,9 +186,124 @@
     </div>
 
 <script type="text/javascript">
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
+
+	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_getPrdcrs();
+		SBUxMethod.set("srch-dtp-trsprtYmd", gfn_dateToYmd(new Date()));
+	})
+
+	/* 생산자 팝업 호출 필수 json  */
+	/* Start */
+	var autoCompleteDataJson = [];
+	var jsonDataPrdcr = [];
+	var jsonPrdcr			= [];
+	var jsonPrdcrAutocomplete = [];
+	/* End */
+
+
+	/* 생산자 팝업 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_onKeyUpPrdcrNm
+	 * @description 생산자 리스트 호출
+	 */
+	const fn_getPrdcrs = async function() {
+		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
+		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
+	/**
+	 * @name fn_onKeyUpPrdcrNm
+	 * @description 생산자 팝업 호출
+	 */
+	const fn_choicePrdcr = function() {
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+	}
+
+	/**
+	 * @name fn_onKeyUpPrdcrNm
+	 * @description 생산자 선택 callback
+	 */
+	const fn_setPrdcr = function(prdcr) {
+		if (!gfn_isEmpty(prdcr)) {
+			SBUxMethod.set("dtl-inp-prdcrNm", prdcr.prdcrNm);		// callBack input
+			SBUxMethod.set("dtl-inp-prdcrCd", prdcr.prdcrCd);		// callBack input
+		}
+	}
+	/**
+	 * @name fn_onKeyUpPrdcrNm
+	 * @description 생산자명 입력 시 event : autocomplete
+	 */
+	const fn_onKeyUpPrdcrNm = function(prdcrNm){
+		fn_clearPrdcr();
+		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
+    	SBUxMethod.changeAutocompleteData('dtl-inp-prdcrNm', true);
+    }
+
+	/**
+	 * @name fn_clearPrdcr
+	 * @description 생산자 폼 clear
+	 */
+	const fn_clearPrdcr = function() {
+		SBUxMethod.set("dtl-inp-prdcrCd", null);
+		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:''");
+	}
+
+	/**
+	 * @name fn_onSelectPrdcrNm
+	 * @description 생산자 autocomplete 선택 callback
+	 */
+	function fn_onSelectPrdcrNm(value, label, item) {
+		SBUxMethod.set("dtl-inp-prdcrCd", value);
+		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+	}
+	/* End */
+
+	/* 차량선택 팝업 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_setVhcl
+	 * @description 차량선택팝업 호출
+	 */
+	const fn_choiceVhcl = function() {
+		popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl);
+	}
+
+	/**
+	 * @name fn_setVhcl
+	 * @description 차량 선택 callback
+	 */
+	const fn_setVhcl = function(vhcl) {
+		if (!gfn_isEmpty(vhcl)) {
+			SBUxMethod.set("srch-inp-vhclno", vhcl.vhclno);   // callBack input
+		}
+	}
+	/* End */
+
+
+	/* 원물운임비용등록 팝업 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_setVhcl
+	 * @description 원물운임비용 호출
+	 */
+	const fn_choiceTrsprtCst = function() {
+		let trsprtYmd = SBUxMethod.get("srch-dtp-trsprtYmd");
+		let vhclno = SBUxMethod.get("srch-inp-vhclno");
+		popTrsrptCst.init(gv_selectedApcCd, gv_selectedApcNm, trsprtYmd, vhclno, fn_setTrsprtCst);
+	}
+
+	/**
+	 * @name fn_setVhcl
+	 * @description 원물운임비용 선택 callback
+	 */
+	const fn_setTrsprtCst = function(trsprtCst) {
+		if (!gfn_isEmpty(trsprtCst)) {
+			SBUxMethod.set("srch-inp-vhclno", trsprtCst.vhclno);   // callBack input
+			SBUxMethod.set("srch-inp-trsprtCst", trsprtCst.trsprtCst);   // callBack input
+		}
+	}
+	/* End */
+
 </script>
 </body>
 </html>

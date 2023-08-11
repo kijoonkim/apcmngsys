@@ -12,6 +12,34 @@
 
 <mapper namespace="com.at.apcss.am.cmns.mapper.WrhsVhclMapper">
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.WrhsVhclMapper.selectWrhsVhcl		-->
+	<!-- DESC : 차량정보 목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.12  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectWrhsVhcl" parameterType="com.at.apcss.am.cmns.vo.WrhsVhclVO" resultType="com.at.apcss.am.cmns.vo.WrhsVhclVO">
+    	<![CDATA[
+    	SELECT /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.selectWrhsVhcl */
+    		   WV.APC_CD            AS APC_CD
+		     , WV.VHCLNO            AS VHCLNO
+		     , WV.DRVR_NM           AS DRVR_NM
+		     , WV.BANK_CD           AS BANK_CD
+		     , WV.ACTNO             AS ACTNO
+		     , WV.DPSTR             AS DPSTR
+		     , WV.RMRK              AS RMRK
+		     , WV.DEL_YN            AS DEL_YN
+		     , TO_CHAR(WV.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI')   AS SYS_LAST_CHG_DT
+		  FROM TB_WRHS_VHCL_INFO WV
+		 WHERE WV.APC_CD = #{apcCd}
+		]]>
+		<if test='vhclno != null and vhclno !=""'>
+		   AND WV.VHCLNO LIKE '%' || #{vhclno} || '%'
+		</if>
+    </select>
+
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.WrhsVhclMapper.selectWrhsVhclList		-->

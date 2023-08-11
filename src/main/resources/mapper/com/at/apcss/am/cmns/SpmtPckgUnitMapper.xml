@@ -59,11 +59,11 @@
                  , (SELECT FN_GET_VRTY_NM(SPU.ITEM_CD, SPU.VRTY_CD, SPU.APC_CD) FROM DUAL) AS VRTY_NM
 			     , SPU.SPCFCT_CD            AS SPCFCT_CD
                  , (SELECT FN_GET_SPCFCT_NM(SPU.ITEM_CD, SPU.SPCFCT_CD, SPU.APC_CD) FROM DUAL) AS SPCFCT_NM
-			     , (SELECT MAX(SPMT_SLS_UNTPRC)
-                      FROM TB_SPMT_SLS_UNTPRC_REG
-                     WHERE APC_CD = #{apcCd}
-                       AND SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
-                       AND APLCN_CRTR_YMD >= TO_CHAR(SYSDATE, 'YYYYMMDD')) AS NTSL_UNTPRC
+			     , (SELECT MAX(X.SPMT_SLS_UNTPRC) KEEP (DENSE_RANK LAST ORDER BY X.APLCN_CRTR_YMD)
+                      FROM TB_SPMT_SLS_UNTPRC_REG X
+                     WHERE X.APC_CD = SPU.APC_CD
+                       AND X.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
+                       AND X.APLCN_CRTR_YMD <= TO_CHAR(SYSDATE, 'YYYYMMDD')) AS NTSL_UNTPRC
 			     , SPU.DEL_YN               AS DEL_YN
 			  FROM TB_SPMT_PCKG_UNIT SPU
 		     WHERE SPU.APC_CD = #{apcCd}
