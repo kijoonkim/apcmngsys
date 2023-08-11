@@ -61,7 +61,7 @@
 	}
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
-		SBUxMethod.set("ddln-inp-apcCd", "9999");
+		SBUxMethod.set("ddln-inp-apcCd", gv_apcCd);
 		SBUxMethod.set("ddln-inp-apcNm", gv_apcNm);
 		
 		let today = new Date();
@@ -92,7 +92,6 @@
 	        {caption: ['기준연도'], ref: 'crtrYr', hidden : true}
 	    ];
 	    grdDdln = _SBGrid.create(SBGridProperties);
-		//fn_searchDdln();
 	}
 	
 	// 마감 목록 조회 호출 (조회 버튼)
