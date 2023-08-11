@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : DdlnMapper.xml                                   				-->
+<!-- DESC : 마감정보 mapper                                             		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.08.10  	하민우        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.DdlnMapper">
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.DdlnMapper.selectDdln					-->
+	<!-- DESC : 마감정보 조회.	                                 	      				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.10  	하민우        	Initial Creation              	            -->
+	<!-- ==========================================================================	-->
+    <select id="selectDdln" parameterType="com.at.apcss.am.cmns.vo.DdlnVO" resultType="com.at.apcss.am.cmns.vo.DdlnVO">
+    	<![CDATA[
+    	SELECT DM.APC_CD            AS APC_CD
+		     , DM.CRTR_YR           AS CRTR_YR
+		     , DM.CRTR_MM           AS CRTR_MM
+		     , DM.DDLN_YN           AS DDLN_YN
+		     , DM.SYS_LAST_CHG_DT   AS SYS_LAST_CHG_DT
+		  FROM TB_DDLN_MNG DM
+		 WHERE DM.APC_CD = #{apcCd}
+		   AND DM.CRTR_YR = #{crtrYr}
+		]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.DdlnMapper.insertDdln					-->
+	<!-- DESC : 마감정보 등록.	                                 	      				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.10  	하민우        	Initial Creation              	            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertDdln" parameterType="com.at.apcss.am.cmns.vo.DdlnVO">
+    	<![CDATA[
+    	INSERT INTO TB_DDLN_MNG
+    		(
+    			APC_CD
+		      , CRTR_YR
+		      , CRTR_MM
+		      , DDLN_YN
+		      , REG_DT
+    		  , SYS_FRST_INPT_DT
+    		  , SYS_FRST_INPT_USER_ID
+    		  , SYS_FRST_INPT_PRGRM_ID
+    		  , SYS_LAST_CHG_DT
+    		  , SYS_LAST_CHG_USER_ID
+    		  , SYS_LAST_CHG_PRGRM_ID
+    		)
+   		VALUES
+   			(
+   				#{apcCd}
+    		  , #{crtrYr}
+    		  , #{crtrMm}
+    		  , #{ddlnYn}
+    		  , 20230811
+    		  , SYSDATE
+    		  , #{sysFrstInptUserId}
+    		  , #{sysFrstInptPrgrmId}
+    		  , SYSDATE
+    		  , #{sysLastChgUserId}
+    		  , #{sysLastChgPrgrmId}
+   			)
+    	]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.DdlnMapper.updateDdln					-->
+	<!-- DESC : 마감정보 수정.	                                 	      				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.10  	하민우        	Initial Creation              	            -->
+	<!-- ==========================================================================	-->
+	<update id="updateDdln" parameterType="com.at.apcss.am.cmns.vo.DdlnVO">
+		<![CDATA[
+		UPDATE TB_DDLN_MNG
+		   SET SYS_LAST_CHG_DT 			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+		     , DDLN_YN           		= #{ddlnYn}
+		 WHERE APC_CD 	= #{apcCd}
+		   AND CRTR_YR 	= #{crtrYr}
+		   AND CRTR_MM	= #{crtrMm}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.DdlnMapper.deleteDdln					-->
+	<!-- DESC : 마감정보 삭제.	                                 	      				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.10  	하민우        	Initial Creation              	            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteDdln" parameterType="com.at.apcss.am.cmns.vo.DdlnVO">
+		<![CDATA[
+		DELETE FROM TB_DDLN_MNG
+		 WHERE APC_CD		= #{apcCd}
+		   AND CRTR_YR 		= #{crtrYr}
+		]]>
+	</delete>
+
+</mapper>
+
+
