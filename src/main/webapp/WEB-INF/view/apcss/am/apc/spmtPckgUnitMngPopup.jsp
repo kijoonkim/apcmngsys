@@ -83,7 +83,7 @@
 	var jsonSPUGrdSpcfctCd = [];
 
 	const fn_initSBSelectSpmtPckgUnit = async function() {
-		await gfn_setApcItemSBSelect("spmtPckgUnit-slt-itemCd", jsonSPUItemCd, gv_apcCd);		// APC 품목(검색)
+		await gfn_setApcItemSBSelect("spmtPckgUnit-slt-itemCd", jsonSPUItemCd, gv_apcCd);			// APC 품목(검색)
 		await gfn_setApcItemSBSelect("grdSpmtPckgUnit", 		jsonSPUGrdItemCd, gv_apcCd);		// APC 품목(저장)
 		await gfn_setApcVrtySBSelect("grdSpmtPckgUnit", 		jsonSPUGrdVrtyCd, gv_apcCd);		// APC 품종(저장)
 		await gfn_setApcSpcfctsSBSelect("grdSpmtPckgUnit", 		jsonSPUGrdSpcfctCd, gv_apcCd);		// APC 규격(저장)
@@ -129,9 +129,10 @@
 	        {caption: ["품목"], 			ref: 'itemCd',   	type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGrdItemCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["품종"], 			ref: 'vrtyCd',   	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonSPUGrdVrtyCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+				typeinfo : {ref:'jsonSPUGrdVrtyCd', 	displayui : false,	itemcount: 10, label:'label', value:'value', filtering: {usemode : true, uppercol : 0, attrname : 'mastervalue'}}
+	        	},
 	        {caption: ["규격"], 			ref: 'spcfctCd',   	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
+				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	displayui : false, 	itemcount: 10, label:'label', value:'value', filtering: {usemode : true, uppercol : 0, attrname : 'mastervalue'}}},
 	        {caption: ["출하 포장단위 명"], ref: 'spmtPckgUnitNm',  type:'input',  width:'380px',    style:'text-align:center'},
 	        {caption: ["판매단가"],     	ref: 'ntslUntprc',  type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
 	        {caption: ["변경"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {

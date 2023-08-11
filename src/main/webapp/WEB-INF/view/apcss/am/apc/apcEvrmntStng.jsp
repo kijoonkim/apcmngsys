@@ -649,7 +649,7 @@
 			fn_spmtTrsprtMngCreateGrid();
 		}if(targetName == 'btnCnpt'){
 			fn_cnptMngCreateGrid();
-			fn_ordrMngCreateGrid();
+			fn_lgszMrktMngCreateGrid();
 		}if(targetName == 'btnOprtr'){
 			fn_oprtrMngCreateGrid();
 		}if(targetName == 'btnSpmtPckgUnit'){

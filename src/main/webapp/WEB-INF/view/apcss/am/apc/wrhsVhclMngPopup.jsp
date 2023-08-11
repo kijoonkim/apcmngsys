@@ -91,8 +91,11 @@
 	    SBGridProperties.columns = [
 	        {caption: ["차량번호"], 	ref: 'vhclno',  type:'input',  width:'120px',    style:'text-align:center'},
 	        {caption: ["기사명"], 		ref: 'drvrNm',  type:'input',  width:'80px',    style:'text-align:center'},
-	        {caption: ["은행"], 		ref: 'bankCd',  type:'combo',  width:'120px',    style:'text-align:center',
-	        			typeinfo : {ref:'comboGridBankCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
+// 	        {caption: ["은행"], 		ref: 'bankCd',  type:'input',  width:'120px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+// // 				return "<sbux-input uitype='text' id=\"dtl-inp-prdcrNm\""+nRow+" name=\"dtl-inp-prdcrNm\""+nRow+" class='form-control input-sm' placeholder='초성검색 기능입니다.' autocomplete-ref='jsonPrdcrAutocomplete' autocomplete-text='name' onkeyup='fn_onKeyUpPrdcrNm(\"dtl-inp-prdcrNm\""+nRow+")' autocomplete-select-callback='fn_onSelectPrdcrNm' ></sbux-input>";
+// 	        }},
+	        {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'120px',    style:'text-align:center',
+    			typeinfo : {ref:'comboGridBankCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
 	        {caption: ["계좌번호"], 	ref: 'actno',  	type:'input',  width:'180px',    style:'text-align:center'},
 	        {caption: ["예금주"], 		ref: 'dpstr',  	type:'input',  width:'80px',    style:'text-align:center'},
 	        {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'280px',    style:'text-align:center'},
@@ -137,8 +140,12 @@
 				newWrhsVhclGridData.push(Object.assign({}, wrhsVhcl));
 				wrhsVhclMngGridData.push(Object.assign({}, wrhsVhcl));
 			});
+        	console.log("newWrhsVhclGridData", newWrhsVhclGridData);
         	wrhsVhclMngDatagrid.rebuild();
         	wrhsVhclMngDatagrid.addRow();
+
+        	wrhsVhclMngDatagrid.setCellDisabled(0, 0, newWrhsVhclGridData.length, 0, true);
+        	
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

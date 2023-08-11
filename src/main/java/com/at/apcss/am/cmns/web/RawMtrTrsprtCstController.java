@@ -46,51 +46,7 @@ public class RawMtrTrsprtCstController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	// 원물운임비용등록 - 원물운임비용 등록
-//	@PostMapping(value = "/am/cmns/updateRawMtrTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-//	public ResponseEntity<HashMap<String, Object>> updateRawMtrTrsprtCstList(@RequestBody Map<String, List<RawMtrTrsprtCstVO>> RawMtrTrsprtCstVO, HttpServletRequest request) throws Exception {
-//		logger.debug("updateRawMtrTrsprtCstList 호출 <><><><> ");
-//
-//		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-//		int insertedCnt = 0;
-//		try {
-//			List<RawMtrTrsprtCstVO> origin = RawMtrTrsprtCstVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-//			List<RawMtrTrsprtCstVO> modified = RawMtrTrsprtCstVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-//
-//			List<RawMtrTrsprtCstVO> insertList = new ArrayList<RawMtrTrsprtCstVO>(modified).stream().filter(e -> Objects.nonNull(e.getSn())).collect(Collectors.toList());
-//			for (RawMtrTrsprtCstVO element : insertList) {
-//				element.setSysFrstInptPrgrmId(getPrgrmId());
-//				element.setSysFrstInptUserId(getUserId());
-//				element.setSysLastChgPrgrmId(getPrgrmId());
-//				element.setSysLastChgUserId(getUserId());
-//				insertedCnt += rawMtrTrsprtCstService.insertRawMtrTrsprtCst(element);
-//			}
-//
-//			List<RawMtrTrsprtCstVO> updateList = new ArrayList<RawMtrTrsprtCstVO>();
-//			for (RawMtrTrsprtCstVO ei : origin) {
-//				for (RawMtrTrsprtCstVO ej : modified) {
-//					if (ei.getSn() == ej.getSn()) {
-//						if (ei.equals(ej) == false) {
-//							ej.setSysLastChgPrgrmId(getPrgrmId());
-//							ej.setSysLastChgUserId(getUserId());
-//							updateList.add(ej);
-//						} break;
-//					}
-//				}
-//			}
-//			for (RawMtrTrsprtCstVO element : updateList) {
-//				insertedCnt += rawMtrTrsprtCstService.updateRawMtrTrsprtCst(element);
-//			}
-//		} catch (Exception e) {
-//			return getErrorResponseEntity(e);
-//		}
-//
-//		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-//
-//		return getSuccessResponseEntity(resultMap);
-//	}
-	
+
 	// 원물운임비용등록 - 원물운임비용 등록
 	@PostMapping(value = "/am/cmns/insertRawMtrTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertRawMtrTrsprtCstList(@RequestBody List<RawMtrTrsprtCstVO> rawMtrTrsprtCstList, HttpServletRequest request) throws Exception {
@@ -144,9 +100,9 @@ public class RawMtrTrsprtCstController extends BaseController {
 	}
 
 	// 원물운임비용등록 - 원물운임비용 삭제
-	@PostMapping(value = "/am/cmns/deleteRawMtrTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> deleteRawMtrTrsprtCstList(@RequestBody RawMtrTrsprtCstVO RawMtrTrsprtCstVO, HttpServletRequest request) throws Exception {
-		logger.debug("deleteRawMtrTrsprtCstList 호출 <><><><> ");
+	@PostMapping(value = "/am/cmns/deleteRawMtrTrsprtCst.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteRawMtrTrsprtCst(@RequestBody RawMtrTrsprtCstVO RawMtrTrsprtCstVO, HttpServletRequest request) throws Exception {
+		logger.debug("deleteRawMtrTrsprtCst 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
@@ -157,6 +113,32 @@ public class RawMtrTrsprtCstController extends BaseController {
 		}
 
 		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 원물운임비용등록 - 원물운임비용 등록
+	@PostMapping(value = "/am/cmns/multiTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiTrsprtCstList(@RequestBody List<RawMtrTrsprtCstVO> trsprtCstList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int inserted = 0;
+
+		try {
+			for (RawMtrTrsprtCstVO RawMtrTrsprtCstVO : trsprtCstList) {
+				RawMtrTrsprtCstVO.setSysFrstInptPrgrmId(getPrgrmId());
+				RawMtrTrsprtCstVO.setSysFrstInptUserId(getUserId());
+				RawMtrTrsprtCstVO.setSysLastChgPrgrmId(getPrgrmId());
+				RawMtrTrsprtCstVO.setSysLastChgUserId(getUserId());
+				logger.debug("호출 ");
+			}
+			inserted = rawMtrTrsprtCstService.multiTrsprtCstList(trsprtCstList);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, inserted);
 
 		return getSuccessResponseEntity(resultMap);
 	}

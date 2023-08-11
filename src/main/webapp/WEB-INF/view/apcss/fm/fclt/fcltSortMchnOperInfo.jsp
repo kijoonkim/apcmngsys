@@ -498,12 +498,11 @@
 
         SBGridProperties.columns = [
 
-        	{caption: ['선별기품목'], ref: 'wghno', width: '20%', type: 'output', style:'text-align:center'},
-            {caption: ['보유현황'], ref: 'prdcrNm', width: '20%', type: 'output', style:'text-align:center'},
-            {caption: ['처리능력(톤)'], ref: 'itemNm', width: '20%', type: 'output', style:'text-align:center'},
-            {caption: ['처리물량(톤)'], ref: 'vrtyNm', width: '20%', type: 'output', style:'text-align:center'},
-            {caption: ['연간가동시간(시간)'], ref: 'gdsSeNm', width: '20%', type: 'output', style:'text-align:center'},
-            {caption: ['평균가동일수'], ref: 'wrhsSeNm', width: '20%', type: 'output', style:'text-align:center'},
+        	{caption: ['품목1'], ref: 'wghno', width: '20%', type: 'output', style:'text-align:center'},
+            {caption: ['품목2'], ref: 'prdcrNm', width: '20%', type: 'output', style:'text-align:center'},
+            {caption: ['품목3'], ref: 'itemNm', width: '20%', type: 'output', style:'text-align:center'},
+            {caption: ['기타품목'], ref: 'vrtyNm', width: '20%', type: 'output', style:'text-align:center'},
+            {caption: ['운양기간'], ref: 'gdsSeNm', width: '20%', type: 'output', style:'text-align:center'},
         ];
 
 

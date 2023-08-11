@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.at.apcss.am.cmns.vo.CnptVO;
+import com.at.apcss.am.cmns.vo.LgszMrktVO;
 
 /**
  * 거래처정보 Mapper 인터페이스
@@ -62,4 +63,22 @@ public interface CnptMapper {
 	 * @throws Exception
 	 */
 	public int deleteCnpt(CnptVO cnptVO) throws Exception;
+
+	/**
+	 * 대형마켓 목록 조회
+	 * 
+	 * @param LgszMrktVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LgszMrktVO> selectLgszMrktList(LgszMrktVO lgszMrktVO) throws Exception;
+
+	/**
+	 * 대형마트 변경
+	 * 
+	 * @param CnptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateLgszMrkt(LgszMrktVO lgszMrktVO) throws Exception;
 }

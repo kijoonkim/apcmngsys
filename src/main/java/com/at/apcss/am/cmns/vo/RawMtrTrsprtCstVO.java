@@ -2,7 +2,6 @@ package com.at.apcss.am.cmns.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,9 +22,8 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false)
 public class RawMtrTrsprtCstVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -65,7 +63,7 @@ public class RawMtrTrsprtCstVO extends ComVO {
 	/**
 	 * 입고중량
 	 */
-	private double wrhsWght;
+	private int wrhsWght;
 	/**
 	 * 운임비용
 	 */
@@ -74,6 +72,10 @@ public class RawMtrTrsprtCstVO extends ComVO {
 	 * 은행코드
 	 */
 	private String bankCd;
+	/**
+	 * 은행명
+	 */
+	private String bankNm;
 	/**
 	 * 계좌번호
 	 */
@@ -86,8 +88,4 @@ public class RawMtrTrsprtCstVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
-	/**
-	 * 삭제유무
-	 */
-	private String delYn;
 }

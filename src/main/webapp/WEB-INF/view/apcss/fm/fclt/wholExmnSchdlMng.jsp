@@ -123,13 +123,10 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["메시지Key"],	ref: 'msgKey',      type:'output',  width:'30%',    style:'text-align:center'},
-            {caption: ["메시지내용"], 	ref: 'msgCn',     	type:'output',  width:'50%',    style:'text-align:left'},
-            {caption: ["메시지종류"],  	ref: 'msgKndNm',    type:'output',  width:'20%',    style:'text-align:center'},
+
+            {caption: [""],	ref: 'msgKey',      type:'output',  width:'30%',    style:'text-align:center'},
+            {caption: [""], 	ref: 'msgCn',     	type:'output',  width:'50%',    style:'text-align:left'},
+            {caption: [""],  	ref: 'msgKndNm',    type:'output',  width:'20%',    style:'text-align:center'},
             {caption: ["비고"],      	ref: 'rmrk',        type:'output',  hidden: true},
             {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
             {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},

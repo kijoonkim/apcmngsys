@@ -12,187 +12,206 @@
 </head>
 <body>
 	<section class="content container-fluid">
-		<div class="box box-solid">
+	<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
-				<h3 class="box-title" style="line-height: 30px;">▶개인정보이용동의</h3>
+				<h3 class="box-title" style="line-height: 30px;"> ▶ 운영자개요</h3>
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="발주조회" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
+				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger"></sbux-button>
+				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger"></sbux-button>
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger"></sbux-button>
 			</div>
 		</div>
-			<div class="box-body">
-				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
-					<caption>검색 조건 설정</caption>
-					<colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-					</colgroup>
-					<tbody>
-						<tr>
-							<th scope="row">APC명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							</td>
-							<td colspan="8"></td>
-						</tr>
-						<tr>
-							<th scope="row">발주일자</th>
-							<td class="td_input"  style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-outordrYmd1" name="srch-inp-outordrYmd1" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
-							</td>
-							<td class="td_input"  style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-outordrYmd2" name="srch-inp-outordrYmd2" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
-							</td>
-							<td class="td_input"  style="border-right: hidden;"></td>
+		<div class="box-body">
+			<!--[pp] 검색 -->
+			<div>
+			<table class="table table-bordered tbl_row tbl_fixed">
+				<caption>검색 조건 설정</caption>
+				<colgroup>
+					<col style="width: 7%">
+					<col style="width: 6%">
+					<col style="width: 6%">
+					<col style="width: 3%">
+					<col style="width: 7%">
+					<col style="width: 6%">
+					<col style="width: 6%">
+					<col style="width: 3%">
+					<col style="width: 7%">
+					<col style="width: 6%">
+					<col style="width: 6%">
+					<col style="width: 3%">
+				</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
+						<td colspan= "3" class="td_input" style="border-right:hidden;">
+							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+						</td>
+						<td>
+							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+						</td>
+						<th scope="row">대상연도</th>
+						<td class="td_input"  style="border-right: hidden;">
+							<sbux-input id="srch-inp-warehouse" name="srch-inp-warehouse" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+						</td>
+						<td colspan="5"></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			<br>
 
-							<th scope="row">창고구분</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-warehouseSe" name="srch-slt-warehouseSe" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
-							</td>
-							<td colspan="2"></td>
-							<th scope="row">품목/품종</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-Vrty" name="srch-slt-Vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
-							</td>
-							<td class="td_input"></td>
-						</tr>
-						<tr>
-							<th scope="row">거래처</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" class="form-control input-sm"uitype="text"></sbux-input>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btn-srch-inp-cnpt" name="btn-srch-inp-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
-							</td>
-							<th scope="row">규격</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-							</td>
-							<td colspan="5"></td>
-						</tr>
-					</tbody>
-				</table>
 
-				<!--[pp] //검색 -->
-				<!--[pp] 검색결과 -->
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>출하지시대상 내역</span></li>
-						</ul>
-					</div>
+			<!--[pp] //검색 -->
+			<!--[pp] 검색결과 -->
 
+				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-spmtDsctn" style="height:300px;"></div>
-					<br/>
-				<table class="table table-bordered tbl_row tbl_fixed">
-					<caption>검색 조건 설정</caption>
-					<colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-					</colgroup>
-					<tbody>
-						<tr>
-							<th scope="row">거래처</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							</td>
-							<td></td>
-					  		<th scope="row">품목/품종/규격</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-item" name="srch-inp-item" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-vrty" name="srch-inp-vrty" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<th scope="row">배송처</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-dldtn" name="srch-inp-dldtn" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							</td>
-							<td></td>
-						</tr>
-						<tr>
-						    <th scope="row">지시일자</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-cmndYmd" name="srch-inp-cmndYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
-							</td>
-							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
-							<th scope="row">운송회사</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
-							</td>
-							<td class="td_input"  style="border-right: hidden;"></td>
-							<th scope="row">상품등급</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
-							</td>
-							<td colspan="2">&nbsp;</td>
-						</tr>
-						<tr>
-							<th scope="row">지시수량</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-cmndQntt" name="srch-inp-cmndQntt" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
-							</td>
-							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
-							<th class="td_input" scope="row" style="border-right: hidden;">지시중량</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-cmndWght" name="srch-inp-cmndWght" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
-							<td class="td_input" style="border-right: hidden;">Kg</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<th scope="row" style="border-right: hidden;">포장구분</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-frmlSe" name="srch-slt-frmlSe" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
-							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td></td>
-						</tr>
-						<tr>
-							<th scope="row">비고</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-rmrk" name="srch-inp-rmrk" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
-							</td>
-							<td colspan="8" class="td_input">&nbsp;</td>
-						</tr>
-					</tbody>
-				</table>
+				</div>
+				<br>
+					<div><label>운영자개요 상세내역</label></div>
+			<div>
+			<table class="table table-bordered tbl_row tbl_fixed">
+				<caption>검색 조건 설정</caption>
+				<colgroup>
+					<col style="width: 35%">
+					<col style="width: 65%">
+				</colgroup>
+				<tbody>
+					<tr>
+						<th>구분</th>
+						<th>내용</th>
+					</tr>
+					<tr>
+						<th>소유조직</th>
+						<td>
+							<sbux-input id="srch-inp-opera1" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>소유조직 사업자번호</th>
+						<td>
+							<sbux-input id="srch-inp-opera2" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="소유자가 지자체로 사업자번호 없을 경우 공란" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직</th>
+						<td>
+							<sbux-input id="srch-inp-opera3" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="최초 페이 내용 그대로 끌어오기" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직사업자번호</th>
+						<td>
+							<sbux-input id="srch-inp-opera4" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직 대표자</th>
+						<td>
+							<sbux-input id="srch-inp-opera5" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직 주소</th>
+						<td>
+							<sbux-input id="srch-inp-opera6" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="주소 검색하여 작성" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직 조직유형</th>
+						<td>
+							<sbux-input id="srch-inp-opera7" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="생산유통통합조직(승인함),생산유통통합조직(육성형),생산유통통합조직(승인형)-출자출하조직, 생산유통통합조직(육성형)-출자출하조직,개별조직" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직 취급 대표품목1</th>
+						<td>
+							<sbux-input id="srch-inp-opera8" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="운영조직 취급액 중 가장많은 품목 1
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직 취급 대표품목2</th>
+						<td>
+							<sbux-input id="srch-inp-opera9" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / 운영조직 취급액 중 가장많은 품목 2
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직 취급 대표품목3</th>
+						<td>
+							<sbux-input id="srch-inp-opera10" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / 운영조직 취급액 중 가장많은 품목 3
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직 취급 기타품목</th>
+						<td>
+							<sbux-input id="srch-inp-opera11" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 혹은 추가하기 버튼 누르고 수기입력" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>APC명</th>
+						<td>
+							<sbux-input id="srch-inp-opera12" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="최초 페이지 내용 그대로 끌어오기
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>APC 사업자번호</th>
+						<td>
+							<sbux-input id="srch-inp-opera13" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="사업자번호 없을 경우 공란
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>APC 주소</th>
+						<td>
+							<sbux-input id="srch-inp-opera14" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="주소 검색하여 작성
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>APC 처리 대표품목1</th>
+						<td>
+							<sbux-input id="srch-inp-opera15" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="APC 취급액 중 가장많은 품목 1
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>APC 처리 대표품목2</th>
+						<td>
+							<sbux-input id="srch-inp-opera16" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / APC 취급액 중 가장많은 품목 2
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>APC 처리 대표품목3</th>
+						<td>
+							<sbux-input id="srch-inp-opera17" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / APC 취급액 중 가장많은 품목 3
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>APC 처리 기타품목명</th>
+						<td>
+							<sbux-input id="srch-inp-opera18" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 혹은 추가하기 버튼 누르고 수기입력
+							" ></sbux-input>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 
-			<div class="ad_tbl_top">
-				<ul class="ad_tbl_count">
-					<li><span>출하지시 내역</span></li>
-				</ul>
 			</div>
-			<div id="sb-area-grdSpmtCmndDsctn" style="height:300px;"></div>
+
 			</div>
+			<!--[pp] //검색결과 -->
+
+
+
 		</div>
 	</section>
 	<!-- 거래처 선택 Modal -->
@@ -202,6 +221,15 @@
     <div id="body-modal-cnpt">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
     </div>
+        <!-- 품종 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
+    </div>
+    <div id="body-modal-vrtyCrtr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    </div>
+
+
 </body>
 <script type="text/javascript">
 
@@ -239,15 +267,12 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["메시지Key"],	ref: 'msgKey',      type:'output',  width:'30%',    style:'text-align:center'},
-            {caption: ["메시지내용"], 	ref: 'msgCn',     	type:'output',  width:'50%',    style:'text-align:left'},
-            {caption: ["메시지종류"],  	ref: 'msgKndNm',    type:'output',  width:'20%',    style:'text-align:center'},
-            {caption: ["비고"],      	ref: 'rmrk',        type:'output',  hidden: true},
-            {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
+
+            {caption: ["소유조직"],	ref: 'msgKey',      type:'output',  width:'23%',    style:'text-align:center'},
+            {caption: ["대표품목1"], 	ref: 'msgCn',     	type:'output',  width:'23%',    style:'text-align:center'},
+            {caption: ["대표품목2"],  	ref: 'msgKndNm',    type:'output',  width:'23%',    style:'text-align:center'},
+            {caption: ["대표품목3"],      	ref: 'rmrk',    type:'output',  width:'23%',    style:'text-align:center'},
+            {caption: ["대표품목4"],	ref: 'creUserId',   type:'output',  width:'23%',    style:'text-align:center'},
             {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},
             {caption: ["최종변경자ID"],	ref: 'updUserId',   type:'output',  hidden: true},
             {caption: ["최종변경일시"], ref: 'updDateTime', type:'output',  hidden: true},
