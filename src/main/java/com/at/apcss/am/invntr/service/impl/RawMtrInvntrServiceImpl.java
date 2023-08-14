@@ -46,12 +46,15 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		
 		return resultList;
 	}
+	
 
 	@Override
 	public HashMap<String, Object> insertRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
 		int insertedCnt = rawMtrInvntrMapper.insertRawMtrInvntr(rawMtrInvntrVO);
-		
+		if (insertedCnt != 0) {
+			
+		}
 		return null;
 	}
 
@@ -88,6 +91,8 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		
 		return null;
 	}
+
+
 
 
 }

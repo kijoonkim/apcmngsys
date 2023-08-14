@@ -1,7 +1,20 @@
 package com.at.apcss.am.invntr.web;
 
-import org.springframework.stereotype.Controller;
+import java.util.HashMap;
+import java.util.List;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.at.apcss.am.invntr.service.RawMtrInvntrService;
+import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -22,4 +35,27 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class RawMtrInvntrController extends BaseController {
 
+	@Resource(name = "rawMtrInvntrService")
+	private RawMtrInvntrService rawMtrInvntrService;
+	
+	@PostMapping(value = "/am/invntr/selectRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsList(@RequestBody RawMtrInvntrVO rawMtrInvntrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<RawMtrInvntrVO> resultList;
+		try {
+			
+			resultList = rawMtrInvntrService.selectRawMtrInvntrList(rawMtrInvntrVO);
+			
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
 }

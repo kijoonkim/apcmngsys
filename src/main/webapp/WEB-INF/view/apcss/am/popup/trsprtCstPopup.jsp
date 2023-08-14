@@ -132,8 +132,8 @@
 					gfn_setComCdGridSelect('grdTrsprtCstPop', 		jsonComTrsprtSeCd, 	'TRSPRT_SE_CD'),	// 운송구분
 					gfn_setTrsprtRgnSBSelect('grdTrsprtCstPop', 	jsonComTrsprtRgnCd, _apcCd)				// 운송지역
 				]);
-				console.log("jsonComTrsprtRgnCd",jsonComTrsprtRgnCd);
 				this.createGrid();
+
 				this.search();
 			} else {
 				this.search();
@@ -280,7 +280,7 @@
 			if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
 	    		return;
 	    	}
-			console.log(trsprtCstList);
+
 	    	const postJsonPromise = gfn_postJSON("/am/cmns/multiTrsprtCstList.do", trsprtCstList, this.prgrmId);	// 프로그램id 추가
 
 			const data = await postJsonPromise;
@@ -320,7 +320,6 @@
 			});
 
 	        const data = await postJsonPromise;
-			console.log(data);
 			try {
 	        	/** @type {number} **/
 	    		let totalRecordCount = 0;

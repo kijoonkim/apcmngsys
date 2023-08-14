@@ -36,15 +36,10 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 		// 2. 아이디와 암호화된 비밀번호가 DB와 일치하는지 확인한다.
     	LoginVO loginVO = loginMapper.actionLogin(vo);
     	
-    	System.out.println(loginVO == null);
-    	System.out.println(StringUtils.hasText(loginVO.getId()));
-    	System.out.println(StringUtils.hasText(loginVO.getPassword()));
-    	
     	if (loginVO != null) {
     		System.out.println(String.format("loginVO: %s", loginVO.toString()));
     		System.out.println(String.format("getId: %s", loginVO.getId()));
     		System.out.println(String.format("getPassword: %s", loginVO.getPassword()));
-    		
     	}
     	
     	// 3. 결과를 리턴한다.

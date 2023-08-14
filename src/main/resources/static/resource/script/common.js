@@ -1040,6 +1040,15 @@ const gfn_getJsonFilter = function(data, key, values) {
 }
 
 /**
+ * @name gfn_cloneJson
+ * @description JSON 객체 복사
+ * @function
+ * @param {any} obj
+ * @returns
+ */
+const gfn_cloneJson = obj => JSON.parse(JSON.stringify(obj));
+
+/**
  * 실행부
  */
 

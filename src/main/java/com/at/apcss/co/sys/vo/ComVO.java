@@ -22,6 +22,7 @@ import lombok.Setter;
 @Setter
 public class ComVO extends ComPageVO {
 
+
 	private String delYn;
 	private String sysFrstInptDt;		// 최초생성시간
 	private String sysFrstInptUserId;	// 최초생성사용자ID
@@ -29,9 +30,10 @@ public class ComVO extends ComPageVO {
 	private String sysLastChgDt;		// 최종변경시간
 	private String sysLastChgUserId ;	// 최종변경사용자ID
 	private String sysLastChgPrgrmId;	// 최종변경프로그램ID
-	
+
 	private String sysUserId;
 	private String sysPrgrmId;
-	
+
+	private String checkedYn;
 	private String rowSts;
 }

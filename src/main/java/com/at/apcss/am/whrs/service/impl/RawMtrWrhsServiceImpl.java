@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,13 +56,41 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 
 	@Override
 	public List<RawMtrWrhsVO> selectRawMtrWrhsList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<RawMtrWrhsVO> resultList = rawMtrWrhsMapper.selectRawMtrWrhsList(rawMtrWrhsVO);
+		
+		return resultList;
 	}
 
 	@Override
 	public HashMap<String, Object> insertRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
-		// TODO Auto-generated method stub
+
+		String wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrWrhsVO.getApcCd(), rawMtrWrhsVO.getWrhsYmd());
+		rawMtrWrhsVO.setWrhsno(wrhsno);
+		
+		if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
+			rawMtrWrhsVO.setPltno(wrhsno);
+		}
+		if (!StringUtils.hasText(rawMtrWrhsVO.getWghno())) {
+			rawMtrWrhsVO.setWghno(wrhsno);
+		}
+		
+		int insertedCnt = rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
+		
+		if (insertedCnt != 0) {
+			
+		}
+		
+		RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
+		BeanUtils.copyProperties(rawMtrWrhsVO, rawMtrInvntrVO);
+		rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getBxQntt());
+		rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getWrhsWght());
+		
+		HashMap<String, Object> rtnObj = rawMtrInvntrService.insertRawMtrInvntr(rawMtrInvntrVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+		
 		return null;
 	}
 
@@ -73,11 +102,14 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		int insertedCnt = 0;
 		for ( RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList ) {
 			
-			String wrhsno = cmnsTaskNoService.selectWghno(rawMtrWrhsVO.getApcCd(), rawMtrWrhsVO.getWrhsYmd());
+			String wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrWrhsVO.getApcCd(), rawMtrWrhsVO.getWrhsYmd());
 			rawMtrWrhsVO.setWrhsno(wrhsno);
 			
 			if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
 				rawMtrWrhsVO.setPltno(wrhsno);
+			}
+			if (!StringUtils.hasText(rawMtrWrhsVO.getWghno())) {
+				rawMtrWrhsVO.setWghno(wrhsno);
 			}
 			
 			insertedCnt = rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
@@ -88,7 +120,7 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 			
 			RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
 			BeanUtils.copyProperties(rawMtrWrhsVO, rawMtrInvntrVO);
-			rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getWrhsQntt());
+			rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getBxQntt());
 			rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getWrhsWght());
 			rawMtrInvntrList.add(rawMtrInvntrVO);
 		}
@@ -96,7 +128,7 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		// FIXME 입고번호로 재고 생성 추가
 		HashMap<String, Object> rtnObj = rawMtrInvntrService.insertRawMtrInvntrList(rawMtrInvntrList);
 		if (rtnObj != null) {
-			throw new Exception("원물재고등록오류");
+			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
 		
 		

@@ -26,7 +26,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WghPrfmncVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -47,7 +47,7 @@ public class WghPrfmncVO extends ComVO {
 	private String wghYmd;
 	private String wghYmdFrom;
 	private String wghYmdTo;
-	
+
 	/**
 	 * 생산자코드
 	 */
@@ -61,12 +61,12 @@ public class WghPrfmncVO extends ComVO {
 	/**
 	 * 품목코드
 	 */
-	private String itemCd;	
+	private String itemCd;
 	/**
 	 * 품목명
 	 */
 	private String itemNm;
-	
+
 	/**
 	 * 품종코드
 	 */
@@ -84,17 +84,17 @@ public class WghPrfmncVO extends ComVO {
 	 * 상품구분명
 	 */
 	private String gdsSeNm;
-	
+
 	/**
 	 * 등급
 	 */
 	private String grdCd;
-	
+
 	/**
 	 * 등급명
 	 */
 	private String grdNm;
-	
+
 	/**
 	 * 입고구분코드
 	 */
@@ -127,6 +127,11 @@ public class WghPrfmncVO extends ComVO {
 	 * 공차중량
 	 */
 	private double emptVhclWght;
+
+	/**
+	 * 실중량
+	 */
+	private double actlWght;
 
 	/**
 	 * 감량율
@@ -182,9 +187,9 @@ public class WghPrfmncVO extends ComVO {
 	 * 중량
 	 */
 	private double wght;
-	
+
 	/**
-	 * 팔레트중량 
+	 * 팔레트중량
 	 */
 	private String pltWght;
 	/**
@@ -211,5 +216,5 @@ public class WghPrfmncVO extends ComVO {
 
 	public void setWghPrfmncDtlList(List<WghPrfmncDtlVO> wghPrfmncDtlList) {
 		this.wghPrfmncDtlList = wghPrfmncDtlList == null ? null : wghPrfmncDtlList.stream().collect(Collectors.toList());
-	} 
+	}
 }

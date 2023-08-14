@@ -71,7 +71,7 @@
 					 	<div class="ad_tbl_toplist">
 						</div>
 					</div>
-					<div id="sb-area-grdVhcl" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdVhclPop" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -80,14 +80,11 @@
 </body>
 <script type="text/javascript">
 
-	var jsonComBankCd = [];	// 은행 bankCd Grid
-
 	/* grid 내 select json */
 	var jsonComBankCdVhclPop = [];	// 은행 bankCd Grid
 
 	var grdVhclPop = null;
 	var jsonVhclPop = [];
-
 
 	/**
 	 * @description 차량 선택 팝업
@@ -97,7 +94,7 @@
 		modalId: 'modal-vhcl',
 		gridId: 'grdVhclPop',
 		jsonId: 'jsonVhclPop',
-		areaId: "sb-area-grdVhcl",
+		areaId: "sb-area-grdVhclPop",
 		prvApcCd: "",
 		objGrid: null,
 		gridJson: [],

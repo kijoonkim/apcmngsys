@@ -48,7 +48,9 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 입고일자
 	 */
 	private String wrhsYmd;
-
+	private String wrhsYmdFrom;
+	private String wrhsYmdTo;
+	
 	/**
 	 * 생산자코드
 	 */
@@ -149,4 +151,48 @@ public class RawMtrWrhsVO extends ComVO {
 	 */
 	private double invntrWght;
 	
+	/**
+	 * APC명
+	 */
+	private String apcNm;
+	
+	/**
+	 * 품목명
+	 */
+	private String itemNm;
+	
+	/**
+	 * 품종명
+	 */
+	private String vrtyNm;
+	
+	/**
+	 * 등급명
+	 */
+	private String grdNm;
+	
+	/**
+	 * 창고명
+	 */
+	private String warehouseSeNm;
+	
+	/**
+	 * 박스종류명
+	 */
+	private String bxKndNm;
+	
+	/**
+	 * 상품구분명
+	 */
+	private String gdsSeNm;
+	
+	/**
+	 * 입고구분명
+	 */
+	private String wrhsSeNm;
+	
+	/**
+	 * 운송구분명
+	 */
+	private String trsprtSeNm;
 }

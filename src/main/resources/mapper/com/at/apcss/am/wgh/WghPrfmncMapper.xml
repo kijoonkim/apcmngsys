@@ -36,6 +36,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+				, pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT - pt0.RDCD_WGHT AS ACTL_WGHT
     		  FROM (
     	</if>
     	<if test='pagingYn == null or pagingYn.equals("N")'>
@@ -49,6 +50,8 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+				, pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT - pt0.RDCD_WGHT AS ACTL_WGHT
+
     		  FROM (
     	</if>
     	<!-- End 페이징 -->
@@ -74,12 +77,12 @@
 				, MAX(INV.VRTY_CD) AS VRTY_CD
 				, MAX(INV.GDS_SE_CD) AS GDS_SE_CD
 				, MAX(INV.WRHS_SE_CD) AS WRHS_SE_CD
-				, MAX(INV.TRSPRT_SE_CD) AS TRSPRT_SE_CD				
+				, MAX(INV.TRSPRT_SE_CD) AS TRSPRT_SE_CD
 			  FROM
 			  	  TB_WGH_PRFMNC_COM WC
 				, TB_RAW_MTR_WRHS_PRFMNC WP
 				, TB_RAW_MTR_INVNTR INV
-				
+
 			 WHERE WC.APC_CD = WP.APC_CD
 			   AND WC.WGHNO = WP.WGHNO
 			   AND WP.APC_CD = INV.APC_CD
@@ -88,7 +91,7 @@
 			   AND WP.DEL_YN = 'N'
 			   AND INV.DEL_YN = 'N'
 		]]>
-		
+
 		<if test='apcCd != null and apcCd != ""'>
 			   AND WC.APC_CD = #{apcCd}
 		</if>
@@ -184,7 +187,7 @@
 			  FROM TB_WGH_PRFMNC_COM WC
 			 WHERE 1=1
 		]]>
-		
+
 		<if test='apcCd != null and apcCd != ""'>
 			   AND WC.APC_CD = #{apcCd}
 		</if>
@@ -286,7 +289,7 @@
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-	    		
+
 				, WGH_YMD			= #{wghYmd}
 				, VHCLNO			= #{vhclno}
 				, PRDCR_CD			= #{prdcrCd}
@@ -486,18 +489,18 @@
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-	    		
+
 				, PLT_BX_SE_CD 	= #{pltBxSeCd}
 				, PLT_BX_KND	= #{pltBxKnd}
 				, GRD_CD 		= #{grdCd}
 				, UNIT_WGHT 	= #{unitWght}
 				, QNTT 			= #{qntt}
 				, WGHT 			= #{wght}
-			
+
 			<if test='delYn != null and delYn != ""'>
 				, DEL_YN		= #{delYn}
 			</if>
-			
+
 			 WHERE APC_CD = #{apcCd}
 			   AND WGHNO = #{wghno}
 			   AND WGH_SN = #{wghSn}
