@@ -15,7 +15,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_rawMtrWrhsPrfmncSearch()">조회</sbux-button>
 				</div>
 			</div>
 			<div>
@@ -62,7 +62,7 @@
 								<sbux-input uitype="text" id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrtyCrtr" onclick="fn_modalVrty"/>
+								<sbux-button id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"/>
 							</td>
 							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -101,6 +101,9 @@
 								</p>
 								<p class="ad_input_row">
 									<sbux-checkbox uitype="normal"id="chk-wrhsKnd3" name="chk-wrhsKnd3" uitype="normal" class="form-control input-sm" text="매취" checked/>
+								</p>
+								<p class="ad_input_row">
+									<sbux-checkbox uitype="normal"id="chk-wrhsKnd4" name="chk-wrhsKnd4" uitype="normal" class="form-control input-sm" text="상품"/>
 								</p>
 							</td>
 							<th scope="row" class="th_bg">상품구분</th>
@@ -144,8 +147,14 @@
 							<td style="border-right: hidden;">
 								<sbux-button id="srch-btn-vhclNoSrch" name="srch-btn-vhclNoSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"/>
 							</td>
-							<td colspan="5" style="border-right: hidden;">&nbsp;</td>
-
+							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
+							<th scope="row" class="th_bg">계량번호</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input uitype="text" id="srch-inp-wghNo" name="srch-inp-wghNo" class="form-control input-sm"/>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="srch-btn-wghNo" name="srch-btn-wghNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal"/>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -180,7 +189,7 @@
 
     <!-- 품종 선택 Modal -->
     <div>
-        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
+        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="body-modal-vrtyCrtr">
     	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
@@ -208,6 +217,30 @@
 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
 		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
+	
+    const fn_modalVrty = function() {
+    	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
+	}
+    
+     const fn_setVrty = function(vrty) {
+
+		if (!gfn_isEmpty(vrty)) {
+			console.log("vrty", vrty);
+			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
+			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyNm);
+		}
+	}
+     
+     const fn_setVrtys = function(vrtys) {
+		if (!gfn_isEmpty(vrtys)) {
+			var _vrtys = [];
+			for(var i=0;i<vrtys.length;i++){
+				_vrtys.push(vrtys[i].vrtyNm);
+			}
+			SBUxMethod.set('srch-inp-vrtyCd', _vrtys.join(','));
+		}
+	}
+    
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -262,10 +295,6 @@
 	        {caption: ["차량구분"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["운송료"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["등급"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-// 	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
-// 	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
-// 	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
-// 	        {caption: ["입고등급"],		ref: 'msgKey',      type:'output',  width:'30px',    style:'text-align:center'},
 	        {caption: ["입고중량"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["보관창고"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["계량번호"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
@@ -328,6 +357,15 @@
 		}
 	}
 	
+	function fn_rawMtrWrhsPrfmncSearch(){
+	   try{
+		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-startPrdctnYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endPrdctnYmd")))
+				   throw "입고일자는 필수입력 항목입니다.";
+	   } catch(e){
+		   alert(e);
+		   return;
+	   }
+	}
 	
 </script>
 
