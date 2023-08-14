@@ -55,10 +55,16 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonItem" onchange="fn_selectItem"></sbux-select>
 							</td>
+<!-- 							<td class="td_input" style="border-right: hidden;"> -->
+<!-- 								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonVrty"></sbux-select> -->
+<!-- 							</td> -->
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonVrty"></sbux-select>
+								<sbux-input uitype="text" id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" class="form-control input-sm" ></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"/>
+							</td>
+<!-- 							<td class="td_input" style="border-right: hidden;"></td> -->
 							<th scope="row" class="th_bg">선별기</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-fcltCd" name="srch-slt-fcltCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComFcltCd"></sbux-select>
@@ -71,7 +77,7 @@
 								<sbux-select id="srch-slt-strgWarehouse" name="srch-slt-strgWarehouse" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComWarehouse" ></sbux-select>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<td></td>
+							<td></td> 
 							<th scope="row" class="th_bg">규격</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonSpcfct"></sbux-select>
@@ -132,9 +138,45 @@
     <div id="body-modal-itemCrtr">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/itemCrtrPopup.jsp"></jsp:include>
     </div>
+    <!-- 품종 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
+    </div>
+    <div id="body-modal-vrtyCrtr">
+    	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    </div>
+</body>
+<script type="text/javascript">
 
-	<script type="text/javascript">
+    const fn_modalVrty = function() {
+    	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
+    	//_apcCd, _apcNm, _itemNm, _callbackFnc
+	}
+    
 
+     const fn_setVrty = function(vrty) {
+
+		if (!gfn_isEmpty(vrty)) {
+			console.log("vrty", vrty);
+			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
+			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyNm);
+		}
+	}
+     const fn_setVrtys = function(vrtys) {
+		if (!gfn_isEmpty(vrtys)) {
+// 			console.log("vrtys", vrtys);
+// 			console.log("vrtys[2]", vrtys[2]);
+			var _vrtys = [];
+			for(var i=0;i<vrtys.length;i++){
+				_vrtys.push(vrtys[i].vrtyNm);
+// 				SBUxMethod.setValue('srch-inp-vrtyCd', vrtys[i].vrtyNm);
+// 				SBUxMethod.set('srch-inp-vrtyCd', vrtys[i].vrtyNm);
+// 				console.log("vrtys", _vrtys);
+			}
+			SBUxMethod.set('srch-inp-vrtyCd', _vrtys.join(','));
+		}
+	}
+    
 	var jsonItem			= [];	// 품목 	itemCd			검색
 	var jsonVrty			= [];	// 품종 	vrtyCd			검색
 	var jsonSpcfct			= [];	// 규격 	spcfctCd		검색
@@ -331,8 +373,7 @@
     		}
     		console.error("failed", e.message);
         }
-    }
-
+     }
 
     //신규 작성
     function fn_create() {
@@ -624,6 +665,5 @@
 		}
 	}
 	
-    </script>
-</body>
+   </script>
 </html>
