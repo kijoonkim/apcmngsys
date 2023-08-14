@@ -18,7 +18,7 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchCnpt" name="btnSearchCnpt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchCnpt()"></sbux-button>
+					<sbux-button id="btnSearchCnpt" name="btnSearchCnpt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popCnpt.search"></sbux-button>
 					<sbux-button id="btnEndCnpt" name="btnEndCnpt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-cnpt')"></sbux-button>
 				</div>
 			</div>
@@ -130,7 +130,7 @@
 	var callbackChoiceFnc = function(){};
 	
 	const popCnpt = {
-		modalId: 'modal-Cnpt',
+		modalId: 'modal-cnpt',
 		gridId: 'grdCnpt',
 		jsonId: 'jsonCnptPopUp',
 		areaId: "sb-area-grdCnpt",
@@ -140,6 +140,7 @@
 		apcCd: "",
 		init: async function(_apcCd, _apcNm, _cnptNm, _callbackChoiceFnc) {
 			SBUxMethod.set("cnpt-inp-apcNm", _apcNm);
+			SBUxMethod.set("cnpt-inp-cnptNm", _cnptNm);
 			this.apcCd = _apcCd;
 			this.cnptNm = _cnptNm;
 			
@@ -191,26 +192,28 @@
 	 	        {caption: ['거래처코드'], 	ref: 'cnptCd', 		hidden : true}
 		    ];
 		    grdCnpt = _SBGrid.create(SBGridProperties);
-		    grdCnpt.bind('dblclick', popVrty.choice);
+		    grdCnpt.bind('dblclick', popCnpt.choice);
 		},
 		choice: function() {
 			console.log(callbackChoiceFnc);
 			let nRow = grdCnpt.getRow();
 			let rowData = grdCnpt.getRowData(nRow);
-			popVrty.close(callbackChoiceFnc, rowData);
+			popCnpt.close(callbackChoiceFnc, rowData);
 		},
 		
 		search: async function() {
 			//console.log('search');
 			let apcCd = this.apcCd;
 			let cnptNm = this.cnptNm;
-			this.setGrid(cnptNm, apcCd);
+			console.log('cnpt', cnptNm);
+			this.setGrid(apcCd);
 		},
-		setGrid: async function(cnptNm, apcCd) {
+		setGrid: async function(apcCd) {
 			jsonCnptPopUp = [];
-	    	let apcNm = SBUxMethod.get("cnpt-inp-apcNm");
-			let cnptNmVO = SBUxMethod.get("cnpt-inp-cnptNm");
-			let postJsonPromise = gfn_postJSON("/am/cmns/selectCnptList.do", {apcCd : apcCd, cnptNmVO : cnptNmVO});
+
+			let cnptNm = SBUxMethod.get("cnpt-inp-cnptNm");
+			console.log('cnptNm',cnptNm);
+			let postJsonPromise = gfn_postJSON("/am/cmns/selectCnptList.do", {apcCd : apcCd, cnptNm : cnptNm});
 		    let data = await postJsonPromise;                
 		    
 		    try{
