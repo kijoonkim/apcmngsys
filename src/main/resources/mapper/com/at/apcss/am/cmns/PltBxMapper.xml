@@ -31,6 +31,7 @@
 			    , PB.UNIT_WGHT          AS UNIT_WGHT
 			    , PB.UNIT_CD			AS UNIT_CD
 			    , PB.BSS_INVNTR_QNTT    AS BSS_INVNTR_QNTT
+			    , (SELECT FN_GET_COM_CD_VL_NM('UNIT_CD', PB.UNIT_CD) FROM DUAL) AS UNIT_NM
 			    , PB.USE_YN             AS USE_YN
 			    , PB.DEL_YN             AS DEL_YN
 			  FROM TB_PLT_BX_INFO PB
@@ -41,7 +42,7 @@
 		</if>
 		<if test='pltBxCd != null and pltBxCd != ""'>
 			   AND PB.PLT_BX_CD = #{pltBxCd}
-		</if>		
+		</if>
 		<if test='pltBxNm != null and pltBxNm != ""'>
 			   AND PB.PLT_BX_NM LIKE '%' || #{pltBxNm} || '%'
 		</if>

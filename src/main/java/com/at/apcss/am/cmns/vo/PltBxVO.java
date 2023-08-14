@@ -50,6 +50,10 @@ public class PltBxVO extends ComVO {
 	 */
 	private String unitCd;
 	/**
+	 * 단위명
+	 */
+	private String unitNm;
+	/**
 	 * 사용유무
 	 */
 	private String useYn;

@@ -102,7 +102,10 @@
     window.addEventListener('DOMContentLoaded', function(e) {
         // setting saved userId 
         fn_setUserId();
-        
+		
+    	<c:if test="${loginMessage != null}">
+			alert('${loginMessage}');
+		</c:if>
     });
     
 </script>

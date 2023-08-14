@@ -13,11 +13,14 @@
     <style>
         /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
-        .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333; height:auto}
+        html, body {
+        	height:100%;
+        }
+        .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333; height:auto;}
         .sbt-A-wrap .main {display:table;  width:100%; height:100%;}
-        .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px;}
+        .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px; height:90vh;}
         .sbt-A-wrap .left .sbt-all-left {height: 100%;}
-        .sbt-A-wrap .content {display:table-cell;}
+        .sbt-A-wrap .content {display:table-cell; height: 90vh;}
         .sbux-sidemeu {position: relative; z-index: 1;}
         .footer {
             display: flex; align-items: center; justify-content: center; font-size: 16px;
@@ -25,7 +28,7 @@
         }
     </style>
 </head>
-<body>
+<body id="mainBody">
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
@@ -67,6 +70,9 @@
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
+    	//let bodyHeight = document.body.scrollHeight;
+    	//let topHeight = $(".sbt-all-header").height();
+        //$(".sbt-A-wrap").height(bodyHeight - topHeight - 5);
     });
 
     const fn_selectTopMenu = (_id) => {
@@ -388,15 +394,15 @@
         if (!gfn_isEmpty(upMenuInfo.pid)) {
         	var topMenuInfo = _.find(menuJson, {id: upMenuInfo.pid});
         	menuJsonB.push(
-        			{"order": "20", "id": topMenuInfo.id, "pid": "", "text": topMenuInfo.text}
+        			{"order": "20", "id": topMenuInfo.id, "pid": "", "text": topMenuInfo.text, "url": topMenuInfo.url}
         		);
         }
        	menuJsonB.push(
-       			{"order": "30", "id": upMenuInfo.id, "pid": upMenuInfo.pid, "text": upMenuInfo.text}
+       			{"order": "30", "id": upMenuInfo.id, "pid": upMenuInfo.pid, "text": upMenuInfo.text, "url": upMenuInfo.url}
        		);
 
         menuJsonB.push(
-        		{"order": "40", "id": menuNo, "pid": upMenuNo, "text": menuNm}
+        		{"order": "40", "id": menuNo, "pid": upMenuNo, "text": menuNm, "url": menuInfo.url}
    		);
 
         /*
@@ -412,6 +418,7 @@
         */
         SBUxMethod.refresh('breadcrumb');
     }
+
 
     //선택한 탭메뉴의 정보를 가져와 메뉴정보 설정
     function fn_setMenuInfo(args) {
@@ -503,7 +510,7 @@
 
     //ifrmae 높이 자동 설정
     function fn_resizeFrame(that){
-        let iframe_height = that.contentWindow.document.body.scrollHeight + 17;
+        let iframe_height = that.contentWindow.document.body.scrollHeight + 17;	// +17
         $(that).height(iframe_height);
     }
 
@@ -538,236 +545,7 @@
 	    }
     }
     //================== Modal ==================//
-    //목록 조회
-    function fn_search() {
-        fn_setGridData();
-        //Grid Init
-        gridData2 = [];
-        datagrid2.refresh();
-        gridData_1 = [], gridData_2 = [], gridData_3 = [];
-        datagrid_1.refresh();
-        datagrid_2.refresh();
-        datagrid_3.refresh();
-        //Button disabled
-        SBUxMethod.attr('btn_add_1', 'disabled', true);
-        SBUxMethod.attr('btn_add_2', 'disabled', true);
-        SBUxMethod.attr('btn_add_3', 'disabled', true);
-    }
-    //등록
-    function fn_save() {
-        var data = datagrid2.getGridDataAll();
-        if (data.length == 0) {
-            alert("등록 할 데이터가 없습니다.");
-            return;
-        }
-        console.log("data ::::: " + JSON.stringify(data));
-    }
-    //닫기
-    function fn_close() {
-        gridData = [];
-        gridData2 = [];
-		SBUxMethod.closeModal('jsModal');
-    }
-    //그리드 선택
-    function fn_selectRow(nRow) {
-        var rowData2 = datagrid2.getRowData(nRow);
-        var sText = rowData2.field2;
-        document.getElementById("select_text").innerHTML = "[" + sText + "]";
-        //Set Grid Data
-        fn_setGridData_1(rowData2);
-        fn_setGridData_2(rowData2);
-        fn_setGridData_3(rowData2);
-        //Button enabled
-        SBUxMethod.attr('btn_add_1', 'disabled', false);
-        SBUxMethod.attr('btn_add_2', 'disabled', false);
-        SBUxMethod.attr('btn_add_3', 'disabled', false);
-    }
-    //grid 초기화
-    var grid; // 그리드를 담기위한 객체 선언
-    var gridData = []; // 그리드의 참조 데이터 주소 선언
-    function fn_createGrid() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'SBGridArea';
-	    SBGridProperties.id = 'datagrid';
-	    SBGridProperties.jsonref = 'gridData';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["코드"], ref: 'field1',  type:'output',  width:'25%',    style:'text-align:center'},
-            {caption: ["명칭"], ref: 'field2',  type:'output',  width:'55%',    style:'text-align:left'},
-            {caption: ["선택"], ref: 'empty',   type:'output',  width:'20%',    style:'text-align:center',
-                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' onClick='fn_procRow(\"ADD\", " + nRow + ")'>선택</button>";
-                }
-            }
-        ];
-        datagrid = _SBGrid.create(SBGridProperties);
-    }
-    function fn_setGridData(args) {
-        var params = $('#frm').serialize();
-        console.log("form data ::::: " + params);
-        gridData = [
-            {'field1': 'code001', 'field2': '명칭001'},
-            {'field1': 'code002', 'field2': '명칭002'},
-            {'field1': 'code003', 'field2': '명칭003'},
-            {'field1': 'code004', 'field2': '명칭004'},
-            {'field1': 'code005', 'field2': '명칭005'}
-        ];
-        datagrid.refresh();
-    }
-    //
-    function fn_procRow(gubun, nRow) {
-        if (gubun === "ADD") {
-            var rowData = datagrid.getRowData(nRow);
-            datagrid2.addRow(true, rowData);
-            datagrid.deleteRow(nRow);
-        }
-        else if (gubun === "DEL") {
-            var rowData = datagrid2.getRowData(nRow);
-            datagrid.addRow(true, rowData);
-            datagrid2.deleteRow(nRow);
-        }
-    }
-    function fn_procRow2(gubun, grid, nRow) {
-        if (gubun === "ADD") {
-            if (grid === "grid_1") {
-                datagrid_1.addRow(true);
-            }
-            else if (grid === "grid_2") {
-                datagrid_2.addRow(true);
-            }
-            else if (grid === "grid_3") {
-                datagrid_3.addRow(true);
-            }
-        }
-        else if (gubun === "DEL") {
-            if (grid === "grid_1") {
-                datagrid_1.deleteRow(nRow);
-            }
-            else if (grid === "grid_2") {
-                datagrid_2.deleteRow(nRow);
-            }
-            else if (grid === "grid_3") {
-                datagrid_3.deleteRow(nRow);
-            }
-        }
-    }
-    //grid2 초기화
-    var grid2; // 그리드를 담기위한 객체 선언
-    var gridData2 = []; // 그리드의 참조 데이터 주소 선언
-    function fn_createGrid2() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'SBGridArea2';
-	    SBGridProperties.id = 'datagrid2';
-	    SBGridProperties.jsonref = 'gridData2';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["코드"],     ref: 'field1',  type:'output',  width:'20%',    style:'text-align:center'},
-            {caption: ["명칭"],     ref: 'field2',  type:'output',  width:'25%',    style:'text-align:left',
-                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return '<a href="javascript:void(0);" onClick="fn_selectRow(' + nRow + ');">' + strValue + '</a>';
-                }
-            },
-            {caption: ["품종등록"], ref: 'field3',  type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["등급등록"], ref: 'field4',  type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["규격등록"], ref: 'field5',  type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["처리"],     ref: 'empty',   type:'output',  width:'10%',    style:'text-align:center',
-                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' onClick='fn_procRow(\"DEL\", " + nRow + ")'>삭제</button>";
-                }
-            }
-        ];
-        datagrid2 = _SBGrid.create(SBGridProperties);
-    }
-    //sub grid 초기화
-    var grid_1, grid_2, grid_3; // 그리드를 담기위한 객체 선언
-    var gridData_1 = [], gridData_2 = [], gridData_3 = []; // 그리드의 참조 데이터 주소 선언
-    function fn_createGrid_1() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'SBGridArea_1';
-	    SBGridProperties.id = 'datagrid_1';
-	    SBGridProperties.jsonref = 'gridData_1';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["코드"], ref: 'field1',  type:'output',  width:'25%',    style:'text-align:center;background-color:#E0E0E0'},
-            {caption: ["명칭"], ref: 'field2',  type:'input',   width:'55%',    style:'text-align:left'},
-            {caption: ["처리"], ref: 'empty',   type:'output',  width:'20%',    style:'text-align:center',
-                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' onClick='fn_procRow2(\"DEL\", \"grid_1\", " + nRow + ")'>삭제</button>";
-                }
-            }
-        ];
-        datagrid_1 = _SBGrid.create(SBGridProperties);
-    }
-    function fn_createGrid_2() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'SBGridArea_2';
-	    SBGridProperties.id = 'datagrid_2';
-	    SBGridProperties.jsonref = 'gridData_2';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["코드"], ref: 'field1',  type:'output',  width:'25%',    style:'text-align:center;background-color:#E0E0E0'},
-            {caption: ["명칭"], ref: 'field2',  type:'input',  width:'55%',    style:'text-align:left'},
-            {caption: ["처리"], ref: 'empty',   type:'output',  width:'20%',    style:'text-align:center',
-                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' onClick='fn_procRow2(\"DEL\", \"grid_2\", " + nRow + ")'>삭제</button>";
-                }
-            }
-        ];
-        datagrid_2 = _SBGrid.create(SBGridProperties);
-    }
-    function fn_createGrid_3() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'SBGridArea_3';
-	    SBGridProperties.id = 'datagrid_3';
-	    SBGridProperties.jsonref = 'gridData_3';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["코드"], ref: 'field1',  type:'output',  width:'25%',    style:'text-align:center;background-color:#E0E0E0'},
-            {caption: ["명칭"], ref: 'field2',  type:'input',  width:'55%',    style:'text-align:left'},
-            {caption: ["처리"], ref: 'empty',   type:'output',  width:'20%',    style:'text-align:center',
-                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' onClick='fn_procRow2(\"DEL\", \"grid_3\", " + nRow + ")'>삭제</button>";
-                }
-            }
-        ];
-        datagrid_3 = _SBGrid.create(SBGridProperties);
-    }
-    //Set Grid Data
-    function fn_setGridData_1(obj) {
-        console.log("obj ::::: " + obj);
-        //var params = $('#frm').serialize();
-        //console.log("form data ::::: " + params);
-        gridData_1 = [
-            {'field1': 'code001', 'field2': '품종명칭001'},
-            {'field1': 'code002', 'field2': '품종명칭002'}
-        ];
-        datagrid_1.refresh();
-    }
-    function fn_setGridData_2(obj) {
-        var params = JSON.stringify(obj);
-        console.log("data ::::: " + params);
-        gridData_2 = [
-            {'field1': 'code001', 'field2': '등급명001'}
-        ];
-        datagrid_2.refresh();
-    }
-    function fn_setGridData_3(obj) {
-        var params = JSON.stringify(obj);
-        console.log("data ::::: " + params);
-        gridData_3 = [];
-        datagrid_3.refresh();
-    }
-    
+
 </script>
 <!-- //inline scripts related to this page -->
     <div class="sbt-A-wrap">
@@ -809,8 +587,14 @@
             </div>
             <!--main content-->
             <div class="content">
-                <sbux-breadcrumb id="breadcrumb" name="breadcrumb" uitype="text" jsondata-ref="menuJsonB">
-                </sbux-breadcrumb>
+                <sbux-breadcrumb
+                	id="breadcrumb"
+                	name="breadcrumb"
+                	uitype="text"
+                	jsondata-ref="menuJsonB"
+                	show-tooltip="true"
+                	tooltip-key="url"
+                ></sbux-breadcrumb>
                 <!--full content-->
                 <div class="sbt-wrap-full">
                     <!--탭 입력 영역-->
@@ -832,136 +616,6 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div>
-        <sbux-modal id="jsModal" name="jsModal" uitype="middle"
-            header-title="Modal TITLE"
-            body-html-id="modalBody"
-            footer-is-close-button="false"
-            style="width:1000px"
-        ></sbux-modal>
-    </div>
-    <div id="modalBody">
-        <div class="main">
-            <!--main content-->
-            <div class="content">
-                <!--full content-->
-                <div class="sbt-wrap-full">
-                    <!--Button 영역-->
-                    <div class="sbt-search-button" style="text-align:right;">
-                        <sbux-button id="btn_search" name="btn_search" uitype="normal" text="조회" wrap-class="sbt-btn-search"
-                            onclick="fn_search"
-                        ></sbux-button>
-                        <sbux-button id="btn_save" name="btn_save" uitype="normal" text="등록" wrap-class="sbt-btn-reset"
-                            onclick="fn_save"
-                        ></sbux-button>
-                        <sbux-button id="btn_close" name="btn_close" uitype="normal" text="종료" wrap-class="sbt-btn-reset"
-                            onclick="fn_close"
-                        ></sbux-button>
-                    </div>
-                    <!--조회 영역-->
-			        <div class="sbt-con-wrap">
-                        <form id="frm" name="frm" method="post"></form>
-				        <div class="sbt-search-wrap">
-                            <div class="sbt-wrap-body-con">
-                                <div class="sbt-wrap-body">
-                                    <div class="sbt-search-row">
-                                        <!--col -->
-                                        <div class="sbt-search-col popup-search-col">
-                                            <div class="sbt-col-left">
-                                                <sbux-label id="srchLabel_1" name="label_norm" uitype="normal" text="품목명" wrap-class="sbt-label"></sbux-label>
-                                            </div>
-                                            <div class="sbt-col-right">
-                                                <sbux-input id="srchKeyword" name="srchKeyword" uitype="text"
-                                                    style="width:200px"
-                                                ></sbux-input>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </form>
-                    </div>
-                    <!--SBGrid 영역-->
-                    <div class="sbt-con-wrap">
-                        <li style="display:inline-block;width: 39.5%;vertical-align:top;">
-                        <div class="sbt-grid-wrap">
-                            <div class="sbt-wrap-body">
-                                <div class="sbt-grid">
-                                    <!-- SBGrid를 호출합니다. -->
-                                    <div id="SBGridArea" style="height:150px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        </li>
-                        <li style="display:inline-block;float:right;width: 59.5%;vertical-align:top;">
-                            <div class="sbt-grid-wrap">
-                                <div class="sbt-wrap-body">
-                                    <div class="sbt-grid">
-                                        <!-- SBGrid를 호출합니다. -->
-                                        <div id="SBGridArea2" style="height:150px;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            </li>
-                    </div>
-                </div>
-                <div class="sbt-con-wrap">
-                    <div class="sbt-grid-wrap">
-                        <div class="sbt-wrap-header">
-                            <span>icon</span>
-                            <h3>품목명<span id="select_text"></span></h3>
-                        </div>
-                        <li style="display:inline-block;float:left;width: 33%;vertical-align:top;">
-                            <div class="sbt-wrap-body">
-                                <div>
-                                    <span>품종등록</span>
-                                    <sbux-button id="btn_add_1" name="btn_add_1" uitype="normal" text="추가"
-                                        button-size="small"
-                                        onclick="fn_procRow2('ADD', 'grid_1')"
-                                        disabled
-                                    ></sbux-button>
-                                </div>
-                                <div class="sbt-grid">
-                                    <div id="SBGridArea_1" style="height:150px;"></div>
-                                </div>
-                            </div>
-                        </li>
-                        <li style="display:inline-block;width: 33.3%;vertical-align:top;">
-                            <div class="sbt-wrap-body">
-                                <div>
-                                    <span>등급등록</span>
-                                    <sbux-button id="btn_add_2" name="btn_add_2" uitype="normal" text="추가"
-                                        button-size="small"
-                                        onclick="fn_procRow2('ADD', 'grid_2')"
-                                        disabled
-                                    ></sbux-button>
-                                </div>
-                                <div class="sbt-grid">
-                                    <div id="SBGridArea_2" style="height:150px;"></div>
-                                </div>
-                            </div>
-                        </li>
-                        <li style="display:inline-block;float:right;width: 33.3%;vertical-align:top;">
-                            <div class="sbt-wrap-body">
-                                <div>
-                                    <span>규격등록</span>
-                                    <sbux-button id="btn_add_3" name="btn_add_3" uitype="normal" text="추가"
-                                        button-size="small"
-                                        onclick="fn_procRow2('ADD', 'grid_3')"
-                                        disabled
-                                    ></sbux-button>
-                                </div>
-                                <div class="sbt-grid">
-                                    <div id="SBGridArea_3" style="height:150px;"></div>
-                                </div>
-                            </div>
-                        </li>
-                    </div>
-            </div>
-        </div>
-    </div>
-	
+
 </body>
 </html>

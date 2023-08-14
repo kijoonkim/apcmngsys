@@ -46,48 +46,43 @@ public class WghPrfmncController extends BaseController {
 	 */
 	@PostMapping(value = "/am/wgh/selectWghPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectWghPrfmncList(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<WghPrfmncVO> resultList;
-		
+
 		try {
 			resultList = wghPrfmncService.selectWghPrfmncList(wghPrfmncVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/am/wgh/insertWghPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertWghPrfmnc(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		try {
 			wghPrfmncVO.setSysFrstInptUserId(getUserId());
 			wghPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
 			wghPrfmncVO.setSysLastChgUserId(getUserId());
 			wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
-			
-			wghPrfmncVO.setSysFrstInptUserId("admin");
-			wghPrfmncVO.setSysFrstInptPrgrmId("testprgrm");
-			wghPrfmncVO.setSysLastChgUserId("admin");
-			wghPrfmncVO.setSysLastChgPrgrmId("testprgrm");
-			
+
 			HashMap<String, Object> rtnObj = wghPrfmncService.insertWghPrfmnc(wghPrfmncVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
-			
+
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 }

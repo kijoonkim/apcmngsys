@@ -47,7 +47,7 @@
 							<th scope="row">생산자명</th>
 							<th class="td_input">
 								<sbux-input
-									uitype="text" id="prdcr-inp-prdcrNm" name="prdcr-inp-prdcrNm" 
+									uitype="text" id="prdcr-inp-prdcrNm" name="prdcr-inp-prdcrNm"
 									class="form-control input-sm"
     								onkeyenter="keyUpInp(prdcr-inp-prdcrNm, 'prdcr-inp-prdcrNm', 'true')">
     							</sbux-input>
@@ -69,7 +69,7 @@
 					 	<div class="ad_tbl_toplist">
 						</div>
 					</div>
-					<div id="sb-area-grdPrdcr" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdPrdcrPop" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -78,13 +78,6 @@
 </body>
 <script type="text/javascript">
 
-	var jsonItem 			= [];	// 대표품종 rprsItemCd	Grid
-	var jsonVrty 			= [];	// 대표품종 rprsVrtyCd	Grid
-	var jsonComGdsSeCd 		= [];	// 상품구분 gdsSeCd		Grid
-	var jsonComWrhsSeCd 	= [];	// 입고구분 wrhsSeCd	Grid
-	var jsonComTrsprtSeCd 	= [];	// 운송구분 trsprtSeCd	Grid
-	var jsonComClclnCrtr 	= [];	// 정산기준 clclnCrtr	Grid
-	
 	/* grid 내 select json */
 	var jsonApcItemPrdcrPop			= [];	// 대표품목 rprsItemCd	Grid
 	var jsonApcVrtyPrdcrPop			= [];	// 대표품종 rprsVrtyCd	Grid
@@ -92,11 +85,10 @@
 	var jsonComWrhsSeCdPrdcrPop		= [];	// 입고구분 wrhsSeCd	Grid
 	var jsonComTrsprtSeCdPrdcrPop	= [];	// 운송구분 trsprtSeCd	Grid
 	var jsonComClclnCrtrPrdcrPop	= [];	// 정산기준 clclnCrtr	Grid
-	
+
 	var grdPrdcrPop = null;
 	var jsonPrdcrPop = [];
 
-	
 	/**
 	 * @description 권한 사용자 선택 팝업
 	 */
@@ -105,26 +97,26 @@
 		modalId: 'modal-prdcr',
 		gridId: 'grdPrdcrPop',
 		jsonId: 'jsonPrdcrPop',
-		areaId: "sb-area-grdPrdcr",
+		areaId: "sb-area-grdPrdcrPop",
 		prvApcCd: "",
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
 		init: async function(_apcCd, _apcNm, _callbackFnc) {
-			console.log("init prdcrPop");
+
 			// set param
 			SBUxMethod.set("prdcr-inp-apcCd", _apcCd);
 			SBUxMethod.set("prdcr-inp-apcNm", _apcNm);
-			
+
 			SBUxMethod.show('btnEditPrdcr');
 			SBUxMethod.hide('btnCancelPrdcr');
 			SBUxMethod.attr('btnSavePrdcr', 'disabled', true);
 			SBUxMethod.attr('btnSearchPrdcr', 'disabled', false);
-			
+
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
-				this.callbackFnc = _callbackFnc;	
+				this.callbackFnc = _callbackFnc;
 			}
-			
+
 			if (grdPrdcrPop === null || this.prvApcCd != _apcCd) {
 				let rst = await Promise.all([
 					gfn_setApcItemSBSelect('grdPrdcr', jsonApcItemPrdcrPop, _apcCd),				// 품목
@@ -139,7 +131,7 @@
 			} else {
 				this.search();
 			}
-			
+
 			this.prvApcCd = _apcCd;
 		},
 		close: function(_prdcr) {
@@ -189,7 +181,7 @@
 						if (!isEditable) {
 							return "";
 						}
-						
+
 		            	if (gfn_isEmpty(strValue)){
 		            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popPrdcr.add(" + nRow + ", " + nCol + ")'>추가</button>";
 		            	} else {
@@ -200,7 +192,7 @@
 		        {caption: ['생산자코드'], ref: 'prdcrCd', hidden : true},
 		        {caption: ['ROW STATUS'], ref: 'rowSts', hidden : true},
 		    ];
-		    
+
 		    grdPrdcrPop = _SBGrid.create(SBGridProperties);
 		    //grdPrdcrPop.bind('beforepagechanged', 'popComAuthUser.paging');
 		    grdPrdcrPop.bind('dblclick', popPrdcr.choice);	//'popPrdcrChoice');
@@ -210,63 +202,29 @@
 			let nRow = grdPrdcrPop.getRow();
 			let rowData = grdPrdcrPop.getRowData(nRow);
 			popPrdcr.close(rowData);
-			
-			/*
-			const prdcr = [];
-			const allData = grdComAuthUserPop.getGridDataAll();
-			for ( let i=1; i<=allData.length; i++ ) {
-				let rowData = grdComAuthUserPop.getRowData(i);				
-				if (rowData.checked === 'true') {
-					users.push({
-						userId: rowData.userId,
-						userNm: rowData.userNm,
-						apcCd: rowData.apcCd,
-						apcNm: rowData.apcNm,
-						userType: rowData.userType,
-						userTypeNm: rowData.userTypeNm,
-						authrtId: rowData.authrtId
-					});
-				}
-			}
-			
-			if (users.length == 0) {
-				gfn_comAlert("W0004", "선택");	// W0004	{0}한 대상이 없습니다.
-				return;
-			}
-			
-			this.close(users);
-			*/
 		},
 		edit: async function() {
-			
+
 			SBUxMethod.hide('btnEditPrdcr');
 			SBUxMethod.show('btnCancelPrdcr');
 			SBUxMethod.attr('btnSavePrdcr', 'disabled', false);
 			SBUxMethod.attr('btnSearchPrdcr', 'disabled', true);
-			
+
 			this.createGrid(true);
 			grdPrdcrPop.rebuild();
-			//grdPrdcrPop.refresh();
-			//var grdPrdcrPop = null;
-			//var jsonPrdcrPop = []
-			/*
-			document.querySelectorAll('.btnDisabled').forEach((el) => {
-			    	el.setAttribute('disabled', false);
-				});
-			 */
-			//$('.btnDisabled').attr('disabled', false);
 			grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, false);
-			//await this.search();
+
+			let nRow = grdPrdcrPop.getRows();
 			grdPrdcrPop.addRow(true);
-			
+			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
 		},
 		cancel: function() {
-			
+
 			SBUxMethod.show('btnEditPrdcr');
 			SBUxMethod.hide('btnCancelPrdcr');
 			SBUxMethod.attr('btnSavePrdcr', 'disabled', true);
 			SBUxMethod.attr('btnSearchPrdcr', 'disabled', false);
-			
+
 			this.createGrid();
 			this.search();
 		},
@@ -276,11 +234,14 @@
 		 */
 		add: function(nRow, nCol) {
 			grdPrdcrPop.setCellData(nRow, nCol, "N", true);
+			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, false);
+			nRow++;
 			grdPrdcrPop.addRow(true);
+			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, false);
 		},
 		del: async function(nRow) {
 			const apcCd = SBUxMethod.get("prdcr-inp-apcCd");
-			const rowSts = grdPrdcrPop.getRowStatus(nRow);			
+			const rowSts = grdPrdcrPop.getRowStatus(nRow);
 			if (rowSts == 0 || rowSts == 2){
 				if (!gfn_comConfirm("Q0001", "삭제")) {	//	Q0001	{0} 하시겠습니까?
 					return;
@@ -294,16 +255,16 @@
 					apcCd: apcCd,
 					prdcrCd: rowData.prdcrCd
 				}, this.prgrmId);	// 프로그램id 추가
-		    	
-				const data = await postJsonPromise;	    
+
+				const data = await postJsonPromise;
 		        try {
 		        	if (_.isEqual("S", data.resultStatus)) {
 		        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-		        		this.search();
+		        		this.search(true);
 		        	} else {
 		        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		        	}
-		        } catch(e) {        	
+		        } catch(e) {
 		        }
         	} else {
         		grdPrdcrPop.deleteRow(nRow);
@@ -316,12 +277,16 @@
 			let updateList = [];
 			let insertCnt = 0;
 			let updateCnt = 0;
-			
+
 			const prdcrList = [];
-			
+
 			for ( let i=1; i<=allData.length; i++ ){
 				const rowData = grdPrdcrPop.getRowData(i);
 				const rowSts = grdPrdcrPop.getRowStatus(i);
+
+				if (rowData.delYn !== "N") {
+					continue;
+				}
 
 				if (gfn_isEmpty(rowData.prdcrNm)){
 					gfn_comAlert("W0002", "생산자명");		//	W0002	{0}을/를 입력하세요.
@@ -339,48 +304,47 @@
 					continue;
 				}
 			}
-			
+
 			if (prdcrList.length == 0){
 				gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
 	            return;
 			}
-			
+
 			if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
 	    		return;
 	    	}
-	    	console.log(prdcrList);
-	    	
+
 	    	const postJsonPromise = gfn_postJSON("/am/cmns/multiPrdcrList.do", prdcrList, this.prgrmId);	// 프로그램id 추가
-	    	
-			const data = await postJsonPromise;	    
+
+			const data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-	        		this.search();
+	        		this.search(true);
 	        	} else {
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
-	        } catch(e) {        	
+	        } catch(e) {
 	        }
-			
+
 		},
-		search: async function() {
+		search: async function(/** {boolean} */ isEditable) {
 			// set pagination
 			grdPrdcrPop.rebuild();
 	    	let pageSize = grdPrdcrPop.getPageSize();
 	    	let pageNo = 1;
-	        
+
 	    	// grid clear
 	    	jsonPrdcrPop.length = 0;
 	    	grdPrdcrPop.refresh();
 	    	//grdPrdcrPop.clearStatus();
-	    	this.setGrid(pageSize, pageNo);
+	    	this.setGrid(pageSize, pageNo, isEditable);
 		},
-		setGrid: async function(pageSize, pageNo) {
-	    	
+		setGrid: async function(pageSize, pageNo, isEditable) {
+
 	    	let apcCd = SBUxMethod.get("prdcr-inp-apcCd");
 			let prdcrNm = SBUxMethod.get("prdcr-inp-prdcrNm");
-			
+
 	        const postJsonPromise = gfn_postJSON("/am/cmns/selectPrdcrList.do", {
 	        	apcCd: apcCd,
 	        	prdcrNm: prdcrNm,
@@ -389,13 +353,13 @@
 				currentPageNo : pageNo,
 	 		  	recordCountPerPage : pageSize
 			});
-	        
+
 	        const data = await postJsonPromise;
-	        
+
 			try {
 	        	/** @type {number} **/
 	    		let totalRecordCount = 0;
-	        	
+
 	    		jsonPrdcrPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const prdcr = {
@@ -414,13 +378,13 @@
 					    apcCd 		: item.apcCd
 					}
 					jsonPrdcrPop.push(prdcr);
-					
+
 					if (index === 0) {
-						totalRecordCount = item.totalRecordCount;	
+						totalRecordCount = item.totalRecordCount;
 					}
 				});
-	        	
-	        	if (jsonPrdcrPop.length > 0) {	        		
+
+	        	if (jsonPrdcrPop.length > 0) {
 	        		if(grdPrdcrPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 	        			grdPrdcrPop.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 	        			grdPrdcrPop.rebuild();
@@ -431,9 +395,16 @@
 	        		grdPrdcrPop.setPageTotalCount(totalRecordCount);
 	        		grdPrdcrPop.rebuild();
 	        	}
-	        	
-	        	grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, true);
-	        	
+
+	        	if (isEditable) {
+	        		grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, false);
+	        		let nRow = grdPrdcrPop.getRows();
+					grdPrdcrPop.addRow(true);
+					grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
+	        	} else {
+	        		grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, true);
+	        	}
+
 	        	document.querySelector('#prdcr-pop-cnt').innerText = totalRecordCount;
 
 	        } catch (e) {
@@ -450,6 +421,6 @@
 	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
 	    }
 	}
-	
+
 </script>
 </html>

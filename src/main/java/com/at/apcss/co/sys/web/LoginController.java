@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -20,14 +19,12 @@ import com.at.apcss.am.apc.vo.ApcInfoVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.menu.vo.ComApcJsonVO;
 import com.at.apcss.co.menu.vo.ComMenuVO;
-import com.at.apcss.co.menu.vo.ComUiJsonVO;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.service.LoginService;
 import com.at.apcss.co.sys.vo.LoginVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
-import egovframework.let.utl.fcc.service.EgovStringUtil;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 /**
@@ -145,11 +142,13 @@ public class LoginController extends BaseController {
 			
 			// 로그인 인증세션
 			request.getSession().setAttribute("accessUser", resultVO.getId());
-						
+			//model.addAttribute("loginMessage", null);
+			
 			return "redirect:/actionMain.do";
 		} else {
-			model.addAttribute("loginMessage", message.getMessage("fail.common.login", request.getLocale()));
-			return "redirect:/login.do";
+			//model.addAttribute("loginMessage", messageSource.getMessage("fail.common.login", request.getLocale()));
+			//return "redirect:/login.do";
+			return "main/login";
 		}
 	}
 	
