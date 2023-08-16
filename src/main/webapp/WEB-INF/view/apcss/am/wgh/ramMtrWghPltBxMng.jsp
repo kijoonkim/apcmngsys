@@ -22,7 +22,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger">조회</sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_rawMtrWghPltBxMngSearch()">조회</sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -210,6 +210,16 @@
 
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
+	}
+	
+	function fn_rawMtrWghPltBxMngSearch(){
+	   try{
+		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-strtCrtrYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endCrtrYmd")))
+				   throw "작업일자는 필수입력 항목입니다.";
+	   } catch(e){
+		   alert(e);
+		   return;
+	   }
 	}
 </script>
 
