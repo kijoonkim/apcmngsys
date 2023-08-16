@@ -23,7 +23,7 @@ import com.at.apcss.fm.fclt.vo.FcltDtaMngInfoVO;
 public interface FcltDtaMngInfoService {
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 스마트데이터화정보를 조회한다.
 	 * @param fcltDtaMngInfoVO
 	 * @return
 	 * @throws Exception
@@ -31,7 +31,7 @@ public interface FcltDtaMngInfoService {
 	public FcltDtaMngInfoVO selectFcltDtaMngInfo(FcltDtaMngInfoVO fcltDtaMngInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 스마트데이터화정보를 조회한다.
 	 * @param msgKey
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public interface FcltDtaMngInfoService {
 	public FcltDtaMngInfoVO selectFcltDtaMngInfo(String msgKey) throws Exception;
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 스마트데이터화 목록을 조회한다.
 	 * @param fcltDtaMngInfoVO
 	 * @return
 	 * @throws Exception
@@ -48,7 +48,7 @@ public interface FcltDtaMngInfoService {
 
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 스마트데이터화정보를 등록한다.
 	 * @param fcltDtaMngInfoVO
 	 * @return
 	 * @throws Exception
@@ -56,7 +56,7 @@ public interface FcltDtaMngInfoService {
 	public int insertFcltDtaMngInfo(FcltDtaMngInfoVO fcltDtaMngInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 스마트데이터화정보를 변경한다.
 	 * @param fcltDtaMngInfoVO
 	 * @return
 	 * @throws Exception
@@ -64,7 +64,7 @@ public interface FcltDtaMngInfoService {
 	public int updateFcltDtaMngInfo(FcltDtaMngInfoVO fcltDtaMngInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 스마트데이터화정보를 삭제한다.
 	 * @param fcltDtaMngInfoVO
 	 * @return
 	 * @throws Exception
@@ -72,7 +72,7 @@ public interface FcltDtaMngInfoService {
 	public int deleteFcltDtaMngInfo(FcltDtaMngInfoVO fcltDtaMngInfoVO) throws Exception;
 
 	/**
-	 * 메시지 목록을 삭제한다.
+	 * 스마트데이터화 목록을 삭제한다.
 	 * @param fcltDtaMngInfoList
 	 * @return
 	 * @throws Exception

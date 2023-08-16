@@ -11,7 +11,7 @@ import com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO;
 
 /**
  * @Class Name : FcltOperInfoClctAgreInfoServiceImpl.java
- * @Description : 공통메시지 서비스를 정의하기 위한 서비스 구현 클래스
+ * @Description : 개인정보이용동의 서비스를 정의하기 위한 서비스 구현 클래스
  * @author 신정철
  * @since 2023.06.21
  * @version 1.0

@@ -25,35 +25,35 @@ public interface FcltLwtpStrgMchnInfoMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 저온저장고정보를 조회한다.
 	 * @param fcltLwtpStrgMchnInfoVO
 	 * @return
 	 */
 	public FcltLwtpStrgMchnInfoVO selectFcltLwtpStrgMchnInfo(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO);
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 저온저장고 목록을 조회한다.
 	 * @param fcltLwtpStrgMchnInfoVO
 	 * @return
 	 */
 	public List<FcltLwtpStrgMchnInfoVO> selectFcltLwtpStrgMchnInfoList(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO);
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 저온저장고정보를 등록한다.
 	 * @param fcltLwtpStrgMchnInfoVO
 	 * @return
 	 */
 	public int insertFcltLwtpStrgMchnInfo(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO);
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 저온저장고정보를 변경한다.
 	 * @param fcltLwtpStrgMchnInfoVO
 	 * @return
 	 */
 	public int updateFcltLwtpStrgMchnInfo(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO);
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 저온저장고정보를 삭제한다.
 	 * @param fcltLwtpStrgMchnInfoVO
 	 * @return
 	 */

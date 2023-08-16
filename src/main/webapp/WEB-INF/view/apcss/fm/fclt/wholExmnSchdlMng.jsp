@@ -18,10 +18,10 @@
 				<h3 class="box-title" style="line-height: 30px;"> ▶ 전수조사일정관리</h3>
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary"></sbux-button>
-				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
+				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
+				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 			</div>
 		</div>
 		<div class="box-body">
@@ -124,9 +124,9 @@
 
         SBGridProperties.columns = [
 
-            {caption: [""],	ref: 'msgKey',      type:'output',  width:'30%',    style:'text-align:center'},
-            {caption: [""], 	ref: 'msgCn',     	type:'output',  width:'50%',    style:'text-align:left'},
-            {caption: [""],  	ref: 'msgKndNm',    type:'output',  width:'20%',    style:'text-align:center'},
+            {caption: ["구분"],	ref: 'msgKey',      type:'output',  width:'30%',    style:'text-align:center'},
+            {caption: ["시작일시"], 	ref: 'msgCn',     	type:'output',  width:'50%',    style:'text-align:left'},
+            {caption: ["종료일시"],  	ref: 'msgKndNm',    type:'output',  width:'20%',    style:'text-align:center'},
             {caption: ["비고"],      	ref: 'rmrk',        type:'output',  hidden: true},
             {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
             {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},

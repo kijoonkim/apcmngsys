@@ -25,35 +25,35 @@ public interface FcltInfoMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 시설설치현황정보를 조회한다.
 	 * @param fcltInfoVO
 	 * @return
 	 */
 	public FcltInfoVO selectFcltInfo(FcltInfoVO fcltInfoVO);
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 시설설치현황 목록을 조회한다.
 	 * @param fcltInfoVO
 	 * @return
 	 */
 	public List<FcltInfoVO> selectFcltInfoList(FcltInfoVO fcltInfoVO);
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 시설설치현황정보를 등록한다.
 	 * @param fcltInfoVO
 	 * @return
 	 */
 	public int insertFcltInfo(FcltInfoVO fcltInfoVO);
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 시설설치현황정보를 변경한다.
 	 * @param fcltInfoVO
 	 * @return
 	 */
 	public int updateFcltInfo(FcltInfoVO fcltInfoVO);
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 시설설치현황정보를 삭제한다.
 	 * @param fcltInfoVO
 	 * @return
 	 */

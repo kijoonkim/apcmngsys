@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : FcltInfoMapper.xml                                    				-->
+<!-- DESC : 시설현황 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltInfoMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo				-->
+	<!-- DESC : 시설현황 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo */
+             FCLT.TRGT_YR                  AS TRGT_YR
+			, FCLT.APC_CD                  AS APC_CD
+			, FCLT.SN                      AS SN
+			, FCLT.FCLT_CD                 AS FCLT_CD
+			, FCLT.FCLT_NM                 AS FCLT_NM
+			, FCLT.FCLT_AREA               AS FCLT_AREA
+			, FCLT.RMRK                    AS RMRK
+			, FCLT.DEL_YN                  AS DEL_YN
+			, FCLT.SYS_FRST_INPT_DT        AS SYS_FRST_INPT_DT
+			, FCLT.SYS_FRST_INPT_USER_ID   AS SYS_FRST_INPT_USER_ID
+			, FCLT.SYS_FRST_INPT_PRGRM_ID  AS SYS_FRST_INPT_PRGRM_ID
+			, FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
+			, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
+			, FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
+
+			 FROM USRFM.USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
+    	]]>
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfoList			-->
+	<!-- DESC : 시설현황 테이블 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectFcltInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfoList */
+             FCLT.TRGT_YR                  AS TRGT_YR
+			, FCLT.APC_CD                  AS APC_CD
+			, FCLT.SN                      AS SN
+			, FCLT.FCLT_CD                 AS FCLT_CD
+			, FCLT.FCLT_NM                 AS FCLT_NM
+			, FCLT.FCLT_AREA               AS FCLT_AREA
+			, FCLT.RMRK                    AS RMRK
+			, FCLT.DEL_YN                  AS DEL_YN
+			, FCLT.SYS_FRST_INPT_DT        AS SYS_FRST_INPT_DT
+			, FCLT.SYS_FRST_INPT_USER_ID   AS SYS_FRST_INPT_USER_ID
+			, FCLT.SYS_FRST_INPT_PRGRM_ID  AS SYS_FRST_INPT_PRGRM_ID
+			, FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
+			, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
+			, FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
+
+			 FROM USRFM.USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
+    	]]>
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInfoMapper.insertFcltInfo				-->
+	<!-- DESC : 시설현황 등록                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.insertFcltInfo */
+	    	  INTO SRFM.USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+	    		(
+	              TRGT_YR
+				, APC_CD
+				, SN
+				, FCLT_CD
+				, FCLT_NM
+				, FCLT_AREA
+				, RMRK
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+	              #{TRGT_YR}
+				, #{APC_CD}
+				, #{SN}
+				, #{FCLT_CD}
+				, #{FCLT_NM}
+				, #{FCLT_AREA}
+				, #{RMRK}
+				, #{DEL_YN}
+				, #{SYS_FRST_INPT_DT}
+				, #{SYS_FRST_INPT_USER_ID}
+				, #{SYS_FRST_INPT_PRGRM_ID}
+				, #{SYS_LAST_CHG_DT}
+				, #{SYS_LAST_CHG_USER_ID}
+				, #{SYS_LAST_CHG_PRGRM_ID}
+	   			)
+    	]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInfoMapper.updateFcltInfo				-->
+	<!-- DESC : 시설현황 변경                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.updateFcltInfo */
+	    		SRFM.USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+			   SET
+				    TRGT_YR	 	 =  #{TRGT_YR}
+				   , APC_CD      =  #{APC_CD}
+				   , SN          =  #{SN}
+			 	   , FCLT_CD     =  #{FCLT_CD}
+			 	   , FCLT_NM     =  #{FCLT_NM}
+			 	   , FCLT_AREA   =  #{FCLT_AREA}
+			 	   , RMRK        =  #{RMRK}
+    	]]>
+		<if test='delYn != null and delYn != ""'>
+				, DEL_YN 	= #{delYn}
+		</if>
+    	<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
+    	]]>
+    </update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo				-->
+	<!-- DESC : 시설현황 삭제                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+    	<![CDATA[
+	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo */
+	    		SRFM.USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
+    	]]>
+    </delete>
+
+</mapper>

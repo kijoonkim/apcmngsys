@@ -44,7 +44,7 @@ public class FcltOperInfoController extends BaseController {
 	@Resource(name= "fcltOperInfoService")
 	private FcltOperInfoService fcltOperInfoService;
 
-	// 운영자개요 조회
+	// 운영자개요 화면이동
 	@RequestMapping("/fm/fclt/fcltOperInfo.do")
 	public String doFcltOperInfo() {
 		return "apcss/fm/fclt/fcltOperInfo";

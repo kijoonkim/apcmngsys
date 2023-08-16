@@ -23,7 +23,7 @@ import com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO;
 public interface FcltAtmtcMchnInfoService {
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 스마트자동화정보를 조회한다.
 	 * @param fcltAtmtcMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -31,7 +31,7 @@ public interface FcltAtmtcMchnInfoService {
 	public FcltAtmtcMchnInfoVO selectFcltAtmtcMchnInfo(FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 스마트자동화정보를 조회한다.
 	 * @param msgKey
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public interface FcltAtmtcMchnInfoService {
 	public FcltAtmtcMchnInfoVO selectFcltAtmtcMchnInfo(String msgKey) throws Exception;
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 스마트자동화 목록을 조회한다.
 	 * @param fcltAtmtcMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -48,7 +48,7 @@ public interface FcltAtmtcMchnInfoService {
 
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 스마트자동화정보를 등록한다.
 	 * @param fcltAtmtcMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -56,7 +56,7 @@ public interface FcltAtmtcMchnInfoService {
 	public int insertFcltAtmtcMchnInfo(FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 스마트자동화정보를 변경한다.
 	 * @param fcltAtmtcMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -64,7 +64,7 @@ public interface FcltAtmtcMchnInfoService {
 	public int updateFcltAtmtcMchnInfo(FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 스마트자동화정보를 삭제한다.
 	 * @param fcltAtmtcMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -72,7 +72,7 @@ public interface FcltAtmtcMchnInfoService {
 	public int deleteFcltAtmtcMchnInfo(FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO) throws Exception;
 
 	/**
-	 * 메시지 목록을 삭제한다.
+	 * 스마트자동화 목록을 삭제한다.
 	 * @param fcltAtmtcMchnInfoList
 	 * @return
 	 * @throws Exception
