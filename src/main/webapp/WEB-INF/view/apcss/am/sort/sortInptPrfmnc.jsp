@@ -148,6 +148,10 @@
 </body>
 <script type="text/javascript">
 
+	function fn_closeModal(modalId){
+		SBUxMethod.closeModal(modalId);
+	}
+
     const fn_modalVrty = function() {
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
     	//_apcCd, _apcNm, _itemNm, _callbackFnc
@@ -176,6 +180,11 @@
 			SBUxMethod.set('srch-inp-vrtyCd', _vrtys.join(','));
 		}
 	}
+     
+     const fn_onChangeApc = async function() {
+ 		fn_initSBSelect();
+ 		fn_getPrdcrs();
+ 	}
     
 	var jsonItem			= [];	// 품목 	itemCd			검색
 	var jsonVrty			= [];	// 품종 	vrtyCd			검색
@@ -403,227 +412,6 @@
         SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);
         SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);
     }
-
-    //저장
-    const fn_save = async function() {
-
-    	let msgKey = SBUxMethod.get("dtl-input-orgnMsgKey");
-
-    	if (!SBUxMethod.get("dtl-select-msgKnd")) {
-            alert("메시지종류를 선택하세요.");
-            return;
-        }
-
-    	if (!SBUxMethod.get("dtl-input-msgKey")) {
-            alert("메시지Key를 입력하세요.");
-            return;
-        }
-
-    	if (!SBUxMethod.get("dtl-input-msgCn")) {
-            alert("메시지내용을 입력하세요.");
-            return;
-        }
-
-    	/*
-        SBUxMethod.set("dtl-input-orgnMsgKey", rowData.msgKey);
-        SBUxMethod.set("dtl-input-msgKnd", rowData.msgKnd);
-        SBUxMethod.set("dtl-input-msgKey", rowData.msgKey);
-        SBUxMethod.set("dtl-input-msgCn", rowData.msgCn);
-        SBUxMethod.set("dtl-input-rmrk", rowData.rmrk);
-        SBUxMethod.set("dtl-input-sysFrstInptUserId", rowData.sysFrstInptUserId);
-        SBUxMethod.set("dtl-input-sysLastChgUserId", rowData.sysLastChgUserId);
-        SBUxMethod.set("dtl-input-sysFrstInptDt", rowData.sysFrstInptDt);
-        SBUxMethod.set("dtl-input-sysLastChgDt", rowData.sysLastChgDt);
-        SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", rowData.sysFrstInptPrgrmId);
-        SBUxMethod.set("dtl-input-sysLastChgPrgrmId", rowData.sysLastChgPrgrmId);
-    	 */
-    	if (gfn_isEmpty(msgKey)) {
-    		// 신규 등록
-			fn_subInsert(confirm("등록 하시겠습니까?"));
-    	} else {
-    		// 변경 저장
-    		fn_subUpdate(confirm("저장 하시겠습니까?"));
-    	}
-
-    }
-
-    /**
-     * @param {boolean} isConfirmed
-     */
-    const fn_subInsert = async function (isConfirmed){
-
-    	 if (!isConfirmed) return;
-
-    	const postJsonPromise = gfn_postJSON("/co/msg/insertComMsg.do", {
-			msgKey: SBUxMethod.get('dtl-input-msgKey'),
-			msgKnd: SBUxMethod.get('dtl-select-msgKnd'),
-			msgCn: SBUxMethod.get('dtl-input-msgCn'),
-			rmrk: SBUxMethod.get('dtl-input-rmrk')
-		});
-
-        const data = await postJsonPromise;
-
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
-        		fn_search();
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-
-        // 결과 확인 후 재조회
-        console.log("insert result", data);
-    }
-
-	/**
-     * @param {boolean} isConfirmed
-     */
-	const fn_subUpdate = async function (isConfirmed){
-
-		if (!isConfirmed) return;
-
-    	const postJsonPromise = gfn_postJSON("/co/msg/updateComMsg.do", {
-			msgKey: SBUxMethod.get('dtl-input-orgnMsgKey'),
-			msgKnd: SBUxMethod.get('dtl-select-msgKnd'),
-			msgCn: SBUxMethod.get('dtl-input-msgCn'),
-			rmrk: SBUxMethod.get('dtl-input-rmrk')
-		});
-
-        const data = await postJsonPromise;
-
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
-        		fn_search();
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-
-        // 결과 확인 후 재조회
-        console.log("update result", data);
-    }
-
-
-    //선택 삭제
-    function fn_delete() {
-
-    	/**
-         * @type {any[]}
-         */
-        let list = [];
-
-        /**
-         * @type {any[]}
-         */
-        const rows = grdComMsgList.getGridDataAll();
-        rows.forEach((row) => {
-        	if (_.isEqual("Y", row.checked)) {
-        		list.push({msgKey: row.msgKey});
-        	}
-        });
-
-        if (list.length == 0) {
-        	alert("삭제할 대상이 없습니다.");
-        	return;
-        }
-
-        fn_subDelete(confirm("삭제 하시겠습니까?"), list);
-
-        /*
-        for ( let i = 0; i < gridList.length; i++) {
-            if (gridList[i].checked === "Y") {
-                delList.push(gridList[i].msgKey);
-            }
-        }
-        if (delList.length == 0) {
-            alert("삭제 할 대상이 없습니다.");
-            return;
-        }
-        var delMsg;
-        if (delList.length == 1) {
-            delMsg = delList[0];
-        }
-        else {
-            delMsg = delList.length + "건";
-        }
-        delMsg += "을 삭제 하시겠습니까?";
-        if (confirm(delMsg)) {
-            var params = "delKey=" + delList.join(",");
-            console.log("data ::::: " + params);
-        }
-        */
-    }
-
-	/**
-     * @param {boolean} isConfirmed
-     * @param {any[]} list
-     */
-    const fn_subDelete = async function (isConfirmed, list){
-
- 		if (!isConfirmed) return;
-
-     	const postJsonPromise = gfn_postJSON("/co/msg/deleteComMsgList.do", list);
-
-         const data = await postJsonPromise;
-
-         try {
-         	if (_.isEqual("S", data.resultStatus)) {
-         		alert("처리 되었습니다.");
-         		fn_search();
-         	} else {
-         		alert(data.resultMessage);
-         	}
-         } catch(e) {
-         }
-
-         // 결과 확인 후 재조회
-         console.log("update result", data);
-    }
-
-    //상세정보 보기
-    function fn_view() {
-
-    	var nCol = grdComMsgList.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
-        var nRow = grdComMsgList.getRow();
-		if (nRow < 1) {
-            return;
-		}
-
-        let rowData = grdComMsgList.getRowData(nRow);
-
-        SBUxMethod.set("dtl-input-orgnMsgKey", rowData.msgKey);
-        SBUxMethod.set("dtl-select-msgKnd", rowData.msgKnd);
-        SBUxMethod.set("dtl-input-msgKey", rowData.msgKey);
-        SBUxMethod.set("dtl-input-msgCn", rowData.msgCn);
-        SBUxMethod.set("dtl-input-rmrk", rowData.rmrk);
-        SBUxMethod.set("dtl-input-sysFrstInptUserId", rowData.sysFrstInptUserId);
-        SBUxMethod.set("dtl-input-sysLastChgUserId", rowData.sysLastChgUserId);
-        SBUxMethod.set("dtl-input-sysFrstInptDt", rowData.sysFrstInptDt);
-        SBUxMethod.set("dtl-input-sysLastChgDt", rowData.sysLastChgDt);
-        SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", rowData.sysFrstInptPrgrmId);
-        SBUxMethod.set("dtl-input-sysLastChgPrgrmId", rowData.sysLastChgPrgrmId);
-
-    }
-
-
-    function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
-	}
-
-    
-	const fn_onChangeApc = async function() {
-		fn_initSBSelect();
-		fn_getPrdcrs();
-	}
-		
 	/**
 	 * @name fn_onKeyUpPrdcrNm
 	 * @description 생산자명 입력 시 event : autocomplete
@@ -651,8 +439,6 @@
 		SBUxMethod.set("srch-inp-prdcrCd", value);
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 	}
-    
-    
     const fn_choicePrdcr = function() {
 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
 	}
@@ -665,5 +451,5 @@
 		}
 	}
 	
-   </script>
+</script>
 </html>
