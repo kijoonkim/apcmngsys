@@ -7,7 +7,7 @@ import com.at.apcss.fm.fclt.vo.ＷholExmnSchdlMngVO;
 
 
 /**
- * 스마트자동화 Service 인터페이스
+ * 전수조사일정관리 Service 인터페이스
  * @author 정연두
  * @since 2023.06.21
  * @version 1.0
@@ -23,7 +23,7 @@ import com.at.apcss.fm.fclt.vo.ＷholExmnSchdlMngVO;
 public interface ＷholExmnSchdlMngService {
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 전수조사일정관리정보를 조회한다.
 	 * @param wholExmnSchdlMngVO
 	 * @return
 	 * @throws Exception
@@ -31,7 +31,7 @@ public interface ＷholExmnSchdlMngService {
 	public ＷholExmnSchdlMngVO selectＷholExmnSchdlMng(ＷholExmnSchdlMngVO wholExmnSchdlMngVO) throws Exception;
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 전수조사일정관리정보를 조회한다.
 	 * @param msgKey
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public interface ＷholExmnSchdlMngService {
 	public ＷholExmnSchdlMngVO selectＷholExmnSchdlMng(String msgKey) throws Exception;
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 전수조사일정관리 목록을 조회한다.
 	 * @param wholExmnSchdlMngVO
 	 * @return
 	 * @throws Exception
@@ -48,7 +48,7 @@ public interface ＷholExmnSchdlMngService {
 
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 전수조사일정관리정보를 등록한다.
 	 * @param wholExmnSchdlMngVO
 	 * @return
 	 * @throws Exception
@@ -56,7 +56,7 @@ public interface ＷholExmnSchdlMngService {
 	public int insertＷholExmnSchdlMng(ＷholExmnSchdlMngVO wholExmnSchdlMngVO) throws Exception;
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 전수조사일정관리정보를 변경한다.
 	 * @param wholExmnSchdlMngVO
 	 * @return
 	 * @throws Exception
@@ -64,7 +64,7 @@ public interface ＷholExmnSchdlMngService {
 	public int updateＷholExmnSchdlMng(ＷholExmnSchdlMngVO wholExmnSchdlMngVO) throws Exception;
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 전수조사일정관리정보를 삭제한다.
 	 * @param wholExmnSchdlMngVO
 	 * @return
 	 * @throws Exception
@@ -72,7 +72,7 @@ public interface ＷholExmnSchdlMngService {
 	public int deleteＷholExmnSchdlMng(ＷholExmnSchdlMngVO wholExmnSchdlMngVO) throws Exception;
 
 	/**
-	 * 메시지 목록을 삭제한다.
+	 * 전수조사일정관리 목록을 삭제한다.
 	 * @param wholExmnSchdlMngList
 	 * @return
 	 * @throws Exception

@@ -23,7 +23,7 @@ import com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO;
 public interface FcltGdsMchnInfoService {
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 상품화설비현황정보를 조회한다.
 	 * @param fcltGdsMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -31,7 +31,7 @@ public interface FcltGdsMchnInfoService {
 	public FcltGdsMchnInfoVO selectFcltGdsMchnInfo(FcltGdsMchnInfoVO fcltGdsMchnInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 상품화설비현황정보를 조회한다.
 	 * @param msgKey
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public interface FcltGdsMchnInfoService {
 	public FcltGdsMchnInfoVO selectFcltGdsMchnInfo(String msgKey) throws Exception;
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 상품화설비현황 목록을 조회한다.
 	 * @param fcltGdsMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -48,7 +48,7 @@ public interface FcltGdsMchnInfoService {
 
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 상품화설비현황정보를 등록한다.
 	 * @param fcltGdsMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -56,7 +56,7 @@ public interface FcltGdsMchnInfoService {
 	public int insertFcltGdsMchnInfo(FcltGdsMchnInfoVO fcltGdsMchnInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 상품화설비현황정보를 변경한다.
 	 * @param fcltGdsMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -64,7 +64,7 @@ public interface FcltGdsMchnInfoService {
 	public int updateFcltGdsMchnInfo(FcltGdsMchnInfoVO fcltGdsMchnInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 상품화설비현황정보를 삭제한다.
 	 * @param fcltGdsMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -72,7 +72,7 @@ public interface FcltGdsMchnInfoService {
 	public int deleteFcltGdsMchnInfo(FcltGdsMchnInfoVO fcltGdsMchnInfoVO) throws Exception;
 
 	/**
-	 * 메시지 목록을 삭제한다.
+	 * 상품화설비현황 목록을 삭제한다.
 	 * @param fcltGdsMchnInfoList
 	 * @return
 	 * @throws Exception

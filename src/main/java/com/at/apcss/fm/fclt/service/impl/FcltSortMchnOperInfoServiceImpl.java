@@ -11,7 +11,7 @@ import com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO;
 
 /**
  * @Class Name : FcltSortMchnOperInfoServiceImpl.java
- * @Description : 선별기운영의 서비스를 정의하기 위한 서비스 구현 클래스
+ * @Description : 선별기운영기간의 서비스를 정의하기 위한 서비스 구현 클래스
  * @author 정연두
  * @since 2023.06.21
  * @version 1.0

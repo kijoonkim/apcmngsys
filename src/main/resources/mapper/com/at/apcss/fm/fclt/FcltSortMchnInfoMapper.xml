@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : FcltSortMchnInfoMapper.xml                                    				-->
+<!-- DESC : 선별기운영 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfo				-->
+	<!-- DESC : 선별기운영 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfo */
+				 FCLT.TRGT_YR                AS TRGT_YR
+				,FCLT.APC_CD                 AS APC_CD
+				,FCLT.SN                     AS SN
+				,FCLT.SORT_MCHN_ITEM_CD      AS SORT_MCHN_ITEM_CD
+				,FCLT.SORT_MCHN_HLD_YN       AS SORT_MCHN_HLD_YN
+				,FCLT.SORT_MCHN_PRCS_SE_CD   AS SORT_MCHN_PRCS_SE_CD
+				,FCLT.SORT_MCHN_PRCS_HR      AS SORT_MCHN_PRCS_HR
+				,FCLT.DEL_YN                 AS DEL_YN
+				,FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
+				,FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
+				,FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
+				,FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
+                ,FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
+                ,FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+
+			  FROM TB_FCLT_SORT_MCHN_INFO FCLT
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
+    	]]>
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfoList			-->
+	<!-- DESC : 선별기운영 테이블 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectFcltSortMchnInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfoList */
+					SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfo */
+				 FCLT.TRGT_YR                AS TRGT_YR
+				,FCLT.APC_CD                 AS APC_CD
+				,FCLT.SN                     AS SN
+				,FCLT.SORT_MCHN_ITEM_CD      AS SORT_MCHN_ITEM_CD
+				,FCLT.SORT_MCHN_HLD_YN       AS SORT_MCHN_HLD_YN
+				,FCLT.SORT_MCHN_PRCS_SE_CD   AS SORT_MCHN_PRCS_SE_CD
+				,FCLT.SORT_MCHN_PRCS_HR      AS SORT_MCHN_PRCS_HR
+				,FCLT.DEL_YN                 AS DEL_YN
+				,FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
+				,FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
+				,FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
+				,FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
+                ,FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
+                ,FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+
+			  FROM TB_FCLT_SORT_MCHN_INFO FCLT
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
+    	]]>
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.insertFcltSortMchnInfo				-->
+	<!-- DESC : 선별기운영 등록                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	jeongyd        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.insertFcltSortMchnInfo */
+	    	  INTO TB_FCLT_SORT_MCHN_INFO FCLT
+	    		(
+				     TRGT_YR
+				   , APC_CD
+				   , SN
+				   , SORT_MCHN_ITEM_CD
+				   , SORT_MCHN_HLD_YN
+				   , SORT_MCHN_PRCS_SE_CD
+				   , SORT_MCHN_PRCS_HR
+				   , DEL_YN
+				   , SYS_FRST_INPT_DT
+				   , SYS_FRST_INPT_USER_ID
+	    		   , SYS_FRST_INPT_PRGRM_ID
+	    		   , SYS_LAST_CHG_DT
+	    		   , SYS_LAST_CHG_USER_ID
+	    		   , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+					, #{TRGT_YR}
+					, #{APC_CD}
+					, #{SN}
+					, #{SORT_MCHN_ITEM_CD}
+					, #{SORT_MCHN_HLD_YN}
+					, #{SORT_MCHN_PRCS_SE_CD}
+					, #{SORT_MCHN_PRCS_HR}
+					, #{DEL_YN}
+					, #{SYS_FRST_INPT_DT}
+					, #{SYS_FRST_INPT_USER_ID}
+					, #{SYS_FRST_INPT_PRGRM_ID}
+					, #{SYS_LAST_CHG_DT}
+					, #{SYS_LAST_CHG_USER_ID}
+					, #{SYS_LAST_CHG_PRGRM_ID}
+	   			)
+    	]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.updateFcltSortMchnInfo				-->
+	<!-- DESC : 선별기운영 변경                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	jeongyd        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.updateFcltSortMchnInfo */
+	    		TB_FCLT_SORT_MCHN_INFO FCLT
+			   SET
+			 	    TRGT_YR              =  #{TRGT_YR}
+			 	  , APC_CD               =  #{APC_CD}
+			 	  , SN                   =  #{SN}
+                  , SORT_MCHN_ITEM_CD    =  #{SORT_MCHN_ITEM_CD}
+                  , SORT_MCHN_HLD_YN     =  #{SORT_MCHN_HLD_YN}
+                  , SORT_MCHN_PRCS_SE_CD =  #{SORT_MCHN_PRCS_SE_CD}
+                  , SORT_MCHN_PRCS_HR    =  #{SORT_MCHN_PRCS_HR}
+    	]]>
+		<if test='delYn != null and delYn != ""'>
+				, DEL_YN 	= #{delYn}
+		</if>
+    	<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
+    	]]>
+    </update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.deleteFcltSortMchnInfo				-->
+	<!-- DESC : 선별기운영 삭제                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	jeongyd        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
+    	<![CDATA[
+	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.deleteFcltSortMchnInfo */
+	    		TB_FCLT_SORT_MCHN_INFO FCLT
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
+    	]]>
+    </delete>
+
+</mapper>

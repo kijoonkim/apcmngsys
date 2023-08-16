@@ -7,7 +7,7 @@ import com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO;
 
 
 /**
- * 스마트자동화 Service 인터페이스
+ * 산지유통판매처에 대한 Service 인터페이스
  * @author 정연두
  * @since 2023.06.21
  * @version 1.0
@@ -23,7 +23,7 @@ import com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO;
 public interface FcltPrcsNtslInfoService {
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 산지유통판매처정보를 조회한다.
 	 * @param fcltPrcsNtslInfoVO
 	 * @return
 	 * @throws Exception
@@ -31,7 +31,7 @@ public interface FcltPrcsNtslInfoService {
 	public FcltPrcsNtslInfoVO selectFcltPrcsNtslInfo(FcltPrcsNtslInfoVO fcltPrcsNtslInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 산지유통판매처정보를 조회한다.
 	 * @param msgKey
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public interface FcltPrcsNtslInfoService {
 	public FcltPrcsNtslInfoVO selectFcltPrcsNtslInfo(String msgKey) throws Exception;
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 산지유통판매처 목록을 조회한다.
 	 * @param fcltPrcsNtslInfoVO
 	 * @return
 	 * @throws Exception
@@ -48,7 +48,7 @@ public interface FcltPrcsNtslInfoService {
 
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 산지유통판매처정보를 등록한다.
 	 * @param fcltPrcsNtslInfoVO
 	 * @return
 	 * @throws Exception
@@ -56,7 +56,7 @@ public interface FcltPrcsNtslInfoService {
 	public int insertFcltPrcsNtslInfo(FcltPrcsNtslInfoVO fcltPrcsNtslInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 산지유통판매처정보를 변경한다.
 	 * @param fcltPrcsNtslInfoVO
 	 * @return
 	 * @throws Exception
@@ -64,7 +64,7 @@ public interface FcltPrcsNtslInfoService {
 	public int updateFcltPrcsNtslInfo(FcltPrcsNtslInfoVO fcltPrcsNtslInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 산지유통판매처정보를 삭제한다.
 	 * @param fcltPrcsNtslInfoVO
 	 * @return
 	 * @throws Exception
@@ -72,7 +72,7 @@ public interface FcltPrcsNtslInfoService {
 	public int deleteFcltPrcsNtslInfo(FcltPrcsNtslInfoVO fcltPrcsNtslInfoVO) throws Exception;
 
 	/**
-	 * 메시지 목록을 삭제한다.
+	 * 산지유통판매처 목록을 삭제한다.
 	 * @param fcltPrcsNtslInfoList
 	 * @return
 	 * @throws Exception

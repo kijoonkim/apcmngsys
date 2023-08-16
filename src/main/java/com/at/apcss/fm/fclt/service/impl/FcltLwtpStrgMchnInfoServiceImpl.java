@@ -11,7 +11,7 @@ import com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO;
 
 /**
  * @Class Name : FcltLwtpStrgMchnInfoServiceImpl.java
- * @Description : 공통메시지 서비스를 정의하기 위한 서비스 구현 클래스
+ * @Description : 저온저장고운영 서비스를 정의하기 위한 서비스 구현 클래스
  * @author 신정철
  * @since 2023.06.21
  * @version 1.0

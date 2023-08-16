@@ -7,7 +7,7 @@ import com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO;
 
 
 /**
- * 산지유통품목처리실적에 Service 인터페이스
+ * 산지유통품목처리실적에 대한 Service 인터페이스
  * @author 정연두
  * @since 2023.06.21
  * @version 1.0
@@ -23,7 +23,7 @@ import com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO;
 public interface FcltItemPrfmncService {
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 산지유통품목처리실적정보를 조회한다.
 	 * @param fcltItemPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -31,7 +31,7 @@ public interface FcltItemPrfmncService {
 	public FcltItemPrfmncVO selectFcltItemPrfmnc(FcltItemPrfmncVO fcltItemPrfmncVO) throws Exception;
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 산지유통품목처리실적정보를 조회한다.
 	 * @param msgKey
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public interface FcltItemPrfmncService {
 	public FcltItemPrfmncVO selectFcltItemPrfmnc(String msgKey) throws Exception;
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 산지유통품목처리실적 목록을 조회한다.
 	 * @param fcltItemPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -48,7 +48,7 @@ public interface FcltItemPrfmncService {
 
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 산지유통품목처리실적정보를 등록한다.
 	 * @param fcltItemPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -56,7 +56,7 @@ public interface FcltItemPrfmncService {
 	public int insertFcltItemPrfmnc(FcltItemPrfmncVO fcltItemPrfmncVO) throws Exception;
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 산지유통품목처리실적정보를 변경한다.
 	 * @param fcltItemPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -64,7 +64,7 @@ public interface FcltItemPrfmncService {
 	public int updateFcltItemPrfmnc(FcltItemPrfmncVO fcltItemPrfmncVO) throws Exception;
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 산지유통품목처리실적정보를 삭제한다.
 	 * @param fcltItemPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -72,7 +72,7 @@ public interface FcltItemPrfmncService {
 	public int deleteFcltItemPrfmnc(FcltItemPrfmncVO fcltItemPrfmncVO) throws Exception;
 
 	/**
-	 * 메시지 목록을 삭제한다.
+	 * 산지유통품목처리실적 목록을 삭제한다.
 	 * @param fcltItemPrfmncList
 	 * @return
 	 * @throws Exception

@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnOperInfoVO;
 
 /**
- * 시설설치현황 Mapper 인터페이스
+ * 저온저장고운영기간 Mapper 인터페이스
  * @author 정연두
  * @since 2023.06.21
  * @version 1.0
@@ -25,35 +25,35 @@ public interface FcltLwtpStrgMchnOperInfoMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 저온저장고운영기간정보를 조회한다.
 	 * @param fcltLwtpStrgMchnOperInfoVO
 	 * @return
 	 */
 	public FcltLwtpStrgMchnOperInfoVO selectFcltLwtpStrgMchnOperInfo(FcltLwtpStrgMchnOperInfoVO fcltLwtpStrgMchnOperInfoVO);
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 저온저장고운영기간 목록을 조회한다.
 	 * @param fcltLwtpStrgMchnOperInfoVO
 	 * @return
 	 */
 	public List<FcltLwtpStrgMchnOperInfoVO> selectFcltLwtpStrgMchnOperInfoList(FcltLwtpStrgMchnOperInfoVO fcltLwtpStrgMchnOperInfoVO);
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 저온저장고운영기간정보를 등록한다.
 	 * @param fcltLwtpStrgMchnOperInfoVO
 	 * @return
 	 */
 	public int insertFcltLwtpStrgMchnOperInfo(FcltLwtpStrgMchnOperInfoVO fcltLwtpStrgMchnOperInfoVO);
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 저온저장고운영기간정보를 변경한다.
 	 * @param fcltLwtpStrgMchnOperInfoVO
 	 * @return
 	 */
 	public int updateFcltLwtpStrgMchnOperInfo(FcltLwtpStrgMchnOperInfoVO fcltLwtpStrgMchnOperInfoVO);
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 저온저장고운영기간정보를 삭제한다.
 	 * @param fcltLwtpStrgMchnOperInfoVO
 	 * @return
 	 */
