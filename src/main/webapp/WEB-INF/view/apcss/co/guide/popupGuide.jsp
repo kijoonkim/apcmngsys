@@ -95,10 +95,13 @@
 							<td class="td_input">
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"></sbux-button>
 							</td>
+							<td></td>
 							<th scope="row" >마감등록</th>
 							<td>
 								<sbux-button id="btnRegDdln" name="btnRegDdln" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-ddln" onclick="fn_modalDdln"></sbux-button>
 							</td>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
 							<th scope="row" >차량선택</th>
