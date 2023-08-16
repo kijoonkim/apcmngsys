@@ -37,17 +37,32 @@ public class SpmtCmndVO extends ComVO {
 	/**
 	 * 출하지시순번
 	 */
-	private String spmtCmndSeqNo;
-
+	private String spmtCmndSn;
+	
 	/**
 	 * 지시일자
 	 */
 	private String cmndYmd;
 
 	/**
+	 * 지시일자 시작일
+	 */
+	private String fromCmndYmd;
+	
+	/**
+	 * 지시일자 종료일
+	 */
+	private String toCmndYmd;
+
+	/**
 	 * 거래처코드
 	 */
 	private String cnptCd;
+	
+	/**
+	 * 거래처명
+	 */
+	private String cnptNm;
 
 	/**
 	 * 배송지
@@ -82,7 +97,7 @@ public class SpmtCmndVO extends ComVO {
 	/**
 	 * 포장구분코드
 	 */
-	private String pkcgSeCd;
+	private String pckgSeCd;
 
 	/**
 	 * 발주번호
@@ -98,11 +113,21 @@ public class SpmtCmndVO extends ComVO {
 	 * 품종코드
 	 */
 	private String vrtyCd;
+	
+	/**
+	 * 품종명
+	 */
+	private String vrtyNm;
 
 	/**
 	 * 규격코드
 	 */
 	private String spcfctCd;
+	
+	/**
+	 * 규격명
+	 */
+	private String spcfctNm;
 
 	/**
 	 * 상품코드
