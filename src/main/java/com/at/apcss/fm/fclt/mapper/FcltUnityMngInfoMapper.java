@@ -25,35 +25,35 @@ public interface FcltUnityMngInfoMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 통합관리시스템정보를 조회한다.
 	 * @param fcltUnityMngInfoVO
 	 * @return
 	 */
 	public FcltUnityMngInfoVO selectFcltUnityMngInfo(FcltUnityMngInfoVO fcltUnityMngInfoVO);
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 통합관리시스템 목록을 조회한다.
 	 * @param fcltUnityMngInfoVO
 	 * @return
 	 */
 	public List<FcltUnityMngInfoVO> selectFcltUnityMngInfoList(FcltUnityMngInfoVO fcltUnityMngInfoVO);
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 통합관리시스템정보를 등록한다.
 	 * @param fcltUnityMngInfoVO
 	 * @return
 	 */
 	public int insertFcltUnityMngInfo(FcltUnityMngInfoVO fcltUnityMngInfoVO);
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 통합관리시스템정보를 변경한다.
 	 * @param fcltUnityMngInfoVO
 	 * @return
 	 */
 	public int updateFcltUnityMngInfo(FcltUnityMngInfoVO fcltUnityMngInfoVO);
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 통합관리시스템정보를 삭제한다.
 	 * @param fcltUnityMngInfoVO
 	 * @return
 	 */

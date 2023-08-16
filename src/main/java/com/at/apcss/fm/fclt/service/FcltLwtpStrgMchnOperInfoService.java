@@ -23,7 +23,7 @@ import com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnOperInfoVO;
 public interface FcltLwtpStrgMchnOperInfoService {
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 저온저장고운영기간정보를 조회한다.
 	 * @param fcltLwtpStrgMchnOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -31,7 +31,7 @@ public interface FcltLwtpStrgMchnOperInfoService {
 	public FcltLwtpStrgMchnOperInfoVO selectFcltLwtpStrgMchnOperInfo(FcltLwtpStrgMchnOperInfoVO fcltLwtpStrgMchnOperInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 저온저장고운영기간정보를 조회한다.
 	 * @param msgKey
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public interface FcltLwtpStrgMchnOperInfoService {
 	public FcltLwtpStrgMchnOperInfoVO selectFcltLwtpStrgMchnOperInfo(String msgKey) throws Exception;
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 저온저장고운영기간 목록을 조회한다.
 	 * @param fcltLwtpStrgMchnOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -48,7 +48,7 @@ public interface FcltLwtpStrgMchnOperInfoService {
 
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 저온저장고운영기간정보를 등록한다.
 	 * @param fcltLwtpStrgMchnOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -56,7 +56,7 @@ public interface FcltLwtpStrgMchnOperInfoService {
 	public int insertFcltLwtpStrgMchnOperInfo(FcltLwtpStrgMchnOperInfoVO fcltLwtpStrgMchnOperInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 저온저장고운영기간정보를 변경한다.
 	 * @param fcltLwtpStrgMchnOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -64,7 +64,7 @@ public interface FcltLwtpStrgMchnOperInfoService {
 	public int updateFcltLwtpStrgMchnOperInfo(FcltLwtpStrgMchnOperInfoVO fcltLwtpStrgMchnOperInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 저온저장고운영기간정보를 삭제한다.
 	 * @param fcltLwtpStrgMchnOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -72,7 +72,7 @@ public interface FcltLwtpStrgMchnOperInfoService {
 	public int deleteFcltLwtpStrgMchnOperInfo(FcltLwtpStrgMchnOperInfoVO fcltLwtpStrgMchnOperInfoVO) throws Exception;
 
 	/**
-	 * 메시지 목록을 삭제한다.
+	 * 저온저장고운영기간 목록을 삭제한다.
 	 * @param fcltLwtpStrgMchnOperInfoList
 	 * @return
 	 * @throws Exception

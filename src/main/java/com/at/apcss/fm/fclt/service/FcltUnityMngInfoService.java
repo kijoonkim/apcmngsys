@@ -23,7 +23,7 @@ import com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO;
 public interface FcltUnityMngInfoService {
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 통합관리시스템정보를 조회한다.
 	 * @param fcltUnityMngInfoVO
 	 * @return
 	 * @throws Exception
@@ -31,7 +31,7 @@ public interface FcltUnityMngInfoService {
 	public FcltUnityMngInfoVO selectFcltUnityMngInfo(FcltUnityMngInfoVO fcltUnityMngInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 통합관리시스템정보를 조회한다.
 	 * @param msgKey
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public interface FcltUnityMngInfoService {
 	public FcltUnityMngInfoVO selectFcltUnityMngInfo(String msgKey) throws Exception;
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 통합관리시스템 목록을 조회한다.
 	 * @param fcltUnityMngInfoVO
 	 * @return
 	 * @throws Exception
@@ -48,7 +48,7 @@ public interface FcltUnityMngInfoService {
 
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 통합관리시스템정보를 등록한다.
 	 * @param fcltUnityMngInfoVO
 	 * @return
 	 * @throws Exception
@@ -56,7 +56,7 @@ public interface FcltUnityMngInfoService {
 	public int insertFcltUnityMngInfo(FcltUnityMngInfoVO fcltUnityMngInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 통합관리시스템정보를 변경한다.
 	 * @param fcltUnityMngInfoVO
 	 * @return
 	 * @throws Exception
@@ -64,7 +64,7 @@ public interface FcltUnityMngInfoService {
 	public int updateFcltUnityMngInfo(FcltUnityMngInfoVO fcltUnityMngInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 통합관리시스템정보를 삭제한다.
 	 * @param fcltUnityMngInfoVO
 	 * @return
 	 * @throws Exception
@@ -72,7 +72,7 @@ public interface FcltUnityMngInfoService {
 	public int deleteFcltUnityMngInfo(FcltUnityMngInfoVO fcltUnityMngInfoVO) throws Exception;
 
 	/**
-	 * 메시지 목록을 삭제한다.
+	 * 통합관리시스템 목록을 삭제한다.
 	 * @param fcltUnityMngInfoList
 	 * @return
 	 * @throws Exception

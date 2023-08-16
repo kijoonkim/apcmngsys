@@ -23,7 +23,7 @@ import com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO;
 public interface FcltSortMchnOperInfoService {
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 선별기운영기간정보를 조회한다.
 	 * @param fcltSortMchnOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -31,7 +31,7 @@ public interface FcltSortMchnOperInfoService {
 	public FcltSortMchnOperInfoVO selectFcltSortMchnOperInfo(FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 선별기운영기간정보를 조회한다.
 	 * @param msgKey
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public interface FcltSortMchnOperInfoService {
 	public FcltSortMchnOperInfoVO selectFcltSortMchnOperInfo(String msgKey) throws Exception;
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 선별기운영기간 목록을 조회한다.
 	 * @param fcltSortMchnOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -48,7 +48,7 @@ public interface FcltSortMchnOperInfoService {
 
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 선별기운영기간정보를 등록한다.
 	 * @param fcltSortMchnOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -56,7 +56,7 @@ public interface FcltSortMchnOperInfoService {
 	public int insertFcltSortMchnOperInfo(FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 선별기운영기간정보를 변경한다.
 	 * @param fcltSortMchnOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -64,7 +64,7 @@ public interface FcltSortMchnOperInfoService {
 	public int updateFcltSortMchnOperInfo(FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 선별기운영기간정보를 삭제한다.
 	 * @param fcltSortMchnOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -72,7 +72,7 @@ public interface FcltSortMchnOperInfoService {
 	public int deleteFcltSortMchnOperInfo(FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO) throws Exception;
 
 	/**
-	 * 메시지 목록을 삭제한다.
+	 * 선별기운영기간 목록을 삭제한다.
 	 * @param fcltSortMchnOperInfoList
 	 * @return
 	 * @throws Exception

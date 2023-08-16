@@ -23,7 +23,7 @@ import com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO;
 public interface FcltOgnzPrcsPrfmncService {
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 유통조직처리실적정보를 조회한다.
 	 * @param fcltOgnzPrcsPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -31,7 +31,7 @@ public interface FcltOgnzPrcsPrfmncService {
 	public FcltOgnzPrcsPrfmncVO selectFcltOgnzPrcsPrfmnc(FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO) throws Exception;
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 유통조직처리실적정보를 조회한다.
 	 * @param msgKey
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public interface FcltOgnzPrcsPrfmncService {
 	public FcltOgnzPrcsPrfmncVO selectFcltOgnzPrcsPrfmnc(String msgKey) throws Exception;
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 유통조직처리실적 목록을 조회한다.
 	 * @param fcltOgnzPrcsPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -48,7 +48,7 @@ public interface FcltOgnzPrcsPrfmncService {
 
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 유통조직처리실적정보를 등록한다.
 	 * @param fcltOgnzPrcsPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -56,7 +56,7 @@ public interface FcltOgnzPrcsPrfmncService {
 	public int insertFcltOgnzPrcsPrfmnc(FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO) throws Exception;
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 유통조직처리실적정보를 변경한다.
 	 * @param fcltOgnzPrcsPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -64,7 +64,7 @@ public interface FcltOgnzPrcsPrfmncService {
 	public int updateFcltOgnzPrcsPrfmnc(FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO) throws Exception;
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 유통조직처리실적정보를 삭제한다.
 	 * @param fcltOgnzPrcsPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -72,7 +72,7 @@ public interface FcltOgnzPrcsPrfmncService {
 	public int deleteFcltOgnzPrcsPrfmnc(FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO) throws Exception;
 
 	/**
-	 * 메시지 목록을 삭제한다.
+	 * 유통조직처리실적 목록을 삭제한다.
 	 * @param fcltOgnzPrcsPrfmncList
 	 * @return
 	 * @throws Exception

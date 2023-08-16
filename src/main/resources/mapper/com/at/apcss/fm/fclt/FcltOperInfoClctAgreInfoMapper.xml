@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : FcltOperInfoClctAgreInfoMapper.xml                                    				-->
+<!-- DESC : 개인정보이용동의 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper.selectFcltOperInfoClctAgreInfo				-->
+	<!-- DESC : 개인정보이용동의 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectFcltOperInfoClctAgreInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO">
+    	<![CDATA[
+		SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper.selectFcltOperInfoClctAgreInfo */
+				  FCLT.TRGT_YR                  AS TRGT_YR
+				, FCLT.APC_CD                   AS APC_CD
+				, FCLT.DADDR                    AS DADDR
+				, FCLT.APC_BRNO                 AS APC_BRNO
+				, FCLT.APC_RGN_CD               AS APC_RGN_CD
+				, FCLT.APC_NM                   AS APC_NM
+				, FCLT.APC_ADDR                 AS APC_ADDR
+				, FCLT.OPER_OGNZ_CD             AS OPER_OGNZ_CD
+				, FCLT.OPER_OGNZ_NM             AS OPER_OGNZ_NM
+				, FCLT.OPER_OGNZ_BRNO           AS OPER_OGNZ_BRNO
+				, FCLT.OPER_OGNZ_PIC            AS OPER_OGNZ_PIC
+				, FCLT.OPER_OGNZ_JBPS           AS OPER_OGNZ_JBPS
+				, FCLT.OPER_OGNZ_TEL_NO         AS OPER_OGNZ_TEL_NO
+				, FCLT.OPER_OGNZ_EML            AS OPER_OGNZ_EML
+				, FCLT.APC_HLD_YN               AS APC_HLD_YN
+				, FCLT.PRSNA_DATA_AGRD_YN       AS PRSNA_DATA_AGRD_YN
+				, FCLT.DEL_YN                   AS DEL_YN
+				, FCLT.SYS_FRST_INPT_DT		    AS SYS_FRST_INPT_DT
+				, FCLT.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, FCLT.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+				, FCLT.SYS_LAST_CHG_DT		    AS SYS_LAST_CHG_DT
+				, FCLT.SYS_LAST_CHG_USER_ID	    AS SYS_LAST_CHG_USER_ID
+				, FCLT.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+		    FROM TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+		   WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
+    	]]>
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper.selectFcltOperInfoClctAgreInfoList			-->
+	<!-- DESC : 개인정보이용동의 테이블 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectFcltOperInfoClctAgreInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper.selectFcltOperInfoClctAgreInfoList */
+				  FCLT.TRGT_YR                  AS TRGT_YR
+				, FCLT.APC_CD                   AS APC_CD
+				, FCLT.DADDR                    AS DADDR
+				, FCLT.APC_BRNO                 AS APC_BRNO
+				, FCLT.APC_RGN_CD               AS APC_RGN_CD
+				, FCLT.APC_NM                   AS APC_NM
+				, FCLT.APC_ADDR                 AS APC_ADDR
+				, FCLT.OPER_OGNZ_CD             AS OPER_OGNZ_CD
+				, FCLT.OPER_OGNZ_NM             AS OPER_OGNZ_NM
+				, FCLT.OPER_OGNZ_BRNO           AS OPER_OGNZ_BRNO
+				, FCLT.OPER_OGNZ_PIC            AS OPER_OGNZ_PIC
+				, FCLT.OPER_OGNZ_JBPS           AS OPER_OGNZ_JBPS
+				, FCLT.OPER_OGNZ_TEL_NO         AS OPER_OGNZ_TEL_NO
+				, FCLT.OPER_OGNZ_EML            AS OPER_OGNZ_EML
+				, FCLT.APC_HLD_YN               AS APC_HLD_YN
+				, FCLT.PRSNA_DATA_AGRD_YN       AS PRSNA_DATA_AGRD_YN
+				, FCLT.DEL_YN                   AS DEL_YN
+				, FCLT.SYS_FRST_INPT_DT		    AS SYS_FRST_INPT_DT
+				, FCLT.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, FCLT.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+				, FCLT.SYS_LAST_CHG_DT		    AS SYS_LAST_CHG_DT
+				, FCLT.SYS_LAST_CHG_USER_ID	    AS SYS_LAST_CHG_USER_ID
+				, FCLT.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+		    FROM  USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+		   WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
+    	]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper.insertFcltOperInfoClctAgreInfo				-->
+	<!-- DESC : 개인정보이용동의 등록                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	jeonyd        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertFcltOperInfoClctAgreInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper.insertFcltOperInfoClctAgreInfo */
+	    	  INTO USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+	    		  (
+		    			TRGT_YR
+		    		  , APC_CD
+		    		  , DADDR
+		    		  , APC_BRNO
+		    		  , APC_RGN_CD
+		    		  , APC_NM
+		    		  , APC_ADDR
+		    		  , OPER_OGNZ_CD
+		    		  , OPER_OGNZ_NM
+		    		  , OPER_OGNZ_BRNO
+		    		  , OPER_OGNZ_PIC
+		    		  , OPER_OGNZ_JBPS
+		    		  , OPER_OGNZ_TEL_NO
+		    		  , OPER_OGNZ_EML
+		    		  , APC_HLD_YN
+		    		  , PRSNA_DATA_AGRD_YN
+		    		  , DEL_YN
+		    		  , SYS_FRST_INPT_DT
+		    		  , SYS_FRST_INPT_USER_ID
+		    		  , SYS_FRST_INPT_PRGRM_ID
+		    		  , SYS_LAST_CHG_DT
+		    		  , SYS_LAST_CHG_USER_ID
+		    		  , SYS_LAST_CHG_PRGRM_ID
+	    		   )
+	   		VALUES
+	   			  (
+		   			 	 #{TRGT_YR}
+		   			   , #{APC_CD}
+		   			   , #{DADDR}
+		   			   , #{APC_BRNO}
+		   			   , #{APC_RGN_CD}
+		   			   , #{APC_NM}
+		   			   , #{APC_ADDR}
+		   			   , #{OPER_OGNZ_CD}
+		   			   , #{OPER_OGNZ_NM}
+		   			   , #{OPER_OGNZ_BRNO}
+		   			   , #{OPER_OGNZ_PIC}
+		   			   , #{OPER_OGNZ_JBPS}
+		   			   , #{OPER_OGNZ_TEL_NO}
+		   			   , #{OPER_OGNZ_EML}
+		   			   , #{APC_HLD_YN}
+		   			   , #{PRSNA_DATA_AGRD_YN}
+		   			   , #{DEL_YN}
+		   			   , #{SYS_FRST_INPT_DT}
+		   			   , #{SYS_FRST_INPT_USER_ID}
+		   			   , #{SYS_FRST_INPT_PRGRM_ID}
+		   			   , #{SYS_LAST_CHG_DT}
+		   			   , #{SYS_LAST_CHG_USER_ID}
+		   			   , #{SYS_LAST_CHG_PRGRM_ID}
+	   			 )
+    	]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper.updateFcltOperInfoClctAgreInfo				-->
+	<!-- DESC : 개인정보이용동의 변경                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	jeonyd        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateFcltOperInfoClctAgreInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO">
+    	<![CDATA[
+	       UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper.updateFcltOperInfoClctAgreInfo */
+	    		   USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+			  SET
+			 	    TRGT_YR              = #{TRGT_YR}
+	    		  , APC_CD               = #{APC_CD}
+	    		  , DADDR                = #{DADDR}
+	    		  , APC_BRNO             = #{APC_BRNO}
+	    		  , APC_RGN_CD           = #{APC_RGN_CD}
+	    		  , APC_NM               = #{APC_NM}
+	    		  , APC_ADDR             = #{APC_ADDR}
+	    		  , OPER_OGNZ_CD         = #{OPER_OGNZ_CD}
+	    		  , OPER_OGNZ_NM         = #{OPER_OGNZ_NM}
+	    		  , OPER_OGNZ_BRNO       = #{OPER_OGNZ_BRNO}
+	    		  , OPER_OGNZ_PIC        = #{OPER_OGNZ_PIC}
+	    		  , OPER_OGNZ_JBPS       = #{OPER_OGNZ_JBPS}
+	    		  , OPER_OGNZ_TEL_NO     = #{OPER_OGNZ_TEL_NO}
+	    		  , OPER_OGNZ_EML        = #{OPER_OGNZ_EML}
+	    		  , APC_HLD_YN           = #{APC_HLD_YN}
+	    		  , PRSNA_DATA_AGRD_YN   = #{PRSNA_DATA_AGRD_YN}
+    	]]>
+		<if test='delYn != null and delYn != ""'>
+				  , DEL_YN 	= #{delYn}
+		</if>
+    	<![CDATA[
+				  , SYS_LAST_CHG_DT		  = SYSDATE
+	    		  , SYS_LAST_CHG_USER_ID  = #{sysLastChgUserId}
+	    		  , SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+			WHERE 1=1
+		      AND TRGT_YR = #{trgtYr}
+		      AND APC_CD = #{apcCd}
+    	]]>
+    </update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper.deleteFcltOperInfoClctAgreInfo				-->
+	<!-- DESC : 개인정보이용동의 삭제                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	jeonyd        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteFcltOperInfoClctAgreInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO">
+    	<![CDATA[
+	       DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper.deleteFcltOperInfoClctAgreInfo */
+	    		  USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+			WHERE 1=1
+		      AND TRGT_YR = #{trgtYr}
+		      AND APC_CD = #{apcCd}
+    	]]>
+    </delete>
+
+</mapper>

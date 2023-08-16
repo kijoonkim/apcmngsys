@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.at.apcss.fm.fclt.vo.FcltPrcsPrfmncVO;
 
 /**
- * 산지유통품목처리실적 Mapper 인터페이스
+ * 산지유통처리실적 Mapper 인터페이스
  * @author 정연두
  * @since 2023.06.21
  * @version 1.0
@@ -25,35 +25,35 @@ public interface FcltPrcsPrfmncMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 산지유통처리실적정보를 조회한다.
 	 * @param fcltPrcsPrfmncVO
 	 * @return
 	 */
 	public FcltPrcsPrfmncVO selectFcltPrcsPrfmnc(FcltPrcsPrfmncVO fcltPrcsPrfmncVO);
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 산지유통처리실적 목록을 조회한다.
 	 * @param fcltPrcsPrfmncVO
 	 * @return
 	 */
 	public List<FcltPrcsPrfmncVO> selectFcltPrcsPrfmncList(FcltPrcsPrfmncVO fcltPrcsPrfmncVO);
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 산지유통처리실적정보를 등록한다.
 	 * @param fcltPrcsPrfmncVO
 	 * @return
 	 */
 	public int insertFcltPrcsPrfmnc(FcltPrcsPrfmncVO fcltPrcsPrfmncVO);
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 산지유통처리실적정보를 변경한다.
 	 * @param fcltPrcsPrfmncVO
 	 * @return
 	 */
 	public int updateFcltPrcsPrfmnc(FcltPrcsPrfmncVO fcltPrcsPrfmncVO);
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 산지유통처리실적정보를 삭제한다.
 	 * @param fcltPrcsPrfmncVO
 	 * @return
 	 */

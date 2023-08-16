@@ -23,7 +23,7 @@ import com.at.apcss.fm.fclt.vo.FcltPrcsPrfmncVO;
 public interface FcltPrcsPrfmncService {
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 산지유통품목처리실적정보를 조회한다.
 	 * @param fcltPrcsPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -31,7 +31,7 @@ public interface FcltPrcsPrfmncService {
 	public FcltPrcsPrfmncVO selectFcltPrcsPrfmnc(FcltPrcsPrfmncVO fcltPrcsPrfmncVO) throws Exception;
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 산지유통품목처리실적정보를 조회한다.
 	 * @param msgKey
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public interface FcltPrcsPrfmncService {
 	public FcltPrcsPrfmncVO selectFcltPrcsPrfmnc(String msgKey) throws Exception;
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 산지유통품목처리실적 목록을 조회한다.
 	 * @param fcltPrcsPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -48,7 +48,7 @@ public interface FcltPrcsPrfmncService {
 
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 산지유통품목처리실적정보를 등록한다.
 	 * @param fcltPrcsPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -56,7 +56,7 @@ public interface FcltPrcsPrfmncService {
 	public int insertFcltPrcsPrfmnc(FcltPrcsPrfmncVO fcltPrcsPrfmncVO) throws Exception;
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 산지유통품목처리실적정보를 변경한다.
 	 * @param fcltPrcsPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -64,7 +64,7 @@ public interface FcltPrcsPrfmncService {
 	public int updateFcltPrcsPrfmnc(FcltPrcsPrfmncVO fcltPrcsPrfmncVO) throws Exception;
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 산지유통품목처리실적정보를 삭제한다.
 	 * @param fcltPrcsPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -72,7 +72,7 @@ public interface FcltPrcsPrfmncService {
 	public int deleteFcltPrcsPrfmnc(FcltPrcsPrfmncVO fcltPrcsPrfmncVO) throws Exception;
 
 	/**
-	 * 메시지 목록을 삭제한다.
+	 * 산지유통품목처리실적 목록을 삭제한다.
 	 * @param fcltPrcsPrfmncList
 	 * @return
 	 * @throws Exception
