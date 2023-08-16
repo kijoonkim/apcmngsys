@@ -62,4 +62,13 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public int deleteRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 입고실적 목록 조회
+	 * 
+	 * @param selectRawMtrWrhsPrfmncList
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrWrhsVO> selectRawMtrWrhsPrfmncList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }
