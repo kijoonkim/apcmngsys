@@ -195,4 +195,9 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 운송구분명
 	 */
 	private String trsprtSeNm;
+
+	/**
+	 * 운임비용
+	 */
+	private int trsprtCst;
 }

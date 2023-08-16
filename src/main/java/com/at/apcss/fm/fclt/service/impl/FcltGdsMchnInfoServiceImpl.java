@@ -11,7 +11,7 @@ import com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO;
 
 /**
  * @Class Name : FcltGdsMchnInfoServiceImpl.java
- * @Description : 시설설치현황 서비스를 정의하기 위한 서비스 구현 클래스
+ * @Description : 상품화설비현황 서비스를 정의하기 위한 서비스 구현 클래스
  * @author 정연두
  * @since 2023.06.21
  * @version 1.0

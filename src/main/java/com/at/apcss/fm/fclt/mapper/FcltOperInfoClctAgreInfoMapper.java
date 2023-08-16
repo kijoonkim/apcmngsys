@@ -25,35 +25,35 @@ public interface FcltOperInfoClctAgreInfoMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 개인정보이용동의정보를 조회한다.
 	 * @param fcltOperInfoClctAgreInfoVO
 	 * @return
 	 */
 	public FcltOperInfoClctAgreInfoVO selectFcltOperInfoClctAgreInfo(FcltOperInfoClctAgreInfoVO fcltOperInfoClctAgreInfoVO);
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 개인정보이용동의 목록을 조회한다.
 	 * @param fcltOperInfoClctAgreInfoVO
 	 * @return
 	 */
 	public List<FcltOperInfoClctAgreInfoVO> selectFcltOperInfoClctAgreInfoList(FcltOperInfoClctAgreInfoVO fcltOperInfoClctAgreInfoVO);
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 개인정보이용동의정보를 등록한다.
 	 * @param fcltOperInfoClctAgreInfoVO
 	 * @return
 	 */
 	public int insertFcltOperInfoClctAgreInfo(FcltOperInfoClctAgreInfoVO fcltOperInfoClctAgreInfoVO);
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 개인정보이용동의정보를 변경한다.
 	 * @param fcltOperInfoClctAgreInfoVO
 	 * @return
 	 */
 	public int updateFcltOperInfoClctAgreInfo(FcltOperInfoClctAgreInfoVO fcltOperInfoClctAgreInfoVO);
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 개인정보이용동의정보를 삭제한다.
 	 * @param fcltOperInfoClctAgreInfoVO
 	 * @return
 	 */

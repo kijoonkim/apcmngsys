@@ -481,6 +481,11 @@
             return;
   		}
 
+  		if (gfn_isEmpty(vrtyCd)) {
+  			gfn_comAlert("W0001", "품종");		//	W0002	{0}을/를 선택하세요.
+            return;
+  		}
+
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
 			apcCd: gv_selectedApcCd,
 			wrhsYmdFrom: wrhsYmdFrom,

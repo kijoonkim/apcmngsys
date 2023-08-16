@@ -7,7 +7,7 @@ import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
 
 
 /**
- * 공통메시지 Service 인터페이스
+ * 운영자개요 Service 인터페이스
  * @author 신정철
  * @since 2023.06.21
  * @version 1.0
@@ -23,7 +23,7 @@ import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
 public interface FcltOperInfoService {
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 운영자개요정보를 조회한다.
 	 * @param fcltOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -31,7 +31,7 @@ public interface FcltOperInfoService {
 	public FcltOperInfoVO selectFcltOperInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 운영자개요정보를 조회한다.
 	 * @param msgKey
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public interface FcltOperInfoService {
 	public FcltOperInfoVO selectFcltOperInfo(String msgKey) throws Exception;
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 운영자개요 목록을 조회한다.
 	 * @param fcltOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -48,7 +48,7 @@ public interface FcltOperInfoService {
 
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 운영자개요정보를 등록한다.
 	 * @param fcltOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -56,7 +56,7 @@ public interface FcltOperInfoService {
 	public int insertFcltOperInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 운영자개요정보를 변경한다.
 	 * @param fcltOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -64,7 +64,7 @@ public interface FcltOperInfoService {
 	public int updateFcltOperInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 운영자개요정보를 삭제한다.
 	 * @param fcltOperInfoVO
 	 * @return
 	 * @throws Exception
@@ -72,7 +72,7 @@ public interface FcltOperInfoService {
 	public int deleteFcltOperInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception;
 
 	/**
-	 * 메시지 목록을 삭제한다.
+	 * 운영자개요 목록을 삭제한다.
 	 * @param fcltOperInfoList
 	 * @return
 	 * @throws Exception

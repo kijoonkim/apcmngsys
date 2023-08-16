@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO;
 
 /**
- * 시설설치현황 Mapper 인터페이스
+ * 선별기운영기간 Mapper 인터페이스
  * @author 정연두
  * @since 2023.06.21
  * @version 1.0
@@ -25,35 +25,35 @@ public interface FcltSortMchnOperInfoMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 선별기운영기간정보를 조회한다.
 	 * @param fcltSortMchnOperInfoVO
 	 * @return
 	 */
 	public FcltSortMchnOperInfoVO selectFcltSortMchnOperInfo(FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO);
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 선별기운영기간 목록을 조회한다.
 	 * @param fcltSortMchnOperInfoVO
 	 * @return
 	 */
 	public List<FcltSortMchnOperInfoVO> selectFcltSortMchnOperInfoList(FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO);
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 선별기운영기간정보를 등록한다.
 	 * @param fcltSortMchnOperInfoVO
 	 * @return
 	 */
 	public int insertFcltSortMchnOperInfo(FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO);
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 선별기운영기간정보를 변경한다.
 	 * @param fcltSortMchnOperInfoVO
 	 * @return
 	 */
 	public int updateFcltSortMchnOperInfo(FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO);
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 선별기운영기간정보를 삭제한다.
 	 * @param fcltSortMchnOperInfoVO
 	 * @return
 	 */

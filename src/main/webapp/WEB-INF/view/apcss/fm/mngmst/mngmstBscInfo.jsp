@@ -18,7 +18,7 @@
 				<h3 class="box-title" style="line-height: 30px;"> ▶ 경영체정보</h3>
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 			</div>
 		</div>
 		<div class="box-body">
@@ -103,142 +103,141 @@
 				</div>
 					<br>
 				<div><label>경영체 정보 상세</label></div>
-				<div>
-					<table class="table table-bordered tbl_row tbl_fixed">
-						<caption>검색 조건 설정</caption>
-						<colgroup>
-							<col style="width: 10%">
-							<col style="width: 8%">
-							<col style="width: 16%">
-							<col style="width: 16%">
-							<col style="width: 16%">
-							<col style="width: 16%">
-							<col style="width: 18%">
-						</colgroup>
-						<tbody>
-							<tr>
-								<th colspan="2">성명</th>
-								<td colspan="1" style="border-right: hidden;">
-									<sbux-input id="srch-inp-test4" name="srch-inp-warehouse" uitype="text" placeholder="" class="form-control pull-right input-sm" disabled></sbux-input>
-								</td>
-								<td colspan="2"></td>
-								<th>주민(외국인)등록번호</th>
-								<td>
-									<sbux-input id="srch-inp-test5" name="srch-inp-warehouse" uitype="text" placeholder="" class="form-control pull-right input-sm"  disabled></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<th rowspan="2">연락처</th>
-								<th>전화번호</th>
-								<td colspan="5" class="ta_c">
-									<sbux-input style="width: 30%" id="srch-inp-test6" name="srch-inp-warehouse" uitype="text" placeholder="" class="form-control pull-right input-sm"  disabled></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<th>휴대폰번호</th>
-								<td colspan="5  class="ta_c"">
-									<sbux-input style="width: 30%" id="srch-inp-test7" name="srch-inp-warehouse" uitype="text" placeholder="" class="form-control pull-right input-sm"  disabled></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<sbux-input id="srch-inp-opera5" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="디팔렛타이저" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera6" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="있음 / 없음" ></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<sbux-input id="srch-inp-opera7" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="자동덤핑기" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera8" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="있음 / 없음" ></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<sbux-input id="srch-inp-opera9" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="전자식 중량 선별기" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera10" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="있음 / 없음" ></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<sbux-input id="srch-inp-opera11" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="비파괴 당도 선별기" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera12" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="있음 / 없음" ></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<sbux-input id="srch-inp-opera13" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="등급별 원물 자동 이송 장치" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera14" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="있음 / 없음" ></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<sbux-input id="srch-inp-opera15" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="공박스(망․톤백 등) 자동 배출 장치" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera16" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="있음 / 없음" ></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<sbux-input id="srch-inp-opera17" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="자동 박스(망․톤백 등) 포장기" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera18" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="있음 / 없음" ></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<sbux-input id="srch-inp-opera19" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="자동 소포장기" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera20" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="있음 / 없음" ></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<sbux-input id="srch-inp-opera21" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="자동랩핑기" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera22" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="있음 / 없음" ></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<sbux-input id="srch-inp-opera23" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="자동 중량체크기(포장 시)" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera24" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="있음 / 없음" ></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<sbux-input id="srch-inp-opera25" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="팔렛타이저(로봇팔 등)" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera26" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="있음 / 없음" ></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<sbux-input id="srch-inp-opera27" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="기타 가공설비" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera28" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="있음 / 없음" ></sbux-input>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+
+			<div>
+			<table class="table table-bordered tbl_row tbl_fixed">
+				<caption>검색 조건 설정</caption>
+				<colgroup>
+					<col style="width: 35%">
+					<col style="width: 65%">
+				</colgroup>
+				<tbody>
+					<tr>
+						<th>구분</th>
+						<th>내용</th>
+					</tr>
+					<tr>
+						<th>소유조직</th>
+						<td>
+							<sbux-input id="srch-inp-opera1" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>소유조직 사업자번호</th>
+						<td>
+							<sbux-input id="srch-inp-opera2" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="소유자가 지자체로 사업자번호 없을 경우 공란" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직</th>
+						<td>
+							<sbux-input id="srch-inp-opera3" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="최초 페이 내용 그대로 끌어오기" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직사업자번호</th>
+						<td>
+							<sbux-input id="srch-inp-opera4" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직 대표자</th>
+						<td>
+							<sbux-input id="srch-inp-opera5" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직 주소</th>
+						<td>
+							<sbux-input id="srch-inp-opera6" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="주소 검색하여 작성" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직 조직유형</th>
+						<td>
+							<sbux-input id="srch-inp-opera7" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="생산유통통합조직(승인함),생산유통통합조직(육성형),생산유통통합조직(승인형)-출자출하조직, 생산유통통합조직(육성형)-출자출하조직,개별조직" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직 취급 대표품목1</th>
+						<td>
+							<sbux-input id="srch-inp-opera8" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="운영조직 취급액 중 가장많은 품목 1
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직 취급 대표품목2</th>
+						<td>
+							<sbux-input id="srch-inp-opera9" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / 운영조직 취급액 중 가장많은 품목 2
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직 취급 대표품목3</th>
+						<td>
+							<sbux-input id="srch-inp-opera10" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / 운영조직 취급액 중 가장많은 품목 3
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>운영조직 취급 기타품목</th>
+						<td>
+							<sbux-input id="srch-inp-opera11" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 혹은 추가하기 버튼 누르고 수기입력" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>APC명</th>
+						<td>
+							<sbux-input id="srch-inp-opera12" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="최초 페이지 내용 그대로 끌어오기
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>APC 사업자번호</th>
+						<td>
+							<sbux-input id="srch-inp-opera13" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="사업자번호 없을 경우 공란
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>APC 주소</th>
+						<td>
+							<sbux-input id="srch-inp-opera14" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="주소 검색하여 작성
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>APC 처리 대표품목1</th>
+						<td>
+							<sbux-input id="srch-inp-opera15" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="APC 취급액 중 가장많은 품목 1
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>APC 처리 대표품목2</th>
+						<td>
+							<sbux-input id="srch-inp-opera16" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / APC 취급액 중 가장많은 품목 2
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>APC 처리 대표품목3</th>
+						<td>
+							<sbux-input id="srch-inp-opera17" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / APC 취급액 중 가장많은 품목 3
+							" ></sbux-input>
+						</td>
+					</tr>
+					<tr>
+						<th>APC 처리 기타품목명</th>
+						<td>
+							<sbux-input id="srch-inp-opera18" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 혹은 추가하기 버튼 누르고 수기입력
+							" ></sbux-input>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			</div>
 			</div>
 			<!--[pp] //검색결과 -->
 		</div>
@@ -299,9 +298,9 @@
                 ref: 'checked', type: 'checkbox',   style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["메시지Key"],	ref: 'msgKey',      type:'output',  width:'30%',    style:'text-align:center'},
-            {caption: ["메시지내용"], 	ref: 'msgCn',     	type:'output',  width:'50%',    style:'text-align:left'},
-            {caption: ["메시지종류"],  	ref: 'msgKndNm',    type:'output',  width:'20%',    style:'text-align:center'},
+            {caption: ["성명"],	ref: 'msgKey',      type:'output',  width:'30%',    style:'text-align:center'},
+            {caption: ["농업종사형태"], 	ref: 'msgCn',     	type:'output',  width:'50%',    style:'text-align:left'},
+            {caption: ["농업시작년도"],  	ref: 'msgKndNm',    type:'output',  width:'20%',    style:'text-align:center'},
             {caption: ["비고"],      	ref: 'rmrk',        type:'output',  hidden: true},
             {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
             {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},

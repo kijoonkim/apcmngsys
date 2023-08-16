@@ -122,15 +122,14 @@
 			   SET SYS_LAST_CHG_DT 			= SYSDATE
 	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-				 , PLT_BX_CD				= #{pltBxCd}
 	    		 , PLT_BX_NM				= #{pltBxNm}
 	    		 , UNIT_WGHT				= #{unitWght}
 	    		 , UNIT_CD					= #{unitCd}
 	    		 , BSS_INVNTR_QNTT			= #{bssInvntrQntt}
 	    		 , USE_YN					= #{useYn}
 			 WHERE APC_CD 		= #{apcCd}
-			   AND PLT_BX_SE_CD = #{pltBkSeCd}
-			   AND PLT_BX_CD  	= #{pltBkCd}
+			   AND PLT_BX_SE_CD = #{pltBxSeCd}
+			   AND PLT_BX_CD  	= #{pltBxCd}
 		]]>
 	</update>
 

@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.at.apcss.fm.fclt.vo.ＷholExmnSchdlMngVO;
 
 /**
- * 스마트자동화 Mapper 인터페이스
+ * 전수조사일정관리 Mapper 인터페이스
  * @author 정연두
  * @since 2023.06.21
  * @version 1.0
@@ -25,35 +25,35 @@ public interface ＷholExmnSchdlMngMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 전수조사일정관리정보를 조회한다.
 	 * @param wholExmnSchdlMngVO
 	 * @return
 	 */
 	public ＷholExmnSchdlMngVO selectＷholExmnSchdlMng(ＷholExmnSchdlMngVO wholExmnSchdlMngVO);
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 전수조사일정관리 목록을 조회한다.
 	 * @param wholExmnSchdlMngVO
 	 * @return
 	 */
 	public List<ＷholExmnSchdlMngVO> selectＷholExmnSchdlMngList(ＷholExmnSchdlMngVO wholExmnSchdlMngVO);
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 전수조사일정관리정보를 등록한다.
 	 * @param wholExmnSchdlMngVO
 	 * @return
 	 */
 	public int insertＷholExmnSchdlMng(ＷholExmnSchdlMngVO wholExmnSchdlMngVO);
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 전수조사일정관리정보를 변경한다.
 	 * @param wholExmnSchdlMngVO
 	 * @return
 	 */
 	public int updateＷholExmnSchdlMng(ＷholExmnSchdlMngVO wholExmnSchdlMngVO);
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 전수조사일정관리정보를 삭제한다.
 	 * @param wholExmnSchdlMngVO
 	 * @return
 	 */

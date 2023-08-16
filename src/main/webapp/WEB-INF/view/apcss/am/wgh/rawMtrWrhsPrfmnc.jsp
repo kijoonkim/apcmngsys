@@ -15,7 +15,8 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_rawMtrWrhsPrfmncSearch()">조회</sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_rawMtrWrhsPrfmncSearch" text="조회" ></sbux-button>
+					
 				</div>
 			</div>
 			<div>
@@ -186,7 +187,6 @@
     	<jsp:include page="../../am/popup/vhclPopup.jsp"></jsp:include>
     </div>
 
-
     <!-- 품종 선택 Modal -->
     <div>
         <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
@@ -222,20 +222,24 @@
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
 	}
     
-     const fn_setVrty = function(vrty) {
+    const fn_setVrty = function(vrty) {
 
 		if (!gfn_isEmpty(vrty)) {
 			console.log("vrty", vrty);
+			vrtyCds = [];
+			vrtyCds.push(vrty.vrtyCd);
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
 			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyNm);
 		}
 	}
-     
-     const fn_setVrtys = function(vrtys) {
+	var vrtyCds = [];
+    const fn_setVrtys = function(vrtys) {
 		if (!gfn_isEmpty(vrtys)) {
 			var _vrtys = [];
+			vrtyCds = [];
 			for(var i=0;i<vrtys.length;i++){
 				_vrtys.push(vrtys[i].vrtyNm);
+				vrtyCds.push(vrtys[i].vrtyCd);
 			}
 			SBUxMethod.set('srch-inp-vrtyCd', _vrtys.join(','));
 		}
@@ -284,22 +288,21 @@
 
 
 	    SBGridProperties.columns = [
-	        {caption: ["입고일자"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["순번"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["생산자"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["품목"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["품종"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["입고구분"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["운송구분"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["상품구분"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["차량구분"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["운송료"],		ref: 'msgKey',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["등급"],		ref: 'msgKey',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["입고중량"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["보관창고"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["계량번호"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["팔레트번호"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'200px',    style:'text-align:center'},
+	        {caption: ["입고일자"],		ref: 'wrhsYmd',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["생산자"],		ref: 'prdcrNm',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["품목"],		ref: 'itemNm',      type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["품종"],		ref: 'vrtyNm',      type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["입고구분"],		ref: 'wrhsSeNm',      type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["운송구분"],		ref: 'trsprtSeNm',      type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["상품구분"],		ref: 'gdsSeNm',      type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["차량구분"],		ref: 'trsprtSeNm',      type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["운송료"],		ref: 'trsprtCst',      type:'output',  width:'120px',    style:'text-align:right', format : {type:'number', rule:'#,### 원'}},
+	        {caption: ["등급"],		ref: 'grdNm',      type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["입고중량"],		ref: 'wrhsWght',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["보관창고"],		ref: 'warehouseSeNm',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["계량번호"],		ref: 'wghno',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["팔레트번호"],		ref: 'pltno',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["비고"],		ref: 'rmrk',      type:'output',  width:'200px',    style:'text-align:center'},
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -357,14 +360,145 @@
 		}
 	}
 	
-	function fn_rawMtrWrhsPrfmncSearch(){
-	   try{
-		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-startPrdctnYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endPrdctnYmd")))
-				   throw "입고일자는 필수입력 항목입니다.";
-	   } catch(e){
+	/**
+     * @name fn_rawMtrWrhsPrfmncSearch
+     * @description 조회 버튼
+     */
+    const fn_rawMtrWrhsPrfmncSearch = async function() {
+    	try{
+    		console.log("Test");
+ 		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-startPrdctnYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endPrdctnYmd")))
+ 				   throw "입고일자는 필수입력 항목입니다.";
+	        // set pagination
+	    	inptCmndDsctnList.rebuild();
+	    	let pageSize = inptCmndDsctnList.getPageSize();
+	    	let pageNo = 1;
+	
+	    	// grid clear
+	    	jsoninptCmndDsctnList.length = 0;
+	    	inptCmndDsctnList.clearStatus();
+	    	fn_setGrdRawMtrWrhsPrfmnc(pageSize, pageNo);
+ 	   } catch(e){
 		   alert(e);
 		   return;
 	   }
+	}
+	const fn_setGrdRawMtrWrhsPrfmnc = async function(pageSize, pageNo) {
+			console.log("Test");
+	   		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-startPrdctnYmd");		// 입고시작일자
+	   		let wrhsYmdTo = SBUxMethod.get("srch-dtp-endPrdctnYmd");		// 입고종료일자
+	   		
+// 	  		let wrhsSeCd = SBUxMethod.get("chk-wrhsKnd1");		// 입고구분
+	  		let wrhsSeCd = fn_getChkValue('chk-wrhsKnd', 4);	// 입고구분
+	  		let gdsSeCd = fn_getChkValue('chk-gsd', 4);	// 입고구분
+	  		let trsprtSeCd = fn_getChkValue('chk-trsprt', 3);	// 입고구분
+// 	  		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");		// 상품구분
+// 	  		let trsprtSeCd = SBUxMethod.get("srch-rdo-trsprtSeCd");	// 운송구분
+
+	  		// optional
+	  		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
+
+// 	  		let itemCd = SBUxMethod.get("srch-slt-itemCd");	// 품목
+// 	  		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");	// 품종
+// 			if (vrtyCds.length > 0)
+			let vrtyCd = vrtyCds.length > 0 ? '\''+vrtyCds.join('\',\'') + '\'' : "";
+	  		console.log("vrtyCd", vrtyCd);
+			const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsPrfmncList.do", {
+				apcCd: gv_selectedApcCd,
+// 				apcCd: '9999',
+				wrhsYmdFrom: wrhsYmdFrom,
+				wrhsYmdTo: wrhsYmdTo,
+				wrhsSeCd: wrhsSeCd,
+				gdsSeCd: gdsSeCd,
+				trsprtSeCd: trsprtSeCd,
+				prdcrCd: prdcrCd,
+// 				itemCd: itemCd,
+				vrtyCd: vrtyCd,
+
+	          	// pagination
+	  	  		pagingYn : 'Y',
+	  			currentPageNo : pageNo,
+	   		  	recordCountPerPage : pageSize
+	  		});
+			
+	        const data = await postJsonPromise;
+	 	   try{
+			/** @type {number} **/
+      		let totalRecordCount = 0;
+
+      		jsoninptCmndDsctnList.length = 0;
+          	data.resultList.forEach((item, index) => {
+          		const rawMtrWrhs = {
+  						rowSeq: item.rowSeq,
+  						apcCd: item.apcCd,
+  						apcNm: item.apcNm,
+  						wrhsno: item.wrhsno,
+  						wghno: item.wghno,
+  						pltno: item.pltno,
+  						wrhsYmd: item.wrhsYmd,
+  						prdcrCd: item.prdcrCd,
+  						prdcrNm: item.prdcrNm,
+  						itemCd: item.itemCd,
+  						itemNm: item.itemNm,
+  						vrtyCd: item.vrtyCd,
+  						vrtyNm: item.vrtyNm,
+  						gdsSeCd: item.gdsSeCd,
+  						gdsSeNm: item.gdsSeNm,
+  						wrhsSeCd: item.wrhsSeCd,
+  						wrhsSeNm: item.wrhsSeNm,
+  						trsprtSeCd: item.trsprtSeCd,
+  						trsprtSeNm: item.trsprtSeNm,
+  						grdCd: item.grdCd,
+  						grdNm: item.grdNm,
+  						vhclno: item.vhclno,
+  						bxQntt: item.bxQntt,
+  						wrhsWght: item.wrhsWght,
+  						bxKnd: item.bxKnd,
+  						bxKndNm: item.bxKndNm,
+  						warehouseSeCd: item.warehouseSeCd,
+  						warehouseSeNm: item.warehouseSeNm,
+  						rmrk: item.rmrk,
+  						trsprtCst: item.trsprtCst
+  				}
+  				jsoninptCmndDsctnList.push(rawMtrWrhs);
+
+  				if (index === 0) {
+  					totalRecordCount = item.totalRecordCount;
+  				}
+  			});
+
+          	if (jsoninptCmndDsctnList.length > 0) {
+          		if(inptCmndDsctnList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+          			inptCmndDsctnList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+          			inptCmndDsctnList.rebuild();
+  				}else{
+  					inptCmndDsctnList.refresh();
+  				}
+          	} else {
+          		inptCmndDsctnList.setPageTotalCount(totalRecordCount);
+          		inptCmndDsctnList.rebuild();
+          	}
+
+          	document.querySelector('#listCount').innerText = totalRecordCount;
+       } catch (e) {
+     		if (!(e instanceof Error)) {
+     			e = new Error(e);
+     		}
+     		console.error("failed", e.message);
+		}
+	}
+	
+	function fn_getChkValue(id, len){
+		result = [];
+		for(var i=1; i<=len; i++){
+			fullId = id+i;
+			if(SBUxMethod.get(fullId)[fullId] == true)
+				result.push(i);
+		}
+		if (result.length > 0)
+			return '\''+result.join('\',\'') + '\''
+		else
+			return "";
 	}
 	
 </script>

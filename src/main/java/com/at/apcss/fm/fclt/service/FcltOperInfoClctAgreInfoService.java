@@ -7,7 +7,7 @@ import com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO;
 
 
 /**
- * 공통메시지 Service 인터페이스
+ * 개인정보이용동의에 대한 Service 인터페이스
  * @author 신정철
  * @since 2023.06.21
  * @version 1.0
@@ -23,7 +23,7 @@ import com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO;
 public interface FcltOperInfoClctAgreInfoService {
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 개인정보이용동의정보를 조회한다.
 	 * @param fcltOperInfoClctAgreInfoVO
 	 * @return
 	 * @throws Exception
@@ -31,7 +31,7 @@ public interface FcltOperInfoClctAgreInfoService {
 	public FcltOperInfoClctAgreInfoVO selectFcltOperInfoClctAgreInfo(FcltOperInfoClctAgreInfoVO fcltOperInfoClctAgreInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 개인정보이용동의정보를 조회한다.
 	 * @param msgKey
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public interface FcltOperInfoClctAgreInfoService {
 	public FcltOperInfoClctAgreInfoVO selectFcltOperInfoClctAgreInfo(String msgKey) throws Exception;
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 개인정보이용동의 목록을 조회한다.
 	 * @param fcltOperInfoClctAgreInfoVO
 	 * @return
 	 * @throws Exception
@@ -48,7 +48,7 @@ public interface FcltOperInfoClctAgreInfoService {
 
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 개인정보이용동의정보를 등록한다.
 	 * @param fcltOperInfoClctAgreInfoVO
 	 * @return
 	 * @throws Exception
@@ -56,7 +56,7 @@ public interface FcltOperInfoClctAgreInfoService {
 	public int insertFcltOperInfoClctAgreInfo(FcltOperInfoClctAgreInfoVO fcltOperInfoClctAgreInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 개인정보이용동의정보를 변경한다.
 	 * @param fcltOperInfoClctAgreInfoVO
 	 * @return
 	 * @throws Exception
@@ -64,7 +64,7 @@ public interface FcltOperInfoClctAgreInfoService {
 	public int updateFcltOperInfoClctAgreInfo(FcltOperInfoClctAgreInfoVO fcltOperInfoClctAgreInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 개인정보이용동의정보를 삭제한다.
 	 * @param fcltOperInfoClctAgreInfoVO
 	 * @return
 	 * @throws Exception
@@ -72,7 +72,7 @@ public interface FcltOperInfoClctAgreInfoService {
 	public int deleteFcltOperInfoClctAgreInfo(FcltOperInfoClctAgreInfoVO fcltOperInfoClctAgreInfoVO) throws Exception;
 
 	/**
-	 * 메시지 목록을 삭제한다.
+	 * 개인정보이용동의 목록을 삭제한다.
 	 * @param fcltOperInfoClctAgreInfoList
 	 * @return
 	 * @throws Exception

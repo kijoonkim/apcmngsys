@@ -25,35 +25,35 @@ public interface FcltOgnzItemPrfmncMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 유통품목처리실적정보를 조회한다.
 	 * @param fcltOgnzItemPrfmncVO
 	 * @return
 	 */
 	public FcltOgnzItemPrfmncVO selectFcltOgnzItemPrfmnc(FcltOgnzItemPrfmncVO fcltOgnzItemPrfmncVO);
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 유통품목처리실적 목록을 조회한다.
 	 * @param fcltOgnzItemPrfmncVO
 	 * @return
 	 */
 	public List<FcltOgnzItemPrfmncVO> selectFcltOgnzItemPrfmncList(FcltOgnzItemPrfmncVO fcltOgnzItemPrfmncVO);
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 유통품목처리실적정보를 등록한다.
 	 * @param fcltOgnzItemPrfmncVO
 	 * @return
 	 */
 	public int insertFcltOgnzItemPrfmnc(FcltOgnzItemPrfmncVO fcltOgnzItemPrfmncVO);
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 유통품목처리실적정보를 변경한다.
 	 * @param fcltOgnzItemPrfmncVO
 	 * @return
 	 */
 	public int updateFcltOgnzItemPrfmnc(FcltOgnzItemPrfmncVO fcltOgnzItemPrfmncVO);
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 유통품목처리실적정보를 삭제한다.
 	 * @param fcltOgnzItemPrfmncVO
 	 * @return
 	 */
