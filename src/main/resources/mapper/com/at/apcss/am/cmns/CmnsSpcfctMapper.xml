@@ -204,15 +204,16 @@
     <select id="selectApcSpcfctList" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfctList */
-				  AGC.ITEM_CD
-				, AGC.APC_CD
-				, AGC.SPCFCT_CD
-				, AGC.SPCFCT_NM
-				, AGC.UNIT_CD
-				, AGC.PCKG_STTS_CD
-				, AGC.BX_GDS_QNTT
-				, AGC.WGHT
-			    , AGC.DEL_YN
+				  AGC.ITEM_CD		AS ITEM_CD
+				, AGC.APC_CD		AS APC_CD
+				, AGC.SPCFCT_CD		AS SPCFCT_CD
+				, AGC.SPCFCT_NM		AS SPCFCT_NM
+				, AGC.UNIT_CD		AS UNIT_CD
+				, AGC.PCKG_STTS_CD	AS PCKG_STTS_CD
+				, AGC.BX_GDS_QNTT	AS BX_GDS_QNTT
+				, AGC.WGHT			AS WGHT
+			    , AGC.DEL_YN		AS DEL_YN
+			    , AGC.SN			AS SN
 			  FROM TB_APC_SPCFCT_CRTR AGC
 			 WHERE AGC.APC_CD = #{apcCd}
 		]]>
@@ -228,7 +229,9 @@
 		<if test='delYn != null and delYn != ""'>
 			   AND AGC.DEL_YN = #{delYn}
 		</if>
-
+    	<![CDATA[
+    		ORDER BY SN
+		]]>
     </select>
 
     <!-- ==========================================================================	-->

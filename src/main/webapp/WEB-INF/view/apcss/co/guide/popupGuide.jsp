@@ -96,6 +96,12 @@
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"></sbux-button>
 							</td>
 							<td></td>
+							<th scope="row" >마감등록</th>
+							<td>
+								<sbux-button id="btnRegDdln" name="btnRegDdln" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-ddln" onclick="fn_modalDdln"></sbux-button>
+							</td>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
 							<th scope="row" >차량선택</th>
@@ -183,6 +189,14 @@
     </div>
     <div id="body-modal-trsprtCst">
     	<jsp:include page="../../am/popup/trsprtCstPopup.jsp"></jsp:include>
+    </div>
+    
+    <!-- 마감 등록 Modal -->
+    <div>
+        <sbux-modal id="modal-ddln" name="modal-ddln" uitype="middle" header-title="마감 등록" body-html-id="body-modal-ddln" footer-is-close-button="false" style="width:700px"></sbux-modal>
+    </div>
+    <div id="body-modal-ddln">
+    	<jsp:include page="../../am/popup/regDdlnPopup.jsp"></jsp:include>
     </div>
 
 <script type="text/javascript">
