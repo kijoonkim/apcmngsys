@@ -11,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.sort.service.SortCmndService;
 import com.at.apcss.am.sort.service.SortInptPrfmncService;
 import com.at.apcss.am.sort.service.SortMngService;
@@ -40,20 +41,20 @@ import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 @Service("sortMngService")
 public class SortMngServiceImpl extends BaseServiceImpl implements SortMngService {
 
-	
+
 	@Resource(name="cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
-	
+
 	@Resource(name="sortCmndService")
 	private SortCmndService sortCmndService;
-	
+
 	@Resource(name="sortInptPrfmncService")
-	private SortInptPrfmncService sortInptPrfmncService;	
-	
+	private SortInptPrfmncService sortInptPrfmncService;
+
 	@Resource(name="sortPrfmncService")
 	private SortPrfmncService sortPrfmncService;
 
-	
+
 	@Override
 	public HashMap<String, Object> insertSortCmnd(SortMngVO sortMngVO) throws Exception {
 		// TODO Auto-generated method stub
@@ -64,17 +65,17 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 	public HashMap<String, Object> insertSortInptPrfmnc(SortMngVO sortMngVO) throws Exception {
 
 		HashMap<String, Object> rtnObj = new HashMap<>();
-		
+
 		List<SortInptPrfmncVO> inptList = sortMngVO.getSortInptPrfmncList();
 
 		// 선별투입실적 등록용 list
 		List<SortInptPrfmncVO> sortInptPrfmncVOList = new ArrayList<>();
-		
+
 		// 선별실적 등록용 list
 		List<SortPrfmncVO> sortPrfmncVOList = new ArrayList<>();
-		
+
 		for ( SortInptPrfmncVO inptInfo : inptList ) {
-			
+
 			SortInptPrfmncVO inptVO = new SortInptPrfmncVO();
 			BeanUtils.copyProperties(sortMngVO, inptVO);
 			BeanUtils.copyProperties(inptInfo, inptVO,
@@ -85,25 +86,25 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 					ComConstants.PROP_SYS_LAST_CHG_DT,
 					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-			
+
 			// 투입실적 항목 set
-			
+
 			sortInptPrfmncVOList.add(inptVO);
-			
+
 			// 선별실적 vo
 			SortPrfmncVO sortPrfmncVO = new SortPrfmncVO();
 			BeanUtils.copyProperties(inptInfo, sortPrfmncVO);
 			// 선별실적 항목 set
 			sortPrfmncVOList.add(sortPrfmncVO);
 		}
-		
+
 		rtnObj = sortInptPrfmncService.insertSortInptPrfmncList(sortInptPrfmncVOList);
-		
+
 		if (rtnObj != null) {
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		// 실적 등록
 		sortMngVO.setSortPrfmncList(sortPrfmncVOList);
 		rtnObj = insertSortPrfmnc(sortMngVO);
@@ -111,7 +112,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		return null;
 	}
 
@@ -119,16 +120,22 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 	public HashMap<String, Object> insertSortPrfmnc(SortMngVO sortMngVO) throws Exception {
 
 		HashMap<String, Object> rtnObj = new HashMap<>();
-		
+
 		// 실적등록 대상정보 목록
 		List<SortPrfmncVO> prfmncList = sortMngVO.getSortPrfmncList();
-		
+
+		List<RawMtrInvntrVO> invntrList = sortMngVO.getRawMtrInvntrList();
+
+		// 재고 >> 선별실적 정보 set
+
+
+
 		// 선별실적 등록 시 투입실적도 함께 등록 (투입실적 여부 확인 후 등록)
 		if (ComConstants.CON_YES.equals(sortMngVO.getNeedsInptRegYn())) {
-			
+
 			List<SortInptPrfmncVO> sortInptPrfmncVOList = new ArrayList<>();
 			for ( SortPrfmncVO prfmncInfo : prfmncList ) {
-				
+
 				SortInptPrfmncVO inptVO = new SortInptPrfmncVO();
 				BeanUtils.copyProperties(prfmncInfo, inptVO);
 				BeanUtils.copyProperties(prfmncInfo, inptVO,
@@ -139,24 +146,24 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 						ComConstants.PROP_SYS_LAST_CHG_DT,
 						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-				
+
 				// 투입실적 항목 set
-				
+
 				sortInptPrfmncVOList.add(inptVO);
 			}
-			
+
 			rtnObj = sortInptPrfmncService.insertSortInptPrfmncList(sortInptPrfmncVOList);
 			if (rtnObj != null) {
 				// error throw exception;
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
-		
-		
-		
+
+
+
 		// 선별실적 등록
-		List<SortPrfmncVO> sortPrfmncVOList = new ArrayList<>();		
-		
+		List<SortPrfmncVO> sortPrfmncVOList = new ArrayList<>();
+
 		for ( SortPrfmncVO prfmncInfo : prfmncList ) {
 			SortPrfmncVO prfmncVO = new SortPrfmncVO();
 			BeanUtils.copyProperties(sortMngVO, prfmncVO);
@@ -168,16 +175,16 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 					ComConstants.PROP_SYS_LAST_CHG_DT,
 					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-			
+
 			sortPrfmncVOList.add(prfmncVO);
 		}
-		
+
 		rtnObj = sortPrfmncService.insertSortPrfmncList(sortPrfmncVOList);
 		if (rtnObj != null) {
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		return null;
 	}
 
@@ -216,7 +223,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
-	
+
+
+
 }
