@@ -11,13 +11,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ComAuthrtMenuVO extends ComVO {
-	
+
 	private String authrtId;
 	private String authrtNm;
 	private String useYn;
 	private String entyList;
 	private String menuId;
 	private String upMenuId;
+	private String topMenuId;
 	private String menuNm;
 	private String menuType;
 	private String menuTypeNm;
@@ -33,11 +34,11 @@ public class ComAuthrtMenuVO extends ComVO {
 	private String authrtType;
 	private String authrtRmrk;
 	private List<String> authrtIdList;
-	
+
 	public List<String> getAuthrtIdList() {
 		return this.authrtIdList == null ? null : authrtIdList.stream().collect(Collectors.toList());
 	}
-	
+
 	public void setAuthrtIdList(List<String> authrtIdList) {
 		this.authrtIdList = authrtIdList == null ? null : authrtIdList.stream().collect(Collectors.toList());
 	}
