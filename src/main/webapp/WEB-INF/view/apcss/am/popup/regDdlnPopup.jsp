@@ -61,9 +61,6 @@
 	}
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
-		SBUxMethod.set("ddln-inp-apcCd", gv_apcCd);
-		SBUxMethod.set("ddln-inp-apcNm", gv_apcNm);
-		
 		let today = new Date();
 		let year = today.getFullYear();
 		SBUxMethod.set("ddln-dtp-crtrYr", year);
@@ -198,7 +195,10 @@
 	}
 
 	// 모달 호출
-	async function fn_modalDdln(){
+	async function fn_modalDdln(_apcCd, _apcNm){
+		SBUxMethod.set("ddln-inp-apcCd", _apcCd);
+		SBUxMethod.set("ddln-inp-apcNm", _apcNm);
+		
 		fn_createDdlnGrid();
 		console.log("init DdlnPop");
 		fn_searchDdln();
