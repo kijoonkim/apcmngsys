@@ -178,17 +178,17 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-            {caption: ['지시일자'], 	ref: 'cmndYmd', 	width: '10%', type: 'output'},
-            {caption: ['거래처'], 	ref: 'cnptNm', 		width: '10%', type: 'output'},
-            {caption: ['상품명'], 	ref: 'gdsNm', 		width: '10%', type: 'output'},
-            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 	width: '10%', type: 'output'},
-            {caption: ['배송처'], 	ref: 'dldtn', 		width: '10%', type: 'output'},
-            {caption: ['수량'], 		ref: 'cmndQntt', 	width: '10%', type: 'output'},
-            {caption: ['중량'], 		ref: 'cmndWght', 	width: '10%', type: 'output'},
-            {caption: ['상품등급'], 	ref: 'gdsGrd', 		width: '10%', type: 'output'},
-            {caption: ['포장구분'], 	ref: 'pkcgSeCd', 	width: '10%', type: 'output'},
-            {caption: ['품종'], 		ref: 'vrtyNm', 		width: '10%', type: 'output'},
-            {caption: ['규격'], 		ref: 'spcfctNm', 	width: '10%', type: 'output'},
+            {caption: ['지시일자'], 	ref: 'cmndYmd', 	width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['거래처'], 	ref: 'cnptNm', 		width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['상품명'], 	ref: 'gdsNm', 		width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 	width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['배송처'], 	ref: 'dldtn', 		width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['수량'], 		ref: 'cmndQntt', 	width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['중량'], 		ref: 'cmndWght', 	width: '10%', type: 'output',	style:'text-align: right'},
+            {caption: ['상품등급'], 	ref: 'gdsGrd', 		width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['포장구분'], 	ref: 'pkcgSeCd', 	width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['품종'], 		ref: 'vrtyNm', 		width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['규격'], 		ref: 'spcfctNm', 	width: '10%', type: 'output',	style:'text-align: center'},
             {caption: ['비고'], 		ref: 'rmrk', 		width: '10%', type: 'output'},
 		    {caption: ['APC코드'], ref: 'apcCd', hidden : true}
         ];
