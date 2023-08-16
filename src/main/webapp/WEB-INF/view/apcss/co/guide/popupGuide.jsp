@@ -98,7 +98,7 @@
 							<td></td>
 							<th scope="row" >마감등록</th>
 							<td>
-								<sbux-button id="btnRegDdln" name="btnRegDdln" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-ddln" onclick="fn_modalDdln"></sbux-button>
+								<sbux-button id="btnRegDdln" name="btnRegDdln" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-ddln" onclick="fn_regDDln"></sbux-button>
 							</td>
 							<td></td>
 							<td></td>
@@ -315,6 +315,18 @@
 			SBUxMethod.set("srch-inp-vhclno", trsprtCst.vhclno);   // callBack input
 			SBUxMethod.set("srch-inp-trsprtCst", trsprtCst.trsprtCst);   // callBack input
 		}
+	}
+	/* End */
+	
+	
+	/* 마감등록 팝업 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_regDDln
+	 * @description 마감등록 호출
+	 */
+	const fn_regDDln = function() {
+		fn_modalDdln(gv_selectedApcCd, gv_selectedApcNm);
 	}
 	/* End */
 
