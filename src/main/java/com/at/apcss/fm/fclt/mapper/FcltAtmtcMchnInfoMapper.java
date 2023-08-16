@@ -25,35 +25,35 @@ public interface FcltAtmtcMchnInfoMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 스마트자동화정보를 조회한다.
 	 * @param fcltAtmtcMchnInfoVO
 	 * @return
 	 */
 	public FcltAtmtcMchnInfoVO selectFcltAtmtcMchnInfo(FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO);
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 스마트자동화 목록을 조회한다.
 	 * @param fcltAtmtcMchnInfoVO
 	 * @return
 	 */
 	public List<FcltAtmtcMchnInfoVO> selectFcltAtmtcMchnInfoList(FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO);
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 스마트자동화정보를 등록한다.
 	 * @param fcltAtmtcMchnInfoVO
 	 * @return
 	 */
 	public int insertFcltAtmtcMchnInfo(FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO);
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 스마트자동화정보를 변경한다.
 	 * @param fcltAtmtcMchnInfoVO
 	 * @return
 	 */
 	public int updateFcltAtmtcMchnInfo(FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO);
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 스마트자동화정보를 삭제한다.
 	 * @param fcltAtmtcMchnInfoVO
 	 * @return
 	 */

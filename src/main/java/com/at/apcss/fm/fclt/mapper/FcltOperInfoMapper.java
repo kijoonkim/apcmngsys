@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
 
 /**
- * 개인정보 이용동의 Mapper 인터페이스
+ * 운영자개요 Mapper 인터페이스
  * @author 정연두
  * @since 2023.06.21
  * @version 1.0
@@ -25,35 +25,35 @@ public interface FcltOperInfoMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 운영자개요정보를 조회한다.
 	 * @param fcltOperInfoVO
 	 * @return
 	 */
 	public FcltOperInfoVO selectFcltOperInfo(FcltOperInfoVO fcltOperInfoVO);
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 운영자개요 목록을 조회한다.
 	 * @param fcltOperInfoVO
 	 * @return
 	 */
 	public List<FcltOperInfoVO> selectFcltOperInfoList(FcltOperInfoVO fcltOperInfoVO);
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 운영자개요정보를 등록한다.
 	 * @param fcltOperInfoVO
 	 * @return
 	 */
 	public int insertFcltOperInfo(FcltOperInfoVO fcltOperInfoVO);
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 운영자개요정보를 변경한다.
 	 * @param fcltOperInfoVO
 	 * @return
 	 */
 	public int updateFcltOperInfo(FcltOperInfoVO fcltOperInfoVO);
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 운영자개요정보를 삭제한다.
 	 * @param fcltOperInfoVO
 	 * @return
 	 */

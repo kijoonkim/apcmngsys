@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO;
 
 /**
- * 시설설치현황 Mapper 인터페이스
+ * 선별기운영 Mapper 인터페이스
  * @author 정연두
  * @since 2023.06.21
  * @version 1.0
@@ -25,35 +25,35 @@ public interface FcltSortMchnInfoMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 선별기운영정보를 조회한다.
 	 * @param fcltSortMchnInfoVO
 	 * @return
 	 */
 	public FcltSortMchnInfoVO selectFcltSortMchnInfo(FcltSortMchnInfoVO fcltSortMchnInfoVO);
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 선별기운영 목록을 조회한다.
 	 * @param fcltSortMchnInfoVO
 	 * @return
 	 */
 	public List<FcltSortMchnInfoVO> selectFcltSortMchnInfoList(FcltSortMchnInfoVO fcltSortMchnInfoVO);
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 선별기운영정보를 등록한다.
 	 * @param fcltSortMchnInfoVO
 	 * @return
 	 */
 	public int insertFcltSortMchnInfo(FcltSortMchnInfoVO fcltSortMchnInfoVO);
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 선별기운영정보를 변경한다.
 	 * @param fcltSortMchnInfoVO
 	 * @return
 	 */
 	public int updateFcltSortMchnInfo(FcltSortMchnInfoVO fcltSortMchnInfoVO);
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 선별기운영정보를 삭제한다.
 	 * @param fcltSortMchnInfoVO
 	 * @return
 	 */

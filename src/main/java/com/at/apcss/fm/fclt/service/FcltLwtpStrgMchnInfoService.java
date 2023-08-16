@@ -7,7 +7,7 @@ import com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO;
 
 
 /**
- * 공통메시지 Service 인터페이스
+ * 저온저장고운영 Service 인터페이스
  * @author 신정철
  * @since 2023.06.21
  * @version 1.0
@@ -23,7 +23,7 @@ import com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO;
 public interface FcltLwtpStrgMchnInfoService {
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 저온저장고운영정보를 조회한다.
 	 * @param fcltLwtpStrgMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -31,7 +31,7 @@ public interface FcltLwtpStrgMchnInfoService {
 	public FcltLwtpStrgMchnInfoVO selectFcltLwtpStrgMchnInfo(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 저온저장고운영정보를 조회한다.
 	 * @param msgKey
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public interface FcltLwtpStrgMchnInfoService {
 	public FcltLwtpStrgMchnInfoVO selectFcltLwtpStrgMchnInfo(String msgKey) throws Exception;
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 저온저장고운영 목록을 조회한다.
 	 * @param fcltLwtpStrgMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -48,7 +48,7 @@ public interface FcltLwtpStrgMchnInfoService {
 
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 저온저장고운영정보를 등록한다.
 	 * @param fcltLwtpStrgMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -56,7 +56,7 @@ public interface FcltLwtpStrgMchnInfoService {
 	public int insertFcltLwtpStrgMchnInfo(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 저온저장고운영정보를 변경한다.
 	 * @param fcltLwtpStrgMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -64,7 +64,7 @@ public interface FcltLwtpStrgMchnInfoService {
 	public int updateFcltLwtpStrgMchnInfo(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO) throws Exception;
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 저온저장고운영정보를 삭제한다.
 	 * @param fcltLwtpStrgMchnInfoVO
 	 * @return
 	 * @throws Exception
@@ -72,7 +72,7 @@ public interface FcltLwtpStrgMchnInfoService {
 	public int deleteFcltLwtpStrgMchnInfo(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO) throws Exception;
 
 	/**
-	 * 메시지 목록을 삭제한다.
+	 * 저온저장고운영 목록을 삭제한다.
 	 * @param fcltLwtpStrgMchnInfoList
 	 * @return
 	 * @throws Exception

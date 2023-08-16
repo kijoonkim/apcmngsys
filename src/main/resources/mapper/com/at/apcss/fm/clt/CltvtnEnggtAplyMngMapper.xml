@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : CltvtnEnggtAplyMngMapper.xml                                    				-->
+<!-- DESC : 재배약정계획관리 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.selectCltvtnEnggtAplyMng				-->
+	<!-- DESC : 재배약정계획관리 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectCltvtnEnggtAplyMng" parameterType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO" resultType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.selectCltvtnEnggtAplyMng */
+				  CM.MSG_KEY	AS MSG_KEY
+				, CM.MSG_CN		AS MSG_CN
+				, CM.MSG_KND	AS MSG_KND
+				, CM.RMRK		AS RMRK
+				, CM.DEL_YN		AS DEL_YN
+				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_COM_MSG CM
+			 WHERE CM.MSG_KEY = #{msgKey}
+    	]]>
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.selectCltvtnEnggtAplyMngList			-->
+	<!-- DESC : 재배약정계획관리 테이블 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectCltvtnEnggtAplyMngList" parameterType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO" resultType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+			SELECT /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.selectCltvtnEnggtAplyMngList */
+				  CM.MSG_KEY	AS MSG_KEY
+				, CM.MSG_CN		AS MSG_CN
+				, CM.MSG_KND	AS MSG_KND
+				, (SELECT FN_GET_COM_CD_VL_NM('MSG_KND', CM.MSG_KND) FROM DUAL) AS MSG_KND_NM
+				, CM.RMRK		AS RMRK
+				, CM.DEL_YN		AS DEL_YN
+				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_COM_MSG CM
+    	]]>
+    	<where>
+			<if test='msgKey != null and msgKey != ""'>
+				AND CM.MSG_KEY LIKE #{msgKey} || '%'
+			</if>
+
+			<if test='msgCn != null and msgCn != ""'>
+				AND CM.MSG_CN LIKE '%' || #{msgCn} || '%'
+			</if>
+
+			<if test='msgKnd != null and msgKnd != ""'>
+				AND CM.MSG_KND = #{msgKnd}
+			</if>
+
+			<if test='delYn != null and delYn != ""'>
+				AND CM.DEL_YN = #{delYn}
+			</if>
+		</where>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.insertCltvtnEnggtAplyMng				-->
+	<!-- DESC : 재배약정계획관리 등록                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertCltvtnEnggtAplyMng" parameterType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.insertCltvtnEnggtAplyMng */
+	    	  INTO TB_COM_MSG
+	    		(
+	    			MSG_KEY
+	    		  , MSG_CN
+	    		  , MSG_KND
+	    		  , RMRK
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+	   			    #{msgKey}
+	   			  , #{msgCn}
+	   			  , #{msgKnd}
+	   			  , #{rmrk}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysLastChgUserId}
+	   			  , #{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.updateCltvtnEnggtAplyMng				-->
+	<!-- DESC : 재배약정계획관리 변경                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateCltvtnEnggtAplyMng" parameterType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.updateCltvtnEnggtAplyMng */
+	    		TB_COM_MSG
+			   SET
+			 	  MSG_CN	= #{msgCn}
+			 	, MSG_KND 	= #{msgKnd}
+			 	, RMRK 		= #{rmrk}
+    	]]>
+		<if test='delYn != null and delYn != ""'>
+				, DEL_YN 	= #{delYn}
+		</if>
+    	<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			 WHERE MSG_KEY	= #{msgKey}
+    	]]>
+    </update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.deleteCltvtnEnggtAplyMng				-->
+	<!-- DESC : 재배약정계획관리 삭제                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteCltvtnEnggtAplyMng" parameterType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
+    	<![CDATA[
+	    	DELETE /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.deleteCltvtnEnggtAplyMng */
+	    		TB_COM_MSG
+			 WHERE MSG_KEY	= #{msgKey}
+    	]]>
+    </delete>
+
+</mapper>
