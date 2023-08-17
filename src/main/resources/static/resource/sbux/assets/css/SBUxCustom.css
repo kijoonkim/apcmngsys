@@ -38,5 +38,10 @@ span.sbux-pik-group {
 .content {
 	padding: 0px !important;
 }
+.box-title{
+	line-height: 30px !important;
+}
 
-
+select.form-control.input-sm.inpt_data_reqed {
+	background-color:#FFF8DC !important;
+}
