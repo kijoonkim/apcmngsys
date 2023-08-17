@@ -23,19 +23,22 @@
     <select id="selectFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.selectFcltUnityMngInfo */
-				  CM.MSG_KEY	AS MSG_KEY
-				, CM.MSG_CN		AS MSG_CN
-				, CM.MSG_KND	AS MSG_KND
-				, CM.RMRK		AS RMRK
-				, CM.DEL_YN		AS DEL_YN
-				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
-				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
-				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_COM_MSG CM
-			 WHERE CM.MSG_KEY = #{msgKey}
+				  FCLT.TRGT_YR                 AS TRGT_YR
+				, FCLT.APC_CD                  AS APC_CD
+				, FCLT.SN                      AS SN
+				, FCLT.FCLT_SYS_INSTL_CD       AS FCLT_SYS_INSTL_CD
+				, FCLT.FCLT_SYS_HLD_YN         AS FCLT_SYS_HLD_YN
+				, FCLT.DEL_YN                  AS DEL_YN
+				, FCLT.SYS_FRST_INPT_DT        AS SYS_FRST_INPT_DT
+				, FCLT.SYS_FRST_INPT_USER_ID   AS SYS_FRST_INPT_USER_ID
+				, FCLT.SYS_FRST_INPT_PRGRM_ID  AS SYS_FRST_INPT_PRGRM_ID
+				, FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
+				, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
+			    , FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
+			 FROM TB_FCLT_UNTY_MNG_INFO FCLT
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
     	]]>
     </select>
 
@@ -60,37 +63,23 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.selectFcltUnityMngInfoList */
-				  CM.MSG_KEY	AS MSG_KEY
-				, CM.MSG_CN		AS MSG_CN
-				, CM.MSG_KND	AS MSG_KND
-				, (SELECT FN_GET_COM_CD_VL_NM('MSG_KND', CM.MSG_KND) FROM DUAL) AS MSG_KND_NM
-				, CM.RMRK		AS RMRK
-				, CM.DEL_YN		AS DEL_YN
-				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
-				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
-				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_COM_MSG CM
+				  FCLT.TRGT_YR                 AS TRGT_YR
+				, FCLT.APC_CD                  AS APC_CD
+				, FCLT.SN                      AS SN
+				, FCLT.FCLT_SYS_INSTL_CD       AS FCLT_SYS_INSTL_CD
+				, FCLT.FCLT_SYS_HLD_YN         AS FCLT_SYS_HLD_YN
+				, FCLT.DEL_YN                  AS DEL_YN
+				, FCLT.SYS_FRST_INPT_DT        AS SYS_FRST_INPT_DT
+				, FCLT.SYS_FRST_INPT_USER_ID   AS SYS_FRST_INPT_USER_ID
+				, FCLT.SYS_FRST_INPT_PRGRM_ID  AS SYS_FRST_INPT_PRGRM_ID
+				, FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
+				, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
+			    , FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
+			 FROM TB_FCLT_UNTY_MNG_INFO FCLT
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
     	]]>
-    	<where>
-			<if test='msgKey != null and msgKey != ""'>
-				AND CM.MSG_KEY LIKE #{msgKey} || '%'
-			</if>
-
-			<if test='msgCn != null and msgCn != ""'>
-				AND CM.MSG_CN LIKE '%' || #{msgCn} || '%'
-			</if>
-
-			<if test='msgKnd != null and msgKnd != ""'>
-				AND CM.MSG_KND = #{msgKnd}
-			</if>
-
-			<if test='delYn != null and delYn != ""'>
-				AND CM.DEL_YN = #{delYn}
-			</if>
-		</where>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -111,12 +100,14 @@
     <insert id="insertFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.insertFcltUnityMngInfo */
-	    	  INTO TB_COM_MSG
+	    	  INTO TB_FCLT_UNTY_MNG_INFO FCLT
 	    		(
-	    			MSG_KEY
-	    		  , MSG_CN
-	    		  , MSG_KND
-	    		  , RMRK
+	    			TRGT_YR
+	    		  , APC_CD
+	    		  , SN
+	    		  , FCLT_SYS_INSTL_CD
+	    		  , FCLT_SYS_HLD_YN
+	    		  , DEL_YN
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
@@ -126,20 +117,21 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    #{msgKey}
-	   			  , #{msgCn}
-	   			  , #{msgKnd}
-	   			  , #{rmrk}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
+	   			    #{TRGT_YR}
+	   			  , #{APC_CD}
+	   			  , #{SN}
+	   			  , #{FCLT_SYS_INSTL_CD}
+	   			  , #{FCLT_SYS_HLD_YN}
+	   			  , #{DEL_YN}
+	   			  , #{SYS_FRST_INPT_DT}
+	   			  , #{SYS_FRST_INPT_USER_ID}
+	   			  , #{SYS_FRST_INPT_PRGRM_ID}
+	   			  , #{SYS_LAST_CHG_DT}
+	   		      , #{SYS_LAST_CHG_USER_ID}
+	   		      , #{SYS_LAST_CHG_PRGRM_ID}
 	   			)
     	]]>
     </insert>
-
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.updateFcltUnityMngInfo				-->
 	<!-- DESC : 통합관리시스템활용 변경                                             				-->
@@ -151,11 +143,13 @@
     <update id="updateFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.updateFcltUnityMngInfo */
-	    		TB_COM_MSG
+	    		TB_FCLT_UNTY_MNG_INFO FCLT
 			   SET
-			 	  MSG_CN	= #{msgCn}
-			 	, MSG_KND 	= #{msgKnd}
-			 	, RMRK 		= #{rmrk}
+			 	  TRGT_YR           = #{TRGT_YR}
+			 	, APC_CD            = #{APC_CD}
+			 	, SN                = #{SN}
+			 	, FCLT_SYS_INSTL_CD = #{FCLT_SYS_INSTL_CD}
+			 	, FCLT_SYS_HLD_YN   = #{FCLT_SYS_HLD_YN}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
@@ -165,7 +159,9 @@
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE MSG_KEY	= #{msgKey}
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
     	]]>
     </update>
 
@@ -180,8 +176,10 @@
     <delete id="deleteFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.deleteFcltUnityMngInfo */
-	    		TB_COM_MSG
-			 WHERE MSG_KEY	= #{msgKey}
+	    		TB_FCLT_UNTY_MNG_INFO FCLT
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
     	]]>
     </delete>
 
