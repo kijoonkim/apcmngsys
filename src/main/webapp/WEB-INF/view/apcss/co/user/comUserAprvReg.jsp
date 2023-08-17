@@ -110,6 +110,7 @@ async function fn_createUserAprvRegGrid() {
 	    SBGridProperties1.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties1.selectmode = 'byrow';
 	    SBGridProperties1.extendlastcol = 'scroll';
+	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties1.columns = [
 	         {caption: ["선택"],			ref: 'chc',      	type:'checkbox',width:'5px'},
 	         {caption: ["승인여부"], 	ref: 'aprvYn',     	type:'input',  	width:'15%', style:'text-align:center'},

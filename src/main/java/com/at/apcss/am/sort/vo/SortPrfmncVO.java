@@ -157,4 +157,8 @@ public class SortPrfmncVO extends ComVO {
 	 * 원물창고
 	 */
 	private String rawMtrWarehouse;
+	
+	private String startsortYmd;
+	private String endSortYmd;
+	private String strgWarehouse;
 }
