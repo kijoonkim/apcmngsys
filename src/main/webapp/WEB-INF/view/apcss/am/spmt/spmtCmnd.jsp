@@ -70,7 +70,7 @@
 						<tr>
 							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="전체" class="form-control input-sm" onchange="fn_selectItem" ></sbux-select>
+								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="선택" class="form-control input-sm" onchange="fn_selectItem" ></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" jsondata-ref="jsonApcVrty" unselected-text="선택" class="form-control input-sm"></sbux-select>
@@ -237,7 +237,7 @@
 				  , cmndQntt	: item.cmndQntt
 				  , cmndWght 	: item.cmndWght
 				  , gdsGrd 		: item.gdsGrd
-				  , pkcgSe 		: item.pkcgSe
+				  , pckgSe 		: item.pckgSe
 				  , vrtyNm 		: item.vrtyNm
 				  , spcfctNm 	: item.spcfctNm
 				  , rmrk		: item.rmrk
