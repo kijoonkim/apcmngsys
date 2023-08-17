@@ -219,7 +219,7 @@
 									uitype="text"
 									id="srch-inp-vhclno"
 									name="srch-inp-vhclno"
-									class="form-control input-sm inpt_data_reqed"
+									class="form-control input-sm"
 									autocomplete="off"
 									readonly
 								/>

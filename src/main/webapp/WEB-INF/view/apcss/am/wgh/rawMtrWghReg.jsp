@@ -144,6 +144,19 @@
 							</td>
 						</tr>
 						<tr>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>차량번호</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-vhclno"
+									name="dtl-inp-vhclno"
+									class="form-control input-sm inpt_data_reqed"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="3" class="td_input"  style="border-right: hidden;">
+								<sbux-button id="btnSrchVhclno" name="btnSrchVhclno" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_choiceVhcl"></sbux-button>
+							</td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>전체중량</th>
 							<td class="td_input" style="border-right:hidden;" >
 								<sbux-input
@@ -172,6 +185,8 @@
 								></sbux-input>
 							</td>
 							<td colspan="3" style="border-right:hidden;">Kg</td>
+						</tr>
+						<tr>
 							<th scope="row" class="th_bg">감량</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
@@ -185,8 +200,6 @@
 								></sbux-input>
 							</td>
 							<td colspan="3">%</td>
-						</tr>
-						<tr>
 							<th scope="row" class="th_bg">감량</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
@@ -196,7 +209,7 @@
 									class="form-control input-sm"
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 									readonly
-								></sbux-input>
+								/>
 							</td>
 							<td colspan="3">Kg</td>
 							<th scope="row" class="th_bg">실중량</th>
@@ -211,19 +224,6 @@
 								></sbux-input>
 							</td>
 							<td colspan="3">Kg</td>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>차량번호</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input
-									uitype="text"
-									id="dtl-inp-vhclno"
-									name="dtl-inp-vhclno"
-									class="form-control input-sm inpt_data_reqed"
-									autocomplete="off"
-								></sbux-input>
-							</td>
-							<td colspan="2" class="td_input"  style="border-right: hidden;">
-								<sbux-button id="btnSrchVhclno" name="btnSrchVhclno" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_choiceVhcl"></sbux-button>
-							</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">팔레트</th>
