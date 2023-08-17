@@ -25,7 +25,7 @@
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<!--[APC] START -->
-				<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -92,16 +92,16 @@
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>출하지시 내역</span></li>
-						</ul>
-					</div>
-						<div class="table-responsive tbl_scroll_sm">
-							<div id="sb-area-grdSpmtCmnd" style="width:100%;height:600px;"></div>
-						</div>
-					</div>
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>출하지시 내역</span></li>
+					</ul>
 				</div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdSpmtCmnd" style="width:100%;height:600px;"></div>
+				</div>
+			</div>
+		</div>
 				<!--[pp] //검색결과 -->
 	</section>
 	<!-- 거래처 선택 Modal -->
