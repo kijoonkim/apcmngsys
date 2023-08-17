@@ -274,6 +274,9 @@
 		<if test='itemCd != null and itemCd = ""'>
 			AND ITEM_CD = #{itmeCd}
 		</if>
+		<if test='itemNm != null and itemNm = ""'>
+			AND ITEM_Nm = #{itmeNm}
+		</if>
 		<![CDATA[
 			order by ITEM_CD
 		]]>
