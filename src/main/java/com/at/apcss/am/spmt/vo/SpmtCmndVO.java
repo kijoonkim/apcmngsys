@@ -98,6 +98,11 @@ public class SpmtCmndVO extends ComVO {
 	 * 포장구분코드
 	 */
 	private String pckgSeCd;
+	
+	/**
+	 * 포장구분
+	 */
+	private String pckgSe;
 
 	/**
 	 * 발주번호

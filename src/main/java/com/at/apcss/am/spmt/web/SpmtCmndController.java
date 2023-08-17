@@ -53,7 +53,7 @@ public class SpmtCmndController extends BaseController {
 		return "apcss/am/spmt/spmtCmnd";
 	}
 	
-	// 출하지시조회
+	// 출하지시 조회
 	@PostMapping(value = "/am/spmt/selectSpmtCmndList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectSpmtCmndList(@RequestBody SpmtCmndVO SpmtCmndVO, HttpServletRequest request) throws Exception {
 		logger.debug("selectSpmtCmndList 호출 <><><><> ");

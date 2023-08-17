@@ -33,8 +33,8 @@
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 3%">
 						<col style="width: 6%">
+						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
@@ -44,7 +44,7 @@
 						<tr>
 							<th scope="row" class="th_bg">APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-acpNm" name="srch-inp-acpNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
+								<sbux-input id="srch-inp-acpNm" name="srch-inp-acpNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -62,7 +62,7 @@
 								<sbux-input id="srch-inp-cnptCd" name="srch-inp-cnptCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btn_norm" name="btn_norm" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
+								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
 							<th scope="row" class="th_bg" style="border-right: hidden;">운송회사</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -101,7 +101,7 @@
 						</ul>
 					</div>
 						<div class="table-responsive tbl_scroll_sm">
-							<div id="sb-area-grdSpmtCmndDsctn" style="width:100%;height:600px;"></div>
+							<div id="sb-area-grdSpmtCmnd" style="width:100%;height:600px;"></div>
 						</div>
 					</div>
 				</div>
@@ -109,7 +109,7 @@
 	</section>
 	<!-- 거래처 선택 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-cnpt">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
@@ -128,7 +128,6 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-
 			gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', jsonTrsprtCo, gv_selectedApcCd),				// 운송회사
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),					// 품목
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),					// 품종
@@ -153,15 +152,14 @@
 		SBUxMethod.set("srch-dtp-fromCmndYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-toCmndYmd", year+month+day);
 		
-		fn_createSpmtCmndDsctnGrid();
+		fn_createSpmtCmndGrid();
 		fn_search();
 		fn_initSBSelect();
 	})
 
-
-	function fn_createSpmtCmndDsctnGrid() {
+	function fn_createSpmtCmndGrid() {
         var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdSpmtCmndDsctn';
+	    SBGridProperties.parentid = 'sb-area-grdSpmtCmnd';
 	    SBGridProperties.id = 'grdSmptCmnd';
 	    SBGridProperties.jsonref = 'jsonSmptCmnd';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
@@ -178,25 +176,24 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-            {caption: ['지시일자'], 	ref: 'cmndYmd', 	width: '10%', type: 'output',	style:'text-align: center'},
-            {caption: ['거래처'], 	ref: 'cnptNm', 		width: '10%', type: 'output',	style:'text-align: center'},
-            {caption: ['상품명'], 	ref: 'gdsNm', 		width: '10%', type: 'output',	style:'text-align: center'},
-            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 	width: '10%', type: 'output',	style:'text-align: center'},
-            {caption: ['배송처'], 	ref: 'dldtn', 		width: '10%', type: 'output',	style:'text-align: center'},
-            {caption: ['수량'], 		ref: 'cmndQntt', 	width: '10%', type: 'output',	style:'text-align: center'},
-            {caption: ['중량'], 		ref: 'cmndWght', 	width: '10%', type: 'output',	style:'text-align: right'},
-            {caption: ['상품등급'], 	ref: 'gdsGrd', 		width: '10%', type: 'output',	style:'text-align: center'},
-            {caption: ['포장구분'], 	ref: 'pkcgSeCd', 	width: '10%', type: 'output',	style:'text-align: center'},
-            {caption: ['품종'], 		ref: 'vrtyNm', 		width: '10%', type: 'output',	style:'text-align: center'},
-            {caption: ['규격'], 		ref: 'spcfctNm', 	width: '10%', type: 'output',	style:'text-align: center'},
-            {caption: ['비고'], 		ref: 'rmrk', 		width: '10%', type: 'output'},
-		    {caption: ['APC코드'], ref: 'apcCd', hidden : true}
+            {caption: ['지시일자'], 	ref: 'cmndYmd', 	width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['거래처'], 	ref: 'cnptNm', 		width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['상품명'], 	ref: 'gdsNm', 		width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 	width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['배송처'], 	ref: 'dldtn', 		width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['수량'], 		ref: 'cmndQntt', 	width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['중량'], 		ref: 'cmndWght', 	width: '10%',	type: 'output',	style:'text-align: right'},
+            {caption: ['상품등급'], 	ref: 'gdsGrd', 		width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['포장구분'], 	ref: 'pkcgSe', 		width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['품종'], 		ref: 'vrtyNm', 		width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['규격'], 		ref: 'spcfctNm', 	width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['비고'], 		ref: 'rmrk', 		width: '10%',	type: 'output'}
         ];
         grdSmptCmnd = _SBGrid.create(SBGridProperties);
         grdSmptCmnd.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
     }
 	
-	// APC 내역 목록 조회 (조회 버튼)
+	// 출하지시 목록 조회 (조회 버튼)
     async function fn_search() {
     	let recordCountPerPage = grdSmptCmnd.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
@@ -205,7 +202,7 @@
 	
 	let newJsonSmptCmnd = [];
 	
-	// APC 내역 목록 조회 호출
+	// 출하지시 목록 조회 호출
 	async function fn_callSelectSpmtCmndList(recordCountPerPage, currentPageNo){
 		jsonSmptCmnd = [];
 		let apcCd = gv_selectedApcCd;
@@ -235,8 +232,7 @@
         try{
         	data.resultList.forEach((item, index) => {
 				let spmtCmnd = {
-					apcCd 		: item.apcCd
-				  , cmndYmd 	: item.cmndYmd
+				    cmndYmd 	: item.cmndYmd
 				  , cnptNm 		: item.cnptNm
 				  , gdsNm 		: item.gdsNm
 				  , trsprtCoNm 	: item.trsprtCoNm
@@ -244,7 +240,7 @@
 				  , cmndQntt	: item.cmndQntt
 				  , cmndWght 	: item.cmndWght
 				  , gdsGrd 		: item.gdsGrd
-				  , pkcgSeCd 	: item.pkcgSeCd
+				  , pkcgSe 		: item.pkcgSe
 				  , vrtyNm 		: item.vrtyNm
 				  , spcfctNm 	: item.spcfctNm
 				  , rmrk		: item.rmrk

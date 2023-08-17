@@ -72,6 +72,7 @@
 		     , TO_CHAR(WV.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI')   AS SYS_LAST_CHG_DT
 		  FROM TB_WRHS_VHCL_INFO WV
 		 WHERE WV.APC_CD = #{apcCd}
+		   AND WV.DEL_YN = 'N'
 		]]>
 		<if test='vhclno != null and vhclno !=""'>
 		   AND WV.VHCLNO LIKE '%' || #{vhclno} || '%'
