@@ -24,6 +24,9 @@
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
+				<!--[APC] START -->
+				<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -41,12 +44,6 @@
 						<col style="width: 3%">
 					</colgroup>
 					<tbody>
-						<tr>
-							<th scope="row" class="th_bg">APC명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-acpNm" name="srch-inp-acpNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
-							</td>
-						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
