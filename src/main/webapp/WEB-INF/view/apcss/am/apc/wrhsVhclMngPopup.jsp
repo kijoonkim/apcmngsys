@@ -88,6 +88,7 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.columns = [
 	        {caption: ["차량번호"], 	ref: 'vhclno',  type:'input',  width:'120px',    style:'text-align:center'},
 	        {caption: ["기사명"], 		ref: 'drvrNm',  type:'input',  width:'80px',    style:'text-align:center'},
@@ -166,6 +167,7 @@
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
             {caption: ["코드"], 			ref: 'trsprtRgnCd',  	type:'input',  width:'100px',     style:'text-align:center', hidden : true},
             {caption: ["운송지역"], 		ref: 'trsprtRgnNm',  	type:'input',  width:'320px',    style:'text-align:center'},

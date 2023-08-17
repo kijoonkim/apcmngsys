@@ -134,7 +134,14 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
-
+	    SBGridProperties.scrollbubbling = false;
+	    SBGridProperties.paging = {
+				'type' : 'page',
+			  	'count' : 5,
+			  	'size' : 20,
+			  	'sorttype' : 'page',
+			  	'showgoalpageui' : true
+	    };
 
 	    SBGridProperties.columns = [
 	        {caption: ["구분","구분"],		ref: 'msgKey',      type:'output',  width:'170px',    style:'text-align:center'},
@@ -171,6 +178,7 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
