@@ -218,17 +218,17 @@
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.rowheader = 'seq';
-		SBGridProperties.rowheadercaption = {seq: 'No'};
+		SBGridProperties.rowheadercaption = {seq: 'sN'};
         SBGridProperties.rowheaderwidth = {seq: '60'};
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
 
-        	{caption: ['선별기품목'], ref: 'wghno', width: '20%', type: 'output', style:'text-align:center'},
-            {caption: ['보유현황'], ref: 'prdcrNm', width: '20%', type: 'output', style:'text-align:center'},
+        	{caption: ['선별기품목'], ref: 'sortMchnItemCd', width: '20%', type: 'output', style:'text-align:center'},
+            {caption: ['보유현황'], ref: 'sortMchnHldYn', width: '20%', type: 'output', style:'text-align:center'},
             {caption: ['처리능력(톤)'], ref: 'itemNm', width: '20%', type: 'output', style:'text-align:center'},
             {caption: ['처리물량(톤)'], ref: 'vrtyNm', width: '20%', type: 'output', style:'text-align:center'},
-            {caption: ['연간가동시간(시간)'], ref: 'gdsSeNm', width: '20%', type: 'output', style:'text-align:center'},
+            {caption: ['연간가동시간(시간)'], ref: 'sortMchnPrcsHr', width: '20%', type: 'output', style:'text-align:center'},
             {caption: ['평균가동일수'], ref: 'wrhsSeNm', width: '20%', type: 'output', style:'text-align:center'},
         ];
 

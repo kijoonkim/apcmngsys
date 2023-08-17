@@ -9,9 +9,14 @@ import lombok.Setter;
 @Setter
 public class FcltSortMchnOperInfoVO extends ComVO{
 
-	private String msgKey;
-	private String msgCn;
-	private String msgKnd;
-	private String msgKndNm;
-	private String rmrk;
+	private String trgtYr;
+	private String apcCd;
+	private int sN;
+	private String sortMchnItemCd;
+	private String sortMchnOperCd;
+	private String sortMchnOperYn;
 }
+
+
+
+
