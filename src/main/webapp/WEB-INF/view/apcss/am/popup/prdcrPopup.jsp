@@ -178,7 +178,7 @@
 					typeinfo: {ref:'jsonComClclnCrtrPrdcrPop', label:'label', value:'value', displayui : false}
 				},
 		        {caption: ['차량번호'], ref: 'vhclno', width: '100px', type: 'input', style: 'text-align:center'},
-		        {caption: ['비고'], ref: 'rmrk', width: '200px', type: 'input', style: 'text-align:center'},
+		        {caption: ['비고'], ref: 'rmrk', width: '150px', type: 'input', style: 'text-align:center'},
 		        {caption: ["처리"], ref: 'delYn', type:'button', width:'80px', style: 'text-align:center',
 		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 						if (!isEditable) {
