@@ -31,6 +31,16 @@
 }
 
 /* 테이블 상단 버튼영역 */
+
+.ad_tbl_top2 {
+	height: 34px;
+	margin-bottom: 0px;
+	position: relative;
+	text-align: right;
+	vertical-align: middle;
+}
+
+
 .ad_tbl_top {
 	height: 30px;
 	margin-bottom: 5px;
@@ -61,6 +71,7 @@
 
 .ad_tbl_toplist * {
 	margin: 2px 0;
+	vertical-align: middle;
 }
 .ad_tbl_toplist .btn i {
 	margin-right: 5px;
@@ -193,6 +204,7 @@ table.dataTable tbody td.select-radio,table.dataTable tbody th.select-radio{posi
 	.ad_tbl_toplist {
 		padding: 5px;
 		text-align: right;
+		vertical-align: middle;
 	}
 
 	/* data table */
