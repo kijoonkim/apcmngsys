@@ -37,7 +37,7 @@
     	<if test='pagingYn == null or pagingYn.equals("N")'>
     		SELECT
     			  pt0.*
-    		 	, (SELECT FN_GET_COM_CD_VL_NM('PCKG_SE_CD', pt0.PCKG_SE_CD, pt0.APC_CD) FROM DUAL)	AS PCKG_SE_CD
+    		 	, (SELECT FN_GET_COM_CD_VL_NM('PCKG_SE_CD', pt0.PCKG_SE_CD, pt0.APC_CD) FROM DUAL)	AS PCKG_SE
 	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
 	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
@@ -46,7 +46,8 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndList */
-	    		   SC.CMND_YMD						AS CMND_YMD
+	    		   SC.APC_CD						AS APC_CD
+	    		 , SC.CMND_YMD						AS CMND_YMD
 	    		 , SC.PCKG_SE_CD					AS PCKG_SE_CD
 	    		 , SC.ITEM_CD						AS ITEM_CD
 	    		 , SC.VRTY_CD						AS VRTY_CD
@@ -56,7 +57,7 @@
 	    		 	  FROM TB_CNPT_INFO CI
 	    		 	 WHERE CI.APC_CD = SC.APC_CD
 	    		 	   AND CI.CNPT_CD = SC.CNPT_CD
-	    		 	   AND CI.DEL_YN = 'N')			AS CNPT_NM
+	    		 	   AND CI.DEL_YN = 'N') 		AS CNPT_NM
 	    		 , SC.DLDTN							AS DLDTN
 	    		 , SC.TRSPRT_CO_NM					AS TRSPRT_CO_NM
 	    		 , SC.GDS_GRD						AS GDS_GRD
