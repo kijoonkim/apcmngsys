@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -81,19 +82,20 @@ public class EgovConfigAppTransaction {
     	DefaultTransactionAttribute readOnlyAttribute = new DefaultTransactionAttribute(TransactionDefinition.PROPAGATION_REQUIRED);
     	readOnlyAttribute.setReadOnly(true);
     	txMethods.put("select*", readOnlyAttribute);
-    	
+
     	List<RollbackRuleAttribute> rollbackRules = new ArrayList<RollbackRuleAttribute>();
     	rollbackRules.add(new RollbackRuleAttribute(Exception.class));
-    	
+    	rollbackRules.add(new RollbackRuleAttribute(EgovBizException.class));
+
     	RuleBasedTransactionAttribute writeAttribute = new RuleBasedTransactionAttribute();
     	writeAttribute.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
     	writeAttribute.setRollbackRules(rollbackRules);
-    	
+
     	txMethods.put("insert*", writeAttribute);
     	txMethods.put("update*", writeAttribute);
     	txMethods.put("delete*", writeAttribute);
     	txMethods.put("multi*", writeAttribute);
-    	
+
 		return txMethods;
 	}
 

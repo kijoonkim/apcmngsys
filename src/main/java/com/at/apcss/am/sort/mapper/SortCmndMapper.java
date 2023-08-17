@@ -22,7 +22,7 @@ import com.at.apcss.am.sort.vo.SortCmndVO;
  */
 @Mapper
 public interface SortCmndMapper {
-	
+
 	/**
 	 * 선별지시 단건 조회
 	 * @param sortCmndVO

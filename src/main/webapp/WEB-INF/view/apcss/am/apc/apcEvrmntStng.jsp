@@ -717,13 +717,13 @@
             	cnptMngDatagrid.addRow(true);
             }else if (grid === "grdFclt") {
             	grdFclt.setCellData(nRow, nCol, "N", true);
-            	grdFclt.setCellData(nRow, 3, gv_apcCd, true);
-            	grdFclt.setCellData(nRow, 4, "FCLT_CD", true);
+            	grdFclt.setCellData(nRow, 4, gv_apcCd, true);
+            	grdFclt.setCellData(nRow, 5, "FCLT_CD", true);
             	grdFclt.addRow(true);
             }else if (grid === "grdWarehouse") {
             	grdWarehouse.setCellData(nRow, nCol, "N", true);
-            	grdWarehouse.setCellData(nRow, 3, gv_apcCd, true);
-            	grdWarehouse.setCellData(nRow, 4, "WAREHOUSE_SE_CD", true);
+            	grdWarehouse.setCellData(nRow, 4, gv_apcCd, true);
+            	grdWarehouse.setCellData(nRow, 5, "WAREHOUSE_SE_CD", true);
             	grdWarehouse.addRow(true);
             }else if(grid === "grdPlt"){
             	grdPlt.setCellData(nRow, nCol, "N", true);
@@ -759,7 +759,6 @@
             }else if(grid === "grdOprtr"){
             	jsonOprtr[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
             	jsonOprtr[nRow-1].delYn = "N";
-//             	grdOprtr.setCellData(nRow, nCol, "N", true);
             	grdOprtr.addRow(true);
             }else if(grid === "grdApcVrty"){
             	grdApcVrty.setCellData(nRow, nCol, "N", true);
@@ -769,8 +768,8 @@
             }else if(grid === "grdGrd"){
             	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
 	            	grdGrd.setCellData(nRow, nCol, "N", true);
-	            	grdGrd.setCellData(nRow, 3, gv_apcCd, true);
-	            	grdGrd.setCellData(nRow, 4, SBUxMethod.get("spcfct-select-itemCd"), true);
+	            	grdGrd.setCellData(nRow, 4, gv_apcCd, true);
+	            	grdGrd.setCellData(nRow, 5, SBUxMethod.get("spcfct-select-itemCd"), true);
 	            	grdGrd.addRow(true);
             	}else{
             		alert("품목을 선택해주세요.")

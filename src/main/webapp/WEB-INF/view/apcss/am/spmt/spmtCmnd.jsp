@@ -18,7 +18,8 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ 출하지시조회</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btn-search" name="btn-search" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnCmndDocSpmt" name="btnCmndDocSpmt" uitype="normal" class="btn btn-sm btn-outline-danger" text="출하지시서" onclick="fn_cmndDocSpmt"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -43,44 +44,44 @@
 						<tr>
 							<th scope="row" class="th_bg">APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-<!-- 							<sbux-input id="srch-inp-acpCd" name="srch-inp-acpCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input> -->
-								<sbux-input id="srch-inp-acpCd" name="srch-inp-acpCd" uitype="text" class="form-control input-sm"  disabled></sbux-input>
+								<sbux-input id="srch-inp-acpNm" name="srch-inp-acpNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsStartYmd" name="dtp-wrhsStartYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-fromCmndYmd" name="srch-dtp-fromCmndYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsEndYmd" name="dtp-wrhsEndYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-toCmndYmd" name="srch-dtp-toCmndYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input"></td>
 							<th scope="row" class="th_bg">거래처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
+								<sbux-input id="srch-inp-cnptCd" name="srch-inp-cnptCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btn_norm" name="btn_norm" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
 							<th scope="row" class="th_bg" style="border-right: hidden;">운송회사</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" jsondata-ref="jsonTrsprtCo" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="dtl-slt-itemCd" name="dtl-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="전체" class="form-control input-sm" onchange="fn_selectItem" ></sbux-select>
+								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="전체" class="form-control input-sm" onchange="fn_selectItem" ></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="dtl-slt-vrtyCd" name="dtl-slt-vrtyCd" uitype="single" jsondata-ref="jsonApcVrty" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" jsondata-ref="jsonApcVrty" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">규격</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" jsondata-ref="jsonSpcfct" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input" colspan="2"></td>
 							<th scope="row" class="th_bg">포장구분</th>
@@ -100,7 +101,7 @@
 						</ul>
 					</div>
 						<div class="table-responsive tbl_scroll_sm">
-							<div id="sb-area-grdSpmtCmndDsctn" style="width:100%;height:300px;"></div>
+							<div id="sb-area-grdSpmtCmndDsctn" style="width:100%;height:600px;"></div>
 						</div>
 					</div>
 				</div>
@@ -113,44 +114,47 @@
     <div id="body-modal-cnpt">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
     </div>
-    <!-- 품종 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
-    </div>
-    <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
-    </div>
 </body>
 <script type="text/javascript">
 
-	var jsonComWarehouse	= [];	// 창고 		warehouse	검색
+	var jsonTrsprtCo		= [];	// 운송회사 	trsprtCo	검색
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
-	var jsonComSpcfct		= [];	// 규격 		spcfct		검색
-	var jsonComFclt			= [];	// 설비 		fcltCd		검색
+	var jsonSpcfct			= [];	// 규격 		spcfct		검색
 	var jsonComPckgSeCd		= [];	// 포장구분 	pckgSeCd	검색
+	
+	var jsonSmptCmnd		= [];
 
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
 
-			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', jsonComWarehouse, 'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
-			gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComFclt, 		'FCLT_CD', gv_selectedApcCd),			// 설비
-			await gfn_setComCdSBSelect('srch-slt-pckgSeCd', 		jsonComPckgSeCd, 	'PCKG_SE_CD', gv_apcCd);		// 포장구분
-		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
-			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
+			gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', jsonTrsprtCo, gv_selectedApcCd),				// 운송회사
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),					// 품목
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),					// 품종
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonSpcfct, gv_selectedApcCd),				// 규격
+			gfn_setComCdSBSelect('srch-slt-pckgSeCd', jsonComPckgSeCd, 'PCKG_SE_CD', gv_selectedApcCd)	// 포장구분
 		]);
 	}
 
 	function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		//gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_apcCd, itemCd);			// 품종
-		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_apcCd, itemCd);		// 규격
+		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd);			// 품종
+		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonSpcfct, gv_selectedApcCd, itemCd);		// 규격
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		SBUxMethod.set("srch-inp-acpNm", gv_selectedApcNm);
+		
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = ('0' + (today.getMonth() + 1)).slice(-2);
+		let day = ('0' + today.getDate()).slice(-2);
+		SBUxMethod.set("srch-dtp-fromCmndYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-toCmndYmd", year+month+day);
+		
 		fn_createSpmtCmndDsctnGrid();
-
+		fn_search();
 		fn_initSBSelect();
 	})
 
@@ -158,30 +162,234 @@
 	function fn_createSpmtCmndDsctnGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdSpmtCmndDsctn';
-	    SBGridProperties.id = 'grdWghPrfmnc';
-	    SBGridProperties.jsonref = 'jsonWghPrfmnc';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.id = 'grdSmptCmnd';
+	    SBGridProperties.jsonref = 'jsonSmptCmnd';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'sortmove';
+    	SBGridProperties.paging = {
+			'type' : 'page',
+		  	'count' : 5,
+		  	'size' : 20,
+		  	'sorttype' : 'page',
+		  	'showgoalpageui' : true
+	    };
         SBGridProperties.columns = [
-            {caption: ['지십일자'], 	ref: 'wghno', 			width: '10%', type: 'output'},
-            {caption: ['거래처'], 	ref: 'prdcrNm', 		width: '10%', type: 'output'},
-            {caption: ['상품명'], 	ref: 'itemNm', 			width: '10%', type: 'output'},
-            {caption: ['운송회사'], 	ref: 'vrtyNm', 			width: '10%', type: 'output'},
-            {caption: ['배송처'], 	ref: 'gdsSeNm', 		width: '10%', type: 'output'},
-            {caption: ['수량'], 		ref: 'wrhsSeNm', 		width: '10%', type: 'output'},
-            {caption: ['중량'], 		ref: 'trsprtSeNm', 		width: '10%', type: 'output'},
-            {caption: ['상품등급'], 	ref: 'wholWght', 		width: '10%', type: 'output'},
-            {caption: ['포장구분'], 	ref: 'emptVhclWght', 	width: '10%', type: 'output'},
-            {caption: ['품종'], 		ref: 'rdcdRt', 			width: '10%', type: 'output'},
-            {caption: ['규격'], 		ref: 'rdcdWght', 		width: '10%', type: 'output'},
-            {caption: ['비고'], 		ref: 'actlWght', 		width: '10%', type: 'output'}
+            {caption: ['지시일자'], 	ref: 'cmndYmd', 	width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['거래처'], 	ref: 'cnptNm', 		width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['상품명'], 	ref: 'gdsNm', 		width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 	width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['배송처'], 	ref: 'dldtn', 		width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['수량'], 		ref: 'cmndQntt', 	width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['중량'], 		ref: 'cmndWght', 	width: '10%', type: 'output',	style:'text-align: right'},
+            {caption: ['상품등급'], 	ref: 'gdsGrd', 		width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['포장구분'], 	ref: 'pkcgSeCd', 	width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['품종'], 		ref: 'vrtyNm', 		width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['규격'], 		ref: 'spcfctNm', 	width: '10%', type: 'output',	style:'text-align: center'},
+            {caption: ['비고'], 		ref: 'rmrk', 		width: '10%', type: 'output'},
+		    {caption: ['APC코드'], ref: 'apcCd', hidden : true}
         ];
-        grdWghPrfmnc = _SBGrid.create(SBGridProperties);
+        grdSmptCmnd = _SBGrid.create(SBGridProperties);
+        grdSmptCmnd.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
     }
+	
+	// APC 내역 목록 조회 (조회 버튼)
+    async function fn_search() {
+    	let recordCountPerPage = grdSmptCmnd.getPageSize();  		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = 1;
+    	grdSmptCmnd.movePaging(currentPageNo);
+    }
+	
+	let newJsonSmptCmnd = [];
+	
+	// APC 내역 목록 조회 호출
+	async function fn_callSelectSpmtCmndList(recordCountPerPage, currentPageNo){
+		jsonSmptCmnd = [];
+		let apcCd = gv_selectedApcCd;
+		let fromCmndYmd = SBUxMethod.get("srch-dtp-fromCmndYmd");
+		let toCmndYmd = SBUxMethod.get("srch-dtp-toCmndYmd");
+		let cnptCd = SBUxMethod.get("srch-inp-cnptCd");
+		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCo");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+		let pckgSeCd = SBUxMethod.get("srch-slt-pckgSeCd");
+		let SpmtCmndVO = {apcCd 				: apcCd
+						, fromCmndYmd 			: fromCmndYmd
+						, toCmndYmd 			: toCmndYmd
+						, cnptCd 				: cnptCd
+						, trsprtCoCd 			: trsprtCoCd
+						, itemCd 				: itemCd
+						, vrtyCd 				: vrtyCd
+						, spcfctCd 				: spcfctCd
+						, pckgSeCd 				: pckgSeCd
+						, pagingYn 				: 'Y'
+						, currentPageNo 		: currentPageNo
+						, recordCountPerPage 	: recordCountPerPage};
+    	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", SpmtCmndVO);
+        let data = await postJsonPromise;
+        newJsonSmptCmnd = [];
+        try{
+        	data.resultList.forEach((item, index) => {
+				let spmtCmnd = {
+					apcCd 		: item.apcCd
+				  , cmndYmd 	: item.cmndYmd
+				  , cnptNm 		: item.cnptNm
+				  , gdsNm 		: item.gdsNm
+				  , trsprtCoNm 	: item.trsprtCoNm
+				  , dldtn 		: item.dldtn
+				  , cmndQntt	: item.cmndQntt
+				  , cmndWght 	: item.cmndWght
+				  , gdsGrd 		: item.gdsGrd
+				  , pkcgSeCd 	: item.pkcgSeCd
+				  , vrtyNm 		: item.vrtyNm
+				  , spcfctNm 	: item.spcfctNm
+				  , rmrk		: item.rmrk
+				}
+				jsonSmptCmnd.push(Object.assign({}, spmtCmnd));
+				newJsonSmptCmnd.push(Object.assign({}, spmtCmnd));
+			});
+        	if(jsonSmptCmnd.length > 0){
+				if(grdSmptCmnd.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdSmptCmnd.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdSmptCmnd.rebuild();
+				}else{
+					grdSmptCmnd.refresh();
+				}
+			}else{
+				grdSmptCmnd.setPageTotalCount(0);
+				grdSmptCmnd.rebuild();
+			}
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+	
+	// 페이징
+    async function fn_pagingSmptCmnd(){
+    	let recordCountPerPage = grdSmptCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdSmptCmnd.getSelectPageIndex(); 
+    	fn_callSelectSpmtCmndList(recordCountPerPage, currentPageNo);
+    }
+	
+ 	// 데이터 등록
+	async function fn_save() {
+		var updateList = [];
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '01', spmtCmndSn : 1, cmndYmd : '20230816', cnptCd : '0001'
+				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '02', spmtCmndSn : 2, cmndYmd : '20230816', cnptCd : '0001'
+				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '03', spmtCmndSn : 3, cmndYmd : '20230816', cnptCd : '0001'
+				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '04', spmtCmndSn : 4, cmndYmd : '20230816', cnptCd : '0001'
+				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '05', spmtCmndSn : 5, cmndYmd : '20230816', cnptCd : '0001'
+				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '06', spmtCmndSn : 6, cmndYmd : '20230816', cnptCd : '0001'
+				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '07', spmtCmndSn : 7, cmndYmd : '20230816', cnptCd : '0001'
+				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '08', spmtCmndSn : 8, cmndYmd : '20230816', cnptCd : '0001'
+				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '09', spmtCmndSn : 9, cmndYmd : '20230816', cnptCd : '0001'
+				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '10', spmtCmndSn : 10, cmndYmd : '20230816', cnptCd : '0001'
+				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
 
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '11', spmtCmndSn : 11, cmndYmd : '20230816', cnptCd : '0001'
+				, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '12', spmtCmndSn : 12, cmndYmd : '20230816', cnptCd : '0001'
+			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '13', spmtCmndSn : 13, cmndYmd : '20230816', cnptCd : '0001'
+			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '14', spmtCmndSn : 14, cmndYmd : '20230816', cnptCd : '0001'
+			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '15', spmtCmndSn : 15, cmndYmd : '20230816', cnptCd : '0001'
+			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '16', spmtCmndSn : 16, cmndYmd : '20230816', cnptCd : '0001'
+				, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '17', spmtCmndSn : 17, cmndYmd : '20230816', cnptCd : '0001'
+			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '18', spmtCmndSn : 18, cmndYmd : '20230816', cnptCd : '0001'
+			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '19', spmtCmndSn : 19, cmndYmd : '20230816', cnptCd : '0001'
+			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '20', spmtCmndSn : 20, cmndYmd : '20230816', cnptCd : '0001'
+			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
+		
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '21', spmtCmndSn : 21, cmndYmd : '20230815', cnptCd : '0002'
+			 	, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '02'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '22', spmtCmndSn : 22, cmndYmd : '20230815', cnptCd : '0002'
+		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '02'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '23', spmtCmndSn : 23, cmndYmd : '20230815', cnptCd : '0002'
+		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '02'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '24', spmtCmndSn : 24, cmndYmd : '20230815', cnptCd : '0002'
+		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '02'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '25', spmtCmndSn : 25, cmndYmd : '20230815', cnptCd : '0002'
+		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '02'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '26', spmtCmndSn : 26, cmndYmd : '20230815', cnptCd : '0002'
+		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '02'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '27', spmtCmndSn : 27, cmndYmd : '20230815', cnptCd : '0002'
+		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '02'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '28', spmtCmndSn : 28, cmndYmd : '20230815', cnptCd : '0002'
+		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '02'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '29', spmtCmndSn : 29, cmndYmd : '20230815', cnptCd : '0002'
+		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '02'}));
+		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '30', spmtCmndSn : 30, cmndYmd : '20230815', cnptCd : '0002'
+		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '02'}));
+		
+    	const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtCmnd.do", updateList);	// 프로그램id 추가
+		const data = await postJsonPromise;	    
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_callSelectSpmtCmndList();
+        		fn_search();
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {        	
+        }
+	}
+ 
+	// 데이터 삭제
+	async function fn_delete() {
+    	const postJsonPromise = gfn_postJSON("/am/spmt/deleteSpmtCmnd.do", {apcCd : '9999'});	// 프로그램id 추가
+		const data = await postJsonPromise;	    
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_callSelectSpmtCmndList();
+        		fn_search();
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {        	
+        }
+	}
+	
+	// 출하지시서
+    async function fn_cmndDocSpmt(){
+    	
+    }
+	
+	// 거래처 선택 팝업 호출
+	const fn_modalCnpt = function() {
+    	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
+	}
+	
+	const fn_setCnpt = function(cnpt) {
+		if (!gfn_isEmpty(cnpt)) {
+			console.log("cnpt", cnpt);
+			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
+			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
+		}
 	}
 </script>
 </html>

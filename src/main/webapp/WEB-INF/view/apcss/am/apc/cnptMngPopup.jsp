@@ -86,6 +86,7 @@
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
             {caption: ["코드"], 		ref: 'cnptCd',  	type:'output', width:'80px',     style:'text-align:center',  hidden : true},
             {caption: ["거래처명"], 	ref: 'cnptNm',  	type:'input',  width:'165px',    style:'text-align:center'},
@@ -206,6 +207,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
             {caption: ["대형마트 명"], 		ref: 'lgszMrktNm',  	type:'input',  width:'165px',     style:'text-align:center'},
             {caption: ["발주정보 URL"], 	ref: 'outordrInfoUrl',  	type:'input',  width:'320px',    style:'text-align:center'},
