@@ -184,17 +184,16 @@
             {caption: ['수량'], 		ref: 'cmndQntt', 	width: '10%',	type: 'output',	style:'text-align: center'},
             {caption: ['중량'], 		ref: 'cmndWght', 	width: '10%',	type: 'output',	style:'text-align: right'},
             {caption: ['상품등급'], 	ref: 'gdsGrd', 		width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['포장구분'], 	ref: 'pkcgSeCd', 	width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['포장구분'], 	ref: 'pkcgSe', 		width: '10%',	type: 'output',	style:'text-align: center'},
             {caption: ['품종'], 		ref: 'vrtyNm', 		width: '10%',	type: 'output',	style:'text-align: center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 	width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['비고'], 		ref: 'rmrk', 		width: '10%',	type: 'output'},
-		    {caption: ['APC코드'], ref: 'apcCd', hidden : true}
+            {caption: ['비고'], 		ref: 'rmrk', 		width: '10%',	type: 'output'}
         ];
         grdSmptCmnd = _SBGrid.create(SBGridProperties);
         grdSmptCmnd.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
     }
 	
-	// APC 내역 목록 조회 (조회 버튼)
+	// 출하지시 목록 조회 (조회 버튼)
     async function fn_search() {
     	let recordCountPerPage = grdSmptCmnd.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
@@ -203,7 +202,7 @@
 	
 	let newJsonSmptCmnd = [];
 	
-	// APC 내역 목록 조회 호출
+	// 출하지시 목록 조회 호출
 	async function fn_callSelectSpmtCmndList(recordCountPerPage, currentPageNo){
 		jsonSmptCmnd = [];
 		let apcCd = gv_selectedApcCd;
@@ -233,8 +232,7 @@
         try{
         	data.resultList.forEach((item, index) => {
 				let spmtCmnd = {
-					apcCd 		: item.apcCd
-				  , cmndYmd 	: item.cmndYmd
+				    cmndYmd 	: item.cmndYmd
 				  , cnptNm 		: item.cnptNm
 				  , gdsNm 		: item.gdsNm
 				  , trsprtCoNm 	: item.trsprtCoNm
@@ -242,7 +240,7 @@
 				  , cmndQntt	: item.cmndQntt
 				  , cmndWght 	: item.cmndWght
 				  , gdsGrd 		: item.gdsGrd
-				  , pkcgSeCd 	: item.pkcgSeCd
+				  , pkcgSe 		: item.pkcgSe
 				  , vrtyNm 		: item.vrtyNm
 				  , spcfctNm 	: item.spcfctNm
 				  , rmrk		: item.rmrk
