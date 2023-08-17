@@ -42,7 +42,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
-								<sbux-input id="vhcl-inp-apcNm" name="vhcl-inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
+								<sbux-input id="vhcl-inp-apcNm" name="vhcl-inp-apcNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 								<sbux-input id="vhcl-inp-apcCd" name="vhcl-inp-apcCd" uitype="hidden"></sbux-input>
 							</th>
 							<th scope="row">차량번호</th>
@@ -138,6 +138,9 @@
 		    SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
+		    SBGridProperties.allowcopy = true;
+			SBGridProperties.explorerbar = 'sortmove';
+		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,

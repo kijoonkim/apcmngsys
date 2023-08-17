@@ -37,12 +37,12 @@ public class SpmtPrfmncVO extends ComVO {
 	/**
 	 * 출하시작일자
 	 */
-	private String fromSpmtYmd;
+	private String spmtYmdFrom;
 
 	/**
 	 * 출하종료일자
 	 */
-	private String toSpmtYmd;
+	private String spmtYmdTo;
 
 	/**
 	 * 출하일자
