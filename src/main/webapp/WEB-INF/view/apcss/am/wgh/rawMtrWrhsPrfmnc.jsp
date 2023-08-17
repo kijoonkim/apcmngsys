@@ -410,31 +410,23 @@
 	   		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-startPrdctnYmd");		// 입고시작일자
 	   		let wrhsYmdTo = SBUxMethod.get("srch-dtp-endPrdctnYmd");		// 입고종료일자
 	   		
-// 	  		let wrhsSeCd = SBUxMethod.get("chk-wrhsKnd1");		// 입고구분
 	  		let wrhsSeCd = fn_getChkValue('chk-wrhsKnd', 4);	// 입고구분
 	  		let gdsSeCd = fn_getChkValue('chk-gsd', 4);	// 입고구분
 	  		let trsprtSeCd = fn_getChkValue('chk-trsprt', 3);	// 입고구분
-// 	  		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");		// 상품구분
-// 	  		let trsprtSeCd = SBUxMethod.get("srch-rdo-trsprtSeCd");	// 운송구분
 
 	  		// optional
 	  		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
-
-// 	  		let itemCd = SBUxMethod.get("srch-slt-itemCd");	// 품목
-// 	  		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");	// 품종
-// 			if (vrtyCds.length > 0)
-			let vrtyCd = vrtyCds.length > 0 ? '\''+vrtyCds.join('\',\'') + '\'' : "";
+			let vrtyCd = vrtyCds.length > 0 ? +vrtyCds.join(',') : "";
 	  		console.log("vrtyCd", vrtyCd);
 			const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsPrfmncList.do", {
-				apcCd: gv_selectedApcCd,
-// 				apcCd: '9999',
+// 				apcCd: gv_selectedApcCd,
+				apcCd: '9999',
 				wrhsYmdFrom: wrhsYmdFrom,
 				wrhsYmdTo: wrhsYmdTo,
 				wrhsSeCd: wrhsSeCd,
 				gdsSeCd: gdsSeCd,
 				trsprtSeCd: trsprtSeCd,
 				prdcrCd: prdcrCd,
-// 				itemCd: itemCd,
 				vrtyCd: vrtyCd,
 
 	          	// pagination
@@ -518,7 +510,7 @@
 				result.push(i);
 		}
 		if (result.length > 0)
-			return '\''+result.join('\',\'') + '\''
+			return result.join(',');
 		else
 			return "";
 	}

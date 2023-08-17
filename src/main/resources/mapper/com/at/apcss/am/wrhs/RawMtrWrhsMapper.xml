@@ -385,16 +385,16 @@
 			   AND INV.ITEM_CD = #{itemCd}
 		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
-			   AND INV.VRTY_CD in (#{vrtyCd})
+			   AND INV.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
 		</if>
 		<if test='gdsSeCd != null and gdsSeCd != ""'>
-			   AND INV.GDS_SE_CD in (#{gdsSeCd})
+			   AND INV.GDS_SE_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{gdsSeCd})))
 		</if>
 		<if test='wrhsSeCd != null and wrhsSeCd != ""'>
-			   AND INV.WRHS_SE_CD in (#{wrhsSeCd})
+			   AND INV.WRHS_SE_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{wrhsSeCd})))
 		</if>
 		<if test='trsprtSeCd != null and trsprtSeCd != ""'>
-			   AND INV.TRSPRT_SE_CD in (#{trsprtSeCd})
+			   AND INV.TRSPRT_SE_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{trsprtSeCd})))
 		</if>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 			   AND INV.WAREHOUSE_SE_CD = #{warehouseSeCd}

@@ -22,7 +22,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_rawMtrWghPltBxMngSearch()">조회</sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_rawMtrWghPltBxMngSearch">조회</sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -78,7 +78,7 @@
 				</div>
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
-						<li><span>원물입고 계획</span></li>
+						<li><span>입출 내역</span></li>
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnInsert" name="btnInsert" uitype="button" class="btn btn-sm btn-outline-danger">등록</sbux-button>
@@ -119,17 +119,17 @@
 		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 	});
 
-	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
-	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
+	var pltBxMngList; // 그리드를 담기위한 객체 선언
+	var jsonPltBxMngList = []; // 그리드의 참조 데이터 주소 선언
 
-	window.jsoninptCmndDsctnList =  [
+	window.jsonPltBxMngList =  [
 		[],
 	];
 	function fn_createGrid() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
-	    SBGridProperties.id = 'inptCmndDsctnList';
-	    SBGridProperties.jsonref = 'jsoninptCmndDsctnList';
+	    SBGridProperties.id = 'pltBxMngList';
+	    SBGridProperties.jsonref = 'jsonPltBxMngList';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
@@ -158,7 +158,7 @@
 
 	    ];
 
-	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
+	    pltBxMngList = _SBGrid.create(SBGridProperties);
 
 	}
 	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
@@ -202,13 +202,8 @@
 	        {caption: ["중량"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'300px',    style:'text-align:center'},
 	        {caption: ["처리"], 		ref: 'userStts', 	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-//             	if(strValue === "01"){
-//             		return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
-//             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
             		return "<button type='button' class='btn btn-xs btn-outline-danger'>삭제</button>";
-//             	}else{
-// 			        return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
-//             	}
+
 		    }},
 	    ];
 
@@ -220,15 +215,78 @@
 		SBUxMethod.closeModal(modalId);
 	}
 	
-	function fn_rawMtrWghPltBxMngSearch(){
+// 	function fn_rawMtrWghPltBxMngSearch(){
+    const fn_rawMtrWghPltBxMngSearch = async function() {
 	   try{
 		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-strtCrtrYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endCrtrYmd")))
 				   throw "작업일자는 필수입력 항목입니다.";
+		   
+	        // set pagination
+	    	pltBxMngList.rebuild();
+	    	let pageSize = pltBxMngList.getPageSize();
+	    	let pageNo = 1;
+	
+	    	// grid clear
+	    	jsonPltBxMngList.length = 0;
+	    	pltBxMngList.clearStatus();
+	    	fn_setGrdRawMtrWghPltBxMng(pageSize, pageNo);
 	   } catch(e){
 		   alert(e);
 		   return;
 	   }
 	}
+    
+    const fn_setGrdRawMtrWghPltBxMng = async function(pageSize, pageNo) {
+
+  		console.log("vrtyCd", vrtyCd);
+		const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsPrfmncList.do", {
+			apcCd: gv_selectedApcCd,
+
+
+          	// pagination
+  	  		pagingYn : 'Y',
+  			currentPageNo : pageNo,
+   		  	recordCountPerPage : pageSize
+  		});
+		
+        const data = await postJsonPromise;
+ 	   try{
+		/** @type {number} **/
+  		let totalRecordCount = 0;
+
+  		jsonPltBxMngList.length = 0;
+      	data.resultList.forEach((item, index) => {
+      		const pltBxMng = {
+						apcCd: item.apcCd,
+						apcNm: item.apcNm,
+				}
+				jsonPltBxMngList.push(pltBxMng);
+
+				if (index === 0) {
+					totalRecordCount = item.totalRecordCount;
+				}
+			});
+
+      	if (jsonPltBxMngList.length > 0) {
+      		if(pltBxMngList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+      			pltBxMngList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+      			pltBxMngList.rebuild();
+				}else{
+					pltBxMngList.refresh();
+				}
+      	} else {
+      		pltBxMngList.setPageTotalCount(totalRecordCount);
+      		pltBxMngList.rebuild();
+      	}
+
+      	document.querySelector('#listCount').innerText = totalRecordCount;
+   } catch (e) {
+ 		if (!(e instanceof Error)) {
+ 			e = new Error(e);
+ 		}
+ 		console.error("failed", e.message);
+	}
+}
 </script>
 
 </html>

@@ -42,7 +42,7 @@ span.sbux-pik-group {
 	line-height: 30px !important;
 }
 .form-control[readonly]{
-	background-color : #eee;
+	background-color : #eee !important;;
 }
 
 select.form-control.input-sm.inpt_data_reqed {
