@@ -44,16 +44,16 @@
 						<tr>
 							<th scope="row" class="th_bg">APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-acpNm" name="srch-inp-acpNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="srch-inp-acpNm" name="srch-inp-acpNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">지시일자</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-fromCmndYmd" name="srch-dtp-fromCmndYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-cmndYmdFrom" name="srch-dtp-cmndYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-toCmndYmd" name="srch-dtp-toCmndYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-cmndYmdTo" name="srch-dtp-cmndYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input"></td>
 							<th scope="row" class="th_bg">거래처</th>
@@ -149,8 +149,8 @@
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2);
 		let day = ('0' + today.getDate()).slice(-2);
-		SBUxMethod.set("srch-dtp-fromCmndYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-toCmndYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-cmndYmdFrom", year+month+day);
+		SBUxMethod.set("srch-dtp-cmndYmdTo", year+month+day);
 		
 		fn_createSpmtCmndGrid();
 		fn_search();
@@ -206,8 +206,8 @@
 	async function fn_callSelectSpmtCmndList(recordCountPerPage, currentPageNo){
 		jsonSmptCmnd = [];
 		let apcCd = gv_selectedApcCd;
-		let fromCmndYmd = SBUxMethod.get("srch-dtp-fromCmndYmd");
-		let toCmndYmd = SBUxMethod.get("srch-dtp-toCmndYmd");
+		let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
+		let cmndYmdTo = SBUxMethod.get("srch-dtp-cmndYmdTo");
 		let cnptCd = SBUxMethod.get("srch-inp-cnptCd");
 		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCo");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
@@ -215,8 +215,8 @@
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
 		let pckgSeCd = SBUxMethod.get("srch-slt-pckgSeCd");
 		let SpmtCmndVO = {apcCd 				: apcCd
-						, fromCmndYmd 			: fromCmndYmd
-						, toCmndYmd 			: toCmndYmd
+						, cmndYmdFrom 			: cmndYmdFrom
+						, cmndYmdTo 			: cmndYmdTo
 						, cnptCd 				: cnptCd
 						, trsprtCoCd 			: trsprtCoCd
 						, itemCd 				: itemCd

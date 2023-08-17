@@ -59,13 +59,13 @@
 											
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-				<div class="ad_tbl_top">
+				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
 						<li><span>APC 내역</span></li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnAddRow" name="btnAddRow" uitype="normal" text="행추가" class='btn btn-xs btn-outline-danger' onClick="fn_procRowApcInfo('ADD')"></sbux-button>
-						<sbux-button id="btnDeleteRow" name="btnDeleteRow" uitype="normal" text="행삭제" class='btn btn-xs btn-outline-danger' onClick="fn_procRowApcInfo('DEL')"></sbux-button>
+						<sbux-button id="btnAddRow" name="btnAddRow" uitype="normal" text="행추가" class='btn btn-sm btn-outline-danger' onClick="fn_procRowApcInfo('ADD')"></sbux-button>
+						<sbux-button id="btnDeleteRow" name="btnDeleteRow" uitype="normal" text="행삭제" class='btn btn-sm btn-outline-danger' onClick="fn_procRowApcInfo('DEL')"></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">

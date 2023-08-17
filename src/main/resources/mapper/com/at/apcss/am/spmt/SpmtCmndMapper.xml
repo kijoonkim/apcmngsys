@@ -67,11 +67,11 @@
 			 WHERE SC.APC_CD = #{apcCd}
 			   AND SC.DEL_YN = 'N'
 		]]>
-		<if test='fromCmndYmd != null and fromCmndYmd != ""'>
-		   	   AND SC.CMND_YMD >= #{fromCmndYmd}
+		<if test='cmndYmdFrom != null and cmndYmdFrom != ""'>
+		   	   AND SC.CMND_YMD >= #{cmndYmdFrom}
 		</if>
-		<if test='toCmndYmd != null and toCmndYmd != ""'>
-		       AND #{toCmndYmd} >= SC.CMND_YMD
+		<if test='cmndYmdTo != null and cmndYmdTo != ""'>
+		       AND #{cmndYmdTo} >= SC.CMND_YMD
 		</if>
 		<if test='cnptCd != null and cnptCd != ""'>
 		       AND SC.CNPT_CD = #{cnptCd}

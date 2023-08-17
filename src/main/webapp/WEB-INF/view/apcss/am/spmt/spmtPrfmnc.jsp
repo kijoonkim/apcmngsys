@@ -44,7 +44,7 @@
 					<tr>
 						<th scope="row" class="th_bg" style="border-bottom:1px solid white " >APC명</th>
 						<td colspan= "3" class="td_input" style="border-right:hidden;">
-							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 						</td>
 						<td colspan="8"></td>
 					</tr>
@@ -54,12 +54,12 @@
 							<sbux-select uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComWarehouse"></sbux-select>
 						</td>
 						<td colspan="2" ></td>
-						<th scope="row" class="th_bg">출하일자</th>
+						<th scope="row" class="th_bg"><span class="data_required"></span>출하일자</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-datepicker id="srch-dtp-fromSpmtYmd" name="srch-dtp-fromSpmtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+							<sbux-datepicker id="srch-dtp-spmtYmdFrom" name="srch-dtp-spmtYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 						</td>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-datepicker id="srch-dtp-toSpmtYmd" name="srch-dtp-toSpmtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+							<sbux-datepicker id="srch-dtp-spmtYmdTo" name="srch-dtp-spmtYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 						</td>
 						<td style="border-right: hidden;">&nbsp;</td>
 						<th scope="row" class="th_bg" style="border-right: hidden;">품목/품종</th>
@@ -166,8 +166,8 @@
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-fromSpmtYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-toSpmtYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-spmtYmdFrom", year+month+day);
+		SBUxMethod.set("srch-dtp-spmtYmdTo", year+month+day);
 		SBUxMethod.set("srch-inp-apcNm", gv_selectedApcNm);
 
 		fn_createSpmtPrfmncGrid();
@@ -218,8 +218,8 @@
 		jsonSpmtPrfmnc = [];
 		let apcCd = gv_selectedApcCd;
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
-		let fromSpmtYmd = SBUxMethod.get("srch-dtp-fromSpmtYmd");
-		let toSpmtYmd = SBUxMethod.get("srch-dtp-toSpmtYmd");
+		let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
+		let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
 		let cnptCd = SBUxMethod.get("srch-inp-cnptCd");
 		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCo");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
@@ -227,8 +227,8 @@
 		let dldtn = SBUxMethod.get("srch-inp-dldtn");
 		let vhclno = SBUxMethod.get("srch-inp-vhclno");
 		let SpmtCmndVO = {apcCd 				: apcCd
-						, fromSpmtYmd 			: fromSpmtYmd
-						, toSpmtYmd 			: toSpmtYmd
+						, spmtYmdFrom 			: spmtYmdFrom
+						, spmtYmdTo 			: spmtYmdTo
 						, cnptCd 				: cnptCd
 						, trsprtCoCd 			: trsprtCoCd
 						, itemCd 				: itemCd

@@ -89,11 +89,11 @@
 			   AND VC.DEL_YN = 'N'
 			   AND SC.DEL_YN = 'N'
 		]]>
-		<if test='fromSpmtYmd != null and fromSpmtYmd != ""'>
-		   	   AND PC.SPMT_YMD >= #{fromSpmtYmd}
+		<if test='spmtYmdFrom != null and spmtYmdFrom != ""'>
+		   	   AND PC.SPMT_YMD >= #{spmtYmdFrom}
 		</if>
-		<if test='toSpmtYmd != null and toSpmtYmd != ""'>
-		   	   AND #{toSpmtYmd} >= PC.SPMT_YMD
+		<if test='spmtYmdTo != null and spmtYmdTo != ""'>
+		   	   AND #{spmtYmdTo} >= PC.SPMT_YMD
 		</if>
 		<if test='cnptCd != null and cnptCd != ""'>
 		       AND PC.CNPT_CD = #{cnptCd}
