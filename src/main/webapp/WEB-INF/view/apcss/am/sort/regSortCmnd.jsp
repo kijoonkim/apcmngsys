@@ -216,7 +216,7 @@
             {caption: ["재고","중량"],  		ref: 'invntrCmndWght', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["지시","수량"], 			ref: 'cmndQntt',  		type:'input',  width:'80px', style: 'text-align:right; background:#FFF8DC;', typeinfo: {mask : {alias : '#', repeat: '*', unmaskvalue : true}}, format : {type:'number', rule:'#,###'}},
             {caption: ["지시","중량"], 			ref: 'cmndWght',  		type:'input',  width:'80px', style: 'text-align:right; background:#FFF8DC;', typeinfo: {mask : {alias : '#', repeat: '*', unmaskvalue : true}}, format : {type:'number', rule:'#,###'}},
-            {caption: ["선별지시비고","선별지시비고"],	    	ref: 'rmrk', 			type:'input',  width:'120px', style: 'text-align:center'},
+            {caption: ["선별지시 비고","선별지시 비고"],	    	ref: 'rmrk', 			type:'input',  width:'120px', style: 'text-align:center'},
 
  	        {caption: ["생산자코드"],	ref: 'prdcrCd',   	type:'output',  hidden: true},
 	        {caption: ["품목코드"],		ref: 'itemCd',   	type:'output',  hidden: true},
@@ -397,7 +397,7 @@
 
 		switch (nCol) {
 		case 10:	// checkbox
-			fn_checkInptWght();
+			fn_checkInptQntt();
 			break;
 		case 11:
 			//check qntt
@@ -412,9 +412,14 @@
     	var nRow = grdRawMtrInvntr.getRow();
     	let invntrQntt = grdRawMtrInvntr.getRowData(nRow).invntrCmndQntt;
 		let invntrWght = grdRawMtrInvntr.getRowData(nRow).invntrCmndWght;
+		let cmndQntt = grdRawMtrInvntr.getRowData(nRow).cmndQntt;
+		let cmndWght = grdRawMtrInvntr.getRowData(nRow).cmndWght;
 
-    	grdRawMtrInvntr.setCellData(nRow, 10, invntrQntt);
-		grdRawMtrInvntr.setCellData(nRow, 11, invntrWght);
+
+		if(cmndQntt > 0 && ){
+	    	grdRawMtrInvntr.setCellData(nRow, 10, invntrQntt);
+			grdRawMtrInvntr.setCellData(nRow, 11, invntrWght);
+		}
     }
 
     const fn_delValue = async function(){
@@ -428,22 +433,40 @@
     	var nRow = grdRawMtrInvntr.getRow();
 		var nCol = grdRawMtrInvntr.getCol();
 
-		let invntrQntt = grdRawMtrInvntr.getRowData(nRow).invntrCmndQntt;
 		let invntrWght = grdRawMtrInvntr.getRowData(nRow).invntrCmndWght;
-		let cmndQntt = grdRawMtrInvntr.getRowData(nRow).cmndQntt;
 		let cmndWght = grdRawMtrInvntr.getRowData(nRow).cmndWght;
-
-		if(invntrQntt - cmndQntt < 0){
-			gfn_comAlert("W0008", "재고수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
-			grdRawMtrInvntr.setCellData(nRow, nCol , 0);
-            return;
-		}
 
 		if(invntrWght - cmndWght < 0){
 			gfn_comAlert("W0008", "재고중량", "지시중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 			grdRawMtrInvntr.setCellData(nRow, nCol , 0);
             return;
 		}
+		if(cmndWght > 0){
+			grdRawMtrInvntr.setCellData(nRow, 0, "Y")
+		}else{
+			grdRawMtrInvntr.setCellData(nRow, 0, "N")
+		}
+    }
+
+    const fn_checkInptQntt = async function(){
+
+    	var nRow = grdRawMtrInvntr.getRow();
+		var nCol = grdRawMtrInvntr.getCol();
+
+		let invntrQntt = grdRawMtrInvntr.getRowData(nRow).invntrCmndQntt;
+		let invntrWght = grdRawMtrInvntr.getRowData(nRow).invntrCmndWght;
+		let cmndQntt = grdRawMtrInvntr.getRowData(nRow).cmndQntt;
+
+		if(invntrQntt - cmndQntt < 0){
+			gfn_comAlert("W0008", "재고수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+			grdRawMtrInvntr.setCellData(nRow, nCol , 0);
+            return;
+		}
+		if(invntrQntt > 0 && cmndQntt > 0){
+			grdRawMtrInvntr.setCellData(nRow, 11, Math.round(invntrWght / invntrQntt) * cmndQntt);
+			grdRawMtrInvntr.setCellData(nRow, 0, "Y")
+		}
+
     }
 
     const fn_save = async function() {
