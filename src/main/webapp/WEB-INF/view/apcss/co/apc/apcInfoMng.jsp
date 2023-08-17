@@ -108,7 +108,6 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.explorerbar = 'sortmove';
-		SBGridProperties.scrollbubbling = false;
     	SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
