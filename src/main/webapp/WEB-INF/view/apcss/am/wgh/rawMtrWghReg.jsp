@@ -53,18 +53,18 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg" >계량일자</th>
+							<th scope="row" class="th_bg" ><span class="data_required" ></span>계량일자</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
-								<sbux-datepicker id="dtl-dtp-wghYmd" name="dtl-dtp-wghYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-wghYmd" name="dtl-dtp-wghYmd" uitype="popup" class="form-control input-sm input-sm-ast"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<th scope="row" class="th_bg" >생산자</th>
+							<th scope="row" class="th_bg" ><span class="data_required" ></span>생산자</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-prdcrNm"
 									name="dtl-inp-prdcrNm"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									placeholder="초성검색 기능입니다."
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
@@ -84,12 +84,12 @@
 								></sbux-button>
 							</td>
 
-							<th scope="row" class="th_bg">품목/품종</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="dtl-slt-itemCd" name="dtl-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="전체" class="form-control input-sm" onchange="fn_onChangeSrchItemCd(this)" ></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
-								<sbux-select id="dtl-slt-vrtyCd" name="dtl-slt-vrtyCd" uitype="single" jsondata-ref="jsonApcVrty" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="dtl-slt-vrtyCd" name="dtl-slt-vrtyCd" uitype="single" jsondata-ref="jsonApcVrty" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
 							</td>
 						</tr>
 						<tr>
@@ -144,13 +144,13 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">전체중량</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>전체중량</th>
 							<td class="td_input" style="border-right:hidden;" >
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-wholWght"
 									name="dtl-inp-wholWght"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									maxlength="6"
 									autocomplete="off"
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
@@ -158,13 +158,13 @@
 								></sbux-input>
 							</td>
 							<td colspan="3" style="border-right:hidden;">Kg</td>
-							<th scope="row" class="th_bg">공차중량 </th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>공차중량 </th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-emptVhclWght"
 									name="dtl-inp-emptVhclWght"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									maxlength="6"
 									autocomplete="off"
 									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
@@ -211,13 +211,13 @@
 								></sbux-input>
 							</td>
 							<td colspan="3">Kg</td>
-							<th scope="row" class="th_bg">차량번호</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>차량번호</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-vhclno"
 									name="dtl-inp-vhclno"
-									class="form-control input-sm"
+									class="form-control input-sm inpt_data_reqed"
 									autocomplete="off"
 								></sbux-input>
 							</td>
@@ -275,14 +275,14 @@
 							<td colspan="3">Kg</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">보관창고</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>보관창고</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="dtl-slt-warehouseSeCd" name="dtl-slt-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouse" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="dtl-slt-warehouseSeCd" name="dtl-slt-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouse" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
 							</td>
 							<td colspan="3"></td>
-							<th scope="row" class="th_bg">등급</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>등급</th>
 							<td class="td_input" >
-								<sbux-select id="dtl-slt-grdCd" name="dtl-slt-grdCd" uitype="single" jsondata-ref="jsonApcGrd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="dtl-slt-grdCd" name="dtl-slt-grdCd" uitype="single" jsondata-ref="jsonApcGrd" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
 							</td>
 							<td colspan="3"></td>
 							<th scope="row" class="th_bg">비고</th>
