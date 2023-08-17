@@ -41,7 +41,13 @@ span.sbux-pik-group {
 .box-title{
 	line-height: 30px !important;
 }
+.form-control[readonly]{
+	background-color : #eee;
+}
 
 select.form-control.input-sm.inpt_data_reqed {
+	background-color:#FFF8DC !important;
+}
+.form-control[readonly].inpt_data_reqed{
 	background-color:#FFF8DC !important;
 }
