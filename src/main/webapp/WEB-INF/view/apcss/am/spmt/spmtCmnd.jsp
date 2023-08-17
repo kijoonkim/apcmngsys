@@ -140,14 +140,8 @@
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		SBUxMethod.set("srch-inp-acpNm", gv_selectedApcNm);
-		
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2);
-		let day = ('0' + today.getDate()).slice(-2);
-		SBUxMethod.set("srch-dtp-cmndYmdFrom", year+month+day);
-		SBUxMethod.set("srch-dtp-cmndYmdTo", year+month+day);
+		SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
 		
 		fn_createSpmtCmndGrid();
 		fn_search();
