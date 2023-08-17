@@ -130,6 +130,7 @@
 		    SBGridProperties.selectmode = 'byrow';
 		    SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.extendlastcol = 'scroll';
+		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.paging = {
 				'type' : 'page',
@@ -143,10 +144,10 @@
 	                ref: 'checked', type: 'checkbox', width: '50px', style: 'text-align:center', sortable: false,
 	                typeinfo : {ignoreupdate : true}
 	            },
-		        {caption: ['품목코드'], 	ref: 'itemCd', width: '100px', type: 'output'},
-		        {caption: ['품목명'], 	ref: 'itemNm', width: '150px', type: 'output'},
-		        {caption: ['품종코드'], 	ref: 'vrtyCd', width: '100px', type: 'output'},
-		        {caption: ['품종명'], 	ref: 'vrtyNm', width: '150px', type: 'output'},
+		        {caption: ['품목코드'], 	ref: 'itemCd', width: '100px', type: 'output' style:'text-align:center'},
+		        {caption: ['품목명'], 	ref: 'itemNm', width: '150px', type: 'output' style:'text-align:center'},
+		        {caption: ['품종코드'], 	ref: 'vrtyCd', width: '100px', type: 'output' style:'text-align:center'},
+		        {caption: ['품종명'], 	ref: 'vrtyNm', width: '150px', type: 'output' style:'text-align:center'},
 		        {caption: ['APC코드'], 	ref: 'apcCd',  hidden : true}
 		    ];
 		    grdVrty = _SBGrid.create(SBGridProperties);

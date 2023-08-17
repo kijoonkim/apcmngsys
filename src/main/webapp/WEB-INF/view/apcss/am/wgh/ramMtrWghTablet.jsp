@@ -320,6 +320,7 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,

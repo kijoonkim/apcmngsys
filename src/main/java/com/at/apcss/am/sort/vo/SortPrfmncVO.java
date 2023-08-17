@@ -123,4 +123,42 @@ public class SortPrfmncVO extends ComVO {
 	 * 선별투입실적 변경 필요 여부
 	 */
 	private String needsInptChgYn;
+	
+	/**
+	 * APC명
+	 */
+	private String apcNm;
+	
+	/**
+	 * 선별기명
+	 */
+	private String fcltNm;
+	/**
+	 * 투입지시번호
+	 */
+	private String inptCmndNo;
+	/**
+	 * 입고일자
+	 */
+	private String wrhsYmd;
+	/**
+	 * 투입중량
+	 */
+	private String inptSortWght;
+	/**
+	 * 품종명
+	 */
+	private String itemNm;
+	/**
+	 * 품목명
+	 */
+	private String vrtyNm;
+	/**
+	 * 원물창고
+	 */
+	private String rawMtrWarehouse;
+	
+	private String startsortYmd;
+	private String endSortYmd;
+	private String strgWarehouse;
 }

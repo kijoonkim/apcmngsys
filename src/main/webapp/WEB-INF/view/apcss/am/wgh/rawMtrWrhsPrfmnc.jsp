@@ -143,10 +143,18 @@
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg">차량번호</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-vhclNo" name="srch-inp-vhclNo" class="form-control input-sm"/>
+								<sbux-input uitype="text" id="srch-inp-vhclno" name="srch-inp-vhclno" class="form-control input-sm"/>
 							</td>
-							<td style="border-right: hidden;">
-								<sbux-button id="srch-btn-vhclNoSrch" name="srch-btn-vhclNoSrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"/>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button
+									id="srch-btn-vhcl"
+									name="srch-btn-vhcl"
+									class="btn btn-xs btn-outline-dark"
+									text="찾기"
+									uitype="modal"
+									target-id="modal-vhcl"
+									onclick="fn_choiceVhcl"
+								/>
 							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg">계량번호</th>
@@ -245,6 +253,19 @@
 		}
 	}
     
+	/**
+	 * @name fn_choiceVhcl
+	 * @description 차량번호 선택 popup
+	 */
+	const fn_choiceVhcl = function() {
+		popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl);
+	}
+
+	const fn_setVhcl = function(vhcl) {
+		if (!gfn_isEmpty(vhcl)) {
+			SBUxMethod.set("srch-inp-vhclno", vhcl.vhclno);
+		}
+	}
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -278,6 +299,7 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,

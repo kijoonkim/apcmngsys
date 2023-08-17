@@ -36,8 +36,18 @@ span.sbux-pik-group {
   padding: 0px !important;
 }
 .content {
-	padding-left: 0px !important;
-	padding-right: 0px !important;
+	padding: 0px !important;
+}
+.box-title{
+	line-height: 30px !important;
+}
+.form-control[readonly]{
+	background-color : #eee;
 }
 
-
+select.form-control.input-sm.inpt_data_reqed {
+	background-color:#FFF8DC !important;
+}
+.form-control[readonly].inpt_data_reqed{
+	background-color:#FFF8DC !important;
+}

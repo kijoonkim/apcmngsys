@@ -23,19 +23,22 @@
     <select id="selectFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfo */
-				  CM.MSG_KEY	AS MSG_KEY
-				, CM.MSG_CN		AS MSG_CN
-				, CM.MSG_KND	AS MSG_KND
-				, CM.RMRK		AS RMRK
-				, CM.DEL_YN		AS DEL_YN
-				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
-				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
-				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_COM_MSG CM
-			 WHERE CM.MSG_KEY = #{msgKey}
+				  FCLT.TRGT_YR                AS TRGT_YR
+				, FCLT.APC_CD                 AS APC_CD
+				, FCLT.SN                     AS SN
+				, FCLT.FCLT_STR_CD            AS FCLT_STR_CD
+				, FCLT.FCLT_NTSL_CD           AS FCLT_NTSL_CD
+				, FCLT.DEL_YN                 AS DEL_YN
+				, FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
+				, FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
+				, FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
+				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
+				, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
+                , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+			 FROM TB_FCLT_PRCS_NTSL_INFO FCLT
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
     	]]>
     </select>
 
@@ -60,37 +63,23 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfoList */
-				  CM.MSG_KEY	AS MSG_KEY
-				, CM.MSG_CN		AS MSG_CN
-				, CM.MSG_KND	AS MSG_KND
-				, (SELECT FN_GET_COM_CD_VL_NM('MSG_KND', CM.MSG_KND) FROM DUAL) AS MSG_KND_NM
-				, CM.RMRK		AS RMRK
-				, CM.DEL_YN		AS DEL_YN
-				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
-				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
-				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_COM_MSG CM
-    	]]>
-    	<where>
-			<if test='msgKey != null and msgKey != ""'>
-				AND CM.MSG_KEY LIKE #{msgKey} || '%'
-			</if>
-
-			<if test='msgCn != null and msgCn != ""'>
-				AND CM.MSG_CN LIKE '%' || #{msgCn} || '%'
-			</if>
-
-			<if test='msgKnd != null and msgKnd != ""'>
-				AND CM.MSG_KND = #{msgKnd}
-			</if>
-
-			<if test='delYn != null and delYn != ""'>
-				AND CM.DEL_YN = #{delYn}
-			</if>
-		</where>
+				  FCLT.TRGT_YR                AS TRGT_YR
+				, FCLT.APC_CD                 AS APC_CD
+				, FCLT.SN                     AS SN
+				, FCLT.FCLT_STR_CD            AS FCLT_STR_CD
+				, FCLT.FCLT_NTSL_CD           AS FCLT_NTSL_CD
+				, FCLT.DEL_YN                 AS DEL_YN
+				, FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
+				, FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
+				, FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
+				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
+				, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
+                , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+			 FROM TB_FCLT_PRCS_NTSL_INFO FCLT
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
+		     ]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -111,12 +100,14 @@
     <insert id="insertFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.insertFcltPrcsNtslInfo */
-	    	  INTO TB_COM_MSG
+	    	  INTO TB_FCLT_PRCS_NTSL_INFO FCLT
 	    		(
-	    			MSG_KEY
-	    		  , MSG_CN
-	    		  , MSG_KND
-	    		  , RMRK
+	    			TRGT_YR
+	    		  , APC_CD
+	    		  , SN
+	    		  , FCLT_STR_CD
+	    		  , FCLT_NTSL_CD
+	    		  , DEL_YN
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
@@ -126,16 +117,18 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    #{msgKey}
-	   			  , #{msgCn}
-	   			  , #{msgKnd}
-	   			  , #{rmrk}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
+	   			    #{TRGT_YR}
+	   			  , #{APC_CD}
+	   			  , #{SN}
+	   			  , #{FCLT_STR_CD}
+	   			  , #{FCLT_NTSL_CD}
+	   			  , #{DEL_YN}
+	   			  , #{SYS_FRST_INPT_DT}
+	   			  , #{SYS_FRST_INPT_USER_ID}
+	   			  , #{SYS_FRST_INPT_PRGRM_ID}
+	   			  , #{SYS_LAST_CHG_DT}
+	   			  , #{SYS_LAST_CHG_USER_ID}
+	   			  , #{SYS_LAST_CHG_PRGRM_ID}
 	   			)
     	]]>
     </insert>
@@ -151,11 +144,12 @@
     <update id="updateFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.updateFcltPrcsNtslInfo */
-	    		TB_COM_MSG
-			   SET
-			 	  MSG_CN	= #{msgCn}
-			 	, MSG_KND 	= #{msgKnd}
-			 	, RMRK 		= #{rmrk}
+	    		TB_FCLT_PRCS_NTSL_INFO FCLTT
+			 	  TRGT_YR        = #{TRGT_YR}
+			 	, APC_CD         = #{APC_CD}
+			 	, SN             = #{SN}
+    	        , FCLT_STR_CD    = #{FCLT_STR_CD}
+    	        , FCLT_NTSL_CD   = #{FCLT_NTSL_CD}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
@@ -165,7 +159,9 @@
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE MSG_KEY	= #{msgKey}
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
     	]]>
     </update>
 
@@ -180,8 +176,10 @@
     <delete id="deleteFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.deleteFcltPrcsNtslInfo */
-	    		TB_COM_MSG
-			 WHERE MSG_KEY	= #{msgKey}
+	    		TB_FCLT_PRCS_NTSL_INFO FCLT
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
     	]]>
     </delete>
 

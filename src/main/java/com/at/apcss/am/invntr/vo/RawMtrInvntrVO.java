@@ -115,6 +115,32 @@ public class RawMtrInvntrVO extends ComVO {
 	private double inptWght;
 
 	/**
+	 * 투입일자
+	 */
+	private String inptYmd;
+
+	/**
+	 * 수량 - 계산용 temp
+	 */
+	private int qntt;
+
+	/**
+	 * 중량 - 계산용 temp
+	 */
+	private double wght;
+
+	/**
+	 * 선별수량
+	 */
+	private int sortQntt;
+
+	/**
+	 * 선별중량
+	 */
+	private double sortWght;
+
+
+	/**
 	 * 재고수량
 	 */
 	private int invntrQntt;
@@ -187,5 +213,15 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 지시중량
 	 */
 	private double cmndWght;
+
+	/**
+	 * 지시제외재고수량
+	 */
+	private int invntrCmndQntt;
+
+	/**
+	 * 지시재외재고중량
+	 */
+	private double invntrCmndWght;
 
 }

@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SortCmndVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -37,12 +37,12 @@ public class SortCmndVO extends ComVO {
 	/**
 	 * 선별지시번호
 	 */
-	private String sortCmndNo;
+	private String sortCmndno;
 
 	/**
 	 * 선별지시순번
 	 */
-	private String sortCmndSeqNo;
+	private int sortCmndSn;
 
 	/**
 	 * 선별지시일자
@@ -62,7 +62,7 @@ public class SortCmndVO extends ComVO {
 	/**
 	 * 팔레트번호
 	 */
-	private String pltNo;
+	private String pltno;
 
 	/**
 	 * 생산자코드
@@ -98,4 +98,24 @@ public class SortCmndVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
+
+	/**
+	 * 품목명
+	 */
+	private String itemNm;
+
+	/**
+	 * 품종명
+	 */
+	private String vrtyNm;
+
+	/**
+	 * 설비명
+	 */
+	private String fcltNm;
+
+	/**
+	 * 창고구분명
+	 */
+	private String warehouseSeNm;
 }

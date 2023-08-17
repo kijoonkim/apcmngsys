@@ -76,6 +76,7 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.columns = [
 	        {caption: ["코드"], 			ref: 'trsprtCoCd',  type:'output',  width:'80px',     style:'text-align:center', hidden : true},
 	        {caption: ["운송회사명"], 		ref: 'trsprtCoNm',  type:'input',  width:'145px',    style:'text-align:center'},

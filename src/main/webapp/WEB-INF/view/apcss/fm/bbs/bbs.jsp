@@ -44,35 +44,17 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">APC명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<th scope="row">검색어</th>
+							<td colspan="11" class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm inpt_data_reqed" placeholder="" ></sbux-input>
 							</td>
-							<td colspan="8"></td>
 						</tr>
 						<tr>
-							<th scope="row">약정일자</th>
-							<td colspan="3" class="td_input"  style="border-right: hidden;">
-								<div style="display: flex;">
-									<sbux-datepicker id="srch-inp-enggtYmd2" name="srch-inp-enggtYmd2" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
-									<span>~</span>
-									<sbux-datepicker id="srch-inp-enggtYmd3" name="srch-inp-enggtYmd3" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
-								</div>
+							<th scope="row">등록일자</th>
+							<td class="td_input" style="border-right:hidden;" >
+								<sbux-datepicker id="dtl-dtp-wghYmd" name="dtl-dtp-wghYmd" uitype="popup" class="form-control input-sm" style="background-color: #FFF8DC;"></sbux-datepicker>
 							</td>
-
-							<th scope="row">규격</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
-							</td>
-							<td colspan="2"></td>
-							<th scope="row">품목/품종</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-Vrty" name="srch-slt-Vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
-							</td>
-							<td class="td_input"></td>
+                            <td colspan="8"></td>
 						</tr>
 
 					</tbody>
@@ -86,7 +68,7 @@
 						</ul>
 					</div>
 
-					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:300px;"></div>
+					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:250px;"></div>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>게시판</span></li>
@@ -95,75 +77,34 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 7%">
 						<col style="width: 6%">
+						<col style="width: 52%">
 						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
+						<col style="width: 15%">
 						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
+						<col style="width: 15%">
 					</colgroup>
 					<tbody>
 						<tr>
-
-							<th scope="row">APC명</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							</td>
-							<td>
-								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
-							</td>
-					  		<th scope="row">생산자</th>
+							<th scope="row">제목</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-prdcr-cd" name="srch-prdcr-cd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm" placeholder="" style="background-color: #FFF8DC;" ></sbux-input>
 							</td>
+							<th scope="row">등록자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-frmer-sn" name="srch-frmer-sn" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<sbux-input  id="srch-item-cd" name="srch-item-cd" uitype="text"  class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
-							<td style="border-right: hidden;">
-								<sbux-button id="srch-btn-cnpt1" name="srch-btn-cnpt1" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
+							<th scope="row">등록일시</th>
+							<td class="td_input" >
+								<sbux-input id="srch-item-cd" name="srch-item-cd" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
-							<th scope="row">품종/품목</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-item-cd" name="srch-item-cd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							</td>
-							<td></td>
 						</tr>
 						<tr>
-						    <th scope="row">약정일자</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-enggtYmd" name="srch-inp-enggtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+					  		<th scope="row">내용</th>
+							<td colspan="5" class="td_input" >
+								<sbux-textarea rows="13" cols="245" uitype="normal" id="srch-prdcr-cd" name="srch-prdcr-cd"   ></sbux-textarea>
 							</td>
-							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
-							<th scope="row">규격</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-spcfct-cd" name="srch-spcfct-cd" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
-							</td>
-							<td style="border-right: hidden;"></td>
-							<th scope="row">약정수량</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-enggtVlm" name="srch-inp-enggtVlm" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
-							</td>
-							<td colspan="1" scope="row"> &nbsp;</th>
 						</tr>
-						<tr>
-							<th class="td_input" scope="row">예상수확량</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-expctHrvstQntt" name="srch-inp-expctHrvstQntt" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
-							<td class="td_input" style="border-right: hidden;">Kg</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<th>비고</th>
-							<td colspan="6" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-RMRK" name="srch-inp-RMRK" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
-							</td>
-							<td colspan="1"></td>
-						</tr>
-
 					</tbody>
 				</table>
 
@@ -171,13 +112,6 @@
 			</div>
 		</div>
 	</section>
-	<!-- 거래처 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-cnpt">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
-    </div>
 </body>
 <script type="text/javascript">
 
@@ -214,12 +148,10 @@
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
 
-            {caption: ["생산자"],	   ref: 'msgKey',      type:'output',  width:'17%',    style:'text-align:center'},
-            {caption: ["품목"], 	   ref: 'msgCn',     	type:'output',  width:'17%',    style:'text-align:center'},
-            {caption: ["품종"],     ref: 'msgKndNm',    type:'output',  width:'17%',    style:'text-align:center'},
-            {caption: ["약정일자"],  ref: 'rmrk',        type:'output',  width:'17%',    style:'text-align:center'},
-            {caption: ["약정수량"],  ref: 'creUserId',   type:'output',  width:'17%',    style:'text-align:center'},
-            {caption: ["예상수확량"], ref: 'creDateTime', type:'output',  width:'17%',    style:'text-align:center'},
+            {caption: ["제목"],	   ref: 'msgKey',      type:'output',  width:'20%',    style:'text-align:center'},
+            {caption: ["내용"], 	   ref: 'msgCn',     	type:'output',  width:'50%',    style:'text-align:center'},
+            {caption: ["등록자"],     ref: 'msgKndNm',    type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["등록일시"],  ref: 'rmrk',        type:'output',   width:'15%',   style:'text-align:center'},
             {caption: ["최종변경자ID"], ref: 'updUserId',   type:'output',  hidden: true},
             {caption: ["최종변경일시"],  ref: 'updDateTime', type:'output',  hidden: true},
             {caption: ["등록프로그램"],  ref: 'creProgram',  type:'output',  hidden: true},

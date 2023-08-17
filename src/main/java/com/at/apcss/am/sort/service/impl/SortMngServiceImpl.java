@@ -9,8 +9,10 @@ import javax.annotation.Resource;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.sort.service.SortCmndService;
 import com.at.apcss.am.sort.service.SortInptPrfmncService;
@@ -22,6 +24,7 @@ import com.at.apcss.am.sort.vo.SortPrfmncVO;
 import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : SortPrfmncServiceImpl.java
@@ -53,6 +56,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 	@Resource(name="sortPrfmncService")
 	private SortPrfmncService sortPrfmncService;
+
+	@Resource(name="rawMtrInvntrService")
+	private RawMtrInvntrService rawMtrInvntrService;
 
 
 	@Override
@@ -121,35 +127,109 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 		HashMap<String, Object> rtnObj = new HashMap<>();
 
+		String apcCd = sortMngVO.getApcCd();
+
+		if (!StringUtils.hasText(apcCd)) {
+			return ComUtil.getResultMap("W0005", "APC코드");
+		}
+
 		// 실적등록 대상정보 목록
 		List<SortPrfmncVO> prfmncList = sortMngVO.getSortPrfmncList();
-
+		// 실적등록 대상재고 목록
 		List<RawMtrInvntrVO> invntrList = sortMngVO.getRawMtrInvntrList();
 
-		// 재고 >> 선별실적 정보 set
+		List<RawMtrInvntrVO> rawMtrInvntrVOList = new ArrayList<>();
 
+		// 재고 >> 선별실적 정보 set	// 재고배분
+		for ( RawMtrInvntrVO orgnInv : invntrList ) {
 
+			RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+			BeanUtils.copyProperties(sortMngVO, invntrVO);
+			BeanUtils.copyProperties(orgnInv, invntrVO,
+					ApcConstants.PROP_APC_CD,
+					ComConstants.PROP_SYS_FRST_INPT_DT,
+					ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+					ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+					ComConstants.PROP_SYS_LAST_CHG_DT,
+					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+
+			RawMtrInvntrVO invntrInfo = rawMtrInvntrService.selectRawMtrInvntr(invntrVO);
+
+			if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
+				return ComUtil.getResultMap("W0005", "원물재고");
+			}
+
+			if (invntrVO.getInptWght() > invntrInfo.getInvntrWght()) {
+				return ComUtil.getResultMap("W0008", "재고수량||투입수량");		// W0008	{0} 보다 {1}이/가 큽니다.
+			}
+
+			invntrVO.setPrdcrCd(invntrInfo.getPrdcrCd());
+			invntrVO.setGdsSeCd(invntrInfo.getGdsSeCd());
+			invntrVO.setWrhsSeCd(invntrInfo.getWrhsSeCd());
+			invntrVO.setInvntrQntt(invntrInfo.getInvntrQntt());
+			invntrVO.setInvntrWght(invntrInfo.getInvntrWght());
+
+			rawMtrInvntrVOList.add(invntrVO);
+		}
+
+		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
+
+			String inptYmd = ComConstants.CON_BLANK;
+			String wrhsno = inv.getWrhsno();
+			String prdcrCd = inv.getPrdcrCd();
+			String gdsSeCd = inv.getGdsSeCd();
+			String wrhsSeCd = inv.getWrhsSeCd();
+
+			// 지정 투입수량, 투입중량
+			//int inptQntt = inv.getInptQntt();
+			double inptWght = inv.getInptWght();
+
+			int sortQntt = inv.getSortQntt();
+			double sortWght = inv.getSortWght();
+
+			for ( SortPrfmncVO sort : prfmncList ) {
+				if (StringUtils.hasText(sort.getWrhsno())) {
+					continue;
+				}
+
+				if (inptWght - sortWght < sort.getWght()) {
+					continue;
+				}
+
+				sort.setWrhsno(wrhsno);
+				sort.setWrhsno(wrhsno);
+				sort.setRprsPrdcrCd(prdcrCd);
+				sort.setGdsSeCd(gdsSeCd);
+				sort.setWrhsSeCd(wrhsSeCd);
+
+				sortQntt -= sort.getQntt();
+				sortWght -= sort.getWght();
+
+				if (!StringUtils.hasText(inptYmd)) {
+					inptYmd = sort.getInptYmd();
+				}
+			}
+
+			inv.setInptYmd(inptYmd);
+			inv.setSortQntt(sortQntt);
+			inv.setSortWght(sortWght);
+		}
 
 		// 선별실적 등록 시 투입실적도 함께 등록 (투입실적 여부 확인 후 등록)
 		if (ComConstants.CON_YES.equals(sortMngVO.getNeedsInptRegYn())) {
 
 			List<SortInptPrfmncVO> sortInptPrfmncVOList = new ArrayList<>();
-			for ( SortPrfmncVO prfmncInfo : prfmncList ) {
+			for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
 
-				SortInptPrfmncVO inptVO = new SortInptPrfmncVO();
-				BeanUtils.copyProperties(prfmncInfo, inptVO);
-				BeanUtils.copyProperties(prfmncInfo, inptVO,
-						ApcConstants.PROP_APC_CD,
-						ComConstants.PROP_SYS_FRST_INPT_DT,
-						ComConstants.PROP_SYS_FRST_INPT_USER_ID,
-						ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
-						ComConstants.PROP_SYS_LAST_CHG_DT,
-						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
-						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+				SortInptPrfmncVO sortInptVO = new SortInptPrfmncVO();
+				BeanUtils.copyProperties(inv, sortInptVO);
+
+				sortInptVO.setQntt(inv.getInptQntt());
+				sortInptVO.setWght(inv.getInptWght());
 
 				// 투입실적 항목 set
-
-				sortInptPrfmncVOList.add(inptVO);
+				sortInptPrfmncVOList.add(sortInptVO);
 			}
 
 			rtnObj = sortInptPrfmncService.insertSortInptPrfmncList(sortInptPrfmncVOList);
@@ -159,7 +239,13 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			}
 		}
 
-
+		// 원물재고정보 update
+		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
+			HashMap<String, Object> rtnMap = rawMtrInvntrService.updateInvntrSortPrfmnc(inv);
+			if (rtnMap != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
 
 		// 선별실적 등록
 		List<SortPrfmncVO> sortPrfmncVOList = new ArrayList<>();
