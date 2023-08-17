@@ -35,7 +35,9 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
 			  FROM TB_COM_MSG CM
-			 WHERE CM.MSG_KEY = #{msgKey}
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
     	]]>
     </select>
 
@@ -165,7 +167,9 @@
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE MSG_KEY	= #{msgKey}
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
     	]]>
     </update>
 
@@ -181,7 +185,9 @@
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.deleteSpmtEnggtInfoMng */
 	    		TB_COM_MSG
-			 WHERE MSG_KEY	= #{msgKey}
+			 WHERE 1=1
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
     	]]>
     </delete>
 
