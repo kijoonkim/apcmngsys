@@ -83,12 +83,6 @@
 							</td>
 							<td>&nbsp;</td>
 						</tr>
-						<tr>
-							<th scope="row" class="th_bg">창고</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComWarehouse"></sbux-select>
-							</td>
-						</tr>
 					</tbody>
 				</table>
 				<div class="ad_tbl_top">
