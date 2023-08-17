@@ -55,10 +55,7 @@
 </body>
 <script type="text/javascript">
 
-// 	window.addEventListener('DOMContentLoaded', function(e) {
-// 		console.log("init", "init");
-// 		popVrty.search();
-// 	});
+
 	var jsonVrtyPopUp = [];
 	var callbackChoiceFnc = function(){};
 	
@@ -69,9 +66,6 @@
 		jsonId: 'jsonVrtyPopUp',
 		areaId: "sb-area-grdVrty",
 		prvApcCd: "",
-// 		objGrid: null,
-// 		gridJson: [],
-// 		callbackChoiceFnc: function() {},
 		callbackSelectFnc: function() {},
 		itemNm: "",
 		apcCd: "",
@@ -84,32 +78,13 @@
 			
 				console.log("Test1",callbackChoiceFnc);
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
-// 				console.log("Test1",this.callbackChoiceFnc);
 				callbackChoiceFnc = _callbackChoiceFnc;	
 				console.log("Test1",callbackChoiceFnc);
-				//console.log("init prdcrPop");
 			}
 			if (!gfn_isEmpty(_callbackSelectFnc) && typeof _callbackSelectFnc === 'function') {
-				this.callbackSelectFnc = _callbackSelectFnc;	
-				//console.log("init prdcrPop");
+				this.callbackSelectFnc = _callbackSelectFnc;
 			}
-// 			console.log("Test1",this.callbackChoiceFnc);
-			//console.log("init prdcrPop");
-			
-// 			if (grdVrty === null || this.prvApcCd != _apcCd) {
-// 				let rst = await Promise.all([
-// 					gfn_setApcItemSBSelect('grdPrdcr', jsonItemCdPop, 'itemCd'),				// 품목
-// 					gfn_setApcVrtySBSelect('grdPrdcr', jsonItemNmPop, 'itemNm'),				// 품종
-// 					gfn_setComCdSBSelect('grdPrdcr', jsonVrtyCdPop, 'vrtyCd'),			// 상품구분
-// 					gfn_setComCdSBSelect('grdPrdcr', jsonVrtyNmPop, 'vrtyNm'),		// 입고구분
-// 					gfn_setComCdSBSelect('grdPrdcr', jsonApcCdPop, '_apcCd')	// 운송구분
-// 				]);
-// 				this.createGrid();
-// 			console.log("init prdcrPop");
-// 				this.search();
-// 			} else {
-// 				this.search();
-// 			}
+
 			this.createGrid();
 			this.search();
 			this.prvApcCd = _apcCd;
@@ -121,7 +96,6 @@
 			gfn_closeModal(this.modalId, _callbackFnc, _data);
 		},
 		createGrid: function() {
-			//console.log('creatyeGrid');
 			var SBGridProperties = {};
 		    SBGridProperties.parentid = this.areaId;	//'sb-area-grdComAuthUserPop';	//this.sbGridArea;	//'sb-area-grdComAuthUserPop';
 		    SBGridProperties.id = this.gridId;			//'grdComAuthUserPop';					//'grdComAuthUserPop';
@@ -144,10 +118,10 @@
 	                ref: 'checked', type: 'checkbox', width: '50px', style: 'text-align:center', sortable: false,
 	                typeinfo : {ignoreupdate : true}
 	            },
-		        {caption: ['품목코드'], 	ref: 'itemCd', width: '100px', type: 'output' style:'text-align:center'},
-		        {caption: ['품목명'], 	ref: 'itemNm', width: '150px', type: 'output' style:'text-align:center'},
-		        {caption: ['품종코드'], 	ref: 'vrtyCd', width: '100px', type: 'output' style:'text-align:center'},
-		        {caption: ['품종명'], 	ref: 'vrtyNm', width: '150px', type: 'output' style:'text-align:center'},
+		        {caption: ['품목코드'], 	ref: 'itemCd', width: '100px', type: 'output', style:'text-align:center'},
+		        {caption: ['품목명'], 	ref: 'itemNm', width: '150px', type: 'output', style:'text-align:center'},
+		        {caption: ['품종코드'], 	ref: 'vrtyCd', width: '100px', type: 'output', style:'text-align:center'},
+		        {caption: ['품종명'], 	ref: 'vrtyNm', width: '150px', type: 'output', style:'text-align:center'},
 		        {caption: ['APC코드'], 	ref: 'apcCd',  hidden : true}
 		    ];
 		    grdVrty = _SBGrid.create(SBGridProperties);
@@ -160,7 +134,6 @@
 			popVrty.close(callbackChoiceFnc, rowData);
 		},
 		select: function() {
-// 			console.log("jsonVrtyPopUp", jsonVrtyPopUp)
 			var data = [];
 			for(var i=0; i<jsonVrtyPopUp.length; i++){
 				if(jsonVrtyPopUp[i].checked == 'true')
@@ -170,20 +143,14 @@
 		},
 		
 		search: async function() {
-			//console.log('search');
 			let apcCd = this.apcCd;
 			let itemNm = this.itemNm;
 			this.setGrid(itemNm, apcCd);
 		},
 		setGrid: async function(itemNm, apcCd) {
 			jsonVrtyPopUp = [];
-	    	//console.log('setGrid');
 	    	let apcNm = SBUxMethod.get("vrty-inp-apcNm");
 			let vrtyNm = SBUxMethod.get("vrty-inp-vrtyNm");
-			
-			//console.log('apcNm',apcNm);
-			//console.log('apcNm',vrtyNm);
-			//console.log('apcNm',itemNm);
 			let postJsonPromise = gfn_postJSON("/am/apc/selectVrtyList.do", { apcCd: apcCd, vrtyNm: vrtyNm, itemNm: itemNm });
 		    let data = await postJsonPromise;                
 		    
@@ -198,7 +165,6 @@
 					jsonVrtyPopUp.push(vrty);
 				});
 		    	grdVrty.rebuild();
-// 		    	this.gridId.rebuild();
 		    }catch (e) {
 				if (!(e instanceof Error)) {
 					e = new Error(e);

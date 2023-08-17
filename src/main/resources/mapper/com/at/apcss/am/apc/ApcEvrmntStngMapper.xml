@@ -271,6 +271,9 @@
 		<if test='apcCd != null and apcCd != ""'>
 			AND APC_CD = #{apcCd}
 		</if>
+		<if test='itemCd != null and itemCd = ""'>
+			AND ITEM_CD = #{itmeCd}
+		</if>
 		<![CDATA[
 			order by ITEM_CD
 		]]>
