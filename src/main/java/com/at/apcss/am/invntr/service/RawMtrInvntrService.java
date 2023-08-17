@@ -28,7 +28,7 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
 	public RawMtrInvntrVO selectRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
+
 	/**
 	 * 원물재고 목록 조회
 	 * @param rawMtrInvntrVO
@@ -36,7 +36,7 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
 	public List<RawMtrInvntrVO> selectRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
+
 	/**
 	 * 원물재고 등록
 	 * @param rawMtrInvntrVO
@@ -44,7 +44,7 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
+
 	/**
 	 * 원물재고 등록
 	 * @param rawMtrInvntrVO
@@ -52,8 +52,8 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception;
-	
-	
+
+
 	/**
 	 * 원물재고 변경
 	 * @param rawMtrInvntrVO
@@ -61,7 +61,7 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
+
 	/**
 	 * 원물재고 삭제
 	 * @param rawMtrInvntrVO
@@ -69,4 +69,15 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+
+	/**
+	 * 원물재고 선별처리
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateInvntrSortPrfmnc(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+
 }

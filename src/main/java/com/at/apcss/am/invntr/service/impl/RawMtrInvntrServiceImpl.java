@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : RawMtrInvntrServiceImpl.java
@@ -30,12 +33,12 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 	@Autowired
 	private RawMtrInvntrMapper rawMtrInvntrMapper;
-	
+
 	@Override
 	public RawMtrInvntrVO selectRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
 		RawMtrInvntrVO resultVO = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
-		
+
 		return resultVO;
 	}
 
@@ -43,17 +46,17 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	public List<RawMtrInvntrVO> selectRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
 		List<RawMtrInvntrVO> resultList = rawMtrInvntrMapper.selectRawMtrInvntrList(rawMtrInvntrVO);
-		
+
 		return resultList;
 	}
-	
+
 
 	@Override
 	public HashMap<String, Object> insertRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
 		int insertedCnt = rawMtrInvntrMapper.insertRawMtrInvntr(rawMtrInvntrVO);
 		if (insertedCnt != 0) {
-			
+
 		}
 		return null;
 	}
@@ -61,26 +64,26 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 	@Override
 	public HashMap<String, Object> insertRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
-		
+
 		int insertedCnt = 0;
 		for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
-			
+
 			insertedCnt = rawMtrInvntrMapper.insertRawMtrInvntr(rawMtrInvntrVO);
-			
+
 			if (insertedCnt != 0) {
-				
+
 			}
 		}
-		
+
 		return null;
 	}
-	
-	
+
+
 	@Override
 	public HashMap<String, Object> updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
 		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntr(rawMtrInvntrVO);
-		
+
 		return null;
 	}
 
@@ -88,7 +91,43 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	public HashMap<String, Object> deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
 		int deletedCnt = rawMtrInvntrMapper.deleteRawMtrInvntr(rawMtrInvntrVO);
-		
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateInvntrSortPrfmnc(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+
+		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
+
+		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
+			logger.debug("원물재고 없음");
+			return ComUtil.getResultMap("W0005", "원물재고");
+		}
+
+		if (invntrInfo.getInvntrWght() > invntrInfo.getInvntrWght()) {
+			logger.debug("원물재고 대비 투입량 over");
+			return ComUtil.getResultMap("W0008", "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		}
+
+		// 재고량
+		int invntrQntt = invntrInfo.getInvntrQntt() - rawMtrInvntrVO.getInptQntt();
+		double invntrWght = invntrInfo.getInvntrWght() - rawMtrInvntrVO.getInptWght();
+		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
+		rawMtrInvntrVO.setInvntrWght(invntrWght);
+
+		// 투입량
+		int inptQntt = invntrInfo.getInptQntt() + rawMtrInvntrVO.getInptQntt();
+		double inptWght = invntrInfo.getInptWght() + rawMtrInvntrVO.getInptWght();
+		rawMtrInvntrVO.setInptQntt(inptQntt);
+		rawMtrInvntrVO.setInptWght(inptWght);
+
+		int updatedCnt = rawMtrInvntrMapper.updateInvntrSortPrfmnc(rawMtrInvntrVO);
+
+		if (updatedCnt != 1) {
+
+		}
+
 		return null;
 	}
 

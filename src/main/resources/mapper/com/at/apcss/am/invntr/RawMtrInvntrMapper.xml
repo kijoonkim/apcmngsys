@@ -24,20 +24,29 @@
     <select id="selectRawMtrInvntr" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO" resultType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntr */
-				  WC.APC_CD		AS APC_CD
-				, WC.WGHNO		AS WGHNO
-				, WC.WGH_YMD	AS WGH_YMD
-				, WC.VHCLNO		AS VHCLNO
-				, WC.WHOL_WGHT	AS WHOL_WGHT
-				, WC.EMPT_VHCL_WGHT	AS EMPT_VHCL_WGHT
-				, WC.RDCD_RT	AS RDCD_RT
-				, WC.RDCD_WGHT	AS RDCD_WGHT
-				, WC.WRHS_WGHT	AS WRHS_WGHT
-				, WC.RMRK		AS RMRK
-				, WC.DEL_YN		AS DEL_YN
-			  FROM TB_RAW_MTR_INVNTR WC
-			 WHERE WC.APC_CD = #{apcCd}
-			   AND WC.WGHNO = #{wghno}
+				  RI.APC_CD				AS APC_CD
+				, RI.WRHSNO				AS WRHSNO
+				, RI.PLTNO				AS PLTNO
+				, RI.WRHS_YMD			AS WRHS_YMD
+				, RI.PRDCR_CD			AS PRDCR_CD
+				, RI.ITEM_CD			AS ITEM_CD
+				, RI.VRTY_CD			AS VRTY_CD
+				, RI.GDS_SE_CD			AS GDS_SE_CD
+				, RI.WRHS_SE_CD			AS WRHS_SE_CD
+				, RI.TRSPRT_SE_CD		AS TRSPRT_SE_CD
+				, RI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+				, RI.GRD_CD				AS GRD_CD
+				, RI.BX_KND				AS BX_KND
+				, RI.WRHS_QNTT			AS WRHS_QNTT
+				, RI.WRHS_WGHT			AS WRHS_WGHT
+				, RI.INPT_QNTT			AS INPT_QNTT
+				, RI.INPT_WGHT			AS INPT_WGHT
+				, RI.INVNTR_QNTT		AS INVNTR_QNTT
+				, RI.INVNTR_WGHT		AS INVNTR_WGHT
+				, RI.DEL_YN				AS DEL_YN
+			  FROM TB_RAW_MTR_INVNTR RI
+			 WHERE RI.APC_CD = #{apcCd}
+			   AND RI.WRHSNO = #{wrhsno}
 		]]>
     </select>
 
@@ -278,7 +287,7 @@
 			</if>
 		<![CDATA[
 			 WHERE APC_CD = #{apcCd}
-			   AND WRHSNO = #{wghno}
+			   AND WRHSNO = #{wrhsno}
 		]]>
 	</update>
 
@@ -295,8 +304,36 @@
 			DELETE /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.deleteRawMtrInvntr */
 			  FROM TB_RAW_MTR_INVNTR
 			 WHERE APC_CD = #{apcCd}
-			   AND WRHSNO = #{wghno}
+			   AND WRHSNO = #{wrhsno}
 		]]>
 	</delete>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateInvntrSortPrfmnc	-->
+	<!-- DESC : 원물재고 변경 - 선별등록.		                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateInvntrSortPrfmnc" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateInvntrSortPrfmnc */
+				TB_RAW_MTR_INVNTR
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+				, INPT_QNTT	= #{inptQntt}
+				, INPT_WGHT	= #{inptWght}
+				, INVNTR_QNTT = #{invntrQntt}
+				, INVNTR_WGHT = #{invntrWght}
+
+			 WHERE APC_CD = #{apcCd}
+			   AND WRHSNO = #{wrhsno}
+		]]>
+	</update>
 
 </mapper>
