@@ -416,7 +416,7 @@
 		let cmndWght = grdRawMtrInvntr.getRowData(nRow).cmndWght;
 
 
-		if(cmndQntt > 0 && ){
+		if((cmndQntt == 0 && cmndWght == 0) || (gfn_isEmpty(cmndQntt) && gfn_isEmpty(cmndWght))){
 	    	grdRawMtrInvntr.setCellData(nRow, 10, invntrQntt);
 			grdRawMtrInvntr.setCellData(nRow, 11, invntrWght);
 		}
