@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> ▶ 출하실적 등록</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal" text="송품장" class="btn btn-sm btn-primary"></sbux-button>
@@ -27,6 +27,9 @@
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
+				<!--[APC] START -->
+				<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -45,19 +48,12 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">APC명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							</td>
-							<td colspan="8"></td>
-						</tr>
-						<tr>
-							<th scope="row" class="th_bg">생산일자</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>생산일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-EndPrdctnYmd" name="srch-dtp-EndPrdctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-EndPrdctnYmd" name="srch-dtp-EndPrdctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast"></sbux-datepicker>
 							</td>
 							<td class="td_input"></td>
 
@@ -67,17 +63,17 @@
 							</td>
 							<td colspan="2" class="td_input"></td>
 
-							<th scope="row" class="th_bg">품목/품종</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
+								<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm input-sm-ast" unselected-text="전체" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComVrty"></sbux-select>
+								<sbux-select uitype="single" id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" class="form-control input-sm input-sm-ast inpt_data_reqed" unselected-text="선택" jsondata-ref="jsonComVrty" read></sbux-select>
 							</td>
 							<td class="td_input"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">상품</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>상품</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="rdo-wrhsSeCd_1" name="rdo-wrhsSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
@@ -166,27 +162,27 @@
 						<tr>
 							<th scope="row" class="th_bg">출하일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-smptYmd" name="srch-dtp-smptYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-smptYmd" name="srch-dtp-smptYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
 							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg">거래처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" placeholder=""></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기"  class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
 							<th scope="row" class="th_bg">상품등급</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-grdCd" name="srch-slt-grdCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComGrd"></sbux-select>
+								<sbux-select id="srch-slt-grdCd" name="srch-slt-grdCd" uitype="single" class="form-control input-sm input-sm-ast inpt_data_reqed" unselected-text="선택" jsondata-ref="jsonComGrd"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">출하수량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-smptQntt" name="srch-inp-smptQntt" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+								<sbux-input id="srch-inp-smptQntt" name="srch-inp-smptQntt" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" placeholder=""></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"></td>
 							<th scope="row" class="th_bg">운송회사</th>
