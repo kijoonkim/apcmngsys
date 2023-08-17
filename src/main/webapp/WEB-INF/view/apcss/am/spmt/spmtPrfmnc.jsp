@@ -95,7 +95,7 @@
 							<sbux-input id="srch-inp-vhclno" name="srch-inp-vhclno" uitype="text" class="form-control pull-right input-sm"></sbux-input>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"></sbux-button>
+							<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_choiceVhcl"></sbux-button>
 						</td>
 					</tr>
 				</tbody>
@@ -147,21 +147,16 @@
 	const fn_initSBSelect = async function() {
 
 		// 검색 SB select
-	 	await gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_apcCd);	// 창고
-	 	await gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', 		jsonComTrsprtCo, 	gv_apcCd);		// 운송사
-	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_apcCd);		// 품목
-	 	await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 		gv_apcCd);		// 품종
+	 	await gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd);	// 창고
+	 	await gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', 		jsonComTrsprtCo, 	gv_selectedApcCd);		// 운송사
+	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd);		// 품목
+	 	await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 		gv_selectedApcCd);		// 품종
 
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2)
-		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-spmtYmdFrom", year+month+day);
-		SBUxMethod.set("srch-dtp-spmtYmdTo", year+month+day);
-		SBUxMethod.set("srch-inp-apcNm", gv_selectedApcNm);
+		SBUxMethod.set("srch-dtp-spmtYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
 
 		fn_createSpmtPrfmncGrid();
         fn_search();
@@ -314,6 +309,17 @@
 			console.log("cnpt", cnpt);
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
 			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
+		}
+	}
+	
+	// 차량 선택 팝업 호출
+	const fn_choiceVhcl = function() {
+		popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl);
+	}
+
+	const fn_setVhcl = function(vhcl) {
+		if (!gfn_isEmpty(vhcl)) {
+			SBUxMethod.set("srch-inp-vhclno", vhcl.vhclno);   // callBack input
 		}
 	}
 </script>

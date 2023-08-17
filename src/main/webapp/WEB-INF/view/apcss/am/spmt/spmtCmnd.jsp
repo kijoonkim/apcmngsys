@@ -25,7 +25,7 @@
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<!--[APC] START -->
-				<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -92,16 +92,16 @@
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>출하지시 내역</span></li>
-						</ul>
-					</div>
-						<div class="table-responsive tbl_scroll_sm">
-							<div id="sb-area-grdSpmtCmnd" style="width:100%;height:600px;"></div>
-						</div>
-					</div>
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li><span>출하지시 내역</span></li>
+					</ul>
 				</div>
+				<div class="table-responsive tbl_scroll_sm">
+					<div id="sb-area-grdSpmtCmnd" style="width:100%;height:600px;"></div>
+				</div>
+			</div>
+		</div>
 				<!--[pp] //검색결과 -->
 	</section>
 	<!-- 거래처 선택 Modal -->
@@ -140,14 +140,8 @@
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		SBUxMethod.set("srch-inp-acpNm", gv_selectedApcNm);
-		
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2);
-		let day = ('0' + today.getDate()).slice(-2);
-		SBUxMethod.set("srch-dtp-cmndYmdFrom", year+month+day);
-		SBUxMethod.set("srch-dtp-cmndYmdTo", year+month+day);
+		SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
 		
 		fn_createSpmtCmndGrid();
 		fn_search();
@@ -270,102 +264,6 @@
     	let currentPageNo = grdSmptCmnd.getSelectPageIndex(); 
     	fn_callSelectSpmtCmndList(recordCountPerPage, currentPageNo);
     }
-	
- 	// 데이터 등록
-	async function fn_save() {
-		var updateList = [];
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '01', spmtCmndSn : 1, cmndYmd : '20230816', cnptCd : '0001'
-				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '02', spmtCmndSn : 2, cmndYmd : '20230816', cnptCd : '0001'
-				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '03', spmtCmndSn : 3, cmndYmd : '20230816', cnptCd : '0001'
-				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '04', spmtCmndSn : 4, cmndYmd : '20230816', cnptCd : '0001'
-				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '05', spmtCmndSn : 5, cmndYmd : '20230816', cnptCd : '0001'
-				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '06', spmtCmndSn : 6, cmndYmd : '20230816', cnptCd : '0001'
-				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '07', spmtCmndSn : 7, cmndYmd : '20230816', cnptCd : '0001'
-				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '08', spmtCmndSn : 8, cmndYmd : '20230816', cnptCd : '0001'
-				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '09', spmtCmndSn : 9, cmndYmd : '20230816', cnptCd : '0001'
-				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '10', spmtCmndSn : 10, cmndYmd : '20230816', cnptCd : '0001'
-				 , trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
-
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '11', spmtCmndSn : 11, cmndYmd : '20230816', cnptCd : '0001'
-				, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '12', spmtCmndSn : 12, cmndYmd : '20230816', cnptCd : '0001'
-			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '13', spmtCmndSn : 13, cmndYmd : '20230816', cnptCd : '0001'
-			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '14', spmtCmndSn : 14, cmndYmd : '20230816', cnptCd : '0001'
-			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '15', spmtCmndSn : 15, cmndYmd : '20230816', cnptCd : '0001'
-			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '16', spmtCmndSn : 16, cmndYmd : '20230816', cnptCd : '0001'
-				, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '17', spmtCmndSn : 17, cmndYmd : '20230816', cnptCd : '0001'
-			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '18', spmtCmndSn : 18, cmndYmd : '20230816', cnptCd : '0001'
-			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '19', spmtCmndSn : 19, cmndYmd : '20230816', cnptCd : '0001'
-			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '01'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '20', spmtCmndSn : 20, cmndYmd : '20230816', cnptCd : '0001'
-			 	, trsprtCoCd : '01', trsprtCoNm : '[샘플] 대한통운', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '01'}));
-		
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '21', spmtCmndSn : 21, cmndYmd : '20230815', cnptCd : '0002'
-			 	, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '02'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '22', spmtCmndSn : 22, cmndYmd : '20230815', cnptCd : '0002'
-		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '02'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '23', spmtCmndSn : 23, cmndYmd : '20230815', cnptCd : '0002'
-		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '02'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '24', spmtCmndSn : 24, cmndYmd : '20230815', cnptCd : '0002'
-		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '02'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '25', spmtCmndSn : 25, cmndYmd : '20230815', cnptCd : '0002'
-		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '02'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '26', spmtCmndSn : 26, cmndYmd : '20230815', cnptCd : '0002'
-		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '02'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '27', spmtCmndSn : 27, cmndYmd : '20230815', cnptCd : '0002'
-		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '02'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '28', spmtCmndSn : 28, cmndYmd : '20230815', cnptCd : '0002'
-		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '02'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '29', spmtCmndSn : 29, cmndYmd : '20230815', cnptCd : '0002'
-		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0001', delYn : 'N', pckgSeCd : '02'}));
-		updateList.push(Object.assign({}, {apcCd : '9999', spmtCmndNo : '30', spmtCmndSn : 30, cmndYmd : '20230815', cnptCd : '0002'
-		 		, trsprtCoCd : '02', trsprtCoNm : '[샘플] 한진택배', itemCd : '0501', vrtyCd : '2400', spcfctCd : '0002', delYn : 'N', pckgSeCd : '02'}));
-		
-    	const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtCmnd.do", updateList);	// 프로그램id 추가
-		const data = await postJsonPromise;	    
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_callSelectSpmtCmndList();
-        		fn_search();
-        	} else {
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        	}
-        } catch(e) {        	
-        }
-	}
- 
-	// 데이터 삭제
-	async function fn_delete() {
-    	const postJsonPromise = gfn_postJSON("/am/spmt/deleteSpmtCmnd.do", {apcCd : '9999'});	// 프로그램id 추가
-		const data = await postJsonPromise;	    
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_callSelectSpmtCmndList();
-        		fn_search();
-        	} else {
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        	}
-        } catch(e) {        	
-        }
-	}
 	
 	// 출하지시서
     async function fn_cmndDocSpmt(){
