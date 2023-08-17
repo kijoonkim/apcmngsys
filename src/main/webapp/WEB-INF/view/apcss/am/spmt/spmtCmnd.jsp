@@ -33,8 +33,8 @@
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 3%">
 						<col style="width: 6%">
+						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
@@ -44,7 +44,7 @@
 						<tr>
 							<th scope="row" class="th_bg">APC명</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-acpNm" name="srch-inp-acpNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
+								<sbux-input id="srch-inp-acpNm" name="srch-inp-acpNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -62,7 +62,7 @@
 								<sbux-input id="srch-inp-cnptCd" name="srch-inp-cnptCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btn_norm" name="btn_norm" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
+								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
 							<th scope="row" class="th_bg" style="border-right: hidden;">운송회사</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -101,7 +101,7 @@
 						</ul>
 					</div>
 						<div class="table-responsive tbl_scroll_sm">
-							<div id="sb-area-grdSpmtCmndDsctn" style="width:100%;height:600px;"></div>
+							<div id="sb-area-grdSpmtCmnd" style="width:100%;height:600px;"></div>
 						</div>
 					</div>
 				</div>
@@ -109,7 +109,7 @@
 	</section>
 	<!-- 거래처 선택 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-cnpt">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
@@ -128,7 +128,6 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-
 			gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', jsonTrsprtCo, gv_selectedApcCd),				// 운송회사
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),					// 품목
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),					// 품종
@@ -153,15 +152,14 @@
 		SBUxMethod.set("srch-dtp-fromCmndYmd", year+month+day);
 		SBUxMethod.set("srch-dtp-toCmndYmd", year+month+day);
 		
-		fn_createSpmtCmndDsctnGrid();
+		fn_createSpmtCmndGrid();
 		fn_search();
 		fn_initSBSelect();
 	})
 
-
-	function fn_createSpmtCmndDsctnGrid() {
+	function fn_createSpmtCmndGrid() {
         var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdSpmtCmndDsctn';
+	    SBGridProperties.parentid = 'sb-area-grdSpmtCmnd';
 	    SBGridProperties.id = 'grdSmptCmnd';
 	    SBGridProperties.jsonref = 'jsonSmptCmnd';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
@@ -170,6 +168,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.explorerbar = 'sortmove';
+		SBGridProperties.scrollbubbling = false;
     	SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
