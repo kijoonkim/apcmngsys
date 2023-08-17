@@ -1,8 +1,22 @@
 package com.at.apcss.am.spmt.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.at.apcss.am.spmt.service.SpmtPrfmncService;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -23,6 +37,10 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class SpmtPrfmncController extends BaseController {
 
+	// 출하실적조회
+		@Resource(name = "spmtPrfmncService")
+		private SpmtPrfmncService spmtPrfmncService;
+	
 	// 출하실적등록
 	@RequestMapping(value = "/am/spmt/regSpmtPrfmnc.do")
 	public String doRegFormSpmtPrfmnc() {
@@ -41,4 +59,22 @@ public class SpmtPrfmncController extends BaseController {
 		return "apcss/am/spmt/regSpmtPrfmncTablet";
 	}
 
+	// 출하실적 조회
+		@PostMapping(value = "/am/spmt/selectSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncList(@RequestBody SpmtPrfmncVO SpmtPrfmncVO, HttpServletRequest request) throws Exception {
+			logger.debug("selectSpmtPrfmncList 호출 <><><><> ");
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<SpmtPrfmncVO> resultList = new ArrayList<>();
+			try {
+				resultList = spmtPrfmncService.selectSpmtPrfmncList(SpmtPrfmncVO);
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			}
+
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+			return getSuccessResponseEntity(resultMap);
+		}
+	
 }
