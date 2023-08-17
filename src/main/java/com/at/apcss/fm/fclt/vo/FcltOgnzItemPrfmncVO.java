@@ -9,9 +9,13 @@ import lombok.Setter;
 @Setter
 public class FcltOgnzItemPrfmncVO extends ComVO{
 
-	private String msgKey;
-	private String msgCn;
-	private String msgKnd;
-	private String msgKndNm;
-	private String rmrk;
+	private String trgtYr;
+	private String apcCd;
+	private int sN;
+	private String fcltOgnzClsfCd;
+	private String fcltOgnzTrmtCd;
+	private int fcltOgnzTrmtAmt;
 }
+
+
+

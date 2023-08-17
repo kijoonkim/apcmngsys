@@ -9,9 +9,28 @@ import lombok.Setter;
 @Setter
 public class CltvtnEnggtAplyMngVO extends ComVO{
 
-	private String msgKey;
-	private String msgCn;
-	private String msgKnd;
-	private String msgKndNm;
-	private String rmrk;
+	private String apcCd;
+	private String prdcrCd;
+	private int    frmerSn;
+	private int    reqSn;
+	private String frmerNm;
+	private String itemCd;
+	private String vrtyCd;
+	private String spcfctCd;
+	private int    cltvtnArea;
+	private int    enggtVlm;
+	private int    expctHrvstQntt;
+	private String plor;
+	private int    ctrtAmt;
+	private int    prtpay;
+	private int    srpls;
+	private String enggtYmd;
+	private String addr;
+	private String zip;
+	private String telno;
+	private String fXNO;
+	private String bankCd;
+	private String actno;
+	private String dpstrNm;
+    private String rmrk;
 }
