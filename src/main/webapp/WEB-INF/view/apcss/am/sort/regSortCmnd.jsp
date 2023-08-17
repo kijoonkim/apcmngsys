@@ -92,7 +92,7 @@
 				</div>
 				<div class="sbt-wrap-body">
 					<div class="sbt-grid">
-						<div id="sb-area-grdRawMtrInvntr" style="height:300px;"></div>
+						<div id="sb-area-grdRawMtrInvntr" style="height:260px;"></div>
 					</div>
 				</div>
 				<br/>
@@ -133,7 +133,7 @@
 				</div>
                 <div class="sbt-wrap-body">
                     <div class="sbt-grid">
-                        <div id="sb-area-grdSortCmnd" style="height:340px;"></div>
+                        <div id="sb-area-grdSortCmnd" style="height:238px;"></div>
                     </div>
                	</div>
 			</div>
@@ -214,9 +214,9 @@
             {caption: ["입고","중량"],  		ref: 'wrhsWght',   		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["재고","수량"],  		ref: 'invntrCmndQntt', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["재고","중량"],  		ref: 'invntrCmndWght', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["지시","수량"], 			ref: 'cmndQntt',  		type:'input',  width:'80px', style: 'text-align:right', typeinfo: {mask : {alias : '#', repeat: '*', unmaskvalue : true}}, format : {type:'number', rule:'#,###'}},
-            {caption: ["지시","중량"], 			ref: 'cmndWght',  		type:'input',  width:'80px', style: 'text-align:right', typeinfo: {mask : {alias : '#', repeat: '*', unmaskvalue : true}}, format : {type:'number', rule:'#,###'}},
-            {caption: ["비고","비고"],	    	ref: 'rmrk', 			type:'input',  width:'120px', style: 'text-align:center'},
+            {caption: ["지시","수량"], 			ref: 'cmndQntt',  		type:'input',  width:'80px', style: 'text-align:right; background:#FFF8DC;', typeinfo: {mask : {alias : '#', repeat: '*', unmaskvalue : true}}, format : {type:'number', rule:'#,###'}},
+            {caption: ["지시","중량"], 			ref: 'cmndWght',  		type:'input',  width:'80px', style: 'text-align:right; background:#FFF8DC;', typeinfo: {mask : {alias : '#', repeat: '*', unmaskvalue : true}}, format : {type:'number', rule:'#,###'}},
+            {caption: ["선별지시비고","선별지시비고"],	    	ref: 'rmrk', 			type:'input',  width:'120px', style: 'text-align:center'},
 
  	        {caption: ["생산자코드"],	ref: 'prdcrCd',   	type:'output',  hidden: true},
 	        {caption: ["품목코드"],		ref: 'itemCd',   	type:'output',  hidden: true},
@@ -252,14 +252,6 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 20,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
-
 	    SBGridProperties.columns = [
 	        {caption: ["선택","선택"],				ref: 'checkedYn',      type:'checkbox',  width:'50px',    style:'text-align:center'},
 	        {caption: ["지시번호","지시번호"], 		ref: 'sortCmndno',     	type:'output',  width:'130px',    style:'text-align:center'},
@@ -560,7 +552,8 @@
   						bxKndNm: item.bxKndNm,
   						grdNm: item.grdNm,
   						cmndQntt: item.cmndQntt,
-  						cmndWght: item.cmndWght
+  						cmndWght: item.cmndWght,
+  						rmrk : item.rmrk
   				}
           		jsonSortCmnd.push(sortCmnd);
   			});
