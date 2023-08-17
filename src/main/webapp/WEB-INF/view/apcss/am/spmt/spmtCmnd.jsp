@@ -50,10 +50,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-cmndYmdFrom" name="srch-dtp-cmndYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-cmndYmdFrom" name="srch-dtp-cmndYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-cmndYmdTo" name="srch-dtp-cmndYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-cmndYmdTo" name="srch-dtp-cmndYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input"></td>
 							<th scope="row" class="th_bg">거래처</th>
