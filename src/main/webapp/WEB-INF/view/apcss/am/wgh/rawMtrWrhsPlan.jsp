@@ -46,10 +46,10 @@
 						<tr>
 							<th class="ta_r th_bg">조회일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-strtCrtrYmd" name="srch-dtp-strtCrtrYmd" class="form-control pull-right input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-strtCrtrYmd" name="srch-dtp-strtCrtrYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-endCrtrYmd" name="srch-dtp-endCrtrYmd" class="form-control pull-right input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-endCrtrYmd" name="srch-dtp-endCrtrYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm"/>
 							</td>
 							<td>&nbsp;</td>
 							<th class="ta_r th_bg">생산자</th>
@@ -104,11 +104,11 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th class="ta_r th_bg">계획일자</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-strtPlanYmd" name="srch-dtp-strtPlanYmd" class="form-control pull-right input-sm"/>
+							<th class="ta_r th_bg">계획일시</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-datepicker uitype="popup" id="srch-dtp-strtPlanYmd" name="srch-dtp-strtPlanYmd" class="form-control pull-right input-sm" date-format="yyyy-mm-dd HH:MM" show-time-bar="true"></sbux-datepicker>
 							</td>
-							<td colspan="2">&nbsp;</td>
+							<td >&nbsp;</td>
 							<th class="ta_r th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-prdcrCd" name="dtl-inp-prdcrCd" uitype="hidden"></sbux-input>
@@ -197,7 +197,7 @@
 									<sbux-label uitype="normal" id="lbl-kg" name="lbl-chc" text="Kg"/>
 							</td>
 							<th class="ta_r th_bg">비고</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input">
 								<sbux-input uitype="text" id="srch-inp-rmrk" name="srch-inp-rmrk" class="form-control input-sm" placeholder="" />
 							</td>
 							<td colspan="4">&nbsp;</td>
@@ -242,6 +242,7 @@
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
 	var autoCompleteDataJson = [];
+	var jsonComWarehouse = [];
 	var jsonApcItem = [];
 	var jsonApcVrty = [];
 
@@ -253,13 +254,8 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid2();
 
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2)
-		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-strtCrtrYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-endCrtrYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-strtPlanYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-strtCrtrYmd", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-endCrtrYmd", gfn_dateToYmd(new Date()));
 
 		fn_initSBSelect();
 		fn_getPrdcrs();
@@ -271,9 +267,9 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-
-		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
-			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
+			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', 	jsonComWarehouse, 'WAREHOUSE_SE_CD', gv_selectedApcCd), // 창고
+		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),	// 품목
+			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', 		jsonApcVrty, gv_selectedApcCd),	// 품종
 		]);
 	}
 
@@ -293,9 +289,9 @@
 		]);
 	}
 
-	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
+	var rawMtrWrhsPlan = [];; // 그리드를 담기위한 객체 선언
 
-	function fn_createGrid2() {
+	function fn_createGrid() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea2';
 	    SBGridProperties.id = 'inptCmndDsctnList2';
@@ -304,44 +300,36 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 20,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
+	    /* APC_CD
+	    PLANNO
+	            */
 	    SBGridProperties.columns = [
-	        {caption: ["계획일자"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["계획시간"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["품목"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["품종"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["생산자"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["상품구분"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["입고구분"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["운송구분"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["계획수량"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["계획중량"],		ref: 'msgKey',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["비고"],		ref: 'msgKey',      type:'output',  width:'380px',    style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'userStts', 	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-//             	if(strValue === "01"){
-//             		return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
-//             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
-            		return "<button type='button' class='btn btn-xs btn-outline-danger'>삭제</button>";
-//             	}else{
-// 			        return "<sbux-button type='normal' class='btn btn-xs btn-outline-danger' onClick='fn_updateComUserAprv("+ nRow + ")'>사용승인</button>";
-//             	}
-		    }},
+	        {caption: ["계획일자"],		ref: 'planYmd',			type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["계획시간"],		ref: 'planHr',      	type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["품목"],			ref: 'itemNm',      	type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["품종"],			ref: 'vrtyNm',      	type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["생산자"],		ref: 'PRDCR_NM',      	type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["상품구분"],		ref: 'gdsSeNm',      	type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["입고구분"],		ref: 'wrhsSeNm',      	type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["운송구분"],		ref: 'trsprtSeNm',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["창고구분"],		ref: 'warehouseSeCd',	type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["계획수량"],		ref: 'planQntt',      	type:'output',  width:'100px',    style:'text-align:rihht'},
+	        {caption: ["계획중량"],		ref: 'planWght',      	type:'output',  width:'100px',    style:'text-align:rihht'},
+	        {caption: ["비고"],			ref: 'rmrk',      		type:'output',  width:'380px',    style:'text-align:center'},
+	        {caption: ["APC코드"],		ref: 'apcCd',   hidden: true},
+	        {caption: ["계획번호"],		ref: 'planno',   hidden: true},
+	        {caption: ["생산자코드"],	ref: 'prdcrCd',   hidden: true},
+	        {caption: ["품목코드"],		ref: 'itemCd',   hidden: true},
+	        {caption: ["품종코드"],		ref: 'vrtyCd',   hidden: true},
+	        {caption: ["상품구분"],		ref: 'gdsSeCd',   hidden: true},
+	        {caption: ["입고구분"],		ref: 'wrhsSeCd',   hidden: true},
+	        {caption: ["운송구분"],		ref: 'trsprtSeCd',   hidden: true},
+	        {caption: ["창고구분"],		ref: 'warehouseSeCd',   hidden: true},
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
 
 	}
-
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
-	}
-
 
 	/*
 	* 조회조건 생산자 팝업 관련 function

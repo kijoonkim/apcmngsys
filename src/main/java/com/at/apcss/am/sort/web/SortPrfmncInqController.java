@@ -21,9 +21,9 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
- * @Class Name : SortPrfmncController.java
- * @Description : 선별실적정보관리에 대한 Controller 클래스
- * @author 신정철
+ * @Class Name : SortPrfmncInqController.java
+ * @Description : 선별실적조회 선별내역 조회
+ * @author 김현호
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -32,46 +32,20 @@ import com.at.apcss.co.sys.controller.BaseController;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  신정철        최초 생성
+ * 2023.08.16   김현호         최초 생성
  * </pre>
  */
 @Controller
-public class SortMngController extends BaseController {
-
+public class SortPrfmncInqController extends BaseController {
+	
 	@Resource(name = "sortMngService")
 	private SortMngService sortMngService;
-
+	
 	@Resource(name = "sortPrfmncService")
 	private SortPrfmncService sortPrfmncService;
 
-
-	@PostMapping(value = "/am/sort/insertSortPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertSortPrfmncList(@RequestBody SortMngVO sortMngVO, HttpServletRequest request) throws Exception {
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
-		try {
-			sortMngVO.setSysFrstInptUserId(getUserId());
-			sortMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-			sortMngVO.setSysLastChgUserId(getUserId());
-			sortMngVO.setSysLastChgPrgrmId(getPrgrmId());
-
-			sortMngVO.setNeedsInptRegYn(ComConstants.CON_YES);	// 투입실적 자동등록
-
-			HashMap<String, Object> rtnObj = sortMngService.insertSortPrfmnc(sortMngVO);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
-
-		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
-			return getErrorResponseEntity(e);
-		}
-
-		return getSuccessResponseEntity(resultMap);
-	}
-
-	@PostMapping(value = "/am/sort/sortPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	
+	@PostMapping(value = "/am/sort/sortPrfmncInq.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectComUserList(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
@@ -89,10 +63,10 @@ public class SortMngController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
+	
 //	@PostMapping(value = "/am/sort/selectSortInpt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 //	public ResponseEntity<HashMap<String, Object>> insertSortInptPrfmnc(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
-//
+//		
 //		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 //		List<sortPrfmncVO> resulList = new ArrayList<>();
 //

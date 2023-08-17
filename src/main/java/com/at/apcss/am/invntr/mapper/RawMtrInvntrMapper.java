@@ -30,7 +30,7 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public RawMtrInvntrVO selectRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
+
 	/**
 	 * 원물재고 목록 조회
 	 * @param rawMtrInvntrVO
@@ -38,7 +38,7 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public List<RawMtrInvntrVO> selectRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
+
 	/**
 	 * 원물재고 등록
 	 * @param rawMtrInvntrVO
@@ -46,7 +46,7 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public int insertRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
+
 	/**
 	 * 원물재고 변경
 	 * @param rawMtrInvntrVO
@@ -54,7 +54,7 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public int updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
+
 	/**
 	 * 원물재고 삭제
 	 * @param rawMtrInvntrVO
@@ -62,4 +62,14 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public int deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	/**
+	 * 원물재고 변경 - 선별등록
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateInvntrSortPrfmnc(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+
 }

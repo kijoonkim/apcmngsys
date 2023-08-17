@@ -3,17 +3,17 @@
 /**
  * @description 날짜 관련 공통함수
  */
- 
+
 /**
  * @name
  * @description
  * @param {Date} date
  * @param {String} delimiter
  * @function
- * @returns 
+ * @returns
  */
 const gfn_dateToYmd = function(date, delimiter = "") {
-	
+
     let year  = date.getFullYear();
     let month = ('0' + (date.getMonth() + 1)).slice(-2);
     let day   = ('0' + date.getDate()).slice(-2);
@@ -24,4 +24,30 @@ const gfn_dateToYmd = function(date, delimiter = "") {
 	strYmd += delimiter + day;
 
 	return strYmd;
-} 
+}
+
+/**
+ * @name
+ * @description
+ * @param {Date} date
+ * @param {String} delimiter
+ * @function
+ * @returns
+ */
+const gfn_dateFirstYmd = function(date, delimiter = "") {
+
+    let year  = date.getFullYear();
+    let month = date.getMonth();
+
+	let firstYmd = new Date(year, month, 1);
+	let yearFirst = firstYmd.getFullYear();
+	let monthFirst = ('0' + (firstYmd.getMonth() + 1)).slice(-2);
+	let day   = ('0' + firstYmd.getDate()).slice(-2);
+
+	let strYmd = "";
+	strYmd += yearFirst;
+	strYmd += delimiter + monthFirst;
+	strYmd += delimiter + day;
+
+	return strYmd;
+}

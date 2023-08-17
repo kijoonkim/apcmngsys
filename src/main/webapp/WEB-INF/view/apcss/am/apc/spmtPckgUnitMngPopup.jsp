@@ -42,9 +42,9 @@
 								<th>
 									<sbux-input id="spmtPckgUnit-inp-apcNm" name="spmtPckgUnit-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 								</th>
-								<th scope="row">품목명</th>
+								<th scope="row"><span class="data_required"></span>품목명</th>
 								<th style="border-right-style: hidden;">
-									<sbux-select id="spmtPckgUnit-slt-itemCd" name="spmtPckgUnit-slt-itemCd" style="background-color:#ffffff;"  uitype="single" jsondata-ref="jsonSPUItemCd" unselected-text="선택" class="form-control input-sm" onchange="fn_selectItem()"></sbux-select>
+									<sbux-select id="spmtPckgUnit-slt-itemCd" name="spmtPckgUnit-slt-itemCd" style="background-color:#ffffff;"  uitype="single" jsondata-ref="jsonSPUItemCd" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed" onchange="fn_selectItem()"></sbux-select>
 								</th>
 								<th></th>
 								<th></th>
@@ -156,7 +156,6 @@
 	        {caption: ["규격명"], 			ref: 'spcfctNm',   		type:'input',  hidden : true},
 	    ];
 	    grdSpmtPckgUnit = _SBGrid.create(SBGridProperties);
-	    fn_selectSpmtPckgUnitList();
 	}
 
 	async function fn_selectSpmtPckgUnitList(){
@@ -165,7 +164,11 @@
 
 	async function fn_callSelectSpmtPckgUnitList(){
 		let apcCd = gv_apcCd;
-		let itemCd = SBUxMethod.get("smptPckgUnit-slt-itemCd");
+		let itemCd = SBUxMethod.get("spmtPckgUnit-slt-itemCd");
+		if(gfn_isEmpty(itemCd)){
+			gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
+			return;
+		}
 		let postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtPckgUnitList.do", {apcCd : apcCd, itemCd : itemCd});
 	    let data = await postJsonPromise;
 	    let newSpmtPckgUnitGridData = [];
