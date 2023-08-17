@@ -1,8 +1,21 @@
 package com.at.apcss.am.sort.web;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.HashMap;
+import java.util.List;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.sort.service.SortCmndService;
+import com.at.apcss.am.sort.vo.SortCmndVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -23,16 +36,61 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class SortCmndController extends BaseController {
 
-	// 선별지시등록
-	@RequestMapping(value = "/am/sort/regSortCmnd.do")
-	public String doRegFormSortCmnd() {
-		return "apcss/am/sort/regSortCmnd";
+	@Resource(name = "sortCmndService")
+	private SortCmndService sortCmndService;
+
+	@Resource(name= "cmnsTaskNoService")
+	private CmnsTaskNoService cmnsTaskNoService;
+
+	@PostMapping(value = "/am/sort/selectSortCmndList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSortCmndList(@RequestBody SortCmndVO sortCmndVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		List<SortCmndVO> resultList = sortCmndService.selectSortCmndList(sortCmndVO);
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST,  resultList);
+
+		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 선별지시조회
-	@RequestMapping(value = "/am/sort/sortCmnd.do")
-	public String doSortCmnd() {
-		return "apcss/am/sort/sortCmnd";
+
+	@PostMapping(value = "/am/sort/insertSortCmndList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertSortCmndList(@RequestBody List<SortCmndVO> sortCmndList, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		int insertedCnt=0;
+		String sortCmndno = cmnsTaskNoService.selectSortCmndno(sortCmndList.get(0).getApcCd(), sortCmndList.get(0).getSortCmndYmd());
+		int sn=1;
+		for (SortCmndVO sortCmndVO : sortCmndList) {
+			sortCmndVO.setSysFrstInptPrgrmId(getPrgrmId());
+			sortCmndVO.setSysFrstInptUserId(getPrgrmId());
+			sortCmndVO.setSysLastChgPrgrmId(getPrgrmId());
+			sortCmndVO.setSysLastChgUserId(getUserId());
+			sortCmndVO.setSortCmndSn(sn);
+			sortCmndVO.setSortCmndno(sortCmndno);
+			insertedCnt += sortCmndService.insertSortCmnd(sortCmndVO);
+
+			sn++;
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT,  insertedCnt);
+
+		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/am/sort/deleteSortCmndList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteSortCmndList(@RequestBody List<SortCmndVO> sortCmndList, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		int deletedCnt=0;
+		for (SortCmndVO sortCmndVO : sortCmndList) {
+			deletedCnt += sortCmndService.deleteSortCmnd(sortCmndVO);
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT,  deletedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 
 }
