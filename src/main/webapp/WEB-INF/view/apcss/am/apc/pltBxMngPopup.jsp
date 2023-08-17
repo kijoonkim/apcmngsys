@@ -83,6 +83,7 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.columns = [
 	        {caption: ["팔레트 정보","코드"], 			ref: 'pltBxCd',  		type:'output',  width:'100px',     style:'text-align:center', hidden : true},
 	        {caption: ["팔레트 정보","팔레트 명"], 		ref: 'pltBxNm',  		type:'input',  width:'300px',    style:'text-align:center'},
@@ -120,6 +121,7 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.columns = [
 	        {caption: ["박스 정보","코드"], 		ref: 'pltBxCd',  		type:'output',  width:'100px',     style:'text-align:center', hidden : true},
 	        {caption: ["박스 정보","박스 명"], 		ref: 'pltBxNm',  		type:'input',  width:'300px',    style:'text-align:center'},

@@ -74,6 +74,7 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.columns = [
 	        {caption: ["작업자명"], 	ref: 'flnm',  	type:'input',  width:'90px',    style:'text-align:center'},
 	        {caption: ["생년월일"], 	ref: 'brdt',   	type:'input',  width:'90px',    style:'text-align:center'},
