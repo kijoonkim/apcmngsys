@@ -416,6 +416,7 @@
 
 	  		// optional
 	  		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
+	  		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 			let vrtyCd = vrtyCds.length > 0 ? +vrtyCds.join(',') : "";
 	  		console.log("vrtyCd", vrtyCd);
 			const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsPrfmncList.do", {
@@ -428,7 +429,7 @@
 				trsprtSeCd: trsprtSeCd,
 				prdcrCd: prdcrCd,
 				vrtyCd: vrtyCd,
-
+				itemCd: itemCd,
 	          	// pagination
 	  	  		pagingYn : 'Y',
 	  			currentPageNo : pageNo,
