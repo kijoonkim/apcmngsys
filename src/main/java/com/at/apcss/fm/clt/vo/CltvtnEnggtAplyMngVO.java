@@ -33,4 +33,8 @@ public class CltvtnEnggtAplyMngVO extends ComVO{
 	private String actno;
 	private String dpstrNm;
     private String rmrk;
+    private String msgKey;
+	private String msgCn;
+	private String msgKnd;
+	private String msgKndNm;
 }

@@ -26,6 +26,11 @@ public class FcltOperInfoClctAgreInfoVO extends ComVO{
 	private String operOgnzEml;
 	private String apcHldYn;
 	private String prsnaDataAgrdYn;
+	private String msgKey;
+	private String msgCn;
+	private String msgKnd;
+	private String msgKndNm;
+	private String rmrk;
 }
 
 

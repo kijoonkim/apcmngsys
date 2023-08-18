@@ -18,5 +18,10 @@ public class FcltInstlInfoVO extends ComVO{
 	private String bizCn;
 	private String bizAmtCd;
 	private int bizAmt;
+	private String msgKey;
+	private String msgCn;
+	private String msgKnd;
+	private String msgKndNm;
+	private String rmrk;
 }
 
