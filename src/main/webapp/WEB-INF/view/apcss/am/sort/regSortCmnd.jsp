@@ -160,12 +160,12 @@
     var jsonPrdcrAutocomplete = [];
 
 	const fn_initSBSelect = async function() {
-
-		// 검색 SB select
-	 	await gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd);	// 창고
-	 	await gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComFclt, 		'FCLT_CD', gv_selectedApcCd);			// 설비
-	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, gv_selectedApcCd);				// 품목
-	 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, gv_selectedApcCd);				// 품종
+		let rst = await Promise.all([
+			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd);	// 창고
+			gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComFclt, 		'FCLT_CD', gv_selectedApcCd);			// 설비
+			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, gv_selectedApcCd);		// 품목
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd);		// 품종
+		]);
 	}
 
 	const fn_getPrdcrs = async function() {
@@ -180,7 +180,7 @@
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_createGridRawMtrInvntr();
+		fn_createRawMtrInvntr();
 		fn_createSortCmnd();
 		SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
@@ -191,7 +191,7 @@
 
 	var jsonRawMtrInvntr = []; // 그리드의 참조 데이터 주소 선언
 
-	const fn_createGridRawMtrInvntr = function() {
+	const fn_createRawMtrInvntr = function() {
 		var SBGridProperties = {};
 		SBGridProperties.parentid = 'sb-area-grdRawMtrInvntr';
 		SBGridProperties.id = 'grdRawMtrInvntr';

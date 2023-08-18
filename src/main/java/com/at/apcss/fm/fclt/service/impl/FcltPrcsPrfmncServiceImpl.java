@@ -42,7 +42,6 @@ public class FcltPrcsPrfmncServiceImpl implements FcltPrcsPrfmncService{
 	public FcltPrcsPrfmncVO selectFcltPrcsPrfmnc(String msgKey) throws Exception {
 
 		FcltPrcsPrfmncVO fcltPrcsPrfmncVO = new FcltPrcsPrfmncVO();
-		fcltPrcsPrfmncVO.setMsgKey(msgKey);
 
 		FcltPrcsPrfmncVO resultVO = fcltPrcsPrfmncMapper.selectFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
 
@@ -55,7 +54,6 @@ public class FcltPrcsPrfmncServiceImpl implements FcltPrcsPrfmncService{
 		List<FcltPrcsPrfmncVO> resultList = fcltPrcsPrfmncMapper.selectFcltPrcsPrfmncList(fcltPrcsPrfmncVO);
 		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
 		for (FcltPrcsPrfmncVO msg : resultList ) {
-			System.out.printf("msgCn : %s", msg.getMsgCn());
 			System.out.println();
 		}
 		return resultList;
