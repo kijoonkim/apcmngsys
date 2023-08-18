@@ -15,11 +15,10 @@
 			</div>
 			<div style="margin-left: auto;">
 				<p class="ad_input_row">
-					<sbux-checkbox id="chk-pckgAuto" name="chk-pckgAuto" uitype="normal" text="포장실적 자동등록" ></sbux-checkbox>
+					<sbux-checkbox id="needsPckgRegYn" name="chk-pckgAuto" true-value="Y" false-value="N" uitype="normal" text="포장실적 자동등록" ></sbux-checkbox>
 				</p>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_search" text="조회"></sbux-button>
 				<sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_save" text="저장"></sbux-button>
-				<sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_delete" text="삭제"></sbux-button>
 			</div>
 			</div>
 			<div class="box-body">
@@ -114,7 +113,6 @@
 							<span>원물재고내역</span>
 							<span style="font-size:12px">(조회건수 <span id="cnt-rawMtrInvtr">0</span>건)</span>
 						</li>
-
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -133,9 +131,10 @@
 						<col style="width: 6%">
 						<col style="width: 3%">
 						<col style="width: 7%">
+						<col style="width: 4%">
+						<col style="width: 4%">
+						<col style="width: 4%">
 						<col style="width: 3%">
-						<col style="width: 6%">
-						<col style="width: 6%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -149,26 +148,40 @@
 								<sbux-select id="dtl-slt-fcltCd" name="dtl-slt-fcltCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComFclt"></sbux-select>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg">선별 투입 수량/중량</th>
+							<th scope="row" class="th_bg">투입/선별/loss</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
-									id="dtl-inp-qntt"
-									name="dtl-inp-qntt"
+									id="dtl-inp-inptWght"
+									name="dtl-inp-inptWght"
 									class="form-control input-sm"
 									maxlength="6"
 									autocomplete="off"
+									readonly
 									mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 								/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
-									id="dtl-inp-wght"
-									name="dtl-inp-wght"
+									id="dtl-inp-sortWght"
+									name="dtl-inp-sortWght"
 									class="form-control input-sm input-sm-ast"
 									maxlength="6"
 									autocomplete="off"
+									readonly
+									mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+								/>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-lossWght"
+									name="dtl-inp-lossWght"
+									class="form-control input-sm input-sm-ast"
+									maxlength="6"
+									autocomplete="off"
+									readonly
 									mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 								/>
 							</td>
@@ -184,7 +197,6 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>선별등록 내역</span>
-							<span style="font-size:12px">(등록건수 <span id="cnt-sortPrfmnc">0</span>건)</span>
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
@@ -342,7 +354,6 @@
 		SBGridProperties.emptyrecords = '데이터가 없습니다.';
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.extendlastcol = 'scroll';
-		SBGridProperties.scrollbubbling = false;
 		SBGridProperties.columns = [
 			{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -395,23 +406,30 @@
 		SBGridProperties.id = 'grdSortPrfmnc';
 		SBGridProperties.jsonref = 'jsonSortPrfmnc';
 		SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.selectmode = 'free';
 		SBGridProperties.extendlastcol = 'scroll';
-		SBGridProperties.scrollbubbling = false;
 		SBGridProperties.columns = [
-             {caption: ["선별일자"],	ref: 'inptYmd',		type:'output',  width:'120px', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-             {caption: ["설비"], 		ref: 'fcltCd',		type:'combo',  	width:'100px', style: 'text-align:center',
-            	 typeinfo: {ref:'jsonComFclt', label:'label', value:'value', displayui : false}
-             },
-             {caption: ["품목"], 		ref: 'itemCd',		type:'combo',  width:'100px', style: 'text-align:center',
-            	 typeinfo: {ref:'jsonApcItem', label:'label', value:'value', displayui : false}
-             },
-             {caption: ["품종"], 		ref: 'vrtyCd',		type:'combo',  width:'100px', style: 'text-align:center',
-            	 typeinfo: {ref:'jsonApcVrty', label:'label', value:'value', displayui : false}
-             },
-             {caption: ["규격"], 	 	ref: 'spcfctCd',    type:'combo',  width:'100px', style: 'text-align:center', userattr: {colNm: "spcfctCd"},
-            	 typeinfo: {ref:'jsonApcSpcfct', label:'spcfctNm', value:'spcfctCd', oneclickedit: true}
-             },
+        	{caption: ["처리"], 		ref: 'itemCd', 		type:'button', width:'60px', style: 'text-align:center',
+	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	            	if (gfn_isEmpty(strValue)){
+	            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRow(" + nRow + ", " + nCol + ")'>추가</button>";
+	            	} else {
+				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
+					}
+		    }},
+            {caption: ["선별일자"],	ref: 'inptYmd',		type:'output',  width:'120px', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+            {caption: ["설비"], 		ref: 'fcltCd',		type:'combo',  	width:'100px', style: 'text-align:center',
+            	typeinfo: {ref:'jsonComFclt', label:'label', value:'value', displayui : false}
+            },
+            {caption: ["품목"], 		ref: 'itemCd',		type:'combo',  width:'100px', style: 'text-align:center',
+            	typeinfo: {ref:'jsonApcItem', label:'label', value:'value', displayui : false}
+            },
+            {caption: ["품종"], 		ref: 'vrtyCd',		type:'combo',  width:'100px', style: 'text-align:center',
+            	typeinfo: {ref:'jsonApcVrty', label:'label', value:'value', displayui : false}
+            },
+            {caption: ["규격"], 	 	ref: 'spcfctCd',    type:'combo',  width:'100px', style: 'text-align:center', userattr: {colNm: "spcfctCd"},
+            	typeinfo: {ref:'jsonApcSpcfct', label:'spcfctNm', value:'spcfctCd', oneclickedit: true}
+            },
     	];
 
 		const columnsGrd = [];
@@ -427,7 +445,7 @@
 				ref: 'grd' + idx,
 				type:'input',
 				width:'80px',
-				style: 'text-align:right',
+				style: 'text-align:right;background-color:#FFF8DC',
 				userattr: {colNm: "grdQntt"},
 				typeinfo: {
 					mask : {alias : '#', repeat: '*', unmaskvalue : true},
@@ -446,7 +464,7 @@
 				caption: [""],
 				ref: 'grd' + idx,
 				type:'output',
-				width:'80px'
+				width:'0px'
 			}
 			columnsGrd.push(grd);
 		}
@@ -461,18 +479,10 @@
             {caption: ["저장창고"],		ref: 'warehouseSeCd',    type:'combo',  width:'100px', style: 'text-align:center',
            	 	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}
             },
-            {caption: ["비고"], 		ref: 'rmrk',  		type:'output',  width:'200px'},
-            {caption: ["처리"], 		ref: 'itemCd', 		type:'button', width:'60px', style: 'text-align:center',
-	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	            	if (gfn_isEmpty(strValue)){
-	            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRow(" + nRow + ", " + nCol + ")'>추가</button>";
-	            	} else {
-				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
-					}
-		    }},
+            {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'200px'},
 	        {caption: ["품목코드"],		ref: 'itemCd',   	type:'output',  hidden: true},
 	        {caption: ["규격중량"],		ref: 'spcfctWght',  type:'output',  hidden: true},
-	        {caption: [" "],		ref: '_',			type:'output',  width:'1px'},
+	        //{caption: [" "],		ref: '_',			type:'output',  width:'1px'},
 		];
 
 		columns2.forEach((item, index) => {
@@ -488,14 +498,15 @@
 	}
 
     /**
-     * @name fn_setGrdSortPrfmnc
-     * @description 선별등록내역 조회
+     * @name fn_setGrdRawMtrInvntr
+     * @description 원물재고내역 조회
      * @param {number} pageSize
      * @param {number} pageNo
      */
-	const fn_setGrdSortPrfmnc = async function() {
+	const fn_setGrdRawMtrInvntr = async function() {
 
-    	let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
+        let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");    // 입고일자from
+        let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");        // 입고일자to
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");			// 생산자
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
@@ -549,8 +560,8 @@
   						grdCd: item.grdCd,
   						wrhsQntt: item.wrhsQntt,
   						wrhsWght: item.wrhsWght,
-  						inptQntt: item.inptQntt,
-  						inptWght: item.inptWght,
+  						inptQntt: 0, //item.inptQntt,
+  						inptWght: 0, //item.inptWght,
   						invntrQntt: item.invntrQntt,
   						invntrWght: item.invntrWght,
   						apcNm: item.apcNm,
@@ -607,6 +618,8 @@
 	}
 
 	const fn_save = async function() {
+
+		let needsPckgRegYn = SBUxMethod.get("chk-pckgAuto").needsPckgRegYn;
 
 		// check qntt, wght
 
@@ -747,6 +760,7 @@
    		    				itemCd: itemCd,
    		    				vrtyCd: vrtyCd,
    		    				spcfctCd: spcfctCd,
+   		    				warehouseSeCd: warehouseSeCd,
    		    				grdCd: grdCd,
    		    				qntt: grdQntt,
    		    				wght: grdQntt * spcfctWght
@@ -776,10 +790,19 @@
 		}
 
 		// comConfirm
+		if (needsPckgRegYn === "Y") {
+			if (!gfn_comConfirm("Q0001", "선별 및 포장실적 저장")) {	//	Q0001	{0} 하시겠습니까?
+	    		return;
+	    	}
+		} else {
+			if (!gfn_comConfirm("Q0001", "선별실적저장")) {	//	Q0001	{0} 하시겠습니까?
+	    		return;
+	    	}
+		}
 
-		// 등급별 편성
 		const sortMng = {
     		apcCd: gv_selectedApcCd,
+    		needsPckgRegYn: needsPckgRegYn,
     		rawMtrInvntrList: rawMtrInvntrList,
     		sortPrfmncList: sortPrfmncList
     	}
@@ -867,22 +890,15 @@
 		 document.querySelector('#cnt-sortPrfmnc').innerText = grdRawMtrInvntr.getGridDataAll().length - 1;
 	}
 
-    const fn_inputClear = function() {
-  		// 수량
-  		SBUxMethod.set("srch-inp-bxQntt", "");
-  		// 중량
-  		SBUxMethod.set("srch-inp-wrhsWght", "");
-  		// 평균
-  		SBUxMethod.set("srch-inp-wghtAvg", "");
-    }
-
  	/**
      * @name fn_clearForm
      * @description form 초기화
      * @function
      */
 	const fn_clearForm = function() {
-
+		SBUxMethod.set("dtl-inp-inptWght", 0);
+		SBUxMethod.set("dtl-inp-sortWght", 0);
+		SBUxMethod.set("dtl-inp-lossWght", 0);
  	}
 
  	/**
@@ -947,8 +963,9 @@
 			    		}
 					});
 
-					SBUxMethod.set("dtl-inp-qntt", inptQntt);
-					SBUxMethod.set("dtl-inp-wght", inptWght);
+					SBUxMethod.set("dtl-inp-inptWght", inptWght);
+					let sortWght = parseInt(SBUxMethod.get("dtl-inp-sortWght")) || 0;
+					SBUxMethod.set("dtl-inp-lossWght", inptWght - sortWght);
 
 					break;
 
@@ -959,8 +976,8 @@
 	}
 
  	/**
-     * @name fn_grdRawMtrInvntrValueChanged
-     * @description 원물재고 변경 event 처리
+     * @name fn_grdSortPrfmncValueChanged
+     * @description 선별등록 변경 event 처리
      * @function
      */
 	const fn_grdSortPrfmncValueChanged = function() {
@@ -997,6 +1014,20 @@
 					console.log("rowData.wght", rowData.wght);
 
 					grdSortPrfmnc.refresh();
+
+					let inptWght = parseInt(SBUxMethod.get("dtl-inp-inptWght")) || 0;
+					let sortWght = 0;
+					const allSortData = grdSortPrfmnc.getGridDataAll();
+					allSortData.forEach((item, index) => {
+						if (!gfn_isEmpty(item.inptYmd)) {
+							sortWght += parseInt(item.wght) || 0;
+						}
+					});
+					console.log("inptWght", inptWght);
+					console.log("sortWght", sortWght);
+
+					SBUxMethod.set("dtl-inp-sortWght", sortWght);
+					SBUxMethod.set("dtl-inp-lossWght", inptWght - sortWght);
 
 					break;
 

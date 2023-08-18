@@ -23,79 +23,114 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PckgPrfmncVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
 	private String apcCd;
-	
+
 	/**
 	 * 포장번호
 	 */
 	private String pckgno;
-	
+
 	/**
 	 * 포장순번
 	 */
-	private String pckgSn;
-	
+	private int pckgSn;
+
 	/**
 	 * 포장일자
 	 */
 	private String pckgYmd;
-	
+
+	/**
+	 * 투입일자
+	 */
+	private String inptYmd;
+
 	/**
 	 * 설비코드
 	 */
 	private String fcltCd;
-	
+
 	/**
 	 * 대표생산자코드
 	 */
 	private String rprsPrdcrCd;
-	
+
 	/**
 	 * 생산자코드
 	 */
 	private String prdcrCd;
-	
+
 	/**
 	 * 품목코드
 	 */
 	private String itemCd;
-	
+
 	/**
 	 * 품종코드
 	 */
 	private String vrtyCd;
-	
+
 	/**
 	 * 규격코드
 	 */
 	private String spcfctCd;
-	
+
+	/**
+	 * 등급코드
+	 */
+	private String grdCd;
+
+	/**
+	 * 상품등급
+	 */
+	private String gdsGrd;
+
 	/**
 	 * 창고구분코드
 	 */
 	private String warehouseSeCd;
-	
+
+	/**
+	 * 상품구분코드
+	 */
+	private String gdsSeCd;
+
+	/**
+	 * 입고구분코드
+	 */
+	private String wrhsSeCd;
+
 	/**
 	 * 포장수량
 	 */
 	private int pckgQntt;
-	
+
 	/**
 	 * 포장중량
 	 */
 	private double pckgWght;
-	
+
 	/**
 	 * 포장지시번호
 	 */
 	private String pckgCmndno;
-	
+
+	/**
+	 * 선별번호
+	 */
+	private String sortno;
+
 	/**
 	 * 비고
 	 */
 	private String rmrk;
+
+	/**
+	 * 포장투입실적 변경 여부
+	 */
+	private String needsInptChgYn;
 }

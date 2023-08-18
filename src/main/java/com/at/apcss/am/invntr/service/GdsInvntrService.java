@@ -1,5 +1,6 @@
 package com.at.apcss.am.invntr.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
@@ -27,7 +28,7 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public GdsInvntrVO selectGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
-	
+
 	/**
 	 * 상품재고 목록 조회
 	 * @param gdsInvntrVO
@@ -35,7 +36,7 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public List<GdsInvntrVO> selectGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
-	
+
 	/**
 	 * 상품재고 등록
 	 * @param gdsInvntrVO
@@ -43,7 +44,15 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public int insertGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
-	
+
+	/**
+	 * 상품재고 목록 등록
+	 * @param gdsInvntrList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertGdsInvntrList(List<GdsInvntrVO> gdsInvntrList) throws Exception;
+
 	/**
 	 * 상품재고 변경
 	 * @param gdsInvntrVO
@@ -51,7 +60,7 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public int updateGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
-	
+
 	/**
 	 * 상품재고 삭제
 	 * @param gdsInvntrVO
@@ -59,5 +68,5 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public int deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
-	
+
 }
