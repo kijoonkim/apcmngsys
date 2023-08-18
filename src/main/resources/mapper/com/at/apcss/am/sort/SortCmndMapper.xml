@@ -64,6 +64,7 @@
 			  FROM
 			  	  TB_SORT_CMND SC
 	        WHERE SC.DEL_YN = 'N'
+	          AND SC.APC_CD = #{apcCd}
 		]]>
 		<if test='sortCmndYmd != null and sortCmndYmd != ""'>
 			 AND SC.SORT_CMND_YMD = #{sortCmndYmd}
