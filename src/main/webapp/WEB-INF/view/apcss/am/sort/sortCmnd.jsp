@@ -44,7 +44,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">지시일자</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-strtCmndDate" name="srch-dtp-strtCmndYmd" class="form-control pull-right input-sm">
 							</td>
@@ -187,7 +187,14 @@
 	}
 	
 	const fn_search = async function(){
-		await fn_setGrdSortCmnd();
+    	try{
+ 		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-strtCmndYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endCmndYmd")))
+ 				   throw "지시일자는 필수입력 항목입니다.";
+ 			await fn_setGrdSortCmnd();
+ 	   } catch(e){
+		   alert(e);
+		   return;
+	   }
 	}
 	const fn_setGrdSortCmnd = async function(){
     	let fcltCd	= SBUxMethod.get("srch-slt-inptFclt");
@@ -307,7 +314,7 @@
 
 	const fn_setPrdcr = function(prdcr) {
 		if (!gfn_isEmpty(prdcr)) {
-			SBUxMethod.set("dtl-inp-prdcrCd", prdcr.prdcrCd);
+			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("dtl-inp-prdcrNm", prdcr.prdcrNm);
 			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 		}
@@ -328,7 +335,7 @@
 	 * @description 생산자 폼 clear
 	 */
 	const fn_clearPrdcr = function() {
-		SBUxMethod.set("dtl-inp-prdcrCd", null);
+		SBUxMethod.set("srch-inp-prdcrCd", null);
 		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:''");
 	}
 
@@ -337,7 +344,7 @@
 	 * @description 생산자 autocomplete 선택 callback
 	 */
 	function fn_onSelectPrdcrNm(value, label, item) {
-		SBUxMethod.set("dtl-inp-prdcrCd", value);
+		SBUxMethod.set("srch-inp-prdcrCd", value);
 		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 	}
 
