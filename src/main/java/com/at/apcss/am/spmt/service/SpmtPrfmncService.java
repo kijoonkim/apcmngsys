@@ -1,5 +1,6 @@
 package com.at.apcss.am.spmt.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
@@ -35,6 +36,14 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	public List<SpmtPrfmncVO> selectSpmtPrfmncList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+	
+	/**
+	 * 출하실적 목록 조회
+	 * @param searchList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> searchSpmtPrfmncList(List<SpmtPrfmncVO> searchList) throws Exception;
 
 	/**
 	 * 출하실적 공통 등록
