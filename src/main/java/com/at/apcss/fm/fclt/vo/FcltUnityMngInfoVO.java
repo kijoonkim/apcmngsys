@@ -14,6 +14,11 @@ public class FcltUnityMngInfoVO extends ComVO{
 	private int sN;
 	private String fcltSysInstlCd;
 	private String fcltSysHldYn;
+	private String msgKey;
+	private String msgCn;
+	private String msgKnd;
+	private String msgKndNm;
+	private String rmrk;
 }
 
 

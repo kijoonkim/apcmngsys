@@ -16,6 +16,11 @@ public class FcltGdsMchnInfoVO extends ComVO{
 	private String sortMchnCd;
 	private String sortMchnSpcfct;
 	private String sortMchnHldYn;
+	private String msgKey;
+	private String msgCn;
+	private String msgKnd;
+	private String msgKndNm;
+	private String rmrk;
 }
 
 

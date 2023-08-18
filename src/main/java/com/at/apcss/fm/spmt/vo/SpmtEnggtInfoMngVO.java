@@ -23,5 +23,10 @@ public class SpmtEnggtInfoMngVO extends ComVO{
 	private String gdsCd;
 	private String prdcrCd;
 	private String spmtCmndno;
+	private String msgKey;
+	private String msgCn;
+	private String msgKnd;
+	private String msgKndNm;
+	private String rmrk;
 }
 

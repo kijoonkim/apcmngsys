@@ -91,6 +91,11 @@ public class MngmstBscInfoVO extends ComVO{
     private  String  aplyPrsnTelno;
     private  String  admstOwnrRelSeCd;
     private  String  aplyPrsnBrdt;
+    private String msgKey;
+	private String msgCn;
+	private String msgKnd;
+	private String msgKndNm;
+	private String rmrk;
 }
 
 
