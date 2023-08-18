@@ -263,7 +263,7 @@
 			,AVC.VRTY_CD AS VRTY_CD
 			,AVC.VRTY_NM AS VRTY_NM
 		FROM TB_APC_VRTY_CRTR AVC
-    	WHERE  ITEM_CD > 0
+    	WHERE 1=1
 		]]>
 		<if test='vrtyNm != null and vrtyNm != ""'>
 			AND VRTY_NM = #{vrtyNm}
@@ -272,10 +272,10 @@
 			AND APC_CD = #{apcCd}
 		</if>
 		<if test='itemCd != null and itemCd = ""'>
-			AND ITEM_CD = #{itmeCd}
+			AND ITEM_CD = #{itemCd}
 		</if>
 		<if test='itemNm != null and itemNm = ""'>
-			AND ITEM_Nm = #{itmeNm}
+			AND ITEM_Nm = #{itemNm}
 		</if>
 		<![CDATA[
 			order by ITEM_CD
