@@ -246,23 +246,23 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-            {caption: ["선별일자","선별일자"],		ref: 'sortYmd',      type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["설비명","설비명"], 			ref: 'fcltNm',     	type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["입고구분","입고구분"], 	 	ref: 'wrhsSe',    type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["상품구분","상품구분"],    	ref: 'gdsSe',        type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["운송구분","운송구분"],	    ref: 'trsprtSe',   type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["품종","품종"],	    		ref: 'itemNm', type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["규격","규격"],  				ref: 'spcfct',   type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["투입","수량"],  				ref: 'inptQntt',   type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["투입","중량"],  				ref: 'inptWght',   type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["등급","등급"],  				ref: 'grd', type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["선별","수량"],  				ref: 'sortQntt', type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["선별","중량"],  				ref: 'sortWght', type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["LOSS","LOSS"], 				ref: 'ls',  type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["대표생산자","대표생산자"], 	ref: 'rprsPrdcr',  type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["투입창고","투입창고"], 		ref: 'inptWarehouse',  type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["저장창고","저장창고"], 		ref: 'strgWarehouse',  type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["비고","비고"], 				ref: 'rmrk',  type:'output',  width:'7%',    style:'text-align:center'}
+            {caption: ["선별일자","선별일자"],		ref: 'sortYmd',     	type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["설비명","설비명"], 			ref: 'fcltNm',     		type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["입고구분","입고구분"], 	 	ref: 'wrhsSe',    		type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["상품구분","상품구분"],    	ref: 'gdsSe',       	type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["운송구분","운송구분"],	    ref: 'trsprtSe',   		type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["품종","품종"],	    		ref: 'itemNm', 			type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["규격","규격"],  				ref: 'spcfct',   		type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["투입","수량"],  				ref: 'inptQntt',   		type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["투입","중량"],  				ref: 'inptWght',   		type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["등급","등급"],  				ref: 'grd', 			type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["선별","수량"],  				ref: 'sortQntt', 		type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["선별","중량"],  				ref: 'sortWght', 		type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["LOSS","LOSS"], 				ref: 'ls',  			type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["대표생산자","대표생산자"], 	ref: 'rprsPrdcr',  		type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["투입창고","투입창고"], 		ref: 'inptWarehouse',  	type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["저장창고","저장창고"], 		ref: 'strgWarehouse',  	type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["비고","비고"], 				ref: 'rmrk',  			type:'output',  width:'7%',    style:'text-align:center'}
         ];
 
         grdComMsgList = _SBGrid.create(SBGridProperties);

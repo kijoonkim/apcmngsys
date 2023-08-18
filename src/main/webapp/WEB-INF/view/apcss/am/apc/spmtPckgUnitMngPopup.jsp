@@ -44,7 +44,7 @@
 								</th>
 								<th scope="row"><span class="data_required"></span>품목명</th>
 								<th style="border-right-style: hidden;">
-									<sbux-select id="spmtPckgUnit-slt-itemCd" name="spmtPckgUnit-slt-itemCd" style="background-color:#ffffff;"  uitype="single" jsondata-ref="jsonSPUItemCd" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed" onchange="fn_selectItem()"></sbux-select>
+									<sbux-select id="spmtPckgUnit-slt-itemCd" name="spmtPckgUnit-slt-itemCd" style="background-color:#ffffff;"  uitype="single" jsondata-ref="jsonSPUItemCd" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed" onchange="fn_selectItem"></sbux-select>
 								</th>
 								<th></th>
 								<th></th>
@@ -85,13 +85,12 @@
 	const fn_initSBSelectSpmtPckgUnit = async function() {
 		await gfn_setApcItemSBSelect("spmtPckgUnit-slt-itemCd", jsonSPUItemCd, gv_apcCd);			// APC 품목(검색)
 		await gfn_setApcItemSBSelect("grdSpmtPckgUnit", 		jsonSPUGrdItemCd, gv_apcCd);		// APC 품목(저장)
-		await gfn_setApcVrtySBSelect("grdSpmtPckgUnit", 		jsonSPUGrdVrtyCd, gv_apcCd);		// APC 품종(저장)
-		await gfn_setApcSpcfctsSBSelect("grdSpmtPckgUnit", 		jsonSPUGrdSpcfctCd, gv_apcCd);		// APC 규격(저장)
 	}
 
 	function fn_selectItem(){
-		SBUxMethod.set("save-inp-itemNm", SBUxMethod.getText("spmtPckgUnit-slt-itemCd"));
-		let selectItemCd = SBUxMethod.get("save-slt-itemCd");
+		let selectItemCd = SBUxMethod.get("spmtPckgUnit-slt-itemCd");
+		gfn_setApcVrtySBSelect("grdSpmtPckgUnit", 		jsonSPUGrdVrtyCd, gv_apcCd, selectItemCd);		// APC 품종(저장)
+		gfn_setApcSpcfctsSBSelect("grdSpmtPckgUnit", 	jsonSPUGrdSpcfctCd, gv_apcCd, selectItemCd);	// APC 규격(저장)
 	}
 
 	function fn_modalClick(nRow){
