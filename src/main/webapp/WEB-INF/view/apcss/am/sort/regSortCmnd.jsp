@@ -161,10 +161,10 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd);	// 창고
-			gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComFclt, 		'FCLT_CD', gv_selectedApcCd);			// 설비
-			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, gv_selectedApcCd);		// 품목
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd);		// 품종
+			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
+			gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComFclt, 		'FCLT_CD', gv_selectedApcCd),			// 설비
+			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, gv_selectedApcCd),		// 품목
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd)		// 품종
 		]);
 	}
 
@@ -328,7 +328,7 @@
 
       		jsonRawMtrInvntr.length = 0;
           	data.resultList.forEach((item, index) => {
-				if(item.invntrCmndWght != 0){
+				if(item.invntrCmndWght > 0){
 	          		const rawMtrInvntr = {
 	  						rowSeq: item.rowSeq,
 	  						apcCd: item.apcCd,
@@ -433,6 +433,7 @@
     	var nRow = grdRawMtrInvntr.getRow();
 		var nCol = grdRawMtrInvntr.getCol();
 
+		let invntrQntt = grdRawMtrInvntr.getRowData(nRow).invntrCmndQntt;
 		let invntrWght = grdRawMtrInvntr.getRowData(nRow).invntrCmndWght;
 		let cmndWght = grdRawMtrInvntr.getRowData(nRow).cmndWght;
 
@@ -441,6 +442,14 @@
 			grdRawMtrInvntr.setCellData(nRow, nCol , 0);
             return;
 		}
+		if(invntrWght == cmndWght && invntrQntt > 0){
+			grdRawMtrInvntr.setCellData(nRow, 10, invntrQntt);
+		}
+
+		if(invntrWght % cmndWght == 0){
+			grdRawMtrInvntr.setCellData(nRow, 10, (cmndWght / invntrWght * invntrQntt));
+		}
+
 		if(cmndWght > 0){
 			grdRawMtrInvntr.setCellData(nRow, 0, "Y")
 		}else{
@@ -464,7 +473,11 @@
 		}
 		if(invntrQntt > 0 && cmndQntt > 0){
 			grdRawMtrInvntr.setCellData(nRow, 11, Math.round(invntrWght / invntrQntt) * cmndQntt);
-			grdRawMtrInvntr.setCellData(nRow, 0, "Y")
+			grdRawMtrInvntr.setCellData(nRow, 0, "Y");
+		}
+		if(cmndQntt == 0 && invntrQntt > 0){
+			grdRawMtrInvntr.setCellData(nRow, 11, 0);
+			grdRawMtrInvntr.setCellData(nRow, 0, "N");
 		}
 
     }
