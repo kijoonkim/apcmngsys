@@ -68,11 +68,21 @@ public class SlsPrfmncVO extends ComVO {
 	 * 품종코드
 	 */
 	private String vrtyCd;
+	
+	/**
+	 * 품종명
+	 */
+	private String vrtyNm;
 
 	/**
 	 * 규격코드
 	 */
 	private String spcfctCd;
+	
+	/**
+	 * 규격명
+	 */
+	private String spcfctNm;
 
 	/**
 	 * 등급코드

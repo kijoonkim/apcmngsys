@@ -32,7 +32,7 @@ public class SpmtPrfmncVO extends ComVO {
 	/**
 	 * 출하번호
 	 */
-	private String spmtNo;
+	private String spmtno;
 
 	/**
 	 * 출하시작일자
@@ -97,7 +97,7 @@ public class SpmtPrfmncVO extends ComVO {
 	/**
 	 * 포장번호
 	 */
-	private String pckgNo;
+	private String pckgno;
 
 	/**
 	 * 포장순번

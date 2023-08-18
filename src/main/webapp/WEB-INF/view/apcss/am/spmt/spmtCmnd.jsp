@@ -18,7 +18,7 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ 출하지시조회</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnCmndDocSpmt" name="btnCmndDocSpmt" uitype="normal" class="btn btn-sm btn-outline-danger" text="출하지시서" onclick="fn_cmndDocSpmt"></sbux-button>
+					<sbux-button id="btnCmndDocSpmt" name="btnCmndDocSpmt" uitype="normal" class="btn btn-sm btn-primary" text="출하지시서" onclick="fn_cmndDocSpmt"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
@@ -113,7 +113,6 @@
     </div>
 </body>
 <script type="text/javascript">
-
 	var jsonTrsprtCo		= [];	// 운송회사 	trsprtCo	검색
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
@@ -131,12 +130,6 @@
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonSpcfct, gv_selectedApcCd),				// 규격
 			gfn_setComCdSBSelect('srch-slt-pckgSeCd', jsonComPckgSeCd, 'PCKG_SE_CD', gv_selectedApcCd)	// 포장구분
 		]);
-	}
-
-	function fn_selectItem(){
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd);			// 품종
-		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonSpcfct, gv_selectedApcCd, itemCd);		// 규격
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -275,6 +268,13 @@
 		let result = await Promise.all([
 			fn_initSBSelect()
 		]);
+	}
+ 	
+	// 품종 콤보박스 변경
+	function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd);			// 품종
+		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonSpcfct, gv_selectedApcCd, itemCd);		// 규격
 	}
 	
 	// 거래처 선택 팝업 호출
