@@ -23,16 +23,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PckgInptVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
 	private String apcCd;
-	
+
 	/**
 	 * 선별번호
 	 */
-	private String sortNo;
+	private String sortno;
 
 	/**
 	 * 등급코드

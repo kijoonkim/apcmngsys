@@ -30,7 +30,7 @@ public interface SortInvntrMapper {
 	 * @throws Exception
 	 */
 	public SortInvntrVO selectSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
-	
+
 	/**
 	 * 선별재고 목록 조회
 	 * @param sortInvntrVO
@@ -38,7 +38,7 @@ public interface SortInvntrMapper {
 	 * @throws Exception
 	 */
 	public List<SortInvntrVO> selectSortInvntrList(SortInvntrVO sortInvntrVO) throws Exception;
-	
+
 	/**
 	 * 선별재고 등록
 	 * @param sortInvntrVO
@@ -46,7 +46,7 @@ public interface SortInvntrMapper {
 	 * @throws Exception
 	 */
 	public int insertSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
-	
+
 	/**
 	 * 선별재고 변경
 	 * @param sortInvntrVO
@@ -54,7 +54,7 @@ public interface SortInvntrMapper {
 	 * @throws Exception
 	 */
 	public int updateSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
-	
+
 	/**
 	 * 선별재고 삭제
 	 * @param sortInvntrVO
@@ -62,4 +62,15 @@ public interface SortInvntrMapper {
 	 * @throws Exception
 	 */
 	public int deleteSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
+
+
+	/**
+	 * 선별재고 포장처리
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateInvntrPckgPrfmnc(SortInvntrVO sortInvntrVO) throws Exception;
+
+
 }

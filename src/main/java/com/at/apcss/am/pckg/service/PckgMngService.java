@@ -21,7 +21,7 @@ import com.at.apcss.am.pckg.vo.PckgMngVO;
  * </pre>
  */
 public interface PckgMngService {
-	
+
 	/**
 	 * 포장투입실적 등록
 	 * @param pckgInptVO
@@ -37,9 +37,16 @@ public interface PckgMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertPckgPrfmnc(PckgMngVO pckgMngVO) throws Exception;
-	
-	
-	
+
+	/**
+	 * 포장실적 자동등록 - 선별등록 시
+	 * @param pckgMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertPckgPrfmncAuto(PckgMngVO pckgMngVO) throws Exception;
+
+
 	/**
 	 * 포장투입실적 변경
 	 * @param pckgInptVO
@@ -47,7 +54,7 @@ public interface PckgMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updatePckgInpt(PckgMngVO pckgMngVO) throws Exception;
-	
+
 	/**
 	 * 포장실적 변경
 	 * @param pckgInptVO
@@ -55,9 +62,9 @@ public interface PckgMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updatePckgPrfmnc(PckgMngVO pckgMngVO) throws Exception;
-	
-	
-	
+
+
+
 	/**
 	 * 포장투입실적 삭제
 	 * @param pckgInptVO
@@ -65,7 +72,7 @@ public interface PckgMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deletePckgInpt(PckgMngVO pckgMngVO) throws Exception;
-	
+
 	/**
 	 * 포장투입실적 삭제
 	 * @param pckgInptVO
@@ -73,4 +80,5 @@ public interface PckgMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deletePckgPrfmnc(PckgMngVO pckgMngVO) throws Exception;
+
 }

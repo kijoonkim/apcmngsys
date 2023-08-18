@@ -28,82 +28,87 @@ public class GdsInvntrVO extends ComVO {
 	 * APC코드
 	 */
 	private String apcCd;
-	
+
 	/**
 	 * 포장번호
 	 */
-	private String pckgNo;
-	
+	private String pckgno;
+
 	/**
 	 * 포장순번
 	 */
-	private int pckgSeqNo;
-	
+	private int pckgSn;
+
 	/**
 	 * 포장일자
 	 */
 	private String pckgYmd;
-	
+
 	/**
 	 * 설비코드
 	 */
 	private String fcltCd;
-	
+
 	/**
 	 * 대표생산자코드
 	 */
 	private String rprsPrdcrCd;
-	
+
 	/**
 	 * 품목코드
 	 */
 	private String itemCd;
-	
+
 	/**
 	 * 품종코드
 	 */
 	private String vrtyCd;
-	
+
 	/**
 	 * 규격코드
 	 */
 	private String spcfctCd;
-	
+
 	/**
 	 * 상품등급
 	 */
 	private String gdsGrd;
-	
+
 	/**
 	 * 포장구분코드
 	 */
 	private String pckgSeCd;
-	
+
+	/**
+	 * 창고구분코드
+	 */
+	private String warehouseSeCd;
+
 	/**
 	 * 포장수량
 	 */
 	private int pckgQntt;
-	
+
 	/**
 	 * 포장중량
 	 */
 	private double pckgWght;
-	
+
 	/**
 	 * 출하수량
 	 */
 	private int spmtQntt;
-	
+
 	/**
 	 * 출하중량
 	 */
 	private double spmtWght;
-	
+
 	/**
 	 * 재고수량
 	 */
 	private int invntrQntt;
-	
+
 	/**
 	 * 재고중량
 	 */

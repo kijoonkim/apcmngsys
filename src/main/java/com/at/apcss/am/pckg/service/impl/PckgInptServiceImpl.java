@@ -1,5 +1,6 @@
 package com.at.apcss.am.pckg.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,12 @@ public class PckgInptServiceImpl implements PckgInptService {
 
 	@Autowired
 	private PckgInptMapper pckgInptMapper;
-	
+
 	@Override
 	public PckgInptVO selectPckgInpt(PckgInptVO pckgInptVO) throws Exception {
 
 		PckgInptVO resultVO = pckgInptMapper.selectPckgInpt(pckgInptVO);
-				
+
 		return resultVO;
 	}
 
@@ -42,7 +43,7 @@ public class PckgInptServiceImpl implements PckgInptService {
 	public List<PckgInptVO> selectPckgInptList(PckgInptVO pckgInptVO) throws Exception {
 
 		List<PckgInptVO> resultList = pckgInptMapper.selectPckgInptList(pckgInptVO);
-				
+
 		return resultList;
 	}
 
@@ -50,7 +51,7 @@ public class PckgInptServiceImpl implements PckgInptService {
 	public int insertPckgInpt(PckgInptVO pckgInptVO) throws Exception {
 
 		int insertedCnt = pckgInptMapper.insertPckgInpt(pckgInptVO);
-				
+
 		return insertedCnt;
 	}
 
@@ -58,7 +59,7 @@ public class PckgInptServiceImpl implements PckgInptService {
 	public int updatePckgInpt(PckgInptVO pckgInptVO) throws Exception {
 
 		int updatedCnt = pckgInptMapper.updatePckgInpt(pckgInptVO);
-				
+
 		return updatedCnt;
 	}
 
@@ -66,8 +67,14 @@ public class PckgInptServiceImpl implements PckgInptService {
 	public int deletePckgInpt(PckgInptVO pckgInptVO) throws Exception {
 
 		int deletedCnt = pckgInptMapper.deletePckgInpt(pckgInptVO);
-				
+
 		return deletedCnt;
+	}
+
+	@Override
+	public HashMap<String, Object> insertPckgInptList(List<PckgInptVO> pckgInptList) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
