@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.am.wgh.mapper.WghPrfmncMapper;
 import com.at.apcss.am.wgh.service.WghPrfmncService;
 import com.at.apcss.am.wgh.vo.WghPrfmncDtlVO;
@@ -22,6 +23,7 @@ import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
 import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : WghPrfmncServiceImpl.java
@@ -81,14 +83,29 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 		List<WghPrfmncDtlVO> wghPrfmncDtlList = wghPrfmncVO.getWghPrfmncDtlList();
 
-		String wghno = cmnsTaskNoService.selectWghno(wghPrfmncVO.getApcCd(), wghPrfmncVO.getWghYmd());
-		wghPrfmncVO.setWghno(wghno);
+		String wghno = wghPrfmncVO.getWghno();
+
+		boolean needsWghComInsert = false;
+		if (!StringUtils.hasText(wghno)) {
+			needsWghComInsert = true;
+			wghno = cmnsTaskNoService.selectWghno(wghPrfmncVO.getApcCd(), wghPrfmncVO.getWghYmd());
+			wghPrfmncVO.setWghno(wghno);
+		}
 
 		List<RawMtrWrhsVO> rawMtrWrhsList = new ArrayList<>();
 
+		int pltQntt = 0;
+		int totalBxQntt = 0;
+		double totalWght = wghPrfmncVO.getWrhsWght();
+
 		String grdCd = ComConstants.CON_BLANK;
 
-		int insertedCnt = wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
+		if (needsWghComInsert) {
+			wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
+		} else {
+			wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
+		}
+
 		int seq = 0;
 		for ( WghPrfmncDtlVO dtl : wghPrfmncDtlList ) {
 
@@ -111,20 +128,58 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 			if (!StringUtils.hasText(grdCd)) {
 				grdCd = dtl.getGrdCd();
 			}
+
+			// 팔레트 수량 만큼 입고실적 생성
+			if (AmConstants.CON_PLT_BX_SE_CD_PLT.equals(dtl.getPltBxSeCd())) {
+				pltQntt += dtl.getQntt();
+
+
+			}
+			if (AmConstants.CON_PLT_BX_SE_CD_BX.equals(dtl.getPltBxSeCd())) {
+				totalBxQntt += dtl.getQntt();
+			}
+		}
+
+		if (pltQntt <= 0) {	//	W0005	{0}이/가 없습니다.
+			throw new EgovBizException(getMessage("W0005", "팔레트수량".split("||")), new Exception());
 		}
 
 		wghPrfmncVO.setGrdCd(grdCd);
 
 		//
 		// FIXME 계량번호로 입고실적, 원물재고 등록 호출 추가 할 것
-		RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
-		BeanUtils.copyProperties(wghPrfmncVO, rawMtrWrhsVO);
-		rawMtrWrhsVO.setWrhsYmd(wghPrfmncVO.getWghYmd());
-		rawMtrWrhsList.add(rawMtrWrhsVO);
+		// 팔레트 수량만큼 입고 실적을 생성한다.
+		// WRHS_WGHT
+
+		// totalWght totalBxQntt
+		int allocWght = (int)(totalWght / pltQntt);
+		int allocBxQntt = totalBxQntt / pltQntt;
+
+		double remainWght = totalWght - (allocWght * pltQntt);
+		int remainQntt = totalBxQntt - (allocBxQntt * pltQntt);
+
+		for ( int i = 0; i < pltQntt; i++ ) {
+
+			RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
+			BeanUtils.copyProperties(wghPrfmncVO, rawMtrWrhsVO);
+			rawMtrWrhsVO.setWrhsYmd(wghPrfmncVO.getWghYmd());
+
+			if (i > 0) {
+				rawMtrWrhsVO.setBxQntt(allocBxQntt);
+				rawMtrWrhsVO.setWrhsQntt(allocBxQntt);
+				rawMtrWrhsVO.setWrhsWght(allocWght);
+			} else {
+				rawMtrWrhsVO.setBxQntt(allocBxQntt + remainQntt);
+				rawMtrWrhsVO.setWrhsQntt(allocBxQntt + remainQntt);
+				rawMtrWrhsVO.setWrhsWght(allocWght + remainQntt);
+			}
+
+			rawMtrWrhsList.add(rawMtrWrhsVO);
+		}
 
 		HashMap<String, Object> rtnObj = rawMtrWrhsService.insertRawMtrWrhsList(rawMtrWrhsList);
 		if (rtnObj != null) {
-			throw new Exception("입고처리오류");
+			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
 
 		return null;
@@ -133,22 +188,26 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	@Override
 	public HashMap<String, Object> updateWghPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception {
 
+		HashMap<String, Object> rtnObj = new HashMap<>();
 		// 상세 변경 후 공통 변경
-		int updatedCnt = wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
+		// int updatedCnt = wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
 
-		return null;
-	}
-
-	@Override
-	public HashMap<String, Object> deleteWghPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception {
-
-		// 상세 삭제 후 공통 삭제
+		// 상세는 삭제 후 재등록
 		WghPrfmncVO wghPrfmncInfo = selectWghPrfmnc(wghPrfmncVO);
 
 		if (wghPrfmncInfo == null || !StringUtils.hasText(wghPrfmncInfo.getWghno())) {
-			// exception
+			return ComUtil.getResultMap("W0005", "계량정보");	// W0005	{0}이/가 없습니다.
 		}
 
+		// 원물입고 실적 삭제 : 재고, 입고실적
+		RawMtrWrhsVO wrhsVO = new RawMtrWrhsVO();
+		BeanUtils.copyProperties(wghPrfmncVO, wrhsVO);
+		rtnObj = rawMtrWrhsService.deleteRawMtrWrhsByWghno(wrhsVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		// 계량 실적 삭제 : 상세, 공통
 		List<WghPrfmncDtlVO> dtlList = wghPrfmncInfo.getWghPrfmncDtlList();
 		if (dtlList != null && !dtlList.isEmpty()) {
 			int deletedDtlCnt = 0;
@@ -166,9 +225,58 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 							ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
 						);
 				deletedDtlCnt = wghPrfmncMapper.deleteWghPrfmncDtl(wghPrfmncDtlVO);
-
 				if (deletedDtlCnt != 1) {
-					// exception
+				}
+			}
+		}
+
+
+		rtnObj = insertWghPrfmnc(wghPrfmncVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteWghPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception {
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		WghPrfmncVO wghPrfmncInfo = selectWghPrfmnc(wghPrfmncVO);
+
+		if (wghPrfmncInfo == null || !StringUtils.hasText(wghPrfmncInfo.getWghno())) {
+			return ComUtil.getResultMap("W0005", "계량정보");	// W0005	{0}이/가 없습니다.
+		}
+
+		// 원물입고 실적 삭제 : 재고, 입고실적
+		RawMtrWrhsVO wrhsVO = new RawMtrWrhsVO();
+		BeanUtils.copyProperties(wghPrfmncVO, wrhsVO);
+		rtnObj = rawMtrWrhsService.deleteRawMtrWrhsByWghno(wrhsVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		// 계량 실적 삭제 : 상세, 공통
+		List<WghPrfmncDtlVO> dtlList = wghPrfmncInfo.getWghPrfmncDtlList();
+		if (dtlList != null && !dtlList.isEmpty()) {
+			int deletedDtlCnt = 0;
+			for ( WghPrfmncDtlVO dtl : dtlList) {
+				WghPrfmncDtlVO wghPrfmncDtlVO = new WghPrfmncDtlVO();
+				BeanUtils.copyProperties(wghPrfmncVO, wghPrfmncDtlVO);
+				BeanUtils.copyProperties(dtl, wghPrfmncDtlVO,
+							ApcConstants.PROP_APC_CD,
+							ApcConstants.PROP_WGHNO,
+							ComConstants.PROP_SYS_FRST_INPT_DT,
+							ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+							ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+							ComConstants.PROP_SYS_LAST_CHG_DT,
+							ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+							ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
+						);
+				deletedDtlCnt = wghPrfmncMapper.deleteWghPrfmncDtl(wghPrfmncDtlVO);
+				if (deletedDtlCnt != 1) {
 				}
 			}
 		}
@@ -176,7 +284,6 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		int deletedCnt = wghPrfmncMapper.deleteWghPrfmncCom(wghPrfmncVO);
 
 		if (deletedCnt != 1) {
-			// exception
 		}
 
 		return null;
@@ -229,7 +336,16 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 	@Override
 	public HashMap<String, Object> deleteWghPrfmncList(List<WghPrfmncVO> wghPrfmncList) throws Exception {
-		// TODO Auto-generated method stub
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		for ( WghPrfmncVO wghPrfmncVO : wghPrfmncList ) {
+			rtnObj = deleteWghPrfmnc(wghPrfmncVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
 		return null;
 	}
 }

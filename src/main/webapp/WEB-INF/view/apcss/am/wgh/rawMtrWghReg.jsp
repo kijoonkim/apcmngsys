@@ -31,7 +31,7 @@
 				<!--[APC] END -->
 
 				<!--[pp] 검색 -->
-				<sbux-input id="dtl-inp-wghno" name="dtl-inp-prdcrCd" uitype="hidden"></sbux-input>
+				<sbux-input id="dtl-inp-wghno" name="dtl-inp-wghno" uitype="hidden"></sbux-input>
 				<sbux-input id="dtl-inp-prdcrCd" name="dtl-inp-prdcrCd" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -333,7 +333,7 @@
 					</div>
 				</div>
 				<div id="wrap-grdWghPrfmnc" class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:370px;"></div>
 				</div>
 			</div>
 				<!--[pp] //검색결과 -->
@@ -479,6 +479,8 @@
             {caption: ['보관창고'], ref: 'warehouseSeNm', width: '60px', type: 'output', style:'text-align:center'},
             {caption: ['비고'], ref: 'rmrk', width: '300px', type: 'output'},
             {caption: ["APC코드"],	ref: 'apcCd',        	type:'output',  hidden: true},
+            {caption: ["생산자코드"],	ref: 'prdcrCd',        	type:'output',  hidden: true},
+
         ];
         grdWghPrfmnc = _SBGrid.create(SBGridProperties);
         grdWghPrfmnc.bind('click', fn_view);
@@ -501,29 +503,52 @@
 			bxQntt: 0,
 			bxWght: 0,
 			totalQntt: 0,
-			totalQntt: 0
+			totalWght: 0
 		});
 	}
 
+	/**
+     * @name fn_delete
+     * @description 삭제 버튼
+	 */
 	const fn_delete = async function() {
 
-		const wghInfos = [];
+		const wghPrfmncList = [];
 
 		const allData = grdWghPrfmnc.getGridDataAll();
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
-				wghInfos.push({
+				wghPrfmncList.push({
 					apcCd: item.apcCd,
 					wghno: item.wghno
 				});
     		}
 		});
 
-		if (wghInfos.length ===0) {
+		if (wghPrfmncList.length === 0) {
 			gfn_comAlert("W0005", "선택대상");		//	W0005	{0}이/가 없습니다.
 			return;
 		}
-		console.log(wghInfos);
+
+		if (!gfn_comConfirm("Q0001", "삭제")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+
+		console.log(wghPrfmncList);
+		const postJsonPromise = gfn_postJSON("/am/wgh/deleteWghPrfmncList.do", wghPrfmncList);
+		const data = await postJsonPromise;
+
+        try {
+			if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		//fn_inputClear();
+        		fn_search();
+        	} else {
+        		//alert(data.resultMessage);
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        }
 	}
 
 	/**
@@ -532,6 +557,7 @@
      */
 	const fn_save = async function() {
 
+		let wghno = SBUxMethod.get("dtl-inp-wghno");					// 계량번호
 		let wghYmd = SBUxMethod.get("dtl-dtp-wghYmd");					// 계량일자
 		let prdcrCd = SBUxMethod.get("dtl-inp-prdcrCd");				// 생산자
 		let itemCd = SBUxMethod.get("dtl-slt-itemCd");					// 품목
@@ -603,6 +629,10 @@
             return;
     	}
 
+		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+
     	const wghPrfmncDtlList = [];
 
     	if (!gfn_isEmpty(jsonPltBxData)) {
@@ -636,9 +666,9 @@
     		}
     	}
 
-
     	const rawMtrWgh = {
     		apcCd: gv_selectedApcCd,
+    		wghno: wghno,
     		wghYmd: wghYmd,					// 계량일자
     		prdcrCd: prdcrCd,				// 생산자
     		itemCd: itemCd,					// 품목
@@ -659,17 +689,19 @@
     		wghPrfmncDtlList: wghPrfmncDtlList
     	}
 
-    	const postJsonPromise = gfn_postJSON("/am/wgh/insertWghPrfmnc.do", rawMtrWgh);
+    	let postUrl = gfn_isEmpty(wghno) ? "/am/wgh/insertWghPrfmnc.do" : "/am/wgh/updateWghPrfmnc.do";
+
+		const postJsonPromise = gfn_postJSON(postUrl, rawMtrWgh);
 		const data = await postJsonPromise;
 
         try {
-        	if (_.isEqual("S", data.resultStatus)) {
+			if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		//fn_inputClear();
         		fn_search();
         	} else {
-        		//alert(data.resultMessage);
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
         } catch(e) {
         }
@@ -884,6 +916,9 @@
 			SBUxMethod.set("dtl-inp-wghno", rowData.wghno);
 
 
+			console.log("rowData", rowData);
+			console.log("rowData.prdcrCd", rowData.prdcrCd);
+
 			// 계량일자
 			SBUxMethod.set("dtl-dtp-wghYmd", rowData.wghYmd);
 
@@ -973,7 +1008,7 @@
 					bxQntt: bxQntt,
 					bxWght: bxWght,
 					totalQntt: pltQntt + bxQntt,
-					totalQntt: pltWght + bxWght
+					totalWght: pltWght + bxWght
 				}
 
 			fn_setPltBx(jsonPltBxDataTemp);

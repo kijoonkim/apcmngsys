@@ -24,20 +24,20 @@
     <select id="selectRawMtrWrhs" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO" resultType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.selectRawMtrWrhs */
-				  WC.APC_CD		AS APC_CD
-				, WC.WGHNO		AS WGHNO
-				, WC.WGH_YMD	AS WGH_YMD
-				, WC.VHCLNO		AS VHCLNO
-				, WC.WHOL_WGHT	AS WHOL_WGHT
-				, WC.EMPT_VHCL_WGHT	AS EMPT_VHCL_WGHT
-				, WC.RDCD_RT	AS RDCD_RT
-				, WC.RDCD_WGHT	AS RDCD_WGHT
-				, WC.WRHS_WGHT	AS WRHS_WGHT
-				, WC.RMRK		AS RMRK
-				, WC.DEL_YN		AS DEL_YN
-			  FROM TB_WGH_PRFMNC_COM WC
-			 WHERE WC.APC_CD = #{apcCd}
-			   AND WC.WGHNO = #{wghno}
+				  WP.APC_CD		AS APC_CD
+				, WP.WRHSNO		AS WRHSNO
+				, WP.WGHNO		AS WGHNO
+				, WP.PLTNO		AS PLTNO
+				, WP.WRHS_YMD	AS WRHS_YMD
+				, WP.PRDCR_CD	AS PRDCR_CD
+				, WP.VHCLNO		AS VHCLNO
+				, WP.BX_QNTT	AS BX_QNTT
+				, WP.WRHS_WGHT	AS WRHS_WGHT
+				, WP.RMRK		AS RMRK
+				, WP.DEL_YN		AS DEL_YN
+			  FROM TB_RAW_MTR_WRHS_PRFMNC WP
+			 WHERE WP.APC_CD = #{apcCd}
+			   AND WP.WRHSNO = #{wrhsno}
 		]]>
     </select>
 
@@ -265,7 +265,7 @@
 			</if>
 
 			 WHERE APC_CD = #{apcCd}
-			   AND WRHSNO = #{wghno}
+			   AND WRHSNO = #{wrhsno}
 		]]>
 	</update>
 
@@ -282,11 +282,11 @@
 			DELETE /* com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.deleteRawMtrWrhs */
 			  FROM TB_RAW_MTR_WRHS_PRFMNC
 			 WHERE APC_CD = #{apcCd}
-			   AND WRHSNO = #{wghno}
+			   AND WRHSNO = #{wrhsno}
 		]]>
 	</delete>
-	
-	
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsPrfmncList	-->
 	<!-- DESC : 입고실적 목록 조회.	                                       				-->
