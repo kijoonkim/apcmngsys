@@ -310,7 +310,7 @@
 
 
 	    SBGridProperties.columns = [
-	        {caption: ["입고일자"],		ref: 'wrhsYmd',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["입고일자"],		ref: 'wrhsYmd',      type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["생산자"],		ref: 'prdcrNm',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["품목"],		ref: 'itemNm',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["품종"],		ref: 'vrtyNm',      type:'output',  width:'80px',    style:'text-align:center'},
@@ -322,9 +322,9 @@
 	        {caption: ["등급"],		ref: 'grdNm',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["입고중량"],		ref: 'wrhsWght',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["보관창고"],		ref: 'warehouseSeNm',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["계량번호"],		ref: 'wghno',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["팔레트번호"],		ref: 'pltno',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["비고"],		ref: 'rmrk',      type:'output',  width:'200px',    style:'text-align:center'},
+	        {caption: ["계량번호"],		ref: 'wghno',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["팔레트번호"],		ref: 'pltno',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["비고"],		ref: 'rmrk',      type:'output',  width:'250px',    style:'text-align:center'},
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -418,10 +418,8 @@
 	  		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
 	  		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 			let vrtyCd = vrtyCds.length > 0 ? +vrtyCds.join(',') : "";
-	  		console.log("vrtyCd", vrtyCd);
 			const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsPrfmncList.do", {
-// 				apcCd: gv_selectedApcCd,
-				apcCd: '9999',
+				apcCd: gv_selectedApcCd,
 				wrhsYmdFrom: wrhsYmdFrom,
 				wrhsYmdTo: wrhsYmdTo,
 				wrhsSeCd: wrhsSeCd,
@@ -431,7 +429,7 @@
 				vrtyCd: vrtyCd,
 				itemCd: itemCd,
 	          	// pagination
-	  	  		pagingYn : 'Y',
+	  	  		pagingYn : 'N',
 	  			currentPageNo : pageNo,
 	   		  	recordCountPerPage : pageSize
 	  		});

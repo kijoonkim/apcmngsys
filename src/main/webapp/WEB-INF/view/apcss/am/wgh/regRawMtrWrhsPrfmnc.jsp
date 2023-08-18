@@ -319,17 +319,6 @@
 									autocomplete="off"
 								/>
 							</td>
-							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
-							<th scope="row" class="th_bg">계량번호</th>
-							<td colspan= "6" class="td_input" style="border-right: hidden;">
-								<sbux-input
-									uitype="text"
-									id="srch-inp-wghno"
-									name="srch-inp-wghno"
-									class="form-control input-sm"
-									autocomplete="off"
-								/>
-							</td>
 						</tr>
 					</tbody>
 				</table>
