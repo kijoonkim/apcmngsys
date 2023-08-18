@@ -259,12 +259,19 @@ const gfn_setSBSelectJson = function (_targetIds, _jsondataRef, _sourceJson) {
 	try {
 		_jsondataRef.length = 0;
 		_sourceJson.forEach((item) => {
+
 			const tempItem = {
 				text: item.cmnsNm,
 				label: item.cmnsNm,
 				value: item.cmnsCd,
 				mastervalue  : item.mastervalue
 			}
+			/*
+			item.text = item.cmnsNm;
+			item.label = item.cmnsNm;
+			item.value = item.cmnsCd;
+			item.mastervalue = item.mastervalue;
+			 */
 			_jsondataRef.push(tempItem);
 		});
 
@@ -288,7 +295,7 @@ const gfn_setSBSelectJson = function (_targetIds, _jsondataRef, _sourceJson) {
 async function gfn_getMstItem () {
 	const postJsonPromise = gfn_postJSON(URL_MST_ITEMS, {delYn: "N"}, null, true);
 	const data = await postJsonPromise;
-	return ata.resultList;
+	return data.resultList;
 }
 
 /**
@@ -950,10 +957,27 @@ const gfn_getComMsg = function (_msgKey, ..._arguments) {
 	}
 
 	let args = Array.prototype.slice.call(arguments, 1);
+
+	let paramList = [];
+	args.forEach((item, index) => {
+		if (!gfn_isEmpty(item)) {
+			if (item.indexOf('||') < 0) {
+				paramList.push(item);
+			} else {
+				let arr = item.split('||');
+					arr.forEach((itm, idx) => {
+					paramList.push(itm);
+				});
+			}
+		} else {
+			paramList.push(item);
+		}
+	});
+
 	msgCn = msgCn.replace("\\\\", "\\");
 
 	let msg = msgCn.replace(/{(\d+)}/g, function(match, number) {
-			return typeof args[number] != 'undefined' ? args[number] : match;
+			return typeof paramList[number] != 'undefined' ? paramList[number] : match;
 		});
 
 	// sample

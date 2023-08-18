@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WghPrfmncDtlVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -43,7 +43,7 @@ public class WghPrfmncDtlVO extends ComVO {
 	 * 등급코드
 	 */
 	private String grdCd;
-	
+
 	/**
 	 * 팔레트박스구분코드
 	 */
@@ -68,4 +68,23 @@ public class WghPrfmncDtlVO extends ComVO {
 	 * 중량
 	 */
 	private double wght;
+
+	/**
+	 * 팔레트박스명
+	 */
+	private String pltBxNm;
+
+	/**
+	 * 단위
+	 */
+	private String unitCd;
+	/**
+	 * 단위명
+	 */
+	private String unitNm;
+
+	/**
+	 * 환산중량
+	 */
+	private double cnvrtWght;
 }

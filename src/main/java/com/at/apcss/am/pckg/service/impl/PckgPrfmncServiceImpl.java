@@ -94,7 +94,7 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 
 		// 투입실적 유무에 따라 선별번호 부여 or 선별투입실적 등록 처리
 
-		String pckgno = ComConstants.CON_YES;
+		String pckgno = ComConstants.CON_BLANK;
 		int pckgSn = 0;
 
 		int insertedCnt = 0;

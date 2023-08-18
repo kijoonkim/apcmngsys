@@ -270,6 +270,13 @@
     	
     }
 	
+ 	// APC 선택 변경
+	const fn_onChangeApc = async function() {
+		let result = await Promise.all([
+			fn_initSBSelect()
+		]);
+	}
+	
 	// 거래처 선택 팝업 호출
 	const fn_modalCnpt = function() {
     	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
