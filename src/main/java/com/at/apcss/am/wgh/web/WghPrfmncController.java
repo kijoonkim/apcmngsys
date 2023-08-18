@@ -111,6 +111,30 @@ public class WghPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/wgh/updateWghPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateWghPrfmnc(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			wghPrfmncVO.setSysFrstInptUserId(getUserId());
+			wghPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+			wghPrfmncVO.setSysLastChgUserId(getUserId());
+			wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = wghPrfmncService.updateWghPrfmnc(wghPrfmncVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	@PostMapping(value = "/am/wgh/deleteWghPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteWghPrfmncList(@RequestBody List<WghPrfmncVO> wghPrfmncList, HttpServletRequest request) throws Exception {
 

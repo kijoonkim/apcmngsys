@@ -20,7 +20,7 @@ import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
  * </pre>
  */
 public interface RawMtrWrhsService {
-	
+
 	/**
 	 * 원물입고 단건 조회
 	 * @param rawMtrWrhsVO
@@ -44,7 +44,7 @@ public interface RawMtrWrhsService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
-	
+
 	/**
 	 * 원물입고 등록
 	 * @param rawMtrWrhsVO
@@ -52,7 +52,7 @@ public interface RawMtrWrhsService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertRawMtrWrhsList(List<RawMtrWrhsVO> rawMtrWrhsList) throws Exception;
-	
+
 	/**
 	 * 계량번호를 통한 원물입고 등록
 	 * @param rawMtrWrhsVO
@@ -67,7 +67,7 @@ public interface RawMtrWrhsService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	public HashMap<String, Object> updateRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
 	/**
 	 * 원물입고 삭제
@@ -75,15 +75,24 @@ public interface RawMtrWrhsService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
-	
+	public HashMap<String, Object> deleteRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 원물입고 삭제 - by 계량번호
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteRawMtrWrhsByWghno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+
 	/**
 	 * 입고실적 목록 조회
-	 * 
+	 *
 	 * @param selectRawMtrWrhsPrfmncList
 	 * @return
 	 * @throws Exception
 	 */
 	public List<RawMtrWrhsVO> selectRawMtrWrhsPrfmncList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
-	
+
 }

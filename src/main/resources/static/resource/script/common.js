@@ -145,7 +145,7 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
 		if (showProgress && typeof SBUxMethod === 'function') {
 			SBUxMethod.closeProgress(gv_loadingOptions);
 		}
-
+		console.error("failed", e);
 		console.error("failed", e.message);
 	}
 }
