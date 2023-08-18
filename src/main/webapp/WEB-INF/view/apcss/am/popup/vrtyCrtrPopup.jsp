@@ -151,6 +151,7 @@
 			jsonVrtyPopUp = [];
 	    	let apcNm = SBUxMethod.get("vrty-inp-apcNm");
 			let vrtyNm = SBUxMethod.get("vrty-inp-vrtyNm");
+			console.log('vrtyNm',vrtyNm);
 			let postJsonPromise = gfn_postJSON("/am/apc/selectVrtyList.do", { apcCd: apcCd, vrtyNm: vrtyNm, itemNm: itemNm });
 		    let data = await postJsonPromise;                
 		    

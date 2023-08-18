@@ -54,7 +54,7 @@
 								<sbux-input id="vrty-inp-vrtyNm" name="vrty-inp-vrtyNm" uitype="text" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-button id="btnSrchVrty" name="btnSrchVrty" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrtyCrtr" onclick="fn_modalVrty"></sbux-button>
+								<sbux-button id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"/>
 							</td>
 							<td></td>
 							<th scope="row" >생산자선택</th>
@@ -92,8 +92,8 @@
 							<td class="td_input">
 								<sbux-input id="cnpt-inp-cnptNm" name="cnpt-inp-cnptNm" uitype="text" class="form-control input-sm" ></sbux-input>
 							</td>
-							<td class="td_input">
-								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"></sbux-button>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
 							<td></td>
 							<th scope="row" >마감등록</th>
@@ -168,19 +168,20 @@
     </div>
 
     <!-- 품종 선택 Modal -->
+     <!-- 품종 선택 Modal -->
     <div>
-        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
+        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="body-modal-vrtyCrtr">
     	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
     </div>
 
-    <!-- 거래처 선택 Modal -->
+	<!-- 거래처 선택 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-cnpt">
-    	<jsp:include page="../../am/popup/cnptPopup.jsp"></jsp:include>
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
     </div>
 
     <!-- 원물운임비용등록 Modal -->
@@ -330,6 +331,62 @@
 	}
 	/* End */
 
+	/*
+	* 품종 선택 팝업 시작
+	*/
+	
+    const fn_modalVrty = function() {
+    	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
+    	//_apcCd, _apcNm, _itemNm, _callbackFnc
+	}
+    
+
+     const fn_setVrty = function(vrty) {
+
+		if (!gfn_isEmpty(vrty)) {
+			console.log("vrty", vrty);
+			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
+			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyNm);
+		}
+	}
+     const fn_setVrtys = function(vrtys) {
+		if (!gfn_isEmpty(vrtys)) {
+// 			console.log("vrtys", vrtys);
+// 			console.log("vrtys[2]", vrtys[2]);
+			var _vrtys = [];
+			for(var i=0;i<vrtys.length;i++){
+				_vrtys.push(vrtys[i].vrtyNm);
+// 				SBUxMethod.setValue('srch-inp-vrtyCd', vrtys[i].vrtyNm);
+// 				SBUxMethod.set('srch-inp-vrtyCd', vrtys[i].vrtyNm);
+// 				console.log("vrtys", _vrtys);
+			}
+			SBUxMethod.set('srch-inp-vrtyCd', _vrtys.join(','));
+		}
+	}
+     
+     /*
+     * 품종 선택 팝업 끝
+     */
+     
+     /*
+     * 거래처 선택 팝업 시작
+     */
+ 	// 거래처 선택 팝업 호출
+ 	const fn_modalCnpt = function() {
+     	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
+ 	}
+ 	
+ 	const fn_setCnpt = function(cnpt) {
+ 		if (!gfn_isEmpty(cnpt)) {
+ 			console.log("cnpt", cnpt);
+ 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
+ 			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
+ 		}
+ 	}
+ 	/*
+ 	* 거래처 선택 팝업 끝
+ 	*/
+	
 </script>
 </body>
 </html>

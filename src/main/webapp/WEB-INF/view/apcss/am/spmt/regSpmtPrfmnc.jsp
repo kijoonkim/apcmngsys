@@ -353,5 +353,34 @@
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
+	
+    const fn_modalVrty = function() {
+    	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
+    	//_apcCd, _apcNm, _itemNm, _callbackFnc
+	}
+    
+
+     const fn_setVrty = function(vrty) {
+
+		if (!gfn_isEmpty(vrty)) {
+			console.log("vrty", vrty);
+			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
+			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyNm);
+		}
+	}
+     const fn_setVrtys = function(vrtys) {
+		if (!gfn_isEmpty(vrtys)) {
+// 			console.log("vrtys", vrtys);
+// 			console.log("vrtys[2]", vrtys[2]);
+			var _vrtys = [];
+			for(var i=0;i<vrtys.length;i++){
+				_vrtys.push(vrtys[i].vrtyNm);
+// 				SBUxMethod.setValue('srch-inp-vrtyCd', vrtys[i].vrtyNm);
+// 				SBUxMethod.set('srch-inp-vrtyCd', vrtys[i].vrtyNm);
+// 				console.log("vrtys", _vrtys);
+			}
+			SBUxMethod.set('srch-inp-vrtyCd', _vrtys.join(','));
+		}
+	}
 </script>
 </html>
