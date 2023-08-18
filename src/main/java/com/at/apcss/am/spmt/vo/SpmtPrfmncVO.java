@@ -77,7 +77,7 @@ public class SpmtPrfmncVO extends ComVO {
 	/**
 	 * 차량번호
 	 */
-	private String vhclNo;
+	private String vhclno;
 
 	/**
 	 * 배송지
