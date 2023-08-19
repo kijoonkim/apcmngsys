@@ -113,13 +113,13 @@
 									<sbux-checkbox uitype="normal"id="chk-gsd1" name="chk-gsd1" uitype="normal" class="form-control input-sm" text="일반" checked/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-gsd2" name="chk-gsd2" uitype="normal" class="form-control input-sm" text="GAP"/>
+									<sbux-checkbox uitype="normal"id="chk-gsd2" name="chk-gsd2" uitype="normal" class="form-control input-sm" text="GAP" checked/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-gsd3" name="chk-gsd3" uitype="normal" class="form-control input-sm" text="무농약"/>
+									<sbux-checkbox uitype="normal"id="chk-gsd3" name="chk-gsd3" uitype="normal" class="form-control input-sm" text="무농약" checked/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-gsd4" name="chk-gsd4" uitype="normal" class="form-control input-sm" text="유기농"/>
+									<sbux-checkbox uitype="normal"id="chk-gsd4" name="chk-gsd4" uitype="normal" class="form-control input-sm" text="유기농" checked/>
 								</p>
 							</td>
 					    	<th scope="row" class="th_bg">운송구분</th>
@@ -174,7 +174,7 @@
 					</div>
 					<div class="sbt-wrap-body">
 						<div class="sbt-grid">
-							<div id="inptCmndDsctnGridArea" style="height:340px;"></div>
+							<div id="inptCmndDsctnGridArea" style="height:508px;"></div>
 						</div>
 					</div>
 			</div>
@@ -491,7 +491,6 @@
           		inptCmndDsctnList.setPageTotalCount(totalRecordCount);
           		inptCmndDsctnList.rebuild();
           	}
-
           	document.querySelector('#listCount').innerText = totalRecordCount;
        } catch (e) {
      		if (!(e instanceof Error)) {
