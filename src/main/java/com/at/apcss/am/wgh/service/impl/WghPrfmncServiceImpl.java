@@ -141,7 +141,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		}
 
 		if (pltQntt <= 0) {	//	W0005	{0}이/가 없습니다.
-			throw new EgovBizException(getMessage("W0005", "팔레트수량".split("||")), new Exception());
+			throw new EgovBizException(getMessage("W0005", "팔레트수량".split("\\|\\|")), new Exception());
 		}
 
 		wghPrfmncVO.setGrdCd(grdCd);
@@ -311,7 +311,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 		int insertedCnt = wghPrfmncMapper.insertWghPrfmncDtl(wghPrfmncDtlVO);
 		if (insertedCnt != 1) {
-			throw new EgovBizException(getMessage("E0003", "계량상세등록".split("||")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+			throw new EgovBizException(getMessage("E0003", "계량상세등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 		}
 		return null;
 	}
@@ -320,7 +320,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	public HashMap<String, Object> updateWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception {
 		int updatedCnt = wghPrfmncMapper.updateWghPrfmncDtl(wghPrfmncDtlVO);
 		if (updatedCnt != 1) {
-			throw new EgovBizException(getMessage("E0003", "계량상세변경".split("||")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+			throw new EgovBizException(getMessage("E0003", "계량상세변경".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 		}
 		return null;
 	}
@@ -329,7 +329,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	public HashMap<String, Object> deleteWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception {
 		int deletedCnt = wghPrfmncMapper.deleteWghPrfmncDtl(wghPrfmncDtlVO);
 		if (deletedCnt != 1) {
-			throw new EgovBizException(getMessage("E0003", "계량상세삭제".split("||")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+			throw new EgovBizException(getMessage("E0003", "계량상세삭제".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 		}
 		return null;
 	}

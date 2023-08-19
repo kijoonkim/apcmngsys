@@ -695,9 +695,15 @@ const gfn_getPrdcrs = async function(_apcCd) {
 	const sourceJson = [];
 	data.resultList.forEach((item) => {
 			sourceJson.push({
-				procrCd: item.prdcrCd,
+				prdcrCd: item.prdcrCd,
 				prdcrNm: item.prdcrNm,
 				prdcrFrstNm: item.prdcrFrstNm,
+				rprsVrtyCd: item.rprsItemCd,
+				rprsVrtyCd: item.rprsVrtyCd,
+				wrhsSeCd: item.wrhsSeCd,
+				gdsSeCd: item.gdsSeCd,
+				trsprtSeCd: item.trsprtSeCd,
+				vhclno: item.vhclno,
 				name:item.prdcrNm,
 				value:item.prdcrCd
 			});

@@ -77,8 +77,15 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 	@Override
 	public HashMap<String, Object> insertRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
 
-		String wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrWrhsVO.getApcCd(), rawMtrWrhsVO.getWrhsYmd());
-		rawMtrWrhsVO.setWrhsno(wrhsno);
+		String wrhsno = rawMtrWrhsVO.getWrhsno();
+
+		boolean needsWrhsInsert = false;
+		if (!StringUtils.hasText(wrhsno)) {
+			needsWrhsInsert = true;
+			wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrWrhsVO.getApcCd(), rawMtrWrhsVO.getWrhsYmd());
+			rawMtrWrhsVO.setWrhsno(wrhsno);
+		}
+
 
 		if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
 			rawMtrWrhsVO.setPltno(wrhsno);
@@ -87,7 +94,10 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 			rawMtrWrhsVO.setWghno(wrhsno);
 		}
 
-		int insertedCnt = rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
+		int insertedCnt = 0;
+		if (needsWrhsInsert) {
+			rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
+		}
 
 		if (insertedCnt != 0) {
 
@@ -154,7 +164,31 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 
 	@Override
 	public HashMap<String, Object> updateRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
-		// TODO Auto-generated method stub
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		// 원물재고 상태 확인
+		RawMtrWrhsVO wrhsInfo = selectRawMtrWrhs(rawMtrWrhsVO);
+		if (wrhsInfo == null || !StringUtils.hasText(wrhsInfo.getWrhsno())) {
+			return ComUtil.getResultMap("W0005", "입고정보");	// W0005	{0}이/가 없습니다.
+		}
+		RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+		BeanUtils.copyProperties(rawMtrWrhsVO, invntrVO);
+
+		// 원물재고 삭제
+		rtnObj = rawMtrInvntrService.deleteRawMtrInvntr(invntrVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		rawMtrWrhsVO.setDelYn(null);
+		rawMtrWrhsMapper.updateRawMtrWrhs(rawMtrWrhsVO);
+
+		rtnObj = insertRawMtrWrhs(rawMtrWrhsVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
 		return null;
 	}
 

@@ -347,6 +347,7 @@
         	uitype="middle"
         	header-title="생산자 선택"
         	body-html-id="body-modal-prdcr"
+        	header-is-close-button="false"
         	footer-is-close-button="false"
         	style="width:1000px"
        	></sbux-modal>
@@ -363,6 +364,7 @@
 	        uitype="middle"
 	        header-title="차량 선택"
 	        body-html-id="body-modal-vhcl"
+	        header-is-close-button="false"
 	        footer-is-close-button="false"
 	        style="width:1000px"
         ></sbux-modal>
@@ -379,6 +381,7 @@
 	        uitype="middle"
 	        header-title="원물입고 팔레트/박스 입고등록"
 	        body-html-id="body-modal-pltBx"
+	        header-is-close-button="false"
 	        footer-is-close-button="false"
 	        style="width:1000px"
         ></sbux-modal>
@@ -545,7 +548,8 @@
         		fn_search();
         	} else {
         		//alert(data.resultMessage);
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        		// gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
         } catch(e) {
         }
@@ -1088,6 +1092,11 @@
 	function fn_onSelectPrdcrNm(value, label, item) {
 		SBUxMethod.set("dtl-inp-prdcrCd", value);
 		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+
+		let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+		console.log("jsonPrdcr", jsonPrdcr);
+		console.log("prdcr", prdcr);
+		fn_setPrdcrForm(prdcr);
 	}
 
 	/**
