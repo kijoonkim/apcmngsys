@@ -95,16 +95,16 @@
 							<th scope="row" class="th_bg">입고구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-wrhsKnd1" name="chk-wrhsKnd1" uitype="normal" class="form-control input-sm" text="일반매입"/>
+									<sbux-checkbox uitype="normal"id="chk-wrhsKnd1" name="chk-wrhsKnd1" uitype="normal" class="form-control input-sm" text="일반매입" checked/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-wrhsKnd2" name="chk-wrhsKnd2" uitype="normal" class="form-control input-sm" text="공선"/>
+									<sbux-checkbox uitype="normal"id="chk-wrhsKnd2" name="chk-wrhsKnd2" uitype="normal" class="form-control input-sm" text="공선" checked/>
 								</p>
 								<p class="ad_input_row">
 									<sbux-checkbox uitype="normal"id="chk-wrhsKnd3" name="chk-wrhsKnd3" uitype="normal" class="form-control input-sm" text="매취" checked/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-wrhsKnd4" name="chk-wrhsKnd4" uitype="normal" class="form-control input-sm" text="상품"/>
+									<sbux-checkbox uitype="normal"id="chk-wrhsKnd4" name="chk-wrhsKnd4" uitype="normal" class="form-control input-sm" text="상품" checked/>
 								</p>
 							</td>
 							<th scope="row" class="th_bg">상품구분</th>
@@ -128,10 +128,10 @@
 									<sbux-checkbox uitype="normal"id="chk-trsprt1" name="chk-trsprt1" uitype="normal" class="form-control input-sm" text="자가" checked/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-trsprt2" name="chk-trsprt2" uitype="normal" class="form-control input-sm" text="용역"/>
+									<sbux-checkbox uitype="normal"id="chk-trsprt2" name="chk-trsprt2" uitype="normal" class="form-control input-sm" text="용역" checked/>
 								</p>
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-trsprt3" name="chk-trsprt3" uitype="normal" class="form-control input-sm" text="기타"/>
+									<sbux-checkbox uitype="normal"id="chk-trsprt3" name="chk-trsprt3" uitype="normal" class="form-control input-sm" text="기타" checked/>
 								</p>
 							</td>
 						</tr>
@@ -318,9 +318,9 @@
 	        {caption: ["운송구분"],		ref: 'trsprtSeNm',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["상품구분"],		ref: 'gdsSeNm',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["차량구분"],		ref: 'trsprtSeNm',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["운송료"],		ref: 'trsprtCst',      type:'output',  width:'120px',    style:'text-align:right', format : {type:'number', rule:'#,### 원'}},
+	        {caption: ["운송료"],		ref: 'trsprtCst',      type:'output',  width:'120px',    style:'text-align:right', format : {type:'number', rule:'#,### 원 '}},
 	        {caption: ["등급"],		ref: 'grdNm',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["입고중량"],		ref: 'wrhsWght',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["입고중량"],		ref: 'wrhsWght',      type:'output',  width:'100px',    style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg '}},
 	        {caption: ["보관창고"],		ref: 'warehouseSeNm',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["계량번호"],		ref: 'wghno',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["팔레트번호"],		ref: 'pltno',      type:'output',  width:'140px',    style:'text-align:center'},
