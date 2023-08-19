@@ -318,7 +318,7 @@
 	        {caption: ["운송구분"],		ref: 'trsprtSeNm',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["상품구분"],		ref: 'gdsSeNm',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["차량구분"],		ref: 'trsprtSeNm',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["운송료"],		ref: 'trsprtCst',      type:'output',  width:'120px',    style:'text-align:right', format : {type:'number', rule:'#,### 원 '}},
+	        {caption: ["운송료"],		ref: 'trsprtCst',      type:'output',  width:'120px', hidden:true,   style:'text-align:right', format : {type:'number', rule:'#,### 원 '}},
 	        {caption: ["등급"],		ref: 'grdNm',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["입고중량"],		ref: 'wrhsWght',      type:'output',  width:'100px',    style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg '}},
 	        {caption: ["보관창고"],		ref: 'warehouseSeNm',      type:'output',  width:'100px',    style:'text-align:center'},
