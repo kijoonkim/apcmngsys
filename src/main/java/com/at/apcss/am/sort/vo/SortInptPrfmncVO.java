@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SortInptPrfmncVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -33,6 +33,11 @@ public class SortInptPrfmncVO extends ComVO {
 	 * 입고번호
 	 */
 	private String wrhsno;
+
+	/**
+	 * 투입순번
+	 */
+	private int inptSn;
 
 	/**
 	 * 투입일자
