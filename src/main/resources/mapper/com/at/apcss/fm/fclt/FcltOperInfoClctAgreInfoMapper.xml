@@ -35,7 +35,7 @@
 				, FCLT.OPER_OGNZ_BRNO           AS OPER_OGNZ_BRNO
 				, FCLT.OPER_OGNZ_PIC            AS OPER_OGNZ_PIC
 				, FCLT.OPER_OGNZ_JBPS           AS OPER_OGNZ_JBPS
-				, FCLT.OPER_OGNZ_TEL_NO         AS OPER_OGNZ_TEL_NO
+				, FCLT.OPER_OGNZ_TELNO         AS OPER_OGNZ_TELNO
 				, FCLT.OPER_OGNZ_EML            AS OPER_OGNZ_EML
 				, FCLT.APC_HLD_YN               AS APC_HLD_YN
 				, FCLT.PRSNA_DATA_AGRD_YN       AS PRSNA_DATA_AGRD_YN
@@ -86,7 +86,7 @@
 				, FCLT.OPER_OGNZ_BRNO           AS OPER_OGNZ_BRNO
 				, FCLT.OPER_OGNZ_PIC            AS OPER_OGNZ_PIC
 				, FCLT.OPER_OGNZ_JBPS           AS OPER_OGNZ_JBPS
-				, FCLT.OPER_OGNZ_TEL_NO         AS OPER_OGNZ_TEL_NO
+				, FCLT.OPER_OGNZ_TELNO         AS OPER_OGNZ_TELNO
 				, FCLT.OPER_OGNZ_EML            AS OPER_OGNZ_EML
 				, FCLT.APC_HLD_YN               AS APC_HLD_YN
 				, FCLT.PRSNA_DATA_AGRD_YN       AS PRSNA_DATA_AGRD_YN
@@ -97,7 +97,7 @@
 				, FCLT.SYS_LAST_CHG_DT		    AS SYS_LAST_CHG_DT
 				, FCLT.SYS_LAST_CHG_USER_ID	    AS SYS_LAST_CHG_USER_ID
 				, FCLT.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-		    FROM  USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+		    FROM  TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
 		   WHERE 1=1
 		     AND TRGT_YR = #{trgtYr}
 		     AND  APC_CD = #{apcCd}
@@ -122,7 +122,7 @@
     <insert id="insertFcltOperInfoClctAgreInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper.insertFcltOperInfoClctAgreInfo */
-	    	  INTO USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+	    	  INTO TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
 	    		  (
 		    			TRGT_YR
 		    		  , APC_CD
@@ -136,7 +136,7 @@
 		    		  , OPER_OGNZ_BRNO
 		    		  , OPER_OGNZ_PIC
 		    		  , OPER_OGNZ_JBPS
-		    		  , OPER_OGNZ_TEL_NO
+		    		  , OPER_OGNZ_TELNO
 		    		  , OPER_OGNZ_EML
 		    		  , APC_HLD_YN
 		    		  , PRSNA_DATA_AGRD_YN
@@ -150,29 +150,29 @@
 	    		   )
 	   		VALUES
 	   			  (
-		   			 	 #{TRGT_YR}
-		   			   , #{APC_CD}
-		   			   , #{DADDR}
-		   			   , #{APC_BRNO}
-		   			   , #{APC_RGN_CD}
-		   			   , #{APC_NM}
-		   			   , #{APC_ADDR}
-		   			   , #{OPER_OGNZ_CD}
-		   			   , #{OPER_OGNZ_NM}
-		   			   , #{OPER_OGNZ_BRNO}
-		   			   , #{OPER_OGNZ_PIC}
-		   			   , #{OPER_OGNZ_JBPS}
-		   			   , #{OPER_OGNZ_TEL_NO}
-		   			   , #{OPER_OGNZ_EML}
-		   			   , #{APC_HLD_YN}
-		   			   , #{PRSNA_DATA_AGRD_YN}
-		   			   , #{DEL_YN}
-		   			   , #{SYS_FRST_INPT_DT}
-		   			   , #{SYS_FRST_INPT_USER_ID}
-		   			   , #{SYS_FRST_INPT_PRGRM_ID}
-		   			   , #{SYS_LAST_CHG_DT}
-		   			   , #{SYS_LAST_CHG_USER_ID}
-		   			   , #{SYS_LAST_CHG_PRGRM_ID}
+		   			 	 #{trgtYr}
+		   			   , #{apcCd}
+		   			   , #{daddr}
+		   			   , #{apcBrno}
+		   			   , #{apcRgnCd}
+		   			   , #{apcNm}
+		   			   , #{apcAddr}
+		   			   , #{operOgnzCd}
+		   			   , #{operOgnzNm}
+		   			   , #{operOgnzBrno}
+		   			   , #{operOgnzPic}
+		   			   , #{operOgnzJbps}
+		   			   , #{operOgnzTelno}
+		   			   , #{operOgnzEml}
+		   			   , #{apcHldYn}
+		   			   , #{prsnaDataAgrdYn}
+		   			   , #{delYn}
+		   			   , #{sysFrstInptDt}
+		   			   , #{sysFrstInptUserId}
+		   			   , #{sysFrstInptPrgrmId}
+		   			   , #{sysLastChgDt}
+		   			   , #{sysLastChgUserId}
+		   			   , #{sysLastChgPrgrmId}
 	   			 )
     	]]>
     </insert>
@@ -188,24 +188,24 @@
     <update id="updateFcltOperInfoClctAgreInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO">
     	<![CDATA[
 	       UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper.updateFcltOperInfoClctAgreInfo */
-	    		   USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+	    		   TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
 			  SET
-			 	    TRGT_YR              = #{TRGT_YR}
-	    		  , APC_CD               = #{APC_CD}
-	    		  , DADDR                = #{DADDR}
-	    		  , APC_BRNO             = #{APC_BRNO}
-	    		  , APC_RGN_CD           = #{APC_RGN_CD}
-	    		  , APC_NM               = #{APC_NM}
-	    		  , APC_ADDR             = #{APC_ADDR}
-	    		  , OPER_OGNZ_CD         = #{OPER_OGNZ_CD}
-	    		  , OPER_OGNZ_NM         = #{OPER_OGNZ_NM}
-	    		  , OPER_OGNZ_BRNO       = #{OPER_OGNZ_BRNO}
-	    		  , OPER_OGNZ_PIC        = #{OPER_OGNZ_PIC}
-	    		  , OPER_OGNZ_JBPS       = #{OPER_OGNZ_JBPS}
-	    		  , OPER_OGNZ_TEL_NO     = #{OPER_OGNZ_TEL_NO}
-	    		  , OPER_OGNZ_EML        = #{OPER_OGNZ_EML}
-	    		  , APC_HLD_YN           = #{APC_HLD_YN}
-	    		  , PRSNA_DATA_AGRD_YN   = #{PRSNA_DATA_AGRD_YN}
+			 	    TRGT_YR              = #{trgtYr}
+	    		  , APC_CD               = #{apcCd}
+	    		  , DADDR                = #{daddr}
+	    		  , APC_BRNO             = #{apcBrno}
+	    		  , APC_RGN_CD           = #{apcRgnCd}
+	    		  , APC_NM               = #{apcNm}
+	    		  , APC_ADDR             = #{apcAddr}
+	    		  , OPER_OGNZ_CD         = #{operOgnzCd}
+	    		  , OPER_OGNZ_NM         = #{oper_ognz_nm}
+	    		  , OPER_OGNZ_BRNO       = #{operOgnzBrno}
+	    		  , OPER_OGNZ_PIC        = #{operOgnzPic}
+	    		  , OPER_OGNZ_JBPS       = #{operOgnzJbps}
+	    		  , OPER_OGNZ_TELNO     = #{operOgnzTelno}
+	    		  , OPER_OGNZ_EML        = #{operOgnzEml}
+	    		  , APC_HLD_YN           = #{apcHldYn}
+	    		  , PRSNA_DATA_AGRD_YN   = #{prsnaDataAgrdYn}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				  , DEL_YN 	= #{delYn}
@@ -231,7 +231,7 @@
     <delete id="deleteFcltOperInfoClctAgreInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO">
     	<![CDATA[
 	       DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper.deleteFcltOperInfoClctAgreInfo */
-	    		  USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+	    		  TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
 			WHERE 1=1
 		      AND TRGT_YR = #{trgtYr}
 		      AND APC_CD = #{apcCd}

@@ -10,6 +10,8 @@
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
+ㅇㅇㅇ
+
 <body>
 	<section class="content container-fluid">
 	<div class="box box-solid">
@@ -100,37 +102,37 @@
 					<tr>
 						<th>소유조직</th>
 						<td>
-							<sbux-input id="srch-inp-opera1" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="srch-inp-psnOgnzNm" name="srch-inp-psnOgnzNm" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>소유조직 사업자번호</th>
 						<td>
-							<sbux-input id="srch-inp-opera2" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="소유자가 지자체로 사업자번호 없을 경우 공란" ></sbux-input>
+							<sbux-input id="srch-inp-psnOgnzBrno" name="srch-inp-psnOgnzBrno" uitype="text" class="form-control input-sm" placeholder="소유자가 지자체로 사업자번호 없을 경우 공란" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>운영조직</th>
 						<td>
-							<sbux-input id="srch-inp-opera3" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="최초 페이 내용 그대로 끌어오기" ></sbux-input>
+							<sbux-input id="srch-inp-operOgnzNm" name="srch-inp-operOgnzNm" uitype="text" class="form-control input-sm" placeholder="최초 페이 내용 그대로 끌어오기" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>운영조직사업자번호</th>
 						<td>
-							<sbux-input id="srch-inp-opera4" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="srch-inp-operOgnzBrno" name="srch-inp-operOgnzBrno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>운영조직 대표자</th>
 						<td>
-							<sbux-input id="srch-inp-opera5" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="srch-inp-operOgnzRprsv" name="srch-inp-operOgnzRprsv" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>운영조직 주소</th>
 						<td>
-							<sbux-input id="srch-inp-opera6" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="주소 검색하여 작성" ></sbux-input>
+							<sbux-input id="operOgnzAddr" name="operOgnzAddr" uitype="text" class="form-control input-sm" placeholder="주소 검색하여 작성" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
@@ -142,48 +144,48 @@
 					<tr>
 						<th>운영조직 취급 대표품목1</th>
 						<td>
-							<sbux-input id="srch-inp-opera8" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="운영조직 취급액 중 가장많은 품목 1
+							<sbux-input id="operOgnzTrmtItemCn1" name="operOgnzTrmtItemCn1" uitype="text" class="form-control input-sm" placeholder="운영조직 취급액 중 가장많은 품목 1
 							" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>운영조직 취급 대표품목2</th>
 						<td>
-							<sbux-input id="srch-inp-opera9" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / 운영조직 취급액 중 가장많은 품목 2
+							<sbux-input id="operOgnzTrmtItemCn2" name="operOgnzTrmtItemCn2" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / 운영조직 취급액 중 가장많은 품목 2
 							" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>운영조직 취급 대표품목3</th>
 						<td>
-							<sbux-input id="srch-inp-opera10" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / 운영조직 취급액 중 가장많은 품목 3
+							<sbux-input id="operOgnzTrmtItemCn3" name="operOgnzTrmtItemCn3" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / 운영조직 취급액 중 가장많은 품목 3
 							" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>운영조직 취급 기타품목</th>
 						<td>
-							<sbux-input id="srch-inp-opera11" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 혹은 추가하기 버튼 누르고 수기입력" ></sbux-input>
+							<sbux-input id="operOgnzTrmtItemCn4" name="operOgnzTrmtItemCn4" uitype="text" class="form-control input-sm" placeholder="“해당없음” 혹은 추가하기 버튼 누르고 수기입력" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>APC명</th>
 						<td>
-							<sbux-input id="srch-inp-opera12" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="최초 페이지 내용 그대로 끌어오기
+							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="최초 페이지 내용 그대로 끌어오기
 							" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>APC 사업자번호</th>
 						<td>
-							<sbux-input id="srch-inp-opera13" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="사업자번호 없을 경우 공란
+							<sbux-input id="srch-inp-apcBrno" name="srch-inp-apcBrno" uitype="text" class="form-control input-sm" placeholder="사업자번호 없을 경우 공란
 							" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>APC 주소</th>
 						<td>
-							<sbux-input id="srch-inp-opera14" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="주소 검색하여 작성
+							<sbux-input id="srch-inp-apcAddr" name="srch-inp-apcAddr" uitype="text" class="form-control input-sm" placeholder="주소 검색하여 작성
 							" ></sbux-input>
 						</td>
 					</tr>
@@ -224,7 +226,6 @@
 			<!--[pp] //검색결과 -->
 
 
-
 		</div>
 	</section>
 	<!-- 거래처 선택 Modal -->
@@ -263,14 +264,14 @@
     });
 
     //grid 초기화
-    var grdComMsgList; // 그리드를 담기위한 객체 선언
-    var jsonComMsgList = []; // 그리드의 참조 데이터 주소 선언
+    var grdFcltfcltOperInfoList; // 그리드를 담기위한 객체 선언
+    var jsonFcltfcltOperInfoList = []; // 그리드의 참조 데이터 주소 선언
 
     function fn_createGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-spmtDsctn';
-	    SBGridProperties.id = 'grdComMsgList';
-	    SBGridProperties.jsonref = 'jsonComMsgList';
+	    SBGridProperties.id = 'grdFcltfcltOperInfoList';
+	    SBGridProperties.jsonref = 'jsonFcltfcltOperInfoList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
@@ -281,11 +282,11 @@
 
         SBGridProperties.columns = [
 
-            {caption: ["소유조직"],	ref: 'msgKey',      type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["대표품목1"], 	ref: 'msgCn',     	type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["대표품목2"],  	ref: 'msgKndNm',    type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["대표품목3"],      	ref: 'rmrk',    type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["대표품목4"],	ref: 'creUserId',   type:'output',  width:'23%',    style:'text-align:center'},
+            {caption: ["소유조직"],	ref: 'psnOgnzNm',      type:'output',  width:'23%',    style:'text-align:center'},
+            {caption: ["대표품목1"], 	ref: 'operOgnzTrmtItemCn1',     	type:'output',  width:'23%',    style:'text-align:center'},
+            {caption: ["대표품목2"],  	ref: 'operOgnzTrmtItemCn2',    type:'output',  width:'23%',    style:'text-align:center'},
+            {caption: ["대표품목3"],      	ref: 'operOgnzTrmtItemCn3',    type:'output',  width:'23%',    style:'text-align:center'},
+            {caption: ["기타품목"],	ref: 'operOgnzTrmtItemCn4',   type:'output',  width:'23%',    style:'text-align:center'},
             {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},
             {caption: ["최종변경자ID"],	ref: 'updUserId',   type:'output',  hidden: true},
             {caption: ["최종변경일시"], ref: 'updDateTime', type:'output',  hidden: true},
@@ -293,9 +294,9 @@
             {caption: ["변경프로그램"], ref: 'updProgram',  type:'output',  hidden: true}
         ];
 
-        grdComMsgList = _SBGrid.create(SBGridProperties);
-        grdComMsgList.bind('click', 'fn_view');
-        grdComMsgList.bind('beforepagechanged', 'fn_pagingComMsgList');
+        grdFcltfcltOperInfoList = _SBGrid.create(SBGridProperties);
+        grdFcltfcltOperInfoList.bind('click', 'fn_view');
+        grdFcltfcltOperInfoList.bind('beforepagechanged', 'fn_pagingFcltfcltOperInfoList');
     }
 
     /**
@@ -304,31 +305,31 @@
     const fn_search = async function() {
 
     	// set pagination
-    	let pageSize = grdComMsgList.getPageSize();
+    	let pageSize = grdFcltfcltOperInfoList.getPageSize();
     	let pageNo = 1;
 
-    	fn_setGrdComMsgList(pageSize, pageNo);
+    	fn_setGrdFcltfcltOperInfoList(pageSize, pageNo);
     }
 
     /**
      *
      */
-    const fn_pagingComMsgList = async function() {
-    	let recordCountPerPage = grdComMsgList.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdComMsgList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-    	fn_setGrdComMsgList(recordCountPerPage, currentPageNo);
+    const fn_pagingFcltfcltOperInfoList = async function() {
+    	let recordCountPerPage = grdFcltfcltOperInfoList.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdFcltfcltOperInfoList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+    	fn_setGrdFcltfcltOperInfoList(recordCountPerPage, currentPageNo);
     }
 
     /**
      * @param {number} pageSize
      * @param {number} pageNo
      */
-    const fn_setGrdComMsgList = async function(pageSize, pageNo) {
+    const fn_setGrdFcltfcltOperInfoList = async function(pageSize, pageNo) {
 
     	// form clear
     	fn_clearForm();
 
-		grdComMsgList.clearStatus();
+		grdFcltfcltOperInfoList.clearStatus();
 
 		let msgKnd = SBUxMethod.get("srch-select-msgKnd");
 		let msgKey = SBUxMethod.get("srch-input-msgKey");
@@ -351,7 +352,7 @@
         	/** @type {number} **/
     		let totalRecordCount = 0;
 
-        	jsonComMsgList.length = 0;
+        	jsonFcltfcltOperInfoList.length = 0;
         	data.resultList.forEach((item, index) => {
 				const msg = {
 					msgKey: item.msgKey,
@@ -366,7 +367,7 @@
 					sysLastChgUserId: item.sysLastChgUserId,
 					sysLastChgPrgrmId: item.sysLastChgPrgrmId
 				}
-				jsonComMsgList.push(msg);
+				jsonFcltfcltOperInfoList.push(msg);
 
 				if (index === 0) {
 					totalRecordCount = item.totalRecordCount;
@@ -375,17 +376,17 @@
 
         	console.log("totalRecordCount", totalRecordCount);
 
-        	if (jsonComMsgList.length > 0) {
+        	if (jsonFcltfcltOperInfoList.length > 0) {
 
-        		if(grdComMsgList.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-        			grdComMsgList.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-        			grdComMsgList.rebuild();
+        		if(grdFcltfcltOperInfoList.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+        			grdFcltfcltOperInfoList.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+        			grdFcltfcltOperInfoList.rebuild();
 				}else{
-					grdComMsgList.refresh()
+					grdFcltfcltOperInfoList.refresh()
 				}
         	} else {
-        		grdComMsgList.setPageTotalCount(totalRecordCount);
-        		grdComMsgList.rebuild();
+        		grdFcltfcltOperInfoList.setPageTotalCount(totalRecordCount);
+        		grdFcltfcltOperInfoList.rebuild();
         	}
 
         	document.querySelector('#listCount').innerText = totalRecordCount;
@@ -401,12 +402,28 @@
 
     //신규 작성
     function fn_create() {
-    	SBUxMethod.set("dtl-input-orgnMsgKey", null);
-    	SBUxMethod.set("dtl-select-msgKnd", null);
-        SBUxMethod.set("dtl-input-msgKey", null);
-        SBUxMethod.attr("dtl-input-msgKey", "readonly", false);
-        SBUxMethod.set("dtl-input-msgCn", null);
-        SBUxMethod.set("dtl-input-rmrk", null);
+    	SBUxMethod.set("dtl-input-trgtYr", null);
+    	SBUxMethod.set("dtl-input-apcCd", null);
+    	SBUxMethod.set("dtl-input-daddr", null);
+    	SBUxMethod.set("dtl-input-apcBrno", null);
+    	SBUxMethod.set("dtl-input-apcRgnCd", null);
+    	SBUxMethod.set("dtl-input-apcNm", null);
+        SBUxMethod.set("dtl-input-apcAddr", null);
+        SBUxMethod.set("dtl-input-psnOgnzCd", false);
+        SBUxMethod.set("dtl-input-psnOgnzNm", null);
+        SBUxMethod.set("dtl-input-psnOgnzBrno", null);
+        SBUxMethod.set("dtl-input-operOgnzCd", null);
+        SBUxMethod.set("dtl-input-operOgnzNm", null);
+        SBUxMethod.set("dtl-input-operOgnzBrno", null);
+        SBUxMethod.set("dtl-input-operOgnzRprsv", null);
+        SBUxMethod.set("dtl-input-operOgnzAddr", null);
+        SBUxMethod.set("dtl-input-operOgnzDeptCd", null);
+        SBUxMethod.set("dtl-input-operOgnzDeptNm", null);
+        SBUxMethod.set("dtl-input-operOgnzTrmtItemCd", null);
+        SBUxMethod.set("dtl-input-operOgnzTrmtItemCn", null);
+        SBUxMethod.set("dtl-input-apcTrmtItemCd", null);
+        SBUxMethod.set("dtl-input-apcTrmtItemCn", null);
+        SBUxMethod.set("dtl-input-delYn", null);
         SBUxMethod.set("dtl-input-sysFrstInptUserId", null);
         SBUxMethod.set("dtl-input-sysLastChgUserId", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
@@ -416,12 +433,28 @@
     }
 
     const fn_clearForm = function() {
-    	SBUxMethod.set("dtl-input-orgnMsgKey", null);
-    	SBUxMethod.set("dtl-select-msgKnd", null);
-        SBUxMethod.set("dtl-input-msgKey", null);
-        SBUxMethod.attr("dtl-input-msgKey", "readonly", true);
-        SBUxMethod.set("dtl-input-msgCn", null);
-        SBUxMethod.set("dtl-input-rmrk", null);
+    	SBUxMethod.set("dtl-input-trgtYr", null);
+    	SBUxMethod.set("dtl-input-apcCd", null);
+    	SBUxMethod.set("dtl-input-daddr", null);
+    	SBUxMethod.set("dtl-input-apcBrno", null);
+    	SBUxMethod.set("dtl-input-apcRgnCd", null);
+    	SBUxMethod.set("dtl-input-apcNm", null);
+        SBUxMethod.set("dtl-input-apcAddr", null);
+        SBUxMethod.set("dtl-input-psnOgnzCd", false);
+        SBUxMethod.set("dtl-input-psnOgnzNm", null);
+        SBUxMethod.set("dtl-input-psnOgnzBrno", null);
+        SBUxMethod.set("dtl-input-operOgnzCd", null);
+        SBUxMethod.set("dtl-input-operOgnzNm", null);
+        SBUxMethod.set("dtl-input-operOgnzBrno", null);
+        SBUxMethod.set("dtl-input-operOgnzRprsv", null);
+        SBUxMethod.set("dtl-input-operOgnzAddr", null);
+        SBUxMethod.set("dtl-input-operOgnzDeptCd", null);
+        SBUxMethod.set("dtl-input-operOgnzDeptNm", null);
+        SBUxMethod.set("dtl-input-operOgnzTrmtItemCd", null);
+        SBUxMethod.set("dtl-input-operOgnzTrmtItemCn", null);
+        SBUxMethod.set("dtl-input-apcTrmtItemCd", null);
+        SBUxMethod.set("dtl-input-apcTrmtItemCn", null);
+        SBUxMethod.set("dtl-input-delYn", null);
         SBUxMethod.set("dtl-input-sysFrstInptUserId", null);
         SBUxMethod.set("dtl-input-sysLastChgUserId", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
@@ -433,20 +466,20 @@
     //저장
     const fn_save = async function() {
 
-    	let msgKey = SBUxMethod.get("dtl-input-orgnMsgKey");
+    	let msgKey = SBUxMethod.get("dtl-input-psnOgnzNm");
 
-    	if (!SBUxMethod.get("dtl-select-msgKnd")) {
-            alert("메시지종류를 선택하세요.");
+    	if (!SBUxMethod.get("dtl-input-apcBrno")) {
+            alert("apc사업자번호를 입력하세요.");
             return;
         }
 
-    	if (!SBUxMethod.get("dtl-input-msgKey")) {
-            alert("메시지Key를 입력하세요.");
+    	if (!SBUxMethod.get("dtl-input-operOgnzNm")) {
+            alert("운영조직명을 입력하세요.");;
             return;
         }
 
-    	if (!SBUxMethod.get("dtl-input-msgCn")) {
-            alert("메시지내용을 입력하세요.");
+    	if (!SBUxMethod.get("dtl-input-operOgnzBrno")) {
+            alert("운영조직코드를 입력하세요.");
             return;
         }
 
@@ -463,7 +496,7 @@
         SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", rowData.sysFrstInptPrgrmId);
         SBUxMethod.set("dtl-input-sysLastChgPrgrmId", rowData.sysLastChgPrgrmId);
     	 */
-    	if (gfn_isEmpty(msgKey)) {
+    	if (gfn_isEmpty(apcCd)) {
     		// 신규 등록
 			fn_subInsert(confirm("등록 하시겠습니까?"));
     	} else {
@@ -481,10 +514,34 @@
     	 if (!isConfirmed) return;
 
     	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperInfo.do", {
-			msgKey: SBUxMethod.get('dtl-input-msgKey'),
-			msgKnd: SBUxMethod.get('dtl-select-msgKnd'),
-			msgCn: SBUxMethod.get('dtl-input-msgCn'),
-			rmrk: SBUxMethod.get('dtl-input-rmrk')
+        	apcCd: SBUxMethod.get('dtl-input-apcCd'),
+        	trgyYr: SBUxMethod.get('dtl-input-trgyYr'),
+        	daddr: SBUxMethod.get('dtl-input-daddr'),
+        	apcBrno: SBUxMethod.get('dtl-input-apcBrno'),
+        	apcRgnCd: SBUxMethod.get('dtl-input-apcRgnCd'),
+        	apcNm: SBUxMethod.get('dtl-input-apcNm'),
+        	apcAddr: SBUxMethod.get('dtl-input-apcAddr'),
+        	psnOgnzCd: SBUxMethod.get('dtl-input-psnOgnzCd'),
+        	psnOgnzNm: SBUxMethod.get('dtl-input-psnOgnzNm'),
+        	psnOgnzBrno: SBUxMethod.get('dtl-input-psnOgnzBrno'),
+        	operOgnzCd: SBUxMethod.get('dtl-input-operOgnzCd'),
+        	operOgnzNm: SBUxMethod.get('dtl-input-operOgnzNm'),
+        	operOgnzBrno: SBUxMethod.get('dtl-input-operOgnzBrno'),
+        	operOgnzRprsv: SBUxMethod.get('dtl-input-operOgnzRprsv'),
+        	operOgnzAddr: SBUxMethod.get('dtl-input-operOgnzAddr'),
+        	operOgnzDeptCd: SBUxMethod.get('dtl-input-operOgnzDeptCd'),
+        	operOgnzDeptNm: SBUxMethod.get('dtl-input-operOgnzDeptNm'),
+        	operOgnzTrmtItemCd: SBUxMethod.get('dtl-input-operOgnzTrmtItemCd'),
+        	operOgnzTrmtItemCn: SBUxMethod.get('dtl-input-operOgnzTrmtItemCn'),
+        	apcTrmtItemCd: SBUxMethod.get('dtl-input-apcTrmtItemCd'),
+        	apcTrmtItemCn: SBUxMethod.get('dtl-input-apcTrmtItemCn'),
+        	delYn: SBUxMethod.get('dtl-input-delYn'),
+        	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId'),
+        	apcTrmtItemCn: SBUxMethod.get('dtl-input-apcTrmtItemCn'),
+        	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId'),
+        	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt'),
+        	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId'),
+        	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')
 		});
 
         const data = await postJsonPromise;
@@ -511,10 +568,34 @@
 		if (!isConfirmed) return;
 
     	const postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltOperInfo.do", {
-			msgKey: SBUxMethod.get('dtl-input-orgnMsgKey'),
-			msgKnd: SBUxMethod.get('dtl-select-msgKnd'),
-			msgCn: SBUxMethod.get('dtl-input-msgCn'),
-			rmrk: SBUxMethod.get('dtl-input-rmrk')
+			apcCd: SBUxMethod.get('dtl-input-apcCd'),
+        	trgyYr: SBUxMethod.get('dtl-input-trgyYr'),
+        	daddr: SBUxMethod.get('dtl-input-daddr'),
+        	apcBrno: SBUxMethod.get('dtl-input-apcBrno'),
+        	apcRgnCd: SBUxMethod.get('dtl-input-apcRgnCd'),
+        	apcNm: SBUxMethod.get('dtl-input-apcNm'),
+        	apcAddr: SBUxMethod.get('dtl-input-apcAddr'),
+        	psnOgnzCd: SBUxMethod.get('dtl-input-psnOgnzCd'),
+        	psnOgnzNm: SBUxMethod.get('dtl-input-psnOgnzNm'),
+        	psnOgnzBrno: SBUxMethod.get('dtl-input-psnOgnzBrno'),
+        	operOgnzCd: SBUxMethod.get('dtl-input-operOgnzCd'),
+        	operOgnzNm: SBUxMethod.get('dtl-input-operOgnzNm'),
+        	operOgnzBrno: SBUxMethod.get('dtl-input-operOgnzBrno'),
+        	operOgnzRprsv: SBUxMethod.get('dtl-input-operOgnzRprsv'),
+        	operOgnzAddr: SBUxMethod.get('dtl-input-operOgnzAddr'),
+        	operOgnzDeptCd: SBUxMethod.get('dtl-input-operOgnzDeptCd'),
+        	operOgnzDeptNm: SBUxMethod.get('dtl-input-operOgnzDeptNm'),
+        	operOgnzTrmtItemCd: SBUxMethod.get('dtl-input-operOgnzTrmtItemCd'),
+        	operOgnzTrmtItemCn: SBUxMethod.get('dtl-input-operOgnzTrmtItemCn'),
+        	apcTrmtItemCd: SBUxMethod.get('dtl-input-apcTrmtItemCd'),
+        	apcTrmtItemCn: SBUxMethod.get('dtl-input-apcTrmtItemCn'),
+        	delYn: SBUxMethod.get('dtl-input-delYn'),
+        	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId'),
+        	apcTrmtItemCn: SBUxMethod.get('dtl-input-apcTrmtItemCn'),
+        	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId'),
+        	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt'),
+        	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId'),
+        	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')
 		});
 
         const data = await postJsonPromise;
@@ -545,7 +626,7 @@
         /**
          * @type {any[]}
          */
-        const rows = grdComMsgList.getGridDataAll();
+        const rows = grdFcltfcltOperInfoList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
         		list.push({msgKey: row.msgKey});
@@ -613,22 +694,40 @@
     //상세정보 보기
     function fn_view() {
 
-    	var nCol = grdComMsgList.getCol();
+    	var nCol = grdFcltfcltOperInfoList.getCol();
         //특정 열 부터 이벤트 적용
         if (nCol < 1) {
             return;
         }
-        var nRow = grdComMsgList.getRow();
+        var nRow = grdFcltfcltOperInfoList.getRow();
 		if (nRow < 1) {
             return;
 		}
 
-        let rowData = grdComMsgList.getRowData(nRow);
+        let rowData = grdFcltfcltOperInfoList.getRowData(nRow);
 
-        SBUxMethod.set("dtl-input-orgnMsgKey", rowData.msgKey);
-        SBUxMethod.set("dtl-select-msgKnd", rowData.msgKnd);
-        SBUxMethod.set("dtl-input-msgKey", rowData.msgKey);
-        SBUxMethod.set("dtl-input-msgCn", rowData.msgCn);
+    	SBUxMethod.set("dtl-input-apcCd", null);
+    	SBUxMethod.set("dtl-input-trgtYr", null);
+    	SBUxMethod.set("dtl-input-daddr", null);
+    	SBUxMethod.set("dtl-input-apcBrno", null);
+    	SBUxMethod.set("dtl-input-apcRgnCd", null);
+    	SBUxMethod.set("dtl-select-apcNm", null);
+        SBUxMethod.set("dtl-input-apcAddr", null);
+        SBUxMethod.set("dtl-input-psnOgnzCd", false);
+        SBUxMethod.set("dtl-input-psnOgnzNm", null);
+        SBUxMethod.set("dtl-input-psnOgnzBrno", null);
+        SBUxMethod.set("dtl-input-operOgnzCd", null);
+        SBUxMethod.set("dtl-input-operOgnzNm", null);
+        SBUxMethod.set("dtl-input-operOgnzBrno", null);
+        SBUxMethod.set("dtl-input-operOgnzRprsv", null);
+        SBUxMethod.set("dtl-input-operOgnzAddr", null);
+        SBUxMethod.set("dtl-input-operOgnzDeptCd", null);
+        SBUxMethod.set("dtl-input-operOgnzDeptNm", null);
+        SBUxMethod.set("dtl-input-operOgnzTrmtItemCd", null);
+        SBUxMethod.set("dtl-input-operOgnzTrmtItemCn", null);
+        SBUxMethod.set("dtl-input-apcTrmtItemCd", null);
+        SBUxMethod.set("dtl-input-apcTrmtItemCn", null);
+        SBUxMethod.set("dtl-input-delYn", null);
         SBUxMethod.set("dtl-input-rmrk", rowData.rmrk);
         SBUxMethod.set("dtl-input-sysFrstInptUserId", rowData.sysFrstInptUserId);
         SBUxMethod.set("dtl-input-sysLastChgUserId", rowData.sysLastChgUserId);
@@ -640,10 +739,10 @@
 
     //그리드 체크박스 전체 선택
     function fn_checkAll(obj){
-        var gridList = grdComMsgList.getGridDataAll();
+        var gridList = grdFcltfcltOperInfoList.getGridDataAll();
         var checkedYn = obj.checked ? "Y" : "N";
         for (var i=0; i<gridList.length; i++ ){
-        	grdComMsgList.setCellData(i+1, 1, checkedYn, true, false);
+        	grdFcltfcltOperInfoList.setCellData(i+1, 1, checkedYn, true, false);
         }
     }
 

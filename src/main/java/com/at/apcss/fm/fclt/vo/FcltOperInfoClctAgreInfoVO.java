@@ -11,8 +11,8 @@ public class FcltOperInfoClctAgreInfoVO extends ComVO{
 
 	private String trgtYr;
 	private String apcCd;
-	private int sN;
-	private String dADDR;
+	private int sn;
+	private String daddr;
 	private String apcBrno;
 	private String apcRgnCd;
 	private String apcNm;
@@ -22,7 +22,7 @@ public class FcltOperInfoClctAgreInfoVO extends ComVO{
 	private String operOgnzBrno;
 	private String operOgnzPic;
 	private String operOgnzJbps;
-	private String operOgnzTelNo;
+	private String operOgnzTelno;
 	private String operOgnzEml;
 	private String apcHldYn;
 	private String prsnaDataAgrdYn;
