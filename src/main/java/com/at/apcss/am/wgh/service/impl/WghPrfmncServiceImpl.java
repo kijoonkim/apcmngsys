@@ -171,7 +171,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 			} else {
 				rawMtrWrhsVO.setBxQntt(allocBxQntt + remainQntt);
 				rawMtrWrhsVO.setWrhsQntt(allocBxQntt + remainQntt);
-				rawMtrWrhsVO.setWrhsWght(allocWght + remainQntt);
+				rawMtrWrhsVO.setWrhsWght(allocWght + remainWght);
 			}
 
 			rawMtrWrhsList.add(rawMtrWrhsVO);

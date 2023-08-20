@@ -105,6 +105,7 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 
 		RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
 		BeanUtils.copyProperties(rawMtrWrhsVO, rawMtrInvntrVO);
+		rawMtrInvntrVO.setWrhsQntt(rawMtrWrhsVO.getBxQntt());
 		rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getBxQntt());
 		rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getWrhsWght());
 
@@ -142,6 +143,7 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 
 			RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
 			BeanUtils.copyProperties(rawMtrWrhsVO, rawMtrInvntrVO);
+			rawMtrInvntrVO.setWrhsQntt(rawMtrWrhsVO.getWrhsQntt());
 			rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getWrhsQntt());
 			rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getWrhsWght());
 			rawMtrInvntrList.add(rawMtrInvntrVO);
