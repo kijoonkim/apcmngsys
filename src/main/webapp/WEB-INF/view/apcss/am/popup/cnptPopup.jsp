@@ -37,6 +37,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
+								<sbux-input id="cnpt-inp-apcCd" name="cnpt-inp-apcCd" uitype="hidden"></sbux-input>
 								<sbux-input id="cnpt-inp-apcNm" name="cnpt-inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
 							</th>
 							<th scope="row">거래처명</th>
@@ -59,106 +60,32 @@
 </body>
 <script type="text/javascript">
 
-// 	window.addEventListener('DOMContentLoaded', function(e) {
-// 		SBUxMethod.set("cnpt-inp-apcNm", gv_apcNm);
-// 	})
-// 	var jsonCnpt = [];
-// 	function fn_createCnptGrid() {
-// 	    var SBGridProperties = {};
-// 	    SBGridProperties.parentid = 'sb-area-grdCnpt';
-// 	    SBGridProperties.id = 'grdCnpt';
-// 	    SBGridProperties.jsonref = 'jsonCnpt';
-// 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-// 	    SBGridProperties.selectmode = 'byrow';
-// 	    SBGridProperties.extendlastcol = 'scroll';
-// 	    SBGridProperties.columns = [
-// 	        {caption: ['거래처명'], 	ref: 'cnptNm',		width: '150px', type: 'output', style:'text-align:center'},
-// 	        {caption: ['유형'], 		ref: 'cnptTypeNm', 	width: '120px', type: 'output', style:'text-align:center'},
-// 	        {caption: ['사업자번호'], 	ref: 'brno', 		width: '100px', type: 'output', style:'text-align:center'},
-// 	        {caption: ['담당자'], 		ref: 'picNm',		width: '80px', 	type: 'output', style:'text-align:center'},
-// 	        {caption: ['전화번호'], 	ref: 'telno', 		width: '100px', type: 'output', style:'text-align:center'},
-// 	        {caption: ['비고'], 		ref: 'rmrk', 		width: '200px', type: 'output', style:'text-align:center'},
-// 	        {caption: ['APC코드'], 		ref: 'apcCd', 		hidden : true},
-// 	        {caption: ['거래처코드'], 	ref: 'cnptCd', 		hidden : true},
-// 	    ];
-// 	    grdCnpt = _SBGrid.create(SBGridProperties);
-// 	    fn_searchCnpt();
-// 	}
-
-// 	function fn_modalCnpt(){
-// 		fn_createCnptGrid();
-// 	}
-
-// 	async function fn_searchCnpt(){
-// 		callSelectCnptList();
-// 	}
-
-// 	async function callSelectCnptList(){
-// 		let apcCd 	= gv_apcCd;
-// 		let cnptNm	= SBUxMethod.get("cnpt-inp-cnptNm");
-// 		let postJsonPromise = gfn_postJSON("/am/cmns/selectCnptList.do", {apcCd : apcCd, cnptNm : cnptNm});
-//         let data = await postJsonPromise;
-//         let newJsonCnpt = [];
-//         try{
-//         	data.resultList.forEach((item, index) => {
-// 				let cnpt = {
-// 					cnptCd 		: item.cnptCd
-// 				  , cnptNm 		: item.cnptNm
-// 				  , cnptType 	: item.cnptType
-// 				  , cnptTypeNm 	: item.cnptTypeNm
-// 				  , brno 		: item.brno
-// 				  , picNm 		: item.picNm
-// 				  , telno 		: item.telno
-// 				  , rmrk 		: item.rmrk
-// 				  , delYn 		: item.delYn
-// 				  , apcCd 		: item.apcCd
-// 				}
-// 				newJsonCnpt.push(cnpt);
-// 			});
-//         	jsonCnpt = newJsonCnpt;
-//         	grdCnpt.rebuild();
-//         }catch (e) {
-//     		if (!(e instanceof Error)) {
-//     			e = new Error(e);
-//     		}
-//     		console.error("failed", e.message);
-//         }
-// 	}
-
-	
 	var jsonCnptPopUp = [];
-	var callbackChoiceFnc = function(){};
-	
 	const popCnpt = {
 		modalId: 'modal-cnpt',
 		gridId: 'grdCnpt',
 		jsonId: 'jsonCnptPopUp',
 		areaId: "sb-area-grdCnpt",
 		prvApcCd: "",
+		objGrid: null,
+		gridJson: [],
+		apcCd :"",
+		cnptNm : "",
 		callbackSelectFnc: function() {},
-		cnptNm: "",
-		apcCd: "",
 		init: async function(_apcCd, _apcNm, _cnptNm, _callbackChoiceFnc) {
-			SBUxMethod.set("cnpt-inp-apcNm", _apcNm);
-			SBUxMethod.set("cnpt-inp-cnptNm", _cnptNm);
 			this.apcCd = _apcCd;
+			SBUxMethod.set("cnpt-inp-apcNm", _apcNm);
 			this.cnptNm = _cnptNm;
 			
-				console.log("Test1",callbackChoiceFnc);
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
-// 				console.log("Test1",this.callbackChoiceFnc);
-				callbackChoiceFnc = _callbackChoiceFnc;	
-				console.log("Test1",callbackChoiceFnc);
-				//console.log("init prdcrPop");
+				this.callbackSelectFnc = _callbackChoiceFnc;	
 			}
 			this.createGrid();
 			this.search();
 			this.prvApcCd = _apcCd;
 		},
-		close: function(_callbackFnc, _data) {
-			console.log(_callbackFnc);
-			console.log(_data);
-			gfn_closeModal(this.modalId, _callbackFnc, _data);
+		close: function(_cnpt) {
+			gfn_closeModal(this.modalId, this.callbackSelectFnc, _cnpt);
 		},
 		createGrid: function() {
 			var SBGridProperties = {};
@@ -178,10 +105,6 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		    	{caption : ["선택"],
-	                ref: 'checked', type: 'checkbox', width: '50px', style: 'text-align:center', sortable: false,
-	                typeinfo : {ignoreupdate : true}
-	            },
 	 	        {caption: ['거래처명'], 		ref: 'cnptNm',		width: '150px', type: 'output', style:'text-align:center'},
 	 	        {caption: ['유형'], 			ref: 'cnptTypeNm', 	width: '120px', type: 'output', style:'text-align:center'},
 	 	        {caption: ['사업자번호'], 	ref: 'brno', 		width: '100px', type: 'output', style:'text-align:center'},
@@ -195,24 +118,22 @@
 		    grdCnpt.bind('dblclick', popCnpt.choice);
 		},
 		choice: function() {
-			console.log(callbackChoiceFnc);
 			let nRow = grdCnpt.getRow();
 			let rowData = grdCnpt.getRowData(nRow);
-			popCnpt.close(callbackChoiceFnc, rowData);
+			popCnpt.close(rowData);
 		},
 		
 		search: async function() {
 			//console.log('search');
 			let apcCd = this.apcCd;
 			let cnptNm = this.cnptNm;
-			console.log('cnpt', cnptNm);
 			this.setGrid(apcCd);
 		},
-		setGrid: async function(apcCd) {
+		setGrid: async function() {
 			jsonCnptPopUp = [];
-
+			
 			let cnptNm = SBUxMethod.get("cnpt-inp-cnptNm");
-			console.log('cnptNm',cnptNm);
+			let apcCd = this.apcCd;
 			let postJsonPromise = gfn_postJSON("/am/cmns/selectCnptList.do", {apcCd : apcCd, cnptNm : cnptNm});
 		    let data = await postJsonPromise;                
 		    
@@ -233,7 +154,6 @@
 					jsonCnptPopUp.push(cnpt);
 				});
 		    	grdCnpt.rebuild();
-// 		    	this.gridId.rebuild();
 		    }catch (e) {
 				if (!(e instanceof Error)) {
 					e = new Error(e);
