@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SortPrfmncVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -48,7 +48,8 @@ public class SortPrfmncVO extends ComVO {
 	 * 투입일자
 	 */
 	private String inptYmd;
-
+	private String inptYmdFrom;
+	private String inptYmdTo;
 	/**
 	 * 설비코드
 	 */
@@ -58,6 +59,7 @@ public class SortPrfmncVO extends ComVO {
 	 * 대표생산자코드
 	 */
 	private String rprsPrdcrCd;
+	private String rprsPrdcrNm;
 
 	/**
 	 * 품목코드
@@ -78,6 +80,8 @@ public class SortPrfmncVO extends ComVO {
 	 * 창고구분코드
 	 */
 	private String warehouseSeCd;
+	private String warehouseSeNm;
+
 
 	/**
 	 * 수량
@@ -98,37 +102,40 @@ public class SortPrfmncVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
-	
+
 	/**
 	 * 입고번호
 	 */
 	private String wrhsno;
-	
+
 	/**
 	 * 생산자코드
 	 */
 	private String prdcrCd;
-	
+	private String prdcrNm;
+
 	/**
 	 * 상품구분
 	 */
 	private String gdsSeCd;
-	
+	private String gdsSeNm;
+
 	/**
 	 * 입고구분
 	 */
 	private String wrhsSeCd;
+	private String wrhsSeNm;
 
 	/**
 	 * 선별투입실적 변경 필요 여부
 	 */
 	private String needsInptChgYn;
-	
+
 	/**
 	 * APC명
 	 */
 	private String apcNm;
-	
+
 	/**
 	 * 선별기명
 	 */
@@ -157,8 +164,32 @@ public class SortPrfmncVO extends ComVO {
 	 * 원물창고
 	 */
 	private String rawMtrWarehouse;
-	
+
 	private String startsortYmd;
 	private String endSortYmd;
 	private String strgWarehouse;
+
+
+	/**
+	 * 원물창고
+	 */
+	private String rawMtrWarehouseSeCd;
+	/**
+	 * 선별수량
+	 */
+	private int sortQntt;
+
+	/**
+	 * 선별중량
+	 */
+	private double sortWght;
+	/**
+	 * 투입수량
+	 */
+	private int inptQntt;
+
+	/**
+	 * 투입중량
+	 */
+	private double inptWght;
 }
