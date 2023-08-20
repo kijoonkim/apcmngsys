@@ -487,6 +487,7 @@
     	var insertList = [];
 
     	var fcltCd	= SBUxMethod.get("srch-slt-inptFclt");
+    	var sortCmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
     	if(gfn_isEmpty(fcltCd)){
     		gfn_comAlert("W0001", "설비");			//	W0002	{0}을/를 선택하세요.
             return;
@@ -497,14 +498,11 @@
     		return;
     	}
 
-    	var fcltCd	= SBUxMethod.get("srch-slt-inptFclt");
-    	var sortCmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
-
     	for(i=0; i< grdRows.length; i++){
     		var nRow = grdRows[i];
     		var cmndWght = grdRawMtrInvntr.getRowData(nRow).cmndWght;
     		if(cmndWght == 0){
-    			gfn_comAlert("W0001", "지시중량");		//	W0002	{0}이/가 없습니다.
+    			gfn_comAlert("W0001", "지시중량");		//	W0001	{0}이/가 없습니다.
     			return;
     		}
     		grdRawMtrInvntr.setCellData(nRow, 26, fcltCd);
@@ -513,7 +511,7 @@
     		insertList.push(grdRawMtrInvntr.getRowData(nRow));
     	}
 
-    	var regMsg = "등록 하시겠습니까?";
+    	var regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 			const postJsonPromise = gfn_postJSON("/am/sort/insertSortCmndList.do", insertList);
 	    	const data = await postJsonPromise;
