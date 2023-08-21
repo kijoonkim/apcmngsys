@@ -30,19 +30,14 @@ public class PckgCmndVO extends ComVO {
 	private String apcCd;
 
 	/**
-	 * APC구분코드
-	 */
-	private String apcSeCd;
-
-	/**
 	 * 포장지시번호
 	 */
-	private String pckgCmndNo;
+	private String pckgCmndno;
 
 	/**
 	 * 포장지시순번
 	 */
-	private int pckgCmndSeqNo;
+	private int pckgCmndSn;
 
 	/**
 	 * 포장지시일자
@@ -53,6 +48,11 @@ public class PckgCmndVO extends ComVO {
 	 * 설비코드
 	 */
 	private String fcltCd;
+
+	/**
+	 * 설비이름
+	 */
+	private String fcltNm;
 
 	/**
 	 * 거래처코드
@@ -78,11 +78,20 @@ public class PckgCmndVO extends ComVO {
 	 * 품종코드
 	 */
 	private String vrtyCd;
+	/**
+	 * 품종이름
+	 */
+	private String vrtyNm;
 
 	/**
 	 * 규격코드
 	 */
 	private String spcfctCd;
+
+	/**
+	 * 규격이름
+	 */
+	private String spcfctNm;
 
 	/**
 	 * 발주수량
@@ -118,6 +127,7 @@ public class PckgCmndVO extends ComVO {
 	 * 상품코드
 	 */
 	private String gdsCd;
+
 
 	/**
 	 * 상품명
