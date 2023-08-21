@@ -378,9 +378,9 @@
             {caption: ["설비","설비"],	    	ref: 'fcltNm', 			type:'output',  width:'120px', style: 'text-align:center'},
             {caption: ["창고","창고"],	    	ref: 'warehouseSeNm', 	type:'output',  width:'120px', style: 'text-align:center'},
             {caption: ["원물재고","수량"],  		ref: 'invntrQntt',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["원물재고","중량"],  		ref: 'invntrWght',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["원물재고","중량"],  		ref: 'invntrWght',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,### Kg'}},
             {caption: ["투입지시","수량"],  		ref: 'cmndQntt', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["투입지시","중량"],  		ref: 'cmndWght', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["투입지시","중량"],  		ref: 'cmndWght', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,### Kg'}},
             {caption: ["투입","수량"], 			ref: 'inptQntt',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptQntt"},
             	typeinfo: {
@@ -397,7 +397,7 @@
             		maxlength: 6,
             		oneclickedit: true
 				},
-				format : {type:'number', rule:'#,###'}
+				format : {type:'number', rule:'#,### Kg'}
          	},
 
  	        {caption: ["생산자코드"],	ref: 'prdcrCd',   	type:'output',  hidden: true},
@@ -496,7 +496,7 @@
 
 		const columns2 = [
 			{caption: ["합계"], 	 	ref: 'qntt',   type:'output',  width:'80px', style: 'text-align:right'},
-            {caption: ["kg"], 		ref: 'wght', type:'output',  width:'100px', style: 'text-align:right'},
+            {caption: ["kg"], 		ref: 'wght', type:'output',  width:'100px', style: 'text-align:right', format : {type:'number', rule:'#,### Kg'}},
             {caption: ["저장창고"],		ref: 'warehouseSeCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
            	 	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}
             },
@@ -807,9 +807,9 @@
 			//return;
 		}
 
-		if (invntrInptWght != sortInptWght) {
-			//gfn_comAlert("W0006", "투입중량", "선별중량");		//	W0006	{0}와/과 {1}이/가 서로 다릅니다.
-			//return;
+		if (invntrInptWght < sortInptWght) {
+			gfn_comAlert("W0008", "재고량", "투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
+			return;
 		}
 
 		// comConfirm

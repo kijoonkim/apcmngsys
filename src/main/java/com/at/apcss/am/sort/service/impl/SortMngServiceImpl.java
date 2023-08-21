@@ -228,6 +228,11 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			inv.setSortWght(sortWght);
 		}
 
+		for ( SortPrfmncVO sort : prfmncList ) {
+			if (!StringUtils.hasText(sort.getWrhsno())) {
+				return ComUtil.getResultMap("W0008", "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
+			}
+		}
 
 		// 선별실적 등록
 		List<SortPrfmncVO> sortPrfmncVOList = new ArrayList<>();
@@ -245,6 +250,8 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
 
 			sortPrfmncVOList.add(prfmncVO);
+			logger.debug("gdsSeCd {}", prfmncVO.getGdsSeCd());
+			logger.debug("wrhsno {}", prfmncVO.getWrhsno());
 		}
 
 		rtnObj = sortPrfmncService.insertSortPrfmncList(sortPrfmncVOList);
