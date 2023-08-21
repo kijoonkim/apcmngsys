@@ -276,9 +276,8 @@
         }
 	}
 
-	async function fn_deleteSpcfct(nRow){
-		let spcfctVO = grdApcSpcfct.getRowData(nRow);
-		fn_callDeleteSpcfct(spcfctVO)
+	async function fn_deleteSpcfct(cmnsSpcfctVO){
+		fn_callDeleteSpcfct(cmnsSpcfctVO)
 	}
 
 	async function fn_callDeleteSpcfct(cmnsSpcfctVO){
