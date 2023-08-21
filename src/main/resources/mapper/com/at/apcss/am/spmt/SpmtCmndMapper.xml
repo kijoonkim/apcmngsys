@@ -53,7 +53,7 @@
 	    		 , SC.VRTY_CD						AS VRTY_CD
 	    		 , SC.SPCFCT_CD						AS SPCFCT_CD
 	    		 , SC.GDS_CD						AS GDS_CD
-	    		 , (SELECT CNPT_NM
+	    		 , (SELECT CI.CNPT_NM
 	    		 	  FROM TB_CNPT_INFO CI
 	    		 	 WHERE CI.APC_CD = SC.APC_CD
 	    		 	   AND CI.CNPT_CD = SC.CNPT_CD

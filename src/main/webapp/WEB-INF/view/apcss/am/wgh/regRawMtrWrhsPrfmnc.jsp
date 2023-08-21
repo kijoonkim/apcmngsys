@@ -488,7 +488,7 @@
 
 	    SBGridProperties.columns = [
 	        {caption: ["입고번호"],		ref: 'wrhsno',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["팔레트번호"],	ref: 'pltno',      	type:'output',  width:'120px',    style:'text-align:center'},
+	        {caption: ["팔레트번호"],	ref: 'pltno',      	type:'output',  width:'120px',    style:'text-align:center', hidden: true},
 	        {caption: ["생산자"],		ref: 'prdcrNm',     type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["품목"],		ref: 'itemNm',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["품종"],		ref: 'vrtyNm',      type:'output',  width:'80px',    style:'text-align:center'},

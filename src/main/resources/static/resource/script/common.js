@@ -668,9 +668,10 @@ const gfn_setTrsprtsSBSelect = async function (_targetIds, _jsondataRef, _apcCd)
  * @param {any[]} _jsondataRef
  * @param {string} _apcCd	APC코드
  * @param {string} _itemCd	품목코드
+ * @param {string} _vrtyCd	품종코드
  */
-const gfn_setSpmtPckgUnitSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _itemCd) {
-	const postJsonPromise = gfn_postJSON(URL_SPMT_PCKG_UINT, {apcCd: _apcCd, itemCd : _itemCd, delYn: "N"}, null, true);
+const gfn_setSpmtPckgUnitSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _itemCd, _vrtyCd) {
+	const postJsonPromise = gfn_postJSON(URL_SPMT_PCKG_UINT, {apcCd : _apcCd, itemCd : _itemCd, vrtyCd : _vrtyCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
 	const sourceJson = [];

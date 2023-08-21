@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SpmtPrfmncVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -63,16 +63,11 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 운송회사코드
 	 */
 	private String trsprtCoCd;
-	
-	/**
-	 * 운송회사명
-	 */
-	private String trsprtCoNm;
 
 	/**
 	 * 운송회사명
 	 */
-	private String trsptCoNm;
+	private String trsprtCoNm;
 
 	/**
 	 * 차량번호
@@ -113,7 +108,7 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 품종코드
 	 */
 	private String vrtyCd;
-	
+
 	/**
 	 * 품종명
 	 */
@@ -128,12 +123,12 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 규격코드
 	 */
 	private String spcfctCd;
-	
+
 	/**
 	 * 규격명
 	 */
 	private String spcfctNm;
-	
+
 	/**
 	 * 창고구분코드
 	 */
@@ -150,9 +145,9 @@ public class SpmtPrfmncVO extends ComVO {
 	private double spmtWght;
 
 	/**
-	 * 포장구분코드
+	 * 출하포장단위코드
 	 */
-	private String pckgSeCd;
+	private String spmtPckgUnitCd;
 
 	/**
 	 * 브랜드코드
@@ -163,7 +158,7 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 상품코드
 	 */
 	private String gdsCd;
-	
+
 	/**
 	 * 상품명
 	 */
@@ -177,5 +172,22 @@ public class SpmtPrfmncVO extends ComVO {
 	/**
 	 * 출하지시번호
 	 */
-	private String spmtCmndNo;
+	private String spmtCmndno;
+	/**
+	 * 출하구분코드
+	 */
+	private String spmtSeCd;
+	/**
+	 * 출하자신고번호
+	 */
+	private String spmtPrsnDclrnlo;
+	/**
+	 * 산지코드
+	 */
+	private String plorCd;
+
+	/**
+	 * 상품등급
+	 */
+	private String gdsGrd;
 }

@@ -245,25 +245,25 @@
 		} else {
 			searchList.push(Object.assign({}, SpmtPrfmncVO));
 		}
-		console.log(searchList);
+		console.log("searchList: ", searchList);
     	let postJsonPromise = gfn_postJSON("/am/spmt/searchSpmtPrfmncList.do", searchList);
         let data = await postJsonPromise;
         newJsonSpmtPrfmnc = [];
         try{
         	data.resultList.forEach((item, index) => {
 				let spmtPrfmnc = {
-					spmtYmd 	: item.spmtYmd
-				  , gdsNm 		: item.gdsNm
-				  , vrtyNm 		: item.vrtyNm
-				  , spcfctNm 	: item.spcfctNm
-				  , brndCd 		: item.brndCd
-				  , cnptNm 		: item.cnptNm
-				  , dldtn 		: item.dldtn
-				  , trsprtCoNm 	: item.trsprtCoNm
-				  , vhclno 		: item.vhclno
-				  , trsprtCst 	: item.trsprtCst
-				  , spmtQntt	: item.spmtQntt
-				  , spmtWght 	: item.spmtWght
+					spmtYmd 		: item.spmtYmd
+				  , gdsNm 			: item.gdsNm
+				  , vrtyNm 			: item.vrtyNm
+				  , spcfctNm 		: item.spcfctNm
+				  , brndCd 			: item.brndCd
+				  , cnptNm 			: item.cnptNm
+				  , dldtn 			: item.dldtn
+				  , trsprtCoNm 		: item.trsprtCoNm
+				  , vhclno 			: item.vhclno
+				  , trsprtCst 		: item.trsprtCst
+				  , spmtQntt		: item.spmtQntt
+				  , spmtWght 		: item.spmtWght
 				}
 				jsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));
 				newJsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));

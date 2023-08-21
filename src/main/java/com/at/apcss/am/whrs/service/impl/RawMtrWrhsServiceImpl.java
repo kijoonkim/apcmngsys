@@ -90,9 +90,6 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
 			rawMtrWrhsVO.setPltno(wrhsno);
 		}
-		if (!StringUtils.hasText(rawMtrWrhsVO.getWghno())) {
-			rawMtrWrhsVO.setWghno(wrhsno);
-		}
 
 		int insertedCnt = 0;
 		if (needsWrhsInsert) {
@@ -130,9 +127,6 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 
 			if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
 				rawMtrWrhsVO.setPltno(wrhsno);
-			}
-			if (!StringUtils.hasText(rawMtrWrhsVO.getWghno())) {
-				rawMtrWrhsVO.setWghno(wrhsno);
 			}
 
 			insertedCnt = rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);

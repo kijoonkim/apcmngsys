@@ -1,8 +1,22 @@
 package com.at.apcss.am.clcln.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.at.apcss.am.clcln.service.ClclnPrfmncService;
+import com.at.apcss.am.clcln.vo.ClclnPrfmncVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -23,13 +37,35 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class ClclnPrfmncController extends BaseController {
 
-	// 매출실적조회
+	// 정산실적조회
+	@Resource(name = "clclnPrfmncService")
+	private ClclnPrfmncService clclnPrfmncService;
+	
+	// 정산실적조회
 	@RequestMapping(value = "/am/clcln/clclnPrfmnc.do")
 	public String doClclnPrfmnc() {
 		return "apcss/am/clcln/clclnPrfmnc";
 	}
+	
+	// 정산실적 조회
+	@PostMapping(value = "/am/clcln/selectClclnPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectClclnPrfmncList(@RequestBody ClclnPrfmncVO ClclnPrfmncVO, HttpServletRequest request) throws Exception {
+		logger.debug("selectClclnPrfmncList 호출 <><><><> ");
 
-	// 매출확정등록
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<ClclnPrfmncVO> resultList = new ArrayList<>();
+		try {
+			resultList = clclnPrfmncService.selectClclnPrfmncList(ClclnPrfmncVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 정산자료등록
 	@RequestMapping(value = "/am/clcln/regClclnPrfmnc.do")
 	public String doRegFormClclnPrfmnc() {
 		return "apcss/am/clcln/regClclnPrfmnc";

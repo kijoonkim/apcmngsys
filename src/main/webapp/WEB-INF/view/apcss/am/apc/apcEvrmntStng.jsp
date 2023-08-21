@@ -422,7 +422,11 @@
 									<sbux-checkbox id="ordrMngYn" name="ordrMngYn" uitype="normal" text="사용"></sbux-checkbox>
 								</p>
 							</td>
-							<td>&nbsp;</td>
+							<td>
+								<p class="ad_input_row">
+									<sbux-checkbox id="outordrPckgCmndLnkgYn" name="outordrPckgCmndLnkgYn" uitype="normal" text="발주정보 자동수신"></sbux-checkbox>
+								</p>
+							</td>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
@@ -436,12 +440,12 @@
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="sortDataTrsmYn" name="sortDataTrsmYn" uitype="normal" text="선별정보 전송"></sbux-checkbox>
+									<sbux-checkbox id="sortDataTrsmYn" name="sortDataTrsmYn" uitype="normal" text="선별실적 생성"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="clclnDataTrsmYn" name="clclnDataTrsmYn" uitype="normal" text="정산자료 전송"></sbux-checkbox>
+									<sbux-checkbox id="clclnDataTrsmYn" name="clclnDataTrsmYn" uitype="normal" text="정산실적 생성"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
