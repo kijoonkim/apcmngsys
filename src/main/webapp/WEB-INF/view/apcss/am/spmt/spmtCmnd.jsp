@@ -70,15 +70,31 @@
 						<tr>
 							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="선택" class="form-control input-sm" onchange="fn_selectItem" ></sbux-select>
+								<sbux-select
+									unselected-text="선택"
+									uitype="single"
+									id="srch-slt-itemCd"
+									name="srch-slt-itemCd"
+									class="form-control input-sm"
+									jsondata-ref="jsonApcItem"
+									onchange="fn_onChangeSrchItemCd(this)"
+								/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" jsondata-ref="jsonApcVrty" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<sbux-select
+									unselected-text="선택"
+									uitype="single"
+									id="srch-slt-vrtyCd"
+									name="srch-slt-vrtyCd"
+									class="form-control input-sm"
+									jsondata-ref="jsonApcVrty"
+									onchange="fn_onChangeSrchVrtyCd(this)"
+								/>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">규격</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" jsondata-ref="jsonSpcfct" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" jsondata-ref="jsonApcSpcfct" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input" colspan="2"></td>
 							<th scope="row" class="th_bg">포장구분</th>
@@ -116,7 +132,7 @@
 	var jsonTrsprtCo		= [];	// 운송회사 	trsprtCo	검색
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
-	var jsonSpcfct			= [];	// 규격 		spcfct		검색
+	var jsonApcSpcfct			= [];	// 규격 		spcfct		검색
 	var jsonComPckgSeCd		= [];	// 포장구분 	pckgSeCd	검색
 	
 	var jsonSmptCmnd		= [];
@@ -127,7 +143,7 @@
 			gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', jsonTrsprtCo, gv_selectedApcCd),				// 운송회사
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),					// 품목
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),					// 품종
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonSpcfct, gv_selectedApcCd),				// 규격
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd),				// 규격
 			gfn_setComCdSBSelect('srch-slt-pckgSeCd', jsonComPckgSeCd, 'PCKG_SE_CD', gv_selectedApcCd)	// 포장구분
 		]);
 	}
@@ -269,12 +285,34 @@
 			fn_initSBSelect()
 		]);
 	}
- 	
-	// 품종 콤보박스 변경
-	function fn_selectItem(){
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd);			// 품종
-		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonSpcfct, gv_selectedApcCd, itemCd);		// 규격
+
+	/**
+	 * @name fn_onChangeSrchItemCd
+	 * @description 품목 선택 변경 event
+	 */
+	const fn_onChangeSrchItemCd = async function(obj) {
+		let itemCd = obj.value;
+
+		let result = await Promise.all([
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),			// 품종
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd),	// 규격
+		]);
+	}
+
+	/**
+	 * @name fn_onChangeSrchVrtyCd
+	 * @description 품종 선택 변경 event
+	 */
+	const fn_onChangeSrchVrtyCd = async function(obj) {
+		let vrtyCd = obj.value;
+		const itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
+
+		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+		if (itemCd != prvItemCd) {
+			SBUxMethod.set("srch-slt-itemCd", itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+		}
 	}
 	
 	// 거래처 선택 팝업 호출

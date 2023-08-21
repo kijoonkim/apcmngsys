@@ -57,7 +57,8 @@
 	    		 	  FROM TB_CNPT_INFO CI
 	    		 	 WHERE CI.APC_CD = SC.APC_CD
 	    		 	   AND CI.CNPT_CD = SC.CNPT_CD
-	    		 	   AND CI.DEL_YN = 'N') 		AS CNPT_NM
+	    		 	   AND CI.DEL_YN = 'N'
+	    		 	   AND SC.DEL_YN = 'N') 		AS CNPT_NM
 	    		 , SC.DLDTN							AS DLDTN
 	    		 , SC.TRSPRT_CO_NM					AS TRSPRT_CO_NM
 	    		 , SC.GDS_GRD						AS GDS_GRD

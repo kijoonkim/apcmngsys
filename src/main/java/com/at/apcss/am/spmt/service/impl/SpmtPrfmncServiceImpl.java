@@ -1,5 +1,6 @@
 package com.at.apcss.am.spmt.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,12 +56,17 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 	}
 
 	@Override
-	public HashMap<String, Object> searchSpmtPrfmncList(List<SpmtPrfmncVO> searchList) throws Exception {
+	public List<SpmtPrfmncVO> searchSpmtPrfmncList(List<SpmtPrfmncVO> searchList) throws Exception {
+		List<SpmtPrfmncVO> resultList = new ArrayList<>();
 		for ( SpmtPrfmncVO spmtPrfmncVO : searchList ) {
-			spmtPrfmncMapper.selectSpmtPrfmncList(spmtPrfmncVO);
+			List<SpmtPrfmncVO> selectList = new ArrayList<>();
+			selectList = spmtPrfmncMapper.selectSpmtPrfmncList(spmtPrfmncVO);
+			for( var selectVo : selectList ) {
+				resultList.add(selectVo);
+			}
 		}
 
-		return null;
+		return resultList;
 	};
 
 	@Override
