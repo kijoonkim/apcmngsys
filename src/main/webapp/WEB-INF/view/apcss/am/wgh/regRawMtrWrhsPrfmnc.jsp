@@ -179,7 +179,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>수량/중량</th>
+							<th scope="row" class="th_bg">수량/<span class="data_required" ></span>중량</th>
 							<td colspan="3" class="td_input"style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
@@ -496,7 +496,7 @@
 	        {caption: ["입고구분"],		ref: 'wrhsSeNm',    type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["운송구분"],		ref: 'trsprtSeNm',  type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["등급"],		ref: 'grdNm',      	type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["차량번호"],		ref: 'vhclno',      type:'output',  width:'60px',    style:'text-align:center'},
+	        {caption: ["차량번호"],		ref: 'vhclno',      type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["박스수량"],		ref: 'bxQntt',      type:'output',  width:'80px',    style:'text-align:right'},
 	        {caption: ["중량 Kg"],	ref: 'wrhsWght',    type:'output',  width:'80px',    style:'text-align:right'},
 	        {caption: ["박스종류"],		ref: 'bxKndNm',     type:'output',  width:'130px',    style:'text-align:center'},
@@ -626,10 +626,7 @@
     		gfn_comAlert("W0001", "생산자");		//	//	W0002	{0}을/를 입력하세요.
             return;
     	}
-    	if (gfn_isEmpty(bxQntt)) {
-    		gfn_comAlert("W0001", "수량");		//	//	W0002	{0}을/를 입력하세요.
-            return;
-    	}
+
     	if (gfn_isEmpty(wrhsWght)) {
     		gfn_comAlert("W0001", "중량");		//	//	W0002	{0}을/를 입력하세요.
             return;
@@ -721,7 +718,11 @@
  		SBUxMethod.set("srch-slt-bxKnd", rowData.bxKnd);			// 박스종류
  		SBUxMethod.set("srch-slt-warehouseSeCd", rowData.warehouseSeCd);	// 창고
  		SBUxMethod.set("srch-inp-vhclno", rowData.vhclno);			// 차량번호
+
  		SBUxMethod.set("srch-inp-rmrk", rowData.rmrk);				// 비고
+ 		if (gfn_isEmpty(rowData.rmrk)) {
+ 			SBUxMethod.set("srch-inp-rmrk", "");				// 비고
+ 		}
 
  		SBUxMethod.set("srch-inp-wghno", rowData.wghno);			// 계량번호
 

@@ -84,7 +84,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		List<WghPrfmncDtlVO> wghPrfmncDtlList = wghPrfmncVO.getWghPrfmncDtlList();
 
 		String wghno = wghPrfmncVO.getWghno();
-
+		String bxKnd = ComConstants.CON_BLANK;
 		boolean needsWghComInsert = false;
 		if (!StringUtils.hasText(wghno)) {
 			needsWghComInsert = true;
@@ -98,7 +98,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		int totalBxQntt = 0;
 		double totalWght = wghPrfmncVO.getWrhsWght();
 
-		String grdCd = ComConstants.CON_BLANK;
+		String grdCd = wghPrfmncVO.getGrdCd();
 
 		if (needsWghComInsert) {
 			wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
@@ -137,43 +137,47 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 			}
 			if (AmConstants.CON_PLT_BX_SE_CD_BX.equals(dtl.getPltBxSeCd())) {
 				totalBxQntt += dtl.getQntt();
+				bxKnd = dtl.getPltBxKnd();
 			}
-		}
-
-		if (pltQntt <= 0) {	//	W0005	{0}이/가 없습니다.
-			throw new EgovBizException(getMessage("W0005", "팔레트수량".split("\\|\\|")), new Exception());
 		}
 
 		wghPrfmncVO.setGrdCd(grdCd);
 
-		//
-		// FIXME 계량번호로 입고실적, 원물재고 등록 호출 추가 할 것
-		// 팔레트 수량만큼 입고 실적을 생성한다.
-		// WRHS_WGHT
+		if (pltQntt > 0) {
+			int allocWght = (int)(totalWght / pltQntt);
+			int allocBxQntt = totalBxQntt / pltQntt;
 
-		// totalWght totalBxQntt
-		int allocWght = (int)(totalWght / pltQntt);
-		int allocBxQntt = totalBxQntt / pltQntt;
+			double remainWght = totalWght - (allocWght * pltQntt);
+			int remainQntt = totalBxQntt - (allocBxQntt * pltQntt);
 
-		double remainWght = totalWght - (allocWght * pltQntt);
-		int remainQntt = totalBxQntt - (allocBxQntt * pltQntt);
+			for ( int i = 0; i < pltQntt; i++ ) {
 
-		for ( int i = 0; i < pltQntt; i++ ) {
+				RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
+				BeanUtils.copyProperties(wghPrfmncVO, rawMtrWrhsVO);
+				rawMtrWrhsVO.setWrhsYmd(wghPrfmncVO.getWghYmd());
 
+				// FIXME
+				rawMtrWrhsVO.setBxKnd(bxKnd);
+
+				if (i > 0) {
+					rawMtrWrhsVO.setBxQntt(allocBxQntt);
+					rawMtrWrhsVO.setWrhsQntt(allocBxQntt);
+					rawMtrWrhsVO.setWrhsWght(allocWght);
+				} else {
+					rawMtrWrhsVO.setBxQntt(allocBxQntt + remainQntt);
+					rawMtrWrhsVO.setWrhsQntt(allocBxQntt + remainQntt);
+					rawMtrWrhsVO.setWrhsWght(allocWght + remainWght);
+				}
+
+				rawMtrWrhsList.add(rawMtrWrhsVO);
+			}
+		} else {
 			RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
 			BeanUtils.copyProperties(wghPrfmncVO, rawMtrWrhsVO);
 			rawMtrWrhsVO.setWrhsYmd(wghPrfmncVO.getWghYmd());
-
-			if (i > 0) {
-				rawMtrWrhsVO.setBxQntt(allocBxQntt);
-				rawMtrWrhsVO.setWrhsQntt(allocBxQntt);
-				rawMtrWrhsVO.setWrhsWght(allocWght);
-			} else {
-				rawMtrWrhsVO.setBxQntt(allocBxQntt + remainQntt);
-				rawMtrWrhsVO.setWrhsQntt(allocBxQntt + remainQntt);
-				rawMtrWrhsVO.setWrhsWght(allocWght + remainWght);
-			}
-
+			rawMtrWrhsVO.setBxQntt(0);
+			rawMtrWrhsVO.setWrhsQntt(0);
+			rawMtrWrhsVO.setWrhsWght(totalWght);
 			rawMtrWrhsList.add(rawMtrWrhsVO);
 		}
 
