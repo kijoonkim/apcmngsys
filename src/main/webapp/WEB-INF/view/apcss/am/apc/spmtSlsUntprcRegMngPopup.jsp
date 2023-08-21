@@ -93,6 +93,8 @@
 </body>
 <script type="text/javascript">
 
+	let slsUnitPrcParam;
+
 	var jsonSpmtSlsUntprcReg = [];
 
 	async function fn_createSpmtSlsUntprcRegGrid() {
@@ -118,17 +120,21 @@
 	        	}
 		    }},
 	        {caption: ["출하포장단위코드"], ref: 'spmtPckgUnitCd',	type:'input',  hidden : true},
+	        {caption: ["출하매출단가코드"], ref: 'spmtSlsUntprcCd',	type:'input',  hidden : true},
 	        {caption: ["APC코드"], 			ref: 'apcCd',   		type:'input',  hidden : true},
 	    ];
 	    grdSpmtSlsUntprcReg = _SBGrid.create(SBGridProperties);
 	}
 
 	async function fn_selectSpmtSlsUntprcRegList(){
-		fn_callSelectSpmtSlsUntprcRegList()
+		fn_callSelectSpmtSlsUntprcRegList(slsUnitPrcParam);
 	}
 
 	async function fn_callSelectSpmtSlsUntprcRegList(rowData){
-		console.log("roaData",rowData)
+
+		slsUnitPrcParam = rowData;
+
+		console.log("roaData",rowData);
 		let apcCd = gv_apcCd;
 		let itemCd = rowData.itemCd;
 		let vrtyCd = rowData.vrtyCd;
@@ -142,6 +148,7 @@
 				let spmtSlsUntprcRegVO = {
 					aplcnCrtrYmd 	: item.aplcnCrtrYmd
 				  , spmtSlsUntprc 	: item.spmtSlsUntprc
+				  , spmtSlsUntprcCd : item.spmtSlsUntprcCd
 				  , rmrk			: item.rmrk
 				  , spmtPckgUnitCd	: item.spmtPckgUnitCd
 				  , delYn			: item.delYn
