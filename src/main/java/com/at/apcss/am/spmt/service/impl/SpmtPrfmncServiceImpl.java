@@ -1,5 +1,6 @@
 package com.at.apcss.am.spmt.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,15 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 		
 		return resultList;
 	}
+	
+	@Override
+	public HashMap<String, Object> searchSpmtPrfmncList(List<SpmtPrfmncVO> searchList) throws Exception {
+		for ( SpmtPrfmncVO spmtPrfmncVO : searchList ) {
+			spmtPrfmncMapper.selectSpmtPrfmncList(spmtPrfmncVO);
+		}
+		
+		return null;
+	};
 
 	@Override
 	public int insertSpmtPrfmncCom(SpmtPrfmncVO spmtPrfmncVO) throws Exception {

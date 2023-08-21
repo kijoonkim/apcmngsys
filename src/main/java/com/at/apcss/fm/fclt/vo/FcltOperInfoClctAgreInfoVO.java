@@ -9,9 +9,41 @@ import lombok.Setter;
 @Setter
 public class FcltOperInfoClctAgreInfoVO extends ComVO{
 
+	private String trgtYr;
+	private String apcCd;
+	private int sN;
+	private String dADDR;
+	private String apcBrno;
+	private String apcRgnCd;
+	private String apcNm;
+	private String apcAddr;
+	private String operOgnzCd;
+	private String operOgnzNm;
+	private String operOgnzBrno;
+	private String operOgnzPic;
+	private String operOgnzJbps;
+	private String operOgnzTelNo;
+	private String operOgnzEml;
+	private String apcHldYn;
+	private String prsnaDataAgrdYn;
 	private String msgKey;
 	private String msgCn;
 	private String msgKnd;
 	private String msgKndNm;
 	private String rmrk;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

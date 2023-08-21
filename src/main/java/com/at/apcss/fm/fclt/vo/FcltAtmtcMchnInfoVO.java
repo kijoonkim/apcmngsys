@@ -9,9 +9,21 @@ import lombok.Setter;
 @Setter
 public class FcltAtmtcMchnInfoVO extends ComVO{
 
+	private String trgtYr;
+	private String apcCd;
+	private int sN;
+	private String fcltInstlCd;
+	private String fcltHldYn;
 	private String msgKey;
 	private String msgCn;
 	private String msgKnd;
 	private String msgKndNm;
 	private String rmrk;
 }
+
+
+
+
+
+
+

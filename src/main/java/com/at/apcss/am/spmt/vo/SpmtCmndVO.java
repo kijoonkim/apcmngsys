@@ -47,12 +47,12 @@ public class SpmtCmndVO extends ComVO {
 	/**
 	 * 지시일자 시작일
 	 */
-	private String fromCmndYmd;
+	private String cmndYmdFrom;
 	
 	/**
 	 * 지시일자 종료일
 	 */
-	private String toCmndYmd;
+	private String cmndYmdTo;
 
 	/**
 	 * 거래처코드
@@ -98,6 +98,11 @@ public class SpmtCmndVO extends ComVO {
 	 * 포장구분코드
 	 */
 	private String pckgSeCd;
+	
+	/**
+	 * 포장구분
+	 */
+	private String pckgSe;
 
 	/**
 	 * 발주번호

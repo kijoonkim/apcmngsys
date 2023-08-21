@@ -31,7 +31,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
-								<sbux-input id="ddln-inp-apcNm" name="ddln-inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
+								<sbux-input id="ddln-inp-apcNm" name="ddln-inp-apcNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 							</th>
 							<th scope="row">기준년도</th>
 							<th class="td_input">
@@ -80,6 +80,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.explorerbar = 'sortmove';
+		SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.columns = [
 	        {caption: ['기준월'], 	ref: 'crtrMm', 			width: '200px',		style: 'text-align:center',		type: 'output'},
 		    {caption: ['마감여부'], 	ref: 'ddlnYn', 			width: '150px',		style: 'text-align:center',		type: 'combo',

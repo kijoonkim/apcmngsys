@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> ▶ APC환경설정</h3>
+					<h3 class="box-title"> ▶ APC환경설정</h3>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"></sbux-button>
@@ -501,7 +501,7 @@
     </div>
     <!-- 출하포장단위 등록 Modal -->
     <div>
-        <sbux-modal id="modal-spmtPckgUnit" name="modal-spmtPckgUnit" uitype="middle" header-title="춣하포장단위 등록" body-html-id="body-modal-spmtPckgUnit" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-spmtPckgUnit" name="modal-spmtPckgUnit" uitype="middle" header-title="출하포장단위 등록" body-html-id="body-modal-spmtPckgUnit" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-spmtPckgUnit">
     	<jsp:include page="../apc/spmtPckgUnitMngPopup.jsp"></jsp:include>

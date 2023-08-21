@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : GdsInvntrMapper.xml                                   				-->
+<!-- DESC : 상품재고 mapper                                            				-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.invntr.mapper.GdsInvntrMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntr		-->
+	<!-- DESC : 상품재고 단건 조회.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectGdsInvntr" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO" resultType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntr */
+				  GI.APC_CD			AS APC_CD
+				, GI.PCKGNO			AS PCKGNO
+				, GI.PCKG_SN		AS PCKG_SN
+				, GI.PCKG_YMD		AS PCKG_YMD
+				, GI.FCLT_CD		AS FCLT_CD
+				, GI.RPRS_PRDCR_CD	AS RPRS_PRDCR_CD
+				, GI.ITEM_CD		AS ITEM_CD
+				, GI.VRTY_CD		AS VRTY_CD
+				, GI.SPCFCT_CD		AS SPCFCT_CD
+				, GI.GDS_GRD		AS GDS_GRD
+				, GI.PCKG_SE_CD		AS PCKG_SE_CD
+				, GI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+				, GI.PCKG_QNTT		AS PCKG_QNTT
+				, GI.PCKG_WGHT		AS PCKG_WGHT
+				, GI.SPMT_QNTT		AS SPMT_QNTT
+				, GI.SPMT_WGHT		AS SPMT_WGHT
+				, GI.INVNTR_QNTT	AS INVNTR_QNTT
+				, GI.INVNTR_WGHT	AS INVNTR_WGHT
+				, GI.DEL_YN			AS DEL_YN
+			  FROM TB_GDS_INVNTR GI
+			 WHERE GI.APC_CD = #{apcCd}
+			   AND GI.PCKGNO = #{pckgno}
+			   AND GI.PCKG_SN = #{pckgSn}
+		]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntrList	-->
+	<!-- DESC : 상품재고 목록 조회.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectGdsInvntrList" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO" resultType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    			, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) AS APC_NM
+    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+                , (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GDS_GRD, pt0.APC_CD) FROM DUAL) AS GRD_NM
+                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('PCKG_SE_CD', pt0.PCKG_SE_CD, pt0.APC_CD) FROM DUAL) AS PCKG_SE_NM
+
+    		  FROM (
+    	</if>
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		SELECT
+    			  pt0.*
+    			, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) AS APC_NM
+    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+                , (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GDS_GRD, pt0.APC_CD) FROM DUAL) AS GRD_NM
+                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('PCKG_SE_CD', pt0.PCKG_SE_CD, pt0.APC_CD) FROM DUAL) AS PCKG_SE_NM
+
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntrList */
+				  GI.APC_CD			AS APC_CD
+				, GI.PCKGNO			AS PCKGNO
+				, GI.PCKG_SN		AS PCKG_SN
+				, GI.PCKG_YMD		AS PCKG_YMD
+				, GI.FCLT_CD		AS FCLT_CD
+				, GI.RPRS_PRDCR_CD	AS RPRS_PRDCR_CD
+				, GI.ITEM_CD		AS ITEM_CD
+				, GI.VRTY_CD		AS VRTY_CD
+				, GI.SPCFCT_CD		AS SPCFCT_CD
+				, GI.GDS_GRD		AS GDS_GRD
+				, GI.PCKG_SE_CD		AS PCKG_SE_CD
+				, GI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+				, GI.PCKG_QNTT		AS PCKG_QNTT
+				, GI.PCKG_WGHT		AS PCKG_WGHT
+				, GI.SPMT_QNTT		AS SPMT_QNTT
+				, GI.SPMT_WGHT		AS SPMT_WGHT
+				, GI.INVNTR_QNTT	AS INVNTR_QNTT
+				, GI.INVNTR_WGHT	AS INVNTR_WGHT
+				, GI.GDS_SE_CD		AS GDS_SE_CD
+				, GI.DEL_YN			AS DEL_YN
+				, NVL((SELECT CMND_QNTT FROM TB_SPMT_CMND X WHERE X.APC_CD = GI.APC_CD AND X.ITEM_CD = GI.ITEM_CD AND X.VRTY_CD = GI.VRTY_CD AND X.SPCFCT_CD = GI.SPCFCT_CD AND X.GDS_GRD = GI.GDS_GRD), 0) AS CMND_QNTT
+                , NVL((SELECT CMND_WGHT FROM TB_SPMT_CMND X WHERE X.APC_CD = GI.APC_CD AND X.ITEM_CD = GI.ITEM_CD AND X.VRTY_CD = GI.VRTY_CD AND X.SPCFCT_CD = GI.SPCFCT_CD AND X.GDS_GRD = GI.GDS_GRD), 0) AS CMND_WGHT
+			  FROM TB_GDS_INVNTR GI
+			 WHERE 1=1
+		]]>
+
+		<if test='apcCd != null and apcCd != ""'>
+			   AND GI.APC_CD = #{apcCd}
+		</if>
+		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			   AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND GI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			   AND GI.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='spcfctCd != null and spcfctCd != ""'>
+			   AND GI.SPCFCT_CD = #{spcfctCd}
+		</if>
+		<if test='gdsSeCd != null and gdsSeCd != ""'>
+			   AND GI.GDS_SE_CD = #{gdsSeCd}
+		</if>
+		<if test='pckgYmdFrom != null and pckgYmdFrom != ""'>
+			   AND GI.PCKG_YMD <![CDATA[>=]]> #{pckgYmdFrom}
+		</if>
+		<if test='pckgYmdTo != null and pckgYmdTo != ""'>
+			   AND GI.PCKG_YMD <![CDATA[<=]]> #{pckgYmdTo}
+		</if>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		  ) pt0
+    	</if>
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.insertGdsInvntr		-->
+	<!-- DESC : 선별재고 등록.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertGdsInvntr" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.insertGdsInvntr */
+	    		INTO TB_GDS_INVNTR
+				(
+					  APC_CD
+					, PCKGNO
+					, PCKG_SN
+					, PCKG_YMD
+					, FCLT_CD
+					, GDS_SE_CD
+					, RPRS_PRDCR_CD
+					, ITEM_CD
+					, VRTY_CD
+					, SPCFCT_CD
+					, GDS_GRD
+					, PCKG_SE_CD
+					, WAREHOUSE_SE_CD
+					, PCKG_QNTT
+					, PCKG_WGHT
+					, SPMT_QNTT
+					, SPMT_WGHT
+					, INVNTR_QNTT
+					, INVNTR_WGHT
+		    		, SYS_FRST_INPT_DT
+		    		, SYS_FRST_INPT_USER_ID
+		    		, SYS_FRST_INPT_PRGRM_ID
+		    		, SYS_LAST_CHG_DT
+		    		, SYS_LAST_CHG_USER_ID
+		    		, SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+					  #{apcCd}
+					, #{pckgno}
+					, #{pckgSn}
+					, #{pckgYmd}
+					, #{fcltCd}
+					, #{gdsSeCd}
+					, #{rprsPrdcrCd}
+					, #{itemCd}
+					, #{vrtyCd}
+					, #{spcfctCd}
+					, #{gdsGrd}
+					, #{pckgSeCd}
+					, #{warehouseSeCd}
+					, #{pckgQntt}
+					, #{pckgWght}
+					, #{spmtQntt}
+					, #{spmtWght}
+					, #{invntrQntt}
+					, #{invntrWght}
+		    		, SYSDATE
+		    		, #{sysFrstInptUserId}
+		    		, #{sysFrstInptPrgrmId}
+		    		, SYSDATE
+		    		, #{sysLastChgUserId}
+		    		, #{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateGdsInvntr		-->
+	<!-- DESC : 변경재고 등록.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateGdsInvntr" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateGdsInvntr */
+				TB_GDS_INVNTR
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+				, PCKG_YMD = #{pckgYmd}
+				, FCLT_CD = #{fcltCd}
+				, GDS_SE_CD = #{gdsSeCd}
+				, RPRS_PRDCR_CD = #{rprsPrdcrCd}
+				, ITEM_CD = #{itemCd}
+				, VRTY_CD = #{vrtyCd}
+				, SPCFCT_CD = #{spcfctCd}
+				, GDS_GRD = #{gdsGrd}
+				, PCKG_SE_CD = #{pckgSeCd}
+				, WAREHOUSE_SE_CD = #{warehouseSeCd}
+				, PCKG_QNTT = #{pckgQntt}
+				, PCKG_WGHT = #{pckgWght}
+				, SPMT_QNTT = #{spmtQntt}
+				, SPMT_WGHT = #{spmtWght}
+				, INVNTR_QNTT = #{invntrQntt}
+				, INVNTR_WGHT = #{invntrWght}
+		]]>
+			<if test='delYn != null and delYn != ""'>
+				, DEL_YN			= #{delYn}
+			</if>
+		<![CDATA[
+			 WHERE APC_CD = #{apcCd}
+			   AND PCKGNO = #{pckgno}
+			   AND PCKG_SN = #{pckgSn}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.deleteGdsInvntr		-->
+	<!-- DESC : 변경재고 삭제.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteGdsInvntr" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.deleteGdsInvntr */
+			  FROM TB_GDS_INVNTR
+			 WHERE APC_CD = #{apcCd}
+			   AND PCKGNO = #{pckgno}
+			   AND PCKG_SN = #{pckgSn}
+		]]>
+	</delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateGdsInvntrSpmtPrfmnc		-->
+	<!-- DESC : 변경재고 등록 - 출하처리                                    				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateGdsInvntrSpmtPrfmnc" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateGdsInvntrSpmtPrfmnc */
+				TB_GDS_INVNTR
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+				, SPMT_QNTT = #{spmtQntt}
+				, SPMT_WGHT = #{spmtWght}
+				, INVNTR_QNTT = #{invntrQntt}
+				, INVNTR_WGHT = #{invntrWght}
+
+			 WHERE APC_CD = #{apcCd}
+			   AND PCKGNO = #{pckgno}
+			   AND PCKG_SN = #{pckgSn}
+		]]>
+	</update>
+
+</mapper>

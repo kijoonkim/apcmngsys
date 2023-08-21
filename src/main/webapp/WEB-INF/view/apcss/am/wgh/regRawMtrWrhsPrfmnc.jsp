@@ -93,7 +93,7 @@
 							</td>
 
 							<th scope="row" class="th_bg">상품구분</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
 									<sbux-radio
 										id="srch-rdo-gdsSeCd"
@@ -127,7 +127,7 @@
 									uitype="text"
 									id="srch-inp-prdcrNm"
 									name="srch-inp-prdcrNm"
-									class="form-control input-sm input-sm-ast"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									placeholder="초성검색 기능입니다."
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
@@ -165,7 +165,7 @@
 									uitype="single"
 									id="srch-slt-vrtyCd"
 									name="srch-slt-vrtyCd"
-									class="form-control input-sm input-sm-ast"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									jsondata-ref="jsonApcVrty"
 								/>
 							</td>
@@ -195,7 +195,7 @@
 									maxlength="6"
 									autocomplete="off"
 									mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true}"
-									disabled
+									readonly
 								/>
 							</td>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
@@ -203,7 +203,7 @@
 									uitype="text"
 									id="srch-inp-wrhsWght"
 									name="srch-inp-wrhsWght"
-									class="form-control input-sm input-sm-ast"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									maxlength="6"
 									autocomplete="off"
 									mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
@@ -213,43 +213,6 @@
 							<td colspan="3">
 								<sbux-label uitype="normal" id="lbl-chc" name="lbl-chc" class="blod" text="Kg"/>
 							</td>
-							<th scope="row" class="th_bg">팔레트번호</th>
-							<td colspan= "6" class="td_input" style="border-right: hidden;">
-								<sbux-input
-									uitype="text"
-									id="srch-inp-pltno"
-									name="srch-inp-pltno"
-									class="form-control input-sm"
-									autocomplete="off"
-								/>
-							</td>
-							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
-							<th scope="row" class="th_bg">박스종류</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select
-									unselected-text="선택"
-									uitype="single"
-									id="srch-slt-bxKnd"
-									name="srch-slt-bxKnd"
-									class="form-control input-sm"
-									jsondata-ref="jsonApcBx"
-								/>
-							</td>
-							<td colspan="2">&nbsp;</td>
-						</tr>
-						<tr>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>창고</th>
-							<td colspan="6" class="td_input" style="border-right: hidden;">
-								<sbux-select
-									unselected-text="선택"
-									uitype="single"
-									id="srch-slt-warehouseSeCd"
-									name="srch-slt-warehouseSeCd"
-									class="form-control input-sm input-sm-ast"
-									jsondata-ref="jsonComWarehouse"
-								/>
-							</td>
-							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg">차량/운임</th>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -296,8 +259,46 @@
 								/>
 							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
+							<th scope="row" class="th_bg">박스종류</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select
+									unselected-text="전체"
+									uitype="single"
+									id="srch-slt-bxKnd"
+									name="srch-slt-bxKnd"
+									class="form-control input-sm"
+									jsondata-ref="jsonApcBx"
+								/>
+							</td>
+							<td colspan="2">&nbsp;</td>
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>창고</th>
+							<td colspan="6" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									unselected-text="선택"
+									uitype="single"
+									id="srch-slt-warehouseSeCd"
+									name="srch-slt-warehouseSeCd"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									jsondata-ref="jsonComWarehouse"
+								/>
+							</td>
+							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>등급</th>
+							<td colspan="6" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									unselected-text="선택"
+									uitype="single"
+									id="srch-slt-grdCd"
+									name="srch-slt-grdCd"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									jsondata-ref="jsonApcGrd"
+								/>
+							</td>
+							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg">비고</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input">
 								<sbux-input
 									uitype="text"
 									id="srch-inp-rmrk"
@@ -308,24 +309,12 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>등급</th>
-							<td colspan="6" class="td_input" style="border-right: hidden;">
-								<sbux-select
-									unselected-text="선택"
-									uitype="single"
-									id="srch-slt-grdCd"
-									name="srch-slt-grdCd"
-									class="form-control input-sm input-sm-ast"
-									jsondata-ref="jsonApcGrd"
-								/>
-							</td>
-							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
-							<th scope="row" class="th_bg">계량번호</th>
+							<th scope="row" class="th_bg">팔레트번호</th>
 							<td colspan= "6" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
-									id="srch-inp-wghno"
-									name="srch-inp-wghno"
+									id="srch-inp-pltno"
+									name="srch-inp-pltno"
 									class="form-control input-sm"
 									autocomplete="off"
 								/>
@@ -420,7 +409,7 @@
 		// 검색 SB select
 		let result = await Promise.all([
 			 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd',	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
-			 	gfn_setPltBxSBSelect('srch-slt-box', 			jsonApcBx, gv_selectedApcCd, 'B'),	// 박스
+			 	gfn_setPltBxSBSelect('srch-slt-bxKnd', 			jsonApcBx, gv_selectedApcCd, 'B'),	// 박스
 			 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),		// 품목
 			 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonApcVrty, gv_selectedApcCd)		// 품종
 			]);

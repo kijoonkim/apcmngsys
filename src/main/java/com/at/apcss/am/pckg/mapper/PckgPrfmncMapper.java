@@ -22,7 +22,7 @@ import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
  */
 @Mapper
 public interface PckgPrfmncMapper {
-	
+
 	/**
 	 * 포장실적 단건 조회
 	 * @param pckgPrfmncVO
@@ -61,5 +61,14 @@ public interface PckgPrfmncMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deletePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception;	
+	public int deletePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception;
+
+	/**
+	 * 포장투입실적 포장번호 등록
+	 * @param pckgPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateInptPckgno(PckgPrfmncVO pckgPrfmncVO) throws Exception;
+
 }

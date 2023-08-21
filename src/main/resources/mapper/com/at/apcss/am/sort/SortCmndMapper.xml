@@ -64,12 +64,25 @@
 			  FROM
 			  	  TB_SORT_CMND SC
 	        WHERE SC.DEL_YN = 'N'
+	          AND SC.APC_CD = #{apcCd}
 		]]>
 		<if test='sortCmndYmd != null and sortCmndYmd != ""'>
 			 AND SC.SORT_CMND_YMD = #{sortCmndYmd}
 		</if>
 		<if test='fcltCd != null and fcltCd != ""'>
 			 AND SC.FCLT_CD = #{fcltCd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			 AND SC.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			 AND SC.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			 AND SC.WAREHOUSE_SE_CD = #{warehouseSeCd}
+		</if>
+		<if test='prdcrCd != null and prdcrCd != ""'>
+			 AND SC.PRDCR_CD = #{prdcrCd}
 		</if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>

@@ -147,6 +147,7 @@
 				, WC.RMRK		AS RMRK
 				, WC.DEL_YN		AS DEL_YN
 			  FROM TB_WGH_PRFMNC_COM WC
+
 			 WHERE WC.APC_CD = #{apcCd}
 			   AND WC.WGHNO = #{wghno}
 		]]>
@@ -383,9 +384,20 @@
 				, WD.GRD_CD		AS GRD_CD
 				, WD.UNIT_WGHT	AS UNIT_WGHT
 				, WD.QNTT		AS QNTT
-				, WD.WGHT		AS WGHT
+				, WD.QNTT * WD.UNIT_WGHT	AS WGHT		-- WD.WGHT
+				, WD.WGHT		AS CNVRT_WGHT
 				, WD.DEL_YN		AS DEL_YN
+				, PB.UNIT_CD	AS UNIT_CD
+				, PB.PLT_BX_NM	AS PLT_BX_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('UNIT_CD', PB.UNIT_CD) FROM DUAL) AS UNIT_NM
 			  FROM TB_WGH_PRFMNC_DTL WD
+
+			  LEFT JOIN TB_PLT_BX_INFO PB
+			    ON PB.APC_CD = WD.APC_CD
+			   AND PB.PLT_BX_SE_CD = WD.PLT_BX_SE_CD
+			   AND PB.PLT_BX_CD = WD.PLT_BX_KND
+			   AND PB.DEL_YN = 'N'
+
 			 WHERE 1=1
 		]]>
 		<if test='delYn != null and delYn != ""'>
@@ -410,7 +422,7 @@
 			   AND WD.GRD_CD = #{grdCd}
 		</if>
 		<![CDATA[
-			 ORDER BY APC_CD, WGH_YMD, WGHNO, WGH_SN
+			 ORDER BY APC_CD, WGHNO, WGH_SN
 		]]>
 
 		<!-- Start 페이징 -->

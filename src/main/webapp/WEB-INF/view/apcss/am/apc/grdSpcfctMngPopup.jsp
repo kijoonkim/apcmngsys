@@ -42,9 +42,9 @@
 								<th>
 									<sbux-input id=spcfct-inp-apcNm name="spcfct-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 								</th>
-								<th scope="row">품목명</th>
+								<th scope="row"><span class="data_required"></span>품목명</th>
 								<th style="border-right-style: hidden;">
-									<sbux-select id="spcfct-select-itemCd" style="background-color:#ffffff;" name="spcfct-select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									<sbux-select id="spcfct-select-itemCd" style="background-color:#ffffff;" name="spcfct-select-itemCd" uitype="single" jsondata-ref="jsonComItemCd" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
 								</th>
 								<th>&nbsp;</th>
 								<th>&nbsp;</th>
@@ -242,8 +242,10 @@
 			alert("품목 먼저 등록해주세요.");
 			return;
 		}
-		if(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == ""){
-			alert("품목을 선택해주세요.");
+		let itemCd = SBUxMethod.get("spcfct-select-itemCd");
+
+		if(gfn_isEmpty(itemCd)){
+			gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
 

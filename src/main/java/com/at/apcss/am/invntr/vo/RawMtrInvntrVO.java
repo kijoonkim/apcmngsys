@@ -214,4 +214,14 @@ public class RawMtrInvntrVO extends ComVO {
 	 */
 	private double cmndWght;
 
+	/**
+	 * 지시제외재고수량
+	 */
+	private int invntrCmndQntt;
+
+	/**
+	 * 지시재외재고중량
+	 */
+	private double invntrCmndWght;
+
 }

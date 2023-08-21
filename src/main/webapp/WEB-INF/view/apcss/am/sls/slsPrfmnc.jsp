@@ -3,27 +3,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+					<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnSlipDlng" name="btnSlipDlng" uitype="normal" class="btn btn-sm btn-primary" text="거래명세표" onclick="fn_slipDlng"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
-
 			<div class="box-body">
-				<!--[APC] START -->			
+				<!--[pp] 검색 -->
+				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
-				<!--[pp] 검색 -->
-				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -37,156 +40,224 @@
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 9%">
+						<col style="width: 6%">
+						<col style="width: 3%">
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">정산기준</th>
+							<th scope="row" class="th_bg">매출일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-clclnCrtr" name="srch-slt-clclnCrtr" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
-									</div>
-								</div>
-							</td>
-							<td colspan="2"></td>
-							<th scope="row" class="th_bg">정산일자</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-fromClclnYmd" name="srch-dtp-fromClclnYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-slsYmdFrom" name="srch-dtp-slsYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-toClclnYmd" name="srch-dtp-toClclnYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-slsYmdTo" name="srch-dtp-slsYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg">확정여부</th>
-							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-cfmtnYn" name="srch-slt-cfmtnYn" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
-									</div>
-								</div>
-							</td>
-							<td></td>
-						</tr>
-						<tr>
 							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
-									</div>
-								</div>
+								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="선택" class="form-control input-sm" onchange="fn_selectItem" ></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
-									</div>
-								</div>
+								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" jsondata-ref="jsonApcVrty" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg">생산자</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-prdcrNm" name="srch-inp-prdcrNm" uitype="text" class="form-control input-sm"></sbux-input>
-							</td>
+							<th scope="row" class="th_bg">거래처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-button 
-									id="btnSrchPrdcrCd" 
-									name="btnSrchPrdcrCd" 
-									uitype="modal" 
-									class="btn btn-xs btn-outline-dark" 
-									text="찾기" target-id="modal-prdcr" 
-									onclick="fn_choicePrdcr">
-								</sbux-button>
+								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-cnptCd" name="srch-inp-cnptCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				<!--[pp] 검색결과 -->
-				<div class="ad_tbl_top">
-					<ul class="ad_tbl_count">
-						<li><span>정산 내역</span></li>
-					</ul>
-				</div>
+
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdSlsPrfmnc" style="width:100%;height:450px;"></div>
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li><span>매출 내역</span></li>
+						</ul>
+					</div>
+					<div class="ad_tbl_toplist">
+					</div>
+					<div class="table-responsive tbl_scroll_sm">
+						<div id="sb-area-slsPrfmnc" style="height:600px;"></div>
+					</div>
 				</div>
-				<!--[pp] //검색결과 -->
 			</div>
+				<!--[pp] //검색결과 -->
 		</div>
 	</section>
-	<!-- 생산자 선택 Modal -->
+	<!-- 거래처 선택 Modal -->
     <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="body-modal-prdcr">
-    	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
+    <div id="body-modal-cnpt">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
-	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_createSlsPrfmncGrid();
+	var jsonApcItem			= [];	// 품목 		itemCd		검색
+	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
+	
+	const fn_initSBSelect = async function() {
+		// 검색 SB select
+		let rst = await Promise.all([
+			gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonApcItem, 	gv_selectedApcCd),	// 품목
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonApcVrty, 	gv_selectedApcCd)	// 품종
+		]);
+	}
 
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2)
-		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-fromClclnYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-toClclnYmd", year+month+day);
+	window.addEventListener('DOMContentLoaded', function(e) {
+		SBUxMethod.set("srch-dtp-slsYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-slsYmdTo", gfn_dateToYmd(new Date()));
+		
+		fn_createSlsPrfmncGrid();
+		fn_search();
+		fn_initSBSelect();
 	})
 
-// 	var jsonSlsPrfmncList = ['test','test','test','test','test']; // 그리드의 참조 데이터 주소 선언
-	var jsonSlsPrfmncList = [];
-	var grdSlsPrfmnc;
-	
 	function fn_createSlsPrfmncGrid() {
         var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdSlsPrfmnc';
+	    SBGridProperties.parentid = 'sb-area-slsPrfmnc';
 	    SBGridProperties.id = 'grdSlsPrfmnc';
-	    SBGridProperties.jsonref = 'jsonSlsPrfmncList';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.jsonref = 'jsonSlsPrfmnc';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 20,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-		};
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'sortmove';
+    	SBGridProperties.paging = {
+    			'type' : 'page',
+    		  	'count' : 5,
+    		  	'size' : 20,
+    		  	'sorttype' : 'page',
+    		  	'showgoalpageui' : true
+    	    };
         SBGridProperties.columns = [
-        	{caption: ['정산일자'], ref: 'clclnYmd', width: '100px', type: 'output'},
-            {caption: ['생산자'], ref: 'prdcrCd', width: '100px', type: 'output'},
-            {caption: ['입고구분'], ref: 'wrhsSeCd', width: '100px', type : 'output'},
-            {caption: ['상품구분'], ref: 'gdsSeCd', width: '100px', type: 'output'},
-            {caption: ['품목'], ref: 'itemCd', width: '100px', type: 'output'},
-            {caption: ['품종'], ref: 'vrtyCd', width: '100px', type: 'output'},
-            {caption: ['규격'], ref: 'spcfctCd', width: '100px', type: 'output'},
-            {caption: ['브랜드'], ref: 'brndCd', width: '100px', type: 'output'},
-            {caption: ['등급'], ref: 'grdCd', width: '100px', type: 'output'},
-            {caption: ['수량'], ref: 'qntt', width: '100px', type: 'output'},
-            {caption: ['중량'], ref: 'wght', width: '100px', type: 'output'},
-            {caption: ['계산금액'], ref: 'rkngAmt', width: '100px', type: 'output'},
-            {caption: ['확정금액'], ref: 'cfmtnAmt', width: '100px', type: 'output'}
+            {caption: ['매출일자','매출일자'], 	ref: 'slsYmd',		width: '15%',	type: 'output',	style:'text-align: center'},
+            {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
+            {caption: ['상품명','상품명'],		ref: 'gdsNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
+            {caption: ['상품코드','상품코드'],	ref: 'gdsCd', 		width: '15%', 	type: 'output',	style:'text-align: center'},
+            {caption: ['품종','품종'], 		ref: 'vrtyNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
+            {caption: ['규격','규격'], 		ref: 'spcfctNm',	width: '15%', 	type: 'output',	style:'text-align: center'},
+            {caption: ['브랜드','브랜드'], 		ref: 'brndCd',		width: '15%', 	type: 'output',	style:'text-align: center'},
+            {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd', 	width: '15%', 	type: 'output',	style:'text-align: center'},
+            {caption: ['단가','단가'], 		ref: 'slsUntprc', 	width: '15%', 	type: 'output',	style:'text-align: center'},
+            {caption: ['출하','수량'], 		ref: 'qntt', 		width: '15%', 	type: 'output',	style:'text-align: right'},
+            {caption: ['출하','중량'], 		ref: 'wght', 		width: '15%', 	type: 'output',	style:'text-align: right'},
+            {caption: ['매출금액','매출금액'], 	ref: 'cfmtnAmt', 	width: '15%', 	type: 'output',	style:'text-align: right'}
         ];
         grdSlsPrfmnc = _SBGrid.create(SBGridProperties);
+        grdSlsPrfmnc.bind( "afterpagechanged" , "fn_pagingSlsPrfmnc" );
     }
+	
+	// 출하지시 목록 조회 (조회 버튼)
+    async function fn_search() {
+    	let recordCountPerPage = grdSlsPrfmnc.getPageSize();  		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = 1;
+    	grdSlsPrfmnc.movePaging(currentPageNo);
+    }
+	
+	let newJsonSlsPrfmnc = [];
+	
+	// 출하지시 목록 조회 호출
+	async function fn_callSelectSlsPrfmncList(recordCountPerPage, currentPageNo){
+		jsonSlsPrfmnc = [];
+		let apcCd = gv_selectedApcCd;
+		let slsYmdFrom = SBUxMethod.get("srch-dtp-slsYmdFrom");
+		let slsYmdTo = SBUxMethod.get("srch-dtp-slsYmdTo");
+		let cnptCd = SBUxMethod.get("srch-inp-cnptCd");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let SlsPrfmncVO = {apcCd 				: apcCd
+						 , slsYmdFrom 			: slsYmdFrom
+						 , slsYmdTo 			: slsYmdTo
+						 , cnptCd 				: cnptCd
+						 , itemCd 				: itemCd
+						 , vrtyCd 				: vrtyCd
+						 , pagingYn 			: 'Y'
+						 , currentPageNo 		: currentPageNo
+						 , recordCountPerPage 	: recordCountPerPage};
+    	let postJsonPromise = gfn_postJSON("/am/sls/selectSlsPrfmncList.do", SlsPrfmncVO);
+        let data = await postJsonPromise;
+        newJsonSlsPrfmnc = [];
+        try{
+        	data.resultList.forEach((item, index) => {
+				let slsPrfmnc = {
+					slsYmd 		: item.slsYmd
+				  , cnptNm 		: item.cnptNm
+				  , gdsNm 		: item.gdsNm
+				  , gdsCd 		: item.gdsCd
+				  , vrtyNm 		: item.vrtyNm
+				  , spcfctNm 	: item.spcfctNm
+				  , brndCd		: item.brndCd
+				  , spmtYmd 	: item.spmtYmd
+				  , slsUntprc 	: item.slsUntprc
+				  , qntt		: item.qntt
+				  , wght 		: item.wght
+				  , cfmtnAmt 	: item.cfmtnAmt
+				}
+				jsonSlsPrfmnc.push(Object.assign({}, slsPrfmnc));
+				newJsonSlsPrfmnc.push(Object.assign({}, slsPrfmnc));
+			});
+        	if(jsonSlsPrfmnc.length > 0){
+				if(grdSlsPrfmnc.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdSlsPrfmnc.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdSlsPrfmnc.rebuild();
+				}else{
+					grdSlsPrfmnc.refresh();
+				}
+			}else{
+				grdSlsPrfmnc.setPageTotalCount(0);
+				grdSlsPrfmnc.rebuild();
+			}
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+	
+	// 페이징
+    async function fn_pagingSlsPrfmnc(){
+    	let recordCountPerPage = grdSlsPrfmnc.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdSlsPrfmnc.getSelectPageIndex(); 
+    	fn_callSelectSlsPrfmncList(recordCountPerPage, currentPageNo);
+    }
+	
+	// 거래명세표
+    async function fn_slipDlng(){
+    	
+    }
+	
+	// APC 선택 변경
+	const fn_onChangeApc = async function() {
+		let result = await Promise.all([
+			fn_initSBSelect()
+		]);
+	}
 
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
+	// 품종 콤보박스 변경
+	function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd);			// 품종
 	}
 	
-	const fn_choicePrdcr = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+	// 거래처 선택 팝업 호출
+	const fn_modalCnpt = function() {
+    	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
 	}
 	
-	const fn_setPrdcr = function(prdcr) {
-		if (!gfn_isEmpty(prdcr)) {
-			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
-			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
-			//SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+	const fn_setCnpt = function(cnpt) {
+		if (!gfn_isEmpty(cnpt)) {
+			console.log("cnpt", cnpt);
+			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
+			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
 		}
 	}
-	
 </script>
 </html>

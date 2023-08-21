@@ -32,7 +32,17 @@ public class SpmtPrfmncVO extends ComVO {
 	/**
 	 * 출하번호
 	 */
-	private String spmtNo;
+	private String spmtno;
+
+	/**
+	 * 출하시작일자
+	 */
+	private String spmtYmdFrom;
+
+	/**
+	 * 출하종료일자
+	 */
+	private String spmtYmdTo;
 
 	/**
 	 * 출하일자
@@ -53,6 +63,11 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 운송회사코드
 	 */
 	private String trsprtCoCd;
+	
+	/**
+	 * 운송회사명
+	 */
+	private String trsprtCoNm;
 
 	/**
 	 * 운송회사명
@@ -62,7 +77,7 @@ public class SpmtPrfmncVO extends ComVO {
 	/**
 	 * 차량번호
 	 */
-	private String vhclNo;
+	private String vhclno;
 
 	/**
 	 * 배송지
@@ -82,12 +97,12 @@ public class SpmtPrfmncVO extends ComVO {
 	/**
 	 * 포장번호
 	 */
-	private String pckgNo;
+	private String pckgno;
 
 	/**
 	 * 포장순번
 	 */
-	private int pckgSeqNo;
+	private int pckgSn;
 
 	/**
 	 * 품목코드
@@ -98,6 +113,11 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 품종코드
 	 */
 	private String vrtyCd;
+	
+	/**
+	 * 품종명
+	 */
+	private String vrtyNm;
 
 	/**
 	 * 상품구분코드
@@ -108,6 +128,16 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 규격코드
 	 */
 	private String spcfctCd;
+	
+	/**
+	 * 규격명
+	 */
+	private String spcfctNm;
+	
+	/**
+	 * 창고구분코드
+	 */
+	private String warehouseSeCd;
 
 	/**
 	 * 출하수량
@@ -133,6 +163,11 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 상품코드
 	 */
 	private String gdsCd;
+	
+	/**
+	 * 상품명
+	 */
+	private String gdsNm;
 
 	/**
 	 * 생산자코드

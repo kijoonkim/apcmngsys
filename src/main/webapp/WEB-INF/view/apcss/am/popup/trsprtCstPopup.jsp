@@ -44,8 +44,8 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<th class="td_input">
-								<sbux-input id="trsprtCst-inp-apcNm" name="trsprtCst-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
-								<sbux-input id="trsprtCst-inp-apcCd" name="trsprtCst-inp-apcCd" uitype="hidden" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="trsprtCst-inp-apcNm" name="trsprtCst-inp-apcNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
+								<sbux-input id="trsprtCst-inp-apcCd" name="trsprtCst-inp-apcCd" uitype="hidden" class="form-control input-sm" readonly></sbux-input>
 							</th>
 							<th scope="row">운송일자</th>
 							<th class="td_input">
@@ -152,9 +152,11 @@
 		    SBGridProperties.jsonref = this.jsonId;
 		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 		    SBGridProperties.selectmode = 'byrow';
-		    SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
+		    SBGridProperties.allowcopy = true;
+			SBGridProperties.explorerbar = 'sortmove';
+			SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,

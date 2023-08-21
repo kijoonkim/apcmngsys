@@ -1,5 +1,9 @@
 package com.at.apcss.am.pckg.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -23,12 +27,17 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PckgMngVO extends ComVO {
-	
+
+	/**
+	 * 투입등록 필요 여부
+	 */
+	private String needsInptRegYn;
+
 	/**
 	 * APC코드
 	 */
 	private String apcCd;
-	
+
 	/**
 	 * 선별번호
 	 */
@@ -93,4 +102,30 @@ public class PckgMngVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
+
+	/**
+	 * 선별재고 목록
+	 */
+	private List<SortInvntrVO> sortInvntrList;
+
+	/**
+	 * 포장실적 목록
+	 */
+	private List<PckgPrfmncVO> pckgPrfmncList;
+
+
+	public List<SortInvntrVO> getSortInvntrList() {
+		return sortInvntrList == null ? null : sortInvntrList.stream().collect(Collectors.toList());
+	}
+	public void setSortCmndList(List<SortInvntrVO> sortInvntrList) {
+		this.sortInvntrList = sortInvntrList == null ? null : sortInvntrList.stream().collect(Collectors.toList());
+	}
+
+	public List<PckgPrfmncVO> getPckgPrfmncList() {
+		return pckgPrfmncList == null ? null : pckgPrfmncList.stream().collect(Collectors.toList());
+	}
+	public void setPckgPrfmncList(List<PckgPrfmncVO> pckgPrfmncList) {
+		this.pckgPrfmncList = pckgPrfmncList == null ? null : pckgPrfmncList.stream().collect(Collectors.toList());
+	}
+
 }

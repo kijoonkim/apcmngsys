@@ -9,9 +9,19 @@ import lombok.Setter;
 @Setter
 public class ＷholExmnSchdlMngVO extends ComVO{
 
+	private String trgtYr;
+	private String apcCd;
+	private String exmnCycl;
+	private String exmnSeCd;
+	private int sN;
+	private String endDt;
 	private String msgKey;
 	private String msgCn;
 	private String msgKnd;
 	private String msgKndNm;
 	private String rmrk;
 }
+
+
+
+

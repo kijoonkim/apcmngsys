@@ -68,10 +68,10 @@ public class SortMngVO extends ComVO {
 	 * @return
 	 */
 	public List<SortCmndVO> getSortCmndList() {
-		return sortCmndList;
+		return sortCmndList == null ? null : sortCmndList.stream().collect(Collectors.toList());
 	}
 	public void setSortCmndList(List<SortCmndVO> sortCmndList) {
-		this.sortCmndList = sortCmndList;
+		this.sortCmndList = sortCmndList == null ? null : sortCmndList.stream().collect(Collectors.toList());
 	}
 
 	public List<SortInptPrfmncVO> getSortInptPrfmncList() {

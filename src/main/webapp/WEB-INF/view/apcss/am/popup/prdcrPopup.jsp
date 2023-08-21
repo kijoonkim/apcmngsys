@@ -42,7 +42,7 @@
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
-								<sbux-input id="prdcr-inp-apcNm" name="prdcr-inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
+								<sbux-input id="prdcr-inp-apcNm" name="prdcr-inp-apcNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 							</th>
 							<th scope="row">생산자명</th>
 							<th class="td_input">
@@ -147,6 +147,9 @@
 		    SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
+		    SBGridProperties.allowcopy = true;
+			SBGridProperties.explorerbar = 'sortmove';
+		    SBGridProperties.scrollbubbling = false;
 		    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -175,7 +178,7 @@
 					typeinfo: {ref:'jsonComClclnCrtrPrdcrPop', label:'label', value:'value', displayui : false}
 				},
 		        {caption: ['차량번호'], ref: 'vhclno', width: '100px', type: 'input', style: 'text-align:center'},
-		        {caption: ['비고'], ref: 'rmrk', width: '200px', type: 'input', style: 'text-align:center'},
+		        {caption: ['비고'], ref: 'rmrk', width: '150px', type: 'input', style: 'text-align:center'},
 		        {caption: ["처리"], ref: 'delYn', type:'button', width:'80px', style: 'text-align:center',
 		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 						if (!isEditable) {

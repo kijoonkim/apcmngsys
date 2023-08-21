@@ -62,7 +62,6 @@ public class FcltLwtpStrgMchnInfoController extends BaseController {
 
 			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
 			 for (FcltLwtpStrgMchnInfoVO msg : resultList ) {
-				 logger.debug("msgCn : {}", msg.getMsgCn());
 			 }
 
 		} catch (Exception e) {

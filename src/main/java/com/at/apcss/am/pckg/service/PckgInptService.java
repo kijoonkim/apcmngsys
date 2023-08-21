@@ -1,5 +1,6 @@
 package com.at.apcss.am.pckg.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.pckg.vo.PckgInptVO;
@@ -19,7 +20,7 @@ import com.at.apcss.am.pckg.vo.PckgInptVO;
  * </pre>
  */
 public interface PckgInptService {
-	
+
 	/**
 	 * 포장투입실적 단건 조회
 	 * @param pckgInptVO
@@ -43,6 +44,14 @@ public interface PckgInptService {
 	 * @throws Exception
 	 */
 	public int insertPckgInpt(PckgInptVO pckgInptVO) throws Exception;
+
+	/**
+	 * 포장투입실적 목록 등록
+	 * @param pckgInptList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertPckgInptList(List<PckgInptVO> pckgInptList) throws Exception;
 
 	/**
 	 * 포장투입실적 변경

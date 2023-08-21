@@ -54,7 +54,7 @@
 						</td>
 						<th scope="row">대상연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-input id="srch-inp-warehouse" name="srch-inp-warehouse" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+							<sbux-input id="srch-inp-trgtYr" name="srch-inp-warehouse" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
 						<td colspan="5"></td>
 					</tr>
@@ -166,7 +166,7 @@
 
         SBGridProperties.columns = [
 
-            {caption: ["보유현황"],	ref: 'msgKey',      type:'output',  width:'20%',    style:'text-align:center'},
+            {caption: ["보유현황"],	ref: 'fcltHldYn',      type:'output',  width:'20%',    style:'text-align:center'},
             {caption: ["저장능력(톤)"], 	ref: 'msgCn',     	type:'output',  width:'20%',    style:'text-align:center'},
             {caption: ["단기저장실적(톤)"],  	ref: 'msgKndNm',    type:'output',  width:'20%',    style:'text-align:center'},
             {caption: ["장기저장실적(톤)"],      	ref: 'rmrk',        type:'output',  width:'20%',    style:'text-align:center'},

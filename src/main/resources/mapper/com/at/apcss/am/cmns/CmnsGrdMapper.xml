@@ -31,6 +31,7 @@
 			  FROM TB_GRD_CRTR GC
 			 WHERE VC.ITEM_CD = #{itemCd}
 			   AND VC.GRD_CD = #{grdCd}
+			 ORDER BY ITEM_CD, SN
 		]]>
     </select>
 
@@ -72,7 +73,9 @@
 			   			   AND X.ITEM_CD = GC.ITEM_CD
 			   		)
 		</if>
-
+		<![CDATA[
+		    ORDER BY ITEM_CD, SN
+		]]>
     </select>
 
     <!-- ==========================================================================	-->
@@ -180,6 +183,7 @@
 			 WHERE AGC.ITEM_CD = #{itemCd}
 			   AND AGC.GRD_CD = #{grdCd}
 			   AND AGC.APC_CD = #{apcCd}
+			 ORDER BY ITEM_CD, SN
 		]]>
     </select>
 
@@ -214,6 +218,9 @@
 		<if test='delYn != null and delYn != ""'>
 			   AND AGC.DEL_YN = #{delYn}
 		</if>
+		<![CDATA[
+			 ORDER BY ITEM_CD, SN
+		]]>
 
     </select>
 

@@ -54,7 +54,7 @@
 						</td>
 						<th scope="row">대상연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-input id="srch-inp-warehouse" name="srch-inp-warehouse" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+							<sbux-input id="srch-inp-trgtYr" name="srch-inp-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
 						<td colspan="5"></td>
 					</tr>
@@ -234,7 +234,7 @@
         SBGridProperties.rowheaderwidth = {seq: '60'};
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-            {caption: ["품목"],	ref: 'msgKey',      type:'output',  width:'20%',    style:'text-align:center'},
+            {caption: ["품목"],	ref: 'trgtYr',      type:'output',  width:'20%',    style:'text-align:center'},
             {caption: ["보유현황"], 	ref: 'msgCn',     	type:'output',  width:'20%',    style:'text-align:center'},
             {caption: ["규격"],  	ref: 'msgKndNm',    width:'20%',    style:'text-align:center'},
             {caption: ["당도기"],      	ref: 'rmrk',        width:'20%',    style:'text-align:center'},

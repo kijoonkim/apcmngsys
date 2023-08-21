@@ -298,7 +298,7 @@
     <select id="selectRawMtrWrhsPrfmncList" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO" resultType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
+    		SELECT  /* com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsPrfmncList */
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
     			, pt0.*
@@ -331,7 +331,7 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsList */
+	    	SELECT
 				  WP.APC_CD         AS APC_CD
 				, WP.WRHSNO         AS WRHSNO
 				, WP.WGHNO          AS WGHNO
@@ -357,8 +357,8 @@
 			  	, TB_RAW_MTR_TRSPRT_CST TRS
 			 WHERE WP.APC_CD = INV.APC_CD
 			   AND WP.WRHSNO = INV.WRHSNO
-			   AND WP.WRHS_YMD = TRS.TRSPRT_YMD
-			   AND WP.VHCLNO = TRS.VHCLNO
+			   AND WP.WRHS_YMD = TRS.TRSPRT_YMD(+)
+			   AND WP.VHCLNO = TRS.VHCLNO(+)
 			   AND WP.DEL_YN = 'N'
 			   AND INV.DEL_YN = 'N'
 		]]>
@@ -385,16 +385,16 @@
 			   AND INV.ITEM_CD = #{itemCd}
 		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
-			   AND INV.VRTY_CD in (#{vrtyCd})
+			   AND INV.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
 		</if>
 		<if test='gdsSeCd != null and gdsSeCd != ""'>
-			   AND INV.GDS_SE_CD in (#{gdsSeCd})
+			   AND INV.GDS_SE_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{gdsSeCd})))
 		</if>
 		<if test='wrhsSeCd != null and wrhsSeCd != ""'>
-			   AND INV.WRHS_SE_CD in (#{wrhsSeCd})
+			   AND INV.WRHS_SE_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{wrhsSeCd})))
 		</if>
 		<if test='trsprtSeCd != null and trsprtSeCd != ""'>
-			   AND INV.TRSPRT_SE_CD in (#{trsprtSeCd})
+			   AND INV.TRSPRT_SE_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{trsprtSeCd})))
 		</if>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 			   AND INV.WAREHOUSE_SE_CD = #{warehouseSeCd}
