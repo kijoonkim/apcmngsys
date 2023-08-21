@@ -64,6 +64,31 @@
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
     			, pt0.*
+    			, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) AS APC_NM
+    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+                , (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GDS_GRD, pt0.APC_CD) FROM DUAL) AS GRD_NM
+                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('PCKG_SE_CD', pt0.PCKG_SE_CD, pt0.APC_CD) FROM DUAL) AS PCKG_SE_NM
+
+    		  FROM (
+    	</if>
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		SELECT
+    			  pt0.*
+    			, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) AS APC_NM
+    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+                , (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GDS_GRD, pt0.APC_CD) FROM DUAL) AS GRD_NM
+                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('PCKG_SE_CD', pt0.PCKG_SE_CD, pt0.APC_CD) FROM DUAL) AS PCKG_SE_NM
+
     		  FROM (
     	</if>
     	<!-- End 페이징 -->
@@ -87,15 +112,38 @@
 				, GI.SPMT_WGHT		AS SPMT_WGHT
 				, GI.INVNTR_QNTT	AS INVNTR_QNTT
 				, GI.INVNTR_WGHT	AS INVNTR_WGHT
+				, GI.GDS_SE_CD		AS GDS_SE_CD
 				, GI.DEL_YN			AS DEL_YN
+				, NVL((SELECT CMND_QNTT FROM TB_SPMT_CMND X WHERE X.APC_CD = GI.APC_CD AND X.ITEM_CD = GI.ITEM_CD AND X.VRTY_CD = GI.VRTY_CD AND X.SPCFCT_CD = GI.SPCFCT_CD AND X.GDS_GRD = GI.GDS_GRD), 0) AS CMND_QNTT
+                , NVL((SELECT CMND_WGHT FROM TB_SPMT_CMND X WHERE X.APC_CD = GI.APC_CD AND X.ITEM_CD = GI.ITEM_CD AND X.VRTY_CD = GI.VRTY_CD AND X.SPCFCT_CD = GI.SPCFCT_CD AND X.GDS_GRD = GI.GDS_GRD), 0) AS CMND_WGHT
 			  FROM TB_GDS_INVNTR GI
+			 WHERE 1=1
 		]]>
 
 		<if test='apcCd != null and apcCd != ""'>
 			   AND GI.APC_CD = #{apcCd}
 		</if>
-
-
+		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			   AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND GI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			   AND GI.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='spcfctCd != null and spcfctCd != ""'>
+			   AND GI.SPCFCT_CD = #{spcfctCd}
+		</if>
+		<if test='gdsSeCd != null and gdsSeCd != ""'>
+			   AND GI.GDS_SE_CD = #{gdsSeCd}
+		</if>
+		<if test='pckgYmdFrom != null and pckgYmdFrom != ""'>
+			   AND GI.PCKG_YMD <![CDATA[>=]]> #{pckgYmdFrom}
+		</if>
+		<if test='pckgYmdTo != null and pckgYmdTo != ""'>
+			   AND GI.PCKG_YMD <![CDATA[<=]]> #{pckgYmdTo}
+		</if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -103,6 +151,9 @@
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
     	</if>
     	<!-- End 페이징 -->
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		  ) pt0
+    	</if>
     </select>
 
 
@@ -124,6 +175,7 @@
 					, PCKG_SN
 					, PCKG_YMD
 					, FCLT_CD
+					, GDS_SE_CD
 					, RPRS_PRDCR_CD
 					, ITEM_CD
 					, VRTY_CD
@@ -151,6 +203,7 @@
 					, #{pckgSn}
 					, #{pckgYmd}
 					, #{fcltCd}
+					, #{gdsSeCd}
 					, #{rprsPrdcrCd}
 					, #{itemCd}
 					, #{vrtyCd}
@@ -193,6 +246,7 @@
 
 				, PCKG_YMD = #{pckgYmd}
 				, FCLT_CD = #{fcltCd}
+				, GDS_SE_CD = #{gdsSeCd}
 				, RPRS_PRDCR_CD = #{rprsPrdcrCd}
 				, ITEM_CD = #{itemCd}
 				, VRTY_CD = #{vrtyCd}

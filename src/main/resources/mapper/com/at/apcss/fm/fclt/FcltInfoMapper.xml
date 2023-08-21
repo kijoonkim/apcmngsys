@@ -38,7 +38,7 @@
 			, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
 			, FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
 
-			 FROM USRFM.USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+			 FROM TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
 			 WHERE 1=1
 		     AND TRGT_YR = #{trgtYr}
 		     AND  APC_CD = #{apcCd}
@@ -81,7 +81,7 @@
 			, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
 			, FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
 
-			 FROM USRFM.USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+			 FROM TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
 			 WHERE 1=1
 		     AND TRGT_YR = #{trgtYr}
 		     AND  APC_CD = #{apcCd}
@@ -107,7 +107,7 @@
     <insert id="insertFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.insertFcltInfo */
-	    	  INTO SRFM.USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+	    	  INTO SRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
 	    		(
 	              TRGT_YR
 				, APC_CD
@@ -155,7 +155,7 @@
     <update id="updateFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.updateFcltInfo */
-	    		SRFM.USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+	    		SRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
 			   SET
 				    TRGT_YR	 	 =  #{TRGT_YR}
 				   , APC_CD      =  #{APC_CD}
@@ -190,7 +190,7 @@
     <delete id="deleteFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo */
-	    		SRFM.USRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+	    		SRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
 			 WHERE 1=1
 		     AND TRGT_YR = #{trgtYr}
 		     AND  APC_CD = #{apcCd}

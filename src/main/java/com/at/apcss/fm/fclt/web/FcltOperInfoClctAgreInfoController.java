@@ -80,6 +80,7 @@ public class FcltOperInfoClctAgreInfoController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> insertFcltOperInfoClctAgreInfo(@RequestBody FcltOperInfoClctAgreInfoVO fcltOperInfoClctAgreInfoVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
+		logger.debug("============insertFcltOperInfoClctAgreInfo===========");
 		// validation check
 
 		// audit 항목
@@ -87,6 +88,9 @@ public class FcltOperInfoClctAgreInfoController extends BaseController {
 		fcltOperInfoClctAgreInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
 		fcltOperInfoClctAgreInfoVO.setSysLastChgUserId(getUserId());
 		fcltOperInfoClctAgreInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		logger.debug(fcltOperInfoClctAgreInfoVO.getTrgtYr());
+		logger.debug(fcltOperInfoClctAgreInfoVO.getApcCd());
 
 		int insertedCnt = 0;
 
@@ -112,7 +116,7 @@ public class FcltOperInfoClctAgreInfoController extends BaseController {
 		// audit 항목
 		fcltOperInfoClctAgreInfoVO.setSysLastChgUserId(getUserId());
 		fcltOperInfoClctAgreInfoVO.setSysLastChgPrgrmId(getPrgrmId());
-
+		logger.debug("==================updateFcltOperInfoClctAgreInfo=======================");
 		int updatedCnt = 0;
 
 		try {

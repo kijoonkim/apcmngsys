@@ -9,11 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.at.apcss.am.wgh.service.WghPrfmncService;
-import com.at.apcss.am.wgh.vo.WghPrfmncDtlVO;
 import com.at.apcss.am.wgh.vo.WghPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -99,6 +97,30 @@ public class WghPrfmncController extends BaseController {
 			wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 
 			HashMap<String, Object> rtnObj = wghPrfmncService.insertWghPrfmnc(wghPrfmncVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/wgh/updateWghPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateWghPrfmnc(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			wghPrfmncVO.setSysFrstInptUserId(getUserId());
+			wghPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+			wghPrfmncVO.setSysLastChgUserId(getUserId());
+			wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = wghPrfmncService.updateWghPrfmnc(wghPrfmncVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

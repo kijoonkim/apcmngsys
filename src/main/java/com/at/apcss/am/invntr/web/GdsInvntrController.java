@@ -1,7 +1,20 @@
 package com.at.apcss.am.invntr.web;
 
-import org.springframework.stereotype.Controller;
+import java.util.HashMap;
+import java.util.List;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.at.apcss.am.invntr.service.GdsInvntrService;
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -22,4 +35,17 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class GdsInvntrController extends BaseController {
 
+	@Resource(name = "gdsInvntrService")
+	private GdsInvntrService gdsInvntrService;
+
+	@PostMapping(value = "/am/invntr/selectGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectGdsInvntrList(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		List<GdsInvntrVO> resultList = gdsInvntrService.selectGdsInvntrList(gdsInvntrVO);
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST,  resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

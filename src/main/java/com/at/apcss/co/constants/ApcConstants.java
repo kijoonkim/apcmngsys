@@ -1,7 +1,7 @@
 package com.at.apcss.co.constants;
 
 public class ApcConstants {
-	
+
 	/* APC 메뉴 간편설정 권한ID */
 	public final static String AUTHRT_ID_CASE_01_ADMIN = "0000_900";
     public final static String AUTHRT_ID_CASE_01_USER = "0000_901";
@@ -23,7 +23,7 @@ public class ApcConstants {
     public final static String AUTHRT_ID_CASE_09_USER = "0000_981";
 	public final static String AUTHRT_ID_CASE_10_ADMIN = "0000_990";
     public final static String AUTHRT_ID_CASE_10_USER = "0000_991";
-    
+
     /* APC 메뉴 간편설정 권한 CASE */
     public final static String AUTHRT_CASE_01 = "CASE_01";
     public final static String AUTHRT_CASE_02 = "CASE_02";
@@ -35,25 +35,26 @@ public class ApcConstants {
     public final static String AUTHRT_CASE_08 = "CASE_08";
     public final static String AUTHRT_CASE_09 = "CASE_09";
     public final static String AUTHRT_CASE_10 = "CASE_10";
-    
-    
+
+
     /* APC CODE */
     public final static String APC_CD_SYSTEM = "0000";
-    
+
     /* APC MENU */
     public final static String MENU_ID_AM = "AM";
     public final static String MENU_ID_AM_APC_EVRMNT_STNG = "AM_015";
-    
-    
+
+
     /* APC 권한명 */
     public final static String PREFIX_AUTHRT_NM_ADMIN = "APC관리자";
     public final static String PREFIX_AUTHRT_NM_USER = "APC일반사용자";
-    
-	
-    
+
+
+
     /* COLUMN PROPERTIES */
     public final static String PROP_APC_CD = "apcCd";
     public final static String PROP_WGHNO = "wghno";
-    
-    
+
+
+
 }

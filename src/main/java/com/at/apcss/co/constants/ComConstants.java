@@ -32,7 +32,7 @@ public class ComConstants {
 	public final static String RESULT_STATUS_OK = "S";
 	public final static String RESULT_STATUS_ERROR = "E";
 
-	public final static String RESULT_CODE_DEFAULT = "E0002";
+	public final static String RESULT_CODE_DEFAULT = "E0000";
 
 	public final static String CON_BLANK = "";
 	public final static String CON_SPACE = " ";

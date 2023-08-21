@@ -71,8 +71,9 @@
 									uitype="single"
 									id="srch-slt-vrtyCd"
 									name="srch-slt-vrtyCd"
-									class="form-control input-sm input-sm-ast"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									jsondata-ref="jsonApcVrty"
+									onchange="fn_onChangeSrchVrtyCd(this)"
 								/>
 							</td>
 							<td></td>
@@ -145,7 +146,13 @@
 							<td></td>
 							<th scope="row" class="th_bg">설비</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="dtl-slt-fcltCd" name="dtl-slt-fcltCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComFclt"></sbux-select>
+								<sbux-select
+									id="dtl-slt-fcltCd"
+									name="dtl-slt-fcltCd"
+									uitype="single" class="form-control input-sm inpt_data_reqed"
+									unselected-text="선택"
+									jsondata-ref="jsonComFclt"
+								></sbux-select>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">투입/선별/loss</th>
@@ -374,11 +381,23 @@
             {caption: ["원물재고","중량"],  		ref: 'invntrWght',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["투입지시","수량"],  		ref: 'cmndQntt', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["투입지시","중량"],  		ref: 'cmndWght', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["투입","수량"], 			ref: 'inptQntt',  		type:'input',  width:'80px', style: 'text-align:right', userattr: {colNm: "inptQntt"},
-            	typeinfo: {mask : {alias : '#', repeat: '*', unmaskvalue : true}}, format : {type:'number', rule:'#,###'}
+            {caption: ["투입","수량"], 			ref: 'inptQntt',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
+            	userattr: {colNm: "inptQntt"},
+            	typeinfo: {
+            		mask : {alias : '#', repeat: '*', unmaskvalue : true},
+            		maxlength: 6,
+            		oneclickedit: true
+				},
+				format : {type:'number', rule:'#,###'}
             },
-            {caption: ["투입","중량"], 			ref: 'inptWght',  		type:'input',  width:'80px', style: 'text-align:right', userattr: {colNm: "inptWght"},
-            	typeinfo: {mask : {alias : '#', repeat: '*', unmaskvalue : true}}, format : {type:'number', rule:'#,###'}
+            {caption: ["투입","중량"], 			ref: 'inptWght',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
+            	userattr: {colNm: "inptWght"},
+            	typeinfo: {
+            		mask : {alias : '#', repeat: '*', unmaskvalue : true},
+            		maxlength: 6,
+            		oneclickedit: true
+				},
+				format : {type:'number', rule:'#,###'}
          	},
 
  	        {caption: ["생산자코드"],	ref: 'prdcrCd',   	type:'output',  hidden: true},
@@ -427,7 +446,8 @@
             {caption: ["품종"], 		ref: 'vrtyCd',		type:'combo',  width:'100px', style: 'text-align:center',
             	typeinfo: {ref:'jsonApcVrty', label:'label', value:'value', displayui : false}
             },
-            {caption: ["규격"], 	 	ref: 'spcfctCd',    type:'combo',  width:'100px', style: 'text-align:center', userattr: {colNm: "spcfctCd"},
+            {caption: ["규격"], 	 	ref: 'spcfctCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
+            	userattr: {colNm: "spcfctCd"},
             	typeinfo: {ref:'jsonApcSpcfct', label:'spcfctNm', value:'spcfctCd', oneclickedit: true}
             },
     	];
@@ -476,7 +496,7 @@
 		const columns2 = [
 			{caption: ["합계"], 	 	ref: 'qntt',   type:'output',  width:'80px', style: 'text-align:right'},
             {caption: ["kg"], 		ref: 'wght', type:'output',  width:'100px', style: 'text-align:right'},
-            {caption: ["저장창고"],		ref: 'warehouseSeCd',    type:'combo',  width:'100px', style: 'text-align:center',
+            {caption: ["저장창고"],		ref: 'warehouseSeCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
            	 	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}
             },
             {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'200px'},
@@ -945,9 +965,30 @@
 						rowData.inptQntt = 0;
 						rowData.inptWght = 0;
 					}
-					grdRawMtrInvntr.refresh();
 
 				case "inptQntt":
+					let invntrQntt = parseInt(rowData.invntrQntt) || 0;
+					let invntrWght = parseInt(rowData.invntrWght) || 0;
+					let tmpInptQntt = parseInt(rowData.inptQntt) || 0;
+
+					if (tmpInptQntt <= 0) {
+						rowData.inptQntt = 0;
+						rowData.inptWght = 0;
+					} else if (invntrQntt === 0) {
+						if (tmpInptQntt > invntrQntt) {
+							rowData.inptWght = invntrWght;
+						}
+					} else {
+						if (tmpInptQntt > invntrQntt) {
+							gfn_comAlert("W0008", "재고수량", "투입수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+							rowData.inptQntt = 0;
+							rowData.inptWght = 0;
+						} else {
+							rowData.inptWght = Math.round(invntrWght * tmpInptQntt / invntrQntt);
+						}
+					}
+					grdRawMtrInvntr.refresh();
+
 				case "inptWght":
 					const allData = grdRawMtrInvntr.getGridDataAll();
 					let inptQntt = 0;
@@ -963,7 +1004,7 @@
 			    		}
 					});
 
-					SBUxMethod.set("dtl-inp-inptWght", inptWght);
+					SBUxMethod.set("dtl-inp-inptWght", inptQntt);
 					let sortWght = parseInt(SBUxMethod.get("dtl-inp-sortWght")) || 0;
 					SBUxMethod.set("dtl-inp-lossWght", inptWght - sortWght);
 
@@ -1088,6 +1129,22 @@
 		fn_createGridSortPrfmnc();
 		//grdSortPrfmnc.refresh();
 		//
+	}
+
+	/**
+	 * @name fn_onChangeSrchVrtyCd
+	 * @description 품종 선택 변경 event
+	 */
+	const fn_onChangeSrchVrtyCd = async function(obj) {
+		let vrtyCd = obj.value;
+		const itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
+
+		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+		if (itemCd != prvItemCd) {
+			SBUxMethod.set("srch-slt-itemCd", itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+		}
 	}
 
 	/**

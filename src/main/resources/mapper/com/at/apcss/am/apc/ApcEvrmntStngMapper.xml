@@ -266,17 +266,17 @@
     	WHERE 1=1
 		]]>
 		<if test='vrtyNm != null and vrtyNm != ""'>
-			AND VRTY_NM = #{vrtyNm}
+			AND AVC.VRTY_NM LIKE '%'||#{vrtyNm}||'%'
 		</if>
 		<if test='apcCd != null and apcCd != ""'>
-			AND APC_CD = #{apcCd}
+			AND AVC.APC_CD = #{apcCd}
 		</if>
-		<if test='itemCd != null and itemCd = ""'>
-			AND ITEM_CD = #{itemCd}
-		</if>
-		<if test='itemNm != null and itemNm = ""'>
-			AND ITEM_Nm = #{itemNm}
-		</if>
+<!-- 		<if test='itemCd != null and itemCd = ""'> -->
+<!-- 			 AND  -->
+<!-- 		</if> -->
+<!-- 		<if test='itemNm != null and itemNm = ""'> -->
+<!-- 			AND ITEM_Nm = #{itemNm} -->
+<!-- 		</if> -->
 		<![CDATA[
 			order by ITEM_CD
 		]]>

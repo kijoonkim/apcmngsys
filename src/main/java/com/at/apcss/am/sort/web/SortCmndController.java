@@ -1,5 +1,6 @@
 package com.at.apcss.am.sort.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,9 +46,12 @@ public class SortCmndController extends BaseController {
 	@PostMapping(value = "/am/sort/selectSortCmndList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectSortCmndList(@RequestBody SortCmndVO sortCmndVO, HttpServletRequest request) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
-		List<SortCmndVO> resultList = sortCmndService.selectSortCmndList(sortCmndVO);
-
+		List<SortCmndVO> resultList = new ArrayList<>();
+		try {
+			resultList = sortCmndService.selectSortCmndList(sortCmndVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
 		resultMap.put(ComConstants.PROP_RESULT_LIST,  resultList);
 
 		return getSuccessResponseEntity(resultMap);
@@ -59,18 +63,22 @@ public class SortCmndController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		int insertedCnt=0;
-		String sortCmndno = cmnsTaskNoService.selectSortCmndno(sortCmndList.get(0).getApcCd(), sortCmndList.get(0).getSortCmndYmd());
-		int sn=1;
-		for (SortCmndVO sortCmndVO : sortCmndList) {
-			sortCmndVO.setSysFrstInptPrgrmId(getPrgrmId());
-			sortCmndVO.setSysFrstInptUserId(getPrgrmId());
-			sortCmndVO.setSysLastChgPrgrmId(getPrgrmId());
-			sortCmndVO.setSysLastChgUserId(getUserId());
-			sortCmndVO.setSortCmndSn(sn);
-			sortCmndVO.setSortCmndno(sortCmndno);
-			insertedCnt += sortCmndService.insertSortCmnd(sortCmndVO);
-
-			sn++;
+		try {
+			String sortCmndno = cmnsTaskNoService.selectSortCmndno(sortCmndList.get(0).getApcCd(), sortCmndList.get(0).getSortCmndYmd());
+			int sn=1;
+			for (SortCmndVO sortCmndVO : sortCmndList) {
+				sortCmndVO.setSysFrstInptPrgrmId(getPrgrmId());
+				sortCmndVO.setSysFrstInptUserId(getPrgrmId());
+				sortCmndVO.setSysLastChgPrgrmId(getPrgrmId());
+				sortCmndVO.setSysLastChgUserId(getUserId());
+				sortCmndVO.setSortCmndSn(sn);
+				sortCmndVO.setSortCmndno(sortCmndno);
+				insertedCnt += sortCmndService.insertSortCmnd(sortCmndVO);
+	
+				sn++;
+			}
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT,  insertedCnt);
@@ -83,10 +91,13 @@ public class SortCmndController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		int deletedCnt=0;
-		for (SortCmndVO sortCmndVO : sortCmndList) {
-			deletedCnt += sortCmndService.deleteSortCmnd(sortCmndVO);
+		try {
+			for (SortCmndVO sortCmndVO : sortCmndList) {
+				deletedCnt += sortCmndService.deleteSortCmnd(sortCmndVO);
+			}
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
 		}
-
 		resultMap.put(ComConstants.PROP_DELETED_CNT,  deletedCnt);
 
 		return getSuccessResponseEntity(resultMap);

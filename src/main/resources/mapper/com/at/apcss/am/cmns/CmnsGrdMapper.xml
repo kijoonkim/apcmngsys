@@ -205,10 +205,11 @@
 			    , AGC.DEL_YN
 			    , AGC.APC_CD
 			  FROM TB_APC_GRD_CRTR AGC
-			 WHERE AGC.ITEM_CD = #{itemCd}
-			   AND AGC.APC_CD = #{apcCd}
+			 WHERE AGC.APC_CD = #{apcCd}
 		]]>
-
+		<if test='itemCd != null and itemCd != ""'>
+			   AND AGC.ITEM_CD = #{itemCd}
+		</if>
 		<if test='grdCd != null and grdCd != ""'>
 			   AND AGC.GRD_CD LIKE #{grdCd} || '%'
 		</if>
