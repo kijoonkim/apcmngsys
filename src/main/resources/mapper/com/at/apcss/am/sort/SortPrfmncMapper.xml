@@ -77,7 +77,7 @@
                 , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+<!-- 				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM -->
     		  FROM (
     	</if>
     	<!-- End 페이징 -->
@@ -88,6 +88,7 @@
 				, SP.GRD_CD			AS GRD_CD
 				, SP.INPT_YMD		AS INPT_YMD
 				, SP.FCLT_CD		AS FCLT_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('FCLT_CD', SP.FCLT_CD, SP.APC_CD) FROM DUAL) AS FCLT_NM
 				, SP.QNTT			AS SORT_QNTT
 				, SP.WGHT			AS SORT_WGHT
 				, SP.RMRK			AS RMRK
@@ -111,6 +112,18 @@
 			   AND SP.DEL_YN = 'N'
 			   AND SI.DEL_YN = 'N'
 		]]>
+		<if test='startsortYmd != null and startsortYmd != ""'>
+				AND SP.INPT_YMD <![CDATA[>=]]> #{startsortYmd}
+    	</if>
+		<if test='endSortYmd != null and endSortYmd != ""'>
+				AND SP.INPT_YMD <![CDATA[<=]]> #{endSortYmd}
+    	</if>
+    	<if test='itemCd != null and itemCd != ""'>
+				AND SI.ITEM_CD = #{itemCd}
+    	</if>
+<!--     	<if test='itemCd != null and itemCd != ""'> -->
+<!-- 				AND SP.ITEM_CD = #{itemCd} -->
+<!--     	</if> -->
 
 		<![CDATA[
 			 ORDER BY APC_CD, INPT_YMD, SORTNO
