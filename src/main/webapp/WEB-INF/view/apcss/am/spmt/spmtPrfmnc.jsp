@@ -138,6 +138,7 @@
 </body>
 <script type="text/javascript">
 	var jsonSpmtPrfmnc		= [];
+	var itemList = [];
 	var vrtyList = [];
 	
 	var jsonComItem			= [];	// 품목
@@ -240,6 +241,7 @@
 		if (vrtyList.length != 0) {
 			for (var i=0; i<vrtyList.length; i++){
 				var spmtPrfmnc = SpmtPrfmncVO
+				spmtPrfmnc.itemCd = itemList[i];
 				spmtPrfmnc.vrtyCd = vrtyList[i];
 				searchList.push(Object.assign({}, spmtPrfmnc));
 			}
@@ -309,6 +311,7 @@
 
 	const fn_setVrty = function(vrty) {
 		if (!gfn_isEmpty(vrty)) {
+			itemList = [];
 			vrtyList = [];
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
 			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
@@ -319,12 +322,15 @@
 	const fn_setVrtys = function(vrtys) {
 		if (!gfn_isEmpty(vrtys)) {
 			var _vrtys = [];
+			itemList = [];
 			vrtyList = [];
 	 		SBUxMethod.set("srch-inp-vrtyCd", null);
 			for(var i=0;i<vrtys.length;i++){
+				itemList.push(vrtys[i].itemCd);
 				_vrtys.push(vrtys[i].vrtyNm);
 				vrtyList.push(vrtys[i].vrtyCd);
 			}
+			SBUxMethod.set('srch-slt-itemCd', itemList[0]);
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtys.join(','));
 		}
 	}
