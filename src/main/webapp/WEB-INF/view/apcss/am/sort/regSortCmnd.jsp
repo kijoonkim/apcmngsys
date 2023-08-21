@@ -670,13 +670,13 @@
 	}
 
 	const fn_setPrdcr = function(prdcr) {
-		if (!gfn_isEmpty(prdcr)) {
-			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
-			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
-			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			if (!gfn_isEmpty(prdcr)) {
+				SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
+				SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
+				SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			}
 		}
-	}
-
+	
 </script>
 
 </html>

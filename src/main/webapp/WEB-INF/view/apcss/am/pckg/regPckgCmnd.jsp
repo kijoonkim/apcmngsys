@@ -18,9 +18,9 @@
 					<h3 class="box-title">▶ 포장지시등록</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장"class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장"class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제"class="btn btn-sm btn-outline-danger"></sbux-button>
 				</div>
 			</div>
@@ -218,6 +218,46 @@
 
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
+	}
+	const fn_reset = function(){
+	
+	}
+	const fn_save = function(){
+		let sortCmndYmd  = SBUxMethod.getsrch-dtp-cmndDate"); //포장지시일자
+		let itemCd  = SBUxMethod.get("srch-slt-itemCd"); //품목코드
+		let vrtyCd  = SBUxMethod.get("srch-slt-vrtyCd"); //품종코드
+		let spcfctCd  = SBUxMethod.get("srch-slt-spcfctCd"); //규격코드
+		let cmndQntt  = SBUxMethod.get("srch-inp-cmndQntt"); //지시수량
+		let fcltCd  = SBUxMethod.get("srch-slt-fclt"); //설비코드
+// 		let cnptCd  = SBUxMethod.get(""); //거래처코드
+		let cnptNm  = SBUxMethod.get("srch-inp-cnpt"); //거래처명
+		
+		let dudtYmd  = SBUxMethod.get("srch-dtp-dudtYmd"); //납기일자
+// 		let gdsCd  = SBUxMethod.get(""); //상품코드
+		let gdsNm  = SBUxMethod.get("srch-inp-gdsNm"); //상품명
+		let ordrQntt  = SBUxMethod.get("srch-inp-outordrQntt"); //발주수량
+		let bxGdsQntt  = SBUxMethod.get("srch-inp-bxGdsQntt"); //입수
+		let ordrNo  = SBUxMethod.get("srch-inp-gdsNo"); //발주번호
+		
+		const postJsonPromise = gfn_postJSON("/am/pckg/pckgCmnd.do", {
+			apcCd: gv_selectedApcCd,
+			sortCmndYmd: sortCmndYmd,
+			itemCd: itemCd,
+			vrtyCd: vrtyCd,
+			spcfctCd: spcfctCd,
+			cmndQntt: cmndQntt,
+			fcltCd: fcltCd,
+// 			cnptCd: cnptCd,
+			cnptNm: cnptNm,
+			dudtYmd: dudtYmd,
+// 			gdsCd: gdsCd,
+			gdsNm: gdsNm,
+			ordrQntt: ordrQntt,
+			bxGdsQntt: bxGdsQntt,
+			ordrNo: ordrNo
+			});
+		
+	    const data = await postJsonPromise;
 	}
 </script>
 </html>
