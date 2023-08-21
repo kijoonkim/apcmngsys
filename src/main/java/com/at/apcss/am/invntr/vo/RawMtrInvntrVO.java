@@ -224,4 +224,13 @@ public class RawMtrInvntrVO extends ComVO {
 	 */
 	private double invntrCmndWght;
 
+	/**
+	 * 설비코드
+	 */
+	private String fcltCd;
+
+	/**
+	 * 설비명
+	 */
+	private String fcltNm;
 }
