@@ -143,4 +143,27 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 		return resultList;
 	}
 
+	@Override
+	public int deleteSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception {
+		int deletedCnt = 0;
+
+		deleteSpmtPrfmncDtl(spmtPrfmnc.get(0));
+
+		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmnc) {
+			deletedCnt += deleteSpmtPrfmncCom(spmtPrfmncVO);
+
+			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+			gdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
+			gdsInvntrVO.setPckgno(spmtPrfmncVO.getPckgno());
+			gdsInvntrVO.setPckgSn(spmtPrfmncVO.getPckgSn());
+			gdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
+			gdsInvntrVO.setSpmtWght(spmtPrfmncVO.getSpmtWght());
+			gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+			gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+
+			gdsInvntrService.updateGdsInvntrSpmtPrfmncCncl(gdsInvntrVO);
+		}
+		return deletedCnt;
+	}
+
 }

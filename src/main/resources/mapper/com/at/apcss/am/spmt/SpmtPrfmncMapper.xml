@@ -255,9 +255,13 @@
 	<!-- ==========================================================================	-->
 	<delete id="deleteSpmtPrfmncCom" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
 		<![CDATA[
-		DELETE FROM TB_SPMT_PRFMNC_COM
-		 WHERE APC_CD 		= #{apcCd}
-		   AND SPMTNO		= #{spmtno}
+		UPDATE TB_SPMT_PRFMNC_COM
+		   SET SYS_LAST_CHG_DT			= SYSDATE
+	    	 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    	 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+		   	 , DEL_YN 					= 'Y'
+		 WHERE APC_CD 	= #{apcCd}
+		   AND SPMTNO	= #{spmtno}
 		]]>
 	</delete>
 	<!-- ==========================================================================	-->
@@ -270,9 +274,14 @@
 	<!-- ==========================================================================	-->
 	<delete id="deleteSpmtPrfmncDtl" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
 		<![CDATA[
-		DELETE FROM TB_SPMT_PRFMNC_DTL
-		 WHERE APC_CD 		= #{apcCd}
-		   AND SPMTNO		= #{spmtno}
+		UPDATE TB_SPMT_PRFMNC_DTL
+		   SET SYS_LAST_CHG_DT			= SYSDATE
+	    	 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    	 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+		   	 , DEL_YN 					= 'Y'
+		 WHERE APC_CD 	= #{apcCd}
+		   AND SPMTNO	= #{spmtno}
+		   AND PCKGNO   = #{pckgno}
 		]]>
 	</delete>
 	<!-- ==========================================================================	-->
