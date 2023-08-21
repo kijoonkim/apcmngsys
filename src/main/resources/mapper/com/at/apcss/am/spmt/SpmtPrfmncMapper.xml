@@ -3,7 +3,7 @@
 
 <!-- ==========================================================================	-->
 <!-- NAME : SpmtPrfmncMapper.xml                                   				-->
-<!-- DESC : 출하실적조회 mapper                   				                 	-->
+<!-- DESC : 출하실적조회 mapper                   				                -->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
@@ -15,7 +15,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncList	-->
-	<!-- DESC : 출하실적조회 목록 조회.	                         	             	 	-->
+	<!-- DESC : 출하실적조회 목록 조회.	                         	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -129,36 +129,30 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.insertSpmtPrfmnc		-->
-	<!-- DESC : 출하실적조회 목록 등록.	                         	             	 	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.insertSpmtPrfmncCom	-->
+	<!-- DESC : 출하실적 공통 등록.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.17  	하민우        	Initial Creation                            -->
+	<!-- 2023.08.21  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertSpmtPrfmnc" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+    <insert id="insertSpmtPrfmncCom" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
     	<![CDATA[
-    	INSERT INTO TB_SPMT_CMND
+    	INSERT INTO TB_SPMT_PRFMNC_COM /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.insertSpmtPrfmncCom */
     		(
     			APC_CD
-    		  , SPMT_CMNDNO
-    		  , SPMT_CMND_SN
-    		  , CMND_YMD
+    		  , SPMTNO
+    		  ,	SPMT_YMD
     		  , CNPT_CD
-    		  , DLDTN
-    		  , TRSPRT_CO_CD
-		      , TRSPRT_CO_NM
-    		  , GDS_GRD
-    		  , CMND_QNTT
-    		  , CMND_WGHT
-    		  , PCKG_SE_CD
-    		  , ORDR_NO
-    		  , ITEM_CD
-    		  , VRTY_CD
-    		  , SPCFCT_CD
-    		  , GDS_CD
-    		  , RMRK
-    		  , DEL_YN
+    		  ,	TRSPRT_CO_CD
+    		  ,	TRSPRT_CO_NM
+    		  ,	RMRK
+    		  ,	VHCLNO
+    		  ,	DLDTN
+    		  ,	TRSPRT_CST
+    		  ,	SPMT_SE_CD
+    		  ,	SPMT_PRSN_DCLRNLO
+    		  ,	PLOR_CD
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -169,24 +163,18 @@
    		VALUES
    			(
    				#{apcCd}
-    		  , #{spmtCmndNo}
-    		  , #{spmtCmndSn}
-    		  , #{cmndYmd}
+    		  , #{spmtno}
+    		  ,	#{spmtYmd}
     		  , #{cnptCd}
-    		  , #{dldtn}
-    		  , #{trsprtCoCd}
-    		  , #{trsprtCoNm}
-    		  , #{gdsGrd}
-    		  , #{cmndQntt}
-    		  , #{cmndWght}
-    		  , #{pckgSeCd}
-    		  , #{ordrNo}
-    		  , #{itemCd}
-    		  , #{vrtyCd}
-    		  , #{spcfctCd}
-    		  , #{gdsCd}
-    		  , #{rmrk}
-    		  , #{delYn}
+    		  ,	#{trsprtCoCd}
+    		  ,	#{trsprtCoNm}
+    		  ,	#{rmrk}
+    		  ,	#{vhclno}
+    		  ,	#{dldtn}
+    		  ,	#{trsprtCst}
+    		  ,	#{spmtSeCd}
+    		  ,	#{spmtPrsnDclrnlo}
+    		  ,	#{plorCd}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
@@ -198,56 +186,93 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.updateSpmtPrfmnc		-->
-	<!-- DESC : 출하실적조회 목록 수정.	                         	             	 	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.insertSpmtPrfmncDtl	-->
+	<!-- DESC : 출하실적 상세 등록.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.17  	하민우        	Initial Creation                            -->
+	<!-- 2023.08.21  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateSpmtPrfmnc" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
-		<![CDATA[
-		UPDATE TB_SPMT_CMND
-		   SET SYS_LAST_CHG_DT 			= SYSDATE
-    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
-    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-			 , TRSPRT_CO_NM				= #{trsprtCoNm}
-    		  , CMND_YMD 				= #{cmndYmd}
-    		  , CNPT_CD 				= #{cnptCd}
-    		  , DLDTN 					= #{dldtn}
-    		  , TRSPRT_CO_CD 			= #{trsprtCoCd}
-		      , TRSPRT_CO_NM 			= #{trsprtCoNm}
-    		  , GDS_GRD 				= #{gdsGrd}
-    		  , CMND_QNTT 				= #{cmndQntt}
-    		  , CMND_WGHT 				= #{cmndWght}
-    		  , PCKG_SE_CD 				= #{pckgSeCd}
-    		  , ORDR_NO 				= #{ordrNo}
-    		  , ITEM_CD 				= #{itemCd}
-    		  , VRTY_CD 				= #{vrtyCd}
-    		  , SPCFCT_CD 				= #{spcfctCd}
-    		  , GDS_CD 					= #{gdsCd}
-    		 , RMRK						= #{rmrk}
-    		 , DEL_YN					= #{delYn}
-		 WHERE APC_CD 					= #{apcCd}
-		   AND SPMT_CMNDNO 				= #{spmtCmndNo}
-		   AND SPMT_CMND_SN 			= #{spmtCmndSn}
-		]]>
-	</update>
+    <insert id="insertSpmtPrfmncDtl" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+    	<![CDATA[
+    	INSERT INTO TB_SPMT_PRFMNC_DTL /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.insertSpmtPrfmncDtl */
+    		(
+    		    APC_CD
+    		  ,	SPMTNO
+    		  ,	PCKGNO
+    		  ,	PCKG_SN
+    		  ,	VRTY_CD
+    		  ,	GDS_GRD
+    		  ,	SPCFCT_CD
+    		  ,	SPMT_QNTT
+    		  ,	SPMT_WGHT
+    		  ,	BRND_CD
+    		  ,	GDS_CD
+    		  ,	PRDCR_CD
+    		  ,	SPMT_CMNDNO
+    		  ,	SPMT_PCKG_UNIT_CD
+    		  , SYS_FRST_INPT_DT
+    		  , SYS_FRST_INPT_USER_ID
+    		  , SYS_FRST_INPT_PRGRM_ID
+    		  , SYS_LAST_CHG_DT
+    		  , SYS_LAST_CHG_USER_ID
+    		  , SYS_LAST_CHG_PRGRM_ID
+    		)
+   		VALUES
+   			(
+   				#{apcCd}
+    		  ,	#{spmtno}
+    		  ,	#{pckgno}
+    		  ,	#{pckgSn}
+    		  ,	#{vrtyCd}
+    		  ,	#{gdsGrd}
+    		  ,	#{spcfctCd}
+    		  ,	#{spmtQntt}
+    		  ,	#{spmtWght}
+    		  ,	#{brndCd}
+    		  ,	#{gdsCd}
+    		  ,	#{prdcrCd}
+    		  ,	#{spmtCmndno}
+    		  ,	#{spmtPckgUnitCd}
+    		  , SYSDATE
+    		  , #{sysFrstInptUserId}
+    		  , #{sysFrstInptPrgrmId}
+    		  , SYSDATE
+    		  , #{sysLastChgUserId}
+    		  , #{sysLastChgPrgrmId}
+   			)
+    	]]>
+    </insert>
+
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.deleteSpmtPrfmnc		-->
-	<!-- DESC : 출하실적조회 목록 삭제.	                         	             	 	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.deleteSpmtPrfmncCom	-->
+	<!-- DESC : 출하실적 공통 삭제.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.17  	하민우        	Initial Creation                            -->
+	<!-- 2023.08.21  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteSpmtPrfmnc" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
+	<delete id="deleteSpmtPrfmncCom" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
 		<![CDATA[
-		DELETE FROM TB_SPMT_CMND
-		 WHERE APC_CD 					= #{apcCd}
-		   AND SPMT_CMNDNO 				= #{spmtCmndNo}
-		   AND SPMT_CMND_SN 			= #{spmtCmndSn}
+		DELETE FROM TB_SPMT_PRFMNC_COM
+		 WHERE APC_CD 		= #{apcCd}
+		   AND SPMTNO		= #{spmtno}
+		]]>
+	</delete>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.deleteSpmtPrfmncCom	-->
+	<!-- DESC : 출하실적 상세 삭제.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.21  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteSpmtPrfmncDtl" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
+		<![CDATA[
+		DELETE FROM TB_SPMT_PRFMNC_DTL
+		 WHERE APC_CD 		= #{apcCd}
+		   AND SPMTNO		= #{spmtno}
 		]]>
 	</delete>
 

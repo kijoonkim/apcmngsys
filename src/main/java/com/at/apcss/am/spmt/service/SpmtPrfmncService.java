@@ -20,7 +20,7 @@ import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
  * </pre>
  */
 public interface SpmtPrfmncService {
-	
+
 	/**
 	 * 출하실적 단건 조회
 	 * @param spmtPrfmncVO
@@ -36,7 +36,7 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	public List<SpmtPrfmncVO> selectSpmtPrfmncList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
-	
+
 	/**
 	 * 출하실적 목록 조회
 	 * @param searchList
@@ -92,4 +92,12 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	public int deleteSpmtPrfmncDtl(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+	/**
+	 * 출하실적 등록
+	 * @param List<SpmtPrfmncVO>
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception;
 }

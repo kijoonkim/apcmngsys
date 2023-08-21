@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.spmt.service.SpmtPrfmncService;
@@ -37,13 +36,13 @@ import com.at.apcss.co.sys.controller.BaseController;
  */
 @Controller
 public class SpmtPrfmncController extends BaseController {
-	
+
 	@Resource(name= "spmtPrfmncService")
 	private SpmtPrfmncService spmtPrfmncService;
-	
+
 	@Resource(name= "cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
-	
+
 
 	// 출하실적 조회
 	@PostMapping(value = "/am/spmt/searchSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
@@ -63,30 +62,34 @@ public class SpmtPrfmncController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	
-	// 출하실적 조회
+
+
+	// 출하실적 등록
 	@PostMapping(value = "/am/spmt/insertSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncList(@RequestBody List<SpmtPrfmncVO> spmtPrfmncList, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncList(@RequestBody List<SpmtPrfmncVO> SpmtPrfmncList, HttpServletRequest request) throws Exception {
 		logger.debug("insertSpmtPrfmncList 호출 <><><><> ");
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int insertedCnt = 0;
 		try {
-			String spmtno = cmnsTaskNoService.selectSortCmndno(spmtPrfmncList.get(0).getApcCd(), spmtPrfmncList.get(0).getSpmtYmd());
-			int sn = 1;
-			for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
+			String spmtno = cmnsTaskNoService.selectSortCmndno(SpmtPrfmncList.get(0).getApcCd(), SpmtPrfmncList.get(0).getSpmtYmd());
+
+			for (SpmtPrfmncVO spmtPrfmncVO : SpmtPrfmncList) {
+				spmtPrfmncVO.setSpmtno(spmtno);
 				spmtPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
 				spmtPrfmncVO.setSysFrstInptUserId(getPrgrmId());
 				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 				spmtPrfmncVO.setSysLastChgUserId(getUserId());
 			}
+
+			insertedCnt = spmtPrfmncService.insertSpmtPrfmnc(SpmtPrfmncList);
 			resultMap.put(ComConstants.PROP_INSERTED_CNT,  insertedCnt);
 
 		}catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 }

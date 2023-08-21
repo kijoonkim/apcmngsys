@@ -71,6 +71,9 @@
 		<if test='itemCd != null and itemCd != ""'>
 			   AND SPU.ITEM_CD		= #{itemCd}
 		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			   AND SPU.VRTY_CD		= #{vrtyCd}
+		</if>
 
     </select>
 
