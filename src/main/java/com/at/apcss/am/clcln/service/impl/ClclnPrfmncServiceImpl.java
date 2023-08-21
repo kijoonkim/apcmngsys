@@ -46,4 +46,27 @@ public class ClclnPrfmncServiceImpl implements ClclnPrfmncService {
 		return rtnList;
 	}
 
+	@Override
+	public int insertClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
+		
+		int insertedCnt = clclnPrfmncMapper.insertClclnPrfmnc(clclnPrfmncVO);
+		
+		return insertedCnt;
+	}
+	
+	@Override
+	public int updateClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
+		
+		int updatedCnt = clclnPrfmncMapper.updateClclnPrfmnc(clclnPrfmncVO);
+		
+		return updatedCnt;
+	}
+	
+	@Override
+	public int deleteClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
+		
+		int deletedCnt = clclnPrfmncMapper.updateClclnPrfmnc(clclnPrfmncVO);
+		
+		return deletedCnt;
+	}
 }

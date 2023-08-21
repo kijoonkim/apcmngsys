@@ -70,11 +70,6 @@ public class SpmtPrfmncVO extends ComVO {
 	private String trsprtCoNm;
 
 	/**
-	 * 운송회사명
-	 */
-	private String trsptCoNm;
-
-	/**
 	 * 차량번호
 	 */
 	private String vhclno;
@@ -88,7 +83,7 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 운임비용
 	 */
 	private double trsprtCst;
-
+	
 	/**
 	 * 비고
 	 */
@@ -148,7 +143,7 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 출하중량
 	 */
 	private double spmtWght;
-
+	
 	/**
 	 * 포장구분코드
 	 */
