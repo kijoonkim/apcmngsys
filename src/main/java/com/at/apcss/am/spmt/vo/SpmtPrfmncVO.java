@@ -190,4 +190,8 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 상품등급
 	 */
 	private String gdsGrd;
+	/**
+	 * 상품등급먕
+	 */
+	private String gdsGrdNm;
 }

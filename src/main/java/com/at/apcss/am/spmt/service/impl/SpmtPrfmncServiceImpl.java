@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.invntr.service.GdsInvntrService;
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper;
 import com.at.apcss.am.spmt.service.SpmtPrfmncService;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
@@ -32,6 +34,9 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 
 	@Autowired
 	private SpmtPrfmncMapper spmtPrfmncMapper;
+
+	@Resource(name= "gdsInvntrService")
+	private GdsInvntrService gdsInvntrService;
 
 	@Override
 	public SpmtPrfmncVO selectSpmtPrfmnc(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
@@ -115,8 +120,27 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 
 		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmnc) {
 			insertedCnt += insertSpmtPrfmncDtl(spmtPrfmncVO);
+
+			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+			gdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
+			gdsInvntrVO.setPckgno(spmtPrfmncVO.getPckgno());
+			gdsInvntrVO.setPckgSn(spmtPrfmncVO.getPckgSn());
+			gdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
+			gdsInvntrVO.setSpmtWght(spmtPrfmncVO.getSpmtWght());
+			gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+			gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+
+			gdsInvntrService.updateGdsInvntrSpmtPrfmnc(gdsInvntrVO);
 		}
 		return insertedCnt;
+	}
+
+	@Override
+	public List<SpmtPrfmncVO> selectSpmtPrfmncDtlList(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+
+		List<SpmtPrfmncVO> resultList = spmtPrfmncMapper.selectSpmtPrfmncDtlList(spmtPrfmncVO);
+
+		return resultList;
 	}
 
 }

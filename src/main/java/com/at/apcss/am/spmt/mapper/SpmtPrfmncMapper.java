@@ -22,7 +22,7 @@ import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
  */
 @Mapper
 public interface SpmtPrfmncMapper {
-	
+
 	/**
 	 * 출하실적 단건 조회
 	 * @param spmtPrfmncVO
@@ -86,4 +86,12 @@ public interface SpmtPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int deleteSpmtPrfmncDtl(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+	/**
+	 * 출하실적 등록 내역 목록 조회
+	 * @param spmtPrfmncVO
+	 * @return List<SpmtPrfmncVO>
+	 * @throws Exception
+	 */
+	public List<SpmtPrfmncVO> selectSpmtPrfmncDtlList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 }

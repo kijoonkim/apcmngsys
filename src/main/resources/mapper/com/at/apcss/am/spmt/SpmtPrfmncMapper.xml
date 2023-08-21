@@ -275,6 +275,73 @@
 		   AND SPMTNO		= #{spmtno}
 		]]>
 	</delete>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmnDtlcList-->
+	<!-- DESC : 출하실적 등록 내역.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.21  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectSpmtPrfmncDtlList" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+		<![CDATA[
+		SELECT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmnDtlcList */
+		      PD.APC_CD                 AS APC_CD
+		    , PD.SPMTNO                 AS SPMTNO
+		    , PC.SPMT_YMD               AS SPMT_YMD
+		    , GI.ITEM_CD                AS ITEM_CD
+		    , GI.VRTY_CD                AS VRTY_CD
+		    , (SELECT FN_GET_VRTY_NM(GI.ITEM_CD, GI.VRTY_CD, PD.APC_CD) FROM DUAL) AS VRTY_NM
+		    , GI.SPCFCT_CD              AS SPCFCT_CD
+		    , (SELECT FN_GET_SPCFCT_NM(GI.ITEM_CD, GI.SPCFCT_CD, PD.APC_CD) FROM DUAL) AS SPCFCT_NM
+		    , PD.GDS_GRD                AS GDS_GRD
+		    , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', PD.GDS_GRD) FROM DUAL) AS GDS_GRD_NM
+		    , PD.SPMT_PCKG_UNIT_CD      AS SPMT_PCKG_UNIT_CD
+		    , MAX(PC.CNPT_CD)           AS CNPT_CD
+		    , MAX((SELECT FN_GET_CNPT_NM(PC.CNPT_CD, PD.APC_CD) FROM DUAL)) AS CNPT_NM
+		    , MAX(PC.TRSPRT_CO_CD)      AS TRSPRT_CO_CD
+		    , MAX(PC.TRSPRT_CO_NM)      AS TRSPRT_CO_NM
+		    , MAX(PC.RMRK)              AS RMRK
+		    , MAX(PC.DEL_YN)            AS DEL_YN
+		    , MAX(PC.VHCLNO)            AS VHCLNO
+		    , MAX(PC.DLDTN)             AS DLDTN
+		    , MAX(PC.TRSPRT_CST)        AS TRSPRT_CST
+		    , MAX(PC.SPMT_SE_CD)        AS SPMT_SE_CD
+		    , MAX(PC.SPMT_PRSN_DCLRNLO) AS SPMT_PRSN_DCLRNLO
+		    , MAX(PC.PLOR_CD)           AS PLOR_CD
+		    , MAX(PD.PCKGNO)            AS PCKGNO
+		    , MAX(PD.PCKG_SN)           AS PCKG_SN
+		    , MAX(PD.SPCFCT_CD)         AS SPCFCT_CD
+		    , MAX(PD.BRND_CD)           AS BRND_CD
+		    , MAX(PD.GDS_CD)            AS GDS_CD
+		    , MAX(PD.PRDCR_CD)          AS PRDCR_CD
+		    , MAX(PD.SPMT_CMNDNO)       AS SPMT_CMNDNO
+		    , SUM(PD.SPMT_QNTT) AS SPMT_QNTT
+		    , SUM(PD.SPMT_WGHT) AS SPMT_WGHT
+
+		 FROM   TB_SPMT_PRFMNC_COM PC
+		      , TB_SPMT_PRFMNC_DTL PD
+		      , TB_GDS_INVNTR GI
+		  WHERE PD.APC_CD = GI.APC_CD
+		    AND PD.PCKGNO = GI.PCKGNO
+		    AND PC.SPMTNO = PD.SPMTNO
+		    AND PC.DEL_YN = 'N'
+			AND PD.DEL_YN = 'N'
+			AND GI.DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+		   	   AND PD.APC_CD = #{apcCd}
+		</if>
+		<if test='spmtYmd != null and spmtYmd != ""'>
+		   	   AND PC.SPMT_YMD = #{spmtYmd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+		   	   AND GI.VRTY_CD = #{vrtyCd}
+		</if>
+		<![CDATA[
+		 GROUP BY PD.APC_CD, PD.SPMTNO, PC.SPMT_YMD , GI.VRTY_CD, GI.SPCFCT_CD, PD.GDS_GRD, PD.SPMT_PCKG_UNIT_CD, GI.ITEM_CD
+		]]>
+	</select>
 
 </mapper>
 

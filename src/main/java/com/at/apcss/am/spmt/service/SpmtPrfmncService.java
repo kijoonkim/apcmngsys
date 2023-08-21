@@ -100,4 +100,12 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	public int insertSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception;
+
+	/**
+	 * 출하실적 등록 내역 목록 조회
+	 * @param spmtPrfmncVO
+	 * @return List<SpmtPrfmncVO>
+	 * @throws Exception
+	 */
+	public List<SpmtPrfmncVO> selectSpmtPrfmncDtlList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 }
