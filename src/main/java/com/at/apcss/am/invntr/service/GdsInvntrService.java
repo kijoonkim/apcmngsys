@@ -69,4 +69,20 @@ public interface GdsInvntrService {
 	 */
 	public int deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
 
+	/**
+	 * 상품재고 변경 : 출하처리
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateGdsInvntrSpmtPrfmnc(GdsInvntrVO gdsInvntrVO) throws Exception;
+
+	/**
+	 * 상품재고 변경 : 출하취소처리
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateGdsInvntrSpmtPrfmncCncl(GdsInvntrVO gdsInvntrVO) throws Exception;
+
 }
