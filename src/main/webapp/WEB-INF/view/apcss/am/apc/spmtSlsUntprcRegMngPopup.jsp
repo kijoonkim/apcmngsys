@@ -120,8 +120,8 @@
 	        	}
 		    }},
 	        {caption: ["출하포장단위코드"], ref: 'spmtPckgUnitCd',	type:'input',  hidden : true},
-	        {caption: ["출하매출단가코드"], ref: 'spmtSlsUntprcCd',	type:'input',  hidden : true},
 	        {caption: ["APC코드"], 			ref: 'apcCd',   		type:'input',  hidden : true},
+	        {caption: ["출하매출단가코드"], ref: 'spmtSlsUntprcCd',	type:'input',  hidden : true},
 	    ];
 	    grdSpmtSlsUntprcReg = _SBGrid.create(SBGridProperties);
 	}
