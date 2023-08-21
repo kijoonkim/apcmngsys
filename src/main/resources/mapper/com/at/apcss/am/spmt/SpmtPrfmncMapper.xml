@@ -55,7 +55,8 @@
 	    		 	  FROM TB_CNPT_INFO CI
 	    		 	 WHERE CI.APC_CD = PC.APC_CD
 	    		 	   AND CI.CNPT_CD = PC.CNPT_CD
-	    		 	   AND CI.DEL_YN = 'N')			AS CNPT_NM
+	    		 	   AND CI.DEL_YN = 'N'
+	    		 	   AND PC.DEL_YN = 'N')			AS CNPT_NM
 	    		 , PC.DLDTN							AS DLDTN
 	    		 , PC.TRSPRT_CO_NM					AS TRSPRT_CO_NM
 	    		 , PC.VHCLNO						AS VHCLNO
@@ -88,6 +89,7 @@
 			   AND PD.DEL_YN = 'N'
 			   AND VC.DEL_YN = 'N'
 			   AND SC.DEL_YN = 'N'
+			   AND GI.DEL_YN = 'N'
 		]]>
 		<if test='spmtYmdFrom != null and spmtYmdFrom != ""'>
 		   	   AND PC.SPMT_YMD >= #{spmtYmdFrom}

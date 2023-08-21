@@ -103,7 +103,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-clclnPrfmnc" style="width:100%;height:450px;"></div>
+					<div id="sb-area-clclnPrfmnc" style="width:100%;height:600px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>

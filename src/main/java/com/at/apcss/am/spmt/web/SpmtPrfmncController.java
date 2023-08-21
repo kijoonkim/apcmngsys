@@ -50,7 +50,6 @@ public class SpmtPrfmncController extends BaseController {
 		logger.debug("searchSpmtPrfmncList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<SpmtPrfmncVO> resultList = new ArrayList<>();
 		try {
 			HashMap<String, Object> rtnObj = spmtPrfmncService.searchSpmtPrfmncList(searchList);
 			if (rtnObj != null) {

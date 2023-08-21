@@ -220,7 +220,7 @@
 		let cnptCd = SBUxMethod.get("srch-inp-cnptCd");
 		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCo");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
 		let dldtn = SBUxMethod.get("srch-inp-dldtn");
 		let vhclno = SBUxMethod.get("srch-inp-vhclno");
 		let SpmtPrfmncVO = {apcCd 				: apcCd
@@ -236,15 +236,16 @@
 						  , pagingYn 			: 'Y'
 						  , currentPageNo 		: currentPageNo
 						  , recordCountPerPage 	: recordCountPerPage};
-		if (vrtyList.length != 0) {
-			for (var i=0; i<vrtyList.length; i++){
-				var spmtPrfmnc = SpmtPrfmncVO
-				spmtPrfmnc.setVrtyCd(vrtyList[i]);
-				searchList.push(Object.assign({}, spmtPrfmnc));
-			}
-		} else {
-			searchList.push(Object.assign({}, SpmtPrfmncVO));
-		}
+// 		if (vrtyList.length != 0) {
+// 			for (var i=0; i<vrtyList.length; i++){
+// 				var spmtPrfmnc = SpmtPrfmncVO
+// 				spmtPrfmnc.setVrtyCd(vrtyList[i]);
+// 				searchList.push(Object.assign({}, spmtPrfmnc));
+// 			}
+// 		} else {
+// 			searchList.push(Object.assign({}, SpmtPrfmncVO));
+// 		}
+		searchList.push(Object.assign({}, SpmtPrfmncVO));
 		console.log("searchList: ", searchList);
     	let postJsonPromise = gfn_postJSON("/am/spmt/searchSpmtPrfmncList.do", searchList);
         let data = await postJsonPromise;
