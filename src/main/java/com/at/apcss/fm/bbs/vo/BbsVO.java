@@ -14,4 +14,15 @@ public class BbsVO extends ComVO{
 	private String msgKnd;
 	private String msgKndNm;
 	private String rmrk;
+	private String bbsNo;
+	private String bbsTitle;
+	private String bbsSeCd;
+	private String bbsSeCdNm;
+	private String bbsSubject;
+	private String sysFrstInptUserIdNm;
+	private String sysLastChgUserIdNm;
+	private String sysFrstInptDtYmd;
+	private String sysLastChgDtYmd;
+
+
 }
