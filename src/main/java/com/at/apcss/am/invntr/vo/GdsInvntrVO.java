@@ -169,5 +169,4 @@ public class GdsInvntrVO extends ComVO {
 	 */
 	private String gdsSeNm;
 
-
 }

@@ -3,6 +3,8 @@ package com.at.apcss.am.spmt.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,12 +32,12 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 
 	@Autowired
 	private SpmtPrfmncMapper spmtPrfmncMapper;
-	
+
 	@Override
 	public SpmtPrfmncVO selectSpmtPrfmnc(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 
 		SpmtPrfmncVO resultVO = spmtPrfmncMapper.selectSpmtPrfmnc(spmtPrfmncVO);
-		
+
 		return resultVO;
 	}
 
@@ -43,16 +45,16 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 	public List<SpmtPrfmncVO> selectSpmtPrfmncList(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 
 		List<SpmtPrfmncVO> resultList = spmtPrfmncMapper.selectSpmtPrfmncList(spmtPrfmncVO);
-		
+
 		return resultList;
 	}
-	
+
 	@Override
 	public HashMap<String, Object> searchSpmtPrfmncList(List<SpmtPrfmncVO> searchList) throws Exception {
 		for ( SpmtPrfmncVO spmtPrfmncVO : searchList ) {
 			spmtPrfmncMapper.selectSpmtPrfmncList(spmtPrfmncVO);
 		}
-		
+
 		return null;
 	};
 
@@ -60,7 +62,7 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 	public int insertSpmtPrfmncCom(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 
 		int insertedCnt = spmtPrfmncMapper.insertSpmtPrfmncCom(spmtPrfmncVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -68,7 +70,7 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 	public int updateSpmtPrfmncCom(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 
 		int updatedCnt = spmtPrfmncMapper.updateSpmtPrfmncCom(spmtPrfmncVO);
-		
+
 		return updatedCnt;
 	}
 
@@ -76,7 +78,7 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 	public int deleteSpmtPrfmncCom(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 
 		int deletedCnt = spmtPrfmncMapper.deleteSpmtPrfmncCom(spmtPrfmncVO);
-		
+
 		return deletedCnt;
 	}
 
@@ -84,7 +86,7 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 	public int insertSpmtPrfmncDtl(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 
 		int insertedCnt = spmtPrfmncMapper.insertSpmtPrfmncDtl(spmtPrfmncVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -92,7 +94,7 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 	public int updateSpmtPrfmncDtl(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 
 		int updatedCnt = spmtPrfmncMapper.updateSpmtPrfmncDtl(spmtPrfmncVO);
-		
+
 		return updatedCnt;
 	}
 
@@ -100,8 +102,21 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 	public int deleteSpmtPrfmncDtl(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 
 		int deletedCnt = spmtPrfmncMapper.deleteSpmtPrfmncDtl(spmtPrfmncVO);
-		
+
 		return deletedCnt;
+	}
+
+	@Override
+	public int insertSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception {
+
+		int insertedCnt = 0;
+
+		insertSpmtPrfmncCom(spmtPrfmnc.get(0));
+
+		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmnc) {
+			insertedCnt += insertSpmtPrfmncDtl(spmtPrfmncVO);
+		}
+		return insertedCnt;
 	}
 
 }
