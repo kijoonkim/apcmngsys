@@ -138,14 +138,13 @@
 </body>
 <script type="text/javascript">
 	var jsonSpmtPrfmnc		= [];
-
 	var vrtyList = [];
 	
 	var jsonComItem			= [];	// 품목
 	var jsonComVrty			= [];	// 품종
 	var jsonComWarehouse	= [];	// 창고
 	var jsonComTrsprtCo		= [];	// 운송사
-	
+
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
@@ -161,7 +160,7 @@
 		SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
 
 		fn_createSpmtPrfmncGrid();
-		fn_search();
+        fn_search();
 		fn_initSBSelect();
 	})
 
