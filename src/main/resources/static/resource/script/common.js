@@ -989,16 +989,18 @@ const gfn_getComMsg = function (_msgKey, ..._arguments) {
 	let args = Array.prototype.slice.call(arguments, 1);
 
 	let paramList = [];
-	args.forEach((item, index) => {
+	args.forEach((item) => {
 		if (!gfn_isEmpty(item)) {
-			if (item.indexOf('||') < 0) {
-				paramList.push(item);
-			} else {
-				let arr = item.split('||');
-					arr.forEach((itm, idx) => {
-					paramList.push(itm);
-				});
-			}
+			item.forEach((_itm) => {
+				if (_itm.indexOf('||') < 0) {
+					paramList.push(_itm);
+				} else {
+					let arr = _itm.split('||');
+						arr.forEach((__itm) => {
+						paramList.push(__itm);
+					});
+				}
+			});
 		} else {
 			paramList.push(item);
 		}
