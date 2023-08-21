@@ -63,6 +63,9 @@
 	    		 , PC.TRSPRT_CST					AS TRSPRT_CST
 	    		 , PD.SPMT_QNTT						AS SPMT_QNTT
 	    		 , PD.SPMT_WGHT						AS SPMT_WGHT
+	    		 , SUM(PC.TRSPRT_CST)				AS TOT_TRSPRT_CST
+	    		 , SUM(PD.SPMT_QNTT)				AS TOT_SPMT_QNTT
+	    		 , SUM(PD.SPMT_WGHT)				AS TOT_SPMT_WGHT
 			  FROM
 				   TB_SPMT_PRFMNC_COM	PC
 				 , TB_SPMT_PRFMNC_DTL	PD
@@ -118,6 +121,23 @@
 		<if test='vhclno != null and vhclno != ""'>
 		       AND PC.VHCLNO = #{vhclno}
 		</if>
+		<![CDATA[
+		 	 GROUP BY PC.APC_CD
+	    		 	, PC.SPMT_YMD
+	    		 	, PD.BRND_CD
+	    		 	, PD.GDS_CD
+	    		 	, VC.ITEM_CD
+	    		 	, VC.VRTY_CD
+	    		 	, SC.SPCFCT_CD
+	    		 	, PC.DLDTN
+	    		 	, PC.TRSPRT_CO_NM
+	    		 	, PC.VHCLNO
+	    		 	, PC.TRSPRT_CST
+	    		 	, PD.SPMT_QNTT
+	    		 	, PD.SPMT_WGHT
+	    		 	, PC.CNPT_CD
+	    		 	, PC.DEL_YN
+		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
