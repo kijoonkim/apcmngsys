@@ -74,7 +74,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/uat/uia/egovLoginUsrAPI.do",
 				"/uat/uia/actionLogoutAPI.do",
 				"/actionLogin.do",
-				"actionSSOLogin.do",
+				"/actionSSOLogin.do",
 				"/actionLogout.do",
 				"/login.do"
 				);
