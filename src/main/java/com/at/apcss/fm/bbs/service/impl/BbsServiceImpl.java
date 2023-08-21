@@ -21,7 +21,7 @@ import com.at.apcss.fm.bbs.vo.BbsVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  신정철        최초 생성
+ * 2023.06.21  정연두        최초 생성
  * </pre>
  */
 @Service("bbsService")
@@ -39,10 +39,10 @@ public class BbsServiceImpl implements BbsService{
 	}
 
 	@Override
-	public BbsVO selectBbs(String msgKey) throws Exception {
+	public BbsVO selectBbs(String bbsNo) throws Exception {
 
 		BbsVO bbsVO = new BbsVO();
-		bbsVO.setMsgKey(msgKey);
+		bbsVO.setMsgKey(bbsNo);
 
 		BbsVO resultVO = bbsMapper.selectBbs(bbsVO);
 
@@ -54,8 +54,8 @@ public class BbsServiceImpl implements BbsService{
 
 		List<BbsVO> resultList = bbsMapper.selectBbsList(bbsVO);
 		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
-		for (BbsVO msg : resultList ) {
-			System.out.printf("msgCn : %s", msg.getMsgCn());
+		for (BbsVO bbs : resultList ) {
+			System.out.printf("bbsNo : %s", bbs.getBbsTitle());
 			System.out.println();
 		}
 		return resultList;

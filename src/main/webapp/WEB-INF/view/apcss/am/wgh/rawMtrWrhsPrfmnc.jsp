@@ -286,9 +286,8 @@
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 
-	window.jsoninptCmndDsctnList =  [
-		[],
-	];
+// 	window.jsoninptCmndDsctnList =  [
+// 	];
 
 	function fn_createGrid() {
 	    var SBGridProperties = {};
@@ -317,7 +316,7 @@
 	        {caption: ["입고구분"],		ref: 'wrhsSeNm',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["운송구분"],		ref: 'trsprtSeNm',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["상품구분"],		ref: 'gdsSeNm',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["차량구분"],		ref: 'trsprtSeNm',      type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["차량번호"],		ref: 'vhclno',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["운송료"],		ref: 'trsprtCst',      type:'output',  width:'120px', hidden:true,   style:'text-align:right', format : {type:'number', rule:'#,### 원 '}},
 	        {caption: ["등급"],		ref: 'grdNm',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["입고중량"],		ref: 'wrhsWght',      type:'output',  width:'100px',    style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg '}},
