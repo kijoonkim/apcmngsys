@@ -250,6 +250,7 @@
     	let postJsonPromise = gfn_postJSON("/am/spmt/searchSpmtPrfmncList.do", searchList);
         let data = await postJsonPromise;
         newJsonSpmtPrfmnc = [];
+		console.log("searchSpmtPrfmncList: ", data.resultList);
         try{
         	data.resultList.forEach((item, index) => {
 				let spmtPrfmnc = {

@@ -50,15 +50,14 @@ public class SpmtPrfmncController extends BaseController {
 		logger.debug("searchSpmtPrfmncList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SpmtPrfmncVO> resultList = new ArrayList<>();
 		try {
-			HashMap<String, Object> rtnObj = spmtPrfmncService.searchSpmtPrfmncList(searchList);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			resultList = spmtPrfmncService.searchSpmtPrfmncList(searchList);
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
 

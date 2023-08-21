@@ -43,7 +43,7 @@ public interface SpmtPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> searchSpmtPrfmncList(List<SpmtPrfmncVO> searchList) throws Exception;
+	public List<SpmtPrfmncVO> searchSpmtPrfmncList(List<SpmtPrfmncVO> searchList) throws Exception;
 
 	/**
 	 * 출하실적 공통 등록
