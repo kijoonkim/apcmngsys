@@ -90,9 +90,11 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 
 		int insertedCnt = 0;
 		for ( SortPrfmncVO sortPrfmncVO : sortPrfmncList ) {
-
-			String sortno = cmnsTaskNoService.selectSortno(sortPrfmncVO.getApcCd(), sortPrfmncVO.getInptYmd());
-			sortPrfmncVO.setSortno(sortno);
+			String sortno = sortPrfmncVO.getSortno();
+			if (!StringUtils.hasText(sortno)) {
+				sortno = cmnsTaskNoService.selectSortno(sortPrfmncVO.getApcCd(), sortPrfmncVO.getInptYmd());
+				sortPrfmncVO.setSortno(sortno);
+			}
 
 			if (!StringUtils.hasText(sortPrfmncVO.getRprsPrdcrCd())) {
 				sortPrfmncVO.setRprsPrdcrCd(sortPrfmncVO.getPrdcrCd());

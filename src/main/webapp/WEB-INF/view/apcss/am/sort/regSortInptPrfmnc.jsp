@@ -807,6 +807,9 @@
 			//return;
 		}
 
+		console.log("invntrInptWght", invntrInptWght);
+		console.log("sortInptWght", sortInptWght);
+
 		if (invntrInptWght < sortInptWght) {
 			gfn_comAlert("W0008", "재고량", "투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 			return;
