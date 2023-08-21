@@ -340,7 +340,7 @@
 						bxQntt: bxQntt,
 						bxWght: bxWght,
 						totalQntt: pltQntt + bxQntt,
-						totalQntt: pltWght + bxWght
+						totalWght: pltWght + bxWght
 					}
 
 				popPltBx.close(pltBxData);

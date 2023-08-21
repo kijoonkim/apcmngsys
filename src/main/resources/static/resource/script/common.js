@@ -36,6 +36,7 @@ const URL_PRDCR_INFO		= "/am/cmns/prdcrInfos";	//	생산자
 const URL_WRHS_VHCL			= "/am/cmns/wrhsVhcls";		//	입고차량
 const URL_TRSPRT_CO_INFO	= "/am/spmt/spmtTrsprts";	//	운송사
 const URL_TRSPRT_CST_INFO	= "/am/cmns/trsprtCsts";	//	운송지역
+const URL_SPMT_PCKG_UINT	= "/am/cmns/spmtPckgUnits";	//	출하포장단위
 /** END URL
  */
 
@@ -145,7 +146,7 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
 		if (showProgress && typeof SBUxMethod === 'function') {
 			SBUxMethod.closeProgress(gv_loadingOptions);
 		}
-
+		console.error("failed", e);
 		console.error("failed", e.message);
 	}
 }
@@ -658,7 +659,29 @@ const gfn_setTrsprtsSBSelect = async function (_targetIds, _jsondataRef, _apcCd)
 
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 }
+/** 출하포장단위 */
+/**
+ * @name gfn_setSpmtPckgUnitSBSelect
+ * @description set SBUX-select options from APC별 출하포장단위
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd	APC코드
+ * @param {string} _itemCd	품목코드
+ */
+const gfn_setSpmtPckgUnitSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _itemCd) {
+	const postJsonPromise = gfn_postJSON(URL_SPMT_PCKG_UINT, {apcCd: _apcCd, itemCd : _itemCd, delYn: "N"}, null, true);
+	const data = await postJsonPromise;
 
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd 		= item.spmtPckgUnitCd;
+			item.cmnsNm 		= item.spmtPckgUnitNm;
+			item.mastervalue 	= item.itemCd;
+			sourceJson.push(item);
+		});
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
 /** 생산자정보 */
 /**
  * @name gfn_getPrdcrs
@@ -673,9 +696,15 @@ const gfn_getPrdcrs = async function(_apcCd) {
 	const sourceJson = [];
 	data.resultList.forEach((item) => {
 			sourceJson.push({
-				procrCd: item.prdcrCd,
+				prdcrCd: item.prdcrCd,
 				prdcrNm: item.prdcrNm,
 				prdcrFrstNm: item.prdcrFrstNm,
+				rprsVrtyCd: item.rprsItemCd,
+				rprsVrtyCd: item.rprsVrtyCd,
+				wrhsSeCd: item.wrhsSeCd,
+				gdsSeCd: item.gdsSeCd,
+				trsprtSeCd: item.trsprtSeCd,
+				vhclno: item.vhclno,
 				name:item.prdcrNm,
 				value:item.prdcrCd
 			});

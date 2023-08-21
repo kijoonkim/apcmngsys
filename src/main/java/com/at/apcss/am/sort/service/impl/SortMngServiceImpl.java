@@ -228,36 +228,6 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			inv.setSortWght(sortWght);
 		}
 
-		// 선별실적 등록 시 투입실적도 함께 등록 (투입실적 여부 확인 후 등록)
-		if (ComConstants.CON_YES.equals(sortMngVO.getNeedsInptRegYn())) {
-
-			List<SortInptPrfmncVO> sortInptPrfmncVOList = new ArrayList<>();
-			for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
-
-				SortInptPrfmncVO sortInptVO = new SortInptPrfmncVO();
-				BeanUtils.copyProperties(inv, sortInptVO);
-
-				sortInptVO.setQntt(inv.getInptQntt());
-				sortInptVO.setWght(inv.getInptWght());
-
-				// 투입실적 항목 set
-				sortInptPrfmncVOList.add(sortInptVO);
-			}
-
-			rtnObj = sortInptPrfmncService.insertSortInptPrfmncList(sortInptPrfmncVOList);
-			if (rtnObj != null) {
-				// error throw exception;
-				throw new EgovBizException(getMessageForMap(rtnObj));
-			}
-		}
-
-		// 원물재고정보 update
-		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
-			HashMap<String, Object> rtnMap = rawMtrInvntrService.updateInvntrSortPrfmnc(inv);
-			if (rtnMap != null) {
-				throw new EgovBizException(getMessageForMap(rtnObj));
-			}
-		}
 
 		// 선별실적 등록
 		List<SortPrfmncVO> sortPrfmncVOList = new ArrayList<>();
@@ -282,6 +252,47 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
+
+		// 선별실적 등록 시 투입실적도 함께 등록 (투입실적 여부 확인 후 등록)
+		if (ComConstants.CON_YES.equals(sortMngVO.getNeedsInptRegYn())) {
+
+			List<SortInptPrfmncVO> sortInptPrfmncVOList = new ArrayList<>();
+			for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
+				SortInptPrfmncVO sortInptVO = new SortInptPrfmncVO();
+				BeanUtils.copyProperties(inv, sortInptVO);
+
+				String wrhsno = sortInptVO.getWrhsno();
+
+				for ( SortPrfmncVO sort : sortPrfmncVOList ) {
+					String sortno = sort.getSortno();
+					if (StringUtils.hasText(wrhsno) && wrhsno.equals(sort.getWrhsno())) {
+						sortInptVO.setSortno(sortno);
+					}
+				}
+
+				sortInptVO.setQntt(inv.getInptQntt());
+				sortInptVO.setWght(inv.getInptWght());
+
+				// 투입실적 항목 set
+				sortInptPrfmncVOList.add(sortInptVO);
+			}
+
+			rtnObj = sortInptPrfmncService.insertSortInptPrfmncList(sortInptPrfmncVOList);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+		// 원물재고정보 update
+		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
+			HashMap<String, Object> rtnMap = rawMtrInvntrService.updateInvntrSortPrfmnc(inv);
+			if (rtnMap != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+
 
 		// 포장자동등록 시 포장실적 등록
 		if (ComConstants.CON_YES.equals(sortMngVO.getNeedsPckgRegYn())) {

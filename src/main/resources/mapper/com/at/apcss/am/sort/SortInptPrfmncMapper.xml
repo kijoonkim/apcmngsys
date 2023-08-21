@@ -25,6 +25,7 @@
 	    	SELECT /* com.at.apcss.am.sort.mapper.SortInptPrfmncMapper.selectSortInptPrfmnc */
 				  SIP.APC_CD	AS APC_CD
 				, SIP.WRHSNO	AS WRHSNO
+				, SIP.INPT_SN	AS INPT_SN
 				, SIP.INPT_YMD	AS INPT_YMD
 				, SIP.QNTT		AS QNTT
 				, SIP.WGHT		AS WGHT
@@ -35,9 +36,10 @@
 			  FROM TB_SORT_INPT_PRFMNC SIP
 			 WHERE SIP.APC_CD = #{apcCd}
 			   AND SIP.WRHSNO = #{wrhsno}
+			   AND SIP.INPT_SN = #{inptSn}
 		]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.sort.mapper.SortInptPrfmncMapper.selectSortInptPrfmncList	-->
 	<!-- DESC : 선별투입실적 목록 조회.	                                       				-->
@@ -63,7 +65,7 @@
 			   AND SIP.WRHSNO = #{wrhsno}
 		]]>
     </select>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.sort.mapper.SortInptPrfmncMapper.insertSortInptPrfmnc	-->
 	<!-- DESC : 선별투입실적 등록.		                                       				-->
@@ -78,6 +80,7 @@
 				INTO TB_SORT_INPT_PRFMNC (
 					  APC_CD
 					, WRHSNO
+					, INPT_SN
 					, INPT_YMD
 					, QNTT
 					, WGHT
@@ -93,6 +96,7 @@
 				) VALUES (
 					  #{apcCd}
 					, #{wrhsno}
+					, NVL((SELECT MAX(X.INPT_SN) FROM TB_SORT_INPT_PRFMNC X WHERE X.APC_CD = #{apcCd} AND X.WRHSNO = #{wrhsno}), 0) + 1
 					, #{inptYmd}
 					, #{qntt}
 					, #{wght}
@@ -108,7 +112,7 @@
 				)
 		]]>
     </insert>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.sort.mapper.SortInptPrfmncMapper.updateSortInptPrfmnc	-->
 	<!-- DESC : 선별투입실적 변경.	                                       					-->
@@ -135,12 +139,12 @@
 			<if test='delYn != null and delYn != ""'>
 				, DEL_YN			= #{delYn}
 			</if>
-		<![CDATA[		
+		<![CDATA[
 			 WHERE APC_CD = #{apcCd}
 			   AND WRHSNO = #{wrhsno}
 		]]>
     </update>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.sort.mapper.SortInptPrfmncMapper.deleteSortInptPrfmnc	-->
 	<!-- DESC : 선별투입실적 삭제.	                                       					-->
@@ -157,5 +161,5 @@
 			   AND WRHSNO = #{wrhsno}
 		]]>
     </delete>
-    
+
 </mapper>

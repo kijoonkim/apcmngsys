@@ -42,79 +42,124 @@ public class RawMtrWrhsController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> insertRawMtrWrhs(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		try {
-			
+
 			rawMtrWrhsVO.setSysFrstInptUserId(getUserId());
 			rawMtrWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
 			rawMtrWrhsVO.setSysLastChgUserId(getUserId());
 			rawMtrWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
-			
+
 			HashMap<String, Object> rtnObj = rawMtrWrhsService.insertRawMtrWrhs(rawMtrWrhsVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
-			
+
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
+	@PostMapping(value = "/am/wrhs/updateRawMtrWrhs.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateRawMtrWrhs(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+			rawMtrWrhsVO.setSysFrstInptUserId(getUserId());
+			rawMtrWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
+			rawMtrWrhsVO.setSysLastChgUserId(getUserId());
+			rawMtrWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = rawMtrWrhsService.updateRawMtrWrhs(rawMtrWrhsVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/wrhs/deleteRawMtrWrhs.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteRawMtrWrhs(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+			rawMtrWrhsVO.setSysFrstInptUserId(getUserId());
+			rawMtrWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
+			rawMtrWrhsVO.setSysLastChgUserId(getUserId());
+			rawMtrWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = rawMtrWrhsService.deleteRawMtrWrhs(rawMtrWrhsVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	@PostMapping(value = "/am/wrhs/insertRawMtrWrhsList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertRawMtrWrhsList(@RequestBody List<RawMtrWrhsVO> rawMtrWrhsList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		try {
-			
+
 			for ( RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList ) {
 				rawMtrWrhsVO.setSysFrstInptUserId(getUserId());
 				rawMtrWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
 				rawMtrWrhsVO.setSysLastChgUserId(getUserId());
 				rawMtrWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
-				
-				rawMtrWrhsVO.setSysFrstInptUserId("admin");
-				rawMtrWrhsVO.setSysFrstInptPrgrmId("testprgrm");
-				rawMtrWrhsVO.setSysLastChgUserId("admin");
-				rawMtrWrhsVO.setSysLastChgPrgrmId("testprgrm");
 			}
-			
+
 			HashMap<String, Object> rtnObj = rawMtrWrhsService.insertRawMtrWrhsList(rawMtrWrhsList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
-			
+
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	
+
+
 	@PostMapping(value = "/am/wrhs/selectRawMtrWrhsList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsList(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<RawMtrWrhsVO> resultList;
 		try {
-			
+
 			resultList = rawMtrWrhsService.selectRawMtrWrhsList(rawMtrWrhsVO);
-			
+
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/am/wrhs/selectRawMtrWrhsPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsPrfmncList(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
 
@@ -133,5 +178,5 @@ public class RawMtrWrhsController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 }

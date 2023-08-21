@@ -18,7 +18,10 @@ import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper;
 import com.at.apcss.am.whrs.service.RawMtrWrhsService;
 import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
+import com.at.apcss.co.constants.ApcConstants;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : RawMtrWrhsServiceImpl.java
@@ -40,117 +43,27 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 
 	@Autowired
 	private RawMtrWrhsMapper rawMtrWrhsMapper;
-	
+
 	@Resource(name="cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
-	
+
 	@Resource(name="rawMtrInvntrService")
 	private RawMtrInvntrService rawMtrInvntrService;
-	
-	
+
+
 	@Override
 	public RawMtrWrhsVO selectRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+
+		RawMtrWrhsVO resultVO = rawMtrWrhsMapper.selectRawMtrWrhs(rawMtrWrhsVO);
+		return resultVO;
 	}
 
 	@Override
 	public List<RawMtrWrhsVO> selectRawMtrWrhsList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
-		
+
 		List<RawMtrWrhsVO> resultList = rawMtrWrhsMapper.selectRawMtrWrhsList(rawMtrWrhsVO);
-		
+
 		return resultList;
-	}
-
-	@Override
-	public HashMap<String, Object> insertRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
-
-		String wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrWrhsVO.getApcCd(), rawMtrWrhsVO.getWrhsYmd());
-		rawMtrWrhsVO.setWrhsno(wrhsno);
-		
-		if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
-			rawMtrWrhsVO.setPltno(wrhsno);
-		}
-		if (!StringUtils.hasText(rawMtrWrhsVO.getWghno())) {
-			rawMtrWrhsVO.setWghno(wrhsno);
-		}
-		
-		int insertedCnt = rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
-		
-		if (insertedCnt != 0) {
-			
-		}
-		
-		RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
-		BeanUtils.copyProperties(rawMtrWrhsVO, rawMtrInvntrVO);
-		rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getBxQntt());
-		rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getWrhsWght());
-		
-		HashMap<String, Object> rtnObj = rawMtrInvntrService.insertRawMtrInvntr(rawMtrInvntrVO);
-		if (rtnObj != null) {
-			throw new EgovBizException(getMessageForMap(rtnObj));
-		}
-		
-		return null;
-	}
-
-	@Override
-	public HashMap<String, Object> insertRawMtrWrhsList(List<RawMtrWrhsVO> rawMtrWrhsList) throws Exception {
-
-		List<RawMtrInvntrVO> rawMtrInvntrList = new ArrayList<>();
-		
-		int insertedCnt = 0;
-		for ( RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList ) {
-			
-			String wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrWrhsVO.getApcCd(), rawMtrWrhsVO.getWrhsYmd());
-			rawMtrWrhsVO.setWrhsno(wrhsno);
-			
-			if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
-				rawMtrWrhsVO.setPltno(wrhsno);
-			}
-			if (!StringUtils.hasText(rawMtrWrhsVO.getWghno())) {
-				rawMtrWrhsVO.setWghno(wrhsno);
-			}
-			
-			insertedCnt = rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
-			
-			if (insertedCnt != 0) {
-				
-			}
-			
-			RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
-			BeanUtils.copyProperties(rawMtrWrhsVO, rawMtrInvntrVO);
-			rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getBxQntt());
-			rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getWrhsWght());
-			rawMtrInvntrList.add(rawMtrInvntrVO);
-		}
-		
-		// FIXME 입고번호로 재고 생성 추가
-		HashMap<String, Object> rtnObj = rawMtrInvntrService.insertRawMtrInvntrList(rawMtrInvntrList);
-		if (rtnObj != null) {
-			throw new EgovBizException(getMessageForMap(rtnObj));
-		}
-		
-		
-		return null;
-	}
-	
-	@Override
-	public HashMap<String, Object> insertRawMtrWrhsByWghno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
-		
-		return null;
-	}
-
-	@Override
-	public int updateRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
@@ -159,6 +72,184 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		List<RawMtrWrhsVO> resultList = rawMtrWrhsMapper.selectRawMtrWrhsPrfmncList(rawMtrWrhsVO);
 
 		return resultList;
+	}
+
+	@Override
+	public HashMap<String, Object> insertRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+
+		String wrhsno = rawMtrWrhsVO.getWrhsno();
+
+		boolean needsWrhsInsert = false;
+		if (!StringUtils.hasText(wrhsno)) {
+			needsWrhsInsert = true;
+			wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrWrhsVO.getApcCd(), rawMtrWrhsVO.getWrhsYmd());
+			rawMtrWrhsVO.setWrhsno(wrhsno);
+		}
+
+
+		if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
+			rawMtrWrhsVO.setPltno(wrhsno);
+		}
+		if (!StringUtils.hasText(rawMtrWrhsVO.getWghno())) {
+			rawMtrWrhsVO.setWghno(wrhsno);
+		}
+
+		int insertedCnt = 0;
+		if (needsWrhsInsert) {
+			rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
+		}
+
+		if (insertedCnt != 0) {
+
+		}
+
+		RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
+		BeanUtils.copyProperties(rawMtrWrhsVO, rawMtrInvntrVO);
+		rawMtrInvntrVO.setWrhsQntt(rawMtrWrhsVO.getBxQntt());
+		rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getBxQntt());
+		rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getWrhsWght());
+
+		HashMap<String, Object> rtnObj = rawMtrInvntrService.insertRawMtrInvntr(rawMtrInvntrVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertRawMtrWrhsList(List<RawMtrWrhsVO> rawMtrWrhsList) throws Exception {
+
+		List<RawMtrInvntrVO> rawMtrInvntrList = new ArrayList<>();
+
+		int insertedCnt = 0;
+		for ( RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList ) {
+
+			String wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrWrhsVO.getApcCd(), rawMtrWrhsVO.getWrhsYmd());
+			rawMtrWrhsVO.setWrhsno(wrhsno);
+
+			if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
+				rawMtrWrhsVO.setPltno(wrhsno);
+			}
+			if (!StringUtils.hasText(rawMtrWrhsVO.getWghno())) {
+				rawMtrWrhsVO.setWghno(wrhsno);
+			}
+
+			insertedCnt = rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
+
+			if (insertedCnt != 0) {
+
+			}
+
+			RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
+			BeanUtils.copyProperties(rawMtrWrhsVO, rawMtrInvntrVO);
+			rawMtrInvntrVO.setWrhsQntt(rawMtrWrhsVO.getWrhsQntt());
+			rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getWrhsQntt());
+			rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getWrhsWght());
+			rawMtrInvntrList.add(rawMtrInvntrVO);
+		}
+
+		// FIXME 입고번호로 재고 생성 추가
+		HashMap<String, Object> rtnObj = rawMtrInvntrService.insertRawMtrInvntrList(rawMtrInvntrList);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertRawMtrWrhsByWghno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		// 원물재고 상태 확인
+		RawMtrWrhsVO wrhsInfo = selectRawMtrWrhs(rawMtrWrhsVO);
+		if (wrhsInfo == null || !StringUtils.hasText(wrhsInfo.getWrhsno())) {
+			return ComUtil.getResultMap("W0005", "입고정보");	// W0005	{0}이/가 없습니다.
+		}
+		RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+		BeanUtils.copyProperties(rawMtrWrhsVO, invntrVO);
+
+		// 원물재고 삭제
+		rtnObj = rawMtrInvntrService.deleteRawMtrInvntr(invntrVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		rawMtrWrhsVO.setDelYn(null);
+		rawMtrWrhsMapper.updateRawMtrWrhs(rawMtrWrhsVO);
+
+		rtnObj = insertRawMtrWrhs(rawMtrWrhsVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		// 마감확인
+
+		// 원물재고 상태 확인
+		RawMtrWrhsVO wrhsInfo = selectRawMtrWrhs(rawMtrWrhsVO);
+		if (wrhsInfo == null || !StringUtils.hasText(wrhsInfo.getWrhsno())) {
+			return ComUtil.getResultMap("W0005", "입고정보");	// W0005	{0}이/가 없습니다.
+		}
+		RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+		BeanUtils.copyProperties(rawMtrWrhsVO, invntrVO);
+
+		// 원물재고 삭제
+		rtnObj = rawMtrInvntrService.deleteRawMtrInvntr(invntrVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		// 입고실적 삭제
+		rawMtrWrhsMapper.deleteRawMtrWrhs(rawMtrWrhsVO);
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteRawMtrWrhsByWghno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		RawMtrWrhsVO param = new RawMtrWrhsVO();
+		param.setWghno(rawMtrWrhsVO.getWghno());
+		param.setApcCd(rawMtrWrhsVO.getApcCd());
+
+		List<RawMtrWrhsVO> wrhsList = rawMtrWrhsMapper.selectRawMtrWrhsList(rawMtrWrhsVO);
+
+		List<RawMtrWrhsVO> voList = new ArrayList<>();
+
+		for ( RawMtrWrhsVO wrhs : wrhsList ) {
+			RawMtrWrhsVO vo = new RawMtrWrhsVO();
+			BeanUtils.copyProperties(rawMtrWrhsVO, vo);
+			vo.setWrhsno(wrhs.getWrhsno());
+
+			voList.add(vo);
+		}
+
+		for ( RawMtrWrhsVO vo : voList ) {
+			rtnObj = deleteRawMtrWrhs(vo);
+			if (rtnObj != null) {
+				logger.debug("msg: {}", rtnObj.get(ComConstants.PROP_RESULT_MESSAGE));
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+		return null;
 	}
 
 }

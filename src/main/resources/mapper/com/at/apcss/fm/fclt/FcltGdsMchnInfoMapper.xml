@@ -37,7 +37,7 @@
 				,FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
 				,FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
 				,FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
-			 FROM USRFM.TB_FCLT_GDS_MCHN_INFO FCLT
+			 FROM TB_FCLT_GDS_MCHN_INFO FCLT
 			WHERE 1=1
 		      AND TRGT_YR = #{trgtYr}
 		      AND APC_CD = #{apcCd}
@@ -79,7 +79,7 @@
 				,FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
 				,FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
 				,FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
-			 FROM USRFM.TB_FCLT_GDS_MCHN_INFO FCLT
+			 FROM TB_FCLT_GDS_MCHN_INFO FCLT
 			WHERE 1=1
 		      AND TRGT_YR = #{trgtYr}
 		      AND APC_CD = #{apcCd}
@@ -106,7 +106,7 @@
     <insert id="insertFcltGdsMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.insertFcltGdsMchnInfo */
-	    	  INTO USRFM.TB_FCLT_GDS_MCHN_INFO FCLT
+	    	  INTO TB_FCLT_GDS_MCHN_INFO FCLT
 	    		(
 	    			TRGT_YR
 	    		  , APC_CD
@@ -154,7 +154,7 @@
     <update id="updateFcltGdsMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.updateFcltGdsMchnInfo */
-	    		USRFM.TB_FCLT_GDS_MCHN_INFO FCLT
+	    		TB_FCLT_GDS_MCHN_INFO FCLT
 			   SET
 	    			TRGT_YR          =  #{TRGT_YR}
 	    		  , APC_CD           =  #{APC_CD}
@@ -189,7 +189,7 @@
     <delete id="deleteFcltGdsMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.deleteFcltGdsMchnInfo */
-	    		USRFM.TB_FCLT_GDS_MCHN_INFO FCLT
+	    		TB_FCLT_GDS_MCHN_INFO FCLT
 			WHERE 1=1
 		      AND TRGT_YR = #{trgtYr}
 		      AND APC_CD = #{apcCd}

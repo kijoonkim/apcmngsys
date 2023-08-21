@@ -90,6 +90,26 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	@Override
 	public HashMap<String, Object> deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
+		// 재고상태 확인
+		RawMtrInvntrVO invntrInfo = selectRawMtrInvntr(rawMtrInvntrVO);
+		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
+			return ComUtil.getResultMap("W0005", "원물재고정보");	// W0005	{0}이/가 없습니다.
+		}
+
+		logger.debug("invntrInfo.getInvntrWght(): {}", invntrInfo.getInvntrWght());
+		logger.debug("invntrInfo.getWrhsWght(): {}", invntrInfo.getWrhsWght());
+		logger.debug("invntrInfo.getCmndWght(): {}", invntrInfo.getCmndWght());
+		logger.debug("invntrInfo.getCmndQntt(): {}", invntrInfo.getCmndQntt());
+
+		if (invntrInfo.getInvntrWght() < invntrInfo.getWrhsWght()) {
+			return ComUtil.getResultMap("W0009", "진행량");	// W0009	{0}이/가 있습니다.
+		}
+
+		// 선별지시 확인 추가
+		if (invntrInfo.getCmndWght() > 0 || invntrInfo.getCmndQntt() > 0) {
+			return ComUtil.getResultMap("W0009", "투입지시");	// W0009	{0}이/가 있습니다.
+		}
+
 		int deletedCnt = rawMtrInvntrMapper.deleteRawMtrInvntr(rawMtrInvntrVO);
 
 		return null;

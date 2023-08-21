@@ -14,31 +14,30 @@ import com.at.apcss.co.msg.vo.ComMsgVO;
 
 public abstract class BaseServiceImpl {
 	public final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	protected ComMessageSource messageSource;
-	
+
 	protected String getMessage(String code) {
 		return messageSource.getMessage(code);
 	}
-	
+
 	protected String getMessage(String code, Object[] args) {
 		return messageSource.getMessage(code, args, Locale.getDefault());
 	}
-	
+
 	protected String getMessage(String code, Object[] args, Locale locale) {
 		return messageSource.getMessage(code, args, locale);
 	}
-	
+
 	protected List<ComMsgVO> getMessageList() throws Exception {
 		return messageSource.getComMessageList();
 	}
-	
+
 	protected String getMessageForMap(HashMap<String, Object> msgMap) {
-		
+
 		String code = (String)msgMap.get(ComConstants.PROP_RESULT_CODE);
 		String msg = (String)msgMap.get(ComConstants.PROP_RESULT_MESSAGE);
-		
-		return getMessage(code, msg.split("||"));
+		return getMessage(code, msg.split("\\|\\|"));
 	}
 }
