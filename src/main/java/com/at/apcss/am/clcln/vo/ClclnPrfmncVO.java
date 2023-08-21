@@ -29,13 +29,25 @@ public class ClclnPrfmncVO extends ComVO {
 	 */
 	private String apcCd;
 	/**
+	 * 정산기준
+	 */
+	private String clclnCrtr;
+	/**
 	 * 정산일자
 	 */
 	private String clclnYmd;
 	/**
+	 * 정산시작일자
+	 */
+	private String clclnYmdFrom;
+	/**
+	 * 정산종료일자
+	 */
+	private String clclnYmdTo;
+	/**
 	 * 정산순번
 	 */
-	private String clclnSeqNo;
+	private String clclnSn;
 	/**
 	 * 생산자코드
 	 */
@@ -49,21 +61,49 @@ public class ClclnPrfmncVO extends ComVO {
 	 */
 	private String wrhsSeCd;
 	/**
+	 * 입고구분
+	 */
+	private String wrhsSe;
+	/**
 	 * 상품구분코드
 	 */
 	private String gdsSeCd;
+	/**
+	 * 상품구분
+	 */
+	private String gdsSe;
 	/**
 	 * 품목코드
 	 */
 	private String itemCd;
 	/**
+	 * 품목명
+	 */
+	private String itemNm;
+	/**
 	 * 품종코드
 	 */
 	private String vrtyCd;
 	/**
+	 * 품종명
+	 */
+	private String vrtyNm;
+	/**
 	 * 규격코드
 	 */
 	private String spcfctCd;
+	/**
+	 * 규격명
+	 */
+	private String spcfctNm;
+	/**
+	 * 브랜드
+	 */
+	private String brndCd;
+	/**
+	 * 등급코드
+	 */
+	private String grdCd;
 	/**
 	 * 등급1
 	 */
@@ -93,9 +133,21 @@ public class ClclnPrfmncVO extends ComVO {
 	 */
 	private double wght;
 	/**
+	 * 총수량
+	 */
+	private int totQntt;
+	/**
+	 * 총중량
+	 */
+	private double totWght;
+	/**
 	 * 계산금액
 	 */
 	private double rkngAmt;
+	/**
+	 * 계산금액합계
+	 */
+	private double totRkngAmt;
 	/**
 	 * 확정유무
 	 */
@@ -104,4 +156,8 @@ public class ClclnPrfmncVO extends ComVO {
 	 * 확정금액
 	 */
 	private double cfmtnAmt;
+	/**
+	 * 확정금액합계
+	 */
+	private double totCfmtnAmt;
 }

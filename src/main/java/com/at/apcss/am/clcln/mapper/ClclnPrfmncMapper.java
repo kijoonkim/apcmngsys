@@ -29,7 +29,7 @@ public interface ClclnPrfmncMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	public ClclnPrfmncVO selectClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO);
+	public ClclnPrfmncVO selectClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
 	
 	/**
 	 * 정산실적 목록 조회
@@ -37,7 +37,29 @@ public interface ClclnPrfmncMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<ClclnPrfmncVO> selectClclnPrfmncList(ClclnPrfmncVO clclnPrfmncVO);
+	public List<ClclnPrfmncVO> selectClclnPrfmncList(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
 	
+	/**
+	 * 정산실적 등록
+	 * @param clclnPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
 	
+	/**
+	 * 정산실적 수정
+	 * @param clclnPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
+	
+	/**
+	 * 정산실적 삭제
+	 * @param clclnPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
 }

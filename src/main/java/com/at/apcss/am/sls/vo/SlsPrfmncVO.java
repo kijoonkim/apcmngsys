@@ -118,6 +118,16 @@ public class SlsPrfmncVO extends ComVO {
 	 * 중량
 	 */
 	private double wght;
+	
+	/**
+	 * 총수량
+	 */
+	private int totQntt;
+
+	/**
+	 * 총중량
+	 */
+	private double totWght;
 
 	/**
 	 * 매출단가
@@ -133,6 +143,11 @@ public class SlsPrfmncVO extends ComVO {
 	 * 확정금액
 	 */
 	private double cfmtnAmt;
+	
+	/**
+	 * 확정금액합계
+	 */
+	private double totCfmtnAmt;
 
 	/**
 	 * 확정여부

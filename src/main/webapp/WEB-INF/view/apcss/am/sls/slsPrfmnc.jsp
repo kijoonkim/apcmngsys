@@ -45,7 +45,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">매출일자</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>매출일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-slsYmdFrom" name="srch-dtp-slsYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 							</td>
@@ -199,6 +199,9 @@
 				  , qntt		: item.qntt
 				  , wght 		: item.wght
 				  , cfmtnAmt 	: item.cfmtnAmt
+				  , totQntt		: item.totQntt
+				  , totWght 	: item.totWght
+				  , totCfmtnAmt : item.totCfmtnAmt
 				}
 				jsonSlsPrfmnc.push(Object.assign({}, slsPrfmnc));
 				newJsonSlsPrfmnc.push(Object.assign({}, slsPrfmnc));
