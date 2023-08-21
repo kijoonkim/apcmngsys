@@ -121,9 +121,18 @@
     	<if test='itemCd != null and itemCd != ""'>
 				AND SI.ITEM_CD = #{itemCd}
     	</if>
-<!--     	<if test='itemCd != null and itemCd != ""'> -->
-<!-- 				AND SP.ITEM_CD = #{itemCd} -->
-<!--     	</if> -->
+    	<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+				AND SI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+    	</if>
+    	<if test='spcfctCd != null and spcfctCd != ""'>
+				AND SI.SPCFCT_CD = #{spcfctCd}
+    	</if>
+    	<if test='prdcrCd != null and prdcrCd != ""'>
+				AND SI.RPRS_PRDCR_CD = #{prdcrCd}
+    	</if>
+    	<if test='fcltCd != null and fcltCd != ""'>
+				AND SP.FCLT_CD = #{fcltCd}
+    	</if>
 
 		<![CDATA[
 			 ORDER BY APC_CD, INPT_YMD, SORTNO
