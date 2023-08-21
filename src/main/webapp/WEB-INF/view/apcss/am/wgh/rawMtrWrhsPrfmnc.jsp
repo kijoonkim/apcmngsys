@@ -174,7 +174,7 @@
 					</div>
 					<div class="sbt-wrap-body">
 						<div class="sbt-grid">
-							<div id="inptCmndDsctnGridArea" style="height:340px;"></div>
+							<div id="inptCmndDsctnGridArea" style="height:408px;"></div>
 						</div>
 					</div>
 			</div>
