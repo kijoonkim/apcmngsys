@@ -71,7 +71,7 @@ public class SpmtSlsUntprcRegController extends BaseController {
 				spmtSlsUntprcRegVO.setSysLastChgPrgrmId(getPrgrmId());
 				spmtSlsUntprcRegVO.setSysLastChgUserId(getUserId());
 				spmtSlsUntprcRegVO.setSpmtSlsUntprcCd(spmtSlsUntprcRegService.getSpmtSlsUntprcCd(spmtSlsUntprcRegVO).getSpmtSlsUntprcCd());
-				insertedCnt =+ spmtSlsUntprcRegService.insertSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
+				insertedCnt += spmtSlsUntprcRegService.insertSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
 			}
 
 		} catch (Exception e) {
@@ -93,7 +93,7 @@ public class SpmtSlsUntprcRegController extends BaseController {
 			for (SpmtSlsUntprcRegVO spmtSlsUntprcRegVO : spmtSlsUntprcRegList) {
 				spmtSlsUntprcRegVO.setSysLastChgPrgrmId(getPrgrmId());
 				spmtSlsUntprcRegVO.setSysLastChgUserId(getUserId());
-				updatedCnt =+ spmtSlsUntprcRegService.updateSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
+				updatedCnt += spmtSlsUntprcRegService.updateSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
 			}
 
 		} catch (Exception e) {
@@ -112,7 +112,7 @@ public class SpmtSlsUntprcRegController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int deletedCnt = 0;
 		try {
-			deletedCnt =+ spmtSlsUntprcRegService.deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
+			deletedCnt += spmtSlsUntprcRegService.deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);

@@ -124,19 +124,17 @@
 	<update id="updateSpmtSlsUntprcReg" parameterType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
 		<![CDATA[
 			UPDATE /* com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.updateSpmtSlsUntprcReg */
-				TB_SPMT_PCKG_UNIT
+				TB_SPMT_SLS_UNTPRC_REG
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-				, SPMT_PCKG_UNIT_NM			= #{spmtPckgUnitNm}
-				, ITEM_CD					= #{itemCd}
-				, VRTY_CD					= #{vrtyCd}
-				, SPCFCT_CD					= #{spcfctCd}
-				, NTSL_UNTPRC  				= #{ntslUntprc}
-	    		, DEL_YN					= #{delYn}
-			 WHERE SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
-			   AND APC_CD					= #{apcCd}
+				, SPMT_SLS_UNTPRC			= #{spmtSlsUntprc}
+				, RMRK						= #{rmrk}
+				, APLCN_CRTR_YMD			= #{aplcnCrtrYmd}
+			 WHERE APC_CD					= #{apcCd}
+			   AND SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
+			   AND SPMT_SLS_UNTPRC_CD		= #{spmtSlsUntprcCd}
 		]]>
 	</update>
 
@@ -151,9 +149,10 @@
 	<delete id="deleteSpmtSlsUntprcReg" parameterType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
 		<![CDATA[
 			DELETE /* com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.deleteSpmtSlsUntprcReg */
-			  FROM TB_SPMT_PCKG_UNIT
-			WHERE SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
-			   AND APC_CD					= #{apcCd}
+			  FROM TB_SPMT_SLS_UNTPRC_REG
+			 WHERE APC_CD					= #{apcCd}
+			   AND SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
+			   AND SPMT_SLS_UNTPRC_CD		= #{spmtSlsUntprcCd}
 		]]>
 	</delete>
 
