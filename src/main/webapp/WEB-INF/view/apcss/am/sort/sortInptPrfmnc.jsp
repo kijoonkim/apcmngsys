@@ -246,24 +246,24 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-            {caption: ["선별일자","선별일자"],		ref: 'sortYmd',     	type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["선별일자","선별일자"],		ref: 'inptYmd',     	type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["설비명","설비명"], 			ref: 'fcltNm',     		type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["입고구분","입고구분"], 	 	ref: 'wrhsSe',    		type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["상품구분","상품구분"],    	ref: 'gdsSe',       	type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["운송구분","운송구분"],	    ref: 'trsprtSe',   		type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["입고구분","입고구분"], 	 	ref: 'wrhsSeNm',    	type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["상품구분","상품구분"],    	ref: 'gdsSeNm',       	type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["품종","품종"],	    		ref: 'itemNm', 			type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["규격","규격"],  				ref: 'spcfct',   		type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["규격","규격"],  				ref: 'spcfctCd',   		type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["투입","수량"],  				ref: 'inptQntt',   		type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["투입","중량"],  				ref: 'inptWght',   		type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["등급","등급"],  				ref: 'grd', 			type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["등급","등급"],  				ref: 'grdNm', 			type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["선별","수량"],  				ref: 'sortQntt', 		type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["선별","중량"],  				ref: 'sortWght', 		type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["LOSS","LOSS"], 				ref: 'ls',  			type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["대표생산자","대표생산자"], 	ref: 'rprsPrdcr',  		type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["투입창고","투입창고"], 		ref: 'inptWarehouse',  	type:'output',  width:'7%',    style:'text-align:center'},
-            {caption: ["저장창고","저장창고"], 		ref: 'strgWarehouse',  	type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["대표생산자","대표생산자"], 	ref: 'rprsPrdcrNm',  	type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["투입창고","투입창고"], 		ref: 'strgWarehouse',  	type:'output',  width:'7%',    style:'text-align:center'},
+            {caption: ["저장창고","저장창고"], 		ref: 'warehouseSeNm',  	type:'output',  width:'7%',    style:'text-align:center'},
             {caption: ["비고","비고"], 				ref: 'rmrk',  			type:'output',  width:'7%',    style:'text-align:center'}
         ];
+
 
         grdComMsgList = _SBGrid.create(SBGridProperties);
 //         grdComMsgList.bind('click', 'fn_view');
@@ -316,29 +316,49 @@
         sortInptPrfmncGridData = [];
         
   		try {
-
+			console.log('try','try');
           	/** @type {number} **/
       		let totalRecordCount = 0;
 
       		jsonComMsgList.length = 0;
           	data.resultList.forEach((item, index) => {
           		const sortPrfmncInq = {
-      				startsortYmd: item.startsortYmd,
-      				endSortYmd: item.endSortYmd,
-      				itemCd: item.itemCd,
-      				vrtyCd: item.vrtyCd,
-      				fcltCd: item.fcltCd,
-      				strgWarehouse: item.strgWarehouse,
-      				spcfctCd: item.spcfctCd,
-      				prdcrCd: item.prdcrCd
+//       				startsortYmd: item.startsortYmd,
+//       				endSortYmd: item.endSortYmd,
+//       				itemCd: item.itemCd,
+//       				vrtyCd: item.vrtyCd,
+//       				fcltCd: item.fcltCd,
+//       				strgWarehouse: item.strgWarehouse,
+//       				spcfctCd: item.spcfctCd,
+//       				prdcrCd: item.prdcrCd
+
+          				inptYmd: item.inptYmd,
+          				fcltNm: item.fcltNm,
+          				wrhsSeNm: item.wrhsSeNm,
+          				gdsSeNm: item.gdsSeNm,
+          				itemNm: item.itemNm,
+          				spcfctCd: item.spcfctCd,
+          				inptQntt: item.inptQntt,
+          				inptWght: item.inptWght,
+          				grdNm: item.grdNm,
+          				sortQntt: item.sortQntt,
+          				sortWght: item.sortWght,
+          				ls: item.ls,
+          				rprsPrdcrNm: item.rprsPrdcrNm,
+          				warehouseSeNm: item.warehouseSeNm,
+          				strgWarehouse: item.strgWarehouse,
+          				rmrk: item.rmrk
   				}
   				jsonComMsgList.push(sortPrfmncInq);
+          		console.log('sortPrfmncInq',sortPrfmncInq);
+          		console.log('jsonComMsgList',jsonComMsgList);
 
   				if (index === 0) {
   					totalRecordCount = item.totalRecordCount;
   				}
   			});
-
+			console.log('jsonComMsgList',jsonComMsgList);
+			console.log('jsonComMsgList.length',jsonComMsgList.length);
           	if (jsonComMsgList.length > 0) {
           		if(grdComMsgList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
           			grdComMsgList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
