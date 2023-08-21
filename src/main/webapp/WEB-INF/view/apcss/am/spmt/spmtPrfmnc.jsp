@@ -267,6 +267,9 @@
 				  , trsprtCst 		: item.trsprtCst
 				  , spmtQntt		: item.spmtQntt
 				  , spmtWght 		: item.spmtWght
+				  , totTrsprtCst 	: item.totTrsprtCst
+				  , totSpmtQntt		: item.totSpmtQntt
+				  , totSpmtWght 	: item.totSpmtWght
 				}
 				jsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));
 				newJsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));
