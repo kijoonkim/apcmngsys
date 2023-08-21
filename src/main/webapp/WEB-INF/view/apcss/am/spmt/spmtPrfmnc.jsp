@@ -236,21 +236,20 @@
 						  , pagingYn 			: 'Y'
 						  , currentPageNo 		: currentPageNo
 						  , recordCountPerPage 	: recordCountPerPage};
-// 		if (vrtyList.length != 0) {
-// 			for (var i=0; i<vrtyList.length; i++){
-// 				var spmtPrfmnc = SpmtPrfmncVO
-// 				spmtPrfmnc.setVrtyCd(vrtyList[i]);
-// 				searchList.push(Object.assign({}, spmtPrfmnc));
-// 			}
-// 		} else {
-// 			searchList.push(Object.assign({}, SpmtPrfmncVO));
-// 		}
-		searchList.push(Object.assign({}, SpmtPrfmncVO));
-		console.log("searchList: ", searchList);
+		
+		if (vrtyList.length != 0) {
+			for (var i=0; i<vrtyList.length; i++){
+				var spmtPrfmnc = SpmtPrfmncVO
+				spmtPrfmnc.vrtyCd = vrtyList[i];
+				searchList.push(Object.assign({}, spmtPrfmnc));
+			}
+		} else {
+			searchList.push(Object.assign({}, SpmtPrfmncVO));
+		}
+		
     	let postJsonPromise = gfn_postJSON("/am/spmt/searchSpmtPrfmncList.do", searchList);
         let data = await postJsonPromise;
         newJsonSpmtPrfmnc = [];
-		console.log("searchSpmtPrfmncList: ", data.resultList);
         try{
         	data.resultList.forEach((item, index) => {
 				let spmtPrfmnc = {
@@ -310,7 +309,6 @@
 
 	const fn_setVrty = function(vrty) {
 		if (!gfn_isEmpty(vrty)) {
-			console.log("vrty", vrty);
 			vrtyList = [];
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
 			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
@@ -338,7 +336,6 @@
 	
 	const fn_setCnpt = function(cnpt) {
 		if (!gfn_isEmpty(cnpt)) {
-			console.log("cnpt", cnpt);
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
 			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
 		}
