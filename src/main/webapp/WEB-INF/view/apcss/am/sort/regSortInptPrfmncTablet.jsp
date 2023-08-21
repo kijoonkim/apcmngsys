@@ -269,7 +269,7 @@ function fn_closeModal(modalId){
     	
     	console.log('apcNm',apcNm);
     	
-		const postJsonPromise = gfn_postJSON("/am/sort/sortPrfmnc.do", {
+		const postJsonPromise = gfn_postJSON("/am/sort/sortPrfmncInq.do", {
    			apcNm: apcNm,
    			fcltNm: fcltNm,
    			pltNo: pltNo,

@@ -89,24 +89,4 @@ public class SortMngController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
-//	@PostMapping(value = "/am/sort/selectSortInpt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-//	public ResponseEntity<HashMap<String, Object>> insertSortInptPrfmnc(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
-//
-//		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-//		List<sortPrfmncVO> resulList = new ArrayList<>();
-//
-//		logger.debug("comUser info {}", sortPrfmncVO.toString());
-//
-//		try {
-//			sortPrfmncVO = sortPrfmncService.selectSortPrfmncList(sortPrfmncVO);
-//		} catch (Exception e) {
-//			return getErrorResponseEntity(e);
-//		}
-//
-//		resultMap.put(ComConstants.PROP_RESULT_MAP, resulList);
-//
-//		return getSuccessResponseEntity(resultMap);
-//
-//	}
 }

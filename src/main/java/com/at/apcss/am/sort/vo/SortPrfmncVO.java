@@ -192,4 +192,23 @@ public class SortPrfmncVO extends ComVO {
 	 * 투입중량
 	 */
 	private double inptWght;
+	
+	
+	/*입고구분*/
+	private String wrhsSe;
+	
+	/*운송구분*/
+	private String trsprtSe;
+	
+	/*규격*/
+	private String spcfct;
+	
+	/*Loss*/
+	private String ls;
+	
+	/*대표생산자*/
+	private String rprsPrdcr;
+	
+	/*투입창고*/
+	private String inptWarehouse;	
 }
