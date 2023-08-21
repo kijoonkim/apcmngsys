@@ -375,8 +375,8 @@
             {caption: ["품종","품종"],	    	ref: 'vrtyNm',   		type:'output',  width:'100px', style: 'text-align:center'},
             {caption: ["등급","등급"],	    	ref: 'grdNm',   		type:'output',  width:'80px', style: 'text-align:center'},
             {caption: ["상품구분","상품구분"],		ref: 'gdsSeNm', 		type:'output',  width:'80px', style: 'text-align:center'},
+            {caption: ["설비","설비"],	    	ref: 'fcltNm', 			type:'output',  width:'120px', style: 'text-align:center'},
             {caption: ["창고","창고"],	    	ref: 'warehouseSeNm', 	type:'output',  width:'120px', style: 'text-align:center'},
-
             {caption: ["원물재고","수량"],  		ref: 'invntrQntt',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["원물재고","중량"],  		ref: 'invntrWght',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["투입지시","수량"],  		ref: 'cmndQntt', 		type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -407,6 +407,7 @@
 	        {caption: ["입고구분코드"],	ref: 'wrhsSeCd',   	type:'output',  hidden: true},
 	        {caption: ["운송구분코드"],	ref: 'trsprtSeCd', 	type:'output',  hidden: true},
 	        {caption: ["창고구분코드"],	ref: 'warehouseSeCd', 	type:'output',	hidden: true},
+	        {caption: ["설비"],		ref: 'fcltCd', 	type:'output',	hidden: true},
 	        {caption: ["등급코드"],		ref: 'grdCd',   	type:'output',  hidden: true},
 	        {caption: ["박스종류코드"],	ref: 'bxKnd',   	type:'output',  hidden: true},
 	        {caption: ["입고번호"],		ref: 'wrhsno', 		type:'output',  hidden: true},
@@ -576,6 +577,8 @@
   						wrhsSeCd: item.wrhsSeCd,
   						trsprtSeCd: item.trsprtSeCd,
   						warehouseSeCd: item.warehouseSeCd,
+  						fcltCd: item.fcltCd,
+  						fcltNm: item.fcltNm,
   						bxKnd: item.bxKnd,
   						grdCd: item.grdCd,
   						wrhsQntt: item.wrhsQntt,
@@ -984,12 +987,19 @@
 							rowData.inptQntt = 0;
 							rowData.inptWght = 0;
 						} else {
+							rowData.checkedYn = "Y";
 							rowData.inptWght = Math.round(invntrWght * tmpInptQntt / invntrQntt);
 						}
 					}
 					grdRawMtrInvntr.refresh();
 
 				case "inptWght":
+
+					let tmpInptWght = parseInt(rowData.inptWght) || 0;
+					if ( tmpInptWght > 0 && rowData.checkedYn !== "Y") {
+						rowData.checkedYn = "Y";
+					}
+
 					const allData = grdRawMtrInvntr.getGridDataAll();
 					let inptQntt = 0;
 					let inptWght = 0;
@@ -1004,7 +1014,7 @@
 			    		}
 					});
 
-					SBUxMethod.set("dtl-inp-inptWght", inptQntt);
+					SBUxMethod.set("dtl-inp-inptWght", inptWght);
 					let sortWght = parseInt(SBUxMethod.get("dtl-inp-sortWght")) || 0;
 					SBUxMethod.set("dtl-inp-lossWght", inptWght - sortWght);
 
@@ -1064,8 +1074,6 @@
 							sortWght += parseInt(item.wght) || 0;
 						}
 					});
-					console.log("inptWght", inptWght);
-					console.log("sortWght", sortWght);
 
 					SBUxMethod.set("dtl-inp-sortWght", sortWght);
 					SBUxMethod.set("dtl-inp-lossWght", inptWght - sortWght);
