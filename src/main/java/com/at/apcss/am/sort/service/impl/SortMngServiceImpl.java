@@ -149,6 +149,17 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 		List<RawMtrInvntrVO> rawMtrInvntrVOList = new ArrayList<>();
 
+		String sortno = sortMngVO.getSortno();
+
+		for ( SortPrfmncVO sort : prfmncList ) {
+			if (!StringUtils.hasText(sortno)) {
+				sortno = cmnsTaskNoService.selectSortno(sortMngVO.getApcCd(), sort.getInptYmd());
+				sort.setSortno(sortno);
+			}
+			sort.setRmnQntt(sort.getQntt());
+			sort.setRmnWght(sort.getWght());
+		}
+
 		// 재고 >> 선별실적 정보 set	// 재고배분
 		for ( RawMtrInvntrVO orgnInv : invntrList ) {
 
@@ -195,19 +206,26 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			String wrhsSeCd = inv.getWrhsSeCd();
 
 			// 지정 투입수량, 투입중량
-			//int inptQntt = inv.getInptQntt();
+			int inptQntt = inv.getInptQntt();
 			double inptWght = inv.getInptWght();
 
 			int sortQntt = inv.getSortQntt();
 			double sortWght = inv.getSortWght();
-
+			logger.debug("wrhsno {}", wrhsno);
 			for ( SortPrfmncVO sort : prfmncList ) {
-				if (StringUtils.hasText(sort.getWrhsno())) {
+				if (StringUtils.hasText(sort.getWrhsno()) && sort.getRmnWght() <= 0) {
 					continue;
 				}
 
-				if (inptWght - sortWght < sort.getWght()) {
-					continue;
+				int applQntt = 0;
+				double applWght = 0;
+
+				if (inptWght - sortWght < sort.getRmnWght()) {
+					applQntt = inptQntt - sortQntt;
+					applWght = inptWght - sortWght;
+				} else {
+					applQntt = sort.getRmnQntt();
+					applWght = sort.getRmnWght();
 				}
 
 				sort.setWrhsno(wrhsno);
@@ -215,8 +233,15 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				sort.setGdsSeCd(gdsSeCd);
 				sort.setWrhsSeCd(wrhsSeCd);
 
-				sortQntt += sort.getQntt();
-				sortWght += sort.getWght();
+				sortQntt += applQntt;
+				sortWght += applWght;
+				logger.debug("pre sort.getRmnQntt() {}", sort.getRmnQntt());
+				logger.debug("pre sort.getRmnWght() {}", sort.getRmnWght());
+				sort.setRmnQntt(sort.getRmnQntt() - applQntt);
+				sort.setRmnWght(sort.getRmnWght() - applWght);
+
+				logger.debug("sort.getRmnQntt() {}", sort.getRmnQntt());
+				logger.debug("sort.getRmnWght() {}", sort.getRmnWght());
 
 				if (!StringUtils.hasText(inptYmd)) {
 					inptYmd = sort.getInptYmd();
@@ -230,6 +255,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 		for ( SortPrfmncVO sort : prfmncList ) {
 			if (!StringUtils.hasText(sort.getWrhsno())) {
+				return ComUtil.getResultMap("W0008", "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
+			}
+			if (sort.getRmnWght() > 0) {
 				return ComUtil.getResultMap("W0008", "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 			}
 		}
@@ -267,15 +295,17 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
 				SortInptPrfmncVO sortInptVO = new SortInptPrfmncVO();
 				BeanUtils.copyProperties(inv, sortInptVO);
+				sortInptVO.setSortno(sortno);
+				//String wrhsno = sortInptVO.getWrhsno();
 
-				String wrhsno = sortInptVO.getWrhsno();
-
+				/*
 				for ( SortPrfmncVO sort : sortPrfmncVOList ) {
 					String sortno = sort.getSortno();
 					if (StringUtils.hasText(wrhsno) && wrhsno.equals(sort.getWrhsno())) {
 						sortInptVO.setSortno(sortno);
 					}
 				}
+				 */
 
 				sortInptVO.setQntt(inv.getInptQntt());
 				sortInptVO.setWght(inv.getInptWght());
@@ -298,8 +328,6 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
-
-
 
 		// 포장자동등록 시 포장실적 등록
 		if (ComConstants.CON_YES.equals(sortMngVO.getNeedsPckgRegYn())) {
