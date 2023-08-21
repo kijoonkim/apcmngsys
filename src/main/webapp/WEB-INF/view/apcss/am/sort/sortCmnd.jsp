@@ -99,7 +99,7 @@
 				</div>
 	            <div class="sbt-wrap-body">
 	                    <div class="sbt-grid">
-	                        <div id="inptCmndDsctnGridArea" style="height:340px;"></div>
+	                        <div id="inptCmndDsctnGridArea" style="height:487px;"></div>
 	                    </div>
 	               	</div>
 				</div>
@@ -164,7 +164,7 @@
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 20,
+		  	'size' : 15,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
@@ -191,13 +191,21 @@
     	try{
  		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-strtCmndYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endCmndYmd")))
  				   throw "지시일자는 필수입력 항목입니다.";
- 			await fn_setGrdSortCmnd();
+ 		   
+	    	grdSortCmnd.rebuild();
+	    	let pageSize = grdSortCmnd.getPageSize();
+	    	let pageNo = 1;
+	
+	    	// grid clear
+	    	jsonSortCmnd.length = 0;
+	    	grdSortCmnd.clearStatus();
+ 			await fn_setGrdSortCmnd(pageSize, pageNo);
  	   } catch(e){
 		   alert(e);
 		   return;
 	   }
 	}
-	const fn_setGrdSortCmnd = async function(){
+	const fn_setGrdSortCmnd = async function(pageSize, pageNo){
     	let fcltCd	= SBUxMethod.get("srch-slt-inptFclt");
     	let sortCmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");			// 생산자
@@ -212,7 +220,11 @@
 			prdcrCd : prdcrCd,
 			itemCd : itemCd,
 			vrtyCd : vrtyCd,
-			warehouseSeCd:warehouseSeCd
+			warehouseSeCd:warehouseSeCd,
+          	// pagination
+  	  		pagingYn: 'Y',
+  			currentPageNo : pageNo,
+   		  	recordCountPerPage : pageSize
   		});
         const data = await postJsonPromise;
   		try {
@@ -221,7 +233,6 @@
 
       		jsonSortCmnd.length = 0;
           	data.resultList.forEach((item, index) => {
-
           		const sortCmnd = {
   						rowSeq: item.rowSeq,
   						apcCd: item.apcCd,
@@ -253,19 +264,31 @@
   						rmrk : item.rmrk
   				}
           		jsonSortCmnd.push(sortCmnd);
+
+  				if (index === 0) {
+  					totalRecordCount = item.totalRecordCount;
+  				}
   			});
           	grdSortCmnd.refresh();
-
-
-		}catch (e) {
-
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-
-			console.error("failed", e.message);
+          	if (jsonSortCmnd.length > 0) {
+          		if(grdSortCmnd.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+          			grdSortCmnd.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+          			grdSortCmnd.rebuild();
+  				}else{
+  					grdSortCmnd.refresh();
+  				}
+          	} else {
+          		grdSortCmnd.setPageTotalCount(totalRecordCount);
+          		grdSortCmnd.rebuild();
+          	}
+          	document.querySelector('#listCount').innerText = totalRecordCount;
+       } catch (e) {
+     		if (!(e instanceof Error)) {
+     			e = new Error(e);
+     		}
+     		console.error("failed", e.message);
 		}
-    }
+	}
 
 
     const fn_delete = async function(){
