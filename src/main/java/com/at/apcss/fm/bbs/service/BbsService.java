@@ -32,11 +32,11 @@ public interface BbsService {
 
 	/**
 	 * 게시판정보를 조회한다.
-	 * @param msgKey
+	 * @param bbsNo
 	 * @return
 	 * @throws Exception
 	 */
-	public BbsVO selectBbs(String msgKey) throws Exception;
+	public BbsVO selectBbs(String bbsNo) throws Exception;
 
 	/**
 	 * 게시판 목록을 조회한다.

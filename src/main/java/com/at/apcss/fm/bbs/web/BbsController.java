@@ -61,8 +61,9 @@ public class BbsController extends BaseController {
 			 resultList = bbsService.selectBbsList(bbsVO);
 
 			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (BbsVO msg : resultList ) {
-				 logger.debug("msgCn : {}", msg.getMsgCn());
+			 for (BbsVO bbs : resultList ) {
+				 logger.debug("bbsTitle : {}", bbs.getBbsTitle());
+				 logger.debug("sysFrstInptUserIdNm : {}", bbs.getSysFrstInptUserIdNm());
 			 }
 
 		} catch (Exception e) {
@@ -74,7 +75,6 @@ public class BbsController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
 	// 게시판 등록
 	@PostMapping(value = "/fm/bbs/insertBbs.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertBbs(@RequestBody BbsVO bbsVO, HttpServletRequest requset) throws Exception{

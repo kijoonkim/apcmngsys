@@ -3,18 +3,18 @@
 
 <!-- ==========================================================================	-->
 <!-- NAME : BbsMapper.xml                                    				-->
-<!-- DESC : 재배약정현장관리 정보 mapper                                             			-->
+<!-- DESC : 게시판 정보 mapper                                             			-->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.bbs.mapper.BbsMngMapper">
+<mapper namespace="com.at.apcss.fm.bbs.mapper.BbsMapper">
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
-	<!-- DESC : 재배약정현장관리 테이블 단건조회.                                             		-->
+	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -23,26 +23,32 @@
     <select id="selectBbs" parameterType="com.at.apcss.fm.bbs.vo.BbsVO" resultType="com.at.apcss.fm.bbs.vo.BbsVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs */
-				  CM.MSG_KEY	AS MSG_KEY
-				, CM.MSG_CN		AS MSG_CN
-				, CM.MSG_KND	AS MSG_KND
-				, CM.RMRK		AS RMRK
+				  CM.BBS_NO	AS BBS_NO
+				, CM.BBS_TITLE		AS BBS_TITLE
+				, CM.BBS_SE_CD	AS BBS_SE_CD
+				, CM.BBS_SUBJECT		AS BBS_SUBJECT
 				, CM.DEL_YN		AS DEL_YN
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
 				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
 				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
 				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_COM_MSG CM
-			 WHERE CM.MSG_KEY = #{msgKey}
+			  FROM TB_BBS CM
+			 WHERE 1=1
+			 AND CM.BBS_NO = #{bbsNo}
+			 ORDER BY CM.SYS_LAST_CHG_DT DESC
     	]]>
     </select>
 
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
-	<!-- DESC : 재배약정현장관리 테이블 목록 조회.                                             		-->
+	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -60,31 +66,35 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList */
-				  CM.MSG_KEY	AS MSG_KEY
-				, CM.MSG_CN		AS MSG_CN
-				, CM.MSG_KND	AS MSG_KND
-				, (SELECT FN_GET_COM_CD_VL_NM('MSG_KND', CM.MSG_KND) FROM DUAL) AS MSG_KND_NM
-				, CM.RMRK		AS RMRK
+				  CM.BBS_NO	AS BBS_NO
+				, CM.BBS_TITLE		AS BBS_TITLE
+				, CM.BBS_SE_CD	AS BBS_SE_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('BBS_SE_CD', CM.BBS_SE_CD) FROM DUAL) AS BBS_SE_CD_NM
+				, CM.BBS_SUBJECT		AS BBS_SUBJECT
 				, CM.DEL_YN		AS DEL_YN
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
 				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
 				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
 				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_COM_MSG CM
+			  FROM TB_BBS CM
     	]]>
     	<where>
-			<if test='msgKey != null and msgKey != ""'>
-				AND CM.MSG_KEY LIKE #{msgKey} || '%'
+			<if test='bbsNo != null and bbsNo != ""'>
+				AND CM.BBS_NO LIKE #{bbsNo} || '%'
 			</if>
 
-			<if test='msgCn != null and msgCn != ""'>
-				AND CM.MSG_CN LIKE '%' || #{msgCn} || '%'
+			<if test='bbsTitle != null and bbsTitle != ""'>
+				AND CM.BBS_TITLE LIKE '%' || #{bbsTitle} || '%'
 			</if>
 
-			<if test='msgKnd != null and msgKnd != ""'>
-				AND CM.MSG_KND = #{msgKnd}
+			<if test='bbsSeCd != null and bbsSeCd != ""'>
+				AND CM.BBS_SE_CD = #{bbsSeCd}
 			</if>
 
 			<if test='delYn != null and delYn != ""'>
@@ -92,17 +102,19 @@
 			</if>
 		</where>
 		<!-- Start 페이징 -->
+		ORDER BY CM.SYS_LAST_CHG_DT DESC
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
     	</if>
+
     	<!-- End 페이징 -->
     </select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.insertBbs				-->
-	<!-- DESC : 재배약정현장관리 등록                                             				-->
+	<!-- DESC : 게시판 등록                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -111,12 +123,12 @@
     <insert id="insertBbs" parameterType="com.at.apcss.fm.bbs.vo.BbsVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.insertBbs */
-	    	  INTO TB_COM_MSG
+	    	  INTO TB_BBS
 	    		(
-	    			MSG_KEY
-	    		  , MSG_CN
-	    		  , MSG_KND
-	    		  , RMRK
+	    			BBS_NO
+	    		  , BBS_TITLE
+	    		  , BBS_SE_CD
+	    		  , BBS_SUBJECT
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
@@ -126,10 +138,10 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    #{msgKey}
-	   			  , #{msgCn}
-	   			  , #{msgKnd}
-	   			  , #{rmrk}
+	   			    (SELECT NVL(MAX(BBS_NO),0)+1 FROM TB_BBS)
+	   			  , #{bbsTitle}
+	   			  , #{bbsSeCd}
+	   			  , #{bbsSubject}
 	   			  , SYSDATE
 	   			  , #{sysFrstInptUserId}
 	   			  , #{sysFrstInptPrgrmId}
@@ -142,7 +154,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.updateBbs				-->
-	<!-- DESC : 재배약정현장관리 변경                                             				-->
+	<!-- DESC : 게시판 변경                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -151,11 +163,11 @@
     <update id="updateBbs" parameterType="com.at.apcss.fm.bbs.vo.BbsVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.updateBbs */
-	    		TB_COM_MSG
+	    		TB_BBS
 			   SET
-			 	  MSG_CN	= #{msgCn}
-			 	, MSG_KND 	= #{msgKnd}
-			 	, RMRK 		= #{rmrk}
+			 	  BBS_TITLE	= #{bbsTitle}
+			 	, BBS_SE_CD 	= #{bbsSeCd}
+			 	, BBS_SUBJECT 		= #{bbsSubject}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
@@ -165,13 +177,14 @@
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE MSG_KEY	= #{msgKey}
+			 WHERE 1=1
+			   AND BBS_NO	= #{bbsNo}
     	]]>
     </update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.deleteBbs				-->
-	<!-- DESC : 재배약정현장관리 삭제                                             				-->
+	<!-- DESC : 게시판 삭제                                            				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -180,8 +193,9 @@
     <delete id="deleteBbs" parameterType="com.at.apcss.fm.bbs.vo.BbsVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.bbs.mapper.BbsMngMapper.deleteBbs */
-	    		TB_COM_MSG
-			 WHERE MSG_KEY	= #{msgKey}
+	    		TB_BBS
+			 WHERE 1=1
+			   AND BBS_NO	= #{bbsNo}
     	]]>
     </delete>
 
