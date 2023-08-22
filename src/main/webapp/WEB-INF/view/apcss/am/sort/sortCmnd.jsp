@@ -184,8 +184,14 @@
 	    ];
 
 	    grdSortCmnd = _SBGrid.create(SBGridProperties);
-
+	    grdSortCmnd.bind( "afterpagechanged" , "fn_pagingGrdSortCmnd" );
 	}
+	
+    async function fn_pagingGrdSortCmnd(){
+    	let recordCountPerPage = grdSortCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdSortCmnd.getSelectPageIndex(); 
+    	fn_setGrdSortCmnd(recordCountPerPage, currentPageNo);
+    }
 	
 	const fn_search = async function(){
     	try{
