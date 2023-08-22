@@ -45,6 +45,16 @@ public class PckgCmndVO extends ComVO {
 	private String pckgCmndYmd;
 
 	/**
+	 * 포장지시시작일자
+	 */
+	private String pckgCmndFromYmd;
+
+	/**
+	 * 포장지시종료일자
+	 */
+	private String pckgCmndToYmd;
+
+	/**
 	 * 설비코드
 	 */
 	private String fcltCd;
@@ -119,6 +129,16 @@ public class PckgCmndVO extends ComVO {
 	private double cmndWght;
 
 	/**
+	 * 실적수량
+	 */
+	private int pckgQntt;
+
+	/**
+	 * 실적중량
+	 */
+	private double pckgWght;
+
+	/**
 	 * 발주번호
 	 */
 	private String ordrNo;
@@ -138,4 +158,5 @@ public class PckgCmndVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
+
 }
