@@ -220,7 +220,12 @@
 		let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
 		let cnptCd = SBUxMethod.get("srch-inp-cnptCd");
 		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCo");
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let itemCd;
+		if (itemList.length != 0) {
+			itemCd = itemList.join(',');
+		} else {
+			itemCd = SBUxMethod.get("srch-slt-itemCd");
+		}
 		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
 		let dldtn = SBUxMethod.get("srch-inp-dldtn");
 		let vhclno = SBUxMethod.get("srch-inp-vhclno");
@@ -237,19 +242,7 @@
 						  , pagingYn 			: 'Y'
 						  , currentPageNo 		: currentPageNo
 						  , recordCountPerPage 	: recordCountPerPage};
-		
-		if (vrtyList.length != 0) {
-			for (var i=0; i<vrtyList.length; i++){
-				var spmtPrfmnc = SpmtPrfmncVO
-				spmtPrfmnc.itemCd = itemList[i];
-				spmtPrfmnc.vrtyCd = vrtyList[i];
-				searchList.push(Object.assign({}, spmtPrfmnc));
-			}
-		} else {
-			searchList.push(Object.assign({}, SpmtPrfmncVO));
-		}
-		
-    	let postJsonPromise = gfn_postJSON("/am/spmt/searchSpmtPrfmncList.do", searchList);
+    	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncList.do", SpmtPrfmncVO);
         let data = await postJsonPromise;
         newJsonSpmtPrfmnc = [];
         try{
@@ -335,8 +328,11 @@
 			}
 			SBUxMethod.set('srch-slt-itemCd', itemList[0]);
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtys.join(','));
+			SBUxMethod.set('srch-inp-vrtyCd', vrtyList.join(','));
 		}
 	}
+
+
 	
 	// 거래처 선택 팝업 호출
 	const fn_modalCnpt = function() {

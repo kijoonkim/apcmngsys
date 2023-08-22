@@ -56,20 +56,6 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 	}
 
 	@Override
-	public List<SpmtPrfmncVO> searchSpmtPrfmncList(List<SpmtPrfmncVO> searchList) throws Exception {
-		List<SpmtPrfmncVO> resultList = new ArrayList<>();
-		for ( SpmtPrfmncVO spmtPrfmncVO : searchList ) {
-			List<SpmtPrfmncVO> selectList = new ArrayList<>();
-			selectList = spmtPrfmncMapper.selectSpmtPrfmncList(spmtPrfmncVO);
-			for( var selectVo : selectList ) {
-				resultList.add(selectVo);
-			}
-		}
-
-		return resultList;
-	};
-
-	@Override
 	public int insertSpmtPrfmncCom(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 
 		int insertedCnt = spmtPrfmncMapper.insertSpmtPrfmncCom(spmtPrfmncVO);

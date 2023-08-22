@@ -38,14 +38,6 @@ public interface SpmtPrfmncService {
 	public List<SpmtPrfmncVO> selectSpmtPrfmncList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 
 	/**
-	 * 출하실적 목록 조회
-	 * @param searchList
-	 * @return
-	 * @throws Exception
-	 */
-	public List<SpmtPrfmncVO> searchSpmtPrfmncList(List<SpmtPrfmncVO> searchList) throws Exception;
-
-	/**
 	 * 출하실적 공통 등록
 	 * @param spmtPrfmncVO
 	 * @return
