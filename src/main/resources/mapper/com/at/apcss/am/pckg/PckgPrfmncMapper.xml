@@ -49,21 +49,53 @@
 	<!-- ==========================================================================	-->
     <select id="selectPckgPrfmncList" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO" resultType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.selectPckgPrfmncList */
-				  PP.APC_CD			AS APC_CD
-				, PP.PCKGNO			AS PCKGNO
-				, PP.PCKG_SN		AS PCKG_SN
-				, PP.PCKG_YMD		AS PCKG_YMD
-				, PP.PCKG_QNTT		AS PCKG_QNTT
-				, PP.PCKG_WGHT		AS PCKG_WGHT
-				, PP.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
-				, PP.PCKG_CMNDNO	AS PCKG_CMNDNO
-				, PP.RMRK			AS RMRK
-			  FROM TB_PCKG_PRFMNC PP
-			 WHERE PP.APC_CD = #{apcCd}
-			   AND WC.PCKGNO = #{wghno}
-			   AND WC.PCKG_SN = #{wghno}
+				SELECT /* com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.selectPckgPrfmncList */
+					 GI.FCLT_CD AS FCLT_CD
+					 , (SELECT FN_GET_COM_CD_VL_NM('FCLT_CD', GI.FCLT_CD, GI.APC_CD) FROM DUAL) AS FCLT_NM
+					,GI.PCKG_YMD AS PCKG_YMD
+					,PP.PCKG_CMNDNO AS PCKG_CMNDNO
+					,GI.VRTY_CD AS VRTY_CD
+					, (SELECT FN_GET_VRTY_NM(GI.ITEM_CD,GI.VRTY_CD,GI.APC_CD) FROM DUAL) AS VRTY_NM
+					,GI.SPCFCT_CD AS SPCFCT_CD
+					, (SELECT FN_GET_SPCFCT_NM(GI.ITEM_CD,GI.SPCFCT_CD,GI.APC_CD) FROM DUAL) AS SPCFCT_NM
+					,GI.GDS_GRD AS GDS_GRD
+					, (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', GI.GDS_GRD, GI.APC_CD) FROM DUAL) AS GDS_GRD_NM
+					,PP.PCKG_WGHT AS PCKG_WGHT
+					,GI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD
+					, (SELECT FN_GET_PRDCR_NM(GI.RPRS_PRDCR_CD,GI.APC_CD) FROM DUAL) AS RPRS_PRDCR_NM
+					,GI.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD
+					, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', GI.WAREHOUSE_SE_CD, GI.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+					,GI.PCKG_QNTT AS PCKG_QNTT
+					,GI.PCKG_WGHT AS PCKG_WGHT
+					,GI.SPMT_QNTT AS SPMT_QNTT
+					,GI.SPMT_WGHT AS SPMT_WGHT
+				FROM
+					TB_PCKG_PRFMNC PP,
+					TB_GDS_INVNTR GI
+				WHERE
+					PP.APC_CD = GI.APC_CD
 		]]>
+			<if test='fromPckgYmd != null and fromPckgYmd != ""'>
+				   AND GI.PCKG_YMD <![CDATA[>=]]> #{fromPckgYmd}
+			</if>
+			<if test='toPckgYmd != null and toPckgYmd != ""'>
+				   AND GI.PCKG_YMD <![CDATA[<=]]> #{toPckgYmd}
+			</if>
+			<if test='vrtyCd != null and vrtyCd != ""'>
+				   AND GI.VRTY_CD = #{vrtyCd}
+			</if>
+			<if test='prdcrCd != null and prdcrCd != ""'>
+				   AND GI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
+			</if>
+			<if test='fcltCd != null and fcltCd != ""'>
+				   AND GI.FCLT_CD = #{fcltCd}
+			</if>
+			<if test='grdCd != null and grdCd != ""'>
+				   AND GI.GDS_GRD = #{grdCd}
+			</if>
+			<if test='strgWarehouse != null and strgWarehouse != ""'>
+				   AND GI.WAREHOUSE_SE_CD = #{strgWarehouse}
+			</if>
     </select>
 
 	<!-- ==========================================================================	-->
