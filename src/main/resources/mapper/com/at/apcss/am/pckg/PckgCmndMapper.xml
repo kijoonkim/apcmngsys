@@ -13,7 +13,7 @@
 <mapper namespace="com.at.apcss.am.pckg.mapper.PckgCmndMapper">
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgCmndMapper.selectPckgCmndList		-->
-	<!-- DESC : 포장지시 목록 조회.	                                       				-->
+	<!-- DESC : 포장지시조회 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -29,6 +29,7 @@
 				,(SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)   		AS VRTY_NM
 				,(SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)    	AS SPCFCT_NM
 				,(SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)	AS GDS_NM
+				, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL) AS CNPT_NM
     		 FROM (
     	</if>
     	<if test='pagingYn == null or pagingYn.equals("N")'>
@@ -38,10 +39,11 @@
 				,(SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)   		AS VRTY_NM
 				,(SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)    	AS SPCFCT_NM
 				,(SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)	AS GDS_NM
+				, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL) AS CNPT_NM
     		 FROM (
     	</if>
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.pckg.mapper.PckgCmndMapper.selectPckgCmndList */
+    		 SELECT /* com.at.apcss.am.pckg.mapper.PckgCmndMapper.selectPckgCmndList */
 				PC.APC_CD    		AS APC_CD
 				,PC.PCKG_CMNDNO   	AS PCKG_CMNDNO
 				,PC.PCKG_CMND_SN    AS PCKG_CMND_SN
@@ -57,15 +59,48 @@
 				,PC.BX_GDS_QNTT    	AS BX_GDS_QNTT
 				,PC.CMND_QNTT   	AS CMND_QNTT
 				,PC.CMND_WGHT    	AS CMND_WGHT
+				,PP.PCKG_QNTT		AS PCKG_QNTT
+				,PP.PCKG_WGHT		AS PCKG_WGHT
 				,PC.ORDR_NO    		AS ORDR_NO
 				,PC.GDS_CD   		AS GDS_CD
 				,PC.RMRK    		AS RMRK
 				,PC.DEL_YN    		AS DEL_YN
 			  FROM TB_PCKG_CMND PC
+					, TB_PCKG_PRFMNC PP
 			 WHERE PC.APC_CD = #{apcCd}
-			 AND PC.PCKG_CMND_YMD = #{pckgCmndYmd}
-			 ORDER BY PC.PCKG_CMNDNO DESC
+			 AND PC.APC_CD = PP.APC_CD(+)
+			 AND PC.PCKG_CMNDNO = PP.PCKG_CMNDNO(+)
 		]]>
+		<if test='pckgCmndYmd != null and pckgCmndYmd != ""'>
+			 AND PC.PCKG_CMND_YMD = #{pckgCmndYmd}
+		</if>
+		<if test='pckgCmndFromYmd != null and pckgCmndFromYmd != ""'>
+			 AND PC.PCKG_CMND_YMD <![CDATA[>=]]> #{pckgCmndFromYmd}
+		</if>
+		<if test='pckgCmndToYmd != null and pckgCmndToYmd != ""'>
+			 AND PC.PCKG_CMND_YMD <![CDATA[<=]]> #{pckgCmndToYmd}
+		</if>
+		<if test='fcltCd != null and fcltCd != ""'>
+			 AND PC.FCLT_CD = #{fcltCd}
+		</if>
+		<if test='cnptCd != null and cnptCd != ""'>
+			 AND PC.CNPT_CD = #{cnptCd}
+		</if>
+		<if test='dudtYmd != null and dudtYmd != ""'>
+			 AND PC.DUDT_YMD = #{dudtYmd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			 AND PC.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			 AND PC.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
+		</if>
+		<if test='spcfctCd != null and spcfctCd != ""'>
+			 AND PC.SPCFCT_CD = #{spcfctCd}
+		</if>
+		<if test='ordrNo != null and ordrNo != ""'>
+			 AND PC.ORDR_NO = #{ordrNo}
+		</if>
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
@@ -78,7 +113,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgCmndMapper.insertPckgInpt			-->
-	<!-- DESC : 포장투입실적 등록.		                                       				-->
+	<!-- DESC : 포장지시등록 등록.		                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -148,7 +183,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgCmndMapper.deletePckgInpt			-->
-	<!-- DESC : 포장투입실적 삭제.		                                       				-->
+	<!-- DESC : 포장지시등록 삭제.		                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -163,6 +198,8 @@
 			   AND PCKG_CMND_SN = #{pckgCmndSn}
 		]]>
 	</delete>
+
+
 
 
 </mapper>
