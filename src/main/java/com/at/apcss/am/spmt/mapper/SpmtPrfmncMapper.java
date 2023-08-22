@@ -26,15 +26,23 @@ public interface SpmtPrfmncMapper {
 	/**
 	 * 출하실적 단건 조회
 	 * @param spmtPrfmncVO
-	 * @return
+	 * @return SpmtPrfmncVO
 	 * @throws Exception
 	 */
 	public SpmtPrfmncVO selectSpmtPrfmnc(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 
 	/**
+	 * 출하실적 상세 목록 조회
+	 * @param spmtPrfmncVO
+	 * @return SpmtPrfmncVO
+	 * @throws Exception
+	 */
+	public List<SpmtPrfmncVO> selectSpmtPrfmncDtl(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+	/**
 	 * 출하실적 목록 조회
 	 * @param spmtPrfmncVO
-	 * @return
+	 * @return List<SpmtPrfmncVO>
 	 * @throws Exception
 	 */
 	public List<SpmtPrfmncVO> selectSpmtPrfmncList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
