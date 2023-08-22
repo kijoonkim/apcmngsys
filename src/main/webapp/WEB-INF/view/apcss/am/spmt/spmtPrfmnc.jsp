@@ -138,8 +138,8 @@
 </body>
 <script type="text/javascript">
 	var jsonSpmtPrfmnc		= [];
-	var itemList = [];
-	var vrtyList = [];
+	var itemList 			= [];
+	var vrtyList 			= [];
 	
 	var jsonComItem			= [];	// 품목
 	var jsonComVrty			= [];	// 품종
