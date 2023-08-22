@@ -43,7 +43,7 @@ public interface SpmtPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> searchSpmtPrfmncList(List<SpmtPrfmncVO> searchList) throws Exception;
+	public List<SpmtPrfmncVO> searchSpmtPrfmncList(List<SpmtPrfmncVO> searchList) throws Exception;
 
 	/**
 	 * 출하실적 공통 등록
@@ -100,4 +100,20 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	public int insertSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception;
+
+	/**
+	 * 출하실적 삭제
+	 * @param List<SpmtPrfmncVO>
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception;
+
+	/**
+	 * 출하실적 등록 내역 목록 조회
+	 * @param spmtPrfmncVO
+	 * @return List<SpmtPrfmncVO>
+	 * @throws Exception
+	 */
+	public List<SpmtPrfmncVO> selectSpmtPrfmncDtlList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 }

@@ -54,7 +54,7 @@
 	    		 	 WHERE CI.APC_CD = SP.APC_CD
 	    		 	   AND CI.CNPT_CD = SP.CNPT_CD
 	    		 	   AND CI.DEL_YN = 'N'
-	    		 	   GROUP BY CI.CNPT_NM) 		AS CNPT_NM
+	    		 	   AND SP.DEL_YN = 'N') 		AS CNPT_NM
 	    		 , SP.BRND_CD						AS BRND_CD
 	    		 , SP.SPMT_YMD						AS SPMT_YMD
 	    		 , SP.SLS_UNTPRC					AS SLS_UNTPRC
@@ -112,6 +112,7 @@
 	    		 	, SP.WGHT
 	    		 	, SP.CFMTN_AMT
 	    		 	, SP.CNPT_CD
+	    		 	, SP.DEL_YN
 		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>

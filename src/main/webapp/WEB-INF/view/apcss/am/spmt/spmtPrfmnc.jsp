@@ -138,6 +138,7 @@
 </body>
 <script type="text/javascript">
 	var jsonSpmtPrfmnc		= [];
+	var itemList = [];
 	var vrtyList = [];
 	
 	var jsonComItem			= [];	// 품목
@@ -220,7 +221,7 @@
 		let cnptCd = SBUxMethod.get("srch-inp-cnptCd");
 		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCo");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
 		let dldtn = SBUxMethod.get("srch-inp-dldtn");
 		let vhclno = SBUxMethod.get("srch-inp-vhclno");
 		let SpmtPrfmncVO = {apcCd 				: apcCd
@@ -236,16 +237,18 @@
 						  , pagingYn 			: 'Y'
 						  , currentPageNo 		: currentPageNo
 						  , recordCountPerPage 	: recordCountPerPage};
+		
 		if (vrtyList.length != 0) {
 			for (var i=0; i<vrtyList.length; i++){
 				var spmtPrfmnc = SpmtPrfmncVO
-				spmtPrfmnc.setVrtyCd(vrtyList[i]);
+				spmtPrfmnc.itemCd = itemList[i];
+				spmtPrfmnc.vrtyCd = vrtyList[i];
 				searchList.push(Object.assign({}, spmtPrfmnc));
 			}
 		} else {
 			searchList.push(Object.assign({}, SpmtPrfmncVO));
 		}
-		console.log("searchList: ", searchList);
+		
     	let postJsonPromise = gfn_postJSON("/am/spmt/searchSpmtPrfmncList.do", searchList);
         let data = await postJsonPromise;
         newJsonSpmtPrfmnc = [];
@@ -264,6 +267,9 @@
 				  , trsprtCst 		: item.trsprtCst
 				  , spmtQntt		: item.spmtQntt
 				  , spmtWght 		: item.spmtWght
+				  , totTrsprtCst 	: item.totTrsprtCst
+				  , totSpmtQntt		: item.totSpmtQntt
+				  , totSpmtWght 	: item.totSpmtWght
 				}
 				jsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));
 				newJsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));
@@ -308,7 +314,7 @@
 
 	const fn_setVrty = function(vrty) {
 		if (!gfn_isEmpty(vrty)) {
-			console.log("vrty", vrty);
+			itemList = [];
 			vrtyList = [];
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
 			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
@@ -319,12 +325,15 @@
 	const fn_setVrtys = function(vrtys) {
 		if (!gfn_isEmpty(vrtys)) {
 			var _vrtys = [];
+			itemList = [];
 			vrtyList = [];
 	 		SBUxMethod.set("srch-inp-vrtyCd", null);
 			for(var i=0;i<vrtys.length;i++){
+				itemList.push(vrtys[i].itemCd);
 				_vrtys.push(vrtys[i].vrtyNm);
 				vrtyList.push(vrtys[i].vrtyCd);
 			}
+			SBUxMethod.set('srch-slt-itemCd', itemList[0]);
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtys.join(','));
 		}
 	}
@@ -336,7 +345,6 @@
 	
 	const fn_setCnpt = function(cnpt) {
 		if (!gfn_isEmpty(cnpt)) {
-			console.log("cnpt", cnpt);
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
 			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
 		}

@@ -74,6 +74,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/uat/uia/egovLoginUsrAPI.do",
 				"/uat/uia/actionLogoutAPI.do",
 				"/actionLogin.do",
+				"/actionSSOLogin.do",
 				"/actionLogout.do",
 				"/login.do"
 				);
@@ -114,7 +115,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 
 		exceptionResolvers.add(simpleMappingExceptionResolver);
 	}
-	
+
 	// -------------------------------------------------------------
 	// View Resolver 설정
 	// -------------------------------------------------------------

@@ -83,6 +83,11 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 운임비용
 	 */
 	private double trsprtCst;
+	
+	/**
+	 * 운임비용합계
+	 */
+	private double totTrsprtCst;
 
 	/**
 	 * 비고
@@ -143,6 +148,16 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 출하중량
 	 */
 	private double spmtWght;
+	
+	/**
+	 * 총출하수량
+	 */
+	private int totSpmtQntt;
+
+	/**
+	 * 총출하중량
+	 */
+	private double totSpmtWght;
 
 	/**
 	 * 출하포장단위코드
@@ -190,4 +205,8 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 상품등급
 	 */
 	private String gdsGrd;
+	/**
+	 * 상품등급먕
+	 */
+	private String gdsGrdNm;
 }
