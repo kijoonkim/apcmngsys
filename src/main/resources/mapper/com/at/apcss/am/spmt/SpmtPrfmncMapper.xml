@@ -151,6 +151,39 @@
     </select>
 
     <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncDtl	-->
+	<!-- DESC : 출하실적 상세 목록 조회.	                         	            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.21  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectSpmtPrfmncDtl" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+		<![CDATA[
+		SELECT  /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncDtl */
+		       PD.APC_CD            AS APC_CD
+		     , PD.SPMTNO            AS SPMTNO
+		     , PD.PCKGNO            AS PCKGNO
+		     , PD.PCKG_SN           AS PCKG_SN
+		     , PD.VRTY_CD           AS VRTY_CD
+		     , PD.GDS_GRD           AS GDS_GRD
+		     , PD.SPCFCT_CD         AS SPCFCT_CD
+		     , PD.SPMT_QNTT         AS SPMT_QNTT
+		     , PD.SPMT_WGHT         AS SPMT_WGHT
+		     , PD.BRND_CD           AS BRND_CD
+		     , PD.GDS_CD            AS GDS_CD
+		     , PD.PRDCR_CD          AS PRDCR_CD
+		     , PD.DEL_YN            AS DEL_YN
+		     , PD.SPMT_CMNDNO       AS SPMT_CMNDNO
+		     , PD.SPMT_PCKG_UNIT_CD AS SPMT_PCKG_UNIT_CD
+
+		  FROM TB_SPMT_PRFMNC_DTL PD
+		 WHERE PD.APC_CD = #{apcCd}
+		   AND PD.SPMTNO = #{spmtno}
+		]]>
+	</select>
+
+    <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.insertSpmtPrfmncCom	-->
 	<!-- DESC : 출하실적 공통 등록.	                         	             	 	-->
 	<!-- ==========================================================================	-->
