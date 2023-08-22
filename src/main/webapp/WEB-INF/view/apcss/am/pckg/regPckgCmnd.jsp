@@ -127,7 +127,7 @@
 					</div>
 					<div class="sbt-wrap-body">
 						<div class="sbt-grid">
-							<div id="inptCmndDsctnGridArea" style="height:450px;"></div>
+							<div id="inptCmndDsctnGridArea" style="height:457px;"></div>
 						</div>
 					</div>
 				</div>
@@ -163,7 +163,7 @@
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd, itemCd);			// 품종
 		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_selectedApcCd, itemCd);		// 규격
-		
+
 		console.log("jsonComSpcfct", jsonComSpcfct);
 	}
 
@@ -196,28 +196,35 @@
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 20,
+		  	'size' : 15,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
             {caption: ["선택"], ref: 'checked', type: 'checkbox', width : '60px', style: 'text-align:center'},
-	        {caption: ["지시번호"],		ref: 'pckgCmndno',      type:'output',  width:'160px',    style:'text-align:center'},
-	        {caption: ["생산설비"],		ref: 'fcltNm',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["납기일자"],		ref: 'dudtYmd',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["품종"],		ref: 'vrtyNm',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["규격"],		ref: 'spcfctNm',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["상품명"],		ref: 'gdsNm',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["발주수량"],		ref: 'ordrQntt',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["입수"],		ref: 'bxGdsQntt',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["지시수량"],		ref: 'cmndQntt',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["지시중량"],		ref: 'cmndWght',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["지시번호"],		ref: 'pckgCmndno',      type:'output',  width:'180px',    style:'text-align:center'},
+	        {caption: ["생산설비"],		ref: 'fcltNm',      type:'output',  width:'150px',    style:'text-align:center'},
+	        {caption: ["납기일자"],		ref: 'dudtYmd',      type:'output',  width:'160px',    style:'text-align:center'},
+	        {caption: ["품종"],		ref: 'vrtyNm',      type:'output',  width:'150px',    style:'text-align:center'},
+	        {caption: ["규격"],		ref: 'spcfctNm',      type:'output',  width:'150px',    style:'text-align:center'},
+	        {caption: ["상품명"],		ref: 'gdsNm',      type:'output',  width:'150px',    style:'text-align:center'},
+	        {caption: ["발주수량"],		ref: 'ordrQntt',      type:'output',  width:'150px',    style:'text-align:right'},
+	        {caption: ["입수"],		ref: 'bxGdsQntt',      type:'output',  width:'150px',    style:'text-align:right'},
+	        {caption: ["지시수량"],		ref: 'cmndQntt',      type:'output',  width:'150px',    style:'text-align:right'},
+	        {caption: ["지시중량"],		ref: 'cmndWght',      type:'output',  width:'150px',    style:'text-align:right'},
 	        {caption: ["순번"],  			ref: 'pckgCmndSn',    hidden:true},
 	    ];
 
 	    pckgCmndList = _SBGrid.create(SBGridProperties);
-	    fn_setGrdPckgCmnd();
+	    pckgCmndList.bind( "afterpagechanged" , "fn_pagingPckgCmndList" );
+// 	    fn_setGrdPckgCmnd();
+	    fn_search();
 	}
+    async function fn_pagingPckgCmndList(){
+    	let recordCountPerPage = pckgCmndList.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = pckgCmndList.getSelectPageIndex(); 
+    	fn_setGrdPckgCmnd(recordCountPerPage, currentPageNo);
+    }
 
 	const fn_search = async function(){
     	pckgCmndList.rebuild();
@@ -237,7 +244,7 @@
 
     	const postJsonPromise = gfn_postJSON("/am/pckg/selectPckgCmndList.do", {
 			apcCd: gv_selectedApcCd,
-			pckgCmndYmd: pckgCmndYmd
+			pckgCmndYmd: pckgCmndYmd,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : pageNo,
@@ -311,7 +318,16 @@
 	}
 	const fn_save = async function(){
 		try{
-		
+			console.log("jsonComSpcfct", jsonComSpcfct);
+			console.log("srch-slt-spcfctCd", SBUxMethod.get("srch-slt-spcfctCd"));
+			spcfctData = await gfn_getApcSpcfcts(gv_selectedApcCd, SBUxMethod.get("srch-slt-itemCd"));
+			console.log("spcfctData", spcfctData);
+			var find = spcfctData.find(e => e.spcfctCd == SBUxMethod.get("srch-slt-spcfctCd"))
+			console.log("find", find);
+			console.log("find.wght", find.wght);
+			console.log("find.wght", spcfctData.find(e => e.spcfctCd == SBUxMethod.get("srch-slt-spcfctCd")).wght);
+			
+			
  		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-cmndYmd")))
 				throw "지시일자는 필수입력 항목입니다.";
  		   if (gfn_isEmpty(SBUxMethod.get("srch-slt-itemCd")) || gfn_isEmpty(SBUxMethod.get("srch-slt-vrtyCd")))
@@ -329,8 +345,9 @@
 			let itemCd  = SBUxMethod.get("srch-slt-itemCd"); //품목코드
 			let vrtyCd  = SBUxMethod.get("srch-slt-vrtyCd"); //품종코드
 			let spcfctCd  = SBUxMethod.get("srch-slt-spcfctCd"); //규격코드
-			console.log("spcfctCd", spcfctCd);
 			let cmndQntt  = SBUxMethod.get("srch-inp-cmndQntt"); //지시수량
+			spcfctData = await gfn_getApcSpcfcts(gv_selectedApcCd, itemCd);
+			let cmndWght = cmndQntt * spcfctData.find(e => e.spcfctCd == SBUxMethod.get("srch-slt-spcfctCd")).wght//지시 중량 = 지시 수량 * 규격의 단중
 			let fcltCd  = SBUxMethod.get("srch-slt-fclt"); //설비코드
 	// 		let cnptCd  = SBUxMethod.get(""); //거래처코드
 			let cnptNm  = SBUxMethod.get("srch-inp-cnpt"); //거래처명
@@ -349,6 +366,7 @@
 				vrtyCd: vrtyCd,
 				spcfctCd: spcfctCd,
 				cmndQntt: cmndQntt,
+				cmndWght: cmndWght,
 				fcltCd: fcltCd,
 	// 			cnptCd: cnptCd,
 				cnptNm: cnptNm,
@@ -363,7 +381,7 @@
 			
 		    const data = await postJsonPromise;
 		    
-		    fn_setGrdPckgCmnd();
+		    fn_search();
 		}catch(e){
 			   alert(e);
 			   return;
