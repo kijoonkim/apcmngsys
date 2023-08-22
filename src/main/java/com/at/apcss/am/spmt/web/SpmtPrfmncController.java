@@ -110,7 +110,7 @@ public class SpmtPrfmncController extends BaseController {
 	}
 
 
-	// 출하실적 등록
+	// 출하실적 삭제
 	@PostMapping(value = "/am/spmt/deleteSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteSpmtPrfmncList(@RequestBody List<SpmtPrfmncVO> SpmtPrfmncList, HttpServletRequest request) throws Exception {
 		logger.debug("deleteSpmtPrfmncList 호출 <><><><> ");

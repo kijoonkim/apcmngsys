@@ -1,7 +1,6 @@
 package com.at.apcss.am.spmt.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,6 +13,10 @@ import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper;
 import com.at.apcss.am.spmt.service.SpmtPrfmncService;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
+import com.at.apcss.co.sys.controller.BaseController;
+import com.tmax.tibero.Debug;
+
+import ch.qos.logback.classic.Logger;
 
 /**
  * @Class Name : SpmtPrfmncServiceImpl.java
@@ -153,23 +156,41 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 	public int deleteSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception {
 		int deletedCnt = 0;
 
-		deleteSpmtPrfmncDtl(spmtPrfmnc.get(0));
+		List<SpmtPrfmncVO> deleteList = new ArrayList<>();
+
 
 		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmnc) {
-			deletedCnt += deleteSpmtPrfmncCom(spmtPrfmncVO);
 
-			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
-			gdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
-			gdsInvntrVO.setPckgno(spmtPrfmncVO.getPckgno());
-			gdsInvntrVO.setPckgSn(spmtPrfmncVO.getPckgSn());
-			gdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
-			gdsInvntrVO.setSpmtWght(spmtPrfmncVO.getSpmtWght());
-			gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
-			gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+			deleteSpmtPrfmncCom(spmtPrfmncVO);
 
-			gdsInvntrService.updateGdsInvntrSpmtPrfmncCncl(gdsInvntrVO);
+			deleteList = selectSpmtPrfmncDtl(spmtPrfmncVO);
+
+			for (SpmtPrfmncVO deleteSpmtPrfmncVO : deleteList) {
+				deleteSpmtPrfmncVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+				deleteSpmtPrfmncVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+
+				deletedCnt += deleteSpmtPrfmncDtl(deleteSpmtPrfmncVO);
+
+				GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+				gdsInvntrVO.setApcCd(deleteSpmtPrfmncVO.getApcCd());
+				gdsInvntrVO.setPckgno(deleteSpmtPrfmncVO.getPckgno());
+				gdsInvntrVO.setPckgSn(deleteSpmtPrfmncVO.getPckgSn());
+				gdsInvntrVO.setSpmtQntt(deleteSpmtPrfmncVO.getSpmtQntt());
+				gdsInvntrVO.setSpmtWght(deleteSpmtPrfmncVO.getSpmtWght());
+				gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+				gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+
+				gdsInvntrService.updateGdsInvntrSpmtPrfmncCncl(gdsInvntrVO);
+
+			}
 		}
 		return deletedCnt;
+	}
+
+	@Override
+	public List<SpmtPrfmncVO> selectSpmtPrfmncDtl(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+		List<SpmtPrfmncVO> resultList  = spmtPrfmncMapper.selectSpmtPrfmncDtl(spmtPrfmncVO);
+		return resultList;
 	}
 
 }
