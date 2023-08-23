@@ -1,10 +1,21 @@
 package com.at.apcss.co.user.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import com.at.apcss.co.authrt.service.ComAuthrtService;
+import com.at.apcss.co.authrt.vo.ComAuthrtVO;
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 import com.at.apcss.co.user.mapper.ComUserMapper;
 import com.at.apcss.co.user.service.ComUserService;
 import com.at.apcss.co.user.vo.ComUserVO;
@@ -26,20 +37,23 @@ import com.at.apcss.co.user.vo.ComUserVO;
  * </pre>
  */
 @Service("comUserService")
-public class ComUserServiceImpl implements ComUserService {
+public class ComUserServiceImpl extends BaseServiceImpl implements ComUserService {
 
 	@Autowired
 	private ComUserMapper comUserMapper;
 
+	@Resource(name = "comAuthrtService")
+	private ComAuthrtService comAuthrtService;
+
 	@Override
-	public ComUserVO selectComUser(ComUserVO comUserVO) {
+	public ComUserVO selectComUser(ComUserVO comUserVO) throws Exception {
 
 		ComUserVO comUserRsltVO = comUserMapper.selectComUser(comUserVO);
 		return comUserRsltVO;
 	}
 
 	@Override
-	public ComUserVO selectComUser(String userId) {
+	public ComUserVO selectComUser(String userId) throws Exception {
 
 		ComUserVO comUserVO = new ComUserVO();
 		comUserVO.setUserId(userId);
@@ -48,20 +62,74 @@ public class ComUserServiceImpl implements ComUserService {
 	}
 
 	@Override
-	public List<ComUserVO> selectComUserList(ComUserVO comUserVO) {
+	public List<ComUserVO> selectComUserList(ComUserVO comUserVO) throws Exception {
 
 		List<ComUserVO> resultList = comUserMapper.selectComUserList(comUserVO);
 		return resultList;
 	}
 
 	@Override
-	public int updateComUser(ComUserVO comUserVO) {
+	public int updateComUser(ComUserVO comUserVO) throws Exception {
 		return comUserMapper.updateComUser(comUserVO);
 	}
 
 	@Override
-	public int updateComUserAprv(ComUserVO comUserVO) {
+	public int updateComUserAprv(ComUserVO comUserVO) throws Exception {
 		return comUserMapper.updateComUserAprv(comUserVO);
+	}
+
+	@Override
+	public HashMap<String, Object> insertUserAprvList(List<ComUserVO> comUserList) throws Exception {
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		// validation check
+		for ( ComUserVO user : comUserList ) {
+			ComUserVO userInfo = selectComUser(user);
+
+			logger.debug("userInfo.getApcCd(): {}", userInfo.getApcCd());
+
+			if (userInfo == null || !StringUtils.hasText(userInfo.getUserId())) {
+				return ComUtil.getResultMap("W0005", "사용자정보");
+			}
+			if (!StringUtils.hasText(userInfo.getApcCd())) {
+				return ComUtil.getResultMap("W0005", "APC코드");
+			}
+			if (ComConstants.CON_USER_STTS_VALID.equals(userInfo.getUserStts())) {
+				return ComUtil.getResultMap("W0010", "승인||사용자");	// W0010	이미 {0}된 {1} 입니다.
+			}
+			if (!ComConstants.CON_USER_TYPE_ADMIN.equals(userInfo.getUserType())) {
+				return ComUtil.getResultMap("W0011", "APC관리자");	// W0011	{0}이/가 아닙니다.
+			}
+
+			user.setApcCd(userInfo.getApcCd());
+		}
+
+		for ( ComUserVO user : comUserList ) {
+			
+			String sysUserId = user.getSysLastChgUserId();
+			String sysPrgrmId = user.getSysLastChgPrgrmId();
+			
+			user.setUserStts(ComConstants.CON_USER_STTS_VALID);
+			comUserMapper.updateComUserAprv(user);
+
+			// 승인 후 권한id 등록.
+			ComAuthrtVO comAuthrtVO = new ComAuthrtVO();			
+			comAuthrtVO.setSysFrstInptUserId(sysUserId);
+			comAuthrtVO.setSysFrstInptPrgrmId(sysPrgrmId);
+			comAuthrtVO.setSysLastChgUserId(sysUserId);
+			comAuthrtVO.setSysLastChgPrgrmId(sysPrgrmId);
+			comAuthrtVO.setApcCd(user.getApcCd());
+			comAuthrtVO.setUserId(user.getUserId());
+
+			rtnObj = comAuthrtService.insertApcAuthrtId(comAuthrtVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+		return null;
 	}
 
 }

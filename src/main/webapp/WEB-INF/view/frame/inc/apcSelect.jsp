@@ -58,7 +58,16 @@
 	</script>
 	<c:choose>
 		<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
-			<sbux-select id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="single" jsondata-ref="cjsonApcList" unselected-text="전체" class="form-control input-sm" onchange="cfn_onChangeApc(this)" ></sbux-select>
+			<sbux-select
+				id="gsb-slt-apcCd"
+				name="gsb-slt-apcCd"
+				uitype="single"
+				jsondata-ref="cjsonApcList"
+				unselected-text="전체"
+				class="form-control input-sm"
+				onchange="cfn_onChangeApc(this)"
+				style="max-width:150px;"
+			></sbux-select>
 		</c:when>
 		<c:otherwise>
 			<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>

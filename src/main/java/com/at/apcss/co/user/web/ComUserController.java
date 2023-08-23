@@ -56,4 +56,52 @@ public class ComUserController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+
+	@PostMapping(value = "/co/user/selectUserAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUserAprvList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComUserVO> resultList = new ArrayList<>();
+
+		try {
+			comUserVO.setUserStts(ComConstants.CON_USER_STTS_STANDBY);
+			comUserVO.setUserType(ComConstants.CON_USER_TYPE_ADMIN);
+
+			resultList = comUserService.selectComUserList(comUserVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/co/user/insertUserAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertUserAprvList(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+			for ( ComUserVO user : comUserList ) {
+				user.setSysFrstInptUserId(getUserId());
+				user.setSysFrstInptPrgrmId(getPrgrmId());
+				user.setSysLastChgUserId(getUserId());
+				user.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = comUserService.insertUserAprvList(comUserList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }
