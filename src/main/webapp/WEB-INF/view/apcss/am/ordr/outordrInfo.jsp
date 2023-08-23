@@ -18,9 +18,7 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" class="btn btn-sm btn-primary" text="생산지시 등록"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" text="조회" onclick="fn_search"></sbux-button>
-					<sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-dark" text="저장" onclick="fn_insert"></sbux-button>
 				</div>
 			</div>
 
@@ -42,7 +40,8 @@
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 9%">
+						<col style="width: 3%">
+						<col style="width: 6%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -63,7 +62,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-outordrType" name="srch-slt-outordrType" uitype="single" unselected-text="선택" jsondata-ref="jsonComOutordrType" class="form-control input-sm"></sbux-select>
 							</td>
-							<td></td>
+							<td colspan="2"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">품목/품종</th>
@@ -102,7 +101,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-dudtYmd" name="srch-dtp-dudtYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td></td>
+							<td colspan="2"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">상품명</th>
@@ -112,6 +111,8 @@
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchGdsNm" name="btnSrchGdsNm" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
 							</td>
+						</tr>
+						<tr>
 							<th scope="row" class="th_bg">지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
@@ -121,7 +122,10 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-fcltCd" name="srch-slt-fcltCd" uitype="single" jsondata-ref="jsonComFcltCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
-							<td></td>
+							<td colspan="5" style="border-right: hidden;"></td>
+							<td class="td_input">
+								<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" class="btn btn-sm btn-primary" text="생산지시 등록"></sbux-button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -136,7 +140,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdOutordrInfo" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdOutordrInfo" style="width:100%;height:450px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -204,7 +208,7 @@
         	{caption: ['선택'], 			ref: 'checked', 		width: '50px', 		type: 'checkbox',		style:'text-align: center'},
             {caption: ['접수일자'], 		ref: 'rcptYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['발주유형'], 		ref: 'outordrType', 	width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['접수여부'], 		ref: 'rcptYn', 			width: '100px', 	type : 'inputcombo',	style:'text-align: center',
+            {caption: ['접수여부'], 		ref: 'rcptYn', 			width: '100px', 	type: 'combo',			style:'text-align: center',
             	typeinfo : {ref:'comboUesYnJsData1', label:'label', value:'value'}},
             {caption: ['발주번호'], 		ref: 'outordrno', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['거래처명'], 		ref: 'cnptNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
@@ -242,6 +246,88 @@
         ];
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
         grdOutordrInfo.addRow();
+        grdOutordrInfo.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
+    }
+	
+	// 출하지시 목록 조회 (조회 버튼)
+    async function fn_search() {
+    	let recordCountPerPage = grdOutordrInfo.getPageSize();  		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = 1;
+    	grdOutordrInfo.movePaging(currentPageNo);
+    }
+	
+	let newJsonOutordrInfo = [];
+	
+	// 출하지시 목록 조회 호출
+	async function fn_callSelectOutordrInfoList(recordCountPerPage, currentPageNo){
+		jsonOutordrInfo = [];
+		let apcCd = gv_selectedApcCd;
+		let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
+		let cmndYmdTo = SBUxMethod.get("srch-dtp-cmndYmdTo");
+		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
+		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCo");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+		let pckgSeCd = SBUxMethod.get("srch-slt-pckgSeCd");
+		let SpmtCmndVO = {apcCd 				: apcCd
+						, cmndYmdFrom 			: cmndYmdFrom
+						, cmndYmdTo 			: cmndYmdTo
+						, cnptNm 				: cnptNm
+						, trsprtCoCd 			: trsprtCoCd
+						, itemCd 				: itemCd
+						, vrtyCd 				: vrtyCd
+						, spcfctCd 				: spcfctCd
+						, pckgSeCd 				: pckgSeCd
+						, pagingYn 				: 'Y'
+						, currentPageNo 		: currentPageNo
+						, recordCountPerPage 	: recordCountPerPage};
+    	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", SpmtCmndVO);
+        let data = await postJsonPromise;
+        newJsonOutordrInfo = [];
+        try{
+        	data.resultList.forEach((item, index) => {
+				let spmtCmnd = {
+				    cmndYmd 	: item.cmndYmd
+				  , cnptNm 		: item.cnptNm
+				  , gdsNm 		: item.gdsNm
+				  , trsprtCoNm 	: item.trsprtCoNm
+				  , dldtn 		: item.dldtn
+				  , cmndQntt	: item.cmndQntt
+				  , cmndWght 	: item.cmndWght
+				  , gdsGrd 		: item.gdsGrd
+				  , pckgSe 		: item.pckgSe
+				  , vrtyNm 		: item.vrtyNm
+				  , spcfctNm 	: item.spcfctNm
+				  , rmrk		: item.rmrk
+				}
+				jsonOutordrInfo.push(Object.assign({}, spmtCmnd));
+				newJsonOutordrInfo.push(Object.assign({}, spmtCmnd));
+			});
+        	if(jsonOutordrInfo.length > 0){
+				if(grdOutordrInfo.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdOutordrInfo.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdOutordrInfo.rebuild();
+				}else{
+					grdOutordrInfo.refresh();
+				}
+			}else{
+				grdOutordrInfo.setPageTotalCount(0);
+				grdOutordrInfo.rebuild();
+			}
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+	
+	// 페이징
+    async function fn_pagingSmptCmnd(){
+    	let recordCountPerPage = grdOutordrInfo.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdOutordrInfo.getSelectPageIndex(); 
+    	fn_callSelectOutordrInfoList(recordCountPerPage, currentPageNo);
     }
 	
 	// 접수여부 콤보박스 (검색 조건)

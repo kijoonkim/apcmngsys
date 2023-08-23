@@ -113,7 +113,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdSpmtCmnd" style="width:100%;height:600px;"></div>
+					<div id="sb-area-grdSpmtCmnd" style="width:100%;height:550px;"></div>
 				</div>
 			</div>
 		</div>
