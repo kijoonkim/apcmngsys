@@ -61,9 +61,9 @@
 	    		 , SP.QNTT							AS QNTT
 	    		 , SP.WGHT							AS WGHT
 	    		 , SP.CFMTN_AMT						AS CFMTN_AMT
-	    		 , SUM(SP.QNTT)						AS TOT_QNTT
-	    		 , SUM(SP.WGHT)						AS TOT_WGHT
-	    		 , SUM(SP.CFMTN_AMT)				AS TOT_CFMTN_AMT
+	    		 , SUM(SP.QNTT)	OVER()				AS TOT_QNTT
+	    		 , SUM(SP.WGHT)	OVER()				AS TOT_WGHT
+	    		 , SUM(SP.CFMTN_AMT) OVER()			AS TOT_CFMTN_AMT
 			  FROM TB_SLS_PRFMNC SP
 			     , TB_SPMT_PRFMNC_COM PC
 			     , TB_SPMT_PRFMNC_DTL PD
@@ -101,6 +101,7 @@
     	<![CDATA[
 		 	 GROUP BY SP.APC_CD
 	    		 	, SP.SLS_YMD
+	    		 	, SP.SLS_SN
 	    		 	, SP.ITEM_CD
 	    		 	, SP.VRTY_CD
 	    		 	, SP.SPCFCT_CD

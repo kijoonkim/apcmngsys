@@ -1,5 +1,7 @@
 package com.at.apcss.am.whrs.vo;
 
+import com.at.apcss.co.sys.vo.ComVO;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +22,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class RawMtrWrhsPlanVO {
+public class RawMtrWrhsPlanVO extends ComVO{
 	/*
 	 * APC코드
 	 * */
@@ -29,6 +31,14 @@ public class RawMtrWrhsPlanVO {
 	 * 계획번호
 	 * */
 	private String planno;
+	/*
+	 * 계획시작일자
+	 * */
+	private String planYmdFrom;;
+	/*
+	 * 계획종료일자
+	 * */
+	private String planYmdTo;;
 	/*
 	 * 계획일자
 	 * */
@@ -101,5 +111,10 @@ public class RawMtrWrhsPlanVO {
 	 * 계획중량
 	 * */
 	private String planWght;
+
+	/*
+	 * 비고
+	 * */
+	private String rmrk;
 
 }

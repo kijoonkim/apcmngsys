@@ -58,4 +58,12 @@ public interface RawMtrWrhsPlanService {
 	 * @throws Exception
 	 */
 	public int deleteRawMtrWrhsPlan(RawMtrWrhsPlanVO rawMtrWrhsPlanVO) throws Exception;
+
+	/**
+	 * 원물입고계획 등록
+	 * @param List<RawMtrWrhsPlanVO>
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int insertRawMtrWrhsPlanList(List<RawMtrWrhsPlanVO> rawMtrWrhsPlanList) throws Exception;
 }

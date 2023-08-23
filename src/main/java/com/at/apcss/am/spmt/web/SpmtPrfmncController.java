@@ -45,14 +45,14 @@ public class SpmtPrfmncController extends BaseController {
 
 
 	// 출하실적 조회
-	@PostMapping(value = "/am/spmt/searchSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> searchSpmtPrfmncList(@RequestBody List<SpmtPrfmncVO> searchList, HttpServletRequest request) throws Exception {
-		logger.debug("searchSpmtPrfmncList 호출 <><><><> ");
+	@PostMapping(value = "/am/spmt/selectSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncList(@RequestBody SpmtPrfmncVO SpmtPrfmncVO, HttpServletRequest request) throws Exception {
+		logger.debug("selectSpmtPrfmncList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<SpmtPrfmncVO> resultList = new ArrayList<>();
 		try {
-			resultList = spmtPrfmncService.searchSpmtPrfmncList(searchList);
+			resultList = spmtPrfmncService.selectSpmtPrfmncList(SpmtPrfmncVO);
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
