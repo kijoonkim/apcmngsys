@@ -80,13 +80,24 @@
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>재배약정실적 내역</span></li>
-						</ul>
+					<div>
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span>재배약정계획 내역</span></li>
+							</ul>
+						</div>
+						<div id="sb-area-grdSpmtCmndTrgtDsctn0" style="height:150px;"></div>
+					</div>
+					<div>
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span>재배약정실적 내역</span></li>
+							</ul>
+						</div>
+
+						<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:300px;"></div>
 					</div>
 
-					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:300px;"></div>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>재배약정실적 상세내역</span></li>
@@ -189,13 +200,13 @@
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
     	fn_createGrid();
+    	fn_createGrid0();
 
     	gfn_setComCdSBSelect(
     			['srch-select-msgKnd', 'dtl-select-msgKnd'],
     			jsonComMsgKnd,
 			'MSG_KND');
     });
-
     //grid 초기화
     var grdComMsgList; // 그리드를 담기위한 객체 선언
     var jsonComMsgList = []; // 그리드의 참조 데이터 주소 선언
@@ -230,6 +241,42 @@
         grdComMsgList.bind('click', 'fn_view');
         grdComMsgList.bind('beforepagechanged', 'fn_pagingComMsgList');
     }
+
+    //grid0 초기화
+    var grdComMsgList0; // 그리드를 담기위한 객체 선언
+    var jsonComMsgList0 = []; // 그리드의 참조 데이터 주소 선언
+
+    function fn_createGrid0() {
+        var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdSpmtCmndTrgtDsctn0';
+	    SBGridProperties.id = 'grdComMsgList0';
+	    SBGridProperties.jsonref = 'jsonComMsgList0';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.explorerbar = 'sortmove';
+        SBGridProperties.rowheader = 'seq';
+		SBGridProperties.rowheadercaption = {seq: 'No'};
+        SBGridProperties.rowheaderwidth = {seq: '60'};
+	    SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+
+            {caption: ["생산자"],	   ref: 'msgKey0',      type:'output',  width:'17%',    style:'text-align:center'},
+            {caption: ["품목"], 	   ref: 'msgCn0',     	type:'output',  width:'17%',    style:'text-align:center'},
+            {caption: ["품종"],     ref: 'msgKndNm0',    type:'output',  width:'17%',    style:'text-align:center'},
+            {caption: ["약정일자"],  ref: 'rmrk0',        type:'output',  width:'17%',    style:'text-align:center'},
+            {caption: ["약정수량"],  ref: 'creUserId0',   type:'output',  width:'17%',    style:'text-align:center'},
+            {caption: ["예상수확량"], ref: 'creDateTime0', type:'output',  width:'17%',    style:'text-align:center'},
+            {caption: ["최종변경자ID"], ref: 'updUserId0',   type:'output',  hidden: true},
+            {caption: ["최종변경일시"],  ref: 'updDateTime0', type:'output',  hidden: true},
+            {caption: ["등록프로그램"],  ref: 'creProgram0',  type:'output',  hidden: true},
+            {caption: ["변경프로그램"],  ref: 'updProgram0',  type:'output',  hidden: true}
+        ];
+
+        grdComMsgList0 = _SBGrid.create(SBGridProperties);
+        grdComMsgList0.bind('click', 'fn_view');
+        grdComMsgList0.bind('beforepagechanged0', 'fn_pagingComMsgList0');
+    }
+
 
     /**
      * 목록 조회
