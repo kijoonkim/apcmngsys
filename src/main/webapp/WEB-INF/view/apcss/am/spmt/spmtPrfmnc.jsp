@@ -106,7 +106,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtPrfmnc" style="height:650px;"></div>
+					<div id="sb-area-spmtPrfmnc" style="height:500px;"></div>
 				</div>
 			</div>
 			<!--[pp] //검색결과 -->
