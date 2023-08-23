@@ -286,7 +286,7 @@
 		});
 
         const data = await postJsonPromise;
-        s
+
         try {
 
         	/** @type {number} **/

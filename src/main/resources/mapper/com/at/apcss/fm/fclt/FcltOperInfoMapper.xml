@@ -48,7 +48,7 @@
 					, FCLT.SYS_LAST_CHG_DT          AS  SYS_LAST_CHG_DT
 					, FCLT.SYS_LAST_CHG_USER_ID     AS  SYS_LAST_CHG_USER_ID
 					, FCLT.SYS_LAST_CHG_PRGRM_ID    AS  SYS_LAST_CHG_PRGRM_ID
-				FROM   TB_FCLT_TB_FCLT_OPER_INFO FCLT
+				FROM   TB_FCLT_OPER_INFO FCLT
 				WHERE 1=1
 					  AND TRGT_YR = #{trgtYr}
 					  AND  APC_CD = #{apcCd}
@@ -101,7 +101,7 @@
 					, FCLT.SYS_LAST_CHG_DT          AS  SYS_LAST_CHG_DT
 					, FCLT.SYS_LAST_CHG_USER_ID     AS  SYS_LAST_CHG_USER_ID
 					, FCLT.SYS_LAST_CHG_PRGRM_ID    AS  SYS_LAST_CHG_PRGRM_ID
-				FROM   TB_FCLT_TB_FCLT_OPER_INFO FCLT
+				FROM   TB_FCLT_OPER_INFO FCLT
 			   WHERE 1=1
 			     AND TRGT_YR = #{trgtYr}
 				 AND APC_CD = #{apcCd}
@@ -126,7 +126,7 @@
     <insert id="insertFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertFcltOperInfo */
-	    	  INTO TB_FCLT_TB_FCLT_OPER_INFO FCLT
+	    	  INTO TB_FCLT_OPER_INFO FCLT
 	    		(
 				  TRGT_YR
 				, APC_CD
@@ -175,10 +175,10 @@
 		     	, #{apcTrmtItemCd}
 		     	, #{apcTrmtItemCn}
 		     	, #{delYn}
-		     	, #{sysFrstInptDt}
+		     	,  SYSDATE
 		     	, #{sysFrstInptUserId}
 		     	, #{sysFrstInptPrgrmId}
-		     	, #{sysLastChgDt}
+		     	,  SYSDATE
 		     	, #{sysLastChgUserId}
 		     	, #{sysLastChgPrgrmId}
 		     	)
@@ -196,7 +196,7 @@
     <update id="updateFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateFcltOperInfo */
-	    		TB_FCLT_TB_FCLT_OPER_INFO FCLT
+	    		TB_FCLT_OPER_INFO FCLT
 
 			   SET
 			  TRGT_YR               	  =  #{trgtYr}
@@ -242,7 +242,7 @@
     <delete id="deleteFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo */
-	    		  TB_FCLT_TB_FCLT_OPER_INFO FCLT
+	    		  TB_FCLT_OPER_INFO FCLT
 			WHERE 1=1
 		      AND TRGT_YR = #{trgtYr}
 		      AND  APC_CD = #{apcCd}
