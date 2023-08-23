@@ -120,6 +120,7 @@
 				this.createGrid();
 				this.search();
 			} else {
+			    grdVhclPop.bind('dblclick', popVhcl.choice);
 				this.search();
 			}
 
@@ -190,6 +191,7 @@
 			grdVhclPop.rebuild();
 			grdVhclPop.setCellDisabled(0, 0, grdVhclPop.getRows() - 1, 0, true);
 			grdVhclPop.addRow(true);
+		    grdVhclPop.unbind('dblclick');
 
 		},
 		cancel: function() {

@@ -129,6 +129,7 @@
 				this.createGrid();
 				this.search();
 			} else {
+				grdPrdcrPop.bind('dblclick', popPrdcr.choice);
 				this.search();
 			}
 
@@ -220,6 +221,7 @@
 			let nRow = grdPrdcrPop.getRows();
 			grdPrdcrPop.addRow(true);
 			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
+			grdPrdcrPop.unbind('dblclick');
 		},
 		cancel: function() {
 
