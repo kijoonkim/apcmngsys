@@ -51,12 +51,7 @@
 	    		 , VC.ITEM_CD						AS ITEM_CD
 	    		 , VC.VRTY_CD						AS VRTY_CD
 	    		 , SC.SPCFCT_CD						AS SPCFCT_CD
-	    		 , (SELECT CI.CNPT_NM
-	    		 	  FROM TB_CNPT_INFO CI
-	    		 	 WHERE CI.APC_CD = PC.APC_CD
-	    		 	   AND CI.CNPT_CD = PC.CNPT_CD
-	    		 	   AND CI.DEL_YN = 'N'
-	    		 	   AND PC.DEL_YN = 'N')			AS CNPT_NM
+	    		 , CI.CNPT_NM						AS CNPT_NM
 	    		 , PC.DLDTN							AS DLDTN
 	    		 , PC.TRSPRT_CO_NM					AS TRSPRT_CO_NM
 	    		 , PC.VHCLNO						AS VHCLNO
@@ -72,11 +67,14 @@
 				 , TB_APC_VRTY_CRTR		VC
 				 , TB_APC_SPCFCT_CRTR	SC
 				 , TB_GDS_INVNTR		GI
+				 , TB_CNPT_INFO 		CI
 			 WHERE PC.APC_CD = PD.APC_CD
 			   AND PC.APC_CD = VC.APC_CD
 			   AND PC.APC_CD = SC.APC_CD
 			   AND PC.APC_CD = GI.APC_CD
+			   AND PC.APC_CD = CI.APC_CD
 			   AND PC.SPMTNO = PD.SPMTNO
+	    	   AND PC.CNPT_CD = CI.CNPT_CD
 			   AND PD.VRTY_CD = VC.VRTY_CD
 			   AND PD.VRTY_CD = GI.VRTY_CD
 			   AND PD.SPCFCT_CD = SC.SPCFCT_CD
@@ -87,21 +85,24 @@
 			   AND PD.PCKG_SN = GI.PCKG_SN
 			   AND PD.SPMT_QNTT = GI.SPMT_QNTT
 			   AND PD.SPMT_WGHT = GI.SPMT_WGHT
-			   AND PC.APC_CD = #{apcCd}
 			   AND PC.DEL_YN = 'N'
 			   AND PD.DEL_YN = 'N'
 			   AND VC.DEL_YN = 'N'
 			   AND SC.DEL_YN = 'N'
 			   AND GI.DEL_YN = 'N'
+	    	   AND CI.DEL_YN = 'N'
 		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND PC.APC_CD = #{apcCd}
+		</if>
 		<if test='spmtYmdFrom != null and spmtYmdFrom != ""'>
 		   	   AND PC.SPMT_YMD >= #{spmtYmdFrom}
 		</if>
 		<if test='spmtYmdTo != null and spmtYmdTo != ""'>
 		   	   AND #{spmtYmdTo} >= PC.SPMT_YMD
 		</if>
-		<if test='cnptCd != null and cnptCd != ""'>
-		       AND PC.CNPT_CD = #{cnptCd}
+		<if test='cnptNm != null and cnptNm != ""'>
+		       AND CI.CNPT_NM LIKE '%' ||  #{cnptNm} || '%'
 		</if>
 		<if test='trsprtCoCd != null and trsprtCoCd != ""'>
 		       AND PC.TRSPRT_CO_CD = #{trsprtCoCd}
@@ -109,24 +110,21 @@
 		<if test='itemCd != null and itemCd != ""'>
 		       AND VC.ITEM_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{itemCd})))
 		</if>
-		<if test='vrtyCd != null and vrtyCd != ""'>
-			   AND VC.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
+		<if test='vrtyNm != null and vrtyNm != ""'>
+			   AND VC.VRTY_NM in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyNm})))
 		</if>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 		       AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
 		</if>
 		<if test='dldtn != null and dldtn != ""'>
-		       AND PC.DLDTN = #{dldtn}
+		       AND PC.DLDTN LIKE '%' ||  #{dldtn} || '%'
 		</if>
 		<if test='vhclno != null and vhclno != ""'>
-		       AND PC.VHCLNO = #{vhclno}
+		       AND PC.VHCLNO LIKE '%' ||  #{vhclno} || '%'
 		</if>
 		<![CDATA[
-		 	 GROUP BY PC.APC_CD
-	    		 	, PC.SPMTNO
+		 	 GROUP BY PC.SPMTNO
 	    		 	, PC.SPMT_YMD
-	    		 	, PD.APC_CD
-	    		 	, PD.SPMTNO
 	    		 	, PD.PCKGNO
 	    		 	, PD.PCKG_SN
 	    		 	, PD.BRND_CD
@@ -142,6 +140,8 @@
 	    		 	, PD.SPMT_WGHT
 	    		 	, PC.CNPT_CD
 	    		 	, PC.DEL_YN
+	    		 	, CI.CNPT_NM
+	    		 	, PC.APC_CD
 		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>

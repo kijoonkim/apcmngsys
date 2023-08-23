@@ -80,9 +80,8 @@
 							<th scope="row" class="th_bg">거래처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" class="form-control input-sm"></sbux-input>
-								<sbux-input id="srch-inp-cnptCd" name="srch-inp-cnptCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input">
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
 						</tr>
@@ -185,13 +184,13 @@
 		let apcCd = gv_selectedApcCd;
 		let slsYmdFrom = SBUxMethod.get("srch-dtp-slsYmdFrom");
 		let slsYmdTo = SBUxMethod.get("srch-dtp-slsYmdTo");
-		let cnptCd = SBUxMethod.get("srch-inp-cnptCd");
+		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 		let SlsPrfmncVO = {apcCd 				: apcCd
 						 , slsYmdFrom 			: slsYmdFrom
 						 , slsYmdTo 			: slsYmdTo
-						 , cnptCd 				: cnptCd
+						 , cnptNm 				: cnptNm
 						 , itemCd 				: itemCd
 						 , vrtyCd 				: vrtyCd
 						 , pagingYn 			: 'Y'
@@ -297,7 +296,6 @@
 		if (!gfn_isEmpty(cnpt)) {
 			console.log("cnpt", cnpt);
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
-			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
 		}
 	}
 </script>
