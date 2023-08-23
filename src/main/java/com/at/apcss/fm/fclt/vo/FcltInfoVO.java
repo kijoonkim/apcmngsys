@@ -21,8 +21,3 @@ public class FcltInfoVO extends ComVO{
 	private String msgKnd;
 	private String msgKndNm;
 }
-
-
-
-
-

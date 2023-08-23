@@ -9,28 +9,24 @@ import lombok.Setter;
 @Setter
 public class FcltOperInfoClctAgreInfoVO extends ComVO{
 
-	private String trgtYr;
-	private String apcCd;
-	private int sn;
-	private String daddr;
-	private String apcBrno;
-	private String apcRgnCd;
-	private String apcNm;
-	private String apcAddr;
-	private String operOgnzCd;
-	private String operOgnzNm;
-	private String operOgnzBrno;
-	private String operOgnzPic;
-	private String operOgnzJbps;
-	private String operOgnzTelno;
-	private String operOgnzEml;
-	private String apcHldYn;
-	private String prsnaDataAgrdYn;
-	private String msgKey;
-	private String msgCn;
-	private String msgKnd;
-	private String msgKndNm;
-	private String rmrk;
+	private String trgtYr;                        // #{trgtYr}
+	private String apcCd;                         // #{apcCd}
+	private String operOgnzCd;                    // #{operOgnzCd}
+	private String operOgnzNm;                    // #{operOgnzNm}
+	private String operOgnzBrno;                  // #{operOgnzBrno}
+	private String operOgnzPic;                   // #{operOgnzPic}
+	private String operOgnzJbps;                  // #{operOgnzJbps}
+	private String operOgnzTelno;                 // #{operOgnzTelno}
+	private String operOgnzEml;                   // #{operOgnzEml}
+	private String apcHldYn;                      // #{apcHldYn}
+	private String prsnaDataAgrdYn;               // #{prsnaDataAgrdYn}
+                                                  // #{delYn}
+	private String msgKey;                        // #{sysFrstInptDt}
+	private String msgCn;                         // #{sysFrstInptUserId}
+	private String msgKnd;                        // #{sysFrstInptPrgrmId}
+	private String msgKndNm;                      // #{sysLastChgDt}
+	private String rmrk;                          // #{sysLastChgUserId}
+                                                  // #{sysLastChgPrgrmId}
 }
 
 

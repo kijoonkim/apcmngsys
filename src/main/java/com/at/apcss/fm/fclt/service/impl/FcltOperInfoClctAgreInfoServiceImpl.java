@@ -54,6 +54,8 @@ public class FcltOperInfoClctAgreInfoServiceImpl implements FcltOperInfoClctAgre
 
 		List<FcltOperInfoClctAgreInfoVO> resultList = fcltOperInfoClctAgreInfoMapper.selectFcltOperInfoClctAgreInfoList(fcltOperInfoClctAgreInfoVO);
 		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
+		System.out.println(resultList);
+		System.out.println(resultList.toString());
 		for (FcltOperInfoClctAgreInfoVO msg : resultList ) {
 			System.out.printf("msgCn : %s", msg.getMsgCn());
 			System.out.println();
@@ -64,9 +66,9 @@ public class FcltOperInfoClctAgreInfoServiceImpl implements FcltOperInfoClctAgre
 
 	@Override
 	public int insertFcltOperInfoClctAgreInfo(FcltOperInfoClctAgreInfoVO fcltOperInfoClctAgreInfoVO) throws Exception {
-
+		System.out.println("==========insertFcltOperInfoClctAgreInfo start=============");
 		int insertedCnt = fcltOperInfoClctAgreInfoMapper.insertFcltOperInfoClctAgreInfo(fcltOperInfoClctAgreInfoVO);
-
+		System.out.println("==========insertFcltOperInfoClctAgreInfo end=============");
 		return insertedCnt;
 	}
 
