@@ -2,9 +2,12 @@ package com.at.apcss.am.whrs.service.impl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.whrs.mapper.RawMtrWrhsPlanMapper;
 import com.at.apcss.am.whrs.service.RawMtrWrhsPlanService;
 import com.at.apcss.am.whrs.vo.RawMtrWrhsPlanVO;
@@ -29,6 +32,9 @@ public class RawMtrWrhsPlanServiceImpl implements RawMtrWrhsPlanService{
 	@Autowired
 	private RawMtrWrhsPlanMapper rawMtrWrhsPlanMapper;
 
+	@Resource(name= "cmnsTaskNoService")
+	private CmnsTaskNoService cmnsTaskNoService;
+
 	@Override
 	public RawMtrWrhsPlanVO selectRawMtrWrhsPlan(RawMtrWrhsPlanVO rawMtrWrhsPlanVO) throws Exception {
 		return rawMtrWrhsPlanMapper.selectRawMtrWrhsPlan(rawMtrWrhsPlanVO);
@@ -52,6 +58,19 @@ public class RawMtrWrhsPlanServiceImpl implements RawMtrWrhsPlanService{
 	@Override
 	public int deleteRawMtrWrhsPlan(RawMtrWrhsPlanVO rawMtrWrhsPlanVO) throws Exception {
 		return rawMtrWrhsPlanMapper.deleteRawMtrWrhsPlan(rawMtrWrhsPlanVO);
+	}
+
+	@Override
+	public int insertRawMtrWrhsPlanList(List<RawMtrWrhsPlanVO> rawMtrWrhsPlanList) throws Exception {
+
+		int insertedCnt = 0;
+		String planno;
+			for (RawMtrWrhsPlanVO rawMtrWrhsPlanVO : rawMtrWrhsPlanList) {
+				planno = cmnsTaskNoService.selectPlanno(rawMtrWrhsPlanVO.getApcCd(), rawMtrWrhsPlanVO.getPlanYmd());
+				rawMtrWrhsPlanVO.setPlanno(planno);
+				insertedCnt += insertRawMtrWrhsPlan(rawMtrWrhsPlanVO);
+			}
+		return insertedCnt;
 	}
 
 }

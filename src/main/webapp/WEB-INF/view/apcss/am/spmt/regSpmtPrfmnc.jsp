@@ -512,10 +512,6 @@
 		let invntrWght = grdGdsInvntr.getRowData(nRow).invntrWght;
 		let spmtWght = grdGdsInvntr.getRowData(nRow).spmtWght;
 
-
-		console.log("invntrWght",invntrWght);
-		console.log("cmndWght",spmtWght);
-		console.log("invntrWght - cmndWght",invntrWght - spmtWght);
 		if(invntrWght - spmtWght < 0){
 			gfn_comAlert("W0008", "재고중량", "출하중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 			grdGdsInvntr.setCellData(nRow, nCol , 0);
