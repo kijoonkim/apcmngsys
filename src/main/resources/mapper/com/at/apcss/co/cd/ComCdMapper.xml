@@ -25,6 +25,7 @@
 			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectComCd */
 				   CC.CD_ID         AS CD_ID
 			     , CC.CD_NM         AS CD_NM
+			     , CC.CD_TYPE		AS CD_TYPE
 			     , CC.CD_EXPLN      AS CD_EXPLN
 			     , CC.DEL_YN        AS DEL_YN
 			  FROM TB_COM_CD CC
@@ -57,6 +58,7 @@
 			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdList */
 				   CC.CD_ID         AS CD_ID
 			     , CC.CD_NM         AS CD_NM
+			     , CC.CD_TYPE		AS CD_TYPE
 			     , CC.CD_EXPLN      AS CD_EXPLN
 			     , CC.DEL_YN        AS DEL_YN
 			  FROM TB_COM_CD CC
@@ -188,6 +190,7 @@
 				CD_ID
 			  , CD_NM
 			  , CD_EXPLN
+			  , CD_TYPE
 			  , SYS_FRST_INPT_DT
 			  , SYS_FRST_INPT_USER_ID
 			  , SYS_FRST_INPT_PRGRM_ID
@@ -200,6 +203,7 @@
 			    #{cdId}
 			  , #{cdNm}
 			  , #{cdExpln}
+			  , #{cdType}
 			  , SYSDATE
 			  , #{sysFrstInptUserId}
 			  , #{sysFrstInptPrgrmId}
@@ -222,6 +226,7 @@
     	<![CDATA[
     	UPDATE TB_COM_CD
     	   SET CD_NM 					= #{cdNm}
+    	     , CD_TYPE					= #{cdType}
     	     , CD_EXPLN 				= #{cdExpln}
     	     , SYS_LAST_CHG_DT 			= SYSDATE
     	     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}

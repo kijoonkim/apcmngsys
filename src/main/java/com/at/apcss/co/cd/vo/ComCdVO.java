@@ -29,6 +29,7 @@ public class ComCdVO extends ComVO {
 	private String cdId;
 	private String cdNm;
 	private String cdExpln;
+	private String cdType;
 	private String cdVl;
 	private String cdVlNm;
 	private String cdVlExpln;

@@ -3,120 +3,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-    <link href="/resource/css/template_com.css" rel="stylesheet" type="text/css">
-    <script>
-        var SBUxConfig = {
-            Path: '/resource/sbux/',
-            SBGrid: {
-                Version2_5: true
-            },
-            SBChart: {
-                Version2_0: true
-            }
-        }
-    </script>
-    <script src="/resource/sbux/SBUx.js"></script>
-    <script src="/resource/script/common.js"></script>
-    <!------------------ 컴포넌트 테마 CSS ------------------>
-	<link href="/resource/css/blue_comp_style.css" rel="stylesheet" type="text/css">
-    <!------------------ 스타일 테마 CSS ------------------>
-	<link href="/resource/css/blue_style.css" rel="stylesheet" type="text/css">
-	<!------------------ 커스텀 테마 CSS ------------------>
-	<link href="/resource/css/sbgrid_custom.css" rel="stylesheet" type="text/css">
-    <style>
-        /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
-        실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
-        .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333;}
-        .sbt-A-wrap .main {display:table;  width:100%; height:500px;}
-        .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px; }
-        .sbt-A-wrap .left .sbt-all-left {height: 100%;}
-        .sbt-A-wrap .content {display:table-cell;}
-        .sbux-sidemeu {position: relative; z-index: 1;}
-    </style>
+	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<div class="sbt-A-wrap">
-        <div class="main">
-            <!--main content-->
-            <div class="content">
-                <!--full content-->
-                <div class="sbt-wrap-full">
-                    <!--탭 입력 영역-->
-                    <div class="sbt-input-tab">
-                        <div class="tab-content">
-                            <div class="sbt-tab-wrap">
-                                <div class="sbt-tab-row">
-                                    <!--col -->
-                                    <div class="sbt-tab-col">
-                                        <div class="sbt-col-left">
-                                            <sbux-radio id="selectType" name="selectType" uitype="normal" wrap-class="sbt-radio"  jsondata-ref="jsonSelectType"></sbux-radio>
-                                        </div>
-                                        <div class="sbt-col-right">
-                                            <sbux-input id="srchKeyword" name="srchKeyword" uitype="text" onkeyenter="fn_KeyEnter()" style="width:200px" placeholder="코드 또는 코드명" ></sbux-input>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+	<section class="content container-fluid">
+		<div class="box box-solid">
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnCreate" name="btnCreate" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_createComCdGridRow"></sbux-button>
+                    <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_deleteComCd"></sbux-button>
+                    <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_insertComCd"></sbux-button>
+                    <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_selectComcdList"></sbux-button>
+				</div>
+			</div>
+			<div class="box-body">
+
+				<!--[pp] 검색 -->
+				<sbux-input id="dtl-inp-prdcrCd" name="dtl-inp-prdcrCd" uitype="hidden"></sbux-input>
+				<table class="table table-bordered tbl_fixed">
+					<caption>검색 조건 설정</caption>
+					<colgroup>
+						<col style="width: 4%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<td  class="td_input" style="border-right:hidden;" >
+								<sbux-radio id="selectType" name="selectType" uitype="normal" jsondata-ref="jsonSelectType" text-right-padding="10px"></sbux-radio>
+							</td>
+							<td colspan="3" style="border-right:hidden;">
+								<sbux-input id="srchKeyword" name="srchKeyword" uitype="text" onkeyenter="fn_KeyEnter()" style="width:200px" placeholder="코드 또는 코드명" ></sbux-input>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span>코드목록</span></li>
+								<li><span style="font-size: x-small; color:black;">조회건수&nbsp;&nbsp;<span id="listCount" style="color:black;"></span>건</span></li>
+							</ul>
+						</div>
+						<div>
+							<div id="comCdGridArea" style="height:508px; width: 100%;"></div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span>상세코드목록</span></li>
+							</ul>
+							<div class="ad_tbl_toplist">
+								<sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-xs btn-outline-danger" onclick="fn_addRow" ></sbux-button>&nbsp;
+								<sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-xs btn-outline-danger" onclick="fn_deleteRow"></sbux-button>
+							</div>
+						</div>
+						<div>
+							<div id="comCdDtlGridArea" style="height:508px; width: 100%;"></div>
+						</div>
+					</div>
+					<b>&nbsp;</b>
+				</div>
                 <!--Button 영역-->
                 <div class="sbt-search-button" style="text-align:right;">
-                    <sbux-button id="btn_create" name="btn_create" uitype="normal" wrap-class="sbt-btn-reset" text="신규" onclick="fn_createComCdGridRow"></sbux-button>
-                    <sbux-button id="btn_delete" name="btn_delete" uitype="normal" wrap-class="sbt-btn-reset" text="삭제" onclick="fn_deleteComCd"></sbux-button>
-                    <sbux-button id="btn_save" name="btn_save" uitype="normal" wrap-class="sbt-btn-reset" text="저장" onclick="fn_insertComCd"></sbux-button>
-                    <sbux-button id="btn_selectComcdList" name="btn_selectComcdList" uitype="normal" wrap-class="sbt-btn-search" text="조회" onclick="fn_selectComcdList"></sbux-button>
-                </div>
-                <div class="sbt-con-wrap">
-                	<ul>
-	                    <li style="display:inline-block;float:left;width: 49.5%;vertical-align:top;">
-	                    <div class="sbt-grid-wrap">
-	                        <div class="sbt-wrap-header">
-	                            <span>icon</span>
-	                            <h3>코드목록 <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span></h3>
-	                        </div>
-	                        <div class="sbt-wrap-body">
-	                            <div class="sbt-grid">
-	                                <!-- SBGrid를 호출합니다. -->
-	                                <div id="comCdGridArea" style="width:100%;height:500px;"></div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    </li>
-	                    <li style="display:inline-block;float:right;width: 49.5%;vertical-align:top;">
-	                    <div class="sbt-grid-wrap">
-	                        <div class="sbt-wrap-header">
-	                            <span>icon</span>
-	                            <h3 style="width:90%">상세코드목록
-                                <div style="float:right">
-                                    <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" onclick="fn_addRow" ></sbux-button>&nbsp;
-                                    <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" onclick="fn_deleteRow"></sbux-button>
-                                </div>
-                                </h3>
-	                        </div>
-	                        <div class="sbt-wrap-body">
-	                            <div class="sbt-grid">
-	                                <!-- SBGrid를 호출합니다. -->
-	                                <div id="comCdDtlGridArea" style="height:500px;"></div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    </li>
-                    </ul>
-                </div>
             </div>
         </div>
-    </div>
+	</div>
+</section>
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
+	var jsonComCdType = [];
     // only document
-    window.addEventListener('DOMContentLoaded', function(e) {
+    window.addEventListener('DOMContentLoaded', async function(e) {
     	// 그리드 생성
+    	await gfn_setComCdSBSelect('comCdgrid', 	jsonComCdType, 	'CD_TYPE'), 		// 코드유형
     	fn_comCdCreateGrid();
     	fn_comCdDtlCreateGrid();
     });
@@ -140,6 +119,7 @@
 	    SBGridProperties.clickeventarea = {fixed: true, empty: false};
 	    SBGridProperties.entereditcell = true;			// enter키로 행 이동시 하위 셀 edit창 활성화 여부를 설정하는 속성입니다.
 	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.paging = {
 	    		  'type' : 'page',
 	    		  'count' : 5,
@@ -154,11 +134,14 @@
             },
             {caption: ["코드ID"],   ref: 'cdId',  	type:'input',  width:'150px',    style:'text-align:center'},
             {caption: ["코드명"],   ref: 'cdNm',  	type:'input',  width:'150px',    style:'text-align:center'},
+            {caption: ["코드유형"], 	ref: 'cdType',   	type:'combo',  width:'150px',    style:'text-align:center',
+				typeinfo : {ref:'jsonComCdType', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ["코드설명"], ref: 'cdExpln', type:'input',  width:'200px',    style:'text-align:center'}
         ];
         window.comCdgrid = _SBGrid.create(SBGridProperties);
         comCdgrid.bind('click', 'fn_selectComCdDtlList');
         comCdgrid.bind( "beforepagechanged" , "fn_pagingComCd" );
+
     }
 
     var comCdDtlGridData = []; // 공통코드 상세 그리드의 참조 데이터 주소 선언
@@ -175,6 +158,7 @@
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.entereditcell = true;			// enter키로 행 이동시 하위 셀 edit창 활성화 여부를 설정하는 속성입니다.
 	    SBGridProperties.entertotab = true;
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.paging = {
 	    		  'type' : 'page',
 	    		  'count' : 5,
@@ -185,19 +169,19 @@
         SBGridProperties.columns = [
             {caption : ["<input type='checkbox' onchange='fn_checkAll(comCdDtlgrid, this);'>"],
                 ref: 'checked', type: 'checkbox', width : '50px', style: 'text-align:center', sortable: false,
-                typeinfo : {ignoreupdate : true}
-            },
+                typeinfo : {ignoreupdate : true}},
             {caption: ["코드값"],       ref: 'cdVl',   		type:'input',   width:'150px',    style:'text-align:center'},
             {caption: ["코드값명"],     ref: 'cdVlNm',    	type:'input',   width:'150px',    style:'text-align:center'},
             {caption: ["코드값설명"],   ref: 'cdVlExpln',   type:'input',   width:'250px',    style:'text-align:center'},
-            {caption: ["Sort순서"],     ref: 'indctSeq',   	type:'input',   width:'150px',    style:'text-align:center'},
+            {caption: ["Sort순서"],     ref: 'indctSeq',   	type:'input',   width:'100px',    style:'text-align:center'},
             {caption: ["APC코드"],  	ref: 'apcCd', 		type:'input',   width:'0px',    style:'text-align:center', hidden : true},
             {caption: ["코드ID"],  		ref: 'cdId', 		type:'input',   width:'0px',    style:'text-align:center', hidden : true},
             {caption: ["행추가여부"],  	ref: 'addYn', 		type:'input',   width:'0px',    style:'text-align:center', hidden : true}
 
         ];
-        window.comCdDtlgrid = _SBGrid.create(SBGridProperties);
+        comCdDtlgrid = _SBGrid.create(SBGridProperties);
         comCdDtlgrid.bind( "beforepagechanged" , "fn_pagingComCdDtl" );
+
     }
 
   	//공통코드 목록 조회
@@ -244,7 +228,9 @@
 						let comCdList = {
 								cdId : item.cdId,
 								cdNm : item.cdNm,
-								cdExpln : item.cdExpln
+								cdType:item.cdType,
+								cdExpln : item.cdExpln,
+								delYn : item.delYn
 						}
 						newGridData.push(comCdList);
 					});
@@ -258,6 +244,7 @@
 					    	comCdgrid.refresh()
 						}
 						$('#listCount').text(data.resultList[0].totalRecordCount);
+				    	comCdgrid.setCellDisabled(0, 1, comCdgrid.getRows() - 1, 1, true);
 					}else{
 						$('#listCount').text(0);
 						comCdgrid.setPageTotalCount(0);
@@ -284,7 +271,7 @@
     async function fn_callSelectComCdDtlList(recordCountPerPage, currentPageNo){
     	let cdId = comCdgrid.getRowData(comCdgrid.getRow()).cdId;
     	let newDtlGridData = [];
-    	let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {cdId : cdId});
+    	let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {cdId : cdId}, null, true);
         let data = await postJsonPromise;
 
         try{
@@ -309,6 +296,7 @@
 				}else{
 			    	comCdDtlgrid.refresh()
 				}
+				comCdDtlgrid.setCellDisabled(0, 1, comCdDtlgrid.getRows() - 1, 1, true);
 			}else{
 				comCdDtlgrid.rebuild();
 			}
