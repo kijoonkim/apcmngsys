@@ -61,10 +61,10 @@
 	    		 , CP.WGHT							AS WGHT
 	    		 , CP.RKNG_AMT						AS RKNG_AMT
 	    		 , CP.CFMTN_AMT						AS CFMTN_AMT
-	    		 , SUM(CP.QNTT)						AS TOT_QNTT
-	    		 , SUM(CP.WGHT)						AS TOT_WGHT
-	    		 , SUM(CP.RKNG_AMT)					AS TOT_RKNG_AMT
-	    		 , SUM(CP.CFMTN_AMT)				AS TOT_CFMTN_AMT
+	    		 , SUM(CP.QNTT)	OVER()				AS TOT_QNTT
+	    		 , SUM(CP.WGHT)	OVER()				AS TOT_WGHT
+	    		 , SUM(CP.RKNG_AMT)	OVER()			AS TOT_RKNG_AMT
+	    		 , SUM(CP.CFMTN_AMT) OVER()			AS TOT_CFMTN_AMT
 			  FROM TB_CLCLN_PRFMNC CP
 			     , TB_PRDCR_INFO PI
 			 WHERE CP.APC_CD = PI.APC_CD
@@ -101,6 +101,7 @@
 		 	 GROUP BY CP.APC_CD
 	    		 	, CP.CLCLN_YMD
 	    		 	, CP.PRDCR_NM
+	    		 	, CP.CLCLN_SN
 	    		 	, CP.ITEM_CD
 	    		 	, CP.VRTY_CD
 	    		 	, CP.SPCFCT_CD
