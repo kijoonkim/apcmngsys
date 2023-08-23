@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.am.spmt.mapper.SpmtCmndMapper;
 import com.at.apcss.am.spmt.service.SpmtCmndService;
 import com.at.apcss.am.spmt.vo.SpmtCmndVO;
@@ -43,6 +44,13 @@ public class SpmtCmndServiceImpl implements SpmtCmndService {
 
 		List<SpmtCmndVO> resultList = spmtCmndMapper.selectSpmtCmndList(spmtCmndVO);
 		
+		return resultList;
+	}
+
+	public List<OrdrVO> selectSpmtCmndTrgList(OrdrVO ordrVO) throws Exception {
+
+		List<OrdrVO> resultList = spmtCmndMapper.selectSpmtCmndTrgList(ordrVO);
+
 		return resultList;
 	}
 

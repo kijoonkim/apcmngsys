@@ -118,17 +118,31 @@ public class OrdrVO extends ComVO {
 	 * 품목코드
 	 */
 	private String itemCd;
+	/**
+	 * 품목명
+	 */
+	private String itemNm;
 	
 	/**
 	 * 품종코드
 	 */
 	private String vrtyCd;
+
+	/**
+	 * 품종명
+	 */
+	private String vrtyNm;
 	
 	/**
 	 * 규격코드
 	 */
 	private String spcfctCd;
 	
+	/**
+	 * 규격명
+	 */
+	private String spcfctNm;
+
 	/**
 	 * TPND
 	 */
@@ -159,6 +173,16 @@ public class OrdrVO extends ComVO {
 	 */
 	private int ordrQntt;
 	
+	/**
+	 * 출하수량
+	 */
+	private int spmtQntt;
+
+	/**
+	 * 재고수량
+	 */
+	private int invntrQntt;
+
 	/**
 	 * 낱개수량
 	 */
