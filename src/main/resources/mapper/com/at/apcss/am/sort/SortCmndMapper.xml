@@ -69,6 +69,12 @@
 		<if test='sortCmndYmd != null and sortCmndYmd != ""'>
 			 AND SC.SORT_CMND_YMD = #{sortCmndYmd}
 		</if>
+		<if test='sortCmndFromYmd != null and sortCmndFromYmd != ""'>
+			 AND SC.SORT_CMND_YMD <![CDATA[>=]]> #{sortCmndFromYmd}
+		</if>
+		<if test='sortCmndToYmd != null and sortCmndToYmd != ""'>
+			 AND SC.SORT_CMND_YMD <![CDATA[<=]]> #{sortCmndToYmd}
+		</if>
 		<if test='fcltCd != null and fcltCd != ""'>
 			 AND SC.FCLT_CD = #{fcltCd}
 		</if>
@@ -76,7 +82,7 @@
 			 AND SC.ITEM_CD = #{itemCd}
 		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
-			 AND SC.VRTY_CD = #{vrtyCd}
+			 AND SC.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
 		</if>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 			 AND SC.WAREHOUSE_SE_CD = #{warehouseSeCd}

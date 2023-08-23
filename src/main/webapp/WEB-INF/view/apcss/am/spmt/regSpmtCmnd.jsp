@@ -47,7 +47,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">발주일자</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>발주일자</th>
 							<td class="td_input"  style="border-right: hidden;">
 								<sbux-datepicker id="srch-inp-outordrYmd1" name="srch-inp-outordrYmd1" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
@@ -61,7 +61,7 @@
 								<sbux-select id="dtl-slt-warehouseSeCd" name="dtl-slt-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouse" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 							<td colspan="2"></td>
-							<th scope="row" class="th_bg">품목/품종</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="dtl-slt-itemCd" name="dtl-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="전체" class="form-control input-sm" onchange="fn_selectItem" ></sbux-select>
 							</td>
@@ -137,24 +137,24 @@
 							<td></td>
 						</tr>
 						<tr>
-						    <th scope="row" class="th_bg">지시일자</th>
+						    <th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-inp-cmndYmd" name="srch-inp-cmndYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
-							<th scope="row" class="th_bg">운송회사</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>운송회사</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td class="td_input"  style="border-right: hidden;"></td>
-							<th scope="row" class="th_bg">상품등급</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>상품등급</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
 							</td>
 							<td colspan="2">&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">지시수량</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>지시수량</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cmndQntt" name="srch-inp-cmndQntt" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>

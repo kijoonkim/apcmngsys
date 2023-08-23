@@ -287,7 +287,6 @@
      * @description 저장
      */
     function fn_save() {
-
     	// validate check
     	if (!SBUxMethod.get("dtl-input-upMenuId")) {
     		return;	// 상위메뉴가 없으면 return
@@ -295,22 +294,23 @@
 
     	// check 메뉴명
         if (!SBUxMethod.get("dtl-input-menuNm")) {
-        	alert(gfn_getComMsg("W0002", "메뉴명"));	//	W0002	{0}을/를 입력하세요.
+        	gfn_comAlert("W0002", "메뉴명");	//	W0002	{0}을/를 입력하세요.
             return;
         }
     	// check APC코드
         if (!SBUxMethod.get("dtl-input-apcCd")) {
-            alert(gfn_getComMsg("W0002", "APC코드"));	//	W0002	{0}을/를 입력하세요.
+        	console.log("3");
+        	gfn_comAlert("W0002", "APC코드");	//	W0002	{0}을/를 입력하세요.
             return;
         }
         // check 화면유형
         if (!SBUxMethod.get("dtl-select-menuType")) {
-        	alert(gfn_getComMsg("W0001", "화면유형"));	//	W0001	{0}을/를 선택하세요.
+        	gfn_comAlert("W0001", "화면유형");	//	W0001	{0}을/를 선택하세요.
             return;
         }
         // check 사용자유형
         if (!SBUxMethod.get("dtl-select-userType")) {
-            alert(gfn_getComMsg("W0001", "사용자유형"));	//	W0001	{0}을/를 선택하세요.
+        	gfn_comAlert("W0001", "사용자유형");	//	W0001	{0}을/를 선택하세요.
             return;
         }
 
@@ -319,17 +319,14 @@
     	 */
     	let menuId = SBUxMethod.get("dtl-input-menuId");
 
-    	/**
-    	 * @type {string}
-    	 */
-    	let saveMsg = "";
-
         if (gfn_isEmpty(menuId)) {	//신규
-            saveMsg = gfn_getComMsg("Q0001", "등록");	//	Q0001	{0} 하시겠습니까?
-			fn_insertMenu(confirm(saveMsg));
+            if (gfn_comConfirm("Q0001", "등록")) {
+				fn_insertMenu();
+			}
         } else {
-            saveMsg = gfn_getComMsg("Q0001", "변경");	//	Q0001	{0} 하시겠습니까?
-            fn_updateMenu(confirm(saveMsg));
+        	if(gfn_comConfirm("Q0001", "변경")) {
+        		fn_updateMenu();
+        	}
         }
     }
 
@@ -341,13 +338,14 @@
         let menuId = SBUxMethod.get("dtl-input-menuId");
         if (!menuId) {
             //alert("메뉴를 선택하세요.");
-            alert(gfn_getComMsg("W0001", "메뉴"));	//	W0001	{0}을/를 선택하세요.
+            gfn_comAlert("W0001", "메뉴");	//	W0001	{0}을/를 선택하세요.
             return;
         }
 
-        let delMsg = gfn_getComMsg("Q0001", "삭제");	//	Q0001	{0} 하시겠습니까?
+        if (gfn_comConfirm("Q0001", "삭제")) {//	Q0001	{0} 하시겠습니까?
+        	fn_deleteMenu();
+        };
 
-		fn_deleteMenu(confirm(delMsg));
     }
 
 
@@ -438,10 +436,6 @@
      */
     const fn_insertMenu = async function(isConfirmed) {
 
-		if (!isConfirmed) {
-			return;
-		}
-
     	let upMenuId 		= SBUxMethod.get('dtl-input-upMenuId');		// 상위메뉴ID
     	let menuNm 			= SBUxMethod.get('dtl-input-menuNm');			// 메뉴이름
     	let apcCd 			= SBUxMethod.get('dtl-input-apcCd');			// APC코드
@@ -491,10 +485,6 @@
      */
 	const fn_updateMenu = async function(isConfirmed) {
 
-		if (!isConfirmed) {
-			return;
-		}
-
     	let menuId 			= SBUxMethod.get('dtl-input-menuId');		// 메뉴ID(PK)
     	let upMenuId 		= SBUxMethod.get('dtl-input-upMenuId');		// 상위메뉴ID
     	let menuNm 			= SBUxMethod.get('dtl-input-menuNm');		// 메뉴이름
@@ -535,11 +525,7 @@
      * @description 메뉴정보 삭제
      * @param {boolean} isConfirmed
      */
-   	const fn_deleteMenu = async function(isConfirmed) {
-
- 		if (!isConfirmed) {
- 			return;
- 		}
+   	const fn_deleteMenu = async function() {
 
 		let menuId = SBUxMethod.get('dtl-input-menuId');		// 메뉴ID(PK)
 

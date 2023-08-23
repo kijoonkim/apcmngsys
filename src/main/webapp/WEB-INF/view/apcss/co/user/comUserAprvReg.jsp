@@ -3,10 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -16,18 +12,20 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> ▶ 사용자승인등록</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset()"></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectUserList()"></sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_updataUserList()"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="승인" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 				</div>
-				
+
 			</div>
 			<div>
 			</div>
 			<div class="box-body">
+				<!--[APC] START -->
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -47,26 +45,27 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">APC명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
-							</td>
-							<td colspan="8" class="td_input"></td>
-						</tr>
-						<tr>
 							<th scope="row">승인여부</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-aprvYn" name="srch-slt-aprvYn" uitype="single" class="form-control input-sm" unselected-text="선택" >
-									<option-item value="00">승인대기</option-item>
-									<option-item value="01">사용</option-item>
-									<option-item value="02">휴면</option-item>
-									<option-item value="03">미사용</option-item>
-								</sbux-select>
+								<sbux-select
+									id="srch-slt-userStts"
+									name="srch-slt-userStts"
+									uitype="single"
+									class="form-control input-sm"
+									jsondata-ref="jsonComUserStts"
+									unselected-text="선택"
+									readonly
+								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">사용자명</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-userNm" name="srch-inp-userNm" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input
+									id="srch-inp-userNm"
+									name="srch-inp-userNm"
+									uitype="text"
+									class="form-control input-sm" placeholder="" title=""
+								></sbux-input>
 							</td>
 							<td colspan="6"></td>
 						</tr>
@@ -74,13 +73,13 @@
 				</table>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
-							<li><span>작업실적</span></li>
+							<li>
+								<span>승인요청목록</span>
+								<span style="font-size:12px">(조회건수 <span id="cnt-userAprv">0</span>건)</span>
+							</li>
 						</ul>
-						<div class="ad_tbl_toplist">
-							<sbux-button id="btn-bndlPrfmnc" name="btn-bndlPrfmnc" uitype="normal" text="일괄승인" class="btn btn-sm btn-outline-danger" onclick="fn_bndlAprv()"></sbux-button>
-						</div>
 					</div>
-					<div id="sb-area-grdUserAprvReg" style="height:300px; margin-top:8px;"></div>
+					<div id="sb-area-grdUserAprv" style="height:500px; margin-top:8px;"></div>
 				</div>
 			</div>
 	</section>
@@ -88,143 +87,182 @@
 
 <script type="text/javascript">
 
-window.addEventListener('DOMContentLoaded', function(e) {
-	fn_createUserAprvRegGrid();
+	const lv_paging = {
+		'type' : 'page',
+	  	'count' : 5,
+	  	'size' : 20,
+	  	'sorttype' : 'page',
+	  	'showgoalpageui' : true
+    };
 
-	let today = new Date();
-	let year = today.getFullYear();
-	let month = ('0' + (today.getMonth() + 1)).slice(-2);
-	let day = ('0' + today.getDate()).slice(-2);
-	SBUxMethod.set("srch-dtp-inqYmd1", year+month+day);
-	SBUxMethod.set("srch-dtp-inqYmd2", year+month+day);
-	//임시로 apcCd설정
-// 	apcNm = SBUxMethod.set("srch-inp-apcCd", "9999");
-})
-var userAprvRegGridData = []; // 그리드의 참조 데이터 주소 선언
-async function fn_createUserAprvRegGrid() {
-    var SBGridProperties1 = {};
-    	
-	    SBGridProperties1.parentid = 'sb-area-grdUserAprvReg';
-	    SBGridProperties1.id = 'userAprvRegGridId';
-	    SBGridProperties1.jsonref = 'userAprvRegGridData';
-	    SBGridProperties1.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties1.selectmode = 'byrow';
-	    SBGridProperties1.extendlastcol = 'scroll';
-	    SBGridProperties.scrollbubbling = false;
-	    SBGridProperties1.columns = [
-	         {caption: ["선택"],			ref: 'chc',      	type:'checkbox',width:'5px'},
-	         {caption: ["승인여부"], 	ref: 'aprvYn',     	type:'input',  	width:'15%', style:'text-align:center'},
-	         {caption: ["사용자ID"],  	ref: 'userId',    	type:'output',  width:'15%', style:'text-align:center'},
-	         {caption: ["사용자명"],    	ref: 'userNm',      type:'input',   width:'15%', style:'text-align:center'},
-	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'input',   width:'15%', style:'text-align:center'},
-	         {caption: ["사용자유형"],	ref: 'userType', 	type:'input',   width:'15%', style:'text-align:center'},
-	         {caption: ["메일주소"],  	ref: 'eml',  		type:'input',   width:'15%', style:'text-align:center'},
-        	 {caption: ["전화번호"],  	ref: 'telno',   	type:'input',   width:'15%', style:'text-align:center'},
-	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'15%', style:'text-align:center'},
-	         {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'input',   width:'15%', style:'text-align:center'}
-    ];
-    window.userAprvRegGridId= _SBGrid.create(SBGridProperties1);
-    fn_selectUserList();
-}
+	var jsonComUserStts	= [];	// 사용자상태	USER_STTS	srch-slt-userStts
 
-//조회 버튼
-async function fn_selectUserList(){
-	fn_callSelectUserList();
-}
+	var grdUserAprv;
+	var jsonUserAprv = [];
 
-var newUserAprvRegGridData = [];
-async function fn_callSelectUserList(){
-	let apcNm  = SBUxMethod.get("srch-inp-apcNm");
-	let aprvYn = SBUxMethod.get("srch-slt-aprvYn");
-	let userNm = SBUxMethod.get("srch-inp-userNm");
-	
-	var comUserVO = { apcNm: apcNm, aprvYn: aprvYn, userNm: userNm}
-	console.log('apcNm',apcNm);
-	let postJsonPromise = gfn_postJSON("/co/user/users", comUserVO);
-    let data = await postJsonPromise;                
-    newUserAprvRegGridData = [];
-    userAprvRegGridData = [];
-    
-    try{
-    	data.resultList.forEach((item, index) => {
-			let userAprvReg = {
-			    aprvYn		: item.aprvYn
-			  , userId		: item.userId
-			  , userNm		: item.userNm
-			  , apcCd		: item.apcCd
-			  , apcNm		: item.apcNm            
-			  , userType	: item.userType
-			  , eml			: item.eml
-			  , telno		: item.telno
-			  , jbttlNm		: item.jbttlNm
-			  , tkcgTaskNm	: item.tkcgTaskNm
-			}
-// 			newUserAprvRegGridData.push(userAprvReg);
-			
-// 		});
-//     	userAprvRegGridData = newUserAprvRegGridData;
-//     	userAprvRegGridId.rebuild();
-    	
-    	
-			userAprvRegGridData.push(Object.assign({}, userAprvReg));
-			newUserAprvRegGridData.push(Object.assign({}, userAprvReg));
+	/**
+	 * @name fn_init
+	 * @description form init
+	 */
+	const fn_init = async function() {
+		await gfn_setComCdSBSelect('srch-slt-userStts', jsonComUserStts, 'USER_STTS');
+		SBUxMethod.set("srch-slt-userStts", "00");
+
+		fn_createGridUserAprv();
+	}
+
+	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_init();
+	});
+
+	const fn_createGridUserAprv = function() {
+		var SBGridProperties = {};
+
+	    SBGridProperties.parentid = 'sb-area-grdUserAprv';
+	    SBGridProperties.id = 'grdUserAprv';
+	    SBGridProperties.jsonref = 'jsonUserAprv';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.paging = lv_paging,
+		SBGridProperties.columns = [
+	        {caption: ["선택"],		ref: 'checkedYn',	type:'checkbox', width:'5px',
+	        	typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+	        },
+	        {caption: ["상태"], 		ref: 'userSttsNm',	type:'output',  width:'15%', style:'text-align:center'},
+	        {caption: ["사용자ID"],  	ref: 'userId',    	type:'output',	width:'15%', style:'text-align:center'},
+	        {caption: ["사용자명"],   	ref: 'userNm',      type:'output',  width:'15%', style:'text-align:center'},
+	        {caption: ["APC명"],		ref: 'apcNm',   	type:'output',  width:'15%', style:'text-align:center'},
+	        {caption: ["사용자유형"],	ref: 'userTypeNm',	type:'output',  width:'15%', style:'text-align:center'},
+	        {caption: ["메일주소"],  	ref: 'eml',  		type:'output',  width:'15%', style:'text-align:center'},
+	    	{caption: ["전화번호"],  	ref: 'telno',   	type:'output',  width:'15%', style:'text-align:center'},
+	        {caption: ["직책명"],  	ref: 'jbttlNm',   	type:'output',  width:'15%', style:'text-align:center'},
+	        {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'output',  width:'15%', style:'text-align:center'},
+			{caption: ["사용자상태"],	ref: 'userStts',  	type:'output',  hidden: true},
+			{caption: ["사용자유형"],	ref: 'userType',  	type:'output',  hidden: true},
+			{caption: ["apc코드"],	ref: 'apcCd',  		type:'output',  hidden: true}
+		];
+	    grdUserAprv = _SBGrid.create(SBGridProperties);
+	}
+
+	const fn_search = async function() {
+
+		grdUserAprv.rebuild();
+
+		// set pagination
+    	let pageSize = grdUserAprv.getPageSize();
+    	let pageNo = 1;
+
+    	fn_setGrdUserAprv(pageSize, pageNo);
+	}
+
+    /**
+     * @name fn_setGrdUserAprv
+     * @description 사용자승인목록 조회
+     * @param {number} pageSize
+     * @param {number} pageNo
+     */
+	const fn_setGrdUserAprv = async function(pageSize, pageNo) {
+
+        let userStts = SBUxMethod.get("srch-slt-userStts");	//	사용자상태
+        let userNm = SBUxMethod.get("srch-inp-userNm");     // 	사용자명
+
+		const postJsonPromise = gfn_postJSON("/co/user/selectUserAprvList.do", {
+			apcCd: gv_selectedApcCd,
+			userStts: userStts,
+			userNm: userNm,
+          	// pagination
+  	  		pagingYn : 'Y',
+  			currentPageNo : pageNo,
+   		  	recordCountPerPage : pageSize
+  		});
+
+        const data = await postJsonPromise;
+
+  		try {
+
+          	/** @type {number} **/
+      		let totalRecordCount = 0;
+
+      		jsonUserAprv.length = 0;
+          	data.resultList.forEach((item, index) => {
+          		const userAprv = {
+  						rowSeq: item.rowSeq,
+  						apcCd: item.apcCd,
+  						userId: item.userId,
+  						userNm: item.userNm,
+  						apcNm: item.apcNm,
+  						userStts: item.userStts,
+  						userSttsNm: item.userSttsNm,
+  						userType: item.userType,
+  						userTypeNm: item.userTypeNm,
+  						eml: item.eml,
+  						telno: item.telno,
+  						jbttlNm: item.jbttlNm,
+  						tkcgTaskNm: item.tkcgTaskNm,
+  				}
+          		jsonUserAprv.push(userAprv);
+
+  				if (index === 0) {
+  					totalRecordCount = item.totalRecordCount;
+  				}
+  			});
+
+			grdUserAprv.refresh();
+          	document.querySelector('#cnt-userAprv').innerText = totalRecordCount;
+
+          } catch (e) {
+      		if (!(e instanceof Error)) {
+      			e = new Error(e);
+      		}
+      		console.error("failed", e.message);
+          }
+	}
+
+	const fn_save = async function() {
+
+		const userAprvList = [];
+		const allUserData = grdUserAprv.getGridDataAll();
+
+		allUserData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+				userAprvList.push({
+    				userId: item.userId
+    			});
+    		}
 		});
-		console.log("newUserAprvRegGridData", newUserAprvRegGridData);
-		console.log("userAprvRegGridData", userAprvRegGridData);
-		console.log('aprvYn',aprvYn);
-		userAprvRegGridId.rebuild();
-    }catch (e) {
-		if (!(e instanceof Error)) {
-			e = new Error(e);
+
+		if (userAprvList.length == 0) {
+			gfn_comAlert("W0001", "승인대상");		//	W0001	{0}을/를 선택하세요.
+			return;
 		}
- 		console.error("failed", e.message);
-    }
-}
 
-//초기화 버튼
-async function fn_reset(){
-	
-	console.log('초기화버튼 클릭');
-	
-	SBUxMethod.clear("srch-inp-apcNm");
-	SBUxMethod.clear("srch-slt-aprvYn");
-	SBUxMethod.clear("srch-inp-userNm");
-}
-
-//저장버튼
-async function fn_updataUserList(){
-	fn_callUpdateUserList();
-}
-
-async function fn_callUpdateUserList(){
-	console.log("userAprvRegGridData", userAprvRegGridData);
-	console.log("userAprvRegGridData.length", userAprvRegGridData.length);
-	
-	let regMsg = "등록 하시겠습니까?";
-	if(confirm(regMsg)){
-		console.log('newUserAprvRegGridData',newUserAprvRegGridData);
-		console.log('userAprvRegGridData',userAprvRegGridData);
-// 		let postJsonPromise = gfn_postJSON("/am/cmns/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
-		let postJsonPromise = await gfn_postJSON("/co/user/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
-		alert("등록 되었습니다.");
-	}
-	fn_selectUserList();
-
-}
-
-//일괄승인
-async function fn_bndlAprv() {
-	for(var i=0; i<userAprvRegGridData.length; i++){
-		console.log("userAprvRegGridData[i]", userAprvRegGridData[i]);
-		if (Object.keys(userAprvRegGridData[i]).indexOf("chc") != -1){
-			console.log("i", i);
-// 			var aprvYn = "01";
-			userAprvRegGridData[i].userStts = "01";
-			let postJsonPromise = await gfn_postJSON("/co/user/updateComUserAprv", userAprvRegGridData[i]);
+		if (!gfn_comConfirm("Q0001", "승인")) {
+			return;
 		}
+
+    	const postJsonPromise = gfn_postJSON("/co/user/insertUserAprvList.do", userAprvList);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        }
 	}
-	fn_selectUserList();
-}
+
+	/**
+	 * @name fn_onChangeApc
+	 * @description APC 선택 변경 event
+	 */
+	const fn_onChangeApc = async function() {
+		fn_search();
+	}
 
 </script>
 

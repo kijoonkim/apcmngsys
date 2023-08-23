@@ -59,7 +59,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComUserList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">                  
+    <select id="selectComUserList" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -74,13 +74,14 @@
 			      CU.USER_ID            	AS USER_ID
 				, CU.USER_NM            	AS USER_NM
 				, CU.PSWD					AS PSWD
-				, (SELECT FN_GET_COM_CD_VL_NM('USER_TYPE', CU.USER_TYPE) FROM DUAL) AS USER_TYPE
+				, CU.USER_TYPE				AS USER_TYPE
+				, (SELECT FN_GET_COM_CD_VL_NM('USER_TYPE', CU.USER_TYPE) FROM DUAL) AS USER_TYPE_NM
 				, CU.USER_STTS          	AS USER_STTS
-				, (SELECT FN_GET_COM_CD_VL_NM('USER_STTS', CU.USER_STTS) FROM DUAL) AS aprvYn
+				, (SELECT FN_GET_COM_CD_VL_NM('USER_STTS', CU.USER_STTS) FROM DUAL) AS USER_STTS_NM
 				, CU.EML                	AS EML
 				, CU.TELNO          	 	AS TELNO
 				, CU.APC_CD             	AS APC_CD
-				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CU.APC_CD) AS APC_NM				 
+				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CU.APC_CD) AS APC_NM
 				, CU.OGDP_NM            	AS OGDP_NM
 				, CU.CHRGD_CERT_YN      	AS CHRGD_CERT_YN
 				, CU.CHRGD_CERT_TYPE    	AS CHRGD_CERT_TYPE
@@ -125,9 +126,6 @@
 		<if test='apcNm != null and apcNm != ""'>
 			   AND (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CU.APC_CD) LIKE #{apcNm}
 		</if>
-		<if test='aprvYn != null and aprvYn != ""'>
-			   AND CU.USER_STTS = #{aprvYn}
-		</if>
     	<![CDATA[
     		 ORDER BY USER_ID, USER_NM
     	]]>
@@ -155,7 +153,7 @@
     <update id="updateComUser" parameterType="com.at.apcss.co.user.vo.ComUserVO">
     	<![CDATA[
     	UPDATE TB_COM_USER
-    	   SET 
+    	   SET
     	     USER_ID 				= #{userId}
     	   , SYS_LAST_CHG_DT 		= SYSDATE
     	   , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
