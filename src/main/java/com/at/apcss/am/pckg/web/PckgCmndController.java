@@ -41,6 +41,7 @@ public class PckgCmndController extends BaseController {
 
 	@Resource(name = "cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
+	
 	/**
 	 * 포장지시 목록 조회
 	 * 

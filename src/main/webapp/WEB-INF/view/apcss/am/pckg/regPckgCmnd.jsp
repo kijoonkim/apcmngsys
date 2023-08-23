@@ -83,7 +83,8 @@
 							<td colspan="2">&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>거래처</th>
 						    <td colspan="3" class="td_input" style="border-right:hidden ;">
-						    	<sbux-input uitype="text" id="srch-inp-cnpt" name="srch-inp-cnpt" class="form-control input-sm input-sm-ast inpt_data_reqed"/>
+						    	<sbux-input uitype="hidden" id="srch-inp-cnptCd" name="srch-inp-cnptCd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-input>
+						    	<sbux-input uitype="text" id="srch-inp-cnptNm" name="srch-inp-cnptNm" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-input>
 							<td class="td_input">
 								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"/>
 						    </td>
@@ -338,7 +339,7 @@
 				throw "지시수량은 필수입력 항목입니다.";
  		   if (gfn_isEmpty(SBUxMethod.get("srch-slt-fclt")))
 				throw "생산설비는 필수입력 항목입니다.";
- 		   if (gfn_isEmpty(SBUxMethod.get("srch-inp-cnpt")))
+ 		   if (gfn_isEmpty(SBUxMethod.get("srch-inp-cnptNm")))
 				throw "거래처는 필수입력 항목입니다.";
 	 		   
 			let pckgCmndYmd  = SBUxMethod.get("srch-dtp-cmndYmd"); //포장지시일자
@@ -349,8 +350,8 @@
 			spcfctData = await gfn_getApcSpcfcts(gv_selectedApcCd, itemCd);
 			let cmndWght = cmndQntt * spcfctData.find(e => e.spcfctCd == SBUxMethod.get("srch-slt-spcfctCd")).wght//지시 중량 = 지시 수량 * 규격의 단중
 			let fcltCd  = SBUxMethod.get("srch-slt-fclt"); //설비코드
-	// 		let cnptCd  = SBUxMethod.get(""); //거래처코드
-			let cnptNm  = SBUxMethod.get("srch-inp-cnpt"); //거래처명
+			let cnptCd  = SBUxMethod.get("srch-inp-cnptCd"); //거래처코드
+			let cnptNm  = SBUxMethod.get("srch-inp-cnptNm"); //거래처명
 			
 			let dudtYmd  = SBUxMethod.get("srch-dtp-dudtYmd"); //납기일자
 	// 		let gdsCd  = SBUxMethod.get(""); //상품코드
@@ -368,7 +369,7 @@
 				cmndQntt: cmndQntt,
 				cmndWght: cmndWght,
 				fcltCd: fcltCd,
-	// 			cnptCd: cnptCd,
+				cnptCd: cnptCd,
 				cnptNm: cnptNm,
 				dudtYmd: dudtYmd,
 	// 			gdsCd: gdsCd,
@@ -419,6 +420,19 @@
 			}
 		}
 	}
+	
+	
+ 	const fn_modalCnpt = function() {
+     	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
+ 	}
+ 	
+ 	const fn_setCnpt = function(cnpt) {
+ 		if (!gfn_isEmpty(cnpt)) {
+ 			console.log("cnpt", cnpt);
+ 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
+ 			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
+ 		}
+ 	}
 
 </script>
 </html>
