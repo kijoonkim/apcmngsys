@@ -63,7 +63,6 @@
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" class="form-control input-sm" uitype="text"></sbux-input>
-								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button id="btnSrchVrty" name="btnSrchVrty" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"></sbux-button>
@@ -73,7 +72,6 @@
 							<th scope="row" class="th_bg" style="border-right: hidden;">거래처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" class="form-control input-sm"></sbux-input>
-								<sbux-input id="srch-inp-cnptCd" name="srch-inp-cnptCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
@@ -108,7 +106,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtPrfmnc" style="height:600px;"></div>
+					<div id="sb-area-spmtPrfmnc" style="height:650px;"></div>
 				</div>
 			</div>
 			<!--[pp] //검색결과 -->
@@ -152,7 +150,6 @@
 			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
 		 	gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', 	jsonComTrsprtCo, 	gv_selectedApcCd),		// 운송사
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd),		// 품목
-		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 		gv_selectedApcCd)		// 품종
 		]);
 	}
 
@@ -218,7 +215,7 @@
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
 		let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
 		let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
-		let cnptCd = SBUxMethod.get("srch-inp-cnptCd");
+		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
 		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCo");
 		let itemCd;
 		if (itemList.length != 0) {
@@ -226,16 +223,16 @@
 		} else {
 			itemCd = SBUxMethod.get("srch-slt-itemCd");
 		}
-		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
+		let vrtyNm = SBUxMethod.get("srch-inp-vrtyNm");
 		let dldtn = SBUxMethod.get("srch-inp-dldtn");
 		let vhclno = SBUxMethod.get("srch-inp-vhclno");
 		let SpmtPrfmncVO = {apcCd 				: apcCd
 						  , spmtYmdFrom 		: spmtYmdFrom
 						  , spmtYmdTo 			: spmtYmdTo
-						  , cnptCd 				: cnptCd
+						  , cnptNm 				: cnptNm
 						  , trsprtCoCd 			: trsprtCoCd
 						  , itemCd 				: itemCd
-						  , vrtyCd 				: vrtyCd
+						  , vrtyNm 				: vrtyNm
 						  , warehouseSeCd 		: warehouseSeCd
 						  , dldtn 				: dldtn
 						  , vhclno 				: vhclno
@@ -311,7 +308,6 @@
 			vrtyList = [];
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
 			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
-			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyCd);
 		}
 	}
 	
@@ -320,15 +316,12 @@
 			var _vrtys = [];
 			itemList = [];
 			vrtyList = [];
-	 		SBUxMethod.set("srch-inp-vrtyCd", null);
 			for(var i=0;i<vrtys.length;i++){
 				itemList.push(vrtys[i].itemCd);
 				_vrtys.push(vrtys[i].vrtyNm);
-				vrtyList.push(vrtys[i].vrtyCd);
 			}
 			SBUxMethod.set('srch-slt-itemCd', itemList[0]);
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtys.join(','));
-			SBUxMethod.set('srch-inp-vrtyCd', vrtyList.join(','));
 		}
 	}
 
@@ -342,7 +335,6 @@
 	const fn_setCnpt = function(cnpt) {
 		if (!gfn_isEmpty(cnpt)) {
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
-			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
 		}
 	}
 	
