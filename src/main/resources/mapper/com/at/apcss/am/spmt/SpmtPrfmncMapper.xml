@@ -63,9 +63,9 @@
 	    		 , PC.TRSPRT_CST					AS TRSPRT_CST
 	    		 , PD.SPMT_QNTT						AS SPMT_QNTT
 	    		 , PD.SPMT_WGHT						AS SPMT_WGHT
-	    		 , SUM(PC.TRSPRT_CST)				AS TOT_TRSPRT_CST
-	    		 , SUM(PD.SPMT_QNTT)				AS TOT_SPMT_QNTT
-	    		 , SUM(PD.SPMT_WGHT)				AS TOT_SPMT_WGHT
+	    		 , SUM(PC.TRSPRT_CST) OVER()		AS TOT_TRSPRT_CST
+	    		 , SUM(PD.SPMT_QNTT) OVER()			AS TOT_SPMT_QNTT
+	    		 , SUM(PD.SPMT_WGHT) OVER()			AS TOT_SPMT_WGHT
 			  FROM
 				   TB_SPMT_PRFMNC_COM	PC
 				 , TB_SPMT_PRFMNC_DTL	PD
@@ -107,10 +107,10 @@
 		       AND PC.TRSPRT_CO_CD = #{trsprtCoCd}
 		</if>
 		<if test='itemCd != null and itemCd != ""'>
-		       AND VC.ITEM_CD = #{itemCd}
+		       AND VC.ITEM_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{itemCd})))
 		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
-		       AND VC.VRTY_CD = #{vrtyCd}
+			   AND VC.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
 		</if>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 		       AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
@@ -123,7 +123,12 @@
 		</if>
 		<![CDATA[
 		 	 GROUP BY PC.APC_CD
+	    		 	, PC.SPMTNO
 	    		 	, PC.SPMT_YMD
+	    		 	, PD.APC_CD
+	    		 	, PD.SPMTNO
+	    		 	, PD.PCKGNO
+	    		 	, PD.PCKG_SN
 	    		 	, PD.BRND_CD
 	    		 	, PD.GDS_CD
 	    		 	, VC.ITEM_CD
