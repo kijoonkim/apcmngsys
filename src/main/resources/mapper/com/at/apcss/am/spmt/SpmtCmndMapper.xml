@@ -157,12 +157,7 @@
 	    		 , SC.VRTY_CD						AS VRTY_CD
 	    		 , SC.SPCFCT_CD						AS SPCFCT_CD
 	    		 , SC.GDS_CD						AS GDS_CD
-	    		 , (SELECT CI.CNPT_NM
-	    		 	  FROM TB_CNPT_INFO CI
-	    		 	 WHERE CI.APC_CD = SC.APC_CD
-	    		 	   AND CI.CNPT_CD = SC.CNPT_CD
-	    		 	   AND CI.DEL_YN = 'N'
-	    		 	   AND SC.DEL_YN = 'N') 		AS CNPT_NM
+	    		 , CI.CNPT_NM				 		AS CNPT_NM
 	    		 , SC.DLDTN							AS DLDTN
 	    		 , SC.TRSPRT_CO_NM					AS TRSPRT_CO_NM
 	    		 , SC.GDS_GRD						AS GDS_GRD
@@ -170,17 +165,23 @@
 	    		 , SC.CMND_WGHT						AS CMND_WGHT
 	    		 , SC.RMRK							AS RMRK
 			  FROM TB_SPMT_CMND SC
-			 WHERE SC.APC_CD = #{apcCd}
+			     , TB_CNPT_INFO CI
+			 WHERE CI.APC_CD = SC.APC_CD
+			   AND CI.CNPT_CD = SC.CNPT_CD
 			   AND SC.DEL_YN = 'N'
+			   AND CI.DEL_YN = 'N'
 		]]>
+		<if test='apcCd != null and apcCd != ""'>
+		   	   AND SC.APC_CD >= #{apcCd}
+		</if>
 		<if test='cmndYmdFrom != null and cmndYmdFrom != ""'>
 		   	   AND SC.CMND_YMD >= #{cmndYmdFrom}
 		</if>
 		<if test='cmndYmdTo != null and cmndYmdTo != ""'>
 		       AND #{cmndYmdTo} >= SC.CMND_YMD
 		</if>
-		<if test='cnptCd != null and cnptCd != ""'>
-		       AND SC.CNPT_CD = #{cnptCd}
+		<if test='cnptNm != null and cnptNm != ""'>
+		       AND CI.CNPT_NM LIKE '%' ||  #{cnptNm} || '%'
 		</if>
 		<if test='trsprtCoCd != null and trsprtCoCd != ""'>
 		       AND SC.TRSPRT_CO_CD = #{trsprtCoCd}
@@ -197,6 +198,23 @@
 		<if test='pckgSeCd != null and pckgSeCd != ""'>
 		       AND SC.PCKG_SE_CD = #{pckgSeCd}
 		</if>
+		<![CDATA[
+		 	 GROUP BY SC.SPMT_CMNDNO
+		 	 		, SC.CMND_YMD
+		 	 	    , SC.APC_CD
+	    		 	, SC.PCKG_SE_CD
+	    		 	, SC.ITEM_CD
+	    		 	, SC.VRTY_CD
+	    		 	, SC.SPCFCT_CD
+	    		 	, SC.GDS_CD
+	    		 	, CI.CNPT_NM
+	    		 	, SC.DLDTN
+	    		 	, SC.TRSPRT_CO_NM
+	    		 	, SC.GDS_GRD
+	    		 	, SC.CMND_QNTT
+	    		 	, SC.CMND_WGHT
+	    		 	, SC.RMRK
+		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0

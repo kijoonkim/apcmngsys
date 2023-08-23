@@ -49,12 +49,7 @@
 	    		 , SP.VRTY_CD						AS VRTY_CD
 	    		 , SP.SPCFCT_CD						AS SPCFCT_CD
 	    		 , SP.GDS_CD						AS GDS_CD
-	    		 , (SELECT CI.CNPT_NM
-	    		 	  FROM TB_CNPT_INFO CI
-	    		 	 WHERE CI.APC_CD = SP.APC_CD
-	    		 	   AND CI.CNPT_CD = SP.CNPT_CD
-	    		 	   AND CI.DEL_YN = 'N'
-	    		 	   AND SP.DEL_YN = 'N') 		AS CNPT_NM
+	    		 , CI.CNPT_NM				 		AS CNPT_NM
 	    		 , SP.BRND_CD						AS BRND_CD
 	    		 , SP.SPMT_YMD						AS SPMT_YMD
 	    		 , SP.SLS_UNTPRC					AS SLS_UNTPRC
@@ -67,8 +62,10 @@
 			  FROM TB_SLS_PRFMNC SP
 			     , TB_SPMT_PRFMNC_COM PC
 			     , TB_SPMT_PRFMNC_DTL PD
+			     , TB_CNPT_INFO CI
 			 WHERE SP.APC_CD = PC.APC_CD
 			   AND SP.APC_CD = PD.APC_CD
+			   AND SP.APC_CD = CI.APC_CD
 			   AND SP.SPMT_YMD = PC.SPMT_YMD
 			   AND SP.CNPT_CD = PC.CNPT_CD
 			   AND SP.VRTY_CD = PD.VRTY_CD
@@ -77,20 +74,24 @@
 			   AND SP.WGHT = PD.SPMT_WGHT
 			   AND SP.BRND_CD = PD.BRND_CD
 			   AND SP.GDS_CD = PD.GDS_CD
+	    	   AND SP.CNPT_CD = CI.CNPT_CD
 			   AND PC.SPMTNO = PD.SPMTNO
-			   AND SP.APC_CD = #{apcCd}
 			   AND SP.DEL_YN = 'N'
 			   AND PC.DEL_YN = 'N'
 			   AND PD.DEL_YN = 'N'
+	    	   AND CI.DEL_YN = 'N'
 		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND SP.APC_CD = #{apcCd}
+		</if>
 		<if test='slsYmdFrom != null and slsYmdFrom != ""'>
 		   	   AND SP.SLS_YMD >= #{slsYmdFrom}
 		</if>
 		<if test='slsYmdTo != null and slsYmdTo != ""'>
 		       AND #{slsYmdTo} >= SP.SLS_YMD
 		</if>
-		<if test='cnptCd != null and cnptCd != ""'>
-		       AND SP.CNPT_CD = #{cnptCd}
+		<if test='cnptNm != null and cnptNm != ""'>
+		       AND CI.CNPT_NM LIKE '%' ||  #{cnptNm} || '%'
 		</if>
 		<if test='itemCd != null and itemCd != ""'>
 		       AND SP.ITEM_CD = #{itemCd}
@@ -99,7 +100,7 @@
 		       AND SP.VRTY_CD = #{vrtyCd}
 		</if>
     	<![CDATA[
-		 	 GROUP BY SP.APC_CD
+		 	 GROUP BY PC.SPMTNO
 	    		 	, SP.SLS_YMD
 	    		 	, SP.SLS_SN
 	    		 	, SP.ITEM_CD
@@ -113,6 +114,8 @@
 	    		 	, SP.WGHT
 	    		 	, SP.CFMTN_AMT
 	    		 	, SP.CNPT_CD
+		 	 		, SP.APC_CD
+	    		 	, CI.CNPT_NM
 	    		 	, SP.DEL_YN
 		]]>
 		<!-- Start 페이징 -->

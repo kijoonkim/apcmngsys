@@ -72,10 +72,12 @@
 			   AND CP.PRDCR_NM = PI.PRDCR_NM
 			   AND CP.GDS_SE_CD = PI.GDS_SE_CD
 			   AND CP.WRHS_SE_CD = PI.WRHS_SE_CD
-			   AND CP.APC_CD = #{apcCd}
 			   AND CP.DEL_YN = 'N'
 			   AND PI.DEL_YN = 'N'
 		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND CP.APC_CD = #{apcCd}
+		</if>
 		<if test='clclnYmdFrom != null and clclnYmdFrom != ""'>
 		   	   AND CP.CLCLN_YMD >= #{clclnYmdFrom}
 		</if>
