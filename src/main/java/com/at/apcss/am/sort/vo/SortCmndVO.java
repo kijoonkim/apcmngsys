@@ -50,6 +50,16 @@ public class SortCmndVO extends ComVO {
 	private String sortCmndYmd;
 
 	/**
+	 * 선별지시시작일자
+	 */
+	private String sortCmndFromYmd;
+
+	/**
+	 * 선별지시종료일자
+	 */
+	private String sortCmndToYmd;
+
+	/**
 	 * 설비코드
 	 */
 	private String fcltCd;
