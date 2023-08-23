@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,49 +22,98 @@
 				<h3 class="box-title" style="line-height: 30px;"> ▶ 개인정보이용동의</h3>
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
+				<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
 				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 			</div>
 		</div>
 		<div class="box-body">
+				<!--[APC] START -->
+<%-- 					<%@ include file="../../../frame/inc/apcSelect.jsp" %> --%>
+				<!--[APC] END -->
+
 			<!--[pp] 검색 -->
-			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
-					<col style="width: 7%">
 					<col style="width: 6%">
+					<col style="width: 10%">
 					<col style="width: 6%">
-					<col style="width: 3%">
-					<col style="width: 7%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 3%">
-					<col style="width: 7%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 3%">
+					<col style="width: 15%">
+					<col style="width: 63%">
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
-						<td colspan= "3" class="td_input" style="border-right:hidden;">
-							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
-						</td>
-						<td>
-							<sbux-button id="srch-btn-apcCd" name="srch-btn-apcCd" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
-						</td>
 						<th scope="row">대상연도</th>
-						<td class="td_input"  style="border-right: hidden;">
-							<sbux-input id="srch-inp-trgtYr" name="srch-inp-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+						<td "td_input"  style="border-right: hidden;">
+							<sbux-input id="srch-input-trgtYr" name="srch-input-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
-						<td colspan="5"></td>
+
+
+							<th scope="row" style="border-bottom:1px solid white " class="th_bg" >APC명</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
+	<script type="text/javascript">
+	<c:choose>
+		<c:when test="${comApcList != null}">
+		var cjsonApcList = ${comApcList};
+		</c:when>
+		<c:otherwise>
+		var cjsonApcList = {};
+		</c:otherwise>
+	</c:choose>
+	<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
+		gv_selectedApcCd = null;
+		gv_selectedApcNm = null;
+	</c:if>
+		/**
+		 * @name
+		 * @description
+		 * @function
+		 * @param {string} _apcCd
+		 */
+		const cfn_onChangeApc = function(obj) {
+			gv_selectedApcCd = obj.value;
+
+			const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
+			apcInfo.forEach( (apc) => {
+				gv_selectedApcNm = apc.apcNm;
+				return false;
+			});
+
+			if (typeof fn_onChangeApc === "function") {
+				fn_onChangeApc();
+			}
+
+		}
+
+	</script>
+	<c:choose>
+		<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
+			<sbux-select
+				id="gsb-slt-apcCd"
+				name="gsb-slt-apcCd"
+				uitype="single"
+				jsondata-ref="cjsonApcList"
+				unselected-text="전체"
+				class="form-control input-sm"
+				onchange="cfn_onChangeApc(this)"
+				style="max-width:150px;"
+			></sbux-select>
+		</c:when>
+		<c:otherwise>
+			<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
+		</c:otherwise>
+	</c:choose>
+							</td>
+							<td></td>
+
+
+
+
 					</tr>
 				</tbody>
 			</table>
-			</div>
 			<br>
 
 
@@ -76,131 +129,67 @@
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
-					<col style="width: 35%">
+					<col style="width: 7%">
+					<col style="width: 28%">
 					<col style="width: 65%">
 				</colgroup>
 				<tbody>
 					<tr>
-						<th>구분</th>
-						<th>내용</th>
-					</tr>
-					<tr>
-						<th>소유조직</th>
+						<th>운영조직명</th>
 						<td>
-							<sbux-input id="sdtl-input-psnOgnzNm" name="dtl-input-psnOgnzNm" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-operOgnzNm" name="dtl-input-operOgnzNm" uitype="text" class="form-control input-sm" placeholder="검색/ 신규 조직인 경우 수기입력" ></sbux-input>
 						</td>
-					</tr>
-					<tr>
-						<th>소유조직 사업자번호</th>
-						<td>
-							<sbux-input id="dtl-input-psnOgnzBrno" name="dtl-input-psnOgnzBrno" uitype="text" class="form-control input-sm" placeholder="소유자가 지자체로 사업자번호 없을 경우 공란" ></sbux-input>
-						</td>
-					</tr>
-					<tr>
-						<th>운영조직</th>
-						<td>
-							<sbux-input id="dtl-input-operOgnzNm" name="dtl-input-operOgnzNm" uitype="text" class="form-control input-sm" placeholder="최초 페이 내용 그대로 끌어오기" ></sbux-input>
-						</td>
+						<td style="border-left: hidden;"></td>
 					</tr>
 					<tr>
 						<th>운영조직사업자번호</th>
 						<td>
-							<sbux-input id="dtl-input-operOgnzBrno" name="dtl-input-operOgnzBrno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-operOgnzBrno" name="dtl-input-operOgnzBrno" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
 						</td>
+						<td style="border-left: hidden;"></td>
 					</tr>
 					<tr>
-						<th>운영조직 대표자</th>
-						<td>
-							<sbux-input id="dtl-input-operOgnzRprsv" name="dtl-input-operOgnzRprsv" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+						<th>APC 보유여부</th>
+						<td style="border-left: hidden;">
+							<sbux-input id="dtl-input-apcHldYn" name="dtl-input-apcHldYn" uitype="text" class="form-control input-sm" placeholder="보유 / 미보유 -임대운영의 경우 보유로 체크" ></sbux-input>
 						</td>
+						<td style="border-left: hidden;"></td>
+
 					</tr>
 					<tr>
-						<th>운영조직 주소</th>
+						<th>APC 명</th>
 						<td>
-							<sbux-input id="dtl-input-operOgnzAddr" name="dtl-input-operOgnzAddr" uitype="text" class="form-control input-sm" placeholder="주소 검색하여 작성" ></sbux-input>
+							<sbux-input id="dtl-input-apcNm" name="dtl-input-apcNm" uitype="text" class="form-control input-sm" placeholder="수기입력" ></sbux-input>
 						</td>
+						<td style="border-left: hidden;"></td>
 					</tr>
 					<tr>
-						<th>운영조직 조직유형</th>
+						<th>담당자</th>
 						<td>
-							<sbux-input id="srch-inp-opera7" name="srch-inp-opera1" uitype="text" class="form-control input-sm" placeholder="생산유통통합조직(승인함),생산유통통합조직(육성형),생산유통통합조직(승인형)-출자출하조직, 생산유통통합조직(육성형)-출자출하조직,개별조직" ></sbux-input>
+							<sbux-input id="dtl-input-operOgnzPic" name="dtl-input-operOgnzPic" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
+						<td style="border-left: hidden;"></td>
 					</tr>
 					<tr>
-						<th>운영조직 취급 대표품목1</th>
+						<th>담당자 직위 </th>
 						<td>
-							<sbux-input id="dtl-input-operOgnzTrmtItemCn" name="dtl-input-operOgnzTrmtItemCn" uitype="text" class="form-control input-sm" placeholder="운영조직 취급액 중 가장많은 품목 1
-							" ></sbux-input>
+							<sbux-input id="dtl-input-operOgnzJbps" name="dtl-input-operOgnzJbps" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
+						<td style="border-left: hidden;"></td>
 					</tr>
 					<tr>
-						<th>운영조직 취급 대표품목2</th>
+						<th>담당자 연락처 </th>
 						<td>
-							<sbux-input id="dtl-input-operOgnzTrmtItemCn2" name="dtl-input-operOgnzTrmtItemCn2" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / 운영조직 취급액 중 가장많은 품목 2
-							" ></sbux-input>
+							<sbux-input id="dtl-input-operOgnzTelno" name="dtl-input-operOgnzTelno" uitype="text" class="form-control input-sm" placeholder="010-0000-0000" ></sbux-input>
 						</td>
+						<td style="border-left: hidden;"></td>
 					</tr>
 					<tr>
-						<th>운영조직 취급 대표품목3</th>
+						<th>담당자 이메일</th>
 						<td>
-							<sbux-input id="dtl-input-operOgnzTrmtItemCn3" name="dtl-input-operOgnzTrmtItemCn3" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / 운영조직 취급액 중 가장많은 품목 3
-							" ></sbux-input>
+							<sbux-input id="dtl-input-operOgnzEml" name="dtl-input-operOgnzEml" uitype="text" class="form-control input-sm" placeholder="000000@naver.com" ></sbux-input>
 						</td>
-					</tr>
-					<tr>
-						<th>운영조직 취급 기타품목</th>
-						<td>
-							<sbux-input id="dtl-input-operOgnzTrmtItemCn4" name="dtl-input-operOgnzTrmtItemCn4" uitype="text" class="form-control input-sm" placeholder="“해당없음” 혹은 추가하기 버튼 누르고 수기입력" ></sbux-input>
-						</td>
-					</tr>
-					<tr>
-						<th>APC명</th>
-						<td>
-							<sbux-input id="dtl-select-apcNm" name="dtl-select-apcNm" uitype="text" class="form-control input-sm" placeholder="최초 페이지 내용 그대로 끌어오기
-							" ></sbux-input>
-						</td>
-					</tr>
-					<tr>
-						<th>APC 사업자번호</th>
-						<td>
-							<sbux-input id="dtl-input-apcBrno" name="dtl-input-apcBrno" uitype="text" class="form-control input-sm" placeholder="사업자번호 없을 경우 공란
-							" ></sbux-input>
-						</td>
-					</tr>
-					<tr>
-						<th>APC 주소</th>
-						<td>
-							<sbux-input id="dtl-input-apcAddr" name="dtl-input-apcAddr" uitype="text" class="form-control input-sm" placeholder="주소 검색하여 작성
-							" ></sbux-input>
-						</td>
-					</tr>
-					<tr>
-						<th>APC 처리 대표품목1</th>
-						<td>
-							<sbux-input id="srch-inp-opera15" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="APC 취급액 중 가장많은 품목 1
-							" ></sbux-input>
-						</td>
-					</tr>
-					<tr>
-						<th>APC 처리 대표품목2</th>
-						<td>
-							<sbux-input id="srch-inp-opera16" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / APC 취급액 중 가장많은 품목 2
-							" ></sbux-input>
-						</td>
-					</tr>
-					<tr>
-						<th>APC 처리 대표품목3</th>
-						<td>
-							<sbux-input id="srch-inp-opera17" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / APC 취급액 중 가장많은 품목 3
-							" ></sbux-input>
-						</td>
-					</tr>
-					<tr>
-						<th>APC 처리 기타품목명</th>
-						<td>
-							<sbux-input id="srch-inp-opera18" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="“해당없음” 혹은 추가하기 버튼 누르고 수기입력
-							" ></sbux-input>
-						</td>
+						<td style="border-left: hidden;"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -209,9 +198,6 @@
 
 			</div>
 			<!--[pp] //검색결과 -->
-
-
-
 		</div>
 	</section>
 	<!-- 거래처 선택 Modal -->
@@ -237,14 +223,15 @@
 
 	// 공통코드 JSON
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
-
+	let date = new Date();
+	let year  = date.getFullYear();
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-
+    	SBUxMethod.set("srch-input-trgtYr", year);
     	fn_createGrid();
 
     	gfn_setComCdSBSelect(
-    			['srch-select-msgKnd', 'dtl-select-msgKnd'],
+    			['dtl-select-msgKnd', 'dtl-select-msgKnd'],
     			jsonComMsgKnd,
 			'MSG_KND');
     });
@@ -268,17 +255,23 @@
 
         SBGridProperties.columns = [
 
+            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
+                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
+            {caption: ["운영조직명"], 	ref: 'operOgnzNm',     	type:'output',  width:'26%',    style:'text-align:center'},
+            {caption: ["운영조직담당자"],  	ref: 'operOgnzPic',    type:'output',  width:'26%',    style:'text-align:center'},
+            {caption: ["운영조직직위"],   ref: 'operOgnzJbps',    type:'output',  width:'26%',    style:'text-align:center'},
+            {caption: ["운영조직 이메일"],	    ref: 'operOgnzEml',   type:'output',  width:'26%',    style:'text-align:center'},
+            {caption: ["최초등록자ID"],	ref: 'apcCd',           type:'output',  hidden: true},
+            {caption: ["최초등록일시"],	ref: 'trgtYr',           type:'output',  hidden: true},
+            {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
+            {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},
+            {caption: ["최종변경자ID"],	ref: 'updUserId',   type:'output',  hidden: true},
+            {caption: ["최종변경일시"],  ref: 'updDateTime', type:'output',  hidden: true},
+            {caption: ["등록프로그램"],  ref: 'creProgram',  type:'output',  hidden: true},
+            {caption: ["변경프로그램"],  ref: 'updProgram',  type:'output',  hidden: true}
 
-            {caption: ["소유조직"],	ref: 'psnOgnzNm',      type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["대표품목1"], 	ref: 'operOgnzTrmtItemCn1',     	type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["대표품목2"],  	ref: 'operOgnzTrmtItemCn2',    type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["대표품목3"],   ref: 'operOgnzTrmtItemCn3',    type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["기타품목"],	ref: 'operOgnzTrmtItemCn4',   type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["Apc명"],		ref: 'apcNm', type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["운영조직대표자"],	ref: 'operOgnzRprsv',   type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["최종변경일시"], ref: 'updDateTime', type:'output',  hidden: true},
-            {caption: ["등록프로그램"], ref: 'creProgram',  type:'output',  hidden: true},
-            {caption: ["변경프로그램"], ref: 'updProgram',  type:'output',  hidden: true}
         ];
 
         grdFcltOperInfoClctAgreInfoList = _SBGrid.create(SBGridProperties);
@@ -311,6 +304,7 @@
      * @param {number} pageSize
      * @param {number} pageNo
      */
+     // select 그리드 조회 생ㅅ
     const fn_setGrdFcltOperInfoClctAgreInfoList = async function(pageSize, pageNo) {
 
     	// form clear
@@ -318,27 +312,37 @@
 
 		grdFcltOperInfoClctAgreInfoList.clearStatus();
 
-		let psnOgnzNm = SBUxMethod.get("srch-input-psnOgnzNm");
-		let operOgnzTrmtItemCn1 = SBUxMethod.get("srch-input-operOgnzTrmtItemCn1");
-		let operOgnzTrmtItemCn2 = SBUxMethod.get("srch-input-operOgnzTrmtItemCn2");
-		let operOgnzTrmtItemCn3 = SBUxMethod.get("srch-input-operOgnzTrmtItemCn3");
-		let operOgnzTrmtItemCn4 = SBUxMethod.get("srch-input-operOgnzTrmtItemCn4");
+		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
+
+		var chk = {
+				trgtYr: trgtYr,
+	        	apcCd: apcCd,
+	        	// pagination
+		  		pagingYn : 'N',
+				currentPageNo : pageNo,
+	 		  	recordCountPerPage : pageSize
+
+		}
+		console.log('=============chk==================');
+		console.log(chk);
 
         const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltOperInfoClctAgreInfoList.do", {
-
-        	psnOgnzNmItemCn1: psnOgnzNm,
-        	operOgnzTrmtItemCn1: operOgnzTrmtItemCn1,
-        	operOgnzTrmtItemCn2: operOgnzTrmtItemCn2,
-        	operOgnzTrmtItemCn3: operOgnzTrmtItemCn3,
-        	operOgnzTrmtItemCn4: operOgnzTrmtItemCn4,
+        	trgtYr: trgtYr,
+        	apcCd: apcCd,
         	// pagination
 	  		pagingYn : 'Y',
 			currentPageNo : pageNo,
  		  	recordCountPerPage : pageSize
-
         });
-
+		console.log("a11111111111111");
         const data = await postJsonPromise;
+
+        console.log("---------------------------")
+        console.log(data);
+        console.log(data.resultList);
+
+
 
         try {
 
@@ -347,26 +351,34 @@
 
         	jsonFcltOperInfoClctAgreInfoList.length = 0;
         	data.resultList.forEach((item, index) => {
-				const operInfoClctAgreInfo = {
-		        	psnOgnzNmItemCn1: item.psnOgnzNm,
-		        	operOgnzTrmtItemCn1: item.operOgnzTrmtItemCn1,
-		        	operOgnzTrmtItemCn2: item.operOgnzTrmtItemCn2,
-		        	operOgnzTrmtItemCn3: item.operOgnzTrmtItemCn3,
-		        	operOgnzTrmtItemCn4: item.operOgnzTrmtItemCn4,
-					sysFrstInptDt: item.sysFrstInptDt,
-					sysFrstInptUserId: item.sysFrstInptUserId,
-					sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,
-					sysLastChgDt: item.sysLastChgDt,
-					sysLastChgUserId: item.sysLastChgUserId,
-					sysLastChgPrgrmId: item.sysLastChgPrgrmId
+				const msg = {
+			         trgtYr: item.trgtYr,	 	//대상연도
+			         apcCd: item.apcCd, 	 	//apc코드
+			         operOgnzCd: item.operOgnzCd,  	//운영조직 코드
+			         operOgnzNm: item.operOgnzNm, 	 //운영조직 명
+			         operOgnzBrno: item.operOgnzBrno,  	//운영조직 사업자등록번호
+			         apcHldYn: item.apcHldYn, 	 //apc보유여부
+			         operOgnzPic: item.operOgnzPic, 	 //담당자
+			         operOgnzJbps: item.operOgnzJbps,  	//담당자 직위
+			         operOgnzTelno: item.operOgnzTelno, 	 //담당자 연락처
+			         operOgnzEml: item.operOgnzEml,  	//담당자 이메일
+			         prsnaDataAgrdYn: item.prsnaDataAgrdYn,  	//동의여부
+			         delYn: item.delYn,                  //삭제유무
+			         sysFrstInptDt: item.sysFrstInptDt,       //시스템최초입력일시
+			         sysFrstInptUserId: item.sysFrstInptUserId,      //시스템최초입력사용자id
+			         sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,     	//시스템최초입력프로그램id
+			         sysLastChgDt: item.sysLastChgDt,    		  //시스템최종변경일시
+			         sysLastChgUserId: item.sysLastChgUserId,  	//시스템최종변경사용자id
+			         sysLastChgPrgrmId: item.sysLastChgPrgrmId   //시스템최종변경프로그램id
 				}
-				jsonFcltOperInfoClctAgreInfoList.push(operInfoClctAgreInfo);
+
+				jsonFcltOperInfoClctAgreInfoList.push(msg);
 
 				if (index === 0) {
 					totalRecordCount = item.totalRecordCount;
 				}
 			});
-
+        	console.log("c33333333333333333333");
         	console.log("totalRecordCount", totalRecordCount);
 
         	if (jsonFcltOperInfoClctAgreInfoList.length > 0) {
@@ -382,8 +394,8 @@
         		grdFcltOperInfoClctAgreInfoList.rebuild();
         	}
 
-        	document.querySelector('#listCount').innerText = totalRecordCount;
-
+        	//document.querySelector('#listCount').innerText = totalRecordCount;
+        	console.log(grdFcltOperInfoClctAgreInfoList);
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -393,80 +405,59 @@
     }
 
 
-
     //신규 작성
     function fn_create() {
-    	SBUxMethod.set("dtl-input-apcCd", null);
-    	SBUxMethod.set("dtl-input-trgtYr", null);
-    	//----------------------------
-
-    	SBUxMethod.set("dtl-input-daddr", null);
-    	SBUxMethod.set("dtl-input-apcBrno", null);
-    	SBUxMethod.set("dtl-input-apcRgnCd", null);
-    	SBUxMethod.set("dtl-input-apcNm", null);
-        SBUxMethod.set("dtl-input-apcAddr", null);
-        SBUxMethod.set("dtl-input-psnOgnzCd", false);
-        SBUxMethod.set("dtl-input-psnOgnzNm", null);
-        SBUxMethod.set("dtl-input-psnOgnzBrno", null);
-        SBUxMethod.set("dtl-input-operOgnzCd", null);
-        SBUxMethod.set("dtl-input-operOgnzNm", null);
-        SBUxMethod.set("dtl-input-operOgnzBrno", null);
-        SBUxMethod.set("dtl-input-operOgnzRprsv", null);
-        SBUxMethod.set("dtl-input-operOgnzAddr", null);
-        SBUxMethod.set("dtl-input-operOgnzDeptCd", null);
-        SBUxMethod.set("dtl-input-operOgnzDeptNm", null);
-        SBUxMethod.set("dtl-input-operOgnzTrmtItemCd", null);
-        SBUxMethod.set("dtl-input-operOgnzTrmtItemCn", null);
-        SBUxMethod.set("dtl-input-apcTrmtItemCd", null);
-        SBUxMethod.set("dtl-input-apcTrmtItemCn", null);
-        SBUxMethod.set("dtl-input-delYn", null);
-        SBUxMethod.set("dtl-input-sysFrstInptUserId", null);
-        SBUxMethod.set("dtl-input-sysLastChgUserId", null);
-        SBUxMethod.set("dtl-input-sysFrstInptDt", null);
-        SBUxMethod.set("dtl-input-sysLastChgDt", null);
-        SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);
-        SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);
+    	SBUxMethod.set("srch-input-trgtYr",null); 	 	//대상연도
+    	SBUxMethod.set("gsb-slt-apcCd",null); 	 	//apc코드
+    	SBUxMethod.set("dtl-input-operOgnzCd",null);  	//운영조직 코드
+    	SBUxMethod.set("dtl-input-operOgnzNm",null); 	 //운영조직 명
+    	SBUxMethod.set("dtl-input-operOgnzBrno",null);  	//운영조직 사업자등록번호
+    	SBUxMethod.set("dtl-input-apcHldYn",null); 	 //apc보유여부
+    	SBUxMethod.set("dtl-input-operOgnzPic",null); 	 //담당자
+    	SBUxMethod.set("dtl-input-operOgnzJbps",null);  	//담당자 직위
+    	SBUxMethod.set("dtl-input-operOgnzTelno",null); 	 //담당자 연락처
+    	SBUxMethod.set("dtl-input-operOgnzEml",null);  	//담당자 이메일
+    	SBUxMethod.set("dtl-input-prsnaDataAgrdYn",null);  	//동의여부
+    	SBUxMethod.set("dtl-input-delYn",null);                  //삭제유무
+    	SBUxMethod.set("dtl-input-sysFrstInptDt",null);       //시스템최초입력일시
+    	SBUxMethod.set("dtl-input-sysFrstInptUserId",null);      //시스템최초입력사용자id
+    	SBUxMethod.set("dtl-input-sysFrstInptPrgrmId",null);     	//시스템최초입력프로그램id
+    	SBUxMethod.set("dtl-input-sysLastChgDt",null);      //시스템최종변경일시
+    	SBUxMethod.set("dtl-input-sysLastChgUserId",null);   //시스템최종변경사용자id
+    	SBUxMethod.set("dtl-input-sysLastChgPrgrmId",null);   //시스템최종변경프로그램id
     }
      const fn_clearForm = function() {
-     	SBUxMethod.set("dtl-input-apcCd", null);
-    	SBUxMethod.set("dtl-input-trgtYr", null);
-       	SBUxMethod.set("dtl-input-daddr", null);
-    	SBUxMethod.set("dtl-input-apcBrno", null);
-    	SBUxMethod.set("dtl-input-apcRgnCd", null);
-    	SBUxMethod.set("dtl-input-apcNm", null);
-        SBUxMethod.set("dtl-input-apcAddr", null);
-        SBUxMethod.set("dtl-input-psnOgnzCd", false);
-        SBUxMethod.set("dtl-input-psnOgnzNm", null);
-        SBUxMethod.set("dtl-input-psnOgnzBrno", null);
-        SBUxMethod.set("dtl-input-operOgnzCd", null);
-        SBUxMethod.set("dtl-input-operOgnzNm", null);
-        SBUxMethod.set("dtl-input-operOgnzBrno", null);
-        SBUxMethod.set("dtl-input-operOgnzRprsv", null);
-        SBUxMethod.set("dtl-input-operOgnzAddr", null);
-        SBUxMethod.set("dtl-input-operOgnzDeptCd", null);
-        SBUxMethod.set("dtl-input-operOgnzDeptNm", null);
-        SBUxMethod.set("dtl-input-operOgnzTrmtItemCd", null);
-        SBUxMethod.set("dtl-input-operOgnzTrmtItemCn", null);
-        SBUxMethod.set("dtl-input-apcTrmtItemCd", null);
-        SBUxMethod.set("dtl-input-apcTrmtItemCn", null);
-        SBUxMethod.set("dtl-input-delYn", null);
-        SBUxMethod.set("dtl-input-sysFrstInptUserId", null);
-        SBUxMethod.set("dtl-input-sysLastChgUserId", null);
-        SBUxMethod.set("dtl-input-sysFrstInptDt", null);
-        SBUxMethod.set("dtl-input-sysLastChgDt", null);
-        SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);
-        SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);
+       	//SBUxMethod.set("srch-input-trgtYr",null); 	 	//대상연도
+		//SBUxMethod.set("gsb-slt-apcCd",null); 	 	//apc코드
+		SBUxMethod.set("dtl-input-operOgnzCd",null);  	//운영조직 코드
+		SBUxMethod.set("dtl-input-operOgnzNm",null); 	 //운영조직 명
+		SBUxMethod.set("dtl-input-operOgnzBrno",null);  	//운영조직 사업자등록번호
+		SBUxMethod.set("dtl-input-apcHldYn",null); 	 //apc보유여부
+		SBUxMethod.set("dtl-input-operOgnzPic",null); 	 //담당자
+		SBUxMethod.set("dtl-input-operOgnzJbps",null);  	//담당자 직위
+		SBUxMethod.set("dtl-input-operOgnzTelno",null); 	 //담당자 연락처
+       	SBUxMethod.set("dtl-input-operOgnzEml",null);  	//담당자 이메일
+       	SBUxMethod.set("dtl-input-prsnaDataAgrdYn",null);  	//동의여부
+       	SBUxMethod.set("dtl-input-delYn",null);                  //삭제유무
+       	SBUxMethod.set("dtl-input-sysFrstInptDt",null);       //시스템최초입력일시
+       	SBUxMethod.set("dtl-input-sysFrstInptUserId",null);      //시스템최초입력사용자id
+       	SBUxMethod.set("dtl-input-sysFrstInptPrgrmId",null);     	//시스템최초입력프로그램id
+       	SBUxMethod.set("dtl-input-sysLastChgDt",null);      //시스템최종변경일시
+       	SBUxMethod.set("dtl-input-sysLastChgUserId",null);   //시스템최종변경사용자id
+       	SBUxMethod.set("dtl-input-sysLastChgPrgrmId",null);   //시스템최종변경프로그램id
     }
-
-
-
     //저장
     const fn_save = async function() {
 
-    	let msgKey = SBUxMethod.get("dtl-input-apcCd");
+    	let apcCd = SBUxMethod.get("gsb-slt-apcCd");
+    	let trgtYr = SBUxMethod.get("srch-input-trgtYr");
 
-    	if (!SBUxMethod.get("dtl-input-psnOgnzNm")) {
-            alert("소유조직명을입력하세요.");
+    	if (!SBUxMethod.get("gsb-slt-apcCd")) {
+            alert("APC명을 선택하세요.");
+            return;
+        }
+    	if (!SBUxMethod.get("srch-input-trgtYr")) {
+            alert("대상년도를 입력하세요.");
             return;
         }
 
@@ -475,8 +466,8 @@
             return;
         }
 
-    	if (!SBUxMethod.get("dtl-input-operOgnzBrno")) {
-            alert("운영조직명을 입력하세요.");
+    	if (!SBUxMethod.get("dtl-input-operOgnzPic")) {
+            alert("운영조직 담당자명을 입력하세요.");
             return;
         }
 
@@ -493,9 +484,8 @@
         SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", rowData.sysFrstInptPrgrmId);
         SBUxMethod.set("dtl-input-sysLastChgPrgrmId", rowData.sysLastChgPrgrmId);
     	 */
-    	fn_subInsert(confirm("등록 하시겠습니까?"));
 
-    	if (gfn_isEmpty(msgKey)) {
+     	if (gfn_isEmpty(apcCd)) {
     		// 신규 등록
 			fn_subInsert(confirm("등록 하시겠습니까?"));
     	} else {
@@ -513,74 +503,37 @@
     	 if (!isConfirmed) return;
 
     	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperInfoClctAgreInfo.do", {
-        	apcCd: '23',
-        	trgtYr: '2023',
-        	daddr: SBUxMethod.get('dtl-input-daddr'),
-        	apcBrno: SBUxMethod.get('dtl-input-apcBrno'),
-        	apcRgnCd: SBUxMethod.get('dtl-input-apcRgnCd'),
-        	apcNm: SBUxMethod.get('dtl-input-apcNm'),
-        	apcAddr: SBUxMethod.get('dtl-input-apcAddr'),
-        	psnOgnzCd: SBUxMethod.get('dtl-input-psnOgnzCd'),
-        	psnOgnzNm: SBUxMethod.get('dtl-input-psnOgnzNm'),
-        	psnOgnzBrno: SBUxMethod.get('dtl-input-psnOgnzBrno'),
-        	operOgnzCd: SBUxMethod.get('dtl-input-operOgnzCd'),
-        	operOgnzNm: SBUxMethod.get('dtl-input-operOgnzNm'),
-        	operOgnzBrno: SBUxMethod.get('dtl-input-operOgnzBrno'),
-        	operOgnzRprsv: SBUxMethod.get('dtl-input-operOgnzRprsv'),
-        	operOgnzAddr: SBUxMethod.get('dtl-input-operOgnzAddr'),
-        	operOgnzDeptCd: SBUxMethod.get('dtl-input-operOgnzDeptCd'),
-        	operOgnzDeptNm: SBUxMethod.get('dtl-input-operOgnzDeptNm'),
-        	operOgnzTrmtItemCd: SBUxMethod.get('dtl-input-operOgnzTrmtItemCd'),
-        	operOgnzTrmtItemCn: SBUxMethod.get('dtl-input-operOgnzTrmtItemCn'),
-        	apcTrmtItemCd: SBUxMethod.get('dtl-input-apcTrmtItemCd'),
-        	apcTrmtItemCn: SBUxMethod.get('dtl-input-apcTrmtItemCn'),
-        	delYn: SBUxMethod.get('dtl-input-delYn'),
-        	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId'),
-        	apcTrmtItemCn: SBUxMethod.get('dtl-input-apcTrmtItemCn'),
-        	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId'),
-        	sysFrstInptDt: 'sysdate',
-        	sysLastInptDt: 'sysdate',
-        	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId'),
-        	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')
-		});
+    				trgtYr: SBUxMethod.get('srch-input-trgtYr'), 	 	//대상연도
+					apcCd: SBUxMethod.get('gsb-slt-apcCd'), 	 	//apc코드
+					operOgnzCd: SBUxMethod.get('dtl-input-operOgnzCd'),  	//운영조직 코드
+					operOgnzNm: SBUxMethod.get('dtl-input-operOgnzNm'), 	 //운영조직 명
+					operOgnzBrno: SBUxMethod.get('dtl-input-operOgnzBrno'),  	//운영조직 사업자등록번호
+					apcHldYn: SBUxMethod.get('dtl-input-apcHldYn'), 	 //apc보유여부
+					operOgnzPic: SBUxMethod.get('dtl-input-operOgnzPic'), 	 //담당자
+					operOgnzJbps: SBUxMethod.get('dtl-input-operOgnzJbps'),  	//담당자 직위
+					operOgnzTelno: SBUxMethod.get('dtl-input-operOgnzTelno'), 	 //담당자 연락처
+		        	operOgnzBrno: SBUxMethod.get('dtl-input-operOgnzEml'),  	//담당자 이메일
+		        	prsnaDataAgrdYn: SBUxMethod.get('dtl-input-prsnaDataAgrdYn')  	//동의여부
+    	});
+
+
     var postVal = {
-    		apcCd: '23',
-        	trgtYr: '2023',
-        	daddr: '45',
-        	delYn: 'Y'
-        	/*
-        	apcBrno: SBUxMethod.get('dtl-input-apcBrno'),
-        	apcRgnCd: SBUxMethod.get('dtl-input-apcRgnCd'),
-        	apcNm: SBUxMethod.get('dtl-input-apcNm'),
-        	apcAddr: SBUxMethod.get('dtl-input-apcAddr'),
-        	psnOgnzCd: SBUxMethod.get('dtl-input-psnOgnzCd'),
-        	psnOgnzNm: SBUxMethod.get('dtl-input-psnOgnzNm'),
-        	psnOgnzBrno: SBUxMethod.get('dtl-input-psnOgnzBrno'),
-        	operOgnzCd: SBUxMethod.get('dtl-input-operOgnzCd'),
-        	operOgnzNm: SBUxMethod.get('dtl-input-operOgnzNm'),
-        	operOgnzBrno: SBUxMethod.get('dtl-input-operOgnzBrno'),
-        	operOgnzRprsv: SBUxMethod.get('dtl-input-operOgnzRprsv'),
-        	operOgnzAddr: SBUxMethod.get('dtl-input-operOgnzAddr'),
-        	operOgnzDeptCd: SBUxMethod.get('dtl-input-operOgnzDeptCd'),
-        	operOgnzDeptNm: SBUxMethod.get('dtl-input-operOgnzDeptNm'),
-        	operOgnzTrmtItemCd: SBUxMethod.get('dtl-input-operOgnzTrmtItemCd'),
-        	operOgnzTrmtItemCn: SBUxMethod.get('dtl-input-operOgnzTrmtItemCn'),
-        	apcTrmtItemCd: SBUxMethod.get('dtl-input-apcTrmtItemCd'),
-        	apcTrmtItemCn: SBUxMethod.get('dtl-input-apcTrmtItemCn'),
-
-        	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId'),
-        	apcTrmtItemCn: SBUxMethod.get('dtl-input-apcTrmtItemCn'),
-        	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId'),
-        	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt'),
-        	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId'),
-        	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')
-        	*/
-
+    				trgtYr: SBUxMethod.get('srch-input-trgtYr'), 	 	//대상연도
+      				apcCd: SBUxMethod.get('gsb-slt-apcCd'), 	 	//apc코드
+      				operOgnzCd: SBUxMethod.get('dtl-input-operOgnzCd'),  	//운영조직 코드
+      				operOgnzNm: SBUxMethod.get('dtl-input-operOgnzNm'), 	 //운영조직 명
+      				operOgnzBrno: SBUxMethod.get('dtl-input-operOgnzBrno'),  	//운영조직 사업자등록번호
+      				apcHldYn: SBUxMethod.get('dtl-input-apcHldYn'), 	 //apc보유여부
+      				operOgnzPic: SBUxMethod.get('dtl-input-operOgnzPic'), 	 //담당자
+      				operOgnzJbps: SBUxMethod.get('dtl-input-operOgnzJbps'),  	//담당자 직위
+      				operOgnzTelno: SBUxMethod.get('dtl-input-operOgnzTelno'), 	 //담당자 연락처
+      		       	operOgnzBrno: SBUxMethod.get('dtl-input-operOgnzEml'),  	//담당자 이메일
+      		       	prsnaDataAgrdYn: SBUxMethod.get('dtl-input-prsnaDataAgrdYn')  	//동의여부
     }
 	console.log(postVal);
 	console.log("----------------------------");
         const data = await postJsonPromise;
-
+	console.log(data);
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		alert("처리 되었습니다.");
@@ -589,6 +542,7 @@
         		alert(data.resultMessage);
         	}
         } catch(e) {
+        	console.log(e);
         }
 
         // 결과 확인 후 재조회
@@ -603,35 +557,25 @@
 		if (!isConfirmed) return;
 
     	const postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltOperInfoClctAgreInfo.do", {
-			apcCd: SBUxMethod.get('dtl-input-apcCd'),
-        	trgyYr: SBUxMethod.get('dtl-input-trgyYr'),
-        	daddr: SBUxMethod.get('dtl-input-daddr'),
-        	apcBrno: SBUxMethod.get('dtl-input-apcBrno'),
-        	apcRgnCd: SBUxMethod.get('dtl-input-apcRgnCd'),
-        	apcNm: SBUxMethod.get('dtl-input-apcNm'),
-        	apcAddr: SBUxMethod.get('dtl-input-apcAddr'),
-        	psnOgnzCd: SBUxMethod.get('dtl-input-psnOgnzCd'),
-        	psnOgnzNm: SBUxMethod.get('dtl-input-psnOgnzNm'),
-        	psnOgnzBrno: SBUxMethod.get('dtl-input-psnOgnzBrno'),
-        	operOgnzCd: SBUxMethod.get('dtl-input-operOgnzCd'),
-        	operOgnzNm: SBUxMethod.get('dtl-input-operOgnzNm'),
-        	operOgnzBrno: SBUxMethod.get('dtl-input-operOgnzBrno'),
-        	operOgnzRprsv: SBUxMethod.get('dtl-input-operOgnzRprsv'),
-        	operOgnzAddr: SBUxMethod.get('dtl-input-operOgnzAddr'),
-        	operOgnzDeptCd: SBUxMethod.get('dtl-input-operOgnzDeptCd'),
-        	operOgnzDeptNm: SBUxMethod.get('dtl-input-operOgnzDeptNm'),
-        	operOgnzTrmtItemCd: SBUxMethod.get('dtl-input-operOgnzTrmtItemCd'),
-        	operOgnzTrmtItemCn: SBUxMethod.get('dtl-input-operOgnzTrmtItemCn'),
-        	apcTrmtItemCd: SBUxMethod.get('dtl-input-apcTrmtItemCd'),
-        	apcTrmtItemCn: SBUxMethod.get('dtl-input-apcTrmtItemCn'),
-        	delYn: SBUxMethod.get('dtl-input-delYn'),
-        	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId'),
-        	apcTrmtItemCn: SBUxMethod.get('dtl-input-apcTrmtItemCn'),
-        	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId'),
-        	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt'),
-        	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId'),
-        	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')
-		});
+        	trgyYr: SBUxMethod.get				('srch-input-trgtYr'), 	 	//대상연도
+			apcCd: SBUxMethod.get				('gsb-slt-apcCd'), 	 	//apc코드
+			operOgnzCd: SBUxMethod.get			('dtl-input-operOgnzCd'),  	//운영조직 코드
+			operOgnzNm: SBUxMethod.get			('dtl-input-operOgnzNm'), 	 //운영조직 명
+			operOgnzBrno: SBUxMethod.get		('dtl-input-operOgnzBrno'),  	//운영조직 사업자등록번호
+			apcHldYn: SBUxMethod.get			('dtl-input-apcHldYn'), 	 //apc보유여부
+			operOgnzPic: SBUxMethod.get			('dtl-input-operOgnzPic'), 	 //담당자
+			operOgnzJbps: SBUxMethod.get		('dtl-input-operOgnzJbps'),  	//담당자 직위
+			operOgnzTelno: SBUxMethod.get		('dtl-input-operOgnzTelno'), 	 //담당자 연락처
+        	operOgnzBrno: SBUxMethod.get		('dtl-input-operOgnzEml'),  	//담당자 이메일
+        	prsnaDataAgrdYn: SBUxMethod.get		('dtl-input-prsnaDataAgrdYn'),  	//동의여부
+        	delYn: SBUxMethod.get				('dtl-input- delYn'),                  //삭제유무
+        	sysFrstInptDt: SBUxMethod.get		('dtl-input- sysFrstInptDt'),       //시스템최초입력일시
+        	sysFrstInptUserId: SBUxMethod.get	('dtl-input- sysFrstInptUserId'),      //시스템최초입력사용자id
+        	sysFrstInptPrgrmId: SBUxMethod.get	('dtl-input- sysFrstInptPrgrmId'),     	//시스템최초입력프로그램id
+        	sysLastChgDt: SBUxMethod.get		('dtl-input- sysLastChgDt'),      //시스템최종변경일시
+        	sysLastChgUserId: SBUxMethod.get	('dtl-input- sysLastChgUserId'),   //시스템최종변경사용자id
+        	sysLastChgPrgrmId: SBUxMethod.get	('dtl-input- sysLastChgPrgrmId')   //시스템최종변경프로그램id
+    		});
 
         const data = await postJsonPromise;
 
@@ -664,7 +608,7 @@
         const rows = grdFcltOperInfoClctAgreInfoList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
-        		list.push({msgKey: row.msgKey});
+        		list.push({operOgnzBrno: row.operOgnzBrno});
         	}
         });
 
@@ -726,48 +670,36 @@
          console.log("update result", data);
     }
 
-    //상세정보 보기
+    //상세정보 보기 클릭 이벤트
     function fn_view() {
-
+		console.log('====click event fn_view====');
     	var nCol = grdFcltOperInfoClctAgreInfoList.getCol();
+    	console.log("nCol = "+ nCol);
         //특정 열 부터 이벤트 적용
         if (nCol < 1) {
             return;
         }
         var nRow = grdFcltOperInfoClctAgreInfoList.getRow();
+        console.log("nRow = "+ nRow);
 		if (nRow < 1) {
             return;
 		}
-
+//클릭시 상세내역에 데이터입력
         let rowData = grdFcltOperInfoClctAgreInfoList.getRowData(nRow);
+        console.log('rowData');
+		console.log(rowData);
 
-    	SBUxMethod.set("dtl-input-daddr", null);
-    	SBUxMethod.set("dtl-input-apcBrno", null);
-    	SBUxMethod.set("dtl-input-apcRgnCd", null);
-    	SBUxMethod.set("dtl-select-apcNm", null);
-        SBUxMethod.set("dtl-input-apcAddr", null);
-        SBUxMethod.set("dtl-input-psnOgnzCd", false);
-        SBUxMethod.set("dtl-input-psnOgnzNm", null);
-        SBUxMethod.set("dtl-input-psnOgnzBrno", null);
-        SBUxMethod.set("dtl-input-operOgnzCd", null);
-        SBUxMethod.set("dtl-input-operOgnzNm", null);
-        SBUxMethod.set("dtl-input-operOgnzBrno", null);
-        SBUxMethod.set("dtl-input-operOgnzRprsv", null);
-        SBUxMethod.set("dtl-input-operOgnzAddr", null);
-        SBUxMethod.set("dtl-input-operOgnzDeptCd", null);
-        SBUxMethod.set("dtl-input-operOgnzDeptNm", null);
-        SBUxMethod.set("dtl-input-operOgnzTrmtItemCd", null);
-        SBUxMethod.set("dtl-input-operOgnzTrmtItemCn", null);
-        SBUxMethod.set("dtl-input-apcTrmtItemCd", null);
-        SBUxMethod.set("dtl-input-apcTrmtItemCn", null);
-        SBUxMethod.set("dtl-input-delYn", null);
-        SBUxMethod.set("dtl-input-sysFrstInptUserId", null);
-        SBUxMethod.set("dtl-input-sysLastChgUserId", null);
-        SBUxMethod.set("dtl-input-sysFrstInptDt", null);
-        SBUxMethod.set("dtl-input-sysLastChgDt", null);
-        SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);
-        SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);
+		SBUxMethod.set("dtl-input-operOgnzNm", rowData.operOgnzNm); //운영조직명
+		SBUxMethod.set("dtl-input-operOgnzBrno", rowData.operOgnzBrno); //운영조직사업자번호
+		SBUxMethod.set("dtl-input-apcHldYn", rowData.apcHldYn); //apc보유여부
+		SBUxMethod.set("dtl-input-apcNm", rowData.apcNm); //apc명
+		SBUxMethod.set("dtl-input-operOgnzPic", rowData.operOgnzPic); //담당자
+		SBUxMethod.set("dtl-input-operOgnzJbps", rowData.operOgnzJbps); //담당자직위
+		SBUxMethod.set("dtl-input-operOgnzTelno", rowData.operOgnzTelno); //담당자연락처
+		SBUxMethod.set("dtl-input-operOgnzEml", rowData.operOgnzEml); //담당자이메일
+
     }
+
 
     //그리드 체크박스 전체 선택
     function fn_checkAll(obj){

@@ -50,13 +50,17 @@ public class FcltOperInfoClctAgreInfoController extends BaseController {
 		return "apcss/fm/fclt/fcltOperInfoClctAgreInfo";
 	}
 
+
 	// 개인정보이용동의 조회
 	@PostMapping(value = "/fm/fclt/selectFcltOperInfoClctAgreInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltOperInfoClctAgreInfoVO fcltOperInfoClctAgreInfoVO, HttpServletRequest request) throws Exception{
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltOperInfoClctAgreInfoVO> resultList = new ArrayList<>();
-
+		logger.debug("=========================fcltOperInfoClctAgreInfoVO.toString()========================");
+		logger.debug(fcltOperInfoClctAgreInfoVO.toString());
+		logger.debug(fcltOperInfoClctAgreInfoVO.getPagingYn());
+		fcltOperInfoClctAgreInfoVO.setPagingYn("N");
 		try {
 			 resultList = fcltOperInfoClctAgreInfoService.selectFcltOperInfoClctAgreInfoList(fcltOperInfoClctAgreInfoVO);
 

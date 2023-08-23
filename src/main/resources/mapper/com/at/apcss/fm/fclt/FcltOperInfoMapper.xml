@@ -23,34 +23,31 @@
     <select id="selectFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfo */
-					  FCLT.TRGT_YR                AS TRGT_YR
-					, FCLT.APC_CD                 AS APC_CD
-					, FCLT.DADDR                  AS DADDR
-					, FCLT.APC_BRNO               AS APC_BRNO
-					, FCLT.APC_RGN_CD             AS APC_RGN_CD
-					, FCLT.APC_NM                 AS APC_NM
-					, FCLT.APC_ADDR               AS APC_ADDR
-					, FCLT.PSN_OGNZ_CD            AS PSN_OGNZ_CD
-					, FCLT.PSN_OGNZ_NM            AS PSN_OGNZ_NM
-					, FCLT.PSN_OGNZ_BRNO          AS PSN_OGNZ_BRNO
-					, FCLT.OPER_OGNZ_CD           AS OPER_OGNZ_CD
-					, FCLT.OPER_OGNZ_NM           AS OPER_OGNZ_NM
-					, FCLT.OPER_OGNZ_BRNO         AS OPER_OGNZ_BRNO
-					, FCLT.OPER_OGNZ_RPRSV        AS OPER_OGNZ_RPRSV
-					, FCLT.OPER_OGNZ_ADDR         AS OPER_OGNZ_ADDR
-					, FCLT.OPER_OGNZ_DEPT_CD      AS OPER_OGNZ_DEPT_CD
-					, FCLT.OPER_OGNZ_DEPT_NM      AS OPER_OGNZ_DEPT_NM
-					, FCLT.OPER_OGNZ_TRMT_ITEM_CD AS OPER_OGNZ_TRMT_ITEM_CD
-					, FCLT.OPER_OGNZ_TRMT_ITEM_CN AS OPER_OGNZ_TRMT_ITEM_CN
-					, FCLT.APC_TRMT_ITEM_CD       AS APC_TRMT_ITEM_CD
-					, FCLT.APC_TRMT_ITEM_CN       AS APC_TRMT_ITEM_CN
-					, FCLT.DEL_YN                 AS DEL_YN
-					, FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
-					, FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
-					, FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
-					, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
-					, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
-					, FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+					  FCLT.TRGT_YR                  AS  TRGT_YR
+					, FCLT.APC_CD                   AS  APC_CD
+					, FCLT.DADDR                    AS  DADDR
+					, FCLT.APC_BRNO                 AS  APC_BRNO
+					, FCLT.APC_RGN_CD               AS  APC_RGN_CD
+					, FCLT.APC_NM                   AS  APC_NM
+					, FCLT.APC_ADDR                 AS  APC_ADDR
+					, FCLT.PSN_OGNZ_NM              AS  PSN_OGNZ_NM
+					, FCLT.PSN_OGNZ_BRNO            AS  PSN_OGNZ_BRNO
+					, FCLT.OPER_OGNZ_CD             AS  OPER_OGNZ_CD
+					, FCLT.OPER_OGNZ_NM             AS  OPER_OGNZ_NM
+					, FCLT.OPER_OGNZ_BRNO           AS  OPER_OGNZ_BRNO
+					, FCLT.OPER_OGNZ_DEPT_CD        AS  OPER_OGNZ_DEPT_CD
+					, FCLT.OPER_OGNZ_DEPT_NM        AS  OPER_OGNZ_DEPT_NM
+					, FCLT.OPER_OGNZ_TRMT_ITEM_CD   AS  OPER_OGNZ_TRMT_ITEM_CD
+					, FCLT.OPER_OGNZ_TRMT_ITEM_CN   AS  OPER_OGNZ_TRMT_ITEM_CN
+					, FCLT.APC_TRMT_ITEM_CD         AS  APC_TRMT_ITEM_CD
+					, FCLT.APC_TRMT_ITEM_CN         AS  APC_TRMT_ITEM_CN
+					, FCLT.DEL_YN                   AS  DEL_YN
+					, FCLT.SYS_FRST_INPT_DT         AS  SYS_FRST_INPT_DT
+					, FCLT.SYS_FRST_INPT_USER_ID    AS  SYS_FRST_INPT_USER_ID
+					, FCLT.SYS_FRST_INPT_PRGRM_ID   AS  SYS_FRST_INPT_PRGRM_ID
+					, FCLT.SYS_LAST_CHG_DT          AS  SYS_LAST_CHG_DT
+					, FCLT.SYS_LAST_CHG_USER_ID     AS  SYS_LAST_CHG_USER_ID
+					, FCLT.SYS_LAST_CHG_PRGRM_ID    AS  SYS_LAST_CHG_PRGRM_ID
 				FROM   TB_FCLT_TB_FCLT_OPER_INFO FCLT
 				WHERE 1=1
 					  AND TRGT_YR = #{trgtYr}
@@ -79,34 +76,31 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfoList */
-					  FCLT.TRGT_YR                AS TRGT_YR
-					, FCLT.APC_CD                 AS APC_CD
-					  FCLT.DADDR                  AS DADDR
-					, FCLT.APC_BRNO               AS APC_BRNO
-					, FCLT.APC_RGN_CD             AS APC_RGN_CD
-					, FCLT.APC_NM                 AS APC_NM
-					, FCLT.APC_ADDR               AS APC_ADDR
-					, FCLT.PSN_OGNZ_CD            AS PSN_OGNZ_CD
-					, FCLT.PSN_OGNZ_NM            AS PSN_OGNZ_NM
-					, FCLT.PSN_OGNZ_BRNO          AS PSN_OGNZ_BRNO
-					, FCLT.OPER_OGNZ_CD           AS OPER_OGNZ_CD
-					, FCLT.OPER_OGNZ_NM           AS OPER_OGNZ_NM
-					, FCLT.OPER_OGNZ_BRNO         AS OPER_OGNZ_BRNO
-					, FCLT.OPER_OGNZ_RPRSV        AS OPER_OGNZ_RPRSV
-					, FCLT.OPER_OGNZ_ADDR         AS OPER_OGNZ_ADDR
-					, FCLT.OPER_OGNZ_DEPT_CD      AS OPER_OGNZ_DEPT_CD
-					, FCLT.OPER_OGNZ_DEPT_NM      AS OPER_OGNZ_DEPT_NM
-					, FCLT.OPER_OGNZ_TRMT_ITEM_CD AS OPER_OGNZ_TRMT_ITEM_CD
-					, FCLT.OPER_OGNZ_TRMT_ITEM_CN AS OPER_OGNZ_TRMT_ITEM_CN
-					, FCLT.APC_TRMT_ITEM_CD       AS APC_TRMT_ITEM_CD
-					, FCLT.APC_TRMT_ITEM_CN       AS APC_TRMT_ITEM_CN
-					, FCLT.DEL_YN                 AS DEL_YN
-					, FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
-					, FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
-					, FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
-					, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
-					, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
-					, FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+					  FCLT.TRGT_YR                  AS  TRGT_YR
+					, FCLT.APC_CD                   AS  APC_CD
+					, FCLT.DADDR                    AS  DADDR
+					, FCLT.APC_BRNO                 AS  APC_BRNO
+					, FCLT.APC_RGN_CD               AS  APC_RGN_CD
+					, FCLT.APC_NM                   AS  APC_NM
+					, FCLT.APC_ADDR                 AS  APC_ADDR
+					, FCLT.PSN_OGNZ_NM              AS  PSN_OGNZ_NM
+					, FCLT.PSN_OGNZ_BRNO            AS  PSN_OGNZ_BRNO
+					, FCLT.OPER_OGNZ_CD             AS  OPER_OGNZ_CD
+					, FCLT.OPER_OGNZ_NM             AS  OPER_OGNZ_NM
+					, FCLT.OPER_OGNZ_BRNO           AS  OPER_OGNZ_BRNO
+					, FCLT.OPER_OGNZ_DEPT_CD        AS  OPER_OGNZ_DEPT_CD
+					, FCLT.OPER_OGNZ_DEPT_NM        AS  OPER_OGNZ_DEPT_NM
+					, FCLT.OPER_OGNZ_TRMT_ITEM_CD   AS  OPER_OGNZ_TRMT_ITEM_CD
+					, FCLT.OPER_OGNZ_TRMT_ITEM_CN   AS  OPER_OGNZ_TRMT_ITEM_CN
+					, FCLT.APC_TRMT_ITEM_CD         AS  APC_TRMT_ITEM_CD
+					, FCLT.APC_TRMT_ITEM_CN         AS  APC_TRMT_ITEM_CN
+					, FCLT.DEL_YN                   AS  DEL_YN
+					, FCLT.SYS_FRST_INPT_DT         AS  SYS_FRST_INPT_DT
+					, FCLT.SYS_FRST_INPT_USER_ID    AS  SYS_FRST_INPT_USER_ID
+					, FCLT.SYS_FRST_INPT_PRGRM_ID   AS  SYS_FRST_INPT_PRGRM_ID
+					, FCLT.SYS_LAST_CHG_DT          AS  SYS_LAST_CHG_DT
+					, FCLT.SYS_LAST_CHG_USER_ID     AS  SYS_LAST_CHG_USER_ID
+					, FCLT.SYS_LAST_CHG_PRGRM_ID    AS  SYS_LAST_CHG_PRGRM_ID
 				FROM   TB_FCLT_TB_FCLT_OPER_INFO FCLT
 			   WHERE 1=1
 			     AND TRGT_YR = #{trgtYr}
@@ -141,14 +135,11 @@
 		     	, APC_RGN_CD
 		     	, APC_NM
 		     	, APC_ADDR
-		     	, PSN_OGNZ_CD
 		     	, PSN_OGNZ_NM
 		     	, PSN_OGNZ_BRNO
 		     	, OPER_OGNZ_CD
 		     	, OPER_OGNZ_NM
 		     	, OPER_OGNZ_BRNO
-		     	, OPER_OGNZ_RPRSV
-		     	, OPER_OGNZ_ADDR
 		     	, OPER_OGNZ_DEPT_CD
 		     	, OPER_OGNZ_DEPT_NM
 		     	, OPER_OGNZ_TRMT_ITEM_CD
@@ -165,21 +156,18 @@
 	    		)
 	   	VALUES
 	   		    (
-	   			  #{fclt.trgtYr}
-				, #{fclt.apcCd}
+	   			  #{trgtYr}
+				, #{apcCd}
 	   			, #{daddr}
 		     	, #{apcBrno}
 		     	, #{apcRgnCd}
 		     	, #{apcNm}
 		     	, #{apcAddr}
-		     	, #{psnOgnzCd}
 		     	, #{psnOgnzNm}
 		     	, #{psnOgnzBrno}
 		     	, #{operOgnzCd}
 		     	, #{operOgnzNm}
 		     	, #{operOgnzBrno}
-		     	, #{operOgnzRprsv}
-		     	, #{operOgnzAddr}
 		     	, #{operOgnzDeptCd}
 		     	, #{operOgnzDeptNm}
 		     	, #{operOgnzTrmtItemCd}
@@ -211,28 +199,24 @@
 	    		TB_FCLT_TB_FCLT_OPER_INFO FCLT
 
 			   SET
-				, FCLT.TRGT_YR			 = #{trgtYr}
-				, FCLT.APC_CD			 = #{apcCd}
-			   	, DADDR                  = #{daddr}
-			   	, APC_BRNO               = #{apcBrno}
-			   	, APC_RGN_CD             = #{apcRgnCd}
-			   	, APC_NM                 = #{apcNm}
-			   	, APC_ADDR               = #{apcAddr}
-			   	, PSN_OGNZ_CD            = #{psnOgnzCd}
-			   	, PSN_OGNZ_NM            = #{psnOgnzNm}
-			   	, PSN_OGNZ_BRNO          = #{psnOgnzBrno}
-			   	, OPER_OGNZ_CD           = #{operOgnzCd}
-			   	, OPER_OGNZ_NM           = #{operOgnzNm}
-			   	, OPER_OGNZ_BRNO         = #{operOgnzBrno}
-			   	, OPER_OGNZ_RPRSV        = #{operOgnzRprsv}
-			   	, OPER_OGNZ_ADDR         = #{operOgnzAddr}
-			   	, OPER_OGNZ_DEPT_CD      = #{operOgnzDeptCd}
-			   	, OPER_OGNZ_DEPT_NM      = #{operOgnzDeptNm}
-			   	, OPER_OGNZ_TRMT_ITEM_CD = #{operOgnzTrmtItemCd}
-			   	, OPER_OGNZ_TRMT_ITEM_CN = #{operOgnzTrmtItemCn}
-			   	, APC_TRMT_ITEM_CD       = #{apcTrmtItemCd}
-			   	, APC_TRMT_ITEM_CN       = #{apcTrmtItemCn}
-
+			  TRGT_YR               	  =  #{trgtYr}
+			, APC_CD                	  =  #{apcCd}
+			, DADDR                    	  =  #{daddr}
+			, APC_BRNO                 	  =  #{apcBrno}
+			, APC_RGN_CD               	  =  #{apcRgnCd}
+			, APC_NM                   	  =  #{apcNm}
+			, APC_ADDR                 	  =  #{apcAddr}
+			, PSN_OGNZ_NM              	  =  #{psnOgnzNm}
+			, PSN_OGNZ_BRNO            	  =  #{psnOgnzBrno}
+			, OPER_OGNZ_CD             	  =  #{operOgnzCd}
+			, OPER_OGNZ_NM             	  =  #{operOgnzNm}
+			, OPER_OGNZ_BRNO           	  =  #{operOgnzBrno}
+			, OPER_OGNZ_DEPT_CD        	  =  #{operOgnzDeptCd}
+			, OPER_OGNZ_DEPT_NM        	  =  #{operOgnzDeptNm}
+			, OPER_OGNZ_TRMT_ITEM_CD   	  =  #{operOgnzTrmtItemCd}
+			, OPER_OGNZ_TRMT_ITEM_CN   	  =  #{operOgnzTrmtItemCn}
+			, APC_TRMT_ITEM_CD         	  =  #{apcTrmtItemCd}
+			, APC_TRMT_ITEM_CN         	  =  #{apcTrmtItemCn}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
