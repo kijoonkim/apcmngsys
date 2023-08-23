@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.am.spmt.vo.SpmtCmndVO;
 
 /**
@@ -38,6 +39,15 @@ public interface SpmtCmndMapper {
 	 * @throws Exception
 	 */
 	public List<SpmtCmndVO> selectSpmtCmndList(SpmtCmndVO spmtCmndVO) throws Exception;
+
+	/**
+	 * 출고지시대상내역 조회
+	 * 
+	 * @param spmtCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<OrdrVO> selectSpmtCmndTrgList(OrdrVO ordrVO) throws Exception;
 
 	/**
 	 * 출고지시 등록
