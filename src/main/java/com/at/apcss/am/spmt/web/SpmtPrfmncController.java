@@ -70,7 +70,7 @@ public class SpmtPrfmncController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int insertedCnt = 0;
 		try {
-			String spmtno = cmnsTaskNoService.selectSortCmndno(SpmtPrfmncList.get(0).getApcCd(), SpmtPrfmncList.get(0).getSpmtYmd());
+			String spmtno = cmnsTaskNoService.selectSpmtno(SpmtPrfmncList.get(0).getApcCd(), SpmtPrfmncList.get(0).getSpmtYmd());
 
 			for (SpmtPrfmncVO spmtPrfmncVO : SpmtPrfmncList) {
 				spmtPrfmncVO.setSpmtno(spmtno);

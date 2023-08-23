@@ -616,7 +616,7 @@
 	 * @description 생산자 폼 clear
 	 */
 	const fn_clearPrdcr = function() {
-		SBUxMethod.set("srch-inp-prdcrCd", null);
+		SBUxMethod.set("srch-inp-prdcrCd", "");
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
 	}
 
@@ -681,7 +681,7 @@
 	 * @description 생산자 폼 clear
 	 */
 	const fn_clearPrdcrDtl = function() {
-		SBUxMethod.set("dtl-inp-prdcrCd", null);
+		SBUxMethod.set("dtl-inp-prdcrCd", "");
 		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:''");
 	}
 
