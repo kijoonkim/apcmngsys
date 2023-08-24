@@ -32,12 +32,12 @@ public class SpmtCmndVO extends ComVO {
 	/**
 	 * 출하지시번호
 	 */
-	private String spmtCmndNo;
+	private String spmtCmndno;
 
 	/**
 	 * 출하지시순번
 	 */
-	private String spmtCmndSn;
+	private int spmtCmndSn;
 	
 	/**
 	 * 지시일자
@@ -87,12 +87,12 @@ public class SpmtCmndVO extends ComVO {
 	/**
 	 * 지시수량
 	 */
-	private String cmndQntt;
+	private int cmndQntt;
 
 	/**
 	 * 지시중량
 	 */
-	private String cmndWght;
+	private int cmndWght;
 
 	/**
 	 * 포장구분코드
@@ -107,7 +107,7 @@ public class SpmtCmndVO extends ComVO {
 	/**
 	 * 발주번호
 	 */
-	private String ordrNo;
+	private String outordrno;
 
 	/**
 	 * 품목코드

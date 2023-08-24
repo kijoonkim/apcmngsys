@@ -76,23 +76,35 @@ public interface ComMenuMapper {
 	/**
 	 * 화면관리 목록 조회
 	 * @param comMenuVO
-	 * @return List<ComMenuVO>
+	 * @return List<ComUiVO>
 	 */
 	public List<ComMenuVO> selectMenuUiList(ComMenuVO comMenuVO);
-
 	/**
-	 * 화면관리 UI 목록 조회
-	 * @param comMenuVO
-	 * @return List<ComMenuVO>
+	 * 화면관리 목록 조회
+	 * @param ComUiVO
+	 * @return List<ComUiVO>
 	 */
-	public List<ComUiVO> selectUiList(ComUiVO comUiVO);
+	public List<ComUiVO> selectComUiList(ComUiVO comUiVO);
 
 	/**
 	 * 화면관리 UI 등록
-	 * @param comMenuVO
-	 * @return ComUiVO
+	 * @param ComUiVO
+	 * @return Integer
 	 */
 	public int insertComUi(ComUiVO comUiVO);
+
+	/**
+	 * 화면관리 UI 수정
+	 * @param ComUiVO
+	 * @return Integer
+	 */
+	public int updateComUi(ComUiVO comUiVO);
+	/**
+	 * 화면관리 UI 삭제
+	 * @param ComUiVO
+	 * @return Integer
+	 */
+	public int deleteComUi(ComUiVO comUiVO);
 
 
 }

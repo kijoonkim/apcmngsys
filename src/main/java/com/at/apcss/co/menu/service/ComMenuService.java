@@ -115,11 +115,11 @@ public interface ComMenuService {
 	public List<ComMenuVO> selectMenuUiList(ComMenuVO comMenuVO) throws Exception;
 
 	/**
-	 * 화면관리 UI 목록 조회한다.
-	 * @param comUiVO
-	 * @return List<ComUiVO>
+	 * 화면관리 UI 저장한다.
+	 * @param List<ComUiVO>
+	 * @return Integer
 	 */
-	public List<ComUiVO> selectUiList(ComUiVO comUiVO) throws Exception;
+	public int multiSaveComUiList(List<ComUiVO> comUiList) throws Exception;
 
 
 }

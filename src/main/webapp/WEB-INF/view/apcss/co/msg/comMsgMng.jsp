@@ -10,171 +10,169 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-	<div class="sbt-A-wrap">
-        <div class="main">
-            <!--main content-->
-            <div class="content">
-                <!--full content-->
-                <div class="sbt-wrap-full">
-                    <!--Button 영역-->
-                    <div class="sbt-search-button" style="text-align:right;">
-                        <sbux-button id="btn_create" name="btn_create" uitype="normal" wrap-class="sbt-btn-reset" text="신규" onclick="fn_create"></sbux-button>
-                        <sbux-button id="btn_delete" name="btn_delete" uitype="normal" wrap-class="sbt-btn-reset" text="삭제" onclick="fn_delete"></sbux-button>
-                        <sbux-button id="btn_save" name="btn_save" uitype="normal" wrap-class="sbt-btn-reset" text="저장" onclick="fn_save"></sbux-button>
-                        <sbux-button id="btn_search" name="btn_search" uitype="normal" wrap-class="sbt-btn-search" text="조회" onclick="fn_search"></sbux-button>
-                    </div>
-                    <!--조회 영역-->
-			        <div class="sbt-con-wrap">
-                        <form id="frm" name="frm" method="post">
-				        <div class="sbt-search-wrap">
-                            <div class="sbt-wrap-body-con">
-                                <div class="sbt-wrap-body">
+	<section>
+		<div class="box box-solid">
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnCreate" name="btnCreate" uitype="normal"  text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal"  text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal"  text="삭제"  class="btn btn-sm btn-outline-danger"onclick="fn_delete"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal"  text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+				</div>
+			</div>
+			<div class="box-body">
 
-                                    <div class="sbt-search-row">
-                                        <!--col -->
-                                        <div class="sbt-search-col popup-search-col">
-                                            <div class="sbt-col-left">
-                                                <sbux-label id="srch-label-msgKnd" name="srch-label-msgKnd" uitype="normal" text="메시지종류"></sbux-label>
-                                            </div>
-                                            <div class="sbt-col-right">
-                                                <sbux-select id="srch-select-msgKnd" name="srch-select-msgKnd" uitype="single"
-                                                    jsondata-ref="jsonComMsgKnd"
-                                                    unselected-text="선택"
-                                                    style="width:120px;"
-                                                ></sbux-select>
-                                            </div>
-                                        </div>
-                                        <!--col -->
-                                        <div class="sbt-search-col popup-search-col">
-                                            <div class="sbt-col-left">
-                                                <sbux-label id="srch-label-msgKey" name="srch-label-msgKey" uitype="normal" text="메시지Key"></sbux-label>
-                                            </div>
-                                            <div class="sbt-col-right">
-                                                <sbux-input id="srch-input-msgKey" name="srch-input-msgKey" uitype="text"
-                                                    style="width:200px"
-                                                    placeholder=""
-                                                ></sbux-input>
-                                            </div>
-                                        </div>
-                                    	<!--col -->
-                                        <div class="sbt-search-col popup-search-col">
-                                            <div class="sbt-col-left">
-                                                <sbux-label id="srch-label-msgCn" name="srch.label.msgCn" uitype="normal" text="메시지내용"></sbux-label>
-                                            </div>
-                                            <div class="sbt-col-right">
-                                                <sbux-input id="srch-input-msgCn" name="srch-input-msgCn" uitype="text"
-                                                    style="width:200px"
-                                                    placeholder=""
-                                                ></sbux-input>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="sbt-con-wrap">
-                	<ul>
-	                    <li style="display:inline-block;float:left;width: 49.5%;vertical-align:top;">
-		                    <div class="sbt-grid-wrap">
-		                        <div class="sbt-wrap-header">
-		                            <span>icon</span>
-		                            <h3>메시지목록 <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span></h3>
-		                        </div>
-		                        <div class="sbt-wrap-body">
-		                            <div class="sbt-grid">
-		                                <!-- SBGrid를 호출합니다. -->
-		                                <div id="sb-area-grdComMsg" style="height:340px;"></div>
-		                            </div>
-		                        </div>
-		                    </div>
-	                    </li>
-	                    <li style="display:inline-block;float:right;width: 49.5%;vertical-align:top;">
-		                    <div class="sbt-grid-wrap">
-		                        <div class="sbt-wrap-header">
-		                            <span>icon</span>
-		                            <h3>메시지상세정보</h3>
-		                        </div>
-		                        <div class="sbt-wrap-body">
-		                            <form id="frm1" name="frm1" method="post">
-		                            <sbux-input id="dtl-input-orgnMsgKey" name="dtl-input-orgnMsgKey" uitype="hidden"></sbux-input>
-		                            <table class="tbl">
-		                                <colgroup>
-		                                    <col style="width:20%">
-		                                    <col style="width:30%">
-		                                    <col style="width:20%">
-		                                    <col style="width:30%">
-		                                </colgroup>
-		                                <tr>
-		                                    <th>메시지유형</th>
-		                                    <td colspan="3">
-		                                    	<sbux-select id="dtl-select-msgKnd" name="dtl-select-msgKnd" uitype="single"
-		                                    		jsondata-ref="jsonComMsgKnd"
-		                                    		unselected-text="선택"
-	                                    		></sbux-select>
-		                                    </td>
-		                                </tr>
-		                                <tr>
-		                                    <th>메시지KEY</th>
-		                                    <td colspan="3">
-		                                        <sbux-input id="dtl-input-msgKey" name="dtl-input-msgKey" uitype="text" required style="width:100%" readonly ></sbux-input>
-		                                    </td>
-		                                </tr>
-		                                <tr>
-		                                    <th>메시지내용</th>
-		                                    <td colspan="3">
-		                                        <sbux-input id="dtl-input-msgCn" name="dtl-input-msgCn" uitype="text" required style="width:100%"></sbux-input>
-		                                    </td>
-		                                </tr>
-		                                <tr>
-		                                    <th>비고</th>
-		                                    <td colspan="3">
-		                                    	<sbux-input id="dtl-input-rmrk" name="dtl-input-rmrk" uitype="text" style="width:100%"></sbux-input>
-		                                    </td>
-		                                </tr>
-		                                <tr>
-		                                    <th>최초등록자ID</th>
-		                                    <td>
-		                                        <sbux-input id="dtl-input-sysFrstInptUserId" name="dtl-input-sysFrstInptUserId" uitype="text" style="width:100%" readonly></sbux-input>
-		                                    </td>
-		                                    <th>최초변경자ID</th>
-		                                    <td>
-		                                        <sbux-input id="dtl-input-sysLastChgUserId" name="dtl-input-sysLastChgUserId" uitype="text" style="width:100%" readonly></sbux-input>
-		                                    </td>
-		                                </tr>
-		                                <tr>
-		                                    <th>최초등록일시</th>
-		                                    <td>
-		                                        <sbux-input id="dtl-input-sysFrstInptDt" name="dtl-input-sysFrstInptDt" uitype="text" style="width:100%" readonly></sbux-input>
-		                                    </td>
-		                                    <th>최초변경일시</th>
-		                                    <td>
-		                                        <sbux-input id="dtl-input-sysLastChgDt" name="dtl-input-sysLastChgDt" uitype="text" style="width:100%" readonly></sbux-input>
-		                                    </td>
-		                                </tr>
-		                                <tr>
-		                                    <th>등록프로그램</th>
-		                                    <td>
-		                                        <sbux-input id="dtl-input-sysFrstInptPrgrmId" name="dtl-input-sysFrstInptPrgrmId" uitype="text" style="width:100%" readonly></sbux-input>
-		                                    </td>
-		                                    <th>변경프로그램</th>
-		                                    <td>
-		                                        <sbux-input id="dtl-input-sysLastChgPrgrmId" name="dtl-input-sysLastChgPrgrmId" uitype="text" style="width:100%" readonly></sbux-input>
-		                                    </td>
-		                                </tr>
-		                            </table>
-		                            </form>
-		                        </div>
-		                    </div>
-	                    </li>
-                    </ul>
+				<!--[pp] 검색 -->
+				<table class="table table-bordered tbl_fixed">
+					<caption>검색 조건 설정</caption>
+					<colgroup>
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row" class="th_bg" >메시지종류</th>
+							<td colspan="" class="td_input" style="border-right:hidden;" >
+								<sbux-select id="srch-select-msgKnd" name="srch-select-msgKnd" uitype="single"
+									jsondata-ref="jsonComMsgKnd"
+									unselected-text="선택"
+									style="width:120px;"
+									class="form-control input-sm"
+								></sbux-select>
+							</td>
+							<td style="border-right: hidden;">&nbsp;</td>
+							<td style="border-right: hidden;">&nbsp;</td>
+							<th scope="row" class="th_bg" >메시지Key</th>
+							<td class="td_input" style="border-right:hidden;">
+								<sbux-input id="srch-input-msgKey" name="srch-input-msgKey" uitype="text"
+									style="width:200px"
+									placeholder=""
+									class="form-control input-sm"
+								></sbux-input>
+							</td>
+							<td style="border-right: hidden;">&nbsp;</td>
+							<td style="border-right: hidden;">&nbsp;</td>
+							<th scope="row" class="th_bg">메시지내용</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-input-msgCn" name="srch-input-msgCn" uitype="text"
+									style="width:200px"
+									placeholder=""
+									class="form-control input-sm"
+								></sbux-input>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span>코드목록</span></li>
+								<li><span style="font-size: x-small; color:black;">조회건수&nbsp;&nbsp;<span id="listCount" style="color:black;"></span>건</span></li>
+							</ul>
+						</div>
+						<div>
+							<div id="sb-area-grdComMsg" style="height:508px; width: 100%;"></div>
+						</div>
+					</div>
+
+					<div class="col-sm-6">
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span>메시지상세정보</span></li>
+							</ul>
+						</div>
+						<div>
+							<table class="table table-bordered tbl_fixed">
+								<colgroup>
+								<col style="width:20%">
+								<col style="width:30%">
+								<col style="width:20%">
+								<col style="width:30%">
+								</colgroup>
+								<tr>
+								    <th scope="row" class="th_bg" >메시지유형</th>
+								    <td colspan="3" class="td_input">
+								    	<sbux-select id="dtl-select-msgKnd" name="dtl-select-msgKnd" uitype="single"
+								    		jsondata-ref="jsonComMsgKnd"
+								    		unselected-text="선택"
+								    		class="form-control input-sm"
+								   		></sbux-select>
+								    </td>
+								</tr>
+								<tr>
+								    <th scope="row" class="th_bg" >메시지KEY</th>
+								    <td colspan="3" class="td_input">
+								        <sbux-input id="dtl-input-msgKey" name="dtl-input-msgKey" class="form-control input-sm" uitype="text" required style="width:100%" readonly ></sbux-input>
+								    </td>
+								</tr>
+								<tr>
+								    <th scope="row" class="th_bg" >메시지내용</th>
+								    <td colspan="3" class="td_input">
+								        <sbux-input id="dtl-input-msgCn" name="dtl-input-msgCn" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+								    </td>
+								</tr>
+								<tr>
+								    <th scope="row" class="th_bg" >비고</th>
+								    <td colspan="3" class="td_input">
+								    	<sbux-input id="dtl-input-rmrk" name="dtl-input-rmrk" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+								    </td>
+								</tr>
+								<tr>
+								    <th scope="row" class="th_bg" >최초등록자ID</th>
+								    <td scope="row" class="th_bg">
+								        <sbux-input id="dtl-input-sysFrstInptUserId" name="dtl-input-sysFrstInptUserId" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
+								</td>
+									<th scope="row" class="th_bg" >최초변경자ID</th>
+									<td scope="row" class="th_bg">
+										<sbux-input id="dtl-input-sysLastChgUserId" name="dtl-input-sysLastChgUserId" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
+									</td>
+								</tr>
+								<tr>
+								    <th scope="row" class="th_bg" >최초등록일시</th>
+								    <td scope="row" class="th_bg">
+										<sbux-input id="dtl-input-sysFrstInptDt" name="dtl-input-sysFrstInptDt" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
+									</td>
+									<th scope="row" class="th_bg" >최초변경일시</th>
+									<td scope="row" class="th_bg">
+										<sbux-input id="dtl-input-sysLastChgDt" name="dtl-input-sysLastChgDt" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg" >등록프로그램</th>
+									<td scope="row" class="th_bg">
+										<sbux-input id="dtl-input-sysFrstInptPrgrmId" name="dtl-input-sysFrstInptPrgrmId" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
+									</td>
+									<th scope="row" class="th_bg" >변경프로그램</th>
+									<td scope="row" class="th_bg">
+										<sbux-input id="dtl-input-sysLastChgPrgrmId" name="dtl-input-sysLastChgPrgrmId" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
                 </div>
             </div>
         </div>
     </div>
-
+</section>
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
