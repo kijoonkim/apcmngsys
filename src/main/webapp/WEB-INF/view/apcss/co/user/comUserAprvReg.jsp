@@ -124,6 +124,7 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = lv_paging,
 		SBGridProperties.columns = [
 	        {caption: ["선택"],		ref: 'checkedYn',	type:'checkbox', width:'5px',
