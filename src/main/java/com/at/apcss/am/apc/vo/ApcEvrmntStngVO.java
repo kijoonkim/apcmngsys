@@ -29,6 +29,20 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String telno;
 	private String fxno;
 
+	/**
+	 * case id : CASE1 ~ CASE10
+	 */
+	private String authrtCaseId;
+
+	/**
+	 * APC구분코드
+	 */
+	private String apcSeCd;
+
+	/**
+	 * 정산기준
+	 */
+	private String clclnCrtr;
 
 	private String wghMngYn;	// 계량정보관리유무			AM_001_001
 	private String wghMblUseYn;	// 계량테블릿사용유무			AM_001_007

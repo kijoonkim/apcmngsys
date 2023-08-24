@@ -65,15 +65,6 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectFcltOperInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
-    	<!-- End 페이징 -->
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfoList */
 					  FCLT.TRGT_YR                  AS  TRGT_YR
@@ -102,17 +93,10 @@
 					, FCLT.SYS_LAST_CHG_USER_ID     AS  SYS_LAST_CHG_USER_ID
 					, FCLT.SYS_LAST_CHG_PRGRM_ID    AS  SYS_LAST_CHG_PRGRM_ID
 				FROM   TB_FCLT_OPER_INFO FCLT
-			   WHERE 1=1
-			     AND TRGT_YR = #{trgtYr}
+			   WHERE
+			     TRGT_YR = #{trgtYr}
 				 AND APC_CD = #{apcCd}
     	]]>
-		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
-			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
-			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
     </select>
 
 	<!-- ==========================================================================	-->

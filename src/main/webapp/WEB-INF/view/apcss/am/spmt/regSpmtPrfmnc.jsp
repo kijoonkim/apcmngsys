@@ -307,7 +307,8 @@
         	{caption: ['품종','품종'], 		ref: 'vrtyNm', 		width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['상품구분','상품구분'],	ref: 'gdsSeNm', width: '80px', type: 'output', style: 'text-align:center'},
             {caption: ['규격','규격'], 		ref: 'spcfctNm', 	width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['생산일자','생산일자'], 	ref: 'pckgYmd', width: '150px', type: 'output', style: 'text-align:center'},
+            {caption: ['생산일자','생산일자'], 	ref: 'pckgYmd', width: '150px', type: 'output', style: 'text-align:center',
+            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['포장번호','포장번호'], 	ref: 'pckgno', 	width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['재고','수량'], 		ref: 'invntrQntt', 	width: '100px', type: 'output', style: 'text-align:right'},
             {caption: ['재고','중량'], 		ref: 'invntrWght', 	width: '150px', type: 'output', style: 'text-align:right',
@@ -342,28 +343,28 @@
 	    SBGridProperties2.extendlastcol = 'scroll';
         SBGridProperties2.columns = [
         	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'80px', style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ['출하일자'], 	ref: 'spmtYmd', 	width: '120px', type: 'output', style: 'text-align:center'},
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            {caption: ['출하일자'], 	ref: 'spmtYmd', 	width: '100px', type: 'output', style: 'text-align:center',
+            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['거래처'],		ref: 'cnptNm', 		width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['품종'], 		ref: 'vrtyNm', 		width: '80px', type: 'output', style: 'text-align:center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 	width: '80px', type: 'output', style: 'text-align:center'},
             {caption: ['상품'], 		ref: 'gdsCd', 		width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['등급'], 		ref: 'gdsGrdNm', 	width: '80px', type: 'output', style: 'text-align:center'},
-            {caption: ['수량'], 		ref: 'spmtQntt', 	width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['중량'], 		ref: 'spmtWght',	width: '100px', type: 'output', style: 'text-align:right',
+            {caption: ['수량'], 		ref: 'spmtQntt', 	width: '80px', type: 'output', style: 'text-align:center'},
+            {caption: ['중량'], 		ref: 'spmtWght',	width: '80px', type: 'output', style: 'text-align:right',
     			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 	width: '200px', type: 'output', style: 'text-align:center'},
+            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 	width: '180px', type: 'output', style: 'text-align:center'},
             {caption: ['차량번호'], 	ref: 'vhclno', 		width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['배송처'], 		ref: 'dldtn', 		width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['운임비용'], 	ref: 'trsprtCst', 	width: '100px', type: 'output', style: 'text-align:center',
     			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
-            {caption: ['포장구분'], 	ref: 'spmtSeCd', 	width: '100px', type: 'output', style: 'text-align:center'},
+            {caption: ['포장구분'], 	ref: 'spmtPckgUnitNm', 	width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['지시번호'], 	ref: 'spmtCmndno', 	width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['비고'], 		ref: 'rmrk', 		width: '150px', type: 'output', style: 'text-align:center'}
         ];
         grdGdsInvntr = _SBGrid.create(SBGridProperties);
-        grdGdsInvntr.bind('valuechanged', fn_grdCmndQnttValueChanged);
+        grdGdsInvntr.bind('valuechanged', 'fn_grdCmndQnttValueChanged');
         grdGdsInvntr.bind('select','fn_setValue');
         grdGdsInvntr.bind('deselect','fn_delValue');
         grdSpmtPrfmnc = _SBGrid.create(SBGridProperties2);
@@ -468,9 +469,8 @@
 
 	const fn_grdCmndQnttValueChanged = async function(){
 
-    	var nRow = grdGdsInvntr.getRow();
-		var nCol = grdGdsInvntr.getCol();
-
+    	let nRow = grdGdsInvntr.getRow();
+		let nCol = grdGdsInvntr.getCol();
 
 		switch (nCol) {
 		case 12:	// checkbox
@@ -486,17 +486,23 @@
     }
 
     const fn_setValue = async function(){
-    	var nRow = grdGdsInvntr.getRow();
-    	let invntrQntt = grdGdsInvntr.getRowData(nRow).invntrQntt;
-		let invntrWght = grdGdsInvntr.getRowData(nRow).invntrWght;
-		let spmtQntt = grdGdsInvntr.getRowData(nRow).spmtQntt;
-		let spmtWght = grdGdsInvntr.getRowData(nRow).spmtWght;
 
 
-		if((spmtQntt == 0 && spmtWght == 0) || (gfn_isEmpty(spmtQntt) && gfn_isEmpty(spmtWght))){
-			grdGdsInvntr.setCellData(nRow, 12, invntrQntt);
-			grdGdsInvntr.setCellData(nRow, 13, invntrWght);
-		}
+    	let nRow = grdGdsInvntr.getRow();
+    	let nCol = grdGdsInvntr.getCol();
+    	if(nCol == 0){
+
+	    	let invntrQntt = grdGdsInvntr.getRowData(nRow).invntrQntt;
+			let invntrWght = grdGdsInvntr.getRowData(nRow).invntrWght;
+			let spmtQntt = grdGdsInvntr.getRowData(nRow).spmtQntt;
+			let spmtWght = grdGdsInvntr.getRowData(nRow).spmtWght;
+
+
+			if((spmtQntt == 0 && spmtWght == 0) || (gfn_isEmpty(spmtQntt) && gfn_isEmpty(spmtWght))){
+				grdGdsInvntr.setCellData(nRow, 12, invntrQntt);
+				grdGdsInvntr.setCellData(nRow, 13, invntrWght);
+			}
+    	}
     }
 
     const fn_delValue = async function(){
@@ -507,8 +513,8 @@
 
     const fn_checkInptWght = async function(){
 
-    	var nRow = grdGdsInvntr.getRow();
-		var nCol = grdGdsInvntr.getCol();
+    	let nRow = grdGdsInvntr.getRow();
+		let nCol = grdGdsInvntr.getCol();
 
 		let invntrQntt = grdGdsInvntr.getRowData(nRow).invntrQntt;
 		let invntrWght = grdGdsInvntr.getRowData(nRow).invntrWght;
@@ -536,8 +542,8 @@
 
     const fn_checkInptQntt = async function(){
 
-    	var nRow = grdGdsInvntr.getRow();
-		var nCol = grdGdsInvntr.getCol();
+    	let nRow = grdGdsInvntr.getRow();
+		let nCol = grdGdsInvntr.getCol();
 
 		let invntrQntt = grdGdsInvntr.getRowData(nRow).invntrQntt;
 		let invntrWght = grdGdsInvntr.getRowData(nRow).invntrWght;
@@ -618,7 +624,7 @@
     		insertList.push(grdGdsInvntr.getRowData(nRow));
     	}
 
-    	var regMsg = "저장 하시겠습니까?";
+    	let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 			const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncList.do", insertList);
 	    	const data = await postJsonPromise;
@@ -688,6 +694,7 @@
           				prdcrCd: item.prdcrCd,
           				spmtCmndno: item.spmtCmndno,
           				spmtPckgUnitCd: item.spmtPckgUnitCd,
+          				spmtPckgUnitNm: item.spmtPckgUnitNm,
           				spmtQntt: item.spmtQntt,
           				spmtWght: item.spmtWght,
           				rmrk:item.rmrk
@@ -709,8 +716,8 @@
 
 
 	const fn_del = async function(){
-		var grdRows = grdSpmtPrfmnc.getCheckedRows(0);
-    	var deleteList = [];
+		let grdRows = grdSpmtPrfmnc.getCheckedRows(0);
+    	let deleteList = [];
 
 
     	for(var i=0; i< grdRows.length; i++){
@@ -723,7 +730,7 @@
     		return;
     	}
 
-    	var regMsg = "삭제 하시겠습니까?";
+    	let regMsg = "삭제 하시겠습니까?";
 		if(confirm(regMsg)){
 			const postJsonPromise = gfn_postJSON("/am/spmt/deleteSpmtPrfmncList.do", deleteList);
 	    	const data = await postJsonPromise;

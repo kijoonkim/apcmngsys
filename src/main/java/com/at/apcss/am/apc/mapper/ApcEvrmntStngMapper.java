@@ -25,47 +25,56 @@ import com.at.apcss.co.user.vo.ComUserVO;
  */
 @Mapper
 public interface ApcEvrmntStngMapper {
+
 	/**
 	 * APC 정보 조회
-	 * @param ComUserVO
+	 * @param apcEvrmntStngVO
 	 * @return ApcEvrmntStngVO
 	 */
-	ApcEvrmntStngVO selectApcInfo(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+	public ApcEvrmntStngVO selectApcInfo(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+
+	/**
+	 * APC 환경설정 정보 조회
+	 * @param apcEvrmntStngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public ApcEvrmntStngVO selectApcEvrmntStng(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
 	/**
 	 * APC 내역 조회
-	 * @param ApcEvrmntStngVO
+	 * @param apcEvrmntStngVO
 	 * @return List<ApcEvrmntStngVO>
 	 */
-	List<ApcEvrmntStngVO> selectApcDsctnList(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+	public List<ApcEvrmntStngVO> selectApcDsctnList(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
 	/**
 	 * APC 내역 수정
 	 * @param ApcEvrmntStngVO
 	 * @return
 	 */
-	int updateApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+	public int updateApcDsctn(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
 	/**
 	 * APC 내역 등록
 	 * @param ApcEvrmntStngVO
 	 * @return
 	 */
-	int insertApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+	public int insertApcDsctn(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
 	/**
 	 * APC 사용자 목록 조회
 	 * @param ComUserVO
 	 * @return List<ComUserVO>
 	 */
-	List<ComUserVO> selectApcUserList(ComUserVO comUserVO) throws Exception;
+	public List<ComUserVO> selectApcUserList(ComUserVO comUserVO) throws Exception;
 
 	/**
 	 * APC 설비, 장비 목록 조회
 	 * @param ComCdVO
 	 * @return List<ComCdVO>
 	 */
-	List<ComUserVO> selectRsrcList(ComCdVO comCdVO) throws Exception;
+	public List<ComUserVO> selectRsrcList(ComCdVO comCdVO) throws Exception;
 
 	/**
 	 * 품종 팝업에서 조회
@@ -73,6 +82,23 @@ public interface ApcEvrmntStngMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	
-	List<ComCdVO> selectVrtyList(ComCdVO comCdVO) throws Exception;
+
+	public List<ComCdVO> selectVrtyList(ComCdVO comCdVO) throws Exception;
+
+	/**
+	 * APC 환경설정 초기정보 등록
+	 * @param apcEvrmntStngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertApcEvrmntStngInit(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+
+	/**
+	 * APC 환경설정 메뉴사용여부 update
+	 * @param apcEvrmntStngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateApcEvrmntStngAuthrt(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+
 }

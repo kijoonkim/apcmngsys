@@ -611,39 +611,30 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		if (ApcConstants.AUTHRT_CASE_01.equals(authrtCaseId)) {
 			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_01_ADMIN;
 			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_01_USER;
-
 		} else if (ApcConstants.AUTHRT_CASE_02.equals(authrtCaseId)) {
 			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_02_ADMIN;
 			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_02_USER;
-
 		} else if (ApcConstants.AUTHRT_CASE_03.equals(authrtCaseId)) {
 			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_03_ADMIN;
 			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_03_USER;
-
 		} else if (ApcConstants.AUTHRT_CASE_04.equals(authrtCaseId)) {
 			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_04_ADMIN;
 			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_04_USER;
-
 		} else if (ApcConstants.AUTHRT_CASE_05.equals(authrtCaseId)) {
 			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_05_ADMIN;
 			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_05_USER;
-
 		} else if (ApcConstants.AUTHRT_CASE_06.equals(authrtCaseId)) {
 			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_06_ADMIN;
 			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_06_USER;
-
 		} else if (ApcConstants.AUTHRT_CASE_07.equals(authrtCaseId)) {
 			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_07_ADMIN;
 			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_07_USER;
-
 		} else if (ApcConstants.AUTHRT_CASE_08.equals(authrtCaseId)) {
 			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_08_ADMIN;
 			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_08_USER;
-
 		} else if (ApcConstants.AUTHRT_CASE_09.equals(authrtCaseId)) {
 			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_09_ADMIN;
 			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_09_USER;
-
 		} else if (ApcConstants.AUTHRT_CASE_10.equals(authrtCaseId)) {
 			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_10_ADMIN;
 			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_10_USER;
