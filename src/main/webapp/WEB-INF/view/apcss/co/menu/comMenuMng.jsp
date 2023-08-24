@@ -15,8 +15,8 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnCreate" name="btnCreate" uitype="normal"  text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="normal"  text="삭제"  class="btn btn-sm btn-outline-danger"onclick="fn_delete"></sbux-button>
 					<sbux-button id="btnSave" name="btnSave" uitype="normal"  text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal"  text="삭제"  class="btn btn-sm btn-outline-danger"onclick="fn_delete"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal"  text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
@@ -45,20 +45,28 @@
 							</tr>
 						</tbody>
 					</table>
-					</div>
+				</div>
 
-					<br>
-					<div class ="row">
-						<div class="col-sm-4">
-							<b>메뉴목록</b>
-							<div class ="row">
-								<div id="sb-area-grdMenuTree" style="width:95%;height:500px;"></div>
-							</div>
+				<br>
+				<div class ="row">
+					<div class="col-sm-4">
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span>메뉴목록</span></li>
+							</ul>
 						</div>
-						<div class="col-sm-8">
-						<b>메뉴 상세정보</b>
+						<div class ="row">
+							<div id="sb-area-grdMenuTree" style="width:95%;height:500px;"></div>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span>메뉴상세정보</span></li>
+							</ul>
+						</div>
 						<div  class ="row">
-							<table class="table table-bordered table-hover tbl_col tbl_fixed">
+							<table class="table table-bordered tbl_fixed">
 								<colgroup>
 									<col style="width: 20%">
 									<col style="width: 30%">
@@ -67,53 +75,53 @@
 								</colgroup>
 								<thead>
 									<tr>
-										<th>상위메뉴</th>
+										<th scope="row" class="th_bg">상위메뉴</th>
 										<td class="td_input">
-											<sbux-input id="dtl-input-upMenuNm" name="dtl-input-upMenuNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
+											<sbux-input id="dtl-input-upMenuNm" name="dtl-input-upMenuNm" uitype="text" class="" readonly></sbux-input>
 											<sbux-input id="dtl-input-upMenuId" name="dtl-input-upMenuId" uitype="hidden"></sbux-input>
 										</td>
-										<th>시스템구분</th>
+										<th scope="row" class="th_bg">시스템구분</th>
 										<td class="td_input">
 											<sbux-input id="dtl-input-sysNm" name="dtl-input-sysNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 											<sbux-input id="dtl-input-sysId" name="dtl-input-sysId" uitype="hidden"></sbux-input>
 										</td>
 									</tr>
 									<tr>
-										<th>메뉴ID</th>
+										<th scope="row" class="th_bg">메뉴ID</th>
 										<td class="td_input">
-											<sbux-input id="dtl-input-menuId" name="dtl-input-menuId" uitype="text" required class="form-control input-sm" readonly ></sbux-input>
+											<sbux-input id="dtl-input-menuId" name="dtl-input-menuId" uitype="text" required class="form-control input-sm input-sm-ast" readonly ></sbux-input>
 										</td>
-										<th>APC코드</th>
+										<th scope="row" class="th_bg">APC코드</th>
 										<td class="td_input">
 											<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="text" required class="form-control input-sm"></sbux-input>
 										</td>
 									</tr>
 									<tr>
-										<th>메뉴명</th>
+										<th scope="row" class="th_bg">메뉴명</th>
 										<td class="td_input">
 										    <sbux-input id="dtl-input-menuNm" name="dtl-input-menuNm" uitype="text" class="form-control input-sm"></sbux-input>
 										</td>
-										<th>표시순서</th>
+										<th scope="row" class="th_bg">표시순서</th>
 										<td class="td_input">
-										<sbux-input id="dtl-input-order" name="dtl-input-order" uitype="text" class="form-control input-sm"></sbux-input>
+											<sbux-input id="dtl-input-order" name="dtl-input-order" uitype="text" class="form-control input-sm"></sbux-input>
 										</td>
 									</tr>
 									<tr>
-										<th>화면유형</th>
+										<th scope="row" class="th_bg">화면유형</th>
 										<td class="td_input">
 											<sbux-select id="dtl-select-menuType" name="dtl-select-menuType" uitype="single" jsondata-ref="jsonComMenuType" onChange="onSelectMenuTypeChange(this)" unselected-text="선택" class="form-control input-sm"></sbux-select>
 										</td>
-										<th>사용자유형</th>
+										<th scope="row" class="th_bg">사용자유형</th>
 										<td class="td_input">
 											<sbux-select id="dtl-select-userType" name="dtl-select-userType" uitype="single" jsondata-ref="jsonComUserType" unselected-text="선택" class="form-control input-sm"></sbux-select>
 										</td>
 									</tr>
 									<tr>
-										<th>화면URL</th>
+										<th scope="row" class="th_bg">화면URL</th>
 										<td class="td_input">
 											<sbux-input id="dtl-input-pageUrl" name="dtl-input-pageUrl" uitype="text" class="form-control input-sm"></sbux-input>
 										</td>
-										<th>사용유무</th>
+										<th scope="row" class="th_bg">사용유무</th>
 										<td class="td_input">
 											<sbux-select id="dtl-select-delYn" name="dtl-select-delYn" uitype="single" jsondata-ref="jsonComDelYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
 										</td>
@@ -121,9 +129,9 @@
 								</thead>
 							</table>
 						</div>
-						</div>
 					</div>
 				</div>
+			</div>
 		</div>
 	</section>
 
@@ -495,7 +503,9 @@
   		  	indctSeq 	: order,
   		  	menuType 	: menuType,
   		    userType 	: userType,
-  		  	pageUrl 	: pageUrl
+  		  	order		: order,
+  		  	pageUrl 	: pageUrl,
+  		  	delYn		: delYn
 		});
 
 		const data = await postJsonPromise;

@@ -12,37 +12,6 @@
 
 <mapper namespace="com.at.apcss.co.menu.mapper.ComMenuMapper">
 
-	<resultMap type="com.at.apcss.co.menu.vo.ComMenuVO" id="comMenuMap">
-		<result property="menuId" column="MENU_ID" />
-		<result property="menuNm" column="MENU_NM" />
-		<result property="upMenuId" column="UP_MENU_ID" />
-		<result property="menuType" column="MENU_TYPE" />
-		<result property="menuTypeNm" column="MENU_TYPE_NM" />
-		<result property="userType" column="USER_TYPE" />
-		<result property="pageUrl" column="PAGE_URL" />
-		<result property="indctSeq" column="INDCT_SEQ" />
-		<result property="apcCd" column="APC_CD" />
-		<result property="sysId" column="SYS_ID" />
-		<result property="upMenuNm" column="UP_MENU_NM" />
-		<result property="menuLvl" column="MENU_LVL" />
-		<result property="menuSeq" column="MENU_SEQ" />
-		<result property="sysFrstInptUserId" column="SYS_FRST_INPT_USER_ID" />
-		<result property="sysFrstInptPrgrmId" column="SYS_FRST_INPT_PRGRM_ID" />
-		<result property="sysFrstInptDt" column="SYS_FRST_INPT_DT" />
-		<result property="sysLastChgUserId" column="SYS_LAST_CHG_USER_ID" />
-		<result property="sysLastChgPrgrmId" column="SYS_LAST_CHG_PRGRM_ID" />
-		<result property="sysLastChgDt" column="SYS_LAST_CHG_DT" />
-		<result property="rowSeq" column="ROW_SEQ" />
-	</resultMap>
-
-	<resultMap type="com.at.apcss.co.menu.vo.ComUiVO" id="comUiMap">
-		<result property="menuId" column="MENU_ID" />
-		<result property="entyId" column="ENTY_ID" />
-		<result property="entyNm" column="ENTY_NM" />
-		<result property="entyType" column="ENTY_TYPE" />
-		<result property="delYn" column="DEL_YN" />
-	</resultMap>
-
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectComMenu				-->
 	<!-- DESC : 메뉴 테이블 단건조회.                                             		-->
@@ -51,7 +20,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.24  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComMenu" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultMap="comMenuMap">
+    <select id="selectComMenu" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectComMenu */
 				  CM.MENU_ID    AS MENU_ID
@@ -76,7 +45,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.24  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComMenuList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultMap="comMenuMap">
+    <select id="selectComMenuList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectComMenuList */
 				  CM.MENU_ID    AS MENU_ID
@@ -108,7 +77,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.24  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMenuTreeList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultMap="comMenuMap">
+    <select id="selectMenuTreeList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuTreeList */
 				  MN.LVL		AS MENU_LVL
@@ -165,7 +134,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.31  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectTopMenuList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultMap="comMenuMap">
+    <select id="selectTopMenuList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectTopMenuList */
 				  MN.LVL		AS MENU_LVL
@@ -223,7 +192,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.31  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectLeftMenuList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultMap="comMenuMap">
+    <select id="selectLeftMenuList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectLeftMenuList */
 				  MN.LVL		AS MENU_LVL
@@ -282,7 +251,8 @@
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <insert id="insertMenu" parameterType="com.at.apcss.co.menu.vo.ComMenuVO">
-    	INSERT INTO TB_COM_MENU
+    	<![CDATA[
+    	INSERT INTO TB_COM_MENU  /* com.at.apcss.co.menu.mapper.ComMenuMapper.insertMenu */
     		(
     			APC_CD
     		  , MENU_ID
@@ -317,7 +287,7 @@
    			  , #{sysLastChgUserId}
    			  , #{sysLastChgPrgrmId}
    			)
-
+		]]>
     </insert>
 
 
@@ -330,17 +300,28 @@
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <update id="updateMenu" parameterType="com.at.apcss.co.menu.vo.ComMenuVO">
-    	UPDATE TB_COM_MENU
-    	   SET MENU_NM 					= #{menuNm}
-    	     , APC_CD 					= #{apcCd}
-    	     , INDCT_SEQ				= #{indctSeq}
-    	     , MENU_TYPE				= #{menuType}
-    	     , USER_TYPE    			= #{userType}
-    	     , PAGE_URL					= #{pageUrl}
-    	     , SYS_LAST_CHG_DT			= SYSDATE
+    	<![CDATA[
+    	UPDATE TB_COM_MENU /* com.at.apcss.co.menu.mapper.ComMenuMapper.updateMenu */
+    	   SET SYS_LAST_CHG_DT			= SYSDATE
     		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
     		 , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+    		 , MENU_NM 					= #{menuNm}
+    	     , MENU_TYPE				= #{menuType}
+    	     , PAGE_URL					= #{pageUrl}
+    	     , DEL_YN					= #{delYn}
+    	 ]]>
+    	<if test='apcCd != null and apcCd != ""'>
+    	     , APC_CD 					= #{apcCd}
+    	</if>
+    	<if test='indctSeq != null and indctSeq != ""'>
+    	     , INDCT_SEQ				= #{indctSeq}
+    	</if>
+    	<if test='userType != null and userType != ""'>
+    	     , USER_TYPE    			= #{userType}
+    	</if>
+    	<![CDATA[
     	 WHERE MENU_ID 					= #{menuId}
+    	 ]]>
     </update>
 
 	<!-- ==========================================================================	-->
@@ -351,7 +332,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMenuList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultMap="comMenuMap">
+    <select id="selectMenuList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuTreeList */
 				  MN.LVL		AS MENU_LVL
@@ -410,8 +391,10 @@
 	<!-- 2023.06.12  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<delete id="deleteMenu" parameterType="com.at.apcss.co.menu.vo.ComMenuVO">
-		DELETE FROM TB_COM_MENU
+		<![CDATA[
+		DELETE FROM TB_COM_MENU /* com.at.apcss.co.menu.mapper.ComMenuMapper.deleteMenu */
 		 WHERE MENU_ID 	= #{menuId}
+		]]>
 	</delete>
 
 
@@ -423,9 +406,10 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.03  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectMenuUiList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultMap="comMenuMap">
+	<select id="selectMenuUiList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
 		<![CDATA[
-		SELECT ROWNUM					AS ROW_SEQ
+		SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuUiList */
+			   ROWNUM					AS ROW_SEQ
 			 , CM.APC_CD                AS APC_CD
 		     , CM.MENU_ID               AS MENU_ID
 		     , CM.MENU_NM               AS MENU_NM
@@ -453,16 +437,17 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectUiList				-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectComUiList			-->
 	<!-- DESC : 화면 관리 UI 목록 조회                                   			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.03  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectUiList" parameterType="com.at.apcss.co.menu.vo.ComUiVO"  resultMap="comUiMap">
+	<select id="selectComUiList" parameterType="com.at.apcss.co.menu.vo.ComUiVO"  resultType="com.at.apcss.co.menu.vo.ComUiVO">
 		<![CDATA[
-	    SELECT CU.MENU_ID			AS MENU_ID
+	    SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectComUiList */
+	           CU.MENU_ID			AS MENU_ID
 		     , CU.ENTY_ID			AS ENTY_ID
 		     , CU.ENTY_TYPE			AS ENTY_TYPE
 		     , CU.ENTY_NM			AS ENTY_NM
@@ -474,7 +459,7 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectUiList				-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.insertComUi				-->
 	<!-- DESC : 화면 관리 UI 등록		                                   			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -483,7 +468,7 @@
 	<!-- ==========================================================================	-->
 	<insert id="insertComUi" parameterType="com.at.apcss.co.menu.vo.ComUiVO">
 		<![CDATA[
-		INSERT INTO TB_COM_UI
+		INSERT INTO TB_COM_UI  /* com.at.apcss.co.menu.mapper.ComMenuMapper.insertComUi */
 			(
 				MENU_ID
 			  , ENTY_ID
@@ -513,5 +498,41 @@
 			)
 		]]>
 	</insert>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.updateComUi				-->
+	<!-- DESC : 화면 관리 UI 수정		                                   			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.24  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateComUi" parameterType="com.at.apcss.co.menu.vo.ComUiVO">
+		<![CDATA[
+		UPDATE TB_COM_UI /* com.at.apcss.co.menu.mapper.ComMenuMapper.updateComUi */
+		   SET SYS_LAST_CHG_DT			= SYSDATE
+		     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+		     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+		     , ENTY_NM 					= #{entyNm}
+		     , ENTY_TYPE 				= #{entyType}
+		     , DEL_YN					= #{delYn}
+		 WHERE ENTY_ID 					= #{entyId}
+		   AND MENU_ID 					= #{menuId}
+		]]>
+	</update>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.deleteComUi				-->
+	<!-- DESC : 화면 관리 UI 삭제		                                   			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.24  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteComUi" parameterType="com.at.apcss.co.menu.vo.ComUiVO">
+		<![CDATA[
+		DELETE FROM TB_COM_UI  /* com.at.apcss.co.menu.mapper.ComMenuMapper.deleteComUi */
+		 WHERE MENU_ID = #{menuId}
+		   AND ENTY_ID = #{entyId}
+		]]>
+	</delete>
 </mapper>
