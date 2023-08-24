@@ -179,7 +179,6 @@
 		SBUxMethod.set("srch-dtp-pckgCmndYmd", gfn_dateToYmd(new Date()));
 
 		fn_createOutordrInfoGrid();
-        //fn_search();
 		fn_initSBSelect();
 	})
 
@@ -245,7 +244,7 @@
             {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'}
         ];
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
-        //grdOutordrInfo.addRow();
+        grdOutordrInfo.addRow();
         grdOutordrInfo.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
     }
 	
@@ -273,6 +272,18 @@
 		let gdsNm = SBUxMethod.get("srch-inp-gdsNm");
 		let pckgCmndYmd = SBUxMethod.get("srch-dtp-pckgCmndYmd");
 		let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
+		if (gfn_isEmpty(rcptYn)){
+			gfn_comAlert("W0002", "접수여부");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		if (gfn_isEmpty(outordrYmdFrom)){
+			gfn_comAlert("W0002", "발주일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		if (gfn_isEmpty(outordrYmdTo)){
+			gfn_comAlert("W0002", "발주일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
 		let OrdrVO = {apcCd 				: apcCd
 					, outordrYmdFrom 		: outordrYmdFrom
 					, outordrYmdTo 			: outordrYmdTo
