@@ -131,7 +131,7 @@
 	var jsonTrsprtCo		= [];	// 운송회사 	trsprtCo	검색
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
-	var jsonApcSpcfct			= [];	// 규격 		spcfct		검색
+	var jsonApcSpcfct		= [];	// 규격 		spcfct		검색
 	var jsonComPckgSeCd		= [];	// 포장구분 	pckgSeCd	검색
 	
 	var jsonSmptCmnd		= [];
@@ -152,7 +152,6 @@
 		SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
 		
 		fn_createSpmtCmndGrid();
-		fn_search();
 		fn_initSBSelect();
 	})
 
@@ -213,6 +212,14 @@
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
 		let pckgSeCd = SBUxMethod.get("srch-slt-pckgSeCd");
+		if (gfn_isEmpty(cmndYmdFrom)){
+			gfn_comAlert("W0002", "지시일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		if (gfn_isEmpty(cmndYmdTo)){
+			gfn_comAlert("W0002", "지시일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
 		let SpmtCmndVO = {apcCd 				: apcCd
 						, cmndYmdFrom 			: cmndYmdFrom
 						, cmndYmdTo 			: cmndYmdTo

@@ -46,6 +46,7 @@
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectOrdrList */
 	    		   OI.APC_CD							AS APC_CD
+    		  	 , OI.APC_SE_CD							AS APC_SE_CD
     		  	 , OI.RCPT_CFMTN_YMD					AS RCPT_CFMTN_YMD
     		  	 , OI.OUTORDR_TYPE						AS OUTORDR_TYPE
 			  	 , OI.OUTORDRNO							AS OUTORDRNO
@@ -82,36 +83,55 @@
     		  	 , OI.PCKG_CMNDNO						AS PCKG_CMNDNO
     		  	 , SC.SPMT_YMD							AS SPMT_YMD
 			  FROM TB_OUTORDR_INFO OI
-			     , TB_PCKG_CMND PC
 			     , TB_SPMT_PRFMNC_COM SC
 			     , TB_SPMT_PRFMNC_DTL SD
-			 WHERE OI.APC_CD = PC.APC_CD
-			   AND OI.APC_CD = SC.APC_CD
+			 WHERE OI.APC_CD = SC.APC_CD
 			   AND OI.APC_CD = SD.APC_CD
-			   AND OI.ITEM_CD = PC.ITEM_CD
-			   AND OI.VRTY_CD = PC.VRTY_CD
-			   AND OI.SPCFCT_CD = PC.SPCFCT_CD
-			   AND OI.GDS_CD = PC.GDS_CD
 			   AND OI.VRTY_CD = SD.VRTY_CD
 			   AND OI.SPCFCT_CD = SD.SPCFCT_CD
 			   AND OI.GDS_CD = SD.GDS_CD
-			   AND PC.VRTY_CD = SD.VRTY_CD
-			   AND PC.GDS_CD = SD.GDS_CD
-			   AND OI.PCKG_CMNDNO = PC.PCKG_CMNDNO
-			   AND OI.OUTORDRNO = PC.OUTORDRNO
-			   AND OI.OUTORDR_QNTT = PC.OUTORDR_QNTT
-			   AND OI.WRHS_YMD = PC.DUDT_YMD
-			   AND OI.BX_GDS_QNTT = PC.BX_GDS_QNTT
 			   AND SC.SPMTNO = SD.SPMTNO
-			   AND OI.APC_CNPT_CD = PC.CNPT_CD
 			   AND OI.APC_CNPT_CD = SC.CNPT_CD
 			   AND OI.DEL_YN = 'N'
-			   AND PC.DEL_YN = 'N'
 			   AND SC.DEL_YN = 'N'
 			   AND SD.DEL_YN = 'N'
 		]]>
-		<if test='apcCd != null and apcCd != ""'>
-			   AND OI.APC_CD = #{apcCd}
+<!-- 		<if test='apcSeCd != null and apcSeCd = "1"'> -->
+<!-- 			   		AND OI.APC_CD = '0000' -->
+<!-- 	   		<if test='rcptYn != null and rcptYn = "Y"'> -->
+<!-- 	   			<if test='apcCd != null and apcCd != ""'> -->
+<!-- 			   			AND OI.RCPT_CFMTN_APC_CD = #{apcCd} -->
+<!-- 				</if> -->
+<!-- 			   		AND OI.RCPT_CFMTN_YMD IS NOT NULL -->
+<!-- 			</if> -->
+<!-- 			<if test='rcptYn != null and rcptYn = "N"'> -->
+<!-- 			   		AND OI.RCPT_CFMTN_YMD IS NULL -->
+<!-- 			</if> -->
+<!-- 		</if> -->
+<!-- 		<if test='apcSeCd != null and apcSeCd = "2"'> -->
+<!-- 			<if test='apcCd != null and apcCd != ""'> -->
+<!-- 			   		AND OI.APC_CD = #{apcCd} -->
+<!-- 			</if> -->
+<!-- 			<if test='rcptYn != null and rcptYn = "Y"'> -->
+<!-- 			   		AND OI.RCPT_CFMTN_YMD IS NOT NULL -->
+<!-- 			</if> -->
+<!-- 			<if test='rcptYn != null and rcptYn = "N"'> -->
+<!-- 			   		AND OI.RCPT_CFMTN_YMD IS NULL -->
+<!-- 			</if> -->
+<!-- 		</if> -->
+		<if test='rcptYn != null and rcptYn = "Y"'>
+			   AND ((
+						(OI.APC_SE_CD = '1' AND OI.APC_CD = '0000' AND OI.RCPT_CFMTN_APC_CD = #{apcCd})
+	         			OR
+	         			(OI.APC_SE_CD = '2' AND OI.APC_CD = #{apcCd}))
+      				AND OI.RCPT_CFMTN_YMD IS NOT NULL)
+		</if>
+		<if test='rcptYn != null and rcptYn = "N"'>
+			   AND ((
+						(OI.APC_SE_CD = '1' AND OI.APC_CD = '0000')
+         				OR
+         				(OI.APC_SE_CD = '2' AND OI.APC_CD = #{apcCd}))
+      				AND OI.RCPT_CFMTN_YMD IS NULL)
 		</if>
 		<if test='outordrYmdFrom != null and outordrYmdFrom != ""'>
 		   	   AND OI.OUTORDR_YMD >= #{outordrYmdFrom}
@@ -137,12 +157,6 @@
 <!-- 		<if test='gdsNm != null and gdsNm != ""'> -->
 <!-- 		   	   AND SP.SLS_YMD >= #{gdsNm} -->
 <!-- 		</if> -->
-		<if test='pckgCmndYmd != null and pckgCmndYmd != ""'>
-		   	   AND PC.PCKG_CMND_YMD = #{pckgCmndYmd}
-		</if>
-		<if test='fcltCd != null and fcltCd != ""'>
-		   	   AND PC.FCLT_CD = #{fcltCd}
-		</if>
     	<![CDATA[
 		 	 GROUP BY OI.RCPT_CFMTN_YMD
     		  	 	, OI.OUTORDR_TYPE
@@ -179,6 +193,7 @@
     		  	 	, OI.RCPT_CFMTN_APC_CD
     		  	 	, OI.PCKG_CMNDNO
     		  	 	, OI.APC_CD
+    		  	 	, OI.APC_SE_CD
     		  	 	, SC.SPMT_YMD
 		]]>
 		<!-- Start 페이징 -->

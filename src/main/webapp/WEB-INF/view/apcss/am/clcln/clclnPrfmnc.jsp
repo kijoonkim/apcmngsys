@@ -165,7 +165,6 @@
 		SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateToYmd(new Date()));
 		
 		fn_createClclnPrfmncGrid();
-		fn_search();
 		fn_initSBSelect();
 	})
 	
@@ -232,6 +231,18 @@
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+		if (gfn_isEmpty(clclnCrtr)){
+			gfn_comAlert("W0002", "정산기준");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		if (gfn_isEmpty(clclnYmdFrom)){
+			gfn_comAlert("W0002", "정산일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		if (gfn_isEmpty(clclnYmdTo)){
+			gfn_comAlert("W0002", "정산일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
 		let ClclnPrfmncVO = {apcCd 					: apcCd
 						   , clclnYmdFrom 			: clclnYmdFrom
 						   , clclnYmdTo 			: clclnYmdTo
