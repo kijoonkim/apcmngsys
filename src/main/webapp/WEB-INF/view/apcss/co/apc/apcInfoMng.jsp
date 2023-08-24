@@ -90,11 +90,11 @@
 			gfn_setComCdGridSelect('grdApcInfoMng', comboDelYnJsData, "REVERSE_YN", gv_apcCd),
 			gfn_setComCdGridSelect('grdApcInfoMng', comboMbCdJsData, "MB_CD", gv_apcCd)
 		]);
+        fn_search();
 	}
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createApcInfoMngGrid();
-        fn_search();
 		fn_initSBSelect();
 	})
 	
@@ -144,7 +144,6 @@
 		if (type == "ADD"){
 			grdApcInfoMng.addRow(true, {'delYn':'N'});
 			grdApcInfoMng.setCellData(grdApcInfoMng.getGridDataAll().length, 0, true);
-			fn_initSBSelect();
 		}
 		else{
 			for(var i=0; i<grdApcInfoMng.getGridDataAll().length; i++){
