@@ -11,13 +11,13 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> ▶ 메뉴관리</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btn_create" name="btn_create" uitype="normal"  text="신규" onclick="fn_create"></sbux-button>
-					<sbux-button id="btn_delete" name="btn_delete" uitype="normal"  text="삭제" onclick="fn_delete"></sbux-button>
-					<sbux-button id="btn_save" name="btn_save" uitype="normal"  text="저장"onclick="fn_save"></sbux-button>
-					<sbux-button id="btn_search" name="btn_search" uitype="normal"  text="조회" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnCreate" name="btnCreate" uitype="normal"  text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal"  text="삭제"  class="btn btn-sm btn-outline-danger"onclick="fn_delete"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal"  text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal"  text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -39,7 +39,7 @@
 							<tr>
 								<th scope="row" style="border-bottom:1px solid white ">시스템구분</sbux-label></th>
 								<td class="td_input" colspan="2"   style="border-right:hidden;">
-									<sbux-select id="srch-select-sysId" name="srch-select-sysId" uitype="single" jsondata-ref="jsonComSysId" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									<sbux-select id="srch-slt-sysId" name="srch-slt-sysId" uitype="single" jsondata-ref="jsonComSysId" unselected-text="선택" class="form-control input-sm"></sbux-select>
 								</td>
 								<td colspan="6"></td>
 							</tr>
@@ -135,13 +135,6 @@
     var grid; // 그리드를 담기위한 객체 선언
     var gridData = []; // 그리드의 참조 데이터 주소 선언
 
-    /*
-    var jsonSearchCombo   = comCdLoad("SYS_ID");		//조회조건(시스템ID)
-    var jsonComboUserType = comCdLoad("USER_TYPE");		// 사용자유형
-    var jsonComboMenuType = comCdLoad("MENU_TYPE");		// 화면유형
-    var jsonComDelYn =
-    */
-
 	var jsonComSysId 	= [];	// 시스템유형	srch-select-sysId		SYS_ID
     var jsonComMenuType = [];	// 메뉴유형	dtl-select-menuType		MENU_TYPE
     var jsonComUserType = [];	// 사용자유형	dtl-select-userType		USER_TYPE
@@ -163,7 +156,7 @@
     const fn_initSBSelect = async function() {
 
     	// 조회 SB select
-	 	gfn_setComCdSBSelect('srch-select-sysId', jsonComSysId, 'SYS_ID');	// 시스템유형
+	 	gfn_setComCdSBSelect('srch-slt-sysId', jsonComSysId, 'SYS_ID');	// 시스템유형
 
 	 	// 상세 SB select
 	 	gfn_setComCdSBSelect('dtl-select-menuType', jsonComMenuType, 'MENU_TYPE');	// 메뉴유형
@@ -354,9 +347,9 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
-
-        if (!SBUxMethod.get("srch-select-sysId")) {
-        	alert(gfn_getComMsg("W0001", "시스템구분"));	//	W0001	{0}을/를 선택하세요.
+		let sysId = SBUxMethod.get("srch-slt-sysId");
+        if (gfn_isEmpty(sysId)) {
+        	gfn_comAlert("W0001", "시스템구분");	//	W0001	{0}을/를 선택하세요.
             return;
         }
 
@@ -380,7 +373,7 @@
 
     	grdMenuTreeList.clearStatus();
 
-		let sysId = SBUxMethod.get("srch-select-sysId");
+		let sysId = SBUxMethod.get("srch-slt-sysId");
 
         const postJsonPromise = gfn_postJSON("/co/menu/selectMenuList.do", {
         	sysId: sysId,
@@ -562,7 +555,7 @@
 
         var rowData = grdMenuTreeList.getRowData(nRow);
 
-        var sysIdInfo = _.find(jsonComSysId, {value: SBUxMethod.get("srch-select-sysId")});
+        var sysIdInfo = _.find(jsonComSysId, {value: SBUxMethod.get("srch-slt-sysId")});
         SBUxMethod.set("dtl-input-sysNm", sysIdInfo.text);
         SBUxMethod.set("dtl-input-sysId", sysIdInfo.value);
 
