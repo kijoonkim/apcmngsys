@@ -209,8 +209,8 @@
             {caption: ['접수여부'], 		ref: 'rcptYn', 			width: '100px', 	type: 'combo',			style:'text-align: center',
             	typeinfo : {ref:'comboUesYnJsData1', label:'label', value:'value'}},
             {caption: ['발주번호'], 		ref: 'outordrno', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['거래처명'], 		ref: 'cnptNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['납기일자'], 		ref: 'dudtYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['거래처명'], 		ref: 'apcCnptNm', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['납기일자'], 		ref: 'wrhsYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['발주일자'], 		ref: 'outordrYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['주문자'], 		ref: 'outordrPrsn', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['공급자명'], 		ref: 'splyPrsn', 		width: '100px', 	type: 'output',			style:'text-align: center'},
@@ -241,7 +241,9 @@
             {caption: ['기타'], 			ref: 'etc', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['접수APC (농협)'], ref: 'rcptCfmtnApcCd', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['포장지시번호'], 	ref: 'pckgCmndno', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'}
+            {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['APC코드'], 		ref: 'apcCd', 			hidden: true},
+            {caption: ['APC구분코드'], 	ref: 'apcSeCd', 		hidden: true}
         ];
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
         grdOutordrInfo.addRow();
@@ -272,6 +274,7 @@
 		let gdsNm = SBUxMethod.get("srch-inp-gdsNm");
 		let pckgCmndYmd = SBUxMethod.get("srch-dtp-pckgCmndYmd");
 		let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
+// 		let apcSeCd = ;
 		if (gfn_isEmpty(rcptYn)){
 			gfn_comAlert("W0002", "접수여부");		//	W0002	{0}을/를 입력하세요.
             return;
@@ -285,6 +288,8 @@
             return;
 		}
 		let OrdrVO = {apcCd 				: apcCd
+//				    , apcSeCd 				: apcSeCd
+			        , rcptYn 				: rcptYn
 					, outordrYmdFrom 		: outordrYmdFrom
 					, outordrYmdTo 			: outordrYmdTo
 					, outordrType 			: outordrType
@@ -307,8 +312,8 @@
 					  rcptCfmtnYmd 			: item.rcptCfmtnYmd
 					, outordrType 			: item.outordrType
 					, outordrno 			: item.outordrno
-					, cnptNm	 			: item.apcCnptNm
-					, dudtYmd 				: item.wrhsYmd
+					, apcCnptNm	 			: item.apcCnptNm
+					, wrhsYmd 				: item.wrhsYmd
 					, outordrYmd 			: item.outordrYmd
 					, outordrPrsn 			: item.outordrPrsn
 					, splyPrsn 				: item.splyPrsn
@@ -340,6 +345,8 @@
 					, rcptCfmtnApcCd		: item.rcptCfmtnApcCd
 					, pckgCmndno			: item.pckgCmndno
 					, spmtYmd				: item.spmtYmd
+					, apcCd 				: item.apcCd
+					, apcSeCd 				: item.apcSeCd
 				}
 				jsonOutordrInfo.push(Object.assign({}, ordr));
 				newJsonOutordrInfo.push(Object.assign({}, ordr));

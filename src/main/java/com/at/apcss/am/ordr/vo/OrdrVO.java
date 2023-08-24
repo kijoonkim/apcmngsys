@@ -37,17 +37,13 @@ public class OrdrVO extends ComVO {
 	 */
 	private String outordrno;
 	/**
-	 * 발주시작일자
-	 */
-	private String outordrStrtYmd;
-	/**
-	 * 발주종료일자
-	 */
-	private String outordrEndYmd;
-	/**
 	 * 창고구분
 	 */
 	private String warehouseSeCd;
+	/**
+	 * 접수여부
+	 */
+	private String rcptYn;
 	/**
 	 * 수신구분코드
 	 */
@@ -90,13 +86,12 @@ public class OrdrVO extends ComVO {
 	 * 거래처발주번호
 	 */
 
-	private String cnptOrdrNo;
+	private String cnptOrdrno;
+	
 	/**
 	 * 거래처코드
 	 */
 	private String cnptCd;
-
-	private String cnptOrdrno;
 	
 	/**
 	 * 발주유형
