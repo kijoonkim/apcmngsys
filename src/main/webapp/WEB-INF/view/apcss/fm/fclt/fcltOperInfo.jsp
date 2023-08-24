@@ -462,26 +462,26 @@
 				perOgnzNm: item.perOgnzNm,                  	  	//운영조직
 				operOgnzBrno: item.operOgnzBrno,                    //운영조직 사업자번호
 				operOgnzTrmtItemCn: item.operOgnzTrmtItemCn,        //운영조직 취급 대표품목1
-				operOgnzTrmtItemCn: item.operOgnzTrmtItemCn2,        //운영조직 취급 대표품목2
-				operOgnzTrmtItemCn: item.operOgnzTrmtItemCn3,        //운영조직 취급 대표품목3
-				operOgnzTrmtItemCn: item.operOgnzTrmtItemCn4,        //운영조직 취급 기타품목
+				operOgnzTrmtItemCn: item.operOgnzTrmtItemCn2,       //운영조직 취급 대표품목2
+				operOgnzTrmtItemCn: item.operOgnzTrmtItemCn3,       //운영조직 취급 대표품목3
+				operOgnzTrmtItemCn: item.operOgnzTrmtItemCn4,       //운영조직 취급 기타품목
 				apcNm: item.apcNm,                  		  		//APC명
 				apcBrno: item.apcBrno,                 		  		//APC 사업자번호
 				daddr: item.daddr,             			 			//주소
 				apcTrmtItemCn: item.apcTrmtItemCn,                  //APC 처리 대표품목1
-				apcTrmtItemCn: item.apcTrmtItemCn2,                  //APC 처리 대표품목2
-				apcTrmtItemCn: item.apcTrmtItemCn3,                  //APC 처리 대표품목3
-				apcTrmtItemCn: item.apcTrmtItemCn4,                   //APC 처리 기타품목명
-				delYn: item.delYn,                  //삭제유무
-	            sysFrstInptDt: item.sysFrstInptDt,       //시스템최초입력일시
-		        sysFrstInptUserId: item.sysFrstInptUserId,      //시스템최초입력사용자id
+				apcTrmtItemCn: item.apcTrmtItemCn2,                 //APC 처리 대표품목2
+				apcTrmtItemCn: item.apcTrmtItemCn3,                 //APC 처리 대표품목3
+				apcTrmtItemCn: item.apcTrmtItemCn4,                 //APC 처리 기타품목명
+				delYn: item.delYn,                  				//삭제유무
+	            sysFrstInptDt: item.sysFrstInptDt,       			//시스템최초입력일시
+		        sysFrstInptUserId: item.sysFrstInptUserId,      	//시스템최초입력사용자id
 		        sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,     	//시스템최초입력프로그램id
-		        sysLastChgDt: item.sysLastChgDt,    		  //시스템최종변경일시
-		        sysLastChgUserId: item.sysLastChgUserId,  	//시스템최종변경사용자id
-		        sysLastChgPrgrmId: item.sysLastChgPrgrmId   //시스템최종변경프로그램id
-											      		    //운영조직 대표자
-											                //운영조직 주소
-											                //운영조직 조직유형
+		        sysLastChgDt: item.sysLastChgDt,    		  		//시스템최종변경일시
+		        sysLastChgUserId: item.sysLastChgUserId,  			//시스템최종변경사용자id
+		        sysLastChgPrgrmId: item.sysLastChgPrgrmId  			//시스템최종변경프로그램id
+											      		    		//운영조직 대표자
+											                		//운영조직 주소
+											                		//운영조직 조직유형
 
 
 

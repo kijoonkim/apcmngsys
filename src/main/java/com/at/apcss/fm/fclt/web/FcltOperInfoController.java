@@ -56,6 +56,7 @@ public class FcltOperInfoController extends BaseController {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltOperInfoVO> resultList = new ArrayList<>();
+		System.out.println("@@@@@@@@@@ param : " + fcltOperInfoVO.getApcCd() + ", " + fcltOperInfoVO.getTrgtYr());
 
 		try {
 			 resultList = fcltOperInfoService.selectFcltOperInfoList(fcltOperInfoVO);
