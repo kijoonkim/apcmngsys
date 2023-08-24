@@ -426,7 +426,7 @@
     	SBUxMethod.set("dtl-input-sysLastChgUserId",null);   //시스템최종변경사용자id
     	SBUxMethod.set("dtl-input-sysLastChgPrgrmId",null);   //시스템최종변경프로그램id
     }
-     const fn_clearForm = function() {
+     const fn_clearForm = function() {                       //그리드 목록을 초기화
        	//SBUxMethod.set("srch-input-trgtYr",null); 	 	//대상연도
 		//SBUxMethod.set("gsb-slt-apcCd",null); 	 	//apc코드
 		SBUxMethod.set("dtl-input-operOgnzCd",null);  	//운영조직 코드
