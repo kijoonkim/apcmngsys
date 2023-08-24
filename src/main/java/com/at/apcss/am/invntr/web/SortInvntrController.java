@@ -1,7 +1,21 @@
 package com.at.apcss.am.invntr.web;
 
-import org.springframework.stereotype.Controller;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.at.apcss.am.invntr.service.SortInvntrService;
+import com.at.apcss.am.invntr.vo.SortInvntrVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -16,10 +30,30 @@ import com.at.apcss.co.sys.controller.BaseController;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  신정철        최초 생성
+ * 2023.08.23  김현호        최초 생성
  * </pre>
  */
 @Controller
 public class SortInvntrController extends BaseController {
+	@Resource(name = "sortInvntrService")
+	private SortInvntrService sortInvntrService;
+	
+	@PostMapping(value = "/am/invntr/selectSortInvntrDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSortInvntrDsctnList(@RequestBody SortInvntrVO sortInvntrVO, HttpServletRequest request) throws Exception {
 
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SortInvntrVO> resultList =  new ArrayList<>();
+		try {
+			
+			resultList = sortInvntrService.selectSortInvntrDsctnList(sortInvntrVO);
+			
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		
+		return getSuccessResponseEntity(resultMap);
+	}
 }

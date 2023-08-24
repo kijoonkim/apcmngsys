@@ -38,6 +38,14 @@ public interface SortInvntrMapper {
 	 * @throws Exception
 	 */
 	public List<SortInvntrVO> selectSortInvntrList(SortInvntrVO sortInvntrVO) throws Exception;
+	/**
+	 * 선별재고 내역 목록 조회 selectSortInvntrDsctnList
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	
+	public List<SortInvntrVO> selectSortInvntrDsctnList(SortInvntrVO sortInvntrVO) throws Exception;
 
 	/**
 	 * 선별재고 등록
