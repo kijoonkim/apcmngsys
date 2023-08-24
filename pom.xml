@@ -145,7 +145,7 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<!--<scope>provided</scope>-->
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -354,13 +354,11 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/rhino/js -->
-		<!--
 		<dependency>
 		    <groupId>rhino</groupId>
 		    <artifactId>js</artifactId>
 		    <version>1.6R2</version>
 		</dependency>
-		-->
 
 	</dependencies>
 
