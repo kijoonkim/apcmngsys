@@ -35,7 +35,7 @@ public class OrdrVO extends ComVO {
 	/**
 	 * 발주번호
 	 */
-	private String ordrNo;
+	private String outordrno;
 	/**
 	 * 수신구분코드
 	 */
@@ -57,22 +57,32 @@ public class OrdrVO extends ComVO {
 	/**
 	 * 포장지시번호
 	 */
-	private String pckgCmndNo;
+	private String pckgCmndno;
+	
+	/**
+	 * 포장지시일자
+	 */
+	private String pckgCmndYmd;
+	
+	/**
+	 * 설비코드
+	 */
+	private String fcltCd;
 	
 	/**
 	 * 문서번호
 	 */
-	private String docNo;
+	private String docno;
 	
 	/**
 	 * 거래처발주번호
 	 */
-	private String cnptOrdrNo;
+	private String cnptOrdrno;
 	
 	/**
 	 * 발주유형
 	 */
-	private String ordrType;
+	private String outordrType;
 	
 	/**
 	 * 입고유형
@@ -82,17 +92,32 @@ public class OrdrVO extends ComVO {
 	/**
 	 * 발주일자
 	 */
-	private String ordrYmd;
+	private String outordrYmd;
+	
+	/**
+	 * 발주시작일자
+	 */
+	private String outordrYmdFrom;
+	
+	/**
+	 * 발주종료일자
+	 */
+	private String outordrYmdTo;
+	
+	/**
+	 * 출하일자
+	 */
+	private int spmtYmd;
 	
 	/**
 	 * 주문자
 	 */
-	private String ordrPrsn;
+	private String outordrPrsn;
 	
 	/**
 	 * 주문자코드
 	 */
-	private String ordrPrsnCd;
+	private String outordrPrsnCd;
 	
 	/**
 	 * 도크정보
@@ -171,7 +196,7 @@ public class OrdrVO extends ComVO {
 	/**
 	 * 발주수량
 	 */
-	private int ordrQntt;
+	private int outordrQntt;
 	
 	/**
 	 * 출하수량
@@ -201,12 +226,12 @@ public class OrdrVO extends ComVO {
 	/**
 	 * 발주단가
 	 */
-	private String ordrUntprc;
+	private String outordrUntprc;
 	
 	/**
 	 * 발주단위
 	 */
-	private String ordrUnit;
+	private String outordrUnit;
 	
 	/**
 	 * LOT
@@ -221,7 +246,7 @@ public class OrdrVO extends ComVO {
 	/**
 	 * 발주금액
 	 */
-	private double ordrAmt;
+	private double outordrAmt;
 	
 	/**
 	 * 배송지코드
@@ -249,7 +274,7 @@ public class OrdrVO extends ComVO {
 	private String apcCnptNm;
 	
 	/**
-	 * 센터구분코드
+	 * APC거래처코드
 	 */
 	private String apcCnptCd;
 	
