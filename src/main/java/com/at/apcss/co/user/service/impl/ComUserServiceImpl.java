@@ -5,12 +5,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.at.apcss.am.apc.service.ApcEvrmntStngService;
+import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
 import com.at.apcss.co.authrt.service.ComAuthrtService;
 import com.at.apcss.co.authrt.vo.ComAuthrtVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -44,6 +45,10 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
 	@Resource(name = "comAuthrtService")
 	private ComAuthrtService comAuthrtService;
+
+	@Resource(name = "apcEvrmntStngService")
+	private ApcEvrmntStngService apcEvrmntStngService;
+
 
 	@Override
 	public ComUserVO selectComUser(ComUserVO comUserVO) throws Exception {
@@ -106,15 +111,15 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		}
 
 		for ( ComUserVO user : comUserList ) {
-			
+
 			String sysUserId = user.getSysLastChgUserId();
 			String sysPrgrmId = user.getSysLastChgPrgrmId();
-			
+
 			user.setUserStts(ComConstants.CON_USER_STTS_VALID);
 			comUserMapper.updateComUserAprv(user);
 
 			// 승인 후 권한id 등록.
-			ComAuthrtVO comAuthrtVO = new ComAuthrtVO();			
+			ComAuthrtVO comAuthrtVO = new ComAuthrtVO();
 			comAuthrtVO.setSysFrstInptUserId(sysUserId);
 			comAuthrtVO.setSysFrstInptPrgrmId(sysPrgrmId);
 			comAuthrtVO.setSysLastChgUserId(sysUserId);
@@ -124,7 +129,22 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
 			rtnObj = comAuthrtService.insertApcAuthrtId(comAuthrtVO);
 			if (rtnObj != null) {
-				// error throw exception;
+				logger.error("Error on ComUserService#insertUserAprvList call ComAuthrtService#insertApcAuthrtId");
+				logger.error(getMessageForMap(rtnObj));
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+			ApcEvrmntStngVO apcEvrmntStngVO = new ApcEvrmntStngVO();
+			apcEvrmntStngVO.setSysFrstInptUserId(sysUserId);
+			apcEvrmntStngVO.setSysFrstInptPrgrmId(sysPrgrmId);
+			apcEvrmntStngVO.setSysLastChgUserId(sysUserId);
+			apcEvrmntStngVO.setSysLastChgPrgrmId(sysPrgrmId);
+			apcEvrmntStngVO.setApcCd(user.getApcCd());
+
+			rtnObj = apcEvrmntStngService.insertApcInitInfo(apcEvrmntStngVO);
+			if (rtnObj != null) {
+				logger.error("Error on ComUserService#insertUserAprvList call ApcEvrmntStngService#insertApcInitInfo");
+				logger.error(getMessageForMap(rtnObj));
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}

@@ -53,7 +53,7 @@ public class FcltOperInfoServiceImpl implements FcltOperInfoService{
 	public List<FcltOperInfoVO> selectFcltOperInfoList(FcltOperInfoVO fcltOperInfoVO) throws Exception {
 
 		List<FcltOperInfoVO> resultList = fcltOperInfoMapper.selectFcltOperInfoList(fcltOperInfoVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
+		System.out.println("$$$$$$$ resultList " + resultList.get(0));
 		for (FcltOperInfoVO msg : resultList ) {
 			System.out.printf("msgCn : %s", msg.getMsgCn());
 			System.out.println();

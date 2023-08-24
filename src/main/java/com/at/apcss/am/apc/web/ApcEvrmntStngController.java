@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
 import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
 import com.at.apcss.am.cmns.vo.WrhsVhclVO;
+import com.at.apcss.co.authrt.vo.ComAuthrtVO;
 import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -62,13 +63,13 @@ public class ApcEvrmntStngController extends BaseController{
 
 	// APC 정보관리 - APC 내역 조회
 	@PostMapping(value = "/am/apc/selectApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectApcDsctnList(@RequestBody ApcEvrmntStngVO ApcEvrmntStngVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectApcDsctnList(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
 		logger.debug("selectApcDsctnList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<ApcEvrmntStngVO> resultList = new ArrayList<>();
 		try {
-			resultList = apcEvrmntStngService.selectApcDsctnList(ApcEvrmntStngVO);
+			resultList = apcEvrmntStngService.selectApcDsctnList(apcEvrmntStngVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -77,35 +78,35 @@ public class ApcEvrmntStngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// APC 정보관리 - APC 내역 등록
 	@PostMapping(value = "/am/apc/multiApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> multiApcDsctnList(@RequestBody List<ApcEvrmntStngVO> apcDsctnList, HttpServletRequest request) throws Exception {
 		logger.debug("multiApcDsctnList 호출 <><><><> ");
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<ApcEvrmntStngVO> updateList = new ArrayList<ApcEvrmntStngVO>();
 		try {
-			for ( ApcEvrmntStngVO ApcEvrmntStngVO : apcDsctnList ) {
-				ApcEvrmntStngVO.setSysFrstInptUserId(getUserId());
-				ApcEvrmntStngVO.setSysFrstInptPrgrmId(getPrgrmId());
-				ApcEvrmntStngVO.setSysLastChgUserId(getUserId());
-				ApcEvrmntStngVO.setSysLastChgPrgrmId(getPrgrmId());
-				updateList.add(ApcEvrmntStngVO);
+			for ( ApcEvrmntStngVO apcEvrmntStngVO : apcDsctnList ) {
+				apcEvrmntStngVO.setSysFrstInptUserId(getUserId());
+				apcEvrmntStngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				apcEvrmntStngVO.setSysLastChgUserId(getUserId());
+				apcEvrmntStngVO.setSysLastChgPrgrmId(getPrgrmId());
+				updateList.add(apcEvrmntStngVO);
 			}
-			
+
 			HashMap<String, Object> rtnObj = apcEvrmntStngService.multiApcDsctnList(updateList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
-			
+
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// APC 환경설정 - 사용자 목록 조회
 	@PostMapping(value = "/am/apc/selectApcUserList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcUserList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
@@ -147,24 +148,83 @@ public class ApcEvrmntStngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 품종선택 팝업
-		@PostMapping(value = "/am/apc/selectVrtyList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-		public ResponseEntity<HashMap<String, Object>> selectVrtyList(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/apc/selectVrtyList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectVrtyList(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
 
-			logger.debug("selectVrtyList 호출 <><><><> ");
+		logger.debug("selectVrtyList 호출 <><><><> ");
 
-			HashMap<String, Object> resultMap = new HashMap<String, Object>();
-			List<ComCdVO> resultList = new ArrayList<>();
-			try {
-				resultList = apcEvrmntStngService.selectVrtyList(comCdVO);
-			} catch (Exception e) {
-				return getErrorResponseEntity(e);
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<ComCdVO> resultList = new ArrayList<>();
+		try {
+			resultList = apcEvrmntStngService.selectVrtyList(comCdVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+	/**
+	 * APC 메뉴간편설정 등록 시 APC의 권한 등록 (관리자, 사용자)
+	 */
+	@PostMapping(value = "/am/apc/insertApcSimpleAuthrt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertApcSimpleAuthrt(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+
+		try {
+
+			// validation check
+			apcEvrmntStngVO.setSysFrstInptUserId(getUserId());
+			apcEvrmntStngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			apcEvrmntStngVO.setSysLastChgUserId(getUserId());
+			apcEvrmntStngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = apcEvrmntStngService.insertApcSimpleAuthrt(apcEvrmntStngVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
 			}
 
-			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
-			return getSuccessResponseEntity(resultMap);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
 		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * APC 메뉴일반설정 등록 시 APC의 권한 등록 (관리자, 사용자)
+	 */
+	@PostMapping(value = "/am/apc/insertApcNormalAuthrt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertApcNormalAuthrt(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+
+		try {
+
+			// validation check
+			apcEvrmntStngVO.setSysFrstInptUserId(getUserId());
+			apcEvrmntStngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			apcEvrmntStngVO.setSysLastChgUserId(getUserId());
+			apcEvrmntStngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = apcEvrmntStngService.insertApcNormalAuthrt(apcEvrmntStngVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 
 }

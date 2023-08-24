@@ -721,7 +721,7 @@
 <script type="text/javascript">
 	async function fn_saveSimpleStng(){
 		let authrtCaseId = SBUxMethod.get('simpleCase');
-		let postJsonPromise = gfn_postJSON("/co/authrt/insertApcSimpleAuthrt.do", {apcCd : gv_apcCd, authrtCaseId : authrtCaseId});
+		let postJsonPromise = gfn_postJSON("/am/apc/insertApcSimpleAuthrt.do", {apcCd : gv_apcCd, authrtCaseId : authrtCaseId});
     	let data = await postJsonPromise;
     	try{
     		if (_.isEqual("S", data.resultStatus)) {

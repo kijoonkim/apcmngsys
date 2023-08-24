@@ -26,21 +26,21 @@
 		</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
+						<col style="width: 9%">
+						<col style="width: 11%">
+						<col style="width: 11%">
+						<col style="width: 2%">
+						<col style="width: 9%">
+						<col style="width: 11%">
+						<col style="width: 11%">
+						<col style="width: 2%">
 						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
+						<col style="width: 8%">
+						<col style="width: 8%">
+						<col style="width: 4%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -48,7 +48,7 @@
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
-							<td colspan="8"></td>
+							<td colspan="9"></td>
 						</tr>
 						<tr>
 							<th scope="row">약정일자</th>
@@ -60,19 +60,16 @@
 								</div>
 							</td>
 
-							<th scope="row">규격</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-spcfct" name="srch-slt-spcfct" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
-							</td>
-							<td colspan="2"></td>
+
 							<th scope="row">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-item" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="dtl-slt-itemCd" name="dtl-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="전체" class="form-control input-sm" onchange="fn_onChangeSrchItemCd(this)" ></sbux-select>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-Vrty" name="srch-slt-Vrty" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+							<td colspan="2" class="td_input" style="border-right: hidden;" >
+								<sbux-select id="dtl-slt-vrtyCd" name="dtl-slt-vrtyCd" uitype="single" jsondata-ref="jsonApcVrty" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
-							<td class="td_input"></td>
+							<td class="td_input" style="border-right: hidden;"></td>
+							<td colspan="4"></td>
 						</tr>
 
 					</tbody>
@@ -121,7 +118,6 @@
 					</colgroup>
 					<tbody>
 						<tr>
-
 							<th scope="row">APC명</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnpt" name="srch-inp-cnpt" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
@@ -151,25 +147,21 @@
 								<sbux-datepicker id="srch-inp-enggtYmd" name="srch-inp-enggtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
-							<th scope="row">규격</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-spcfct-cd" name="srch-spcfct-cd" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
-							</td>
-							<td style="border-right: hidden;"></td>
 							<th scope="row">약정수량</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-enggtVlm" name="srch-inp-enggtVlm" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
 							<td colspan="1" scope="row"> &nbsp;</th>
-						</tr>
-						<tr>
 							<th class="td_input" scope="row">예상수확량</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-expctHrvstQntt" name="srch-inp-expctHrvstQntt" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							<td class="td_input" style="border-right: hidden;">Kg</td>
 							<td style="border-right: hidden;">&nbsp;</td>
+						</tr>
+						<tr>
+
 							<th>비고</th>
-							<td colspan="6" class="td_input" style="border-right: hidden;">
+							<td colspan="10" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-RMRK" name="srch-inp-RMRK" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
 							<td colspan="1"></td>
@@ -177,6 +169,7 @@
 
 					</tbody>
 				</table>
+
 
 
 			</div>

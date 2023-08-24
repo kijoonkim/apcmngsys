@@ -15,7 +15,7 @@ public interface ApcEvrmntStngService {
 	 * @return ApcEvrmntStngVO
 	 * @throws Exception
 	 */
-	ApcEvrmntStngVO selectApcInfo(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+	ApcEvrmntStngVO selectApcInfo(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
 	/**
 	 * APC정보관리 APC내역 조회
@@ -23,7 +23,7 @@ public interface ApcEvrmntStngService {
 	 * @return List<ApcEvrmntStngVO>
 	 * @throws Exception
 	 */
-	List<ApcEvrmntStngVO> selectApcDsctnList(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+	List<ApcEvrmntStngVO> selectApcDsctnList(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
 	/**
 	 * APC정보관리 APC내역 수정
@@ -31,7 +31,7 @@ public interface ApcEvrmntStngService {
 	 * @return
 	 * @throws Exception
 	 */
-	int updateApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
+	int updateApcDsctn(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
 	/**
 	 * APC정보관리 APC내역 등록
@@ -39,8 +39,8 @@ public interface ApcEvrmntStngService {
 	 * @return
 	 * @throws Exception
 	 */
-	int insertApcDsctn(ApcEvrmntStngVO ApcEvrmntStngVO) throws Exception;
-	
+	int insertApcDsctn(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+
 	/**
 	 * APC정보관리 APC내역 등록
 	 * @param apcDsctnList
@@ -67,16 +67,57 @@ public interface ApcEvrmntStngService {
 	 * @throws Exception
 	 */
 	List<ComUserVO> selectRsrcList(ComCdVO comCdVO) throws Exception;
-	
+
 	/**
 	 * 품종 팝업에서 조회
 	 * @param ComCdVO
 	 * @return
 	 * @throws Exception
 	 */
-	
+
 	List<ComCdVO> selectVrtyList(ComCdVO comCdVO) throws Exception;
-	
+
+
+	/**
+	 * APC환경설정 정보 조회
+	 * @param ApcEvrmntStngVO
+	 * @return ApcEvrmntStngVO
+	 * @throws Exception
+	 */
+	ApcEvrmntStngVO selectApcEvrmntStng(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+
+	/**
+	 * APC 초기정보 설정
+	 * @param ApcEvrmntStngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertApcInitInfo(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+
+	/**
+	 * APC 환경설정 메뉴사용여부 변경
+	 * @param apcEvrmntStngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateApcEvrmntStngAuthrt(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+
+	/**
+	 * APC 권한 간편설정
+	 * @param apcEvrmntStngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertApcSimpleAuthrt(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+
+	/**
+	 * APC 권한 일반설정
+	 * @param apcEvrmntStngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertApcNormalAuthrt(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+
 
 
 }

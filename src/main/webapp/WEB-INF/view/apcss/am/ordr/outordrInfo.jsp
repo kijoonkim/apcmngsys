@@ -92,7 +92,6 @@
 						    <th scope="row" class="th_bg">거래처명</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" class="form-control input-sm"></sbux-input>
-								<sbux-input id="srch-inp-cnptCd" name="srch-inp-cnptCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
@@ -115,7 +114,7 @@
 						<tr>
 							<th scope="row" class="th_bg">지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-pckgCmndYmd" name="srch-dtp-pckgCmndYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row" class="th_bg">생산설비</th>
@@ -124,7 +123,7 @@
 							</td>
 							<td colspan="5" style="border-right: hidden;"></td>
 							<td class="td_input">
-								<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" class="btn btn-sm btn-primary" text="생산지시 등록"></sbux-button>
+								<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" class="btn btn-sm btn-primary" text="포장지시 등록"></sbux-button>
 							</td>
 						</tr>
 					</tbody>
@@ -177,7 +176,7 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("srch-dtp-outordrYmdFrom", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-outordrYmdTo", gfn_dateToYmd(new Date()));
-		SBUxMethod.set("srch-dtp-cmndYmd", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-pckgCmndYmd", gfn_dateToYmd(new Date()));
 
 		fn_createOutordrInfoGrid();
         //fn_search();
@@ -206,7 +205,7 @@
     	    };
         SBGridProperties.columns = [
         	{caption: ['선택'], 			ref: 'checked', 		width: '50px', 		type: 'checkbox',		style:'text-align: center'},
-            {caption: ['접수일자'], 		ref: 'rcptYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['접수일자'], 		ref: 'rcptCfmtnYmd', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['발주유형'], 		ref: 'outordrType', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['접수여부'], 		ref: 'rcptYn', 			width: '100px', 	type: 'combo',			style:'text-align: center',
             	typeinfo : {ref:'comboUesYnJsData1', label:'label', value:'value'}},
@@ -214,20 +213,20 @@
             {caption: ['거래처명'], 		ref: 'cnptNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['납기일자'], 		ref: 'dudtYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['발주일자'], 		ref: 'outordrYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['주문자'], 		ref: 'ordrCd', 			width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['주문자'], 		ref: 'outordrPrsn', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['공급자명'], 		ref: 'splyPrsn', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['상품명'], 		ref: 'gdsNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['상품코드'], 		ref: 'gdsCd', 			width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['배송지'], 		ref: 'dldtnCd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['품목'], 			ref: 'itemCd', 			width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['품종'], 			ref: 'vrtyCd', 			width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['규격'], 			ref: 'spcfctCd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['배송지'], 		ref: 'dldtn', 			width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['품목'], 			ref: 'itemNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['품종'], 			ref: 'vrtyNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['규격'], 			ref: 'spcfctNm', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['입수'], 			ref: 'bxGdsQntt', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['발주수량'], 		ref: 'outordrQntt', 	width: '100px', 	type: 'output',			style:'text-align: right'},
             {caption: ['낱개수량'], 		ref: 'pieceQntt', 		width: '100px', 	type: 'output',			style:'text-align: right'},
-            {caption: ['단위'], 			ref: 'unitCd', 			width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['단위'], 			ref: 'unit', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['박스단가'], 		ref: 'bxUntprc', 		width: '100px', 	type: 'output',			style:'text-align: right'},
-            {caption: ['발주단가'], 		ref: 'outordrUntrc', 	width: '100px', 	type: 'output',			style:'text-align: right'},
+            {caption: ['발주단가'], 		ref: 'outordrUntprc', 	width: '100px', 	type: 'output',			style:'text-align: right'},
             {caption: ['발주단위'], 		ref: 'outordrUnit', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['LOT'], 			ref: 'lot', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['세액'], 			ref: 'txAmt', 			width: '100px', 	type: 'output',			style:'text-align: right'},
@@ -242,10 +241,11 @@
             {caption: ['납품구분'], 		ref: 'dlvgdsSeCd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['기타'], 			ref: 'etc', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['접수APC (농협)'], ref: 'rcptCfmtnApcCd', 	width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['생산지시번호'], 	ref: 'prdctnCmndno', 	width: '100px', 	type: 'output',			style:'text-align: center'}
+            {caption: ['포장지시번호'], 	ref: 'pckgCmndno', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'}
         ];
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
-        grdOutordrInfo.addRow();
+        //grdOutordrInfo.addRow();
         grdOutordrInfo.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
     }
 	
@@ -262,47 +262,76 @@
 	async function fn_callSelectOutordrInfoList(recordCountPerPage, currentPageNo){
 		jsonOutordrInfo = [];
 		let apcCd = gv_selectedApcCd;
-		let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
-		let cmndYmdTo = SBUxMethod.get("srch-dtp-cmndYmdTo");
-		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
-		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCo");
+		let rcptYn = SBUxMethod.get("srch-slt-rcptYn");
+		let outordrYmdFrom = SBUxMethod.get("srch-dtp-outordrYmdFrom");
+		let outordrYmdTo = SBUxMethod.get("srch-dtp-outordrYmdTo");
+		let outordrType = SBUxMethod.get("srch-slt-outordrType");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
-		let pckgSeCd = SBUxMethod.get("srch-slt-pckgSeCd");
-		let SpmtCmndVO = {apcCd 				: apcCd
-						, cmndYmdFrom 			: cmndYmdFrom
-						, cmndYmdTo 			: cmndYmdTo
-						, cnptNm 				: cnptNm
-						, trsprtCoCd 			: trsprtCoCd
-						, itemCd 				: itemCd
-						, vrtyCd 				: vrtyCd
-						, spcfctCd 				: spcfctCd
-						, pckgSeCd 				: pckgSeCd
-						, pagingYn 				: 'Y'
-						, currentPageNo 		: currentPageNo
-						, recordCountPerPage 	: recordCountPerPage};
-    	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", SpmtCmndVO);
+		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
+		let dudtYmd = SBUxMethod.get("srch-dtp-dudtYmd");
+		let gdsNm = SBUxMethod.get("srch-inp-gdsNm");
+		let pckgCmndYmd = SBUxMethod.get("srch-dtp-pckgCmndYmd");
+		let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
+		let OrdrVO = {apcCd 				: apcCd
+					, outordrYmdFrom 		: outordrYmdFrom
+					, outordrYmdTo 			: outordrYmdTo
+					, outordrType 			: outordrType
+					, itemCd 				: itemCd
+					, vrtyCd 				: vrtyCd
+					, apcCnptNm 			: cnptNm
+					, wrhsYmd 				: dudtYmd
+					, gdsNm 				: gdsNm
+					, pckgCmndYmd 			: pckgCmndYmd
+					, fcltCd 				: fcltCd
+					, pagingYn 				: 'Y'
+					, currentPageNo 		: currentPageNo
+					, recordCountPerPage 	: recordCountPerPage};
+    	let postJsonPromise = gfn_postJSON("/am/ordr/selectOrdrList.do", OrdrVO);
         let data = await postJsonPromise;
         newJsonOutordrInfo = [];
         try{
         	data.resultList.forEach((item, index) => {
-				let spmtCmnd = {
-				    cmndYmd 	: item.cmndYmd
-				  , cnptNm 		: item.cnptNm
-				  , gdsNm 		: item.gdsNm
-				  , trsprtCoNm 	: item.trsprtCoNm
-				  , dldtn 		: item.dldtn
-				  , cmndQntt	: item.cmndQntt
-				  , cmndWght 	: item.cmndWght
-				  , gdsGrd 		: item.gdsGrd
-				  , pckgSe 		: item.pckgSe
-				  , vrtyNm 		: item.vrtyNm
-				  , spcfctNm 	: item.spcfctNm
-				  , rmrk		: item.rmrk
+				let ordr = {
+					  rcptCfmtnYmd 			: item.rcptCfmtnYmd
+					, outordrType 			: item.outordrType
+					, outordrno 			: item.outordrno
+					, cnptNm	 			: item.apcCnptNm
+					, dudtYmd 				: item.wrhsYmd
+					, outordrYmd 			: item.outordrYmd
+					, outordrPrsn 			: item.outordrPrsn
+					, splyPrsn 				: item.splyPrsn
+					, gdsNm 				: item.gdsNm
+					, gdsCd					: item.gdsCd
+					, dldtn 				: item.dldtn
+					, itemNm 				: item.itemNm
+					, vrtyNm 				: item.vrtyNm
+					, spcfctNm 				: item.spcfctNm
+					, bxGdsQntt 			: item.bxGdsQntt
+					, outordrQntt			: item.outordrQntt
+					, pieceQntt				: item.pieceQntt
+					, unit					: item.unit
+					, bxUntprc				: item.bxUntprc
+					, outordrUntprc			: item.outordrUntprc
+					, outordrUnit			: item.outordrUnit
+					, lot					: item.lot
+					, txAmt					: item.txAmt
+					, outordrAmt			: item.outordrAmt
+					, wrhsType				: item.wrhsType
+					, docno					: item.docno
+					, dockInfo				: item.dockInfo
+					, cntrSe				: item.cntrSe
+					, buyerNm				: item.buyerNm
+					, cntrRcvdWrhsYmd		: item.cntrRcvdWrhsYmd
+					, cntrNm				: item.cntrNm
+					, dlvgdsSeCd			: item.dlvgdsSeCd
+					, etc					: item.etc
+					, rcptCfmtnApcCd		: item.rcptCfmtnApcCd
+					, pckgCmndno			: item.pckgCmndno
+					, spmtYmd				: item.spmtYmd
 				}
-				jsonOutordrInfo.push(Object.assign({}, spmtCmnd));
-				newJsonOutordrInfo.push(Object.assign({}, spmtCmnd));
+				jsonOutordrInfo.push(Object.assign({}, ordr));
+				newJsonOutordrInfo.push(Object.assign({}, ordr));
 			});
         	if(jsonOutordrInfo.length > 0){
 				if(grdOutordrInfo.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다

@@ -244,9 +244,9 @@
 		   AND CD.APC_CD 	= #{apcCd}
 		]]>
     </select>
-    
-    
-    
+
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.apc..mapper.ApcEvrmntStngMapper.selectVrtyList		-->
 	<!-- DESC : 픔종 선택후 팝업 조회			                                        -->
@@ -257,7 +257,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectVrtyList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
-    	SELECT 
+    	SELECT
 			 AVC.ITEM_CD AS ITEM_CD
 			, (SELECT FN_GET_ITEM_NM(AVC.ITEM_CD,AVC.APC_CD) FROM DUAL) AS ITEM_NM
 			,AVC.VRTY_CD AS VRTY_CD
@@ -282,6 +282,237 @@
 		]]>
     </select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.insertApcEvrmntStngInit		-->
+	<!-- DESC : APC 정보 조회.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.07  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertApcEvrmntStngInit" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.insertApcEvrmntStngInit */
+	    	  INTO TB_APC_EVRMNT_STNG (
+
+				  APC_CD
+				, APC_NM
+				, ADDR
+				, TELNO
+				, FXNO
+				, BRNO
+				, APC_SE_CD
+				, CLCLN_CRTR
+				, WGH_MNG_YN
+				, WGH_MBL_USE_YN
+				, WGH_IDNTY_DOC_PBLCN_YN
+				, RAW_MTR_WRHS_MNG_YN
+				, RAW_MTR_WRHS_MBL_USE_YN
+				, RAW_MTR_IDENT_TAG_PBLCN_YN
+				, PLT_BX_MNG_YN
+				, RAW_MTR_WRHS_PLAN_MNG_YN
+				, GDS_WRHS_MNG_YN
+				, SORT_CMND_MNG_YN
+				, SORT_CMND_DOC_PBLCN_YN
+				, PCKG_CMND_MNG_YN
+				, PCKG_CMND_DOC_PBLCN_YN
+				, SORT_MNG_YN
+				, SORT_MBL_USE_YN
+				, SORT_LABEL_PBLCN_YN
+				, SORT_IDNTY_DOC_PBLCN_YN
+				, PCKG_MNG_YN
+				, PCKG_MBL_USE_YN
+				, GDS_LBL_PBLCN_YN
+				, SPMT_CMND_MNG_YN
+				, SPMT_CMND_DOC_PBLCN_YN
+				, SPMT_MNG_YN
+				, SPMT_MBL_USE_YN
+				, SPMT_DOC_PBLCN_YN
+				, CLCLN_MNG_YN
+				, OUTORDR_MNG_YN
+				, OUTORDR_PCKG_CMND_LNKG_YN
+				, TRSM_MNG_YN
+				, SORT_DATA_TRSM_YN
+				, CLCLN_DATA_TRSM_YN
+				, OPRTR_USE_YN
+				, OPRTR_SORT_PRFMNC_TRSM_YN
+				, OPRTR_PCKG_PRFMNC_TRSM_YN
+
+	    		, SYS_FRST_INPT_DT
+	    		, SYS_FRST_INPT_USER_ID
+	    		, SYS_FRST_INPT_PRGRM_ID
+	    		, SYS_LAST_CHG_DT
+	    		, SYS_LAST_CHG_USER_ID
+	    		, SYS_LAST_CHG_PRGRM_ID
+
+	    	  ) VALUES (
+
+				  #{apcCd}
+				, #{apcNm}
+				, #{addr}
+				, #{telno}
+				, #{fxno}
+				, #{brno}
+				, #{apcSeCd}
+				, #{clclnCrtr}
+				, #{wghMngYn}
+				, #{wghMblUseYn}
+				, #{wghIdntyDocPblcnYn}
+				, #{rawMtrWrhsMngYn}
+				, #{rawMtrWrhsMblUseYn}
+				, #{rawMtrIdentTagPblcnYn}
+				, #{pltBxMngYn}
+				, #{rawMtrWrhsPlanMngYn}
+				, #{gdsWrhsMngYn}
+				, #{sortCmndMngYn}
+				, #{sortCmndDocPblcnYn}
+				, #{pckgCmndMngYn}
+				, #{pckgCmndDocPblcnYn}
+				, #{sortMngYn}
+				, #{sortMblUseYn}
+				, #{sortLabelPblcnYn}
+				, #{sortIdntyDocPblcnYn}
+				, #{pckgMngYn}
+				, #{pckgMblUseYn}
+				, #{gdsLblPblcnYn}
+				, #{spmtCmndMngYn}
+				, #{spmtCmndDocPblcnYn}
+				, #{spmtMngYn}
+				, #{spmtMblUseYn}
+				, #{spmtDocPblcnYn}
+				, #{clclnMngYn}
+				, #{outordrMngYn}
+				, #{outordrPckgCmndLnkgYn}
+				, #{trsmMngYn}
+				, #{sortDataTrsmYn}
+				, #{clclnDataTrsmYn}
+				, #{oprtrUseYn}
+				, #{oprtrSortPrfmncTrsmYn}
+				, #{oprtrPckgPrfmncTrsmYn}
+
+	    		, SYSDATE
+	    		, #{sysFrstInptUserId}
+	    		, #{sysFrstInptPrgrmId}
+	    		, SYSDATE
+	    		, #{sysLastChgUserId}
+	    		, #{sysLastChgPrgrmId}
+
+	    	  )
+		]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcEvrmntStng	-->
+	<!-- DESC : APC 환경설정 정보 조회.	                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.07  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <select id="selectApcEvrmntStng" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" resultType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcEvrmntStng */
+				  APC.APC_CD					AS APC_CD
+				, APC.APC_NM					AS APC_NM
+				, APC.ADDR						AS ADDR
+				, APC.TELNO						AS TELNO
+				, APC.FXNO						AS FXNO
+				, APC.BRNO						AS BRNO
+				, APC.APC_SE_CD					AS APC_SE_CD
+				, APC.CLCLN_CRTR				AS CLCLN_CRTR
+				, APC.WGH_MNG_YN				AS WGH_MNG_YN
+				, APC.WGH_MBL_USE_YN			AS WGH_MBL_USE_YN
+				, APC.WGH_IDNTY_DOC_PBLCN_YN	AS WGH_IDNTY_DOC_PBLCN_YN
+				, APC.RAW_MTR_WRHS_MNG_YN		AS RAW_MTR_WRHS_MNG_YN
+				, APC.RAW_MTR_WRHS_MBL_USE_YN	AS RAW_MTR_WRHS_MBL_USE_YN
+				, APC.RAW_MTR_IDENT_TAG_PBLCN_YN	AS RAW_MTR_IDENT_TAG_PBLCN_YN
+				, APC.PLT_BX_MNG_YN				AS PLT_BX_MNG_YN
+				, APC.RAW_MTR_WRHS_PLAN_MNG_YN	AS RAW_MTR_WRHS_PLAN_MNG_YN
+				, APC.GDS_WRHS_MNG_YN			AS GDS_WRHS_MNG_YN
+				, APC.SORT_CMND_MNG_YN			AS SORT_CMND_MNG_YN
+				, APC.SORT_CMND_DOC_PBLCN_YN	AS SORT_CMND_DOC_PBLCN_YN
+				, APC.PCKG_CMND_MNG_YN			AS PCKG_CMND_MNG_YN
+				, APC.PCKG_CMND_DOC_PBLCN_YN	AS PCKG_CMND_DOC_PBLCN_YN
+				, APC.SORT_MNG_YN				AS SORT_MNG_YN
+				, APC.SORT_MBL_USE_YN			AS SORT_MBL_USE_YN
+				, APC.SORT_LABEL_PBLCN_YN		AS SORT_LABEL_PBLCN_YN
+				, APC.SORT_IDNTY_DOC_PBLCN_YN	AS SORT_IDNTY_DOC_PBLCN_YN
+				, APC.PCKG_MNG_YN				AS PCKG_MNG_YN
+				, APC.PCKG_MBL_USE_YN			AS PCKG_MBL_USE_YN
+				, APC.GDS_LBL_PBLCN_YN			AS GDS_LBL_PBLCN_YN
+				, APC.SPMT_CMND_MNG_YN			AS SPMT_CMND_MNG_YN
+				, APC.SPMT_CMND_DOC_PBLCN_YN	AS SPMT_CMND_DOC_PBLCN_YN
+				, APC.SPMT_MNG_YN				AS SPMT_MNG_YN
+				, APC.SPMT_MBL_USE_YN			AS SPMT_MBL_USE_YN
+				, APC.SPMT_DOC_PBLCN_YN			AS SPMT_DOC_PBLCN_YN
+				, APC.CLCLN_MNG_YN				AS CLCLN_MNG_YN
+				, APC.OUTORDR_MNG_YN			AS OUTORDR_MNG_YN
+				, APC.OUTORDR_PCKG_CMND_LNKG_YN	AS OUTORDR_PCKG_CMND_LNKG_YN
+				, APC.TRSM_MNG_YN				AS TRSM_MNG_YN
+				, APC.SORT_DATA_TRSM_YN			AS SORT_DATA_TRSM_YN
+				, APC.CLCLN_DATA_TRSM_YN		AS CLCLN_DATA_TRSM_YN
+				, APC.OPRTR_USE_YN				AS OPRTR_USE_YN
+				, APC.OPRTR_SORT_PRFMNC_TRSM_YN	AS OPRTR_SORT_PRFMNC_TRSM_YN
+				, APC.OPRTR_PCKG_PRFMNC_TRSM_YN	AS OPRTR_PCKG_PRFMNC_TRSM_YN
+				, APC.DEL_YN					AS DEL_YN
+			  FROM TB_APC_EVRMNT_STNG APC
+			 WHERE APC.APC_CD = #{apcCd}
+		]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateApcEvrmntStngAuthrt		-->
+	<!-- DESC : APC 메뉴사용여부 변경.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.07  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateApcEvrmntStngAuthrt" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateApcEvrmntStngAuthrt */
+	    	  TB_APC_EVRMNT_STNG SET
+	    		  SYS_LAST_CHG_DT 			= SYSDATE
+    	     	, SYS_LAST_CHG_USER_ID 		= #{sysLastChgUserId}
+    	     	, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+				, WGH_MNG_YN 				= #{wghMngYn}
+				, WGH_MBL_USE_YN 			= #{wghMblUseYn}
+				, WGH_IDNTY_DOC_PBLCN_YN 	= #{wghIdntyDocPblcnYn}
+				, RAW_MTR_WRHS_MNG_YN 		= #{rawMtrWrhsMngYn}
+				, RAW_MTR_WRHS_MBL_USE_YN 	= #{rawMtrWrhsMblUseYn}
+				, RAW_MTR_IDENT_TAG_PBLCN_YN = #{rawMtrIdentTagPblcnYn}
+				, PLT_BX_MNG_YN 			= #{pltBxMngYn}
+				, RAW_MTR_WRHS_PLAN_MNG_YN 	= #{rawMtrWrhsPlanMngYn}
+				, GDS_WRHS_MNG_YN 			= #{gdsWrhsMngYn}
+				, SORT_CMND_MNG_YN 			= #{sortCmndMngYn}
+				, SORT_CMND_DOC_PBLCN_YN 	= #{sortCmndDocPblcnYn}
+				, PCKG_CMND_MNG_YN 			= #{pckgCmndMngYn}
+				, PCKG_CMND_DOC_PBLCN_YN 	= #{pckgCmndDocPblcnYn}
+				, SORT_MNG_YN 				= #{sortMngYn}
+				, SORT_MBL_USE_YN 			= #{sortMblUseYn}
+				, SORT_LABEL_PBLCN_YN 		= #{sortLabelPblcnYn}
+				, SORT_IDNTY_DOC_PBLCN_YN 	= #{sortIdntyDocPblcnYn}
+				, PCKG_MNG_YN 				= #{pckgMngYn}
+				, PCKG_MBL_USE_YN 			= #{pckgMblUseYn}
+				, GDS_LBL_PBLCN_YN 			= #{gdsLblPblcnYn}
+				, SPMT_CMND_MNG_YN 			= #{spmtCmndMngYn}
+				, SPMT_CMND_DOC_PBLCN_YN 	= #{spmtCmndDocPblcnYn}
+				, SPMT_MNG_YN 				= #{spmtMngYn}
+				, SPMT_MBL_USE_YN 			= #{spmtMblUseYn}
+				, SPMT_DOC_PBLCN_YN 		= #{spmtDocPblcnYn}
+				, CLCLN_MNG_YN 				= #{clclnMngYn}
+				, OUTORDR_MNG_YN 			= #{outordrMngYn}
+				, OUTORDR_PCKG_CMND_LNKG_YN = #{outordrPckgCmndLnkgYn}
+				, TRSM_MNG_YN 				= #{trsmMngYn}
+				, SORT_DATA_TRSM_YN 		= #{sortDataTrsmYn}
+				, CLCLN_DATA_TRSM_YN 		= #{clclnDataTrsmYn}
+				, OPRTR_USE_YN 				= #{oprtrUseYn}
+				, OPRTR_SORT_PRFMNC_TRSM_YN = #{oprtrSortPrfmncTrsmYn}
+				, OPRTR_PCKG_PRFMNC_TRSM_YN = #{oprtrPckgPrfmncTrsmYn}
+			 WHERE APC_CD = #{apcCd}
+		]]>
+    </update>
 
 </mapper>
 
