@@ -92,7 +92,6 @@
 						    <th scope="row" class="th_bg">거래처명</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" class="form-control input-sm"></sbux-input>
-								<sbux-input id="srch-inp-cnptCd" name="srch-inp-cnptCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
@@ -262,32 +261,38 @@
 	async function fn_callSelectOutordrInfoList(recordCountPerPage, currentPageNo){
 		jsonOutordrInfo = [];
 		let apcCd = gv_selectedApcCd;
-		let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
-		let cmndYmdTo = SBUxMethod.get("srch-dtp-cmndYmdTo");
-		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
-		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCo");
+		let rcptYn = SBUxMethod.get("srch-slt-rcptYn");
+		let outordrYmdFrom = SBUxMethod.get("srch-dtp-outordrYmdFrom");
+		let outordrYmdTo = SBUxMethod.get("srch-dtp-outordrYmdTo");
+		let outordrType = SBUxMethod.get("srch-slt-outordrType");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
-		let pckgSeCd = SBUxMethod.get("srch-slt-pckgSeCd");
+		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
+		let dudtYmd = SBUxMethod.get("srch-dtp-dudtYmd");
+		let gdsNm = SBUxMethod.get("srch-inp-gdsNm");
+		let cmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
+		let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
 		let SpmtCmndVO = {apcCd 				: apcCd
-						, cmndYmdFrom 			: cmndYmdFrom
-						, cmndYmdTo 			: cmndYmdTo
-						, cnptNm 				: cnptNm
+						, outordrYmdFrom 		: outordrYmdFrom
+						, outordrYmdTo 			: outordrYmdTo
+						, outordrType 			: outordrType
 						, trsprtCoCd 			: trsprtCoCd
 						, itemCd 				: itemCd
 						, vrtyCd 				: vrtyCd
-						, spcfctCd 				: spcfctCd
-						, pckgSeCd 				: pckgSeCd
+						, cnptNm 				: cnptNm
+						, dudtYmd 				: dudtYmd
+						, gdsNm 				: gdsNm
+						, cmndYmd 				: cmndYmd
+						, fcltCd 				: fcltCd
 						, pagingYn 				: 'Y'
 						, currentPageNo 		: currentPageNo
 						, recordCountPerPage 	: recordCountPerPage};
-    	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", SpmtCmndVO);
+    	let postJsonPromise = gfn_postJSON("/am/ordr/selectSpmtCmndList.do", OrdrVO);
         let data = await postJsonPromise;
         newJsonOutordrInfo = [];
         try{
         	data.resultList.forEach((item, index) => {
-				let spmtCmnd = {
+				let outordrInfo = {
 				    cmndYmd 	: item.cmndYmd
 				  , cnptNm 		: item.cnptNm
 				  , gdsNm 		: item.gdsNm
@@ -301,8 +306,8 @@
 				  , spcfctNm 	: item.spcfctNm
 				  , rmrk		: item.rmrk
 				}
-				jsonOutordrInfo.push(Object.assign({}, spmtCmnd));
-				newJsonOutordrInfo.push(Object.assign({}, spmtCmnd));
+				jsonOutordrInfo.push(Object.assign({}, outordrInfo));
+				newJsonOutordrInfo.push(Object.assign({}, outordrInfo));
 			});
         	if(jsonOutordrInfo.length > 0){
 				if(grdOutordrInfo.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
