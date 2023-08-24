@@ -139,7 +139,7 @@
 						(OI.APC_SE_CD = '1' AND OI.APC_CD = '0000' AND OI.RCPT_CFMTN_APC_CD = #{apcCd})
 	         			OR
 	         			(OI.APC_SE_CD = '2' AND OI.APC_CD = #{apcCd}))
-      				AND OI.RCPT_CFMTN_YMD IS NOT NULL))
+      				AND OI.RCPT_CFMTN_YMD IS NOT NULL)
 		</if>
 		<if test='rcptYn != null and rcptYn = "N"'>
 			   AND ((
@@ -214,6 +214,7 @@
     		  	 	, OI.RCPT_CFMTN_APC_CD
     		  	 	, OI.PCKG_CMNDNO
     		  	 	, OI.APC_CD
+    		  	 	, OI.APC_SE_CD
     		  	 	, SC.SPMT_YMD
 		]]>
 		<!-- Start 페이징 -->

@@ -131,7 +131,7 @@
             {caption: ['팩스번호'],	ref: 'fxno', 	 	width: '100px', 	type: 'input',		style:'text-align: center'},
             {caption: ['전화번호'], 	ref: 'telno',	 	width: '100px', 	type: 'input',		style:'text-align: center'},
             {caption: ['사용유무'], 	ref: 'delYn', 	 	width: '70px', 		type: 'combo',		style:'text-align: center',
-            	typeinfo : {ref:'comboDelYnJsData', label:'label', value:'value', oneclickedit: true}}
+            	typeinfo : {ref:'comboDelYnJsData', label:'label', value:'value'}}
         ];
         grdApcInfoMng = _SBGrid.create(SBGridProperties);
         grdApcInfoMng.bind( "afterpagechanged" , "fn_pagingApcInfoMng" );
