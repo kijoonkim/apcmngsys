@@ -131,7 +131,7 @@
 	var jsonTrsprtCo		= [];	// 운송회사 	trsprtCo	검색
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
-	var jsonApcSpcfct			= [];	// 규격 		spcfct		검색
+	var jsonApcSpcfct		= [];	// 규격 		spcfct		검색
 	var jsonComPckgSeCd		= [];	// 포장구분 	pckgSeCd	검색
 	
 	var jsonSmptCmnd		= [];
