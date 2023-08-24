@@ -85,9 +85,11 @@
 	var apcInfoMngData = [];
 
 	const fn_initSBSelect = async function() {
-		gfn_setComCdSBSelect('srch-slt-delYn', jsonComboDelYn, 'REVERSE_YN', '0000');
-		gfn_setComCdGridSelect('grdApcInfoMng', comboDelYnJsData, "REVERSE_YN", "0000");
-		gfn_setComCdGridSelect('grdApcInfoMng', comboMbCdJsData, "MB_CD", "0000");
+		let rst = await Promise.all([
+			gfn_setComCdSBSelect('srch-slt-delYn', jsonComboDelYn, 'REVERSE_YN', gv_apcCd),
+			gfn_setComCdGridSelect('grdApcInfoMng', comboDelYnJsData, "REVERSE_YN", gv_apcCd),
+			gfn_setComCdGridSelect('grdApcInfoMng', comboMbCdJsData, "MB_CD", gv_apcCd)
+		]);
 	}
 	
 	window.addEventListener('DOMContentLoaded', function(e) {

@@ -67,17 +67,17 @@
 				, AI.CTPV_NM           AS CTPV_NM
 				, AI.SIGUN_NM          AS SIGUN_NM
 				, AI.MB_CD             AS MB_CD
-				, AI.REG_ADDR        	AS REG_ADDR
-				, AI.REG_TELNO       	AS REG_TELNO
+				, AI.REG_ADDR          AS REG_ADDR
+				, AI.REG_TELNO         AS REG_TELNO
 				, AI.APC_NM            AS APC_NM
-				, AI.BRNO          	AS BRNO
+				, AI.BRNO          	   AS BRNO
 				, AI.BANK_CD           AS BANK_CD
 				, AI.DPSTR             AS DPSTR
 				, AI.ACTNO             AS ACTNO
 				, AI.ADDR              AS ADDR
-				, AI.TELNO            	AS TELNO
-				, AI.FXNO             	AS FXNO
-				, AI.DEL_YN			AS DEL_YN
+				, AI.TELNO             AS TELNO
+				, AI.FXNO              AS FXNO
+				, AI.DEL_YN			   AS DEL_YN
 		  FROM TB_APC_INFO AI
 		]]>
 		<where>

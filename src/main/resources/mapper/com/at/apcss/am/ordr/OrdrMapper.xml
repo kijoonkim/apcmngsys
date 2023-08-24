@@ -83,31 +83,16 @@
     		  	 , OI.PCKG_CMNDNO						AS PCKG_CMNDNO
     		  	 , SC.SPMT_YMD							AS SPMT_YMD
 			  FROM TB_OUTORDR_INFO OI
-			     , TB_PCKG_CMND PC
 			     , TB_SPMT_PRFMNC_COM SC
 			     , TB_SPMT_PRFMNC_DTL SD
-			 WHERE OI.APC_CD = PC.APC_CD
-			   AND OI.APC_CD = SC.APC_CD
+			 WHERE OI.APC_CD = SC.APC_CD
 			   AND OI.APC_CD = SD.APC_CD
-			   AND OI.ITEM_CD = PC.ITEM_CD
-			   AND OI.VRTY_CD = PC.VRTY_CD
-			   AND OI.SPCFCT_CD = PC.SPCFCT_CD
-			   AND OI.GDS_CD = PC.GDS_CD
 			   AND OI.VRTY_CD = SD.VRTY_CD
 			   AND OI.SPCFCT_CD = SD.SPCFCT_CD
 			   AND OI.GDS_CD = SD.GDS_CD
-			   AND PC.VRTY_CD = SD.VRTY_CD
-			   AND PC.GDS_CD = SD.GDS_CD
-			   AND OI.PCKG_CMNDNO = PC.PCKG_CMNDNO
-			   AND OI.OUTORDRNO = PC.OUTORDRNO
-			   AND OI.OUTORDR_QNTT = PC.OUTORDR_QNTT
-			   AND OI.WRHS_YMD = PC.DUDT_YMD
-			   AND OI.BX_GDS_QNTT = PC.BX_GDS_QNTT
 			   AND SC.SPMTNO = SD.SPMTNO
-			   AND OI.APC_CNPT_CD = PC.CNPT_CD
 			   AND OI.APC_CNPT_CD = SC.CNPT_CD
 			   AND OI.DEL_YN = 'N'
-			   AND PC.DEL_YN = 'N'
 			   AND SC.DEL_YN = 'N'
 			   AND SD.DEL_YN = 'N'
 		]]>
@@ -172,12 +157,6 @@
 <!-- 		<if test='gdsNm != null and gdsNm != ""'> -->
 <!-- 		   	   AND SP.SLS_YMD >= #{gdsNm} -->
 <!-- 		</if> -->
-		<if test='pckgCmndYmd != null and pckgCmndYmd != ""'>
-		   	   AND PC.PCKG_CMND_YMD = #{pckgCmndYmd}
-		</if>
-		<if test='fcltCd != null and fcltCd != ""'>
-		   	   AND PC.FCLT_CD = #{fcltCd}
-		</if>
     	<![CDATA[
 		 	 GROUP BY OI.RCPT_CFMTN_YMD
     		  	 	, OI.OUTORDR_TYPE
