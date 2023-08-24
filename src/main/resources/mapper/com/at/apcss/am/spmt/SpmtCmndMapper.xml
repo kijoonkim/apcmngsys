@@ -38,7 +38,6 @@
 			,(SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)	AS GDS_NM
 	  		 FROM (
 	  	</if>
-	   	<![CDATA[
 			SELECT 
 				OI.APC_CD    AS APC_CD
 				,OI.APC_SE_CD    AS APC_SE_CD
@@ -97,16 +96,42 @@
 				,OI.BUYER_NM    AS BUYER_NM
 				,GI.SPMT_QNTT AS SPMT_QNTT
 				,GI.INVNTR_QNTT AS INVNTR_QNTT
+				,SC.CMND_QNTT AS CMND_QNTT
 			FROM TB_OUTORDR_INFO OI
 			LEFT OUTER JOIN 
-				(SELECT APC_CD, ITEM_CD, VRTY_CD, SPCFCT_CD, SUM(SPMT_QNTT) AS SPMT_QNTT, SUM(INVNTR_QNTT) AS INVNTR_QNTT
+				(SELECT APC_CD, ITEM_CD, VRTY_CD, SPCFCT_CD, SUM(SPMT_QNTT) AS SPMT_QNTT, SUM(SPMT_WGHT) AS SPMT_WGHT, SUM(INVNTR_QNTT) AS INVNTR_QNTT, SUM(INVNTR_WGHT) AS INVNTR_WGHT
 				FROM TB_GDS_INVNTR
+				<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+				   	   WHERE TB_GDS_INVNTR.WAREHOUSE_SE_CD >= #{warehouseSeCd}
+				</if>				
 				GROUP BY APC_CD, ITEM_CD, VRTY_CD, SPCFCT_CD) GI
 			ON GI.APC_CD = OI.APC_CD
 			AND GI.ITEM_CD = OI.ITEM_CD
 			AND GI.VRTY_CD = OI.VRTY_CD
 			AND GI.SPCFCT_CD = OI.SPCFCT_CD
-		]]>
+			LEFT OUTER JOIN
+				(SELECT APC_CD, OUTORDRNO, SUM(CMND_QNTT) AS CMND_QNTT
+				FROM TB_SPMT_CMND
+				GROUP BY APC_CD, OUTORDRNO) SC
+			ON SC.APC_CD = OI.APC_CD
+			AND SC.OUTORDRNO = OI.OUTORDRNO
+			WHERE OI.APC_CD >= #{apcCd}
+			AND NVL(GI.INVNTR_QNTT, 0) - NVL(SC.CMND_QNTT, 0) - NVL(GI.SPMT_QNTT, 0) > 0
+		<if test='outordrStrtYmd != null and outordrStrtYmd != ""'>
+		   	   AND OI.OUTORDR_YMD >= #{outordrStrtYmd}
+		</if>
+		<if test='outordrEndYmd != null and outordrEndYmd != ""'>
+		       AND OI.OUTORDR_YMD <![CDATA[<=]]> #{outordrEndYmd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+		       AND OI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+		       AND OI.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
+		</if>
+		<if test='spcfctCd != null and spcfctCd != ""'>
+		       AND OI.SPCFCT_CD = #{spcfctCd}
+		</if>
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 	   		  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
@@ -236,64 +261,120 @@
 	<!-- 2023.08.16  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <insert id="insertSpmtCmnd" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
-    	<![CDATA[
-    	INSERT INTO TB_SPMT_CMND
-    		(
-    			APC_CD
-    		  , SPMT_CMNDNO
-    		  , SPMT_CMND_SN
-    		  , CMND_YMD
-    		  , CNPT_CD
-    		  , DLDTN
-    		  , TRSPRT_CO_CD
-		      , TRSPRT_CO_NM
-    		  , GDS_GRD
-    		  , CMND_QNTT
-    		  , CMND_WGHT
-    		  , PCKG_SE_CD
-    		  , ORDR_NO
-    		  , ITEM_CD
-    		  , VRTY_CD
-    		  , SPCFCT_CD
-    		  , GDS_CD
-    		  , RMRK
-    		  , DEL_YN
-    		  , SYS_FRST_INPT_DT
-    		  , SYS_FRST_INPT_USER_ID
-    		  , SYS_FRST_INPT_PRGRM_ID
-    		  , SYS_LAST_CHG_DT
-    		  , SYS_LAST_CHG_USER_ID
-    		  , SYS_LAST_CHG_PRGRM_ID
-    		)
-   		VALUES
-   			(
-   				#{apcCd}
-    		  , #{spmtCmndNo}
-    		  , #{spmtCmndSn}
-    		  , #{cmndYmd}
-    		  , #{cnptCd}
-    		  , #{dldtn}
-    		  , #{trsprtCoCd}
-    		  , #{trsprtCoNm}
-    		  , #{gdsGrd}
-    		  , #{cmndQntt}
-    		  , #{cmndWght}
-    		  , #{pckgSeCd}
-    		  , #{ordrNo}
-    		  , #{itemCd}
-    		  , #{vrtyCd}
-    		  , #{spcfctCd}
-    		  , #{gdsCd}
-    		  , #{rmrk}
-    		  , #{delYn}
-    		  , SYSDATE
-    		  , #{sysFrstInptUserId}
-    		  , #{sysFrstInptPrgrmId}
-    		  , SYSDATE
-    		  , #{sysLastChgUserId}
-    		  , #{sysLastChgPrgrmId}
-   			)
-    	]]>
+<!--     	<![CDATA[ -->
+<!--     	INSERT INTO TB_SPMT_CMND -->
+<!--     		( -->
+<!--     			APC_CD -->
+<!--     		  , SPMT_CMNDNO -->
+<!--     		  , SPMT_CMND_SN -->
+<!--     		  , CMND_YMD -->
+<!--     		  , CNPT_CD -->
+<!--     		  , DLDTN -->
+<!--     		  , TRSPRT_CO_CD -->
+<!-- 		      , TRSPRT_CO_NM -->
+<!--     		  , GDS_GRD -->
+<!--     		  , CMND_QNTT -->
+<!--     		  , CMND_WGHT -->
+<!--     		  , PCKG_SE_CD -->
+<!--     		  , ORDR_NO -->
+<!--     		  , ITEM_CD -->
+<!--     		  , VRTY_CD -->
+<!--     		  , SPCFCT_CD -->
+<!--     		  , GDS_CD -->
+<!--     		  , RMRK -->
+<!--     		  , DEL_YN -->
+<!--     		  , SYS_FRST_INPT_DT -->
+<!--     		  , SYS_FRST_INPT_USER_ID -->
+<!--     		  , SYS_FRST_INPT_PRGRM_ID -->
+<!--     		  , SYS_LAST_CHG_DT -->
+<!--     		  , SYS_LAST_CHG_USER_ID -->
+<!--     		  , SYS_LAST_CHG_PRGRM_ID -->
+<!--     		) -->
+<!--    		VALUES -->
+<!--    			( -->
+<!--    				#{apcCd} -->
+<!--     		  , #{spmtCmndNo} -->
+<!--     		  , #{spmtCmndSn} -->
+<!--     		  , #{cmndYmd} -->
+<!--     		  , #{cnptCd} -->
+<!--     		  , #{dldtn} -->
+<!--     		  , #{trsprtCoCd} -->
+<!--     		  , #{trsprtCoNm} -->
+<!--     		  , #{gdsGrd} -->
+<!--     		  , #{cmndQntt} -->
+<!--     		  , #{cmndWght} -->
+<!--     		  , #{pckgSeCd} -->
+<!--     		  , #{ordrNo} -->
+<!--     		  , #{itemCd} -->
+<!--     		  , #{vrtyCd} -->
+<!--     		  , #{spcfctCd} -->
+<!--     		  , #{gdsCd} -->
+<!--     		  , #{rmrk} -->
+<!--     		  , #{delYn} -->
+<!--     		  , SYSDATE -->
+<!--     		  , #{sysFrstInptUserId} -->
+<!--     		  , #{sysFrstInptPrgrmId} -->
+<!--     		  , SYSDATE -->
+<!--     		  , #{sysLastChgUserId} -->
+<!--     		  , #{sysLastChgPrgrmId} -->
+<!--    			) -->
+<!--     	]]> -->
+			insert into TB_SPMT_CMND
+			(
+			APC_CD
+			, SPMT_CMNDNO
+			, SPMT_CMND_SN
+			, CMND_YMD
+			, CNPT_CD
+			, DLDTN
+			, TRSPRT_CO_CD
+			, TRSPRT_CO_NM
+			, GDS_GRD
+			, CMND_QNTT
+			, CMND_WGHT
+			, PCKG_SE_CD
+			, OUTORDRNO
+			, ITEM_CD
+			, VRTY_CD
+			, SPCFCT_CD
+			, GDS_CD
+			, RMRK
+			, DEL_YN
+			, SYS_FRST_INPT_DT
+			, SYS_FRST_INPT_PRGRM_ID
+			, SYS_FRST_INPT_USER_ID
+			, SYS_LAST_CHG_DT
+			, SYS_LAST_CHG_USER_ID
+			, SYS_LAST_CHG_PRGRM_ID
+			)
+			VALUES
+			(
+			#{apcCd}
+			, #{spmtCmndno}
+			, #{spmtCmndSn}
+			, #{cmndYmd}
+			, #{cnptCd}
+			, #{dldtn}
+			, #{trsprtCoCd}
+			, #{trsprtCoNm}
+			, #{gdsGrd}
+			, #{cmndQntt}
+			, #{cmndWght}
+			, #{pckgSeCd}
+			, #{outordrno}
+			, #{itemCd}
+			, #{vrtyCd}
+			, #{spcfctCd}
+			, #{gdsCd}
+			, #{rmrk}
+			, #{delYn}
+			, SYSDATE
+			, #{sysFrstInptPrgrmId}
+			, #{sysFrstInptUserId}
+			, SYSDATE
+			, #{sysLastChgUserId}
+			, #{sysLastChgPrgrmId}
+			)
     </insert>
 
     <!-- ==========================================================================	-->
