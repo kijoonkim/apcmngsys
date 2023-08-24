@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.PltBxVO;
@@ -19,7 +20,7 @@ import com.at.apcss.am.cmns.vo.PltBxVO;
  * </pre>
  */
 public interface PltBxService {
-	
+
 	/**
 	 * 팔레트/박스 정보 단건 조회
 	 * @param pltBxVO
@@ -59,4 +60,12 @@ public interface PltBxService {
 	 * @throws Exception
 	 */
 	public int deletePltBx(PltBxVO pltBxVO) throws Exception;
+
+	/**
+	 * 팔레트/박스 정보생성 - APC 사용등록
+	 * @param pltBxVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertPltBxSample(PltBxVO pltBxVO) throws Exception;
 }
