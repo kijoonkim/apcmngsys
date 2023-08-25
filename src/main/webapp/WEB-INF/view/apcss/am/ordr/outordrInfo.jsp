@@ -47,7 +47,7 @@
 						<tr>
 					        <th scope="row" class="th_bg"><span class="data_required"></span>접수여부</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-rcptYn" name="srch-slt-rcptYn" uitype="single" unselected-text="선택" jsondata-ref="jsoRcptYn" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
+								<sbux-select id="srch-slt-rcptYn" name="srch-slt-rcptYn" uitype="single" unselected-text="선택" jsondata-ref="jsonRcptYn" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>발주일자</th>
@@ -123,7 +123,7 @@
 							</td>
 							<td colspan="5" style="border-right: hidden;"></td>
 							<td class="td_input">
-								<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" class="btn btn-sm btn-primary" text="포장지시 등록"></sbux-button>
+								<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" onclick="fn_dummyData" class="btn btn-sm btn-primary" text="포장지시 등록"></sbux-button>
 							</td>
 						</tr>
 					</tbody>
@@ -135,7 +135,7 @@
 						<li><span>발주 내역</span></li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnRcptAll" name="btnRcptAll" uitype="normal" class="btn btn-sm btn-outline-dark" text="일괄접수"></sbux-button>
+						<sbux-button id="btnRcptOrdrAll" name="btnRcptOrdrAll" uitype="normal" onclick="fn_rcptOrdrAll" class="btn btn-sm btn-outline-dark" text="일괄 접수"></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -156,11 +156,13 @@
 <script type="text/javascript">
 	var jsonOutordrInfo 	= [];
 	
-	var jsonApcItem			= [];	// 품목
-	var jsonApcVrty			= [];	// 품종
-	var jsonComFcltCd		= [];	// 설비
-	var jsoRcptYn			= [];	// 접수여부
-	var jsonComOutordrType	= [];	// 발주유형
+	var jsonApcItem			= [];															// 품목
+	var jsonApcVrty			= [];															// 품종
+	var jsonComFcltCd		= [];															// 설비
+	var jsonRcptYn			= [];															// 접수여부
+	var jsonComOutordrType	= [];															// 발주유형
+	
+	var comboGridRcpYn 		= [{label: "접수", value: "Y"}, {label: "미접수", value: "N"}];	// 접수여부 (그리드)
 	
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
@@ -169,7 +171,8 @@
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonApcVrty, 		gv_selectedApcCd),							// 품종
 			gfn_setComCdSBSelect('srch-slt-fcltCd', 	jsonComFcltCd, 		'FCLT_CD', 			gv_selectedApcCd),		// 창고
 			gfn_setComCdSBSelect('srch-slt-fcltCd', 	jsonComOutordrType, 'OUTORDR_TYPE', 	gv_selectedApcCd),		// 발주유형
-			setRcptYnSBSelect('srch-slt-rcptYn', 		jsoRcptYn)														// 접수여부
+			setRcptYnSBSelect('srch-slt-rcptYn', 		jsonRcptYn),													// 접수여부
+			SBUxMethod.refresh('grdOutordrInfo')																		// 접수여부 (그리드)
 		]);
 	}
 	
@@ -181,8 +184,6 @@
 		fn_createOutordrInfoGrid();
 		fn_initSBSelect();
 	})
-
-	var comboUesYnJsData1 = ['']
 
 	function fn_createOutordrInfoGrid() {
         var SBGridProperties = {};
@@ -203,11 +204,12 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
-        	{caption: ['선택'], 			ref: 'checked', 		width: '50px', 		type: 'checkbox',		style:'text-align: center'},
+        	{caption: ['선택'], 			ref: 'checked', 		width: '50px', 		type: 'checkbox',		style:'text-align: center',
+        		typeinfo : {ignoreupdate: true}},
             {caption: ['접수일자'], 		ref: 'rcptCfmtnYmd', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['발주유형'], 		ref: 'outordrType', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['접수여부'], 		ref: 'rcptYn', 			width: '100px', 	type: 'combo',			style:'text-align: center',
-            	typeinfo : {ref:'comboUesYnJsData1', label:'label', value:'value'}},
+            	typeinfo : {ref:'comboGridRcpYn', label:'label', value:'value'}},
             {caption: ['발주번호'], 		ref: 'outordrno', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['거래처명'], 		ref: 'apcCnptNm', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['납기일자'], 		ref: 'wrhsYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
@@ -242,11 +244,16 @@
             {caption: ['접수APC (농협)'], ref: 'rcptCfmtnApcCd', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['포장지시번호'], 	ref: 'pckgCmndno', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['지시일자'], 		ref: 'pckgCmndYmd', 	hidden: true},
+            {caption: ['생산설비'], 		ref: 'fcltCd', 			hidden: true},
             {caption: ['APC코드'], 		ref: 'apcCd', 			hidden: true},
-            {caption: ['APC구분코드'], 	ref: 'apcSeCd', 		hidden: true}
+            {caption: ['APC구분코드'], 	ref: 'apcSeCd', 		hidden: true},
+            {caption: ['거래처코드'], 		ref: 'apcCnptCd', 		hidden: true},
+            {caption: ['품목코드'], 		ref: 'itemCd', 			hidden: true},
+            {caption: ['품종코드'], 		ref: 'vrtyCd', 			hidden: true},
+            {caption: ['규격코드'], 		ref: 'spcfctCd', 		hidden: true}
         ];
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
-        grdOutordrInfo.addRow();
         grdOutordrInfo.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
     }
 	
@@ -309,8 +316,10 @@
         try{
         	data.resultList.forEach((item, index) => {
 				let ordr = {
-					  rcptCfmtnYmd 			: item.rcptCfmtnYmd
+					  checked 				: "false"
+					, rcptCfmtnYmd 			: item.rcptCfmtnYmd
 					, outordrType 			: item.outordrType
+					, rcptYn 				: null
 					, outordrno 			: item.outordrno
 					, apcCnptNm	 			: item.apcCnptNm
 					, wrhsYmd 				: item.wrhsYmd
@@ -347,6 +356,15 @@
 					, spmtYmd				: item.spmtYmd
 					, apcCd 				: item.apcCd
 					, apcSeCd 				: item.apcSeCd
+					, apcCnptCd 			: item.apcCnptCd
+					, itemCd 				: item.itemCd
+					, vrtyCd 				: item.vrtyCd
+					, spcfctCd 				: item.spcfctCd
+				}
+				if(ordr.rcptCfmtnYmd != null && ordr.rcptCfmtnYmd != ""){
+					ordr.rcptYn = 'Y';
+				} else {
+					ordr.rcptYn = 'N';
 				}
 				jsonOutordrInfo.push(Object.assign({}, ordr));
 				newJsonOutordrInfo.push(Object.assign({}, ordr));
@@ -375,6 +393,125 @@
     	let recordCountPerPage = grdOutordrInfo.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdOutordrInfo.getSelectPageIndex(); 
     	fn_callSelectOutordrInfoList(recordCountPerPage, currentPageNo);
+    }
+	
+	// 일괄 접수
+    async function fn_rcptOrdrAll(){
+    	let allData = grdOutordrInfo.getGridDataAll();
+    	console.log("일괄 접수: ", allData);
+		const rcptOrdrAllList = [];
+		
+		for ( let i=1; i<=allData.length; i++ ){
+			const rowData = grdOutordrInfo.getRowData(i);
+			const rowSts = grdOutordrInfo.getRowStatus(i);
+			if (rowData.checked == "true"){
+				if (rowSts === 2){
+					rowData.rowSts = "U";
+					if (rowData.rcptYn == 'N'){
+						rowData.rcptCfmtnYmd = null;
+					} else {
+						rowData.rcptCfmtnApcCd = gv_selectedApcCd;
+						rowData.rcptCfmtnYmd = gfn_dateToYmd(new Date());
+					}
+					rcptOrdrAllList.push(rowData);
+				} else {
+					continue;
+				}
+			}
+		}
+		
+		if (rcptOrdrAllList.length == 0){
+			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
+            return;
+		}
+		if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+    	
+    	const postJsonPromise = gfn_postJSON("/am/ordr/multiOrdrList.do", rcptOrdrAllList, this.prgrmId);	// 프로그램id 추가
+		const data = await postJsonPromise;	    
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_callSelectOutordrInfoList();
+        		fn_search();
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {        	
+        }
+    }
+	
+	// 더미데이터 생성
+	async function fn_dummyData(){
+		let list = [];
+		for(var i=2; i<=30; i++){
+			let vo = {apcCd : '8888', apcSeCd : '2', outordrno : i.toString(), apcCnptCd : '0001', vrtyCd : '0300', spcfctCd : '0002'};
+			list.push(vo);
+		}
+		console.log(list);
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+			const postJsonPromise = gfn_postJSON("/am/ordr/insertOrdrList.do", list);
+	    	const data = await postJsonPromise;
+
+	    	try{
+	       		if(data.insertedCnt > 0){
+	       			fn_search();
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	       		}else{
+	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
+	       		}
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
+	}
+	
+	// 포장지시 등록
+    async function fn_regPckgCmnd(){
+//     	let allData = grdOutordrInfo.getGridDataAll();
+// 		let pckgCmndYmd = SBUxMethod.get("srch-dtp-pckgCmndYmd");
+// 		let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
+// 		const regPckgCmndOrdrList = [];
+		
+// 		for ( let i=1; i<=allData.length; i++ ){
+// 			const rowData = grdOutordrInfo.getRowData(i);
+// 			const rowSts = grdOutordrInfo.getRowStatus(i);
+// 			console.log(grdOutordrInfo.getRowData(i).checked, rowData.checked);
+// 			if (rowData.checked == "true"){
+// 				rowData.pckgCmndYmd = pckgCmndYmd;
+// 				rowData.fcltCd = fcltCd;
+// 				rowData.rowSts = "I";
+// 				regPckgCmndOrdrList.push(rowData);
+// 			} else {
+// 				continue;
+// 			}
+// 		}
+		
+// 		if (regPckgCmndOrdrList.length == 0){
+// 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
+//             return;
+// 		}
+// 		if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
+//     		return;
+//     	}
+		
+//     	const postJsonPromise = gfn_postJSON("/am/pckg/insertPckgCmnd.do", regPckgCmndOrdrList, this.prgrmId);	// 프로그램id 추가
+// 		const data = await postJsonPromise;	    
+//         try {
+//         	if (_.isEqual("S", data.resultStatus)) {
+//         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+//         		fn_callSelectOutordrInfoList();
+//         		fn_search();
+//         	} else {
+//         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+//         	}
+//         } catch(e) {        	
+//         }
     }
 	
 	// 접수여부 콤보박스 (검색 조건)

@@ -258,7 +258,7 @@
 	    		 , SC.GDS_CD						AS GDS_CD
 	    		 , CI.CNPT_NM				 		AS CNPT_NM
 	    		 , SC.DLDTN							AS DLDTN
-	    		 , SC.TRSPRT_CO_NM					AS TRSPRT_CO_NM
+	    		 , ST.TRSPRT_CO_NM					AS TRSPRT_CO_NM
 	    		 , SC.GDS_GRD						AS GDS_GRD
 	    		 , SC.CMND_QNTT						AS CMND_QNTT
 	    		 , SC.CMND_WGHT						AS CMND_WGHT
@@ -310,7 +310,7 @@
 	    		 	, SC.GDS_CD
 	    		 	, CI.CNPT_NM
 	    		 	, SC.DLDTN
-	    		 	, SC.TRSPRT_CO_NM
+	    		 	, ST.TRSPRT_CO_NM
 	    		 	, SC.GDS_GRD
 	    		 	, SC.CMND_QNTT
 	    		 	, SC.CMND_WGHT
