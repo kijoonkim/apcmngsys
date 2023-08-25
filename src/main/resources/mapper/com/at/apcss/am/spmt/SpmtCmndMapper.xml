@@ -184,17 +184,20 @@
 	    		 , SC.GDS_CD						AS GDS_CD
 	    		 , CI.CNPT_NM				 		AS CNPT_NM
 	    		 , SC.DLDTN							AS DLDTN
-	    		 , SC.TRSPRT_CO_NM					AS TRSPRT_CO_NM
+	    		 , ST.TRSPRT_CO_NM					AS TRSPRT_CO_NM
 	    		 , SC.GDS_GRD						AS GDS_GRD
 	    		 , SC.CMND_QNTT						AS CMND_QNTT
 	    		 , SC.CMND_WGHT						AS CMND_WGHT
 	    		 , SC.RMRK							AS RMRK
-			  FROM TB_SPMT_CMND SC
-			     , TB_CNPT_INFO CI
-			 WHERE CI.APC_CD = SC.APC_CD
-			   AND CI.CNPT_CD = SC.CNPT_CD
+			  FROM TB_SPMT_CMND 			SC
+			     , TB_CNPT_INFO 			CI
+				 , TB_SPMT_TRSPRT_CO_INFO 	ST
+			 WHERE SC.APC_CD = CI.APC_CD
+			   AND SC.CNPT_CD = CI.CNPT_CD
+			   AND SC.TRSPRT_CO_CD = ST.TRSPRT_CO_CD
 			   AND SC.DEL_YN = 'N'
 			   AND CI.DEL_YN = 'N'
+			   AND ST.DEL_YN = 'N'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 		   	   AND SC.APC_CD >= #{apcCd}
@@ -234,7 +237,7 @@
 	    		 	, SC.GDS_CD
 	    		 	, CI.CNPT_NM
 	    		 	, SC.DLDTN
-	    		 	, SC.TRSPRT_CO_NM
+	    		 	, ST.TRSPRT_CO_NM
 	    		 	, SC.GDS_GRD
 	    		 	, SC.CMND_QNTT
 	    		 	, SC.CMND_WGHT
