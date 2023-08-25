@@ -47,6 +47,14 @@ public class SpmtCmndServiceImpl implements SpmtCmndService {
 		return resultList;
 	}
 
+	@Override
+	public List<SpmtCmndVO> selectSpmtCmndList2(SpmtCmndVO spmtCmndVO) throws Exception {
+
+		List<SpmtCmndVO> resultList = spmtCmndMapper.selectSpmtCmndList2(spmtCmndVO);
+
+		return resultList;
+	}
+
 	public List<OrdrVO> selectSpmtCmndTrgList(OrdrVO ordrVO) throws Exception {
 
 		List<OrdrVO> resultList = spmtCmndMapper.selectSpmtCmndTrgList(ordrVO);
@@ -75,6 +83,14 @@ public class SpmtCmndServiceImpl implements SpmtCmndService {
 
 		int deletedCnt = spmtCmndMapper.deleteSpmtCmnd(spmtCmndVO);
 		
+		return deletedCnt;
+	}
+
+	@Override
+	public int deleteSpmtCmnd2(SpmtCmndVO spmtCmndVO) throws Exception {
+
+		int deletedCnt = spmtCmndMapper.deleteSpmtCmnd2(spmtCmndVO);
+
 		return deletedCnt;
 	}
 }
