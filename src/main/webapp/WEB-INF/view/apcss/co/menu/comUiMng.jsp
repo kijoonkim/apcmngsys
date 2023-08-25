@@ -188,17 +188,6 @@
     var jsonComMenuType = [];
     var jsonGrdEntyType = [];
     var jsonGrdDelYn = [];
-    //
-    var entyTypeComboData = [
-        {label: 'BUTTON', value: '01'},
-        {label: 'COMPONENT', value: '02'},
-        {label: 'GRID', value: '03'}
-    ];
-
-    var delYnComboData = [
-    	{label:'사용', value : 'N' },
-    	{label:'미사용', value : 'Y' }
-    ];
 
     // only document
     window.addEventListener('DOMContentLoaded', async function(e) {
@@ -562,14 +551,14 @@
 		}
     }
 
-  //선택 삭제
+  	//선택 삭제
     const fn_delete = async function(comUiList) {
 
        	const postJsonPromise = gfn_postJSON("/co/menu/deleteComUiList.do", comUiList);
     	const data = await postJsonPromise;
 
     	try{
-       		if(data.deletetCnt > 0){
+       		if(data.deletedCnt > 0){
        			fn_setUiGridData();
        			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
        		}else{
