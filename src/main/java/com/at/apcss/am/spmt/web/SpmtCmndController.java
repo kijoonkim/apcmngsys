@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.am.spmt.service.SpmtCmndService;
 import com.at.apcss.am.spmt.vo.SpmtCmndVO;
@@ -37,6 +38,8 @@ import com.at.apcss.co.sys.controller.BaseController;
  */
 @Controller
 public class SpmtCmndController extends BaseController {
+	@Resource(name = "cmnsTaskNoService")
+	private CmnsTaskNoService cmnsTaskNoService;
 
 	// 출하지시조회
 	@Resource(name = "spmtCmndService")
@@ -90,26 +93,48 @@ public class SpmtCmndController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 	
+	@PostMapping(value = "/am/spmt/selectSpmtCmndList2.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSpmtCmndList2(@RequestBody SpmtCmndVO SpmtCmndVO, HttpServletRequest request) throws Exception {
+		logger.debug("selectSpmtCmndList2 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SpmtCmndVO> resultList = new ArrayList<>();
+		try {
+			resultList = spmtCmndService.selectSpmtCmndList2(SpmtCmndVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	@PostMapping(value = "/am/spmt/insertSpmtCmnd.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertSpmtCmnd(@RequestBody List<SpmtCmndVO> updateList, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> insertSpmtCmnd(@RequestBody List<SpmtCmndVO> insertList, HttpServletRequest request) throws Exception {
 		logger.debug("insertSpmtCmnd 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
+		int insertedCnt = 0;
 		try {
-			for (SpmtCmndVO SpmtCmndVO : updateList) {
+			int sn = 1;
+			for (SpmtCmndVO SpmtCmndVO : insertList) {
+				String spmtCmndno = cmnsTaskNoService.selectSpmtCmndno(SpmtCmndVO.getApcCd(), SpmtCmndVO.getCmndYmd());
 				SpmtCmndVO.setSysLastChgPrgrmId(getUserId());
 				SpmtCmndVO.setSysLastChgUserId(getPrgrmId());
 				SpmtCmndVO.setSysFrstInptPrgrmId(getUserId());
 				SpmtCmndVO.setSysFrstInptUserId(getPrgrmId());
-				result = spmtCmndService.insertSpmtCmnd(SpmtCmndVO);
+				SpmtCmndVO.setSpmtCmndno(spmtCmndno);
+				SpmtCmndVO.setSpmtCmndSn(sn);
+				sn++;
+				insertedCnt += spmtCmndService.insertSpmtCmnd(SpmtCmndVO);
 			}
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
 
-		resultMap.put("result", result);
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -127,6 +152,25 @@ public class SpmtCmndController extends BaseController {
 		}
 
 		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/spmt/deleteSpmtCmndList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteSpmtCmnd(@RequestBody List<SpmtCmndVO> deleteList, HttpServletRequest request) throws Exception {
+		logger.debug("deleteSpmtCmndList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int deletedCnt = 0;
+		try {
+			for (SpmtCmndVO SpmtCmndVO : deleteList)
+				deletedCnt += spmtCmndService.deleteSpmtCmnd2(SpmtCmndVO);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}

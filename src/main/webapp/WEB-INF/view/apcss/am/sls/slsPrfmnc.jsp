@@ -129,7 +129,6 @@
 		SBUxMethod.set("srch-dtp-slsYmdTo", gfn_dateToYmd(new Date()));
 		
 		fn_createSlsPrfmncGrid();
-		fn_search();
 		fn_initSBSelect();
 	})
 
@@ -187,6 +186,14 @@
 		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		if (gfn_isEmpty(slsYmdFrom)){
+			gfn_comAlert("W0002", "매출일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		if (gfn_isEmpty(slsYmdTo)){
+			gfn_comAlert("W0002", "매출일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
 		let SlsPrfmncVO = {apcCd 				: apcCd
 						 , slsYmdFrom 			: slsYmdFrom
 						 , slsYmdTo 			: slsYmdTo

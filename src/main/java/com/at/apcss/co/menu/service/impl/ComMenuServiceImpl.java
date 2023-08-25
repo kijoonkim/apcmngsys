@@ -90,8 +90,7 @@ public class ComMenuServiceImpl implements ComMenuService {
 
 	@Override
 	public List<ComUiVO> selectComUiList(ComUiVO comUiVO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return comMenuMapper.selectComUiList(comUiVO);
 	}
 
 	@Override
@@ -107,14 +106,12 @@ public class ComMenuServiceImpl implements ComMenuService {
 
 	@Override
 	public int updateComUi(ComUiVO comUiVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return comMenuMapper.updateComUi(comUiVO);
 	}
 
 	@Override
 	public int deleteComUi(ComUiVO comUiVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return comMenuMapper.deleteComUi(comUiVO);
 	}
 
 	@Override
@@ -123,12 +120,18 @@ public class ComMenuServiceImpl implements ComMenuService {
 	}
 
 	@Override
-	public List<ComUiVO> selectUiList(ComUiVO comUiVO) throws Exception {
-		return comMenuMapper.selectUiList(comUiVO);
+	public int multiSaveComUiList(List<ComUiVO> comUiList) throws Exception {
+
+		int savedCnt = 0;
+		for (ComUiVO comUiVO : comUiList) {
+			if("I".equals(comUiVO.getRowSts())){
+				savedCnt += insertComUi(comUiVO);
+			}else if("U".equals(comUiVO.getRowSts())) {
+				savedCnt += updateComUi(comUiVO);
+			}
+		}
+		return savedCnt;
 	}
-
-
-
 
 
 }

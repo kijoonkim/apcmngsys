@@ -436,8 +436,8 @@
 	          				gdsSeNm: item.gdsSeNm,
 	          				invntrQntt: item.invntrQntt,
 	          				invntrWght: item.invntrWght,
-	          				spmtQntt: item.spmtQntt,
-	          				spmtWght: item.spmtWght,
+	          				spmtQntt: 0,
+	          				spmtWght: 0,
 	          				pckgQntt: item.pckgQntt,
 	          				pckgWght: item.pckgWght,
 	          				pckgSeCd: item.pckgSeCd,
@@ -655,11 +655,13 @@
 		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
 		let spmtYmd = SBUxMethod.get("dtl-dtp-spmtYmd");
 
+
 		const postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncDtlList.do", {
-			apcCd			: gv_selectedApcCd,
-			vrtyCd			: vrtyCd,
-			spcfctCd 		: spcfctCd,
-			gdsSeCd 		: gdsSeCd
+			apcCd		: gv_selectedApcCd,
+			vrtyCd		: vrtyCd,
+			spcfctCd 	: spcfctCd,
+			gdsSeCd 	: gdsSeCd,
+			spmtYmd		: spmtYmd
   		});
         const data = await postJsonPromise;
         try {

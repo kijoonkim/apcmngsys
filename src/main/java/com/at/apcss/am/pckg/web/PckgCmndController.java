@@ -68,22 +68,24 @@ public class PckgCmndController extends BaseController {
 	}
 
 	@PostMapping(value = "/am/pckg/insertPckgCmnd.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertWghPrfmnc(@RequestBody PckgCmndVO pckgCmndVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> insertWghPrfmnc(@RequestBody List<PckgCmndVO> insertList, HttpServletRequest request) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		int insertedCnt = 0;
 
 		try {
-			String pckgCmndno = cmnsTaskNoService.selectPckgCmndno(pckgCmndVO.getApcCd(), pckgCmndVO.getPckgCmndYmd());
+			String pckgCmndno = cmnsTaskNoService.selectPckgCmndno(insertList.get(0).getApcCd(), insertList.get(0).getPckgCmndYmd());
 			int sn = 1;
-			pckgCmndVO.setSysFrstInptUserId(getUserId());
-			pckgCmndVO.setSysFrstInptPrgrmId(getPrgrmId());
-			pckgCmndVO.setSysLastChgUserId(getUserId());
-			pckgCmndVO.setSysLastChgPrgrmId(getPrgrmId());
-			pckgCmndVO.setPckgCmndno(pckgCmndno);
-			pckgCmndVO.setPckgCmndSn(sn);
-
-			insertedCnt += pckgCmndService.insertPckgCmnd(pckgCmndVO);
+			for (PckgCmndVO pckgCmndVO : insertList) {
+				pckgCmndVO.setSysFrstInptUserId(getUserId());
+				pckgCmndVO.setSysFrstInptPrgrmId(getPrgrmId());
+				pckgCmndVO.setSysLastChgUserId(getUserId());
+				pckgCmndVO.setSysLastChgPrgrmId(getPrgrmId());
+				pckgCmndVO.setPckgCmndno(pckgCmndno);
+				pckgCmndVO.setPckgCmndSn(sn);
+				sn++;
+				insertedCnt += pckgCmndService.insertPckgCmnd(pckgCmndVO);
+			}
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -93,7 +95,7 @@ public class PckgCmndController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
+	
 	@PostMapping(value = "/am/pckg/deletePckgCmndList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteWghPrfmncList(@RequestBody List<PckgCmndVO> pckgCmndList, HttpServletRequest request) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
