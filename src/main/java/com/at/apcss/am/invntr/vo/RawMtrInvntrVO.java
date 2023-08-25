@@ -233,4 +233,17 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 설비명
 	 */
 	private String fcltNm;
+	
+	/*기준일자*/
+	private String crtrYmd;
+	/*재고구분*/
+	private String invntrySe;
+	/*규격*/
+	private String spcfctCd;
+	/*생산자구분*/
+	private String prdcr;
+	/*상품구분*/
+	private String gdsSe;
+	/*입고구분*/
+	private String wrhsSe;
 }

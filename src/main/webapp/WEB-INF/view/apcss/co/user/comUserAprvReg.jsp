@@ -112,7 +112,9 @@
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_createGridUserAprv();
 		fn_init();
+		fn_search();
 	});
 
 	const fn_createGridUserAprv = function() {

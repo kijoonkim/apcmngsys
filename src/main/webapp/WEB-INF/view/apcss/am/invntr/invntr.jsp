@@ -85,7 +85,7 @@
 							<td colspan="2">&nbsp;</td>
 							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-prcdcr" name="srch-inp-prcdcr" class="form-control input-sm"/>
+								<sbux-input uitype="text" id="srch-inp-prdcr" name="srch-inp-prdcr" class="form-control input-sm"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-prdcr" name="srch-btn-prdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
@@ -259,9 +259,26 @@
     var newSortInptPrfmncGridData = [];
 	const fn_callSelectGrid1List = async function(pageSize, pageNo) {
 //     	let startsortYmd  = SBUxMethod.get("srch-inp-startsortYmd");
+// srch-dtp-crtrYmd
+		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
+		let invntrySe = SBUxMethod.get("srch-slt-invntrySe");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+		let prdcr = SBUxMethod.get("srch-inp-prdcr");
+		let gdsSe = SBUxMethod.get("srch-slt-gdsSe");
+		let wrhsSe = SBUxMethod.get("srch-slt-wrhsSe");
 		
-		const postJsonPromise2 = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
+		const postJsonPromise1 = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
 			apcCd		:  '8888',
+			crtrYmd: crtrYmd,
+			invntrySe: invntrySe,
+			itemCd:itemCd,
+			vrtyCd: vrtyCd,
+			spcfctCd: spcfctCd,
+			prdcr: prdcr,
+			gdsSe: gdsSe,
+			wrhsSe: wrhsSe,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : pageNo,
@@ -269,7 +286,7 @@
   		});
 
 		console.log('test','test');
-        let data = await postJsonPromise2;
+        let data1 = await postJsonPromise1;
         newSortInptPrfmncGridData = [];
         sortInptPrfmncGridData = [];
 
@@ -279,7 +296,7 @@
       		let totalRecordCount = 0;
 
       		jsoninptCmndDsctnList.length = 0;
-          	data.resultList.forEach((item, index) => {
+          	data1.resultList.forEach((item, index) => {
           		const rawMtrInvntr = {
        				wrhsno: item.wrhsno,
        				pltno: item.pltno,
@@ -355,21 +372,21 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	        {caption: ["선별번호","선별번호"],		ref: 'wghno',      		type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["등급","등급"],				ref: 'grdCd',      		type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["투입일자","투입일자"],		ref: 'wghYmd',      	type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["설비","설비"],				ref: 'vhclno',      	type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["생산자","생산자"],			ref: 'prdcrCd',      	type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["품목","품목"],				ref: 'itemNm',     		type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["품종","품종"],				ref: 'vrtyNm',      	type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["규격","규격"],				ref: 'spcfctNm',      	type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["선별","수량"],				ref: 'sortQntt',      	type:'output',  width:'55px',    style:'text-align:center'},
-	        {caption: ["선별","중량"],				ref: 'sortWght',      	type:'output',  width:'55px',    style:'text-align:center'},
-	        {caption: ["포장","수량"],				ref: 'pckgQntt',      type:'output',  width:'55px',    style:'text-align:center'},
-	        {caption: ["포장","중량"],				ref: 'pckgWght',     type:'output',  width:'55px',    style:'text-align:center'},
-	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      		type:'output',  width:'55px',    style:'text-align:center'},
-	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      	type:'output',  width:'55px',    style:'text-align:center'}
+	        {caption: ["선별번호","선별번호"],		ref: 'sortno',      	type:'output',  width:'6.667%',    style:'text-align:center'},
+	        {caption: ["등급","등급"],				ref: 'grdNm',      		type:'output',  width:'6.667%',    style:'text-align:center'},
+	        {caption: ["투입일자","투입일자"],		ref: 'inptYmd',      	type:'output',  width:'6.667%',    style:'text-align:center'},
+	        {caption: ["설비","설비"],				ref: 'fcltNm',      	type:'output',  width:'6.667%',    style:'text-align:center'},
+	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      	type:'output',  width:'6.667%',    style:'text-align:center'},
+	        {caption: ["품목","품목"],				ref: 'itemNm',     		type:'output',  width:'6.667%',    style:'text-align:center'},
+	        {caption: ["품종","품종"],				ref: 'vrtyNm',      	type:'output',  width:'6.667%',    style:'text-align:center'},
+	        {caption: ["규격","규격"],				ref: 'spcfctNm',      	type:'output',  width:'6.667%',    style:'text-align:center'},
+	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'6.667%',    style:'text-align:center'},
+	        {caption: ["선별","수량"],				ref: 'sortQntt',      	type:'output',  width:'6.667%',    style:'text-align:center'},
+	        {caption: ["선별","중량"],				ref: 'sortWght',      	type:'output',  width:'6.667%',    style:'text-align:center'},
+	        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'6.667%',    style:'text-align:center'},
+	        {caption: ["포장","중량"],				ref: 'pckgWght',     	type:'output',  width:'6.667%',    style:'text-align:center'},
+	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'6.667%',    style:'text-align:center'},
+	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'6.667%',    style:'text-align:center'}
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -379,6 +396,7 @@
     var newSortInptPrfmncGridData = [];
 	const fn_callSelectGrid2List = async function(pageSize, pageNo) {
 //     	let startsortYmd  = SBUxMethod.get("srch-inp-startsortYmd");
+
 		
 		const postJsonPromise2 = gfn_postJSON("/am/invntr/selectSortInvntrDsctnList.do", {
 			apcCd		:  '9999',
@@ -389,7 +407,7 @@
   		});
 
 		console.log('test','test');
-        let data = await postJsonPromise2;
+        let data2 = await postJsonPromise2;
         newSortInptPrfmncGridData = [];
         sortInptPrfmncGridData = [];
 
@@ -398,14 +416,14 @@
           	/** @type {number} **/
       		let totalRecordCount = 0;
 
-      		jsoninptCmndDsctnList.length = 0;
-          	data.resultList.forEach((item, index) => {
-          		const rawMtrInvntr = {
-       				wghno: item.wghno,
-       				grdCd: item.grdCd,
-       				wghYmd: item.wghYmd,
-       				vhclno: item.vhclno,
-       				prdcrCd: item.prdcrCd,
+      		jsoninptCmndDsctnList2.length = 0;
+          	data2.resultList.forEach((item, index) => {
+          		const rawMtrInvntr2 = {
+          			sortno: item.sortno,
+       				grdNm: item.grdNm,
+       				inptYmd: item.inptYmd,
+       				fcltNm: item.fcltNm,
+       				prdcrNm: item.prdcrNm,
        				itemNm: item.itemNm,
        				vrtyNm: item.vrtyNm,
        				spcfctNm: item.spcfctNm,
@@ -415,11 +433,9 @@
        				pckgQntt: item.pckgQntt,
        				pckgWght: item.pckgWght,
        				invntrQntt: item.invntrQntt,
-       				invntrWght:item.invntrWght
+       				invntrWght: item.invntrWght
   				}
-          		jsoninptCmndDsctnList2.push(rawMtrInvntr);
-          		console.log('rawMtrInvntr',rawMtrInvntr);
-          		console.log('jsoninptCmndDsctnList2',jsoninptCmndDsctnList2);
+          		jsoninptCmndDsctnList2.push(rawMtrInvntr2);
 
   				if (index === 0) {
   					totalRecordCount = item.totalRecordCount;
@@ -461,6 +477,7 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,

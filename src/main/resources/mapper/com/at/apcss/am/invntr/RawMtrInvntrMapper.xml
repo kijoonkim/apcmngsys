@@ -183,6 +183,21 @@
 		<if test='bxKnd != null and bxKnd != ""'>
 			   AND RI.BX_KND = #{bxKnd}
 		</if>
+		
+<!-- 		원물입고 내역 검색조건 -->
+		<if test='crtrYmd != null and crtrYmd != ""'>
+			   AND RI.WRHS_YMD = #{crtrYmd}
+		</if>
+		<if test='itemCd null and itemCd != ""'>
+			   AND RI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd null and vrtyCd != ""'>
+			   AND RI.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='prcdcr null and prcdcr != ""'>
+			   AND RI.PRDCR_CD = #{prcdcr}
+		</if>
+		
 
 		<![CDATA[
 		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO

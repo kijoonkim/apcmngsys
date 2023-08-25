@@ -46,7 +46,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 	@Override
 	public List<SortInvntrVO> selectSortInvntrDsctnList(SortInvntrVO sortInvntrVO) throws Exception {
 
-		List<SortInvntrVO> resultList = sortInvntrMapper.selectSortInvntrList(sortInvntrVO);
+		List<SortInvntrVO> resultList = sortInvntrMapper.selectSortInvntrDsctnList(sortInvntrVO);
 
 		return resultList;
 	}
