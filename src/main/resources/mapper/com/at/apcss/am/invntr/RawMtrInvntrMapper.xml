@@ -188,7 +188,7 @@
 		<if test='crtrYmd != null and crtrYmd != ""'>
 			   AND RI.WRHS_YMD = #{crtrYmd}
 		</if>
-		<if test='itemCd null and itemCd != ""'>
+		<if test='itemCd != null and itemCd != ""'>
 			   AND RI.ITEM_CD = #{itemCd}
 		</if>
 		<if test='vrtyCd null and vrtyCd != ""'>
