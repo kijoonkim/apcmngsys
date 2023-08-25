@@ -417,7 +417,7 @@
      		 , CM.MENU_NM               AS MENU_NM
 		     , CM.INDCT_SEQ             AS INDCT_SEQ
 		     , CM.PAGE_URL              AS PAGE_URL
-		     , DECODE(CM.DEL_YN, 'N', 'Y', 'N')                AS DEL_YN
+		     , CM.DEL_YN                AS DEL_YN
 		     , DECODE(CM.SYS_FRST_INPT_USER_ID, 'SYS', '관리자', 'admin', '관리자', CM.SYS_FRST_INPT_USER_ID)  AS SYS_FRST_INPT_USER_ID
 		     , CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
 		     , TO_CHAR(CM.SYS_FRST_INPT_DT, 'YYYY-DD-MM HH24:MI')       AS SYS_FRST_INPT_DT
@@ -451,7 +451,7 @@
 		     , CU.ENTY_ID			AS ENTY_ID
 		     , CU.ENTY_TYPE			AS ENTY_TYPE
 		     , CU.ENTY_NM			AS ENTY_NM
-		     , DECODE(CU.DEL_YN, 'N', 'Y', 'Y', 'N') AS DEL_YN
+		     , CU.DEL_YN				AS DEL_YN
 		  FROM TB_COM_UI CU
 		 WHERE CU.MENU_ID = #{menuId}
 		]]>
