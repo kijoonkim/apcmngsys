@@ -85,6 +85,11 @@ public class SpmtCmndVO extends ComVO {
 	private String gdsGrd;
 
 	/**
+	 * 상품등급명
+	 */
+	private String gdsGrdNm;
+
+	/**
 	 * 지시수량
 	 */
 	private int cmndQntt;
@@ -97,13 +102,12 @@ public class SpmtCmndVO extends ComVO {
 	/**
 	 * 포장구분코드
 	 */
-	private String pckgSeCd;
-	
+	private String spmtPckgUnitCd;
 	/**
-	 * 포장구분
+	 * 포장구분명
 	 */
-	private String pckgSe;
-
+	private String spmtPckgUnitNm;
+	
 	/**
 	 * 발주번호
 	 */

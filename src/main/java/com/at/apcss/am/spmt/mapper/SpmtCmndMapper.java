@@ -41,6 +41,15 @@ public interface SpmtCmndMapper {
 	public List<SpmtCmndVO> selectSpmtCmndList(SpmtCmndVO spmtCmndVO) throws Exception;
 
 	/**
+	 * 출하지시 내역 조회
+	 * 
+	 * @param spmtCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SpmtCmndVO> selectSpmtCmndList2(SpmtCmndVO spmtCmndVO) throws Exception;
+
+	/**
 	 * 출고지시대상내역 조회
 	 * 
 	 * @param spmtCmndVO
@@ -48,6 +57,7 @@ public interface SpmtCmndMapper {
 	 * @throws Exception
 	 */
 	public List<OrdrVO> selectSpmtCmndTrgList(OrdrVO ordrVO) throws Exception;
+
 
 	/**
 	 * 출고지시 등록
@@ -72,4 +82,13 @@ public interface SpmtCmndMapper {
 	 * @throws Exception
 	 */
 	public int deleteSpmtCmnd(SpmtCmndVO spmtCmndVO) throws Exception;
+
+	/**
+	 * 출고지시 삭제
+	 * 
+	 * @param spmtCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSpmtCmnd2(SpmtCmndVO spmtCmndVO) throws Exception;
 }
