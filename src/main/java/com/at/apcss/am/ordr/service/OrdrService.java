@@ -1,5 +1,6 @@
 package com.at.apcss.am.ordr.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.ordr.vo.OrdrVO;
@@ -51,6 +52,14 @@ public interface OrdrService {
 	 * @throws Exception
 	 */
 	public int updateOrdr(OrdrVO ordrVO) throws Exception;
+	
+	/**
+	 * 발주정보 등록
+	 * @param ordrList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> multiOrdrList(List<OrdrVO> ordrList) throws Exception;
 	
 	/**
 	 * 발주정보 삭제

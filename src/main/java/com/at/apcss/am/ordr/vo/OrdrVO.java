@@ -51,7 +51,7 @@ public class OrdrVO extends ComVO {
 	/**
 	 * 수신번호
 	 */
-	private String rcptnNo;
+	private String rcptnno;
 	/**
 	 * 접수확정APC코드
 	 */
