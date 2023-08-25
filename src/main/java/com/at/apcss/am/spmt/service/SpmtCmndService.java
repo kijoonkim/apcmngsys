@@ -38,6 +38,15 @@ public interface SpmtCmndService {
 	public List<SpmtCmndVO> selectSpmtCmndList(SpmtCmndVO spmtCmndVO) throws Exception;
 
 	/**
+	 * 출고하지시 내역 조회
+	 * 
+	 * @param spmtCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SpmtCmndVO> selectSpmtCmndList2(SpmtCmndVO spmtCmndVO) throws Exception;
+
+	/**
 	 * 출고지시대상내역 조회
 	 * 
 	 * @param spmtCmndVO
@@ -69,4 +78,13 @@ public interface SpmtCmndService {
 	 * @throws Exception
 	 */
 	public int deleteSpmtCmnd(SpmtCmndVO spmtCmndVO) throws Exception;
+
+	/**
+	 * 출고지시 삭제
+	 * 
+	 * @param spmtCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSpmtCmnd2(SpmtCmndVO spmtCmndVO) throws Exception;
 }

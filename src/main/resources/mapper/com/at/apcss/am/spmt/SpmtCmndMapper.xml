@@ -117,17 +117,17 @@
 			AND SC.OUTORDRNO = OI.OUTORDRNO
 			WHERE OI.APC_CD >= #{apcCd}
 			AND NVL(GI.INVNTR_QNTT, 0) - NVL(SC.CMND_QNTT, 0) - NVL(GI.SPMT_QNTT, 0) > 0
-		<if test='outordrStrtYmd != null and outordrStrtYmd != ""'>
-		   	   AND OI.OUTORDR_YMD >= #{outordrStrtYmd}
+		<if test='outordrYmdFrom != null and outordrYmdFrom != ""'>
+		   	   AND OI.OUTORDR_YMD >= #{outordrYmdFrom}
 		</if>
-		<if test='outordrEndYmd != null and outordrEndYmd != ""'>
-		       AND OI.OUTORDR_YMD <![CDATA[<=]]> #{outordrEndYmd}
+		<if test='outordrYmdTo != null and outordrYmdTo != ""'>
+		       AND OI.OUTORDR_YMD <![CDATA[<=]]> #{outordrYmdTo}
 		</if>
 		<if test='itemCd != null and itemCd != ""'>
 		       AND OI.ITEM_CD = #{itemCd}
 		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
-		       AND OI.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
+		       AND OI.VRTY_CD = #{vrtyCd}
 		</if>
 		<if test='spcfctCd != null and spcfctCd != ""'>
 		       AND OI.SPCFCT_CD = #{spcfctCd}
@@ -142,6 +142,80 @@
 	   	</if>
    	</select>
 
+<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndList		-->
+	<!-- DESC : 출하지시내역 조회.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.25  	정희운        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectSpmtCmndList2" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO" resultType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
+    	<![CDATA[
+			SELECT pt0.*  /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmnDtlcList */
+		     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+		     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+		     , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) AS GDS_GRD_NM
+		     , (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL) AS TRSPRT_CO_NM
+		     , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) AS SPMT_PCKG_UNIT_NM
+		     FROM(
+				SELECT /* com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndList */
+					SC.APC_CD    AS APC_CD
+					,SC.SPMT_CMNDNO    AS SPMT_CMNDNO
+					,MAX(SC.CMND_YMD)    AS CMND_YMD
+					,SC.CNPT_CD    AS CNPT_CD
+					,SC.DLDTN    AS DLDTN
+					,MAX(SC.TRSPRT_CO_CD)    AS TRSPRT_CO_CD
+					,SC.GDS_GRD    AS GDS_GRD
+					,SUM(SC.CMND_QNTT)    AS CMND_QNTT
+					,SUM(SC.CMND_WGHT)    AS CMND_WGHT
+					,SC.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
+					,MAX(SC.OUTORDRNO)    AS OUTORDRNO
+					,SC.ITEM_CD    AS ITEM_CD
+					,SC.VRTY_CD    AS VRTY_CD
+					,SC.SPCFCT_CD    AS SPCFCT_CD
+					,SC.GDS_CD    AS GDS_CD
+					,SC.RMRK    AS RMRK
+					,SC.DEL_YN    AS DEL_YN
+					,MAX(CI.CNPT_NM)	AS CNPT_NM
+			  FROM TB_SPMT_CMND SC
+			  LEFT OUTER JOIN(
+			  		SELECT APC_CD, CNPT_CD, CNPT_NM
+			  		FROM TB_CNPT_INFO
+			  		WHERE DEL_YN = 'N') CI
+				ON CI.APC_CD = SC.APC_CD
+				AND CI.CNPT_CD = SC.CNPT_CD
+				WHERE SC.DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+		   	   AND SC.APC_CD >= #{apcCd}
+		</if>
+		<if test='cmndYmd != null and cmndYmd != ""'>
+		   	   AND SC.CMND_YMD = #{cmndYmd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+		       AND SC.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+		       AND SC.VRTY_CD = #{vrtyCd}
+		</if>
+		<![CDATA[
+ 			 GROUP BY  SC.APC_CD
+				, SC.SPMT_CMNDNO
+				, SC.CNPT_CD
+				, SC.DLDTN
+				, SC.GDS_GRD
+				, SC.SPMT_PCKG_UNIT_CD
+				, SC.ITEM_CD
+				, SC.VRTY_CD
+				, SC.SPCFCT_CD
+				, SC.GDS_CD
+				, SC.RMRK
+				, SC.DEL_YN
+		 	) pt0
+		]]>
+    </select>
+    
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndList		-->
 	<!-- DESC : 출하지시조회 목록 조회.	                         	             	 	-->
@@ -190,11 +264,13 @@
 	    		 , SC.CMND_WGHT						AS CMND_WGHT
 	    		 , SC.RMRK							AS RMRK
 			  FROM TB_SPMT_CMND SC
-			     , TB_CNPT_INFO CI
-			 WHERE CI.APC_CD = SC.APC_CD
-			   AND CI.CNPT_CD = SC.CNPT_CD
-			   AND SC.DEL_YN = 'N'
-			   AND CI.DEL_YN = 'N'
+			  LEFT OUTER JOIN(
+			  		SELECT APC_CD, CNPT_CD, CNPT_NM
+			  		FROM TB_CNPT_INFO
+			  		WHERE DEL_YN = 'N') CI
+				ON CI.APC_CD = SC.APC_CD
+				AND CI.CNPT_CD = SC.CNPT_CD
+			 WHERE SC.DEL_YN = 'N'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 		   	   AND SC.APC_CD >= #{apcCd}
@@ -303,7 +379,7 @@
 <!--     		  , #{gdsGrd} -->
 <!--     		  , #{cmndQntt} -->
 <!--     		  , #{cmndWght} -->
-<!--     		  , #{pckgSeCd} -->
+<!--     		  , #{spmtPckgUnitCd} -->
 <!--     		  , #{ordrNo} -->
 <!--     		  , #{itemCd} -->
 <!--     		  , #{vrtyCd} -->
@@ -328,11 +404,10 @@
 			, CNPT_CD
 			, DLDTN
 			, TRSPRT_CO_CD
-			, TRSPRT_CO_NM
 			, GDS_GRD
 			, CMND_QNTT
 			, CMND_WGHT
-			, PCKG_SE_CD
+			, SPMT_PCKG_UNIT_CD
 			, OUTORDRNO
 			, ITEM_CD
 			, VRTY_CD
@@ -356,11 +431,10 @@
 			, #{cnptCd}
 			, #{dldtn}
 			, #{trsprtCoCd}
-			, #{trsprtCoNm}
 			, #{gdsGrd}
 			, #{cmndQntt}
 			, #{cmndWght}
-			, #{pckgSeCd}
+			, #{spmtPckgUnitCd}
 			, #{outordrno}
 			, #{itemCd}
 			, #{vrtyCd}
@@ -429,6 +503,49 @@
 		   AND SPMT_CMNDNO 				= #{spmtCmndNo}
 		   AND SPMT_CMND_SN 			= #{spmtCmndSn}
 		]]>
+	</delete>
+	
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtCmndMapper.deleteSpmtCmnd			-->
+	<!-- DESC : 출하지시내역 삭제.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.25  	정희운        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteSpmtCmnd2" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
+		UPDATE TB_SPMT_CMND
+		SET DEL_YN = 'Y'
+		 WHERE APC_CD 					= #{apcCd}
+		   AND SPMT_CMNDNO 				= #{spmtCmndno}
+		   <if test='cnptCd != null and cnptCd != ""'>
+		   		AND CNPT_CD 					= #{cnptCd}
+	   		</if>
+		   <if test='dldtn != null and dldtn != ""'>
+		   		AND DLDTN 					= #{dldtn}
+	   		</if>
+		   <if test='gdsGrd != null and gdsGrd != ""'>
+		   		AND GDS_GRD 					= #{gdsGrd}
+	   		</if>
+		   <if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
+		   		AND SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
+	   		</if>
+		   <if test='itemCd != null and itemCd != ""'>
+		   		AND ITEM_CD 					= #{itemCd}
+	   		</if>
+		   <if test='vrtyCd != null and vrtyCd != ""'>
+		   		AND VRTY_CD 					= #{vrtyCd}
+	   		</if>
+		   <if test='spcfctCd != null and spcfctCd != ""'>
+		   		AND SPCFCT_CD 				= #{spcfctCd}
+	   		</if>
+		   <if test='gdsCd != null and gdsCd != ""'>
+		   		AND GDS_CD 					= #{gdsCd}
+	   		</if>
+		   <if test='rmrk != null and rmrk != ""'>
+		   		AND RMRK 					= #{rmrk}
+	   		</if>
+	   		AND DEL_YN 					= #{delYn}
 	</delete>
 
 </mapper>
