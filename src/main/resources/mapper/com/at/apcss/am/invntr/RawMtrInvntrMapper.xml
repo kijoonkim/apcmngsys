@@ -117,6 +117,7 @@
 				, RI.WRHS_YMD       AS WRHS_YMD
 				, RI.PRDCR_CD       AS PRDCR_CD
 				, RI.ITEM_CD        AS ITEM_CD
+				, (SELECT FN_GET_ITEM_NM(RI.ITEM_CD,RI.APC_CD) FROM DUAL) AS ITEM_NM
 				, RI.VRTY_CD        AS VRTY_CD
 				, RI.GDS_SE_CD      AS GDS_SE_CD
 				, RI.WRHS_SE_CD     AS WRHS_SE_CD
@@ -132,6 +133,7 @@
 				, RI.INVNTR_WGHT    AS INVNTR_WGHT
 				, (SELECT MAX(X.SORT_CMNDNO) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS SORT_CMNDNO
 				, (SELECT MAX(X.FCLT_CD) KEEP (DENSE_RANK LAST ORDER BY X.SORT_CMNDNO, X.SORT_CMND_SN) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS FCLT_CD
+				, (SELECT FN_GET_VRTY_NM(RI.ITEM_CD, RI.VRTY_CD, RI.APC_CD) FROM DUAL) AS VRTY_NM
 				--, NVL((RI.INVNTR_QNTT - (SELECT CMND_QNTT FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO)), RI.INVNTR_QNTT)  AS INVNTR_CMND_QNTT
                 --, NVL((RI.INVNTR_WGHT - (SELECT CMND_WGHT FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO)), RI.INVNTR_WGHT)  AS INVNTR_CMND_WGHT
 			  FROM TB_RAW_MTR_INVNTR RI
@@ -181,6 +183,30 @@
 		<if test='bxKnd != null and bxKnd != ""'>
 			   AND RI.BX_KND = #{bxKnd}
 		</if>
+		
+<!-- 		원물입고 내역 검색조건 -->
+		<if test='crtrYmd != null and crtrYmd != ""'>
+			   AND RI.WRHS_YMD = #{crtrYmd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND RI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			   AND RI.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='prdcr != null and prdcr != ""'>
+			   AND RI.PRDCR_CD = #{prdcr}
+		</if>
+		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			   AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+		</if>
+		<if test='gdsSe != null and gdsSe != ""'>
+			   AND RI.GDS_SE_CD = #{gdsSe}
+		</if>
+		<if test='wrhsSe != null and wrhsSe != ""'>
+			   AND RI.WRHS_SE_CD = #{wrhsSe}
+		</if>
+		
 
 		<![CDATA[
 		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO

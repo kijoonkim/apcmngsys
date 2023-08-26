@@ -107,7 +107,7 @@ function fn_createUserInfoChgGrid() {
 	    SBGridProperties1.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties1.selectmode = 'byrow';
 	    SBGridProperties1.extendlastcol = 'scroll';
-	    SBGridProperties.scrollbubbling = false;
+	    SBGridProperties1.scrollbubbling = false;
 	    SBGridProperties1.columns = [
 	         {caption: ["선택"],			ref: 'chc',      	type:'checkbox',width:'5px'},
 	         {caption: ["사용자ID"], 	ref: 'userId',     	type:'input',   width:'15%', style:'text-align:center'},
