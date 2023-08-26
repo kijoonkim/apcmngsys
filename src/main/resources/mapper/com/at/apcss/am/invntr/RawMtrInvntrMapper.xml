@@ -191,11 +191,20 @@
 		<if test='itemCd != null and itemCd != ""'>
 			   AND RI.ITEM_CD = #{itemCd}
 		</if>
-		<if test='vrtyCd null and vrtyCd != ""'>
+		<if test='vrtyCd != null and vrtyCd != ""'>
 			   AND RI.VRTY_CD = #{vrtyCd}
 		</if>
-		<if test='prcdcr null and prcdcr != ""'>
-			   AND RI.PRDCR_CD = #{prcdcr}
+		<if test='prdcr != null and prdcr != ""'>
+			   AND RI.PRDCR_CD = #{prdcr}
+		</if>
+		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			   AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+		</if>
+		<if test='gdsSe != null and gdsSe != ""'>
+			   AND RI.GDS_SE_CD = #{gdsSe}
+		</if>
+		<if test='wrhsSe != null and wrhsSe != ""'>
+			   AND RI.WRHS_SE_CD = #{wrhsSe}
 		</if>
 		
 

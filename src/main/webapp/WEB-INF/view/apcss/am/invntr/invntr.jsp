@@ -258,8 +258,7 @@
 	}
     var newSortInptPrfmncGridData = [];
 	const fn_callSelectGrid1List = async function(pageSize, pageNo) {
-//     	let startsortYmd  = SBUxMethod.get("srch-inp-startsortYmd");
-// srch-dtp-crtrYmd
+		
 		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
 		let invntrySe = SBUxMethod.get("srch-slt-invntrySe");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
