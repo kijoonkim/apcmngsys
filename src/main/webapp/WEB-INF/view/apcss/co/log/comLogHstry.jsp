@@ -131,13 +131,30 @@
 				</table>
 				<div class="ad_tbl_top2">
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnLogCntnHstry" name="btnLogCntnHstry" uitype="normal" data-tab="comLogCntnHstry" text="접속이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-						<sbux-button id="btnLogMenuHstry" name="btnLogMenuHstry" uitype="normal" data-tab="comLogMenuHstry" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-						<sbux-button id="btnLogTrsmHstry" name="btnLogTrsmHstry" uitype="normal" data-tab="comLogTrsmHstry" text="송수신이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-						<sbux-button id="btnLogBatchHstry" name="btnLogBatchHstry" uitype="normal" data-tab="comLogBatchHstry" text="배치실행이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+						<sbux-button id="btnLogCntnHstry" name="btnLogCntnHstry" uitype="normal" text="접속이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+						<sbux-button id="btnLogMenuHstry" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+						<sbux-button id="btnLogTrsmHstry" name="btnLogTrsmHstry" uitype="normal" text="송수신이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+						<sbux-button id="btnLogBatchHstry" name="btnLogBatchHstry" uitype="normal" text="배치실행이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 					</div>
 				</div>
-				<div id="tab_content"></div>
+				<div id="tab_content">
+					<!-- 접속이력 탭 화면 -->
+				    <div id="comLogCntnHstry">
+				    	<jsp:include page="../../co/log/comLogCntnHstry.jsp"></jsp:include>
+				    </div>
+					<!-- 화면열람이력 탭 화면 -->
+				    <div id="comLogMenuHstry">
+				    	<jsp:include page="../../co/log/comLogMenuHstry.jsp"></jsp:include>
+				    </div>
+					<!-- 송수신이력 탭 화면 -->
+				    <div id="comLogTrsmHstry">
+				    	<jsp:include page="../../co/log/comLogTrsmHstry.jsp"></jsp:include>
+				    </div>
+					<!-- 배치실행이력 탭 화면 -->
+				    <div id="comLogBatchHstry">
+				    	<jsp:include page="../../co/log/comLogBatchHstry.jsp"></jsp:include>
+				    </div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -151,15 +168,33 @@
 </body>
 <script type="text/javascript">
 
-	$(function(){
-		// tab operation 
-		$('.ad_tbl_top2 button').click(function() {
-			var activeTab = "com" + $(this).attr('id').slice(3);
-			$('#tab_content').load(activeTab + ".do");
-		});
-	   	$('#btnLogCntnHstry').click();
-	});
-
+// 	$(function(){
+// 		// tab operation 
+// 		$('.ad_tbl_top2 button').click(function() {
+// 			var activeTab = "com" + $(this).attr('id').slice(3);
+// 			console.log(activeTab);
+// 			$.ajax({
+// 				type : 'GET',                 //get방식으로 통신
+// 				url : "http://localhost:8080/co/log/" + activeTab,    //탭의 data-tab속성의 값으로 된 html파일로 통신
+// 				dataType : "html",            //html형식으로 값 읽기
+// 				error : function(data) {          //통신 실패시
+// 					alert('탭 화면 에러');
+// 				},
+// 				success : function(data) {    //통신 성공시 탭 내용담는 div를 읽어들인 값으로 채운다.
+// 					$('#tab_content').html(data);
+// 				}
+// 			});
+// 			//$('#tab_content').load(activeTab);
+// 			//let activeTab = "${comMenuVO.menuId}";
+// 			//var activeTab = "com" + $(this).attr('id').slice(3);
+// 			//$('#tab_content').html(activeTab);
+// 		});
+// 	   	$('#btnLogCntnHstry').click();
+// 	});
+	
+	let comMenuVO = "${comMenuVO.pageUrl}";
+	console.log(comMenuVO);
+	
 	var jsonApcItem				= [];	// 품목 			itemCd			검색
 	var jsonApcVrty				= [];	// 품종 			vrtyCd			검색
 	var jsonApcSpcfct			= [];	// 규격 			spcfct			검색

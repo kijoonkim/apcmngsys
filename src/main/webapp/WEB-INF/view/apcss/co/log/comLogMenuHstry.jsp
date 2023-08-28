@@ -30,9 +30,9 @@
 								<sbux-datepicker id="srch-dtp-inqYmdTo" name="srch-dtp-inqYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg">사용자명</th>
+							<th scope="row" class="th_bg">화면명</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-userNm" name="srch-inp-userNm" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-scrnNm" name="srch-inp-scrnNm" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 						</tr>
 					</tbody>
@@ -40,11 +40,11 @@
 				<div class="table-responsive tbl_scroll_sm">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
-							<li><span>접속이력 정보</span></li>
+							<li><span>화면열람이력 정보</span></li>
 						</ul>
 					</div>	
 					<div class="table-responsive tbl_scroll_sm">
-						<div id="sb-area-logCntnHstry" style="height:400px;"></div>
+						<div id="sb-area-logMenuHstry" style="height:400px;"></div>
 					</div>
 				</div>
 			</div>
@@ -69,9 +69,9 @@
 
 	function fn_createLogCntnHstryGrid() {
         var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-logCntnHstry';
-	    SBGridProperties.id = 'grdLogCntnHstry';
-	    SBGridProperties.jsonref = 'jsonLogCntnHstry';
+	    SBGridProperties.parentid = 'sb-area-logMenuHstry';
+	    SBGridProperties.id = 'grdLogMenuHstry';
+	    SBGridProperties.jsonref = 'jsonLogMenuHstry';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -86,34 +86,34 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
-            {caption: ['사용자ID'], 	ref: 'userId',		width: '15%',	type: 'output',	style:'text-align: center'},
-            {caption: ['사용자명'], 	ref: 'userNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['APC명'],		ref: 'apcNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['현재상태'],	ref: 'gdsCd', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['접속일시'], 	ref: 'vrtyNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['종료일시'], 	ref: 'spcfctNm',	width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['최초접속일시'], ref: 'brndCd',		width: '15%', 	type: 'output',	style:'text-align: center'}
+            {caption: ['화면ID'], 	ref: 'scrnId',		width: '15%',	type: 'output',	style:'text-align: center'},
+            {caption: ['화면명'], 	ref: 'scrnNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
+            {caption: ['사용자ID'],	ref: 'userId', 		width: '15%', 	type: 'output',	style:'text-align: center'},
+            {caption: ['사용자명'],	ref: 'userNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
+            {caption: ['APC명'], 	ref: 'apcNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
+            {caption: ['접속일시'],	ref: 'spcfctNm',	width: '15%', 	type: 'output',	style:'text-align: center'},
+            {caption: ['종료일시'], 	ref: 'brndCd',		width: '15%', 	type: 'output',	style:'text-align: center'}
         ];
-        grdLogCntnHstry = _SBGrid.create(SBGridProperties);
-        grdLogCntnHstry.bind( "afterpagechanged" , "fn_pagingLogCntnHstry" );
+        grdLogMenuHstry = _SBGrid.create(SBGridProperties);
+        grdLogMenuHstry.bind( "afterpagechanged" , "fn_pagingLogMenuHstry" );
     }
 	
 	// 출하지시 목록 조회 (조회 버튼)
     async function fn_search() {
-    	let recordCountPerPage = grdLogCntnHstry.getPageSize();  		// 몇개의 데이터를 가져올지 설정
+    	let recordCountPerPage = grdLogMenuHstry.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
-    	grdLogCntnHstry.movePaging(currentPageNo);
+    	grdLogMenuHstry.movePaging(currentPageNo);
     }
 	
-	let newJsonLogCntnHstry = [];
+	let newJsonLogMenuHstry = [];
 	
 	// 출하지시 목록 조회 호출
-	async function fn_callSelectLogCntnHstryList(recordCountPerPage, currentPageNo){
-		jsonLogCntnHstry = [];
+	async function fn_callSelectLogMenuHstryList(recordCountPerPage, currentPageNo){
+		jsonLogMenuHstry = [];
 		let apcCd = gv_selectedApcCd;
 		let inqYmdFrom = SBUxMethod.get("srch-dtp-inqYmdFrom");
 		let inqYmdTo = SBUxMethod.get("srch-dtp-inqYmdTo");
-		let userNm = SBUxMethod.get("srch-inp-userNm");
+		let scrnNm = SBUxMethod.get("srch-inp-scrnNm");
 		if (gfn_isEmpty(inqYmdFrom)){
 			gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
             return;
@@ -124,17 +124,17 @@
 		}
 		let SlsPrfmncVO = {apcCd 				: apcCd
 						 , inqYmdFrom 			: inqYmdFrom
-						 , inqYmdFrom 			: inqYmdFrom
-						 , userNm 				: userNm
+						 , inqYmdTo 			: inqYmdTo
+						 , scrnNm 				: scrnNm
 						 , pagingYn 			: 'Y'
 						 , currentPageNo 		: currentPageNo
 						 , recordCountPerPage 	: recordCountPerPage};
     	let postJsonPromise = gfn_postJSON("/am/sls/selectSlsPrfmncList.do", SlsPrfmncVO);
         let data = await postJsonPromise;
-        newJsonLogCntnHstry = [];
+        newJsonLogMenuHstry = [];
         try{
         	data.resultList.forEach((item, index) => {
-				let logCntnHstry = {
+				let logMenuHstry = {
 					slsYmd 		: item.slsYmd
 				  , cnptNm 		: item.cnptNm
 				  , gdsNm 		: item.gdsNm
@@ -151,19 +151,19 @@
 				  , totWght 	: item.totWght
 				  , totCfmtnAmt : item.totCfmtnAmt
 				}
-				jsonLogCntnHstry.push(Object.assign({}, logCntnHstry));
-				newJsonLogCntnHstry.push(Object.assign({}, logCntnHstry));
+				jsonLogMenuHstry.push(Object.assign({}, logMenuHstry));
+				newJsonLogMenuHstry.push(Object.assign({}, logMenuHstry));
 			});
-        	if(jsonLogCntnHstry.length > 0){
-				if(grdLogCntnHstry.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-					grdLogCntnHstry.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-					grdLogCntnHstry.rebuild();
+        	if(jsonLogMenuHstry.length > 0){
+				if(grdLogMenuHstry.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdLogMenuHstry.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdLogMenuHstry.rebuild();
 				}else{
-					grdLogCntnHstry.refresh();
+					grdLogMenuHstry.refresh();
 				}
 			}else{
-				grdLogCntnHstry.setPageTotalCount(0);
-				grdLogCntnHstry.rebuild();
+				grdLogMenuHstry.setPageTotalCount(0);
+				grdLogMenuHstry.rebuild();
 			}
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -174,10 +174,10 @@
 	}
 	
 	// 페이징
-    async function fn_pagingLogCntnHstry(){
-    	let recordCountPerPage = grdLogCntnHstry.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdLogCntnHstry.getSelectPageIndex(); 
-    	fn_callSelectLogCntnHstryList(recordCountPerPage, currentPageNo);
+    async function fn_pagingLogMenuHstry(){
+    	let recordCountPerPage = grdLogMenuHstry.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdLogMenuHstry.getSelectPageIndex(); 
+    	fn_callSelectLogMenuHstryList(recordCountPerPage, currentPageNo);
     }
 </script>
 </html>
