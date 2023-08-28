@@ -7,58 +7,54 @@
 </head>
 <body>
 	<section>
-		<div class="box box-solid">
-			<div class="box-body">
-				<table class="table table-bordered tbl_fixed">
-					<caption>검색 조건 설정</caption>
-					<colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 9%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 9%">
-					</colgroup>
-					<tbody>
-						<tr>
-							<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-trsmYmdFrom" name="srch-dtp-trsmYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-trsmYmdTo" name="srch-dtp-trsmYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
-							</td>
-							<td></td>
-							<th scope="row" class="th_bg">송수신구분</th>
-							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-sendRcptnSeCd" name="srch-slt-sendRcptnSeCd" uitype="single" jsondata-ref="jsonComSendRcptnSeCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
-									</div>
-								</div>
-							</td>
-							<td></td>
-							<th scope="row" class="th_bg">인터페이스명</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-intrfcNm" name=srch-inp-intrfcNm uitype="text" class="form-control input-sm"></sbux-input>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="table-responsive tbl_scroll_sm">
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>송수신이력 정보</span></li>
-						</ul>
-					</div>	
-					<div class="table-responsive tbl_scroll_sm">
-						<div id="sb-area-logTrsmHstry" style="height:400px;"></div>
-					</div>
-				</div>
+		<table class="table table-bordered tbl_fixed">
+			<caption>검색 조건 설정</caption>
+			<colgroup>
+				<col style="width: 7%">
+				<col style="width: 6%">
+				<col style="width: 6%">
+				<col style="width: 3%">
+				<col style="width: 7%">
+				<col style="width: 6%">
+				<col style="width: 9%">
+				<col style="width: 7%">
+				<col style="width: 6%">
+				<col style="width: 9%">
+			</colgroup>
+			<tbody>
+				<tr>
+					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
+					<td class="td_input" style="border-right: hidden;">
+						<sbux-datepicker id="srch-dtp-trsmYmdFrom" name="srch-dtp-trsmYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+					</td>
+					<td class="td_input" style="border-right: hidden;">
+						<sbux-datepicker id="srch-dtp-trsmYmdTo" name="srch-dtp-trsmYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+					</td>
+					<td></td>
+					<th scope="row" class="th_bg">송수신구분</th>
+					<td class="td_input" style="border-right: hidden;">
+						<div class="fl_group fl_rpgroup">
+							<div class="dp_inline wd_180 va_m">
+								<sbux-select id="srch-slt-sendRcptnSeCd" name="srch-slt-sendRcptnSeCd" uitype="single" jsondata-ref="jsonComSendRcptnSeCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+							</div>
+						</div>
+					</td>
+					<td></td>
+					<th scope="row" class="th_bg">인터페이스명</th>
+					<td class="td_input" style="border-right: hidden;">
+						<sbux-input id="srch-inp-intrfcNm" name=srch-inp-intrfcNm uitype="text" class="form-control input-sm"></sbux-input>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="table-responsive tbl_scroll_sm">
+			<div class="ad_tbl_top">
+				<ul class="ad_tbl_count">
+					<li><span>송수신이력 정보</span></li>
+				</ul>
+			</div>	
+			<div class="table-responsive tbl_scroll_sm">
+				<div id="sb-area-logTrsmHstry" style="height:400px;"></div>
 			</div>
 		</div>
 	</section>
