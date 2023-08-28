@@ -35,7 +35,11 @@
 							<td></td>
 							<th scope="row" class="th_bg">송수신구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-sendRcptnSeCd" name="srch-slt-sendRcptnSeCd" uitype="single" jsondata-ref="jsonComSendRcptnSeCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
+										<sbux-select id="srch-slt-sendRcptnSeCd" name="srch-slt-sendRcptnSeCd" uitype="single" jsondata-ref="jsonComSendRcptnSeCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">인터페이스명</th>
