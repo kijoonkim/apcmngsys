@@ -168,5 +168,7 @@ public class GdsInvntrVO extends ComVO {
 	 * 상품구분명
 	 */
 	private String gdsSeNm;
+	private String fcltNm;
+	private String rprsPrdcrNm;
 
 }

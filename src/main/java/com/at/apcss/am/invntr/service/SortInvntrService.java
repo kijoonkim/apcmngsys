@@ -36,6 +36,14 @@ public interface SortInvntrService {
 	 * @throws Exception
 	 */
 	public List<SortInvntrVO> selectSortInvntrList(SortInvntrVO sortInvntrVO) throws Exception;
+	
+	/**
+	 * 선별재고 목록 조회
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortInvntrVO> selectSortInvntrDsctnList(SortInvntrVO sortInvntrVO) throws Exception;
 
 	/**
 	 * 선별재고 등록

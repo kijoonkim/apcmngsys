@@ -1,5 +1,6 @@
 package com.at.apcss.am.invntr.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
+import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -40,12 +42,19 @@ public class GdsInvntrController extends BaseController {
 
 	@PostMapping(value = "/am/invntr/selectGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectGdsInvntrList(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
+		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
-		List<GdsInvntrVO> resultList = gdsInvntrService.selectGdsInvntrList(gdsInvntrVO);
-
-		resultMap.put(ComConstants.PROP_RESULT_LIST,  resultList);
+		List<GdsInvntrVO> resultList = new ArrayList<>();
+		try {
+			resultList = gdsInvntrService.selectGdsInvntrList(gdsInvntrVO);			
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 
 		return getSuccessResponseEntity(resultMap);
+		
 	}
 }

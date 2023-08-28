@@ -96,7 +96,7 @@ function fn_createUserListInqGrid() {
 	    SBGridProperties1.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties1.selectmode = 'byrow';
 	    SBGridProperties1.extendlastcol = 'scroll';
-	    SBGridProperties.scrollbubbling = false;
+	    SBGridProperties1.scrollbubbling = false;
 	    SBGridProperties1.columns = [
 	         {caption: ["사용자ID"],			ref: 'userId',      type:'output',	width:'15%', style:'text-align:center'},
 	         {caption: ["사용자명"], 		ref: 'userNm',     	type:'output',  width:'15%', style:'text-align:center'},
