@@ -7,46 +7,42 @@
 </head>
 <body>
 	<section>
-		<div class="box box-solid">
-			<div class="box-body">
-				<table class="table table-bordered tbl_fixed">
-					<caption>검색 조건 설정</caption>
-					<colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 31%">
-					</colgroup>
-					<tbody>
-						<tr>
-							<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-menuYmdFrom" name="srch-dtp-menuYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-menuYmdTo" name="srch-dtp-menuYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
-							</td>
-							<td></td>
-							<th scope="row" class="th_bg">화면명</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-scrnNm" name="srch-inp-scrnNm" uitype="text" class="form-control input-sm"></sbux-input>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="table-responsive tbl_scroll_sm">
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span>화면열람이력 정보</span></li>
-						</ul>
-					</div>	
-					<div class="table-responsive tbl_scroll_sm">
-						<div id="sb-area-logMenuHstry" style="height:400px;"></div>
-					</div>
-				</div>
+		<table class="table table-bordered tbl_fixed">
+			<caption>검색 조건 설정</caption>
+			<colgroup>
+				<col style="width: 7%">
+				<col style="width: 6%">
+				<col style="width: 6%">
+				<col style="width: 3%">
+				<col style="width: 7%">
+				<col style="width: 6%">
+				<col style="width: 31%">
+			</colgroup>
+			<tbody>
+				<tr>
+					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
+					<td class="td_input" style="border-right: hidden;">
+						<sbux-datepicker id="srch-dtp-menuYmdFrom" name="srch-dtp-menuYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+					</td>
+					<td class="td_input" style="border-right: hidden;">
+						<sbux-datepicker id="srch-dtp-menuYmdTo" name="srch-dtp-menuYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+					</td>
+					<td></td>
+					<th scope="row" class="th_bg">화면명</th>
+					<td class="td_input" style="border-right: hidden;">
+						<sbux-input id="srch-inp-scrnNm" name="srch-inp-scrnNm" uitype="text" class="form-control input-sm"></sbux-input>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="table-responsive tbl_scroll_sm">
+			<div class="ad_tbl_top">
+				<ul class="ad_tbl_count">
+					<li><span>화면열람이력 정보</span></li>
+				</ul>
+			</div>	
+			<div class="table-responsive tbl_scroll_sm">
+				<div id="sb-area-logMenuHstry" style="height:400px;"></div>
 			</div>
 		</div>
 	</section>
