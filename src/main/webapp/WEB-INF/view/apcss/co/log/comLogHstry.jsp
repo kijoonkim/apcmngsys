@@ -168,33 +168,34 @@
 </body>
 <script type="text/javascript">
 
-// 	$(function(){
-// 		// tab operation 
-// 		$('.ad_tbl_top2 button').click(function() {
-// 			var activeTab = "com" + $(this).attr('id').slice(3);
-// 			console.log(activeTab);
-// 			$.ajax({
-// 				type : 'GET',                 //get방식으로 통신
-// 				url : "http://localhost:8080/co/log/" + activeTab,    //탭의 data-tab속성의 값으로 된 html파일로 통신
-// 				dataType : "html",            //html형식으로 값 읽기
-// 				error : function(data) {          //통신 실패시
-// 					alert('탭 화면 에러');
-// 				},
-// 				success : function(data) {    //통신 성공시 탭 내용담는 div를 읽어들인 값으로 채운다.
-// 					$('#tab_content').html(data);
-// 				}
-// 			});
-// 			//$('#tab_content').load(activeTab);
-// 			//let activeTab = "${comMenuVO.menuId}";
-// 			//var activeTab = "com" + $(this).attr('id').slice(3);
-// 			//$('#tab_content').html(activeTab);
-// 		});
-// 	   	$('#btnLogCntnHstry').click();
-// 	});
-	
-	let comMenuVO = "${comMenuVO.pageUrl}";
-	console.log(comMenuVO);
-	
+	$(function(){
+		$('#btnLogCntnHstry').click(function(){
+		    $('#comLogCntnHstry').show();
+		    $('#comLogMenuHstry').hide();
+		    $('#comLogTrsmHstry').hide();
+		    $('#comLogBatchHstry').hide();
+		});
+		$('#btnLogMenuHstry').click(function(){
+		    $('#comLogCntnHstry').hide();
+		    $('#comLogMenuHstry').show();
+		    $('#comLogTrsmHstry').hide();
+		    $('#comLogBatchHstry').hide();
+		});
+		$('#btnLogTrsmHstry').click(function(){
+		    $('#comLogCntnHstry').hide();
+		    $('#comLogMenuHstry').hide();
+		    $('#comLogTrsmHstry').show();
+		    $('#comLogBatchHstry').hide();
+		});
+		$('#btnLogBatchHstry').click(function(){
+		    $('#comLogCntnHstry').hide();
+		    $('#comLogMenuHstry').hide();
+		    $('#comLogTrsmHstry').hide();
+		    $('#comLogBatchHstry').show();
+		});
+		$('#btnLogCntnHstry').click();
+	});
+
 	var jsonApcItem				= [];	// 품목 			itemCd			검색
 	var jsonApcVrty				= [];	// 품종 			vrtyCd			검색
 	var jsonApcSpcfct			= [];	// 규격 			spcfct			검색
@@ -216,6 +217,13 @@
 		]);
 	}
 
+	const fn_initTabs = function() {
+		tabLogCntnHstry.init(gv_selectedApcCd, gv_selectedApcNm);
+		tabLogMenuHstry.init(gv_selectedApcCd, gv_selectedApcNm);
+		tabLogTrsmHstry.init(gv_selectedApcCd, gv_selectedApcNm);
+		tabLogBatchHstry.init(gv_selectedApcCd, gv_selectedApcNm);
+	}
+	
 	/**
 	 * @name fn_getPrdcrs
      * @description 생산자 자동완성 JSON 설정
@@ -227,10 +235,9 @@
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("srch-dtp-inqYmd", gfn_dateToYmd(new Date()));
-		SBUxMethod.set("srch-dtp-inqYmdFrom", gfn_dateToYmd(new Date()));
-		SBUxMethod.set("srch-dtp-inqYmdTo", gfn_dateToYmd(new Date()));
 		
 		fn_initSBSelect();
+		fn_initTabs();
 	})
 
  	// APC 선택 변경
