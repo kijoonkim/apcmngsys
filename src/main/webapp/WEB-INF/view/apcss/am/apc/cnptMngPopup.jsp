@@ -180,13 +180,10 @@
 		
 		let gridData2 = lgszMrktMngDatagrid.getGridDataAll();
 		let updateList2 = [];
-		let insertCnt2 = 0;
 		let updateCnt2 = 0;
 		for(var i=1; i<=gridData2.length; i++ ){
-			if(lgszMrktMngDatagrid.getRowData(i).delYn == 'N'){
-				if(lgszMrktMngDatagrid.getRowStatus(i) === 2){
-					updateList2.push(lgszMrktMngDatagrid.getRowData(i));
-				}
+			if(lgszMrktMngDatagrid.getRowStatus(i) === 2){
+				updateList2.push(lgszMrktMngDatagrid.getRowData(i));
 			}
 		}
 		
