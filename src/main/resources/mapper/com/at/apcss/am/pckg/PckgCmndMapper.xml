@@ -54,14 +54,14 @@
 				,PC.ITEM_CD   		AS ITEM_CD
 				,PC.VRTY_CD   		AS VRTY_CD
 				,PC.SPCFCT_CD    	AS SPCFCT_CD
-				,PC.ORDR_QNTT  		AS ORDR_QNTT
-				,PC.ORDR_WGHT    	AS ORDR_WGHT
+				,PC.OUTORDR_QNTT  		AS OUTORDR_QNTT
+				,PC.OUTORDR_WGHT    	AS OUTORDR_WGHT
 				,PC.BX_GDS_QNTT    	AS BX_GDS_QNTT
 				,PC.CMND_QNTT   	AS CMND_QNTT
 				,PC.CMND_WGHT    	AS CMND_WGHT
 				,PP.PCKG_QNTT		AS PCKG_QNTT
 				,PP.PCKG_WGHT		AS PCKG_WGHT
-				,PC.ORDR_NO    		AS ORDR_NO
+				,PC.OUTORDRNO    		AS OUTORDRNO
 				,PC.GDS_CD   		AS GDS_CD
 				,PC.RMRK    		AS RMRK
 				,PC.DEL_YN    		AS DEL_YN
@@ -98,8 +98,8 @@
 		<if test='spcfctCd != null and spcfctCd != ""'>
 			 AND PC.SPCFCT_CD = #{spcfctCd}
 		</if>
-		<if test='ordrNo != null and ordrNo != ""'>
-			 AND PC.ORDR_NO = #{ordrNo}
+		<if test='outordrno != null and outordrno != ""'>
+			 AND PC.OUTORDRNO = #{outordrno}
 		</if>
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -134,12 +134,12 @@
 					, ITEM_CD
 					, VRTY_CD
 					, SPCFCT_CD
-					, ORDR_QNTT
-					, ORDR_WGHT
+					, OUTORDR_QNTT
+					, OUTORDR_WGHT
 					, BX_GDS_QNTT
 					, CMND_QNTT
 					, CMND_WGHT
-					, ORDR_NO
+					, OUTORDRNO
 					, GDS_CD
 					, RMRK
 					, DEL_YN
@@ -162,12 +162,12 @@
 					, #{itemCd}
 					, #{vrtyCd}
 					, #{spcfctCd}
-					, #{ordrQntt}
-					, #{ordrWght}
+					, #{outordrQntt}
+					, #{outordrWght}
 					, #{bxGdsQntt}
 					, #{cmndQntt}
 					, #{cmndWght}
-					, #{ordrNo}
+					, #{outordrno}
 					, #{gdsCd}
 					, #{rmrk}
 					, #{delYn}
