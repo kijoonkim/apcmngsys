@@ -122,6 +122,14 @@
 				let logYmdFrom = SBUxMethod.get("batch-dtp-logYmdFrom");
 				let logYmdTo = SBUxMethod.get("batch-dtp-logYmdTo");
 				let prgrmNm = SBUxMethod.get("batch-inp-prgrmNm");
+				if (gfn_isEmpty(logYmdFrom)){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
+				if (gfn_isEmpty(logYmdTo)){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectWrhsVhclList.do", {
 		        		apcCd 				: apcCd

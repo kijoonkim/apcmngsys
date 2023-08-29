@@ -139,6 +139,14 @@
 				let logYmdTo = SBUxMethod.get("trsm-dtp-logYmdTo");
 				let sendRcptnSeCd = SBUxMethod.get("trsm-slt-sendRcptnSeCd");
 				let intrfcNm = SBUxMethod.get("trsm-inp-intrfcNm");
+				if (gfn_isEmpty(logYmdFrom)){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
+				if (gfn_isEmpty(logYmdTo)){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectWrhsVhclList.do", {
 		        		apcCd 				: apcCd
