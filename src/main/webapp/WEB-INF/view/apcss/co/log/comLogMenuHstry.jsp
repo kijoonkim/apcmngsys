@@ -120,7 +120,6 @@
 				let logYmdFrom = SBUxMethod.get("menu-dtp-logYmdFrom");
 				let logYmdTo = SBUxMethod.get("menu-dtp-logYmdTo");
 				let menuNm = SBUxMethod.get("menu-inp-menuNm");
-				console.log(logYmdFrom);
 				if (gfn_isEmpty(logYmdFrom)){
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
 		            return;

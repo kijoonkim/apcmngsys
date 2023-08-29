@@ -95,13 +95,12 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		        	{caption: ['처리일자'], 	ref: 'prcsDt',		width: '15%',	type: 'output',	style:'text-align: center'},
-		            {caption: ['순번'], 		ref: 'logSn', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['프로그램ID'],	ref: 'prgrmId', 	width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['프로그램명'],	ref: 'prgrmNm', 	width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['시작일시'], 	ref: 'vrtyNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['종료일시'], 	ref: 'spcfctNm',	width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['처리결과'], 	ref: 'brndCd',		width: '15%', 	type: 'output',	style:'text-align: center'}
+		        	{caption: ['처리일자'], 	ref: 'prcsDt',		width: '40%',	type: 'output',	style:'text-align: center'},
+		            {caption: ['순번'], 		ref: 'logSn', 		width: '40%', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['프로그램ID'],	ref: 'prgrmId', 	width: '40%', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['프로그램명'],	ref: 'prgrmNm', 	width: '40%', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속일시'],	ref: 'logYmd',		width: '40%', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['처리결과'], 	ref: 'brndCd',		width: '40%', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogBatchHstry = _SBGrid.create(SBGridProperties);
 		        grdLogBatchHstry.bind( "afterpagechanged" , tabLogBatchHstry.setGrid );
@@ -132,8 +131,7 @@
 				}
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectBatchHstryList.do", {
-		        		apcCd 				: apcCd
-					  , logYmdFrom 			: logYmdFrom
+					    logYmdFrom 			: logYmdFrom
 					  , logYmdTo 			: logYmdTo
 					  , prgrmNm 			: prgrmNm
 					  , pagingYn 			: 'Y'
@@ -150,9 +148,11 @@
 		    		jsonLogBatchHstry.length = 0;
 		        	data.resultList.forEach((item, index) => {
 						const log = {
-							userId			: item.rowSeq,
-							userNm			: item.vhclno,
-							apcNm 			: item.drvrNm
+							prcsDt			: item.prcsDt,
+							logSn			: item.logSn,
+							prgrmId			: item.prgrmId,
+							prgrmNm			: item.prgrmNm,
+							logYmd 			: item.logYmd
 						}
 						jsonLogBatchHstry.push(log);
 

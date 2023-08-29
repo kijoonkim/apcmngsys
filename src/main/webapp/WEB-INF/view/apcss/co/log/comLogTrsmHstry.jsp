@@ -111,13 +111,12 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		        	{caption: ['처리일시'], 		ref: 'prcsDt',			width: '15%',	type: 'output',	style:'text-align: center'},
-		            {caption: ['인터페이스ID'], 	ref: 'intrfcId', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['인터페이스명'],		ref: 'intrfcNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['송수신구분'],		ref: 'sendRcptnSeCd', 	width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['처리결과'], 		ref: 'vrtyNm', 			width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['접속일시'], 		ref: 'spcfctNm',		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['종료일시'], 		ref: 'brndCd',			width: '15%', 	type: 'output',	style:'text-align: center'}
+		        	{caption: ['처리일시'], 		ref: 'prcsDt',			width: '40%',	type: 'output',	style:'text-align: center'},
+		            {caption: ['인터페이스ID'], 	ref: 'intrfcId', 		width: '40%', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['인터페이스명'],		ref: 'intrfcNm', 		width: '40%', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['송수신구분'],		ref: 'sendRcptnSeCd', 	width: '40%', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['처리결과'], 		ref: 'vrtyNm', 			width: '40%', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속일시'],		ref: 'logYmd',			width: '40%', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogTrsmHstry = _SBGrid.create(SBGridProperties);
 		        grdLogTrsmHstry.bind( "afterpagechanged" , tabLogTrsmHstry.setGrid );
@@ -149,8 +148,7 @@
 				}
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectTrsmHstryList.do", {
-		        		apcCd 				: apcCd
-					  , logYmdFrom 			: logYmdFrom
+					    logYmdFrom 			: logYmdFrom
 					  , logYmdTo 			: logYmdTo
 					  , sendRcptnSeCd 		: sendRcptnSeCd
 					  , intrfcNm 			: intrfcNm
@@ -168,9 +166,9 @@
 		    		jsonLogTrsmHstry.length = 0;
 		        	data.resultList.forEach((item, index) => {
 						const log = {
-							userId			: item.rowSeq,
-							userNm			: item.vhclno,
-							apcNm 			: item.drvrNm
+							prcsDt			: item.prcsDt,
+							sendRcptnSeCd	: item.sendRcptnSeCd,
+							logYmd 			: item.logYmd
 						}
 						jsonLogTrsmHstry.push(log);
 

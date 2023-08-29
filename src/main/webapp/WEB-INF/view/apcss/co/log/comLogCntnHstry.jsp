@@ -95,13 +95,12 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		            {caption: ['사용자ID'], 	ref: 'userId',		width: '15%',	type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자명'], 	ref: 'userNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['APC명'],		ref: 'apcNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['현재상태'],	ref: 'gdsCd', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['접속일시'], 	ref: 'vrtyNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['종료일시'], 	ref: 'spcfctNm',	width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['최초접속일시'],	ref: 'brndCd',		width: '15%', 	type: 'output',	style:'text-align: center'}
+		            {caption: ['사용자ID'], 	ref: 'userId',		width: '40%',	type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자명'], 	ref: 'userNm', 		width: '40%', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['APC명'],		ref: 'apcNm', 		width: '40%', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['현재상태'],	ref: 'gdsCd', 		width: '40%', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속일시'],	ref: 'prslDt',		width: '40%', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['최초접속일시'],	ref: 'brndCd',		width: '40%', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogCntnHstry = _SBGrid.create(SBGridProperties);
 		        grdLogCntnHstry.bind( "afterpagechanged" , tabLogCntnHstry.setGrid );
@@ -132,8 +131,7 @@
 				}
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectCntnHstryList.do", {
-		        		apcCd 				: apcCd
-					  , logYmdFrom 			: logYmdFrom
+					    logYmdFrom 			: logYmdFrom
 					  , logYmdTo 			: logYmdTo
 					  , userNm 				: userNm
 					  , pagingYn 			: 'Y'
@@ -152,7 +150,8 @@
 						const log = {
 							userId			: item.rowSeq,
 							userNm			: item.vhclno,
-							apcNm 			: item.drvrNm
+							apcNm 			: item.drvrNm,
+							prslDt	 		: item.prslDt
 						}
 						jsonLogCntnHstry.push(log);
 

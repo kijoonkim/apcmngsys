@@ -108,4 +108,12 @@ public class ComLogVO extends ComVO {
 	 * 사용자IP
 	 */
 	private String userIp;
+	/**
+	 * APC코드
+	 */
+	private String apcCd;
+	/**
+	 * APC명
+	 */
+	private String apcNm;
 }

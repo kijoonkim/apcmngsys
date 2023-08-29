@@ -2,8 +2,10 @@ package com.at.apcss.co.log.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.co.log.mapper.ComLogMapper;
 import com.at.apcss.co.log.service.ComLogService;
 import com.at.apcss.co.log.vo.ComLogVO;
 
@@ -25,29 +27,40 @@ import com.at.apcss.co.log.vo.ComLogVO;
  */
 @Service("comLogService")
 public class ComLogServiceImpl implements ComLogService {
+	
+	@Autowired
+	private ComLogMapper comLogMapper;
 
 	@Override
 	public List<ComLogVO> selectCntnHstryList(ComLogVO comLogVO) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		List<ComLogVO> resultList = comLogMapper.selectCntnHstryList(comLogVO);
+		
+		return resultList;
 	}
 
 	@Override
 	public List<ComLogVO> selectMenuHstryList(ComLogVO comLogVO) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		List<ComLogVO> resultList = comLogMapper.selectMenuHstryList(comLogVO);
+		
+		return resultList;
 	}
 
 	@Override
 	public List<ComLogVO> selectTrsmHstryList(ComLogVO comLogVO) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		List<ComLogVO> resultList = comLogMapper.selectTrsmHstryList(comLogVO);
+		
+		return resultList;
 	}
 
 	@Override
 	public List<ComLogVO> selectBatchHstryList(ComLogVO comLogVO) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		List<ComLogVO> resultList = comLogMapper.selectBatchHstryList(comLogVO);
+		
+		return resultList;
 	}
 
 }
