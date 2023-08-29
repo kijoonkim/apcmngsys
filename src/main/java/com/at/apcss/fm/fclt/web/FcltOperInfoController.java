@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.fm.fclt.service.FcltOperInfoService;
-import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
+import com.at.apcss.fm.fclt.service.FcltGdsMchnInfoService;
+import com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO;
 
 
 /**
- * @Class Name : FcltOperInfoController.java
- * @Description : 운영자개요에 대한 Controller 클래스
+ * @Class Name : FcltGdsMchnInfoController.java
+ * @Description : 상품화설비현황에 대한 Controller 클래스
  * @author 정연두
  * @since 2023.06.21
  * @version 1.0
@@ -37,32 +37,31 @@ import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
  * </pre>
  */
 @Controller
-public class FcltOperInfoController extends BaseController {
+public class FcltGdsMchnInfoController extends BaseController {
 
 
-	// 운영자개요
-	@Resource(name= "fcltOperInfoService")
-	private FcltOperInfoService fcltOperInfoService;
+	// 상품화설비현황
+	@Resource(name= "fcltGdsMchnInfoService")
+	private FcltGdsMchnInfoService fcltGdsMchnInfoService;
 
-	// 운영자개요 화면이동
-	@RequestMapping("/fm/fclt/fcltOperInfo.do")
-	public String doFcltOperInfo() {
-		return "apcss/fm/fclt/fcltOperInfo";
+	// 상품화설비현황 화면이동
+	@RequestMapping("/fm/fclt/fcltGdsMchnInfo.do")
+	public String doFcltGdsMchnInfo() {
+		return "apcss/fm/fclt/fcltGdsMchnInfo";
 	}
 
-	// 운영자개요 조회
-	@PostMapping(value = "/fm/fclt/selectFcltOperInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltOperInfoVO fcltOperInfoVO, HttpServletRequest request) throws Exception{
-
+	// 상품화설비현황 조회
+	@PostMapping(value = "/fm/fclt/selectFcltGdsMchnInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltGdsMchnInfoVO fcltGdsMchnInfoVO, HttpServletRequest request) throws Exception{
+		logger.info("=============selectFcltGdsMchnInfo=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		List<FcltOperInfoVO> resultList = new ArrayList<>();
-		System.out.println("@@@@@@@@@@ param : " + fcltOperInfoVO.getApcCd() + ", " + fcltOperInfoVO.getTrgtYr());
+		List<FcltGdsMchnInfoVO> resultList = new ArrayList<>();
 
 		try {
-			 resultList = fcltOperInfoService.selectFcltOperInfoList(fcltOperInfoVO);
+			 resultList = fcltGdsMchnInfoService.selectFcltGdsMchnInfoList(fcltGdsMchnInfoVO);
 
 			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (FcltOperInfoVO msg : resultList ) {
+			 for (FcltGdsMchnInfoVO msg : resultList ) {
 				 logger.debug("msgCn : {}", msg.getMsgCn());
 			 }
 
@@ -72,77 +71,78 @@ public class FcltOperInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
+		logger.info("=============selectFcltGdsMchnInfo=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 운영자개요 등록
-	@PostMapping(value = "/fm/fclt/insertFcltOperInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertFcltOperInfo(@RequestBody FcltOperInfoVO fcltOperInfoVO, HttpServletRequest requset) throws Exception{
+	// 상품화설비현황 등록
+	@PostMapping(value = "/fm/fclt/insertFcltGdsMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertFcltGdsMchnInfo(@RequestBody FcltGdsMchnInfoVO fcltGdsMchnInfoVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============insertFcltInfo=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
 		// validation check
 
 		// audit 항목
-		fcltOperInfoVO.setSysFrstInptUserId(getUserId());
-		fcltOperInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
-		fcltOperInfoVO.setSysLastChgUserId(getUserId());
-		fcltOperInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+		fcltGdsMchnInfoVO.setSysFrstInptUserId(getUserId());
+		fcltGdsMchnInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
+		fcltGdsMchnInfoVO.setSysLastChgUserId(getUserId());
+		fcltGdsMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
 
 		int insertedCnt = 0;
 
 		try {
-			insertedCnt = fcltOperInfoService.insertFcltOperInfo(fcltOperInfoVO);
+			insertedCnt = fcltGdsMchnInfoService.insertFcltGdsMchnInfo(fcltGdsMchnInfoVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-
+		logger.info("=============insertFcltInfo=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 운영자개요 변경
-	@PostMapping(value = "/fm/fclt/updateFcltOperInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateFcltOperInfo(@RequestBody FcltOperInfoVO fcltOperInfoVO, HttpServletRequest requset) throws Exception{
+	// 상품화설비현황 변경
+	@PostMapping(value = "/fm/fclt/updateFcltGdsMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateFcltGdsMchnInfo(@RequestBody FcltGdsMchnInfoVO fcltGdsMchnInfoVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============updateFcltInfo=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
 
 		// audit 항목
-		fcltOperInfoVO.setSysLastChgUserId(getUserId());
-		fcltOperInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+		fcltGdsMchnInfoVO.setSysLastChgUserId(getUserId());
+		fcltGdsMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
 
 		int updatedCnt = 0;
 
 		try {
-			updatedCnt = fcltOperInfoService.updateFcltOperInfo(fcltOperInfoVO);
+			updatedCnt = fcltGdsMchnInfoService.updateFcltGdsMchnInfo(fcltGdsMchnInfoVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-
+		logger.info("=============updateFcltInfo=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 운영자개요 삭제
-	@PostMapping(value = "/fm/fclt/deleteFcltOperInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> deleteFcltOperInfo(@RequestBody FcltOperInfoVO fcltOperInfoVO, HttpServletRequest requset) throws Exception{
+	// 상품화설비현황 삭제
+	@PostMapping(value = "/fm/fclt/deleteFcltGdsMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteFcltGdsMchnInfo(@RequestBody FcltGdsMchnInfoVO fcltGdsMchnInfoVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
 
 		// audit 항목
-		fcltOperInfoVO.setSysLastChgUserId(getUserId());
-		fcltOperInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+		fcltGdsMchnInfoVO.setSysLastChgUserId(getUserId());
+		fcltGdsMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
 
 		int deletedCnt = 0;
 
 		try {
-			deletedCnt = fcltOperInfoService.deleteFcltOperInfo(fcltOperInfoVO);
+			deletedCnt = fcltGdsMchnInfoService.deleteFcltGdsMchnInfo(fcltGdsMchnInfoVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -153,30 +153,31 @@ public class FcltOperInfoController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 운영자개요 목록 삭제
-	@PostMapping(value = "/fm/fclt/deleteFcltOperInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> deleteFcltOperInfoList(@RequestBody List<FcltOperInfoVO> fcltOperInfoList, HttpServletRequest requset) throws Exception{
+	// 상품화설비현황 목록 삭제
+	@PostMapping(value = "/fm/fclt/deleteFcltGdsMchnInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteFcltGdsMchnInfoList(@RequestBody List<FcltGdsMchnInfoVO> fcltGdsMchnInfoList, HttpServletRequest requset) throws Exception{
+		logger.info("=============delete=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
 
 		// audit 항목
-		for (FcltOperInfoVO fcltOperInfoVO : fcltOperInfoList ) {
-			fcltOperInfoVO.setSysLastChgUserId(getUserId());
-			fcltOperInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+		for (FcltGdsMchnInfoVO fcltGdsMchnInfoVO : fcltGdsMchnInfoList ) {
+			fcltGdsMchnInfoVO.setSysLastChgUserId(getUserId());
+			fcltGdsMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
 		}
 
 		int deletedCnt = 0;
 
 		try {
-			deletedCnt = fcltOperInfoService.deleteFcltOperInfoList(fcltOperInfoList);
+			deletedCnt = fcltGdsMchnInfoService.deleteFcltGdsMchnInfoList(fcltGdsMchnInfoList);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-
+		logger.info("=============delete=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 }
