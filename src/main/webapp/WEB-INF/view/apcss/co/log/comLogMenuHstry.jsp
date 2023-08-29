@@ -22,15 +22,15 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="srch-dtp-menuYmdFrom" name="srch-dtp-menuYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="menu-dtp-logYmdFrom" name="menu-dtp-logYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="srch-dtp-menuYmdTo" name="srch-dtp-menuYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="menu-dtp-logYmdTo" name="menu-dtp-logYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td></td>
 					<th scope="row" class="th_bg">화면명</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-input id="srch-inp-scrnNm" name="srch-inp-scrnNm" uitype="text" class="form-control input-sm"></sbux-input>
+						<sbux-input id="menu-inp-menuNm" name="menu-inp-menuNm" uitype="text" class="form-control input-sm"></sbux-input>
 					</td>
 				</tr>
 			</tbody>
@@ -66,8 +66,8 @@
 				}
 
 				if (grdLogMenuHstry === null || this.prvApcCd != _apcCd) {
-					SBUxMethod.set("srch-dtp-menuYmdFrom", gfn_dateToYmd(new Date()));
-					SBUxMethod.set("srch-dtp-menuYmdTo", gfn_dateToYmd(new Date()));
+					SBUxMethod.set("menu-dtp-logYmdFrom", gfn_dateToYmd(new Date()));
+					SBUxMethod.set("menu-dtp-logYmdTo", gfn_dateToYmd(new Date()));
 					this.createGrid();
 					this.search();
 				} else {
@@ -95,13 +95,13 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		        	{caption: ['화면ID'], 	ref: 'scrnId',		width: '15%',	type: 'output',	style:'text-align: center'},
-		            {caption: ['화면명'], 	ref: 'scrnNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
+		        	{caption: ['화면ID'], 	ref: 'menuId',		width: '15%',	type: 'output',	style:'text-align: center'},
+		            {caption: ['화면명'], 	ref: 'menuNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['사용자ID'],	ref: 'userId', 		width: '15%', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['사용자명'],	ref: 'userNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['APC명'], 	ref: 'apcNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['접속일시'],	ref: 'spcfctNm',	width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['종료일시'], 	ref: 'brndCd',		width: '15%', 	type: 'output',	style:'text-align: center'}
+		            {caption: ['접속일시'],	ref: 'prslBgngDt',	width: '15%', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['종료일시'], 	ref: 'prslEndDt',	width: '15%', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogMenuHstry = _SBGrid.create(SBGridProperties);
 		        grdLogMenuHstry.bind( "afterpagechanged" , tabLogMenuHstry.setGrid );
@@ -119,15 +119,15 @@
 			setGrid: async function(recordCountPerPage, currentPageNo) {
 
 				let apcCd = gv_selectedApcCd;
-				let menuYmdFrom = SBUxMethod.get("srch-dtp-menuYmdFrom");
-				let menuYmdTo = SBUxMethod.get("srch-dtp-menuYmdTo");
-				let scrnNm = SBUxMethod.get("srch-inp-scrnNm");
+				let logYmdFrom = SBUxMethod.get("menu-dtp-logYmdFrom");
+				let logYmdTo = SBUxMethod.get("menu-dtp-logYmdTo");
+				let menuNm = SBUxMethod.get("menu-inp-menuNm");
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectWrhsVhclList.do", {
 		        		apcCd 				: apcCd
-					  , menuYmdFrom 		: menuYmdFrom
-					  , menuYmdTo 			: menuYmdTo
-					  , scrnNm 				: scrnNm
+					  , logYmdFrom 			: logYmdFrom
+					  , logYmdTo 			: logYmdTo
+					  , menuNm 				: menuNm
 					  , pagingYn 			: 'Y'
 					  , currentPageNo 		: currentPageNo
 					  , recordCountPerPage 	: recordCountPerPage
@@ -142,9 +142,13 @@
 		    		jsonLogMenuHstry.length = 0;
 		        	data.resultList.forEach((item, index) => {
 						const log = {
-							userId			: item.rowSeq,
-							userNm			: item.vhclno,
-							apcNm 			: item.drvrNm
+							menuId			: item.menuId,
+							menuNm			: item.menuNm,
+							userId 			: item.userId,
+							userNm 			: item.userNm,
+							apcNm 			: item.apcNm,
+							prslBgngDt 		: item.prslBgngDt,
+							prslEndDt 		: item.prslEndDt
 						}
 						jsonLogMenuHstry.push(log);
 
