@@ -106,12 +106,12 @@ public class PckgCmndVO extends ComVO {
 	/**
 	 * 발주수량
 	 */
-	private int ordrQntt;
+	private int outordrQntt;
 
 	/**
 	 * 발주중량
 	 */
-	private double ordrWght;
+	private double outordrWght;
 
 	/**
 	 * 입수
@@ -141,7 +141,7 @@ public class PckgCmndVO extends ComVO {
 	/**
 	 * 발주번호
 	 */
-	private String ordrNo;
+	private String outordrno;
 
 	/**
 	 * 상품코드
