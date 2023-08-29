@@ -20,25 +20,32 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltDtaMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltDtaMngInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltDtaMngInfoVO">
+   <select id="selectFcltDtaMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltDtaMngInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltDtaMngInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltDtaMngInfo */
-				  CM.MSG_KEY	AS MSG_KEY
-				, CM.MSG_CN		AS MSG_CN
-				, CM.MSG_KND	AS MSG_KND
-				, CM.RMRK		AS RMRK
-				, CM.DEL_YN		AS DEL_YN
-				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
-				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
-				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_FCLT_DTA_MNG_INFO FCLT
-			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
+				  FCLT.TRGT_YR                       AS TRGT_YR
+				, FCLT.APC_CD                        AS APC_CD
+				, FCLT.SN                            AS SN
+				, FCLT.FCLT_SYS_INSTL_CD             AS FCLT_SYS_INSTL_CD
+				, FCLT.FCLT_SYS_HLD_YN               AS FCLT_SYS_HLD_YN
+				, FCLT.FCLT_SYS_LINK_CD              AS FCLT_SYS_LINK_CD
+				, FCLT.FCLT_SYS_MNG_CD               AS FCLT_SYS_MNG_CD
+				, FCLT.DEL_YN                        AS DEL_YN
+				, FCLT.SYS_FRST_INPT_DT              AS SYS_FRST_INPT_DT
+				, FCLT.SYS_FRST_INPT_USER_ID         AS SYS_FRST_INPT_USER_ID
+				, FCLT.SYS_FRST_INPT_PRGRM_ID        AS SYS_FRST_INPT_PRGRM_ID
+				, FCLT.SYS_LAST_CHG_DT               AS SYS_LAST_CHG_DT
+				, FCLT.SYS_LAST_CHG_USER_ID          AS SYS_LAST_CHG_USER_ID
+				, FCLT.SYS_LAST_CHG_PRGRM_ID         AS SYS_LAST_CHG_PRGRM_ID
+			 FROM TB_FCLT_DTA_MNG_INFO FCLT
+			WHERE 1=1
+]]>
+        <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  FCLT.APC_CD = #{apcCd}
+		   </if>
     </select>
 
 
@@ -62,37 +69,29 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltDtaMngInfoList */
-				  CM.MSG_KEY	AS MSG_KEY
-				, CM.MSG_CN		AS MSG_CN
-				, CM.MSG_KND	AS MSG_KND
-				, (SELECT FN_GET_COM_CD_VL_NM('MSG_KND', CM.MSG_KND) FROM DUAL) AS MSG_KND_NM
-				, CM.RMRK		AS RMRK
-				, CM.DEL_YN		AS DEL_YN
-				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
-				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
-				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_FCLT_DTA_MNG_INFO FCLT
-    	]]>
-    	<where>
-			<if test='msgKey != null and msgKey != ""'>
-				AND CM.MSG_KEY LIKE #{msgKey} || '%'
-			</if>
-
-			<if test='msgCn != null and msgCn != ""'>
-				AND CM.MSG_CN LIKE '%' || #{msgCn} || '%'
-			</if>
-
-			<if test='msgKnd != null and msgKnd != ""'>
-				AND CM.MSG_KND = #{msgKnd}
-			</if>
-
-			<if test='delYn != null and delYn != ""'>
-				AND CM.DEL_YN = #{delYn}
-			</if>
-		</where>
+				  FCLT.TRGT_YR                       AS TRGT_YR
+				, FCLT.APC_CD                        AS APC_CD
+				, FCLT.SN                            AS SN
+				, FCLT_SYS_INSTL_CD            		 AS FCLT_SYS_INSTL_CD
+				, FCLT.FCLT_SYS_HLD_YN               AS FCLT_SYS_HLD_YN
+				, FCLT.FCLT_SYS_LINK_CD              AS FCLT_SYS_LINK_CD
+				, FCLT.FCLT_SYS_MNG_CD               AS FCLT_SYS_MNG_CD
+				, FCLT.DEL_YN                        AS DEL_YN
+				, FCLT.SYS_FRST_INPT_DT              AS SYS_FRST_INPT_DT
+				, FCLT.SYS_FRST_INPT_USER_ID         AS SYS_FRST_INPT_USER_ID
+				, FCLT.SYS_FRST_INPT_PRGRM_ID        AS SYS_FRST_INPT_PRGRM_ID
+				, FCLT.SYS_LAST_CHG_DT               AS SYS_LAST_CHG_DT
+				, FCLT.SYS_LAST_CHG_USER_ID          AS SYS_LAST_CHG_USER_ID
+				, FCLT.SYS_LAST_CHG_PRGRM_ID         AS SYS_LAST_CHG_PRGRM_ID
+			 FROM TB_FCLT_DTA_MNG_INFO FCLT
+			WHERE 1=1
+  ]]>
+          <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  FCLT.APC_CD = #{apcCd}
+		   </if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -108,17 +107,22 @@
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- 2023.06.09  	jeongyd        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <insert id="insertFcltDtaMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltDtaMngInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.insertFcltDtaMngInfo */
 	    	  INTO TB_FCLT_DTA_MNG_INFO FCLT
 	    		(
-	    			MSG_KEY
-	    		  , MSG_CN
-	    		  , MSG_KND
-	    		  , RMRK
+
+	    		  , TRGT_YR
+	    		  , APC_CD
+	    		  , SN
+	    		  , FCLT_SYS_INSTL_CD
+	    		  , FCLT_SYS_HLD_YN
+	    		  , FCLT_SYS_LINK_CD
+	    		  , FCLT_SYS_MNG_CD
+	    		  , DEL_YN
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
@@ -128,16 +132,21 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    #{msgKey}
-	   			  , #{msgCn}
-	   			  , #{msgKnd}
-	   			  , #{rmrk}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
+	    		  #{trgtYr}fclt_
+	    		, #{apcCd}
+	    		, #{sn}
+	    		, #{fcltSysInstlCd}
+	    		, #{fcltSysHldYn}
+	    		, #{fcltSysLinkCd}
+	    		, #{fcltSysMngCd}
+	    		, #{delYn}
+	    		, SYSDATE
+	    		, #{sysFrstInptUserId}
+	    		, #{sysFrstInptPrgrmId}
+	    		, SYSDATE
+	    		, #{sysLastChgUserId}
+	    		, #{sysLastChgPrgrmId}
+
 	   			)
     	]]>
     </insert>
@@ -148,16 +157,20 @@
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- 2023.06.09  	jeongyd        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <update id="updateFcltDtaMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltDtaMngInfoVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.updateFcltDtaMngInfo */
 	    		TB_FCLT_DTA_MNG_INFO FCLT
 			   SET
-			 	  MSG_CN	= #{msgCn}
-			 	, MSG_KND 	= #{msgKnd}
-			 	, RMRK 		= #{rmrk}
+			         TRGT_YR			  =     #{trgtYr}
+			        , APC_CD    	      =     #{apcCd}
+			        , SN            	  =     #{sn}
+			        , FCLT_SYS_INSTL_CD   =     #{fcltSysInstlCd}
+			        , FCLT_SYS_HLD_YN     =     #{fcltSysHldYn}
+			        , FCLT_SYS_LINK_CD    =     #{fcltSysLinkCd}
+			        , FCLT_SYS_MNG_CD     =     #{fcltSysMngCd}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
@@ -167,9 +180,9 @@
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
+			WHERE 1=1
+		      AND TRGT_YR = #{trgtYr}
+		      AND APC_CD = #{apcCd}
     	]]>
     </update>
 
@@ -179,16 +192,17 @@
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- 2023.06.09  	jeongyd        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <delete id="deleteFcltDtaMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltDtaMngInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.deleteFcltDtaMngInfo */
 	    		TB_FCLT_DTA_MNG_INFO FCLT
-			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
+			WHERE 1=1
+		      AND TRGT_YR = #{trgtYr}
+		      AND APC_CD = #{apcCd}
     	]]>
     </delete>
 
 </mapper>
+

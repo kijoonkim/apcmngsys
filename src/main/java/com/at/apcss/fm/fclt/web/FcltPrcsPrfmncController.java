@@ -53,6 +53,7 @@ public class FcltPrcsPrfmncController extends BaseController {
 	// 산지유통처리실적 조회
 	@PostMapping(value = "/fm/fclt/selectFcltPrcsPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltPrcsPrfmncVO fcltPrcsPrfmncVO, HttpServletRequest request) throws Exception{
+		logger.info("=============select=====start========");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltPrcsPrfmncVO> resultList = new ArrayList<>();
@@ -71,13 +72,15 @@ public class FcltPrcsPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
+		logger.info("=============select=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 산지유통처리실적 등록
 	@PostMapping(value = "/fm/fclt/insertFcltPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltPrcsPrfmnc(@RequestBody FcltPrcsPrfmncVO fcltPrcsPrfmncVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============insert=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -98,6 +101,7 @@ public class FcltPrcsPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+		logger.info("=============insert=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -105,6 +109,8 @@ public class FcltPrcsPrfmncController extends BaseController {
 	// 산지유통처리실적 변경
 	@PostMapping(value = "/fm/fclt/updateFcltPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateFcltPrcsPrfmnc(@RequestBody FcltPrcsPrfmncVO fcltPrcsPrfmncVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============update=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -123,6 +129,7 @@ public class FcltPrcsPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+		logger.info("=============update=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -130,6 +137,8 @@ public class FcltPrcsPrfmncController extends BaseController {
 	// 산지유통처리실적 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltPrcsPrfmnc(@RequestBody FcltPrcsPrfmncVO fcltPrcsPrfmncVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============delete=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -148,6 +157,7 @@ public class FcltPrcsPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		logger.info("=============delete=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -155,6 +165,8 @@ public class FcltPrcsPrfmncController extends BaseController {
 	// 산지유통처리실적 목록 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltPrcsPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltPrcsPrfmncList(@RequestBody List<FcltPrcsPrfmncVO> fcltPrcsPrfmncList, HttpServletRequest requset) throws Exception{
+		logger.info("=============deleteList=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -175,6 +187,7 @@ public class FcltPrcsPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		logger.info("=============deleteList=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}

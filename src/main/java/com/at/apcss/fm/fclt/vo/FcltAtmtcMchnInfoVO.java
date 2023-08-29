@@ -11,7 +11,7 @@ public class FcltAtmtcMchnInfoVO extends ComVO{
 
 	private String trgtYr;
 	private String apcCd;
-	private int sN;
+	private int sn;
 	private String fcltInstlCd;
 	private String fcltHldYn;
 	private String msgKey;

@@ -21,6 +21,13 @@ public class FcltSortMchnInfoVO extends ComVO{
 	private String msgKnd;
 	private String msgKndNm;
 	private String rmrk;
+	@Override
+	public String toString() {
+		return "FcltSortMchnInfoVO [trgtYr=" + trgtYr + ", apcCd=" + apcCd + ", sN=" + sN + ", sortMchnItemCd="
+				+ sortMchnItemCd + ", sortMchnHldYn=" + sortMchnHldYn + ", sortMchnPrcsSeCd=" + sortMchnPrcsSeCd
+				+ ", sortMchnPrcsHr=" + sortMchnPrcsHr + ", msgKey=" + msgKey + ", msgCn=" + msgCn + ", msgKnd="
+				+ msgKnd + ", msgKndNm=" + msgKndNm + ", rmrk=" + rmrk + "]";
+	}
 }
 
 

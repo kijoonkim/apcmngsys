@@ -13,7 +13,7 @@ public class ＷholExmnSchdlMngVO extends ComVO{
 	private String apcCd;
 	private String exmnCycl;
 	private String exmnSeCd;
-	private int sN;
+	private int sn;
 	private String endDt;
 	private String msgKey;
 	private String msgCn;

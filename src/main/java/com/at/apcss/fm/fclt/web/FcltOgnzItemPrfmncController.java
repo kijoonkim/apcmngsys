@@ -53,6 +53,7 @@ public class FcltOgnzItemPrfmncController extends BaseController {
 	// 유통품목처리실적 조회
 	@PostMapping(value = "/fm/fclt/selectFcltOgnzItemPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltOgnzItemPrfmncVO fcltOgnzItemPrfmncVO, HttpServletRequest request) throws Exception{
+		logger.info("=============select=====start========");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltOgnzItemPrfmncVO> resultList = new ArrayList<>();
@@ -71,6 +72,7 @@ public class FcltOgnzItemPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		logger.info("=============select=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -78,6 +80,8 @@ public class FcltOgnzItemPrfmncController extends BaseController {
 	// 유통품목처리실적 등록
 	@PostMapping(value = "/fm/fclt/insertFcltOgnzItemPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltOgnzItemPrfmnc(@RequestBody FcltOgnzItemPrfmncVO fcltOgnzItemPrfmncVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============insert=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -98,6 +102,7 @@ public class FcltOgnzItemPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+		logger.info("=============insert=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -106,6 +111,7 @@ public class FcltOgnzItemPrfmncController extends BaseController {
 	@PostMapping(value = "/fm/fclt/updateFcltOgnzItemPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateFcltOgnzItemPrfmnc(@RequestBody FcltOgnzItemPrfmncVO fcltOgnzItemPrfmncVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		logger.info("=============update=====start========");
 
 		// validation check
 
@@ -123,6 +129,7 @@ public class FcltOgnzItemPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+		logger.info("=============update=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -130,6 +137,8 @@ public class FcltOgnzItemPrfmncController extends BaseController {
 	// 유통품목처리실적 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltOgnzItemPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltOgnzItemPrfmnc(@RequestBody FcltOgnzItemPrfmncVO fcltOgnzItemPrfmncVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============delete=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -148,6 +157,7 @@ public class FcltOgnzItemPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		logger.info("=============delete=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -155,6 +165,8 @@ public class FcltOgnzItemPrfmncController extends BaseController {
 	// 유통품목처리실적 목록 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltOgnzItemPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltOgnzItemPrfmncList(@RequestBody List<FcltOgnzItemPrfmncVO> fcltOgnzItemPrfmncList, HttpServletRequest requset) throws Exception{
+		logger.info("=============deleteList=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -175,6 +187,7 @@ public class FcltOgnzItemPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		logger.info("=============deleteList=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}

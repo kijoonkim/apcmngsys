@@ -45,18 +45,18 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
+						<th class="th_bg" class="th_bg" scope="row" style="border-bottom:1px solid white " >APC명</th>
 						<td colspan= "3" class="td_input" style="border-right:hidden;">
 							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
-						<td>
+						<td class="td_input">
 							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 						</td>
-						<th scope="row">대상연도</th>
+						<th class="th_bg" class="th_bg" scope="row">대상연도</th>
 						<td class="td_input"  style="border-right: hidden;">
 							<sbux-input id="srch-inp-warehouse" name="srch-inp-warehouse" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
-						<td colspan="5"></td>
+						<td class="td_input" colspan="5"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -80,28 +80,28 @@
 				<tbody>
 					<tr>
 						<th></th>
-						<th>내국인(명)</th>
-						<th>외국인(명)</th>
+						<th class="th_bg" class="th_bg">내국인(명)</th>
+						<th class="th_bg" class="th_bg">외국인(명)</th>
 					</tr>
 					<tr>
-						<td>
+						<td class="td_input">
 							<sbux-input id="srch-inp-opera1" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="정규직" ></sbux-input>
 						</td>
-						<td>
+						<td class="td_input">
 							<sbux-input id="srch-inp-opera2" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="10" ></sbux-input>
 						</td>
-						<td>
+						<td class="td_input">
 							<sbux-input id="srch-inp-opera3" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="1" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
-						<td>
+						<td class="td_input">
 							<sbux-input id="srch-inp-opera4" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="일용직(연간평균)" ></sbux-input>
 						</td>
-						<td>
+						<td class="td_input">
 							<sbux-input id="srch-inp-opera5" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="5" ></sbux-input>
 						</td>
-						<td>
+						<td class="td_input">
 							<sbux-input id="srch-inp-opera6" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="10" ></sbux-input>
 						</td>
 					</tr>
