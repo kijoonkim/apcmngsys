@@ -122,6 +122,14 @@
 				let logYmdFrom = SBUxMethod.get("cntn-dtp-logYmdFrom");
 				let logYmdTo = SBUxMethod.get("cntn-dtp-logYmdTo");
 				let userNm = SBUxMethod.get("cntn-inp-userNm");
+				if (gfn_isEmpty(logYmdFrom)){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
+				if (gfn_isEmpty(logYmdTo)){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectWrhsVhclList.do", {
 		        		apcCd 				: apcCd
