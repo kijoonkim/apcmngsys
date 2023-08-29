@@ -42,7 +42,7 @@
 				</ul>
 			</div>	
 			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-logCntnHstry" style="height:400px;"></div>
+				<div id="sb-area-logCntnHstry" style="height:600px;"></div>
 			</div>
 		</div>
 	</section>
@@ -131,7 +131,7 @@
 		            return;
 				}
 
-		        const postJsonPromise = gfn_postJSON("/co/log/selectWrhsVhclList.do", {
+		        const postJsonPromise = gfn_postJSON("/co/log/selectCntnHstryList.do", {
 		        		apcCd 				: apcCd
 					  , logYmdFrom 			: logYmdFrom
 					  , logYmdTo 			: logYmdTo
