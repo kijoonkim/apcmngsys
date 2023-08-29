@@ -11,13 +11,18 @@ public class FcltInfoVO extends ComVO{
 
 	private String trgtYr;
 	private String apcCd;
-	private int sN;
 	private String fcltCd;
 	private String fcltNm;
 	private String fcltArea;
-	private String rMRK;
+	private String rmrk;
 	private String msgKey;
 	private String msgCn;
 	private String msgKnd;
 	private String msgKndNm;
+	@Override
+	public String toString() {
+		return "FcltInfoVO [trgtYr=" + trgtYr + ", apcCd=" + apcCd +  ", fcltCd=" + fcltCd + ", fcltNm="
+				+ fcltNm + ", fcltArea=" + fcltArea + ", rMRK=" + rmrk + ", msgKey=" + msgKey + ", msgCn=" + msgCn
+				+ ", msgKnd=" + msgKnd + ", msgKndNm=" + msgKndNm + "]";
+	}
 }

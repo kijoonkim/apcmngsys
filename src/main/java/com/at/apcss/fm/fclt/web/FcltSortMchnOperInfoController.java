@@ -53,7 +53,7 @@ public class FcltSortMchnOperInfoController extends BaseController {
 	// 선별기운영기간 조회
 	@PostMapping(value = "/fm/fclt/selectFcltSortMchnOperInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO, HttpServletRequest request) throws Exception{
-
+		logger.info("=============selectMenuList=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltSortMchnOperInfoVO> resultList = new ArrayList<>();
 
@@ -71,13 +71,14 @@ public class FcltSortMchnOperInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
+		logger.info("=============selectMenuList=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 선별기운영기간 등록
 	@PostMapping(value = "/fm/fclt/insertFcltSortMchnOperInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltSortMchnOperInfo(@RequestBody FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============insert=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -98,13 +99,14 @@ public class FcltSortMchnOperInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-
+		logger.info("=============insert=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 선별기운영기간 변경
 	@PostMapping(value = "/fm/fclt/updateFcltSortMchnOperInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateFcltSortMchnOperInfo(@RequestBody FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============update=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -123,13 +125,14 @@ public class FcltSortMchnOperInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-
+		logger.info("=============update=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 선별기운영기간 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltSortMchnOperInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltSortMchnOperInfo(@RequestBody FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============delete=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -148,13 +151,14 @@ public class FcltSortMchnOperInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-
+		logger.info("=============delete=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 선별기운영기간 목록 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltSortMchnOperInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltSortMchnOperInfoList(@RequestBody List<FcltSortMchnOperInfoVO> fcltSortMchnOperInfoList, HttpServletRequest requset) throws Exception{
+		logger.info("=============deletList=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -175,7 +179,7 @@ public class FcltSortMchnOperInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-
+		logger.info("=============deleteLis=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 }

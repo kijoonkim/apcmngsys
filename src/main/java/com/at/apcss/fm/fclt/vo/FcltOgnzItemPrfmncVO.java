@@ -11,16 +11,14 @@ public class FcltOgnzItemPrfmncVO extends ComVO{
 
 	private String trgtYr;
 	private String apcCd;
-	private int sN;
-	private String fcltOgnzClsfCd;
-	private String fcltOgnzTrmtCd;
+	private int sn;
+	private String fcltOgnzItemCd;
 	private int fcltOgnzTrmtAmt;
+	private int fcltOgnzTrmtVlm;
 	private String msgKey;
 	private String msgCn;
 	private String msgKnd;
 	private String msgKndNm;
-	private String rmrk;
 }
-
 
 

@@ -53,6 +53,7 @@ public class ＷholExmnSchdlMngController extends BaseController {
 	// 전수조사일정관리 조회
 	@PostMapping(value = "/fm/fclt/selectＷholExmnSchdlMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody ＷholExmnSchdlMngVO wholExmnSchdlMngVO, HttpServletRequest request) throws Exception{
+		logger.info("=============select=====start========");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<ＷholExmnSchdlMngVO> resultList = new ArrayList<>();
@@ -71,6 +72,7 @@ public class ＷholExmnSchdlMngController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		logger.info("=============select=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -79,6 +81,7 @@ public class ＷholExmnSchdlMngController extends BaseController {
 	@PostMapping(value = "/fm/fclt/insertＷholExmnSchdlMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertＷholExmnSchdlMng(@RequestBody ＷholExmnSchdlMngVO wholExmnSchdlMngVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		logger.info("=============insert=====start========");
 
 		// validation check
 
@@ -98,6 +101,7 @@ public class ＷholExmnSchdlMngController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+		logger.info("=============insert=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -105,6 +109,8 @@ public class ＷholExmnSchdlMngController extends BaseController {
 	// 전수조사일정관리 변경
 	@PostMapping(value = "/fm/fclt/updateＷholExmnSchdlMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateＷholExmnSchdlMng(@RequestBody ＷholExmnSchdlMngVO wholExmnSchdlMngVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============update=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -123,6 +129,7 @@ public class ＷholExmnSchdlMngController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+		logger.info("=============update=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -131,6 +138,7 @@ public class ＷholExmnSchdlMngController extends BaseController {
 	@PostMapping(value = "/fm/fclt/deleteＷholExmnSchdlMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteＷholExmnSchdlMng(@RequestBody ＷholExmnSchdlMngVO wholExmnSchdlMngVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		logger.info("=============delete=====start========");
 
 		// validation check
 
@@ -148,6 +156,7 @@ public class ＷholExmnSchdlMngController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		logger.info("=============delete=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -155,6 +164,8 @@ public class ＷholExmnSchdlMngController extends BaseController {
 	// 전수조사일정관리 목록 삭제
 	@PostMapping(value = "/fm/fclt/deleteＷholExmnSchdlMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteＷholExmnSchdlMngList(@RequestBody List<ＷholExmnSchdlMngVO> wholExmnSchdlMngList, HttpServletRequest requset) throws Exception{
+		logger.info("=============deleteList=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -175,6 +186,7 @@ public class ＷholExmnSchdlMngController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		logger.info("=============deleteList=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}

@@ -40,11 +40,15 @@
 
 			  FROM TB_FCLT_SORT_MCHN_INFO FCLT
 			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </select>
+		]]>
 
+        <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  FCLT.APC_CD = #{apcCd}
+		   </if>
+    </select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfoList			-->
@@ -86,8 +90,13 @@
 			 WHERE 1=1
 		     AND TRGT_YR = #{trgtYr}
 		     AND  APC_CD = #{apcCd}
-    	]]>
-
+  ]]>
+          <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  FCLT.APC_CD = #{apcCd}
+		   </if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -127,20 +136,20 @@
 	    		)
 	   		VALUES
 	   			(
-					, #{TRGT_YR}
-					, #{APC_CD}
-					, #{SN}
-					, #{SORT_MCHN_ITEM_CD}
-					, #{SORT_MCHN_HLD_YN}
-					, #{SORT_MCHN_PRCS_SE_CD}
-					, #{SORT_MCHN_PRCS_HR}
-					, #{DEL_YN}
-					, #{SYS_FRST_INPT_DT}
-					, #{SYS_FRST_INPT_USER_ID}
-					, #{SYS_FRST_INPT_PRGRM_ID}
-					, #{SYS_LAST_CHG_DT}
-					, #{SYS_LAST_CHG_USER_ID}
-					, #{SYS_LAST_CHG_PRGRM_ID}
+					, #{trgtYr}
+					, #{apcCd}
+					, #{sn}
+					, #{sortMchnItemCd}
+					, #{sortMchnHldYn}
+					, #{sortMchnPrcsSeCd}
+					, #{sortMchnPrcsHr}
+					, #{delYn}
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
 	   			)
     	]]>
     </insert>
@@ -158,13 +167,13 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.updateFcltSortMchnInfo */
 	    		TB_FCLT_SORT_MCHN_INFO FCLT
 			   SET
-			 	    TRGT_YR              =  #{TRGT_YR}
-			 	  , APC_CD               =  #{APC_CD}
-			 	  , SN                   =  #{SN}
-                  , SORT_MCHN_ITEM_CD    =  #{SORT_MCHN_ITEM_CD}
-                  , SORT_MCHN_HLD_YN     =  #{SORT_MCHN_HLD_YN}
-                  , SORT_MCHN_PRCS_SE_CD =  #{SORT_MCHN_PRCS_SE_CD}
-                  , SORT_MCHN_PRCS_HR    =  #{SORT_MCHN_PRCS_HR}
+			 	    TRGT_YR              =  #{trgtYr}
+			 	  , APC_CD               =  #{apcCd}
+			 	  , SN                   =  #{sn}
+                  , SORT_MCHN_ITEM_CD    =  #{sortMchnItemCd}
+                  , SORT_MCHN_HLD_YN     =  #{sortMchnHldYn}
+                  , SORT_MCHN_PRCS_SE_CD =  #{sortMchnPrcsSeCd}
+                  , SORT_MCHN_PRCS_HR    =  #{sortMchnPrcsHr}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

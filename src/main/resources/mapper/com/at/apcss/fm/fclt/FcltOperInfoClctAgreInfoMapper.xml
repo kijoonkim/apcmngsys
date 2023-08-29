@@ -42,16 +42,15 @@
 				, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
 				, FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
 		    FROM TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
-		   WHERE 1=1
-    	]]>
-		   <if test='trgtYr != null and !trgtYr.equals("")'>
+		    WHERE 1=1
+		     		]]>
+        		<if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  TRGT_YR = #{trgtYr}
 		   </if>
 		   <if test='apcCd != null and !apcCd.equals("")'>
 		     AND  APC_CD = #{apcCd}
 		   </if>
     </select>
-
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoClctAgreInfoMapper.selectFcltOperInfoClctAgreInfoList			-->
@@ -93,12 +92,12 @@
 				, FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
 		    FROM  TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
 		   WHERE 1=1
-    	]]>
-    	   <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  TRGT_YR = #{trgtYr}
+   ]]>
+          <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
 		   </if>
 		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  APC_CD = #{apcCd}
+		     AND  FCLT.APC_CD = #{apcCd}
 		   </if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -133,7 +132,6 @@
 		    		  , OPER_OGNZ_EML
 		    		  , APC_HLD_YN
 		    		  , PRSNA_DATA_AGRD_YN
-		    		  , DEL_YN
 		    		   ,SYS_FRST_INPT_DT
 		    		  , SYS_FRST_INPT_USER_ID
 		    		  , SYS_FRST_INPT_PRGRM_ID
@@ -154,7 +152,6 @@
 		   			  ,  #{operOgnzEml}
 		   			  ,  #{apcHldYn}
 		   			  ,  #{prsnaDataAgrdYn}
-		   			  ,  #{delYn}
 		   			  ,  SYSDATE
 		   			  ,  #{sysFrstInptUserId}
 		   			  ,  #{sysFrstInptPrgrmId}

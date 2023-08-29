@@ -36,12 +36,15 @@
 				, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
 			  FROM TB_FCLT_LWTP_STRG_MCHN_OPER_INFO FCLT
-			  WHERE 1=1
-		    	 AND TRGT_YR = #{trgtYr}
-		    	 AND  APC_CD = #{apcCd}
-    	]]>
+ 			 WHERE 1=1
+		     		]]>
+        		<if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  APC_CD = #{apcCd}
+		   </if>
     </select>
-
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnOperInfoMapper.selectFcltLwtpStrgMchnOperInfoList			-->
@@ -75,10 +78,14 @@
 				, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
 			  FROM TB_FCLT_LWTP_STRG_MCHN_OPER_INFO FCLT
-			  WHERE 1=1
-		    	 AND TRGT_YR = #{trgtYr}
-		    	 AND  APC_CD = #{apcCd}
-    	]]>
+ 			 WHERE 1=1
+  ]]>
+          <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  FCLT.APC_CD = #{apcCd}
+		   </if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -87,7 +94,6 @@
     	</if>
     	<!-- End 페이징 -->
     </select>
-
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnOperInfoMapper.insertFcltLwtpStrgMchnOperInfo				-->
 	<!-- DESC : 저온저장고운영기간 등록                                             				-->
@@ -117,18 +123,18 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    #{TRGT_YR}
-	   			  , #{SN}
-	   			  , #{FCLT_CD}
-	   			  , #{SORT_MCHN_OPER_CD}
-	   			  , #{SORT_MCHN_OPER_YN}
-	   			  , #{DEL_YN}
-	   			  , #{SYS_FRST_INPT_DT}
-	   			  , #{SYS_FRST_INPT_USER_ID}
-	   			  , #{SYS_FRST_INPT_PRGRM_ID}
-	   			  , #{SYS_LAST_CHG_DT}
-	   			  , #{SYS_LAST_CHG_USER_ID}
-	   			  , #{SYS_LAST_CHG_PRGRM_ID}
+	   			    #{trgtYr}
+	   			  , #{sn}
+	   			  , #{fcltCd}
+	   			  , #{sortMchnOperCd}
+	   			  , #{sortMchnOperYn}
+	   			  , #{delYn}
+	   			  ,	SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysLastChgUserId}
+	   			  , #{sysLastChgPrgrmId}
 	   			)
     	]]>
     </insert>
@@ -146,11 +152,11 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnOperInfoMapper.updateFcltLwtpStrgMchnOperInfo */
 	    		TB_FCLT_LWTP_STRG_MCHN_OPER_INFO FCLT
 			   SET
-			 	  TRGT_YR            =  #{TRGT_YR}
-			 	, SN                 =  #{SN}
-			 	, FCLT_CD            =  #{FCLT_CD}
-			 	, SORT_MCHN_OPER_CD  =  #{SORT_MCHN_OPER_CD}
-			 	, SORT_MCHN_OPER_YN  =  #{SORT_MCHN_OPER_YN}
+			 	  TRGT_YR            =  #{trgtYr}
+			 	, SN                 =  #{sn}
+			 	, FCLT_CD            =  #{fcltCd}
+			 	, SORT_MCHN_OPER_CD  =  #{sortMchnOperCd}
+			 	, SORT_MCHN_OPER_YN  =  #{sortMchnOperYn}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

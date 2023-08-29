@@ -11,16 +11,15 @@ public class FcltOgnzPrcsPrfmncVO extends ComVO{
 
 	private String trgtYr;
 	private String apcCd;
-	private int sN;
-	private String itemCd;
-	private int fcltOgnzTrmtAmt;
-	private String fcltOgnzTrmtVlm;
+	private int sn;
+	private String fcltOgnzClsfCd;     //시설 처리 분류 코드
+	private String fcltOgnzTrmtCd;  //시설 처리 취급 코드
+	private int fcltOgnzTrmtAmt;   //시설 처리 취급금액
 	private String msgKey;
 	private String msgCn;
 	private String msgKnd;
 	private String msgKndNm;
 	private String rmrk;
 }
-
 
 

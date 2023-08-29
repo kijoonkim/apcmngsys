@@ -38,9 +38,13 @@
                 , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
 			  FROM TB_FCLT_PRCS_PRFMNC FCLT
 			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
+		]]>
+        <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  FCLT.APC_CD = #{apcCd}
+		   </if>
     </select>
 
 
@@ -81,7 +85,13 @@
 			 WHERE 1=1
 		     AND TRGT_YR = #{trgtYr}
 		     AND  APC_CD = #{apcCd}
-    	]]>
+  ]]>
+          <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  FCLT.APC_CD = #{apcCd}
+		   </if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -120,19 +130,19 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    #{TRGT_YR}
-	   			  , #{APC_CD}
-	   			  , #{SN}
-	   			  , #{FCLT_PRCS_SE_CD}
-	   			  , #{FCLT_PRCS_TRMT_CD}
-	   			  , #{FCLT_PRCS_TRMT_AMT}
-	   			  , #{DEL_YN}
-	   			  , #{SYS_FRST_INPT_DT}
-	   			  , #{SYS_FRST_INPT_USER_ID}
-	   			  , #{SYS_FRST_INPT_PRGRM_ID}
-	   			  , #{SYS_LAST_CHG_DT}
-	   			  , #{SYS_LAST_CHG_USER_ID}
-	   			  , #{SYS_LAST_CHG_PRGRM_ID}
+	   			    #{trgtYr}
+	   			  , #{apcCd}
+	   			  , #{sn}
+	   			  , #{fcltPrcsSeCd}
+	   			  , #{fcltPrcsTrmtCd}
+	   			  , #{fcltPrcsTrmtAmt}
+	   			  , #{delYn}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysLastChgUserId}
+	   			  , #{sysLastChgPrgrmId}
 	   			)
     	]]>
     </insert>
@@ -150,12 +160,12 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltPrcsPrfmncMapper.updateFcltPrcsPrfmnc */
 	    		TB_FCLT_PRCS_PRFMNC FCLT
 			   SET
-			 	  TRGT_YR             = #{TRGT_YR}
-			 	, APC_CD              = #{APC_CD}
-			 	, SN                  = #{SN}
-			 	, FCLT_PRCS_SE_CD     = #{FCLT_PRCS_SE_CD}
-			 	, FCLT_PRCS_TRMT_CD   = #{FCLT_PRCS_TRMT_CD}
-			 	, FCLT_PRCS_TRMT_AMT  = #{FCLT_PRCS_TRMT_AMT}
+			 	  TRGT_YR             = #{trgtYr}
+			 	, APC_CD              = #{apcCd}
+			 	, SN                  = #{sn}
+			 	, FCLT_PRCS_SE_CD     = #{fcltPrcsSeCd}
+			 	, FCLT_PRCS_TRMT_CD   = #{fcltPrcsTrmtCd}
+			 	, FCLT_PRCS_TRMT_AMT  = #{fcltPrcsTrmtAmt}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
