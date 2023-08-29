@@ -45,7 +45,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-inqYmd" name="srch-dtp-inqYmd" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-logYmd" name="srch-dtp-logYmd" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td colspan="5"></td>
 							<th scope="row" class="th_bg">재고구분</th>
@@ -262,7 +262,7 @@
 	}
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
-		SBUxMethod.set("srch-dtp-inqYmd", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-logYmd", gfn_dateToYmd(new Date()));
 		
 		fn_initSBSelect();
 		fn_initTabs();

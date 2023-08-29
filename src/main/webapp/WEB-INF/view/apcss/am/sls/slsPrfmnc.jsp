@@ -18,6 +18,7 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnSendMail" name="btnSendMail" uitype="normal" class="btn btn-sm btn-primary" text="메일발송" onclick="fn_sendMail"></sbux-button>
 					<sbux-button id="btnSlipDlng" name="btnSlipDlng" uitype="normal" class="btn btn-sm btn-primary" text="거래명세표" onclick="fn_slipDlng"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 				</div>
@@ -260,6 +261,11 @@
     	let recordCountPerPage = grdSlsPrfmnc.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdSlsPrfmnc.getSelectPageIndex(); 
     	fn_callSelectSlsPrfmncList(recordCountPerPage, currentPageNo);
+    }
+	
+	// 메일발송
+    async function fn_sendMail(){
+    	
     }
 	
 	// 거래명세표

@@ -22,15 +22,15 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="srch-dtp-batchYmdFrom" name="srch-dtp-batchYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="batch-dtp-logYmdFrom" name="batch-dtp-logYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="srch-dtp-batchYmdTo" name="srch-dtp-batchYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="batch-dtp-logYmdTo" name="batch-dtp-logYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td></td>
 					<th scope="row" class="th_bg">프로그램명</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-input id="srch-inp-prgrmNm" name="srch-inp-prgrmNm" uitype="text" class="form-control input-sm"></sbux-input>
+						<sbux-input id="batch-inp-prgrmNm" name="batch-inp-prgrmNm" uitype="text" class="form-control input-sm"></sbux-input>
 					</td>
 				</tr>
 			</tbody>
@@ -66,8 +66,8 @@
 				}
 
 				if (grdLogBatchHstry === null || this.prvApcCd != _apcCd) {
-					SBUxMethod.set("srch-dtp-batchYmdFrom", gfn_dateToYmd(new Date()));
-					SBUxMethod.set("srch-dtp-batchYmdTo", gfn_dateToYmd(new Date()));
+					SBUxMethod.set("batch-dtp-logYmdFrom", gfn_dateToYmd(new Date()));
+					SBUxMethod.set("batch-dtp-logYmdTo", gfn_dateToYmd(new Date()));
 					this.createGrid();
 					this.search();
 				} else {
@@ -119,14 +119,14 @@
 			setGrid: async function(recordCountPerPage, currentPageNo) {
 
 				let apcCd = gv_selectedApcCd;
-				let batchYmdFrom = SBUxMethod.get("srch-dtp-batchYmdFrom");
-				let batchYmdTo = SBUxMethod.get("srch-dtp-batchYmdTo");
-				let prgrmNm = SBUxMethod.get("srch-inp-prgrmNm");
+				let logYmdFrom = SBUxMethod.get("batch-dtp-logYmdFrom");
+				let logYmdTo = SBUxMethod.get("batch-dtp-logYmdTo");
+				let prgrmNm = SBUxMethod.get("batch-inp-prgrmNm");
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectWrhsVhclList.do", {
 		        		apcCd 				: apcCd
-					  , batchYmdFrom 		: batchYmdFrom
-					  , batchYmdTo 			: batchYmdTo
+					  , logYmdFrom 			: logYmdFrom
+					  , logYmdTo 			: logYmdTo
 					  , prgrmNm 			: prgrmNm
 					  , pagingYn 			: 'Y'
 					  , currentPageNo 		: currentPageNo
