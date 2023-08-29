@@ -19,6 +19,7 @@ import com.at.apcss.am.cmns.service.PltBxService;
 import com.at.apcss.am.cmns.vo.PltBxVO;
 import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.co.authrt.service.ComAuthrtService;
+import com.at.apcss.co.authrt.vo.ComAuthrtVO;
 import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ApcConstants;
@@ -585,7 +586,10 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			return ComUtil.getResultMap("W0005", "CASE ID");
 		}
 
-		rtnObj = comAuthrtService.insertApcNormalAuthrt(apcEvrmntStngVO);
+		ComAuthrtVO authrtVO = new ComAuthrtVO();
+		BeanUtils.copyProperties(apcEvrmntStngVO, authrtVO);
+
+		rtnObj = comAuthrtService.insertApcSimpleAuthrt(authrtVO);
 		if (rtnObj != null) {
 			logger.error("Error on ApcEvrmntStngService#insertApcSimpleAuthrt call ComAuthrtService#insertApcSimpleAuthrt");
 			logger.error(getMessageForMap(rtnObj));
