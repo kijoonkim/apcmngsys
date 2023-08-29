@@ -53,7 +53,7 @@ public class FcltOgnzPrcsPrfmncController extends BaseController {
 	// 유통조직처리실적 조회
 	@PostMapping(value = "/fm/fclt/selectFcltOgnzPrcsPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO, HttpServletRequest request) throws Exception{
-
+		logger.info("=============select=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltOgnzPrcsPrfmncVO> resultList = new ArrayList<>();
 
@@ -71,13 +71,13 @@ public class FcltOgnzPrcsPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
+		logger.info("=============select=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
-
 	// 유통조직처리실적 등록
 	@PostMapping(value = "/fm/fclt/insertFcltOgnzPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltOgnzPrcsPrfmnc(@RequestBody FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============insert=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -98,6 +98,7 @@ public class FcltOgnzPrcsPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+		logger.info("=============insert=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -105,6 +106,8 @@ public class FcltOgnzPrcsPrfmncController extends BaseController {
 	// 유통조직처리실적 변경
 	@PostMapping(value = "/fm/fclt/updateFcltOgnzPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateFcltOgnzPrcsPrfmnc(@RequestBody FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============update=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -123,6 +126,7 @@ public class FcltOgnzPrcsPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+		logger.info("=============update=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -130,6 +134,8 @@ public class FcltOgnzPrcsPrfmncController extends BaseController {
 	// 유통조직처리실적 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltOgnzPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltOgnzPrcsPrfmnc(@RequestBody FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============delete=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -148,6 +154,7 @@ public class FcltOgnzPrcsPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		logger.info("=============delete=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -155,6 +162,8 @@ public class FcltOgnzPrcsPrfmncController extends BaseController {
 	// 유통조직처리실적 목록 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltOgnzPrcsPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltOgnzPrcsPrfmncList(@RequestBody List<FcltOgnzPrcsPrfmncVO> fcltOgnzPrcsPrfmncList, HttpServletRequest requset) throws Exception{
+		logger.info("=============deleteList=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -175,6 +184,7 @@ public class FcltOgnzPrcsPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		logger.info("=============deleteList=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}

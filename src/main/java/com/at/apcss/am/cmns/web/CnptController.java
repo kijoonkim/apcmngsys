@@ -3,8 +3,6 @@ package com.at.apcss.am.cmns.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -63,48 +61,48 @@ public class CnptController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/cmns/compareCnptList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> compareCnptList(@RequestBody Map<String, List<CnptVO>> cnptVO, HttpServletRequest request) throws Exception {
-		logger.debug("compareCnptList 호출 <><><><> ");
+	@PostMapping(value = "/am/cmns/insertCnptList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertCnptList(@RequestBody List<CnptVO> insertList, HttpServletRequest request) throws Exception {
+		logger.debug("insertCnptList 호출 <><><><> ");
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
-		int insertCnt = 0;
+		int insertedCnt = 0;
 		try {
-			List<CnptVO> origin = cnptVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-			List<CnptVO> modified = cnptVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-
-			List<CnptVO> insertList = new ArrayList<CnptVO>(modified).stream().filter(e -> e.getCnptCd() == null || e.getCnptCd().equals("")).collect(Collectors.toList());
-			for (CnptVO element : insertList) {
-				element.setSysFrstInptPrgrmId(getPrgrmId());
-				element.setSysFrstInptUserId(getUserId());
-				element.setSysLastChgPrgrmId(getPrgrmId());
-				element.setSysLastChgUserId(getUserId());
-				cnptService.insertCnpt(element);
+			for (CnptVO cnptVO : insertList) {
+				cnptVO.setSysLastChgPrgrmId(getUserId());
+				cnptVO.setSysLastChgUserId(getPrgrmId());
+				cnptVO.setSysFrstInptPrgrmId(getUserId());
+				cnptVO.setSysFrstInptUserId(getPrgrmId());
+				insertedCnt += cnptService.insertCnpt(cnptVO);
 			}
 
-			List<CnptVO> updateList = new ArrayList<CnptVO>();
-			for (CnptVO ei : origin) {
-				for (CnptVO ej : modified) {
-					if (ei.getCnptCd().equals(ej.getCnptCd())) {
-						if (ei.hashCode() != ej.hashCode()) {
-							updateList.add(ej);
-						}
-						break;
-					}
-				}
-			}
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
 
-			for (CnptVO element : updateList) {
-				element.setSysLastChgPrgrmId(getPrgrmId());
-				element.setSysLastChgUserId(getUserId());
-				cnptService.updateCnpt(element);
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/cmns/updateCnptList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateComCdDtlList(@RequestBody List<CnptVO> updateList, HttpServletRequest request) throws Exception {
+		logger.debug("updateCnptList >>> 호출 >>> ");
+
+		logger.debug("size >>>>  {} ", updateList.size());
+		int updatedCnt = 0;
+		try {
+			for (CnptVO cnptVO : updateList) {
+				cnptVO.setSysLastChgPrgrmId(getPrgrmId());
+				cnptVO.setSysLastChgUserId(getUserId());
+				updatedCnt += cnptService.updateCnpt(cnptVO);
 			}
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
 
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertCnt);
-
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -144,39 +142,25 @@ public class CnptController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/cmns/compareLgszMrktList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> compareLgszMrktList(@RequestBody Map<String, List<LgszMrktVO>> lgszMrktVO, HttpServletRequest request) throws Exception {
-		logger.debug("compareLgszMrktList 호출 <><><><> ");
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		int insertCnt = 0;
+	@PostMapping(value = "/am/cmns/updateLgszMrktList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateLgszMrktList(@RequestBody List<LgszMrktVO> updateList, HttpServletRequest request) throws Exception {
+		logger.debug("updateLgszMrktList >>> 호출 >>> ");
+
+		logger.debug("size >>>>  {} ", updateList.size());
+		int updatedCnt = 0;
 		try {
-			List<LgszMrktVO> origin = lgszMrktVO.get("origin");
-			List<LgszMrktVO> modified = lgszMrktVO.get("modified");
-
-			List<LgszMrktVO> updateList = new ArrayList<LgszMrktVO>();
-			for (LgszMrktVO ei : origin) {
-				for (LgszMrktVO ej : modified) {
-					if (ei.getLgszMrktCd().equals(ej.getLgszMrktCd())) {
-						if (ei.hashCode() != ej.hashCode()) {
-							updateList.add(ej);
-						}
-						break;
-					}
-				}
-			}
-
-			for (LgszMrktVO element : updateList) {
-				element.setSysLastChgPrgrmId(getPrgrmId());
-				element.setSysLastChgUserId(getUserId());
-				cnptService.updateLgszMrkt(element);
+			for (LgszMrktVO lgszMrktVO : updateList) {
+				lgszMrktVO.setSysLastChgPrgrmId(getPrgrmId());
+				lgszMrktVO.setSysLastChgUserId(getUserId());
+				updatedCnt += cnptService.updateLgszMrkt(lgszMrktVO);
 			}
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
 
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertCnt);
-
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
 

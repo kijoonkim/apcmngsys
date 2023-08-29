@@ -2,7 +2,6 @@ package com.at.apcss.am.cmns.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +22,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false)
 public class CnptVO extends ComVO {
 
 	/**
@@ -58,6 +56,10 @@ public class CnptVO extends ComVO {
 	 * 전화번호
 	 */
 	private String telno;
+	/**
+	 * 이메일
+	 */
+	private String eml;
 	/**
 	 * 비고
 	 */

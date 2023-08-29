@@ -37,9 +37,13 @@
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
 			 FROM TB_WHOL_EXMN_SCHDL_MNG FCLT
 			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
+		]]>
+        <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  FCLT.APC_CD = #{apcCd}
+		   </if>
     </select>
 
 
@@ -79,7 +83,13 @@
 			 WHERE 1=1
 		     AND TRGT_YR = #{trgtYr}
 		     AND  APC_CD = #{apcCd}
-    	]]>
+    	  ]]>
+          <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  FCLT.APC_CD = #{apcCd}
+		   </if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -120,13 +130,13 @@
 	   			    #{TRGT_YR}
 	   			  , #{EXMN_CYCL}
 	   			  , #{EXMN_SE_CD}
-	   			  , #{SN}
-	   			  , #{END_DT}
+	   			  , SYSDATE
+	   			  , #{endDt}
 	   			  , #{DEL_YN}
-	   			  , #{SYS_FRST_INPT_DT}
+	   			  , SYSDATE
 	   			  , #{SYS_FRST_INPT_USER_ID}
 	   			  , #{SYS_FRST_INPT_PRGRM_ID}
-	   			  , #{SYS_LAST_CHG_DT}
+	   			  , #{sysLastChgDt}
 	   			  , #{SYS_LAST_CHG_USER_ID}
 	   			  , #{SYS_LAST_CHG_PRGRM_ID}
 	   			)
@@ -146,11 +156,11 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.ＷholExmnSchdlMngMapper.updateＷholExmnSchdlMng */
 	    		TB_WHOL_EXMN_SCHDL_MNG FCLT
 			   SET
-				 	  TRGT_YR     =  #{TRGT_YR}
-				 	, EXMN_CYCL   =  #{EXMN_CYCL}
-				 	, EXMN_SE_CD  =  #{EXMN_SE_CD}
-	    	        , SN          =  #{SN}
-	    	        , END_DT      =  #{END_DT}
+				 	  TRGT_YR     =  #{trgtYr}
+				 	, EXMN_CYCL   =  #{exmnCycl}
+				 	, EXMN_SE_CD  =  #{exmnSeCd}
+	    	        , SN          =  #{sn}
+	    	        , END_DT      =  SYSDATE
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

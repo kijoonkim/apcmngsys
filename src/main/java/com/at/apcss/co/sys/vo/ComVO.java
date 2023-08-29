@@ -36,4 +36,13 @@ public class ComVO extends ComPageVO {
 
 	private String checkedYn;
 	private String rowSts;
+	@Override
+	public String toString() {
+		return "ComVO [delYn=" + delYn + ", sysFrstInptDt=" + sysFrstInptDt + ", sysFrstInptUserId=" + sysFrstInptUserId
+				+ ", sysFrstInptPrgrmId=" + sysFrstInptPrgrmId + ", sysLastChgDt=" + sysLastChgDt
+				+ ", sysLastChgUserId=" + sysLastChgUserId + ", sysLastChgPrgrmId=" + sysLastChgPrgrmId + ", sysUserId="
+				+ sysUserId + ", sysPrgrmId=" + sysPrgrmId + ", checkedYn=" + checkedYn + ", rowSts=" + rowSts + "]";
+	}
+	
+	
 }
