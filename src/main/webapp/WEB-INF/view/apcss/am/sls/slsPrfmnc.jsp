@@ -160,18 +160,20 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
-            {caption: ['매출일자','매출일자'], 	ref: 'slsYmd',		width: '15%',	type: 'output',	style:'text-align: center'},
-            {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['상품명','상품명'],		ref: 'gdsNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['상품코드','상품코드'],	ref: 'gdsCd', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['품종','품종'], 		ref: 'vrtyNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['규격','규격'], 		ref: 'spcfctNm',	width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['브랜드','브랜드'], 		ref: 'brndCd',		width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd', 	width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['단가','단가'], 		ref: 'slsUntprc', 	width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['출하','수량'], 		ref: 'qntt', 		width: '15%', 	type: 'output',	style:'text-align: right'},
-            {caption: ['출하','중량'], 		ref: 'wght', 		width: '15%', 	type: 'output',	style:'text-align: right'},
-            {caption: ['매출금액','매출금액'], 	ref: 'cfmtnAmt', 	width: '15%', 	type: 'output',	style:'text-align: right'}
+            {caption: ['선택','선택'], 		ref: 'checked',		width: '50px',		type: 'checkbox',	style:'text-align: center',
+        		typeinfo : {ignoreupdate: true}},
+            {caption: ['매출일자','매출일자'], 	ref: 'slsYmd',		width: '100px',		type: 'output',		style:'text-align: center'},
+            {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['상품명','상품명'],		ref: 'gdsNm', 		width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['상품코드','상품코드'],	ref: 'gdsCd', 		width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['품종','품종'], 		ref: 'vrtyNm', 		width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['규격','규격'], 		ref: 'spcfctNm',	width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['브랜드','브랜드'], 		ref: 'brndCd',		width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd', 	width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['단가','단가'], 		ref: 'slsUntprc', 	width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['출하','수량'], 		ref: 'qntt', 		width: '100px', 	type: 'output',		style:'text-align: right'},
+            {caption: ['출하','중량'], 		ref: 'wght', 		width: '100px', 	type: 'output',		style:'text-align: right'},
+            {caption: ['매출금액','매출금액'], 	ref: 'cfmtnAmt', 	width: '100px', 	type: 'output',		style:'text-align: right'}
         ];
         grdSlsPrfmnc = _SBGrid.create(SBGridProperties);
         grdSlsPrfmnc.bind( "afterpagechanged" , "fn_pagingSlsPrfmnc" );
@@ -218,7 +220,8 @@
         try{
         	data.resultList.forEach((item, index) => {
 				let slsPrfmnc = {
-					slsYmd 		: item.slsYmd
+					checked 	: "false"
+				  , slsYmd 		: item.slsYmd
 				  , cnptNm 		: item.cnptNm
 				  , gdsNm 		: item.gdsNm
 				  , gdsCd 		: item.gdsCd
@@ -265,7 +268,20 @@
 	
 	// 메일발송
     async function fn_sendMail(){
-    	
+		let gridData = grdSlsPrfmnc.getGridDataAll();
+		let mailList = [];
+		for(var i=0; gridData.length; i++){
+	    	if(gridData[i].checked == "True"){
+	    		mailList.push(gridData[i]);
+	    	}
+		}
+		if(mailList.length == 0){
+			gfn_comAlert("W0003", "발송");		//	W0003	{0}할 대상이 없습니다.
+            return;
+		}
+		if (!gfn_comConfirm("Q0001", "발송")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
     }
 	
 	// 거래명세표
