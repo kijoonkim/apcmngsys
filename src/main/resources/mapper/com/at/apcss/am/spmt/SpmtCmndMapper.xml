@@ -235,6 +235,7 @@
 	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
 	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+		        , (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL) 				AS TRSPRT_CO_NM
     		 FROM (
     	</if>
     	<if test='pagingYn == null or pagingYn.equals("N")'>
@@ -244,24 +245,25 @@
 	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
 	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+		        , (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL) 				AS TRSPRT_CO_NM
     		 FROM (
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndList */
 	    		   SC.APC_CD						AS APC_CD
-	    		 , SC.CMND_YMD						AS CMND_YMD
+	    		 , MAX(SC.CMND_YMD)					AS CMND_YMD
 	    		 , SC.PCKG_SE_CD					AS PCKG_SE_CD
 	    		 , SC.ITEM_CD						AS ITEM_CD
 	    		 , SC.VRTY_CD						AS VRTY_CD
 	    		 , SC.SPCFCT_CD						AS SPCFCT_CD
 	    		 , SC.GDS_CD						AS GDS_CD
-	    		 , CI.CNPT_NM				 		AS CNPT_NM
+	    		 , MAX(CI.CNPT_NM)				 	AS CNPT_NM
 	    		 , SC.DLDTN							AS DLDTN
-	    		 , ST.TRSPRT_CO_NM					AS TRSPRT_CO_NM
+	    		 , MAX(ST.TRSPRT_CO_CD)				AS TRSPRT_CO_CD
 	    		 , SC.GDS_GRD						AS GDS_GRD
-	    		 , SC.CMND_QNTT						AS CMND_QNTT
-	    		 , SC.CMND_WGHT						AS CMND_WGHT
+	    		 , SUM(SC.CMND_QNTT)				AS CMND_QNTT
+	    		 , SUM(SC.CMND_WGHT)				AS CMND_WGHT
 	    		 , SC.RMRK							AS RMRK
 			  FROM TB_SPMT_CMND SC
 			  LEFT OUTER JOIN(

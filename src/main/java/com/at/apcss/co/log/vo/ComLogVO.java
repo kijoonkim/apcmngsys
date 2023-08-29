@@ -29,9 +29,17 @@ public class ComLogVO extends ComVO {
 	 */
 	private String logYmd;
 	/**
+	 * LOG시작일자
+	 */
+	private String logYmdFrom;
+	/**
+	 * LOG종료일자
+	 */
+	private String logYmdTo;
+	/**
 	 * LOG순번
 	 */
-	private String logSeqNo;
+	private String logSn;
 	/**
 	 * LOG구분코드
 	 */
@@ -60,4 +68,44 @@ public class ComLogVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
+	/**
+	 * 이력순번
+	 */
+	private String hstrySn;
+	/**
+	 * 메뉴ID
+	 */
+	private String menuId;
+	/**
+	 * 메뉴명
+	 */
+	private String menuNm;
+	/**
+	 * 사용자ID
+	 */
+	private String userId;
+	/**
+	 * 사용자명
+	 */
+	private String userNm;
+	/**
+	 * 사용자유형
+	 */
+	private String userType;
+	/**
+	 * 열람유형
+	 */
+	private String prslType;
+	/**
+	 * 열람일시
+	 */
+	private String prslDt;
+	/**
+	 * 로그인성공여부
+	 */
+	private String lgnScsYn;
+	/**
+	 * 사용자IP
+	 */
+	private String userIp;
 }

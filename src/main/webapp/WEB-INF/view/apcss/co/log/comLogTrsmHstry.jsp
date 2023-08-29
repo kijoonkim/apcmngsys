@@ -25,24 +25,24 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="srch-dtp-trsmYmdFrom" name="srch-dtp-trsmYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="trsm-dtp-logYmdFrom" name="trsm-dtp-logYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="srch-dtp-trsmYmdTo" name="srch-dtp-trsmYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="trsm-dtp-logYmdTo" name="trsm-dtp-logYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td></td>
 					<th scope="row" class="th_bg">송수신구분</th>
 					<td class="td_input" style="border-right: hidden;">
 						<div class="fl_group fl_rpgroup">
 							<div class="dp_inline wd_180 va_m">
-								<sbux-select id="srch-slt-sendRcptnSeCd" name="srch-slt-sendRcptnSeCd" uitype="single" jsondata-ref="jsonComSendRcptnSeCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								<sbux-select id="trsm-slt-sendRcptnSeCd" name="trsm-slt-sendRcptnSeCd" uitype="single" jsondata-ref="jsonComSendRcptnSeCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</div>
 						</div>
 					</td>
 					<td></td>
 					<th scope="row" class="th_bg">인터페이스명</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-input id="srch-inp-intrfcNm" name=srch-inp-intrfcNm uitype="text" class="form-control input-sm"></sbux-input>
+						<sbux-input id="trsm-inp-intrfcNm" name=trsm-inp-intrfcNm uitype="text" class="form-control input-sm"></sbux-input>
 					</td>
 				</tr>
 			</tbody>
@@ -79,10 +79,10 @@
 				}
 
 				if (grdLogTrsmHstry === null || this.prvApcCd != _apcCd) {
-					SBUxMethod.set("srch-dtp-trsmYmdFrom", gfn_dateToYmd(new Date()));
-					SBUxMethod.set("srch-dtp-trsmYmdTo", gfn_dateToYmd(new Date()));
+					SBUxMethod.set("trsm-dtp-logYmdFrom", gfn_dateToYmd(new Date()));
+					SBUxMethod.set("trsm-dtp-logYmdTo", gfn_dateToYmd(new Date()));
 					let rst = await Promise.all([
-						gfn_setComCdSBSelect('srch-slt-sendRcptnSeCd', jsonComSendRcptnSeCd, 'SEND_RCPTN_SE_CD', gv_selectedApcCd),	// 창고구분
+						gfn_setComCdSBSelect('trsm-slt-sendRcptnSeCd', jsonComSendRcptnSeCd, 'SEND_RCPTN_SE_CD', gv_selectedApcCd),	// 창고구분
 					]);
 					this.createGrid();
 					this.search();
@@ -135,15 +135,15 @@
 			setGrid: async function(recordCountPerPage, currentPageNo) {
 
 				let apcCd = gv_selectedApcCd;
-				let trsmYmdFrom = SBUxMethod.get("srch-dtp-trsmYmdFrom");
-				let trsmYmdTo = SBUxMethod.get("srch-dtp-trsmYmdTo");
-				let sendRcptnSeCd = SBUxMethod.get("srch-slt-sendRcptnSeCd");
-				let intrfcNm = SBUxMethod.get("srch-inp-intrfcNm");
+				let logYmdFrom = SBUxMethod.get("trsm-dtp-logYmdFrom");
+				let logYmdTo = SBUxMethod.get("trsm-dtp-logYmdTo");
+				let sendRcptnSeCd = SBUxMethod.get("trsm-slt-sendRcptnSeCd");
+				let intrfcNm = SBUxMethod.get("trsm-inp-intrfcNm");
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectWrhsVhclList.do", {
 		        		apcCd 				: apcCd
-					  , trsmYmdFrom 		: trsmYmdFrom
-					  , trsmYmdTo 			: trsmYmdTo
+					  , logYmdFrom 			: logYmdFrom
+					  , logYmdTo 			: logYmdTo
 					  , sendRcptnSeCd 		: sendRcptnSeCd
 					  , intrfcNm 			: intrfcNm
 					  , pagingYn 			: 'Y'

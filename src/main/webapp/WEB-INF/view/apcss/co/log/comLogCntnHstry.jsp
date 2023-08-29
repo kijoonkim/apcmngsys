@@ -22,15 +22,15 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="srch-dtp-cntnYmdFrom" name="srch-dtp-cntnYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="cntn-dtp-logYmdFrom" name="cntn-dtp-logYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="srch-dtp-cntnYmdTo" name="srch-dtp-cntnYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="cntn-dtp-logYmdTo" name="cntn-dtp-logYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td></td>
 					<th scope="row" class="th_bg">사용자명</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-input id="srch-inp-userNm" name="srch-inp-userNm" uitype="text" class="form-control input-sm"></sbux-input>
+						<sbux-input id="cntn-inp-userNm" name="cntn-inp-userNm" uitype="text" class="form-control input-sm"></sbux-input>
 					</td>
 				</tr>
 			</tbody>
@@ -66,8 +66,8 @@
 				}
 
 				if (grdLogCntnHstry === null || this.prvApcCd != _apcCd) {
-					SBUxMethod.set("srch-dtp-cntnYmdFrom", gfn_dateToYmd(new Date()));
-					SBUxMethod.set("srch-dtp-cntnYmdTo", gfn_dateToYmd(new Date()));
+					SBUxMethod.set("cntn-dtp-logYmdFrom", gfn_dateToYmd(new Date()));
+					SBUxMethod.set("cntn-dtp-logYmdTo", gfn_dateToYmd(new Date()));
 					this.createGrid();
 					this.search();
 				} else {
@@ -119,14 +119,14 @@
 			setGrid: async function(recordCountPerPage, currentPageNo) {
 
 				let apcCd = gv_selectedApcCd;
-				let cntnYmdFrom = SBUxMethod.get("srch-dtp-cntnYmdFrom");
-				let cntnYmdTo = SBUxMethod.get("srch-dtp-cntnYmdTo");
-				let userNm = SBUxMethod.get("srch-inp-userNm");
+				let logYmdFrom = SBUxMethod.get("cntn-dtp-logYmdFrom");
+				let logYmdTo = SBUxMethod.get("cntn-dtp-logYmdTo");
+				let userNm = SBUxMethod.get("cntn-inp-userNm");
 
 		        const postJsonPromise = gfn_postJSON("/co/log/selectWrhsVhclList.do", {
 		        		apcCd 				: apcCd
-					  , cntnYmdFrom 		: cntnYmdFrom
-					  , cntnYmdTo 			: cntnYmdTo
+					  , logYmdFrom 			: logYmdFrom
+					  , logYmdTo 			: logYmdTo
 					  , userNm 				: userNm
 					  , pagingYn 			: 'Y'
 					  , currentPageNo 		: currentPageNo
