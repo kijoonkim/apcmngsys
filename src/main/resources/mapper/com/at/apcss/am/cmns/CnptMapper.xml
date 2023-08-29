@@ -31,6 +31,7 @@
 		     , (SELECT FN_GET_COM_CD_VL_NM('CNPT_TYPE', CT.CNPT_TYPE) FROM DUAL)  AS CNPT_TYPE_NM
 		     , CT.PIC_NM            AS PIC_NM
 		     , CT.TELNO             AS TELNO
+		     , CT.EML             AS EML
 		     , CT.RMRK              AS RMRK
 		     , CT.DEL_YN            AS DEL_YN
 		  FROM TB_CNPT_INFO CT
@@ -60,6 +61,7 @@
     		  , CNPT_TYPE
     		  , PIC_NM
     		  , TELNO
+    		  , EML
     		  , RMRK
     		  , DEL_YN
     		  , SYS_FRST_INPT_DT
@@ -78,6 +80,7 @@
     		  , #{cnptType}
 			  , #{picNm}
     		  , #{telno}
+    		  , #{eml}
     		  , #{rmrk}
     		  , #{delYn}
     		  , SYSDATE
@@ -109,6 +112,7 @@
     		 , CNPT_TYPE				= #{cnptType}
     		 , PIC_NM					= #{picNm}
     		 , TELNO					= #{telno}
+    		 , EML						= #{eml}
     		 , RMRK						= #{rmrk}
 		 WHERE APC_CD 					= #{apcCd}
 		   AND CNPT_CD 					= #{cnptCd}
