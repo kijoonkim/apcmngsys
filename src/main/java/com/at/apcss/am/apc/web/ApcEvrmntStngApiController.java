@@ -4,6 +4,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.at.apcss.co.sys.controller.BaseController;
 
 @RestController
-public class ApcEvrmntStngAipController extends BaseController {
+public class ApcEvrmntStngApiController extends BaseController {
 
 }

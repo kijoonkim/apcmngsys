@@ -83,14 +83,14 @@ public class EgovConfigAppReport {
 	/**
 	 * @return [Report DbName 설정]
 	 */
-	@Bean(name = {"reportDbName"})
+	//@Bean(name = {"reportDbName"})
 	public String reportDbName() {
 		return reportDbName;
 	}
 	/**
 	 * @return [Report Url 설정]
 	 */
-	@Bean(name = {"reportUrl"})
+	//@Bean(name = {"reportUrl"})
 	public String reportUrl() {
 		return reportUrl;
 	}
@@ -98,7 +98,7 @@ public class EgovConfigAppReport {
 	/**
 	 * @return [Report Type 설정]
 	 */
-	@Bean(name = {"reportType"})
+	//@Bean(name = {"reportType"})
 	public String reportType() {
 		return reportType;
 	}
@@ -106,7 +106,7 @@ public class EgovConfigAppReport {
 	/**
 	 * @return [Report Path 설정]
 	 */
-	@Bean(name = {"reportPath"})
+	//@Bean(name = {"reportPath"})
 	public String reportPath() {
 		return reportPath;
 	}
