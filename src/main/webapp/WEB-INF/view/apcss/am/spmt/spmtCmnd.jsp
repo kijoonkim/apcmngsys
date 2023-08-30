@@ -64,7 +64,7 @@
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" jsondata-ref="jsonTrsprtCo" class="form-control input-sm" unselected-text="선택"></sbux-select>
+										<sbux-select id="srch-slt-trsprtCoCd" name="srch-slt-trsprtCoCd" uitype="single" jsondata-ref="jsonTrsprtCoCd" class="form-control input-sm" unselected-text="선택"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -148,7 +148,7 @@
     </div>
 </body>
 <script type="text/javascript">
-	var jsonTrsprtCo		= [];	// 운송회사 	trsprtCo	검색
+	var jsonTrsprtCoCd		= [];	// 운송회사 	trsprtCoCd	검색
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonApcSpcfct		= [];	// 규격 		spcfct		검색
@@ -159,7 +159,7 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-			gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', jsonTrsprtCo, gv_selectedApcCd),				// 운송회사
+			gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', jsonTrsprtCoCd, gv_selectedApcCd),				// 운송회사
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),					// 품목
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),					// 품종
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd),			// 규격
@@ -227,7 +227,7 @@
 		let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
 		let cmndYmdTo = SBUxMethod.get("srch-dtp-cmndYmdTo");
 		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
-		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCo");
+		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCoCd");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");

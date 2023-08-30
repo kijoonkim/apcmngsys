@@ -155,7 +155,7 @@
 						<li><span>발주 내역</span></li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnRcptOrdrAll" name="btnRcptOrdrAll" uitype="normal" onclick="fn_rcptOrdrAll" class="btn btn-sm btn-outline-dark" text="일괄 접수"></sbux-button>
+						<sbux-button id="btnRcptOrdrAll" name="btnReceiptBndl" uitype="normal" onclick="btn_receiptBndl" class="btn btn-sm btn-outline-dark" text="일괄 접수"></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -416,7 +416,7 @@
     }
 	
 	// 일괄 접수
-    async function fn_rcptOrdrAll(){
+    async function btn_receiptBndl(){
     	let allData = grdOutordrInfo.getGridDataAll();
     	console.log("일괄 접수: ", allData);
 		const rcptOrdrAllList = [];
