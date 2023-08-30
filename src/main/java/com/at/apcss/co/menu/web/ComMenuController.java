@@ -52,6 +52,11 @@ public class ComMenuController extends BaseController {
 
 			model.addAttribute("comMenuVO", pageVO);
 
+			model.addAttribute("reportDbName", getReportDbName());
+			model.addAttribute("reportUrl", getReportUrl());
+			model.addAttribute("reportType", getReportType());
+			model.addAttribute("reportPath", getReportPath());
+
 			request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);
 
 			//model.addAttribute("comApcList", request.getSession().getAttribute("comApcList"));
