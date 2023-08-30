@@ -98,9 +98,9 @@
 		            {caption: ['사용자ID'], 	ref: 'userId',		width: '40%',	type: 'output',	style:'text-align: center'},
 		            {caption: ['사용자명'], 	ref: 'userNm', 		width: '40%', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['APC명'],		ref: 'apcNm', 		width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['현재상태'],	ref: 'gdsCd', 		width: '40%', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['현재상태'],	ref: 'sttsNow', 	width: '40%', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['접속일시'],	ref: 'prslDt',		width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['최초접속일시'],	ref: 'brndCd',		width: '40%', 	type: 'output',	style:'text-align: center'}
+		            {caption: ['최초접속일시'],	ref: 'frstPrslDt',	width: '40%', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogCntnHstry = _SBGrid.create(SBGridProperties);
 		        grdLogCntnHstry.bind( "afterpagechanged" , tabLogCntnHstry.setGrid );
@@ -148,10 +148,12 @@
 		    		jsonLogCntnHstry.length = 0;
 		        	data.resultList.forEach((item, index) => {
 						const log = {
-							userId			: item.rowSeq,
-							userNm			: item.vhclno,
-							apcNm 			: item.drvrNm,
-							prslDt	 		: item.prslDt
+							userId			: item.userId,
+							userNm			: item.userNm,
+							apcNm 			: item.apcNm,
+							sttsNow 		: null,
+							prslDt	 		: item.prslDt,
+							frstPrslDt	 	: item.frstPrslDt
 						}
 						jsonLogCntnHstry.push(log);
 

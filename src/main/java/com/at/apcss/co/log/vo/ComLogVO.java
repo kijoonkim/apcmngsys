@@ -101,6 +101,10 @@ public class ComLogVO extends ComVO {
 	 */
 	private String prslDt;
 	/**
+	 * 최초열람일시
+	 */
+	private String frstPrslDt;
+	/**
 	 * 로그인성공여부
 	 */
 	private String lgnScsYn;

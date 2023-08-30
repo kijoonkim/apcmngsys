@@ -100,7 +100,7 @@
 		            {caption: ['프로그램ID'],	ref: 'prgrmId', 	width: '40%', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['프로그램명'],	ref: 'prgrmNm', 	width: '40%', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['접속일시'],	ref: 'logYmd',		width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['처리결과'], 	ref: 'brndCd',		width: '40%', 	type: 'output',	style:'text-align: center'}
+		            {caption: ['처리결과'], 	ref: 'prcsRslt',	width: '40%', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogBatchHstry = _SBGrid.create(SBGridProperties);
 		        grdLogBatchHstry.bind( "afterpagechanged" , tabLogBatchHstry.setGrid );
@@ -152,7 +152,13 @@
 							logSn			: item.logSn,
 							prgrmId			: item.prgrmId,
 							prgrmNm			: item.prgrmNm,
-							logYmd 			: item.logYmd
+							logYmd 			: item.logYmd,
+							prcsRslt		: null
+						}
+						if(log.prcsDt != null && log.prcsDt != ""){
+							log.prcsRslt = '처리';
+						} else {
+							log.prcsRslt = '미처리';
 						}
 						jsonLogBatchHstry.push(log);
 
