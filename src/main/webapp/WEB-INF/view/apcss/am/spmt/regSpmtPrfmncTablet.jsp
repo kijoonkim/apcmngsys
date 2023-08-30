@@ -240,6 +240,12 @@
 				, delYn 		: 'N'
 		}
 		grdSpmtTrgtDsctn.addRow(true, addData);
+		if(SBUxMethod.get('srch-chk-spmtCmndNo') == "false"){
+			SBUxMethod.set('srch-inp-spmtCmndNo', null);
+		}
+		if(SBUxMethod.get('srch-chk-vhclno') == "false"){
+			SBUxMethod.set('srch-inp-vhclno', null);
+		}
 	}
 	
 	// 출하대상 데이터 그리드 삭제
