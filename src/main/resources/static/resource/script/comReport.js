@@ -16,7 +16,7 @@ let gv_reportPath;
  * @param {string} divId	표시할 div id
  * @param {string} fileName	clip report file name
  * @param {JSON} param
- * @param [{string}] modalId
+ * @param {string} modalId
  * @function
  * @returns
  */
