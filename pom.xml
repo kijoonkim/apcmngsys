@@ -75,6 +75,11 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                 </exclusion>
+
+			<exclusion>
+			    <groupId>org.apache.logging.log4j</groupId>
+			    <artifactId>log4j-to-slf4j</artifactId>
+			</exclusion>
 			-->
             </exclusions>
 		</dependency>
@@ -85,10 +90,18 @@
 		</dependency>
 
 		<!-- war 배포 시 해당 주석 제거 -->
+		<!--
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 	        <scope>provided</scope>
+		</dependency>
+		-->
+		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jasper -->
+		<dependency>
+		    <groupId>org.apache.tomcat</groupId>
+		    <artifactId>tomcat-jasper</artifactId>
+		    <version>9.0.63</version>
 		</dependency>
 
 	    <dependency>
@@ -281,18 +294,20 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+		<!--
 		<dependency>
 		    <groupId>org.apache.logging.log4j</groupId>
 		    <artifactId>log4j-core</artifactId>
 		</dependency>
-
+		-->
 		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+		<!--
 		<dependency>
 		    <groupId>org.apache.logging.log4j</groupId>
 		    <artifactId>log4j-api</artifactId>
 		    <version>2.20.0</version>
 		</dependency>
-
+		-->
 
 		<!-- JWT 2022.07.27 -->
 		<dependency>
@@ -345,23 +360,27 @@
 		-->
 
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+		<!--
 		<dependency>
 		    <groupId>org.slf4j</groupId>
 		    <artifactId>slf4j-simple</artifactId>
 		</dependency>
+		-->
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<!--
 		<dependency>
 		    <groupId>org.slf4j</groupId>
 		    <artifactId>slf4j-api</artifactId>
 		</dependency>
-
+		-->
 		<!-- https://mvnrepository.com/artifact/rhino/js -->
+		<!--
 		<dependency>
 		    <groupId>rhino</groupId>
 		    <artifactId>js</artifactId>
 		    <version>1.6R2</version>
 		</dependency>
-
+		-->
 	</dependencies>
 
 	<build>
