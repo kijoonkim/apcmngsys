@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
-<!--
-<spring:eval var="reportDbName" expression="@environment.getProperty('spring.report.dbName')" />
-<spring:eval var="reportUrl" expression="@environment.getProperty('spring.report.url')" />
-<spring:eval var="reportType" expression="@environment.getProperty('spring.report.type')" />
-<spring:eval var="reportPath" expression="@environment.getProperty('spring.report.path')" />
- -->
+<spring:eval expression="@environment.getProperty('spring.report.dbName')" var="reportDbName" />
+<spring:eval expression="@environment.getProperty('spring.report.url')" var="reportUrl" />
+<spring:eval expression="@environment.getProperty('spring.report.type')" var="reportType" />
+<spring:eval expression="@environment.getProperty('spring.report.path')" var="reportPath" />
+
     <!------------------ CLIPSOFT CSS ------------------>
     <link href="/resource/clip/css/clipreport5.css" rel="stylesheet" type="text/css">
     <link href="/resource/clip/css/UserConfig5.css" rel="stylesheet" type="text/css">
@@ -20,15 +19,16 @@
     <script src="/resource/script/comReport.js"></script>
 
 	<script type="text/javascript">
-/*
+
 		gv_reportDbName = '${reportDbName}';
 		gv_reportUrl = '${reportUrl}';
 		gv_reportType = '${reportType}';
 		gv_reportPath = '${reportPath}';
- */
+
+	/*
 	gv_reportDbName = 'tibero';
 	gv_reportUrl = 'http://133.186.212.16/ClipReport/report_server.jsp';
 	gv_reportType = 'crf.root';
 	gv_reportPath = '%root%/crf/';
-
+	 */
 	</script>
