@@ -577,13 +577,12 @@
 	
 	// 거래처 선택 팝업 호출
 	const fn_modalCnpt = function() {
-    	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
+    	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnptNm"), fn_setCnpt);
 	}
 	
 	const fn_setCnpt = function(cnpt) {
 		if (!gfn_isEmpty(cnpt)) {
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
-			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
 		}
 	}
 </script>

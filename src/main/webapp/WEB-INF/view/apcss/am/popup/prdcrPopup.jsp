@@ -181,7 +181,7 @@
 		        {caption: ['차량번호'], ref: 'vhclno', width: '100px', type: 'input', style: 'text-align:center'},
 		        {caption: ['비고'], ref: 'rmrk', width: '150px', type: 'input', style: 'text-align:center'},
 // 		        {caption: ['전화번호'], ref: 'telno', width: '150px', type: 'input', style: 'text-align:center'},
-// 		        {caption: ['생산자연계코드'], ref: '', width: '150px', type: 'input', style: 'text-align:center'},
+// 		        {caption: ['생산자연계코드'], ref: 'prdcrLinkCd', width: '150px', type: 'input', style: 'text-align:center'},
 // 		        {caption: ['참여조직'], ref: '', width: '150px', type: 'input', style: 'text-align:center'},
 // 		        {caption: ['생산자인식번호'], ref: 'prdcrIdentno', width: '150px', type: 'input', style: 'text-align:center'},
 		        {caption: ["처리"], ref: 'delYn', type:'button', width:'80px', style: 'text-align:center',
