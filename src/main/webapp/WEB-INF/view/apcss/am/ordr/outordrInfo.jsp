@@ -141,10 +141,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="5" style="border-right: hidden;"></td>
-							<td class="td_input">
-								<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" onclick="fn_dummyData" class="btn btn-sm btn-primary" text="포장지시 등록"></sbux-button>
-							</td>
+							<td colspan="6"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -156,6 +153,7 @@
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnRcptOrdrAll" name="btnReceiptBndl" uitype="normal" onclick="btn_receiptBndl" class="btn btn-sm btn-outline-dark" text="일괄 접수"></sbux-button>
+						<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" onclick="fn_dummyData" class="btn btn-sm btn-outline-dark" text="포장지시 등록"></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
