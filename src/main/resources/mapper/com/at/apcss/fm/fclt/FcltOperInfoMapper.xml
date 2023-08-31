@@ -37,9 +37,16 @@
 					, FCLT.OPER_OGNZ_BRNO           AS  OPER_OGNZ_BRNO
 					, FCLT.OPER_OGNZ_DEPT_CD        AS  OPER_OGNZ_DEPT_CD
 					, FCLT.OPER_OGNZ_DEPT_NM        AS  OPER_OGNZ_DEPT_NM
-					, FCLT.OPER_OGNZ_TRMT_ITEM_CD   AS  OPER_OGNZ_TRMT_ITEM_CD
 					, FCLT.OPER_OGNZ_TRMT_ITEM_CN   AS  OPER_OGNZ_TRMT_ITEM_CN
+					, FCLT.OPER_OGNZ_TRMT_ITEM_CN2  AS  OPER_OGNZ_TRMT_ITEM_CN2
+					, FCLT.OPER_OGNZ_TRMT_ITEM_CN3  AS  OPER_OGNZ_TRMT_ITEM_CN3
+					, FCLT.OPER_OGNZ_TRMT_ITEM_CN4  AS  OPER_OGNZ_TRMT_ITEM_CN4
+					, FCLT.OPER_OGNZ_TRMT_ITEM_CN   AS  OPER_OGNZ_TRMT_ITEM_CN
+					, FCLT.OPER_OGNZ_PIC   			AS  OPER_OGNZ_PIC
 					, FCLT.APC_TRMT_ITEM_CD         AS  APC_TRMT_ITEM_CD
+					, FCLT.APC_TRMT_ITEM_CN2        AS  APC_TRMT_ITEM_CN2
+					, FCLT.APC_TRMT_ITEM_CN3        AS  APC_TRMT_ITEM_CN3
+					, FCLT.APC_TRMT_ITEM_CN4        AS  APC_TRMT_ITEM_CN4
 					, FCLT.APC_TRMT_ITEM_CN         AS  APC_TRMT_ITEM_CN
 					, FCLT.DEL_YN                   AS  DEL_YN
 					, FCLT.SYS_FRST_INPT_DT         AS  SYS_FRST_INPT_DT
@@ -50,9 +57,14 @@
 					, FCLT.SYS_LAST_CHG_PRGRM_ID    AS  SYS_LAST_CHG_PRGRM_ID
 				FROM   TB_FCLT_OPER_INFO FCLT
 				WHERE 1=1
-					  AND TRGT_YR = #{trgtYr}
-					  AND  APC_CD = #{apcCd}
+
     	]]>
+    		<if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  APC_CD = #{apcCd}
+		   </if>
     </select>
 
 
@@ -82,8 +94,15 @@
 					, FCLT.OPER_OGNZ_DEPT_CD        AS  OPER_OGNZ_DEPT_CD
 					, FCLT.OPER_OGNZ_DEPT_NM        AS  OPER_OGNZ_DEPT_NM
 					, FCLT.OPER_OGNZ_TRMT_ITEM_CD   AS  OPER_OGNZ_TRMT_ITEM_CD
+					, FCLT.OPER_OGNZ_TRMT_ITEM_CN2  AS  OPER_OGNZ_TRMT_ITEM_CN2
+					, FCLT.OPER_OGNZ_TRMT_ITEM_CN3  AS  OPER_OGNZ_TRMT_ITEM_CN3
+					, FCLT.OPER_OGNZ_TRMT_ITEM_CN4  AS  OPER_OGNZ_TRMT_ITEM_CN4
 					, FCLT.OPER_OGNZ_TRMT_ITEM_CN   AS  OPER_OGNZ_TRMT_ITEM_CN
+					, FCLT.OPER_OGNZ_PIC   			AS  OPER_OGNZ_PIC
 					, FCLT.APC_TRMT_ITEM_CD         AS  APC_TRMT_ITEM_CD
+					, FCLT.APC_TRMT_ITEM_CN2        AS  APC_TRMT_ITEM_CN2
+					, FCLT.APC_TRMT_ITEM_CN3        AS  APC_TRMT_ITEM_CN3
+					, FCLT.APC_TRMT_ITEM_CN4        AS  APC_TRMT_ITEM_CN4
 					, FCLT.APC_TRMT_ITEM_CN         AS  APC_TRMT_ITEM_CN
 					, FCLT.DEL_YN                   AS  DEL_YN
 					, FCLT.SYS_FRST_INPT_DT         AS  SYS_FRST_INPT_DT
@@ -93,10 +112,21 @@
 					, FCLT.SYS_LAST_CHG_USER_ID     AS  SYS_LAST_CHG_USER_ID
 					, FCLT.SYS_LAST_CHG_PRGRM_ID    AS  SYS_LAST_CHG_PRGRM_ID
 				FROM   TB_FCLT_OPER_INFO FCLT
-			   WHERE
-			     TRGT_YR = #{trgtYr}
-				 AND APC_CD = #{apcCd}
-    	]]>
+			   WHERE 1=1
+  ]]>
+          <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  FCLT.APC_CD = #{apcCd}
+		   </if>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
     </select>
 
 	<!-- ==========================================================================	-->
@@ -126,11 +156,17 @@
 		     	, OPER_OGNZ_BRNO
 		     	, OPER_OGNZ_DEPT_CD
 		     	, OPER_OGNZ_DEPT_NM
+		     	, OPER_OGNZ_PIC
 		     	, OPER_OGNZ_TRMT_ITEM_CD
 		     	, OPER_OGNZ_TRMT_ITEM_CN
+		     	, OPER_OGNZ_TRMT_ITEM_CN2
+		     	, OPER_OGNZ_TRMT_ITEM_CN3
+		     	, OPER_OGNZ_TRMT_ITEM_CN4
 		     	, APC_TRMT_ITEM_CD
+		     	, APC_TRMT_ITEM_CN2
+		     	, APC_TRMT_ITEM_CN3
+		     	, APC_TRMT_ITEM_CN4
 		     	, APC_TRMT_ITEM_CN
-		     	, DEL_YN
 		     	, SYS_FRST_INPT_DT
 		     	, SYS_FRST_INPT_USER_ID
 		     	, SYS_FRST_INPT_PRGRM_ID
@@ -154,11 +190,17 @@
 		     	, #{operOgnzBrno}
 		     	, #{operOgnzDeptCd}
 		     	, #{operOgnzDeptNm}
+		     	, #{operOgnzPic}
 		     	, #{operOgnzTrmtItemCd}
 		     	, #{operOgnzTrmtItemCn}
+		     	, #{operOgnzTrmtItemCn2}
+		     	, #{operOgnzTrmtItemCn3}
+		     	, #{operOgnzTrmtItemCn4}
 		     	, #{apcTrmtItemCd}
+		     	, #{apcTrmtItemCn2}
+		     	, #{apcTrmtItemCn3}
+		     	, #{apcTrmtItemCn4}
 		     	, #{apcTrmtItemCn}
-		     	, #{delYn}
 		     	,  SYSDATE
 		     	, #{sysFrstInptUserId}
 		     	, #{sysFrstInptPrgrmId}
@@ -195,15 +237,27 @@
 			, OPER_OGNZ_CD             	  =  #{operOgnzCd}
 			, OPER_OGNZ_NM             	  =  #{operOgnzNm}
 			, OPER_OGNZ_BRNO           	  =  #{operOgnzBrno}
+			, OPER_OGNZ_PIC           	  =  #{operOgnzPic}
 			, OPER_OGNZ_DEPT_CD        	  =  #{operOgnzDeptCd}
 			, OPER_OGNZ_DEPT_NM        	  =  #{operOgnzDeptNm}
 			, OPER_OGNZ_TRMT_ITEM_CD   	  =  #{operOgnzTrmtItemCd}
+			, OPER_OGNZ_TRMT_ITEM_CN2     =  #{operOgnzTrmtItemCn2}
+			, OPER_OGNZ_TRMT_ITEM_CN3     =  #{operOgnzTrmtItemCn3}
+			, OPER_OGNZ_TRMT_ITEM_CN4     =  #{operOgnzTrmtItemCn4}
 			, OPER_OGNZ_TRMT_ITEM_CN   	  =  #{operOgnzTrmtItemCn}
+			]]>
+			<if test='delYn != null and delYn != ""'>
+				, DEL_YN 	= #{delYn}
+		    </if>
+		    <![CDATA[
 			, APC_TRMT_ITEM_CD         	  =  #{apcTrmtItemCd}
+			, APC_TRMT_ITEM_CN2           =  #{apcTrmtItemCn2}
+			, APC_TRMT_ITEM_CN3           =  #{apcTrmtItemCn3}
+			, APC_TRMT_ITEM_CN4           =  #{apcTrmtItemCn4}
 			, APC_TRMT_ITEM_CN         	  =  #{apcTrmtItemCn}
     	]]>
 		<if test='delYn != null and delYn != ""'>
-				, DEL_YN 	= #{delYn}
+				, DEL_YN 	=  #{delYn}
 		</if>
     	<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
@@ -216,7 +270,7 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo				-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo	-->
 	<!-- DESC : 운영자개요 삭제                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->

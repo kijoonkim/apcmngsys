@@ -10,6 +10,7 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
+
 <mapper namespace="com.at.apcss.fm.fclt.mapper.FcltInfoMapper">
 
 	<!-- ==========================================================================	-->
@@ -20,12 +21,14 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+
+
+
     <select id="selectFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo */
              FCLT.TRGT_YR                  AS TRGT_YR
 			, FCLT.APC_CD                  AS APC_CD
-			, FCLT.SN                      AS SN
 			, FCLT.FCLT_CD                 AS FCLT_CD
 			, FCLT.FCLT_NM                 AS FCLT_NM
 			, FCLT.FCLT_AREA               AS FCLT_AREA
@@ -38,11 +41,15 @@
 			, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
 			, FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
 
-			 FROM TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+			 FROM TB_FCLT_INFO FCLT
 			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
     	]]>
+        		<if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  APC_CD = #{apcCd}
+		   </if>
     </select>
 
 
@@ -55,20 +62,11 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectFcltInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
-    	<!-- End 페이징 -->
+
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfoList */
              FCLT.TRGT_YR                  AS TRGT_YR
 			, FCLT.APC_CD                  AS APC_CD
-			, FCLT.SN                      AS SN
 			, FCLT.FCLT_CD                 AS FCLT_CD
 			, FCLT.FCLT_NM                 AS FCLT_NM
 			, FCLT.FCLT_AREA               AS FCLT_AREA
@@ -81,12 +79,15 @@
 			, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
 			, FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
 
-			 FROM TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+			 FROM TB_FCLT_INFO FCLT
 			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-
+  ]]>
+          <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  FCLT.APC_CD = #{apcCd}
+		   </if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -95,7 +96,6 @@
     	</if>
     	<!-- End 페이징 -->
     </select>
-
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInfoMapper.insertFcltInfo				-->
 	<!-- DESC : 시설현황 등록                                             				-->
@@ -107,11 +107,10 @@
     <insert id="insertFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.insertFcltInfo */
-	    	  INTO SRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+	    	  INTO TB_FCLT_INFO FCLT
 	    		(
 	              TRGT_YR
 				, APC_CD
-				, SN
 				, FCLT_CD
 				, FCLT_NM
 				, FCLT_AREA
@@ -126,20 +125,19 @@
 	    		)
 	   		VALUES
 	   			(
-	              #{TRGT_YR}
-				, #{APC_CD}
-				, #{SN}
-				, #{FCLT_CD}
-				, #{FCLT_NM}
-				, #{FCLT_AREA}
-				, #{RMRK}
-				, #{DEL_YN}
-				, #{SYS_FRST_INPT_DT}
-				, #{SYS_FRST_INPT_USER_ID}
-				, #{SYS_FRST_INPT_PRGRM_ID}
-				, #{SYS_LAST_CHG_DT}
-				, #{SYS_LAST_CHG_USER_ID}
-				, #{SYS_LAST_CHG_PRGRM_ID}
+	              #{trgtYr}
+				, #{apcCd}
+				, #{fcltCd}
+				, #{fcltNm}
+				, #{fcltArea}
+				, #{rmrk}
+				, #{delYn}
+				, SYSDATE
+				, #{sysFrstInptUserId}
+				, #{sysFrstInptPrgrmId}
+				, SYSDATE
+				, #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
 	   			)
     	]]>
     </insert>
@@ -155,15 +153,14 @@
     <update id="updateFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.updateFcltInfo */
-	    		SRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+	    		TB_FCLT_INFO FCLT
 			   SET
-				    TRGT_YR	 	 =  #{TRGT_YR}
-				   , APC_CD      =  #{APC_CD}
-				   , SN          =  #{SN}
-			 	   , FCLT_CD     =  #{FCLT_CD}
-			 	   , FCLT_NM     =  #{FCLT_NM}
-			 	   , FCLT_AREA   =  #{FCLT_AREA}
-			 	   , RMRK        =  #{RMRK}
+				    TRGT_YR	 	 =  #{trgtYr}
+				   , APC_CD      =  #{apcCd}
+			 	   , FCLT_CD     =  #{fcltCd}
+			 	   , FCLT_NM     =  #{fcltNm}
+			 	   , FCLT_AREA   =  #{fcltArea}
+			 	   , RMRK        =  #{rmrk}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
@@ -190,7 +187,7 @@
     <delete id="deleteFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo */
-	    		SRFM.TB_FCLT_OPER_CLCT_AGRE_INFO FCLT
+	    		TB_FCLT_INFO FCLT
 			 WHERE 1=1
 		     AND TRGT_YR = #{trgtYr}
 		     AND  APC_CD = #{apcCd}

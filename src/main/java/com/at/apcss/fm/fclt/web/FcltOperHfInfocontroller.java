@@ -1,9 +1,24 @@
 package com.at.apcss.fm.fclt.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.at.apcss.fm.fclt.service.FcltOperHfInfoService;
+import com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO;
 
 /**
  * @Class Name : FcltOperHfInfocontroller.java
@@ -23,21 +38,153 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class FcltOperHfInfocontroller extends BaseController {
 
-	// 시설고용인력
-	@RequestMapping(value = "/fm/fclt/fcltOperHfInfo.do")
-	public String fcltOperHfInfo() {
+
+	// 시설현황
+	@Resource(name= "fcltOperHfInfoService")
+	private FcltOperHfInfoService fcltOperHfInfoService;
+
+	// 시설현황 화면이동
+	@RequestMapping("/fm/fclt/fcltOperHfInfo.do")
+	public String doFcltOperHfInfo() {
 		return "apcss/fm/fclt/fcltOperHfInfo";
 	}
-	// 시설고용인력
-	@RequestMapping(value = "/fm/fclt/fcltOperHfInfoReg.do")
-	public String fcltOperHfInfoReg() {
-		return "apcss/fm/fclt/fcltOperHfInfoReg";
+
+	// 시설현황 조회
+	@PostMapping(value = "/fm/fclt/selectFcltOperHfInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltOperHfInfoVO fcltOperHfInfoVO, HttpServletRequest request) throws Exception{
+		logger.info("=============selectFcltOperHfInfoList=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltOperHfInfoVO> resultList = new ArrayList<>();
+
+		logger.info(fcltOperHfInfoVO.getApcCd());
+		logger.info(fcltOperHfInfoVO.toString());
+		try {
+			 resultList = fcltOperHfInfoService.selectFcltOperHfInfoList(fcltOperHfInfoVO);
+
+			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
+			 for (FcltOperHfInfoVO msg : resultList ) {
+				 logger.debug("msgCn : {}", msg.getMsgCn());
+			 }
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		logger.info("=============selectFcltOperHfInfoList=====end========");
+		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 재배약정신청조회
-	/*
-	 * @RequestMapping(value = "fm/clt/cltvtnEnggtAplyMng.do") public String
-	 * doSpmtCmnd() { return "apcss/fm/clt/cltvtnEnggtAplyMng"; }
-	 */
+	// 시설현황 등록
+	@PostMapping(value = "/fm/fclt/insertFcltOperHfInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertFcltOperHfInfo(@RequestBody FcltOperHfInfoVO fcltOperHfInfoVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		logger.info("=============insertFcltOperHfInfo=======start======");
+		// validation check
 
+		logger.info(fcltOperHfInfoVO.getRmrk());
+		logger.info(fcltOperHfInfoVO.getTrgtYr());
+		logger.info(fcltOperHfInfoVO.toString());
+		// audit 항목
+		fcltOperHfInfoVO.setSysFrstInptUserId(getUserId());
+		fcltOperHfInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
+		fcltOperHfInfoVO.setSysLastChgUserId(getUserId());
+		fcltOperHfInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int insertedCnt = 0;
+
+		try {
+
+
+			logger.info("==========================");
+			insertedCnt = fcltOperHfInfoService.insertFcltOperHfInfo(fcltOperHfInfoVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+		logger.info("=============insertFcltOperHfInfo=======end======");
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 시설현황 변경
+	@PostMapping(value = "/fm/fclt/updateFcltOperHfInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateFcltOperHfInfo(@RequestBody FcltOperHfInfoVO fcltOperHfInfoVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		logger.info("=============updateFcltOperHfInfo=========start====");
+		// validation check
+
+		// audit 항목
+		fcltOperHfInfoVO.setSysLastChgUserId(getUserId());
+		fcltOperHfInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int updatedCnt = 0;
+
+		try {
+			updatedCnt = fcltOperHfInfoService.updateFcltOperHfInfo(fcltOperHfInfoVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+		logger.info("=============updateFcltOperHfInfo======end=======");
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 시설현황 삭제
+	@PostMapping(value = "/fm/fclt/deleteFcltOperHfInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteFcltOperHfInfo(@RequestBody FcltOperHfInfoVO fcltOperHfInfoVO, HttpServletRequest requset) throws Exception{
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		fcltOperHfInfoVO.setSysLastChgUserId(getUserId());
+		fcltOperHfInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int deletedCnt = 0;
+
+		try {
+			deletedCnt = fcltOperHfInfoService.deleteFcltOperHfInfo(fcltOperHfInfoVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 시설현황 목록 삭제
+	@PostMapping(value = "/fm/fclt/deleteFcltOperHfInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteFcltOperHfInfoList(@RequestBody List<FcltOperHfInfoVO> fcltOperHfInfoList, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		logger.info("=============delete=====start========");
+		// validation check
+
+		// audit 항목
+		for (FcltOperHfInfoVO fcltOperHfInfoVO : fcltOperHfInfoList ) {
+			fcltOperHfInfoVO.setSysLastChgUserId(getUserId());
+			fcltOperHfInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+		}
+
+		int deletedCnt = 0;
+
+		try {
+			deletedCnt = fcltOperHfInfoService.deleteFcltOperHfInfoList(fcltOperHfInfoList);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		logger.info("=============delete=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
 }

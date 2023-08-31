@@ -24,44 +24,44 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
 
 @Controller
 public class MainController extends BaseController {
-	
+
 	@Resource(name = "comMenuService")
 	private ComMenuService comMenuService;
-	
+
 	@Resource(name = "comAuthrtService")
 	private ComAuthrtService comAuthrtService;
-	
-	
+
+
 	@RequestMapping("/main.do")
 	public String doMain(Model model, HttpServletRequest request) {
-		
+
 		List<String> menuList = new ArrayList<>();
 		try {
-			
+
 			LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-			
+
 			String menuId = "main";
 			ComUiJsonVO comUiJsonVO = new ComUiJsonVO();
 			comUiJsonVO.setMenuId(menuId);
 			ObjectMapper objMapper = new ObjectMapper();
 			String comUiJsonString = objMapper.writeValueAsString(comUiJsonVO);
 			model.addAttribute("comUiJson", comUiJsonString);
-			
+
 			ComMenuVO pageVO = new ComMenuVO();
 			pageVO.setMenuId(menuId);
 			pageVO.setMenuNm("메인페이지");
 			model.addAttribute("comMenuVO", pageVO);
-			
+
 			request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);
-			
+
 			ComAuthrtMenuVO paramVO = new ComAuthrtMenuVO();
 			paramVO.setUserId(loginVO.getUserId());
-			
-			
+
+
 			List<ComAuthrtMenuVO> resultList = comAuthrtService.selectTopMenuTreeList(paramVO);
 			if (resultList != null && !resultList.isEmpty()) {
 				for ( ComAuthrtMenuVO rslt : resultList ) {
-					
+
 					if (ComConstants.CON_YES.equals(rslt.getUseYn())) {
 						ComMenuJsonVO menu = new ComMenuJsonVO();
 						menu.setId(rslt.getMenuId());
@@ -83,7 +83,7 @@ public class MainController extends BaseController {
 			List<ComMenuVO> resultList = comMenuService.selectTopMenuList(new ComMenuVO());
 			if (resultList != null && !resultList.isEmpty()) {
 				for ( ComMenuVO rslt : resultList ) {
-					
+
 					ComMenuJsonVO menu = new ComMenuJsonVO();
 					menu.setId(rslt.getMenuId());
 					menu.setPid(rslt.getUpMenuId());
@@ -100,15 +100,21 @@ public class MainController extends BaseController {
 				}
 			}
 			 */
-			
+
 
 		} catch (Exception e) {
-			
+
 		}
-		
+
 		model.addAttribute("topMenuList", menuList);
+
+		model.addAttribute("reportDbName", getReportDbName());
+		model.addAttribute("reportUrl", getReportUrl());
+		model.addAttribute("reportType", getReportType());
+		model.addAttribute("reportPath", getReportPath());
+
 		//model.addAttribute("comApcList", request.getSession().getAttribute("comApcList"));
-		
+
 		return "main/main";
 	}
 }

@@ -52,7 +52,9 @@ public class FcltLwtpStrgMchnOperInfoController extends BaseController {
 
 	// 저온저장고운영기간 조회
 	@PostMapping(value = "/fm/fclt/selectFcltLwtpStrgMchnOperInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltLwtpStrgMchnOperInfoVO fcltLwtpStrgMchnOperInfoVO, HttpServletRequest request) throws Exception{
+		logger.info("=============select=====start========");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltLwtpStrgMchnOperInfoVO> resultList = new ArrayList<>();
@@ -71,6 +73,7 @@ public class FcltLwtpStrgMchnOperInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		logger.info("=============select=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -78,6 +81,8 @@ public class FcltLwtpStrgMchnOperInfoController extends BaseController {
 	// 저온저장고운영기간 등록
 	@PostMapping(value = "/fm/fclt/insertFcltLwtpStrgMchnOperInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltLwtpStrgMchnOperInfo(@RequestBody FcltLwtpStrgMchnOperInfoVO fcltLwtpStrgMchnOperInfoVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============insert=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -98,6 +103,7 @@ public class FcltLwtpStrgMchnOperInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+		logger.info("=============insert=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -106,6 +112,7 @@ public class FcltLwtpStrgMchnOperInfoController extends BaseController {
 	@PostMapping(value = "/fm/fclt/updateFcltLwtpStrgMchnOperInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateFcltLwtpStrgMchnOperInfo(@RequestBody FcltLwtpStrgMchnOperInfoVO fcltLwtpStrgMchnOperInfoVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		logger.info("=============update=====start========");
 
 		// validation check
 
@@ -123,6 +130,7 @@ public class FcltLwtpStrgMchnOperInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+		logger.info("=============update=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -130,6 +138,8 @@ public class FcltLwtpStrgMchnOperInfoController extends BaseController {
 	// 저온저장고운영기간 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltLwtpStrgMchnOperInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltLwtpStrgMchnOperInfo(@RequestBody FcltLwtpStrgMchnOperInfoVO fcltLwtpStrgMchnOperInfoVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============delete=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -148,6 +158,7 @@ public class FcltLwtpStrgMchnOperInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		logger.info("=============delete=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -155,6 +166,8 @@ public class FcltLwtpStrgMchnOperInfoController extends BaseController {
 	// 저온저장고운영기간 목록 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltLwtpStrgMchnOperInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltLwtpStrgMchnOperInfoList(@RequestBody List<FcltLwtpStrgMchnOperInfoVO> fcltLwtpStrgMchnOperInfoList, HttpServletRequest requset) throws Exception{
+		logger.info("=============deleteList=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -175,6 +188,7 @@ public class FcltLwtpStrgMchnOperInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		logger.info("=============deleteList=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}

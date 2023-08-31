@@ -53,6 +53,7 @@ public class FcltItemPrfmncController extends BaseController {
 	// 산지유통품목처리실적 조회
 	@PostMapping(value = "/fm/fclt/selectFcltItemPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltItemPrfmncVO fcltItemPrfmncVO, HttpServletRequest request) throws Exception{
+		logger.info("=============select=====start========");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltItemPrfmncVO> resultList = new ArrayList<>();
@@ -71,6 +72,7 @@ public class FcltItemPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		logger.info("=============select=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -78,6 +80,8 @@ public class FcltItemPrfmncController extends BaseController {
 	// 산지유통품목처리실적 등록
 	@PostMapping(value = "/fm/fclt/insertFcltItemPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltItemPrfmnc(@RequestBody FcltItemPrfmncVO fcltItemPrfmncVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============insert=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -98,6 +102,7 @@ public class FcltItemPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+		logger.info("=============insert=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -105,6 +110,8 @@ public class FcltItemPrfmncController extends BaseController {
 	// 산지유통품목처리실적 변경
 	@PostMapping(value = "/fm/fclt/updateFcltItemPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateFcltItemPrfmnc(@RequestBody FcltItemPrfmncVO fcltItemPrfmncVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============update=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -123,6 +130,7 @@ public class FcltItemPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+		logger.info("=============update=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -130,6 +138,8 @@ public class FcltItemPrfmncController extends BaseController {
 	// 산지유통품목처리실적 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltItemPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltItemPrfmnc(@RequestBody FcltItemPrfmncVO fcltItemPrfmncVO, HttpServletRequest requset) throws Exception{
+		logger.info("=============delete=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -148,6 +158,7 @@ public class FcltItemPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		logger.info("=============delete=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -155,6 +166,8 @@ public class FcltItemPrfmncController extends BaseController {
 	// 산지유통품목처리실적 목록 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltItemPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltItemPrfmncList(@RequestBody List<FcltItemPrfmncVO> fcltItemPrfmncList, HttpServletRequest requset) throws Exception{
+		logger.info("=============deleteList=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -175,6 +188,7 @@ public class FcltItemPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		logger.info("=============deleteList=====end========");
 
 		return getSuccessResponseEntity(resultMap);
 	}

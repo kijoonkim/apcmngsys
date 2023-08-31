@@ -11,7 +11,7 @@ public class FcltOperHfInfoVO extends ComVO{
 
 	private String trgtYr;
 	private String apcCd;
-	private int sN;
+	private int sn;
 	private String hireSeCd;
 	private String ctznFrgnrSeCd;
 	private int hireNope;

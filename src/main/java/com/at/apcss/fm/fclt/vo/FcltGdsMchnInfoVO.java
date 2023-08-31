@@ -11,8 +11,8 @@ public class FcltGdsMchnInfoVO extends ComVO{
 
 	private String trgtYr;
 	private String apcCd;
-	private int sN;
-	private String itemCd;
+	private int sn;
+	private String sortMchnItemCd;
 	private String sortMchnCd;
 	private String sortMchnSpcfct;
 	private String sortMchnHldYn;
@@ -21,7 +21,16 @@ public class FcltGdsMchnInfoVO extends ComVO{
 	private String msgKnd;
 	private String msgKndNm;
 	private String rmrk;
-}
+	@Override
+	public String toString() {
+		return "FcltGdsMchnInfoVO [trgtYr=" + trgtYr + ", apcCd=" + apcCd + ", sn=" + sn + ", sortMchnItemCd="
+				+ sortMchnItemCd + ", sortMchnCd=" + sortMchnCd + ", sortMchnSpcfct=" + sortMchnSpcfct
+				+ ", sortMchnHldYn=" + sortMchnHldYn + ", msgKey=" + msgKey + ", msgCn=" + msgCn + ", msgKnd=" + msgKnd
+				+ ", msgKndNm=" + msgKndNm + ", rmrk=" + rmrk + "]";
+	}
+
+	}
+
 
 
 

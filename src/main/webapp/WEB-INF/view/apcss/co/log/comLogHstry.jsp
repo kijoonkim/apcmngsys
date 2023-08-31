@@ -18,145 +18,11 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search()"></sbux-button>
 				</div>
 			</div>
 			
 			<div class="box-body">
-				<!--[APC] START -->			
-					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
-				<!--[APC] END -->
-				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_fixed">
-					<caption>검색 조건 설정</caption>
-					<colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 9%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 9%">
-					</colgroup>
-					<tbody>
-						<tr>
-							<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-logYmd" name="srch-dtp-logYmd" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
-							</td>
-							<td colspan="5"></td>
-							<th scope="row" class="th_bg">재고구분</th>
-							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-invntrSeCd" name="srch-slt-invntrSeCd" uitype="single" unselected-text="선택" jsondata-ref="jsonComInvntrSeCd" class="form-control input-sm"></sbux-select>
-									</div>
-								</div>
-							</td>
-							<td></td>
-						</tr>
-						<tr>								
-							<th scope="row" class="th_bg">품목/품종</th>
-						    <td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select
-											unselected-text="선택"
-											uitype="single"
-											id="srch-slt-itemCd"
-											name="srch-slt-itemCd"
-											class="form-control input-sm"
-											jsondata-ref="jsonApcItem"
-											onchange="fn_onChangeSrchItemCd(this)"
-										/>
-									</div>
-								</div>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select
-											unselected-text="선택"
-											uitype="single"
-											id="srch-slt-vrtyCd"
-											name="srch-slt-vrtyCd"
-											class="form-control input-sm"
-											jsondata-ref="jsonApcVrty"
-											onchange="fn_onChangeSrchVrtyCd(this)"
-										/>
-									</div>
-								</div>
-							</td>
-							<td></td>
-							<th scope="row" class="th_bg">규격</th>
-							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" jsondata-ref="jsonApcSpcfct" class="form-control input-sm" unselected-text="선택"></sbux-select>
-									</div>
-								</div>
-							</td>
-							<td></td>
-							<th scope="row" class="th_bg">창고구분</th>
-							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComWarehouseSeCd"></sbux-select>
-									</div>
-								</div>
-							</td>
-							<td></td>
-						</tr>
-						<tr>
-							<th scope="row" class="th_bg">생산자</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input
-									uitype="text"
-									id="srch-inp-prdcrNm"
-									name="srch-inp-prdcrNm"
-									class="form-control input-sm"
-									placeholder="초성검색 기능입니다."
-									autocomplete-ref="jsonPrdcrAutocomplete"
-									autocomplete-text="name"
-	   								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
-	   								autocomplete-select-callback="fn_onSelectPrdcrNm"
-	  								></sbux-input>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-button
-									id="btn-srch-prdcr"
-									name="btn-srch-prdcr"
-									class="btn btn-xs btn-outline-dark"
-									text="찾기" uitype="modal"
-									target-id="modal-prdcr"
-									onclick="fn_choicePrdcr"
-								></sbux-button>
-							</td>
-							<td></td>
-							<th scope="row" class="th_bg">상품구분</th>
-							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-gdsSeCd" name="srch-slt-gdsSeCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComGdsSeCd"></sbux-select>
-									</div>
-								</div>
-							</td>
-							<td></td>
-							<th scope="row" class="th_bg">입고구분</th>
-							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-wrhsSeCd" name="srch-slt-wrhsSeCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComWrhsSeCd"></sbux-select>
-									</div>
-								</div>
-							</td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
 				<div class="ad_tbl_top2">
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnLogCntnHstry" name="btnLogCntnHstry" uitype="normal" text="접속이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
@@ -186,15 +52,10 @@
 			</div>
 		</div>
 	</section>
-	<!-- 생산자 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-prdcr">
-    	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
-    </div>
 </body>
 <script type="text/javascript">
+
+	var searchTarget = "logCntnHstry";
 
 	$(function(){
 		$('#btnLogCntnHstry').click(function(){
@@ -202,46 +63,36 @@
 		    $('#comLogMenuHstry').hide();
 		    $('#comLogTrsmHstry').hide();
 		    $('#comLogBatchHstry').hide();
+		    searchTarget = "logCntnHstry";
 		});
 		$('#btnLogMenuHstry').click(function(){
 		    $('#comLogCntnHstry').hide();
 		    $('#comLogMenuHstry').show();
 		    $('#comLogTrsmHstry').hide();
 		    $('#comLogBatchHstry').hide();
+		    searchTarget = "logMenuHstry";
 		});
 		$('#btnLogTrsmHstry').click(function(){
 		    $('#comLogCntnHstry').hide();
 		    $('#comLogMenuHstry').hide();
 		    $('#comLogTrsmHstry').show();
 		    $('#comLogBatchHstry').hide();
+		    searchTarget = "logTrsmHstry";
 		});
 		$('#btnLogBatchHstry').click(function(){
 		    $('#comLogCntnHstry').hide();
 		    $('#comLogMenuHstry').hide();
 		    $('#comLogTrsmHstry').hide();
 		    $('#comLogBatchHstry').show();
+		    searchTarget = "logBatchHstry";
 		});
 		$('#btnLogCntnHstry').click();
 	});
 
-	var jsonApcItem				= [];	// 품목 			itemCd			검색
-	var jsonApcVrty				= [];	// 품종 			vrtyCd			검색
-	var jsonApcSpcfct			= [];	// 규격 			spcfct			검색
-	var jsonComInvntrSeCd		= [];	// 재고구분 		invntrSeCd		검색
-	var jsonComWarehouseSeCd	= [];	// 창고구분 		warehouseSeCd	검색
-	var jsonComGdsSeCd			= [];	// 상품구분 		gdsSeCd			검색
-	var jsonComWrhsSeCd			= [];	// 입고구분 		wrhsSeCd		검색
-	
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, 			gv_selectedApcCd),						// 품목
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonApcVrty, 			gv_selectedApcCd),						// 품종
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonApcSpcfct, 			gv_selectedApcCd),						// 규격
-			gfn_setComCdSBSelect('srch-slt-invntrSeCd', 	jsonComInvntrSeCd, 		'INVNTR_SE', 		gv_selectedApcCd),	// 재고구분
-			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouseSeCd, 	'WAREHOUSE_SE_CD', 	gv_selectedApcCd),	// 창고구분
-			gfn_setComCdSBSelect('srch-slt-gdsSeCd', 		jsonComGdsSeCd, 		'GDS_SE_CD', 		gv_selectedApcCd),	// 상품구분
-			gfn_setComCdSBSelect('srch-slt-wrhsSeCd', 		jsonComWrhsSeCd, 		'WRHS_SE_CD', 		gv_selectedApcCd)	// 입고구분
+			
 		]);
 	}
 
@@ -252,96 +103,22 @@
 		tabLogBatchHstry.init(gv_selectedApcCd, gv_selectedApcNm);
 	}
 	
-	/**
-	 * @name fn_getPrdcrs
-     * @description 생산자 자동완성 JSON 설정
-	 */
-	const fn_getPrdcrs = async function() {
-		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
-		jsonPrdcr = gfn_setFrst(jsonPrdcr);
-	}
-	
 	window.addEventListener('DOMContentLoaded', function(e) {
-		SBUxMethod.set("srch-dtp-logYmd", gfn_dateToYmd(new Date()));
-		
 		fn_initSBSelect();
 		fn_initTabs();
 	})
-
- 	// APC 선택 변경
-	const fn_onChangeApc = async function() {
-		fn_clearPrdcr();
-		fn_initSBSelect();
-		fn_getPrdcrs();
-	}
 	
-    /**
-	 * @name fn_onChangeSrchItemCd
-	 * @description 품목 선택 변경 event
-	 */
-	const fn_onChangeSrchItemCd = async function(obj) {
-		let itemCd = obj.value;
-
-		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),			// 품종
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd),	// 규격
-		]);
-	}
-
-	/**
-	 * @name fn_onChangeSrchVrtyCd
-	 * @description 품종 선택 변경 event
-	 */
-	const fn_onChangeSrchVrtyCd = async function(obj) {
-		let vrtyCd = obj.value;
-		const itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
-
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
-			SBUxMethod.set("srch-slt-itemCd", itemCd);
-			await fn_onChangeSrchItemCd({value: itemCd});
-			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+	// 이력 조회 (조회 버튼)
+    async function fn_search() {
+		if(searchTarget == "logCntnHstry"){
+			tabLogCntnHstry.search();
+		} else if(searchTarget == "logMenuHstry"){
+			tabLogMenuHstry.search();
+		} else if(searchTarget == "logTrsmHstry"){
+			tabLogTrsmHstry.search();
+		} else if(searchTarget == "logBatchHstry"){
+			tabLogBatchHstry.search();
 		}
-	}
-	
-	/*
-	*
-	* @name fn_onKeyUpPrdcrNm
-	* @description 생산자명 입력 시 event : autocomplete
-	*/
-	const fn_onKeyUpPrdcrNm = function(prdcrNm){
-		fn_clearPrdcr();
-		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
-    	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
-
-	/**
-	 * @name fn_clearPrdcr
-	 * @description 생산자 폼 clear
-	 */
-	const fn_clearPrdcr = function() {
-		SBUxMethod.set("srch-inp-prdcrCd", "");
-		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
-	}
-
-	/**
-	 * @name fn_onSelectPrdcrNm
-	 * @description 생산자 autocomplete 선택 callback
-	 */
-	function fn_onSelectPrdcrNm(value, label, item) {
-		SBUxMethod.set("srch-inp-prdcrCd", value);
-		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-	}
-    const fn_choicePrdcr = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
-	}
-
-	const fn_setPrdcr = function(prdcr) {
-		if (!gfn_isEmpty(prdcr)) {
-			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
-			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
-			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-		}
-	}
 </script>
 </html>

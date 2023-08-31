@@ -11,10 +11,11 @@ public class FcltPrcsPrfmncVO extends ComVO{
 
 	private String trgtYr;
 	private String apcCd;
-	private int sN;
+	private int sn;
 	private String fcltPrcsSeCd;
 	private String fcltPrcsTrmtCd;
-	private int fcltPrcsTrmtAmt;private String msgKey;
+	private int fcltPrcsTrmtAmt;
+	private String msgKey;
 	private String msgCn;
 	private String msgKnd;
 	private String msgKndNm;

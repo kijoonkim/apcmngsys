@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ComLogMapper.xml                           		        			-->
+<!-- DESC : 이력조회 mapper                   					                 	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.08.29  	하민우        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.co.log.mapper.ComLogMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.selectCntnHstryList			-->
+	<!-- DESC : 접속이력 목록 조회.             		           	             	 		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.29  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectCntnHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		 FROM (
+    	</if>
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		SELECT
+    			  pt0.*
+    		 FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectCntnHstryList */
+    		  	   ML.USER_ID		AS USER_ID
+    		  	 , ML.USER_NM		AS USER_NM
+    		  	 , AI.APC_NM		AS APC_NM
+    		  	 , ML.PRSL_DT		AS PRSL_DT
+    		  	 , MIN(ML.PRSL_DT)	AS FRST_PRSL_DT
+			  FROM TB_COM_MENU_LOG_HSTRY 	ML
+			  	 , TB_COM_USER 				CU
+			  	 , TB_APC_INFO				AI
+			 WHERE ML.USER_ID = CU.USER_ID
+			   AND CU.APC_CD = AI.APC_CD
+			   AND CU.DEL_YN = 'N'
+			   AND AI.DEL_YN = 'N'
+		]]>
+		<if test='userNm != null and userNm != ""'>
+		       AND ML.USER_NM LIKE '%' ||  #{userNm} || '%'
+		</if>
+    	<![CDATA[
+		 	 GROUP BY ML.USER_ID
+    		  	 	, ML.USER_NM
+    		  	 	, AI.APC_NM
+    		  	 	, ML.PRSL_DT
+    		 ) pt0
+		]]>
+    	<where>
+			<if test='logYmdFrom != null and logYmdFrom != ""'>
+				AND pt0.PRSL_DT >= (SELECT TO_DATE(#{logYmdFrom}, 'YYYY/MM/DD') FROM dual)
+			</if>
+			<if test='logYmdTo != null and logYmdTo != ""'>
+				AND (SELECT TO_DATE(#{logYmdTo}, 'YYYY/MM/DD') FROM dual) >= pt0.PRSL_DT
+			</if>
+		</where>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.selectMenuHstryList			-->
+	<!-- DESC : 화면열람이력 목록 조회.                        	             	 		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.29  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectMenuHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		 FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectLogMenuHstryList */
+    		  	   ML.MENU_ID		AS MENU_ID
+    		  	 , ML.MENU_NM		AS MENU_NM
+    		  	 , ML.USER_ID		AS USER_ID
+    		  	 , ML.USER_NM		AS USER_NM
+    		  	 , AI.APC_NM		AS APC_NM
+    		  	 , ML.PRSL_DT		AS PRSL_DT
+			  FROM TB_COM_MENU_LOG_HSTRY 	ML
+			  	 , TB_COM_USER 				CU
+			  	 , TB_APC_INFO				AI
+			 WHERE ML.USER_ID = CU.USER_ID
+			   AND CU.APC_CD = AI.APC_CD
+			   AND CU.DEL_YN = 'N'
+			   AND AI.DEL_YN = 'N'
+		]]>
+		<if test='logYmdFrom != null and logYmdFrom != ""'>
+		   	   AND ML.PRSL_DT >= (SELECT TO_DATE(#{logYmdFrom}, 'YYYY/MM/DD') FROM dual)
+		</if>
+		<if test='logYmdTo != null and logYmdTo != ""'>
+		       AND (SELECT TO_DATE(#{logYmdTo}, 'YYYY/MM/DD') FROM dual) >= ML.PRSL_DT
+		</if>
+		<if test='menuNm != null and menuNm != ""'>
+		       AND ML.MENU_NM LIKE '%' ||  #{menuNm} || '%'
+		</if>
+    	<![CDATA[
+		 	 GROUP BY ML.MENU_ID
+    		  	 	, ML.MENU_NM
+    		  	 	, ML.USER_ID
+    		  	 	, ML.USER_NM
+    		  	 	, AI.APC_NM
+    		  	 	, ML.PRSL_DT
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.selectTrsmHstryList			-->
+	<!-- DESC : 송수신이력 목록 조회.                        	           		  	 		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.29  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectTrsmHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		 FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectTrsmHstryList */
+    		  	   CL.PRCS_DT				AS PRCS_DT
+    		  	 , CL.PRGRM_ID				AS PRGRM_ID
+    		  	 , CL.PRGRM_NM				AS PRGRM_NM
+    		  	 , CL.SEND_RCPTN_SE_CD		AS SEND_RCPTN_SE_CD
+    		  	 , CL.LOG_YMD				AS LOG_YMD
+			  FROM TB_COM_LOG 	CL
+			 WHERE CL.DEL_YN = 'N'
+		]]>
+		<if test='logYmdFrom != null and logYmdFrom != ""'>
+		   	   AND CL.LOG_YMD >= (SELECT TO_DATE(#{logYmdFrom}, 'YYYY/MM/DD') FROM dual)
+		</if>
+		<if test='logYmdTo != null and logYmdTo != ""'>
+		       AND (SELECT TO_DATE(#{logYmdTo}, 'YYYY/MM/DD') FROM dual) >= CL.LOG_YMD
+		</if>
+		<if test='sendRcptnSeCd != null and sendRcptnSeCd != ""'>
+		   	   AND CL.SEND_RCPTN_SE_CD = #{sendRcptnSeCd}
+		</if>
+		<if test='prgrmNm != null and prgrmNm != ""'>
+		       AND CL.PRGRM_NM LIKE '%' ||  #{prgrmNm} || '%'
+		</if>
+    	<![CDATA[
+		 	 GROUP BY CL.PRCS_DT
+    		  	 	, CL.PRGRM_ID
+    		  	 	, CL.PRGRM_NM
+    		  		, CL.SEND_RCPTN_SE_CD
+    		  		, CL.LOG_YMD
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.selectBatchHstryList			-->
+	<!-- DESC : 배치실행이력 목록 조회.                        	             	 		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.29  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBatchHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		 FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectBatchHstryList */
+    		  	   CL.PRCS_DT		AS PRCS_DT
+    		  	 , CL.LOG_SN		AS LOG_SN
+    		  	 , CL.PRGRM_ID		AS PRGRM_ID
+    		  	 , CL.PRGRM_NM		AS PRGRM_NM
+    		  	 , CL.LOG_YMD		AS LOG_YMD
+			  FROM TB_COM_LOG 	CL
+			 WHERE CL.DEL_YN = 'N'
+		]]>
+		<if test='logYmdFrom != null and logYmdFrom != ""'>
+		   	   AND CL.LOG_YMD >= (SELECT TO_DATE(#{logYmdFrom}, 'YYYY/MM/DD') FROM dual)
+		</if>
+		<if test='logYmdTo != null and logYmdTo != ""'>
+		       AND (SELECT TO_DATE(#{logYmdTo}, 'YYYY/MM/DD') FROM dual) >= CL.LOG_YMD
+		</if>
+		<if test='prgrmNm != null and prgrmNm != ""'>
+		       AND CL.PRGRM_NM LIKE '%' ||  #{prgrmNm} || '%'
+		</if>
+    	<![CDATA[
+		 	 GROUP BY CL.PRCS_DT
+    		  	 	, CL.LOG_SN
+    		  	 	, CL.PRGRM_ID
+    		  	 	, CL.PRGRM_NM
+    		  		, CL.LOG_YMD
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+</mapper>
+
+
