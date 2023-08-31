@@ -192,18 +192,18 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
-            {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd',		width: '15%',	type: 'output',	style:'text-align: center'},
-            {caption: ['상품명','상품명'], 		ref: 'gdsNm', 		width: '15%',	type: 'output',	style:'text-align: center'},
-            {caption: ['품종','품종'],			ref: 'vrtyNm', 		width: '15%',	type: 'output',	style:'text-align: center'},
-            {caption: ['규격','규격'], 		ref: 'spcfctNm', 	width: '15%',	type: 'output',	style:'text-align: center'},
-            {caption: ['브랜드','브랜드'], 		ref: 'brndCd', 		width: '15%',	type: 'output',	style:'text-align: center'},
-            {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '15%',	type: 'output',	style:'text-align: center'},
-            {caption: ['배송지','배송지'], 		ref: 'dldtn', 		width: '15%',	type: 'output',	style:'text-align: center'},
-            {caption: ['운송사','운송사'], 		ref: 'trsprtCoNm', 	width: '15%',	type: 'output',	style:'text-align: center'},
-            {caption: ['차량번호','차량번호'], 	ref: 'vhclno',		width: '15%',	type: 'output',	style:'text-align: center'},
-            {caption: ['운반비','운반비'], 		ref: 'trsprtCst', 	width: '15%',	type: 'output',	style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-            {caption: ['출하','수량'], 		ref: 'spmtQntt', 	width: '15%',	type: 'output',	style:'text-align: right', format : {type:'number', rule:'#,###'}},
-            {caption: ['출하','중량'], 		ref: 'spmtWght', 	width: '15%',	type: 'output',	style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}}
+            {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd',		width: '140px',	type: 'output',	style:'text-align: center'},
+            {caption: ['상품명','상품명'], 		ref: 'gdsNm', 		width: '140px',	type: 'output',	style:'text-align: center'},
+            {caption: ['품종','품종'],			ref: 'vrtyNm', 		width: '140px',	type: 'output',	style:'text-align: center'},
+            {caption: ['규격','규격'], 		ref: 'spcfctNm', 	width: '140px',	type: 'output',	style:'text-align: center'},
+            {caption: ['브랜드','브랜드'], 		ref: 'brndCd', 		width: '140px',	type: 'output',	style:'text-align: center'},
+            {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '140px',	type: 'output',	style:'text-align: center'},
+            {caption: ['배송지','배송지'], 		ref: 'dldtn', 		width: '140px',	type: 'output',	style:'text-align: center'},
+            {caption: ['운송사','운송사'], 		ref: 'trsprtCoNm', 	width: '140px',	type: 'output',	style:'text-align: center'},
+            {caption: ['차량번호','차량번호'], 	ref: 'vhclno',		width: '140px',	type: 'output',	style:'text-align: center'},
+            {caption: ['운반비','운반비'], 		ref: 'trsprtCst', 	width: '140px',	type: 'output',	style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['출하','수량'], 		ref: 'spmtQntt', 	width: '140px',	type: 'output',	style:'text-align: right', format : {type:'number', rule:'#,###'}},
+            {caption: ['출하','중량'], 		ref: 'spmtWght', 	width: '140px',	type: 'output',	style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}}
         ];
         grdSpmtPrfmnc = _SBGrid.create(SBGridProperties);
         grdSpmtPrfmnc.bind( "afterpagechanged" , "fn_pagingSmptPrfmnc" );
