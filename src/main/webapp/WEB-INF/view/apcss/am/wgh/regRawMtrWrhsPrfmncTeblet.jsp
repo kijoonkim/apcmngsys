@@ -134,15 +134,15 @@
 							<td colspan="8" class="td_input" style="border-right:hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-wrhsSeCd_1" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="1"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_1" text="일반매입"></sbux-label>
+									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_1" text="일반"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-wrhsSeCd_2" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="2"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_2" text="공선"></sbux-label>
+									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_2" text="매취"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-wrhsSeCd_3" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="3" checked></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_3" text="매취"></sbux-label>
+									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_3" text="수탁"></sbux-label>
 								</p>
 							</td>
 							<td colspan="4">&nbsp;</td>
