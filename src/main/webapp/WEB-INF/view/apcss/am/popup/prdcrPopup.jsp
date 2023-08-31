@@ -159,32 +159,32 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		        {caption: ['생산자명'], ref: 'prdcrNm', width: '100px', type: 'input', style: 'text-align:center'},
-		        {caption: ['대표품목'], ref: 'rprsItemCd', 	type:'combo', width:'100px', style: 'text-align:center',
-					typeinfo: {ref:'jsonApcItemPrdcrPop', label:'label', value:'value', displayui : false}
+		        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '100px', style: 'text-align:center'},
+		        {caption: ['대표품목'], 		ref: 'rprsItemCd', 		type: 'combo', 	width: '100px', style: 'text-align:center',
+					typeinfo: {ref:'jsonApcItemPrdcrPop', 		label:'label', value:'value'}
 		        },
-		        {caption: ['대표품종'], ref: 'rprsVrtyCd', 	type:'combo', width:'100px', style: 'text-align:center',
-					typeinfo: {ref:'jsonApcVrtyPrdcrPop', label:'label', value:'value', displayui : false}
+		        {caption: ['대표품종'], 		ref: 'rprsVrtyCd', 		type: 'combo', 	width: '100px', style: 'text-align:center',
+					typeinfo: {ref:'jsonApcVrtyPrdcrPop', 		label:'label', value:'value'}
 				},
-		        {caption: ['상품구분'], ref: 'gdsSeCd', type:'combo', width:'80px', style: 'text-align:center',
-					typeinfo: {ref:'jsonComGdsSeCdPrdcrPop', label:'label', value:'value',  displayui : false}
+		        {caption: ['상품구분'], 		ref: 'gdsSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center',
+					typeinfo: {ref:'jsonComGdsSeCdPrdcrPop', 	label:'label', value:'value'}
 				},
-		        {caption: ['입고구분'], ref: 'wrhsSeCd', type:'combo', width:'80px', style: 'text-align:center',
-					typeinfo: {ref:'jsonComWrhsSeCdPrdcrPop', label:'label', value:'value',  displayui : false}
+		        {caption: ['입고구분'], 		ref: 'wrhsSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center',
+					typeinfo: {ref:'jsonComWrhsSeCdPrdcrPop', 	label:'label', value:'value'}
 				},
-		        {caption: ['운송구분'], ref: 'trsprtSeCd', 	type:'combo',  width:'80px', style: 'text-align:center',
-					typeinfo: {ref:'jsonComTrsprtSeCdPrdcrPop', label:'label', value:'value', displayui : false}
+		        {caption: ['운송구분'], 		ref: 'trsprtSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center',
+					typeinfo: {ref:'jsonComTrsprtSeCdPrdcrPop', label:'label', value:'value'}
 				},
-		        {caption: ['정산기준'], ref: 'clclnCrtr', type:'combo', width:'80px', style: 'text-align:center',
-					typeinfo: {ref:'jsonComClclnCrtrPrdcrPop', label:'label', value:'value', displayui : false}
+		        {caption: ['정산기준'], 		ref: 'clclnCrtr', 		type: 'combo', 	width:'80px', 	style: 'text-align:center',
+					typeinfo: {ref:'jsonComClclnCrtrPrdcrPop', 	label:'label', value:'value'}
 				},
-		        {caption: ['차량번호'], ref: 'vhclno', width: '100px', type: 'input', style: 'text-align:center'},
-		        {caption: ['비고'], ref: 'rmrk', width: '150px', type: 'input', style: 'text-align:center'},
-// 		        {caption: ['전화번호'], ref: 'telno', width: '150px', type: 'input', style: 'text-align:center'},
-// 		        {caption: ['생산자연계코드'], ref: 'prdcrLinkCd', width: '150px', type: 'input', style: 'text-align:center'},
-// 		        {caption: ['참여조직'], ref: '', width: '150px', type: 'input', style: 'text-align:center'},
-// 		        {caption: ['생산자인식번호'], ref: 'prdcrIdentno', width: '150px', type: 'input', style: 'text-align:center'},
-		        {caption: ["처리"], ref: 'delYn', type:'button', width:'80px', style: 'text-align:center',
+		        {caption: ['차량번호'], 		ref: 'vhclno', 			type: 'input', 	width: '100px', style: 'text-align:center'},
+		        {caption: ['전화번호'], 		ref: 'telno', 			type: 'input', 	width: '150px', style: 'text-align:center'},
+		        {caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '150px', style: 'text-align:center'},
+// 		        {caption: ['참여조직'], 		ref: '', 				type: 'input', 	width: '150px', style: 'text-align:center'},
+		        {caption: ['생산자인식번호'], 	ref: 'prdcrIdentno', 	type: 'input', 	width: '150px', style: 'text-align:center'},
+		        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '150px', style: 'text-align:center'},
+		        {caption: ["처리"], 			ref: 'delYn', 			type: 'button', width: '80px', 	style: 'text-align:center',
 		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 						if (!isEditable) {
 							return "";
@@ -372,19 +372,22 @@
 	    		jsonPrdcrPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const prdcr = {
-						rowSeq		: item.rowSeq,
-						prdcrCd		: item.prdcrCd,
-					    prdcrNm 	: item.prdcrNm,
-					    rprsItemCd 	: item.rprsItemCd,
-					    rprsVrtyCd 	: item.rprsVrtyCd,
-					    gdsSeCd 	: item.gdsSeCd,
-					    wrhsSeCd 	: item.wrhsSeCd,
-					    trsprtSeCd 	: item.trsprtSeCd,
-					    clclnCrtr 	: item.clclnCrtr,
-					    vhclno 		: item.vhclno,
-					    delYn 		: item.delYn,
-					    rmrk 		: item.rmrk,
-					    apcCd 		: item.apcCd
+						rowSeq			: item.rowSeq,
+						prdcrCd			: item.prdcrCd,
+					    prdcrNm 		: item.prdcrNm,
+					    rprsItemCd 		: item.rprsItemCd,
+					    rprsVrtyCd 		: item.rprsVrtyCd,
+					    gdsSeCd 		: item.gdsSeCd,
+					    wrhsSeCd 		: item.wrhsSeCd,
+					    trsprtSeCd 		: item.trsprtSeCd,
+					    clclnCrtr 		: item.clclnCrtr,
+					    vhclno 			: item.vhclno,
+					    telno			: item.telno,
+					    prdcrLinkCd		: item.prdcrLinkCd,
+					    prdcrIdentno	: item.prdcrIdentno,
+					    rmrk 			: item.rmrk,
+					    delYn 			: item.delYn,
+					    apcCd 			: item.apcCd
 					}
 					jsonPrdcrPop.push(prdcr);
 
