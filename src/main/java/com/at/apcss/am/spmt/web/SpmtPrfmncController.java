@@ -78,6 +78,35 @@ public class SpmtPrfmncController extends BaseController {
 				spmtPrfmncVO.setSysFrstInptUserId(getPrgrmId());
 				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 				spmtPrfmncVO.setSysLastChgUserId(getUserId());
+				insertedCnt = spmtPrfmncService.insertSpmtPrfmncCom(spmtPrfmncVO);
+				insertedCnt = spmtPrfmncService.insertSpmtPrfmncDtl(spmtPrfmncVO);
+			}
+
+			resultMap.put(ComConstants.PROP_INSERTED_CNT,  insertedCnt);
+
+		}catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	// 출하대상내역 등록
+	@PostMapping(value = "/am/spmt/insertSpmtTrgtDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertSpmtTrgtDsctnList(@RequestBody List<SpmtPrfmncVO> SpmtPrfmncList, HttpServletRequest request) throws Exception {
+		logger.debug("insertSpmtTrgtDsctnList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int insertedCnt = 0;
+		try {
+			String spmtno = cmnsTaskNoService.selectSpmtno(SpmtPrfmncList.get(0).getApcCd(), SpmtPrfmncList.get(0).getSpmtYmd());
+
+			for (SpmtPrfmncVO spmtPrfmncVO : SpmtPrfmncList) {
+				spmtPrfmncVO.setSpmtno(spmtno);
+				spmtPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+				spmtPrfmncVO.setSysFrstInptUserId(getPrgrmId());
+				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+				spmtPrfmncVO.setSysLastChgUserId(getUserId());
 			}
 
 			insertedCnt = spmtPrfmncService.insertSpmtPrfmnc(SpmtPrfmncList);
