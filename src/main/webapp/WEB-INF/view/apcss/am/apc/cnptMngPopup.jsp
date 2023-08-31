@@ -278,9 +278,10 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
-            {caption: ["대형마트 명"], 		ref: 'lgszMrktNm',  	type:'input',  width:'165px',     style:'text-align:center'},
-            {caption: ["발주정보 URL"], 	ref: 'outordrInfoUrl',  	type:'input',  width:'320px',    style:'text-align:center'},
-            {caption: ["사용자ID"], 		ref: 'userId',  	type:'input',  width:'120px',    style:'text-align:center'},
+            {caption: ["대형마트 코드"], 		ref: 'lgszMrktCd',  	type:'output',  width:'100px',     style:'text-align:center'},
+            {caption: ["대형마트 명"], 		ref: 'lgszMrktNm',  	type:'input',  width:'100px',     style:'text-align:center'},
+            {caption: ["발주정보 URL"], 	ref: 'outordrInfoUrl',  	type:'input',  width:'300px',    style:'text-align:center'},
+            {caption: ["사용자ID"], 		ref: 'userId',  	type:'input',  width:'100px',    style:'text-align:center'},
             {caption: ["패스워드"], 		ref: 'pswd',  	type:'input',  width:'120px',    style:'text-align:center'},
             {caption: ["사용유무"], 		ref: 'useYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
 						typeinfo : {ref:'comboReverseYnJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
