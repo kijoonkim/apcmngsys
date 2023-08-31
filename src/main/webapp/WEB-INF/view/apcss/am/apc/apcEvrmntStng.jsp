@@ -191,7 +191,7 @@
 						<tr>
 							<th scope="row">거래처 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="btnCnpt" name="btnCnpt" uitype="modal" text="거래처 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-cnpt" onclick="fn_modal('btnCnpt')"></sbux-button>
+								<sbux-button id="btnCnpt" name="btnCnpt" uitype="modal" text="거래처/발주수신 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-cnpt" onclick="fn_modal('btnCnpt')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								상품출하시 관리하고 있는 거래처 정보를 등록하세요. (출하처리 시 필요한 정보입니다)
@@ -533,7 +533,7 @@
     </div>
     <!-- 거래처 등록 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 등록" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처/발주수신 등록" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-cnpt">
     	<jsp:include page="../apc/cnptMngPopup.jsp"></jsp:include>

@@ -50,7 +50,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th class="ta_r th_bg">작업일자</th>
+							<th class="ta_r th_bg">기준일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-strtCrtrYmd" name="srch-dtp-strtCrtrYmd" class="form-control pull-right input-sm"/>
 							</td>
@@ -73,7 +73,7 @@
 				</div>
 				<div class="sbt-wrap-body">
 					<div class="sbt-grid">
-						<div id="inptCmndDsctnGridArea" style="height:340px;"></div>
+						<div id="inptCmndDsctnGridArea" style="height:200px;"></div>
 					</div>
 				</div>
 				<div class="ad_tbl_top">
@@ -98,6 +98,12 @@
 <script type="text/javascript">
 	var jsonComMsgKnd 		= [];	// srch.select.comMsgKnd
 	var jsonComWrhsSpmtSe	= [];	// 설비 fcltCd		검색
+	
+	var jsonWrhsSpmtSe	= [];	// 입출고구분 grdPltWrhsSpmt 그리드
+	var jsonPltBxSe		= [];	// 팔레트/박스구분 grdPltWrhsSpmt 그리드
+	var jsonPltNm		= [];	// 팔레트 명칭 grdPltWrhsSpmt 그리드
+	var jsonPrdcr		= [];	// 생산자 grdPltWrhsSpmt 그리드
+
 
 	const fn_initSBSelect = async function() {
 
@@ -135,13 +141,6 @@
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
-	    SBGridProperties.paging = {
-				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-	    };
 
 	    SBGridProperties.columns = [
 	        {caption: ["구분","구분"],		ref: 'msgKey',      type:'output',  width:'170px',    style:'text-align:center'},
@@ -179,18 +178,12 @@
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 20,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
+
 	    SBGridProperties.columns = [
 	        {caption: ["선택"],		ref: 'msgKey',      type:'checkbox',  width:'70px',    style:'text-align:center'},
 	        {caption: ["작업일자"],		ref: 'msgKey',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["입출고구분"], 	ref: 'delYn',   	type:'combo',  width:'140px',    style:'text-align:center',
-				typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : true}},
+	        	typeinfo : {ref:'jsonWrhsSpmtSe', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["구분"], 	ref: 'delYn',   	type:'combo',  width:'140px',    style:'text-align:center',
 				typeinfo : {ref:'comboUesYnJsData1', label:'label', value:'value', displayui : true}},
 	        {caption: ["명칭"], 	ref: 'delYn',   	type:'combo',  width:'140px',    style:'text-align:center',
@@ -244,7 +237,7 @@
 
 
           	// pagination
-  	  		pagingYn : 'Y',
+  	  		pagingYn : 'N',
   			currentPageNo : pageNo,
    		  	recordCountPerPage : pageSize
   		});

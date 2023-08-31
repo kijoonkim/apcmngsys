@@ -2,11 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
-<spring:eval expression="@environment.getProperty('spring.report.dbName')" var="reportDbName" />
-<spring:eval expression="@environment.getProperty('spring.report.url')" var="reportUrl" />
-<spring:eval expression="@environment.getProperty('spring.report.type')" var="reportType" />
-<spring:eval expression="@environment.getProperty('spring.report.path')" var="reportPath" />
-
     <!------------------ CLIPSOFT CSS ------------------>
     <link href="/resource/clip/css/clipreport5.css" rel="stylesheet" type="text/css">
     <link href="/resource/clip/css/UserConfig5.css" rel="stylesheet" type="text/css">
