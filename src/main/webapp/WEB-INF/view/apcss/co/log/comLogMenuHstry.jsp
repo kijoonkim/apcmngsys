@@ -95,12 +95,12 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		        	{caption: ['화면ID'], 	ref: 'menuId',		width: '40%',	type: 'output',	style:'text-align: center'},
-		            {caption: ['화면명'], 	ref: 'menuNm', 		width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자ID'],	ref: 'userId', 		width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자명'],	ref: 'userNm', 		width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['APC명'], 	ref: 'apcNm', 		width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['열람일시'],	ref: 'prslDt',		width: '40%', 	type: 'output',	style:'text-align: center'}
+		        	{caption: ['화면ID'], 	ref: 'menuId',		width: '260px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['화면명'], 	ref: 'menuNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자ID'],	ref: 'userId', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자명'],	ref: 'userNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['APC명'], 	ref: 'apcNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['열람일시'],	ref: 'prslDt',		width: '260px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogMenuHstry = _SBGrid.create(SBGridProperties);
 		        grdLogMenuHstry.bind( "afterpagechanged" , tabLogMenuHstry.setGrid );

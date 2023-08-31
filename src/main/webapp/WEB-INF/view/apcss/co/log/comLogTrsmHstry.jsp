@@ -113,12 +113,12 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		        	{caption: ['처리일시'], 		ref: 'prcsDt',			width: '40%',	type: 'output',	style:'text-align: center'},
-		            {caption: ['인터페이스ID'], 	ref: 'prgrmId', 		width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['인터페이스명'],		ref: 'prgrmNm', 		width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['송수신구분'],		ref: 'sendRcptnSeCd', 	width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['처리결과'], 		ref: 'prcsRslt', 		width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['접속일시'],		ref: 'logYmd',			width: '40%', 	type: 'output',	style:'text-align: center'}
+		        	{caption: ['처리일시'], 		ref: 'prcsDt',			width: '260px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['인터페이스ID'], 	ref: 'prgrmId', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['인터페이스명'],		ref: 'prgrmNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['송수신구분'],		ref: 'sendRcptnSeCd', 	width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['처리결과'], 		ref: 'prcsRslt', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속일시'],		ref: 'logYmd',			width: '260px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogTrsmHstry = _SBGrid.create(SBGridProperties);
 		        grdLogTrsmHstry.bind( "afterpagechanged" , tabLogTrsmHstry.setGrid );

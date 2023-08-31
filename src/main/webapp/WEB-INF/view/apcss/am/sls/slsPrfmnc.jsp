@@ -170,7 +170,7 @@
             {caption: ['출하','수량'], 		ref: 'qntt', 		width: '100px', 	type: 'output',		style:'text-align: right', format : {type:'number', rule:'#,###'}},
             {caption: ['출하','중량'], 		ref: 'wght', 		width: '100px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['매출금액','매출금액'], 	ref: 'cfmtnAmt', 	width: '100px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-            {caption: ['비고','비고'], 	ref: '__', 	width: '1px', 	type: 'output',		style:'text-align: right'}
+            {caption: ['비고','비고'], 		ref: '__', 			width: '200px', 	type: 'output',		style:'text-align: right'}
         ];
         grdSlsPrfmnc = _SBGrid.create(SBGridProperties);
         grdSlsPrfmnc.bind( "afterpagechanged" , "fn_pagingSlsPrfmnc" );

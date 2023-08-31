@@ -194,18 +194,18 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-            {caption: ['지시일자'], 	ref: 'cmndYmd', 	width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['거래처'], 	ref: 'cnptNm', 		width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['상품명'], 	ref: 'gdsNm', 		width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 	width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['배송처'], 	ref: 'dldtn', 		width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['수량'], 		ref: 'cmndQntt', 	width: '10%',	type: 'output',	style:'text-align: right', format : {type:'number', rule:'#,###'}},
-            {caption: ['중량'], 		ref: 'cmndWght', 	width: '10%',	type: 'output',	style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ['상품등급'], 	ref: 'gdsGrd', 		width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['포장구분'], 	ref: 'pkcgSe', 		width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['품종'], 		ref: 'vrtyNm', 		width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['규격'], 		ref: 'spcfctNm', 	width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['비고'], 		ref: 'rmrk', 		width: '10%',	type: 'output'}
+            {caption: ['지시일자'], 	ref: 'cmndYmd', 	width: '120px',	type: 'output',	style:'text-align: center'},
+            {caption: ['거래처'], 	ref: 'cnptNm', 		width: '120px',	type: 'output',	style:'text-align: center'},
+            {caption: ['상품명'], 	ref: 'gdsNm', 		width: '120px',	type: 'output',	style:'text-align: center'},
+            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 	width: '120px',	type: 'output',	style:'text-align: center'},
+            {caption: ['배송처'], 	ref: 'dldtn', 		width: '120px',	type: 'output',	style:'text-align: center'},
+            {caption: ['수량'], 		ref: 'cmndQntt', 	width: '120px',	type: 'output',	style:'text-align: right', format : {type:'number', rule:'#,###'}},
+            {caption: ['중량'], 		ref: 'cmndWght', 	width: '120px',	type: 'output',	style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+            {caption: ['상품등급'], 	ref: 'gdsGrd', 		width: '120px',	type: 'output',	style:'text-align: center'},
+            {caption: ['포장구분'], 	ref: 'pkcgSe', 		width: '120px',	type: 'output',	style:'text-align: center'},
+            {caption: ['품종'], 		ref: 'vrtyNm', 		width: '120px',	type: 'output',	style:'text-align: center'},
+            {caption: ['규격'], 		ref: 'spcfctNm', 	width: '120px',	type: 'output',	style:'text-align: center'},
+            {caption: ['비고'], 		ref: 'rmrk', 		width: '200px',	type: 'output'}
         ];
         grdSmptCmnd = _SBGrid.create(SBGridProperties);
         grdSmptCmnd.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );

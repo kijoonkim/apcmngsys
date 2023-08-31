@@ -95,12 +95,12 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		        	{caption: ['처리일자'], 	ref: 'prcsDt',		width: '40%',	type: 'output',	style:'text-align: center'},
-		            {caption: ['순번'], 		ref: 'logSn', 		width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['프로그램ID'],	ref: 'prgrmId', 	width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['프로그램명'],	ref: 'prgrmNm', 	width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['접속일시'],	ref: 'logYmd',		width: '40%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['처리결과'], 	ref: 'prcsRslt',	width: '40%', 	type: 'output',	style:'text-align: center'}
+		        	{caption: ['처리일자'], 	ref: 'prcsDt',		width: '260px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['순번'], 		ref: 'logSn', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['프로그램ID'],	ref: 'prgrmId', 	width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['프로그램명'],	ref: 'prgrmNm', 	width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속일시'],	ref: 'logYmd',		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['처리결과'], 	ref: 'prcsRslt',	width: '260px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogBatchHstry = _SBGrid.create(SBGridProperties);
 		        grdLogBatchHstry.bind( "afterpagechanged" , tabLogBatchHstry.setGrid );
