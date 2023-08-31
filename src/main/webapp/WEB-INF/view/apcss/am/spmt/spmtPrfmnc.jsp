@@ -93,7 +93,7 @@
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-trsprtCo" name="srch-slt-trsprtCo" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComTrsprtCo"></sbux-select>
+										<sbux-select id="srch-slt-trsprtCoCd" name="srch-slt-trsprtCoCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComTrsprtCoCd"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -154,13 +154,13 @@
 	var jsonComItem			= [];	// 품목
 	var jsonComVrty			= [];	// 품종
 	var jsonComWarehouse	= [];	// 창고
-	var jsonComTrsprtCo		= [];	// 운송사
+	var jsonComTrsprtCoCd	= [];	// 운송사
 
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
-		 	gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', 	jsonComTrsprtCo, 	gv_selectedApcCd),		// 운송사
+		 	gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', 	jsonComTrsprtCoCd, 	gv_selectedApcCd),		// 운송사
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd),		// 품목
 		]);
 	}
@@ -227,7 +227,7 @@
 		let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
 		let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
 		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
-		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCo");
+		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCoCd");
 		let itemCd;
 		if (itemList.length != 0) {
 			itemCd = itemList.join(',');
@@ -348,7 +348,7 @@
 	
 	// 거래처 선택 팝업 호출
 	const fn_modalCnpt = function() {
-    	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
+    	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnptNm"), fn_setCnpt);
 	}
 	
 	const fn_setCnpt = function(cnpt) {

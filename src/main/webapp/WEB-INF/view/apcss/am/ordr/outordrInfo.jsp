@@ -155,7 +155,7 @@
 						<li><span>발주 내역</span></li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnRcptOrdrAll" name="btnRcptOrdrAll" uitype="normal" onclick="fn_rcptOrdrAll" class="btn btn-sm btn-outline-dark" text="일괄 접수"></sbux-button>
+						<sbux-button id="btnRcptOrdrAll" name="btnReceiptBndl" uitype="normal" onclick="btn_receiptBndl" class="btn btn-sm btn-outline-dark" text="일괄 접수"></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -243,15 +243,15 @@
             {caption: ['품종'], 			ref: 'vrtyNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['규격'], 			ref: 'spcfctNm', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['입수'], 			ref: 'bxGdsQntt', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['발주수량'], 		ref: 'outordrQntt', 	width: '100px', 	type: 'output',			style:'text-align: right'},
-            {caption: ['낱개수량'], 		ref: 'pieceQntt', 		width: '100px', 	type: 'output',			style:'text-align: right'},
+            {caption: ['발주수량'], 		ref: 'outordrQntt', 	width: '100px', 	type: 'input',			style:'text-align: right', format : {type:'number', rule:'#,###'}},
+            {caption: ['낱개수량'], 		ref: 'pieceQntt', 		width: '100px', 	type: 'input',			style:'text-align: right', format : {type:'number', rule:'#,###'}},
             {caption: ['단위'], 			ref: 'unit', 			width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['박스단가'], 		ref: 'bxUntprc', 		width: '100px', 	type: 'output',			style:'text-align: right'},
-            {caption: ['발주단가'], 		ref: 'outordrUntprc', 	width: '100px', 	type: 'output',			style:'text-align: right'},
+            {caption: ['박스단가'], 		ref: 'bxUntprc', 		width: '100px', 	type: 'output',			style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
+            {caption: ['발주단가'], 		ref: 'outordrUntprc', 	width: '100px', 	type: 'output',			style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
             {caption: ['발주단위'], 		ref: 'outordrUnit', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['LOT'], 			ref: 'lot', 			width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['세액'], 			ref: 'txAmt', 			width: '100px', 	type: 'output',			style:'text-align: right'},
-            {caption: ['발주금액'], 		ref: 'outordrAmt', 		width: '100px', 	type: 'output',			style:'text-align: right'},
+            {caption: ['세액'], 			ref: 'txAmt', 			width: '100px', 	type: 'input',			style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
+            {caption: ['발주금액'], 		ref: 'outordrAmt', 		width: '100px', 	type: 'input',			style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
             {caption: ['입고형태'], 		ref: 'wrhsType', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['문서번호'], 		ref: 'docno', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['도크정보'], 		ref: 'dockInfo', 		width: '100px', 	type: 'output',			style:'text-align: center'},
@@ -416,7 +416,7 @@
     }
 	
 	// 일괄 접수
-    async function fn_rcptOrdrAll(){
+    async function btn_receiptBndl(){
     	let allData = grdOutordrInfo.getGridDataAll();
     	console.log("일괄 접수: ", allData);
 		const rcptOrdrAllList = [];
@@ -577,13 +577,12 @@
 	
 	// 거래처 선택 팝업 호출
 	const fn_modalCnpt = function() {
-    	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
+    	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnptNm"), fn_setCnpt);
 	}
 	
 	const fn_setCnpt = function(cnpt) {
 		if (!gfn_isEmpty(cnpt)) {
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
-			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
 		}
 	}
 </script>
