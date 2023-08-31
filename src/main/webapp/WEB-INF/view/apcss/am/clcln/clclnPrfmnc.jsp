@@ -212,10 +212,10 @@
             {caption: ['규격'], 		ref: 'spcfctNm', 	width: '100px', 	type: 'output',		style:'text-align: center'},
             {caption: ['브랜드'], 	ref: 'brndCd', 		width: '100px', 	type: 'output',		style:'text-align: center'},
             {caption: ['등급'], 		ref: 'grdCd', 		width: '100px', 	type: 'output',		style:'text-align: center'},
-            {caption: ['수량'], 		ref: 'qntt', 		width: '100px', 	type: 'output',		style:'text-align: right'},
-            {caption: ['중량'], 		ref: 'wght', 		width: '100px', 	type: 'output',		style:'text-align: right'},
-            {caption: ['계산금액'], 	ref: 'rkngAmt', 	width: '100px', 	type: 'output',		style:'text-align: right'},
-            {caption: ['확정금액'], 	ref: 'cfmtnAmt', 	width: '100px', 	type: 'output',		style:'text-align: right'}
+            {caption: ['수량'], 		ref: 'qntt', 		width: '100px', 	type: 'output',		style:'text-align: right', format : {type:'number', rule:'#,###'}},
+            {caption: ['중량'], 		ref: 'wght', 		width: '100px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+            {caption: ['계산금액'], 	ref: 'rkngAmt', 	width: '100px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['확정금액'], 	ref: 'cfmtnAmt', 	width: '100px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}}
         ];
         grdClclnPrfmnc = _SBGrid.create(SBGridProperties);
         grdClclnPrfmnc.bind( "afterpagechanged" , "fn_pagingClclnPrfmnc" );

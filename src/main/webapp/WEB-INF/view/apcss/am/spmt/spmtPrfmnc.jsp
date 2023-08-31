@@ -201,9 +201,9 @@
             {caption: ['배송지','배송지'], 		ref: 'dldtn', 		width: '15%',	type: 'output',	style:'text-align: center'},
             {caption: ['운송사','운송사'], 		ref: 'trsprtCoNm', 	width: '15%',	type: 'output',	style:'text-align: center'},
             {caption: ['차량번호','차량번호'], 	ref: 'vhclno',		width: '15%',	type: 'output',	style:'text-align: center'},
-            {caption: ['운반비','운반비'], 		ref: 'trsprtCst', 	width: '15%',	type: 'output',	style:'text-align: center'},
-            {caption: ['출하','수량'], 		ref: 'spmtQntt', 	width: '15%',	type: 'output',	style:'text-align: right'},
-            {caption: ['출하','중량'], 		ref: 'spmtWght', 	width: '15%',	type: 'output',	style:'text-align: right'}
+            {caption: ['운반비','운반비'], 		ref: 'trsprtCst', 	width: '15%',	type: 'output',	style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['출하','수량'], 		ref: 'spmtQntt', 	width: '15%',	type: 'output',	style:'text-align: right', format : {type:'number', rule:'#,###'}},
+            {caption: ['출하','중량'], 		ref: 'spmtWght', 	width: '15%',	type: 'output',	style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}}
         ];
         grdSpmtPrfmnc = _SBGrid.create(SBGridProperties);
         grdSpmtPrfmnc.bind( "afterpagechanged" , "fn_pagingSmptPrfmnc" );
