@@ -34,6 +34,7 @@
 			    , (SELECT FN_GET_COM_CD_VL_NM('UNIT_CD', PB.UNIT_CD) FROM DUAL) AS UNIT_NM
 			    , PB.USE_YN             AS USE_YN
 			    , PB.DEL_YN             AS DEL_YN
+			    , PB.RMRK             	AS RMRK
 			  FROM TB_PLT_BX_INFO PB
 			 WHERE PB.APC_CD = #{apcCd}
 		]]>
@@ -77,6 +78,7 @@
 	    		  , UNIT_WGHT
 	    		  , UNIT_CD
 	    		  , BSS_INVNTR_QNTT
+	    		  , RMRK
 	    		  , USE_YN
 	    		  , DEL_YN
 	    		  , SYS_FRST_INPT_DT
@@ -95,6 +97,7 @@
 	    		  , #{unitWght}
 				  , #{unitCd}
 	    		  , #{bssInvntrQntt}
+	    		  , #{rmrk}
 	    		  , #{useYn}
 	    		  , #{delYn}
 	    		  , SYSDATE
@@ -123,6 +126,7 @@
 	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 	    		 , PLT_BX_NM				= #{pltBxNm}
+	    		 , RMRK						= #{rmrk}
 	    		 , UNIT_WGHT				= #{unitWght}
 	    		 , UNIT_CD					= #{unitCd}
 	    		 , BSS_INVNTR_QNTT			= #{bssInvntrQntt}

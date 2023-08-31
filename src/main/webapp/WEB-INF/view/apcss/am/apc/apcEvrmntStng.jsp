@@ -744,17 +744,17 @@
             	grdWarehouse.addRow(true);
             }else if(grid === "grdPlt"){
             	grdPlt.setCellData(nRow, nCol, "N", true);
-            	grdPlt.setCellData(nRow, 3, "K", true);
-            	grdPlt.setCellData(nRow, 5, "Y", true);
-            	grdPlt.setCellData(nRow, 7, "P", true);
-            	grdPlt.setCellData(nRow, 8, gv_apcCd, true);
+            	grdPlt.setCellData(nRow, 4, "2", true);
+            	grdPlt.setCellData(nRow, 6, "Y", true);
+            	grdPlt.setCellData(nRow, 8, "P", true);
+            	grdPlt.setCellData(nRow, 9, gv_apcCd, true);
             	grdPlt.addRow(true);
             }else if(grid === "grdBx"){
             	grdBx.setCellData(nRow, nCol, "N", true);
-            	grdBx.setCellData(nRow, 5, "Y", true);
-            	grdBx.setCellData(nRow, 3, "K", true);
-            	grdBx.setCellData(nRow, 7, "B", true);
-            	grdBx.setCellData(nRow, 8, gv_apcCd, true);
+            	grdBx.setCellData(nRow, 4, "2", true);
+            	grdBx.setCellData(nRow, 6, "Y", true);
+            	grdBx.setCellData(nRow, 8, "B", true);
+            	grdBx.setCellData(nRow, 9, gv_apcCd, true);
             	grdBx.addRow(true);
             }else if(grid === "grdPckg"){
             	grdPckg.setCellData(nRow, nCol, "N", true);
