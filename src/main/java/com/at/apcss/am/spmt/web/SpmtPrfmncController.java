@@ -78,10 +78,9 @@ public class SpmtPrfmncController extends BaseController {
 				spmtPrfmncVO.setSysFrstInptUserId(getPrgrmId());
 				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 				spmtPrfmncVO.setSysLastChgUserId(getUserId());
-				insertedCnt = spmtPrfmncService.insertSpmtPrfmncCom(spmtPrfmncVO);
-				insertedCnt = spmtPrfmncService.insertSpmtPrfmncDtl(spmtPrfmncVO);
 			}
 
+			insertedCnt = spmtPrfmncService.insertSpmtPrfmnc(SpmtPrfmncList);
 			resultMap.put(ComConstants.PROP_INSERTED_CNT,  insertedCnt);
 
 		}catch (Exception e) {
@@ -107,9 +106,10 @@ public class SpmtPrfmncController extends BaseController {
 				spmtPrfmncVO.setSysFrstInptUserId(getPrgrmId());
 				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 				spmtPrfmncVO.setSysLastChgUserId(getUserId());
+				insertedCnt = spmtPrfmncService.insertSpmtPrfmncCom(spmtPrfmncVO);
+				insertedCnt = spmtPrfmncService.insertSpmtPrfmncDtl(spmtPrfmncVO);
 			}
 
-			insertedCnt = spmtPrfmncService.insertSpmtPrfmnc(SpmtPrfmncList);
 			resultMap.put(ComConstants.PROP_INSERTED_CNT,  insertedCnt);
 
 		}catch (Exception e) {
@@ -138,7 +138,6 @@ public class SpmtPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-
 	// 출하실적 삭제
 	@PostMapping(value = "/am/spmt/deleteSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteSpmtPrfmncList(@RequestBody List<SpmtPrfmncVO> SpmtPrfmncList, HttpServletRequest request) throws Exception {
@@ -164,5 +163,4 @@ public class SpmtPrfmncController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-
 }
