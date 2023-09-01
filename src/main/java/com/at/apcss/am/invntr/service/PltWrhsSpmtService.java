@@ -2,6 +2,7 @@ package com.at.apcss.am.invntr.service;
 
 import java.util.List;
 
+import com.at.apcss.am.cmns.vo.PltBxVO;
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
 
 /**
@@ -19,6 +20,13 @@ import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
  * </pre>
  */
 public interface PltWrhsSpmtService {
+	/**
+	 * 팔레트/박스 재고현황 목록 조회
+	 * @param pltWrhsSpmtVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PltBxVO> selectPltBxMngList(PltBxVO pltBxVO) throws Exception;
 	
 	/**
 	 * 팔레트 입출고 단건 조회

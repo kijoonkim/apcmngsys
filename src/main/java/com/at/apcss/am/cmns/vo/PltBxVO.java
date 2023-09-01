@@ -59,7 +59,42 @@ public class PltBxVO extends ComVO {
 	private String useYn;
 
 	/**
-	 * 기초재고수량
+	 * 기초재고수량 = 전일재고수량
 	 */
 	private int bssInvntrQntt;
+
+	/**
+	 * 기초재고중량 = 전일재고중량
+	 */
+	private double bssInvntrWght;
+
+	/**
+	 * 입고수량
+	 */
+	private int wrhsQntt;
+
+	/**
+	 * 입고중량
+	 */
+	private double wrhsWght;
+
+	/**
+	 * 출고수량
+	 */
+	private int spmtQntt;
+
+	/**
+	 * 출고중량
+	 */
+	private double spmtWght;
+
+	/**
+	 * 현재고수량
+	 */
+	private int invntrQntt;
+
+	/**
+	 * 현재고중량
+	 */
+	private double invntrWght;
 }

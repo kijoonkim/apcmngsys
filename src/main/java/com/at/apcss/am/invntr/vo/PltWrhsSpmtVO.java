@@ -40,9 +40,18 @@ public class PltWrhsSpmtVO extends ComVO {
 	private String wrhsSpmtSeCd;
 
 	/**
+	 * 입출고 구분명
+	 */
+	private String wrhsSpmtSeNm;
+
+	/**
 	 * 팔레트/박스 구분코드
 	 */
 	private String pltBxSeCd;
+	/**
+	 * 팔레트/박스 구분명
+	 */
+	private String pltBxSeNm;
 
 	/**
 	 * 팔레트/박스 코드
@@ -53,6 +62,10 @@ public class PltWrhsSpmtVO extends ComVO {
 	 * 생산자코드
 	 */
 	private String prdcrCd;
+	/**
+	 * 생산자이름
+	 */
+	private String prdcrNm;
 
 	/**
 	 * 순번
@@ -74,6 +87,10 @@ public class PltWrhsSpmtVO extends ComVO {
 	 */
 	private int qntt;
 
+	/**
+	 * 중량
+	 */
+	private double wght;
 	/**
 	 * 비고
 	 */
