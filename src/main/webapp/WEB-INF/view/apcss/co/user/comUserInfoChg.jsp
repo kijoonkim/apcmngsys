@@ -109,21 +109,21 @@ function fn_createUserInfoChgGrid() {
 	    SBGridProperties1.extendlastcol = 'scroll';
 	    SBGridProperties1.scrollbubbling = false;
 	    SBGridProperties1.columns = [
-	         {caption: ["선택"],			ref: 'chc',      	type:'checkbox',width:'5px'},
-	         {caption: ["사용자ID"], 	ref: 'userId',     	type:'input',   width:'15%', style:'text-align:center'},
-	         {caption: ["사용자명"], 	ref: 'userNm',    	type:'output',  width:'15%', style:'text-align:center'},
-	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  width:'15%', style:'text-align:center', renderer: function() {
-	            return "<button type='button' class='btn btn-sm btn-outline-danger' onClick=''>초기화</button>"
+	         {caption: ["선택"],			ref: 'chc',      	type:'checkbox',width:'55px'},
+	         {caption: ["사용자ID"], 	ref: 'userId',     	type:'input',   width:'105px', style:'text-align:center'},
+	         {caption: ["사용자명"], 	ref: 'userNm',    	type:'output',  width:'105px', style:'text-align:center'},
+	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  width:'105px', style:'text-align:center', renderer: function() {
+	            return "<button type='button' class='btn btn-xs btn-outline-danger' onClick=''>초기화</button>"
 	         }},
-	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'15%', style:'text-align:center'},
-	         {caption: ["사용자유형"],   ref: 'userType',    type:'output',  width:'15%', style:'text-align:center'},
-	         {caption: ["메일주소"],	    ref: 'eml', 		type:'output',  width:'15%', style:'text-align:center'},
-	         {caption: ["전화번호"],  	ref: 'telno',   	type:'output',  width:'15%', style:'text-align:center'},
-	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'15%', style:'text-align:center'},
-	         {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'input',   width:'15%', style:'text-align:center'},
-	         {caption: ["사용유무"],  	ref: 'reverseYn',   type:'input',   width:'15%', style:'text-align:center'},
-	         {caption: ["잠김여부"],  	ref: 'lckYn',   	type:'input',   width:'15%', style:'text-align:center'},
-	         {caption: ["최종접속일시"], ref: 'endLgnDt',  	type:'output',  width:'15%'}
+	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'105px', style:'text-align:center'},
+	         {caption: ["사용자유형"],   ref: 'userTypeNm',  type:'output',  width:'105px', style:'text-align:center'},
+	         {caption: ["메일주소"],	    ref: 'eml', 		type:'input',  width:'105px', style:'text-align:center'},
+	         {caption: ["전화번호"],  	ref: 'telno',   	type:'input',  width:'105px', style:'text-align:center'},
+	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'105px', style:'text-align:center'},
+	         {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'input',   width:'105px', style:'text-align:center'},
+	         {caption: ["사용유무"],  	ref: 'reverseYn',   type:'input',   width:'105px', style:'text-align:center'},
+	         {caption: ["잠김여부"],  	ref: 'lckYn',   	type:'input',   width:'105px', style:'text-align:center'},
+	         {caption: ["최종접속일시"], ref: 'endLgnDt',  	type:'output',  width:'105px', style:'text-align:center'}
     ];
 //     grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
     window.userInfoChgGridId= _SBGrid.create(SBGridProperties1);
@@ -133,7 +133,6 @@ async function fn_selectUserList(){
 	fn_callSelectUserList();
 }
 
-var newUserAprvRegGridData = [];
 async function fn_callSelectUserList(){
 	let apcNm  = SBUxMethod.get("srch-inp-apcCd");
 	let userId = SBUxMethod.get("srch-inp-userId");
@@ -155,7 +154,7 @@ async function fn_callSelectUserList(){
 			  , pswd		: item.pswd
 			  , apcNm		: item.apcNm
 			  , eml			: item.eml            
-			  , userType	: item.userType
+			  , userTypeNm	: item.userTypeNm
 			  , eml			: item.eml
 			  , telno		: item.telno
 			  , jbttlNm		: item.jbttlNm

@@ -377,7 +377,7 @@
 	        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'6.667%',    style:'text-align:center'},
 	        {caption: ["포장","중량"],				ref: 'pckgWght',     	type:'output',  width:'6.667%',    style:'text-align:center'},
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'6.667%',    style:'text-align:center'}
+	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'6.667%',    style:'text-align:center'} 
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -561,7 +561,7 @@
       		console.error("failed", e.message);
           }
     }
-	//선별재고 내역 조회 끝
+	//상품재고 내역 조회 끝
 
 // 	function fn_closeModal(modalId){
 // 		SBUxMethod.closeModal(modalId);
