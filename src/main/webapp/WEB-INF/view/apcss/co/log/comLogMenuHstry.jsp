@@ -35,15 +35,15 @@
 				</tr>
 			</tbody>
 		</table>
+		
+		<div class="ad_tbl_toplist">
+			<sbux-button id="btnLogCntnHstry2" name="btnLogCntnHstry" uitype="normal" text="접속이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnLogMenuHstry2" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnLogTrsmHstry2" name="btnLogTrsmHstry" uitype="normal" text="송수신이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnLogBatchHstry2" name="btnLogBatchHstry" uitype="normal" text="배치실행이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+		</div>
 		<div class="table-responsive tbl_scroll_sm">
-			<div class="ad_tbl_top">
-				<ul class="ad_tbl_count">
-					<li><span>화면열람이력 정보</span></li>
-				</ul>
-			</div>	
-			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-logMenuHstry" style="height:600px;"></div>
-			</div>
+			<div id="sb-area-logMenuHstry" style="height:600px;"></div>
 		</div>
 	</section>
 </body>
