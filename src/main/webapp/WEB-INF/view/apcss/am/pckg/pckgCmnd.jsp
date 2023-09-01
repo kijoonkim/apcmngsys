@@ -107,7 +107,7 @@
 				</div>
 				<div class="sbt-wrap-body">
 					<div class="sbt-grid">
-						<div id="inptCmndDsctnGridArea" style="height:432px;"></div>
+						<div id="inptCmndDsctnGridArea" style="height:413px;"></div>
 					</div>
 				</div>
 			</div>
@@ -180,25 +180,25 @@
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 14,
+		  	'size' : 12,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
- 	        {caption: ["순번","순번"],		ref: 'pckgCmndSn',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["지시번호","지시번호"],		ref: 'pckgCmndno',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["생산설비","생산설비"],		ref: 'fcltNm',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["거래처","거래처"],		ref: 'cnptNm',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["품종","품종"],		ref: 'vrtyNm',      type:'output',  width:'120px',    style:'text-align:center'},
+ 	        {caption: ["순번","순번"],		ref: 'pckgCmndSn',      type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["지시번호","지시번호"],		ref: 'pckgCmndno',      type:'output',  width:'170px',    style:'text-align:center'},
+	        {caption: ["생산설비","생산설비"],		ref: 'fcltNm',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["거래처","거래처"],		ref: 'cnptNm',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["품종","품종"],		ref: 'vrtyNm',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["규격","규격"],		ref: 'spcfctNm',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["납기일자","납기일자"],		ref: 'dudtYmd',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["상품명","상품명"],		ref: 'gdsNm',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["발주","수량"],		ref: 'ordrQntt',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["발주","중량"],		ref: 'ordrWght',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["지시","수량"],		ref: 'cmndQntt',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["지시","중량"],		ref: 'cmndWght',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["실적","수량"],		ref: 'pckgQntt',      type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["실적","중량"],		ref: 'pckgWght',      type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["납기일자","납기일자"],		ref: 'dudtYmd',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["상품명","상품명"],		ref: 'gdsNm',      type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["발주","수량"],		ref: 'ordrQntt',      type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
+	        {caption: ["발주","중량"],		ref: 'ordrWght',      type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
+	        {caption: ["지시","수량"],		ref: 'cmndQntt',      type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
+	        {caption: ["지시","중량"],		ref: 'cmndWght',      type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
+	        {caption: ["실적","수량"],		ref: 'pckgQntt',      type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
+	        {caption: ["실적","중량"],		ref: 'pckgWght',      type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
 	    ];
 
 	    pckgCmndList = _SBGrid.create(SBGridProperties);

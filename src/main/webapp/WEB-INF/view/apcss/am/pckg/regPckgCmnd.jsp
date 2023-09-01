@@ -325,7 +325,7 @@
 	        {caption: ["발주수량"],		ref: 'outordrQntt',      type:'output',  width:'150px',    style:'text-align:right'},
 	        {caption: ["입수"],		ref: 'bxGdsQntt',      type:'output',  width:'150px',    style:'text-align:right'},
 	        {caption: ["지시수량"],		ref: 'cmndQntt',      type:'output',  width:'150px',    style:'text-align:right'},
-	        {caption: ["지시중량"],		ref: 'cmndWght',      type:'output',  width:'150px',    style:'text-align:right'},
+	        {caption: ["지시중량"],		ref: 'cmndWght',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
 	        {caption: ["순번"],  			ref: 'pckgCmndSn',    hidden:true},
 	    ];
 
