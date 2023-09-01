@@ -142,7 +142,7 @@
 	// 행 삭제 및 추가
 	async function fn_procRowApcInfo(type){
 		if (type == "ADD"){
-			grdApcInfoMng.addRow(true, {'delYn':'N'});
+			grdApcInfoMng.addRow(true, {delYn:'N'});
 			grdApcInfoMng.setCellData(grdApcInfoMng.getGridDataAll().length, 0, true);
 		}
 		else{

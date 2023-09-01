@@ -42,7 +42,7 @@
 				</ul>
 			</div>	
 			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-logBatchHstry" style="height:400px;"></div>
+				<div id="sb-area-logBatchHstry" style="height:600px;"></div>
 			</div>
 		</div>
 	</section>
@@ -95,13 +95,12 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		        	{caption: ['처리일자'], 	ref: 'prcsDt',		width: '15%',	type: 'output',	style:'text-align: center'},
-		            {caption: ['순번'], 		ref: 'logSn', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['프로그램ID'],	ref: 'prgrmId', 	width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['프로그램명'],	ref: 'prgrmNm', 	width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['시작일시'], 	ref: 'vrtyNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['종료일시'], 	ref: 'spcfctNm',	width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['처리결과'], 	ref: 'brndCd',		width: '15%', 	type: 'output',	style:'text-align: center'}
+		        	{caption: ['처리일자'], 	ref: 'prcsDt',		width: '260px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['순번'], 		ref: 'logSn', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['프로그램ID'],	ref: 'prgrmId', 	width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['프로그램명'],	ref: 'prgrmNm', 	width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속일시'],	ref: 'logYmd',		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['처리결과'], 	ref: 'prcsRslt',	width: '260px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogBatchHstry = _SBGrid.create(SBGridProperties);
 		        grdLogBatchHstry.bind( "afterpagechanged" , tabLogBatchHstry.setGrid );
@@ -122,10 +121,17 @@
 				let logYmdFrom = SBUxMethod.get("batch-dtp-logYmdFrom");
 				let logYmdTo = SBUxMethod.get("batch-dtp-logYmdTo");
 				let prgrmNm = SBUxMethod.get("batch-inp-prgrmNm");
+				if (gfn_isEmpty(logYmdFrom)){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
+				if (gfn_isEmpty(logYmdTo)){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
 
-		        const postJsonPromise = gfn_postJSON("/co/log/selectWrhsVhclList.do", {
-		        		apcCd 				: apcCd
-					  , logYmdFrom 			: logYmdFrom
+		        const postJsonPromise = gfn_postJSON("/co/log/selectBatchHstryList.do", {
+					    logYmdFrom 			: logYmdFrom
 					  , logYmdTo 			: logYmdTo
 					  , prgrmNm 			: prgrmNm
 					  , pagingYn 			: 'Y'
@@ -142,9 +148,17 @@
 		    		jsonLogBatchHstry.length = 0;
 		        	data.resultList.forEach((item, index) => {
 						const log = {
-							userId			: item.rowSeq,
-							userNm			: item.vhclno,
-							apcNm 			: item.drvrNm
+							prcsDt			: item.prcsDt,
+							logSn			: item.logSn,
+							prgrmId			: item.prgrmId,
+							prgrmNm			: item.prgrmNm,
+							logYmd 			: item.logYmd,
+							prcsRslt		: null
+						}
+						if(log.prcsDt != null && log.prcsDt != ""){
+							log.prcsRslt = '처리';
+						} else {
+							log.prcsRslt = '미처리';
 						}
 						jsonLogBatchHstry.push(log);
 

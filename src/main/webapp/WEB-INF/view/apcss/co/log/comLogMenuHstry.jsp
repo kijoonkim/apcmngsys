@@ -42,7 +42,7 @@
 				</ul>
 			</div>	
 			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-logMenuHstry" style="height:400px;"></div>
+				<div id="sb-area-logMenuHstry" style="height:600px;"></div>
 			</div>
 		</div>
 	</section>
@@ -95,13 +95,12 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		        	{caption: ['화면ID'], 	ref: 'menuId',		width: '15%',	type: 'output',	style:'text-align: center'},
-		            {caption: ['화면명'], 	ref: 'menuNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자ID'],	ref: 'userId', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자명'],	ref: 'userNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['APC명'], 	ref: 'apcNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['접속일시'],	ref: 'prslBgngDt',	width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['종료일시'], 	ref: 'prslEndDt',	width: '15%', 	type: 'output',	style:'text-align: center'}
+		        	{caption: ['화면ID'], 	ref: 'menuId',		width: '260px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['화면명'], 	ref: 'menuNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자ID'],	ref: 'userId', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자명'],	ref: 'userNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['APC명'], 	ref: 'apcNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['열람일시'],	ref: 'prslDt',		width: '260px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogMenuHstry = _SBGrid.create(SBGridProperties);
 		        grdLogMenuHstry.bind( "afterpagechanged" , tabLogMenuHstry.setGrid );
@@ -118,14 +117,20 @@
 			},
 			setGrid: async function(recordCountPerPage, currentPageNo) {
 
-				let apcCd = gv_selectedApcCd;
 				let logYmdFrom = SBUxMethod.get("menu-dtp-logYmdFrom");
 				let logYmdTo = SBUxMethod.get("menu-dtp-logYmdTo");
 				let menuNm = SBUxMethod.get("menu-inp-menuNm");
+				if (gfn_isEmpty(logYmdFrom)){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
+				if (gfn_isEmpty(logYmdTo)){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
 
-		        const postJsonPromise = gfn_postJSON("/co/log/selectWrhsVhclList.do", {
-		        		apcCd 				: apcCd
-					  , logYmdFrom 			: logYmdFrom
+		        const postJsonPromise = gfn_postJSON("/co/log/selectMenuHstryList.do", {
+					    logYmdFrom 			: logYmdFrom
 					  , logYmdTo 			: logYmdTo
 					  , menuNm 				: menuNm
 					  , pagingYn 			: 'Y'
@@ -147,8 +152,7 @@
 							userId 			: item.userId,
 							userNm 			: item.userNm,
 							apcNm 			: item.apcNm,
-							prslBgngDt 		: item.prslBgngDt,
-							prslEndDt 		: item.prslEndDt
+							prslDt	 		: item.prslDt
 						}
 						jsonLogMenuHstry.push(log);
 

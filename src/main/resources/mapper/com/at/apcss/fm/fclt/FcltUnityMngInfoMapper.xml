@@ -36,10 +36,13 @@
 				, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
 			 FROM TB_FCLT_UNTY_MNG_INFO FCLT
-			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
+		]]>
+        <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  FCLT.APC_CD = #{apcCd}
+		   </if>
     </select>
 
 
@@ -77,9 +80,13 @@
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
 			 FROM TB_FCLT_UNTY_MNG_INFO FCLT
 			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
+	  ]]>
+          <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  FCLT.APC_CD = #{apcCd}
+		   </if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -117,18 +124,18 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    #{TRGT_YR}
-	   			  , #{APC_CD}
-	   			  , #{SN}
-	   			  , #{FCLT_SYS_INSTL_CD}
-	   			  , #{FCLT_SYS_HLD_YN}
-	   			  , #{DEL_YN}
-	   			  , #{SYS_FRST_INPT_DT}
-	   			  , #{SYS_FRST_INPT_USER_ID}
-	   			  , #{SYS_FRST_INPT_PRGRM_ID}
-	   			  , #{SYS_LAST_CHG_DT}
-	   		      , #{SYS_LAST_CHG_USER_ID}
-	   		      , #{SYS_LAST_CHG_PRGRM_ID}
+	   			    #{trgtYr}
+	   			  , #{apcCd}
+	   			  , #{sn}
+	   			  , #{fcltSysInstlCd}
+	   			  , #{fcltSysHldYn}
+	   			  , #{delYn}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   		      , #{sysLastChgUserId}
+	   		      , #{sysLastChgPrgrmId}
 	   			)
     	]]>
     </insert>
@@ -145,11 +152,11 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.updateFcltUnityMngInfo */
 	    		TB_FCLT_UNTY_MNG_INFO FCLT
 			   SET
-			 	  TRGT_YR           = #{TRGT_YR}
-			 	, APC_CD            = #{APC_CD}
-			 	, SN                = #{SN}
-			 	, FCLT_SYS_INSTL_CD = #{FCLT_SYS_INSTL_CD}
-			 	, FCLT_SYS_HLD_YN   = #{FCLT_SYS_HLD_YN}
+			 	  TRGT_YR           = #{trgtYr}
+			 	, APC_CD            = #{apcCd}
+			 	, SN                = #{sn}
+			 	, FCLT_SYS_INSTL_CD = #{fcltSysInstlCd}
+			 	, FCLT_SYS_HLD_YN   = #{fcltSysHldYn}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

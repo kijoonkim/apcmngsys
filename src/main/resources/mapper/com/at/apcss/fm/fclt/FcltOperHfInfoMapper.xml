@@ -37,12 +37,15 @@
 			    , FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
 			 FROM TB_FCLT_OPER_HF_INFO FCLT
-			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
+ 			 WHERE 1=1
+		     		]]>
+        		<if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
 		     AND  APC_CD = #{apcCd}
-    	]]>
+		   </if>
     </select>
-
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfoList			-->
@@ -78,10 +81,14 @@
 			    , FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
 			 FROM TB_FCLT_OPER_HF_INFO FCLT
-			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
+ 			 WHERE 1=1
+  ]]>
+          <if test='trgtYr != null and !trgtYr.equals("")'>
+		     AND  FCLT.TRGT_YR = #{trgtYr}
+		   </if>
+		   <if test='apcCd != null and !apcCd.equals("")'>
+		     AND  FCLT.APC_CD = #{apcCd}
+		   </if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -90,7 +97,6 @@
     	</if>
     	<!-- End 페이징 -->
     </select>
-
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.insertFcltOperHfInfo				-->
 	<!-- DESC : 시설고용인력 등록                                             				-->
@@ -120,19 +126,19 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    #{TRGT_YR}
-	   			  , #{APC_CD}
-	   			  , #{SN}
-	   			  , #{HIRE_SE_CD}
-	   			  , #{CTZN_FRGNR_SE_CD}
-	   			  , #{HIRE_NOPE}
-	   			  , #{DEL_YN}
-	   			  , #{SYS_FRST_INPT_DT}
-	   			  , #{SYS_FRST_INPT_USER_ID}
-	   			  , #{SYS_FRST_INPT_PRGRM_ID}
-	   			  , #{SYS_LAST_CHG_DT}
-    	          , #{SYS_LAST_CHG_USER_ID}
-    	          , #{SYS_LAST_CHG_PRGRM_ID}
+	   			    #{trgtYr}
+	   			  , #{apcCd}
+	   			  , #{sn}
+	   			  , #{hireSeCd}
+	   			  , #{ctznFrgnrSeCd}
+	   			  , #{hireNope}
+	   			  , #{delYn}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+    	          , #{sysLastChgUserId}
+    	          , #{sysLastChgPrgrmId}
     			)
     	]]>
     </insert>
@@ -150,12 +156,12 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.updateFcltOperHfInfo */
 	    		TB_FCLT_OPER_HF_INFO FCLT
 			   SET
-			 	  TRGT_YR          = #{TRGT_YR}
-			 	, APC_CD           = #{APC_CD}
-			 	, SN               = #{SN}
-			 	, HIRE_SE_CD       = #{HIRE_SE_CD}
-			 	, CTZN_FRGNR_SE_CD = #{CTZN_FRGNR_SE_CD}
-			 	, HIRE_NOPE        = #{HIRE_NOPE}
+			 	  TRGT_YR          = #{trgtYr}
+			 	, APC_CD           = #{apcCd}
+			 	, SN               = #{sn}
+			 	, HIRE_SE_CD       = #{hireSeCd}
+			 	, CTZN_FRGNR_SE_CD = #{ctznFrgnrSeCd}
+			 	, HIRE_NOPE        = #{hireNope}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

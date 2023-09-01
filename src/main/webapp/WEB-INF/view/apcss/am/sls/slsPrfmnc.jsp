@@ -3,10 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -124,7 +120,7 @@
 <script type="text/javascript">
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
-	
+
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
@@ -136,7 +132,7 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("srch-dtp-slsYmdFrom", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-slsYmdTo", gfn_dateToYmd(new Date()));
-		
+
 		fn_createSlsPrfmncGrid();
 		fn_initSBSelect();
 	})
@@ -160,32 +156,35 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
-            {caption: ['매출일자','매출일자'], 	ref: 'slsYmd',		width: '15%',	type: 'output',	style:'text-align: center'},
-            {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['상품명','상품명'],		ref: 'gdsNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['상품코드','상품코드'],	ref: 'gdsCd', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['품종','품종'], 		ref: 'vrtyNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['규격','규격'], 		ref: 'spcfctNm',	width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['브랜드','브랜드'], 		ref: 'brndCd',		width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd', 	width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['단가','단가'], 		ref: 'slsUntprc', 	width: '15%', 	type: 'output',	style:'text-align: center'},
-            {caption: ['출하','수량'], 		ref: 'qntt', 		width: '15%', 	type: 'output',	style:'text-align: right'},
-            {caption: ['출하','중량'], 		ref: 'wght', 		width: '15%', 	type: 'output',	style:'text-align: right'},
-            {caption: ['매출금액','매출금액'], 	ref: 'cfmtnAmt', 	width: '15%', 	type: 'output',	style:'text-align: right'}
+            {caption: ['선택','선택'], 		ref: 'checkedYn',		width: '50px',		type: 'checkbox',	style:'text-align: center',
+        		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate: true}},
+            {caption: ['매출일자','매출일자'], 	ref: 'slsYmd',		width: '100px',		type: 'output',		style:'text-align: center'},
+            {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['상품명','상품명'],		ref: 'gdsNm', 		width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['상품코드','상품코드'],	ref: 'gdsCd', 		width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['품종','품종'], 		ref: 'vrtyNm', 		width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['규격','규격'], 		ref: 'spcfctNm',	width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['브랜드','브랜드'], 		ref: 'brndCd',		width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd', 	width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['단가','단가'], 		ref: 'slsUntprc', 	width: '100px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['출하','수량'], 		ref: 'qntt', 		width: '100px', 	type: 'output',		style:'text-align: right', format : {type:'number', rule:'#,###'}},
+            {caption: ['출하','중량'], 		ref: 'wght', 		width: '100px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+            {caption: ['매출금액','매출금액'], 	ref: 'cfmtnAmt', 	width: '100px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['비고','비고'], 		ref: '__', 			width: '200px', 	type: 'output',		style:'text-align: right'}
         ];
         grdSlsPrfmnc = _SBGrid.create(SBGridProperties);
         grdSlsPrfmnc.bind( "afterpagechanged" , "fn_pagingSlsPrfmnc" );
     }
-	
+
 	// 출하지시 목록 조회 (조회 버튼)
     async function fn_search() {
     	let recordCountPerPage = grdSlsPrfmnc.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdSlsPrfmnc.movePaging(currentPageNo);
     }
-	
+
 	let newJsonSlsPrfmnc = [];
-	
+
 	// 출하지시 목록 조회 호출
 	async function fn_callSelectSlsPrfmncList(recordCountPerPage, currentPageNo){
 		jsonSlsPrfmnc = [];
@@ -218,7 +217,8 @@
         try{
         	data.resultList.forEach((item, index) => {
 				let slsPrfmnc = {
-					slsYmd 		: item.slsYmd
+					checkedYn 	: null
+				  , slsYmd 		: item.slsYmd
 				  , cnptNm 		: item.cnptNm
 				  , gdsNm 		: item.gdsNm
 				  , gdsCd 		: item.gdsCd
@@ -255,24 +255,38 @@
     		console.error("failed", e.message);
         }
 	}
-	
+
 	// 페이징
     async function fn_pagingSlsPrfmnc(){
     	let recordCountPerPage = grdSlsPrfmnc.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdSlsPrfmnc.getSelectPageIndex(); 
+    	let currentPageNo = grdSlsPrfmnc.getSelectPageIndex();
     	fn_callSelectSlsPrfmncList(recordCountPerPage, currentPageNo);
     }
-	
+
 	// 메일발송
     async function fn_sendMail(){
-    	
+		let gridData = grdSlsPrfmnc.getGridDataAll();
+		let mailList = [];
+
+		for(var i=0; i<gridData.length; i++){
+			if(gridData[i].checkedYn == "Y"){
+	    		mailList.push(gridData[i]);
+	    	}
+		}
+		if(mailList.length == 0){
+			gfn_comAlert("W0003", "발송");		//	W0003	{0}할 대상이 없습니다.
+            return;
+		}
+		if (!gfn_comConfirm("Q0001", "발송")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
     }
-	
+
 	// 거래명세표
     async function fn_slipDlng(){
-    	
+
     }
-	
+
 	// APC 선택 변경
 	const fn_onChangeApc = async function() {
 		let result = await Promise.all([
@@ -307,12 +321,12 @@
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
 	}
-	
+
 	// 거래처 선택 팝업 호출
 	const fn_modalCnpt = function() {
-    	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
+    	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnptNm"), fn_setCnpt);
 	}
-	
+
 	const fn_setCnpt = function(cnpt) {
 		if (!gfn_isEmpty(cnpt)) {
 			console.log("cnpt", cnpt);

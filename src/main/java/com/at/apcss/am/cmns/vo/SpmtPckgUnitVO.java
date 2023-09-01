@@ -61,5 +61,14 @@ public class SpmtPckgUnitVO extends ComVO{
 	/**
 	 * 판매단가
 	 */
-	private String ntslUntprc;
+	private int ntslUntprc;
+	/**
+	 * 등급
+	 */
+	private String gdsGrd;
+	/**
+	 * 등급명
+	 */
+	private String gdsGrdNm;
+	
 }

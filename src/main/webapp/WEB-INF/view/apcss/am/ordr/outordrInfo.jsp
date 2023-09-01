@@ -141,10 +141,7 @@
 									</div>
 								</div>
 							</td>
-							<td colspan="5" style="border-right: hidden;"></td>
-							<td class="td_input">
-								<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" onclick="fn_dummyData" class="btn btn-sm btn-primary" text="포장지시 등록"></sbux-button>
-							</td>
+							<td colspan="6"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -155,7 +152,8 @@
 						<li><span>발주 내역</span></li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnRcptOrdrAll" name="btnRcptOrdrAll" uitype="normal" onclick="fn_rcptOrdrAll" class="btn btn-sm btn-outline-dark" text="일괄 접수"></sbux-button>
+						<sbux-button id="btnRcptOrdrAll" name="btnReceiptBndl" uitype="normal" onclick="btn_receiptBndl" class="btn btn-sm btn-outline-dark" text="일괄 접수"></sbux-button>
+						<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" onclick="fn_dummyData" class="btn btn-sm btn-outline-dark" text="포장지시 등록"></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -227,11 +225,11 @@
         	{caption: ['선택'], 			ref: 'checked', 		width: '50px', 		type: 'checkbox',		style:'text-align: center',
         		typeinfo : {ignoreupdate: true}},
             {caption: ['접수일자'], 		ref: 'rcptCfmtnYmd', 	width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['발주유형'], 		ref: 'outordrType', 	width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['접수여부'], 		ref: 'rcptYn', 			width: '100px', 	type: 'combo',			style:'text-align: center',
+            {caption: ['발주유형'], 		ref: 'outordrType', 	width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['접수여부'], 		ref: 'rcptYn', 			width: '70px', 		type: 'combo',			style:'text-align: center',
             	typeinfo : {ref:'comboGridRcpYn', label:'label', value:'value'}},
-            {caption: ['발주번호'], 		ref: 'outordrno', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['거래처명'], 		ref: 'apcCnptNm', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['발주번호'], 		ref: 'outordrno', 		width: '200px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['거래처명'], 		ref: 'apcCnptNm', 		width: '200px', 	type: 'output',			style:'text-align: center'},
             {caption: ['납기일자'], 		ref: 'wrhsYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['발주일자'], 		ref: 'outordrYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['주문자'], 		ref: 'outordrPrsn', 	width: '100px', 	type: 'output',			style:'text-align: center'},
@@ -241,27 +239,27 @@
             {caption: ['배송지'], 		ref: 'dldtn', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['품목'], 			ref: 'itemNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['품종'], 			ref: 'vrtyNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['규격'], 			ref: 'spcfctNm', 		width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['규격'], 			ref: 'spcfctNm', 		width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['입수'], 			ref: 'bxGdsQntt', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['발주수량'], 		ref: 'outordrQntt', 	width: '100px', 	type: 'output',			style:'text-align: right'},
-            {caption: ['낱개수량'], 		ref: 'pieceQntt', 		width: '100px', 	type: 'output',			style:'text-align: right'},
-            {caption: ['단위'], 			ref: 'unit', 			width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['박스단가'], 		ref: 'bxUntprc', 		width: '100px', 	type: 'output',			style:'text-align: right'},
-            {caption: ['발주단가'], 		ref: 'outordrUntprc', 	width: '100px', 	type: 'output',			style:'text-align: right'},
-            {caption: ['발주단위'], 		ref: 'outordrUnit', 	width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['발주수량'], 		ref: 'outordrQntt', 	width: '70px', 		type: 'input',			style:'text-align: right', format : {type:'number', rule:'#,###'}},
+            {caption: ['낱개수량'], 		ref: 'pieceQntt', 		width: '70px', 		type: 'input',			style:'text-align: right', format : {type:'number', rule:'#,###'}},
+            {caption: ['단위'], 			ref: 'unit', 			width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['박스단가'], 		ref: 'bxUntprc', 		width: '100px', 	type: 'output',			style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['발주단가'], 		ref: 'outordrUntprc', 	width: '100px', 	type: 'output',			style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['발주단위'], 		ref: 'outordrUnit', 	width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['LOT'], 			ref: 'lot', 			width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['세액'], 			ref: 'txAmt', 			width: '100px', 	type: 'output',			style:'text-align: right'},
-            {caption: ['발주금액'], 		ref: 'outordrAmt', 		width: '100px', 	type: 'output',			style:'text-align: right'},
+            {caption: ['세액'], 			ref: 'txAmt', 			width: '100px', 	type: 'input',			style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['발주금액'], 		ref: 'outordrAmt', 		width: '100px', 	type: 'input',			style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
             {caption: ['입고형태'], 		ref: 'wrhsType', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['문서번호'], 		ref: 'docno', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['도크정보'], 		ref: 'dockInfo', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['센터구분'], 		ref: 'cntrSe', 			width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['센터구분'], 		ref: 'cntrSe', 			width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['바이어명'], 		ref: 'buyerNm', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['센터입하일'], 		ref: 'cntrRcvdWrhsYmd', width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['센터명'], 		ref: 'cntrNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['납품구분'], 		ref: 'dlvgdsSeCd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['기타'], 			ref: 'etc', 			width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['접수APC (농협)'], ref: 'rcptCfmtnApcCd', 	width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['납품구분'], 		ref: 'dlvgdsSeCd', 		width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['기타'], 			ref: 'etc', 			width: '300px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['접수APC (농협)'], ref: 'rcptCfmtnApcCd', 	width: '200px', 	type: 'output',			style:'text-align: center'},
             {caption: ['포장지시번호'], 	ref: 'pckgCmndno', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['지시일자'], 		ref: 'pckgCmndYmd', 	hidden: true},
@@ -416,7 +414,7 @@
     }
 	
 	// 일괄 접수
-    async function fn_rcptOrdrAll(){
+    async function btn_receiptBndl(){
     	let allData = grdOutordrInfo.getGridDataAll();
     	console.log("일괄 접수: ", allData);
 		const rcptOrdrAllList = [];
@@ -577,13 +575,12 @@
 	
 	// 거래처 선택 팝업 호출
 	const fn_modalCnpt = function() {
-    	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
+    	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnptNm"), fn_setCnpt);
 	}
 	
 	const fn_setCnpt = function(cnpt) {
 		if (!gfn_isEmpty(cnpt)) {
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
-			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
 		}
 	}
 </script>

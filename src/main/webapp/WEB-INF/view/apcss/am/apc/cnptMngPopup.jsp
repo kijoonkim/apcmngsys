@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnCnptSech" name="btnCnptSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectCnptList()"></sbux-button>
-					<sbux-button id="btnCnptReg" name="btnCnptReg" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertCnptList"></sbux-button>
+					<sbux-button id="btnCnptReg" name="btnCnptReg" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveCnptList"></sbux-button>
 					<sbux-button id="btnCnptEnd" name="btnCnptEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-cnpt')"></sbux-button>
 				</div>
 			</div>
@@ -89,12 +89,13 @@
 	    SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
             {caption: ["코드"], 		ref: 'cnptCd',  	type:'output', width:'80px',     style:'text-align:center',  hidden : true},
-            {caption: ["거래처명"], 	ref: 'cnptNm',  	type:'input',  width:'165px',    style:'text-align:center'},
-            {caption: ["유형"], 		ref: 'cnptType',   	type:'combo',  width:'155px',    style:'text-align:center',
+            {caption: ["거래처명"], 	ref: 'cnptNm',  	type:'input',  width:'125px',    style:'text-align:center'},
+            {caption: ["유형"], 		ref: 'cnptType',   	type:'combo',  width:'125px',    style:'text-align:center',
 				typeinfo : {ref:'comboGridCnptTypeJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
-            {caption: ["사업자번호"], 	ref: 'brno',  		type:'input',  width:'165px',    style:'text-align:center'},
-            {caption: ["담당자"], 		ref: 'picNm',  		type:'input',  width:'100px',    style:'text-align:center'},
-            {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'150px',    style:'text-align:center'},
+            {caption: ["사업자번호"], 	ref: 'brno',  		type:'input',  width:'135px',    style:'text-align:center'},
+            {caption: ["담당자"], 		ref: 'picNm',  		type:'input',  width:'90px',    style:'text-align:center'},
+            {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'120px',    style:'text-align:center'},
+            {caption: ["이메일"], 	ref: 'eml',  		type:'input',  width:'140px',    style:'text-align:center'},
             {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'120px',    style:'text-align:center'},
             {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
@@ -133,6 +134,7 @@
 				  , rmrk 		: item.rmrk
 				  , delYn 		: item.delYn
 				  , apcCd 		: item.apcCd
+				  , eml 		: item.eml
 				}
 				cnptMngGridData.push(Object.assign({}, cnpt));
 				newCnptGridData.push(Object.assign({}, cnpt));
@@ -147,52 +149,119 @@
     		console.error("failed", e.message);
         }
 	}
+	
+	async function fn_saveCnptList(){
+		let gridData = cnptMngDatagrid.getGridDataAll();
+		let insertList = [];
+		let updateList = [];
+		let insertCnt = 0;
+		let updateCnt = 0;
+		for(var i=1; i<=gridData.length; i++ ){
+			if(cnptMngDatagrid.getRowData(i).delYn == 'N'){
 
-	async function fn_insertCnptList(){
-		for(var i=0; i<cnptMngGridData.length; i++){
-			if(cnptMngGridData[i].delYn == "N"){
-				if(cnptMngGridData[i].cnptNm == null || cnptMngGridData[i].cnptNm == ""){
-					console.log(cnptMngGridData[i]);
+				if(cnptMngDatagrid.getRowData(i).cnptNm == null || cnptMngDatagrid.getRowData(i).cnptNm == ""){
 					alert("거래처명은 필수 값 입니다.");
-					return
+					return;
 				}
-				if(cnptMngGridData[i].cnptType == null || cnptMngGridData[i].cnptType == ""){
-					console.log(cnptMngGridData[i]);
+				
+				if(cnptMngDatagrid.getRowData(i).cnptType == null || cnptMngDatagrid.getRowData(i).cnptType == ""){
 					alert("유형을 선택해주세요");
-					return
+					return;
 				}
-			}
-		}
 
-		var isEqual1 = await chkEqualObj(cnptMngGridData, newCnptGridData);
-		var isEqual2 = true;
-		var obj1keys = Object.keys(newLgszMrktMngGridData[0]);
-		for(var i=0; i<newLgszMrktMngGridData.length; i++){
-			for(var j=0; j<obj1keys.length; j++){
-				if(newLgszMrktMngGridData[i][obj1keys[j]] != lgszMrktMngGridData[i][obj1keys[j]]){
-					isEqual2 = false;
-					break;
+				if(cnptMngDatagrid.getRowStatus(i) === 3){
+					insertList.push(cnptMngDatagrid.getRowData(i));
+				}
+				if(cnptMngDatagrid.getRowStatus(i) === 2){
+					updateList.push(cnptMngDatagrid.getRowData(i));
 				}
 			}
 		}
 		
-		console.log(isEqual1 && isEqual2);
-		if (isEqual1 && isEqual2){
+		let gridData2 = lgszMrktMngDatagrid.getGridDataAll();
+		let updateList2 = [];
+		let updateCnt2 = 0;
+		for(var i=1; i<=gridData2.length; i++ ){
+			if(lgszMrktMngDatagrid.getRowStatus(i) === 2){
+				updateList2.push(lgszMrktMngDatagrid.getRowData(i));
+			}
+		}
+		
+		if(insertList.length == 0 && updateList.length == 0 && updateList2.length == 0){
 			alert("저장 할 내용이 없습니다.");
 			return;
 		}
-
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
-			let postJsonPromise1 = await gfn_postJSON("/am/cmns/compareCnptList.do", {origin : newCnptGridData, modified : cnptMngGridData});
-			let postJsonPromise2 = await gfn_postJSON("/am/cmns/compareLgszMrktList.do", {origin : newLgszMrktMngGridData, modified : lgszMrktMngGridData});
-
-			alert("저장 되었습니다.");
-
-
-			fn_callSelectCnptList();
+			totalCnt = 0;
+			if(insertList.length > 0){
+				const postJsonPromise = gfn_postJSON("/am/cmns/insertCnptList.do", insertList);
+		    	const data = await postJsonPromise;
+		    	totalCnt += data.insertedCnt;
+			}
+			if(updateList.length > 0){
+				const postJsonPromise = gfn_postJSON("/am/cmns/updateCnptList.do", updateList);
+		    	const data = await postJsonPromise;
+		    	totalCnt += data.updatedCnt;
+// 				updateCnt = await fn_callUpdateCnptList(updateList);
+			}
+			if(updateList2.length > 0){
+				const postJsonPromise = gfn_postJSON("/am/cmns/updateLgszMrktList.do", updateList2);
+		    	const data = await postJsonPromise;
+		    	totalCnt += data.updatedCnt;
+// 				updateCnt2 = await fn_callUpdateLgszMrktList(updateList2);
+			}
+			if(totalCnt > 0 ){
+				fn_selectCnptList();
+				alert("저장 되었습니다.");
+			}
 		}
 	}
+
+	async function fn_callInsertCnptList(insertList){
+		let postJsonPromise = gfn_postJSON("/am/cmns/insertCnptList.do", insertList);
+        let data = await postJsonPromise;
+
+        try{
+        	console.log("data >>> "+ data.result);
+       		return data.result;
+
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
+	}
+	
+	async function fn_callUpdateCnptList(updateList){
+		let postJsonPromise = gfn_postJSON("/am/cmns/updateCnptList.do", updateList);
+        let data = await postJsonPromise;
+        try{
+       		return data.result;
+
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
+	}
+	
+	async function fn_callUpdateLgszMrktList(updateList){
+		let postJsonPromise = gfn_postJSON("/am/cmns/updateLgszMrktList.do", updateList);
+        let data = await postJsonPromise;
+        try{
+       		return data.result;
+
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
+	}
+	
 
 	async function fn_deleteCnptList(cnpt){
 		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteCnptList.do", cnpt);
@@ -209,9 +278,10 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
-            {caption: ["대형마트 명"], 		ref: 'lgszMrktNm',  	type:'input',  width:'165px',     style:'text-align:center'},
-            {caption: ["발주정보 URL"], 	ref: 'outordrInfoUrl',  	type:'input',  width:'320px',    style:'text-align:center'},
-            {caption: ["사용자ID"], 		ref: 'userId',  	type:'input',  width:'120px',    style:'text-align:center'},
+            {caption: ["대형마트 코드"], 		ref: 'lgszMrktCd',  	type:'output',  width:'100px',     style:'text-align:center'},
+            {caption: ["대형마트 명"], 		ref: 'lgszMrktNm',  	type:'input',  width:'100px',     style:'text-align:center'},
+            {caption: ["발주정보 URL"], 	ref: 'outordrInfoUrl',  	type:'input',  width:'300px',    style:'text-align:center'},
+            {caption: ["사용자ID"], 		ref: 'userId',  	type:'input',  width:'100px',    style:'text-align:center'},
             {caption: ["패스워드"], 		ref: 'pswd',  	type:'input',  width:'120px',    style:'text-align:center'},
             {caption: ["사용유무"], 		ref: 'useYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
 						typeinfo : {ref:'comboReverseYnJsData', label:'label', value:'value', displayui : false, itemcount: 10}},

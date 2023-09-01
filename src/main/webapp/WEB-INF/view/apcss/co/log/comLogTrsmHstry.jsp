@@ -42,7 +42,7 @@
 					<td></td>
 					<th scope="row" class="th_bg">인터페이스명</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-input id="trsm-inp-intrfcNm" name=trsm-inp-intrfcNm uitype="text" class="form-control input-sm"></sbux-input>
+						<sbux-input id="trsm-inp-prgrmNm" name=trsm-inp-prgrmNm uitype="text" class="form-control input-sm"></sbux-input>
 					</td>
 				</tr>
 			</tbody>
@@ -54,7 +54,7 @@
 				</ul>
 			</div>	
 			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-logTrsmHstry" style="height:400px;"></div>
+				<div id="sb-area-logTrsmHstry" style="height:600px;"></div>
 			</div>
 		</div>
 	</section>
@@ -62,6 +62,7 @@
 <script type="text/javascript">
 	var jsonLogTrsmHstry = [];
 	var jsonComSendRcptnSeCd = [];
+	var comboSendRcptnSeCdJsData = [];
 	var grdLogTrsmHstry = null;
 
 	const tabLogTrsmHstry = {
@@ -82,7 +83,8 @@
 					SBUxMethod.set("trsm-dtp-logYmdFrom", gfn_dateToYmd(new Date()));
 					SBUxMethod.set("trsm-dtp-logYmdTo", gfn_dateToYmd(new Date()));
 					let rst = await Promise.all([
-						gfn_setComCdSBSelect('trsm-slt-sendRcptnSeCd', jsonComSendRcptnSeCd, 'SEND_RCPTN_SE_CD', gv_selectedApcCd),	// 창고구분
+						gfn_setComCdSBSelect('trsm-slt-sendRcptnSeCd', jsonComSendRcptnSeCd, 'SEND_RCPTN_SE_CD', gv_selectedApcCd),
+						gfn_setComCdGridSelect('grdLogTrsmHstry', comboSendRcptnSeCdJsData, "SEND_RCPTN_SE_CD", gv_selectedApcCd)
 					]);
 					this.createGrid();
 					this.search();
@@ -111,13 +113,12 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		        	{caption: ['처리일시'], 		ref: 'prcsDt',			width: '15%',	type: 'output',	style:'text-align: center'},
-		            {caption: ['인터페이스ID'], 	ref: 'intrfcId', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['인터페이스명'],		ref: 'intrfcNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['송수신구분'],		ref: 'sendRcptnSeCd', 	width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['처리결과'], 		ref: 'vrtyNm', 			width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['접속일시'], 		ref: 'spcfctNm',		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['종료일시'], 		ref: 'brndCd',			width: '15%', 	type: 'output',	style:'text-align: center'}
+		        	{caption: ['처리일시'], 		ref: 'prcsDt',			width: '260px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['인터페이스ID'], 	ref: 'prgrmId', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['인터페이스명'],		ref: 'prgrmNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['송수신구분'],		ref: 'sendRcptnSeCd', 	width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['처리결과'], 		ref: 'prcsRslt', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속일시'],		ref: 'logYmd',			width: '260px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogTrsmHstry = _SBGrid.create(SBGridProperties);
 		        grdLogTrsmHstry.bind( "afterpagechanged" , tabLogTrsmHstry.setGrid );
@@ -138,14 +139,21 @@
 				let logYmdFrom = SBUxMethod.get("trsm-dtp-logYmdFrom");
 				let logYmdTo = SBUxMethod.get("trsm-dtp-logYmdTo");
 				let sendRcptnSeCd = SBUxMethod.get("trsm-slt-sendRcptnSeCd");
-				let intrfcNm = SBUxMethod.get("trsm-inp-intrfcNm");
+				let prgrmNm = SBUxMethod.get("trsm-inp-prgrmNm");
+				if (gfn_isEmpty(logYmdFrom)){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
+				if (gfn_isEmpty(logYmdTo)){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
 
-		        const postJsonPromise = gfn_postJSON("/co/log/selectWrhsVhclList.do", {
-		        		apcCd 				: apcCd
-					  , logYmdFrom 			: logYmdFrom
+		        const postJsonPromise = gfn_postJSON("/co/log/selectTrsmHstryList.do", {
+					    logYmdFrom 			: logYmdFrom
 					  , logYmdTo 			: logYmdTo
 					  , sendRcptnSeCd 		: sendRcptnSeCd
-					  , intrfcNm 			: intrfcNm
+					  , prgrmNm 			: prgrmNm
 					  , pagingYn 			: 'Y'
 					  , currentPageNo 		: currentPageNo
 					  , recordCountPerPage 	: recordCountPerPage
@@ -160,9 +168,17 @@
 		    		jsonLogTrsmHstry.length = 0;
 		        	data.resultList.forEach((item, index) => {
 						const log = {
-							userId			: item.rowSeq,
-							userNm			: item.vhclno,
-							apcNm 			: item.drvrNm
+							prcsDt			: item.prcsDt,
+							prgrmId			: item.prgrmId,
+							prgrmNm			: item.prgrmNm,
+							sendRcptnSeCd	: item.sendRcptnSeCd,
+							prcsRslt		: null,
+							logYmd 			: item.logYmd
+						}
+						if(log.prcsDt != null && log.prcsDt != ""){
+							log.prcsRslt = '처리';
+						} else {
+							log.prcsRslt = '미처리';
 						}
 						jsonLogTrsmHstry.push(log);
 

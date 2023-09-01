@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.cmns.vo.PltBxVO;
 import com.at.apcss.am.invntr.mapper.PltWrhsSpmtMapper;
 import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
@@ -30,6 +31,14 @@ public class PltWrhsSpmtServiceImpl implements PltWrhsSpmtService {
 	@Autowired
 	private PltWrhsSpmtMapper pltWrhsSpmtMapper;
 	
+	@Override
+	public List<PltBxVO> selectPltBxMngList(PltBxVO pltBxVO) throws Exception {
+
+		List<PltBxVO> resultList = pltWrhsSpmtMapper.selectPltBxMngList(pltBxVO);
+
+		return resultList;
+	}
+
 	@Override
 	public PltWrhsSpmtVO selectPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception {
 

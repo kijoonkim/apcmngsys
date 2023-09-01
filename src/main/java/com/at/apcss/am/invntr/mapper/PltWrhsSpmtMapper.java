@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.at.apcss.am.cmns.vo.PltBxVO;
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
 
 /**
@@ -22,6 +23,14 @@ import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
  */
 @Mapper
 public interface PltWrhsSpmtMapper {
+	/**
+	 * 팔레트/박스 재고정보 목록 조회
+	 * 
+	 * @param pltBxVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PltBxVO> selectPltBxMngList(PltBxVO pltBxVO) throws Exception;
 	
 	/**
 	 * 팔레트 입출고 단건 조회

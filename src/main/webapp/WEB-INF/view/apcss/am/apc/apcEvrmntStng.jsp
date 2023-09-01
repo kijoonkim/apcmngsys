@@ -96,15 +96,25 @@
 								</p>
 							</td>
 							<td scope="row" align="right">정산기준</td>
-							<td colspan="5" class="td_input">
+							<td class="td_input">
 								<p class="ad_input_row">
-									<sbux-radio id="prdcrGubun1" name="prdcrGubun" uitype="normal"  class="radio_label"></sbux-radio>
+									<sbux-radio id="prdcrGubun1" name="prdcrGubun" uitype="normal" value="1"  class="radio_label"></sbux-radio>
 									<label class="radio_label" for="radio1">입고</label>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="prdcrGubun2" name="prdcrGubun" uitype="normal"  class="radio_label" checked></sbux-radio>
+									<sbux-radio id="prdcrGubun2" name="prdcrGubun" uitype="normal" value="2" class="radio_label" checked></sbux-radio>
 									<label class="radio_label" for="radio1">선별</label>
 								</p>
+								<p class="ad_input_row">
+									<sbux-radio id="prdcrGubun3" name="prdcrGubun" uitype="normal" value="4"  class="radio_label"></sbux-radio>
+									<label class="radio_label" for="radio1">출하</label>
+								</p>
+							</td>
+							<td scope="row" align="right">상품구분</td>
+							<td colspan="3" class="td_input">
+								<sbux-checkbox id="ckb-gdsSeCd" name="ckb-gdsSeCd" uitype="normal" 
+								jsondata-ref="jsonComGdsSeCd"
+								text-right-padding="10px"></sbux-checkbox>
 							</td>
 						</tr>
 						<tr>
@@ -191,7 +201,7 @@
 						<tr>
 							<th scope="row">거래처 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="btnCnpt" name="btnCnpt" uitype="modal" text="거래처 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-cnpt" onclick="fn_modal('btnCnpt')"></sbux-button>
+								<sbux-button id="btnCnpt" name="btnCnpt" uitype="modal" text="거래처/발주수신 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-cnpt" onclick="fn_modal('btnCnpt')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								상품출하시 관리하고 있는 거래처 정보를 등록하세요. (출하처리 시 필요한 정보입니다)
@@ -533,7 +543,7 @@
     </div>
     <!-- 거래처 등록 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 등록" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처/발주수신 등록" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-cnpt">
     	<jsp:include page="../apc/cnptMngPopup.jsp"></jsp:include>
@@ -573,9 +583,12 @@
 	var comboUnitCdJsData = [];
 	var comboGridBankCdJsData = [];
 	var comboGridCnptTypeJsData = [];
+	
+	var jsonComGdsSeCd = [];
 
 	const fn_initSBSelect = async function() {
 		await gfn_setComCdSBSelect('slt-bankCd', jsonComboBankNm ,	'BANK_CD', '0000');				// 검색 조건(시스템구분)
+		await gfn_setComCdSBSelect('ckb-gdsSeCd', jsonComGdsSeCd ,	'GDS_SE_CD', '0000');				// 검색 조건(상품구분)
 		await gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000");
 		await gfn_setComCdGridSelect('grdPlt', comboUnitCdJsData, "UNIT_CD", "0000");
 		await gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000");
@@ -731,17 +744,17 @@
             	grdWarehouse.addRow(true);
             }else if(grid === "grdPlt"){
             	grdPlt.setCellData(nRow, nCol, "N", true);
-            	grdPlt.setCellData(nRow, 3, "K", true);
-            	grdPlt.setCellData(nRow, 5, "Y", true);
-            	grdPlt.setCellData(nRow, 7, "P", true);
-            	grdPlt.setCellData(nRow, 8, gv_apcCd, true);
+            	grdPlt.setCellData(nRow, 4, "2", true);
+            	grdPlt.setCellData(nRow, 6, "Y", true);
+            	grdPlt.setCellData(nRow, 8, "P", true);
+            	grdPlt.setCellData(nRow, 9, gv_apcCd, true);
             	grdPlt.addRow(true);
             }else if(grid === "grdBx"){
             	grdBx.setCellData(nRow, nCol, "N", true);
-            	grdBx.setCellData(nRow, 5, "Y", true);
-            	grdBx.setCellData(nRow, 3, "K", true);
-            	grdBx.setCellData(nRow, 7, "B", true);
-            	grdBx.setCellData(nRow, 8, gv_apcCd, true);
+            	grdBx.setCellData(nRow, 4, "2", true);
+            	grdBx.setCellData(nRow, 6, "Y", true);
+            	grdBx.setCellData(nRow, 8, "B", true);
+            	grdBx.setCellData(nRow, 9, gv_apcCd, true);
             	grdBx.addRow(true);
             }else if(grid === "grdPckg"){
             	grdPckg.setCellData(nRow, nCol, "N", true);

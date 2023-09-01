@@ -60,25 +60,10 @@
 	    		 , SUM(SP.WGHT)	OVER()				AS TOT_WGHT
 	    		 , SUM(SP.CFMTN_AMT) OVER()			AS TOT_CFMTN_AMT
 			  FROM TB_SLS_PRFMNC SP
-			     , TB_SPMT_PRFMNC_COM PC
-			     , TB_SPMT_PRFMNC_DTL PD
 			     , TB_CNPT_INFO CI
-			 WHERE SP.APC_CD = PC.APC_CD
-			   AND SP.APC_CD = PD.APC_CD
-			   AND SP.APC_CD = CI.APC_CD
-			   AND SP.SPMT_YMD = PC.SPMT_YMD
-			   AND SP.CNPT_CD = PC.CNPT_CD
-			   AND SP.VRTY_CD = PD.VRTY_CD
-			   AND SP.SPCFCT_CD = PD.SPCFCT_CD
-			   AND SP.QNTT = PD.SPMT_QNTT
-			   AND SP.WGHT = PD.SPMT_WGHT
-			   AND SP.BRND_CD = PD.BRND_CD
-			   AND SP.GDS_CD = PD.GDS_CD
+			 WHERE SP.APC_CD = CI.APC_CD
 	    	   AND SP.CNPT_CD = CI.CNPT_CD
-			   AND PC.SPMTNO = PD.SPMTNO
 			   AND SP.DEL_YN = 'N'
-			   AND PC.DEL_YN = 'N'
-			   AND PD.DEL_YN = 'N'
 	    	   AND CI.DEL_YN = 'N'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
@@ -100,8 +85,8 @@
 		       AND SP.VRTY_CD = #{vrtyCd}
 		</if>
     	<![CDATA[
-		 	 GROUP BY PC.SPMTNO
-	    		 	, SP.SLS_YMD
+    	/*
+		 	 GROUP BY SP.SLS_YMD
 	    		 	, SP.SLS_SN
 	    		 	, SP.ITEM_CD
 	    		 	, SP.VRTY_CD
@@ -117,6 +102,7 @@
 		 	 		, SP.APC_CD
 	    		 	, CI.CNPT_NM
 	    		 	, SP.DEL_YN
+	    		 	*/
 		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>

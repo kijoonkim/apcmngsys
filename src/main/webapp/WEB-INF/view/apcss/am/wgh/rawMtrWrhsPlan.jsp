@@ -169,9 +169,7 @@
 										uitype="normal"
 										class="radio_label"
 										text-right-padding="10px"
-										jsondata-ref="jsonComGdsSeCd"
-										jsondata-text="cdVlNm"
-										jsondata-value="cdVl">
+										jsondata-ref="jsonComGdsSeCd">
 									</sbux-radio>
 								</p>
 							</td>
@@ -253,10 +251,10 @@
 	var autoCompleteDataJson = [];
 	var jsonComWarehouse = [];
 	var jsonComWrhsSeCd = [];
-	var jsonComGdsSeCd = [];
 	var jsonComTrsprtSeCd = [];
 	var jsonGrdWrhsSeCd = [];
 	var jsonGrdGdsSeCd = [];
+	var jsonComGdsSeCd = [];
 	var jsonGrdTrsprtSeCd = [];
 	var jsonApcItem = [];
 	var jsonApcVrty = [];
@@ -285,29 +283,27 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('grdWrhsPlan', 	jsonGrdWrhsSeCd, 	'WRHS_SE_CD'), 		// 입고구분 그리드
-			gfn_setComCdSBSelect('grdWrhsPlan', 	jsonGrdGdsSeCd, 	'GDS_SE_CD'), 		// 상품구분 그리드
+			gfn_setComCdSBSelect('grdWrhsPlan', 	jsonGrdGdsSeCd, 	'GDS_SE_CD', gv_selectedApcCd), 		// 상품구분 그리드
 			gfn_setComCdSBSelect('grdWrhsPlan', 	jsonGrdTrsprtSeCd, 	'TRSPRT_SE_CD'), 	// 운송구분 그리드
-			//gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd), // 창고
+			gfn_setComCdSBSelect('dtl-rdo-gdsSeCd', 	jsonComGdsSeCd, 	'GDS_SE_CD', gv_selectedApcCd), 		// 상품구분 등록
 		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', 	jsonApcItem, gv_selectedApcCd),		// 품목
 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', 	jsonApcVrty, gv_selectedApcCd),		// 품종
 			gfn_setApcItemSBSelect('grdWrhsPlan', 		jsonGrdApcItem, gv_selectedApcCd),	// 품목 그리드
 			gfn_setApcVrtySBSelect('grdWrhsPlan', 		jsonGrdApcVrty, gv_selectedApcCd),	// 품종 그리드
+			
 		]);
-
+		
 		grdWrhsPlan.refresh({"combo":true});
 
 		let result = await Promise.all([
     		gfn_getComCdDtls('WRHS_SE_CD'),		// 입고구분
-    		gfn_getComCdDtls('GDS_SE_CD'),		// 상품구분
     		gfn_getComCdDtls('TRSPRT_SE_CD')	// 운송구분
 		]);
 
 		jsonComWrhsSeCd = gfn_getJsonFilter(result[0], 'cdVl', ["1", "2", "3"]);
-		jsonComGdsSeCd = result[1];
-		jsonComTrsprtSeCd = result[2];
+		jsonComTrsprtSeCd = result[1];
 
 		SBUxMethod.refresh('dtl-rdo-wrhsSeCd');
-		SBUxMethod.refresh('dtl-rdo-gdsSeCd');
 		SBUxMethod.refresh('dtl-rdo-trsprtSeCd');
 		SBUxMethod.set('dtl-rdo-wrhsSeCd', '3');
 		SBUxMethod.set('dtl-rdo-gdsSeCd', '1');
@@ -343,7 +339,7 @@
 
 	var jsonWrhsPlan = [];; // 그리드를 담기위한 객체 선언
 
-	function fn_createGrid() {
+	const fn_createGrid = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-wrhsPlan';
 	    SBGridProperties.id = 'grdWrhsPlan';

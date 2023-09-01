@@ -42,7 +42,7 @@
 				</ul>
 			</div>	
 			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-logCntnHstry" style="height:400px;"></div>
+				<div id="sb-area-logCntnHstry" style="height:600px;"></div>
 			</div>
 		</div>
 	</section>
@@ -95,13 +95,12 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		            {caption: ['사용자ID'], 	ref: 'userId',		width: '15%',	type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자명'], 	ref: 'userNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['APC명'],		ref: 'apcNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['현재상태'],	ref: 'gdsCd', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['접속일시'], 	ref: 'vrtyNm', 		width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['종료일시'], 	ref: 'spcfctNm',	width: '15%', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['최초접속일시'],	ref: 'brndCd',		width: '15%', 	type: 'output',	style:'text-align: center'}
+		            {caption: ['사용자ID'], 	ref: 'userId',		width: '260px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자명'], 	ref: 'userNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['APC명'],		ref: 'apcNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['현재상태'],	ref: 'sttsNow', 	width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속일시'],	ref: 'prslDt',		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['최초접속일시'],	ref: 'frstPrslDt',	width: '260px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogCntnHstry = _SBGrid.create(SBGridProperties);
 		        grdLogCntnHstry.bind( "afterpagechanged" , tabLogCntnHstry.setGrid );
@@ -122,10 +121,17 @@
 				let logYmdFrom = SBUxMethod.get("cntn-dtp-logYmdFrom");
 				let logYmdTo = SBUxMethod.get("cntn-dtp-logYmdTo");
 				let userNm = SBUxMethod.get("cntn-inp-userNm");
+				if (gfn_isEmpty(logYmdFrom)){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
+				if (gfn_isEmpty(logYmdTo)){
+					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
+		            return;
+				}
 
-		        const postJsonPromise = gfn_postJSON("/co/log/selectWrhsVhclList.do", {
-		        		apcCd 				: apcCd
-					  , logYmdFrom 			: logYmdFrom
+		        const postJsonPromise = gfn_postJSON("/co/log/selectCntnHstryList.do", {
+					    logYmdFrom 			: logYmdFrom
 					  , logYmdTo 			: logYmdTo
 					  , userNm 				: userNm
 					  , pagingYn 			: 'Y'
@@ -142,9 +148,12 @@
 		    		jsonLogCntnHstry.length = 0;
 		        	data.resultList.forEach((item, index) => {
 						const log = {
-							userId			: item.rowSeq,
-							userNm			: item.vhclno,
-							apcNm 			: item.drvrNm
+							userId			: item.userId,
+							userNm			: item.userNm,
+							apcNm 			: item.apcNm,
+							sttsNow 		: null,
+							prslDt	 		: item.prslDt,
+							frstPrslDt	 	: item.frstPrslDt
 						}
 						jsonLogCntnHstry.push(log);
 

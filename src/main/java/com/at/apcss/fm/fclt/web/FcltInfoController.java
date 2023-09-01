@@ -53,10 +53,13 @@ public class FcltInfoController extends BaseController {
 	// 시설현황 조회
 	@PostMapping(value = "/fm/fclt/selectFcltInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltInfoVO fcltInfoVO, HttpServletRequest request) throws Exception{
-
+		logger.info("=============selectFcltInfoList=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltInfoVO> resultList = new ArrayList<>();
 
+		logger.info(fcltInfoVO.getApcCd());
+		logger.info(fcltInfoVO.getFcltArea());
+		logger.info(fcltInfoVO.toString());
 		try {
 			 resultList = fcltInfoService.selectFcltInfoList(fcltInfoVO);
 
@@ -72,6 +75,7 @@ public class FcltInfoController extends BaseController {
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 
+		logger.info("=============selectFcltInfoList=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -79,9 +83,13 @@ public class FcltInfoController extends BaseController {
 	@PostMapping(value = "/fm/fclt/insertFcltInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltInfo(@RequestBody FcltInfoVO fcltInfoVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
+		logger.info("=============insertFcltInfo=======start======");
 		// validation check
 
+		logger.info(fcltInfoVO.getRmrk());
+		logger.info(fcltInfoVO.getFcltArea());
+		logger.info(fcltInfoVO.getTrgtYr());
+		logger.info(fcltInfoVO.toString());
 		// audit 항목
 		fcltInfoVO.setSysFrstInptUserId(getUserId());
 		fcltInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
@@ -91,6 +99,9 @@ public class FcltInfoController extends BaseController {
 		int insertedCnt = 0;
 
 		try {
+
+
+			logger.info("==========================");
 			insertedCnt = fcltInfoService.insertFcltInfo(fcltInfoVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -98,7 +109,7 @@ public class FcltInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-
+		logger.info("=============insertFcltInfo=======end======");
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -106,7 +117,7 @@ public class FcltInfoController extends BaseController {
 	@PostMapping(value = "/fm/fclt/updateFcltInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateFcltInfo(@RequestBody FcltInfoVO fcltInfoVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
+		logger.info("=============updateFcltInfo=========start====");
 		// validation check
 
 		// audit 항목
@@ -123,13 +134,14 @@ public class FcltInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-
+		logger.info("=============updateFcltInfo======end=======");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 시설현황 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltInfo(@RequestBody FcltInfoVO fcltInfoVO, HttpServletRequest requset) throws Exception{
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -156,7 +168,7 @@ public class FcltInfoController extends BaseController {
 	@PostMapping(value = "/fm/fclt/deleteFcltInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltInfoList(@RequestBody List<FcltInfoVO> fcltInfoList, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
+		logger.info("=============delete=====start========");
 		// validation check
 
 		// audit 항목
@@ -175,7 +187,7 @@ public class FcltInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-
+		logger.info("=============delete=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 }

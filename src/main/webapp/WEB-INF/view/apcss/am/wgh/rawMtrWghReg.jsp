@@ -6,6 +6,7 @@
 <head>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body>
 	<section class="content container-fluid">
@@ -17,7 +18,7 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnDocRawMtrWgh" name="btnDocRawMtrWgh" uitype="normal" class="btn btn-sm btn-primary" text="계량확인서" ></sbux-button>
+					<sbux-button id="btnDocRawMtrWgh" name="btnDocRawMtrWgh" uitype="normal" class="btn btn-sm btn-primary" onclick="fn_docRawMtrWgh" text="계량확인서" ></sbux-button>
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_reset" text="초기화" ></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_search" text="조회" ></sbux-button>
 					<sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_save" text="저장" ></sbux-button>
@@ -25,7 +26,7 @@
 				</div>
 			</div>
 
-			<div class="box-body">
+			<div class="box-body srch-keyup-area">
 				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
@@ -206,7 +207,7 @@
 							<td colspan="3" style="border-right:hidden;">Kg</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">감량</th>
+							<th scope="row" class="th_bg">감량률</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
 									uitype="text"
@@ -390,6 +391,23 @@
     	<jsp:include page="../../am/popup/pltBxPopup2.jsp"></jsp:include>
     </div>
 
+    <!-- 리포트출력 Modal -->
+    <div>
+        <sbux-modal
+	        id="modal-clipReport"
+	        name="modal-clipReport"
+	        uitype="large"
+	        header-title="클립리포트"
+	        body-html-id="body-modal-clipReport"
+	        header-is-close-button="true"
+	        footer-is-close-button="false"
+	        style="width:95vw;height:80vh;"
+        ></sbux-modal>
+    </div>
+    <div id="body-modal-clipReport">
+    	<jsp:include page="../../am/popup/clipReportPopup.jsp"></jsp:include>
+    </div>
+
 </body>
 <script type="text/javascript">
 
@@ -427,6 +445,19 @@
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
+
+		const elements = document.querySelectorAll(".srch-keyup-area");
+
+		for (let i = 0; i < elements.length; i++) {
+		  	const el = elements.item(i);
+		  	el.addEventListener("keyup", (event) => {
+		  		if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
+		  			fn_search();
+		  		}
+		  		//key	Enter
+		  		//keyCode
+		  	});
+		}
 	})
 
 	const fn_init = async function() {
@@ -490,6 +521,42 @@
     }
 
 	/** common button action */
+
+	/**
+     * @name fn_docRawMtrWgh
+     * @description 계량확인서 발행 버튼
+     */
+	const fn_docRawMtrWgh = function() {
+		let wghno = SBUxMethod.get("dtl-inp-wghno");
+
+		if (gfn_isEmpty(wghno)) {
+			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+            return;
+		}
+
+		//
+		/*
+		if (!gfn_comConfirm("Q0001", "발행")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+		 */
+
+		popClipReport.modalView(
+				"modal-clipReport",
+				"계량확인서",
+				"am/rawMtrWghDoc.crf",
+				{apcCd: gv_selectedApcCd, wghno: wghno}
+			);
+
+		/*
+		gfn_viewClipReport(
+				"body-rpt-docRawMtrWgh",
+				"am/rawMtrWghDoc.crf",
+				{apcCd: gv_selectedApcCd, wghno: wghno}
+			);
+		 */
+	}
+
 
 
 	/**

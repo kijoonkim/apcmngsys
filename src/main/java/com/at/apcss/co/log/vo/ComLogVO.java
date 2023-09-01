@@ -101,6 +101,10 @@ public class ComLogVO extends ComVO {
 	 */
 	private String prslDt;
 	/**
+	 * 최초열람일시
+	 */
+	private String frstPrslDt;
+	/**
 	 * 로그인성공여부
 	 */
 	private String lgnScsYn;
@@ -108,4 +112,12 @@ public class ComLogVO extends ComVO {
 	 * 사용자IP
 	 */
 	private String userIp;
+	/**
+	 * APC코드
+	 */
+	private String apcCd;
+	/**
+	 * APC명
+	 */
+	private String apcNm;
 }
