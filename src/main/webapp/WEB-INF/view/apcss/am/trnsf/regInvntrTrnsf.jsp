@@ -18,8 +18,8 @@
 					<h3 class="box-title">▶ 재고이송등록</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="nonormal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
-					<sbux-button id="btnSave" name="btnSave" uitype="nonormal" text="저장" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">

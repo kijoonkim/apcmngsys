@@ -211,7 +211,7 @@
         SBGridProperties.columns = [
             {caption: ['선택','선택'], ref: 'slt', width: '100px', type : 'checkbox'},
             {caption: ['선별번호/등급','선별번호/등급'], ref: 'sltNoGrd', width: '100px', type: 'output'},
-            {caption: ['생산지시번호','생산지시번호'], ref: 'prdctnCmndno', width: '100px', type: 'output'},
+            {caption: ['포장지시번호','포장지시번호'], ref: 'pckgnCmndno', width: '100px', type: 'output'},
             {caption: ['품종','품종'], ref: 'vrty', width: '100px', type: 'output'},
             {caption: ['규격','규격'], ref: 'spcfct', width: '100px', type: 'output'},
             {caption: ['대표생산자','대표생산자'], ref: 'rprsPrdctr', width: '100px', type: 'output'},
