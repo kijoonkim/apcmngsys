@@ -115,22 +115,23 @@
 						<tr>
 						<th scope="row" class="th_bg">상품구분</th>
 							<td colspan="15" class="td_input">
-								<p class="ad_input_row">
-									<sbux-radio id="dtl-rdo-gdsSeCd_1" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_1" text="일반"></sbux-label>
-								</p>
-								<p class="ad_input_row">
-									<sbux-radio id="dtl-rdo-gdsSeCd_2" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="2"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_2" text="GAP"></sbux-label>
-								</p>
-								<p class="ad_input_row">
-									<sbux-radio id="dtl-rdo-gdsSeCd_3" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="3"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_3" text="무농약"></sbux-label>
-								</p>
-								<p class="ad_input_row">
-									<sbux-radio id="dtl-rdo-gdsSeCd_4" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="4"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_4" text="유기농"></sbux-label>
-								</p>
+<!-- 								<p class="ad_input_row"> -->
+<!-- 									<sbux-radio id="dtl-rdo-gdsSeCd_1" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio> -->
+<!-- 									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_1" text="일반"></sbux-label> -->
+<!-- 								</p> -->
+<!-- 								<p class="ad_input_row"> -->
+<!-- 									<sbux-radio id="dtl-rdo-gdsSeCd_2" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="2"></sbux-radio> -->
+<!-- 									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_2" text="GAP"></sbux-label> -->
+<!-- 								</p> -->
+<!-- 								<p class="ad_input_row"> -->
+<!-- 									<sbux-radio id="dtl-rdo-gdsSeCd_3" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="3"></sbux-radio> -->
+<!-- 									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_3" text="무농약"></sbux-label> -->
+<!-- 								</p> -->
+<!-- 								<p class="ad_input_row"> -->
+<!-- 									<sbux-radio id="dtl-rdo-gdsSeCd_4" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="4"></sbux-radio> -->
+<!-- 									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_4" text="유기농"></sbux-label> -->
+<!-- 								</p> -->
+									<sbux-radio id="dtl-rdo-gdsSeCd" name="dtl-rdo-gdsSeCd" uitype="normal" jsondata-ref="jsonGdsSeCd" class="radio_label" text-right-padding="10px"></sbux-radio>
 							</td>
 						</tr>
 						<tr>
@@ -286,6 +287,7 @@
 	var jsonApcGrd			= [];	// 등급 		vrtyCd		검색
 	var jsonComWarehouse	= [];	// 창고 		warehouse	검색
 	var autoCompleteDataJson = [];
+	var jsonGdsSeCd			= [];	// 상품구분
 	
 	var jsonDataPrdcr = [];
 	var jsonPrdcr			= [];
@@ -332,9 +334,11 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', jsonComWarehouse, 'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
+			gfn_setComCdSBSelect('dtl-rdo-gdsSeCd', jsonGdsSeCd, 'GDS_SE_CD', gv_selectedApcCd),			// 상품구분
 		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
 		]);
+		console.log("jsonGdsSeCd", jsonGdsSeCd);
 	}
 	
 	/**
