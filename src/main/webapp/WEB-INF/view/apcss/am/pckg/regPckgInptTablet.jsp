@@ -68,12 +68,12 @@
 						  	</td>
 				        </tr>
 						<tr>
-							<th scope="row" class="th_bg">생산지시번호</th>
+							<th scope="row" class="th_bg"><sbux-label id="srch-lbl-pckgCmndno" name="srch-lbl-pckgCmndno" uitype="normal" text="포장지시번호" class="bold"></sbux-label></th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-prdctnCmndno" name="srch-inp-prdctnCmndno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-pckgCmndno" name="srch-inp-pckgCmndno" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-button id="btnSrchPrdctnCmndno" name="btnSrchPrdctnCmndno" uitype="normal" class="btn btn-xs btn-outline-dark" text="조회" onclick="fn_search"></sbux-button>
+								<sbux-button id="btnSrchPckgCmndno" name="btnSrchPckgCmndno" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기" onclick="fn_search"></sbux-button>
 						    </td>
 						</tr>
 						<tr>
@@ -182,7 +182,7 @@
             {caption: ['투입일자'], ref: 'inptYmd', width: '100px', type: 'output'},
             {caption: ['포장기명'], ref: 'pckgNm', width: '100px', type: 'output'},
             {caption: ['선별번호/등급'], ref: 'sortnoGrd', width: '100px', type: 'output'},
-            {caption: ['생산지시번호'], ref: 'prdctnCmndno', width: '100px', type: 'output'},
+            {caption: ['포장지시번호'], ref: 'pckgCmndno', width: '100px', type: 'output'},
             {caption: ['품목'], ref: 'itemCd', width: '100px', type: 'output'},
             {caption: ['품종'], ref: 'vrtyCd', width: '100px', type: 'output'},
             {caption: ['투입수량'], ref: 'inptQntt', width: '100px', type: 'output'},
