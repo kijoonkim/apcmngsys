@@ -194,7 +194,7 @@
 			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', jsonComWarehouse, 'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
 			gfn_setComCdSBSelect('srch-slt-itemCd', 		jsonComFclt, 		'FCLT_CD', gv_selectedApcCd),			// 설비
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd),	// 품목
-//  			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
+ 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd),	// 품종
 			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmndTrg', 	jsonSpmtPckgUnit, 	gv_selectedApcCd),		// 포장구분
 			gfn_setComCdSBSelect('grdSpmtCmndTrg', 			jsonComGdsGrd, 		'GDS_GRD'),		// 상품등급
 			gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', jsonTrsprtCo, gv_selectedApcCd),
@@ -353,8 +353,8 @@
     		gfn_comAlert("W0001", "발주일자");			//	W0002	{0}을/를 선택하세요.
             return;
     	}
-    	if(gfn_isEmpty(itemCd) || gfn_isEmpty(vrtyCd)){
-    		gfn_comAlert("W0001", "품목/품종");			//	W0002	{0}을/를 선택하세요.
+    	if(gfn_isEmpty(vrtyCd)){
+    		gfn_comAlert("W0001", "품종");			//	W0002	{0}을/를 선택하세요.
             return;
     	}
     	
@@ -473,10 +473,6 @@
 		
     	if(gfn_isEmpty(cmndYmd)){
     		gfn_comAlert("W0001", "지시일자");			//	W0002	{0}을/를 선택하세요.
-            return;
-    	}
-    	if(gfn_isEmpty(itemCd) || gfn_isEmpty(vrtyCd)){
-    		gfn_comAlert("W0001", "품목/품종");			//	W0002	{0}을/를 선택하세요.
             return;
     	}
     	
