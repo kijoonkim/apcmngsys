@@ -34,6 +34,10 @@ public class PltBxVO extends ComVO {
 	 */
 	private String pltBxSeCd;
 	/**
+	 * 팔레트/박스 구분명칭
+	 */
+	private String pltBxSeNm;
+	/**
 	 * 팔레트/박스 코드
 	 */
 	private String pltBxCd;

@@ -58,7 +58,7 @@
 				</div>
 				<div class="sbt-wrap-body">
 					<div class="sbt-grid">
-						<div id="inptCmndDsctnGridArea" style="height:200px;"></div>
+						<div id="inptCmndDsctnGridArea" style="height:213px;"></div>
 					</div>
 				</div>
 				<br>
@@ -92,7 +92,7 @@
 							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-pltBxSe" name="srch-slt-pltBxSe" uitype="single" jsondata-ref="jsonPltBxSe" class="form-control input-sm" unselected-text="선택" onchange="fn_selectPltBxSe"></sbux-select>
+								<sbux-select id="srch-slt-pltBxSe" name="srch-slt-pltBxSe" uitype="single" jsondata-ref="jsonPltBxSe" class="form-control input-sm" unselected-text="선택" onchange="fn_selectPltBxSe()"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input"  style="border-left: hidden;"></td>
 						</tr>
@@ -130,7 +130,7 @@
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-Qntt" name="srch-inp-Qntt" uitype="text" class="form-control input-sm" placeholder="" title="" onchange="fn_onChangeQntt"></sbux-input>
+								<sbux-input id="srch-inp-Qntt" name="srch-inp-Qntt" uitype="text" class="form-control input-sm" placeholder="" title="" onchange="fn_onChangeQntt(this)"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-Wght" name=""srch-inp-Wght"" uitype="text" class="form-control input-sm" placeholder="" title="" disabled></sbux-input>
@@ -160,7 +160,7 @@
 				
 				<div class="sbt-wrap-body">
 					<div class="sbt-grid">
-						<div id="inptCmndDsctnGridArea2" style="height:340px;"></div>
+						<div id="inptCmndDsctnGridArea2" style="height:233px;"></div>
 					</div>
 				</div>
 			</div>
@@ -213,6 +213,7 @@
 
 		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		fn_initSBSelect();
+		fn_search();
 	});
 
 	var pltBxMngList; // 그리드를 담기위한 객체 선언
@@ -231,17 +232,17 @@
 	    SBGridProperties.scrollbubbling = false;
 
 	    SBGridProperties.columns = [
-	        {caption: ["구분","구분"],		ref: 'pltBxSeCd',      type:'output',  width:'170px',    style:'text-align:center'},
+	        {caption: ["구분","구분"],		ref: 'pltBxSeNm',      type:'output',  width:'170px',    style:'text-align:center'},
 	        {caption: ["명칭","명칭"],		ref: 'pltBxNm',      type:'output',  width:'170px',    style:'text-align:center'},
-	        {caption: ["단중","단중"],		ref: 'unitWght',      type:'output',  width:'170px',    style:'text-align:center'},
-	        {caption: ["전일재고","수량	"],		ref: 'bssInvntrQntt',      type:'output',  width:'130px',    style:'text-align:center'},
-	        {caption: ["전일재고","중량"],		ref: 'bssInvntrWght',      type:'output',  width:'130px',    style:'text-align:center'},
-	        {caption: ["입고","수량	"],		ref: 'wrhsQntt',      type:'output',  width:'130px',    style:'text-align:center'},
-	        {caption: ["입고","중량"],		ref: 'wrhsWght',      type:'output',  width:'130px',    style:'text-align:center'},
-	        {caption: ["출고","수량	"],		ref: 'spmtQntt',      type:'output',  width:'130px',    style:'text-align:center'},
-	        {caption: ["출고","중량"],		ref: 'spmtWght',      type:'output',  width:'130px',    style:'text-align:center'},
-	        {caption: ["현재고","수량"],		ref: 'invntrQntt',      type:'output',  width:'130px',    style:'text-align:center'},
-	        {caption: ["현재고","중량"],		ref: 'invntrWght',      type:'output',  width:'130px',    style:'text-align:center'},
+	        {caption: ["단중","단중"],		ref: 'unitWght',      type:'output',  width:'120px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
+	        {caption: ["전일재고","수량	"],		ref: 'bssInvntrQntt',      type:'output',  width:'150px',    style:'text-align:right'},
+	        {caption: ["전일재고","중량"],		ref: 'bssInvntrWght',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
+	        {caption: ["입고","수량	"],		ref: 'wrhsQntt',      type:'output',  width:'150px',    style:'text-align:right'},
+	        {caption: ["입고","중량"],		ref: 'wrhsWght',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
+	        {caption: ["출고","수량	"],		ref: 'spmtQntt',      type:'output',  width:'150px',    style:'text-align:right'},
+	        {caption: ["출고","중량"],		ref: 'spmtWght',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
+	        {caption: ["현재고","수량"],		ref: 'invntrQntt',      type:'output',  width:'150px',    style:'text-align:right'},
+	        {caption: ["현재고","중량"],		ref: 'invntrWght',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
 
 	    ];
 
@@ -289,6 +290,7 @@
           		const pckgCmnd = {
           				apcCd: item.apcCd,
           				pltBxSeCd: item.pltBxSeCd,
+          				pltBxSeNm: item.pltBxSeNm,
           				pltBxCd: item.pltBxCd,
           				pltBxNm: item.pltBxNm,
           				unitWght: item.unitWght,
@@ -357,10 +359,10 @@
 	        {caption: ["입출고구분"],		ref: 'wrhsSpmtSeNm',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["구분"],		ref: 'pltBxSeNm',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["명칭"],		ref: 'pltNm',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["단중"],		ref: 'unitWght',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["단중"],		ref: 'unitWght',      type:'output',  width:'140px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
 	        {caption: ["생산자"],		ref: 'prdcrNm',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["수량"],		ref: 'qntt',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["중량"],		ref: 'wght',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["수량"],		ref: 'qntt',      type:'output',  width:'140px',    style:'text-align:right'},
+	        {caption: ["중량"],		ref: 'wght',      type:'output',  width:'140px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
 	        {caption: ["비고"],		ref: 'rmrk',      type:'output',  width:'300px',    style:'text-align:center'}
 	    ];
 
@@ -439,11 +441,8 @@
 		let wrhsSpmtSeCd = SBUxMethod.get("srch-slt-wrhsSpmtSe");
 		let pltBxSeCd = SBUxMethod.get("srch-slt-pltBxSe");
 		let pltBxCd = SBUxMethod.get("srch-slt-pltBxNm");
-		let pltNm = jsonPltBxNm.find(e => e.value == pltBxCd).text;
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
 		let qntt = SBUxMethod.get("srch-inp-Qntt");	
-		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, SBUxMethod.get("srch-slt-pltBxSe"));
-		let unitWght = pltBxs.find(e => e.pltBxCd == pltBxCd).unitWght;
 		let rmrk = SBUxMethod.get("srch-inp-rmrk");
 
     	
@@ -471,8 +470,11 @@
 			gfn_comAlert("W0001", "수량");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
-    	
-    	
+		
+		let pltNm = jsonPltBxNm.find(e => e.value == pltBxCd).text;
+		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, SBUxMethod.get("srch-slt-pltBxSe"));
+		let unitWght = pltBxs.find(e => e.pltBxCd == pltBxCd).unitWght;
+		
     	let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 			const postJsonPromise = gfn_postJSON("/am/cmns/insertPltWrhsSpmt.do", {
@@ -581,9 +583,20 @@
 		}
 	}
 	
-	const fn_onChangeQntt = async function() {
-		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, SBUxMethod.get("srch-slt-pltBxSe"));
+	const fn_onChangeQntt = async function(obj) {
+		let wrhsSpmtSeCd = SBUxMethod.get("srch-slt-wrhsSpmtSe");
+		let pltBxSeCd = SBUxMethod.get("srch-slt-pltBxSe");
 		let pltBxCd = SBUxMethod.get("srch-slt-pltBxNm");
+		if(wrhsSpmtSeCd == '2'){
+			let invntrQntt = jsonPltBxMngList.find(e => e.pltBxCd == pltBxCd && e.pltBxSeCd == pltBxSeCd).invntrQntt;
+			if(invntrQntt < obj.value){
+				await alert("현재고를 초과하여 수량을 입력할 수 없습니다. 현재고: "+invntrQntt);
+				SBUxMethod.set("srch-inp-Qntt", 0);
+				SBUxMethod.set("srch-inp-Wght", 0);
+				return;
+			}
+		}
+		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, SBUxMethod.get("srch-slt-pltBxSe"));
 		let unitWght = pltBxs.find(e => e.pltBxCd == pltBxCd).unitWght;
 		
 		SBUxMethod.set("srch-inp-Wght", SBUxMethod.get("srch-inp-Qntt") * unitWght);
