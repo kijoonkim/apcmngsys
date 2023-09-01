@@ -35,6 +35,9 @@
 			     , PR.TRSPRT_SE_CD  AS TRSPRT_SE_CD
 			     , PR.CLCLN_CRTR	AS CLCLN_CRTR
 			     , PR.VHCLNO        AS VHCLNO
+			     , PR.TELNO        	AS TELNO
+			     , PR.PRDCR_LINK_CD	AS PRDCR_LINK_CD
+			     , PR.PRDCR_IDENTNO	AS PRDCR_IDENTNO
 			     , PR.RMRK          AS RMRK
 			     , PR.DEL_YN        AS DEL_YN
 			  FROM TB_PRDCR_INFO PR
@@ -76,6 +79,9 @@
 			     , PR.TRSPRT_SE_CD  AS TRSPRT_SE_CD
 			     , PR.CLCLN_CRTR	AS CLCLN_CRTR
 			     , PR.VHCLNO        AS VHCLNO
+			     , PR.TELNO        	AS TELNO
+			     , PR.PRDCR_LINK_CD	AS PRDCR_LINK_CD
+			     , PR.PRDCR_IDENTNO	AS PRDCR_IDENTNO
 			     , PR.RMRK          AS RMRK
 			     , PR.DEL_YN        AS DEL_YN
 			     , (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = PR.APC_CD) AS APC_NM
@@ -170,6 +176,9 @@
 					, TRSPRT_SE_CD
 					, CLCLN_CRTR
 					, VHCLNO
+			     	, TELNO
+			     	, PRDCR_LINK_CD
+			     	, PRDCR_IDENTNO
 					, RMRK	    		  	
 	    		  	, SYS_FRST_INPT_DT
 	    		  	, SYS_FRST_INPT_USER_ID
@@ -189,6 +198,9 @@
 					, #{trsprtSeCd}
 					, #{clclnCrtr}
 					, #{vhclno}
+					, #{telno}
+					, #{prdcrLinkCd}
+					, #{prdcrIdentno}
 					, #{rmrk}
 					, SYSDATE
 	   			  	, #{sysFrstInptUserId}
@@ -223,6 +235,9 @@
 				, TRSPRT_SE_CD = #{trsprtSeCd}
 				, CLCLN_CRTR = #{clclnCrtr}
 				, VHCLNO = #{vhclno}
+				, TELNO = #{telno}
+				, PRDCR_LINK_CD = #{prdcrLinkCd}
+				, PRDCR_IDENTNO = #{prdcrIdentno}
 				, RMRK = #{rmrk}
     	]]>
 		<if test='delYn != null and delYn !=""'>

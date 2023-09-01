@@ -204,6 +204,10 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 산지코드
 	 */
 	private String plorCd;
+	/**
+	 * 발주번호
+	 */
+	private String outordrno;
 
 	/**
 	 * 상품등급

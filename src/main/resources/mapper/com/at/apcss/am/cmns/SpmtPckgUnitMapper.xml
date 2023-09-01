@@ -34,6 +34,8 @@
                  , (SELECT FN_GET_SPCFCT_NM(SPU.ITEM_CD, SPU.SPCFCT_CD, SPU.APC_CD) FROM DUAL) AS SPCFCT_NM
 			     , SPU.NTSL_UNTPRC          AS NTSL_UNTPRC
 			     , SPU.DEL_YN               AS DEL_YN
+			     , SPU.GDS_GRD				AS GDS_GRD
+			     , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', SPU.GDS_GRD) FROM DUAL) AS GDS_GRD_NM
 			  FROM TB_SPMT_PCKG_UNIT SPU
 		     WHERE SPU.APC_CD = #{apcCd}
 		]]>
@@ -65,6 +67,8 @@
                        AND X.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
                        AND X.APLCN_CRTR_YMD <= TO_CHAR(SYSDATE, 'YYYYMMDD')) AS NTSL_UNTPRC
 			     , SPU.DEL_YN               AS DEL_YN
+			     , SPU.GDS_GRD				AS GDS_GRD
+			     , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', SPU.GDS_GRD) FROM DUAL) AS GDS_GRD_NM
 			  FROM TB_SPMT_PCKG_UNIT SPU
 		     WHERE SPU.APC_CD = #{apcCd}
 		]]>
@@ -96,6 +100,7 @@
 					, ITEM_CD
 					, VRTY_CD
 					, SPCFCT_CD
+					, GDS_GRD
 					, NTSL_UNTPRC
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
@@ -112,6 +117,7 @@
 		    		, #{itemCd}
 					, #{vrtyCd}
 					, #{spcfctCd}
+					, #{gdsGrd}
 					, #{ntslUntprc}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
@@ -143,6 +149,7 @@
 				, ITEM_CD					= #{itemCd}
 				, VRTY_CD					= #{vrtyCd}
 				, SPCFCT_CD					= #{spcfctCd}
+				, GDS_GRD					= #{gdsGrd}
 				, NTSL_UNTPRC  				= #{ntslUntprc}
 	    		, DEL_YN					= #{delYn}
 			 WHERE SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}

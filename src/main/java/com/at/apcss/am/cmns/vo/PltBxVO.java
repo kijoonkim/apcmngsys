@@ -57,6 +57,10 @@ public class PltBxVO extends ComVO {
 	 * 사용유무
 	 */
 	private String useYn;
+	/**
+	 * 비고(대여업체)
+	 */
+	private String rmrk;
 
 	/**
 	 * 기초재고수량 = 전일재고수량
