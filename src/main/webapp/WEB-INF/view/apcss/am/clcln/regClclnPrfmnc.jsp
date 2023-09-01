@@ -122,7 +122,7 @@
 							<tr>
 								<td style="border-left:hidden"></td>
 								<td class="td_input" style="border-right:hidden; border-left:hidden" ><sbux-datepicker id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker></td>
-								<td class="td_input" style="border-right:hidden;"><sbux-button id="btnCrtClclnData" name="btnCrtClclnData" uitype="normal" class="btn btn-xs btn-outline-dark btn_search" text="정산자료생성"></sbux-button></td>
+								<td class="td_input" style="border-right:hidden;"><sbux-button id="btnCreateClclnData" name="btnCreateClclnData" uitype="normal" class="btn btn-xs btn-outline-dark btn_search" text="정산자료생성"></sbux-button></td>
 							</tr>
 						</tbody>
 				 		</table>
