@@ -18,7 +18,7 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ 포장실적조회</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnDocSort" name="btnDocSort" uitype="normal" class="btn btn-sm btn-success" text="선별확인서" onclick="fn_docSort"></sbux-button>
+					<sbux-button id="btnDocPckg" name="btnDocPckg" uitype="normal" class="btn btn-sm btn-success" text="포장확인서" onclick="fn_docPckg"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_selectSortInptList()"></sbux-button>
 				</div>
 			</div>
