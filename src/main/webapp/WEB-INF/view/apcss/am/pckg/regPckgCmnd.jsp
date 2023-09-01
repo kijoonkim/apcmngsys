@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>ㄴ
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -103,7 +103,7 @@
 				</div>
 	            <div class="sbt-wrap-body">
                     <div class="sbt-grid">
-                        <div id="inptPckgCmndTrgtGridArea" style="height:200px;"></div>
+                        <div id="inptPckgCmndTrgtGridArea" style="height:187px;"></div>
                     </div>
                	</div>
 				
@@ -183,7 +183,7 @@
 				</div>
 				<div class="sbt-wrap-body">
 					<div class="sbt-grid">
-						<div id="inptPckgCmndGridArea" style="height:200px;"></div>
+						<div id="inptPckgCmndGridArea" style="height:208px;"></div>
 					</div>
 				</div>
 				<!--[pp] //검색결과 -->
@@ -226,8 +226,6 @@
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd, itemCd);			// 품종
 		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_selectedApcCd, itemCd);		// 규격
-
-		console.log("jsonComSpcfct", jsonComSpcfct);
 	}
 
 	// only document
@@ -332,32 +330,23 @@
 	    ];
 
 	    pckgCmndList = _SBGrid.create(SBGridProperties);
-// 	    fn_setGrdPckgCmnd();
-	    fn_search();
 	}
 
 
 	const fn_search = async function(){
-    	try{
-  		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-strtCmndYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endCmndYmd")))
-  				   throw "지시일자는 필수입력 항목입니다.";
-  		   
- 	    	grdSortCmnd.rebuild();
- 	    	let pageSize = grdSortCmnd.getPageSize();
- 	    	let pageNo = 1;
- 	
- 	    	// grid clear
- 	    	jsonSortCmnd.length = 0;
- 	    	grdSortCmnd.clearStatus();
-  			await fn_setGrdSortCmnd(pageSize, pageNo);
-  	   } catch(e){
- 		   alert(e);
- 		   return;
- 	   }
+    	grdSortCmnd.rebuild();
+    	let pageSize = grdSortCmnd.getPageSize();
+    	let pageNo = 1;
+
+    	// grid clear
+    	jsonSortCmnd.length = 0;
+    	grdSortCmnd.clearStatus();
+		await fn_setGrdSortCmnd(pageSize, pageNo);
+
   	   
     	pckgCmndList.rebuild();
-    	let pageSize = pckgCmndList.getPageSize();
-    	let pageNo = 1;
+    	pageSize = pckgCmndList.getPageSize();
+    	pageNo = 1;
 
     	// grid clear
     	jsonpckgCmndList.length = 0;
@@ -371,7 +360,15 @@
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");			// 생산자
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
-
+  		
+		if(gfn_isEmpty(sortCmndFromYmd) || gfn_isEmpty(sortCmndToYmd)){
+			gfn_comAlert("W0001", "지시일자");		//	W0002	{0}을/를 선택하세요.
+			return;
+		}
+		if(gfn_isEmpty(vrtyCd)){
+			gfn_comAlert("W0001", "품종");		//	W0002	{0}을/를 선택하세요.
+			return;
+		}
     	const postJsonPromise = gfn_postJSON("/am/sort/selectSortCmndList.do", {
 			apcCd: gv_selectedApcCd,
 			sortCmndFromYmd: sortCmndFromYmd,
@@ -529,24 +526,9 @@
 	}
 	const fn_save = async function(){
 		try{
-// 			console.log("jsonComSpcfct", jsonComSpcfct);
-// 			console.log("srch-slt-spcfctCd", SBUxMethod.get("srch-slt-spcfctCd"));
-// 			spcfctData = await gfn_getApcSpcfcts(gv_selectedApcCd, SBUxMethod.get("srch-slt-itemCd"));
-// 			console.log("spcfctData", spcfctData);
-// 			var find = spcfctData.find(e => e.spcfctCd == SBUxMethod.get("srch-slt-spcfctCd"))
-// 			console.log("find", find);
-// 			console.log("find.wght", find.wght);
-// 			console.log("find.wght", spcfctData.find(e => e.spcfctCd == SBUxMethod.get("srch-slt-spcfctCd")).wght);
-			
 			
  		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-cmndYmd")))
 				throw "지시일자는 필수입력 항목입니다.";
-//  		   if (gfn_isEmpty(SBUxMethod.get("srch-slt-itemCd")) || gfn_isEmpty(SBUxMethod.get("srch-slt-vrtyCd")))
-// 				throw "품목/품종은 필수입력 항목입니다.";
-//  		   if (gfn_isEmpty(SBUxMethod.get("srch-slt-vrtyCd")))
-// 				throw "규격은 필수입력 항목입니다.";
-//  		   if (gfn_isEmpty(SBUxMethod.get("srch-inp-cmndQntt")))
-// 				throw "지시수량은 필수입력 항목입니다.";
  		   if (gfn_isEmpty(SBUxMethod.get("srch-slt-fclt")))
 				throw "생산설비는 필수입력 항목입니다.";
  		   if (gfn_isEmpty(SBUxMethod.get("srch-inp-cnptNm")))
@@ -556,14 +538,11 @@
  	    	
  	    	
 			let pckgCmndYmd  = SBUxMethod.get("srch-dtp-cmndYmd"); //포장지시일자
-// 			spcfctData = await gfn_getApcSpcfcts(gv_selectedApcCd, itemCd);
-// 			let cmndWght = cmndQntt * spcfctData.find(e => e.spcfctCd == SBUxMethod.get("srch-slt-spcfctCd")).wght//지시 중량 = 지시 수량 * 규격의 단중
 			let fcltCd  = SBUxMethod.get("srch-slt-fclt"); //설비코드
 			let cnptCd  = SBUxMethod.get("srch-inp-cnptCd"); //거래처코드
 			let cnptNm  = SBUxMethod.get("srch-inp-cnptNm"); //거래처명
 			
 			let dudtYmd  = SBUxMethod.get("srch-dtp-dudtYmd"); //납기일자
-	// 		let gdsCd  = SBUxMethod.get(""); //상품코드
 			let gdsNm  = SBUxMethod.get("srch-inp-gdsNm"); //상품명
 			let outordrQntt  = SBUxMethod.get("srch-inp-outordrQntt"); //발주수량
 			let bxGdsQntt  = SBUxMethod.get("srch-inp-bxGdsQntt"); //입수
@@ -578,14 +557,6 @@
  					throw "규격은 필수입력 항목입니다.";
  	 		   if (gfn_isEmpty(jsonSortCmnd[nRow-2].cmndQntt))
  					throw "포장지시수량은 필수입력 항목입니다.";
-//  				jsonSortCmnd[nRow-2].cmndYmd = cmndYmd
-//  				jsonSortCmnd[nRow-2].trsprtCoCd = trsprtCo
-//  				jsonSortCmnd[nRow-2].trsprtCoNm = jsonTrsprtCo.find(e => e.value == trsprtCo).label;
-//  				jsonSortCmnd[nRow-2].rmrk = rmrk;
-//  				jsonSortCmnd[nRow-2].cnptCd = jsonSortCmnd[nRow-2].apcCnptCd;
-//  				jsonSortCmnd[nRow-2].cmndQntt = jsonSortCmnd[nRow-2].inptCmndQntt;
-//  				jsonSortCmnd[nRow-2].cmndWght = jsonSortCmnd[nRow-2].inptCmndWght;
-//  				jsonSortCmnd[nRow-2].delYn = "N";
 
 				jsonSortCmnd[nRow-2].pckgCmndYmd = pckgCmndYmd;
 				jsonSortCmnd[nRow-2].spcfctCd = jsonSortCmnd[nRow-2].spcfct;
@@ -596,6 +567,8 @@
 				jsonSortCmnd[nRow-2].gdsNm = gdsNm;
 				jsonSortCmnd[nRow-2].outordrQntt = outordrQntt;
 				jsonSortCmnd[nRow-2].bxGdsQntt = bxGdsQntt;
+				jsonSortCmnd[nRow-2].cmndQntt = jsonSortCmnd[nRow-2].pckgQntt;
+				jsonSortCmnd[nRow-2].cmndWght = jsonSortCmnd[nRow-2].pckgWght;
 				jsonSortCmnd[nRow-2].outordrno = outordrno;
 				jsonSortCmnd[nRow-2].delYn = 'Y';
 				
