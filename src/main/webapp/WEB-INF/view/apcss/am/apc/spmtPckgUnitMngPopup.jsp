@@ -81,10 +81,18 @@
 	var jsonSPUGrdItemCd = [];
 	var jsonSPUGrdVrtyCd = [];
 	var jsonSPUGrdSpcfctCd = [];
+	var jsonSPUGdsGrd = [];
 
 	const fn_initSBSelectSpmtPckgUnit = async function() {
-		await gfn_setApcItemSBSelect("spmtPckgUnit-slt-itemCd", jsonSPUItemCd, gv_apcCd);			// APC 품목(검색)
-		await gfn_setApcItemSBSelect("grdSpmtPckgUnit", 		jsonSPUGrdItemCd, gv_apcCd);		// APC 품목(저장)
+		
+		let rst = await Promise.all([
+			gfn_setApcItemSBSelect("spmtPckgUnit-slt-itemCd", jsonSPUItemCd, gv_apcCd), 	// APC 품목(검색)
+			gfn_setApcItemSBSelect("grdSpmtPckgUnit", 		jsonSPUGrdItemCd, gv_apcCd),	// APC 품목(저장)
+			gfn_setComCdSBSelect("grdSpmtPckgUnit", 		jsonSPUGdsGrd, "GDS_GRD")		// 상품등급(출하)
+		]);
+		console.log("jsonSPUGdsGrd >> ",jsonSPUGdsGrd);
+		
+		grdSpmtPckgUnit.refresh({"combo":true});
 	}
 
 	function fn_selectItem(){
@@ -113,7 +121,6 @@
 
 
 	async function fn_createSpmtPckgUnitGrid() {
-		await fn_initSBSelectSpmtPckgUnit();
 		jsonSpmtPckgUnit = [];
 		SBUxMethod.set("spmtPckgUnit-inp-apcNm", SBUxMethod.get("inp-apcNm"));
    		var SBGridProperties = {};
@@ -132,7 +139,9 @@
 	        	},
 	        {caption: ["규격"], 			ref: 'spcfctCd',   	type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	displayui : false, 	itemcount: 10, label:'label', value:'value', filtering: {usemode : true, uppercol : 0, attrname : 'mastervalue'}}},
-	        {caption: ["출하 포장단위 명"], ref: 'spmtPckgUnitNm',  type:'input',  width:'380px',    style:'text-align:center'},
+	        {caption: ["등급"], 			ref: 'gdsGrd',   	type:'combo',  width:'80px',    style:'text-align:center',
+				typeinfo : {ref:'jsonSPUGdsGrd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
+	        {caption: ["출하 포장단위 명"], ref: 'spmtPckgUnitNm',  type:'input',  width:'300px',    style:'text-align:center'},
 	        {caption: ["판매단가"],     	ref: 'ntslUntprc',  type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
 	        {caption: ["변경"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if((grdSpmtPckgUnit.getRowStatus(nRow) == 0 || grdSpmtPckgUnit.getRowStatus(nRow) == 2) && !(strValue== null || strValue == "")){
@@ -153,8 +162,10 @@
 	        {caption: ["품목명"], 			ref: 'itemNm',   		type:'input',  hidden : true},
 	        {caption: ["품종명"], 			ref: 'vrtyNm',   		type:'input',  hidden : true},
 	        {caption: ["규격명"], 			ref: 'spcfctNm',   		type:'input',  hidden : true},
+	        {caption: ["등급명"], 			ref: 'gdsGrdNm',   		type:'input',  hidden : true},
 	    ];
 	    grdSpmtPckgUnit = _SBGrid.create(SBGridProperties);
+	    await fn_initSBSelectSpmtPckgUnit();
 	}
 
 	async function fn_selectSpmtPckgUnitList(){
@@ -185,6 +196,8 @@
 				  , itemNm			: item.itemNm
 				  , vrtyNm			: item.vrtyNm
 				  , spcfctNm		: item.spcfctNm
+				  , gdsGrd			: item.gdsGrd
+				  , gdsGrdNm		: item.gdsGrdNm
 				}
 				newSpmtPckgUnitGridData.push(spmtPckgUnitVO);
 			});
