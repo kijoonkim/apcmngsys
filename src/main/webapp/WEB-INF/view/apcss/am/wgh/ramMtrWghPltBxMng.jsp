@@ -92,7 +92,7 @@
 							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-pltBxSe" name="srch-slt-pltBxSe" uitype="single" jsondata-ref="jsonPltBxSe" class="form-control input-sm" unselected-text="선택" onchange="fn_selectPltBxSe"></sbux-select>
+								<sbux-select id="srch-slt-pltBxSe" name="srch-slt-pltBxSe" uitype="single" jsondata-ref="jsonPltBxSe" class="form-control input-sm" unselected-text="선택" onchange="fn_selectPltBxSe()"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input"  style="border-left: hidden;"></td>
 						</tr>
@@ -130,7 +130,7 @@
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-Qntt" name="srch-inp-Qntt" uitype="text" class="form-control input-sm" placeholder="" title="" onchange="fn_onChangeQntt"></sbux-input>
+								<sbux-input id="srch-inp-Qntt" name="srch-inp-Qntt" uitype="text" class="form-control input-sm" placeholder="" title="" onchange="fn_onChangeQntt(this)"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-Wght" name=""srch-inp-Wght"" uitype="text" class="form-control input-sm" placeholder="" title="" disabled></sbux-input>
@@ -583,9 +583,20 @@
 		}
 	}
 	
-	const fn_onChangeQntt = async function() {
-		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, SBUxMethod.get("srch-slt-pltBxSe"));
+	const fn_onChangeQntt = async function(obj) {
+		let wrhsSpmtSeCd = SBUxMethod.get("srch-slt-wrhsSpmtSe");
+		let pltBxSeCd = SBUxMethod.get("srch-slt-pltBxSe");
 		let pltBxCd = SBUxMethod.get("srch-slt-pltBxNm");
+		if(wrhsSpmtSeCd == '2'){
+			let invntrQntt = jsonPltBxMngList.find(e => e.pltBxCd == pltBxCd && e.pltBxSeCd == pltBxSeCd).invntrQntt;
+			if(invntrQntt < obj.value){
+				await alert("현재고를 초과하여 수량을 입력할 수 없습니다. 현재고: "+invntrQntt);
+				SBUxMethod.set("srch-inp-Qntt", 0);
+				SBUxMethod.set("srch-inp-Wght", 0);
+				return;
+			}
+		}
+		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, SBUxMethod.get("srch-slt-pltBxSe"));
 		let unitWght = pltBxs.find(e => e.pltBxCd == pltBxCd).unitWght;
 		
 		SBUxMethod.set("srch-inp-Wght", SBUxMethod.get("srch-inp-Qntt") * unitWght);
