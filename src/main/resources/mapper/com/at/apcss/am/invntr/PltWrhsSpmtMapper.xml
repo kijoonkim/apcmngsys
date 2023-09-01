@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : PltWrhsMapper.xml                                   				-->
+<!-- DESC : 입고실적 mapper                                            				-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.08.31  	정희운        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.invntr.mapper.PltWrhsSpmtMapper">
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.whrs.mapper.PltWrhsMapper.selectPltBxMngList					-->
+	<!-- DESC : 팔레트/박스 재고 목록 조회.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.31  	정희운        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectPltBxMngList" parameterType="com.at.apcss.am.cmns.vo.PltBxVO" resultType="com.at.apcss.am.cmns.vo.PltBxVO">
+    	<![CDATA[
+			SELECT
+			PBI.APC_CD    AS APC_CD
+			, PBI.PLT_BX_SE_CD    AS PLT_BX_SE_CD
+			, PBI.PLT_BX_CD    AS PLT_BX_CD
+			, PBI.PLT_BX_NM    AS PLT_BX_NM
+			, PBI.UNIT_WGHT    AS UNIT_WGHT
+			, PBI.USE_YN    AS USE_YN
+			, PBI.DEL_YN    AS DEL_YN
+			, PBI.BSS_INVNTR_QNTT    AS BSS_INVNTR_QNTT
+			, PBI.BSS_INVNTR_QNTT    AS BSS_INVNTR_WGHT
+			, PBI.UNIT_CD    AS UNIT_CD
+			, PBI.RMRK    AS RMRK
+			, PWS.WRHS_QNTT AS WRHS_QNTT
+			, PWS.WRHS_QNTT * PBI.UNIT_WGHT AS WRHS_WGHT
+			, PWS.SPMT_QNTT AS SPMT_QNTT
+			, PWS.WRHS_QNTT * PBI.UNIT_WGHT AS SPMT_WGHT
+			, NVL(PBI.BSS_INVNTR_QNTT, 0) + NVL(PWS.WRHS_QNTT, 0) - NVL(PWS.SPMT_QNTT, 0) AS INVNTR_QNTT
+			, (NVL(PBI.BSS_INVNTR_QNTT, 0) + NVL(PWS.WRHS_QNTT, 0) - NVL(PWS.SPMT_QNTT, 0)) *  NVL(PBI.UNIT_WGHT, 0) AS INVNTR_WGHT
+			FROM TB_PLT_BX_INFO PBI
+			LEFT OUTER JOIN
+				(SELECT APC_CD
+				, WRHS_SPMT_SE_CD
+				, PLT_BX_SE_CD
+				, PLT_BX_CD
+				, SUM(CASE  WHEN  WRHS_SPMT_SE_CD = '1' THEN QNTT ELSE 0 END) AS WRHS_QNTT
+				, SUM(CASE  WHEN  WRHS_SPMT_SE_CD = '2' THEN QNTT ELSE 0 END) AS SPMT_QNTT
+				FROM TB_PLT_WRHS_SPMT
+				WHERE JOB_YMD = TO_CHAR(SYSDATE, 'YYYYMMDD')
+				GROUP BY APC_CD, WRHS_SPMT_SE_CD, PLT_BX_SE_CD, PLT_BX_CD
+				) PWS
+				ON PBI.APC_CD = PWS.APC_CD
+				AND PBI.PLT_BX_SE_CD = PWS.PLT_BX_SE_CD
+				AND PBI.PLT_BX_CD = PWS.PLT_BX_CD
+			WHERE PBI.APC_CD = #{apcCd}
+		]]>
+    </select>
+    
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.whrs.mapper.PltWrhsMapper.insertPltWrhsSpmt				-->
+	<!-- DESC : 팔레트/박스 입출 내역 등록.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.31  	정희운        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertPltWrhsSpmt" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.cmns.mapper.PltBxMapper.insertPltWrhsSpmt */
+	    		INTO TB_PLT_WRHS_SPMT
+	    		(
+					APC_CD
+					, JOB_YMD
+					, WRHS_SPMT_SE_CD
+					, PLT_BX_SE_CD
+					, PLT_BX_CD
+					, PRDCR_CD
+					, SEQ_NO
+					, PLT_NM
+					, UNIT_WGHT
+					, QNTT
+					, RMRK
+					, DEL_YN
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
+				)
+				VALUES
+				(
+					#{apcCd}
+					, #{jobYmd}
+					, #{wrhsSpmtSeCd}
+					, #{pltBxSeCd}
+					, #{pltBxCd}
+					, #{prdcrCd}
+					, (SELECT NVL(MAX(SEQ_NO), 0)+1 FROM TB_PLT_WRHS_SPMT
+						WHERE APC_CD = #{apcCd} 
+						AND JOB_YMD = #{jobYmd}
+						AND WRHS_SPMT_SE_CD = #{wrhsSpmtSeCd}
+						AND PLT_BX_SE_CD =  #{pltBxSeCd}
+						AND PLT_BX_CD = #{pltBxCd}
+						AND  PRDCR_CD = #{prdcrCd})
+					, #{pltNm}
+					, #{unitWght}
+					, #{qntt}
+					, #{rmrk}
+					, #{delYn}
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+				)
+    	]]>
+    </insert>
+    
+   	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.whrs.mapper.PltWrhsMapper.selectPltWrhsSpmtList		-->
+	<!-- DESC : 팔레트/박스 입출 목록 조회.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.31  	정희운        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectPltWrhsSpmtList" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO" resultType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO">
+			SELECT /* com.at.apcss.am.cmns.mapper.PltBxMapper.selectPltWrhsSpmtList */
+				PWS.APC_CD    AS APC_CD
+				,PWS.JOB_YMD    AS JOB_YMD
+				,PWS.WRHS_SPMT_SE_CD    AS WRHS_SPMT_SE_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SPMT_SE', PWS.WRHS_SPMT_SE_CD) FROM DUAL) AS WRHS_SPMT_SE_NM
+				,PWS.PLT_BX_SE_CD    AS PLT_BX_SE_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('PLT_BX_SE_CD', PWS.PLT_BX_SE_CD) FROM DUAL) AS PLT_BX_SE_NM
+				,PWS.PLT_BX_CD    AS PLT_BX_CD
+				,PWS.PRDCR_CD    AS PRDCR_CD
+				,(SELECT FN_GET_PRDCR_NM(PWS.PRDCR_CD, PWS.APC_CD) FROM DUAL) AS PRDCR_NM
+				,PWS.SEQ_NO    AS SEQ_NO
+				,PWS.PLT_NM    AS PLT_NM
+				,PWS.UNIT_WGHT    AS UNIT_WGHT
+				,PWS.QNTT    AS QNTT
+				,PWS.QNTT * PWS.UNIT_WGHT AS WGHT
+				,PWS.RMRK    AS RMRK
+				,PWS.DEL_YN    AS DEL_YN
+			FROM TB_PLT_WRHS_SPMT	PWS
+			WHERE PWS.APC_CD = #{apcCd}
+			AND PWS.JOB_YMD = #{jobYmd}
+    </select>
+    
+    
+    	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtCmndMapper.deleteSpmtCmnd			-->
+	<!-- DESC : 출하지시조회 목록 삭제.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.16  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deletePltWrhsSpmt" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO">
+		<![CDATA[
+		DELETE FROM TB_PLT_WRHS_SPMT
+		 WHERE APC_CD 						= #{apcCd}
+		   AND JOB_YMD 						= #{jobYmd}
+		   AND WRHS_SPMT_SE_CD 				= #{wrhsSpmtSeCd}
+		   AND PLT_BX_SE_CD 				= #{pltBxSeCd}
+		   AND PLT_BX_CD 					= #{pltBxCd}
+		   AND PRDCR_CD 					= #{prdcrCd}
+		   AND SEQ_NO 						= #{seqNo}
+		]]>
+	</delete>
+</mapper>
