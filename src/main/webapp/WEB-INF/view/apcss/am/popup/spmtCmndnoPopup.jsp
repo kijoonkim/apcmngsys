@@ -45,7 +45,7 @@
 							</th>
 							<th scope="row">포장구분</th>
 							<th class="td_input">
-								<sbux-select id="spmtCmndno-slt-pckgSeCd" name="spmtCmndno-slt-pckgSeCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComPckgSeCd"></sbux-select>
+								<sbux-select id="spmtCmndno-slt-spmtPckgUnitCd" name="spmtCmndno-slt-spmtPckgUnitCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComPckgSeCd"></sbux-select>
 							</th>
 						</tr>
 						<tr>
@@ -106,7 +106,7 @@
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonApcSpcfct		= [];	// 규격 		spcfct		검색
-	var jsonComPckgSeCd		= [];	// 포장구분 	pckgSeCd	검색
+	var jsonComPckgSeCd		= [];	// 포장구분 	spmtPckgUnitCd	검색
 
 	var grdSpmtCmndno = null;
 	var jsonSpmtCmndnoPop = [];
@@ -140,7 +140,7 @@
 				 	gfn_setApcItemSBSelect('spmtCmndno-slt-itemCd', jsonApcItem, _apcCd),					// 품목
 					gfn_setApcVrtySBSelect('spmtCmndno-slt-vrtyCd', jsonApcVrty, _apcCd),					// 품종
 					gfn_setApcSpcfctsSBSelect('spmtCmndno-slt-spcfctCd', jsonApcSpcfct, _apcCd),			// 규격
-					gfn_setComCdSBSelect('spmtCmndno-slt-pckgSeCd', jsonComPckgSeCd, 'PCKG_SE_CD', _apcCd)	// 포장구분
+					gfn_setComCdSBSelect('spmtCmndno-slt-spmtPckgUnitCd', jsonComPckgSeCd, 'PCKG_SE_CD', _apcCd)	// 포장구분
 				]);
 				this.createGrid();
 				//this.search();
@@ -174,30 +174,31 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		    	{caption: ['출하지시일자'], ref: 'cmndYmd', 	width: '100px',		type: 'output', 	style: 'text-align: center',
+		    	{caption: ['출하지시일자'], ref: 'cmndYmd', 		width: '100px',		type: 'output', 	style: 'text-align: center',
 	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	            {caption: ['거래처'],		ref: 'cnptNm', 		width: '120px', 	type: 'output', 	style: 'text-align: center'},
-	            {caption: ['품종'], 		ref: 'vrtyNm', 		width: '80px', 		type: 'output', 	style: 'text-align: center'},
-	            {caption: ['규격'], 		ref: 'spcfctNm', 	width: '80px', 		type: 'output', 	style: 'text-align: center'},
-	            {caption: ['상품'], 		ref: 'gdsNm', 		width: '100px', 	type: 'output', 	style: 'text-align: center'},
-	            {caption: ['등급'], 		ref: 'grdNm', 		width: '80px', 		type: 'output', 	style: 'text-align: center'},
-	            {caption: ['수량'], 		ref: 'cmndQntt', 	width: '80px', 		type: 'output', 	style: 'text-align: center',
+	            {caption: ['거래처'],		ref: 'cnptNm', 			width: '120px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['품종'], 		ref: 'vrtyNm', 			width: '80px', 		type: 'output', 	style: 'text-align: center'},
+	            {caption: ['규격'], 		ref: 'spcfctNm', 		width: '80px', 		type: 'output', 	style: 'text-align: center'},
+	            {caption: ['상품명'], 	ref: 'gdsNm', 			width: '100px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '80px', 		type: 'output', 	style: 'text-align: center'},
+	            {caption: ['수량'], 		ref: 'cmndQntt', 		width: '80px', 		type: 'output', 	style: 'text-align: center',
 	            	format : {type:'number', rule:'#,###'}},
 	            {caption: ['중량'], 		ref: 'cmndWght',		width: '80px', 	type: 'output', 	style: 'text-align: right',
 	    			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-	            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 	width: '180px', 	type: 'output',		style: 'text-align: center'},
-	            {caption: ['차량번호'], 	ref: 'vhclno', 		width: '100px', 	type: 'output', 	style: 'text-align: center'},
-	            {caption: ['배송처'], 	ref: 'dldtn', 		width: '150px', 	type: 'output', 	style: 'text-align: center'},
-	            {caption: ['운임비용'], 	ref: 'trsprtCst', 	width: '100px', 	type: 'output', 	style: 'text-align: center',
+	            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 		width: '180px', 	type: 'output',		style: 'text-align: center'},
+	            {caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['배송처'], 	ref: 'dldtn', 			width: '150px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['운임비용'], 	ref: 'trsprtCst', 		width: '100px', 	type: 'output', 	style: 'text-align: center',
 	    			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-	            {caption: ['포장구분'], 	ref: 'pckgSe',		width: '150px', 	type: 'output', 	style: 'text-align: center'},
-	            {caption: ['거래처코드'], 	ref: 'cnptCd',		hidden: true},
-	            {caption: ['품종코드'], 	ref: 'vrtyCd',		hidden: true},
-	            {caption: ['규격코드'], 	ref: 'spcfctCd',	hidden: true},
-	            {caption: ['상품코드'], 	ref: 'gdsCd',		hidden: true},
-	            {caption: ['등급코드'], 	ref: 'gdsGrd',		hidden: true},
-	            {caption: ['운송회사코드'],	ref: 'trsprtCoCd',	hidden: true},
-	            {caption: ['포장구분코드'],	ref: 'pckgSeCd',	hidden: true},
+	            {caption: ['포장구분'], 	ref: 'spmtPckgUnitNm',	width: '150px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['출하지시번호'],	ref: 'spmtCmndno',		hidden: true},
+	            {caption: ['거래처코드'], 	ref: 'cnptCd',			hidden: true},
+	            {caption: ['품종코드'], 	ref: 'vrtyCd',			hidden: true},
+	            {caption: ['규격코드'], 	ref: 'spcfctCd',		hidden: true},
+	            {caption: ['상품코드'],	ref: 'gdsCd',			hidden: true},
+	            {caption: ['상품등급'], 	ref: 'gdsGrd',			hidden: true},
+	            {caption: ['운송회사코드'],	ref: 'trsprtCoCd',		hidden: true},
+	            {caption: ['포장구분코드'],	ref: 'spmtPckgUnitCd',	hidden: true},
 		    ];
 		    grdSpmtCmndno = _SBGrid.create(SBGridProperties);
 		    grdSpmtCmndno.bind('dblclick', popSpmtCmndno.choice);
@@ -226,15 +227,15 @@
 			let itemCd = SBUxMethod.get("spmtCmndno-slt-itemCd");
 			let vrtyCd = SBUxMethod.get("spmtCmndno-slt-vrtyCd");
 			let spcfctCd = SBUxMethod.get("spmtCmndno-slt-spcfctCd");
-			let pckgSeCd = SBUxMethod.get("spmtCmndno-slt-pckgSeCd");
+			let spmtPckgUnitCd = SBUxMethod.get("spmtCmndno-slt-spmtPckgUnitCd");
 
-	        const postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", {
+	        const postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndnoList.do", {
 	        	apcCd				: apcCd,
 	        	cmndYmd				: cmndYmd,
 	        	itemCd				: itemCd,
 	        	vrtyCd				: vrtyCd,
 	        	spcfctCd			: spcfctCd,
-	        	pckgSeCd			: pckgSeCd,
+	        	spmtPckgUnitCd		: spmtPckgUnitCd,
 	        	// pagination
 		  		pagingYn 			: 'Y',
 				currentPageNo 		: pageNo,
@@ -250,26 +251,27 @@
 	    		jsonSpmtCmndnoPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const spmtCmndno = {
-						cmndYmd		: item.cmndYmd,
-						cnptNm 		: item.cnptNm,
-						vrtyNm 		: item.vrtyNm,
-						spcfctNm 	: item.spcfctNm,
-						gdsNm 		: item.gdsNm,
-						grdNm 		: item.grdNm,
-						cmndQntt 	: item.cmndQntt,
-						cmndWght 	: item.cmndWght,
-						trsprtCoNm	: item.trsprtCoNm,
-						vhclno		: item.vhclno,
-						dldtn		: item.dldtn,
-						trsprtCst	: item.trsprtCst,
-						pckgSe		: item.pckgSe,
-						cnptCd		: item.cnptCd,
-						vrtyCd		: item.vrtyCd,
-						spcfctCd	: item.spcfctCd,
-						gdsCd		: item.gdsCd,
-						gdsGrd		: item.gdsGrd,
-						trsprtCoCd	: item.trsprtCoCd,
-						pckgSeCd	: item.pckgSeCd,
+						cmndYmd			: item.cmndYmd,
+						cnptNm 			: item.cnptNm,
+						vrtyNm 			: item.vrtyNm,
+						spcfctNm 		: item.spcfctNm,
+						gdsNm 			: item.gdsNm,
+						gdsGrdNm 		: item.gdsGrdNm,
+						cmndQntt 		: item.cmndQntt,
+						cmndWght 		: item.cmndWght,
+						trsprtCoNm		: item.trsprtCoNm,
+						vhclno			: item.vhclno,
+						dldtn			: item.dldtn,
+						trsprtCst		: item.trsprtCst,
+						spmtPckgUnitNm	: item.spmtPckgUnitNm,
+						spmtCmndno		: item.spmtCmndno,
+						cnptCd			: item.cnptCd,
+						vrtyCd			: item.vrtyCd,
+						spcfctCd		: item.spcfctCd,
+						gdsCd			: item.gdsCd,
+						gdsGrd			: item.gdsGrd,
+						trsprtCoCd		: item.trsprtCoCd,
+						spmtPckgUnitCd	: item.spmtPckgUnitCd,
 					}
 					jsonSpmtCmndnoPop.push(spmtCmndno);
 
