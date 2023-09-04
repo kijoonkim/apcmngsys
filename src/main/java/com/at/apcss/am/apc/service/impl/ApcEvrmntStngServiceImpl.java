@@ -233,8 +233,8 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			comCdService.insertComCdDtl(comCdDtlVO);
 		}
 
-		// 124 입고구분 : 		공통코드	WRHS_SE_CD
-		comCdParam.setCdId(AmConstants.CON_CD_ID_WRHS_SE_CD);
+		// 124 상품코드 : 		공통코드	GDS_SE_CD
+		comCdParam.setCdId(AmConstants.CON_CD_ID_GDS_SE_CD);
 		comCdDtlList = comCdService.selectComCdDtlList(comCdParam);
 		for ( ComCdVO orgnCdDtl : comCdDtlList ) {
 			ComCdVO comCdDtlVO = new ComCdVO();

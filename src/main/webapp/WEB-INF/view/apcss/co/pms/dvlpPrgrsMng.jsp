@@ -15,6 +15,7 @@
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnExcel" name="btnExcel" uitype="normal" text="Excel" class="btn btn-sm btn-outline-danger" onclick="dvlpPrgs.exportExcel"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="dvlpPrgs.searchAll"></sbux-button>
 					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="dvlpPrgs.save"></sbux-button>
 				</div>
@@ -179,6 +180,29 @@
 
 		    grdDvlpPrgs = _SBGrid.create(SBGridProperties);
 		    grdDvlpPrgs.bind('click','fn_modalClick');
+		},
+		exportExcel: function() {
+			/*
+			datagrid.exportData(param1, param2, param3, param4);
+			param1(필수)[string]: 다운 받을 파일 형식
+			param2(필수)[string]: 다운 받을 파일 제목
+			param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+			→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+			→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+			param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+			→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+			→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+			→ true : label 값으로 저장
+			→ false : value 값으로 저장
+			→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+			 */
+			grdDvlpPrgs.exportData(
+						"xlsx",
+						"프로그램개발진척관리",
+						true,
+						true
+					);
+
 		},
 		save: async function() {
 			let allData = grdDvlpPrgs.getGridDataAll();

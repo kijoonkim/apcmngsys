@@ -22,10 +22,10 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="batch-dtp-logYmdFrom" name="batch-dtp-logYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="batch-dtp-logYmdFrom" name="batch-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="batch-dtp-logYmdTo" name="batch-dtp-logYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="batch-dtp-logYmdTo" name="batch-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td></td>
 					<th scope="row" class="th_bg">프로그램명</th>
@@ -35,15 +35,15 @@
 				</tr>
 			</tbody>
 		</table>
+
+		<div class="ad_tbl_toplist">
+			<sbux-button id="btnLogCntnHstry4" name="btnLogCntnHstry" uitype="normal" text="접속이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnLogMenuHstry4" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnLogTrsmHstry4" name="btnLogTrsmHstry" uitype="normal" text="송수신이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnLogBatchHstry4" name="btnLogBatchHstry" uitype="normal" text="배치실행이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+		</div>
 		<div class="table-responsive tbl_scroll_sm">
-			<div class="ad_tbl_top">
-				<ul class="ad_tbl_count">
-					<li><span>배치실행이력 정보</span></li>
-				</ul>
-			</div>	
-			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-logBatchHstry" style="height:600px;"></div>
-			</div>
+			<div id="sb-area-logBatchHstry" style="height:600px;"></div>
 		</div>
 	</section>
 </body>
@@ -99,7 +99,8 @@
 		            {caption: ['순번'], 		ref: 'logSn', 		width: '260px', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['프로그램ID'],	ref: 'prgrmId', 	width: '260px', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['프로그램명'],	ref: 'prgrmNm', 	width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['접속일시'],	ref: 'logYmd',		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속일시'],	ref: 'logYmd',		width: '260px', 	type: 'output',	style:'text-align: center',
+		    		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
 		            {caption: ['처리결과'], 	ref: 'prcsRslt',	width: '260px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogBatchHstry = _SBGrid.create(SBGridProperties);

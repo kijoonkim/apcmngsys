@@ -37,11 +37,11 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectCntnHstryList */
-    		  	   ML.USER_ID		AS USER_ID
-    		  	 , ML.USER_NM		AS USER_NM
-    		  	 , AI.APC_NM		AS APC_NM
-    		  	 , ML.PRSL_DT		AS PRSL_DT
-    		  	 , MIN(ML.PRSL_DT)	AS FRST_PRSL_DT
+    		  	   ML.USER_ID										AS USER_ID
+    		  	 , ML.USER_NM										AS USER_NM
+    		  	 , AI.APC_NM										AS APC_NM
+    		  	 , TO_CHAR(ML.PRSL_DT, 'YYYY-MM-DD HH24:MI')		AS PRSL_DT
+    		  	 , TO_CHAR(MIN(ML.PRSL_DT), 'YYYY-MM-DD HH24:MI')	AS FRST_PRSL_DT
 			  FROM TB_COM_MENU_LOG_HSTRY 	ML
 			  	 , TB_COM_USER 				CU
 			  	 , TB_APC_INFO				AI
@@ -96,12 +96,12 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectLogMenuHstryList */
-    		  	   ML.MENU_ID		AS MENU_ID
-    		  	 , ML.MENU_NM		AS MENU_NM
-    		  	 , ML.USER_ID		AS USER_ID
-    		  	 , ML.USER_NM		AS USER_NM
-    		  	 , AI.APC_NM		AS APC_NM
-    		  	 , ML.PRSL_DT		AS PRSL_DT
+    		  	   ML.MENU_ID									AS MENU_ID
+    		  	 , ML.MENU_NM									AS MENU_NM
+    		  	 , ML.USER_ID									AS USER_ID
+    		  	 , ML.USER_NM									AS USER_NM
+    		  	 , AI.APC_NM									AS APC_NM
+    		  	 , TO_CHAR(ML.PRSL_DT, 'YYYY-MM-DD HH24:MI')	AS PRSL_DT
 			  FROM TB_COM_MENU_LOG_HSTRY 	ML
 			  	 , TB_COM_USER 				CU
 			  	 , TB_APC_INFO				AI
@@ -156,11 +156,11 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectTrsmHstryList */
-    		  	   CL.PRCS_DT				AS PRCS_DT
-    		  	 , CL.PRGRM_ID				AS PRGRM_ID
-    		  	 , CL.PRGRM_NM				AS PRGRM_NM
-    		  	 , CL.SEND_RCPTN_SE_CD		AS SEND_RCPTN_SE_CD
-    		  	 , CL.LOG_YMD				AS LOG_YMD
+    		  	   TO_CHAR(CL.PRCS_DT, 'YYYY-MM-DD HH24:MI')	AS PRCS_DT
+    		  	 , CL.PRGRM_ID									AS PRGRM_ID
+    		  	 , CL.PRGRM_NM									AS PRGRM_NM
+    		  	 , CL.SEND_RCPTN_SE_CD							AS SEND_RCPTN_SE_CD
+    		  	 , CL.LOG_YMD									AS LOG_YMD
 			  FROM TB_COM_LOG 	CL
 			 WHERE CL.DEL_YN = 'N'
 		]]>
@@ -212,11 +212,11 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectBatchHstryList */
-    		  	   CL.PRCS_DT		AS PRCS_DT
-    		  	 , CL.LOG_SN		AS LOG_SN
-    		  	 , CL.PRGRM_ID		AS PRGRM_ID
-    		  	 , CL.PRGRM_NM		AS PRGRM_NM
-    		  	 , CL.LOG_YMD		AS LOG_YMD
+    		  	   TO_CHAR(CL.PRCS_DT, 'YYYY-MM-DD HH24:MI')	AS PRCS_DT
+    		  	 , CL.LOG_SN									AS LOG_SN
+    		  	 , CL.PRGRM_ID									AS PRGRM_ID
+    		  	 , CL.PRGRM_NM									AS PRGRM_NM
+    		  	 , CL.LOG_YMD									AS LOG_YMD
 			  FROM TB_COM_LOG 	CL
 			 WHERE CL.DEL_YN = 'N'
 		]]>
