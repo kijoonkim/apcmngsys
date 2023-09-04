@@ -324,7 +324,6 @@
 	const fn_getVhcls = async function() {
 		jsonVhcl = await gfn_getVhcls(gv_selectedApcCd);
 		jsonVhcl = gfn_setFrst(jsonVhcl);
-		console.log("jsonVhcl", jsonVhcl)
 	}
 	
     /**
@@ -338,7 +337,6 @@
 		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
 		]);
-		console.log("jsonGdsSeCd", jsonGdsSeCd);
 	}
 	
 	/**
