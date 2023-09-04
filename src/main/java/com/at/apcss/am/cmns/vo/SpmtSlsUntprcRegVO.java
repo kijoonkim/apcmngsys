@@ -14,7 +14,7 @@ public class SpmtSlsUntprcRegVO extends SpmtPckgUnitVO{
 	/**
 	 * 출하매출단가코드
 	 */
-	private String spmtSlsUntprc;
+	private int spmtSlsUntprc;
 	/**
 	 * 비고
 	 */
