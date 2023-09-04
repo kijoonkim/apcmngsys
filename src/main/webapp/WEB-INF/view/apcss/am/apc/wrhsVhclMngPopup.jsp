@@ -58,7 +58,7 @@
 							<li><span>차량정보</span></li>
 						</ul>
 					</div>
-					<div id="wrhsVhclMngGridArea" style="height:150px; width: 100%;"></div>
+					<div id="wrhsVhclMngGridArea" style="height:157px; width: 100%;"></div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
 					<div class="ad_tbl_top">
@@ -66,7 +66,7 @@
 							<li><span>운송지역별 운임비용 등록</span></li>
 						</ul>
 					</div>
-					<div id="rgnTrsprtCstMngGridArea" style="height:150px; width: 100%;"></div>
+					<div id="rgnTrsprtCstMngGridArea" style="height:157px; width: 100%;"></div>
 				</div>
 			</div>
 			<!--[pp] //검색결과 -->
@@ -92,9 +92,6 @@
 	    SBGridProperties.columns = [
 	        {caption: ["차량번호"], 	ref: 'vhclno',  type:'input',  width:'120px',    style:'text-align:center'},
 	        {caption: ["기사명"], 		ref: 'drvrNm',  type:'input',  width:'80px',    style:'text-align:center'},
-// 	        {caption: ["은행"], 		ref: 'bankCd',  type:'input',  width:'120px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-// // 				return "<sbux-input uitype='text' id=\"dtl-inp-prdcrNm\""+nRow+" name=\"dtl-inp-prdcrNm\""+nRow+" class='form-control input-sm' placeholder='초성검색 기능입니다.' autocomplete-ref='jsonPrdcrAutocomplete' autocomplete-text='name' onkeyup='fn_onKeyUpPrdcrNm(\"dtl-inp-prdcrNm\""+nRow+")' autocomplete-select-callback='fn_onSelectPrdcrNm' ></sbux-input>";
-// 	        }},
 	        {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'120px',    style:'text-align:center',
     			typeinfo : {ref:'comboGridBankCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
 	        {caption: ["계좌번호"], 	ref: 'actno',  	type:'input',  width:'180px',    style:'text-align:center'},
@@ -118,13 +115,10 @@
 		fn_callSelectWrhsVhclList();
 	}
 
-	var newWrhsVhclGridData = [];
 	async function fn_callSelectWrhsVhclList(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
-		console.log("apcCd", apcCd);
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        newWrhsVhclGridData = [];
         wrhsVhclMngGridData = [];
         try{
         	data.resultList.forEach((item, index) => {
@@ -138,14 +132,12 @@
 				  , delYn 	: item.delYn
 				  , apcCd	: item.apcCd
 				}
-				newWrhsVhclGridData.push(Object.assign({}, wrhsVhcl));
 				wrhsVhclMngGridData.push(Object.assign({}, wrhsVhcl));
 			});
-        	console.log("newWrhsVhclGridData", newWrhsVhclGridData);
         	wrhsVhclMngDatagrid.rebuild();
         	wrhsVhclMngDatagrid.addRow();
 
-        	wrhsVhclMngDatagrid.setCellDisabled(0, 0, newWrhsVhclGridData.length, 0, true);
+        	wrhsVhclMngDatagrid.setCellDisabled(0, 0, wrhsVhclMngGridData.length, 0, true);
         	
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -190,12 +182,10 @@
 		fn_callSelectRgnTrsprtCstList();
 	}
 
-    var newRgnTrsprtCstGridData = [];
 	async function fn_callSelectRgnTrsprtCstList(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectRgnTrsprtCstList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        newRgnTrsprtCstGridData = [];
         rgnTrsprtCstMngGridData = [];
         try{
         	data.resultList.forEach((item, index) => {
@@ -207,8 +197,6 @@
 				  , delYn 			: item.delYn
 				  , apcCd			: item.apcCd
 				}
-
-				newRgnTrsprtCstGridData.push(Object.assign({}, rgnTrsprtCst));
 				rgnTrsprtCstMngGridData.push(Object.assign({}, rgnTrsprtCst));
 			});
         	rgnTrsprtCstMngDatagrid.rebuild();
@@ -222,39 +210,78 @@
 	}
 
 	async function fn_insertWrhsVhclList(){
-		for(var i=0; i<wrhsVhclMngGridData.length; i++){
-			if(wrhsVhclMngGridData[i].delYn == "N" && (wrhsVhclMngGridData[i].vhclno == null || wrhsVhclMngGridData[i].vhclno == "")){
-				console.log(wrhsVhclMngGridData[i]);
-				alert("차량번호는 필수 값 입니다.");
-				return
+		let wrhsVhclAllData = wrhsVhclMngDatagrid.getGridDataAll();
+		var wrhsVhclList = [];
+		for(var i=1; i<wrhsVhclAllData.length; i++){
+			const rowData = wrhsVhclMngDatagrid.getRowData(i);
+			if(rowData.delYn != 'N')
+				continue;
+			const rowSts = wrhsVhclMngDatagrid.getRowStatus(i);
+			
+    		if(gfn_isEmpty(rowData.vhclno)){
+				gfn_comAlert("W0002", "차량번호");			//	W0002	{0}을/를 입력하세요.
+				return;
+    		}
+
+			if (rowSts === 3){
+				rowData.rowSts = "I";
+				wrhsVhclList.push(rowData);
+			} else if (rowSts === 2){
+				rowData.rowSts = "U";
+				wrhsVhclList.push(rowData);
+			} else {
+				continue;
 			}
 		}
+		
+		let rgnTrsprtCstAllData = rgnTrsprtCstMngDatagrid.getGridDataAll();
+		var rgnTrsprtCstList = [];
+		for(var i=1; i<rgnTrsprtCstAllData.length; i++){
+			const rowData = rgnTrsprtCstMngDatagrid.getRowData(i);
+			if(rowData.delYn != 'N')
+				continue;
+			const rowSts = rgnTrsprtCstMngDatagrid.getRowStatus(i);
 
-		var isEqual1 = await chkEqualObj(wrhsVhclMngGridData, newWrhsVhclGridData);
-		var isEqual2 = await chkEqualObj(rgnTrsprtCstMngGridData, newRgnTrsprtCstGridData);
-		console.log(isEqual1 && isEqual2);
-		if (isEqual1 && isEqual2){
-			alert("저장 할 내용이 없습니다.");
+			if (rowSts === 3){
+				rowData.rowSts = "I";
+				rgnTrsprtCstList.push(rowData);
+			} else if (rowSts === 2){
+				rowData.rowSts = "U";
+				rgnTrsprtCstList.push(rowData);
+			} else {
+				continue;
+			}
+		}
+		
+		if(wrhsVhclList.length == 0 && rgnTrsprtCstList.length == 0){
+			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
 
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
-			let postJsonPromise1 = gfn_postJSON("/am/cmns/compareWrhsVhclList.do", {origin : newWrhsVhclGridData, modified : wrhsVhclMngGridData});
-			let postJsonPromise2 = gfn_postJSON("/am/cmns/compareRgnTrsprtCstList.do", {origin : newRgnTrsprtCstGridData, modified : rgnTrsprtCstMngGridData});
+		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+    	const postJsonPromise = gfn_postJSON("/am/cmns/multiVhclList.do", wrhsVhclList);	// 프로그램id 추가
+    	const postJsonPromise2 = gfn_postJSON("/am/cmns/multiRgnTrsprtCstList.do", rgnTrsprtCstList);	// 프로그램id 추가
 
-			alert("저장 되었습니다.");
-
-			fn_callSelectWrhsVhclList();
-			fn_callSelectRgnTrsprtCstList();
-		}
+		const data = await postJsonPromise;
+		const data2 = await postJsonPromise2;
+        try {
+        	if (_.isEqual("S", data.resultStatus) && _.isEqual("S", data2.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+    			fn_callSelectWrhsVhclList();
+    			fn_callSelectRgnTrsprtCstList();
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        }
 	}
 	async function fn_deleteWrhsVhclList(wrhsVhclVo){
 		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteWrhsVhclList.do", wrhsVhclVo);
 	}
 	async function fn_deleteRgnTrsprtCstList(rgnTrsprtCst){
 		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteRgnTrsprtCstList.do", rgnTrsprtCst);
-
 	}
 </script>
 </html>

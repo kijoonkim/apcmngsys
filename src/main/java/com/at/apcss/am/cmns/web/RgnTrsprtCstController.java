@@ -3,8 +3,6 @@ package com.at.apcss.am.cmns.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -46,56 +44,6 @@ public class RgnTrsprtCstController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	@PostMapping(value = "/am/cmns/compareRgnTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertRgnTrsprtCstList(@RequestBody Map<String, List<RgnTrsprtCstVO>> rgnTrsprtCstVO, HttpServletRequest request) throws Exception {
-		logger.debug("compareRgnTrsprtCstList 호출 <><><><> ");
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
-		int insertCnt = 0;
-		try {
-			List<RgnTrsprtCstVO> origin = rgnTrsprtCstVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-			List<RgnTrsprtCstVO> modified = rgnTrsprtCstVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-
-			List<String> originPk = origin.stream().map(e -> e.getTrsprtRgnCd()).collect(Collectors.toCollection(ArrayList::new));
-			List<String> modifiedPk = modified.stream().map(e -> e.getTrsprtRgnCd()).collect(Collectors.toCollection(ArrayList::new));
-
-			List<RgnTrsprtCstVO> insertList = new ArrayList<RgnTrsprtCstVO>(modified).stream().filter(e -> (modifiedPk.contains(e.getTrsprtRgnCd()) == true && originPk.contains(e.getTrsprtRgnCd()) == false)).collect(Collectors.toList());
-			for (RgnTrsprtCstVO element : insertList) {
-				element.setSysFrstInptPrgrmId(getPrgrmId());
-				element.setSysFrstInptUserId(getUserId());
-				element.setSysLastChgPrgrmId(getPrgrmId());
-				element.setSysLastChgUserId(getUserId());
-				rgnTrsprtCstService.insertRgnTrsprtCst(element);
-			}
-
-
-			List<RgnTrsprtCstVO> updateList = new ArrayList<RgnTrsprtCstVO>();
-			for (RgnTrsprtCstVO ei : origin) {
-				for (RgnTrsprtCstVO ej : modified) {
-					if (ei.getTrsprtRgnCd().equals(ej.getTrsprtRgnCd())) {
-						if (ei.equals(ej) == false) {
-							ej.setSysLastChgPrgrmId(getPrgrmId());
-							ej.setSysLastChgUserId(getUserId());
-							updateList.add(ej);
-						}
-						break;
-					}
-				}
-			}
-
-			for (RgnTrsprtCstVO element : updateList) {
-				rgnTrsprtCstService.updateRgnTrsprtCst(element);
-			}
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertCnt);
-
-		return getSuccessResponseEntity(resultMap);
-	}
 
 	@PostMapping(value = "/am/cmns/deleteRgnTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteRgnTrsprtCstList(@RequestBody RgnTrsprtCstVO rgnTrsprtCstVO, HttpServletRequest request) throws Exception {
@@ -110,6 +58,34 @@ public class RgnTrsprtCstController extends BaseController {
 		}
 
 		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/cmns/multiRgnTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiRgnTrsprtCstList(@RequestBody List<RgnTrsprtCstVO> vhclList, HttpServletRequest request) throws Exception {
+		logger.debug("multiRgnTrsprtCstList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<RgnTrsprtCstVO> updateList = new ArrayList<RgnTrsprtCstVO>();
+		try {
+			for (RgnTrsprtCstVO rgnTrsprtCstVO : vhclList) {
+				rgnTrsprtCstVO.setSysFrstInptUserId(getUserId());
+				rgnTrsprtCstVO.setSysFrstInptPrgrmId(getPrgrmId());
+				rgnTrsprtCstVO.setSysLastChgUserId(getUserId());
+				rgnTrsprtCstVO.setSysLastChgPrgrmId(getPrgrmId());
+				updateList.add(rgnTrsprtCstVO);
+			}
+
+			HashMap<String, Object> rtnObj = rgnTrsprtCstService.multiRgnTrsprtCst(updateList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
 
 		return getSuccessResponseEntity(resultMap);
 	}
