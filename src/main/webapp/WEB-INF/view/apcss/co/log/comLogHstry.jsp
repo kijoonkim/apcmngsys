@@ -23,12 +23,6 @@
 			</div>
 			
 			<div class="box-body">
-				<div class="ad_tbl_toplist">
-<!-- 					<sbux-button id="btnLogCntnHstry" name="btnLogCntnHstry" uitype="normal" text="접속이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button> -->
-<!-- 					<sbux-button id="btnLogMenuHstry" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button> -->
-<!-- 					<sbux-button id="btnLogTrsmHstry" name="btnLogTrsmHstry" uitype="normal" text="송수신이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button> -->
-<!-- 					<sbux-button id="btnLogBatchHstry" name="btnLogBatchHstry" uitype="normal" text="배치실행이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button> -->
-				</div>
 				<div id="tab_content">
 					<!-- 접속이력 탭 화면 -->
 				    <div id="comLogCntnHstry">
@@ -52,47 +46,26 @@
 	</section>
 </body>
 <script type="text/javascript">
-
 	var searchTarget = "logCntnHstry";
 	
 	$(function(){
-		$('#comLogCntnHstry').show();
-	    $('#comLogMenuHstry').hide();
-	    $('#comLogTrsmHstry').hide();
-	    $('#comLogBatchHstry').hide();
-	    searchTarget = "logCntnHstry";
-	    
 		$('.ad_tbl_toplist button').click(function(){
-			var btnName = $(this).attr('id');
+			var btnName = $(this).attr('id').slice(0, $(this).attr('id').length-1);
 			$('.ad_tbl_toplist button').css({'background-color':'#FFFFFF', 'border':'1px solid #666666', 'color': '#666666'});
 			$('#comLogCntnHstry').hide();
 		    $('#comLogMenuHstry').hide();
 		    $('#comLogTrsmHstry').hide();
 		    $('#comLogBatchHstry').hide();
-		    $('#com'+btnName.slice(3, btnName.length-1)).show();
-		    $(this).css({'background-color':'#149FFF', 'border':'1px solid #149FFF', 'color': '#FFFFFF'});
-		    searchTarget = 'l' + btnName.slice(4, btnName.length-1);
+		    $('#com'+btnName.slice(3)).show();
+		    $('#com'+btnName.slice(3)+' [name='+btnName.slice(0)+']').css({'background-color':'#149FFF', 'border':'1px solid #149FFF', 'color': '#FFFFFF'});
+		    eval('tab'+btnName.slice(3)+'.init(gv_selectedApcCd, gv_selectedApcNm)');
+		    searchTarget = 'l' + btnName.slice(4);
 		});
-		$('#btnLogCntnHstry').click();
+		$('#comLogCntnHstry [name=btnLogCntnHstry]').click();
 	});
-
-	const fn_initSBSelect = async function() {
-		// 검색 SB select
-		let rst = await Promise.all([
-			
-		]);
-	}
-
-	const fn_initTabs = function() {
-		tabLogCntnHstry.init(gv_selectedApcCd, gv_selectedApcNm);
-		tabLogMenuHstry.init(gv_selectedApcCd, gv_selectedApcNm);
-		tabLogTrsmHstry.init(gv_selectedApcCd, gv_selectedApcNm);
-		tabLogBatchHstry.init(gv_selectedApcCd, gv_selectedApcNm);
-	}
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_initSBSelect();
-		fn_initTabs();
+		
 	})
 	
 	// 이력 조회 (조회 버튼)
