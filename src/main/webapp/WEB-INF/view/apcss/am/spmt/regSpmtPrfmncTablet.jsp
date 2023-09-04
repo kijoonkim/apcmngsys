@@ -28,6 +28,9 @@
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
+				<!--[APC] START -->
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -51,12 +54,12 @@
 							<td colspan="6"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">출하지시번호</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>출하지시번호</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="text" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchSpmtCmndNo" name="btnSrchSpmtCmndNo" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark" onclick="fn_modalSpmtCmndno"></sbux-button>
+								<sbux-button id="btnSrchSpmtCmndNo" name="btnSrchSpmtCmndNo" uitype="modal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-spmtCmndno" onclick="fn_modalSpmtCmndno"></sbux-button>
 								<p class="ad_input_row">
 									<sbux-checkbox id="srch-chk-spmtCmndno" name="srch-chk-spmtCmndno" uitype="normal" text="고정" class="check"></sbux-checkbox>
 								</p>
@@ -64,9 +67,9 @@
 							<td colspan="5"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">포장번호/순번</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>포장번호/순번</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-pckgnoSn" name="srch-inp-pckgnoSn" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-pckgnoSn" name="srch-inp-pckgnoSn" uitype="text" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
 								<sbux-input id="srch-inp-pckgno" name="srch-inp-pckgno" uitype="hidden"></sbux-input>
 								<sbux-input id="srch-inp-pckgSn" name="srch-inp-pckgSn" uitype="hidden"></sbux-input>
 							</td>
@@ -91,7 +94,7 @@
 						<tr>
 							<th scope="row" class="th_bg">품종/규격</th>
 							<td style="border-right: hidden;" class="td_input">
-								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input"  style="border-right: hidden;">
@@ -168,6 +171,13 @@
 			</div>
 		</div>
 	</section>
+	<!-- 출하지시번호 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-spmtCmndno" name="modal-spmtCmndno" uitype="middle" header-title="출하지시번호 선택" body-html-id="body-modal-spmtCmndno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-spmtCmndno">
+    	<jsp:include page="../../am/popup/spmtCmndnoPopup.jsp"></jsp:include>
+    </div>
 	<!-- 차량 선택 Modal -->
     <div>
         <sbux-modal id="modal-vhcl" name="modal-vhcl" uitype="middle" header-title="차량 선택" body-html-id="body-modal-vhcl" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -222,12 +232,12 @@
             {caption: ['출하일자'], 	ref: 'spmtYmd', 	hidden: true},
             {caption: ['포장번호'], 	ref: 'pckgno', 		hidden: true},
             {caption: ['포장순번'], 	ref: 'pckgSn', 		hidden: true},
-            {caption: ['품종'], 		ref: 'vrtyCd', 		hidden: true},
-            {caption: ['규격'], 		ref: 'spcfctCd', 	hidden: true},
-            {caption: ['상품명'], 	ref: 'gdsCd', 		hidden: true},
-            {caption: ['포장구분'], 	ref: 'pckgSeCd',	hidden: true},
-            {caption: ['거래처'], 	ref: 'cnptCd', 		hidden: true},
-            {caption: ['운송회사'], 	ref: 'trsprtCoCd',	hidden: true}
+            {caption: ['품종코드'], 	ref: 'vrtyCd', 		hidden: true},
+            {caption: ['규격코드'], 	ref: 'spcfctCd', 	hidden: true},
+            {caption: ['상품코드'], 	ref: 'gdsCd', 		hidden: true},
+            {caption: ['포장구분코드'],	ref: 'pckgSeCd',	hidden: true},
+            {caption: ['거래처코드'], 	ref: 'cnptCd', 		hidden: true},
+            {caption: ['운송회사코드'],	ref: 'trsprtCoCd',	hidden: true}
         ];
         grdSpmtTrgtDsctn = _SBGrid.create(SBGridProperties);
     }
@@ -393,10 +403,10 @@
 	
 	// 출하지시번호 선택 팝업 호출
 	const fn_modalSpmtCmndno = function() {
-    	//popSpmtCmndno.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-spmtCmndno"), fn_setSpmtCmndno);
+    	popSpmtCmndno.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmndno);
 	}
 	
-// 	const fn_setSpmtCmndno = function(spmtCmndno) {
+	const fn_setSpmtCmndno = function(spmtCmndno) {
 // 		if (!gfn_isEmpty(spmtCmndno)) {
 // 			SBUxMethod.set('srch-inp-spmtCmndno', spmtCmndno.spmtCmndno);
 // 			SBUxMethod.set('srch-inp-vrtyNm', spmtCmndno.vrtyNm);
@@ -413,7 +423,7 @@
 // 			SBUxMethod.set('srch-inp-cnptCd', spmtCmndno.cnptCd);
 // 			SBUxMethod.set('srch-inp-trsprtCoCd', spmtCmndno.trsprtCoCd);
 // 		}
-// 	}
+	}
 	
 	// 포장번호 선택 팝업 호출
 	const fn_modalPckgno = function() {

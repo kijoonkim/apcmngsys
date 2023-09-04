@@ -83,6 +83,11 @@ public class SpmtCmndVO extends ComVO {
 	 * 상품등급
 	 */
 	private String gdsGrd;
+	
+	/**
+	 * 등급명
+	 */
+	private String grdNm;
 
 	/**
 	 * 상품등급명
@@ -98,13 +103,23 @@ public class SpmtCmndVO extends ComVO {
 	 * 지시중량
 	 */
 	private int cmndWght;
+	
+	/**
+	 * 포장단위코드
+	 */
+	private int pckgSeCd;
+	
+	/**
+	 * 포장단위
+	 */
+	private int pckgSe;
 
 	/**
-	 * 포장구분코드
+	 * 출하포장단위코드
 	 */
 	private String spmtPckgUnitCd;
 	/**
-	 * 포장구분명
+	 * 출하포장단위명
 	 */
 	private String spmtPckgUnitNm;
 	
@@ -117,6 +132,11 @@ public class SpmtCmndVO extends ComVO {
 	 * 품목코드
 	 */
 	private String itemCd;
+	
+	/**
+	 * 품목명
+	 */
+	private String itemNm;
 
 	/**
 	 * 품종코드
