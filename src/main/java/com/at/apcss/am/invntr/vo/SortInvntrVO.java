@@ -141,8 +141,10 @@ public class SortInvntrVO extends ComVO {
 	 * 중량
 	 */
 	private double wght;
-	
-	/*선별번호*/
+
+	/**
+	 * 선별번호
+	 */
 	private String wghno;
 	/*투입일자*/
 	private String wghYmd;
@@ -159,5 +161,19 @@ public class SortInvntrVO extends ComVO {
 	private String spcfctNm;
 	/*창고*/
 	private String warehouseSeNm;
+
+	private String sortSn;
+	private String sortYmd;
+	private String prdctnYr;
+	private String apcNm;
+	private String rprsPrdcrNm;
+	private String gdsSeNm;
+	private String wrhsSeNm;
+	private String pckgCmndno;
+	private String cmndQntt;
+	private String cmndWght;
+	private String sortYmdFrom;
+	private String sortYmdTo;
+	private String sortFcltCd;
 
 }

@@ -295,7 +295,7 @@
 
 	/**
 	 * @name fn_getApcSpcfct
-     * @description 생산자 자동완성 JSON 설정
+     * @description APC규격 JSON 설정
      * @function
 	 * @param {string} itemCd
 	 */
@@ -311,8 +311,8 @@
 	}
 
 	/**
-	 * @name fn_getApcSpcfct
-     * @description 생산자 자동완성 JSON 설정
+	 * @name fn_getApcGrd
+     * @description APC등급 JSON 설정
      * @function
 	 * @param {string} itemCd
 	 */
@@ -622,6 +622,7 @@
       		console.error("failed", e.message);
           }
 	}
+
 	/**
 	 * common button action
 	 */
