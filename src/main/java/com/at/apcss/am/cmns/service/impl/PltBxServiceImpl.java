@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -106,4 +107,31 @@ public class PltBxServiceImpl extends BaseServiceImpl implements PltBxService {
 		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> multiPltBxList(List<PltBxVO> pltBxList) throws Exception {
+		// TODO Auto-generated method stub
+		List<PltBxVO> insertList = new ArrayList<>();
+		List<PltBxVO> updateList = new ArrayList<>();
+
+		for (PltBxVO pltBxVO : pltBxList) {
+			PltBxVO vo = new PltBxVO();
+			BeanUtils.copyProperties(pltBxVO, vo);
+
+			if (ComConstants.ROW_STS_INSERT.equals(pltBxVO.getRowSts())) {
+				insertList.add(vo);
+			}
+			if (ComConstants.ROW_STS_UPDATE.equals(pltBxVO.getRowSts())) {
+				updateList.add(vo);
+			}
+		}
+
+		for (PltBxVO pltBxVO : insertList) {
+			pltBxMapper.insertPltBx(pltBxVO);
+		}
+
+		for (PltBxVO pltBxVO : updateList) {
+			pltBxMapper.updatePltBx(pltBxVO);
+		}
+		return null;
+	}
 }
