@@ -55,10 +55,10 @@
 							<td colspan="2"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>출하일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-spmtYmdFrom" name="srch-dtp-spmtYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-spmtYmdFrom" name="srch-dtp-spmtYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-spmtYmdTo" name="srch-dtp-spmtYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-spmtYmdTo" name="srch-dtp-spmtYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg" style="border-right: hidden;">품목/품종</th>
@@ -90,14 +90,14 @@
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">운송사</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select id="srch-slt-trsprtCoCd" name="srch-slt-trsprtCoCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComTrsprtCoCd"></sbux-select>
 									</div>
 								</div>
 							</td>
-							<td></td>
+							<td colspan="2"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">차량번호</th>
@@ -192,7 +192,8 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
-            {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd',		width: '140px',	type: 'output',	style:'text-align: center'},
+            {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd',		width: '140px',	type: 'output',	style:'text-align: center',
+    		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['상품명','상품명'], 		ref: 'gdsNm', 		width: '140px',	type: 'output',	style:'text-align: center'},
             {caption: ['품종','품종'],			ref: 'vrtyNm', 		width: '140px',	type: 'output',	style:'text-align: center'},
             {caption: ['규격','규격'], 		ref: 'spcfctNm', 	width: '140px',	type: 'output',	style:'text-align: center'},

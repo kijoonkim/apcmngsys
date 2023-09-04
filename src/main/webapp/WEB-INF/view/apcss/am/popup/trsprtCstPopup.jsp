@@ -49,7 +49,7 @@
 							</th>
 							<th scope="row">운송일자</th>
 							<th class="td_input">
-								<sbux-datepicker id="trsprtCst-dtp-trsprtYmd" name="trsprtCst-dtp-trsprtYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="trsprtCst-dtp-trsprtYmd" name="trsprtCst-dtp-trsprtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm"></sbux-datepicker>
 							</th>
 							<th scope="row">차량번호</th>
 							<th class="td_input">

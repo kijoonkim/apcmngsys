@@ -22,10 +22,10 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="batch-dtp-logYmdFrom" name="batch-dtp-logYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="batch-dtp-logYmdFrom" name="batch-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="batch-dtp-logYmdTo" name="batch-dtp-logYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="batch-dtp-logYmdTo" name="batch-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td></td>
 					<th scope="row" class="th_bg">프로그램명</th>
@@ -99,7 +99,8 @@
 		            {caption: ['순번'], 		ref: 'logSn', 		width: '260px', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['프로그램ID'],	ref: 'prgrmId', 	width: '260px', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['프로그램명'],	ref: 'prgrmNm', 	width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['접속일시'],	ref: 'logYmd',		width: '260px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속일시'],	ref: 'logYmd',		width: '260px', 	type: 'output',	style:'text-align: center',
+		    		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
 		            {caption: ['처리결과'], 	ref: 'prcsRslt',	width: '260px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogBatchHstry = _SBGrid.create(SBGridProperties);
