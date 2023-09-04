@@ -22,10 +22,10 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="cntn-dtp-logYmdFrom" name="cntn-dtp-logYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="cntn-dtp-logYmdFrom" name="cntn-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="cntn-dtp-logYmdTo" name="cntn-dtp-logYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="cntn-dtp-logYmdTo" name="cntn-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td></td>
 					<th scope="row" class="th_bg">사용자명</th>
@@ -35,22 +35,22 @@
 				</tr>
 			</tbody>
 		</table>
+
+		<div class="ad_tbl_toplist">
+			<sbux-button id="btnLogCntnHstry1" name="btnLogCntnHstry" uitype="normal" text="접속이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnLogMenuHstry1" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnLogTrsmHstry1" name="btnLogTrsmHstry" uitype="normal" text="송수신이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnLogBatchHstry1" name="btnLogBatchHstry" uitype="normal" text="배치실행이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+		</div>
 		<div class="table-responsive tbl_scroll_sm">
-			<div class="ad_tbl_top">
-				<ul class="ad_tbl_count">
-					<li><span>접속이력 정보</span></li>
-				</ul>
-			</div>	
-			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-logCntnHstry" style="height:600px;"></div>
-			</div>
+			<div id="sb-area-logCntnHstry" style="height:600px;"></div>
 		</div>
 	</section>
 </body>
 <script type="text/javascript">
 	var jsonLogCntnHstry = [];
 	var grdLogCntnHstry = null;
-
+	
 	const tabLogCntnHstry = {
 			prgrmId: 'logCntnHstryTab',
 			gridId: 'grdLogCntnHstry',
