@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : CmnsValidationMapper.xml                                   				-->
+<!-- DESC : 업무별 Validation 발번 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.08.14  	김 호        	Initial Creation                            	-->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.CmnsValidationMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsValidationMapper.selectChkCdDelible	-->
+	<!-- DESC : APC 업무별 삭제가능 단건 조회.	                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.31  	김 호        		Initial Creation                           	-->
+	<!-- ==========================================================================	-->
+    <select id="selectChkCdDelible" parameterType="com.at.apcss.am.cmns.vo.CmnsValidationVO" resultType="com.at.apcss.am.cmns.vo.CmnsValidationVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsValidationMapper */
+				FN_CHK_CD_DELIBLE(#{apcCd}, #{cdId}, #{cdVl}) AS RTN_MSG
+			  FROM DUAL
+		]]>
+    </select>
+
+</mapper>
