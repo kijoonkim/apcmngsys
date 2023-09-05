@@ -70,7 +70,7 @@
 		spmtTrsprtMngGridData = [];
 	    let SBGridProperties = {};
 	    SBGridProperties.parentid = 'spmtTrsprtMngGridArea';
-	    SBGridProperties.id = 'spmtTrsprtMngDatagrid';
+	    SBGridProperties.id = 'grdSpmtTrsprtCo';
 	    SBGridProperties.jsonref = 'spmtTrsprtMngGridData';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
@@ -85,20 +85,19 @@
 	        {caption: ["비고"], 			ref: 'rmrk',  		type:'input',  width:'320px',    style:'text-align:center'},
 	        {caption: ["처리"], 			ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"spmtTrsprtMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdSpmtTrsprtCo\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"spmtTrsprtMngDatagrid\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdSpmtTrsprtCo\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }}
 	    ];
-	    window.spmtTrsprtMngDatagrid = _SBGrid.create(SBGridProperties);
+	    window.grdSpmtTrsprtCo = _SBGrid.create(SBGridProperties);
 	    fn_callSelectSpmtTrsprtList();
 	}
 
 	async function fn_selectSpmtTrsprtList(){
 		fn_callSelectSpmtTrsprtList();
 	}
-	var newSpmtTrsprtGridData = [];
 	async function fn_callSelectSpmtTrsprtList(){
 		spmtTrsprtMngGridData = [];
 		let apcCd = SBUxMethod.get("inp-apcCd");
@@ -117,11 +116,10 @@
 				  , apcCd		: item.apcCd
 				}
 				spmtTrsprtMngGridData.push(Object.assign({}, spmtTrsprt));
-				newSpmtTrsprtGridData.push(Object.assign({}, spmtTrsprt));
 			});
         	console.log("spmtTrsprtMngGridData", spmtTrsprtMngGridData);
-        	spmtTrsprtMngDatagrid.rebuild();
-        	spmtTrsprtMngDatagrid.addRow();
+        	grdSpmtTrsprtCo.rebuild();
+        	grdSpmtTrsprtCo.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -131,22 +129,50 @@
 	}
 
 	async function fn_insertSpmtTrsprtList(){
-		var isEqual1 = await chkEqualObj(spmtTrsprtMngGridData, newSpmtTrsprtGridData);
-		console.log(isEqual1);
-		if (isEqual1){
-			alert("저장 할 내용이 없습니다.");
+		let spmtTrsprtCoAllData = grdSpmtTrsprtCo.getGridDataAll();
+		var spmtTrsprtCoList = [];
+
+
+		for(var i=2; i<=spmtTrsprtCoAllData.length; i++ ){
+			const rowData = grdSpmtTrsprtCo.getRowData(i);
+			if(rowData.delYn != 'N')
+				continue;
+			const rowSts = grdSpmtTrsprtCo.getRowStatus(i);
+
+			if (rowSts === 3){
+				rowData.rowSts = "I";
+				spmtTrsprtCoList.push(rowData);
+			} else if (rowSts === 2){
+				rowData.rowSts = "U";
+				spmtTrsprtCoList.push(rowData);
+			} else {
+				continue;
+			}
+		}
+		
+		if(spmtTrsprtCoList.length == 0){
+			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
 
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
-			let postJsonPromise = gfn_postJSON("/am/cmns/compareSpmtTrsprtList.do", {origin : newSpmtTrsprtGridData, modified : spmtTrsprtMngGridData});
+		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+    	const postJsonPromise = gfn_postJSON("/am/cmns/multiSpmtTrsprtList.do", spmtTrsprtCoList);	// 프로그램id 추가
 
-			alert("저장 되었습니다.");
-		}
+		const data = await postJsonPromise;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_selectSpmtTrsprtList();
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        }
 	}
-	async function fn_deleteSpmtTrsprtList(spmtTrsprtMngDatagrid){
-		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteSpmtTrsprtList.do", spmtTrsprtMngDatagrid);
+	async function fn_deleteSpmtTrsprtList(grdSpmtTrsprtCo){
+		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteSpmtTrsprtList.do", grdSpmtTrsprtCo);
 	}
 </script>
 </html>

@@ -126,4 +126,33 @@ public class SpmtTrsprtController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// 출하실적 등록
+	@PostMapping(value = "/am/cmns/multiSpmtTrsprtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiSpmtTrsprtList(@RequestBody List<SpmtTrsprtVO> spmtTrsprtList, HttpServletRequest request) throws Exception {
+		logger.debug("multiSpmtTrsprtList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SpmtTrsprtVO> updateList = new ArrayList<SpmtTrsprtVO>();
+		try {
+
+			for (SpmtTrsprtVO spmtTrsprtVO : spmtTrsprtList) {
+				spmtTrsprtVO.setSysFrstInptPrgrmId(getPrgrmId());
+				spmtTrsprtVO.setSysFrstInptUserId(getPrgrmId());
+				spmtTrsprtVO.setSysLastChgPrgrmId(getPrgrmId());
+				spmtTrsprtVO.setSysLastChgUserId(getUserId());
+				updateList.add(spmtTrsprtVO);
+			}
+			HashMap<String, Object> rtnObj = spmtTrsprtService.multiSpmtTrsprt(updateList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		return getSuccessResponseEntity(resultMap);
+
+	}
 }

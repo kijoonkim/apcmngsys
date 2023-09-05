@@ -113,7 +113,7 @@ public class OprtrController extends BaseController{
 	}
 
 	@PostMapping(value = "/am/cmns/deleteOprtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> deleteSpmtTrsprtList(@RequestBody OprtrVO oprtrVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> deleteOprtrList(@RequestBody OprtrVO oprtrVO, HttpServletRequest request) throws Exception {
 		logger.debug("deleteOprtrList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();

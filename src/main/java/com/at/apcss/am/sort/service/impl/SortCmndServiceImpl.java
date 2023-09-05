@@ -70,4 +70,11 @@ public class SortCmndServiceImpl implements SortCmndService {
 		return deletedCnt;
 	}
 
+	@Override
+	public List<SortCmndVO> selectPckgCmndTrgetList(SortCmndVO sortCmndVO) throws Exception {
+
+		List<SortCmndVO> resultList = sortCmndMapper.selectPckgCmndTrgetList(sortCmndVO);
+
+		return resultList;
+	}
 }

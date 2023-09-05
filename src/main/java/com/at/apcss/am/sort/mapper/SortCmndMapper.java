@@ -62,4 +62,13 @@ public interface SortCmndMapper {
 	 * @throws Exception
 	 */
 	public int deleteSortCmnd(SortCmndVO sortCmndVO) throws Exception;
+
+	/**
+	 * 포장지시대상 내역 조회
+	 * 
+	 * @param sortCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortCmndVO> selectPckgCmndTrgetList(SortCmndVO sortCmndVO) throws Exception;
 }

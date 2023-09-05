@@ -260,15 +260,15 @@
 	    SBGridProperties.columns = [
 	        {caption: ["선택","선택"],		ref: 'checkbox',      type:'checkbox',  width:'50px',    style:'text-align:center'},
 	        {caption: ["지시번호","지시번호"],		ref: 'sortCmndno',      type:'output',  width:'130px',    style:'text-align:center'},
-	        {caption: ["지시일자","지시일자"], 	ref: 'sortCmndYmd',     	type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["지시일자","지시일자"], 	ref: 'sortCmndYmd',     	type:'output',  width:'100px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["생산자","생산자"],  	ref: 'prdcrNm',    type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["품종","품종"],  	ref: 'vrtyNm',    type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],  	ref: 'warehouseSeNm',    type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["설비","설비"],  	ref: 'fcltNm',    type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["팔레트번호","팔레트번호"],  	ref: 'pltno',    type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["선별지시","수량"],  	ref: 'cmndQntt',    type:'output',  width:'100px',    style:'text-align:right'},
+	        {caption: ["선별지시","수량"],  	ref: 'cmndQntt',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["선별지시","중량"],  	ref: 'cmndWght',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
-	        {caption: ["투입실적","수량"],  	ref: 'inptQntt',    type:'output',  width:'100px',    style:'text-align:right'},
+	        {caption: ["투입실적","수량"],  	ref: 'inptQntt',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["투입실적","중량"],  	ref: 'inptWght',    type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
             {caption: ["규격", "규격"], 			ref: 'spcfct',   	type:'combo',  width:'100px',    style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonComSpcfct', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
@@ -318,13 +318,13 @@
             {caption: ["선택"], ref: 'checked', type: 'checkbox', width : '60px', style: 'text-align:center'},
 	        {caption: ["지시번호"],		ref: 'pckgCmndno',      type:'output',  width:'180px',    style:'text-align:center'},
 	        {caption: ["생산설비"],		ref: 'fcltNm',      type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["납기일자"],		ref: 'dudtYmd',      type:'output',  width:'160px',    style:'text-align:center'},
+	        {caption: ["납기일자"],		ref: 'dudtYmd',      type:'output',  width:'160px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["품종"],		ref: 'vrtyNm',      type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["규격"],		ref: 'spcfctNm',      type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["상품명"],		ref: 'gdsNm',      type:'output',  width:'150px',    style:'text-align:center'},
 	        {caption: ["발주수량"],		ref: 'outordrQntt',      type:'output',  width:'150px',    style:'text-align:right'},
 	        {caption: ["입수"],		ref: 'bxGdsQntt',      type:'output',  width:'150px',    style:'text-align:right'},
-	        {caption: ["지시수량"],		ref: 'cmndQntt',      type:'output',  width:'150px',    style:'text-align:right'},
+	        {caption: ["지시수량"],		ref: 'cmndQntt',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["지시중량"],		ref: 'cmndWght',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
 	        {caption: ["순번"],  			ref: 'pckgCmndSn',    hidden:true},
 	    ];
@@ -369,7 +369,7 @@
 			gfn_comAlert("W0001", "품종");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
-    	const postJsonPromise = gfn_postJSON("/am/sort/selectSortCmndList.do", {
+    	const postJsonPromise = gfn_postJSON("/am/sort/selectPckgCmndTrgetList.do", {
 			apcCd: gv_selectedApcCd,
 			sortCmndFromYmd: sortCmndFromYmd,
 			sortCmndToYmd: sortCmndToYmd,
@@ -525,18 +525,6 @@
 	
 	}
 	const fn_save = async function(){
-		try{
-			
- 		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-cmndYmd")))
-				throw "지시일자는 필수입력 항목입니다.";
- 		   if (gfn_isEmpty(SBUxMethod.get("srch-slt-fclt")))
-				throw "생산설비는 필수입력 항목입니다.";
- 		   if (gfn_isEmpty(SBUxMethod.get("srch-inp-cnptNm")))
-				throw "거래처는 필수입력 항목입니다.";
-	 	
-
- 	    	
- 	    	
 			let pckgCmndYmd  = SBUxMethod.get("srch-dtp-cmndYmd"); //포장지시일자
 			let fcltCd  = SBUxMethod.get("srch-slt-fclt"); //설비코드
 			let cnptCd  = SBUxMethod.get("srch-inp-cnptCd"); //거래처코드
@@ -548,56 +536,74 @@
 			let bxGdsQntt  = SBUxMethod.get("srch-inp-bxGdsQntt"); //입수
 			let outordrno  = SBUxMethod.get("srch-inp-gdsNo"); //발주번호
 			
+ 		   if (gfn_isEmpty(pckgCmndYmd)){
+ 			  	gfn_comAlert("W0001", "지시일자");			//	W0001	{0}을/를 선택하세요.
+				return;
+ 		   }
+ 		   if (gfn_isEmpty(fcltCd)){
+ 			  	gfn_comAlert("W0001", "생산설비");			//	W0001	{0}을/를 선택하세요.
+				return;
+ 		   }
+ 		   if (gfn_isEmpty(cnptCd)){
+ 			  	gfn_comAlert("W0001", "거래처");			//	W0001	{0}을/를 선택하세요.
+				return;
+ 		   }
+	 	
+
+			
  			var grdRows = grdSortCmnd.getCheckedRows(0);
  			var insertList = [];
  	    	for(var i=0; i< grdRows.length; i++){
  	    		let nRow = grdRows[i];
- 				console.log("jsonSortCmnd", jsonSortCmnd[nRow-2]);
- 	 		   if (gfn_isEmpty(jsonSortCmnd[nRow-2].spcfct))
- 					throw "규격은 필수입력 항목입니다.";
- 	 		   if (gfn_isEmpty(jsonSortCmnd[nRow-2].cmndQntt))
- 					throw "포장지시수량은 필수입력 항목입니다.";
+ 	    		const rowData = grdSortCmnd.getRowData(nRow);
+ 	 		   if (gfn_isEmpty(rowData.spcfct)){
+ 	 			 	gfn_comAlert("W0001", "규격");			//	W0001	{0}을/를 선택하세요.
+ 					return;
+ 	 		   }
+ 	 		   if (gfn_isEmpty(rowData.cmndQntt)){
+ 	 				gfn_comAlert("W0002", "포장지시수량");			//	W0002	{0}을/를 입력하세요.
+ 					return;
+ 	 		   }
 
-				jsonSortCmnd[nRow-2].pckgCmndYmd = pckgCmndYmd;
-				jsonSortCmnd[nRow-2].spcfctCd = jsonSortCmnd[nRow-2].spcfct;
-				jsonSortCmnd[nRow-2].fcltCd = fcltCd;
-				jsonSortCmnd[nRow-2].cnptCd = cnptCd;
-				jsonSortCmnd[nRow-2].cnptNm = cnptNm;
-				jsonSortCmnd[nRow-2].dudtYmd = dudtYmd;
-				jsonSortCmnd[nRow-2].gdsNm = gdsNm;
-				jsonSortCmnd[nRow-2].outordrQntt = outordrQntt;
-				jsonSortCmnd[nRow-2].bxGdsQntt = bxGdsQntt;
-				jsonSortCmnd[nRow-2].cmndQntt = jsonSortCmnd[nRow-2].pckgQntt;
-				jsonSortCmnd[nRow-2].cmndWght = jsonSortCmnd[nRow-2].pckgWght;
-				jsonSortCmnd[nRow-2].outordrno = outordrno;
-				jsonSortCmnd[nRow-2].delYn = 'Y';
+ 	 			rowData.pckgCmndYmd = pckgCmndYmd;
+	 	 		rowData.spcfctCd = rowData.spcfct;
+	 	 		rowData.fcltCd = fcltCd;
+	 	 		rowData.cnptCd = cnptCd;
+	 	 		rowData.cnptNm = cnptNm;
+	 	 		rowData.dudtYmd = dudtYmd;
+	 	 		rowData.gdsNm = gdsNm;
+	 	 		rowData.outordrQntt = outordrQntt;
+				rowData.bxGdsQntt = bxGdsQntt;
+				rowData.cmndQntt = rowData.pckgQntt;
+				rowData.cmndWght = rowData.pckgWght;
+				rowData.outordrno = outordrno;
+				rowData.delYn = 'Y';
 				
- 				insertList.push(jsonSortCmnd[nRow-2]);
+ 				insertList.push(rowData);
  	    	}
  	    	console.log("insertList", insertList);
  	    	let regMsg = "저장 하시겠습니까?";
- 			if(confirm(regMsg)){
- 				const postJsonPromise = gfn_postJSON("/am/pckg/insertPckgCmndList.do", insertList);
- 		    	const data = await postJsonPromise;
-
- 		    	try{
- 		       		if(data.insertedCnt > 0){
- 		       			fn_search();
- 		       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
- 		       		}else{
- 		       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
- 		       		}
- 		        }catch (e) {
- 		        	if (!(e instanceof Error)) {
- 		    			e = new Error(e);
- 		    		}
- 		    		console.error("failed", e.message);
- 				}
+ 	    	
+ 			if(insertList.length == 0){
+ 				gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
+ 				return;
  			}
-		}catch(e){
-			   alert(e);
-			   return;
-		}
+ 			if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+ 	    		return;
+ 	    	}
+ 			
+ 	    	const postJsonPromise = gfn_postJSON("/am/pckg/insertPckgCmndList.do", insertList);	// 프로그램id 추가
+
+ 			const data = await postJsonPromise;
+ 	        try {
+ 	        	if (_.isEqual("S", data.resultStatus)) {
+ 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+ 	        		fn_search();
+ 	        	} else {
+ 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+ 	        	}
+ 	        } catch(e) {
+ 	        }
 	}
 	
 	const fn_del = async function(){
