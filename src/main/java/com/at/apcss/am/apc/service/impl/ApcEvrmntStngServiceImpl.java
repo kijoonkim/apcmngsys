@@ -26,7 +26,6 @@ import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
-import com.at.apcss.co.user.service.ComUserService;
 import com.at.apcss.co.user.vo.ComUserVO;
 
 @Service("apcEvrmntStngService")
@@ -617,6 +616,39 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 		}
 
 		return null;
+	}
+
+
+	// APC 환경설정 - 정보 변경
+	@Override
+	public int updateApcEvrmntStng(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception {
+
+		ComCdVO comCdAll = new ComCdVO();
+		comCdAll.setSysFrstInptUserId(apcEvrmntStngVO.getSysFrstInptUserId());
+		comCdAll.setSysFrstInptPrgrmId(apcEvrmntStngVO.getSysFrstInptPrgrmId());
+		comCdAll.setSysLastChgUserId(apcEvrmntStngVO.getSysLastChgUserId());
+		comCdAll.setSysLastChgPrgrmId(apcEvrmntStngVO.getSysLastChgPrgrmId());
+		comCdAll.setApcCd(apcEvrmntStngVO.getApcCd());
+		comCdAll.setCdId("GDS_SE_CD");
+
+		comCdService.comCdDtlDelYnAll(comCdAll);
+
+		String[] cdVls = apcEvrmntStngVO.getCdVls().split("");
+
+		for (String string : cdVls) {
+			ComCdVO comCdVO = new ComCdVO();
+			comCdVO.setCdVl(string);
+			comCdVO.setSysFrstInptUserId(apcEvrmntStngVO.getSysFrstInptUserId());
+			comCdVO.setSysFrstInptPrgrmId(apcEvrmntStngVO.getSysFrstInptPrgrmId());
+			comCdVO.setSysLastChgUserId(apcEvrmntStngVO.getSysLastChgUserId());
+			comCdVO.setSysLastChgPrgrmId(apcEvrmntStngVO.getSysLastChgPrgrmId());
+			comCdVO.setApcCd(apcEvrmntStngVO.getApcCd());
+			comCdVO.setCdId("GDS_SE_CD");
+
+			comCdService.updateComCdDtlDelYn(comCdVO);
+		}
+
+		return apcEvrmntStngMapper.updateApcEvrmntStng(apcEvrmntStngVO);
 	}
 
 }

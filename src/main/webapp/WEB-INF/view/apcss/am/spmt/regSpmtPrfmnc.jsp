@@ -292,15 +292,15 @@
 	var jsonGdsInvntr = []; // 상품재고내역 Json
 	var jsonSpmtPrfmnc = []; // 출하내역 Json
 	const fn_createSmptPrfmncGrid = async function() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdGdsInvntr';
-	    SBGridProperties.id = 'grdGdsInvntr';
-	    SBGridProperties.jsonref = 'jsonGdsInvntr';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.oneclickedit = true;
-        SBGridProperties.columns = [
+        var SBGridPropertiesGdsInvntr = {};
+        SBGridPropertiesGdsInvntr.parentid = 'sb-area-grdGdsInvntr';
+        SBGridPropertiesGdsInvntr.id = 'grdGdsInvntr';
+        SBGridPropertiesGdsInvntr.jsonref = 'jsonGdsInvntr';
+        SBGridPropertiesGdsInvntr.emptyrecords = '데이터가 없습니다.';
+        SBGridPropertiesGdsInvntr.selectmode = 'byrow';
+        SBGridPropertiesGdsInvntr.extendlastcol = 'scroll';
+        SBGridPropertiesGdsInvntr.oneclickedit = true;
+        SBGridPropertiesGdsInvntr.columns = [
         	{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'80px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
@@ -334,14 +334,19 @@
             {caption: ["비고"],			ref: 'rmrk',   	type:'output',  hidden: true}
         ];
 
-        var SBGridProperties2 = {};
-	    SBGridProperties2.parentid = 'sb-area-spmtPrfmnc';
-	    SBGridProperties2.id = 'grdSpmtPrfmnc';
-	    SBGridProperties2.jsonref = 'jsonSpmtPrfmnc';
-        SBGridProperties2.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties2.selectmode = 'byrow';
-	    SBGridProperties2.extendlastcol = 'scroll';
-        SBGridProperties2.columns = [
+        grdGdsInvntr = _SBGrid.create(SBGridPropertiesGdsInvntr);
+        grdGdsInvntr.bind('valuechanged', 'fn_grdCmndQnttValueChanged');
+        grdGdsInvntr.bind('select','fn_setValue');
+        grdGdsInvntr.bind('deselect','fn_delValue');
+
+        var SBGridPropertiesSpmtPrfmnc = {};
+        SBGridPropertiesSpmtPrfmnc.parentid = 'sb-area-spmtPrfmnc';
+        SBGridPropertiesSpmtPrfmnc.id = 'grdSpmtPrfmnc';
+	    SBGridPropertiesSpmtPrfmnc.jsonref = 'jsonSpmtPrfmnc';
+	    SBGridPropertiesSpmtPrfmnc.emptyrecords = '데이터가 없습니다.';
+	    SBGridPropertiesSpmtPrfmnc.selectmode = 'byrow';
+	    SBGridPropertiesSpmtPrfmnc.extendlastcol = 'scroll';
+	    SBGridPropertiesSpmtPrfmnc.columns = [
         	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'80px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
             {caption: ['출하일자'], 	ref: 'spmtYmd', 	width: '100px', type: 'output', style: 'text-align:center',
@@ -363,11 +368,8 @@
             {caption: ['지시번호'], 	ref: 'spmtCmndno', 	width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['비고'], 		ref: 'rmrk', 		width: '150px', type: 'output', style: 'text-align:center'}
         ];
-        grdGdsInvntr = _SBGrid.create(SBGridProperties);
-        grdGdsInvntr.bind('valuechanged', 'fn_grdCmndQnttValueChanged');
-        grdGdsInvntr.bind('select','fn_setValue');
-        grdGdsInvntr.bind('deselect','fn_delValue');
-        grdSpmtPrfmnc = _SBGrid.create(SBGridProperties2);
+
+        grdSpmtPrfmnc = _SBGrid.create(SBGridPropertiesSpmtPrfmnc);
     }
 
 	const fn_search = async function(){

@@ -26,15 +26,15 @@ import com.at.apcss.am.cmns.vo.CmnsSpcfctVO;
  */
 @Service("cmnsSpcfctService")
 public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
-	
+
 	@Autowired
 	private CmnsSpcfctMapper cmnsSpcfctMapper;
 
 	@Override
 	public CmnsSpcfctVO selectCmnsSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
-		
+
 		CmnsSpcfctVO resultVO = cmnsSpcfctMapper.selectCmnsSpcfct(cmnsSpcfctVO);
-		
+
 		return resultVO;
 	}
 
@@ -42,7 +42,7 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public List<CmnsSpcfctVO> selectCmnsSpcfctList(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		List<CmnsSpcfctVO> resultList = cmnsSpcfctMapper.selectCmnsSpcfctList(cmnsSpcfctVO);
-		
+
 		return resultList;
 	}
 
@@ -50,7 +50,7 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public int insertCmnsSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		int insertedCnt = cmnsSpcfctMapper.insertCmnsSpcfct(cmnsSpcfctVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -58,7 +58,7 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public int updateCmnsSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		int updatedCnt = cmnsSpcfctMapper.updateCmnsSpcfct(cmnsSpcfctVO);
-		
+
 		return updatedCnt;
 	}
 
@@ -66,15 +66,15 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public int deleteCmnsSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		int deletedCnt = cmnsSpcfctMapper.deleteCmnsSpcfct(cmnsSpcfctVO);
-		
+
 		return deletedCnt;
 	}
 
 	@Override
 	public CmnsSpcfctVO selectApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
-		
+
 		CmnsSpcfctVO resultVO = cmnsSpcfctMapper.selectApcSpcfct(cmnsSpcfctVO);
-		
+
 		return resultVO;
 	}
 
@@ -82,7 +82,7 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public List<CmnsSpcfctVO> selectApcSpcfctList(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		List<CmnsSpcfctVO> resultList = cmnsSpcfctMapper.selectApcSpcfctList(cmnsSpcfctVO);
-		
+
 		return resultList;
 	}
 
@@ -90,7 +90,7 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public int insertApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		int insertedCnt = cmnsSpcfctMapper.insertApcSpcfct(cmnsSpcfctVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -98,7 +98,7 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public int updateApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		int updatedCnt = cmnsSpcfctMapper.updateApcSpcfct(cmnsSpcfctVO);
-		
+
 		return updatedCnt;
 	}
 
@@ -106,8 +106,13 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public int deleteApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		int deletedCnt = cmnsSpcfctMapper.deleteApcSpcfct(cmnsSpcfctVO);
-		
+
 		return deletedCnt;
 	}
-	
+
+	@Override
+	public int deleteApcSpcfctAll(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
+		return cmnsSpcfctMapper.deleteApcSpcfctAll(cmnsSpcfctVO);
+	}
+
 }

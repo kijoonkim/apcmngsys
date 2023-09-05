@@ -301,6 +301,9 @@
 				, TELNO
 				, FXNO
 				, BRNO
+				, BANK_CD
+				, ACTNO
+				, DPSTR
 				, APC_SE_CD
 				, CLCLN_CRTR
 				, WGH_MNG_YN
@@ -330,6 +333,7 @@
 				, SPMT_DOC_PBLCN_YN
 				, CLCLN_MNG_YN
 				, OUTORDR_MNG_YN
+				, OUTORDR_ATMTC_RCPTN_YN
 				, OUTORDR_PCKG_CMND_LNKG_YN
 				, TRSM_MNG_YN
 				, SORT_DATA_TRSM_YN
@@ -353,6 +357,9 @@
 				, #{telno}
 				, #{fxno}
 				, #{brno}
+				, #{bankCd}
+				, #{actno}
+				, #{dpstr}
 				, #{apcSeCd}
 				, #{clclnCrtr}
 				, #{wghMngYn}
@@ -382,6 +389,7 @@
 				, #{spmtDocPblcnYn}
 				, #{clclnMngYn}
 				, #{outordrMngYn}
+				, #{outordrAtmtcRcptnYn}
 				, #{outordrPckgCmndLnkgYn}
 				, #{trsmMngYn}
 				, #{sortDataTrsmYn}
@@ -418,6 +426,9 @@
 				, APC.TELNO						AS TELNO
 				, APC.FXNO						AS FXNO
 				, APC.BRNO						AS BRNO
+				, APC.BANK_CD					AS BANK_CD
+				, APC.ACTNO						AS ACTNO
+				, APC.DPSTR						AS DPSTR
 				, APC.APC_SE_CD					AS APC_SE_CD
 				, APC.CLCLN_CRTR				AS CLCLN_CRTR
 				, APC.WGH_MNG_YN				AS WGH_MNG_YN
@@ -447,6 +458,7 @@
 				, APC.SPMT_DOC_PBLCN_YN			AS SPMT_DOC_PBLCN_YN
 				, APC.CLCLN_MNG_YN				AS CLCLN_MNG_YN
 				, APC.OUTORDR_MNG_YN			AS OUTORDR_MNG_YN
+				, APC.OUTORDR_ATMTC_RCPTN_YN 	AS OUTORDR_ATMTC_RCPTN_YN
 				, APC.OUTORDR_PCKG_CMND_LNKG_YN	AS OUTORDR_PCKG_CMND_LNKG_YN
 				, APC.TRSM_MNG_YN				AS TRSM_MNG_YN
 				, APC.SORT_DATA_TRSM_YN			AS SORT_DATA_TRSM_YN
@@ -503,6 +515,7 @@
 				, SPMT_DOC_PBLCN_YN 		= #{spmtDocPblcnYn}
 				, CLCLN_MNG_YN 				= #{clclnMngYn}
 				, OUTORDR_MNG_YN 			= #{outordrMngYn}
+				, OUTORDR_ATMTC_RCPTN_YN 	= #{outordrAtmtcRcptnYn}
 				, OUTORDR_PCKG_CMND_LNKG_YN = #{outordrPckgCmndLnkgYn}
 				, TRSM_MNG_YN 				= #{trsmMngYn}
 				, SORT_DATA_TRSM_YN 		= #{sortDataTrsmYn}
@@ -514,6 +527,33 @@
 		]]>
     </update>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateApcEvrmntStng		-->
+	<!-- DESC : APC 메뉴사용여부 변경.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.05  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateApcEvrmntStng" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateApcEvrmntStng */
+	    	  TB_APC_EVRMNT_STNG SET
+	    		  SYS_LAST_CHG_DT 			= SYSDATE
+    	     	, SYS_LAST_CHG_USER_ID 		= #{sysLastChgUserId}
+    	     	, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, APC_NM					= #{apcNm}
+				, ADDR						= #{addr}
+				, TELNO						= #{telno}
+				, FXNO						= #{fxno}
+				, BRNO						= #{brno}
+				, BANK_CD					= #{bankCd}
+				, ACTNO						= #{actno}
+				, DPSTR						= #{dpstr}
+				, APC_SE_CD					= #{apcSeCd}
+				, CLCLN_CRTR 				= #{clclnCrtr}
+			 WHERE APC_CD = #{apcCd}
+		]]>
+    </update>
+
 </mapper>
-
-

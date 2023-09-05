@@ -311,7 +311,7 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteApcSpcfct			-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteApcSpcfct		-->
 	<!-- DESC : APC 규격 삭제.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -324,6 +324,23 @@
 			  FROM TB_APC_SPCFCT_CRTR
 			 WHERE ITEM_CD = #{itemCd}
 			   AND SPCFCT_CD = #{spcfctCd}
+			   AND APC_CD = #{apcCd}
+		]]>
+	</delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteApcSpcfctAll		-->
+	<!-- DESC : APC 규격 전체 삭제.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.04  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<delete id="deleteApcSpcfctAll" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteApcSpcfct */
+			  FROM TB_APC_SPCFCT_CRTR
+			 WHERE ITEM_CD = #{itemCd}
 			   AND APC_CD = #{apcCd}
 		]]>
 	</delete>

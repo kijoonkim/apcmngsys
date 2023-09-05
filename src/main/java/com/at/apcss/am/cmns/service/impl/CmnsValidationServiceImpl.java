@@ -36,8 +36,7 @@ public class CmnsValidationServiceImpl extends BaseServiceImpl implements CmnsVa
 		paramVO.setCdId(cdId);
 		paramVO.setCdVl(cdVl);
 
-		CmnsValidationVO resultVO = cmnsValidationMapper.selectChkCdDelible(paramVO);
-
+		CmnsValidationVO resultVO = selectChkCdDelible(paramVO);
 		if (resultVO != null) {
 			return resultVO.getRtnMsg();
 		} else {

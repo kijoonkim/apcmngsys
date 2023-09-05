@@ -87,39 +87,34 @@ public class CmnsItemController extends BaseController {
 		logger.debug("insertApcCmnsItem 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int result =0;
+		int insertedCnt =0;
 		try {
 			cmnsItemVO.setSysFrstInptPrgrmId(getPrgrmId());
 			cmnsItemVO.setSysFrstInptUserId(getUserId());
 			cmnsItemVO.setSysLastChgPrgrmId(getPrgrmId());
 			cmnsItemVO.setSysLastChgUserId(getUserId());
-			result = cmnsItemService.insertCmnsItem(cmnsItemVO);
+			insertedCnt = cmnsItemService.insertCmnsItem(cmnsItemVO);
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
 
-		resultMap.put("result", result);
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// APC 환경설정 - APC 품목 등록
+	// APC 환경설정 - APC 품목 삭제
 	@PostMapping(value = "/am/cmns/deleteApcCmnsItem.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteApcCmnsItem(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
 		logger.debug("deleteApcCmnsItem 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int result =0;
 		try {
-			result = cmnsItemService.deleteCmnsItem(cmnsItemVO);
-
+			resultMap = cmnsItemService.deleteCmnsItem(cmnsItemVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
-
-		resultMap.put("result", result);
-
 		return getSuccessResponseEntity(resultMap);
 	}
 

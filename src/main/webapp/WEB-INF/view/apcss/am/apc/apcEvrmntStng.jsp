@@ -15,16 +15,15 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ APC환경설정</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 				</div>
 			</div>
-
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -39,10 +38,10 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" rowspan="4">APC정보</th>
+							<th class="ta_r th_bg" rowspan="4">APC정보</th>
 							<td scope="row" align="right">코드</td>
 							<td scope="row" style="border-right: hidden;">
-								<sbux-input id="inp-apcCd" name="inp-apcCd" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="inp-apcCd" name="inp-apcCd" uitype="text" class="form-control input-sm" readonly></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -56,26 +55,36 @@
 							</td>
 							<td scope="row" align="right">전화번호</td>
 							<td scope="row">
-								<sbux-input id="inp-telno" name="inp-telno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-telno" name="inp-telno" uitype="text" class="form-control input-sm"
+								mask = "{ 'mask': '999-999-9999', 'clearIncomplete': true, 'autoUnmask': true }"
+								></sbux-input>
 							</td>
 							<td scope="row" align="right">팩스번호</td>
 							<td scope="row">
-								<sbux-input id="inp-fxno" name="inp-fxno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-fxno" name="inp-fxno" uitype="text" class="form-control input-sm"
+								mask = "{ 'mask': '999-999-9999', 'clearIncomplete': true, 'autoUnmask': true }"
+								></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<td scope="row" align="right">사업번호</td>
 							<td scope="row">
-								<sbux-input id="inp-brno" name="inp-brno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-brno" name="inp-brno" uitype="text" class="form-control input-sm"
+								mask = "{ 'mask': '999-99-99999', 'clearIncomplete': true, 'autoUnmask': true }"
+								></sbux-input>
 							</td>
 							<td scope="row" align="right">계좌번호</td>
 							<td scope="row">
 								<sbux-input id="inp-actno" name="inp-actno" uitype="text" class="form-control input-sm"></sbux-input>
 
 							</td>
-							<td scope="row" align="right">입금은행</td>
-							<td >
-								<sbux-select id="slt-bankCd" name="slt-bankCd" uitype="single" jsondata-ref="jsonComboBankNm" unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<td scope="row"  align="right">입금은행</td>
+							<td class="td_input" >
+								<sbux-select id="slt-bankCd" name="slt-bankCd"
+								uitype="single"
+								filtering="true"
+								jsondata-ref="jsonComboBankNm"
+								unselected-text="선택" class="form-control input-sm"></sbux-select>
 							</td>
 
 							<td scope="row" align="right">예금주명</td>
@@ -87,38 +96,42 @@
 							<td scope="row" align="right">구분</td>
 							<td class="td_input">
 								<p class="ad_input_row">
-									<sbux-radio id="apcGubun1" name="apcGubun" uitype="normal" class="radio_label"></sbux-radio>
+									<sbux-radio id="rdo-apcSeCd1" name="rdo-apcSeCd" uitype="normal" value="1" class="radio_label"></sbux-radio>
 									<label class="radio_label" for="radio1">농협</label>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="apcGubun2" name="apcGubun" uitype="normal" class="radio_label" checked></sbux-radio>
+									<sbux-radio id="rdo-apcSeCd2" name="rdo-apcSeCd" uitype="normal" value="2" class="radio_label" checked></sbux-radio>
 									<label class="radio_label" for="radio1">법인</label>
 								</p>
 							</td>
 							<td scope="row" align="right">정산기준</td>
 							<td class="td_input">
 								<p class="ad_input_row">
-									<sbux-radio id="prdcrGubun1" name="prdcrGubun" uitype="normal" value="1"  class="radio_label"></sbux-radio>
+									<sbux-radio id="rdo-clclnCrtr1" name="rdo-clclnCrtr" uitype="normal" value="1"  class="radio_label"></sbux-radio>
 									<label class="radio_label" for="radio1">입고</label>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="prdcrGubun2" name="prdcrGubun" uitype="normal" value="2" class="radio_label" checked></sbux-radio>
+									<sbux-radio id="rdo-clclnCrtr2" name="rdo-clclnCrtr" uitype="normal" value="2" class="radio_label" checked></sbux-radio>
 									<label class="radio_label" for="radio1">선별</label>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="prdcrGubun3" name="prdcrGubun" uitype="normal" value="4"  class="radio_label"></sbux-radio>
+									<sbux-radio id="rdo-clclnCrtr3" name="rdo-clclnCrtr" uitype="normal" value="4"  class="radio_label"></sbux-radio>
 									<label class="radio_label" for="radio1">출하</label>
 								</p>
 							</td>
 							<td scope="row" align="right">상품구분</td>
 							<td colspan="3" class="td_input">
-								<sbux-checkbox id="ckb-gdsSeCd" name="ckb-gdsSeCd" uitype="normal" 
+								<sbux-checkbox id="chk-gdsSeCd" name="chk-gdsSeCd" uitype="normal"
 								jsondata-ref="jsonComGdsSeCd"
-								text-right-padding="10px"></sbux-checkbox>
+								true-value="Y"
+								text-right-padding="10px"
+								jsondata-true-value="value"
+								>
+								</sbux-checkbox>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">APC사용자 관리</th>
+							<th class="ta_r th_bg" scope="row">APC사용자 관리</th>
 							<td colspan="2"class="td_input">
 								<sbux-button id="btnUserAuth" name="btnUserAuth" uitype="modal" text="사용자권한 설정" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-userAuth" onclick="fn_modal('btnUserAuth')"></sbux-button>
 							</td>
@@ -127,7 +140,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">운용설비 관리</th>
+							<th class="ta_r th_bg" scope="row">운용설비 관리</th>
 							<td class="td_input" colspan="2">
 								<sbux-button id="btnFclt" name="btnFclt" uitype="modal" text="설비 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-fclt" onclick="fn_modal('btnFclt')"></sbux-button>
 							</td>
@@ -136,7 +149,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">저장창고 관리</th>
+							<th class="ta_r th_bg" scope="row">저장창고 관리</th>
 							<td class="td_input" colspan="2">
 								<sbux-button id="btnWarehouse" name="btnWarehouse" uitype="modal" text="창고 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-warehouse" onclick="fn_modal('btnWarehouse')"></sbux-button>
 							</td>
@@ -145,7 +158,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">품목/품종 관리</th>
+							<th class="ta_r th_bg" scope="row">품목/품종 관리</th>
 							<td class="td_input" colspan="2">
 								<sbux-button id="btnItem" name="btnItem" uitype="modal" text="품목/품종 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-item" onclick="fn_modal('btnItem')"></sbux-button>
 							</td>
@@ -154,7 +167,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">등급/규격 관리</th>
+							<th class="ta_r th_bg" scope="row">등급/규격 관리</th>
 							<td class="td_input" colspan="2">
 								<sbux-button id="btnGrdSpcfct" name="btnGrdSpcfct" uitype="modal" text="등급/규격 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-grdSpcfct" onclick="fn_modal('btnGrdSpcfct')"></sbux-button>
 							</td>
@@ -163,7 +176,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">출하포장단위 관리</th>
+							<th class="ta_r th_bg" scope="row">출하포장단위 관리</th>
 							<td class="td_input" colspan="2">
 								<sbux-button id="btnSpmtPckgUnit" name="btnSpmtPckgUnit" uitype="modal" text="출하포장단위 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spmtPckgUnit" onclick="fn_modal('btnSpmtPckgUnit')"></sbux-button>
 							</td>
@@ -172,7 +185,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">원물 팔레트/박스</th>
+							<th class="ta_r th_bg" scope="row">원물 팔레트/박스</th>
 							<td class="td_input" colspan="2">
 								<sbux-button id="btnpltBx" name="btnpltBx" uitype="modal" text="팔레트/박스 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-pltBx" onclick="fn_modal('btnPltBx')"></sbux-button>
 							</td>
@@ -181,7 +194,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">입고차량 관리</th>
+							<th class="ta_r th_bg" scope="row">입고차량 관리</th>
 							<td class="td_input" colspan="2">
 								<sbux-button id="btnVhcl" name="btnVhcl" uitype="modal" text="입고차량/운임 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-wrhsVhcl" onclick="fn_modal('btnWrhsVhcl')"></sbux-button>
 							</td>
@@ -190,7 +203,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">출하운송사 관리</th>
+							<th class="ta_r th_bg" scope="row">출하운송사 관리</th>
 							<td class="td_input" colspan="2">
 								<sbux-button id="btnSpmtTrsprt" name="btnSpmtTrsprt" uitype="modal" text="출하 운송회사 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spmtTrsprt" onclick="fn_modal('btnSpmtTrsprt')"></sbux-button>
 							</td>
@@ -199,7 +212,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">거래처 관리</th>
+							<th class="ta_r th_bg" scope="row">거래처 관리</th>
 							<td class="td_input" colspan="2">
 								<sbux-button id="btnCnpt" name="btnCnpt" uitype="modal" text="거래처/발주수신 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-cnpt" onclick="fn_modal('btnCnpt')"></sbux-button>
 							</td>
@@ -208,7 +221,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">생산작업자 관리</th>
+							<th class="ta_r th_bg" scope="row">생산작업자 관리</th>
 							<td class="td_input" colspan="2">
 								<sbux-button id="btnOprtr" name="btnOprtr" uitype="modal" text="생산작업자 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-oprtr" onclick="fn_modal('btnOprtr')"></sbux-button>
 							</td>
@@ -246,17 +259,17 @@
 							<th scope="row">계량정보 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="wghMngYn" name="wghMngYn" uitype="normal" text="사용"></sbux-checkbox>
+									<sbux-checkbox id="chk-wghMngYn" name="chk-wghMngYn" uitype="normal" text="사용" true-value="Y" ></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 		                     	<p class="ad_input_row">
-									<sbux-checkbox id="wghMblUseYn" name="wghMblUseYn" uitype="normal" text="테블릿사용" ></sbux-checkbox>
+									<sbux-checkbox id="chk-wghMblUseYn" name="chk-wghMblUseYn" uitype="normal" text="테블릿사용" true-value="Y"></sbux-checkbox>
 		                  		</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="wghIdntyDocPblcnYn" name="wghIdntyDocPblcnYn" uitype="normal" text="계량확인서 발행" ></sbux-checkbox>
+									<sbux-checkbox id="chk-wghIdntyDocPblcnYn" name="chk-wghIdntyDocPblcnYn" uitype="normal" text="계량확인서 발행" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -266,22 +279,22 @@
 							<th rowspan="2">원물입고 관리</th>
 							<td rowspan="2">
 								<p class="ad_input_row">
-									<sbux-checkbox id="rawMtrWrhsMngYn" name="rawMtrWrhsMngYn" uitype="normal" text="사용" checked readonly></sbux-checkbox>
+									<sbux-checkbox id="chk-rawMtrWrhsMngYn" name="chk-rawMtrWrhsMngYn" uitype="normal" text="사용" true-value="Y" checked readonly></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="rawMtrWrhsMblUseYn" name="rawMtrWrhsMblUseYn" uitype="normal" text="테블릿사용" ></sbux-checkbox>
+									<sbux-checkbox id="chk-rawMtrWrhsMblUseYn" name="chk-rawMtrWrhsMblUseYn" uitype="normal" text="테블릿사용" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="rawMtrIdentTagPblcnYn" name="rawMtrIdentTagPblcnYn" uitype="normal" text="원물인식표 발행" checked readonly></sbux-checkbox>
+									<sbux-checkbox id="chk-rawMtrIdentTagPblcnYn" name="chk-rawMtrIdentTagPblcnYn" uitype="normal" text="원물인식표 발행" true-value="Y" checked readonly></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="pltBxMngYn" name="pltBxMngYn" uitype="normal" text="팔레트/박스정보관리" checked readonly></sbux-checkbox>
+									<sbux-checkbox id="chk-pltBxMngYn" name="chk-pltBxMngYn" uitype="normal" text="팔레트/박스정보관리" true-value="Y" checked readonly></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -289,12 +302,12 @@
 						<tr>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="rawMtrWrhsPlanMngYn" name="rawMtrWrhsPlanMngYn" uitype="normal" text="원물입고계획관리" ></sbux-checkbox>
+									<sbux-checkbox id="chk-rawMtrWrhsPlanMngYn" name="chk-rawMtrWrhsPlanMngYn" uitype="normal" true-value="Y" text="원물입고계획관리" ></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="gdsWrhsMngYn" name="gdsWrhsMngYn" uitype="normal" text="상품입고관리"></sbux-checkbox>
+									<sbux-checkbox id="chk-gdsWrhsMngYn" name="chk-gdsWrhsMngYn" uitype="normal" text="상품입고관리" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -303,12 +316,12 @@
 							<th>선별지시 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="sortCmndMngYn" name="sortCmndMngYn" uitype="normal" text="사용"></sbux-checkbox>
+									<sbux-checkbox id="chk-sortCmndMngYn" name="chk-sortCmndMngYn" uitype="normal" text="사용" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="sortCmndDocPblcnYn" name="sortCmndDocPblcnYn" uitype="normal" text="선별지시서 발행"></sbux-checkbox>
+									<sbux-checkbox id="chk-sortCmndDocPblcnYn" name="chk-sortCmndDocPblcnYn" uitype="normal" text="선별지시서 발행" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -319,12 +332,12 @@
 							<th>포장지시 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="pckgCmndMngYn" name="pckgCmndMngYn" uitype="normal" text="사용"></sbux-checkbox>
+									<sbux-checkbox id="chk-pckgCmndMngYn" name="chk-pckgCmndMngYn" uitype="normal" text="사용" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="pckgCmndDocPblcnYn" name="pckgCmndDocPblcnYn" uitype="normal" text="포장지시서 발행"></sbux-checkbox>
+									<sbux-checkbox id="chk-pckgCmndDocPblcnYn" name="chk-pckgCmndDocPblcnYn" uitype="normal" text="포장지시서 발행" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -335,21 +348,21 @@
 							<th>선별 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="sortMngYn" name="sortMngYn" uitype="normal" text="사용" checked readonly></sbux-checkbox>
+									<sbux-checkbox id="chk-sortMngYn" name="chk-sortMngYn" uitype="normal" text="사용" true-value="Y" checked readonly></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="sortMblUseYn" name="sortMblUseYn" uitype="normal" text="테블릿사용 (선별투입)"></sbux-checkbox>
+									<sbux-checkbox id="chk-sortMblUseYn" name="chk-sortMblUseYn" uitype="normal" text="테블릿사용 (선별투입)" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="sortLabelPblcnYn" name="sortLabelPblcnYn" uitype="normal" text="선별라벨 발행"></sbux-checkbox>
+									<sbux-checkbox id="chk-sortLabelPblcnYn" name="chk-sortLabelPblcnYn" uitype="normal" text="선별라벨 발행" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td><p class="ad_input_row">
-									<sbux-checkbox id="sortIdntyDocPblcnYn" name="sortIdntyDocPblcnYn" uitype="normal" text="선별확인서 발행" checked readonly></sbux-checkbox>
+									<sbux-checkbox id="chk-sortIdntyDocPblcnYn" name="sortIdntyDocPblcnYn" uitype="normal" text="선별확인서 발행" true-value="Y" checked readonly></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -358,17 +371,17 @@
 							<th>포장 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="pckgMngYn" name="pckgMngYn" uitype="normal" text="사용"></sbux-checkbox>
+									<sbux-checkbox id="chk-pckgMngYn" name="chk-pckgMngYn" uitype="normal" text="사용" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="pckgMblUseYn" name="pckgMblUseYn" uitype="normal" text="테블릿사용 (포장투입)"></sbux-checkbox>
+									<sbux-checkbox id="chk-pckgMblUseYn" name="chk-pckgMblUseYn" uitype="normal" text="테블릿사용 (포장투입)" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="gdsLblPblcnYn" name="gdsLblPblcnYn" uitype="normal" text="상품라벨 발행"></sbux-checkbox>
+									<sbux-checkbox id="chk-gdsLblPblcnYn" name="chk-dsLblPblcnYn" uitype="normal" text="상품라벨 발행" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -378,12 +391,12 @@
 							<th>출하지시 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="spmtCmndMngYn" name="spmtCmndMngYn" uitype="normal" text="사용"></sbux-checkbox>
+									<sbux-checkbox id="chk-spmtCmndMngYn" name="chk-spmtCmndMngYn" uitype="normal" text="사용" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="spmtCmndDocPblcnYn" name="spmtCmndDocPblcnYn" uitype="normal" text="출하지시서 발행"></sbux-checkbox>
+									<sbux-checkbox id="chk-spmtCmndDocPblcnYn" name="chk-spmtCmndDocPblcnYn" uitype="normal" text="출하지시서 발행" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -394,21 +407,21 @@
 							<th>출하 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="spmtMngYn" name="spmtMngYn" uitype="normal" text="사용" checked readonly></sbux-checkbox>
+									<sbux-checkbox id="spmtMngYn" name="spmtMngYn" uitype="normal" text="사용" true-value="Y" checked readonly></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="spmtMblUseYn" name="spmtMblUseYn" uitype="normal" text="테블릿 사용"></sbux-checkbox>
+									<sbux-checkbox id="chk-spmtMblUseYn" name="chk-spmtMblUseYn" uitype="normal" text="테블릿 사용" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="spmtDocPblcnYn" name="spmtDocPblcnYn" uitype="normal" text="송품장발행" checked readonly></sbux-checkbox>
+									<sbux-checkbox id="chk-spmtDocPblcnYn" name="chk-spmtDocPblcnYn" uitype="normal" text="송품장발행" true-value="Y" checked readonly></sbux-checkbox>
 								</p>
 							</td>
 							<td><p class="ad_input_row">
-									<sbux-checkbox id="invntrTrnsfYn" name="invntrTrnsfYn" uitype="normal" text="재고이송"></sbux-checkbox>
+									<sbux-checkbox id="chk-invntrTrnsfYn" name="chk-invntrTrnsfYn" uitype="normal" text="재고이송" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -417,7 +430,7 @@
 							<th>정산 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="clclnMngYn" name="clclnMngYn" uitype="normal" text="사용"></sbux-checkbox>
+									<sbux-checkbox id="chk-clclnMngYn" name="chk-clclnMngYn" uitype="normal" text="사용" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -429,12 +442,12 @@
 							<th>발주정보 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="ordrMngYn" name="ordrMngYn" uitype="normal" text="사용"></sbux-checkbox>
+									<sbux-checkbox id="chk-outordrMngYn" name="chk-outordrMngYn" uitype="normal" text="사용" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="outordrPckgCmndLnkgYn" name="outordrPckgCmndLnkgYn" uitype="normal" text="발주정보 자동수신"></sbux-checkbox>
+									<sbux-checkbox id="chk-outordrAtmtcRcptnYn" name="chk-outordrAtmtcRcptnYn" uitype="normal" text="발주정보 자동수신" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -445,17 +458,17 @@
 							<th>농협전송 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="trsmMngYn" name="trsmMngYn" uitype="normal" text="사용"></sbux-checkbox>
+									<sbux-checkbox id="chk-trsmMngYn" name="chk-trsmMngYn" uitype="normal" text="사용" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="sortDataTrsmYn" name="sortDataTrsmYn" uitype="normal" text="선별실적 생성"></sbux-checkbox>
+									<sbux-checkbox id="chk-sortDataTrsmYn" name="chk-sortDataTrsmYn" uitype="normal" text="선별실적 생성" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="clclnDataTrsmYn" name="clclnDataTrsmYn" uitype="normal" text="정산실적 생성"></sbux-checkbox>
+									<sbux-checkbox id="chk-clclnDataTrsmYn" name="chk-clclnDataTrsmYn" uitype="normal" text="정산실적 생성" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -465,7 +478,7 @@
 							<th>생산작업자 관리</th>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="oprtrUseYn" name="oprtrUseYn" uitype="normal" text="사용"></sbux-checkbox>
+									<sbux-checkbox id="chk-oprtrUseYn" name="oprtrUseYn" uitype="normal" text="사용" true-value="Y"></sbux-checkbox>
 								</p>
 							</td>
 							<td>&nbsp;</td>
@@ -501,7 +514,7 @@
     </div>
     <!--품목/품종 등록 Modal -->
     <div>
-        <sbux-modal id="modal-item" name="modal-item" uitype="middle" header-title="품목/품종 등록" body-html-id="body-modal-item" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-item" name="modal-item" uitype="middle" header-title="품목/품종 등록" body-html-id="body-modal-item" footer-is-close-button="false" header-is-close-button="false" show-window-scroll="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-item">
     	<jsp:include page="../apc/itemMngPopup.jsp"></jsp:include>
@@ -583,20 +596,38 @@
 	var comboUnitCdJsData = [];
 	var comboGridBankCdJsData = [];
 	var comboGridCnptTypeJsData = [];
-	
+
 	var jsonComGdsSeCd = [];
+	var jsonComApcGdsSeCd = [];
 
 	const fn_initSBSelect = async function() {
-		await gfn_setComCdSBSelect('slt-bankCd', jsonComboBankNm ,	'BANK_CD', '0000');				// 검색 조건(시스템구분)
-		await gfn_setComCdSBSelect('ckb-gdsSeCd', jsonComGdsSeCd ,	'GDS_SE_CD', '0000');				// 검색 조건(상품구분)
-		await gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000");
-		await gfn_setComCdGridSelect('grdPlt', comboUnitCdJsData, "UNIT_CD", "0000");
-		await gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000");
-		await gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000");
-		await gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000");
-		await selectApcInfo();
-	}
 
+		let rst = await Promise.all([
+			gfn_setComCdSBSelect('slt-bankCd', jsonComboBankNm ,	'BANK_CD', '0000'),
+			gfn_setComCdSBSelect('chk-gdsSeCd', jsonComGdsSeCd ,	'GDS_SE_CD', '0000'),
+			gfn_setComCdSBSelect('chk-gdsSeCd', jsonComApcGdsSeCd ,	'GDS_SE_CD', gv_apcCd),
+			gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000"),
+			gfn_setComCdGridSelect('grdPlt', comboUnitCdJsData, "UNIT_CD", "0000"),
+			gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000"),
+			gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000"),
+			gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000"),
+			selectApcEvrmntStng()
+		])
+
+		jsonComGdsSeCd.forEach((item) => {
+			let value = item.value;
+
+			jsonComApcGdsSeCd.forEach((apcItem) => {
+				let apcValue = apcItem.value;
+				if(value==apcValue){
+					item.checked = "checked";
+				}
+			});
+		});
+
+		SBUxMethod.refresh("chk-gdsSeCd");
+
+	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("inp-apcCd", gv_apcCd);
@@ -604,23 +635,57 @@
 	})
 
 
-	async function selectApcInfo(){
+	const selectApcEvrmntStng = async function(){
 		let apcCd = gv_apcCd;
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcInfo.do", {apcCd : apcCd});
+    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcEvrmntStng.do", {apcCd : apcCd});
 
         let data = await postJsonPromise;
 		let resultVO = data.resultVO;
-		console.log(resultVO);
         try{
 
-        	SBUxMethod.set("inp-apcNm", resultVO.regApcNm);
-        	SBUxMethod.set("inp-telno", resultVO.regTelno);
-        	SBUxMethod.set("inp-addr", resultVO.regAddr);
+        	SBUxMethod.set("inp-apcNm", resultVO.apcNm);
+        	SBUxMethod.set("inp-telno", resultVO.telno);
+        	SBUxMethod.set("inp-addr", resultVO.addr);
         	SBUxMethod.set("inp-fxno", resultVO.fxno);
         	SBUxMethod.set("inp-actno", resultVO.actno);
         	SBUxMethod.set("slt-bankCd", resultVO.bankCd);
         	SBUxMethod.set("inp-dpstr", resultVO.dpstr);
         	SBUxMethod.set("inp-brno", resultVO.brno);
+        	SBUxMethod.set("chk-wghMngYn", resultVO.wghMngYn);
+        	SBUxMethod.set("chk-wghMblUseYn", resultVO.wghMblUseYn);
+        	SBUxMethod.set("chk-wghIdntyDocPblcnYn", resultVO.wghIdntyDocPblcnYn);
+        	SBUxMethod.set("chk-rawMtrWrhsMngYn", resultVO.rawMtrWrhsMngYn);
+        	SBUxMethod.set("chk-rawMtrWrhsMblUseYn", resultVO.rawMtrWrhsMblUseYn);
+        	SBUxMethod.set("chk-rawMtrIdentTagPblcnYn", resultVO.rawMtrIdentTagPblcnYn);
+        	SBUxMethod.set("chk-pltBxMngYn", resultVO.pltBxMngYn);
+        	SBUxMethod.set("chk-rawMtrWrhsPlanMngYn", resultVO.rawMtrWrhsPlanMngYn);
+        	SBUxMethod.set("chk-gdsWrhsMngYn", resultVO.gdsWrhsMngYn);
+        	SBUxMethod.set("chk-sortCmndMngYn", resultVO.sortCmndMngYn);
+        	SBUxMethod.set("chk-sortCmndDocPblcnYn", resultVO.sortCmndDocPblcnYn);
+        	SBUxMethod.set("chk-pckgCmndMngYn", resultVO.pckgCmndMngYn);
+        	SBUxMethod.set("chk-pckgCmndDocPblcnYn", resultVO.pckgCmndDocPblcnYn);
+        	SBUxMethod.set("chk-sortMngYn", resultVO.sortMngYn);
+        	SBUxMethod.set("chk-sortMblUseYn", resultVO.sortMblUseYn);
+        	SBUxMethod.set("chk-sortLabelPblcnYn", resultVO.sortLabelPblcnYn);
+        	SBUxMethod.set("chk-sortIdntyDocPblcnYn", resultVO.sortIdntyDocPblcnYn);
+        	SBUxMethod.set("chk-pckgMngYn", resultVO.pckgMngYn);
+        	SBUxMethod.set("chk-pckgMblUseYn", resultVO.pckgMblUseYn);
+        	SBUxMethod.set("chk-gdsLblPblcnYn", resultVO.gdsLblPblcnYn);
+        	SBUxMethod.set("chk-spmtCmndMngYn", resultVO.spmtCmndMngYn);
+        	SBUxMethod.set("chk-spmtCmndDocPblcnYn", resultVO.spmtCmndDocPblcnYn);
+        	SBUxMethod.set("chk-spmtMngYn", resultVO.spmtMngYn);
+        	SBUxMethod.set("chk-spmtMblUseYn", resultVO.spmtMblUseYn);
+        	SBUxMethod.set("chk-spmtDocPblcnYn", resultVO.spmtDocPblcnYn);
+        	SBUxMethod.set("chk-clclnMngYn", resultVO.clclnMngYn);
+        	SBUxMethod.set("chk-outordrMngYn", resultVO.outordrMngYn);
+        	SBUxMethod.set("chk-outordrAtmtcRcptnYn", resultVO.outordrAtmtcRcptnYn);
+        	SBUxMethod.set("chk-outordrPckgCmndLnkgYn", resultVO.outordrPckgCmndLnkgYn);		// 현재 없음
+        	SBUxMethod.set("chk-trsmMngYn", resultVO.trsmMngYn);
+        	SBUxMethod.set("chk-sortDataTrsmYn", resultVO.sortDataTrsmYn);
+        	SBUxMethod.set("chk-clclnDataTrsmYn", resultVO.clclnDataTrsmYn);
+        	SBUxMethod.set("chk-oprtrUseYn", resultVO.oprtrUseYn);
+        	SBUxMethod.set("chk-oprtrSortPrfmncTrsmYn", resultVO.oprtrSortPrfmncTrsmYn);		// 현재 없음
+        	SBUxMethod.set("chk-oprtrPckgPrfmncTrsmYn", resultVO.oprtrPckgPrfmncTrsmYn);		// 현재 없음
 
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -645,10 +710,7 @@
 			fn_warehouseMngCreateGrid();
 		}
 		if(targetName == 'btnItem'){
-			fn_itemCreateGrid();
-            fn_apcItemCreateGrid();
-            fn_vrtyCreateGrid();
-            fn_apcVrtyCreateGrid();
+			fn_createGridItemVrty();
 		}
 		if(targetName == 'btnPltBx'){
 			fn_pltMngCreateGrid();
@@ -779,8 +841,8 @@
             	grdOprtr.addRow(true);
             }else if(grid === "grdApcVrty"){
             	grdApcVrty.setCellData(nRow, nCol, "N", true);
-            	grdApcVrty.setCellData(nRow, 3, gv_apcCd, true);
-            	grdApcVrty.setCellData(nRow, 4, SBUxMethod.get("vrty-inp-itemCd"), true);
+            	grdApcVrty.setCellData(nRow, 5, gv_apcCd, true);
+            	grdApcVrty.setCellData(nRow, 6, SBUxMethod.get("vrty-inp-itemCd"), true);
             	grdApcVrty.addRow(true);
             }else if(grid === "grdGrd"){
             	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
@@ -993,5 +1055,37 @@
 		}
 		return true;
 	}
+
+	// APC정보변경
+    const fn_save = async function(){
+		let chkGdsSeCd = SBUxMethod.get("chk-gdsSeCd");
+		let keys = Object.getOwnPropertyNames(chkGdsSeCd);
+
+		let insertList = [];
+		let cdVls = "";
+		for(let i=0; i<keys.length; i++){
+			if(chkGdsSeCd[keys[i]]){
+				cdVls += chkGdsSeCd[keys[i]]
+			}
+		}
+
+    	let apcEvrmntStng = {
+    		apcCd					: gv_selectedApcCd
+    	  ,	apcNm 					: SBUxMethod.get("inp-apcNm")
+    	  , telno 					: SBUxMethod.get("inp-telno")
+    	  , addr 					: SBUxMethod.get("inp-addr")
+    	  , fxno 					: SBUxMethod.get("inp-fxno")
+    	  , actno 					: SBUxMethod.get("inp-actno")
+    	  , bankCd 					: SBUxMethod.get("slt-bankCd")
+    	  , dpstr 					: SBUxMethod.get("inp-dpstr")
+    	  , brno 					: SBUxMethod.get("inp-brno")
+    	  , apcSeCd					: SBUxMethod.get("rdo-apcSeCd")
+    	  , clclnCrtr				: SBUxMethod.get("rdo-clclnCrtr")
+    	  , cdVls					: cdVls
+    	}
+    	console.log(apcEvrmntStng);
+    	let postJsonPromise = gfn_postJSON("/am/apc/updateApcEvrmntStng.do", apcEvrmntStng);
+        let data = await postJsonPromise;
+    }
 </script>
 </html>
