@@ -466,118 +466,62 @@
 	<!-- 2023.08.16  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <insert id="insertSpmtCmnd" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
-<!--     	<![CDATA[ -->
-<!--     	INSERT INTO TB_SPMT_CMND -->
-<!--     		( -->
-<!--     			APC_CD -->
-<!--     		  , SPMT_CMNDNO -->
-<!--     		  , SPMT_CMND_SN -->
-<!--     		  , CMND_YMD -->
-<!--     		  , CNPT_CD -->
-<!--     		  , DLDTN -->
-<!--     		  , TRSPRT_CO_CD -->
-<!-- 		      , TRSPRT_CO_NM -->
-<!--     		  , GDS_GRD -->
-<!--     		  , CMND_QNTT -->
-<!--     		  , CMND_WGHT -->
-<!--     		  , SPMT_PCKG_UNIT_CD -->
-<!--     		  , ORDR_NO -->
-<!--     		  , ITEM_CD -->
-<!--     		  , VRTY_CD -->
-<!--     		  , SPCFCT_CD -->
-<!--     		  , GDS_CD -->
-<!--     		  , RMRK -->
-<!--     		  , DEL_YN -->
-<!--     		  , SYS_FRST_INPT_DT -->
-<!--     		  , SYS_FRST_INPT_USER_ID -->
-<!--     		  , SYS_FRST_INPT_PRGRM_ID -->
-<!--     		  , SYS_LAST_CHG_DT -->
-<!--     		  , SYS_LAST_CHG_USER_ID -->
-<!--     		  , SYS_LAST_CHG_PRGRM_ID -->
-<!--     		) -->
-<!--    		VALUES -->
-<!--    			( -->
-<!--    				#{apcCd} -->
-<!--     		  , #{spmtCmndNo} -->
-<!--     		  , #{spmtCmndSn} -->
-<!--     		  , #{cmndYmd} -->
-<!--     		  , #{cnptCd} -->
-<!--     		  , #{dldtn} -->
-<!--     		  , #{trsprtCoCd} -->
-<!--     		  , #{trsprtCoNm} -->
-<!--     		  , #{gdsGrd} -->
-<!--     		  , #{cmndQntt} -->
-<!--     		  , #{cmndWght} -->
-<!--     		  , #{spmtPckgUnitCd} -->
-<!--     		  , #{ordrNo} -->
-<!--     		  , #{itemCd} -->
-<!--     		  , #{vrtyCd} -->
-<!--     		  , #{spcfctCd} -->
-<!--     		  , #{gdsCd} -->
-<!--     		  , #{rmrk} -->
-<!--     		  , #{delYn} -->
-<!--     		  , SYSDATE -->
-<!--     		  , #{sysFrstInptUserId} -->
-<!--     		  , #{sysFrstInptPrgrmId} -->
-<!--     		  , SYSDATE -->
-<!--     		  , #{sysLastChgUserId} -->
-<!--     		  , #{sysLastChgPrgrmId} -->
-<!--    			) -->
-<!--     	]]> -->
-			insert into TB_SPMT_CMND
+		<![CDATA[
+		INSERT INTO TB_SPMT_CMND
 			(
-			APC_CD
-			, SPMT_CMNDNO
-			, SPMT_CMND_SN
-			, CMND_YMD
-			, CNPT_CD
-			, DLDTN
-			, TRSPRT_CO_CD
-			, GDS_GRD
-			, CMND_QNTT
-			, CMND_WGHT
-			, SPMT_PCKG_UNIT_CD
-			, OUTORDRNO
-			, ITEM_CD
-			, VRTY_CD
-			, SPCFCT_CD
-			, GDS_CD
-			, RMRK
-			, DEL_YN
-			, SYS_FRST_INPT_DT
-			, SYS_FRST_INPT_PRGRM_ID
-			, SYS_FRST_INPT_USER_ID
-			, SYS_LAST_CHG_DT
-			, SYS_LAST_CHG_USER_ID
-			, SYS_LAST_CHG_PRGRM_ID
+				APC_CD
+			  , SPMT_CMNDNO
+			  , SPMT_CMND_SN
+			  , CMND_YMD
+			  , CNPT_CD
+			  , DLDTN
+			  , TRSPRT_CO_CD
+			  , GDS_GRD
+			  , CMND_QNTT
+			  , CMND_WGHT
+			  , SPMT_PCKG_UNIT_CD
+			  , OUTORDRNO
+			  , ITEM_CD
+			  , VRTY_CD
+			  , SPCFCT_CD
+			  , GDS_CD
+			  , RMRK
+			  , DEL_YN
+			  , SYS_FRST_INPT_DT
+			  , SYS_FRST_INPT_PRGRM_ID
+			  , SYS_FRST_INPT_USER_ID
+			  , SYS_LAST_CHG_DT
+			  , SYS_LAST_CHG_USER_ID
+			  , SYS_LAST_CHG_PRGRM_ID
 			)
-			VALUES
+		VALUES
 			(
-			#{apcCd}
-			, #{spmtCmndno}
-			, #{spmtCmndSn}
-			, #{cmndYmd}
-			, #{cnptCd}
-			, #{dldtn}
-			, #{trsprtCoCd}
-			, #{gdsGrd}
-			, #{cmndQntt}
-			, #{cmndWght}
-			, #{spmtPckgUnitCd}
-			, #{outordrno}
-			, #{itemCd}
-			, #{vrtyCd}
-			, #{spcfctCd}
-			, #{gdsCd}
-			, #{rmrk}
-			, #{delYn}
-			, SYSDATE
-			, #{sysFrstInptPrgrmId}
-			, #{sysFrstInptUserId}
-			, SYSDATE
-			, #{sysLastChgUserId}
-			, #{sysLastChgPrgrmId}
+				#{apcCd}
+			  , #{spmtCmndno}
+			  , #{spmtCmndSn}
+			  , #{cmndYmd}
+			  , #{cnptCd}
+			  , #{dldtn}
+			  , #{trsprtCoCd}
+			  , #{gdsGrd}
+			  , #{cmndQntt}
+			  , #{cmndWght}
+			  , #{spmtPckgUnitCd}
+			  , #{outordrno}
+			  , #{itemCd}
+			  , #{vrtyCd}
+			  , #{spcfctCd}
+			  , #{gdsCd}
+			  , #{rmrk}
+			  , #{delYn}
+			  , SYSDATE
+			  , #{sysFrstInptPrgrmId}
+			  , #{sysFrstInptUserId}
+			  , SYSDATE
+			  , #{sysLastChgUserId}
+			  , #{sysLastChgPrgrmId}
 			)
+		]]>
     </insert>
 
     <!-- ==========================================================================	-->

@@ -43,9 +43,9 @@
 							<th>
 								<sbux-datepicker id="spmtCmndno-dtp-cmndYmd" name="spmtCmndno-dtp-cmndYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</th>
-							<th scope="row">포장구분</th>
+							<th scope="row">포장단위</th>
 							<th class="td_input">
-								<sbux-select id="spmtCmndno-slt-spmtPckgUnitCd" name="spmtCmndno-slt-spmtPckgUnitCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComPckgSeCd"></sbux-select>
+								<sbux-select id="spmtCmndno-slt-spmtPckgUnitCd" name="spmtCmndno-slt-spmtPckgUnitCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonSpmtPckgUnitCd"></sbux-select>
 							</th>
 						</tr>
 						<tr>
@@ -103,10 +103,10 @@
 <script type="text/javascript">
 
 	/* grid 내 select json */
-	var jsonApcItem			= [];	// 품목 		itemCd		검색
-	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
-	var jsonApcSpcfct		= [];	// 규격 		spcfct		검색
-	var jsonComPckgSeCd		= [];	// 포장구분 	spmtPckgUnitCd	검색
+	var jsonApcItem			= [];	// 품목 		itemCd			검색
+	var jsonApcVrty			= [];	// 품종 		vrtyCd			검색
+	var jsonApcSpcfct		= [];	// 규격 		spcfct			검색
+	var jsonSpmtPckgUnitCd	= [];	// 포장구분 	spmtPckgUnitCd	검색
 
 	var grdSpmtCmndno = null;
 	var jsonSpmtCmndnoPop = [];
@@ -137,15 +137,15 @@
 				SBUxMethod.set("spmtCmndno-dtp-cmndYmd", gfn_dateToYmd(new Date()));
 				
 				let rst = await Promise.all([
-				 	gfn_setApcItemSBSelect('spmtCmndno-slt-itemCd', jsonApcItem, _apcCd),					// 품목
-					gfn_setApcVrtySBSelect('spmtCmndno-slt-vrtyCd', jsonApcVrty, _apcCd),					// 품종
-					gfn_setApcSpcfctsSBSelect('spmtCmndno-slt-spcfctCd', jsonApcSpcfct, _apcCd),			// 규격
-					gfn_setComCdSBSelect('spmtCmndno-slt-spmtPckgUnitCd', jsonComPckgSeCd, 'PCKG_SE_CD', _apcCd)	// 포장구분
+				 	gfn_setApcItemSBSelect('spmtCmndno-slt-itemCd', jsonApcItem, _apcCd),						// 품목
+					gfn_setApcVrtySBSelect('spmtCmndno-slt-vrtyCd', jsonApcVrty, _apcCd),						// 품종
+					gfn_setApcSpcfctsSBSelect('spmtCmndno-slt-spcfctCd', jsonApcSpcfct, _apcCd),				// 규격
+					gfn_setSpmtPckgUnitSBSelect('spmtCmndno-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, _apcCd)	// 포장구분
 				]);
 				this.createGrid();
-				//this.search();
+				this.search();
 			} else {
-				//this.search();
+				this.search();
 			}
 
 			this.prvApcCd = _apcCd;
@@ -174,7 +174,7 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		    	{caption: ['출하지시일자'], ref: 'cmndYmd', 		width: '100px',		type: 'output', 	style: 'text-align: center',
+		    	{caption: ['출하지시일자'],	ref: 'cmndYmd', 		width: '100px',		type: 'output', 	style: 'text-align: center',
 	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	            {caption: ['거래처'],		ref: 'cnptNm', 			width: '120px', 	type: 'output', 	style: 'text-align: center'},
 	            {caption: ['품종'], 		ref: 'vrtyNm', 			width: '80px', 		type: 'output', 	style: 'text-align: center'},
@@ -190,7 +190,7 @@
 	            {caption: ['배송처'], 	ref: 'dldtn', 			width: '150px', 	type: 'output', 	style: 'text-align: center'},
 	            {caption: ['운임비용'], 	ref: 'trsprtCst', 		width: '100px', 	type: 'output', 	style: 'text-align: center',
 	    			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-	            {caption: ['포장구분'], 	ref: 'spmtPckgUnitNm',	width: '150px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['포장단위'], 	ref: 'spmtPckgUnitNm',	width: '150px', 	type: 'output', 	style: 'text-align: center'},
 	            {caption: ['출하지시번호'],	ref: 'spmtCmndno',		hidden: true},
 	            {caption: ['거래처코드'], 	ref: 'cnptCd',			hidden: true},
 	            {caption: ['품종코드'], 	ref: 'vrtyCd',			hidden: true},
@@ -198,7 +198,7 @@
 	            {caption: ['상품코드'],	ref: 'gdsCd',			hidden: true},
 	            {caption: ['상품등급'], 	ref: 'gdsGrd',			hidden: true},
 	            {caption: ['운송회사코드'],	ref: 'trsprtCoCd',		hidden: true},
-	            {caption: ['포장구분코드'],	ref: 'spmtPckgUnitCd',	hidden: true},
+	            {caption: ['포장단위코드'],	ref: 'spmtPckgUnitCd',	hidden: true},
 		    ];
 		    grdSpmtCmndno = _SBGrid.create(SBGridProperties);
 		    grdSpmtCmndno.bind('dblclick', popSpmtCmndno.choice);
@@ -221,7 +221,6 @@
 	    	await this.setGrid(pageSize, pageNo);
 		},
 		setGrid: async function(pageSize, pageNo) {
-
 	    	let apcCd = SBUxMethod.get("spmtCmndno-inp-apcCd");
 			let cmndYmd = SBUxMethod.get("spmtCmndno-dtp-cmndYmd");
 			let itemCd = SBUxMethod.get("spmtCmndno-slt-itemCd");
@@ -314,11 +313,13 @@
 			let itemCd = obj.value;
 
 			let result = await Promise.all([
-				gfn_setApcVrtySBSelect('spmtCmndno-slt-vrtyCd', jsonApcVrty, apcCd, itemCd),		// 품종
-				gfn_setApcSpcfctsSBSelect('spmtCmndno-slt-spcfctCd', jsonApcSpcfct, apcCd, itemCd)	// 규격
+				gfn_setApcVrtySBSelect('spmtCmndno-slt-vrtyCd', jsonApcVrty, apcCd, itemCd),					// 품종
+				gfn_setApcSpcfctsSBSelect('spmtCmndno-slt-spcfctCd', jsonApcSpcfct, apcCd, itemCd),				// 규격
+				gfn_setSpmtPckgUnitSBSelect('spmtCmndno-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, apcCd, itemCd)	// 포장구분
 			]);
 		},
 		srchVrtyCd: async function(obj) {
+	    	let apcCd = SBUxMethod.get("spmtCmndno-inp-apcCd");
 			let vrtyCd = obj.value;
 			const itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
 
@@ -328,6 +329,7 @@
 				await this.srchItemCd({value: itemCd});
 				SBUxMethod.set("spmtCmndno-slt-vrtyCd", vrtyCd);
 			}
+			gfn_setSpmtPckgUnitSBSelect('spmtCmndno-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, apcCd, itemCd, vrtyCd)
 		}
 	}
 
