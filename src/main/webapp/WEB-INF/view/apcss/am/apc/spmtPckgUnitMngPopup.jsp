@@ -84,14 +84,12 @@
 	var jsonSPUGdsGrd = [];
 
 	const fn_initSBSelectSpmtPckgUnit = async function() {
-		
+
 		let rst = await Promise.all([
 			gfn_setApcItemSBSelect("spmtPckgUnit-slt-itemCd", jsonSPUItemCd, gv_apcCd), 	// APC 품목(검색)
 			gfn_setApcItemSBSelect("grdSpmtPckgUnit", 		jsonSPUGrdItemCd, gv_apcCd),	// APC 품목(저장)
 			gfn_setComCdSBSelect("grdSpmtPckgUnit", 		jsonSPUGdsGrd, "GDS_GRD")		// 상품등급(출하)
 		]);
-		console.log("jsonSPUGdsGrd >> ",jsonSPUGdsGrd);
-		
 		grdSpmtPckgUnit.refresh({"combo":true});
 	}
 

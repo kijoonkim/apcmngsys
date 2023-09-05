@@ -360,4 +360,45 @@
 		]]>
 	</delete>
 
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComCdDtlDelYn			-->
+	<!-- DESC : 공통코드 상세 사용유무 수정  		                                           		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.05  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateComCdDtlDelYn" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+    	<![CDATA[
+    	UPDATE TB_COM_CD_DTL
+    	   SET SYS_LAST_CHG_DT 			= SYSDATE
+    	     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+    	     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    	     , DEL_YN 					= 'N'
+    	 WHERE CD_ID 	= #{cdId}
+    	   AND CD_VL 	= #{cdVl}
+    	   AND APC_CD 	= #{apcCd}
+    	]]>
+    </update>
+
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComCdDtlDelYn			-->
+	<!-- DESC : 공통코드 상세 사용유무 전체변경  		                                        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.05  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="comCdDtlDelYnAll" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+    	<![CDATA[
+    	UPDATE TB_COM_CD_DTL
+    	   SET SYS_LAST_CHG_DT 			= SYSDATE
+    	     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+    	     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    	     , DEL_YN 					= 'Y'
+    	 WHERE CD_ID 	= #{cdId}
+    	   AND APC_CD 	= #{apcCd}
+    	]]>
+    </update>
+
 </mapper>

@@ -29,6 +29,8 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String telno;
 	private String fxno;
 
+	private String cdVls;
+
 	/**
 	 * case id : CASE1 ~ CASE10
 	 */
@@ -71,6 +73,7 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String spmtDocPblcnYn;	// 송품장발행유무
 	private String clclnMngYn;	// 정산관리유무				AM_008_001	AM_008_002
 	private String outordrMngYn;	// 발주정보관리유무			AM_007_001	AM_007_002
+	private String outordrAtmtcRcptnYn;	// 발주정보자동수신
 	private String outordrPckgCmndLnkgYn;	// 발주정보포장지시연결유무
 	private String trsmMngYn;	// 전송관리유무
 	private String sortDataTrsmYn;	// 선별정보전송유무

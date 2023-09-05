@@ -607,8 +607,9 @@
                             callback-after-close="fn_chkTabList"
                         ></sbux-tabs>
                         <div class="tab-content">
-                            <iframe id="idxfrmJson" name="frmJson" onload="fn_resizeFrame(this);"
-                                style="overflow-x:hidden;overflow:auto;width:100%;min-height:650px;border:0px;"
+                            <iframe id="idxfrmJson" name="frmJson"
+                                style="overflow-x:hidden;overflow:auto;width:100%;min-height:780px;border:0px;"
+                                scrolling="auto"
                             ></iframe>
                         </div>
                     </div>

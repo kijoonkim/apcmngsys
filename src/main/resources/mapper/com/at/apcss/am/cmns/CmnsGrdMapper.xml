@@ -293,7 +293,7 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGrdMapper.deleteApcGrd			-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGrdMapper.deleteApcGrd				-->
 	<!-- DESC : APC 등급 삭제.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -306,6 +306,23 @@
 			  FROM TB_APC_GRD_CRTR
 			 WHERE ITEM_CD = #{itemCd}
 			   AND GRD_CD = #{grdCd}
+			   AND APC_CD = #{apcCd}
+		]]>
+	</delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGrdMapper.deleteApcGrdAll			-->
+	<!-- DESC : APC 등급 전체 삭제.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.04  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<delete id="deleteApcGrdAll" parameterType="com.at.apcss.am.cmns.vo.CmnsGrdVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.cmns.mapper.CmnsGrdMapper.deleteApcGrd */
+			  FROM TB_APC_GRD_CRTR
+			 WHERE ITEM_CD = #{itemCd}
 			   AND APC_CD = #{apcCd}
 		]]>
 	</delete>

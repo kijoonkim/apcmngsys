@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.CmnsItemVO;
@@ -66,7 +67,7 @@ public interface CmnsItemService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
+	public HashMap<String, Object> deleteCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
 
 
 }

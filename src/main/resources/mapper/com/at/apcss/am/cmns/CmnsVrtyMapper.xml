@@ -188,10 +188,15 @@
     <select id="selectApcVrtyList" parameterType="com.at.apcss.am.cmns.vo.CmnsVrtyVO" resultType="com.at.apcss.am.cmns.vo.CmnsVrtyVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsVrtyMapper.selectApcVrtyList */
-				  AVC.ITEM_CD
-				, AVC.VRTY_CD
-				, AVC.VRTY_NM
-			    , AVC.DEL_YN
+				  AVC.ITEM_CD				AS ITEM_CD
+				, AVC.VRTY_CD				AS VRTY_CD
+				, AVC.VRTY_NM				AS VRTY_NM
+				, AVC.UNIT_WGHT				AS UNIT_WGHT
+				, AVC.WGHT_RKNG_SE_CD		AS WGHT_RKNG_SE_CD
+				, AVC.NH_APC_CD				AS NH_APC_CD
+				, AVC.NH_VRTY_NM			AS NH_VRTY_NM
+				, AVC.SN 					AS SN
+			    , AVC.DEL_YN				AS DEL_YN
 			  FROM TB_APC_VRTY_CRTR AVC
 			 WHERE AVC.APC_CD = #{apcCd}
 		]]>
@@ -228,6 +233,8 @@
 	    			, ITEM_CD
 	    			, VRTY_CD
 					, VRTY_NM
+					, UNIT_WGHT
+					, WGHT_RKNG_SE_CD
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -250,6 +257,8 @@
     	</choose>
     	<![CDATA[
 					, #{vrtyNm}
+					, #{unitWght}
+    				, #{wghtRkngSeCd}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -298,6 +307,23 @@
 			  FROM TB_APC_VRTY_CRTR
 			 WHERE ITEM_CD = #{itemCd}
 			   AND VRTY_CD = #{vrtyCd}
+			   AND APC_CD = #{apcCd}
+		]]>
+	</delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsVrtyMapper.deleteApcVrtyAll			-->
+	<!-- DESC : APC 품종 전체 삭제.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<delete id="deleteApcVrtyAll" parameterType="com.at.apcss.am.cmns.vo.CmnsVrtyVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.cmns.mapper.CmnsVrtyMapper.deleteApcVrty */
+			  FROM TB_APC_VRTY_CRTR
+			 WHERE ITEM_CD = #{itemCd}
 			   AND APC_CD = #{apcCd}
 		]]>
 	</delete>

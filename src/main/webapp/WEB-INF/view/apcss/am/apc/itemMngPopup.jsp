@@ -18,7 +18,7 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchItem" name="btnSearchItem" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchItemList"></sbux-button>
+					<sbux-button id="btnSearchItem" name="btnSearchItem" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchAll"></sbux-button>
 					<sbux-button id="btnSaveItem" name="btnSaveItem" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_SevaApcVrtyList"></sbux-button>
 					<sbux-button id="btnEndItem" name="btnEndItem" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-item')"></sbux-button>
 				</div>
@@ -141,20 +141,38 @@
 	</section>
 </body>
 <script type="text/javascript">
-	const chcItemCd="";
+	var jsonVrtyWghtRkngSeCd	= [];
+	var jsonApcVrtyWghtRkngSeCd	= [];
 
-	var jsonItem = []; // 그리드의 참조 데이터 주소 선언
-	async function fn_itemCreateGrid() {
-		SBUxMethod.set("item-inp-apcNm", SBUxMethod.get("inp-apcNm"));
+	const fn_initSBSelectItemVrty = async function() {
 
-		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdItem';
-	    SBGridProperties.id = 'grdItem';
-	    SBGridProperties.jsonref = 'jsonItem';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.columns = [
+		let rst = await Promise.all([
+			gfn_setComCdSBSelect("grdVrty", 		jsonVrtyWghtRkngSeCd, "WGHT_RKNG_SE_CD"),		// 상품등급(출하)
+			gfn_setComCdSBSelect("grdApcVrty", 		jsonApcVrtyWghtRkngSeCd, "WGHT_RKNG_SE_CD")		// 상품등급(출하)
+		]);
+		grdVrty.refresh({"combo":true});
+		grdApcVrty.refresh({"combo":true});
+
+		fn_searchAll();
+	}
+
+	var jsonItem 	= []; // 품목 그리드의 참조 데이터 주소 선언
+	var jsonApcItem = []; // APC품목 그리드의 참조 데이터 주소 선언
+	var jsonVrty 	= []; // 품종 그리드의 참조 데이터 주소 선언
+	var jsonApcVrty = []; // APC품종 그리드의 참조 데이터 주소 선언
+	const fn_createGridItemVrty = async function() {
+		SBUxMethod.set("item-inp-apcNm", gv_apcNm);
+
+		// 마스터 품목
+		let SBGridPropertiesItem = {};
+		SBGridPropertiesItem.parentid = 'sb-area-grdItem';
+		SBGridPropertiesItem.id = 'grdItem';
+		SBGridPropertiesItem.jsonref = 'jsonItem';
+		SBGridPropertiesItem.emptyrecords = '데이터가 없습니다.';
+		SBGridPropertiesItem.selectmode = 'byrow';
+		SBGridPropertiesItem.extendlastcol = 'scroll';
+		SBGridPropertiesItem.scrollbubbling = false;
+		SBGridPropertiesItem.columns = [
 	        {caption: ["코드"],     ref: 'itemCd',  type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["명칭"],     ref: 'itemNm',  type:'output',  width:'280px',    style:'text-align:center'},
 	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'80PX',    style:'text-align:center',
@@ -164,51 +182,19 @@
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
 
 	    ];
-	    grdItem = _SBGrid.create(SBGridProperties);
-	    fn_searchItemList();
-	}
+	    grdItem = _SBGrid.create(SBGridPropertiesItem);
 
-	async function fn_searchItemList(){
-		await fn_callSelectItemList()
-	}
-
-	async function fn_callSelectItemList(){
-		let apcCd = SBUxMethod.get("inp-apcCd");
-		let itemNm = SBUxMethod.get("item-inp-itemNm");
-    	let postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsItemList.do", {apcCd : apcCd, itemNm : itemNm});
-        let data = await postJsonPromise;
-        let newJsonItem = [];
-        try{
-        	data.resultList.forEach((item, index) => {
-				let itemVO = {
-					itemCd 		: item.itemCd
-				  , itemNm 		: item.itemNm
-				  , apcCd		: apcCd
-				}
-				newJsonItem.push(itemVO);
-			});
-        	jsonItem = newJsonItem;
-        	grdItem.rebuild();
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
-	}
-
-	var jsonApcItem = []; // 그리드의 참조 데이터 주소 선언
-	async function fn_apcItemCreateGrid() {
-
-		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdApcItem';
-	    SBGridProperties.id = 'grdApcItem';
-	    SBGridProperties.jsonref = 'jsonApcItem';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.columns = [
+	    // APC 품목
+	    let SBGridPropertiesApcItem = {};
+	    SBGridPropertiesApcItem.parentid = 'sb-area-grdApcItem';
+	    SBGridPropertiesApcItem.id = 'grdApcItem';
+	    SBGridPropertiesApcItem.jsonref = 'jsonApcItem';
+	    SBGridPropertiesApcItem.emptyrecords = '데이터가 없습니다.';
+	    SBGridPropertiesApcItem.selectmode = 'byrow';
+	    SBGridPropertiesApcItem.extendlastcol = 'scroll';
+	    SBGridPropertiesApcItem.oneclickedit = true;
+	    SBGridPropertiesApcItem.scrollbubbling = false;
+	    SBGridPropertiesApcItem.columns = [
 	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'130px',    style:'text-align:center'},
 	        {caption: ["품종"],     ref: 'vrtrCnt',  	type:'output',  width:'60px',    style:'text-align:center'},
@@ -221,22 +207,102 @@
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
 
 	    ];
-	    grdApcItem = _SBGrid.create(SBGridProperties);
-	    grdApcItem.bind('click', fn_searchVrtyList);
-	    fn_searchApcItemList();
+	    grdApcItem = _SBGrid.create(SBGridPropertiesApcItem);
+	    grdApcItem.bind('click', fn_searchVrtyAll);
+
+	    // 마스터 품종(품목별)
+	    let SBGridPropertiesVrty = {};
+	    SBGridPropertiesVrty.parentid = 'sb-area-grdVrty';
+	    SBGridPropertiesVrty.id = 'grdVrty';
+	    SBGridPropertiesVrty.jsonref = 'jsonVrty';
+	    SBGridPropertiesVrty.emptyrecords = '데이터가 없습니다.';
+	    SBGridPropertiesVrty.selectmode = 'byrow';
+	    SBGridPropertiesVrty.extendlastcol = 'scroll';
+	    SBGridPropertiesVrty.oneclickedit = true;
+	    SBGridPropertiesVrty.scrollbubbling = false;
+	    SBGridPropertiesVrty.columns = [
+	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["단위중량"],     ref: 'unitWght',  type:'input',  width:'80px',  style: 'text-align:right; background:#FFF8DC;',
+    			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+	        {caption: ["처리기준"],     ref: 'wghtRkngSeCd',  type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
+					typeinfo : {ref:'jsonVrtyWghtRkngSeCd', displayui : false,	itemcount: 10, label:'label', value:'value'}},
+	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'80PX',    style:'text-align:center',
+	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_addVrty(" + nRow + ")'>선택</button>";
+	        }},
+	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
+	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
+
+	    ];
+	    grdVrty = _SBGrid.create(SBGridPropertiesVrty);
+
+	    // APC 품종
+	    let SBGridPropertiesApcVrty = {};
+	    SBGridPropertiesApcVrty.parentid = 'sb-area-grdApcVrty';
+	    SBGridPropertiesApcVrty.id = 'grdApcVrty';
+	    SBGridPropertiesApcVrty.jsonref = 'jsonApcVrty';
+	    SBGridPropertiesApcVrty.emptyrecords = '데이터가 없습니다.';
+	    SBGridPropertiesApcVrty.selectmode = 'byrow';
+	    SBGridPropertiesApcVrty.extendlastcol = 'scroll';
+	    SBGridPropertiesApcVrty.oneclickedit = true;
+	    SBGridPropertiesApcVrty.scrollbubbling = false;
+	    SBGridPropertiesApcVrty.columns = [
+	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'input',  	width:'140px',    style:'text-align:center'},
+	        {caption: ["단위중량"],     ref: 'unitWght',  type:'input',  width:'80px',  style: 'text-align:right; background:#FFF8DC;',
+    			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+	        {caption: ["처리기준"],     ref: 'wghtRkngSeCd',  type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
+					typeinfo : {ref:'jsonVrtyWghtRkngSeCd', displayui : false,	itemcount: 10, label:'label', value:'value'}},
+	        {caption: ["선택"], 	ref: 'delYn',   type:'output',  width:'80PX',    style:'text-align:center',
+	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	            	if(strValue== null || strValue == ""){
+		        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdApcVrty\", " + nRow + ", " + nCol + ")'>추가</button>";
+		        	}else{
+		                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteVrty(" + nRow + ")'>삭제</button>";
+		        	}
+	        }},
+	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
+	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
+
+	    ];
+	    grdApcVrty = _SBGrid.create(SBGridPropertiesApcVrty);
+
+	    fn_initSBSelectItemVrty();
 	}
 
-	async function fn_searchApcItemList(){
-		await fn_callSelectApcItemList();
+
+	const fn_searchItemList = async function(){
+		let apcCd = SBUxMethod.get("inp-apcCd");
+		let itemNm = SBUxMethod.get("item-inp-itemNm");
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsItemList.do", {apcCd : apcCd, itemNm : itemNm});
+        let data = await postJsonPromise;
+        try{
+        	jsonItem.length = 0;
+        	data.resultList.forEach((item, index) => {
+				let itemVO = {
+					itemCd 		: item.itemCd
+				  , itemNm 		: item.itemNm
+				  , apcCd		: apcCd
+				}
+				jsonItem.push(itemVO);
+			});
+        	grdItem.rebuild();
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
 	}
 
-	async function fn_callSelectApcItemList(){
+	const fn_searchApcItemList = async function(){
 
 		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectApcCmnsItemList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        let newJsonApcItem = [];
         try{
+        	jsonApcItem.length = 0;
         	data.resultList.forEach((item, index) => {
 				let itemVO = {
 					itemCd 		: item.itemCd
@@ -246,9 +312,8 @@
 				  , spcfctCnt	: item.spcfctCnt
 				  , grdCnt		: item.grdCnt
 				}
-				newJsonApcItem.push(itemVO);
+				jsonApcItem.push(itemVO);
 			});
-        	jsonApcItem = newJsonApcItem;
         	grdApcItem.rebuild();
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -258,84 +323,30 @@
         }
 	}
 
-	async function fn_addItem(nRow){
-		let itemVO = grdItem.getRowData(nRow);
-		fn_callInsertApcItem(itemVO);
-	}
+	const fn_searchAll = async function(){
+		let rst = await Promise.all([
+			fn_searchItemList(),
+			fn_searchApcItemList()
+		]);
 
-	async function fn_callInsertApcItem(cmnsItemVO){
-		let postJsonPromise = gfn_postJSON("/am/cmns/insertApcCmnsItem.do", cmnsItemVO);
-        let data = await postJsonPromise;
-        try{
-        	if(data.result > 0){
-        		fn_searchApcItemList();
-        		fn_searchItemList();
-
-        	}else{
-        		alert("등록 중 실패하였습니다.")
-        	}
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
-	}
-
-	async function fn_deleteItem(nRow){
-		let itemVO = grdApcItem.getRowData(nRow);
-		fn_callDeleteItem(itemVO)
-	}
-
-	async function fn_callDeleteItem(cmnsItemVO){
-		let postJsonPromise = gfn_postJSON("/am/cmns/deleteApcCmnsItem.do", cmnsItemVO);
-        let data = await postJsonPromise;
-        try{
-        	if(data.result > 0){
-        		fn_searchApcItemList();
-        		fn_searchItemList();
-        	}else{
-        		alert("삭제 중 실패하였습니다.")
-        	}
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
-	}
-
-	// 품종 목록 조회
-	var jsonVrty = []; // 그리드의 참조 데이터 주소 선언
-	async function fn_vrtyCreateGrid() {
+		jsonApcVrty = [];
 		jsonVrty = [];
-		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdVrty';
-	    SBGridProperties.id = 'grdVrty';
-	    SBGridProperties.jsonref = 'jsonVrty';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.columns = [
-	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'output',  width:'280px',    style:'text-align:center'},
-	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'80PX',    style:'text-align:center',
-	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_addVrty(" + nRow + ")'>선택</button>";
-	        }},
-	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
-	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
+		grdApcVrty.refresh();
+		grdVrty.refresh();
 
-	    ];
-	    grdVrty = _SBGrid.create(SBGridProperties);
-	    fn_selectVrtyList();
 	}
 
-	async function fn_selectVrtyList(){
-		await fn_callSelectVrtyList();
+	const fn_searchVrtyAll = async function(){
+		let nCol = grdApcItem.getCol();
+		if(nCol != 5){
+			let rst = await Promise.all([
+				fn_searchVrtyList(),
+				fn_searchApcVrtyList()
+			]);
+		}
 	}
 
-	async function fn_callSelectVrtyList(){
+	const fn_searchVrtyList = async function(){
 
 		let nRow = grdApcItem.getRow();
         if (nRow < 1 && (SBUxMethod.get("vrty-inp-itemCd") == null || SBUxMethod.get("vrty-inp-itemCd") == "")) {
@@ -375,41 +386,7 @@
         }
 	}
 
-	// APC 품종 목록 조회
-	var jsonApcVrty = []; // 그리드의 참조 데이터 주소 선언
-	async function fn_apcVrtyCreateGrid() {
-		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdApcVrty';
-	    SBGridProperties.id = 'grdApcVrty';
-	    SBGridProperties.jsonref = 'jsonApcVrty';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.columns = [
-	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'input',  	width:'280px',    style:'text-align:center'},
-	        {caption: ["선택"], 	ref: 'delYn',   type:'output',  width:'80PX',    style:'text-align:center',
-	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	            	if(strValue== null || strValue == ""){
-		        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdApcVrty\", " + nRow + ", " + nCol + ")'>추가</button>";
-		        	}else{
-		                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteVrty(" + nRow + ")'>삭제</button>";
-		        	}
-	        }},
-	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
-	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
-
-	    ];
-	    grdApcVrty = _SBGrid.create(SBGridProperties);
-	    fn_searchApcVrtyList();
-	}
-
-	async function fn_searchApcVrtyList(){
-		await fn_callSelectApcVrtyList();
-	}
-
-	async function fn_callSelectApcVrtyList(){
+	const fn_searchApcVrtyList = async function(){
 
 		let nRow = grdApcItem.getRow();
         if (nRow < 1 && (SBUxMethod.get("vrty-inp-itemCd") == null || SBUxMethod.get("vrty-inp-itemCd") == "")) {
@@ -430,11 +407,13 @@
         try{
         	data.resultList.forEach((item, index) => {
 				let vrtyVO = {
-					vrtyCd 		: item.vrtyCd
-				  , vrtyNm 		: item.vrtyNm
-				  , apcCd		: apcCd
-				  , delYn 		: item.delYn
-				  , itemCd		: item.itemCd
+					vrtyCd 			: item.vrtyCd
+				  , vrtyNm 			: item.vrtyNm
+				  , apcCd			: apcCd
+				  , delYn 			: item.delYn
+				  , itemCd			: item.itemCd
+				  , unitWght		: item.unitWght
+				  , wghtRkngSeCd 	: item.wghtRkngSeCd
 				}
 				newJsonApcVrty.push(vrtyVO);
 			});
@@ -450,107 +429,161 @@
         }
 	}
 
-	async function fn_searchVrtyList(){
-		fn_selectVrtyList();
-		fn_searchApcVrtyList();
+	const fn_addItem = async function (nRow){
+		let itemVO = grdItem.getRowData(nRow);
+		let postJsonPromise = gfn_postJSON("/am/cmns/insertApcCmnsItem.do", itemVO);
+        let data = await postJsonPromise;
+        try{
+        	if(data.insertedCnt > 0){
+        		fn_searchAll()
+        	}else{
+        		gfn_comAlert("E0001");
+        	}
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
 	}
 
-	async function fn_addVrty(nRow){
+	const fn_deleteItem = async function(nRow){
+		let itemVO = grdApcItem.getRowData(nRow);
+		let postJsonPromise = gfn_postJSON("/am/cmns/deleteApcCmnsItem.do", itemVO);
+        let data = await postJsonPromise;
+        try{
+        	if(data.deletedCnt > 0){
+        		gfn_comAlert("I0001")				// I0001	처리 되었습니다.
+        		fn_searchAll();
+        		return;
+        	}else if (data.errMsg != null ){
+        		gfn_comAlert("E0000", data.errMsg)		// W0009   {0}이/가 있습니다.
+        		return;
+        	}else {
+        		gfn_comAlert("E0001");
+        	}
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
+	}
+
+	const fn_addVrty = async function(nRow){
 		let vrtyVO = grdVrty.getRowData(nRow);
-		fn_callInsertApcVrty(vrtyVO);
-	}
+		let unitWght = vrtyVO.unitWght;
+		let wghtRkngSeCd = vrtyVO.wghtRkngSeCd;
+		if (gfn_isEmpty(unitWght)) {
+  			gfn_comAlert("W0002", "단위중량");		//	W0002	{0}을/를 입력하세요.
+            return;
+  		}
+		if (gfn_isEmpty(wghtRkngSeCd)) {
+  			gfn_comAlert("W0001", "처리기준");		//	W0001	{0}을/를 선택하세요.
+            return;
+  		}
 
-	async function fn_callInsertApcVrty(cmnsVrtyVO){
-		let postJsonPromise = gfn_postJSON("/am/cmns/insertApcVrty.do", cmnsVrtyVO);
+		let postJsonPromise = gfn_postJSON("/am/cmns/insertApcVrty.do", vrtyVO);
         let data = await postJsonPromise;
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		searchAll();
+        		fn_searchAll();
+        		fn_searchVrtyAll();
         	} else {
         		alert(data.resultMessage);
         	}
-        } catch(e) {
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
         }
 	}
 
-	async function fn_deleteVrty(nRow){
+	const fn_deleteVrty = async function(nRow){
 		if(grdApcVrty.getRowStatus(nRow) == 0 || grdApcVrty.getRowStatus(nRow) == 2){
 			let vrtyVO = grdApcVrty.getRowData(nRow);
-			fn_callDeleteVrty(vrtyVO)
+
+			let postJsonPromise = gfn_postJSON("/am/cmns/deleteApcVrty.do", vrtyVO);
+	        let data = await postJsonPromise;
+	        try {
+	        	if(data.deletedCnt > 0){
+	        		gfn_comAlert("I0001")				// I0001	처리 되었습니다.
+	        		fn_searchAll();
+	        		fn_searchVrtyAll();
+	        		return;
+	        	}else if (data.errMsg != null ){
+	        		gfn_comAlert("E0000", data.errMsg)		// W0009   {0}이/가 있습니다.
+	        		return;
+	        	}else {
+	        		gfn_comAlert("E0001");
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
    			grdApcVrty.deleteRow(nRow);
     	}else{
     		grdApcVrty.deleteRow(nRow);
     	}
 	}
 
-	async function fn_callDeleteVrty(cmnsVrtyVO){
-		let postJsonPromise = gfn_postJSON("/am/cmns/deleteApcVrty.do", cmnsVrtyVO);
-        let data = await postJsonPromise;
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		searchAll();
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-	}
-
-	async function fn_SevaApcVrtyList(){
+	const fn_SevaApcVrtyList = async function(){
 
 		let gridData = grdApcVrty.getGridDataAll();
 		let insertList = [];
-		let insertedCnt = 0;
 		for(var i=1; i<=gridData.length; i++ ){
-			if(grdApcVrty.getRowData(i).delYn == 'N'){
+			let rowData = grdApcVrty.getRowData(i);
+			let rowStts = grdApcVrty.getRowStatus(i);
+			let delYn = rowData.delYn;
+			let unitWght = rowData.unitWght;
+			let wghtRkngSeCd = rowData.wghtRkngSeCd;
+			let vrtyNm = rowData.vrtyNm;
+			if(delYn == 'N'){
 
-				if(grdApcVrty.getRowData(i).vrtyNm == null || grdApcVrty.getRowData(i).vrtyNm == ""){
-					alert("품종 명은 필수 값 입니다.");
-					return;
-				}
+				if (gfn_isEmpty(vrtyNm)) {
+		  			gfn_comAlert("W0002", "품종명");		//	W0002	{0}을/를 입력하세요.
+		            return;
+		  		}
+				if (gfn_isEmpty(unitWght)) {
+		  			gfn_comAlert("W0002", "단위중량");		//	W0002	{0}을/를 입력하세요.
+		            return;
+		  		}
+				if (gfn_isEmpty(wghtRkngSeCd)) {
+		  			gfn_comAlert("W0001", "처리기준");		//	W0001	{0}을/를 선택하세요.
+		            return;
+		  		}
 
-				if(grdApcVrty.getRowStatus(i) === 3){
-					insertList.push(grdApcVrty.getRowData(i));
+				if(rowStts === 3){
+					insertList.push(rowData);
 				}
 			}
 		}
-		if(insertList.length == 0 && updateList.length == 0){
-			alert("등록 할 내용이 없습니다.");
+		if(insertList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
-		let regMsg = "등록 하시겠습니까?";
+		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
-			if(insertList.length > 0){
-				insertedCnt = await fn_callInsertApcVrtyList(insertList);
-			}
-			if(insertedCnt > 0 ){
-				searchAll();
-				alert("등록 되었습니다.");
-			}
+			let postJsonPromise = gfn_postJSON("/am/cmns/insertApcVrtyList.do", insertList);
+	        let data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_searchAll();
+	        		fn_searchVrtyAll();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        } catch(e) {
+	        }
 		}
-
 	}
 
-	async function fn_callInsertApcVrtyList(vrtyList){
-		let postJsonPromise = gfn_postJSON("/am/cmns/insertApcVrtyList.do", vrtyList);
-        let data = await postJsonPromise;
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		return data.insertedCnt;
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-	}
-
-	async function searchAll(){
-		fn_searchApcItemList();
-		fn_selectVrtyList();
-		fn_searchApcVrtyList();
-	}
 
 </script>
 </html>

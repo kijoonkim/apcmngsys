@@ -1,13 +1,18 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.cmns.mapper.CmnsVrtyMapper;
+import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.cmns.service.CmnsVrtyService;
 import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
+import com.at.apcss.co.constants.ComConstants;
 
 /**
  * @Class Name : CmnsVrtyServiceImpl.java
@@ -26,15 +31,18 @@ import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
  */
 @Service("cmnsVrtyService")
 public class CmnsVrtyServiceImpl implements CmnsVrtyService {
-	
+
 	@Autowired
 	private CmnsVrtyMapper cmnsVrtyMapper;
-	
+
+	@Resource(name = "cmnsValidationService")
+	private CmnsValidationService cmnsValidationService;
+
 	@Override
 	public CmnsVrtyVO selectCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
-		
+
 		CmnsVrtyVO resultVO = cmnsVrtyMapper.selectCmnsVrty(cmnsVrtyVO);
-		
+
 		return resultVO;
 	}
 
@@ -42,7 +50,7 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public List<CmnsVrtyVO> selectCmnsVrtyList(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		List<CmnsVrtyVO> resultList = cmnsVrtyMapper.selectCmnsVrtyList(cmnsVrtyVO);
-		
+
 		return resultList;
 	}
 
@@ -50,7 +58,7 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public int insertCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		int insertedCnt = cmnsVrtyMapper.insertCmnsVrty(cmnsVrtyVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -58,7 +66,7 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public int updateCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		int updatedCnt = cmnsVrtyMapper.updateCmnsVrty(cmnsVrtyVO);
-		
+
 		return updatedCnt;
 	}
 
@@ -66,15 +74,15 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public int deleteCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		int deletedCnt = cmnsVrtyMapper.deleteCmnsVrty(cmnsVrtyVO);
-		
+
 		return deletedCnt;
 	}
 
 	@Override
 	public CmnsVrtyVO selectApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
-		
+
 		CmnsVrtyVO resultVO = cmnsVrtyMapper.selectApcVrty(cmnsVrtyVO);
-		
+
 		return resultVO;
 	}
 
@@ -82,7 +90,7 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public List<CmnsVrtyVO> selectApcVrtyList(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		List<CmnsVrtyVO> resultList = cmnsVrtyMapper.selectApcVrtyList(cmnsVrtyVO);
-		
+
 		return resultList;
 	}
 
@@ -90,7 +98,7 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public int insertApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		int insertedCnt = cmnsVrtyMapper.insertApcVrty(cmnsVrtyVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -98,15 +106,29 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 	public int updateApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
 
 		int updatedCnt = cmnsVrtyMapper.updateApcVrty(cmnsVrtyVO);
-		
+
 		return updatedCnt;
 	}
 
 	@Override
-	public int deleteApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
+	public HashMap<String, Object> deleteApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		int deletedCnt = cmnsVrtyMapper.deleteApcVrty(cmnsVrtyVO);
-		
+		String errMsg = cmnsValidationService.selectChkCdDelible(cmnsVrtyVO.getApcCd(), "VRTY_CD", cmnsVrtyVO.getItemCd());
+		int deletedCnt = 0;
+
+		if(errMsg == null ) {
+			deletedCnt = cmnsVrtyMapper.deleteApcVrty(cmnsVrtyVO);
+			resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		}else {
+			resultMap.put("errMsg", errMsg);
+		}
+		return resultMap;
+	}
+
+	@Override
+	public int deleteApcVrtyAll(CmnsVrtyVO cmnsVrtyVO) throws Exception {
+		int deletedCnt = cmnsVrtyMapper.deleteApcVrtyAll(cmnsVrtyVO);
 		return deletedCnt;
 	}
 

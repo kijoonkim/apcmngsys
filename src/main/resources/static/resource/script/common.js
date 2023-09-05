@@ -161,7 +161,7 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
  * @returns {any[]}
  */
 async function gfn_getComCdDtls (_cdId, _apcCd = "0000") {
-	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd}, null, true);
+	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd, delYn : "N"}, null, true);
 	const data = await postJsonPromise;
 	return data.resultList;
 }
@@ -182,7 +182,7 @@ async function gfn_setComCdSBSelect(_targetIds, _jsondataRef, _cdId, _apcCd) {
 		return;
 	}
 
-	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd}, null, true);
+	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd, delYn : "N"}, null, true);
 	const data = await postJsonPromise;
 
 	try {
@@ -225,7 +225,7 @@ async function gfn_setComCdGridSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
 		return;
 	}
 
-	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd}, null, true);
+	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd, delYn : "N"}, null, true);
 	const data = await postJsonPromise;
 
 	try {

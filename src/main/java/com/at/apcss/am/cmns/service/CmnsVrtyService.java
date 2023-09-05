@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
@@ -27,7 +28,7 @@ public interface CmnsVrtyService {
 	 * @throws Exception
 	 */
 	public CmnsVrtyVO selectCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
-	
+
 	/**
 	 * 품종정보 목록 조회
 	 * @param cmnsVrtyVO
@@ -35,7 +36,7 @@ public interface CmnsVrtyService {
 	 * @throws Exception
 	 */
 	public List<CmnsVrtyVO> selectCmnsVrtyList(CmnsVrtyVO cmnsVrtyVO) throws Exception;
-	
+
 	/**
 	 * 품종정보 등록
 	 * @param cmnsVrtyVO
@@ -43,7 +44,7 @@ public interface CmnsVrtyService {
 	 * @throws Exception
 	 */
 	public int insertCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
-	
+
 	/**
 	 * 품종정보 변경
 	 * @param cmnsVrtyVO
@@ -51,7 +52,7 @@ public interface CmnsVrtyService {
 	 * @throws Exception
 	 */
 	public int updateCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
-	
+
 	/**
 	 * 품종정보 삭제
 	 * @param cmnsVrtyVO
@@ -59,9 +60,9 @@ public interface CmnsVrtyService {
 	 * @throws Exception
 	 */
 	public int deleteCmnsVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
-	
+
 	// APC 품종정보
-	
+
 	/**
 	 * APC 품종 정보 단건 조회
 	 * @param cmnsVrtyVO
@@ -69,7 +70,7 @@ public interface CmnsVrtyService {
 	 * @throws Exception
 	 */
 	public CmnsVrtyVO selectApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
-	
+
 	/**
 	 * APC 품종 정보 목록 조회
 	 * @param cmnsVrtyVO
@@ -77,7 +78,7 @@ public interface CmnsVrtyService {
 	 * @throws Exception
 	 */
 	public List<CmnsVrtyVO> selectApcVrtyList(CmnsVrtyVO cmnsVrtyVO) throws Exception;
-	
+
 	/**
 	 * APC 품종 정보 등록
 	 * @param cmnsVrtyVO
@@ -85,7 +86,7 @@ public interface CmnsVrtyService {
 	 * @throws Exception
 	 */
 	public int insertApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
-	
+
 	/**
 	 * APC 품종 정보 변경
 	 * @param cmnsVrtyVO
@@ -93,12 +94,20 @@ public interface CmnsVrtyService {
 	 * @throws Exception
 	 */
 	public int updateApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
-	
+
 	/**
 	 * APC 품종 정보 삭제
 	 * @param cmnsVrtyVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
+	public HashMap<String, Object> deleteApcVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
+
+	/**
+	 * APC 품종 정보 삭제
+	 * @param cmnsVrtyVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteApcVrtyAll(CmnsVrtyVO cmnsVrtyVO) throws Exception;
 }

@@ -91,5 +91,15 @@ public class ComCdServiceImpl implements ComCdService {
 		return comCdMapper.duplicateCheckCdIdDtl(comCdVO);
 	}
 
+	@Override
+	public int updateComCdDtlDelYn(ComCdVO comCdVO) {
+		return comCdMapper.updateComCdDtlDelYn(comCdVO);
+	}
+
+	@Override
+	public int comCdDtlDelYnAll(ComCdVO comCdVO) {
+		return comCdMapper.comCdDtlDelYnAll(comCdVO);
+	}
+
 
 }

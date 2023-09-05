@@ -23,7 +23,10 @@
     <select id="selectChkCdDelible" parameterType="com.at.apcss.am.cmns.vo.CmnsValidationVO" resultType="com.at.apcss.am.cmns.vo.CmnsValidationVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsValidationMapper */
-				FN_CHK_CD_DELIBLE(#{apcCd}, #{cdId}, #{cdVl}) AS RTN_MSG
+	    		  #{apcCd} 	AS APC_CD
+	    		, #{cdId} 	AS CD_ID
+	    		, #{cdVl} 	AS CD_VL
+	    		, FN_CHK_CD_DELIBLE(#{apcCd}, #{cdId}, #{cdVl}) AS RTN_MSG
 			  FROM DUAL
 		]]>
     </select>
