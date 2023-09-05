@@ -79,13 +79,22 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	}
 
 
-	@Override
-	public HashMap<String, Object> updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
-
-		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntr(rawMtrInvntrVO);
-
-		return null;
-	}
+//	@Override
+//	public HashMap<String, Object> updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+//
+//		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntr(rawMtrInvntrVO);
+//
+//		return null;
+//	}
+//	
+//	
+//	@Override
+//	public HashMap<String, Object> updateRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+//		
+//		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrVO);
+//		
+//		return null;
+//	}
 
 	@Override
 	public HashMap<String, Object> deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
@@ -148,6 +157,23 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 		}
 
+		return null;
+	}
+
+//	@Override
+//	public HashMap<String, Object> updateRawMtrInvntr(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
+//		// TODO Auto-generated method stub
+//		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntr(rawMtrInvntrList);
+//
+//		return null;
+//	}
+
+	@Override
+	public HashMap<String, Object> updateRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
+		// TODO Auto-generated method stub
+		//포문 돌ㄹ리기 예제 참고
+		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrList);
+		
 		return null;
 	}
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -62,41 +63,64 @@ public class RawMtrInvntrController extends BaseController {
 	}
 	
 	@PostMapping(value = "/am/invntr/updateRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> updateInvntrSortPrfmnc(@RequestBody Map<String, List<RawMtrInvntrVO>> rawMtrInvntrVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> updateInvntrSortPrfmnc(@RequestBody List<RawMtrInvntrVO> rawMtrInvntrList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		RawMtrInvntrVO updateList = new RawMtrInvntrVO();
+		
 		try {
-			
-			List<RawMtrInvntrVO> origin = rawMtrInvntrVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-			List<RawMtrInvntrVO> modified = rawMtrInvntrVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-
-			List<String> originPk = origin.stream().filter(e -> e.getTrsprtCoCd() != null && e.getTrsprtCoCd().equals("") == false).map(e -> e.getTrsprtCoCd()).collect(Collectors.toCollection(ArrayList::new));
-			List<String> modifiedPk = modified.stream().filter(e -> e.getTrsprtCoCd() != null && e.getTrsprtCoCd().equals("") == false).map(e -> e.getTrsprtCoCd()).collect(Collectors.toCollection(ArrayList::new));
-
-			List<RawMtrInvntrVO> updateList = new ArrayList<RawMtrInvntrVO>();
-			for (RawMtrInvntrVO ei : origin) {
-				for (RawMtrInvntrVO ej : modified) {
-					if (ei.getTrsprtCoCd().equals(ej.getTrsprtCoCd())) {
-						if (ei.hashCode() != ej.hashCode()) {
-							updateList.add(ej);
-						}
-						break;
-					}
-				}
+			for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
+				rawMtrInvntrVO.setSysFrstInptUserId(getUserId());
+				rawMtrInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				rawMtrInvntrVO.setSysLastChgUserId(getUserId());
+				rawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
-
-			for (RawMtrInvntrVO element : updateList) {
-				element.setSysLastChgPrgrmId(getPrgrmId());
-				element.setSysLastChgUserId(getUserId());
-				rawMtrInvntrService.updateInvntrSortPrfmnc(element);
+			
+			HashMap<String, Object> rtnObj = rawMtrInvntrService.updateRawMtrInvntrList(rawMtrInvntrList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
 			}
 			
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
+		
 		return getSuccessResponseEntity(resultMap);
-	}
+		
 	
+//		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+//		RawMtrInvntrVO updateList = new RawMtrInvntrVO();
+//		try {
+//			
+//			List<RawMtrInvntrVO> origin = rawMtrInvntrVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
+//			List<RawMtrInvntrVO> modified = rawMtrInvntrVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
+//
+//			List<String> originPk = origin.stream().filter(e -> e.getTrsprtCoCd() != null && e.getTrsprtCoCd().equals("") == false).map(e -> e.getTrsprtCoCd()).collect(Collectors.toCollection(ArrayList::new));
+//			List<String> modifiedPk = modified.stream().filter(e -> e.getTrsprtCoCd() != null && e.getTrsprtCoCd().equals("") == false).map(e -> e.getTrsprtCoCd()).collect(Collectors.toCollection(ArrayList::new));
+//
+//			List<RawMtrInvntrVO> updateList = new ArrayList<RawMtrInvntrVO>();
+//			for (RawMtrInvntrVO ei : origin) {
+//				for (RawMtrInvntrVO ej : modified) {
+//					if (ei.getTrsprtCoCd().equals(ej.getTrsprtCoCd())) {
+//						if (ei.hashCode() != ej.hashCode()) {
+//							updateList.add(ej);
+//						}
+//						break;
+//					}
+//				}
+//			}
+//
+//			for (RawMtrInvntrVO element : updateList) {
+//				element.setSysLastChgPrgrmId(getPrgrmId());
+//				element.setSysLastChgUserId(getUserId());
+//				rawMtrInvntrService.updateInvntrSortPrfmnc(element);
+//			}
+//			
+//		} catch (Exception e) {
+//			logger.debug("error: {}", e.getMessage());
+//			return getErrorResponseEntity(e);
+//		}
+//		return getSuccessResponseEntity(resultMap);
+//	}
+	}
 }

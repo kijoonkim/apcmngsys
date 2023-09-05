@@ -302,7 +302,7 @@
 //     	let crtrYmd  = SBUxMethod.get("srch-dtp-crtrYmd");	//기준일자
     	console.log('checkSection :', checkSection);
     	if(checkSection == 1 ){
-    		console.log)('fn_callSelectGrid1List호출','fn_callSelectGrid1List 호출');
+    		console.log('fn_callSelectGrid1List호출','fn_callSelectGrid1List 호출');
     		fn_callSelectGrid1List(pageSize, pageNo);
     	}else if(checkSection == 2){
     		fn_callSelectGrid2List(pageSize, pageNo);
@@ -549,43 +549,76 @@
 	//저장 버튼
 	// grdUserAprv -> 그리드 아이디
 	// userAprvList ->
-// 	const fn_updataList = async function() {
+	const fn_updataList = async function() {
+		let postJsonPromise_udpate = [];
+		const rawMtrInvntrList = [];
+		let allData1 = inptCmndDsctnList.getGridDataAll();
 		
-// 		const rawMtrInvntrList = [];
-// 		let allData1 = inptCmndDsctnList.getGridDataAll();
-		
-// 		for ( let i=1; i<=allData1.length; i++ ){
-// 			const rowData1 = inptCmndDsctnList.getRowData(i);
-// 			const rowSts1 = inptCmndDsctnList.getRowStatus(i);
+		for ( let i=1; i<=allData1.length; i++ ){
+			const rowData1 = inptCmndDsctnList.getRowData(i);
+			const rowSts1 = inptCmndDsctnList.getRowStatus(i);
 
 // 			if (rowSts1 === 3){
 // 				rowData1.apcCd = gv_selectedApcCd;
 // 				rowData1.rowSts = "I";
-// 				rawMtrInvntrList.push(rowData);
+// 				rawMtrInvntrList.push(rowData1);
 // 			} else if (rowSts1 === 2){
 // 				rowData1.rowSts = "U";
-// 				rawMtrInvntrList.push(rowData);
+// 				rawMtrInvntrList.push(rowData1);
 // 			} else {
 // 				continue;
 // 			}
-// 		}
-// 		// /am/invntr/updateRawMtrInvntrList.do
-//     	const postJsonPromise = gfn_postJSON("", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
-
-// 		const data1 = await postJsonPromise;
-//         try {
-// //         	if (_.isEqual("S", data.resultStatus)) {
-// //         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-// //         		fn_selectGridList();
-// //         	} else {
-// //         		gfn_comAlert("E0001");	// E0001	오류가 발생하였습니다.
-// //         	}
-//         	fn_selectGridList();
-//         } catch(e) {
-//         }
-		
-// 	}
+			if (rowSts1 === 3){
+				rowData1.apcCd = gv_selectedApcCd;
+				rowData1.rowSts = "I";
+				rawMtrInvntrList.push(rowData1);
+			} else if (rowSts1 === 2){
+				rowData1.apcCd = gv_selectedApcCd;
+				rowData1.rowSts = "U";
+				rawMtrInvntrList.push(rowData1);
+			} else {
+				continue;
+			}
+			if (rawMtrInvntrList.length == 0){
+				gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
+	            return;
+			}
+		}
+		if(checkSection == 1){
+// 			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateRawMtrInvntrList.do", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
+			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateRawMtrInvntrList.do", rawMtrInvntrList);	// 프로그램id 추가
+    		const data = await postJsonPromise_udpate;
+			
+			console.log('_.isEqual("S", data.resultStatus)',_.isEqual("S", data.resultStatus));
+    		if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_selectGridList();
+        	} else {
+        		gfn_comAlert("E0001");	// E0001	오류가 발생하였습니다.
+        	}
+        	fn_selectGridList();
+		}
+		else if(checkSection == 2){
+			postJsonPromise = gfn_postJSON("", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
+    		const data = await postJsonPromise;
+    		if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_selectGridList();
+        	} else {
+        		gfn_comAlert("E0001");	// E0001	오류가 발생하였습니다.
+        	}
+        	fn_selectGridList();
+		}else if(checkSection == 3){
+			postJsonPromise = gfn_postJSON("", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
+    		const data = await postJsonPromise;
+    		if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_selectGridList();
+        	} else {
+        		gfn_comAlert("E0001");	// E0001	오류가 발생하였습니다.
+        	}
+        	fn_selectGridList();
+		}
+	}
 </script>
-
-
 </html>
