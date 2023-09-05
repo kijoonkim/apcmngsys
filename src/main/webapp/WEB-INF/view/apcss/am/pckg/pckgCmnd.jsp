@@ -191,7 +191,7 @@
 	        {caption: ["거래처","거래처"],		ref: 'cnptNm',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["품종","품종"],		ref: 'vrtyNm',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["규격","규격"],		ref: 'spcfctNm',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["납기일자","납기일자"],		ref: 'dudtYmd',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["납기일자","납기일자"],		ref: 'dudtYmd',      type:'output',  width:'140px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["상품명","상품명"],		ref: 'gdsNm',      type:'output',  width:'130px',    style:'text-align:center'},
 	        {caption: ["발주","수량"],		ref: 'ordrQntt',      type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["발주","중량"],		ref: 'ordrWght',      type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
