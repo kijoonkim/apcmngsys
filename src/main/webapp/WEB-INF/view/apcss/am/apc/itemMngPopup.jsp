@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchItem" name="btnSearchItem" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchAll"></sbux-button>
-					<sbux-button id="btnSaveItem" name="btnSaveItem" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_SevaApcVrtyList"></sbux-button>
+					<sbux-button id="btnSaveItem" name="btnSaveItem" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_sevaApcVrtyList"></sbux-button>
 					<sbux-button id="btnEndItem" name="btnEndItem" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-item')"></sbux-button>
 				</div>
 			</div>
@@ -328,12 +328,6 @@
 			fn_searchItemList(),
 			fn_searchApcItemList()
 		]);
-
-		jsonApcVrty = [];
-		jsonVrty = [];
-		grdApcVrty.refresh();
-		grdVrty.refresh();
-
 	}
 
 	const fn_searchVrtyAll = async function(){
@@ -453,8 +447,11 @@
         let data = await postJsonPromise;
         try{
         	if(data.deletedCnt > 0){
-        		gfn_comAlert("I0001")				// I0001	처리 되었습니다.
         		fn_searchAll();
+        		jsonApcVrty = [];
+        		jsonVrty = [];
+        		grdApcVrty.refresh();
+        		grdVrty.refresh();
         		return;
         	}else if (data.errMsg != null ){
         		gfn_comAlert("E0000", data.errMsg)		// W0009   {0}이/가 있습니다.
@@ -509,7 +506,6 @@
 	        let data = await postJsonPromise;
 	        try {
 	        	if(data.deletedCnt > 0){
-	        		gfn_comAlert("I0001")				// I0001	처리 되었습니다.
 	        		fn_searchAll();
 	        		fn_searchVrtyAll();
 	        		return;
@@ -531,7 +527,7 @@
     	}
 	}
 
-	const fn_SevaApcVrtyList = async function(){
+	const fn_sevaApcVrtyList = async function(){
 
 		let gridData = grdApcVrty.getGridDataAll();
 		let insertList = [];

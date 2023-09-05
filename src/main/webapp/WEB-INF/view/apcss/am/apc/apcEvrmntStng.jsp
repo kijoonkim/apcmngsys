@@ -1083,9 +1083,22 @@
     	  , clclnCrtr				: SBUxMethod.get("rdo-clclnCrtr")
     	  , cdVls					: cdVls
     	}
-    	console.log(apcEvrmntStng);
     	let postJsonPromise = gfn_postJSON("/am/apc/updateApcEvrmntStng.do", apcEvrmntStng);
         let data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001")				// I0001	처리 되었습니다.
+        		selectApcEvrmntStng();
+        	} else {
+        		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
     }
 </script>
 </html>
