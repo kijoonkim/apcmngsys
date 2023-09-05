@@ -464,36 +464,7 @@
         } catch(e) {        	
         }
     }
-	
-	// 더미데이터 생성
-	async function fn_dummyData(){
-		let list = [];
-		for(var i=2; i<=30; i++){
-			let vo = {apcCd : '8888', apcSeCd : '2', outordrno : i.toString(), apcCnptCd : '0001', vrtyCd : '0300', spcfctCd : '0002'};
-			list.push(vo);
-		}
-		console.log(list);
-		let regMsg = "저장 하시겠습니까?";
-		if(confirm(regMsg)){
-			const postJsonPromise = gfn_postJSON("/am/ordr/insertOrdrList.do", list);
-	    	const data = await postJsonPromise;
 
-	    	try{
-	       		if(data.insertedCnt > 0){
-	       			fn_search();
-	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-	       		}else{
-	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
-	       		}
-	        }catch (e) {
-	        	if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-			}
-		}
-	}
-	
 	// 포장지시 등록
     async function fn_regPckgCmnd(){
 //     	let allData = grdOutordrInfo.getGridDataAll();

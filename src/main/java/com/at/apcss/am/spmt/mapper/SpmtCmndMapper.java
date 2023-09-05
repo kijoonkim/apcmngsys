@@ -39,6 +39,14 @@ public interface SpmtCmndMapper {
 	 * @throws Exception
 	 */
 	public List<SpmtCmndVO> selectSpmtCmndList(SpmtCmndVO spmtCmndVO) throws Exception;
+	
+	/**
+	 * 출하지시번호 목록 조회
+	 * @param spmtCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SpmtCmndVO> selectSpmtCmndnoList(SpmtCmndVO spmtCmndVO) throws Exception;
 
 	/**
 	 * 출하지시 내역 조회

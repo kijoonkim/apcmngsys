@@ -46,6 +46,14 @@ public class SpmtCmndServiceImpl implements SpmtCmndService {
 		
 		return resultList;
 	}
+	
+	@Override
+	public List<SpmtCmndVO> selectSpmtCmndnoList(SpmtCmndVO spmtCmndVO) throws Exception {
+
+		List<SpmtCmndVO> resultList = spmtCmndMapper.selectSpmtCmndnoList(spmtCmndVO);
+		
+		return resultList;
+	}
 
 	@Override
 	public List<SpmtCmndVO> selectSpmtCmndList2(SpmtCmndVO spmtCmndVO) throws Exception {
