@@ -216,6 +216,133 @@
 		]]>
     </select>
     
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndnoList		-->
+	<!-- DESC : 출하지시번호 목록 조회.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.04  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectSpmtCmndnoList" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO" resultType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		 	, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 	AS SPMT_PCKG_UNIT_NM
+	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
+	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
+	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+		     	, (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 					AS GDS_GRD_NM
+		        , (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL) 				AS TRSPRT_CO_NM
+    		 FROM (
+    	</if>
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		SELECT
+    			  pt0.*
+    		 	, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 	AS SPMT_PCKG_UNIT_NM
+	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
+	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
+	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+		     	, (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 					AS GDS_GRD_NM
+		        , (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL) 				AS TRSPRT_CO_NM
+    		 FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndList */
+	    		   SC.APC_CD						AS APC_CD
+	    		 , SC.SPMT_CMNDNO					AS SPMT_CMNDNO
+	    		 , MAX(SC.CMND_YMD)					AS CMND_YMD
+	    		 , SC.SPMT_PCKG_UNIT_CD				AS SPMT_PCKG_UNIT_CD
+	    		 , SC.ITEM_CD						AS ITEM_CD
+	    		 , SC.VRTY_CD						AS VRTY_CD
+	    		 , SC.SPCFCT_CD						AS SPCFCT_CD
+	    		 , SC.GDS_CD						AS GDS_CD
+	    		 , MAX(CI.CNPT_NM)				 	AS CNPT_NM
+	    		 , CI.CNPT_CD						AS CNPT_CD
+	    		 , SC.DLDTN							AS DLDTN
+	    		 , MAX(SC.TRSPRT_CO_CD)				AS TRSPRT_CO_CD
+	    		 , PC.VHCLNO						AS VHCLNO
+	    		 , PC.TRSPRT_CST					AS TRSPRT_CST
+	    		 , SC.GDS_GRD						AS GDS_GRD
+	    		 , SUM(SC.CMND_QNTT)				AS CMND_QNTT
+	    		 , SUM(SC.CMND_WGHT)				AS CMND_WGHT
+			  FROM TB_SPMT_CMND 		SC
+			  	 , TB_SPMT_PRFMNC_COM	PC
+				 , TB_SPMT_PRFMNC_DTL	PD
+				 , TB_CNPT_INFO			CI
+			 WHERE SC.APC_CD = PC.APC_CD
+			   AND SC.APC_CD = PD.APC_CD
+			   AND SC.APC_CD = CI.APC_CD
+			   AND SC.CNPT_CD = PC.CNPT_CD
+			   AND SC.CNPT_CD = CI.CNPT_CD
+			   AND SC.TRSPRT_CO_CD = PC.TRSPRT_CO_CD
+			   AND SC.DLDTN = PC.DLDTN
+			   AND SC.VRTY_CD = PD.VRTY_CD
+			   AND SC.SPCFCT_CD = PD.SPCFCT_CD
+			   AND SC.GDS_CD = PD.GDS_CD
+			   AND SC.GDS_GRD = PD.GDS_GRD
+			   AND SC.SPMT_CMNDNO = PD.SPMT_CMNDNO
+			   AND SC.SPMT_PCKG_UNIT_CD = PD.SPMT_PCKG_UNIT_CD
+			   AND SC.OUTORDRNO = PD.OUTORDRNO
+			   AND PC.SPMTNO = PD.SPMTNO
+			   AND SC.DEL_YN = 'N'
+			   AND PC.DEL_YN = 'N'
+			   AND PD.DEL_YN = 'N'
+			   AND CI.DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+		   	   AND SC.APC_CD >= #{apcCd}
+		</if>
+		<if test='cmndYmd != null and cmndYmd != ""'>
+		   	   AND SC.CMND_YMD = #{cmndYmd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+		       AND SC.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+		       AND SC.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='spcfctCd != null and spcfctCd != ""'>
+		       AND SC.SPCFCT_CD = #{spcfctCd}
+		</if>
+		<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
+		       AND SC.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
+		</if>
+		<![CDATA[
+		 	 GROUP BY SC.APC_CD
+	    		 	, SC.SPMT_CMNDNO
+	    		 	, SC.CMND_YMD
+	    		 	, SC.SPMT_PCKG_UNIT_CD
+	    		 	, SC.ITEM_CD
+	    		 	, SC.VRTY_CD
+	    		 	, SC.SPCFCT_CD
+	    		 	, SC.GDS_CD
+	    		 	, CI.CNPT_NM
+	    		 	, CI.CNPT_CD
+	    		 	, SC.DLDTN
+	    		 	, SC.TRSPRT_CO_CD
+	    		 	, PC.VHCLNO
+	    		 	, PC.TRSPRT_CST
+	    		 	, SC.GDS_GRD
+	    		 	, SC.CMND_QNTT
+	    		 	, SC.CMND_WGHT
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		  ) pt0
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+    
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndList		-->
 	<!-- DESC : 출하지시조회 목록 조회.	                         	             	 	-->
@@ -231,7 +358,7 @@
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
     			, pt0.*
-    		 	, (SELECT FN_GET_COM_CD_VL_NM('PCKG_SE_CD', pt0.PCKG_SE_CD, pt0.APC_CD) FROM DUAL)	AS PCKG_SE
+    		 	, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 	AS SPMT_PCKG_UNIT_NM
 	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
 	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
@@ -241,7 +368,7 @@
     	<if test='pagingYn == null or pagingYn.equals("N")'>
     		SELECT
     			  pt0.*
-    		 	, (SELECT FN_GET_COM_CD_VL_NM('PCKG_SE_CD', pt0.PCKG_SE_CD, pt0.APC_CD) FROM DUAL)	AS PCKG_SE
+    		 	, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 	AS SPMT_PCKG_UNIT_NM
 	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
 	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
@@ -253,25 +380,25 @@
 	    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndList */
 	    		   SC.APC_CD						AS APC_CD
 	    		 , MAX(SC.CMND_YMD)					AS CMND_YMD
-	    		 , SC.PCKG_SE_CD					AS PCKG_SE_CD
+	    		 , SC.SPMT_PCKG_UNIT_CD				AS SPMT_PCKG_UNIT_CD
 	    		 , SC.ITEM_CD						AS ITEM_CD
 	    		 , SC.VRTY_CD						AS VRTY_CD
 	    		 , SC.SPCFCT_CD						AS SPCFCT_CD
 	    		 , SC.GDS_CD						AS GDS_CD
 	    		 , MAX(CI.CNPT_NM)				 	AS CNPT_NM
 	    		 , SC.DLDTN							AS DLDTN
-	    		 , MAX(ST.TRSPRT_CO_CD)				AS TRSPRT_CO_CD
+	    		 , MAX(SC.TRSPRT_CO_CD)				AS TRSPRT_CO_CD
 	    		 , SC.GDS_GRD						AS GDS_GRD
 	    		 , SUM(SC.CMND_QNTT)				AS CMND_QNTT
 	    		 , SUM(SC.CMND_WGHT)				AS CMND_WGHT
 	    		 , SC.RMRK							AS RMRK
 			  FROM TB_SPMT_CMND SC
 			  LEFT OUTER JOIN(
-			  		SELECT APC_CD, CNPT_CD, CNPT_NM
-			  		FROM TB_CNPT_INFO
-			  		WHERE DEL_YN = 'N') CI
+				  		SELECT APC_CD, CNPT_CD, CNPT_NM
+				  		FROM TB_CNPT_INFO
+				  		WHERE DEL_YN = 'N') CI
 				ON CI.APC_CD = SC.APC_CD
-				AND CI.CNPT_CD = SC.CNPT_CD
+			   AND CI.CNPT_CD = SC.CNPT_CD
 			 WHERE SC.DEL_YN = 'N'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
@@ -298,21 +425,21 @@
 		<if test='spcfctCd != null and spcfctCd != ""'>
 		       AND SC.SPCFCT_CD = #{spcfctCd}
 		</if>
-		<if test='pckgSeCd != null and pckgSeCd != ""'>
-		       AND SC.PCKG_SE_CD = #{pckgSeCd}
+		<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
+		       AND SC.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
 		</if>
 		<![CDATA[
 		 	 GROUP BY SC.SPMT_CMNDNO
 		 	 		, SC.CMND_YMD
 		 	 	    , SC.APC_CD
-	    		 	, SC.PCKG_SE_CD
+	    		 	, SC.SPMT_PCKG_UNIT_CD
 	    		 	, SC.ITEM_CD
 	    		 	, SC.VRTY_CD
 	    		 	, SC.SPCFCT_CD
 	    		 	, SC.GDS_CD
 	    		 	, CI.CNPT_NM
 	    		 	, SC.DLDTN
-	    		 	, ST.TRSPRT_CO_NM
+	    		 	, SC.TRSPRT_CO_CD
 	    		 	, SC.GDS_GRD
 	    		 	, SC.CMND_QNTT
 	    		 	, SC.CMND_WGHT
@@ -339,118 +466,62 @@
 	<!-- 2023.08.16  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <insert id="insertSpmtCmnd" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
-<!--     	<![CDATA[ -->
-<!--     	INSERT INTO TB_SPMT_CMND -->
-<!--     		( -->
-<!--     			APC_CD -->
-<!--     		  , SPMT_CMNDNO -->
-<!--     		  , SPMT_CMND_SN -->
-<!--     		  , CMND_YMD -->
-<!--     		  , CNPT_CD -->
-<!--     		  , DLDTN -->
-<!--     		  , TRSPRT_CO_CD -->
-<!-- 		      , TRSPRT_CO_NM -->
-<!--     		  , GDS_GRD -->
-<!--     		  , CMND_QNTT -->
-<!--     		  , CMND_WGHT -->
-<!--     		  , PCKG_SE_CD -->
-<!--     		  , ORDR_NO -->
-<!--     		  , ITEM_CD -->
-<!--     		  , VRTY_CD -->
-<!--     		  , SPCFCT_CD -->
-<!--     		  , GDS_CD -->
-<!--     		  , RMRK -->
-<!--     		  , DEL_YN -->
-<!--     		  , SYS_FRST_INPT_DT -->
-<!--     		  , SYS_FRST_INPT_USER_ID -->
-<!--     		  , SYS_FRST_INPT_PRGRM_ID -->
-<!--     		  , SYS_LAST_CHG_DT -->
-<!--     		  , SYS_LAST_CHG_USER_ID -->
-<!--     		  , SYS_LAST_CHG_PRGRM_ID -->
-<!--     		) -->
-<!--    		VALUES -->
-<!--    			( -->
-<!--    				#{apcCd} -->
-<!--     		  , #{spmtCmndNo} -->
-<!--     		  , #{spmtCmndSn} -->
-<!--     		  , #{cmndYmd} -->
-<!--     		  , #{cnptCd} -->
-<!--     		  , #{dldtn} -->
-<!--     		  , #{trsprtCoCd} -->
-<!--     		  , #{trsprtCoNm} -->
-<!--     		  , #{gdsGrd} -->
-<!--     		  , #{cmndQntt} -->
-<!--     		  , #{cmndWght} -->
-<!--     		  , #{spmtPckgUnitCd} -->
-<!--     		  , #{ordrNo} -->
-<!--     		  , #{itemCd} -->
-<!--     		  , #{vrtyCd} -->
-<!--     		  , #{spcfctCd} -->
-<!--     		  , #{gdsCd} -->
-<!--     		  , #{rmrk} -->
-<!--     		  , #{delYn} -->
-<!--     		  , SYSDATE -->
-<!--     		  , #{sysFrstInptUserId} -->
-<!--     		  , #{sysFrstInptPrgrmId} -->
-<!--     		  , SYSDATE -->
-<!--     		  , #{sysLastChgUserId} -->
-<!--     		  , #{sysLastChgPrgrmId} -->
-<!--    			) -->
-<!--     	]]> -->
-			insert into TB_SPMT_CMND
+		<![CDATA[
+		INSERT INTO TB_SPMT_CMND
 			(
-			APC_CD
-			, SPMT_CMNDNO
-			, SPMT_CMND_SN
-			, CMND_YMD
-			, CNPT_CD
-			, DLDTN
-			, TRSPRT_CO_CD
-			, GDS_GRD
-			, CMND_QNTT
-			, CMND_WGHT
-			, SPMT_PCKG_UNIT_CD
-			, OUTORDRNO
-			, ITEM_CD
-			, VRTY_CD
-			, SPCFCT_CD
-			, GDS_CD
-			, RMRK
-			, DEL_YN
-			, SYS_FRST_INPT_DT
-			, SYS_FRST_INPT_PRGRM_ID
-			, SYS_FRST_INPT_USER_ID
-			, SYS_LAST_CHG_DT
-			, SYS_LAST_CHG_USER_ID
-			, SYS_LAST_CHG_PRGRM_ID
+				APC_CD
+			  , SPMT_CMNDNO
+			  , SPMT_CMND_SN
+			  , CMND_YMD
+			  , CNPT_CD
+			  , DLDTN
+			  , TRSPRT_CO_CD
+			  , GDS_GRD
+			  , CMND_QNTT
+			  , CMND_WGHT
+			  , SPMT_PCKG_UNIT_CD
+			  , OUTORDRNO
+			  , ITEM_CD
+			  , VRTY_CD
+			  , SPCFCT_CD
+			  , GDS_CD
+			  , RMRK
+			  , DEL_YN
+			  , SYS_FRST_INPT_DT
+			  , SYS_FRST_INPT_PRGRM_ID
+			  , SYS_FRST_INPT_USER_ID
+			  , SYS_LAST_CHG_DT
+			  , SYS_LAST_CHG_USER_ID
+			  , SYS_LAST_CHG_PRGRM_ID
 			)
-			VALUES
+		VALUES
 			(
-			#{apcCd}
-			, #{spmtCmndno}
-			, #{spmtCmndSn}
-			, #{cmndYmd}
-			, #{cnptCd}
-			, #{dldtn}
-			, #{trsprtCoCd}
-			, #{gdsGrd}
-			, #{cmndQntt}
-			, #{cmndWght}
-			, #{spmtPckgUnitCd}
-			, #{outordrno}
-			, #{itemCd}
-			, #{vrtyCd}
-			, #{spcfctCd}
-			, #{gdsCd}
-			, #{rmrk}
-			, #{delYn}
-			, SYSDATE
-			, #{sysFrstInptPrgrmId}
-			, #{sysFrstInptUserId}
-			, SYSDATE
-			, #{sysLastChgUserId}
-			, #{sysLastChgPrgrmId}
+				#{apcCd}
+			  , #{spmtCmndno}
+			  , #{spmtCmndSn}
+			  , #{cmndYmd}
+			  , #{cnptCd}
+			  , #{dldtn}
+			  , #{trsprtCoCd}
+			  , #{gdsGrd}
+			  , #{cmndQntt}
+			  , #{cmndWght}
+			  , #{spmtPckgUnitCd}
+			  , #{outordrno}
+			  , #{itemCd}
+			  , #{vrtyCd}
+			  , #{spcfctCd}
+			  , #{gdsCd}
+			  , #{rmrk}
+			  , #{delYn}
+			  , SYSDATE
+			  , #{sysFrstInptPrgrmId}
+			  , #{sysFrstInptUserId}
+			  , SYSDATE
+			  , #{sysLastChgUserId}
+			  , #{sysLastChgPrgrmId}
 			)
+		]]>
     </insert>
 
     <!-- ==========================================================================	-->
@@ -476,7 +547,7 @@
     		 , GDS_GRD 					= #{gdsGrd}
     		 , CMND_QNTT 				= #{cmndQntt}
     		 , CMND_WGHT 				= #{cmndWght}
-    		 , PCKG_SE_CD 				= #{pckgSeCd}
+    		 , SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
     		 , ORDR_NO 					= #{ordrNo}
     		 , ITEM_CD 					= #{itemCd}
     		 , VRTY_CD 					= #{vrtyCd}

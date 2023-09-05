@@ -68,4 +68,6 @@ public interface PltBxService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertPltBxSample(PltBxVO pltBxVO) throws Exception;
+
+	public HashMap<String, Object> multiPltBxList(List<PltBxVO> pltBxList) throws Exception;
 }

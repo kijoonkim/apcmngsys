@@ -37,23 +37,42 @@ import com.at.apcss.co.sys.controller.BaseController;
 public class SortInvntrController extends BaseController {
 	@Resource(name = "sortInvntrService")
 	private SortInvntrService sortInvntrService;
-	
+
 	@PostMapping(value = "/am/invntr/selectSortInvntrDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectSortInvntrDsctnList(@RequestBody SortInvntrVO sortInvntrVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<SortInvntrVO> resultList =  new ArrayList<>();
 		try {
-			
+
 			resultList = sortInvntrService.selectSortInvntrDsctnList(sortInvntrVO);
-			
+
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/am/invntr/selectSortInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSortInvntrList(@RequestBody SortInvntrVO sortInvntrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SortInvntrVO> resultList =  new ArrayList<>();
+		try {
+			resultList = sortInvntrService.selectSortInvntrList(sortInvntrVO);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
 }

@@ -65,71 +65,132 @@
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
     			, pt0.*
-    		  FROM (
+    	</if>
+   		<if test='pagingYn == null or pagingYn.equals("N")'>
+    		SELECT
+    			  pt0.*
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrList */
-				  WC.APC_CD		    AS APC_CD
-				, WC.WGHNO		    AS WGHNO
-				, MAX(WC.WGH_YMD)   AS WGH_YMD
-				, MAX(WC.VHCLNO)    AS VHCLNO
-				, MAX(WC.PRDCR_CD)	AS PRDCR_CD
-				, MAX(WC.WHOL_WGHT) AS WHOL_WGHT
-				, MAX(WC.EMPT_VHCL_WGHT)    AS EMPT_VHCL_WGHT
-				, MAX(WC.RDCD_RT)   AS RDCD_RT
-				, MAX(WC.RDCD_WGHT) AS RDCD_WGHT
-				, MAX(WC.WRHS_WGHT) AS WRHS_WGHT
-				, MAX(WC.RMRK)      AS RMRK
-				, MAX(INV.ITEM_CD) AS ITEM_CD
-				, MAX((SELECT FN_GET_ITEM_NM(INV.ITEM_CD,INV.APC_CD) FROM DUAL)) AS ITEM_NM
-				, MAX(INV.VRTY_CD) AS VRTY_CD
-				, MAX((SELECT FN_GET_VRTY_NM(INV.VRTY_CD,INV.APC_CD) FROM DUAL)) AS VRTY_NM
-				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = WC.APC_CD) AS APC_NM
-				, MAX((SELECT FN_GET_PRDCR_NM(WC.PRDCR_CD, WC.APC_CD) FROM DUAL)) AS PRDCR_NM
-                , (SELECT MAX(X.GRD_CD) FROM TB_WGH_PRFMNC_DTL X WHERE X.APC_CD = WC.APC_CD AND X.WGHNO = WC.WGHNO AND X.DEL_YN = 'N') AS GRD_CD
---                , MAX((SELECT FN_GET_GRD_NM((SELECT X.GRD_CD FROM TB_WGH_PRFMNC_DTL X WHERE X.APC_CD = WC.APC_CD AND X.WGHNO = WC.WGHNO AND X.DEL_YN = 'N'), WC.APC_CD) FROM DUAL)) AS GRD_NM
-                , (SELECT SUM(X.WGHT) FROM TB_WGH_PRFMNC_DTL X WHERE X.APC_CD = WC.APC_CD AND X.WGHNO = WC.WGHNO AND X.DEL_YN = 'N' AND X.PLT_BX_SE_CD = 'P') AS PLT_WGHT
-				, (SELECT SUM(X.WGHT) FROM TB_WGH_PRFMNC_DTL X WHERE X.APC_CD = WC.APC_CD AND X.WGHNO = WC.WGHNO AND X.DEL_YN = 'N' AND X.PLT_BX_SE_CD = 'B') AS BX_WGHT
-				, MAX(INV.WAREHOUSE_SE_CD) AS WAREHOUSE_SE_CD
-				, MAX((SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD',INV.WAREHOUSE_SE_CD, WC.APC_CD) FROM DUAL)) AS WAREHOUSE_SE_NM
-			  FROM
-			  	  TB_WGH_PRFMNC_COM WC
-				, TB_RAW_MTR_WRHS_PRFMNC WP
-				, TB_RAW_MTR_INVNTR INV
+    			, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) AS APC_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) AS FCLT_NM
+				, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS RPRS_PRDCR_NM
+				, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+				, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+				, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+				, (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GRD_CD, pt0.APC_CD) FROM DUAL) AS GRD_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD, pt0.APC_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
 
-			 WHERE WC.APC_CD = WP.APC_CD
-			   AND WC.WGHNO = WP.WGHNO
-			   AND WP.APC_CD = INV.APC_CD
-			   AND WP.WRHSNO = INV.WRHSNO
-			   AND WC.DEL_YN = 'N'
-			   AND WP.DEL_YN = 'N'
-			   AND INV.DEL_YN = 'N'
+				, (SELECT MAX(X.PCKG_CMNDNO)
+				  	  FROM TB_PCKG_CMND X
+				 	 WHERE X.APC_CD = pt0.APC_CD
+				   	   AND X.SORTNO = pt0.SORTNO
+					   AND X.SORT_SN = pt0.SORT_SN
+					   AND X.DEL_YN = 'N'
+				)	AS PCKG_CMNDNO
+				, (
+					SELECT SUM(X.CMND_QNTT)
+				  	  FROM TB_PCKG_CMND X
+				 	 WHERE X.APC_CD = pt0.APC_CD
+				   	   AND X.SORTNO = pt0.SORTNO
+					   AND X.SORT_SN = pt0.SORT_SN
+					   AND X.DEL_YN = 'N'
+				)	AS CMND_QNTT
+				, (
+					SELECT SUM(X.CMND_WGHT)
+				  	  FROM TB_PCKG_CMND X
+				 	 WHERE X.APC_CD = pt0.APC_CD
+				   	   AND X.SORTNO = pt0.SORTNO
+					   AND X.SORT_SN = pt0.SORT_SN
+					   AND X.DEL_YN = 'N'
+				)	AS CMND_WGHT
+
+    		  FROM (
+
+	    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrList */
+				  SI.APC_CD				AS APC_CD
+				, SI.SORTNO				AS SORTNO
+				, SI.SORT_SN			AS SORT_SN
+				, SI.INPT_YMD			AS SORT_YMD
+				, SI.FCLT_CD			AS FCLT_CD
+				, SI.RPRS_PRDCR_CD		AS RPRS_PRDCR_CD
+				, SI.ITEM_CD			AS ITEM_CD
+				, SI.VRTY_CD			AS VRTY_CD
+				, SI.SPCFCT_CD			AS SPCFCT_CD
+				, SI.GRD_CD				AS GRD_CD
+				, SI.GDS_SE_CD			AS GDS_SE_CD
+				, SI.WRHS_SE_CD			AS WRHS_SE_CD
+				, SI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+				, SI.PRDCTN_YR			AS PRDCTN_YR
+				, SI.SORT_QNTT			AS SORT_QNTT
+				, SI.SORT_WGHT			AS SORT_WGHT
+				, SI.PCKG_QNTT			AS PCKG_QNTT
+				, SI.PCKG_WGHT			AS PCKG_WGHT
+				, SI.INVNTR_QNTT		AS INVNTR_QNTT
+				, SI.INVNTR_WGHT		AS INVNTR_WGHT
+
+			  FROM TB_SORT_INVNTR SI
+
+			 WHERE SI.DEL_YN = 'N'
+			   AND SI.INVNTR_WGHT > 0
 		]]>
 
 		<if test='apcCd != null and apcCd != ""'>
-			   AND WC.APC_CD = #{apcCd}
+			   AND SI.APC_CD = #{apcCd}
 		</if>
-		<if test='wghno != null and wghno != ""'>
-			   AND WC.WGHNO = #{wghno}
+		<if test='sortno != null and sortno != ""'>
+			   AND SI.SORTNO = #{sortno}
 		</if>
-		<if test='wghYmd != null and wghYmd != ""'>
-			   AND WC.WGH_YMD = #{wghYmd}
+		<if test='sortYmd != null and sortYmd != ""'>
+			   AND SI.INPT_YMD = #{sortYmd}
 		</if>
-		<if test='wghYmdFrom != null and wghYmdFrom != ""'>
-			   AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
+		<if test='sortYmdFrom != null and sortYmdFrom != ""'>
+			   AND SI.INPT_YMD <![CDATA[>=]]> #{sortYmdFrom}
 		</if>
-		<if test='wghYmdTo != null and wghYmdTo != ""'>
-			   AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
+		<if test='sortYmdTo != null and sortYmdTo != ""'>
+			   AND SI.INPT_YMD <![CDATA[<=]]> #{sortYmdTo}
 		</if>
+		<if test='sortFcltCd != null and sortFcltCd != ""'>
+			   AND SI.FCLT_CD = #{sortFcltCd}
+		</if>
+		<if test='rprsPrdcrCd != null and rprsPrdcrCd != ""'>
+			   AND SI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND SI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			   AND SI.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='spcfctCd != null and spcfctCd != ""'>
+			   AND SI.SPCFCT_CD = #{spcfctCd}
+		</if>
+		<if test='grdCd != null and grdCd != ""'>
+			   AND SI.GRD_CD = #{grdCd}
+		</if>
+		<if test='gdsSeCd != null and gdsSeCd != ""'>
+			   AND SI.GDS_SE_CD = #{gdsSeCd}
+		</if>
+		<if test='wrhsSeCd != null and wrhsSeCd != ""'>
+			   AND SI.WRHS_SE_CD = #{wrhsSeCd}
+		</if>
+		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			   AND SI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+		</if>
+		<if test='prdctnYr != null and prdctnYr != ""'>
+			   AND SI.PRDCTN_YR = #{prdctnYr}
+		</if>
+
 		<![CDATA[
-		 	 GROUP BY WC.APC_CD, WC.WGHNO
-			 ORDER BY APC_CD, WGH_YMD, WGHNO
+			 ORDER BY APC_CD, SORT_YMD, SORTNO
+    		  ) pt0
 		]]>
 
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
     	</if>

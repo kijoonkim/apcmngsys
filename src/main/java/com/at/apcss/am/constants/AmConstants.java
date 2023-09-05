@@ -65,4 +65,8 @@ public class AmConstants {
      * APC 공통코드 : 입고구분 WRHS_SE_CD
      */
     public final static String CON_CD_ID_WRHS_SE_CD = "WRHS_SE_CD";
+    /**
+     * APC 공통코드 : 상품구분 GDS_SE_CD
+     */
+    public final static String CON_CD_ID_GDS_SE_CD = "GDS_SE_CD";
 }

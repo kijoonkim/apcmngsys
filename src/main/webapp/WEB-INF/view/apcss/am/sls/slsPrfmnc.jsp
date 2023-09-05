@@ -44,10 +44,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>매출일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-slsYmdFrom" name="srch-dtp-slsYmdFrom" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-slsYmdFrom" name="srch-dtp-slsYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-slsYmdTo" name="srch-dtp-slsYmdTo" uitype="popup" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-slsYmdTo" name="srch-dtp-slsYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">품목/품종</th>
@@ -158,14 +158,16 @@
         SBGridProperties.columns = [
             {caption: ['선택','선택'], 		ref: 'checkedYn',		width: '50px',		type: 'checkbox',	style:'text-align: center',
         		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate: true}},
-            {caption: ['매출일자','매출일자'], 	ref: 'slsYmd',		width: '100px',		type: 'output',		style:'text-align: center'},
+            {caption: ['매출일자','매출일자'], 	ref: 'slsYmd',		width: '100px',		type: 'output',		style:'text-align: center',
+        		format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '100px', 	type: 'output',		style:'text-align: center'},
             {caption: ['상품명','상품명'],		ref: 'gdsNm', 		width: '100px', 	type: 'output',		style:'text-align: center'},
             {caption: ['상품코드','상품코드'],	ref: 'gdsCd', 		width: '100px', 	type: 'output',		style:'text-align: center'},
             {caption: ['품종','품종'], 		ref: 'vrtyNm', 		width: '100px', 	type: 'output',		style:'text-align: center'},
             {caption: ['규격','규격'], 		ref: 'spcfctNm',	width: '100px', 	type: 'output',		style:'text-align: center'},
             {caption: ['브랜드','브랜드'], 		ref: 'brndCd',		width: '100px', 	type: 'output',		style:'text-align: center'},
-            {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd', 	width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd', 	width: '100px', 	type: 'output',		style:'text-align: center',
+    		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['단가','단가'], 		ref: 'slsUntprc', 	width: '100px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
             {caption: ['출하','수량'], 		ref: 'qntt', 		width: '100px', 	type: 'output',		style:'text-align: right', format : {type:'number', rule:'#,###'}},
             {caption: ['출하','중량'], 		ref: 'wght', 		width: '100px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},

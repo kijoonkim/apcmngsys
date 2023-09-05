@@ -67,7 +67,7 @@
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
     			, pt0.*
-    			, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) AS APC_NM
+    			, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) AS APC_NM
 				, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
                 , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
                 , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
@@ -89,7 +89,7 @@
     	<if test='pagingYn == null or pagingYn.equals("N")'>
     		SELECT
     			  pt0.*
-    			, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) AS APC_NM
+    			, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) AS APC_NM
 				, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
                 , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
                 , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
@@ -183,7 +183,7 @@
 		<if test='bxKnd != null and bxKnd != ""'>
 			   AND RI.BX_KND = #{bxKnd}
 		</if>
-		
+
 <!-- 		원물입고 내역 검색조건 -->
 		<if test='crtrYmd != null and crtrYmd != ""'>
 			   AND RI.WRHS_YMD = #{crtrYmd}
@@ -206,7 +206,7 @@
 		<if test='wrhsSe != null and wrhsSe != ""'>
 			   AND RI.WRHS_SE_CD = #{wrhsSe}
 		</if>
-		
+
 
 		<![CDATA[
 		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO

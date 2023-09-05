@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.RgnTrsprtCstVO;
@@ -59,4 +60,13 @@ public interface RgnTrsprtCstService {
 	 * @throws Exception
 	 */
 	public int deleteRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
+
+	/**
+	 * 지역별 운임비 등록
+	 * 
+	 * @param vhclList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> multiRgnTrsprtCst(List<RgnTrsprtCstVO> vhclList) throws Exception;
 }

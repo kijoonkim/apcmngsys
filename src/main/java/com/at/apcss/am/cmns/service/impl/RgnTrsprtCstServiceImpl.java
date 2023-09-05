@@ -1,13 +1,17 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper;
 import com.at.apcss.am.cmns.service.RgnTrsprtCstService;
 import com.at.apcss.am.cmns.vo.RgnTrsprtCstVO;
+import com.at.apcss.co.constants.ComConstants;
 
 /**
  * @Class Name : RgnTrsprtCstServiceImpl.java
@@ -68,6 +72,35 @@ public class RgnTrsprtCstServiceImpl implements RgnTrsprtCstService {
 		int deletedCnt = rgnTrsprtCstMapper.deleteRgnTrsprtCst(rgnTrsprtCstVO);
 		
 		return deletedCnt;
+	}
+
+	@Override
+	public HashMap<String, Object> multiRgnTrsprtCst(List<RgnTrsprtCstVO> vhclList) throws Exception {
+		// TODO Auto-generated method stub
+
+		List<RgnTrsprtCstVO> insertList = new ArrayList<>();
+		List<RgnTrsprtCstVO> updateList = new ArrayList<>();
+
+		for (RgnTrsprtCstVO rgnTrsprtCstVO : vhclList) {
+			RgnTrsprtCstVO vo = new RgnTrsprtCstVO();
+			BeanUtils.copyProperties(rgnTrsprtCstVO, vo);
+
+			if (ComConstants.ROW_STS_INSERT.equals(rgnTrsprtCstVO.getRowSts())) {
+				insertList.add(vo);
+			}
+			if (ComConstants.ROW_STS_UPDATE.equals(rgnTrsprtCstVO.getRowSts())) {
+				updateList.add(vo);
+			}
+		}
+
+		for (RgnTrsprtCstVO rgnTrsprtCstVO : insertList) {
+			rgnTrsprtCstMapper.insertRgnTrsprtCst(rgnTrsprtCstVO);
+		}
+
+		for (RgnTrsprtCstVO rgnTrsprtCstVO : updateList) {
+			rgnTrsprtCstMapper.updateRgnTrsprtCst(rgnTrsprtCstVO);
+		}
+		return null;
 	}
 
 }
