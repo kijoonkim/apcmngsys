@@ -1,15 +1,18 @@
 package com.at.apcss.am.invntr.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.beans.BeanUtils;
 
 import com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
 
@@ -172,8 +175,30 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	public HashMap<String, Object> updateRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
 		// TODO Auto-generated method stub
 		//포문 돌ㄹ리기 예제 참고
-		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrList);
 		
+		List<RawMtrInvntrVO> updateList = new ArrayList<>();
+		
+		for (RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList) {
+			RawMtrInvntrVO vo = new RawMtrInvntrVO();
+	         BeanUtils.copyProperties(rawMtrInvntrVO, vo);
+
+	         if (ComConstants.ROW_STS_UPDATE.equals(rawMtrInvntrVO.getRowSts())) {
+	            updateList.add(vo);
+	         }
+	      }
+
+		for (RawMtrInvntrVO rawMtrInvntrVO : updateList) {
+			rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrList);
+	      }
+		
+//		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrList);
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateRawMtrInvntr(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

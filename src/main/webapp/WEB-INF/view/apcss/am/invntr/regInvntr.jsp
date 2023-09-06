@@ -100,7 +100,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-wrhsSe" name="srch-slt-wrhsSe" class="form-control input-sm"/>
 							</td>
-							<td colspan="10">&nbsp;</td>
+							<td colspan="11">&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -220,7 +220,7 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	    	{caption: ["선택","선택"],			ref: 'checkBox',      	type:'checkbox',  	width:'50px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	    	{caption: ["선택","선택"],			ref: 'checkBox',      	type:'checkbox',  	width:'55px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
 	        {caption: ["선별번호","선별번호"],	ref: 'sortno',      	type:'output',  	width:'105px',    style:'text-align:center'},
 	        {caption: ["등급","등급"],			ref: 'grdNm',      		type:'output',  	width:'105px',    style:'text-align:center'},
 	        {caption: ["투입일자","투입일자"],	ref: 'inptYmd',      	type:'output',  	width:'105px',    style:'text-align:center'},
@@ -230,9 +230,11 @@
 	        {caption: ["품종","품종"],			ref: 'vrtyNm',      	type:'output',  	width:'105px',    style:'text-align:center'},
 	        {caption: ["규격","규격"],			ref: 'spcfctNm',      	type:'output',  	width:'105px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],			ref: 'warehouseSeNm',   type:'output',  	width:'105px',    style:'text-align:center'},
-	        {caption: ["현 재고","수량"],		ref: 'invntrQntt',      type:'input',  	width:'55px',    style:'text-align:center'},
+	        {caption: ["현 재고","수량"],		ref: 'invntrQntt',      type:'input',  		width:'55px',    style:'text-align:center'},
 	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'input', 		width:'55px',    style:'text-align:center'},
-	        {caption: ["변경사항","변경사항"],	ref: 'chgPo',      	type:'input',  		width:'105px',    	style:'text-align:center'}
+	        {caption: ["변경사항","변경사항"],	ref: 'chgPo',      		type:'input',  		width:'105px',    	style:'text-align:center'},
+// 	        hidden으로 창고구분코드 추가해주기
+	        {caption: ["창고","창고"],	ref: 'warehouseSeCd',   type:'hidden'}
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -325,7 +327,6 @@
 		let gdsSe = SBUxMethod.get("srch-slt-gdsSe");
 		let wrhsSe = SBUxMethod.get("srch-slt-wrhsSe");
 		
-	    newJsoninptCmndDsctnList = [];
 	    jsoninptCmndDsctnList = []; //첫번째 그리드 data
 		
 		const postJsonPromise1 = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
@@ -374,12 +375,13 @@
        				invntrQntt: item.invntrQntt,
        				invntrWght: item.invntrWght,
        				sortcmndNo: item.sortcmndNo,
-       				fcltNm: item.fcltNm
+       				fcltNm: item.fcltNm,
+       				warehouseSeCd: item.warehouseSeCd
   				}
 //   				jsoninptCmndDsctnList.push(rawMtrInvntr);
           		
           		jsoninptCmndDsctnList.push(Object.assign({}, rawMtrInvntr));
-          		newJsoninptCmndDsctnList.push(Object.assign({}, rawMtrInvntr));
+//           		newJsoninptCmndDsctnList.push(Object.assign({}, rawMtrInvntr));
 
   				if (index === 0) {
   					totalRecordCount = item.totalRecordCount;
@@ -558,23 +560,11 @@
 			const rowData1 = inptCmndDsctnList.getRowData(i);
 			const rowSts1 = inptCmndDsctnList.getRowStatus(i);
 
-// 			if (rowSts1 === 3){
-// 				rowData1.apcCd = gv_selectedApcCd;
-// 				rowData1.rowSts = "I";
-// 				rawMtrInvntrList.push(rowData1);
-// 			} else if (rowSts1 === 2){
-// 				rowData1.rowSts = "U";
-// 				rawMtrInvntrList.push(rowData1);
-// 			} else {
-// 				continue;
-// 			}
-			if (rowSts1 === 3){
-				rowData1.apcCd = gv_selectedApcCd;
-				rowData1.rowSts = "I";
-				rawMtrInvntrList.push(rowData1);
-			} else if (rowSts1 === 2){
+			
+			if (rowSts1 === 2){
 				rowData1.apcCd = gv_selectedApcCd;
 				rowData1.rowSts = "U";
+// 				rowData1.resultStatus = "S";
 				rawMtrInvntrList.push(rowData1);
 			} else {
 				continue;
@@ -586,7 +576,7 @@
 		}
 		if(checkSection == 1){
 // 			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateRawMtrInvntrList.do", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
-			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateRawMtrInvntrList.do", rawMtrInvntrList);	// 프로그램id 추가
+			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateRawMtrInvntrList.do", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
     		const data = await postJsonPromise_udpate;
 			
 			console.log('_.isEqual("S", data.resultStatus)',_.isEqual("S", data.resultStatus));
@@ -599,25 +589,26 @@
         	fn_selectGridList();
 		}
 		else if(checkSection == 2){
-			postJsonPromise = gfn_postJSON("", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
-    		const data = await postJsonPromise;
-    		if (_.isEqual("S", data.resultStatus)) {
-        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_selectGridList();
-        	} else {
-        		gfn_comAlert("E0001");	// E0001	오류가 발생하였습니다.
-        	}
-        	fn_selectGridList();
-		}else if(checkSection == 3){
-			postJsonPromise = gfn_postJSON("", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
-    		const data = await postJsonPromise;
-    		if (_.isEqual("S", data.resultStatus)) {
-        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_selectGridList();
-        	} else {
-        		gfn_comAlert("E0001");	// E0001	오류가 발생하였습니다.
-        	}
-        	fn_selectGridList();
+// 			postJsonPromise = gfn_postJSON("", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
+//     		const data = await postJsonPromise;
+//     		if (_.isEqual("S", data.resultStatus)) {
+//         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+//         		fn_selectGridList();
+//         	} else {
+//         		gfn_comAlert("E0001");	// E0001	오류가 발생하였습니다.
+//         	}
+//         	fn_selectGridList();
+		}
+		else if(checkSection == 3){
+// 			postJsonPromise = gfn_postJSON("", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
+//     		const data = await postJsonPromise;
+//     		if (_.isEqual("S", data.resultStatus)) {
+//         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+//         		fn_selectGridList();
+//         	} else {
+//         		gfn_comAlert("E0001");	// E0001	오류가 발생하였습니다.
+//         	}
+//         	fn_selectGridList();
 		}
 	}
 </script>

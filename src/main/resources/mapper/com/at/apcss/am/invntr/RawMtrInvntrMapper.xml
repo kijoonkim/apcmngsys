@@ -346,9 +346,6 @@
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 				
 		]]>
-			<if test='delYn != null and delYn != ""'>
-				, DEL_YN			= #{delYn}
-			</if>
 			<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 				, WAREHOUSE_SE_CD			= #{warehouseSeCd}
 			</if>
