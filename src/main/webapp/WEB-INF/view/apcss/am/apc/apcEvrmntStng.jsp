@@ -167,12 +167,12 @@
 							</td>
 						</tr>
 						<tr>
-							<th class="ta_r th_bg" scope="row">등급/규격 관리</th>
+							<th class="ta_r th_bg" scope="row">규격/감량율 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="btnGrdSpcfct" name="btnGrdSpcfct" uitype="modal" text="등급/규격 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-grdSpcfct" onclick="fn_modal('btnGrdSpcfct')"></sbux-button>
+								<sbux-button id="btnSpcfct" name="btnSpcfct" uitype="modal" text="규격/감량율 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spcfct" onclick="fn_modal('btnSpcfct')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
-								선택한 품목별로 APC에서 관리하는 등급과 규격을 등록하세요.
+								선택한 품목별로 APC에서 관리하는 규격/품목별 감량율을 등록하세요.
 							</td>
 						</tr>
 						<tr>
@@ -519,12 +519,12 @@
     <div id="body-modal-item">
     	<jsp:include page="../apc/itemMngPopup.jsp"></jsp:include>
     </div>
-    <!-- 등급/규격 등록 Modal -->
+    <!-- 규격 등록 Modal -->
     <div>
-        <sbux-modal id="modal-grdSpcfct" name="modal-grdSpcfct" uitype="middle" header-title="등급/규격 등록" body-html-id="body-modal-grdSpcfct" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-spcfct" name="modal-spcfct" uitype="middle" header-title="규격/감량율 등록" body-html-id="body-modal-spcfct" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="body-modal-grdSpcfct">
-    	<jsp:include page="../apc/grdSpcfctMngPopup.jsp"></jsp:include>
+    <div id="body-modal-spcfct">
+    	<jsp:include page="../apc/spcfctMngPopup.jsp"></jsp:include>
     </div>
     <!-- 출하포장단위 등록 Modal -->
     <div>
@@ -716,9 +716,11 @@
 			fn_pltMngCreateGrid();
 			fn_bxMngCreateGrid();
 		}
-		if(targetName == 'btnGrdSpcfct'){
-			fn_createGrdGrid();
+		if(targetName == 'btnSpcfct'){
 			fn_createGrdApcSpcfct();
+		}
+		if(targetName == 'btnGrd'){
+			fn_createGrdGrid();
 		}
 		if(targetName == 'btnWrhsVhcl'){
 			fn_wrhsVhclMngCreateGrid();
@@ -845,20 +847,20 @@
             	grdApcVrty.setCellData(nRow, 6, SBUxMethod.get("vrty-inp-itemCd"), true);
             	grdApcVrty.addRow(true);
             }else if(grid === "grdGrd"){
-            	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
+            	if(!(SBUxMethod.get("grd-slt-itemCd") == null || SBUxMethod.get("grd-slt-itemCd") == "")){
 	            	grdGrd.setCellData(nRow, nCol, "N", true);
 	            	grdGrd.setCellData(nRow, 4, gv_apcCd, true);
-	            	grdGrd.setCellData(nRow, 5, SBUxMethod.get("spcfct-select-itemCd"), true);
+	            	grdGrd.setCellData(nRow, 5, SBUxMethod.get("spcfct-slt-itemCd"), true);
 	            	grdGrd.addRow(true);
             	}else{
             		alert("품목을 선택해주세요.")
             		return;
             	}
             }else if(grid === "grdApcSpcfct"){
-            	if(!(SBUxMethod.get("spcfct-select-itemCd") == null || SBUxMethod.get("spcfct-select-itemCd") == "")){
+            	if(!(SBUxMethod.get("spcfct-slt-itemCd") == null || SBUxMethod.get("spcfct-slt-itemCd") == "")){
             		grdApcSpcfct.setCellData(nRow, nCol, "N", true);
             		grdApcSpcfct.setCellData(nRow, 7, gv_apcCd, true);
-            		grdApcSpcfct.setCellData(nRow, 8, SBUxMethod.get("spcfct-select-itemCd"), true);
+            		grdApcSpcfct.setCellData(nRow, 8, SBUxMethod.get("spcfct-slt-itemCd"), true);
             		grdApcSpcfct.addRow(true);
             	}else{
             		alert("품목을 선택해주세요.")

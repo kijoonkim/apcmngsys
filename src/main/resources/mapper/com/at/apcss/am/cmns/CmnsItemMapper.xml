@@ -12,6 +12,31 @@
 
 <mapper namespace="com.at.apcss.am.cmns.mapper.CmnsItemMapper">
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsApcItem		-->
+	<!-- DESC : APC 품목 단건 조회.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.05  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <select id="selectCmnsApcItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+    	<![CDATA[
+	    	SELECT  /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsApcItem */
+			       AIC.APC_CD           AS APC_CD
+			     , AIC.ITEM_CD          AS ITEM_CD
+			     , AIC.ITEM_NM          AS ITEM_NM
+			     , AIC.RAW_MTR_RDCD_RT  AS RAW_MTR_RDCD_RT
+			     , AIC.SORT_RDCD_RT     AS SORT_RDCD_RT
+			     , AIC.PCKG_RDCD_RT     AS PCKG_RDCD_RT
+			     , AIC.DEL_YN           AS DEL_YN
+			     , AIC.NH_APC_CD        AS NH_APC_CD
+			     , AIC.NH_ITEM_NM       AS NH_ITEM_NM
+			  FROM TB_APC_ITEM_CRTR AIC
+			 WHERE AIC.APC_CD = #{apcCd}
+			   AND AIC.ITEM_CD = #{itemCd}
+		]]>
+    </select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList		-->
@@ -116,22 +141,19 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateCmnsItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+	<update id="updateApcCmnsItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO">
 		<![CDATA[
 			UPDATE
-				TB_CNPT_INFO
+				TB_APC_ITEM_CRTR
 			   SET
 			   	  SYS_LAST_CHG_DT		= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
-				, CNPT_NM				= #{cnptNm}
-	    		, BRNO					= #{brno}
-	    		, CNPT_TYPE				= #{cnptType}
-	    		, PIC_NM				= #{picNm}
-	    		, TELNO					= #{telno}
-	    		, RMRK					= #{rmrk}
-			 WHERE APC_CD = #{apcCd}
-			   AND CNPT_CD	= #{cnptCd}
+				, RAW_MTR_RDCD_RT		= #{rawMtrRdcdRt}
+	    		, SORT_RDCD_RT			= #{sortRdcdRt}
+	    		, PCKG_RDCD_RT			= #{pckgRdcdRt}
+			 WHERE APC_CD 		= #{apcCd}
+			   AND ITEM_CD		= #{itemCd}
 		]]>
 	</update>
 

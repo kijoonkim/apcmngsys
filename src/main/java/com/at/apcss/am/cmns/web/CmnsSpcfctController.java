@@ -235,78 +235,42 @@ public class CmnsSpcfctController extends BaseController {
 		cmnsSpcfctVO.setSysLastChgUserId(getUserId());
 		cmnsSpcfctVO.setSysLastChgPrgrmId(getPrgrmId());
 
-		int deletedCnt = 0;
-
 		try {
-			deletedCnt = cmnsSpcfctService.deleteApcSpcfct(cmnsSpcfctVO);
+			resultMap = cmnsSpcfctService.deleteApcSpcfct(cmnsSpcfctVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
-		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// APC 규격 등록
-		@PostMapping(value = "/am/cmns/insertApcSpcfctList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-		public ResponseEntity<HashMap<String, Object>> insertApcSpcfctList(@RequestBody List<CmnsSpcfctVO> cmnsSpcfctList, HttpServletRequest request) throws Exception {
+	// APC 규격 저장
+	@PostMapping(value = "/am/cmns/multiApcSpcfctList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiApcSpcfctList(@RequestBody List<CmnsSpcfctVO> cmnsSpcfctList, HttpServletRequest request) throws Exception {
 
-			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-			// validation check
+		// validation check
 
-			int insertedCnt = 0;
+		int savedCnt = 0;
 
-			try {
-				for (CmnsSpcfctVO cmnsSpcfctVO : cmnsSpcfctList) {
-					// audit 항목
-					cmnsSpcfctVO.setSysFrstInptUserId(getUserId());
-					cmnsSpcfctVO.setSysFrstInptPrgrmId(getPrgrmId());
-					cmnsSpcfctVO.setSysLastChgUserId(getUserId());
-					cmnsSpcfctVO.setSysLastChgPrgrmId(getPrgrmId());
-					insertedCnt = cmnsSpcfctService.insertApcSpcfct(cmnsSpcfctVO);
-				}
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
-				return getErrorResponseEntity(e);
+		try {
+			for (CmnsSpcfctVO cmnsSpcfctVO : cmnsSpcfctList) {
+				// audit 항목
+				cmnsSpcfctVO.setSysFrstInptUserId(getUserId());
+				cmnsSpcfctVO.setSysFrstInptPrgrmId(getPrgrmId());
+				cmnsSpcfctVO.setSysLastChgUserId(getUserId());
+				cmnsSpcfctVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
-
-			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-
-			return getSuccessResponseEntity(resultMap);
+			savedCnt = cmnsSpcfctService.multiApcSpcfct(cmnsSpcfctList);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
 		}
 
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 
-		// APC 규격 변경
-		@PostMapping(value = "/am/cmns/updateApcSpcfctList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-		public ResponseEntity<HashMap<String, Object>> updateApcSpcfctList(@RequestBody List<CmnsSpcfctVO> cmnsSpcfctList, HttpServletRequest request) throws Exception {
-
-			HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
-			// validation check
-
-
-
-			int updatedCnt = 0;
-
-			try {
-				for (CmnsSpcfctVO cmnsSpcfctVO : cmnsSpcfctList) {
-					// audit 항목
-					cmnsSpcfctVO.setSysFrstInptUserId(getUserId());
-					cmnsSpcfctVO.setSysFrstInptPrgrmId(getPrgrmId());
-					cmnsSpcfctVO.setSysLastChgUserId(getUserId());
-					cmnsSpcfctVO.setSysLastChgPrgrmId(getPrgrmId());
-					updatedCnt = cmnsSpcfctService.updateApcSpcfct(cmnsSpcfctVO);
-				}
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
-				return getErrorResponseEntity(e);
-			}
-
-			resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-
-			return getSuccessResponseEntity(resultMap);
-		}
+		return getSuccessResponseEntity(resultMap);
+	}
 }

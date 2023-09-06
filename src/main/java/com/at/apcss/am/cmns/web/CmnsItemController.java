@@ -39,6 +39,27 @@ public class CmnsItemController extends BaseController {
 	@Resource(name = "cmnsItemService")
 	private CmnsItemService cmnsItemService;
 
+	// APC 환경설정 - 품목 단건 조회
+	@PostMapping(value = "/am/cmns/selectCmnsApcItem.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectCmnsApcItem(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
+		logger.debug("selectCmnsItem 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		CmnsItemVO resultVO = new CmnsItemVO();
+
+		try {
+
+			resultVO = cmnsItemService.selectCmnsApcItem(cmnsItemVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	// APC 환경설정 - 품목 목록 조회
 	@PostMapping(value = "/am/cmns/selectCmnsItemList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectCmnsItemList(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
@@ -115,6 +136,26 @@ public class CmnsItemController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC 환경설정 - APC 품목 정보 변경
+	@PostMapping(value = "/am/cmns/updateApcCmnsItem.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateApcCmnsItem(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
+		logger.debug("deleteApcCmnsItem 호출 <><><><> ");
+
+		int updatedCnt = 0;
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			cmnsItemVO.setSysLastChgPrgrmId(getPrgrmId());
+			cmnsItemVO.setSysLastChgUserId(getUserId());
+			updatedCnt = cmnsItemService.updateApcCmnsItem(cmnsItemVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+
 		return getSuccessResponseEntity(resultMap);
 	}
 
