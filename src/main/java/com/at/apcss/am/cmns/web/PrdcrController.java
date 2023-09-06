@@ -66,6 +66,7 @@ public class PrdcrController extends BaseController {
 		
 		try {
 			for ( PrdcrVO prdcrVO : prdcrList ) {
+				prdcrVO.setVhclno(prdcrVO.getVhclno().replaceAll(" ", ""));
 				prdcrVO.setSysFrstInptUserId(getUserId());
 				prdcrVO.setSysFrstInptPrgrmId(getPrgrmId());
 				prdcrVO.setSysLastChgUserId(getUserId());

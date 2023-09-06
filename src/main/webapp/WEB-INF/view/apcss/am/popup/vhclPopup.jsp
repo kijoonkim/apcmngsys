@@ -194,8 +194,11 @@
 
 			this.createGrid(true);
 			grdVhclPop.rebuild();
-			grdVhclPop.setCellDisabled(0, 0, grdVhclPop.getRows() - 1, 0, true);
+			grdVhclPop.setCellDisabled(0, 0, grdVhclPop.getRows() - 1, grdVhclPop.getCols() - 1, false);
+			
+			let nRow = grdVhclPop.getRows();
 			grdVhclPop.addRow(true);
+			grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
 		    grdVhclPop.unbind('dblclick');
 
 		},
@@ -215,7 +218,10 @@
 		 */
 		add: function(nRow, nCol) {
 			grdVhclPop.setCellData(nRow, nCol, "N", true);
+			grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, false);
+			nRow++;
 			grdVhclPop.addRow(true);
+			grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
 		},
 		del: async function(nRow) {
 			const apcCd = SBUxMethod.get("vhcl-inp-apcCd");

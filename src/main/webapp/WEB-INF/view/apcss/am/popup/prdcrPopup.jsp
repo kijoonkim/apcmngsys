@@ -251,7 +251,7 @@
 			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, false);
 			nRow++;
 			grdPrdcrPop.addRow(true);
-			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, false);
+			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
 		},
 		del: async function(nRow) {
 			const apcCd = SBUxMethod.get("prdcr-inp-apcCd");
