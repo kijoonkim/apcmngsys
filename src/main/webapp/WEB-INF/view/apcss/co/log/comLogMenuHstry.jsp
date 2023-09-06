@@ -30,7 +30,7 @@
 					<td></td>
 					<th scope="row" class="th_bg">화면명</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-input id="menu-inp-menuNm" name="menu-inp-menuNm" uitype="text" class="form-control input-sm"></sbux-input>
+						<sbux-input id="menu-inp-menuNm" name="menu-inp-menuNm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
 					</td>
 				</tr>
 			</tbody>

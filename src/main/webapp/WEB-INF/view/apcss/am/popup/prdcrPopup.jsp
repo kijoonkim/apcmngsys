@@ -48,7 +48,7 @@
 							<th class="td_input">
 								<sbux-input
 									uitype="text" id="prdcr-inp-prdcrNm" name="prdcr-inp-prdcrNm"
-									class="form-control input-sm" maxlength="19"
+									class="form-control input-sm" maxlength="33"
     								onkeyenter="keyUpInp(prdcr-inp-prdcrNm, 'prdcr-inp-prdcrNm', 'true')">
     							</sbux-input>
 							</th>

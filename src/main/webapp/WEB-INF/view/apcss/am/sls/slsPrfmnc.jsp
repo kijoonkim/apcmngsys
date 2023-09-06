@@ -84,7 +84,7 @@
 							<td></td>
 							<th scope="row" class="th_bg">거래처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
@@ -156,7 +156,7 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
-            {caption: ['선택','선택'], 		ref: 'checkedYn',		width: '50px',		type: 'checkbox',	style:'text-align: center',
+            {caption: ['선택','선택'], 		ref: 'checkedYn',	width: '50px',		type: 'checkbox',	style:'text-align: center',
         		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate: true}},
             {caption: ['매출일자','매출일자'], 	ref: 'slsYmd',		width: '100px',		type: 'output',		style:'text-align: center',
         		format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},

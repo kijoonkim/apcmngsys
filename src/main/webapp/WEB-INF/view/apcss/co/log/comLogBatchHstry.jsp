@@ -30,7 +30,7 @@
 					<td></td>
 					<th scope="row" class="th_bg">프로그램명</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-input id="batch-inp-prgrmNm" name="batch-inp-prgrmNm" uitype="text" class="form-control input-sm"></sbux-input>
+						<sbux-input id="batch-inp-prgrmNm" name="batch-inp-prgrmNm" uitype="text" maxlength="200" class="form-control input-sm"></sbux-input>
 					</td>
 				</tr>
 			</tbody>

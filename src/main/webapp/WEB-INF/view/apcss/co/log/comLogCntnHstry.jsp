@@ -30,7 +30,7 @@
 					<td></td>
 					<th scope="row" class="th_bg">사용자명</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-input id="cntn-inp-userNm" name="cntn-inp-userNm" uitype="text" class="form-control input-sm"></sbux-input>
+						<sbux-input id="cntn-inp-userNm" name="cntn-inp-userNm" uitype="text" maxlength="19" class="form-control input-sm"></sbux-input>
 					</td>
 				</tr>
 			</tbody>

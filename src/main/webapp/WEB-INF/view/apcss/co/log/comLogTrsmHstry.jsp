@@ -42,7 +42,7 @@
 					<td></td>
 					<th scope="row" class="th_bg">인터페이스명</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-input id="trsm-inp-prgrmNm" name=trsm-inp-prgrmNm uitype="text" class="form-control input-sm"></sbux-input>
+						<sbux-input id="trsm-inp-prgrmNm" name=trsm-inp-prgrmNm uitype="text" maxlength="200" class="form-control input-sm"></sbux-input>
 					</td>
 				</tr>
 			</tbody>
