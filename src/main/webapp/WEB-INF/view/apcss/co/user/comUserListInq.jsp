@@ -24,6 +24,9 @@
 						</div>
 
 						<div class="box-body">
+						<!--[APC] START -->
+							<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+						<!--[APC] END -->
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
@@ -42,14 +45,14 @@
 									<col style="width: 3%">
 								</colgroup>
 								<tbody>
-									<tr>
-										<th scope="row">APC명</th>
-										<td colspan="3" class="td_input" style="border-right: hidden;">
+<!-- 									<tr> -->
+<!-- 										<th scope="row">APC명</th> -->
+<!-- 										<td colspan="3" class="td_input" style="border-right: hidden;"> -->
 <!-- 											<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input> -->
-											<sbux-select unselected-text="전체" uitype="single" id="srch-slt-apcCd" name="srch-slt-apcCd" jsondata-ref="jsonComApcCd" class="form-control input-sm" />
-										</td>
-										<td colspan="8" class="td_input"></td>
-									</tr>
+<!-- 											<sbux-select unselected-text="전체" uitype="single" id="srch-slt-apcCd" name="srch-slt-apcCd" jsondata-ref="jsonComApcCd" class="form-control input-sm" /> -->
+<!-- 										</td> -->
+<!-- 										<td colspan="8" class="td_input"></td> -->
+<!-- 									</tr> -->
 									<tr>
 										<th scope="row">사용자ID</th>
 										<td class="td_input" style="border-right: hidden;">
