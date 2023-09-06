@@ -54,50 +54,6 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 	}
 
 	@Override
-	public List<ApcEvrmntStngVO> selectApcDsctnList(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception {
-		return apcEvrmntStngMapper.selectApcDsctnList(apcEvrmntStngVO);
-	}
-
-	@Override
-	public int updateApcDsctn(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception {
-		return apcEvrmntStngMapper.updateApcDsctn(apcEvrmntStngVO);
-	}
-
-	@Override
-	public int insertApcDsctn(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception {
-		return apcEvrmntStngMapper.insertApcDsctn(apcEvrmntStngVO);
-	}
-
-	@Override
-	public HashMap<String, Object> multiApcDsctnList(List<ApcEvrmntStngVO> apcDsctnList) throws Exception {
-		// TODO Auto-generated method stub
-
-		List<ApcEvrmntStngVO> insertList = new ArrayList<>();
-		List<ApcEvrmntStngVO> updateList = new ArrayList<>();
-
-		for ( ApcEvrmntStngVO ApcEvrmntStngVO : apcDsctnList ) {
-			ApcEvrmntStngVO vo = new ApcEvrmntStngVO();
-			BeanUtils.copyProperties(ApcEvrmntStngVO, vo);
-
-			if (ComConstants.ROW_STS_INSERT.equals(ApcEvrmntStngVO.getRowSts())) {
-				insertList.add(vo);
-			}
-			if (ComConstants.ROW_STS_UPDATE.equals(ApcEvrmntStngVO.getRowSts())) {
-				updateList.add(vo);
-			}
-		}
-
-		for ( ApcEvrmntStngVO ApcEvrmntStngVO : insertList ) {
-			apcEvrmntStngMapper.insertApcDsctn(ApcEvrmntStngVO);
-		}
-
-		for ( ApcEvrmntStngVO ApcEvrmntStngVO : updateList ) {
-			apcEvrmntStngMapper.updateApcDsctn(ApcEvrmntStngVO);
-		}
-		return null;
-	}
-
-	@Override
 	public List<ComUserVO> selectApcUserList(ComUserVO comUserVO) throws Exception {
 		return apcEvrmntStngMapper.selectApcUserList(comUserVO);
 	}

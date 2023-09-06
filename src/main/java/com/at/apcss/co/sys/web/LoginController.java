@@ -14,8 +14,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.at.apcss.am.apc.service.ApcInfoService;
-import com.at.apcss.am.apc.vo.ApcInfoVO;
+import com.at.apcss.co.apc.service.ApcInfoService;
+import com.at.apcss.co.apc.vo.ApcInfoVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.menu.vo.ComApcJsonVO;
 import com.at.apcss.co.menu.vo.ComMenuVO;

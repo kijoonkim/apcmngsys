@@ -149,11 +149,12 @@
     		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 			 , DRVR_NM					= #{drvrNm}
     		 , BANK_CD					= #{bankCd}
+    		 , ACTNO					= #{actno}
     		 , DPSTR					= #{dpstr}
     		 , RMRK						= #{rmrk}
     		 , DEL_YN					= #{delYn}
-		 WHERE APC_CD 		= #{apcCd}
-		   AND VHCLNO 		= #{vhclno}
+		 WHERE APC_CD 					= #{apcCd}
+		   AND VHCLNO 					= #{vhclno}
 		]]>
 	</update>
 
