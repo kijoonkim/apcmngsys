@@ -18,7 +18,7 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnWrhsVhclSech" name="btnWrhsVhclSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectWrhsVhclList()"></sbux-button>
+					<sbux-button id="btnWrhsVhclSech" name="btnWrhsVhclSech" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnWrhsVhclReg" name="btnWrhsVhclReg" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertWrhsVhclList()"></sbux-button>
 					<sbux-button id="btnWrhsVhclEnd" name="btnWrhsVhclEnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-wrhsVhcl')"></sbux-button>
 				</div>
@@ -90,13 +90,18 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.columns = [
-	        {caption: ["차량번호"], 	ref: 'vhclno',  type:'input',  width:'120px',    style:'text-align:center'},
-	        {caption: ["기사명"], 		ref: 'drvrNm',  type:'input',  width:'80px',    style:'text-align:center'},
+	        {caption: ["차량번호"], 	ref: 'vhclno',  type:'input', width:'120px',    style:'text-align:center',
+  	            validate : gfn_chkByte.bind({byteLimit: 40}), typeinfo : {mask : {alias : '#'}}},
+	        {caption: ["기사명"], 		ref: 'drvrNm',  type:'input',  width:'80px',    style:'text-align:center',
+	        	validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'k'}}},
 	        {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'120px',    style:'text-align:center',
     			typeinfo : {ref:'comboGridBankCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
-	        {caption: ["계좌번호"], 	ref: 'actno',  	type:'input',  width:'180px',    style:'text-align:center'},
-	        {caption: ["예금주"], 		ref: 'dpstr',  	type:'input',  width:'80px',    style:'text-align:center'},
-	        {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'280px',    style:'text-align:center'},
+	        {caption: ["계좌번호"], 	ref: 'actno',  	type:'input',  width:'180px',    style:'text-align:center',
+	        	validate : gfn_chkByte.bind({byteLimit: 256}), typeinfo : {mask : {alias : '#-', repeat: '*'}}},
+	        {caption: ["예금주"], 		ref: 'dpstr',  	type:'input',  width:'80px',    style:'text-align:center',
+	        	validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'k'}}},
+	        {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'280px',    style:'text-align:center',
+	        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 	        {caption: ["처리"], 		ref: 'delYn',   type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"wrhsVhclMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -110,7 +115,7 @@
 	    fn_selectWrhsVhclList();
 
 	}
-
+	
 	async function fn_selectWrhsVhclList(){
 		fn_callSelectWrhsVhclList();
 	}
@@ -135,9 +140,8 @@
 				wrhsVhclMngGridData.push(Object.assign({}, wrhsVhcl));
 			});
         	wrhsVhclMngDatagrid.rebuild();
-        	wrhsVhclMngDatagrid.addRow();
-
         	wrhsVhclMngDatagrid.setCellDisabled(0, 0, wrhsVhclMngGridData.length, 0, true);
+        	wrhsVhclMngDatagrid.addRow();
         	
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -161,10 +165,10 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
-            {caption: ["코드"], 			ref: 'trsprtRgnCd',  	type:'input',  width:'100px',     style:'text-align:center', hidden : true},
-            {caption: ["운송지역"], 		ref: 'trsprtRgnNm',  	type:'input',  width:'320px',    style:'text-align:center'},
+            {caption: ["코드"], 			ref: 'trsprtRgnCd',  	type:'output',  width:'100px',     style:'text-align:center', hidden : true},
+            {caption: ["운송지역"], 		ref: 'trsprtRgnNm',  	type:'input',  width:'320px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
             {caption: ["운송비용(원)"], 	ref: 'trsprtCst',  		type:'input',  width:'260px',    style:'text-align:right', format : {type:'number', rule:'#,### 원'} },
-            {caption: ["비고"], 			ref: 'rmrk',  			type:'input',  width:'280px',    style:'text-align:center'},
+            {caption: ["비고"], 			ref: 'rmrk',  			type:'input',  width:'280px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
             {caption: ["처리"], 			ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"rgnTrsprtCstMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -178,6 +182,12 @@
         fn_selectRgnTrsprtCstList();
     }
 
+	// 출하지시 목록 조회 (조회 버튼)
+    async function fn_search() {
+    	fn_selectRgnTrsprtCstList();
+    	fn_selectWrhsVhclList();
+    }
+	
     async function fn_selectRgnTrsprtCstList(){
 		fn_callSelectRgnTrsprtCstList();
 	}
