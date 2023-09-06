@@ -81,11 +81,6 @@
 			</section>
 				
 <script type="text/javascript">
-var jsonComApcCd = [];	// APC코드	srch-slt-apcCd	APC_CD
-const fn_initSBSelect = async function() {
-	// 조회 SB select
- 	gfn_setComCdSBSelect('srch-slt-apcCd', jsonComApcCd, 'APC_CD');	// APC코드	srch-slt-apcCd	APC_CD
-}
 				
 window.addEventListener('DOMContentLoaded', function(e) {
 	fn_createUserListInqGrid();
@@ -95,7 +90,6 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	let month = ('0' + (today.getMonth() + 1)).slice(-2);
 	let day = ('0' + today.getDate()).slice(-2);
 	
-	fn_initSBSelect();
 })
 
 var userInfoChgGridData = []; // 그리드의 참조 데이터 주소 선언

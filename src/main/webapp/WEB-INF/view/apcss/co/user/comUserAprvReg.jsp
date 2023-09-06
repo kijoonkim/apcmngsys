@@ -64,7 +64,10 @@
 									id="srch-inp-userNm"
 									name="srch-inp-userNm"
 									uitype="text"
-									class="form-control input-sm" placeholder="" title=""
+									class="form-control input-sm" 
+									placeholder="" 
+									title=""
+									maxlength="13"
 								></sbux-input>
 							</td>
 							<td colspan="6"></td>
