@@ -43,6 +43,10 @@ public class WrhsVhclVO extends ComVO {
 	 */
 	private String bankCd;
 	/**
+	 * 은행명
+	 */
+	private String bankNm;
+	/**
 	 * 계좌번호
 	 */
 	private String actno;

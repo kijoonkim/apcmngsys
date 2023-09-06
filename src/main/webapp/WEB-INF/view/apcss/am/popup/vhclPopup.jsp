@@ -140,8 +140,8 @@
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.allowcopy = true;
-			SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.scrollbubbling = false;
+		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 		    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -150,20 +150,20 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		    	{caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px',	type: 'input', 		style:'text-align:center',
+		    	{caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px',	type: 'input', 		style:'text-align:center', 	sortable: false,
 		    		validate : gfn_chkByte.bind({byteLimit: 40})},
-		        {caption: ['기사명'], 	ref: 'drvrNm', 			width: '100px', type: 'input', 		style:'text-align:center',
+		        {caption: ['기사명'], 	ref: 'drvrNm', 			width: '100px', type: 'input', 		style:'text-align:center', 	sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 20})},
-		        {caption: ['예금주명'], 	ref: 'dpstr', 			width: '100px', type: 'input', 		style:'text-align:center',
+		        {caption: ['예금주명'], 	ref: 'dpstr', 			width: '100px', type: 'input', 		style:'text-align:center', 	sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 20})},
-		        {caption: ['은행'], 		ref: 'bankCd', 			width: '100px',	type:'inputcombo',  style:'text-align:center',
+		        {caption: ['은행'], 		ref: 'bankCd', 			width: '100px',	type:'inputcombo',  style:'text-align:center', 	sortable: false,
 					typeinfo : {ref:'jsonComBankCdVhclPop', itemcount: 10,	label:'label', value:'value'}, validate : gfn_chkByte.bind({byteLimit: 100})},
-		        {caption: ['계좌번호'], 	ref: 'actno', 			width: '120px', type: 'input', 		style:'text-align:center',
+		        {caption: ['계좌번호'], 	ref: 'actno', 			width: '120px', type: 'input', 		style:'text-align:center', 	sortable: false,
 					typeinfo : {mask : {alias : 'numeric'}}, validate : gfn_chkByte.bind({byteLimit: 256})},
-		        {caption: ['비고'], 		ref: 'rmrk',			width: '200px', type: 'input',
+		        {caption: ['비고'], 		ref: 'rmrk',			width: '200px', type: 'input', 									sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 1000})},
-		        {caption: ['최종처리일시'],	ref: 'sysLastChgDt',	width: '140px', type: 'output',		style:'text-align:center'},
-		        {caption: ["처리"], ref: 'delYn', 				width: '80px',	type:'button', 		style: 'text-align:center',
+		        {caption: ['최종처리일시'],	ref: 'sysLastChgDt',	width: '140px', type: 'output',		style:'text-align:center', 	sortable: false},
+		        {caption: ["처리"], 		ref: 'delYn', 			width: '70px',	type:'button', 		style: 'text-align:center', sortable: false,
 		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 						if (!isEditable) {
 							return "";
@@ -174,7 +174,8 @@
 					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popVhcl.del(" + nRow + ")'>삭제</button>";
 		            	}
 			    }},
-			    {caption: ['APC코드'], ref: 'apcCd', hidden : true}
+			    {caption: ['APC코드'], 	ref: 'apcCd', 			hidden : true},
+			    {caption: ['은행명'], 	ref: 'bankNm', 			hidden : true}
 		    ];
 
 		    grdVhclPop = _SBGrid.create(SBGridProperties);
@@ -344,6 +345,7 @@
 						vhclno			: item.vhclno,
 					    drvrNm 			: item.drvrNm,
 					    bankCd 			: item.bankCd,
+					    bankNm 			: item.bankNm,
 					    actno 			: item.actno,
 					    dpstr 			: item.dpstr,
 					    rmrk 			: item.rmrk,

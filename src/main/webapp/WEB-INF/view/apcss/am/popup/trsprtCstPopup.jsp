@@ -115,11 +115,13 @@
 		prvApcCd: "",
 		objGrid: null,
 		gridJson: [],
+		receivedData: null,
 		callbackFnc: function() {},
-		init: async function(_apcCd, _apcNm, _trsprtYmd, _vhclno, _callbackFnc) {
+		init: async function(_apcCd, _apcNm, _data, _callbackFnc) {
 			// set param
-			SBUxMethod.set("trsprtCst-dtp-trsprtYmd", _trsprtYmd);
-			SBUxMethod.set("trsprtCst-inp-vhclno", _vhclno);
+			receivedData = _data;
+			SBUxMethod.set("trsprtCst-dtp-trsprtYmd", _data.trsprtYmd);
+			SBUxMethod.set("trsprtCst-inp-vhclno", _data.vhclno);
 			SBUxMethod.set("trsprtCst-inp-apcCd", _apcCd);
 			SBUxMethod.set("trsprtCst-inp-apcNm", _apcNm);
 
@@ -133,7 +135,6 @@
 					gfn_setTrsprtRgnSBSelect('grdTrsprtCstPop', 	jsonComTrsprtRgnCd, _apcCd)				// 운송지역
 				]);
 				this.createGrid();
-
 				this.search();
 			} else {
 				this.search();
@@ -152,11 +153,12 @@
 		    SBGridProperties.jsonref = this.jsonId;
 		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 		    SBGridProperties.selectmode = 'byrow';
+			SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.allowcopy = true;
-			SBGridProperties.explorerbar = 'sortmove';
 			SBGridProperties.scrollbubbling = false;
+		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 		    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -165,7 +167,7 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		        {caption: ["처리"],	 	ref: 'delYn',  		width:'70px',	type: 'button',			style: 'text-align: center',
+		        {caption: ["처리"],	 	ref: 'delYn',  		width:'70px',	type: 'button',			style: 'text-align: center', sortable: false,
 		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 			        	if(strValue== null || strValue == ""){
 			        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popTrsrptCst.add(" + nRow + ", " + nCol + ")'>추가</button>";
@@ -173,23 +175,23 @@
 					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popTrsrptCst.del(" + nRow + ")'>삭제</button>";
 			        	}
 			    	}},
-		        {caption: ['운송일자'], 	ref: 'trsprtYmd', 	width:'120px',	type: 'datepicker', 	style: 'text-align: center',
+		        {caption: ['운송일자'], 	ref: 'trsprtYmd', 	width:'120px',	type: 'datepicker', 	style: 'text-align: center', sortable: false,
 			    	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-		        {caption: ['운송구분'], 	ref: 'trsprtSeCd',	width: '100px',	type: 'combo',			style: 'text-align: center',		
+		        {caption: ['운송구분'], 	ref: 'trsprtSeCd',	width: '100px',	type: 'combo',			style: 'text-align: center', sortable: false,		
 					typeinfo : {ref:'jsonComTrsprtSeCd', label:'label', value:'value', itemcount: 10}},
-		        {caption: ['차량번호'], 	ref: 'vhclno',		width: '100px',	type: 'inputbutton',	style: 'text-align: center',		
+		        {caption: ['차량번호'], 	ref: 'vhclno',		width: '100px',	type: 'inputbutton',	style: 'text-align: center', sortable: false,		
 					typeinfo : {callback: fn_grdChoiceVhcl}, validate : gfn_chkByte.bind({byteLimit: 40})},
-		        {caption: ['기사명'], 	ref: 'drvrNm',		width: '100px',	type: 'output', 		style: 'text-align: center'},
-		        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', width: '100px', type: 'combo', 			style: 'text-align: center', 	
+		        {caption: ['기사명'], 	ref: 'drvrNm',		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
+		        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', width: '100px', type: 'combo', 			style: 'text-align: center', sortable: false, 	
 					typeinfo : {ref:'jsonComTrsprtRgnCd', label:'label', value:'value', itemcount: 10}},
-		        {caption: ['중량'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output', 		style: 'text-align: center',
+		        {caption: ['중량'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false,
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###Kg'}},
-		        {caption: ['운임비용'],	ref: 'trsprtCst', 	width: '100px',	type: 'input', 			style: 'text-align: center',
+		        {caption: ['운임비용'],	ref: 'trsprtCst', 	width: '100px',	type: 'input', 			style: 'text-align: center', sortable: false,
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}, validate : gfn_chkByte.bind({byteLimit: 18})},
-		        {caption: ['은행'],		ref: 'bankNm', 		width: '100px',	type: 'output', 		style: 'text-align: center'},
-		        {caption: ['계좌'],		ref: 'actno', 		width: '100px',	type: 'output', 		style: 'text-align: center'},
-		        {caption: ['예금주'],	 	ref: 'dpstr', 		width: '80px',	type: 'output', 		style: 'text-align: center'},
-		        {caption: ['비고'],		ref: 'rmrk', 		width: '240px',	type: 'input',
+		        {caption: ['은행'],		ref: 'bankNm', 		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
+		        {caption: ['계좌'],		ref: 'actno', 		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
+		        {caption: ['예금주'],	 	ref: 'dpstr', 		width: '80px',	type: 'output', 		style: 'text-align: center', sortable: false},
+		        {caption: ['비고'],		ref: 'rmrk', 		width: '240px',	type: 'input',										 sortable: false,
 		        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 		        {caption: ['APC코드'], 	ref: 'apcCd', 		hidden : true},
 		        {caption: ['은행'],		ref: 'bankCd', 		hidden : true},
@@ -213,7 +215,7 @@
 
 			grdTrsprtCstPop.setCellData(nRow, 0, SBUxMethod.get("trsprtCst-dtp-trsprtYmd"), true);
 			grdTrsprtCstPop.setCellData(nRow, nCol, "N", true);
-			grdTrsprtCstPop.addRow(true);
+			grdTrsprtCstPop.addRow(true, receivedData);
 		},
 		del: async function(nRow) {
 			const apcCd = SBUxMethod.get("trsprtCst-inp-apcCd");
@@ -368,7 +370,7 @@
 	        		grdTrsprtCstPop.setPageTotalCount(totalRecordCount);
 	        		grdTrsprtCstPop.rebuild();
 	        	}
-	        	grdTrsprtCstPop.addRow(true);
+	        	grdTrsprtCstPop.addRow(true, receivedData);
 	        	document.querySelector('#trsprtCst-pop-cnt').innerText = totalRecordCount;
 
 	        } catch (e) {
@@ -416,7 +418,11 @@
 		let nRow = grdTrsprtCstPop.getRow();
 
 		if (!gfn_isEmpty(vhcl)) {
-			grdTrsprtCstPop.setCellData(nRow, 2, vhcl.vhclno);
+			grdTrsprtCstPop.setCellData(nRow, 3, vhcl.vhclno);
+			grdTrsprtCstPop.setCellData(nRow, 4, vhcl.drvrNm);
+			grdTrsprtCstPop.setCellData(nRow, 8, vhcl.bankNm);
+			grdTrsprtCstPop.setCellData(nRow, 9, vhcl.actno);
+			grdTrsprtCstPop.setCellData(nRow, 10, vhcl.dpstr);
 		}
 	}
 
