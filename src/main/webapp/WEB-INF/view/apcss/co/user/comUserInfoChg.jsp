@@ -24,6 +24,9 @@
 				</div>	
 			</div>
 			<div class="box-body">
+				<!--[APC] START -->
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -42,13 +45,13 @@
 						<col style="width: 3%">
 					</colgroup>
 					<tbody>
-						<tr>
-							<th scope="row">APC명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
-							</td>
-							<td colspan="8" class="td_input"></td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<th scope="row">APC명</th> -->
+<!-- 							<td colspan="3" class="td_input" style="border-right: hidden;"> -->
+<!-- 								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder=""></sbux-input> -->
+<!-- 							</td> -->
+<!-- 							<td colspan="8" class="td_input"></td> -->
+<!-- 						</tr> -->
 						<tr>
 							<th scope="row">사용자ID</th>
 							<td td class="td_input" style="border-right: hidden;">
@@ -60,7 +63,7 @@
 								<sbux-input id="srch-inp-userNm" name="srch-inp-userNm" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"></td>
-							<th scope="row">유형</th>
+							<th scope="row">명칭</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-userType" name="srch-slt-userType" uitype="single" class="form-control input-sm" unselected-text="선택" >
 									<option-item value="01">AT관리자</option-item>
@@ -82,13 +85,20 @@
 					<li><span>사용자 내역</span></li>
 				</ul>
 			</div>
-			<div id="sb-area-grdUserInfoChg" style="height:300px;"></div>
+			<div id="sb-area-grdUserInfoChg" style="height:500px;"></div>
 			</div>
 		</div>
 </section>
 </body>
 <script type="text/javascript">
-
+var combofilteringReverseYnData = [
+	{'label': '사용', 'value': 'Y'},
+	{'label': '미사용', 'value': 'N'}
+]
+var combofilteringLckYnData = [
+	{'label': '사용', 'value': 'Y'},
+	{'label': '미사용', 'value': 'N'}
+]
 window.addEventListener('DOMContentLoaded', function(e) {
 	fn_createUserInfoChgGrid();
 
@@ -96,6 +106,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	let year = today.getFullYear();
 	let month = ('0' + (today.getMonth() + 1)).slice(-2);
 	let day = ('0' + today.getDate()).slice(-2);
+	
 })
 
 var userInfoChgGridData = []; // 그리드의 참조 데이터 주소 선언
@@ -108,21 +119,29 @@ function fn_createUserInfoChgGrid() {
 	    SBGridProperties1.selectmode = 'byrow';
 	    SBGridProperties1.extendlastcol = 'scroll';
 	    SBGridProperties1.scrollbubbling = false;
+	    SBGridProperties1.oneclickedit = true;
 	    SBGridProperties1.columns = [
 	         {caption: ["선택"],			ref: 'chc',      	type:'checkbox',width:'55px'},
-	         {caption: ["사용자ID"], 	ref: 'userId',     	type:'input',   width:'105px', style:'text-align:center'},
+	         {caption: ["사용자ID"], 	ref: 'userId',     	type:'output',   width:'105px', style:'text-align:center'},
 	         {caption: ["사용자명"], 	ref: 'userNm',    	type:'output',  width:'105px', style:'text-align:center'},
 	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  width:'105px', style:'text-align:center', renderer: function() {
 	            return "<button type='button' class='btn btn-xs btn-outline-danger' onClick=''>초기화</button>"
 	         }},
-	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["사용자유형"],   ref: 'userTypeNm',  type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["메일주소"],	    ref: 'eml', 		type:'input',  width:'105px', style:'text-align:center'},
-	         {caption: ["전화번호"],  	ref: 'telno',   	type:'input',  width:'105px', style:'text-align:center'},
-	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'105px', style:'text-align:center'},
-	         {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'input',   width:'105px', style:'text-align:center'},
-	         {caption: ["사용유무"],  	ref: 'reverseYn',   type:'input',   width:'105px', style:'text-align:center'},
-	         {caption: ["잠김여부"],  	ref: 'lckYn',   	type:'input',   width:'105px', style:'text-align:center'},
+	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'combo',  width:'105px', style:'text-align:center', 
+// 	        	 typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : true}
+	         },
+// 	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'105px', style:'text-align:center'},
+	         {caption: ["명칭"],   ref: 'userTypeNm',  type:'output',  width:'105px', style:'text-align:center'},
+	         {caption: ["메일주소"],	    ref: 'eml', 		type:'input',  width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320})},
+	         {caption: ["전화번호"],  	ref: 'telno',   	type:'input',  width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11})},
+	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
+	         {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
+	         {caption: ["사용유무"],  	ref: 'reverseYn',   type:'combo',   width:'105px', style:'text-align:center',
+	        	 typeinfo : {ref:'combofilteringReverseYnData', label:'label', value:'value', displayui : true}
+	         },
+	         {caption: ["잠김여부"],  	ref: 'lckYn',   	type:'combo',   width:'105px', style:'text-align:center',
+	        	 typeinfo : {ref:'combofilteringLckYnData', label:'label', value:'value', displayui : true}	 
+	         },
 	         {caption: ["최종접속일시"], ref: 'endLgnDt',  	type:'output',  width:'105px', style:'text-align:center'}
     ];
 //     grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
