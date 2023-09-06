@@ -53,4 +53,5 @@ public class CmnsSpcfctVO extends CmnsItemVO {
 	 * 순번
 	 */
 	private String sn;
+
 }

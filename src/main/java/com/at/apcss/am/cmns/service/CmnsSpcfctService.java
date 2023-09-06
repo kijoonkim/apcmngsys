@@ -1,5 +1,7 @@
 package com.at.apcss.am.cmns.service;
 
+import java.util.HashMap;
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.CmnsSpcfctVO;
@@ -96,12 +98,20 @@ public interface CmnsSpcfctService {
 	public int updateApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
 
 	/**
+	 * APC 규격 정보 등록
+	 * @param List<CmnsSpcfctVO>
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int multiApcSpcfct(List<CmnsSpcfctVO> cmnsSpcfctList) throws Exception;
+
+	/**
 	 * APC 규격 정보 삭제
 	 * @param cmnsSpcfctVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
+	public HashMap<String, Object> deleteApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception;
 	/**
 	 * APC 규격 정보 전체 삭제
 	 * @param cmnsSpcfctVO

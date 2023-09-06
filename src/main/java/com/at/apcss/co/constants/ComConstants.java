@@ -16,6 +16,7 @@ public class ComConstants {
 	public final static String PROP_INSERTED_CNT = "insertedCnt";
 	public final static String PROP_UPDATED_CNT = "updatedCnt";
 	public final static String PROP_DELETED_CNT = "deletedCnt";
+	public final static String PROP_SAVED_CNT = "savedCnt";
 
 	/* audit column name */
 	public final static String PROP_SYS_FRST_INPT_DT = "sysFrstInptDt";
