@@ -60,7 +60,15 @@ public interface RawMtrInvntrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	public HashMap<String, Object> updateRawMtrInvntr(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception;
+	
+	/**
+	 * 원물재고내역 변경
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception;
 
 	/**
 	 * 원물재고 삭제

@@ -42,7 +42,7 @@
 							</th>
 							<th scope="row">거래처명</th>
 							<th class="td_input">
-								<sbux-input id="cnpt-inp-cnptNm" name="cnpt-inp-cnptNm" uitype="text" class="form-control input-sm" onkeyenter="fn_searchCnpt()" ></sbux-input>
+								<sbux-input id="cnpt-inp-cnptNm" name="cnpt-inp-cnptNm" uitype="text" class="form-control input-sm" onkeyenter="fn_searchCnpt()" maxlength="30"></sbux-input>
 							</th>
 							<th>&nbsp;</th>
 						</tr>
