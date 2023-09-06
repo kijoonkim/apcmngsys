@@ -166,24 +166,6 @@
 			}
 		}
 	}
-	
-// 	콤보박스 (검색 조건)
-// 	async function setRegApcNmSBSelect(_targetIds, _jsondataRef) {
-// 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-// 		let regApcNm = SBUxMethod.get("srch-slt-regApcNm");
-// 		let postJsonPromise = gfn_postJSON("/am/apc/selectApcDsctn.do", {apcCd: apcCd, regApcNm: regApcNm, delYn: "N"});
-// 		let data = await postJsonPromise;
-// 		let resultVO = data.resultVO;
-
-// 		let sourceJson = [];
-// 		let item = {
-// 				cmnsCd: resultVO.apcCd,
-// 				cmnsNm: resultVO.regApcNm
-// 			}
-// 		sourceJson.push(item);
-
-// 		gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
-// 	}
 
 	// APC 내역 목록 조회 (조회 버튼)
     async function fn_search() {

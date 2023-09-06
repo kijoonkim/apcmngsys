@@ -140,8 +140,8 @@
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.allowcopy = true;
-			SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.scrollbubbling = false;
+		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 		    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -163,7 +163,7 @@
 		        {caption: ['비고'], 		ref: 'rmrk',			width: '200px', type: 'input',
 					validate : gfn_chkByte.bind({byteLimit: 1000})},
 		        {caption: ['최종처리일시'],	ref: 'sysLastChgDt',	width: '140px', type: 'output',		style:'text-align:center'},
-		        {caption: ["처리"], ref: 'delYn', 				width: '80px',	type:'button', 		style: 'text-align:center',
+		        {caption: ["처리"], ref: 'delYn', 				width: '70px',	type:'button', 		style: 'text-align:center',
 		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 						if (!isEditable) {
 							return "";

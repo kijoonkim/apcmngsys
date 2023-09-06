@@ -149,8 +149,8 @@
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.allowcopy = true;
-			SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.scrollbubbling = false;
+		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 		    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -176,7 +176,7 @@
 		        {caption: ['운송구분'], 		ref: 'trsprtSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center',
 					typeinfo: {ref:'jsonComTrsprtSeCdPrdcrPop', label:'label', value:'value', itemcount: 10}
 				},
-		        {caption: ['정산기준'], 		ref: 'clclnCrtr', 		type: 'combo', 	width:'80px', 	style: 'text-align:center',
+		        {caption: ['정산기준'], 		ref: 'clclnCrtr', 		type: 'combo', 	width: '80px', 	style: 'text-align:center',
 					typeinfo: {ref:'jsonComClclnCrtrPrdcrPop', 	label:'label', value:'value', itemcount: 10}
 				},
 		        {caption: ['차량번호'], 		ref: 'vhclno', 			type: 'input', 	width: '100px', style: 'text-align:center',
@@ -189,7 +189,7 @@
 		        {caption: ['생산자인식번호'], 	ref: 'prdcrIdentno', 	type: 'input', 	width: '150px', style: 'text-align:center'},
 		        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '150px', style: 'text-align:center',
 		        	validate : gfn_chkByte.bind({byteLimit: 1000})},
-		        {caption: ["처리"], 			ref: 'delYn', 			type: 'button', width: '80px', 	style: 'text-align:center',
+		        {caption: ["처리"], 			ref: 'delYn', 			type: 'button', width: '70px', 	style: 'text-align:center',
 		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 						if (!isEditable) {
 							return "";
