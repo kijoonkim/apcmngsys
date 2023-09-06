@@ -96,7 +96,7 @@
 	<!-- ==========================================================================	-->
     <insert id="insertWrhsVhcl" parameterType="com.at.apcss.am.cmns.vo.WrhsVhclVO">
     	<![CDATA[
-    	INSERT INTO TB_WRHS_VHCL_INFO
+    	INSERT INTO TB_WRHS_VHCL_INFO  /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.insertWrhsVhcl */
     		(
     			APC_CD
     		  , VHCLNO
@@ -143,12 +143,13 @@
 	<!-- ==========================================================================	-->
 	<update id="updateWrhsVhcl" parameterType="com.at.apcss.am.cmns.vo.WrhsVhclVO">
 		<![CDATA[
-		UPDATE TB_WRHS_VHCL_INFO
+		UPDATE TB_WRHS_VHCL_INFO /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.updateWrhsVhcl */
 		   SET SYS_LAST_CHG_DT 			= SYSDATE
     		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
     		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 			 , DRVR_NM					= #{drvrNm}
     		 , BANK_CD					= #{bankCd}
+    		 , ACTNO					= #{actno}
     		 , DPSTR					= #{dpstr}
     		 , RMRK						= #{rmrk}
     		 , DEL_YN					= #{delYn}
@@ -166,8 +167,8 @@
 	<!-- 2023.07.11  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<delete id="deleteWrhsVhcl" parameterType="com.at.apcss.am.cmns.vo.WrhsVhclVO">
-		<![CDATA[
-		DELETE FROM TB_WRHS_VHCL_INFO
+		<![CDATA[ 
+		DELETE FROM TB_WRHS_VHCL_INFO  /* com.at.apcss.am.cmns.mapper.WrhsVhclMapper.deleteWrhsVhcl */
 		 WHERE APC_CD		= #{apcCd}
 		   AND VHCLNO 		= #{vhclno}
 		]]>

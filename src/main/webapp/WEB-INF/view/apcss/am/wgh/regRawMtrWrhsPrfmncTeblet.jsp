@@ -120,17 +120,6 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">입고구분</th>
-<!-- 							<td colspan="8" class="td_input" style="border-right: hidden;"> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-radio id="srch-rdo-wrhsSe1" name="srch-rdo-wrhsSe" uitype="normal" class="radio_label" text="일반매입"/> -->
-<!-- 								</p> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-radio id="srch-rdo-wrhsSe2" name="srch-rdo-wrhsSe" uitype="normal" class="radio_label" text="공선"/> -->
-<!-- 								</p> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-radio id="srch-rdo-wrhsSe3" name="srch-rdo-wrhsSe" uitype="normal" class="radio_label" text="매취" checked/> -->
-<!-- 								</p> -->
-<!-- 							</td> -->
 							<td colspan="8" class="td_input" style="border-right:hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-wrhsSeCd_1" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="1"></sbux-radio>
@@ -149,20 +138,6 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">상품구분</th>
-<!-- 							<td colspan="8" class="td_input"  style="border-right: hidden;"> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-radio id="srch-rdo-gdsSe1" name="srch-rdo-gdsSe" uitype="normal" class="radio_label" text="일반" checked/> -->
-<!-- 								</p> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-radio id="srch-rdo-gdsSe2" name="srch-rdo-gdsSe" uitype="normal" class="radio_label" text="GAP"/> -->
-<!-- 								</p> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-radio id="srch-rdo-gdsSe3" name="srch-rdo-gdsSe" uitype="normal" class="radio_label" text="무농약"/> -->
-<!-- 								</p> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-radio id="srch-rdo-gdsSe4" name="srch-rdo-gdsSe" uitype="normal" class="radio_label" text="유기농"/> -->
-<!-- 								</p> -->
-<!-- 							</td> -->
 							<td colspan="8" class="td_input" style="border-right:hidden;">
 								<p class="ad_input_row">
 									<sbux-radio
@@ -179,17 +154,6 @@
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg" style="border-right: hidden;">운송구분</th>
-<!-- 							<td colspan="8" style="border-right: hidden;" class="td_input"> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-radio id="srch-rdo-trsprt1" name="srch-rdo-trsprt" uitype="normal" class="radio_label" text="자가" checked/> -->
-<!-- 								</p> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-radio id="srch-rdo-trsprt2" name="srch-rdo-trsprt" uitype="normal" class="radio_label" text="용역"/> -->
-<!-- 								</p> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-radio id="srch-rdo-trsprt3" name="srch-rdo-trsprt" uitype="normal" class="radio_label" text="기타"/> -->
-<!-- 								</p> -->
-<!-- 							</td> -->
 							<td colspan="8" class="td_input" >
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-trsprtSeCd_1" name="dtl-rdo-trsprtSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
