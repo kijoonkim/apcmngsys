@@ -417,7 +417,11 @@
 		let nRow = grdTrsprtCstPop.getRow();
 
 		if (!gfn_isEmpty(vhcl)) {
-			grdTrsprtCstPop.setCellData(nRow, 2, vhcl.vhclno);
+			grdTrsprtCstPop.setCellData(nRow, 3, vhcl.vhclno);
+			grdTrsprtCstPop.setCellData(nRow, 4, vhcl.drvrNm);
+			grdTrsprtCstPop.setCellData(nRow, 8, vhcl.bankNm);
+			grdTrsprtCstPop.setCellData(nRow, 9, vhcl.actno);
+			grdTrsprtCstPop.setCellData(nRow, 10, vhcl.dpstr);
 		}
 	}
 

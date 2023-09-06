@@ -163,7 +163,7 @@
 		        {caption: ['비고'], 		ref: 'rmrk',			width: '200px', type: 'input', 									sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 1000})},
 		        {caption: ['최종처리일시'],	ref: 'sysLastChgDt',	width: '140px', type: 'output',		style:'text-align:center', 	sortable: false},
-		        {caption: ["처리"], ref: 'delYn', 				width: '70px',	type:'button', 		style: 'text-align:center', sortable: false,
+		        {caption: ["처리"], 		ref: 'delYn', 			width: '70px',	type:'button', 		style: 'text-align:center', sortable: false,
 		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 						if (!isEditable) {
 							return "";
@@ -174,7 +174,8 @@
 					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popVhcl.del(" + nRow + ")'>삭제</button>";
 		            	}
 			    }},
-			    {caption: ['APC코드'], ref: 'apcCd', hidden : true}
+			    {caption: ['APC코드'], 	ref: 'apcCd', 			hidden : true},
+			    {caption: ['은행명'], 	ref: 'bankNm', 			hidden : true}
 		    ];
 
 		    grdVhclPop = _SBGrid.create(SBGridProperties);
@@ -344,6 +345,7 @@
 						vhclno			: item.vhclno,
 					    drvrNm 			: item.drvrNm,
 					    bankCd 			: item.bankCd,
+					    bankNm 			: item.bankNm,
 					    actno 			: item.actno,
 					    dpstr 			: item.dpstr,
 					    rmrk 			: item.rmrk,

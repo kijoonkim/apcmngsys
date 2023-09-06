@@ -65,6 +65,7 @@
 		     , WV.VHCLNO            AS VHCLNO
 		     , WV.DRVR_NM           AS DRVR_NM
 		     , WV.BANK_CD           AS BANK_CD
+		     , (SELECT USRAM.FN_GET_COM_CD_VL_NM('BANK_CD', WV.BANK_CD) FROM DUAL)    	    AS BANK_NM
 		     , WV.ACTNO             AS ACTNO
 		     , WV.DPSTR             AS DPSTR
 		     , WV.RMRK              AS RMRK
