@@ -25,6 +25,7 @@
 	    	SELECT /* com.at.apcss.am.pckg.mapper.PckgInptMapper.selectPckgInpt */
 				  PI.APC_CD			AS APC_CD
 				, PI.SORTNO			AS SORTNO
+				, PI.SORT_SN		AS SORT_SN
 				, PI.GRD_CD			AS GRD_CD
 				, PI.INPT_YMD		AS INPT_YMD
 				, PI.QNTT			AS QNTT
@@ -36,7 +37,7 @@
 			  FROM TB_PCKG_INPT_PRFMNC PI
 			 WHERE PI.APC_CD = #{apcCd}
 			   AND PI.SORTNO = #{sortno}
-			   AND PI.GRD_CD = #{grdCd}
+			   AND PI.SORT_SN = #{sortSn}
 		]]>
     </select>
 
@@ -82,7 +83,7 @@
 	    		INTO TB_PCKG_INPT_PRFMNC (
 					  APC_CD
 					, SORTNO
-					, GRD_CD
+					, SORT_SN
 					, INPT_YMD
 					, QNTT
 					, WGHT
@@ -100,7 +101,7 @@
 	   			(
 					  #{apcCd}
 					, #{sortno}
-					, #{grdCd}
+					, #{sortSn}
 					, #{inptYmd}
 					, #{qntt}
 					, #{wght}

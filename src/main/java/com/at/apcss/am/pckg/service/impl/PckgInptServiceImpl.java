@@ -73,7 +73,11 @@ public class PckgInptServiceImpl implements PckgInptService {
 
 	@Override
 	public HashMap<String, Object> insertPckgInptList(List<PckgInptVO> pckgInptList) throws Exception {
-		// TODO Auto-generated method stub
+
+		for ( PckgInptVO pckgInptVO : pckgInptList ) {
+			insertPckgInpt(pckgInptVO);
+		}
+
 		return null;
 	}
 
