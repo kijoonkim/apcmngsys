@@ -101,4 +101,12 @@ public interface ApcEvrmntStngMapper {
 	 */
 	public int updateApcEvrmntStngAuthrt(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
+	/**
+	 * APC 환경설정 정보 수정
+	 * @param apcEvrmntStngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateApcEvrmntStng(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+
 }

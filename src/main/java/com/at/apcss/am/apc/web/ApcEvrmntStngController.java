@@ -43,15 +43,15 @@ public class ApcEvrmntStngController extends BaseController{
 	private ComCdService comCdSerivce;
 
 	// APC 환경설정 - APC 정보 조회
-	@PostMapping(value = "/am/apc/selectApcInfo.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectApcInfo(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/apc/selectApcEvrmntStng.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectApcEvrmntStng(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
 
 		logger.debug("selectApcInfo 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		ApcEvrmntStngVO resultVO = new ApcEvrmntStngVO();
 		try {
-			resultVO = apcEvrmntStngService.selectApcInfo(apcEvrmntStngVO);
+			resultVO = apcEvrmntStngService.selectApcEvrmntStng(apcEvrmntStngVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -223,6 +223,34 @@ public class ApcEvrmntStngController extends BaseController{
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * APC 환경설정 - APC 환경설정 수정
+	 */
+	@PostMapping(value = "/am/apc/updateApcEvrmntStng.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateApcEvrmntStng(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+		int inserted = 0;
+		try {
+
+			apcEvrmntStngVO.setSysFrstInptUserId(getUserId());
+			apcEvrmntStngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			apcEvrmntStngVO.setSysLastChgUserId(getUserId());
+			apcEvrmntStngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			inserted = apcEvrmntStngService.updateApcEvrmntStng(apcEvrmntStngVO);
+
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, inserted);
 
 		return getSuccessResponseEntity(resultMap);
 	}

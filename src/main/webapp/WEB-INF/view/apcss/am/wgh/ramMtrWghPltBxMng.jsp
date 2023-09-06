@@ -235,13 +235,13 @@
 	        {caption: ["구분","구분"],		ref: 'pltBxSeNm',      type:'output',  width:'170px',    style:'text-align:center'},
 	        {caption: ["명칭","명칭"],		ref: 'pltBxNm',      type:'output',  width:'170px',    style:'text-align:center'},
 	        {caption: ["단중","단중"],		ref: 'unitWght',      type:'output',  width:'120px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
-	        {caption: ["전일재고","수량	"],		ref: 'bssInvntrQntt',      type:'output',  width:'150px',    style:'text-align:right'},
+	        {caption: ["전일재고","수량	"],		ref: 'bssInvntrQntt',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["전일재고","중량"],		ref: 'bssInvntrWght',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
-	        {caption: ["입고","수량	"],		ref: 'wrhsQntt',      type:'output',  width:'150px',    style:'text-align:right'},
+	        {caption: ["입고","수량	"],		ref: 'wrhsQntt',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["입고","중량"],		ref: 'wrhsWght',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
-	        {caption: ["출고","수량	"],		ref: 'spmtQntt',      type:'output',  width:'150px',    style:'text-align:right'},
+	        {caption: ["출고","수량	"],		ref: 'spmtQntt',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["출고","중량"],		ref: 'spmtWght',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
-	        {caption: ["현재고","수량"],		ref: 'invntrQntt',      type:'output',  width:'150px',    style:'text-align:right'},
+	        {caption: ["현재고","수량"],		ref: 'invntrQntt',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["현재고","중량"],		ref: 'invntrWght',      type:'output',  width:'150px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
 
 	    ];
@@ -355,13 +355,13 @@
 
 	    SBGridProperties.columns = [
 	        {caption: ["선택"],		ref: 'checkbox',      type:'checkbox',  width:'70px',    style:'text-align:center'},
-	        {caption: ["작업일자"],		ref: 'jobYmd',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["작업일자"],		ref: 'jobYmd',      type:'output',  width:'140px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["입출고구분"],		ref: 'wrhsSpmtSeNm',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["구분"],		ref: 'pltBxSeNm',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["명칭"],		ref: 'pltNm',      type:'output',  width:'140px',    style:'text-align:center'},
+	        {caption: ["명칭"],		ref: 'pltNㅗm',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["단중"],		ref: 'unitWght',      type:'output',  width:'140px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
 	        {caption: ["생산자"],		ref: 'prdcrNm',      type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["수량"],		ref: 'qntt',      type:'output',  width:'140px',    style:'text-align:right'},
+	        {caption: ["수량"],		ref: 'qntt',      type:'output',  width:'140px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["중량"],		ref: 'wght',      type:'output',  width:'140px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
 	        {caption: ["비고"],		ref: 'rmrk',      type:'output',  width:'300px',    style:'text-align:center'}
 	    ];

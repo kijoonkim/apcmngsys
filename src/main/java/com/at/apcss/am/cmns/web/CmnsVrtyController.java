@@ -235,47 +235,43 @@ public class CmnsVrtyController extends BaseController {
 		cmnsVrtyVO.setSysLastChgUserId(getUserId());
 		cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
 
-		int deletedCnt = 0;
-
 		try {
-			deletedCnt = cmnsVrtyService.deleteApcVrty(cmnsVrtyVO);
+			resultMap = cmnsVrtyService.deleteApcVrty(cmnsVrtyVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-
-		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}
 
 
 	// APC 품종 등록
-		@PostMapping(value = "/am/cmns/insertApcVrtyList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-		public ResponseEntity<HashMap<String, Object>> insertApcVrtyList(@RequestBody List<CmnsVrtyVO> cmnsVrtyList, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/cmns/insertApcVrtyList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertApcVrtyList(@RequestBody List<CmnsVrtyVO> cmnsVrtyList, HttpServletRequest request) throws Exception {
 
-			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-			// validation check
+		// validation check
 
-			// audit 항목
-			int insertedCnt = 0;
+		// audit 항목
+		int insertedCnt = 0;
 
-			try {
-				for (CmnsVrtyVO cmnsVrtyVO : cmnsVrtyList) {
-					cmnsVrtyVO.setSysFrstInptUserId(getUserId());
-					cmnsVrtyVO.setSysFrstInptPrgrmId(getPrgrmId());
-					cmnsVrtyVO.setSysLastChgUserId(getUserId());
-					cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
-					insertedCnt = cmnsVrtyService.insertApcVrty(cmnsVrtyVO);
-				}
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
-				return getErrorResponseEntity(e);
+		try {
+			for (CmnsVrtyVO cmnsVrtyVO : cmnsVrtyList) {
+				cmnsVrtyVO.setSysFrstInptUserId(getUserId());
+				cmnsVrtyVO.setSysFrstInptPrgrmId(getPrgrmId());
+				cmnsVrtyVO.setSysLastChgUserId(getUserId());
+				cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
+				insertedCnt = cmnsVrtyService.insertApcVrty(cmnsVrtyVO);
 			}
-
-			resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-
-			return getSuccessResponseEntity(resultMap);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
 		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

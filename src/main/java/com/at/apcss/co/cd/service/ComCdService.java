@@ -109,4 +109,18 @@ public interface ComCdService {
 	 */
 	public int duplicateCheckCdIdDtl(ComCdVO comCdVO) throws Exception;
 
+	/**
+	 * 공통코드 상세 사용유무 변경
+	 * @param comCdVO
+	 * @return updated count
+	 */
+	public int updateComCdDtlDelYn(ComCdVO comCdVO);
+
+	/**
+	 * 공통코드 상세 사용유무 전체변경
+	 * @param comCdVO
+	 * @return updated count
+	 */
+	public int comCdDtlDelYnAll(ComCdVO comCdVO);
+
 }

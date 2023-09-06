@@ -1,5 +1,6 @@
 package com.at.apcss.am.spmt.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.spmt.vo.SpmtTrsprtVO;
@@ -60,5 +61,14 @@ public interface SpmtTrsprtService {
 	 * @throws Exception
 	 */
 	public int deleteSpmtTrsprt(SpmtTrsprtVO spmtTrsprtVO)throws Exception;
+
+	/**
+	 * 출하운송회사정보 등록
+	 * 
+	 * @param vhclList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> multiSpmtTrsprt(List<SpmtTrsprtVO> spmtTrsprtList) throws Exception;
 
 }

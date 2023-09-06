@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.CmnsItemVO;
@@ -66,7 +67,23 @@ public interface CmnsItemService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
+	public HashMap<String, Object> deleteCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
+
+	/**
+	 * 품목정보 단건 조회
+	 * @param cmnsItemVO
+	 * @return CmnsItemVO
+	 * @throws Exception
+	 */
+	public CmnsItemVO selectCmnsApcItem(CmnsItemVO cmnsItemVO) throws Exception;
+
+	/**
+	 * APC 품목정보 변경
+	 * @param cmnsItemVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateApcCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
 
 
 }

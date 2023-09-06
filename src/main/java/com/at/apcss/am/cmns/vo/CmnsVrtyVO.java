@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CmnsVrtyVO extends CmnsItemVO {
-	
+
 	/**
 	 * 품종코드
 	 */
@@ -30,4 +30,18 @@ public class CmnsVrtyVO extends CmnsItemVO {
 	 * 품종명
 	 */
 	private String vrtyNm;
+	/**
+	 * 중량단위
+	 */
+	private int unitWght;
+	/**
+	 * 중량계산구분코드
+	 */
+	private String wghtRkngSeCd;
+	/**
+	 * 중량계산구분명
+	 */
+	private String wghtRkngSeNm;
+
+
 }

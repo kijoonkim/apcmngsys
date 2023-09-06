@@ -118,6 +118,14 @@ public interface ApcEvrmntStngService {
 	 */
 	public HashMap<String, Object> insertApcNormalAuthrt(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
+	/**
+	 * APC환경설정 APC 정보 변경
+	 * @param ApcEvrmntStngVO
+	 * @return
+	 * @throws Exception
+	 */
+	int updateApcEvrmntStng(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+
 
 
 }

@@ -26,15 +26,15 @@ import com.at.apcss.am.cmns.vo.CmnsGrdVO;
  */
 @Service("cmnsGrdService")
 public class CmnsGrdServiceImpl implements CmnsGrdService {
-	
+
 	@Autowired
 	private CmnsGrdMapper cmnsGrdMapper;
-	
+
 	@Override
 	public CmnsGrdVO selectCmnsGrd(CmnsGrdVO cmnsGrdVO) throws Exception {
-		
+
 		CmnsGrdVO resultVO = cmnsGrdMapper.selectCmnsGrd(cmnsGrdVO);
-		
+
 		return resultVO;
 	}
 
@@ -42,7 +42,7 @@ public class CmnsGrdServiceImpl implements CmnsGrdService {
 	public List<CmnsGrdVO> selectCmnsGrdList(CmnsGrdVO cmnsGrdVO) throws Exception {
 
 		List<CmnsGrdVO> resultList = cmnsGrdMapper.selectCmnsGrdList(cmnsGrdVO);
-		
+
 		return resultList;
 	}
 
@@ -50,7 +50,7 @@ public class CmnsGrdServiceImpl implements CmnsGrdService {
 	public int insertCmnsGrd(CmnsGrdVO cmnsGrdVO) throws Exception {
 
 		int insertedCnt = cmnsGrdMapper.insertCmnsGrd(cmnsGrdVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -58,7 +58,7 @@ public class CmnsGrdServiceImpl implements CmnsGrdService {
 	public int updateCmnsGrd(CmnsGrdVO cmnsGrdVO) throws Exception {
 
 		int updatedCnt = cmnsGrdMapper.updateCmnsGrd(cmnsGrdVO);
-		
+
 		return updatedCnt;
 	}
 
@@ -66,15 +66,15 @@ public class CmnsGrdServiceImpl implements CmnsGrdService {
 	public int deleteCmnsGrd(CmnsGrdVO cmnsGrdVO) throws Exception {
 
 		int deletedCnt = cmnsGrdMapper.deleteCmnsGrd(cmnsGrdVO);
-		
+
 		return deletedCnt;
 	}
 
 	@Override
 	public CmnsGrdVO selectApcGrd(CmnsGrdVO cmnsGrdVO) throws Exception {
-		
+
 		CmnsGrdVO resultVO = cmnsGrdMapper.selectApcGrd(cmnsGrdVO);
-		
+
 		return resultVO;
 	}
 
@@ -82,7 +82,7 @@ public class CmnsGrdServiceImpl implements CmnsGrdService {
 	public List<CmnsGrdVO> selectApcGrdList(CmnsGrdVO cmnsGrdVO) throws Exception {
 
 		List<CmnsGrdVO> resultList = cmnsGrdMapper.selectApcGrdList(cmnsGrdVO);
-		
+
 		return resultList;
 	}
 
@@ -90,7 +90,7 @@ public class CmnsGrdServiceImpl implements CmnsGrdService {
 	public int insertApcGrd(CmnsGrdVO cmnsGrdVO) throws Exception {
 
 		int insertedCnt = cmnsGrdMapper.insertApcGrd(cmnsGrdVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -98,15 +98,21 @@ public class CmnsGrdServiceImpl implements CmnsGrdService {
 	public int updateApcGrd(CmnsGrdVO cmnsGrdVO) throws Exception {
 
 		int updatedCnt = cmnsGrdMapper.updateApcGrd(cmnsGrdVO);
-		
+
 		return updatedCnt;
 	}
 
 	@Override
-	public int deleteApcGrd(CmnsGrdVO CmnsGrdVO) throws Exception {
+	public int deleteApcGrd(CmnsGrdVO cmnsGrdVO) throws Exception {
 
-		int deletedCnt = cmnsGrdMapper.deleteApcGrd(CmnsGrdVO);
-		
+		int deletedCnt = cmnsGrdMapper.deleteApcGrd(cmnsGrdVO);
+
+		return deletedCnt;
+	}
+
+	@Override
+	public int deleteApcGrdAll(CmnsGrdVO cmnsGrdVO) throws Exception {
+		int deletedCnt = cmnsGrdMapper.deleteApcGrdAll(cmnsGrdVO);
 		return deletedCnt;
 	}
 

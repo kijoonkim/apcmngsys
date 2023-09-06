@@ -1,13 +1,18 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper;
 import com.at.apcss.am.cmns.service.CmnsSpcfctService;
+import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.cmns.vo.CmnsSpcfctVO;
+import com.at.apcss.co.constants.ComConstants;
 
 /**
  * @Class Name : CmnsSpcfctServiceImpl.java
@@ -26,15 +31,18 @@ import com.at.apcss.am.cmns.vo.CmnsSpcfctVO;
  */
 @Service("cmnsSpcfctService")
 public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
-	
+
 	@Autowired
 	private CmnsSpcfctMapper cmnsSpcfctMapper;
 
+	@Resource(name = "cmnsValidationService")
+	private CmnsValidationService cmnsValidationService;
+
 	@Override
 	public CmnsSpcfctVO selectCmnsSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
-		
+
 		CmnsSpcfctVO resultVO = cmnsSpcfctMapper.selectCmnsSpcfct(cmnsSpcfctVO);
-		
+
 		return resultVO;
 	}
 
@@ -42,7 +50,7 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public List<CmnsSpcfctVO> selectCmnsSpcfctList(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		List<CmnsSpcfctVO> resultList = cmnsSpcfctMapper.selectCmnsSpcfctList(cmnsSpcfctVO);
-		
+
 		return resultList;
 	}
 
@@ -50,7 +58,7 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public int insertCmnsSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		int insertedCnt = cmnsSpcfctMapper.insertCmnsSpcfct(cmnsSpcfctVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -58,7 +66,7 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public int updateCmnsSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		int updatedCnt = cmnsSpcfctMapper.updateCmnsSpcfct(cmnsSpcfctVO);
-		
+
 		return updatedCnt;
 	}
 
@@ -66,15 +74,15 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public int deleteCmnsSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		int deletedCnt = cmnsSpcfctMapper.deleteCmnsSpcfct(cmnsSpcfctVO);
-		
+
 		return deletedCnt;
 	}
 
 	@Override
 	public CmnsSpcfctVO selectApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
-		
+
 		CmnsSpcfctVO resultVO = cmnsSpcfctMapper.selectApcSpcfct(cmnsSpcfctVO);
-		
+
 		return resultVO;
 	}
 
@@ -82,7 +90,7 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public List<CmnsSpcfctVO> selectApcSpcfctList(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		List<CmnsSpcfctVO> resultList = cmnsSpcfctMapper.selectApcSpcfctList(cmnsSpcfctVO);
-		
+
 		return resultList;
 	}
 
@@ -90,7 +98,7 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public int insertApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		int insertedCnt = cmnsSpcfctMapper.insertApcSpcfct(cmnsSpcfctVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -98,16 +106,39 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public int updateApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 
 		int updatedCnt = cmnsSpcfctMapper.updateApcSpcfct(cmnsSpcfctVO);
-		
+
 		return updatedCnt;
 	}
 
 	@Override
-	public int deleteApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
+	public HashMap<String, Object> deleteApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
+		String errMgs = cmnsValidationService.selectChkCdDelible(cmnsSpcfctVO.getApcCd(), "SPCFCT_CD", cmnsSpcfctVO.getSpcfctCd());
+		resultMap.put("errMgs", errMgs);
 		int deletedCnt = cmnsSpcfctMapper.deleteApcSpcfct(cmnsSpcfctVO);
-		
-		return deletedCnt;
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		return resultMap;
 	}
-	
+
+	@Override
+	public int deleteApcSpcfctAll(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
+		return cmnsSpcfctMapper.deleteApcSpcfctAll(cmnsSpcfctVO);
+	}
+
+	@Override
+	public int multiApcSpcfct(List<CmnsSpcfctVO> cmnsSpcfctList) throws Exception {
+		int savedCnt = 0;
+		for (CmnsSpcfctVO cmnsSpcfctVO : cmnsSpcfctList) {
+			if(ComConstants.ROW_STS_INSERT.equals(cmnsSpcfctVO.getRowSts())) {
+				savedCnt += insertApcSpcfct(cmnsSpcfctVO);
+			}
+			if(ComConstants.ROW_STS_UPDATE.equals(cmnsSpcfctVO.getRowSts())) {
+				savedCnt += updateApcSpcfct(cmnsSpcfctVO);
+			}
+		}
+
+		return savedCnt;
+	}
+
 }

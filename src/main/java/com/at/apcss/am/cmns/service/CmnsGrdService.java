@@ -27,7 +27,7 @@ public interface CmnsGrdService {
 	 * @throws Exception
 	 */
 	public CmnsGrdVO selectCmnsGrd(CmnsGrdVO cmnsGrdVO) throws Exception;
-	
+
 	/**
 	 * 등급 마스터 정보 목록 조회
 	 * @param cmnsGrdVO
@@ -35,7 +35,7 @@ public interface CmnsGrdService {
 	 * @throws Exception
 	 */
 	public List<CmnsGrdVO> selectCmnsGrdList(CmnsGrdVO cmnsGrdVO) throws Exception;
-	
+
 	/**
 	 * 등급 마스터 정보 등록
 	 * @param cmnsGrdVO
@@ -43,7 +43,7 @@ public interface CmnsGrdService {
 	 * @throws Exception
 	 */
 	public int insertCmnsGrd(CmnsGrdVO cmnsGrdVO) throws Exception;
-	
+
 	/**
 	 * 등급 마스터 정보 변경
 	 * @param cmnsGrdVO
@@ -51,7 +51,7 @@ public interface CmnsGrdService {
 	 * @throws Exception
 	 */
 	public int updateCmnsGrd(CmnsGrdVO cmnsGrdVO) throws Exception;
-	
+
 	/**
 	 * 등급 마스터 정보 삭제
 	 * @param cmnsGrdVO
@@ -59,10 +59,10 @@ public interface CmnsGrdService {
 	 * @throws Exception
 	 */
 	public int deleteCmnsGrd(CmnsGrdVO cmnsGrdVO) throws Exception;
-	
-	
+
+
 	// APC 등급 정보
-	
+
 	/**
 	 * APC 등급 정보 단건 조회
 	 * @param cmnsGrdVO
@@ -70,7 +70,7 @@ public interface CmnsGrdService {
 	 * @throws Exception
 	 */
 	public CmnsGrdVO selectApcGrd(CmnsGrdVO cmnsGrdVO) throws Exception;
-	
+
 	/**
 	 * APC 등급 정보 목록 조회
 	 * @param cmnsGrdVO
@@ -78,7 +78,7 @@ public interface CmnsGrdService {
 	 * @throws Exception
 	 */
 	public List<CmnsGrdVO> selectApcGrdList(CmnsGrdVO cmnsGrdVO) throws Exception;
-	
+
 	/**
 	 * APC 등급 정보 등록
 	 * @param cmnsGrdVO
@@ -86,7 +86,7 @@ public interface CmnsGrdService {
 	 * @throws Exception
 	 */
 	public int insertApcGrd(CmnsGrdVO cmnsGrdVO) throws Exception;
-	
+
 	/**
 	 * APC 등급 정보 변경
 	 * @param cmnsGrdVO
@@ -94,7 +94,7 @@ public interface CmnsGrdService {
 	 * @throws Exception
 	 */
 	public int updateApcGrd(CmnsGrdVO cmnsGrdVO) throws Exception;
-	
+
 	/**
 	 * APC 등급 정보 삭제
 	 * @param cmnsGrdVO
@@ -102,4 +102,12 @@ public interface CmnsGrdService {
 	 * @throws Exception
 	 */
 	public int deleteApcGrd(CmnsGrdVO cmnsGrdVO) throws Exception;
+
+	/**
+	 * APC 등급 정보 전체 삭제
+	 * @param cmnsGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteApcGrdAll(CmnsGrdVO cmnsGrdVO) throws Exception;
 }

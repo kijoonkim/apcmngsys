@@ -161,7 +161,7 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
  * @returns {any[]}
  */
 async function gfn_getComCdDtls (_cdId, _apcCd = "0000") {
-	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd}, null, true);
+	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd, delYn : "N"}, null, true);
 	const data = await postJsonPromise;
 	return data.resultList;
 }
@@ -182,7 +182,7 @@ async function gfn_setComCdSBSelect(_targetIds, _jsondataRef, _cdId, _apcCd) {
 		return;
 	}
 
-	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd}, null, true);
+	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd, delYn : "N"}, null, true);
 	const data = await postJsonPromise;
 
 	try {
@@ -225,7 +225,7 @@ async function gfn_setComCdGridSelect(_gridId, _jsondataRef, _cdId, _apcCd) {
 		return;
 	}
 
-	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd}, null, true);
+	const postJsonPromise = gfn_postJSON(URL_COM_CDS, {cdId: _cdId, apcCd: _apcCd, delYn : "N"}, null, true);
 	const data = await postJsonPromise;
 
 	try {
@@ -1043,7 +1043,18 @@ const gfn_comConfirm = function (_msgKey, ..._arguments) {
 	return confirm(gfn_getComMsg(_msgKey, _arguments));
 }
 
-
+const gfn_chkByte = function (objGrid, nRow, nCol, strValue) {
+	const getByteLengthOfString = function (s, b, i, c) {
+		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+		  return b;
+	}
+	if(getByteLengthOfString(strValue) > this.byteLimit){
+		return objGrid.getCellData(nRow, nCol);
+	}
+	else{
+		return strValue;
+	}
+}
 /** MODAL */
 /**
  * @name gfn_closeModal
