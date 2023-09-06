@@ -183,7 +183,7 @@
 	            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '80px', 		type: 'output', 	style: 'text-align: center'},
 	            {caption: ['수량'], 		ref: 'cmndQntt', 		width: '80px', 		type: 'output', 	style: 'text-align: center',
 	            	format : {type:'number', rule:'#,###'}},
-	            {caption: ['중량'], 		ref: 'cmndWght',		width: '80px', 	type: 'output', 	style: 'text-align: right',
+	            {caption: ['중량'], 		ref: 'cmndWght',		width: '80px', 		type: 'output', 	style: 'text-align: right',
 	    			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
 	            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 		width: '180px', 	type: 'output',		style: 'text-align: center'},
 	            {caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px', 	type: 'output', 	style: 'text-align: center'},
