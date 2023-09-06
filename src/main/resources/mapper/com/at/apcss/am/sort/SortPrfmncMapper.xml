@@ -273,6 +273,7 @@
 				(
 					  APC_CD
 					, SORTNO
+					, SORT_SN
 					, GRD_CD
 					, INPT_YMD
 					, FCLT_CD
@@ -291,6 +292,7 @@
 	   			(
 					  #{apcCd}
 					, #{sortno}
+					, #{sortSn}
 					, #{grdCd}
 					, #{inptYmd}
 					, #{fcltCd}
@@ -338,6 +340,7 @@
 		<![CDATA[
 			 WHERE APC_CD = #{apcCd}
 			   AND SORTNO = #{sortno}
+			   AND SORT_SN = #{sortSn}
 		]]>
 	</update>
 

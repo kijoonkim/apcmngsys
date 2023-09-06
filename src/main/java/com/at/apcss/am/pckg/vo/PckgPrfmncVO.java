@@ -43,7 +43,7 @@ public class PckgPrfmncVO extends ComVO {
 	 * 포장일자
 	 */
 	private String pckgYmd;
-	
+
 	/**
 	 * 투입일자
 	 */
@@ -130,6 +130,11 @@ public class PckgPrfmncVO extends ComVO {
 	private String sortno;
 
 	/**
+	 * 선별순번
+	 */
+	private int sortSn;
+
+	/**
 	 * 비고
 	 */
 	private String rmrk;
@@ -138,29 +143,29 @@ public class PckgPrfmncVO extends ComVO {
 	 * 포장투입실적 변경 여부
 	 */
 	private String needsInptChgYn;
-	
+
 	/*출하수량*/
 	private String spmtQntt;
-	
+
 	/*춣하중량*/
 	private String spmtWght;
-	
+
 	/*포장일자*/
 	private String fromPckgYmd;
 	private String toPckgYmd;
-	
+
 	/*품목코드*/
 	private String itmeCd;
-	
+
 //	/*포장기*/
 //	private String fcltCd;
-	
+
 	/*저장창고*/
 	private String strgWarehouse;
-	
+
 	/*대표생산자*/
 	private String prdcrNm;
-	
+
 	/*포장내역명*/
 	private String fcltNm;
 }

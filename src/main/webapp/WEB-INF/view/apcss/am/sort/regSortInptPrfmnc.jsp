@@ -644,7 +644,7 @@
 	const fn_save = async function() {
 
 		let needsPckgRegYn = SBUxMethod.get("chk-pckgAuto").needsPckgRegYn;
-
+		const sortYmd = SBUxMethod.get("dtl-dtp-inptYmd");
 		// check qntt, wght
 
 		// 원물재고 내역
@@ -761,16 +761,16 @@
     					case 1:
     						grdQntt = parseInt(item.grd1) || 0;
     						break;
-    					case 1:
+    					case 2:
     						grdQntt = parseInt(item.grd2) || 0;
     						break;
-    					case 1:
+    					case 3:
     						grdQntt = parseInt(item.grd3) || 0;
     						break;
-    					case 1:
+    					case 4:
     						grdQntt = parseInt(item.grd4) || 0;
     						break;
-    					case 1:
+    					case 5:
     						grdQntt = parseInt(item.grd5) || 0;
     						break;
     					default:
@@ -808,9 +808,6 @@
 			//return;
 		}
 
-		console.log("invntrInptWght", invntrInptWght);
-		console.log("sortInptWght", sortInptWght);
-
 		if (invntrInptWght < sortInptWght) {
 			gfn_comAlert("W0008", "재고량", "투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 			return;
@@ -829,6 +826,7 @@
 
 		const sortMng = {
     		apcCd: gv_selectedApcCd,
+    		//sortYmd: sortYmd,
     		needsPckgRegYn: needsPckgRegYn,
     		rawMtrInvntrList: rawMtrInvntrList,
     		sortPrfmncList: sortPrfmncList
@@ -854,14 +852,6 @@
 
 	}
 
-	/**
-	 * @name fn_lblSort
-	 * @description 라벨발행
-	 * @param {number} nRow
-	 */
-	const fn_lblSort = async function(nRow) {
-		grdSortPrfmnc.addRow(true);
-	}
 	/**
 	 * @name fn_addRow
 	 * @description 행추가
@@ -905,7 +895,7 @@
 		grdSortPrfmnc.addRow(true);
 		grdSortPrfmnc.setCellDisabled(nRow, 0, nRow, grdSortPrfmnc.getCols() - 1, false);
 
-		document.querySelector('#cnt-rawMtrInvtr').innerText = nRow;
+		//document.querySelector('#cnt-rawMtrInvtr').innerText = nRow;
 	}
 	/**
 	 * @name fn_delRow
@@ -914,7 +904,7 @@
 	 */
 	const fn_delRow = async function(nRow, nCol) {
 		 grdSortPrfmnc.deleteRow(nRow);
-		 document.querySelector('#cnt-sortPrfmnc').innerText = grdRawMtrInvntr.getGridDataAll().length - 1;
+		 //document.querySelector('#cnt-sortPrfmnc').innerText = grdRawMtrInvntr.getGridDataAll().length - 1;
 	}
 
  	/**

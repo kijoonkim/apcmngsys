@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.hsqldb.lib.StringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -142,6 +143,12 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			return ComUtil.getResultMap("W0005", "APC코드");
 		}
 
+		String sortno = sortMngVO.getSortno();
+
+		if (!StringUtils.hasText(sortno)) {
+			sortno = cmnsTaskNoService.selectSortno(apcCd, sortMngVO.getSortYmd());
+		}
+
 		// 실적등록 대상정보 목록
 		List<SortPrfmncVO> prfmncList = sortMngVO.getSortPrfmncList();
 		// 실적등록 대상재고 목록
@@ -149,13 +156,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 		List<RawMtrInvntrVO> rawMtrInvntrVOList = new ArrayList<>();
 
-		String sortno = sortMngVO.getSortno();
-
 		for ( SortPrfmncVO sort : prfmncList ) {
-			if (!StringUtils.hasText(sortno)) {
-				sortno = cmnsTaskNoService.selectSortno(sortMngVO.getApcCd(), sort.getInptYmd());
-				sort.setSortno(sortno);
-			}
 			sort.setRmnQntt(sort.getQntt());
 			sort.setRmnWght(sort.getWght());
 		}
@@ -211,7 +212,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 			int sortQntt = inv.getSortQntt();
 			double sortWght = inv.getSortWght();
-			logger.debug("wrhsno {}", wrhsno);
+
 			for ( SortPrfmncVO sort : prfmncList ) {
 				if (StringUtils.hasText(sort.getWrhsno()) && sort.getRmnWght() <= 0) {
 					continue;
@@ -235,13 +236,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 				sortQntt += applQntt;
 				sortWght += applWght;
-				logger.debug("pre sort.getRmnQntt() {}", sort.getRmnQntt());
-				logger.debug("pre sort.getRmnWght() {}", sort.getRmnWght());
+
 				sort.setRmnQntt(sort.getRmnQntt() - applQntt);
 				sort.setRmnWght(sort.getRmnWght() - applWght);
-
-				logger.debug("sort.getRmnQntt() {}", sort.getRmnQntt());
-				logger.debug("sort.getRmnWght() {}", sort.getRmnWght());
 
 				if (!StringUtils.hasText(inptYmd)) {
 					inptYmd = sort.getInptYmd();
@@ -265,7 +262,11 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 		// 선별실적 등록
 		List<SortPrfmncVO> sortPrfmncVOList = new ArrayList<>();
 
+		int sortSn = 0;
 		for ( SortPrfmncVO prfmncInfo : prfmncList ) {
+
+			sortSn++;
+
 			SortPrfmncVO prfmncVO = new SortPrfmncVO();
 			BeanUtils.copyProperties(sortMngVO, prfmncVO);
 			BeanUtils.copyProperties(prfmncInfo, prfmncVO,
@@ -277,9 +278,10 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
 
+			prfmncVO.setSortno(sortno);
+			prfmncVO.setSortSn(sortSn);
+
 			sortPrfmncVOList.add(prfmncVO);
-			logger.debug("gdsSeCd {}", prfmncVO.getGdsSeCd());
-			logger.debug("wrhsno {}", prfmncVO.getWrhsno());
 		}
 
 		rtnObj = sortPrfmncService.insertSortPrfmncList(sortPrfmncVOList);
@@ -289,36 +291,24 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 		}
 
 		// 선별실적 등록 시 투입실적도 함께 등록 (투입실적 여부 확인 후 등록)
-		if (ComConstants.CON_YES.equals(sortMngVO.getNeedsInptRegYn())) {
 
-			List<SortInptPrfmncVO> sortInptPrfmncVOList = new ArrayList<>();
-			for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
-				SortInptPrfmncVO sortInptVO = new SortInptPrfmncVO();
-				BeanUtils.copyProperties(inv, sortInptVO);
-				sortInptVO.setSortno(sortno);
-				//String wrhsno = sortInptVO.getWrhsno();
+		List<SortInptPrfmncVO> sortInptPrfmncVOList = new ArrayList<>();
+		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
+			SortInptPrfmncVO sortInptVO = new SortInptPrfmncVO();
+			BeanUtils.copyProperties(inv, sortInptVO);
+			sortInptVO.setSortno(sortno);
 
-				/*
-				for ( SortPrfmncVO sort : sortPrfmncVOList ) {
-					String sortno = sort.getSortno();
-					if (StringUtils.hasText(wrhsno) && wrhsno.equals(sort.getWrhsno())) {
-						sortInptVO.setSortno(sortno);
-					}
-				}
-				 */
+			sortInptVO.setQntt(inv.getInptQntt());
+			sortInptVO.setWght(inv.getInptWght());
 
-				sortInptVO.setQntt(inv.getInptQntt());
-				sortInptVO.setWght(inv.getInptWght());
+			// 투입실적 항목 set
+			sortInptPrfmncVOList.add(sortInptVO);
+		}
 
-				// 투입실적 항목 set
-				sortInptPrfmncVOList.add(sortInptVO);
-			}
-
-			rtnObj = sortInptPrfmncService.insertSortInptPrfmncList(sortInptPrfmncVOList);
-			if (rtnObj != null) {
-				// error throw exception;
-				throw new EgovBizException(getMessageForMap(rtnObj));
-			}
+		rtnObj = sortInptPrfmncService.insertSortInptPrfmncList(sortInptPrfmncVOList);
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
 
 		// 원물재고정보 update

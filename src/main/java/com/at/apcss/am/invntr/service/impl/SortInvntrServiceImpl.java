@@ -50,12 +50,12 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 		return resultList;
 	}
-	
+
 	@Override
 	public List<SortInvntrVO> selectSortInvntrList(SortInvntrVO sortInvntrVO) throws Exception {
-		
+
 		List<SortInvntrVO> resultList = sortInvntrMapper.selectSortInvntrList(sortInvntrVO);
-		
+
 		return resultList;
 	}
 
@@ -120,14 +120,14 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 		}
 
 		// 재고량
-		int invntrQntt = invntrInfo.getInvntrQntt() - sortInvntrVO.getPckgQntt();
-		double invntrWght = invntrInfo.getInvntrWght() - sortInvntrVO.getPckgWght();
+		int invntrQntt = invntrInfo.getInvntrQntt() - sortInvntrVO.getInptQntt();
+		double invntrWght = invntrInfo.getInvntrWght() - sortInvntrVO.getInptWght();
 		sortInvntrVO.setInvntrQntt(invntrQntt);
 		sortInvntrVO.setInvntrWght(invntrWght);
 
 		// 포장량
-		int pckgQntt = invntrInfo.getInptQntt() + sortInvntrVO.getPckgQntt();
-		double pckgWght = invntrInfo.getInptWght() + sortInvntrVO.getPckgWght();
+		int pckgQntt = invntrInfo.getPckgQntt() + sortInvntrVO.getInptQntt();
+		double pckgWght = invntrInfo.getPckgWght() + sortInvntrVO.getInptWght();
 		sortInvntrVO.setPckgQntt(pckgQntt);
 		sortInvntrVO.setPckgWght(pckgWght);
 

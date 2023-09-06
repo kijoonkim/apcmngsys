@@ -41,7 +41,17 @@ public class PckgMngVO extends ComVO {
 	/**
 	 * 선별번호
 	 */
-	private String sortNo;
+	private String sortno;
+
+	/**
+	 * 선별순번
+	 */
+	private int sortSn;
+
+	/**
+	 * 상품등급
+	 */
+	private String gdsGrd;
 
 	/**
 	 * 등급코드
@@ -52,6 +62,11 @@ public class PckgMngVO extends ComVO {
 	 * 투입일자
 	 */
 	private String inptYmd;
+
+	/**
+	 * 포장일자
+	 */
+	private String pckgYmd;
 
 	/**
 	 * 설비코드
@@ -91,7 +106,7 @@ public class PckgMngVO extends ComVO {
 	/**
 	 * 포장번호
 	 */
-	private String pckgNo;
+	private String pckgno;
 
 	/**
 	 * 포장지시번호
