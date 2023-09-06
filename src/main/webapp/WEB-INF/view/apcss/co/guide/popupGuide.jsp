@@ -122,6 +122,16 @@
 							</td>
 							<td class="td_input">
 							</td>
+							<th scope="row" >출하지시번호</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchSpmtCmndNo" name="btnSrchSpmtCmndNo" uitype="modal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-spmtCmndno" onclick="fn_modalSpmtCmndno"></sbux-button>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
 							<th scope="row" >입고일자</th>
 							<td class="td_input">
 								<sbux-datepicker id="srch-dtp-trsprtYmd" name="srch-dtp-trsprtYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
@@ -198,6 +208,14 @@
     </div>
     <div id="body-modal-ddln">
     	<jsp:include page="../../am/popup/regDdlnPopup.jsp"></jsp:include>
+    </div>
+    
+    <!-- 출하지시번호 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-spmtCmndno" name="modal-spmtCmndno" uitype="middle" header-title="출하지시번호 선택" body-html-id="body-modal-spmtCmndno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-spmtCmndno">
+    	<jsp:include page="../../am/popup/spmtCmndnoPopup.jsp"></jsp:include>
     </div>
 
 <script type="text/javascript">
@@ -387,6 +405,22 @@
  	* 거래처 선택 팝업 끝
  	*/
 	
+ 	/*
+     * 출하지시번호 선택 팝업 시작
+     */
+ 	// 출하지시번호 선택 팝업 호출
+	const fn_modalSpmtCmndno = function() {
+    	popSpmtCmndno.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmndno);
+	}
+	
+	const fn_setSpmtCmndno = function(spmtCmndno) {
+		if (!gfn_isEmpty(spmtCmndno)) {
+			SBUxMethod.set('srch-inp-spmtCmndno', spmtCmndno.spmtCmndno);
+		}
+	}
+	/*
+ 	* 출하지시번호 선택 팝업 끝
+ 	*/
 </script>
 </body>
 </html>

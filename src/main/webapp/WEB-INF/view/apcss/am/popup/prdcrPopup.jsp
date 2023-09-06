@@ -48,7 +48,7 @@
 							<th class="td_input">
 								<sbux-input
 									uitype="text" id="prdcr-inp-prdcrNm" name="prdcr-inp-prdcrNm"
-									class="form-control input-sm" maxlength="19"
+									class="form-control input-sm" maxlength="33"
     								onkeyenter="keyUpInp(prdcr-inp-prdcrNm, 'prdcr-inp-prdcrNm', 'true')">
     							</sbux-input>
 							</th>
@@ -251,7 +251,7 @@
 			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, false);
 			nRow++;
 			grdPrdcrPop.addRow(true);
-			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, false);
+			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
 		},
 		del: async function(nRow) {
 			const apcCd = SBUxMethod.get("prdcr-inp-apcCd");
