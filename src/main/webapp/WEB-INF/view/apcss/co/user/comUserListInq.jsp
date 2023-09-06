@@ -58,7 +58,7 @@
 										<td colspan="2" style="border-right: hidden;"></td>
 										<th scope="row">사용자명</th>
 										<td class="td_input" style="border-right: hidden;">
-											<sbux-input id="srch-inp-userNm" name="srch-inp-userNm" uitype="text" class="form-control input-sm" placeholder=""  maxlength="4"></sbux-input>
+											<sbux-input id="srch-inp-userNm" name="srch-inp-userNm" uitype="text" class="form-control input-sm" placeholder=""  maxlength="30"></sbux-input>
 										</td>
 										<td colspan="6"></td>
 									</tr>
