@@ -10,7 +10,7 @@
 <!-- 2023.07.07  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.co.apcss.am.apc.mapper.ApcInfoMapper">
+<mapper namespace="com.at.apcss.co.apc.mapper.ApcInfoMapper">
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcInfo				-->
@@ -22,7 +22,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectApcInfo" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.apc.mapper.ApcInfoMapper.selectApcInfo */
+	    	SELECT /* com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcInfo */
 	    		  AI.APC_CD			AS APC_CD
 			    , AI.REG_APC_NM     AS REG_APC_NM
 			    , AI.REG_ADDR       AS REG_ADDR

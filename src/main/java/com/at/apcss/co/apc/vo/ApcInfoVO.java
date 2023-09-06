@@ -46,5 +46,6 @@ public class ApcInfoVO extends ComVO{
 	private String fxno;
 	/** 우편번호 */
 	private String zip;
-
+	/** 삭제유무 */
+	private String delYn;
 }
