@@ -49,4 +49,24 @@ public class CmnsItemVO extends ComVO {
 	 * 등록등급수
 	 */
 	private String grdCnt;
+	/**
+	 * 농협APC코드
+	 */
+	private String nhApcCd;
+	/**
+	 * 농협품목명
+	 */
+	private String nhItemNm;
+	/**
+	 * 원물감량율
+	 */
+	private String rawMtrRdcdRt;
+	/**
+	 * 선별감량율
+	 */
+	private String sortRdcdRt;
+	/**
+	 * 포장감량률
+	 */
+	private String pckgRdcdRt;
 }

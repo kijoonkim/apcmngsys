@@ -127,4 +127,17 @@ public class CmnsItemServiceImpl implements CmnsItemService {
 		return resultList;
 	}
 
+	@Override
+	public CmnsItemVO selectCmnsApcItem(CmnsItemVO cmnsItemVO) throws Exception {
+		CmnsItemVO resultVO = cmnsItemMapper.selectCmnsApcItem(cmnsItemVO);
+		return resultVO;
+	}
+
+	@Override
+	public int updateApcCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
+		int updatedCnt = cmnsItemMapper.updateApcCmnsItem(cmnsItemVO);
+
+		return updatedCnt;
+	}
+
 }

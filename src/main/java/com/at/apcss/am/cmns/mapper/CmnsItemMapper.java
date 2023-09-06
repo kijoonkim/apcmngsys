@@ -63,11 +63,27 @@ public interface CmnsItemMapper {
 	public int updateCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
 
 	/**
+	 * APC 품목정보 변경
+	 * @param cmnsItemVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateApcCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
+
+	/**
 	 * 품목정보 삭제
 	 * @param cmnsItemVO
 	 * @return Integer
 	 * @throws Exception
 	 */
 	public int deleteCmnsItem(CmnsItemVO cmnsItemVO) throws Exception;
+
+	/**
+	 * 품목정보 단건 조회
+	 * @param cmnsItemVO
+	 * @return CmnsItemVO
+	 * @throws Exception
+	 */
+	public CmnsItemVO selectCmnsApcItem(CmnsItemVO cmnsItemVO) throws Exception;
 
 }
