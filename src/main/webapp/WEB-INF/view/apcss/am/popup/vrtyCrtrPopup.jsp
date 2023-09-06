@@ -37,7 +37,7 @@
 							</th>
 							<th scope="row">품종명</th>
 							<th class="td_input">
-								<sbux-input id="vrty-inp-vrtyNm" name="vrty-inp-vrtyNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="vrty-inp-vrtyNm" name="vrty-inp-vrtyNm" uitype="text" class="form-control input-sm" maxlength="30"></sbux-input>
 							</th>
 							<th>&nbsp;</th>
 						</tr>

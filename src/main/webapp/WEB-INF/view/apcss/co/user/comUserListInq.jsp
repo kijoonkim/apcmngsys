@@ -24,6 +24,9 @@
 						</div>
 
 						<div class="box-body">
+						<!--[APC] START -->
+							<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+						<!--[APC] END -->
 							<!--[pp] 검색 -->
 							<table class="table table-bordered tbl_row tbl_fixed">
 								<caption>검색 조건 설정</caption>
@@ -42,22 +45,23 @@
 									<col style="width: 3%">
 								</colgroup>
 								<tbody>
-									<tr>
-										<th scope="row">APC명</th>
-										<td colspan="3" class="td_input" style="border-right: hidden;">
-											<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-										</td>
-										<td colspan="8" class="td_input"></td>
-									</tr>
+<!-- 									<tr> -->
+<!-- 										<th scope="row">APC명</th> -->
+<!-- 										<td colspan="3" class="td_input" style="border-right: hidden;"> -->
+<!-- 											<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input> -->
+<!-- 											<sbux-select unselected-text="전체" uitype="single" id="srch-slt-apcCd" name="srch-slt-apcCd" jsondata-ref="jsonComApcCd" class="form-control input-sm" /> -->
+<!-- 										</td> -->
+<!-- 										<td colspan="8" class="td_input"></td> -->
+<!-- 									</tr> -->
 									<tr>
 										<th scope="row">사용자ID</th>
 										<td class="td_input" style="border-right: hidden;">
-											<sbux-input id="srch-inp-userId" name="srch-inp-userId" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+											<sbux-input id="srch-inp-userId" name="srch-inp-userId" uitype="text" class="form-control input-sm" placeholder="" maxlength="13"></sbux-input>
 										</td>
 										<td colspan="2" style="border-right: hidden;"></td>
 										<th scope="row">사용자명</th>
 										<td class="td_input" style="border-right: hidden;">
-											<sbux-input id="srch-inp-userNm" name="srch-inp-userNm" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+											<sbux-input id="srch-inp-userNm" name="srch-inp-userNm" uitype="text" class="form-control input-sm" placeholder=""  maxlength="30"></sbux-input>
 										</td>
 										<td colspan="6"></td>
 									</tr>
@@ -70,7 +74,7 @@
 									<li><span>사용자 내역</span></li>
 								</ul>
 							</div>
-							<div id="sb-area-grdUserListInq" style="height:300px;"></div>
+							<div id="sb-area-grdUserListInq" style="height:460px;"></div>
 							<!--[pp] //검색결과 -->
 					</div>
 				</div>
@@ -85,6 +89,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	let year = today.getFullYear();
 	let month = ('0' + (today.getMonth() + 1)).slice(-2);
 	let day = ('0' + today.getDate()).slice(-2);
+	
 })
 
 var userInfoChgGridData = []; // 그리드의 참조 데이터 주소 선언
@@ -101,7 +106,7 @@ function fn_createUserListInqGrid() {
 	         {caption: ["사용자ID"],			ref: 'userId',      type:'output',	width:'15%', style:'text-align:center'},
 	         {caption: ["사용자명"], 		ref: 'userNm',     	type:'output',  width:'15%', style:'text-align:center'},
 	         {caption: ["APC명"], 	 		ref: 'apcNm',    	type:'output',  width:'15%', style:'text-align:center'},
-	         {caption: ["사용자유형"],    	ref: 'userType',    type:'output',  width:'15%', style:'text-align:center'},
+	         {caption: ["사용자유형"],    	ref: 'userTypeNm',  type:'output',  width:'15%', style:'text-align:center'},
 	         {caption: ["메일주소"],	    	ref: 'eml',   		type:'output',  width:'15%', style:'text-align:center'},
 	         {caption: ["전화번호"],	    	ref: 'telno', 		type:'output',  width:'15%', style:'text-align:center'},
 	         {caption: ["직책명"],  			ref: 'jbttlNm',   	type:'output',  width:'15%', style:'text-align:center'},
@@ -137,7 +142,7 @@ async function fn_callSelectUserList(){
 				userId		: item.userId
 			  , userNm		: item.userNm
 			  , apcNm		: item.apcNm
-			  , userType	: item.userType
+			  , userTypeNm	: item.userTypeNm
 			  , eml			: item.eml
 			  , telno		: item.telno
 			  , jbttlNm		: item.jbttlNm
@@ -150,8 +155,6 @@ async function fn_callSelectUserList(){
 			userListInqGridData.push(Object.assign({}, userListInq));
 			newUserListInqGridData.push(Object.assign({}, userListInq));
 		});
-		console.log("newUserListInqGridData", newUserListInqGridData);
-		console.log("userListInqGridData", userListInqGridData);
 		userListInqGridId.rebuild();
     }catch (e) {
 		if (!(e instanceof Error)) {

@@ -45,44 +45,45 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
  */
 @Controller
 public class LoginController extends BaseController {
-	
+
 	/** LoginService */
 	@Resource(name = "loginService")
 	private LoginService loginService;
-	
+
 	/** ApcInfoService */
 	@Resource(name = "apcInfoService")
 	private ApcInfoService apcInfoService;
-	
-	
+
+
 	@RequestMapping("/login.do")
 	public String doLoginView(@ModelAttribute("loginVO") LoginVO loginVO,
 			HttpServletRequest request,
 			HttpServletResponse response,
 			HttpSession httpSession,
 			ModelMap model) throws Exception {
-		
-		
+
 		String menuId = "login";
 		request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);
 		model.addAttribute("comUiJson", String.format("{menuId:'%s'}", menuId));
-		
+
 		ComMenuVO pageVO = new ComMenuVO();
 		pageVO.setMenuId(menuId);
 		pageVO.setMenuNm("로그인");
 		model.addAttribute("comMenuVO", pageVO);
 		//model.addAttribute("comApcList", null);
-		
+
 		// 권한체크시 에러 페이지 이동
 		String authError = request.getParameter("authError") == null ? "" : (String)request.getParameter("authError");
 		if (authError != null && authError.equals("1")) {
 			// return access denied
 			// return .authError..
 		}
-		
+
+		model.addAttribute("loginMessage", null);
+
 		return "main/login";
 	}
-	
+
 	@RequestMapping(value = "/actionLogin.do")
 	public String actionLogin(
 			@RequestBody LoginVO loginVO,
@@ -90,16 +91,16 @@ public class LoginController extends BaseController {
 			HttpServletResponse response,
 			HttpSession httpSession,
 			ModelMap model) throws Exception {
-		
+
 		LoginVO resultVO = loginService.actionLogin(loginVO);
-		
+
 		if (resultVO != null && resultVO.getId() != null && StringUtils.hasText(resultVO.getId())) {
-			
+
 			ApcInfoVO apcInfoVO = new ApcInfoVO();
-			
+
 			List<String> comApcList = new ArrayList<>();
 			ObjectMapper objMapper = new ObjectMapper();
-			
+
 			// 로그인 사용자가 시스템관리자, AT관리자 일 경우 APC리스트를 세션에 저장
 			String userType = resultVO.getUserType();
 			if (ComConstants.CON_USER_TYPE_SYS.equals(userType)
@@ -113,12 +114,12 @@ public class LoginController extends BaseController {
 					comApcJsonVO.setValue(apc.getApcCd());
 					comApcJsonVO.setText(apc.getApcNm());
 					comApcJsonVO.setLabel(apc.getApcNm());
-					
+
 					comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
 				}
-				
+
 				resultVO.setApcAdminType(userType);
-				
+
 			} else {
 				ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
 				comApcJsonVO.setApcCd(resultVO.getApcCd());
@@ -126,47 +127,47 @@ public class LoginController extends BaseController {
 				comApcJsonVO.setValue(resultVO.getApcCd());
 				comApcJsonVO.setText(resultVO.getApcNm());
 				comApcJsonVO.setLabel(resultVO.getApcNm());
-				
+
 				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
 			}
-			
-			
+
+
 			if (comApcList != null && !comApcList.isEmpty()) {
 				request.getSession().setAttribute("comApcList", comApcList);
 			} else {
 				request.getSession().setAttribute("comApcList", null);
 			}
-			
+
 			// 로그인 정보를 세션에 저장
 			request.getSession().setAttribute("loginVO", resultVO);
-			
+
 			// 로그인 인증세션
 			request.getSession().setAttribute("accessUser", resultVO.getId());
 			//model.addAttribute("loginMessage", null);
-			
+
 			return "redirect:/actionMain.do";
 		} else {
-			//model.addAttribute("loginMessage", messageSource.getMessage("fail.common.login", request.getLocale()));
+			model.addAttribute("loginMessage", messageSource.getMessage("fail.common.login", request.getLocale()));
 			//return "redirect:/login.do";
 			return "main/login";
 		}
 	}
-	
+
 	@RequestMapping(value = "/actionSSOLogin.do")
 	public String actionSSOLogin(HttpServletRequest request) throws Exception {
-		
+
 		String id = request.getParameter("id");
-		
+
 		LoginVO loginVO = new LoginVO();
 		loginVO.setId(id);
-		
+
 		LoginVO resultVO = loginService.actionSSOLogin(loginVO);
-		
+
 		if (resultVO != null && resultVO.getId() != null && StringUtils.hasText(resultVO.getId())) {
-			
+
 			ApcInfoVO apcInfoVO = new ApcInfoVO();
 			List<ComApcJsonVO> comApcList = new ArrayList<>();
-			
+
 			// 로그인 사용자가 시스템관리자, AT관리자 일 경우 APC리스트를 세션에 저장
 			String userType = resultVO.getUserType();
 			if (ComConstants.CON_USER_TYPE_SYS.equals(userType)
@@ -180,12 +181,12 @@ public class LoginController extends BaseController {
 					comApcJsonVO.setValue(resultVO.getApcCd());
 					comApcJsonVO.setText(resultVO.getApcNm());
 					comApcJsonVO.setLabel(resultVO.getApcNm());
-					
+
 					comApcList.add(comApcJsonVO);
 				}
-				
+
 				resultVO.setApcAdminType(userType);
-				
+
 			} else {
 				ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
 				comApcJsonVO.setApcCd(resultVO.getApcCd());
@@ -193,33 +194,33 @@ public class LoginController extends BaseController {
 				comApcJsonVO.setValue(resultVO.getApcCd());
 				comApcJsonVO.setText(resultVO.getApcNm());
 				comApcJsonVO.setLabel(resultVO.getApcNm());
-				
+
 				comApcList.add(comApcJsonVO);
 			}
-			
+
 			ObjectMapper objMapper = new ObjectMapper();
 			if (comApcList != null && !comApcList.isEmpty()) {
 				request.getSession().setAttribute("comApcList", objMapper.writeValueAsString(comApcList));
 			} else {
 				request.getSession().setAttribute("comApcList", null);
 			}
-			
+
 			// 로그인 정보를 세션에 저장
 			//httpSession.setAttribute("loginVO", resultVO);
 			request.getSession().setAttribute("loginVO", resultVO);
-			
+
 			// 로그인 인증세션
 			//httpSession.setAttribute("accessUser", resultVO.getId());
 			request.getSession().setAttribute("accessUser", resultVO.getId());
-			
+
 			return "redirect:/actionMain.do";
 		} else {
 			//model.addAttribute("loginMessage", message.getMessage("fail.common.login", request.getLocale()));
 			return "redirect:/login.do";
 		}
 	}
-	
-	
+
+
 	/**
 	 * 로그인 후 메인화면으로 들어간다
 	 * @param request
@@ -229,7 +230,7 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping(value = "/actionMain.do")
 	public String actionMain(HttpServletRequest request, ModelMap model) throws Exception {
-		
+
 		// 1. Spring Security 사용자 권한처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
@@ -237,33 +238,33 @@ public class LoginController extends BaseController {
 			//model.addAttribute("loginMessage", message.getMessage("fail.common.login"));
 			return "redirect:/login.do";
 		}
-		
+
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		
+
 		// 2. 메뉴조회
-		
+
 		// 메인 이동
 		//String mainPage = Globals.MAIN_PAGE;
 		String mainPage = "/main.do";
-		
+
 		if (mainPage.startsWith("/")) {
 			return "forward:" + mainPage;
 		} else {
 			return mainPage;
 		}
 	}
-	
+
 	@RequestMapping(value = "/actionLogout.do")
 	public String actionLogout(HttpServletRequest request, ModelMap model) throws Exception {
-		
+
 		// 1. Security 연도
-		
+
 		request.getSession().setAttribute("loginVO", null);
 		request.getSession().setAttribute("accessUser", null);
 		request.getSession().setAttribute("sysPrgrmId", null);
 		request.getSession().setAttribute("comApcList", null);
-		
+
 		return "redirect:/main.do";
 	}
-	
+
 }

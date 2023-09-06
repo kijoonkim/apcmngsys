@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : InvntrTrnsfMapper.xml                                   				-->
+<!-- DESC : 재고이송조회 mapper                                            				-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.08.28  	김현호        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.invntr.mapper.InvntrTrnsfMapper">
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrTrnsfMapper.selectInvntrTrnsfList		-->
+	<!-- DESC : 재고이송조회  목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR  com.at.apcss.am.trnsf.mapper      	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.28  	김현호        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectInvntrTrnsfList" parameterType="com.at.apcss.am.trnsf.vo.InvntrTrnsfVO" resultType="com.at.apcss.am.trnsf.vo.InvntrTrnsfVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+    		  FROM (
+    	</if>
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		SELECT
+    			  pt0.*
+    			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+		SELECT -- 원물재고
+			TH.APC_CD AS APC_CD,
+			TH.TRNSF_SN AS TRNSF_SN,
+			TH.WRHSNO AS WRHSNO,
+			TH.PCKGNO AS PCKGNO,
+			TH.TRNSF_YMD AS TRNSF_YMD,
+			MI.PRDCR_CD AS PRDCR_CD,
+			MI.VRTY_CD AS VRTY_CD,
+			MI.GDS_SE_CD AS GDS_SE_CD,
+			MI.WRHS_SE_CD AS WRHS_SE_CD,
+			MI.TRSPRT_SE_CD AS TRSPRT_SE_CD,
+			MI.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD,
+			TH.TRNSF_QNTT AS TRNSF_QNTT,
+			TH.TRNSF_WGHT AS TRNSF_WGHT
+			FROM
+			TB_INVNTR_TRNSF_HSTRY TH,
+			TB_RAW_MTR_INVNTR MI
+			WHERE TH.INVNTR_SE_CD = '1'
+			AND TH.WRHSNO = MI.WRHSNO
+			
+		UNION ALL
+			
+		SELECT -- 선별재고
+			TH.APC_CD AS APC_CD,
+			TH.TRNSF_SN AS TRNSF_SN,
+			TH.WRHSNO AS WRHSNO,
+			TH.PCKGNO AS PCKGNO,
+			TH.TRNSF_YMD AS TRNSF_YMD,
+			SI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD,
+			SI.VRTY_CD AS VRTY_CD,
+			SI.GDS_SE_CD AS GDS_SE_CD,
+			SI.WRHS_SE_CD AS WRHS_SE_CD,
+			--MI.TRSPRT_SE_CD AS TRSPRT_SE_CD,
+			NULL,
+			SI.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD,
+			TH.TRNSF_QNTT AS TRNSF_QNTT,
+			TH.TRNSF_WGHT AS TRNSF_WGHT
+		FROM
+			TB_INVNTR_TRNSF_HSTRY TH,
+			TB_SORT_INVNTR SI
+		WHERE TH.INVNTR_SE_CD = '2'
+			AND TH.SORTNO = SI.SORTNO
+			AND TH.GRD_CD = SI.GRD_CD
+			
+		UNION ALL
+			
+		SELECT -- 상품재고
+			TH.APC_CD AS APC_CD,
+			TH.TRNSF_SN AS TRNSF_SN,
+			TH.WRHSNO AS WRHSNO,
+			TH.PCKGNO AS PCKGNO,
+			TH.TRNSF_YMD AS TRNSF_YMD,
+			GI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD,
+			GI.VRTY_CD AS VRTY_CD,
+			GI.GDS_SE_CD AS GDS_SE_CD,
+			--SI.WRHS_SE_CD AS WRHS_SE_CD,
+			NULL,
+			--MI.TRSPRT_SE_CD AS TRSPRT_SE_CD,
+			NULL,
+			GI.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD,
+			TH.TRNSF_QNTT AS TRNSF_QNTT,
+			TH.TRNSF_WGHT AS TRNSF_WGHT
+		FROM
+			TB_INVNTR_TRNSF_HSTRY TH,
+			TB_GDS_INVNTR GI
+		WHERE TH.INVNTR_SE_CD = '3'
+			AND TH.PCKGNO = GI.PCKGNO
+			AND TH.PCKG_SN = GI.PCKG_SN
+
+		]]>
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		  ) pt0
+    	</if>
+    	<!-- End 페이징 -->
+	</select>
+</mapper>
