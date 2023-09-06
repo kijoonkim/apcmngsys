@@ -8,14 +8,12 @@ import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.invntr.service.SortInvntrService;
-import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
-import com.at.apcss.am.pckg.mapper.PckgInptMapper;
 import com.at.apcss.am.pckg.service.PckgCmndService;
 import com.at.apcss.am.pckg.service.PckgInptService;
 import com.at.apcss.am.pckg.service.PckgMngService;
@@ -23,8 +21,6 @@ import com.at.apcss.am.pckg.service.PckgPrfmncService;
 import com.at.apcss.am.pckg.vo.PckgInptVO;
 import com.at.apcss.am.pckg.vo.PckgMngVO;
 import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
-import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
-import com.at.apcss.am.sort.vo.SortPrfmncVO;
 import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
@@ -61,6 +57,10 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 	@Resource(name = "sortInvntrService")
 	private SortInvntrService sortInvntrService;	// 선별재고
 
+	@Resource(name = "cmnsTaskNoService")
+	private CmnsTaskNoService cmnsTaskNoService;	// 포장번호 발번용
+
+
 	@Override
 	public HashMap<String, Object> insertPckgInpt(PckgMngVO pckgMngVO) throws Exception {
 		// TODO Auto-generated method stub
@@ -76,6 +76,13 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 
 		if (!StringUtils.hasText(apcCd)) {
 			return ComUtil.getResultMap("W0005", "APC코드");
+		}
+
+		String pckgno = pckgMngVO.getPckgno();
+		String pckgYmd = pckgMngVO.getPckgYmd();
+
+		if (!StringUtils.hasText(pckgno)) {
+			pckgno = cmnsTaskNoService.selectPckgno(apcCd, pckgYmd);
 		}
 
 		// 실적등록 대상정보 목록
@@ -127,8 +134,8 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 
 		for ( SortInvntrVO inv : sortInvntrVOList ) {
 
-			String inptYmd = ComConstants.CON_BLANK;
 			String sortno = inv.getSortno();
+			int sortSn = inv.getSortSn();
 			String rprsPrdcrCd = inv.getRprsPrdcrCd();
 			String itemCd = inv.getItemCd();
 			String vrtyCd = inv.getVrtyCd();
@@ -137,7 +144,7 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 			String wrhsSeCd = inv.getWrhsSeCd();
 
 			// 지정 투입수량, 투입중량
-			//int inptQntt = inv.getInptQntt();
+			int inptQntt = inv.getInptQntt();
 			double inptWght = inv.getInptWght();
 
 			int pckgQntt = inv.getPckgQntt();
@@ -153,6 +160,7 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 				}
 
 				pckg.setSortno(sortno);
+				pckg.setSortSn(sortSn);
 				pckg.setRprsPrdcrCd(rprsPrdcrCd);
 				pckg.setItemCd(itemCd);
 				pckg.setVrtyCd(vrtyCd);
@@ -162,38 +170,32 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 
 				pckgQntt += pckg.getPckgQntt();
 				pckgWght += pckg.getPckgWght();
-
-				if (!StringUtils.hasText(inptYmd)) {
-					inptYmd = pckg.getInptYmd();
-				}
 			}
 
-			inv.setInptYmd(inptYmd);
+			inv.setPckgno(pckgno);
+			inv.setInptYmd(pckgYmd);
 			inv.setPckgQntt(pckgQntt);
 			inv.setPckgWght(pckgWght);
 		}
 
-		// 포장실적 등록 시 포장투입실적도 함께 등록 (투입실적 여부 확인 후 등록)
-		if (ComConstants.CON_YES.equals(pckgMngVO.getNeedsInptRegYn())) {
+		// 포장투입실적 등록 (투입실적 여부 확인 후 등록)
+		List<PckgInptVO> pckgInptVOList = new ArrayList<>();
+		for ( SortInvntrVO inv : sortInvntrVOList ) {
 
-			List<PckgInptVO> pckgInptVOList = new ArrayList<>();
-			for ( SortInvntrVO inv : sortInvntrVOList ) {
+			PckgInptVO pckgInptVO = new PckgInptVO();
+			BeanUtils.copyProperties(inv, pckgInptVO);
 
-				PckgInptVO pckgInptVO = new PckgInptVO();
-				BeanUtils.copyProperties(inv, pckgInptVO);
+			// pckgInptVO.setQntt(inv.getInptQntt());
+			// pckgInptVO.setWght(inv.getInptWght());
 
-				// pckgInptVO.setQntt(inv.getInptQntt());
-				// pckgInptVO.setWght(inv.getInptWght());
+			// 투입실적 항목 set
+			pckgInptVOList.add(pckgInptVO);
+		}
 
-				// 투입실적 항목 set
-				pckgInptVOList.add(pckgInptVO);
-			}
-
-			rtnObj = pckgInptService.insertPckgInptList(pckgInptVOList);
-			if (rtnObj != null) {
-				// error throw exception;
-				throw new EgovBizException(getMessageForMap(rtnObj));
-			}
+		rtnObj = pckgInptService.insertPckgInptList(pckgInptVOList);
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
 
 		// 선별재고정보 update
@@ -220,6 +222,7 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
 
+			prfmncVO.setPckgno(pckgno);
 			pckgPrfmncVOList.add(prfmncVO);
 		}
 
@@ -235,9 +238,6 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 
 	@Override
 	public HashMap<String, Object> insertPckgPrfmncAuto(PckgMngVO pckgMngVO) throws Exception {
-
-
-
 
 		return null;
 	}

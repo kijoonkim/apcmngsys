@@ -35,6 +35,10 @@ public class SortInvntrVO extends ComVO {
 	private String sortno;
 
 	/**
+	 * 선별순번
+	 */
+	private int sortSn;
+	/**
 	 * 등급코드
 	 */
 	private String grdCd;
@@ -162,7 +166,6 @@ public class SortInvntrVO extends ComVO {
 	/*창고*/
 	private String warehouseSeNm;
 
-	private String sortSn;
 	private String sortYmd;
 	private String prdctnYr;
 	private String apcNm;
@@ -175,5 +178,6 @@ public class SortInvntrVO extends ComVO {
 	private String sortYmdFrom;
 	private String sortYmdTo;
 	private String sortFcltCd;
+	private String pckgno;
 
 }

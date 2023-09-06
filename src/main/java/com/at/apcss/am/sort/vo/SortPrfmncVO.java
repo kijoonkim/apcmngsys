@@ -35,6 +35,11 @@ public class SortPrfmncVO extends ComVO {
 	private String sortno;
 
 	/**
+	 * 선별순번
+	 */
+	private int sortSn;
+
+	/**
 	 * 등급코드
 	 */
 	private String grdCd;
