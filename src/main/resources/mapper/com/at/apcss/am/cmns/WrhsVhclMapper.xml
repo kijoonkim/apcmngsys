@@ -153,8 +153,8 @@
     		 , DPSTR					= #{dpstr}
     		 , RMRK						= #{rmrk}
     		 , DEL_YN					= #{delYn}
-		 WHERE APC_CD 		= #{apcCd}
-		   AND VHCLNO 		= #{vhclno}
+		 WHERE APC_CD 					= #{apcCd}
+		   AND VHCLNO 					= #{vhclno}
 		]]>
 	</update>
 

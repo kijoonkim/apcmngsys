@@ -104,7 +104,7 @@
 							<td style="border-left:hidden"></td>
 							<td class="td_input" style="border-right:hidden; border-left:hidden" ><sbux-datepicker id="srch-dtp-startPr123dctnYmd" name="srch-dtp-startPr123dctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker></td>
 							<td class="td_input" style="border-right:hidden;"><sbux-button id="srch-btn-cnpt1" name="srch-btn-cnpt1" uitype="normal" text="매출생성" class="btn btn-xs btn-outline-dark"></sbux-button></td>
-							<td class="td_input" style="border-right:hidden;"><sbux-button id="srch-btn-cnpt2" name="srch-btn-cnpt2" uitype="normal" text="마감등록" class="btn btn-xs btn-outline-dark"></sbux-button></td>
+							<td class="td_input" style="border-right:hidden;"><sbux-button id="btnRegDdln" name="btnRegDdln" class="btn btn-xs btn-outline-dark" text="마감등록" uitype="modal" target-id="modal-ddln" onclick="fn_regDDln"></sbux-button></td>
 						</tr>
 					</tbody>
 			 		</table>
@@ -119,10 +119,17 @@
 	</section>
 	    <!-- 거래처 선택 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-cnpt">
     	<jsp:include page="../../am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
+    <!-- 마감 등록 Modal -->
+    <div>
+        <sbux-modal id="modal-ddln" name="modal-ddln" uitype="middle" header-title="마감 등록" body-html-id="body-modal-ddln" footer-is-close-button="false" style="width:700px"></sbux-modal>
+    </div>
+    <div id="body-modal-ddln">
+    	<jsp:include page="../../am/popup/regDdlnPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -181,8 +188,12 @@
         grdWghPrfmnc = _SBGrid.create(SBGridProperties);
     }
 
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
+	/**
+	 * @name fn_regDDln
+	 * @description 마감등록 호출
+	 */
+	const fn_regDDln = function() {
+		fn_modalDdln(gv_apcCd, gv_apcNm);
 	}
 </script>
 </html>

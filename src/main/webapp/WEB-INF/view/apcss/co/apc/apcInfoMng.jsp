@@ -191,7 +191,7 @@
 		let regApcNm = SBUxMethod.get("srch-inp-regApcNm");
 		let delYn = SBUxMethod.get("srch-slt-delYn");
 		let ApcEvrmntStngVO = {apcCd : apcCd, regApcNm : regApcNm, delYn : delYn, pagingYn : 'Y', currentPageNo : currentPageNo, recordCountPerPage : recordCountPerPage};
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcDsctnList.do", ApcEvrmntStngVO);
+    	let postJsonPromise = gfn_postJSON("/co/apc/selectApcDsctnList.do", ApcEvrmntStngVO);
         let data = await postJsonPromise;
         newApcInfoMngData = [];
         try{
@@ -279,7 +279,7 @@
     	}
     	console.log(apcDsctnList);
     	
-    	const postJsonPromise = gfn_postJSON("/am/apc/multiApcDsctnList.do", apcDsctnList, this.prgrmId);	// 프로그램id 추가
+    	const postJsonPromise = gfn_postJSON("/co/apc/multiApcDsctnList.do", apcDsctnList, this.prgrmId);	// 프로그램id 추가
     	
 		const data = await postJsonPromise;	    
         try {
