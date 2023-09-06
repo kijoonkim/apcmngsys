@@ -115,11 +115,13 @@
 		prvApcCd: "",
 		objGrid: null,
 		gridJson: [],
+		receivedData: null,
 		callbackFnc: function() {},
-		init: async function(_apcCd, _apcNm, _trsprtYmd, _vhclno, _callbackFnc) {
+		init: async function(_apcCd, _apcNm, _data, _callbackFnc) {
 			// set param
-			SBUxMethod.set("trsprtCst-dtp-trsprtYmd", _trsprtYmd);
-			SBUxMethod.set("trsprtCst-inp-vhclno", _vhclno);
+			receivedData = _data;
+			SBUxMethod.set("trsprtCst-dtp-trsprtYmd", _data.trsprtYmd);
+			SBUxMethod.set("trsprtCst-inp-vhclno", _data.vhclno);
 			SBUxMethod.set("trsprtCst-inp-apcCd", _apcCd);
 			SBUxMethod.set("trsprtCst-inp-apcNm", _apcNm);
 
@@ -133,7 +135,6 @@
 					gfn_setTrsprtRgnSBSelect('grdTrsprtCstPop', 	jsonComTrsprtRgnCd, _apcCd)				// 운송지역
 				]);
 				this.createGrid();
-
 				this.search();
 			} else {
 				this.search();
@@ -214,7 +215,7 @@
 
 			grdTrsprtCstPop.setCellData(nRow, 0, SBUxMethod.get("trsprtCst-dtp-trsprtYmd"), true);
 			grdTrsprtCstPop.setCellData(nRow, nCol, "N", true);
-			grdTrsprtCstPop.addRow(true);
+			grdTrsprtCstPop.addRow(true, receivedData);
 		},
 		del: async function(nRow) {
 			const apcCd = SBUxMethod.get("trsprtCst-inp-apcCd");
@@ -369,7 +370,7 @@
 	        		grdTrsprtCstPop.setPageTotalCount(totalRecordCount);
 	        		grdTrsprtCstPop.rebuild();
 	        	}
-	        	grdTrsprtCstPop.addRow(true);
+	        	grdTrsprtCstPop.addRow(true, receivedData);
 	        	document.querySelector('#trsprtCst-pop-cnt').innerText = totalRecordCount;
 
 	        } catch (e) {
