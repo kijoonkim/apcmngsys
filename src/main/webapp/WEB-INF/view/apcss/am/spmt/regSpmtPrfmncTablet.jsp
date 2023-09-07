@@ -53,7 +53,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>출하지시번호</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="text" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
+								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="text" maxlength="20" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchSpmtCmndNo" name="btnSrchSpmtCmndNo" uitype="modal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-spmtCmndno" onclick="fn_modalSpmtCmndno"></sbux-button>
@@ -66,7 +66,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>포장번호/순번</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-pckgnoSn" name="srch-inp-pckgnoSn" uitype="text" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
+								<sbux-input id="srch-inp-pckgnoSn" name="srch-inp-pckgnoSn" uitype="text" maxlength="25" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
 								<sbux-input id="srch-inp-pckgno" name="srch-inp-pckgno" uitype="hidden"></sbux-input>
 								<sbux-input id="srch-inp-pckgSn" name="srch-inp-pckgSn" uitype="hidden"></sbux-input>
 							</td>
@@ -78,10 +78,10 @@
 						<tr>
 							<th scope="row" class="th_bg">출하수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-spmtQntt" name="srch-inp-spmtQntt" uitype="text" class="form-control input-sm" oninput="fn_getSpmtWght(event)" onchange="addSpmtTrgtDsctn"></sbux-input>
+								<sbux-input id="srch-inp-spmtQntt" name="srch-inp-spmtQntt" uitype="text" class="form-control input-sm" maxlength="13" oninput="fn_getSpmtWght(event)" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}" onchange="addSpmtTrgtDsctn"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-spmtWght" name="srch-inp-spmtWght" uitype="text" class="form-control input-sm" readonly></sbux-input>
+								<sbux-input id="srch-inp-spmtWght" name="srch-inp-spmtWght" uitype="text" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}" readonly></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-label id="srch-lbl-spmtQnttWght" name="srch-lbl-spmtQnttWght" uitype="normal" text="Kg" class="bold"></sbux-label>

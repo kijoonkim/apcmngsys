@@ -35,6 +35,11 @@ public class PckgInptVO extends ComVO {
 	private String sortno;
 
 	/**
+	 * 선별순번
+	 */
+	private int sortSn;
+
+	/**
 	 * 등급코드
 	 */
 	private String grdCd;
@@ -82,12 +87,12 @@ public class PckgInptVO extends ComVO {
 	/**
 	 * 포장번호
 	 */
-	private String pckgNo;
+	private String pckgno;
 
 	/**
 	 * 포장지시번호
 	 */
-	private String pckgCmndNo;
+	private String pckgCmndno;
 
 	/**
 	 * 비고

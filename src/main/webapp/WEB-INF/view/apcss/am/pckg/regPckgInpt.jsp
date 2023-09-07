@@ -293,6 +293,7 @@
 
 		jsonApcSpcfct = await gfn_getApcSpcfcts(gv_selectedApcCd, itemCd);
 		SBUxMethod.refresh("srch-slt-spcfctCd");
+		grdPckgPrfmnc.refresh({"combo":true});
 	}
 
 	/**
@@ -371,6 +372,7 @@
 	        {caption: ["입고구분코드"],		ref: 'wrhsSeCd',   	type:'output',  hidden: true},
 	        {caption: ["창고구분코드"],		ref: 'warehouseSeCd', 	type:'output',	hidden: true},
 	        {caption: ["설비"],			ref: 'fcltCd', 	type:'output',	hidden: true},
+	        {caption: ["선별순번"],		ref: 'sortSn', 	type:'output',	hidden: true},
 	        {caption: [" "," "],	ref: '_',		type:'output',  width:'1px'}
 
         ];
@@ -515,7 +517,7 @@
             },
             {caption: ["규격"],		ref: 'spcfctCd',	type:'combo',  	width:'100px', style: 'text-align:center',
             	userattr: {colNm: "spcfctCd"},
-            	typeinfo: {ref:'jsonApcSpcfct', label:'label', value:'value', displayui : false}
+            	typeinfo: {ref:'jsonApcSpcfct', label:'spcfctNm', value:'spcfctCd', displayui : false}
             },
             {caption: ["상품등급"],	ref: 'gdsGrd',	type:'combo',  	width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
             	typeinfo: {ref:'jsonComGdsGrd', label:'cdVlNm', value:'cdVl', oneclickedit: true}
@@ -575,6 +577,156 @@
 	}
 
 	const fn_save = async function() {
+
+		// 선별재고 내역
+
+		// 입고번호, 재고량, 투입량
+		const sortInvntrList = [];
+		const allInvntrData = grdSortInvntr.getGridDataAll();
+		console.log(allInvntrData);
+		let invntrInptQntt = 0;
+		let invntrInptWght = 0;
+
+		allInvntrData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+
+    			let inptQntt = parseInt(item.inptQntt) || 0;
+    			let inptWght = parseInt(item.inptWght) || 0;
+
+    			sortInvntrList.push({
+    				sortno: item.sortno,
+    				sortSn: item.sortSn,
+    				inptQntt: inptQntt,
+    				inptWght: inptWght
+    			});
+
+    			invntrInptQntt += inptQntt;
+    			invntrInptWght += inptWght;
+    		}
+		});
+
+		if (sortInvntrList.length == 0) {
+			gfn_comAlert("W0005", "선별재고대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+
+		// 실적내역
+		const pckgPrfmncList = [];
+		const allPckgData = grdPckgPrfmnc.getGridDataAll();
+
+		let totPckgInptQntt = 0;
+		let totPckgInptWght = 0;
+
+		let errPckg = false;
+
+		for ( let i=0; i<allPckgData.length-1; i++ ) {
+			const pckgYmd = allPckgData[i].pckgYmd;
+			const fcltCd = allPckgData[i].fcltCd;
+			const itemCd = allPckgData[i].itemCd;
+			const vrtyCd = allPckgData[i].vrtyCd;
+			const spcfctCd = allPckgData[i].spcfctCd;
+			const gdsGrd = allPckgData[i].gdsGrd;
+			const warehouseSeCd = allPckgData[i].warehouseSeCd;
+
+			const pckgQntt = parseInt(allPckgData[i].pckgQntt) || 0;
+			const pckgWght = parseInt(allPckgData[i].pckgWght) || 0;
+
+			if (gfn_isEmpty(pckgYmd)) {
+				gfn_comAlert("W0005", "포장일자");		//	W0005	{0}이/가 없습니다.
+				return;
+			}
+			if (gfn_isEmpty(fcltCd)) {
+				gfn_comAlert("W0005", "포장기");		//	W0005	{0}이/가 없습니다.
+				return;
+			}
+			if (gfn_isEmpty(itemCd)) {
+				gfn_comAlert("W0005", "품목");		//	W0005	{0}이/가 없습니다.
+				return;
+			}
+			if (gfn_isEmpty(vrtyCd)) {
+				gfn_comAlert("W0005", "품종");		//	W0005	{0}이/가 없습니다.
+				return;
+			}
+			if (gfn_isEmpty(spcfctCd)) {
+				gfn_comAlert("W0005", "규격");		//	W0005	{0}이/가 없습니다.
+				return;
+			}
+			if (gfn_isEmpty(gdsGrd)) {
+				gfn_comAlert("W0005", "상품등급");		//	W0005	{0}이/가 없습니다.
+				return;
+			}
+			if (gfn_isEmpty(warehouseSeCd)) {
+				gfn_comAlert("W0005", "창고");		//	W0005	{0}이/가 없습니다.
+				return;
+			}
+			if (pckgQntt <= 0) {
+				gfn_comAlert("W0005", "포장수량");		//	W0005	{0}이/가 없습니다.
+				return;
+			}
+			if (pckgWght <= 0) {
+				gfn_comAlert("W0005", "포장중량");		//	W0005	{0}이/가 없습니다.
+				return;
+			}
+
+			totPckgInptQntt += pckgQntt;
+			totPckgInptWght += pckgWght;
+
+			pckgPrfmnc = {
+					pckgYmd: pckgYmd,
+	    			fcltCd: fcltCd,
+	    			itemCd: itemCd,
+	    			vrtyCd: vrtyCd,
+	    			spcfctCd: spcfctCd,
+	    			gdsGrd: gdsGrd,
+	    			warehouseSeCd: warehouseSeCd,
+	    			pckgQntt: pckgQntt,
+	    			pckgWght: pckgWght
+				}
+
+			pckgPrfmncList.push(pckgPrfmnc);
+		}
+
+		if (pckgPrfmncList.length == 0) {
+			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+
+		if (invntrInptQntt != totPckgInptQntt) {
+			//gfn_comAlert("W0006", "재고수량", "선별수량");		//	W0006	{0}와/과 {1}이/가 서로 다릅니다.
+			//return;
+		}
+
+		if (invntrInptWght < totPckgInptWght) {
+			gfn_comAlert("W0008", "재고량", "포장량");		// W0008	{0} 보다 {1}이/가 큽니다.
+			return;
+		}
+
+		// comConfirm
+		if (!gfn_comConfirm("Q0001", "포장실적저장")) {	//	Q0001	{0} 하시겠습니까?
+	    	return;
+	    }
+
+		const pckgYmd = SBUxMethod.get("dtl-dtp-pckgYmd");
+		const pckgMng = {
+    		apcCd: gv_selectedApcCd,
+    		pckgYmd: pckgYmd,
+    		sortInvntrList: sortInvntrList,
+    		pckgPrfmncList: pckgPrfmncList
+    	}
+
+    	const postJsonPromise = gfn_postJSON("/am/pckg/insertPckgPrfmnc.do", pckgMng);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        }
 
 	}
 
@@ -666,10 +818,17 @@
 		editableRow.vrtyCd = vrtyCd;
 		editableRow.spcfctCd = spcfctCd;
 
+		console.log("before");
+		console.log(jsonApcSpcfct);
 		// 규격중량(단중) set
 		const spcfctInfo = _.find(jsonApcSpcfct, {spcfctCd: spcfctCd});
 		editableRow.spcfctWght = spcfctInfo.wght;
 		//grdSortPrfmnc.setCellData(nRow, nCol, "xxx", true);
+
+
+		console.log(spcfctCd);
+		console.log("after");
+		console.log(jsonApcSpcfct);
 
 		grdPckgPrfmnc.rebuild();
 		grdPckgPrfmnc.setCellDisabled(nRow, 4, nRow, grdPckgPrfmnc.getCols() - 1, false);
@@ -816,26 +975,36 @@
 
 			switch (usrAttr.colNm) {
 
-				case "pckgWght":
+				case "spcfctCd":	// 규격
+
+					const spcfctInfo = _.find(jsonApcSpcfct, {spcfctCd: rowData.spcfctCd});
+					// 규격중량(단중) set
+	    			rowData.spcfctWght = spcfctInfo.wght;
+					console.log(spcfctInfo);
+					console.log(rowData.spcfctWght);
+
+				case "pckgQntt":
+				//case "pckgWght":
+					console.log(rowData.spcfctWght);
 					const spcfctWght = parseInt(rowData.spcfctWght) || 0;
-					const qntt = parseInt(rowData.qntt) || 0;
-					const wght = qntt * spcfctWght;
+					const pckgQntt = parseInt(rowData.pckgQntt) || 0;
+					pckgWght = pckgQntt * spcfctWght;
 					console.log("spcfctWght", spcfctWght);
-					rowData.qntt = qntt;
-					rowData.wght = wght;
+					rowData.pckgQntt = pckgQntt;
+					rowData.pckgWght = pckgWght;
 
 					grdPckgPrfmnc.refresh();
 
-					let inptWght = parseInt(SBUxMethod.get("dtl-inp-inptWght")) || 0;
-					let sortWght = 0;
-					const allSortData = grdPckgPrfmnc.getGridDataAll();
-					allSortData.forEach((item, index) => {
-						if (!gfn_isEmpty(item.inptYmd)) {
-							sortWght += parseInt(item.wght) || 0;
+					//let totInptWght = parseInt(SBUxMethod.get("dtl-inp-inptWght")) || 0;
+					let totPckgWght = 0;
+					const allPckgData = grdPckgPrfmnc.getGridDataAll();
+					allPckgData.forEach((item, index) => {
+						if (!gfn_isEmpty(item.pckgYmd)) {
+							totPckgWght += parseInt(item.pckgWght) || 0;
 						}
 					});
 
-					SBUxMethod.set("dtl-inp-sortWght", sortWght);
+					SBUxMethod.set("dtl-inp-pckgWght", totPckgWght);
 					//SBUxMethod.set("dtl-inp-lossWght", inptWght - sortWght);
 
 					break;

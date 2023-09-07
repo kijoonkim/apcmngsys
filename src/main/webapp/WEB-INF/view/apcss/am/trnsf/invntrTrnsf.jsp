@@ -18,7 +18,7 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ 재고이송조회</h3>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_selectGridList"></sbux-button>
 				</div>
 			</div>
 
@@ -153,8 +153,8 @@
 	function fn_createInvntrTrnsfGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdInvntrTrnsf';
-	    SBGridProperties.id = 'grdInvntrTrnsf';
-	    SBGridProperties.jsonref = 'jsonInvntrTrnsf';
+	    SBGridProperties.id = 'grdInvntrTrnsf'; //grdInvntrTrnsf
+	    SBGridProperties.jsonref = 'jsonInvntrTrnsf'; //jsonInvntrTrnsf
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -184,6 +184,87 @@
             {caption: ['운반비','운반비'], ref: 'trsprtCst', width: '100px', type: 'output'}
         ];
         grdInvntrTrnsf = _SBGrid.create(SBGridProperties);
+        
+        fn_selectGridList();
+    }
+	
+	//조회
+    const fn_selectGridList = async function() {
+    	grdInvntrTrnsf.rebuild();
+    	let pageSize = grdInvntrTrnsf.getPageSize();
+    	let pageNo = 1;
+    	
+    	fn_callSelectGridList(pageSize, pageNo);
+	}
+	
+const fn_callSelectGridList = async function(pageSize, pageNo) {
+		
+// 		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
+		
+		const postJsonPromise1 = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
+			apcCd		:  gv_selectedApcCd,
+          	// pagination
+  	  		pagingYn : 'Y',
+  			currentPageNo : pageNo,
+   		  	recordCountPerPage : pageSize
+  		});
+
+        let data1 = await postJsonPromise1;
+        newSortInptPrfmncGridData = [];
+        sortInptPrfmncGridData = [];
+
+  		try {
+          	/** @type {number} **/
+      		let totalRecordCount = 0;
+
+      		jsonInvntrTrnsf.length = 0;
+          	data1.resultList.forEach((item, index) => {
+          		const invntrTrnsf = {
+       				wrhsno: item.wrhsno,
+       				pltno: item.pltno,
+       				wrhsYmd: item.wrhsYmd,
+       				prdcrNm: item.prdcrNm,
+       				itemNm: item.itemNm,
+       				vrtyNm: item.vrtyNm,
+       				gdsSeNm: item.gdsSeNm,
+       				wrhsSeNm: item.wrhsSeNm,
+       				trsprtSeNm: item.trsprtSeNm,
+       				warehouseSeNm: item.warehouseSeNm,
+       				bxknd: item.bxknd,
+       				grdNm: item.grdNm,
+       				wrhsQntt: item.wrhsQntt,
+       				wrhsWght: item.wrhsWght,
+       				inptQntt: item.inptQntt,
+       				inptWght: item.inptWght,
+       				invntrQntt: item.invntrQntt,
+       				invntrWght: item.invntrWght,
+       				sortcmndNo: item.sortcmndNo,
+       				fcltNm: item.fcltNm
+  				}
+  				jsonInvntrTrnsf.push(invntrTrnsf);
+
+  				if (index === 0) {
+  					totalRecordCount = item.totalRecordCount;
+  				}
+  			});
+          	if (jsonInvntrTrnsf.length > 0) {
+          		if(grdInvntrTrnsf.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+          			grdInvntrTrnsf.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+          			grdInvntrTrnsf.rebuild();
+  				}else{
+  					grdInvntrTrnsf.refresh();
+  				}
+          	} else {
+          		grdInvntrTrnsf.setPageTotalCount(totalRecordCount);
+          		grdInvntrTrnsf.rebuild();
+          	}
+
+          } catch (e) {
+      		if (!(e instanceof Error)) {
+      			e = new Error(e);
+      		}
+      		console.error("failed", e.message);
+          }
     }
 </script>
 </html>

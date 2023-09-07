@@ -52,10 +52,10 @@
 							<td colspan="2"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>정산일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-clclnYmdFrom" name="srch-dtp-clclnYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm-ast input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-clclnYmdFrom" name="srch-dtp-clclnYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-clclnYmdTo" name="srch-dtp-clclnYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm-ast input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-clclnYmdTo" name="srch-dtp-clclnYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-datepicker>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">확정여부</th>
@@ -107,6 +107,7 @@
 									uitype="text"
 									id="srch-inp-prdcrNm"
 									name="srch-inp-prdcrNm"
+									maxlength="33"
 									class="form-control input-sm"
 									placeholder="초성검색 기능입니다."
 									autocomplete-ref="jsonPrdcrAutocomplete"

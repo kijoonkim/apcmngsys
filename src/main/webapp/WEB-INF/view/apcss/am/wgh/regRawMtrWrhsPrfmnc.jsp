@@ -75,9 +75,9 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">입고일자</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>입고일자</th>
 							<td colspan="6" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" class="form-control pull-right input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
 							</td>
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>생산자</th>
@@ -355,21 +355,21 @@
 
     <!-- 생산자 선택 Modal -->
     <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
     <!-- 차량 선택 Modal -->
     <div>
-        <sbux-modal id="modal-vhcl" name="modal-vhcl" uitype="middle" header-title="차량 선택" body-html-id="body-modal-vhcl" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-vhcl" name="modal-vhcl" uitype="middle" header-title="차량 선택" body-html-id="body-modal-vhcl" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-vhcl">
     	<jsp:include page="../../am/popup/vhclPopup.jsp"></jsp:include>
     </div>
     <!-- 운임 선택 Modal -->
     <div>
-        <sbux-modal id="modal-trsprtCst" name="modal-trsprtCst" uitype="middle" header-title="원물운임비용등록" body-html-id="body-modal-trsprtCst" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-trsprtCst" name="modal-trsprtCst" uitype="middle" header-title="원물운임비용등록" body-html-id="body-modal-trsprtCst" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-trsprtCst">
     	<jsp:include page="../../am/popup/trsprtCstPopup.jsp"></jsp:include>
@@ -406,6 +406,8 @@
 	var grdRawMtrWrhs;
     /* SBGrid Data (JSON) */
 	var jsonRawMtrWrhs = [];
+    
+    let vhclData = {vhclno : null, drvrNm : null, bankNm : null, actno : null, dpstr : null};
 
     /**
      * @name fn_initSBSelect
@@ -1072,6 +1074,13 @@
 	const fn_setVhcl = function(vhcl) {
 		if (!gfn_isEmpty(vhcl)) {
 			SBUxMethod.set("srch-inp-vhclno", vhcl.vhclno);
+			vhclData = {
+							vhclno 	: vhcl.vhclno
+					  	  , drvrNm 	: vhcl.drvrNm
+					  	  , bankNm 	: vhcl.bankNm
+					  	  , actno 	: vhcl.actno
+					  	  , dpstr 	: vhcl.dpstr
+					   };
 		}
 	}
 
@@ -1082,14 +1091,37 @@
 	const fn_choiceTrsprtCst = function() {
 		//_trsprtYmd, _vhclno, _callbackFnc
 		//
-		let ymd = SBUxMethod.get("srch-dtp-wrhsYmd");
-		let vhclno = SBUxMethod.get("srch-inp-vhclno");
-		popTrsrptCst.init(gv_selectedApcCd, gv_selectedApcNm, ymd, vhclno, fn_setTrsprtCst);
+		let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");
+		let trsprtSeCd = SBUxMethod.get("srch-rdo-trsprtSeCd");
+		let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");
+		let data = {
+						trsprtYmd 	: null,
+						vhclno 		: null,
+			  			drvrNm 		: null,
+			  			bankNm 		: null,
+			  			actno 		: null,
+			  			dpstr 		: null,
+						trsprtSeCd 	: trsprtSeCd,
+						wrhsWght 	: wrhsWght
+				    };
+		if(!gfn_isEmpty(wrhsYmd)){
+			data.trsprtYmd = wrhsYmd;
+		} else {
+			data.trsprtYmd = gfn_dateToYmd(new Date());
+		}
+		if(!gfn_isEmpty(SBUxMethod.get("srch-inp-vhclno"))){
+			data.vhclno = vhclData.vhclno;
+			data.drvrNm = vhclData.drvrNm;
+			data.bankNm = vhclData.bankNm;
+			data.actno = vhclData.actno;
+			data.dpstr = vhclData.dpstr;
+		}
+		popTrsrptCst.init(gv_selectedApcCd, gv_selectedApcNm, data, fn_setTrsprtCst);
 	}
 
 	const fn_setTrsprtCst = function(trsprtCst) {
 		if (!gfn_isEmpty(trsprtCst)) {
-			//SBUxMethod.set("srch-inp-trsprtCst", trsprtCst.vhclno);
+			//SBUxMethod.set("srch-inp-trsprtCst", trsprtCst.trsprtCst);
 		}
 	}
 

@@ -89,21 +89,10 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 
 		List<GdsInvntrVO> gdsInvntrList = new ArrayList<>();
 
-		// 포장투입실적 등록용 list
-		List<PckgInptVO> inptRegList = new ArrayList<>();
-
-		// 투입실적 유무에 따라 선별번호 부여 or 선별투입실적 등록 처리
-
-		String pckgno = ComConstants.CON_BLANK;
 		int pckgSn = 0;
-
 		int insertedCnt = 0;
 		for ( PckgPrfmncVO pckgPrfmncVO : pckgPrfmncList ) {
 			pckgSn++;
-			if (!StringUtils.hasText(pckgno)) {
-				pckgno = cmnsTaskNoService.selectPckgno(pckgPrfmncVO.getApcCd(), pckgPrfmncVO.getPckgYmd());
-			}
-			pckgPrfmncVO.setPckgno(pckgno);
 			pckgPrfmncVO.setPckgSn(pckgSn);
 			insertedCnt = pckgPrfmncMapper.insertPckgPrfmnc(pckgPrfmncVO);
 
@@ -115,35 +104,7 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 			BeanUtils.copyProperties(pckgPrfmncVO, gdsInvntrVO);
 			gdsInvntrVO.setInvntrQntt(pckgPrfmncVO.getPckgQntt());
 			gdsInvntrVO.setInvntrWght(pckgPrfmncVO.getPckgWght());
-
 			gdsInvntrList.add(gdsInvntrVO);
-
-			// 포장투입실적 확인
-			PckgInptVO pckgInptVO = new PckgInptVO();
-			BeanUtils.copyProperties(pckgPrfmncVO, pckgInptVO);
-
-			PckgInptVO inptInfo = pckgInptService.selectPckgInpt(pckgInptVO);
-			if (inptInfo != null && StringUtils.hasText(inptInfo.getSortno())) {
-				pckgPrfmncVO.setNeedsInptChgYn(ComConstants.CON_YES);
-			} else {
-				// 투입실적 항목 set
-				inptRegList.add(pckgInptVO);
-			}
-		}
-
-		if (!inptRegList.isEmpty()) {
-			rtnObj = pckgInptService.insertPckgInptList(inptRegList);
-			if (rtnObj != null) {
-				// error throw exception;
-				throw new EgovBizException(getMessageForMap(rtnObj));
-			}
-		}
-
-		// 포장투입실적 선별번호 update
-		for ( PckgPrfmncVO pckgPrfmncVO : pckgPrfmncList ) {
-			if (ComConstants.CON_YES.equals(pckgPrfmncVO.getNeedsInptChgYn())) {
-				pckgPrfmncMapper.updateInptPckgno(pckgPrfmncVO);
-			}
 		}
 
 		// 상품재고 생성

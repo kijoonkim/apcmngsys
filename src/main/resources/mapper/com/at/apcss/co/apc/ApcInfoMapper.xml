@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ApcInfoMapper.xml                                   				-->
+<!-- DESC : APC 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.07.07  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.co.apc.mapper.ApcInfoMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcInfo				-->
+	<!-- DESC : APC 정보 조회.	                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.07  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <select id="selectApcInfo" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcInfo */
+	    		  AI.APC_CD			AS APC_CD
+			    , AI.REG_APC_NM     AS REG_APC_NM
+			    , AI.REG_ADDR       AS REG_ADDR
+			    , AI.REG_TELNO      AS REG_TELNO
+			    , AI.REG_ZIP		AS REG_ZIP
+			    , AI.APC_NM         AS APC_NM
+			    , AI.CTPV_NM        AS CTPV_NM
+			    , AI.SIGUN_NM       AS SIGUN_NM
+			    , AI.MB_CD          AS MB_CD
+			    , AI.BRNO          	AS BRNO
+			    , AI.BANK_CD        AS BANK_CD
+			    , AI.DPSTR          AS DPSTR
+			    , AI.ACTNO          AS ACTNO
+			    , AI.ADDR           AS ADDR
+			    , AI.TELNO          AS TELNO
+			    , AI.FXNO           AS FXNO
+			    , AI.ZIP			AS ZIP
+			    , AI.DEL_YN			AS DEL_YN
+			  FROM TB_APC_INFO AI
+			 WHERE APC_CD = #{apcCd}
+		]]>
+    </select>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcInfoList			-->
+	<!-- DESC : APC 내역 조회.	                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.26  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcInfoList" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.apc.mapper.ApcInfoMapper.selectApcInfo */ 
+	    		  AI.APC_CD			AS APC_CD
+			    , AI.REG_APC_NM     AS REG_APC_NM
+			    , AI.REG_ADDR       AS REG_ADDR
+			    , AI.REG_TELNO      AS REG_TELNO
+			    , AI.REG_ZIP		AS REG_ZIP
+			    , AI.APC_NM         AS APC_NM
+			    , AI.CTPV_NM        AS CTPV_NM
+			    , AI.SIGUN_NM       AS SIGUN_NM
+			    , AI.MB_CD          AS MB_CD
+			    , AI.BRNO          	AS BRNO
+			    , AI.BANK_CD        AS BANK_CD
+			    , AI.DPSTR          AS DPSTR
+			    , AI.ACTNO          AS ACTNO
+			    , AI.ADDR           AS ADDR
+			    , AI.TELNO          AS TELNO
+			    , AI.FXNO           AS FXNO
+			    , AI.ZIP			AS ZIP
+			    , AI.DEL_YN			AS DEL_YN
+		  	  FROM TB_APC_INFO AI
+		 	 WHERE 1=1
+		 	   AND AI.APC_NM IS NOT NULL
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+		   	   AND AI.APC_CD = #{apcCd}
+		</if>
+		<if test='apcNm != null and apcNm != ""'>
+		   AND AI.APC_NM LIKE '%' ||  #{apcNm} || '%'
+		</if>
+		<if test='regApcNm != null and regApcNm != ""'>
+		   AND AI.REG_APC_NM LIKE '%' ||  #{regApcNm} || '%'
+		</if>
+		<if test='brno != null and brno != ""'>
+		   	   AND AI.BRNO = #{brno}
+		</if>
+		<if test='telno != null and telno != ""'>
+		   AND AI.TELNO LIKE '%' ||  #{telno} || '%'
+		</if>
+		
+		<if test='regTelno != null and regTelno != ""'>
+		   AND AI.REG_TELNO LIKE '%' ||  #{regTelno} || '%'
+		</if>		
+    </select>
+    
+     <!-- ==========================================================================-->
+	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcDsctnList			-->
+	<!-- DESC : APC 내역 조회.	                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.26  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcDsctnList" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcDsctnList */
+				  AI.APC_CD            AS APC_CD
+				, AI.REG_APC_NM        AS REG_APC_NM
+				, AI.CTPV_NM           AS CTPV_NM
+				, AI.SIGUN_NM          AS SIGUN_NM
+				, AI.MB_CD             AS MB_CD
+				, AI.REG_ADDR          AS REG_ADDR
+				, AI.REG_TELNO         AS REG_TELNO
+				, AI.APC_NM            AS APC_NM
+				, AI.BRNO          	   AS BRNO
+				, AI.BANK_CD           AS BANK_CD
+				, AI.DPSTR             AS DPSTR
+				, AI.ACTNO             AS ACTNO
+				, AI.ADDR              AS ADDR
+				, AI.TELNO             AS TELNO
+				, AI.FXNO              AS FXNO
+				, AI.DEL_YN			   AS DEL_YN
+		  FROM TB_APC_INFO AI
+		]]>
+		<where>
+			<if test='apcCd != null and apcCd != ""'>
+			   AND AI.APC_CD LIKE '%' ||  #{apcCd} || '%'
+			</if>
+			<if test='regApcNm != null and regApcNm != ""'>
+			   AND AI.REG_APC_NM LIKE '%' ||  #{regApcNm} || '%'
+			</if>
+			<if test='delYn != null and delYn != ""'>
+			   AND AI.DEL_YN = #{delYn}
+			</if>
+		</where>
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.updateApcDsctn				-->
+	<!-- DESC : APC 내역 수정.	   	                                    				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.31  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateApcDsctn" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO">
+		<![CDATA[
+		UPDATE TB_APC_INFO
+		   SET SYS_LAST_CHG_DT 			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+		     , REG_APC_NM				= #{regApcNm}
+		     , CTPV_NM					= #{ctpvNm}
+		     , SIGUN_NM					= #{sigunNm}
+		     , MB_CD					= #{mbCd}
+		     , REG_ADDR					= #{regAddr}
+		     , REG_TELNO				= #{regTelno}
+		     , APC_NM					= #{apcNm}
+	      	 , BRNO						= #{brno}
+		     , ADDR						= #{addr}
+		     , TELNO					= #{fxno}
+		     , FXNO						= #{telno}
+		     , DEL_YN					= #{delYn}
+		 WHERE APC_CD 		= #{apcCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.insertApcDsctn				-->
+	<!-- DESC : APC 내역 등록.	                                 	      				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.31  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertApcDsctn" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO">
+    	<![CDATA[
+    	INSERT INTO TB_APC_INFO
+    		(
+    			APC_CD
+		      , REG_APC_NM
+		      , CTPV_NM
+		      , SIGUN_NM
+		      , MB_CD
+		      , REG_ADDR
+		      , REG_TELNO
+		      , APC_NM
+		      , BRNO
+		      , ADDR
+		      , TELNO
+		      , FXNO
+		      , DEL_YN
+    		  , SYS_FRST_INPT_DT
+    		  , SYS_FRST_INPT_USER_ID
+    		  , SYS_FRST_INPT_PRGRM_ID
+    		  , SYS_LAST_CHG_DT
+    		  , SYS_LAST_CHG_USER_ID
+    		  , SYS_LAST_CHG_PRGRM_ID
+    		)
+   		VALUES
+   			(
+   				FN_GET_ID_APC_CD
+    		  , #{regApcNm}
+    		  , #{ctpvNm}
+    		  , #{sigunNm}
+    		  , #{mbCd}
+			  , #{regAddr}
+    		  , #{regTelno}
+    		  , #{apcNm}
+    		  , #{brno}
+    		  , #{addr}
+    		  , #{fxno}
+    		  , #{telno}
+    		  , #{delYn}
+    		  , SYSDATE
+    		  , #{sysFrstInptUserId}
+    		  , #{sysFrstInptPrgrmId}
+    		  , SYSDATE
+    		  , #{sysLastChgUserId}
+    		  , #{sysLastChgPrgrmId}
+   			)
+    	]]>
+    </insert>
+</mapper>
+
+

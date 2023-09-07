@@ -25,10 +25,10 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="trsm-dtp-logYmdFrom" name="trsm-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="trsm-dtp-logYmdFrom" name="trsm-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="trsm-dtp-logYmdTo" name="trsm-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="trsm-dtp-logYmdTo" name="trsm-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td></td>
 					<th scope="row" class="th_bg">송수신구분</th>
@@ -42,7 +42,7 @@
 					<td></td>
 					<th scope="row" class="th_bg">인터페이스명</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-input id="trsm-inp-prgrmNm" name=trsm-inp-prgrmNm uitype="text" class="form-control input-sm"></sbux-input>
+						<sbux-input id="trsm-inp-prgrmNm" name=trsm-inp-prgrmNm uitype="text" maxlength="200" class="form-control input-sm"></sbux-input>
 					</td>
 				</tr>
 			</tbody>

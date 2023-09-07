@@ -37,6 +37,24 @@
 				,FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
                 ,FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
                 ,FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+				,FCLT.SORT_MCHN_HLD_YN2      AS SORT_MCHN_HLD_YN2
+				,FCLT.SORT_MCHN_HLD_YN3      AS SORT_MCHN_HLD_YN3
+				,FCLT.SORT_MCHN_HLD_YN4      AS SORT_MCHN_HLD_YN4
+				,FCLT.PRC_CAP                AS PRC_CAP
+				,FCLT.PRC_CAP2               AS PRC_CAP2
+				,FCLT.PRC_CAP3               AS PRC_CAP3
+				,FCLT.PRC_CAP4               AS PRC_CAP4
+				,FCLT.PRC_VOL                AS PRC_VOL
+				,FCLT.PRC_VOL2               AS PRC_VOL2
+				,FCLT.PRC_VOL3               AS PRC_VOL3
+				,FCLT.PRC_VOL4               AS PRC_VOL4
+				,FCLT.ANN_OPER_HR            AS ANN_OPER_HR
+				,FCLT.ANN_OPER_HR2           AS ANN_OPER_HR2
+				,FCLT.ANN_OPER_HR3           AS ANN_OPER_HR3
+				,FCLT.ANN_OPER_HR4           AS ANN_OPER_HR4
+
+
+
 
 			  FROM TB_FCLT_SORT_MCHN_INFO FCLT
 			 WHERE 1=1
@@ -85,7 +103,18 @@
 				,FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
                 ,FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
                 ,FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
-
+				,FCLT.PRC_CAP                AS PRC_CAP
+				,FCLT.PRC_CAP2               AS PRC_CAP2
+				,FCLT.PRC_CAP3               AS PRC_CAP3
+				,FCLT.PRC_CAP4               AS PRC_CAP4
+				,FCLT.PRC_VOL                AS PRC_VOL
+				,FCLT.PRC_VOL2               AS PRC_VOL2
+				,FCLT.PRC_VOL3               AS PRC_VOL3
+				,FCLT.PRC_VOL4               AS PRC_VOL4
+				,FCLT.ANN_OPER_HR            AS ANN_OPER_HR
+				,FCLT.ANN_OPER_HR2           AS ANN_OPER_HR2
+				,FCLT.ANN_OPER_HR3           AS ANN_OPER_HR3
+				,FCLT.ANN_OPER_HR4           AS ANN_OPER_HR4
 			  FROM TB_FCLT_SORT_MCHN_INFO FCLT
 			 WHERE 1=1
 		     AND TRGT_YR = #{trgtYr}
@@ -126,6 +155,18 @@
 				   , SORT_MCHN_HLD_YN
 				   , SORT_MCHN_PRCS_SE_CD
 				   , SORT_MCHN_PRCS_HR
+                   , PRC_CAP
+                   , PRC_CAP2
+                   , PRC_CAP3
+                   , PRC_CAP4
+                   , PRC_VOL
+                   , PRC_VOL2
+                   , PRC_VOL3
+                   , PRC_VOL4
+                   , ANN_OPER_HR
+                   , ANN_OPER_HR2
+                   , ANN_OPER_HR3
+                   , ANN_OPER_HR4
 				   , DEL_YN
 				   , SYS_FRST_INPT_DT
 				   , SYS_FRST_INPT_USER_ID
@@ -136,6 +177,7 @@
 	    		)
 	   		VALUES
 	   			(
+
 					, #{trgtYr}
 					, #{apcCd}
 					, #{sn}
@@ -143,6 +185,18 @@
 					, #{sortMchnHldYn}
 					, #{sortMchnPrcsSeCd}
 					, #{sortMchnPrcsHr}
+                    , #{prcCap}
+                    , #{prcCap2}
+                    , #{prcCap3}
+                    , #{prcCap4}
+                    , #{prcVol}
+                    , #{prcVol2}
+                    , #{prcVol3}
+                    , #{prcVol4}
+                    , #{annOperHr}
+                    , #{annOperHr2}
+                    , #{annOperHr3}
+                    , #{annOperHr4}
 					, #{delYn}
 					, SYSDATE
 					, #{sysFrstInptUserId}
@@ -174,6 +228,19 @@
                   , SORT_MCHN_HLD_YN     =  #{sortMchnHldYn}
                   , SORT_MCHN_PRCS_SE_CD =  #{sortMchnPrcsSeCd}
                   , SORT_MCHN_PRCS_HR    =  #{sortMchnPrcsHr}
+				  , PRC_CAP              =  #{prcCap}
+				  , PRC_CAP2             =  #{prcCap2}
+				  , PRC_CAP3             =  #{prcCap3}
+				  , PRC_CAP4             =  #{prcCap4}
+				  , PRC_VOL              =  #{prcVol}
+				  , PRC_VOL2             =  #{prcVol2}
+				  , PRC_VOL3             =  #{prcVol3}
+				  , PRC_VOL4             =  #{prcVol4}
+				  , ANN_OPER_HR          =  #{annOperHr}
+				  , ANN_OPER_HR2         =  #{annOperHr2}
+				  , ANN_OPER_HR3         =  #{annOperHr3}
+				  , ANN_OPER_HR4         =  #{annOperHr4}
+
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

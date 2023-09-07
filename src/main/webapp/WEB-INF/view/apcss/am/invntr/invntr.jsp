@@ -252,8 +252,6 @@
     		fn_callSelectGrid2List(pageSize, pageNo);
     	}else if(checkSection == 3){
     		fn_callSelectGrid3List(pageSize, pageNo);
-    	}else{
-			console.log('checkSection', checkSection);
     	}
 	}
     var newSortInptPrfmncGridData = [];
@@ -269,7 +267,7 @@
 		let wrhsSe = SBUxMethod.get("srch-slt-wrhsSe");
 		
 		const postJsonPromise1 = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
-			apcCd		:  '8888',
+			apcCd		:  gv_selectedApcCd,
 			crtrYmd: crtrYmd,
 			invntrySe: invntrySe,
 			itemCd:itemCd,
@@ -284,13 +282,11 @@
    		  	recordCountPerPage : pageSize
   		});
 
-		console.log('test','test');
         let data1 = await postJsonPromise1;
         newSortInptPrfmncGridData = [];
         sortInptPrfmncGridData = [];
 
   		try {
-			console.log('try','try');
           	/** @type {number} **/
       		let totalRecordCount = 0;
 
@@ -319,15 +315,11 @@
        				fcltNm: item.fcltNm
   				}
   				jsoninptCmndDsctnList.push(rawMtrInvntr);
-          		console.log('rawMtrInvntr',rawMtrInvntr);
-          		console.log('jsoninptCmndDsctnList',jsoninptCmndDsctnList);
 
   				if (index === 0) {
   					totalRecordCount = item.totalRecordCount;
   				}
   			});
-			console.log('jsoninptCmndDsctnList',jsoninptCmndDsctnList);
-			console.log('jsoninptCmndDsctnList.length',jsoninptCmndDsctnList.length);
           	if (jsoninptCmndDsctnList.length > 0) {
           		if(inptCmndDsctnList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
           			inptCmndDsctnList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
@@ -385,7 +377,7 @@
 	        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'6.667%',    style:'text-align:center'},
 	        {caption: ["포장","중량"],				ref: 'pckgWght',     	type:'output',  width:'6.667%',    style:'text-align:center'},
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'6.667%',    style:'text-align:center'}
+	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'6.667%',    style:'text-align:center'} 
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -398,20 +390,18 @@
 
 		
 		const postJsonPromise2 = gfn_postJSON("/am/invntr/selectSortInvntrDsctnList.do", {
-			apcCd		:  '9999',
+			apcCd		:  gv_selectedApcCd,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : pageNo,
    		  	recordCountPerPage : pageSize
   		});
 
-		console.log('test','test');
         let data2 = await postJsonPromise2;
         newSortInptPrfmncGridData = [];
         sortInptPrfmncGridData = [];
 
   		try {
-			console.log('try','try');
           	/** @type {number} **/
       		let totalRecordCount = 0;
 
@@ -440,8 +430,6 @@
   					totalRecordCount = item.totalRecordCount;
   				}
   			});
-			console.log('jsoninptCmndDsctnList2',jsoninptCmndDsctnList2);
-			console.log('jsoninptCmndDsctnList2.length',jsoninptCmndDsctnList2.length);
           	if (inptCmndDsctnList.length > 0) {
           		if(inptCmndDsctnList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
           			inptCmndDsctnList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
@@ -513,20 +501,18 @@
 //     	let startsortYmd  = SBUxMethod.get("srch-inp-startsortYmd");
 		
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
-			apcCd		:  '9999',
+			apcCd		:  gv_selectedApcCd,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : pageNo,
    		  	recordCountPerPage : pageSize
   		});
 
-		console.log('test','test');
         let data = await postJsonPromise;
         newSortInptPrfmncGridData = [];
         sortInptPrfmncGridData = [];
 
   		try {
-			console.log('try','try');
           	/** @type {number} **/
       		let totalRecordCount = 0;
 
@@ -551,15 +537,11 @@
        				invntrWght: item.invntrWght
   				}
           		jsoninptCmndDsctnList3.push(rawMtrInvntr);
-          		console.log('rawMtrInvntr',rawMtrInvntr);
-          		console.log('jsoninptCmndDsctnList3',jsoninptCmndDsctnList3);
 
   				if (index === 0) {
   					totalRecordCount = item.totalRecordCount;
   				}
   			});
-			console.log('jsoninptCmndDsctnList3',jsoninptCmndDsctnList3);
-			console.log('jsoninptCmndDsctnList3.length',jsoninptCmndDsctnList3.length);
           	if (jsoninptCmndDsctnList3.length > 0) {
           		if(inptCmndDsctnList.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
           			inptCmndDsctnList.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
@@ -579,7 +561,7 @@
       		console.error("failed", e.message);
           }
     }
-	//선별재고 내역 조회 끝
+	//상품재고 내역 조회 끝
 
 // 	function fn_closeModal(modalId){
 // 		SBUxMethod.closeModal(modalId);
@@ -590,7 +572,6 @@
 	async function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonSpcfct, gv_selectedApcCd, itemCd);	// 규격
-		console.log(jsonSpcfct);
 		fn_getPrdcrs();
 	}
 	const fn_getPrdcrs = async function() {

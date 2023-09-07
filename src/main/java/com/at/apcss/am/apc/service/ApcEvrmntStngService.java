@@ -17,39 +17,7 @@ public interface ApcEvrmntStngService {
 	 */
 	ApcEvrmntStngVO selectApcInfo(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
-	/**
-	 * APC정보관리 APC내역 조회
-	 * @param ApcEvrmntStngVO
-	 * @return List<ApcEvrmntStngVO>
-	 * @throws Exception
-	 */
-	List<ApcEvrmntStngVO> selectApcDsctnList(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
-
-	/**
-	 * APC정보관리 APC내역 수정
-	 * @param ApcEvrmntStngVO
-	 * @return
-	 * @throws Exception
-	 */
-	int updateApcDsctn(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
-
-	/**
-	 * APC정보관리 APC내역 등록
-	 * @param ApcEvrmntStngVO
-	 * @return
-	 * @throws Exception
-	 */
-	int insertApcDsctn(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
-
-	/**
-	 * APC정보관리 APC내역 등록
-	 * @param apcDsctnList
-	 * @return
-	 * @throws Exception
-	 */
-	public HashMap<String, Object> multiApcDsctnList(List<ApcEvrmntStngVO> apcDsctnList) throws Exception;
-
-
+	
 	ApcEvrmntStngVO selectUserAprvReg(ComUserVO comUserVO) throws Exception;
 
 	/**
@@ -67,16 +35,6 @@ public interface ApcEvrmntStngService {
 	 * @throws Exception
 	 */
 	List<ComUserVO> selectRsrcList(ComCdVO comCdVO) throws Exception;
-
-	/**
-	 * 품종 팝업에서 조회
-	 * @param ComCdVO
-	 * @return
-	 * @throws Exception
-	 */
-
-	List<ComCdVO> selectVrtyList(ComCdVO comCdVO) throws Exception;
-
 
 	/**
 	 * APC환경설정 정보 조회

@@ -327,6 +327,39 @@
 			   AND WRHSNO = #{wrhsno}
 		]]>
 	</update>
+	
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrInvntr	-->
+	<!-- DESC : 원물재고내역 변경.		                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.04  	김현호        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateRawMtrInvntrList" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrInvntr */
+				TB_RAW_MTR_INVNTR
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				
+		]]>
+			<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+				, WAREHOUSE_SE_CD			= #{warehouseSeCd}
+			</if>
+			<if test='invntrQntt != null and invntrQntt != ""'>
+				, INVNTR_QNTT			= #{invntrQntt}
+			</if>
+			<if test='invntrWght != null and invntrWght != ""'>
+				, INVNTR_Wght			= #{invntrWght}
+			</if>
+		<![CDATA[
+			 WHERE APC_CD = #{apcCd}
+			   AND WRHSNO = #{wrhsno}
+		]]>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.deleteRawMtrInvntr	-->
