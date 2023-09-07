@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.at.apcss.am.vrty.vo.VrtyVO;
 import com.at.apcss.co.cd.vo.ComCdVO;
 /**
  * 품종팝업 Mapper
@@ -30,5 +31,5 @@ public interface VrtyMapper {
 	 * @throws Exception
 	 */
 
-	public List<ComCdVO> selectVrtyList(ComCdVO comCdVO) throws Exception;
+	public List<VrtyVO> selectVrtyList(VrtyVO vrtyVO) throws Exception;
 }
