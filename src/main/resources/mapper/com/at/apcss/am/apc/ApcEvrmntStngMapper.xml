@@ -245,43 +245,6 @@
 		]]>
     </select>
 
-
-
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc..mapper.ApcEvrmntStngMapper.selectVrtyList		-->
-	<!-- DESC : 픔종 선택후 팝업 조회			                                        -->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.07  	김현호        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-    <select id="selectVrtyList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
-    	<![CDATA[
-    	SELECT
-			 AVC.ITEM_CD AS ITEM_CD
-			, (SELECT FN_GET_ITEM_NM(AVC.ITEM_CD,AVC.APC_CD) FROM DUAL) AS ITEM_NM
-			,AVC.VRTY_CD AS VRTY_CD
-			,AVC.VRTY_NM AS VRTY_NM
-		FROM TB_APC_VRTY_CRTR AVC
-    	WHERE 1=1
-		]]>
-		<if test='vrtyNm != null and vrtyNm != ""'>
-			AND AVC.VRTY_NM LIKE '%'||#{vrtyNm}||'%'
-		</if>
-		<if test='apcCd != null and apcCd != ""'>
-			AND AVC.APC_CD = #{apcCd}
-		</if>
-<!-- 		<if test='itemCd != null and itemCd = ""'> -->
-<!-- 			 AND  -->
-<!-- 		</if> -->
-<!-- 		<if test='itemNm != null and itemNm = ""'> -->
-<!-- 			AND ITEM_Nm = #{itemNm} -->
-<!-- 		</if> -->
-		<![CDATA[
-			order by ITEM_CD
-		]]>
-    </select>
-
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.insertApcEvrmntStngInit		-->
 	<!-- DESC : APC 정보 조회.	                                             		-->
