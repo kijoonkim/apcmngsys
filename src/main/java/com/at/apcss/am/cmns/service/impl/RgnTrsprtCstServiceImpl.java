@@ -49,6 +49,14 @@ public class RgnTrsprtCstServiceImpl implements RgnTrsprtCstService {
 
 		return resultList;
 	}
+	
+	@Override
+	public RgnTrsprtCstVO selectRawMtrTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
+		
+		RgnTrsprtCstVO resultVO = rgnTrsprtCstMapper.selectRawMtrTrsprtCst(rgnTrsprtCstVO);
+		
+		return resultVO;
+	}
 
 	@Override
 	public int insertRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {

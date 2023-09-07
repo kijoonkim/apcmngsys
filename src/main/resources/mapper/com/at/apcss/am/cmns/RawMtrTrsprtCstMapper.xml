@@ -92,6 +92,7 @@
     		  , ACTNO
     		  , DPSTR
     		  , RMRK
+    		  , DEL_YN
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -113,6 +114,7 @@
     		  , #{actno}
     		  , #{dpstr}
     		  , #{rmrk}
+    		  , #{delYn}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
@@ -141,6 +143,9 @@
 			 , TRSPRT_RGN_CD			= #{trsprtRgnCd}
 			 , WRHS_WGHT				= #{wrhsWght}
     		 , TRSPRT_CST				= #{trsprtCst}
+    		 , BANK_CD					= #{bankCd}
+    		 , ACTNO					= #{actno}
+    		 , DPSTR					= #{dpstr}
     		 , RMRK						= #{rmrk}
     		 , DEL_YN					= #{delYn}
 		 WHERE APC_CD					= #{apcCd}

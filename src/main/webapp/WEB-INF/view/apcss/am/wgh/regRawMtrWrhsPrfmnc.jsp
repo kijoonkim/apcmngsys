@@ -246,8 +246,8 @@
 							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
-									id="srch-inp-trsprt"
-									name="srch-inp-trsprt"
+									id="srch-inp-trsprtCst"
+									name="srch-inp-trsprtCst"
 									class="form-control input-sm"
 									maxlength="6"
 									autocomplete="off"
@@ -258,7 +258,7 @@
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button
 									id="srch-btn-trsprtCst"
-									name="srch-btn-trsprt"
+									name="srch-btn-trsprtCst"
 									class="btn btn-xs btn-outline-dark"
 									text="등록" uitype="modal"
 									target-id="modal-trsprtCst"
@@ -1085,8 +1085,8 @@
 	}
 
 	/**
-	 * @name fn_choiceVhcl
-	 * @description 차량번호 선택 popup
+	 * @name fn_choiceTrsprtCst
+	 * @description 원물운임비용등록 popup
 	 */
 	const fn_choiceTrsprtCst = function() {
 		//_trsprtYmd, _vhclno, _callbackFnc
@@ -1095,6 +1095,7 @@
 		let trsprtSeCd = SBUxMethod.get("srch-rdo-trsprtSeCd");
 		let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");
 		let data = {
+						apcCd 		: gv_selectedApcCd,
 						trsprtYmd 	: null,
 						vhclno 		: null,
 			  			drvrNm 		: null,
@@ -1121,7 +1122,7 @@
 
 	const fn_setTrsprtCst = function(trsprtCst) {
 		if (!gfn_isEmpty(trsprtCst)) {
-			//SBUxMethod.set("srch-inp-trsprtCst", trsprtCst.trsprtCst);
+			SBUxMethod.set("srch-inp-trsprtCst", trsprtCst.trsprtCst);
 		}
 	}
 
@@ -1157,6 +1158,5 @@
 			SBUxMethod.set("srch-inp-wghtAvg", wghtAvg);
 		}
 	}
-
 </script>
 </html>

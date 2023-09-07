@@ -108,7 +108,6 @@
 	const popTrsrptCst = {
 		prgrmId: 'trsptCstPopup',
 		modalId: 'modal-trsprtCst',
-
 		gridId: 'grdTrsprtCstPop',
 		jsonId: 'jsonTrsprtCstPop',
 		areaId: "sb-area-grdTrsrptCst",
@@ -121,9 +120,11 @@
 			// set param
 			receivedData = _data;
 			SBUxMethod.set("trsprtCst-dtp-trsprtYmd", _data.trsprtYmd);
-			SBUxMethod.set("trsprtCst-inp-vhclno", _data.vhclno);
 			SBUxMethod.set("trsprtCst-inp-apcCd", _apcCd);
 			SBUxMethod.set("trsprtCst-inp-apcNm", _apcNm);
+			if(!gfn_isEmpty(_data.vhclno)){
+				SBUxMethod.set("trsprtCst-inp-vhclno", _data.vhclno);
+			}
 
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;
@@ -139,9 +140,7 @@
 			} else {
 				this.search();
 			}
-
 			this.prvApcCd = _apcCd;
-
 		},
 		close: function(_trsprtCst) {
 			gfn_closeModal(this.modalId, this.callbackFnc, _trsprtCst);
@@ -200,7 +199,7 @@
 		    ];
 		    grdTrsprtCstPop = _SBGrid.create(SBGridProperties);
 		    grdTrsprtCstPop.bind('dblclick', popTrsrptCst.choice);
-
+		    grdTrsprtCstPop.bind('valuechanged', this.setTrsprtCst);
 		},
 		choice: function() {
 			let nRow = grdTrsprtCstPop.getRow();
@@ -212,8 +211,6 @@
 		 * @param {number} nCol
 		 */
 		add: function(nRow, nCol) {
-
-			grdTrsprtCstPop.setCellData(nRow, 0, SBUxMethod.get("trsprtCst-dtp-trsprtYmd"), true);
 			grdTrsprtCstPop.setCellData(nRow, nCol, "N", true);
 			grdTrsprtCstPop.addRow(true, receivedData);
 		},
@@ -386,6 +383,25 @@
 
 	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
 	    },
+	    setTrsprtCst: async function(objGrid, nRow, nCol, strValue, objRowData) {
+	    	var nRow = grdTrsprtCstPop.getRow();
+	    	var nCol = grdTrsprtCstPop.getCol();
+    		let apcCd = SBUxMethod.get("trsprtCst-inp-apcCd");
+    		let trsprtRgnCd = grdTrsprtCstPop.getCellData(nRow, nCol);
+	    	
+	    	if(nCol == 5 && trsprtRgnCd != null && trsprtRgnCd != ""){
+	    		let postJsonPromise = gfn_postJSON("/am/cmns/selectRawMtrTrsprtCst.do", {apcCd : apcCd, trsprtRgnCd : trsprtRgnCd});
+	            let data = await postJsonPromise;
+	            try{
+	            	grdTrsprtCstPop.setCellData(nRow, nCol+2, data.resultVO.trsprtCst);
+	            }catch (e) {
+	        		if (!(e instanceof Error)) {
+	        			e = new Error(e);
+	        		}
+	        		console.error("failed", e.message);
+	            }
+	    	}
+	    }
    	}
 
 	/* 원물운임비용 등록에서 사용 차량선택 팝업 호출 필수 function  */
@@ -425,6 +441,5 @@
 			grdTrsprtCstPop.setCellData(nRow, 10, vhcl.dpstr);
 		}
 	}
-
 </script>
 </html>
