@@ -95,4 +95,8 @@ public class PltWrhsSpmtVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
+	/**
+	 * 대여업체명
+	 */
+	private String pltCnptNm;
 }

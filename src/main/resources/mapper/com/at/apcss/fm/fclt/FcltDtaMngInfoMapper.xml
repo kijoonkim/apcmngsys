@@ -37,6 +37,18 @@
 				, FCLT.SYS_LAST_CHG_DT               AS SYS_LAST_CHG_DT
 				, FCLT.SYS_LAST_CHG_USER_ID          AS SYS_LAST_CHG_USER_ID
 				, FCLT.SYS_LAST_CHG_PRGRM_ID         AS SYS_LAST_CHG_PRGRM_ID
+				, FCLT.FCLT_SYS_HLD_YN2              AS FCLT_SYS_HLD_YN2
+				, FCLT.FCLT_SYS_HLD_YN3              AS FCLT_SYS_HLD_YN3
+				, FCLT.FCLT_SYS_HLD_YN4              AS FCLT_SYS_HLD_YN4
+				, FCLT.FCLT_SYS_HLD_YN5              AS FCLT_SYS_HLD_YN5
+				, FCLT.FCLT_SYS_HLD_YN6              AS FCLT_SYS_HLD_YN6
+				, FCLT.FCLT_MNG                      AS FCLT_MNG
+				, FCLT.FCLT_MNG2                     AS FCLT_MNG2
+				, FCLT.FCLT_MNG3                     AS FCLT_MNG3
+				, FCLT.FCLT_MNG4                     AS FCLT_MNG4
+				, FCLT.FCLT_MNG5                     AS FCLT_MNG5
+				, FCLT.FCLT_MNG6 				     AS FCLT_MNG6
+
 			 FROM TB_FCLT_DTA_MNG_INFO FCLT
 			WHERE 1=1
 ]]>
@@ -72,7 +84,7 @@
 				  FCLT.TRGT_YR                       AS TRGT_YR
 				, FCLT.APC_CD                        AS APC_CD
 				, FCLT.SN                            AS SN
-				, FCLT_SYS_INSTL_CD            		 AS FCLT_SYS_INSTL_CD
+				, FCLT.FCLT_SYS_INSTL_CD             AS FCLT_SYS_INSTL_CD
 				, FCLT.FCLT_SYS_HLD_YN               AS FCLT_SYS_HLD_YN
 				, FCLT.FCLT_SYS_LINK_CD              AS FCLT_SYS_LINK_CD
 				, FCLT.FCLT_SYS_MNG_CD               AS FCLT_SYS_MNG_CD
@@ -83,6 +95,18 @@
 				, FCLT.SYS_LAST_CHG_DT               AS SYS_LAST_CHG_DT
 				, FCLT.SYS_LAST_CHG_USER_ID          AS SYS_LAST_CHG_USER_ID
 				, FCLT.SYS_LAST_CHG_PRGRM_ID         AS SYS_LAST_CHG_PRGRM_ID
+				, FCLT.FCLT_SYS_HLD_YN2              AS FCLT_SYS_HLD_YN2
+				, FCLT.FCLT_SYS_HLD_YN3              AS FCLT_SYS_HLD_YN3
+				, FCLT.FCLT_SYS_HLD_YN4              AS FCLT_SYS_HLD_YN4
+				, FCLT.FCLT_SYS_HLD_YN5              AS FCLT_SYS_HLD_YN5
+				, FCLT.FCLT_SYS_HLD_YN6              AS FCLT_SYS_HLD_YN6
+				, FCLT.FCLT_MNG                      AS FCLT_MNG
+				, FCLT.FCLT_MNG2                     AS FCLT_MNG2
+				, FCLT.FCLT_MNG3                     AS FCLT_MNG3
+				, FCLT.FCLT_MNG4                     AS FCLT_MNG4
+				, FCLT.FCLT_MNG5                     AS FCLT_MNG5
+				, FCLT.FCLT_MNG6 				     AS FCLT_MNG6
+
 			 FROM TB_FCLT_DTA_MNG_INFO FCLT
 			WHERE 1=1
   ]]>
@@ -129,6 +153,17 @@
 	    		  , SYS_LAST_CHG_DT
 	    		  , SYS_LAST_CHG_USER_ID
 	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		  , FCLT_SYS_HLD_YN2
+	    		  , FCLT_SYS_HLD_YN3
+	    		  , FCLT_SYS_HLD_YN4
+	    		  , FCLT_SYS_HLD_YN5
+	    		  , FCLT_SYS_HLD_YN6
+	    		  , FCLT_MNG
+	    		  , FCLT_MNG2
+	    		  , FCLT_MNG3
+	    		  , FCLT_MNG4
+	    		  , FCLT_MNG5
+	    		  , FCLT_MNG6
 	    		)
 	   		VALUES
 	   			(
@@ -146,6 +181,17 @@
 	    		, SYSDATE
 	    		, #{sysLastChgUserId}
 	    		, #{sysLastChgPrgrmId}
+                , #{fcltSysHldYn2}
+                , #{fcltSysHldYn3}
+                , #{fcltSysHldYn4}
+                , #{fcltSysHldYn5}
+                , #{fcltSysHldYn6}
+                , #{fcltMng}
+                , #{fcltMng2}
+                , #{fcltMng3}
+                , #{fcltMng4}
+                , #{fcltMng5}
+                , #{fcltMng6}
 
 	   			)
     	]]>
@@ -171,6 +217,17 @@
 			        , FCLT_SYS_HLD_YN     =     #{fcltSysHldYn}
 			        , FCLT_SYS_LINK_CD    =     #{fcltSysLinkCd}
 			        , FCLT_SYS_MNG_CD     =     #{fcltSysMngCd}
+			        , FCLT_SYS_HLD_YN2    =     #{fcltSysHldYn2}
+			        , FCLT_SYS_HLD_YN3    =     #{fcltSysHldYn3}
+			        , FCLT_SYS_HLD_YN4    =     #{fcltSysHldYn4}
+			        , FCLT_SYS_HLD_YN5    =     #{fcltSysHldYn5}
+			        , FCLT_SYS_HLD_YN6    =     #{fcltSysHldYn6}
+			        , FCLT_MNG            =     #{fcltMng}
+			        , FCLT_MNG2           =     #{fcltMng2}
+			        , FCLT_MNG3           =     #{fcltMng3}
+			        , FCLT_MNG4           =     #{fcltMng4}
+			        , FCLT_MNG5           =     #{fcltMng5}
+			        , FCLT_MNG6           =     #{fcltMng6}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

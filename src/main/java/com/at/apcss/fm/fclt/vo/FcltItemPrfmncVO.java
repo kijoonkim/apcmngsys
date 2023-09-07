@@ -22,6 +22,31 @@ public class FcltItemPrfmncVO extends ComVO{
 	private String msgKnd;
 	private String msgKndNm;
 	private String rmrk;
+	private String fcltItemSpmtAmt2;
+	private String fcltItemSpmtAmt3;
+	private String fcltItemSpmtAmt4;
+	private String fcltItemSpmtAmt5;
+	private String fcltItemTrmtVlm2;
+	private String fcltItemTrmtVlm3;
+	private String fcltItemTrmtVlm4;
+	private String fcltItemTrmtVlm5;
+	private String fcltItemMrktAmt;
+	private String fcltItemMrktAmt2;
+	private String fcltItemMrktAmt3;
+	private String fcltItemMrktAmt4;
+	private String fcltItemMrktAmt5;
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

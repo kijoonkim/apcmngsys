@@ -49,27 +49,29 @@
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg">생산자</th>
-							<td colspan="6" class="td_input"  style="border-right: hidden;">
+							<td colspan="6" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
-									id="dtl-inp-prdcrNm"
-									name="dtl-inp-prdcrNm"
+									id="srch-inp-prdcrNm"
+									name="srch-inp-prdcrNm"
 									class="form-control input-sm"
 									placeholder="초성검색 기능입니다."
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
-    								onkeyup="fn_onKeyUpPrdcrNm(dtl-inp-prdcrNm)"
+    								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
-							<td colspan="2" class="td_input"  style="border-right: hidden;">
+   								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button 
-									id="btnSrchPrdcrCd" 
-									name="btnSrchPrdcrCd" 
-									uitype="modal" 
+									id="btn-srch-prdcr" 
+									name="btn-srch-prdcr" 
 									class="btn btn-xs btn-outline-dark" 
-									text="찾기" target-id="modal-prdcr" 
-									onclick="fn_choicePrdcr">
-								</sbux-button>
+									text="찾기" uitype="modal" 
+									target-id="modal-prdcr" 
+									onclick="fn_choicePrdcr"
+								></sbux-button>
 							</td>
 							<td colspan="4">
 								<p class="ad_input_row">
@@ -78,7 +80,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">품목 / 품종</th>
+							<th scope="row" class="th_bg">품목/품종</th>
 							<td colspan="2"class="td_input" style="border-right: hidden;">
 								<sbux-select id="dtl-slt-itemCd" name="dtl-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="전체" class="form-control input-sm" onchange="fn_onChangeSrchItemCd(this)" ></sbux-select>
 							</td>
@@ -97,7 +99,7 @@
 							<td colspan="6"class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" class="form-control pull-right input-sm"/>
 							</td>
-							<td colspan="4">&nbsp;</td>
+							<td colspan="6" style="border-left: hidden;">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">입고수량/중량</th>
@@ -146,7 +148,7 @@
 										uitype="normal"
 										class="radio_label"
 										text-right-padding="10px"
-										jsondata-ref="jsonComGdsSeCd">
+										jsondata-ref="jsonGdsSeCd">
 									</sbux-radio>
 								</p>
 							</td>
@@ -168,7 +170,7 @@
 									<sbux-label class="radio_label" for-id="dtl-rdo-trsprtSeCd_3" text="기타"></sbux-label>
 								</p>
 							</td>
-							<td colspan="4">&nbsp;</td>
+							<td colspan="4" style="border-left:hidden;">&nbsp;</td>
 						</tr>
 	 					<tr>
 						 	<th scope="row" class="th_bg">입고등급</th>
@@ -216,8 +218,6 @@
 						<div id="inptCmndDsctnGridArea" style="height:300px;"></div>
 					</div>
 				</div>
-				</div>
-				<!--[pp] //검색결과 -->
 			</div>
 		</div>
 	</section>
@@ -242,7 +242,6 @@
     var jsonPrdcr			= [];
     var jsonPrdcrAutocomplete = [];
     var jsonGdsSeCd			= [];	// 상품구분
-	
     
     /**
      * 조회 조건 select combo 설정
@@ -255,14 +254,6 @@
 		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
 		]);
-		
-		console.log("jsonApcItem",jsonApcItem);
-		console.log("jsonApcVrty",jsonApcVrty);
-	}
-    
-	const fn_getPrdcrs = async function() {
-		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
-		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
 	
 	// only document
@@ -330,36 +321,36 @@
 		fn_initSBSelect();
 		fn_getPrdcrs();
 	}
-	
-	/**
-	 * @name fn_onChangeSrchItemCd
-	 * @description 품목 선택 변경 event
-	 */
-	const fn_onChangeSrchItemCd = async function(obj) {
-		let itemCd = obj.value;	//SBUxMethod.get("srch-slt-itemCd");		
-		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),	// 품종
-			//gfn_setApcGrdsSBSelect('srch-slt-grdCd', jsonApcGrd, gv_selectedApcCd, itemCd)		// 등급	
-		]);
+	/*
+	* @name fn_getPrdcrs
+	* @description 생산자 자동완성 목록 가져오기
+	*/
+	const fn_getPrdcrs = async function() {
+		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
+		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
 	
 	/**
-	 * @name fn_onKeyUpPrdcrNm
-	 * @description 생산자명 입력 시 event : autocomplete
-	 */
+	* @name fn_onKeyUpPrdcrNm
+	* @description 생산자명 입력 시 event : autocomplete
+	*/
 	const fn_onKeyUpPrdcrNm = function(prdcrNm){
 		fn_clearPrdcr();
+		if(getByteLengthOfString(prdcrNm) > 100){
+			SBUxMethod.set("srch-inp-prdcrNm", "");
+			return;
+		}
 		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
-    	SBUxMethod.changeAutocompleteData('dtl-inp-prdcrNm', true);
+    	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
-	
+
 	/**
 	 * @name fn_clearPrdcr
 	 * @description 생산자 폼 clear
 	 */
 	const fn_clearPrdcr = function() {
-		SBUxMethod.set("dtl-inp-prdcrCd", null);
-		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:''");
+		SBUxMethod.set("srch-inp-prdcrCd", "");
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
 	}
 	
 	/**
@@ -369,23 +360,27 @@
 	function fn_onSelectPrdcrNm(value, label, item) {
 		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
 		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
-			document.getElementById('btnSrchPrdcrCd').click();
+			document.getElementById('btn-srch-prdcr').click();
 		}
 		else{
-			SBUxMethod.set("dtl-inp-prdcrCd", value);
-			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			SBUxMethod.set("srch-inp-prdcrCd", value);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 		}
 	}
 	
 	/**
-	 *
+	 * @name fn_choicePrdcr
+	 * @description 생산자 찾기 버튼 클릭
 	 */
-	const fn_choicePrdcr = function() {
+    const fn_choicePrdcr = function() {
 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
 	}
-	
+
+	/**
+	 * @name fn_setPrdcr
+	 * @description 생산자 모달 선택 콜백 callback
+	 */
 	const fn_setPrdcr = function(prdcr) {
-		console.log("prdcr", prdcr);
 		if (!gfn_isEmpty(prdcr)) {
 			// 생산자 set
 			SBUxMethod.set("dtl-inp-prdcrCd", prdcr.prdcrCd);
@@ -403,6 +398,31 @@
 			SBUxMethod.set("dtl-rdo-trsprtSeCd", prdcr.trsprtSeCd);
 		}
 	}
+
+	/**
+	 * @name getByteLengthOfString
+	 * @description 글자 byte 크기 계산
+	 */
+ 	const getByteLengthOfString = function (s, b, i, c) {
+		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+		  return b;
+	}
+	
+	/**
+	 * @name fn_onChangeSrchItemCd
+	 * @description 품목 선택 변경 event
+	 */
+	const fn_onChangeSrchItemCd = async function(obj) {
+		let itemCd = obj.value;	//SBUxMethod.get("srch-slt-itemCd");		
+		let result = await Promise.all([
+			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),	// 품종
+			//gfn_setApcGrdsSBSelect('srch-slt-grdCd', jsonApcGrd, gv_selectedApcCd, itemCd)		// 등급	
+		]);
+	}
+	
+	
+	
+
 
 	var latestChangedElement = null;
 	function fn_onChangeWrhsQntt(){

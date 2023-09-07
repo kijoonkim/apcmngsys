@@ -67,17 +67,18 @@
 							</td>
 							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input 
-									uitype="text" 
-									id="srch-inp-prdcrNm" 
-									name="srch-inp-prdcrNm" 
+								<sbux-input
+									uitype="text"
+									id="srch-inp-prdcrNm"
+									name="srch-inp-prdcrNm"
 									class="form-control input-sm"
-									placeholder="초성검색 기능입니다." 
-									autocomplete-ref="jsonPrdcrAutocomplete" 
+									placeholder="초성검색 기능입니다."
+									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
     								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
-    								autocomplete-select-callback="fn_onSelectPrdcrNm"    									
+    								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
+   								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button 
@@ -109,17 +110,27 @@
 							</td>
 							<th scope="row" class="th_bg">상품구분</th>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
+<!-- 								<p class="ad_input_row"> -->
+<!-- 									<sbux-checkbox uitype="normal"id="chk-gsd1" name="chk-gsd1" uitype="normal" class="form-control input-sm" text="일반" checked/> -->
+<!-- 								</p> -->
+<!-- 								<p class="ad_input_row"> -->
+<!-- 									<sbux-checkbox uitype="normal"id="chk-gsd2" name="chk-gsd2" uitype="normal" class="form-control input-sm" text="GAP" checked/> -->
+<!-- 								</p> -->
+<!-- 								<p class="ad_input_row"> -->
+<!-- 									<sbux-checkbox uitype="normal"id="chk-gsd3" name="chk-gsd3" uitype="normal" class="form-control input-sm" text="무농약" checked/> -->
+<!-- 								</p> -->
+<!-- 								<p class="ad_input_row"> -->
+<!-- 									<sbux-checkbox uitype="normal"id="chk-gsd4" name="chk-gsd4" uitype="normal" class="form-control input-sm" text="유기농" checked/> -->
+<!-- 								</p> -->
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-gsd1" name="chk-gsd1" uitype="normal" class="form-control input-sm" text="일반" checked/>
-								</p>
-								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-gsd2" name="chk-gsd2" uitype="normal" class="form-control input-sm" text="GAP" checked/>
-								</p>
-								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-gsd3" name="chk-gsd3" uitype="normal" class="form-control input-sm" text="무농약" checked/>
-								</p>
-								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-gsd4" name="chk-gsd4" uitype="normal" class="form-control input-sm" text="유기농" checked/>
+									<sbux-checkbox
+										id="dtl-chk-gdsSeCd"
+										name="dtl-chk-gdsSeCd"
+										uitype="normal"
+										class="radio_label"
+										text-right-padding="10px"
+										jsondata-ref="jsonGdsSeCd">
+									</sbux-checkbox>
 								</p>
 							</td>
 					    	<th scope="row" class="th_bg">운송구분</th>
@@ -143,7 +154,7 @@
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg">차량번호</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-vhclno" name="srch-inp-vhclno" class="form-control input-sm"/>
+								<sbux-input uitype="text" id="srch-inp-vhclno" name="srch-inp-vhclno" class="form-control input-sm" onkeyup="fn_onKeyVhclno(srch-inp-vhclno)"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button
@@ -156,14 +167,7 @@
 									onclick="fn_choiceVhcl"
 								/>
 							</td>
-							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
-							<th scope="row" class="th_bg">계량번호</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-wghNo" name="srch-inp-wghNo" class="form-control input-sm"/>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="srch-btn-wghNo" name="srch-btn-wghNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal"/>
-							</td>
+							<td colspan="6" style="border-left: hidden;">&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -180,12 +184,14 @@
 			</div>
 		</div>
 	</section>
+    <!-- 생산자 선택 Modal -->
     <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
+    
 
     <!-- 차량 선택 Modal -->
     <div>
@@ -208,24 +214,23 @@
 
 	var jsonComItem				= [];	// 품목 		itemCd			검색
 	var jsonComWarehouseSeCd	= [];	// 창고 		warehouseSeCd	검색
-	var autoCompleteDataJson = [];		// 생산자 초성검색 결과
-	var jsonDataPrdcr	= [];			// 생산자 전체리스트
 
-    var jsonDataPrdcr = [];
-    var jsonPrdcr			= [];
-    var jsonPrdcrAutocomplete = [];
-	
+    var jsonPrdcr				= [];
+    var jsonPrdcrAutocomplete 	= [];
+    var jsonGdsSeCd			= [];	// 상품구분
+    
+    
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
-		await gfn_setComCdSBSelect('srch-slt-warehouseSeCd', jsonComWarehouseSeCd, 	'WAREHOUSE_SE_CD', gv_selectedApcCd);	// 창고
-	 	await gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd);		// 품목
+		let rst = await Promise.all([
+			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', jsonComWarehouseSeCd, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd),		// 품목
+		 	gfn_setComCdSBSelect('dtl-chk-gdsSeCd', jsonGdsSeCd, 'GDS_SE_CD', gv_selectedApcCd),			// 상품구분
+	 	]);
+		jsonGdsSeCd.forEach(e => e.checked = "checked");
+		SBUxMethod.refresh('dtl-chk-gdsSeCd');
 	}
-	
-	const fn_getPrdcrs = async function() {
-		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
-		jsonPrdcr = gfn_setFrst(jsonPrdcr);
-	}
-	
+
     const fn_modalVrty = function() {
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
 	}
@@ -340,57 +345,17 @@
 		fn_initSBSelect();
 		fn_getPrdcrs();
 	}
-		
-	/**
-	 * @name fn_onKeyUpPrdcrNm
-	 * @description 생산자명 입력 시 event : autocomplete
-	 */
-	const fn_onKeyUpPrdcrNm = function(prdcrNm){
-		fn_clearPrdcr();
-		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
-    	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
-    }
-	
-	/**
-	 * @name fn_clearPrdcr
-	 * @description 생산자 폼 clear
-	 */
-	const fn_clearPrdcr = function() {
-		SBUxMethod.set("srch-inp-prdcrCd", null);
-		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
-	}
-	
-	/**
-	 * @name fn_onSelectPrdcrNm
-	 * @description 생산자 autocomplete 선택 callback
-	 */
-	function fn_onSelectPrdcrNm(value, label, item) {
-		SBUxMethod.set("srch-inp-prdcrCd", value);
-		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-	}
-    
-    
-    const fn_choicePrdcr = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
-	}
-	
-	const fn_setPrdcr = function(prdcr) {
-		if (!gfn_isEmpty(prdcr)) {
-			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
-			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
-			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-		}
-	}
-	
+
 	/**
      * @name fn_rawMtrWrhsPrfmncSearch
      * @description 조회 버튼
      */
     const fn_rawMtrWrhsPrfmncSearch = async function() {
     	try{
-    		console.log("Test");
- 		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-startPrdctnYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endPrdctnYmd")))
- 				   throw "입고일자는 필수입력 항목입니다.";
+ 		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-startPrdctnYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endPrdctnYmd"))){
+ 			  await gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
+ 	          return false;
+ 		   }
 	        // set pagination
 	    	inptCmndDsctnList.rebuild();
 	    	let pageSize = inptCmndDsctnList.getPageSize();
@@ -416,6 +381,8 @@
 
 	  		// optional
 	  		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
+	  		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
+	  		let vhclno = SBUxMethod.get("srch-inp-vhclno");	// 차량번호
 	  		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 			let vrtyCd = vrtyCds.length > 0 ? +vrtyCds.join(',') : "";
 			const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsPrfmncList.do", {
@@ -425,9 +392,11 @@
 				wrhsSeCd: wrhsSeCd,
 				gdsSeCd: gdsSeCd,
 				trsprtSeCd: trsprtSeCd,
+				warehouseSeCd: warehouseSeCd,
 				prdcrCd: prdcrCd,
 				vrtyCd: vrtyCd,
 				itemCd: itemCd,
+				vhclno: vhclno,
 	          	// pagination
 	  	  		pagingYn : 'N',
 	  			currentPageNo : pageNo,
@@ -512,6 +481,89 @@
 		else
 			return "";
 	}
+	
+	/*
+	* @name fn_getPrdcrs
+	* @description 생산자 자동완성 목록 가져오기
+	*/
+	const fn_getPrdcrs = async function() {
+		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
+		jsonPrdcr = gfn_setFrst(jsonPrdcr);
+	}
+	
+	/**
+	* @name fn_onKeyUpPrdcrNm
+	* @description 생산자명 입력 시 event : autocomplete
+	*/
+	const fn_onKeyUpPrdcrNm = function(prdcrNm){
+		fn_clearPrdcr();
+		if(getByteLengthOfString(prdcrNm) > 100){
+			SBUxMethod.set("srch-inp-prdcrNm", "");
+			return;
+		}
+		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
+    	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
+    }
+
+	/**
+	 * @name fn_clearPrdcr
+	 * @description 생산자 폼 clear
+	 */
+	const fn_clearPrdcr = function() {
+		SBUxMethod.set("srch-inp-prdcrCd", "");
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
+	}
+	
+	/**
+	 * @name fn_onSelectPrdcrNm
+	 * @description 생산자 autocomplete 선택 callback
+	 */
+	function fn_onSelectPrdcrNm(value, label, item) {
+		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
+		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
+			document.getElementById('btn-srch-prdcr').click();
+		}
+		else{
+			SBUxMethod.set("srch-inp-prdcrCd", value);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		}
+	}
+	
+	/**
+	 * @name fn_choicePrdcr
+	 * @description 생산자 찾기 버튼 클릭
+	 */
+    const fn_choicePrdcr = function() {
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+	}
+
+	/**
+	 * @name fn_setPrdcr
+	 * @description 생산자 모달 선택 콜백 callback
+	 */
+	const fn_setPrdcr = function(prdcr) {
+		if (!gfn_isEmpty(prdcr)) {
+			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
+			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		}
+	}
+	
+	/**
+	 * @name getByteLengthOfString
+	 * @description 글자 byte 크기 계산
+	 */
+ 	const getByteLengthOfString = function (s, b, i, c) {
+		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+		  return b;
+	}
+	
+	const fn_onKeyVhclno = function(vhclno){
+		if(getByteLengthOfString(vhclno) > 40){
+			SBUxMethod.set("srch-inp-vhclno", "");
+			return;
+		}
+    }
 	
 </script>
 

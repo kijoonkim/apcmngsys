@@ -86,7 +86,7 @@ public class FcltInfoController extends BaseController {
 		logger.info("=============insertFcltInfo=======start======");
 		// validation check
 
-		logger.info(fcltInfoVO.getRmrk());
+		logger.info(fcltInfoVO.getFcltRmrk());
 		logger.info(fcltInfoVO.getFcltArea());
 		logger.info(fcltInfoVO.getTrgtYr());
 		logger.info(fcltInfoVO.toString());
@@ -123,6 +123,8 @@ public class FcltInfoController extends BaseController {
 		// audit 항목
 		fcltInfoVO.setSysLastChgUserId(getUserId());
 		fcltInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+		logger.info("");
+		logger.info(fcltInfoVO.toString());
 
 		int updatedCnt = 0;
 
@@ -163,7 +165,6 @@ public class FcltInfoController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
 	// 시설현황 목록 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltInfoList(@RequestBody List<FcltInfoVO> fcltInfoList, HttpServletRequest requset) throws Exception{
@@ -176,7 +177,6 @@ public class FcltInfoController extends BaseController {
 			fcltInfoVO.setSysLastChgUserId(getUserId());
 			fcltInfoVO.setSysLastChgPrgrmId(getPrgrmId());
 		}
-
 		int deletedCnt = 0;
 
 		try {
@@ -185,7 +185,6 @@ public class FcltInfoController extends BaseController {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 		logger.info("=============delete=====end========");
 		return getSuccessResponseEntity(resultMap);

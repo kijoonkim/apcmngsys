@@ -119,6 +119,11 @@ public class WghPrfmncVO extends ComVO {
 	private String vhclno;
 
 	/**
+	 * 기사명
+	 */
+	private String drvrNm;
+
+	/**
 	 * 전체중량
 	 */
 	private double wholWght;

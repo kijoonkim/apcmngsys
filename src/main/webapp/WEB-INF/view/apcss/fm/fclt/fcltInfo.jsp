@@ -141,10 +141,10 @@
 					<tr>
 						<th class="th_bg">총 건축면적</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea" name="dtl-input-fcltArea" uitype="text" class="form-control input-sm" placeholder="5000㎡ " ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea0" name="dtl-input-fcltArea0" uitype="text" class="form-control input-sm" placeholder="5000㎡ " disabled></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-rmrk" name="dtl-input-rmrk" uitype="text" class="form-control input-sm" placeholder="1개 동" ></sbux-input>
+							<sbux-input id="dtl-input-fcltRmrk0" name="dtl-input-fcltRmrk0" uitype="text" class="form-control input-sm" placeholder="1개 동"  disabled></sbux-input>
 						</td>
 						<td></td>
 					</tr>
@@ -152,61 +152,61 @@
 
 						<th class="th_bg">집하선별포장장</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea2" name="dtl-input-fcltArea2" uitype="text" class="form-control input-sm" placeholder="2,500㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea" name="dtl-input-fcltArea" uitype="text" class="form-control input-sm" placeholder="2,500㎡" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-rmrk2" name="dtl-input-rmrk2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-fcltRmrk" name="dtl-input-fcltRmrk" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td></td>
 					</tr>
 					<tr>
 						<th class="th_bg">세척․가공 등 처리</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea3" name="dtl-input-fcltArea3" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea2" name="dtl-input-fcltArea2" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-rmrk3" name="dtl-input-rmrk3" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltRmrk2" name="dtl-input-fcltRmrk2" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
 						</td>
 						<td></td>
 					</tr>
 					<tr>
 						<th class="th_bg">비상품화시설</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea4" name="dtl-input-fcltArea4" uitype="text" class="form-control input-sm" placeholder="300㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea3" name="dtl-input-fcltArea3" uitype="text" class="form-control input-sm" placeholder="300㎡" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-rmrk4" name="dtl-input-rmrk4" uitype="text" class="form-control input-sm" placeholder="사무실,회의실,화장실 등" ></sbux-input>
+							<sbux-input id="dtl-input-fcltRmrk3" name="dtl-input-fcltRmrk3" uitype="text" class="form-control input-sm" placeholder="사무실,회의실,화장실 등" ></sbux-input>
 						</td>
 						<td></td>
 					</tr>
 					<tr>
 						<th class="th_bg">폐기물 처리</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea5" name="dtl-input-fcltArea5" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea4" name="dtl-input-fcltArea4" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-rmrk5" name="dtl-input-rmrk5" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltRmrk4" name="dtl-input-fcltRmrk4" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
 						</td>
 						<td></td>
 					</tr>
 					<tr>
 						<th class="th_bg">예냉고</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea6" name="dtl-input-fcltArea6" uitype="text" class="form-control input-sm" placeholder="300㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea5" name="dtl-input-fcltArea5" uitype="text" class="form-control input-sm" placeholder="300㎡" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-rmrk6" name="dtl-input-rmrk6" uitype="text" class="form-control input-sm" placeholder="3칸×100㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltRmrk5" name="dtl-input-fcltRmrk5" uitype="text" class="form-control input-sm" placeholder="3칸×100㎡" ></sbux-input>
 						</td>
 						<td></td>
 					</tr>
 					<tr>
 						<th class="th_bg">저온저장</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea7" name="dtl-input-fcltArea7" uitype="text" class="form-control input-sm" placeholder="700㎡
+							<sbux-input id="dtl-input-fcltArea6" name="dtl-input-fcltArea6" uitype="text" class="form-control input-sm" placeholder="700㎡
 							" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-rmrk7" name="dtl-input-rmrk7" uitype="text" class="form-control input-sm" placeholder="7칸×100㎡
+							<sbux-input id="dtl-input-fcltRmrk6" name="dtl-input-fcltRmrk6" uitype="text" class="form-control input-sm" placeholder="7칸×100㎡
 							" ></sbux-input>
 						</td>
 						<td></td>
@@ -214,30 +214,30 @@
 					<tr>
 						<th class="th_bg">CA저장고</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea8" name="dtl-input-fcltArea8" uitype="text" class="form-control input-sm" placeholder="300㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea7" name="dtl-input-fcltArea7" uitype="text" class="form-control input-sm" placeholder="300㎡" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-rmrk8" name="dtl-input-rmrk8" uitype="text" class="form-control input-sm" placeholder="3칸×100㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltRmrk7" name="dtl-input-fcltRmrk7" uitype="text" class="form-control input-sm" placeholder="3칸×100㎡" ></sbux-input>
 						</td>
 						<td></td>
 					</tr>
 					<tr>
 						<th class="th_bg">큐어링</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea9" name="dtl-input-fcltArea9" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea8" name="dtl-input-fcltArea8" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-rmrk9" name="dtl-input-rmrk9" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltRmrk8" name="dtl-input-fcltRmrk8" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
 						</td>
 						<td></td>
 					</tr>
 					<tr>
 						<th class="th_bg">일반저장</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea10" name="dtl-input-fcltArea10" uitype="text" class="form-control input-sm" placeholder="500㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea9" name="dtl-input-fcltArea9" uitype="text" class="form-control input-sm" placeholder="500㎡" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-rmrk10" name="dtl-input-rmrk10" uitype="text" class="form-control input-sm" placeholder="5칸×100㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltRmrk9" name="dtl-input-fcltRmrk9" uitype="text" class="form-control input-sm" placeholder="5칸×100㎡" ></sbux-input>
 						</td>
 						<td></td>
 					</tr>
@@ -245,10 +245,10 @@
 					<tr>
 						<th class="th_bg">기타사항</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea11" name="dtl-input-fcltArea11" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea10" name="dtl-input-fcltArea10" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-rmrk11" name="dtl-input-rmrk11" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltRmrk10" name="dtl-input-fcltRmrk10" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
 						</td>
 						<td></td>
 					</tr>
@@ -386,11 +386,11 @@
                 ref: 'checked', type: 'checkbox',   style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["총건축면적"],	    ref: 'fcltArea',    type:'output',  	width:'25%',    style:'text-align:center'},
-            {caption: ["집하선포장장"], 		ref: 'fcltArea2',   type:'output',  	width:'25%',    style:'text-align:center'},
+            {caption: ["총건축면적"],	    ref: 'fcltArea0',    type:'output',  	width:'25%',    style:'text-align:center'},
+            {caption: ["집하선포장장"], 		ref: 'fcltArea',   type:'output',  	width:'25%',    style:'text-align:center'},
             {caption: ["비상품화시설"],  		ref: 'fcltArea3',   type:'output',  	width:'25%',    style:'text-align:center'},
-            {caption: ["예냉고"],   		ref: 'fcltArea4',   type:'output',  	width:'25%',    style:'text-align:center'},
-            {caption: ["저온저장"],			ref: 'fcltArea5',   type:'output',  	width:'25%',    style:'text-align:center'},
+            {caption: ["예냉고"],   		ref: 'fcltArea5',   type:'output',  	width:'25%',    style:'text-align:center'},
+            {caption: ["저온저장"],			ref: 'fcltArea6',   type:'output',  	width:'25%',    style:'text-align:center'},
             {caption: ["APCCD"],		ref: 'apcCd',       type:'output',  	hidden: false},
             {caption: ["대상연도"],			ref: 'trgtYr',          type:'output',  hidden: false},
             {caption: ["최초등록자ID"],		ref: 'creUserId',  		type:'output',  hidden: true},
@@ -484,8 +484,28 @@
 		     	fcltCd: item.fcltCd,     	 //apc코드
 		    	fcltNm: item.fcltNm,     	 //시설 코드
 		    	apcNm: item.apcNm,         	 //시설 명
-		        fcltArea: item.fcltArea,     //시설 면적
-		        rmrk: item.rmrk,    			 //비고
+		        fcltArea0: item.fcltArea0,     //시설 면적 총면적
+		        fcltRmrk0: item.fcltRmrk0,    			 //비고
+		        fcltArea: item.fcltArea,     //시설 면적 집하선별포장장
+		        fcltRmrk: item.fcltRmrk,    			 //비고
+		        fcltArea2: item.fcltArea2,     //시설 면적 세척,가공 등 처리
+		        fcltRmrk2: item.fcltRmrk2,    			 //비고
+		        fcltArea3: item.fcltArea3,     //시설 면적 비 상품화시설
+		        fcltRmrk3: item.fcltRmrk3,    			 //비고
+		        fcltArea4: item.fcltArea4,     //시설 면적 폐기물처리
+		        fcltRmrk4: item.fcltRmrk4,    			 //비고
+		        fcltArea5: item.fcltArea5,     //시설 면적 예냉고
+		        fcltRmrk5: item.fcltRmrk5,    			 //비고
+		        fcltArea6: item.fcltArea6,     //시설 면적 저온저장
+		        fcltRmrk6: item.fcltRmrk6,    			 //비고
+		        fcltArea7: item.fcltArea7,     //시설 면적 CA저장고
+		        fcltRmrk7: item.fcltRmrk7,    			 //비고
+		        fcltArea8: item.fcltArea8,     //시설 면적 큐어링
+		        fcltRmrk8: item.fcltRmrk8,    			 //비고
+		        fcltArea9: item.fcltArea9,     //시설 면적 일반저장
+		        fcltRmrk9: item.fcltRmrk9,    			 //비고
+		        fcltArea10: item.fcltArea10,     //시설 면적 기타사항
+		        fcltRmrk10: item.fcltRmrk10,    			 //비고
 				delYn: item.delYn,                  				//삭제유무
 	            sysFrstInptDt: item.sysFrstInptDt,       			//시스템최초입력일시
 		        sysFrstInptUserId: item.sysFrstInptUserId,   	   //시스템최초입력사용자id
@@ -532,11 +552,32 @@
     //신규 작성 dtl 내부의 값을 null로
     function fn_create() {
     	console.log("******************fn_create**********************************");
-     	SBUxMethod.set("dtl-input-fcltCd", null);      				 //  시설 코드
+    	SBUxMethod.set("dtl-input-trgtYr", null);                    //  대상연도
+		SBUxMethod.set("dtl-input-apcCd", null);                     //  APC코드
+    	SBUxMethod.set("dtl-input-fcltCd", null);      				 //  시설 코드
     	SBUxMethod.set("dtl-input-fcltNm", null); 				     //  시설 명
-    	SBUxMethod.set("dtl-input-apcNm", null);
-        SBUxMethod.set("dtl-input-fcltArea", null);   				 //  시설 면적
-        SBUxMethod.set("dtl-input-rmrk", null);    				     //  비고
+        SBUxMethod.set("dtl-input-fcltArea", null);					   //시설 면적 총면적
+        SBUxMethod.set("dtl-input-fcltRmrk", null);					  			 //비고
+        SBUxMethod.set("dtl-input-fcltArea0", null);                 //시설 면적 집하선별포장장
+        SBUxMethod.set("dtl-input-fcltRmrk0", null);                			 //비고
+        SBUxMethod.set("dtl-input-fcltArea2", null);                   //시설 면적 세척,가공 등 처리
+        SBUxMethod.set("dtl-input-rmr2k", null);                      			 //비고
+        SBUxMethod.set("dtl-input-fcltArea3", null);                   //시설 면적 비 상품화시설
+        SBUxMethod.set("dtl-input-fcltRmrk3", null);                  			 //비고
+        SBUxMethod.set("dtl-input-fcltArea4", null);                   //시설 면적 폐기물처리
+        SBUxMethod.set("dtl-input-fcltRmrk4", null);                  			 //비고
+        SBUxMethod.set("dtl-input-fcltArea5", null);                   //시설 면적 예냉고
+        SBUxMethod.set("dtl-input-fcltRmrk5", null);                  			 //비고
+        SBUxMethod.set("dtl-input-fcltArea6", null);                   //시설 면적 저온저장
+        SBUxMethod.set("dtl-input-fcltRmrk6", null);                  			 //비고
+        SBUxMethod.set("dtl-input-fcltArea7", null);                   //시설 면적 CA저장고
+        SBUxMethod.set("dtl-input-fcltRmrk7", null);                  			 //비고
+        SBUxMethod.set("dtl-input-fcltArea8", null);                   //시설 면적 큐어링
+        SBUxMethod.set("dtl-input-fcltRmrk8", null);                  			 //비고
+        SBUxMethod.set("dtl-input-fcltArea9", null);                   //시설 면적 일반저장
+        SBUxMethod.set("dtl-input-fcltRmrk9", null);                  			 //비고
+        SBUxMethod.set("dtl-input-fcltArea10", null);                    //시설 면적 기타사항
+        SBUxMethod.set("dtl-input-fcltRmrk10", null);                   			 //비고
     	SBUxMethod.set("dtl-input-delYn", null);                  	 //  삭제유무
     	SBUxMethod.set("dtl-input-sysFrstInptDt", null);       		 //	 시스템최초입력일시
     	SBUxMethod.set("dtl-input-sysFrstInptUserId", null);      	 //  시스템최초입력사용자id
@@ -552,9 +593,28 @@
      	SBUxMethod.set("dtl-input-fcltCd", null);
      	SBUxMethod.set("dtl-input-fcltNm", null);
     	SBUxMethod.set("dtl-input-apcNm", null);
-        SBUxMethod.set("dtl-input-fcltArea", null);
-        SBUxMethod.set("dtl-input-rmrk", null);
-
+        SBUxMethod.set("dtl-input-fcltArea", null);           //시설 면적 총면적
+        SBUxMethod.set("dtl-input-fcltRmrk", null);          			 //비고
+        SBUxMethod.set("dtl-input-fcltArea0", null);        //시설 면적 집하선별포장장
+        SBUxMethod.set("dtl-input-fcltRmrk0", null);       			 //비고
+        SBUxMethod.set("dtl-input-fcltArea2", null);          //시설 면적 세척,가공 등 처리
+        SBUxMethod.set("dtl-input-rmrk2", null);             			 //비고
+        SBUxMethod.set("dtl-input-fcltArea3", null);          //시설 면적 비 상품화시설
+        SBUxMethod.set("dtl-input-fcltRmrk3", null);         			 //비고
+        SBUxMethod.set("dtl-input-fcltArea4", null);          //시설 면적 폐기물처리
+        SBUxMethod.set("dtl-input-fcltRmrk4", null);         			 //비고
+        SBUxMethod.set("dtl-input-fcltArea5", null);          //시설 면적 예냉고
+        SBUxMethod.set("dtl-input-fcltRmrk5", null);         			 //비고
+        SBUxMethod.set("dtl-input-fcltArea6", null);          //시설 면적 저온저장
+        SBUxMethod.set("dtl-input-fcltRmrk6", null);         			 //비고
+        SBUxMethod.set("dtl-input-fcltArea7", null);          //시설 면적 CA저장고
+        SBUxMethod.set("dtl-input-fcltRmrk7", null);         			 //비고
+        SBUxMethod.set("dtl-input-fcltArea8", null);          //시설 면적 큐어링
+        SBUxMethod.set("dtl-input-fcltRmrk8", null);         			 //비고
+        SBUxMethod.set("dtl-input-fcltArea9", null);          //시설 면적 일반저장
+        SBUxMethod.set("dtl-input-fcltRmrk9", null);         			 //비고
+        SBUxMethod.set("dtl-input-fcltArea10", null);           //시설 면적 기타사항
+        SBUxMethod.set("dtl-input-fcltRmrk10", null);          			 //비고
     }
     //저장
     const fn_save = async function() {
@@ -573,7 +633,7 @@
             return;
         }
     	*/
-    	if (gfn_isEmpty(apcCdUpd)) {
+		if (gfn_isEmpty(apcCdUpd)) {
     		if (!SBUxMethod.get("srch-input-trgtYr")) {
                 alert("대상년도를 선택하세요.");
                 return;
@@ -582,11 +642,6 @@
                 alert("APC명을 선택하세요.");
                 return;
             }
-    	}
-
-
-
-    	if (gfn_isEmpty(trgtYr)) {
     		// 신규 등록
 			fn_subInsert(confirm("등록 하시겠습니까?"));
     	} else {
@@ -605,25 +660,37 @@
     	 if (!isConfirmed) return;
 
     	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltInfo.do", {
-        		trgtYr: SBUxMethod.set('dtl-input-trgtYr')   	                     // 상단 조회 조건의 대상연도 SBUxMethod.get("srch-input-trgtYr")
-            ,	apcCd: SBUxMethod.set('dtl-input-apcCd')     	                     // 상단 조회 조건의 APC코드 SBUxMethod.get("gsb-slt-apcCd")
-            ,	fcltCd: SBUxMethod.set('dtl-input-fcltCd')   	                     //  apc코드
-            ,	fcltNm: SBUxMethod.set('dtl-input-fcltNm')   	                     //  시설 코드
-            ,	apcNm: SBUxMethod.set('dtl-input-apcNm')    	                     //  시설 명
-            ,	fcltArea: SBUxMethod.set('dtl-input-fcltArea')                       //  시설 면적
-            ,	rmrk: SBUxMethod.set('dtl-input-rmrk')      	                     //  비고
-            ,	delYn: SBUxMethod.get('dtl-input-delYn')                  			 //	 삭제유무
-            ,	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt')      	  	 //	 시스템최초입력일시
-            ,	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId')     //	 시스템최초입력사용자id
-            ,	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId')   //	 시스템최초입력프로그램id
-            ,	sysLastChgDt: SBUxMethod.get('dtl-input-sysLastChgDt')     		 	 //	 시스템최종변경일시
-            ,	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId')  	 //	 시스템최종변경사용자id
-            ,	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')   	 //	 시스템최종변경프로그램id
-			,	daddr:1
+	    	 	trgtYr: SBUxMethod.get("srch-input-trgtYr")  // 상단 조회 조건의 대상연도 SBUxMethod.get("srch-input-trgtYr")
+    	    ,	apcCd: SBUxMethod.get("gsb-slt-apcCd") // 상단 조회 조건의 APC코드 SBUxMethod.get("gsb-slt-apcCd")
+            ,	fcltCd: SBUxMethod.get('dtl-input-fcltCd')   	                     //  apc코드
+            ,	fcltNm: SBUxMethod.get('dtl-input-fcltNm')   	                     //  시설 코드
+            ,	apcNm: SBUxMethod.get('dtl-input-apcNm')    	                     //  시설 명
+            ,	fcltRmrk0: SBUxMethod.get('dtl-input-fcltRmrk0')      	                 //시설 면적 총면적
+            ,	fcltArea: SBUxMethod.get('dtl-input-fcltArea')                          //시설 면적 집하선별포장장
+            ,	fcltRmrk: SBUxMethod.get('dtl-input-fcltRmrk')      	                 //비고
+            ,	fcltArea2: SBUxMethod.get('dtl-input-fcltArea2')                      	//시설 면적 세척,가공 등 처리
+            ,	fcltRmrk2: SBUxMethod.get('dtl-input-fcltRmrk2')      	                //비고
+            ,	fcltArea3: SBUxMethod.get('dtl-input-fcltArea3')                         //시설 면적 비 상품화시설
+            ,	fcltRmrk3: SBUxMethod.get('dtl-input-fcltRmrk3')      	                  			 //비고
+            ,	fcltArea4: SBUxMethod.get('dtl-input-fcltArea4')                           //시설 면적 폐기물처리
+            ,	fcltRmrk4: SBUxMethod.get('dtl-input-fcltRmrk4')      	                  			 //비고
+            ,	fcltArea5: SBUxMethod.get('dtl-input-fcltArea5')                           //시설 면적 예냉고
+            ,	fcltRmrk5: SBUxMethod.get('dtl-input-fcltRmrk5')      	                  			 //비고
+            ,	fcltArea6: SBUxMethod.get('dtl-input-fcltArea6')                           //시설 면적 저온저장
+            ,	fcltRmrk6: SBUxMethod.get('dtl-input-fcltRmrk6')      	                  			 //비고
+            ,	fcltArea7: SBUxMethod.get('dtl-input-fcltArea7')                           //시설 면적 CA저장고
+            ,	fcltRmrk7: SBUxMethod.get('dtl-input-fcltRmrk7')      	                  			 //비고
+            ,	fcltArea8: SBUxMethod.get('dtl-input-fcltArea8')                           //시설 면적 큐어링
+            ,	fcltRmrk8: SBUxMethod.get('dtl-input-fcltRmrk8')      	                  			 //비고
+            ,	fcltArea9: SBUxMethod.get('dtl-input-fcltArea9')                           //시설 면적 일반저장
+            ,	fcltRmrk9: SBUxMethod.get('dtl-input-fcltRmrk9')      	                  			 //비고
+            ,	fcltArea10: SBUxMethod.get('dtl-input-fcltArea10')                           //시설 면적 기타사항
+            ,	fcltRmrk10: SBUxMethod.get('dtl-input-fcltRmrk10')      	                			 //비고
 		});
 
-	console.log(postVal);
-	console.log("----------------------------");
+		console.log(postVal);
+		console.log("----------------------------");
+
         const data = await postJsonPromise;
 
         try {
@@ -634,6 +701,7 @@
         		alert(data.resultMessage);
         	}
         } catch(e) {
+
         }
         // 결과 확인 후 재조회
         console.log("insert result", data);
@@ -642,17 +710,75 @@
      * @param {boolean} isConfirmed
      */
 	const fn_subUpdate = async function (isConfirmed){
-    	 console.log("******************fn_subUpdate**********************************");
+    	console.log("******************fn_subUpdate**********************************");
 		if (!isConfirmed) return;
 
+		var updateValue = {
+				trgtYr: SBUxMethod.get('dtl-input-trgtYr')   	                     //  대상연도
+		        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')     	                     //  apc코드
+		        ,	fcltCd: SBUxMethod.get('dtl-input-fcltCd')   	                     //  시설 코드
+		        ,	fcltNm: SBUxMethod.get('dtl-input-fcltNm')   	                     //  시설 명
+		        ,	fcltRmrk0: SBUxMethod.get('dtl-input-fcltRmrk0')      	             //	시설 면적 총면적
+		        ,	fcltArea1: SBUxMethod.get('dtl-input-fcltArea0')                      //	시설 면적 집하선별포장장
+		        ,	fcltArea1: SBUxMethod.get('dtl-input-fcltArea')                      //	시설 면적 집하선별포장장
+		        ,	fcltRmrk1: SBUxMethod.get('dtl-input-fcltRmrk')      	             //	비고
+		        ,	fcltArea2: SBUxMethod.get('dtl-input-fcltArea2')                     //	시설 면적 세척,가공 등 처리
+		        ,	fcltRmrk2: SBUxMethod.get('dtl-input-fcltRmrk2')      	             //	비고
+		        ,	fcltArea3: SBUxMethod.get('dtl-input-fcltArea3')                     //	시설 면적 비 상품화시설
+		        ,	fcltRmrk3: SBUxMethod.get('dtl-input-fcltRmrk3')      	             //	비고
+		        ,	fcltArea4: SBUxMethod.get('dtl-input-fcltArea4')                     //	시설 면적 폐기물처리
+		        ,	fcltRmrk4: SBUxMethod.get('dtl-input-fcltRmrk4')      	             //	비고
+		        ,	fcltArea5: SBUxMethod.get('dtl-input-fcltArea5')                     //	시설 면적 예냉고
+		        ,	fcltRmrk5: SBUxMethod.get('dtl-input-fcltRmrk5')      	             //	비고
+		        ,	fcltArea6: SBUxMethod.get('dtl-input-fcltArea6')                     //	시설 면적 저온저장
+		        ,	fcltRmrk6: SBUxMethod.get('dtl-input-fcltRmrk6')      	             //	비고
+		        ,	fcltArea7: SBUxMethod.get('dtl-input-fcltArea7')                     //	시설 면적 CA저장고
+		        ,	fcltRmrk7: SBUxMethod.get('dtl-input-fcltRmrk7')      	             //	비고
+		        ,	fcltArea8: SBUxMethod.get('dtl-input-fcltArea8')                     //	시설 면적 큐어링
+		        ,	fcltRmrk8: SBUxMethod.get('dtl-input-fcltRmrk8')      	             //	비고
+		        ,	fcltArea9: SBUxMethod.get('dtl-input-fcltArea9')                     //	시설 면적 일반저장
+		        ,	fcltRmrk9: SBUxMethod.get('dtl-input-fcltRmrk9')      	             //	비고
+		        ,	fcltArea10: SBUxMethod.get('dtl-input-fcltArea10')                   //	시설 면적 기타사항
+		        ,	fcltRmrk10: SBUxMethod.get('dtl-input-fcltRmrk10')                   //	비고
+		        ,	delYn: SBUxMethod.get('dtl-input-delYn')                  			 //	 삭제유무
+		        ,	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt')      	  	 //	 시스템최초입력일시
+		        ,	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId')     //	 시스템최초입력사용자id
+		        ,	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId')   //	 시스템최초입력프로그램id
+		        ,	sysLastChgDt: SBUxMethod.get('dtl-input-sysLastChgDt')     		 	 //	 시스템최종변경일시
+		        ,	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId')  	 //	 시스템최종변경사용자id
+		        ,	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')   	 //	 시스템최종변경프로그램id
+
+		}
+
+		console.log("========updateValue============");
+		console.log(updateValue);
+
     	const postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltInfo.do", {
-        	trgtYr: SBUxMethod.set('dtl-input-trgtYr')   	                     //  대상연도
-        ,	apcCd: SBUxMethod.set('dtl-input-apcCd')     	                     //  apc코드
-        ,	fcltCd: SBUxMethod.set('dtl-input-fcltCd')   	                     //  apc코드
-        ,	fcltNm: SBUxMethod.set('dtl-input-fcltNm')   	                     //  시설 코드
-        ,	apcNm: SBUxMethod.set('dtl-input-apcNm')    	                     //  시설 명
-        ,	fcltArea: SBUxMethod.set('dtl-input-fcltArea')                       //  시설 면적
-        ,	rmrk: SBUxMethod.set('dtl-input-rmrk')      	                     //  비고
+        	trgtYr: SBUxMethod.get('dtl-input-trgtYr')   	                     //  대상연도
+        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')     	                     //  apc코드
+        ,	fcltCd: SBUxMethod.get('dtl-input-fcltCd')   	                     //  시설 코드
+        ,	fcltNm: SBUxMethod.get('dtl-input-fcltNm')   	                     //  시설 명
+        ,	fcltRmrk0: SBUxMethod.get('dtl-input-fcltRmrk0')      	             //	시설 면적 총면적
+        ,	fcltArea1: SBUxMethod.get('dtl-input-fcltArea')                      //	시설 면적 집하선별포장장
+        ,	fcltRmrk1: SBUxMethod.get('dtl-input-fcltRmrk')      	             //	비고
+        ,	fcltArea2: SBUxMethod.get('dtl-input-fcltArea2')                     //	시설 면적 세척,가공 등 처리
+        ,	fcltRmrk2: SBUxMethod.get('dtl-input-fcltRmrk2')      	             //	비고
+        ,	fcltArea3: SBUxMethod.get('dtl-input-fcltArea3')                     //	시설 면적 비 상품화시설
+        ,	fcltRmrk3: SBUxMethod.get('dtl-input-fcltRmrk3')      	             //	비고
+        ,	fcltArea4: SBUxMethod.get('dtl-input-fcltArea4')                     //	시설 면적 폐기물처리
+        ,	fcltRmrk4: SBUxMethod.get('dtl-input-fcltRmrk4')      	             //	비고
+        ,	fcltArea5: SBUxMethod.get('dtl-input-fcltArea5')                     //	시설 면적 예냉고
+        ,	fcltRmrk5: SBUxMethod.get('dtl-input-fcltRmrk5')      	             //	비고
+        ,	fcltArea6: SBUxMethod.get('dtl-input-fcltArea6')                     //	시설 면적 저온저장
+        ,	fcltRmrk6: SBUxMethod.get('dtl-input-fcltRmrk6')      	             //	비고
+        ,	fcltArea7: SBUxMethod.get('dtl-input-fcltArea7')                     //	시설 면적 CA저장고
+        ,	fcltRmrk7: SBUxMethod.get('dtl-input-fcltRmrk7')      	             //	비고
+        ,	fcltArea8: SBUxMethod.get('dtl-input-fcltArea8')                     //	시설 면적 큐어링
+        ,	fcltRmrk8: SBUxMethod.get('dtl-input-fcltRmrk8')      	             //	비고
+        ,	fcltArea9: SBUxMethod.get('dtl-input-fcltArea9')                     //	시설 면적 일반저장
+        ,	fcltRmrk9: SBUxMethod.get('dtl-input-fcltRmrk9')      	             //	비고
+        ,	fcltArea10: SBUxMethod.get('dtl-input-fcltArea10')                   //	시설 면적 기타사항
+        ,	fcltRmrk10: SBUxMethod.get('dtl-input-fcltRmrk10')                   //	비고
         ,	delYn: SBUxMethod.get('dtl-input-delYn')                  			 //	 삭제유무
         ,	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt')      	  	 //	 시스템최초입력일시
         ,	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId')     //	 시스템최초입력사용자id
@@ -661,7 +787,6 @@
         ,	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId')  	 //	 시스템최종변경사용자id
         ,	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')   	 //	 시스템최종변경프로그램id
     		});
-
         const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
@@ -776,9 +901,28 @@
 		SBUxMethod.set("dtl-input-apcCd", rowData.apcCd);         //apc코드
     	SBUxMethod.set("dtl-input-fcltCd", rowData.fcltCd);      //apc코드
     	SBUxMethod.set("dtl-input-fcltNm", rowData.fcltNm);     //시설 코드
-    	SBUxMethod.set("dtl-input-apcNm", rowData.apcNm);         //시설 명
+        SBUxMethod.set("dtl-input-fcltArea0", rowData.fcltArea0);    //시설 면적
+        SBUxMethod.set("dtl-input-fcltRmrk0", rowData.fcltRmrk0);      //비고
         SBUxMethod.set("dtl-input-fcltArea", rowData.fcltArea);    //시설 면적
-        SBUxMethod.set("dtl-input-rmrk", rowData.rmrk);      //비고
+        SBUxMethod.set("dtl-input-fcltRmrk", rowData.fcltRmrk);      //비고
+        SBUxMethod.set("dtl-input-fcltArea2", rowData.fcltArea2);    //시설 면적
+        SBUxMethod.set("dtl-input-fcltRmrk2", rowData.fcltRmrk2);      //비고
+        SBUxMethod.set("dtl-input-fcltArea3", rowData.fcltArea3);    //시설 면적
+        SBUxMethod.set("dtl-input-fcltRmrk3", rowData.fcltRmrk3);      //비고
+        SBUxMethod.set("dtl-input-fcltArea4", rowData.fcltArea4);    //시설 면적
+        SBUxMethod.set("dtl-input-fcltRmrk4", rowData.fcltRmrk4);      //비고
+        SBUxMethod.set("dtl-input-fcltArea5", rowData.fcltArea5);    //시설 면적
+        SBUxMethod.set("dtl-input-fcltRmrk5", rowData.fcltRmrk5);      //비고
+        SBUxMethod.set("dtl-input-fcltArea6", rowData.fcltArea6);    //시설 면적
+        SBUxMethod.set("dtl-input-fcltRmrk6", rowData.fcltRmrk6);      //비고
+        SBUxMethod.set("dtl-input-fcltArea7", rowData.fcltArea7);    //시설 면적
+        SBUxMethod.set("dtl-input-fcltRmrk7", rowData.fcltRmrk7);      //비고
+        SBUxMethod.set("dtl-input-fcltArea8", rowData.fcltArea8);    //시설 면적
+        SBUxMethod.set("dtl-input-fcltRmrk8", rowData.fcltRmrk8);      //비고
+        SBUxMethod.set("dtl-input-fcltArea9", rowData.fcltArea9);    //시설 면적
+        SBUxMethod.set("dtl-input-fcltRmrk9", rowData.fcltRmrk9);      //비고
+        SBUxMethod.set("dtl-input-fcltArea10", rowData.fcltArea10);    //시설 면적
+        SBUxMethod.set("dtl-input-fcltRmrk10", rowData.fcltRmrk10);      //비고
 
     }
 
@@ -793,5 +937,8 @@
         }
     }
 
-</script>
+	</script>
 </html>
+
+
+

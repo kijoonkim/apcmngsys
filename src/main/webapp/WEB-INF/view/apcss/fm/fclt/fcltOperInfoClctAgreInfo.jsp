@@ -13,6 +13,41 @@
     <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+
+
+	<script type="text/javascript">
+		<c:choose>
+			<c:when test="${comApcList != null}">
+				var cjsonApcList = ${comApcList};
+			</c:when>
+			<c:otherwise>
+				var cjsonApcList = {};
+			</c:otherwise>
+		</c:choose>
+		<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
+			gv_selectedApcCd = null;
+			gv_selectedApcNm = null;
+		</c:if>
+		/**
+		 * @name
+		 * @description
+		 * @function
+		 * @param {string} _apcCd
+		 */
+		const cfn_onChangeApc = function(obj) {
+			gv_selectedApcCd = obj.value;
+
+			const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
+			apcInfo.forEach( (apc) => {
+				gv_selectedApcNm = apc.apcNm;
+				return false;
+			});
+
+			if (typeof fn_onChangeApc === "function") {
+				fn_onChangeApc();
+			}
+		}
+	</script>
 </head>
 <body>
 	<section class="content container-fluid">
@@ -49,45 +84,9 @@
 						<td class="td_input"   style="border-right: hidden;">
 							<sbux-input id="srch-input-trgtYr" name="srch-input-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
-
-
 							<th scope="row" style="border-bottom:1px solid white " class="th_bg" >APC명</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
-								<script type="text/javascript">
-								<c:choose>
-									<c:when test="${comApcList != null}">
-									var cjsonApcList = ${comApcList};
-									</c:when>
-									<c:otherwise>
-									var cjsonApcList = {};
-									</c:otherwise>
-								</c:choose>
-								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
-									gv_selectedApcCd = null;
-									gv_selectedApcNm = null;
-								</c:if>
-									/**
-									 * @name
-									 * @description
-									 * @function
-									 * @param {string} _apcCd
-									 */
-									const cfn_onChangeApc = function(obj) {
-										gv_selectedApcCd = obj.value;
 
-										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
-										apcInfo.forEach( (apc) => {
-											gv_selectedApcNm = apc.apcNm;
-											return false;
-										});
-
-										if (typeof fn_onChangeApc === "function") {
-											fn_onChangeApc();
-										}
-
-									}
-
-								</script>
 								<c:choose>
 									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
 										<sbux-select
@@ -107,17 +106,12 @@
 								</c:choose>
 							</td>
 							<td></td>
-
-
-
-
 					</tr>
 				</tbody>
 			</table>
 			<br>
-
-
 			<!--[pp] //검색 -->
+
 			<!--[pp] 검색결과 -->
 
 				<div class="table-responsive tbl_scroll_sm">
@@ -207,41 +201,7 @@
 
 
 
-							<script type="text/javascript">
-								<c:choose>
-									<c:when test="${comApcList != null}">
-									var cjsonApcList = ${comApcList};
-									</c:when>
-									<c:otherwise>
-									var cjsonApcList = {};
-									</c:otherwise>
-								</c:choose>
-								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
-									gv_selectedApcCd = null;
-									gv_selectedApcNm = null;
-								</c:if>
-									/**
-									 * @name
-									 * @description
-									 * @function
-									 * @param {string} _apcCd
-									 */
-									const cfn_onChangeApc = function(obj) {
-										gv_selectedApcCd = obj.value;
 
-										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
-										apcInfo.forEach( (apc) => {
-											gv_selectedApcNm = apc.apcNm;
-											return false;
-										});
-
-										if (typeof fn_onChangeApc === "function") {
-											fn_onChangeApc();
-										}
-
-									}
-
-								</script>
 								<c:choose>
 									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
 										<sbux-select

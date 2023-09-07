@@ -35,7 +35,9 @@
 				,	FCLT.BIZ_AMT_CD2               AS 	BIZ_AMT_CD2
 				,	FCLT.BIZ_AMT2                  AS 	BIZ_AMT2
 				,	FCLT.BIZ_AMT_CD3               AS 	BIZ_AMT_CD3
+				,	FCLT.BIZ_AMT_CD3               AS 	BIZ_AMT_CD
 				,	FCLT.BIZ_AMT3                  AS 	BIZ_AMT3
+				,	BIZ_AMT+BIZ_AMT2+BIZ_AMT3      AS 	BIZ_AMT4
 				,	FCLT.DEL_YN                    AS 	DEL_YN
 				,	FCLT.SYS_FRST_INPT_DT          AS 	SYS_FRST_INPT_DT
 				,	FCLT.SYS_FRST_INPT_USER_ID     AS 	SYS_FRST_INPT_USER_ID
@@ -84,6 +86,7 @@
 				,	FCLT.BIZ_AMT_CD2               AS 	BIZ_AMT_CD2
 				,	FCLT.BIZ_AMT2                  AS 	BIZ_AMT2
 				,	FCLT.BIZ_AMT_CD3               AS 	BIZ_AMT_CD3
+				,	BIZ_AMT+BIZ_AMT2+BIZ_AMT3      AS 	BIZ_AMT4
 				,	FCLT.BIZ_AMT3                  AS 	BIZ_AMT3
 				,	FCLT.DEL_YN                    AS 	DEL_YN
 				,	FCLT.SYS_FRST_INPT_DT          AS 	SYS_FRST_INPT_DT
@@ -195,7 +198,6 @@
                 , BIZ_AMT2        =     #{bizAmt2}
                 , BIZ_AMT_CD3     =     #{bizAmtCd3}
                 , BIZ_AMT3        =     #{bizAmt3}
-
 
 
 
