@@ -550,6 +550,7 @@
 		fn_clearPrdcr();
 		if(getByteLengthOfString(prdcrNm) > 100){
 			SBUxMethod.set("srch-inp-prdcrNm", "");
+			SBUxMethod.set("srch-inp-prdcrCd", "");
 			return;
 		}
 		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);

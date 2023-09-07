@@ -107,8 +107,7 @@
 						AND JOB_YMD = #{jobYmd}
 						AND WRHS_SPMT_SE_CD = #{wrhsSpmtSeCd}
 						AND PLT_BX_SE_CD =  #{pltBxSeCd}
-						AND PLT_BX_CD = #{pltBxCd}
-						AND  PRDCR_CD = #{prdcrCd})
+						AND PLT_BX_CD = #{pltBxCd})
 					, #{pltNm}
 					, #{unitWght}
 					, #{qntt}
