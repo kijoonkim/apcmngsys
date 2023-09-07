@@ -21,6 +21,7 @@ import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.at.apcss.co.user.vo.ComUserVO;
 
 /**
  * @Class Name : RawMtrInvntrController.java
@@ -63,64 +64,68 @@ public class RawMtrInvntrController extends BaseController {
 	}
 	
 	@PostMapping(value = "/am/invntr/updateRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> updateInvntrSortPrfmnc(@RequestBody List<RawMtrInvntrVO> rawMtrInvntrList, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> updateInvntrSortPrfmnc(@RequestBody RawMtrInvntrVO rawMtrInvntrVO, HttpServletRequest request) throws Exception {
 
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
-		try {
-			for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
-				rawMtrInvntrVO.setSysFrstInptUserId(getUserId());
-				rawMtrInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
-				rawMtrInvntrVO.setSysLastChgUserId(getUserId());
-				rawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
-			}
-			
-			HashMap<String, Object> rtnObj = rawMtrInvntrService.updateRawMtrInvntrList(rawMtrInvntrList);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
-			
-		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
-			return getErrorResponseEntity(e);
-		}
-		
-		return getSuccessResponseEntity(resultMap);
-		
-	
 //		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-//		RawMtrInvntrVO updateList = new RawMtrInvntrVO();
+//		
 //		try {
-//			
-//			List<RawMtrInvntrVO> origin = rawMtrInvntrVO.get("origin").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-//			List<RawMtrInvntrVO> modified = rawMtrInvntrVO.get("modified").stream().filter(e -> e.getDelYn().equals("N")).collect(Collectors.toList());
-//
-//			List<String> originPk = origin.stream().filter(e -> e.getTrsprtCoCd() != null && e.getTrsprtCoCd().equals("") == false).map(e -> e.getTrsprtCoCd()).collect(Collectors.toCollection(ArrayList::new));
-//			List<String> modifiedPk = modified.stream().filter(e -> e.getTrsprtCoCd() != null && e.getTrsprtCoCd().equals("") == false).map(e -> e.getTrsprtCoCd()).collect(Collectors.toCollection(ArrayList::new));
-//
-//			List<RawMtrInvntrVO> updateList = new ArrayList<RawMtrInvntrVO>();
-//			for (RawMtrInvntrVO ei : origin) {
-//				for (RawMtrInvntrVO ej : modified) {
-//					if (ei.getTrsprtCoCd().equals(ej.getTrsprtCoCd())) {
-//						if (ei.hashCode() != ej.hashCode()) {
-//							updateList.add(ej);
-//						}
-//						break;
-//					}
-//				}
+//			for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
+//				rawMtrInvntrVO.setSysFrstInptUserId(getUserId());
+//				rawMtrInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+//				rawMtrInvntrVO.setSysLastChgUserId(getUserId());
+//				rawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
 //			}
-//
-//			for (RawMtrInvntrVO element : updateList) {
-//				element.setSysLastChgPrgrmId(getPrgrmId());
-//				element.setSysLastChgUserId(getUserId());
-//				rawMtrInvntrService.updateInvntrSortPrfmnc(element);
+//			
+//			HashMap<String, Object> rtnObj = rawMtrInvntrService.updateRawMtrInvntrList(rawMtrInvntrList);
+//			if (rtnObj != null) {
+//				return getErrorResponseEntity(rtnObj);
 //			}
 //			
 //		} catch (Exception e) {
 //			logger.debug("error: {}", e.getMessage());
 //			return getErrorResponseEntity(e);
 //		}
+//		
 //		return getSuccessResponseEntity(resultMap);
-//	}
+		
+		logger.debug("updateRawMtrInvntrList 호출 <><><><> ");
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+		try {
+			rawMtrInvntrVO.setSysFrstInptUserId(getUserId());
+			rawMtrInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+			rawMtrInvntrVO.setSysLastChgUserId(getUserId());
+			rawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+//			result = rawMtrInvntrService.updateComUserAprv(rawMtrInvntrVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		
+		resultMap.put("result", result);
+		
+		return getSuccessResponseEntity(resultMap);
 	}
+
 }
+	
+	/**
+	 * @PostMapping(value = "/co/user/updateComUserAprv", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateComUserAprv(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+		logger.debug("updateComUserAprv 호출 <><><><> ");
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+		try {
+			comUserVO.setSysLastChgUserId(getUserId());
+			comUserVO.setSysLastChgPrgrmId(getPrgrmId());
+			result = comUserService.updateComUserAprv(comUserVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		
+		resultMap.put("result", result);
+		
+		return getSuccessResponseEntity(resultMap);
+	}
+	 */

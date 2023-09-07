@@ -189,7 +189,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 		for (RawMtrInvntrVO rawMtrInvntrVO : updateList) {
 			rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrList);
-	      }
+	     }
 		
 //		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrList);
 		
