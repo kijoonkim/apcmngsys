@@ -78,11 +78,12 @@
 				, MAX(INV.GDS_SE_CD) AS GDS_SE_CD
 				, MAX(INV.WRHS_SE_CD) AS WRHS_SE_CD
 				, MAX(INV.TRSPRT_SE_CD) AS TRSPRT_SE_CD
+ 				, MAX(WVI.DRVR_NM) AS DRVR_NM 
 			  FROM
 			  	  TB_WGH_PRFMNC_COM WC
 				, TB_RAW_MTR_WRHS_PRFMNC WP
 				, TB_RAW_MTR_INVNTR INV
-
+				, TB_WRHS_VHCL_INFO WVI
 			 WHERE WC.APC_CD = WP.APC_CD
 			   AND WC.WGHNO = WP.WGHNO
 			   AND WP.APC_CD = INV.APC_CD
@@ -90,6 +91,8 @@
 			   AND WC.DEL_YN = 'N'
 			   AND WP.DEL_YN = 'N'
 			   AND INV.DEL_YN = 'N'
+			   AND WC.APC_CD = WVI.APC_CD
+			   AND WC.VHCLNO = WVI.VHCLNO
 		]]>
 
 		<if test='apcCd != null and apcCd != ""'>
