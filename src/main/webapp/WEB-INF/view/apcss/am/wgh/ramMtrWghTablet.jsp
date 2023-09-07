@@ -51,32 +51,31 @@
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg">생산자</th>
-							<td colspan="6" class="td_input"  style="border-right: hidden;">
-<!-- 								<sbux-input id="inp-prdcrNm" name="inp-prdcrNm" uitype="text" class="form-control input-sm"> -->
+							<td colspan="6" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
-									id="dtl-inp-prdcrNm"
-									name="dtl-inp-prdcrNm"
+									id="srch-inp-prdcrNm"
+									name="srch-inp-prdcrNm"
 									class="form-control input-sm"
 									placeholder="초성검색 기능입니다."
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
-    								onkeyup="fn_onKeyUpPrdcrNm(dtl-inp-prdcrNm)"
+    								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
-							<td colspan="2" class="td_input"  style="border-right: hidden;">
-								<sbux-button 
-									id="btnSrchPrdcrCd" 
-									name="btnSrchPrdcrCd" 
-									uitype="modal" 
-									class="btn btn-xs btn-outline-dark" 
-									text="찾기" target-id="modal-prdcr" 
-									onclick="fn_choicePrdcr">
-								</sbux-button>
+   								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td style="border-right: hidden;">&nbsp;</td>
-							<td colspan="5"></td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button 
+									id="btn-srch-prdcr" 
+									name="btn-srch-prdcr" 
+									class="btn btn-xs btn-outline-dark" 
+									text="찾기" uitype="modal" 
+									target-id="modal-prdcr" 
+									onclick="fn_choicePrdcr"
+								></sbux-button>
+							</td>
+							<td colspan="8" style="border-left: hidden;">&nbsp;</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">품목/품종</th>
@@ -115,22 +114,6 @@
 						<tr>
 						<th scope="row" class="th_bg">상품구분</th>
 							<td colspan="15" class="td_input">
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-radio id="dtl-rdo-gdsSeCd_1" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio> -->
-<!-- 									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_1" text="일반"></sbux-label> -->
-<!-- 								</p> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-radio id="dtl-rdo-gdsSeCd_2" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="2"></sbux-radio> -->
-<!-- 									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_2" text="GAP"></sbux-label> -->
-<!-- 								</p> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-radio id="dtl-rdo-gdsSeCd_3" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="3"></sbux-radio> -->
-<!-- 									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_3" text="무농약"></sbux-label> -->
-<!-- 								</p> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-radio id="dtl-rdo-gdsSeCd_4" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="4"></sbux-radio> -->
-<!-- 									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_4" text="유기농"></sbux-label> -->
-<!-- 								</p> -->
 									<sbux-radio id="dtl-rdo-gdsSeCd" name="dtl-rdo-gdsSeCd" uitype="normal" jsondata-ref="jsonGdsSeCd" class="radio_label" text-right-padding="10px"></sbux-radio>
 							</td>
 						</tr>
@@ -146,8 +129,8 @@
 							<td colspan="5"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">차량번호/성명</th>
-							<td class="td_input">
+							<th scope="row" class="th_bg" style="border-right: hidden;">차량번호/성명</th>
+							<td class="td_input" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-vhclno"
@@ -158,12 +141,11 @@
     								onkeyup="fn_onKeyUpVhclno(dtl-inp-vhclno)"
     								autocomplete-select-callback="fn_onSelectVhclno"
    								></sbux-input>
-<!-- 								<sbux-input uitype="text" id="inp-vhclno" name="inp-vhclno" class="form-control input-sm"></sbux-input> -->
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_modalVhcl"></sbux-button>
 							</td>
-							<td colspan="4"class="td_input" >
+							<td colspan="4"class="td_input"  style="border-right: hidden;">
 								<sbux-input uitype="text" id="inp-drvrNm" name="inp-drvrNm" class="form-control input-sm" disabled></sbux-input>
 							</td>
 						</tr>
@@ -176,7 +158,7 @@
 								<sbux-input uitype="text" id="inp-emptVhclWght" name="inp-emptVhclWght" class="form-control input-sm" onchange="fn_onChange(inp-emptVhclWght)"></sbux-input>
 							</td>
 							<td colspan="2"class="td_input" style="border-right: hidden;"><label class="bold">감량 %</label></td>
-							<td class="td_input">
+							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="inp-rdctRt" name="inp-rdctRt" class="form-control input-sm" init="0" onchange="fn_onChangeRdctRt(inp-rdctRt)"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -191,7 +173,7 @@
 								<sbux-input uitype="text" id="inp-rdcdWght" name="inp-rdcdWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<td class="td_input"><label class="bold">실중량 Kg</label></td>
+							<td class="td_input" style="border-right: hidden;"><label class="bold">실중량 Kg</label></td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="inp-actlWght" name="inp-actlWght" class="form-control input-sm" disabled></sbux-input>
 							</td>
@@ -257,9 +239,9 @@
 			</div>
 		</div>
 	</section>
-	<!-- 사용자 선택 Modal -->
+	<!-- 생산자 선택 Modal -->
     <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
@@ -286,12 +268,10 @@
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonApcGrd			= [];	// 등급 		vrtyCd		검색
 	var jsonComWarehouse	= [];	// 창고 		warehouse	검색
-	var autoCompleteDataJson = [];
 	var jsonGdsSeCd			= [];	// 상품구분
 	
-	var jsonDataPrdcr = [];
-	var jsonPrdcr			= [];
-	var jsonPrdcrAutocomplete = [];
+	var jsonPrdcr				= [];
+    var jsonPrdcrAutocomplete 	= [];
 	
 	var jsonVhcl			= [];
 	var jsonVhclAutocomplete = [];
@@ -316,10 +296,6 @@
 		fn_getVhcls();
 	})
 	
-	const fn_getPrdcrs = async function() {
-		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
-		jsonPrdcr = gfn_setFrst(jsonPrdcr);
-	}
 	
 	const fn_getVhcls = async function() {
 		jsonVhcl = await gfn_getVhcls(gv_selectedApcCd);
@@ -439,25 +415,6 @@
 		SBUxMethod.set("inp-actlWght", (wholWght-emptVhclWght));
 	}
 	
-	const fn_choicePrdcr = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
-	}
-	const fn_setPrdcr = function(prdcr) {
-		if (!gfn_isEmpty(prdcr)) {
-			// 생산자 set
-			SBUxMethod.set("dtl-inp-prdcrCd", prdcr.prdcrCd);
-			SBUxMethod.set("dtl-inp-prdcrNm", prdcr.prdcrNm);
-			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-			
-			// 품목/품종 set
-			SBUxMethod.set("dtl-slt-itemCd", prdcr.rprsItemCd);
-			SBUxMethod.set("dtl-slt-vrtyCd", prdcr.rprsVrtyCd);
-
- 			// 차량번호/성명 set
-			SBUxMethod.set("dtl-inp-vhclno", prdcr.vhclno);
-			fn_setDrvrNm(prdcr.vhclno);
-		}
-	}
 	const fn_modalPltBx = function() {
 		popPltBx.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPltBx, pltBxData);
 	}
@@ -468,40 +425,6 @@
 			SBUxMethod.set("inp-bxWght", pltBxData.totalBxWght);
 			//정산중량 Kg set
 			fn_setClclnWght();
-		}
-	}
-
-	/**
-	 * @name fn_onKeyUpPrdcrNm
-	 * @description 생산자명 입력 시 event : autocomplete
-	 */
-	const fn_onKeyUpPrdcrNm = function(prdcrNm){
-		fn_clearPrdcr();
-		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
-    	SBUxMethod.changeAutocompleteData('dtl-inp-prdcrNm', true);
-    }
-
-	/**
-	 * @name fn_clearPrdcr
-	 * @description 생산자 폼 clear
-	 */
-	const fn_clearPrdcr = async function() {
-		SBUxMethod.set("dtl-inp-prdcrCd", null);
-		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:''");
-	}
-
-	/**
-	 * @name fn_onSelectPrdcrNm
-	 * @description 생산자 autocomplete 선택 callback
-	 */
-	function fn_onSelectPrdcrNm(value, label, item) {
-		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
-		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
-			document.getElementById('btnSrchPrdcrCd').click();
-		}
-		else{
-			SBUxMethod.set("dtl-inp-prdcrCd", value);
-			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 		}
 	}
 
@@ -748,7 +671,83 @@
 		SBUxMethod.set("inp-clclnWght", actlWght - pltWght - bxWght);
 	}
 
- 	
+ 	/*
+	* @name fn_getPrdcrs
+	* @description 생산자 자동완성 목록 가져오기
+	*/
+	const fn_getPrdcrs = async function() {
+		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
+		jsonPrdcr = gfn_setFrst(jsonPrdcr);
+		
+		console.log("jsonPrdcr",jsonPrdcr);
+	}
+	
+	/**
+	* @name fn_onKeyUpPrdcrNm
+	* @description 생산자명 입력 시 event : autocomplete
+	*/
+	const fn_onKeyUpPrdcrNm = function(prdcrNm){
+		fn_clearPrdcr();
+		if(getByteLengthOfString(prdcrNm) > 100){
+			SBUxMethod.set("srch-inp-prdcrNm", "");
+			return;
+		}
+		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
+    	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
+    }
+
+	/**
+	 * @name fn_clearPrdcr
+	 * @description 생산자 폼 clear
+	 */
+	const fn_clearPrdcr = function() {
+		SBUxMethod.set("srch-inp-prdcrCd", "");
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
+	}
+	
+	/**
+	 * @name fn_onSelectPrdcrNm
+	 * @description 생산자 autocomplete 선택 callback
+	 */
+	function fn_onSelectPrdcrNm(value, label, item) {
+		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
+		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
+			document.getElementById('btn-srch-prdcr').click();
+		}
+		else{
+			SBUxMethod.set("srch-inp-prdcrCd", value);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		}
+	}
+	
+	/**
+	 * @name fn_choicePrdcr
+	 * @description 생산자 찾기 버튼 클릭
+	 */
+    const fn_choicePrdcr = function() {
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+	}
+
+	/**
+	 * @name fn_setPrdcr
+	 * @description 생산자 모달 선택 콜백 callback
+	 */
+	const fn_setPrdcr = function(prdcr) {
+		if (!gfn_isEmpty(prdcr)) {
+			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
+			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		}
+	}
+	
+	/**
+	 * @name getByteLengthOfString
+	 * @description 글자 byte 크기 계산
+	 */
+ 	const getByteLengthOfString = function (s, b, i, c) {
+		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+		  return b;
+	}
 	 
 	
 </script>

@@ -76,15 +76,15 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.columns = [
-	        {caption: ["작업자명"], 	ref: 'flnm',  	type:'input',  width:'90px',    style:'text-align:center'},
-	        {caption: ["생년월일"], 	ref: 'brdt',   	type:'input',  width:'90px',    style:'text-align:center'},
-	        {caption: ["전화번호"], 	ref: 'telno',   type:'input',  width:'90px',    style:'text-align:center'},
-	        {caption: ["주소"], 		ref: 'addr',    type:'input',  width:'180px',    style:'text-align:center'},
+	        {caption: ["작업자명"], 	ref: 'flnm',  	type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {mask : {alias : 'k'}}},
+	        {caption: ["생년월일"], 	ref: 'brdt',   	type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 8}), typeinfo : {mask : {alias : 'numeric'}}},
+	        {caption: ["전화번호"], 	ref: 'telno',   type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'numeric'}}},
+	        {caption: ["주소"], 		ref: 'addr',    type:'input',  width:'180px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 200})},
 	        {caption: ["입사일자"], 	ref: 'jncmp', 	type : 'datepicker', typeinfo: {dateformat: 'yy-mm-dd'}, format : {type:'date', rule:'yy-mm-dd', origin:'YYYYMMDD'},  width:'90px',    style:'text-align:center'},
 	        {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'100px',    style:'text-align:center',
     			typeinfo : {ref:'comboGridBankCdJsData', displayui : false,	itemcount: 10, label:'label', value:'value'}},
-	        {caption: ["계좌번호"], 	ref: 'actno',   type:'input',  width:'130px',    style:'text-align:center'},
-	        {caption: ["예금주명"], 	ref: 'dpstr',   type:'input',  width:'90px',    style:'text-align:center'},
+	        {caption: ["계좌번호"], 	ref: 'actno',   type:'input',  width:'130px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 256}), typeinfo : {mask : {alias : '#-', repeat: '*'}}},
+	        {caption: ["예금주명"], 	ref: 'dpstr',   type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20})},
 	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdOprtr\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -92,7 +92,7 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdOprtr\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
+	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'output',  hidden : true}
 	    ];
 	    window.grdOprtr = _SBGrid.create(SBGridProperties);
 	    grdOprtr.addRow();
