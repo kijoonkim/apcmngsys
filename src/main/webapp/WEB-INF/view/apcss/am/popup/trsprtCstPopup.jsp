@@ -108,7 +108,6 @@
 	const popTrsrptCst = {
 		prgrmId: 'trsptCstPopup',
 		modalId: 'modal-trsprtCst',
-
 		gridId: 'grdTrsprtCstPop',
 		jsonId: 'jsonTrsprtCstPop',
 		areaId: "sb-area-grdTrsrptCst",
@@ -139,9 +138,7 @@
 			} else {
 				this.search();
 			}
-
 			this.prvApcCd = _apcCd;
-
 		},
 		close: function(_trsprtCst) {
 			gfn_closeModal(this.modalId, this.callbackFnc, _trsprtCst);
@@ -184,21 +181,10 @@
 		        {caption: ['기사명'], 	ref: 'drvrNm',		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
 		        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', width: '100px', type: 'combo', 			style: 'text-align: center', sortable: false, 	
 					typeinfo : {ref:'jsonComTrsprtRgnCd', label:'label', value:'value', itemcount: 10},
-					validate: async function(objGrid, nRow, nCol, strValue, objRowData) {
-				    	if(strValue != null && strValue != ""){
-				    		let apcCd = SBUxMethod.get("trsprtCst-inp-apcCd");
-				    		let postJsonPromise = gfn_postJSON("/am/cmns/selectRawMtrTrsprtCst.do", {apcCd : apcCd, trsprtRgnCd : strValue});
-				            let data = await postJsonPromise;
-				            try{
-				            	grdTrsprtCstPop.setCellData(nRow, nCol+2, data.resultVO.trsprtCst);
-				            }catch (e) {
-				        		if (!(e instanceof Error)) {
-				        			e = new Error(e);
-				        		}
-				        		console.error("failed", e.message);
-				            }
-				    	}
-				    }},
+					validate: function(objGrid, nRow, nCol, strValue, objRowData){
+						fn_setTrsprtList(objGrid, nRow, nCol, strValue, objRowData);
+					}
+					},
 		        {caption: ['중량'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false,
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###Kg'}},
 		        {caption: ['운임비용'],	ref: 'trsprtCst', 	width: '100px',	type: 'input', 			style: 'text-align: center', sortable: false,
@@ -227,8 +213,6 @@
 		 * @param {number} nCol
 		 */
 		add: function(nRow, nCol) {
-
-			grdTrsprtCstPop.setCellData(nRow, 0, SBUxMethod.get("trsprtCst-dtp-trsprtYmd"), true);
 			grdTrsprtCstPop.setCellData(nRow, nCol, "N", true);
 			grdTrsprtCstPop.addRow(true, receivedData);
 		},
@@ -401,9 +385,9 @@
 
 	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
 	    },
-	    setTrsprtCst: async function(objGrid, nRow, nCol, strValue, objRowData) {
-	    	console.log("setTrsprtCst");
-	    	if(strValue== null || strValue == ""){
+	    setTrsprtList: async function(objGrid, nRow, nCol, strValue, objRowData) {
+	    	console.log("setTrsprtList");
+	    	if(strValue!= null && strValue != ""){
 	    		let apcCd = SBUxMethod.get("trsprtCst-inp-apcCd");
 	    		let postJsonPromise = gfn_postJSON("/am/cmns/selectRawMtrTrsprtCst.do", {apcCd : apcCd, trsprtRgnCd : strValue});
 	            let data = await postJsonPromise;
@@ -416,6 +400,8 @@
 	        		console.error("failed", e.message);
 	            }
 	    	}
+	    	console.log(objGrid.getGridDataAll());
+	    	return Promise.resolve(strValue);
 	    }
    	}
 
@@ -456,5 +442,22 @@
 			grdTrsprtCstPop.setCellData(nRow, 10, vhcl.dpstr);
 		}
 	}
+	
+	async function fn_setTrsprtList(objGrid, nRow, nCol, strValue, objRowData) {
+    	if(strValue != null && strValue != ""){
+    		let apcCd = SBUxMethod.get("trsprtCst-inp-apcCd");
+    		let postJsonPromise = gfn_postJSON("/am/cmns/selectRawMtrTrsprtCst.do", {apcCd : apcCd, trsprtRgnCd : strValue});
+            let data = await postJsonPromise;
+            try{
+            	grdTrsprtCstPop.setCellData(nRow, nCol+2, data.resultVO.trsprtCst);
+            }catch (e) {
+        		if (!(e instanceof Error)) {
+        			e = new Error(e);
+        		}
+        		console.error("failed", e.message);
+            }
+            console.log(objGrid.getGridDataAll());
+    	}
+    }
 </script>
 </html>

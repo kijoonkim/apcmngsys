@@ -1158,6 +1158,5 @@
 			SBUxMethod.set("srch-inp-wghtAvg", wghtAvg);
 		}
 	}
-
 </script>
 </html>
