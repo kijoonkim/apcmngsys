@@ -12,14 +12,31 @@
 
 <mapper namespace="com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper">
 
-
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.selectWrhsVhclList	-->
-	<!-- DESC : 지역별 운임 목록 조회.	                                       		-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.selectRawMtrTrsprtCst-->
+	<!-- DESC : 원물운임비용등록팝업 - 지역별 운임비 조회.	             		                -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.12  	김 호        	Initial Creation                            -->
+	<!-- 2023.09.07  	하민우        	Initial Creation        	                -->
+	<!-- ==========================================================================	-->
+    <select id="selectRawMtrTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO" resultType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
+    	<![CDATA[
+    	SELECT TC.TRSPRT_CST        AS TRSPRT_CST
+		  FROM TB_RGN_TRSPRT_CST_INFO TC
+		 WHERE TC.APC_CD = #{apcCd}
+		   AND TC.TRSPRT_RGN_CD = #{trsprtRgnCd}
+		   AND TC.DEL_YN = 'N'
+		]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.selectRgnTrsprtCstList-->
+	<!-- DESC : 지역별 운임 목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.12  	김 호        	Initial Creation                          		  -->
 	<!-- ==========================================================================	-->
     <select id="selectRgnTrsprtCstList" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO" resultType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
     	<![CDATA[
@@ -35,12 +52,12 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.insertRgnTrsprtCst		-->
-	<!-- DESC : 지역별 운임 등록.	                                       			-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.insertRgnTrsprtCst	-->
+	<!-- DESC : 지역별 운임 등록.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.11  	김 호        	Initial Creation                            -->
+	<!-- 2023.07.11  	김 호        	Initial Creation                        	    -->
 	<!-- ==========================================================================	-->
     <insert id="insertRgnTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
     	<![CDATA[
@@ -79,11 +96,11 @@
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.updateRgnTrsprtCst	-->
-	<!-- DESC : 지역별 운임 변경.	                                       			-->
+	<!-- DESC : 지역별 운임 변경.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.11  	김 호        	Initial Creation                            -->
+	<!-- 2023.07.11  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
 	<update id="updateRgnTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
 		<![CDATA[
@@ -102,11 +119,11 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.deleteRgnTrsprtCst	-->
-	<!-- DESC : 지역별 운임 삭제.	                                       			-->
+	<!-- DESC : 지역별 운임 삭제.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.11  	김 호        	Initial Creation                            -->
+	<!-- 2023.07.11  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
 	<delete id="deleteRgnTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
 		<![CDATA[

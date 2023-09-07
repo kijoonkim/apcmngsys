@@ -183,7 +183,22 @@
 					typeinfo : {callback: fn_grdChoiceVhcl}, validate : gfn_chkByte.bind({byteLimit: 40})},
 		        {caption: ['기사명'], 	ref: 'drvrNm',		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
 		        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', width: '100px', type: 'combo', 			style: 'text-align: center', sortable: false, 	
-					typeinfo : {ref:'jsonComTrsprtRgnCd', label:'label', value:'value', itemcount: 10}},
+					typeinfo : {ref:'jsonComTrsprtRgnCd', label:'label', value:'value', itemcount: 10},
+					validate: async function(objGrid, nRow, nCol, strValue, objRowData) {
+				    	if(strValue != null && strValue != ""){
+				    		let apcCd = SBUxMethod.get("trsprtCst-inp-apcCd");
+				    		let postJsonPromise = gfn_postJSON("/am/cmns/selectRawMtrTrsprtCst.do", {apcCd : apcCd, trsprtRgnCd : strValue});
+				            let data = await postJsonPromise;
+				            try{
+				            	grdTrsprtCstPop.setCellData(nRow, nCol+2, data.resultVO.trsprtCst);
+				            }catch (e) {
+				        		if (!(e instanceof Error)) {
+				        			e = new Error(e);
+				        		}
+				        		console.error("failed", e.message);
+				            }
+				    	}
+				    }},
 		        {caption: ['중량'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false,
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###Kg'}},
 		        {caption: ['운임비용'],	ref: 'trsprtCst', 	width: '100px',	type: 'input', 			style: 'text-align: center', sortable: false,
@@ -386,6 +401,22 @@
 
 	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
 	    },
+	    setTrsprtCst: async function(objGrid, nRow, nCol, strValue, objRowData) {
+	    	console.log("setTrsprtCst");
+	    	if(strValue== null || strValue == ""){
+	    		let apcCd = SBUxMethod.get("trsprtCst-inp-apcCd");
+	    		let postJsonPromise = gfn_postJSON("/am/cmns/selectRawMtrTrsprtCst.do", {apcCd : apcCd, trsprtRgnCd : strValue});
+	            let data = await postJsonPromise;
+	            try{
+	            	grdTrsprtCstPop.setCellData(nRow, nCol+2, data.resultVO.trsprtCst);
+	            }catch (e) {
+	        		if (!(e instanceof Error)) {
+	        			e = new Error(e);
+	        		}
+	        		console.error("failed", e.message);
+	            }
+	    	}
+	    }
    	}
 
 	/* 원물운임비용 등록에서 사용 차량선택 팝업 호출 필수 function  */
@@ -425,6 +456,5 @@
 			grdTrsprtCstPop.setCellData(nRow, 10, vhcl.dpstr);
 		}
 	}
-
 </script>
 </html>
