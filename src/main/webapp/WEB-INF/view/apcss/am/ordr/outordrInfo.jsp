@@ -56,10 +56,10 @@
 							<td colspan="2"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>발주일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-outordrYmdFrom" name="srch-dtp-outordrYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-outordrYmdFrom" name="srch-dtp-outordrYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-outordrYmdTo" name="srch-dtp-outordrYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-outordrYmdTo" name="srch-dtp-outordrYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">발주유형</th>
@@ -107,7 +107,7 @@
 							<td></td>
 						    <th scope="row" class="th_bg">거래처명</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
@@ -121,7 +121,7 @@
 						<tr>
 							<th scope="row" class="th_bg">상품명</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-gdsNm" name="srch-inp-gdsNm" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-gdsNm" name="srch-inp-gdsNm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchGdsNm" name="btnSrchGdsNm" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기"></sbux-button>
@@ -244,15 +244,21 @@
             {caption: ['품종'], 			ref: 'vrtyNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['규격'], 			ref: 'spcfctNm', 		width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['입수'], 			ref: 'bxGdsQntt', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['발주수량'], 		ref: 'outordrQntt', 	width: '70px', 		type: 'input',			style:'text-align: right', format : {type:'number', rule:'#,###'}},
-            {caption: ['낱개수량'], 		ref: 'pieceQntt', 		width: '70px', 		type: 'input',			style:'text-align: right', format : {type:'number', rule:'#,###'}},
+            {caption: ['발주수량'], 		ref: 'outordrQntt', 	width: '70px', 		type: 'input',			style:'text-align: right',
+				format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
+            {caption: ['낱개수량'], 		ref: 'pieceQntt', 		width: '70px', 		type: 'input',			style:'text-align: right',
+				format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
             {caption: ['단위'], 			ref: 'unit', 			width: '70px', 		type: 'output',			style:'text-align: center'},
-            {caption: ['박스단가'], 		ref: 'bxUntprc', 		width: '100px', 	type: 'output',			style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-            {caption: ['발주단가'], 		ref: 'outordrUntprc', 	width: '100px', 	type: 'output',			style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['박스단가'], 		ref: 'bxUntprc', 		width: '100px', 	type: 'output',			style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['발주단가'], 		ref: 'outordrUntprc', 	width: '100px', 	type: 'output',			style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
             {caption: ['발주단위'], 		ref: 'outordrUnit', 	width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['LOT'], 			ref: 'lot', 			width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['세액'], 			ref: 'txAmt', 			width: '100px', 	type: 'input',			style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-            {caption: ['발주금액'], 		ref: 'outordrAmt', 		width: '100px', 	type: 'input',			style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['세액'], 			ref: 'txAmt', 			width: '100px', 	type: 'input',			style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}, validate : gfn_chkByte.bind({byteLimit: 18})},
+            {caption: ['발주금액'], 		ref: 'outordrAmt', 		width: '100px', 	type: 'input',			style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}, validate : gfn_chkByte.bind({byteLimit: 18})},
             {caption: ['입고형태'], 		ref: 'wrhsType', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['문서번호'], 		ref: 'docno', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['도크정보'], 		ref: 'dockInfo', 		width: '100px', 	type: 'output',			style:'text-align: center'},

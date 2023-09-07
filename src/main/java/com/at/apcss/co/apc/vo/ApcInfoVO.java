@@ -1,4 +1,4 @@
-package com.at.apcss.am.apc.vo;
+package com.at.apcss.co.apc.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
@@ -46,5 +46,6 @@ public class ApcInfoVO extends ComVO{
 	private String fxno;
 	/** 우편번호 */
 	private String zip;
-
+	/** 삭제유무 */
+	private String delYn;
 }

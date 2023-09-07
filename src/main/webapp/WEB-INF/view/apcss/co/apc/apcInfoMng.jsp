@@ -39,17 +39,17 @@
 						<tr>
 							<th class="ta_c">APC코드</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-apcCd" name="srch-inp-apcCd" class="form-control input-sm" onkeyenter="fn_search"/>
+								<sbux-input uitype="text" id="srch-inp-apcCd" name="srch-inp-apcCd" class="form-control input-sm" maxlength="4" onkeyenter="fn_search"/>
 							</td>
 							<th class="ta_c">원본 APC명</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-regApcNm" name="srch-inp-regApcNm" uitype="text" class="form-control input-sm" onkeyenter="fn_search"></sbux-input>
+								<sbux-input id="srch-inp-regApcNm" name="srch-inp-regApcNm" uitype="text" class="form-control input-sm" maxlength="33" onkeyenter="fn_search"></sbux-input>
 							</td>
 							<th class="ta_c">사용유무</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-delYn" name="srch-slt-delYn" uitype="single" jsondata-ref="jsonComboDelYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-delYn" name="srch-slt-delYn" uitype="single" jsondata-ref="jsonComboDelYn" unselected-text="전체" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -118,21 +118,31 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-        	{caption: ['선택'],		ref: 'checked',  	width: '50px',		type: 'checkbox'},
-            {caption: ['APC코드'],	ref: 'apcCd',		width: '70px', 		type: 'output',		style:'text-align: center'},
-            {caption: ['원본APC명'], 	ref: 'regApcNm', 	width: '200px',		type: 'input',		style:'text-align: center'},
-            {caption: ['시도명'], 	ref: 'ctpvNm',	 	width: '70px', 		type: 'input',		style:'text-align: center'},
-            {caption: ['시군명'], 	ref: 'sigunNm',	 	width: '70px', 		type: 'input',		style:'text-align: center'},
-			{caption: ['주체명'], 	ref: 'mbCd', 	 	width: '70px', 		type: 'combo',		style:'text-align: center',
-        		typeinfo : {ref:'comboMbCdJsData', label:'label', value:'value'}},
-            {caption: ['원본주소'], 	ref: 'regAddr',  	width: '400px',		type: 'input'},
-            {caption: ['원본전화번호'],	ref: 'regTelno', 	width: '100px', 	type: 'input',		style:'text-align: center'},
-            {caption: ['APC명'], 	ref: 'apcNm', 	 	width: '200px', 	type: 'input',		style:'text-align: center'},
-            {caption: ['사업자번호'],	ref: 'brno', 	 	width: '100px', 	type: 'input',		style:'text-align: center'},
-            {caption: ['주소'],	 	ref: 'addr', 	 	width: '400px', 	type: 'input',},
-            {caption: ['팩스번호'],	ref: 'fxno', 	 	width: '100px', 	type: 'input',		style:'text-align: center'},
-            {caption: ['전화번호'], 	ref: 'telno',	 	width: '100px', 	type: 'input',		style:'text-align: center'},
-            {caption: ['사용유무'], 	ref: 'delYn', 	 	width: '70px', 		type: 'combo',		style:'text-align: center',
+        	{caption: ['선택'],		ref: 'checked',  	width: '50px',		type: 'checkbox'	, sortable: false},
+            {caption: ['APC코드'],	ref: 'apcCd',		width: '70px', 		type: 'output',		style:'text-align: center', sortable: false},
+            {caption: ['원본APC명'], 	ref: 'regApcNm', 	width: '200px',		type: 'input',		style:'text-align: center', sortable: false,
+	        	validate : gfn_chkByte.bind({byteLimit: 100})},
+            {caption: ['시도명'], 	ref: 'ctpvNm',	 	width: '70px', 		type: 'input',		style:'text-align: center', sortable: false,
+		        validate : gfn_chkByte.bind({byteLimit: 20})},
+            {caption: ['시군명'], 	ref: 'sigunNm',	 	width: '70px', 		type: 'input',		style:'text-align: center', sortable: false,
+		        validate : gfn_chkByte.bind({byteLimit: 20})},
+			{caption: ['주체명'], 	ref: 'mbCd', 	 	width: '70px', 		type: 'combo',		style:'text-align: center', sortable: false,
+        		typeinfo : {ref:'comboMbCdJsData', label:'label', value:'value', itemcount: 10}},
+            {caption: ['원본주소'], 	ref: 'regAddr',  	width: '400px',		type: 'input', 									sortable: false,
+		        validate : gfn_chkByte.bind({byteLimit: 200})},
+            {caption: ['원본전화번호'],	ref: 'regTelno', 	width: '100px', 	type: 'input',		style:'text-align: center', sortable: false,
+				validate : gfn_chkByte.bind({byteLimit: 11})},
+            {caption: ['APC명'], 	ref: 'apcNm', 	 	width: '200px', 	type: 'input',		style:'text-align: center', sortable: false,
+				validate : gfn_chkByte.bind({byteLimit: 100})},
+            {caption: ['사업자번호'],	ref: 'brno', 	 	width: '100px', 	type: 'input',		style:'text-align: center', sortable: false,
+				validate : gfn_chkByte.bind({byteLimit: 20})},
+            {caption: ['주소'],	 	ref: 'addr', 	 	width: '400px', 	type: 'input', 									sortable: false,
+				validate : gfn_chkByte.bind({byteLimit: 200})},
+            {caption: ['팩스번호'],	ref: 'fxno', 	 	width: '100px', 	type: 'input',		style:'text-align: center', sortable: false,
+				validate : gfn_chkByte.bind({byteLimit: 20})},
+            {caption: ['전화번호'], 	ref: 'telno',	 	width: '100px', 	type: 'input',		style:'text-align: center', sortable: false,
+				validate : gfn_chkByte.bind({byteLimit: 11})},
+            {caption: ['사용유무'], 	ref: 'delYn', 	 	width: '70px', 		type: 'combo',		style:'text-align: center', sortable: false,
             	typeinfo : {ref:'comboDelYnJsData', label:'label', value:'value'}}
         ];
         grdApcInfoMng = _SBGrid.create(SBGridProperties);
@@ -156,24 +166,6 @@
 			}
 		}
 	}
-	
-// 	콤보박스 (검색 조건)
-// 	async function setRegApcNmSBSelect(_targetIds, _jsondataRef) {
-// 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-// 		let regApcNm = SBUxMethod.get("srch-slt-regApcNm");
-// 		let postJsonPromise = gfn_postJSON("/am/apc/selectApcDsctn.do", {apcCd: apcCd, regApcNm: regApcNm, delYn: "N"});
-// 		let data = await postJsonPromise;
-// 		let resultVO = data.resultVO;
-
-// 		let sourceJson = [];
-// 		let item = {
-// 				cmnsCd: resultVO.apcCd,
-// 				cmnsNm: resultVO.regApcNm
-// 			}
-// 		sourceJson.push(item);
-
-// 		gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
-// 	}
 
 	// APC 내역 목록 조회 (조회 버튼)
     async function fn_search() {
@@ -191,7 +183,7 @@
 		let regApcNm = SBUxMethod.get("srch-inp-regApcNm");
 		let delYn = SBUxMethod.get("srch-slt-delYn");
 		let ApcEvrmntStngVO = {apcCd : apcCd, regApcNm : regApcNm, delYn : delYn, pagingYn : 'Y', currentPageNo : currentPageNo, recordCountPerPage : recordCountPerPage};
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcDsctnList.do", ApcEvrmntStngVO);
+    	let postJsonPromise = gfn_postJSON("/co/apc/selectApcDsctnList.do", ApcEvrmntStngVO);
         let data = await postJsonPromise;
         newApcInfoMngData = [];
         try{
@@ -279,7 +271,7 @@
     	}
     	console.log(apcDsctnList);
     	
-    	const postJsonPromise = gfn_postJSON("/am/apc/multiApcDsctnList.do", apcDsctnList, this.prgrmId);	// 프로그램id 추가
+    	const postJsonPromise = gfn_postJSON("/co/apc/multiApcDsctnList.do", apcDsctnList, this.prgrmId);	// 프로그램id 추가
     	
 		const data = await postJsonPromise;	    
         try {

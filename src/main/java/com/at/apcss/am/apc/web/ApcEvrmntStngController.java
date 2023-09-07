@@ -61,52 +61,6 @@ public class ApcEvrmntStngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// APC 정보관리 - APC 내역 조회
-	@PostMapping(value = "/am/apc/selectApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectApcDsctnList(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectApcDsctnList 호출 <><><><> ");
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<ApcEvrmntStngVO> resultList = new ArrayList<>();
-		try {
-			resultList = apcEvrmntStngService.selectApcDsctnList(apcEvrmntStngVO);
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
-		return getSuccessResponseEntity(resultMap);
-	}
-
-	// APC 정보관리 - APC 내역 등록
-	@PostMapping(value = "/am/apc/multiApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> multiApcDsctnList(@RequestBody List<ApcEvrmntStngVO> apcDsctnList, HttpServletRequest request) throws Exception {
-		logger.debug("multiApcDsctnList 호출 <><><><> ");
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<ApcEvrmntStngVO> updateList = new ArrayList<ApcEvrmntStngVO>();
-		try {
-			for ( ApcEvrmntStngVO apcEvrmntStngVO : apcDsctnList ) {
-				apcEvrmntStngVO.setSysFrstInptUserId(getUserId());
-				apcEvrmntStngVO.setSysFrstInptPrgrmId(getPrgrmId());
-				apcEvrmntStngVO.setSysLastChgUserId(getUserId());
-				apcEvrmntStngVO.setSysLastChgPrgrmId(getPrgrmId());
-				updateList.add(apcEvrmntStngVO);
-			}
-
-			HashMap<String, Object> rtnObj = apcEvrmntStngService.multiApcDsctnList(updateList);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
-
-		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
-			return getErrorResponseEntity(e);
-		}
-		return getSuccessResponseEntity(resultMap);
-	}
-
 	// APC 환경설정 - 사용자 목록 조회
 	@PostMapping(value = "/am/apc/selectApcUserList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcUserList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {

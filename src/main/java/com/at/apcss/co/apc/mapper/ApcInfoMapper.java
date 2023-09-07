@@ -1,10 +1,10 @@
-package com.at.apcss.am.apc.mapper;
+package com.at.apcss.co.apc.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.at.apcss.am.apc.vo.ApcInfoVO;
+import com.at.apcss.co.apc.vo.ApcInfoVO;
 /**
  * APC정보 Mapper
  * @author FINEVT 개발팀 김호
@@ -32,9 +32,29 @@ public interface ApcInfoMapper {
 	
 	/**
 	 * APC 내역 조회
-	 * @param ApcEvrmntStngVO
-	 * @return List<ApcEvrmntStngVO>
+	 * @param ApcInfoVO
+	 * @return List<ApcInfoVO>
 	 */
 	List<ApcInfoVO> selectApcInfoList(ApcInfoVO apcInfoVO) throws Exception;
 
+	/**
+	 * APC 내역 조회
+	 * @param ApcInfoVO
+	 * @return List<ApcInfoVO>
+	 */
+	public List<ApcInfoVO> selectApcDsctnList(ApcInfoVO apcInfoVO) throws Exception;
+
+	/**
+	 * APC 내역 수정
+	 * @param ApcInfoVO
+	 * @return
+	 */
+	public int updateApcDsctn(ApcInfoVO apcInfoVO) throws Exception;
+
+	/**
+	 * APC 내역 등록
+	 * @param ApcInfoVO
+	 * @return
+	 */
+	public int insertApcDsctn(ApcInfoVO apcInfoVO) throws Exception;
 }
