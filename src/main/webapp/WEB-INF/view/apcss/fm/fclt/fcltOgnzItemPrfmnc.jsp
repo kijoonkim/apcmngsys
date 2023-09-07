@@ -108,7 +108,7 @@
 			<!--[pp] 검색결과 -->
 			<br>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtDsctn" style="height:300px;"></div>
+					<div id="sb-area-spmtDsctn" style="height:150px;"></div>
 				</div>
 				<br>
 			<div><label>유통조직품목처리실적 상세내역 </label></div>

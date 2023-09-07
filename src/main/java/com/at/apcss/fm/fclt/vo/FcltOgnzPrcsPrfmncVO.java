@@ -20,6 +20,13 @@ public class FcltOgnzPrcsPrfmncVO extends ComVO{
 	private String msgKnd;
 	private String msgKndNm;
 	private String rmrk;
+	private String fcltOgnzTrmt2Amt;
+	private String fcltOgnzTrmt3Amt;
+	private String fcltOgnzTrmt4Amt;
+
+
+
+
 }
 
 

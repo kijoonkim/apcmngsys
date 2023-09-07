@@ -49,7 +49,7 @@
 				<!--[pp] 검색결과 -->
 				<div class="ad_section_top">
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdFclt" style="height:250px; width: 100%;"></div>
+					<div id="sb-area-grdFclt" style="height:258px; width: 100%;"></div>
 				</div>
 			</div>
 		</div>
@@ -73,9 +73,9 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["설비 명"], 		ref: 'cdVlNm',   	type:'input',  width:'250px',    style:'text-align:center'},
-	        {caption: ["비고"], 		ref: 'cdVlExpln',   type:'input',  width:'300px',    style:'text-align:center'},
-	        {caption: ["표시순서"], 	ref: 'indctSeq',   	type:'input',  width:'100px',    style:'text-align:center'},
+	        {caption: ["설비 명"], 		ref: 'cdVlNm',   	type:'input',  width:'250px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
+	        {caption: ["비고"], 		ref: 'cdVlExpln',   type:'input',  width:'300px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
+	        {caption: ["표시순서"], 	ref: 'indctSeq',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdFclt\", " + nRow + ", " + nCol + ")'>추가</button>";

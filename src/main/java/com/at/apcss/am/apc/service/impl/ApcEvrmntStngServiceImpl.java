@@ -69,11 +69,6 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 	}
 
 	@Override
-	public List<ComCdVO> selectVrtyList(ComCdVO comCdVO) throws Exception {
-		return apcEvrmntStngMapper.selectVrtyList(comCdVO);
-	}
-
-	@Override
 	public HashMap<String, Object> insertApcInitInfo(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception {
 
 		HashMap<String, Object> rtnObj = new HashMap<>();

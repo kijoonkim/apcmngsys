@@ -20,6 +20,23 @@ public class FcltPrcsNtslInfoVO extends ComVO{
 	private String msgKnd;
 	private String msgKndNm;
 	private String rmrk;
+	private String fcltNtslCd2;
+	private String fcltNtslCd3;
+	private String fcltNtslCd4;
+	private String fcltNtslCd5;
+	private String fcltNtslCd6;
+	private String fcltNtslCd7;
+	private String fcltNtslCd8;
+	private String fcltNtslCd9;
+
+
+
+
+
+
+
+
+
 }
 
 

@@ -29,7 +29,7 @@
 		<div class="box-body">
 			<!--[APC] START -->
 <%-- 					<%@ include file="../../../frame/inc/apcSelect.jsp" %> --%>
-				<!--[APC] END -->
+				<!--[APC]  END -->
 
 			<!--[pp] 검색 -->
 			<table class="table table-bordered tbl_row tbl_fixed">

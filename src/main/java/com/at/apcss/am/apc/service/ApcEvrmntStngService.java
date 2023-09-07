@@ -37,16 +37,6 @@ public interface ApcEvrmntStngService {
 	List<ComUserVO> selectRsrcList(ComCdVO comCdVO) throws Exception;
 
 	/**
-	 * 품종 팝업에서 조회
-	 * @param ComCdVO
-	 * @return
-	 * @throws Exception
-	 */
-
-	List<ComCdVO> selectVrtyList(ComCdVO comCdVO) throws Exception;
-
-
-	/**
 	 * APC환경설정 정보 조회
 	 * @param ApcEvrmntStngVO
 	 * @return ApcEvrmntStngVO

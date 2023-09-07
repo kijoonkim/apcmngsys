@@ -35,7 +35,14 @@
 				, FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
 				, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
+			    , FCLT.FCLT_SYS_HLD_YN2        AS FCLT_SYS_HLD_YN2
+			    , FCLT.FCLT_SYS_HLD_YN3        AS FCLT_SYS_HLD_YN3
+			    , FCLT.FCLT_SYS_HLD_YN4        AS FCLT_SYS_HLD_YN4
+			    , FCLT.FCLT_SYS_HLD_YN5        AS FCLT_SYS_HLD_YN5
+			    , FCLT.FCLT_SYS_HLD_YN6        AS FCLT_SYS_HLD_YN6
+			    , FCLT.FCLT_SYS_HLD_YN7        AS FCLT_SYS_HLD_YN7
 			 FROM TB_FCLT_UNTY_MNG_INFO FCLT
+
 		]]>
         <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -78,6 +85,12 @@
 				, FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
 				, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
+			    , FCLT.FCLT_SYS_HLD_YN2       AS  FCLT_SYS_HLD_YN2
+			    , FCLT.FCLT_SYS_HLD_YN3       AS  FCLT_SYS_HLD_YN3
+			    , FCLT.FCLT_SYS_HLD_YN4       AS  FCLT_SYS_HLD_YN4
+			    , FCLT.FCLT_SYS_HLD_YN5       AS  FCLT_SYS_HLD_YN5
+			    , FCLT.FCLT_SYS_HLD_YN6       AS  FCLT_SYS_HLD_YN6
+			    , FCLT.FCLT_SYS_HLD_YN7       AS  FCLT_SYS_HLD_YN7
 			 FROM TB_FCLT_UNTY_MNG_INFO FCLT
 			 WHERE 1=1
 	  ]]>
@@ -121,6 +134,12 @@
 	    		  , SYS_LAST_CHG_DT
 	    		  , SYS_LAST_CHG_USER_ID
 	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		  , FCLT_SYS_HLD_YN2
+	    		  , FCLT_SYS_HLD_YN3
+	    		  , FCLT_SYS_HLD_YN4
+	    		  , FCLT_SYS_HLD_YN5
+	    		  , FCLT_SYS_HLD_YN6
+	    		  , FCLT_SYS_HLD_YN7
 	    		)
 	   		VALUES
 	   			(
@@ -136,6 +155,12 @@
 	   			  , SYSDATE
 	   		      , #{sysLastChgUserId}
 	   		      , #{sysLastChgPrgrmId}
+				  , #{fcltSysHldYn2}
+	   			  , #{fcltSysHldYn3}
+	   			  , #{fcltSysHldYn4}
+	   			  , #{fcltSysHldYn5}
+	   			  , #{fcltSysHldYn6}
+	   			  , #{fcltSysHldYn7}
 	   			)
     	]]>
     </insert>
@@ -157,6 +182,17 @@
 			 	, SN                = #{sn}
 			 	, FCLT_SYS_INSTL_CD = #{fcltSysInstlCd}
 			 	, FCLT_SYS_HLD_YN   = #{fcltSysHldYn}
+				, FCLT_SYS_HLD_YN2 	= #{fcltSysHldYn2}
+				, FCLT_SYS_HLD_YN3  = #{fcltSysHldYn3}
+				, FCLT_SYS_HLD_YN4  = #{fcltSysHldYn4}
+				, FCLT_SYS_HLD_YN5  = #{fcltSysHldYn5}
+				, FCLT_SYS_HLD_YN6  = #{fcltSysHldYn6}
+				, FCLT_SYS_HLD_YN7  = #{fcltSysHldYn7}
+
+
+
+
+
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

@@ -26,8 +26,19 @@
 				  FCLT.TRGT_YR                AS TRGT_YR
 				, FCLT.SN                     AS SN
 				, FCLT.FCLT_CD                AS FCLT_CD
-				, FCLT.SORT_MCHN_OPER_CD      AS SORT_MCHN_OPER_CD
-				, FCLT.SORT_MCHN_OPER_YN      AS SORT_MCHN_OPER_YN
+				, FCLT.FCLT_OPER_CD      AS FCLT_OPER_CD
+				, FCLT.FCLT_OPER_YN      	  AS FCLT_OPER_YN
+				, FCLT.FCLT_OPER_YN2      	  AS FCLT_OPER_YN2
+				, FCLT.FCLT_OPER_YN3      	  AS FCLT_OPER_YN3
+				, FCLT.FCLT_OPER_YN4      	  AS FCLT_OPER_YN4
+				, FCLT.FCLT_OPER_YN5      	  AS FCLT_OPER_YN5
+				, FCLT.FCLT_OPER_YN6      	  AS FCLT_OPER_YN6
+				, FCLT.FCLT_OPER_YN7      	  AS FCLT_OPER_YN7
+				, FCLT.FCLT_OPER_YN8      	  AS FCLT_OPER_YN8
+				, FCLT.FCLT_OPER_YN9      	  AS FCLT_OPER_YN9
+				, FCLT.FCLT_OPER_YN10      	  AS FCLT_OPER_YN10
+				, FCLT.FCLT_OPER_YN11      	  AS FCLT_OPER_YN11
+				, FCLT.FCLT_OPER_YN12     	  AS FCLT_OPER_YN12
 				, FCLT.DEL_YN                 AS DEL_YN
 				, FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
 				, FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
@@ -35,6 +46,19 @@
 				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
 				, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+			    , FCLT.FCLT_OPER_YN           AS FCLT_OPER_YN
+				, FCLT.FCLT_OPER_YN2          AS FCLT_OPER_YN2
+				, FCLT.FCLT_OPER_YN3          AS FCLT_OPER_YN3
+				, FCLT.FCLT_OPER_YN4          AS FCLT_OPER_YN4
+				, FCLT.FCLT_OPER_YN5          AS FCLT_OPER_YN5
+				, FCLT.FCLT_OPER_YN6          AS FCLT_OPER_YN6
+				, FCLT.FCLT_OPER_YN7          AS FCLT_OPER_YN7
+				, FCLT.FCLT_OPER_YN8          AS FCLT_OPER_YN8
+				, FCLT.FCLT_OPER_YN9          AS FCLT_OPER_YN9
+				, FCLT.FCLT_OPER_YN10         AS FCLT_OPER_YN10
+				, FCLT.FCLT_OPER_YN11         AS FCLT_OPER_YN11
+				, FCLT.FCLT_OPER_YN12         AS FCLT_OPER_YN12
+
 			  FROM TB_FCLT_LWTP_STRG_MCHN_OPER_INFO FCLT
  			 WHERE 1=1
 		     		]]>
@@ -65,11 +89,23 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
+				SELECT /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnOperInfoMapper.selectFcltLwtpStrgMchnOperInfo */
 				  FCLT.TRGT_YR                AS TRGT_YR
 				, FCLT.SN                     AS SN
 				, FCLT.FCLT_CD                AS FCLT_CD
-				, FCLT.SORT_MCHN_OPER_CD      AS SORT_MCHN_OPER_CD
-				, FCLT.SORT_MCHN_OPER_YN      AS SORT_MCHN_OPER_YN
+				, FCLT.FCLT_OPER_CD      AS FCLT_OPER_CD
+				, FCLT.FCLT_OPER_YN      	  AS FCLT_OPER_YN
+				, FCLT.FCLT_OPER_YN2      	  AS FCLT_OPER_YN2
+				, FCLT.FCLT_OPER_YN3      	  AS FCLT_OPER_YN3
+				, FCLT.FCLT_OPER_YN4      	  AS FCLT_OPER_YN4
+				, FCLT.FCLT_OPER_YN5      	  AS FCLT_OPER_YN5
+				, FCLT.FCLT_OPER_YN6      	  AS FCLT_OPER_YN6
+				, FCLT.FCLT_OPER_YN7      	  AS FCLT_OPER_YN7
+				, FCLT.FCLT_OPER_YN8      	  AS FCLT_OPER_YN8
+				, FCLT.FCLT_OPER_YN9      	  AS FCLT_OPER_YN9
+				, FCLT.FCLT_OPER_YN10      	  AS FCLT_OPER_YN10
+				, FCLT.FCLT_OPER_YN11      	  AS FCLT_OPER_YN11
+				, FCLT.FCLT_OPER_YN12     	  AS FCLT_OPER_YN12
 				, FCLT.DEL_YN                 AS DEL_YN
 				, FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
 				, FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
@@ -77,6 +113,18 @@
 				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
 				, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+			    , FCLT.FCLT_OPER_YN           AS FCLT_OPER_YN
+				, FCLT.FCLT_OPER_YN2          AS FCLT_OPER_YN2
+				, FCLT.FCLT_OPER_YN3          AS FCLT_OPER_YN3
+				, FCLT.FCLT_OPER_YN4          AS FCLT_OPER_YN4
+				, FCLT.FCLT_OPER_YN5          AS FCLT_OPER_YN5
+				, FCLT.FCLT_OPER_YN6          AS FCLT_OPER_YN6
+				, FCLT.FCLT_OPER_YN7          AS FCLT_OPER_YN7
+				, FCLT.FCLT_OPER_YN8          AS FCLT_OPER_YN8
+				, FCLT.FCLT_OPER_YN9          AS FCLT_OPER_YN9
+				, FCLT.FCLT_OPER_YN10         AS FCLT_OPER_YN10
+				, FCLT.FCLT_OPER_YN11         AS FCLT_OPER_YN11
+				, FCLT.FCLT_OPER_YN12         AS FCLT_OPER_YN12
 			  FROM TB_FCLT_LWTP_STRG_MCHN_OPER_INFO FCLT
  			 WHERE 1=1
   ]]>
@@ -110,8 +158,19 @@
 	    			TRGT_YR
 	    		  , SN
 	    		  , FCLT_CD
-	    		  , SORT_MCHN_OPER_CD
-	    		  , SORT_MCHN_OPER_YN
+	    		  , FCLT_OPER_CD
+	    		  , FCLT_OPER_YN
+	    		  , FCLT_OPER_YN2
+	    		  , FCLT_OPER_YN3
+	    		  , FCLT_OPER_YN4
+	    		  , FCLT_OPER_YN5
+	    		  , FCLT_OPER_YN6
+	    		  , FCLT_OPER_YN7
+	    		  , FCLT_OPER_YN8
+	    		  , FCLT_OPER_YN9
+	    		  , FCLT_OPER_YN10
+	    		  , FCLT_OPER_YN11
+	    		  , FCLT_OPER_YN12
 	    		  , DEL_YN
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
@@ -119,6 +178,18 @@
 	    		  , SYS_LAST_CHG_DT
 	    		  , SYS_LAST_CHG_USER_ID
 	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		  , FCLT_OPER_YN
+				  , FCLT_OPER_YN2
+				  , FCLT_OPER_YN3
+				  , FCLT_OPER_YN4
+				  , FCLT_OPER_YN5
+				  , FCLT_OPER_YN6
+				  , FCLT_OPER_YN7
+				  , FCLT_OPER_YN8
+				  , FCLT_OPER_YN9
+				  , FCLT_OPER_YN10
+				  , FCLT_OPER_YN11
+				  , FCLT_OPER_YN12
 
 	    		)
 	   		VALUES
@@ -126,8 +197,19 @@
 	   			    #{trgtYr}
 	   			  , #{sn}
 	   			  , #{fcltCd}
-	   			  , #{sortMchnOperCd}
-	   			  , #{sortMchnOperYn}
+	   			  , #{fcltOperCd}
+	   			  , #{fcltOperYn}
+	   			  , #{fcltOperYn2}
+	   			  , #{fcltOperYn3}
+	   			  , #{fcltOperYn4}
+	   			  , #{fcltOperYn5}
+	   			  , #{fcltOperYn6}
+	   			  , #{fcltOperYn7}
+	   			  , #{fcltOperYn8}
+	   			  , #{fcltOperYn9}
+	   			  , #{fcltOperYn10}
+	   			  , #{fcltOperYn11}
+	   			  , #{fcltOperYn12}
 	   			  , #{delYn}
 	   			  ,	SYSDATE
 	   			  , #{sysFrstInptUserId}
@@ -135,6 +217,18 @@
 	   			  , SYSDATE
 	   			  , #{sysLastChgUserId}
 	   			  , #{sysLastChgPrgrmId}
+	   			  , #{fcltOperYn}
+                  , #{fcltOperYn2}
+                  , #{fcltOperYn3}
+                  , #{fcltOperYn4}
+                  , #{fcltOperYn5}
+                  , #{fcltOperYn6}
+                  , #{fcltOperYn7}
+                  , #{fcltOperYn8}
+                  , #{fcltOperYn9}
+                  , #{fcltOperYn10}
+                  , #{fcltOperYn11}
+                  , #{fcltOperYn12}
 	   			)
     	]]>
     </insert>
@@ -155,8 +249,31 @@
 			 	  TRGT_YR            =  #{trgtYr}
 			 	, SN                 =  #{sn}
 			 	, FCLT_CD            =  #{fcltCd}
-			 	, SORT_MCHN_OPER_CD  =  #{sortMchnOperCd}
-			 	, SORT_MCHN_OPER_YN  =  #{sortMchnOperYn}
+			 	, FCLT_OPER_CD  =  #{fcltOperCd}
+			 	, FCLT_OPER_YN  =  #{fcltOperYn}
+			 	, FCLT_OPER_YN2  =  #{fcltOperYn2}
+			 	, FCLT_OPER_YN3  =  #{fcltOperYn3}
+			 	, FCLT_OPER_YN4  =  #{fcltOperYn4}
+			 	, FCLT_OPER_YN5  =  #{fcltOperYn5}
+			 	, FCLT_OPER_YN6  =  #{fcltOperYn6}
+			 	, FCLT_OPER_YN7  =  #{fcltOperYn7}
+			 	, FCLT_OPER_YN8  =  #{fcltOperYn8}
+			 	, FCLT_OPER_YN9  =  #{fcltOperYn9}
+			 	, FCLT_OPER_YN10  =  #{fcltOperYn10}
+			 	, FCLT_OPER_YN11  =  #{fcltOperYn11}
+			 	, FCLT_OPER_YN12  =  #{fcltOperYn12}
+			 	, FCLT_OPER_YN    =  #{fcltOperYn}
+				, FCLT_OPER_YN2   =  #{fcltOperYn2}
+				, FCLT_OPER_YN3   =  #{fcltOperYn3}
+				, FCLT_OPER_YN4   =  #{fcltOperYn4}
+				, FCLT_OPER_YN5   =  #{fcltOperYn5}
+				, FCLT_OPER_YN6   =  #{fcltOperYn6}
+				, FCLT_OPER_YN7   =  #{fcltOperYn7}
+				, FCLT_OPER_YN8   =  #{fcltOperYn8}
+				, FCLT_OPER_YN9   =  #{fcltOperYn9}
+				, FCLT_OPER_YN10  =  #{fcltOperYn10}
+				, FCLT_OPER_YN11  =  #{fcltOperYn11}
+				, FCLT_OPER_YN12  =  #{fcltOperYn12}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

@@ -596,6 +596,7 @@
 	var comboUnitCdJsData = [];
 	var comboGridBankCdJsData = [];
 	var comboGridCnptTypeJsData = [];
+	var comboGridPltCnptJsData = [];
 
 	var jsonComGdsSeCd = [];
 	var jsonComApcGdsSeCd = [];
@@ -611,6 +612,7 @@
 			gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000"),
 			gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000"),
 			gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000"),
+			gfn_setComCdGridSelect('grdPlt', comboGridPltCnptJsData, "PLT_CNPT", "0000"),
 			selectApcEvrmntStng()
 		])
 

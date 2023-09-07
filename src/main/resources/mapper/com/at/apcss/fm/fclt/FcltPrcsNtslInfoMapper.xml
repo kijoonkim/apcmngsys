@@ -35,6 +35,15 @@
 				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
 				, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
                 , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+                , FCLT.FCLT_NTSL_CD2          AS FCLT_NTSL_CD2
+				, FCLT.FCLT_NTSL_CD3          AS FCLT_NTSL_CD3
+				, FCLT.FCLT_NTSL_CD4          AS FCLT_NTSL_CD4
+				, FCLT.FCLT_NTSL_CD5          AS FCLT_NTSL_CD5
+				, FCLT.FCLT_NTSL_CD6          AS FCLT_NTSL_CD6
+				, FCLT.FCLT_NTSL_CD7          AS FCLT_NTSL_CD7
+				, FCLT.FCLT_NTSL_CD8          AS FCLT_NTSL_CD8
+				, FCLT.FCLT_NTSL_CD9          AS FCLT_NTSL_CD9
+
 			 FROM TB_FCLT_PRCS_NTSL_INFO FCLT
 		]]>
         <if test='trgtYr != null and !trgtYr.equals("")'>
@@ -78,6 +87,14 @@
 				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
 				, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
                 , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+                , FCLT.FCLT_NTSL_CD2          AS FCLT_NTSL_CD2
+				, FCLT.FCLT_NTSL_CD3          AS FCLT_NTSL_CD3
+				, FCLT.FCLT_NTSL_CD4          AS FCLT_NTSL_CD4
+				, FCLT.FCLT_NTSL_CD5          AS FCLT_NTSL_CD5
+				, FCLT.FCLT_NTSL_CD6          AS FCLT_NTSL_CD6
+				, FCLT.FCLT_NTSL_CD7          AS FCLT_NTSL_CD7
+				, FCLT.FCLT_NTSL_CD8          AS FCLT_NTSL_CD8
+				, FCLT.FCLT_NTSL_CD9          AS FCLT_NTSL_CD9
 			 FROM TB_FCLT_PRCS_NTSL_INFO FCLT
 			 WHERE 1=1
   ]]>
@@ -121,6 +138,14 @@
 	    		  , SYS_LAST_CHG_DT
 	    		  , SYS_LAST_CHG_USER_ID
 	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		  , FCLT_NTSL_CD2
+				  , FCLT_NTSL_CD3
+				  , FCLT_NTSL_CD4
+				  , FCLT_NTSL_CD5
+				  , FCLT_NTSL_CD6
+				  , FCLT_NTSL_CD7
+				  , FCLT_NTSL_CD8
+				  , FCLT_NTSL_CD9
 	    		)
 	   		VALUES
 	   			(
@@ -136,6 +161,14 @@
 	   			  , SYSDATE
 	   			  , #{sysLastChgUserId}
 	   			  , #{sysLastChgPrgrmId}
+	   			  , #{fcltNtslCd2}
+	   			  , #{fcltNtslCd3}
+	   			  , #{fcltNtslCd4}
+	   			  , #{fcltNtslCd5}
+	   			  , #{fcltNtslCd6}
+	   			  , #{fcltNtslCd7}
+	   			  , #{fcltNtslCd8}
+	   			  , #{fcltNtslCd9}
 	   			)
     	]]>
     </insert>
@@ -157,6 +190,14 @@
 			 	, SN             = #{sn}
     	        , FCLT_STR_CD    = #{fcltStrCd}
     	        , FCLT_NTSL_CD   = #{fcltNtslCd}
+    			, FCLT_NTSL_CD2	 = #{fcltNtslCd2}
+    	        , FCLT_NTSL_CD3  = #{fcltNtslCd3}
+    	        , FCLT_NTSL_CD4  = #{fcltNtslCd4}
+    	        , FCLT_NTSL_CD5  = #{fcltNtslCd5}
+    	        , FCLT_NTSL_CD6  = #{fcltNtslCd6}
+    	        , FCLT_NTSL_CD7  = #{fcltNtslCd7}
+    	        , FCLT_NTSL_CD8  = #{fcltNtslCd8}
+    	        , FCLT_NTSL_CD9  = #{fcltNtslCd9}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

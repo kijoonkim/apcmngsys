@@ -36,6 +36,10 @@
 				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
                 , FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
                 , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+                , FCLT.FCLT_PRCS_TRMT_AMT2 	AS FCLT_PRCS_TRMT_AMT2
+                , FCLT.FCLT_PRCS_TRMT_AMT3 	AS FCLT_PRCS_TRMT_AMT3
+                , FCLT.FCLT_PRCS_TRMT_AMT4 	AS FCLT_PRCS_TRMT_AMT4
+
 			  FROM TB_FCLT_PRCS_PRFMNC FCLT
 			 WHERE 1=1
 		]]>
@@ -81,6 +85,9 @@
 				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
                 , FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
                 , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+                , FCLT.FCLT_PRCS_TRMT_AMT2 	AS FCLT_PRCS_TRMT_AMT2
+                , FCLT.FCLT_PRCS_TRMT_AMT3 	AS FCLT_PRCS_TRMT_AMT3
+                , FCLT.FCLT_PRCS_TRMT_AMT4 	AS FCLT_PRCS_TRMT_AMT4
 			  FROM TB_FCLT_PRCS_PRFMNC FCLT
 			 WHERE 1=1
 		     AND TRGT_YR = #{trgtYr}
@@ -127,6 +134,9 @@
 	              , SYS_LAST_CHG_DT
 	              , SYS_LAST_CHG_USER_ID
 	              , SYS_LAST_CHG_PRGRM_ID
+		    	,	FCLT_PRCS_TRMT_AMT2
+		    	,	FCLT_PRCS_TRMT_AMT3
+		    	,	FCLT_PRCS_TRMT_AMT4
 	    		)
 	   		VALUES
 	   			(
@@ -143,6 +153,11 @@
 	   			  , SYSDATE
 	   			  , #{sysLastChgUserId}
 	   			  , #{sysLastChgPrgrmId}
+	   			  ,	#{fcltPrcsTrmtAmt2}
+		    	  , #{fcltPrcsTrmtAmt3}
+		    	  , #{fcltPrcsTrmtAmt4}
+
+
 	   			)
     	]]>
     </insert>
@@ -166,6 +181,9 @@
 			 	, FCLT_PRCS_SE_CD     = #{fcltPrcsSeCd}
 			 	, FCLT_PRCS_TRMT_CD   = #{fcltPrcsTrmtCd}
 			 	, FCLT_PRCS_TRMT_AMT  = #{fcltPrcsTrmtAmt}
+		    	, FCLT_PRCS_TRMT_AMT2 = #{fcltPrcsTrmtAmt2}
+		    	, FCLT_PRCS_TRMT_AMT3 = #{fcltPrcsTrmtAmt3}
+		    	, FCLT_PRCS_TRMT_AMT4 = #{fcltPrcsTrmtAmt4}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

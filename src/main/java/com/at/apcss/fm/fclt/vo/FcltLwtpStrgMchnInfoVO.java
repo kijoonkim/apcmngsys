@@ -21,6 +21,11 @@ public class FcltLwtpStrgMchnInfoVO extends ComVO{
 	private String msgKnd;
 	private String msgKndNm;
 	private String rmrk;
+	private String storCap;
+	private String stStorPerfm;
+	private String ltStorPerfm;
+	private String storOpRate;
+
 }
 
 
