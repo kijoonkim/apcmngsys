@@ -137,6 +137,7 @@
 	
 	var jsonPlt = [];
 	var jsonBx = [];
+	var jsonBxPltBxPop 	= [];
 	
 	var grdPlt = null;
 	var grdBx = null;
@@ -162,6 +163,21 @@
 				this.createPltGrid();
 				this.createBxGrid();
 				
+				
+				jsonPltBxPop = {
+						pltData: [],
+						bxData: []
+					}
+
+				if (!gfn_isEmpty(_pltBxData)) {
+					if (!gfn_isEmpty(_pltBxData.pltData)) {
+						jsonPltBxPop.pltData = gfn_cloneJson(_pltBxData.pltData);
+					}
+					if (!gfn_isEmpty(_pltBxData.bxData)) {
+						jsonPltBxPop.bxData = gfn_cloneJson(_pltBxData.bxData);
+					}
+				}
+				
 				this.search(_pltBxData);
 			},
 			close: function() {
@@ -186,7 +202,7 @@
 			        {caption: ["팔레트","종류"], 		ref: 'pltBxNm',   		type:'combo',  width:'140px',    style:'text-align:center',
 						typeinfo : {ref:'jsonComPltNm', label:'label', value:'value', displayui : true}},
 			        {caption: ["팔레트","대여업체"], 		ref: 'pltCnptNm',  	type:'input',  width:'100px',    style:'text-align:center'},
-			        {caption: ["팔레트","수량"], 		ref: 'bssInvntrQntt',  	type:'input',  width:'70px',    style:'text-align:center'},
+			        {caption: ["팔레트","수량"], 		ref: 'qntt',  	type:'input',  width:'70px',    style:'text-align:center'},
 			        {caption: ["팔레트","단중"], 		ref: 'unitWght',   		type:'input',  width:'70px',    style:'text-align:center'},
 			        {caption: ["팔레트","중량"], 		ref: 'wght',   		type:'output',  width:'70px',    style:'text-align:center'},
 			        {caption: ["팔레트","단위"], 		ref: 'unitCd',   		type:'combo',  width:'50px',    style:'text-align:center',
@@ -219,7 +235,7 @@
 			    	{caption: ["박스","종류"], 		ref: 'pltBxNm',   		type:'combo',  width:'140px',    style:'text-align:center',
 						typeinfo : {ref:'jsonComBxNm', label:'label', value:'value', displayui : true}},
 					{caption: ["박스","대여업체"], 		ref: 'pltCnptNm',  	type:'input',  width:'100px',    style:'text-align:center'},
-			        {caption: ["박스","수량"], 		ref: 'bssInvntrQntt',  	type:'input',  width:'70px',    style:'text-align:center'},
+			        {caption: ["박스","수량"], 		ref: 'qntt',  	type:'input',  width:'70px',    style:'text-align:center'},
 			        {caption: ["박스","단중"], 		ref: 'unitWght',   		type:'input',  width:'70px',    style:'text-align:center'},
 			        {caption: ["박스","중량"], 		ref: 'wght',   		type:'output',  width:'70px',    style:'text-align:center'},
 			        {caption: ["박스","단위"], 		ref: 'unitCd',   		type:'combo',  width:'50px',    style:'text-align:center',
@@ -237,7 +253,7 @@
 
 			    ];
 			    grdBx = _SBGrid.create(SBGridProperties);
-			    grdBx.bind('valuechanged', popPltBx.setBxUnitWght);
+			    grdBx.bind('valuechanged', this.setBxUnitWght);
 			    grdBx.addRow(true);
 			},
 
@@ -336,6 +352,9 @@
 				    grdPlt.setCellData(nRow,nCol+1,pltMap[grdPlt.getCellData(nRow,nCol)].pltCnptNm);
 				    grdPlt.setCellData(nRow,nCol+3,pltMap[grdPlt.getCellData(nRow,nCol)].unitWght);
 				    grdPlt.setCellData(nRow,nCol+5,pltMap[grdPlt.getCellData(nRow,nCol)].unitCd);
+				    grdPlt.setCellData(nRow,nCol+7,pltMap[grdPlt.getCellData(nRow,nCol)].pltBxCd);
+				    grdPlt.setCellData(nRow,nCol+8,pltMap[grdPlt.getCellData(nRow,nCol)].pltBxSeCd);
+				    grdPlt.setCellData(nRow,nCol+9,pltMap[grdPlt.getCellData(nRow,nCol)].apcCd);
 				}
 				else if(nCol == 2){
 					grdPlt.setCellData(nRow,nCol+2,grdPlt.getCellData(nRow, 2) * grdPlt.getCellData(nRow, 3));
@@ -344,14 +363,14 @@
 				var totalQntt = Number(0);
 				var totalWght = 0;
 				for(var i=0; i<jsonPlt.length; i++){
-					totalQntt += Number(jsonPlt[i].bssInvntrQntt);
+					totalQntt += Number(jsonPlt[i].qntt);
 					
 					if (jsonPlt[i].unitCd == 1)
-						totalWght += jsonPlt[i].bssInvntrQntt * jsonPlt[i].unitWght / 1000
+						totalWght += jsonPlt[i].qntt * jsonPlt[i].unitWght / 1000
 					else if(jsonPlt[i].unitCd == 3)
-						totalWght += jsonPlt[i].bssInvntrQntt * jsonPlt[i].unitWght * 1000
+						totalWght += jsonPlt[i].qntt * jsonPlt[i].unitWght * 1000
 					else
-						totalWght += jsonPlt[i].bssInvntrQntt * jsonPlt[i].unitWght
+						totalWght += jsonPlt[i].qntt * jsonPlt[i].unitWght
 				}
 				SBUxMethod.set("plt-inp-qntt", totalQntt);
 				SBUxMethod.set("plt-inp-wght", totalWght);
@@ -364,6 +383,9 @@
 					grdBx.setCellData(nRow,nCol+1,bxMap[grdBx.getCellData(nRow,nCol)].pltCnptNm);
 					grdBx.setCellData(nRow,nCol+3,bxMap[grdBx.getCellData(nRow,nCol)].unitWght);
 					grdBx.setCellData(nRow,nCol+5,bxMap[grdBx.getCellData(nRow,nCol)].unitCd);
+					grdBx.setCellData(nRow,nCol+7,bxMap[grdBx.getCellData(nRow,nCol)].pltBxCd);
+					grdBx.setCellData(nRow,nCol+8,bxMap[grdBx.getCellData(nRow,nCol)].pltBxSeCd);
+					grdBx.setCellData(nRow,nCol+9,bxMap[grdBx.getCellData(nRow,nCol)].apcCd);
 				}
 				else if(nCol == 2){
 					grdBx.setCellData(nRow,nCol+2, grdBx.getCellData(nRow, 2) * grdBx.getCellData(nRow, 3));
@@ -372,14 +394,14 @@
 				var totalQntt = Number(0);
 				var totalWght = 0;
 				for(var i=0; i<jsonPlt.length; i++){
-					totalQntt += Number(jsonBx[i].bssInvntrQntt);
+					totalQntt += Number(jsonBx[i].qntt);
 					
 					if (jsonBx[i].unitCd == 1)
-						totalWght += jsonBx[i].bssInvntrQntt * jsonBx[i].unitWght / 1000
+						totalWght += jsonBx[i].qntt * jsonBx[i].unitWght / 1000
 					else if(jsonBx[i].unitCd == 3)
-						totalWght += jsonBx[i].bssInvntrQntt * jsonBx[i].unitWght * 1000
+						totalWght += jsonBx[i].qntt * jsonBx[i].unitWght * 1000
 					else
-						totalWght += jsonBx[i].bssInvntrQntt * jsonBx[i].unitWght
+						totalWght += jsonBx[i].qntt * jsonBx[i].unitWght
 				}
 				SBUxMethod.set("bx-inp-qntt", totalQntt);
 				SBUxMethod.set("bx-inp-wght", totalWght);
