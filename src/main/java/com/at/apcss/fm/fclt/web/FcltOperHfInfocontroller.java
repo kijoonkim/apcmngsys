@@ -84,9 +84,18 @@ public class FcltOperHfInfocontroller extends BaseController {
 		logger.info("=============insertFcltOperHfInfo=======start======");
 		// validation check
 
-		logger.info(fcltOperHfInfoVO.getRmrk());
+		logger.info(fcltOperHfInfoVO.getTrgtYr());
+		logger.info(fcltOperHfInfoVO.getHireSeCd());
+//		logger.info(fcltOperHfInfoVO.getHireNope());
+//		logger.info(fcltOperHfInfoVO.getHireNope2());
+//		logger.info(fcltOperHfInfoVO.getHireNope3());
+//		logger.info(fcltOperHfInfoVO.getHireNope4());
+		logger.info(fcltOperHfInfoVO.getTrgtYr());
 		logger.info(fcltOperHfInfoVO.getTrgtYr());
 		logger.info(fcltOperHfInfoVO.toString());
+
+
+
 		// audit 항목
 		fcltOperHfInfoVO.setSysFrstInptUserId(getUserId());
 		fcltOperHfInfoVO.setSysFrstInptPrgrmId(getPrgrmId());

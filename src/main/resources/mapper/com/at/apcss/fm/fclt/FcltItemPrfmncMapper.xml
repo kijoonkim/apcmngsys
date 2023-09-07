@@ -38,6 +38,19 @@
 			    , FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
 			    , FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
+				, FCLT.FCLT_ITEM_SPMT_AMT2     AS FCLT_ITEM_SPMT_AMT2
+				, FCLT.FCLT_ITEM_SPMT_AMT3     AS FCLT_ITEM_SPMT_AMT3
+				, FCLT.FCLT_ITEM_SPMT_AMT4     AS FCLT_ITEM_SPMT_AMT4
+				, FCLT.FCLT_ITEM_SPMT_AMT5     AS FCLT_ITEM_SPMT_AMT5
+				, FCLT.FCLT_ITEM_TRMT_VLM2     AS FCLT_ITEM_TRMT_VLM2
+				, FCLT.FCLT_ITEM_TRMT_VLM3     AS FCLT_ITEM_TRMT_VLM3
+				, FCLT.FCLT_ITEM_TRMT_VLM4     AS FCLT_ITEM_TRMT_VLM4
+				, FCLT.FCLT_ITEM_TRMT_VLM5     AS FCLT_ITEM_TRMT_VLM5
+				, FCLT.FCLT_ITEM_MRKT_AMT      AS FCLT_ITEM_MRKT_AMT
+				, FCLT.FCLT_ITEM_MRKT_AMT2     AS FCLT_ITEM_MRKT_AMT2
+				, FCLT.FCLT_ITEM_MRKT_AMT3     AS FCLT_ITEM_MRKT_AMT3
+				, FCLT.FCLT_ITEM_MRKT_AMT4     AS FCLT_ITEM_MRKT_AMT4
+				, FCLT.FCLT_ITEM_MRKT_AMT5     AS FCLT_ITEM_MRKT_AMT5
 			 FROM TB_FCLT_ITEM_PRFMNC FCLT
  			 WHERE 1=1
 		     		]]>
@@ -85,6 +98,19 @@
 			    , FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
 			    , FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
+				, FCLT.FCLT_ITEM_SPMT_AMT2     AS FCLT_ITEM_SPMT_AMT2
+				, FCLT.FCLT_ITEM_SPMT_AMT3     AS FCLT_ITEM_SPMT_AMT3
+				, FCLT.FCLT_ITEM_SPMT_AMT4     AS FCLT_ITEM_SPMT_AMT4
+				, FCLT.FCLT_ITEM_SPMT_AMT5     AS FCLT_ITEM_SPMT_AMT5
+				, FCLT.FCLT_ITEM_TRMT_VLM2     AS FCLT_ITEM_TRMT_VLM2
+				, FCLT.FCLT_ITEM_TRMT_VLM3     AS FCLT_ITEM_TRMT_VLM3
+				, FCLT.FCLT_ITEM_TRMT_VLM4     AS FCLT_ITEM_TRMT_VLM4
+				, FCLT.FCLT_ITEM_TRMT_VLM5     AS FCLT_ITEM_TRMT_VLM5
+				, FCLT.FCLT_ITEM_MRKT_AMT      AS FCLT_ITEM_MRKT_AMT
+				, FCLT.FCLT_ITEM_MRKT_AMT2     AS FCLT_ITEM_MRKT_AMT2
+				, FCLT.FCLT_ITEM_MRKT_AMT3     AS FCLT_ITEM_MRKT_AMT3
+				, FCLT.FCLT_ITEM_MRKT_AMT4     AS FCLT_ITEM_MRKT_AMT4
+				, FCLT.FCLT_ITEM_MRKT_AMT5     AS FCLT_ITEM_MRKT_AMT5
 			 FROM TB_FCLT_ITEM_PRFMNC FCLT
  			 WHERE 1=1
   ]]>
@@ -131,6 +157,19 @@
 	    		  , SYS_LAST_CHG_DT
 	    		  , SYS_LAST_CHG_USER_ID
 	    		  , SYS_LAST_CHG_PRGRM_ID
+			      , FCLT_ITEM_SPMT_AMT2
+				  , FCLT_ITEM_SPMT_AMT3
+				  , FCLT_ITEM_SPMT_AMT4
+				  , FCLT_ITEM_SPMT_AMT5
+				  , FCLT_ITEM_TRMT_VLM2
+				  , FCLT_ITEM_TRMT_VLM3
+				  , FCLT_ITEM_TRMT_VLM4
+				  , FCLT_ITEM_TRMT_VLM5
+				  , FCLT_ITEM_MRKT_AMT
+				  , FCLT_ITEM_MRKT_AMT2
+				  , FCLT_ITEM_MRKT_AMT3
+				  , FCLT_ITEM_MRKT_AMT4
+				  , FCLT_ITEM_MRKT_AMT5
 	    		)
 	   		VALUES
 	   			(
@@ -149,6 +188,19 @@
 	   			  , SYSDATE
 	   			  , #{sysLastChgUserId}
 	   			  , #{sysLastChgPrgrmId}
+	   			  , #{fcltItemSpmtAmt2}
+			   	, #{fcltItemSpmtAmt3}
+			   	, #{fcltItemSpmtAmt4}
+			   	, #{fcltItemSpmtAmt5}
+			   	, #{fcltItemTrmtVlm2}
+			   	, #{fcltItemTrmtVlm3}
+			   	, #{fcltItemTrmtVlm4}
+			   	, #{fcltItemTrmtVlm5}
+			   	, #{fcltItemMrktAmt}
+			   	, #{fcltItemMrktAmt2}
+			   	, #{fcltItemMrktAmt3}
+			   	, #{fcltItemMrktAmt4}
+			   	, #{fcltItemMrktAmt5}
 	   			)
     	]]>
     </insert>
@@ -166,14 +218,27 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.updateFcltItemPrfmnc */
 	    		TB_FCLT_ITEM_PRFMNC FCLT
 			   SET
-			 	  TRGT_YR            = #{trgtYr}
-			 	, APC_CD             = #{apcCd}
-			 	, SN                 = #{sn}
-    	        , FCLT_ITEM_CD       = #{fcltItemCd}
-    	        , FCLT_ITEM_TRMT_AMT = #{fcltItemTrmtAmt}
-    	        , FCLT_ITEM_TRMT_VLM = #{fcltItemTrmtVlm}
-    	        , FCLT_ITEM_SPMT_AMT = #{fcltItemSpmtAmt}
-    	        , FCLT_ITEM_SPMT_RT  = #{fcltItemSpmtRt}
+			 	  TRGT_YR              =  #{trgtYr}
+			 	, APC_CD               =  #{apcCd}
+			 	, SN                   =  #{sn}
+    	        , FCLT_ITEM_CD         =  #{fcltItemCd}
+    	        , FCLT_ITEM_TRMT_AMT   =  #{fcltItemTrmtAmt}
+    	        , FCLT_ITEM_TRMT_VLM   =  #{fcltItemTrmtVlm}
+    	        , FCLT_ITEM_SPMT_AMT   =  #{fcltItemSpmtAmt}
+    	        , FCLT_ITEM_SPMT_RT    =  #{fcltItemSpmtRt}
+		    	, FCLT_ITEM_SPMT_AMT2  =  #{fcltItemSpmtAmt2}
+		    	, FCLT_ITEM_SPMT_AMT3  =  #{fcltItemSpmtAmt3}
+		    	, FCLT_ITEM_SPMT_AMT4  =  #{fcltItemSpmtAmt4}
+		    	, FCLT_ITEM_SPMT_AMT5  =  #{fcltItemSpmtAmt5}
+		    	, FCLT_ITEM_TRMT_VLM2  =  #{fcltItemTrmtVlm2}
+		    	, FCLT_ITEM_TRMT_VLM3  =  #{fcltItemTrmtVlm3}
+		    	, FCLT_ITEM_TRMT_VLM4  =  #{fcltItemTrmtVlm4}
+		    	, FCLT_ITEM_TRMT_VLM5  =  #{fcltItemTrmtVlm5}
+		    	, FCLT_ITEM_MRKT_AMT   =  #{fcltItemMrktAmt}
+		    	, FCLT_ITEM_MRKT_AMT2  =  #{fcltItemMrktAmt2}
+		    	, FCLT_ITEM_MRKT_AMT3  =  #{fcltItemMrktAmt3}
+		    	, FCLT_ITEM_MRKT_AMT4  =  #{fcltItemMrktAmt4}
+		    	, FCLT_ITEM_MRKT_AMT5  =  #{fcltItemMrktAmt5}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
