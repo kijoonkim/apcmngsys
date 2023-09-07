@@ -89,14 +89,14 @@
 	    SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
             {caption: ["코드"], 		ref: 'cnptCd',  	type:'output', width:'80px',     style:'text-align:center',  hidden : true},
-            {caption: ["거래처명"], 	ref: 'cnptNm',  	type:'input',  width:'125px',    style:'text-align:center'},
+            {caption: ["거래처명"], 	ref: 'cnptNm',  	type:'input',  width:'125px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
             {caption: ["유형"], 		ref: 'cnptType',   	type:'combo',  width:'125px',    style:'text-align:center',
 				typeinfo : {ref:'comboGridCnptTypeJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
-            {caption: ["사업자번호"], 	ref: 'brno',  		type:'input',  width:'135px',    style:'text-align:center'},
-            {caption: ["담당자"], 		ref: 'picNm',  		type:'input',  width:'90px',    style:'text-align:center'},
-            {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'120px',    style:'text-align:center'},
-            {caption: ["이메일"], 	ref: 'eml',  		type:'input',  width:'140px',    style:'text-align:center'},
-            {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'120px',    style:'text-align:center'},
+            {caption: ["사업자번호"], 	ref: 'brno',  		type:'input',  width:'135px',    style:'text-align:center', typeinfo : {mask : {alias : '#-', repeat: '*'}}, validate : gfn_chkByte.bind({byteLimit: 20})},
+            {caption: ["담당자"], 		ref: 'picNm',  		type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'k'}}},
+            {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : '#-', repeat: '*'}}},
+            {caption: ["이메일"], 	ref: 'eml',  		type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320})},
+            {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
             {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
             		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"cnptMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -279,13 +279,13 @@
 	    SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
             {caption: ["대형마트 코드"], 		ref: 'lgszMrktCd',  	type:'output',  width:'100px',     style:'text-align:center'},
-            {caption: ["대형마트 명"], 		ref: 'lgszMrktNm',  	type:'input',  width:'100px',     style:'text-align:center'},
-            {caption: ["발주정보 URL"], 	ref: 'outordrInfoUrl',  	type:'input',  width:'300px',    style:'text-align:center'},
-            {caption: ["사용자ID"], 		ref: 'userId',  	type:'input',  width:'100px',    style:'text-align:center'},
-            {caption: ["패스워드"], 		ref: 'pswd',  	type:'input',  width:'120px',    style:'text-align:center'},
+            {caption: ["대형마트 명"], 		ref: 'lgszMrktNm',  	type:'input',  width:'100px',     style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
+            {caption: ["발주정보 URL"], 	ref: 'outordrInfoUrl',  	type:'input',  width:'300px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 2000})},
+            {caption: ["사용자ID"], 		ref: 'userId',  	type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 200})},
+            {caption: ["패스워드"], 		ref: 'pswd',  	type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 40})},
             {caption: ["사용유무"], 		ref: 'useYn',   	type:'combo',  	width:'100px',    style:'text-align:center',
 						typeinfo : {ref:'comboReverseYnJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
-            {caption: ["최종처리일시"], 	ref: 'lastPrcsDt',  	type:'input',  width:'280px',    style:'text-align:center'}
+            {caption: ["최종처리일시"], 	ref: 'lastPrcsDt',  	type:'output',  width:'280px',    style:'text-align:center'}
         ];
         window.lgszMrktMngDatagrid = _SBGrid.create(SBGridProperties);
 		fn_callSelectLgszMrktList();

@@ -105,4 +105,9 @@ public class PltBxVO extends ComVO {
 	 * 현재고중량
 	 */
 	private double invntrWght;
+
+	/**
+	 * 대여업체명
+	 */
+	private String pltCnptNm;
 }

@@ -35,6 +35,7 @@
 			    , PB.USE_YN             AS USE_YN
 			    , PB.DEL_YN             AS DEL_YN
 			    , PB.RMRK             	AS RMRK
+			    , (SELECT FN_GET_COM_CD_VL_NM('PLT_CNPT', PB.RMRK) FROM DUAL) AS PLT_CNPT_NM
 			  FROM TB_PLT_BX_INFO PB
 			 WHERE PB.APC_CD = #{apcCd}
 		]]>
