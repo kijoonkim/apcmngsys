@@ -1095,6 +1095,7 @@
 		let trsprtSeCd = SBUxMethod.get("srch-rdo-trsprtSeCd");
 		let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");
 		let data = {
+						apcCd 		: gv_selectedApcCd,
 						trsprtYmd 	: null,
 						vhclno 		: null,
 			  			drvrNm 		: null,
