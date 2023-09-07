@@ -21,14 +21,29 @@ public class FcltGdsMchnInfoVO extends ComVO{
 	private String msgKnd;
 	private String msgKndNm;
 	private String rmrk;
-	@Override
-	public String toString() {
-		return "FcltGdsMchnInfoVO [trgtYr=" + trgtYr + ", apcCd=" + apcCd + ", sn=" + sn + ", sortMchnItemCd="
-				+ sortMchnItemCd + ", sortMchnCd=" + sortMchnCd + ", sortMchnSpcfct=" + sortMchnSpcfct
-				+ ", sortMchnHldYn=" + sortMchnHldYn + ", msgKey=" + msgKey + ", msgCn=" + msgCn + ", msgKnd=" + msgKnd
-				+ ", msgKndNm=" + msgKndNm + ", rmrk=" + rmrk + "]";
-	}
-
+	private String sortMchnSpcfct2;
+	private String sortMchnSpcfct3;
+	private String sortMchnSpcfct4;
+	private String sortMchnHldYn11;
+	private String sortMchnHldYn12;
+	private String sortMchnHldYn13;
+	private String sortMchnHldYn14;
+	private String sortMchnHldYn15;
+	private String sortMchnHldYn21;
+	private String sortMchnHldYn22;
+	private String sortMchnHldYn23;
+	private String sortMchnHldYn24;
+	private String sortMchnHldYn25;
+	private String sortMchnHldYn31;
+	private String sortMchnHldYn32;
+	private String sortMchnHldYn33;
+	private String sortMchnHldYn34;
+	private String sortMchnHldYn35;
+	private String sortMchnHldYn41;
+	private String sortMchnHldYn42;
+	private String sortMchnHldYn43;
+	private String sortMchnHldYn44;
+	private String sortMchnHldYn45;
 	}
 
 

@@ -58,7 +58,9 @@ public class FcltLwtpStrgMchnOperInfoController extends BaseController {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltLwtpStrgMchnOperInfoVO> resultList = new ArrayList<>();
-
+		logger.info(fcltLwtpStrgMchnOperInfoVO.getApcCd());
+		logger.info(fcltLwtpStrgMchnOperInfoVO.getFcltOperYn());
+		logger.info(fcltLwtpStrgMchnOperInfoVO.toString());
 		try {
 			 resultList = fcltLwtpStrgMchnOperInfoService.selectFcltLwtpStrgMchnOperInfoList(fcltLwtpStrgMchnOperInfoVO);
 

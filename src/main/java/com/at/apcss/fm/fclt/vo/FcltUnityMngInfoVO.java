@@ -19,6 +19,18 @@ public class FcltUnityMngInfoVO extends ComVO{
 	private String msgKnd;
 	private String msgKndNm;
 	private String rmrk;
+	private String fcltSysHldYn2;
+	private String fcltSysHldYn3;
+	private String fcltSysHldYn4;
+	private String fcltSysHldYn5;
+	private String fcltSysHldYn6;
+	private String fcltSysHldYn7;
+
+
+
+
+
+
 }
 
 

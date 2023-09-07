@@ -9,6 +9,39 @@
     <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+		<script type="text/javascript">
+		<c:choose>
+			<c:when test="${comApcList != null}">
+				var cjsonApcList = ${comApcList};
+			</c:when>
+			<c:otherwise>
+				var cjsonApcList = {};
+			</c:otherwise>
+		</c:choose>
+		<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
+			gv_selectedApcCd = null;
+			gv_selectedApcNm = null;
+		</c:if>
+		/**
+		 * @name
+		 * @description
+		 * @function
+		 * @param {string} _apcCd
+		 */
+		const cfn_onChangeApc = function(obj) {
+			gv_selectedApcCd = obj.value;
+
+			const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
+			apcInfo.forEach( (apc) => {
+				gv_selectedApcNm = apc.apcNm;
+				return false;
+			});
+
+			if (typeof fn_onChangeApc === "function") {
+				fn_onChangeApc();
+			}
+		}
+	</script>
 </head>
 <body>
 	<section class="content container-fluid">
@@ -46,41 +79,6 @@
 
 							<th class="th_bg" scope="row" style="border-bottom:1px solid white " class="th_bg" >APC명</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
-								<script type="text/javascript">
-								<c:choose>
-									<c:when test="${comApcList != null}">
-									var cjsonApcList = ${comApcList};
-									</c:when>
-									<c:otherwise>
-									var cjsonApcList = {};
-									</c:otherwise>
-								</c:choose>
-								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
-									gv_selectedApcCd = null;
-									gv_selectedApcNm = null;
-								</c:if>
-									/**
-									 * @name
-									 * @description
-									 * @function
-									 * @param {string} _apcCd
-									 */
-									const cfn_onChangeApc = function(obj) {
-										gv_selectedApcCd = obj.value;
-
-										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
-										apcInfo.forEach( (apc) => {
-											gv_selectedApcNm = apc.apcNm;
-											return false;
-										});
-
-										if (typeof fn_onChangeApc === "function") {
-											fn_onChangeApc();
-										}
-
-									}
-
-								</script>
 								<c:choose>
 									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
 										<sbux-select
@@ -108,7 +106,7 @@
 			<!--[pp] 검색결과 -->
 			<br>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtDsctn" style="height:300px;"></div>
+					<div id="sb-area-spmtDsctn" style="height:150px;"></div>
 				</div>
 <br>
 			<div><label>저온저장고운영기간 상세내역</label></div>
@@ -154,7 +152,13 @@
 						</th>
 						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="warehouseSeCd-chk-fcltOperYn1" name="warehouseSeCd-chk-fcltOperYn1" uitype="normal" ></sbux-checkbox>
+								<sbux-checkbox id="dtl-chk-fcltOperYn0" name="warehouseSeCd-chk-fcltOperYn0" uitype="normal" ></sbux-checkbox>
+								<label class="check_label" for="check_default" ></label>
+							</p>
+						</td>
+						<td class="td_input">
+							<p class="ad_input_row">
+								<sbux-checkbox id="dtl-chk-fcltOperYn" name="warehouseSeCd-chk-fcltOperYn" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
@@ -224,20 +228,73 @@
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="td_input">
-							<p class="ad_input_row">
-								<sbux-checkbox id="warehouseSeCd-chk-fcltOperYn13" name="warehouseSeCd-chk-fcltOperYn13" uitype="normal" ></sbux-checkbox>
-								<label class="check_label" for="check_default" ></label>
-							</p>
-						</td>
+
 					</tr>
 					<tr>
+						<th>대상년도</th>
 						<td colspan="7" class="td_input">
 							<sbux-input id="dtl-input-trgtYr" name="dtl-input-trgtYr" uitype="text" class="form-control input-sm" placeholder="trgtYr" ></sbux-input>
 						</td>
 						<td colspan="7" class="td_input">
-							<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="text" class="form-control input-sm" placeholder="apcCd" ></sbux-input>
 						</td>
+					</tr>
+					<tr>
+						<th>APC코드</th>
+						<td colspan="7" class="td_input">
+						<script type="text/javascript">
+								<c:choose>
+									<c:when test="${comApcList != null}">
+									var cjsonApcList = ${comApcList};
+									</c:when>
+									<c:otherwise>
+									var cjsonApcList = {};
+									</c:otherwise>
+								</c:choose>
+								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
+									gv_selectedApcCd = null;
+									gv_selectedApcNm = null;
+								</c:if>
+									/**
+									 * @name
+									 * @description
+									 * @function
+									 * @param {string} _apcCd
+									 */
+									const cfn_onChangeApc = function(obj) {
+										gv_selectedApcCd = obj.value;
+
+										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
+										apcInfo.forEach( (apc) => {
+											gv_selectedApcNm = apc.apcNm;
+											return false;
+										});
+
+										if (typeof fn_onChangeApc === "function") {
+											fn_onChangeApc();
+										}
+
+									}
+
+								</script>
+								<c:choose>
+									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
+										<sbux-select
+											id="gsb-slt-apcCd"
+											name="gsb-slt-apcCd"
+											uitype="single"
+											jsondata-ref="cjsonApcList"
+											unselected-text="선택"
+											class="form-control input-sm"
+											onchange="cfn_onChangeApc(this)"
+											style="max-width:150px;"
+										></sbux-select>
+									</c:when>
+									<c:otherwise>
+										<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td colspan="7"></td>
 					</tr>
 
 				</tbody>
@@ -406,6 +463,17 @@
 				fcltCd : item.fcltCd,                              //설비 코드
 				fcltOperCd : item.fcltOperCd,                       //설비 보유 유무
 				fcltOperYn : item.fcltOperYn,                      //설비 처리 코드
+				fcltOperYn2 : item.fcltOperYn2,                      //설비 처리 코드
+				fcltOperYn3 : item.fcltOperYn3,                      //설비 처리 코드
+				fcltOperYn4 : item.fcltOperYn4,                      //설비 처리 코드
+				fcltOperYn5 : item.fcltOperYn5,                      //설비 처리 코드
+				fcltOperYn6 : item.fcltOperYn6,                      //설비 처리 코드
+				fcltOperYn7 : item.fcltOperYn7,                      //설비 처리 코드
+				fcltOperYn8 : item.fcltOperYn8,                      //설비 처리 코드
+				fcltOperYn9 : item.fcltOperYn9,                      //설비 처리 코드
+				fcltOperYn10 : item.fcltOperYn10,                      //설비 처리 코드
+				fcltOperYn11 : item.fcltOperYn11,                      //설비 처리 코드
+				fcltOperYn12 : item.fcltOperYn12,                      //설비 처리 코드
 				delYn: item.delYn,                  	     		//삭제유무
 	            sysFrstInptDt: item.sysFrstInptDt,       			//시스템최초입력일시
 		        sysFrstInptUserId: item.sysFrstInptUserId,          //시스템최초입력사용자id
@@ -464,6 +532,17 @@
     	SBUxMethod.set("dtl-input-fcltCd", null);                    //  설비 코드
     	SBUxMethod.set("dtl-input-fcltOperCd", null);                //  설비 운영 코드
     	SBUxMethod.set("dtl-input-fcltOperYn", null);                //  설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn2", null);                //  설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn3", null);                //  설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn4", null);                //  설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn5", null);                //  설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn6", null);                //  설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn7", null);                //  설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn8", null);                //  설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn9", null);                //  설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn10", null);                //  설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn11", null);                //  설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn12", null);                //  설비 운영 유무
     	SBUxMethod.set("dtl-input-delYn", null);                  	 //  삭제유무
     	SBUxMethod.set("dtl-input-sysFrstInptDt", null);       		 //	 시스템최초입력일시
     	SBUxMethod.set("dtl-input-sysFrstInptUserId", null);      	 //  시스템최초입력사용자id
@@ -479,6 +558,17 @@
     	SBUxMethod.set("dtl-input-fcltCd", null);
     	SBUxMethod.set("dtl-input-fcltOperCd", null);
     	SBUxMethod.set("dtl-input-fcltOperYn", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn2", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn3", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn4", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn5", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn6", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn7", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn8", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn9", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn10", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn11", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn12", null);
 
     }
     //저장
@@ -532,6 +622,17 @@
         	fcltCd: SBUxMethod.get('dtl-input-fcltCd'),                        //설비 코드
         	fcltOperCd:  SBUxMethod.get('dtl-input-fcltOperCd'),           	   //설비 운영 코드
         	fcltOperYn: SBUxMethod.get('dtl-input-fcltOperYn'),               //설비 운영 유무
+        	fcltOperYn2: SBUxMethod.get('dtl-input-fcltOperYn2'),               //설비 운영 유무
+        	fcltOperYn3: SBUxMethod.get('dtl-input-fcltOperYn3'),               //설비 운영 유무
+        	fcltOperYn4: SBUxMethod.get('dtl-input-fcltOperYn4'),               //설비 운영 유무
+        	fcltOperYn5: SBUxMethod.get('dtl-input-fcltOperYn5'),               //설비 운영 유무
+        	fcltOperYn6: SBUxMethod.get('dtl-input-fcltOperYn6'),               //설비 운영 유무
+        	fcltOperYn7: SBUxMethod.get('dtl-input-fcltOperYn7'),               //설비 운영 유무
+        	fcltOperYn8: SBUxMethod.get('dtl-input-fcltOperYn8'),               //설비 운영 유무
+        	fcltOperYn9: SBUxMethod.get('dtl-input-fcltOperYn9'),               //설비 운영 유무
+        	fcltOperYn10: SBUxMethod.get('dtl-input-fcltOperYn10'),               //설비 운영 유무
+        	fcltOperYn11: SBUxMethod.get('dtl-input-fcltOperYn11'),               //설비 운영 유무
+        	fcltOperYn12: SBUxMethod.get('dtl-input-fcltOperYn12'),               //설비 운영 유무
 			daddr:1
 		});
     	   <!--
@@ -566,6 +667,17 @@
         ,	fcltCd: SBUxMethod.get('dtl-input-fcltCd')                           //  설비 코드
         ,	fcltOperCd: SBUxMethod.get('dtl-input-fcltOperCd')                  	 //  설비 보유 유무
         ,	fcltOperYn: SBUxMethod.get('dtl-input-fcltOperYn')                   //  설비 처리 코드
+        ,	fcltOperYn2: SBUxMethod.get('dtl-input-fcltOperYn2')                   //  설비 처리 코드
+        ,	fcltOperYn3: SBUxMethod.get('dtl-input-fcltOperYn3')                   //  설비 처리 코드
+        ,	fcltOperYn4: SBUxMethod.get('dtl-input-fcltOperYn4')                   //  설비 처리 코드
+        ,	fcltOperYn5: SBUxMethod.get('dtl-input-fcltOperYn5')                   //  설비 처리 코드
+        ,	fcltOperYn6: SBUxMethod.get('dtl-input-fcltOperYn6')                   //  설비 처리 코드
+        ,	fcltOperYn7: SBUxMethod.get('dtl-input-fcltOperYn7')                   //  설비 처리 코드
+        ,	fcltOperYn8: SBUxMethod.get('dtl-input-fcltOperYn8')                   //  설비 처리 코드
+        ,	fcltOperYn9: SBUxMethod.get('dtl-input-fcltOperYn9')                   //  설비 처리 코드
+        ,	fcltOperYn10: SBUxMethod.get('dtl-input-fcltOperYn10')                   //  설비 처리 코드
+        ,	fcltOperYn11: SBUxMethod.get('dtl-input-fcltOperYn11')                   //  설비 처리 코드
+        ,	fcltOperYn12: SBUxMethod.get('dtl-input-fcltOperYn12')                   //  설비 처리 코드
         ,	delYn: SBUxMethod.get('dtl-input-delYn')                  			 //	 삭제유무
         ,	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt')      	  	 //	 시스템최초입력일시
         ,	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId')     //	 시스템최초입력사용자id
@@ -689,6 +801,17 @@
     	SBUxMethod.set("dtl-input-fcltCd", rowData.fcltCd);                  	//설비 코드
         SBUxMethod.set("dtl-input-fcltOperCd", rowData.fcltOperCd);             //설비 운영 코드
     	SBUxMethod.set("dtl-input-fcltOperYn", rowData.fcltOperYn);             //설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn2", rowData.fcltOperYn2);             //설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn3", rowData.fcltOperYn3);             //설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn4", rowData.fcltOperYn4);             //설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn5", rowData.fcltOperYn5);             //설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn6", rowData.fcltOperYn6);             //설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn7", rowData.fcltOperYn7);             //설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn8", rowData.fcltOperYn8);             //설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn9", rowData.fcltOperYn9);             //설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn10", rowData.fcltOperYn10);             //설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn11", rowData.fcltOperYn11);             //설비 운영 유무
+    	SBUxMethod.set("dtl-input-fcltOperYn12", rowData.fcltOperYn12);             //설비 운영 유무
     }
 
     //그리드 체크박스 전체 선택
@@ -700,6 +823,7 @@
         	grdLtMcOpIfList.setCellData(i+1, 1, checkedYn, true, false);
         }
     }
+
 </script>
 
 </html>

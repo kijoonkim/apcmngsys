@@ -37,6 +37,13 @@
 				, FCLT.SYS_LAST_CHG_DT        AS  SYS_LAST_CHG_DT
 			    , FCLT.SYS_LAST_CHG_USER_ID   AS  SYS_LAST_CHG_USER_ID
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS  SYS_LAST_CHG_PRGRM_ID
+				, FCLT.STOR_CAP               AS  STOR_CAP
+				, FCLT.ST_STOR_PERFM          AS  ST_STOR_PERFM
+				, FCLT.LT_STOR_PERFM          AS  LT_STOR_PERFM
+				, FCLT.STOR_OP_RATE           AS  STOR_OP_RATE
+
+
+
 			  FROM TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
  			 WHERE 1=1
 		     		]]>
@@ -81,6 +88,10 @@
 				, FCLT.SYS_LAST_CHG_DT        AS  SYS_LAST_CHG_DT
 			    , FCLT.SYS_LAST_CHG_USER_ID   AS  SYS_LAST_CHG_USER_ID
 			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS  SYS_LAST_CHG_PRGRM_ID
+				, FCLT.STOR_CAP               AS  STOR_CAP
+				, FCLT.ST_STOR_PERFM          AS  ST_STOR_PERFM
+				, FCLT.LT_STOR_PERFM          AS  LT_STOR_PERFM
+				, FCLT.STOR_OP_RATE           AS  STOR_OP_RATE
 			  FROM TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
  			 WHERE 1=1
   ]]>
@@ -125,6 +136,11 @@
 	    		  , SYS_LAST_CHG_DT
 	    		  , SYS_LAST_CHG_USER_ID
 	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		  , STOR_CAP
+	    		  , ST_STOR_PERFM
+	    		  , LT_STOR_PERFM
+	    		  , STOR_OP_RATE
+
 	    		)
 	   		VALUES
 	   			(
@@ -142,6 +158,11 @@
 	   	          , SYSDATE
 	   	          , #{sysLastChgUserId}
 	   	          , #{sysLastChgPrgrmId}
+	   		      , #{storCap}
+	   			  , #{stStorPerfm}
+	   			  , #{ltStorPerfm}
+	   			  , #{storOpRate}
+
 	   			)
     	]]>
     </insert>
@@ -166,6 +187,14 @@
     	          , FCLT_HLD_YN  = #{fcltHldYn}
     	          , FCLT_PRCS_CD = #{fcltPrcsCd}
     	          , FCLT_PRCS_HR = #{fcltPrcsHr}
+ 				  , STOR_CAP      =  #{storCap}
+	    		  , ST_STOR_PERFM =  #{stStorPerfm}
+	    		  , LT_STOR_PERFM =  #{ltStorPerfm}
+	    		  , STOR_OP_RATE  =  #{storOpRate}
+
+
+
+
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
