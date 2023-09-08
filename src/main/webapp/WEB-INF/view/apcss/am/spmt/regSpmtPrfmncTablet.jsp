@@ -281,10 +281,10 @@
 		vhclno = SBUxMethod.get('srch-chk-vhclno');
 		
 		if(!spmtCmndno[Object.keys(spmtCmndno)[0]]){
-			SBUxMethod.set('srch-inp-spmtCmndno', null);
+			SBUxMethod.set('srch-inp-spmtCmndno', "");
 		}
 		if(!vhclno[Object.keys(vhclno)[0]]){
-			SBUxMethod.set('srch-inp-vhclno', null);
+			SBUxMethod.set('srch-inp-vhclno', "");
 		}
 		fn_resetUnchecked();
 	}
@@ -356,31 +356,31 @@
 	
 	// 초기화
 	async function fn_reset() {
-		SBUxMethod.set('srch-inp-spmtCmndno', null);
-		SBUxMethod.set('srch-inp-vhclno', null);
+		SBUxMethod.set('srch-inp-spmtCmndno', "");
+		SBUxMethod.set('srch-inp-vhclno', "");
 		fn_resetUnchecked();
 	}
 	
 	async function fn_resetUnchecked() {
-		SBUxMethod.set('srch-inp-pckgnoSn', null);
-		SBUxMethod.set('srch-inp-spmtQntt', null);
-		SBUxMethod.set('srch-inp-spmtWght', null);
-		SBUxMethod.set('srch-inp-vrtyNm', null);
-		SBUxMethod.set('srch-inp-spcfctNm', null);
-		SBUxMethod.set('srch-inp-gdsNm', null);
-		SBUxMethod.set('srch-inp-gdsGrdNm', null);
-		SBUxMethod.set('srch-inp-spmtPckgUnitNm', null);
-		SBUxMethod.set('srch-inp-cnptNm', null);
-		SBUxMethod.set('srch-inp-trsprtCoNm', null);
-		SBUxMethod.set('srch-inp-pckgno', null);
-		SBUxMethod.set('srch-inp-pckgSn', null);
-		SBUxMethod.set('srch-inp-vrtyCd', null);
-		SBUxMethod.set('srch-inp-spcfctCd', null);
-		SBUxMethod.set('srch-inp-gdsCd', null);
-		SBUxMethod.set('srch-inp-gdsGrd', null);
-		SBUxMethod.set('srch-inp-spmtPckgUnitCd', null);
-		SBUxMethod.set('srch-inp-cnptCd', null);
-		SBUxMethod.set('srch-inp-trsprtCoCd', null);
+		SBUxMethod.set('srch-inp-pckgnoSn', "");
+		SBUxMethod.set('srch-inp-spmtQntt', "");
+		SBUxMethod.set('srch-inp-spmtWght', "");
+		SBUxMethod.set('srch-inp-vrtyNm', "");
+		SBUxMethod.set('srch-inp-spcfctNm', "");
+		SBUxMethod.set('srch-inp-gdsNm', "");
+		SBUxMethod.set('srch-inp-gdsGrdNm', "");
+		SBUxMethod.set('srch-inp-spmtPckgUnitNm', "");
+		SBUxMethod.set('srch-inp-cnptNm', "");
+		SBUxMethod.set('srch-inp-trsprtCoNm', "");
+		SBUxMethod.set('srch-inp-pckgno', "");
+		SBUxMethod.set('srch-inp-pckgSn', "");
+		SBUxMethod.set('srch-inp-vrtyCd', "");
+		SBUxMethod.set('srch-inp-spcfctCd', "");
+		SBUxMethod.set('srch-inp-gdsCd', "");
+		SBUxMethod.set('srch-inp-gdsGrd', "");
+		SBUxMethod.set('srch-inp-spmtPckgUnitCd', "");
+		SBUxMethod.set('srch-inp-cnptCd', "");
+		SBUxMethod.set('srch-inp-trsprtCoCd', "");
 		wght = 0;
 	}
 	
@@ -438,7 +438,7 @@
 // 			SBUxMethod.set('srch-inp-pckgnoSn', pckgno.pckgno+'-'+pckgno.pckgSn);
 // 			SBUxMethod.set('srch-inp-pckgno', pckgno.pckgno);
 // 			SBUxMethod.set('srch-inp-pckgSn', pckgno.pckgSn);
-// 			SBUxMethod.set('srch-inp-spmtQntt', null);
+// 			SBUxMethod.set('srch-inp-spmtQntt', "");
 // 			wght = pckgno.pckgWght;
 // 		}
 // 	}
