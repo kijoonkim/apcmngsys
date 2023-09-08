@@ -12,7 +12,7 @@
 				<div class="ad_tbl_top">
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSearchPltBx" name="btnSearchPltBx" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popPltBx.search"></sbux-button>
-						<sbux-button id="btnSavePltBx" name="btnSavePltBx" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insertPltBx"></sbux-button>
+						<sbux-button id="btnConfirmPltBx" name="btnConfirmPltBx" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" onclick="popPltBx.confirm"></sbux-button>
 						<sbux-button id="btnEndPltBx" name="btnEndPltBx" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popPltBx.close"></sbux-button>
 					</div>
 				</div>
@@ -132,25 +132,18 @@
 	var jsonComPltNm		= [];
 	var jsonComBxNm		= [];
 	
-	const pltMap = {};
-	const bxMap = {};
-	
 	var jsonPlt = [];
 	var jsonBx = [];
-	var jsonBxPltBxPop 	= [];
-	
+	var pltBxList = []
 	var grdPlt = null;
 	var grdBx = null;
+	
+
 	const popPltBx = {
 			prgrmId: 'pltBxPopup',
 			modalId: 'modal-pltBx',
-// 			gridId: 'grdPlt',
-// 			jsonId: 'jsonPlt',
-// 			areaId: "sb-area-grdPrdcr",
-// 			prvApcCd: "",
 			objGrid: null,
 			apcCd: null,
-// 			gridJson: [],
 			callbackFnc: function() {},
 			init: async function(_apcCd, _apcNm, _callbackFnc, _pltBxData) {
 				this.apcCd = _apcCd;
@@ -163,22 +156,10 @@
 				this.createPltGrid();
 				this.createBxGrid();
 				
-				
-				jsonPltBxPop = {
-						pltData: [],
-						bxData: []
-					}
-
-				if (!gfn_isEmpty(_pltBxData)) {
-					if (!gfn_isEmpty(_pltBxData.pltData)) {
-						jsonPltBxPop.pltData = gfn_cloneJson(_pltBxData.pltData);
-					}
-					if (!gfn_isEmpty(_pltBxData.bxData)) {
-						jsonPltBxPop.bxData = gfn_cloneJson(_pltBxData.bxData);
-					}
-				}
-				
 				this.search(_pltBxData);
+			},
+			confirm: function() {
+			
 			},
 			close: function() {
 				pltBxData = {
@@ -199,7 +180,7 @@
 			    SBGridProperties.selectmode = 'byrow';
 			    SBGridProperties.extendlastcol = 'scroll';
 			    SBGridProperties.columns = [
-			        {caption: ["팔레트","종류"], 		ref: 'pltBxNm',   		type:'combo',  width:'140px',    style:'text-align:center',
+			        {caption: ["팔레트","종류"], 		ref: 'pltBxCd',   		type:'combo',  width:'140px',    style:'text-align:center',
 						typeinfo : {ref:'jsonComPltNm', label:'label', value:'value', displayui : true}},
 			        {caption: ["팔레트","대여업체"], 		ref: 'pltCnptNm',  	type:'input',  width:'100px',    style:'text-align:center'},
 			        {caption: ["팔레트","수량"], 		ref: 'qntt',  	type:'input',  width:'70px',    style:'text-align:center'},
@@ -232,7 +213,7 @@
 			    SBGridProperties.selectmode = 'byrow';
 			    SBGridProperties.extendlastcol = 'scroll';
 			    SBGridProperties.columns = [
-			    	{caption: ["박스","종류"], 		ref: 'pltBxNm',   		type:'combo',  width:'140px',    style:'text-align:center',
+			    	{caption: ["박스","종류"], 		ref: 'pltBxCd',   		type:'combo',  width:'140px',    style:'text-align:center',
 						typeinfo : {ref:'jsonComBxNm', label:'label', value:'value', displayui : true}},
 					{caption: ["박스","대여업체"], 		ref: 'pltCnptNm',  	type:'input',  width:'100px',    style:'text-align:center'},
 			        {caption: ["박스","수량"], 		ref: 'qntt',  	type:'input',  width:'70px',    style:'text-align:center'},
@@ -281,6 +262,7 @@
 		        	}else{
 		        		grdPlt.deleteRow(nRow);
 		        	}
+					this.setPltTotal();
 				}else if(grid === "grdBx"){
 					if(grdBx.getRowStatus(nRow) == 0 || grdBx.getRowStatus(nRow) == 2){
 						if (!gfn_comConfirm("Q0001", "삭제")) {	//	Q0001	{0} 하시겠습니까?
@@ -291,6 +273,7 @@
 		        	}else{
 		        		grdBx.deleteRow(nRow);
 		        	}
+					this.setBxTotal();
 				}
 			},
 			save: async function() {
@@ -321,11 +304,9 @@
 						label: item.pltBxNm,
 						value: item.pltBxCd
 					}
-					pltMap[item.pltBxCd] = item;
+					pltBxList.push(item);
 					jsonComPltNm.push(pltBx);
 				});
-		 		console.log("jsonComPltNm", jsonComPltNm);
-		 		console.log("pltMap", pltMap);
 		 		SBUxMethod.refresh('grdPlt');
 		 		
 		 		
@@ -338,70 +319,68 @@
 						label: item.pltBxNm,
 						value: item.pltBxCd
 					}
-					bxMap[item.pltBxCd] = item;
+					pltBxList.push(item);
 					jsonComBxNm.push(pltBx);
 				});
-		 		console.log("jsonComBxNm", jsonComBxNm);
-		 		console.log("bxMap", bxMap);
 		 		SBUxMethod.refresh('grdBx');
 		    },
-		    setPltUnitWght: function() {
+		    setPltUnitWght: async function() {
 			    var nRow = grdPlt.getRow();
 			    var nCol = grdPlt.getCol();
 				if(nCol == 0){
-				    grdPlt.setCellData(nRow,nCol+1,pltMap[grdPlt.getCellData(nRow,nCol)].pltCnptNm);
-				    grdPlt.setCellData(nRow,nCol+3,pltMap[grdPlt.getCellData(nRow,nCol)].unitWght);
-				    grdPlt.setCellData(nRow,nCol+5,pltMap[grdPlt.getCellData(nRow,nCol)].unitCd);
-				    grdPlt.setCellData(nRow,nCol+7,pltMap[grdPlt.getCellData(nRow,nCol)].pltBxCd);
-				    grdPlt.setCellData(nRow,nCol+8,pltMap[grdPlt.getCellData(nRow,nCol)].pltBxSeCd);
-				    grdPlt.setCellData(nRow,nCol+9,pltMap[grdPlt.getCellData(nRow,nCol)].apcCd);
+					var pltBxCd = grdPlt.getRowData(nRow).pltBxCd;
+					jsonPlt[nRow-2] =  pltBxList.find(e => e.pltBxSeCd == 'P' && e.pltBxCd == pltBxCd);
+					grdPlt.refresh();
 				}
 				else if(nCol == 2){
 					grdPlt.setCellData(nRow,nCol+2,grdPlt.getCellData(nRow, 2) * grdPlt.getCellData(nRow, 3));
 				}
-				
-				var totalQntt = Number(0);
-				var totalWght = 0;
-				for(var i=0; i<jsonPlt.length; i++){
-					totalQntt += Number(jsonPlt[i].qntt);
-					
-					if (jsonPlt[i].unitCd == 1)
-						totalWght += jsonPlt[i].qntt * jsonPlt[i].unitWght / 1000
-					else if(jsonPlt[i].unitCd == 3)
-						totalWght += jsonPlt[i].qntt * jsonPlt[i].unitWght * 1000
-					else
-						totalWght += jsonPlt[i].qntt * jsonPlt[i].unitWght
-				}
-				SBUxMethod.set("plt-inp-qntt", totalQntt);
-				SBUxMethod.set("plt-inp-wght", totalWght);
+				this.setPltTotal();
 		    },
 		    setBxUnitWght: function() {
 			    var nRow = grdBx.getRow();
 			    var nCol = grdBx.getCol();
-			    console.log(nRow, nCol);
 				if(nCol == 0){
-					grdBx.setCellData(nRow,nCol+1,bxMap[grdBx.getCellData(nRow,nCol)].pltCnptNm);
-					grdBx.setCellData(nRow,nCol+3,bxMap[grdBx.getCellData(nRow,nCol)].unitWght);
-					grdBx.setCellData(nRow,nCol+5,bxMap[grdBx.getCellData(nRow,nCol)].unitCd);
-					grdBx.setCellData(nRow,nCol+7,bxMap[grdBx.getCellData(nRow,nCol)].pltBxCd);
-					grdBx.setCellData(nRow,nCol+8,bxMap[grdBx.getCellData(nRow,nCol)].pltBxSeCd);
-					grdBx.setCellData(nRow,nCol+9,bxMap[grdBx.getCellData(nRow,nCol)].apcCd);
+					var pltBxCd = grdPlt.getRowData(nRow).pltBxCd;
+					jsonBx[nRow-2] =  pltBxList.find(e => e.pltBxSeCd == 'B' && e.pltBxCd == pltBxCd);
+					grdBx.refresh();
 				}
 				else if(nCol == 2){
 					grdBx.setCellData(nRow,nCol+2, grdBx.getCellData(nRow, 2) * grdBx.getCellData(nRow, 3));
 				}
-				
+				this.setBxTotal();
+		    },
+		    setPltTotal: function(){
 				var totalQntt = Number(0);
 				var totalWght = 0;
 				for(var i=0; i<jsonPlt.length; i++){
-					totalQntt += Number(jsonBx[i].qntt);
+					let qntt = gfn_isEmpty(jsonPlt[i].qntt) ? 0 : jsonPlt[i].qntt;
+					totalQntt += Number(qntt);
+					
+					if (jsonPlt[i].unitCd == 1)
+						totalWght += qntt * jsonPlt[i].unitWght / 1000
+					else if(jsonPlt[i].unitCd == 3)
+						totalWght += qntt * jsonPlt[i].unitWght * 1000
+					else
+						totalWght += qntt * jsonPlt[i].unitWght
+				}
+				SBUxMethod.set("plt-inp-qntt", totalQntt);
+				SBUxMethod.set("plt-inp-wght", totalWght);
+		    },
+		    
+		    setBxTotal: function() {
+				var totalQntt = Number(0);
+				var totalWght = 0;
+				for(var i=0; i<jsonPlt.length; i++){
+					let qntt = gfn_isEmpty(jsonBx[i].qntt) ? 0 : jsonBx[i].qntt;
+					totalQntt += Number(qntt);
 					
 					if (jsonBx[i].unitCd == 1)
-						totalWght += jsonBx[i].qntt * jsonBx[i].unitWght / 1000
+						totalWght += qntt * jsonBx[i].unitWght / 1000
 					else if(jsonBx[i].unitCd == 3)
-						totalWght += jsonBx[i].qntt * jsonBx[i].unitWght * 1000
+						totalWght += qntt * jsonBx[i].unitWght * 1000
 					else
-						totalWght += jsonBx[i].qntt * jsonBx[i].unitWght
+						totalWght += qntt * jsonBx[i].unitWght
 				}
 				SBUxMethod.set("bx-inp-qntt", totalQntt);
 				SBUxMethod.set("bx-inp-wght", totalWght);
