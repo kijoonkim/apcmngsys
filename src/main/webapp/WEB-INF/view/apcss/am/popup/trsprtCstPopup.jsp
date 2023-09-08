@@ -96,8 +96,9 @@
 <script type="text/javascript">
 	var jsonTrsprtCstPop = [];
 
-	var jsonComTrsprtSeCd 		= [];	// 운송구분 trsprtSeCd		Grid
+	var jsonComTrsprtSeCd 		= [];	// 운송구분 	trsprtSeCd		Grid
 	var jsonComTrsprtRgnCd		= [];	// 운송지역	trsprtRgnCd		Grid
+	var jsonRgnTrsprtCst		= [];	// 지역별 운임비용
 
 	var grdTrsptCstPop = null;
     var jsonVhcl = [];
@@ -125,6 +126,7 @@
 			if(!gfn_isEmpty(_data.vhclno)){
 				SBUxMethod.set("trsprtCst-inp-vhclno", _data.vhclno);
 			}
+			await this.callSelectRgnTsprtCstList();
 
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;
@@ -311,7 +313,6 @@
 	    	await this.setGrid(pageSize, pageNo);
 		},
 		setGrid: async function(pageSize, pageNo) {
-
 	    	let apcCd 		= SBUxMethod.get("trsprtCst-inp-apcCd");
 	    	let trsprtYmd 	= SBUxMethod.get("trsprtCst-dtp-trsprtYmd");
 	    	let vhclno 		= SBUxMethod.get("trsprtCst-inp-vhclno");
@@ -383,23 +384,39 @@
 
 	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
 	    },
+	    callSelectRgnTsprtCstList: async function() {
+			const apcCd = SBUxMethod.get("trsprtCst-inp-apcCd");
+	    	let postJsonPromise = gfn_postJSON("/am/cmns/selectRgnTrsprtCstList.do", {apcCd : apcCd});
+            let data = await postJsonPromise;
+			try {
+	        	data.resultList.forEach((item, index) => {
+	        		if(item.delYn == 'N'){
+						const trsprtCstVO = {
+							    trsprtRgnCd : item.trsprtRgnCd
+							  , trsprtCst 	: item.trsprtCst
+						}
+						jsonRgnTrsprtCst.push(trsprtCstVO);
+	        		}
+				});
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+	    },
 	    setTrsprtCst: async function(objGrid, nRow, nCol, strValue, objRowData) {
 	    	var nRow = grdTrsprtCstPop.getRow();
 	    	var nCol = grdTrsprtCstPop.getCol();
-    		let apcCd = SBUxMethod.get("trsprtCst-inp-apcCd");
     		let trsprtRgnCd = grdTrsprtCstPop.getCellData(nRow, nCol);
 	    	
-	    	if(nCol == 5 && trsprtRgnCd != null && trsprtRgnCd != ""){
-	    		let postJsonPromise = gfn_postJSON("/am/cmns/selectRawMtrTrsprtCst.do", {apcCd : apcCd, trsprtRgnCd : trsprtRgnCd});
-	            let data = await postJsonPromise;
-	            try{
-	            	grdTrsprtCstPop.setCellData(nRow, nCol+2, data.resultVO.trsprtCst);
-	            }catch (e) {
-	        		if (!(e instanceof Error)) {
-	        			e = new Error(e);
-	        		}
-	        		console.error("failed", e.message);
-	            }
+	    	if(nCol == 5 && !gfn_isEmpty(trsprtRgnCd)){
+	    		for(var i=0; i<jsonRgnTrsprtCst.length; i++){
+	    			if(jsonRgnTrsprtCst[i].trsprtRgnCd == trsprtRgnCd){
+	    				grdTrsprtCstPop.setCellData(nRow, nCol+2, jsonRgnTrsprtCst[i].trsprtCst);
+	    				break;
+	    			}
+	    		}
 	    	}
 	    }
    	}
