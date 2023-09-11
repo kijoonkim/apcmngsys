@@ -1,10 +1,12 @@
 package com.at.apcss.am.cmns.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.at.apcss.am.cmns.vo.StdGrdDtlVO;
+import com.at.apcss.am.cmns.vo.StdGrdJgmtVO;
 import com.at.apcss.am.cmns.vo.StdGrdVO;
 
 /**
@@ -119,4 +121,53 @@ public interface StdGrdMapper {
 	 * @throws Exception
 	 */
 	public int deleteStdGrdDtlAll(StdGrdDtlVO stdGrdDtlVO) throws Exception;
+
+
+	/**
+	 * APC 등급 세부 정보 단건 조회
+	 * @param cmnsGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public StdGrdJgmtVO selectStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+
+	/**
+	 * APC 등급 세부 정보 목록 조회
+	 * @param cmnsGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<StdGrdJgmtVO> selectStdGrdJgmtList(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+
+	/**
+	 * APC 등급 세부 정보 등록
+	 * @param cmnsGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+
+	/**
+	 * APC 등급 세부 정보 변경
+	 * @param cmnsGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+
+	/**
+	 * APC 등급 세부 정보  삭제
+	 * @param cmnsGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+
+	/**
+	 * APC 등급 세부 정보 전체 삭제
+	 * @param cmnsGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteStdGrdJgmtAll(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
 }

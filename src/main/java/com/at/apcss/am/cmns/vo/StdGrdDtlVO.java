@@ -33,7 +33,7 @@ public class StdGrdDtlVO extends StdGrdVO {
 	/*
 	 * 등급값
 	 * */
-	private String grdVl;
+	private int grdVl;
 	/*
 	 * 순서
 	 * */
