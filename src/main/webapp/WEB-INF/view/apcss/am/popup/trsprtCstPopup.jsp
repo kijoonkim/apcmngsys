@@ -102,6 +102,7 @@
 
 	var grdTrsptCstPop = null;
     var jsonVhcl = [];
+	isExist = false
 
     /**
 	 * @description 차량 선택 팝업
@@ -268,10 +269,22 @@
 					}
 
 					if (rowSts === 3){
+						await this.isExistData(rowData);
+						if(isExist){
+							alert("이미 존재하는 데이터입니다.");
+							this.search();
+							return;
+						}
 						rowData.apcCd = apcCd;
 						rowData.rowSts = "I";
 						trsprtCstList.push(rowData);
 					} else if (rowSts === 2){
+						await this.isExistData(rowData);
+						if(isExist){
+							alert("이미 존재하는 데이터입니다.");
+							this.search();
+							return;
+						}
 						rowData.rowSts = "U";
 						trsprtCstList.push(rowData);
 					} else {
@@ -418,6 +431,62 @@
 	    			}
 	    		}
 	    	}
+	    },
+	    isExistData: async function(rowData){
+	    	let checkExistenceList = [];
+	    	matchData = {
+	    			trsprtYmd 	: rowData.trsprtYmd
+				  , trsprtSeCd 	: rowData.trsprtSeCd
+				  , vhclno 		: rowData.vhclno
+				  , trsprtRgnCd : rowData.trsprtRgnCd
+				  , wrhsWght	: rowData.wrhsWght
+				  , trsprtCst 	: rowData.trsprtCst
+				  , bankCd 		: rowData.bankCd
+				  , actno 		: rowData.actno
+				  , dpstr 		: rowData.dpstr
+				  , delYn		: rowData.delYn
+				  , apcCd		: rowData.apcCd
+			}
+	    	const postJsonPromise = gfn_postJSON("/am/cmns/selectRawMtrTrsprtCstList.do", rowData);
+
+	        const data = await postJsonPromise;
+			try {
+	        	data.resultList.forEach((item, index) => {
+					const trsprtCstVO = {
+							trsprtYmd 	: item.trsprtYmd
+						  , trsprtSeCd 	: item.trsprtSeCd
+						  , vhclno 		: item.vhclno
+						  , trsprtRgnCd : item.trsprtRgnCd
+						  , wrhsWght	: item.wrhsWght
+						  , trsprtCst 	: item.trsprtCst
+						  , bankCd 		: item.bankCd
+						  , actno 		: item.actno
+						  , dpstr 		: item.dpstr
+						  , delYn		: item.delYn
+						  , apcCd		: item.apcCd
+					}
+					if ((trsprtCstVO.trsprtYmd == matchData.trsprtYmd) &&
+						(trsprtCstVO.trsprtSeCd == matchData.trsprtSeCd) &&
+						(trsprtCstVO.vhclno == matchData.vhclno) &&
+						(trsprtCstVO.trsprtRgnCd == matchData.trsprtRgnCd) &&
+						(trsprtCstVO.wrhsWght == matchData.wrhsWght) &&
+						(trsprtCstVO.trsprtCst == matchData.trsprtCst) &&
+						(trsprtCstVO.bankCd == matchData.bankCd) &&
+						(trsprtCstVO.actno == matchData.actno) &&
+						(trsprtCstVO.dpstr == matchData.dpstr) &&
+						(trsprtCstVO.delYn == matchData.delYn) &&
+						(trsprtCstVO.apcCd == matchData.apcCd)){
+						isExist = true;
+					} else {
+						isExist = false;
+					}
+				});
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
 	    }
    	}
 
@@ -456,6 +525,7 @@
 			grdTrsprtCstPop.setCellData(nRow, 8, vhcl.bankNm);
 			grdTrsprtCstPop.setCellData(nRow, 9, vhcl.actno);
 			grdTrsprtCstPop.setCellData(nRow, 10, vhcl.dpstr);
+			grdTrsprtCstPop.setCellData(nRow, 13, vhcl.bankCd);
 		}
 	}
 </script>

@@ -52,6 +52,8 @@
 			 , TB_WRHS_VHCL_INFO        VI
 		 WHERE TC.APC_CD = VI.APC_CD
 		   AND TC.VHCLNO = VI.VHCLNO
+		   AND TC.DEL_YN = 'N'
+		   AND VI.DEL_YN = 'N'
 		   AND TC.APC_CD = #{apcCd}
 		   AND TC.TRSPRT_YMD = #{trsprtYmd}
 		]]>
