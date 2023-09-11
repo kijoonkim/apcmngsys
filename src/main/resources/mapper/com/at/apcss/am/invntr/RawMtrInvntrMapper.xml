@@ -256,6 +256,7 @@
 					, INPT_WGHT
 					, INVNTR_QNTT
 					, INVNTR_WGHT
+					, PRDCTN_YR
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -284,6 +285,7 @@
 					, #{inptWght}
 					, #{invntrQntt}
 					, #{invntrWght}
+					, #{prdctnYr}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}
@@ -327,7 +329,7 @@
 			   AND WRHSNO = #{wrhsno}
 		]]>
 	</update>
-	
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrInvntr	-->
 	<!-- DESC : 원물재고내역 변경.		                                       				-->
@@ -344,7 +346,7 @@
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-				
+
 		]]>
 			<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 				, WAREHOUSE_SE_CD			= #{warehouseSeCd}

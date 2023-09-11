@@ -1,10 +1,12 @@
 package com.at.apcss.am.cmns.vo;
 
+import com.at.apcss.co.sys.vo.ComVO;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @Class Name : CmnsGrdVO.java
+ * @Class Name : JgmtGrdVO.java
  * @Description : 등급정보에 대한 VO 클래스
  * @author 신정철
  * @since 2023.06.21
@@ -20,18 +22,34 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class CmnsGrdVO extends CmnsItemVO {
+public class StdGrdVO extends ComVO {
 
 	/**
-	 * 등급코드
+	 * APC코드
 	 */
-	private String grdCd;
-	/**
-	 * 등급명
-	 */
-	private String grdNm;
-	/**
+	private String apcCd;
+	/*
+	 * 품목코드
+	 * */
+	private String itemCd;
+	/*
+	 * 등급구분코드
+	 * */
+	private String grdSeCd;
+	/*
+	 * 등급종류
+	 * */
+	private String grdKnd;
+	/*
+	 * 등급종류명
+	 * */
+	private String grdKndNm;
+	/*
+	 * 가산비율
+	 * */
+	private int adtnRt;
+	/*
 	 * 순번
-	 */
-	private String sn;
+	 * */
+	private int sn;
 }

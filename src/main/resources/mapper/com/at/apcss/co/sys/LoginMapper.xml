@@ -23,8 +23,43 @@
 		<result property="apcNm" column="APC_NM"/>
 		<result property="userType" column="USER_TYPE"/>
 		<result property="userStts" column="USER_STTS"/>
-		
+		<result property="lgnFailNmtm" column="LGN_FAIL_NMTM"/>
+		<result property="endLgnIp" column="END_LGN_IP"/>
 	</resultMap>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.sys.mapper.LoginMapper.selectUser                  	-->
+	<!-- DESC : 계정정보 조회.                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.18  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectUser" parameterType="com.at.apcss.co.sys.vo.LoginVO" resultMap="loginMap">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.sys.mapper.LoginMapper.selectUser */
+				  CU.USER_ID		AS ID
+				, CU.USER_NM		AS NAME
+				, CU.PSWD			AS PASSWORD
+				, CU.USER_ID		AS USER_ID
+				, CU.PSWD			AS PSWD
+				, CU.USER_TYPE		AS USER_TYPE
+				, CU.USER_STTS		AS USER_STTS
+				, CU.EML			AS EMAIL
+				, CU.TELNO			AS TELNO
+				, CU.APC_CD			AS APC_CD
+				, (SELECT FN_GET_APC_NM(CU.APC_CD) FROM DUAL) AS APC_NM
+				, CU.CHRGD_CERT_YN		AS CHRGD_CERT_YN
+				, CU.CHRGD_CERT_TYPE	AS CHRGD_CERT_TYPE
+				, CU.LGN_FAIL_NMTM		AS LGN_FAIL_NMTM
+				, CU.END_LGN_DT		AS END_LGN_DT
+				, CU.END_LGN_IP		AS END_LGN_IP
+				, CU.DEL_YN			AS DEL_YN
+			  FROM TB_COM_USER CU
+			 WHERE CU.USER_ID = #{id}
+    	]]>
+    </select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.sys.mapper.LoginMapper.actionLogin                  -->
@@ -58,7 +93,7 @@
 			  FROM TB_COM_USER CU
 			 WHERE CU.USER_ID = #{id}
 			   AND CU.PSWD = #{password}
-			   AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
+			   -- AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
 			   AND CU.DEL_YN = 'N'
     	]]>
     </select>

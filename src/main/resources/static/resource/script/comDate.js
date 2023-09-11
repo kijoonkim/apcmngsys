@@ -26,6 +26,43 @@ const gfn_dateToYmd = function(date, delimiter = "") {
 	return strYmd;
 }
 
+
+/**
+ * @name gfn_dateToYm
+ * @description
+ * @param {Date} date
+ * @param {String} delimiter
+ * @function
+ * @returns
+ */
+const gfn_dateToYm = function(date, delimiter = "") {
+
+    let year  = date.getFullYear();
+    let month = ('0' + (date.getMonth() + 1)).slice(-2);
+
+	let strYm = "";
+	strYm += year;
+	strYm += delimiter + month;
+
+	return strYm;
+}
+
+/**
+ * @name gfn_dateToYear
+ * @description
+ * @param {Date} date
+ * @param {String} delimiter
+ * @function
+ * @returns
+ */
+const gfn_dateToYear = function(date) {
+
+    let year  = date.getFullYear();
+
+	return year;
+}
+
+
 /**
  * @name
  * @description

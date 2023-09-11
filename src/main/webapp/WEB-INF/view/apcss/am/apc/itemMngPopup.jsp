@@ -58,7 +58,7 @@
 				<!--[pp] 검색결과 -->
 				<div class="row">
 
-					<div class="col-sm-6">
+					<div class="col-sm-5">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
 								<li><span>농수축산물표준 품목</span></li>
@@ -70,7 +70,7 @@
 					</div>
 
 
-					<div class="col-sm-6">
+					<div class="col-sm-7">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
 								<li><span>APC관리 품목</span></li>
@@ -113,7 +113,7 @@
 				</div>
 
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-5">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
 								<li><span>농수축산물표준 품종</span></li>
@@ -123,7 +123,7 @@
 							<div id="sb-area-grdVrty" style="height:157px; width: 100%;"></div>
 						</div>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-7">
 						<div class="ad_tbl_top"  style="width: 98%;">
 							<ul class="ad_tbl_count">
 								<li><span>APC관리 품종</span></li>
@@ -174,7 +174,7 @@
 		SBGridPropertiesItem.scrollbubbling = false;
 		SBGridPropertiesItem.columns = [
 	        {caption: ["코드"],     ref: 'itemCd',  type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'itemNm',  type:'output',  width:'280px',    style:'text-align:center'},
+	        {caption: ["명칭"],     ref: 'itemNm',  type:'output',  width:'200px',    style:'text-align:center'},
 	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'80PX',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_addItem(" + nRow + ")'>선택</button>";
@@ -195,11 +195,11 @@
 	    SBGridPropertiesApcItem.oneclickedit = true;
 	    SBGridPropertiesApcItem.scrollbubbling = false;
 	    SBGridPropertiesApcItem.columns = [
-	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'130px',    style:'text-align:center'},
-	        {caption: ["품종"],     ref: 'vrtrCnt',  	type:'output',  width:'60px',    style:'text-align:center'},
-	        {caption: ["규격"],     ref: 'spcfctCnt',  	type:'output',  width:'60px',    style:'text-align:center'},
-	        {caption: ["등급"],     ref: 'grdCnt',  	type:'output',  width:'60px',    style:'text-align:center'},
+	        {caption: ["품종"],     ref: 'vrtrCnt',  	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["규격"],     ref: 'spcfctCnt',  	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["등급"],     ref: 'grdCnt',  	type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["삭제"], 	ref: 'empty',   type:'output',  width:'80PX',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteItem(" + nRow + ")'>삭제</button>";
@@ -221,12 +221,8 @@
 	    SBGridPropertiesVrty.oneclickedit = true;
 	    SBGridPropertiesVrty.scrollbubbling = false;
 	    SBGridPropertiesVrty.columns = [
-	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'output',  width:'140px',    style:'text-align:center'},
-	        {caption: ["단위중량"],     ref: 'unitWght',  type:'input',  width:'80px',  style: 'text-align:right; background:#FFF8DC;',
-    			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-	        {caption: ["처리기준"],     ref: 'wghtRkngSeCd',  type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
-					typeinfo : {ref:'jsonVrtyWghtRkngSeCd', displayui : false,	itemcount: 10, label:'label', value:'value'}},
+	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'output',  width:'200px',    style:'text-align:center'},
 	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'80PX',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_addVrty(" + nRow + ")'>선택</button>";
@@ -249,11 +245,14 @@
 	    SBGridPropertiesApcVrty.scrollbubbling = false;
 	    SBGridPropertiesApcVrty.columns = [
 	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'input',  	width:'140px',    style:'text-align:center'},
-	        {caption: ["단위중량"],     ref: 'unitWght',  type:'input',  width:'80px',  style: 'text-align:right; background:#FFF8DC;',
-    			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-	        {caption: ["처리기준"],     ref: 'wghtRkngSeCd',  type:'combo',  width:'80px',    style:'text-align:center; background:#FFF8DC;',
+	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'input',  	width:'140px',    style:'text-align:center',
+	        	typeinfo : {maxlength : 30}},
+	        {caption: ["입고단중"],     ref: 'unitWght',  type:'input',  width:'80px',  style: 'text-align:right;',
+    			typeinfo : {mask : {alias : 'numeric'}, maxlength : 10}, format : {type:'number', rule:'#,### Kg'}},
+	        {caption: ["처리기준"],     ref: 'wghtRkngSeCd',  type:'combo',  width:'80px',    style:'text-align:center;',
 					typeinfo : {ref:'jsonVrtyWghtRkngSeCd', displayui : false,	itemcount: 10, label:'label', value:'value'}},
+			{caption: ["순번"],     ref: 'sn',  type:'input',  	width:'80px',    style:'text-align:center',
+						typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}},
 	        {caption: ["선택"], 	ref: 'delYn',   type:'output',  width:'80PX',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	            	if(strValue== null || strValue == ""){
@@ -408,12 +407,13 @@
 				  , itemCd			: item.itemCd
 				  , unitWght		: item.unitWght
 				  , wghtRkngSeCd 	: item.wghtRkngSeCd
+				  , sn				: item.sn
 				}
 				newJsonApcVrty.push(vrtyVO);
 			});
         	jsonApcVrty = newJsonApcVrty;
         	grdApcVrty.rebuild();
-        	grdApcVrty.setCellDisabled(0, 0, grdApcVrty.getRows() - 1, grdApcVrty.getCols() - 1, true);
+        	grdApcVrty.setCellDisabled(0, 1, grdApcVrty.getRows() - 1, 1, true);
         	grdApcVrty.addRow(true);
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -469,17 +469,6 @@
 
 	const fn_addVrty = async function(nRow){
 		let vrtyVO = grdVrty.getRowData(nRow);
-		let unitWght = vrtyVO.unitWght;
-		let wghtRkngSeCd = vrtyVO.wghtRkngSeCd;
-		if (gfn_isEmpty(unitWght)) {
-  			gfn_comAlert("W0002", "단위중량");		//	W0002	{0}을/를 입력하세요.
-            return;
-  		}
-		if (gfn_isEmpty(wghtRkngSeCd)) {
-  			gfn_comAlert("W0001", "처리기준");		//	W0001	{0}을/를 선택하세요.
-            return;
-  		}
-
 		let postJsonPromise = gfn_postJSON("/am/cmns/insertApcVrty.do", vrtyVO);
         let data = await postJsonPromise;
 
@@ -500,6 +489,7 @@
 
 	const fn_deleteVrty = async function(nRow){
 		if(grdApcVrty.getRowStatus(nRow) == 0 || grdApcVrty.getRowStatus(nRow) == 2){
+
 			let vrtyVO = grdApcVrty.getRowData(nRow);
 
 			let postJsonPromise = gfn_postJSON("/am/cmns/deleteApcVrty.do", vrtyVO);
@@ -530,42 +520,38 @@
 	const fn_sevaApcVrtyList = async function(){
 
 		let gridData = grdApcVrty.getGridDataAll();
-		let insertList = [];
+		let saveList = [];
 		for(var i=1; i<=gridData.length; i++ ){
 			let rowData = grdApcVrty.getRowData(i);
-			let rowStts = grdApcVrty.getRowStatus(i);
+			let rowSts = grdApcVrty.getRowStatus(i);
 			let delYn = rowData.delYn;
 			let unitWght = rowData.unitWght;
 			let wghtRkngSeCd = rowData.wghtRkngSeCd;
 			let vrtyNm = rowData.vrtyNm;
 			if(delYn == 'N'){
-
 				if (gfn_isEmpty(vrtyNm)) {
 		  			gfn_comAlert("W0002", "품종명");		//	W0002	{0}을/를 입력하세요.
 		            return;
 		  		}
-				if (gfn_isEmpty(unitWght)) {
-		  			gfn_comAlert("W0002", "단위중량");		//	W0002	{0}을/를 입력하세요.
-		            return;
-		  		}
-				if (gfn_isEmpty(wghtRkngSeCd)) {
-		  			gfn_comAlert("W0001", "처리기준");		//	W0001	{0}을/를 선택하세요.
-		            return;
-		  		}
-
-				if(rowStts === 3){
-					insertList.push(rowData);
+				if (rowSts === 3){
+					rowData.rowSts = "I";
+					saveList.push(rowData);
+				} else if (rowSts === 2){
+					rowData.rowSts = "U";
+					saveList.push(rowData);
+				} else {
+					continue;
 				}
 			}
 		}
-		if(insertList.length == 0){
+		if(saveList.length == 0){
 			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
-			let postJsonPromise = gfn_postJSON("/am/cmns/insertApcVrtyList.do", insertList);
+			let postJsonPromise = gfn_postJSON("/am/cmns/multiApcVrtyList.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {

@@ -16,10 +16,10 @@ import java.io.Serializable;
  *  @since 2009.03.03
  *  @version 1.0
  *  @see
- *  
+ *
  */
 public class LoginVO implements Serializable{
-	
+
 	private static final long serialVersionUID = -8274004534207618049L;
 
 	/** 아이디 */
@@ -50,7 +50,7 @@ public class LoginVO implements Serializable{
 	/** 디지털원패스 사용자세션값 */
 	private String onepassIntfToken;
 
-	
+
 	private String userId;
 	private String pswd;
 	private String userType;
@@ -65,9 +65,12 @@ public class LoginVO implements Serializable{
 	private int lgnFailNmtm;
 	private String endLgnDt;
 	private String endLgnIp;
-	
-	private String apcAdminType;	
-	
+
+	private String lgnRslt;
+	private String delYn;
+
+	private String apcAdminType;
+
 	/**
 	 * id attribute 를 리턴한다.
 	 * @return String
@@ -166,7 +169,7 @@ public class LoginVO implements Serializable{
 	public void setPasswordCnsr(String passwordCnsr) {
 		this.passwordCnsr = passwordCnsr;
 	}
-	
+
 	/**
 	 * uniqId attribute 를 리턴한다.
 	 * @return String
@@ -223,7 +226,7 @@ public class LoginVO implements Serializable{
 	public void setDn(String dn) {
 		this.dn = dn;
 	}
-		
+
 	/**
 	 * 디지털원패스 사용자키를 리턴한다.
 	 * @return onepassUserkey
@@ -343,4 +346,17 @@ public class LoginVO implements Serializable{
 	public void setApcAdminType(String apcAdminType) {
 		this.apcAdminType = apcAdminType;
 	}
+	public String getLgnRslt() {
+		return lgnRslt;
+	}
+	public void setLgnRslt(String lgnRslt) {
+		this.lgnRslt = lgnRslt;
+	}
+	public String getDelYn() {
+		return delYn;
+	}
+	public void setDelYn(String delYn) {
+		this.delYn = delYn;
+	}
+
 }
