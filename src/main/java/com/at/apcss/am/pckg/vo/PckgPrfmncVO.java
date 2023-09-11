@@ -110,6 +110,10 @@ public class PckgPrfmncVO extends ComVO {
 	private String wrhsSeCd;
 
 	/**
+	 * 출하포장단위코드
+	 */
+	private String spmtPckgUnitCd;
+	/**
 	 * 포장수량
 	 */
 	private int pckgQntt;
@@ -156,9 +160,6 @@ public class PckgPrfmncVO extends ComVO {
 
 	/*품목코드*/
 	private String itmeCd;
-
-//	/*포장기*/
-//	private String fcltCd;
 
 	/*저장창고*/
 	private String strgWarehouse;

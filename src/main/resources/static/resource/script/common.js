@@ -260,20 +260,20 @@ const gfn_setSBSelectJson = function (_targetIds, _jsondataRef, _sourceJson) {
 	try {
 		_jsondataRef.length = 0;
 		_sourceJson.forEach((item) => {
-
+			/*
 			const tempItem = {
 				text: item.cmnsNm,
 				label: item.cmnsNm,
 				value: item.cmnsCd,
 				mastervalue  : item.mastervalue
 			}
-			/*
+			 */
 			item.text = item.cmnsNm;
 			item.label = item.cmnsNm;
 			item.value = item.cmnsCd;
 			item.mastervalue = item.mastervalue;
-			 */
-			_jsondataRef.push(tempItem);
+
+			_jsondataRef.push(item);
 		});
 
 		if (Array.isArray(_targetIds)) {
@@ -659,7 +659,37 @@ const gfn_setTrsprtsSBSelect = async function (_targetIds, _jsondataRef, _apcCd)
 
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 }
+
+
+/**
+ * @name gfn_getPltBxs
+ * @description  APC별 팔레트/박스 목록 가져오기
+ * @function
+ * @param {string} _apcCd		APC코드
+ * @param {string} _pltBxSeCd	팔레트/박스 구분코드
+ * @returns {any[]}
+ */
+async function gfn_getPltBxs (_apcCd, _pltBxSeCd) {
+	const postJsonPromise = gfn_postJSON(URL_PLT_BX_INFO, {apcCd: _apcCd, pltBxSeCd: _pltBxSeCd, delYn: "N"}, null, true);
+	const data = await postJsonPromise;
+	return data.resultList;
+}
+
 /** 출하포장단위 */
+/**
+ * @name gfn_getSpmtPckgUnits
+ * @description get APC별 출하포장단위
+ * @function
+ * @param {string} _apcCd	APC코드
+ * @param {string} _itemCd	품목코드
+ * @param {string} _vrtyCd	품종코드
+ */
+const gfn_getSpmtPckgUnits = async function (_apcCd, _itemCd, _vrtyCd) {
+	const postJsonPromise = gfn_postJSON(URL_SPMT_PCKG_UINT, {apcCd : _apcCd, itemCd : _itemCd, vrtyCd : _vrtyCd, delYn: "N"}, null, true);
+	const data = await postJsonPromise;
+	return data.resultList;
+}
+
 /**
  * @name gfn_setSpmtPckgUnitSBSelect
  * @description set SBUX-select options from APC별 출하포장단위
@@ -706,6 +736,8 @@ const gfn_getPrdcrs = async function(_apcCd) {
 				gdsSeCd: item.gdsSeCd,
 				trsprtSeCd: item.trsprtSeCd,
 				vhclno: item.vhclno,
+				prdcrLinkCd: item.prdcrLinkCd,
+				prdcrIdentno: item.prdcrIdentno,
 				name:item.prdcrNm,
 				value:item.prdcrCd
 			});
