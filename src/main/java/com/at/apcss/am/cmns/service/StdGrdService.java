@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.StdGrdDtlVO;
+import com.at.apcss.am.cmns.vo.StdGrdJgmtVO;
 import com.at.apcss.am.cmns.vo.StdGrdListVO;
 import com.at.apcss.am.cmns.vo.StdGrdVO;
 
@@ -112,14 +113,6 @@ public interface StdGrdService {
 	public int updateStdGrdDtl(StdGrdDtlVO StdGrdDtlVO) throws Exception;
 
 	/**
-	 * APC 등급 정보 상세 저장
-	 * @param cmnsGrdVO
-	 * @return
-	 * @throws Exception
-	 */
-	public int multiStdGrdDtlList(List<StdGrdDtlVO> StdGrdDtlList) throws Exception;
-
-	/**
 	 * APC 등급 정보 상세 삭제
 	 * @param cmnsGrdVO
 	 * @return
@@ -134,4 +127,52 @@ public interface StdGrdService {
 	 * @throws Exception
 	 */
 	public int deleteStdGrdDtlAll(StdGrdDtlVO StdGrdDtlVO) throws Exception;
+
+	/**
+	 * APC 등급 세부 정보 단건 조회
+	 * @param cmnsGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public StdGrdJgmtVO selectStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+
+	/**
+	 * APC 등급 세부 정보 목록 조회
+	 * @param cmnsGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<StdGrdJgmtVO> selectStdGrdJgmtList(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+
+	/**
+	 * APC 등급 세부 정보 등록
+	 * @param cmnsGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+
+	/**
+	 * APC 등급 세부 정보 변경
+	 * @param cmnsGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+
+	/**
+	 * APC 등급 세부 정보  삭제
+	 * @param cmnsGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+
+	/**
+	 * APC 등급 세부 정보 전체 삭제
+	 * @param cmnsGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteStdGrdJgmtAll(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
 }
