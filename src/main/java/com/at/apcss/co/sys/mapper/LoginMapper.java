@@ -22,13 +22,15 @@ import com.at.apcss.co.sys.vo.LoginVO;
 @Mapper
 public interface LoginMapper {
 
+	public LoginVO selectUser(LoginVO vo) throws Exception;
+
 	public LoginVO actionLogin(LoginVO vo) throws Exception;
-		
-	public LoginVO actionCrtfctLogin(LoginVO vo) throws Exception;	
+
+	public LoginVO actionCrtfctLogin(LoginVO vo) throws Exception;
 
 	public LoginVO actionSSOLogin(LoginVO vo) throws Exception;
-	
+
 	public LoginVO searchId(LoginVO vo) throws Exception;
-	
+
 	public LoginVO searchPassword(LoginVO vo) throws Exception;
 }

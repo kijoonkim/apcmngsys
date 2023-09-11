@@ -106,6 +106,12 @@ public class GdsInvntrVO extends ComVO {
 	 * 포장구분코드
 	 */
 	private String pckgSeCd;
+
+	/**
+	 * 출하포장단위코드
+	 */
+	private String spmtPckgUnitCd;
+
 	/**
 	 * 포장구분명
 	 */

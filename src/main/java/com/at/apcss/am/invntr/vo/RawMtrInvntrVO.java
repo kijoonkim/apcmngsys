@@ -233,7 +233,12 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 설비명
 	 */
 	private String fcltNm;
-	
+
+	/**
+	 * 생산연도
+	 */
+	private String prdctnYr;
+
 	/*기준일자*/
 	private String crtrYmd;
 	/*재고구분*/

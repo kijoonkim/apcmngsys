@@ -79,6 +79,7 @@ public class LoginController extends BaseController {
 			// return .authError..
 		}
 
+		model.addAttribute("loginCode", null);
 		model.addAttribute("loginMessage", null);
 
 		return "main/login";
@@ -94,7 +95,35 @@ public class LoginController extends BaseController {
 
 		LoginVO resultVO = loginService.actionLogin(loginVO);
 
-		if (resultVO != null && resultVO.getId() != null && StringUtils.hasText(resultVO.getId())) {
+		if (resultVO != null && StringUtils.hasText(resultVO.getId())) {
+
+			// 010. 계정잠김여부
+			if (ComConstants.CON_YES.equals(resultVO.getLckYn())) {		// 잠금상태
+				model.addAttribute("loginCode", ComConstants.ERR_USER_LOCKED);
+				model.addAttribute("loginMessage", null);
+				return "main/login";
+			}
+
+			if (!ComConstants.CON_USER_STTS_VALID.equals(resultVO.getUserStts())) {
+
+				String loginCode = ComConstants.CON_BLANK;
+
+				if (ComConstants.CON_USER_STTS_STANDBY.equals(resultVO.getUserStts())) {	// 승인대기
+					loginCode = ComConstants.ERR_USER_UNRECEIVED;
+
+				} else if (ComConstants.CON_USER_STTS_DORMANCY.equals(resultVO.getUserStts())) {	// 휴면
+					loginCode = ComConstants.ERR_USER_DORMANCY;
+				} else if (ComConstants.CON_USER_STTS_UNUSED.equals(resultVO.getUserStts())) {	// 휴면
+					loginCode = ComConstants.ERR_USER_UNUSED;
+				} else {
+					loginCode = ComConstants.ERR_USER_INVALID;
+				}
+
+				model.addAttribute("loginCode", loginCode);
+				model.addAttribute("loginMessage", null);
+				return "main/login";
+			}
+
 
 			ApcInfoVO apcInfoVO = new ApcInfoVO();
 
@@ -141,12 +170,26 @@ public class LoginController extends BaseController {
 			// 로그인 정보를 세션에 저장
 			request.getSession().setAttribute("loginVO", resultVO);
 
+			// 세션정보 db insert
+
+
 			// 로그인 인증세션
 			request.getSession().setAttribute("accessUser", resultVO.getId());
-			//model.addAttribute("loginMessage", null);
+
+			model.addAttribute("loginCode", null);
+			model.addAttribute("loginMessage", null);
 
 			return "redirect:/actionMain.do";
 		} else {
+
+			if (resultVO != null) {
+				if (ComConstants.ERR_LOGIN_FAILED.equals(resultVO.getLgnRslt())) {
+					// fail count 증가
+
+				}
+			}
+
+			model.addAttribute("loginCode", ComConstants.ERR_LOGIN_FAILED);
 			model.addAttribute("loginMessage", messageSource.getMessage("fail.common.login", request.getLocale()));
 			//return "redirect:/login.do";
 			return "main/login";

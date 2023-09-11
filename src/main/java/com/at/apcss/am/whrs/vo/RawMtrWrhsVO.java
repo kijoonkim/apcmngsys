@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RawMtrWrhsVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -50,7 +50,7 @@ public class RawMtrWrhsVO extends ComVO {
 	private String wrhsYmd;
 	private String wrhsYmdFrom;
 	private String wrhsYmdTo;
-	
+
 	/**
 	 * 생산자코드
 	 */
@@ -105,7 +105,7 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 입고중량
 	 */
 	private double wrhsWght;
-	
+
 	/**
 	 * 비고
 	 */
@@ -120,7 +120,7 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 공차중량
 	 */
 	private double emptVhclWght;
-	
+
 	/**
 	 * 차량번호
 	 */
@@ -150,47 +150,47 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 재고중량
 	 */
 	private double invntrWght;
-	
+
 	/**
 	 * APC명
 	 */
 	private String apcNm;
-	
+
 	/**
 	 * 품목명
 	 */
 	private String itemNm;
-	
+
 	/**
 	 * 품종명
 	 */
 	private String vrtyNm;
-	
+
 	/**
 	 * 등급명
 	 */
 	private String grdNm;
-	
+
 	/**
 	 * 창고명
 	 */
 	private String warehouseSeNm;
-	
+
 	/**
 	 * 박스종류명
 	 */
 	private String bxKndNm;
-	
+
 	/**
 	 * 상품구분명
 	 */
 	private String gdsSeNm;
-	
+
 	/**
 	 * 입고구분명
 	 */
 	private String wrhsSeNm;
-	
+
 	/**
 	 * 운송구분명
 	 */
@@ -200,4 +200,10 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 운임비용
 	 */
 	private int trsprtCst;
+
+	/**
+	 * 생산연도
+	 */
+	private String prdctnYr;
+
 }
