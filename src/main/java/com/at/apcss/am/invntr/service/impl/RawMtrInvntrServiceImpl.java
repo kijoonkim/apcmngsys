@@ -189,12 +189,84 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 		for (RawMtrInvntrVO rawMtrInvntrVO : updateList) {
 			rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrList);
-	     }
+	      }
 		
 //		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrList);
+		HashMap<String, Object> updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrList);
 		
 		return null;
 	}
+	
+//	@Override
+//	public HashMap<String, Object> updateRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+//		// TODO Auto-generated method stub
+//		//포문 돌ㄹ리기 예제 참고
+//		
+//		HashMap<String, Object> rtnObj = new HashMap<>();
+//		
+//				// validation check
+//				for ( RawMtrInvntrVO user : comUserList ) {
+//					RawMtrInvntrVO userInfo = selectComUser(user);
+//		
+//					logger.debug("userInfo.getApcCd(): {}", userInfo.getApcCd());
+//		
+//					if (userInfo == null || !StringUtils.hasText(userInfo.getUserId())) {
+//						return ComUtil.getResultMap("W0005", "사용자정보");
+//					}
+//					if (!StringUtils.hasText(userInfo.getApcCd())) {
+//						return ComUtil.getResultMap("W0005", "APC코드");
+//					}
+//					if (ComConstants.CON_USER_STTS_VALID.equals(userInfo.getUserStts())) {
+//						return ComUtil.getResultMap("W0010", "승인||사용자");	// W0010	이미 {0}된 {1} 입니다.
+//					}
+//					if (!ComConstants.CON_USER_TYPE_ADMIN.equals(userInfo.getUserType())) {
+//						return ComUtil.getResultMap("W0011", "APC관리자");	// W0011	{0}이/가 아닙니다.
+//					}
+//		
+//					user.setApcCd(userInfo.getApcCd());
+//				}
+//		
+//				for ( RawMtrInvntrVO user : comUserList ) {
+//		
+//					String sysUserId = user.getSysLastChgUserId();
+//					String sysPrgrmId = user.getSysLastChgPrgrmId();
+//		
+//					user.setUserStts(ComConstants.CON_USER_STTS_VALID);
+//					rawMtrInvntrMapper.updateRawMtrInvntrList(user);
+//		
+//					// 승인 후 권한id 등록.
+//					ComAuthrtVO comAuthrtVO = new ComAuthrtVO();
+//					comAuthrtVO.setSysFrstInptUserId(sysUserId);
+//					comAuthrtVO.setSysFrstInptPrgrmId(sysPrgrmId);
+//					comAuthrtVO.setSysLastChgUserId(sysUserId);
+//					comAuthrtVO.setSysLastChgPrgrmId(sysPrgrmId);
+//					comAuthrtVO.setApcCd(user.getApcCd());
+//					comAuthrtVO.setUserId(user.getUserId());
+//		
+//					rtnObj = comAuthrtService.insertApcAuthrtId(comAuthrtVO);
+//					if (rtnObj != null) {
+//						logger.error("Error on ComUserService#insertUserAprvList call ComAuthrtService#insertApcAuthrtId");
+//						logger.error(getMessageForMap(rtnObj));
+//						throw new EgovBizException(getMessageForMap(rtnObj));
+//					}
+//		
+//					ApcEvrmntStngVO apcEvrmntStngVO = new ApcEvrmntStngVO();
+//					apcEvrmntStngVO.setSysFrstInptUserId(sysUserId);
+//					apcEvrmntStngVO.setSysFrstInptPrgrmId(sysPrgrmId);
+//					apcEvrmntStngVO.setSysLastChgUserId(sysUserId);
+//					apcEvrmntStngVO.setSysLastChgPrgrmId(sysPrgrmId);
+//					apcEvrmntStngVO.setApcCd(user.getApcCd());
+//		
+//					rtnObj = apcEvrmntStngService.insertApcInitInfo(apcEvrmntStngVO);
+//					if (rtnObj != null) {
+//						logger.error("Error on ComUserService#insertUserAprvList call ApcEvrmntStngService#insertApcInitInfo");
+//						logger.error(getMessageForMap(rtnObj));
+//						throw new EgovBizException(getMessageForMap(rtnObj));
+//					}
+//				}
+//		
+//				return null;
+//			}
 
 	@Override
 	public HashMap<String, Object> updateRawMtrInvntr(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
