@@ -407,7 +407,7 @@
     /* SBGrid Data (JSON) */
 	var jsonRawMtrWrhs = [];
     
-    let vhclData = {vhclno : null, drvrNm : null, bankNm : null, actno : null, dpstr : null};
+    let vhclData = {vhclno : null, drvrNm : null, bankNm : null, bankCd : null, actno : null, dpstr : null};
 
     /**
      * @name fn_initSBSelect
@@ -1078,6 +1078,7 @@
 							vhclno 	: vhcl.vhclno
 					  	  , drvrNm 	: vhcl.drvrNm
 					  	  , bankNm 	: vhcl.bankNm
+					  	  , bankCd 	: vhcl.bankCd
 					  	  , actno 	: vhcl.actno
 					  	  , dpstr 	: vhcl.dpstr
 					   };
@@ -1100,6 +1101,7 @@
 						vhclno 		: null,
 			  			drvrNm 		: null,
 			  			bankNm 		: null,
+			  			bankCd 		: null,
 			  			actno 		: null,
 			  			dpstr 		: null,
 						trsprtSeCd 	: trsprtSeCd,
@@ -1114,6 +1116,7 @@
 			data.vhclno = vhclData.vhclno;
 			data.drvrNm = vhclData.drvrNm;
 			data.bankNm = vhclData.bankNm;
+			data.bankCd = vhclData.bankCd;
 			data.actno = vhclData.actno;
 			data.dpstr = vhclData.dpstr;
 		}
