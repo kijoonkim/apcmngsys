@@ -270,7 +270,6 @@
 
 					if (rowSts === 3){
 						await this.isExistData(rowData);
-						console.log("after: ", isExist);
 						if(isExist){
 							alert("이미 존재하는 데이터입니다.");
 							this.search();
@@ -281,7 +280,6 @@
 						trsprtCstList.push(rowData);
 					} else if (rowSts === 2){
 						await this.isExistData(rowData);
-						console.log("after: ", isExist);
 						if(isExist){
 							alert("이미 존재하는 데이터입니다.");
 							this.search();

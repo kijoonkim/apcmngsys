@@ -184,7 +184,7 @@
 					, VRTY_CD
 					, SPCFCT_CD
 					, GDS_GRD
-					, PCKG_SE_CD
+					, SPMT_PCKG_UNIT_CD
 					, WAREHOUSE_SE_CD
 					, PCKG_QNTT
 					, PCKG_WGHT
@@ -212,7 +212,7 @@
 					, #{vrtyCd}
 					, #{spcfctCd}
 					, #{gdsGrd}
-					, #{pckgSeCd}
+					, #{spmtPckgUnitCd}
 					, #{warehouseSeCd}
 					, #{pckgQntt}
 					, #{pckgWght}
@@ -255,7 +255,7 @@
 				, VRTY_CD = #{vrtyCd}
 				, SPCFCT_CD = #{spcfctCd}
 				, GDS_GRD = #{gdsGrd}
-				, PCKG_SE_CD = #{pckgSeCd}
+				, SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
 				, WAREHOUSE_SE_CD = #{warehouseSeCd}
 				, PCKG_QNTT = #{pckgQntt}
 				, PCKG_WGHT = #{pckgWght}

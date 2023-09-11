@@ -2,15 +2,20 @@ package com.at.apcss.co.sys.service.impl;
 
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.mapper.LoginMapper;
 import com.at.apcss.co.sys.service.LoginService;
 import com.at.apcss.co.sys.vo.LoginVO;
+import com.at.apcss.co.user.service.ComUserService;
+import com.at.apcss.co.user.vo.ComUserVO;
 
 import egovframework.let.utl.fcc.service.EgovNumberUtil;
 import egovframework.let.utl.fcc.service.EgovStringUtil;
@@ -19,40 +24,66 @@ import egovframework.let.utl.sim.service.EgovFileScrty;
 @Service("loginService")
 public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginService {
 
-	
+
 	@Autowired
     private LoginMapper loginMapper;
-    
+
+
+	@Override
+	public LoginVO selectUser(String userId) {
+
+		LoginVO vo = new LoginVO();
+		vo.setUserId(userId);
+
+		LoginVO resultVO;
+		try {
+			resultVO = loginMapper.selectUser(vo);
+		} catch(Exception e) {
+			resultVO = null;
+		}
+
+		return resultVO;
+	}
 
 	@Override
 	public LoginVO actionLogin(LoginVO vo) throws Exception {
-		
+
+		LoginVO chkVO = loginMapper.selectUser(vo);
+		// 계정없음
+		if (chkVO == null
+				|| !StringUtils.hasText(chkVO.getId())
+				|| !ComConstants.CON_NONE.equals(chkVO.getDelYn())
+				) {
+			LoginVO resultVO = new LoginVO();
+			resultVO.setLgnRslt(ComConstants.ERR_USER_NONE);
+			return resultVO;
+		}
+
 		// 1. 입력한 비밀번호를 암호화한다.
 		String enpassword = EgovFileScrty.encryptPassword(vo.getPassword(), vo.getId());
 		vo.setPassword(enpassword);
-		
+
 		System.out.println(String.format("enpassword: %s", enpassword));
-		
+
 		// 2. 아이디와 암호화된 비밀번호가 DB와 일치하는지 확인한다.
     	LoginVO loginVO = loginMapper.actionLogin(vo);
-    	
+
     	if (loginVO != null) {
     		System.out.println(String.format("loginVO: %s", loginVO.toString()));
     		System.out.println(String.format("getId: %s", loginVO.getId()));
     		System.out.println(String.format("getPassword: %s", loginVO.getPassword()));
     	}
-    	
+
     	// 3. 결과를 리턴한다.
-    	if (loginVO != null 
-    			&& StringUtils.hasText(loginVO.getId()) 
+    	if (loginVO != null
+    			&& StringUtils.hasText(loginVO.getId())
     			&& StringUtils.hasText(loginVO.getPassword())) {
-    		System.out.println(String.format("loginVO: %s", loginVO.toString()));
     		return loginVO;
     	} else {
-    		System.out.println(String.format("no id"));
     		loginVO = new LoginVO();
+    		loginVO.setLgnRslt(ComConstants.ERR_LOGIN_FAILED);
     	}
-    	
+
 		return loginVO;
 	}
 
@@ -65,24 +96,24 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 
 	@Override
 	public LoginVO actionSSOLogin(LoginVO vo) throws Exception {
-		
+
 		// TODO
 		// FIXME SSO 통합인증 추가할 것
-		
+
 		// 2. 아이디와 암호화된 비밀번호가 DB와 일치하는지 확인한다.
     	LoginVO loginVO = loginMapper.actionSSOLogin(vo);
-    	
+
     	System.out.println(loginVO == null);
-    	
+
     	if (loginVO != null) {
     		System.out.println(String.format("loginVO: %s", loginVO.toString()));
     		System.out.println(String.format("getId: %s", loginVO.getId()));
     		System.out.println(String.format("getPassword: %s", loginVO.getPassword()));
     	}
-    	
+
     	// 3. 결과를 리턴한다.
-    	if (loginVO != null 
-    			&& StringUtils.hasText(loginVO.getId()) 
+    	if (loginVO != null
+    			&& StringUtils.hasText(loginVO.getId())
     			&& StringUtils.hasText(loginVO.getPassword())) {
     		System.out.println(String.format("loginVO: %s", loginVO.toString()));
     		return loginVO;
@@ -90,37 +121,37 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
     		System.out.println(String.format("no id"));
     		loginVO = new LoginVO();
     	}
-    	
+
 		return loginVO;
 	}
 
-	
+
 	@Override
 	public LoginVO searchId(LoginVO vo) throws Exception {
 		// 1. 이름, 이메일주소가 DB와 일치하는 사용자 ID를 조회한다.
     	LoginVO loginVO = loginMapper.searchId(vo);
-    	
+
     	// 2. 결과를 리턴한다.
     	if (loginVO != null && !StringUtils.hasText(loginVO.getId())) {
     		return loginVO;
     	} else {
     		loginVO = new LoginVO();
     	}
-    	
+
 		return loginVO;
 	}
 
 	@Override
 	public boolean searchPassword(LoginVO vo) throws Exception {
-		
+
 		boolean result = true;
-		
+
 		// 1. 아이디, 이름, 이메일주소, 비밀번호 힌트, 비밀번호 정답이 DB와 일치하는 사용자 Password를 조회한다.
     	LoginVO loginVO = loginMapper.searchPassword(vo);
     	if (loginVO == null || StringUtils.hasText(loginVO.getPassword())) {
     		return false;
     	}
-		
+
     	// 2. 임시 비밀번호를 생성한다.(영+영+숫+영+영+숫+영+영=8자리)
     	String newPassword = "";
     	for (int i = 1; i <= 8; i++) {
@@ -132,7 +163,7 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
     			newPassword += EgovNumberUtil.getRandomNum(0, 9);
     		}
     	}
-		
+
     	// 3. 임시 비밀번호를 암호화하여 DB에 저장한다.
     	LoginVO pwVO = new LoginVO();
 		String encryptPassword = EgovFileScrty.encryptPassword(newPassword, vo.getId());

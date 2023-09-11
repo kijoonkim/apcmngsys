@@ -9,15 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.cmns.mapper.CmnsItemMapper;
-import com.at.apcss.am.cmns.service.CmnsGrdService;
 import com.at.apcss.am.cmns.service.CmnsItemService;
 import com.at.apcss.am.cmns.service.CmnsSpcfctService;
 import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.cmns.service.CmnsVrtyService;
-import com.at.apcss.am.cmns.vo.CmnsGrdVO;
+import com.at.apcss.am.cmns.service.StdGrdService;
 import com.at.apcss.am.cmns.vo.CmnsItemVO;
 import com.at.apcss.am.cmns.vo.CmnsSpcfctVO;
 import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
+import com.at.apcss.am.cmns.vo.StdGrdVO;
 import com.at.apcss.co.constants.ComConstants;
 
 /**
@@ -47,8 +47,8 @@ public class CmnsItemServiceImpl implements CmnsItemService {
 	@Resource(name = "cmnsSpcfctService")
 	private CmnsSpcfctService cmnsSpcfctService;
 
-	@Resource(name = "cmnsGrdService")
-	private CmnsGrdService cmnsGrdService;
+	@Resource(name = "stdGrdService")
+	private StdGrdService stdGrdService;
 
 	@Resource(name = "cmnsValidationService")
 	private CmnsValidationService cmnsValidationService;
@@ -94,11 +94,11 @@ public class CmnsItemServiceImpl implements CmnsItemService {
 		int deletedCnt = 0;
 		if(errMsg == null ) {
 
-			CmnsGrdVO grdVO	= new CmnsGrdVO();
-			grdVO.setApcCd(cmnsItemVO.getApcCd());
-			grdVO.setItemCd(cmnsItemVO.getItemCd());
+			StdGrdVO stdGrdVO	= new StdGrdVO();
+			stdGrdVO.setApcCd(cmnsItemVO.getApcCd());
+			stdGrdVO.setItemCd(cmnsItemVO.getItemCd());
 
-			cmnsGrdService.deleteApcGrdAll(grdVO);
+			stdGrdService.deleteStdGrdAll(stdGrdVO);
 
 			CmnsSpcfctVO spcfctVO = new CmnsSpcfctVO();
 			spcfctVO.setApcCd(cmnsItemVO.getApcCd());

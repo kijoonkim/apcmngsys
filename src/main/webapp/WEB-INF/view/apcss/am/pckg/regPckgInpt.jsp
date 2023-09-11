@@ -195,7 +195,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdPckgPrfmnc" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdPckgPrfmnc" style="width:100%;height:200px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -220,6 +220,7 @@
 	var jsonComPckgFclt		= [];	// 포장설비 	PCKG_FCLT_CD
 	var jsonComWarehouse	= [];	// 창고		WAREHOUSE_SE_CD
 	var jsonComGdsGrd		= [];	// 상품등급	GDS_GRD
+	var jsonSpmtPckgUnit	= [];	// 출하포장단위
 
 	/* SBGrid */
 	var grdSortInvntr;
@@ -314,6 +315,29 @@
 	}
 
 	/**
+	 * @name fn_getSpmtPckgUnit
+     * @description APC출하포장단위 JSON 설정
+     * @function
+	 * @param {string} itemCd
+	 * @param {string} vrtyCd
+	 */
+	const fn_getSpmtPckgUnit = async function(itemCd, vrtyCd) {
+
+		 jsonSpmtPckgUnit.length = 0;
+
+		if (gfn_isEmpty(itemCd)) {
+			return;
+		}
+		if (gfn_isEmpty(vrtyCd)) {
+			return;
+		}
+
+		jsonSpmtPckgUnit = await gfn_getSpmtPckgUnits(gv_selectedApcCd, itemCd, vrtyCd);
+		console.log(jsonSpmtPckgUnit);
+		grdPckgPrfmnc.refresh({"combo":true});
+	}
+
+	/**
 	 * @name fn_createGridSortInvntr
      * @description 선별재고 SBGrid 생성
      * @function
@@ -326,8 +350,6 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = lv_paging;
-
         SBGridProperties.columns = [
 			{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -540,6 +562,10 @@
 				},
 				format : {type:'number', rule:'#,### Kg'}
          	},
+            {caption: ["포장단위"],		ref: 'spmtPckgUnitCd',	type:'combo',  	width:'100px', style: 'text-align:center',
+            	userattr: {colNm: "spmtPckgUnitCd"},
+            	typeinfo: {ref:'jsonSpmtPckgUnit', label:'spmtPckgUnitNm', value:'spmtPckgUnitCd', displayui : false}
+            },
             {caption: ["창고"],	ref: 'warehouseSeCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
            	 	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}
             },
@@ -626,6 +652,7 @@
 			const vrtyCd = allPckgData[i].vrtyCd;
 			const spcfctCd = allPckgData[i].spcfctCd;
 			const gdsGrd = allPckgData[i].gdsGrd;
+			const spmtPckgUnitCd = allPckgData[i].spmtPckgUnitCd;
 			const warehouseSeCd = allPckgData[i].warehouseSeCd;
 
 			const pckgQntt = parseInt(allPckgData[i].pckgQntt) || 0;
@@ -678,6 +705,7 @@
 	    			vrtyCd: vrtyCd,
 	    			spcfctCd: spcfctCd,
 	    			gdsGrd: gdsGrd,
+	    			spmtPckgUnitCd: spmtPckgUnitCd,
 	    			warehouseSeCd: warehouseSeCd,
 	    			pckgQntt: pckgQntt,
 	    			pckgWght: pckgWght
@@ -772,6 +800,8 @@
 			SBUxMethod.set("srch-slt-itemCd", itemCd);
 			await fn_onChangeSrchItemCd({value: itemCd});
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+
+			fn_getSpmtPckgUnit(itemCd, vrtyCd);
 		}
 	}
 
@@ -818,13 +848,14 @@
 		editableRow.vrtyCd = vrtyCd;
 		editableRow.spcfctCd = spcfctCd;
 
-		console.log("before");
-		console.log(jsonApcSpcfct);
+
 		// 규격중량(단중) set
 		const spcfctInfo = _.find(jsonApcSpcfct, {spcfctCd: spcfctCd});
 		editableRow.spcfctWght = spcfctInfo.wght;
 		//grdSortPrfmnc.setCellData(nRow, nCol, "xxx", true);
 
+		const spmtPckgUnitInfo = _.find(jsonSpmtPckgUnit, {itemCd: itemCd, vrtyCd: vrtyCd, spcfctCd: spcfctCd});
+		editableRow.spmtPckgUnitCd = spmtPckgUnitInfo.spmtPckgUnitCd;
 
 		console.log(spcfctCd);
 		console.log("after");

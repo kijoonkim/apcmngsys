@@ -169,16 +169,25 @@
 						<tr>
 							<th class="ta_r th_bg" scope="row">규격/감량율 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="btnSpcfct" name="btnSpcfct" uitype="modal" text="규격/감량율 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spcfct" onclick="fn_modal('btnSpcfct')"></sbux-button>
+								<sbux-button id="btnSpcfct" name="btnSpcfct" uitype="modal" text="품목별 규격/감량율 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spcfct" onclick="fn_modal('btnSpcfct')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								선택한 품목별로 APC에서 관리하는 규격/품목별 감량율을 등록하세요.
 							</td>
 						</tr>
 						<tr>
+							<th class="ta_r th_bg" scope="row">등급 관리</th>
+							<td class="td_input" colspan="2">
+								<sbux-button id="btnJgmtGrd" name="btnJgmtGrd" uitype="modal" text="품목별 등급 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-stdGrd" onclick="fn_modal('btnStdGrd')"></sbux-button>
+							</td>
+							<td colspan="6" style="color:#999">
+								선택한 품목별로 APC에서 관리하는 등급을 등록하세요.
+							</td>
+						</tr>
+						<tr>
 							<th class="ta_r th_bg" scope="row">출하포장단위 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="btnSpmtPckgUnit" name="btnSpmtPckgUnit" uitype="modal" text="출하포장단위 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spmtPckgUnit" onclick="fn_modal('btnSpmtPckgUnit')"></sbux-button>
+								<sbux-button id="btnSpmtPckgUnit" name="btnSpmtPckgUnit" uitype="modal" text="품목별 출하포장단위 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spmtPckgUnit" onclick="fn_modal('btnSpmtPckgUnit')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								선택한 품목별로 APC에서 관리하는 출하포장단위을 등록하세요.
@@ -519,12 +528,19 @@
     <div id="body-modal-item">
     	<jsp:include page="../apc/itemMngPopup.jsp"></jsp:include>
     </div>
-    <!-- 규격 등록 Modal -->
+    <!-- 규격/감량율 등록 Modal -->
     <div>
         <sbux-modal id="modal-spcfct" name="modal-spcfct" uitype="middle" header-title="규격/감량율 등록" body-html-id="body-modal-spcfct" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-spcfct">
     	<jsp:include page="../apc/spcfctMngPopup.jsp"></jsp:include>
+    </div>
+    <!-- 등급 등록 Modal -->
+    <div>
+        <sbux-modal id="modal-stdGrd" name="modal-stdGrd" uitype="middle" header-title="등급 등록" body-html-id="body-modal-stdGrd" footer-is-close-button="false" header-is-close-button="false" style="width:900px"></sbux-modal>
+    </div>
+    <div id="body-modal-stdGrd">
+    	<jsp:include page="../apc/grdMngPopup.jsp"></jsp:include>
     </div>
     <!-- 출하포장단위 등록 Modal -->
     <div>
@@ -596,7 +612,7 @@
 	var comboUnitCdJsData = [];
 	var comboGridBankCdJsData = [];
 	var comboGridCnptTypeJsData = [];
-	var comboGridPltCnptJsData = [];
+    var comboGridPltCnptJsData = [];
 
 	var jsonComGdsSeCd = [];
 	var jsonComApcGdsSeCd = [];
@@ -612,7 +628,7 @@
 			gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000"),
 			gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000"),
 			gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000"),
-			gfn_setComCdGridSelect('grdPlt', comboGridPltCnptJsData, "PLT_CNPT", "0000"),
+            gfn_setComCdGridSelect('grdPlt', comboGridPltCnptJsData, "PLT_CNPT", "0000"),
 			selectApcEvrmntStng()
 		])
 
@@ -719,9 +735,9 @@
 			fn_bxMngCreateGrid();
 		}
 		if(targetName == 'btnSpcfct'){
-			fn_createGrdApcSpcfct();
+			fn_createSpcfct();
 		}
-		if(targetName == 'btnGrd'){
+		if(targetName == 'btnStdGrd'){
 			fn_createGrdGrid();
 		}
 		if(targetName == 'btnWrhsVhcl'){
@@ -848,12 +864,27 @@
             	grdApcVrty.setCellData(nRow, 5, gv_apcCd, true);
             	grdApcVrty.setCellData(nRow, 6, SBUxMethod.get("vrty-inp-itemCd"), true);
             	grdApcVrty.addRow(true);
-            }else if(grid === "grdGrd"){
+            }else if(grid === "grdStdGrd"){
             	if(!(SBUxMethod.get("grd-slt-itemCd") == null || SBUxMethod.get("grd-slt-itemCd") == "")){
-	            	grdGrd.setCellData(nRow, nCol, "N", true);
-	            	grdGrd.setCellData(nRow, 4, gv_apcCd, true);
-	            	grdGrd.setCellData(nRow, 5, SBUxMethod.get("spcfct-slt-itemCd"), true);
-	            	grdGrd.addRow(true);
+            		grdStdGrd.setCellData(nRow, nCol, "N", true);
+            		grdStdGrd.setCellData(nRow, 4, gv_apcCd, true);
+            		grdStdGrd.setCellData(nRow, 5, SBUxMethod.get("grd-slt-itemCd"), true);
+            		grdStdGrd.setCellData(nRow, 6, SBUxMethod.get("grd-rdo-grdSeCd"), true);
+            		grdStdGrd.addRow(true);
+            	}else{
+            		alert("품목을 선택해주세요.")
+            		return;
+            	}
+            }else if(grid === "grdStdGrdDtl"){
+            	if(!(SBUxMethod.get("grd-slt-itemCd") == null || SBUxMethod.get("grd-slt-itemCd") == "")){
+
+					let rowData = grdStdGrd.getRowData(grdStdGrd.getRow());
+            		grdStdGrdDtl.setCellData(nRow, nCol, "N", true);
+            		grdStdGrdDtl.setCellData(nRow, 4, gv_apcCd, true);
+            		grdStdGrdDtl.setCellData(nRow, 5, rowData.itemCd, true);
+            		grdStdGrdDtl.setCellData(nRow, 6, rowData.grdSeCd, true);
+            		grdStdGrdDtl.setCellData(nRow, 7, rowData.grdKnd, true);
+            		grdStdGrdDtl.addRow(true);
             	}else{
             		alert("품목을 선택해주세요.")
             		return;
@@ -981,16 +1012,27 @@
             	}else{
             		grdOprtr.deleteRow(nRow);
             	}
-            }else if (grid === "grdGrd") {
-            	if(grdGrd.getRowStatus(nRow) == 0 || grdGrd.getRowStatus(nRow) == 2){
+            }else if (grid === "grdStdGrd") {
+            	if(grdStdGrd.getRowStatus(nRow) == 0 || grdStdGrd.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
-            			var cmnsGrdVO = grdGrd.getRowData(nRow);
-            			fn_deleteGrd(cmnsGrdVO);
-            			grdGrd.deleteRow(nRow);
+            			var stdGrdVO = grdStdGrd.getRowData(nRow);
+            			//fn_deleteGrd(stdGrdVO);
+            			grdStdGrd.deleteRow(nRow);
             		}
             	}else{
-            		grdGrd.deleteRow(nRow);
+            		grdStdGrd.deleteRow(nRow);
+            	}
+            }else if (grid === "grdStdGrdDtl") {
+            	if(grdStdGrdDtl.getRowStatus(nRow) == 0 || grdStdGrdDtl.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var stdGrdDtlVO = grdStdGrdDtl.getRowData(nRow);
+            			//fn_deleteGrdDtl(stdGrdDtlVO);
+            			grdStdGrdDtl.deleteRow(nRow);
+            		}
+            	}else{
+            		grdStdGrdDtl.deleteRow(nRow);
             	}
             }else if (grid === "grdApcSpcfct") {
             	if(grdApcSpcfct.getRowStatus(nRow) == 0 || grdApcSpcfct.getRowStatus(nRow) == 2){

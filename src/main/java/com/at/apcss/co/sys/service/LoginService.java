@@ -19,7 +19,16 @@ import com.at.apcss.co.sys.vo.LoginVO;
  * </pre>
  */
 public interface LoginService {
-	
+
+
+	/**
+	 * 사용자 단건 조회
+	 * @param userId
+	 * @return
+	 * @throws Exception
+	 */
+	public LoginVO selectUser(String userId);
+
 	/**
 	 * 일반 로그인을 처리한다
 	 * @param vo LoginVO
@@ -27,7 +36,7 @@ public interface LoginService {
 	 * @exception Exception
 	 */
 	public LoginVO actionLogin(LoginVO vo) throws Exception;
-	
+
     /**
 	 * 인증서 로그인을 처리한다
 	 * @param vo LoginVO
@@ -35,7 +44,7 @@ public interface LoginService {
 	 * @exception Exception
 	 */
 	public LoginVO actionCrtfctLogin(LoginVO vo) throws Exception;
-    
+
 	/**
 	 * SSO 로그인을 처리한다
 	 * @param vo
@@ -43,7 +52,7 @@ public interface LoginService {
 	 * @throws Exception
 	 */
 	public LoginVO actionSSOLogin(LoginVO vo) throws Exception;
-	
+
     /**
 	 * 아이디를 찾는다.
 	 * @param vo LoginVO
@@ -51,7 +60,7 @@ public interface LoginService {
 	 * @exception Exception
 	 */
     LoginVO searchId(LoginVO vo) throws Exception;
-    
+
     /**
 	 * 비밀번호를 찾는다.
 	 * @param vo LoginVO
@@ -59,7 +68,7 @@ public interface LoginService {
 	 * @exception Exception
 	 */
     boolean searchPassword(LoginVO vo) throws Exception;
-    
+
     /**
 	 * 로그인인증제한을 처리한다.
 	 * @param vo LoginVO
@@ -68,7 +77,7 @@ public interface LoginService {
 	 * @exception Exception
 	 */
     String processLoginIncorrect(LoginVO vo, Map<?,?> mapLockUserInfo) throws Exception;
-    
+
     /**
 	 * 로그인인증제한을 조회한다.
 	 * @param vo LoginVO
@@ -82,7 +91,7 @@ public interface LoginService {
 	 * @param vo LoginVO
 	 * @return int
 	 * @exception Exception
-	 */    
+	 */
     int selectPassedDayChangePWD(LoginVO vo) throws Exception;
 
 	/**
@@ -92,5 +101,5 @@ public interface LoginService {
 	 * @exception Exception
 	 */
     LoginVO onepassLogin(String id) throws Exception;
-	
+
 }

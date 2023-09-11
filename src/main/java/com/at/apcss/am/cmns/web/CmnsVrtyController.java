@@ -245,17 +245,16 @@ public class CmnsVrtyController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-
 	// APC 품종 등록
-	@PostMapping(value = "/am/cmns/insertApcVrtyList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertApcVrtyList(@RequestBody List<CmnsVrtyVO> cmnsVrtyList, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/cmns/multiApcVrtyList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiApcVrtyList(@RequestBody List<CmnsVrtyVO> cmnsVrtyList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		// validation check
 
 		// audit 항목
-		int insertedCnt = 0;
+		int savedCnt = 0;
 
 		try {
 			for (CmnsVrtyVO cmnsVrtyVO : cmnsVrtyList) {
@@ -263,14 +262,14 @@ public class CmnsVrtyController extends BaseController {
 				cmnsVrtyVO.setSysFrstInptPrgrmId(getPrgrmId());
 				cmnsVrtyVO.setSysLastChgUserId(getUserId());
 				cmnsVrtyVO.setSysLastChgPrgrmId(getPrgrmId());
-				insertedCnt = cmnsVrtyService.insertApcVrty(cmnsVrtyVO);
 			}
+			savedCnt = cmnsVrtyService.multiSaveApcVrtyList(cmnsVrtyList);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}

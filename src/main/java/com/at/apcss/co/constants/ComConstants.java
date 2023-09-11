@@ -2,6 +2,14 @@ package com.at.apcss.co.constants;
 
 public class ComConstants {
 
+	public final static String ERR_USER_NONE = "USER_NONE";
+	public final static String ERR_USER_UNRECEIVED = "USER_UNRECEIVED";
+	public final static String ERR_USER_DORMANCY = "USER_DORMANCY";
+	public final static String ERR_USER_INVALID = "USER_INVALID";
+	public final static String ERR_USER_UNUSED = "USER_UNUSED";
+	public final static String ERR_USER_LOCKED = "USER_LOCKED";
+	public final static String ERR_LOGIN_FAILED = "LOGIN_FAILED";
+
 	public final static String PROP_SYS_PRGRM_ID = "sysPrgrmId";
 
 	public final static String PAGINATION_MAP = "paginationMap";
@@ -60,8 +68,8 @@ public class ComConstants {
 	/* 사용자 상태 */
 	public final static String CON_USER_STTS_STANDBY = "00";
 	public final static String CON_USER_STTS_VALID = "01";
-	public final static String CON_USER_STTS_LOCKED = "02";
-	public final static String CON_USER_STTS_UNUSE = "03";
+	public final static String CON_USER_STTS_DORMANCY = "02";
+	public final static String CON_USER_STTS_UNUSED = "03";
 
 	public final static String ROW_STS_INSERT = "I";
 	public final static String ROW_STS_UPDATE = "U";
