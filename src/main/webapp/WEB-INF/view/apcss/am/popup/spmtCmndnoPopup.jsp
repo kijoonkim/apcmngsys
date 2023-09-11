@@ -90,8 +90,6 @@
 								<span style="font-size:12px">(조회건수 <span id="spmtCmndno-pop-cnt">0</span>건)</span>
 							</li>
 						</ul>
-					 	<div class="ad_tbl_toplist">
-						</div>
 					</div>
 					<div id="sb-area-grdSpmtCmndno" style="width:100%;height:300px;"></div>
 				</div>
@@ -164,8 +162,8 @@
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.allowcopy = true;
-			SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.scrollbubbling = false;
+		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 		    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
