@@ -74,20 +74,14 @@
 							<th scope="row" class="th_bg"><span class="data_required"></span>상품</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<sbux-radio id="srch-rdo-gdsSeCd_1" name="srch-rdo-gdsSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
-									<sbux-label class="radio_label" for-id="srch-rdo-gdsSeCd_1" text="일반"></sbux-label>
-								</p>
-								<p class="ad_input_row">
-									<sbux-radio id="srch-rdo-gdsSeCd_2" name="srch-rdo-gdsSeCd" uitype="normal" class="radio_label" value="2"></sbux-radio>
-									<sbux-label class="radio_label" for-id="srch-rdo-gdsSeCd_2" text="GAP"></sbux-label>
-								</p>
-								<p class="ad_input_row">
-									<sbux-radio id="srch-rdo-gdsSeCd_3" name="srch-rdo-gdsSeCd" uitype="normal" class="radio_label" value="3"></sbux-radio>
-									<sbux-label class="radio_label" for-id="srch-rdo-gdsSeCd_3" text="무농약"></sbux-label>
-								</p>
-								<p class="ad_input_row">
-									<sbux-radio id="srch-rdo-gdsSeCd_4" name="srch-rdo-gdsSeCd" uitype="normal" class="radio_label" value="4"></sbux-radio>
-									<sbux-label class="radio_label" for-id="srch-rdo-gdsSeCd_4" text="유기농"></sbux-label>
+									<sbux-radio
+										id="srch-rdo-gdsSeCd"
+										name="srch-rdo-gdsSeCd"
+										uitype="normal"
+										class="radio_label"
+										text-right-padding="10px"
+										jsondata-ref="jsonComGdsSeCd">
+									</sbux-radio>
 								</p>
 							</td>
 							<td style="border-right: hidden;"></td>
@@ -242,20 +236,24 @@
 	var jsonComItem			= [];	// 품목 			itemCd		검색
 	var jsonComVrty			= [];	// 품종 			vrtyCd		검색
 	var jsonComSpcfct		= [];	// 규격 			spcfctCd	검색
-	var jsonComGdsGrd		= [];	// 상품등급			gdsGrd		그리드
+	var jsonComGdsGrd		= [];	// 상품등급		gdsGrd		그리드
 	var jsonComWarehouse	= [];	// 창고 			warehouseSeCd	검색
+	var jsonComGdsSeCd		= [];	// 상품구분 		gdsSeCd		검색
 	var jsonComTrsprtCoCd	= [];	// 운송사 		trsprtCo	검색
 	var jsonSpmtPckgUnit	= [];	// 출하포장단위 	pckgSeCd	그리드
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_apcCd),	// 창고
+			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
+			gfn_setComCdSBSelect('srch-rdo-gdsSeCd', 		jsonComGdsSeCd, 	'GDS_SE_CD', gv_selectedApcCd), 		// 상품구분 등록
 			gfn_setComCdSBSelect('grdGdsInvntr', 			jsonComGdsGrd, 		'GDS_GRD'),		// 상품등급
 		 	gfn_setTrsprtsSBSelect('dtl-slt-trsprtCoCd', 	jsonComTrsprtCoCd, 	gv_apcCd),		// 운송사
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_apcCd),		// 품목
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 		gv_apcCd),		// 품종
 			gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 	jsonSpmtPckgUnit, 	gv_apcCd),		// 포장구분
 		])
+
+		SBUxMethod.set('srch-rdo-gdsSeCd', '1');
 	}
 
 	const fn_selectItem = async function(){
@@ -301,27 +299,27 @@
         SBGridPropertiesGdsInvntr.extendlastcol = 'scroll';
         SBGridPropertiesGdsInvntr.oneclickedit = true;
         SBGridPropertiesGdsInvntr.columns = [
-        	{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'80px', style: 'text-align:center',
+        	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'80px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-        	{caption: ['품종','품종'], 		ref: 'vrtyNm', 		width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['상품구분','상품구분'],	ref: 'gdsSeNm', width: '80px', type: 'output', style: 'text-align:center'},
-            {caption: ['규격','규격'], 		ref: 'spcfctNm', 	width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['생산일자','생산일자'], 	ref: 'pckgYmd', width: '150px', type: 'output', style: 'text-align:center',
+        	{caption: ['품종'], 		ref: 'vrtyNm', 		width: '100px', type: 'output', style: 'text-align:center'},
+            {caption: ['상품구분'],	ref: 'gdsSeNm', width: '80px', type: 'output', style: 'text-align:center'},
+            {caption: ['규격'], 		ref: 'spcfctNm', 	width: '100px', type: 'output', style: 'text-align:center'},
+            {caption: ['생산일자'], 	ref: 'pckgYmd', width: '150px', type: 'output', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['포장번호','포장번호'], 	ref: 'pckgno', 	width: '150px', type: 'output', style: 'text-align:center'},
-            {caption: ['재고','수량'], 		ref: 'invntrQntt', 	width: '100px', type: 'output', style: 'text-align:right'},
-            {caption: ['재고','중량'], 		ref: 'invntrWght', 	width: '150px', type: 'output', style: 'text-align:right',
+            {caption: ['포장번호'], 	ref: 'pckgno', 	width: '150px', type: 'output', style: 'text-align:center'},
+            {caption: ['재고수량'], 		ref: 'invntrQntt', 	width: '100px', type: 'output', style: 'text-align:right'},
+            {caption: ['재고중량'], 		ref: 'invntrWght', 	width: '150px', type: 'output', style: 'text-align:right',
             			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ["포장단위","포장단위"], 			ref: 'spmtPckgUnitCd',   	type:'combo',  width:'200px',    style:'text-align:center; background:#FFF8DC;',
+            {caption: ["포장단위"], 			ref: 'spmtPckgUnitCd',   	type:'combo',  width:'200px',    style:'text-align:center; background:#FFF8DC;',
 						typeinfo : {ref:'jsonSpmtPckgUnit', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-            {caption: ["등급","등급"], 			ref: 'gdsGrd',   	type:'combo',  width:'100px',    style:'text-align:center; background:#FFF8DC;',
+            {caption: ["등급"], 			ref: 'gdsGrd',   	type:'combo',  width:'100px',    style:'text-align:center; background:#FFF8DC;',
 						typeinfo : {ref:'jsonComGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-            {caption: ['출하지시','수량'], 		ref: 'cmndQntt',	width: '100px', type: 'output', style: 'text-align:right'},
-            {caption: ['출하지시','중량'], 		ref: 'cmndWght', 	width: '150px', type: 'output', style: 'text-align:right',
+            {caption: ['출하지시수량'], 		ref: 'cmndQntt',	width: '100px', type: 'output', style: 'text-align:right'},
+            {caption: ['출하지시중량'], 		ref: 'cmndWght', 	width: '150px', type: 'output', style: 'text-align:right',
             			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ['출하','수량'], 		ref: 'spmtQntt', 	width: '100px', type: 'input', style: 'text-align:right; background:#FFF8DC;' },
-            {caption: ['출하','중량'], 		ref: 'spmtWght', 	width: '150px', type: 'input', style: 'text-align:right; background:#FFF8DC;',
+            {caption: ['출하수량'], 		ref: 'spmtQntt', 	width: '100px', type: 'input', style: 'text-align:right; background:#FFF8DC;' },
+            {caption: ['출하중량'], 		ref: 'spmtWght', 	width: '150px', type: 'input', style: 'text-align:right; background:#FFF8DC;',
             			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
 
             {caption: ["출하일자"],		ref: 'spmtYmd',   	type:'output',  hidden: true},
@@ -418,6 +416,7 @@
 			gdsSeCd 		: gdsSeCd
   		});
         const data = await postJsonPromise;
+        console.log(data);
         try {
           	/** @type {number} **/
       		jsonGdsInvntr.length = 0;
