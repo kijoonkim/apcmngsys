@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : CmnsGrdMapper.xml                                   				-->
+<!-- DESC : 등급 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.07.14  	김 호        	Initial Creation                            	-->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.StdGrdMapper">
+
+	<!-- APC 등급 정보 -->
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrd				-->
+	<!-- DESC : APC 등급 단건 조회.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <select id="selectStdGrd" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO" resultType="com.at.apcss.am.cmns.vo.StdGrdVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrd */
+			       SG.APC_CD            AS APC_CD
+			     , SG.ITEM_CD           AS ITEM_CD
+			     , SG.GRD_SE_CD         AS GRD_SE_CD
+			     , SG.GRD_KND           AS GRD_KND
+			     , SG.GRD_KND_NM        AS GRD_KND_NM
+			     , SG.ADTN_RT           AS ADTN_RT
+			     , SG.DEL_YN            AS DEL_YN
+			     , SG.SN				AS SN
+			  FROM TB_APC_Std_GRD SG
+			 WHERE SG.APC_CD	= #{apcCd}
+			   AND SG.ITEM_CD 	= #{itemCd}
+			   AND SG.GRD_SE_CD = #{grdSeCd}
+			   AND SG.GRD_KND	= #{grdKnd}
+			 ORDER BY SG.APC_CD, SG.ITEM_CD, SG.SN
+		]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdList			-->
+	<!-- DESC : APC 등급 목록 조회.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <select id="selectStdGrdList" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO" resultType="com.at.apcss.am.cmns.vo.StdGrdVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrd */
+			       SG.APC_CD            AS APC_CD
+			     , SG.ITEM_CD           AS ITEM_CD
+			     , SG.GRD_SE_CD         AS GRD_SE_CD
+			     , SG.GRD_KND           AS GRD_KND
+			     , SG.GRD_KND_NM        AS GRD_KND_NM
+			     , SG.ADTN_RT 			AS ADTN_RT
+			     , SG.SN				AS SN
+			     , SG.DEL_YN            AS DEL_YN
+			  FROM TB_APC_STD_GRD SG
+			 WHERE SG.APC_CD	= #{apcCd}
+			   AND SG.ITEM_CD 	= #{itemCd}
+			   AND SG.GRD_SE_CD	= #{grdSeCd}
+
+		]]>
+		<if test='grdKnd != null and grdKnd != ""'>
+			   AND TG.GRD_KND = #{grdKnd}
+		</if>
+		<if test='grdKndNm != null and grdKndNm != ""'>
+			   AND TG.GRD_KND_NM LIKE '%' || #{grdKndNm} || '%'
+		</if>
+		<if test='delYn != null and delYn != ""'>
+			   AND AGC.DEL_YN = #{delYn}
+		</if>
+		<![CDATA[
+			 ORDER BY SG.APC_CD, SG.ITEM_CD, SG.GRD_SE_CD, SG.SN
+		]]>
+
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrd				-->
+	<!-- DESC : APC 등급 등록.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <insert id="insertStdGrd" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrd */
+	    		INTO TB_APC_STD_GRD
+	    		(
+	    			  APC_CD
+	    			, ITEM_CD
+	    			, GRD_SE_CD
+	    			, GRD_KND
+	    			, GRD_KND_NM
+	    			, SN
+	    			, ADTN_RT
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+	   				  #{apcCd}
+	   				, #{itemCd}
+	   				, #{grdSeCd}
+	    			, FN_GET_ID_APC_STD_GRD(#{apcCd}, #{itemCd}, #{grdSeCd})
+	    			, #{grdKndNm}
+	    			, #{sn}
+	    			, #{adtnRt}
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrd				-->
+	<!-- DESC : APC 등급 변경.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<update id="updateStdGrd" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrd */
+				TB_APC_STD_GRD
+			   SET
+				  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    			, GRD_KND_NM				= #{grdKndNm}
+    			, ADTN_RT					= #{adtnRt}
+    			, SN						= #{sn}
+			 WHERE APC_CD 		= #{apcCd}
+			   AND ITEM_CD 		= #{itemCd}
+			   AND GRD_SE_CD 	= #{grdSeCd}
+			   AND GRD_KND 		= #{grdKnd}
+
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGrdMapper.deleteStdGrd				-->
+	<!-- DESC : APC 등급 삭제.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<delete id="deleteStdGrd" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrd */
+			  FROM TB_APC_Std_GRD
+			 WHERE APC_CD 		= #{apcCd}
+			   AND ITEM_CD 		= #{itemCd}
+			   AND GRD_SE_CD 	= #{grdSeCd}
+			   AND GRD_KND 		= #{grdKnd}
+		]]>
+	</delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdAll			-->
+	<!-- DESC : APC 등급 품목별 전체 삭제.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.04  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<delete id="deleteStdGrdAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.cmns.mapper.CmnsGrdMapper.deleteStdGrdAll */
+			  FROM TB_APC_STD_GRD
+			 WHERE APC_CD 		= #{apcCd}
+			   AND ITEM_CD 		= #{itemCd}
+		]]>
+	</delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtlList		-->
+	<!-- DESC : APC 등급 상세 목록 조회.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <select id="selectStdGrdDtlList" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtlList */
+			       SGD.APC_CD            AS APC_CD
+			     , SGD.ITEM_CD           AS ITEM_CD
+			     , SGD.GRD_SE_CD         AS GRD_SE_CD
+			     , SGD.GRD_KND           AS GRD_KND
+			     , SGD.GRD_CD            AS GRD_CD
+			     , SGD.GRD_NM            AS GRD_NM
+			     , SGD.GRD_VL            AS GRD_VL
+			     , SGD.SN                AS SN
+			     , SGD.DEL_YN            AS DEL_YN
+  			  FROM TB_APC_STD_GRD_DTL SGD
+			 WHERE SGD.APC_CD		= #{apcCd}
+			   AND SGD.ITEM_CD 		= #{itemCd}
+			   AND SGD.GRD_SE_CD 	= #{grdSeCd}
+			   AND SGD.GRD_KND		= #{grdKnd}
+
+		]]>
+
+		<if test='grdCd != null and grdCd != ""'>
+			   AND AGC.GRD_CD = #{grdCd}
+		</if>
+		<if test='grdKndNm != null and grdKndNm != ""'>
+			   AND TGD.GRD_NM LIKE '%' || #{grdKndNm} || '%'
+		</if>
+		<if test='delYn != null and delYn != ""'>
+			   AND AGC.DEL_YN = #{delYn}
+		</if>
+		<![CDATA[
+			 ORDER BY SGD.ITEM_CD, SGD.GRD_SE_CD, SGD.GRD_KND, SGD.SN
+		]]>
+
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrdDtl			-->
+	<!-- DESC : APC 등급 상세 등록.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <insert id="insertStdGrdDtl" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrdDtl */
+	    		INTO TB_APC_STD_GRD_DTL
+	    		(
+	    			  APC_CD
+	    			, ITEM_CD
+	    			, GRD_SE_CD
+	    			, GRD_KND
+	    			, GRD_CD
+			     	, GRD_NM
+			     	, GRD_VL
+			     	, SN
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+	   				  #{apcCd}
+	   				, #{itemCd}
+	   				, #{grdSeCd}
+	   				, #{grdKnd}
+	    			, FN_GET_ID_APC_STD_GRD_DTL(#{apcCd}, #{itemCd}, #{grdSeCd}, #{grdKnd})
+			     	, #{grdNm}
+			     	, #{grdVl}
+			     	, #{sn}
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrd				-->
+	<!-- DESC : APC 등급 상세 변경.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<update id="updateStdGrdDtl" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrdDtl */
+				TB_APC_STD_GRD_DTL
+			   SET
+				  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    		, GRD_NM					= #{grdNm}
+	    		, GRD_VL					= #{grdVl}
+	    		, SN						= #{sn}
+			 WHERE APC_CD 		= #{apcCd}
+			   AND ITEM_CD 		= #{itemCd}
+			   AND GRD_SE_CD 	= #{grdSeCd}
+			   AND GRD_KND 		= #{grdKnd}
+			   AND GRD_CD		= #{grdCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtl				-->
+	<!-- DESC : APC 등급 상세 삭제.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<delete id="deleteStdGrdDtl" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtl */
+			  FROM TB_APC_Std_GRD_DTL
+			 WHERE APC_CD 		= #{apcCd}
+			   AND ITEM_CD 		= #{itemCd}
+			   AND GRD_SE_CD 	= #{grdSeCd}
+			   AND GRD_KND 		= #{grdKnd}
+			   AND GRD_CD		= #{grdCd}
+		]]>
+	</delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtlAll		-->
+	<!-- DESC : APC 등급 상세 품목별 전체 삭제.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.04  	김 호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<delete id="deleteStdGrdDtlAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtlAll */
+			  FROM TB_APC_Std_GRD_DTL
+			 WHERE APC_CD 		= #{apcCd}
+			   AND ITEM_CD 		= #{itemCd}
+		]]>
+	</delete>
+</mapper>

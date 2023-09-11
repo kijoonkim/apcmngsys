@@ -78,24 +78,24 @@
 								<th scope="row">원물감량율</th>
 								<th>
 									<sbux-input id="spcfct-inp-rawMtrRdcdRt" name="spcfct-inp-rawMtrRdcdRt" uitype="text" class="form-control input-sm"
-									mask = "{ 'alias': 'currency', 'suffix': '%' , 'prefix': '', 'digits': 0, 'autoUnmask': true }"
-									maxlength="3"
+									mask = "{ 'alias': 'currency', 'digits': 2, 'suffix': '%', 'prefix': '', 'autoUnmask': true }"
+									maxlength="6"
 									readonly
 									></sbux-input>
 								</th>
 								<th scope="row">선별감량율</th>
 								<th>
 									<sbux-input id="spcfct-inp-sortRdcdRt" name="spcfct-inp-sortRdcdRt" uitype="text" class="form-control input-sm"
-									mask = "{ 'alias': 'currency', 'suffix': '%' , 'prefix': '', 'digits': 0, 'autoUnmask': true }"
-									maxlength="3"
+									mask = "{ 'alias': 'currency', 'digits': 2, 'suffix': '%' , 'prefix': '', 'autoUnmask': true }"
+									maxlength="6"
 									readonly
 									></sbux-input>
 								</th>
 								<th scope="row">포장감량률</th>
 								<th>
 									<sbux-input id="spcfct-inp-pckgRdcdRt" name="spcfct-inp-pckgRdcdRt" uitype="text" class="form-control input-sm"
-									mask = "{ 'alias': 'currency', 'suffix': '%' , 'prefix': '', 'digits': 0, 'autoUnmask': true }"
-									maxlength="3"
+									mask = "{ 'alias': 'currency', 'digits': 2, 'suffix': '%' , 'prefix': '', 'autoUnmask': true }"
+									maxlength="6"
 									readonly
 									></sbux-input>
 								</th>
@@ -144,7 +144,7 @@
 		SBUxMethod.set("spcfct-inp-apcNm", gv_apcNm)
 	}
 
-	const fn_createGrdApcSpcfct = async function() {
+	const fn_createSpcfct = async function() {
 
    		var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdApcSpcfct';
@@ -340,6 +340,8 @@
 				sortRdcdRt 		: sortRdcdRt,
 				pckgRdcdRt 		: pckgRdcdRt
 		}
+
+		console.log(itemVO);
 
 		if((resultItemVO.rawMtrRdcdRt == rawMtrRdcdRt && resultItemVO.sortRdcdRt == sortRdcdRt && resultItemVO.pckgRdcdRt == pckgRdcdRt) && spcfctList.length == 0){
 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
