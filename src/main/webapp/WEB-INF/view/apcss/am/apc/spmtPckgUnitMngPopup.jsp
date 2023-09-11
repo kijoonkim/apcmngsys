@@ -44,7 +44,14 @@
 								</th>
 								<th scope="row"><span class="data_required"></span>품목명</th>
 								<th style="border-right-style: hidden;">
-									<sbux-select id="spmtPckgUnit-slt-itemCd" name="spmtPckgUnit-slt-itemCd" style="background-color:#ffffff;"  uitype="single" jsondata-ref="jsonSPUItemCd" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed" onchange="fn_selectItem"></sbux-select>
+									<sbux-select id="spmtPckgUnit-slt-itemCd"
+									name="spmtPckgUnit-slt-itemCd"
+									style="background-color:#ffffff;"
+									uitype="single"
+									jsondata-ref="jsonSPUItemCd"
+									unselected-text="선택"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="fn_selectItem"></sbux-select>
 								</th>
 								<th></th>
 								<th></th>
@@ -97,6 +104,7 @@
 		let selectItemCd = SBUxMethod.get("spmtPckgUnit-slt-itemCd");
 		gfn_setApcVrtySBSelect("grdSpmtPckgUnit", 		jsonSPUGrdVrtyCd, gv_apcCd, selectItemCd);		// APC 품종(저장)
 		gfn_setApcSpcfctsSBSelect("grdSpmtPckgUnit", 	jsonSPUGrdSpcfctCd, gv_apcCd, selectItemCd);	// APC 규격(저장)
+		fn_selectSpmtPckgUnitList();
 	}
 
 	function fn_modalClick(nRow){

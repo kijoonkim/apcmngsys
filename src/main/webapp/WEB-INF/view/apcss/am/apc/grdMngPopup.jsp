@@ -14,7 +14,7 @@
 						<span style="font-weight:bold;">선택한 품목별로 APC에서 관리하는 등급을 등록하세요.</span>
 					</p>
 					<p>
-						<span style="color:black; font-weight:bold;">등급 등록은 정산에 적용되는 정산기준 등급과 단가를 등록하세요.</span>
+						<span style="color:black; font-weight:bold;">품목별 입고/선별/상품 등급을 등록하세요.(점수배분을 통한 판정등급을 관리할 수 있습니다.)</span>
 					</p>
 				</div>
 				<div style="margin-left: auto;">
@@ -50,13 +50,15 @@
 								<th style="border-right-style: hidden;">
 									<sbux-select id="grd-slt-itemCd" name="grd-slt-itemCd" style="background-color:#ffffff;"  uitype="single"
 									jsondata-ref="jsonGItemCd"
+									onchange="fn_searchStdGrd"
 									unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
 								</th>
-								<th scope="row">등급구분</th>
+								<th scope="row">구분</th>
 								<th>
 									<sbux-radio id="grd-rdo-grdSeCd" name="grd-rdo-grdSeCd" uitype="normal"
 									jsondata-ref="jsonGGrdSeCd"
 									text-right-padding="10px"
+									onchange="fn_searchStdGrd"
 									>
 								</th>
 								<th>&nbsp;</th>
@@ -141,7 +143,7 @@
    		SBGridPropertiesStdGrd.oneclickedit = true;
    		SBGridPropertiesStdGrd.frozenrows = 1
    		SBGridPropertiesStdGrd.columns = [
-	        {caption: ["명칭"],     	ref: 'grdKndNm',  type:'input',  width:'180px',    style:'text-align:center',
+	        {caption: ["등급분류명"],     	ref: 'grdKndNm',  type:'input',  width:'180px',    style:'text-align:center',
 	        		typeinfo : {maxlength : 30}},
 	        {caption: ["순번"],     ref: 'sn',  type:'input',  width:'80px',    style:'text-align:center',
 					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}},
@@ -177,7 +179,7 @@
 	    SBGridPropertiesStdGrdDtl.oneclickedit = true;
 	    SBGridPropertiesStdGrdDtl.frozenrows = 1;
 	    SBGridPropertiesStdGrdDtl.columns = [
-	    	{caption: ["등급종류명"],     	ref: 'grdNm',  type:'input',  width:'180px',    style:'text-align:center',
+	    	{caption: ["등급상세명"],     	ref: 'grdNm',  type:'input',  width:'180px',    style:'text-align:center',
         			typeinfo : {maxlength : 30}},
        		{caption: ["점수"],     ref: 'grdVl',  type:'input',  width:'80px',    style:'text-align:center',
 					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
@@ -210,14 +212,14 @@
 	    SBGridPropertiesStdGrdJgmt.columns = [
 	    	{caption: ["등급종류명"],     	ref: 'grdNm',  type:'input',  width:'240px',    style:'text-align:center',
         			typeinfo : {maxlength : 30}},
-        	{caption: ["판정유형"], ref: 'jgmtType',   	type:'combo',  width:'140px',    style:'text-align:center',
+        	{caption: ["판정유형"], ref: 'jgmtType',   	type:'combo',  width:'220px',    style:'text-align:center',
          			typeinfo : {ref:'jsonGJgmtType', 	itemcount: 10, label:'label', value:'value', displayui : false}},
            	{caption: ["판정최소값"],     ref: 'jgmtMinVl',  type:'input',  width:'100px',    style:'text-align:center',
     				typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
            	{caption: ["판정최대값"],     ref: 'jgmtMaxVl',  type:'input',  width:'100px',    style:'text-align:center',
     				typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
        		{caption: ["등급값"],     ref: 'grdVl',  type:'input',  width:'100px',    style:'text-align:center',
-					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 10}, format : {type:'number', rule:'#,###'}, hidden : true},
        		{caption: ["순서"],     ref: 'sn',  type:'input',  width:'100px',    style:'text-align:center',
 					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}, format : {type:'number', rule:'#,###'}},
 			{caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {

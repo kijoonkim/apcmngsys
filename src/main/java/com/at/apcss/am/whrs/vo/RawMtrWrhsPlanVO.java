@@ -34,15 +34,15 @@ public class RawMtrWrhsPlanVO extends ComVO{
 	/*
 	 * 계획시작일자
 	 * */
-	private String planYmdFrom;;
+	private String planYmdFrom;
 	/*
 	 * 계획종료일자
 	 * */
-	private String planYmdTo;;
+	private String planYmdTo;
 	/*
 	 * 계획일자
 	 * */
-	private String planYmd;;
+	private String planYmd;
 	/*
 	 * 계획시간
 	 * */
