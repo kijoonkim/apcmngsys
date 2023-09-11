@@ -108,13 +108,22 @@ public class StdGrdServiceImpl implements StdGrdService {
 			}
 		}
 
+
 		for (StdGrdJgmtVO stdGrdJgmtVO : stdGrdJgmtList) {
 
-			stdGrdJgmtVO.setSysFrstInptPrgrmId(sysFrstInptPrgrmId);;
+			stdGrdJgmtVO.setSysFrstInptPrgrmId(sysFrstInptPrgrmId);
 			stdGrdJgmtVO.setSysFrstInptUserId(sysFrstInptUserId);
 			stdGrdJgmtVO.setSysLastChgPrgrmId(sysLastChgPrgrmId);
 			stdGrdJgmtVO.setSysLastChgUserId(sysLastChgUserId);
+
+			if(ComConstants.ROW_STS_INSERT.equals(stdGrdJgmtVO.getRowSts())) {
+				savedCnt += insertStdGrdJgmt(stdGrdJgmtVO);
+			}
+			if(ComConstants.ROW_STS_UPDATE.equals(stdGrdJgmtVO.getRowSts())) {
+				savedCnt += updateStdGrdJgmt(stdGrdJgmtVO);
+			}
 		}
+
 		return savedCnt;
 	}
 
@@ -122,12 +131,36 @@ public class StdGrdServiceImpl implements StdGrdService {
 	public HashMap<String, Object> deleteStdGrd(StdGrdVO stdGrdVO) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		String errMsg = cmnsValidationService.selectChkCdDelible(stdGrdVO.getApcCd(), "GRD_KND", stdGrdVO.getGrdKnd());
+		StdGrdDtlVO stdGrdDtlVO = new StdGrdDtlVO();
+		stdGrdDtlVO.setApcCd(stdGrdVO.getApcCd());
+		stdGrdDtlVO.setItemCd(stdGrdVO.getItemCd());
+		stdGrdDtlVO.setGrdSeCd(stdGrdVO.getGrdSeCd());
+		stdGrdDtlVO.setGrdKnd(stdGrdVO.getGrdKnd());
 		int deletedCnt = 0;
+		List<StdGrdDtlVO> stdGrdDtlList = selectStdGrdDtlList(stdGrdDtlVO);
+		String errMsg = null;
+		for (StdGrdDtlVO stdGrdDtl : stdGrdDtlList) {
+			errMsg = cmnsValidationService.selectChkCdDelible(stdGrdDtl.getApcCd(), "GRD_CD", stdGrdDtl.getGrdCd());
+
+			if(errMsg == null ) {
+				continue;
+			}else {
+				resultMap.put("errMsg", errMsg);
+				break;
+			}
+		}
+
+		if(errMsg != null) {
+			return resultMap;
+		}else {
+			deletedCnt =+ deleteStdGrdDtlAll(stdGrdDtlVO);
+		}
+
+		errMsg = cmnsValidationService.selectChkCdDelible(stdGrdVO.getApcCd(), "GRD_KND", stdGrdVO.getGrdKnd());
+
 		if(errMsg == null ) {
 			stdGrdMapper.deleteStdGrdAll(stdGrdVO);
-
-			deletedCnt = stdGrdMapper.deleteStdGrd(stdGrdVO);
+			deletedCnt =+ stdGrdMapper.deleteStdGrd(stdGrdVO);
 			resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 		}else {
 			resultMap.put("errMsg", errMsg);
@@ -167,22 +200,6 @@ public class StdGrdServiceImpl implements StdGrdService {
 	}
 
 	@Override
-	public int multiStdGrdDtlList(List<StdGrdDtlVO> stdGrdDtlList) throws Exception {
-
-		int savedCnt = 0;
-
-		for (StdGrdDtlVO stdGrdDtlVO : stdGrdDtlList) {
-			if(ComConstants.ROW_STS_INSERT.equals(stdGrdDtlVO.getRowSts())) {
-				savedCnt += insertStdGrdDtl(stdGrdDtlVO);
-			}
-			if(ComConstants.ROW_STS_UPDATE.equals(stdGrdDtlVO.getRowSts())) {
-				savedCnt += updateStdGrdDtl(stdGrdDtlVO);
-			}
-		}
-		return savedCnt;
-	}
-
-	@Override
 	public HashMap<String, Object> deleteStdGrdDtl(StdGrdDtlVO stdGrdDtlVO) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -201,8 +218,59 @@ public class StdGrdServiceImpl implements StdGrdService {
 
 	@Override
 	public int deleteStdGrdDtlAll(StdGrdDtlVO stdGrdDtlVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		int deletedCnt = stdGrdMapper.deleteStdGrdDtlAll(stdGrdDtlVO);
+		return deletedCnt;
+	}
+
+	@Override
+	public StdGrdJgmtVO selectStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception {
+		StdGrdJgmtVO resultVO = stdGrdMapper.selectStdGrdJgmt(StdGrdJgmtVO);
+
+		return resultVO;
+	}
+
+	@Override
+	public List<StdGrdJgmtVO> selectStdGrdJgmtList(StdGrdJgmtVO StdGrdJgmtVO) throws Exception {
+		List<StdGrdJgmtVO> resultList = stdGrdMapper.selectStdGrdJgmtList(StdGrdJgmtVO);
+
+		return resultList;
+	}
+
+	@Override
+	public int insertStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception {
+
+		int insertedCnt = stdGrdMapper.insertStdGrdJgmt(StdGrdJgmtVO);
+
+		return insertedCnt;
+	}
+
+	@Override
+	public int updateStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception {
+
+		int updatedCnt = stdGrdMapper.updateStdGrdJgmt(StdGrdJgmtVO);
+
+		return updatedCnt;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		String errMsg = cmnsValidationService.selectChkCdDelible(StdGrdJgmtVO.getApcCd(), "JGMT_GRD_CD", StdGrdJgmtVO.getGrdCd());
+		int deletedCnt = 0;
+		if(errMsg == null ) {
+			deletedCnt = stdGrdMapper.deleteStdGrdJgmt(StdGrdJgmtVO);
+			resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		}else {
+			resultMap.put("errMsg", errMsg);
+		}
+		return resultMap;
+	}
+
+	@Override
+	public int deleteStdGrdJgmtAll(StdGrdJgmtVO StdGrdJgmtVO) throws Exception {
+		int deletedCnt = stdGrdMapper.deleteStdGrdJgmtAll(StdGrdJgmtVO);
+		return deletedCnt;
 	}
 
 }
