@@ -89,13 +89,13 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 //
 //		return null;
 //	}
-//	
-//	
+//
+//
 //	@Override
 //	public HashMap<String, Object> updateRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
-//		
+//
 //		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrVO);
-//		
+//
 //		return null;
 //	}
 
@@ -175,9 +175,9 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	public HashMap<String, Object> updateRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
 		// TODO Auto-generated method stub
 		//포문 돌ㄹ리기 예제 참고
-		
+
 		List<RawMtrInvntrVO> updateList = new ArrayList<>();
-		
+
 		for (RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList) {
 			RawMtrInvntrVO vo = new RawMtrInvntrVO();
 	         BeanUtils.copyProperties(rawMtrInvntrVO, vo);
@@ -193,7 +193,13 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		
 //		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrList);
 		HashMap<String, Object> updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrList);
-		
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateRawMtrInvntr(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -267,14 +273,5 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 //		
 //				return null;
 //			}
-
-	@Override
-	public HashMap<String, Object> updateRawMtrInvntr(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
 
 }

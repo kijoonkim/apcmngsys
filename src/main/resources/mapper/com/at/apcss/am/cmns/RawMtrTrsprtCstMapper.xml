@@ -52,6 +52,8 @@
 			 , TB_WRHS_VHCL_INFO        VI
 		 WHERE TC.APC_CD = VI.APC_CD
 		   AND TC.VHCLNO = VI.VHCLNO
+		   AND TC.DEL_YN = 'N'
+		   AND VI.DEL_YN = 'N'
 		   AND TC.APC_CD = #{apcCd}
 		   AND TC.TRSPRT_YMD = #{trsprtYmd}
 		]]>
@@ -92,6 +94,7 @@
     		  , ACTNO
     		  , DPSTR
     		  , RMRK
+    		  , DEL_YN
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -113,6 +116,7 @@
     		  , #{actno}
     		  , #{dpstr}
     		  , #{rmrk}
+    		  , #{delYn}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
@@ -141,6 +145,9 @@
 			 , TRSPRT_RGN_CD			= #{trsprtRgnCd}
 			 , WRHS_WGHT				= #{wrhsWght}
     		 , TRSPRT_CST				= #{trsprtCst}
+    		 , BANK_CD					= #{bankCd}
+    		 , ACTNO					= #{actno}
+    		 , DPSTR					= #{dpstr}
     		 , RMRK						= #{rmrk}
     		 , DEL_YN					= #{delYn}
 		 WHERE APC_CD					= #{apcCd}

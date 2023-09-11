@@ -165,11 +165,16 @@
     <select id="selectApcVrty" parameterType="com.at.apcss.am.cmns.vo.CmnsVrtyVO" resultType="com.at.apcss.am.cmns.vo.CmnsVrtyVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsVrtyMapper.selectApcVrty */
-				  AVC.ITEM_CD
-				, AVC.VRTY_CD
-				, AVC.VRTY_NM
-			    , AVC.DEL_YN
-			    , AVC.APC_CD
+			      AVC.APC_CD				AS APC_CD
+				, AVC.ITEM_CD				AS ITEM_CD
+				, AVC.VRTY_CD				AS VRTY_CD
+				, AVC.VRTY_NM				AS VRTY_NM
+				, AVC.UNIT_WGHT				AS UNIT_WGHT
+				, AVC.WGHT_RKNG_SE_CD		AS WGHT_RKNG_SE_CD
+				, AVC.NH_APC_CD				AS NH_APC_CD
+				, AVC.NH_VRTY_NM			AS NH_VRTY_NM
+				, AVC.SN 					AS SN
+			    , AVC.DEL_YN				AS DEL_YN
 			  FROM TB_APC_VRTY_CRTR AVC
 			 WHERE AVC.ITEM_CD = #{itemCd}
 			   AND AVC.VRTY_CD = #{vrtyCd}
@@ -177,18 +182,11 @@
 		]]>
     </select>
 
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsVrtyMapper.selectApcVrtyList		-->
-	<!-- DESC : APC 품종 목록 조회.	                                       				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
-	<!-- ==========================================================================	-->
-    <select id="selectApcVrtyList" parameterType="com.at.apcss.am.cmns.vo.CmnsVrtyVO" resultType="com.at.apcss.am.cmns.vo.CmnsVrtyVO">
+	<select id="selectApcVrtyList" parameterType="com.at.apcss.am.cmns.vo.CmnsVrtyVO" resultType="com.at.apcss.am.cmns.vo.CmnsVrtyVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsVrtyMapper.selectApcVrtyList */
-				  AVC.ITEM_CD				AS ITEM_CD
+				  AVC.APC_CD				AS APC_CD
+				, AVC.ITEM_CD				AS ITEM_CD
 				, AVC.VRTY_CD				AS VRTY_CD
 				, AVC.VRTY_NM				AS VRTY_NM
 				, AVC.UNIT_WGHT				AS UNIT_WGHT
@@ -213,6 +211,9 @@
 		<if test='delYn != null and delYn != ""'>
 			   AND AVC.DEL_YN = #{delYn}
 		</if>
+		<![CDATA[
+			ORDER BY AVC.SN
+		]]>
 
     </select>
 
@@ -235,6 +236,9 @@
 					, VRTY_NM
 					, UNIT_WGHT
 					, WGHT_RKNG_SE_CD
+					, SN
+					, NH_APC_CD
+					, NH_VRTY_NM
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -259,6 +263,9 @@
 					, #{vrtyNm}
 					, #{unitWght}
     				, #{wghtRkngSeCd}
+    				, #{sn}
+    				, #{nhApcCd}
+					, #{nhVrtyNm}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -286,6 +293,11 @@
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 				, VRTY_NM					= #{vrtyNm}
+				, UNIT_WGHT					= #{unitWght}
+				, WGHT_RKNG_SE_CD			= #{wghtRkngSeCd}
+				, SN						= #{sn}
+				, NH_APC_CD 				= #{nhApcCd}
+				, NH_VRTY_NM 				= #{nhVrtyNm}
 	    		, DEL_YN					= #{delYn}
 			 WHERE ITEM_CD = #{itemCd}
 			   AND VRTY_CD = #{vrtyCd}

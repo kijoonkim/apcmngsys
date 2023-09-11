@@ -96,11 +96,13 @@
 <script type="text/javascript">
 	var jsonTrsprtCstPop = [];
 
-	var jsonComTrsprtSeCd 		= [];	// 운송구분 trsprtSeCd		Grid
+	var jsonComTrsprtSeCd 		= [];	// 운송구분 	trsprtSeCd		Grid
 	var jsonComTrsprtRgnCd		= [];	// 운송지역	trsprtRgnCd		Grid
+	var jsonRgnTrsprtCst		= [];	// 지역별 운임비용
 
 	var grdTrsptCstPop = null;
     var jsonVhcl = [];
+	isExist = false
 
     /**
 	 * @description 차량 선택 팝업
@@ -108,7 +110,6 @@
 	const popTrsrptCst = {
 		prgrmId: 'trsptCstPopup',
 		modalId: 'modal-trsprtCst',
-
 		gridId: 'grdTrsprtCstPop',
 		jsonId: 'jsonTrsprtCstPop',
 		areaId: "sb-area-grdTrsrptCst",
@@ -121,9 +122,12 @@
 			// set param
 			receivedData = _data;
 			SBUxMethod.set("trsprtCst-dtp-trsprtYmd", _data.trsprtYmd);
-			SBUxMethod.set("trsprtCst-inp-vhclno", _data.vhclno);
 			SBUxMethod.set("trsprtCst-inp-apcCd", _apcCd);
 			SBUxMethod.set("trsprtCst-inp-apcNm", _apcNm);
+			if(!gfn_isEmpty(_data.vhclno)){
+				SBUxMethod.set("trsprtCst-inp-vhclno", _data.vhclno);
+			}
+			await this.callSelectRgnTsprtCstList();
 
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;
@@ -139,9 +143,7 @@
 			} else {
 				this.search();
 			}
-
 			this.prvApcCd = _apcCd;
-
 		},
 		close: function(_trsprtCst) {
 			gfn_closeModal(this.modalId, this.callbackFnc, _trsprtCst);
@@ -187,7 +189,7 @@
 		        {caption: ['중량'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false,
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###Kg'}},
 		        {caption: ['운임비용'],	ref: 'trsprtCst', 	width: '100px',	type: 'input', 			style: 'text-align: center', sortable: false,
-					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}, validate : gfn_chkByte.bind({byteLimit: 18})},
+					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}, validate : gfn_chkByte.bind({byteLimit: 5})},
 		        {caption: ['은행'],		ref: 'bankNm', 		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
 		        {caption: ['계좌'],		ref: 'actno', 		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
 		        {caption: ['예금주'],	 	ref: 'dpstr', 		width: '80px',	type: 'output', 		style: 'text-align: center', sortable: false},
@@ -200,7 +202,7 @@
 		    ];
 		    grdTrsprtCstPop = _SBGrid.create(SBGridProperties);
 		    grdTrsprtCstPop.bind('dblclick', popTrsrptCst.choice);
-
+		    grdTrsprtCstPop.bind('valuechanged', this.setTrsprtCst);
 		},
 		choice: function() {
 			let nRow = grdTrsprtCstPop.getRow();
@@ -212,8 +214,6 @@
 		 * @param {number} nCol
 		 */
 		add: function(nRow, nCol) {
-
-			grdTrsprtCstPop.setCellData(nRow, 0, SBUxMethod.get("trsprtCst-dtp-trsprtYmd"), true);
 			grdTrsprtCstPop.setCellData(nRow, nCol, "N", true);
 			grdTrsprtCstPop.addRow(true, receivedData);
 		},
@@ -269,10 +269,22 @@
 					}
 
 					if (rowSts === 3){
+						await this.isExistData(rowData);
+						if(isExist){
+							alert("이미 존재하는 데이터입니다.");
+							this.search();
+							return;
+						}
 						rowData.apcCd = apcCd;
 						rowData.rowSts = "I";
 						trsprtCstList.push(rowData);
 					} else if (rowSts === 2){
+						await this.isExistData(rowData);
+						if(isExist){
+							alert("이미 존재하는 데이터입니다.");
+							this.search();
+							return;
+						}
 						rowData.rowSts = "U";
 						trsprtCstList.push(rowData);
 					} else {
@@ -314,7 +326,6 @@
 	    	await this.setGrid(pageSize, pageNo);
 		},
 		setGrid: async function(pageSize, pageNo) {
-
 	    	let apcCd 		= SBUxMethod.get("trsprtCst-inp-apcCd");
 	    	let trsprtYmd 	= SBUxMethod.get("trsprtCst-dtp-trsprtYmd");
 	    	let vhclno 		= SBUxMethod.get("trsprtCst-inp-vhclno");
@@ -386,6 +397,97 @@
 
 	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
 	    },
+	    callSelectRgnTsprtCstList: async function() {
+			const apcCd = SBUxMethod.get("trsprtCst-inp-apcCd");
+	    	let postJsonPromise = gfn_postJSON("/am/cmns/selectRgnTrsprtCstList.do", {apcCd : apcCd});
+            let data = await postJsonPromise;
+			try {
+	        	data.resultList.forEach((item, index) => {
+	        		if(item.delYn == 'N'){
+						const trsprtCstVO = {
+							    trsprtRgnCd : item.trsprtRgnCd
+							  , trsprtCst 	: item.trsprtCst
+						}
+						jsonRgnTrsprtCst.push(trsprtCstVO);
+	        		}
+				});
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+	    },
+	    setTrsprtCst: async function(objGrid, nRow, nCol, strValue, objRowData) {
+	    	var nRow = grdTrsprtCstPop.getRow();
+	    	var nCol = grdTrsprtCstPop.getCol();
+    		let trsprtRgnCd = grdTrsprtCstPop.getCellData(nRow, nCol);
+	    	
+	    	if(nCol == 5 && !gfn_isEmpty(trsprtRgnCd)){
+	    		for(var i=0; i<jsonRgnTrsprtCst.length; i++){
+	    			if(jsonRgnTrsprtCst[i].trsprtRgnCd == trsprtRgnCd){
+	    				grdTrsprtCstPop.setCellData(nRow, nCol+2, jsonRgnTrsprtCst[i].trsprtCst);
+	    				break;
+	    			}
+	    		}
+	    	}
+	    },
+	    isExistData: async function(rowData){
+	    	let checkExistenceList = [];
+	    	matchData = {
+	    			trsprtYmd 	: rowData.trsprtYmd
+				  , trsprtSeCd 	: rowData.trsprtSeCd
+				  , vhclno 		: rowData.vhclno
+				  , trsprtRgnCd : rowData.trsprtRgnCd
+				  , wrhsWght	: rowData.wrhsWght
+				  , trsprtCst 	: rowData.trsprtCst
+				  , bankCd 		: rowData.bankCd
+				  , actno 		: rowData.actno
+				  , dpstr 		: rowData.dpstr
+				  , delYn		: rowData.delYn
+				  , apcCd		: rowData.apcCd
+			}
+	    	const postJsonPromise = gfn_postJSON("/am/cmns/selectRawMtrTrsprtCstList.do", rowData);
+
+	        const data = await postJsonPromise;
+			try {
+	        	data.resultList.forEach((item, index) => {
+					const trsprtCstVO = {
+							trsprtYmd 	: item.trsprtYmd
+						  , trsprtSeCd 	: item.trsprtSeCd
+						  , vhclno 		: item.vhclno
+						  , trsprtRgnCd : item.trsprtRgnCd
+						  , wrhsWght	: item.wrhsWght
+						  , trsprtCst 	: item.trsprtCst
+						  , bankCd 		: item.bankCd
+						  , actno 		: item.actno
+						  , dpstr 		: item.dpstr
+						  , delYn		: item.delYn
+						  , apcCd		: item.apcCd
+					}
+					if ((trsprtCstVO.trsprtYmd == matchData.trsprtYmd) &&
+						(trsprtCstVO.trsprtSeCd == matchData.trsprtSeCd) &&
+						(trsprtCstVO.vhclno == matchData.vhclno) &&
+						(trsprtCstVO.trsprtRgnCd == matchData.trsprtRgnCd) &&
+						(trsprtCstVO.wrhsWght == matchData.wrhsWght) &&
+						(trsprtCstVO.trsprtCst == matchData.trsprtCst) &&
+						(trsprtCstVO.bankCd == matchData.bankCd) &&
+						(trsprtCstVO.actno == matchData.actno) &&
+						(trsprtCstVO.dpstr == matchData.dpstr) &&
+						(trsprtCstVO.delYn == matchData.delYn) &&
+						(trsprtCstVO.apcCd == matchData.apcCd)){
+						isExist = true;
+					} else {
+						isExist = false;
+					}
+				});
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+	    }
    	}
 
 	/* 원물운임비용 등록에서 사용 차량선택 팝업 호출 필수 function  */
@@ -423,8 +525,8 @@
 			grdTrsprtCstPop.setCellData(nRow, 8, vhcl.bankNm);
 			grdTrsprtCstPop.setCellData(nRow, 9, vhcl.actno);
 			grdTrsprtCstPop.setCellData(nRow, 10, vhcl.dpstr);
+			grdTrsprtCstPop.setCellData(nRow, 13, vhcl.bankCd);
 		}
 	}
-
 </script>
 </html>

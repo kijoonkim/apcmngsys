@@ -96,32 +96,18 @@
 							<th scope="row" class="th_bg">입고구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-wrhsKnd1" name="chk-wrhsKnd1" uitype="normal" class="form-control input-sm" text="일반매입" checked/>
-								</p>
-								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-wrhsKnd2" name="chk-wrhsKnd2" uitype="normal" class="form-control input-sm" text="공선" checked/>
-								</p>
-								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-wrhsKnd3" name="chk-wrhsKnd3" uitype="normal" class="form-control input-sm" text="매취" checked/>
-								</p>
-								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-wrhsKnd4" name="chk-wrhsKnd4" uitype="normal" class="form-control input-sm" text="상품" checked/>
+									<sbux-checkbox
+										id="dtl-chk-wrhsSeCd"
+										name="dtl-chk-wrhsSeCd"
+										uitype="normal"
+										class="radio_label"
+										text-right-padding="10px"
+										jsondata-ref="jsonWrhsSeCd">
+									</sbux-checkbox>
 								</p>
 							</td>
 							<th scope="row" class="th_bg">상품구분</th>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-checkbox uitype="normal"id="chk-gsd1" name="chk-gsd1" uitype="normal" class="form-control input-sm" text="일반" checked/> -->
-<!-- 								</p> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-checkbox uitype="normal"id="chk-gsd2" name="chk-gsd2" uitype="normal" class="form-control input-sm" text="GAP" checked/> -->
-<!-- 								</p> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-checkbox uitype="normal"id="chk-gsd3" name="chk-gsd3" uitype="normal" class="form-control input-sm" text="무농약" checked/> -->
-<!-- 								</p> -->
-<!-- 								<p class="ad_input_row"> -->
-<!-- 									<sbux-checkbox uitype="normal"id="chk-gsd4" name="chk-gsd4" uitype="normal" class="form-control input-sm" text="유기농" checked/> -->
-<!-- 								</p> -->
 								<p class="ad_input_row">
 									<sbux-checkbox
 										id="dtl-chk-gdsSeCd"
@@ -136,13 +122,14 @@
 					    	<th scope="row" class="th_bg">운송구분</th>
 							<td colspan="3" class="td_input">
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-trsprt1" name="chk-trsprt1" uitype="normal" class="form-control input-sm" text="자가" checked/>
-								</p>
-								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-trsprt2" name="chk-trsprt2" uitype="normal" class="form-control input-sm" text="용역" checked/>
-								</p>
-								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-trsprt3" name="chk-trsprt3" uitype="normal" class="form-control input-sm" text="기타" checked/>
+									<sbux-checkbox
+										id="dtl-chk-trsprtSeCd"
+										name="dtl-chk-trsprtSeCd"
+										uitype="normal"
+										class="radio_label"
+										text-right-padding="10px"
+										jsondata-ref="jsonTrsprtSeCd">
+									</sbux-checkbox>
 								</p>
 							</td>
 						</tr>
@@ -217,7 +204,10 @@
 
     var jsonPrdcr				= [];
     var jsonPrdcrAutocomplete 	= [];
-    var jsonGdsSeCd			= [];	// 상품구분
+    
+    var jsonWrhsSeCd			= [];	// 입고구분 checkbox 검색
+   	var jsonGdsSeCd				= [];	// 상품구분 checkbox 검색
+    var jsonTrsprtSeCd			= [];	// 운송구분 checkbox 검색
     
     
 	const fn_initSBSelect = async function() {
@@ -225,10 +215,16 @@
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', jsonComWarehouseSeCd, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd),		// 품목
+		 	gfn_setComCdSBSelect('dtl-chk-wrhsSeCd', jsonWrhsSeCd, 'WRHS_SE_CD'),						// 입고구분
 		 	gfn_setComCdSBSelect('dtl-chk-gdsSeCd', jsonGdsSeCd, 'GDS_SE_CD', gv_selectedApcCd),			// 상품구분
+		 	gfn_setComCdSBSelect('dtl-chk-trsprtSeCd', jsonTrsprtSeCd, 'TRSPRT_SE_CD'),						// 운송구분
 	 	]);
+		jsonWrhsSeCd.forEach(e => e.checked = "checked");
+		SBUxMethod.refresh('dtl-chk-wrhsSeCd');
 		jsonGdsSeCd.forEach(e => e.checked = "checked");
 		SBUxMethod.refresh('dtl-chk-gdsSeCd');
+		jsonTrsprtSeCd.forEach(e => e.checked = "checked");
+		SBUxMethod.refresh('dtl-chk-trsprtSeCd');
 	}
 
     const fn_modalVrty = function() {
@@ -371,20 +367,19 @@
 	   }
 	}
 	const fn_setGrdRawMtrWrhsPrfmnc = async function(pageSize, pageNo) {
-			console.log("Test");
 	   		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-startPrdctnYmd");		// 입고시작일자
 	   		let wrhsYmdTo = SBUxMethod.get("srch-dtp-endPrdctnYmd");		// 입고종료일자
-	   		
-	  		let wrhsSeCd = fn_getChkValue('chk-wrhsKnd', 4);	// 입고구분
-	  		let gdsSeCd = fn_getChkValue('chk-gsd', 4);	// 입고구분
-	  		let trsprtSeCd = fn_getChkValue('chk-trsprt', 3);	// 입고구분
+	  		let wrhsSeCd = fn_getChkbox(jsonWrhsSeCd, SBUxMethod.get("dtl-chk-wrhsSeCd"));
+	  		let gdsSeCd = fn_getChkbox(jsonGdsSeCd, SBUxMethod.get("dtl-chk-gdsSeCd"))
+	  		let trsprtSeCd = fn_getChkbox(jsonTrsprtSeCd, SBUxMethod.get("dtl-chk-trsprtSeCd"))
 
 	  		// optional
 	  		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
 	  		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
 	  		let vhclno = SBUxMethod.get("srch-inp-vhclno");	// 차량번호
 	  		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-			let vrtyCd = vrtyCds.length > 0 ? +vrtyCds.join(',') : "";
+			let vrtyCd = vrtyCds.length > 0 ? vrtyCds.join(',') : "";
+			console.log("vrtyCd", vrtyCd);
 			const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsPrfmncList.do", {
 				apcCd: gv_selectedApcCd,
 				wrhsYmdFrom: wrhsYmdFrom,
@@ -469,17 +464,14 @@
 		}
 	}
 	
-	function fn_getChkValue(id, len){
-		result = [];
-		for(var i=1; i<=len; i++){
-			fullId = id+i;
-			if(SBUxMethod.get(fullId)[fullId] == true)
-				result.push(i);
+	function fn_getChkbox(json, result) {
+		val = [];
+		for(var key in result){
+			if(result[key] == true)
+				val.push(json[Number(key.substring(key.lastIndexOf('_')+1))].value);
 		}
-		if (result.length > 0)
-			return result.join(',');
-		else
-			return "";
+		
+		return val.join(',');
 	}
 	
 	/*
