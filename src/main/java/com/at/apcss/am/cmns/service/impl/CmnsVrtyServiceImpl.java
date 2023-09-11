@@ -132,4 +132,18 @@ public class CmnsVrtyServiceImpl implements CmnsVrtyService {
 		return deletedCnt;
 	}
 
+	@Override
+	public int multiSaveApcVrtyList(List<CmnsVrtyVO> cmnsVrtyList) throws Exception {
+		int savedCnt = 0;
+		for (CmnsVrtyVO cmnsVrtyVO : cmnsVrtyList) {
+			if(ComConstants.ROW_STS_INSERT.equals(cmnsVrtyVO.getRowSts())) {
+				savedCnt += insertApcVrty(cmnsVrtyVO);
+			}
+			if(ComConstants.ROW_STS_UPDATE.equals(cmnsVrtyVO.getRowSts())) {
+				savedCnt += updateApcVrty(cmnsVrtyVO);
+			}
+		}
+		return savedCnt;
+	}
+
 }
