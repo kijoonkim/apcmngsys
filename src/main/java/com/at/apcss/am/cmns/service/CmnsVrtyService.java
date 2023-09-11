@@ -110,4 +110,12 @@ public interface CmnsVrtyService {
 	 * @throws Exception
 	 */
 	public int deleteApcVrtyAll(CmnsVrtyVO cmnsVrtyVO) throws Exception;
+
+	/**
+	 * APC 품종 멀티 저장
+	 * @param cmnsVrtyVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int multiSaveApcVrtyList(List<CmnsVrtyVO> cmnsVrtyList) throws Exception;
 }

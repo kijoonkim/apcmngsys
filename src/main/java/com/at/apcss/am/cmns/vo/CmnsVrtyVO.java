@@ -42,6 +42,17 @@ public class CmnsVrtyVO extends CmnsItemVO {
 	 * 중량계산구분명
 	 */
 	private String wghtRkngSeNm;
+	/**
+	 * 순번
+	 */
+	private String sn;
 
-
+	/**
+	 * 농협APC코드
+	 */
+	private String nhApcCd;
+	/**
+	 * 농협APC명
+	 */
+	private String nhVrtyNm;
 }

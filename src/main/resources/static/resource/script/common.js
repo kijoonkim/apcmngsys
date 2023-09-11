@@ -22,7 +22,7 @@ const URL_COM_CDS 			= "/co/cd/comCdDtls";		// 공통코드
 const URL_MST_ITEMS 		= "/am/cmns/cmnsItems";		//	품목 마스터
 const URL_MST_VRTYS 		= "/am/cmns/cmnsVrtys";		//	품종 마스터
 const URL_MST_SPCFCTS 		= "/am/cmns/cmnsSpcfcts";	//	규격 마스터
-const URL_MST_GRDS 			= "/am/cmns/cmnsGrds";		//	등급 마스터
+const URL_MST_GRDS          = "/am/cmns/stdGrds";       //  등급 마스터
 
 const URL_APC_ITEMS 		= "/am/cmns/apcItems";		//	APC 품목
 const URL_APC_VRTYS 		= "/am/cmns/apcVrtys";		//	APC 품종
