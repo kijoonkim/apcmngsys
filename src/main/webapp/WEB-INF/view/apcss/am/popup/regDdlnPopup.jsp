@@ -10,8 +10,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSaveVhcl" name="btnSaveVhcl" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveDdln"></sbux-button>
-					<sbux-button id="btnEndVhcl" name="btnEndVhcl" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-ddln')"></sbux-button>
+					<sbux-button id="btnSaveDdln" name="btnSaveDdln" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveDdln"></sbux-button>
+					<sbux-button id="btnEndDdln" name="btnEndDdln" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-ddln')"></sbux-button>
 				</div>
 			</div>
 
@@ -201,13 +201,7 @@
 		SBUxMethod.set("ddln-inp-apcNm", _apcNm);
 		
 		fn_createDdlnGrid();
-		console.log("init DdlnPop");
 		fn_searchDdln();
-	}
-	
-	// 모달 종료
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
 	}
 </script>
 </html>

@@ -40,12 +40,12 @@
 								<sbux-input id="spmtCmndno-inp-apcCd" name="spmtCmndno-inp-apcCd" uitype="hidden"></sbux-input>
 							</th>
 							<th scope="row">출하지시일자</th>
-							<th>
+							<th class="td_input">
 								<sbux-datepicker id="spmtCmndno-dtp-cmndYmd" name="spmtCmndno-dtp-cmndYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</th>
 							<th scope="row">포장단위</th>
-							<th class="td_input">
-								<sbux-select id="spmtCmndno-slt-spmtPckgUnitCd" name="spmtCmndno-slt-spmtPckgUnitCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonSpmtPckgUnitCd"></sbux-select>
+							<th>
+								<sbux-select id="spmtCmndno-slt-spmtPckgUnitCd" name="spmtCmndno-slt-spmtPckgUnitCd" uitype="single" class="form-control input-sm" style="background-color:#FFFFFF;" unselected-text="선택" jsondata-ref="jsonSpmtPckgUnitCd"></sbux-select>
 							</th>
 						</tr>
 						<tr>
@@ -59,6 +59,7 @@
 									class="form-control input-sm"
 									jsondata-ref="jsonApcItem"
 									onchange="popSpmtCmndno.srchItemCd(this)"
+									style="background-color:#FFFFFF;"
 								/>
 							</th>
 							<th scope="row">품종</th>
@@ -71,11 +72,12 @@
 									class="form-control input-sm"
 									jsondata-ref="jsonApcVrty"
 									onchange="popSpmtCmndno.srchVrtyCd(this)"
+									style="background-color:#FFFFFF;"
 								/>
 							</th>
 							<th scope="row">규격</th>
-							<th class="td_input">
-								<sbux-select id="spmtCmndno-slt-spcfctCd" name="spmtCmndno-slt-spcfctCd" uitype="single" jsondata-ref="jsonApcSpcfct" class="form-control input-sm" unselected-text="선택"></sbux-select>
+							<th>
+								<sbux-select id="spmtCmndno-slt-spcfctCd" name="spmtCmndno-slt-spcfctCd" uitype="single" class="form-control input-sm" style="background-color:#FFFFFF;" jsondata-ref="jsonApcSpcfct" unselected-text="선택"></sbux-select>
 							</th>
 						</tr>
 					</tbody>
@@ -108,7 +110,7 @@
 
 	var grdSpmtCmndno = null;
 	var jsonSpmtCmndnoPop = [];
-
+	
 	/**
 	 * @description 차량 선택 팝업
 	 */

@@ -126,7 +126,7 @@
     </div>
     <!-- 마감 등록 Modal -->
     <div>
-        <sbux-modal id="modal-ddln" name="modal-ddln" uitype="middle" header-title="마감 등록" body-html-id="body-modal-ddln" footer-is-close-button="false" style="width:700px"></sbux-modal>
+        <sbux-modal id="modal-ddln" name="modal-ddln" uitype="middle" header-title="마감 등록" body-html-id="body-modal-ddln" footer-is-close-button="false" header-is-close-button="false" style="width:700px"></sbux-modal>
     </div>
     <div id="body-modal-ddln">
     	<jsp:include page="../../am/popup/regDdlnPopup.jsp"></jsp:include>
