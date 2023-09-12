@@ -132,6 +132,14 @@
 							<td></td>
 						</tr>
 						<tr>
+							<th scope="row" class="th_bg">상품명</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-gdsNm" name="srch-inp-gdsNm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchGdsNm" name="btnSrchGdsNm" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-gds" onclick="fn_modalGds" text="찾기"></sbux-button>
+							</td>
+							<td></td>
 							<th scope="row" >입고일자</th>
 							<td class="td_input">
 								<sbux-datepicker id="srch-dtp-trsprtYmd" name="srch-dtp-trsprtYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
@@ -216,6 +224,14 @@
     </div>
     <div id="body-modal-spmtCmndno">
     	<jsp:include page="../../am/popup/spmtCmndnoPopup.jsp"></jsp:include>
+    </div>
+    
+     <!-- 상품 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-gds" name="modal-gds" uitype="middle" header-title="상품 선택" body-html-id="body-modal-gds" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-gds">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/gdsPopup.jsp"></jsp:include>
     </div>
 
 <script type="text/javascript">
@@ -420,6 +436,23 @@
 	}
 	/*
  	* 출하지시번호 선택 팝업 끝
+ 	*/
+ 	
+ 	/*
+     * 상풍 선택 팝업 시작
+     */
+ 	// 상품 선택 팝업 호출
+	const fn_modalGds = function() {
+    	popGds.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-gdsNm"), fn_setGdsNm);
+	}
+	
+	const fn_setGdsNm = function(gds) {
+		if (!gfn_isEmpty(gds)) {
+			SBUxMethod.set('srch-inp-gdsNm', gds.gdsNm);
+		}
+	}
+	/*
+ 	* 상풍 선택 팝업 끝
  	*/
 </script>
 </body>

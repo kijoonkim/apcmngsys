@@ -132,4 +132,55 @@ public class StdGrdController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// APC 등급 판정 목록 조회
+	@PostMapping(value = "/am/cmns/selectStdGrdJgmtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectStdGrdJgmtList(@RequestBody StdGrdJgmtVO stdGrdJgmtVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<StdGrdJgmtVO> resultList = new ArrayList<>();
+
+		try {
+
+			resultList = stdGrdService.selectStdGrdJgmtList(stdGrdJgmtVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC 등급 상세 삭제
+	@PostMapping(value = "/am/cmns/deleteStdGrdDtl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteStdGrdDtl(@RequestBody StdGrdDtlVO stdGrdDtlVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			resultMap = stdGrdService.deleteStdGrdDtl(stdGrdDtlVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	// APC 등급 판정 삭제
+	@PostMapping(value = "/am/cmns/deleteStdGrdJgmt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteStdGrdJgmt(@RequestBody StdGrdJgmtVO stdGrdJgmtVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			resultMap = stdGrdService.deleteStdGrdJgmt(stdGrdJgmtVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

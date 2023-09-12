@@ -46,10 +46,10 @@
 						<tr>
 							<th class="ta_r th_bg">조회일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-crtrYmdFrom" name="srch-dtp-crtrYmdFrom" date-format="yyyy-mm-dd" class="form-control pull-right input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-planYmdFrom" name="srch-dtp-planYmdFrom" date-format="yyyy-mm-dd" class="form-control pull-right input-sm"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-crtrYmdTo" name="srch-dtp-crtrYmdTo" date-format="yyyy-mm-dd" class="form-control pull-right input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-planYmdTo" name="srch-dtp-planYmdTo" date-format="yyyy-mm-dd" class="form-control pull-right input-sm"/>
 							</td>
 							<td>&nbsp;</td>
 							<th class="ta_r th_bg">생산자</th>
@@ -217,10 +217,9 @@
 						<li><span>원물입고 계획</span></li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_save">등록</sbux-button>
-						<!-- <sbux-button id="btnDelete" name="btnDelete" uitype="button" class="btn btn-sm btn-outline-danger">삭제</sbux-button> -->
-						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="내려받기" class="btn btn-sm btn-outline-danger"></sbux-button>
-						<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger"></sbux-button>
+						<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="내려받기" class="btn btn-sm btn-outline-danger" onclick="fn_dawnload"></sbux-button>
+						<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="fn_upload" ></sbux-button>
 					</div>
 				</div>
 				<div class="sbt-wrap-body">
@@ -269,8 +268,8 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid();
 
-		SBUxMethod.set("srch-dtp-crtrYmdFrom", gfn_dateToYmd(new Date()));
-		SBUxMethod.set("srch-dtp-crtrYmdTo", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-planYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-planYmdTo", gfn_dateToYmd(new Date()));
 
 		fn_initSBSelect();
 		fn_getPrdcrs();
@@ -290,9 +289,9 @@
 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', 	jsonApcVrty, gv_selectedApcCd),		// 품종
 			gfn_setApcItemSBSelect('grdWrhsPlan', 		jsonGrdApcItem, gv_selectedApcCd),	// 품목 그리드
 			gfn_setApcVrtySBSelect('grdWrhsPlan', 		jsonGrdApcVrty, gv_selectedApcCd),	// 품종 그리드
-			
+
 		]);
-		
+
 		grdWrhsPlan.refresh({"combo":true});
 
 		let result = await Promise.all([
@@ -346,8 +345,8 @@
 	    SBGridProperties.jsonref = 'jsonWrhsPlan';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
@@ -627,7 +626,7 @@
 	 * @name fn_onSelectPrdcrNm
 	 * @description 생산자 autocomplete 선택 callback
 	 */
-	function fn_onSelectPrdcrNm(value, label, item) {
+	const fn_onSelectPrdcrNm = function(value, label, item) {
 		SBUxMethod.set("srch-inp-prdcrCd", value);
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 	}
@@ -685,7 +684,7 @@
 	 * @name fn_onSelectPrdcrNm
 	 * @description 생산자 autocomplete 선택 callback
 	 */
-	function fn_onSelectPrdcrNmDtl(value, label, item) {
+	const fn_onSelectPrdcrNmDtl = function(value, label, item) {
 		SBUxMethod.set("dtl-inp-prdcrCd", value);
 		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 	}
@@ -694,6 +693,15 @@
 	* 상세 정보 생산자 팝업 관련 function
 	* End
 	*/
+
+
+	/*
+	* 엑셀 다운로드(샘플양식)
+	*/
+	const fn_dawnload = async function(){
+		grdWrhsPlan.exportLocalExcel("exportLocalExcel", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	}
+
 
 </script>
 </html>

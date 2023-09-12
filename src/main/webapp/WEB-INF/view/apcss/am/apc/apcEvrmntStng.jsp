@@ -889,6 +889,18 @@
             		alert("품목을 선택해주세요.")
             		return;
             	}
+            }else if(grid === "grdStdGrdJgmt"){
+            	if(!(SBUxMethod.get("grd-slt-itemCd") == null || SBUxMethod.get("grd-slt-itemCd") == "")){
+
+					grdStdGrdJgmt.setCellData(nRow, nCol, "N", true);
+					grdStdGrdJgmt.setCellData(nRow, 7, gv_apcCd, true);
+					grdStdGrdJgmt.setCellData(nRow, 8, SBUxMethod.get("grd-slt-itemCd"), true);
+					grdStdGrdJgmt.setCellData(nRow, 9, SBUxMethod.get("grd-rdo-grdSeCd"), true);
+					grdStdGrdJgmt.addRow(true);
+            	}else{
+            		alert("품목을 선택해주세요.")
+            		return;
+            	}
             }else if(grid === "grdApcSpcfct"){
             	if(!(SBUxMethod.get("spcfct-slt-itemCd") == null || SBUxMethod.get("spcfct-slt-itemCd") == "")){
             		grdApcSpcfct.setCellData(nRow, nCol, "N", true);
@@ -1017,7 +1029,7 @@
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
             			var stdGrdVO = grdStdGrd.getRowData(nRow);
-            			//fn_deleteGrd(stdGrdVO);
+            			fn_deleteGrd(stdGrdVO);
             			grdStdGrd.deleteRow(nRow);
             		}
             	}else{
@@ -1028,11 +1040,22 @@
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
             			var stdGrdDtlVO = grdStdGrdDtl.getRowData(nRow);
-            			//fn_deleteGrdDtl(stdGrdDtlVO);
+            			fn_deleteGrdDtl(stdGrdDtlVO);
             			grdStdGrdDtl.deleteRow(nRow);
             		}
             	}else{
             		grdStdGrdDtl.deleteRow(nRow);
+            	}
+            }else if (grid === "grdStdGrdJgmt") {
+            	if(grdStdGrdJgmt.getRowStatus(nRow) == 0 || grdStdGrdJgmt.getRowStatus(nRow) == 2){
+            		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+            		if(confirm(delMsg)){
+            			var stdGrdJgmtVO = grdStdGrdJgmt.getRowData(nRow);
+            			fn_deleteGrdJgmt(stdGrdJgmtVO);
+            			grdStdGrdJgmt.deleteRow(nRow);
+            		}
+            	}else{
+            		grdStdGrdJgmt.deleteRow(nRow);
             	}
             }else if (grid === "grdApcSpcfct") {
             	if(grdApcSpcfct.getRowStatus(nRow) == 0 || grdApcSpcfct.getRowStatus(nRow) == 2){

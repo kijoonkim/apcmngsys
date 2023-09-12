@@ -6,14 +6,23 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StdGrdJgmtVO extends StdGrdVO{
+
+	/*
+	 * 등급코드
+	 * */
+	private String grdCd;
+	/*
+	 * 등급명
+	 * */
+	private String grdNm;
+	/*
+	 * 등급값
+	 * */
+	private int grdVl;
 	/*
 	 * 판정유형
 	 * */
 	private String jgmtType;
-	/*
-	 * 판정값
-	 * */
-	private int jgmtVl;
 	/*
 	 * 판정최소값
 	 * */
@@ -22,4 +31,9 @@ public class StdGrdJgmtVO extends StdGrdVO{
 	 * 판정최대값
 	 * */
 	private int jgmtMaxVl;
+	/*
+	 * 순번
+	 * */
+	private int sn;
+
 }
