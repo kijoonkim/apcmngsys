@@ -124,7 +124,15 @@
 
 							<th scope="row" >원물운임비용</th>
 							<td class="td_input">
-								<sbux-input id="srch-inp-trsprtCst" name="srch-inp-trsprtCst" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input
+									uitype="text"
+									id="srch-inp-trsprtCst"
+									name="srch-inp-trsprtCst"
+									class="form-control input-sm"
+									maxlength="6"
+									autocomplete="off"
+									mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true }"
+								/>
 							</td>
 							<td class="td_input">
 								<sbux-button id="btnSrchTrsprtCst" name="btnSrchTrsprtCst" class="btn btn-xs btn-outline-dark" text="등록" uitype="modal" target-id="modal-trsprtCst" onclick="fn_choiceTrsprtCst"></sbux-button>
@@ -347,17 +355,49 @@
 	/* End */
 
 
-	/* 원물운임비용등록 팝업 호출 필수 function  */
+	/* 원물운임비용등록팝업 호출 필수 json  */
+	/* Start */
+	let vhclData = {vhclno : null, drvrNm : null, bankNm : null, bankCd : null, actno : null, dpstr : null};
+	/* End */
+	
+	
+	/* 원물운임비용등록팝업 호출 필수 function  */
 	/* Start */
 	/**
 	 * @name fn_setVhcl
-	 * @description 원물운임비용팝업 호출
+	 * @description 원물운임비용등록팝업 호출
 	 */
-	const fn_choiceTrsprtCst = function() {
-		let trsprtYmd = SBUxMethod.get("srch-dtp-trsprtYmd");
-		let vhclno = SBUxMethod.get("srch-inp-vhclno");
-		popTrsrptCst.init(gv_selectedApcCd, gv_selectedApcNm, trsprtYmd, vhclno, fn_setTrsprtCst);
-	}
+	 const fn_choiceTrsprtCst = function() {
+			//_trsprtYmd, _vhclno, _callbackFnc
+			//
+			let trsprtYmd = SBUxMethod.get("srch-dtp-trsprtYmd");
+			let data = {
+							apcCd 		: gv_selectedApcCd,
+							trsprtYmd 	: null,
+							vhclno 		: null,
+				  			drvrNm 		: null,
+				  			bankNm 		: null,
+				  			bankCd 		: null,
+				  			actno 		: null,
+				  			dpstr 		: null,
+							trsprtSeCd 	: null,
+							wrhsWght 	: null
+					    };
+			if(!gfn_isEmpty(trsprtYmd)){
+				data.trsprtYmd = trsprtYmd;
+			} else {
+				data.trsprtYmd = gfn_dateToYmd(new Date());
+			}
+			if(!gfn_isEmpty(SBUxMethod.get("srch-inp-vhclno"))){
+				data.vhclno = vhclData.vhclno;
+				data.drvrNm = vhclData.drvrNm;
+				data.bankNm = vhclData.bankNm;
+				data.bankCd = vhclData.bankCd;
+				data.actno = vhclData.actno;
+				data.dpstr = vhclData.dpstr;
+			}
+			popTrsrptCst.init(gv_selectedApcCd, gv_selectedApcNm, data, fn_setTrsprtCst);
+		}
 
 	/**
 	 * @name fn_setVhcl
@@ -365,7 +405,6 @@
 	 */
 	const fn_setTrsprtCst = function(trsprtCst) {
 		if (!gfn_isEmpty(trsprtCst)) {
-			SBUxMethod.set("srch-inp-vhclno", trsprtCst.vhclno);   // callBack input
 			SBUxMethod.set("srch-inp-trsprtCst", trsprtCst.trsprtCst);   // callBack input
 		}
 	}
