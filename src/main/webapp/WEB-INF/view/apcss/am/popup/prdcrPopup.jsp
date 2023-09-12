@@ -48,7 +48,7 @@
 							<th class="td_input">
 								<sbux-input
 									uitype="text" id="prdcr-inp-prdcrNm" name="prdcr-inp-prdcrNm"
-									class="form-control input-sm" maxlength="33"
+									class="form-control input-sm"
     								onkeyenter="keyUpInp(prdcr-inp-prdcrNm, 'prdcr-inp-prdcrNm', 'true')">
     							</sbux-input>
 							</th>
@@ -58,18 +58,18 @@
 				</table>
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-				<div class="row">
-					<div class="ad_tbl_top"  style="width: 98%;">
+				<div class="ad_section_top">
+					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
 								<span style="color: black;">생산자 목록</span>
 								<span style="font-size:12px">(조회건수 <span id="prdcr-pop-cnt">0</span>건)</span>
 							</li>
 						</ul>
+					 	<div class="ad_tbl_toplist">
+						</div>
 					</div>
-					<div>
-						<div id="sb-area-grdPrdcrPop" style="height:300px; width: 100%;"></div>
-					</div>
+					<div id="sb-area-grdPrdcrPop" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -149,9 +149,8 @@
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.allowcopy = true;
+			SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.scrollbubbling = false;
-		    SBGridProperties.frozencols = 2;
-		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 		    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -160,7 +159,32 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		    	{caption: ["처리"], 			ref: 'delYn', 			type: 'button', width: '70px', 	style: 'text-align:center', sortable: false,
+		        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '100px', style: 'text-align:center'},
+		        {caption: ['대표품목'], 		ref: 'rprsItemCd', 		type: 'combo', 	width: '100px', style: 'text-align:center',
+					typeinfo: {ref:'jsonApcItemPrdcrPop', 		label:'label', value:'value'}
+		        },
+		        {caption: ['대표품종'], 		ref: 'rprsVrtyCd', 		type: 'combo', 	width: '100px', style: 'text-align:center',
+					typeinfo: {ref:'jsonApcVrtyPrdcrPop', 		label:'label', value:'value'}
+				},
+		        {caption: ['상품구분'], 		ref: 'gdsSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center',
+					typeinfo: {ref:'jsonComGdsSeCdPrdcrPop', 	label:'label', value:'value'}
+				},
+		        {caption: ['입고구분'], 		ref: 'wrhsSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center',
+					typeinfo: {ref:'jsonComWrhsSeCdPrdcrPop', 	label:'label', value:'value'}
+				},
+		        {caption: ['운송구분'], 		ref: 'trsprtSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center',
+					typeinfo: {ref:'jsonComTrsprtSeCdPrdcrPop', label:'label', value:'value'}
+				},
+		        {caption: ['정산기준'], 		ref: 'clclnCrtr', 		type: 'combo', 	width:'80px', 	style: 'text-align:center',
+					typeinfo: {ref:'jsonComClclnCrtrPrdcrPop', 	label:'label', value:'value'}
+				},
+		        {caption: ['차량번호'], 		ref: 'vhclno', 			type: 'input', 	width: '100px', style: 'text-align:center'},
+		        {caption: ['전화번호'], 		ref: 'telno', 			type: 'input', 	width: '150px', style: 'text-align:center'},
+		        {caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '150px', style: 'text-align:center'},
+// 		        {caption: ['참여조직'], 		ref: '', 				type: 'input', 	width: '150px', style: 'text-align:center'},
+		        {caption: ['생산자인식번호'], 	ref: 'prdcrIdentno', 	type: 'input', 	width: '150px', style: 'text-align:center'},
+		        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '150px', style: 'text-align:center'},
+		        {caption: ["처리"], 			ref: 'delYn', 			type: 'button', width: '80px', 	style: 'text-align:center',
 		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 						if (!isEditable) {
 							return "";
@@ -172,37 +196,15 @@
 					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popPrdcr.del(" + nRow + ")'>삭제</button>";
 		            	}
 			    }},
-			    {caption: ['번호'], 			ref: 'prdcrIdentno', 	type: 'input', 	width: '60px', style: 'text-align:center', sortable: false},
-		        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '80px', style: 'text-align:center', sortable: false,
-		        	validate : gfn_chkByte.bind({byteLimit: 100})},
-		        {caption: ['대표품목'], 		ref: 'rprsItemCd', 		type: 'combo', 	width: '80px', style: 'text-align:center', sortable: false,
-					typeinfo: {ref:'jsonApcItemPrdcrPop', 		label:'label', value:'value', itemcount: 10}},
-		        {caption: ['대표품종'], 		ref: 'rprsVrtyCd', 		type: 'combo', 	width: '80px', style: 'text-align:center', sortable: false,
-					typeinfo: {ref:'jsonApcVrtyPrdcrPop', 		label:'label', value:'value', itemcount: 10}},
-		        {caption: ['상품구분'], 		ref: 'gdsSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center', sortable: false,
-					typeinfo: {ref:'jsonComGdsSeCdPrdcrPop', 	label:'label', value:'value', itemcount: 10}},
-		        {caption: ['입고구분'], 		ref: 'wrhsSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center', sortable: false,
-					typeinfo: {ref:'jsonComWrhsSeCdPrdcrPop', 	label:'label', value:'value', itemcount: 10}},
-		        {caption: ['운송구분'], 		ref: 'trsprtSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center', sortable: false,
-					typeinfo: {ref:'jsonComTrsprtSeCdPrdcrPop', label:'label', value:'value', itemcount: 10}},
-		        {caption: ['정산기준'], 		ref: 'clclnCrtr', 		type: 'combo', 	width: '80px', 	style: 'text-align:center', sortable: false,
-					typeinfo: {ref:'jsonComClclnCrtrPrdcrPop', 	label:'label', value:'value', itemcount: 10}},
-		        {caption: ['차량번호'], 		ref: 'vhclno', 			type: 'input', 	width: '100px', style: 'text-align:center', sortable: false,
-					validate : gfn_chkByte.bind({byteLimit: 40})},
-		        {caption: ['전화번호'], 		ref: 'telno', 			type: 'input', 	width: '120px', style: 'text-align:center', sortable: false,
-					validate : gfn_chkByte.bind({byteLimit: 11}), format : {type:'string', rule:'000-0000-0000'}},
-		        {caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '120px', style: 'text-align:center', sortable: false,
-					validate : gfn_chkByte.bind({byteLimit: 20})},
-// 		        {caption: ['참여조직'], 		ref: '', 				type: 'input', 	width: '150px', style: 'text-align:center', sortable: false},
-		        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '150px', style: 'text-align:center', sortable: false,
-		        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 		        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
 		        {caption: ['생산자코드'], ref: 'prdcrCd', hidden : true},
 		        {caption: ['ROW STATUS'], ref: 'rowSts', hidden : true},
 		    ];
 
 		    grdPrdcrPop = _SBGrid.create(SBGridProperties);
+		    //grdPrdcrPop.bind('beforepagechanged', 'popComAuthUser.paging');
 		    grdPrdcrPop.bind('dblclick', popPrdcr.choice);	//'popPrdcrChoice');
+		    //this.search();
 		},
 		choice: function() {
 			let nRow = grdPrdcrPop.getRow();
@@ -244,7 +246,7 @@
 			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, false);
 			nRow++;
 			grdPrdcrPop.addRow(true);
-			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
+			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, false);
 		},
 		del: async function(nRow) {
 			const apcCd = SBUxMethod.get("prdcr-inp-apcCd");
@@ -374,7 +376,9 @@
 						prdcrCd			: item.prdcrCd,
 					    prdcrNm 		: item.prdcrNm,
 					    rprsItemCd 		: item.rprsItemCd,
+					    rprsItemNm 		: item.rprsItemNm,
 					    rprsVrtyCd 		: item.rprsVrtyCd,
+					    rprsVrtyNm 		: item.rprsVrtyNm,
 					    gdsSeCd 		: item.gdsSeCd,
 					    wrhsSeCd 		: item.wrhsSeCd,
 					    trsprtSeCd 		: item.trsprtSeCd,

@@ -1,6 +1,7 @@
 package com.at.apcss.fm.clt.web;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.fm.clt.service.CltvtnEnggtAplyMngService;
+import com.at.apcss.fm.clt.vo.CltvtnApcItemVO;
 import com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO;
 
 
@@ -59,11 +61,6 @@ public class CltvtnEnggtAplyMngController extends BaseController {
 
 		try {
 			 resultList = cltvtnEnggtAplyMngService.selectCltvtnEnggtAplyMngList(cltvtnEnggtAplyMngVO);
-
-			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (CltvtnEnggtAplyMngVO msg : resultList ) {
-				 logger.debug("msgCn : {}", msg.getMsgCn());
-			 }
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -130,19 +127,22 @@ public class CltvtnEnggtAplyMngController extends BaseController {
 
 	// 제배약정신청관리 삭제
 	@PostMapping(value = "/fm/clt/deleteCltvtnEnggtAplyMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> deleteCltvtnEnggtAplyMng(@RequestBody CltvtnEnggtAplyMngVO cltvtnEnggtAplyMngVO, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> deleteCltvtnEnggtAplyMng(@RequestBody List<CltvtnEnggtAplyMngVO> list, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
 
 		// audit 항목
-		cltvtnEnggtAplyMngVO.setSysLastChgUserId(getUserId());
-		cltvtnEnggtAplyMngVO.setSysLastChgPrgrmId(getPrgrmId());
+		for(CltvtnEnggtAplyMngVO vo : list) {
+			vo.setDelYn("Y");
+			vo.setSysLastChgUserId(getUserId());
+			vo.setSysLastChgPrgrmId(getPrgrmId());
+		}
 
 		int deletedCnt = 0;
 
 		try {
-			deletedCnt = cltvtnEnggtAplyMngService.deleteCltvtnEnggtAplyMng(cltvtnEnggtAplyMngVO);
+			deletedCnt = cltvtnEnggtAplyMngService.deleteCltvtnEnggtAplyMngList(list);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -176,6 +176,27 @@ public class CltvtnEnggtAplyMngController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//재배약정신청관리 > APC 조회 팝업
+	@PostMapping(value = "/fm/clt/selectApcListPopup.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectApcListPopup(@RequestBody CltvtnApcItemVO vo, HttpServletRequest request) throws Exception {
+
+		logger.debug("selectApcListPopup 호출 <><><><> ");
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<CltvtnApcItemVO> resultList = new ArrayList<>();
+
+		try {
+
+			resultList = cltvtnEnggtAplyMngService.selectApcList(vo);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 
 		return getSuccessResponseEntity(resultMap);
 	}

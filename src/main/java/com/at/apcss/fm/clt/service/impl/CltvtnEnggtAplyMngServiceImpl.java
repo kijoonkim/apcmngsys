@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper;
 import com.at.apcss.fm.clt.service.CltvtnEnggtAplyMngService;
+import com.at.apcss.fm.clt.vo.CltvtnApcItemVO;
 import com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO;
 
 
@@ -53,11 +54,6 @@ public class CltvtnEnggtAplyMngServiceImpl implements CltvtnEnggtAplyMngService{
 	public List<CltvtnEnggtAplyMngVO> selectCltvtnEnggtAplyMngList(CltvtnEnggtAplyMngVO cltvtnEnggtAplyMngVO) throws Exception {
 
 		List<CltvtnEnggtAplyMngVO> resultList = cltvtnEnggtAplyMngMapper.selectCltvtnEnggtAplyMngList(cltvtnEnggtAplyMngVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
-		for (CltvtnEnggtAplyMngVO msg : resultList ) {
-			System.out.printf("msgCn : %s", msg.getMsgCn());
-			System.out.println();
-		}
 		return resultList;
 	}
 
@@ -92,10 +88,19 @@ public class CltvtnEnggtAplyMngServiceImpl implements CltvtnEnggtAplyMngService{
 		int deletedCnt = 0;
 
 		for ( CltvtnEnggtAplyMngVO cltvtnEnggtAplyMngVO : cltvtnEnggtAplyMngList ) {
-			deletedCnt += cltvtnEnggtAplyMngMapper.deleteCltvtnEnggtAplyMng(cltvtnEnggtAplyMngVO);
+			//deletedCnt += cltvtnEnggtAplyMngMapper.deleteCltvtnEnggtAplyMng(cltvtnEnggtAplyMngVO);
+			deletedCnt += cltvtnEnggtAplyMngMapper.updateCltvtnEnggtAplyMng(cltvtnEnggtAplyMngVO); //delYn 값만 Y로 업데이트
 		}
 
 		return deletedCnt;
+	}
+
+	@Override
+	public List<CltvtnApcItemVO> selectApcList(CltvtnApcItemVO vo) throws Exception {
+
+		List<CltvtnApcItemVO> resultList = cltvtnEnggtAplyMngMapper.selectApcList(vo);
+
+		return resultList;
 	}
 
 }
