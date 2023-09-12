@@ -89,10 +89,22 @@
 						<tr>
 							<th scope="row" >팔레트/박스 선택</th>
 							<td class="td_input">
-								<sbux-input id="pltBx-inp-pltNm" name="pltBx-inp-pltNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input
+									id="srch-inp-pltWght"
+									name="srch-inp-pltWght"
+									uitype="text"
+									class="form-control input-sm"
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+								></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-input id="pltBx-inp-bxNm" name="pltBx-inp-bxNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input
+									id="srch-inp-bxWght"
+									name="srch-inp-bxWght"
+									uitype="text"
+									class="form-control input-sm"
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+								></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button id="btnSrchPltBx" name="btnSrchPltBx" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-pltBx" onclick="fn_modalPltBx"></sbux-button>
@@ -521,6 +533,38 @@
 	const fn_setGdsNm = function(gds) {
 		if (!gfn_isEmpty(gds)) {
 			SBUxMethod.set('srch-inp-gdsNm', gds.gdsNm);
+		}
+	}
+	/* End */
+	
+	
+	/* 생산자 팝업 호출 필수 json  */
+	/* Start */
+	var pltBxData = null;
+	/* End */
+	
+	
+	/* 원물입고 팔레트/박스 입고등록팝업 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_modalPltBx
+	 * @description 원물입고 팔레트/박스 입고등록팝업 호출
+	 */
+	const fn_modalPltBx = function() {
+		popPltBx.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPltBx, pltBxData);
+	}
+	
+	/**
+	 * @name fn_setPltBx
+	 * @description 팔레트 팝업 callback
+	 */
+	const fn_setPltBx = function(_pltBxData) {
+		if (!gfn_isEmpty(_pltBxData)) {
+			// 팔레트/박스 Kg set
+			SBUxMethod.set("srch-inp-pltWght", _pltBxData.totalPltWght);
+			SBUxMethod.set("srch-inp-bxWght", _pltBxData.totalBxWght);
+			//정산중량 Kg set
+			//fn_setClclnWght();
 		}
 	}
 	/* End */
