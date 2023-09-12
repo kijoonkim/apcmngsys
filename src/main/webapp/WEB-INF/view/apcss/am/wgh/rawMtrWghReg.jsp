@@ -44,7 +44,8 @@
 						<col style="width: 3%">
 
 						<col style="width: 7%">
-						<col style="width: 6%">
+						<col style="width: 4%">
+						<col style="width: 2%">
 						<col style="width: 3%">
 						<col style="width: 3%">
 						<col style="width: 3%">
@@ -69,12 +70,23 @@
 									id="dtl-inp-prdcrNm"
 									name="dtl-inp-prdcrNm"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									placeholder="초성검색 기능입니다."
+									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
     								onkeyup="fn_onKeyUpPrdcrNm(dtl-inp-prdcrNm)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="srch-inp-prdcrIdentno"
+									name="srch-inp-prdcrIdentno"
+									class="form-control input-sm"
+									maxlength="2"
+									autocomplete="off"
+									onchange="fn_onChangeSrchPrdcrIdentno(this)"
+								/>
 							</td>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-button
@@ -129,22 +141,16 @@
 								</p>
 							</td>
 							<th scope="row" class="th_bg">상품구분</th>
-							<td colspan="4" class="td_input" style="border-right:hidden;">
+							<td colspan="5" class="td_input" style="border-right:hidden;">
 								<p class="ad_input_row">
-									<sbux-radio id="dtl-rdo-gdsSeCd_1" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_1" text="일반"></sbux-label>
-								</p>
-								<p class="ad_input_row">
-									<sbux-radio id="dtl-rdo-gdsSeCd_2" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="2"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_2" text="GAP"></sbux-label>
-								</p>
-								<p class="ad_input_row">
-									<sbux-radio id="dtl-rdo-gdsSeCd_3" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="3"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_3" text="무농약"></sbux-label>
-								</p>
-								<p class="ad_input_row">
-									<sbux-radio id="dtl-rdo-gdsSeCd_4" name="dtl-rdo-gdsSeCd" uitype="normal" class="radio_label" value="4"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-gdsSeCd_4" text="유기농"></sbux-label>
+									<sbux-radio
+										id="dtl-rdo-gdsSeCd"
+										name="dtl-rdo-gdsSeCd"
+										uitype="normal"
+										class="radio_label"
+										text-right-padding="10px"
+										jsondata-ref="jsonComGdsSeCd">
+									</sbux-radio>
 								</p>
 							</td>
 							<th scope="row" class="th_bg">운송구분</th>
@@ -178,7 +184,7 @@
 								<sbux-button id="btnSrchVhclno" name="btnSrchVhclno" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_choiceVhcl"></sbux-button>
 							</td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>전체중량</th>
-							<td class="td_input" style="border-right:hidden;" >
+							<td colspan="2" class="td_input" style="border-right:hidden;" >
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-wholWght"
@@ -221,7 +227,7 @@
 							</td>
 							<td colspan="3">%</td>
 							<th scope="row" class="th_bg">감량</th>
-							<td class="td_input" style="border-right:hidden;">
+							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-rdcdWght"
@@ -270,7 +276,7 @@
 								</td>
 							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg">박스</th>
-							<td class="td_input"  style="border-right: hidden;">
+							<td colspan="2" class="td_input"  style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-bxWght"
@@ -301,7 +307,7 @@
 							</td>
 							<td colspan="3"></td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>등급</th>
-							<td class="td_input" >
+							<td colspan="2" class="td_input" >
 								<sbux-select id="dtl-slt-grdCd" name="dtl-slt-grdCd" uitype="single" jsondata-ref="jsonApcGrd" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
 							</td>
 							<td colspan="3"></td>
@@ -415,6 +421,8 @@
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonApcGrd			= [];	// 등급 		vrtyCd		검색
 	var jsonComWarehouse	= [];	// 창고 		warehouse	검색
+	var jsonComGdsSeCd		= [];	// 창고 		gdsSeCd	검색
+
 
     var jsonPrdcr			= [];
     var jsonPrdcrAutocomplete = [];
@@ -437,10 +445,13 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 
-			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', jsonComWarehouse, 'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
-		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
-			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
+			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
+		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),	// 품목
+			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', 		jsonApcVrty, gv_selectedApcCd),	// 품종
+			gfn_setComCdSBSelect('dtl-rdo-gdsSeCd', 		jsonComGdsSeCd,  	'GDS_SE_CD', gv_selectedApcCd), 		// 상품구분 등록
 		]);
+
+		SBUxMethod.set("dtl-rdo-gdsSeCd", '1');
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -1211,6 +1222,11 @@
 		}
 		if (!gfn_isEmpty(prdcr.vhclno)) {	// 차량번호
 			SBUxMethod.set("dtl-inp-vhclno", prdcr.vhclno);
+		}
+		if (!gfn_isEmpty(prdcr.prdcrIdentno)) {
+			SBUxMethod.set("srch-inp-prdcrIdentno", prdcr.prdcrIdentno);
+		} else {
+			SBUxMethod.set("srch-inp-prdcrIdentno", "");
 		}
 	}
 

@@ -48,7 +48,7 @@
 									jsondata-ref="jsonComItemCd"
 									unselected-text="선택"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_selectItemSpcfct"
+									onchange="fn_searchSpcfctAll"
 									style="background-color:#ffffff;"
 									></sbux-select>
 								</th>
@@ -199,15 +199,6 @@
 			fn_searchItemRdCdDt(),
 			fn_searchSpcfctList()
 		])
-	}
-
-	const fn_selectItemSpcfct = async function(){
-		SBUxMethod.set('spcfct-inp-rawMtrRdcdRt', "");
-		SBUxMethod.set('spcfct-inp-sortRdcdRt', "");
-		SBUxMethod.set('spcfct-inp-pckgRdcdRt', "");
-		SBUxMethod.attr('spcfct-inp-rawMtrRdcdRt', 'readonly', 'true');
-		SBUxMethod.attr('spcfct-inp-sortRdcdRt', 'readonly', 'true');
-		SBUxMethod.attr('spcfct-inp-pckgRdcdRt', 'readonly', 'true');
 	}
 
 	const fn_searchItemRdCdDt = async function(){
