@@ -178,7 +178,7 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	        {caption: ["선택","선택"],				ref: 'checkBox',      type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},	        
+	        {caption: ["선택","선택"],				ref: 'checkBox',      type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
 	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      type:'output',  width:'105px',    style:'text-align:center'},
@@ -239,7 +239,7 @@
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
-	    
+
 	    fn_selectGridList();
 
 	}
@@ -283,12 +283,12 @@
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
-	    
+
 	    fn_selectGridList();
 
 	}
 
-	
+
 	//조회
     const fn_selectGridList = async function() {
 		console.log('fn_selectGridList','fn_selectGridList');
@@ -301,7 +301,7 @@
     	jsoninptCmndDsctnList2.length = 0;
     	jsoninptCmndDsctnList3.length = 0;
     	inptCmndDsctnList.clearStatus();
-    	
+
     	//검색조건
 //     	let crtrYmd  = SBUxMethod.get("srch-dtp-crtrYmd");	//기준일자
     	console.log('checkSection :', checkSection);
@@ -314,12 +314,12 @@
     		fn_callSelectGrid3List(pageSize, pageNo);
     	}
 	}
-	
+
     var newSortInptPrfmncGridData = [];
 	const fn_callSelectGrid1List = async function(pageSize, pageNo) {
-		
+
 		console.log('fn_callSelectGrid1List 호출 완료','fn_callSelectGrid1List 호출 완료');
-		
+
 		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
 		let invntrySe = SBUxMethod.get("srch-slt-invntrySe");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
@@ -328,9 +328,9 @@
 		let prdcr = SBUxMethod.get("srch-inp-prdcr");
 		let gdsSe = SBUxMethod.get("srch-slt-gdsSe");
 		let wrhsSe = SBUxMethod.get("srch-slt-wrhsSe");
-		
+
 	    jsoninptCmndDsctnList = []; //첫번째 그리드 data
-		
+
 		const postJsonPromise1 = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
 			crtrYmd: crtrYmd,
@@ -381,7 +381,7 @@
        				warehouseSeCd: item.warehouseSeCd
   				}
 //   				jsoninptCmndDsctnList.push(rawMtrInvntr);
-          		
+
           		jsoninptCmndDsctnList.push(Object.assign({}, rawMtrInvntr));
 //           		newJsoninptCmndDsctnList.push(Object.assign({}, rawMtrInvntr));
 
@@ -410,12 +410,12 @@
           }
     }
 	//원물재고 내역 조회 끝
-	
+
 	var newSortInptPrfmncGridData = [];
 	const fn_callSelectGrid2List = async function(pageSize, pageNo) {
 //     	let startsortYmd  = SBUxMethod.get("srch-inp-startsortYmd");
-		
-		
+
+
 		const postJsonPromise2 = gfn_postJSON("/am/invntr/selectSortInvntrDsctnList.do", {
 			apcCd		:  gv_selectedApcCd,
           	// pagination
@@ -477,11 +477,11 @@
           }
     }
 	//선별재고 내역 조회 끝
-	
+
 	var newSortInptPrfmncGridData = [];
 	const fn_callSelectGrid3List = async function(pageSize, pageNo) {
 //     	let startsortYmd  = SBUxMethod.get("srch-inp-startsortYmd");
-		
+
 		const postJsonPromise3 = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
           	// pagination
@@ -544,11 +544,11 @@
           }
     }
 	//상품재고 내역 조회 끝
-	
+
 // 	function fn_closeModal(modalId){
 // 		SBUxMethod.closeModal(modalId);
 // 	}
-	
+
 	//fn_updataList
 	//저장 버튼
 	// grdUserAprv -> 그리드 아이디
@@ -557,12 +557,12 @@
 		let postJsonPromise_udpate = [];
 		const rawMtrInvntrList = [];
 		let allData1 = inptCmndDsctnList.getGridDataAll();
-		
+
 		for ( let i=1; i<=allData1.length; i++ ){
 			const rowData1 = inptCmndDsctnList.getRowData(i);
 			const rowSts1 = inptCmndDsctnList.getRowStatus(i);
 
-			
+
 			if (rowSts1 === 2){
 				rowData1.apcCd = gv_selectedApcCd;
 				rowData1.rowSts = "U";
@@ -578,9 +578,9 @@
 		}
 		if(checkSection == 1){
 // 			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateRawMtrInvntrList.do", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
-			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateRawMtrInvntrList.do", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
+			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateRawMtrInvntrList.do", rawMtrInvntrList);	// 프로그램id 추가
     		const data = await postJsonPromise_udpate;
-			
+
 // 			console.log('_.isEqual("S", data.resultStatus)',_.isEqual("S", data.resultStatus));
     		if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
