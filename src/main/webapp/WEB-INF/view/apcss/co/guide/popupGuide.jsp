@@ -51,10 +51,10 @@
 							<td></td>
 							<th scope="row" >품종선택</th>
 							<td class="td_input">
-								<sbux-input id="scrh-inp-vrtyNm" name="scrh-inp-vrtyNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" class="form-control input-sm" maxlength="33" uitype="text"></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-button id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"/>
+								<sbux-button id="btnSrchVrty" name="btnSrchVrty" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"></sbux-button>
 							</td>
 							<td></td>
 							<th scope="row" >생산자선택</th>
@@ -99,7 +99,7 @@
 							</td>
 							<th scope="row" >거래처선택</th>
 							<td class="td_input">
-								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
@@ -115,7 +115,7 @@
 						<tr>
 							<th scope="row" >차량선택</th>
 							<td class="td_input">
-								<sbux-input id="srch-inp-vhclno" name="srch-inp-vhclno" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="srch-inp-vhclno" name="srch-inp-vhclno" uitype="text" maxlength="8" class="form-control pull-right input-sm"></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button id="btnSrchVhclNo" name="btnSrchVhclNo" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_choiceVhcl"></sbux-button>
@@ -261,7 +261,6 @@
 	// APC 선택 변경
 	const fn_onChangeApc = async function() {
 		fn_clearPrdcr();
-		//fn_initSBSelect();
 		fn_getPrdcrs();
 	}
 
