@@ -377,8 +377,8 @@
        				invntrQntt: item.invntrQntt,
        				invntrWght: item.invntrWght,
        				sortcmndNo: item.sortcmndNo,
-       				fcltNm: item.fcltNm
-//        				warehouseSeCd: item.warehouseSeCd
+       				fcltNm: item.fcltNm,
+       				warehouseSeCd: item.warehouseSeCd
   				}
 //   				jsoninptCmndDsctnList.push(rawMtrInvntr);
           		

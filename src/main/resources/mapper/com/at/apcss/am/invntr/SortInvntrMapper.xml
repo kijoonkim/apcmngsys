@@ -255,6 +255,28 @@
 		<if test='apcCd != null and apcCd != ""'>
 			   AND SI.APC_CD = #{apcCd}
 		</if>
+		<!-- 	 선별재고 내역 검색조건 -->
+		<if test='crtrYmd != null and crtrYmd != ""'>
+			   AND RI.WRHS_YMD = #{crtrYmd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND RI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			   AND RI.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='prdcr != null and prdcr != ""'>
+			   AND RI.PRDCR_CD = #{prdcr}
+		</if>
+		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			   AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+		</if>
+		<if test='gdsSe != null and gdsSe != ""'>
+			   AND RI.GDS_SE_CD = #{gdsSe}
+		</if>
+		<if test='wrhsSe != null and wrhsSe != ""'>
+			   AND RI.WRHS_SE_CD = #{wrhsSe}
+		</if>
 
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
