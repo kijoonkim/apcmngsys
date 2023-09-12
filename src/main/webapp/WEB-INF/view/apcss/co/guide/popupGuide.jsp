@@ -203,7 +203,6 @@
     </div>
 
     <!-- 품종 선택 Modal -->
-     <!-- 품종 선택 Modal -->
     <div>
         <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" header-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
