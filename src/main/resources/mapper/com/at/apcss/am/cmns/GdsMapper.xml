@@ -59,9 +59,11 @@
 		   		 , GC.BX_GDS_QNTT           AS BX_GDS_QNTT
 		   		 , GC.WGHT            		AS WGHT
 			  FROM TB_GDS_CD GC
-			 WHERE APC_CD = #{apcCd}
-			   AND GD.DEL_YN = 'N'
+			 WHERE GC.DEL_YN = 'N'
 		]]>
+		<if test='apcCd != null and apcCd !=""'>
+		   	   AND GC.GDS_NM = #{apcCd}
+		</if>
 		<if test='gdsNm != null and gdsNm !=""'>
 		   	   AND GC.GDS_NM LIKE '%' || #{gdsNm} || '%'
 		</if>
