@@ -235,7 +235,7 @@
 	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'input', 		width:'55px',    style:'text-align:center'},
 	        {caption: ["변경사항","변경사항"],	ref: 'chgPo',      		type:'input',  		width:'105px',    	style:'text-align:center'},
 // 	        hidden으로 창고구분코드 추가해주기
-	        {caption: ["창고구분코드","창고구분코드"],		ref: 'warehouseSeCd', 	type:'output',	hidden: true}
+// 	        {caption: ["창고구분코드","창고구분코드"],		ref: 'warehouseSeCd', 	type:'output',	hidden: true}
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -582,11 +582,11 @@
     		const data = await postJsonPromise_udpate;
 			
 // 			console.log('_.isEqual("S", data.resultStatus)',_.isEqual("S", data.resultStatus));
-//     		if (_.isEqual("S", data.resultStatus)) {
-//         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-//         	} else {
-//         		gfn_comAlert("E0001");	// E0001	오류가 발생하였습니다.
-//         	}
+    		if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        	} else {
+        		gfn_comAlert("E0001");	// E0001	오류가 발생하였습니다.
+        	}
         	fn_selectGridList();
 		}
 		else if(checkSection == 2){
