@@ -22,7 +22,7 @@ const URL_COM_CDS 			= "/co/cd/comCdDtls";		// 공통코드
 const URL_MST_ITEMS 		= "/am/cmns/cmnsItems";		//	품목 마스터
 const URL_MST_VRTYS 		= "/am/cmns/cmnsVrtys";		//	품종 마스터
 const URL_MST_SPCFCTS 		= "/am/cmns/cmnsSpcfcts";	//	규격 마스터
-const URL_MST_GRDS          = "/am/cmns/stdGrds";       //  등급 마스터
+const URL_MST_GRDS 			= "/am/cmns/cmnsGrds";		//	등급 마스터
 
 const URL_APC_ITEMS 		= "/am/cmns/apcItems";		//	APC 품목
 const URL_APC_VRTYS 		= "/am/cmns/apcVrtys";		//	APC 품종
@@ -260,20 +260,20 @@ const gfn_setSBSelectJson = function (_targetIds, _jsondataRef, _sourceJson) {
 	try {
 		_jsondataRef.length = 0;
 		_sourceJson.forEach((item) => {
-			/*
+
 			const tempItem = {
 				text: item.cmnsNm,
 				label: item.cmnsNm,
 				value: item.cmnsCd,
 				mastervalue  : item.mastervalue
 			}
-			 */
+			/*
 			item.text = item.cmnsNm;
 			item.label = item.cmnsNm;
 			item.value = item.cmnsCd;
 			item.mastervalue = item.mastervalue;
-
-			_jsondataRef.push(item);
+			 */
+			_jsondataRef.push(tempItem);
 		});
 
 		if (Array.isArray(_targetIds)) {
@@ -659,37 +659,7 @@ const gfn_setTrsprtsSBSelect = async function (_targetIds, _jsondataRef, _apcCd)
 
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 }
-
-
-/**
- * @name gfn_getPltBxs
- * @description  APC별 팔레트/박스 목록 가져오기
- * @function
- * @param {string} _apcCd		APC코드
- * @param {string} _pltBxSeCd	팔레트/박스 구분코드
- * @returns {any[]}
- */
-async function gfn_getPltBxs (_apcCd, _pltBxSeCd) {
-	const postJsonPromise = gfn_postJSON(URL_PLT_BX_INFO, {apcCd: _apcCd, pltBxSeCd: _pltBxSeCd, delYn: "N"}, null, true);
-	const data = await postJsonPromise;
-	return data.resultList;
-}
-
 /** 출하포장단위 */
-/**
- * @name gfn_getSpmtPckgUnits
- * @description get APC별 출하포장단위
- * @function
- * @param {string} _apcCd	APC코드
- * @param {string} _itemCd	품목코드
- * @param {string} _vrtyCd	품종코드
- */
-const gfn_getSpmtPckgUnits = async function (_apcCd, _itemCd, _vrtyCd) {
-	const postJsonPromise = gfn_postJSON(URL_SPMT_PCKG_UINT, {apcCd : _apcCd, itemCd : _itemCd, vrtyCd : _vrtyCd, delYn: "N"}, null, true);
-	const data = await postJsonPromise;
-	return data.resultList;
-}
-
 /**
  * @name gfn_setSpmtPckgUnitSBSelect
  * @description set SBUX-select options from APC별 출하포장단위
@@ -736,8 +706,6 @@ const gfn_getPrdcrs = async function(_apcCd) {
 				gdsSeCd: item.gdsSeCd,
 				trsprtSeCd: item.trsprtSeCd,
 				vhclno: item.vhclno,
-				prdcrLinkCd: item.prdcrLinkCd,
-				prdcrIdentno: item.prdcrIdentno,
 				name:item.prdcrNm,
 				value:item.prdcrCd
 			});
@@ -1075,18 +1043,7 @@ const gfn_comConfirm = function (_msgKey, ..._arguments) {
 	return confirm(gfn_getComMsg(_msgKey, _arguments));
 }
 
-const gfn_chkByte = function (objGrid, nRow, nCol, strValue) {
-	const getByteLengthOfString = function (s, b, i, c) {
-		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
-		  return b;
-	}
-	if(getByteLengthOfString(strValue) > this.byteLimit){
-		return objGrid.getCellData(nRow, nCol);
-	}
-	else{
-		return strValue;
-	}
-}
+
 /** MODAL */
 /**
  * @name gfn_closeModal
@@ -1155,3 +1112,23 @@ const gfn_cloneJson = obj => JSON.parse(JSON.stringify(obj));
 	 * 공통메시지 가져오기 (페이지 로드 시)
 	 */
 	gfn_getComMsgList();
+
+/**
+ * @name gfn_getApcList
+ * @description APC 목록 가져오기
+ * @function
+ * @returns {any[]}
+ */
+async function gfn_getApcList(_targetIds, _jsondataRef, _param) {
+
+			const postJsonPromise = gfn_postJSON("/fm/clt/selectApcListPopup.do",{delYn: "N"});
+			const data = await postJsonPromise;
+			const sourceJson = [];
+			data.resultList.forEach((item) => {
+					sourceJson.push({
+						apcCd: item.apcCd,
+						apcNm: item.apcNm,
+					});
+				});
+			return sourceJson;
+}

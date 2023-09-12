@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.at.apcss.fm.clt.vo.CltvtnApcItemVO;
 import com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO;
 
 /**
@@ -25,37 +26,46 @@ public interface CltvtnEnggtAplyMngMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
+	 * 재배약정계획을 조회한다.
 	 * @param cltvtnEnggtAplyMngVO
 	 * @return
 	 */
 	public CltvtnEnggtAplyMngVO selectCltvtnEnggtAplyMng(CltvtnEnggtAplyMngVO cltvtnEnggtAplyMngVO);
 
 	/**
-	 * 메시지 목록을 조회한다.
+	 * 재배약정계획을 조회한다.
 	 * @param cltvtnEnggtAplyMngVO
 	 * @return
 	 */
 	public List<CltvtnEnggtAplyMngVO> selectCltvtnEnggtAplyMngList(CltvtnEnggtAplyMngVO cltvtnEnggtAplyMngVO);
 
 	/**
-	 * 메시지정보를 등록한다.
+	 * 재배약정계획을 등록한다.
 	 * @param cltvtnEnggtAplyMngVO
 	 * @return
 	 */
 	public int insertCltvtnEnggtAplyMng(CltvtnEnggtAplyMngVO cltvtnEnggtAplyMngVO);
 
 	/**
-	 * 메시지정보를 변경한다.
+	 * 재배약정계획을 변경한다.
 	 * @param cltvtnEnggtAplyMngVO
 	 * @return
 	 */
 	public int updateCltvtnEnggtAplyMng(CltvtnEnggtAplyMngVO cltvtnEnggtAplyMngVO);
 
 	/**
-	 * 메시지정보를 삭제한다.
+	 * 재배약정계획을 삭제한다.
 	 * @param cltvtnEnggtAplyMngVO
 	 * @return
 	 */
 	public int deleteCltvtnEnggtAplyMng(CltvtnEnggtAplyMngVO cltvtnEnggtAplyMngVO);
+
+	/**
+	 * APC 목록 조회
+	 * @param CltvtnApcItemVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<CltvtnApcItemVO> selectApcList(CltvtnApcItemVO vo);
+
 }

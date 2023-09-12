@@ -10,12 +10,16 @@ import lombok.Setter;
 public class CltvtnEnggtAplyMngVO extends ComVO{
 
 	private String apcCd;
+	private String apcNm;
 	private String prdcrCd;
+	private String prdcrNm;
 	private int    frmerSn;
 	private int    reqSn;
 	private String frmerNm;
 	private String itemCd;
+	private String itemNm;
 	private String vrtyCd;
+	private String vrtyNm;
 	private String spcfctCd;
 	private int    cltvtnArea;
 	private int    enggtVlm;
@@ -37,4 +41,14 @@ public class CltvtnEnggtAplyMngVO extends ComVO{
 	private String msgCn;
 	private String msgKnd;
 	private String msgKndNm;
+	private String sysFrstInptDt;
+	private String sysFrstInptUserId;
+	private String sysFrstInptPrgrmId;
+	private String sysLastChgDt;
+	private String sysLastChgUserId;
+	private String sysLastChgPrgrmId;
+	private String delYn;
+
+	private String enggtSrtYmd;
+	private String enggtEndYmd;
 }
