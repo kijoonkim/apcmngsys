@@ -118,8 +118,8 @@
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button
-									id="btn-srch-prdcr"
-									name="btn-srch-prdcr"
+									id="btnSrchPrdcr"
+									name="btnSrchPrdcr"
 									class="btn btn-xs btn-outline-dark"
 									text="찾기" uitype="modal"
 									target-id="modal-prdcr"

@@ -61,19 +61,28 @@
 							<td class="td_input">
 								<sbux-input
 									uitype="text"
-									id="dtl-inp-prdcrNm"
-									name="dtl-inp-prdcrNm"
+									id="srch-inp-prdcrNm"
+									name="srch-inp-prdcrNm"
+									maxlength="33"
 									class="form-control input-sm"
 									placeholder="초성검색 기능입니다."
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
-    								onkeyup="fn_onKeyUpPrdcrNm(dtl-inp-prdcrNm)"
+    								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
-								<sbux-input id="prdcr-inp-prdcrCd" name="prdcr-inp-prdcrCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
+							</td>
+							<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-button id="btnSrchPrdcr" name="btnSrchPrdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_choicePrdcr"></sbux-button>
+								<sbux-button
+									id="btnSrchPrdcr"
+									name="btnSrchPrdcr"
+									class="btn btn-xs btn-outline-dark"
+									text="찾기" uitype="modal"
+									target-id="modal-prdcr"
+									onclick="fn_choicePrdcr"
+								></sbux-button>
 							</td>
 							<td></td>
 						</tr>
@@ -240,6 +249,13 @@
 		fn_getPrdcrs();
 		SBUxMethod.set("srch-dtp-trsprtYmd", gfn_dateToYmd(new Date()));
 	})
+	
+	// APC 선택 변경
+	const fn_onChangeApc = async function() {
+		fn_clearPrdcr();
+		//fn_initSBSelect();
+		fn_getPrdcrs();
+	}
 
 	/* 생산자 팝업 호출 필수 json  */
 	/* Start */
@@ -274,8 +290,9 @@
 	 */
 	const fn_setPrdcr = function(prdcr) {
 		if (!gfn_isEmpty(prdcr)) {
-			SBUxMethod.set("dtl-inp-prdcrNm", prdcr.prdcrNm);		// callBack input
-			SBUxMethod.set("dtl-inp-prdcrCd", prdcr.prdcrCd);		// callBack input
+			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);		// callBack input
+			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);		// callBack input
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");
 		}
 	}
 	/**
@@ -285,7 +302,7 @@
 	const fn_onKeyUpPrdcrNm = function(prdcrNm){
 		fn_clearPrdcr();
 		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
-    	SBUxMethod.changeAutocompleteData('dtl-inp-prdcrNm', true);
+    	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
 
 	/**
@@ -293,8 +310,8 @@
 	 * @description 생산자 폼 clear
 	 */
 	const fn_clearPrdcr = function() {
-		SBUxMethod.set("dtl-inp-prdcrCd", null);
-		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:''");
+		SBUxMethod.set("srch-inp-prdcrCd", null);
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
 	}
 
 	/**
@@ -302,8 +319,8 @@
 	 * @description 생산자 autocomplete 선택 callback
 	 */
 	function fn_onSelectPrdcrNm(value, label, item) {
-		SBUxMethod.set("dtl-inp-prdcrCd", value);
-		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		SBUxMethod.set("srch-inp-prdcrCd", value);
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 	}
 	/* End */
 
