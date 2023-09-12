@@ -149,7 +149,6 @@
 <script type="text/javascript">
 	var jsonSpmtPrfmnc		= [];
 	var itemList 			= [];
-	var vrtyList 			= [];
 	
 	var jsonComItem			= [];	// 품목
 	var jsonComVrty			= [];	// 품종
@@ -325,7 +324,6 @@
 	const fn_setVrty = function(vrty) {
 		if (!gfn_isEmpty(vrty)) {
 			itemList = [];
-			vrtyList = [];
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
 			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
 		}
@@ -335,7 +333,6 @@
 		if (!gfn_isEmpty(vrtys)) {
 			var _vrtys = [];
 			itemList = [];
-			vrtyList = [];
 			for(var i=0;i<vrtys.length;i++){
 				itemList.push(vrtys[i].itemCd);
 				_vrtys.push(vrtys[i].vrtyNm);

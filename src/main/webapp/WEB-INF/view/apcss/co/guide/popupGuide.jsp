@@ -51,7 +51,7 @@
 							<td></td>
 							<th scope="row" >품종선택</th>
 							<td class="td_input">
-								<sbux-input id="vrty-inp-vrtyNm" name="vrty-inp-vrtyNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="scrh-inp-vrtyNm" name="scrh-inp-vrtyNm" uitype="text" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"/>
@@ -90,7 +90,7 @@
 							</td>
 							<th scope="row" >거래처선택</th>
 							<td class="td_input">
-								<sbux-input id="cnpt-inp-cnptNm" name="cnpt-inp-cnptNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
@@ -155,7 +155,7 @@
 	</section>
 	<!-- 품목 선택 Modal -->
     <div>
-        <sbux-modal id="modal-itemCrtr" name="modal-itemCrtr" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemCrtr" footer-is-close-button="false" style="width:600px"></sbux-modal>
+        <sbux-modal id="modal-itemCrtr" name="modal-itemCrtr" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemCrtr" footer-is-close-button="false" header-is-close-button="false" style="width:600px"></sbux-modal>
     </div>
     <div id="body-modal-itemCrtr">
     	<jsp:include page="../../am/popup/itemCrtrPopup.jsp"></jsp:include>
@@ -163,7 +163,7 @@
 
     <!-- 생산자 선택 Modal -->
     <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" header-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
@@ -179,7 +179,7 @@
 
     <!-- 팔레트/박스 선택 Modal -->
     <div>
-        <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="원물입고 팔레트/박스 입고등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" style="width:1200px"></sbux-modal>
+        <sbux-modal id="modal-pltBx" name="modal-pltBx" uitype="middle" header-title="원물입고 팔레트/박스 입고등록" body-html-id="body-modal-pltBx" footer-is-close-button="false" header-is-close-button="false" style="width:1200px"></sbux-modal>
     </div>
     <div id="body-modal-pltBx">
     	<jsp:include page="../../am/popup/pltBxPopup.jsp"></jsp:include>
@@ -188,7 +188,7 @@
     <!-- 품종 선택 Modal -->
      <!-- 품종 선택 Modal -->
     <div>
-        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
+        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" header-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="body-modal-vrtyCrtr">
     	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
@@ -204,7 +204,7 @@
 
     <!-- 원물운임비용등록 Modal -->
     <div>
-        <sbux-modal id="modal-trsprtCst" name="modal-trsprtCst" uitype="middle" header-title="원물운임비용등록" body-html-id="body-modal-trsprtCst" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-trsprtCst" name="modal-trsprtCst" uitype="middle" header-title="원물운임비용등록" body-html-id="body-modal-trsprtCst" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-trsprtCst">
     	<jsp:include page="../../am/popup/trsprtCstPopup.jsp"></jsp:include>
@@ -307,6 +307,7 @@
 	}
 	/* End */
 
+	
 	/* 차량선택 팝업 호출 필수 function  */
 	/* Start */
 	/**
@@ -333,7 +334,7 @@
 	/* Start */
 	/**
 	 * @name fn_setVhcl
-	 * @description 원물운임비용 호출
+	 * @description 원물운임비용팝업 호출
 	 */
 	const fn_choiceTrsprtCst = function() {
 		let trsprtYmd = SBUxMethod.get("srch-dtp-trsprtYmd");
@@ -352,109 +353,123 @@
 		}
 	}
 	/* End */
+
 	
-	
-	/* 마감등록 팝업 호출 필수 function  */
+	/* 마감등록팝업 호출 필수 function  */
 	/* Start */
 	/**
 	 * @name fn_regDDln
-	 * @description 마감등록 호출
+	 * @description 마감등록팝업 호출
 	 */
 	const fn_regDDln = function() {
 		fn_modalDdln(gv_selectedApcCd, gv_selectedApcNm);
 	}
 	/* End */
 	
-
-	/*
-	* 품종 선택 팝업 시작
-	*/
 	
+	/* 품종선택팝업 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_modalVrty
+	 * @description 품종선택팝업 호출
+	 */
     const fn_modalVrty = function() {
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
     	//_apcCd, _apcNm, _itemNm, _callbackFnc
 	}
-    
 
-     const fn_setVrty = function(vrty) {
-
+    /**
+	 * @name fn_setVrty
+	 * @description 단일 품종 callback
+	 */
+    const fn_setVrty = function(vrty) {
 		if (!gfn_isEmpty(vrty)) {
-			console.log("vrty", vrty);
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
-			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyNm);
+			SBUxMethod.set('scrh-inp-vrtyNm', vrty.vrtyNm);
 		}
 	}
-     const fn_setVrtys = function(vrtys) {
+     
+    /**
+	 * @name fn_setVrtys
+	 * @description 복수 품종 callback
+	 */
+	const fn_setVrtys = function(vrtys) {
 		if (!gfn_isEmpty(vrtys)) {
-// 			console.log("vrtys", vrtys);
-// 			console.log("vrtys[2]", vrtys[2]);
 			var _vrtys = [];
 			for(var i=0;i<vrtys.length;i++){
 				_vrtys.push(vrtys[i].vrtyNm);
-// 				SBUxMethod.setValue('srch-inp-vrtyCd', vrtys[i].vrtyNm);
-// 				SBUxMethod.set('srch-inp-vrtyCd', vrtys[i].vrtyNm);
-// 				console.log("vrtys", _vrtys);
 			}
-			SBUxMethod.set('srch-inp-vrtyCd', _vrtys.join(','));
+			SBUxMethod.set('scrh-inp-vrtyNm', _vrtys.join(','));
 		}
 	}
+	/* End */
      
-     /*
-     * 품종 선택 팝업 끝
-     */
-     
-     /*
-     * 거래처 선택 팝업 시작
-     */
- 	// 거래처 선택 팝업 호출
+	
+	/* 거래처선택팝업 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_modalCnpt
+	 * @description 거래처선택팝업 호출
+	 */
  	const fn_modalCnpt = function() {
      	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
  	}
  	
+ 	/**
+	 * @name fn_setCnpt
+	 * @description 거래처 선택 callback
+	 */
  	const fn_setCnpt = function(cnpt) {
  		if (!gfn_isEmpty(cnpt)) {
  			console.log("cnpt", cnpt);
  			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
- 			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
  		}
  	}
- 	/*
- 	* 거래처 선택 팝업 끝
- 	*/
-	
- 	/*
-     * 출하지시번호 선택 팝업 시작
-     */
- 	// 출하지시번호 선택 팝업 호출
+ 	/* End */
+ 	
+ 	
+	/* 출하지시번호선택팝업 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_modalSpmtCmndno
+	 * @description 출하지시번호선택팝업 호출
+	 */
 	const fn_modalSpmtCmndno = function() {
     	popSpmtCmndno.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmndno);
 	}
 	
+	/**
+	 * @name fn_setSpmtCmndno
+	 * @description 출하지시번호 선택 callback
+	 */
 	const fn_setSpmtCmndno = function(spmtCmndno) {
 		if (!gfn_isEmpty(spmtCmndno)) {
 			SBUxMethod.set('srch-inp-spmtCmndno', spmtCmndno.spmtCmndno);
 		}
 	}
-	/*
- 	* 출하지시번호 선택 팝업 끝
- 	*/
+	/* End */
  	
- 	/*
-     * 상풍 선택 팝업 시작
-     */
- 	// 상품 선택 팝업 호출
+	
+	/* 상풍선택팝업 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_modalGds
+	 * @description 상풍선택팝업 호출
+	 */
 	const fn_modalGds = function() {
     	popGds.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-gdsNm"), fn_setGdsNm);
 	}
 	
+	/**
+	 * @name fn_setGdsNm
+	 * @description 상풍 선택 callback
+	 */
 	const fn_setGdsNm = function(gds) {
 		if (!gfn_isEmpty(gds)) {
 			SBUxMethod.set('srch-inp-gdsNm', gds.gdsNm);
 		}
 	}
-	/*
- 	* 상풍 선택 팝업 끝
- 	*/
+	/* End */
 </script>
 </body>
 </html>
