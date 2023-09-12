@@ -201,13 +201,7 @@
 		SBUxMethod.set("ddln-inp-apcNm", _apcNm);
 		
 		fn_createDdlnGrid();
-		console.log("init DdlnPop");
 		fn_searchDdln();
-	}
-	
-	// 모달 종료
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
 	}
 </script>
 </html>

@@ -92,13 +92,13 @@
 							<td class="td_input">
 								<sbux-input id="cnpt-inp-cnptNm" name="cnpt-inp-cnptNm" uitype="text" class="form-control input-sm" ></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input">
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
 							<td></td>
 							<th scope="row" >마감등록</th>
-							<td>
-								<sbux-button id="btnRegDdln" name="btnRegDdln" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-ddln" onclick="fn_regDDln"></sbux-button>
+							<td class="td_input">
+								<sbux-button id="btnRegDdln" name="btnRegDdln" class="btn btn-xs btn-outline-dark" text="마감등록" uitype="modal" target-id="modal-ddln" onclick="fn_regDDln"></sbux-button>
 							</td>
 							<td></td>
 							<td></td>
@@ -144,8 +144,8 @@
 							<td class="td_input">
 								<sbux-datepicker id="srch-dtp-trsprtYmd" name="srch-dtp-trsprtYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td class="td_input">
-							</td>
+							<td></td>
+							<td></td>
 						</tr>
 					</tbody>
 				</table>
@@ -210,7 +210,7 @@
     	<jsp:include page="../../am/popup/trsprtCstPopup.jsp"></jsp:include>
     </div>
     
-    <!-- 마감 등록 Modal -->
+     <!-- 마감 등록 Modal -->
     <div>
         <sbux-modal id="modal-ddln" name="modal-ddln" uitype="middle" header-title="마감 등록" body-html-id="body-modal-ddln" footer-is-close-button="false" style="width:700px"></sbux-modal>
     </div>
@@ -364,6 +364,7 @@
 		fn_modalDdln(gv_selectedApcCd, gv_selectedApcNm);
 	}
 	/* End */
+	
 
 	/*
 	* 품종 선택 팝업 시작
