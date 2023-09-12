@@ -202,7 +202,7 @@
 		    ];
 
 		    grdPrdcrPop = _SBGrid.create(SBGridProperties);
-		    grdPrdcrPop.bind('dblclick', popPrdcr.choice);	//'popPrdcrChoice');
+		    grdPrdcrPop.bind('dblclick', popPrdcr.choice);
 		},
 		choice: function() {
 			let nRow = grdPrdcrPop.getRow();
@@ -235,10 +235,6 @@
 			this.createGrid();
 			this.search();
 		},
-		/**
-		 * @param {number} nRow
-		 * @param {number} nCol
-		 */
 		add: function(nRow, nCol) {
 			grdPrdcrPop.setCellData(nRow, nCol, "N", true);
 			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, false);
@@ -261,7 +257,7 @@
 				const postJsonPromise = gfn_postJSON("/am/cmns/deletePrdcr.do", {
 					apcCd: apcCd,
 					prdcrCd: rowData.prdcrCd
-				}, this.prgrmId);	// 프로그램id 추가
+				}, this.prgrmId);
 
 				const data = await postJsonPromise;
 		        try {
@@ -321,7 +317,7 @@
 	    		return;
 	    	}
 
-	    	const postJsonPromise = gfn_postJSON("/am/cmns/multiPrdcrList.do", prdcrList, this.prgrmId);	// 프로그램id 추가
+	    	const postJsonPromise = gfn_postJSON("/am/cmns/multiPrdcrList.do", prdcrList, this.prgrmId);
 
 			const data = await postJsonPromise;
 	        try {
@@ -344,7 +340,6 @@
 	    	// grid clear
 	    	jsonPrdcrPop.length = 0;
 	    	grdPrdcrPop.refresh();
-	    	//grdPrdcrPop.clearStatus();
 	    	this.setGrid(pageSize, pageNo, isEditable);
 		},
 		setGrid: async function(pageSize, pageNo, isEditable) {
@@ -364,7 +359,6 @@
 	        const data = await postJsonPromise;
 
 			try {
-	        	/** @type {number} **/
 	    		let totalRecordCount = 0;
 
 	    		jsonPrdcrPop.length = 0;
@@ -396,7 +390,7 @@
 
 	        	if (jsonPrdcrPop.length > 0) {
 	        		if(grdPrdcrPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdPrdcrPop.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+	        			grdPrdcrPop.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 	        			grdPrdcrPop.rebuild();
 					}else{
 						grdPrdcrPop.refresh();

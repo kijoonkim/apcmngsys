@@ -171,7 +171,7 @@
 							<td></td>
 							<th scope="row" >입고일자</th>
 							<td class="td_input">
-								<sbux-datepicker id="srch-dtp-trsprtYmd" name="srch-dtp-trsprtYmd" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-trsprtYmd" name="srch-dtp-trsprtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm"></sbux-datepicker>
 							</td>
 							<td></td>
 							<td></td>
@@ -487,7 +487,6 @@
 	 */
  	const fn_setCnpt = function(cnpt) {
  		if (!gfn_isEmpty(cnpt)) {
- 			console.log("cnpt", cnpt);
  			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
  		}
  	}
