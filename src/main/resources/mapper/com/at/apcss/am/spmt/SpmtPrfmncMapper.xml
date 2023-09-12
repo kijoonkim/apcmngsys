@@ -216,7 +216,6 @@
     		  ,	SPMT_SE_CD
     		  ,	SPMT_PRSN_DCLRNLO
     		  ,	PLOR_CD
-    		  , DEL_YN
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -238,7 +237,6 @@
     		  ,	#{spmtSeCd}
     		  ,	#{spmtPrsnDclrnlo}
     		  ,	#{plorCd}
-    		  , #{delYn}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
@@ -276,7 +274,6 @@
     		  ,	SPMT_CMNDNO
     		  ,	SPMT_PCKG_UNIT_CD
     		  , OUTORDRNO
-    		  , DEL_YN
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -301,7 +298,6 @@
     		  ,	#{spmtCmndno}
     		  ,	#{spmtPckgUnitCd}
     		  , #{outordrno}
-    		  , #{delYn}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
