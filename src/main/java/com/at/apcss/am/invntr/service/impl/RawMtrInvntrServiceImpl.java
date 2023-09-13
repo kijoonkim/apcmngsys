@@ -7,11 +7,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 
 import com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
+import com.at.apcss.am.invntr.vo.RawMtrStdGrdVO;
+import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
@@ -42,6 +45,11 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 		RawMtrInvntrVO resultVO = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
 
+		if (resultVO != null && StringUtils.hasText(resultVO.getWrhsno())) {
+			List<RawMtrStdGrdVO> stdGrdList = rawMtrInvntrMapper.selectRawMtrStdGrdList(rawMtrInvntrVO);
+			resultVO.setStdGrdList(stdGrdList);
+		}
+
 		return resultVO;
 	}
 
@@ -57,10 +65,25 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	@Override
 	public HashMap<String, Object> insertRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
-		int insertedCnt = rawMtrInvntrMapper.insertRawMtrInvntr(rawMtrInvntrVO);
-		if (insertedCnt != 0) {
+		rawMtrInvntrMapper.insertRawMtrInvntr(rawMtrInvntrVO);
+		List<RawMtrStdGrdVO> stdGrdList = rawMtrInvntrVO.getStdGrdList();
+		for ( RawMtrStdGrdVO stdGrd : stdGrdList ) {
 
+			RawMtrStdGrdVO rawMtrStdGrdVO = new RawMtrStdGrdVO();
+			BeanUtils.copyProperties(rawMtrInvntrVO, rawMtrStdGrdVO);
+			BeanUtils.copyProperties(stdGrd, rawMtrStdGrdVO,
+					ApcConstants.PROP_APC_CD,
+					ApcConstants.PROP_WRHSNO,
+					ComConstants.PROP_SYS_FRST_INPT_DT,
+					ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+					ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+					ComConstants.PROP_SYS_LAST_CHG_DT,
+					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+
+			rawMtrInvntrMapper.insertRawMtrStdGrd(rawMtrStdGrdVO);
 		}
+
 		return null;
 	}
 
@@ -68,50 +91,28 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	@Override
 	public HashMap<String, Object> insertRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
 
-		int insertedCnt = 0;
 		for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
 
-			insertedCnt = rawMtrInvntrMapper.insertRawMtrInvntr(rawMtrInvntrVO);
+			HashMap<String, Object> rtnObj = insertRawMtrInvntr(rawMtrInvntrVO);
 
-			if (insertedCnt != 0) {
-
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
 
 		return null;
 	}
 
-
-//	@Override
-//	public HashMap<String, Object> updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
-//
-//		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntr(rawMtrInvntrVO);
-//
-//		return null;
-//	}
-//
-//
-//	@Override
-//	public HashMap<String, Object> updateRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
-//
-//		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrVO);
-//
-//		return null;
-//	}
-
 	@Override
 	public HashMap<String, Object> deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
 		// 재고상태 확인
 		RawMtrInvntrVO invntrInfo = selectRawMtrInvntr(rawMtrInvntrVO);
-		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
+		if (invntrInfo == null
+				|| !StringUtils.hasText(invntrInfo.getWrhsno())
+				|| ComConstants.CON_YES.equals(invntrInfo.getDelYn())) {
 			return ComUtil.getResultMap("W0005", "원물재고정보");	// W0005	{0}이/가 없습니다.
 		}
-
-		logger.debug("invntrInfo.getInvntrWght(): {}", invntrInfo.getInvntrWght());
-		logger.debug("invntrInfo.getWrhsWght(): {}", invntrInfo.getWrhsWght());
-		logger.debug("invntrInfo.getCmndWght(): {}", invntrInfo.getCmndWght());
-		logger.debug("invntrInfo.getCmndQntt(): {}", invntrInfo.getCmndQntt());
 
 		if (invntrInfo.getInvntrWght() < invntrInfo.getWrhsWght()) {
 			return ComUtil.getResultMap("W0009", "진행량");	// W0009	{0}이/가 있습니다.
@@ -122,10 +123,38 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			return ComUtil.getResultMap("W0009", "투입지시");	// W0009	{0}이/가 있습니다.
 		}
 
-		int deletedCnt = rawMtrInvntrMapper.deleteRawMtrInvntr(rawMtrInvntrVO);
+		rawMtrInvntrMapper.deleteRawMtrInvntr(rawMtrInvntrVO);
+		rawMtrInvntrMapper.deleteRawMtrStdGrd(rawMtrInvntrVO);
 
 		return null;
 	}
+
+	@Override
+	public HashMap<String, Object> updateRawMtrInvntrForDelY(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+
+		// 재고상태 확인
+		RawMtrInvntrVO invntrInfo = selectRawMtrInvntr(rawMtrInvntrVO);
+		if (invntrInfo == null
+				|| !StringUtils.hasText(invntrInfo.getWrhsno())
+				|| ComConstants.CON_YES.equals(invntrInfo.getDelYn())) {
+			return ComUtil.getResultMap("W0005", "원물재고정보");	// W0005	{0}이/가 없습니다.
+		}
+
+		if (invntrInfo.getInvntrWght() < invntrInfo.getWrhsWght()) {
+			return ComUtil.getResultMap("W0009", "진행량");	// W0009	{0}이/가 있습니다.
+		}
+
+		// 선별지시 확인 추가
+		if (invntrInfo.getCmndWght() > 0 || invntrInfo.getCmndQntt() > 0) {
+			return ComUtil.getResultMap("W0009", "투입지시");	// W0009	{0}이/가 있습니다.
+		}
+
+		rawMtrInvntrMapper.updateRawMtrInvntrDelY(rawMtrInvntrVO);
+		rawMtrInvntrMapper.updateRawMtrStdGrdDelY(rawMtrInvntrVO);
+
+		return null;
+	}
+
 
 	@Override
 	public HashMap<String, Object> updateInvntrSortPrfmnc(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
@@ -163,18 +192,8 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		return null;
 	}
 
-//	@Override
-//	public HashMap<String, Object> updateRawMtrInvntr(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
-//		// TODO Auto-generated method stub
-//		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntr(rawMtrInvntrList);
-//
-//		return null;
-//	}
-
 	@Override
 	public HashMap<String, Object> updateRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
-		// TODO Auto-generated method stub
-		//포문 돌ㄹ리기 예제 참고
 
 		List<RawMtrInvntrVO> updateList = new ArrayList<>();
 
@@ -191,9 +210,6 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrVO);
 		}
 
-//		int updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrList);
-		//HashMap<String, Object> updatedCnt = rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrList);
-
 		return null;
 	}
 
@@ -203,75 +219,6 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		return null;
 	}
 
-//	@Override
-//	public HashMap<String, Object> updateRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
-//		// TODO Auto-generated method stub
-//		//포문 돌ㄹ리기 예제 참고
-//
-//		HashMap<String, Object> rtnObj = new HashMap<>();
-//
-//				// validation check
-//				for ( RawMtrInvntrVO user : comUserList ) {
-//					RawMtrInvntrVO userInfo = selectComUser(user);
-//
-//					logger.debug("userInfo.getApcCd(): {}", userInfo.getApcCd());
-//
-//					if (userInfo == null || !StringUtils.hasText(userInfo.getUserId())) {
-//						return ComUtil.getResultMap("W0005", "사용자정보");
-//					}
-//					if (!StringUtils.hasText(userInfo.getApcCd())) {
-//						return ComUtil.getResultMap("W0005", "APC코드");
-//					}
-//					if (ComConstants.CON_USER_STTS_VALID.equals(userInfo.getUserStts())) {
-//						return ComUtil.getResultMap("W0010", "승인||사용자");	// W0010	이미 {0}된 {1} 입니다.
-//					}
-//					if (!ComConstants.CON_USER_TYPE_ADMIN.equals(userInfo.getUserType())) {
-//						return ComUtil.getResultMap("W0011", "APC관리자");	// W0011	{0}이/가 아닙니다.
-//					}
-//
-//					user.setApcCd(userInfo.getApcCd());
-//				}
-//
-//				for ( RawMtrInvntrVO user : comUserList ) {
-//
-//					String sysUserId = user.getSysLastChgUserId();
-//					String sysPrgrmId = user.getSysLastChgPrgrmId();
-//
-//					user.setUserStts(ComConstants.CON_USER_STTS_VALID);
-//					rawMtrInvntrMapper.updateRawMtrInvntrList(user);
-//
-//					// 승인 후 권한id 등록.
-//					ComAuthrtVO comAuthrtVO = new ComAuthrtVO();
-//					comAuthrtVO.setSysFrstInptUserId(sysUserId);
-//					comAuthrtVO.setSysFrstInptPrgrmId(sysPrgrmId);
-//					comAuthrtVO.setSysLastChgUserId(sysUserId);
-//					comAuthrtVO.setSysLastChgPrgrmId(sysPrgrmId);
-//					comAuthrtVO.setApcCd(user.getApcCd());
-//					comAuthrtVO.setUserId(user.getUserId());
-//
-//					rtnObj = comAuthrtService.insertApcAuthrtId(comAuthrtVO);
-//					if (rtnObj != null) {
-//						logger.error("Error on ComUserService#insertUserAprvList call ComAuthrtService#insertApcAuthrtId");
-//						logger.error(getMessageForMap(rtnObj));
-//						throw new EgovBizException(getMessageForMap(rtnObj));
-//					}
-//
-//					ApcEvrmntStngVO apcEvrmntStngVO = new ApcEvrmntStngVO();
-//					apcEvrmntStngVO.setSysFrstInptUserId(sysUserId);
-//					apcEvrmntStngVO.setSysFrstInptPrgrmId(sysPrgrmId);
-//					apcEvrmntStngVO.setSysLastChgUserId(sysUserId);
-//					apcEvrmntStngVO.setSysLastChgPrgrmId(sysPrgrmId);
-//					apcEvrmntStngVO.setApcCd(user.getApcCd());
-//
-//					rtnObj = apcEvrmntStngService.insertApcInitInfo(apcEvrmntStngVO);
-//					if (rtnObj != null) {
-//						logger.error("Error on ComUserService#insertUserAprvList call ApcEvrmntStngService#insertApcInitInfo");
-//						logger.error(getMessageForMap(rtnObj));
-//						throw new EgovBizException(getMessageForMap(rtnObj));
-//					}
-//				}
-//
-//				return null;
-//			}
+
 
 }

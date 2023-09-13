@@ -50,43 +50,32 @@
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectRawMtrWrhsList" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO" resultType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO">
+    	<![CDATA[
+    		SELECT
+		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    			, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) AS APC_NM
-    			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
-                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
-                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
-    			, (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GRD_CD, pt0.APC_CD) FROM DUAL) AS GRD_NM
-                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
-                --, (SELECT FN_GET_COM_CD_VL_NM('BX_KND', pt0.BX_KND, pt0.APC_CD) FROM DUAL) AS BX_KND_NM
-                , (SELECT X.PLT_BX_NM FROM TB_PLT_BX_INFO X WHERE X.APC_CD = pt0.APC_CD AND X.PLT_BX_SE_CD = 'B' AND X.PLT_BX_CD = pt0.BX_KND) AS BX_KND_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
-    		  FROM (
-    	</if>
-    	<if test='pagingYn == null or pagingYn.equals("N")'>
-    		SELECT
-    			  pt0.*
-    			, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) AS APC_NM
-    			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
-                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
-                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
-    			, (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GRD_CD, pt0.APC_CD) FROM DUAL) AS GRD_NM
-                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
-                --, (SELECT FN_GET_COM_CD_VL_NM('BX_KND', pt0.BX_KND, pt0.APC_CD) FROM DUAL) AS BX_KND_NM
-                , (SELECT X.PLT_BX_NM FROM TB_PLT_BX_INFO X WHERE X.APC_CD = pt0.APC_CD AND X.PLT_BX_SE_CD = 'B' AND X.PLT_BX_CD = pt0.BX_KND) AS BX_KND_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
-    		  FROM (
+    			,
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
+				  pt0.*
+    			, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) AS APC_NM
+    			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+    			, (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS GRD_NM
+                , (SELECT FN_GET_STD_GRD_RAWMTR(pt0.APC_CD, pt0.WRHSNO) FROM DUAL) AS STD_GRD
+                , (SELECT FN_GET_STD_GRD_RAWMTR(pt0.APC_CD, pt0.WRHSNO, 'CD') FROM DUAL) AS STD_GRD_CD
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+                , (SELECT X.PLT_BX_NM FROM TB_PLT_BX_INFO X WHERE X.APC_CD = pt0.APC_CD AND X.PLT_BX_SE_CD = 'B' AND X.PLT_BX_CD = pt0.BX_KND) AS BX_KND_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+    		  FROM (
+
 	    	SELECT /* com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsList */
 				  WP.APC_CD         AS APC_CD
 				, WP.WRHSNO         AS WRHSNO
@@ -171,16 +160,13 @@
 
 		<![CDATA[
 		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO
+    		  ) pt0
 		]]>
 
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<if test='pagingYn == null or pagingYn.equals("N")'>
-    		  ) pt0
     	</if>
     	<!-- End 페이징 -->
     </select>
@@ -262,11 +248,7 @@
 				, WRHS_WGHT	= #{wrhsWght}
 				, BX_QNTT	= #{bxQntt}
 				, RMRK		= #{rmrk}
-		]]>
-			<if test='delYn != null and delYn != ""'>
-				, DEL_YN			= #{delYn}
-			</if>
-		<![CDATA[
+
 			 WHERE APC_CD = #{apcCd}
 			   AND WRHSNO = #{wrhsno}
 		]]>
@@ -289,6 +271,28 @@
 		]]>
 	</delete>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.updateRawMtrWrhsDelY	-->
+	<!-- DESC : 입고실적 삭제 : delYn Y		                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateRawMtrWrhsDelY" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.updateRawMtrWrhsDelY */
+				TB_RAW_MTR_WRHS_PRFMNC
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+				, DEL_YN	= 'Y'
+			 WHERE APC_CD = #{apcCd}
+			   AND WRHSNO = #{wrhsno}
+		]]>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsPrfmncList	-->

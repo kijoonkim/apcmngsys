@@ -1,11 +1,11 @@
 package com.at.apcss.am.invntr.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
+import com.at.apcss.am.invntr.vo.RawMtrStdGrdVO;
 
 /**
  * 원물재고 Mapper 인터페이스
@@ -31,6 +31,14 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public RawMtrInvntrVO selectRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	/**
+	 * 원물재고 표준등급 목록 조회
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrStdGrdVO> selectRawMtrStdGrdList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
 	/**
 	 * 원물재고 목록 조회
@@ -82,5 +90,36 @@ public interface RawMtrInvntrMapper {
 	 */
 	public int updateInvntrSortPrfmnc(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
+	/**
+	 * 원물재고 표준등급 등록
+	 * @param rawMtrStdGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertRawMtrStdGrd(RawMtrStdGrdVO rawMtrStdGrdVO) throws Exception;
 
+	/**
+	 * 원물재고 표준등급 삭제
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteRawMtrStdGrd(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+
+	/**
+	 * 원물재고 변경 : delYn => Y
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateRawMtrInvntrDelY(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	/**
+	 * 원물재고 표준등급 변경 : delYn => Y
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateRawMtrStdGrdDelY(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 }

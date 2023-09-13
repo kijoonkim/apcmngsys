@@ -22,7 +22,7 @@ import com.at.apcss.am.cmns.vo.PrdcrVO;
  */
 @Mapper
 public interface PrdcrMapper {
-	
+
 	/**
 	 * 생산자정보 단건 조회
 	 * @param prdcrVO
@@ -46,7 +46,7 @@ public interface PrdcrMapper {
 	 * @throws Exception
 	 */
 	public PrdcrVO selectNewPrdcrCd(PrdcrVO prdcrVO) throws Exception;
-	
+
 	/**
 	 * 생산자정보 등록
 	 * @param prdcrVO
@@ -64,10 +64,19 @@ public interface PrdcrMapper {
 	public int updatePrdcr(PrdcrVO prdcrVO) throws Exception;
 
 	/**
+	 * 생산자 대표정보 변경
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updatePrdcrRprs(PrdcrVO prdcrVO) throws Exception;
+
+
+	/**
 	 * 생산자정보 삭제
 	 * @param prdcrVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int deletePrdcr(PrdcrVO prdcrVO) throws Exception;	
+	public int deletePrdcr(PrdcrVO prdcrVO) throws Exception;
 }

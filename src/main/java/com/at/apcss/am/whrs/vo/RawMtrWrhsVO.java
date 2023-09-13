@@ -1,5 +1,10 @@
 package com.at.apcss.am.whrs.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.at.apcss.am.invntr.vo.InvntrStdGrdVO;
+import com.at.apcss.am.invntr.vo.RawMtrStdGrdVO;
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -205,5 +210,24 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 생산연도
 	 */
 	private String prdctnYr;
+
+	/**
+	 * 표준등급
+	 */
+	private String stdGrd;
+	private String stdGrdCd;
+
+	/**
+	 * 표준등급 목록
+	 */
+	private List<RawMtrStdGrdVO> stdGrdList;
+
+	public List<RawMtrStdGrdVO> getStdGrdList() {
+		return stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
+
+	public void setStdGrdList(List<RawMtrStdGrdVO> stdGrdList) {
+		this.stdGrdList = stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
 
 }

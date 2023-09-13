@@ -1,5 +1,8 @@
 package com.at.apcss.am.invntr.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -239,18 +242,52 @@ public class RawMtrInvntrVO extends ComVO {
 	 */
 	private String prdctnYr;
 
-	/*기준일자*/
+	/**
+	 * 기준일자
+	 */
 	private String crtrYmd;
-	/*재고구분*/
+
+	/**
+	 * 재고구분
+	 */
 	private String invntrySe;
-	/*규격*/
+
+	/**
+	 * 규격
+	 */
 	private String spcfctCd;
-	/*생산자구분*/
+
+	/**
+	 * 생산자구분
+	 */
 	private String prdcr;
-	/*상품구분*/
+
+	/**
+	 * 상품구분
+	 */
 	private String gdsSe;
-	/*입고구분*/
+
+	/**
+	 * 입고구분
+	 */
 	private String wrhsSe;
-	/*사용구분*/
-	private String delYn;
+
+	/**
+	 * 표준등급
+	 */
+	private String stdGrd;
+
+
+	/**
+	 * 표준등급
+	 */
+	private List<RawMtrStdGrdVO> stdGrdList;
+
+	public List<RawMtrStdGrdVO> getStdGrdList() {
+		return stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
+
+	public void setStdGrdList(List<RawMtrStdGrdVO> stdGrdList) {
+		this.stdGrdList = stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
 }
