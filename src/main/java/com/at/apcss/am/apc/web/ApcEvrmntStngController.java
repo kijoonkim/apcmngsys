@@ -69,6 +69,7 @@ public class ApcEvrmntStngController extends BaseController{
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<ComUserVO> resultList = new ArrayList<>();
 		try {
+			comUserVO.setSysUserId(getUserId());
 			resultList = apcEvrmntStngService.selectApcUserList(comUserVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -186,6 +187,33 @@ public class ApcEvrmntStngController extends BaseController{
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, inserted);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	/**
+	 * APC 메뉴일반설정 등록 시 APC의 권한 등록 (관리자, 사용자)
+	 */
+	@PostMapping(value = "/am/apc/updateApcMenuAuthrt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateApcMenuAuthrt(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			// validation check
+			apcEvrmntStngVO.setSysFrstInptUserId(getUserId());
+			apcEvrmntStngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			apcEvrmntStngVO.setSysLastChgUserId(getUserId());
+			apcEvrmntStngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = apcEvrmntStngService.updateApcMenuAuthrt(apcEvrmntStngVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
 
 		return getSuccessResponseEntity(resultMap);
 	}

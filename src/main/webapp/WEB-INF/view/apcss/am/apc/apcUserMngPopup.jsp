@@ -39,11 +39,11 @@
 					<tr>
 						<th scope="row">APC명</th>
 						<th>
-							<sbux-input id=userAuthApcNm name="userAuthApcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+							<sbux-input id="inp-userAuthApcNm" name="inp-userAuthApcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 						</th>
 						<th scope="row">사용자명</th>
 						<th>
-							<sbux-input id=userAuthUserNm name="userAuthUserNm" uitype="text" class="form-control input-sm" onkeyenter="fn_selectUserList"></sbux-input>
+							<sbux-input id="inp-userAuthUserNm" name="inp-userAuthUserNm" uitype="text" class="form-control input-sm" onkeyenter="fn_selectUserList"></sbux-input>
 						</th>
 						<th>&nbsp;</th>
 						<th>&nbsp;</th>
@@ -55,7 +55,7 @@
 			<!--[pp] 검색결과 -->
 			<div class="ad_section_top">
 					<!-- SBGrid를 호출합니다. -->
-					<div id="userAuthMngGridArea" style="height:250px;"></div>
+					<div id="sb-area-grdUserAuth" style="height:250px;"></div>
 				</div>
 				</div>
 			</div>
@@ -63,16 +63,26 @@
 </body>
 <script type="text/javascript">
 	//APC사용자 권한설정
-	var userAuthMngGridData = []; // 그리드의 참조 데이터 주소 선언
-	async function fn_userAuthMngCreateGrid() {
-		SBUxMethod.set("userAuthApcNm", SBUxMethod.get("inp-apcNm"));
+	var jsonUserAuth = []; // 그리드의 참조 데이터 주소 선언
+	var jsonUAReverseYn = []
+
+	const fn_initSBSelectUserAuth = async function() {
+
+		let rst = await Promise.all([
+			gfn_setComCdSBSelect("grdUserAuth", 		jsonUAReverseYn, "REVERSE_YN")		// 상품등급(출하)
+		]);
+		grdUserAuth.refresh({"combo":true});
+	}
+
+
+	const fn_createUserAuthGrid = async function() {
+		SBUxMethod.set("inp-userAuthApcNm", SBUxMethod.get("inp-apcNm"));
 		SBUxMethod.set("userAuthUserNm", "");
 
-
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'userAuthMngGridArea';
-	    SBGridProperties.id = 'userAuthMngDatagrid';
-	    SBGridProperties.jsonref = 'userAuthMngGridData';
+	    SBGridProperties.parentid = 'sb-area-grdUserAuth';
+	    SBGridProperties.id = 'grdUserAuth';
+	    SBGridProperties.jsonref = 'jsonUserAuth';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -90,33 +100,31 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' style='color:red' onClick='fn_updateComUserAprv("+ nRow + ", \"00\")'>승인취소</button>";
             	}
 		    }},
-		    {caption: ["비밀번호"], 		ref: 'lckYn',   type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+		    {caption: ["비밀번호"], 	ref: 'lckYn',   type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue == "Y"){
             		return "<button type='button' class='btn btn-xs btn-outline-dark' onClick='fn_pwReSet(" + nRow + ")'>초기화</button>";
             	}
 		    }},
 		    {caption: ["사용유무"], 	ref: 'delYn',   	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : true}},
+				typeinfo : {ref:'jsonUAReverseYn', label:'label', value:'value', displayui : true}},
 	        {caption: ["비고"], 		ref: 'rmrk',   		type:'input',   width:'150px',    style:'text-align:left'},
-	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
+	        {caption: ["APC코드"], 	ref: 'apcCd',   	type:'input',  hidden : true}
 	    ];
-	    window.userAuthMngDatagrid = _SBGrid.create(SBGridProperties);
+	    grdUserAuth = _SBGrid.create(SBGridProperties);
+
+	    fn_initSBSelectUserAuth();
 	    fn_selectUserList();
 	}
 
-	async function fn_selectUserList(){
-		fn_callSelectUserList();
-	}
-
-	async function fn_callSelectUserList(){
+	const fn_selectUserList = async function(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
-		let userNm = SBUxMethod.get("userAuthUserNm");
+		let userNm = SBUxMethod.get("inp-userAuthUserNm");
     	let postJsonPromise = gfn_postJSON("/am/apc/selectApcUserList.do", {apcCd : apcCd, userNm : userNm});
         let data = await postJsonPromise;
-        let newUserGridData = [];
         try{
+        	jsonUserAuth.length = 0;
         	data.resultList.forEach((item, index) => {
-				let userList = {
+				let userVO = {
 					rowSeq 		: item.rowSeq
 				  , userId 		: item.userId
 				  , userNm 		: item.userNm
@@ -128,10 +136,9 @@
 				  , rmrk 		: item.rmrk
 				  , apcCd 		: item.apcCd
 				}
-				newUserGridData.push(userList);
+				jsonUserAuth.push(userVO);
 			});
-        	userAuthMngGridData = newUserGridData;
-        	userAuthMngDatagrid.rebuild();
+        	grdUserAuth.rebuild();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -140,7 +147,7 @@
         }
 	}
 
-	async function fn_updateComUserAprv(nRow, usrtStts) {
+	const fn_updateComUserAprv = async function(nRow, usrtStts) {
     	let userId = userAuthMngDatagrid.getRowData(nRow).userId;
     	let postJsonPromise = gfn_postJSON("/co/user/updateComUserAprv", {userId : userId, userStts : usrtStts});
     	let data = await postJsonPromise;
@@ -157,48 +164,50 @@
     		console.error("failed", e.message);
         }
     }
-	async function fn_pwReSet(){
+	const fn_pwReSet = async function(){
     	console.log("비밀번호 초기화");
     	var nRow = userAuthMngDatagrid.getRow();
     	console.log(nRow);
 
     }
 
-	async function fn_updataUserList(){
-		fn_callUpdateUserList();
-	}
+	const fn_updataUserList = async function(){
 
-	async function fn_callUpdateUserList(){
-		let gridData = userAuthMngDatagrid.getGridDataAll();
 		let updateList = [];
+		let gridData = grdUserAuth.getGridDataAll();
+
 		for(var i=1; i<=gridData.length; i++ ){
-			if(userAuthMngDatagrid.getRowStatus(i) === 2){
-				updateList.push(userAuthMngDatagrid.getRowData(i));
+			let rowData = grdUserAuth.getRowData(i);
+			let rowSts = grdUserAuth.getRowStatus(i);
+			if (rowSts === 2){
+				rowData.rowSts = "U";
+				updateList.push(rowData);
+			} else {
+				continue;
 			}
 		}
+
 		if(updateList.length == 0){
-			alert("등록 할 내용이 없습니다.");
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
+
 		let postJsonPromise = gfn_postJSON("/am/apc/updateComUserList.do", updateList);
         let data = await postJsonPromise;
-        try{
-        	if(data.result > 0){
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
         		fn_callSelectUserList();
-        		alert("등록 되었습니다.");
-        	}else{
-        		alert("등록 실패 하였습니다.");
+        	} else {
+        		alert(data.resultMessage);
         	}
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
+        } catch (e) {
+    		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
-		}
-
+        }
 	}
-
 
 </script>
 </html>
