@@ -78,7 +78,7 @@
 			   AND SG.DEL_YN = #{delYn}
 		</if>
 		<![CDATA[
-			 ORDER BY SG.APC_CD, SG.ITEM_CD, SG.GRD_SE_CD, SG.SN
+			 ORDER BY APC_CD, ITEM_CD, GRD_SE_CD, SN
 		]]>
 
     </select>
@@ -216,21 +216,21 @@
 			 WHERE SGD.APC_CD		= #{apcCd}
 			   AND SGD.ITEM_CD 		= #{itemCd}
 			   AND SGD.GRD_SE_CD 	= #{grdSeCd}
-			   AND SGD.GRD_KND		= #{grdKnd}
-
 		]]>
-
+		<if test='grdKnd != null and grdKnd != ""'>
+			   AND SGD.GRD_KND = #{grdKnd}
+		</if>
 		<if test='grdCd != null and grdCd != ""'>
-			   AND AGC.GRD_CD = #{grdCd}
+			   AND SGD.GRD_CD = #{grdCd}
 		</if>
 		<if test='grdKndNm != null and grdKndNm != ""'>
-			   AND TGD.GRD_NM LIKE '%' || #{grdKndNm} || '%'
+			   AND SGD.GRD_NM LIKE '%' || #{grdKndNm} || '%'
 		</if>
 		<if test='delYn != null and delYn != ""'>
-			   AND AGC.DEL_YN = #{delYn}
+			   AND SGD.DEL_YN = #{delYn}
 		</if>
 		<![CDATA[
-			 ORDER BY SGD.ITEM_CD, SGD.GRD_SE_CD, SGD.GRD_KND, SGD.SN
+			 ORDER BY ITEM_CD, GRD_SE_CD, GRD_KND, SN
 		]]>
 
     </select>
@@ -377,16 +377,16 @@
 		]]>
 
 		<if test='grdCd != null and grdCd != ""'>
-			   AND AGC.GRD_CD = #{grdCd}
+			   AND SGJ.GRD_CD = #{grdCd}
 		</if>
 		<if test='grdKndNm != null and grdKndNm != ""'>
-			   AND TGD.GRD_NM LIKE '%' || #{grdKndNm} || '%'
+			   AND SGJ.GRD_NM LIKE '%' || #{grdKndNm} || '%'
 		</if>
 		<if test='delYn != null and delYn != ""'>
-			   AND AGC.DEL_YN = #{delYn}
+			   AND SGJ.DEL_YN = #{delYn}
 		</if>
 		<![CDATA[
-			 ORDER BY SGJ.ITEM_CD, SGJ.GRD_SE_CD, SGJ.SN
+			 ORDER BY ITEM_CD, GRD_SE_CD, SN
 		]]>
 
     </select>

@@ -44,90 +44,68 @@ public class RawMtrInvntrController extends BaseController {
 
 	@Resource(name = "rawMtrInvntrService")
 	private RawMtrInvntrService rawMtrInvntrService;
-	
+
+	@PostMapping(value = "/am/invntr/selectRawMtrInvntr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectRawMtrInvntr(@RequestBody RawMtrInvntrVO rawMtrInvntrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		RawMtrInvntrVO resultVO;
+		try {
+
+			resultVO = rawMtrInvntrService.selectRawMtrInvntr(rawMtrInvntrVO);
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	@PostMapping(value = "/am/invntr/selectRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectRawMtrInvntrList(@RequestBody RawMtrInvntrVO rawMtrInvntrVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<RawMtrInvntrVO> resultList;
 		try {
-			
+
 			resultList = rawMtrInvntrService.selectRawMtrInvntrList(rawMtrInvntrVO);
-			
+
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/am/invntr/updateRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateRawMtrInvntrList(@RequestBody List<RawMtrInvntrVO> rawMtrInvntrList, HttpServletRequest request) throws Exception {
 
 		logger.debug("updateRawMtrInvntrList 호출 <><><><> ");
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		try {
 			for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
 				rawMtrInvntrVO.setSysLastChgUserId(getUserId());
 				rawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
-			
+
 			HashMap<String, Object> rtnObj = rawMtrInvntrService.updateRawMtrInvntrList(rawMtrInvntrList); //updateRawMtrInvntrList
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
-			
+
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
-		return getSuccessResponseEntity(resultMap);
-		
-//		logger.debug("updateRawMtrInvntrList 호출 <><><><> ");
-//		
-//		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-//		int result = 0;
-//		try {
-//			rawMtrInvntrVO.setSysFrstInptUserId(getUserId());
-//			rawMtrInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
-//			rawMtrInvntrVO.setSysLastChgUserId(getUserId());
-//			rawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
-//			result = rawMtrInvntrService.updateComUserAprv(rawMtrInvntrVO);
-//		} catch (Exception e) {
-//			return getErrorResponseEntity(e);
-//		}
-//		
-//		resultMap.put("result", result);
-//		
-//		return getSuccessResponseEntity(resultMap);
-//	}
 
+		return getSuccessResponseEntity(resultMap);
 	}
 }
-	
-	/**
-	 * @PostMapping(value = "/co/user/updateComUserAprv", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateComUserAprv(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
-		logger.debug("updateComUserAprv 호출 <><><><> ");
-		
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		int result = 0;
-		try {
-			comUserVO.setSysLastChgUserId(getUserId());
-			comUserVO.setSysLastChgPrgrmId(getPrgrmId());
-			result = comUserService.updateComUserAprv(comUserVO);
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-		
-		resultMap.put("result", result);
-		
-		return getSuccessResponseEntity(resultMap);
-	}
-	 */

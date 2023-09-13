@@ -68,7 +68,7 @@ public interface StdGrdMapper {
 
 	/**
 	 * APC 등급 정보 전체 삭제
-	 * @param cmnsGrdVO
+	 * @param StdGrdVO
 	 * @return integer
 	 * @throws Exception
 	 */
@@ -125,7 +125,7 @@ public interface StdGrdMapper {
 
 	/**
 	 * APC 등급 세부 정보 단건 조회
-	 * @param cmnsGrdVO
+	 * @param StdGrdJgmtVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -133,7 +133,7 @@ public interface StdGrdMapper {
 
 	/**
 	 * APC 등급 세부 정보 목록 조회
-	 * @param cmnsGrdVO
+	 * @param StdGrdJgmtVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -141,7 +141,7 @@ public interface StdGrdMapper {
 
 	/**
 	 * APC 등급 세부 정보 등록
-	 * @param cmnsGrdVO
+	 * @param StdGrdJgmtVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -149,7 +149,7 @@ public interface StdGrdMapper {
 
 	/**
 	 * APC 등급 세부 정보 변경
-	 * @param cmnsGrdVO
+	 * @param StdGrdJgmtVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -157,7 +157,7 @@ public interface StdGrdMapper {
 
 	/**
 	 * APC 등급 세부 정보  삭제
-	 * @param cmnsGrdVO
+	 * @param StdGrdJgmtVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -165,7 +165,7 @@ public interface StdGrdMapper {
 
 	/**
 	 * APC 등급 세부 정보 전체 삭제
-	 * @param cmnsGrdVO
+	 * @param StdGrdJgmtVO
 	 * @return
 	 * @throws Exception
 	 */

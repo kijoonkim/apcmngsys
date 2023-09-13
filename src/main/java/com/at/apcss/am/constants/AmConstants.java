@@ -69,4 +69,19 @@ public class AmConstants {
      * APC 공통코드 : 상품구분 GDS_SE_CD
      */
     public final static String CON_CD_ID_GDS_SE_CD = "GDS_SE_CD";
+
+    /**
+     * 등급구분코드 : 입고등급 01
+     */
+    public final static String CON_CD_ID_GRD_SE_CD_WRHS = "01";
+    /**
+     * 등급구분코드 : 선별등급 02
+     */
+    public final static String CON_CD_ID_GRD_SE_CD_SORT = "02";
+    /**
+     * 등급구분코드 : 상품등급 03
+     */
+    public final static String CON_CD_ID_GRD_SE_CD_GDS = "03";
+
+
 }

@@ -45,9 +45,9 @@
 			   AND PR.PRDCR_CD = #{prdcrCd}
 		]]>
     </select>
-    
 
-    
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.selectPrdcrList				-->
 	<!-- DESC : 생산자 목록 조회.	                                       			-->
@@ -164,7 +164,7 @@
     <insert id="insertPrdcr" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO">
     	<![CDATA[
 			INSERT /* com.at.apcss.am.cmns.mapper.PrdcrMapper.insertPrdcr */
-				INTO TB_PRDCR_INFO (				
+				INTO TB_PRDCR_INFO (
 					  APC_CD
 					, PRDCR_CD
 					, PRDCR_NM
@@ -179,7 +179,7 @@
 			     	, TELNO
 			     	, PRDCR_LINK_CD
 			     	, PRDCR_IDENTNO
-					, RMRK	    		  	
+					, RMRK
 	    		  	, SYS_FRST_INPT_DT
 	    		  	, SYS_FRST_INPT_USER_ID
 	    		  	, SYS_FRST_INPT_PRGRM_ID
@@ -211,7 +211,7 @@
 				)
     	]]>
     </insert>
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.updatePrdcr					-->
 	<!-- DESC : 생산자 변경.                                             				-->
@@ -251,7 +251,38 @@
 	    	   AND PRDCR_CD = #{prdcrCd}
     	]]>
     </update>
-    
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.updatePrdcrRprs				-->
+	<!-- DESC : 생산자 변경.                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updatePrdcrRprs" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    	<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.PrdcrMapper.updatePrdcrRprs */
+	    		TB_PRDCR_INFO
+			   SET
+				  RPRS_ITEM_CD = #{rprsItemCd}
+				, RPRS_VRTY_CD = #{rprsVrtyCd}
+				, GDS_SE_CD = #{gdsSeCd}
+				, WRHS_SE_CD = #{wrhsSeCd}
+				, TRSPRT_SE_CD = #{trsprtSeCd}
+    	]]>
+		<if test='vhclno != null and vhclno !=""'>
+			   	, VHCLNO = #{vhclno}
+		</if>
+    	<![CDATA[
+	    	    , SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+	    	 WHERE APC_CD = #{apcCd}
+	    	   AND PRDCR_CD = #{prdcrCd}
+    	]]>
+    </update>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.deletePrdcr					-->
 	<!-- DESC : 생산자 변경.                                             				-->
@@ -268,5 +299,5 @@
 	    	   AND PRDCR_CD = #{prdcrCd}
     	]]>
     </delete>
-    
+
 </mapper>

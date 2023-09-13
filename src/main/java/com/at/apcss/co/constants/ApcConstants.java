@@ -54,7 +54,7 @@ public class ApcConstants {
     /* COLUMN PROPERTIES */
     public final static String PROP_APC_CD = "apcCd";
     public final static String PROP_WGHNO = "wghno";
-
-
+    public final static String PROP_WRHSNO = "wrhsno";
+    public final static String PROP_ITEM_CD = "itemCd";
 
 }
