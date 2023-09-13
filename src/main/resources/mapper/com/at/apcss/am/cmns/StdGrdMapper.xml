@@ -64,17 +64,18 @@
 			  FROM TB_APC_STD_GRD SG
 			 WHERE SG.APC_CD	= #{apcCd}
 			   AND SG.ITEM_CD 	= #{itemCd}
-			   AND SG.GRD_SE_CD	= #{grdSeCd}
-
 		]]>
+		<if test='grdSeCd != null and grdSeCd != ""'>
+			   AND SG.GRD_SE_CD = #{grdSeCd}
+		</if>
 		<if test='grdKnd != null and grdKnd != ""'>
-			   AND TG.GRD_KND = #{grdKnd}
+			   AND SG.GRD_KND = #{grdKnd}
 		</if>
 		<if test='grdKndNm != null and grdKndNm != ""'>
-			   AND TG.GRD_KND_NM LIKE '%' || #{grdKndNm} || '%'
+			   AND SG.GRD_KND_NM LIKE '%' || #{grdKndNm} || '%'
 		</if>
 		<if test='delYn != null and delYn != ""'>
-			   AND AGC.DEL_YN = #{delYn}
+			   AND SG.DEL_YN = #{delYn}
 		</if>
 		<![CDATA[
 			 ORDER BY SG.APC_CD, SG.ITEM_CD, SG.GRD_SE_CD, SG.SN
