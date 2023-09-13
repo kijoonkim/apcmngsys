@@ -204,7 +204,7 @@
             	format : {type:'number', rule:'#,###'}},
             {caption: ['중량'], 		ref: 'cmndWght', 		width: '120px',	type: 'output',	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ['상품등급'], 	ref: 'gdsGrd', 			width: '120px',	type: 'output',	style:'text-align: center'},
+            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['포장단위'], 	ref: 'spmtPckgUnitNm', 	width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['품종'], 		ref: 'vrtyNm', 			width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 		width: '120px',	type: 'output',	style:'text-align: center'},
@@ -268,7 +268,7 @@
 				  , dldtn 			: item.dldtn
 				  , cmndQntt		: item.cmndQntt
 				  , cmndWght 		: item.cmndWght
-				  , gdsGrd 			: item.gdsGrd
+				  , gdsGrdNm 		: item.gdsGrdNm
 				  , spmtPckgUnitNm 	: item.spmtPckgUnitNm
 				  , vrtyNm 			: item.vrtyNm
 				  , spcfctNm 		: item.spcfctNm
