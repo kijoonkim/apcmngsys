@@ -475,7 +475,7 @@
     		throw "";
     	}
     	
-    	const postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList2.do", {
+    	const postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", {
 			apcCd: gv_selectedApcCd,
 			cmndYmd: cmndYmd,
 			itemCd: itemCd,
