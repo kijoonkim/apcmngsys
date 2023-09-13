@@ -191,15 +191,14 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 
-			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', jsonComWarehouse, 'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
+			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', jsonComWarehouse, 'WAREHOUSE_SE_CD', gv_selectedApcCd),		// 창고
 			gfn_setComCdSBSelect('srch-slt-itemCd', 		jsonComFclt, 		'FCLT_CD', gv_selectedApcCd),			// 설비
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd),	// 품목
- 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd),	// 품종
-			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmndTrg', 	jsonSpmtPckgUnit, 	gv_selectedApcCd),		// 포장구분
-			gfn_setComCdSBSelect('grdSpmtCmndTrg', 			jsonComGdsGrd, 		'GDS_GRD'),		// 상품등급
-			gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', jsonTrsprtCo, gv_selectedApcCd),
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd),									// 품목
+ 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd),									// 품종
+			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmndTrg', 	jsonSpmtPckgUnit, 	gv_selectedApcCd),						// 포장구분
+			gfn_setComCdSBSelect('grdSpmtCmndTrg', 			jsonComGdsGrd, 		'GDS_GRD'),								// 상품등급
+			gfn_setTrsprtsSBSelect('srch-slt-trsprtCo', jsonTrsprtCo, gv_selectedApcCd),								// 운송회사
 		]);
-			console.log("jsonComGdsGrd", jsonComGdsGrd);
 	}
 
 	const fn_selectItem = async function(){
@@ -240,9 +239,7 @@
 	function fn_createregSpmtCmndGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdSpmtCmndTrgtDsctn';
-// 	    SBGridProperties.id = 'grdWghPrfmnc';
 	    SBGridProperties.id = 'grdSpmtCmndTrg';
-// 	    SBGridProperties.jsonref = 'jsonWghPrfmnc';
 	    SBGridProperties.jsonref = 'jsonSpmtCmndTrg';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
@@ -269,8 +266,6 @@
 
         var SBGridProperties1 = {};
 	    SBGridProperties1.parentid = 'sb-area-grdSpmtCmndDsctn';
-// 	    SBGridProperties1.id = 'grdWghPrfmnc1';
-// 	    SBGridProperties1.jsonref = 'jsonWghPrfmnc1';
 	    SBGridProperties1.id = 'grdSpmtCmnd';
 	    SBGridProperties1.jsonref = 'jsonSpmtCmnd';
         SBGridProperties1.emptyrecords = '데이터가 없습니다.';
@@ -318,15 +313,15 @@
     }
 
 	const fn_search = async function(){
+		// 출하지시대상 내역 초기화
 		grdSpmtCmndTrg.rebuild();
     	let pageSize = grdSpmtCmndTrg.getPageSize();
     	let pageNo = 1;
-
     	// grid clear
     	jsonSpmtCmndTrg.length = 0;
     	grdSpmtCmndTrg.clearStatus();
-    	await fn_setGrdSpmtCmndTrg(pageSize, pageNo);
     	
+    	// 출하지시 내역 초기화
 		grdSpmtCmnd.rebuild();
     	pageSize = grdSpmtCmnd.getPageSize();
     	pageNo = 1;
@@ -334,7 +329,12 @@
     	// grid clear
     	jsonSpmtCmnd.length = 0;
     	grdSpmtCmnd.clearStatus();
-    	await fn_setGrdSpmtCmnd(pageSize, pageNo);
+    	
+    	try{
+	    	await fn_setGrdSpmtCmndTrg(pageSize, pageNo);
+	    	await fn_setGrdSpmtCmnd(pageSize, pageNo);
+    	} catch(e){
+    	}
 	}
 	
 	const fn_setGrdSpmtCmndTrg = async function(pageSize, pageNo){
@@ -351,11 +351,11 @@
 		
     	if(gfn_isEmpty(outordrYmdFrom) || gfn_isEmpty(outordrYmdTo)){
     		gfn_comAlert("W0001", "발주일자");			//	W0002	{0}을/를 선택하세요.
-            return;
+            throw "";
     	}
     	if(gfn_isEmpty(vrtyCd)){
     		gfn_comAlert("W0001", "품종");			//	W0002	{0}을/를 선택하세요.
-            return;
+    		throw "";
     	}
     	
     	const postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndTrgList.do", {
@@ -456,7 +456,6 @@
 	      		grdSpmtCmndTrg.setPageTotalCount(totalRecordCount);
 	      		grdSpmtCmndTrg.rebuild();
 	      	}
-	      	document.querySelector('#listCount').innerText = totalRecordCount;
 	   } catch (e) {
 	 		if (!(e instanceof Error)) {
 	 			e = new Error(e);
@@ -473,7 +472,7 @@
 		
     	if(gfn_isEmpty(cmndYmd)){
     		gfn_comAlert("W0001", "지시일자");			//	W0002	{0}을/를 선택하세요.
-            return;
+    		throw "";
     	}
     	
     	const postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList2.do", {
@@ -540,7 +539,6 @@
 	      		grdSpmtCmnd.setPageTotalCount(totalRecordCount);
 	      		grdSpmtCmnd.rebuild();
 	      	}
-	      	document.querySelector('#listCount').innerText = totalRecordCount;
 	   } catch (e) {
 	 		if (!(e instanceof Error)) {
 	 			e = new Error(e);

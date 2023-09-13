@@ -152,7 +152,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectSpmtCmndList2" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO" resultType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
     	<![CDATA[
-			SELECT pt0.*  /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmnDtlcList */
+			SELECT pt0.*  /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtCmndList2 */
 		     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
 		     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
 		     , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) AS GDS_GRD_NM
