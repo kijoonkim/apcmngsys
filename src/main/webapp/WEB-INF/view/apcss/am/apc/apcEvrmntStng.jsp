@@ -913,7 +913,7 @@
             	}
             }else if(grid === "grdSmptPckgUnit"){
            		grdSpmtPckgUnit.setCellData(nRow, nCol, "N", true);
-           		grdSpmtPckgUnit.setCellData(nRow, 8, gv_apcCd, true);
+           		grdSpmtPckgUnit.setCellData(nRow, 9, gv_apcCd, true);
            		grdSpmtPckgUnit.addRow(true);
             }else if(grid === "grdSpmtSlsUntprcReg"){
             	grdSpmtSlsUntprcReg.setCellData(nRow, nCol, "N", true);

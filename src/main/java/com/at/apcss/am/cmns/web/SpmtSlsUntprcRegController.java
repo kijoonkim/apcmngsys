@@ -39,6 +39,7 @@ public class SpmtSlsUntprcRegController extends BaseController {
 	@Resource(name= "spmtSlsUntprcRegService")
 	private SpmtSlsUntprcRegService spmtSlsUntprcRegService;
 
+	// 출하매출단가 목록 조회
 	@PostMapping(value = "/am/cmns/selectSpmtSlsUntprcRegList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectSpmtSlsUntprcRegList(@RequestBody SpmtSlsUntprcRegVO spmtSlsUntprcRegVO, HttpServletRequest request) throws Exception {
 		logger.debug("selectSpmtSlsUntprcRegList 호출 <><><><> ");
@@ -58,9 +59,10 @@ public class SpmtSlsUntprcRegController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/cmns/insertSpmtSlsUntprcRegList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertSpmtSlsUntprcRegList(@RequestBody List<SpmtSlsUntprcRegVO> spmtSlsUntprcRegList, HttpServletRequest request) throws Exception {
-		logger.debug("selectSpmtSlsUntprcRegList 호출 <><><><> ");
+	// 출하매출단가 저장
+	@PostMapping(value = "/am/cmns/multiSaveSpmtSlsUniprcRegList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiSaveSpmtSlsUniprcRegList(@RequestBody List<SpmtSlsUntprcRegVO> spmtSlsUntprcRegList, HttpServletRequest request) throws Exception {
+		logger.debug("multiSpmtSlsUntprcRegList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int insertedCnt = 0;
@@ -70,9 +72,8 @@ public class SpmtSlsUntprcRegController extends BaseController {
 				spmtSlsUntprcRegVO.setSysFrstInptUserId(getUserId());
 				spmtSlsUntprcRegVO.setSysLastChgPrgrmId(getPrgrmId());
 				spmtSlsUntprcRegVO.setSysLastChgUserId(getUserId());
-				spmtSlsUntprcRegVO.setSpmtSlsUntprcCd(spmtSlsUntprcRegService.getSpmtSlsUntprcCd(spmtSlsUntprcRegVO).getSpmtSlsUntprcCd());
-				insertedCnt += spmtSlsUntprcRegService.insertSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
 			}
+			insertedCnt = spmtSlsUntprcRegService.multiSpmtSlsUntprcRegList(spmtSlsUntprcRegList);
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -83,42 +84,18 @@ public class SpmtSlsUntprcRegController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/cmns/updateSpmtSlsUntprcRegList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> updateSpmtSlsUntprcRegList(@RequestBody List<SpmtSlsUntprcRegVO> spmtSlsUntprcRegList, HttpServletRequest request) throws Exception {
-		logger.debug("updateSpmtSlsUntprcRegList 호출 <><><><> ");
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int updatedCnt = 0;
-		try {
-			for (SpmtSlsUntprcRegVO spmtSlsUntprcRegVO : spmtSlsUntprcRegList) {
-				spmtSlsUntprcRegVO.setSysLastChgPrgrmId(getPrgrmId());
-				spmtSlsUntprcRegVO.setSysLastChgUserId(getUserId());
-				updatedCnt += spmtSlsUntprcRegService.updateSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
-			}
-
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-
-		return getSuccessResponseEntity(resultMap);
-	}
-
+	// 출하매출단가 삭제
 	@PostMapping(value = "/am/cmns/deleteSpmtSlsUntprcReg.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteSpmtSlsUntprcReg(@RequestBody SpmtSlsUntprcRegVO spmtSlsUntprcRegVO, HttpServletRequest request) throws Exception {
 		logger.debug("deleteSpmtSlsUntprcReg 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int deletedCnt = 0;
 		try {
-			deletedCnt += spmtSlsUntprcRegService.deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
+			resultMap = spmtSlsUntprcRegService.deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
-
-		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 
 		return getSuccessResponseEntity(resultMap);
 	}

@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO;
@@ -57,7 +58,7 @@ public interface SpmtSlsUntprcRegService {
 	 * @return Integer
 	 * @throws Exception
 	 */
-	public int deleteSpmtSlsUntprcReg(SpmtSlsUntprcRegVO spmtSlsUntprcRegVO) throws Exception;
+	public HashMap<String, Object> deleteSpmtSlsUntprcReg(SpmtSlsUntprcRegVO spmtSlsUntprcRegVO) throws Exception;
 
 	/**
 	 * 출하매출단가 자동발번 코드 조회
@@ -66,4 +67,12 @@ public interface SpmtSlsUntprcRegService {
 	 * @throws Exception
 	 */
 	public SpmtSlsUntprcRegVO getSpmtSlsUntprcCd(SpmtSlsUntprcRegVO spmtSlsUntprcRegVO) throws Exception;
+
+	/**
+	 * 출하매출단가 리스트 저장
+	 * @param SpmtSlsUntprcRegVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int multiSpmtSlsUntprcRegList(List<SpmtSlsUntprcRegVO> spmtSlsUntprcRegList) throws Exception;
 }

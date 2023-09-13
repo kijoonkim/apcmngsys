@@ -107,7 +107,7 @@
 		fn_selectSpmtPckgUnitList();
 	}
 
-	function fn_modalClick(nRow){
+	const fn_modalClick = async function (nRow){
 		SBUxMethod.openModal('modal-spmtSlsUntprcReg');
 
 		let rowData = grdSpmtPckgUnit.getRowData(nRow);
@@ -122,11 +122,11 @@
 		SBUxMethod.set("spmtSlsUntprcReg-hin-spcfctCd", rowData.spcfctCd);
 
 		fn_createSpmtSlsUntprcRegGrid();
-		fn_callSelectSpmtSlsUntprcRegList(rowData);
+		fn_selectSpmtSlsUntprcRegList(rowData);
 	}
 
 
-	async function fn_createSpmtPckgUnitGrid() {
+	const fn_createSpmtPckgUnitGrid = async function() {
 		jsonSpmtPckgUnit = [];
 		SBUxMethod.set("spmtPckgUnit-inp-apcNm", SBUxMethod.get("inp-apcNm"));
    		var SBGridProperties = {};
@@ -174,11 +174,7 @@
 	    await fn_initSBSelectSpmtPckgUnit();
 	}
 
-	async function fn_selectSpmtPckgUnitList(){
-		fn_callSelectSpmtPckgUnitList()
-	}
-
-	async function fn_callSelectSpmtPckgUnitList(){
+	const fn_selectSpmtPckgUnitList = async function(){
 		let apcCd = gv_apcCd;
 		let itemCd = SBUxMethod.get("spmtPckgUnit-slt-itemCd");
 		if(gfn_isEmpty(itemCd)){
@@ -187,8 +183,8 @@
 		}
 		let postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtPckgUnitList.do", {apcCd : apcCd, itemCd : itemCd});
 	    let data = await postJsonPromise;
-	    let newSpmtPckgUnitGridData = [];
 	    try{
+	    	jsonSpmtPckgUnit.length = 0;
 	    	data.resultList.forEach((item, index) => {
 				let spmtPckgUnitVO = {
 					itemCd 			: item.itemCd
@@ -205,9 +201,8 @@
 				  , gdsGrd			: item.gdsGrd
 				  , gdsGrdNm		: item.gdsGrdNm
 				}
-				newSpmtPckgUnitGridData.push(spmtPckgUnitVO);
+				jsonSpmtPckgUnit.push(spmtPckgUnitVO);
 			});
-	    	jsonSpmtPckgUnit = newSpmtPckgUnitGridData;
 	    	grdSpmtPckgUnit.rebuild();
 	    	grdSpmtPckgUnit.addRow(true);
 	    }catch (e) {
@@ -218,112 +213,103 @@
 	    }
 	}
 
+	const fn_saveSpmtPckgUnit = async function(){
 
-	async function fn_saveSpmtPckgUnit(){
+		let saveList = [];
 		let gridData = grdSpmtPckgUnit.getGridDataAll();
-		let insertList = [];
-		let updateList = [];
-		let insertCnt = 0;
-		let updateCnt = 0;
+
 		for(var i=1; i<=gridData.length; i++ ){
-			if(grdSpmtPckgUnit.getRowData(i).delYn == 'N'){
+			let rowData = grdSpmtPckgUnit.getRowData(i);
+			let rowSts = grdSpmtPckgUnit.getRowStatus(i);
+			let delYn = rowData.delYn;
+			let itemCd = rowData.itemCd;
+			let vrtyCd = rowData.vrtyCd;
+			let spcfctCd = rowData.spcfctCd;
+			let spmtPckgUnitNm = rowData.spmtPckgUnitNm;
+			let ntslUntprc = rowData.ntslUntprc;
+			if(delYn == 'N'){
+				if (gfn_isEmpty(itemCd)) {
+		  			gfn_comAlert("W0001", "품목");		//	W0001	{0}을/를 선택하세요.
+		            return;
+		  		}
+				if (gfn_isEmpty(vrtyCd)) {
+		  			gfn_comAlert("W0001", "품종");		//	W0001	{0}을/를 선택하세요.
+		            return;
+		  		}
+				if (gfn_isEmpty(spcfctCd)) {
+		  			gfn_comAlert("W0001", "품종");		//	W0001	{0}을/를 선택하세요.
+		            return;
+		  		}
+				if (gfn_isEmpty(spmtPckgUnitNm)) {
+		  			gfn_comAlert("W0002", "출하포장잔위");		//	W0002	{0}을/를 입력하세요.
+		            return;
+		  		}
+				if (gfn_isEmpty(ntslUntprc)) {
+		  			gfn_comAlert("W0002", "단가");		//	W0002	{0}을/를 입력하세요.
+		            return;
+		  		}
 
-				if(grdSpmtPckgUnit.getRowData(i).itemCd == null || grdSpmtPckgUnit.getRowData(i).itemCd == ""){
-					alert("품목은 필수 값 입니다.");
-					return;
-				}
-				if(grdSpmtPckgUnit.getRowData(i).vrtyCd == null || grdSpmtPckgUnit.getRowData(i).vrtyCd == ""){
-					alert("품종은 필수 값 입니다.");
-					return;
-				}
-				if(grdSpmtPckgUnit.getRowData(i).spcfctCd == null || grdSpmtPckgUnit.getRowData(i).spcfctCd == ""){
-					alert("규격은 필수 값 입니다.");
-					return;
-				}
-				if(grdSpmtPckgUnit.getRowData(i).spmtPckgUnitNm == null || grdSpmtPckgUnit.getRowData(i).spmtPckgUnitNm == ""){
-					alert("출하포장단위 명은 필수 값 입니다.");
-					return;
-				}
-				if(grdSpmtPckgUnit.getRowData(i).ntslUntprc == null || grdSpmtPckgUnit.getRowData(i).ntslUntprc == ""){
-					alert("단가는 필수 값 입니다.");
-					return;
-				}
-
-				if(grdSpmtPckgUnit.getRowStatus(i) == 3){
-					insertList.push(grdSpmtPckgUnit.getRowData(i));
-				}
-				if(grdSpmtPckgUnit.getRowStatus(i) == 2){
-					updateList.push(grdSpmtPckgUnit.getRowData(i));
+				if (rowSts === 3){
+					rowData.rowSts = "I";
+					saveList.push(rowData);
+				} else if (rowSts === 2){
+					rowData.rowSts = "U";
+					saveList.push(rowData);
+				} else {
+					continue;
 				}
 			}
 		}
-		if(insertList.length == 0 && updateList.length == 0){
-			alert("저장 할 내용이 없습니다.");
+
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
+		console.log("saveList", saveList);
 
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
-			if(insertList.length > 0){
-				insertCnt = await fn_callInsertSpmtPckgUnitList(insertList);
-			}
-			if(updateList.length > 0){
-				updateCnt = await fn_callUpdateSpmtPckgUnitList(updateList);
-			}
-			if(insertCnt + updateCnt > 0 ){
-				fn_selectSpmtPckgUnitList();
-				alert("저장 되었습니다.");
-			}
+			let postJsonPromise = gfn_postJSON("/am/cmns/multiSaveSpmtPckgUnitList.do", saveList);
+	        let data = await postJsonPromise;
+
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_selectSpmtPckgUnitList();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+
 		}
 	}
 
-
-	async function fn_callInsertSpmtPckgUnitList(spmtPckgUnitList){
-		let postJsonPromise = gfn_postJSON("/am/cmns/insertSpmtPckgUnitList.do", spmtPckgUnitList);
-        let data = await postJsonPromise;
-
-        try{
-       		return data.insertedCnt;
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-
-	}
-
-	async function fn_callUpdateSpmtPckgUnitList(spmtPckgUnitList){
-		let postJsonPromise = gfn_postJSON("/am/cmns/updateSpmtPckgUnitList.do", spmtPckgUnitList);
-        let data = await postJsonPromise;
-        try{
-       		return data.updatedCnt;
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-	}
-
-	async function fn_deleteSpmtPckgUnit(spmtPckgUnitVO){
+	const fn_deleteSpmtPckgUnit = async function(spmtPckgUnitVO){
 		let postJsonPromise = gfn_postJSON("/am/cmns/deleteSpmtPckgUnit.do", spmtPckgUnitVO);
         let data = await postJsonPromise;
-        try{
-       		if(data.deletedCnt > 0){
-       			fn_selectSpmtPckgUnitList();
-				alert("삭제 되었습니다.");
-       		}
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
+        try {
+        	if(data.deletedCnt > 0){
+        		gfn_comAlert("I0001") 					// I0001 	처리 되었습니다.
+        		fn_selectSpmtPckgUnitList();
+        		return;
+        	}else if (data.errMsg != null ){
+        		gfn_comAlert("E0000", data.errMsg)		// W0009   {0}이/가 있습니다.
+        		return;
+        	}else {
+        		gfn_comAlert("E0001");
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
-		}
+        }
 	}
 
 
