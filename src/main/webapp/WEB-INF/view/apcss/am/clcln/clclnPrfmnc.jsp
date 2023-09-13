@@ -109,7 +109,7 @@
 									name="srch-inp-prdcrNm"
 									maxlength="33"
 									class="form-control input-sm"
-									placeholder="초성검색 기능입니다."
+									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
     								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
