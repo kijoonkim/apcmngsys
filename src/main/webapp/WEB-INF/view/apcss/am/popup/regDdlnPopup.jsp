@@ -110,7 +110,7 @@
 		let apcCd = SBUxMethod.get("ddln-inp-apcCd");
 		let crtrYr = SBUxMethod.get("ddln-dtp-crtrYr");
 		let DdlnVO = {apcCd : apcCd, crtrYr : crtrYr};
-    	let postJsonPromise = gfn_postJSON("/am/cmns/selectDdln.do", DdlnVO);
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectDdlnList.do", DdlnVO);
         let data = await postJsonPromise;
         resultList = data.resultList;
         newJsonDdln = [];

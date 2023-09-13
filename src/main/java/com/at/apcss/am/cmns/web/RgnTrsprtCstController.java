@@ -28,7 +28,6 @@ public class RgnTrsprtCstController extends BaseController {
 	// APC 환경설정 - 지역별 운임비 목록 조회
 	@PostMapping(value = "/am/cmns/selectRgnTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectRgnTrsprtCstList(@RequestBody RgnTrsprtCstVO rgnTrsprtCstVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectRgnTrsprtCstList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<RgnTrsprtCstVO> resultList = new ArrayList<>();
@@ -45,27 +44,8 @@ public class RgnTrsprtCstController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 	
-	// 원물운임비용등록팝업 - 지역별 운임비 조회
-	@PostMapping(value = "/am/cmns/selectRawMtrTrsprtCst.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectRawMtrTrsprtCst(@RequestBody RgnTrsprtCstVO rgnTrsprtCstVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectRawMtrTrsprtCst 호출 <><><><> ");
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		RgnTrsprtCstVO resultVO = new RgnTrsprtCstVO();
-		try {
-			resultVO = rgnTrsprtCstService.selectRawMtrTrsprtCst(rgnTrsprtCstVO);
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		resultMap.put("resultVO", resultVO);
-
-		return getSuccessResponseEntity(resultMap);
-	}
-
 	@PostMapping(value = "/am/cmns/deleteRgnTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteRgnTrsprtCstList(@RequestBody RgnTrsprtCstVO rgnTrsprtCstVO, HttpServletRequest request) throws Exception {
-		logger.debug("deleteRgnTrsprtCstList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
@@ -81,18 +61,17 @@ public class RgnTrsprtCstController extends BaseController {
 	}
 
 	@PostMapping(value = "/am/cmns/multiRgnTrsprtCstList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> multiRgnTrsprtCstList(@RequestBody List<RgnTrsprtCstVO> vhclList, HttpServletRequest request) throws Exception {
-		logger.debug("multiRgnTrsprtCstList 호출 <><><><> ");
+	public ResponseEntity<HashMap<String, Object>> multiRgnTrsprtCstList(@RequestBody List<RgnTrsprtCstVO> rgnTrsprtCstList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<RgnTrsprtCstVO> updateList = new ArrayList<RgnTrsprtCstVO>();
 		try {
-			for (RgnTrsprtCstVO rgnTrsprtCstVO : vhclList) {
-				rgnTrsprtCstVO.setSysFrstInptUserId(getUserId());
-				rgnTrsprtCstVO.setSysFrstInptPrgrmId(getPrgrmId());
-				rgnTrsprtCstVO.setSysLastChgUserId(getUserId());
-				rgnTrsprtCstVO.setSysLastChgPrgrmId(getPrgrmId());
-				updateList.add(rgnTrsprtCstVO);
+			for ( var i=0; i<rgnTrsprtCstList.size(); i++ ) {
+				rgnTrsprtCstList.get(i).setSysFrstInptUserId(getUserId());
+				rgnTrsprtCstList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
+				rgnTrsprtCstList.get(i).setSysLastChgUserId(getUserId());
+				rgnTrsprtCstList.get(i).setSysLastChgPrgrmId(getPrgrmId());
+				updateList.add(rgnTrsprtCstList.get(i));
 			}
 
 			HashMap<String, Object> rtnObj = rgnTrsprtCstService.multiRgnTrsprtCst(updateList);

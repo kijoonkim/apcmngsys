@@ -79,8 +79,7 @@ public class ApcInfoController extends BaseController{
 	// APC 정보관리 - APC 내역 조회
 	@PostMapping(value = "/co/apc/selectApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcDsctnList(@RequestBody ApcInfoVO apcInfoVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectApcDsctnList 호출 <><><><> ");
-
+		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<ApcInfoVO> resultList = new ArrayList<>();
 		try {
@@ -97,20 +96,17 @@ public class ApcInfoController extends BaseController{
 	// APC 정보관리 - APC 내역 등록
 	@PostMapping(value = "/co/apc/multiApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> multiApcDsctnList(@RequestBody List<ApcInfoVO> apcDsctnList, HttpServletRequest request) throws Exception {
-		logger.debug("multiApcDsctnList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<ApcInfoVO> updateList = new ArrayList<ApcInfoVO>();
 		try {
-			for ( ApcInfoVO apcInfoVO : apcDsctnList ) {
-				apcInfoVO.setSysFrstInptUserId(getUserId());
-				apcInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
-				apcInfoVO.setSysLastChgUserId(getUserId());
-				apcInfoVO.setSysLastChgPrgrmId(getPrgrmId());
-				updateList.add(apcInfoVO);
+			for ( var i=0; i<apcDsctnList.size(); i++ ) {
+				apcDsctnList.get(i).setSysFrstInptUserId(getUserId());
+				apcDsctnList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
+				apcDsctnList.get(i).setSysLastChgUserId(getUserId());
+				apcDsctnList.get(i).setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			HashMap<String, Object> rtnObj = apcInfoService.multiApcDsctnList(updateList);
+			HashMap<String, Object> rtnObj = apcInfoService.multiApcDsctnList(apcDsctnList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

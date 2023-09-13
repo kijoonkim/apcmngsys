@@ -157,7 +157,7 @@
 	    	let apcCd = SBUxMethod.get("gds-inp-apcCd");
 			let gdsNm = SBUxMethod.get("gds-inp-gdsNm");
 
-	        const postJsonPromise = gfn_postJSON("/am/cmns/selectGdsList.do", {
+	        const postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsGdsList.do", {
 	        	apcCd				: apcCd,
 	        	gdsNm				: gdsNm,
 	        	// pagination

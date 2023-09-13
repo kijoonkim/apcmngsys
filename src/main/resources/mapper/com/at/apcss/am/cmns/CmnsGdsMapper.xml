@@ -2,26 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <!-- ==========================================================================	-->
-<!-- NAME : GdsMapper.xml                                   					-->
-<!-- DESC : 상품 mapper                                             		-->
+<!-- NAME : CmnsGdsMapper.xml                                   				-->
+<!-- DESC : 상품 mapper                                          			   		-->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
 <!-- 2023.09.11  	하민우        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.cmns.mapper.GdsMapper">
-
+<mapper namespace="com.at.apcss.am.cmns.mapper.CmnsGdsMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.GdsMapper.selectGdsList					-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGdsMapper.selectCmnsGdsList			-->
 	<!-- DESC : 상품 목록 조회.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.11  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGdsList" parameterType="com.at.apcss.am.cmns.vo.GdsVO" resultType="com.at.apcss.am.cmns.vo.GdsVO">
+    <select id="selectCmnsGdsList" parameterType="com.at.apcss.am.cmns.vo.CmnsGdsVO" resultType="com.at.apcss.am.cmns.vo.CmnsGdsVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -80,14 +79,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.GdsMapper.insertGds						-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGdsMapper.insertCmnsGds				-->
 	<!-- DESC : 상품 정보 등록.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.11  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertGds" parameterType="com.at.apcss.am.cmns.vo.GdsVO">
+    <insert id="insertCmnsGds" parameterType="com.at.apcss.am.cmns.vo.CmnsGdsVO">
     	<![CDATA[
     	INSERT INTO TB_GDS_CD
     		(
@@ -137,14 +136,14 @@
     </insert>
 
    <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.GdsMapper.updateGds						-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGdsMapper.updateCmnsGds				-->
 	<!-- DESC : 상품 정보 수정.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.11  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateGds" parameterType="com.at.apcss.am.cmns.vo.GdsVO">
+	<update id="updateCmnsGds" parameterType="com.at.apcss.am.cmns.vo.CmnsGdsVO">
 		<![CDATA[
 		UPDATE TB_GDS_CD
 		   SET SYS_LAST_CHG_DT 			= SYSDATE
@@ -167,14 +166,14 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.GdsMapper.deleteGds						-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGdsMapper.deleteCmnsGds				-->
 	<!-- DESC : 상품 정보 삭제.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.11  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteGds" parameterType="com.at.apcss.am.cmns.vo.GdsVO">
+	<delete id="deleteCmnsGds" parameterType="com.at.apcss.am.cmns.vo.CmnsGdsVO">
 		<![CDATA[
 		DELETE FROM TB_GDS_CD
 		 WHERE APC_CD		= #{apcCd}

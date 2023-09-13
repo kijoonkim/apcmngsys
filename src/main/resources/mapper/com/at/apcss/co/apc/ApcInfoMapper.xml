@@ -94,7 +94,6 @@
 		<if test='telno != null and telno != ""'>
 		   AND AI.TELNO LIKE '%' ||  #{telno} || '%'
 		</if>
-		
 		<if test='regTelno != null and regTelno != ""'>
 		   AND AI.REG_TELNO LIKE '%' ||  #{regTelno} || '%'
 		</if>		

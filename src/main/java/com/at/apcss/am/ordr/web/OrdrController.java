@@ -59,7 +59,6 @@ public class OrdrController extends BaseController {
 	// 발주정보 조회
 	@PostMapping(value = "/am/ordr/selectOrdrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectOrdrList(@RequestBody OrdrVO OrdrVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectOrdrList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<OrdrVO> resultList = new ArrayList<>();
@@ -133,20 +132,17 @@ public class OrdrController extends BaseController {
 	// 발주정보 수정
 	@PostMapping(value = "/am/ordr/multiOrdrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> multiOrdrList(@RequestBody List<OrdrVO> ordrList, HttpServletRequest request) throws Exception {
-		logger.debug("multiOrdrList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<OrdrVO> updateList = new ArrayList<OrdrVO>();
 		try {
-			for ( OrdrVO OrdrVO : ordrList ) {
-				OrdrVO.setSysFrstInptUserId(getUserId());
-				OrdrVO.setSysFrstInptPrgrmId(getPrgrmId());
-				OrdrVO.setSysLastChgUserId(getUserId());
-				OrdrVO.setSysLastChgPrgrmId(getPrgrmId());
-				updateList.add(OrdrVO);
+			for ( var i=0; i<ordrList.size(); i++ ) {
+				ordrList.get(i).setSysFrstInptUserId(getUserId());
+				ordrList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
+				ordrList.get(i).setSysLastChgUserId(getUserId());
+				ordrList.get(i).setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			HashMap<String, Object> rtnObj = ordrService.multiOrdrList(updateList);
+			HashMap<String, Object> rtnObj = ordrService.multiOrdrList(ordrList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
@@ -165,14 +161,13 @@ public class OrdrController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int inserted = 0;
 		try {
-			for (OrdrVO OrdrVO : insertList) {
-				OrdrVO.setSysFrstInptPrgrmId(getPrgrmId());
-				OrdrVO.setSysFrstInptUserId(getUserId());
-				OrdrVO.setSysLastChgPrgrmId(getPrgrmId());
-				OrdrVO.setSysLastChgUserId(getUserId());
-				inserted += ordrService.insertOrdr(OrdrVO);
+			for ( var i=0; i<insertList.size(); i++ ) {
+				insertList.get(i).setSysFrstInptUserId(getUserId());
+				insertList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
+				insertList.get(i).setSysLastChgUserId(getUserId());
+				insertList.get(i).setSysLastChgPrgrmId(getPrgrmId());
+				inserted += ordrService.insertOrdr(insertList.get(i));
 			}
-
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
