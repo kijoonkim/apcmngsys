@@ -114,10 +114,14 @@ public class CmnsSpcfctServiceImpl implements CmnsSpcfctService {
 	public HashMap<String, Object> deleteApcSpcfct(CmnsSpcfctVO cmnsSpcfctVO) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		String errMgs = cmnsValidationService.selectChkCdDelible(cmnsSpcfctVO.getApcCd(), "SPCFCT_CD", cmnsSpcfctVO.getSpcfctCd());
-		resultMap.put("errMgs", errMgs);
-		int deletedCnt = cmnsSpcfctMapper.deleteApcSpcfct(cmnsSpcfctVO);
-		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		String errMsg = cmnsValidationService.selectChkCdDelible(cmnsSpcfctVO.getApcCd(), "SPCFCT_CD", cmnsSpcfctVO.getSpcfctCd());
+		int deletedCnt = 0;
+		if(errMsg == null) {
+			deletedCnt = cmnsSpcfctMapper.deleteApcSpcfct(cmnsSpcfctVO);
+			resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		}else {
+			resultMap.put("errMsg", errMsg);
+		}
 		return resultMap;
 	}
 
