@@ -64,7 +64,7 @@ const gfn_dateToYear = function(date) {
 
 
 /**
- * @name
+ * @name gfn_dateFirstYmd
  * @description
  * @param {Date} date
  * @param {String} delimiter
@@ -76,15 +76,24 @@ const gfn_dateFirstYmd = function(date, delimiter = "") {
     let year  = date.getFullYear();
     let month = date.getMonth();
 
-	let firstYmd = new Date(year, month, 1);
-	let yearFirst = firstYmd.getFullYear();
-	let monthFirst = ('0' + (firstYmd.getMonth() + 1)).slice(-2);
-	let day   = ('0' + firstYmd.getDate()).slice(-2);
+	let firstDate = new Date(year, month, 1);
+	return gfn_dateToYmd(firstDate, delimiter);
+}
 
-	let strYmd = "";
-	strYmd += yearFirst;
-	strYmd += delimiter + monthFirst;
-	strYmd += delimiter + day;
+/**
+ * @name gfn_dateLastYmd
+ * @description
+ * @param {Date} date
+ * @param {String} delimiter
+ * @function
+ * @returns
+ */
+const gfn_dateLastYmd = function(date, delimiter = "") {
 
-	return strYmd;
+    let year  = date.getFullYear();
+    let month = date.getMonth();
+
+	let lastDate = new Date(year, month, 0);
+
+	return gfn_dateToYmd(lastDate, delimiter);
 }

@@ -69,7 +69,7 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception;
-	
+
 //	public HashMap<String, Object> updateRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
 	/**
@@ -80,6 +80,13 @@ public interface RawMtrInvntrService {
 	 */
 	public HashMap<String, Object> deleteRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
+	/**
+	 * 원물재고 삭제 : update set delYn Y
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateRawMtrInvntrForDelY(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
 	/**
 	 * 원물재고 선별처리

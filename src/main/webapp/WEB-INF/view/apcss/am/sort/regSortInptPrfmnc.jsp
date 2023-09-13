@@ -26,6 +26,7 @@
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
 				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
+				<sbux-input id="srch-inp-sortRdcdRt" name="srch-inp-sortRdcdRt" uitype="hidden"></sbux-input>
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -188,7 +189,6 @@
 									class="form-control input-sm input-sm-ast"
 									maxlength="6"
 									autocomplete="off"
-									readonly
 									mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 								/>
 							</td>
@@ -204,6 +204,7 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>선별등록 내역</span>
+							<span style="font-size:12px">(감량률 <span id="rt-sortRdcd">0</span>%)</span>
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
@@ -318,13 +319,13 @@
 	 */
 	const fn_getApcGrd = async function(itemCd) {
 
-		 jsonApcGrd.length = 0;
+		jsonApcGrd.length = 0;
 
 		if (gfn_isEmpty(itemCd)) {
 			return;
 		}
 
-		jsonApcGrd = await gfn_getApcGrds(gv_selectedApcCd, itemCd);
+		jsonApcGrd = await gfn_getApcGrds(gv_selectedApcCd, itemCd, _GRD_SE_CD_SORT);
 	}
 
 	/**
@@ -333,10 +334,15 @@
 	 */
 	const fn_init = async function() {
 
-		let ymd = gfn_dateToYmd(new Date());
-		SBUxMethod.set("srch-dtp-wrhsYmdFrom", ymd);
-		SBUxMethod.set("srch-dtp-wrhsYmdTo", ymd);
-		SBUxMethod.set("dtl-dtp-inptYmd", ymd);
+		let nowDate = new Date();
+
+		let firstYmd = gfn_dateFirstYmd(nowDate);
+		let lastYmd = gfn_dateLastYmd(nowDate);
+		let nowYmd = gfn_dateToYmd(nowDate);
+
+		SBUxMethod.set("srch-dtp-wrhsYmdFrom", firstYmd);
+		SBUxMethod.set("srch-dtp-wrhsYmdTo", lastYmd);
+		SBUxMethod.set("dtl-dtp-inptYmd", nowYmd);
 
 		let result = await Promise.all([
 				fn_initSBSelect(),
@@ -1009,8 +1015,12 @@
 					});
 
 					SBUxMethod.set("dtl-inp-inptWght", inptWght);
-					let sortWght = parseInt(SBUxMethod.get("dtl-inp-sortWght")) || 0;
-					SBUxMethod.set("dtl-inp-lossWght", inptWght - sortWght);
+
+					let sortRdcdRt = parseFloat(SBUxMethod.get("srch-inp-sortRdcdRt")) || 0;
+					let lossWght = gfn_apcEstmtWght(inptWght * (1 - sortRdcdRt / 100), gv_selectedApcCd);
+					// let sortWght = parseInt(SBUxMethod.get("dtl-inp-sortWght")) || 0;
+					// SBUxMethod.set("dtl-inp-lossWght", inptWght - sortWght);
+					SBUxMethod.set("dtl-inp-lossWght", lossWght);
 
 					break;
 
@@ -1070,7 +1080,7 @@
 					});
 
 					SBUxMethod.set("dtl-inp-sortWght", sortWght);
-					SBUxMethod.set("dtl-inp-lossWght", inptWght - sortWght);
+					// SBUxMethod.set("dtl-inp-lossWght", inptWght - sortWght);
 
 					break;
 
@@ -1121,6 +1131,16 @@
 	const fn_onChangeSrchItemCd = async function(obj) {
 
 		let itemCd = obj.value;
+		const itemInfo = _.find(jsonApcItem, {value: itemCd});
+
+		let sortRdcdRt = 0;
+		if (!gfn_isEmpty(itemInfo)) {
+			sortRdcdRt = parseFloat(itemInfo.sortRdcdRt) || 0;
+
+			SBUxMethod.set("srch-inp-sortRdcdRt", sortRdcdRt);
+			document.querySelector('#rt-sortRdcd').innerText = sortRdcdRt;
+		}
+
 		let result = await Promise.all([
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),			// 품종
 			fn_getApcSpcfct(itemCd),
@@ -1129,6 +1149,7 @@
 
 		jsonSortPrfmnc.length = 0;
 		fn_createGridSortPrfmnc();
+
 		//grdSortPrfmnc.refresh();
 		//
 	}
