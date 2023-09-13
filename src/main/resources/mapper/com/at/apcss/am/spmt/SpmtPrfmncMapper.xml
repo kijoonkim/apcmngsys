@@ -30,6 +30,8 @@
     			, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)						AS GDS_NM
     			, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)		AS VRTY_NM
     		 	, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)	AS SPCFCT_NM
+    		 	, (SELECT FN_GET_SPCFCT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)					AS CNPT_NM
+    		 	, (SELECT FN_GET_SPCFCT_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL)				AS TRSPRT_CO_NM
     		 FROM (
     	</if>
     	<if test='pagingYn == null or pagingYn.equals("N")'>
@@ -38,6 +40,8 @@
     			, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)						AS GDS_NM
     			, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)		AS VRTY_NM
     		 	, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)	AS SPCFCT_NM
+    		 	, (SELECT FN_GET_SPCFCT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)					AS CNPT_NM
+    		 	, (SELECT FN_GET_SPCFCT_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL)				AS TRSPRT_CO_NM
     		 FROM (
     	</if>
     	<!-- End 페이징 -->
@@ -48,11 +52,11 @@
 	    		 , PD.BRND_CD						AS BRND_CD
 	    		 , PD.GDS_CD						AS GDS_CD
 	    		 , VC.ITEM_CD						AS ITEM_CD
-	    		 , VC.VRTY_CD						AS VRTY_CD
-	    		 , SC.SPCFCT_CD						AS SPCFCT_CD
-	    		 , CI.CNPT_NM						AS CNPT_NM
+	    		 , PD.VRTY_CD						AS VRTY_CD
+	    		 , PD.SPCFCT_CD						AS SPCFCT_CD
+	    		 , PC.CNPT_CD						AS CNPT_CD
 	    		 , PC.DLDTN							AS DLDTN
-	    		 , ST.TRSPRT_CO_NM					AS TRSPRT_CO_NM
+	    		 , PC.TRSPRT_CO_CD					AS TRSPRT_CO_CD
 	    		 , PC.VHCLNO						AS VHCLNO
 	    		 , PC.TRSPRT_CST					AS TRSPRT_CST
 	    		 , PD.SPMT_QNTT						AS SPMT_QNTT
@@ -64,24 +68,17 @@
 				   TB_SPMT_PRFMNC_COM		PC
 				 , TB_SPMT_PRFMNC_DTL		PD
 				 , TB_APC_VRTY_CRTR			VC
-				 , TB_APC_SPCFCT_CRTR		SC
 				 , TB_GDS_INVNTR			GI
 				 , TB_CNPT_INFO 			CI
-				 , TB_SPMT_TRSPRT_CO_INFO 	ST
 			 WHERE PC.APC_CD = PD.APC_CD
 			   AND PC.APC_CD = VC.APC_CD
-			   AND PC.APC_CD = SC.APC_CD
 			   AND PC.APC_CD = GI.APC_CD
 			   AND PC.APC_CD = CI.APC_CD
-			   AND PC.APC_CD = ST.APC_CD
 			   AND PC.SPMTNO = PD.SPMTNO
 	    	   AND PC.CNPT_CD = CI.CNPT_CD
-	    	   AND PC.TRSPRT_CO_CD = ST.TRSPRT_CO_CD
 			   AND PD.VRTY_CD = VC.VRTY_CD
 			   AND PD.VRTY_CD = GI.VRTY_CD
-			   AND PD.SPCFCT_CD = SC.SPCFCT_CD
 			   AND PD.SPCFCT_CD = GI.SPCFCT_CD
-			   AND VC.ITEM_CD = SC.ITEM_CD
 			   AND VC.ITEM_CD = GI.ITEM_CD
 			   AND PD.PCKGNO = GI.PCKGNO
 			   AND PD.PCKG_SN = GI.PCKG_SN
@@ -90,10 +87,8 @@
 			   AND PC.DEL_YN = 'N'
 			   AND PD.DEL_YN = 'N'
 			   AND VC.DEL_YN = 'N'
-			   AND SC.DEL_YN = 'N'
 			   AND GI.DEL_YN = 'N'
 	    	   AND CI.DEL_YN = 'N'
-	    	   AND ST.DEL_YN = 'N'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 			   AND PC.APC_CD = #{apcCd}
@@ -114,7 +109,7 @@
 		       AND VC.ITEM_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{itemCd})))
 		</if>
 		<if test='vrtyNm != null and vrtyNm != ""'>
-			   AND VC.VRTY_NM in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyNm})))
+			   AND PD.VRTY_NM in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyNm})))
 		</if>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 		       AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
@@ -133,10 +128,10 @@
 	    		 	, PD.BRND_CD
 	    		 	, PD.GDS_CD
 	    		 	, VC.ITEM_CD
-	    		 	, VC.VRTY_CD
-	    		 	, SC.SPCFCT_CD
+	    		 	, PD.VRTY_CD
+	    		 	, PD.SPCFCT_CD
 	    		 	, PC.DLDTN
-	    		 	, ST.TRSPRT_CO_NM
+	    		 	, PC.TRSPRT_CO_CD
 	    		 	, PC.VHCLNO
 	    		 	, PC.TRSPRT_CST
 	    		 	, PD.SPMT_QNTT
