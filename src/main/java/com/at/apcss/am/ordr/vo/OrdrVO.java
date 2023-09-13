@@ -94,6 +94,11 @@ public class OrdrVO extends ComVO {
 	private String cnptCd;
 	
 	/**
+	 * 거래처코드
+	 */
+	private String cnptNm;
+
+	/**
 	 * 발주유형
 	 */
 	private String outordrType;
@@ -341,4 +346,9 @@ public class OrdrVO extends ComVO {
 	 * 출하지시 수량
 	 */
 	private int cmndQntt;
+
+	/**
+	 * 단중
+	 */
+	private double unitWght;
 }

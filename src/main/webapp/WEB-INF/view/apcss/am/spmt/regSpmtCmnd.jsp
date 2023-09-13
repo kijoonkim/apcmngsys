@@ -217,8 +217,7 @@
 			}
 		}
 
-		await gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 	jsonSpmtPckgUnit, 	gv_selectedApcCd, itemCd, vrtyCd),		// 포장구분
-		grdGdsInvntr.refresh({"combo":true})
+		await gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 	jsonSpmtPckgUnit, 	gv_selectedApcCd, itemCd, vrtyCd);		// 포장구분
 	}
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -252,7 +251,7 @@
             {caption: ['납기일자'], 	ref: 'msgkey', 		width: '120px', type: 'output', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['품종'], 		ref: 'vrtyNm', 		width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 		width: '120px', type: 'output', style: 'text-align:center'},
-            {caption: ['발주수량'], 	ref: 'ordrQntt', 		width: '120px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['발주수량'], 	ref: 'outordrQntt', 		width: '120px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ['출하수량'], 	ref: 'spmtQntt',	width: '120px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ['재고수량'], 	ref: 'invntrQntt', 			width: '120px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["포장단위"], 			ref: 'spmtPckgUnitCd',   	type:'combo',  width:'120px',    style:'text-align:center; background:#FFF8DC;',
@@ -261,7 +260,9 @@
 						typeinfo : {ref:'jsonComGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['지시수량'], 	ref: 'inptCmndQntt', 		width: '120px', type: 'input', style: 'text-align:right'},
             {caption: ['지시중량'], 	ref: 'inptCmndWght', 		width: '120px', type: 'output', style: 'text-align:right' ,
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}}
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+            {caption: ["출하지시수량"], ref: 'cmndQntt', type:'output', hidden : true},
+            {caption: ["단중"], ref: 'unitWght', type:'output', hidden : true}
         ];
 
         var SBGridProperties1 = {};
@@ -295,16 +296,24 @@
 
     	let nRow = grdSpmtCmndTrg.getRow();
 		let nCol = grdSpmtCmndTrg.getCol();
+		let rowData = grdSpmtCmndTrg.getRowData(nRow);
+		
+
 		switch (nCol) {
+		case 0:
+			if(rowData.checkbox == "true")
+				grdSpmtCmndTrg.setCellData(nRow, 12, Math.min(rowData.outordrQntt - rowData.spmtQntt - rowData.cmndQntt, rowData.invntrQntt - rowData.cmndQntt));
+				grdSpmtCmndTrg.setCellData(nRow, 13, Math.min(rowData.outordrQntt - rowData.spmtQntt - rowData.cmndQntt, rowData.invntrQntt - rowData.cmndQntt) * rowData.unitWght);
+			break;
 		case 12:	// checkbox
-			if(grdSpmtCmndTrg.getRowData(nRow).inptCmndQntt > jsonSpmtCmndTrg[nRow-1].invntrQntt - jsonSpmtCmndTrg[nRow-1].spmtQntt - jsonSpmtCmndTrg[nRow-1].cmndQntt){
-				alert("지시수량은 " + (jsonSpmtCmndTrg[nRow-1].invntrQntt - jsonSpmtCmndTrg[nRow-1].spmtQntt - jsonSpmtCmndTrg[nRow-1].cmndQntt).toString() + "개 까지 입력할 수 있습니다.");
+			if(rowData.inptCmndQntt > Math.min(rowData.outordrQntt - rowData.spmtQntt - rowData.cmndQntt, rowData.invntrQntt - rowData.cmndQntt)){
+				alert("지시수량은 " + (Math.min(rowData.outordrQntt - rowData.spmtQntt - rowData.cmndQntt, rowData.invntrQntt - rowData.cmndQntt).toString() + "개 까지 입력할 수 있습니다."));
 				grdSpmtCmndTrg.setCellData(nRow, nCol , 0);
 				grdSpmtCmndTrg.setCellData(nRow, nCol+1 , 0);
 			}
 			else{
-				// 지시중량 = 재고중량/재고수량*지시수량
-				grdSpmtCmndTrg.setCellData(nRow, nCol+1 , jsonSpmtCmndTrg[nRow-1].invntrWght/jsonSpmtCmndTrg[nRow-1].invntrQntt * grdSpmtCmndTrg.getRowData(nRow).inptCmndQntt);
+				// 지시중량 = 지시수량/단중
+				grdSpmtCmndTrg.setCellData(nRow, nCol+1 , Number(rowData.inptCmndQntt) * Number(rowData.unitWght));
 			}
 			break;
 		default:
@@ -436,7 +445,8 @@
           				spmtWght: item.spmtWght,
           				invntrQntt: item.invntrQntt,
           				invntrWght: item.invntrWght,
-          				cmndQntt: item.cmndQntt
+          				cmndQntt: item.cmndQntt,
+          				unitWght: item.unitWght
 				}
       			jsonSpmtCmndTrg.push(pckgCmnd);
 	
@@ -451,6 +461,7 @@
 	      			grdSpmtCmndTrg.rebuild();
 					}else{
 						grdSpmtCmndTrg.refresh();
+						grdGdsInvntr.refresh({"combo":true})
 					}
 	      	} else {
 	      		grdSpmtCmndTrg.setPageTotalCount(totalRecordCount);
@@ -573,7 +584,18 @@
 		var insertList = [];
     	for(var i=0; i< grdRows.length; i++){
     		let nRow = grdRows[i];
-			console.log("jsonSpmtCmndTrg", jsonSpmtCmndTrg[nRow-1]);
+			if(gfn_isEmpty(jsonSpmtCmndTrg[nRow-1].spmtPckgUnitCd)){
+				gfn_comAlert("W0001", "포장단위");		//	W0002	{0}을/를 선택하세요.
+				return;
+			}
+			if(gfn_isEmpty(jsonSpmtCmndTrg[nRow-1].gdsGrd)){
+				gfn_comAlert("W0001", "등급");		//	W0002	{0}을/를 선택하세요.
+				return;
+			}
+			if(gfn_isEmpty(jsonSpmtCmndTrg[nRow-1].inptCmndQntt)){
+				gfn_comAlert("W0002", "지시수량");		//	W0002	{0}을/를 선택하세요.
+				return;
+			}
 			jsonSpmtCmndTrg[nRow-1].cmndYmd = cmndYmd
 			jsonSpmtCmndTrg[nRow-1].trsprtCoCd = trsprtCo
 			jsonSpmtCmndTrg[nRow-1].trsprtCoNm = jsonTrsprtCo.find(e => e.value == trsprtCo).label;

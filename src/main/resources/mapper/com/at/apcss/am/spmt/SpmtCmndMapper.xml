@@ -28,6 +28,7 @@
 			,(SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)   		AS VRTY_NM
 			,(SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)    	AS SPCFCT_NM
 			,(SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)	AS GDS_NM
+   		 	, (SELECT FN_GET_CNPT_NM(pt0.APC_CNPT_CD, pt0.APC_CD) FROM DUAL)						AS CNPT_NM
 	  		 FROM (
 	  	</if>
 	  	<if test='pagingYn == null or pagingYn.equals("N")'>
@@ -36,6 +37,7 @@
 			,(SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)   		AS VRTY_NM
 			,(SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)    	AS SPCFCT_NM
 			,(SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)	AS GDS_NM
+   		 	, (SELECT FN_GET_CNPT_NM(pt0.APC_CNPT_CD, pt0.APC_CD) FROM DUAL)						AS CNPT_NM
 	  		 FROM (
 	  	</if>
 			SELECT 
@@ -97,6 +99,7 @@
 				,GI.SPMT_QNTT AS SPMT_QNTT
 				,GI.INVNTR_QNTT AS INVNTR_QNTT
 				,SC.CMND_QNTT AS CMND_QNTT
+				,OI.UNIT_WGHT AS UNIT_WGHT
 			FROM TB_OUTORDR_INFO OI
 			LEFT OUTER JOIN 
 				(SELECT APC_CD, ITEM_CD, VRTY_CD, SPCFCT_CD, SUM(SPMT_QNTT) AS SPMT_QNTT, SUM(SPMT_WGHT) AS SPMT_WGHT, SUM(INVNTR_QNTT) AS INVNTR_QNTT, SUM(INVNTR_WGHT) AS INVNTR_WGHT
@@ -116,7 +119,9 @@
 			ON SC.APC_CD = OI.APC_CD
 			AND SC.OUTORDRNO = OI.OUTORDRNO
 			WHERE OI.APC_CD >= #{apcCd}
-			AND NVL(GI.INVNTR_QNTT, 0) - NVL(SC.CMND_QNTT, 0) - NVL(GI.SPMT_QNTT, 0) > 0
+			<!-- 1. 등록 가능한 지시수량이 0인 경우 출력하지않음 -->
+			AND NVL(OI.OUTORDR_QNTT,  0) - NVL(GI.SPMT_QNTT, 0) - NVL(SC.CMND_QNTT, 0) <![CDATA[!=]]> 0	<!-- 1.1. 발주수량 - 출하수량 - 출하지시수량 = 0인 경우 -->
+			AND NVL(GI.INVNTR_QNTT, 0) - NVL(SC.CMND_QNTT, 0)  <![CDATA[!=]]> 0							<!-- 1.2. 재고수량 - 출하지시수량 = 0인 경우 -->
 		<if test='outordrYmdFrom != null and outordrYmdFrom != ""'>
 		   	   AND OI.OUTORDR_YMD >= #{outordrYmdFrom}
 		</if>
