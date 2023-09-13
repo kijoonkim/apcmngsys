@@ -50,7 +50,6 @@ public class ClclnPrfmncController extends BaseController {
 	// 정산실적 조회
 	@PostMapping(value = "/am/clcln/selectClclnPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectClclnPrfmncList(@RequestBody ClclnPrfmncVO ClclnPrfmncVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectClclnPrfmncList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<ClclnPrfmncVO> resultList = new ArrayList<>();

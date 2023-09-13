@@ -14,14 +14,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.DdlnMapper.selectDdln					-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.DdlnMapper.selectDdlnList				-->
 	<!-- DESC : 마감정보 조회.	                                 	      				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.10  	하민우        	Initial Creation              	            -->
 	<!-- ==========================================================================	-->
-    <select id="selectDdln" parameterType="com.at.apcss.am.cmns.vo.DdlnVO" resultType="com.at.apcss.am.cmns.vo.DdlnVO">
+    <select id="selectDdlnList" parameterType="com.at.apcss.am.cmns.vo.DdlnVO" resultType="com.at.apcss.am.cmns.vo.DdlnVO">
     	<![CDATA[
     	SELECT DM.APC_CD            AS APC_CD
 		     , DM.CRTR_YR           AS CRTR_YR
@@ -64,7 +64,7 @@
     		  , #{crtrYr}
     		  , #{crtrMm}
     		  , #{ddlnYn}
-    		  , 20230811
+    		  , TO_CHAR(SYSDATE, 'YYYYMMDD')
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
@@ -90,6 +90,7 @@
     		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
     		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 		     , DDLN_YN           		= #{ddlnYn}
+		     , REG_DT           		= TO_CHAR(SYSDATE, 'YYYYMMDD')
 		 WHERE APC_CD 	= #{apcCd}
 		   AND CRTR_YR 	= #{crtrYr}
 		   AND CRTR_MM	= #{crtrMm}
@@ -109,6 +110,7 @@
 		DELETE FROM TB_DDLN_MNG
 		 WHERE APC_CD		= #{apcCd}
 		   AND CRTR_YR 		= #{crtrYr}
+		   AND CRTR_MM		= #{crtrMm}
 		]]>
 	</delete>
 

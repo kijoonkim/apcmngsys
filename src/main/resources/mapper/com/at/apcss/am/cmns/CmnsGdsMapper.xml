@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : CmnsGdsMapper.xml                                   				-->
+<!-- DESC : 상품 mapper                                          			   		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.09.11  	하민우        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.CmnsGdsMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGdsMapper.selectCmnsGdsList			-->
+	<!-- DESC : 상품 목록 조회.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectCmnsGdsList" parameterType="com.at.apcss.am.cmns.vo.CmnsGdsVO" resultType="com.at.apcss.am.cmns.vo.CmnsGdsVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		 	, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 	AS SPMT_PCKG_UNIT_NM
+	    		, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL)						AS ITEM_NM
+	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
+	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
+		     	, (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 					AS GDS_GRD_NM
+    		 FROM (
+    	</if>
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		SELECT
+    			  pt0.*
+    		 	, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 	AS SPMT_PCKG_UNIT_NM
+	    		, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL)						AS ITEM_NM
+	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
+	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
+		     	, (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 					AS GDS_GRD_NM
+    		 FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+		   	SELECT GC.APC_CD            	AS APC_CD
+			     , GC.GDS_NM            	AS GDS_NM
+		   		 , GC.ITEM_CD            	AS ITEM_CD
+		   		 , GC.VRTY_CD            	AS VRTY_CD
+		   		 , GC.SPCFCT_CD            	AS SPCFCT_CD
+		   		 , GC.GDS_GRD            	AS GDS_GRD
+		   		 , GC.BRND_CD            	AS BRND_CD
+		   		 , GC.PLOR_CD            	AS PLOR_CD
+		   		 , GC.SPMT_PCKG_UNIT_CD		AS SPMT_PCKG_UNIT_CD
+		   		 , GC.BX_GDS_QNTT           AS BX_GDS_QNTT
+		   		 , GC.WGHT            		AS WGHT
+			  FROM TB_GDS_CD GC
+			 WHERE GC.DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and apcCd !=""'>
+		   	   AND GC.GDS_NM = #{apcCd}
+		</if>
+		<if test='gdsNm != null and gdsNm !=""'>
+		   	   AND GC.GDS_NM LIKE '%' || #{gdsNm} || '%'
+		</if>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<if test='pagingYn == null or pagingYn.equals("N")'>
+    		  ) pt0
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGdsMapper.insertCmnsGds				-->
+	<!-- DESC : 상품 정보 등록.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertCmnsGds" parameterType="com.at.apcss.am.cmns.vo.CmnsGdsVO">
+    	<![CDATA[
+    	INSERT INTO TB_GDS_CD
+    		(
+    			APC_CD
+    		  , GDS_CD
+    		  , GDS_NM
+    		  , ITEM_CD
+    		  , VRTY_CD
+    		  , SPCFCT_CD
+    		  , GDS_GRD
+    		  , BRND_CD
+    		  , PLOR_CD
+    		  , SPMT_PCKG_UNIT_CD
+    		  , BX_GDS_QNTT
+    		  , WGHT
+    		  , DEL_YN
+    		  , SYS_FRST_INPT_DT
+    		  , SYS_FRST_INPT_USER_ID
+    		  , SYS_FRST_INPT_PRGRM_ID
+    		  , SYS_LAST_CHG_DT
+    		  , SYS_LAST_CHG_USER_ID
+    		  , SYS_LAST_CHG_PRGRM_ID
+    		)
+   		VALUES
+   			(
+   				#{apcCd}
+    		  , #{gdsCd}
+    		  , #{gdsNm}
+    		  , #{itemCd}
+    		  , #{vrtyCd}
+			  , #{spcfctCd}
+    		  , #{gdsGrd}
+    		  , #{brndCd}
+    		  , #{plorCd}
+    		  , #{spmtPckgUnitCd}
+    		  , #{bxGdsQntt}
+    		  , #{wght}
+    		  , #{delYn}
+    		  , SYSDATE
+    		  , #{sysFrstInptUserId}
+    		  , #{sysFrstInptPrgrmId}
+    		  , SYSDATE
+    		  , #{sysLastChgUserId}
+    		  , #{sysLastChgPrgrmId}
+   			)
+    	]]>
+    </insert>
+
+   <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGdsMapper.updateCmnsGds				-->
+	<!-- DESC : 상품 정보 수정.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateCmnsGds" parameterType="com.at.apcss.am.cmns.vo.CmnsGdsVO">
+		<![CDATA[
+		UPDATE TB_GDS_CD
+		   SET SYS_LAST_CHG_DT 			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    		 , GDS_NM 					= #{gdsNm}
+    		 , ITEM_CD 					= #{itemCd}
+    		 , VRTY_CD 					= #{vrtyCd}
+    		 , SPCFCT_CD 				= #{spcfctCd}
+    		 , GDS_GRD 					= #{gdsGrd}
+    		 , BRND_CD 					= #{brndCd}
+    		 , PLOR_CD 					= #{plorCd}
+    		 , SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
+    		 , BX_GDS_QNTT 				= #{bxGdsQntt}
+    		 , WGHT 					= #{wght}
+    		 , DEL_YN 					= #{delYn}
+		 WHERE APC_CD 					= #{apcCd}
+		   AND GDS_CD 					= #{gdsCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGdsMapper.deleteCmnsGds				-->
+	<!-- DESC : 상품 정보 삭제.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.11  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteCmnsGds" parameterType="com.at.apcss.am.cmns.vo.CmnsGdsVO">
+		<![CDATA[
+		DELETE FROM TB_GDS_CD
+		 WHERE APC_CD		= #{apcCd}
+		   AND GDS_CD 		= #{gdsCd}
+		]]>
+	</delete>
+</mapper>
+
+

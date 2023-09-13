@@ -100,7 +100,7 @@ public class GdsInvntrVO extends ComVO {
 	/**
 	 * 상품등급명
 	 */
-	private String grdNm;
+	private String gdsGrdNm;
 
 	/**
 	 * 포장구분코드
@@ -111,6 +111,10 @@ public class GdsInvntrVO extends ComVO {
 	 * 출하포장단위코드
 	 */
 	private String spmtPckgUnitCd;
+	/**
+	 * 출하포장단위명
+	 */
+	private String spmtPckgUnitNm;
 
 	/**
 	 * 포장구분명
@@ -174,7 +178,18 @@ public class GdsInvntrVO extends ComVO {
 	 * 상품구분명
 	 */
 	private String gdsSeNm;
+	/*
+	 * 설비코드명
+	 * */
 	private String fcltNm;
+	/*
+	 * 대표생산자명
+	 * */
 	private String rprsPrdcrNm;
+
+	/*
+	 * 산지코드
+	 * */
+	private String plorCd;
 
 }

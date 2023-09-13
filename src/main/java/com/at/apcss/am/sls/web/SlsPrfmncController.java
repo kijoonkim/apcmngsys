@@ -50,7 +50,6 @@ public class SlsPrfmncController extends BaseController {
 	// 매출실적 조회
 	@PostMapping(value = "/am/sls/selectSlsPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectSlsPrfmncList(@RequestBody SlsPrfmncVO SlsPrfmncVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectSlsPrfmncList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<SlsPrfmncVO> resultList = new ArrayList<>();

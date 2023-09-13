@@ -92,7 +92,9 @@
 						</tr>
 					</tbody>
 				</table>
+				<!--[pp] //검색 -->
 
+				<!--[pp] 검색결과 -->
 				<div class="table-responsive tbl_scroll_sm">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -105,8 +107,9 @@
 						<div id="sb-area-slsPrfmnc" style="height:600px;"></div>
 					</div>
 				</div>
-			</div>
 				<!--[pp] //검색결과 -->
+				
+			</div>
 		</div>
 	</section>
 	<!-- 거래처 선택 Modal -->
@@ -127,6 +130,7 @@
 			gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonApcItem, 	gv_selectedApcCd),	// 품목
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonApcVrty, 	gv_selectedApcCd)	// 품종
 		]);
+        fn_search();
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -168,10 +172,14 @@
             {caption: ['브랜드','브랜드'], 		ref: 'brndCd',		width: '100px', 	type: 'output',		style:'text-align: center'},
             {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd', 	width: '100px', 	type: 'output',		style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
-            {caption: ['단가','단가'], 		ref: 'slsUntprc', 	width: '100px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-            {caption: ['출하','수량'], 		ref: 'qntt', 		width: '100px', 	type: 'output',		style:'text-align: right', format : {type:'number', rule:'#,###'}},
-            {caption: ['출하','중량'], 		ref: 'wght', 		width: '100px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ['매출금액','매출금액'], 	ref: 'cfmtnAmt', 	width: '100px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['단가','단가'], 		ref: 'slsUntprc', 	width: '100px', 	type: 'output',		style:'text-align: right',
+    		    typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['출하','수량'], 		ref: 'qntt', 		width: '100px', 	type: 'output',		style:'text-align: right',
+    		    format : {type:'number', rule:'#,###'}},
+            {caption: ['출하','중량'], 		ref: 'wght', 		width: '100px', 	type: 'output',		style:'text-align: right',
+    		    typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+            {caption: ['매출금액','매출금액'], 	ref: 'cfmtnAmt', 	width: '100px', 	type: 'output',		style:'text-align: right',
+    		    typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
             {caption: ['비고','비고'], 		ref: '__', 			width: '200px', 	type: 'output',		style:'text-align: right'}
         ];
         grdSlsPrfmnc = _SBGrid.create(SBGridProperties);
@@ -240,7 +248,7 @@
 				newJsonSlsPrfmnc.push(Object.assign({}, slsPrfmnc));
 			});
         	if(jsonSlsPrfmnc.length > 0){
-				if(grdSlsPrfmnc.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+				if(grdSlsPrfmnc.getPageTotalCount() != data.resultList[0].totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 					grdSlsPrfmnc.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 					grdSlsPrfmnc.rebuild();
 				}else{
@@ -331,7 +339,6 @@
 
 	const fn_setCnpt = function(cnpt) {
 		if (!gfn_isEmpty(cnpt)) {
-			console.log("cnpt", cnpt);
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
 		}
 	}

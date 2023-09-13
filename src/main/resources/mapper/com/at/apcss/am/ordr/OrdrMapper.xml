@@ -155,9 +155,9 @@
 		<if test='wrhsYmd != null and wrhsYmd != ""'>
 		   	   AND OI.WRHS_YMD = #{wrhsYmd}
 		</if>
-<!-- 		<if test='gdsNm != null and gdsNm != ""'> -->
-<!-- 		   	   AND SP.SLS_YMD >= #{gdsNm} -->
-<!-- 		</if> -->
+		<if test='gdsNm != null and gdsNm != ""'>
+		   	   AND SP.SLS_YMD >= #{gdsNm}
+		</if>
     	<![CDATA[
 		 	 GROUP BY OI.RCPT_CFMTN_YMD
     		  	 	, OI.OUTORDR_TYPE

@@ -10,8 +10,8 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSaveVhcl" name="btnSaveVhcl" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveDdln"></sbux-button>
-					<sbux-button id="btnEndVhcl" name="btnEndVhcl" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-ddln')"></sbux-button>
+					<sbux-button id="btnSaveDdln" name="btnSaveDdln" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveDdln"></sbux-button>
+					<sbux-button id="btnEndDdln" name="btnEndDdln" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-ddln')"></sbux-button>
 				</div>
 			</div>
 
@@ -110,7 +110,7 @@
 		let apcCd = SBUxMethod.get("ddln-inp-apcCd");
 		let crtrYr = SBUxMethod.get("ddln-dtp-crtrYr");
 		let DdlnVO = {apcCd : apcCd, crtrYr : crtrYr};
-    	let postJsonPromise = gfn_postJSON("/am/cmns/selectDdln.do", DdlnVO);
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectDdlnList.do", DdlnVO);
         let data = await postJsonPromise;
         resultList = data.resultList;
         newJsonDdln = [];
@@ -179,7 +179,6 @@
 		if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-    	console.log(ddlnList);
 
     	const postJsonPromise = gfn_postJSON("/am/cmns/multiDdlnList.do", ddlnList, this.prgrmId);	// 프로그램id 추가
 
@@ -201,13 +200,7 @@
 		SBUxMethod.set("ddln-inp-apcNm", _apcNm);
 		
 		fn_createDdlnGrid();
-		console.log("init DdlnPop");
 		fn_searchDdln();
-	}
-	
-	// 모달 종료
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
 	}
 </script>
 </html>

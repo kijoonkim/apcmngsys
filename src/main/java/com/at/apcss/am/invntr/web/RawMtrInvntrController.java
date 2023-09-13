@@ -1,6 +1,7 @@
 package com.at.apcss.am.invntr.web;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,49 +65,50 @@ public class RawMtrInvntrController extends BaseController {
 	}
 	
 	@PostMapping(value = "/am/invntr/updateRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> updateInvntrSortPrfmnc(@RequestBody RawMtrInvntrVO rawMtrInvntrVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> updateRawMtrInvntrList(@RequestBody List<RawMtrInvntrVO> rawMtrInvntrList, HttpServletRequest request) throws Exception {
 
-//		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-//		
-//		try {
-//			for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
-//				rawMtrInvntrVO.setSysFrstInptUserId(getUserId());
-//				rawMtrInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
-//				rawMtrInvntrVO.setSysLastChgUserId(getUserId());
-//				rawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
-//			}
-//			
-//			HashMap<String, Object> rtnObj = rawMtrInvntrService.updateRawMtrInvntrList(rawMtrInvntrList);
-//			if (rtnObj != null) {
-//				return getErrorResponseEntity(rtnObj);
-//			}
-//			
-//		} catch (Exception e) {
-//			logger.debug("error: {}", e.getMessage());
-//			return getErrorResponseEntity(e);
-//		}
-//		
-//		return getSuccessResponseEntity(resultMap);
-		
 		logger.debug("updateRawMtrInvntrList 호출 <><><><> ");
 		
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		int result = 0;
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
 		try {
-			rawMtrInvntrVO.setSysFrstInptUserId(getUserId());
-			rawMtrInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
-			rawMtrInvntrVO.setSysLastChgUserId(getUserId());
-			rawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
-//			result = rawMtrInvntrService.updateComUserAprv(rawMtrInvntrVO);
+			for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
+				rawMtrInvntrVO.setSysLastChgUserId(getUserId());
+				rawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+			
+			HashMap<String, Object> rtnObj = rawMtrInvntrService.updateRawMtrInvntrList(rawMtrInvntrList); //updateRawMtrInvntrList
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
 		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		
-		resultMap.put("result", result);
-		
 		return getSuccessResponseEntity(resultMap);
-	}
+		
+//		logger.debug("updateRawMtrInvntrList 호출 <><><><> ");
+//		
+//		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+//		int result = 0;
+//		try {
+//			rawMtrInvntrVO.setSysFrstInptUserId(getUserId());
+//			rawMtrInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+//			rawMtrInvntrVO.setSysLastChgUserId(getUserId());
+//			rawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+//			result = rawMtrInvntrService.updateComUserAprv(rawMtrInvntrVO);
+//		} catch (Exception e) {
+//			return getErrorResponseEntity(e);
+//		}
+//		
+//		resultMap.put("result", result);
+//		
+//		return getSuccessResponseEntity(resultMap);
+//	}
 
+	}
 }
 	
 	/**

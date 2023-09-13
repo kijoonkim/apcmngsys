@@ -40,12 +40,12 @@
 								<sbux-input id="spmtCmndno-inp-apcCd" name="spmtCmndno-inp-apcCd" uitype="hidden"></sbux-input>
 							</th>
 							<th scope="row">출하지시일자</th>
-							<th>
+							<th class="td_input">
 								<sbux-datepicker id="spmtCmndno-dtp-cmndYmd" name="spmtCmndno-dtp-cmndYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</th>
 							<th scope="row">포장단위</th>
-							<th class="td_input">
-								<sbux-select id="spmtCmndno-slt-spmtPckgUnitCd" name="spmtCmndno-slt-spmtPckgUnitCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonSpmtPckgUnitCd"></sbux-select>
+							<th>
+								<sbux-select id="spmtCmndno-slt-spmtPckgUnitCd" name="spmtCmndno-slt-spmtPckgUnitCd" uitype="single" class="form-control input-sm" style="background-color:#FFFFFF;" unselected-text="선택" jsondata-ref="jsonSpmtPckgUnitCd"></sbux-select>
 							</th>
 						</tr>
 						<tr>
@@ -59,6 +59,7 @@
 									class="form-control input-sm"
 									jsondata-ref="jsonApcItem"
 									onchange="popSpmtCmndno.srchItemCd(this)"
+									style="background-color:#FFFFFF;"
 								/>
 							</th>
 							<th scope="row">품종</th>
@@ -71,11 +72,12 @@
 									class="form-control input-sm"
 									jsondata-ref="jsonApcVrty"
 									onchange="popSpmtCmndno.srchVrtyCd(this)"
+									style="background-color:#FFFFFF;"
 								/>
 							</th>
 							<th scope="row">규격</th>
-							<th class="td_input">
-								<sbux-select id="spmtCmndno-slt-spcfctCd" name="spmtCmndno-slt-spcfctCd" uitype="single" jsondata-ref="jsonApcSpcfct" class="form-control input-sm" unselected-text="선택"></sbux-select>
+							<th>
+								<sbux-select id="spmtCmndno-slt-spcfctCd" name="spmtCmndno-slt-spcfctCd" uitype="single" class="form-control input-sm" style="background-color:#FFFFFF;" jsondata-ref="jsonApcSpcfct" unselected-text="선택"></sbux-select>
 							</th>
 						</tr>
 					</tbody>
@@ -90,8 +92,6 @@
 								<span style="font-size:12px">(조회건수 <span id="spmtCmndno-pop-cnt">0</span>건)</span>
 							</li>
 						</ul>
-					 	<div class="ad_tbl_toplist">
-						</div>
 					</div>
 					<div id="sb-area-grdSpmtCmndno" style="width:100%;height:300px;"></div>
 				</div>
@@ -110,9 +110,9 @@
 
 	var grdSpmtCmndno = null;
 	var jsonSpmtCmndnoPop = [];
-
+	
 	/**
-	 * @description 차량 선택 팝업
+	 * @description 출하지시번호 선택 팝업
 	 */
 	const popSpmtCmndno = {
 		prgrmId: 'spmtCmndnoPopup',
@@ -164,8 +164,8 @@
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.allowcopy = true;
-			SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.scrollbubbling = false;
+		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 		    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -216,8 +216,6 @@
 
 	    	// grid clear
 	    	jsonSpmtCmndnoPop.length = 0;
-	    	//grdSpmtCmndno.refresh();
-	    	//grdSpmtCmndno.clearStatus();
 	    	await this.setGrid(pageSize, pageNo);
 		},
 		setGrid: async function(pageSize, pageNo) {
@@ -244,7 +242,6 @@
 	        const data = await postJsonPromise;
 
 			try {
-	        	/** @type {number} **/
 	    		let totalRecordCount = 0;
 
 	    		jsonSpmtCmndnoPop.length = 0;
@@ -281,7 +278,7 @@
 
 	        	if (jsonSpmtCmndnoPop.length > 0) {
 	        		if(grdSpmtCmndno.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdSpmtCmndno.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+	        			grdSpmtCmndno.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 	        			grdSpmtCmndno.rebuild();
 					}else{
 						grdSpmtCmndno.refresh();

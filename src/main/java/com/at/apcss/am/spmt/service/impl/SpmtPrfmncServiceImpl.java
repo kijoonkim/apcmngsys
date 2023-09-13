@@ -113,17 +113,17 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 
 		insertSpmtPrfmncCom(spmtPrfmnc.get(0));
 
-		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmnc) {
-			insertedCnt += insertSpmtPrfmncDtl(spmtPrfmncVO);
-
+		for ( var i=0; i<spmtPrfmnc.size(); i++ ) {
+			insertedCnt += insertSpmtPrfmncDtl(spmtPrfmnc.get(i));
+			
 			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
-			gdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
-			gdsInvntrVO.setPckgno(spmtPrfmncVO.getPckgno());
-			gdsInvntrVO.setPckgSn(spmtPrfmncVO.getPckgSn());
-			gdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
-			gdsInvntrVO.setSpmtWght(spmtPrfmncVO.getSpmtWght());
-			gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
-			gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+			gdsInvntrVO.setApcCd(spmtPrfmnc.get(i).getApcCd());
+			gdsInvntrVO.setPckgno(spmtPrfmnc.get(i).getPckgno());
+			gdsInvntrVO.setPckgSn(spmtPrfmnc.get(i).getPckgSn());
+			gdsInvntrVO.setSpmtQntt(spmtPrfmnc.get(i).getSpmtQntt());
+			gdsInvntrVO.setSpmtWght(spmtPrfmnc.get(i).getSpmtWght());
+			gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmnc.get(i).getSysLastChgPrgrmId());
+			gdsInvntrVO.setSysLastChgUserId(spmtPrfmnc.get(i).getSysLastChgUserId());
 
 			gdsInvntrService.updateGdsInvntrSpmtPrfmnc(gdsInvntrVO);
 		}
@@ -144,30 +144,27 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 
 		List<SpmtPrfmncVO> deleteList = new ArrayList<>();
 
+		for ( var i=0; i<spmtPrfmnc.size(); i++ ) {
+			deleteSpmtPrfmncCom(spmtPrfmnc.get(i));
 
-		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmnc) {
+			deleteList = selectSpmtPrfmncDtl(spmtPrfmnc.get(i));
+			
+			for ( var j=0; j<deleteList.size(); j++ ) {
+				deleteList.get(i).setSysLastChgPrgrmId(spmtPrfmnc.get(i).getSysLastChgPrgrmId());
+				deleteList.get(i).setSysLastChgUserId(spmtPrfmnc.get(i).getSysLastChgUserId());
 
-			deleteSpmtPrfmncCom(spmtPrfmncVO);
-
-			deleteList = selectSpmtPrfmncDtl(spmtPrfmncVO);
-
-			for (SpmtPrfmncVO deleteSpmtPrfmncVO : deleteList) {
-				deleteSpmtPrfmncVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
-				deleteSpmtPrfmncVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
-
-				deletedCnt += deleteSpmtPrfmncDtl(deleteSpmtPrfmncVO);
+				deletedCnt += deleteSpmtPrfmncDtl(deleteList.get(i));
 
 				GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
-				gdsInvntrVO.setApcCd(deleteSpmtPrfmncVO.getApcCd());
-				gdsInvntrVO.setPckgno(deleteSpmtPrfmncVO.getPckgno());
-				gdsInvntrVO.setPckgSn(deleteSpmtPrfmncVO.getPckgSn());
-				gdsInvntrVO.setSpmtQntt(deleteSpmtPrfmncVO.getSpmtQntt());
-				gdsInvntrVO.setSpmtWght(deleteSpmtPrfmncVO.getSpmtWght());
-				gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
-				gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+				gdsInvntrVO.setApcCd(deleteList.get(i).getApcCd());
+				gdsInvntrVO.setPckgno(deleteList.get(i).getPckgno());
+				gdsInvntrVO.setPckgSn(deleteList.get(i).getPckgSn());
+				gdsInvntrVO.setSpmtQntt(deleteList.get(i).getSpmtQntt());
+				gdsInvntrVO.setSpmtWght(deleteList.get(i).getSpmtWght());
+				gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmnc.get(i).getSysLastChgPrgrmId());
+				gdsInvntrVO.setSysLastChgUserId(spmtPrfmnc.get(i).getSysLastChgUserId());
 
 				gdsInvntrService.updateGdsInvntrSpmtPrfmncCncl(gdsInvntrVO);
-
 			}
 		}
 		return deletedCnt;

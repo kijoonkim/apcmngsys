@@ -138,25 +138,17 @@ public class StdGrdServiceImpl implements StdGrdService {
 		stdGrdDtlVO.setGrdKnd(stdGrdVO.getGrdKnd());
 		int deletedCnt = 0;
 		List<StdGrdDtlVO> stdGrdDtlList = selectStdGrdDtlList(stdGrdDtlVO);
-		String errMsg = null;
-		for (StdGrdDtlVO stdGrdDtl : stdGrdDtlList) {
-			errMsg = cmnsValidationService.selectChkCdDelible(stdGrdDtl.getApcCd(), "GRD_CD", stdGrdDtl.getGrdCd());
 
-			if(errMsg == null ) {
-				continue;
-			}else {
-				resultMap.put("errMsg", errMsg);
-				break;
+		for (StdGrdDtlVO stdGrdDtl : stdGrdDtlList) {
+
+			resultMap = deleteStdGrdDtl(stdGrdDtl);
+			String errMsgGrdDtl = (String) resultMap.get("errMsg");
+			if(errMsgGrdDtl !=null ) {
+				return resultMap;
 			}
 		}
 
-		if(errMsg != null) {
-			return resultMap;
-		}else {
-			deletedCnt =+ deleteStdGrdDtlAll(stdGrdDtlVO);
-		}
-
-		errMsg = cmnsValidationService.selectChkCdDelible(stdGrdVO.getApcCd(), "GRD_KND", stdGrdVO.getGrdKnd());
+		String errMsg = cmnsValidationService.selectChkCdDelible(stdGrdVO.getApcCd(), "GRD_KND", stdGrdVO.getGrdKnd());
 
 		if(errMsg == null ) {
 			stdGrdMapper.deleteStdGrdAll(stdGrdVO);

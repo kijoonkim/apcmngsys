@@ -19,10 +19,10 @@
 			</div>
 
 			<div class="box-body">
+				<!--[pp] 검색 -->
 				<!--[APC] START -->			
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
-				<!--[pp] 검색 -->
 				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -118,8 +118,8 @@
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button
-									id="btn-srch-prdcr"
-									name="btn-srch-prdcr"
+									id="btnSrchPrdcr"
+									name="btnSrchPrdcr"
 									class="btn btn-xs btn-outline-dark"
 									text="찾기" uitype="modal"
 									target-id="modal-prdcr"
@@ -129,6 +129,8 @@
 						</tr>
 					</tbody>
 				</table>
+				<!--[pp] //검색 -->
+				
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
@@ -139,6 +141,7 @@
 					<div id="sb-area-clclnPrfmnc" style="width:100%;height:550px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
+				
 			</div>
 		</div>
 	</section>
@@ -161,10 +164,10 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-			gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonApcItem, 	gv_selectedApcCd),	// 품목
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonApcVrty, 	gv_selectedApcCd),	// 품종
-			setCfmtnYnSBSelect('srch-slt-cfmtnYn', jsonCfmtnYn),
-			gfn_setComCdSBSelect('srch-slt-clclnCrtr', jsonComClclnCrtr, 'CLCLN_CRTR', gv_selectedApcCd)	// 정산기준
+			gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonApcItem, 		gv_selectedApcCd),						// 품목
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonApcVrty, 		gv_selectedApcCd),						// 품종
+			setCfmtnYnSBSelect('srch-slt-cfmtnYn', 		jsonCfmtnYn),												// 확정여부
+			gfn_setComCdSBSelect('srch-slt-clclnCrtr', 	jsonComClclnCrtr, 	'CLCLN_CRTR', 		gv_selectedApcCd)	// 정산기준
 		]);
 	}
 	
@@ -214,10 +217,14 @@
             {caption: ['규격'], 		ref: 'spcfctNm', 	width: '130px', 	type: 'output',		style:'text-align: center'},
             {caption: ['브랜드'], 	ref: 'brndCd', 		width: '130px', 	type: 'output',		style:'text-align: center'},
             {caption: ['등급'], 		ref: 'grdCd', 		width: '130px', 	type: 'output',		style:'text-align: center'},
-            {caption: ['수량'], 		ref: 'qntt', 		width: '130px', 	type: 'output',		style:'text-align: right', format : {type:'number', rule:'#,###'}},
-            {caption: ['중량'], 		ref: 'wght', 		width: '130px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ['계산금액'], 	ref: 'rkngAmt', 	width: '130px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-            {caption: ['확정금액'], 	ref: 'cfmtnAmt', 	width: '130px', 	type: 'output',		style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}}
+            {caption: ['수량'], 		ref: 'qntt', 		width: '130px', 	type: 'output',		style:'text-align: right',
+            	format : {type:'number', rule:'#,###'}},
+            {caption: ['중량'], 		ref: 'wght', 		width: '130px', 	type: 'output',		style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+            {caption: ['계산금액'], 	ref: 'rkngAmt', 	width: '130px', 	type: 'output',		style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['확정금액'], 	ref: 'cfmtnAmt', 	width: '130px', 	type: 'output',		style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}}
         ];
         grdClclnPrfmnc = _SBGrid.create(SBGridProperties);
         grdClclnPrfmnc.bind( "afterpagechanged" , "fn_pagingClclnPrfmnc" );
@@ -300,7 +307,7 @@
 				newJsonClclnPrfmnc.push(Object.assign({}, clclnPrfmnc));
 			});
         	if(jsonClclnPrfmnc.length > 0){
-				if(grdClclnPrfmnc.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+				if(grdClclnPrfmnc.getPageTotalCount() != data.resultList[0].totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 					grdClclnPrfmnc.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 					grdClclnPrfmnc.rebuild();
 				}else{

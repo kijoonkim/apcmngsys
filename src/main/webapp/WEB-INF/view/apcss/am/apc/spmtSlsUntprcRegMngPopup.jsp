@@ -18,7 +18,7 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchSpmtSlsUntprcReg" name="btnSearchSpmtSlsUntprcReg" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSpmtSlsUntprcRegList"></sbux-button>
+					<sbux-button id="btnSearchSpmtSlsUntprcReg" name="btnSearchSpmtSlsUntprcReg" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectSmptSlsUntprcReg"></sbux-button>
 					<sbux-button id="btnSaveSpmtSlsUntprcReg" name="btnSaveSpmtSlsUntprcReg" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveSpmtSlsUntprcReg"></sbux-button>
 					<sbux-button id="btnEndSpmtSlsUntprcReg" name="btnEndSpmtSlsUntprcReg" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-spmtSlsUntprcReg')"></sbux-button>
 				</div>
@@ -97,7 +97,7 @@
 
 	var jsonSpmtSlsUntprcReg = [];
 
-	async function fn_createSpmtSlsUntprcRegGrid() {
+	const fn_createSpmtSlsUntprcRegGrid = async function() {
 
 		SBUxMethod.set("spmtPckgUnit-inp-apcNm", SBUxMethod.get("inp-apcNm"));
    		var SBGridProperties = {};
@@ -126,24 +126,22 @@
 	    grdSpmtSlsUntprcReg = _SBGrid.create(SBGridProperties);
 	}
 
-	async function fn_selectSpmtSlsUntprcRegList(){
-		fn_callSelectSpmtSlsUntprcRegList(slsUnitPrcParam);
+	const fn_selectSmptSlsUntprcReg = async function(){
+		fn_selectSpmtSlsUntprcRegList(slsUnitPrcParam);
 	}
 
-	async function fn_callSelectSpmtSlsUntprcRegList(rowData){
+	const fn_selectSpmtSlsUntprcRegList = async function(rowData){
 
 		slsUnitPrcParam = rowData;
 
-		console.log("roaData",rowData);
 		let apcCd = gv_apcCd;
 		let itemCd = rowData.itemCd;
 		let vrtyCd = rowData.vrtyCd;
 		let spcfctCd = rowData.spcfctCd;
 		let postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtSlsUntprcRegList.do", {apcCd : apcCd, itemCd : itemCd, vrtyCd : vrtyCd, spcfctCd : spcfctCd});
 	    let data = await postJsonPromise;
-	    let newSpmtSlsUntprcRegGridData = [];
-	    console.log(data);
 	    try{
+	    	jsonSpmtSlsUntprcReg.length = 0;
 	    	data.resultList.forEach((item, index) => {
 				let spmtSlsUntprcRegVO = {
 					aplcnCrtrYmd 	: item.aplcnCrtrYmd
@@ -154,9 +152,8 @@
 				  , delYn			: item.delYn
 				  , apcCd			: item.apcCd
 				}
-				newSpmtSlsUntprcRegGridData.push(spmtSlsUntprcRegVO);
+				jsonSpmtSlsUntprcReg.push(spmtSlsUntprcRegVO);
 			});
-	    	jsonSpmtSlsUntprcReg = newSpmtSlsUntprcRegGridData;
 	    	grdSpmtSlsUntprcReg.rebuild();
 	    	grdSpmtSlsUntprcReg.addRow(true);
 	    }catch (e) {
@@ -167,97 +164,79 @@
 	    }
 	}
 
-
-	async function fn_saveSpmtSlsUntprcReg(){
+	const fn_saveSpmtSlsUntprcReg = async function(){
+		let saveList = [];
 		let gridData = grdSpmtSlsUntprcReg.getGridDataAll();
-		let insertList = [];
-		let updateList = [];
-		let insertCnt = 0;
-		let updateCnt = 0;
+
 		for(var i=1; i<=gridData.length; i++ ){
-			if(grdSpmtSlsUntprcReg.getRowData(i).delYn == 'N'){
+			let rowData = grdSpmtSlsUntprcReg.getRowData(i);
+			let rowSts = grdSpmtSlsUntprcReg.getRowStatus(i);
+			let delYn = rowData.delYn;
+			let aplcnCrtrYmd = rowData.aplcnCrtrYmd;
+			if(delYn == 'N'){
+				if (gfn_isEmpty(aplcnCrtrYmd)) {
+		  			gfn_comAlert("W0001", "적용기준일자");		//	W0001	{0}을/를 선택하세요.
+		            return;
+		  		}
 
-				if(grdSpmtSlsUntprcReg.getRowData(i).aplcnCrtrYmd == null || grdSpmtSlsUntprcReg.getRowData(i).aplcnCrtrYmd == ""){
-					alert("적용기준일자는 필수 값 입니다.");
-					return;
-				}
-
-				if(grdSpmtSlsUntprcReg.getRowStatus(i) == 3){
-					insertList.push(grdSpmtSlsUntprcReg.getRowData(i));
-				}
-				if(grdSpmtSlsUntprcReg.getRowStatus(i) == 2){
-					updateList.push(grdSpmtSlsUntprcReg.getRowData(i));
+				if (rowSts === 3){
+					rowData.rowSts = "I";
+					saveList.push(rowData);
+				} else if (rowSts === 2){
+					rowData.rowSts = "U";
+					saveList.push(rowData);
+				} else {
+					continue;
 				}
 			}
 		}
-		if(insertList.length == 0 && updateList.length == 0){
-			alert("저장 할 내용이 없습니다.");
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
 
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
-			if(insertList.length > 0){
-				insertCnt = await fn_callInsertSpmtSlsUntprcRegList(insertList);
-			}
-			if(updateList.length > 0){
-				updateCnt = await fn_callUpdateSpmtSlsUntprcRegList(updateList);
-			}
-			if(insertCnt + updateCnt > 0 ){
-				fn_selectSpmtPckgUnitList();
-				alert("저장 되었습니다.");
-			}
+			let postJsonPromise = gfn_postJSON("/am/cmns/multiSaveSpmtSlsUniprcRegList.do", saveList);
+	        let data = await postJsonPromise;
+
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_selectSpmtSlsUntprcRegList(slsUnitPrcParam);
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
 		}
 	}
 
-
-	async function fn_callInsertSpmtSlsUntprcRegList(spmtSlsUntprcRegList){
-		let postJsonPromise = gfn_postJSON("/am/cmns/insertSpmtSlsUntprcRegList.do", spmtSlsUntprcRegList);
-        let data = await postJsonPromise;
-
-        try{
-        	console.log("data >>> "+ data.insertedCnt);
-       		return data.insertedCnt;
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-
-	}
-
-	async function fn_callUpdateSpmtSlsUntprcRegList(spmtSlsUntprcRegList){
-		let postJsonPromise = gfn_postJSON("/am/cmns/updateSpmtSlsUntprcRegList.do", spmtSlsUntprcRegList);
-        let data = await postJsonPromise;
-        try{
-       		return data.updatedCnt;
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-		}
-	}
-
-	async function fn_deleteSpmtSlsUntprcReg(spmtPckgUnitVO){
+	const fn_deleteSpmtSlsUntprcReg = async function(spmtPckgUnitVO){
 		let postJsonPromise = gfn_postJSON("/am/cmns/deleteSpmtSlsUntprcReg.do", spmtPckgUnitVO);
         let data = await postJsonPromise;
-        try{
-       		if(data.deletedCnt > 0){
-       			fn_selectSpmtSlsUntprcRegList();
-				alert("삭제 되었습니다.");
-       		}
-
-        }catch (e) {
-        	if (!(e instanceof Error)) {
+        try {
+        	if(data.deletedCnt > 0){
+        		gfn_comAlert("I0001") 					// I0001 	처리 되었습니다.
+        		fn_selectSpmtSlsUntprcRegList(slsUnitPrcParam);
+        		return;
+        	}else if (data.errMsg != null ){
+        		gfn_comAlert("E0000", data.errMsg)		// W0009   {0}이/가 있습니다.
+        		return;
+        	}else {
+        		gfn_comAlert("E0001");
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
-		}
+        }
 	}
 
 

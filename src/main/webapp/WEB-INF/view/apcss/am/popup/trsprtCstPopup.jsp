@@ -79,7 +79,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="color: black;">운임운임비용 목록</span>
+								<span style="color: black;">원물운임비용 목록</span>
 								<span style="font-size:12px">(조회건수 <span id="trsprtCst-pop-cnt">0</span>건)</span>
 							</li>
 						</ul>
@@ -105,7 +105,7 @@
 	isExist = false
 
     /**
-	 * @description 차량 선택 팝업
+	 * @description 원물운임비용등록 팝업
 	 */
 	const popTrsrptCst = {
 		prgrmId: 'trsptCstPopup',
@@ -209,10 +209,6 @@
 			let rowData = grdTrsprtCstPop.getRowData(nRow);
 			popTrsrptCst.close(rowData);
 		},
-		/**
-		 * @param {number} nRow
-		 * @param {number} nCol
-		 */
 		add: function(nRow, nCol) {
 			grdTrsprtCstPop.setCellData(nRow, nCol, "N", true);
 			grdTrsprtCstPop.addRow(true, receivedData);
@@ -231,7 +227,7 @@
 					vhclno		: rowData.vhclno,
 					sn			: rowData.sn
 				}
-				const postJsonPromise = gfn_postJSON("/am/cmns/deleteRawMtrTrsprtCst.do", grdTrsprtCstVO, this.prgrmId);	// 프로그램id 추가
+				const postJsonPromise = gfn_postJSON("/am/cmns/deleteRawMtrTrsprtCst.do", grdTrsprtCstVO, this.prgrmId);
 
 				const data = await postJsonPromise;
 		        try {
@@ -302,7 +298,7 @@
 	    		return;
 	    	}
 
-	    	const postJsonPromise = gfn_postJSON("/am/cmns/multiTrsprtCstList.do", trsprtCstList, this.prgrmId);	// 프로그램id 추가
+	    	const postJsonPromise = gfn_postJSON("/am/cmns/multiTrsprtCstList.do", trsprtCstList, this.prgrmId);
 
 			const data = await postJsonPromise;
 	        try {
@@ -341,7 +337,6 @@
 
 	        const data = await postJsonPromise;
 			try {
-	        	/** @type {number} **/
 	    		let totalRecordCount = 0;
 
 	    		jsonTrsprtCstPop.length = 0;
@@ -372,7 +367,7 @@
 
 	        	if (jsonTrsprtCstPop.length > 0) {
 	        		if(grdTrsprtCstPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdTrsprtCstPop.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+	        			grdTrsprtCstPop.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 	        			grdTrsprtCstPop.rebuild();
 					}else{
 						grdTrsprtCstPop.refresh();

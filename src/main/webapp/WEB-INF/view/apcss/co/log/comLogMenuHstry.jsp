@@ -141,7 +141,6 @@
 		        const data = await postJsonPromise;
 
 				try {
-		        	/** @type {number} **/
 		    		let totalRecordCount = 0;
 
 		    		jsonLogMenuHstry.length = 0;

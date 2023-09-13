@@ -55,15 +55,16 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public int updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
+
 	/**
 	 * 원물재고내역 변경
 	 * @param rawMtrInvntrVO
 	 * @return
 	 * @throws Exception
 	 */
-//	public HashMap<String, Object> updateRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception;
-	public HashMap<String, Object> updateRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+//	public int updateRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception;
+	public int updateRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+//	public HashMap<String, Object> updateRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
 	/**
 	 * 원물재고 삭제

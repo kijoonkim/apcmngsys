@@ -51,14 +51,6 @@ public class RgnTrsprtCstServiceImpl implements RgnTrsprtCstService {
 	}
 	
 	@Override
-	public RgnTrsprtCstVO selectRawMtrTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
-		
-		RgnTrsprtCstVO resultVO = rgnTrsprtCstMapper.selectRawMtrTrsprtCst(rgnTrsprtCstVO);
-		
-		return resultVO;
-	}
-
-	@Override
 	public int insertRgnTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception {
 		
 		int insertedCnt = rgnTrsprtCstMapper.insertRgnTrsprtCst(rgnTrsprtCstVO);

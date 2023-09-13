@@ -81,12 +81,16 @@ public class SortInvntrVO extends ComVO {
 	/**
 	 * 상품구분코드
 	 */
+	private String gdsSe;
 	private String gdsSeCd;
+	private String gdsSeNm;
 
 	/**
 	 * 입고구분코드
 	 */
+	private String wrhsSe;
 	private String wrhsSeCd;
+	private String wrhsSeNm;
 
 	/**
 	 * 운송구분코드
@@ -155,6 +159,7 @@ public class SortInvntrVO extends ComVO {
 	/*설비*/
 	private String fcltNm;
 	/*생산자*/
+	private String prdcr;
 	private String prdcrCd;
 	private String prdcrNm;
 	/*품목*/
@@ -170,8 +175,6 @@ public class SortInvntrVO extends ComVO {
 	private String prdctnYr;
 	private String apcNm;
 	private String rprsPrdcrNm;
-	private String gdsSeNm;
-	private String wrhsSeNm;
 	private String pckgCmndno;
 	private String cmndQntt;
 	private String cmndWght;
@@ -179,5 +182,11 @@ public class SortInvntrVO extends ComVO {
 	private String sortYmdTo;
 	private String sortFcltCd;
 	private String pckgno;
-
+	
+	/*선별재고 내역*/
+	/*기준일자*/
+	private String crtrYmd;
+	/*재고구분*/
+	private String invntrySe;
+	
 }
