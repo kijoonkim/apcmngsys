@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,16 @@ import com.at.apcss.am.cmns.service.CmnsItemService;
 import com.at.apcss.am.cmns.service.CmnsSpcfctService;
 import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.cmns.service.CmnsVrtyService;
+import com.at.apcss.am.cmns.service.SpmtPckgUnitService;
 import com.at.apcss.am.cmns.service.StdGrdService;
 import com.at.apcss.am.cmns.vo.CmnsItemVO;
 import com.at.apcss.am.cmns.vo.CmnsSpcfctVO;
 import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
+import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
+import com.at.apcss.am.cmns.vo.StdGrdJgmtVO;
 import com.at.apcss.am.cmns.vo.StdGrdVO;
+import com.at.apcss.co.cd.service.ComCdService;
+import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 
 /**
@@ -50,6 +56,12 @@ public class CmnsItemServiceImpl implements CmnsItemService {
 	@Resource(name = "stdGrdService")
 	private StdGrdService stdGrdService;
 
+	@Resource(name= "spmtPckgUnitService")
+	private SpmtPckgUnitService spmtPckgUnitService;
+
+	@Resource(name ="comCdService")
+	private ComCdService comCdService;
+
 	@Resource(name = "cmnsValidationService")
 	private CmnsValidationService cmnsValidationService;
 
@@ -73,6 +85,35 @@ public class CmnsItemServiceImpl implements CmnsItemService {
 	public int insertCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
 
 		int insertedCnt = cmnsItemMapper.insertCmnsItem(cmnsItemVO);
+		ComCdVO comCdVO = new ComCdVO();
+		comCdVO.setCdId("GDS_GRD");
+
+		List<ComCdVO> resultList = comCdService.selectComCdDtlList(comCdVO);
+		int gdsGrdSn=1;
+		for (ComCdVO comCd : resultList) {
+			StdGrdVO stdGrdVO = new StdGrdVO();
+
+			BeanUtils.copyProperties(cmnsItemVO, stdGrdVO);
+			stdGrdVO.setGrdKndNm(comCd.getCdVlNm());
+			stdGrdVO.setGrdSeCd("01");
+			stdGrdVO.setSn(gdsGrdSn);
+			stdGrdService.insertStdGrd(stdGrdVO);
+			gdsGrdSn++;
+		}
+
+		comCdVO.setCdId("STD_GRD");
+		resultList = comCdService.selectComCdDtlList(comCdVO);
+		int stdGrdSn = 1;
+		for (ComCdVO comCd : resultList) {
+			StdGrdVO stdGrdVO = new StdGrdVO();
+
+			BeanUtils.copyProperties(cmnsItemVO, stdGrdVO);
+			stdGrdVO.setGrdKndNm(comCd.getCdVlNm());
+			stdGrdVO.setGrdSeCd("03");
+			stdGrdVO.setSn(stdGrdSn);
+			stdGrdService.insertStdGrd(stdGrdVO);
+			gdsGrdSn++;
+		}
 
 		return insertedCnt;
 	}
@@ -91,26 +132,73 @@ public class CmnsItemServiceImpl implements CmnsItemService {
 
 		String errMsg = cmnsValidationService.selectChkCdDelible(cmnsItemVO.getApcCd(), "ITEM_CD", cmnsItemVO.getItemCd());
 
+		StdGrdVO stdGrdVO = new StdGrdVO();
+		StdGrdJgmtVO stdGrdJgmtVO = new StdGrdJgmtVO();
+		CmnsSpcfctVO spcfctVO = new CmnsSpcfctVO();
+		CmnsVrtyVO vrtyVO = new CmnsVrtyVO();
+		SpmtPckgUnitVO spmtPckgUnitVO = new SpmtPckgUnitVO();
+		BeanUtils.copyProperties(cmnsItemVO, stdGrdVO);
+		BeanUtils.copyProperties(cmnsItemVO, stdGrdJgmtVO);
+		BeanUtils.copyProperties(cmnsItemVO, spcfctVO);
+		BeanUtils.copyProperties(cmnsItemVO, vrtyVO);
+		BeanUtils.copyProperties(cmnsItemVO, spmtPckgUnitVO);
+
 		int deletedCnt = 0;
 		if(errMsg == null ) {
 
-			StdGrdVO stdGrdVO	= new StdGrdVO();
-			stdGrdVO.setApcCd(cmnsItemVO.getApcCd());
-			stdGrdVO.setItemCd(cmnsItemVO.getItemCd());
+			List<StdGrdVO> stdGrdList = stdGrdService.selectStdGrdList(stdGrdVO);
 
-			stdGrdService.deleteStdGrdAll(stdGrdVO);
+			for (StdGrdVO stdGrd : stdGrdList) {
 
-			CmnsSpcfctVO spcfctVO = new CmnsSpcfctVO();
-			spcfctVO.setApcCd(cmnsItemVO.getApcCd());
-			spcfctVO.setItemCd(cmnsItemVO.getItemCd());
+				resultMap = stdGrdService.deleteStdGrd(stdGrd);
+				String errMsgGrd = (String) resultMap.get("errMsg");
+				if(errMsgGrd != null) {
+					return resultMap;
+				}
+			}
 
-			cmnsSpcfctService.deleteApcSpcfctAll(spcfctVO);
+			List<StdGrdJgmtVO> stdGrdJgmtList = stdGrdService.selectStdGrdJgmtList(stdGrdJgmtVO);
 
-			CmnsVrtyVO vrtyVO = new CmnsVrtyVO();
-			vrtyVO.setApcCd(cmnsItemVO.getApcCd());
-			vrtyVO.setItemCd(cmnsItemVO.getItemCd());
+			for (StdGrdJgmtVO stdGrdJgmt : stdGrdJgmtList) {
+				resultMap = stdGrdService.deleteStdGrdJgmt(stdGrdJgmt);
+				String errMsgGrdJgmt = (String) resultMap.get("errMsg");
+				if(errMsgGrdJgmt != null) {
+					return resultMap;
+				}
+			}
 
-			cmnsVrtyService.deleteApcVrtyAll(vrtyVO);
+
+			List<CmnsSpcfctVO> spcfctList = cmnsSpcfctService.selectApcSpcfctList(spcfctVO);
+
+			for (CmnsSpcfctVO cmnsSpcfctVO : spcfctList) {
+				resultMap = cmnsSpcfctService.deleteApcSpcfct(cmnsSpcfctVO);
+
+				String errMsgSpcfct = (String) resultMap.get("errMsg");
+				if(errMsgSpcfct != null) {
+					return resultMap;
+				}
+			}
+
+			List<CmnsVrtyVO> vrtyList = cmnsVrtyService.selectApcVrtyList(vrtyVO);
+
+			for (CmnsVrtyVO cmnsVrtyVO : vrtyList) {
+				resultMap = cmnsVrtyService.deleteApcVrty(cmnsVrtyVO);
+				String errMsgVrty = (String) resultMap.get("errMsg");
+				if(errMsgVrty != null) {
+					return resultMap;
+				}
+			}
+
+			List<SpmtPckgUnitVO> spmtPckgUnitList = spmtPckgUnitService.selectSpmtPckgUnitList(spmtPckgUnitVO);
+
+			for (SpmtPckgUnitVO spmtPckgUnit : spmtPckgUnitList) {
+
+				resultMap = spmtPckgUnitService.deleteSpmtPckgUnit(spmtPckgUnit);
+				String errMsgSpmtPckgUnit = (String) resultMap.get("errMsg");
+				if(errMsgSpmtPckgUnit != null) {
+					return resultMap;
+				}
+			}
 
 			deletedCnt = cmnsItemMapper.deleteCmnsItem(cmnsItemVO);
 			resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
