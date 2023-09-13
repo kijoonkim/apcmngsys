@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
@@ -25,7 +26,7 @@ public interface SpmtPckgUnitService {
 	 * @return
 	 * @throws Exception
 	 */
-	public SpmtPckgUnitVO selectSpmtPckgUnit(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception;
+	public SpmtPckgUnitVO selectSpmtPckgUnit(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception;
 
 	/**
 	 * 출하포장단위 목록 조회
@@ -33,7 +34,7 @@ public interface SpmtPckgUnitService {
 	 * @return List<SpmtPckgUnitVO>
 	 * @throws Exception
 	 */
-	public List<SpmtPckgUnitVO> selectSpmtPckgUnitList(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception;
+	public List<SpmtPckgUnitVO> selectSpmtPckgUnitList(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception;
 
 	/**
 	 * 출하포장단위 등록
@@ -41,7 +42,7 @@ public interface SpmtPckgUnitService {
 	 * @return Integer
 	 * @throws Exception
 	 */
-	public int insertSpmtPckgUnit(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception;
+	public int insertSpmtPckgUnit(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception;
 
 	/**
 	 * 출하포장단위 변경
@@ -49,7 +50,7 @@ public interface SpmtPckgUnitService {
 	 * @return Integer
 	 * @throws Exception
 	 */
-	public int updateSpmtPckgUnit(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception;
+	public int updateSpmtPckgUnit(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception;
 
 	/**
 	 * 출하포장단위 삭제
@@ -57,7 +58,7 @@ public interface SpmtPckgUnitService {
 	 * @return Integer
 	 * @throws Exception
 	 */
-	public int deleteSpmtPckgUnit(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception;
+	public HashMap<String, Object> deleteSpmtPckgUnit(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception;
 
 	/**
 	 * 출하포장단위 자동발번 코드 조회
@@ -65,6 +66,14 @@ public interface SpmtPckgUnitService {
 	 * @return SpmtPckgUnitVO
 	 * @throws Exception
 	 */
-	public SpmtPckgUnitVO getSpmtPckgUnitCd(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception;
+	public SpmtPckgUnitVO getSpmtPckgUnitCd(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception;
+
+	/**
+	 * 출하포장단위 저장
+	 * @param SpmtPckgUnitVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int multiSaveSpmtPckgUnitList(List<SpmtPckgUnitVO> spmtPckgUnitList) throws Exception;
 
 }
