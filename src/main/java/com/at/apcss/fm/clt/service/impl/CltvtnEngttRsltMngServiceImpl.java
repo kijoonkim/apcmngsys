@@ -74,6 +74,7 @@ public class CltvtnEngttRsltMngServiceImpl implements CltvtnEngttRsltMngService{
 	public int updateCltvtnEngttRsltMng(CltvtnEngttRsltMngVO cltvtnEngttRsltMngVO) throws Exception {
 
 		int updatedCnt = cltvtnEngttRsltMngMapper.updateCltvtnEngttRsltMng(cltvtnEngttRsltMngVO);
+		int updatedCnt2 = cltvtnEngttRsltMngMapper.updateCltvtnEngttRsltMng2(cltvtnEngttRsltMngVO);
 
 		return updatedCnt;
 	}

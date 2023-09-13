@@ -134,73 +134,105 @@
 	<!-- ==========================================================================	-->
     <insert id="insertCltvtnEngttSptMng" parameterType="com.at.apcss.fm.clt.vo.CltvtnEngttSptMngVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.clt.mapper.CltvtnEngttSptMngMapper.insertCltvtnEngttSptMng */
-	    	  INTO TB_CLTVTN_ENGGT_SPT_MNG CLT
-	    		(
-	    			APC_CD
-	    		  , PRDCR_CD
-	    		  , FRMER_SN
-	    		  , REQ_SN
-	    		  , ITEM_CD
-	    		  , VRTY_CD
-	    		  , SPCFCT_CD
-	    		  , CLTVTN_AREA
-	    		  , ENGGT_VLM
-	    		  , EXPCT_HRVST_QNTT
-	    		  , PLOR
-	    		  , CTRT_AMT
-	    		  , PRTPAY
-	    		  , SRPLS
-	    		  , ENGGT_YMD
-	    		  , ADDR
-	    		  , ZIP
-	    		  , TELNO
-	    		  , FXNO
-	    		  , BANK_CD
-	    		  , ACTNO
-	    		  , DPSTR_NM
-	    		  , RMRK
-	    		  , DEL_YN
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    #{APC_CD}
-	   			  , #{PRDCR_CD}
-	   			  , #{FRMER_SN}
-	   			  , #{REQ_SN}
-	   			  , #{ITEM_CD}
-	   			  , #{VRTY_CD}
-	   			  , #{SPCFCT_CD}
-	   			  , #{CLTVTN_AREA}
-	   			  , #{ENGGT_VLM}
-	   			  , #{EXPCT_HRVST_QNTT}
-	   			  , #{PLOR}
-	   			  , #{CTRT_AMT}
-	   			  , #{PRTPAY}
-	   			  , #{SRPLS}
-	   			  , #{ENGGT_YMD}
-	   			  , #{ADDR}
-	   			  , #{ZIP}
-	   			  , #{TELNO}
-	   			  , #{FXNO}
-	   			  , #{BANK_CD}
-	   			  , #{ACTNO}
-	   			  , #{DPSTR_NM}
-	   			  , #{RMRK}
-	   			  , #{DEL_YN}
-	   			  , #{SYS_FRST_INPT_DT}
-	   			  , #{SYS_FRST_INPT_USER_ID}
-	   			  , #{SYS_FRST_INPT_PRGRM_ID}
-	   			  , #{SYS_LAST_CHG_DT}
-	   			  , #{SYS_LAST_CHG_USER_ID}
-	   			  , #{SYS_LAST_CHG_PRGRM_ID}
-	   			)
+    	MERGE INTO TB_CLTVTN_ENGGT_SPT_MNG CLT  /* com.at.apcss.fm.clt.mapper.CltvtnEngttSptMngMapper.insertCltvtnEngttSptMng */
+		USING DUAL
+			ON (	         CLT.APC_CD      = #{apcCd}
+				      AND CLT.PRDCR_CD  =  #{prdcrCd}
+				      AND CLT.FRMER_SN  = #{frmerSn}
+				      AND CLT.REQ_SN      = #{reqSn}
+				   )
+		WHEN MATCHED THEN
+				 UPDATE /* com.at.apcss.fm.clt.mapper.CltvtnEngttSptMngMapper.updateCltvtnEngttSptMng */
+					   SET
+		    	          ENGGT_VLM          = #{enggtVlmSpt}
+		    	        , EXPCT_HRVST_QNTT   = #{expctHrvstQnttSpt}
+		    	        , ENGGT_YMD          = #{enggtSptYmd}
+		    	        , RMRK               = #{rmrkSpt}
+		    	]]>
+				<if test='delYn != null and delYn != ""'>
+						, DEL_YN 	= #{delYn}
+				</if>
+		    	<![CDATA[
+						, SYS_LAST_CHG_DT		= SYSDATE
+			    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+			    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+					 WHERE 1=1
+					     AND APC_CD = #{apcCd}
+						 AND PRDCR_CD = #{prdcrCd}
+						 AND FRMER_SN = #{frmerSn}
+			    	     AND REQ_SN = #{reqSn}
+		WHEN NOT MATCHED THEN
+			 INSERT /* com.at.apcss.fm.clt.mapper.CltvtnEngttSptMngMapper.insertCltvtnEngttSptMng */
+		    		(
+		    			APC_CD
+		    		  , PRDCR_CD
+		    		  , FRMER_SN
+		    		  , REQ_SN
+		    		  , FRMER_NM
+		    		  , ITEM_CD
+		    		  , VRTY_CD
+		    		  , SPCFCT_CD
+		    		  , REQ_CD
+		    		  , CLTVTN_AREA
+		    		  , ENGGT_VLM
+		    		  , EXPCT_HRVST_QNTT
+		    		  , PLOR
+		    		  , CTRT_AMT
+		    		  , PRTPAY
+		    		  , SRPLS
+		    		  , ENGGT_YMD
+		    		  , ADDR
+		    		  , ZIP
+		    		  , TELNO
+		    		  , FXNO
+		    		  , BANK_CD
+		    		  , ACTNO
+		    		  , DPSTR_NM
+		    		  , RMRK
+		    		  , DEL_YN
+		    		  , SYS_FRST_INPT_DT
+		    		  , SYS_FRST_INPT_USER_ID
+		    		  , SYS_FRST_INPT_PRGRM_ID
+		    		  , SYS_LAST_CHG_DT
+		    		  , SYS_LAST_CHG_USER_ID
+		    		  , SYS_LAST_CHG_PRGRM_ID
+		    		)
+		   		VALUES
+		   			(
+		   			    #{apcCd}
+		   			  , #{prdcrCd}
+		   			  , #{frmerSn}
+		   			  ,  #{reqSn}
+		   			  , #{frmerNm}
+		   			  , #{itemCd}
+		   			  , #{vrtyCd}
+		   			  , #{spcfctCd}
+		   			  , '0002'
+		   			  , #{cltvtnArea}
+		   			  , #{enggtVlmSpt}
+		   			  , #{expctHrvstQnttSpt}
+		   			  , #{plor}
+		   			  , #{ctrtAmt}
+		   			  , #{prtpay}
+		   			  , #{srpls}
+		   			  , #{enggtSptYmd}
+		   			  , #{addr}
+		   			  , #{zip}
+		   			  , #{telno}
+		   			  , #{fXNO}
+		   			  , #{bankCd}
+		   			  , #{actno}
+		   			  , #{dpstrNm}
+		   			  , #{rmrkSpt}
+		   			  , 'N'
+		   			  , SYSDATE
+		   			  , #{sysFrstInptUserId}
+		   			  , #{sysFrstInptPrgrmId}
+		   			  , SYSDATE
+		   			  , #{sysLastChgUserId}
+		   			  , #{sysLastChgPrgrmId}
+		   			)
     	]]>
     </insert>
 
@@ -212,46 +244,118 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<update id="updateCltvtnEngttSptMng2" parameterType="com.at.apcss.fm.clt.vo.CltvtnEngttSptMngVO">
+	 	UPDATE /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.updateCltvtnEnggtAplyMng */
+	    	         TB_CLTVTN_ENGGT_APLY_MNG CLT
+			   SET
+    	          REQ_CD          = '0002'
+	 	WHERE 1=1
+		     AND APC_CD = #{apcCd}
+			 AND PRDCR_CD = #{prdcrCd}
+			 AND FRMER_SN = #{frmerSn}
+    	     AND REQ_SN = #{reqSn}
+	</update>
     <update id="updateCltvtnEngttSptMng" parameterType="com.at.apcss.fm.clt.vo.CltvtnEngttSptMngVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.clt.mapper.CltvtnEngttSptMngMapper.updateCltvtnEngttSptMng */
-	    		TB_CLTVTN_ENGGT_SPT_MNG CLT
-			   SET
-			 	  APC_CD           = #{APC_CD}
-			 	, PRDCR_CD         = #{PRDCR_CD}
-			 	, FRMER_SN         = #{FRMER_SN}
-    	        , REQ_SN           = #{REQ_SN}
-    	        , ITEM_CD          = #{ITEM_CD}
-    	        , VRTY_CD          = #{VRTY_CD}
-    	        , SPCFCT_CD        = #{SPCFCT_CD}
-    	        , CLTVTN_AREA      = #{CLTVTN_AREA}
-    	        , ENGGT_VLM        = #{ENGGT_VLM}
-    	        , EXPCT_HRVST_QNTT = #{EXPCT_HRVST_QNTT}
-    	        , PLOR             = #{PLOR}
-    	        , CTRT_AMT         = #{CTRT_AMT}
-    	        , PRTPAY           = #{PRTPAY}
-    	        , SRPLS            = #{SRPLS}
-    	        , ENGGT_YMD        = #{ENGGT_YMD}
-    	        , ADDR             = #{ADDR}
-    	        , ZIP              = #{ZIP}
-    	        , TELNO            = #{TELNO}
-    	        , FXNO             = #{FXNO}
-    	        , BANK_CD          = #{BANK_CD}
-    	        , ACTNO            = #{ACTNO}
-    	        , DPSTR_NM         = #{DPSTR_NM}
-    	        , RMRK             = #{RMRK}
-    	]]>
-		<if test='delYn != null and delYn != ""'>
-				, DEL_YN 	= #{delYn}
-		</if>
-    	<![CDATA[
-				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+    	MERGE INTO TB_CLTVTN_ENGGT_SPT_MNG CLT  /* com.at.apcss.fm.clt.mapper.CltvtnEngttSptMngMapper.updateCltvtnEngttSptMng */
+		USING DUAL
+			ON (	         CLT.APC_CD      = #{apcCd}
+				      AND CLT.PRDCR_CD  =  #{prdcrCd}
+				      AND CLT.FRMER_SN  = #{frmerSn}
+				      AND CLT.REQ_SN      = #{reqSn}
+				   )
+		WHEN MATCHED THEN
+				 UPDATE /* com.at.apcss.fm.clt.mapper.CltvtnEngttSptMngMapper.updateCltvtnEngttSptMng */
+					   SET
+		    	          ENGGT_VLM          = #{enggtVlmSpt}
+		    	        , EXPCT_HRVST_QNTT   = #{expctHrvstQnttSpt}
+		    	        , ENGGT_YMD          = #{enggtSptYmd}
+		    	        , RMRK               = #{rmrkSpt}
+		    	]]>
+				<if test='delYn != null and delYn != ""'>
+						, DEL_YN 	= #{delYn}
+				</if>
+		    	<![CDATA[
+						, SYS_LAST_CHG_DT		= SYSDATE
+			    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+			    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
+					 WHERE 1=1
+					     AND APC_CD = #{apcCd}
+						 AND PRDCR_CD = #{prdcrCd}
+						 AND FRMER_SN = #{frmerSn}
+			    	     AND REQ_SN = #{reqSn}
+		WHEN NOT MATCHED THEN
+			 INSERT /* com.at.apcss.fm.clt.mapper.CltvtnEngttSptMngMapper.insertCltvtnEngttSptMng */
+		    		(
+		    			APC_CD
+		    		  , PRDCR_CD
+		    		  , FRMER_SN
+		    		  , REQ_SN
+		    		  , FRMER_NM
+		    		  , ITEM_CD
+		    		  , VRTY_CD
+		    		  , SPCFCT_CD
+		    		  , REQ_CD
+		    		  , CLTVTN_AREA
+		    		  , ENGGT_VLM
+		    		  , EXPCT_HRVST_QNTT
+		    		  , PLOR
+		    		  , CTRT_AMT
+		    		  , PRTPAY
+		    		  , SRPLS
+		    		  , ENGGT_YMD
+		    		  , ADDR
+		    		  , ZIP
+		    		  , TELNO
+		    		  , FXNO
+		    		  , BANK_CD
+		    		  , ACTNO
+		    		  , DPSTR_NM
+		    		  , RMRK
+		    		  , DEL_YN
+		    		  , SYS_FRST_INPT_DT
+		    		  , SYS_FRST_INPT_USER_ID
+		    		  , SYS_FRST_INPT_PRGRM_ID
+		    		  , SYS_LAST_CHG_DT
+		    		  , SYS_LAST_CHG_USER_ID
+		    		  , SYS_LAST_CHG_PRGRM_ID
+		    		)
+		   		VALUES
+		   			(
+		   			    #{apcCd}
+		   			  , #{prdcrCd}
+		   			  , #{frmerSn}
+		   			  ,  #{reqSn}
+		   			  , #{frmerNm}
+		   			  , #{itemCd}
+		   			  , #{vrtyCd}
+		   			  , #{spcfctCd}
+		   			  , '0002'
+		   			  , #{cltvtnArea}
+		   			  , #{enggtVlmSpt}
+		   			  , #{expctHrvstQnttSpt}
+		   			  , #{plor}
+		   			  , #{ctrtAmt}
+		   			  , #{prtpay}
+		   			  , #{srpls}
+		   			  , #{enggtSptYmd}
+		   			  , #{addr}
+		   			  , #{zip}
+		   			  , #{telno}
+		   			  , #{fXNO}
+		   			  , #{bankCd}
+		   			  , #{actno}
+		   			  , #{dpstrNm}
+		   			  , #{rmrkSpt}
+		   			  , 'N'
+		   			  , SYSDATE
+		   			  , #{sysFrstInptUserId}
+		   			  , #{sysFrstInptPrgrmId}
+		   			  , SYSDATE
+		   			  , #{sysLastChgUserId}
+		   			  , #{sysLastChgPrgrmId}
+		   			)
     	]]>
     </update>
 

@@ -110,6 +110,8 @@ public class CltvtnEngttSptMngController extends BaseController {
 		// validation check
 
 		// audit 항목
+		cltvtnEngttSptMngVO.setSysFrstInptUserId(getUserId());
+		cltvtnEngttSptMngVO.setSysFrstInptPrgrmId(getPrgrmId());
 		cltvtnEngttSptMngVO.setSysLastChgUserId(getUserId());
 		cltvtnEngttSptMngVO.setSysLastChgPrgrmId(getPrgrmId());
 
