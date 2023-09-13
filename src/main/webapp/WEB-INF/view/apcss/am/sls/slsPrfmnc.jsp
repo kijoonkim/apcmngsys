@@ -130,6 +130,7 @@
 			gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonApcItem, 	gv_selectedApcCd),	// 품목
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonApcVrty, 	gv_selectedApcCd)	// 품종
 		]);
+        fn_search();
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {

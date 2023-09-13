@@ -164,6 +164,7 @@
 		 	gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', 	jsonComTrsprtCoCd, 	gv_selectedApcCd),						// 운송사
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd)						// 품목
 		]);
+        fn_search();
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {

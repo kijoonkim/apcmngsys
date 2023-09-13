@@ -166,6 +166,7 @@
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd),				// 규격
 			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd)	// 포장단위
 		]);
+        fn_search();
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
