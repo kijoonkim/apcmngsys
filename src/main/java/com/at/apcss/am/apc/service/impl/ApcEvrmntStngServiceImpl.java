@@ -602,4 +602,28 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 		return apcEvrmntStngMapper.updateApcEvrmntStng(apcEvrmntStngVO);
 	}
 
+	@Override
+	public HashMap<String, Object> updateApcMenuAuthrt(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception {
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		ComAuthrtVO authrtVO = new ComAuthrtVO();
+		BeanUtils.copyProperties(apcEvrmntStngVO, authrtVO);
+
+		rtnObj = comAuthrtService.insertApcNormalAuthrt(apcEvrmntStngVO);
+		if (rtnObj != null) {
+			logger.error("Error on ApcEvrmntStngService#insertApcSimpleAuthrt call ComAuthrtService#insertApcSimpleAuthrt");
+			logger.error(getMessageForMap(rtnObj));
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		int updatedCnt = apcEvrmntStngMapper.updateApcEvrmntStngAuthrt(apcEvrmntStngVO);
+		if (updatedCnt != 1) {
+			logger.error("Error on ApcEvrmntStngService#insertApcSimpleAuthrt call updateApcEvrmntStngAuthrt");
+			logger.error(getMessageForMap(ComUtil.getResultMap("W0005", "APC설정정보")));
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0005", "APC설정정보")));	// W0005	{0}이/가 없습니다.
+		}
+
+		return null;
+	}
+
 }
