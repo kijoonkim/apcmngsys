@@ -14,14 +14,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.DdlnMapper.selectDdln					-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.DdlnMapper.selectDdlnList				-->
 	<!-- DESC : 마감정보 조회.	                                 	      				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.10  	하민우        	Initial Creation              	            -->
 	<!-- ==========================================================================	-->
-    <select id="selectDdln" parameterType="com.at.apcss.am.cmns.vo.DdlnVO" resultType="com.at.apcss.am.cmns.vo.DdlnVO">
+    <select id="selectDdlnList" parameterType="com.at.apcss.am.cmns.vo.DdlnVO" resultType="com.at.apcss.am.cmns.vo.DdlnVO">
     	<![CDATA[
     	SELECT DM.APC_CD            AS APC_CD
 		     , DM.CRTR_YR           AS CRTR_YR

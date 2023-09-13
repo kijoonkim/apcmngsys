@@ -40,14 +40,6 @@ public interface RgnTrsprtCstMapper {
 	public List<RgnTrsprtCstVO> selectRgnTrsprtCstList(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
 	
 	/**
-	 * 원물운임비용등록팝업 - 지역별 운임비 조회
-	 * @param rgnTrsprtCstVO
-	 * @return
-	 * @throws Exception
-	 */
-	public RgnTrsprtCstVO selectRawMtrTrsprtCst(RgnTrsprtCstVO rgnTrsprtCstVO) throws Exception;
-
-	/**
 	 * 지역별 운임비 등록
 	 * @param rgnTrsprtCstVO
 	 * @return

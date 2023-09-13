@@ -112,7 +112,7 @@
 	var jsonSpmtCmndnoPop = [];
 	
 	/**
-	 * @description 차량 선택 팝업
+	 * @description 출하지시번호 선택 팝업
 	 */
 	const popSpmtCmndno = {
 		prgrmId: 'spmtCmndnoPopup',
@@ -216,8 +216,6 @@
 
 	    	// grid clear
 	    	jsonSpmtCmndnoPop.length = 0;
-	    	//grdSpmtCmndno.refresh();
-	    	//grdSpmtCmndno.clearStatus();
 	    	await this.setGrid(pageSize, pageNo);
 		},
 		setGrid: async function(pageSize, pageNo) {
@@ -244,7 +242,6 @@
 	        const data = await postJsonPromise;
 
 			try {
-	        	/** @type {number} **/
 	    		let totalRecordCount = 0;
 
 	    		jsonSpmtCmndnoPop.length = 0;
@@ -281,7 +278,7 @@
 
 	        	if (jsonSpmtCmndnoPop.length > 0) {
 	        		if(grdSpmtCmndno.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdSpmtCmndno.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+	        			grdSpmtCmndno.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 	        			grdSpmtCmndno.rebuild();
 					}else{
 						grdSpmtCmndno.refresh();

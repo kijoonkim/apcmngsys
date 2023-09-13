@@ -242,7 +242,6 @@
 		for ( let i=1; i<=allData.length; i++ ){
 			const rowData = grdApcInfoMng.getRowData(i);
 			const rowSts = grdApcInfoMng.getRowStatus(i);
-			console.log(grdApcInfoMng.getRowData(i).checked, rowData.checked);
 			if (rowData.checked == "true"){
 				if (gfn_isEmpty(rowData.regApcNm)){
 					gfn_comAlert("W0002", "원본APC명");		//	W0002	{0}을/를 입력하세요.
@@ -269,9 +268,8 @@
 		if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-    	console.log(apcDsctnList);
     	
-    	const postJsonPromise = gfn_postJSON("/co/apc/multiApcDsctnList.do", apcDsctnList, this.prgrmId);	// 프로그램id 추가
+    	const postJsonPromise = gfn_postJSON("/co/apc/multiApcDsctnList.do", apcDsctnList, this.prgrmId);
     	
 		const data = await postJsonPromise;	    
         try {

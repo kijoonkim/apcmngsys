@@ -42,14 +42,11 @@ public class WrhsVhclController extends BaseController {
 	// APC 환경설정 - 입고차량정보 목록 조회
 	@PostMapping(value = "/am/cmns/selectWrhsVhclList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectWrhsVhclList(@RequestBody WrhsVhclVO wrhsVhclVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectWrhsVhclList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<WrhsVhclVO> resultList = new ArrayList<>();
 		try {
-
 			resultList = wrhsVhclService.selectWrhsVhclList(wrhsVhclVO);
-
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -58,71 +55,20 @@ public class WrhsVhclController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
-	@PostMapping(value = "/am/cmns/insertWrhsVhclList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertWrhsVhclList(@RequestBody List<WrhsVhclVO> wrhsVhclList, HttpServletRequest request) throws Exception {
-		logger.debug("deleteWrhsVhclList 호출 <><><><> ");
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int inserted = 0;
-
-		try {
-			for (WrhsVhclVO wrhsVhclVO : wrhsVhclList) {
-				wrhsVhclVO.setSysFrstInptPrgrmId(getPrgrmId());
-				wrhsVhclVO.setSysFrstInptUserId(getUserId());
-				wrhsVhclVO.setSysLastChgPrgrmId(getPrgrmId());
-				wrhsVhclVO.setSysLastChgUserId(getUserId());
-				inserted =+ wrhsVhclService.insertWrhsVhcl(wrhsVhclVO);
-			}
-
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, inserted);
-
-		return getSuccessResponseEntity(resultMap);
-	}
-
-	@PostMapping(value = "/am/cmns/updateWrhsVhclList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> updateWrhsVhclList(@RequestBody List<WrhsVhclVO> wrhsVhclList, HttpServletRequest request) throws Exception {
-		logger.debug("updateWrhsVhclList 호출 <><><><> ");
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int updated = 0;
-
-		try {
-			for (WrhsVhclVO wrhsVhclVO : wrhsVhclList) {
-				wrhsVhclVO.setSysFrstInptPrgrmId(getPrgrmId());
-				wrhsVhclVO.setSysFrstInptUserId(getUserId());
-				wrhsVhclVO.setSysLastChgPrgrmId(getPrgrmId());
-				wrhsVhclVO.setSysLastChgUserId(getUserId());
-				updated =+ wrhsVhclService.updateWrhsVhcl(wrhsVhclVO);
-			}
-
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		resultMap.put(ComConstants.PROP_UPDATED_CNT, updated);
-
-		return getSuccessResponseEntity(resultMap);
-	}
 	
 	@PostMapping(value = "/am/cmns/multiVhclList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> multiVhclList(@RequestBody List<WrhsVhclVO> vhclList, HttpServletRequest request) throws Exception {
-		logger.debug("multiVhclList 호출 <><><><> ");
 		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<WrhsVhclVO> updateList = new ArrayList<WrhsVhclVO>();
 		try {
-			for ( WrhsVhclVO wrhsVhclVO : vhclList ) {
-				wrhsVhclVO.setVhclno(wrhsVhclVO.getVhclno().replaceAll(" ", ""));
-				wrhsVhclVO.setSysFrstInptUserId(getUserId());
-				wrhsVhclVO.setSysFrstInptPrgrmId(getPrgrmId());
-				wrhsVhclVO.setSysLastChgUserId(getUserId());
-				wrhsVhclVO.setSysLastChgPrgrmId(getPrgrmId());
-				updateList.add(wrhsVhclVO);
+			for ( var i=0; i<vhclList.size(); i++ ) {
+				vhclList.get(i).setVhclno(vhclList.get(i).getVhclno().replaceAll(" ", ""));
+				vhclList.get(i).setSysFrstInptUserId(getUserId());
+				vhclList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
+				vhclList.get(i).setSysLastChgUserId(getUserId());
+				vhclList.get(i).setSysLastChgPrgrmId(getPrgrmId());
+				updateList.add(vhclList.get(i));
 			}
 			
 			HashMap<String, Object> rtnObj = wrhsVhclService.multiVhclList(updateList);
@@ -140,7 +86,6 @@ public class WrhsVhclController extends BaseController {
 
 	@PostMapping(value = "/am/cmns/deleteWrhsVhclList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteWrhsVhclList(@RequestBody WrhsVhclVO wrhsVhclVO, HttpServletRequest request) throws Exception {
-		logger.debug("deleteWrhsVhclList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;

@@ -67,7 +67,6 @@ public class ComLogController extends BaseController {
 	// 화면열람이력 조회
 	@PostMapping(value = "/co/log/selectMenuHstryList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectMenuHstryList(@RequestBody ComLogVO comLogVO, HttpServletRequest request) throws Exception {
-		logger.debug("selectMenuHstryList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<ComLogVO> resultList = new ArrayList<>();

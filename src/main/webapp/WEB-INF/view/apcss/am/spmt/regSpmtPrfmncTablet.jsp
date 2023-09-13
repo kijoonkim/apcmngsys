@@ -156,6 +156,7 @@
 					</tbody>
 				</table>
 				<!--[pp] //검색 -->
+				
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
@@ -166,6 +167,7 @@
 					<div id="sb-area-spmtTrgtDsctn" style="height:250px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
+				
 			</div>
 		</div>
 	</section>
@@ -327,9 +329,8 @@
 		if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-    	console.log(spmtTrgtDsctn);
     	
-    	const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtTrgtDsctnList.do", spmtTrgtDsctn, this.prgrmId);	// 프로그램id 추가
+    	const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtTrgtDsctnList.do", spmtTrgtDsctn, this.prgrmId);
     	
 		const data = await postJsonPromise;	    
         try {

@@ -31,7 +31,7 @@ public interface CmnsGdsService {
 	/**
 	 * 상품정보 목록 조회
 	 * @param cmnsGdsVO
-	 * @return
+	 * @return List<CmnsGdsVO>
 	 * @throws Exception
 	 */
 	public List<CmnsGdsVO> selectCmnsGdsList(CmnsGdsVO cmnsGdsVO) throws Exception;
@@ -45,7 +45,7 @@ public interface CmnsGdsService {
 	public int insertCmnsGds(CmnsGdsVO cmnsGdsVO) throws Exception;
 	
 	/**
-	 * 상품정보 변경
+	 * 상품정보 수정
 	 * @param cmnsGdsVO
 	 * @return
 	 * @throws Exception
