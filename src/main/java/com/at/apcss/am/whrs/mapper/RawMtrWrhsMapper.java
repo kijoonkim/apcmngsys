@@ -22,7 +22,7 @@ import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
  */
 @Mapper
 public interface RawMtrWrhsMapper {
-	
+
 	/**
 	 * 원물입고 단건 조회
 	 * @param rawMtrWrhsVO
@@ -64,8 +64,16 @@ public interface RawMtrWrhsMapper {
 	public int deleteRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
 	/**
+	 * 원물입고 삭제 UPDATE DEL_YN Y
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateRawMtrWrhsDelY(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
 	 * 입고실적 목록 조회
-	 * 
+	 *
 	 * @param selectRawMtrWrhsPrfmncList
 	 * @return
 	 * @throws Exception

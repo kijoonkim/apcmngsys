@@ -146,6 +146,7 @@
 					</tbody>
 				</table>
 				<!--[pp] //검색 -->
+				
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
@@ -160,6 +161,7 @@
 					<div id="sb-area-grdOutordrInfo" style="width:100%;height:450px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
+				
 			</div>
 		</div>
 	</section>
@@ -406,7 +408,7 @@
 				newJsonOutordrInfo.push(Object.assign({}, ordr));
 			});
         	if(jsonOutordrInfo.length > 0){
-				if(grdOutordrInfo.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+				if(grdOutordrInfo.getPageTotalCount() != data.resultList[0].totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 					grdOutordrInfo.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 					grdOutordrInfo.rebuild();
 				}else{
@@ -434,7 +436,6 @@
 	// 일괄 접수
     async function btn_receiptBndl(){
     	let allData = grdOutordrInfo.getGridDataAll();
-    	console.log("일괄 접수: ", allData);
 		const rcptOrdrAllList = [];
 		
 		for ( let i=1; i<=allData.length; i++ ){

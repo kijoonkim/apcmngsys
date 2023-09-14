@@ -7,7 +7,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
-import org.hsqldb.lib.StringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -280,7 +279,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 			prfmncVO.setSortno(sortno);
 			prfmncVO.setSortSn(sortSn);
-
+			prfmncVO.setStdGrdList(prfmncInfo.getStdGrdList());
 			sortPrfmncVOList.add(prfmncVO);
 		}
 

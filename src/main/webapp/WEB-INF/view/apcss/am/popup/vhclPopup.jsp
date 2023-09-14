@@ -81,7 +81,7 @@
 <script type="text/javascript">
 
 	/* grid 내 select json */
-	var jsonComBankCdVhclPop = [];	// 은행 bankCd Grid
+	var jsonComBankCdVhclPop = [];	// 은행 bankCd
 
 	var grdVhclPop = null;
 	var jsonVhclPop = [];
@@ -213,10 +213,6 @@
 			this.createGrid();
 			this.search();
 		},
-		/**
-		 * @param {number} nRow
-		 * @param {number} nCol
-		 */
 		add: function(nRow, nCol) {
 			grdVhclPop.setCellData(nRow, nCol, "N", true);
 			grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, false);
@@ -239,7 +235,7 @@
 				const postJsonPromise = gfn_postJSON("/am/cmns/deleteWrhsVhclList.do", {
 					apcCd: apcCd,
 					vhclno: rowData.vhclno
-				}, this.prgrmId);	// 프로그램id 추가
+				}, this.prgrmId);
 
 				const data = await postJsonPromise;
 		        try {
@@ -291,7 +287,6 @@
 			if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
 	    		return;
 	    	}
-	    	console.log(vhclList);
 
 	    	const postJsonPromise = gfn_postJSON("/am/cmns/multiVhclList.do", vhclList, this.prgrmId);	// 프로그램id 추가
 
@@ -314,8 +309,6 @@
 
 	    	// grid clear
 	    	jsonVhclPop.length = 0;
-	    	//grdVhclPop.refresh();
-	    	//grdVhclPop.clearStatus();
 	    	await this.setGrid(pageSize, pageNo);
 		},
 		setGrid: async function(pageSize, pageNo) {
@@ -335,7 +328,6 @@
 	        const data = await postJsonPromise;
 
 			try {
-	        	/** @type {number} **/
 	    		let totalRecordCount = 0;
 
 	    		jsonVhclPop.length = 0;

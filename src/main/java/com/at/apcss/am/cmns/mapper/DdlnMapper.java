@@ -29,7 +29,7 @@ public interface DdlnMapper {
 	 * @return List<DdlnVO>
 	 * @throws Exception
 	 */
-	public List<DdlnVO> selectDdln(DdlnVO DdlnVO) throws Exception;
+	public List<DdlnVO> selectDdlnList(DdlnVO DdlnVO) throws Exception;
 	
 	/**
 	 * 마감정보 등록

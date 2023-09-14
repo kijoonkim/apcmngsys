@@ -111,6 +111,7 @@
 					</tbody>
 				</table>
 				<!--[pp] //검색 -->
+				
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
@@ -120,8 +121,9 @@
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-spmtPrfmnc" style="height:500px;"></div>
 				</div>
+				<!--[pp] //검색결과 -->
+			
 			</div>
-			<!--[pp] //검색결과 -->
 		</div>
 	</section>
 	<!-- 거래처 선택 Modal -->
@@ -159,9 +161,10 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
-		 	gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', 	jsonComTrsprtCoCd, 	gv_selectedApcCd),		// 운송사
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd)		// 품목
+		 	gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', 	jsonComTrsprtCoCd, 	gv_selectedApcCd),						// 운송사
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd)						// 품목
 		]);
+        fn_search();
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -201,9 +204,12 @@
             {caption: ['배송지','배송지'], 		ref: 'dldtn', 		width: '140px',	type: 'output',	style:'text-align: center'},
             {caption: ['운송사','운송사'], 		ref: 'trsprtCoNm', 	width: '140px',	type: 'output',	style:'text-align: center'},
             {caption: ['차량번호','차량번호'], 	ref: 'vhclno',		width: '140px',	type: 'output',	style:'text-align: center'},
-            {caption: ['운반비','운반비'], 		ref: 'trsprtCst', 	width: '140px',	type: 'output',	style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-            {caption: ['출하','수량'], 		ref: 'spmtQntt', 	width: '140px',	type: 'output',	style:'text-align: right', format : {type:'number', rule:'#,###'}},
-            {caption: ['출하','중량'], 		ref: 'spmtWght', 	width: '140px',	type: 'output',	style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}}
+            {caption: ['운반비','운반비'], 		ref: 'trsprtCst', 	width: '140px',	type: 'output',	style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            {caption: ['출하','수량'], 		ref: 'spmtQntt', 	width: '140px',	type: 'output',	style:'text-align: right',
+            	format : {type:'number', rule:'#,###'}},
+            {caption: ['출하','중량'], 		ref: 'spmtWght', 	width: '140px',	type: 'output',	style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}}
         ];
         grdSpmtPrfmnc = _SBGrid.create(SBGridProperties);
         grdSpmtPrfmnc.bind( "afterpagechanged" , "fn_pagingSmptPrfmnc" );

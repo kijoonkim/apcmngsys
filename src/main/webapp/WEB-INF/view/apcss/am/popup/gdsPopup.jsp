@@ -151,15 +151,13 @@
 
 	    	// grid clear
 	    	jsonGdsPop.length = 0;
-	    	//grdGds.refresh();
-	    	//grdGds.clearStatus();
 	    	await this.setGrid(pageSize, pageNo);
 		},
 		setGrid: async function(pageSize, pageNo) {
 	    	let apcCd = SBUxMethod.get("gds-inp-apcCd");
 			let gdsNm = SBUxMethod.get("gds-inp-gdsNm");
 
-	        const postJsonPromise = gfn_postJSON("/am/cmns/selectGdsList.do", {
+	        const postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsGdsList.do", {
 	        	apcCd				: apcCd,
 	        	gdsNm				: gdsNm,
 	        	// pagination
@@ -171,7 +169,6 @@
 	        const data = await postJsonPromise;
 
 			try {
-	        	/** @type {number} **/
 	    		let totalRecordCount = 0;
 
 	    		jsonGdsPop.length = 0;

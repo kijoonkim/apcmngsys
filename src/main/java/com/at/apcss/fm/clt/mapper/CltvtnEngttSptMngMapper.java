@@ -44,6 +44,7 @@ public interface CltvtnEngttSptMngMapper {
 	 * @return
 	 */
 	public int insertCltvtnEngttSptMng(CltvtnEngttSptMngVO cltvtnEngttSptMngVO);
+	public int insertCltvtnEngttSptMng2(CltvtnEngttSptMngVO cltvtnEngttSptMngVO);
 
 	/**
 	 * 메시지정보를 변경한다.
@@ -51,6 +52,7 @@ public interface CltvtnEngttSptMngMapper {
 	 * @return
 	 */
 	public int updateCltvtnEngttSptMng(CltvtnEngttSptMngVO cltvtnEngttSptMngVO);
+	public int updateCltvtnEngttSptMng2(CltvtnEngttSptMngVO cltvtnEngttSptMngVO);
 
 	/**
 	 * 메시지정보를 삭제한다.

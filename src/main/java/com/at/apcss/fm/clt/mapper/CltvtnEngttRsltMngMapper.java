@@ -51,6 +51,7 @@ public interface CltvtnEngttRsltMngMapper {
 	 * @return
 	 */
 	public int updateCltvtnEngttRsltMng(CltvtnEngttRsltMngVO cltvtnEngttRsltMngVO);
+	public int updateCltvtnEngttRsltMng2(CltvtnEngttRsltMngVO cltvtnEngttRsltMngVO);
 
 	/**
 	 * 메시지정보를 삭제한다.

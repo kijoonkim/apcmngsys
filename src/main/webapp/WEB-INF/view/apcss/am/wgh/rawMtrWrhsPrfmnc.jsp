@@ -16,13 +16,13 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_rawMtrWrhsPrfmncSearch" text="조회" ></sbux-button>
-					
+
 				</div>
 			</div>
 			<div>
 			</div>
 			<div class="box-body">
-				<!--[APC] START -->			
+				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
 				<!--[pp] 검색 -->
@@ -72,7 +72,7 @@
 									id="srch-inp-prdcrNm"
 									name="srch-inp-prdcrNm"
 									class="form-control input-sm"
-									placeholder="초성검색 기능입니다."
+									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
     								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
@@ -81,12 +81,12 @@
    								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button 
-									id="btn-srch-prdcr" 
-									name="btn-srch-prdcr" 
-									class="btn btn-xs btn-outline-dark" 
-									text="찾기" uitype="modal" 
-									target-id="modal-prdcr" 
+								<sbux-button
+									id="btn-srch-prdcr"
+									name="btn-srch-prdcr"
+									class="btn btn-xs btn-outline-dark"
+									text="찾기" uitype="modal"
+									target-id="modal-prdcr"
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
@@ -178,7 +178,7 @@
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
-    
+
 
     <!-- 차량 선택 Modal -->
     <div>
@@ -204,12 +204,12 @@
 
     var jsonPrdcr				= [];
     var jsonPrdcrAutocomplete 	= [];
-    
+
     var jsonWrhsSeCd			= [];	// 입고구분 checkbox 검색
    	var jsonGdsSeCd				= [];	// 상품구분 checkbox 검색
     var jsonTrsprtSeCd			= [];	// 운송구분 checkbox 검색
-    
-    
+
+
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
@@ -230,11 +230,10 @@
     const fn_modalVrty = function() {
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
 	}
-    
+
     const fn_setVrty = function(vrty) {
 
 		if (!gfn_isEmpty(vrty)) {
-			console.log("vrty", vrty);
 			vrtyCds = [];
 			vrtyCds.push(vrty.vrtyCd);
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
@@ -253,7 +252,7 @@
 			SBUxMethod.set('srch-inp-vrtyCd', _vrtys.join(','));
 		}
 	}
-    
+
 	/**
 	 * @name fn_choiceVhcl
 	 * @description 차량번호 선택 popup
@@ -271,13 +270,8 @@
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid();
-
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2)
-		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-startPrdctnYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-endPrdctnYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-startPrdctnYmd", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-endPrdctnYmd", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 
 		fn_initSBSelect();
@@ -335,7 +329,7 @@
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
-	
+
 	const fn_onChangeApc = async function() {
 		fn_clearPrdcr();
 		fn_initSBSelect();
@@ -356,7 +350,7 @@
 	    	inptCmndDsctnList.rebuild();
 	    	let pageSize = inptCmndDsctnList.getPageSize();
 	    	let pageNo = 1;
-	
+
 	    	// grid clear
 	    	jsoninptCmndDsctnList.length = 0;
 	    	inptCmndDsctnList.clearStatus();
@@ -379,7 +373,6 @@
 	  		let vhclno = SBUxMethod.get("srch-inp-vhclno");	// 차량번호
 	  		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 			let vrtyCd = vrtyCds.length > 0 ? vrtyCds.join(',') : "";
-			console.log("vrtyCd", vrtyCd);
 			const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsPrfmncList.do", {
 				apcCd: gv_selectedApcCd,
 				wrhsYmdFrom: wrhsYmdFrom,
@@ -397,7 +390,7 @@
 	  			currentPageNo : pageNo,
 	   		  	recordCountPerPage : pageSize
 	  		});
-			
+
 	        const data = await postJsonPromise;
 	 	   try{
 			/** @type {number} **/
@@ -455,7 +448,6 @@
           		inptCmndDsctnList.setPageTotalCount(totalRecordCount);
           		inptCmndDsctnList.rebuild();
           	}
-          	document.querySelector('#listCount').innerText = totalRecordCount;
        } catch (e) {
      		if (!(e instanceof Error)) {
      			e = new Error(e);
@@ -463,17 +455,17 @@
      		console.error("failed", e.message);
 		}
 	}
-	
+
 	function fn_getChkbox(json, result) {
 		val = [];
 		for(var key in result){
 			if(result[key] == true)
 				val.push(json[Number(key.substring(key.lastIndexOf('_')+1))].value);
 		}
-		
+
 		return val.join(',');
 	}
-	
+
 	/*
 	* @name fn_getPrdcrs
 	* @description 생산자 자동완성 목록 가져오기
@@ -482,7 +474,7 @@
 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
 		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
-	
+
 	/**
 	* @name fn_onKeyUpPrdcrNm
 	* @description 생산자명 입력 시 event : autocomplete
@@ -505,7 +497,7 @@
 		SBUxMethod.set("srch-inp-prdcrCd", "");
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
 	}
-	
+
 	/**
 	 * @name fn_onSelectPrdcrNm
 	 * @description 생산자 autocomplete 선택 callback
@@ -520,7 +512,7 @@
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 		}
 	}
-	
+
 	/**
 	 * @name fn_choicePrdcr
 	 * @description 생산자 찾기 버튼 클릭
@@ -540,7 +532,7 @@
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 		}
 	}
-	
+
 	/**
 	 * @name getByteLengthOfString
 	 * @description 글자 byte 크기 계산
@@ -549,14 +541,14 @@
 		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
 		  return b;
 	}
-	
+
 	const fn_onKeyVhclno = function(vhclno){
 		if(getByteLengthOfString(vhclno) > 40){
 			SBUxMethod.set("srch-inp-vhclno", "");
 			return;
 		}
     }
-	
+
 </script>
 
 </html>

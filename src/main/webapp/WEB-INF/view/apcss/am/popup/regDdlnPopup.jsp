@@ -110,7 +110,7 @@
 		let apcCd = SBUxMethod.get("ddln-inp-apcCd");
 		let crtrYr = SBUxMethod.get("ddln-dtp-crtrYr");
 		let DdlnVO = {apcCd : apcCd, crtrYr : crtrYr};
-    	let postJsonPromise = gfn_postJSON("/am/cmns/selectDdln.do", DdlnVO);
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectDdlnList.do", DdlnVO);
         let data = await postJsonPromise;
         resultList = data.resultList;
         newJsonDdln = [];
@@ -179,7 +179,6 @@
 		if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-    	console.log(ddlnList);
 
     	const postJsonPromise = gfn_postJSON("/am/cmns/multiDdlnList.do", ddlnList, this.prgrmId);	// 프로그램id 추가
 

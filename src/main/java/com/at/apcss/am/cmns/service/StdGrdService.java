@@ -86,7 +86,7 @@ public interface StdGrdService {
 	 * @return
 	 * @throws Exception
 	 */
-	public StdGrdDtlVO selectStdGrdDtl(StdGrdDtlVO StdGrdDtlVO) throws Exception;
+	public StdGrdDtlVO selectStdGrdDtl(StdGrdDtlVO stdGrdDtlVO) throws Exception;
 
 	/**
 	 * APC 등급 정보 상세 목록 조회
@@ -94,7 +94,7 @@ public interface StdGrdService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<StdGrdDtlVO> selectStdGrdDtlList(StdGrdDtlVO StdGrdDtlVO) throws Exception;
+	public List<StdGrdDtlVO> selectStdGrdDtlList(StdGrdDtlVO stdGrdDtlVO) throws Exception;
 
 	/**
 	 * APC 등급 정보 상세 등록
@@ -102,7 +102,7 @@ public interface StdGrdService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertStdGrdDtl(StdGrdDtlVO StdGrdDtlVO) throws Exception;
+	public int insertStdGrdDtl(StdGrdDtlVO stdGrdDtlVO) throws Exception;
 
 	/**
 	 * APC 등급 정보 상세 변경
@@ -110,7 +110,7 @@ public interface StdGrdService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateStdGrdDtl(StdGrdDtlVO StdGrdDtlVO) throws Exception;
+	public int updateStdGrdDtl(StdGrdDtlVO stdGrdDtlVO) throws Exception;
 
 	/**
 	 * APC 등급 정보 상세 삭제
@@ -118,7 +118,7 @@ public interface StdGrdService {
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> deleteStdGrdDtl(StdGrdDtlVO StdGrdDtlVO) throws Exception;
+	public HashMap<String, Object> deleteStdGrdDtl(StdGrdDtlVO stdGrdDtlVO) throws Exception;
 
 	/**
 	 * APC 등급 정보 상세 전체 삭제
@@ -126,7 +126,7 @@ public interface StdGrdService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteStdGrdDtlAll(StdGrdDtlVO StdGrdDtlVO) throws Exception;
+	public int deleteStdGrdDtlAll(StdGrdDtlVO stdGrdDtlVO) throws Exception;
 
 	/**
 	 * APC 등급 세부 정보 단건 조회
@@ -134,7 +134,7 @@ public interface StdGrdService {
 	 * @return
 	 * @throws Exception
 	 */
-	public StdGrdJgmtVO selectStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+	public StdGrdJgmtVO selectStdGrdJgmt(StdGrdJgmtVO stdGrdJgmtVO) throws Exception;
 
 	/**
 	 * APC 등급 세부 정보 목록 조회
@@ -142,7 +142,7 @@ public interface StdGrdService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<StdGrdJgmtVO> selectStdGrdJgmtList(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+	public List<StdGrdJgmtVO> selectStdGrdJgmtList(StdGrdJgmtVO stdGrdJgmtVO) throws Exception;
 
 	/**
 	 * APC 등급 세부 정보 등록
@@ -150,7 +150,7 @@ public interface StdGrdService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+	public int insertStdGrdJgmt(StdGrdJgmtVO stdGrdJgmtVO) throws Exception;
 
 	/**
 	 * APC 등급 세부 정보 변경
@@ -158,7 +158,7 @@ public interface StdGrdService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+	public int updateStdGrdJgmt(StdGrdJgmtVO stdGrdJgmtVO) throws Exception;
 
 	/**
 	 * APC 등급 세부 정보  삭제
@@ -166,7 +166,7 @@ public interface StdGrdService {
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> deleteStdGrdJgmt(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+	public HashMap<String, Object> deleteStdGrdJgmt(StdGrdJgmtVO stdGrdJgmtVO) throws Exception;
 
 	/**
 	 * APC 등급 세부 정보 전체 삭제
@@ -174,5 +174,5 @@ public interface StdGrdService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteStdGrdJgmtAll(StdGrdJgmtVO StdGrdJgmtVO) throws Exception;
+	public int deleteStdGrdJgmtAll(StdGrdJgmtVO stdGrdJgmtVO) throws Exception;
 }

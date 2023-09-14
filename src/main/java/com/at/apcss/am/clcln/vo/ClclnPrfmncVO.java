@@ -105,26 +105,6 @@ public class ClclnPrfmncVO extends ComVO {
 	 */
 	private String grdCd;
 	/**
-	 * 등급1
-	 */
-	private int grd1;
-	/**
-	 * 등급2
-	 */
-	private int grd2;
-	/**
-	 * 등급3
-	 */
-	private int grd3;
-	/**
-	 * 등급4
-	 */
-	private int grd4;
-	/**
-	 * 등급5
-	 */
-	private int grd5;
-	/**
 	 * 수량
 	 */
 	private int qntt;

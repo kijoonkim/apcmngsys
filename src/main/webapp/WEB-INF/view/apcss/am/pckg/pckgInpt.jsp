@@ -98,7 +98,7 @@
 							<th scope="row" class="th_bg" style="border-right: hidden;">대표생산자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-prdcrNm" name="srch-inp-prdcrNm" class="form-control input-sm"
-								placeholder="초성검색 기능입니다." autocomplete-ref="autoCompleteDataJson" autocomplete-text="name"
+								placeholder="초성검색 가능" autocomplete-ref="autoCompleteDataJson" autocomplete-text="name"
     							onkeyup="keyUpInp(srch-inp-prdcrNm, 'srch-inp-prdcrNm', 'false')"></sbux-input>
 						    </td>
 						    <td class="td_input">

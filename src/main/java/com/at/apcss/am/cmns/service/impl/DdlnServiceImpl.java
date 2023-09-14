@@ -37,9 +37,9 @@ public class DdlnServiceImpl implements DdlnService {
 	private DdlnMapper DdlnMapper;
 
 	@Override
-	public List<DdlnVO> selectDdln(DdlnVO DdlnVO) throws Exception {
+	public List<DdlnVO> selectDdlnList(DdlnVO DdlnVO) throws Exception {
 
-		List<DdlnVO> resultList = DdlnMapper.selectDdln(DdlnVO);
+		List<DdlnVO> resultList = DdlnMapper.selectDdlnList(DdlnVO);
 		
 		return resultList;
 	}

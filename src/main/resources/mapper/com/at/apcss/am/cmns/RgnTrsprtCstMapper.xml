@@ -13,24 +13,6 @@
 <mapper namespace="com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.selectRawMtrTrsprtCst-->
-	<!-- DESC : 원물운임비용등록팝업 - 지역별 운임비 조회.	             		                -->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.09.07  	하민우        	Initial Creation        	                -->
-	<!-- ==========================================================================	-->
-    <select id="selectRawMtrTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO" resultType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
-    	<![CDATA[
-    	SELECT TC.TRSPRT_CST        AS TRSPRT_CST
-		  FROM TB_RGN_TRSPRT_CST_INFO TC
-		 WHERE TC.APC_CD = #{apcCd}
-		   AND TC.TRSPRT_RGN_CD = #{trsprtRgnCd}
-		   AND TC.DEL_YN = 'N'
-		]]>
-    </select>
-
-	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.selectRgnTrsprtCstList-->
 	<!-- DESC : 지역별 운임 목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->

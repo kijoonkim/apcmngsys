@@ -124,8 +124,8 @@
 						</tr>
 					</tbody>
 				</table>
-
 				<!--[pp] //검색 -->
+				
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
@@ -135,9 +135,10 @@
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-grdSpmtCmnd" style="width:100%;height:550px;"></div>
 				</div>
+				<!--[pp] //검색결과 -->
+				
 			</div>
 		</div>
-				<!--[pp] //검색결과 -->
 	</section>
 	<!-- 거래처 선택 Modal -->
     <div>
@@ -159,12 +160,13 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-			gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', jsonTrsprtCoCd, gv_selectedApcCd),			// 운송회사
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),					// 품목
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),					// 품종
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd),			// 규격
+			gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', jsonTrsprtCoCd, gv_selectedApcCd),				// 운송회사
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),						// 품목
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),						// 품종
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd),				// 규격
 			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd)	// 포장단위
 		]);
+        fn_search();
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -199,9 +201,11 @@
             {caption: ['상품명'], 	ref: 'gdsNm', 			width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['운송회사'], 	ref: 'trsprtCoNm', 		width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['배송처'], 	ref: 'dldtn', 			width: '120px',	type: 'output',	style:'text-align: center'},
-            {caption: ['수량'], 		ref: 'cmndQntt', 		width: '120px',	type: 'output',	style:'text-align: right', format : {type:'number', rule:'#,###'}},
-            {caption: ['중량'], 		ref: 'cmndWght', 		width: '120px',	type: 'output',	style:'text-align: right', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ['상품등급'], 	ref: 'gdsGrd', 			width: '120px',	type: 'output',	style:'text-align: center'},
+            {caption: ['수량'], 		ref: 'cmndQntt', 		width: '120px',	type: 'output',	style:'text-align: right',
+            	format : {type:'number', rule:'#,###'}},
+            {caption: ['중량'], 		ref: 'cmndWght', 		width: '120px',	type: 'output',	style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['포장단위'], 	ref: 'spmtPckgUnitNm', 	width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['품종'], 		ref: 'vrtyNm', 			width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 		width: '120px',	type: 'output',	style:'text-align: center'},
@@ -265,7 +269,7 @@
 				  , dldtn 			: item.dldtn
 				  , cmndQntt		: item.cmndQntt
 				  , cmndWght 		: item.cmndWght
-				  , gdsGrd 			: item.gdsGrd
+				  , gdsGrdNm 		: item.gdsGrdNm
 				  , spmtPckgUnitNm 	: item.spmtPckgUnitNm
 				  , vrtyNm 			: item.vrtyNm
 				  , spcfctNm 		: item.spcfctNm
@@ -350,7 +354,6 @@
 	
 	const fn_setCnpt = function(cnpt) {
 		if (!gfn_isEmpty(cnpt)) {
-			console.log("cnpt", cnpt);
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
 		}
 	}

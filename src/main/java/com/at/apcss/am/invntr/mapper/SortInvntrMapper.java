@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
+import com.at.apcss.am.invntr.vo.SortStdGrdVO;
 
 /**
  * 선별재고 Mapper 인터페이스
@@ -44,7 +45,7 @@ public interface SortInvntrMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	
+
 	public List<SortInvntrVO> selectSortInvntrDsctnList(SortInvntrVO sortInvntrVO) throws Exception;
 
 	/**
@@ -80,5 +81,12 @@ public interface SortInvntrMapper {
 	 */
 	public int updateInvntrPckgPrfmnc(SortInvntrVO sortInvntrVO) throws Exception;
 
+	/**
+	 * 선별재고 등급 등록
+	 * @param sortStdGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSortStdGrd(SortStdGrdVO sortStdGrdVO) throws Exception;
 
 }

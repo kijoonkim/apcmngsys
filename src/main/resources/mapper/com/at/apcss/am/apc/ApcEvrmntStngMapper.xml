@@ -70,11 +70,12 @@
 		     , CU.LCK_YN            AS LCK_YN
 		     , CU.LGN_FAIL_NMTM     AS LGN_FAIL_NMTM
 		     , CU.RMRK     			AS RMRK
-		     , DECODE(CU.DEL_YN, 'N', 'Y', 'Y', 'N')    AS DEL_YN
+		     , CU.DEL_YN    		AS DEL_YN
 		  FROM TB_COM_USER CU
 		 WHERE USER_TYPE IN ('10', '11')
 		   AND USER_STTS IN ('01', '00')
 		   AND CU.APC_CD = #{apcCd}
+		   AND CU.USER_ID != #{sysUserId}
 		]]>
 		<if test='userNm != null and userNm != ""'>
 		   AND CU.USER_NM LIKE '%' ||  #{userNm} || '%'

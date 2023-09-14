@@ -33,13 +33,13 @@ import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
  */
 @Service("prdcrService")
 public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
-	
+
 	@Autowired
 	private PrdcrMapper prdcrMapper;
-	
+
 	@Override
 	public PrdcrVO selectPrdcr(PrdcrVO prdcrVO) throws Exception {
-		
+
 		PrdcrVO resultVO = prdcrMapper.selectPrdcr(prdcrVO);
 
 		return resultVO;
@@ -47,9 +47,9 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 
 	@Override
 	public List<PrdcrVO> selectPrdcrList(PrdcrVO prdcrVO) throws Exception {
-		
+
 		List<PrdcrVO> resultList = prdcrMapper.selectPrdcrList(prdcrVO);
-		
+
 		return resultList;
 	}
 
@@ -70,6 +70,14 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 	}
 
 	@Override
+	public HashMap<String, Object> updatePrdcrRprs(PrdcrVO prdcrVO) throws Exception {
+
+		int updatedCnt = prdcrMapper.updatePrdcrRprs(prdcrVO);
+
+		return null;
+	}
+
+	@Override
 	public HashMap<String, Object> deletePrdcr(PrdcrVO prdcrVO) throws Exception {
 
 		int deletedCnt = prdcrMapper.deletePrdcr(prdcrVO);
@@ -80,14 +88,14 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 	@Override
 	public HashMap<String, Object> multiPrdcrList(List<PrdcrVO> prdcrList) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 		List<PrdcrVO> insertList = new ArrayList<>();
 		List<PrdcrVO> updateList = new ArrayList<>();
-		
+
 		for ( PrdcrVO prdcrVO : prdcrList ) {
 			PrdcrVO vo = new PrdcrVO();
 			BeanUtils.copyProperties(prdcrVO, vo);
-			
+
 			if (ComConstants.ROW_STS_INSERT.equals(prdcrVO.getRowSts())) {
 				insertList.add(vo);
 			}
@@ -95,7 +103,7 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 				updateList.add(vo);
 			}
 		}
-		
+
 		for ( PrdcrVO prdcrVO : insertList ) {
 
 			PrdcrVO newPrdcr = prdcrMapper.selectNewPrdcrCd(prdcrVO);
@@ -105,12 +113,11 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 			prdcrVO.setPrdcrCd(newPrdcr.getPrdcrCd());
 			prdcrMapper.insertPrdcr(prdcrVO);
 		}
-		
+
 		for ( PrdcrVO prdcrVO : updateList ) {
 			prdcrMapper.updatePrdcr(prdcrVO);
 		}
-		
-		
+
 		return null;
 	}
 

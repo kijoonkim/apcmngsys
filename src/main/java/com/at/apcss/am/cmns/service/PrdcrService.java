@@ -54,13 +54,21 @@ public interface PrdcrService {
 	public HashMap<String, Object> updatePrdcr(PrdcrVO prdcrVO) throws Exception;
 
 	/**
+	 * 생산자 대표정보 최신화
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updatePrdcrRprs(PrdcrVO prdcrVO) throws Exception;
+
+	/**
 	 * 생산자정보 삭제
 	 * @param prdcrVO
 	 * @return
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deletePrdcr(PrdcrVO prdcrVO) throws Exception;
-	
+
 	/**
 	 * 생산자정보 등록
 	 * @param prdcrList
@@ -68,5 +76,5 @@ public interface PrdcrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> multiPrdcrList(List<PrdcrVO> prdcrList) throws Exception;
-	
+
 }

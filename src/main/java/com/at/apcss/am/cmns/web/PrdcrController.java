@@ -65,12 +65,12 @@ public class PrdcrController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
 		try {
-			for ( PrdcrVO prdcrVO : prdcrList ) {
-				prdcrVO.setVhclno(prdcrVO.getVhclno().replaceAll(" ", ""));
-				prdcrVO.setSysFrstInptUserId(getUserId());
-				prdcrVO.setSysFrstInptPrgrmId(getPrgrmId());
-				prdcrVO.setSysLastChgUserId(getUserId());
-				prdcrVO.setSysLastChgPrgrmId(getPrgrmId());
+			for ( var i=0; i<prdcrList.size(); i++ ) {
+				prdcrList.get(i).setVhclno(prdcrList.get(i).getVhclno().replaceAll(" ", ""));
+				prdcrList.get(i).setSysFrstInptUserId(getUserId());
+				prdcrList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
+				prdcrList.get(i).setSysLastChgUserId(getUserId());
+				prdcrList.get(i).setSysLastChgPrgrmId(getPrgrmId());
 			}
 			
 			HashMap<String, Object> rtnObj = prdcrService.multiPrdcrList(prdcrList);
@@ -92,11 +92,6 @@ public class PrdcrController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
 		try {
-			prdcrVO.setSysFrstInptUserId(getUserId());
-			prdcrVO.setSysFrstInptPrgrmId(getPrgrmId());
-			prdcrVO.setSysLastChgUserId(getUserId());
-			prdcrVO.setSysLastChgPrgrmId(getPrgrmId());
-			
 			HashMap<String, Object> rtnObj = prdcrService.deletePrdcr(prdcrVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);

@@ -65,7 +65,7 @@
 									id="dtl-inp-prdcrNm"
 									name="dtl-inp-prdcrNm"
 									class="form-control input-sm"
-									placeholder="초성검색 기능입니다."
+									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
     								onkeyup="fn_onKeyUpPrdcrNm(dtl-inp-prdcrNm)"
