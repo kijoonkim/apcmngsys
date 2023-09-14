@@ -670,6 +670,8 @@
         	SBUxMethod.set("slt-bankCd", resultVO.bankCd);
         	SBUxMethod.set("inp-dpstr", resultVO.dpstr);
         	SBUxMethod.set("inp-brno", resultVO.brno);
+        	SBUxMethod.set("rdo-clclnCrtr", resultVO.clclnCrtr);
+        	SBUxMethod.set("rdo-apcSeCd", resultVO.apcSeCd);
         	SBUxMethod.set("chk-wghMngYn", resultVO.wghMngYn);
         	SBUxMethod.set("chk-wghMblUseYn", resultVO.wghMblUseYn);
         	SBUxMethod.set("chk-wghIdntyDocPblcnYn", resultVO.wghIdntyDocPblcnYn);
