@@ -148,15 +148,16 @@
 	}
 
 	const fn_updateComUserAprv = async function(nRow, usrtStts) {
-    	let userId = userAuthMngDatagrid.getRowData(nRow).userId;
+    	let userId = grdUserAuth.getRowData(nRow).userId;
     	let postJsonPromise = gfn_postJSON("/co/user/updateComUserAprv", {userId : userId, userStts : usrtStts});
     	let data = await postJsonPromise;
     	try{
-    		if(data.result == 0){
-    			alert("처리 실패 했습니다.");
-    		}else{
-    			fn_callSelectUserList();
-    		}
+    		if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+        		fn_selectUserList();
+        	} else {
+        		alert(data.resultMessage);
+        	}
     	}catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -197,7 +198,7 @@
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-        		fn_callSelectUserList();
+        		fn_selectUserList();
         	} else {
         		alert(data.resultMessage);
         	}
