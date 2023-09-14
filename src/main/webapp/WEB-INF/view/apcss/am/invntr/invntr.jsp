@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-					<h3 class="box-title">▶ 재고정보조회</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="button" class="btn btn-sm btn-outline-danger" onclick="fn_selectGridList()">조회</sbux-button>
@@ -23,6 +23,9 @@
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
+				<!--[APC] START -->
+				<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -41,14 +44,6 @@
 						<col style="width: 3%">
 					</colgroup>
 					<tbody>
-						<tr>
-							<th scope="row" class="th_bg">APC명</th>
-							<td colspan= "3" class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" class="form-control input-sm" disabled/>
-							</td>
-							<td colspan="9">&nbsp;</td>
-						</tr>
-
 						<tr>
 							<th scope="row" class="th_bg">기준일자</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -108,7 +103,14 @@
 							<td colspan="2">&nbsp;</td>
 							<th scope="row" class="th_bg">입고구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-wrhsSe" name="srch-slt-wrhsSe" class="form-control input-sm" jsondata-ref="jsonComWrhsSeCdPrdcrPop"/>
+								<sbux-select
+									unselected-text="선택"
+									uitype="single"
+									id="srch-slt-wrhsSeCd"
+									name="srch-slt-wrhsSeCd"
+									class="form-control input-sm"
+									jsondata-ref="jsonComWrhsSeCd"
+								/>
 							</td>
 							<td class="td_input" colspan="2" style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg">비고</th>
@@ -150,20 +152,22 @@
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
-	
+
 	var jsonComItem			= [];	// 품목 	itemCd			검색
 	var jsonComVrty			= [];	// 품종 	vrtyCd			검색
 	var jsonSpcfct			= [];	// 규격 	spcfctCd		검색
 	var jsonComWarehouse	= [];	// 창고 	warehouseSeCd	검색
+	var jsonComWrhsSeCd		= [];	// 창고 	warehouseSeCd	검색
 	var jsonComFcltCd		= [];	// 선별기 	fcltCd		검색
 	var jsonComGdsSeCdPrdcrPop		= [];	// 상품구분 gdsSeCd	Grid
 	var jsonComWrhsSeCdPrdcrPop		= [];	// 입고구분 wrhsSeCd	Grid
 	var jsonPrdcr			= [];
-	
+
 	const fn_initSBSelect = async function() {
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-slt-warehouseSe', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
+			gfn_setComCdSBSelect('srch-slt-wrhsSeCd', 		jsonComWrhsSeCd, 	'WRHS_SE_CD'),							// 창고
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd),						// 품목
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 		gv_selectedApcCd),						// 품종
 		 	gfn_setComCdSBSelect('srch-slt-fcltCd', 		jsonComFcltCd, 		'FCLT_CD',		  gv_selectedApcCd),		// 선벌기
@@ -171,43 +175,37 @@
 		 	gfn_setComCdSBSelect('srch-slt-wrhsSe', jsonComWrhsSeCdPrdcrPop, 'WRHS_SE_CD',gv_selectedApcCd),		// 입고구분
 		 	gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonSpcfct, gv_selectedApcCd, itemCd, gv_selectedApcCd)	// 규격
 		])
+		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true');
 	}
-	
+
 	var checkSection = 1;
 
+
 	// only document
-	let today = new Date();
-	let year = today.getFullYear();
-	let month = ('0' + (today.getMonth() + 1)).slice(-2);
-	let day = ('0' + today.getDate()).slice(-2);
-	let yearMonthDay = year+month+day;
-	
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_sample1();
-// 		fn_createGrid2();
-// 		fn_createGrid3();
-
-
-		SBUxMethod.set("srch-dtp-crtrYmd", year+month+day);
-		
-		
+		SBUxMethod.set("srch-dtp-crtrYmd", gfn_dateToYmd(new Date()));
 		fn_initSBSelect();
 	});
 
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 	function fn_sample1(){
+		// "srch-slt-spcfctCd"
+		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
 		_SBGrid.destroy('inptCmndDsctnList');
 		inptCmndDsctnList = [];
 		fn_createGrid1();
 	}
 	function fn_sample2(){
 		_SBGrid.destroy('inptCmndDsctnList');
+		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
 		inptCmndDsctnList = [];
 		fn_createGrid2();
 	}
 	function fn_sample3(){
 		_SBGrid.destroy('inptCmndDsctnList');
+		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
 		inptCmndDsctnList = [];
 		fn_createGrid3();
 	}
@@ -250,10 +248,10 @@
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
-		
+
 		fn_selectGridList();
 	}
-	
+
 	//조회
     const fn_selectGridList = async function() {
     	inptCmndDsctnList.rebuild();
@@ -265,10 +263,10 @@
     	jsoninptCmndDsctnList2.length = 0;
     	jsoninptCmndDsctnList3.length = 0;
     	inptCmndDsctnList.clearStatus();
-    	
+
     	//검색조건
     	let crtrYmd  = SBUxMethod.get("srch-dtp-crtrYmd");	//기준일자
-    	
+
     	if(checkSection == 1 ){
     		fn_callSelectGrid1List(pageSize, pageNo);
     	}else if(checkSection == 2){
@@ -279,7 +277,7 @@
 	}
     var newSortInptPrfmncGridData = [];
 	const fn_callSelectGrid1List = async function(pageSize, pageNo) {
-		
+
 		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
 		let invntrySe = SBUxMethod.get("srch-slt-invntrySe");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
@@ -287,9 +285,16 @@
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
 		let prdcr = SBUxMethod.get("srch-inp-prdcr");
 		let gdsSe = SBUxMethod.get("srch-slt-gdsSe");
-		let wrhsSe = SBUxMethod.get("srch-slt-wrhsSe");
-		console.log ("crtrYmd : ", crtrYmd);
-		console.log("year+month+day : ", year+month+day);
+		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
+
+		let url = "";
+		if(crtrYmd == gfn_dateToYmd(new Date())){
+			url = "/am/invntr/selectRawMtrInvntrList.do";
+			crtrYmd = "";
+		}else{
+			// 재고 이력 테이블
+			url = "/am/invntr/selectRawMtrInvntrList.do";
+		}
 		const postJsonPromise1 = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
 				apcCd		:  gv_selectedApcCd,
 				crtrYmd: crtrYmd,
@@ -299,13 +304,13 @@
 				spcfctCd: spcfctCd,
 				prdcr: prdcr,
 				gdsSe: gdsSe,
-				wrhsSe: wrhsSe,
-				
+				wrhsSeCd: wrhsSeCd,
+
 	          	// pagination
 	  	  		pagingYn : 'Y',
 	  			currentPageNo : pageNo,
 	   		  	recordCountPerPage : pageSize
-			
+
   		});
 
         let data1 = await postJsonPromise1;
@@ -367,7 +372,7 @@
           }
     }
 	//원물재고 내역 조회 끝
-	
+
 // 	var inptCmndDsctnList2; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList2 = []; // 그리드의 참조 데이터 주소 선언
 
@@ -409,7 +414,7 @@
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
-	    
+
 	    fn_selectGridList();
 	}
     var newSortInptPrfmncGridData = [];
@@ -423,7 +428,7 @@
 		let prdcr = SBUxMethod.get("srch-inp-prdcr");
 		let gdsSe = SBUxMethod.get("srch-slt-gdsSe");
 		let wrhsSe = SBUxMethod.get("srch-slt-wrhsSe");
-		
+
 		const postJsonPromise2 = gfn_postJSON("/am/invntr/selectSortInvntrDsctnList.do", {
 			apcCd		:  gv_selectedApcCd,
 			crtrYmd: crtrYmd,
@@ -494,7 +499,7 @@
           }
     }
 	//선별재고 내역 조회 끝
-	
+
 // 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList3 = []; // 그리드의 참조 데이터 주소 선언
 
@@ -537,14 +542,14 @@
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
-		
+
 	    fn_selectGridList();
 	}
-	
+
 	var newSortInptPrfmncGridData = [];
 	const fn_callSelectGrid3List = async function(pageSize, pageNo) {
 //     	let startsortYmd  = SBUxMethod.get("srch-inp-startsortYmd");
-		
+
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
           	// pagination
@@ -612,7 +617,7 @@
 // 	function fn_closeModal(modalId){
 // 		SBUxMethod.closeModal(modalId);
 // 	}
-	
+
 	//modal
 
 	async function fn_selectItem(){
@@ -624,7 +629,7 @@
 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
 		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
-	
+
 	const fn_modalVrty = function() {
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
 	}
