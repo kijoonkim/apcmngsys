@@ -391,8 +391,6 @@
 	/** [END] 표준등급 script */
 
 
-
-
 	/**
 	 * @name fn_getSpmtPckgUnit
      * @description APC출하포장단위 JSON 설정

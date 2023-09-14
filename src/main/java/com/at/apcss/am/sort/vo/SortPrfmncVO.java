@@ -232,6 +232,11 @@ public class SortPrfmncVO extends ComVO {
 	private String inptWarehouse;
 
 	/**
+	 * 포장자동등록 유무
+	 */
+	private String autoPckgInptYn;
+
+	/**
 	 * 표준등급
 	 */
 	private String stdGrd;

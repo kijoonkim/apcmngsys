@@ -258,6 +258,7 @@ const stdGrdSelect = {
 		});
 
 		let jgmtGrdCd = "";
+		let jgmtGrdNm = "";
 
 		jsonStdGrdJgmtPop.forEach((item, index) => {
 
@@ -268,28 +269,33 @@ const stdGrdSelect = {
 				case _JGMT_TYPE_VAL:	// 값
 					if (jgmtGrdVl === jgmtMinVl) {
 						jgmtGrdCd = item.grdCd;
+						jgmtGrdNm = item.grdNm;
 					}
-					break;
+					return false;
 				case _JGMT_TYPE_UEL:	// 이상 미만
 					if (jgmtGrdVl >= jgmtMinVl && jgmtGrdVl < jgmtMaxVl) {
 						jgmtGrdCd = item.grdCd;
+						jgmtGrdNm = item.grdNm;
 					}
-					break;
+					return false;
 				case _JGMT_TYPE_ULE:	// 초과 이하
 					if (jgmtGrdVl > jgmtMinVl && jgmtGrdVl <= jgmtMaxVl) {
 						jgmtGrdCd = item.grdCd;
+						jgmtGrdNm = item.grdNm;
 					}
-					break;
+					return false;
 				case _JGMT_TYPE_UELE:	// 이상 이하
 					if (jgmtGrdVl >= jgmtMinVl && jgmtGrdVl <= jgmtMaxVl) {
 						jgmtGrdCd = item.grdCd;
+						jgmtGrdNm = item.grdNm;
 					}
-					break;
+					return false;
 				case _JGMT_TYPE_UL:		// 초과 미만
 					if (jgmtGrdVl > jgmtMinVl && jgmtGrdVl < jgmtMaxVl) {
 						jgmtGrdCd = item.grdCd;
+						jgmtGrdNm = item.grdNm;
 					}
-					break;
+					return false;
 				default:
 					break;
 			}

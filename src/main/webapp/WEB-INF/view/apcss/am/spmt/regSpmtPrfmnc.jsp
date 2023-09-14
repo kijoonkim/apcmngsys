@@ -1,24 +1,36 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : regSpmtPrfmnc.jsp
+  * @Description : 출하실적등록 화면
+  * @author SI개발부
+  * @since 2023.08.31
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.08.31   	김호			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body>
 	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>	<!-- 출하실적등록 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal" text="송품장" class="btn btn-sm btn-primary"></sbux-button>
+					<sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal" text="송품장" class="btn btn-sm btn-primary" onclick="fn_docSpmt"></sbux-button>
 					<sbux-button id="btnSearchGdsInvnrt" name="btnSearchGdsInvnrt" uitype="normal" text="재고조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
 				</div>
@@ -251,6 +263,23 @@
     </div>
     <div id="body-modal-cnpt">
     	<jsp:include page="../../am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
+
+    <!-- 리포트출력 Modal -->
+    <div>
+        <sbux-modal
+	        id="modal-clipReport"
+	        name="modal-clipReport"
+	        uitype="large"
+	        header-title="클립리포트"
+	        body-html-id="body-modal-clipReport"
+	        header-is-close-button="false"
+	        footer-is-close-button="false"
+	        style="width:95vw;height:80vh;"
+        ></sbux-modal>
+    </div>
+    <div id="body-modal-clipReport">
+    	<jsp:include page="../../am/popup/clipReportPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -772,10 +801,10 @@
 		}
 	}
 
-	/*
-	* 거래처 팝업 필수 함수
-	* 시작
-	*/
+	/**
+	 * 거래처 팝업 필수 함수
+	 * 시작
+	 */
 	const fn_choiceCnpt = function() {
 		let cnptNm = SBUxMethod.get("dtl-inp-cnptNm");
 		popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, cnptNm, fn_setCnpt);
@@ -787,8 +816,37 @@
 		}
 	}
 	/*
-	* 거래처 팝업 필수 함수
-	* 종료
-	*/
+	 * 거래처 팝업 필수 함수
+	 * 종료
+	 */
+
+	/**
+     * @name fn_docSpmt
+     * @description 송품장 발행 버튼
+     */
+ 	const fn_docSpmt = function() {
+
+ 		const spmtnoList = [];
+		const allData = grdSpmtPrfmnc.getGridDataAll();
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+				spmtnoList.push(item.spmtno);
+    		}
+		});
+
+ 		if (spmtnoList.length === 0) {
+ 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+ 		}
+
+ 		const spmtno = spmtnoList.join("','");
+ 		popClipReport.modalView(
+ 				"modal-clipReport",
+ 				"송품장",
+ 				"am/trsprtCmdtyDoc.crf",
+ 				{apcCd: gv_selectedApcCd, spmtno: spmtno}
+ 			);
+ 	}
+
 </script>
 </html>
