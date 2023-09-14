@@ -83,11 +83,7 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 
 		List<SortInvntrVO> sortInvntrList = new ArrayList<>();
 
-		// 투입실적 등록용 list
-		List<SortInptPrfmncVO> inptRegList = new ArrayList<>();
-
 		// 투입실적 유무에 따라 선별번호 부여 or 선별투입실적 등록 처리
-
 		int insertedCnt = 0;
 		for ( SortPrfmncVO sortPrfmncVO : sortPrfmncList ) {
 			String sortno = sortPrfmncVO.getSortno();

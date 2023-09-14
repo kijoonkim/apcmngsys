@@ -415,12 +415,6 @@
 				jsonObj.push(item);
 			});
 		});
-		console.log("jsonStdGrdKnd");
-		console.log(jsonStdGrdKnd);
-
-		console.log("jsonStdGrd_1");
-		console.log(jsonStdGrd_1);
-
 	}
 
 	const fn_getStdGrdJgmtCd = function(vl) {
@@ -855,11 +849,6 @@
 				let jgmtGrdCd;
 
 				jsonStdGrdKnd.forEach((knd, idx) => {
-					console.log("knd");
-					console.log(knd);
-					console.log("item[knd.grdKnd]");
-					console.log(item[knd.grdKnd]);
-
 					let stdGrd = {
 						grdSeCd: _GRD_SE_CD_SORT,
 						itemCd: item.itemCd,
@@ -874,8 +863,13 @@
 					stdGrdList.push(stdGrd);
 				});
 
-				if (jsonStdGrdKnd.length > 1) {
+				if (jsonStdGrdKnd.length > 1 && jsonStdGrdJgmt.length > 0) {
 					jgmtGrdCd = item['jgmtGrdCd'];
+				}
+
+				if (gfn_isEmpty(jgmtGrdCd)) {
+					gfn_comAlert("W0005", "선별등급");		//	W0005	{0}이/가 없습니다.
+					return;
 				}
 
 				sortPrfmnc = {
@@ -1289,9 +1283,13 @@
 		SBUxMethod.set("srch-inp-prdcrNm", prdcrInfo.prdcrNm);
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 
-		fn_setPrdcrForm(prdcrInfo);
-
+		if (!gfn_isEmpty(prdcr.prdcrIdentno)) {
+			SBUxMethod.set("srch-inp-prdcrIdentno", prdcr.prdcrIdentno);
+		} else {
+			SBUxMethod.set("srch-inp-prdcrIdentno", "");
+		}
 	}
+
 
 </script>
 </body>

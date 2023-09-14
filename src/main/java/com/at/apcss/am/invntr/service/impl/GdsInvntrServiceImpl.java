@@ -3,6 +3,7 @@ package com.at.apcss.am.invntr.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -10,6 +11,9 @@ import org.springframework.util.StringUtils;
 import com.at.apcss.am.invntr.mapper.GdsInvntrMapper;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
+import com.at.apcss.am.invntr.vo.GdsStdGrdVO;
+import com.at.apcss.co.constants.ApcConstants;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
 
@@ -52,11 +56,28 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 	}
 
 	@Override
-	public int insertGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
+	public HashMap<String, Object> insertGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
 
-		int insertedCnt = gdsInvntrMapper.insertGdsInvntr(gdsInvntrVO);
+		gdsInvntrMapper.insertGdsInvntr(gdsInvntrVO);
+		List<GdsStdGrdVO> stdGrdList = gdsInvntrVO.getStdGrdList();
+		for ( GdsStdGrdVO stdGrd : stdGrdList ) {
+			GdsStdGrdVO gdsStdGrdVO = new GdsStdGrdVO();
+			BeanUtils.copyProperties(gdsInvntrVO, gdsStdGrdVO);
+			BeanUtils.copyProperties(stdGrd, gdsStdGrdVO,
+					ApcConstants.PROP_APC_CD,
+					ApcConstants.PROP_PCKGNO,
+					ApcConstants.PROP_PCKG_SN,
+					ComConstants.PROP_SYS_FRST_INPT_DT,
+					ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+					ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+					ComConstants.PROP_SYS_LAST_CHG_DT,
+					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
 
-		return insertedCnt;
+			gdsInvntrMapper.insertGdsStdGrd(gdsStdGrdVO);
+		}
+
+		return null;
 	}
 
 	@Override
@@ -78,14 +99,11 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 	@Override
 	public HashMap<String, Object> insertGdsInvntrList(List<GdsInvntrVO> gdsInvntrList) throws Exception {
 
-		int insertedCnt;
-
 		for ( GdsInvntrVO gdsInvntrVO : gdsInvntrList ) {
 
-			insertedCnt = gdsInvntrMapper.insertGdsInvntr(gdsInvntrVO);
-
-			if (insertedCnt != 0) {
-
+			HashMap<String, Object> rtnObj = insertGdsInvntr(gdsInvntrVO);
+			if (rtnObj != null) {
+				return rtnObj;
 			}
 		}
 

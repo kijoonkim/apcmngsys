@@ -70,7 +70,13 @@
 			></sbux-select>
 		</c:when>
 		<c:otherwise>
-			<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
+			<sbux-input
+				id="gsb-slt-apcCd"
+				name="gsb-slt-apcCd"
+				uitype="text"
+				class="form-control input-sm"
+				readonly
+			>${loginVO.apcNm}</sbux-input>
 		</c:otherwise>
 	</c:choose>
 							</td>
