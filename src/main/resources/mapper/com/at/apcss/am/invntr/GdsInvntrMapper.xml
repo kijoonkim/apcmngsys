@@ -76,7 +76,7 @@
                 , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
                 , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
                 , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) AS GDS_GRD_NM
-                , (SELECT FN_GET_COM_CD_VL_NM('FCLT_CD', pt0.FCLT_CD) FROM DUAL) AS FCLT_CD_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) AS FCLT_NM
                 , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
@@ -125,11 +125,9 @@
 			            ), 0) AS CMND_WGHT
 			  FROM TB_GDS_INVNTR GI
 			 WHERE 1=1
-		]]>
-
-		<if test='apcCd != null and apcCd != ""'>
 			   AND GI.APC_CD = #{apcCd}
-		</if>
+			   AND GI.INVNTR_WGHT > 0
+		]]>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 			   AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
 		</if>
@@ -144,6 +142,9 @@
 		</if>
 		<if test='gdsSeCd != null and gdsSeCd != ""'>
 			   AND GI.GDS_SE_CD = #{gdsSeCd}
+		</if>
+		<if test='rprsPrdcrCd != null and rprsPrdcrCd != ""'>
+			   AND GI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
 		</if>
 		<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
 			   AND GI.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
