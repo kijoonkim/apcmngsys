@@ -192,6 +192,9 @@ public class GdsInvntrVO extends ComVO {
 	 * 산지코드
 	 * */
 	private String plorCd;
+	
+	/*비고*/
+	private String rmrk;
 
 	/**
 	 * 표준등급

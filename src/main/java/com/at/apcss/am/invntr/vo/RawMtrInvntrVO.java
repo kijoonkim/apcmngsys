@@ -271,6 +271,10 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 입고구분
 	 */
 	private String wrhsSe;
+	/*사용구분*/
+	private String delYn;
+	/*비고*/
+	private String rmrk;
 
 	/**
 	 * 표준등급
