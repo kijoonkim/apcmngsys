@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
+import com.at.apcss.am.invntr.vo.GdsStdGrdVO;
 
 /**
  * 상품재고관리 Mapper 인터페이스
@@ -70,5 +71,13 @@ public interface GdsInvntrMapper {
 	 * @throws Exception
 	 */
 	public int updateGdsInvntrSpmtPrfmnc(GdsInvntrVO gdsInvntrVO) throws Exception;
+
+	/**
+	 * 상품재고 표준등급 등록
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertGdsStdGrd(GdsStdGrdVO gdsStdGrdVO) throws Exception;
 
 }

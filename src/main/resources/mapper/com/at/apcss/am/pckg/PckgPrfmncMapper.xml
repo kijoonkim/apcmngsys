@@ -49,53 +49,122 @@
 	<!-- ==========================================================================	-->
     <select id="selectPckgPrfmncList" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO" resultType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
-				SELECT /* com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.selectPckgPrfmncList */
-					 GI.FCLT_CD AS FCLT_CD
-					 , (SELECT FN_GET_COM_CD_VL_NM('FCLT_CD', GI.FCLT_CD, GI.APC_CD) FROM DUAL) AS FCLT_NM
-					,GI.PCKG_YMD AS PCKG_YMD
-					,PP.PCKG_CMNDNO AS PCKG_CMNDNO
-					,GI.VRTY_CD AS VRTY_CD
-					, (SELECT FN_GET_VRTY_NM(GI.ITEM_CD,GI.VRTY_CD,GI.APC_CD) FROM DUAL) AS VRTY_NM
-					,GI.SPCFCT_CD AS SPCFCT_CD
-					, (SELECT FN_GET_SPCFCT_NM(GI.ITEM_CD,GI.SPCFCT_CD,GI.APC_CD) FROM DUAL) AS SPCFCT_NM
-					,GI.GDS_GRD AS GDS_GRD
-					, (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', GI.GDS_GRD, GI.APC_CD) FROM DUAL) AS GDS_GRD_NM
-					,PP.PCKG_WGHT AS PCKG_WGHT
-					,GI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD
-					, (SELECT FN_GET_PRDCR_NM(GI.RPRS_PRDCR_CD,GI.APC_CD) FROM DUAL) AS RPRS_PRDCR_NM
-					,GI.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD
-					, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', GI.WAREHOUSE_SE_CD, GI.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
-					,GI.PCKG_QNTT AS PCKG_QNTT
-					,GI.PCKG_WGHT AS PCKG_WGHT
-					,GI.SPMT_QNTT AS SPMT_QNTT
-					,GI.SPMT_WGHT AS SPMT_WGHT
-				FROM
-					TB_PCKG_PRFMNC PP,
-					TB_GDS_INVNTR GI
-				WHERE
-					PP.APC_CD = GI.APC_CD
+    		SELECT /* com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.selectPckgPrfmncList */
 		]]>
-			<if test='fromPckgYmd != null and fromPckgYmd != ""'>
-				   AND GI.PCKG_YMD <![CDATA[>=]]> #{fromPckgYmd}
-			</if>
-			<if test='toPckgYmd != null and toPckgYmd != ""'>
-				   AND GI.PCKG_YMD <![CDATA[<=]]> #{toPckgYmd}
-			</if>
-			<if test='vrtyCd != null and vrtyCd != ""'>
-				   AND GI.VRTY_CD = #{vrtyCd}
-			</if>
-			<if test='prdcrCd != null and prdcrCd != ""'>
-				   AND GI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
-			</if>
-			<if test='fcltCd != null and fcltCd != ""'>
-				   AND GI.FCLT_CD = #{fcltCd}
-			</if>
-			<if test='grdCd != null and grdCd != ""'>
-				   AND GI.GDS_GRD = #{grdCd}
-			</if>
-			<if test='strgWarehouse != null and strgWarehouse != ""'>
-				   AND GI.WAREHOUSE_SE_CD = #{strgWarehouse}
-			</if>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+				  pt0.*
+    			, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) AS APC_NM
+    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS RPRS_PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+                , (SELECT FN_GET_GRD_NM_GDS(pt0.APC_CD, pt0.ITEM_CD, pt0.GDS_GRD) FROM DUAL) AS GDS_GRD_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('PCKG_FCLT_CD', pt0.FCLT_CD) FROM DUAL) AS FCLT_NM
+                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD, pt0.APC_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+                , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) AS SPMT_PCKG_UNIT_NM
+                , (SELECT MAX(X.PCKG_CMNDNO) FROM TB_PCKG_INPT_PRFMNC X WHERE X.APC_CD = pt0.APC_CD AND X.PCKGNO = pt0.PCKGNO AND X.DEL_YN = 'N') AS PCKG_CMNDNO
+                , pt0.PCKGNO || '-' || pt0.PCKG_SN AS PCKGNO_INDCT
+    		  FROM (
+	    	SELECT
+			      GI.APC_CD			AS APC_CD
+			    , GI.PCKGNO			AS PCKGNO
+			    , GI.PCKG_SN		AS PCKG_SN
+			    , GI.PCKG_YMD		AS PCKG_YMD
+			    , GI.FCLT_CD		AS FCLT_CD
+			    , GI.RPRS_PRDCR_CD	AS RPRS_PRDCR_CD
+			    , GI.ITEM_CD		AS ITEM_CD
+			    , GI.VRTY_CD		AS VRTY_CD
+			    , GI.SPCFCT_CD		AS SPCFCT_CD
+			    , GI.GDS_GRD		AS GDS_GRD
+			    , GI.GDS_SE_CD      AS GDS_SE_CD
+			    , GI.PRDCTN_YR      AS PRDCTN_YR
+			    , GI.SPMT_PCKG_UNIT_CD  AS SPMT_PCKG_UNIT_CD
+			    , GI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+			    , GI.PCKG_QNTT		AS PCKG_QNTT
+			    , GI.PCKG_WGHT		AS PCKG_WGHT
+			    , GI.SPMT_QNTT		AS SPMT_QNTT
+			    , GI.SPMT_WGHT		AS SPMT_WGHT
+			    , GI.INVNTR_QNTT	AS INVNTR_QNTT
+			    , GI.INVNTR_WGHT	AS INVNTR_WGHT
+			    , GI.PLOR_CD 		AS PLOR_CD
+			    , GI.DEL_YN			AS DEL_YN
+
+			  FROM
+			  	  TB_GDS_INVNTR GI
+				, TB_PCKG_PRFMNC PP
+
+			 WHERE GI.APC_CD = PP.APC_CD
+			   AND GI.PCKGNO = PP.PCKGNO
+			   AND GI.PCKG_SN = PP.PCKG_SN
+			   AND GI.DEL_YN = 'N'
+			   AND PP.DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND GI.APC_CD = #{apcCd}
+		</if>
+		<if test='pckgYmd != null and pckgYmd != ""'>
+			   AND GI.PCKG_YMD = #{pckgYmd}
+		</if>
+		<if test='pckgYmdFrom != null and pckgYmdFrom != ""'>
+			   AND GI.PCKG_YMD <![CDATA[>=]]> #{pckgYmdFrom}
+		</if>
+		<if test='pckgYmdTo != null and pckgYmdTo != ""'>
+			   AND GI.PCKG_YMD <![CDATA[<=]]> #{pckgYmdTo}
+		</if>
+
+		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			   AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+		</if>
+
+		<if test='fcltCd != null and fcltCd != ""'>
+			   AND GI.FCLT_CD = #{fcltCd}
+		</if>
+
+		<if test='rprsPrdcrCd != null and rprsPrdcrCd != ""'>
+			   AND GI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
+		</if>
+
+		<if test='gdsGrd != null and gdsGrd != ""'>
+			   AND GI.GDS_GRD = #{gdsGrd}
+		</if>
+
+		<if test='itemCd != null and itemCd != ""'>
+			   AND GI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			   AND GI.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='vrtyCds != null and vrtyCds != ""'>
+			   AND GI.VRTY_CD IN (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCds})))
+		</if>
+
+		<if test='spcfctCd != null and spcfctCd != ""'>
+			   AND GI.SPCFCT_CD = #{spcfctCd}
+		</if>
+		<if test='gdsSeCd != null and gdsSeCd != ""'>
+			   AND GI.GDS_SE_CD = #{gdsSeCd}
+		</if>
+		<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
+			   AND GI.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
+		</if>
+    	<![CDATA[
+			 ORDER BY PCKG_YMD, PCKGNO, PCKG_SN
+    		  ) pt0
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
     </select>
 
 	<!-- ==========================================================================	-->

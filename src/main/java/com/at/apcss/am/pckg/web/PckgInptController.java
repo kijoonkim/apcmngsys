@@ -23,24 +23,6 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class PckgInptController extends BaseController {
 
-
-	// 포장실적등록
-	@RequestMapping(value = "/am/pckg/regPckgInpt.do")
-	public String doRegFormPckgInpt() {
-		return "apcss/am/pckg/regPckgInpt";
-	}
-
-	// 포장실적조회
-	@RequestMapping(value = "/am/pckg/pckgInpt.do")
-	public String doPckgInpt() {
-		return "apcss/am/pckg/pckgInpt";
-	}
-	// 포장실적등록
-	@RequestMapping(value = "/am/pckg/regPckgInptTablet.do")
-	public String doRegFormPckInptTablet() {
-		return "apcss/am/pckg/regPckgInptTablet";
-	}
-
 	// 상품코드조회
 	@RequestMapping(value = "/am/pckg/gdsCd.do")
 	public String doGdsCd() {

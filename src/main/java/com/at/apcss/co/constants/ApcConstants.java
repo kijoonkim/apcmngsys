@@ -57,6 +57,9 @@ public class ApcConstants {
     public final static String PROP_WRHSNO = "wrhsno";
     public final static String PROP_SORTNO = "sortno";
     public final static String PROP_SORT_SN = "sortSn";
+    public final static String PROP_PCKGNO = "pckgno";
+    public final static String PROP_PCKG_SN = "pckgSn";
+
     public final static String PROP_ITEM_CD = "itemCd";
 
 }

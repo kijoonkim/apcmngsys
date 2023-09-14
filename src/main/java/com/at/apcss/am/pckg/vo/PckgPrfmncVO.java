@@ -1,5 +1,9 @@
 package com.at.apcss.am.pckg.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.at.apcss.am.invntr.vo.GdsStdGrdVO;
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -33,16 +37,22 @@ public class PckgPrfmncVO extends ComVO {
 	 * 포장번호
 	 */
 	private String pckgno;
-
 	/**
 	 * 포장순번
 	 */
 	private int pckgSn;
 
 	/**
+	 * 포장번호 표시
+	 */
+	private String pckgnoIndct;
+
+	/**
 	 * 포장일자
 	 */
 	private String pckgYmd;
+	private String pckgYmdFrom;
+	private String pckgYmdTo;
 
 	/**
 	 * 투입일자
@@ -53,6 +63,7 @@ public class PckgPrfmncVO extends ComVO {
 	 * 설비코드
 	 */
 	private String fcltCd;
+	private String fcltNm;
 
 	/**
 	 * 대표생산자코드
@@ -64,11 +75,13 @@ public class PckgPrfmncVO extends ComVO {
 	 * 생산자코드
 	 */
 	private String prdcrCd;
+	private String prdcrNm;
 
 	/**
 	 * 품목코드
 	 */
 	private String itemCd;
+	private String itemNm;
 
 	/**
 	 * 품종코드
@@ -76,6 +89,7 @@ public class PckgPrfmncVO extends ComVO {
 	private String vrtyCd;
 	private String vrtyNm;
 
+	private String vrtyCds;
 	/**
 	 * 규격코드
 	 */
@@ -103,6 +117,7 @@ public class PckgPrfmncVO extends ComVO {
 	 * 상품구분코드
 	 */
 	private String gdsSeCd;
+	private String gdsSeNm;
 
 	/**
 	 * 입고구분코드
@@ -113,15 +128,7 @@ public class PckgPrfmncVO extends ComVO {
 	 * 출하포장단위코드
 	 */
 	private String spmtPckgUnitCd;
-	/**
-	 * 포장수량
-	 */
-	private int pckgQntt;
-
-	/**
-	 * 포장중량
-	 */
-	private double pckgWght;
+	private String spmtPckgUnitNm;
 
 	/**
 	 * 포장지시번호
@@ -132,7 +139,6 @@ public class PckgPrfmncVO extends ComVO {
 	 * 선별번호
 	 */
 	private String sortno;
-
 	/**
 	 * 선별순번
 	 */
@@ -148,25 +154,61 @@ public class PckgPrfmncVO extends ComVO {
 	 */
 	private String needsInptChgYn;
 
-	/*출하수량*/
-	private String spmtQntt;
+	/**
+	 * 포장수량
+	 */
+	private int pckgQntt;
+	/**
+	 * 포장중량
+	 */
+	private double pckgWght;
 
-	/*춣하중량*/
-	private String spmtWght;
+	/**
+	 * 재고수량
+	 */
+	private int invntrQntt;
+	/**
+	 * 재고중량
+	 */
+	private double invntrWght;
 
-	/*포장일자*/
-	private String fromPckgYmd;
-	private String toPckgYmd;
+	/**
+	 * 출하수량
+	 */
+	private int spmtQntt;
+	/**
+	 * 춣하중량
+	 */
+	private double spmtWght;
 
-	/*품목코드*/
-	private String itmeCd;
+	/**
+	 * 생산연도
+	 */
+	private String prdctnYr;
 
-	/*저장창고*/
-	private String strgWarehouse;
+	/**
+	 * 산지코드
+	 */
+	private String plorCd;
 
-	/*대표생산자*/
-	private String prdcrNm;
 
-	/*포장내역명*/
-	private String fcltNm;
+	/**
+	 * 표준등급
+	 */
+	private String stdGrd;
+	private String stdGrdCd;
+
+	/**
+	 * 표준등급
+	 */
+	private List<GdsStdGrdVO> stdGrdList;
+
+	public List<GdsStdGrdVO> getStdGrdList() {
+		return stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
+
+	public void setStdGrdList(List<GdsStdGrdVO> stdGrdList) {
+		this.stdGrdList = stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
+
 }

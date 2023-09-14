@@ -35,18 +35,16 @@ import com.at.apcss.co.sys.controller.BaseController;
  */
 @Controller
 public class PckgPrfmncController extends BaseController {
-	
+
 	@Resource(name = "pckgPrfmncService")
 	private PckgPrfmncService pckgPrfmncService;
 
-	
-	@PostMapping(value = "/am/pckg/pckgInpt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+
+	@PostMapping(value = "/am/pckg/selectPckgPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectPckgPrfmncList(@RequestBody PckgPrfmncVO pckgPrfmncVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<PckgPrfmncVO> resultList = new ArrayList<>();
-
-		logger.debug("param info {}", pckgPrfmncVO.toString());
 
 		try {
 			resultList = pckgPrfmncService.selectPckgPrfmncList(pckgPrfmncVO);
