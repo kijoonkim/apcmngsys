@@ -43,7 +43,7 @@ public interface GdsInvntrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
+	public HashMap<String, Object> insertGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
 
 	/**
 	 * 상품재고 목록 등록

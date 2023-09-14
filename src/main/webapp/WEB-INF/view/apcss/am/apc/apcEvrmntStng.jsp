@@ -670,6 +670,8 @@
         	SBUxMethod.set("slt-bankCd", resultVO.bankCd);
         	SBUxMethod.set("inp-dpstr", resultVO.dpstr);
         	SBUxMethod.set("inp-brno", resultVO.brno);
+        	SBUxMethod.set("rdo-clclnCrtr", resultVO.clclnCrtr);
+        	SBUxMethod.set("rdo-apcSeCd", resultVO.apcSeCd);
         	SBUxMethod.set("chk-wghMngYn", resultVO.wghMngYn);
         	SBUxMethod.set("chk-wghMblUseYn", resultVO.wghMblUseYn);
         	SBUxMethod.set("chk-wghIdntyDocPblcnYn", resultVO.wghIdntyDocPblcnYn);
@@ -862,8 +864,8 @@
             	grdOprtr.addRow(true);
             }else if(grid === "grdApcVrty"){
             	grdApcVrty.setCellData(nRow, nCol, "N", true);
-            	grdApcVrty.setCellData(nRow, 5, gv_apcCd, true);
-            	grdApcVrty.setCellData(nRow, 6, SBUxMethod.get("vrty-inp-itemCd"), true);
+            	grdApcVrty.setCellData(nRow, 6, gv_apcCd, true);
+            	grdApcVrty.setCellData(nRow, 7, SBUxMethod.get("vrty-inp-itemCd"), true);
             	grdApcVrty.addRow(true);
             }else if(grid === "grdStdGrd"){
             	if(!(SBUxMethod.get("grd-slt-itemCd") == null || SBUxMethod.get("grd-slt-itemCd") == "")){

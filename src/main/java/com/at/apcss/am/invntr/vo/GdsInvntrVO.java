@@ -1,7 +1,8 @@
 package com.at.apcss.am.invntr.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import com.at.apcss.co.sys.vo.ComVO;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -194,5 +195,25 @@ public class GdsInvntrVO extends ComVO {
 	
 	/*비고*/
 	private String rmrk;
+
+	/**
+	 * 표준등급
+	 */
+	private String stdGrd;
+
+	private String stdGrdCd;
+
+	/**
+	 * 표준등급
+	 */
+	private List<GdsStdGrdVO> stdGrdList;
+
+	public List<GdsStdGrdVO> getStdGrdList() {
+		return stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
+
+	public void setStdGrdList(List<GdsStdGrdVO> stdGrdList) {
+		this.stdGrdList = stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
 
 }
