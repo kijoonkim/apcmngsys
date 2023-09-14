@@ -166,7 +166,7 @@
 								></sbux-select>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg">투입/선별/loss</th>
+							<th scope="row" class="th_bg">투입/선별/미투입</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
@@ -449,7 +449,7 @@
             {caption: ["품종","품종"],	    	ref: 'vrtyNm',   		type:'output',  width:'100px', style: 'text-align:center'},
             {caption: ["등급","등급"],	    	ref: 'grdNm',   		type:'output',  width:'80px', style: 'text-align:center'},
             {caption: ["상품구분","상품구분"],		ref: 'gdsSeNm', 		type:'output',  width:'80px', style: 'text-align:center'},
-            {caption: ["설비","설비"],	    	ref: 'fcltNm', 			type:'output',  width:'120px', style: 'text-align:center'},
+            {caption: ["지시설비","지시설비"],	    ref: 'fcltNm', 			type:'output',  width:'120px', style: 'text-align:center'},
             {caption: ["창고","창고"],	    	ref: 'warehouseSeNm', 	type:'output',  width:'120px', style: 'text-align:center'},
             {caption: ["원물재고","수량"],  		ref: 'invntrQntt',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["원물재고","중량"],  		ref: 'invntrWght',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,### Kg'}},

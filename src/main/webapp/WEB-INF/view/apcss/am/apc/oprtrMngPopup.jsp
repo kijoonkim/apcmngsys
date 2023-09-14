@@ -78,8 +78,8 @@
 	    SBGridProperties.columns = [
 	        {caption: ["작업자명"], 	ref: 'flnm',  	type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {mask : {alias : 'k'}}},
 	        {caption: ["생년월일"], 	ref: 'brdt',   	type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 8}), typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["전화번호"], 	ref: 'telno',   type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["주소"], 		ref: 'addr',    type:'input',  width:'180px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 200})},
+	        {caption: ["전화번호"], 	ref: 'telno',   type:'input',  width:'100px',    style:'text-align:center', format : {type:'string', rule:'000-0000-0000'}, typeinfo : {maxlength : 11}},
+	        {caption: ["주소"], 		ref: 'addr',    type:'input',  width:'170px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 200})},
 	        {caption: ["입사일자"], 	ref: 'jncmp', 	type : 'datepicker', typeinfo: {dateformat: 'yy-mm-dd'}, format : {type:'date', rule:'yy-mm-dd', origin:'YYYYMMDD'},  width:'90px',    style:'text-align:center'},
 	        {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'100px',    style:'text-align:center',
     			typeinfo : {ref:'comboGridBankCdJsData', displayui : false,	itemcount: 10, label:'label', value:'value'}},
@@ -125,7 +125,7 @@
 				  , apcCd : 	item.apcCd
 				}
 // 				newJsonOprtr.push(oprtrVO);
-				
+
 				jsonOprtr.push(Object.assign({}, oprtrVO));
 				newJsonOprtr.push(Object.assign({}, oprtrVO));
 			});

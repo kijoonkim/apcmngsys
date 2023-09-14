@@ -405,7 +405,7 @@
 	        uitype="large"
 	        header-title="클립리포트"
 	        body-html-id="body-modal-clipReport"
-	        header-is-close-button="true"
+	        header-is-close-button="false"
 	        footer-is-close-button="false"
 	        style="width:95vw;height:80vh;"
         ></sbux-modal>
