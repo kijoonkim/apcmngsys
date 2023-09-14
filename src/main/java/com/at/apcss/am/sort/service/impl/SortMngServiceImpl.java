@@ -279,7 +279,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 			prfmncVO.setSortno(sortno);
 			prfmncVO.setSortSn(sortSn);
-
+			prfmncVO.setStdGrdList(prfmncInfo.getStdGrdList());
 			sortPrfmncVOList.add(prfmncVO);
 		}
 

@@ -684,8 +684,8 @@ async function gfn_getPltBxs (_apcCd, _pltBxSeCd) {
  * @param {string} _itemCd	품목코드
  * @param {string} _vrtyCd	품종코드
  */
-const gfn_getSpmtPckgUnits = async function (_apcCd, _itemCd, _vrtyCd) {
-	const postJsonPromise = gfn_postJSON(URL_SPMT_PCKG_UINT, {apcCd : _apcCd, itemCd : _itemCd, vrtyCd : _vrtyCd, delYn: "N"}, null, true);
+const gfn_getSpmtPckgUnits = async function (_apcCd, _itemCd, _vrtyCd, _spcfctCd) {
+	const postJsonPromise = gfn_postJSON(URL_SPMT_PCKG_UINT, {apcCd : _apcCd, itemCd : _itemCd, vrtyCd : _vrtyCd, spcfctCd: _spcfctCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 	return data.resultList;
 }

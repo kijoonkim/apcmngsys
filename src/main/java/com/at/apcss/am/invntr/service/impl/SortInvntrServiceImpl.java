@@ -3,6 +3,7 @@ package com.at.apcss.am.invntr.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -10,7 +11,11 @@ import org.springframework.util.StringUtils;
 import com.at.apcss.am.invntr.mapper.SortInvntrMapper;
 import com.at.apcss.am.invntr.service.SortInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
+import com.at.apcss.am.invntr.vo.RawMtrStdGrdVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
+import com.at.apcss.am.invntr.vo.SortStdGrdVO;
+import com.at.apcss.co.constants.ApcConstants;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
 
@@ -62,10 +67,25 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 	@Override
 	public HashMap<String, Object> insertSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
 
-		int insertedCnt = sortInvntrMapper.insertSortInvntr(sortInvntrVO);
+		sortInvntrMapper.insertSortInvntr(sortInvntrVO);
 
-		if (insertedCnt != 0) {
+		List<SortStdGrdVO> stdGrdList = sortInvntrVO.getStdGrdList();
+		for ( SortStdGrdVO stdGrd : stdGrdList ) {
 
+			SortStdGrdVO sortStdGrdVO = new SortStdGrdVO();
+			BeanUtils.copyProperties(sortInvntrVO, sortStdGrdVO);
+			BeanUtils.copyProperties(stdGrd, sortStdGrdVO,
+					ApcConstants.PROP_APC_CD,
+					ApcConstants.PROP_SORTNO,
+					ApcConstants.PROP_SORT_SN,
+					ComConstants.PROP_SYS_FRST_INPT_DT,
+					ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+					ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+					ComConstants.PROP_SYS_LAST_CHG_DT,
+					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+
+			sortInvntrMapper.insertSortStdGrd(sortStdGrdVO);
 		}
 
 		return null;
@@ -74,13 +94,10 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 	@Override
 	public HashMap<String, Object> insertSortInvntrList(List<SortInvntrVO> sortInvntrList) throws Exception {
 
-		int insertedCnt = 0;
 		for ( SortInvntrVO sortInvntrVO : sortInvntrList ) {
-
-			insertedCnt = sortInvntrMapper.insertSortInvntr(sortInvntrVO);
-
-			if (insertedCnt != 0) {
-
+			HashMap<String, Object> rtnObj = insertSortInvntr(sortInvntrVO);
+			if (rtnObj != null) {
+				return rtnObj;
 			}
 		}
 

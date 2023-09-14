@@ -1,5 +1,8 @@
 package com.at.apcss.am.invntr.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -182,11 +185,31 @@ public class SortInvntrVO extends ComVO {
 	private String sortYmdTo;
 	private String sortFcltCd;
 	private String pckgno;
-	
+
 	/*선별재고 내역*/
 	/*기준일자*/
 	private String crtrYmd;
 	/*재고구분*/
 	private String invntrySe;
-	
+
+
+	/**
+	 * 표준등급
+	 */
+	private String stdGrd;
+
+	private String stdGrdCd;
+
+	/**
+	 * 표준등급
+	 */
+	private List<SortStdGrdVO> stdGrdList;
+
+	public List<SortStdGrdVO> getStdGrdList() {
+		return stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
+
+	public void setStdGrdList(List<SortStdGrdVO> stdGrdList) {
+		this.stdGrdList = stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
 }

@@ -60,26 +60,25 @@
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectSortInvntrList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    	<![CDATA[
+    		SELECT
+		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    	</if>
-   		<if test='pagingYn == null or pagingYn.equals("N")'>
-    		SELECT
-    			  pt0.*
+    			,
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
+    			  pt0.*
     			, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) AS APC_NM
     			, (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) AS FCLT_NM
 				, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS RPRS_PRDCR_NM
 				, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
 				, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
 				, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
-				, (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GRD_CD, pt0.APC_CD) FROM DUAL) AS GRD_NM
+				, (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS GRD_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD, pt0.APC_CD) FROM DUAL) AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
@@ -191,7 +190,6 @@
 
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
     	</if>
@@ -449,6 +447,48 @@
 		]]>
 	</update>
 
-
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortStdGrd		-->
+	<!-- DESC : 선별재고 표준등급 등록.		                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertSortStdGrd" parameterType="com.at.apcss.am.invntr.vo.SortStdGrdVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortStdGrd */
+	    		INTO TB_SORT_STD_GRD
+				(
+					  APC_CD
+					, SORTNO
+					, SORT_SN
+					, ITEM_CD
+					, GRD_KND
+					, GRD_CD
+		    		, SYS_FRST_INPT_DT
+		    		, SYS_FRST_INPT_USER_ID
+		    		, SYS_FRST_INPT_PRGRM_ID
+		    		, SYS_LAST_CHG_DT
+		    		, SYS_LAST_CHG_USER_ID
+		    		, SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+					  #{apcCd}
+					, #{sortno}
+					, #{sortSn}
+					, #{itemCd}
+					, #{grdKnd}
+					, #{grdCd}
+		    		, SYSDATE
+		    		, #{sysFrstInptUserId}
+		    		, #{sysFrstInptPrgrmId}
+		    		, SYSDATE
+		    		, #{sysLastChgUserId}
+		    		, #{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </insert>
 
 </mapper>

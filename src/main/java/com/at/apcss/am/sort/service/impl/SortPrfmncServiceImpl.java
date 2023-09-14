@@ -114,39 +114,7 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 			sortInvntrVO.setInvntrWght(sortPrfmncVO.getWght());
 
 			sortInvntrList.add(sortInvntrVO);
-
-			/*
-			// 선별투입실적 확인
-			SortInptPrfmncVO sortInptPrfmncVO = new SortInptPrfmncVO();
-			BeanUtils.copyProperties(sortPrfmncVO, sortInptPrfmncVO);
-
-			SortInptPrfmncVO inptInfo = sortInptPrfmncService.selectSortInptPrfmnc(sortInptPrfmncVO);
-			if (inptInfo != null && StringUtils.hasText(inptInfo.getWrhsno())) {
-				sortPrfmncVO.setNeedsInptChgYn(ComConstants.CON_YES);
-			} else {
-
-				// 투입실적 항목 set
-				inptRegList.add(sortInptPrfmncVO);
-			}
-			*/
 		}
-
-		if (!inptRegList.isEmpty()) {
-			rtnObj = sortInptPrfmncService.insertSortInptPrfmncList(inptRegList);
-			if (rtnObj != null) {
-				// error throw exception;
-				throw new EgovBizException(getMessageForMap(rtnObj));
-			}
-		}
-
-		// 선별투입실적 선별번호 update
-		/*
-		for ( SortPrfmncVO sortPrfmncVO : sortPrfmncList ) {
-			if (ComConstants.CON_YES.equals(sortPrfmncVO.getNeedsInptChgYn())) {
-				sortPrfmncMapper.updateInptSortno(sortPrfmncVO);
-			}
-		}
-		*/
 
 		// 선별재고 생성
 		rtnObj = sortInvntrService.insertSortInvntrList(sortInvntrList);
