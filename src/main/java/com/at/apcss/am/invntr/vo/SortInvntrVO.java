@@ -188,5 +188,7 @@ public class SortInvntrVO extends ComVO {
 	private String crtrYmd;
 	/*재고구분*/
 	private String invntrySe;
+	/*비고*/
+	private String rmrk;
 	
 }

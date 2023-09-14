@@ -110,7 +110,11 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-wrhsSe" name="srch-slt-wrhsSe" class="form-control input-sm" jsondata-ref="jsonComWrhsSeCdPrdcrPop"/>
 							</td>
-							<td colspan="7">&nbsp;</td>
+							<td class="td_input" colspan="2" style="border-right: hidden;"></td>
+							<th scope="row" class="th_bg">비고</th>
+							<td class="td_input" colspan="4"">
+								<sbux-input uitype="text" id="srch-inp-rmrk" name="srch-inp-rmrk" class="form-control input-sm"/>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -172,16 +176,20 @@
 	var checkSection = 1;
 
 	// only document
+	let today = new Date();
+	let year = today.getFullYear();
+	let month = ('0' + (today.getMonth() + 1)).slice(-2);
+	let day = ('0' + today.getDate()).slice(-2);
+	let yearMonthDay = year+month+day;
+	
 	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_sample1();
 // 		fn_createGrid2();
 // 		fn_createGrid3();
 
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2)
-		let day = ('0' + today.getDate()).slice(-2)
+
 		SBUxMethod.set("srch-dtp-crtrYmd", year+month+day);
-		fn_sample1();
+		
 		
 		fn_initSBSelect();
 	});
@@ -222,7 +230,7 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      type:'output',  width:'7%',    style:'text-align:center'},
+	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      type:'output', hidden: true},
 	        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',      type:'output',  width:'7%',    style:'text-align:center'},
 	        {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      type:'output',  width:'7%',    style:'text-align:center'},
 	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      type:'output',  width:'7%',    style:'text-align:center'},
@@ -231,13 +239,14 @@
 	        {caption: ["상품","상품"],				ref: 'gdsSeNm',      type:'output',  width:'7%',    style:'text-align:center'},
 	        {caption: ["입고","입고"],				ref: 'wrhsSeNm',      type:'output',  width:'7%',    style:'text-align:center'},
 	        {caption: ["운송","운송"],				ref: 'trsprtSeNm',      type:'output',  width:'7%',    style:'text-align:center'},
-	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',      type:'output',  width:'7%',    style:'text-align:center'},
-	        {caption: ["입고","수량"],				ref: 'wrhsQntt',      type:'output',  width:'5%',    style:'text-align:center'},
-	        {caption: ["입고","중량"],				ref: 'wrhsWght',      type:'output',  width:'5%',    style:'text-align:center'},
-	        {caption: ["투입","수량"],				ref: 'inptQntt',      type:'output',  width:'5%',    style:'text-align:center'},
-	        {caption: ["투입","중량"],				ref: 'inptWght',      type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'7%',    style:'text-align:center'},
+	        {caption: ["입고","수량"],				ref: 'wrhsQntt',      	type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["입고","중량"],				ref: 'wrhsWght',      	type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["투입","수량"],				ref: 'inptQntt',      	type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["투입","중량"],				ref: 'inptWght',      	type:'output',  width:'5%',    style:'text-align:center'},
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'5%',    style:'text-align:center'},
 	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'7%',    style:'text-align:center'}
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -279,21 +288,24 @@
 		let prdcr = SBUxMethod.get("srch-inp-prdcr");
 		let gdsSe = SBUxMethod.get("srch-slt-gdsSe");
 		let wrhsSe = SBUxMethod.get("srch-slt-wrhsSe");
-		
+		console.log ("crtrYmd : ", crtrYmd);
+		console.log("year+month+day : ", year+month+day);
 		const postJsonPromise1 = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
-			apcCd		:  gv_selectedApcCd,
-			crtrYmd: crtrYmd,
-			invntrySe: invntrySe,
-			itemCd:itemCd,
-			vrtyCd: vrtyCd,
-			spcfctCd: spcfctCd,
-			prdcr: prdcr,
-			gdsSe: gdsSe,
-			wrhsSe: wrhsSe,
-          	// pagination
-  	  		pagingYn : 'Y',
-  			currentPageNo : pageNo,
-   		  	recordCountPerPage : pageSize
+				apcCd		:  gv_selectedApcCd,
+				crtrYmd: crtrYmd,
+				invntrySe: invntrySe,
+				itemCd:itemCd,
+				vrtyCd: vrtyCd,
+				spcfctCd: spcfctCd,
+				prdcr: prdcr,
+				gdsSe: gdsSe,
+				wrhsSe: wrhsSe,
+				
+	          	// pagination
+	  	  		pagingYn : 'Y',
+	  			currentPageNo : pageNo,
+	   		  	recordCountPerPage : pageSize
+			
   		});
 
         let data1 = await postJsonPromise1;
@@ -326,7 +338,8 @@
        				invntrQntt: item.invntrQntt,
        				invntrWght: item.invntrWght,
        				sortcmndNo: item.sortcmndNo,
-       				fcltNm: item.fcltNm
+       				fcltNm: item.fcltNm,
+       				rmrk: item.rmrk,
   				}
   				jsoninptCmndDsctnList.push(rawMtrInvntr);
 
@@ -377,21 +390,22 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	        {caption: ["선별번호","선별번호"],		ref: 'sortno',      	type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["등급","등급"],				ref: 'grdNm',      		type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["투입일자","투입일자"],		ref: 'inptYmd',      	type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["설비","설비"],				ref: 'fcltNm',      	type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      	type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["품목","품목"],				ref: 'itemNm',     		type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["품종","품종"],				ref: 'vrtyNm',      	type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["규격","규격"],				ref: 'spcfctNm',      	type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["선별","수량"],				ref: 'sortQntt',      	type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["선별","중량"],				ref: 'sortWght',      	type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["포장","중량"],				ref: 'pckgWght',     	type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'6.667%',    style:'text-align:center'},
-	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'6.667%',    style:'text-align:center'} 
+	        {caption: ["선별번호","선별번호"],		ref: 'sortno',      	type:'output',  width:'7%',    style:'text-align:center'},
+	        {caption: ["등급","등급"],				ref: 'grdNm',      		type:'output',  width:'7%',    style:'text-align:center'},
+	        {caption: ["투입일자","투입일자"],		ref: 'inptYmd',      	type:'output',  width:'7%',    style:'text-align:center'},
+	        {caption: ["설비","설비"],				ref: 'fcltNm',      	type:'output',  width:'7%',    style:'text-align:center'},
+	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      	type:'output',  width:'7%',    style:'text-align:center'},
+	        {caption: ["품목","품목"],				ref: 'itemNm',     		type:'output',  width:'7%',    style:'text-align:center'},
+	        {caption: ["품종","품종"],				ref: 'vrtyNm',      	type:'output',  width:'7%',    style:'text-align:center'},
+	        {caption: ["규격","규격"],				ref: 'spcfctNm',      	type:'output',  width:'7%',    style:'text-align:center'},
+	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'7%',    style:'text-align:center'},
+	        {caption: ["선별","수량"],				ref: 'sortQntt',      	type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["선별","중량"],				ref: 'sortWght',      	type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["포장","중량"],				ref: 'pckgWght',     	type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'7%',    style:'text-align:center'}
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -451,7 +465,8 @@
        				pckgQntt: item.pckgQntt,
        				pckgWght: item.pckgWght,
        				invntrQntt: item.invntrQntt,
-       				invntrWght: item.invntrWght
+       				invntrWght: item.invntrWght,
+       				rmrk: item.rmrk,
   				}
           		jsoninptCmndDsctnList2.push(rawMtrInvntr2);
 
@@ -518,6 +533,7 @@
 	        {caption: ["출하","중량"],		ref: 'spmtWght',      type:'output',  width:'5%',    style:'text-align:center'},
 	        {caption: ["현 재고","수량"],		ref: 'invntrQntt',      type:'output',  width:'5%',    style:'text-align:center'},
 	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'7%',    style:'text-align:center'}
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -563,7 +579,8 @@
        				spmtQntt: item.spmtQntt,
        				spmtWght: item.spmtWght,
        				invntrQntt: item.invntrQntt,
-       				invntrWght: item.invntrWght
+       				invntrWght: item.invntrWght,
+       				rmrk: item.rmrk,
   				}
           		jsoninptCmndDsctnList3.push(rawMtrInvntr);
 
