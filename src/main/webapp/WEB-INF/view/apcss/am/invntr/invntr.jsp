@@ -214,17 +214,27 @@
 	function fn_sample1(){
 		// "srch-slt-spcfctCd"
 		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
+
+		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
+		$("#srch-btn-sortInvntrDsctn").css({"background-color":"white","color":"black"});
+		$("#srch-btn-gdsInvntrDsctn").css({"background-color":"white","color":"black"});
 		_SBGrid.destroy('inptCmndDsctnList');
 		inptCmndDsctnList = [];
 		fn_createGrid1();
 	}
 	function fn_sample2(){
+		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"white","color":"black"});
+		$("#srch-btn-sortInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
+		$("#srch-btn-gdsInvntrDsctn").css({"background-color":"white","color":"black"});
 		_SBGrid.destroy('inptCmndDsctnList');
 		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
 		inptCmndDsctnList = [];
 		fn_createGrid2();
 	}
 	function fn_sample3(){
+		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"white","color":"black"});
+		$("#srch-btn-sortInvntrDsctn").css({"background-color":"white","color":"black"});
+		$("#srch-btn-gdsInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
 		_SBGrid.destroy('inptCmndDsctnList');
 		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
 		inptCmndDsctnList = [];
