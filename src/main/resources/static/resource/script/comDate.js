@@ -93,7 +93,7 @@ const gfn_dateLastYmd = function(date, delimiter = "") {
     let year  = date.getFullYear();
     let month = date.getMonth();
 
-	let lastDate = new Date(year, month, 0);
+	let lastDate = new Date(year, month + 1, 0);
 
 	return gfn_dateToYmd(lastDate, delimiter);
 }

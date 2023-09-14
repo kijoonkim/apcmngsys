@@ -78,7 +78,9 @@
 		<if test='vrtyCd != null and vrtyCd != ""'>
 			   AND SPU.VRTY_CD		= #{vrtyCd}
 		</if>
-
+		<if test='spcfctCd != null and spcfctCd != ""'>
+			   AND SPU.SPCFCT_CD	= #{spcfctCd}
+		</if>
     </select>
 
     <!-- ==========================================================================	-->

@@ -1,5 +1,9 @@
 package com.at.apcss.am.sort.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.at.apcss.am.invntr.vo.SortStdGrdVO;
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -226,4 +230,25 @@ public class SortPrfmncVO extends ComVO {
 
 	/*투입창고*/
 	private String inptWarehouse;
+
+	/**
+	 * 표준등급
+	 */
+	private String stdGrd;
+
+	private String stdGrdCd;
+
+	/**
+	 * 표준등급
+	 */
+	private List<SortStdGrdVO> stdGrdList;
+
+	public List<SortStdGrdVO> getStdGrdList() {
+		return stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
+
+	public void setStdGrdList(List<SortStdGrdVO> stdGrdList) {
+		this.stdGrdList = stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
+
 }
