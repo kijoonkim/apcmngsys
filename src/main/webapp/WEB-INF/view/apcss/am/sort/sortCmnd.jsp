@@ -504,23 +504,12 @@
  		}
 
  		const sortCmndno = sortCmndnoList.join("','");
- 		console.log("sortCmndno");
- 		console.log(sortCmndno);
-
  		popClipReport.modalView(
  				"modal-clipReport",
  				"선별지시서",
  				"am/sortCmndDoc.crf",
  				{apcCd: gv_selectedApcCd, sortCmndno: sortCmndno}
  			);
-
- 		/*
- 		gfn_viewClipReport(
- 				"body-rpt-docRawMtrWgh",
- 				"am/rawMtrWghDoc.crf",
- 				{apcCd: gv_selectedApcCd, wghno: wghno}
- 			);
- 		 */
  	}
 
 
