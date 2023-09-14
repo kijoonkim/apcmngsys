@@ -23,12 +23,18 @@ public class CltvtnEnggtAplyMngVO extends ComVO{
 	private String spcfctCd;
 	private int    cltvtnArea;
 	private int    enggtVlm;
+	private int    enggtVlmSpt;
+	private int    enggtVlmRslt;
 	private int    expctHrvstQntt;
+	private int    expctHrvstQnttSpt;
+	private int    expctHrvstQnttRslt;
 	private String plor;
 	private int    ctrtAmt;
 	private int    prtpay;
 	private int    srpls;
 	private String enggtYmd;
+	private String enggtSptYmd;
+	private String enggtRsltYmd;
 	private String addr;
 	private String zip;
 	private String telno;
@@ -37,6 +43,8 @@ public class CltvtnEnggtAplyMngVO extends ComVO{
 	private String actno;
 	private String dpstrNm;
     private String rmrk;
+    private String rmrkSpt;
+    private String rmrkRslt;
     private String msgKey;
 	private String msgCn;
 	private String msgKnd;
@@ -51,4 +59,6 @@ public class CltvtnEnggtAplyMngVO extends ComVO{
 
 	private String enggtSrtYmd;
 	private String enggtEndYmd;
+	private String reqCd;
+	private String reqNm;
 }

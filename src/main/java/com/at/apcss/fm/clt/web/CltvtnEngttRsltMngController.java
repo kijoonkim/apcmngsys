@@ -111,8 +111,11 @@ public class CltvtnEngttRsltMngController extends BaseController {
 		// validation check
 
 		// audit 항목
+		cltvtnEngttRsltMngVO.setSysFrstInptUserId(getUserId());
+		cltvtnEngttRsltMngVO.setSysFrstInptPrgrmId(getPrgrmId());
 		cltvtnEngttRsltMngVO.setSysLastChgUserId(getUserId());
 		cltvtnEngttRsltMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
 
 		int updatedCnt = 0;
 

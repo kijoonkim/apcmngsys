@@ -18,8 +18,8 @@
 				<h3 class="box-title" style="line-height: 30px;">▶ ${comMenuVO.menuNm}</h3>
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
-				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
+<!-- 				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button> -->
+<!-- 				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button> -->
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 			</div>
@@ -78,14 +78,14 @@
 				<!--[pp] 검색결과 -->
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
-							<li><span>재배약정계획 내역</span></li>
+							<li><span>재배약정실적 내역</span></li>
 						</ul>
 					</div>
 
 					<div id="sb-area-grdSpmtCmndTrgtDsctn" style="height:250px;"></div>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
-							<li><span>재배약정계획 상세내역</span></li>
+							<li><span>재배약정실적 상세내역</span></li>
 						</ul>
 					</div>
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -138,30 +138,77 @@
 						<tr>
 						    <th scope="row"><span class="data_required" ></span>약정일자</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="dtl-inp-enggtYmd" name="dtl-inp-enggtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="dtl-inp-enggtYmd" name="dtl-inp-enggtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc" readonly></sbux-datepicker>
 							</td>
 							<td class="td_input"  style="border-right: hidden;"></td>
 							<th scope="row"><span class="data_required" ></span>약정수량</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-enggtVlm" name="dtl-inp-enggtVlm" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="dtl-inp-enggtVlm" name="dtl-inp-enggtVlm" uitype="text" class="form-control input-sm" placeholder="" title="" readonly></sbux-input>
 							</td>
 							<td colspan="1" scope="row"> &nbsp;</th>
 							<th class="td_input" scope="row"><span class="data_required" ></span>예상수확량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-expctHrvstQntt" name="dtl-inp-expctHrvstQntt" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="dtl-inp-expctHrvstQntt" name="dtl-inp-expctHrvstQntt" uitype="text" class="form-control input-sm" placeholder="" title="" readonly></sbux-input>
+							<td class="td_input" style="border-right: hidden;">Kg</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+						    <th scope="row"><span class="data_required" ></span>확인 일자(현장)</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-datepicker id="dtl-inp-enggtSptYmd" name="dtl-inp-enggtSptYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc" readonly></sbux-datepicker>
+							</td>
+							<td class="td_input"  style="border-right: hidden;"></td>
+							<th scope="row"><span class="data_required" ></span>약정수량(현장)</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input id="dtl-inp-enggtVlmSpt" name="dtl-inp-enggtVlmSpt" uitype="text" class="form-control input-sm" placeholder="" title="" readonly></sbux-input>
+							</td>
+							<td colspan="1" scope="row"> &nbsp;</th>
+							<th class="td_input" scope="row"><span class="data_required" ></span>예상수확량(현장)</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="dtl-inp-expctHrvstQnttSpt" name="dtl-inp-expctHrvstQnttSpt" uitype="text" class="form-control input-sm" placeholder="" title="" readonly></sbux-input>
+							<td class="td_input" style="border-right: hidden;">Kg</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+						    <th scope="row"><span class="data_required" ></span>확인 일자(실적)</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-datepicker id="dtl-inp-enggtRsltYmd" name="dtl-inp-enggtRsltYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+							</td>
+							<td class="td_input"  style="border-right: hidden;"></td>
+							<th scope="row"><span class="data_required" ></span>약정수량(실적)</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input id="dtl-inp-enggtVlmRslt" name="dtl-inp-enggtVlmRslt" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+							</td>
+							<td colspan="1" scope="row"> &nbsp;</th>
+							<th class="td_input" scope="row"><span class="data_required" ></span>예상수확량(실적)</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="dtl-inp-expctHrvstQnttRslt" name="dtl-inp-expctHrvstQnttRslt" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							<td class="td_input" style="border-right: hidden;">Kg</td>
 							<td>&nbsp;</td>
 						</tr>
 						<tr>
 							<th>비고</th>
-							<td colspan="9" class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-rmrk" name="dtl-inp-rmrk" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+							<td colspan="10" class="td_input" style="border-right: hidden;">
+								<sbux-input id="dtl-inp-rmrk" name="dtl-inp-rmrk" uitype="text" class="form-control input-sm" placeholder="" title="" readonly></sbux-input>
 								<sbux-input id="dtl-inp-reqCd" name="dtl-inp-reqCd" uitype="hidden"></sbux-input>
 								<sbux-input id="dtl-inp-reqNm" name="dtl-inp-reqNm" uitype="hidden"></sbux-input>
 							</td>
 							<td></td>
 						</tr>
-
+						<tr>
+							<th>비고(현장)</th>
+							<td colspan="10" class="td_input" style="border-right: hidden;">
+								<sbux-input id="dtl-inp-rmrkSpt" name="dtl-inp-rmrkSpt" uitype="text" class="form-control input-sm" placeholder="" title="" readonly></sbux-input>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<th>비고(실적)</th>
+							<td colspan="10" class="td_input" style="border-right: hidden;">
+								<sbux-input id="dtl-inp-rmrkRslt" name="dtl-inp-rmrkRslt" uitype="text" class="form-control input-sm" placeholder="" title="" ></sbux-input>
+							</td>
+							<td></td>
+						</tr>
 					</tbody>
 				</table>
 				<sbux-input id="dtl-input-gbnKey" name="dtl-input-gbnKey" uitype="hidden"></sbux-input>
@@ -283,6 +330,12 @@
             {caption: ["약정일자"],  ref: 'enggtYmd',        type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["약정수량"],  ref: 'enggtVlm',   type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["예상수확량"], ref: 'expctHrvstQntt', type:'output',  width:'14%',    style:'text-align:center'},
+            {caption: ["확인일자(현장)"],  ref: 'enggtSptYmd',        type:'output',  width:'14%',    style:'text-align:center'},
+            {caption: ["약정수량(현장)"],  ref: 'enggtVlmSpt',   type:'output',  width:'14%',    style:'text-align:center'},
+            {caption: ["예상수확량(현장)"], ref: 'expctHrvstQnttSpt', type:'output',  width:'14%',    style:'text-align:center'},
+            {caption: ["확인일자(실적)"],  ref: 'enggtRsltYmd',        type:'output',  width:'14%',    style:'text-align:center'},
+            {caption: ["약정수량(실적)"],  ref: 'enggtVlmRslt',   type:'output',  width:'14%',    style:'text-align:center'},
+            {caption: ["예상수확량(실적)"], ref: 'expctHrvstQnttRslt', type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["진행구분"], ref: 'reqNm', type:'output',  width:'11%',    style:'text-align:center'},
             {caption: ["최종변경자ID"], ref: 'updUserId',   type:'output',  hidden: true},
             {caption: ["최종변경일시"],  ref: 'updDateTime', type:'output',  hidden: true},
@@ -361,6 +414,14 @@
 					enggtYmd: fn_dateFormat(item.enggtYmd),
 					expctHrvstQntt: item.expctHrvstQntt,
 					rmrk: item.rmrk,
+					enggtVlmSpt: item.enggtVlmSpt,
+					enggtSptYmd:item.enggtSptYmd,
+					expctHrvstQnttSpt: item.expctHrvstQnttSpt,
+					rmrkSpt: item.rmrkSpt,
+					enggtVlmRslt: item.enggtVlmRslt,
+					enggtRsltYmd: item.enggtRsltYmd,
+					expctHrvstQnttRslt: item.expctHrvstQnttRslt,
+					rmrkRslt: item.rmrkRslt,
 					sysFrstInptDt: item.sysFrstInptDt,
 					sysFrstInptUserId: item.sysFrstInptUserId,
 					sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,
@@ -419,6 +480,14 @@
         SBUxMethod.set('dtl-inp-expctHrvstQntt', null),
         SBUxMethod.set('dtl-inp-enggtYmd', null),
         SBUxMethod.set('dtl-inp-rmrk', ''),
+        SBUxMethod.set('dtl-inp-enggtVlmSpt', null),
+        SBUxMethod.set('dtl-inp-expctHrvstQnttSpt', null),
+        SBUxMethod.set('dtl-inp-enggtSptYmd', null),
+        SBUxMethod.set('dtl-inp-rmrkSpt', ''),
+        SBUxMethod.set('dtl-inp-enggtVlmRslt', null),
+        SBUxMethod.set('dtl-inp-expctHrvstQnttRslt', null),
+        SBUxMethod.set('dtl-inp-enggtRsltYmd', null),
+        SBUxMethod.set('dtl-inp-rmrkRslt', ''),
         SBUxMethod.set("dtl-input-sysFrstInptUserId", null);
         SBUxMethod.set("dtl-input-sysLastChgUserId", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
@@ -444,6 +513,14 @@
         SBUxMethod.set('dtl-inp-expctHrvstQntt', null),
         SBUxMethod.set('dtl-inp-enggtYmd', null),
         SBUxMethod.set('dtl-inp-rmrk', ''),
+        SBUxMethod.set('dtl-inp-enggtVlmSpt', null),
+        SBUxMethod.set('dtl-inp-expctHrvstQnttSpt', null),
+        SBUxMethod.set('dtl-inp-enggtSptYmd', null),
+        SBUxMethod.set('dtl-inp-rmrkSpt', ''),
+        SBUxMethod.set('dtl-inp-enggtVlmRslt', null),
+        SBUxMethod.set('dtl-inp-expctHrvstQnttRslt', null),
+        SBUxMethod.set('dtl-inp-enggtRsltYmd', null),
+        SBUxMethod.set('dtl-inp-rmrkRslt', ''),
         SBUxMethod.set("dtl-input-sysFrstInptUserId", null);
         SBUxMethod.set("dtl-input-sysLastChgUserId", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
@@ -495,6 +572,37 @@
             return;
         }
 
+    	if (gfn_isEmpty(SBUxMethod.get("dtl-inp-enggtSptYmd"))) {
+            alert("확인일자(현장)를 입력하세요.");
+            return;
+        }
+
+    	if (gfn_isEmpty(SBUxMethod.get("dtl-inp-enggtVlmSpt"))) {
+            alert("약정수량(현장)을 입력하세요.");
+            return;
+        }
+
+    	if (gfn_isEmpty(SBUxMethod.get("dtl-inp-expctHrvstQnttSpt"))) {
+            alert("예상수확량(현장)을 입력하세요.");
+            return;
+        }
+
+
+    	if (gfn_isEmpty(SBUxMethod.get("dtl-inp-enggtRsltYmd"))) {
+            alert("확인일자(실적)를 입력하세요.");
+            return;
+        }
+
+    	if (gfn_isEmpty(SBUxMethod.get("dtl-inp-enggtVlmRslt"))) {
+            alert("약정수량(실적)을 입력하세요.");
+            return;
+        }
+
+    	if (gfn_isEmpty(SBUxMethod.get("dtl-inp-expctHrvstQnttRslt"))) {
+            alert("예상수확량(실적)을 입력하세요.");
+            return;
+        }
+
     	if (gfn_isEmpty(gbnKey)) {
     		// 신규 등록
 			fn_subInsert(confirm("등록 하시겠습니까?"));
@@ -512,7 +620,7 @@
 
     	 if (!isConfirmed) return;
 
-    	const postJsonPromise = gfn_postJSON("/fm/clt/insertCltvtnEnggtAplyMng.do", {
+    	const postJsonPromise = gfn_postJSON("/fm/clt/insertCltvtnEngttRsltMng.do", {
 			apcCd: SBUxMethod.get('dtl-inp-apcCd'),
 			prdcrCd: SBUxMethod.get('dtl-inp-prdcrCd'),
 			frmerSn: Number(SBUxMethod.get('dtl-inp-prdcrCd')), //임시 농업인 일련번호
@@ -522,7 +630,15 @@
 			enggtVlm: SBUxMethod.get('dtl-inp-enggtVlm'),
 			expctHrvstQntt: SBUxMethod.get('dtl-inp-expctHrvstQntt'),
 			enggtYmd: SBUxMethod.get('dtl-inp-enggtYmd'),
-			rmrk: nvl(SBUxMethod.get('dtl-inp-rmrk'),'')
+			rmrk: nvl(SBUxMethod.get('dtl-inp-rmrk'),''),
+			enggtVlmSpt: SBUxMethod.get('dtl-inp-enggtVlmSpt'),
+			expctHrvstQnttSpt: SBUxMethod.get('dtl-inp-expctHrvstQnttSpt'),
+			enggtSptYmd: SBUxMethod.get('dtl-inp-enggtSptYmd'),
+			rmrkSpt: nvl(SBUxMethod.get('dtl-inp-rmrkSpt'),''),
+			enggtVlmRslt: SBUxMethod.get('dtl-inp-enggtVlmRslt'),
+			expctHrvstQnttRslt: SBUxMethod.get('dtl-inp-expctHrvstQnttRslt'),
+			enggtRsltYmd: SBUxMethod.get('dtl-inp-enggtRsltYmd'),
+			rmrkRslt: nvl(SBUxMethod.get('dtl-inp-rmrkRslt'),'')
 		});
 
         const data = await postJsonPromise;
@@ -548,7 +664,7 @@
 
 		if (!isConfirmed) return;
 
-    	const postJsonPromise = gfn_postJSON("/fm/clt/updateCltvtnEnggtAplyMng.do", {
+    	const postJsonPromise = gfn_postJSON("/fm/clt/updateCltvtnEngttRsltMng.do", {
     		apcCd: SBUxMethod.get('dtl-inp-apcCd'),
 			prdcrCd: SBUxMethod.get('dtl-inp-prdcrCd'),
 			frmerSn: Number(SBUxMethod.get('dtl-inp-prdcrCd')), //임시 농업인 일련번호
@@ -557,6 +673,14 @@
 			expctHrvstQntt: SBUxMethod.get('dtl-inp-expctHrvstQntt'),
 			enggtYmd: SBUxMethod.get('dtl-inp-enggtYmd'),
 			rmrk: SBUxMethod.get('dtl-inp-rmrk'),
+			enggtVlmSpt: SBUxMethod.get('dtl-inp-enggtVlmSpt'),
+			expctHrvstQnttSpt: SBUxMethod.get('dtl-inp-expctHrvstQnttSpt'),
+			enggtSptYmd: SBUxMethod.get('dtl-inp-enggtSptYmd'),
+			rmrkSpt: nvl(SBUxMethod.get('dtl-inp-rmrkSpt'),''),
+			enggtVlmRslt: SBUxMethod.get('dtl-inp-enggtVlmRslt'),
+			expctHrvstQnttRslt: SBUxMethod.get('dtl-inp-expctHrvstQnttRslt'),
+			enggtRsltYmd: SBUxMethod.get('dtl-inp-enggtRsltYmd'),
+			rmrkRslt: nvl(SBUxMethod.get('dtl-inp-rmrkRslt'),''),
 			reqSn: SBUxMethod.get('dtl-inp-reqSn')
 		});
 
@@ -640,7 +764,7 @@
 
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/clt/deleteCltvtnEnggtAplyMng.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/clt/deleteCltvtnEngttRsltMng.do", list);
 
          const data = await postJsonPromise;
 
@@ -686,6 +810,14 @@
         SBUxMethod.set('dtl-inp-expctHrvstQntt', rowData.expctHrvstQntt);
         SBUxMethod.set('dtl-inp-enggtYmd', rowData.enggtYmd);
         SBUxMethod.set('dtl-inp-rmrk', rowData.rmrk);
+        SBUxMethod.set('dtl-inp-enggtVlmSpt', rowData.enggtVlmSpt);
+        SBUxMethod.set('dtl-inp-expctHrvstQnttSpt', rowData.expctHrvstQnttSpt);
+        SBUxMethod.set('dtl-inp-enggtSptYmd', rowData.enggtSptYmd);
+        SBUxMethod.set('dtl-inp-rmrkSpt', rowData.rmrkSpt);
+        SBUxMethod.set('dtl-inp-enggtVlmRslt', rowData.enggtVlmRslt);
+        SBUxMethod.set('dtl-inp-expctHrvstQnttRslt', rowData.expctHrvstQnttRslt);
+        SBUxMethod.set('dtl-inp-enggtRsltYmd', rowData.enggtRsltYmd);
+        SBUxMethod.set('dtl-inp-rmrkRslt', rowData.rmrkRslt);
         SBUxMethod.set('dtl-inp-reqSn', rowData.reqSn);
         SBUxMethod.set('dtl-inp-reqCd', rowData.reqCd);
         SBUxMethod.set('dtl-inp-reqNm', rowData.reqNm);

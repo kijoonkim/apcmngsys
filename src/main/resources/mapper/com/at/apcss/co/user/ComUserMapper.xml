@@ -169,12 +169,7 @@
     		 , RMRK 					= #{rmrk}
     	</if>
     	<if test='delYn != null and delYn != ""'>
-    		<if test='delYn == "Y"'>
-	    	, DEL_YN 					= 'N'
-    		</if>
-    		<if test='delYn == "N"'>
-	    	, DEL_YN 					= 'Y'
-    		</if>
+	    	, DEL_YN 					= #{delYn}
     	</if>
     	<if test='eml != null and eml != ""'>
     		 , EML 						= #{eml}

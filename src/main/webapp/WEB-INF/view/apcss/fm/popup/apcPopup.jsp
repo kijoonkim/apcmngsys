@@ -292,8 +292,10 @@
 		},
 		setGrid: async function(pageSize, pageNo, isEditable) {
 
-	    	let apcCd = SBUxMethod.get("apc-inp-apcCd");
-			let apcNm = SBUxMethod.get("apc-inp-apcNm");
+	    	var apcCd = SBUxMethod.get("apc-inp-apcCd");
+			var apcNm = nvlScnd(SBUxMethod.get("apc-inp-apcNm"),'');
+
+			console.log("setGrid 호출 / apcNm : " + apcNm + "/ 타입 : " + typeof(apcNm));
 
 	        const postJsonPromise = gfn_postJSON("/fm/clt/selectApcListPopup.do", {
 
@@ -366,6 +368,15 @@ function enterKey() {
 			popApc.search();
 		}
 	}
+
+	//null 체크
+function nvlScnd(str, defaultStr){
+
+       if(typeof str == "undefined" || str == null || str == "" || str == "null")
+           str = defaultStr ;
+
+       return str ;
+   }
 
 
 

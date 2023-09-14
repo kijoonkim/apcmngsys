@@ -17,7 +17,7 @@ public interface ApcEvrmntStngService {
 	 */
 	ApcEvrmntStngVO selectApcInfo(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
-	
+
 	ApcEvrmntStngVO selectUserAprvReg(ComUserVO comUserVO) throws Exception;
 
 	/**
@@ -83,6 +83,14 @@ public interface ApcEvrmntStngService {
 	 * @throws Exception
 	 */
 	int updateApcEvrmntStng(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+
+	/**
+	 * APC 권한 간편설정
+	 * @param apcEvrmntStngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateApcMenuAuthrt(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
 
 
