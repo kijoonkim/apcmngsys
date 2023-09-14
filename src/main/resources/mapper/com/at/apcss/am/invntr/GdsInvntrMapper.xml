@@ -148,6 +148,21 @@
 		<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
 			   AND GI.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
 		</if>
+		
+		<!-- 	 선별재고 내역 검색조건 -->
+		<if test='crtrYmd != null and crtrYmd != ""'>
+			   AND GI.PCKG_YMD = #{crtrYmd}
+		</if>
+		<if test='prdcr != null and prdcr != ""'>
+			   AND GI.RPRS_PRDCR_CD = #{prdcr}
+		</if>
+		<if test='gdsSe != null and gdsSe != ""'>
+			   AND GI.GDS_SE_CD = #{gdsSe}
+		</if>
+		<if test='wrhsSe != null and wrhsSe != ""'>
+			   AND GI.WRHS_SE_CD = #{wrhsSe}
+		</if>
+		
     	<![CDATA[
 			 ORDER BY PCKG_YMD, PCKGNO, PCKG_SN
     		  ) pt0

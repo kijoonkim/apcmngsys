@@ -544,9 +544,25 @@
 	var newSortInptPrfmncGridData = [];
 	const fn_callSelectGrid3List = async function(pageSize, pageNo) {
 //     	let startsortYmd  = SBUxMethod.get("srch-inp-startsortYmd");
+		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
+		let invntrySe = SBUxMethod.get("srch-slt-invntrySe");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+		let prdcr = SBUxMethod.get("srch-inp-prdcr");
+		let gdsSe = SBUxMethod.get("srch-slt-gdsSe");
+		let wrhsSe = SBUxMethod.get("srch-slt-wrhsSe");
 		
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
+			crtrYmd: crtrYmd,
+			invntrySe: invntrySe,
+			itemCd:itemCd,
+			vrtyCd: vrtyCd,
+			spcfctCd: spcfctCd,
+			prdcr: prdcr,
+			gdsSe: gdsSe,
+			wrhsSe: wrhsSe,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : pageNo,
