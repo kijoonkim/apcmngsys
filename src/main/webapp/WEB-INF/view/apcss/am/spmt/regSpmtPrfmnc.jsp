@@ -101,16 +101,17 @@
 								</p>
 							</td>
 							<td style="border-right: hidden;"></td>
-							<th scope="row" class="th_bg"><span class="data_required"></span>포장단위</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-spmtPckgUnitCd"
-									name="srch-slt-spmtPckgUnitCd"
+							<th scope="row" class="th_bg">규격</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select id="srch-slt-spcfct"
+									name="srch-slt-spcfct"
 									uitype="single"
 									unselected-text="선택"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									jsondata-ref="jsonComSpmtPckgUnit"
+									class="form-control input-sm"
+									jsondata-ref="jsonComSpcfct"
 								></sbux-select>
 							</td>
+							<td style="border-right: hidden;">
 							<td style="border-right: hidden;">
 							</td>
 						</tr>
@@ -254,20 +255,21 @@
 </body>
 <script type="text/javascript">
 
-	var jsonComItem			= [];	// 품목 			itemCd		검색
-	var jsonComVrty			= [];	// 품종 			vrtyCd		검색
-	var jsonComSpcfct		= [];	// 규격 			spcfctCd	검색
-	var jsonComGdsGrd		= [];	// 상품등급		gdsGrd		그리드
+	var jsonComItem			= [];	// 품목 			itemCd			검색
+	var jsonComVrty			= [];	// 품종 			vrtyCd			검색
+	var jsonComSpcfct		= [];	// 규격 			spcfctCd		검색
 	var jsonComWarehouse	= [];	// 창고 			warehouseSeCd	검색
-	var jsonComGdsSeCd		= [];	// 상품구분 		gdsSeCd		검색
-	var jsonComTrsprtCoCd	= [];	// 운송사 		trsprtCo	검색
-	var jsonComSpmtPckgUnit	= [];	// 출하포장단위 	pckgSeCd	그리드
+	var jsonComGdsSeCd		= [];	// 상품구분 		gdsSeCd			검색
+	var jsonComTrsprtCoCd	= [];	// 운송사 		trsprtCo		검색
+	var jsonComSpcfct		= [];	// 출하포장단위 	spmtPckgUnit	검색
+	var jsonGrdGdsGrd		= [];	// 상품등급		gdsGrd			그리드
+	var jsonGrdSpmtPckgUnit	= [];	// 출하포장단위 	spmtPckgUnit	그리드
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
 			gfn_setComCdSBSelect('srch-rdo-gdsSeCd', 		jsonComGdsSeCd, 	'GDS_SE_CD', gv_selectedApcCd), 		// 상품구분 등록
-			gfn_setComCdSBSelect('grdGdsInvntr', 			jsonComGdsGrd, 		'GDS_GRD'),		// 상품등급
+			gfn_setComCdSBSelect('grdGdsInvntr', 			jsonGrdGdsGrd, 		'GDS_GRD'),		// 상품등급
 		 	gfn_setTrsprtsSBSelect('dtl-slt-trsprtCoCd', 	jsonComTrsprtCoCd, 	gv_apcCd),		// 운송사
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_apcCd),		// 품목
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 		gv_apcCd)		// 품종
@@ -291,7 +293,9 @@
 				itemCd = jsonComVrty[i].mastervalue;
 			}
 		}
-		await gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', 	jsonComSpmtPckgUnit, 	gv_apcCd, itemCd, vrtyCd)		// 포장구분
+		await gfn_setApcSpcfctsSBSelect('srch-slt-spcfct', 	jsonComSpcfct, 	gv_apcCd, itemCd)		// 포장구분
+		await gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 	jsonGrdSpmtPckgUnit, 	gv_apcCd, itemCd, vrtyCd),		// 포장구분
+		grdGdsInvntr.refresh({"combo":true})
 		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
 	}
 
@@ -330,8 +334,10 @@
             {caption: ['재고수량'], 	ref: 'invntrQntt', 	width: '100px', type: 'output', style: 'text-align:right'},
             {caption: ['재고중량'], 	ref: 'invntrWght', 	width: '150px', type: 'output', style: 'text-align:right',
             			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ["포장단위"], 	ref: 'spmtPckgUnitNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-            {caption: ["등급"], 		ref: 'gdsGrdNm',   	width:'100px', type: 'output',  style:'text-align:center'},
+   			{caption: ["포장단위"], 			ref: 'spmtPckgUnitCd',   	type:'combo',  width:'200px',    style:'text-align:center; background:#FFF8DC;',
+    					typeinfo : {ref:'jsonGrdSpmtPckgUnit', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+            {caption: ["등급"], 			ref: 'gdsGrd',   	type:'combo',  width:'100px',    style:'text-align:center; background:#FFF8DC;',
+    					typeinfo : {ref:'jsonGrdGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['출하지시수량'], ref: 'cmndQntt',	width: '100px', type: 'output', style: 'text-align:right'},
             {caption: ['출하지시중량'], ref: 'cmndWght', 	width: '150px', type: 'output', style: 'text-align:right',
             			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
@@ -420,11 +426,6 @@
   			gfn_comAlert("W0001", "상품");				//	W0002	{0}을/를 선택하세요.
             return false;
   		}
-  		if (gfn_isEmpty(spmtPckgUnitCd)) {
-  			gfn_comAlert("W0001", "포장구분");				//	W0002	{0}을/를 선택하세요.
-            return false;
-  		}
-
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
 			apcCd			: gv_selectedApcCd,
 			pckgYmdFrom		: pckgYmdFrom,
@@ -620,9 +621,15 @@
 
     	for(var i=0; i< grdRows.length; i++){
     		let nRow = grdRows[i];
-    		let smptWght = grdGdsInvntr.getRowData(nRow).smptWght;
+    		let rowData = grdGdsInvntr.getRowData(nRow)
+    		let smptWght = rowData.smptWght;
+    		let spmtPckgUnitCd = rowData.spmtPckgUnitCd;
     		if(smptWght == 0){
     			gfn_comAlert("W0001", "출하중량");		//	W0001	{0}이/가 없습니다.
+    			return;
+    		}
+    		if(gfn_isEmpty(spmtPckgUnitCd)){
+    			gfn_comAlert("W0002", "포장단위");		//	W0001	{0}을/를 선택하세요.
     			return;
     		}
     		grdGdsInvntr.setCellData(nRow, 14, spmtYmd);
