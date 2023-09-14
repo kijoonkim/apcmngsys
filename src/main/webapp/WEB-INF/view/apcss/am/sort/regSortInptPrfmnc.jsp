@@ -656,6 +656,8 @@
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
 
+  		let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
+
   		if (gfn_isEmpty(itemCd)) {
   			gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
             return;
@@ -674,6 +676,7 @@
 			itemCd: itemCd,
 			vrtyCd: vrtyCd,
 
+			inptYmd: inptYmd,
           	// pagination
   	  		//pagingYn : 'Y',
   			//currentPageNo : pageNo,

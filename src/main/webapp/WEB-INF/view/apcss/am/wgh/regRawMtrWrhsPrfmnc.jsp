@@ -1,5 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : regRawMtrWrhsPrfmnc.jsp
+  * @Description : 원물입고 실적등록 화면
+  * @author SI개발부
+  * @since 2023.08.31
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.08.31   	정희운			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -197,7 +212,7 @@
 									uitype="text"
 									id="srch-inp-bxQntt"
 									name="srch-inp-bxQntt"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									maxlength="6"
 									autocomplete="off"
 									mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"

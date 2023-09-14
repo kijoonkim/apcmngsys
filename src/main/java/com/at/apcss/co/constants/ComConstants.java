@@ -86,7 +86,7 @@ public class ComConstants {
 
 	public final static String[] MENU_ID_PLT_BX						= {"AM_001_004"};				// 팔레트박스
 
-	public final static String[] MENU_ID_RAW_MTR_WRHS_PLAN			= {"AM_001_001"};				// 원물입고계획
+	public final static String[] MENU_ID_RAW_MTR_WRHS_PLAN			= {"AM_001_005"};				// 원물입고계획
 
 	public final static String[] MENU_ID_GDS_WRHS 					= {"AM_001_006"};				// 상품입고
 
