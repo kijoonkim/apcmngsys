@@ -1,23 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : sortCmnd.jsp
+  * @Description : 선별지시조회 화면
+  * @author SI개발부
+  * @since 2023.08.31
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.08.31   	정희운			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>	<!-- 선별지시조회 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnCmndDocSort" name="btnCmndDocSort" uitype="normal" text="선별지시서" class="btn btn-sm btn-primary"></sbux-button>
+					<sbux-button id="btnDocSortCmnd" name="btnDocSortCmnd" uitype="normal" text="선별지시서" class="btn btn-sm btn-primary" onclick="fn_docSortCmnd"></sbux-button>
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화"class="btn btn-sm btn-outline-danger"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제"class="btn btn-sm btn-outline-danger"></sbux-button>
+					<!-- <sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제"class="btn btn-sm btn-outline-danger"></sbux-button> -->
 				</div>
 			</div>
 			<div class="box-body">
@@ -79,12 +95,12 @@
    								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button 
-									id="btn-srch-prdcr" 
-									name="btn-srch-prdcr" 
-									class="btn btn-xs btn-outline-dark" 
-									text="찾기" uitype="modal" 
-									target-id="modal-prdcr" 
+								<sbux-button
+									id="btn-srch-prdcr"
+									name="btn-srch-prdcr"
+									class="btn btn-xs btn-outline-dark"
+									text="찾기" uitype="modal"
+									target-id="modal-prdcr"
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
@@ -95,7 +111,10 @@
 				</table>
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
-						<li><span>선별지시 내역</span></li>
+						<li>
+							<span>선별지시 내역</span>
+							<span style="font-size:12px">(조회건수 <span id="cnt-sortCmnd">0</span>건)</span>
+						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
 					</div>
@@ -116,7 +135,7 @@
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
-    
+
     <!-- 품종 선택 Modal -->
     <div>
         <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
@@ -124,6 +143,24 @@
     <div id="body-modal-vrtyCrtr">
     	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
     </div>
+
+    <!-- 리포트출력 Modal -->
+    <div>
+        <sbux-modal
+	        id="modal-clipReport"
+	        name="modal-clipReport"
+	        uitype="large"
+	        header-title="클립리포트"
+	        body-html-id="body-modal-clipReport"
+	        header-is-close-button="false"
+	        footer-is-close-button="false"
+	        style="width:95vw;height:80vh;"
+        ></sbux-modal>
+    </div>
+    <div id="body-modal-clipReport">
+    	<jsp:include page="../../am/popup/clipReportPopup.jsp"></jsp:include>
+    </div>
+
 </body>
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
@@ -178,6 +215,9 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
+			{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
 	        {caption: ["지시번호","지시번호"],		ref: 'sortCmndno',      type:'output',  width:'130px',    style:'text-align:center'},
 	        {caption: ["지시일자","지시일자"], 	ref: 'sortCmndYmd',     	type:'output',  width:'130px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["생산자","생산자"],  	ref: 'prdcrNm',    type:'output',  width:'130px',    style:'text-align:center'},
@@ -195,22 +235,22 @@
 	    grdSortCmnd = _SBGrid.create(SBGridProperties);
 	    grdSortCmnd.bind( "afterpagechanged" , "fn_pagingGrdSortCmnd" );
 	}
-	
+
     async function fn_pagingGrdSortCmnd(){
     	let recordCountPerPage = grdSortCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdSortCmnd.getSelectPageIndex(); 
+    	let currentPageNo = grdSortCmnd.getSelectPageIndex();
     	fn_setGrdSortCmnd(recordCountPerPage, currentPageNo);
     }
-	
+
 	const fn_search = async function(){
     	try{
  		   if (gfn_isEmpty(SBUxMethod.get("srch-dtp-strtCmndYmd")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-endCmndYmd")))
  				   throw "지시일자는 필수입력 항목입니다.";
- 		   
+
 	    	grdSortCmnd.rebuild();
 	    	let pageSize = grdSortCmnd.getPageSize();
 	    	let pageNo = 1;
-	
+
 	    	// grid clear
 	    	jsonSortCmnd.length = 0;
 	    	grdSortCmnd.clearStatus();
@@ -298,7 +338,7 @@
           		grdSortCmnd.setPageTotalCount(totalRecordCount);
           		grdSortCmnd.rebuild();
           	}
-          	document.querySelector('#listCount').innerText = totalRecordCount;
+          	document.querySelector('#cnt-sortCmnd').innerText = totalRecordCount;
        } catch (e) {
      		if (!(e instanceof Error)) {
      			e = new Error(e);
@@ -351,7 +391,7 @@
 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
 		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
-	
+
 	/**
 	* @name fn_onKeyUpPrdcrNm
 	* @description 생산자명 입력 시 event : autocomplete
@@ -374,7 +414,7 @@
 		SBUxMethod.set("srch-inp-prdcrCd", "");
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
 	}
-	
+
 	/**
 	 * @name fn_onSelectPrdcrNm
 	 * @description 생산자 autocomplete 선택 callback
@@ -389,7 +429,7 @@
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 		}
 	}
-	
+
 	/**
 	 * @name fn_choicePrdcr
 	 * @description 생산자 찾기 버튼 클릭
@@ -418,12 +458,12 @@
 		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
 		  return b;
 	}
-	
+
 	/** 품종 modal **/
     const fn_modalVrty = function() {
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
 	}
-    
+
      const fn_setVrty = function(vrty) {
 		if (!gfn_isEmpty(vrty)) {
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
@@ -443,5 +483,46 @@
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNm.join(','));
 		}
 	}
+
+	/**
+     * @name fn_docSortCmnd
+     * @description 선별지시서 발행 버튼
+     */
+ 	const fn_docSortCmnd = function() {
+
+ 		const sortCmndnoList = [];
+		const allData = grdSortCmnd.getGridDataAll();
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+				sortCmndnoList.push(item.sortCmndno);
+    		}
+		});
+
+ 		if (sortCmndnoList.length === 0) {
+ 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+             return;
+ 		}
+
+ 		const sortCmndno = sortCmndnoList.join("','");
+ 		console.log("sortCmndno");
+ 		console.log(sortCmndno);
+
+ 		popClipReport.modalView(
+ 				"modal-clipReport",
+ 				"선별지시서",
+ 				"am/sortCmndDoc.crf",
+ 				{apcCd: gv_selectedApcCd, sortCmndno: sortCmndno}
+ 			);
+
+ 		/*
+ 		gfn_viewClipReport(
+ 				"body-rpt-docRawMtrWgh",
+ 				"am/rawMtrWghDoc.crf",
+ 				{apcCd: gv_selectedApcCd, wghno: wghno}
+ 			);
+ 		 */
+ 	}
+
+
 </script>
 </html>
