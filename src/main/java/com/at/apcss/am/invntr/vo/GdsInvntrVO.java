@@ -62,6 +62,7 @@ public class GdsInvntrVO extends ComVO {
 	 * 대표생산자코드
 	 */
 	private String rprsPrdcrCd;
+	private String prdcr;
 	/**
 	 * 대표생산자명
 	 */
@@ -175,6 +176,7 @@ public class GdsInvntrVO extends ComVO {
 	 * 상품구분코드
 	 */
 	private String gdsSeCd;
+	private String gdsSe;
 	/**
 	 * 상품구분명
 	 */
@@ -195,7 +197,11 @@ public class GdsInvntrVO extends ComVO {
 	
 	/*비고*/
 	private String rmrk;
-
+	/*기준일자*/
+	private String crtrYmd;
+	/*입고구분*/
+	private String wrhsSe;
+	
 	/**
 	 * 표준등급
 	 */

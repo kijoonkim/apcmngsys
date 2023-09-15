@@ -260,6 +260,7 @@
 		<if test='vrtyCd != null and vrtyCd != ""'>
 			   AND SI.VRTY_CD = #{vrtyCd}
 		</if>
+
 		<if test='prdcrCd != null and prdcrCd != ""'>
 			   AND SI.RPRS_PRDCR_CD = #{prdcrCd}
 		</if>
