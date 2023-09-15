@@ -3,6 +3,7 @@ package com.at.apcss.am.wgh.vo;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.at.apcss.am.invntr.vo.RawMtrStdGrdVO;
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -47,6 +48,11 @@ public class WghPrfmncVO extends ComVO {
 	private String wghYmd;
 	private String wghYmdFrom;
 	private String wghYmdTo;
+
+	/**
+	 * 입고번호
+	 */
+	private String wrhsno;
 
 	/**
 	 * 생산자코드
@@ -222,4 +228,24 @@ public class WghPrfmncVO extends ComVO {
 	public void setWghPrfmncDtlList(List<WghPrfmncDtlVO> wghPrfmncDtlList) {
 		this.wghPrfmncDtlList = wghPrfmncDtlList == null ? null : wghPrfmncDtlList.stream().collect(Collectors.toList());
 	}
+
+	/**
+	 * 표준등급
+	 */
+	private String stdGrd;
+	private String stdGrdCd;
+
+	/**
+	 * 표준등급 목록
+	 */
+	private List<RawMtrStdGrdVO> stdGrdList;
+
+	public List<RawMtrStdGrdVO> getStdGrdList() {
+		return stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
+
+	public void setStdGrdList(List<RawMtrStdGrdVO> stdGrdList) {
+		this.stdGrdList = stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
+
 }

@@ -1,5 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : rawMtrWghReg.jsp
+  * @Description : 원물계량등록 화면
+  * @author SI개발부
+  * @since 2023.08.31
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.08.31   	신정철			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -40,8 +55,8 @@
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 2%">
-						<col style="width: 4%">
-						<col style="width: 3%">
+						<col style="width: 5%">
+						<col style="width: 2%">
 
 						<col style="width: 7%">
 						<col style="width: 4%">
@@ -80,11 +95,12 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
-									id="srch-inp-prdcrIdentno"
-									name="srch-inp-prdcrIdentno"
+									id="dtl-inp-prdcrIdentno"
+									name="dtl-inp-prdcrIdentno"
 									class="form-control input-sm"
 									maxlength="2"
 									autocomplete="off"
+									onkeyup="fn_noKeyup"
 									onchange="fn_onChangeSrchPrdcrIdentno(this)"
 								/>
 							</td>
@@ -128,16 +144,16 @@
 							<th scope="row" class="th_bg">입고구분</th>
 							<td colspan="4" class="td_input" style="border-right:hidden;">
 								<p class="ad_input_row">
-									<sbux-radio id="dtl-rdo-wrhsSeCd_1" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="1"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_1" text="일반매입"></sbux-label>
+									<sbux-radio id="dtl-rdo-wrhsSeCd_1" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="3"></sbux-radio>
+									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_3" text="매취"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-wrhsSeCd_2" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="2"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_2" text="공선"></sbux-label>
+									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_2" text="수탁"></sbux-label>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="dtl-rdo-wrhsSeCd_3" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="3" checked></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_3" text="매취"></sbux-label>
+									<sbux-radio id="dtl-rdo-wrhsSeCd_3" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
+									<sbux-label class="radio_label" for-id="dtl-rdo-wrhsSeCd_1" text="일반"></sbux-label>
 								</p>
 							</td>
 							<th scope="row" class="th_bg">상품구분</th>
@@ -213,7 +229,7 @@
 							<td colspan="3" style="border-right:hidden;">Kg</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">감량률</th>
+							<th scope="row" class="th_bg">감량률/감량</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
 									uitype="text"
@@ -225,9 +241,8 @@
 									onchange="fn_onChangeRdcdRt"
 								></sbux-input>
 							</td>
-							<td colspan="3">%</td>
-							<th scope="row" class="th_bg">감량</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td>%</td>
+							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-rdcdWght"
@@ -237,15 +252,27 @@
 									readonly
 								/>
 							</td>
-							<td colspan="3">Kg</td>
+							<td>Kg</td>
 							<th scope="row" class="th_bg">실중량</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-actlWght"
 									name="dtl-inp-actlWght"
 									class="form-control input-sm"
 									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+									readonly
+								></sbux-input>
+							</td>
+							<td colspan="3">Kg</td>
+							<th scope="row" class="th_bg">입고중량</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-wrhsWght"
+									name="dtl-inp-wrhsWght"
+									class="form-control input-sm"
+									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 									readonly
 								></sbux-input>
 							</td>
@@ -287,32 +314,22 @@
 								></sbux-input>
 							</td>
 							<td colspan="3">Kg</td>
-							<th scope="row" class="th_bg">입고중량</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>보관창고</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-input
-									uitype="text"
-									id="dtl-inp-wrhsWght"
-									name="dtl-inp-wrhsWght"
-									class="form-control input-sm"
-									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-									readonly
-								></sbux-input>
+								<sbux-select
+									id="dtl-slt-warehouseSeCd"
+									name="dtl-slt-warehouseSeCd"
+									uitype="single"
+									jsondata-ref="jsonComWarehouse"
+									unselected-text="선택"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+								></sbux-select>
 							</td>
-							<td colspan="3">Kg</td>
+							<td colspan="3"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>보관창고</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="dtl-slt-warehouseSeCd" name="dtl-slt-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouse" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
-							</td>
-							<td colspan="3"></td>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>등급</th>
-							<td colspan="2" class="td_input" >
-								<sbux-select id="dtl-slt-grdCd" name="dtl-slt-grdCd" uitype="single" jsondata-ref="jsonApcGrd" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
-							</td>
-							<td colspan="3"></td>
 							<th scope="row" class="th_bg">비고</th>
-							<td colspan="4" class="td_input">
+							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-rmrk"
@@ -321,6 +338,17 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
+							<td colspan="3"></td>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>등급</th>
+							<td colspan="10" class="td_input" >
+								<jsp:include page="../../am/popup/apcStdGrdSelect.jsp"></jsp:include>
+							</td>
+							<!--
+							<th scope="row" class="th_bg">비고</th>
+							<td colspan="4" class="td_input">
+
+							</td>
+							 -->
 						</tr>
 					</tbody>
 				</table>
@@ -477,6 +505,9 @@
 
 		fn_initSBSelect();
 		fn_getPrdcrs();
+
+		// 표준등급 init
+		stdGrdSelect.init();
 	}
 
 	const fn_getPrdcrs = async function() {
@@ -525,7 +556,8 @@
             {caption: ['비고'], ref: 'rmrk', width: '300px', type: 'output'},
             {caption: ["APC코드"],	ref: 'apcCd',        	type:'output',  hidden: true},
             {caption: ["생산자코드"],	ref: 'prdcrCd',        	type:'output',  hidden: true},
-
+            {caption: ["표준등급"],		ref: 'stdGrd',        	type:'output',  hidden: true},
+            {caption: ["표준등급코드"],	ref: 'stdGrdCd',        	type:'output',  hidden: true},
         ];
         grdWghPrfmnc = _SBGrid.create(SBGridProperties);
         grdWghPrfmnc.bind('click', fn_view);
@@ -649,7 +681,7 @@
 		let trsprtSeCd = SBUxMethod.get("dtl-rdo-trsprtSeCd");			// 운송구분
 		let warehouseSeCd = SBUxMethod.get("dtl-slt-warehouseSeCd");	// 창고
 		let vhclno = SBUxMethod.get("dtl-inp-vhclno");					// 차량번호
-		let grdCd = SBUxMethod.get("dtl-slt-grdCd");					// 등급
+		//let grdCd = SBUxMethod.get("dtl-slt-grdCd");					// 등급
 		let rmrk = SBUxMethod.get("dtl-inp-rmrk");				// 비고
 
 		let wholWght = parseInt(SBUxMethod.get("dtl-inp-wholWght")) || 0;			// 전체중량
@@ -697,10 +729,6 @@
     		gfn_comAlert("W0002", "차량번호");		//	W0002	{0}을/를 입력하세요.
             return;
     	}
-    	if (gfn_isEmpty(grdCd)) {
-    		gfn_comAlert("W0001", "등급");		//	W0001	{0}을/를 선택하세요.
-            return;
-    	}
 
     	if (wholWght <= 0) {
     		gfn_comAlert("W0002", "전체중량");		//	W0002	{0}을/를 입력하세요.
@@ -708,6 +736,25 @@
     	}
     	if (wrhsWght <= 0) {
     		gfn_comAlert("W0005", "입고중량");		//	W0005	{0}이/가 없습니다.
+            return;
+    	}
+
+    	// 등급
+    	const stdGrd = stdGrdSelect.getStdGrd();
+
+    	if (gfn_isEmpty(stdGrd)) {
+    		gfn_comAlert("W0001", "등급");		//	W0002	{0}을/를 선택하세요.
+            return;
+    	}
+
+    	if (stdGrd.isOmit) {
+    		gfn_comAlert("W0001", "등급");		//	W0002	{0}을/를 선택하세요.
+            return;
+    	}
+
+    	let grdCd = stdGrd.grdJgmt.grdCd;
+    	if (gfn_isEmpty(grdCd)) {
+    		gfn_comAlert("W0001", "등급");		//	W0002	{0}을/를 선택하세요.
             return;
     	}
 
@@ -768,7 +815,8 @@
     		rdcdWght: rdcdWght,				// 감량kg
     		actlWght: actlWght,				// 실중량
     		wrhsWght: wrhsWght,				// 입고중량
-    		wghPrfmncDtlList: wghPrfmncDtlList
+    		wghPrfmncDtlList: wghPrfmncDtlList,
+    		stdGrdList: stdGrd.stdGrdList
     	}
 
     	let postUrl = gfn_isEmpty(wghno) ? "/am/wgh/insertWghPrfmnc.do" : "/am/wgh/updateWghPrfmnc.do";
@@ -879,9 +927,9 @@
 			prdcrCd: prdcrCd,
 			itemCd: itemCd,
 			vrtyCd: vrtyCd,
-			wrhsSeCd: wrhsSeCd,
-			gdsSeCd: gdsSeCd,
-			trsprtSeCd: trsprtSeCd,
+			//wrhsSeCd: wrhsSeCd,
+			//gdsSeCd: gdsSeCd,
+			//trsprtSeCd: trsprtSeCd,
 
           	// pagination
   	  		pagingYn : 'Y',
@@ -929,7 +977,9 @@
   						wrhsSeCd: item.wrhsSeCd,
   						wrhsSeNm: item.wrhsSeNm,
   						trsprtSeCd: item.trsprtSeCd,
-  						trsprtSeNm: item.trsprtSeNm
+  						trsprtSeNm: item.trsprtSeNm,
+  						stdGrd: item.stdGrd,
+  						stdGrdCd: item.stdGrdCd,
   				}
   				jsonWghPrfmnc.push(wghPrfmnc);
 
@@ -1042,6 +1092,29 @@
 			// 등급
 			SBUxMethod.set("dtl-slt-grdCd", rowData.grdCd);
 
+			const stdGrdList = [];
+			if (!gfn_isEmpty(rowData.stdGrdCd)) {
+				rowData.stdGrdCd.split(',').forEach((item) => {
+					const grd = item.split(':');
+					stdGrdList.push({
+						grdKnd: grd[0],
+						grdCd: grd[1]
+					});
+				});
+			}
+
+			const stdGrdObj = {
+					apcCd: rowData.apcCd,
+					grdSeCd: _GRD_SE_CD_WRHS,	// 등급구분코드:원물입고
+					itemCd: rowData.itemCd,
+					stdGrdList: stdGrdList,
+					grdJgmt: {grdCd: rowData.grdCd}
+				}
+			console.log("stdGrdObj");
+			console.log(stdGrdObj);
+
+			stdGrdSelect.setStdGrd(rowData.apcCd, _GRD_SE_CD_WRHS, rowData.itemCd, stdGrdObj);
+
 			const wghInfo = data.resultMap;
 			// 팔레트 박스 정보
 			const pltData = [];
@@ -1124,7 +1197,8 @@
 		// 품종은 필터처리
 		let result = await Promise.all([
 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),	// 품종
-			gfn_setApcGrdsSBSelect('dtl-slt-grdCd', jsonApcGrd, gv_selectedApcCd, itemCd)		// 등급
+			gfn_setApcGrdsSBSelect('dtl-slt-grdCd', jsonApcGrd, gv_selectedApcCd, itemCd),
+			stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)	// 등급
 		]);
 	}
 
@@ -1195,6 +1269,35 @@
 		}
 	}
 
+	const fn_onChangeSrchPrdcrIdentno = function(obj) {
+
+		if (gfn_isEmpty(SBUxMethod.get("dtl-inp-prdcrIdentno"))) {
+			return;
+		}
+
+		SBUxMethod.set("dtl-inp-prdcrCd", "");
+		SBUxMethod.set("dtl-inp-prdcrNm", "");
+		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "");	//skyblue
+
+		let prdcrIdentno = parseInt(SBUxMethod.get("dtl-inp-prdcrIdentno")) || 0;
+
+		if (prdcrIdentno < 1) {
+			return;
+		}
+
+		const prdcrInfo = _.find(jsonPrdcr, {prdcrIdentno: prdcrIdentno});
+		if (gfn_isEmpty(prdcrInfo)) {
+			return;
+		}
+
+		SBUxMethod.set("dtl-inp-prdcrCd", prdcrInfo.prdcrCd);
+		SBUxMethod.set("dtl-inp-prdcrNm", prdcrInfo.prdcrNm);
+		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+
+		fn_setPrdcrForm(prdcrInfo);
+
+	}
+
 	const fn_setPrdcrForm = async function(prdcr) {
 
 		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
@@ -1224,9 +1327,9 @@
 			SBUxMethod.set("dtl-inp-vhclno", prdcr.vhclno);
 		}
 		if (!gfn_isEmpty(prdcr.prdcrIdentno)) {
-			SBUxMethod.set("srch-inp-prdcrIdentno", prdcr.prdcrIdentno);
+			SBUxMethod.set("dtl-inp-prdcrIdentno", prdcr.prdcrIdentno);
 		} else {
-			SBUxMethod.set("srch-inp-prdcrIdentno", "");
+			SBUxMethod.set("dtl-inp-prdcrIdentno", "");
 		}
 	}
 
@@ -1317,6 +1420,10 @@
 		SBUxMethod.set("dtl-inp-actlWght", actlWght);	// 실중량
 		SBUxMethod.set("dtl-inp-rdcdWght", rdcdWght);	// 감량(kg)
 		SBUxMethod.set("dtl-inp-wrhsWght", wrhsWght);	// 정산중량(입고중량)
+	}
+
+	function fn_noKeyup(event) {
+
 	}
 
 	//const cloneObj = obj => JSON.parse(JSON.stringify(obj));
