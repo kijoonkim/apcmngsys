@@ -81,7 +81,8 @@
 								<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm input-sm" unselected-text="전체" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" class="form-control input-sm" ></sbux-input>
+								<sbux-input uitype="text" id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"/>
@@ -313,7 +314,7 @@
 
 		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
 		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSe");
 		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
@@ -684,16 +685,24 @@
      const fn_setVrty = function(vrty) {
 		if (!gfn_isEmpty(vrty)) {
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
-			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyNm);
+			SBUxMethod.setValue('srch-inp-vrtyCd', '');
+			SBUxMethod.setValue('srch-inp-vrtyCd', vrty.vrtyCd);
+			SBUxMethod.set('srch-inp-vrtyNm', '');
+			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
 		}
 	}
      const fn_setVrtys = function(vrtys) {
+    	 console.log("vrtys", vrtys);
 		if (!gfn_isEmpty(vrtys)) {
 			var _vrtys = [];
+			var _vrtyCds = [];
 			for(var i=0;i<vrtys.length;i++){
 				_vrtys.push(vrtys[i].vrtyNm);
+				_vrtyCds.push(vrtys[i].vrtyCd);
 			}
-			SBUxMethod.set('srch-inp-vrtyCd', _vrtys.join(','));
+			SBUxMethod.set('srch-inp-vrtyCd', '');
+			SBUxMethod.set('srch-inp-vrtyNm', _vrtys.join(','));
+			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCds.join(','));
 		}
 	}
 
