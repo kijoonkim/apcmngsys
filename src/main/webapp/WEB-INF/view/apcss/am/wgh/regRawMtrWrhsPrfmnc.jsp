@@ -593,12 +593,10 @@
 		fn_clearForm();
 	}
 
-
-
-     /**
-      * @name fn_delete
-      * @description 삭제 버튼
-      */
+	/**
+     * @name fn_delete
+     * @description 삭제 버튼
+     */
 	const fn_delete = async function() {
 		let wrhsno = SBUxMethod.get("srch-inp-wrhsno");
 
