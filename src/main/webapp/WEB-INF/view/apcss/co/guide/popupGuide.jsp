@@ -237,7 +237,7 @@
     <div id="body-modal-trsprtCst">
     	<jsp:include page="../../am/popup/trsprtCstPopup.jsp"></jsp:include>
     </div>
-    
+
      <!-- 마감 등록 Modal -->
     <div>
         <sbux-modal id="modal-ddln" name="modal-ddln" uitype="middle" header-title="마감 등록" body-html-id="body-modal-ddln" footer-is-close-button="false" header-is-close-button="false" style="width:700px"></sbux-modal>
@@ -245,7 +245,7 @@
     <div id="body-modal-ddln">
     	<jsp:include page="../../am/popup/regDdlnPopup.jsp"></jsp:include>
     </div>
-    
+
     <!-- 출하지시번호 선택 Modal -->
     <div>
         <sbux-modal id="modal-spmtCmndno" name="modal-spmtCmndno" uitype="middle" header-title="출하지시번호 선택" body-html-id="body-modal-spmtCmndno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -253,7 +253,7 @@
     <div id="body-modal-spmtCmndno">
     	<jsp:include page="../../am/popup/spmtCmndnoPopup.jsp"></jsp:include>
     </div>
-    
+
      <!-- 상품 선택 Modal -->
     <div>
         <sbux-modal id="modal-gds" name="modal-gds" uitype="middle" header-title="상품 선택" body-html-id="body-modal-gds" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -268,7 +268,7 @@
 		fn_getPrdcrs();
 		SBUxMethod.set("srch-dtp-trsprtYmd", gfn_dateToYmd(new Date()));
 	})
-	
+
 	// APC 선택 변경
 	const fn_onChangeApc = async function() {
 		fn_clearPrdcr();
@@ -328,7 +328,7 @@
 	 * @description 생산자 폼 clear
 	 */
 	const fn_clearPrdcr = function() {
-		SBUxMethod.set("srch-inp-prdcrCd", null);
+		SBUxMethod.set("srch-inp-prdcrCd", "");
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
 	}
 
@@ -342,7 +342,7 @@
 	}
 	/* End */
 
-	
+
 	/* 차량선택 팝업 호출 필수 function  */
 	/* Start */
 	/**
@@ -369,8 +369,8 @@
 	/* Start */
 	let vhclData = {vhclno : null, drvrNm : null, bankNm : null, bankCd : null, actno : null, dpstr : null};
 	/* End */
-	
-	
+
+
 	/* 원물운임비용등록팝업 호출 필수 function  */
 	/* Start */
 	/**
@@ -420,7 +420,7 @@
 	}
 	/* End */
 
-	
+
 	/* 마감등록팝업 호출 필수 function  */
 	/* Start */
 	/**
@@ -431,8 +431,8 @@
 		fn_modalDdln(gv_selectedApcCd, gv_selectedApcNm);
 	}
 	/* End */
-	
-	
+
+
 	/* 품종선택팝업 호출 필수 function  */
 	/* Start */
 	/**
@@ -454,7 +454,7 @@
 			SBUxMethod.set('scrh-inp-vrtyNm', vrty.vrtyNm);
 		}
 	}
-     
+
     /**
 	 * @name fn_setVrtys
 	 * @description 복수 품종 callback
@@ -469,8 +469,8 @@
 		}
 	}
 	/* End */
-     
-	
+
+
 	/* 거래처선택팝업 호출 필수 function  */
 	/* Start */
 	/**
@@ -480,7 +480,7 @@
  	const fn_modalCnpt = function() {
      	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
  	}
- 	
+
  	/**
 	 * @name fn_setCnpt
 	 * @description 거래처 선택 callback
@@ -491,8 +491,8 @@
  		}
  	}
  	/* End */
- 	
- 	
+
+
 	/* 출하지시번호선택팝업 호출 필수 function  */
 	/* Start */
 	/**
@@ -502,7 +502,7 @@
 	const fn_modalSpmtCmndno = function() {
     	popSpmtCmndno.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmndno);
 	}
-	
+
 	/**
 	 * @name fn_setSpmtCmndno
 	 * @description 출하지시번호 선택 callback
@@ -513,8 +513,8 @@
 		}
 	}
 	/* End */
- 	
-	
+
+
 	/* 상풍선택팝업 호출 필수 function  */
 	/* Start */
 	/**
@@ -524,7 +524,7 @@
 	const fn_modalGds = function() {
     	popGds.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-gdsNm"), fn_setGdsNm);
 	}
-	
+
 	/**
 	 * @name fn_setGdsNm
 	 * @description 상풍 선택 callback
@@ -535,14 +535,14 @@
 		}
 	}
 	/* End */
-	
-	
+
+
 	/* 생산자 팝업 호출 필수 json  */
 	/* Start */
 	var pltBxData = null;
 	/* End */
-	
-	
+
+
 	/* 원물입고 팔레트/박스 입고등록팝업 호출 필수 function  */
 	/* Start */
 	/**
@@ -552,7 +552,7 @@
 	const fn_modalPltBx = function() {
 		popPltBx.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPltBx, pltBxData);
 	}
-	
+
 	/**
 	 * @name fn_setPltBx
 	 * @description 팔레트 팝업 callback

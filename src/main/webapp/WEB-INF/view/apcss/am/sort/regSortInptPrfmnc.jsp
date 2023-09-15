@@ -1,5 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : regSortInptPrfmnc.jsp
+  * @Description : 선별실적등록 화면
+  * @author SI개발부
+  * @since 2023.08.31
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.08.31   	정희운			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +29,6 @@
 				<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 			</div>
 			<div style="margin-left: auto;">
-				<p class="ad_input_row">
-					<sbux-checkbox id="needsPckgRegYn" name="chk-pckgAuto" true-value="Y" false-value="N" uitype="normal" text="포장실적 자동등록" ></sbux-checkbox>
-				</p>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_search" text="조회"></sbux-button>
 				<sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-dark" onclick="fn_save" text="저장"></sbux-button>
 			</div>
@@ -143,9 +155,10 @@
 						<col style="width: 6%">
 						<col style="width: 3%">
 						<col style="width: 7%">
-						<col style="width: 4%">
-						<col style="width: 4%">
-						<col style="width: 4%">
+						<col style="width: 3%">
+						<col style="width: 3%">
+						<col style="width: 3%">
+						<col style="width: 3%">
 						<col style="width: 3%">
 					</colgroup>
 					<tbody>
@@ -166,7 +179,7 @@
 								></sbux-select>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg">투입/선별/미투입</th>
+							<th scope="row" class="th_bg">투입/감량/선별/미투입</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
@@ -176,6 +189,17 @@
 									maxlength="6"
 									autocomplete="off"
 									readonly
+									mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+								/>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-actlWght"
+									name="dtl-inp-actlWght"
+									class="form-control input-sm input-sm-ast"
+									maxlength="6"
+									autocomplete="off"
 									mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 								/>
 							</td>
@@ -199,6 +223,7 @@
 									class="form-control input-sm input-sm-ast"
 									maxlength="6"
 									autocomplete="off"
+									readonly
 									mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
 								/>
 							</td>
@@ -631,6 +656,8 @@
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
 
+  		let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
+
   		if (gfn_isEmpty(itemCd)) {
   			gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
             return;
@@ -649,6 +676,7 @@
 			itemCd: itemCd,
 			vrtyCd: vrtyCd,
 
+			inptYmd: inptYmd,
           	// pagination
   	  		//pagingYn : 'Y',
   			//currentPageNo : pageNo,
@@ -742,7 +770,6 @@
 
 	const fn_save = async function() {
 
-		let needsPckgRegYn = SBUxMethod.get("chk-pckgAuto").needsPckgRegYn;
 		const sortYmd = SBUxMethod.get("dtl-dtp-inptYmd");
 		// check qntt, wght
 
@@ -762,6 +789,7 @@
 
     			rawMtrInvntrList.push({
     				wrhsno: item.wrhsno,
+    				sortCmndno: item.sortCmndno,
     				inptQntt: qntt,
     				inptWght: wght
     			});
@@ -872,6 +900,9 @@
 					return;
 				}
 
+
+				const autoPckgInptYn = item.checkedYn;	// 포장등록 유무
+
 				sortPrfmnc = {
 					inptYmd: inptYmd,
     				fcltCd: fcltCd,
@@ -882,6 +913,7 @@
     				grdCd: jgmtGrdCd,
     				qntt: qntt,
     				wght: wght,
+    				autoPckgInptYn: autoPckgInptYn,
     				stdGrdList: stdGrdList
 				}
 
@@ -910,10 +942,9 @@
     		return;
     	}
 
-
 		const sortMng = {
     		apcCd: gv_selectedApcCd,
-    		//sortYmd: sortYmd,
+    		sortYmd: sortYmd,
     		//needsPckgRegYn: needsPckgRegYn,
     		rawMtrInvntrList: rawMtrInvntrList,
     		sortPrfmncList: sortPrfmncList
@@ -1001,6 +1032,7 @@
      */
 	const fn_clearForm = function() {
 		SBUxMethod.set("dtl-inp-inptWght", 0);
+		SBUxMethod.set("dtl-inp-actlWght", 0);
 		SBUxMethod.set("dtl-inp-sortWght", 0);
 		SBUxMethod.set("dtl-inp-lossWght", 0);
  	}
@@ -1098,10 +1130,10 @@
 					SBUxMethod.set("dtl-inp-inptWght", inptWght);
 
 					let sortRdcdRt = parseFloat(SBUxMethod.get("srch-inp-sortRdcdRt")) || 0;
-					let lossWght = gfn_apcEstmtWght(inptWght * (1 - sortRdcdRt / 100), gv_selectedApcCd);
-					// let sortWght = parseInt(SBUxMethod.get("dtl-inp-sortWght")) || 0;
-					// SBUxMethod.set("dtl-inp-lossWght", inptWght - sortWght);
-					SBUxMethod.set("dtl-inp-lossWght", lossWght);
+					let actlWght = gfn_apcEstmtWght(inptWght * (1 - sortRdcdRt / 100), gv_selectedApcCd);
+					let sortWght = parseInt(SBUxMethod.get("dtl-inp-sortWght")) || 0;
+					SBUxMethod.set("dtl-inp-lossWght", actlWght - sortWght);
+					SBUxMethod.set("dtl-inp-actlWght", actlWght);
 
 					break;
 
@@ -1150,7 +1182,8 @@
 					});
 
 					SBUxMethod.set("dtl-inp-sortWght", sortWght);
-					// SBUxMethod.set("dtl-inp-lossWght", inptWght - sortWght);
+					let actlWght = parseInt(SBUxMethod.get("dtl-inp-actlWght")) || 0;
+					SBUxMethod.set("dtl-inp-lossWght", actlWght - sortWght);
 					break;
 
 				default:

@@ -212,47 +212,44 @@
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
     			, pt0.*
+    			, (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) 				AS GRD_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) 				AS FCLT_NM
+    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) 						AS PRDCR_NM
+    			, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 								AS ITEM_NM
+    			, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 					AS VRTY_NM
+    			, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 				AS SPCFCT_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD',pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
     		  FROM (
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList */
-				  SI.APC_CD AS APC_CD
-				, SI.SORTNO AS SORTNO
-				, SI.GRD_CD AS GRD_CD
-				, (SELECT FN_GET_GRD_NM(SI.ITEM_CD, SI.GRD_CD, SI.APC_CD) FROM DUAL) AS GRD_NM
-				, SI.INPT_YMD AS INPT_YMD
-				, SI.FCLT_CD AS FCLT_CD
-				, (SELECT FN_GET_COM_CD_VL_NM('FCLT_CD', SI.FCLT_CD, SI.APC_CD) FROM DUAL) AS FCLT_NM
-				, SI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD
-				, (SELECT FN_GET_PRDCR_NM(SI.RPRS_PRDCR_CD, SI.APC_CD) FROM DUAL) AS PRDCR_NM
-				, SI.ITEM_CD AS ITEM_CD
-				, (SELECT FN_GET_ITEM_NM(SI.ITEM_CD, SI.APC_CD) FROM DUAL) AS ITEM_NM
-				, SI.VRTY_CD AS VRTY_CD
-				, ( SELECT FN_GET_VRTY_NM(SI.VRTY_CD, SI.APC_CD) FROM DUAL) AS VRTY_NM
-				, SI.SPCFCT_CD AS SPCFCT_CD
-				, (SELECT FN_GET_SPCFCT_NM(SI.ITEM_CD, SI.SPCFCT_CD, SI.APC_CD) FROM DUAL) AS SPCFCT_NM
-				, SI.GDS_SE_CD AS GDS_SE_CD
-				, (SELECT FN_GET_GDS_NM(SI.GDS_SE_CD, SI.APC_CD) FROM DUAL) AS GDS_NM
-				, SI.WRHS_SE_CD AS WRHS_SE_CD
-				, SI.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD
-				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD',SI.WAREHOUSE_SE_CD, SI.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
-				, SI.SORT_QNTT AS SORT_QNTT
-				, SI.SORT_WGHT AS SORT_WGHT
-				, SI.PCKG_QNTT AS PCKG_QNTT
-				, SI.PCKG_WGHT AS PCKG_WGHT
-				, SI.INVNTR_QNTT AS INVNTR_QNTT
-				, SI.INVNTR_WGHT AS INVNTR_WGHT
-				, SI.DEL_YN AS DEL_YN
-				, SI.PRDCTN_YR AS PRDCTN_YR
+				  SI.APC_CD 				AS APC_CD
+				, SI.SORTNO 				AS SORTNO
+				, SI.GRD_CD 				AS GRD_CD
+				, SI.INPT_YMD 				AS INPT_YMD
+				, SI.FCLT_CD 				AS FCLT_CD
+				, SI.RPRS_PRDCR_CD 			AS RPRS_PRDCR_CD
+				, SI.ITEM_CD 				AS ITEM_CD
+				, SI.VRTY_CD 				AS VRTY_CD
+				, SI.SPCFCT_CD 				AS SPCFCT_CD
+				, SI.GDS_SE_CD 				AS GDS_SE_CD
+				, SI.WRHS_SE_CD 			AS WRHS_SE_CD
+				, SI.WAREHOUSE_SE_CD 		AS WAREHOUSE_SE_CD
+				, SI.SORT_QNTT 				AS SORT_QNTT
+				, SI.SORT_WGHT 				AS SORT_WGHT
+				, SI.PCKG_QNTT 				AS PCKG_QNTT
+				, SI.PCKG_WGHT 				AS PCKG_WGHT
+				, SI.INVNTR_QNTT 			AS INVNTR_QNTT
+				, SI.INVNTR_WGHT 			AS INVNTR_WGHT
+				, SI.DEL_YN 				AS DEL_YN
+				, SI.PRDCTN_YR 				AS PRDCTN_YR
 			FROM
 				TB_SORT_INVNTR SI
 			WHERE 1=1
+			  AND SI.APC_CD = #{apcCd}
+			  AND SI.INVNTR_WGHT > 0
 		]]>
-
-		<if test='apcCd != null and apcCd != ""'>
-			   AND SI.APC_CD = #{apcCd}
-		</if>
 		<!-- 	 선별재고 내역 검색조건 -->
 		<if test='crtrYmd != null and crtrYmd != ""'>
 			   AND SI.INPT_YMD = #{crtrYmd}
@@ -263,17 +260,18 @@
 		<if test='vrtyCd != null and vrtyCd != ""'>
 			   AND SI.VRTY_CD = #{vrtyCd}
 		</if>
-		<if test='prdcr != null and prdcr != ""'>
-			   AND SI.RPRS_PRDCR_CD = #{prdcr}
+
+		<if test='prdcrCd != null and prdcrCd != ""'>
+			   AND SI.RPRS_PRDCR_CD = #{prdcrCd}
 		</if>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 			   AND SI.WAREHOUSE_SE_CD = #{warehouseSeCd}
 		</if>
-		<if test='gdsSe != null and gdsSe != ""'>
-			   AND SI.GDS_SE_CD = #{gdsSe}
+		<if test='gdsSeCd != null and gdsSeCd != ""'>
+			   AND SI.GDS_SE_CD = #{gdsSeCd}
 		</if>
-		<if test='wrhsSe != null and wrhsSe != ""'>
-			   AND SI.WRHS_SE_CD = #{wrhsSe}
+		<if test='wrhsSeCd != null and wrhsSeCd != ""'>
+			   AND SI.WRHS_SE_CD = #{wrhsSeCd}
 		</if>
 
 		<!-- Start 페이징 -->

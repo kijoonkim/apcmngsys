@@ -160,6 +160,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			sort.setRmnWght(sort.getWght());
 		}
 
+		// 포장자동등록 대상
+		List<SortPrfmncVO> pckgList = new ArrayList<>();
+
 		// 재고 >> 선별실적 정보 set	// 재고배분
 		for ( RawMtrInvntrVO orgnInv : invntrList ) {
 
@@ -281,6 +284,12 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			prfmncVO.setSortSn(sortSn);
 			prfmncVO.setStdGrdList(prfmncInfo.getStdGrdList());
 			sortPrfmncVOList.add(prfmncVO);
+
+			if (ComConstants.CON_YES.equals(prfmncVO.getAutoPckgInptYn())) {
+				SortPrfmncVO pckgVO = new SortPrfmncVO();
+				BeanUtils.copyProperties(prfmncVO, pckgVO);
+				pckgList.add(pckgVO);
+			}
 		}
 
 		rtnObj = sortPrfmncService.insertSortPrfmncList(sortPrfmncVOList);
@@ -290,7 +299,6 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 		}
 
 		// 선별실적 등록 시 투입실적도 함께 등록 (투입실적 여부 확인 후 등록)
-
 		List<SortInptPrfmncVO> sortInptPrfmncVOList = new ArrayList<>();
 		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
 			SortInptPrfmncVO sortInptVO = new SortInptPrfmncVO();
@@ -306,7 +314,6 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 		rtnObj = sortInptPrfmncService.insertSortInptPrfmncList(sortInptPrfmncVOList);
 		if (rtnObj != null) {
-			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
 
@@ -318,14 +325,13 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			}
 		}
 
-		// 포장자동등록 시 포장실적 등록
-		if (ComConstants.CON_YES.equals(sortMngVO.getNeedsPckgRegYn())) {
-
+		// 포장자동등록 선택 시 포장실적 등록
+		if (!pckgList.isEmpty()) {
 			//sortPrfmncVOList
 			List<SortInvntrVO> sortInvntrList = new ArrayList<>();
 			List<PckgPrfmncVO> pckgPrfmncList = new ArrayList<>();
 
-			for ( SortPrfmncVO sortVO : sortPrfmncVOList ) {
+			for ( SortPrfmncVO sortVO : pckgList ) {
 				SortInvntrVO invntrVO = new SortInvntrVO();
 				BeanUtils.copyProperties(sortVO, invntrVO);
 
@@ -348,13 +354,12 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 			PckgMngVO pckgMngVO = new PckgMngVO();
 			BeanUtils.copyProperties(sortMngVO, pckgMngVO);
-			pckgMngVO.setNeedsInptRegYn(ComConstants.CON_YES);	// 포장투입실적 자동등록
 			pckgMngVO.setSortInvntrList(sortInvntrList);
 			pckgMngVO.setPckgPrfmncList(pckgPrfmncList);
+			pckgMngVO.setPckgYmd(sortMngVO.getSortYmd());
 
 			rtnObj = pckgMngService.insertPckgPrfmnc(pckgMngVO);
 			if (rtnObj != null) {
-				// error throw exception;
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}

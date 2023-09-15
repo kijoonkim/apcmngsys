@@ -3,6 +3,7 @@ package com.at.apcss.am.invntr.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,22 +60,25 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 	public HashMap<String, Object> insertGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
 
 		gdsInvntrMapper.insertGdsInvntr(gdsInvntrVO);
-		List<GdsStdGrdVO> stdGrdList = gdsInvntrVO.getStdGrdList();
-		for ( GdsStdGrdVO stdGrd : stdGrdList ) {
-			GdsStdGrdVO gdsStdGrdVO = new GdsStdGrdVO();
-			BeanUtils.copyProperties(gdsInvntrVO, gdsStdGrdVO);
-			BeanUtils.copyProperties(stdGrd, gdsStdGrdVO,
-					ApcConstants.PROP_APC_CD,
-					ApcConstants.PROP_PCKGNO,
-					ApcConstants.PROP_PCKG_SN,
-					ComConstants.PROP_SYS_FRST_INPT_DT,
-					ComConstants.PROP_SYS_FRST_INPT_USER_ID,
-					ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
-					ComConstants.PROP_SYS_LAST_CHG_DT,
-					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
-					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
 
-			gdsInvntrMapper.insertGdsStdGrd(gdsStdGrdVO);
+		List<GdsStdGrdVO> stdGrdList = gdsInvntrVO.getStdGrdList();
+		if (stdGrdList != null) {
+			for ( GdsStdGrdVO stdGrd : stdGrdList ) {
+				GdsStdGrdVO gdsStdGrdVO = new GdsStdGrdVO();
+				BeanUtils.copyProperties(gdsInvntrVO, gdsStdGrdVO);
+				BeanUtils.copyProperties(stdGrd, gdsStdGrdVO,
+						ApcConstants.PROP_APC_CD,
+						ApcConstants.PROP_PCKGNO,
+						ApcConstants.PROP_PCKG_SN,
+						ComConstants.PROP_SYS_FRST_INPT_DT,
+						ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+						ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+						ComConstants.PROP_SYS_LAST_CHG_DT,
+						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+
+				gdsInvntrMapper.insertGdsStdGrd(gdsStdGrdVO);
+			}
 		}
 
 		return null;
@@ -103,7 +107,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 			HashMap<String, Object> rtnObj = insertGdsInvntr(gdsInvntrVO);
 			if (rtnObj != null) {
-				return rtnObj;
+				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
 
