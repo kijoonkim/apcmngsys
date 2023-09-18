@@ -555,7 +555,9 @@
 	// userAprvList ->
 	const fn_updataList = async function() {
 		let postJsonPromise_udpate = [];
+		const updateList = [];
 		const rawMtrInvntrList = [];
+		const sortInvntrList = [];
 		let allData1 = inptCmndDsctnList.getGridDataAll();
 
 		for ( let i=1; i<=allData1.length; i++ ){
@@ -567,17 +569,18 @@
 				rowData1.apcCd = gv_selectedApcCd;
 				rowData1.rowSts = "U";
 // 				rowData1.resultStatus = "S";
-				rawMtrInvntrList.push(rowData1);
+				updateList.push(rowData1);
 			} else {
 				continue;
 			}
-			if (rawMtrInvntrList.length == 0){
+			if (updateList.length == 0){
 				gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
 	            return;
 			}
 		}
+		
 		if(checkSection == 1){
-// 			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateRawMtrInvntrList.do", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
+			rawMtrInvntrList.push(updateList);
 			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateRawMtrInvntrList.do", rawMtrInvntrList);	// 프로그램id 추가
     		const data = await postJsonPromise_udpate;
 
@@ -590,26 +593,20 @@
         	fn_selectGridList();
 		}
 		else if(checkSection == 2){
-// 			postJsonPromise = gfn_postJSON("", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
-//     		const data = await postJsonPromise;
-//     		if (_.isEqual("S", data.resultStatus)) {
-//         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-//         		fn_selectGridList();
-//         	} else {
-//         		gfn_comAlert("E0001");	// E0001	오류가 발생하였습니다.
-//         	}
-//         	fn_selectGridList();
+			sortInvntrList.push(updateList);
+			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateSortInvntrDsctnList.do", sortInvntrList);	// 프로그램id 추가
+    		const data = await postJsonPromise_udpate;
+
+// 			console.log('_.isEqual("S", data.resultStatus)',_.isEqual("S", data.resultStatus));
+    		if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        	} else {
+        		gfn_comAlert("E0001");	// E0001	오류가 발생하였습니다.
+        	}
+        	fn_selectGridList();
 		}
 		else if(checkSection == 3){
-// 			postJsonPromise = gfn_postJSON("", rawMtrInvntrList, inptCmndDsctnGridArea);	// 프로그램id 추가
-//     		const data = await postJsonPromise;
-//     		if (_.isEqual("S", data.resultStatus)) {
-//         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-//         		fn_selectGridList();
-//         	} else {
-//         		gfn_comAlert("E0001");	// E0001	오류가 발생하였습니다.
-//         	}
-//         	fn_selectGridList();
+			
 		}
 	}
 </script>
