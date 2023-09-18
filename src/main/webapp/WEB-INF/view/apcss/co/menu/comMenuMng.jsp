@@ -247,7 +247,6 @@
      * @param {number} nRow	행번호
      */
     function fn_create(nRow) {
-
     	if (nRow == undefined) {
             nRow = grdMenuTreeList.getRow();
             if (nRow < 1) {
@@ -259,13 +258,17 @@
 
     	var rowData = grdMenuTreeList.getRowData(nRow);
 
+    	console.log(rowData);
+
         if (rowData.menuType == "02") {
         	//alert("상위메뉴를 선택하세요.");
         	alert(gfn_getComMsg("W0001", "상위메뉴"));	//	W0001	{0}을/를 선택하세요.
             return;
         }
 
-        var sysIdInfo = _.find(jsonComSysId, {value: SBUxMethod.get("srch-select-sysId")});
+
+
+        var sysIdInfo = _.find(jsonComSysId, {value: SBUxMethod.get("srch-slt-sysId")});
         SBUxMethod.set("dtl-input-sysNm", sysIdInfo.text);
         SBUxMethod.set("dtl-input-sysId", sysIdInfo.value);
 
@@ -300,7 +303,6 @@
         }
     	// check APC코드
         if (!SBUxMethod.get("dtl-input-apcCd")) {
-        	console.log("3");
         	gfn_comAlert("W0002", "APC코드");	//	W0002	{0}을/를 입력하세요.
             return;
         }
@@ -558,7 +560,6 @@
     const fn_view = function () {
 
         let nRow = grdMenuTreeList.getRow();
-        console.log("nROw",nRow)
         if (nRow < 2) {
             return;
         }
