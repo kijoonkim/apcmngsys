@@ -70,7 +70,6 @@ public interface SortInvntrMapper {
 	 * @return
 	 * @throws Exception
 	 */
-//	public int updateRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception;
 	public int updateSortInvntrDsctnList(SortInvntrVO sortInvntrVO) throws Exception;
 	
 	/**

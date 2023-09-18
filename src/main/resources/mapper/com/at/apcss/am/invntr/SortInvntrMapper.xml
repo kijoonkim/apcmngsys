@@ -427,7 +427,7 @@
 			</if>
 		<![CDATA[
 			 WHERE APC_CD = #{apcCd}
-			   AND WRHSNO = #{wrhsno}
+			   AND SORTNO = #{sortno}
 		]]>
 	</update>
 

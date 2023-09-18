@@ -580,8 +580,7 @@
 		}
 		
 		if(checkSection == 1){
-			rawMtrInvntrList.push(updateList);
-			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateRawMtrInvntrList.do", rawMtrInvntrList);	// 프로그램id 추가
+			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateRawMtrInvntrList.do", updateList);	// 프로그램id 추가
     		const data = await postJsonPromise_udpate;
 
 // 			console.log('_.isEqual("S", data.resultStatus)',_.isEqual("S", data.resultStatus));
@@ -593,8 +592,7 @@
         	fn_selectGridList();
 		}
 		else if(checkSection == 2){
-			sortInvntrList.push(updateList);
-			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateSortInvntrDsctnList.do", sortInvntrList);	// 프로그램id 추가
+			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateSortInvntrDsctnList.do", updateList);	// 프로그램id 추가
     		const data = await postJsonPromise_udpate;
 
 // 			console.log('_.isEqual("S", data.resultStatus)',_.isEqual("S", data.resultStatus));
