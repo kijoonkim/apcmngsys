@@ -78,7 +78,7 @@
 	    SBGridProperties.columns = [
 	        {caption: ["작업자명"], 	ref: 'flnm',  	type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {mask : {alias : 'k'}}},
 	        {caption: ["생년월일"], 	ref: 'brdt',   	type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 8}), typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["전화번호"], 	ref: 'telno',   type:'input',  width:'100px',    style:'text-align:center', format : {type:'string', rule:'000-0000-0000'}, typeinfo : {maxlength : 11}},
+	        {caption: ["전화번호"], 	ref: 'telno',   type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {mask: {alias : '999-9999-9999'}}, format : {type:'custom', callback : fnCustomOprtr}},
 	        {caption: ["주소"], 		ref: 'addr',    type:'input',  width:'170px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 200})},
 	        {caption: ["입사일자"], 	ref: 'jncmp', 	type : 'datepicker', typeinfo: {dateformat: 'yy-mm-dd'}, format : {type:'date', rule:'yy-mm-dd', origin:'YYYYMMDD'},  width:'90px',    style:'text-align:center'},
 	        {caption: ["은행"], 		ref: 'bankCd',  type:'inputcombo',  width:'100px',    style:'text-align:center',
@@ -198,5 +198,9 @@
 	async function fn_deleteOprtrList(oprtrVO){
 		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteOprtrList.do", oprtrVO);
 	}
+
+	const fnCustomOprtr = function(strValue) {
+        return strValue.slice(0,3) + "-" + strValue.slice(3,7) + "-" + strValue.slice(7,11)
+    }
 </script>
 </html>

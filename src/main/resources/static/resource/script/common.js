@@ -844,8 +844,8 @@ const gfn_setPrdcrSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _
 
 	const sourceJson = [];
 	data.resultList.forEach((item) => {
-			item.cmnsCd = item.pltBxCd;
-			item.cmnsNm = item.pltBxNm;
+			item.cmnsCd = item.prdcrCd;
+			item.cmnsNm = item.prdcrNm;
 			sourceJson.push(item);
 		});
 
@@ -1137,6 +1137,24 @@ const gfn_getJsonFilter = function(data, key, values) {
 
 	return filteredData;
 }
+
+/**
+ * @name gfn_comboValidation
+ * @description JSON 객체 CODE 여부 확인
+ * @function
+ * @param {any[]} _jsondataRef
+ * @param {string} _code	검색 코드
+ * @returns {string} _check
+ */
+const gfn_comboValidation = function(_jsondataRef, _code){
+		let _check = "";
+		for(var i=0; i<_jsondataRef.length; i++){
+			if(_code == _jsondataRef[i].value){
+				_check = "Y"
+				return _check;
+			}
+		}
+	}
 
 /**
  * @name gfn_cloneJson
