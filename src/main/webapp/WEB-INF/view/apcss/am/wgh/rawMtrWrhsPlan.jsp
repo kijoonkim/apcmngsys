@@ -218,8 +218,8 @@
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="내려받기" class="btn btn-sm btn-outline-danger" onclick="fn_dawnload"></sbux-button>
-						<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="fn_upload" ></sbux-button>
+						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="내려받기" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld"></sbux-button>
+						<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="fn_uld" ></sbux-button>
 					</div>
 				</div>
 				<div class="sbt-wrap-body">
@@ -844,6 +844,10 @@
 	* End
 	*/
 
+
+	/*
+	* 엑셀 다운로드(샘플양식)
+	*/
 	var grdExcelWrhsPlan;
 	var grdExcelItem;
 	var grdExcelVrty;
@@ -851,9 +855,7 @@
 	var grdExcelWrhsSeCd;
 	var grdExcelGdsSeCd;
 	var grdExcelTrsprtSeCd;
-	/*
-	* 엑셀 다운로드(샘플양식)
-	*/
+
 	var jsonExcelWrhsPlan = [];
 	var jsonExcelItem = [];
 	var jsonExcelVrty = [];
@@ -861,7 +863,7 @@
 	var jsonExcelWrhsSeCd = [];
 	var jsonExcelGdsSeCd = [];
 	var jsonExcelTrsprtSeCd = [];
-	const fn_dawnload = async function(){
+	const fn_dwnld = async function(){
 
 		var SBGridPropertiesWrhsPlan = {};
 		SBGridPropertiesWrhsPlan.parentid = 'sb-area-excelWrhsPlan';
@@ -1195,7 +1197,7 @@
     	 grdWrhsPlan.importExcelData(e);
      }
 
-     const fn_upload = function(){
+     const fn_uld = function(){
     	 $("#btnFileUpload").click();
      }
 
