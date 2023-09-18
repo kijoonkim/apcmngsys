@@ -482,7 +482,7 @@
 	const fn_callSelectGrid3List = async function(pageSize, pageNo) {
 //     	let startsortYmd  = SBUxMethod.get("srch-inp-startsortYmd");
 
-		const postJsonPromise3 = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
+		const postJsonPromise3 = gfn_postJSON("/am/invntr/selectUpdateGdsInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
           	// pagination
   	  		pagingYn : 'Y',
@@ -604,7 +604,16 @@
         	fn_selectGridList();
 		}
 		else if(checkSection == 3){
-			
+			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateGdsInvntrList.do", updateList);	// 프로그램id 추가
+    		const data = await postJsonPromise_udpate;
+
+// 			console.log('_.isEqual("S", data.resultStatus)',_.isEqual("S", data.resultStatus));
+    		if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        	} else {
+        		gfn_comAlert("E0001");	// E0001	오류가 발생하였습니다.
+        	}
+        	fn_selectGridList();
 		}
 	}
 </script>

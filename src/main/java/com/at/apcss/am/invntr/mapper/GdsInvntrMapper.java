@@ -39,6 +39,14 @@ public interface GdsInvntrMapper {
 	 * @throws Exception
 	 */
 	public List<GdsInvntrVO> selectGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
+	/**
+	 * 상품재고 목록 조회
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<GdsInvntrVO> selectUpdateGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
 
 	/**
 	 * 상품재고 등록
@@ -55,6 +63,13 @@ public interface GdsInvntrMapper {
 	 * @throws Exception
 	 */
 	public int updateGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
+	/**
+	 * 상품재고 변경
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
 
 	/**
 	 * 상품재고 삭제

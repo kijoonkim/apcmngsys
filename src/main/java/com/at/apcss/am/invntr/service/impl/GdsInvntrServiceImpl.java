@@ -1,5 +1,6 @@
 package com.at.apcss.am.invntr.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -53,6 +54,13 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectGdsInvntrList(gdsInvntrVO);
 
+		return resultList;
+	}
+	@Override
+	public List<GdsInvntrVO> selectUpdateGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
+		
+		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectUpdateGdsInvntrList(gdsInvntrVO);
+		
 		return resultList;
 	}
 
@@ -181,6 +189,26 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		if (updatedCnt != 1) {
 
+		}
+
+		return null;
+	}
+	
+	@Override
+	public HashMap<String, Object> updateGdsInvntrList(List<GdsInvntrVO> gdsInvntrList) throws Exception {
+		List<GdsInvntrVO> updateList = new ArrayList<>();
+
+		for (GdsInvntrVO gdsInvntrVO : gdsInvntrList) {
+			GdsInvntrVO vo = new GdsInvntrVO();
+			BeanUtils.copyProperties(gdsInvntrVO, vo);
+
+			if (ComConstants.ROW_STS_UPDATE.equals(gdsInvntrVO.getRowSts())) {
+				updateList.add(vo);
+			}
+		}
+
+		for (GdsInvntrVO gdsInvntrVO : updateList) {
+			gdsInvntrMapper.updateGdsInvntrList(gdsInvntrVO);
 		}
 
 		return null;
