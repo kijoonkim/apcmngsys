@@ -51,55 +51,45 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectSpmtEnggtInfoMngList" parameterType="com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO" resultType="com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
-    	<!-- End 페이징 -->
+
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.selectSpmtEnggtInfoMngList */
-				  CM.MSG_KEY	AS MSG_KEY
-				, CM.MSG_CN		AS MSG_CN
-				, CM.MSG_KND	AS MSG_KND
-				, (SELECT FN_GET_COM_CD_VL_NM('MSG_KND', CM.MSG_KND) FROM DUAL) AS MSG_KND_NM
-				, CM.RMRK		AS RMRK
-				, CM.DEL_YN		AS DEL_YN
-				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
-				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
-				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
-				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_COM_MSG CM
+				 CM.APC_CD           AS APC_CD,
+				 CM.SPMTNO          AS SPMTNO,
+				 CM.PCKGNO          AS PCKGNO,
+				 CM.PCKG_SN         AS PCKG_SN,
+				 CM.ITEM_CD           AS ITEM_CD,
+				 (SELECT FN_GET_ITEM_NM(CM.ITEM_CD, CM.APC_CD) FROM DUAL) AS ITEM_NM,
+				 CM.VRTY_CD           AS VRTY_CD,
+				 (SELECT FN_GET_VRTY_NM(CM.ITEM_CD, CM.VRTY_CD, CM.APC_CD) FROM DUAL) AS VRTY_NM,
+				 CM.GDS_SE_CD       AS GDS_SE_CD,
+				 CM.SPCFCT_CD       AS SPCFCT_CD,
+				 CM.PRDCTN_QNTT    AS PRDCTN_QNTT,
+				 CM.SPMT_QNTT        AS SPMT_QNTT,
+				 CM.SPMT_WGHT       AS SPMT_WGHT,
+				 CM.PCKG_SE_CD       AS PCKG_SE_CD,
+				 CM.BRND_CD             AS BRND_CD,
+				 CM.GDS_CD               AS GDS_CD,
+				 CM.PRDCR_CD           AS PRDCR_CD,
+				 CM.SPMT_CMNDNO    AS SPMT_CMNDNO,
+				 CM.CLTVTN_AREA       AS CLTVTN_AREA,
+				 CM.SPMT_TYPE          AS SPMT_TYPE,
+				 CM.TRMT_TYPE          AS TRMT_TYPE,
+				 CM.SPMT_STR_DT      AS SPMT_STR_DT,
+				 CM.SPMT_END_DT      AS SPMT_END_DT,
+				 CM.DEL_YN                  AS DEL_YN,
+				 CM.SYS_FRST_INPT_DT        AS SYS_FRST_INPT_DT,
+				 CM.SYS_FRST_INPT_USER_ID         AS SYS_FRST_INPT_USER_ID,
+				 CM.SYS_FRST_INPT_PRGRM_ID      AS SYS_FRST_INPT_PRGRM_ID,
+				 CM.SYS_LAST_CHG_DT                   AS SYS_LAST_CHG_DT,
+				 CM.SYS_LAST_CHG_USER_ID           AS SYS_LAST_CHG_USER_ID,
+				 CM.SYS_LAST_CHG_PRGRM_ID        AS SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_SPMT_ENGGT_INFO_MNG CM
+			  WHERE 1=1
+			  AND CM.DEL_YN = 'N'
     	]]>
-    	<where>
-			<if test='msgKey != null and msgKey != ""'>
-				AND CM.MSG_KEY LIKE #{msgKey} || '%'
-			</if>
 
-			<if test='msgCn != null and msgCn != ""'>
-				AND CM.MSG_CN LIKE '%' || #{msgCn} || '%'
-			</if>
 
-			<if test='msgKnd != null and msgKnd != ""'>
-				AND CM.MSG_KND = #{msgKnd}
-			</if>
-
-			<if test='delYn != null and delYn != ""'>
-				AND CM.DEL_YN = #{delYn}
-			</if>
-		</where>
-		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
-			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
-			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
     </select>
 
 	<!-- ==========================================================================	-->
@@ -113,25 +103,61 @@
     <insert id="insertSpmtEnggtInfoMng" parameterType="com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.insertSpmtEnggtInfoMng */
-	    	  INTO TB_COM_MSG
+	    	  INTO TB_SPMT_ENGGT_INFO_MNG
 	    		(
-	    			MSG_KEY
-	    		  , MSG_CN
-	    		  , MSG_KND
-	    		  , RMRK
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
+	    			 APC_CD,
+					 SPMTNO,
+					 PCKGNO,
+					 PCKG_SN,
+					 ITEM_CD,
+					 VRTY_CD,
+					 GDS_SE_CD,
+					 SPCFCT_CD,
+					 PRDCTN_QNTT,
+					 SPMT_QNTT,
+					 SPMT_WGHT,
+					 PCKG_SE_CD,
+					 BRND_CD,
+					 GDS_CD,
+					 PRDCR_CD,
+					 SPMT_CMNDNO,
+					 CLTVTN_AREA,
+					 SPMT_TYPE,
+					 TRMT_TYPE,
+					 SPMT_STR_DT,
+					 SPMT_END_DT,
+					 DEL_YN,
+					 SYS_FRST_INPT_DT,
+					 SYS_FRST_INPT_USER_ID,
+					 SYS_FRST_INPT_PRGRM_ID,
+					 SYS_LAST_CHG_DT,
+					 SYS_LAST_CHG_USER_ID,
+					 SYS_LAST_CHG_PRGRM_ID
 	    		)
 	   		VALUES
 	   			(
-	   			    #{msgKey}
-	   			  , #{msgCn}
-	   			  , #{msgKnd}
-	   			  , #{rmrk}
+	   			    #{apcCd}
+	   			  , #{spmtNo}
+	   			  , #{pckgNo}
+	   			  , #{pckgSn}
+	   			  , #{itemCd}
+	   			  , #{vrtyCd}
+	   			  , #{gdsSeCd}
+	   			  , #{spcfctCd}
+	   			  , #{prdctnQntt}
+	   			  , #{spmtQntt}
+	   			  , #{spmtWght}
+	   			  , #{pckgSeCd}
+	   			  , #{brndCd}
+	   			  , #{gdsCd}
+	   			  , #{prdcrCd}
+	   			  , #{spmtCmndno}
+	   			  , #{cltvtnArea}
+	   			  , #{spmtType}
+	   			  , #{trmtType}
+	   			  , #{spmtStrDt}
+	   			  , #{spmtEndDt}
+	   			  , 'N'
 	   			  , SYSDATE
 	   			  , #{sysFrstInptUserId}
 	   			  , #{sysFrstInptPrgrmId}

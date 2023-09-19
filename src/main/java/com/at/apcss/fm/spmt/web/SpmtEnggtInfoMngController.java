@@ -62,10 +62,6 @@ public class SpmtEnggtInfoMngController extends BaseController {
 		try {
 			 resultList = spmtEnggtInfoMngService.selectSpmtEnggtInfoMngList(spmtEnggtInfoMngVO);
 
-			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (SpmtEnggtInfoMngVO msg : resultList ) {
-				 logger.debug("msgCn : {}", msg.getMsgCn());
-			 }
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());

@@ -103,7 +103,7 @@
 
 			if (grdApcPop === null || this.prvApcCd != _apcCd) {
 				let rst = await Promise.all([
-					gfn_getApcList('grdApc', jsonApcItemPop),				// APC 리스트
+					//gfn_getApcList('grdApc', jsonApcItemPop),				// APC 리스트
 				]);
 				this.createGrid();
 				this.search();
