@@ -121,7 +121,7 @@
 				let rst = await Promise.all([
 					gfn_setApcItemSBSelect('grdPrdcr', jsonApcItemPrdcrPop, _apcCd),				// 품목
 					gfn_setApcVrtySBSelect('grdPrdcr', jsonApcVrtyPrdcrPop, _apcCd),				// 품종
-					gfn_setComCdSBSelect('grdPrdcr', jsonComGdsSeCdPrdcrPop, 'GDS_SE_CD'),			// 상품구분
+					gfn_setComCdSBSelect('grdPrdcr', jsonComGdsSeCdPrdcrPop, 'GDS_SE_CD',_apcCd),			// 상품구분
 					gfn_setComCdSBSelect('grdPrdcr', jsonComWrhsSeCdPrdcrPop, 'WRHS_SE_CD'),		// 입고구분
 					gfn_setComCdSBSelect('grdPrdcr', jsonComTrsprtSeCdPrdcrPop, 'TRSPRT_SE_CD'),	// 운송구분
 					gfn_setComCdSBSelect('grdPrdcr', jsonComClclnCrtrPrdcrPop, 'CLCLN_CRTR')		// 정산기준
@@ -160,7 +160,7 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		    	{caption: ["처리"], 			ref: 'delYn', 			type: 'button', width: '70px', 	style: 'text-align:center', sortable: false,
+		    	{caption: ["처리"], 			ref: 'delYn', 			type: 'button', width: '50px', 	style: 'text-align:center', sortable: false,
 		        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 						if (!isEditable) {
 							return "";
@@ -172,29 +172,29 @@
 					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popPrdcr.del(" + nRow + ")'>삭제</button>";
 		            	}
 			    }},
-			    {caption: ['번호'], 			ref: 'prdcrIdentno', 	type: 'input', 	width: '60px', style: 'text-align:center', sortable: false},
-		        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '80px', style: 'text-align:center', sortable: false,
+			    {caption: ['번호'], 			ref: 'prdcrIdentno', 	type: 'input', 	width: '50px', style: 'text-align:center', sortable: false},
+		        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '65px', style: 'text-align:center', sortable: false,
 		        	validate : gfn_chkByte.bind({byteLimit: 100})},
-		        {caption: ['대표품목'], 		ref: 'rprsItemCd', 		type: 'combo', 	width: '80px', style: 'text-align:center', sortable: false,
+		        {caption: ['대표품목'], 		ref: 'rprsItemCd', 		type: 'combo', 	width: '70px', style: 'text-align:center', sortable: false,
 					typeinfo: {ref:'jsonApcItemPrdcrPop', 		label:'label', value:'value', itemcount: 10}},
-		        {caption: ['대표품종'], 		ref: 'rprsVrtyCd', 		type: 'combo', 	width: '80px', style: 'text-align:center', sortable: false,
+		        {caption: ['대표품종'], 		ref: 'rprsVrtyCd', 		type: 'combo', 	width: '70px', style: 'text-align:center', sortable: false,
 					typeinfo: {ref:'jsonApcVrtyPrdcrPop', 		label:'label', value:'value', itemcount: 10}},
-		        {caption: ['상품구분'], 		ref: 'gdsSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center', sortable: false,
+		        {caption: ['상품구분'], 		ref: 'gdsSeCd', 		type: 'combo', 	width: '60px', 	style: 'text-align:center', sortable: false,
 					typeinfo: {ref:'jsonComGdsSeCdPrdcrPop', 	label:'label', value:'value', itemcount: 10}},
-		        {caption: ['입고구분'], 		ref: 'wrhsSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center', sortable: false,
+		        {caption: ['입고구분'], 		ref: 'wrhsSeCd', 		type: 'combo', 	width: '65px', 	style: 'text-align:center', sortable: false,
 					typeinfo: {ref:'jsonComWrhsSeCdPrdcrPop', 	label:'label', value:'value', itemcount: 10}},
-		        {caption: ['운송구분'], 		ref: 'trsprtSeCd', 		type: 'combo', 	width: '80px', 	style: 'text-align:center', sortable: false,
+		        {caption: ['운송구분'], 		ref: 'trsprtSeCd', 		type: 'combo', 	width: '60px', 	style: 'text-align:center', sortable: false,
 					typeinfo: {ref:'jsonComTrsprtSeCdPrdcrPop', label:'label', value:'value', itemcount: 10}},
-		        {caption: ['정산기준'], 		ref: 'clclnCrtr', 		type: 'combo', 	width: '80px', 	style: 'text-align:center', sortable: false,
+		        {caption: ['정산기준'], 		ref: 'clclnCrtr', 		type: 'combo', 	width: '60px', 	style: 'text-align:center', sortable: false,
 					typeinfo: {ref:'jsonComClclnCrtrPrdcrPop', 	label:'label', value:'value', itemcount: 10}},
-		        {caption: ['차량번호'], 		ref: 'vhclno', 			type: 'input', 	width: '100px', style: 'text-align:center', sortable: false,
+		        {caption: ['차량번호'], 		ref: 'vhclno', 			type: 'input', 	width: '90px', style: 'text-align:center', sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 40})},
-		        {caption: ['전화번호'], 		ref: 'telno', 			type: 'input', 	width: '120px', style: 'text-align:center', sortable: false,
+		        {caption: ['전화번호'], 		ref: 'telno', 			type: 'input', 	width: '90px', style: 'text-align:center', sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 11}), format : {type:'string', rule:'000-0000-0000'}},
-		        {caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '120px', style: 'text-align:center', sortable: false,
+		        {caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '90px', style: 'text-align:center', sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 20})},
 // 		        {caption: ['참여조직'], 		ref: '', 				type: 'input', 	width: '150px', style: 'text-align:center', sortable: false},
-		        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '150px', style: 'text-align:center', sortable: false,
+		        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '100px', style: 'text-align:center', sortable: false,
 		        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 		        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
 		        {caption: ['생산자코드'], ref: 'prdcrCd', hidden : true},
