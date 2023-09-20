@@ -174,96 +174,83 @@
 					<div class="box box-solid">
 
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
-							<div>
-								<h3 class="box-title" style="line-height: 30px;"> ▶ 월별 실적 통계 현황</h3>
-							</div>
-							<div style="margin-left: auto;">
-								<select class="form-control input-sm" style="width:170px;">
+								<h3 class="box-title" style="line-height: 30px; float:left;"> ▶ 월별 실적 통계 현황</h3>
+								<select class="form-control input-sm" style="width:170px; float:left; margin-left:auto;">
 									<option>선택</option>
 								</select>
-							</div>
-							<div style="margin-left: 20px;">
-								<button type="button" class="btn btn-sm btn-outline-danger">조회</button>
-							</div>
-						</div>
+								<button type="button" class="btn btn-sm btn-outline-danger" style="float:left; margin-left:20px;">조회</button>
+					</div>
 						<!--==========그래프=============-->
-						<div >
-							<div class="box box-solid" style="width:30%; height:250px; float:left; margin-right:3%; margin-left:3%;">
+						<div class="box-body">
+							<div class="box box-solid" style="width:30%; height:250px; float:left; margin-right:5%;">
 								<h1 class="box-title" style="margin-top: 10px;margin-left: 10px;">입고 현황</h1>
 							</div>
-							<div class="box box-solid" style="width:30%; height:250px; float:left; margin-right:30px;">
+							<div class="box box-solid" style="width:30%; height:250px; float:left; margin-right:5%;">
 								<h1 class="box-title" style="margin-top: 10px;margin-left: 10px;">생산 현황</h1>
 							</div>
-							<div class="box box-solid" style="width:30%; height:250px; float:left;">
+							<div class="box box-solid" style="width:30%; height:250px; float:right;">
 								<h1 class="box-title" style="margin-top: 10px;margin-left: 10px;">출고 현황</h1>
 							</div>
-						</div>
-							<br>
 							<!-- 1번째 그리드-->
-							<div>
-								<div>
-								<table class="table table-bordered table-hover tbl_col tbl_fixed" >
-									<colgroup>
-										<col style="width: 10%">
-										<col style="width: 22.5%">
-										<col style="width: 22.5%">
-										<col style="width: 22.5%">
-										<col style="width: 22.5%">
-									</colgroup>
-									<thead>
-										<tr>
-											<th colspan="5"> <p style="text-align:center">2023년 8월 6일 작업실적</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th>대표 품목</th>
-											<td>&nbsp;</th>
-											<td>&nbsp;</th>
-											<td>&nbsp;</th>
-											<td>&nbsp;</th>
-										</tr>
-										<tr>
-											<th>원물 입고</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-										</tr>
-										<tr>
-											<th>선별 실적</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-										</tr>
-										<tr>
-											<th>포장 실적</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-										</tr>
-										<tr>
-											<th>발주서 접수</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-										</tr>
-										<tr>
-											<th>출하 실적</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-										</tr>
-									</tbody>
-								</table>
+									<table class="table table-bordered table-hover tbl_col tbl_row tbl_fixed" >
+										<colgroup>
+											<col style="width: 10%">
+											<col style="width: 22.5%">
+											<col style="width: 22.5%">
+											<col style="width: 22.5%">
+											<col style="width: 22.5%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th colspan="5"> <p style="text-align:center">2023년 8월 6일 작업실적</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th>대표 품목</th>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<th>원물 입고</th>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<th>선별 실적</th>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<th>포장 실적</th>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<th>발주서 접수</th>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<th>출하 실적</th>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
-							</div>
-							<br>
-							</div>
 						</div>
 				</section>
 

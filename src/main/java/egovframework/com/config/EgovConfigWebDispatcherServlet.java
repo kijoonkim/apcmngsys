@@ -76,13 +76,16 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/actionLogin.do",
 				"/actionSSOLogin.do",
 				"/actionLogout.do",
-				"/login.do"
+				"/login.do",
+				"/saveExcel.do"
 				);
 		registry.addInterceptor(new CustomAuthenticInterceptor())
 			.addPathPatterns(
-				"/**/*.do")
+				"/**/*.do",
+				"/saveExcel.do")
 			.excludePathPatterns(
-				"/uat/uia/**");
+				"/uat/uia/**",
+				"/saveExcel.do");
 	}
 
 	// -------------------------------------------------------------
