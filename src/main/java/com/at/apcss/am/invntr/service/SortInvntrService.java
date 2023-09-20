@@ -68,7 +68,14 @@ public interface SortInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
-
+	
+	/**
+	 * 선별재고내역 변경
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateSortInvntrDsctnList(List<SortInvntrVO> sortInvntrList) throws Exception;
 	/**
 	 * 선별재고 삭제
 	 * @param sortInvntrVO

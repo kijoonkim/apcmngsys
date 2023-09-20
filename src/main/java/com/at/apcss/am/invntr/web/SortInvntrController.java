@@ -74,5 +74,31 @@ public class SortInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	
+	@PostMapping(value = "/am/invntr/updateSortInvntrDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateSortInvntrDsctnList(@RequestBody List<SortInvntrVO> sortInvntrList, HttpServletRequest request) throws Exception {
+
+		logger.debug("updateSortInvntrDsctnList 호출 <><><><> ");
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			for ( SortInvntrVO sortInvntrVO : sortInvntrList ) {
+				sortInvntrVO.setSysLastChgUserId(getUserId());
+				sortInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = sortInvntrService.updateSortInvntrDsctnList(sortInvntrList); //updateSortInvntrDsctnList
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 
 }

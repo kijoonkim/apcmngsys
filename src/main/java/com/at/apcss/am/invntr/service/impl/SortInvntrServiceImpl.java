@@ -1,5 +1,6 @@
 package com.at.apcss.am.invntr.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,8 +11,6 @@ import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.invntr.mapper.SortInvntrMapper;
 import com.at.apcss.am.invntr.service.SortInvntrService;
-import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
-import com.at.apcss.am.invntr.vo.RawMtrStdGrdVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.invntr.vo.SortStdGrdVO;
 import com.at.apcss.co.constants.ApcConstants;
@@ -154,6 +153,26 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 		}
 
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateSortInvntrDsctnList(List<SortInvntrVO> sortInvntrList) throws Exception {
+		List<SortInvntrVO> updateList = new ArrayList<>();
+
+		for (SortInvntrVO sortInvntrVO : sortInvntrList) {
+			SortInvntrVO vo = new SortInvntrVO();
+			BeanUtils.copyProperties(sortInvntrVO, vo);
+
+			if (ComConstants.ROW_STS_UPDATE.equals(sortInvntrVO.getRowSts())) {
+				updateList.add(vo);
+			}
+		}
+
+		for (SortInvntrVO sortInvntrVO : updateList) {
+			sortInvntrMapper.updateSortInvntrDsctnList(sortInvntrVO);
+		}
 
 		return null;
 	}
