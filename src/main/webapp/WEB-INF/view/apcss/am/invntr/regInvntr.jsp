@@ -35,9 +35,8 @@
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 3%">
 						<col style="width: 6%">
+						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
@@ -50,20 +49,16 @@
 							<td colspan= "3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" class="form-control input-sm" disabled/>
 							</td>
-							<td colspan="9">&nbsp;</td>
+							<td colspan="8">&nbsp;</td>
 						</tr>
 
 						<tr>
-							<th scope="row" class="th_bg">재고구분</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-invntrySe" name="srch-slt-invntrySe" class="form-control input-sm"/>
-							</td>
-							<td colspan="2">&nbsp;</td>
+							
 							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
 							</td>
 							<td>&nbsp;</td>
@@ -72,14 +67,15 @@
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spcfct" name="srch-slt-spcfct" class="form-control input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
-						</tr>
-
-						<tr>
+						
 							<th scope="row" class="th_bg">창고구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-warehouseSe" name="srch-slt-warehouseSe" class="form-control input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
+						</tr>
+
+						<tr>
 							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-prcdcr" name="srch-inp-prcdcr" class="form-control input-sm"/>
@@ -87,20 +83,17 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-prdcr" name="srch-btn-prdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
 							</td>
-							<td colspan="2">&nbsp;</td>
+							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">상품구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-gdsSe" name="srch-slt-gdsSe" class="form-control input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
-						</tr>
-
-						<tr>
 							<th scope="row" class="th_bg">입고구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-wrhsSe" name="srch-slt-wrhsSe" class="form-control input-sm"/>
 							</td>
-							<td colspan="11">&nbsp;</td>
+							<td colspan="2">&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -145,17 +138,33 @@
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 
 	function fn_sample1(){
+		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
+
+		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
+		$("#srch-btn-sortInvntrDsctn").css({"background-color":"white","color":"black"});
+		$("#srch-btn-gdsInvntrDsctn").css({"background-color":"white","color":"black"});
 		_SBGrid.destroy('inptCmndDsctnList');
+		
 		checkSection = 1;
 		fn_createGrid1();
 	}
 	function fn_sample2(){
+
+		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"white","color":"black"});
+		$("#srch-btn-sortInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
+		$("#srch-btn-gdsInvntrDsctn").css({"background-color":"white","color":"black"});
 		_SBGrid.destroy('inptCmndDsctnList');
+		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
 		checkSection = 2;
 		fn_createGrid2();
 	}
 	function fn_sample3(){
+
+		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"white","color":"black"});
+		$("#srch-btn-sortInvntrDsctn").css({"background-color":"white","color":"black"});
+		$("#srch-btn-gdsInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
 		_SBGrid.destroy('inptCmndDsctnList');
+		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
 		checkSection = 3;
 		fn_createGrid3();
 	}
