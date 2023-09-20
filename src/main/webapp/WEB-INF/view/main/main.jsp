@@ -634,8 +634,17 @@
 
 		var userId =  '${loginVO.userId}';
 		if(menuJsonB[0].id != "empty"){
-			var menuNm = menuJsonB[3].text;
-			var menuId = menuJsonB[3].pid;
+			var menuNm = "";
+			var menuId = "";
+			if(menuJsonB.length == 3){
+				menuNm = menuJsonB[2].text;
+				menuId = menuJsonB[2].pid;
+			}else{
+
+				menuNm = menuJsonB[3].text;
+				menuId = menuJsonB[3].pid;
+			}
+
 			prfrmImprvDmnd.init(gv_apcCd, gv_apcNm, userId, menuId, menuNm);
 			SBUxMethod.openModal('modal-prfrmImprvDmnd');
 		}else{
@@ -661,7 +670,7 @@
         SBUxMethod.addTab('tab_menu', jsonTabSelect);
 
 		await fn_afterAddTab(menuNo);
-		//fn_selectTopMenu(menuJson[0].id);
+		fn_setLeftMenu(menuJson[0].id, menuJson[0].text);
 	}
 
 </script>

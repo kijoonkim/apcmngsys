@@ -1,7 +1,7 @@
 
 .case_b{width:950px; margin:0px auto; }
 /* .case_b .case_in{background:#c4d4e0; width: 100%; position: relative; height: 50px; margin-bottom:10px;} */
-.case_b .case_in{background: #e8f1f9;  width: 100%; position: relative; height: 50px; margin-bottom:10px;}
+.case_b .case_in{background: #e8f1f9;  width: 100%; position: relative; height: 50px; margin-bottom:5px;}
 .case_b .case_in > p{position: absolute; top: 15px; left:20px; color: #343434; font-size: 13px; font-weight: bold; line-height: 15px;}
 .case_b .case_in > p input{vertical-align:top; margin-right:5px;}
 .case_b .case_in .in{position: absolute; top:10px; left: 100px; }
