@@ -12,7 +12,7 @@
 			<div class="box-header" style="text-align:right;" >
 				<h3 class="box-title" style="line-height: 30px; float:left;"><sbux-label id="lbl-apcNm" name="lbl-apcNm"></sbux-label></h3>
 				<span style="display:inline-block;">
-				<h4 style="float:left; margin:5px 5px 0 0;">품목</h4>
+				<h4 style="float:left; margin:5px 20px 0 0;">품목</h4>
 				<sbux-select
 					id="slt-itemCd"
 					name="slt-itemCd"
@@ -28,17 +28,17 @@
 			</div>
 			<!--==========그래프=============-->
 			<div class="box-body">
-				<div class="box box-solid" style="width:30%; height:400px; float:left; margin-right:5%;">
+				<div class="box box-solid" style="width:30%; height:395px; float:left; margin-right:5%;">
 					<h1 class="box-title" style="margin-top: 10px;margin-left: 10px;">입고 현황</h1>
-					<div id="chart-area-wrhs" style="height: 350px;"></div>
+					<div id="chart-area-wrhs" style="height: 345px;"></div>
 				</div>
-				<div class="box box-solid" style="width:30%; height:400px; float:left; margin-right:5%;">
+				<div class="box box-solid" style="width:30%; height:395px; float:left; margin-right:5%;">
 					<h1 class="box-title" style="margin-top: 10px;margin-left: 10px;">생산 현황</h1>
-					<div id="chart-area-sort" style="height: 350px;"></div>
+					<div id="chart-area-sort" style="height: 345px;"></div>
 				</div>
-				<div class="box box-solid" style="width:30%; height:400px; float:right;">
+				<div class="box box-solid" style="width:30%; height:395px; float:right;">
 					<h1 class="box-title" style="margin-top: 10px;margin-left: 10px;">출고 현황</h1>
-					<div id="chart-area-spmt" style="height: 350px;"></div>
+					<div id="chart-area-spmt" style="height: 345px;"></div>
 				</div>
 
 			</div>
@@ -149,24 +149,24 @@
 		{month: "9월", value: 3000},
 	]
 	var chartDataSort = [
-		{month: "1월", value: 4000},
-		{month: "2월", value: 3000},
-		{month: "3월", value: 3500},
-		{month: "4월", value: 2000},
+		{month: "1월", value: 1500},
+		{month: "2월", value: 2000},
+		{month: "3월", value: 7000},
+		{month: "4월", value: 2500},
 		{month: "5월", value: 2800},
 		{month: "6월", value: 5000},
-		{month: "7월", value: 4000},
+		{month: "7월", value: 2000},
 		{month: "8월", value: 2000},
-		{month: "9월", value: 3000},
+		{month: "9월", value: 500},
 	]
 	var chartDataSpmt = [
-		{month: "1월", value: 4000},
-		{month: "2월", value: 3000},
-		{month: "3월", value: 3500},
-		{month: "4월", value: 2000},
-		{month: "5월", value: 2800},
-		{month: "6월", value: 5000},
-		{month: "7월", value: 4000},
+		{month: "1월", value: 3000},
+		{month: "2월", value: 2000},
+		{month: "3월", value: 1500},
+		{month: "4월", value: 5000},
+		{month: "5월", value: 4800},
+		{month: "6월", value: 2000},
+		{month: "7월", value: 3000},
 		{month: "8월", value: 2000},
 		{month: "9월", value: 3000},
 	]
