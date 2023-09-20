@@ -9,8 +9,10 @@
 <body>
 	<section class="content container-fluid">
 		<div class="box box-solid">
-			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+			<div class="box-header" style="text-align:right;" >
 				<h3 class="box-title" style="line-height: 30px; float:left;"><sbux-label id="lbl-apcNm" name="lbl-apcNm"></sbux-label></h3>
+				<span style="display:inline-block;">
+				<h4 style="float:left; margin:5px 20px 0 0;">품목</h4>
 				<sbux-select
 					id="slt-itemCd"
 					name="slt-itemCd"
@@ -22,6 +24,7 @@
 					style="width:170px; float:left; margin-left:auto;"
 				></sbux-select>
 				<button type="button" class="btn btn-sm btn-outline-danger" style="float:left; margin-left:20px;">조회</button>
+				</span>
 			</div>
 			<!--==========그래프=============-->
 			<div class="box-body">
