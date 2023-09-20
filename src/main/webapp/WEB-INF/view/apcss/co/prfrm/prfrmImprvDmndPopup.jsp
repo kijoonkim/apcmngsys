@@ -1,0 +1,194 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<section>
+		<div class="box box-solid">
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSearchGds" name="btnSearchGds" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="prfrmImprvDmnd.search"></sbux-button>
+					<sbux-button id="btnEndGds" name="btnEndGds" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="prfrmImprvDmnd.close"></sbux-button>
+				</div>
+			</div>
+
+			<div class="box-body">
+				<!--[pp] 검색 -->
+				<table class="table table-bordered tbl_row tbl_fixed">
+					<caption>검색 조건 설정</caption>
+					<colgroup>
+						<col style="width: 100px">
+						<col style="width: 200px">
+						<col style="width: 100px">
+						<col style="width: 200px">
+						<col style="width: 100px">
+						<col style="width: 200px">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row">APC명</th>
+							<th>
+								<sbux-input id="prfrmImprvDmnd-inp-apcNm" name="prfrmImprvDmnd-inp-apcNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
+								<sbux-input id="prfrmImprvDmnd-inp-apcCd" name="prfrmImprvDmnd-inp-apcCd" uitype="hidden"></sbux-input>
+							</th>
+							<th scope="row">프로그램명</th>
+							<th class="td_input">
+								<sbux-input id="gds-inp-gdsNm" name="gds-inp-gdsNm" uitype="text" class="form-control input-sm" ></sbux-input>
+							</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</tbody>
+				</table>
+				<!--[pp] //검색 -->
+				<!--[pp] 검색결과 -->
+				<div class="ad_section_top">
+					<div id="sb-area-grdPrfrmImprvDmnd" style="width:100%;height:300px;"></div>
+				</div>
+				<!--[pp] //검색결과 -->
+			</div>
+		</div>
+	</section>
+</body>
+<script type="text/javascript">
+	var grdPrfrmImprvDmnd = null;
+	var jsonPrfrmImprvDmndPop = [];
+
+	/**
+	 * @description 차량 선택 팝업
+	 */
+	const prfrmImprvDmnd = {
+		prgrmId: 'prfrmImprvDmndPopup',
+		modalId: 'modal-prfrmImprvDmnd',
+		gridId: 'grdPrfrmImprvDmnd',
+		jsonId: 'jsonPrfrmImprvDmndPop',
+		areaId: "sb-area-grdPrfrmImprvDmnd",
+		prvApcCd: "",
+		objGrid: null,
+		gridJson: [],
+		init: async function(_apcCd, _apcNm, _userId) {
+
+			// set param
+			SBUxMethod.set("prfrmImprvDmnd-inp-apcCd", _apcCd);
+			SBUxMethod.set("prfrmImprvDmnd-inp-apcNm", _apcNm);
+
+			this.createGrid();
+			//this.search();
+
+			this.prvApcCd = _apcCd;
+		},
+		close: function(_gds) {
+			gfn_closeModal(this.modalId, this.callbackFnc, _gds);
+		},
+		createGrid: function() {
+			var SBGridProperties = {};
+		    SBGridProperties.parentid = this.areaId;
+		    SBGridProperties.id = this.gridId;
+		    SBGridProperties.jsonref = this.jsonId;
+		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		    SBGridProperties.selectmode = 'byrow';
+		    SBGridProperties.explorerbar = 'sortmove';
+		    SBGridProperties.extendlastcol = 'scroll';
+		    SBGridProperties.oneclickedit = true;
+		    SBGridProperties.allowcopy = true;
+		    SBGridProperties.scrollbubbling = false;
+		    SBGridProperties.columns = [
+	            {caption: ['상품명'], 	ref: 'gdsNm', 			width: '200px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['품목'], 		ref: 'itemNm', 			width: '100px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['품종'], 		ref: 'vrtyNm', 			width: '100px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['규격'], 		ref: 'spcfctNm', 		width: '100px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '100px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['브랜드'], 	ref: 'brndNm', 			width: '100px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['산지'], 		ref: 'plorNm', 			width: '80px', 		type: 'output', 	style: 'text-align: center'},
+	            {caption: ['포장단위'], 	ref: 'spmtPckgUnitNm', 	width: '130px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['입수'], 		ref: 'bxGdsQntt', 		width: '80px', 		type: 'output', 	style: 'text-align: right',
+	            	format : {type:'number', rule:'#,###'}},
+	            {caption: ['중량'], 		ref: 'wght', 			width: '80px', 		type: 'output', 	style: 'text-align: right',
+	    			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}}
+		    ];
+		    grdPrfrmImprvDmnd = _SBGrid.create(SBGridProperties);
+		},
+		search: async function() {
+			// set pagination
+			grdGds.rebuild();
+	    	let pageSize = grdGds.getPageSize();
+	    	let pageNo = 1;
+
+	    	// grid clear
+	    	jsonGdsPop.length = 0;
+	    	await this.setGrid(pageSize, pageNo);
+		},
+		setGrid: async function(pageSize, pageNo) {
+	    	let apcCd = SBUxMethod.get("gds-inp-apcCd");
+			let gdsNm = SBUxMethod.get("gds-inp-gdsNm");
+
+	        const postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsGdsList.do", {
+	        	apcCd				: apcCd,
+	        	gdsNm				: gdsNm,
+	        	// pagination
+		  		pagingYn 			: 'Y',
+				currentPageNo 		: pageNo,
+	 		  	recordCountPerPage	: pageSize
+			});
+
+	        const data = await postJsonPromise;
+
+			try {
+	    		let totalRecordCount = 0;
+
+	    		jsonGdsPop.length = 0;
+	        	data.resultList.forEach((item, index) => {
+					const gds = {
+						gdsNm 			: item.gdsNm,
+						itemNm 			: item.itemNm,
+						vrtyNm 			: item.vrtyNm,
+						spcfctNm 		: item.spcfctNm,
+						gdsGrdNm 		: item.gdsGrdNm,
+	//						brndNm 			: item.brndNm,
+	//						plorNm 			: item.plorNm,
+						spmtPckgUnitNm	: item.spmtPckgUnitNm,
+						bxGdsQntt 		: item.bxGdsQntt,
+						wght 			: item.wght
+					}
+					jsonGdsPop.push(gds);
+
+					if (index === 0) {
+						totalRecordCount = item.totalRecordCount;
+					}
+				});
+
+	        	if (jsonGdsPop.length > 0) {
+	        		if(grdGds.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+	        			grdGds.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+	        			grdGds.rebuild();
+					}else{
+						grdGds.refresh();
+					}
+	        	} else {
+	        		grdGds.setPageTotalCount(totalRecordCount);
+	        		grdGds.rebuild();
+	        	}
+
+	        	grdGds.setCellDisabled(0, 0, grdGds.getRows() - 1, grdGds.getCols() - 1, true);
+
+	        	document.querySelector('#gds-pop-cnt').innerText = totalRecordCount;
+
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+	    },
+	    paging: function() {
+	    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+
+	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+	    }
+	}
+</script>
+</html>
