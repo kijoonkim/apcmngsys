@@ -138,7 +138,7 @@
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-dtp-crtrYmd", year+month+day);
-
+		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 	});
 
 	var inptCmndDsctnList = []; // 그리드를 담기위한 객체 선언
