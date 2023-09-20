@@ -122,6 +122,7 @@
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 
 								<sbux-input id="dtl-inp-apcCd" name="dtl-inp-apcCd" uitype="hidden"></sbux-input>
+								<sbux-input id="dtl-inp-pckgSn" name="dtl-inp-pckgSn" uitype="hidden"></sbux-input>
 								<sbux-input id="dtl-inp-apcNm" name="dtl-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
 							<td>
@@ -130,7 +131,7 @@
 					  		<th scope="row">기초생산자조직 대표자</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-prdcrCd" name="dtl-inp-prdcrCd" uitype="hidden"></sbux-input>
-								<sbux-input id="dtl-inp-prdcrCd" name="dtl-inp-prdcrNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<sbux-input id="dtl-inp-prdcrNm" name="dtl-inp-prdcrNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
 
 							<td style="border-right: hidden;">
@@ -257,6 +258,8 @@
 						<ul class="ad_tbl_count">
 							<li><span>조직원생산자</span></li>
 						</ul>
+						<sbux-button id="btnAddRow" name="btnAddRow" uitype="normal" text="행추가" class='btn btn-sm btn-outline-danger' onClick="fn_procRowPrdcr('ADD')"></sbux-button>
+						<sbux-button id="btnDeleteRow" name="btnDeleteRow" uitype="normal" text="행삭제" class='btn btn-sm btn-outline-danger' onClick="fn_procRowPrdcr('DEL')"></sbux-button>
 					</div>
 
 		            <div class="sbt-wrap-body">
@@ -387,12 +390,12 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-            {caption: ["성명"],	 ref: 'msgKey1',      type:'output',  width:'10%',    style:'text-align:center'},
-            {caption: ["품목"], 	 ref: 'msgCn1',     	type:'output',   width:'15%',    style:'text-align:left'},
-            {caption: ["품종"],   	 ref: 'msgKndNm1',    type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["재배면적"],    ref: 'rmrk1',        type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["생산량"], 	 ref: 'creUserId1',   type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["출하량"],	     ref: 'creDateTime1', type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["성명"],	 ref: 'prdcrNm',      type:'output',  width:'10%',    style:'text-align:center'},
+            {caption: ["품목"], 	 ref: 'itemNm',     	type:'output',   width:'15%',    style:'text-align:left'},
+            {caption: ["품종"],   	 ref: 'vrtyNm',    type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["재배면적"],    ref: 'cltvtnArea',        type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["생산량"], 	 ref: 'prdctnQntt',   type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["출하량"],	     ref: 'spmtQntt', type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["서명"],      ref: 'updUserId1',   type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["최종변경일시"],  ref: 'updDateTime1', type:'output',  hidden: true},
             {caption: ["등록프로그램"],  ref: 'creProgram1',  type:'output',  hidden: true},
@@ -428,20 +431,15 @@
      */
     const fn_search = async function() {
 
-    	// set pagination
-    	let pageSize = grdComMsgList.getPageSize();
-    	let pageNo = 1;
 
-    	fn_setGrdComMsgList(pageSize, pageNo);
+    	fn_setGrdComMsgList();
     }
 
     /**
      *
      */
     const fn_pagingComMsgList = async function() {
-    	let recordCountPerPage = grdComMsgList.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdComMsgList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-    	fn_setGrdComMsgList(recordCountPerPage, currentPageNo);
+    	fn_setGrdComMsgList();
     }
 
     /**
@@ -455,18 +453,8 @@
 
 		grdComMsgList.clearStatus();
 
-		let msgKnd = SBUxMethod.get("srch-select-msgKnd");
-		let msgKey = SBUxMethod.get("srch-input-msgKey");
-		let msgCn = SBUxMethod.get("srch-input-msgCn");
-
         const postJsonPromise = gfn_postJSON("/fm/spmt/selectSpmtEnggtInfoMngList.do", {
-        	msgKnd: msgKnd,
-        	msgKey: msgKey,
-        	msgCn: msgCn,
-        	// pagination
-	  		pagingYn : 'Y',
-			currentPageNo : pageNo,
- 		  	recordCountPerPage : pageSize
+
 		});
 
         const data = await postJsonPromise;
@@ -480,10 +468,16 @@
         	data.resultList.forEach((item, index) => {
 				const msg = {
 					apcCd: item.apcCd,
+					apcNm: item.apcNm,
+					pckgSn: item.pckgSn,
 					spmtType: item.spmtType,
 					trmtType: item.trmtType,
+					itemCd: item.itemCd,
 					itemNm: item.itemNm,
+					vrtyCd: item.vrtyCd,
 					vrtyNm: item.vrtyNm,
+					prdcrCd:item.prdcrCd,
+					prdcrNm:item.prdcrNm,
 					cltvtnArea: item.cltvtnArea,
 					prdctnQntt: item.prdctnQntt,
 					spmtQntt: item.spmtQntt,
@@ -497,12 +491,8 @@
 				}
 				jsonComMsgList.push(msg);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
+				totalRecordCount = data.resultList.length;
 			});
-
-        	console.log("totalRecordCount", totalRecordCount);
 
         	if (jsonComMsgList.length > 0) {
 
@@ -517,7 +507,6 @@
         		grdComMsgList.rebuild();
         	}
 
-        	document.querySelector('#listCount').innerText = totalRecordCount;
 
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -530,12 +519,21 @@
 
     //신규 작성
     function fn_create() {
-    	SBUxMethod.set("dtl-input-orgnMsgKey", null);
-    	SBUxMethod.set("dtl-select-msgKnd", null);
-        SBUxMethod.set("dtl-input-msgKey", null);
-        SBUxMethod.attr("dtl-input-msgKey", "readonly", false);
-        SBUxMethod.set("dtl-input-msgCn", null);
-        SBUxMethod.set("dtl-input-rmrk", null);
+    	SBUxMethod.set("dtl-input-gbnKey", null);
+    	SBUxMethod.set("dtl-inp-apcCd", null);
+    	SBUxMethod.set("dtl-inp-apcNm", null);
+        SBUxMethod.set("dtl-inp-prdcrCd", null);
+        SBUxMethod.attr("dtl-inp-prdcrNm", null);
+        SBUxMethod.set("dtl-slt-itemCd", null);
+        SBUxMethod.set("dtl-inp-cltvtnArea", null);
+        SBUxMethod.set("dtl-slt-vrtyCd", null);
+        SBUxMethod.set("dtl-slt-spmtCd", null);
+        SBUxMethod.set("dtl-inp-prdctnQntt", null);
+        SBUxMethod.set("dtl-inp-spmtQntt", null);
+        SBUxMethod.set("dtl-inp-spmtStrDt", null);
+        SBUxMethod.set("dtl-inp-spmtEndDt", null);
+        SBUxMethod.set("dtl-slt-spmtType", null);
+        SBUxMethod.set("dtl-slt-trmtType", null);
         SBUxMethod.set("dtl-input-sysFrstInptUserId", null);
         SBUxMethod.set("dtl-input-sysLastChgUserId", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
@@ -545,12 +543,21 @@
     }
 
     const fn_clearForm = function() {
-    	SBUxMethod.set("dtl-input-orgnMsgKey", null);
-    	SBUxMethod.set("dtl-select-msgKnd", null);
-        SBUxMethod.set("dtl-input-msgKey", null);
-        SBUxMethod.attr("dtl-input-msgKey", "readonly", true);
-        SBUxMethod.set("dtl-input-msgCn", null);
-        SBUxMethod.set("dtl-input-rmrk", null);
+    	SBUxMethod.set("dtl-input-gbnKey", null);
+    	SBUxMethod.set("dtl-inp-apcCd", null);
+    	SBUxMethod.set("dtl-inp-apcNm", null);
+        SBUxMethod.set("dtl-inp-prdcrCd", null);
+        SBUxMethod.attr("dtl-inp-prdcrNm", null);
+        SBUxMethod.set("dtl-slt-itemCd", null);
+        SBUxMethod.set("dtl-inp-cltvtnArea", null);
+        SBUxMethod.set("dtl-slt-vrtyCd", null);
+        SBUxMethod.set("dtl-slt-spmtCd", null);
+        SBUxMethod.set("dtl-inp-prdctnQntt", null);
+        SBUxMethod.set("dtl-inp-spmtQntt", null);
+        SBUxMethod.set("dtl-inp-spmtStrDt", null);
+        SBUxMethod.set("dtl-inp-spmtEndDt", null);
+        SBUxMethod.set("dtl-slt-spmtType", null);
+        SBUxMethod.set("dtl-slt-trmtType", null);
         SBUxMethod.set("dtl-input-sysFrstInptUserId", null);
         SBUxMethod.set("dtl-input-sysLastChgUserId", null);
         SBUxMethod.set("dtl-input-sysFrstInptDt", null);
@@ -795,17 +802,23 @@
 
         let rowData = grdComMsgList.getRowData(nRow);
 
-        SBUxMethod.set("dtl-input-orgnMsgKey", rowData.msgKey);
-        SBUxMethod.set("dtl-select-msgKnd", rowData.msgKnd);
-        SBUxMethod.set("dtl-input-msgKey", rowData.msgKey);
-        SBUxMethod.set("dtl-input-msgCn", rowData.msgCn);
-        SBUxMethod.set("dtl-input-rmrk", rowData.rmrk);
-        SBUxMethod.set("dtl-input-sysFrstInptUserId", rowData.sysFrstInptUserId);
-        SBUxMethod.set("dtl-input-sysLastChgUserId", rowData.sysLastChgUserId);
-        SBUxMethod.set("dtl-input-sysFrstInptDt", rowData.sysFrstInptDt);
-        SBUxMethod.set("dtl-input-sysLastChgDt", rowData.sysLastChgDt);
-        SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", rowData.sysFrstInptPrgrmId);
-        SBUxMethod.set("dtl-input-sysLastChgPrgrmId", rowData.sysLastChgPrgrmId);
+        SBUxMethod.set("dtl-inp-apcCd", rowData.apcCd);
+    	SBUxMethod.set("dtl-inp-apcNm", rowData.apcNm);
+    	SBUxMethod.set("dtl-inp-pckgSn", rowData.pckgSn);
+        SBUxMethod.set("dtl-inp-prdcrCd", rowData.prdcrCd);
+        SBUxMethod.attr("dtl-inp-prdcrNm", rowData.prdcrNm);
+        SBUxMethod.set("dtl-slt-itemCd", rowData.itemCd);
+        SBUxMethod.set("dtl-slt-itemNm", rowData.itemNm);
+        SBUxMethod.set("dtl-inp-cltvtnArea", rowData.cltvtnArea);
+        SBUxMethod.set("dtl-slt-vrtyCd", rowData.vrtyCd);
+        SBUxMethod.set("dtl-slt-vrtyNm", rowData.vrtyNm);
+        SBUxMethod.set("dtl-slt-spmtCd", rowData.spmtCd);
+        SBUxMethod.set("dtl-inp-prdctnQntt", rowData.prdctnQntt);
+        SBUxMethod.set("dtl-inp-spmtQntt", rowData.spmtQntt);
+        SBUxMethod.set("dtl-inp-spmtStrDt", rowData.spmtStrDt);
+        SBUxMethod.set("dtl-inp-spmtEndDt", rowData.spmtEndDt);
+        SBUxMethod.set("dtl-slt-spmtType", rowData.spmtType);
+        SBUxMethod.set("dtl-slt-trmtType", rowData.trmtType);
     }
 
     //그리드 체크박스 전체 선택
@@ -845,6 +858,24 @@
 			SBUxMethod.set("dtl-slt-spmtCd", prdcr.rprsVrtyCd);
 
 			//fn_setPrdcrForm(prdcr);
+		}
+	}
+
+	// 행 삭제 및 추가
+	async function fn_procRowPrdcr(type){
+		if (type == "ADD"){
+			grdComMsgList1.addRow(true, {delYn:'N'});
+			grdComMsgList1.setCellData(grdComMsgList1.getGridDataAll().length, 0, true);
+		}
+		else{
+			for(var i=0; i<grdComMsgList1.getGridDataAll().length; i++){
+				if(grdComMsgList1.getGridDataAll()[i].checked == "true"){
+					if (grdComMsgList1.getGridDataAll()[i].prdcrNm == "" || grdComMsgList1.getGridDataAll()[i].prdcrNm == null){
+						grdComMsgList1.deleteRow(i+1);
+						i--;
+					}
+				}
+			}
 		}
 	}
 

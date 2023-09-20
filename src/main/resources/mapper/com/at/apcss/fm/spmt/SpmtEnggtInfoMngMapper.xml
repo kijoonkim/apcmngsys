@@ -55,6 +55,7 @@
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.selectSpmtEnggtInfoMngList */
 				 CM.APC_CD           AS APC_CD,
+				 (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CM.APC_CD) AS APC_NM,
 				 CM.SPMTNO          AS SPMTNO,
 				 CM.PCKGNO          AS PCKGNO,
 				 CM.PCKG_SN         AS PCKG_SN,
@@ -71,6 +72,7 @@
 				 CM.BRND_CD             AS BRND_CD,
 				 CM.GDS_CD               AS GDS_CD,
 				 CM.PRDCR_CD           AS PRDCR_CD,
+				 (SELECT X.PRDCR_NM FROM TB_PRDCR_INFO X WHERE X.PRDCR_CD = CM.PRDCR_CD AND X.APC_CD = CM.APC_CD) AS PRDCR_NM,
 				 CM.SPMT_CMNDNO    AS SPMT_CMNDNO,
 				 CM.CLTVTN_AREA       AS CLTVTN_AREA,
 				 CM.SPMT_TYPE          AS SPMT_TYPE,
@@ -139,7 +141,7 @@
 	   			    #{apcCd}
 	   			  , #{spmtNo}
 	   			  , #{pckgNo}
-	   			  , #{pckgSn}
+	   			  ,  (SELECT NVL(MAX(PCKG_SN), 0) + 1 FROM TB_SPMT_ENGGT_INFO_MNG)
 	   			  , #{itemCd}
 	   			  , #{vrtyCd}
 	   			  , #{gdsSeCd}
