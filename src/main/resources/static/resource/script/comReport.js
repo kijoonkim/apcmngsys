@@ -48,3 +48,73 @@ const gfn_viewClipReport = async function(divId, fileName, param, modalId) {
 	report.setViewType(1);
 	report.view();
 }
+
+const gfn_getReportKey = async function(fileName, param) {
+	const oof = new OOFDocument();
+	// oof.addFile("crf.root", "%root%/crf/rawMtrLbl.crf");
+	oof.addFile(gv_reportType, gv_reportPath + fileName);
+	// oof.addConnectionData("*", "tibero");
+	oof.addConnectionData("*", gv_reportDbName);
+
+	if (!gfn_isEmpty(param)) {
+		let keys = Object.getOwnPropertyNames(param);
+		keys.forEach((item) => {
+			oof.addField(item, param[item]);
+			console.log(item, param[item]);
+		});
+	}
+
+	return oof.toString();
+}
+
+const gfn_drawClipReport = async function(divId, reportKey) {
+	const report = createOOFReport(gv_reportUrl, reportKey, document.getElementById(divId));
+	//report.callHTML5Print();
+	//report.exeDirectPrint(false, "", "", 1, -1, 1, "");
+	//report.printHTMLDirect();
+	//report.printPDFDirect()();
+	//printEXEDirect()
+	report.setViewType(1);
+	report.view();
+}
+
+// 리포트를 팝업 혹은 새창으로 띄움
+const gfn_popClipReport = async function(title, fileName, param) {
+
+	const reportKey = await gfn_getReportKey(fileName, param);
+	const url = "/report/openClipReport.do?"
+			+ "reportKey="+ reportKey +"&title="+title;
+
+	window.open(
+		url,
+		'popwin',
+		'width=1200, height=800, toolbar=no directories=no, status=no'
+		);
+/*
+	const frm = document.createElement("form");
+ 	frm.setAttribute("charset", "UTF-8");
+ 	frm.setAttribute("method", "Post");  //Post 방식
+ 	frm.setAttribute("action", url); //요청 보낼 주소
+
+	let elReportKey = document.createElement("input");
+	elReportKey.setAttribute("type", "hidden");
+	elReportKey.setAttribute("name", "reportKey");
+	elReportKey.setAttribute("value", reportKey);
+	frm.appendChild(elReportKey);
+
+	let elTitle = document.createElement("input");
+	elTitle.setAttribute("type", "hidden");
+	elTitle.setAttribute("name", "reportKey");
+	elTitle.setAttribute("value", title);
+
+	frm.appendChild(elReportKey);
+
+	window.open("" ,"popClipReport", "width=1200, height=800, toolbar=no directories=no, status=no");
+	frm.submit();
+
+	frm.remove();
+*/
+}
+
+
+

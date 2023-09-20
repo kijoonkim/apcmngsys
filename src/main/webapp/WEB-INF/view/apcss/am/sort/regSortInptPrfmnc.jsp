@@ -567,9 +567,8 @@
 			columnsStdGrd.push(grd);
 		});
 
-		if (jsonStdGrdKnd.length > 1) {
-			jsonStdGrdJgmt.forEach((item, index) => {
-				const jgmtGrd = {
+		if (jsonStdGrdKnd.length > 1 && jsonStdGrdJgmt.length > 0) {
+			const jgmtGrd = {
 					caption: ["판정등급"],
 					ref: "jgmtGrdCd",
 					type:'combo',
@@ -577,10 +576,8 @@
 					style: 'text-align:center;',
 					userattr: {colNm: "jgmtGrd"},
 					typeinfo: {ref: "jsonStdGrdJgmt", label:'grdNm', value:'grdCd', displayui : false}
-				}
-				SBGridProperties.columns.push(jgmtGrd);
-				return false;
-			});
+			}
+			SBGridProperties.columns.push(jgmtGrd);
 		}
 
 		columnsStdGrd.forEach((item, index) => {

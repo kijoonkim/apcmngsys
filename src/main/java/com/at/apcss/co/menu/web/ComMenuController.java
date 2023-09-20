@@ -13,10 +13,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.menu.service.ComMenuService;
@@ -24,7 +26,10 @@ import com.at.apcss.co.menu.vo.ComMenuVO;
 import com.at.apcss.co.menu.vo.ComUiJsonVO;
 import com.at.apcss.co.menu.vo.ComUiVO;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.at.apcss.co.sys.vo.LoginVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import egovframework.com.cmm.util.EgovUserDetailsHelper;
 
 @Controller
 public class ComMenuController extends BaseController {
@@ -65,7 +70,42 @@ public class ComMenuController extends BaseController {
 		}
 
 		return "apcss/" + pageUrl;
-	}// 메뉴 목록 조회
+	}
+
+	@RequestMapping("/report/openClipReport.do")
+	public String doOpenClipReport(Model model, @RequestParam String title, HttpServletRequest request) throws Exception {
+
+		try {
+			String menuId = "clipReport";
+			ComUiJsonVO comUiJsonVO = new ComUiJsonVO();
+			comUiJsonVO.setMenuId(menuId);
+			ObjectMapper objMapper = new ObjectMapper();
+			String comUiJsonString = objMapper.writeValueAsString(comUiJsonVO);
+			model.addAttribute("comUiJson", comUiJsonString);
+
+			ComMenuVO pageVO = new ComMenuVO();
+			pageVO.setMenuId(menuId);
+			pageVO.setMenuNm("클립리포트");
+			if (StringUtils.hasText(title)) {
+				pageVO.setMenuNm(title);
+			}
+			model.addAttribute("comMenuVO", pageVO);
+
+			model.addAttribute("reportDbName", getReportDbName());
+			model.addAttribute("reportUrl", getReportUrl());
+			model.addAttribute("reportType", getReportType());
+			model.addAttribute("reportPath", getReportPath());
+			request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);
+
+		} catch( Exception e) {
+		}
+
+		return "apcss/am/popup/openClipReportPopup";
+	}
+
+
+
+	// 메뉴 목록 조회
 	@PostMapping(value = "/co/menu/selectMenuList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(@RequestBody ComMenuVO comMenuVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();

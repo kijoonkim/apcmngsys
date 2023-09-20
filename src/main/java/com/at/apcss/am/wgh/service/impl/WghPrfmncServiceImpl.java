@@ -83,22 +83,37 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 		List<WghPrfmncDtlVO> wghPrfmncDtlList = wghPrfmncVO.getWghPrfmncDtlList();
 
-		String wghno = wghPrfmncVO.getWghno();
-		String bxKnd = ComConstants.CON_BLANK;
+		int pltQntt = wghPrfmncDtlList.size();
+		if (pltQntt == 0) {
+			return ComUtil.getResultMap("W0005", "팔레트정보");	// W0005	{0}이/가 없습니다.
+		}
+
+		double totalWght = wghPrfmncVO.getWrhsWght();
+		double remainWght = totalWght;
+		int totalBxQntt = 0;
+
+		for ( WghPrfmncDtlVO dtl : wghPrfmncDtlList ) {
+			totalBxQntt += dtl.getBxQntt();
+		}
+
+		if (totalBxQntt <= 0) {
+			return ComUtil.getResultMap("W0005", "박스수량");	// W0005	{0}이/가 없습니다.
+		}
+
+		for ( WghPrfmncDtlVO dtl : wghPrfmncDtlList ) {
+			int allocWght = (int)(dtl.getBxQntt() * totalWght / totalBxQntt);
+			remainWght -= allocWght;
+			dtl.setWrhsWght(allocWght);
+		}
+
+		String wghno = ComConstants.CON_BLANK;	//wghPrfmncVO.getWghno();
+
 		boolean needsWghComInsert = false;
 		if (!StringUtils.hasText(wghno)) {
 			needsWghComInsert = true;
 			wghno = cmnsTaskNoService.selectWghno(wghPrfmncVO.getApcCd(), wghPrfmncVO.getWghYmd());
 			wghPrfmncVO.setWghno(wghno);
 		}
-
-		List<RawMtrWrhsVO> rawMtrWrhsList = new ArrayList<>();
-
-		int pltQntt = 0;
-		int totalBxQntt = 0;
-		double totalWght = wghPrfmncVO.getWrhsWght();
-
-		String grdCd = wghPrfmncVO.getGrdCd();
 
 		if (needsWghComInsert) {
 			wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
@@ -123,67 +138,34 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
 					);
 			wghPrfmncDtlVO.setWghSn(seq);
-			wghPrfmncMapper.insertWghPrfmncDtl(wghPrfmncDtlVO);
 
-			if (!StringUtils.hasText(grdCd)) {
-				grdCd = dtl.getGrdCd();
-			}
-
-			// 팔레트 수량 만큼 입고실적 생성
-			if (AmConstants.CON_PLT_BX_SE_CD_PLT.equals(dtl.getPltBxSeCd())) {
-				pltQntt += dtl.getQntt();
-
-
-			}
-			if (AmConstants.CON_PLT_BX_SE_CD_BX.equals(dtl.getPltBxSeCd())) {
-				totalBxQntt += dtl.getQntt();
-				bxKnd = dtl.getPltBxKnd();
-			}
-		}
-
-		wghPrfmncVO.setGrdCd(grdCd);
-
-		if (pltQntt > 0) {
-			int allocWght = (int)(totalWght / pltQntt);
-			int allocBxQntt = totalBxQntt / pltQntt;
-
-			double remainWght = totalWght - (allocWght * pltQntt);
-			int remainQntt = totalBxQntt - (allocBxQntt * pltQntt);
-
-			for ( int i = 0; i < pltQntt; i++ ) {
-
-				RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
-				BeanUtils.copyProperties(wghPrfmncVO, rawMtrWrhsVO);
-				rawMtrWrhsVO.setWrhsYmd(wghPrfmncVO.getWghYmd());
-
-				// FIXME
-				rawMtrWrhsVO.setBxKnd(bxKnd);
-
-				if (i > 0) {
-					rawMtrWrhsVO.setBxQntt(allocBxQntt);
-					rawMtrWrhsVO.setWrhsQntt(allocBxQntt);
-					rawMtrWrhsVO.setWrhsWght(allocWght);
-				} else {
-					rawMtrWrhsVO.setBxQntt(allocBxQntt + remainQntt);
-					rawMtrWrhsVO.setWrhsQntt(allocBxQntt + remainQntt);
-					rawMtrWrhsVO.setWrhsWght(allocWght + remainWght);
-				}
-
-				rawMtrWrhsList.add(rawMtrWrhsVO);
-			}
-		} else {
 			RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
 			BeanUtils.copyProperties(wghPrfmncVO, rawMtrWrhsVO);
 			rawMtrWrhsVO.setWrhsYmd(wghPrfmncVO.getWghYmd());
-			rawMtrWrhsVO.setBxQntt(0);
-			rawMtrWrhsVO.setWrhsQntt(0);
-			rawMtrWrhsVO.setWrhsWght(totalWght);
-			rawMtrWrhsList.add(rawMtrWrhsVO);
-		}
+			rawMtrWrhsVO.setWghSn(seq);
+			rawMtrWrhsVO.setGrdCd(wghPrfmncDtlVO.getGrdCd());
+			rawMtrWrhsVO.setPltno(wghPrfmncDtlVO.getPltno());
+			rawMtrWrhsVO.setBxKnd(wghPrfmncDtlVO.getBxKnd());
+			rawMtrWrhsVO.setBxQntt(wghPrfmncDtlVO.getBxQntt());
+			rawMtrWrhsVO.setWrhsQntt(wghPrfmncDtlVO.getBxQntt());
+			rawMtrWrhsVO.setStdGrdList(wghPrfmncDtlVO.getStdGrdList());
 
-		HashMap<String, Object> rtnObj = rawMtrWrhsService.insertRawMtrWrhsList(rawMtrWrhsList);
-		if (rtnObj != null) {
-			throw new EgovBizException(getMessageForMap(rtnObj));
+			double wrhsWght = dtl.getWrhsWght();
+
+			if (seq > 0) {
+				rawMtrWrhsVO.setWrhsWght(wrhsWght);
+			} else {
+				rawMtrWrhsVO.setWrhsWght(wrhsWght + remainWght);
+			}
+
+			HashMap<String, Object> rtnObj = rawMtrWrhsService.insertRawMtrWrhs(rawMtrWrhsVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+			// 입고번호 설정
+			wghPrfmncDtlVO.setWrhsno(rawMtrWrhsVO.getWrhsno());
+
+			wghPrfmncMapper.insertWghPrfmncDtl(wghPrfmncDtlVO);
 		}
 
 		return null;

@@ -27,7 +27,7 @@
 			id="stdGrdSlt-slt-knd-1"
 			name="stdGrdSlt-slt-knd-1"
 			class="input-sm input-sm-ast inpt_data_reqed"
-			jsondata-ref="jsonStdGrdPop_1"
+			jsondata-ref="gjsonStdGrdObj_1"
 			jsondata-text="grdNm"
 			jsondata-value="grdCd"
 			onchange="stdGrdSelect.setGrdJgmt"
@@ -42,7 +42,7 @@
 			id="stdGrdSlt-slt-knd-2"
 			name="stdGrdSlt-slt-knd-2"
 			class="input-sm input-sm-ast inpt_data_reqed"
-			jsondata-ref="jsonStdGrdPop_2"
+			jsondata-ref="gjsonStdGrdObj_2"
 			jsondata-text="grdNm"
 			jsondata-value="grdCd"
 			onchange="stdGrdSelect.setGrdJgmt"
@@ -57,7 +57,7 @@
 			id="stdGrdSlt-slt-knd-3"
 			name="stdGrdSlt-slt-knd-3"
 			class="input-sm input-sm-ast inpt_data_reqed"
-			jsondata-ref="jsonStdGrdPop_3"
+			jsondata-ref="gjsonStdGrdObj_3"
 			jsondata-text="grdNm"
 			jsondata-value="grdCd"
 			onchange="stdGrdSelect.setGrdJgmt"
@@ -72,7 +72,7 @@
 			id="stdGrdSlt-slt-knd-4"
 			name="stdGrdSlt-slt-knd-4"
 			class="input-sm input-sm-ast inpt_data_reqed"
-			jsondata-ref="jsonStdGrdPop_4"
+			jsondata-ref="gjsonStdGrdObj_4"
 			jsondata-text="grdNm"
 			jsondata-value="grdCd"
 			onchange="stdGrdSelect.setGrdJgmt"
@@ -87,7 +87,7 @@
 			id="stdGrdSlt-slt-knd-5"
 			name="stdGrdSlt-slt-knd-5"
 			class="input-sm input-sm-ast inpt_data_reqed"
-			jsondata-ref="jsonStdGrdPop_5"
+			jsondata-ref="gjsonStdGrdObj_5"
 			jsondata-text="grdNm"
 			jsondata-value="grdCd"
 			onchange="stdGrdSelect.setGrdJgmt"
@@ -103,7 +103,7 @@
 			name="stdGrdSlt-slt-jgmt"
 			class="input-sm input-sm-ast"
 			readonly
-			jsondata-ref="jsonStdGrdJgmtPop"
+			jsondata-ref="gjsonStdGrdObjJgmt"
 			jsondata-text="grdNm"
 			jsondata-value="grdCd"
 		/>
@@ -112,19 +112,8 @@
 
 <script type="text/javascript">
 
-/** 등급 json */
-var jsonStdGrdKndPop = [];
-var jsonStdGrdJgmtPop = [];
-var jsonStdGrdDtlPop = [];
-var jsonStdGrdPop_1 = [];
-var jsonStdGrdPop_2 = [];
-var jsonStdGrdPop_3 = [];
-var jsonStdGrdPop_4 = [];
-var jsonStdGrdPop_5 = [];
-
 /** 등급 SBSelect */
 const stdGrdSelect = {
-	idList: ['1', '2', '3', '4', '5'],
 	param: {
 		apcCd: null,
 		grdSeCd: null,
@@ -134,11 +123,11 @@ const stdGrdSelect = {
 		SBUxMethod.hide("stdGrdSlt-lbl-jgmt");
 		SBUxMethod.hide("stdGrdSlt-slt-jgmt");
 
-		this.idList.forEach((id) => {
+		gStdGrdObj.idList.forEach((id) => {
 			SBUxMethod.hide('stdGrdSlt-lbl-knd-' + id);
 			SBUxMethod.hide('stdGrdSlt-slt-knd-' + id);
 
-			let jsonObj = this.getGrdJson(id);
+			let jsonObj = gStdGrdObj.getGrdJson(id);
 			jsonObj.length = 0;
 		});
 	},
@@ -156,8 +145,24 @@ const stdGrdSelect = {
 			this.param.grdSeCd = _grdSeCd;
 			this.param.itemCd = _itemCd;
 
-			jsonStdGrdKndPop.length = 0;
+			gjsonStdGrdObjKnd.length = 0;
 
+			if (gfn_isEmpty(_apcCd)
+					|| gfn_isEmpty(_grdSeCd)
+					|| gfn_isEmpty(_itemCd)) {
+				return;
+			}
+			await gStdGrdObj.init(_apcCd, _grdSeCd, _itemCd);
+			gjsonStdGrdObjKnd.forEach((item, index) => {
+				const id = gStdGrdObj.idList[index];
+
+				SBUxMethod.set('stdGrdSlt-lbl-knd-' + id, item.grdKndNm + " : ");	// 등급종류명
+				SBUxMethod.show('stdGrdSlt-lbl-knd-' + id);
+				SBUxMethod.show('stdGrdSlt-slt-knd-' + id);
+				SBUxMethod.refresh('stdGrdSlt-slt-knd-' + id);
+			});
+
+			/*
 			let rslt = await Promise.all([
 				gfn_getStdGrds(_apcCd, _grdSeCd, _itemCd),
 				gfn_getStdGrdJgmts(_apcCd, _grdSeCd, _itemCd),
@@ -165,26 +170,29 @@ const stdGrdSelect = {
 		 	]);
 
 			const jsonTempKnds = rslt[0];
-			jsonStdGrdJgmtPop = rslt[1];
-			jsonStdGrdDtlPop = rslt[2];
+			gjsonStdGrdObjJgmt = rslt[1];
+			gjsonStdGrdObjDtl = rslt[2];
 
 			if (jsonTempKnds.length > 0) {
 				jsonTempKnds.forEach((item, index) => {
 					if (index >= 5) return false;
 
 					const knd = {
+							itemCd: item.itemCd,
+							itemNm: item.itemNm,
 							grdKnd: item.grdKnd,
 							grdKndNm: item.grdKndNm,
 							adtnRt: item.adtnRt
-						}
-					jsonStdGrdKndPop.push(knd);
 
-					const id = this.idList[index];
+						}
+					gjsonStdGrdObjKnd.push(knd);
+
+					const id = gStdGrdObj.idList[index];
 
 					SBUxMethod.set('stdGrdSlt-lbl-knd-' + id, item.grdKndNm + " : ");	// 등급종류명
-					let jsonObj = this.getGrdJson(id);
+					let jsonObj = gStdGrdObj.getGrdJson(id);
 
-					const dtls = gfn_getJsonFilter(jsonStdGrdDtlPop, "grdKnd", item.grdKnd);
+					const dtls = gfn_getJsonFilter(gjsonStdGrdObjDtl, "grdKnd", item.grdKnd);
 					dtls.forEach((item) => {
 						jsonObj.push(item);
 					});
@@ -195,8 +203,9 @@ const stdGrdSelect = {
 					SBUxMethod.refresh('stdGrdSlt-slt-knd-' + id);
 				});
 			}
+			 */
 
-			if (jsonStdGrdKndPop.length > 1 && jsonStdGrdJgmtPop.length > 0) {
+			if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
 				SBUxMethod.show('stdGrdSlt-lbl-jgmt');
 				SBUxMethod.show('stdGrdSlt-slt-jgmt');
 				SBUxMethod.refresh('stdGrdSlt-slt-jgmt');
@@ -206,19 +215,19 @@ const stdGrdSelect = {
 		if (!gfn_isEmpty(_stdGrdObj)) {
 
 			// set stdGrd
-			if (jsonStdGrdJgmtPop.length > 0) {
+			if (gjsonStdGrdObjJgmt.length > 0) {
 				SBUxMethod.set('stdGrdSlt-slt-jgmt', _stdGrdObj.grdJgmt.grdCd);
 			}
 
-			jsonStdGrdKndPop.forEach((item, index) => {
-				const id = this.idList[index];
+			gjsonStdGrdObjKnd.forEach((item, index) => {
+				const id = gStdGrdObj.idList[index];
 				SBUxMethod.set('stdGrdSlt-slt-knd-' + id, "");
 			});
 
 			_stdGrdObj.stdGrdList.forEach((stdGrd) => {
-				jsonStdGrdKndPop.forEach((item, index) => {
+				gjsonStdGrdObjKnd.forEach((item, index) => {
 					if (stdGrd.grdKnd === item.grdKnd) {
-						const id = this.idList[index];
+						const id = gStdGrdObj.idList[index];
 						SBUxMethod.set('stdGrdSlt-slt-knd-' + id, stdGrd.grdCd);
 						return false;
 					}
@@ -226,29 +235,19 @@ const stdGrdSelect = {
 			});
 		}
 	},
-	getGrdJson: function(id) {
-		switch (id) {
-			case '1': return jsonStdGrdPop_1;
-			case '2': return jsonStdGrdPop_2;
-			case '3': return jsonStdGrdPop_3;
-			case '4': return jsonStdGrdPop_4;
-			case '5': return jsonStdGrdPop_5;
-			default: return null;
-		}
-	},
 	setGrdJgmt: function() {
 
-		if (jsonStdGrdJgmtPop.length == 0) {
+		if (gjsonStdGrdObjJgmt.length == 0) {
 			return;
 		}
 
 		let jgmtGrdVl = 0;
 
-		jsonStdGrdKndPop.forEach((item, index) => {
-			const id = this.idList[index];
+		gjsonStdGrdObjKnd.forEach((item, index) => {
+			const id = gStdGrdObj.idList[index];
 			let grdCd = SBUxMethod.get('stdGrdSlt-slt-knd-' + id);
 
-			let jsonObj = this.getGrdJson(id);
+			let jsonObj = gStdGrdObj.getGrdJson(id);
 
 			let grdDtlInfo = _.find(jsonObj, {grdCd: grdCd});
 
@@ -260,7 +259,7 @@ const stdGrdSelect = {
 		let jgmtGrdCd = "";
 		let jgmtGrdNm = "";
 
-		jsonStdGrdJgmtPop.forEach((item, index) => {
+		gjsonStdGrdObjJgmt.forEach((item, index) => {
 
 			let jgmtMinVl = parseInt(item.jgmtMinVl) || 0;
 			let jgmtMaxVl = parseInt(item.jgmtMaxVl) || 9999999999;
@@ -313,8 +312,8 @@ const stdGrdSelect = {
 				grdJgmt: {grdCd: null, grdNm: null, grdVl: null},
 				isOmit: false
 			}
-		jsonStdGrdKndPop.forEach((item, index) => {
-			let grdCd = SBUxMethod.get('stdGrdSlt-slt-knd-' + this.idList[index])
+		gjsonStdGrdObjKnd.forEach((item, index) => {
+			let grdCd = SBUxMethod.get('stdGrdSlt-slt-knd-' + gStdGrdObj.idList[index])
 			const stdGrd = {
 					apcCd: this.param.apcCd,
 					grdSeCd: this.param.grdSeCd,
@@ -332,7 +331,7 @@ const stdGrdSelect = {
 			if (index === 0) {
 				let jgmtGrdCd = "";
 				let jgmtGrdNm = "";
-				if (jsonStdGrdJgmtPop.length > 0) {
+				if (gjsonStdGrdObjJgmt.length > 0) {
 					jgmtGrdCd = SBUxMethod.get('stdGrdSlt-slt-jgmt');
 					jgmtGrdNm = SBUxMethod.getText('stdGrdSlt-slt-jgmt');
 				} else {

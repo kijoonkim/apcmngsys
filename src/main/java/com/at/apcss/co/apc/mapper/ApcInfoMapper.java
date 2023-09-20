@@ -22,20 +22,27 @@ import com.at.apcss.co.apc.vo.ApcInfoVO;
  */
 @Mapper
 public interface ApcInfoMapper {
-	
+
 	/**
 	 * APC 정보 조회
 	 * @param ApcInfoVO
 	 * @return ApcInfoVO
 	 */
 	ApcInfoVO selectApcInfo(ApcInfoVO apcInfoVO) throws Exception;
-	
+
 	/**
 	 * APC 내역 조회
 	 * @param ApcInfoVO
 	 * @return List<ApcInfoVO>
 	 */
 	List<ApcInfoVO> selectApcInfoList(ApcInfoVO apcInfoVO) throws Exception;
+
+	/**
+	 * APC 관리내역 조회
+	 * @param ApcInfoVO
+	 * @return List<ApcInfoVO>
+	 */
+	List<ApcInfoVO> selectApcMngList(ApcInfoVO apcInfoVO) throws Exception;
 
 	/**
 	 * APC 내역 조회
