@@ -43,6 +43,11 @@ public class WghPrfmncVO extends ComVO {
 	private String wghno;
 
 	/**
+	 * 계량순번
+	 */
+	private int wghSn;
+
+	/**
 	 * 계량일자
 	 */
 	private String wghYmd;
@@ -217,6 +222,11 @@ public class WghPrfmncVO extends ComVO {
 	private String warehouseSeNm;
 
 	/**
+	 * 생산연도
+	 */
+	private String prdctnYr;
+
+	/**
 	 * 계량상세리스트
 	 */
 	List<WghPrfmncDtlVO> wghPrfmncDtlList;
@@ -228,6 +238,7 @@ public class WghPrfmncVO extends ComVO {
 	public void setWghPrfmncDtlList(List<WghPrfmncDtlVO> wghPrfmncDtlList) {
 		this.wghPrfmncDtlList = wghPrfmncDtlList == null ? null : wghPrfmncDtlList.stream().collect(Collectors.toList());
 	}
+
 
 	/**
 	 * 표준등급

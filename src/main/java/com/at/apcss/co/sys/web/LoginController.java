@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -134,32 +135,24 @@ public class LoginController extends BaseController {
 			String userType = resultVO.getUserType();
 			if (ComConstants.CON_USER_TYPE_SYS.equals(userType)
 					|| ComConstants.CON_USER_TYPE_AT.equals(userType)) {
-				apcInfoVO.setDelYn(ComConstants.CON_NONE);
-				List<ApcInfoVO> apcInfoList = apcInfoService.selectApcInfoList(apcInfoVO);
-				for ( ApcInfoVO apc : apcInfoList ) {
-					ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
-					comApcJsonVO.setApcCd(apc.getApcCd());
-					comApcJsonVO.setApcNm(apc.getApcNm());
-					comApcJsonVO.setValue(apc.getApcCd());
-					comApcJsonVO.setText(apc.getApcNm());
-					comApcJsonVO.setLabel(apc.getApcNm());
-
-					comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
-				}
-
 				resultVO.setApcAdminType(userType);
-
 			} else {
-				ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
-				comApcJsonVO.setApcCd(resultVO.getApcCd());
-				comApcJsonVO.setApcNm(resultVO.getApcNm());
-				comApcJsonVO.setValue(resultVO.getApcCd());
-				comApcJsonVO.setText(resultVO.getApcNm());
-				comApcJsonVO.setLabel(resultVO.getApcNm());
-
-				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+				apcInfoVO.setApcCd(resultVO.getApcCd());
 			}
 
+			List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
+			for ( ApcInfoVO apc : apcInfoList ) {
+				if (StringUtils.hasText(resultVO.getApcCd())
+						&& resultVO.getApcCd().equals(apc.getApcCd())) {
+					request.getSession().setAttribute("apcVO", apc);
+				}
+
+				ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+				BeanUtils.copyProperties(apc, comApcJsonVO);
+				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+				logger.debug(objMapper.writeValueAsString(comApcJsonVO));
+
+			}
 
 			if (comApcList != null && !comApcList.isEmpty()) {
 				request.getSession().setAttribute("comApcList", comApcList);
@@ -171,7 +164,6 @@ public class LoginController extends BaseController {
 			request.getSession().setAttribute("loginVO", resultVO);
 
 			// 세션정보 db insert
-
 
 			// 로그인 인증세션
 			request.getSession().setAttribute("accessUser", resultVO.getId());
@@ -209,39 +201,31 @@ public class LoginController extends BaseController {
 		if (resultVO != null && resultVO.getId() != null && StringUtils.hasText(resultVO.getId())) {
 
 			ApcInfoVO apcInfoVO = new ApcInfoVO();
-			List<ComApcJsonVO> comApcList = new ArrayList<>();
+
+			List<String> comApcList = new ArrayList<>();
+			ObjectMapper objMapper = new ObjectMapper();
 
 			// 로그인 사용자가 시스템관리자, AT관리자 일 경우 APC리스트를 세션에 저장
 			String userType = resultVO.getUserType();
 			if (ComConstants.CON_USER_TYPE_SYS.equals(userType)
 					|| ComConstants.CON_USER_TYPE_AT.equals(userType)) {
-				apcInfoVO.setDelYn(ComConstants.CON_NONE);
-				List<ApcInfoVO> apcInfoList = apcInfoService.selectApcInfoList(apcInfoVO);
-				for ( ApcInfoVO apc : apcInfoList ) {
-					ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
-					comApcJsonVO.setApcCd(apc.getApcCd());
-					comApcJsonVO.setApcNm(apc.getApcNm());
-					comApcJsonVO.setValue(resultVO.getApcCd());
-					comApcJsonVO.setText(resultVO.getApcNm());
-					comApcJsonVO.setLabel(resultVO.getApcNm());
-
-					comApcList.add(comApcJsonVO);
-				}
-
 				resultVO.setApcAdminType(userType);
-
 			} else {
-				ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
-				comApcJsonVO.setApcCd(resultVO.getApcCd());
-				comApcJsonVO.setApcNm(resultVO.getApcNm());
-				comApcJsonVO.setValue(resultVO.getApcCd());
-				comApcJsonVO.setText(resultVO.getApcNm());
-				comApcJsonVO.setLabel(resultVO.getApcNm());
-
-				comApcList.add(comApcJsonVO);
+				apcInfoVO.setApcCd(resultVO.getApcCd());
 			}
 
-			ObjectMapper objMapper = new ObjectMapper();
+			List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
+			for ( ApcInfoVO apc : apcInfoList ) {
+				ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+				BeanUtils.copyProperties(apc, comApcJsonVO);
+				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+
+				if (StringUtils.hasText(resultVO.getApcCd())
+						&& resultVO.getApcCd().equals(apc.getApcCd())) {
+					request.getSession().setAttribute("apcVO", comApcJsonVO);
+				}
+			}
+
 			if (comApcList != null && !comApcList.isEmpty()) {
 				request.getSession().setAttribute("comApcList", objMapper.writeValueAsString(comApcList));
 			} else {

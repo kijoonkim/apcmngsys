@@ -58,11 +58,11 @@ public class CmnsItemVO extends ComVO {
 	 */
 	private String nhItemNm;
 	/**
-	 * 원물감량율
+	 * 원물감량률
 	 */
 	private double rawMtrRdcdRt;
 	/**
-	 * 선별감량율
+	 * 선별감량률
 	 */
 	private double sortRdcdRt;
 	/**

@@ -45,7 +45,7 @@
 			 WHERE APC_CD = #{apcCd}
 		]]>
     </select>
-    
+
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcInfoList			-->
 	<!-- DESC : APC 내역 조회.	                                             			-->
@@ -56,7 +56,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectApcInfoList" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.apc.mapper.ApcInfoMapper.selectApcInfo */ 
+    		SELECT /* com.at.apcss.am.apc.mapper.ApcInfoMapper.selectApcInfo */
 	    		  AI.APC_CD			AS APC_CD
 			    , AI.REG_APC_NM     AS REG_APC_NM
 			    , AI.REG_ADDR       AS REG_ADDR
@@ -96,9 +96,53 @@
 		</if>
 		<if test='regTelno != null and regTelno != ""'>
 		   AND AI.REG_TELNO LIKE '%' ||  #{regTelno} || '%'
-		</if>		
+		</if>
     </select>
-    
+
+
+   	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcMngList			-->
+	<!-- DESC : APC 관리내역 조회.	                                          			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.26  	신정철        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <select id="selectApcMngList" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.apc.mapper.ApcInfoMapper.selectApcMngList */
+	    		  AI.APC_CD			AS APC_CD
+			    , AI.REG_APC_NM     AS REG_APC_NM
+			    , AI.REG_ADDR       AS REG_ADDR
+			    , AI.REG_TELNO      AS REG_TELNO
+			    , AI.REG_ZIP		AS REG_ZIP
+			    , AI.CTPV_NM        AS CTPV_NM
+			    , AI.SIGUN_NM       AS SIGUN_NM
+			    , AI.MB_CD          AS MB_CD
+			    , AI.ZIP			AS ZIP
+
+			    , AE.APC_NM         AS APC_NM
+			    , AE.ADDR           AS ADDR
+			    , AE.TELNO          AS TELNO
+			    , AE.FXNO           AS FXNO
+			    , AE.BRNO          	AS BRNO
+			    , AE.BANK_CD        AS BANK_CD
+			    , AE.ACTNO          AS ACTNO
+			   	, AE.DPSTR          AS DPSTR
+			    , AE.CLCLN_CRTR		AS CLCLN_CRTR
+
+		  	  FROM TB_APC_INFO AI
+		  	  JOIN TB_APC_EVRMNT_STNG AE
+		  	    ON AE.APC_CD = AI.APC_CD
+		  	   AND AE.DEL_YN = 'N'
+		 	 WHERE AI.DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+		   	   AND AI.APC_CD = #{apcCd}
+		</if>
+    </select>
+
+
      <!-- ==========================================================================-->
 	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcDsctnList			-->
 	<!-- DESC : APC 내역 조회.	                                             			-->

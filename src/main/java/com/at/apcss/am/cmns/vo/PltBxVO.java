@@ -49,6 +49,12 @@ public class PltBxVO extends ComVO {
 	 * 단중
 	 */
 	private double unitWght;
+
+	/**
+	 * 환산단중
+	 */
+	private double cnvrsUnitWght;
+
 	/**
 	 * 단위
 	 */
