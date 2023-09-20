@@ -10,6 +10,7 @@ import lombok.Setter;
 public class SpmtEnggtInfoMngVO extends ComVO{
 
 	private String apcCd;
+	private String apcNm;
 	private String spmtNo;
 	private String pckgNo;
 	private int    pckgSn;
@@ -26,6 +27,7 @@ public class SpmtEnggtInfoMngVO extends ComVO{
 	private String brndCd;
 	private String gdsCd;
 	private String prdcrCd;
+	private String prdcrNm;
 	private String spmtCmndno;
 	private int cltvtnArea;
 	private String spmtType;

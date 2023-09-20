@@ -69,11 +69,11 @@
     }];
 
     // only document
-    window.addEventListener('DOMContentLoaded', function(e) {
+    //window.addEventListener('DOMContentLoaded', function(e) {
     	//let bodyHeight = document.body.scrollHeight;
     	//let topHeight = $(".sbt-all-header").height();
         //$(".sbt-A-wrap").height(bodyHeight - topHeight - 5);
-    });
+    //});
 
     const fn_selectTopMenu = (_id) => {
 
@@ -247,7 +247,6 @@
     	var data = SBUxMethod.get(_id);
 
 		if (_target === "TOP" && gfn_isEmpty(data.pid)) {
-        //if (_target === "TOP" && data.pid == 0) {
             return;
         }
         var url = data.customData == undefined ? "" : data.customData.url;
@@ -314,7 +313,7 @@
     /**
      * @param {string} _menuId
      */
-	function fn_afterAddTab(_menuId) {
+	async function fn_afterAddTab(_menuId) {
 
     	prvTabMenuId = _menuId;
 
@@ -564,6 +563,7 @@
 				<c:if test="${loginVO != null && loginVO.id != null}">
 					<span class="name-t">${loginVO.name}</span>님 반갑습니다.
                 <ul class="user-login-menu">
+                    <li><sbux-button id="btnPrfrmImprvDmnd" name="btnPrfrmImprvDmnd" uitype="normal" text="개선요청" style="width:100%;" class="btn btn-sm btn-outline-dark" onclick="fn_modalPopup"></sbux-button></li>
                     <li><a href="/actionLogout.do">로그아웃</a></li>
                 </ul>
                 </c:if>
@@ -617,29 +617,45 @@
             </div>
         </div>
     </div>
-
+	<!-- 출하매출단가 등록 Modal -->
+    <div>
+        <sbux-modal id="modal-prfrmImprvDmnd" name="modal-prfrmImprvDmnd" uitype="middle" header-title="출하 매출단가 등록" body-html-id="body-modal-prfrmImprvDmnd" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-prfrmImprvDmnd">
+    	<jsp:include page="../apcss/co/prfrm/prfrmImprvDmndPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 	//only document
 	window.addEventListener('DOMContentLoaded', function(e) {
+		initMain();
+	});
+	const fn_modalPopup = async function() {
 
+		var userId =  '${loginVO.userId}';
+		prfrmImprvDmnd.init(gv_apcCd, gv_apcNm, userId);
+		SBUxMethod.openModal('modal-prfrmImprvDmnd');
+	}
+
+	const initMain = async function() {
 		var tabName = "TAB_CO_014";
 		var menuNo = "CO_014";
 		var jsonTabSelect = {
                 'id': tabName
                 , 'pid': '-1'
-                , 'text': '대시보드'
+                , 'text': '🏠'	//'대시보드'
                 , 'targetid': tabName
                 , 'targetvalue': tabName + '_value'
                 , 'targetname': 'frmJson'
                 , 'link': '/co/menu/openPage.do/' + menuNo	// _url
-                , 'closeicon': true
+                , 'closeicon': false
             };
         SBUxMethod.addTab('tab_menu', jsonTabSelect);
 
-		fn_afterAddTab(menuNo);
-
-	});
+		await fn_afterAddTab(menuNo);
+		console.log("menuJson",menuJson);
+		//fn_selectTopMenu(menuJson[0].id);
+	}
 
 </script>
 </html>

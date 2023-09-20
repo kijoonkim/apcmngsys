@@ -65,6 +65,14 @@ public interface SortInvntrMapper {
 	public int updateSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
 
 	/**
+	 * 원물재고내역 변경
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateSortInvntrDsctnList(SortInvntrVO sortInvntrVO) throws Exception;
+	
+	/**
 	 * 선별재고 삭제
 	 * @param sortInvntrVO
 	 * @return
