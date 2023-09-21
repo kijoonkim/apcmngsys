@@ -110,9 +110,9 @@
         	{caption: ["처리"], 		ref: 'delYn',  			width: '80px',		type: 'button',		style: 'text-align: center', sortable: false,
         		renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 		        	if(strValue== null || strValue == ""){
-		        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='prfrmImprvDmnd.procRow(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
+		        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
 		        	}else{
-				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='prfrmImprvDmnd.procRow(\"DEL\", " + nRow + ")'>삭제</button>";
+				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", " + nRow + ")'>삭제</button>";
 		        	}
 		    }},
             {caption: ['상태'], 		ref: 'dmndStts', 		width: '80px', 		type: 'output', 	style: 'text-align: center', sortable: false},
@@ -123,7 +123,7 @@
 //             {caption: ['프로그램명'], 	ref: 'menuNm', 			width: '120px',		type: 'output',		style: 'text-align: center', sortable: false},
             {caption: ['접수자'], 	ref: 'pic', 			width: '120px',		type: 'combo',		style: 'text-align: center', sortable: false,
         		typeinfo : {ref:'jsonComPic', label:'label', value:'value', itemcount: 10}},
-            {caption: ['조치예정일자'],	ref: 'gdsGrdNm', 		width: '120px',		type: 'datepicker',	style: 'text-align: center', sortable: false,
+            {caption: ['조치예정일자'],	ref: 'actnPrnmntYmd', 	width: '120px',		type: 'datepicker',	style: 'text-align: center', sortable: false,
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ['개선요청사항'],	ref: 'imprvDmndMttr', 	width: '500px', 	type: 'output', 	style: 'text-align: center', sortable: false},
             {caption: ['조치결과'], 	ref: 'actnRslt', 		width: '500px',		type: 'input',		style: 'text-align: center', sortable: false,
@@ -135,6 +135,44 @@
         ];
         grdPrgrmImprvDmnd = _SBGrid.create(SBGridProperties);
         grdPrgrmImprvDmnd.bind( "afterpagechanged" , "fn_pagingPrgrmImprvDmnd" );
+    }
+	
+	// 행 삭제
+	async function fn_procRow(gubun, nRow, nCol) {
+		if(gubun === "DEL"){
+    		if(grdPrgrmImprvDmnd.getRowStatus(nRow) == 0 || grdPrgrmImprvDmnd.getRowStatus(nRow) == 2){
+        		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+        		if(confirm(delMsg)){
+        			var prfrmImprvDmnd = grdPrfrmImprvDmnd.getRowData(nRow);
+        			fn_delete(prfrmImprvDmnd);
+        			grdPrfrmImprvDmnd.deleteRow(nRow);
+        		}
+        	}else{
+        		grdPrfrmImprvDmnd.deleteRow(nRow);
+        	}
+    	}
+    }
+	
+	// 프로그램 개선요청 삭제
+	async function fn_delete(prfrmImprvDmndVO){
+    	let postJsonPromise = gfn_postJSON("/co/dmnd/deletePrfrmImprvDmnd.do", prfrmImprvDmndVO);
+        let data = await postJsonPromise;
+        try {
+        	if(data.deletedCnt > 0){
+        		fn_search();
+        		return;
+        	}else if (data.errMsg != null ){
+        		gfn_comAlert("E0000", data.errMsg)		// W0009   {0}이/가 있습니다.
+        		return;
+        	}else {
+        		gfn_comAlert("E0001");
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
     }
 	
 	// 프로그램 개선요청 목록 조회 (조회 버튼)
@@ -205,6 +243,55 @@
     	let recordCountPerPage = grdPrgrmImprvDmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = grdPrgrmImprvDmnd.getSelectPageIndex(); 
     	fn_callSelectPrgrmImprvDmndList(recordCountPerPage, currentPageNo);
+    }
+	
+	// 프로그램 개선요청 수정
+    async function fn_save(){
+    	let saveList = [];
+		let gridData = grdPrgrmImprvDmnd.getGridDataAll();
+
+		for(var i=1; i<=gridData.length; i++ ){
+			let rowData = grdPrgrmImprvDmnd.getRowData(i);
+			let rowSts = grdPrgrmImprvDmnd.getRowStatus(i);
+			let delYn = rowData.delYn;
+			let imprvDmndMttr = rowData.imprvDmndMttr;
+			if(delYn == 'N'){
+				if (gfn_isEmpty(imprvDmndMttr)) {
+		  			gfn_comAlert("W0002", "개선요청사항");		//	W0002	{0}을/를 입력하세요.
+		            return;
+		  		}
+				if (rowSts === 2){
+					rowData.rowSts = "U";
+					saveList.push(rowData);
+				} else {
+					continue;
+				}
+			}
+		}
+
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			let postJsonPromise = gfn_postJSON("/co/dmnd/multiSavePrfrmImprvDmndList.do", saveList);
+	        let data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_search();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+		}
     }
 	
  	// APC 선택 변경

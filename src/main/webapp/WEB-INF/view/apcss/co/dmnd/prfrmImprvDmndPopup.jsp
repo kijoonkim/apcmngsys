@@ -48,7 +48,7 @@
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<div class="ad_section_top">
-					<div id="sb-area-grdPrfrmImprvDmnd" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdPrfrmImprvDmndPop" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 				<div class="ad_tbl_top"  style="width: 98%;">
@@ -95,7 +95,7 @@
 	</section>
 </body>
 <script type="text/javascript">
-	var grdPrfrmImprvDmnd = null;
+	var grdPrfrmImprvDmndPop = null;
 	var jsonPrfrmImprvDmndPop = [];
 	var jsonComPic= [];
 
@@ -105,9 +105,9 @@
 	const prfrmImprvDmnd = {
 		prgrmId: 'prfrmImprvDmndPopup',
 		modalId: 'modal-prfrmImprvDmnd',
-		gridId: 'grdPrfrmImprvDmnd',
+		gridId: 'grdPrfrmImprvDmndPop',
 		jsonId: 'jsonPrfrmImprvDmndPop',
-		areaId: "sb-area-grdPrfrmImprvDmnd",
+		areaId: "sb-area-grdPrfrmImprvDmndPop",
 		prvApcCd: "",
 		prvMenuId: "",
 		prvUserId: "",
@@ -164,13 +164,13 @@
 	            {caption: ['순번'], 		ref: 'sn', 			hidden : true}
 		    ];
 
-		    grdPrfrmImprvDmnd = _SBGrid.create(SBGridProperties);
-		    grdPrfrmImprvDmnd.bind('click', this.selectDmnd);
+		    grdPrfrmImprvDmndPop = _SBGrid.create(SBGridProperties);
+		    grdPrfrmImprvDmndPop.bind('click', this.selectDmnd);
 
 		    let rst = await Promise.all([
 				gfn_setComCdSBSelect('dmnd-slt-pic', 	jsonComPic, 'PIC'),			// 담당자(검색)
 			]);
-			grdPrfrmImprvDmnd.refresh({"combo":true});
+			grdPrfrmImprvDmndPop.refresh({"combo":true});
 		},
 		search: async function() {
 
@@ -212,8 +212,8 @@
 
 				});
 
-	        	grdPrfrmImprvDmnd.rebuild();
-	        	grdPrfrmImprvDmnd.addRow(true);
+	        	grdPrfrmImprvDmndPop.rebuild();
+	        	grdPrfrmImprvDmndPop.addRow(true);
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -225,36 +225,36 @@
 	    procRow : async function(gubun, nRow, nCol) {
 
 	    	if(gubun === "ADD"){
-	    		grdPrfrmImprvDmnd.setCellData(nRow, nCol, "N", true);
+	    		grdPrfrmImprvDmndPop.setCellData(nRow, nCol, "N", true);
 
-	    		grdPrfrmImprvDmnd.setCellData(nRow, 2, gfn_dateToYmd(new Date()), true);
-	    		grdPrfrmImprvDmnd.setCellData(nRow, 3, this.prvUserNm, true);
-	    		grdPrfrmImprvDmnd.setCellData(nRow, 5, this.prvApcCd, true);
-	    		grdPrfrmImprvDmnd.setCellData(nRow, 6, this.prvUserId, true);
-	    		grdPrfrmImprvDmnd.setCellData(nRow, 7, this.prvMenuId, true);
-	    		grdPrfrmImprvDmnd.addRow(true);
+	    		grdPrfrmImprvDmndPop.setCellData(nRow, 2, gfn_dateToYmd(new Date()), true);
+	    		grdPrfrmImprvDmndPop.setCellData(nRow, 3, this.prvUserNm, true);
+	    		grdPrfrmImprvDmndPop.setCellData(nRow, 5, this.prvApcCd, true);
+	    		grdPrfrmImprvDmndPop.setCellData(nRow, 6, this.prvUserId, true);
+	    		grdPrfrmImprvDmndPop.setCellData(nRow, 7, this.prvMenuId, true);
+	    		grdPrfrmImprvDmndPop.addRow(true);
 
 	    	}else if(gubun === "DEL"){
-	    		if(grdPrfrmImprvDmnd.getRowStatus(nRow) == 0 || grdPrfrmImprvDmnd.getRowStatus(nRow) == 2){
+	    		if(grdPrfrmImprvDmndPop.getRowStatus(nRow) == 0 || grdPrfrmImprvDmndPop.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
-            			var prfrmImprvDmnd = grdPrfrmImprvDmnd.getRowData(nRow);
+            			var prfrmImprvDmnd = grdPrfrmImprvDmndPop.getRowData(nRow);
             			this.delete(prfrmImprvDmnd);
-            			grdPrfrmImprvDmnd.deleteRow(nRow);
+            			grdPrfrmImprvDmndPop.deleteRow(nRow);
             		}
             	}else{
-            		grdPrfrmImprvDmnd.deleteRow(nRow);
+            		grdPrfrmImprvDmndPop.deleteRow(nRow);
             	}
 	    	}
 	    },
 	    save : async function(){
 
 	    	let saveList = [];
-			let gridData = grdPrfrmImprvDmnd.getGridDataAll();
+			let gridData = grdPrfrmImprvDmndPop.getGridDataAll();
 
 			for(var i=1; i<=gridData.length; i++ ){
-				let rowData = grdPrfrmImprvDmnd.getRowData(i);
-				let rowSts = grdPrfrmImprvDmnd.getRowStatus(i);
+				let rowData = grdPrfrmImprvDmndPop.getRowData(i);
+				let rowSts = grdPrfrmImprvDmndPop.getRowStatus(i);
 				let delYn = rowData.delYn;
 				let imprvDmndMttr = rowData.imprvDmndMttr;
 				if(delYn == 'N'){
@@ -319,12 +319,10 @@
 	        }
 	    },
 	    selectDmnd : async function(){
-
-
-	    	let nRow = grdPrfrmImprvDmnd.getRow();
+	    	let nRow = grdPrfrmImprvDmndPop.getRow();
 
 	    	if(nRow > 0){
-	    		let rowData = grdPrfrmImprvDmnd.getRowData(nRow);
+	    		let rowData = grdPrfrmImprvDmndPop.getRowData(nRow);
 		    	let picNm = rowData.picNm
 		    	let actnPrnmntYmd = rowData.actnPrnmntYmd
 		    	let actnRslt = rowData.actnRslt
@@ -333,7 +331,6 @@
 		    	SBUxMethod.set("dmnd-inp-picNm", picNm)
 		    	SBUxMethod.set("dmnd-inp-actnRslt", actnRslt)
 	    	}
-
 	    }
 	}
 </script>
