@@ -109,11 +109,7 @@
         SBGridProperties.columns = [
         	{caption: ["처리"], 		ref: 'delYn',  			width: '80px',		type: 'button',		style: 'text-align: center', sortable: false,
         		renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-		        	if(strValue== null || strValue == ""){
-		        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
-		        	}else{
-				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", " + nRow + ")'>삭제</button>";
-		        	}
+		        	return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(" + nRow + ")'>삭제</button>";
 		    }},
             {caption: ['상태'], 		ref: 'dmndStts', 		width: '80px', 		type: 'output', 	style: 'text-align: center', sortable: false},
             {caption: ['요청일자'], 	ref: 'dmndYmd', 		width: '80px', 		type: 'output', 	style: 'text-align: center', sortable: false,
@@ -138,19 +134,15 @@
     }
 	
 	// 행 삭제
-	async function fn_procRow(gubun, nRow, nCol) {
-		if(gubun === "DEL"){
-    		if(grdPrgrmImprvDmnd.getRowStatus(nRow) == 0 || grdPrgrmImprvDmnd.getRowStatus(nRow) == 2){
-        		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
-        		if(confirm(delMsg)){
-        			var prfrmImprvDmnd = grdPrfrmImprvDmnd.getRowData(nRow);
-        			fn_delete(prfrmImprvDmnd);
-        			grdPrfrmImprvDmnd.deleteRow(nRow);
-        		}
-        	}else{
-        		grdPrfrmImprvDmnd.deleteRow(nRow);
-        	}
-    	}
+	async function fn_procRow(nRow, nCol) {
+   		if(grdPrgrmImprvDmnd.getRowStatus(nRow) == 0 || grdPrgrmImprvDmnd.getRowStatus(nRow) == 2){
+       		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+       		if(confirm(delMsg)){
+       			var prfrmImprvDmnd = grdPrfrmImprvDmnd.getRowData(nRow);
+       			fn_delete(prfrmImprvDmnd);
+       			grdPrfrmImprvDmnd.deleteRow(nRow);
+       		}
+       	}
     }
 	
 	// 프로그램 개선요청 삭제
