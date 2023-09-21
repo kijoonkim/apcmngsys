@@ -65,7 +65,7 @@
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">규격</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spcfct" name="srch-slt-spcfct" class="form-control input-sm" jsondata-ref="jsonSpcfct"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" class="form-control input-sm" jsondata-ref="jsonSpcfct"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
 						
@@ -503,10 +503,27 @@ const fn_initSBSelect = async function() {
 	var newSortInptPrfmncGridData = [];
 	const fn_callSelectGrid2List = async function(pageSize, pageNo) {
 //     	let startsortYmd  = SBUxMethod.get("srch-inp-startsortYmd");
-
+		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
+		let invntrySe = SBUxMethod.get("srch-slt-invntrySe");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSe");
+		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
+		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
 
 		const postJsonPromise2 = gfn_postJSON("/am/invntr/selectSortInvntrDsctnList.do", {
 			apcCd		:  gv_selectedApcCd,
+			crtrYmd: crtrYmd,
+			invntrySe: invntrySe,
+			itemCd:itemCd,
+			vrtyCd: vrtyCd,
+			spcfctCd: spcfctCd,
+			prdcrCd: prdcrCd,
+			gdsSeCd: gdsSeCd,
+			wrhsSeCd: wrhsSeCd,
+			warehouseSeCd: warehouseSeCd,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : pageNo,
@@ -570,9 +587,24 @@ const fn_initSBSelect = async function() {
 	var newSortInptPrfmncGridData = [];
 	const fn_callSelectGrid3List = async function(pageSize, pageNo) {
 //     	let startsortYmd  = SBUxMethod.get("srch-inp-startsortYmd");
-
+		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSe");
+		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
+		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
 		const postJsonPromise3 = gfn_postJSON("/am/invntr/selectUpdateGdsInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
+			crtrYmd: crtrYmd,
+			itemCd:itemCd,
+			vrtyCd: vrtyCd,
+			spcfctCd: spcfctCd,
+			prdcrCd: prdcrCd,
+			gdsSeCd: gdsSeCd,
+			wrhsSeCd: wrhsSeCd,
+			warehouseSeCd: warehouseSeCd,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : pageNo,

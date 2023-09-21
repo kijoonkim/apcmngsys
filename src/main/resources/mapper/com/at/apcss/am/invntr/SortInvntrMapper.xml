@@ -276,7 +276,6 @@
 		<if test='spcfctCd != null and spcfctCd != ""'>
 			   AND SI.SPCFCT_CD = #{spcfctCd}
 		</if>
-
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
