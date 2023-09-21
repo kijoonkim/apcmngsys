@@ -187,7 +187,7 @@
 	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsVrtyMapper.selectApcVrtyList */
 				  AVC.APC_CD				AS APC_CD
 				, AVC.ITEM_CD				AS ITEM_CD
-				, (SELECT FN_GET_ITEM_NM(AVC.APC_CD, AVC.ITEM_CD) FROM DUAL) AS ITEM_NM
+				, (SELECT FN_GET_ITEM_NM(AVC.ITEM_CD, AVC.APC_CD) FROM DUAL) AS ITEM_NM
 				, AVC.VRTY_CD				AS VRTY_CD
 				, AVC.VRTY_NM				AS VRTY_NM
 				, AVC.UNIT_WGHT				AS UNIT_WGHT

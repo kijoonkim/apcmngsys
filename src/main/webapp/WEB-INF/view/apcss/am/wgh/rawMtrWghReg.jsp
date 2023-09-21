@@ -419,11 +419,11 @@
 	        id="modal-wrhsPltBx"
 	        name="modal-wrhsPltBx"
 	        uitype="middle"
-	        header-title="원물입고 팔레트/박스 입고등록"
+	        header-title="원물계량 팔레트/박스 입고등록"
 	        body-html-id="body-modal-wrhsPltBx"
 	        header-is-close-button="false"
 	        footer-is-close-button="false"
-	        style="width:1000px"
+	        style="width:800px"
         ></sbux-modal>
     </div>
     <div id="body-modal-wrhsPltBx">
@@ -432,6 +432,8 @@
 
 </body>
 <script type="text/javascript">
+
+	let prvRowNum = -1;
 
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
@@ -520,30 +522,45 @@
 			  	'sorttype' : 'page',
 			  	'showgoalpageui' : true
 		    };
+	    SBGridProperties.mergecells = 'byrestriccol';
         SBGridProperties.columns = [
-        	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'30px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
+        	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'35px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["No."], ref: 'rowSeq', type:'output',  width:'50px', style:'text-align:right'},
-        	{caption: ['계량번호'], ref: 'wghno', width: '120px', type: 'output', style:'text-align:center'},
-        	{caption: ['순번'], ref: 'wghSn', width: '40px', type: 'output', style:'text-align:center'},
+            {caption: ['계량번호'], ref: 'wghno', width: '120px', type: 'output', style:'text-align:center'},
         	{caption: ['생산자'], ref: 'prdcrNm', width: '100px', type: 'output', style:'text-align:center'},
             {caption: ['품목'], ref: 'itemNm', width: '60px', type: 'output', style:'text-align:center'},
             {caption: ['품종'], ref: 'vrtyNm', width: '100px', type: 'output', style:'text-align:center'},
             {caption: ['상품구분'], ref: 'gdsSeNm', width: '60px', type: 'output', style:'text-align:center'},
             {caption: ['입고구분'], ref: 'wrhsSeNm', width: '60px', type: 'output', style:'text-align:center'},
             {caption: ['운송구분'], ref: 'trsprtSeNm', width: '60px', type: 'output', style:'text-align:center'},
+            {caption: ['차량번호'], ref: 'vhclno', width: '100px', type: 'output', style:'text-align:center'},
+            {caption: ['보관창고'], ref: 'warehouseSeNm', width: '60px', type: 'output', style:'text-align:center'},
             {caption: ['전체중량'], ref: 'wholWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ['공차중량'], ref: 'emptVhclWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ['감량%'], ref: 'rdcdRt', width: '60px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###.##'}},
             {caption: ['감량Kg'], ref: 'rdcdWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ['실중량'], ref: 'actlWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ['팔레트중량'], ref: 'pltWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ['박스중량'], ref: 'bxWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ['입고중량'], ref: 'wrhsWght', width: '80px', type: 'output', style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ['등급'], ref: 'grdNm', width: '60px', type: 'output', style:'text-align:center'},
-            {caption: ['차량번호'], ref: 'vhclno', width: '100px', type: 'output', style:'text-align:center'},
-            {caption: ['보관창고'], ref: 'warehouseSeNm', width: '60px', type: 'output', style:'text-align:center'},
+            {caption: ['입고중량'], ref: 'wrhsWght', width: '80px', type: 'output', style:'text-align:right',
+            	format : {type:'number', rule:'#,###'}
+            },
+            {caption: ['팔레트중량'], ref: 'pltWght', width: '80px', type: 'output', style:'text-align:right',
+            	format : {type:'number', rule:'#,###'},
+            	merge : false
+            },
+            {caption: ['박스중량'], ref: 'bxWght', width: '80px', type: 'output', style:'text-align:right',
+            	format : {type:'number', rule:'#,###'},
+            	merge : false
+            },
+            {caption: ['재고중량'], ref: 'invntrWght', width: '80px', type: 'output', style:'text-align:right',
+            	format : {type:'number', rule:'#,###'},
+            	merge : false
+            },
+            {caption: ['등급'], ref: 'grdNm', width: '60px', type: 'output', style:'text-align:center',
+            	merge : false
+            },
+            {caption: ["No."], ref: 'rowSeq', type:'output',  width:'50px', style:'text-align:right',  hidden: true},
+            {caption: ['순번'], ref: 'wghSn', width: '40px', type: 'output', style:'text-align:center',  hidden: true},
             {caption: ['비고'], 	ref: 'rmrk', width: '300px', type: 'output'},
             {caption: ["APC코드"],	ref: 'apcCd',        	type:'output',  hidden: true},
             {caption: ["생산자코드"],	ref: 'prdcrCd',        	type:'output',  hidden: true},
@@ -862,6 +879,8 @@
      */
     const fn_setGrdWghPrfmnc = async function(pageSize, pageNo) {
 
+		prvRowNum = -1;
+
   		let wghYmd = SBUxMethod.get("dtl-dtp-wghYmd");		// 계량일자
   		let prdcrCd = SBUxMethod.get("dtl-inp-prdcrCd");	// 생산자
   		let itemCd = SBUxMethod.get("dtl-slt-itemCd");		// 품목
@@ -923,6 +942,7 @@
   						pltWght: item.pltWght,
   						bxQntt: item.bxQntt,
   						bxWght: item.bxWght,
+  						invntrWght: item.invntrWght,
   						warehouseSeCd: item.warehouseSeCd,
   						warehouseSeNm: item.warehouseSeNm,
   						gdsSeCd: item.gdsSeCd,
@@ -971,6 +991,7 @@
 	const fn_view = async function() {
 
 		let nCol = grdWghPrfmnc.getCol();
+		let nRow = grdWghPrfmnc.getRow();
 
 		const usrAttr = grdWghPrfmnc.getColUserAttr(nCol);
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
@@ -980,10 +1001,15 @@
 			}
 		}
 
-		let nRow = grdWghPrfmnc.getRow();
-        if (nRow < 1) {
+		if (nRow < 1) {
             return;
         }
+
+		if (nRow === prvRowNum) {
+			return;
+		}
+
+		prvRowNum = nRow;
 
         let rowData = grdWghPrfmnc.getRowData(nRow);
 

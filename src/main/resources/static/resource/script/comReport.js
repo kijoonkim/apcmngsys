@@ -87,7 +87,7 @@ const gfn_popClipReport = async function(title, fileName, param) {
 
 	window.open(
 		url,
-		'popwin',
+		'popClipReport',
 		'width=1200, height=800, toolbar=no directories=no, status=no'
 		);
 /*
