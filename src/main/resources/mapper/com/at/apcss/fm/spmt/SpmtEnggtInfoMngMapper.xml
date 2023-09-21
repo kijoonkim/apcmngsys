@@ -85,11 +85,46 @@
 				 CM.SYS_FRST_INPT_PRGRM_ID      AS SYS_FRST_INPT_PRGRM_ID,
 				 CM.SYS_LAST_CHG_DT                   AS SYS_LAST_CHG_DT,
 				 CM.SYS_LAST_CHG_USER_ID           AS SYS_LAST_CHG_USER_ID,
-				 CM.SYS_LAST_CHG_PRGRM_ID        AS SYS_LAST_CHG_PRGRM_ID
+				 CM.SYS_LAST_CHG_PRGRM_ID        AS SYS_LAST_CHG_PRGRM_ID,
+				 CM.DTL_MTTR	    AS DTL_MTTR,
+				 CM.QLT_GRD		AS QLT_GRD,
+				 CM.PRC			    AS PRC,
+				 CM.PRC_PBLNT	AS PRC_PBLNT,
+				 CM.UNIT		        AS UNIT,
+				 CM.PRC_GIVE_DT	AS PRC_GIVE_DT,
+				 CM.SPCL_MTTR	    AS SPCL_MTTR,
+				 CM.ADVNC_PAY	    AS ADVNC_PAY,
+				 CM.RMRK		    AS RMRK,
+				 CM.APC_CD2		AS APC_CD2,
+				 (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CM.APC_CD2) AS APC_NM2,
+				 CM.APC_CD3		AS APC_CD3,
+				 (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CM.APC_CD3) AS APC_NM3
 			  FROM TB_SPMT_ENGGT_INFO_MNG CM
 			  WHERE 1=1
 			  AND CM.DEL_YN = 'N'
     	]]>
+
+    		<if test='apcNm2 != null and apcNm2 != ""'>
+				AND  CM.APC_NM2 LIKE '%'||#{apcNm2}||'%'
+			</if>
+    		<if test='apcNm3 != null and apcNm3 != ""'>
+				AND  CM.APC_NM3 LIKE '%'||#{apcNm3}||'%'
+			</if>
+			<if test='spmtStrDt != null and spmtStrDt != "" and spmtEndDt != null and spmtEndDt != ""'>
+				AND  CM.SPMT_DT BETWEEN TO_DATE(#{spmtStrDt}) AND TO_DATE(#{spmtEndDt})
+			</if>
+			<if test='itemCd != null and itemCd != ""'>
+				AND CM.ITEM_CD = #{itemCd}
+			</if>
+			<if test='vrtyCd != null and vrtyCd != ""'>
+				AND  CM.VRTY_CD = #{vrtyCd}
+			</if>
+			<if test='spmtType != null and spmtType != ""'>
+				AND  CM.SPMT_TYPE = #{spmtType}
+			</if>
+			<if test='trmtType != null and trmtType != ""'>
+				AND  CM.TRMT_TYPE = #{trmtType}
+			</if>
 
 
     </select>
@@ -134,7 +169,18 @@
 					 SYS_FRST_INPT_PRGRM_ID,
 					 SYS_LAST_CHG_DT,
 					 SYS_LAST_CHG_USER_ID,
-					 SYS_LAST_CHG_PRGRM_ID
+					 SYS_LAST_CHG_PRGRM_ID,
+					 DTL_MTTR,
+					 QLT_GRD,
+					 PRC,
+					 PRC_PBLNT,
+					 UNIT,
+					 PRC_GIVE_DT,
+					 SPCL_MTTR,
+					 ADVNC_PAY,
+					 RMRK,
+					 APC_CD2,
+					 APC_CD3
 	    		)
 	   		VALUES
 	   			(
@@ -166,6 +212,17 @@
 	   			  , SYSDATE
 	   			  , #{sysLastChgUserId}
 	   			  , #{sysLastChgPrgrmId}
+	   			  , #{dtlMttr}
+	   			  , #{qltGrd}
+	   			  , #{prc}
+	   			  , #{prcPblnt}
+	   			  , #{unit}
+	   			  , #{prcGiveDt}
+	   			  , #{spclMttr}
+	   			  , #{advncPay}
+	   			  , #{rmrk}
+	   			  , #{apcCd2}
+	   			  , #{apcCd3}
 	   			)
     	]]>
     </insert>

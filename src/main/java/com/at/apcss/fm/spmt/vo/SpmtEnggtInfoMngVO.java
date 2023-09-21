@@ -37,6 +37,20 @@ public class SpmtEnggtInfoMngVO extends ComVO{
 	private String rmrk;
 	private String delYn;
 
+	//0921추가
+	private String dtlMttr;
+	private String qltGrd;
+	private int prc;
+	private String prcPblnt;
+	private String unit;
+	private String prcGiveDt;
+	private String spclMttr;
+	private int advncPay;
+	private String apcCd2;
+	private String apcNm2;
+	private String apcCd3;
+	private String apcNm3;
+
     private String msgKey;
 	private String msgCn;
 	private String msgKnd;
