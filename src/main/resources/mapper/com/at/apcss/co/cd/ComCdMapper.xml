@@ -421,7 +421,7 @@
 			     , CD.DEL_YN		AS DEL_YN
 			  FROM TB_COM_CD_DTL CD
 			 WHERE CD.APC_CD = #{apcCd}
-			   AND CD.CD_ID IN ('SORT_FCLT', 'PCKG_FCLT')
+			   AND CD.CD_ID IN ('SORT_FCLT_CD', 'PCKG_FCLT_CD')
 			 ORDER BY CD.CD_ID DESC, CD.INDCT_SEQ
 		]]>
     </select>
