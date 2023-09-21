@@ -21,6 +21,15 @@
 	<!-- 2023.09.20  	하민우        	Initial Creation                            		-->
 	<!-- =================================================================================	-->
     <select id="selectPrfrmImprvDmndList" parameterType="com.at.apcss.co.dmnd.vo.PrfrmImprvDmndVO" resultType="com.at.apcss.co.dmnd.vo.PrfrmImprvDmndVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		 FROM (
+    	</if>
+    	<!-- End 페이징 -->
     	<![CDATA[
 	    	SELECT /* com.at.apcss.co.dmnd.mapper.PrfrmImprvDmndMapper.selectPrfrmImprvDmndList */
 			       PID.APC_CD           AS APC_CD
@@ -45,12 +54,27 @@
                    END AS DMND_STTS
 			  FROM TB_PRGRM_IMPRV_DMND PID
 			 WHERE PID.DEL_YN 	= 'N'
-			   AND PID.MENU_ID  = #{menuId}
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 			  AND PID.APC_CD 	= #{apcCd}
 		</if>
+		<if test='menuId != null and menuId != ""'>
+			  AND PID.MENU_ID 	= #{menuId}
+		</if>
+		<if test='dmndYmdFrom != null and dmndYmdFrom != ""'>
+		   	   AND PID.DMND_YMD >= #{dmndYmdFrom}
+		</if>
+		<if test='dmndYmdTo != null and dmndYmdTo != ""'>
+		       AND #{dmndYmdTo} >= PID.DMND_YMD
+		</if>
 			 ORDER BY PID.DMND_YMD DESC, PID.SN DESC
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
     </select>
 
     <!-- ==================================================================================	-->
