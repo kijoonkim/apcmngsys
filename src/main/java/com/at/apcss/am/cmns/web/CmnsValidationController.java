@@ -44,11 +44,8 @@ public class CmnsValidationController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		CmnsValidationVO resultVO = new CmnsValidationVO();
-
 		try {
-
 			resultVO = cmnsValidationService.selectChkCdDelible(cmnsValidationVO);
-
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

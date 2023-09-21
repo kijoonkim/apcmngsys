@@ -25,5 +25,6 @@ public class CmnsValidationVO {
 	String cdId;
 	String cdVl;
 	String ymd;
+	String extrArgs;
 	String rtnMsg;
 }

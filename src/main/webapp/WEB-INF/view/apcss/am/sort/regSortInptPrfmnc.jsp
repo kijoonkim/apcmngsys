@@ -287,7 +287,7 @@
 	var jsonApcItem			= [];	// 품목 		itemCd
 	var jsonApcVrty			= [];	// 품종 		vrtyCd
 	var jsonApcSpcfct		= [];	// 규격 		spcfctCd
-	var jsonComFclt			= [];	// 설비 		FCLT_CD
+	var jsonComFclt			= [];	// 설비 		SORT_FCLT_CD
 	var jsonComWarehouse	= [];	// 창고		WAREHOUSE_SE_CD
 
 	/* 생산자 자동완성 */
@@ -306,7 +306,7 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let result = await Promise.all([
-		 	gfn_setComCdSBSelect('dtl-slt-fcltCd',		jsonComFclt, 'FCLT_CD', gv_selectedApcCd),		// 설비
+		 	gfn_setComCdSBSelect('dtl-slt-fcltCd',		jsonComFclt, 'SORT_FCLT_CD', gv_selectedApcCd),		// 설비
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonApcItem, gv_selectedApcCd),		// 품목
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonApcVrty, gv_selectedApcCd),		// 품종
 		 	fn_getWarehouse(),
