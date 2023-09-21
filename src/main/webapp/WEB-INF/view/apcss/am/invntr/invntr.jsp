@@ -111,7 +111,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-gdsSe" name="srch-slt-gdsSe" class="form-control input-sm" jsondata-ref="jsonComGdsSeCd"/>
 							</td>
-							<td colspan="2">&nbsp;</td>
+							<td colspan="3">&nbsp;</td>
 						</tr>
 
 						<tr>
@@ -273,11 +273,17 @@
 	        {caption: ["운송","운송"],				ref: 'trsprtSeNm',      type:'output',  width:'7%',    style:'text-align:center'},
 	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'7%',    style:'text-align:center'},
 	        {caption: ["입고","수량"],				ref: 'wrhsQntt',      	type:'output',  width:'5%',    style:'text-align:center'},
-	        {caption: ["입고","중량"],				ref: 'wrhsWght',      	type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["입고","중량"],				ref: 'wrhsWght',      	type:'output',  width:'5%',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}
+	        },
 	        {caption: ["투입","수량"],				ref: 'inptQntt',      	type:'output',  width:'5%',    style:'text-align:center'},
-	        {caption: ["투입","중량"],				ref: 'inptWght',      	type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["투입","중량"],				ref: 'inptWght',      	type:'output',  width:'5%',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}
+	        },
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'5%',    style:'text-align:center'},
-	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'5%',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}	
+	        },
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'7%',    style:'text-align:center'}
 	    ];
 
@@ -433,11 +439,17 @@
 	        {caption: ["규격","규격"],				ref: 'spcfctNm',      	type:'output',  width:'7%',    style:'text-align:center'},
 	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'7%',    style:'text-align:center'},
 	        {caption: ["선별","수량"],				ref: 'sortQntt',      	type:'output',  width:'5%',    style:'text-align:center'},
-	        {caption: ["선별","중량"],				ref: 'sortWght',      	type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["선별","중량"],				ref: 'sortWght',      	type:'output',  width:'5%',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}	
+	        },
 	        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'5%',    style:'text-align:center'},
-	        {caption: ["포장","중량"],				ref: 'pckgWght',     	type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["포장","중량"],				ref: 'pckgWght',     	type:'output',  width:'5%',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}	
+	        },
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'5%',    style:'text-align:center'},
-	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'5%',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}	
+	        },
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'7%',    style:'text-align:center'}
 	    ];
 
@@ -566,11 +578,17 @@
 	        {caption: ["등급","등급"],		ref: 'gdsGrdNm',      type:'output',  width:'7%',    style:'text-align:center'},
 	        {caption: ["창고","창고"],		ref: 'warehouseSeNm',      type:'output',  width:'7%',    style:'text-align:center'},
 	        {caption: ["포장","수량"],		ref: 'pckgQntt',      type:'output',  width:'5%',    style:'text-align:center'},
-	        {caption: ["포장","중량"],		ref: 'pckgWght',      type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["포장","중량"],		ref: 'pckgWght',      type:'output',  width:'5%',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}	
+	        },
 	        {caption: ["출하","수량"],		ref: 'spmtQntt',      type:'output',  width:'5%',    style:'text-align:center'},
-	        {caption: ["출하","중량"],		ref: 'spmtWght',      type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["출하","중량"],		ref: 'spmtWght',      type:'output',  width:'5%',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}	
+	        },
 	        {caption: ["현 재고","수량"],		ref: 'invntrQntt',      type:'output',  width:'5%',    style:'text-align:center'},
-	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'output',  width:'5%',    style:'text-align:center'},
+	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'output',  width:'5%',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}	
+	        },
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'7%',    style:'text-align:center'}
 	    ];
 
@@ -597,6 +615,7 @@
 			// 재고 이력 테이블
 			url = "/am/invntr/selectSortInvntrDsctnList.do";
 		}
+// 		selectUpdateGdsInvntrList
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
 			pckgYmd: crtrYmd,

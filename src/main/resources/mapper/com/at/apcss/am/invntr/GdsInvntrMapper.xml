@@ -149,19 +149,18 @@
 		<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
 			   AND GI.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
 		</if>
-		
 		<!-- 	 선별재고 내역 검색조건 -->
 		<if test='crtrYmd != null and crtrYmd != ""'>
 			   AND GI.PCKG_YMD = #{crtrYmd}
 		</if>
 		<if test='prdcr != null and prdcr != ""'>
-			   AND GI.RPRS_PRDCR_CD = #{prdcr}
+			   AND GI.RPRS_PRDCR_CD = #{prdcrCd}
 		</if>
 		<if test='gdsSe != null and gdsSe != ""'>
-			   AND GI.GDS_SE_CD = #{gdsSe}
+			   AND GI.GDS_SE_CD = #{gdsSeCd}
 		</if>
 		<if test='wrhsSe != null and wrhsSe != ""'>
-			   AND GI.WRHS_SE_CD = #{wrhsSe}
+			   AND GI.WRHS_SE_CD = #{wrhsSeCd}
 		</if>
 		
     	<![CDATA[
@@ -177,7 +176,7 @@
     </select>
    
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntrList	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectUpdateGdsInvntrList	-->
 	<!-- DESC : 상품재고 목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -208,7 +207,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
                 , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) AS SPMT_PCKG_UNIT_NM
     		  FROM (
-	    	SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntrList */
+	    	SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectUpdateGdsInvntrList */
 			      GI.APC_CD			AS APC_CD
 			    , GI.PCKGNO			AS PCKGNO
 			    , GI.PCKG_SN		AS PCKG_SN
@@ -274,19 +273,12 @@
 		<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
 			   AND GI.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
 		</if>
-		
-		<!-- 	 선별재고 내역 검색조건 -->
-		<if test='crtrYmd != null and crtrYmd != ""'>
-			   AND GI.PCKG_YMD = #{crtrYmd}
+		<!-- 	 상품재고 내역 검색조건 -->
+		<if test='prdcrCd != null and prdcrCd != ""'>
+			   AND GI.RPRS_PRDCR_CD = #{prdcrCd}
 		</if>
-		<if test='prdcr != null and prdcr != ""'>
-			   AND GI.RPRS_PRDCR_CD = #{prdcr}
-		</if>
-		<if test='gdsSe != null and gdsSe != ""'>
-			   AND GI.GDS_SE_CD = #{gdsSe}
-		</if>
-		<if test='wrhsSe != null and wrhsSe != ""'>
-			   AND GI.WRHS_SE_CD = #{wrhsSe}
+		<if test='wrhsSeCd != null and wrhsSeCd != ""'>
+			   AND GI.WRHS_SE_CD = #{wrhsSeCd}
 		</if>
 		
     	<![CDATA[
