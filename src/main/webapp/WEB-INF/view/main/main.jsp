@@ -563,7 +563,7 @@
 				<c:if test="${loginVO != null && loginVO.id != null}">
 					<span class="name-t">${loginVO.name}</span>님 반갑습니다.
                 <ul class="user-login-menu">
-					<li style="background-color:#149FFF;"><sbux-button id="btnPrfrmImprvDmnd" name="btnPrfrmImprvDmnd" uitype="normal" text="개선요청" style="width:100%;" onclick="fn_modalPopup"></sbux-button></li>
+					<li style="background-color:#149FFF;"><sbux-button id="btnPrfrmImprvDmnd" name="btnPrfrmImprvDmnd" uitype="normal" text="개선요청" style="width:64px; text-align:center; display:inline-block; font-size:12px;" onclick="fn_modalPopup"></sbux-button></li>
                     <li><a href="/actionLogout.do">로그아웃</a></li>
                 </ul>
                 </c:if>
