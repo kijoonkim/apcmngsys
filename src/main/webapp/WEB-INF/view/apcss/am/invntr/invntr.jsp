@@ -615,6 +615,7 @@
 			// 재고 이력 테이블
 			url = "/am/invntr/selectSortInvntrDsctnList.do";
 		}
+// 		selectUpdateGdsInvntrList
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
 			pckgYmd: crtrYmd,
