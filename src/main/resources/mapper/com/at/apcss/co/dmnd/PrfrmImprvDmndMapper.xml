@@ -32,8 +32,17 @@
 			     , PID.IMPRV_DMND_MTTR  AS IMPRV_DMND_MTTR
 			     , PID.ACTN_PRNMNT_YMD  AS ACTN_PRNMNT_YMD
 			     , PID.PIC              AS PIC
+			     , (SELECT FN_GET_COM_CD_VL_NM('PIC', PID.PIC) FROM DUAL ) AS PIC_NM
 			     , PID.ACTN_RSLT        AS ACTN_RSLT
 			     , PID.DEL_YN           AS DEL_YN
+			     , CASE
+                       WHEN PID.PIC IS NOT NULL AND PID.ACTN_RSLT IS NOT NULL AND PID.ACTN_PRNMNT_YMD IS NOT NULL
+                       THEN '완료'
+                       WHEN (PID.PIC IS NOT NULL AND PID.ACTN_RSLT IS NOT NULL) OR PID.PIC IS NOT NULL
+                       THEN '접수'
+                       WHEN PID.ACTN_PRNMNT_YMD IS NULL AND PID.PIC IS NULL AND PID.ACTN_RSLT IS NULL
+                       THEN '대기'
+                   END AS DMND_STTS
 			  FROM TB_PRGRM_IMPRV_DMND PID
 			 WHERE PID.DEL_YN 	= 'N'
 			   AND PID.MENU_ID  = #{menuId}
@@ -41,6 +50,7 @@
 		<if test='apcCd != null and apcCd != ""'>
 			  AND PID.APC_CD 	= #{apcCd}
 		</if>
+			 ORDER BY PID.DMND_YMD DESC, PID.SN DESC
     </select>
 
     <!-- ==================================================================================	-->

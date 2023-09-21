@@ -633,6 +633,7 @@
 	const fn_modalPopup = async function() {
 
 		var userId =  '${loginVO.userId}';
+		var userNm	= '${loginVO.name}';
 		if(menuJsonB[0].id != "empty"){
 			var menuNm = "";
 			var menuId = "";
@@ -645,7 +646,7 @@
 				menuId = menuJsonB[3].pid;
 			}
 
-			prfrmImprvDmnd.init(gv_apcCd, gv_apcNm, userId, menuId, menuNm);
+			prfrmImprvDmnd.init(gv_apcCd, gv_apcNm, userId, userNm, menuId, menuNm);
 			SBUxMethod.openModal('modal-prfrmImprvDmnd');
 		}else{
 			gfn_comAlert("W0001", "프로그램");		//	W0001	{0}을/를 선택하세요.
