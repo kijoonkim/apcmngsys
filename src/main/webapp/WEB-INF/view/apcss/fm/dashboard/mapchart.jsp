@@ -233,41 +233,41 @@
 // 	    },
 // 	    tooltip: {
 // 	    	  format: {
-// 	    	      value: function(keys, values, 강수량) {
-// 	    	          return values.length != 0 ? 강수량 + " 조직원(수) : " + values : 강수량 + " 조직원\n없음";
+// 	    	      value: function(keys, values, 통합조직) {
+// 	    	          return values.length != 0 ? 통합조직 + " 조직원(수) : " + values : 통합조직 + " 조직원\n없음";
 // 	    	      }
 // 	    	  }
 // 	    	},
 // 	    data:{
 // 	        type:"map",
 // 	        json:[
-// 	        	 {"code":31,"강수량":700,"label":"경기도",  "color":"gray" , "outerline": true},
-// 	        	 {"code":11,"강수량":700,"label":"서울", "color":"gray" , "outerline": true},
-// 	        	 {"code":23,"강수량":700,"label":"인천", "color":"gray" , "outerline": false},
-// 	        	 {"code":25,"강수량":700,"label":"대전",  "color":"gray"},
-// 	        	 {"code":29,"강수량":700,"label":"세종",  "color":"gray"},
-// 	        	 {"code":36,"강수량":700,"label":"전라남도",   "color":"gray"},
-// 	        	 {"code":33,"강수량":700,"label":"충청북도"  , "color":"gray"},
-// 	        	 {"code":22,"강수량":700,"label":"대구", "color":"gray"},
-// 	        	 {"code":21,"강수량":700,"label":"부산",  "color":"gray"},
-// 	        	 {"code":39,"강수량":700,"label":"제주도", "color":"gray"},
-// 	        	 {"code":37,"강수량":700,"label":"경상북도",   "color":"gray"},
-// 	        	 {"code":38,"강수량":700,"label":"경상남도",   "color":"gray"},
-// 	        	 {"code":32,"강수량":700,"label":"강원도",  "color":"gray"},
-// 	        	 {"code":34,"강수량":700,"label":"충청남도",   "color":"gray"},
-// 	        	 {"code":35,"강수량":700,"label":"전라북도",   "color":"gray"},
-// 	        	 {"code":24,"강수량":700,"label":"광주",  "color":"gray"},
-// 	        	 {"code":26,"강수량":700,"label":"울산",     "color":"gray"},
-// 	             {"code":11190,"color":"yellow","hovercolor":"red","강수량":60},
-// 	             {"code":11140,"강수량":30,"test":200,"color":"pink"},
-// 	             {"code":11150,"color":"gray","강수량":30,"test":300},
-// 	             {"code":11240,"hovercolor":"#F29661","강수량":100,"test":400},
-// 	             {"code":11050,"color":"#FFB2F5","hovercolor":"#F29661","강수량":120},
-// 	             {"code":11180,"color":"#D9E5FF","강수량":20}
+// 	        	 {"code":31,"통합조직":700,"label":"경기도",  "color":"gray" , "outerline": true},
+// 	        	 {"code":11,"통합조직":700,"label":"서울", "color":"gray" , "outerline": true},
+// 	        	 {"code":23,"통합조직":700,"label":"인천", "color":"gray" , "outerline": false},
+// 	        	 {"code":25,"통합조직":700,"label":"대전",  "color":"gray"},
+// 	        	 {"code":29,"통합조직":700,"label":"세종",  "color":"gray"},
+// 	        	 {"code":36,"통합조직":700,"label":"전라남도",   "color":"gray"},
+// 	        	 {"code":33,"통합조직":700,"label":"충청북도"  , "color":"gray"},
+// 	        	 {"code":22,"통합조직":700,"label":"대구", "color":"gray"},
+// 	        	 {"code":21,"통합조직":700,"label":"부산",  "color":"gray"},
+// 	        	 {"code":39,"통합조직":700,"label":"제주도", "color":"gray"},
+// 	        	 {"code":37,"통합조직":700,"label":"경상북도",   "color":"gray"},
+// 	        	 {"code":38,"통합조직":700,"label":"경상남도",   "color":"gray"},
+// 	        	 {"code":32,"통합조직":700,"label":"강원도",  "color":"gray"},
+// 	        	 {"code":34,"통합조직":700,"label":"충청남도",   "color":"gray"},
+// 	        	 {"code":35,"통합조직":700,"label":"전라북도",   "color":"gray"},
+// 	        	 {"code":24,"통합조직":700,"label":"광주",  "color":"gray"},
+// 	        	 {"code":26,"통합조직":700,"label":"울산",     "color":"gray"},
+// 	             {"code":11190,"color":"yellow","hovercolor":"red","통합조직":60},
+// 	             {"code":11140,"통합조직":30,"test":200,"color":"pink"},
+// 	             {"code":11150,"color":"gray","통합조직":30,"test":300},
+// 	             {"code":11240,"hovercolor":"#F29661","통합조직":100,"test":400},
+// 	             {"code":11050,"color":"#FFB2F5","hovercolor":"#F29661","통합조직":120},
+// 	             {"code":11180,"color":"#D9E5FF","통합조직":20}
 // 	        ],
 // 	        keys:{
 // 	            x:"code",
-// 	            value: ["강수량"]
+// 	            value: ["통합조직"]
 // 	        }
 // 	    },
 // 	    extend:{
@@ -292,7 +292,7 @@
 // 	                //color: "#733410",
 // 	                color: "black",
 // // 	                format: function(code, label, data) {
-// // 	                    return  "출자출하조직 : " + data["강수량"];
+// // 	                    return  "출자출하조직 : " + data["통합조직"];
 // // 	                },
 // 	                //textColor: "#733410",
 // 	                textColor: "white",
@@ -843,41 +843,41 @@
     		    },
     		    tooltip: {
     		    	  format: {
-    		    	      value: function(keys, values, 강수량) {
-    		    	          return values.length != 0 ? 강수량 + " 조직원(수) : " + values : 강수량 + " 조직원\n없음";
+    		    	      value: function(keys, values, 통합조직) {
+    		    	          return values.length != 0 ? 통합조직 + " 조직원(수) : " + values : 통합조직 + " 조직원\n없음";
     		    	      }
     		    	  }
     		    	},
     		    data:{
     		        type:"map",
     		        json:[
-    		        	 {"code":31,"강수량":700,"label":"경기도",  "color":"gray" , "outerline": true},
-    		        	 {"code":11,"강수량":700,"label":"서울", "color":"gray" , "outerline": true},
-    		        	 {"code":23,"강수량":700,"label":"인천", "color":"gray" , "outerline": false},
-    		        	 {"code":25,"강수량":700,"label":"대전",  "color":"gray"},
-    		        	 {"code":29,"강수량":700,"label":"세종",  "color":"gray"},
-    		        	 {"code":36,"강수량":700,"label":"전라남도",   "color":"gray"},
-    		        	 {"code":33,"강수량":700,"label":"충청북도"  , "color":"gray"},
-    		        	 {"code":22,"강수량":700,"label":"대구", "color":"gray"},
-    		        	 {"code":21,"강수량":700,"label":"부산",  "color":"gray"},
-    		        	 {"code":39,"강수량":700,"label":"제주도", "color":"gray"},
-    		        	 {"code":37,"강수량":700,"label":"경상북도",   "color":"gray"},
-    		        	 {"code":38,"강수량":700,"label":"경상남도",   "color":"gray"},
-    		        	 {"code":32,"강수량":700,"label":"강원도",  "color":"gray"},
-    		        	 {"code":34,"강수량":700,"label":"충청남도",   "color":"gray"},
-    		        	 {"code":35,"강수량":700,"label":"전라북도",   "color":"gray"},
-    		        	 {"code":24,"강수량":700,"label":"광주",  "color":"gray"},
-    		        	 {"code":26,"강수량":700,"label":"울산",     "color":"gray"},
-    		             {"code":11190,"color":"yellow","hovercolor":"red","강수량":60},
-    		             {"code":11140,"강수량":30,"test":200,"color":"pink"},
-    		             {"code":11150,"color":"gray","강수량":30,"test":300},
-    		             {"code":11240,"hovercolor":"#F29661","강수량":100,"test":400},
-    		             {"code":11050,"color":"#FFB2F5","hovercolor":"#F29661","강수량":120},
-    		             {"code":11180,"color":"#D9E5FF","강수량":20}
+    		        	 {"code":31,"통합조직":700,"label":"경기도",  "color":"gray" , "outerline": true},
+    		        	 {"code":11,"통합조직":700,"label":"서울", "color":"gray" , "outerline": true},
+    		        	 {"code":23,"통합조직":700,"label":"인천", "color":"gray" , "outerline": false},
+    		        	 {"code":25,"통합조직":700,"label":"대전",  "color":"gray"},
+    		        	 {"code":29,"통합조직":700,"label":"세종",  "color":"gray"},
+    		        	 {"code":36,"통합조직":700,"label":"전라남도",   "color":"gray"},
+    		        	 {"code":33,"통합조직":700,"label":"충청북도"  , "color":"gray"},
+    		        	 {"code":22,"통합조직":700,"label":"대구", "color":"gray"},
+    		        	 {"code":21,"통합조직":700,"label":"부산",  "color":"gray"},
+    		        	 {"code":39,"통합조직":700,"label":"제주도", "color":"gray"},
+    		        	 {"code":37,"통합조직":700,"label":"경상북도",   "color":"gray"},
+    		        	 {"code":38,"통합조직":700,"label":"경상남도",   "color":"gray"},
+    		        	 {"code":32,"통합조직":700,"label":"강원도",  "color":"gray"},
+    		        	 {"code":34,"통합조직":700,"label":"충청남도",   "color":"gray"},
+    		        	 {"code":35,"통합조직":700,"label":"전라북도",   "color":"gray"},
+    		        	 {"code":24,"통합조직":700,"label":"광주",  "color":"gray"},
+    		        	 {"code":26,"통합조직":700,"label":"울산",     "color":"gray"},
+    		             {"code":11190,"color":"yellow","hovercolor":"red","통합조직":60},
+    		             {"code":11140,"통합조직":30,"test":200,"color":"pink"},
+    		             {"code":11150,"color":"gray","통합조직":30,"test":300},
+    		             {"code":11240,"hovercolor":"#F29661","통합조직":100,"test":400},
+    		             {"code":11050,"color":"#FFB2F5","hovercolor":"#F29661","통합조직":120},
+    		             {"code":11180,"color":"#D9E5FF","통합조직":20}
     		        ],
     		        keys:{
     		            x:"code",
-    		            value: ["강수량"]
+    		            value: ["통합조직"]
     		        }
     		    },
     		    extend:{
@@ -902,7 +902,7 @@
     		                //color: "#733410",
     		                color: "black",
 //    	 	                format: function(code, label, data) {
-//    	 	                    return  "출자출하조직 : " + data["강수량"];
+//    	 	                    return  "출자출하조직 : " + data["통합조직"];
 //    	 	                },
     		                //textColor: "#733410",
     		                textColor: "white",
@@ -1007,41 +1007,41 @@
 //  			    },
 //  			    tooltip: {
 //  			    	  format: {
-//  			    	      value: function(keys, values, 강수량) {
-//  			    	          return values.length != 0 ? 강수량 + " 조직원(수) : " + values : 강수량 + " 조직원\n없음";
+//  			    	      value: function(keys, values, 통합조직) {
+//  			    	          return values.length != 0 ? 통합조직 + " 조직원(수) : " + values : 통합조직 + " 조직원\n없음";
 //  			    	      }
 //  			    	  }
 //  			    	},
 //  			    data:{
 //  			        type:"map",
 //  			        json:[
-//  			        	 {"code":31,"강수량":700,"label":"경기도",  "color":"gray" , "outerline": true},
-//  			        	 {"code":11,"강수량":700,"label":"서울", "color":"gray" , "outerline": true},
-//  			        	 {"code":23,"강수량":700,"label":"인천", "color":"gray" , "outerline": false},
-//  			        	 {"code":25,"강수량":700,"label":"대전",  "color":"gray"},
-//  			        	 {"code":29,"강수량":700,"label":"세종",  "color":"gray"},
-//  			        	 {"code":36,"강수량":700,"label":"전라남도",   "color":"gray"},
-//  			        	 {"code":33,"강수량":700,"label":"충청북도"  , "color":"gray"},
-//  			        	 {"code":22,"강수량":700,"label":"대구", "color":"gray"},
-//  			        	 {"code":21,"강수량":700,"label":"부산",  "color":"gray"},
-//  			        	 {"code":39,"강수량":700,"label":"제주도", "color":"gray"},
-//  			        	 {"code":37,"강수량":700,"label":"경상북도",   "color":"gray"},
-//  			        	 {"code":38,"강수량":700,"label":"경상남도",   "color":"gray"},
-//  			        	 {"code":32,"강수량":700,"label":"강원도",  "color":"gray"},
-//  			        	 {"code":34,"강수량":700,"label":"충청남도",   "color":"gray"},
-//  			        	 {"code":35,"강수량":700,"label":"전라북도",   "color":"gray"},
-//  			        	 {"code":24,"강수량":700,"label":"광주",  "color":"gray"},
-//  			        	 {"code":26,"강수량":700,"label":"울산",     "color":"gray"},
-//  			             {"code":11190,"color":"yellow","hovercolor":"red","강수량":60},
-//  			             {"code":11140,"강수량":30,"test":200,"color":"pink"},
-//  			             {"code":11150,"color":"gray","강수량":30,"test":300},
-//  			             {"code":11240,"hovercolor":"#F29661","강수량":100,"test":400},
-//  			             {"code":11050,"color":"#FFB2F5","hovercolor":"#F29661","강수량":120},
-//  			             {"code":11180,"color":"#D9E5FF","강수량":20}
+//  			        	 {"code":31,"통합조직":700,"label":"경기도",  "color":"gray" , "outerline": true},
+//  			        	 {"code":11,"통합조직":700,"label":"서울", "color":"gray" , "outerline": true},
+//  			        	 {"code":23,"통합조직":700,"label":"인천", "color":"gray" , "outerline": false},
+//  			        	 {"code":25,"통합조직":700,"label":"대전",  "color":"gray"},
+//  			        	 {"code":29,"통합조직":700,"label":"세종",  "color":"gray"},
+//  			        	 {"code":36,"통합조직":700,"label":"전라남도",   "color":"gray"},
+//  			        	 {"code":33,"통합조직":700,"label":"충청북도"  , "color":"gray"},
+//  			        	 {"code":22,"통합조직":700,"label":"대구", "color":"gray"},
+//  			        	 {"code":21,"통합조직":700,"label":"부산",  "color":"gray"},
+//  			        	 {"code":39,"통합조직":700,"label":"제주도", "color":"gray"},
+//  			        	 {"code":37,"통합조직":700,"label":"경상북도",   "color":"gray"},
+//  			        	 {"code":38,"통합조직":700,"label":"경상남도",   "color":"gray"},
+//  			        	 {"code":32,"통합조직":700,"label":"강원도",  "color":"gray"},
+//  			        	 {"code":34,"통합조직":700,"label":"충청남도",   "color":"gray"},
+//  			        	 {"code":35,"통합조직":700,"label":"전라북도",   "color":"gray"},
+//  			        	 {"code":24,"통합조직":700,"label":"광주",  "color":"gray"},
+//  			        	 {"code":26,"통합조직":700,"label":"울산",     "color":"gray"},
+//  			             {"code":11190,"color":"yellow","hovercolor":"red","통합조직":60},
+//  			             {"code":11140,"통합조직":30,"test":200,"color":"pink"},
+//  			             {"code":11150,"color":"gray","통합조직":30,"test":300},
+//  			             {"code":11240,"hovercolor":"#F29661","통합조직":100,"test":400},
+//  			             {"code":11050,"color":"#FFB2F5","hovercolor":"#F29661","통합조직":120},
+//  			             {"code":11180,"color":"#D9E5FF","통합조직":20}
 //  			        ],
 //  			        keys:{
 //  			            x:"code",
-//  			            value: ["강수량"]
+//  			            value: ["통합조직"]
 //  			        }
 //  			    },
 //  			    extend:{
@@ -1066,7 +1066,7 @@
 //  			                //color: "#733410",
 //  			                color: "black",
 // // 		 	                format: function(code, label, data) {
-// // 		 	                    return  "출자출하조직 : " + data["강수량"];
+// // 		 	                    return  "출자출하조직 : " + data["통합조직"];
 // // 		 	                },
 //  			                //textColor: "#733410",
 //  			                textColor: "white",
