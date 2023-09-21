@@ -82,51 +82,50 @@ const gStdGrdObj = {
 
 		init: async function(_apcCd, _grdSeCd, _itemCd) {
 
-			if (this.param.apcCd !== _apcCd
-					|| this.param.grdSeCd !== _grdSeCd
-					|| this.param.itemCd !== _itemCd ) {
+			this.param.apcCd = _apcCd;
+			this.param.grdSeCd = _grdSeCd;
+			this.param.itemCd = _itemCd;
 
-				this.param.apcCd = _apcCd;
-				this.param.grdSeCd = _grdSeCd;
-				this.param.itemCd = _itemCd;
+			gjsonStdGrdObjKnd.length = 0;
 
-				gjsonStdGrdObjKnd.length = 0;
+			if (gfn_isEmpty(_itemCd)) {
+				return;
+			}
 
-				let rslt = await Promise.all([
-					gfn_getStdGrds(_apcCd, _grdSeCd, _itemCd),
-					gfn_getStdGrdJgmts(_apcCd, _grdSeCd, _itemCd),
-					gfn_getStdGrdDtls(_apcCd, _grdSeCd, _itemCd)
-			 	]);
+			let rslt = await Promise.all([
+				gfn_getStdGrds(_apcCd, _grdSeCd, _itemCd),
+				gfn_getStdGrdJgmts(_apcCd, _grdSeCd, _itemCd),
+				gfn_getStdGrdDtls(_apcCd, _grdSeCd, _itemCd)
+		 	]);
 
-				const jsonTempKnds = rslt[0];
-				gjsonStdGrdObjJgmt = rslt[1];
-				gjsonStdGrdObjDtl = rslt[2];
+			const jsonTempKnds = rslt[0];
+			gjsonStdGrdObjJgmt = rslt[1];
+			gjsonStdGrdObjDtl = rslt[2];
 
-				if (jsonTempKnds.length > 0) {
-					jsonTempKnds.forEach((item, index) => {
-						if (index >= 5) return false;
+			if (jsonTempKnds.length > 0) {
+				jsonTempKnds.forEach((item, index) => {
+					if (index >= 5) return false;
 
-						const id = this.idList[index];
-						const knd = {
-								itemCd: item.itemCd,
-								itemNm: item.itemNm,
-								grdKnd: item.grdKnd,
-								grdKndNm: item.grdKndNm,
-								adtnRt: item.adtnRt,
-								grdId: id,
-								jsonId: this.jsonPrefix + id
-							}
+					const id = this.idList[index];
+					const knd = {
+							itemCd: item.itemCd,
+							itemNm: item.itemNm,
+							grdKnd: item.grdKnd,
+							grdKndNm: item.grdKndNm,
+							adtnRt: item.adtnRt,
+							grdId: id,
+							jsonId: this.jsonPrefix + id
+						}
 
-						gjsonStdGrdObjKnd.push(knd);
+					gjsonStdGrdObjKnd.push(knd);
 
-						let jsonObj = this.getGrdJson(id);
+					let jsonObj = this.getGrdJson(id);
 
-						const dtls = gfn_getJsonFilter(gjsonStdGrdObjDtl, "grdKnd", item.grdKnd);
-						dtls.forEach((item) => {
-							jsonObj.push(item);
-						});
+					const dtls = gfn_getJsonFilter(gjsonStdGrdObjDtl, "grdKnd", item.grdKnd);
+					dtls.forEach((item) => {
+						jsonObj.push(item);
 					});
-				}
+				});
 			}
 		},
 		getGrdJson: function(id) {
