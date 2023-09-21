@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : InvstmntSpmtPopupMapper.xml                                    				-->
+<!-- DESC :  통합조직,출자출하조직 팝업 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.09.22  	ljw        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.popup.mapper.InvstmntSpmtPopupMapper">
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.popup.mapper.InvstmntSpmtPopupMapper.selectInvstmntSpmtList		-->
+	<!-- DESC : 통합조직,출자출하조직 목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.22  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectInvstmntSpmtList" parameterType="com.at.apcss.fm.popup.vo.InvstmntSpmtPopupVO" resultType="com.at.apcss.fm.popup.vo.InvstmntSpmtPopupVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+
+			SELECT   A.MAIN_CODE     AS MAIN_CODE
+			       , A.MAIN_CODE_NM  AS MAIN_CODE_NM
+			       , A.SUB_CODE      AS SUB_CODE
+			       , A.SUB_CODE_NM   AS SUB_CODE_NM
+			       , A.MAIN_GBN      AS MAIN_GBN
+			       , A.SUB_GBN       AS SUB_GBN
+			       , A.GBN_NM_REMARK AS GBN_NM_REMARK
+			FROM (
+			         SELECT   B AS MAIN_CODE -- 생산유통통합조직코드,
+			                , C AS MAIN_CODE_NM -- 생산유통통합조직명,
+			                , E AS SUB_CODE -- 출자출하조직코드,
+			                , F AS SUB_CODE_NM -- 출자출하조직명,
+			                , 'Y' AS MAIN_GBN
+			                , 'Y' AS SUB_GBN -- 출자출하조직여부 -- 생산유통통합조직 - 출자출하조직 - 기초생산자 - 농가
+			                , '통합조직-출자출하조직-기초생산자-농가' AS GBN_NM
+			                , '생산유통통합조직-출자출하조직-기초생산자-농가' AS GBN_NM_REMARK
+			           FROM TB_APC_TOTAL_CUL_INFO
+			         GROUP BY B,C,E,F
+			         UNION ALL
+			         SELECT   '' AS MAIN_CODE -- 생산유통통합조직코드,
+			                , '' AS MAIN_CODE_NM -- 생산유통통합조직명,
+			                , E AS SUB_CODE -- 출자출하조직코드,
+			                , F AS SUB_CODE_NM -- 출자출하조직명,
+			                , 'N' AS MAIN_GBN
+			                , 'Y' AS SUB_GBN -- 출자출하조직여부 -- 생산유통통합조직 - 출자출하조직 - 기초생산자 - 농가
+			                , '출자출하조직-기초생산자-농가' AS GBN_NM
+			                , '출자출하조직-기초생산자-농가' AS GBN_NM_REMARK
+			           FROM TB_APC_TOTAL_CUL_INFO
+			         GROUP BY B,C,E,F
+			         UNION ALL
+			         SELECT
+			                  B AS MAIN_CODE -- 생산유통통합조직코드,
+			                , A AS MAIN_CODE_NM --생산유통통합조직명,
+			                , '' AS SUB_CODE -- 출자출하조직코드,
+			                , '' AS SUB_CODE_NM -- 출자출하조직명,
+			                , 'N' AS MAIN_GBN
+			                , 'N' AS SUB_GBN -- 출자출하조직여부 -- 생산유통통합조직 - 기초생산자 - 농가
+			                , '생산유통톻합조직-기초생산자-농가' AS GBN_NM
+			                , '생산유통톻합조직-기초생산자-농가' AS GBN_NM_REMARK
+			           FROM TB_APC_TOTAL_INFO
+			   )A
+			WHERE 1=1
+			  <if test='searchCode != null and searchCode != ""'>
+			  AND ( MAIN_CODE LIKE '%' || #{searchCode} || '%' OR  SUB_CODE LIKE '%' || #{searchCode} || '%' )
+			  </if>
+			  <if test='searchCodeNm != null and searchCodeNm != ""'>
+			  AND ( MAIN_CODE_NM LIKE '%' || #{searchCodeNm} || '%' OR  SUB_CODE_NM LIKE '%' || #{searchCodeNm} || '%' )
+			  </if>
+			  <if test='mainGbn != null and mainGbn != ""'>
+			  AND MAIN_GBN = #{mainGbn}
+			  </if>
+			  <if test='subGbn != null and subGbn != ""'>
+			  AND SUB_GBN = #{subGbn}
+			  </if>
+			ORDER BY MAIN_CODE_NM,SUB_CODE_NM ASC
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+</mapper>

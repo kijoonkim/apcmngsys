@@ -28,20 +28,7 @@
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
-					<colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-					</colgroup>
+
 					<tbody>
 						<tr>
 							<th scope="row">출자출하조직</th>
@@ -50,7 +37,7 @@
 								<sbux-input id="srch-inp-apcNm1" name="srch-inp-apcNm1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 							<td>
-								<sbux-button id="srch-btn-apc1" name="srch-btn-apc1" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc2" />
+								<sbux-button id="srch-btn-apc1" name="srch-btn-apc1" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceInvstmntSpmt" />
 							</td>
 							<th scope="row">생산유통통합조직</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -406,7 +393,7 @@
         	header-title="APC명 선택"
         	body-html-id="body-modal-apc"
         	footer-is-close-button="false"
-        	style="width:800px"
+        	style="width:1200px"
        	></sbux-modal>
     </div>
     <div id="body-modal-apc">
@@ -432,6 +419,22 @@
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
 
+    <!-- 통합조직,출자출하조직 선택 Modal -->
+    <!-- 2023 09 22 ljw 통합조직 출자출하조직 리스트 팝업 생성 -->
+    <div>
+        <sbux-modal
+        	id="modal-invstmntSpmt"
+        	name="modal-invstmntSpmt"
+        	uitype="middle"
+        	header-title="통합조직,출자출하조직 선택"
+        	body-html-id="body-modal-invstmntSpmt"
+        	footer-is-close-button="false"
+        	style="width:1000px"
+       	></sbux-modal>
+    </div>
+    <div id="body-modal-invstmntSpmt">
+    	<jsp:include page="../popup/InvstmntSpmtPopup.jsp"></jsp:include>
+    </div>
 
 </body>
 <script type="text/javascript">
@@ -1178,6 +1181,19 @@
 					}
 				}
 			}
+		}
+	}
+
+	//통합조직,출자출하조직 팝업
+	const fn_choiceInvstmntSpmt = function() {
+		popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setInvstmntSpmt);
+	}
+	//통합조직 출자출하조직 팝업 콜백함수
+	const fn_setInvstmntSpmt = function(apc) {
+		if (!gfn_isEmpty(apc)) {
+			SBUxMethod.set("srch-inp-apcCd1", apc.apcCd);
+			SBUxMethod.set("srch-inp-apcNm1", apc.apcNm);
+
 		}
 	}
 

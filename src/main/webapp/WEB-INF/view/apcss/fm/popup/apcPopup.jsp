@@ -87,7 +87,10 @@
 		gridJson: [],
 		callbackFnc: function() {},
 		init: async function(_apcCd, _apcNm, _callbackFnc) {
-
+			console.log("pop");
+			console.log(_apcCd);
+			console.log(_apcNm);
+			console.log(this);
 			// set param
 			SBUxMethod.set("apc-inp-apcCd", _apcCd);
 			SBUxMethod.set("apc-inp-apcNm", _apcNm);
@@ -279,6 +282,7 @@
 
 		},
 		search: async function(/** {boolean} */ isEditable) {
+			console.log("===========search============");
 			// set pagination
 			grdApcPop.rebuild();
 	    	let pageSize = grdApcPop.getPageSize();
