@@ -25,6 +25,7 @@
 	<c:choose>
 		<c:when test="${comApcList != null}">
 		var cjsonApcList = ${comApcList};
+		console.log(cjsonApcList);
 		</c:when>
 		<c:otherwise>
 		var cjsonApcList = {};
@@ -63,6 +64,8 @@
 				name="gsb-slt-apcCd"
 				uitype="single"
 				jsondata-ref="cjsonApcList"
+				jsondata-text="apcNm"
+				jsondata-value="apcCd"
 				unselected-text="전체"
 				class="form-control input-sm"
 				onchange="cfn_onChangeApc(this)"

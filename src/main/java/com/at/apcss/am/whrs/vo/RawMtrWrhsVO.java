@@ -44,6 +44,11 @@ public class RawMtrWrhsVO extends ComVO {
 	private String wghno;
 
 	/**
+	 * 계량순번
+	 */
+	private int wghSn;
+
+	/**
 	 * 팔레트번호
 	 */
 	private String pltno;

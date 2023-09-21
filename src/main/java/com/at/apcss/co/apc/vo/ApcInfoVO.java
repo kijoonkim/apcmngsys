@@ -11,7 +11,7 @@ public class ApcInfoVO extends ComVO{
 
 	/** APC코드 */
 	private String apcCd;
-	
+
 	/** 원본 APC명 */
 	private String regApcNm;
 	/** 원본 우편번호 */
@@ -20,7 +20,7 @@ public class ApcInfoVO extends ComVO{
 	private String regAddr;
 	/** 원본 전화번호 */
 	private String regTelno;
-	
+
 	/** 시도 명 */
 	private String ctpvNm;
 	/** 시군 명 */
@@ -46,6 +46,9 @@ public class ApcInfoVO extends ComVO{
 	private String fxno;
 	/** 우편번호 */
 	private String zip;
-	/** 삭제유무 */
-	private String delYn;
+
+	/**
+	 * 정산기준
+	 */
+	private String clclnCrtr;
 }

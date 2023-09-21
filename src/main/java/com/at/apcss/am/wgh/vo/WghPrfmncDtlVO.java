@@ -1,5 +1,9 @@
 package com.at.apcss.am.wgh.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.at.apcss.am.invntr.vo.RawMtrStdGrdVO;
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -43,48 +47,110 @@ public class WghPrfmncDtlVO extends ComVO {
 	 * 등급코드
 	 */
 	private String grdCd;
+	/**
+	 * 등급명
+	 */
+	private String grdNm;
 
 	/**
-	 * 팔레트박스구분코드
+	 * 팔레트번호
 	 */
-	private String pltBxSeCd;
+	private String pltno;
 
 	/**
-	 * 팔레트/박스 종류
+	 * 식별번호
 	 */
-	private String pltBxKnd;
+	private String sn;
 
 	/**
-	 * 단중
+	 * 입고번호
 	 */
-	private double unitWght;
+	private String wrhsno;
 
 	/**
-	 * 수량
+	 * 팔레트 종류
 	 */
-	private int qntt;
+	private String pltKnd;
+	/**
+	 * 팔레트 종류명
+	 */
+	private String pltKndNm;
+
 
 	/**
-	 * 중량
+	 * 팔레트 수량
 	 */
-	private double wght;
+	private int pltQntt;
 
 	/**
-	 * 팔레트박스명
+	 * 팔레트 중량
 	 */
-	private String pltBxNm;
+	private double pltWght;
 
 	/**
-	 * 단위
+	 * 박스 종류
 	 */
-	private String unitCd;
+	private String bxKnd;
 	/**
-	 * 단위명
+	 * 박스 종류명
 	 */
-	private String unitNm;
+	private String bxKndNm;
 
 	/**
-	 * 환산중량
+	 * 박스 수량
 	 */
-	private double cnvrtWght;
+	private int bxQntt;
+
+	/**
+	 * 박스 중량
+	 */
+	private double bxWght;
+
+	/**
+	 * 입고중량
+	 */
+	private double wrhsWght;
+
+	/**
+	 * 품목
+	 */
+	private String itemCd;
+	/**
+	 * 품종
+	 */
+	private String vrtyCd;
+	/**
+	 * 상품구분
+	 */
+	private String gdsSeCd;
+	/**
+	 * 입고구분
+	 */
+	private String wrhsSeCd;
+	/**
+	 * 운송구분
+	 */
+	private String trsprtSeCd;
+
+	private double pltUnitWght;
+	private double bxUnitWght;
+
+	/**
+	 * 표준등급
+	 */
+	private String stdGrd;
+	private String stdGrdCd;
+
+	/**
+	 * 표준등급 목록
+	 */
+	private List<RawMtrStdGrdVO> stdGrdList;
+
+	public List<RawMtrStdGrdVO> getStdGrdList() {
+		return stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
+
+	public void setStdGrdList(List<RawMtrStdGrdVO> stdGrdList) {
+		this.stdGrdList = stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
 }

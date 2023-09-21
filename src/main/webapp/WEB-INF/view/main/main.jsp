@@ -563,7 +563,7 @@
 				<c:if test="${loginVO != null && loginVO.id != null}">
 					<span class="name-t">${loginVO.name}</span>님 반갑습니다.
                 <ul class="user-login-menu">
-                    <li><sbux-button id="btnPrfrmImprvDmnd" name="btnPrfrmImprvDmnd" uitype="normal" text="개선요청" style="width:100%;" class="btn btn-sm btn-outline-dark" onclick="fn_modalPopup"></sbux-button></li>
+					<li style="background-color:#149FFF;"><sbux-button id="btnPrfrmImprvDmnd" name="btnPrfrmImprvDmnd" uitype="normal" text="개선요청" style="width:100%;" onclick="fn_modalPopup"></sbux-button></li>
                     <li><a href="/actionLogout.do">로그아웃</a></li>
                 </ul>
                 </c:if>
@@ -619,10 +619,10 @@
     </div>
 	<!-- 출하매출단가 등록 Modal -->
     <div>
-        <sbux-modal id="modal-prfrmImprvDmnd" name="modal-prfrmImprvDmnd" uitype="middle" header-title="출하 매출단가 등록" body-html-id="body-modal-prfrmImprvDmnd" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-prfrmImprvDmnd" name="modal-prfrmImprvDmnd" uitype="middle" header-title="프로그램 개선요청" body-html-id="body-modal-prfrmImprvDmnd" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-prfrmImprvDmnd">
-    	<jsp:include page="../apcss/co/prfrm/prfrmImprvDmndPopup.jsp"></jsp:include>
+    	<jsp:include page="../apcss/co/dmnd/prfrmImprvDmndPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -633,8 +633,25 @@
 	const fn_modalPopup = async function() {
 
 		var userId =  '${loginVO.userId}';
-		prfrmImprvDmnd.init(gv_apcCd, gv_apcNm, userId);
-		SBUxMethod.openModal('modal-prfrmImprvDmnd');
+		if(menuJsonB[0].id != "empty"){
+			var menuNm = "";
+			var menuId = "";
+			if(menuJsonB.length == 3){
+				menuNm = menuJsonB[2].text;
+				menuId = menuJsonB[2].pid;
+			}else{
+
+				menuNm = menuJsonB[3].text;
+				menuId = menuJsonB[3].pid;
+			}
+
+			prfrmImprvDmnd.init(gv_apcCd, gv_apcNm, userId, menuId, menuNm);
+			SBUxMethod.openModal('modal-prfrmImprvDmnd');
+		}else{
+			gfn_comAlert("W0001", "프로그램");		//	W0001	{0}을/를 선택하세요.
+		}
+
+
 	}
 
 	const initMain = async function() {
@@ -653,8 +670,7 @@
         SBUxMethod.addTab('tab_menu', jsonTabSelect);
 
 		await fn_afterAddTab(menuNo);
-		console.log("menuJson",menuJson);
-		//fn_selectTopMenu(menuJson[0].id);
+		fn_setLeftMenu(menuJson[0].id, menuJson[0].text);
 	}
 
 </script>

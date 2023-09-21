@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : PrfrmImprvDmndMapper.xml                           		        	-->
+<!-- DESC : 프로그램개선요청 mapper                   					            -->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.09.20  	김호        	Initial Creation                            	-->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.co.dmnd.mapper.PrfrmImprvDmndMapper">
+
+	<!-- ==================================================================================	-->
+	<!-- NAME : com.at.apcss.co.dmnd.mapper.PrfrmImprvDmndMapper.selectPrfrmImprvDmndList	-->
+	<!-- DESC : 프로그램개선요청 목록 조회.             		           	             	 		-->
+	<!-- ==================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	===================================================	-->
+	<!-- 2023.09.20  	하민우        	Initial Creation                            		-->
+	<!-- =================================================================================	-->
+    <select id="selectPrfrmImprvDmndList" parameterType="com.at.apcss.co.dmnd.vo.PrfrmImprvDmndVO" resultType="com.at.apcss.co.dmnd.vo.PrfrmImprvDmndVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.co.dmnd.mapper.PrfrmImprvDmndMapper.selectPrfrmImprvDmndList */
+			       PID.APC_CD           AS APC_CD
+			     , PID.DMND_YMD         AS DMND_YMD
+			     , PID.SN               AS SN
+			     , PID.MENU_ID          AS MENU_ID
+			     , PID.USER_ID          AS USER_ID
+			     , (SELECT USER_NM FROM TB_COM_USER X WHERE PID.USER_ID = X.USER_ID)  AS USER_NM
+			     , PID.IMPRV_DMND_MTTR  AS IMPRV_DMND_MTTR
+			     , PID.ACTN_PRNMNT_YMD  AS ACTN_PRNMNT_YMD
+			     , PID.PIC              AS PIC
+			     , PID.ACTN_RSLT        AS ACTN_RSLT
+			     , PID.DEL_YN           AS DEL_YN
+			  FROM TB_PRGRM_IMPRV_DMND PID
+			 WHERE PID.DEL_YN 	= 'N'
+			   AND PID.MENU_ID  = #{menuId}
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			  AND PID.APC_CD 	= #{apcCd}
+		</if>
+    </select>
+
+    <!-- ==================================================================================	-->
+	<!-- NAME : com.at.apcss.co.dmnd.mapper.PrfrmImprvDmndMapper.insertPrfrmImprvDmnd		-->
+	<!-- DESC : 프로그램개선요청 등록.             		           	             	 		-->
+	<!-- ==================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	===================================================	-->
+	<!-- 2023.09.20  	하민우        	Initial Creation                            		-->
+	<!-- =================================================================================	-->
+    <insert id="insertPrfrmImprvDmnd" parameterType="com.at.apcss.co.dmnd.vo.PrfrmImprvDmndVO">
+    	<![CDATA[
+    		INSERT INTO
+    			TB_PRGRM_IMPRV_DMND	/* com.at.apcss.co.dmnd.mapper.PrfrmImprvDmndMapper.insertPrfrmImprvDmnd */
+	    			(
+						APC_CD
+					  , DMND_YMD
+					  , SN
+					  , MENU_ID
+					  , USER_ID
+					  , IMPRV_DMND_MTTR
+					  , ACTN_PRNMNT_YMD
+					  , PIC
+					  , ACTN_RSLT
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+	    			)
+	    		VALUES
+	    			(
+	    				#{apcCd}
+					  , TO_CHAR(SYSDATE, 'YYYYMMDD')
+					  , (SELECT FN_GET_SN_PRGRM_IMPRV_DMND(#{apcCd}, TO_CHAR(SYSDATE, 'YYYYMMDD')) FROM DUAL)
+					  , #{menuId}
+					  , #{userId}
+					  , #{imprvDmndMttr}
+					  , #{actnPrnmntYmd}
+					  , #{pic}
+					  , #{actnRslt}
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+	    			)
+    	]]>
+    </insert>
+
+    <!-- ==================================================================================	-->
+	<!-- NAME : com.at.apcss.co.dmnd.mapper.PrfrmImprvDmndMapper.updatePrfrmImprvDmnd		-->
+	<!-- DESC : 프로그램개선요청 수정.             		           	             	 			-->
+	<!-- ==================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	===================================================	-->
+	<!-- 2023.09.20  	하민우        	Initial Creation                            		-->
+	<!-- =================================================================================	-->
+	<update id="updatePrfrmImprvDmnd" parameterType="com.at.apcss.co.dmnd.vo.PrfrmImprvDmndVO">
+		<![CDATA[
+			UPDATE TB_PRGRM_IMPRV_DMND
+			   SET /* com.at.apcss.co.dmnd.mapper.PrfrmImprvDmndMapper.updatePrfrmImprvDmnd */
+			       IMPRV_DMND_MTTR			= #{imprvDmndMttr}
+				 , ACTN_PRNMNT_YMD			= #{actnPrnmntYmd}
+				 , PIC						= #{pic}
+				 , ACTN_RSLT 				= #{actnRslt}
+				 , SYS_LAST_CHG_DT  		= SYSDATE
+				 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		     WHERE APC_CD 		= #{apcCd}
+			   AND DMND_YMD		= #{dmndYmd}
+			   AND SN	 		= #{sn}
+		]]>
+	</update>
+
+    <!-- ==================================================================================	-->
+	<!-- NAME : com.at.apcss.co.dmnd.mapper.PrfrmImprvDmndMapper.deletePrfrmImprvDmnd		-->
+	<!-- DESC : 프로그램개선요청 삭제.             		           	             	 			-->
+	<!-- ==================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	===================================================	-->
+	<!-- 2023.09.20  	하민우        	Initial Creation                            		-->
+	<!-- =================================================================================	-->
+	<delete id="deletePrfrmImprvDmnd" parameterType="com.at.apcss.co.dmnd.vo.PrfrmImprvDmndVO">
+		<![CDATA[
+			DELETE TB_PRGRM_IMPRV_DMND
+		     WHERE APC_CD 		= #{apcCd}
+			   AND DMND_YMD		= #{dmndYmd}
+			   AND SN	 		= #{sn}
+		]]>
+	</delete>
+
+</mapper>
+
+

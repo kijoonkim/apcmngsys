@@ -30,6 +30,16 @@
 			    , PB.PLT_BX_NM          AS PLT_BX_NM
 			    , PB.UNIT_WGHT          AS UNIT_WGHT
 			    , PB.UNIT_CD			AS UNIT_CD
+			    , CASE PB.UNIT_CD
+			    	WHEN '1' THEN	-- g
+			    		PB.UNIT_WGHT / 1000
+			    	WHEN '2' THEN	-- kg
+			    		PB.UNIT_WGHT
+			    	WHEN '3' THEN
+			    		PB.UNIT_WGHT * 1000
+			    	ELSE
+			    		0
+			      END					AS CNVRS_UNIT_WGHT
 			    , PB.BSS_INVNTR_QNTT    AS BSS_INVNTR_QNTT
 			    , (SELECT FN_GET_COM_CD_VL_NM('UNIT_CD', PB.UNIT_CD) FROM DUAL) AS UNIT_NM
 			    , PB.USE_YN             AS USE_YN
