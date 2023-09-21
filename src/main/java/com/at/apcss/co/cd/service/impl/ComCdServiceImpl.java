@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.co.cd.mapper.ComCdMapper;
 import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.cd.vo.ComCdVO;
+import com.at.apcss.co.constants.ComConstants;
 
 @Service("comCdService")
 public class ComCdServiceImpl implements ComCdService {
@@ -92,13 +93,35 @@ public class ComCdServiceImpl implements ComCdService {
 	}
 
 	@Override
-	public int updateComCdDtlDelYn(ComCdVO comCdVO) {
+	public int updateComCdDtlDelYn(ComCdVO comCdVO) throws Exception {
 		return comCdMapper.updateComCdDtlDelYn(comCdVO);
 	}
 
 	@Override
-	public int comCdDtlDelYnAll(ComCdVO comCdVO) {
+	public int comCdDtlDelYnAll(ComCdVO comCdVO) throws Exception {
 		return comCdMapper.comCdDtlDelYnAll(comCdVO);
+	}
+
+	@Override
+	public List<ComCdVO> selectFcltList(ComCdVO comCdVO) throws Exception {
+
+		List<ComCdVO> resultList = comCdMapper.selectFcltList(comCdVO);
+
+		return resultList;
+	}
+
+	@Override
+	public int multiSaveComCdDtlList(List<ComCdVO> comCdList) throws Exception {
+		int savedCnt = 0;
+		for (ComCdVO comCdVO : comCdList) {
+			if(ComConstants.ROW_STS_INSERT.equals(comCdVO.getRowSts())) {
+				savedCnt += insertComCdDtl(comCdVO);
+			}
+			if(ComConstants.ROW_STS_UPDATE.equals(comCdVO.getRowSts())) {
+				savedCnt += updateComCdDtl(comCdVO);
+			}
+		}
+		return savedCnt;
 	}
 
 

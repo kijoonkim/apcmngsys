@@ -191,6 +191,13 @@
 				keys: { // data 타입을 json 형태로 받아올 때에만 사용
 					x: "month",
 					value: ["wrhs", "wrhsLine"]
+				},
+			},
+			extend: {
+				line: {
+					setLinesWidth: [
+						{"key":"wrhsLine", "width":2}
+					],
 				}
 			},
 			axis: {
@@ -243,6 +250,13 @@
 				keys: { // data 타입을 json 형태로 받아올 때에만 사용
 					x: "month",
 					value: ["sort", "pckg", "pckgLine"]
+				},
+			},
+			extend: {
+				line: {
+					setLinesWidth: [
+						{"key":"pckgLine", "width":2}
+					],
 				}
 			},
 			axis: {
@@ -294,6 +308,13 @@
 				keys: { // data 타입을 json 형태로 받아올 때에만 사용
 					x: "month",
 					value: ["spmt", "spmtLine"]
+				},
+			},
+			extend: {
+				line: {
+					setLinesWidth: [
+						{"key":"spmtLine", "width":2}
+					],
 				}
 			},
 			axis: {

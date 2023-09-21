@@ -11,7 +11,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span style="font-weight:bold;">상품출하시 운용하고 있는 출하포장단위 정보를 등록하세요.</span>
+						<span style="font-weight:bold;">상품출하시 운용하고 있는 상품코드 정보를 등록하세요.</span>
 					</p>
 					<p>
 						<span style="color:black; font-weight:bold;">출하처리 시 필요한 정보입니다.</span>
@@ -67,7 +67,7 @@
 				<div class="row">
 					<div class="ad_tbl_top"  style="width: 98%;">
 						<ul class="ad_tbl_count">
-							<li><span>출하포장단위</span></li>
+							<li><span>상품코드</span></li>
 						</ul>
 					</div>
 					<div>
