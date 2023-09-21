@@ -191,6 +191,10 @@ public class PckgPrfmncVO extends ComVO {
 	 */
 	private String plorCd;
 
+	/**
+	 * 상품코드
+	 */
+	private String gdsCd;
 
 	/**
 	 * 표준등급

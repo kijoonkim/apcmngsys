@@ -136,10 +136,6 @@ const stdGrdSelect = {
 	},
 	setStdGrd: async function(_apcCd, _grdSeCd, _itemCd, _stdGrdObj) {
 
-		if (this.param.apcCd !== _apcCd
-				|| this.param.grdSeCd !== _grdSeCd
-				|| this.param.itemCd !== _itemCd ) {
-
 			this.hide();
 			this.param.apcCd = _apcCd;
 			this.param.grdSeCd = _grdSeCd;
@@ -153,9 +149,13 @@ const stdGrdSelect = {
 				return;
 			}
 			await gStdGrdObj.init(_apcCd, _grdSeCd, _itemCd);
+
+			if (gjsonStdGrdObjKnd.length === 0) {
+				return;
+			}
+
 			gjsonStdGrdObjKnd.forEach((item, index) => {
 				const id = gStdGrdObj.idList[index];
-
 				SBUxMethod.set('stdGrdSlt-lbl-knd-' + id, item.grdKndNm + " : ");	// 등급종류명
 				SBUxMethod.show('stdGrdSlt-lbl-knd-' + id);
 				SBUxMethod.show('stdGrdSlt-slt-knd-' + id);
@@ -210,7 +210,6 @@ const stdGrdSelect = {
 				SBUxMethod.show('stdGrdSlt-slt-jgmt');
 				SBUxMethod.refresh('stdGrdSlt-slt-jgmt');
 			}
-		}
 
 		if (!gfn_isEmpty(_stdGrdObj)) {
 
