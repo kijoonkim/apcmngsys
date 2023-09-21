@@ -69,6 +69,7 @@
 				, WD.BX_KND			AS BX_KND
                 , WD.BX_QNTT        AS BX_QNTT
 				, WD.BX_WGHT        AS BX_WGHT
+				, WP.WRHS_WGHT		AS INVNTR_WGHT
 				, INV.WAREHOUSE_SE_CD   AS WAREHOUSE_SE_CD
 				, INV.ITEM_CD       AS ITEM_CD
 				, INV.VRTY_CD       AS VRTY_CD

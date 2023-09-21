@@ -165,6 +165,10 @@ public class WghPrfmncVO extends ComVO {
 	private double wrhsWght;
 
 	/**
+	 * 재고중량
+	 */
+	private double invntrWght;
+	/**
 	 * 비고
 	 */
 	private String rmrk;
