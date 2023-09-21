@@ -26,7 +26,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 포장실적등록 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
@@ -836,14 +836,10 @@
 
 				stdGrdList.push(stdGrd);
 			});
-			console.log("stdGrdList");
-			console.log(stdGrdList);
 
 			if (jsonStdGrdKnd.length > 1 && jsonStdGrdJgmt.length > 0) {
 				jgmtGrdCd = item['jgmtGrdCd'];
 			}
-			console.log("jgmtGrdCd");
-			console.log(jgmtGrdCd);
 
 			if (gfn_isEmpty(jgmtGrdCd)) {
 				gdsGrd = allPckgData[i]["gdsGrd"];
@@ -1222,8 +1218,5 @@
 			}
 		}
  	}
-
-
-
 </script>
 </html>

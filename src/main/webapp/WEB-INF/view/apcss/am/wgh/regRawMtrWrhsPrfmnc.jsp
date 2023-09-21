@@ -1215,9 +1215,6 @@ importExcelPopup
 	 */
 	const fn_onChangeSrchItemCd = async function(obj) {
 		let itemCd = obj.value;
-		console.log("fn_onChangeSrchItemCd");
-		console.log(itemCd);
-
 		let result = await Promise.all([
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),			// 품종
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd),	// 규격

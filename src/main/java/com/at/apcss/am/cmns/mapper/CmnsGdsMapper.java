@@ -22,7 +22,7 @@ import com.at.apcss.am.cmns.vo.CmnsGdsVO;
  */
 @Mapper
 public interface CmnsGdsMapper {
-	
+
 	/**
 	 * 상품정보 단건 조회
 	 * @param cmnsGdsVO
@@ -30,7 +30,7 @@ public interface CmnsGdsMapper {
 	 * @throws Exception
 	 */
 	public CmnsGdsVO selectCmnsGds(CmnsGdsVO cmnsGdsVO) throws Exception;
-	
+
 	/**
 	 * 상품정보 목록 조회
 	 * @param cmnsGdsVO
@@ -38,7 +38,14 @@ public interface CmnsGdsMapper {
 	 * @throws Exception
 	 */
 	public List<CmnsGdsVO> selectCmnsGdsList(CmnsGdsVO cmnsGdsVO) throws Exception;
-	
+
+	/**
+	 * 상품코드 확인 등록
+	 * @param cmnsGdsVO
+	 * @throws Exception
+	 */
+	public void insertSpGdsCdReg(CmnsGdsVO cmnsGdsVO) throws Exception;
+
 	/**
 	 * 상품정보 등록
 	 * @param cmnsGdsVO
@@ -46,7 +53,7 @@ public interface CmnsGdsMapper {
 	 * @throws Exception
 	 */
 	public int insertCmnsGds(CmnsGdsVO cmnsGdsVO) throws Exception;
-	
+
 	/**
 	 * 상품정보 수정
 	 * @param cmnsGdsVO
@@ -54,7 +61,7 @@ public interface CmnsGdsMapper {
 	 * @throws Exception
 	 */
 	public int updateCmnsGds(CmnsGdsVO cmnsGdsVO) throws Exception;
-	
+
 	/**
 	 * 상품정보 삭제
 	 * @param cmnsGdsVO
@@ -62,5 +69,5 @@ public interface CmnsGdsMapper {
 	 * @throws Exception
 	 */
 	public int deleteCmnsGds(CmnsGdsVO cmnsGdsVO) throws Exception;
-	
+
 }

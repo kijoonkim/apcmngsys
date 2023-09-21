@@ -96,8 +96,16 @@ public class CmnsGdsVO extends ComVO {
 	 * 입수
 	 */
 	private int bxGdsQntt;
+
 	/**
 	 * 중량
 	 */
 	private double wght;
+
+	private String newGdsCd;
+
+	private String rtnCd;
+
+	private String rtnMsg;
+
 }
