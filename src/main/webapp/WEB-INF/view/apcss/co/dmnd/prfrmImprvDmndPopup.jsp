@@ -51,6 +51,45 @@
 					<div id="sb-area-grdPrfrmImprvDmnd" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
+				<div class="ad_tbl_top"  style="width: 98%;">
+						<ul class="ad_tbl_count">
+							<li><span>조치내용</span></li>
+						</ul>
+					</div>
+					<table class="table table-bordered tbl_row tbl_fixed">
+						<caption>검색 조건 설정</caption>
+						<colgroup>
+							<col style="width: 100px">
+							<col style="width: 200px">
+							<col style="width: 100px">
+							<col style="width: 200px">
+							<col style="width: 100px">
+							<col style="width: 200px">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th scope="row">조치예정일자</th>
+								<th>
+									<sbux-input id="dmnd-inp-actnPrnmntYmd" name="dmnd-inp-actnPrnmntYmd" uitype="text" class="form-control input-sm"
+										mask = "{ 'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+										readonly
+									></sbux-input>
+								</th>
+								<th scope="row">접수자</th>
+								<th>
+									<sbux-input id="dmnd-inp-picNm" name="dmnd-inp-picNm" uitype="text" class="form-control input-sm"
+										readonly
+									></sbux-input>
+								</th>
+								<th scope="row">조치결과</th>
+								<th>
+									<sbux-input id="dmnd-inp-actnRslt" name="dmnd-inp-actnRslt" uitype="text" class="form-control input-sm"
+									readonly
+									></sbux-input>
+								</th>
+							</tr>
+						</tbody>
+					</table>
 			</div>
 		</div>
 	</section>
@@ -72,9 +111,10 @@
 		prvApcCd: "",
 		prvMenuId: "",
 		prvUserId: "",
+		prvUserNm: "",
 		objGrid: null,
 		gridJson: [],
-		init: async function(_apcCd, _apcNm, _userId, _menuId, _menuNm) {
+		init: async function(_apcCd, _apcNm, _userId, _userNm, _menuId, _menuNm) {
 
 			// set param
 			SBUxMethod.set("dmnd-inp-apcNm", _apcNm);
@@ -86,6 +126,7 @@
 			this.prvApcCd = _apcCd;
 			this.prvMenuId = _menuId;
 			this.prvUserId = _userId;
+			this.prvUserNm = _userNm;
 
 			this.search();
 
@@ -113,13 +154,10 @@
 				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='prfrmImprvDmnd.procRow(\"DEL\", " + nRow + ")'>삭제</button>";
 		        	}
 			    }},
-	            {caption: ['요청일자'], 	ref: 'dmndYmd', 		width: '100px', 	type: 'output', 	style: 'text-align: center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+	            {caption: ['상태'], 		ref: 'dmndStts', 	width: '80px', 		type: 'output', 	style: 'text-align: center'},
+	            {caption: ['요청일자'], 	ref: 'dmndYmd', 	width: '80px', 	type: 'output', 	style: 'text-align: center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	            {caption: ['요청자'], 	ref: 'userNm', 		width: '80px', 		type: 'output', 	style: 'text-align: center'},
-	            {caption: ['개선요청사항'], ref: 'imprvDmndMttr', 	width: '300px', 	type: 'input', 	style: 'text-align: center'},
-	            {caption: ['조치예정일'], 		ref: 'actnPrnmntYmd', 	width: '120px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true},  style:'text-align:center'},
-	            {caption: ['접수자'], 	ref: 'pic', 			width: '100px', 	type: 'combo', 	style: 'text-align: center',
-	            	typeinfo : {ref:'jsonComPic', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
-	            {caption: ['조치결과'], 	ref: 'actnRslt', 		width: '150px', 	type: 'input', 	style: 'text-align: center'},
+	            {caption: ['개선요청사항'], ref: 'imprvDmndMttr', 	width: '500px', 	type: 'input', 	style: 'text-align: center'},
 	            {caption: ['APC코드'], 	ref: 'apcCd', 		hidden : true},
 	            {caption: ['사용자ID'], 	ref: 'userId', 		hidden : true},
 	            {caption: ['메뉴ID'], 	ref: 'menuId', 		hidden : true},
@@ -127,13 +165,19 @@
 		    ];
 
 		    grdPrfrmImprvDmnd = _SBGrid.create(SBGridProperties);
+		    grdPrfrmImprvDmnd.bind('click', this.selectDmnd);
 
 		    let rst = await Promise.all([
-				gfn_setComCdSBSelect('grdPrfrmImprvDmnd', 	jsonComPic, 'PIC'),			// 담당자(검색)
+				gfn_setComCdSBSelect('dmnd-slt-pic', 	jsonComPic, 'PIC'),			// 담당자(검색)
 			]);
 			grdPrfrmImprvDmnd.refresh({"combo":true});
 		},
 		search: async function() {
+
+			SBUxMethod.set("dmnd-inp-actnPrnmntYmd", "")
+	    	SBUxMethod.set("dmnd-inp-picNm", "")
+	    	SBUxMethod.set("dmnd-inp-actnRslt", "")
+
 			let apcCd = this.prvApcCd;
 			if(apcCd == "0000"){
 				apcCd = "";
@@ -159,8 +203,10 @@
 						imprvDmndMttr	: item.imprvDmndMttr,
 						actnPrnmntYmd 	: item.actnPrnmntYmd,
 						pic 			: item.pic,
+						picNm			: item.picNm,
 						actnRslt 		: item.actnRslt,
-						delYn			: item.delYn
+						delYn			: item.delYn,
+						dmndStts		: item.dmndStts
 					}
 					jsonPrfrmImprvDmndPop.push(dmnd);
 
@@ -180,9 +226,12 @@
 
 	    	if(gubun === "ADD"){
 	    		grdPrfrmImprvDmnd.setCellData(nRow, nCol, "N", true);
-	    		grdPrfrmImprvDmnd.setCellData(nRow, 7, this.prvApcCd, true);
-	    		grdPrfrmImprvDmnd.setCellData(nRow, 8, this.prvUserId, true);
-	    		grdPrfrmImprvDmnd.setCellData(nRow, 9, this.prvMenuId, true);
+
+	    		grdPrfrmImprvDmnd.setCellData(nRow, 2, gfn_dateToYmd(new Date()), true);
+	    		grdPrfrmImprvDmnd.setCellData(nRow, 3, this.prvUserNm, true);
+	    		grdPrfrmImprvDmnd.setCellData(nRow, 5, this.prvApcCd, true);
+	    		grdPrfrmImprvDmnd.setCellData(nRow, 6, this.prvUserId, true);
+	    		grdPrfrmImprvDmnd.setCellData(nRow, 7, this.prvMenuId, true);
 	    		grdPrfrmImprvDmnd.addRow(true);
 
 	    	}else if(gubun === "DEL"){
@@ -268,6 +317,23 @@
 	    		}
 	    		console.error("failed", e.message);
 	        }
+	    },
+	    selectDmnd : async function(){
+
+
+	    	let nRow = grdPrfrmImprvDmnd.getRow();
+
+	    	if(nRow > 0){
+	    		let rowData = grdPrfrmImprvDmnd.getRowData(nRow);
+		    	let picNm = rowData.picNm
+		    	let actnPrnmntYmd = rowData.actnPrnmntYmd
+		    	let actnRslt = rowData.actnRslt
+
+		    	SBUxMethod.set("dmnd-inp-actnPrnmntYmd", actnPrnmntYmd)
+		    	SBUxMethod.set("dmnd-inp-picNm", picNm)
+		    	SBUxMethod.set("dmnd-inp-actnRslt", actnRslt)
+	    	}
+
 	    }
 	}
 </script>
