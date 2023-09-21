@@ -43,63 +43,63 @@ public interface ComCdMapper {
 	 * @param comCdVO
 	 * @return
 	 */
-	public List<ComCdVO> selectComCdDtlList(ComCdVO comCdVO);
+	public List<ComCdVO> selectComCdDtlList(ComCdVO comCdVO) throws Exception;
 
 	/**
 	 * 공통코드 등록
 	 * @param comCdVO
 	 * @return inserted count
 	 */
-	public int insertComCd(ComCdVO comCdVO);
+	public int insertComCd(ComCdVO comCdVO) throws Exception;
 
 	/**
 	 * 공통코드 변경
 	 * @param comCdVO
 	 * @return updated count
 	 */
-	public int updateComCd(ComCdVO comCdVO);
+	public int updateComCd(ComCdVO comCdVO) throws Exception;
 
 	/**
 	 * 공통코드 삭제
 	 * @param comCdVO
 	 * @return deleted count
 	 */
-	public int deleteComCd(ComCdVO comCdVO);
+	public int deleteComCd(ComCdVO comCdVO) throws Exception;
 
 	/**
 	 * 공통코드 상세 등록
 	 * @param comCdVO
 	 * @return inserted count
 	 */
-	public int insertComCdDtl(ComCdVO comCdVO);
+	public int insertComCdDtl(ComCdVO comCdVO) throws Exception;
 
 	/**
 	 * 공통코드 상세 변경
 	 * @param comCdVO
 	 * @return updated count
 	 */
-	public int updateComCdDtl(ComCdVO comCdVO);
+	public int updateComCdDtl(ComCdVO comCdVO) throws Exception;
 
 	/**
 	 * 공통코드 상세 사용유무 변경
 	 * @param comCdVO
 	 * @return updated count
 	 */
-	public int updateComCdDtlDelYn(ComCdVO comCdVO);
+	public int updateComCdDtlDelYn(ComCdVO comCdVO) throws Exception;
 
 	/**
 	 * 공통코드 상세 사용유무 전체변경
 	 * @param comCdVO
 	 * @return updated count
 	 */
-	public int comCdDtlDelYnAll(ComCdVO comCdVO);
+	public int comCdDtlDelYnAll(ComCdVO comCdVO) throws Exception;
 
 	/**
 	 * 공통코드 상세 삭제
 	 * @param comCdVO
 	 * @return deleted count
 	 */
-	public int deleteComCdDtl(ComCdVO comCdVO);
+	public int deleteComCdDtl(ComCdVO comCdVO) throws Exception;
 
 	/**
 	 * 콤보박스 공통코드 리스트
@@ -107,7 +107,7 @@ public interface ComCdMapper {
 	 * @return List<ComCdVO>
 	 * @throws Exception
 	 */
-	public List<ComCdVO> selectComBoCdDtlList(ComCdVO comCdVO);
+	public List<ComCdVO> selectComBoCdDtlList(ComCdVO comCdVO) throws Exception;
 
 	/**
 	 * 공통코드 중복 체크
@@ -115,7 +115,7 @@ public interface ComCdMapper {
 	 * @return result
 	 * @throws Exception
 	 */
-	public int duplicateCheckCdId(ComCdVO comCdVO);
+	public int duplicateCheckCdId(ComCdVO comCdVO) throws Exception;
 
 	/**
 	 * 공통코드 상세 중복 체크
@@ -123,5 +123,13 @@ public interface ComCdMapper {
 	 * @return result
 	 * @throws Exception
 	 */
-	public int duplicateCheckCdIdDtl(ComCdVO comCdVO);
+	public int duplicateCheckCdIdDtl(ComCdVO comCdVO) throws Exception;
+
+	/**
+	 * APC별 설비 목록 조회
+	 * @param ComCdVO
+	 * @return List<ComCdVO>
+	 * @throws Exception
+	 */
+	public List<ComCdVO> selectFcltList(ComCdVO comCdVO) throws Exception;
 }

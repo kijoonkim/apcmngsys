@@ -10,9 +10,9 @@
 	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-header" style="text-align:right;" >
-				<h3 class="box-title" style="line-height: 30px; float:left;"><sbux-label id="lbl-apcNm" name="lbl-apcNm"></sbux-label></h3>
+				<h3 class="box-title" style="line-height: 30px; float:left;"><sbux-label id="lbl-apcNm" name="lbl-apcNm" style="font-weight:bold;"></sbux-label></h3>
 				<span style="display:inline-block;">
-				<h4 style="float:left; margin:5px 20px 0 0;">품목</h4>
+				<h5 style="float:left; margin:9px 16px 0 0; color:black;">품목</h5>
 				<sbux-select
 					id="slt-itemCd"
 					name="slt-itemCd"
@@ -55,7 +55,7 @@
 					</colgroup>
 					<thead>
 						<tr>
-							<th colspan="5"><p style="text-align:center"><sbux-label id="lbl-today" name="lbl-today"></sbux-label></th>
+							<th colspan="5"><p style="text-align:center;"><sbux-label id="lbl-today" name="lbl-today" style="font-weight:bold;"></sbux-label></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -138,42 +138,44 @@
 	var chartSpmt;
 
 	var chartDataWrhs = [
-		{month: "1월", value: 4000},
-		{month: "2월", value: 3000},
-		{month: "3월", value: 3500},
-		{month: "4월", value: 2000},
-		{month: "5월", value: 2800},
-		{month: "6월", value: 5000},
-		{month: "7월", value: 4000},
-		{month: "8월", value: 2000},
-		{month: "9월", value: 3000},
+		{month: "1월", wrhs: 4000, wrhsLine: 4000},
+		{month: "2월", wrhs: 3000, wrhsLine: 3000},
+		{month: "3월", wrhs: 3500, wrhsLine: 3500},
+		{month: "4월", wrhs: 2000, wrhsLine: 2000},
+		{month: "5월", wrhs: 2800, wrhsLine: 2800},
+		{month: "6월", wrhs: 5000, wrhsLine: 5000},
+		{month: "7월", wrhs: 4000, wrhsLine: 4000},
+		{month: "8월", wrhs: 2000, wrhsLine: 2000},
+		{month: "9월", wrhs: 3000, wrhsLine: 3000},
 	]
 	var chartDataSort = [
-		{month: "1월", value: 1500},
-		{month: "2월", value: 2000},
-		{month: "3월", value: 7000},
-		{month: "4월", value: 2500},
-		{month: "5월", value: 2800},
-		{month: "6월", value: 5000},
-		{month: "7월", value: 2000},
-		{month: "8월", value: 2000},
-		{month: "9월", value: 500},
+		{month: "1월", sort: 1500, pckg : 1500, pckgLine : 1500},
+		{month: "2월", sort: 2000, pckg : 2000, pckgLine : 2000},
+		{month: "3월", sort: 7000, pckg : 6800, pckgLine : 6800},
+		{month: "4월", sort: 2500, pckg : 2400, pckgLine : 2400},
+		{month: "5월", sort: 2800, pckg : 2700, pckgLine : 2700},
+		{month: "6월", sort: 5000, pckg : 4800, pckgLine : 4800},
+		{month: "7월", sort: 2000, pckg : 2000, pckgLine : 2000},
+		{month: "8월", sort: 2000, pckg : 1900, pckgLine : 1900},
+		{month: "9월", sort: 500,  pckg : 400 , pckgLine : 400},
 	]
 	var chartDataSpmt = [
-		{month: "1월", value: 3000},
-		{month: "2월", value: 2000},
-		{month: "3월", value: 1500},
-		{month: "4월", value: 5000},
-		{month: "5월", value: 4800},
-		{month: "6월", value: 2000},
-		{month: "7월", value: 3000},
-		{month: "8월", value: 2000},
-		{month: "9월", value: 3000},
+		{month: "1월", spmt: 3000, spmtLine : 3000},
+		{month: "2월", spmt: 2000, spmtLine : 2000},
+		{month: "3월", spmt: 1500, spmtLine : 1500},
+		{month: "4월", spmt: 5000, spmtLine : 5000},
+		{month: "5월", spmt: 4800, spmtLine : 4000},
+		{month: "6월", spmt: 2000, spmtLine : 2000},
+		{month: "7월", spmt: 3000, spmtLine : 3000},
+		{month: "8월", spmt: 2000, spmtLine : 2000},
+		{month: "9월", spmt: 3000, spmtLine : 3000},
 	]
 	const createChartWrhs = async function (){
 		var chartConfig = {
 			global: { // 전역 설정들
-
+				color: {
+			          pattern: ['#8995E1', 'red']
+			    },
 			},
 		 	grid: {
 		        y: {
@@ -184,11 +186,18 @@
 				}
 	      	},
 			data: {
-				type: 'bar',
+				types: {wrhs: 'bar', wrhsLine: 'spline'},
 				json: chartDataWrhs,
 				keys: { // data 타입을 json 형태로 받아올 때에만 사용
 					x: "month",
-					value: ["value"]
+					value: ["wrhs", "wrhsLine"]
+				},
+			},
+			extend: {
+				line: {
+					setLinesWidth: [
+						{"key":"wrhsLine", "width":2}
+					],
 				}
 			},
 			axis: {
@@ -203,7 +212,11 @@
 			},
 			tooltip: {
                 custom: function(data) {
-                  	return '<div style="color: white; border: 3px solid black;">' + chartDataWrhs[data[0].x].month + " : " + data[0].value + '</div>';
+                  	return '<div style="color: white; border: 3px solid black;">'
+                  	 	 + chartDataWrhs[data[0].x].month
+            	      	 + '<br>'
+            	      	 + '입고 : ' + data[0].value
+            		  	 + '</div>';
             	}
 			},
 			legend: {
@@ -218,7 +231,9 @@
 	const createChartSort = async function (){
 		var chartConfig = {
 			global: { // 전역 설정들
-
+				color: {
+			          pattern: ['#4458DB', '#8995E1', 'red']
+			    },
 			},
 		 	grid: {
 		        y: {
@@ -230,11 +245,18 @@
 				}
 	      	},
 			data: {
-				type: 'bar',
+				types: {sort: 'bar', pckg: 'bar', pckgLine: 'spline'},
 				json: chartDataSort,
 				keys: { // data 타입을 json 형태로 받아올 때에만 사용
 					x: "month",
-					value: ["value"]
+					value: ["sort", "pckg", "pckgLine"]
+				},
+			},
+			extend: {
+				line: {
+					setLinesWidth: [
+						{"key":"pckgLine", "width":2}
+					],
 				}
 			},
 			axis: {
@@ -248,7 +270,13 @@
 			},
 			tooltip: {
                 custom: function(data) {
-                  	return '<div style="color: white; border: 3px solid black;">' + chartDataSort[data[0].x].month + " : " + data[0].value + '</div>';
+                  	return '<div style="color: white; border: 3px solid black;">'
+                  	      + chartDataSort[data[0].x].month
+                  	      + '<br>'
+                  	      + '선별 : ' + data[0].value
+                  	      + '<br>'
+                  	      + "포장 : " + data[2].value
+                  		  +	'</div>';
             	}
 			},
 			legend: {
@@ -262,7 +290,9 @@
 	const createChartSpmt = async function (){
 		var chartConfig = {
 			global: { // 전역 설정들
-
+				color: {
+					pattern: ['#8995E1', 'red']
+			    },
 			},
 		 	grid: {
 		        y: {
@@ -273,11 +303,18 @@
 				}
 	      	},
 			data: {
-				type: 'bar',
+				types: {spmt: 'bar', spmtLine: 'spline'},
 				json: chartDataSpmt,
 				keys: { // data 타입을 json 형태로 받아올 때에만 사용
 					x: "month",
-					value: ["value"]
+					value: ["spmt", "spmtLine"]
+				},
+			},
+			extend: {
+				line: {
+					setLinesWidth: [
+						{"key":"spmtLine", "width":2}
+					],
 				}
 			},
 			axis: {
@@ -291,7 +328,11 @@
 			},
 			tooltip: {
                 custom: function(data) {
-                  	return '<div style="color: white; border: 3px solid black;">' + chartDataSpmt[data[0].x].month + " : " + data[0].value + '</div>';
+                	return '<div style="color: white; border: 3px solid black;">'
+             	 	 	 + chartDataSpmt[data[0].x].month
+		       	      	 + '<br>'
+		       	      	 + '출고 : ' + data[0].value
+		       		  	 + '</div>';
             	}
 			},
 			legend: {

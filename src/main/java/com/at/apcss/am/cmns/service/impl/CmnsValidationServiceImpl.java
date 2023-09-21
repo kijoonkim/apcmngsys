@@ -45,11 +45,29 @@ public class CmnsValidationServiceImpl extends BaseServiceImpl implements CmnsVa
 	}
 
 	@Override
+	public String selectChkCdDelible(String apcCd, String cdId, String cdVl, String extrArgs) throws Exception {
+
+		CmnsValidationVO paramVO = new CmnsValidationVO();
+		paramVO.setApcCd(apcCd);
+		paramVO.setCdId(cdId);
+		paramVO.setCdVl(cdVl);
+		paramVO.setExtrArgs(extrArgs);
+
+		CmnsValidationVO resultVO = selectChkCdDelible(paramVO);
+		if (resultVO != null) {
+			return resultVO.getRtnMsg();
+		} else {
+			return "error";
+		}
+	}
+
+
+	@Override
 	public CmnsValidationVO selectChkCdDelible(CmnsValidationVO cmnsValidationVO) throws Exception {
 
 		CmnsValidationVO resultVO = cmnsValidationMapper.selectChkCdDelible(cmnsValidationVO);
-
 		return resultVO;
 	}
+
 
 }

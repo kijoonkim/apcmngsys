@@ -27,5 +27,7 @@ public interface CmnsValidationService {
 	 */
 	public String selectChkCdDelible(String apcCd, String cdId, String cdVl) throws Exception;
 
+	public String selectChkCdDelible(String apcCd, String cdId, String cdVl, String extrArgs) throws Exception;
+
 	public CmnsValidationVO selectChkCdDelible(CmnsValidationVO cmnsValidationVO) throws Exception;
 }

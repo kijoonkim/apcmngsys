@@ -265,22 +265,6 @@
     	<jsp:include page="../../am/popup/cnptPopup.jsp"></jsp:include>
     </div>
 
-    <!-- 리포트출력 Modal -->
-    <div>
-        <sbux-modal
-	        id="modal-clipReport"
-	        name="modal-clipReport"
-	        uitype="large"
-	        header-title="클립리포트"
-	        body-html-id="body-modal-clipReport"
-	        header-is-close-button="false"
-	        footer-is-close-button="false"
-	        style="width:95vw;height:80vh;"
-        ></sbux-modal>
-    </div>
-    <div id="body-modal-clipReport">
-    	<jsp:include page="../../am/popup/clipReportPopup.jsp"></jsp:include>
-    </div>
 </body>
 <script type="text/javascript">
 
@@ -840,12 +824,7 @@
  		}
 
  		const spmtno = spmtnoList.join("','");
- 		popClipReport.modalView(
- 				"modal-clipReport",
- 				"송품장",
- 				"am/trsprtCmdtyDoc.crf",
- 				{apcCd: gv_selectedApcCd, spmtno: spmtno}
- 			);
+ 		gfn_popClipReport("송품장", "am/trsprtCmdtyDoc.crf", {apcCd: gv_selectedApcCd, spmtno: spmtno});
  	}
 
 </script>

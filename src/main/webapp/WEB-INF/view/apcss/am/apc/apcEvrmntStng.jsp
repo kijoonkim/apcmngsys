@@ -185,9 +185,9 @@
 							</td>
 						</tr>
 						<tr>
-							<th class="ta_r th_bg" scope="row">출하포장단위 관리</th>
+							<th class="ta_r th_bg" scope="row">상품 관리</th>
 							<td class="td_input" colspan="2">
-								<sbux-button id="btnSpmtPckgUnit" name="btnSpmtPckgUnit" uitype="modal" text="품목별 출하포장단위 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spmtPckgUnit" onclick="fn_modal('btnSpmtPckgUnit')"></sbux-button>
+								<sbux-button id="btnSpmtPckgUnit" name="btnSpmtPckgUnit" uitype="modal" text="품목별 상품 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-spmtPckgUnit" onclick="fn_modal('btnSpmtPckgUnit')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
 								선택한 품목별로 APC에서 관리하는 출하포장단위을 등록하세요.
@@ -543,9 +543,9 @@
     <div id="body-modal-stdGrd">
     	<jsp:include page="../apc/grdMngPopup.jsp"></jsp:include>
     </div>
-    <!-- 출하포장단위 등록 Modal -->
+    <!-- 상품 등록 Modal -->
     <div>
-        <sbux-modal id="modal-spmtPckgUnit" name="modal-spmtPckgUnit" uitype="middle" header-title="출하포장단위 등록" body-html-id="body-modal-spmtPckgUnit" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-spmtPckgUnit" name="modal-spmtPckgUnit" uitype="middle" header-title="상품 등록" body-html-id="body-modal-spmtPckgUnit" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-spmtPckgUnit">
     	<jsp:include page="../apc/spmtPckgUnitMngPopup.jsp"></jsp:include>
@@ -819,8 +819,7 @@
             	cnptMngDatagrid.addRow(true);
             }else if (grid === "grdFclt") {
             	grdFclt.setCellData(nRow, nCol, "N", true);
-            	grdFclt.setCellData(nRow, 4, gv_apcCd, true);
-            	grdFclt.setCellData(nRow, 5, "FCLT_CD", true);
+            	grdFclt.setCellData(nRow, 5, gv_apcCd, true);
             	grdFclt.addRow(true);
             }else if (grid === "grdWarehouse") {
             	grdWarehouse.setCellData(nRow, nCol, "N", true);
