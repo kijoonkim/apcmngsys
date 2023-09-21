@@ -57,9 +57,14 @@ public class PrfrmImprvDmndVO extends ComVO{
 	 * 조치예정자
 	 * */
 	private String pic;
+	private String picNm;
 	/*
 	 * 조치결과
 	 * */
 	private String actnRslt;
+	/*
+	 * 조치상태
+	 * */
+	private String dmndStts;
 
 }
