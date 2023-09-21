@@ -26,7 +26,7 @@
 	    		  #{apcCd} 	AS APC_CD
 	    		, #{cdId} 	AS CD_ID
 	    		, #{cdVl} 	AS CD_VL
-	    		, FN_CHK_CD_DELIBLE(#{apcCd}, #{cdId}, #{cdVl}) AS RTN_MSG
+	    		, FN_CHK_CD_DELIBLE(#{apcCd}, #{cdId}, #{cdVl}, #{extrArgs}) AS RTN_MSG
 			  FROM DUAL
 		]]>
     </select>

@@ -1,5 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : regSortCmnd.jsp
+  * @Description : 선별지시등록 화면
+  * @author SI개발부
+  * @since 2023.08.31
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.08.31   	신정철			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +26,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 선별지시등록 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
@@ -73,12 +88,12 @@
    								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button 
-									id="btn-srch-prdcr" 
-									name="btn-srch-prdcr" 
-									class="btn btn-xs btn-outline-dark" 
-									text="찾기" uitype="modal" 
-									target-id="modal-prdcr" 
+								<sbux-button
+									id="btn-srch-prdcr"
+									name="btn-srch-prdcr"
+									class="btn btn-xs btn-outline-dark"
+									text="찾기" uitype="modal"
+									target-id="modal-prdcr"
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
@@ -163,7 +178,7 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
-			gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComFclt, 		'FCLT_CD', gv_selectedApcCd),			// 설비
+			gfn_setComCdSBSelect('srch-slt-inptFclt', 		jsonComFclt, 		'SORT_FCLT_CD', gv_selectedApcCd),			// 설비
 			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, gv_selectedApcCd),		// 품목
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd)		// 품종
 		]);
@@ -639,7 +654,7 @@
 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
 		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
-	
+
 	/**
 	* @name fn_onKeyUpPrdcrNm
 	* @description 생산자명 입력 시 event : autocomplete
@@ -662,7 +677,7 @@
 		SBUxMethod.set("srch-inp-prdcrCd", "");
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
 	}
-	
+
 	/**
 	 * @name fn_onSelectPrdcrNm
 	 * @description 생산자 autocomplete 선택 callback
@@ -677,7 +692,7 @@
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 		}
 	}
-	
+
 	/**
 	 * @name fn_choicePrdcr
 	 * @description 생산자 찾기 버튼 클릭
@@ -703,7 +718,7 @@
 				SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 			}
 		}
-	
+
 </script>
 
 </html>
