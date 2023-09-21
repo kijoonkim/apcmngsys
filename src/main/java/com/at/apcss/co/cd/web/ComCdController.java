@@ -1,5 +1,6 @@
 package com.at.apcss.co.cd.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.cd.vo.ComCdVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 /**
  * 공통코드정보 처리하는 컨트롤러 클래스
@@ -216,6 +218,46 @@ public class ComCdController extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 		resultMap.put("result", result);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC 설비 목록 조회
+	@PostMapping(value = "/co/cd/selectFcltList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFcltList(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComCdVO> resultList = new ArrayList<>();
+		try {
+			resultList = comCdService.selectFcltList(comCdVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+	// 공통코드 상세 등록
+	@PostMapping(value = "/co/cd/multiSaveComCdDtlList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSaveComCdDtlList(@RequestBody List<ComCdVO> comCdList, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+		try {
+			for (ComCdVO comCdVO : comCdList) {
+				comCdVO.setSysFrstInptPrgrmId(getPrgrmId());
+				comCdVO.setSysFrstInptUserId(getUserId());
+				comCdVO.setSysLastChgPrgrmId(getPrgrmId());
+				comCdVO.setSysLastChgUserId(getUserId());
+			}
+
+			savedCnt = comCdService.multiSaveComCdDtlList(comCdList);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
 

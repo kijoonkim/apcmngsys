@@ -18,7 +18,7 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectFcltList()"></sbux-button>
+					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFcltList"></sbux-button>
 					<sbux-button id="btnEndFclt" name="btnEndFclt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-fclt')"></sbux-button>
 				</div>
@@ -58,11 +58,18 @@
 <script type="text/javascript">
 	//설비 등록
 	var jsonFclt = []; // 그리드의 참조 데이터 주소 선언
-	async function fn_fcltMngCreateGrid() {
+	var jsonComFcltGubun = [];
+
+	const fn_initSBSelectFclt = async function() {
+
+		let rst = await Promise.all([
+			gfn_setComCdSBSelect('grdFclt', 		jsonComFcltGubun, 	'FCLT_GUBUN') 		// 설비구분
+		])
+
+	}
+	const fn_fcltMngCreateGrid = async function() {
 
 		SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
-
-		jsonFclt = [];
 
 		let SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdFclt';
@@ -73,8 +80,10 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["설비 명"], 		ref: 'cdVlNm',   	type:'input',  width:'250px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
-	        {caption: ["비고"], 		ref: 'cdVlExpln',   type:'input',  width:'300px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
+	    	{caption: ["설비구분"], 	ref: 'cdId',   	type:'combo',  width:'100px',    style:'text-align:center;',
+				typeinfo : {ref:'jsonComFcltGubun', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+	        {caption: ["설비 명"], 	ref: 'cdVlNm',   type:'input',  width:'250px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
+	        {caption: ["비고"], 		ref: 'cdVlExpln',   type:'input',  width:'200px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
 	        {caption: ["표시순서"], 	ref: 'indctSeq',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
@@ -84,24 +93,23 @@
 	        	}
 	        }},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
-	        {caption: ["공통ID"], 		ref: 'cdId',   		type:'input',  hidden : true},
-	        {caption: ["설비 코드"], 	ref: 'cdVlCd',   	type:'input',  hidden:true},
+	        {caption: ["설비 코드"], 		ref: 'cdVlCd',   	type:'input',  hidden:true},
 	    ];
-	    window.grdFclt = _SBGrid.create(SBGridProperties);
-	    fn_selectFcltList();
+	    grdFclt = _SBGrid.create(SBGridProperties);
+	    let rst = await Promise.all([
+	    	fn_initSBSelectFclt(),
+		    fn_searchFcltList()
+		])
+		grdFclt.refresh({"combo":true});
+
 	}
 
-	async function fn_selectFcltList(){
-		fn_callSelectFcltList();
-	}
-
-
-	async function fn_callSelectFcltList(){
+	const fn_searchFcltList = async function(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
-    	let postJsonPromise = gfn_postJSON("/co/cd/comCdDtls", {apcCd : apcCd, cdId : 'FCLT_CD'});
+    	let postJsonPromise = gfn_postJSON("/co/cd/selectFcltList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        let newJsonFclt = [];
         try{
+        	jsonFclt.length = 0;
         	data.resultList.forEach((item, index) => {
 				let fcltVO = {
 					rowSeq 		: item.rowSeq
@@ -113,9 +121,8 @@
 				  , apcCd 		: item.apcCd
 				  , cdId 		: item.cdId
 				}
-				newJsonFclt.push(fcltVO);
+				jsonFclt.push(fcltVO);
 			});
-        	jsonFclt = newJsonFclt;
         	grdFclt.rebuild();
         	grdFclt.addRow();
         }catch (e) {
@@ -126,45 +133,70 @@
         }
 	}
 
-	async function fn_saveFcltList(){
+
+
+
+	const fn_saveFcltList = async function(){
+
+
 		let gridData = grdFclt.getGridDataAll();
-		let insertList = [];
-		let updateList = [];
-		let insertCnt = 0;
-		let updateCnt = 0;
+		let saveList = [];
+
 		for(var i=1; i<=gridData.length; i++ ){
-			if(grdFclt.getRowData(i).delYn == 'N'){
 
-				if(grdFclt.getRowData(i).cdVlNm == null || grdFclt.getRowData(i).cdVlNm == ""){
-					alert("설비 명은 필수 값 입니다.");
-					return;
-				}
+			let rowData = grdFclt.getRowData(i);
+			let rowSts = grdFclt.getRowStatus(i);
+			let fcltNm = rowData.cdVlNm;
+			let fcltGubun = rowData.cdId;
+			let delYn = rowData.delYn;
 
-				if(grdFclt.getRowStatus(i) === 3){
-					insertList.push(grdFclt.getRowData(i));
-				}
-				if(grdFclt.getRowStatus(i) === 2){
-					updateList.push(grdFclt.getRowData(i));
+			if(delYn == 'N'){
+
+				if (gfn_isEmpty(fcltNm)) {
+		  			gfn_comAlert("W0002", "설비명");		//	W0002	{0}을/를 입력하세요.
+		            return;
+		  		}
+
+				if (gfn_isEmpty(fcltGubun)) {
+		  			gfn_comAlert("W0001", "설비구분");		//	W0001	{0}을/를 선택하세요.
+		            return;
+		  		}
+
+				if (rowSts === 3){
+					rowData.rowSts = "I";
+					saveList.push(rowData);
+				} else if (rowSts === 2){
+					rowData.rowSts = "U";
+					saveList.push(rowData);
+				} else {
+					continue;
 				}
 			}
 		}
-		if(insertList.length == 0 && updateList.length == 0){
-			alert("저장 할 내용이 없습니다.");
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
+
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 
-			if(insertList.length > 0){
-				insertCnt = await fn_callInsertRsrcList(insertList);
-			}
-			if(updateList.length > 0){
-				updateCnt = await fn_callUpdateRsrcList(updateList);
-			}
-			if(insertCnt + updateCnt > 0 ){
-				fn_callSelectFcltList();
-				alert("저장 되었습니다.");
-			}
+			let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
+	        let data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_searchFcltList();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+
 		}
 	}
 

@@ -401,4 +401,29 @@
     	]]>
     </update>
 
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectFcltList			-->
+	<!-- DESC : APC별 설비 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectFcltList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectFcltList */
+				   CD.CD_ID         AS CD_ID
+			     , CD.CD_VL			AS CD_VL
+			     , CD.APC_CD		AS APC_CD
+			     , CD.CD_VL_NM		AS CD_VL_NM
+			     , CD.CD_VL_EXPLN	AS CD_VL_EXPLN
+			     , CD.INDCT_SEQ		AS INDCT_SEQ
+			     , CD.DEL_YN		AS DEL_YN
+			  FROM TB_COM_CD_DTL CD
+			 WHERE CD.APC_CD = #{apcCd}
+			   AND CD.CD_ID IN ('SORT_FCLT', 'PCKG_FCLT')
+			 ORDER BY CD.CD_ID DESC, CD.INDCT_SEQ
+		]]>
+    </select>
+
 </mapper>

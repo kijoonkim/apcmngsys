@@ -114,13 +114,28 @@ public interface ComCdService {
 	 * @param comCdVO
 	 * @return updated count
 	 */
-	public int updateComCdDtlDelYn(ComCdVO comCdVO);
+	public int updateComCdDtlDelYn(ComCdVO comCdVO) throws Exception;
 
 	/**
 	 * 공통코드 상세 사용유무 전체변경
 	 * @param comCdVO
 	 * @return updated count
 	 */
-	public int comCdDtlDelYnAll(ComCdVO comCdVO);
+	public int comCdDtlDelYnAll(ComCdVO comCdVO) throws Exception;
+
+	/**
+	 * APC별 설비 목록 조회
+	 * @param ComCdVO
+	 * @return List<ComCdVO>
+	 * @throws Exception
+	 */
+	public List<ComCdVO> selectFcltList(ComCdVO comCdVO) throws Exception;
+
+	/**
+	 * 공통코드 상세 멀티 저장
+	 * @param comCdList
+	 * @return updated count
+	 */
+	public int multiSaveComCdDtlList(List<ComCdVO> comCdList) throws Exception;
 
 }
