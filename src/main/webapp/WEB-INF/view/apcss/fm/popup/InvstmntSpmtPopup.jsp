@@ -95,11 +95,8 @@
 		gridJson: [],
 		callbackFnc: function() {},
 		init: async function(_apcCd, _apcNm, _callbackFnc) {
-			console.log("pop");
-			console.log(_apcCd);
-			console.log(_apcNm);
-			console.log(this)
 
+			SBUxMethod.set("apc-inp-apcCd", _apcCd);
 			SBUxMethod.attr('btnSearchApc', 'disabled', false);
 
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
@@ -107,26 +104,14 @@
 			}
 			this.createGrid();
 			this.search();
-
-			/*
-			if (grdInvstmntSpmtPop === null || this.prvApcCd != _apcCd) {
-				let rst = await Promise.all([
-					//gfn_getApcList('grdApc', jsonApcItemPop),				// APC 리스트
-				]);
-				this.createGrid();
-				this.search();
-			} else {
-				grdInvstmntSpmtPop.bind('dblclick', popInvstmntSpmt.choice);
-				this.search();
-			}
-
-			this.prvApcCd = _apcCd;
-			*/
 		},
-		close: function(_apc) {
-			console.log("===========close============");
-			console.log(_apc);
-			gfn_closeModal(this.modalId, this.callbackFnc, _apc);
+		close: function(rowData) {
+			gfn_closeModal(this.modalId, this.callbackFnc, rowData);
+		},
+		choice: function() {
+			let nRow = grdInvstmntSpmtPop.getRow();
+			let rowData = grdInvstmntSpmtPop.getRowData(nRow);
+			popInvstmntSpmt.close(rowData);
 		},
 		createGrid: function(/** {boolean} */ isEditable) {
 			var SBGridProperties = {};
@@ -164,7 +149,6 @@
 		    //this.search();
 		},
 		search: async function(/** {boolean} */ isEditable) {
-			console.log("===========search============");
 			// set pagination
 			grdInvstmntSpmtPop.rebuild();
 	    	let pageSize = grdInvstmntSpmtPop.getPageSize();
@@ -182,12 +166,6 @@
 	    	var codeNm = SBUxMethod.get("srch-inp-codeNm");		//조직명
 	    	var mainGbn = SBUxMethod.get("srch-slt-mainGbn");	//생산유통통합조직여부
 	    	var subGbn = SBUxMethod.get("srch-slt-subGbn");		//출자출하조직여부
-
-			console.log("setGrid 호출 / code : " + code + "/ 타입 : " + typeof(code)
-						+"\n / codeNm : " + codeNm + "/ 타입 : " + typeof(codeNm)
-						+"\n / mainGbn : " + mainGbn + "/ 타입 : " + typeof(mainGbn)
-						+"\n / subGbn : " + subGbn + "/ 타입 : " + typeof(CodeNm)
-						);
 
 	        const postJsonPromise = gfn_postJSON("/fm/popup/selectInvstmntSpmtList.do", {
 	        	searchCode : code,
@@ -220,7 +198,6 @@
 					jsonInvstmntSpmtPop.push(apc);
 					if (index === 0) {
 						totalRecordCount = item.totalRecordCount;
-						console.log("totalRecordCount = "+totalRecordCount);
 					}
 				});
 

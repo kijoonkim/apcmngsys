@@ -1189,11 +1189,12 @@
 		popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setInvstmntSpmt);
 	}
 	//통합조직 출자출하조직 팝업 콜백함수
-	const fn_setInvstmntSpmt = function(apc) {
-		if (!gfn_isEmpty(apc)) {
-			SBUxMethod.set("srch-inp-apcCd1", apc.apcCd);
-			SBUxMethod.set("srch-inp-apcNm1", apc.apcNm);
-
+	const fn_setInvstmntSpmt = function(rowData) {
+		if (!gfn_isEmpty(rowData)) {
+			SBUxMethod.set("srch-inp-apcCd1", rowData.mainCode);
+			SBUxMethod.set("srch-inp-apcNm1", rowData.mainCodeNm);
+			SBUxMethod.set("srch-inp-apcCd2", rowData.subCode);
+			SBUxMethod.set("srch-inp-apcNm2", rowData.subCodeNm);
 		}
 	}
 

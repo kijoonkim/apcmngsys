@@ -66,13 +66,14 @@
 			                , A AS MAIN_CODE_NM --생산유통통합조직명,
 			                , '' AS SUB_CODE -- 출자출하조직코드,
 			                , '' AS SUB_CODE_NM -- 출자출하조직명,
-			                , 'N' AS MAIN_GBN
+			                , 'Y' AS MAIN_GBN
 			                , 'N' AS SUB_GBN -- 출자출하조직여부 -- 생산유통통합조직 - 기초생산자 - 농가
 			                , '생산유통톻합조직-기초생산자-농가' AS GBN_NM
 			                , '생산유통톻합조직-기초생산자-농가' AS GBN_NM_REMARK
 			           FROM TB_APC_TOTAL_INFO
 			   )A
 			WHERE 1=1
+
 			  <if test='searchCode != null and searchCode != ""'>
 			  AND ( MAIN_CODE LIKE '%' || #{searchCode} || '%' OR  SUB_CODE LIKE '%' || #{searchCode} || '%' )
 			  </if>
