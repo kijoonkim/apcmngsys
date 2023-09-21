@@ -32,6 +32,8 @@
     		 	, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)	AS SPCFCT_NM
     		 	, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)					AS CNPT_NM
     		 	, (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL)			AS TRSPRT_CO_NM
+    		 	, SUM(pt0.SPMT_QNTT) OVER()			AS TOT_SPMT_QNTT
+	    		, SUM(pt0.SPMT_WGHT) OVER()			AS TOT_SPMT_WGHT
     		 FROM (
     	</if>
     	<if test='pagingYn == null or pagingYn.equals("N")'>
@@ -42,6 +44,8 @@
     		 	, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)	AS SPCFCT_NM
     		 	, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)					AS CNPT_NM
     		 	, (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL)			AS TRSPRT_CO_NM
+    		 	, SUM(pt0.SPMT_QNTT) OVER()			AS TOT_SPMT_QNTT
+	    		, SUM(pt0.SPMT_WGHT) OVER()			AS TOT_SPMT_WGHT
     		 FROM (
     	</if>
     	<!-- End 페이징 -->
@@ -54,16 +58,14 @@
 	    		 , VC.ITEM_CD						AS ITEM_CD
 	    		 , PD.VRTY_CD						AS VRTY_CD
 	    		 , PD.SPCFCT_CD						AS SPCFCT_CD
-	    		 , PC.CNPT_CD						AS CNPT_CD
-	    		 , PC.DLDTN							AS DLDTN
-	    		 , PC.TRSPRT_CO_CD					AS TRSPRT_CO_CD
-	    		 , PC.VHCLNO						AS VHCLNO
-	    		 , PC.TRSPRT_CST					AS TRSPRT_CST
-	    		 , PD.SPMT_QNTT						AS SPMT_QNTT
-	    		 , PD.SPMT_WGHT						AS SPMT_WGHT
-	    		 , SUM(PC.TRSPRT_CST) OVER()		AS TOT_TRSPRT_CST
-	    		 , SUM(PD.SPMT_QNTT) OVER()			AS TOT_SPMT_QNTT
-	    		 , SUM(PD.SPMT_WGHT) OVER()			AS TOT_SPMT_WGHT
+	    		 , MAX(PC.CNPT_CD)					AS CNPT_CD
+	    		 , MAX(PC.DLDTN)					AS DLDTN
+	    		 , MAX(PC.TRSPRT_CO_CD)				AS TRSPRT_CO_CD
+	    		 , MAX(PC.VHCLNO)					AS VHCLNO
+	    		 , MAX(PC.TRSPRT_CST)				AS TRSPRT_CST
+	    		 , SUM(PD.SPMT_QNTT)				AS SPMT_QNTT
+	    		 , SUM(PD.SPMT_WGHT)				AS SPMT_WGHT
+                 , MAX(PC.RMRK)                     AS RMRK
 			  FROM
 				   TB_SPMT_PRFMNC_COM		PC
 				 , TB_SPMT_PRFMNC_DTL		PD
@@ -87,6 +89,7 @@
 			   AND VC.DEL_YN = 'N'
 			   AND GI.DEL_YN = 'N'
 	    	   AND CI.DEL_YN = 'N'
+
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 			   AND PC.APC_CD = #{apcCd}
@@ -128,15 +131,6 @@
 	    		 	, VC.ITEM_CD
 	    		 	, PD.VRTY_CD
 	    		 	, PD.SPCFCT_CD
-	    		 	, PC.DLDTN
-	    		 	, PC.TRSPRT_CO_CD
-	    		 	, PC.VHCLNO
-	    		 	, PC.TRSPRT_CST
-	    		 	, PD.SPMT_QNTT
-	    		 	, PD.SPMT_WGHT
-	    		 	, PC.CNPT_CD
-	    		 	, PC.DEL_YN
-	    		 	, CI.CNPT_NM
 	    		 	, PC.APC_CD
 		]]>
 		<!-- Start 페이징 -->
