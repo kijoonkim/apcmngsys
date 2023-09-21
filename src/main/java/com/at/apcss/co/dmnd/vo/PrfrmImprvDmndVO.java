@@ -32,6 +32,14 @@ public class PrfrmImprvDmndVO extends ComVO{
 	 * */
 	private String dmndYmd;
 	/*
+	 * 요청시작일자
+	 * */
+	private String dmndYmdFrom;
+	/*
+	 * 요청종료일자
+	 * */
+	private String dmndYmdTo;
+	/*
 	 * 순번
 	 * */
 	private String sn;
