@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.sort.service.SortCmndService;
 import com.at.apcss.am.sort.vo.SortCmndVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -40,8 +40,6 @@ public class SortCmndController extends BaseController {
 	@Resource(name = "sortCmndService")
 	private SortCmndService sortCmndService;
 
-	@Resource(name= "cmnsTaskNoService")
-	private CmnsTaskNoService cmnsTaskNoService;
 
 	@PostMapping(value = "/am/sort/selectSortCmndList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectSortCmndList(@RequestBody SortCmndVO sortCmndVO, HttpServletRequest request) throws Exception {
@@ -62,21 +60,15 @@ public class SortCmndController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> insertSortCmndList(@RequestBody List<SortCmndVO> sortCmndList, HttpServletRequest request) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		int insertedCnt=0;
+		int insertedCnt = 0;
 		try {
-			String sortCmndno = cmnsTaskNoService.selectSortCmndno(sortCmndList.get(0).getApcCd(), sortCmndList.get(0).getSortCmndYmd());
-			int sn=1;
 			for (SortCmndVO sortCmndVO : sortCmndList) {
 				sortCmndVO.setSysFrstInptPrgrmId(getPrgrmId());
 				sortCmndVO.setSysFrstInptUserId(getPrgrmId());
 				sortCmndVO.setSysLastChgPrgrmId(getPrgrmId());
 				sortCmndVO.setSysLastChgUserId(getUserId());
-				sortCmndVO.setSortCmndSn(sn);
-				sortCmndVO.setSortCmndno(sortCmndno);
-				insertedCnt += sortCmndService.insertSortCmnd(sortCmndVO);
-	
-				sn++;
 			}
+			insertedCnt = sortCmndService.insertSortCmndList(sortCmndList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -93,8 +85,10 @@ public class SortCmndController extends BaseController {
 		int deletedCnt=0;
 		try {
 			for (SortCmndVO sortCmndVO : sortCmndList) {
-				deletedCnt += sortCmndService.deleteSortCmnd(sortCmndVO);
+				sortCmndVO.setSysLastChgPrgrmId(getPrgrmId());
+				sortCmndVO.setSysLastChgUserId(getUserId());
 			}
+			deletedCnt = sortCmndService.deleteSortCmndList(sortCmndList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -106,7 +100,7 @@ public class SortCmndController extends BaseController {
 	@PostMapping(value = "/am/sort/selectPckgCmndTrgetList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectPckgCmndTrgetList(@RequestBody SortCmndVO sortCmndVO, HttpServletRequest request) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<SortCmndVO> resultList = new ArrayList<>();
+		List<SortInvntrVO> resultList = new ArrayList<>();
 		try {
 			resultList = sortCmndService.selectPckgCmndTrgetList(sortCmndVO);
 		} catch (Exception e) {

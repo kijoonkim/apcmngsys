@@ -2,6 +2,7 @@ package com.at.apcss.am.sort.service;
 
 import java.util.List;
 
+import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.sort.vo.SortCmndVO;
 
 /**
@@ -19,7 +20,7 @@ import com.at.apcss.am.sort.vo.SortCmndVO;
  * </pre>
  */
 public interface SortCmndService {
-	
+
 	/**
 	 * 선별지시 단건 조회
 	 * @param sortCmndVO
@@ -61,11 +62,29 @@ public interface SortCmndService {
 	public int deleteSortCmnd(SortCmndVO sortCmndVO) throws Exception;
 
 	/**
-	 * 포장지시대상 내역 조회
-	 * 
-	 * @param sortCmndVO
-	 * @return
+	 * 선별재고 내역 목록 조회
+	 *
+	 * @param SortCmndVO
+	 * @return List<SortInvntrVO>
 	 * @throws Exception
 	 */
-	public List<SortCmndVO> selectPckgCmndTrgetList(SortCmndVO sortCmndVO) throws Exception;
+	public List<SortInvntrVO> selectPckgCmndTrgetList(SortCmndVO sortCmndVO) throws Exception;
+
+	/**
+	 * 선별지시 리스트 등록
+	 *
+	 * @param List<SortCmndVO>
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int insertSortCmndList(List<SortCmndVO> sortCmndList) throws Exception;
+
+	/**
+	 * 선별지시 리스트 삭제
+	 *
+	 * @param List<SortCmndVO>
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int deleteSortCmndList(List<SortCmndVO> sortCmndList) throws Exception;
 }
