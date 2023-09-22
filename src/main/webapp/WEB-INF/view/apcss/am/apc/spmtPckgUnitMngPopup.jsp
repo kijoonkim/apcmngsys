@@ -104,6 +104,7 @@
 		let selectItemCd = SBUxMethod.get("spmtPckgUnit-slt-itemCd");
 		gfn_setApcVrtySBSelect("grdSpmtPckgUnit", 		jsonSPUGrdVrtyCd, gv_apcCd, selectItemCd);		// APC 품종(저장)
 		gfn_setApcSpcfctsSBSelect("grdSpmtPckgUnit", 	jsonSPUGrdSpcfctCd, gv_apcCd, selectItemCd);	// APC 규격(저장)
+		grdSpmtPckgUnit.refresh({"combo":true});
 		fn_selectSpmtPckgUnitList();
 	}
 
