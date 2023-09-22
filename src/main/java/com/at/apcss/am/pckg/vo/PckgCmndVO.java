@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PckgCmndVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -158,5 +158,19 @@ public class PckgCmndVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
+
+	/**
+	 * 선별재고번호
+	 */
+	private String sortno;
+	/**
+	 * 선벌재고순번
+	 */
+	private String sortSn;
+
+	/**
+	 * 창고
+	 */
+	private String warehouseSeCd;
 
 }

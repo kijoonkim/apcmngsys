@@ -25,7 +25,7 @@
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
     			, pt0.*
-	    		,(SELECT FN_GET_COM_CD_VL_NM('FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) 		AS FCLT_NM
+	    		,(SELECT FN_GET_COM_CD_VL_NM('PCKG_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) 		AS FCLT_NM
 				,(SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)   		AS VRTY_NM
 				,(SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)    	AS SPCFCT_NM
 				,(SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)	AS GDS_NM
@@ -35,7 +35,7 @@
     	<if test='pagingYn == null or pagingYn.equals("N")'>
     		SELECT
     			  pt0.*
-	    		,(SELECT FN_GET_COM_CD_VL_NM('FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) 		AS FCLT_NM
+	    		,(SELECT FN_GET_COM_CD_VL_NM('PCKG_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) 		AS FCLT_NM
 				,(SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)   		AS VRTY_NM
 				,(SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)    	AS SPCFCT_NM
 				,(SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)	AS GDS_NM
@@ -44,32 +44,35 @@
     	</if>
     	<![CDATA[
     		 SELECT /* com.at.apcss.am.pckg.mapper.PckgCmndMapper.selectPckgCmndList */
-				PC.APC_CD    		AS APC_CD
-				,PC.PCKG_CMNDNO   	AS PCKG_CMNDNO
-				,PC.PCKG_CMND_SN    AS PCKG_CMND_SN
-				,PC.PCKG_CMND_YMD   AS PCKG_CMND_YMD
-				,PC.FCLT_CD    		AS FCLT_CD
-				,PC.CNPT_CD  		AS CNPT_CD
-				,PC.DUDT_YMD  		AS DUDT_YMD
-				,PC.ITEM_CD   		AS ITEM_CD
-				,PC.VRTY_CD   		AS VRTY_CD
-				,PC.SPCFCT_CD    	AS SPCFCT_CD
-				,PC.OUTORDR_QNTT  		AS OUTORDR_QNTT
-				,PC.OUTORDR_WGHT    	AS OUTORDR_WGHT
-				,PC.BX_GDS_QNTT    	AS BX_GDS_QNTT
-				,PC.CMND_QNTT   	AS CMND_QNTT
-				,PC.CMND_WGHT    	AS CMND_WGHT
-				,PP.PCKG_QNTT		AS PCKG_QNTT
-				,PP.PCKG_WGHT		AS PCKG_WGHT
-				,PC.OUTORDRNO    		AS OUTORDRNO
-				,PC.GDS_CD   		AS GDS_CD
-				,PC.RMRK    		AS RMRK
-				,PC.DEL_YN    		AS DEL_YN
+				    PC.APC_CD    		AS APC_CD
+				  ,	PC.PCKG_CMNDNO   	AS PCKG_CMNDNO
+				  , PC.PCKG_CMND_SN    	AS PCKG_CMND_SN
+				  , PC.PCKG_CMND_YMD   	AS PCKG_CMND_YMD
+				  , PC.FCLT_CD    		AS FCLT_CD
+				  , PC.CNPT_CD  		AS CNPT_CD
+				  , PC.DUDT_YMD  		AS DUDT_YMD
+				  , PC.ITEM_CD   		AS ITEM_CD
+				  , PC.VRTY_CD   		AS VRTY_CD
+				  , PC.SPCFCT_CD    	AS SPCFCT_CD
+				  , PC.OUTORDR_QNTT  	AS OUTORDR_QNTT
+				  , PC.OUTORDR_WGHT    	AS OUTORDR_WGHT
+				  , PC.BX_GDS_QNTT    	AS BX_GDS_QNTT
+				  , PC.CMND_QNTT   		AS CMND_QNTT
+				  , PC.CMND_WGHT    	AS CMND_WGHT
+				  , PP.PCKG_QNTT		AS PCKG_QNTT
+				  , PP.PCKG_WGHT		AS PCKG_WGHT
+				  , PC.OUTORDRNO    	AS OUTORDRNO
+				  , PC.GDS_CD   		AS GDS_CD
+				  , PC.RMRK    			AS RMRK
+				  , PC.DEL_YN    		AS DEL_YN
+				  , PC.SORTNO				AS SORTNO
+				  , PC.SORT_SN				AS SORT_SN
+				  , PC.WAREHOUSE_SE_CD		AS WAREHOUSE_SE_CD
 			  FROM TB_PCKG_CMND PC
-					, TB_PCKG_PRFMNC PP
+			     , TB_PCKG_PRFMNC PP
 			 WHERE PC.APC_CD = #{apcCd}
-			 AND PC.APC_CD = PP.APC_CD(+)
-			 AND PC.PCKG_CMNDNO = PP.PCKG_CMNDNO(+)
+			   AND PC.APC_CD = PP.APC_CD(+)
+			   AND PC.PCKG_CMNDNO = PP.PCKG_CMNDNO(+)
 		]]>
 		<if test='pckgCmndYmd != null and pckgCmndYmd != ""'>
 			 AND PC.PCKG_CMND_YMD = #{pckgCmndYmd}
@@ -124,7 +127,7 @@
 	   			INSERT  /* com.at.apcss.am.pckg.mapper.PckgCmndMapper.insertPckgInpt */
 	   			INTO TB_PCKG_CMND
 	   			(
-	   				APC_CD
+	   				  APC_CD
 					, PCKG_CMNDNO
 					, PCKG_CMND_SN
 					, PCKG_CMND_YMD
@@ -142,7 +145,9 @@
 					, OUTORDRNO
 					, GDS_CD
 					, RMRK
-					, DEL_YN
+					, SORTNO
+					, SORT_SN
+					, WAREHOUSE_SE_CD
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -152,7 +157,7 @@
 				)
 				VALUES
 				(
-					#{apcCd}
+					  #{apcCd}
 					, #{pckgCmndno}
 					, #{pckgCmndSn}
 					, #{pckgCmndYmd}
@@ -170,7 +175,9 @@
 					, #{outordrno}
 					, #{gdsCd}
 					, #{rmrk}
-					, #{delYn}
+					, #{sortno}
+					, #{sortSn}
+					, #{warehouseSeCd}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -189,15 +196,19 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.21  	정희운			Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deletePckgCmnd" parameterType="com.at.apcss.am.pckg.vo.PckgCmndVO">
+    <update id="deletePckgCmnd" parameterType="com.at.apcss.am.pckg.vo.PckgCmndVO">
     	<![CDATA[
-	    	DELETE /* com.at.apcss.am.pckg.mapper.PckgCmndMapper.deletePckgInpt */
-			  FROM TB_PCKG_CMND
+	    	UPDATE /* com.at.apcss.am.pckg.mapper.PckgCmndMapper.deletePckgInpt */
+			       TB_PCKG_CMND
+			   SET SYS_LAST_CHG_DT 			= SYSDATE
+				 , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				 , DEL_YN					= 'Y'
 			 WHERE APC_CD = #{apcCd}
 			   AND PCKG_CMNDNO = #{pckgCmndno}
 			   AND PCKG_CMND_SN = #{pckgCmndSn}
 		]]>
-	</delete>
+	</update>
 
 
 

@@ -21,42 +21,58 @@ import com.at.apcss.am.pckg.vo.PckgCmndVO;
 public interface PckgCmndService {
 
 	/**
-	 * 포장지시 
+	 * 포장지시 단건 조회
 	 * @param pckgCmndVO
 	 * @return
 	 * @throws Exception
 	 */
 	public PckgCmndVO selectPckgCmnd(PckgCmndVO pckgCmndVO) throws Exception;
-	
+
 	/**
-	 * 포장지시 
+	 * 포장지시 목록 조회
 	 * @param pckgCmndVO
 	 * @return
 	 * @throws Exception
 	 */
 	public List<PckgCmndVO> selectPckgCmndList(PckgCmndVO pckgCmndVO) throws Exception;
-	
+
 	/**
-	 * 포장지시 
+	 * 포장지시 등록
 	 * @param pckgCmndVO
 	 * @return
 	 * @throws Exception
 	 */
 	public int insertPckgCmnd(PckgCmndVO pckgCmndVO) throws Exception;
-	
+
 	/**
-	 * 포장지시 
+	 * 포장지시 수정
 	 * @param pckgCmndVO
 	 * @return
 	 * @throws Exception
 	 */
 	public int updatePckgCmnd(PckgCmndVO pckgCmndVO) throws Exception;
-	
+
 	/**
-	 * 포장지시 
+	 * 포장지시 삭제
 	 * @param pckgCmndVO
 	 * @return
 	 * @throws Exception
 	 */
 	public int deletePckgCmnd(PckgCmndVO pckgCmndVO) throws Exception;
+
+	/**
+	 * 포장지시 리스트 등록
+	 * @param pckgCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertPckgCmndList(List<PckgCmndVO> pckgCmndList) throws Exception;
+
+	/**
+	 * 포장지시 리스트 삭제
+	 * @param pckgCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deletePckgCmndList(List<PckgCmndVO> pckgCmndList) throws Exception;
 }
