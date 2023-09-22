@@ -1,5 +1,6 @@
 package com.at.apcss.am.sort.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.at.apcss.am.sort.service.SortPrfmncService;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
 import com.at.apcss.am.whrs.service.RawMtrWrhsService;
 import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -35,40 +37,57 @@ import com.at.apcss.co.sys.controller.BaseController;
  */
 @Controller
 public class SortPrfmncController extends BaseController {
-	
+
 	@Resource(name = "sortPrfmncService")
 	private SortPrfmncService sortPrfmncService;
 
-	
+	@PostMapping(value = "/am/sort/selectSortPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSortPrfmncList(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<SortPrfmncVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = sortPrfmncService.selectSortPrfmncList(sortPrfmncVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
 	@PostMapping(value = "/am/sort/insertSortPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertSortPrfmncList(@RequestBody List<SortPrfmncVO> sortPrfmncList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
-			
+
 			for ( SortPrfmncVO sortPrfmncVO : sortPrfmncList ) {
 				sortPrfmncVO.setSysFrstInptUserId(getUserId());
 				sortPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
 				sortPrfmncVO.setSysLastChgUserId(getUserId());
 				sortPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
-				
+
 				sortPrfmncVO.setSysFrstInptUserId("admin");
 				sortPrfmncVO.setSysFrstInptPrgrmId("testprgrm");
 				sortPrfmncVO.setSysLastChgUserId("admin");
 				sortPrfmncVO.setSysLastChgPrgrmId("testprgrm");
 			}
-			
+
 			HashMap<String, Object> rtnObj = sortPrfmncService.insertSortPrfmncList(sortPrfmncList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
-			
+
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
 }
