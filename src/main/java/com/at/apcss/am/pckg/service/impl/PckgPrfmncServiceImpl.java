@@ -105,7 +105,8 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 
 			}
 
-			if (!StringUtils.hasText(pckgPrfmncVO.getGdsCd())) {
+			if (!StringUtils.hasText(pckgPrfmncVO.getGdsCd())
+					&& StringUtils.hasText(pckgPrfmncVO.getSpmtPckgUnitCd())) {
 				CmnsGdsVO cmnsGdsVO = new CmnsGdsVO();
 				BeanUtils.copyProperties(pckgPrfmncVO, cmnsGdsVO);
 				rtnObj = cmnsGdsService.insertCheckGdsCd(cmnsGdsVO);

@@ -85,6 +85,8 @@ public class SortPrfmncVO extends ComVO {
 	 */
 	private String spcfctCd;
 
+	private String spcfctNm;
+
 	/**
 	 * 창고구분코드
 	 */

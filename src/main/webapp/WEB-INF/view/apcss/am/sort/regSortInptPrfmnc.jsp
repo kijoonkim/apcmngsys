@@ -513,7 +513,7 @@
 	        {caption: ["입고구분명"],	ref: 'wrhsSeNm', 	type:'output',  hidden: true},
 	        {caption: ["운송구분명"],	ref: 'trsprtSeNm', 	type:'output',  hidden: true},
 	        {caption: ["박스종류명"],	ref: 'bxKndNm', 	type:'output',  hidden: true},
-	        {caption: [" "," "],	ref: '_',		type:'output',  width:'1px'},
+	        {caption: [" "],	ref: '_',		type:'output',  width:'1px'},
     	];
 		grdRawMtrInvntr = _SBGrid.create(SBGridProperties);
 		grdRawMtrInvntr.bind('valuechanged', fn_grdRawMtrInvntrValueChanged);
