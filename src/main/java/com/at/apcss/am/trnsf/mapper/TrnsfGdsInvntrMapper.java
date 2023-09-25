@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.at.apcss.am.invntr.vo.GdsInvntrVO;
-import com.at.apcss.am.invntr.vo.GdsStdGrdVO;
 import com.at.apcss.am.trnsf.vo.TrnsfGdsInvntrVO;
 
 /**

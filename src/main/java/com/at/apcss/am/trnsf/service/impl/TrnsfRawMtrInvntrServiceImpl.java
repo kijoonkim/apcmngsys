@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.BeanUtils;
 
-import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.trnsf.mapper.TrnsfRawMtrInvntrMapper;
 import com.at.apcss.am.trnsf.service.TrnsfRawMtrInvntrService;
 import com.at.apcss.am.trnsf.vo.TrnsfRawMtrInvntrVO;

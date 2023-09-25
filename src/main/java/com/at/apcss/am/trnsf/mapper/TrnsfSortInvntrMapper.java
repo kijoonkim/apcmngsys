@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
-import com.at.apcss.am.invntr.vo.SortStdGrdVO;
 import com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO;
 
 /**

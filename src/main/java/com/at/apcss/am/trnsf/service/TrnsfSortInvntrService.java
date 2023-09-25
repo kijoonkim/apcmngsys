@@ -3,7 +3,6 @@ package com.at.apcss.am.trnsf.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO;
 
 /**

@@ -13,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.invntr.service.GdsInvntrService;
-import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.trnsf.service.TrnsfGdsInvntrService;
 import com.at.apcss.am.trnsf.vo.TrnsfGdsInvntrVO;
 import com.at.apcss.co.constants.ComConstants;

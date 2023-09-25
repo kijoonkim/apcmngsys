@@ -13,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.invntr.service.SortInvntrService;
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.trnsf.service.TrnsfSortInvntrService;
 import com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO;
 import com.at.apcss.co.constants.ComConstants;

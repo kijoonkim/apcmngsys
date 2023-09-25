@@ -7,19 +7,11 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import com.at.apcss.am.invntr.mapper.SortInvntrMapper;
-import com.at.apcss.am.invntr.service.SortInvntrService;
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
-import com.at.apcss.am.invntr.vo.SortStdGrdVO;
 import com.at.apcss.am.trnsf.mapper.TrnsfSortInvntrMapper;
 import com.at.apcss.am.trnsf.service.TrnsfSortInvntrService;
 import com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO;
-import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : SortInvntrServiceImpl.java
