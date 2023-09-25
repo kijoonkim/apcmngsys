@@ -76,7 +76,7 @@
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<div class="ad_section_top">
-					<div class="ad_tbl_top">
+					<div class="ad_tbl_top2">
 						<ul class="ad_tbl_count">
 							<li>
 								<span style="color: black;">원물운임비용 목록</span>
@@ -84,9 +84,21 @@
 							</li>
 						</ul>
 					 	<div class="ad_tbl_toplist">
+							<sbux-button id="btnTrsprtCstDwnld" name="btnTrsprtCstDwnld" uitype="normal" text="내려받기" class="btn btn-sm btn-outline-danger" onclick="popTrsrptCst.dwnld" >내려받기</sbux-button>
+							<sbux-button id="btnTrsprtCstUld" name="btnTrsprtCstUld" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="popTrsrptCst.uld">올리기</sbux-button>
 						</div>
 					</div>
 					<div id="sb-area-grdTrsrptCst" style="width:100%;height:300px;"></div>
+					<!-- 엑셀 시트별 데이터 영역 -->
+					<div class="exp-div-excel" style="display: none;width: 1000px;">
+						<div id="sbexp-area-grdExpTrsprtCst" style="height:1px; width: 100%;"></div>
+						<div id="sbexp-area-grdExpTrsprtSeCd" style="height:1px; width: 100%;"></div>
+						<div id="sbexp-area-grdExpTrsprtRgnCd" style="height:1px; width: 100%;"></div>
+<!-- 						<div id="sbexp-area-grdExpBxKnd" style="height:1px; width: 100%;"></div> -->
+						<div id="sbexp-area-grdExpBankCd" style="height:1px; width: 100%;"></div>
+<!-- 						<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)"> -->
+					</div>
+					<!-- //엑셀 시트별 데이터 영역 -->
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -98,11 +110,27 @@
 
 	var jsonComTrsprtSeCd 		= [];	// 운송구분 	trsprtSeCd		Grid
 	var jsonComTrsprtRgnCd		= [];	// 운송지역	trsprtRgnCd		Grid
+	var jsonComBankCd 			= [];	// 은행코드
 	var jsonRgnTrsprtCst		= [];	// 지역별 운임비용
 
 	var grdTrsptCstPop = null;
-    var jsonVhcl = [];
 	isExist = false
+	
+	// exp grid json
+	var jsonExpTrsprtCst = [];
+	var jsonExpTrsprtSeCd = [];
+	var jsonExpTrsprtRgnCd = [];
+	var jsonExpBankCd = [];
+	
+	var jsonExpSltTrsprtCst = [];
+	var jsonExpSltTrsprtSeCd = [];
+	var jsonExpSltTrsprtRgnCd = [];
+	var jsonExpSltBankCd = [];
+	
+	var grdExpTrsprtCst;
+	var grdExpTrsprtSeCd;
+	var grdExpTrsprtRgnCd;
+	var grdExpBankCd;
 
     /**
 	 * @description 원물운임비용등록 팝업
@@ -136,7 +164,8 @@
 			if (grdTrsptCstPop === null || this.prvApcCd != _apcCd) {
 				let rst = await Promise.all([
 					gfn_setComCdGridSelect('grdTrsprtCstPop', 		jsonComTrsprtSeCd, 	'TRSPRT_SE_CD'),	// 운송구분
-					gfn_setTrsprtRgnSBSelect('grdTrsprtCstPop', 	jsonComTrsprtRgnCd, _apcCd)				// 운송지역
+					gfn_setTrsprtRgnSBSelect('grdTrsprtCstPop', 	jsonComTrsprtRgnCd, _apcCd)	,			// 운송지역
+					gfn_setComCdGridSelect('grdTrsprtCstPop', 		jsonComBankCd, 	'BANK_CD')				// 은행코드
 				]);
 				this.createGrid();
 				this.search();
@@ -186,9 +215,9 @@
 		        {caption: ['기사명'], 	ref: 'drvrNm',		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
 		        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', width: '100px', type: 'combo', 			style: 'text-align: center', sortable: false, 	
 					typeinfo : {ref:'jsonComTrsprtRgnCd', label:'label', value:'value', itemcount: 10}},
-		        {caption: ['중량'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false,
+		        {caption: ['중량'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output', 		style: 'text-align: right',	 sortable: false,
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###Kg'}},
-		        {caption: ['운임비용'],	ref: 'trsprtCst', 	width: '100px',	type: 'input', 			style: 'text-align: center', sortable: false,
+		        {caption: ['운임비용'],	ref: 'trsprtCst', 	width: '100px',	type: 'input', 			style: 'text-align: right',  sortable: false,
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}, validate : gfn_chkByte.bind({byteLimit: 5})},
 		        {caption: ['은행'],		ref: 'bankNm', 		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
 		        {caption: ['계좌'],		ref: 'actno', 		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
@@ -482,7 +511,205 @@
 	    		}
 	    		console.error("failed", e.message);
 	        }
-	    }
+	    },
+	    // 엑셀 내려받기, 올리기
+		getExpColumns: function() {
+			const _columns = []
+			_columns.push(
+					{caption: ['운송일자'], 	ref: 'trsprtYmd', 	width:'120px',	type: 'output',	style: 'text-align: center',
+				    	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+			        {caption: ['운송구분'], 	ref: 'trsprtSeCd',	width: '100px',	type: 'combo',	style: 'text-align: center',		
+						typeinfo : {ref:'jsonExpSltTrsprtSeCd', label:'label', value:'value', itemcount: 10}},
+			        {caption: ['차량번호'], 	ref: 'vhclno',		width: '100px',	type: 'output',	style: 'text-align: center',		
+						typeinfo : {callback: fn_grdChoiceVhcl}},
+			        {caption: ['기사명'], 	ref: 'drvrNm',		width: '100px',	type: 'output',	style: 'text-align: center'},
+			        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', width: '100px', type: 'combo',	style: 'text-align: center', 	
+						typeinfo : {ref:'jsonExpSltTrsprtRgnCd', label:'label', value:'value', itemcount: 10}},
+			        {caption: ['중량'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output',	style: 'text-align: right',
+						typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###Kg'}},
+			        {caption: ['운임비용'],	ref: 'trsprtCst', 	width: '100px',	type: 'output',	style: 'text-align: right',
+						typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+			        {caption: ['은행'],		ref: 'bankCd', 		width: '100px',	type: 'combo',	style: 'text-align: center',		
+						typeinfo : {ref:'jsonExpSltBankCd', label:'label', value:'value', itemcount: 10}},
+			        {caption: ['계좌'],		ref: 'actno', 		width: '100px',	type: 'output',	style: 'text-align: center'},
+			        {caption: ['예금주'],	 	ref: 'dpstr', 		width: '80px',	type: 'output',	style: 'text-align: center'},
+			        {caption: ['비고'],		ref: 'rmrk', 		width: '240px',	type: 'output'}
+			);
+		    return _columns;
+		},
+		setSltJson: async function() {
+			// set exp/imp combo json
+			// 운송구분
+			jsonExpSltTrsprtSeCd = gfn_cloneJson(jsonComTrsprtSeCd);
+			// 운송지역
+			jsonExpSltTrsprtRgnCd = gfn_cloneJson(jsonComTrsprtRgnCd);
+			// 은행
+			jsonExpSltBankCd = gfn_cloneJson(jsonComBankCd);
+		},
+		setExpJson: async function() {
+			// export grid data
+			jsonExpTrsprtCst.length = 0;
+			jsonExpTrsprtSeCd = gfn_cloneJson(jsonComTrsprtSeCd);
+			jsonExpTrsprtRgnCd = gfn_cloneJson(jsonComTrsprtRgnCd);
+			jsonExpBankCd = gfn_cloneJson(jsonComBankCd);
+		},
+		createExpGrid: async function(_expObjList) {
+			_expObjList.forEach( (exp, idx) => {
+				var SBGridProperties = {};
+				SBGridProperties.parentid = exp.parentid;
+				SBGridProperties.id = exp.id;
+				SBGridProperties.jsonref = exp.jsonref;
+				SBGridProperties.emptyrecords = '데이터가 없습니다.';;
+				SBGridProperties.selectmode = 'byrow';
+				SBGridProperties.extendlastcol = 'none';
+				SBGridProperties.columns = exp.columns;
+
+				exp.sbGrid = _SBGrid.create(SBGridProperties);
+				if (exp.id == "grdExpTrsprtCst"){
+					exp.sbGrid.addRow(true);
+				}
+			});
+		},
+		dwnld: async function(){
+// 			console.log("운송구분: ", jsonExpTrsprtSeCd);
+// 			console.log("운송지역: ", jsonExpTrsprtRgnCd);
+// 			console.log("은행: ", jsonExpBankCd);
+// 			const itemCd = SBUxMethod.get("srch-slt-itemCd");			// 품목
+
+// 			if (gfn_isEmpty(itemCd)) {
+// 				gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
+// 	            return;
+// 			}
+
+			await this.setSltJson();
+			await this.setExpJson();
+
+			const expColumns = this.getExpColumns();
+			
+			const expObjList = [
+			    {
+			        sbGrid: grdExpTrsprtCst,
+			        parentid: "sbexp-area-grdExpTrsprtCst",
+			        id: "grdExpTrsprtCst",
+			        jsonref: "jsonExpTrsprtCst",
+					columns: expColumns,
+			        sheetName: "원물운임비용목록",
+			        title: "",
+			        unit: ""
+			    }, {
+			        sbGrid: grdExpTrsprtSeCd,
+			        parentid: "sbexp-area-grdExpTrsprtSeCd",
+			        id: "grdExpTrsprtSeCd",
+			        jsonref: "jsonExpTrsprtSeCd",
+					columns: [
+				    	{caption: ["운송구분코드"],   	ref: 'value',  	type:'output',  width:'100px',    style:'text-align:center'},
+				    	{caption: ["운송구분코드명"],  	ref: 'label',  	type:'output',  width:'100px',    style:'text-align:center'}
+					],
+			        sheetName: "운송구분",
+			        title: "",
+			        unit: ""
+			    }, {
+			        sbGrid: grdExpTrsprtRgnCd,
+			        parentid: "sbexp-area-grdExpTrsprtRgnCd",
+			        id: "grdExpTrsprtRgnCd",
+			        jsonref: "jsonExpTrsprtRgnCd",
+					columns: [
+				    	{caption: ["운송지역코드"],   	ref: 'trsprtRgnCd',  	type:'output',  width:'100px',    style:'text-align:center'},
+				    	{caption: ["운송지역코드명"],  	ref: 'trsprtRgnNm',  	type:'output',  width:'100px',    style:'text-align:center'}
+					],
+			        sheetName: "운송지역",
+			        title: "",
+			        unit: ""
+			    }, /*{
+			        sbGrid: grdExpBxKnd,
+			        parentid: "sbexp-area-grdExpBxKnd",
+			        id: "grdExpBxKnd",
+			        jsonref: "jsonExpBxKnd",
+					columns: [
+				    	{caption: ["운송지역코드"],   	ref: 'value',  	type:'output',  width:'100px',    style:'text-align:center'},
+				    	{caption: ["운송지역코드명"],  	ref: 'text',  	type:'output',  width:'100px',    style:'text-align:center'},
+				    	{caption: ["운임비용"],   	ref: 'value',  	type:'output',  width:'100px',    style:'text-align:center'}
+					],
+			        sheetName: "운임비용",
+			        title: "",
+			        unit: ""
+			    },*/ {
+			        sbGrid: grdExpBankCd,
+			        parentid: "sbexp-area-grdExpBankCd",
+			        id: "grdExpBankCd",
+			        jsonref: "jsonExpBankCd",
+					columns: [
+				    	{caption: ["은행코드"],   	ref: 'value',  	type:'output',  width:'100px',    style:'text-align:center'},
+				    	{caption: ["은행코드명"],   	ref: 'label',  	type:'output',  width:'100px',    style:'text-align:center'}
+					],
+			        sheetName: "은행",
+			        title: "",
+			        unit: ""
+			    }
+			];
+
+			await this.createExpGrid(expObjList);
+
+		    //gfn_exportExcelMulti("원물운임비용(샘플).xlsx", expObjList);
+		    this.exportExcelMulti("원물운임비용(샘플).xlsx", expObjList);
+		},
+		exportExcelMulti: function(_fileName, _objList) {
+			var objExcelInfo = {
+				strFileName : _fileName,
+				strAction : "/am/excel/saveMultiExcel",
+				bIsStyle: true,
+				bIsMerge: true,
+				bUseFormat: false,
+				bIncludeData: true,
+				bUseCompress: false
+			};
+
+			var dataList = [];
+			var sheetNameList = [];
+			var titleList = [];
+			var unitList = [];
+			var arrAdditionalData = [];
+
+			_objList.forEach((item, index) => {
+				sheetNameList.push(item.sheetName);
+				titleList.push(item.title);
+				unitList.push(item.unit);
+
+				if (index > 0) {
+					var data = item.sbGrid.exportExcel(objExcelInfo, "return");
+					dataList.push(data);
+				}
+			});
+
+			arrAdditionalData.push(
+	           {"name": "arrSheetData", "value": JSON.stringify(dataList)},
+	           {"name": "arrSheetName", "value": JSON.stringify(sheetNameList)},
+	           {"name": "arrTitle", "value": JSON.stringify(titleList)},
+	           {"name": "arrUnit", "value": JSON.stringify(unitList)}
+			);
+
+			objExcelInfo.arrAdditionalData = arrAdditionalData;
+			_objList[0].sbGrid.exportExcel(objExcelInfo);
+		},
+	     uld: async function() {
+			const impColumns = this.getExpColumns();
+			await this.setSltJson();
+
+			var SBGridProperties = {};
+			SBGridProperties.emptyrecords = '데이터가 없습니다.';
+			SBGridProperties.selectmode = 'byrow';
+			SBGridProperties.extendlastcol = 'scroll';
+			SBGridProperties.oneclickedit = true;
+			SBGridProperties.columns = impColumns;
+			popImp.importExcel(
+	    			"원물운임비용 Import",
+	    			SBGridProperties,
+	    			this.importTrsprtCst
+				);
+	     },
+	     importTrsprtCst: async function() {
+	    	 alert('import data save');
+	     }
    	}
 
 	/* 원물운임비용 등록에서 사용 차량선택 팝업 호출 필수 function  */
