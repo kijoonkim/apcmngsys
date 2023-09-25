@@ -28,55 +28,66 @@
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
-					<colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-					</colgroup>
+
 					<tbody>
 						<tr>
 							<th scope="row">출자출하조직</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-apcCd1" name="srch-inp-apcCd1" uitype="hidden" ></sbux-input>
+								<sbux-input id="srch-inp-apcNm1" name="srch-inp-apcNm1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							</td>
+							<td>
+								<sbux-button id="srch-btn-apc1" name="srch-btn-apc1" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceInvstmntSpmt" />
 							</td>
 							<th scope="row">생산유통통합조직</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-apcCd2" name="srch-inp-apcCd2" uitype="hidden" ></sbux-input>
+								<sbux-input id="srch-inp-apcNm2" name="srch-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							</td>
+							<td>
+								<sbux-button id="srch-btn-apc2" name="srch-btn-apc2" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc3" />
 							</td>
 							<th scope="row">품목/품종</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-item00" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" class="form-control input-sm" unselected-text="선택">
+									<option-item value="감자">감자</option-item>
+									<option-item value="고구마">고구마</option-item>
+								</sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-item01" name="srch-slt-item" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="선택">
+									<option-item value="히카마">히카마</option-item>
+									<option-item value="당근고구마">당근고구마</option-item>
+									<option-item value="깐고구마">깐고구마</option-item>
+									<option-item value="건고구마">건고구마</option-item>
+								</sbux-select>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">출하기간</th>
 							<td colspan="3" class="td_input"  style="border-right: hidden;">
 								<div style="display: flex;">
-									<sbux-datepicker id="srch-inp-enggtYmd2" name="srch-inp-enggtYmd2" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+									<sbux-datepicker id="srch-inp-spmtStrDt" name="srch-inp-spmtStrDt" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 									<span>~</span>
-									<sbux-datepicker id="srch-inp-enggtYmd3" name="srch-inp-enggtYmd3" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+									<sbux-datepicker id="srch-inp-spmtEndDt" name="srch-inp-spmtEndDt" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 								</div>
 							</td>
 
 							<th scope="row">출하방법</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-spcfct00" name="srch-slt-spcfct" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-spmtType" name="srch-slt-spmtType" uitype="single" class="form-control input-sm" unselected-text="선택">
+									<option-item value="유형1">유형1</option-item>
+									<option-item value="유형2">유형2</option-item>
+									<option-item value="유형3">유형3</option-item>
+								</sbux-select>
 							</td>
 							<th scope="row">취급방법</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-spcfct01" name="srch-slt-spcfct" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-trmtType" name="srch-slt-trmtType" uitype="single" class="form-control input-sm" unselected-text="선택">
+									<option-item value="유형1">유형1</option-item>
+									<option-item value="유형2">유형2</option-item>
+									<option-item value="유형3">유형3</option-item>
+								</sbux-select>
 							</td>
 
 						</tr>
@@ -118,20 +129,39 @@
 					<tbody>
 
 						<tr>
+						<th scope="row">출자출하조직</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input id="dtl-inp-apcCd2" name="dtl-inp-apcCd2" uitype="hidden" ></sbux-input>
+								<sbux-input id="dtl-inp-apcNm2" name="dtl-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							</td>
+							<td>
+								<sbux-button id="srch-btn-apc3" name="srch-btn-apc3" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc4"/>
+							</td>
+							<th scope="row">생산유통통합조직</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input id="dtl-inp-apcCd3" name="dtl-inp-apcCd3" uitype="hidden" ></sbux-input>
+								<sbux-input id="dtl-inp-apcNm3" name="dtl-inp-apcNm3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							</td>
+							<td>
+								<sbux-button id="srch-btn-apc4" name="srch-btn-apc4" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc5"/>
+							</td>
+							<td colspan="4"></td>
+						</tr>
+						<tr>
 							<th scope="row">기초생산자조직</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 
 								<sbux-input id="dtl-inp-apcCd" name="dtl-inp-apcCd" uitype="hidden"></sbux-input>
 								<sbux-input id="dtl-inp-pckgSn" name="dtl-inp-pckgSn" uitype="hidden"></sbux-input>
-								<sbux-input id="dtl-inp-apcNm" name="dtl-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<sbux-input id="dtl-inp-apcNm" name="dtl-inp-apcNm" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
 							</td>
 							<td>
-								<sbux-button id="srch-btn-apc" name="srch-btn-apc" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc"/>
+								<sbux-button id="srch-btn-apc5" name="srch-btn-apc5" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc"/>
 							</td>
 					  		<th scope="row">기초생산자조직 대표자</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-prdcrCd" name="dtl-inp-prdcrCd" uitype="hidden"></sbux-input>
-								<sbux-input id="dtl-inp-prdcrNm" name="dtl-inp-prdcrNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<sbux-input id="dtl-inp-prdcrNm" name="dtl-inp-prdcrNm" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
 							</td>
 
 							<td style="border-right: hidden;">
@@ -184,7 +214,7 @@
 
 							<th scope="row">세부사항</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-enggtVlm" name="srch-inp-enggtVlm" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="dtl-inp-dtlMttr" name="dtl-inp-dtlMttr" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
 								<sbux-button id="srch-btn-cnpt06" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="첨부" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
@@ -210,41 +240,45 @@
 							</td>
 							<th scope="row">품질등급</th>
 							<td colspan="3" class="td_input">
-								<sbux-input id="srch-inp-enggtVlm" name="srch-inp-enggtVlm" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="dtl-inp-qltGrd" name="dtl-inp-qltGrd" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
 						</tr>
 						<tr>
 						    <th scope="row">가격</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-enggtYmd" name="srch-inp-enggtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-input id="dtl-inp-prc" name="dtl-inp-prc" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
 							<th scope="row">가격공시</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-spcfct-cd" name="srch-spcfct-cd" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="dtl-slt-prcPblnt" name="dtl-slt-prcPblnt" uitype="single" class="form-control input-sm" unselected-text="선택">
+									<option-item value="게시판">게시판</option-item>
+									<option-item value="서류">서류</option-item>
+									<option-item value="무기한">무기한</option-item>
+								</sbux-select>
 							</td>
 							<th scope="row">단위</th>
 							<td colspan="3" class="td_input" >
-								<sbux-input id="srch-inp-enggtVlm" name="srch-inp-enggtVlm" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="dtl-inp-unit" name="dtl-inp-unit" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
 						</tr>
 						<tr>
 						    <th scope="row">대금지급</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-inp-enggtYmd" name="srch-inp-enggtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="dtl-inp-prcGiveDt" name="dtl-inp-prcGiveDt" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<th scope="row">특기사항</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-spcfct-cd" name="srch-spcfct-cd" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-input id="dtl-inp-spclMttr" name="dtl-inp-spclMttr" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
 							<th scope="row">선급금</th>
 							<td colspan="3" class="td_input">
-								<sbux-input id="srch-inp-enggtVlm" name="srch-inp-enggtVlm" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="dtl-inp-advncPay" name="dtl-inp-advncPay" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<th>비고</th>
 							<td colspan="11" class="td_input" >
-								<sbux-input id="srch-inp-RMRK" name="srch-inp-RMRK" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="dtl-inp-rmrk" name="dtl-inp-rmrk" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
 						</tr>
 
@@ -285,20 +319,90 @@
     <!-- APC 선택 Modal -->
     <div>
         <sbux-modal
+        	id="modal-apc2"
+        	name="modal-apc2"
+        	uitype="middle"
+        	header-title="APC명 선택"
+        	body-html-id="body-modal-apc2"
+        	footer-is-close-button="false"
+        	style="width:800px"
+       	></sbux-modal>
+    </div>
+    <div id="body-modal-apc2">
+    	<jsp:include page="../popup/apcPopup2.jsp"></jsp:include>
+    </div>
+
+    <!-- APC 선택 Modal -->
+    <!-- 상단 출자출하조직 용 -->
+    <div>
+        <sbux-modal
+        	id="modal-apc3"
+        	name="modal-apc3"
+        	uitype="middle"
+        	header-title="APC명 선택"
+        	body-html-id="body-modal-apc3"
+        	footer-is-close-button="false"
+        	style="width:800px"
+       	></sbux-modal>
+    </div>
+    <div id="body-modal-apc3">
+    	<jsp:include page="../popup/apcPopup3.jsp"></jsp:include>
+    </div>
+
+    <!-- APC 선택 Modal -->
+    <!-- 상단 생산유통통합조직 용 -->
+    <div>
+        <sbux-modal
+        	id="modal-apc4"
+        	name="modal-apc4"
+        	uitype="middle"
+        	header-title="APC명 선택"
+        	body-html-id="body-modal-apc4"
+        	footer-is-close-button="false"
+        	style="width:800px"
+       	></sbux-modal>
+    </div>
+    <div id="body-modal-apc4">
+    	<jsp:include page="../popup/apcPopup4.jsp"></jsp:include>
+    </div>
+
+    <!-- APC 선택 Modal -->
+    <!-- 상세내역 출자출하조직 용 -->
+    <div>
+        <sbux-modal
+        	id="modal-apc5"
+        	name="modal-apc5"
+        	uitype="middle"
+        	header-title="APC명 선택"
+        	body-html-id="body-modal-apc5"
+        	footer-is-close-button="false"
+        	style="width:800px"
+       	></sbux-modal>
+    </div>
+    <div id="body-modal-apc5">
+    	<jsp:include page="../popup/apcPopup5.jsp"></jsp:include>
+    </div>
+
+    <!-- APC 선택 Modal -->
+    <!-- 상세내역 생산유통통합조직 용 -->
+    <div>
+        <sbux-modal
         	id="modal-apc"
         	name="modal-apc"
         	uitype="middle"
         	header-title="APC명 선택"
         	body-html-id="body-modal-apc"
         	footer-is-close-button="false"
-        	style="width:800px"
+        	style="width:1200px"
        	></sbux-modal>
     </div>
     <div id="body-modal-apc">
     	<jsp:include page="../popup/apcPopup.jsp"></jsp:include>
     </div>
 
+
     <!-- 생산자 선택 Modal -->
+    <!-- 상세내역 기초생산자조직 용 -->
     <div>
         <sbux-modal
         	id="modal-prdcr"
@@ -315,6 +419,22 @@
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
 
+    <!-- 통합조직,출자출하조직 선택 Modal -->
+    <!-- 2023 09 22 ljw 통합조직 출자출하조직 리스트 팝업 생성 -->
+    <div>
+        <sbux-modal
+        	id="modal-invstmntSpmt"
+        	name="modal-invstmntSpmt"
+        	uitype="middle"
+        	header-title="통합조직,출자출하조직 선택"
+        	body-html-id="body-modal-invstmntSpmt"
+        	footer-is-close-button="false"
+        	style="width:1000px"
+       	></sbux-modal>
+    </div>
+    <div id="body-modal-invstmntSpmt">
+    	<jsp:include page="../popup/InvstmntSpmtPopup.jsp"></jsp:include>
+    </div>
 
 </body>
 <script type="text/javascript">
@@ -328,8 +448,8 @@
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-    	fn_createGrid();
     	fn_search();
+    	fn_createGrid();
     	fn_createGrid1();
     	gfn_setComCdSBSelect(
     			['srch-select-msgKnd', 'dtl-select-msgKnd'],
@@ -407,24 +527,6 @@
         grdComMsgList1.bind('beforepagechanged1', 'fn_pagingComMsgList1');
     }
 
-  //APC명 선택 popup
-    const fn_choiceApc = function() {
-		popApc.init(gv_selectedApcCd, gv_selectedApcNm, fn_setApc);
-	}
-
-	const fn_setApc = function(apc) {
-		if (!gfn_isEmpty(apc)) {
-			SBUxMethod.set("dtl-inp-apcCd", apc.apcCd);
-			SBUxMethod.set("dtl-inp-apcNm", apc.apcNm);
-			SBUxMethod.attr("dtl-inp-apcNm", "style", "background-color:aquamarine");	//skyblue
-
-			gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, apc.apcCd),	// 품목
-			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, apc.apcCd),	// 품종
-			gfn_setApcVrtySBSelect('dtl-slt-spmtCd', jsonApcVrty, apc.apcCd)	// 품종
-
-		}
-	}
-
 
     /**
      * 목록 조회
@@ -443,6 +545,13 @@
     }
 
     /**
+     *
+     */
+    const fn_pagingComMsgList1 = async function() {
+
+    }
+
+    /**
      * @param {number} pageSize
      * @param {number} pageNo
      */
@@ -451,9 +560,26 @@
     	// form clear
     	fn_clearForm();
 
-		grdComMsgList.clearStatus();
+		//grdComMsgList.clearStatus();
+
+		var apcCd2 = SBUxMethod.get("srch-inp-apcCd1");
+		var apcCd3 = SBUxMethod.get("srch-inp-apcCd2");
+		var itemCd = SBUxMethod.get("srch-slt-itemCd");
+		var vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		var spmtStrDt = SBUxMethod.get("srch-inp-spmtStrDt");
+		var spmtEndDt = SBUxMethod.get("srch-inp-spmtEndDt");
+		var spmtType = SBUxMethod.get("srch-slt-spmtType");
+		var trmtType = SBUxMethod.get("srch-slt-trmtType");
 
         const postJsonPromise = gfn_postJSON("/fm/spmt/selectSpmtEnggtInfoMngList.do", {
+        	apcCd2: apcCd2,
+        	apcCd3: apcCd3,
+        	itemCd: itemCd,
+        	vrtyCd: vrtyCd,
+        	spmtStrDt: spmtStrDt,
+        	spmtEndDt: spmtEndDt,
+        	spmtType: spmtType,
+        	trmtType: trmtType
 
 		});
 
@@ -487,7 +613,19 @@
 					sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,
 					sysLastChgDt: item.sysLastChgDt,
 					sysLastChgUserId: item.sysLastChgUserId,
-					sysLastChgPrgrmId: item.sysLastChgPrgrmId
+					sysLastChgPrgrmId: item.sysLastChgPrgrmId,
+					spmtStrDt: item.spmtStrDt,
+					spmtEndDt: item.spmtEndDt,
+					dtlMttr: item.dtlMttr,
+					qltGrd: item.qltGrd,
+					prc: item.prc,
+					prcPblnt: item.prcPblnt,
+					unit: item.unit,
+					prcGiveDt: item.prcGiveDt,
+					spclMttr: item.spclMttr,
+					advncPay: item.advncPay,
+					apcCd2: item.apcCd2,
+					apcCd3: item.apcCd3
 				}
 				jsonComMsgList.push(msg);
 
@@ -540,6 +678,32 @@
         SBUxMethod.set("dtl-input-sysLastChgDt", null);
         SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);
         SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);
+
+        SBUxMethod.set("dtl-inp-apcCd2", null);
+        SBUxMethod.set("dtl-inp-apcNm2", null);
+        SBUxMethod.set("dtl-inp-apcCd3", null);
+        SBUxMethod.set("dtl-inp-apcNm3", null);
+        SBUxMethod.set("dtl-inp-dtlMttr", null);
+        SBUxMethod.set("dtl-inp-qltGrd", null);
+        SBUxMethod.set("dtl-inp-prc", null);
+        SBUxMethod.set("dtl-slt-prcPblnt", null);
+        SBUxMethod.set("dtl-inp-unit", null);
+        SBUxMethod.set("dtl-inp-prcGiveDt", null);
+        SBUxMethod.set("dtl-inp-spclMttr", null);
+        SBUxMethod.set("dtl-inp-advncPay", null);
+        SBUxMethod.set("dtl-inp-rmrk", null);
+
+        /*SBUxMethod.set("srch-inp-apcCd1", null);
+        SBUxMethod.set("srch-inp-apcNm1", null);
+		SBUxMethod.set("srch-inp-apcCd2", null);
+		SBUxMethod.set("srch-inp-apcNm2", null);
+		SBUxMethod.set("srch-slt-itemCd", null);
+		SBUxMethod.set("srch-slt-vrtyCd", null);
+		SBUxMethod.set("srch-inp-spmtStrDt", null);
+		SBUxMethod.set("srch-inp-spmtEndDt", null);
+		SBUxMethod.set("srch-slt-spmtType", null);
+		SBUxMethod.set("srch-slt-trmtType", null);*/
+
     }
 
     const fn_clearForm = function() {
@@ -564,6 +728,31 @@
         SBUxMethod.set("dtl-input-sysLastChgDt", null);
         SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);
         SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);
+
+        SBUxMethod.set("dtl-inp-apcCd2", null);
+        SBUxMethod.set("dtl-inp-apcNm2", null);
+        SBUxMethod.set("dtl-inp-apcCd3", null);
+        SBUxMethod.set("dtl-inp-apcNm3", null);
+        SBUxMethod.set("dtl-inp-dtlMttr", null);
+        SBUxMethod.set("dtl-inp-qltGrd", null);
+        SBUxMethod.set("dtl-inp-prc", null);
+        SBUxMethod.set("dtl-slt-prcPblnt", null);
+        SBUxMethod.set("dtl-inp-unit", null);
+        SBUxMethod.set("dtl-inp-prcGiveDt", null);
+        SBUxMethod.set("dtl-inp-spclMttr", null);
+        SBUxMethod.set("dtl-inp-advncPay", null);
+        SBUxMethod.set("dtl-inp-rmrk", null);
+
+        /*SBUxMethod.set("srch-inp-apcCd1", null);
+        SBUxMethod.set("srch-inp-apcNm1", null);
+		SBUxMethod.set("srch-inp-apcCd2", null);
+		SBUxMethod.set("srch-inp-apcNm2", null);
+		SBUxMethod.set("srch-slt-itemCd", null);
+		SBUxMethod.set("srch-slt-vrtyCd", null);
+		SBUxMethod.set("srch-inp-spmtStrDt", null);
+		SBUxMethod.set("srch-inp-spmtEndDt", null);
+		SBUxMethod.set("srch-slt-spmtType", null);
+		SBUxMethod.set("srch-slt-trmtType", null);*/
     }
 
     //저장
@@ -661,7 +850,18 @@
 			spmtType: SBUxMethod.get('dtl-slt-spmtType'),
 			trmtType: SBUxMethod.get('dtl-slt-trmtType'),
 			spmtStrDt: SBUxMethod.get('dtl-inp-spmtStrDt'),
-			spmtEndDt: SBUxMethod.get('dtl-inp-spmtEndDt')
+			spmtEndDt: SBUxMethod.get('dtl-inp-spmtEndDt'),
+			dtlMttr: SBUxMethod.get('dtl-inp-dtlMttr'),
+			qltGrd: SBUxMethod.get('dtl-inp-qltGrd'),
+			prc: SBUxMethod.get('dtl-inp-prc'),
+			prcPblnt: SBUxMethod.get('dtl-slt-prcPblnt'),
+			unit: SBUxMethod.get('dtl-inp-unit'),
+			prcGiveDt: SBUxMethod.get('dtl-inp-prcGiveDt'),
+			spclMttr: SBUxMethod.get('dtl-inp-spclMttr'),
+			advncPay: SBUxMethod.get('dtl-inp-advncPay'),
+			rmrk: SBUxMethod.get('dtl-inp-rmrk'),
+			apcCd2: SBUxMethod.get('dtl-inp-apcCd2'),
+			apcCd3: SBUxMethod.get('dtl-inp-apcCd3')
 		});
 
         const data = await postJsonPromise;
@@ -819,6 +1019,20 @@
         SBUxMethod.set("dtl-inp-spmtEndDt", rowData.spmtEndDt);
         SBUxMethod.set("dtl-slt-spmtType", rowData.spmtType);
         SBUxMethod.set("dtl-slt-trmtType", rowData.trmtType);
+
+        SBUxMethod.set("dtl-inp-dtlMttr", rowData.dtlMttr);
+        SBUxMethod.set("dtl-inp-qltGrd", rowData.qltGrd);
+        SBUxMethod.set("dtl-inp-prc", rowData.prc);
+        SBUxMethod.set("dtl-slt-prcPblnt", rowData.prcPblnt);
+        SBUxMethod.set("dtl-inp-unit", rowData.unit);
+        SBUxMethod.set("dtl-inp-prcGiveDt", rowData.prcGiveDt);
+        SBUxMethod.set("dtl-inp-spclMttr", rowData.spclMttr);
+        SBUxMethod.set("dtl-inp-advncPay", rowData.advncPay);
+        SBUxMethod.set("dtl-inp-rmrk", rowData.rmrk);
+        SBUxMethod.set("dtl-inp-apcCd2", rowData.apcCd2);
+        SBUxMethod.set("dtl-inp-apcNm2", rowData.apcNm2);
+        SBUxMethod.set("dtl-inp-apcCd3", rowData.apcCd3);
+        SBUxMethod.set("dtl-inp-apcNm3", rowData.apcNm3);
     }
 
     //그리드 체크박스 전체 선택
@@ -830,9 +1044,29 @@
         }
     }
 
+  //APC명 선택 popup
+  //상세내역 기초생산자조직 찾기
+    const fn_choiceApc = function() {
+		popApc.init(gv_selectedApcCd, gv_selectedApcNm, fn_setApc);
+	}
+
+	const fn_setApc = function(apc) {
+		if (!gfn_isEmpty(apc)) {
+			SBUxMethod.set("dtl-inp-apcCd", apc.apcCd);
+			SBUxMethod.set("dtl-inp-apcNm", apc.apcNm);
+			SBUxMethod.attr("dtl-inp-apcNm", "style", "background-color:aquamarine");	//skyblue
+
+			gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, apc.apcCd),	// 품목
+			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, apc.apcCd),	// 품종
+			gfn_setApcVrtySBSelect('dtl-slt-spmtCd', jsonApcVrty, apc.apcCd)	// 품종
+
+		}
+	}
+
     /**
 	 * @name fn_choicePrdcr
 	 * @description 생산자 선택 popup
+	 * 상세내역 기초생산자 조직 대표자 찾기팝업
 	 */
 	const fn_choicePrdcr = function() {
 		var apcChk = SBUxMethod.get("dtl-inp-apcNm");
@@ -861,6 +1095,77 @@
 		}
 	}
 
+	  //APC명 선택 popup
+	  //상단 조회 조건 출자출하조직 찾기
+	    const fn_choiceApc2 = function() {
+			popApc.init(gv_selectedApcCd, gv_selectedApcNm, fn_setApc2);
+		}
+
+		const fn_setApc2 = function(apc) {
+			if (!gfn_isEmpty(apc)) {
+				SBUxMethod.set("srch-inp-apcCd1", apc.apcCd);
+				SBUxMethod.set("srch-inp-apcNm1", apc.apcNm);
+
+				//gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, apc.apcCd),	// 품목
+				//gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, apc.apcCd),	// 품종
+				//gfn_setApcVrtySBSelect('dtl-slt-spmtCd', jsonApcVrty, apc.apcCd)	// 품종
+
+			}
+		}
+
+	  //APC명 선택 popup
+	  //상단 조회 조건 생산유통통합조직 찾기
+	    const fn_choiceApc3 = function() {
+			popApc.init(gv_selectedApcCd, gv_selectedApcNm, fn_setApc3);
+		}
+
+		const fn_setApc3 = function(apc) {
+			if (!gfn_isEmpty(apc)) {
+				SBUxMethod.set("srch-inp-apcCd2", apc.apcCd);
+				SBUxMethod.set("srch-inp-apcNm2", apc.apcNm);
+
+				//gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, apc.apcCd),	// 품목
+				//gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, apc.apcCd),	// 품종
+				//gfn_setApcVrtySBSelect('dtl-slt-spmtCd', jsonApcVrty, apc.apcCd)	// 품종
+
+			}
+		}
+
+	  //APC명 선택 popup
+	  //하단 상세내역 출자출하조직 찾기
+	    const fn_choiceApc4 = function() {
+			popApc.init(gv_selectedApcCd, gv_selectedApcNm, fn_setApc4);
+		}
+
+		const fn_setApc4 = function(apc) {
+			if (!gfn_isEmpty(apc)) {
+				SBUxMethod.set("dtl-inp-apcCd2", apc.apcCd);
+				SBUxMethod.set("dtl-inp-apcNm2", apc.apcNm);
+
+				//gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, apc.apcCd),	// 품목
+				//gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, apc.apcCd),	// 품종
+				//gfn_setApcVrtySBSelect('dtl-slt-spmtCd', jsonApcVrty, apc.apcCd)	// 품종
+
+			}
+		}
+	  //APC명 선택 popup
+	  //하단 상세내역 생산유통통합조직 찾기
+	    const fn_choiceApc5 = function() {
+			popApc.init(gv_selectedApcCd, gv_selectedApcNm, fn_setApc5);
+		}
+
+		const fn_setApc5 = function(apc) {
+			if (!gfn_isEmpty(apc)) {
+				SBUxMethod.set("dtl-inp-apcCd3", apc.apcCd);
+				SBUxMethod.set("dtl-inp-apcNm3", apc.apcNm);
+
+				//gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, apc.apcCd),	// 품목
+				//gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, apc.apcCd),	// 품종
+				//gfn_setApcVrtySBSelect('dtl-slt-spmtCd', jsonApcVrty, apc.apcCd)	// 품종
+
+			}
+		}
+
 	// 행 삭제 및 추가
 	async function fn_procRowPrdcr(type){
 		if (type == "ADD"){
@@ -876,6 +1181,20 @@
 					}
 				}
 			}
+		}
+	}
+
+	//통합조직,출자출하조직 팝업
+	const fn_choiceInvstmntSpmt = function() {
+		popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setInvstmntSpmt);
+	}
+	//통합조직 출자출하조직 팝업 콜백함수
+	const fn_setInvstmntSpmt = function(rowData) {
+		if (!gfn_isEmpty(rowData)) {
+			SBUxMethod.set("srch-inp-apcCd1", rowData.mainCode);
+			SBUxMethod.set("srch-inp-apcNm1", rowData.mainCodeNm);
+			SBUxMethod.set("srch-inp-apcCd2", rowData.subCode);
+			SBUxMethod.set("srch-inp-apcNm2", rowData.subCodeNm);
 		}
 	}
 

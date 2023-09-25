@@ -190,18 +190,24 @@ public class GdsInvntrVO extends ComVO {
 	 * */
 	private String rprsPrdcrNm;
 
+	/**
+	 * 상품코드
+	 */
+	private String gdsCd;
+
+
 	/*
 	 * 산지코드
 	 * */
 	private String plorCd;
-	
+
 	/*비고*/
 	private String rmrk;
 	/*기준일자*/
 	private String crtrYmd;
 	/*입고구분*/
 	private String wrhsSe;
-	
+
 	/**
 	 * 표준등급
 	 */

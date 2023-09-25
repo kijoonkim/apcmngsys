@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.at.apcss.fm.dashboard.mapper.DashboardMapper">
+
+
+<select id="selectDashboardInfoListCnt" parameterType="com.at.apcss.fm.dashboard.vo.DashboardVO" resultType="com.at.apcss.fm.dashboard.vo.DashboardVO">
+      <!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+			SELECT NVL(MAX(A.AREA), '기타') AS AREA ,MAX(A.CNT2) AS MAIN_CNT  , MAX(A.CNT) AS SUB_CNT
+					FROM (	
+							 SELECT G AS AREA , 0 AS CNT ,   COUNT(*) AS CNT2 FROM TB_APC_TOTAL_INFO
+						     GROUP BY G
+						     UNION ALL 
+						     SELECT DECODE(SUBSTR(D,1,2),'31','경기도'
+								                            ,'11','서울특별시'
+								                            ,'23','인천광역시'
+								                            ,'25','대전광역시'
+								                            ,'29','세종특별자치시'
+								                            ,'36','전라남도'
+								                            ,'33','충청북도'
+								                            ,'22','대구광역시'
+								                            ,'21','부산광역시'
+								                            ,'39','제주특별자치도'
+								                            ,'37','경상북도'
+								                            ,'38','경상남도'
+								                            ,'32','강원특별자치도'
+								                            ,'34','충청남도'
+								                            ,'35','전라북도'
+								                            ,'24','광주광역시'
+								                             ,'26','울산광역시'
+								      ) AS AREA , COUNT(*) CNT , 0 CNT2 FROM TB_APC_TOTAL_CUL_INFO
+								GROUP BY SUBSTR(D,1,2)
+			     )A
+			     GROUP BY A.AREA
+  ]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+    			     
+    <select id="selectDashboardInfoList" parameterType="com.at.apcss.fm.dashboard.vo.DashboardVO" resultType="com.at.apcss.fm.dashboard.vo.DashboardVO">
+      <!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+			SELECT  /* com.at.apcss.fm.dashboard.mapper.DashboardMapper.selectDashboardInfoList */
+					             A.MAIN_CODE     AS MAIN_CODE  
+						       , A.MAIN_CODE_NM  AS MAIN_CODE_NM
+						       , A.SUB_CODE      AS SUB_CODE
+						       , A.SUB_CODE_NM   AS SUB_CODE_NM
+						       , A.MAIN_GBN      AS MAIN_GBN
+						       , A.SUB_GBN       AS SUB_GBN
+						       , A.GBN_NM_REMARK AS GBN_NM_REMARK
+						FROM (       
+						         SELECT   B AS MAIN_CODE /* 생산유통통합조직코드, */
+						                , C AS MAIN_CODE_NM /* 생산유통통합조직명,*/
+						                , E AS SUB_CODE /* 출자출하조직코드,*/
+						                , F AS SUB_CODE_NM /* 출자출하조직명,*/
+						                , 'Y' AS MAIN_GBN
+						                , 'Y' AS SUB_GBN /* 출자출하조직여부  생산유통통합조직 - 출자출하조직 - 기초생산자 - 농가 */
+						                , '통합조직-출자출하조직-기초생산자-농가' AS GBN_NM
+						                , '생산유통통합조직-출자출하조직-기초생산자-농가' AS GBN_NM_REMARK 
+						           FROM TB_APC_TOTAL_CUL_INFO
+						         GROUP BY B,C,E,F
+						         UNION ALL 
+						         SELECT   '' AS MAIN_CODE /* 생산유통통합조직코드, */
+						                , '' AS MAIN_CODE_NM /* 생산유통통합조직명,*/
+						                , E AS SUB_CODE /* 출자출하조직코드,*/
+						                , F AS SUB_CODE_NM /* 출자출하조직명,*/
+						                , 'N' AS MAIN_GBN
+						                , 'Y' AS SUB_GBN /* 출자출하조직여부 생산유통통합조직 - 출자출하조직 - 기초생산자 - 농가 */
+						                , '출자출하조직-기초생산자-농가' AS GBN_NM
+						                , '출자출하조직-기초생산자-농가' AS GBN_NM_REMARK 
+						           FROM TB_APC_TOTAL_CUL_INFO
+						         GROUP BY B,C,E,F
+						         UNION ALL
+						         SELECT
+						                  B AS MAIN_CODE /* 생산유통통합조직코드,*/
+						                , A AS MAIN_CODE_NM /*생산유통통합조직명,*/
+						                , '' AS SUB_CODE /* 출자출하조직코드,*/
+						                , '' AS SUB_CODE_NM /* 출자출하조직명,*/
+						                , 'Y' AS MAIN_GBN
+						                , 'N' AS SUB_GBN /* 출자출하조직여부  생산유통통합조직 - 기초생산자 - 농가 */
+						                , '생산유통톻합조직-기초생산자-농가' AS GBN_NM
+						                , '생산유통톻합조직-기초생산자-농가' AS GBN_NM_REMARK 
+						           FROM TB_APC_TOTAL_INFO 
+						   )A 
+						WHERE 1=1
+  ]]>
+          <if test='itemCd != null and !itemCd.equals("")'>
+		     AND  A.MAIN_GBN  = #{itemCd}
+		   </if>
+		   <if test='itemCd2 != null and !itemCd2.equals("")'>
+		     AND  A.SUB_GBN  = #{itemCd2}
+		   </if>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+</mapper>

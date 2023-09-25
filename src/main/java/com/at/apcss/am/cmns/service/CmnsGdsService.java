@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.CmnsGdsVO;
@@ -19,7 +20,7 @@ import com.at.apcss.am.cmns.vo.CmnsGdsVO;
  * </pre>
  */
 public interface CmnsGdsService {
-	
+
 	/**
 	 * 상품정보 단건 조회
 	 * @param cmnsGdsVO
@@ -27,7 +28,7 @@ public interface CmnsGdsService {
 	 * @throws Exception
 	 */
 	public CmnsGdsVO selectCmnsGds(CmnsGdsVO cmnsGdsVO) throws Exception;
-	
+
 	/**
 	 * 상품정보 목록 조회
 	 * @param cmnsGdsVO
@@ -35,7 +36,15 @@ public interface CmnsGdsService {
 	 * @throws Exception
 	 */
 	public List<CmnsGdsVO> selectCmnsGdsList(CmnsGdsVO cmnsGdsVO) throws Exception;
-	
+
+	/**
+	 *
+	 * @param cmnsGdsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object>  insertCheckGdsCd(CmnsGdsVO cmnsGdsVO) throws Exception;
+
 	/**
 	 * 상품정보 등록
 	 * @param cmnsGdsVO
@@ -43,7 +52,7 @@ public interface CmnsGdsService {
 	 * @throws Exception
 	 */
 	public int insertCmnsGds(CmnsGdsVO cmnsGdsVO) throws Exception;
-	
+
 	/**
 	 * 상품정보 수정
 	 * @param cmnsGdsVO
@@ -51,7 +60,7 @@ public interface CmnsGdsService {
 	 * @throws Exception
 	 */
 	public int updateCmnsGds(CmnsGdsVO cmnsGdsVO) throws Exception;
-	
+
 	/**
 	 * 상품정보 삭제
 	 * @param cmnsGdsVO

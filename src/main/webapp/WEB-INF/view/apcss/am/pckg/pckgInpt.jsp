@@ -20,6 +20,7 @@
 <head>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body>
 	<section>
@@ -29,7 +30,23 @@
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 포장실적조회 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnDocPckg" name="btnDocPckg" uitype="normal" class="btn btn-sm btn-success" text="포장확인서" onclick="fn_docPckg"></sbux-button>
+					<sbux-button
+						id="btnDocPckg"
+						name="btnDocPckg"
+						uitype="normal"
+						class="btn btn-sm btn-success"
+						text="포장확인서"
+						onclick="fn_docPckg"
+					></sbux-button>
+					<sbux-button
+						id="btnLblGds"
+						name="btnLblGds"
+						uitype="normal"
+						class="btn btn-sm btn-success"
+						text="상품라벨"
+						onclick="fn_lblGds"
+					></sbux-button>
+
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
@@ -344,7 +361,11 @@
 		  	'showgoalpageui' : true
 		};
         SBGridProperties.columns = [
-        	{caption: ['포장일자','포장일자'], 	ref: 'pckgYmd', 		width: '7%', type: 'output', style:'text-align:center',
+
+        	{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
+        	{caption: ["포장일자","포장일자"], 	ref: 'pckgYmd', 		width: '120px', type: 'output', style:'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
         	},
         	{caption: ["포장번호","포장번호"], 	ref: 'pckgnoIndct',     width: '7%',	type: 'output',	style: 'text-align:center'},
@@ -390,7 +411,7 @@
 	        {caption: ["생산연도"],		ref: 'prdctnYr',   	type:'output',  hidden: true},
 	        {caption: ["산지코드"],		ref: 'plorCd',   	type:'output',  hidden: true},
 	        {caption: ["포장번호"],		ref: 'pckgno', 		type:'output',  hidden: true},
-	        {caption: ["포장순번"],		ref: 'pckgSn', 		type:'output',  hidden: true},
+	        {caption: ["포장순번"],		ref: 'pckgSn', 		type:'output',  hidden: true}
         ];
         grdPckgPrfmnc = _SBGrid.create(SBGridProperties);
     }
@@ -612,6 +633,55 @@
 		}
 	}
 
+	/**
+	 * @name fn_docPckg
+	 * @description 포장확인서 발행
+	 */
+	const fn_docPckg = function() {
+		const pckgnoList = [];
+		const allData = grdPckgPrfmnc.getGridDataAll();
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+				pckgnoList.push(item.pckgno);
+    		}
+		});
+
+ 		if (pckgnoList.length === 0) {
+ 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+ 		}
+
+ 		const pckgno = pckgnoList.join("','");
+ 		console.log(gv_selectedApcCd);
+ 		console.log(pckgno);
+
+ 		gfn_popClipReport("포장확인서", "am/pckgIdntyDoc.crf", {apcCd: gv_selectedApcCd, pckgno: pckgno});
+ 	}
+
+	/**
+	 * @name fn_lblGds
+	 * @description 상품라벨 발행
+	 */
+	const fn_lblGds = function() {
+		const pckgnoList = [];
+		const allData = grdPckgPrfmnc.getGridDataAll();
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+				pckgnoList.push(item.pckgno);
+    		}
+		});
+
+ 		if (pckgnoList.length === 0) {
+ 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+ 		}
+
+ 		const pckgno = pckgnoList.join("','");
+ 		console.log(gv_selectedApcCd);
+ 		console.log(pckgno);
+
+ 		gfn_popClipReport("상품라벨", "am/gdsLabel.crf", {apcCd: gv_selectedApcCd, pckgno: pckgno});
+ 	}
 
 </script>
 </html>

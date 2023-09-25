@@ -49,46 +49,35 @@
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectSortPrfmncList" parameterType="com.at.apcss.am.sort.vo.SortPrfmncVO" resultType="com.at.apcss.am.sort.vo.SortPrfmncVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortPrfmncList */
+		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS RPRS_PRDCR_NM
-                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
-                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
-    			, (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GRD_CD, pt0.APC_CD) FROM DUAL) AS GRD_NM
-    			, (SELECT FN_GET_COM_CD_VL_NM('FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) AS FCLT_NM
-                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
-<!-- 				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM -->
-    		  FROM (
-    	</if>
-    	<if test='pagingYn == null or pagingYn.equals("N")'>
-    		SELECT
-    			  pt0.*
-    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS RPRS_PRDCR_NM
-                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
-                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
-    			, (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GRD_CD, pt0.APC_CD) FROM DUAL) AS GRD_NM
-    			, (SELECT FN_GET_COM_CD_VL_NM('FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) AS FCLT_NM
-                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
-<!-- 				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM -->
-    		  FROM (
+    			,
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortPrfmncList */
+				  pt0.*
+    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS RPRS_PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+    			, (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS GRD_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) AS FCLT_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+    		  FROM (
+    		SELECT
 				  SP.APC_CD			AS APC_CD
 				, SP.SORTNO			AS SORTNO
+				, SP.SORT_SN		AS SORT_SN
 				, SP.GRD_CD			AS GRD_CD
 				, SP.INPT_YMD		AS INPT_YMD
 				, SP.FCLT_CD		AS FCLT_CD
-				, (SELECT FN_GET_COM_CD_VL_NM('FCLT_CD', SP.FCLT_CD, SP.APC_CD) FROM DUAL) AS FCLT_NM
 				, SP.QNTT			AS SORT_QNTT
 				, SP.WGHT			AS SORT_WGHT
 				, SP.RMRK			AS RMRK
@@ -108,16 +97,16 @@
 				, TB_SORT_INVNTR SI
 			 WHERE SP.APC_CD = SI.APC_CD
 			   AND SP.SORTNO = SI.SORTNO
-			   AND SP.GRD_CD = SI.GRD_CD
+			   AND SP.SORT_SN = SI.SORT_SN
 			   AND SP.DEL_YN = 'N'
 			   AND SI.DEL_YN = 'N'
 			   AND SP.APC_CD = #{apcCd}
 		]]>
-		<if test='startsortYmd != null and startsortYmd != ""'>
-				AND SP.INPT_YMD <![CDATA[>=]]> #{startsortYmd}
+		<if test='inptYmdFrom != null and inptYmdFrom != ""'>
+				AND SP.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
     	</if>
-		<if test='endSortYmd != null and endSortYmd != ""'>
-				AND SP.INPT_YMD <![CDATA[<=]]> #{endSortYmd}
+		<if test='inptYmdTo != null and inptYmdTo != ""'>
+				AND SP.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
     	</if>
     	<if test='itemCd != null and itemCd != ""'>
 				AND SI.ITEM_CD = #{itemCd}
@@ -128,7 +117,7 @@
     	<if test='spcfctCd != null and spcfctCd != ""'>
 				AND SI.SPCFCT_CD = #{spcfctCd}
     	</if>
-    	<if test='prdcrCd != null and prdcrCd != ""'>
+    	<if test='rprsPrdcrCd != null and rprsPrdcrCd != ""'>
 				AND SI.RPRS_PRDCR_CD = #{prdcrCd}
     	</if>
     	<if test='fcltCd != null and fcltCd != ""'>
@@ -136,17 +125,14 @@
     	</if>
 
 		<![CDATA[
-			 ORDER BY APC_CD, INPT_YMD, SORTNO
+			 ORDER BY APC_CD, INPT_YMD, SORTNO, SORT_SN
+    		  ) pt0
 		]]>
 
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<if test='pagingYn == null or pagingYn.equals("N")'>
-    		  ) pt0
     	</if>
     	<!-- End 페이징 -->
     </select>

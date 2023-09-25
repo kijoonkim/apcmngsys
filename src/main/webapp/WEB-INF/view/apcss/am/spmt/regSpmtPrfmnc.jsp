@@ -335,7 +335,7 @@
         SBGridPropertiesGdsInvntr.extendlastcol = 'scroll';
         SBGridPropertiesGdsInvntr.oneclickedit = true;
         SBGridPropertiesGdsInvntr.columns = [
-        	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'80px', style: 'text-align:center',
+        	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
         	{caption: ['품종'], 		ref: 'vrtyNm', 		width: '100px', type: 'output', style: 'text-align:center'},
@@ -380,22 +380,22 @@
 	    SBGridPropertiesSpmtPrfmnc.selectmode = 'byrow';
 	    SBGridPropertiesSpmtPrfmnc.extendlastcol = 'scroll';
 	    SBGridPropertiesSpmtPrfmnc.columns = [
-        	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'80px', style: 'text-align:center',
+        	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
             {caption: ['출하일자'], 	ref: 'spmtYmd', 	width: '100px', type: 'output', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['거래처'],		ref: 'cnptNm', 		width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['품종'], 		ref: 'vrtyNm', 		width: '80px', type: 'output', style: 'text-align:center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 	width: '80px', type: 'output', style: 'text-align:center'},
-            {caption: ['상품'], 		ref: 'gdsCd', 		width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['등급'], 		ref: 'gdsGrdNm', 	width: '80px', type: 'output', style: 'text-align:center'},
-            {caption: ['수량'], 		ref: 'spmtQntt', 	width: '80px', type: 'output', style: 'text-align:center'},
+            {caption: ['상품'], 		ref: 'gdsCd', 		width: '100px', type: 'output', style: 'text-align:center', hidden:true},
+            {caption: ['등급'], 		ref: 'gdsGrdNm', 	width: '60px', type: 'output', style: 'text-align:center'},
+            {caption: ['수량'], 		ref: 'spmtQntt', 	width: '60px', type: 'output', style: 'text-align:center'},
             {caption: ['중량'], 		ref: 'spmtWght',	width: '80px', type: 'output', style: 'text-align:right',
     			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['운송회사'], 	ref: 'trsprtCoNm', 	width: '180px', type: 'output', style: 'text-align:center'},
             {caption: ['차량번호'], 	ref: 'vhclno', 		width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['배송처'], 		ref: 'dldtn', 		width: '150px', type: 'output', style: 'text-align:center'},
-            {caption: ['운임비용'], 	ref: 'trsprtCst', 	width: '100px', type: 'output', style: 'text-align:center',
+            {caption: ['운임비용'], 	ref: 'trsprtCst', 	width: '80px', type: 'output', style: 'text-align:center',
     			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
             {caption: ['포장구분'], 	ref: 'spmtPckgUnitNm', 	width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['지시번호'], 	ref: 'spmtCmndno', 	width: '100px', type: 'output', style: 'text-align:center'},

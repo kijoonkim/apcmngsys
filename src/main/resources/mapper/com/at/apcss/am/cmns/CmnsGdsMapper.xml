@@ -78,6 +78,35 @@
     	<!-- End 페이징 -->
     </select>
 
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGdsMapper.insertSpGdsCdReg			-->
+	<!-- DESC : 상품코드 확인 등록.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.21  	신정철        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <insert id="insertSpGdsCdReg" statementType="CALLABLE" parameterType="com.at.apcss.am.cmns.vo.CmnsGdsVO">
+    	<![CDATA[
+			{call /* com.at.apcss.am.cmns.mapper.CmnsGdsMapper.insertSpGdsCdReg */
+				SP_GDS_CD_REG (
+					  #{sysLastChgUserId}
+	   		  		, #{sysLastChgPrgrmId}
+					, #{apcCd}
+					, #{itemCd}
+					, #{vrtyCd}
+					, #{spcfctCd}
+					, #{spmtPckgUnitCd}
+					, #{newGdsCd, jdbcType=VARCHAR, mode=OUT}
+					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+				)
+			}
+		]]>
+    </insert>
+
+
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGdsMapper.insertCmnsGds				-->
 	<!-- DESC : 상품 정보 등록.	                                       					-->
