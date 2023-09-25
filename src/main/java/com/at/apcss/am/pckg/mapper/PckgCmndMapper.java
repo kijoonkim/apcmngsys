@@ -24,39 +24,47 @@ import com.at.apcss.am.pckg.vo.PckgCmndVO;
 public interface PckgCmndMapper {
 
 	/**
-	 * 포장지시 
+	 * 포장지시
 	 * @param pckgCmndVO
 	 * @return
 	 * @throws Exception
 	 */
 	public PckgCmndVO selectPckgCmnd(PckgCmndVO pckgCmndVO) throws Exception;
-	
+
 	/**
-	 * 포장지시 
+	 * 포장지시 목록 조회
 	 * @param pckgCmndVO
 	 * @return
 	 * @throws Exception
 	 */
 	public List<PckgCmndVO> selectPckgCmndList(PckgCmndVO pckgCmndVO) throws Exception;
-	
+
 	/**
-	 * 포장지시 
+	 * 포장지시 내역 목록 조회
+	 * @param PckgCmndVO
+	 * @return List<PckgCmndVO>
+	 * @throws Exception
+	 */
+	public List<PckgCmndVO> selectRegPckgCmndList(PckgCmndVO pckgCmndVO) throws Exception;
+
+	/**
+	 * 포장지시
 	 * @param pckgCmndVO
 	 * @return
 	 * @throws Exception
 	 */
 	public int insertPckgCmnd(PckgCmndVO pckgCmndVO) throws Exception;
-	
+
 	/**
-	 * 포장지시 
+	 * 포장지시
 	 * @param pckgCmndVO
 	 * @return
 	 * @throws Exception
 	 */
 	public int updatePckgCmnd(PckgCmndVO pckgCmndVO) throws Exception;
-	
+
 	/**
-	 * 포장지시 
+	 * 포장지시
 	 * @param pckgCmndVO
 	 * @return
 	 * @throws Exception

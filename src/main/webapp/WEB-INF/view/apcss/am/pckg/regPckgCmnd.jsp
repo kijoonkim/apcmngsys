@@ -273,7 +273,8 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["선택","선택"],			ref: 'checkbox',     	type:'checkbox',  width:'40px',    style:'text-align:center'},
+	        {caption: ["선택","선택"],			ref: 'checkbox',     	type:'checkbox',  width:'40px',    style:'text-align:center',
+            	typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
 	        {caption: ["선별번호","선별번호"],	ref: 'sortno',   		type:'output',  width:'130px',    style:'text-align:center'},
 	        {caption: ["선별일자","선별일자"], 	ref: 'inptYmd',  		type:'output',  width:'100px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["생산자","생산자"],  	ref: 'prdcrNm',    		type:'output',  width:'100px',    style:'text-align:center'},
@@ -465,7 +466,8 @@
   						invntrWght: item.invntrWght,
   						rmrk : item.rmrk,
   						inptYmd : item.inptYmd,
-  						sortno : item.sortno
+  						sortno : item.sortno,
+  						sortSn : item.sortSn
   				}
           		jsonSortCmnd.push(sortCmnd);
 
@@ -484,7 +486,7 @@
 
 		let pckgCmndYmd  = SBUxMethod.get("srch-dtp-cmndYmd"); //포장지시일자
 
-    	const postJsonPromise = gfn_postJSON("/am/pckg/selectPckgCmndList.do", {
+    	const postJsonPromise = gfn_postJSON("/am/pckg/selectRegPckgCmndList.do", {
 			apcCd: gv_selectedApcCd,
 			pckgCmndYmd: pckgCmndYmd,
   		});
@@ -588,7 +590,6 @@
 			rowData.cmndQntt = rowData.pckgQntt;
 			rowData.cmndWght = rowData.pckgWght;
 			rowData.outordrno = outordrno;
-			rowData.delYn = 'Y';
 
 			insertList.push(rowData);
     	}

@@ -172,18 +172,17 @@
 				 , DEL_YN					= 'Y'
 			 WHERE APC_CD			= #{apcCd}
 			   AND SORT_CMNDNO		= #{sortCmndno}
-			   AND SORT_CMND_SN 	= #{sortCmndSn}
 		]]>
 	</update>
 
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortCmndList		-->
+	<!-- =============================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectPckgCmndTrgetList	-->
 	<!-- DESC : 포장지시대상 내역 목록 조회.	                                       			-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.09.05  	정희운        	Initial Creation                        -->
-	<!-- ==========================================================================	-->
+	<!-- =============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	==============================================	-->
+	<!-- 2023.09.05  	정희운        	Initial Creation                        		-->
+	<!-- =============================================================================	-->
     <select id="selectPckgCmndTrgetList" parameterType="com.at.apcss.am.sort.vo.SortCmndVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
     		SELECT
     			  pt0.*
@@ -195,7 +194,7 @@
     		  FROM (
     	<!-- End 페이징 -->
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortCmndList */
+    		SELECT /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectPckgCmndTrgetList */
 			      SI.APC_CD             AS APC_CD
 			    , SI.SORTNO             AS SORTNO
 			    , SI.GRD_CD             AS GRD_CD
@@ -222,6 +221,7 @@
 			 FROM TB_SORT_INVNTR SI
 			WHERE SI.APC_CD = #{apcCd}
 			  AND SI.INVNTR_WGHT > 0
+			  AND SI.DEL_YN = 'N'
 		]]>
 		<if test='sortCmndFromYmd != null and sortCmndFromYmd != ""'>
 			 AND SI.INPT_YMD <![CDATA[>=]]> #{sortCmndFromYmd}
