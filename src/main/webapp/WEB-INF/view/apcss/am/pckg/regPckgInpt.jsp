@@ -436,17 +436,17 @@
             },
             {caption: ['선별번호','선별번호'], ref: 'sortno', width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['등급','등급'], 	ref: 'grdNm', width: '60px', type: 'output', style: 'text-align:center'},
-            {caption: ['포장지시번호','포장지시번호'], ref: 'pckgCmndno', width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['지시설비','지시설비'], ref: 'fcltNm', width: '60px', type: 'output', style: 'text-align:center'},
+            {caption: ['포장지시번호','포장지시번호'], ref: 'pckgCmndno', width: '120px', type: 'output', style: 'text-align:center'},
+            {caption: ['지시설비','지시설비'], ref: 'fcltNm', width: '80px', type: 'output', style: 'text-align:center'},
             {caption: ['품목','품목'], 	ref: 'itemNm', width: '80px', type: 'output', style: 'text-align:center'},
             {caption: ['품종','품종'], 	ref: 'vrtyNm', width: '80px', type: 'output', style: 'text-align:center'},
             {caption: ['규격','규격'], 	ref: 'spcfctNm', width: '80px', type: 'output', style: 'text-align:center'},
-            {caption: ['대표생산자','대표생산자'], ref: 'rprsPrdcrNm', width: '100px', type: 'output'},
+            {caption: ['대표생산자','대표생산자'], ref: 'rprsPrdcrNm', width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ["창고","창고"],		ref: 'warehouseSeNm', 	type:'output',  width:'120px', style: 'text-align:center'},
             {caption: ['선별재고','수량'], 	ref: 'invntrQntt', width: '60px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ['선별재고','중량'], 	ref: 'invntrWght', width: '60px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['선별재고','중량'], 	ref: 'invntrWght', width: '60px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,### Kg'}},
             {caption: ['포장지시','수량'], 	ref: 'cmndQntt', width: '60px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ['포장지시','중량'], 	ref: 'cmndWght', width: '60px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['포장지시','중량'], 	ref: 'cmndWght', width: '60px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,### Kg'}},
             {caption: ["포장투입","수량"], 			ref: 'inptQntt',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptQntt"},
             	typeinfo: {
@@ -473,11 +473,11 @@
 	        {caption: ["상품구분코드"],		ref: 'gdsSeCd',   	type:'output',  hidden: true},
 	        {caption: ["입고구분코드"],		ref: 'wrhsSeCd',   	type:'output',  hidden: true},
 	        {caption: ["창고구분코드"],		ref: 'warehouseSeCd', 	type:'output',	hidden: true},
-	        {caption: ["설비"],			ref: 'fcltCd', 	type:'output',	hidden: true},
-	        {caption: ["선별순번"],		ref: 'sortSn', 	type:'output',	hidden: true},
-	        {caption: [" "," "],	ref: '_',		type:'output',  width:'1px'}
+	        {caption: ["설비"],			ref: 'fcltCd', 		type:'output',	hidden: true},
+	        {caption: ["선별순번"],		ref: 'sortSn', 		type:'output',	hidden: true},
+            {caption: [" "," "],    ref: '_',        type:'output',  width:'1px'}
 
-        ];
+        ];PCKG_CMNDNO 
         grdSortInvntr = _SBGrid.create(SBGridProperties);
         grdSortInvntr.bind('valuechanged', fn_grdSortInvntrValueChanged);
     }

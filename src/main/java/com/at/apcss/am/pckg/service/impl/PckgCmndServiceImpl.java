@@ -87,9 +87,6 @@ public class PckgCmndServiceImpl implements PckgCmndService {
 			insertPckgCmnd(pckgCmndVO);
 			sn++;
 		}
-		for (PckgCmndVO pckgCmndVO : pckgCmndList) {
-			insertPckgCmnd(pckgCmndVO);
-		}
 		return insertedCnt;
 	}
 
@@ -101,6 +98,12 @@ public class PckgCmndServiceImpl implements PckgCmndService {
 			deletedCnt = deletePckgCmnd(pckgCmndVO);
 		}
 		return deletedCnt;
+	}
+
+	@Override
+	public List<PckgCmndVO> selectRegPckgCmndList(PckgCmndVO pckgCmndVO) throws Exception {
+		List<PckgCmndVO> resultList = pckgCmndMapper.selectRegPckgCmndList(pckgCmndVO);
+		return resultList;
 	}
 
 }
