@@ -29,8 +29,7 @@
 					<colgroup>
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 3%">
+						<col style="width: 6%">
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
@@ -44,7 +43,7 @@
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg" >APC명</th>
-							<td colspan= "4" class="td_input" style="border-right: hidden;">
+							<td colspan= "3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" class="form-control input-sm" disabled/>
 							</td>
 							<td colspan="8">&nbsp;</td>
@@ -53,20 +52,21 @@
 						<tr>
 							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-item" name="srch-slt-item" class="form-control input-sm"/>
+								<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm input-sm" unselected-text="전체" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrty" name="srch-slt-vrty" class="form-control input-sm"/>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrtyNm" name="srch-slt-vrtyNm" class="form-control input-sm" jsondata-ref="jsonComVrty"/>
+								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">규격</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spcfct" name="srch-slt-warehouseSe" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" class="form-control input-sm" jsondata-ref="jsonSpcfct"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row" class="th_bg">창고구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-warehouseSe" name="srch-slt-warehouseSe" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-warehouseSe" name="srch-slt-warehouseSe" class="form-control input-sm" jsondata-ref="jsonComWarehouse"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
 						</tr>
@@ -74,20 +74,46 @@
 						<tr>
 							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-prcdcr" name="srch-inp-prcdcr" class="form-control input-sm"/>
+								<sbux-input
+									uitype="text"
+									id="srch-inp-prdcrNm"
+									name="srch-inp-prdcrNm"
+									class="form-control input-sm"
+									placeholder="초성검색 가능"
+									autocomplete-ref="jsonPrdcrAutocomplete"
+									autocomplete-text="name"
+    								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
+    								autocomplete-select-callback="fn_onSelectPrdcrNm"
+   								></sbux-input>
+								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="srch-btn-prdcr" name="srch-btn-prdcr" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
+								<sbux-button
+									id="btnSrchPrdcr"
+									name="btnSrchPrdcr"
+									class="btn btn-xs btn-outline-dark"
+									text="찾기"
+									uitype="modal"
+									target-id="modal-prdcr"
+									onclick="fn_choicePrdcr"
+								></sbux-button>
 							</td>
-							<td colspan="2">&nbsp;</td>
+							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">상품구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-gdsSe" name="srch-slt-gdsSe" class="form-control input-sm"/>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-gdsSe" name="srch-slt-gdsSe" class="form-control input-sm" jsondata-ref="jsonComGdsSeCd"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row" class="th_bg">입고구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-wrhsSe" name="srch-slt-wrhsSe" class="form-control input-sm"/>
+								<sbux-select
+									unselected-text="선택"
+									uitype="single"
+									id="srch-slt-wrhsSeCd"
+									name="srch-slt-wrhsSeCd"
+									class="form-control input-sm"
+									jsondata-ref="jsonComWrhsSeCd"
+								/>
 							</td>
 							<td colspan="2">&nbsp;</td>
 						</tr>
