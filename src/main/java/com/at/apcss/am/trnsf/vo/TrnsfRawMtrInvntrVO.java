@@ -275,6 +275,12 @@ public class TrnsfRawMtrInvntrVO extends ComVO {
 	private String delYn;
 	/*비고*/
 	private String rmrk;
+	/*이송수량*/
+	private String mvmnQntt;
+	/*이송중량*/
+	private String mvmnWght;
+	/*이송창고*/
+	private String trnsfWarehouse;
 
 	/**
 	 * 표준등급

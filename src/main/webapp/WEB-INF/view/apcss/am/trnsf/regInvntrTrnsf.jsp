@@ -615,20 +615,20 @@ const fn_initSBSelect = async function() {
 	// userAprvList ->
 	const fn_updataList = async function() {
 		let postJsonPromise_udpate = [];
-		const updateList = [];
-		const rawMtrInvntrList = [];
-		const sortInvntrList = [];
+		let updateList = [];
 		let allData1 = inptCmndDsctnList.getGridDataAll();
 
+			console.log('allData1 : ',allData1);
 		for ( let i=1; i<=allData1.length; i++ ){
-			const rowData1 = inptCmndDsctnList.getRowData(i);
-			const rowSts1 = inptCmndDsctnList.getRowStatus(i);
+			console.log('allData1 : ',allData1);
+			let rowData1 = inptCmndDsctnList.getRowData(i+2);
+			let rowSts = inptCmndDsctnList.getRowStatus(i+2);
 
-
-			if (rowSts1 === 2){
+			console.log('rowSts',rowSts);
+			if (rowSts === 2){
 				rowData1.apcCd = gv_selectedApcCd;
 				rowData1.rowSts = "U";
-// 				rowData1.resultStatus = "S";
+				console.log('rowData1 : ', rowData1);
 				updateList.push(rowData1);
 			} else {
 				continue;
@@ -640,6 +640,8 @@ const fn_initSBSelect = async function() {
 		}
 		
 		if(checkSection == 1){
+			console.log('checkSection : ',checkSection);
+			console.log('updateList : ', updateList);
 			postJsonPromise_udpate = gfn_postJSON("/am/trnsf/updateTrnsfRawMtrInvntrList.do", updateList);	// 프로그램id 추가
     		const data = await postJsonPromise_udpate;
 
@@ -652,7 +654,7 @@ const fn_initSBSelect = async function() {
         	fn_selectGridList();
 		}
 		else if(checkSection == 2){
-			postJsonPromise_udpate = gfn_postJSON("/am/trnsf/selectTrnsfSortInvntrDsctnList.do", updateList);	// 프로그램id 추가
+			postJsonPromise_udpate = gfn_postJSON("/am/trnsf/updateTrnsfSortInvntrDsctnList.do", updateList);	// 프로그램id 추가
     		const data = await postJsonPromise_udpate;
 
 // 			console.log('_.isEqual("S", data.resultStatus)',_.isEqual("S", data.resultStatus));
@@ -664,7 +666,7 @@ const fn_initSBSelect = async function() {
         	fn_selectGridList();
 		}
 		else if(checkSection == 3){
-			postJsonPromise_udpate = gfn_postJSON("/am/invntr/selectUpdateTrnsfGdsInvntrList.do", updateList);	// 프로그램id 추가
+			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateTrnsfGdsInvntrList.do", updateList);	// 프로그램id 추가
     		const data = await postJsonPromise_udpate;
 
 // 			console.log('_.isEqual("S", data.resultStatus)',_.isEqual("S", data.resultStatus));

@@ -161,9 +161,9 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.04  	김현호        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateRawMtrInvntrList" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+    <update id="updateTrnsfRawMtrInvntrList" parameterType="com.at.apcss.am.trnsf.vo.TrnsfRawMtrInvntrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrInvntr */
+			UPDATE /* com.at.apcss.am.trnsf.mapper.TrnsfRawMtrInvntrMapper.updateTrnsfRawMtrInvntrList */
 				TB_RAW_MTR_INVNTR
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -172,13 +172,13 @@
 
 		]]>
 			<if test='warehouseSeCd != null and warehouseSeCd != ""'>
-				, WAREHOUSE_SE_CD			= #{warehouseSeCd}
+				, WAREHOUSE_SE_CD			= #{trnsfWarehouse}
 			</if>
 			<if test='invntrQntt != null and invntrQntt != ""'>
-				, INVNTR_QNTT			= #{invntrQntt}
+				, INVNTR_QNTT			= #{mvmnQntt}
 			</if>
 			<if test='invntrWght != null and invntrWght != ""'>
-				, INVNTR_Wght			= #{invntrWght}
+				, INVNTR_Wght			= #{mvmnWght}
 			</if>
 		<![CDATA[
 			 WHERE APC_CD = #{apcCd}

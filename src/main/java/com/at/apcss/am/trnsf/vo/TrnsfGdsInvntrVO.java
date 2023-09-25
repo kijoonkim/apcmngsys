@@ -203,6 +203,13 @@ public class TrnsfGdsInvntrVO extends ComVO {
 	/*입고구분*/
 	private String wrhsSe;
 	private String wrhsSeCd;
+	/*이송수량*/
+	private String mvmnQntt;
+	/*이송중량*/
+	private String mvmnWght;
+	/*이송창고*/
+	private String trnsfWarehouse;
+	
 	
 	/**
 	 * 표준등급

@@ -190,6 +190,12 @@ public class TrnsfSortInvntrVO extends ComVO {
 	private String invntrySe;
 	/*비고*/
 	private String rmrk;
+	/*이송수량*/
+	private String mvmnQntt;
+	/*이송중량*/
+	private String mvmnWght;
+	/*이송창고*/
+	private String trnsfWarehouse;
 
 
 	/**
