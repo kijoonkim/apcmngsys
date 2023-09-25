@@ -85,21 +85,6 @@
 		<if test='apcCd != null and apcCd != ""'>
 			   AND RI.APC_CD = #{apcCd}
 		</if>
-		<if test='wrhsno != null and wrhsno != ""'>
-			   AND RI.WRHSNO = #{wrhsno}
-		</if>
-		<if test='pltno != null and pltno != ""'>
-			   AND RI.PLTNO = #{pltno}
-		</if>
-		<if test='wrhsYmd != null and wrhsYmd != ""'>
-			   AND RI.WRHS_YMD = #{wrhsYmd}
-		</if>
-		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
-			   AND RI.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
-		</if>
-		<if test='wrhsYmdTo != null and wrhsYmdTo != ""'>
-			   AND RI.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
-		</if>
 		<if test='prdcrCd != null and prdcrCd != ""'>
 			   AND RI.PRDCR_CD = #{prdcrCd}
 		</if>
@@ -115,30 +100,9 @@
 		<if test='wrhsSeCd != null and wrhsSeCd != ""'>
 			   AND RI.WRHS_SE_CD = #{wrhsSeCd}
 		</if>
-		<if test='trsprtSeCd != null and trsprtSeCd != ""'>
-			   AND RI.TRSPRT_SE_CD = #{trsprtSeCd}
-		</if>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 			   AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
 		</if>
-		<if test='bxKnd != null and bxKnd != ""'>
-			   AND RI.BX_KND = #{bxKnd}
-		</if>
-
-<!-- 		원물입고 내역 검색조건 -->
-		<if test='crtrYmd != null and crtrYmd != ""'>
-			   AND RI.WRHS_YMD = #{crtrYmd}
-		</if>
-		<if test='prdcr != null and prdcr != ""'>
-			   AND RI.PRDCR_CD = #{prdcr}
-		</if>
-		<if test='gdsSe != null and gdsSe != ""'>
-			   AND RI.GDS_SE_CD = #{gdsSe}
-		</if>
-		<if test='wrhsSe != null and wrhsSe != ""'>
-			   AND RI.WRHS_SE_CD = #{wrhsSe}
-		</if>
-
 
 		<![CDATA[
 		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO

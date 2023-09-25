@@ -136,6 +136,13 @@
 				<!--[pp] //검색결과 -->
 			</div>
 	</section>
+	<!-- 사용자 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-prdcr">
+    	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 var jsonComMsgKnd = [];	// srch.select.comMsgKnd
@@ -384,29 +391,27 @@ const fn_initSBSelect = async function() {
     var newSortInptPrfmncGridData = [];
 	const fn_callSelectGrid1List = async function(pageSize, pageNo) {
 
-// 		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
 // 		let invntrySe = SBUxMethod.get("srch-slt-invntrySe");
-// 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-// 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-// 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
-// 		let prdcr = SBUxMethod.get("srch-inp-prdcrCd");
-// 		let gdsSe = SBUxMethod.get("srch-slt-gdsSe");
-// 		let wrhsSe = SBUxMethod.get("srch-slt-wrhsSeCd");
-// 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSe");
+		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
+		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
 
 	    jsoninptCmndDsctnList = []; //첫번째 그리드 data
 
 		const postJsonPromise1 = gfn_postJSON("/am/trnsf/selectTrnsfRawMtrInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
-// 			crtrYmd: crtrYmd,
 // 			invntrySe: invntrySe,
-// 			itemCd:itemCd,
-// 			vrtyCd: vrtyCd,
-// 			spcfctCd: spcfctCd,
-// 			prdcr: prdcr,
-// 			gdsSe: gdsSe,
-// 			wrhsSe: wrhsSe,
-// 			warehouseSeCd: warehouseSeCd,
+			itemCd:itemCd,
+			vrtyCd: vrtyCd,
+			spcfctCd: spcfctCd,
+			prdcrCd: prdcrCd,
+			gdsSeCd: gdsSeCd,
+			wrhsSeCd: wrhsSeCd,
+			warehouseSeCd: warehouseSeCd,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : pageNo,
@@ -474,28 +479,25 @@ const fn_initSBSelect = async function() {
 	
 	var newSortInptPrfmncGridData = [];
 	const fn_callSelectGrid2List = async function(pageSize, pageNo) {
-//     	let startsortYmd  = SBUxMethod.get("srch-inp-startsortYmd");
-// 		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
 // 		let invntrySe = SBUxMethod.get("srch-slt-invntrySe");
-// 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-// 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-// 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
-// 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
-// 		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSe");
-// 		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
-// 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSe");
+		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
+		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
 
 		const postJsonPromise2 = gfn_postJSON("/am/trnsf/selectTrnsfSortInvntrDsctnList.do", {
 			apcCd		:  gv_selectedApcCd,
-// 			crtrYmd: crtrYmd,
 // 			invntrySe: invntrySe,
-// 			itemCd:itemCd,
-// 			vrtyCd: vrtyCd,
-// 			spcfctCd: spcfctCd,
-// 			prdcrCd: prdcrCd,
-// 			gdsSeCd: gdsSeCd,
-// 			wrhsSeCd: wrhsSeCd,
-// 			warehouseSeCd: warehouseSeCd,
+			itemCd:itemCd,
+			vrtyCd: vrtyCd,
+			spcfctCd: spcfctCd,
+			prdcrCd: prdcrCd,
+			gdsSeCd: gdsSeCd,
+			wrhsSeCd: wrhsSeCd,
+			warehouseSeCd: warehouseSeCd,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : pageNo,
@@ -557,25 +559,22 @@ const fn_initSBSelect = async function() {
 	
 	var newSortInptPrfmncGridData = [];
 	const fn_callSelectGrid3List = async function(pageSize, pageNo) {
-//     	let startsortYmd  = SBUxMethod.get("srch-inp-startsortYmd");
-// 		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
-// 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-// 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-// 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
-// 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
-// 		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSe");
-// 		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
-// 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSe");
+		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
+		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
 		const postJsonPromise3 = gfn_postJSON("/am/invntr/selectUpdateTrnsfGdsInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
-// 			crtrYmd: crtrYmd,
-// 			itemCd:itemCd,
-// 			vrtyCd: vrtyCd,
-// 			spcfctCd: spcfctCd,
-// 			prdcrCd: prdcrCd,
-// 			gdsSeCd: gdsSeCd,
-// 			wrhsSeCd: wrhsSeCd,
-// 			warehouseSeCd: warehouseSeCd,
+			itemCd:itemCd,
+			vrtyCd: vrtyCd,
+			spcfctCd: spcfctCd,
+			prdcrCd: prdcrCd,
+			gdsSeCd: gdsSeCd,
+			wrhsSeCd: wrhsSeCd,
+			warehouseSeCd: warehouseSeCd,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : pageNo,

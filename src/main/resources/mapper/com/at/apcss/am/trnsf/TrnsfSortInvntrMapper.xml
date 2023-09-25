@@ -66,9 +66,6 @@
 			  AND SI.APC_CD = #{apcCd}
 		]]>
 		<!-- 	 선별재고 내역 검색조건 -->
-		<if test='crtrYmd != null and crtrYmd != ""'>
-			   AND SI.INPT_YMD = #{crtrYmd}
-		</if>
 		<if test='itemCd != null and itemCd != ""'>
 			   AND SI.ITEM_CD = #{itemCd}
 		</if>

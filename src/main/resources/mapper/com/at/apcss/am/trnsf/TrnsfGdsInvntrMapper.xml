@@ -104,16 +104,10 @@
 		<if test='gdsSeCd != null and gdsSeCd != ""'>
 			   AND GI.GDS_SE_CD = #{gdsSeCd}
 		</if>
-		<if test='rprsPrdcrCd != null and rprsPrdcrCd != ""'>
-			   AND GI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
-		</if>
-		<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
-			   AND GI.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
-		</if>
-		<!-- 	 상품재고 내역 검색조건 -->
 		<if test='prdcrCd != null and prdcrCd != ""'>
 			   AND GI.RPRS_PRDCR_CD = #{prdcrCd}
 		</if>
+		<!-- 	 상품재고 내역 검색조건 -->
 		<if test='wrhsSeCd != null and wrhsSeCd != ""'>
 			   AND GI.WRHS_SE_CD = #{wrhsSeCd}
 		</if>
