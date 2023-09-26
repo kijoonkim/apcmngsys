@@ -421,7 +421,6 @@
 		   AND OUTORDRNO 	= #{outordrno}
 		]]>
 	</delete>
-
 </mapper>
 
 
