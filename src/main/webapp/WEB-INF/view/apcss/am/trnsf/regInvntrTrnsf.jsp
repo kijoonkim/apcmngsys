@@ -177,7 +177,18 @@ const fn_initSBSelect = async function() {
 	SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true');
 
 	fn_getPrdcrs();
+	fn_getComData();
 }
+const fn_getComData = async function() {
+	let result = await Promise.all([
+		gfn_getComCdDtls('WAREHOUSE_SE_CD', gv_selectedApcCd),
+		gfn_getComCdDtls('GDS_GRD'),
+	]);
+	jsonComWarehouse = result[0];
+	jsonComGdsGrd = result[1];
+}
+
+
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
 	var checkSection = 0;
 	// only document
@@ -201,7 +212,8 @@ const fn_initSBSelect = async function() {
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 
 	function fn_sample1(){
-		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
+		fn_initSBSelect();
+		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true');
 
 		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
 		$("#srch-btn-sortInvntrDsctn").css({"background-color":"white","color":"black"});
@@ -212,7 +224,7 @@ const fn_initSBSelect = async function() {
 		fn_createGrid1();
 	}
 	function fn_sample2(){
-
+		fn_initSBSelect();
 		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"white","color":"black"});
 		$("#srch-btn-sortInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
 		$("#srch-btn-gdsInvntrDsctn").css({"background-color":"white","color":"black"});
@@ -222,7 +234,7 @@ const fn_initSBSelect = async function() {
 		fn_createGrid2();
 	}
 	function fn_sample3(){
-
+		fn_initSBSelect();
 		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"white","color":"black"});
 		$("#srch-btn-sortInvntrDsctn").css({"background-color":"white","color":"black"});
 		$("#srch-btn-gdsInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
@@ -261,12 +273,19 @@ const fn_initSBSelect = async function() {
 	        {caption: ["상품","상품"],				ref: 'gdsSeNm',      		type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["입고","입고"],				ref: 'wrhsSeNm',     		type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["운송","운송"],				ref: 'trsprtSeNm',      	type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',      		type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',      	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["재고","수량"],				ref: 'invntrQntt',      	type:'output',  width:'55px',    style:'text-align:center'},
-	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'55px',    style:'text-align:center'},
-	        {caption: ["이송창고","이송창고"],		ref: 'trnsfWarehouse',      type:'input',  width:'105px',    style:'text-align:center'},
+	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'55px',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}
+	        },
+	        {caption: ["이송창고","이송창고"],		ref: 'trnsfWarehouse',      type:'combo',  width:'105px',    style:'text-align:center',
+	        	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}
+// 	        	typeinfo: {ref:'jsonComWarehouse', label:'warehouseSeNm', value:'warehouseSeNm', oneclickedit: true}
+	        },
 	        {caption: ["이송","수량"],				ref: 'mvmnQntt',      		type:'input',  width:'55px',    style:'text-align:center'},
-	        {caption: ["이송","중량"],				ref: 'mvmnWght',      		type:'input',  width:'55px',    style:'text-align:center'},
+	        {caption: ["이송","중량"],				ref: 'mvmnWght',      		type:'input',  width:'55px',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}
+	        },
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -352,9 +371,10 @@ const fn_initSBSelect = async function() {
 	        {caption: ["규격","규격"],		ref: 'spcfctNm',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["등급","등급"],		ref: 'grdNm',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',      		type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["재고","수량"],				ref: 'invntrQntt',      	type:'output',  width:'55px',    style:'text-align:center'},
+	        {caption: ["재고","수량"],				ref: 'invntrQntt',      	type:'combo',  width:'55px',    style:'text-align:center'},
 	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'55px',    style:'text-align:center'},
-	        {caption: ["이송창고","이송창고"],		ref: 'trnsfWarehouse',      type:'input',  width:'105px',    style:'text-align:center'},
+	        {caption: ["이송창고","이송창고"],		ref: 'trnsfWarehouse',      type:'input',  width:'105px',    style:'text-align:center'
+	        },
 	        {caption: ["이송","수량"],				ref: 'mvmnQntt',      		type:'input',  width:'55px',    style:'text-align:center'},
 	        {caption: ["이송","중량"],				ref: 'mvmnWght',      		type:'input',  width:'55px',    style:'text-align:center'},
 	    ];
