@@ -326,10 +326,16 @@ const fn_getComData = async function() {
 	        {caption: ["규격","규격"],			ref: 'spcfctNm',      	type:'output',  	width:'105px',    style:'text-align:center'},
 	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',      		type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["재고","수량"],				ref: 'invntrQntt',      	type:'output',  width:'55px',    style:'text-align:center'},
-	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'55px',    style:'text-align:center'},
-	        {caption: ["이송창고","이송창고"],		ref: 'trnsfWarehouse',      type:'input',  width:'105px',    style:'text-align:center'},
+	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'55px',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}	
+	        },
+	        {caption: ["이송창고","이송창고"],		ref: 'trnsfWarehouse',      type:'input',  width:'105px',    style:'text-align:center',
+	        	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}	
+	        },
 	        {caption: ["이송","수량"],				ref: 'mvmnQntt',      		type:'input',  width:'55px',    style:'text-align:center'},
-	        {caption: ["이송","중량"],				ref: 'mvmnWght',      		type:'input',  width:'55px',    style:'text-align:center'},
+	        {caption: ["이송","중량"],				ref: 'mvmnWght',      		type:'input',  width:'55px',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}	
+	        },
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -372,11 +378,16 @@ const fn_getComData = async function() {
 	        {caption: ["등급","등급"],		ref: 'grdNm',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',      		type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["재고","수량"],				ref: 'invntrQntt',      	type:'combo',  width:'55px',    style:'text-align:center'},
-	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'55px',    style:'text-align:center'},
-	        {caption: ["이송창고","이송창고"],		ref: 'trnsfWarehouse',      type:'input',  width:'105px',    style:'text-align:center'
+	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'55px',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}	
+	        },
+	        {caption: ["이송창고","이송창고"],		ref: 'trnsfWarehouse',      type:'input',  width:'105px',    style:'text-align:center',
+	        	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}
 	        },
 	        {caption: ["이송","수량"],				ref: 'mvmnQntt',      		type:'input',  width:'55px',    style:'text-align:center'},
-	        {caption: ["이송","중량"],				ref: 'mvmnWght',      		type:'input',  width:'55px',    style:'text-align:center'},
+	        {caption: ["이송","중량"],				ref: 'mvmnWght',      		type:'input',  width:'55px',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}	
+	        },
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
