@@ -241,7 +241,7 @@
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 		let itemCd = jsonComVrty.find(e => e.vrtyCd == vrtyCd).itemCd;
 		SBUxMethod.set("srch-slt-itemCd", itemCd);
-		await fn_selectItem()
+		await fn_selectItem();
 		SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 
 	}
@@ -256,6 +256,8 @@
 		fn_createGrid();
 		fn_createGrid2();
 		fn_getPrdcrs();
+
+		grdSortCmnd.refresh({"combo":true});
 	});
 
 
@@ -284,7 +286,7 @@
 	        {caption: ["선별","수량"],  		ref: 'invntrQntt',    	type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
 	        {caption: ["선별","중량"],  		ref: 'invntrWght',    	type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
             {caption: ["규격", "규격"], 		ref: 'spcfct',   		type:'combo',  width:'100px',    style:'text-align:center; background:#FFF8DC;',
-				typeinfo : {ref:'jsonComSpcfct', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+				typeinfo : {ref:'jsonComSpcfct', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
 	        {caption: ["포장지시","수량"],  	ref: 'pckgQntt',    	type:'input',  width:'100px',    style:'text-align:right; background:#FFF8DC;'},
 	        {caption: ["포장지시","중량"],  	ref: 'pckgWght',    	type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
 	        {caption: ["지시비고","지시비고"],  		ref: 'rmrk',    		type:'input',  width:'180px',    style:'text-align:center'},

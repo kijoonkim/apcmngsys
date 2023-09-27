@@ -477,7 +477,7 @@
 	        {caption: ["선별순번"],		ref: 'sortSn', 		type:'output',	hidden: true},
             {caption: [" "," "],    ref: '_',        type:'output',  width:'1px'}
 
-        ];PCKG_CMNDNO 
+        ];
         grdSortInvntr = _SBGrid.create(SBGridProperties);
         grdSortInvntr.bind('valuechanged', fn_grdSortInvntrValueChanged);
     }

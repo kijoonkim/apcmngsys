@@ -368,33 +368,34 @@
         	{caption: ["포장일자","포장일자"], 	ref: 'pckgYmd', 		width: '120px', type: 'output', style:'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
         	},
-        	{caption: ["포장번호","포장번호"], 	ref: 'pckgnoIndct',     width: '7%',	type: 'output',	style: 'text-align:center'},
-            {caption: ['지시번호','지시번호'], 	ref: 'pckgCmndno', 		width: '7%', type: 'output', style:'text-align:center'},
-            {caption: ['품목','품목'], 			ref: 'itemNm', 			width: '7%',	type: 'output', style:'text-align:center'},
-            {caption: ['품종','품종'], 			ref: 'vrtyNm', 			width: '7%', 	type: 'output', style:'text-align:center'},
-            {caption: ['규격','규격'], 			ref: 'spcfctNm', 		width: '7%', 	type: 'output', style:'text-align:center'},
-            {caption: ['상품등급','상품등급'], 	ref: 'gdsGrdNm', 		width: '7%',	type: 'output', style:'text-align:center'},
-            {caption: ['재고','수량'], 			ref: 'invntrQntt', 		width: '5%', 	type: 'output', style:'text-align:right',
+        	{caption: ["포장번호","포장번호"], 	ref: 'pckgnoIndct',     width: '120px',	type: 'output',	style: 'text-align:center'},
+            {caption: ['지시번호','지시번호'], 	ref: 'pckgCmndno', 		width: '120px', type: 'output', style:'text-align:center'},
+            {caption: ['품목','품목'], 			ref: 'itemNm', 			width: '80px',	type: 'output', style:'text-align:center'},
+            {caption: ['품종','품종'], 			ref: 'vrtyNm', 			width: '80px', 	type: 'output', style:'text-align:center'},
+            {caption: ['규격','규격'], 			ref: 'spcfctNm', 		width: '80px', 	type: 'output', style:'text-align:center'},
+            {caption: ['상품등급','상품등급'], 	ref: 'gdsGrdNm', 		width: '80px',	type: 'output', style:'text-align:center'},
+            {caption: ['재고','수량'], 			ref: 'invntrQntt', 		width: '50px', 	type: 'output', style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ['재고','중량'], 			ref: 'invntrWght', 		width: '5%', 	type: 'output', style:'text-align:right',
+            {caption: ['재고','중량'], 			ref: 'invntrWght', 		width: '80px', 	type: 'output', style:'text-align:right',
             	format : {type:'number', rule:'#,###kg'}
             },
-            {caption: ['포장기','포장기'], 		ref: 'fcltNm', 			width: '7%', type: 'output', style:'text-align:center'},
-            {caption: ['대표생산자','대표생산자'],	ref: 'rprsPrdcrNm', 	width: '7%', type: 'output', style:'text-align:center'},
-            {caption: ['창고','창고'], 			ref: 'warehouseSeNm', 	width: '7%', type: 'output', style:'text-align:center'},
-            {caption: ['포장','수량'], 			ref: 'pckgQntt', 		width: '5%', 	type: 'output', style:'text-align:right',
+            {caption: ['포장기','포장기'], 		ref: 'fcltNm', 			width: '100px', type: 'output', style:'text-align:center'},
+            {caption: ['대표생산자','대표생산자'],	ref: 'rprsPrdcrNm', width: '100px', type: 'output', style:'text-align:center'},
+            {caption: ['창고','창고'], 			ref: 'warehouseSeNm', 	width: '100px', type: 'output', style:'text-align:center'},
+            {caption: ['포장','수량'], 			ref: 'pckgQntt', 		width: '50px', 	type: 'output', style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ['포장','중량'], 			ref: 'pckgWght', 		width: '5%', 	type: 'output', style:'text-align:right',
+            {caption: ['포장','중량'], 			ref: 'pckgWght', 		width: '80px', 	type: 'output', style:'text-align:right',
             	format : {type:'number', rule:'#,###kg'}
             },
-            {caption: ['출하','수량'], 			ref: 'spmtQntt', 		width: '5%', 	type: 'output', style:'text-align:right',
+            {caption: ['출하','수량'], 			ref: 'spmtQntt', 		width: '50px', 	type: 'output', style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ['출하','중량'], 			ref: 'spmtWght', 		width: '5%', 	type: 'output', style:'text-align:right',
+            {caption: ['출하','중량'], 			ref: 'spmtWght', 		width: '80px', 	type: 'output', style:'text-align:right',
             	format : {type:'number', rule:'#,###kg'}
             },
+            {caption: ['비고','비고'], 		ref: 'rmrk', 				width: '250px', type: 'output', style:'text-align:center'},
  	        {caption: ["APC코드"],	ref: 'apcCd',   	type:'output',  hidden: true},
  	        {caption: ["대표생산자코드"],	ref: 'rprsPrdcrCd',   	type:'output',  hidden: true},
  	        {caption: ["품목코드"],		ref: 'itemCd',   	type:'output',  hidden: true},
@@ -416,7 +417,7 @@
         grdPckgPrfmnc = _SBGrid.create(SBGridProperties);
     }
 
-	 //조회
+	//조회
     const fn_search = async function() {
 
     	grdPckgPrfmnc.rebuild();
