@@ -306,6 +306,7 @@
 				itemCd = jsonComVrty[i].mastervalue;
 			}
 		}
+		SBUxMethod.set("srch-slt-itemCd", itemCd);
 		await gfn_setApcSpcfctsSBSelect('srch-slt-spcfct', 	jsonComSpcfct, 	gv_apcCd, itemCd)		// 포장구분
 		await gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 	jsonGrdSpmtPckgUnit, 	gv_apcCd, itemCd, vrtyCd),		// 포장구분
 		grdGdsInvntr.refresh({"combo":true})
@@ -339,7 +340,7 @@
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
         	{caption: ['품종'], 		ref: 'vrtyNm', 		width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['상품구분'],	ref: 'gdsSeNm', 	width: '80px', type: 'output', style: 'text-align:center'},
+            {caption: ['상품구분'],		ref: 'gdsSeNm', 	width: '80px', type: 'output', style: 'text-align:center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 	width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['생산일자'], 	ref: 'pckgYmd', 	width: '150px', type: 'output', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -347,8 +348,8 @@
             {caption: ['재고수량'], 	ref: 'invntrQntt', 	width: '100px', type: 'output', style: 'text-align:right'},
             {caption: ['재고중량'], 	ref: 'invntrWght', 	width: '150px', type: 'output', style: 'text-align:right',
             			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-   			{caption: ["포장단위"], 			ref: 'spmtPckgUnitCd',   	type:'combo',  width:'200px',    style:'text-align:center; background:#FFF8DC;',
-    					typeinfo : {ref:'jsonGrdSpmtPckgUnit', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+   			{caption: ["포장단위"], 	ref: 'spmtPckgUnitCd',   	type:'combo',  width:'200px',    style:'text-align:center; background:#FFF8DC;',
+    					typeinfo : {ref:'jsonGrdSpmtPckgUnit', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
             {caption: ["등급"], 			ref: 'gdsGrd',   	type:'combo',  width:'100px',    style:'text-align:center; background:#FFF8DC;',
     					typeinfo : {ref:'jsonGrdGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['출하지시수량'], ref: 'cmndQntt',	width: '100px', type: 'output', style: 'text-align:right'},
@@ -357,14 +358,14 @@
             {caption: ['출하수량'], 	ref: 'spmtQntt', 	width: '100px', type: 'input', style: 'text-align:right; background:#FFF8DC;' },
             {caption: ['출하중량'], 	ref: 'spmtWght', 	width: '150px', type: 'input', style: 'text-align:right; background:#FFF8DC;',
             			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ["출하일자"],	ref: 'spmtYmd',   	type:'output',  hidden: true},
+            {caption: ["출하일자"],		ref: 'spmtYmd',   	type:'output',  hidden: true},
             {caption: ["거래처코드"],	ref: 'cnptCd',   	type:'output',  hidden: true},
             {caption: ["운송사코드"],	ref: 'trsprtCoCd',  type:'output',  hidden: true},
-            {caption: ["운송사명"],	ref: 'trsprtCoNm',  type:'output',  hidden: true},
-            {caption: ["차량번호"],	ref: 'vhclno',   	type:'output',  hidden: true},
+            {caption: ["운송사명"],		ref: 'trsprtCoNm',  type:'output',  hidden: true},
+            {caption: ["차량번호"],		ref: 'vhclno',   	type:'output',  hidden: true},
             {caption: ["배송지"],		ref: 'dldtn',   	type:'output',  hidden: true},
-            {caption: ["운임"],		ref: 'trsprtCst',   type:'output',  hidden: true},
-            {caption: ["비고"],		ref: 'rmrk',   		type:'output',  hidden: true}
+            {caption: ["운임"],			ref: 'trsprtCst',   type:'output',  hidden: true},
+            {caption: ["비고"],			ref: 'rmrk',   		type:'output',  hidden: true}
         ];
 
         grdGdsInvntr = _SBGrid.create(SBGridPropertiesGdsInvntr);
