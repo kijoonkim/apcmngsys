@@ -255,13 +255,36 @@
                 ref: 'checked', type: 'checkbox',   style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["선별기 보유여부"],  	ref: 'sortMchnHldYn',     		type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["선별기규격"],	    ref: 'sortMchnSpcfct',    		type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["당도기"],			ref: 'itemCd',            		type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["형상선별"],   		ref: 'itemCd2', 			    type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["가공설비"], 		ref: 'itemCd3',  			   	type:'output',  width:'23%',    style:'text-align:center'},
+            {caption: ["품목1 보유여부"],  	ref: 'sortMchnHldYn11',     	type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["품목1 규격"],  		ref: 'sortMchnSpcfct1',     	type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["품목1 당도기"],  	ref: 'sortMchnHldYn12',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+            {caption: ["품목1 색택선별"],  	ref: 'sortMchnHldYn13',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+            {caption: ["품목1 형상선별"],  	ref: 'sortMchnHldYn14',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+            {caption: ["품목1 가공설비"],  	ref: 'sortMchnHldYn15',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+
+            {caption: ["품목2 보유여부"],	    ref: 'sortMchnHldYn21',    		type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["품목2 규격"],  		ref: 'sortMchnSpcfct2',     	type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["품목2 당도기"],  	ref: 'sortMchnHldYn22',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+            {caption: ["품목2 색택선별"],  	ref: 'sortMchnHldYn23',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+            {caption: ["품목2 형상선별"],  	ref: 'sortMchnHldYn24',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+            {caption: ["품목2 가공설비"],  	ref: 'sortMchnHldYn25',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+
+            {caption: ["품목3 보유여부"],		ref: 'sortMchnHldYn31',         type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["품목3 규격"],  		ref: 'sortMchnSpcfct3',     	type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["품목3 당도기"],  	ref: 'sortMchnHldYn32',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+            {caption: ["품목3 색택선별"],  	ref: 'sortMchnHldYn33',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+            {caption: ["품목3 형상선별"],  	ref: 'sortMchnHldYn34',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+            {caption: ["품목3 가공설비"],  	ref: 'sortMchnHldYn35',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+
+            {caption: ["기타 보유여부"],   	ref: 'sortMchnHldYn41', 	 	type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["기타 규격"],  		ref: 'sortMchnSpcfct4',     	type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["기타 당도기"],  		ref: 'sortMchnHldYn42',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+            {caption: ["기타 색택선별"],  	ref: 'sortMchnHldYn43',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+            {caption: ["기타 형상선별"],  	ref: 'sortMchnHldYn44',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+            {caption: ["기타 가공설비"],  	ref: 'sortMchnHldYn45',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+
             {caption: ["APCCD"],		ref: 'apcCd',            		type:'output',  hidden: false},
-            {caption: ["대상연도"],			ref: 'trgtYr',      		    type:'output',  hidden:false},
+            {caption: ["대상연도"],			ref: 'trgtYr',      		    type:'output',  hidden: false},
             {caption: ["등록프로그램"], 		ref: 'creProgram',  			type:'output',  hidden: true},
             {caption: ["변경프로그램"], 		ref: 'updProgram',  			type:'output',  hidden: true}
 
@@ -345,16 +368,37 @@
         	jsonGdsMcList.length = 0;
         	data.resultList.forEach((item, index) => {
 				const msg = {
-			  trgtYr: item.trgtYr	 	//대상연도
-		   	, apcCd: item.apcCd  //APC
-		   	, sn: item.sn  //순번
-			, sortMchnCd: item.sortMchnCd //선별기 코드
-			, sortMchnItemCd: item.sortMchnItemCd //품목코드
-			, sortMchnSpcfct: item.sortMchnSpcfct  //선별기 규격
-			, sortMchnHldYn: item.sortMchnHldYn  //선별기 보유 유무
-			, rmrk: item.rmrk  //비고
+			  	trgtYr: item.trgtYr	 	//대상연도
+		   		,	apcCd: item.apcCd  //APC
+				,	sortMchnHldYn11: item.sortMchnHldYn11  //품목1 보유여부
+			    , 	sortMchnSpcfct1: item.sortMchnSpcfct1 //품목1 규격
+			    ,	sortMchnHldYn12: item.sortMchnHldYn12  //품목1 당도기
+			    ,	sortMchnHldYn13: item.sortMchnHldYn13  //품목1 색택선별
+			    ,	sortMchnHldYn14: item.sortMchnHldYn14  //품목1 형상선별
+			    ,	sortMchnHldYn15: item.sortMchnHldYn15  //품목1 가공설비
 
-				}
+			    ,	sortMchnHldYn21: item.sortMchnHldYn21  //품목2 보유여부
+			    , 	sortMchnSpcfct2: item.sortMchnSpcfct2 //품목2 규격
+			    ,	sortMchnHldYn22: item.sortMchnHldYn22  //품목2 당도기
+			    ,	sortMchnHldYn23: item.sortMchnHldYn23  //품목2 색택선별
+			    ,	sortMchnHldYn24: item.sortMchnHldYn24  //품목2 형상선별
+			    ,	sortMchnHldYn25: item.sortMchnHldYn25  //품목2 가공설비
+
+			    ,	sortMchnHldYn31: item.sortMchnHldYn31  //품목3 보유여부
+			    , 	sortMchnSpcfct3: item.sortMchnSpcfct3 //품목3 규격
+			    ,	sortMchnHldYn32: item.sortMchnHldYn32  //품목3 당도기
+			    ,	sortMchnHldYn33: item.sortMchnHldYn33  //품목3 색택선별
+			    ,	sortMchnHldYn34: item.sortMchnHldYn34  //품목3 형상선별
+			    ,	sortMchnHldYn35: item.sortMchnHldYn35  //품목3 가공설비
+
+			    ,	sortMchnHldYn41: item.sortMchnHldYn41  //기타 보유여부
+			    , 	sortMchnSpcfct4: item.sortMchnSpcfct4 //기타 규격
+			    ,	sortMchnHldYn42: item.sortMchnHldYn42  //기타 당도기
+			    ,	sortMchnHldYn43: item.sortMchnHldYn43  //기타 색택선별
+			    ,	sortMchnHldYn44: item.sortMchnHldYn44  //기타 형상선별
+			    ,	sortMchnHldYn45: item.sortMchnHldYn45  //기타 가공설비
+
+		}
 
 				jsonGdsMcList.push(msg);
 
@@ -393,39 +437,73 @@
     //신규 작성 dtl 내부의 값을 null로
     function fn_create() {
     	console.log("******************fn_create**********************************");
-   	    SBUxMethod.set("dtl-input-trgtYr", null);  //대상연도
-   	    SBUxMethod.set("dtl-input-apcCd", null);  //APC
-   	    SBUxMethod.set("dtl-input-sn", null);  //순번
-	    SBUxMethod.set("dtl-input-sortMchnCd", null);  //선별기 코드
-	    SBUxMethod.set("dtl-input-sortMchnItemCd", null); //품목코드
-	    SBUxMethod.set("dtl-input-sortMchnSpcfct", null);  //선별기 규격
-	    SBUxMethod.set("dtl-input-sortMchnHldYn", null);  //선별기 보유 유무
-	    SBUxMethod.set("dtl-input-rmrk", null);  //비고
-        SBUxMethod.set("dtl-input-delYn", null);                  			 //	 삭제유무
-        SBUxMethod.set("dtl-input-sysFrstInptDt", null);      	  	 //	 시스템최초입력일시
-        SBUxMethod.set("dtl-input-sysFrstInptUserId", null);     //	 시스템최초입력사용자id
-        SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);   //	 시스템최초입력프로그램id
-        SBUxMethod.set("dtl-input-sysLastChgDt", null);     		 	 //	 시스템최종변경일시
-        SBUxMethod.set("dtl-input-sysLastChgUserId", null);  	 //	 시스템최종변경사용자id
-        SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);   	 //	 시스템최종변경프로그램id
+    	SBUxMethod.set('dtl-input-trgtYr', null);            //  대상연도
+        SBUxMethod.set('dtl-input-apcCd', null); 			//apc코드
+	    SBUxMethod.set("dtl-input-sortMchnHldYn11", null);  //품목1 보유여부
+	    SBUxMethod.set("dtl-input-sortMchnSpcfct1", null); //품목1 규격
+	    SBUxMethod.set("dtl-input-sortMchnHldYn12", null);  //품목1 당도기
+	    SBUxMethod.set("dtl-input-sortMchnHldYn13", null);  //품목1 색택선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn14", null);  //품목1 형상선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn15", null);  //품목1 가공설비
 
+	    SBUxMethod.set("dtl-input-sortMchnHldYn21", null);  //품목2 보유여부
+	    SBUxMethod.set("dtl-input-sortMchnSpcfct2", null); //품목2 규격
+	    SBUxMethod.set("dtl-input-sortMchnHldYn22", null);  //품목2 당도기
+	    SBUxMethod.set("dtl-input-sortMchnHldYn23", null);  //품목2 색택선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn24", null);  //품목2 형상선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn25", null);  //품목2 가공설비
 
+	    SBUxMethod.set("dtl-input-sortMchnHldYn31", null);  //품목3 보유여부
+	    SBUxMethod.set("dtl-input-sortMchnSpcfct3", null); //품목3 규격
+	    SBUxMethod.set("dtl-input-sortMchnHldYn32", null);  //품목3 당도기
+	    SBUxMethod.set("dtl-input-sortMchnHldYn33", null);  //품목3 색택선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn34", null);  //품목3 형상선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn35", null);  //품목3 가공설비
+
+	    SBUxMethod.set("dtl-input-sortMchnHldYn41", null);  //기타 보유여부
+	    SBUxMethod.set("dtl-input-sortMchnSpcfct4", null); //기타 규격
+	    SBUxMethod.set("dtl-input-sortMchnHldYn42", null);  //기타 당도기
+	    SBUxMethod.set("dtl-input-sortMchnHldYn43", null);  //기타 색택선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn44", null);  //기타 형상선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn45", null);  //기타 가공설비
     }
 
      const fn_clearForm = function() {
-    	 console.log("******************fn_clearForm**********************************");
-   	    SBUxMethod.set("dtl-input-sn", null);  //순번
-	    SBUxMethod.set("dtl-input-sortMchnCd", null);  //선별기 코드
-	    SBUxMethod.set("dtl-input-sortMchnItemCd", null); //품목코드
-	    SBUxMethod.set("dtl-input-sortMchnSpcfct", null);  //선별기 규격
-	    SBUxMethod.set("dtl-input-sortMchnHldYn", null);  //선별기 보유 유무
-	    SBUxMethod.set("dtl-input-rmrk", null);  //비고
+		console.log("******************fn_clearForm**********************************");
+		SBUxMethod.set('dtl-input-trgtYr', null);            //  대상연도
+        SBUxMethod.set('dtl-input-apcCd', null); 			//apc코드
+	    SBUxMethod.set("dtl-input-sortMchnHldYn11", null);  //품목1 보유여부
+	    SBUxMethod.set("dtl-input-sortMchnSpcfct1", null); //품목1 규격
+	    SBUxMethod.set("dtl-input-sortMchnHldYn12", null);  //품목1 당도기
+	    SBUxMethod.set("dtl-input-sortMchnHldYn13", null);  //품목1 색택선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn14", null);  //품목1 형상선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn15", null);  //품목1 가공설비
 
+	    SBUxMethod.set("dtl-input-sortMchnHldYn21", null);  //품목2 보유여부
+	    SBUxMethod.set("dtl-input-sortMchnSpcfct2", null); //품목2 규격
+	    SBUxMethod.set("dtl-input-sortMchnHldYn22", null);  //품목2 당도기
+	    SBUxMethod.set("dtl-input-sortMchnHldYn23", null);  //품목2 색택선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn24", null);  //품목2 형상선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn25", null);  //품목2 가공설비
+
+	    SBUxMethod.set("dtl-input-sortMchnHldYn31", null);  //품목3 보유여부
+	    SBUxMethod.set("dtl-input-sortMchnSpcfct3", null); //품목3 규격
+	    SBUxMethod.set("dtl-input-sortMchnHldYn32", null);  //품목3 당도기
+	    SBUxMethod.set("dtl-input-sortMchnHldYn33", null);  //품목3 색택선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn34", null);  //품목3 형상선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn35", null);  //품목3 가공설비
+
+	    SBUxMethod.set("dtl-input-sortMchnHldYn41", null);  //기타 보유여부
+	    SBUxMethod.set("dtl-input-sortMchnSpcfct4", null); //기타 규격
+	    SBUxMethod.set("dtl-input-sortMchnHldYn42", null);  //기타 당도기
+	    SBUxMethod.set("dtl-input-sortMchnHldYn43", null);  //기타 색택선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn44", null);  //기타 형상선별
+	    SBUxMethod.set("dtl-input-sortMchnHldYn45", null);  //기타 가공설비
      }
     //저장
     const fn_save = async function() {
     	console.log("******************fn_save**********************************");
-
+		/*
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
 
@@ -438,6 +516,7 @@
             alert("조회 항목의 대상년도를 선택하세요.");
             return;
         }
+		*/
 
 
 
@@ -451,6 +530,9 @@
 
     }
 
+
+
+
     /**
      * @param {boolean} isConfirmed
      * 신규 등록
@@ -462,12 +544,35 @@
     	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltGdsMchnInfo.do", {
     			trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
             ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
-       	    ,	sn: SBUxMethod.get('dtl-input-sn')  //순번
-    	    ,	sortMchnCd: SBUxMethod.get('dtl-input-sortMchnCd')  //선별기 코드
-    	    , 	sortMchnItemCd: SBUxMethod.get('dtl-input-sortMchnItemCd') //품목코드
-    	    , 	sortMchnSpcfct1: SBUxMethod.get('dtl-input-sortMchnSpcfct')  //선별기 규격
-    	    ,	sortMchnHldYn: SBUxMethod.get('dtl-input-sortMchnHldYn')  //선별기 보유 유무
-    	    ,	rmrk: SBUxMethod.get('dtl-input-rmrk')  //비고
+
+        	,	sortMchnHldYn11: SBUxMethod.get("dtl-input-sortMchnHldYn11")  //품목1 보유여부
+		    , 	sortMchnSpcfct1: SBUxMethod.get("dtl-input-sortMchnSpcfct1") //품목1 규격
+		    ,	sortMchnHldYn12: SBUxMethod.get("dtl-input-sortMchnHldYn12")  //품목1 당도기
+		    ,	sortMchnHldYn13: SBUxMethod.get("dtl-input-sortMchnHldYn13")  //품목1 색택선별
+		    ,	sortMchnHldYn14: SBUxMethod.get("dtl-input-sortMchnHldYn14")  //품목1 형상선별
+		    ,	sortMchnHldYn15: SBUxMethod.get("dtl-input-sortMchnHldYn15")  //품목1 가공설비
+
+		    ,	sortMchnHldYn21: SBUxMethod.get("dtl-input-sortMchnHldYn21")  //품목2 보유여부
+		    , 	sortMchnSpcfct2: SBUxMethod.get("dtl-input-sortMchnSpcfct2") //품목2 규격
+		    ,	sortMchnHldYn22: SBUxMethod.get("dtl-input-sortMchnHldYn22")  //품목2 당도기
+		    ,	sortMchnHldYn23: SBUxMethod.get("dtl-input-sortMchnHldYn23")  //품목2 색택선별
+		    ,	sortMchnHldYn24: SBUxMethod.get("dtl-input-sortMchnHldYn24")  //품목2 형상선별
+		    ,	sortMchnHldYn25: SBUxMethod.get("dtl-input-sortMchnHldYn25")  //품목2 가공설비
+
+		    ,	sortMchnHldYn31: SBUxMethod.get("dtl-input-sortMchnHldYn31")  //품목3 보유여부
+		    , 	sortMchnSpcfct3: SBUxMethod.get("dtl-input-sortMchnSpcfct3") //품목3 규격
+		    ,	sortMchnHldYn32: SBUxMethod.get("dtl-input-sortMchnHldYn32")  //품목3 당도기
+		    ,	sortMchnHldYn33: SBUxMethod.get("dtl-input-sortMchnHldYn33")  //품목3 색택선별
+		    ,	sortMchnHldYn34: SBUxMethod.get("dtl-input-sortMchnHldYn34")  //품목3 형상선별
+		    ,	sortMchnHldYn35: SBUxMethod.get("dtl-input-sortMchnHldYn35")  //품목3 가공설비
+
+		    ,	sortMchnHldYn41: SBUxMethod.get("dtl-input-sortMchnHldYn41")  //기타 보유여부
+		    , 	sortMchnSpcfct4: SBUxMethod.get("dtl-input-sortMchnSpcfct4") //기타 규격
+		    ,	sortMchnHldYn42: SBUxMethod.get("dtl-input-sortMchnHldYn42")  //기타 당도기
+		    ,	sortMchnHldYn43: SBUxMethod.get("dtl-input-sortMchnHldYn43")  //기타 색택선별
+		    ,	sortMchnHldYn44: SBUxMethod.get("dtl-input-sortMchnHldYn44")  //기타 형상선별
+		    ,	sortMchnHldYn45: SBUxMethod.get("dtl-input-sortMchnHldYn45")  //기타 가공설비
+
 			,	daddr:1
 
 		});
@@ -497,21 +602,36 @@
 
     	const postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltGdsMchnInfo.do", {
     	 	trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
-        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
-   	    ,	sn: SBUxMethod.get('dtl-input-sn')  //순번
-	    ,	sortMchnCd: SBUxMethod.get('dtl-input-sortMchnCd')  //선별기 코드
-	    , 	sortMchnItemCd: SBUxMethod.get('dtl-input-sortMchnItemCd') //품목코드
-	    , 	sortMchnSpcfct1: SBUxMethod.get('dtl-input-sortMchnSpcfct')  //선별기 규격
-	    ,	sortMchnHldYn: SBUxMethod.get('dtl-input-sortMchnHldYn')  //선별기 보유 유무
-	    ,	rmrk: SBUxMethod.get('dtl-input-rmrk')  //비고
-        ,	delYn: SBUxMethod.get('dtl-input-delYn')                  			 //	 삭제유무
-        ,	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt')      	  	 //	 시스템최초입력일시
-        ,	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId')     //	 시스템최초입력사용자id
-        ,	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId')   //	 시스템최초입력프로그램id
-        ,	sysLastChgDt: SBUxMethod.get('dtl-input-sysLastChgDt')     		 	 //	 시스템최종변경일시
-        ,	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId')  	 //	 시스템최종변경사용자id
-        ,	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')   	 //	 시스템최종변경프로그램id
-    		});
+	        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
+
+		    ,	sortMchnHldYn11: SBUxMethod.get("dtl-input-sortMchnHldYn11")  //품목1 보유여부
+		    , 	sortMchnSpcfct1: SBUxMethod.get("dtl-input-sortMchnSpcfct1") //품목1 규격
+		    ,	sortMchnHldYn12: SBUxMethod.get("dtl-input-sortMchnHldYn12")  //품목1 당도기
+		    ,	sortMchnHldYn13: SBUxMethod.get("dtl-input-sortMchnHldYn13")  //품목1 색택선별
+		    ,	sortMchnHldYn14: SBUxMethod.get("dtl-input-sortMchnHldYn14")  //품목1 형상선별
+		    ,	sortMchnHldYn15: SBUxMethod.get("dtl-input-sortMchnHldYn15")  //품목1 가공설비
+
+		    ,	sortMchnHldYn21: SBUxMethod.get("dtl-input-sortMchnHldYn21")  //품목2 보유여부
+		    , 	sortMchnSpcfct2: SBUxMethod.get("dtl-input-sortMchnSpcfct2") //품목2 규격
+		    ,	sortMchnHldYn22: SBUxMethod.get("dtl-input-sortMchnHldYn22")  //품목2 당도기
+		    ,	sortMchnHldYn23: SBUxMethod.get("dtl-input-sortMchnHldYn23")  //품목2 색택선별
+		    ,	sortMchnHldYn24: SBUxMethod.get("dtl-input-sortMchnHldYn24")  //품목2 형상선별
+		    ,	sortMchnHldYn25: SBUxMethod.get("dtl-input-sortMchnHldYn25")  //품목2 가공설비
+
+		    ,	sortMchnHldYn31: SBUxMethod.get("dtl-input-sortMchnHldYn31")  //품목3 보유여부
+		    , 	sortMchnSpcfct3: SBUxMethod.get("dtl-input-sortMchnSpcfct3") //품목3 규격
+		    ,	sortMchnHldYn32: SBUxMethod.get("dtl-input-sortMchnHldYn32")  //품목3 당도기
+		    ,	sortMchnHldYn33: SBUxMethod.get("dtl-input-sortMchnHldYn33")  //품목3 색택선별
+		    ,	sortMchnHldYn34: SBUxMethod.get("dtl-input-sortMchnHldYn34")  //품목3 형상선별
+		    ,	sortMchnHldYn35: SBUxMethod.get("dtl-input-sortMchnHldYn35")  //품목3 가공설비
+
+		    ,	sortMchnHldYn41: SBUxMethod.get("dtl-input-sortMchnHldYn41")  //기타 보유여부
+		    , 	sortMchnSpcfct4: SBUxMethod.get("dtl-input-sortMchnSpcfct4") //기타 규격
+		    ,	sortMchnHldYn42: SBUxMethod.get("dtl-input-sortMchnHldYn42")  //기타 당도기
+		    ,	sortMchnHldYn43: SBUxMethod.get("dtl-input-sortMchnHldYn43")  //기타 색택선별
+		    ,	sortMchnHldYn44: SBUxMethod.get("dtl-input-sortMchnHldYn44")  //기타 형상선별
+		    ,	sortMchnHldYn45: SBUxMethod.get("dtl-input-sortMchnHldYn45")  //기타 가공설비
+    	});
         const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
@@ -621,12 +741,33 @@
 
     	SBUxMethod.set("dtl-input-trgtYr", rowData.trgtYr);                 //대상연도
 		SBUxMethod.set("dtl-input-apcCd", rowData.apcCd);                   //apc코드
-    	SBUxMethod.set("dtl-input-sn", rowData.sn);                         //순번
-    	SBUxMethod.set("dtl-input-sortMchnCd", rowData.sortMchnCd);         //선별기 코드
-    	SBUxMethod.set("dtl-input-sortMchnItemCd", rowData.sortMchnItemCd); //품목코드
-    	SBUxMethod.set("dtl-input-sortMchnSpcfct", rowData.sortMchnSpcfct1); //선별기 규격
-        SBUxMethod.set("dtl-input-sortMchnHldYn", rowData.sortMchnHldYn);   //선별기 보유 유무
-        SBUxMethod.set("dtl-input-rmrk", rowData.rmrk);                     //비고
+		SBUxMethod.set("dtl-input-sortMchnHldYn11", rowData.sortMchnHldYn11);  //품목1 보유여부
+		SBUxMethod.set("dtl-input-sortMchnSpcfct1", rowData.sortMchnSpcfct1); //품목1 규격
+		SBUxMethod.set("dtl-input-sortMchnHldYn12", rowData.sortMchnHldYn12);  //품목1 당도기
+		SBUxMethod.set("dtl-input-sortMchnHldYn13", rowData.sortMchnHldYn13);  //품목1 색택선별
+		SBUxMethod.set("dtl-input-sortMchnHldYn14", rowData.sortMchnHldYn14);  //품목1 형상선별
+		SBUxMethod.set("dtl-input-sortMchnHldYn15", rowData.sortMchnHldYn15);  //품목1 가공설비
+
+		SBUxMethod.set("dtl-input-sortMchnHldYn21", rowData.sortMchnHldYn21);  //품목2 보유여부
+		SBUxMethod.set("dtl-input-sortMchnSpcfct2", rowData.sortMchnSpcfct2); //품목2 규격
+		SBUxMethod.set("dtl-input-sortMchnHldYn22", rowData.sortMchnHldYn22);  //품목2 당도기
+		SBUxMethod.set("dtl-input-sortMchnHldYn23", rowData.sortMchnHldYn23);  //품목2 색택선별
+		SBUxMethod.set("dtl-input-sortMchnHldYn24", rowData.sortMchnHldYn24);  //품목2 형상선별
+		SBUxMethod.set("dtl-input-sortMchnHldYn25", rowData.sortMchnHldYn25);  //품목2 가공설비
+
+		SBUxMethod.set("dtl-input-sortMchnHldYn31", rowData.sortMchnHldYn31);  //품목3 보유여부
+		SBUxMethod.set("dtl-input-sortMchnSpcfct3", rowData.sortMchnSpcfct3); //품목3 규격
+		SBUxMethod.set("dtl-input-sortMchnHldYn32", rowData.sortMchnHldYn32);  //품목3 당도기
+		SBUxMethod.set("dtl-input-sortMchnHldYn33", rowData.sortMchnHldYn33);  //품목3 색택선별
+		SBUxMethod.set("dtl-input-sortMchnHldYn34", rowData.sortMchnHldYn34);  //품목3 형상선별
+		SBUxMethod.set("dtl-input-sortMchnHldYn35", rowData.sortMchnHldYn35);  //품목3 가공설비
+
+		SBUxMethod.set("dtl-input-sortMchnHldYn41", rowData.sortMchnHldYn41);  //기타 보유여부
+		SBUxMethod.set("dtl-input-sortMchnSpcfct4", rowData.sortMchnSpcfct4); //기타 규격
+		SBUxMethod.set("dtl-input-sortMchnHldYn42", rowData.sortMchnHldYn42);  //기타 당도기
+		SBUxMethod.set("dtl-input-sortMchnHldYn43", rowData.sortMchnHldYn43);  //기타 색택선별
+		SBUxMethod.set("dtl-input-sortMchnHldYn44", rowData.sortMchnHldYn44);  //기타 형상선별
+		SBUxMethod.set("dtl-input-sortMchnHldYn45", rowData.sortMchnHldYn45);  //기타 가공설비
     }
 
 

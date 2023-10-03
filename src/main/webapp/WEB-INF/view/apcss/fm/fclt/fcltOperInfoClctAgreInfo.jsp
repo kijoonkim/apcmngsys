@@ -102,19 +102,15 @@
 					<tr>
 						<th class="th_bg">APC 보유여부</th>
                       	<td class="td_input" style="border-right:hidden;">
-								<p class="ad_input_row">
-									<sbux-radio id="dtl-rdo-apcHldYn_1" name="dtl-rdo-apcHldYn" uitype="normal" class="radio_label" value="Y"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-apcHldYn_1" text="예"></sbux-label>
-								</p>
-								<p class="ad_input_row">
-									<sbux-radio id="dtl-rdo-apcHldYn_2" name="dtl-rdo-apcHldYn" uitype="normal" class="radio_label" value="N"></sbux-radio>
-									<sbux-label class="radio_label" for-id="dtl-rdo-apcHldYn_2" text="아니오"></sbux-label>
-								</p>
-							</td>
-
-
-
-
+							<p class="ad_input_row">
+								<sbux-radio id="dtl-rdo-apcHldYn_1" name="dtl-rdo-apcHldYn" uitype="normal" class="radio_label" value="Y"></sbux-radio>
+								<sbux-label class="radio_label" for-id="dtl-rdo-apcHldYn_1" text="예"></sbux-label>
+							</p>
+							<p class="ad_input_row">
+								<sbux-radio id="dtl-rdo-apcHldYn_2" name="dtl-rdo-apcHldYn" uitype="normal" class="radio_label" value="N"></sbux-radio>
+								<sbux-label class="radio_label" for-id="dtl-rdo-apcHldYn_2" text="아니오"></sbux-label>
+							</p>
+						</td>
 					</tr>
 					<tr>
 						<th class="th_bg">담당자</th>
@@ -394,8 +390,8 @@
     	SBUxMethod.set("dtl-input-prsnaDataAgrdYn",null);  	//동의여부
     }
      const fn_clearForm = function() {                       //그리드 목록을 초기화
-       	//SBUxMethod.set("srch-input-trgtYr",null); 	 	//대상연도
-		//SBUxMethod.set("srch-inp-apcCd",null); 	 	//apc코드
+       	SBUxMethod.set("srch-input-trgtYr",null); 	 	//대상연도
+		SBUxMethod.set("srch-inp-apcCd",null); 	 	//apc코드
 		SBUxMethod.set("dtl-input-operOgnzCd",null);  	//운영조직 코드
 		SBUxMethod.set("dtl-input-operOgnzNm",null); 	 //운영조직 명
 		SBUxMethod.set("dtl-input-operOgnzBrno",null);  	//운영조직 사업자등록번호

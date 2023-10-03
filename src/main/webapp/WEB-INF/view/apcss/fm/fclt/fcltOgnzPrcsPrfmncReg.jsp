@@ -114,7 +114,9 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-
+		let date = new Date();
+		let year  = date.getFullYear();
+		SBUxMethod.set("srch-inp-trgtYr", year);
 	})
 
 

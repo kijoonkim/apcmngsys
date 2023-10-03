@@ -5,16 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.fm.popup.mapper.ApcSelectPopupMapper;
-import com.at.apcss.fm.popup.mapper.InvstmntSpmtPopupMapper;
 import com.at.apcss.fm.popup.service.ApcSelectPopupService;
-import com.at.apcss.fm.popup.service.InvstmntSpmtPopupService;
 import com.at.apcss.fm.popup.vo.ApcSelectPopupVO;
-import com.at.apcss.fm.popup.vo.InvstmntSpmtPopupVO;
 
 
 /**
- * @Class Name : InvstmntSpmtPopupServiceImpl.java
- * @Description : 통합조직,출자출하조직 팝업 서비스를 정의하기 위한 서비스 구현 클래스
+ * @Class Name : ApcSelectPopupServiceImpl.java
+ * @Description : APC선택 팝업 서비스를 정의하기 위한 서비스 구현 클래스
  * @author ljw
  * @since 2023.09.22
  * @version 1.0

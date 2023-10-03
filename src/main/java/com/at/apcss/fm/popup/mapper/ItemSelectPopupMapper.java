@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.at.apcss.fm.popup.vo.ApcSelectPopupVO;
+import com.at.apcss.fm.popup.vo.ItemSelectPopupVO;
 
 /**
- * apc선택 팝업 Mapper 인터페이스
+ * 품목선택 팝업 Mapper 인터페이스
  * @author ljw
  * @since 2023.10.03
  * @version 1.0
@@ -21,14 +21,14 @@ import com.at.apcss.fm.popup.vo.ApcSelectPopupVO;
  * </pre>
  */
 @Mapper
-public interface ApcSelectPopupMapper {
+public interface ItemSelectPopupMapper {
 
 	/**
-	 * APC 리스트 조회
-	 * @param InvstmntSpmtPopupVO
+	 * 품목선택 리스트 조회
+	 * @param ItemSelectPopupVO
 	 * @return
 	 * @throws Exception
 	 */
-	public List<ApcSelectPopupVO> selectApcList(ApcSelectPopupVO vo);
+	public List<ItemSelectPopupVO> selectItemList(ItemSelectPopupVO vo);
 
 }

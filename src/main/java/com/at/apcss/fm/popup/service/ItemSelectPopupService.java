@@ -2,11 +2,11 @@ package com.at.apcss.fm.popup.service;
 
 import java.util.List;
 
-import com.at.apcss.fm.popup.vo.ApcSelectPopupVO;
+import com.at.apcss.fm.popup.vo.ItemSelectPopupVO;
 
 
 /**
- * apc선택 팝업 Service 인터페이스
+ * 품목선택 팝업 Service 인터페이스
  * @author ljw
  * @since 2023.10.03
  * @version 1.0
@@ -19,14 +19,14 @@ import com.at.apcss.fm.popup.vo.ApcSelectPopupVO;
  * 2023.10.03  ljw       최초 생성
  * </pre>
  */
-public interface ApcSelectPopupService {
+public interface ItemSelectPopupService {
 
 	/**
-	 * APC 리스트
-	 * @param InvstmntSpmtPopupVO
+	 * 품목 리스트
+	 * @param ItemSelectPopupVO
 	 * @return
 	 * @throws Exception
 	 */
-	public List<ApcSelectPopupVO> selectApcList(ApcSelectPopupVO invstmntSpmtPopupVO) throws Exception;
+	public List<ItemSelectPopupVO> selectItemList(ItemSelectPopupVO itemSelectPopupVO) throws Exception;
 
 }
