@@ -29,8 +29,8 @@
 							<tr>
 								<th scope="row" style="border-bottom:1px solid white " >APC명</th>
 								<td colspan= "3" class="td_input" style="border-right:hidden;">
-									<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
-									<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+									<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
+									<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
 								</td>
 								<td>
 									<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
@@ -104,23 +104,38 @@
 						</tr>
 						<tr>
 							<th>운영조직 취급 대표품목1</th>
-							<td>
-								<sbux-input id="srch-inp-opera8" name="srch-inp-opera8" uitype="text" class="form-control input-sm" placeholder="운영조직 취급액 중 가장많은 품목 1
-								" ></sbux-input>
+							<td class="td_input" style="border-right:hidden;">
+								<div class="col-md-3">
+									<sbux-input id="srch-inp-itemCd1" name="srch-inp-itemCd1" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
+									<sbux-input id="srch-inp-itemNm1" name="srch-inp-itemNm1" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+								</div>
+								<div class="col-md-1">
+									<sbux-button id="srch-btn-item1" name="srch-btn-item1" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(1)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</div>
 							</td>
 						</tr>
 						<tr>
 							<th>운영조직 취급 대표품목2</th>
-							<td>
-								<sbux-input id="srch-inp-opera9" name="srch-inp-opera9" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / 운영조직 취급액 중 가장많은 품목 2
-								" ></sbux-input>
+							<td class="td_input" style="border-right:hidden;">
+								<div class="col-md-3">
+									<sbux-input id="srch-inp-itemCd2" name="srch-inp-itemCd2" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
+									<sbux-input id="srch-inp-itemNm2" name="srch-inp-itemNm2" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+								</div>
+								<div class="col-md-1">
+									<sbux-button id="srch-btn-item2" name="srch-btn-item2" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(2)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</div>
 							</td>
 						</tr>
 						<tr>
 							<th>운영조직 취급 대표품목3</th>
-							<td>
-								<sbux-input id="srch-inp-opera10" name="srch-inp-opera10" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / 운영조직 취급액 중 가장많은 품목 3
-								" ></sbux-input>
+							<td class="td_input" style="border-right:hidden;">
+								<div class="col-md-3">
+									<sbux-input id="srch-inp-itemCd3" name="srch-inp-itemCd3" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
+									<sbux-input id="srch-inp-itemNm3" name="srch-inp-itemNm3" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+								</div>
+								<div class="col-md-1">
+									<sbux-button id="srch-btn-item3" name="srch-btn-item3" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(3)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</div>
 							</td>
 						</tr>
 						<tr>
@@ -145,23 +160,38 @@
 						</tr>
 						<tr>
 							<th>APC 처리 대표품목1</th>
-							<td>
-								<sbux-input id="srch-inp-opera15" name="srch-inp-opera15" uitype="text" class="form-control input-sm" placeholder="APC 취급액 중 가장많은 품목 1
-								" ></sbux-input>
+							<td class="td_input" style="border-right:hidden;">
+								<div class="col-md-3">
+									<sbux-input id="srch-inp-itemCd4" name="srch-inp-itemCd4" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
+									<sbux-input id="srch-inp-itemNm4" name="srch-inp-itemNm4" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+								</div>
+								<div class="col-md-1">
+									<sbux-button id="srch-btn-item4" name="srch-btn-item4" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(4)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</div>
 							</td>
 						</tr>
 						<tr>
 							<th>APC 처리 대표품목2</th>
-							<td>
-								<sbux-input id="srch-inp-opera16" name="srch-inp-opera16" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / APC 취급액 중 가장많은 품목 2
-								" ></sbux-input>
+							<td class="td_input" style="border-right:hidden;">
+								<div class="col-md-3">
+									<sbux-input id="srch-inp-itemCd5" name="srch-inp-itemCd5" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
+									<sbux-input id="srch-inp-itemNm5" name="srch-inp-itemNm5" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+								</div>
+								<div class="col-md-1">
+									<sbux-button id="srch-btn-item5" name="srch-btn-item5" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(5)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</div>
 							</td>
 						</tr>
 						<tr>
 							<th>APC 처리 대표품목3</th>
-							<td>
-								<sbux-input id="srch-inp-opera17" name="srch-inp-opera17" uitype="text" class="form-control input-sm" placeholder="“해당없음” 옵션 추가 / APC 취급액 중 가장많은 품목 3
-								" ></sbux-input>
+							<td class="td_input" style="border-right:hidden;">
+								<div class="col-md-3">
+									<sbux-input id="srch-inp-itemCd6" name="srch-inp-itemCd6" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
+									<sbux-input id="srch-inp-itemNm6" name="srch-inp-itemNm6" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+								</div>
+								<div class="col-md-1">
+									<sbux-button id="srch-btn-item6" name="srch-btn-item6" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(6)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</div>
 							</td>
 						</tr>
 						<tr>
@@ -183,11 +213,20 @@
     <div id="body-modal-apcSelect">
     	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
     </div>
+    <!-- 품목 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px"></sbux-modal>
+    </div>
+    <div id="body-modal-itemSelect">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemSelectPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-
+		let date = new Date();
+		let year  = date.getFullYear();
+		SBUxMethod.set("srch-inp-trgtYr", year);
 	})
 	//등록
 	const fn_save = async function() {
@@ -204,8 +243,9 @@
             return;
         }
 
-
-    	if (SBUxMethod.get("srch-inp-opera8") == null || SBUxMethod.get("srch-inp-opera8") == undefined || SBUxMethod.get("srch-inp-opera8") == "") {
+		let itemCd1 = SBUxMethod.get("srch-inp-itemCd1");
+		let itemCd4 = SBUxMethod.get("srch-inp-itemCd4");
+    	if (gfn_isEmpty(itemCd1) && gfn_isEmpty(itemCd4)) {
     		alert("'운영조직 취급 대표품목1'과 'APC 처리 대표품목1'은 필수로 작성해주셔야 합니다.");
             return;
         }
@@ -236,15 +276,15 @@
          	operOgnzPic : SBUxMethod.get("srch-inp-opera5") , //운영조직 대표자
          	daddr : SBUxMethod.get("srch-inp-opera6") ,	//운영조직 주소
          	operOgnzDeptCd : SBUxMethod.get("srch-inp-opera7") , //운영조직 조직유형
-         	operOgnzTrmtItemCn : SBUxMethod.get("srch-inp-opera8") , //운영조직 취급 대표품목1
-         	operOgnzTrmtItemCn2 : SBUxMethod.get("srch-inp-opera9") , //운영조직 취급 대표품목2
-         	operOgnzTrmtItemCn3 : SBUxMethod.get("srch-inp-opera10") , //운영조직 취급 대표품목3
+         	operOgnzTrmtItemCn : SBUxMethod.get("srch-inp-itemCd1") , //운영조직 취급 대표품목1
+         	operOgnzTrmtItemCn2 : SBUxMethod.get("srch-inp-itemCd2") , //운영조직 취급 대표품목2
+         	operOgnzTrmtItemCn3 : SBUxMethod.get("srch-inp-itemCd3") , //운영조직 취급 대표품목3
          	operOgnzTrmtItemCn4 : SBUxMethod.get("srch-inp-opera11") , //운영조직 취급 기타품목
          	apcBrno : SBUxMethod.get("srch-inp-opera13") ,  //APC 사업자번호
          	apcAddr : SBUxMethod.get("srch-inp-opera14") ,	//APC 주소
-         	apcTrmtItemCn : SBUxMethod.get("srch-inp-opera15") , // APC 처리 대표품목1
-         	apcTrmtItemCn2 : SBUxMethod.get("srch-inp-opera16") , // APC 처리 대표품목2
-         	apcTrmtItemCn3 : SBUxMethod.get("srch-inp-opera17") , // APC 처리 대표품목3
+         	apcTrmtItemCn : SBUxMethod.get("srch-inp-itemCd4") , // APC 처리 대표품목1
+         	apcTrmtItemCn2 : SBUxMethod.get("srch-inp-itemCd5") , // APC 처리 대표품목2
+         	apcTrmtItemCn3 : SBUxMethod.get("srch-inp-itemCd6") , // APC 처리 대표품목3
          	apcTrmtItemCn4 : SBUxMethod.get("srch-inp-opera18")  //  APC 처리 기타품목
  		});
 
@@ -272,6 +312,18 @@
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
+		}
+	}
+
+	// 품목 선택 팝업 호출
+	const fn_modalItemSelect = function(sn) {
+		popItemSelect.init(sn,fn_setItem);
+	}
+	// apc 선택 팝업 콜백 함수
+	const fn_setItem = function(itemVal) {
+		if (!gfn_isEmpty(itemVal)) {
+			SBUxMethod.set('srch-inp-itemCd' + itemVal.sn , itemVal.itemCd);
+			SBUxMethod.set('srch-inp-itemNm' + itemVal.sn , itemVal.itemNm);
 		}
 	}
 

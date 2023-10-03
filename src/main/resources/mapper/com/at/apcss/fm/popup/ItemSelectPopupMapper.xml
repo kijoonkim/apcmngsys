@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ItemSelectPopupMapper.xml                                    				-->
+<!-- DESC :  품목 선택 팝업 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.10.03  	ljw        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.popup.mapper.ItemSelectPopupMapper">
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.popup.mapper.ItemSelectPopupMapper.selectItemList		-->
+	<!-- DESC : 품목목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.03  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectItemList" parameterType="com.at.apcss.fm.popup.vo.ItemSelectPopupVO" resultType="com.at.apcss.fm.popup.vo.ItemSelectPopupVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+
+		<![CDATA[
+	    	SELECT /*  com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList */
+	    		   IC.ITEM_CD
+			     , IC.ITEM_NM
+			  FROM TB_ITEM_CRTR IC
+			 WHERE IC.DEL_YN = 'N'
+		]]>
+
+		<if test='itemNm != null and itemNm != ""'>
+			AND IC.ITEM_NM LIKE '%' || #{itemNm} || '%'
+		</if>
+		 ORDER BY IC.ITEM_NM ASC
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+</mapper>

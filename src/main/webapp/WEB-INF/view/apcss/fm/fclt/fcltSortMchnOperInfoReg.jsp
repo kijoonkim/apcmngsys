@@ -444,10 +444,9 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		//SBUxMethod.changeGroupAttr('group1','disabled','true');
-		//SBUxMethod.changeGroupAttr('group2','disabled','true');
-		//SBUxMethod.changeGroupAttr('group3','disabled','true');
-		//SBUxMethod.changeGroupAttr('group4','disabled','true');
+		let date = new Date();
+		let year  = date.getFullYear();
+		SBUxMethod.set("srch-inp-trgtYr", year);
 	})
 
 	//등록

@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.fm.popup.service.ApcSelectPopupService;
-import com.at.apcss.fm.popup.vo.ApcSelectPopupVO;
+import com.at.apcss.fm.popup.service.ItemSelectPopupService;
+import com.at.apcss.fm.popup.vo.ItemSelectPopupVO;
 
 
 /**
- * @Class Name : ApcSelectPopupController.java
- * @Description : apc선택 팝업에 대한 Controller 클래스
+ * @Class Name : ItemSelectPopupController.java
+ * @Description : 품목 선택 팝업에 대한 Controller 클래스
  * @author ljw
  * @since 2023.10.03
  * @version 1.0
@@ -35,24 +35,24 @@ import com.at.apcss.fm.popup.vo.ApcSelectPopupVO;
  * </pre>
  */
 @Controller
-public class ApcSelectPopupController extends BaseController {
+public class ItemSelectPopupController extends BaseController {
 
-	@Resource(name= "ApcSelectPopupService")
-	private ApcSelectPopupService apcSelectPopupService;
+	@Resource(name= "ItemSelectPopupService")
+	private ItemSelectPopupService itemSelectPopupService;
 
 
-	//APC 리스트 검색
-	@PostMapping(value = "/fm/popup/selectApcListPopup.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectApcListPopup(@RequestBody ApcSelectPopupVO vo, HttpServletRequest request) throws Exception {
+	//품목 리스트 검색
+	@PostMapping(value = "/fm/popup/selectItemListPopup.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectItemListPopup(@RequestBody ItemSelectPopupVO vo, HttpServletRequest request) throws Exception {
 
-		logger.debug("selectApcListPopup.do 호출 <><><><> ");
+		logger.debug("selectItemListPopup.do 호출 <><><><> ");
 		logger.debug(vo.toString());
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<ApcSelectPopupVO> resultList = new ArrayList<>();
+		List<ItemSelectPopupVO> resultList = new ArrayList<>();
 
 		try {
 
-			resultList = apcSelectPopupService.selectApcList(vo);
+			resultList = itemSelectPopupService.selectItemList(vo);
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
