@@ -25,17 +25,8 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOgnzItemPrfmncMapper.selectFcltOgnzItemPrfmnc */
 				  FCLT.TRGT_YR                 AS TRGT_YR
 				, FCLT.APC_CD                  AS APC_CD
-				, FCLT.SN                      AS SN
-				, FCLT.FCLT_OGNZ_ITEM_CD       AS FCLT_OGNZ_ITEM_CD
 				, FCLT.FCLT_OGNZ_TRMT_AMT      AS FCLT_OGNZ_TRMT_AMT
 				, FCLT.FCLT_OGNZ_TRMT_VLM      AS FCLT_OGNZ_TRMT_VLM
-				, FCLT.DEL_YN                  AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT        AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID   AS SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID  AS SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
-				, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
-				, FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
 				, FCLT.FCLT_OGNZ_TRMT_AMT2  AS FCLT_OGNZ_TRMT_AMT2
 				, FCLT.FCLT_OGNZ_TRMT_AMT3  AS FCLT_OGNZ_TRMT_AMT3
 				, FCLT.FCLT_OGNZ_TRMT_AMT4  AS FCLT_OGNZ_TRMT_AMT4
@@ -84,17 +75,8 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOgnzItemPrfmncMapper.selectFcltOgnzItemPrfmncList */
 				  FCLT.TRGT_YR                 AS TRGT_YR
 				, FCLT.APC_CD                  AS APC_CD
-				, FCLT.SN                      AS SN
-				, FCLT.FCLT_OGNZ_ITEM_CD       AS FCLT_OGNZ_ITEM_CD
 				, FCLT.FCLT_OGNZ_TRMT_AMT      AS FCLT_OGNZ_TRMT_AMT
 				, FCLT.FCLT_OGNZ_TRMT_VLM      AS FCLT_OGNZ_TRMT_VLM
-				, FCLT.DEL_YN                  AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT        AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID   AS SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID  AS SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
-				, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
-				, FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
 				, FCLT.FCLT_OGNZ_TRMT_AMT2  AS FCLT_OGNZ_TRMT_AMT2
 				, FCLT.FCLT_OGNZ_TRMT_AMT3  AS FCLT_OGNZ_TRMT_AMT3
 				, FCLT.FCLT_OGNZ_TRMT_AMT4  AS FCLT_OGNZ_TRMT_AMT4
@@ -134,45 +116,39 @@
 	    		(
 	    			TRGT_YR
 	    		  , APC_CD
-	    		  , SN
-	    		  , FCLT_OGNZ_ITEM_CD
 	    		  , FCLT_OGNZ_TRMT_AMT
+	    		  , FCLT_OGNZ_TRMT_AMT2
+				  , FCLT_OGNZ_TRMT_AMT3
+				  , FCLT_OGNZ_TRMT_AMT4
 	    		  , FCLT_OGNZ_TRMT_VLM
-	    		  , DEL_YN
-	    		  , SYS_FRST_INPT_DT
+				  , FCLT_OGNZ_TRMT_VLM2
+				  , FCLT_OGNZ_TRMT_VLM3
+				  , FCLT_OGNZ_TRMT_VLM4
+				  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
 	    		  , SYS_LAST_CHG_DT
 	    		  , SYS_LAST_CHG_USER_ID
 	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		  , FCLT_OGNZ_TRMT_AMT2
-				  , FCLT_OGNZ_TRMT_AMT3
-				  , FCLT_OGNZ_TRMT_AMT4
-				  , FCLT_OGNZ_TRMT_VLM2
-				  , FCLT_OGNZ_TRMT_VLM3
-				  , FCLT_OGNZ_TRMT_VLM4
 	    		)
 	   		VALUES
 	   			(
 	   			    #{trgtYr}
 	   			  , #{apcCd}
-	   			  , #{sn}
-	   			  , #{fcltOgnzItemCd  }
 	   			  , #{fcltOgnzTrmtAmt}
+          	   	  , #{fcltOgnzTrmtAmt2}
+          		  , #{fcltOgnzTrmtAmt3}
+          		  , #{fcltOgnzTrmtAmt4}
 	   			  , #{fcltOgnzTrmtVlm}
-	   			  , #{delYn}
-	   			  , SYSDATE
+          		  , #{fcltOgnzTrmtVlm2}
+          		  , #{fcltOgnzTrmtVlm3}
+          		  , #{fcltOgnzTrmtVlm4}
+          		  , SYSDATE
 	   			  , #{sysFrstInptUserId}
 	   			  , #{sysFrstInptPrgrmId}
                   , SYSDATE
                   , #{sysLastChgUserId}
                   , #{sysLastChgPrgrmId}
-          	    	, #{fcltOgnzTrmtAmt2}
-          			, #{fcltOgnzTrmtAmt3}
-          			, #{fcltOgnzTrmtAmt4}
-          			, #{fcltOgnzTrmtVlm2}
-          			, #{fcltOgnzTrmtVlm3}
-          			, #{fcltOgnzTrmtVlm4}
 	   			)
     	]]>
     </insert>
@@ -189,18 +165,14 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOgnzItemPrfmncMapper.updateFcltOgnzItemPrfmnc */
 	    		TB_FCLT_OGNZ_ITEM_PRFMNC FCLT
 			   SET
-			 	  TRGT_YR             = #{trgtYr}
-			 	, APC_CD              = #{apcCd}
-			 	, SN                  = #{sn}
-			 	, FCLT_OGNZ_ITEM_CD   = #{fcltOgnzItemCd  }
-			 	, FCLT_OGNZ_TRMT_AMT  = #{fcltOgnzTrmtAmt}
-			 	, FCLT_OGNZ_TRMT_VLM  = #{fcltOgnzTrmtVlm}
-    	       , FCLT_OGNZ_TRMT_AMT2  = #{fcltOgnzTrmtAmt2}
-    	       , FCLT_OGNZ_TRMT_AMT3  = #{fcltOgnzTrmtAmt3}
-    	       , FCLT_OGNZ_TRMT_AMT4  = #{fcltOgnzTrmtAmt4}
-    	       , FCLT_OGNZ_TRMT_VLM2  = #{fcltOgnzTrmtVlm2}
-    	       , FCLT_OGNZ_TRMT_VLM3  = #{fcltOgnzTrmtVlm3}
-    	       , FCLT_OGNZ_TRMT_VLM4  = #{fcltOgnzTrmtVlm4}
+			 	FCLT_OGNZ_TRMT_AMT  = #{fcltOgnzTrmtAmt}
+    	        , FCLT_OGNZ_TRMT_AMT2  = #{fcltOgnzTrmtAmt2}
+    	        , FCLT_OGNZ_TRMT_AMT3  = #{fcltOgnzTrmtAmt3}
+    	        , FCLT_OGNZ_TRMT_AMT4  = #{fcltOgnzTrmtAmt4}
+			    , FCLT_OGNZ_TRMT_VLM  = #{fcltOgnzTrmtVlm}
+    	        , FCLT_OGNZ_TRMT_VLM2  = #{fcltOgnzTrmtVlm2}
+    	        , FCLT_OGNZ_TRMT_VLM3  = #{fcltOgnzTrmtVlm3}
+    	        , FCLT_OGNZ_TRMT_VLM4  = #{fcltOgnzTrmtVlm4}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

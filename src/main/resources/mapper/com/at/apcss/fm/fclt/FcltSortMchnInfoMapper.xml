@@ -25,34 +25,26 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfo */
 				 FCLT.TRGT_YR                AS TRGT_YR
 				,FCLT.APC_CD                 AS APC_CD
-				,FCLT.SN                     AS SN
-				,FCLT.SORT_MCHN_ITEM_CD      AS SORT_MCHN_ITEM_CD
-				,FCLT.SORT_MCHN_HLD_YN       AS SORT_MCHN_HLD_YN
-				,FCLT.SORT_MCHN_PRCS_SE_CD   AS SORT_MCHN_PRCS_SE_CD
-				,FCLT.SORT_MCHN_PRCS_HR      AS SORT_MCHN_PRCS_HR
-				,FCLT.DEL_YN                 AS DEL_YN
-				,FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
-				,FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
-				,FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
-				,FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
-                ,FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
-                ,FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+				,FCLT.SORT_MCHN_HLD_YN1      AS SORT_MCHN_HLD_YN1
 				,FCLT.SORT_MCHN_HLD_YN2      AS SORT_MCHN_HLD_YN2
 				,FCLT.SORT_MCHN_HLD_YN3      AS SORT_MCHN_HLD_YN3
 				,FCLT.SORT_MCHN_HLD_YN4      AS SORT_MCHN_HLD_YN4
-				,FCLT.PRC_CAP                AS PRC_CAP
+				,FCLT.PRC_CAP1               AS PRC_CAP1
 				,FCLT.PRC_CAP2               AS PRC_CAP2
 				,FCLT.PRC_CAP3               AS PRC_CAP3
 				,FCLT.PRC_CAP4               AS PRC_CAP4
-				,FCLT.PRC_VOL                AS PRC_VOL
+				,FCLT.PRC_VOL1               AS PRC_VOL1
 				,FCLT.PRC_VOL2               AS PRC_VOL2
 				,FCLT.PRC_VOL3               AS PRC_VOL3
 				,FCLT.PRC_VOL4               AS PRC_VOL4
-				,FCLT.ANN_OPER_HR            AS ANN_OPER_HR
-				,FCLT.ANN_OPER_HR2           AS ANN_OPER_HR2
-				,FCLT.ANN_OPER_HR3           AS ANN_OPER_HR3
-				,FCLT.ANN_OPER_HR4           AS ANN_OPER_HR4
-
+				,FCLT.ANN_OPER_TIME1         AS ANN_OPER_TIME1
+				,FCLT.ANN_OPER_TIME2         AS ANN_OPER_TIME2
+				,FCLT.ANN_OPER_TIME3         AS ANN_OPER_TIME3
+				,FCLT.ANN_OPER_TIME4         AS ANN_OPER_TIME4
+				,AVG_OPER_DAY1               AS AVG_OPER_DAY1
+                ,AVG_OPER_DAY2               AS AVG_OPER_DAY2
+                ,AVG_OPER_DAY3               AS AVG_OPER_DAY3
+                ,AVG_OPER_DAY4               AS AVG_OPER_DAY4
 
 
 
@@ -91,30 +83,26 @@
 					SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfo */
 				 FCLT.TRGT_YR                AS TRGT_YR
 				,FCLT.APC_CD                 AS APC_CD
-				,FCLT.SN                     AS SN
-				,FCLT.SORT_MCHN_ITEM_CD      AS SORT_MCHN_ITEM_CD
-				,FCLT.SORT_MCHN_HLD_YN       AS SORT_MCHN_HLD_YN
-				,FCLT.SORT_MCHN_PRCS_SE_CD   AS SORT_MCHN_PRCS_SE_CD
-				,FCLT.SORT_MCHN_PRCS_HR      AS SORT_MCHN_PRCS_HR
-				,FCLT.DEL_YN                 AS DEL_YN
-				,FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
-				,FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
-				,FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
-				,FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
-                ,FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
-                ,FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
-				,FCLT.PRC_CAP                AS PRC_CAP
+				,FCLT.SORT_MCHN_HLD_YN1      AS SORT_MCHN_HLD_YN1
+				,FCLT.SORT_MCHN_HLD_YN2      AS SORT_MCHN_HLD_YN2
+				,FCLT.SORT_MCHN_HLD_YN3      AS SORT_MCHN_HLD_YN3
+				,FCLT.SORT_MCHN_HLD_YN4      AS SORT_MCHN_HLD_YN4
+				,FCLT.PRC_CAP1               AS PRC_CAP1
 				,FCLT.PRC_CAP2               AS PRC_CAP2
 				,FCLT.PRC_CAP3               AS PRC_CAP3
 				,FCLT.PRC_CAP4               AS PRC_CAP4
-				,FCLT.PRC_VOL                AS PRC_VOL
+				,FCLT.PRC_VOL1               AS PRC_VOL1
 				,FCLT.PRC_VOL2               AS PRC_VOL2
 				,FCLT.PRC_VOL3               AS PRC_VOL3
 				,FCLT.PRC_VOL4               AS PRC_VOL4
-				,FCLT.ANN_OPER_HR            AS ANN_OPER_HR
-				,FCLT.ANN_OPER_HR2           AS ANN_OPER_HR2
-				,FCLT.ANN_OPER_HR3           AS ANN_OPER_HR3
-				,FCLT.ANN_OPER_HR4           AS ANN_OPER_HR4
+				,FCLT.ANN_OPER_TIME1         AS ANN_OPER_TIME1
+				,FCLT.ANN_OPER_TIME2         AS ANN_OPER_TIME2
+				,FCLT.ANN_OPER_TIME3         AS ANN_OPER_TIME3
+				,FCLT.ANN_OPER_TIME4         AS ANN_OPER_TIME4
+				,AVG_OPER_DAY1               AS AVG_OPER_DAY1
+                ,AVG_OPER_DAY2               AS AVG_OPER_DAY2
+                ,AVG_OPER_DAY3               AS AVG_OPER_DAY3
+                ,AVG_OPER_DAY4               AS AVG_OPER_DAY4
 			  FROM TB_FCLT_SORT_MCHN_INFO FCLT
 			 WHERE 1=1
 		     AND TRGT_YR = #{trgtYr}
@@ -150,24 +138,26 @@
 	    		(
 				     TRGT_YR
 				   , APC_CD
-				   , SN
-				   , SORT_MCHN_ITEM_CD
-				   , SORT_MCHN_HLD_YN
-				   , SORT_MCHN_PRCS_SE_CD
-				   , SORT_MCHN_PRCS_HR
-                   , PRC_CAP
+				   , SORT_MCHN_HLD_YN1
+				   , SORT_MCHN_HLD_YN2
+				   , SORT_MCHN_HLD_YN3
+				   , SORT_MCHN_HLD_YN4
+                   , PRC_CAP1
                    , PRC_CAP2
                    , PRC_CAP3
                    , PRC_CAP4
-                   , PRC_VOL
+                   , PRC_VOL1
                    , PRC_VOL2
                    , PRC_VOL3
                    , PRC_VOL4
-                   , ANN_OPER_HR
-                   , ANN_OPER_HR2
-                   , ANN_OPER_HR3
-                   , ANN_OPER_HR4
-				   , DEL_YN
+                   , ANN_OPER_TIME1
+                   , ANN_OPER_TIME2
+                   , ANN_OPER_TIME3
+                   , ANN_OPER_TIME4
+                   , AVG_OPER_DAY1
+                   , AVG_OPER_DAY2
+                   , AVG_OPER_DAY3
+                   , AVG_OPER_DAY4
 				   , SYS_FRST_INPT_DT
 				   , SYS_FRST_INPT_USER_ID
 	    		   , SYS_FRST_INPT_PRGRM_ID
@@ -175,29 +165,31 @@
 	    		   , SYS_LAST_CHG_USER_ID
 	    		   , SYS_LAST_CHG_PRGRM_ID
 	    		)
-	   		VALUES
+	   			VALUES
 	   			(
 
-					, #{trgtYr}
+					 #{trgtYr}
 					, #{apcCd}
-					, #{sn}
-					, #{sortMchnItemCd}
-					, #{sortMchnHldYn}
-					, #{sortMchnPrcsSeCd}
-					, #{sortMchnPrcsHr}
-                    , #{prcCap}
+					, #{sortMchnHldYn1}
+					, #{sortMchnHldYn2}
+					, #{sortMchnHldYn3}
+					, #{sortMchnHldYn4}
+                    , #{prcCap1}
                     , #{prcCap2}
                     , #{prcCap3}
                     , #{prcCap4}
-                    , #{prcVol}
+                    , #{prcVol1}
                     , #{prcVol2}
                     , #{prcVol3}
                     , #{prcVol4}
-                    , #{annOperHr}
-                    , #{annOperHr2}
-                    , #{annOperHr3}
-                    , #{annOperHr4}
-					, #{delYn}
+                    , #{annOperTime1}
+                    , #{annOperTime2}
+                    , #{annOperTime3}
+                    , #{annOperTime4}
+                    , #{avgOperDay1}
+                    , #{avgOperDay2}
+                    , #{avgOperDay3}
+                    , #{avgOperDay4}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -221,25 +213,23 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.updateFcltSortMchnInfo */
 	    		TB_FCLT_SORT_MCHN_INFO FCLT
 			   SET
-			 	    TRGT_YR              =  #{trgtYr}
-			 	  , APC_CD               =  #{apcCd}
-			 	  , SN                   =  #{sn}
-                  , SORT_MCHN_ITEM_CD    =  #{sortMchnItemCd}
-                  , SORT_MCHN_HLD_YN     =  #{sortMchnHldYn}
-                  , SORT_MCHN_PRCS_SE_CD =  #{sortMchnPrcsSeCd}
-                  , SORT_MCHN_PRCS_HR    =  #{sortMchnPrcsHr}
-				  , PRC_CAP              =  #{prcCap}
+                  SORT_MCHN_HLD_YN       =  #{sortMchnHldYn}
+				  , PRC_CAP1             =  #{prcCap1}
 				  , PRC_CAP2             =  #{prcCap2}
 				  , PRC_CAP3             =  #{prcCap3}
 				  , PRC_CAP4             =  #{prcCap4}
-				  , PRC_VOL              =  #{prcVol}
+				  , PRC_VOL1             =  #{prcVol1}
 				  , PRC_VOL2             =  #{prcVol2}
 				  , PRC_VOL3             =  #{prcVol3}
 				  , PRC_VOL4             =  #{prcVol4}
-				  , ANN_OPER_HR          =  #{annOperHr}
-				  , ANN_OPER_HR2         =  #{annOperHr2}
-				  , ANN_OPER_HR3         =  #{annOperHr3}
-				  , ANN_OPER_HR4         =  #{annOperHr4}
+				  , ANN_OPER_TIME1       =  #{annOperTime1}
+				  , ANN_OPER_TIME2       =  #{annOperTime2}
+				  , ANN_OPER_TIME3       =  #{annOperTime3}
+				  , ANN_OPER_TIME4       =  #{annOperTime4}
+				  , AVG_OPER_DAY1        =  #{avgOperDay1}
+				  , AVG_OPER_DAY2        =  #{avgOperDay2}
+				  , AVG_OPER_DAY3        =  #{avgOperDay3}
+				  , AVG_OPER_DAY4        =  #{avgOperDay4}
 
     	]]>
 		<if test='delYn != null and delYn != ""'>

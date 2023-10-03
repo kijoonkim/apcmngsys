@@ -20,6 +20,7 @@ public class FcltSortMchnOperInfoVO extends ComVO{
 	private String msgKnd;
 	private String msgKndNm;
 	private String rmrk;
+	private String sortMchnHldYnAyr1;
 	private String sortMchnHldYn101;
 	private String sortMchnHldYn102;
 	private String sortMchnHldYn103;
@@ -32,6 +33,7 @@ public class FcltSortMchnOperInfoVO extends ComVO{
 	private String sortMchnHldYn110;
 	private String sortMchnHldYn111;
 	private String sortMchnHldYn112;
+	private String sortMchnHldYnAyr2;
 	private String sortMchnHldYn201;
 	private String sortMchnHldYn202;
 	private String sortMchnHldYn203;
@@ -44,6 +46,7 @@ public class FcltSortMchnOperInfoVO extends ComVO{
 	private String sortMchnHldYn210;
 	private String sortMchnHldYn211;
 	private String sortMchnHldYn212;
+	private String sortMchnHldYnAyr3;
 	private String sortMchnHldYn301;
 	private String sortMchnHldYn302;
 	private String sortMchnHldYn303;
@@ -56,6 +59,7 @@ public class FcltSortMchnOperInfoVO extends ComVO{
 	private String sortMchnHldYn310;
 	private String sortMchnHldYn311;
 	private String sortMchnHldYn312;
+	private String sortMchnHldYnAyr4;
 	private String sortMchnHldYn401;
 	private String sortMchnHldYn402;
 	private String sortMchnHldYn403;

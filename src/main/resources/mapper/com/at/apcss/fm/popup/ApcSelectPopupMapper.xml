@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ApcSelectPopupMapper.xml                                    				-->
+<!-- DESC :  apc선택 팝업 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.10.03  	ljw        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.popup.mapper.ApcSelectPopupMapper">
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.popup.mapper.ApcSelectPopupMapper.selectApcList		-->
+	<!-- DESC : apc목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.03  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcList" parameterType="com.at.apcss.fm.popup.vo.ApcSelectPopupVO" resultType="com.at.apcss.fm.popup.vo.ApcSelectPopupVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+
+		<![CDATA[
+    	SELECT /* com.at.apcss.fm.popup.mapper.ApcSelectPopupMapper.selectApcList */
+    		   A.APC_CD            AS APC_CD
+		     , A.APC_NM            AS APC_NM
+		  FROM TB_APC_INFO A
+		 WHERE A.DEL_YN = 'N'
+		 ]]>
+		 <if test='apcNm != null and apcNm != ""'>
+				AND A.APC_NM LIKE '%'||#{apcNm}||'%'
+		</if>
+		 ORDER BY APC_NM ASC
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+</mapper>

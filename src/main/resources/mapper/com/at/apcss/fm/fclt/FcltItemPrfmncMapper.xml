@@ -25,27 +25,22 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.selectFcltItemPrfmnc */
 				  FCLT.TRGT_YR                 AS TRGT_YR
 				, FCLT.APC_CD                  AS APC_CD
-				, FCLT.SN                      AS SN
 				, FCLT.FCLT_ITEM_CD            AS FCLT_ITEM_CD
 				, FCLT.FCLT_ITEM_TRMT_AMT      AS FCLT_ITEM_TRMT_AMT
-				, FCLT.FCLT_ITEM_TRMT_VLM      AS FCLT_ITEM_TRMT_VLM
-				, FCLT.FCLT_ITEM_SPMT_AMT      AS FCLT_ITEM_SPMT_AMT
 				, FCLT.FCLT_ITEM_SPMT_RT       AS FCLT_ITEM_SPMT_RT
-				, FCLT.DEL_YN                  AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT        AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID   AS SYS_FRST_INPT_USER_ID
-			    , FCLT.SYS_FRST_INPT_PRGRM_ID  AS SYS_FRST_INPT_PRGRM_ID
-			    , FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
-			    , FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
-			    , FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
+
+				, FCLT.FCLT_ITEM_SPMT_AMT      AS FCLT_ITEM_SPMT_AMT
 				, FCLT.FCLT_ITEM_SPMT_AMT2     AS FCLT_ITEM_SPMT_AMT2
 				, FCLT.FCLT_ITEM_SPMT_AMT3     AS FCLT_ITEM_SPMT_AMT3
 				, FCLT.FCLT_ITEM_SPMT_AMT4     AS FCLT_ITEM_SPMT_AMT4
 				, FCLT.FCLT_ITEM_SPMT_AMT5     AS FCLT_ITEM_SPMT_AMT5
+
+				, FCLT.FCLT_ITEM_TRMT_VLM      AS FCLT_ITEM_TRMT_VLM
 				, FCLT.FCLT_ITEM_TRMT_VLM2     AS FCLT_ITEM_TRMT_VLM2
 				, FCLT.FCLT_ITEM_TRMT_VLM3     AS FCLT_ITEM_TRMT_VLM3
 				, FCLT.FCLT_ITEM_TRMT_VLM4     AS FCLT_ITEM_TRMT_VLM4
 				, FCLT.FCLT_ITEM_TRMT_VLM5     AS FCLT_ITEM_TRMT_VLM5
+
 				, FCLT.FCLT_ITEM_MRKT_AMT      AS FCLT_ITEM_MRKT_AMT
 				, FCLT.FCLT_ITEM_MRKT_AMT2     AS FCLT_ITEM_MRKT_AMT2
 				, FCLT.FCLT_ITEM_MRKT_AMT3     AS FCLT_ITEM_MRKT_AMT3
@@ -85,27 +80,22 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.selectFcltItemPrfmncList */
 				  FCLT.TRGT_YR                 AS TRGT_YR
 				, FCLT.APC_CD                  AS APC_CD
-				, FCLT.SN                      AS SN
 				, FCLT.FCLT_ITEM_CD            AS FCLT_ITEM_CD
 				, FCLT.FCLT_ITEM_TRMT_AMT      AS FCLT_ITEM_TRMT_AMT
-				, FCLT.FCLT_ITEM_TRMT_VLM      AS FCLT_ITEM_TRMT_VLM
-				, FCLT.FCLT_ITEM_SPMT_AMT      AS FCLT_ITEM_SPMT_AMT
 				, FCLT.FCLT_ITEM_SPMT_RT       AS FCLT_ITEM_SPMT_RT
-				, FCLT.DEL_YN                  AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT        AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID   AS SYS_FRST_INPT_USER_ID
-			    , FCLT.SYS_FRST_INPT_PRGRM_ID  AS SYS_FRST_INPT_PRGRM_ID
-			    , FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
-			    , FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
-			    , FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
+
+				, FCLT.FCLT_ITEM_SPMT_AMT      AS FCLT_ITEM_SPMT_AMT
 				, FCLT.FCLT_ITEM_SPMT_AMT2     AS FCLT_ITEM_SPMT_AMT2
 				, FCLT.FCLT_ITEM_SPMT_AMT3     AS FCLT_ITEM_SPMT_AMT3
 				, FCLT.FCLT_ITEM_SPMT_AMT4     AS FCLT_ITEM_SPMT_AMT4
 				, FCLT.FCLT_ITEM_SPMT_AMT5     AS FCLT_ITEM_SPMT_AMT5
+
+				, FCLT.FCLT_ITEM_TRMT_VLM      AS FCLT_ITEM_TRMT_VLM
 				, FCLT.FCLT_ITEM_TRMT_VLM2     AS FCLT_ITEM_TRMT_VLM2
 				, FCLT.FCLT_ITEM_TRMT_VLM3     AS FCLT_ITEM_TRMT_VLM3
 				, FCLT.FCLT_ITEM_TRMT_VLM4     AS FCLT_ITEM_TRMT_VLM4
 				, FCLT.FCLT_ITEM_TRMT_VLM5     AS FCLT_ITEM_TRMT_VLM5
+
 				, FCLT.FCLT_ITEM_MRKT_AMT      AS FCLT_ITEM_MRKT_AMT
 				, FCLT.FCLT_ITEM_MRKT_AMT2     AS FCLT_ITEM_MRKT_AMT2
 				, FCLT.FCLT_ITEM_MRKT_AMT3     AS FCLT_ITEM_MRKT_AMT3
@@ -144,63 +134,66 @@
 	    		(
 	    			TRGT_YR
 	    		  , APC_CD
-	    		  , SN
 	    		  , FCLT_ITEM_CD
 	    		  , FCLT_ITEM_TRMT_AMT
-	    		  , FCLT_ITEM_TRMT_VLM
-	    		  , FCLT_ITEM_SPMT_AMT
 	    		  , FCLT_ITEM_SPMT_RT
-	    		  , DEL_YN
+
+	    		  , FCLT_ITEM_SPMT_AMT
+			      , FCLT_ITEM_SPMT_AMT2
+				  , FCLT_ITEM_SPMT_AMT3
+				  , FCLT_ITEM_SPMT_AMT4
+				  , FCLT_ITEM_SPMT_AMT5
+
+	    		  , FCLT_ITEM_TRMT_VLM
+				  , FCLT_ITEM_TRMT_VLM2
+				  , FCLT_ITEM_TRMT_VLM3
+				  , FCLT_ITEM_TRMT_VLM4
+				  , FCLT_ITEM_TRMT_VLM5
+
+				  , FCLT_ITEM_MRKT_AMT
+				  , FCLT_ITEM_MRKT_AMT2
+				  , FCLT_ITEM_MRKT_AMT3
+				  , FCLT_ITEM_MRKT_AMT4
+				  , FCLT_ITEM_MRKT_AMT5
+
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
 	    		  , SYS_LAST_CHG_DT
 	    		  , SYS_LAST_CHG_USER_ID
 	    		  , SYS_LAST_CHG_PRGRM_ID
-			      , FCLT_ITEM_SPMT_AMT2
-				  , FCLT_ITEM_SPMT_AMT3
-				  , FCLT_ITEM_SPMT_AMT4
-				  , FCLT_ITEM_SPMT_AMT5
-				  , FCLT_ITEM_TRMT_VLM2
-				  , FCLT_ITEM_TRMT_VLM3
-				  , FCLT_ITEM_TRMT_VLM4
-				  , FCLT_ITEM_TRMT_VLM5
-				  , FCLT_ITEM_MRKT_AMT
-				  , FCLT_ITEM_MRKT_AMT2
-				  , FCLT_ITEM_MRKT_AMT3
-				  , FCLT_ITEM_MRKT_AMT4
-				  , FCLT_ITEM_MRKT_AMT5
 	    		)
 	   		VALUES
 	   			(
 	   			    #{trgtYr}
 	   			  , #{apcCd}
-	   			  , #{sn}
 	   			  , #{fcltItemCd}
-	   			  , #{fcltItemTrmtAmt}
-	   			  , #{fcltItemTrmtVlm}
-	   			  , #{fcltItemSpmtAmt}
 	   			  , #{fcltItemSpmtRt}
-	   			  , #{delYn}
+	   			  , #{fcltItemTrmtAmt}
+
+	   			  , #{fcltItemSpmtAmt}
+	   			  , #{fcltItemSpmtAmt2}
+			   	  , #{fcltItemSpmtAmt3}
+			   	  , #{fcltItemSpmtAmt4}
+			   	  , #{fcltItemSpmtAmt5}
+
+	   			  , #{fcltItemTrmtVlm}
+			   	  , #{fcltItemTrmtVlm2}
+			   	  , #{fcltItemTrmtVlm3}
+			   	  , #{fcltItemTrmtVlm4}
+			   	  , #{fcltItemTrmtVlm5}
+
+			   	  , #{fcltItemMrktAmt}
+			   	  , #{fcltItemMrktAmt2}
+			   	  , #{fcltItemMrktAmt3}
+			   	  , #{fcltItemMrktAmt4}
+			   	  , #{fcltItemMrktAmt5}
 	   			  , SYSDATE
 	   			  , #{sysFrstInptUserId}
 	   			  , #{sysFrstInptPrgrmId}
 	   			  , SYSDATE
 	   			  , #{sysLastChgUserId}
 	   			  , #{sysLastChgPrgrmId}
-	   			  , #{fcltItemSpmtAmt2}
-			   	, #{fcltItemSpmtAmt3}
-			   	, #{fcltItemSpmtAmt4}
-			   	, #{fcltItemSpmtAmt5}
-			   	, #{fcltItemTrmtVlm2}
-			   	, #{fcltItemTrmtVlm3}
-			   	, #{fcltItemTrmtVlm4}
-			   	, #{fcltItemTrmtVlm5}
-			   	, #{fcltItemMrktAmt}
-			   	, #{fcltItemMrktAmt2}
-			   	, #{fcltItemMrktAmt3}
-			   	, #{fcltItemMrktAmt4}
-			   	, #{fcltItemMrktAmt5}
 	   			)
     	]]>
     </insert>
@@ -218,22 +211,22 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.updateFcltItemPrfmnc */
 	    		TB_FCLT_ITEM_PRFMNC FCLT
 			   SET
-			 	  TRGT_YR              =  #{trgtYr}
-			 	, APC_CD               =  #{apcCd}
-			 	, SN                   =  #{sn}
     	        , FCLT_ITEM_CD         =  #{fcltItemCd}
     	        , FCLT_ITEM_TRMT_AMT   =  #{fcltItemTrmtAmt}
-    	        , FCLT_ITEM_TRMT_VLM   =  #{fcltItemTrmtVlm}
-    	        , FCLT_ITEM_SPMT_AMT   =  #{fcltItemSpmtAmt}
     	        , FCLT_ITEM_SPMT_RT    =  #{fcltItemSpmtRt}
+
+    	        , FCLT_ITEM_SPMT_AMT   =  #{fcltItemSpmtAmt}
 		    	, FCLT_ITEM_SPMT_AMT2  =  #{fcltItemSpmtAmt2}
 		    	, FCLT_ITEM_SPMT_AMT3  =  #{fcltItemSpmtAmt3}
 		    	, FCLT_ITEM_SPMT_AMT4  =  #{fcltItemSpmtAmt4}
 		    	, FCLT_ITEM_SPMT_AMT5  =  #{fcltItemSpmtAmt5}
+
+    	        , FCLT_ITEM_TRMT_VLM   =  #{fcltItemTrmtVlm}
 		    	, FCLT_ITEM_TRMT_VLM2  =  #{fcltItemTrmtVlm2}
 		    	, FCLT_ITEM_TRMT_VLM3  =  #{fcltItemTrmtVlm3}
 		    	, FCLT_ITEM_TRMT_VLM4  =  #{fcltItemTrmtVlm4}
 		    	, FCLT_ITEM_TRMT_VLM5  =  #{fcltItemTrmtVlm5}
+
 		    	, FCLT_ITEM_MRKT_AMT   =  #{fcltItemMrktAmt}
 		    	, FCLT_ITEM_MRKT_AMT2  =  #{fcltItemMrktAmt2}
 		    	, FCLT_ITEM_MRKT_AMT3  =  #{fcltItemMrktAmt3}

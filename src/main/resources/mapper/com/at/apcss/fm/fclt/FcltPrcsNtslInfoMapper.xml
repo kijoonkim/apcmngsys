@@ -25,16 +25,8 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfo */
 				  FCLT.TRGT_YR                AS TRGT_YR
 				, FCLT.APC_CD                 AS APC_CD
-				, FCLT.SN                     AS SN
 				, FCLT.FCLT_STR_CD            AS FCLT_STR_CD
 				, FCLT.FCLT_NTSL_CD           AS FCLT_NTSL_CD
-				, FCLT.DEL_YN                 AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
-				, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
-                , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
                 , FCLT.FCLT_NTSL_CD2          AS FCLT_NTSL_CD2
 				, FCLT.FCLT_NTSL_CD3          AS FCLT_NTSL_CD3
 				, FCLT.FCLT_NTSL_CD4          AS FCLT_NTSL_CD4
@@ -77,16 +69,8 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfoList */
 				  FCLT.TRGT_YR                AS TRGT_YR
 				, FCLT.APC_CD                 AS APC_CD
-				, FCLT.SN                     AS SN
 				, FCLT.FCLT_STR_CD            AS FCLT_STR_CD
 				, FCLT.FCLT_NTSL_CD           AS FCLT_NTSL_CD
-				, FCLT.DEL_YN                 AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
-				, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
-                , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
                 , FCLT.FCLT_NTSL_CD2          AS FCLT_NTSL_CD2
 				, FCLT.FCLT_NTSL_CD3          AS FCLT_NTSL_CD3
 				, FCLT.FCLT_NTSL_CD4          AS FCLT_NTSL_CD4
@@ -128,16 +112,8 @@
 	    		(
 	    			TRGT_YR
 	    		  , APC_CD
-	    		  , SN
 	    		  , FCLT_STR_CD
 	    		  , FCLT_NTSL_CD
-	    		  , DEL_YN
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
 	    		  , FCLT_NTSL_CD2
 				  , FCLT_NTSL_CD3
 				  , FCLT_NTSL_CD4
@@ -146,21 +122,19 @@
 				  , FCLT_NTSL_CD7
 				  , FCLT_NTSL_CD8
 				  , FCLT_NTSL_CD9
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
 	    		)
 	   		VALUES
 	   			(
 	   			    #{trgtYr}
 	   			  , #{apcCd}
-	   			  , #{sn}
 	   			  , #{fcltStrCd}
 	   			  , #{fcltNtslCd}
-	   			  , #{delYn}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
 	   			  , #{fcltNtslCd2}
 	   			  , #{fcltNtslCd3}
 	   			  , #{fcltNtslCd4}
@@ -169,6 +143,12 @@
 	   			  , #{fcltNtslCd7}
 	   			  , #{fcltNtslCd8}
 	   			  , #{fcltNtslCd9}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysLastChgUserId}
+	   			  , #{sysLastChgPrgrmId}
 	   			)
     	]]>
     </insert>

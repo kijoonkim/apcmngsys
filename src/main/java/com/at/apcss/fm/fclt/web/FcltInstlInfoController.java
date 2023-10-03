@@ -82,14 +82,6 @@ public class FcltInstlInfoController extends BaseController {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
-		// validation check
-
-		// audit 항목
-		fcltInstlInfoVO.setSysFrstInptUserId(getUserId());
-		fcltInstlInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
-		fcltInstlInfoVO.setSysLastChgUserId(getUserId());
-		fcltInstlInfoVO.setSysLastChgPrgrmId(getPrgrmId());
-
 		int insertedCnt = 0;
 
 		try {
@@ -104,6 +96,31 @@ public class FcltInstlInfoController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/fm/fclt/insertFcltInstlInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertFcltInstlInfoList(@RequestBody List<FcltInstlInfoVO> fcltInstlInfoList, HttpServletRequest requset) throws Exception {
+	    logger.info("=============insertFcltInstlInfoList=====start========");
+
+	    HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+	    int totalInsertedCnt = 0;
+
+	    try {
+	        for (FcltInstlInfoVO fcltInstlInfoVO : fcltInstlInfoList) {
+	            int insertedCnt = fcltInstlInfoService.insertFcltInstlInfo(fcltInstlInfoVO);
+	            totalInsertedCnt += insertedCnt;
+	        }
+	    } catch (Exception e) {
+	        logger.debug(e.getMessage());
+	        return getErrorResponseEntity(e);
+	    }
+
+	    resultMap.put(ComConstants.PROP_INSERTED_CNT, totalInsertedCnt);
+	    logger.info("=============insertFcltInstlInfoList=====end========");
+
+	    return getSuccessResponseEntity(resultMap);
+	}
+
 
 	// 시설설치보완 변경
 	@PostMapping(value = "/fm/fclt/updateFcltInstlInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})

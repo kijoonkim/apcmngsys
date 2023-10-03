@@ -38,16 +38,6 @@ public class FcltOperInfoVO extends ComVO{
     private String apcTrmtItemCn3;
     private String apcTrmtItemCn4;
     private String apcTrmtItemCn;
-	@Override
-	public String toString() {
-		return "FcltOperInfoVO [trgtYr=" + trgtYr + ", apcCd=" + apcCd + ", msgKey=" + msgKey + ", msgCn=" + msgCn
-				+ ", msgKnd=" + msgKnd + ", msgKndNm=" + msgKndNm + ", daddr=" + daddr + ", apcBrno=" + apcBrno
-				+ ", apcRgnCd=" + apcRgnCd + ", apcNm=" + apcNm + ", apcAddr=" + apcAddr + ", psnOgnzNm=" + psnOgnzNm
-				+ ", psnOgnzBrno=" + psnOgnzBrno + ", operOgnzCd=" + operOgnzCd + ", operOgnzNm=" + operOgnzNm
-				+ ", operOgnzBrno=" + operOgnzBrno + ", operOgnzDeptCd=" + operOgnzDeptCd + ", operOgnzDeptNm="
-				+ operOgnzDeptNm + ", operOgnzTrmtItemCd=" + operOgnzTrmtItemCd + ", operOgnzTrmtItemCn="
-				+ operOgnzTrmtItemCn + ", apcTrmtItemCd=" + apcTrmtItemCd + ", apcTrmtItemCn=" + apcTrmtItemCn + "]";
-	}
 
 }
 

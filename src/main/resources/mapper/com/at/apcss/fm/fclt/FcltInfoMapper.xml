@@ -27,42 +27,33 @@
     <select id="selectFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo */
-             FCLT.TRGT_YR                  AS TRGT_YR
-			, FCLT.APC_CD                  AS APC_CD
-			, FCLT.FCLT_CD                 AS FCLT_CD
-			, FCLT.FCLT_NM                 AS FCLT_NM
-			, FCLT.FCLT_AREA               AS FCLT_AREA
-			, FCLT.FCLT_AREA2              AS FCLT_AREA2
-			, FCLT.FCLT_AREA3              AS FCLT_AREA3
-			, FCLT.FCLT_AREA4              AS FCLT_AREA4
-			, FCLT.FCLT_AREA5              AS FCLT_AREA5
-			, FCLT.FCLT_AREA6              AS FCLT_AREA6
-			, FCLT.FCLT_AREA7              AS FCLT_AREA7
-			, FCLT.FCLT_AREA8              AS FCLT_AREA8
-			, FCLT.FCLT_AREA9              AS FCLT_AREA9
-			, FCLT.FCLT_AREA10             AS FCLT_AREA10
-			, FCLT_AREA+FCLT_AREA2+FCLT_AREA3+FCLT_AREA4+FCLT_AREA5
-			 +FCLT_AREA6+FCLT_AREA7+FCLT_AREA8+FCLT_AREA9+FCLT_AREA10
-											AS FCLT_AREA0
-			, FCLT.FCLT_RMRK0                    AS FCLT_RMRK0
-			, FCLT.FCLT_RMRK                     AS FCLT_RMRK
-			, FCLT.FCLT_RMRK2                    AS FCLT_RMRK2
-			, FCLT.FCLT_RMRK3                    AS FCLT_RMRK3
-			, FCLT.FCLT_RMRK4                    AS FCLT_RMRK4
-			, FCLT.FCLT_RMRK5                    AS FCLT_RMRK5
-			, FCLT.FCLT_RMRK6                    AS FCLT_RMRK6
-			, FCLT.FCLT_RMRK7                    AS FCLT_RMRK7
-			, FCLT.FCLT_RMRK8                    AS FCLT_RMRK8
-			, FCLT.FCLT_RMRK9                    AS FCLT_RMRK9
-			, FCLT.FCLT_RMRK10                   AS FCLT_RMRK10
-			, FCLT.DEL_YN                  		 AS DEL_YN
-			, FCLT.SYS_FRST_INPT_DT        		 AS SYS_FRST_INPT_DT
-			, FCLT.SYS_FRST_INPT_USER_ID   		 AS SYS_FRST_INPT_USER_ID
-			, FCLT.SYS_FRST_INPT_PRGRM_ID		 AS SYS_FRST_INPT_PRGRM_ID
-			, FCLT.SYS_LAST_CHG_DT        		 AS SYS_LAST_CHG_DT
-			, FCLT.SYS_LAST_CHG_USER_ID    	     AS SYS_LAST_CHG_USER_ID
-			, FCLT.SYS_LAST_CHG_PRGRM_ID   	 	 AS SYS_LAST_CHG_PRGRM_ID
+	             FCLT.TRGT_YR                  		AS TRGT_YR
+				, FCLT.APC_CD               		AS APC_CD
+				, FCLT.FCLT_CD                		AS FCLT_CD
+				, FCLT.FCLT_NM                 		AS FCLT_NM
+				, FCLT.FCLT_AREA_TOT				AS FCLT_AREA_TOT
+				, FCLT.FCLT_AREA01					AS FCLT_AREA01
+				, FCLT.FCLT_AREA02					AS FCLT_AREA02
+				, FCLT.FCLT_AREA03					AS FCLT_AREA03
+				, FCLT.FCLT_AREA04					AS FCLT_AREA04
+				, FCLT.FCLT_AREA05					AS FCLT_AREA05
+				, FCLT.FCLT_AREA06					AS FCLT_AREA06
+				, FCLT.FCLT_AREA07					AS FCLT_AREA07
+				, FCLT.FCLT_AREA08					AS FCLT_AREA08
+				, FCLT.FCLT_AREA09					AS FCLT_AREA09
+				, FCLT.FCLT_AREA10					AS FCLT_AREA10
 
+				, FCLT.FCLT_RMRK_TOT				AS FCLT_RMRK_TOT
+				, FCLT.FCLT_RMRK01					AS FCLT_RMRK01
+				, FCLT.FCLT_RMRK02					AS FCLT_RMRK02
+				, FCLT.FCLT_RMRK03					AS FCLT_RMRK03
+				, FCLT.FCLT_RMRK04					AS FCLT_RMRK04
+				, FCLT.FCLT_RMRK05					AS FCLT_RMRK05
+				, FCLT.FCLT_RMRK06					AS FCLT_RMRK06
+				, FCLT.FCLT_RMRK07					AS FCLT_RMRK07
+				, FCLT.FCLT_RMRK08					AS FCLT_RMRK08
+				, FCLT.FCLT_RMRK09					AS FCLT_RMRK09
+				, FCLT.FCLT_RMRK10					AS FCLT_RMRK10
 			 FROM TB_FCLT_INFO FCLT
 			 WHERE 1=1
     	]]>
@@ -87,41 +78,32 @@
 
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfoList */
-             FCLT.TRGT_YR                       AS TRGT_YR
-			, FCLT.APC_CD                       AS APC_CD
-			, FCLT.FCLT_CD                      AS FCLT_CD
-			, FCLT.FCLT_NM                      AS FCLT_NM
-			, FCLT.FCLT_AREA                    AS FCLT_AREA
-			, FCLT.FCLT_AREA2                   AS FCLT_AREA2
-			, FCLT.FCLT_AREA3                   AS FCLT_AREA3
-			, FCLT.FCLT_AREA4                   AS FCLT_AREA4
-			, FCLT.FCLT_AREA5                   AS FCLT_AREA5
-			, FCLT.FCLT_AREA6					AS FCLT_AREA6
-			, FCLT.FCLT_AREA7              		AS FCLT_AREA7
-			, FCLT.FCLT_AREA8              		AS FCLT_AREA8
-			, FCLT.FCLT_AREA9              		AS FCLT_AREA9
-			, FCLT.FCLT_AREA10             		AS FCLT_AREA10
-			, (FCLT_AREA+FCLT_AREA2+FCLT_AREA3+FCLT_AREA4+FCLT_AREA5
-			 +FCLT_AREA6+FCLT_AREA7+FCLT_AREA8+FCLT_AREA9+FCLT_AREA10) AS FCLT_AREA0
-			, FCLT.FCLT_RMRK0                   AS FCLT_RMRK0
-			, FCLT.FCLT_RMRK                    AS FCLT_RMRK
-			, FCLT.FCLT_RMRK2                   AS FCLT_RMRK2
-			, FCLT.FCLT_RMRK3                   AS FCLT_RMRK3
-			, FCLT.FCLT_RMRK4                   AS FCLT_RMRK4
-			, FCLT.FCLT_RMRK5                   AS FCLT_RMRK5
-			, FCLT.FCLT_RMRK6                   AS FCLT_RMRK6
-			, FCLT.FCLT_RMRK7                   AS FCLT_RMRK7
-			, FCLT.FCLT_RMRK8                   AS FCLT_RMRK8
-			, FCLT.FCLT_RMRK9                   AS FCLT_RMRK9
-			, FCLT.FCLT_RMRK10                  AS FCLT_RMRK10
-			, FCLT.DEL_YN                  AS DEL_YN
-			, FCLT.SYS_FRST_INPT_DT        AS SYS_FRST_INPT_DT
-			, FCLT.SYS_FRST_INPT_USER_ID   AS SYS_FRST_INPT_USER_ID
-			, FCLT.SYS_FRST_INPT_PRGRM_ID  AS SYS_FRST_INPT_PRGRM_ID
-			, FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
-			, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
-			, FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
-
+	             FCLT.TRGT_YR                  		AS TRGT_YR
+				, FCLT.APC_CD               		AS APC_CD
+				, FCLT.FCLT_CD                		AS FCLT_CD
+				, FCLT.FCLT_NM                 		AS FCLT_NM
+				, FCLT.FCLT_AREA_TOT				AS FCLT_AREA_TOT
+				, FCLT.FCLT_AREA01					AS FCLT_AREA01
+				, FCLT.FCLT_AREA02					AS FCLT_AREA02
+				, FCLT.FCLT_AREA03					AS FCLT_AREA03
+				, FCLT.FCLT_AREA04					AS FCLT_AREA04
+				, FCLT.FCLT_AREA05					AS FCLT_AREA05
+				, FCLT.FCLT_AREA06					AS FCLT_AREA06
+				, FCLT.FCLT_AREA07					AS FCLT_AREA07
+				, FCLT.FCLT_AREA08					AS FCLT_AREA08
+				, FCLT.FCLT_AREA09					AS FCLT_AREA09
+				, FCLT.FCLT_AREA10					AS FCLT_AREA10
+				, FCLT.FCLT_RMRK_TOT				AS FCLT_RMRK_TOT
+				, FCLT.FCLT_RMRK01					AS FCLT_RMRK01
+				, FCLT.FCLT_RMRK02					AS FCLT_RMRK02
+				, FCLT.FCLT_RMRK03					AS FCLT_RMRK03
+				, FCLT.FCLT_RMRK04					AS FCLT_RMRK04
+				, FCLT.FCLT_RMRK05					AS FCLT_RMRK05
+				, FCLT.FCLT_RMRK06					AS FCLT_RMRK06
+				, FCLT.FCLT_RMRK07					AS FCLT_RMRK07
+				, FCLT.FCLT_RMRK08					AS FCLT_RMRK08
+				, FCLT.FCLT_RMRK09					AS FCLT_RMRK09
+				, FCLT.FCLT_RMRK10					AS FCLT_RMRK10
 			 FROM TB_FCLT_INFO FCLT
 			 WHERE 1=1
   ]]>
@@ -154,30 +136,28 @@
 	    		(
 	              TRGT_YR
 				, APC_CD
-				, FCLT_CD
-				, FCLT_NM
-				, FCLT_AREA
-				, FCLT_RMRK
-				, FCLT_AREA2
-				, FCLT_RMRK2
-				, FCLT_AREA3
-				, FCLT_RMRK3
-				, FCLT_AREA4
-				, FCLT_RMRK4
-				, FCLT_AREA5
-				, FCLT_RMRK6
-				, FCLT_AREA6
-				, FCLT_RMRK5
-				, FCLT_AREA7
-				, FCLT_RMRK7
-				, FCLT_AREA8
-				, FCLT_RMRK8
-				, FCLT_AREA9
-				, FCLT_RMRK9
+				, FCLT_AREA_TOT
+				, FCLT_RMRK_TOT
+				, FCLT_AREA01
+				, FCLT_RMRK01
+				, FCLT_AREA02
+				, FCLT_RMRK02
+				, FCLT_AREA03
+				, FCLT_RMRK03
+				, FCLT_AREA04
+				, FCLT_RMRK04
+				, FCLT_AREA05
+				, FCLT_RMRK05
+				, FCLT_AREA06
+				, FCLT_RMRK06
+				, FCLT_AREA07
+				, FCLT_RMRK07
+				, FCLT_AREA08
+				, FCLT_RMRK08
+				, FCLT_AREA09
+				, FCLT_RMRK09
 				, FCLT_AREA10
 				, FCLT_RMRK10
-				, FCLT_RMRK0
-				, DEL_YN
 				, SYS_FRST_INPT_DT
 				, SYS_FRST_INPT_USER_ID
 				, SYS_FRST_INPT_PRGRM_ID
@@ -189,30 +169,28 @@
 	   			(
 	              #{trgtYr}
 				, #{apcCd}
-				, #{fcltCd}
-				, #{fcltNm}
-				, #{fcltArea}
-				, #{fcltRmrk}
-				, #{fcltArea2}
-				, #{fcltRmrk2}
-				, #{fcltArea3}
-				, #{fcltRmrk3}
-				, #{fcltArea4}
-				, #{fcltRmrk4}
-				, #{fcltArea5}
-				, #{fcltRmrk5}
-				, #{fcltArea6}
-				, #{fcltRmrk6}
-				, #{fcltArea7}
-				, #{fcltRmrk7}
-				, #{fcltArea8}
-				, #{fcltRmrk8}
-				, #{fcltArea9}
-				, #{fcltRmrk9}
+				, #{fcltAreaTot}
+				, #{fcltRmrkTot}
+				, #{fcltArea01}
+				, #{fcltRmrk01}
+				, #{fcltArea02}
+				, #{fcltRmrk02}
+				, #{fcltArea03}
+				, #{fcltRmrk03}
+				, #{fcltArea04}
+				, #{fcltRmrk04}
+				, #{fcltArea05}
+				, #{fcltRmrk05}
+				, #{fcltArea06}
+				, #{fcltRmrk06}
+				, #{fcltArea07}
+				, #{fcltRmrk07}
+				, #{fcltArea08}
+				, #{fcltRmrk08}
+				, #{fcltArea09}
+				, #{fcltRmrk09}
 				, #{fcltArea10}
 				, #{fcltRmrk10}
-				, #{fcltRmrk0}
-				, #{delYn}
 				, SYSDATE
 				, #{sysFrstInptUserId}
 				, #{sysFrstInptPrgrmId}
@@ -236,31 +214,28 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.updateFcltInfo */
 	    		TB_FCLT_INFO FCLT
 			   SET
-				    TRGT_YR	 	 =  #{trgtYr}
-				   , APC_CD      =  #{apcCd}
-			 	   , FCLT_CD     =  #{fcltCd}
-			 	   , FCLT_NM     =  #{fcltNm}
-			 	   , FCLT_AREA   =  #{fcltArea}
-			 	   , FCLT_AREA2  =  #{fcltArea2}
-			 	   , FCLT_AREA3  =  #{fcltArea3}
-			 	   , FCLT_AREA4  =  #{fcltArea4}
-			 	   , FCLT_AREA5  =  #{fcltArea5}
-			 	   , FCLT_AREA6  =  #{fcltArea6}
-			 	   , FCLT_AREA7  =  #{fcltArea7}
-			 	   , FCLT_AREA8  =  #{fcltArea8}
-			 	   , FCLT_AREA9  =  #{fcltArea9}
-			 	   , FCLT_AREA10 =  #{fcltArea10}
-			 	   , FCLT_RMRK   =  #{fcltRmrk}
-			 	   , FCLT_RMRK2  =  #{fcltRmrk2}
-			 	   , FCLT_RMRK3  =  #{fcltRmrk3}
-			 	   , FCLT_RMRK4  =  #{fcltRmrk4}
-			 	   , FCLT_RMRK5  =  #{fcltRmrk5}
-			 	   , FCLT_RMRK6  =  #{fcltRmrk6}
-			 	   , FCLT_RMRK7  =  #{fcltRmrk7}
-			 	   , FCLT_RMRK8  =  #{fcltRmrk8}
-			 	   , FCLT_RMRK9  =  #{fcltRmrk9}
-			 	   , FCLT_RMRK10 =  #{fcltRmrk10}
-			 	   , FCLT_RMRK0  =  #{fcltRmrk0}
+				   FCLT_AREA_TOT   =  #{fcltAreaTot}
+			 	   , FCLT_AREA01   =  #{fcltArea01}
+			 	   , FCLT_AREA02  =  #{fcltArea02}
+			 	   , FCLT_AREA03  =  #{fcltArea03}
+			 	   , FCLT_AREA04  =  #{fcltArea04}
+			 	   , FCLT_AREA05  =  #{fcltArea05}
+			 	   , FCLT_AREA06  =  #{fcltArea06}
+			 	   , FCLT_AREA07  =  #{fcltArea07}
+			 	   , FCLT_AREA08  =  #{fcltArea08}
+			 	   , FCLT_AREA09  =  #{fcltArea09}
+			 	   , FCLT_AREA10  =  #{fcltArea10}
+			 	   , FCLT_RMRK_TOT  =  #{fcltRmrkTot}
+			 	   , FCLT_RMRK01  =  #{fcltRmrk01}
+			 	   , FCLT_RMRK02  =  #{fcltRmrk02}
+			 	   , FCLT_RMRK03  =  #{fcltRmrk03}
+			 	   , FCLT_RMRK04  =  #{fcltRmrk04}
+			 	   , FCLT_RMRK05  =  #{fcltRmrk05}
+			 	   , FCLT_RMRK06  =  #{fcltRmrk06}
+			 	   , FCLT_RMRK07  =  #{fcltRmrk07}
+			 	   , FCLT_RMRK08  =  #{fcltRmrk08}
+			 	   , FCLT_RMRK09  =  #{fcltRmrk09}
+			 	   , FCLT_RMRK10  =  #{fcltRmrk10}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

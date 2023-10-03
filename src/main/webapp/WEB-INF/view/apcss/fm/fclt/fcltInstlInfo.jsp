@@ -22,7 +22,9 @@
 				<h3 class="box-title" style="line-height: 30px;"> ▶ 시설 설치보완</h3>
 			</div>
 		<div style="margin-left: auto;">
+				<!--
 				<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
+				 -->
 				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
@@ -40,79 +42,29 @@
 					<col style="width: 6%">
 					<col style="width: 10%">
 					<col style="width: 6%">
-					<col style="width: 15%">
-					<col style="width: 63%">
+					<col style="width: 10%">
+					<col style="width: 10%">
+					<col style="width: 58%">
 				</colgroup>
 				<tbody>
 					<tr>
 						<th class="th_bg" scope="row">대상연도</th>
-						<td class="td_input" style="border-right: hidden;">
+						<td class="td_input"   style="border-right: hidden;">
 							<sbux-input id="srch-input-trgtYr" name="srch-input-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
-
-
-							<th class="th_bg" scope="row" style="border-bottom:1px solid white " class="th_bg" >APC명</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
-								<script type="text/javascript">
-								<c:choose>
-									<c:when test="${comApcList != null}">
-									var cjsonApcList = ${comApcList};
-									</c:when>
-									<c:otherwise>
-									var cjsonApcList = {};
-									</c:otherwise>
-								</c:choose>
-								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
-									gv_selectedApcCd = null;
-									gv_selectedApcNm = null;
-								</c:if>
-									/**
-									 * @name
-									 * @description
-									 * @function
-									 * @param {string} _apcCd
-									 */
-									const cfn_onChangeApc = function(obj) {
-										gv_selectedApcCd = obj.value;
-
-										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
-										apcInfo.forEach( (apc) => {
-											gv_selectedApcNm = apc.apcNm;
-											return false;
-										});
-
-										if (typeof fn_onChangeApc === "function") {
-											fn_onChangeApc();
-										}
-
-									}
-
-								</script>
-								<c:choose>
-									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
-										<sbux-select
-											id="gsb-slt-apcCd"
-											name="gsb-slt-apcCd"
-											uitype="single"
-											jsondata-ref="cjsonApcList"
-											unselected-text="선택"
-											class="form-control input-sm"
-											onchange="cfn_onChangeApc(this)"
-											style="max-width:150px;"
-										></sbux-select>
-									</c:when>
-									<c:otherwise>
-										<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td></td>
+						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
+						<td class="td_input" style="border-right:hidden;">
+							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						</td>
+						<td style="border-right:hidden;">
+							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+						</td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
 			<br>
-
-
 			<!--[pp] //검색 -->
 			<!--[pp] 검색결과 -->
 
@@ -125,8 +77,8 @@
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
-					<col style="width: 9%">
-					<col style="width: 28%">
+					<col style="width: 15%">
+					<col style="width: 30%">
 					<col style="width: 55%">
 
 				</colgroup>
@@ -157,6 +109,7 @@
 						</td>
 						<td class="td_input" colspan="1" style="border-left: hidden;"></td>
 					</tr>
+					<!--
 					<tr>
 						<th  class="th_bg">사업비코드</th>
 						<td class="td_input" colspan="1">
@@ -164,6 +117,7 @@
 						</td>
 						<td class="td_input" colspan="1" style="border-left: hidden;"></td>
 					</tr>
+					 -->
 					<tr>
 						<th  class="th_bg">사업비1(국고)</th>
 						<td class="td_input" colspan="1">
@@ -194,59 +148,10 @@
 					</tr>
 					<tr>
 						<th class="th_bg">APC 명</th>
-						<td class="td_input" colspan="1" style="border-bottom: solid;">
-							<script type="text/javascript">
-								<c:choose>
-									<c:when test="${comApcList != null}">
-									var cjsonApcList = ${comApcList};
-									</c:when>
-									<c:otherwise>
-									var cjsonApcList = {};
-									</c:otherwise>
-								</c:choose>
-								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
-									gv_selectedApcCd = null;
-									gv_selectedApcNm = null;
-								</c:if>
-									/**
-									 * @name
-									 * @description
-									 * @function
-									 * @param {string} _apcCd
-									 */
-									const cfn_onChangeApc = function(obj) {
-										gv_selectedApcCd = obj.value;
-
-										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
-										apcInfo.forEach( (apc) => {
-											gv_selectedApcNm = apc.apcNm;
-											return false;
-										});
-
-										if (typeof fn_onChangeApc === "function") {
-											fn_onChangeApc();
-										}
-
-									}
-
-								</script>
-								<c:choose>
-									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
-										<sbux-select
-											id="dtl-input-apcCd"
-											name="dtl-input-apcCd"
-											uitype="single"
-											jsondata-ref="cjsonApcList"
-											unselected-text="선택"
-											class="form-control input-sm"
-											onchange="cfn_onChangeApc(this)"
-											style="max-width:150px;"
-										></sbux-select>
-									</c:when>
-									<c:otherwise>
-										<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
-									</c:otherwise>
-								</c:choose>
+						<td class="td_input" style="border-right:hidden;">
+							<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="dtl-input-sn" name="dtl-input-sn" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="dtl-input-apcNm" name="dtl-input-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
 						<td colspan="1" style="border-left: hidden;"></td>
 					</tr>
@@ -275,6 +180,13 @@
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
     </div>
  --%>
+ 	<!-- apc 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-apcSelect">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+    </div>
 
 </body>
 <script type="text/javascript">
@@ -324,6 +236,7 @@
                 ref: 'checked', type: 'checkbox',   style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
+
             {caption: ["사업연도","사업연도"],	    	ref: 'bizYr',      type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["지원유형","지원유형"], 		ref: 'bizSprtCd',     	type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["사업내용","사업내용"],  		ref: 'bizCn',       type:'output',  width:'14%',    style:'text-align:center'},
@@ -333,10 +246,7 @@
             {caption: ["투자 사업비(백만원)","자부담"],   ref: 'bizAmt3',     type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["APCCD"],				ref: 'apcCd',       type:'output',  hidden: false},
             {caption: ["대상년도"],					ref: 'trgtYr',      type:'output',  hidden:false},
-            {caption: ["최초등록자ID"],				ref: 'creUserId',   type:'output',  hidden: true},
-            {caption: ["최초등록일시"],				ref: 'creDateTime', type:'output',  hidden: true},
-            {caption: ["최종변경자ID"],				ref: 'updUserId',   type:'output',  hidden: true},
-            {caption: ["최종변경일시"], 				ref: 'updDateTime', type:'output',  hidden: true},
+            {caption: ["순번"],					ref: 'sn',      type:'output',  hidden:false},
             {caption: ["등록프로그램"], 				ref: 'creProgram',  type:'output',  hidden: true},
             {caption: ["변경프로그램"],		 		ref: 'updProgram',  type:'output',  hidden: true}
 
@@ -381,7 +291,7 @@
 
 		grdFcltInstlInfoList.clearStatus();
 
-		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
 
 		var chk = {
@@ -422,7 +332,7 @@
 				const msg = {
 				trgtYr: item.trgtYr,	 	//대상연도
 				apcCd: item.apcCd, 	 		//apc코드
-				sn: item.sn,                      	//순번
+				sn: item.sn, 	 		//apc코드
 				bizYr: item.bizYr,                    	//사업연도
 				bizSprtCd: item.bizSprtCd,             //사업지원코드
 				bizCn: item.bizCn,                    //사업내용
@@ -432,16 +342,6 @@
 				bizAmt3: item.bizAmt3,        //사업비3(자부담)
 				bizAmt4: item.bizAmt4,        //사업비3(계)
 				apcNm: item.apcNm,                  		  		//APC명
-				delYn: item.delYn,                  				 //삭제유무
-	            sysFrstInptDt: item.sysFrstInptDt,       			//시스템최초입력일시
-	            sysFrstInptUserId: item.sysFrstInptUserId,   	   //시스템최초입력사용자id
-		        sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,     	//시스템최초입력프로그램id
-		        sysLastChgDt: item.sysLastChgDt,    				//시스템최종변경일시
-		        sysLastChgUserId: item.sysLastChgUserId,  			//시스템최종변경사용자id
-		        sysLastChgPrgrmId: item.sysLastChgPrgrmId   		//시스템최종변경프로그램id
-											      		    		//운영조직 대표자
-											                		//운영조직 주소
-											                		//운영조직 조직유형
 				}
 
 				jsonFcltInstlInfoList.push(msg);
@@ -487,19 +387,9 @@
     	SBUxMethod.set("dtl-input-bizYr", null);                     //  사업연도
     	SBUxMethod.set("dtl-input-bizSprtCd", null);                   //  사업지원코드
     	SBUxMethod.set("dtl-input-bizCn", null);                  //  사업내용
-    	SBUxMethod.set("dtl-input-bizAmtCd", null);                     //  사업비코드
         SBUxMethod.set("dtl-input-bizAmt", null);                   // 사업비(국고)
         SBUxMethod.set("dtl-input-bizAmt2", null);                 // 사업비2(지자체)
         SBUxMethod.set("dtl-input-bizAmt3", null);               //  사업비3(자부담)
-        SBUxMethod.set("dtl-input-bizAmt4", null);               //  사업비4(계)
-    	SBUxMethod.set("dtl-input-delYn", null);                  	 //  삭제유무
-    	SBUxMethod.set("dtl-input-sysFrstInptDt", null);       		 //	 시스템최초입력일시
-    	SBUxMethod.set("dtl-input-sysFrstInptUserId", null);      	 //  시스템최초입력사용자id
-    	SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);     	 //  시스템최초입력프로그램id
-    	SBUxMethod.set("dtl-input-sysLastChgDt", null);      		 //  시스템최종변경일시
-    	SBUxMethod.set("dtl-input-sysLastChgUserId", null);   	 	 //  시스템최종변경사용자id
-    	SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);  	 	 //  시스템최종변경프로그램id
-																	//apc addr
 
     }
 
@@ -509,17 +399,15 @@
 		SBUxMethod.set("dtl-input-apcCd", null);                     //  APC코드
         SBUxMethod.set("dtl-input-bizSprtCd", null);				//사업지원코드
         SBUxMethod.set("dtl-input-bizCn", null);					//사업내용
-        SBUxMethod.set("dtl-input-bizAmtCd", null);					//사업비코드
         SBUxMethod.set("dtl-input-bizAmt", null);					//사업비(국고)
         SBUxMethod.set("dtl-input-bizAmt2", null);					//사업비2(지자체)
         SBUxMethod.set("dtl-input-bizAmt3", null);    				//사업비3(자부담)
-        SBUxMethod.set("dtl-input-bizAmt4", null);    				//사업비4(계)
     }
     //저장
     const fn_save = async function() {
     	console.log("******************fn_save**********************************");
 
-		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
 		let apcCdUpd = SBUxMethod.get("dtl-input-apcCd");
 
@@ -540,7 +428,7 @@
                 alert("대상년도를 선택하세요.");
                 return;
             }
-     		if (!SBUxMethod.get("gsb-slt-apcCd")) {
+     		if (!SBUxMethod.get("srch-inp-apcCd")) {
                 alert("APC명을 선택하세요.");
                 return;
             }
@@ -563,15 +451,13 @@
 
     	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltInstlInfo.do", {
     	 	trgtYr: SBUxMethod.get("srch-input-trgtYr") , // 상단 조회 조건의 대상연도 SBUxMethod.get("srch-input-trgtYr")
-        	apcCd: SBUxMethod.get("gsb-slt-apcCd"), // 상단 조회 조건의 APC코드 SBUxMethod.get("gsb-slt-apcCd")
+        	apcCd: SBUxMethod.get("srch-inp-apcCd"), // 상단 조회 조건의 APC코드 SBUxMethod.get("srch-inp-apcCd")
         	bizYr: SBUxMethod.get('dtl-input-bizYr'),                             	 // 사업연도
         	bizSprtCd: SBUxMethod.get('dtl-input-bizSprtCd'),                        // 사업지원코드
         	bizCn:  SBUxMethod.get('dtl-input-bizCn'),               				 // 사업내용
-        	bizAmtCd: SBUxMethod.get('dtl-input-bizAmtCd'),                          // 사업비코드
         	bizAmt: SBUxMethod.get('dtl-input-bizAmt'),                        		 // 사업비(국고)
         	bizAmt2: SBUxMethod.get('dtl-input-bizAmt2'),                     		 // 사업비2(지자체)
         	bizAmt3: SBUxMethod.get('dtl-input-bizAmt3'),                     		 // 사업비3(자부담)
-        	bizAmt4: SBUxMethod.get('dtl-input-bizAmt3'),                     		 // 사업비3(계)
 		});
 
 	console.log(postVal);
@@ -600,21 +486,14 @@
     	const postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltInstlInfo.do", {
     	 	trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
         ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
+        ,	sn: SBUxMethod.get('dtl-input-sn')                             		//  순서
         ,	bizYr: SBUxMethod.get('dtl-input-bizYr')                         	 //  사업연도
         ,	bizSprtCd: SBUxMethod.get('dtl-input-bizSprtCd')                  	 //  사업지원코드
         ,	bizCn: SBUxMethod.get('dtl-input-bizCn')                             //  사업내용
-        ,	bizAmtCd: SBUxMethod.get('dtl-input-bizAmtCd')                       // 사업비코드
         ,	bizAmt: SBUxMethod.get('dtl-input-bizAmt')                     		 //   사업비(국고)
         ,	bizAmt2: SBUxMethod.get('dtl-input-bizAmt2')                 		 //  사업비2(지자체)
         ,	bizAmt3: SBUxMethod.get('dtl-input-bizAmt3')                 		 //  사업비3(자부담)
         ,	bizAmt4: SBUxMethod.get('dtl-input-bizAmt4')                 		 //  사업비4(계)
-        ,	delYn: SBUxMethod.get('dtl-input-delYn')                  			 //	 삭제유무
-        ,	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt')      	  	 //	 시스템최초입력일시
-        ,	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId')     //	 시스템최초입력사용자id
-        ,	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId')   //	 시스템최초입력프로그램id
-        ,	sysLastChgDt: SBUxMethod.get('dtl-input-sysLastChgDt')     		 	 //	 시스템최종변경일시
-        ,	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId')  	 //	 시스템최종변경사용자id
-        ,	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')   	 //	 시스템최종변경프로그램id
     		});
 
         const data = await postJsonPromise;
@@ -647,7 +526,7 @@
         const rows = grdFcltInstlInfoList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
-        		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
+        		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd , sn: row.sn});
         	}
         });
 
@@ -734,7 +613,6 @@
     	SBUxMethod.set("dtl-input-bizYr", rowData.bizYr);                        	  //  사업연도
     	SBUxMethod.set("dtl-input-bizSprtCd", rowData.bizSprtCd);                     //  사업지원코드
     	SBUxMethod.set("dtl-input-bizCn", rowData.bizCn);                             //  사업내용
-        SBUxMethod.set("dtl-input-bizAmtCd", rowData.bizAmtCd);                       //  사업비코드
         SBUxMethod.set("dtl-input-bizAmt", rowData.bizAmt);                     	  //  사업비(국고)
         SBUxMethod.set("dtl-input-bizAmt2", rowData.bizAmt2);                 		  //  사업비2(지자체)
         SBUxMethod.set("dtl-input-bizAmt3", rowData.bizAmt3);                 		  //  사업비3(자부담)
@@ -750,6 +628,18 @@
         	grdFcltInstlInfoList.setCellData(i+1, 1, checkedYn, true, false);
         }
     }
+
+ 	// apc 선택 팝업 호출
+	const fn_modalApcSelect = function() {
+		popApcSelect.init(fn_setApc);
+	}
+	// apc 선택 팝업 콜백 함수
+	const fn_setApc = function(apc) {
+		if (!gfn_isEmpty(apc)) {
+			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
+			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
+		}
+	}
 
 </script>
 </html>
