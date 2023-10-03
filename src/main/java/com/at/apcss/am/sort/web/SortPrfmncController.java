@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.sort.service.SortPrfmncService;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
-import com.at.apcss.am.whrs.service.RawMtrWrhsService;
-import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -58,6 +56,29 @@ public class SortPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	/**
+	 * 선별투입실적 조회
+	 * @param sortPrfmncVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/sort/selectSortInptPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSortInptPrfmncList(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<SortPrfmncVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = sortPrfmncService.selectSortInptPrfmncList(sortPrfmncVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 
 	@PostMapping(value = "/am/sort/insertSortPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertSortPrfmncList(@RequestBody List<SortPrfmncVO> sortPrfmncList, HttpServletRequest request) throws Exception {

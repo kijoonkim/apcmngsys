@@ -69,6 +69,14 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	}
 
 	@Override
+	public List<SortPrfmncVO> selectSortInptPrfmncList(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+		List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortInptPrfmncList(sortPrfmncVO);
+
+		return resultList;
+	}
+
+	@Override
 	public HashMap<String, Object> insertSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception {
 
 		int insertedCnt = sortPrfmncMapper.insertSortPrfmnc(sortPrfmncVO);
@@ -139,6 +147,7 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 
 		return null;
 	}
+
 
 
 
