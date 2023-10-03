@@ -22,8 +22,9 @@
 				<h3 class="box-title" style="line-height: 30px;"> ▶ 운영자개요</h3>
 			</div>
 			<div style="margin-left: auto;">
-								<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_setGrdWrhsPlan"></sbux-button>
+				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 			</div>
 		</div>
 		<div class="box-body">
@@ -38,79 +39,29 @@
 					<col style="width: 6%">
 					<col style="width: 10%">
 					<col style="width: 6%">
-					<col style="width: 15%">
-					<col style="width: 63%">
+					<col style="width: 10%">
+					<col style="width: 10%">
+					<col style="width: 58%">
 				</colgroup>
 				<tbody>
 					<tr>
 						<th class="th_bg" scope="row">대상연도</th>
-						<td class="td_input" style="border-right: hidden;">
+						<td class="td_input"   style="border-right: hidden;">
 							<sbux-input id="srch-input-trgtYr" name="srch-input-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
-
-
-							<th class="th_bg" scope="row" style="border-bottom:1px solid white " class="th_bg" >APC명</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
-								<script type="text/javascript">
-								<c:choose>
-									<c:when test="${comApcList != null}">
-									var cjsonApcList = ${comApcList};
-									</c:when>
-									<c:otherwise>
-									var cjsonApcList = {};
-									</c:otherwise>
-								</c:choose>
-								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
-									gv_selectedApcCd = null;
-									gv_selectedApcNm = null;
-								</c:if>
-									/**
-									 * @name
-									 * @description
-									 * @function
-									 * @param {string} _apcCd
-									 */
-									const cfn_onChangeApc = function(obj) {
-										gv_selectedApcCd = obj.value;
-
-										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
-										apcInfo.forEach( (apc) => {
-											gv_selectedApcNm = apc.apcNm;
-											return false;
-										});
-
-										if (typeof fn_onChangeApc === "function") {
-											fn_onChangeApc();
-										}
-
-									}
-
-								</script>
-								<c:choose>
-									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
-										<sbux-select
-											id="gsb-slt-apcCd"
-											name="gsb-slt-apcCd"
-											uitype="single"
-											jsondata-ref="cjsonApcList"
-											unselected-text="선택"
-											class="form-control input-sm"
-											onchange="cfn_onChangeApc(this)"
-											style="max-width:150px;"
-										></sbux-select>
-									</c:when>
-									<c:otherwise>
-										<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td></td>
+						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
+						<td class="td_input" style="border-right:hidden;">
+							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						</td>
+						<td style="border-right:hidden;">
+							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+						</td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
 			<br>
-
-
 			<!--[pp] //검색 -->
 			<!--[pp] 검색결과 -->
 
@@ -362,59 +313,9 @@
 					</tr>
 					<tr>
 						<th class="th_bg">APC 코드</th>
-						<td class="td_input" colspan="1" style="border-bottom: solid;">
-							<script type="text/javascript">
-								<c:choose>
-									<c:when test="${comApcList != null}">
-									var cjsonApcList = ${comApcList};
-									</c:when>
-									<c:otherwise>
-									var cjsonApcList = {};
-									</c:otherwise>
-								</c:choose>
-								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
-									gv_selectedApcCd = null;
-									gv_selectedApcNm = null;
-								</c:if>
-									/**
-									 * @name
-									 * @description
-									 * @function
-									 * @param {string} _apcCd
-									 */
-									const cfn_onChangeApc = function(obj) {
-										gv_selectedApcCd = obj.value;
-
-										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
-										apcInfo.forEach( (apc) => {
-											gv_selectedApcNm = apc.apcNm;
-											return false;
-										});
-
-										if (typeof fn_onChangeApc === "function") {
-											fn_onChangeApc();
-										}
-
-									}
-
-								</script>
-								<c:choose>
-									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
-										<sbux-select
-											id="dtl-input-apcCd"
-											name="dtl-input-apcCd"
-											uitype="single"
-											jsondata-ref="cjsonApcList"
-											unselected-text="선택"
-											class="form-control input-sm"
-											onchange="cfn_onChangeApc(this)"
-											style="max-width:150px;"
-										></sbux-select>
-									</c:when>
-									<c:otherwise>
-										<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
-									</c:otherwise>
-								</c:choose>
+						<td class="td_input" style="border-right:hidden;">
+							<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="dtl-input-apcNm" name="dtl-input-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
 						<td colspan="17" style="border-left: hidden;"></td>
 					</tr>
@@ -428,21 +329,13 @@
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
-<%-- 	<!-- 거래처 선택 Modal -->
+	<!-- apc 선택 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="body-modal-cnpt">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    <div id="body-modal-apcSelect">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
     </div>
-        <!-- 품종 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
-    </div>
-    <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
-    </div>
- --%>
 
 </body>
 <script type="text/javascript">
@@ -549,7 +442,7 @@
 
 		grdFcltOperInfoList.clearStatus();
 
-		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
 
 		var chk = {
@@ -576,10 +469,10 @@
         });
 		console.log("a11111111111111");
         const data = await postJsonPromise;
-//await 오류시 확인
+		//await 오류시 확인
         console.log("---------------------------")
         console.log(data)
-//예외처리
+		//예외처리
         try {
 
         	/** @type {number} **/
@@ -731,7 +624,7 @@
     const fn_save = async function() {
     	console.log("******************fn_save**********************************");
 
-		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
 		let apcCdUpd = SBUxMethod.get("dtl-input-apcCd");
 
@@ -752,7 +645,7 @@
                 alert("대상년도를 선택하세요.");
                 return;
             }
-     		if (!SBUxMethod.get("gsb-slt-apcCd")) {
+     		if (!SBUxMethod.get("srch-inp-apcCd")) {
                 alert("APC명을 선택하세요.");
                 return;
             }
@@ -775,7 +668,7 @@
 
     	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperInfo.do", {
     	 	trgtYr: SBUxMethod.get("srch-input-trgtYr") , // 상단 조회 조건의 대상연도 SBUxMethod.get("srch-input-trgtYr")
-        	apcCd: SBUxMethod.get("gsb-slt-apcCd"), // 상단 조회 조건의 APC코드 SBUxMethod.get("gsb-slt-apcCd")
+        	apcCd: SBUxMethod.get("srch-inp-apcCd"), // 상단 조회 조건의 APC코드 SBUxMethod.get("srch-inp-apcCd")
         	daddr: SBUxMethod.get('dtl-input-daddr'),                             //  도로명 주소
         	apcBrno: SBUxMethod.get('dtl-input-apcBrno'),                         //  APC사업자등록번호
         	apcRgnCd:  SBUxMethod.get('dtl-input-apcRgnCd'),               //  APC지역코드
@@ -1008,6 +901,18 @@
         	grdFcltOperInfoList.setCellData(i+1, 1, checkedYn, true, false);
         }
     }
+
+ 	// apc 선택 팝업 호출
+	const fn_modalApcSelect = function() {
+		popApcSelect.init(fn_setApc);
+	}
+	// apc 선택 팝업 콜백 함수
+	const fn_setApc = function(apc) {
+		if (!gfn_isEmpty(apc)) {
+			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
+			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
+		}
+	}
 
 </script>
 </html>

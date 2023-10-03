@@ -33,13 +33,7 @@
 				, FCLT.HIRE_NOPE3              AS HIRE_NOPE3
 				, FCLT.HIRE_NOPE4              AS HIRE_NOPE4
 				, (HIRE_NOPE+HIRE_NOPE2+HIRE_NOPE3+HIRE_NOPE4)  AS HIRE_NOPE0
-				, FCLT.DEL_YN                 AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
-			    , FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
-			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
+
 			 FROM TB_FCLT_OPER_HF_INFO FCLT
  			 WHERE 1=1
 		     		]]>
@@ -81,13 +75,6 @@
 				, FCLT.HIRE_NOPE3              AS HIRE_NOPE3
 				, FCLT.HIRE_NOPE4              AS HIRE_NOPE4
 				, (HIRE_NOPE+HIRE_NOPE2+HIRE_NOPE3+HIRE_NOPE4)  AS HIRE_NOPE0
-				, FCLT.DEL_YN                 AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
-			    , FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
-			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
 			 FROM TB_FCLT_OPER_HF_INFO FCLT
  			 WHERE 1=1
   ]]>
@@ -120,9 +107,6 @@
 	    		(
 	    			TRGT_YR
 	    		  , APC_CD
-	    		  , SN
-	    		  , HIRE_SE_CD
-	    		  , CTZN_FRGNR_SE_CD
 	    		  , HIRE_NOPE
 	    		  , HIRE_NOPE2
 	    		  , HIRE_NOPE3
@@ -138,9 +122,6 @@
 	   			(
 	   			    #{trgtYr}
 	   			  , #{apcCd}
-	   			  , #{sn}
-	   			  , #{hireSeCd}
-	   			  , #{ctznFrgnrSeCd}
 	   			  , #{hireNope}
 	   			  , #{hireNope2}
 	   			  , #{hireNope3}
@@ -168,12 +149,7 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.updateFcltOperHfInfo */
 	    		TB_FCLT_OPER_HF_INFO FCLT
 			   SET
-			 	  TRGT_YR          = #{trgtYr}
-			 	, APC_CD           = #{apcCd}
-			 	, SN               = #{sn}
-			 	, HIRE_SE_CD       = #{hireSeCd}
-			 	, CTZN_FRGNR_SE_CD = #{ctznFrgnrSeCd}
-			 	, HIRE_NOPE        = #{hireNope}
+			 	HIRE_NOPE        = #{hireNope}
 			 	, HIRE_NOPE2        = #{hireNope2}
 			 	, HIRE_NOPE3        = #{hireNope3}
 			 	, HIRE_NOPE4        = #{hireNope4}

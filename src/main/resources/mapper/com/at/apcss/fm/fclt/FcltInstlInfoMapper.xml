@@ -26,25 +26,16 @@
 
 					FCLT.TRGT_YR                   AS 	TRGT_YR
 				,	FCLT.APC_CD                    AS 	APC_CD
-				,	FCLT.SN                        AS 	SN
+				,	FCLT.SN                    	   AS 	SN
 				,	FCLT.BIZ_YR                    AS 	BIZ_YR
 				,	FCLT.BIZ_SPRT_CD               AS 	BIZ_SPRT_CD
 				,	FCLT.BIZ_CN                    AS 	BIZ_CN
-				,	FCLT.BIZ_AMT_CD                AS 	BIZ_AMT_CD
 				,	FCLT.BIZ_AMT                   AS 	BIZ_AMT
-				,	FCLT.BIZ_AMT_CD2               AS 	BIZ_AMT_CD2
 				,	FCLT.BIZ_AMT2                  AS 	BIZ_AMT2
-				,	FCLT.BIZ_AMT_CD3               AS 	BIZ_AMT_CD3
-				,	FCLT.BIZ_AMT_CD3               AS 	BIZ_AMT_CD
 				,	FCLT.BIZ_AMT3                  AS 	BIZ_AMT3
 				,	BIZ_AMT+BIZ_AMT2+BIZ_AMT3      AS 	BIZ_AMT4
-				,	FCLT.DEL_YN                    AS 	DEL_YN
-				,	FCLT.SYS_FRST_INPT_DT          AS 	SYS_FRST_INPT_DT
-				,	FCLT.SYS_FRST_INPT_USER_ID     AS 	SYS_FRST_INPT_USER_ID
-                ,   FCLT.SYS_FRST_INPT_PRGRM_ID    AS  	SYS_FRST_INPT_PRGRM_ID
-                ,   FCLT.SYS_LAST_CHG_DT           AS  	SYS_LAST_CHG_DT
-                ,   FCLT.SYS_LAST_CHG_USER_ID      AS  	SYS_LAST_CHG_USER_ID
-                ,   FCLT.SYS_LAST_CHG_PRGRM_ID     AS  	SYS_LAST_CHG_PRGRM_ID
+
+			FROM  TB_FCLT_INSTL_INFO FCLT
 
  			 WHERE 1=1
 		     		]]>
@@ -77,24 +68,14 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.selectFcltInstlInfoList */
 					FCLT.TRGT_YR                   AS 	TRGT_YR
 				,	FCLT.APC_CD                    AS 	APC_CD
-				,	FCLT.SN                        AS 	SN
+				,	FCLT.SN                    	   AS 	SN
 				,	FCLT.BIZ_YR                    AS 	BIZ_YR
 				,	FCLT.BIZ_SPRT_CD               AS 	BIZ_SPRT_CD
 				,	FCLT.BIZ_CN                    AS 	BIZ_CN
-				,	FCLT.BIZ_AMT_CD                AS 	BIZ_AMT_CD
 				,	FCLT.BIZ_AMT                   AS 	BIZ_AMT
-				,	FCLT.BIZ_AMT_CD2               AS 	BIZ_AMT_CD2
 				,	FCLT.BIZ_AMT2                  AS 	BIZ_AMT2
-				,	FCLT.BIZ_AMT_CD3               AS 	BIZ_AMT_CD3
-				,	BIZ_AMT+BIZ_AMT2+BIZ_AMT3      AS 	BIZ_AMT4
 				,	FCLT.BIZ_AMT3                  AS 	BIZ_AMT3
-				,	FCLT.DEL_YN                    AS 	DEL_YN
-				,	FCLT.SYS_FRST_INPT_DT          AS 	SYS_FRST_INPT_DT
-				,	FCLT.SYS_FRST_INPT_USER_ID     AS 	SYS_FRST_INPT_USER_ID
-                ,   FCLT.SYS_FRST_INPT_PRGRM_ID    AS  	SYS_FRST_INPT_PRGRM_ID
-                ,   FCLT.SYS_LAST_CHG_DT           AS  	SYS_LAST_CHG_DT
-                ,   FCLT.SYS_LAST_CHG_USER_ID      AS  	SYS_LAST_CHG_USER_ID
-                ,   FCLT.SYS_LAST_CHG_PRGRM_ID     AS  	SYS_LAST_CHG_PRGRM_ID
+				,	BIZ_AMT+BIZ_AMT2+BIZ_AMT3      AS 	BIZ_AMT4
 
 		   FROM  TB_FCLT_INSTL_INFO FCLT
 
@@ -134,13 +115,11 @@
 						, BIZ_YR
 						, BIZ_SPRT_CD
 						, BIZ_CN
-						, BIZ_AMT_CD
+
 						, BIZ_AMT
-						, BIZ_AMT_CD2
 						, BIZ_AMT2
-						, BIZ_AMT_CD3
 						, BIZ_AMT3
-						, DEL_YN
+
 						, SYS_FRST_INPT_DT
 						, SYS_FRST_INPT_USER_ID
 		                , SYS_FRST_INPT_PRGRM_ID
@@ -152,17 +131,13 @@
 	   			(
 						#{trgtYr}
 					,	#{apcCd}
-					,	#{sn}
+					,	(SELECT COUNT(*) FROM TB_FCLT_INSTL_INFO WHERE TRGT_YR = #{trgtYr} AND APC_CD = #{apcCd})
 					,	#{bizYr}
 					,	#{bizSprtCd}
 					,	#{bizCn}
-					,	#{bizAmtCd}
 					,	#{bizAmt}
-					,	#{bizAmtCd2}
 					,	#{bizAmt2}
-					,	#{bizAmtCd3}
 					,	#{bizAmt3}
-					,	#{delYn}
 					,	SYSDATE
 					,	#{sysFrstInptUserId}
 					,	#{sysFrstInptPrgrmId}
@@ -188,15 +163,11 @@
 			   SET
 			 	  TRGT_YR         = 	#{trgtYr}
 			 	, APC_CD          = 	#{apcCd}
-			 	, SN              = 	#{sn}
 			 	, BIZ_YR          = 	#{bizYr}
 			 	, BIZ_SPRT_CD     = 	#{bizSprtCd}
 			 	, BIZ_CN          = 	#{bizCn}
-			 	, BIZ_AMT_CD      = 	#{bizAmtCd}
                 , BIZ_AMT         =     #{bizAmt}
-                , BIZ_AMT_CD2     =     #{bizAmtCd2}
                 , BIZ_AMT2        =     #{bizAmt2}
-                , BIZ_AMT_CD3     =     #{bizAmtCd3}
                 , BIZ_AMT3        =     #{bizAmt3}
 
 
@@ -210,6 +181,7 @@
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 			 WHERE 1=1
+			 AND SN 	= #{sn}
 		     AND TRGT_YR = #{trgtYr}
 		     AND  APC_CD = #{apcCd}
     	]]>
@@ -228,6 +200,7 @@
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.deleteFcltInstlInfo */
 	    		TB_FCLT_INSTL_INFO FCLT
 			 WHERE 1=1
+			 AND SN 	= #{sn}
 		     AND TRGT_YR = #{trgtYr}
 		     AND  APC_CD = #{apcCd}
     	]]>

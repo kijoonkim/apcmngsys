@@ -580,7 +580,6 @@
         	spmtEndDt: spmtEndDt,
         	spmtType: spmtType,
         	trmtType: trmtType
-
 		});
 
         const data = await postJsonPromise;

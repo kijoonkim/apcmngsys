@@ -18,10 +18,7 @@
 				<h3 class="box-title" style="line-height: 30px;"> ▶ 저온저장고운영</h3>
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary"></sbux-button>
-				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
 		<div class="box-body">
@@ -29,32 +26,19 @@
 			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
-				<colgroup>
-					<col style="width: 7%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 3%">
-					<col style="width: 7%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 3%">
-					<col style="width: 7%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 3%">
-				</colgroup>
 				<tbody>
 					<tr>
 						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
 						<td colspan= "3" class="td_input" style="border-right:hidden;">
-							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
 						<td>
-							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 						</td>
 						<th scope="row">대상연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-input id="srch-inp-warehouse" name="srch-inp-warehouse" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+							<sbux-input id="srch-inp-trgtYr" name="srch-inp-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
 						<td colspan="5"></td>
 					</tr>
@@ -73,103 +57,276 @@
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
-					<col style="width: 20%">
-					<col style="width: 16%">
-					<col style="width: 16%">
-					<col style="width: 16%">
-					<col style="width: 16%">
-					<col style="width: 16%">
+					<col style="width: 9%">
+					<col style="width: 7%">
+					<col style="width: 21%">
+					<col style="width: 21%">
+					<col style="width: 21%">
+					<col style="width: 21%">
 				</colgroup>
 				<tbody>
 					<tr>
 						<th></th>
 						<th>보유현황</th>
 						<th>저장능력(톤)<br>
-							최대저장<br>
+							*최대저장<br>
 						</th>
 						<th>단기저장실적(톤)<br>
-							단순출하대기<br>
+							*단순 출하대기<br>
 						</th>
 						<th>
 							장기저장실적(톤)<br>
-							1개월이상<br>
+							*1개월 이상<br>
 						</th>
 						<th>
 							저장가동률(%)<br>
-							단기+장기실적능력<br>
+							*(단기+장기실적)/능력*100<br>
 						</th>
 					</tr>
 					<tr>
-						<td><sbux-input id="srch-inp-opera1" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="저온저장고" ></sbux-input></td>
-						<td><sbux-input id="srch-inp-opera2" name="srch-inp-oper2" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input></td>
-						<td><sbux-input id="srch-inp-opera3" name="srch-inp-oper3" uitype="text" class="form-control input-sm" placeholder="1,000" ></sbux-input></td>
-						<td><sbux-input id="srch-inp-opera4" name="srch-inp-oper4" uitype="text" class="form-control input-sm" placeholder="100" ></sbux-input></td>
-						<td><sbux-input id="srch-inp-opera5" name="srch-inp-oper5" uitype="text" class="form-control input-sm" placeholder="2,000" ></sbux-input></td>
-						<td><sbux-input id="srch-inp-opera6" name="srch-inp-oper6" uitype="text" class="form-control input-sm" placeholder="210" ></sbux-input></td>
+						<td style="text-align: center;"><p>저온저장고</p></td>
+						<td>
+							<sbux-select name="srch-inp-opera1" id="srch-inp-opera1">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
+						</td>
+						<td><sbux-input id="srch-inp-opera2" name="srch-inp-opera2" uitype="text" class="form-control input-sm" placeholder="1,000" ></sbux-input></td>
+						<td><sbux-input id="srch-inp-opera3" name="srch-inp-opera3" uitype="text" class="form-control input-sm" placeholder="100" ></sbux-input></td>
+						<td><sbux-input id="srch-inp-opera4" name="srch-inp-opera4" uitype="text" class="form-control input-sm" placeholder="2,000" ></sbux-input></td>
+						<td><sbux-input id="srch-inp-opera5" name="srch-inp-opera5" uitype="text" class="form-control input-sm" placeholder="210" ></sbux-input></td>
 					</tr>
 				</tbody>
+			</table>
+			</div>
+				<br>
+				<div>
+				<table class="table table-bordered tbl_row tbl_fixed">
+					<caption>검색 조건 설정</caption>
+					<colgroup>
+						<col style="width: 22%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+
+
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+						<col style="width: 6%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th></th>
+							<th class="text-center">없음</th>
+							<th class="text-center">1월</th>
+							<th class="text-center">2월</th>
+							<th class="text-center">3월</th>
+							<th class="text-center">4월</th>
+							<th class="text-center">5월</th>
+							<th class="text-center">6월</th>
+							<th class="text-center">7월</th>
+							<th class="text-center">8월</th>
+							<th class="text-center">9월</th>
+							<th class="text-center">10월</th>
+							<th class="text-center">11월</th>
+							<th class="text-center">12월</th>
+						</tr>
+						<tr>
+							<th>저온저장고<br>비수기기간
+							</th>
+							<td class="text-center">
+								<p class="ad_input_row">
+									<sbux-checkbox id="warehouseSeCd-chk-mon_1_1" name="warehouseSeCd-chk-mon_1_1"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<label class="check_label" for="check_default" ></label>
+								</p>
+							</td>
+							<td class="text-center">
+								<p class="ad_input_row">
+									<sbux-checkbox id="warehouseSeCd-chk-mon_1_2" name="warehouseSeCd-chk-mon_1_2" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<label class="check_label" for="check_default" ></label>
+								</p>
+							</td>
+							<td class="text-center">
+								<p class="ad_input_row">
+									<sbux-checkbox id="warehouseSeCd-chk-mon_1_3" name="warehouseSeCd-chk-mon_1_3" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<label class="check_label" for="check_default" ></label>
+								</p>
+							</td>
+							<td class="text-center">
+								<p class="ad_input_row">
+									<sbux-checkbox id="warehouseSeCd-chk-mon_1_4" name="warehouseSeCd-chk-mon_1_4" uitype="normal" true-value = "1" false-value = "0" ></sbux-checkbox>
+									<label class="check_label" for="check_default" ></label>
+								</p>
+							</td>
+							<td class="text-center">
+								<p class="ad_input_row">
+									<sbux-checkbox id="warehouseSeCd-chk-mon_1_5" name="warehouseSeCd-chk-mon_1_5" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<label class="check_label" for="check_default" ></label>
+								</p>
+							</td>
+							<td class="text-center">
+								<p class="ad_input_row">
+									<sbux-checkbox id="warehouseSeCd-chk-mon_1_6" name="warehouseSeCd-chk-mon_1_6" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<label class="check_label" for="check_default" ></label>
+								</p>
+							</td>
+							<td class="text-center">
+								<p class="ad_input_row">
+									<sbux-checkbox id="warehouseSeCd-chk-mon_1_7" name="warehouseSeCd-chk-mon_1_7" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<label class="check_label" for="check_default" ></label>
+								</p>
+							</td>
+							<td class="text-center">
+								<p class="ad_input_row">
+									<sbux-checkbox id="warehouseSeCd-chk-mon_1_8" name="warehouseSeCd-chk-mon_1_8" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<label class="check_label" for="check_default" ></label>
+								</p>
+							</td>
+							<td class="text-center">
+								<p class="ad_input_row">
+									<sbux-checkbox id="warehouseSeCd-chk-mon_1_9" name="warehouseSeCd-chk-mon_1_9" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<label class="check_label" for="check_default" ></label>
+								</p>
+							</td>
+							<td class="text-center">
+								<p class="ad_input_row">
+									<sbux-checkbox id="warehouseSeCd-chk-mon_1_10" name="warehouseSeCd-chk-mon_1_10" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<label class="check_label" for="check_default" ></label>
+								</p>
+							</td>
+							<td class="text-center">
+								<p class="ad_input_row">
+									<sbux-checkbox id="warehouseSeCd-chk-mon_1_11" name="warehouseSeCd-chk-mon_1_11" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<label class="check_label" for="check_default" ></label>
+								</p>
+							</td>
+							<td class="text-center">
+								<p class="ad_input_row">
+									<sbux-checkbox id="warehouseSeCd-chk-mon_1_12" name="warehouseSeCd-chk-mon_1_12" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<label class="check_label" for="check_default" ></label>
+								</p>
+							</td>
+							<td class="text-center">
+								<p class="ad_input_row">
+									<sbux-checkbox id="warehouseSeCd-chk-mon_1_13" name="warehouseSeCd-chk-mon_1_13" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<label class="check_label" for="check_default" ></label>
+								</p>
+							</td>
+						</tr>
+					</tbody>
 				</table>
 				</div>
 			</div>
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
-	<!-- 거래처 선택 Modal -->
+	<!-- apc 선택 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="body-modal-cnpt">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
-    </div>
-        <!-- 품종 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
-    </div>
-    <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    <div id="body-modal-apcSelect">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_createspmtDsctnGrid();
 
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2)
-		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-startPrdctnYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-endPrdctnYmd", year+month+day);
 	})
 
-	/* const fn_initSBSelect = async function() {
+	//등록
+	const fn_save = async function() {
+    	console.log("******************fn_save**********************************");
 
- 		gfn_setComCdSBSelect('rdo-wrhsSeCd', jsonRadioWrhsSeCd, 'WRHS_SE_CD');	// 시스템유형
+    	let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+		if (gfn_isEmpty(apcCd)) {
+    		alert("apc를 선택해주세요");
+            return;
+        }
+		if (gfn_isEmpty(trgtYr)) {
+    		alert("대상연도를 작성해주세요");
+            return;
+        }
 
-	} */
-
-	function fn_createspmtDsctnGrid() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-spmtDsctn';
-	    SBGridProperties.id = 'grdWghPrfmnc';
-	    SBGridProperties.jsonref = 'jsonWghPrfmnc';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ['품목'], 						ref: 'wghno',		width: '15', type: 'output'},
-            {caption: ['선별기'], 					ref: 'prdcrNm', 	width: '15%', type: 'output'},
-            {caption: ['보유현황'],					ref: 'itemNm', 		width: '16%', type: 'output'},
-            {caption: ['저장능력(톤) 최대저장'],			ref: 'itemNm1', 		width: '16%', type: 'output'},
-            {caption: ['단기저장실적(톤) 단순출하대기'],	ref: 'itemNm2', 		width: '16%', type: 'output'},
-            {caption: ['장기저장실적(톤) 1개월이상'],		ref: 'itemNm3', 		width: '16%', type: 'output'},
-            {caption: ['저장가동률(%) 단기+장기실적능력'],	ref: 'itemNm4', 		width: '16%', type: 'output'},
-        ];
-        grdWghPrfmnc = _SBGrid.create(SBGridProperties);
+    	fn_subInsert(confirm("등록 하시겠습니까?"));
     }
 
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
+    //신규등록
+    const fn_subInsert = async function (isConfirmed){
+    	 console.log("******************fn_subInsert**********************************");
+    	 if (!isConfirmed) return;
+
+    	 const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltLwtpStrgMchnInfo.do", {
+    			trgtYr : SBUxMethod.get('srch-inp-trgtYr')
+    			,apcCd : SBUxMethod.get('srch-inp-apcCd')
+    			,fcltHldYn: SBUxMethod.get('srch-inp-opera1')
+    			,storCap: SBUxMethod.get('srch-inp-opera2')
+    			,stStorPerfm: SBUxMethod.get('srch-inp-opera3')
+    			,ltStorPerfm: SBUxMethod.get('srch-inp-opera4')
+    			,storOpRate: SBUxMethod.get('srch-inp-opera5')
+		});
+
+        const data = await postJsonPromise;
+
+   	 	const postJsonPromise1 = gfn_postJSON("/fm/fclt/insertFcltLwtpStrgMchnOperInfo.do", {
+			trgtYr : SBUxMethod.get('srch-inp-trgtYr')
+			,apcCd : SBUxMethod.get('srch-inp-apcCd')
+			,fcltHldYn: SBUxMethod.get('srch-inp-opera1')
+			,FCLT_OPER_YN : $('#warehouseSeCd-chk-mon_1_1').val()
+	 		,FCLT_OPER_YN1 : $('#warehouseSeCd-chk-mon_1_2').val()
+	 		,FCLT_OPER_YN2 : $('#warehouseSeCd-chk-mon_1_3').val()
+	 		,FCLT_OPER_YN3 : $('#warehouseSeCd-chk-mon_1_4').val()
+	 		,FCLT_OPER_YN4 : $('#warehouseSeCd-chk-mon_1_5').val()
+	 		,FCLT_OPER_YN5 : $('#warehouseSeCd-chk-mon_1_6').val()
+	 		,FCLT_OPER_YN6 : $('#warehouseSeCd-chk-mon_1_7').val()
+	 		,FCLT_OPER_YN7 : $('#warehouseSeCd-chk-mon_1_8').val()
+	 		,FCLT_OPER_YN8 : $('#warehouseSeCd-chk-mon_1_9').val()
+	 		,FCLT_OPER_YN9 : $('#warehouseSeCd-chk-mon_1_10').val()
+	 		,FCLT_OPER_YN10 : $('#warehouseSeCd-chk-mon_1_11').val()
+	 		,FCLT_OPER_YN11 : $('#warehouseSeCd-chk-mon_1_12').val()
+	 		,FCLT_OPER_YN12 : $('#warehouseSeCd-chk-mon_1_13').val()
+		});
+
+   	 	const data1 = await postJsonPromise1;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus) && _.isEqual("S", data1.resultStatus) ) {
+        		alert("처리 되었습니다.");
+        		//fn_search();
+        	} else {
+        		if(!_.isEqual("S", data.resultStatus)){
+	        		alert(data.resultMessage);
+        		}else if(!_.isEqual("S", data1.resultStatus)){
+        			alert(data1.resultMessage);
+        		}
+        	}
+        } catch(e) {
+        }
+        // 결과 확인 후 재조회
+        console.log("insert result", data);
+    }
+
+	// apc 선택 팝업 호출
+	const fn_modalApcSelect = function() {
+		popApcSelect.init(fn_setApc);
 	}
+	// apc 선택 팝업 콜백 함수
+	const fn_setApc = function(apc) {
+		if (!gfn_isEmpty(apc)) {
+			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
+			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
+		}
+	}
+
 </script>
 </html>

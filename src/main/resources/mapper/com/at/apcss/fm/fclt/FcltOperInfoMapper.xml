@@ -146,27 +146,22 @@
 				, APC_CD
 		     	, DADDR
 		     	, APC_BRNO
-		     	, APC_RGN_CD
 		     	, APC_NM
 		     	, APC_ADDR
 		     	, PSN_OGNZ_NM
 		     	, PSN_OGNZ_BRNO
-		     	, OPER_OGNZ_CD
 		     	, OPER_OGNZ_NM
 		     	, OPER_OGNZ_BRNO
 		     	, OPER_OGNZ_DEPT_CD
-		     	, OPER_OGNZ_DEPT_NM
 		     	, OPER_OGNZ_PIC
-		     	, OPER_OGNZ_TRMT_ITEM_CD
 		     	, OPER_OGNZ_TRMT_ITEM_CN
 		     	, OPER_OGNZ_TRMT_ITEM_CN2
 		     	, OPER_OGNZ_TRMT_ITEM_CN3
 		     	, OPER_OGNZ_TRMT_ITEM_CN4
-		     	, APC_TRMT_ITEM_CD
+		   		, APC_TRMT_ITEM_CN
 		     	, APC_TRMT_ITEM_CN2
 		     	, APC_TRMT_ITEM_CN3
 		     	, APC_TRMT_ITEM_CN4
-		     	, APC_TRMT_ITEM_CN
 		     	, SYS_FRST_INPT_DT
 		     	, SYS_FRST_INPT_USER_ID
 		     	, SYS_FRST_INPT_PRGRM_ID
@@ -180,27 +175,22 @@
 				, #{apcCd}
 	   			, #{daddr}
 		     	, #{apcBrno}
-		     	, #{apcRgnCd}
 		     	, #{apcNm}
 		     	, #{apcAddr}
 		     	, #{psnOgnzNm}
 		     	, #{psnOgnzBrno}
-		     	, #{operOgnzCd}
 		     	, #{operOgnzNm}
 		     	, #{operOgnzBrno}
 		     	, #{operOgnzDeptCd}
-		     	, #{operOgnzDeptNm}
 		     	, #{operOgnzPic}
-		     	, #{operOgnzTrmtItemCd}
 		     	, #{operOgnzTrmtItemCn}
 		     	, #{operOgnzTrmtItemCn2}
 		     	, #{operOgnzTrmtItemCn3}
 		     	, #{operOgnzTrmtItemCn4}
-		     	, #{apcTrmtItemCd}
+		     	, #{apcTrmtItemCn}
 		     	, #{apcTrmtItemCn2}
 		     	, #{apcTrmtItemCn3}
 		     	, #{apcTrmtItemCn4}
-		     	, #{apcTrmtItemCn}
 		     	,  SYSDATE
 		     	, #{sysFrstInptUserId}
 		     	, #{sysFrstInptPrgrmId}

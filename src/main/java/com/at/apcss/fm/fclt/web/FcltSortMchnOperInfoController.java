@@ -179,7 +179,7 @@ public class FcltSortMchnOperInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		logger.info("=============deleteLis=====end========");
+		logger.info("=============deleteList=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 }

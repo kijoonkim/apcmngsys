@@ -99,7 +99,7 @@ public class FcltSortMchnInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		logger.info("=============insert=====start========");
+		logger.info("=============insert=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 

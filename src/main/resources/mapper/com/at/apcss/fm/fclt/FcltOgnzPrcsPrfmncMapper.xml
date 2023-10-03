@@ -25,17 +25,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmnc */
 				  FCLT.TRGT_YR                 AS TRGT_YR
 				, FCLT.APC_CD                  AS APC_CD
-				, FCLT.SN                      AS SN
-				, FCLT.FCLT_OGNZ_CLSF_CD       AS FCLT_OGNZ_CLSF_CD
-				, FCLT.FCLT_OGNZ_TRMT_CD       AS FCLT_OGNZ_TRMT_CD
 				, FCLT.FCLT_OGNZ_TRMT_AMT      AS FCLT_OGNZ_TRMT_AMT
-				, FCLT.DEL_YN                  AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT        AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID   AS SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID  AS SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
-			    , FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
-			    , FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
 				, FCLT.FCLT_OGNZ_TRMT2_AMT     AS  FCLT_OGNZ_TRMT2_AMT
 				, FCLT.FCLT_OGNZ_TRMT3_AMT     AS  FCLT_OGNZ_TRMT3_AMT
 				, FCLT.FCLT_OGNZ_TRMT4_AMT     AS  FCLT_OGNZ_TRMT4_AMT
@@ -73,17 +63,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmncList */
 				  FCLT.TRGT_YR                 AS TRGT_YR
 				, FCLT.APC_CD                  AS APC_CD
-				, FCLT.SN                      AS SN
-				, FCLT.FCLT_OGNZ_CLSF_CD       AS FCLT_OGNZ_CLSF_CD
-				, FCLT.FCLT_OGNZ_TRMT_CD       AS FCLT_OGNZ_TRMT_CD
 				, FCLT.FCLT_OGNZ_TRMT_AMT      AS FCLT_OGNZ_TRMT_AMT
-				, FCLT.DEL_YN                  AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT        AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID   AS SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID  AS SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
-			    , FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
-			    , FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
 				, FCLT.FCLT_OGNZ_TRMT2_AMT     AS  FCLT_OGNZ_TRMT2_AMT
 				, FCLT.FCLT_OGNZ_TRMT3_AMT     AS  FCLT_OGNZ_TRMT3_AMT
 				, FCLT.FCLT_OGNZ_TRMT4_AMT     AS  FCLT_OGNZ_TRMT4_AMT
@@ -119,39 +99,31 @@
 	    		(
 	    			TRGT_YR
 	    		  , APC_CD
-	    		  , SN
-	    		  , FCLT_OGNZ_CLSF_CD
-	    		  , FCLT_OGNZ_TRMT_CD
 	    		  , FCLT_OGNZ_TRMT_AMT
-	    		  , DEL_YN
+	    		  , FCLT_OGNZ_TRMT2_AMT
+	    		  , FCLT_OGNZ_TRMT3_AMT
+	    		  , FCLT_OGNZ_TRMT4_AMT
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
 	    		  , SYS_LAST_CHG_DT
 	    		  , SYS_LAST_CHG_USER_ID
 	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		  , FCLT_OGNZ_TRMT2_AMT
-	    		  , FCLT_OGNZ_TRMT3_AMT
-	    		  , FCLT_OGNZ_TRMT4_AMT
 	    		)
 	   		VALUES
 	   			(
 	   			    #{trgtYr}
 	   			  , #{apcCd}
-	   			  , #{sn}
-	   			  , #{fcltOgnzClsfCd}
-	   			  , #{fcltOgnzTrmtCd}
 	   			  , #{fcltOgnzTrmtAmt}
-	   			  , #{delYn}
+	   			  , #{fcltOgnzTrmt2Amt}
+	   			  , #{fcltOgnzTrmt3Amt}
+	   			  , #{fcltOgnzTrmt4Amt}
 	   			  , SYSDATE
 	   			  , #{sysFrstInptUserId}
 	   			  , #{sysFrstInptPrgrmId}
 	   			  , SYSDATE
 	   			  , #{sysLastChgUserId}
 	   			  , #{sysLastChgPrgrmId}
-	   			  , #{fcltOgnzTrmt2Amt}
-	   			  , #{fcltOgnzTrmt3Amt}
-	   			  , #{fcltOgnzTrmt4Amt}
 	   			)
     	]]>
     </insert>
@@ -169,12 +141,7 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.updateFcltOgnzPrcsPrfmnc */
 	    		TB_FCLT_OGNZ_PRCS_PRFMNC FCLT
 			   SET
-			 	  TRGT_YR            = #{trgtYr}
-			 	, APC_CD             = #{apcCd}
-			 	, SN                 = #{sn}
-			 	, FCLT_OGNZ_CLSF_CD  = #{fcltOgnzClsfCd}
-			 	, FCLT_OGNZ_TRMT_CD  = #{fcltOgnzTrmtCd}
-			 	, FCLT_OGNZ_TRMT_AMT = #{fcltOgnzTrmtAmt}
+			 	FCLT_OGNZ_TRMT_AMT = #{fcltOgnzTrmtAmt}
 				, FCLT_OGNZ_TRMT2_AMT =  #{fcltOgnzTrmt2Amt}
 				, FCLT_OGNZ_TRMT3_AMT =  #{fcltOgnzTrmt3Amt}
 				, FCLT_OGNZ_TRMT4_AMT =  #{fcltOgnzTrmt4Amt}

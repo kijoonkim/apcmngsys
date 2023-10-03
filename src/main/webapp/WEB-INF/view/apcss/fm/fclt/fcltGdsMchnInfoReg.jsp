@@ -18,10 +18,7 @@
 				<h3 class="box-title" style="line-height: 30px;"> ▶ 상품화설비현황</h3>
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary"></sbux-button>
-				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
 		<div class="box-body">
@@ -29,32 +26,19 @@
 			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
-				<colgroup>
-					<col style="width: 7%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 3%">
-					<col style="width: 7%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 3%">
-					<col style="width: 7%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 3%">
-				</colgroup>
 				<tbody>
 					<tr>
 						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
 						<td colspan= "3" class="td_input" style="border-right:hidden;">
-							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
 						<td>
-							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 						</td>
 						<th scope="row">대상연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-input id="srch-inp-warehouse" name="srch-inp-warehouse" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+							<sbux-input id="srch-inp-trgtYr" name="srch-inp-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
 						<td colspan="5"></td>
 					</tr>
@@ -74,13 +58,13 @@
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
-					<col style="width: 14%">
-					<col style="width: 14%">
-					<col style="width: 14%">
-					<col style="width: 14%">
-					<col style="width: 14%">
-					<col style="width: 15%">
-					<col style="width: 15%">
+					<col style="width: 10%">
+					<col style="width: 10%">
+					<col style="width: 25%">
+					<col style="width: 10%">
+					<col style="width: 10%">
+					<col style="width: 10%">
+					<col style="width: 25%">
 				</colgroup>
 				<tbody>
 					<tr>
@@ -95,85 +79,149 @@
 					<tr>
 						<th>품목1</th>
 						<td>
-							<sbux-input id="srch-inp-opera1" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera1_1" id="srch-inp-opera1_1" onchange ="fn_selectOnchange(this,'group1')">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera2" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="2대x1조 32등급" ></sbux-input>
+							<sbux-input id="srch-inp-opera1_2" name="srch-inp-opera1_2" uitype="text" class="form-control input-sm" group-id="group1" placeholder="2대x1조 32등급" ></sbux-input>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera3" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera1_3" id="srch-inp-opera1_3" group-id="group1">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera4" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera1_4" id="srch-inp-opera1_4" group-id="group1">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera5" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera1_5" id="srch-inp-opera1_5" group-id="group1">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera6" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="착즙기, 커팅기 등" ></sbux-input>
+							<sbux-input id="srch-inp-opera1_6" name="srch-inp-opera1_6" uitype="text" class="form-control input-sm" group-id="group1" placeholder="착즙기, 커팅기 등" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>품목2</th>
 						<td>
-							<sbux-input id="srch-inp-opera1" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera2_1" id="srch-inp-opera2_1" onchange ="fn_selectOnchange(this,'group2')">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera2" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="srch-inp-opera2_2" name="srch-inp-opera2_2" uitype="text" class="form-control input-sm" group-id="group2" placeholder="2대x1조 32등급" ></sbux-input>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera3" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera2_3" id="srch-inp-opera2_3" group-id="group2">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera4" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera2_4" id="srch-inp-opera2_4" group-id="group2">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera5" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera2_5" id="srch-inp-opera2_5" group-id="group2">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera6" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="srch-inp-opera2_6" name="srch-inp-opera2_6" uitype="text" class="form-control input-sm" group-id="group2" placeholder="착즙기, 커팅기 등" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>품목3</th>
 						<td>
-							<sbux-input id="srch-inp-opera1" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera3_1" id="srch-inp-opera3_1" onchange ="fn_selectOnchange(this,'group3')">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera2" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="srch-inp-opera3_2" name="srch-inp-opera3_2" uitype="text" class="form-control input-sm" group-id="group3" placeholder="2대x1조 32등급" ></sbux-input>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera3" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera3_3" id="srch-inp-opera3_3" group-id="group3">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera4" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera3_4" id="srch-inp-opera3_4" group-id="group3">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera5" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera3_5" id="srch-inp-opera3_5" group-id="group3">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera6" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="srch-inp-opera3_6" name="srch-inp-opera3_6" uitype="text" class="form-control input-sm" group-id="group3" placeholder="착즙기, 커팅기 등" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>기타</th>
 						<td>
-							<sbux-input id="srch-inp-opera1" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera4_1" id="srch-inp-opera4_1" onchange ="fn_selectOnchange(this,'group4')">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera2" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="srch-inp-opera4_2" name="srch-inp-opera4_2" uitype="text" class="form-control input-sm" group-id="group4" placeholder="2대x1조 32등급" ></sbux-input>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera3" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera4_3" id="srch-inp-opera4_3" group-id="group4">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera4" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera4_4" id="srch-inp-opera4_4" group-id="group4">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera5" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
+							<sbux-select name="srch-inp-opera4_5" id="srch-inp-opera4_5" group-id="group4">
+                                <option value="0">(선택)</option>
+                                <option value="1">O</option>
+                                <option value="2">X</option>
+                            </sbux-select>
 						</td>
 						<td>
-							<sbux-input id="srch-inp-opera6" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="srch-inp-opera4_6" name="srch-inp-opera4_6" uitype="text" class="form-control input-sm" group-id="group4" placeholder="착즙기, 커팅기 등" ></sbux-input>
 						</td>
 					</tr>
 
@@ -185,62 +233,113 @@
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
-	<!-- 거래처 선택 Modal -->
+	<!-- apc 선택 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="body-modal-cnpt">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
-    </div>
-        <!-- 품종 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
-    </div>
-    <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    <div id="body-modal-apcSelect">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_createspmtDsctnGrid();
-
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2)
-		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-startPrdctnYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-endPrdctnYmd", year+month+day);
+		SBUxMethod.changeGroupAttr('group1','disabled','true');
+		SBUxMethod.changeGroupAttr('group2','disabled','true');
+		SBUxMethod.changeGroupAttr('group3','disabled','true');
+		SBUxMethod.changeGroupAttr('group4','disabled','true');
 	})
 
-	/* const fn_initSBSelect = async function() {
+	//등록
+	const fn_save = async function() {
+    	console.log("******************fn_save**********************************");
 
- 		gfn_setComCdSBSelect('rdo-wrhsSeCd', jsonRadioWrhsSeCd, 'WRHS_SE_CD');	// 시스템유형
+    	let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+		if (gfn_isEmpty(apcCd)) {
+    		alert("apc를 선택해주세요");
+            return;
+        }
+		if (gfn_isEmpty(trgtYr)) {
+    		alert("대상연도를 작성해주세요");
+            return;
+        }
 
-	} */
-
-	function fn_createspmtDsctnGrid() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-spmtDsctn';
-	    SBGridProperties.id = 'grdWghPrfmnc';
-	    SBGridProperties.jsonref = 'jsonWghPrfmnc';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ['품목'], 						ref: 'wghno',		width: '12%', type: 'output'},
-            {caption: ['보유현황'], 						ref: 'prdcrNm', 	width: '12%', type: 'output'},
-            {caption: ['규격'],						ref: 'itemNm', 		width: '12%', type: 'output'},
-            {caption: ['당도기'],						ref: 'itemNm1', 		width: '12%', type: 'output'},
-            {caption: ['색택선별'],						ref: 'itemNm2', 		width: '12%', type: 'output'},
-            {caption: ['형상선별'],						ref: 'itemNm3', 		width: '12%', type: 'output'},
-            {caption: ['가공설비'],						ref: 'itemNm4', 		width: '28%', type: 'output'},
-        ];
-        grdWghPrfmnc = _SBGrid.create(SBGridProperties);
+    	fn_subInsert(confirm("등록 하시겠습니까?"));
     }
 
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
+    //신규등록
+    const fn_subInsert = async function (isConfirmed){
+    	 console.log("******************fn_subInsert**********************************");
+    	 if (!isConfirmed) return;
+		 console.log(SBUxMethod.get('srch-inp-trgtYr'));
+    	 const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltGdsMchnInfo.do", {
+    		trgtYr : SBUxMethod.get('srch-inp-trgtYr')
+    		,apcCd : SBUxMethod.get('srch-inp-apcCd')
+    		,sortMchnHldYn11 : SBUxMethod.get('srch-inp-opera1_1')
+        	,sortMchnSpcfct1 : SBUxMethod.get('srch-inp-opera1_2')
+        	,sortMchnHldYn12 : SBUxMethod.get('srch-inp-opera1_3')
+        	,sortMchnHldYn13 : SBUxMethod.get('srch-inp-opera1_4')
+        	,sortMchnHldYn14 : SBUxMethod.get('srch-inp-opera1_5')
+        	,sortMchnHldYn15 : SBUxMethod.get('srch-inp-opera1_6')
+        	,sortMchnHldYn21 : SBUxMethod.get('srch-inp-opera2_1')
+        	,sortMchnSpcfct2 : SBUxMethod.get('srch-inp-opera2_2')
+        	,sortMchnHldYn22 : SBUxMethod.get('srch-inp-opera2_3')
+        	,sortMchnHldYn23 : SBUxMethod.get('srch-inp-opera2_4')
+        	,sortMchnHldYn24 : SBUxMethod.get('srch-inp-opera2_5')
+        	,sortMchnHldYn25 : SBUxMethod.get('srch-inp-opera2_6')
+        	,sortMchnHldYn31 : SBUxMethod.get('srch-inp-opera3_1')
+        	,sortMchnSpcfct3 : SBUxMethod.get('srch-inp-opera3_2')
+        	,sortMchnHldYn32 : SBUxMethod.get('srch-inp-opera3_3')
+        	,sortMchnHldYn33 : SBUxMethod.get('srch-inp-opera3_4')
+        	,sortMchnHldYn34 : SBUxMethod.get('srch-inp-opera3_5')
+        	,sortMchnHldYn35 : SBUxMethod.get('srch-inp-opera3_6')
+        	,sortMchnHldYn41 : SBUxMethod.get('srch-inp-opera4_1')
+        	,sortMchnSpcfct4 : SBUxMethod.get('srch-inp-opera4_2')
+        	,sortMchnHldYn42 : SBUxMethod.get('srch-inp-opera4_3')
+        	,sortMchnHldYn43 : SBUxMethod.get('srch-inp-opera4_4')
+        	,sortMchnHldYn44 : SBUxMethod.get('srch-inp-opera4_5')
+        	,sortMchnHldYn45 : SBUxMethod.get('srch-inp-opera4_6')
+		});
+
+        const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		alert("처리 되었습니다.");
+        		//fn_search();
+        	} else {
+        		alert(data.resultMessage);
+        	}
+        } catch(e) {
+        }
+        // 결과 확인 후 재조회
+        console.log("insert result", data);
+    }
+
+	//품종 유무 선택시 작성가능 아닐시 데이테 리셋
+    function fn_selectOnchange(e,groupId){
+    	//console.log("============fn_selectOnchange==============");
+
+    	if($(e).val() == 1){
+    		SBUxMethod.changeGroupAttr(groupId,'disabled','false');
+    	}else{
+    		SBUxMethod.changeGroupAttr(groupId,'disabled','true');
+    		SBUxMethod.clearGroupData(groupId);
+    	}
+    }
+
+	// apc 선택 팝업 호출
+	const fn_modalApcSelect = function() {
+		popApcSelect.init(fn_setApc);
 	}
+	// apc 선택 팝업 콜백 함수
+	const fn_setApc = function(apc) {
+		if (!gfn_isEmpty(apc)) {
+			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
+			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
+		}
+	}
+
 </script>
 </html>

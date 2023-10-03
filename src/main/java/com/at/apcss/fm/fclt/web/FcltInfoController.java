@@ -58,7 +58,6 @@ public class FcltInfoController extends BaseController {
 		List<FcltInfoVO> resultList = new ArrayList<>();
 
 		logger.info(fcltInfoVO.getApcCd());
-		logger.info(fcltInfoVO.getFcltArea());
 		logger.info(fcltInfoVO.toString());
 		try {
 			 resultList = fcltInfoService.selectFcltInfoList(fcltInfoVO);
@@ -86,8 +85,6 @@ public class FcltInfoController extends BaseController {
 		logger.info("=============insertFcltInfo=======start======");
 		// validation check
 
-		logger.info(fcltInfoVO.getFcltRmrk());
-		logger.info(fcltInfoVO.getFcltArea());
 		logger.info(fcltInfoVO.getTrgtYr());
 		logger.info(fcltInfoVO.toString());
 		// audit 항목

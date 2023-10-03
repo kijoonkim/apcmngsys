@@ -30,13 +30,6 @@
 				, FCLT.FCLT_HLD_YN            AS  FCLT_HLD_YN
 				, FCLT.FCLT_PRCS_CD           AS  FCLT_PRCS_CD
 				, FCLT.FCLT_PRCS_HR           AS  FCLT_PRCS_HR
-				, FCLT.DEL_YN                 AS  DEL_YN
-				, FCLT.SYS_FRST_INPT_DT       AS  SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID  AS  SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID AS  SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT        AS  SYS_LAST_CHG_DT
-			    , FCLT.SYS_LAST_CHG_USER_ID   AS  SYS_LAST_CHG_USER_ID
-			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS  SYS_LAST_CHG_PRGRM_ID
 				, FCLT.STOR_CAP               AS  STOR_CAP
 				, FCLT.ST_STOR_PERFM          AS  ST_STOR_PERFM
 				, FCLT.LT_STOR_PERFM          AS  LT_STOR_PERFM
@@ -81,13 +74,6 @@
 				, FCLT.FCLT_HLD_YN            AS  FCLT_HLD_YN
 				, FCLT.FCLT_PRCS_CD           AS  FCLT_PRCS_CD
 				, FCLT.FCLT_PRCS_HR           AS  FCLT_PRCS_HR
-				, FCLT.DEL_YN                 AS  DEL_YN
-				, FCLT.SYS_FRST_INPT_DT       AS  SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID  AS  SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID AS  SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT        AS  SYS_LAST_CHG_DT
-			    , FCLT.SYS_LAST_CHG_USER_ID   AS  SYS_LAST_CHG_USER_ID
-			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS  SYS_LAST_CHG_PRGRM_ID
 				, FCLT.STOR_CAP               AS  STOR_CAP
 				, FCLT.ST_STOR_PERFM          AS  ST_STOR_PERFM
 				, FCLT.LT_STOR_PERFM          AS  LT_STOR_PERFM
@@ -124,45 +110,37 @@
 	    		(
 	    			TRGT_YR
 	    		  , APC_CD
-	    		  , SN
 	    		  , FCLT_CD
 	    		  , FCLT_HLD_YN
-	    		  , FCLT_PRCS_CD
-	    		  , FCLT_PRCS_HR
-	    		  , DEL_YN
+	    		  , STOR_CAP
+	    		  , ST_STOR_PERFM
+	    		  , LT_STOR_PERFM
+	    		  , STOR_OP_RATE
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
 	    		  , SYS_LAST_CHG_DT
 	    		  , SYS_LAST_CHG_USER_ID
 	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		  , STOR_CAP
-	    		  , ST_STOR_PERFM
-	    		  , LT_STOR_PERFM
-	    		  , STOR_OP_RATE
+
 
 	    		)
 	   		VALUES
 	   			(
 	   			    #{trgtYr}
 	   			  , #{apcCd}
-	   			  , #{sn}
 	   			  , #{fcltCd}
 	   			  , #{fcltHldYn}
-	   			  , #{fcltPrcsCd}
-	   			  , #{fcltPrcsHr}
-	   			  , #{delYn}
+	   			  , #{storCap}
+	   			  , #{stStorPerfm}
+	   			  , #{ltStorPerfm}
+	   			  , #{storOpRate}
 	   			  , SYSDATE
 	   			  , #{sysFrstInptUserId}
 	   	          , #{sysFrstInptPrgrmId}
 	   	          , SYSDATE
 	   	          , #{sysLastChgUserId}
 	   	          , #{sysLastChgPrgrmId}
-	   		      , #{storCap}
-	   			  , #{stStorPerfm}
-	   			  , #{ltStorPerfm}
-	   			  , #{storOpRate}
-
 	   			)
     	]]>
     </insert>
@@ -180,10 +158,7 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.updateFcltLwtpStrgMchnInfo */
 	    		TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
 			   SET
-			 		TRGT_YR      = #{trgtYr}
-			 	  , APC_CD       = #{apcCd}
-			 	  , SN           = #{sn}
-    	          , FCLT_CD      = #{fcltCd}
+    	          FCLT_CD      = #{fcltCd}
     	          , FCLT_HLD_YN  = #{fcltHldYn}
     	          , FCLT_PRCS_CD = #{fcltPrcsCd}
     	          , FCLT_PRCS_HR = #{fcltPrcsHr}
@@ -191,9 +166,6 @@
 	    		  , ST_STOR_PERFM =  #{stStorPerfm}
 	    		  , LT_STOR_PERFM =  #{ltStorPerfm}
 	    		  , STOR_OP_RATE  =  #{storOpRate}
-
-
-
 
     	]]>
 		<if test='delYn != null and delYn != ""'>

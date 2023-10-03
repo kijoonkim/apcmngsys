@@ -25,16 +25,8 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.selectFcltAtmtcMchnInfo */
 				  FCLT.TRGT_YR				  AS TRGT_YR
 				, FCLT.APC_CD                 AS APC_CD
-				, FCLT.SN                     AS SN
-				, FCLT.FCLT_INSTL_CD          AS FCLT_INSTL_CD
+				, FCLT.SPECS				  AS SPECS
 				, FCLT.FCLT_HLD_YN            AS FCLT_HLD_YN
-				, FCLT.DEL_YN                 AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
-				, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
-			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
 			    , FCLT.FCLT_HLD_YN2           AS FCLT_HLD_YN2
 			    , FCLT.FCLT_HLD_YN3           AS FCLT_HLD_YN3
 			    , FCLT.FCLT_HLD_YN4           AS FCLT_HLD_YN4
@@ -80,16 +72,8 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.selectFcltAtmtcMchnInfoList */
 				  FCLT.TRGT_YR				  AS TRGT_YR
 				, FCLT.APC_CD                 AS APC_CD
-				, FCLT.SN                     AS SN
-				, FCLT.FCLT_INSTL_CD          AS FCLT_INSTL_CD
+				, FCLT.SPECS				  AS SPECS
 				, FCLT.FCLT_HLD_YN            AS FCLT_HLD_YN
-				, FCLT.DEL_YN                 AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
-				, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
-			    , FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
 			    , FCLT.FCLT_HLD_YN2           AS FCLT_HLD_YN2
 			    , FCLT.FCLT_HLD_YN3           AS FCLT_HLD_YN3
 			    , FCLT.FCLT_HLD_YN4           AS FCLT_HLD_YN4
@@ -133,19 +117,10 @@
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.insertFcltAtmtcMchnInfo */
 	    	  INTO TB_FCLT_ATMTC_MCHN_INFO FCLT
 	    		(
-
 	    		   TRGT_YR
 	    		  , APC_CD
-	    		  , SN
-	    		  , FCLT_INSTL_CD
+	    		  , SPECS
 	    		  , FCLT_HLD_YN
-	    		  , DEL_YN
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
 	    		  , FCLT_HLD_YN2
 	    		  , FCLT_HLD_YN3
 	    		  , FCLT_HLD_YN4
@@ -157,21 +132,19 @@
 	    		  , FCLT_HLD_YN10
 	    		  , FCLT_HLD_YN11
 	    		  , OTHER_FCLT
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
 	    		)
 	   		VALUES
 	   			(
 	   			    #{trgtYr}
 	   			  , #{apcCd}
-	   			  , #{sn}
-	   			  , #{fcltInstlCd}
+	   			  , #{specs}
 	   			  , #{fcltHldYn}
-	   			  , #{delYn}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
 	   			  , #{fcltHldYn2}
 	   			  , #{fcltHldYn3}
 	   			  , #{fcltHldYn4}
@@ -183,6 +156,12 @@
 	   			  , #{fcltHldYn10}
 	   			  , #{fcltHldYn11}
 	   			  , #{otherFclt}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysLastChgUserId}
+	   			  , #{sysLastChgPrgrmId}
 	   			)
     	]]>
     </insert>
@@ -199,26 +178,23 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.updateFcltAtmtcMchnInfo */
 	    		TB_FCLT_ATMTC_MCHN_INFO FCLT
 			   SET
-			 	  TRGT_YR        = #{trgtYr}
-			 	, APC_CD         = #{apcCd}
-			 	, SN             = #{sn}
-    	        , FCLT_INSTL_CD  = #{fcltInstlCd}
-    	        , FCLT_HLD_YN    = #{fcltHldYn}
-				, FCLT_HLD_YN2    = #{fcltHldYn2}
-				, FCLT_HLD_YN3    = #{fcltHldYn3}
-				, FCLT_HLD_YN4    = #{fcltHldYn4}
-				, FCLT_HLD_YN5    = #{fcltHldYn5}
-				, FCLT_HLD_YN6    = #{fcltHldYn6}
-				, FCLT_HLD_YN7    = #{fcltHldYn7}
-				, FCLT_HLD_YN8    = #{fcltHldYn8}
-				, FCLT_HLD_YN9    = #{fcltHldYn9}
-				, FCLT_HLD_YN10   = #{fcltHldYn10}
-				, FCLT_HLD_YN11   = #{fcltHldYn11}
-				, OTHER_FCLT      = #{otherFclt}
+				SPECS				= #{specs}
+    	        , FCLT_HLD_YN		= #{fcltHldYn}
+				, FCLT_HLD_YN2		= #{fcltHldYn2}
+				, FCLT_HLD_YN3		= #{fcltHldYn3}
+				, FCLT_HLD_YN4		= #{fcltHldYn4}
+				, FCLT_HLD_YN5		= #{fcltHldYn5}
+				, FCLT_HLD_YN6		= #{fcltHldYn6}
+				, FCLT_HLD_YN7		= #{fcltHldYn7}
+				, FCLT_HLD_YN8		= #{fcltHldYn8}
+				, FCLT_HLD_YN9		= #{fcltHldYn9}
+				, FCLT_HLD_YN10		= #{fcltHldYn10}
+				, FCLT_HLD_YN11		= #{fcltHldYn11}
+				, OTHER_FCLT		= #{otherFclt}
 
     	]]>
 		<if test='delYn != null and delYn != ""'>
-				, DEL_YN 	= #{delYn}
+				, DEL_YN			= #{delYn}
 		</if>
     	<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE

@@ -25,38 +25,33 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.selectFcltGdsMchnInfo */
 				  FCLT.TRGT_YR                AS TRGT_YR
 				, FCLT.APC_CD                 AS APC_CD
-				, FCLT.SN                     AS SN
 				, FCLT.SORT_MCHN_ITEM_CD      AS SORT_MCHN_ITEM_CD
 				, FCLT.SORT_MCHN_CD           AS SORT_MCHN_CD
-				, FCLT.SORT_MCHN_SPCFCT       AS SORT_MCHN_SPCFCT
 				, FCLT.SORT_MCHN_HLD_YN       AS SORT_MCHN_HLD_YN
-				, FCLT.RMRK                   AS RMRK
-				, FCLT.DEL_YN                 AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
-				, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
-				, FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
-				, FCLT.SORT_MCHN_SPCFCT2      AS SORT_MCHN_SPCFCT2
-				, FCLT.SORT_MCHN_SPCFCT3      AS SORT_MCHN_SPCFCT3
-				, FCLT.SORT_MCHN_SPCFCT4      AS SORT_MCHN_SPCFCT4
+
 				, FCLT.SORT_MCHN_HLD_YN11     AS SORT_MCHN_HLD_YN11
+				, FCLT.SORT_MCHN_SPCFCT1      AS SORT_MCHN_SPCFCT1
 				, FCLT.SORT_MCHN_HLD_YN12     AS SORT_MCHN_HLD_YN12
 				, FCLT.SORT_MCHN_HLD_YN13     AS SORT_MCHN_HLD_YN13
 				, FCLT.SORT_MCHN_HLD_YN14     AS SORT_MCHN_HLD_YN14
 				, FCLT.SORT_MCHN_HLD_YN15     AS SORT_MCHN_HLD_YN15
+
 				, FCLT.SORT_MCHN_HLD_YN21     AS SORT_MCHN_HLD_YN21
+				, FCLT.SORT_MCHN_SPCFCT2      AS SORT_MCHN_SPCFCT2
 				, FCLT.SORT_MCHN_HLD_YN22     AS SORT_MCHN_HLD_YN22
 				, FCLT.SORT_MCHN_HLD_YN23     AS SORT_MCHN_HLD_YN23
 				, FCLT.SORT_MCHN_HLD_YN24     AS SORT_MCHN_HLD_YN24
 				, FCLT.SORT_MCHN_HLD_YN25     AS SORT_MCHN_HLD_YN25
+
 				, FCLT.SORT_MCHN_HLD_YN31     AS SORT_MCHN_HLD_YN31
+				, FCLT.SORT_MCHN_SPCFCT3      AS SORT_MCHN_SPCFCT3
 				, FCLT.SORT_MCHN_HLD_YN32     AS SORT_MCHN_HLD_YN32
 				, FCLT.SORT_MCHN_HLD_YN33     AS SORT_MCHN_HLD_YN33
 				, FCLT.SORT_MCHN_HLD_YN34     AS SORT_MCHN_HLD_YN34
 				, FCLT.SORT_MCHN_HLD_YN35     AS SORT_MCHN_HLD_YN35
+
 				, FCLT.SORT_MCHN_HLD_YN41     AS SORT_MCHN_HLD_YN41
+				, FCLT.SORT_MCHN_SPCFCT4      AS SORT_MCHN_SPCFCT4
 				, FCLT.SORT_MCHN_HLD_YN42     AS SORT_MCHN_HLD_YN42
 				, FCLT.SORT_MCHN_HLD_YN43     AS SORT_MCHN_HLD_YN43
 				, FCLT.SORT_MCHN_HLD_YN44     AS SORT_MCHN_HLD_YN44
@@ -94,38 +89,33 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.selectFcltGdsMchnInfoList */
 								  FCLT.TRGT_YR                AS TRGT_YR
 				, FCLT.APC_CD                 AS APC_CD
-				, FCLT.SN                     AS SN
 				, FCLT.SORT_MCHN_ITEM_CD      AS SORT_MCHN_ITEM_CD
 				, FCLT.SORT_MCHN_CD           AS SORT_MCHN_CD
-				, FCLT.SORT_MCHN_SPCFCT       AS SORT_MCHN_SPCFCT
 				, FCLT.SORT_MCHN_HLD_YN       AS SORT_MCHN_HLD_YN
-				, FCLT.RMRK                   AS RMRK
-				, FCLT.DEL_YN                 AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT        AS SYS_LAST_CHG_DT
-				, FCLT.SYS_LAST_CHG_USER_ID   AS SYS_LAST_CHG_USER_ID
-				, FCLT.SYS_LAST_CHG_PRGRM_ID  AS SYS_LAST_CHG_PRGRM_ID
-				, FCLT.SORT_MCHN_SPCFCT2      AS SORT_MCHN_SPCFCT2
-				, FCLT.SORT_MCHN_SPCFCT3      AS SORT_MCHN_SPCFCT3
-				, FCLT.SORT_MCHN_SPCFCT4      AS SORT_MCHN_SPCFCT4
+
 				, FCLT.SORT_MCHN_HLD_YN11     AS SORT_MCHN_HLD_YN11
+				, FCLT.SORT_MCHN_SPCFCT1       AS SORT_MCHN_SPCFCT1
 				, FCLT.SORT_MCHN_HLD_YN12     AS SORT_MCHN_HLD_YN12
 				, FCLT.SORT_MCHN_HLD_YN13     AS SORT_MCHN_HLD_YN13
 				, FCLT.SORT_MCHN_HLD_YN14     AS SORT_MCHN_HLD_YN14
 				, FCLT.SORT_MCHN_HLD_YN15     AS SORT_MCHN_HLD_YN15
+
 				, FCLT.SORT_MCHN_HLD_YN21     AS SORT_MCHN_HLD_YN21
+				, FCLT.SORT_MCHN_SPCFCT2      AS SORT_MCHN_SPCFCT2
 				, FCLT.SORT_MCHN_HLD_YN22     AS SORT_MCHN_HLD_YN22
 				, FCLT.SORT_MCHN_HLD_YN23     AS SORT_MCHN_HLD_YN23
 				, FCLT.SORT_MCHN_HLD_YN24     AS SORT_MCHN_HLD_YN24
 				, FCLT.SORT_MCHN_HLD_YN25     AS SORT_MCHN_HLD_YN25
+
 				, FCLT.SORT_MCHN_HLD_YN31     AS SORT_MCHN_HLD_YN31
+				, FCLT.SORT_MCHN_SPCFCT3      AS SORT_MCHN_SPCFCT3
 				, FCLT.SORT_MCHN_HLD_YN32     AS SORT_MCHN_HLD_YN32
 				, FCLT.SORT_MCHN_HLD_YN33     AS SORT_MCHN_HLD_YN33
 				, FCLT.SORT_MCHN_HLD_YN34     AS SORT_MCHN_HLD_YN34
 				, FCLT.SORT_MCHN_HLD_YN35     AS SORT_MCHN_HLD_YN35
+
 				, FCLT.SORT_MCHN_HLD_YN41     AS SORT_MCHN_HLD_YN41
+				, FCLT.SORT_MCHN_SPCFCT4      AS SORT_MCHN_SPCFCT4
 				, FCLT.SORT_MCHN_HLD_YN42     AS SORT_MCHN_HLD_YN42
 				, FCLT.SORT_MCHN_HLD_YN43     AS SORT_MCHN_HLD_YN43
 				, FCLT.SORT_MCHN_HLD_YN44     AS SORT_MCHN_HLD_YN44
@@ -163,83 +153,78 @@
 	    		(
 	    			TRGT_YR
 	    		  , APC_CD
-	    		  , SN
-	    		  , SORT_MCHN_ITEM_CD
-	    		  , SORT_MCHN_CD
-	    		  , SORT_MCHN_SPCFCT
-	    		  , SORT_MCHN_HLD_YN
-	    		  , RMRK
-	    		  , DEL_YN
-	    		  , SYS_FRST_INPT_DT
+
+           		  , SORT_MCHN_HLD_YN11
+           		  , SORT_MCHN_SPCFCT1
+           		  , SORT_MCHN_HLD_YN12
+           		  , SORT_MCHN_HLD_YN13
+           		  , SORT_MCHN_HLD_YN14
+           		  , SORT_MCHN_HLD_YN15
+
+           		  , SORT_MCHN_HLD_YN21
+           		  , SORT_MCHN_SPCFCT2
+           		  , SORT_MCHN_HLD_YN22
+           		  , SORT_MCHN_HLD_YN23
+           		  , SORT_MCHN_HLD_YN24
+           		  , SORT_MCHN_HLD_YN25
+
+           		  , SORT_MCHN_HLD_YN31
+           		  , SORT_MCHN_SPCFCT3
+           		  , SORT_MCHN_HLD_YN32
+           		  , SORT_MCHN_HLD_YN33
+           		  , SORT_MCHN_HLD_YN34
+           		  , SORT_MCHN_HLD_YN35
+
+           		  , SORT_MCHN_HLD_YN41
+           		  , SORT_MCHN_SPCFCT4
+           		  , SORT_MCHN_HLD_YN42
+           		  , SORT_MCHN_HLD_YN43
+           		  , SORT_MCHN_HLD_YN44
+           		  , SORT_MCHN_HLD_YN45
+           		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
 	    		  , SYS_FRST_INPT_PRGRM_ID
 	    		  , SYS_LAST_CHG_DT
 	    		  , SYS_LAST_CHG_USER_ID
 	    		  , SYS_LAST_CHG_PRGRM_ID
-           		, SORT_MCHN_SPCFCT2
-           		, SORT_MCHN_SPCFCT3
-           		, SORT_MCHN_SPCFCT4
-           		, SORT_MCHN_HLD_YN11
-           		, SORT_MCHN_HLD_YN12
-           		, SORT_MCHN_HLD_YN13
-           		, SORT_MCHN_HLD_YN14
-           		, SORT_MCHN_HLD_YN15
-           		, SORT_MCHN_HLD_YN21
-           		, SORT_MCHN_HLD_YN22
-           		, SORT_MCHN_HLD_YN23
-           		, SORT_MCHN_HLD_YN24
-           		, SORT_MCHN_HLD_YN25
-           		, SORT_MCHN_HLD_YN31
-           		, SORT_MCHN_HLD_YN32
-           		, SORT_MCHN_HLD_YN33
-           		, SORT_MCHN_HLD_YN34
-           		, SORT_MCHN_HLD_YN35
-           		, SORT_MCHN_HLD_YN41
-           		, SORT_MCHN_HLD_YN42
-           		, SORT_MCHN_HLD_YN43
-           		, SORT_MCHN_HLD_YN44
-           		, SORT_MCHN_HLD_YN45
 	    		)
 	   		VALUES
 	   			(
 	    			#{trgtYr}
 	    		  , #{apcCd}
-	    		  , #{sn}
-	    		  , #{sortMchnItemCd}
-	    		  , #{sortMchnCd}
-	    		  , #{sortMchnSpcfct}
-	    		  , #{sortMchnHldYn}
-	    		  , #{rmrk}
-	    		  , #{delYn}
-	    		  , SYSDATE
+	   		      , #{sortMchnHldYn11}
+	   		      , #{sortMchnSpcfct1}
+	   		      , #{sortMchnHldYn12}
+	   		      , #{sortMchnHldYn13}
+	   		      , #{sortMchnHldYn14}
+	   		      , #{sortMchnHldYn15}
+
+	   		      , #{sortMchnHldYn21}
+	   		      , #{sortMchnSpcfct2}
+	   		      , #{sortMchnHldYn22}
+	   		      , #{sortMchnHldYn23}
+	   		      , #{sortMchnHldYn24}
+	   		      , #{sortMchnHldYn25}
+
+	   		      , #{sortMchnHldYn31}
+	   		      , #{sortMchnSpcfct3}
+	   		      , #{sortMchnHldYn32}
+	   		      , #{sortMchnHldYn33}
+	   		      , #{sortMchnHldYn34}
+	   		      , #{sortMchnHldYn35}
+
+	   		      , #{sortMchnHldYn41}
+	   		      , #{sortMchnSpcfct4}
+	   		      , #{sortMchnHldYn42}
+	   		      , #{sortMchnHldYn43}
+	   		      , #{sortMchnHldYn44}
+	   		      , #{sortMchnHldYn45}
+	   		      , SYSDATE
 	    		  , #{sysFrstInptUserId}
 	    		  , #{sysFrstInptPrgrmId}
 	    		  , SYSDATE
 	    		  , #{sysLastChgUserId}
 	    		  , #{sysLastChgPrgrmId}
-	   		    , #{sortMchnSpcfct2}
-	   		    , #{sortMchnSpcfct3}
-	   		    , #{sortMchnSpcfct4}
-	   		    , #{sortMchnHldYn11}
-	   		    , #{sortMchnHldYn12}
-	   		    , #{sortMchnHldYn13}
-	   		    , #{sortMchnHldYn14}
-	   		    , #{sortMchnHldYn15}
-	   		    , #{sortMchnHldYn21}
-	   		    , #{sortMchnHldYn22}
-	   		    , #{sortMchnHldYn23}
-	   		    , #{sortMchnHldYn24}
-	   		    , #{sortMchnHldYn25}
-	   		    , #{sortMchnHldYn31}
-	   		    , #{sortMchnHldYn32}
-	   		    , #{sortMchnHldYn33}
-	   		    , #{sortMchnHldYn34}
-	   		    , #{sortMchnHldYn35}
-	   		    , #{sortMchnHldYn41}
-	   		    , #{sortMchnHldYn42}
-	   		    , #{sortMchnHldYn43}
-	   		    , #{sortMchnHldYn44}
-	   		    , #{sortMchnHldYn45}
 	   			)
     	]]>
     </insert>
@@ -259,31 +244,30 @@
 			   SET
 	    			TRGT_YR          =  #{trgtYr}
 	    		  , APC_CD           =  #{apcCd}
-	    		  , SN               =  #{sn}
-	    		  , SORT_MCHN_ITEM_CD = #{sortMchnItemCd}
-	    		  , SORT_MCHN_CD     =  #{sortMchnCd}
-	    		  , SORT_MCHN_SPCFCT =  #{sortMchnSpcfct}
-	    		  , SORT_MCHN_HLD_YN =  #{sortMchnHldYn}
-	    		  , RMRK			 =	#{rmrk}
-				  , SORT_MCHN_SPCFCT2  = #{sortMchnSpcfct2}
-				  , SORT_MCHN_SPCFCT3  = #{sortMchnSpcfct3}
-				  , SORT_MCHN_SPCFCT4  = #{sortMchnSpcfct4}
+
 				  , SORT_MCHN_HLD_YN11 = #{sortMchnHldYn11}
+	    		  , SORT_MCHN_SPCFCT1 =  #{sortMchnSpcfct1}
 				  , SORT_MCHN_HLD_YN12 = #{sortMchnHldYn12}
 				  , SORT_MCHN_HLD_YN13 = #{sortMchnHldYn13}
 				  , SORT_MCHN_HLD_YN14 = #{sortMchnHldYn14}
 				  , SORT_MCHN_HLD_YN15 = #{sortMchnHldYn15}
+
 				  , SORT_MCHN_HLD_YN21 = #{sortMchnHldYn21}
+				  , SORT_MCHN_SPCFCT2  = #{sortMchnSpcfct2}
 				  , SORT_MCHN_HLD_YN22 = #{sortMchnHldYn22}
 				  , SORT_MCHN_HLD_YN23 = #{sortMchnHldYn23}
 				  , SORT_MCHN_HLD_YN24 = #{sortMchnHldYn24}
 				  , SORT_MCHN_HLD_YN25 = #{sortMchnHldYn25}
+
 				  , SORT_MCHN_HLD_YN31 = #{sortMchnHldYn31}
+				  , SORT_MCHN_SPCFCT3  = #{sortMchnSpcfct3}
 				  , SORT_MCHN_HLD_YN32 = #{sortMchnHldYn32}
 				  , SORT_MCHN_HLD_YN33 = #{sortMchnHldYn33}
 				  , SORT_MCHN_HLD_YN34 = #{sortMchnHldYn34}
 				  , SORT_MCHN_HLD_YN35 = #{sortMchnHldYn35}
+
 				  , SORT_MCHN_HLD_YN41 = #{sortMchnHldYn41}
+				  , SORT_MCHN_SPCFCT4  = #{sortMchnSpcfct4}
 				  , SORT_MCHN_HLD_YN42 = #{sortMchnHldYn42}
 				  , SORT_MCHN_HLD_YN43 = #{sortMchnHldYn43}
 				  , SORT_MCHN_HLD_YN44 = #{sortMchnHldYn44}

@@ -18,10 +18,7 @@
 				<h3 class="box-title" style="line-height: 30px;"> ▶ 산지유통시설품목처리실적</h3>
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary"></sbux-button>
-				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"></sbux-button>
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
 		<div class="box-body">
@@ -29,32 +26,19 @@
 			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
-				<colgroup>
-					<col style="width: 7%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 3%">
-					<col style="width: 7%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 3%">
-					<col style="width: 7%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 3%">
-				</colgroup>
 				<tbody>
 					<tr>
 						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
 						<td colspan= "3" class="td_input" style="border-right:hidden;">
-							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
 						<td>
-							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 						</td>
 						<th scope="row">대상연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-input id="srch-inp-warehouse" name="srch-inp-warehouse" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+							<sbux-input id="srch-inp-trgtYr" name="srch-inp-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
 						<td colspan="5"></td>
 					</tr>
@@ -69,6 +53,7 @@
 				</div>
 												<br>
 			<div><label>산지유통시설품목처리실적 상세내역</label></div>
+			<div><label style="font-size: x-small;">- 품목1+품목2+품목3+기타 의 APC취급액 합계가 산지유통시설 처리실적의 APC취급액과 같아야함</label></div>
 			<div style="display: flex;"><label style="font-size: x-small; margin-left: auto;">(단위: 백만원,톤,%)</label></div>
 			<br>
 
@@ -87,92 +72,82 @@
 								<th>품목명</th>
 								<th>APC취급액(A)</th>
 								<th>APC취급물량</th>
-								<th>APC취급액 중 통합마케팅 출하액(B)</th>
-								<th>통합마케팅 출하비율(B/A)</th>
+								<th>APC취급액 중<br>통합마케팅 출하액(B)</th>
+								<th>통합마케팅<br>출하비율(B/A*100)</th>
 							</tr>
 							<tr>
+								<td>품목1</td>
 								<td>
-									<sbux-input id="srch-inp-opera1" name="srch-inp-oper1" uitype="text" class="form-control input-sm" placeholder="품목1" ></sbux-input>
+									<sbux-input id="srch-inp-opera1" name="srch-inp-opera1" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera1',1,1)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera2" name="srch-inp-oper2" uitype="text" class="form-control input-sm" placeholder="15,800" ></sbux-input>
+									<sbux-input id="srch-inp-opera2" name="srch-inp-opera2" uitype="text" class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera2',2)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera3" name="srch-inp-oper3" uitype="text" class="form-control input-sm" placeholder="2,200" ></sbux-input>
+									<sbux-input id="srch-inp-opera3" name="srch-inp-opera3" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera3',3,1)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera4" name="srch-inp-oper4" uitype="text" class="form-control input-sm" placeholder="15,800" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera5" name="srch-inp-oper5" uitype="text" class="form-control input-sm" placeholder="100" ></sbux-input>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<sbux-input id="srch-inp-opera6" name="srch-inp-opera6" uitype="text" class="form-control input-sm" placeholder="품목2" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera7" name="srch-inp-opera7" uitype="text" class="form-control input-sm" placeholder="1,300" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera8" name="srch-inp-opera8" uitype="text" class="form-control input-sm" placeholder="306" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera9" name="srch-inp-opera9" uitype="text" class="form-control input-sm" placeholder="1,300" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera10" name="srch-inp-opera10" uitype="text" class="form-control input-sm" placeholder="100" ></sbux-input>
+									<sbux-input id="srch-inp-opera4" name="srch-inp-opera4" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
 								</td>
 							</tr>
 							<tr>
+								<td>품목2</td>
 								<td>
-									<sbux-input id="srch-inp-opera11" name="srch-inp-opera6" uitype="text" class="form-control input-sm" placeholder="품목3" ></sbux-input>
+									<sbux-input id="srch-inp-opera5" name="srch-inp-opera5" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera5',1,2)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera12" name="srch-inp-opera7" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+									<sbux-input id="srch-inp-opera6" name="srch-inp-opera6" uitype="text" class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera6',2)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera13" name="srch-inp-opera8" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+									<sbux-input id="srch-inp-opera7" name="srch-inp-opera7" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera7',3,2)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera14" name="srch-inp-opera9" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera15" name="srch-inp-opera10" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+									<sbux-input id="srch-inp-opera8" name="srch-inp-opera8" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
 								</td>
 							</tr>
 							<tr>
+								<td>품목3</td>
 								<td>
-									<sbux-input id="srch-inp-opera16" name="srch-inp-opera6" uitype="text" class="form-control input-sm" placeholder="품목4" ></sbux-input>
+									<sbux-input id="srch-inp-opera9" name="srch-inp-opera9" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera9',1,3)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera17" name="srch-inp-opera7" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+									<sbux-input id="srch-inp-opera10" name="srch-inp-opera10" uitype="text" class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera10',2)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera18" name="srch-inp-opera8" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+									<sbux-input id="srch-inp-opera11" name="srch-inp-opera11" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera11',3,3)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera19" name="srch-inp-opera9" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera20" name="srch-inp-opera10" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+									<sbux-input id="srch-inp-opera12" name="srch-inp-opera12" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
 								</td>
 							</tr>
 							<tr>
+								<td>기타</td>
 								<td>
-									<sbux-input id="srch-inp-opera21" name="srch-inp-opera6" uitype="text" class="form-control input-sm" placeholder="품목5" ></sbux-input>
+									<sbux-input id="srch-inp-opera13" name="srch-inp-opera13" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera13',1,4)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera22" name="srch-inp-opera7" uitype="text" class="form-control input-sm" placeholder="17,100" ></sbux-input>
+									<sbux-input id="srch-inp-opera14" name="srch-inp-opera14" uitype="text" class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera14',2)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera23" name="srch-inp-opera8" uitype="text" class="form-control input-sm" placeholder="2,506" ></sbux-input>
+									<sbux-input id="srch-inp-opera15" name="srch-inp-opera15" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera15',3,4)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera24" name="srch-inp-opera9" uitype="text" class="form-control input-sm" placeholder="17,100" ></sbux-input>
+									<sbux-input id="srch-inp-opera16" name="srch-inp-opera16" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
+								</td>
+							</tr>
+							<tr>
+								<td>합계</td>
+								<td>
+									<sbux-input id="srch-inp-opera17" name="srch-inp-opera17" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera25" name="srch-inp-opera10" uitype="text" class="form-control input-sm" placeholder="100" ></sbux-input>
+									<sbux-input id="srch-inp-opera18" name="srch-inp-opera18" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
+								</td>
+								<td>
+									<sbux-input id="srch-inp-opera19" name="srch-inp-opera19" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
+								</td>
+								<td>
+									<sbux-input id="srch-inp-opera20" name="srch-inp-opera20" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
 								</td>
 							</tr>
 						</tbody>
@@ -184,60 +159,172 @@
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
-	<!-- 거래처 선택 Modal -->
+	 <!-- apc 선택 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="body-modal-cnpt">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
-    </div>
-        <!-- 품종 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
-    </div>
-    <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    <div id="body-modal-apcSelect">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_createspmtDsctnGrid();
 
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2)
-		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-startPrdctnYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-endPrdctnYmd", year+month+day);
 	})
 
-	/* const fn_initSBSelect = async function() {
+	//등록
+	const fn_save = async function() {
+    	console.log("******************fn_save**********************************");
 
- 		gfn_setComCdSBSelect('rdo-wrhsSeCd', jsonRadioWrhsSeCd, 'WRHS_SE_CD');	// 시스템유형
+    	let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+		if (gfn_isEmpty(apcCd)) {
+    		alert("apc를 선택해주세요");
+            return;
+        }
+		if (gfn_isEmpty(trgtYr)) {
+    		alert("대상연도를 작성해주세요");
+            return;
+        }
 
-	} */
-
-	function fn_createspmtDsctnGrid() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-spmtDsctn';
-	    SBGridProperties.id = 'grdWghPrfmnc';
-	    SBGridProperties.jsonref = 'jsonWghPrfmnc';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.columns = [
-            {caption: ['구분'], 						ref: 'wghno',		width: '17', type: 'output'},
-            {caption: ['APC취급액'], 					ref: 'prdcrNm', 	width: '17%', type: 'output'},
-            {caption: ['APC취급물량'],					ref: 'itemNm', 		width: '30%', type: 'output'},
-            {caption: ['APC통합마케팅 출하액'],			ref: 'itemNm1', 		width: '18%', type: 'output'},
-            {caption: ['통합마케팅 출하비율'],			ref: 'itemNm2', 		width: '18%', type: 'output'}
-        ];
-        grdWghPrfmnc = _SBGrid.create(SBGridProperties);
+    	fn_subInsert(confirm("등록 하시겠습니까?"));
     }
 
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
+
+	//신규 등록
+    const fn_subInsert = async function (isConfirmed){
+    	 console.log("******************fn_subInsert**********************************");
+    	 if (!isConfirmed) return;
+
+    	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltItemPrfmnc.do", {
+    		trgtYr : SBUxMethod.get('srch-inp-trgtYr')
+    		,apcCd : SBUxMethod.get('srch-inp-apcCd')
+
+    		,fcltItemSpmtAmt : SBUxMethod.get('srch-inp-opera1')
+    		,fcltItemSpmtAmt2 : SBUxMethod.get('srch-inp-opera5')
+    		,fcltItemSpmtAmt3 : SBUxMethod.get('srch-inp-opera9')
+    		,fcltItemSpmtAmt4 : SBUxMethod.get('srch-inp-opera13')
+    		,fcltItemSpmtAmt5 : SBUxMethod.get('srch-inp-opera17')
+
+    		,fcltItemTrmtVlm : SBUxMethod.get('srch-inp-opera2')
+    		,fcltItemTrmtVlm2 : SBUxMethod.get('srch-inp-opera6')
+    		,fcltItemTrmtVlm3 : SBUxMethod.get('srch-inp-opera10')
+    		,fcltItemTrmtVlm4 : SBUxMethod.get('srch-inp-opera14')
+    		,fcltItemTrmtVlm5 : SBUxMethod.get('srch-inp-opera18')
+
+    		,fcltItemMrktAmt : SBUxMethod.get('srch-inp-opera3')
+    		,fcltItemMrktAmt2 : SBUxMethod.get('srch-inp-opera7')
+    		,fcltItemMrktAmt3 : SBUxMethod.get('srch-inp-opera11')
+    		,fcltItemMrktAmt4 : SBUxMethod.get('srch-inp-opera15')
+    		,fcltItemMrktAmt5 : SBUxMethod.get('srch-inp-opera19')
+		});
+
+        const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		alert("처리 되었습니다.");
+        		//fn_search();
+        	} else {
+        		alert(data.resultMessage);
+        	}
+        } catch(e) {
+        }
+        // 결과 확인 후 재조회
+        console.log("insert result", data);
+    }
+
+
+	//국고 지자체 자부담 합계
+    function sum(name, idx , idx2){
+    	//console.log("=========sum==========");
+    	extractNumbers2(name);
+
+    	if(idx == 1 ){
+    		let sum = convertToNumberOrZero(SBUxMethod.get('srch-inp-opera1'))
+    					+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera5'))
+    					+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera9'))
+    					+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera13'));
+    		SBUxMethod.set('srch-inp-opera17',sum);
+    		cal(idx2);
+    	}else if (idx == 2){
+    		let sum = convertToNumberOrZero(SBUxMethod.get('srch-inp-opera2'))
+						+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera6'))
+						+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera10'))
+						+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera14'));
+			SBUxMethod.set('srch-inp-opera18',sum);
+    	}else if (idx ==3){
+    		let sum = convertToNumberOrZero(SBUxMethod.get('srch-inp-opera3'))
+						+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera7'))
+						+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera11'))
+						+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera15'));
+			SBUxMethod.set('srch-inp-opera19',sum);
+			cal(idx2);
+    	}
+    }
+	//통합마케팅 출하비율 계산
+    function cal(idx2) {
+		//console.log("=========cal==========");
+    	if(idx2 == 1){
+    		let calVal = convertToNumberOrZero(SBUxMethod.get('srch-inp-opera3')) / convertToNumberOrZero(SBUxMethod.get('srch-inp-opera1')) * 100;
+    		SBUxMethod.set('srch-inp-opera4',calVal.toFixed(2));
+    	}else if(idx2 == 2){
+    		let calVal = convertToNumberOrZero(SBUxMethod.get('srch-inp-opera7')) / convertToNumberOrZero(SBUxMethod.get('srch-inp-opera5')) * 100;
+    		SBUxMethod.set('srch-inp-opera8',calVal.toFixed(2));
+    	}else if(idx2 == 3){
+    		let calVal = convertToNumberOrZero(SBUxMethod.get('srch-inp-opera11')) / convertToNumberOrZero(SBUxMethod.get('srch-inp-opera9')) * 100;
+    		SBUxMethod.set('srch-inp-opera12',calVal.toFixed(2));
+    	}else if(idx2 == 4){
+    		let calVal = convertToNumberOrZero(SBUxMethod.get('srch-inp-opera15')) / convertToNumberOrZero(SBUxMethod.get('srch-inp-opera13')) * 100;
+    		SBUxMethod.set('srch-inp-opera16',calVal.toFixed(2));
+    	}
+    	let calVal2 = convertToNumberOrZero(SBUxMethod.get('srch-inp-opera17')) / convertToNumberOrZero(SBUxMethod.get('srch-inp-opera19')) * 100;
+    	SBUxMethod.set('srch-inp-opera20',calVal2.toFixed(2));
+    }
+
+	// 숫자(소숫점 가능)만 입력
+	function extractNumbers2(input) {
+		let inputValue = SBUxMethod.get(input);
+		if(!inputValue === null || !inputValue === undefined || !inputValue === ''){
+			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+		}
+	}
+    // 숫자만 입력
+	function extractNumbers(input) {
+		//document.querySelector("sbux-input[name='"+input+"']").value = document.querySelector("sbux-input[name='"+input+"']").value.replace(/\D/g, "");
+		let inputValue = SBUxMethod.get(input);
+		if(!inputValue === null || !inputValue === undefined || !inputValue === ''){
+			SBUxMethod.set(input,inputValue.replace(/\D/g, ""));
+		}
+	}
+
+	//값이 없는 경우 0 있는 경우 숫자로 반환
+	function convertToNumberOrZero(value) {
+	  // 값이 없는 경우 0으로 설정
+	  if (value === undefined || value === null) {
+	    return 0;
+	  }
+
+	  // 값이 있는 경우 숫자로 변환하고 반환
+	  const numericValue = Number(value);
+	  if (isNaN(numericValue)) {
+	    return 0; // 변환 실패 시 0 반환
+	  } else {
+	    return numericValue;
+	  }
+	}
+
+	// apc 선택 팝업 호출
+	const fn_modalApcSelect = function() {
+		popApcSelect.init(fn_setApc);
+	}
+	// apc 선택 팝업 콜백 함수
+	const fn_setApc = function(apc) {
+		if (!gfn_isEmpty(apc)) {
+			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
+			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
+		}
 	}
 </script>
 </html>

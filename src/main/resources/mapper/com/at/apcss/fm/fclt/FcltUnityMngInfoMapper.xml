@@ -25,16 +25,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.selectFcltUnityMngInfo */
 				  FCLT.TRGT_YR                 AS TRGT_YR
 				, FCLT.APC_CD                  AS APC_CD
-				, FCLT.SN                      AS SN
-				, FCLT.FCLT_SYS_INSTL_CD       AS FCLT_SYS_INSTL_CD
 				, FCLT.FCLT_SYS_HLD_YN         AS FCLT_SYS_HLD_YN
-				, FCLT.DEL_YN                  AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT        AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID   AS SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID  AS SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
-				, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
-			    , FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
 			    , FCLT.FCLT_SYS_HLD_YN2        AS FCLT_SYS_HLD_YN2
 			    , FCLT.FCLT_SYS_HLD_YN3        AS FCLT_SYS_HLD_YN3
 			    , FCLT.FCLT_SYS_HLD_YN4        AS FCLT_SYS_HLD_YN4
@@ -75,16 +66,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.selectFcltUnityMngInfoList */
 				  FCLT.TRGT_YR                 AS TRGT_YR
 				, FCLT.APC_CD                  AS APC_CD
-				, FCLT.SN                      AS SN
-				, FCLT.FCLT_SYS_INSTL_CD       AS FCLT_SYS_INSTL_CD
 				, FCLT.FCLT_SYS_HLD_YN         AS FCLT_SYS_HLD_YN
-				, FCLT.DEL_YN                  AS DEL_YN
-				, FCLT.SYS_FRST_INPT_DT        AS SYS_FRST_INPT_DT
-				, FCLT.SYS_FRST_INPT_USER_ID   AS SYS_FRST_INPT_USER_ID
-				, FCLT.SYS_FRST_INPT_PRGRM_ID  AS SYS_FRST_INPT_PRGRM_ID
-				, FCLT.SYS_LAST_CHG_DT         AS SYS_LAST_CHG_DT
-				, FCLT.SYS_LAST_CHG_USER_ID    AS SYS_LAST_CHG_USER_ID
-			    , FCLT.SYS_LAST_CHG_PRGRM_ID   AS SYS_LAST_CHG_PRGRM_ID
 			    , FCLT.FCLT_SYS_HLD_YN2       AS  FCLT_SYS_HLD_YN2
 			    , FCLT.FCLT_SYS_HLD_YN3       AS  FCLT_SYS_HLD_YN3
 			    , FCLT.FCLT_SYS_HLD_YN4       AS  FCLT_SYS_HLD_YN4
@@ -124,43 +106,37 @@
 	    		(
 	    			TRGT_YR
 	    		  , APC_CD
-	    		  , SN
-	    		  , FCLT_SYS_INSTL_CD
 	    		  , FCLT_SYS_HLD_YN
-	    		  , DEL_YN
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
 	    		  , FCLT_SYS_HLD_YN2
 	    		  , FCLT_SYS_HLD_YN3
 	    		  , FCLT_SYS_HLD_YN4
 	    		  , FCLT_SYS_HLD_YN5
 	    		  , FCLT_SYS_HLD_YN6
 	    		  , FCLT_SYS_HLD_YN7
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
 	    		)
 	   		VALUES
 	   			(
 	   			    #{trgtYr}
 	   			  , #{apcCd}
-	   			  , #{sn}
-	   			  , #{fcltSysInstlCd}
 	   			  , #{fcltSysHldYn}
-	   			  , #{delYn}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   		      , #{sysLastChgUserId}
-	   		      , #{sysLastChgPrgrmId}
 				  , #{fcltSysHldYn2}
 	   			  , #{fcltSysHldYn3}
 	   			  , #{fcltSysHldYn4}
 	   			  , #{fcltSysHldYn5}
 	   			  , #{fcltSysHldYn6}
 	   			  , #{fcltSysHldYn7}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   		      , #{sysLastChgUserId}
+	   		      , #{sysLastChgPrgrmId}
 	   			)
     	]]>
     </insert>
@@ -177,11 +153,7 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.updateFcltUnityMngInfo */
 	    		TB_FCLT_UNTY_MNG_INFO FCLT
 			   SET
-			 	  TRGT_YR           = #{trgtYr}
-			 	, APC_CD            = #{apcCd}
-			 	, SN                = #{sn}
-			 	, FCLT_SYS_INSTL_CD = #{fcltSysInstlCd}
-			 	, FCLT_SYS_HLD_YN   = #{fcltSysHldYn}
+			 	FCLT_SYS_HLD_YN   = #{fcltSysHldYn}
 				, FCLT_SYS_HLD_YN2 	= #{fcltSysHldYn2}
 				, FCLT_SYS_HLD_YN3  = #{fcltSysHldYn3}
 				, FCLT_SYS_HLD_YN4  = #{fcltSysHldYn4}
