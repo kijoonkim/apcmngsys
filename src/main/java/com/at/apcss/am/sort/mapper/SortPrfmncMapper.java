@@ -22,7 +22,7 @@ import com.at.apcss.am.sort.vo.SortPrfmncVO;
  */
 @Mapper
 public interface SortPrfmncMapper {
-	
+
 	/**
 	 * 선별실적 단건 조회
 	 * @param sortPrfmncVO
@@ -39,6 +39,16 @@ public interface SortPrfmncMapper {
 	 */
 	public List<SortPrfmncVO> selectSortPrfmncList(SortPrfmncVO sortPrfmncVO) throws Exception;
 
+
+	/**
+	 * 선별투입실적 목록 조회
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortPrfmncVO> selectSortInptPrfmncList(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+
 	/**
 	 * 선별대상 원물재고 목록 조회
 	 * @param sortPrfmncVO
@@ -46,7 +56,7 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	public List<SortPrfmncVO> selectRawMtrInvntrList(SortPrfmncVO sortPrfmncVO) throws Exception;
-	
+
 	/**
 	 * 선별실적 등록
 	 * @param sortPrfmncVO
@@ -70,8 +80,8 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int deleteSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception;
-	
-	
+
+
 	/**
 	 * 선별투입실적 선별번호 변경
 	 * @param sortPrfmncVO
