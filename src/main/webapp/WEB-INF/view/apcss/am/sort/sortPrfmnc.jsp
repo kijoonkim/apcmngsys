@@ -577,7 +577,7 @@ let lv_sortSn = -1;
         }
 
         lv_sortno = rowData.sortno;
-       	lv_sortSn = rowData.lv_sortSn
+       	lv_sortSn = rowData.sortSn;
 
         fn_setGrdSortInptPrfmnc(lv_sortno, lv_sortSn);
 

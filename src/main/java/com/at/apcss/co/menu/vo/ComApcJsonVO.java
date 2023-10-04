@@ -28,4 +28,6 @@ public class ComApcJsonVO {
 	private String fxno;
 	/** 우편번호 */
 	private String zip;
+
+	private String apcSeCd;
 }

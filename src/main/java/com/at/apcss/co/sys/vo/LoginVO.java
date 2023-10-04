@@ -70,6 +70,7 @@ public class LoginVO implements Serializable{
 	private String delYn;
 
 	private String apcAdminType;
+	private String apcSeCd;
 
 	/**
 	 * id attribute 를 리턴한다.
@@ -357,6 +358,12 @@ public class LoginVO implements Serializable{
 	}
 	public void setDelYn(String delYn) {
 		this.delYn = delYn;
+	}
+	public String getApcSeCd() {
+		return apcSeCd;
+	}
+	public void setApcSeCd(String apcSeCd) {
+		this.apcSeCd = apcSeCd;
 	}
 
 }

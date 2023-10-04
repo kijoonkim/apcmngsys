@@ -95,15 +95,18 @@
 		<c:when test="${loginVO != null && loginVO.id != null}">
 		const gv_apcCd = '${loginVO.apcCd}';
 		const gv_apcNm = '${loginVO.apcNm}';
+		const gv_apcSeCd = '${loginVO.apcSeCd}';
 		</c:when>
 		<c:otherwise>
 		const gv_apcCd = '';
 		const gv_apcNm = '';
+		const gv_apcSeCd = '';
 		</c:otherwise>
 	</c:choose>
 		// 선택 APC코드 설정
 		gv_selectedApcCd = gv_apcCd;
 		gv_selectedApcNm = gv_apcNm;
+		gv_selectedApcSeCd = gv_apcSeCd;
 	</script>
 
 

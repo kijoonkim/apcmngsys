@@ -34,6 +34,7 @@
 	<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
 		gv_selectedApcCd = null;
 		gv_selectedApcNm = null;
+		gv_selectedApcSeCd = null;
 	</c:if>
 		/**
 		 * @name
@@ -47,6 +48,12 @@
 			const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
 			apcInfo.forEach( (apc) => {
 				gv_selectedApcNm = apc.apcNm;
+				gv_selectedApcSeCd = apc.apcSeCd;
+
+				console.log("gv_selectedApcCd", gv_selectedApcCd);
+				console.log("gv_selectedApcNm", gv_selectedApcNm);
+				console.log("gv_selectedApcSeCd", gv_selectedApcSeCd);
+
 				return false;
 			});
 
@@ -56,6 +63,9 @@
 
 		}
 
+		console.log("gv_selectedApcCd", gv_selectedApcCd);
+		console.log("gv_selectedApcNm", gv_selectedApcNm);
+		console.log("gv_selectedApcSeCd", gv_selectedApcSeCd);
 	</script>
 	<c:choose>
 		<c:when test="${loginVO != null && loginVO.apcAdminType != null}">

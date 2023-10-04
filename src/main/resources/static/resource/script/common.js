@@ -62,6 +62,7 @@ const postHeaders = {
  */
 let gv_selectedApcCd = null;
 let gv_selectedApcNm = null;
+let gv_selectedApcSeCd = null;
 
 const gv_loadingOptions = {modelNm : "main-loading"};
 
