@@ -620,11 +620,11 @@
     	let rmrk		= SBUxMethod.get("dtl-inp-rmrk");
 
     	if(gfn_isEmpty(spmtYmd)){
-    		gfn_comAlert("W0001", "출하일자");			//	W0002	{0}을/를 선택하세요.
+    		gfn_comAlert("W0001", "출하일자");			//	W0001	{0}을/를 선택하세요.
             return;
     	}
     	if(gfn_isEmpty(cnptCd)){
-    		gfn_comAlert("W0001", "거래처");			//	W0002	{0}을/를 선택하세요.
+    		gfn_comAlert("W0001", "거래처");			//	W0001	{0}을/를 선택하세요.
             return;
     	}
 
@@ -643,7 +643,7 @@
     			return;
     		}
     		if(gfn_isEmpty(spmtPckgUnitCd)){
-    			gfn_comAlert("W0002", "포장단위");		//	W0001	{0}을/를 선택하세요.
+    			gfn_comAlert("W0002", "포장단위");		//	W0002	{0}을/를 선택하세요.
     			return;
     		}
     		grdGdsInvntr.setCellData(nRow, 14, spmtYmd);

@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.ordr.mapper.OrdrMapper;
 import com.at.apcss.am.ordr.service.OrdrService;
 import com.at.apcss.am.ordr.vo.OrdrVO;
@@ -33,12 +36,15 @@ public class OrdrServiceImpl implements OrdrService {
 
 	@Autowired
 	private OrdrMapper ordrMapper;
-	
+
+	@Resource(name = "cmnsTaskNoService")
+	private CmnsTaskNoService cmnsTaskNoService;
+
 	@Override
 	public OrdrVO selectOrdr(OrdrVO ordrVO) throws Exception {
 
 		OrdrVO resultVO = ordrMapper.selectOrdr(ordrVO);
-		
+
 		return resultVO;
 	}
 
@@ -46,15 +52,19 @@ public class OrdrServiceImpl implements OrdrService {
 	public List<OrdrVO> selectOrdrList(OrdrVO ordrVO) throws Exception {
 
 		List<OrdrVO> resultList = ordrMapper.selectOrdrList(ordrVO);
-		
+
 		return resultList;
 	}
-	
+
 	@Override
 	public int insertOrdr(OrdrVO ordrVO) throws Exception {
+		int insertedCnt =  0;
+		String outordrno = cmnsTaskNoService.selectOutordrno(ordrVO.getApcCd(), ordrVO.getOutordrYmd());
 
-		int insertedCnt = ordrMapper.insertOrdr(ordrVO);
-		
+		ordrVO.setOutordrno(outordrno);
+
+		insertedCnt = ordrMapper.insertOrdr(ordrVO);
+
 		return insertedCnt;
 	}
 
@@ -62,10 +72,10 @@ public class OrdrServiceImpl implements OrdrService {
 	public int updateOrdr(OrdrVO ordrVO) throws Exception {
 
 		int updatedCnt = ordrMapper.updateOrdr(ordrVO);
-		
+
 		return updatedCnt;
 	}
-	
+
 	@Override
 	public HashMap<String, Object> multiOrdrList(List<OrdrVO> ordrList) throws Exception {
 		// TODO Auto-generated method stub
@@ -99,7 +109,26 @@ public class OrdrServiceImpl implements OrdrService {
 	public int deleteOrdr(OrdrVO ordrVO) throws Exception {
 
 		int deletedCnt = ordrMapper.deleteOrdr(ordrVO);
-		
+
+		return deletedCnt;
+	}
+
+	@Override
+	public List<OrdrVO> selectOrdrHandwritingList(OrdrVO ordrVO) throws Exception {
+
+		List<OrdrVO> resultList = ordrMapper.selectOrdrHandwritingList(ordrVO);
+
+		return resultList;
+	}
+
+	@Override
+	public int deleteOrdrList(List<OrdrVO> ordrList) throws Exception {
+		int deletedCnt = 0;
+		for (OrdrVO ordrVO : ordrList) {
+
+			deletedCnt += deleteOrdr(ordrVO);
+		}
+
 		return deletedCnt;
 	}
 

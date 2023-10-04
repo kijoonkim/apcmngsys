@@ -30,7 +30,7 @@ public interface OrdrMapper {
 	 * @throws Exception
 	 */
 	public OrdrVO selectOrdr(OrdrVO ordrVO) throws Exception;
-	
+
 	/**
 	 * 발주정보 목록 조회
 	 * @param ordrVO
@@ -38,7 +38,15 @@ public interface OrdrMapper {
 	 * @throws Exception
 	 */
 	public List<OrdrVO> selectOrdrList(OrdrVO ordrVO) throws Exception;
-	
+
+	/**
+	 * 발주정보 수기등록 목록 조회
+	 * @param ordrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<OrdrVO> selectOrdrHandwritingList(OrdrVO ordrVO) throws Exception;
+
 	/**
 	 * 발주정보 등록
 	 * @param ordrVO
@@ -46,7 +54,7 @@ public interface OrdrMapper {
 	 * @throws Exception
 	 */
 	public int insertOrdr(OrdrVO ordrVO) throws Exception;
-	
+
 	/**
 	 * 발주정보 변경
 	 * @param ordrVO
@@ -54,7 +62,7 @@ public interface OrdrMapper {
 	 * @throws Exception
 	 */
 	public int updateOrdr(OrdrVO ordrVO) throws Exception;
-	
+
 	/**
 	 * 발주정보 삭제
 	 * @param ordrVO

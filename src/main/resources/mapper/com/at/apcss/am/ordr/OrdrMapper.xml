@@ -14,7 +14,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.selectOrdrList				-->
-	<!-- DESC : 발주정보 목록 조회.	                         	             	 		-->
+	<!-- DESC : 발주정보 목록 조회.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -31,6 +31,7 @@
 	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
 	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+	    		, (SELECT FN_GET_COM_CD_VL_NM('OUTORDR_TYPE', pt0.OUTORDR_TYPE) FROM DUAL)          AS OUTORDR_TYPE_NM
     		 FROM (
     	</if>
     	<if test='pagingYn == null or pagingYn.equals("N")'>
@@ -40,6 +41,7 @@
 	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
 	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+	    		, (SELECT FN_GET_COM_CD_VL_NM('OUTORDR_TYPE', pt0.OUTORDR_TYPE) FROM DUAL)          AS OUTORDR_TYPE_NM
     		 FROM (
     	</if>
     	<!-- End 페이징 -->
@@ -64,10 +66,10 @@
     		  	 , OI.BX_GDS_QNTT						AS BX_GDS_QNTT
     		  	 , OI.OUTORDR_QNTT						AS OUTORDR_QNTT
     	   	  	 , OI.PIECE_QNTT						AS PIECE_QNTT
-    	 	  	 , OI.UNIT								AS UNIT
+    	 	  	 , OI.UNIT_CD							AS UNIT_CD
     		  	 , OI.BX_UNTPRC							AS BX_UNTPRC
     		  	 , OI.OUTORDR_UNTPRC					AS OUTORDR_UNTPRC
-    		  	 , OI.OUTORDR_UNIT						AS OUTORDR_UNIT
+    		  	 , OI.OUTORDR_UNIT_CD					AS OUTORDR_UNIT_CD
     		  	 , OI.LOT								AS LOT
     		  	 , OI.TX_AMT							AS TX_AMT
     		  	 , OI.OUTORDR_AMT						AS OUTORDR_AMT
@@ -97,29 +99,6 @@
 			   AND SC.DEL_YN = 'N'
 			   AND SD.DEL_YN = 'N'
 		]]>
-<!-- 		<if test='apcSeCd != null and apcSeCd == "1"'> -->
-<!-- 			   		AND OI.APC_CD = '0000' -->
-<!-- 	   		<if test='rcptYn != null and rcptYn == "Y"'> -->
-<!-- 	   			<if test='apcCd != null and apcCd != ""'> -->
-<!-- 			   			AND OI.RCPT_CFMTN_APC_CD = #{apcCd} -->
-<!-- 				</if> -->
-<!-- 			   		AND OI.RCPT_CFMTN_YMD IS NOT NULL -->
-<!-- 			</if> -->
-<!-- 			<if test='rcptYn != null and rcptYn == "N"'> -->
-<!-- 			   		AND OI.RCPT_CFMTN_YMD IS NULL -->
-<!-- 			</if> -->
-<!-- 		</if> -->
-<!-- 		<if test='apcSeCd != null and apcSeCd == "2"'> -->
-<!-- 			<if test='apcCd != null and apcCd != ""'> -->
-<!-- 			   		AND OI.APC_CD = #{apcCd} -->
-<!-- 			</if> -->
-<!-- 			<if test='rcptYn != null and rcptYn == "Y"'> -->
-<!-- 			   		AND OI.RCPT_CFMTN_YMD IS NOT NULL -->
-<!-- 			</if> -->
-<!-- 			<if test='rcptYn != null and rcptYn == "N"'> -->
-<!-- 			   		AND OI.RCPT_CFMTN_YMD IS NULL -->
-<!-- 			</if> -->
-<!-- 		</if> -->
 		<if test='rcptYn != null and rcptYn == "Y"'>
 			   AND ((
 						(OI.APC_SE_CD = '1' AND OI.APC_CD = '0000' AND OI.RCPT_CFMTN_APC_CD = #{apcCd})
@@ -176,10 +155,10 @@
     		  	 	, OI.BX_GDS_QNTT
     		  	 	, OI.OUTORDR_QNTT
     	   	  	 	, OI.PIECE_QNTT
-    	 	  	 	, OI.UNIT
+    	 	  	 	, OI.UNIT_CD
     		  	 	, OI.BX_UNTPRC
     		  	 	, OI.OUTORDR_UNTPRC
-    		  	 	, OI.OUTORDR_UNIT
+    		  	 	, OI.OUTORDR_UNIT_CD
     		  	 	, OI.LOT
     		  	 	, OI.TX_AMT
     		  	 	, OI.OUTORDR_AMT
@@ -210,6 +189,87 @@
     	<!-- End 페이징 -->
     </select>
 
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.selectOrdrHandwritingList	-->
+	<!-- DESC : 발주정보 수기등록 목록 조회.	                         	        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.04  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectOrdrHandwritingList" parameterType="com.at.apcss.am.ordr.vo.OrdrVO" resultType="com.at.apcss.am.ordr.vo.OrdrVO">
+    	<![CDATA[
+    		SELECT
+    			  pt0.*
+	    		, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL)						AS ITEM_NM
+	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
+	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
+	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+	    		, (SELECT FN_GET_COM_CD_VL_NM('OUTORDR_TYPE', pt0.OUTORDR_TYPE) FROM DUAL)          AS OUTORDR_TYPE_NM
+    		 FROM (
+		    		SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectOrdrHandwritingList */
+					       OI.APC_CD                AS APC_CD
+					     , OI.APC_SE_CD             AS APC_SE_CD
+					     , OI.OUTORDRNO             AS OUTORDRNO
+					     , OI.RCPTN_SE_CD           AS RCPTN_SE_CD
+					     , OI.OUTORDR_TYPE          AS OUTORDR_TYPE
+					     , OI.WRHS_TYPE             AS WRHS_TYPE
+					     , OI.OUTORDR_YMD           AS OUTORDR_YMD
+					     , OI.OUTORDR_PRSN          AS OUTORDR_PRSN
+					     , OI.OUTORDR_PRSN_CD       AS OUTORDR_PRSN_CD
+					     , OI.DOCK_INFO             AS DOCK_INFO
+					     , OI.SPLY_PRSN             AS SPLY_PRSN
+					     , OI.GDS_CD                AS GDS_CD
+					     , OI.ITEM_CD               AS ITEM_CD
+					     , OI.VRTY_CD               AS VRTY_CD
+					     , OI.SPCFCT_CD             AS SPCFCT_CD
+					     , OI.TPND                  AS TPND
+					     , OI.TPNB                  AS TPNB
+					     , OI.DIAMONDLINE           AS DIAMONDLINE
+					     , OI.DLDTN                 AS DLDTN
+					     , OI.BX_GDS_QNTT           AS BX_GDS_QNTT
+					     , OI.OUTORDR_QNTT          AS OUTORDR_QNTT
+					     , OI.PIECE_QNTT            AS PIECE_QNTT
+					     , OI.UNIT_CD               AS UNIT_CD
+					     , OI.BX_UNTPRC             AS BX_UNTPRC
+					     , OI.OUTORDR_UNTPRC        AS OUTORDR_UNTPRC
+					     , OI.OUTORDR_UNIT_CD       AS OUTORDR_UNIT_CD
+					     , OI.LOT                   AS LOT
+					     , OI.TX_AMT                AS TX_AMT
+					     , OI.OUTORDR_AMT           AS OUTORDR_AMT
+					     , OI.DLDTN_CD              AS DLDTN_CD
+					     , OI.WRHS_YMD              AS WRHS_YMD
+					     , OI.DLVGDS_NM             AS DLVGDS_NM
+					     , OI.DLVGDS_CD             AS DLVGDS_CD
+					     , OI.APC_CNPT_NM           AS APC_CNPT_NM
+					     , OI.APC_CNPT_CD           AS APC_CNPT_CD
+					     , OI.CNTR_SE               AS CNTR_SE
+					     , OI.CNTR_RCVD_WRHS_YMD    AS CNTR_RCVD_WRHS_YMD
+					     , OI.CNTR_CD               AS CNTR_CD
+					     , OI.CNTR_NM               AS CNTR_NM
+					     , OI.DLVGDS_SE_CD          AS DLVGDS_SE_CD
+					     , OI.ETC                   AS ETC
+					     , OI.BUYER_NM              AS BUYER_NM
+					     , OI.OUTORDR_WGHT          AS OUTORDR_WGHT
+					     , OI.PIECE_WGHT            AS PIECE_WGHT
+					     , OI.UNIT_WGHT             AS UNIT_WGHT
+					     , OI.SPMT_PCKG_UNIT_CD     AS SPMT_PCKG_UNIT_CD
+					     , OI.GRD_CD                AS GRD_CD
+					     , OI.DEL_YN                AS DEL_YN
+					     , TO_CHAR(OI.SYS_FRST_INPT_DT, 'YYYY-MM-DD')      AS REG_YMD
+		     			, (SELECT USER_NM FROM TB_COM_USER X WHERE X.USER_ID = OI.SYS_FRST_INPT_USER_ID) AS REG_USER_NM
+					  FROM TB_OUTORDR_INFO OI
+					 WHERE OI.DEL_YN 		= 'N'
+					   AND OI.RCPTN_SE_CD 	= '99'
+					   AND OI.APC_CD		= #{apcCd}
+					   AND OI.WRHS_YMD >= TO_CHAR(SYSDATE, 'YYYYMMDD')
+				) pt0
+    	]]>
+
+
+    </select>
+
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.insertOrdr					-->
 	<!-- DESC : 발주정보 등록.	                         	             	 			-->
@@ -223,54 +283,58 @@
     	INSERT INTO TB_OUTORDR_INFO
     		(
     			APC_CD
-			  , APC_SE_CD
-			  , OUTORDRNO
-    		  , RCPTN_SE_CD
-    		  , RCPTNNO
-    		  , RCPT_CFMTN_APC_CD
-    		  , RCPT_CFMTN_YMD
-    		  , PCKG_CMNDNO
-    		  , DOCNO
-    		  , CNPT_ORDRNO
-    		  , OUTORDR_TYPE
-    		  , WRHS_TYPE
-    		  , OUTORDR_YMD
-    		  , OUTORDR_PRSN
-    		  , OUTORDR_PRSN_CD
-    		  , DOCK_INFO
-    		  , SPLY_PRSN
-    		  , GDS_CD
-    		  , ITEM_CD
-    		  , VRTY_CD
-    		  , SPCFCT_CD
-    		  , TPND
-    		  , TPNB
-    		  , DIAMONDLINE
-    		  , DLDTN
-    		  , BX_GDS_QNTT
-    		  , OUTORDR_QNTT
-    	   	  , PIECE_QNTT
-    	 	  , UNIT
-    		  , BX_UNTPRC
-    		  , OUTORDR_UNTPRC
-    		  , OUTORDR_UNIT
-    		  , LOT
-    		  , TX_AMT
-    		  , OUTORDR_AMT
-    		  , DLDTN_CD
-    		  , WRHS_YMD
-    		  , DLVGDS_NM
-    		  , DLVGDS_CD
-    		  , APC_CNPT_NM
-    		  , APC_CNPT_CD
-    		  , CNTR_SE
-    		  , CNTR_RCVD_WRHS_YMD
-    		  , CNTR_CD
-    		  , CNTR_NM
-    		  , DLVGDS_SE_CD
-    		  , ETC
-    		  , BUYER_NM
-    		  , DEL_YN
+    	      , APC_SE_CD
+    	      , OUTORDRNO
+    	      , RCPTN_SE_CD
+    	      , RCPTNNO
+    	      , RCPT_CFMTN_APC_CD
+    	      , RCPT_CFMTN_YMD
+    	      , PCKG_CMNDNO
+    	      , DOCNO
+    	      , CNPT_ORDRNO
+    	      , OUTORDR_TYPE
+    	      , WRHS_TYPE
+    	      , OUTORDR_YMD
+    	      , OUTORDR_PRSN
+    	      , OUTORDR_PRSN_CD
+    	      , DOCK_INFO
+    	      , SPLY_PRSN
+    	      , GDS_CD
+    	      , ITEM_CD
+    	      , VRTY_CD
+    	      , SPCFCT_CD
+    	      , TPND
+    	      , TPNB
+    	      , DIAMONDLINE
+    	      , DLDTN
+    	      , BX_GDS_QNTT
+    	      , OUTORDR_QNTT
+    	      , PIECE_QNTT
+    	      , UNIT_CD
+    	      , BX_UNTPRC
+    	      , OUTORDR_UNTPRC
+    	      , OUTORDR_UNIT_CD
+    	      , LOT
+    	      , TX_AMT
+    	      , OUTORDR_AMT
+    	      , DLDTN_CD
+    	      , WRHS_YMD
+    	      , DLVGDS_NM
+    	      , DLVGDS_CD
+    	      , APC_CNPT_NM
+    	      , APC_CNPT_CD
+    	      , CNTR_SE
+    	      , CNTR_RCVD_WRHS_YMD
+    	      , CNTR_CD
+    	      , CNTR_NM
+    	      , DLVGDS_SE_CD
+    	      , ETC
+    	      , BUYER_NM
+    	      , OUTORDR_WGHT
+    	      , PIECE_WGHT
+    	      , UNIT_WGHT
+    	      , SPMT_PCKG_UNIT_CD
+    	      , GRD_CD
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -283,7 +347,7 @@
 		 	    #{apcCd}
 			  , #{apcSeCd}
 			  , #{outordrno}
-    		  , #{rcptnSeCd}
+			  , #{rcptnSeCd}
     		  , #{rcptnno}
     		  , #{rcptCfmtnApcCd}
     		  , #{rcptCfmtnYmd}
@@ -308,10 +372,10 @@
     		  , #{bxGdsQntt}
     		  , #{outordrQntt}
     		  , #{pieceQntt}
-    		  , #{unit}
+    		  , #{unitCd}
     		  , #{bxUntprc}
     		  , #{outordrUntprc}
-    		  , #{outordrUnit}
+    		  , #{outordrUnitCd}
     		  , #{lot}
     		  , #{txAmt}
     		  , #{outordrAmt}
@@ -328,7 +392,11 @@
     		  , #{dlvgdsSeCd}
     		  , #{etc}
     		  , #{buyerNm}
-    		  , #{delYn}
+    	      , #{outordrWght}
+    	      , #{pieceWght}
+    	      , #{unitWght}
+    	      , #{spmtPckgUnitCd}
+    	      , #{grdCd}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
@@ -381,7 +449,7 @@
     		 , UNIT 					= #{unit}
     		 , BX_UNTPRC 				= #{bxUntprc}
     		 , OUTORDR_UNTPRC 			= #{outordrUntprc}
-    		 , OUTORDR_UNIT 			= #{outordrUnit}
+    		 , OUTORDR_UNIT_CD 			= #{outordrUnitCd}
     		 , LOT 						= #{lot}
     		 , TX_AMT 					= #{txAmt}
     		 , OUTORDR_AMT 				= #{outordrAmt}
@@ -407,20 +475,24 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.deleteOrdr					-->
-	<!-- DESC : 발주정보 삭제.	                         	             		 		-->
+	<!-- DESC : 발주정보 삭제.	                         	             		 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.24  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteOrdr" parameterType="com.at.apcss.am.ordr.vo.OrdrVO">
+	<update id="deleteOrdr" parameterType="com.at.apcss.am.ordr.vo.OrdrVO">
 		<![CDATA[
-		DELETE FROM TB_OUTORDR_INFO
+		UPDATE TB_OUTORDR_INFO	/* com.at.apcss.am.ordr.mapper.OrdrMapper.deleteOrdr */
+		   SET SYS_LAST_CHG_DT 			= SYSDATE
+    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    		 , DEL_YN					= 'Y'
 		 WHERE APC_CD 		= #{apcCd}
 		   AND APC_SE_CD 	= #{apcSeCd}
 		   AND OUTORDRNO 	= #{outordrno}
 		]]>
-	</delete>
+	</update>
 </mapper>
 
 
