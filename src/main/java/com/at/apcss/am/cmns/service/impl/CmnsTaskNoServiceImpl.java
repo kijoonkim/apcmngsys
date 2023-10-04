@@ -27,41 +27,41 @@ import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
  */
 @Service("cmnsTaskNoService")
 public class CmnsTaskNoServiceImpl extends BaseServiceImpl implements CmnsTaskNoService{
-	
+
 	@Autowired
 	private CmnsTaskNoMapper cmnsTaskNoMapper;
 
 	@Override
 	public String selectWghno(String apcCd, String ymd) throws Exception {
-		
+
 		CmnsTaskNoVO paramVO = new CmnsTaskNoVO();
 		paramVO.setApcCd(apcCd);
 		paramVO.setYmd(ymd);
 		paramVO.setTaskId(AmConstants.TASK_ID_WGH);
-		
+
 		CmnsTaskNoVO resultVO = cmnsTaskNoMapper.selectFnGetIdTaskNo(paramVO);
-		
+
 		if (resultVO != null && StringUtils.hasText(resultVO.getTaskNo())) {
 			return resultVO.getTaskNo();
 		}
-		
+
 		return null;
 	}
 
 	@Override
 	public String selectWrhsno(String apcCd, String ymd) throws Exception {
-		
+
 		CmnsTaskNoVO paramVO = new CmnsTaskNoVO();
 		paramVO.setApcCd(apcCd);
 		paramVO.setYmd(ymd);
 		paramVO.setTaskId(AmConstants.TASK_ID_WRHS);
-		
+
 		CmnsTaskNoVO resultVO = cmnsTaskNoMapper.selectFnGetIdTaskNo(paramVO);
-		
+
 		if (resultVO != null && StringUtils.hasText(resultVO.getTaskNo())) {
 			return resultVO.getTaskNo();
 		}
-		
+
 		return null;
 	}
 
@@ -71,116 +71,133 @@ public class CmnsTaskNoServiceImpl extends BaseServiceImpl implements CmnsTaskNo
 		paramVO.setApcCd(apcCd);
 		paramVO.setYmd(ymd);
 		paramVO.setTaskId(AmConstants.TASK_ID_WRHS_PLAN);
-		
+
 		CmnsTaskNoVO resultVO = cmnsTaskNoMapper.selectFnGetIdTaskNo(paramVO);
-		
+
 		if (resultVO != null && StringUtils.hasText(resultVO.getTaskNo())) {
 			return resultVO.getTaskNo();
 		}
-		
+
 		return null;
 	}
 
 	@Override
 	public String selectSortno(String apcCd, String ymd) throws Exception {
-		
+
 		CmnsTaskNoVO paramVO = new CmnsTaskNoVO();
 		paramVO.setApcCd(apcCd);
 		paramVO.setYmd(ymd);
 		paramVO.setTaskId(AmConstants.TASK_ID_SORT);
-		
+
 		CmnsTaskNoVO resultVO = cmnsTaskNoMapper.selectFnGetIdTaskNo(paramVO);
-		
+
 		if (resultVO != null && StringUtils.hasText(resultVO.getTaskNo())) {
 			return resultVO.getTaskNo();
 		}
-		
+
 		return null;
 	}
 
 	@Override
 	public String selectSortCmndno(String apcCd, String ymd) throws Exception {
-		
+
 		CmnsTaskNoVO paramVO = new CmnsTaskNoVO();
 		paramVO.setApcCd(apcCd);
 		paramVO.setYmd(ymd);
 		paramVO.setTaskId(AmConstants.TASK_ID_SORT_CMND);
-		
+
 		CmnsTaskNoVO resultVO = cmnsTaskNoMapper.selectFnGetIdTaskNo(paramVO);
-		
+
 		if (resultVO != null && StringUtils.hasText(resultVO.getTaskNo())) {
 			return resultVO.getTaskNo();
 		}
-		
+
 		return null;
 	}
 
 	@Override
 	public String selectPckgno(String apcCd, String ymd) throws Exception {
-		
+
 		CmnsTaskNoVO paramVO = new CmnsTaskNoVO();
 		paramVO.setApcCd(apcCd);
 		paramVO.setYmd(ymd);
 		paramVO.setTaskId(AmConstants.TASK_ID_PCKG);
-		
+
 		CmnsTaskNoVO resultVO = cmnsTaskNoMapper.selectFnGetIdTaskNo(paramVO);
-		
+
 		if (resultVO != null && StringUtils.hasText(resultVO.getTaskNo())) {
 			return resultVO.getTaskNo();
 		}
-		
+
 		return null;
 	}
 
 	@Override
 	public String selectPckgCmndno(String apcCd, String ymd) throws Exception {
-		
+
 		CmnsTaskNoVO paramVO = new CmnsTaskNoVO();
 		paramVO.setApcCd(apcCd);
 		paramVO.setYmd(ymd);
 		paramVO.setTaskId(AmConstants.TASK_ID_PCKG_CMND);
-		
+
 		CmnsTaskNoVO resultVO = cmnsTaskNoMapper.selectFnGetIdTaskNo(paramVO);
-		
+
 		if (resultVO != null && StringUtils.hasText(resultVO.getTaskNo())) {
 			return resultVO.getTaskNo();
 		}
-		
+
 		return null;
 	}
 
 	@Override
 	public String selectSpmtno(String apcCd, String ymd) throws Exception {
-		
+
 		CmnsTaskNoVO paramVO = new CmnsTaskNoVO();
 		paramVO.setApcCd(apcCd);
 		paramVO.setYmd(ymd);
 		paramVO.setTaskId(AmConstants.TASK_ID_SPMT);
-		
+
 		CmnsTaskNoVO resultVO = cmnsTaskNoMapper.selectFnGetIdTaskNo(paramVO);
-		
+
 		if (resultVO != null && StringUtils.hasText(resultVO.getTaskNo())) {
 			return resultVO.getTaskNo();
 		}
-		
+
 		return null;
 	}
 
 	@Override
 	public String selectSpmtCmndno(String apcCd, String ymd) throws Exception {
-		
+
 		CmnsTaskNoVO paramVO = new CmnsTaskNoVO();
 		paramVO.setApcCd(apcCd);
 		paramVO.setYmd(ymd);
 		paramVO.setTaskId(AmConstants.TASK_ID_SPMT_CMND);
-		
+
 		CmnsTaskNoVO resultVO = cmnsTaskNoMapper.selectFnGetIdTaskNo(paramVO);
-		
+
 		if (resultVO != null && StringUtils.hasText(resultVO.getTaskNo())) {
 			return resultVO.getTaskNo();
 		}
-		
+
 		return null;
 	}
-	
+
+	@Override
+	public String selectOutordrno(String apcCd, String ymd) throws Exception {
+
+		CmnsTaskNoVO paramVO = new CmnsTaskNoVO();
+		paramVO.setApcCd(apcCd);
+		paramVO.setYmd(ymd);
+		paramVO.setTaskId(AmConstants.TASK_ID_OUTORDR);
+
+		CmnsTaskNoVO resultVO = cmnsTaskNoMapper.selectFnGetIdTaskNo(paramVO);
+
+		if (resultVO != null && StringUtils.hasText(resultVO.getTaskNo())) {
+			return resultVO.getTaskNo();
+		}
+
+		return null;
+	}
+
 }

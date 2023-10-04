@@ -12,6 +12,7 @@ public class AmConstants {
 	public final static String TASK_ID_PCKG_CMND 	= "PO";
 	public final static String TASK_ID_SPMT 		= "DT";
 	public final static String TASK_ID_SPMT_CMND 	= "DO";
+	public final static String TASK_ID_OUTORDR 		= "OD";
 
 
     /**
