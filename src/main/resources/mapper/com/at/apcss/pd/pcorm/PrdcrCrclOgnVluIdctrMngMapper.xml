@@ -23,7 +23,8 @@
     <select id="selectPrdcrCrclOgnVluIdctrMng" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectPrdcrCrclOgnVluIdctrMng */
-				  CM.AA
+				  CM.TEST_NO
+				, CM.AA
 				, CM.BB
 				, CM.CC
 				, CM.DD
@@ -79,7 +80,8 @@
     <select id="selectPrdcrCrclOgnVluIdctrMngList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectPrdcrCrclOgnVluIdctrMngList */
-				  CM.AA
+				  CM.TEST_NO
+				, CM.AA
 				, CM.BB
 				, CM.CC
 				, CM.DD
@@ -198,8 +200,7 @@
 	   			)
     	]]>
     </insert>
-
-	<update id="upatePrdcrCrclOgnVluIdctrMng" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+	<update id="updatePrdcrCrclOgnVluIdctrMng" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.upatePrdcrCrclOgnVluIdctrMng */
 	    		TB_PD_PrdcrCrclOgnVluIdctrMng

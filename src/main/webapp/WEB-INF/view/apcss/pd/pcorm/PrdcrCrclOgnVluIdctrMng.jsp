@@ -14,31 +14,42 @@
 	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 등록결과확인 -->
+					<sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
+					</sbux-label>
+				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
-					<sbux-button id="btnEndFclt" name="btnEndFclt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-fclt')"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
-					<colgroup>
-						<col style="width: 100px">
-						<col style="width: 200px">
-						<col style="width: 100px">
-						<col style="width: 200px">
-					</colgroup>
+
 					<tbody>
 						<tr>
-							<th scope="row">APC명</th>
-							<th>
-								<sbux-input id=fclt-inp-apcNm name="fclt-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
-							</th>
-							<th>&nbsp;</th>
-							<th>&nbsp;</th>
+							<th scope="row">생산유통통합조직</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-apcCd2" name="srch-inp-apcCd2" uitype="hidden" ></sbux-input>
+								<sbux-input id="srch-inp-apcNm2" name="srch-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+							</td>
+							<td>
+								<sbux-button id="srch-btn-apc2" name="srch-btn-apc2" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceInvstmntSpmt" />
+							</td>
+							<th class="th_bg">전문품목</th>
+							<td class="td_input" style="border-right:hidden;">
+							    	<sbux-input id="srch-inp-itemCd1" name="srch-inp-itemCd1" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
+									<sbux-input id="srch-inp-itemNm1" name="srch-inp-itemNm1" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+							</td>
+							<td>
+									<sbux-button id="srch-btn-item1" name="srch-btn-item1" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(1)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							</td>
+							<td colspan="2" style="border-left: hidden;"></td>
 						</tr>
+
 					</tbody>
 				</table>
 
@@ -46,11 +57,39 @@
 				<!--[pp] 검색결과 -->
 				<div class="ad_section_top">
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdPrdcrCrclOgnVluIdctrMng" style="height:258px; width: 100%;"></div>
+					<div id="sb-area-grdPrdcrCrclOgnVluIdctrMng" style="height:350px; width: 100%;"></div>
 				</div>
 			</div>
 		</div>
 	</section>
+
+    <!-- 통합조직,출자출하조직 선택 Modal -->
+    <!-- 2023 09 22 ljw 통합조직 출자출하조직 리스트 팝업 생성 -->
+    <div>
+        <sbux-modal
+        	id="modal-invstmntSpmt"
+        	name="modal-invstmntSpmt"
+        	uitype="middle"
+        	header-title="통합조직,출자출하조직 선택"
+        	body-html-id="body-modal-invstmntSpmt"
+        	footer-is-close-button="false"
+        	style="width:1000px"
+       	></sbux-modal>
+    </div>
+    <div id="body-modal-invstmntSpmt">
+<%--     	<jsp:include page="../popup/InvstmntSpmtPopup.jsp"></jsp:include> --%>
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/InvstmntSpmtPopup.jsp"></jsp:include>
+    </div>
+
+
+    <!-- 품목 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px"></sbux-modal>
+    </div>
+    <div id="body-modal-itemSelect">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemSelectPopup.jsp"></jsp:include>
+    </div>
+
 </body>
 <script type="text/javascript">
 
@@ -144,7 +183,8 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["통합조직명"], 	ref: 'aa',   	type:'combo',  width:'100px',    style:'text-align:center;',
+	    	{caption: ["일련번호"], 		ref: 'testNo',   	type:'input',  hidden : false},
+	    	{caption: ["구분"], 	ref: 'aa',   	type:'combo',  width:'100px',    style:'text-align:center;',
 				typeinfo : {ref:'jsonComFcltGubun', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["사업자등록번호"], 	ref: 'bb',   type:'input',  width:'250px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
 	        {caption: ["전문품목"], 		ref: 'cc',   type:'input',  width:'200px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
@@ -153,14 +193,22 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	        {caption: ["탈락사유"], 	ref: 'ff',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["신청액"], 	ref: 'gg',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["적용금리"], 	ref: 'hh',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+	        {caption: ["통합조직"], 		ref: 'ii',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        	if(strValue== null || strValue == ""){
+	        		return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnVluIdctrMng\", " + nRow + ", " + nCol + ")'>찾기</button>";
+	        		//return " <sbux-button type='button' uitype='modal' target-id='modal-itemSelect'  text='찾기'  onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnVluIdctrMng\", " + nRow + ", " + nCol + ")'></sbux-button>";
+	        	}else{
+	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnVluIdctrMng\", " + nRow + ", " + nCol + ")'>찾기</button>";
+	        		return " <sbux-button type='button' uitype='modal' target-id='modal-itemSelect'  text='찾기'  onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnVluIdctrMng\", " + nRow + ", " + nCol + ")'></sbux-button>";
+	        	}
+	        }},
 	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdPrdcrCrclOgnVluIdctrMng\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_modalItemSelect(\"ADD\", \"grdPrdcrCrclOgnVluIdctrMng\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdPrdcrCrclOgnVluIdctrMng\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
-	        {caption: ["testNo"], 		ref: 'testNo',   	type:'input',  hidden : false},
 	    ];
 	    grdPrdcrCrclOgnVluIdctrMng = _SBGrid.create(SBGridProperties);
 	    let rst = await Promise.all([
@@ -170,6 +218,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
 		grdPrdcrCrclOgnVluIdctrMng.refresh({"combo":true});
 
 	}
+
 
 
 /* Grid Row 조회 기능*/
@@ -193,6 +242,8 @@ window.addEventListener('DOMContentLoaded', function(e) {
 				  , ee 		: item.ee
 				  , ff 		: item.ff
 				  , gg 		: item.gg
+				  , hh 		: item.hh
+				  , delYn 		: item.delYn
 				}
 				jsonPrdcrCrclOgnVluIdctrMng.push(prdcrCrclOgnVluIdctrMngVO);
 			});
@@ -290,8 +341,8 @@ window.addEventListener('DOMContentLoaded', function(e) {
             	if(grdPrdcrCrclOgnVluIdctrMng.getRowStatus(nRow) == 0 || grdPrdcrCrclOgnVluIdctrMng.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
-            			var comCdVO = grdPrdcrCrclOgnVluIdctrMng.getRowData(nRow);
-            			fn_deleteRsrc(comCdVO);
+            			var prdcrCrclOgnVluIdctrMngVO = grdPrdcrCrclOgnVluIdctrMng.getRowData(nRow);
+            			fn_deleteRsrc(prdcrCrclOgnVluIdctrMngVO);
             			grdPrdcrCrclOgnVluIdctrMng.deleteRow(nRow);
             		}
             	}else{
@@ -301,8 +352,8 @@ window.addEventListener('DOMContentLoaded', function(e) {
         }
     }
 
-	async function fn_deleteRsrc(comCdVO){
-		let postJsonPromise = gfn_postJSON("/co/cd/deleteComCdDtl.do", comCdVO);
+	async function fn_deleteRsrc(prdcrCrclOgnVluIdctrMngVO){
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/deletePrdcrCrclOgnVluIdctrMng.do", prdcrCrclOgnVluIdctrMngVO);
         let data = await postJsonPromise;
 
         try{
@@ -319,6 +370,46 @@ window.addEventListener('DOMContentLoaded', function(e) {
 		}
 
 	}
+
+
+	//통합조직,출자출하조직 팝업
+	const fn_choiceInvstmntSpmt = function() {
+		popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setInvstmntSpmt);
+	}
+	//통합조직 출자출하조직 팝업 콜백함수
+	const fn_setInvstmntSpmt = function(rowData) {
+		if (!gfn_isEmpty(rowData)) {
+			SBUxMethod.set("srch-inp-apcCd1", rowData.subCode);
+			SBUxMethod.set("srch-inp-apcNm1", rowData.subCodeNm);
+			SBUxMethod.set("srch-inp-apcCd2", rowData.mainCode);
+			SBUxMethod.set("srch-inp-apcNm2", rowData.mainCodeNm);
+		}
+	}
+
+
+	// 품목 선택 팝업 호출
+	const fn_modalItemSelect = function(sn) {
+		popItemSelect.init(sn,fn_setItem);
+	}
+	// apc 선택 팝업 콜백 함수
+	const fn_setItem = function(itemVal) {
+		if (!gfn_isEmpty(itemVal)) {
+			SBUxMethod.set('srch-inp-itemCd' + itemVal.sn , itemVal.itemCd);
+			SBUxMethod.set('srch-inp-itemNm' + itemVal.sn , itemVal.itemNm);
+		}
+	}
+
+
+
+    function fn_GridPop(gubun, grid, nRow, nCol) {
+        if (gubun === "pop") {
+            if (grid === "grdPrdcrCrclOgnVluIdctrMng") {
+            	grdPrdcrCrclOgnVluIdctrMng.setCellData(nRow, nCol, "N", true);
+            	//grdPrdcrCrclOgnVluIdctrMng.setCellData(nRow, 5, gv_apcCd, true);
+            	//grdPrdcrCrclOgnVluIdctrMng.addRow(true);
+            }
+        }
+    }
 
 </script>
 </html>
