@@ -131,6 +131,7 @@
 			   	, AE.DPSTR          AS DPSTR
 			    , AE.CLCLN_CRTR		AS CLCLN_CRTR
 
+				, AE.APC_SE_CD		AS APC_SE_CD
 		  	  FROM TB_APC_INFO AI
 		  	  JOIN TB_APC_EVRMNT_STNG AE
 		  	    ON AE.APC_CD = AI.APC_CD

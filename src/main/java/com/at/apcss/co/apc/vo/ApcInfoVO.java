@@ -51,4 +51,6 @@ public class ApcInfoVO extends ComVO{
 	 * 정산기준
 	 */
 	private String clclnCrtr;
+
+	private String apcSeCd;
 }
