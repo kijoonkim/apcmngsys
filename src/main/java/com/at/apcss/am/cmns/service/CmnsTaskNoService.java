@@ -28,7 +28,7 @@ public interface CmnsTaskNoService {
 	 * @throws Exception
 	 */
 	public String selectWghno(String apcCd, String ymd) throws Exception;
-	
+
 	/**
 	 * 입고번호 발번
 	 * @param apcCd
@@ -37,7 +37,7 @@ public interface CmnsTaskNoService {
 	 * @throws Exception
 	 */
 	public String selectWrhsno(String apcCd, String ymd) throws Exception;
-	
+
 	/**
 	 * 입고계획번호 발번
 	 * @param apcCd
@@ -46,7 +46,7 @@ public interface CmnsTaskNoService {
 	 * @throws Exception
 	 */
 	public String selectPlanno(String apcCd, String ymd) throws Exception;
-	
+
 	/**
 	 * 선별번호 발번
 	 * @param apcCd
@@ -55,7 +55,7 @@ public interface CmnsTaskNoService {
 	 * @throws Exception
 	 */
 	public String selectSortno(String apcCd, String ymd) throws Exception;
-	
+
 	/**
 	 * 선별지시번호 발번
 	 * @param apcCd
@@ -64,7 +64,7 @@ public interface CmnsTaskNoService {
 	 * @throws Exception
 	 */
 	public String selectSortCmndno(String apcCd, String ymd) throws Exception;
-	
+
 	/**
 	 * 포장번호 발번
 	 * @param apcCd
@@ -73,7 +73,7 @@ public interface CmnsTaskNoService {
 	 * @throws Exception
 	 */
 	public String selectPckgno(String apcCd, String ymd) throws Exception;
-	
+
 	/**
 	 * 포장지시번호 발번
 	 * @param apcCd
@@ -82,7 +82,7 @@ public interface CmnsTaskNoService {
 	 * @throws Exception
 	 */
 	public String selectPckgCmndno(String apcCd, String ymd) throws Exception;
-	
+
 	/**
 	 * 출하번호 발번
 	 * @param apcCd
@@ -91,7 +91,7 @@ public interface CmnsTaskNoService {
 	 * @throws Exception
 	 */
 	public String selectSpmtno(String apcCd, String ymd) throws Exception;
-	
+
 	/**
 	 * 출하지시번호 발번
 	 * @param apcCd
@@ -100,5 +100,14 @@ public interface CmnsTaskNoService {
 	 * @throws Exception
 	 */
 	public String selectSpmtCmndno(String apcCd, String ymd) throws Exception;
+
+	/**
+	 * 발주번호 발번
+	 * @param apcCd
+	 * @param ymd
+	 * @return
+	 * @throws Exception
+	 */
+	public String selectOutordrno(String apcCd, String ymd) throws Exception;
 
 }
