@@ -67,7 +67,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg" ><span class="data_required" ></span>관할기관</th>
+							<th scope="row" class="th_bg" >관할기관</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
 								<sbux-select
 									id="dtl-slt-orgNm"
@@ -80,11 +80,11 @@
 								></sbux-select>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
-							<th scope="row" class="th_bg" ><span class="data_required" ></span>1차승인여부</th>
+							<th scope="row" class="th_bg" >시도</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-select
-									id="dtl-slt-frstApprv"
-									name="dtl-slt-frstApprv"
+									id="dtl-slt-prvncs"
+									name="dtl-slt-prvncs"
 									uitype="single"
 									jsondata-ref="jsonDSFA"
 									unselected-text="전체"
@@ -94,11 +94,11 @@
 							</td>
 							<td colspan="3" class="td_input" style="border-right: hidden;" >
 							</td>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>2차승인여부</th>
+							<th scope="row" class="th_bg">시군</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
-									id="dtl-slt-scndApprv"
-									name="dtl-slt-scndApprv"
+									id="dtl-slt-cnts"
+									name="dtl-slt-cnts"
 									uitype="single"
 									jsondata-ref="jsonDSSA"
 									unselected-text="전체"
@@ -110,11 +110,11 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>권한</th>
+							<th scope="row" class="th_bg">법인구분</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-select
-									id="dtl-slt-athrt"
-									name="dtl-slt-athrt"
+									id="dtl-slt-crprtDvd"
+									name="dtl-slt-crprtDvd"
 									uitype="single"
 									jsondata-ref="jsonDSA"
 									unselected-text="전체"
@@ -124,27 +124,31 @@
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
 							</td>
-							<th scope="row" class="th_bg">아이디</th>
+							<th scope="row" class="th_bg">법인형태</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
-									<sbux-input
-									uitype="text"
-									id="dtl-inp-rmrk"
-									name="dtl-inp-rmrk"
+									<sbux-select
+									id="dtl-slt-crprtForm"
+									name="dtl-slt-crprtForm"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
 									class="form-control input-sm"
-									autocomplete="off"
-								></sbux-input>
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
 							</td>
-							<th scope="row" class="th_bg">이름</th>
+							<th scope="row" class="th_bg">2차승인구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input
-									uitype="text"
-									id="dtl-inp-Nm"
-									name="dtl-inp-Nm"
+								<sbux-select
+									id="dtl-slt-scndApprvDvd"
+									name="dtl-slt-scndApprvDvd"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
 									class="form-control input-sm"
-									autocomplete="off"
-								></sbux-input>
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
 							</td>
 							<td colspan="3" class="td_input">
 							</td>
@@ -172,7 +176,21 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td colspan="7"></td>
+							<td colspan="2" class="td_input">
+							<th scope="row" class="th_bg">참여조직여부</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="dtl-slt-prtcptOrgYn"
+									name="dtl-slt-prtcptOrgYn"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+							</td>
+							<td colspan="3" class="td_input">
+							</td>
 						</tr>
 
 					</tbody>
@@ -191,6 +209,464 @@
 				<div id="wrap-grdWghPrfmnc" class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:370px;"></div>
 				</div>
+				<table class="table table-bordered tbl_fixed">
+					<caption>검색 조건 설정</caption>
+					<colgroup>
+						<col style="width: 5%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+						<col style="width: 7%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th colspan="15" scope="row" class="th_bg"  style="text-align:center;">업체정보</th>
+						</tr>
+						<tr>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>법인명</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-crprtNm"
+									name="dtl-inp-crprtNm"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>법인등록번호</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
+									<sbux-input
+									uitype="text"
+									id="dtl-inp-crprtNm"
+									name="dtl-inp-crprtNm"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>사업자번호</th>
+							<td colspan="3" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-bsnssNb"
+									name="dtl-inp-bsnssNb"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="2" scope="row" class="th_bg">경영체번호</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-bsnssNb2"
+									name="dtl-inp-bsnssNb2"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>경영체여부</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;" >
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-crprtNm"
+									name="dtl-inp-crprtNm"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<th colspan="2" scope="row" class="th_bg">환코드</th>
+							<td colspan="3" class="td_input">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-hwanCd"
+									name="dtl-inp-hwanCd"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="2" rowspan="2" scope="row" class="th_bg"><span class="data_required" ></span>주소</th>
+							<td class="td_input" style="border-right:hidden;">[지번 주소]</td>
+							<td colspan="6" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-hwanCd"
+									name="dtl-inp-hwanCd"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="6" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-hwanCd"
+									name="dtl-inp-hwanCd"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_input" style="border-right:hidden;">도로명 주소</td>
+							<td colspan="6" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-hwanCd"
+									name="dtl-inp-hwanCd"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="6" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-hwanCd"
+									name="dtl-inp-hwanCd"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th rowspan="8" scope="row" class="th_bg">조직형태</th>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>법인구분</th>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>법인형태</th>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>법인설립일</th>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>출자출하조직여부</th>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>출자지수</th>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>출자자중 농업인수</th>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>출자금액(천원)</th>
+						</tr>
+						<tr>
+							<td colspan="2" class="td_input">
+							<sbux-select
+									id="1"
+									name="1"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+								</td>
+							<td colspan="2" class="td_input">
+							<sbux-select
+									id="2"
+									name="2"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+								</td>
+							<td colspan="2" class="td_input">
+							<sbux-select
+									id="3"
+									name="3"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+								</td>
+							<td colspan="2" class="td_input">
+							<sbux-select
+									id="4"
+									name="4"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+								</td>
+							<td colspan="2" class="td_input">
+							<sbux-select
+									id="5"
+									name="5"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+								</td>
+							<td colspan="2" class="td_input">
+							<sbux-select
+									id="6"
+									name="6"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+								</td>
+							<td colspan="2" class="td_input">
+							<sbux-select
+									id="7"
+									name="7"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+								</td>
+						</tr>
+						<tr>
+						<th colspan="12" style="text-align:center;" scope="row" class="th_bg">출자금세부현황</th>
+						<th rowspan="2" colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>농업인 출자 지분율</th>
+						</tr>
+						<tr>
+							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>농업인</th>
+							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>생산자단체</th>
+							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>지자체</th>
+							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>기타</th>
+						</tr>
+						<tr>
+							<td colspan="2"   style="border-right: hidden;">
+							<sbux-input
+									uitype="text"
+									id="11"
+									name="11"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td>천원</td>
+							<td colspan="2"   style="border-right: hidden;">
+							<sbux-input
+									uitype="text"
+									id="22"
+									name="22"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td>천원</td>
+							<td colspan="2"   style="border-right: hidden;">
+							<sbux-input
+									uitype="text"
+									id="33"
+									name="33"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td></td>
+							<td colspan="2"   style="border-right: hidden;">
+							<sbux-input
+									uitype="text"
+									id="44"
+									name="44"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td>천원</td>
+						</tr>
+						<tr>
+							<th colspan="14" scope="row" class="th_bg" style="text-align:center;">전체 종사자 수</th>
+						</tr>
+						<tr>
+							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>정규직</th>
+							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>파견직</th>
+							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>일용직</th>
+							<th colspan="5" scope="row" class="th_bg"><span class="data_required" ></span>합계</th>
+						</tr>
+						<tr>
+						<td colspan="2" style="border-right:hidden;">
+						<sbux-input
+									uitype="text"
+									id="55"
+									name="55"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+						</td>
+						<td>명</td>
+						<td colspan="2" style="border-right:hidden;">
+						<sbux-input
+									uitype="text"
+									id="66"
+									name="66"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+						</td>
+						<td>명</td>
+						<td colspan="2" style="border-right:hidden;">
+						<sbux-input
+									uitype="text"
+									id="77"
+									name="77"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+						</td>
+						<td>명</td>
+						<td colspan="4" style="border-right:hidden;">
+						<sbux-input
+									uitype="text"
+									id="88"
+									name="88"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+						</td>
+						<td>명</td>
+						</tr>
+						<tr>
+							<th colspan="7" scope="row" class="th_bg">대표자 정보</th>
+							<th colspan="8" scope="row" class="th_bg">작성자 정보</th>
+						</tr>
+						<tr>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>성명</th>
+							<td colspan="5">
+							<sbux-input
+									uitype="text"
+									id="10"
+									name="10"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+								</td>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>직위</th>
+							<td colspan="2">
+							<sbux-input
+									uitype="text"
+									id="11"
+									name="11"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+								</td>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>성명</th>
+							<td colspan="2">
+							<sbux-input
+									uitype="text"
+									id="12"
+									name="12"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+								</td>
+						</tr>
+						<tr>
+						<tr>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>전화번호</th>
+							<td colspan="5">
+							<sbux-input
+									uitype="text"
+									id="13"
+									name="13"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+								</td>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>전화번호</th>
+							<td colspan="6">
+							<sbux-input
+									uitype="text"
+									id="14"
+									name="14"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+								</td>
+						</tr>
+						<tr>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>핸드폰번호</th>
+							<td colspan="5">
+							<sbux-input
+									uitype="text"
+									id="15"
+									name="15"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+								</td>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>핸드폰번호</th>
+							<td colspan="6">
+							<sbux-input
+									uitype="text"
+									id="16"
+									name="16"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+								</td>
+						</tr>
+						<tr>
+							<th colspan="2" scope="row" class="th_bg">이메일주소</th>
+							<td colspan="5">
+							<sbux-input
+									uitype="text"
+									id=17
+									name="17"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+								</td>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>이메일주소</th>
+							<td colspan="6">
+							<sbux-input
+									uitype="text"
+									id="18"
+									name="18"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+								</td>
+						</tr>
+						<tr>
+							<th colspan="7" scope="row" class="th_bg">이메일주소</th>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>팩스번호</th>
+							<td colspan="6">
+							<sbux-input
+									uitype="text"
+									id="19"
+									name="19"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+								</td>
+						</tr>
+						<tr>
+							<th colspan="7" scope="row" class="th_bg">품목농협 지소 여부</th>
+							<td colspan="8">
+							<sbux-select
+									id="20"
+									name="20"
+									uitype="single"
+									jsondata-ref="jsonDSON"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+								</td>
+						</tr>
+
+					</tbody>
+				</table>
+
 			</div>
 				<!--[pp] //검색결과 -->
 		</div>
@@ -302,25 +778,9 @@
 		fn_init();
 
 		gfn_setComCdSBSelect(
-    			'dtl-slt-frstApprv',
-    			jsonDSFA,
-			'IOPD_COFM_CD');
-
-		gfn_setComCdSBSelect(
-    			'dtl-slt-scndApprv',
-    			jsonDSSA,
-			'IOPD_SED_COFM_CD');
-
-		gfn_setComCdSBSelect(
     			'dtl-slt-orgNm',
     			jsonDSON,
 			'IOPD_CMPTNT_ORG');
-
-		gfn_setComCdSBSelect(
-    			'dtl-slt-athrt',
-    			jsonDSA,
-			'IOPD_ATHRT');
-
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
 		for (let i = 0; i < elements.length; i++) {
