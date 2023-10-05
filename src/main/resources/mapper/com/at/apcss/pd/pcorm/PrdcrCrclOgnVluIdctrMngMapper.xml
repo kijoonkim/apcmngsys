@@ -33,6 +33,7 @@
 				, CM.GG
 				, CM.HH
 				, CM.II
+				, CM.II_CODE
 				, CM.JJ
 				, CM.KK
 				, CM.LL
@@ -84,12 +85,15 @@
 				, CM.AA
 				, CM.BB
 				, CM.CC
+				, CM.CC_CODE
 				, CM.DD
+				, CM.DD_CODE
 				, CM.EE
 				, CM.FF
 				, CM.GG
 				, CM.HH
 				, CM.II
+				, CM.II_CODE
 				, CM.JJ
 				, CM.KK
 				, CM.LL
@@ -132,12 +136,15 @@
 	    		  , AA
 	    		  , BB
 	    		  , CC
+	    		  , CC_CODE
 	    		  , DD
+	    		  , DD_CODE
 	    		  , EE
 	    		  , FF
 	    		  , GG
 	    		  , HH
 	    		  , II
+	    		  , II_CODE
 	    		  , JJ
 	    		  , KK
 	    		  , LL
@@ -168,12 +175,15 @@
 	   			  , #{aa}
 	   			  , #{bb}
 	   			  , #{cc}
+	   			  , #{ccCode}
 	   			  , #{dd}
+	   			  , #{ddCode}
 	   			  , #{ee}
 	   			  , #{ff}
 	   			  , #{gg}
 	   			  , #{hh}
 	   			  , #{ii}
+	   			  , #{iiCode}
 	   			  , #{jj}
 	   			  , #{kk}
 	   			  , #{ll}
@@ -208,12 +218,15 @@
 			 	  AA	= #{aa}
 			 	, BB 	= #{bb}
 			 	, CC 	= #{cc}
+			 	, CC_CODE 	= #{ccCode}
 			 	, DD 	= #{dd}
+			 	, DD_CODE 	= #{ddCode}
 			 	, EE 	= #{ee}
 			 	, FF 	= #{ff}
 			 	, GG 	= #{gg}
 			 	, HH 	= #{hh}
 			 	, II 	= #{ii}
+			 	, II_CODE 	= #{iiCode}
 			 	, JJ 	= #{jj}
 			 	, KK 	= #{kk}
 			 	, LL 	= #{ll}

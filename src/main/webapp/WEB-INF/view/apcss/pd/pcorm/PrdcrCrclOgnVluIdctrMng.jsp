@@ -184,17 +184,19 @@
 	    	{caption: ["일련번호"], 		ref: 'testNo',   	type:'input',  hidden : false},
 	    	{caption: ["구분"], 	ref: 'aa',   	type:'combo',  width:'100px',    style:'text-align:center;',
 				typeinfo : {ref:'jsonComFcltGubun', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-	        {caption: ["사업자등록번호"], 	ref: 'bb',   type:'input',  width:'250px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
+// 	        {caption: ["사업자등록번호"], 	ref: 'bb',   type:'input',  width:'250px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
+	        {caption: ["통합조직"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["사업자등록번호"], 	ref: 'iiCode',   	type:'input',  width:'80px',    style:'text-align:center' ,  editable : false},
 	        {caption: ["전문품목"], 		ref: 'cc',   type:'output',  width:'200px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
-	        {caption: ["전문품목 코드"], 	ref: 'ccCode',   	type:'input', hidden:true},
+	        {caption: ["전문품목 코드"], 	ref: 'ccCode',   	type:'input', width:'80px', style:'text-align:center' ,  editable : false},
 	        {caption: ["육성품목"], 	ref: 'dd',   	type:'output',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["육성품목 코드"], 	ref: 'ddCode',   	type:'input', hidden:true},
+	        {caption: ["육성품목 코드"], 	ref: 'ddCode',   	type:'input',width:'80px', style:'text-align:center' ,  editable : false},
 	        {caption: ["선정여부"], 	ref: 'ee',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["탈락사유"], 	ref: 'ff',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["신청액"], 	ref: 'gg',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["적용금리"], 	ref: 'hh',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["통합조직"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["통합조직 코드"], 	ref: 'iiCode',   	type:'input', hidden:true},
+// 	        {caption: ["통합조직"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
+// 	        {caption: ["통합조직 코드"], 	ref: 'iiCode',   	type:'input', hidden:true},
 	        /*
 	        {caption: ["통합조직"], 		ref: 'ii',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	console.log(strValue);
@@ -249,11 +251,15 @@
 				  , aa 		: item.aa
 				  , bb 		: item.bb
 				  , cc 	: item.cc
+				  , ccCode 	: item.ccCode
 				  , dd 	: item.dd
+				  , ddCode 	: item.ddCode
 				  , ee 		: item.ee
 				  , ff 		: item.ff
 				  , gg 		: item.gg
 				  , hh 		: item.hh
+				  , ii 		: item.ii
+				  , iiCode 		: item.iiCode
 				  , delYn 		: item.delYn
 				}
 				jsonPrdcrCrclOgnVluIdctrMng.push(prdcrCrclOgnVluIdctrMngVO);
@@ -295,10 +301,10 @@
 		            return;
 		  		}
 
-				if (gfn_isEmpty(bb)) {
+				/* if (gfn_isEmpty(bb)) {
 		  			gfn_comAlert("W0001", "설비구분");		//	W0001	{0}을/를 선택하세요.
 		            return;
-		  		}
+		  		} */
 
 				if (rowSts === 3){
 					rowData.rowSts = "I";
