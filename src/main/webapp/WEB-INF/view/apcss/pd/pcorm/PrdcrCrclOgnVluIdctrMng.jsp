@@ -236,10 +236,12 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_searchFcltList = async function(){
-		//let apcCd = SBUxMethod.get("inp-apcCd");
+		let ccCode = SBUxMethod.get("srch-inp-itemCd1");//전문품목
+		let iiCode = SBUxMethod.get("srch-inp-apcCd2");//통합조직
     	//let postJsonPromise = gfn_postJSON("/pd/pcorm/selectPrdcrCrclOgnVluIdctrMng.do", {apcCd : apcCd});
     	let postJsonPromise = gfn_postJSON("/pd/pcorm/selectPrdcrCrclOgnVluIdctrMngList.do", {
-	  		pagingYn : 'Y'
+    		 ccCode : ccCode
+    		,iiCode : iiCode
 		});
         let data = await postJsonPromise;
         try{
