@@ -69,7 +69,7 @@
 
 							<th scope="row" class="th_bg">창고구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComWarehouse"></sbux-select>
+								<sbux-select uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComWarehouse"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input"></td>
 
@@ -118,7 +118,7 @@
 								<sbux-select id="srch-slt-spcfct"
 									name="srch-slt-spcfct"
 									uitype="single"
-									unselected-text="선택"
+									unselected-text="전체"
 									class="form-control input-sm"
 									jsondata-ref="jsonComSpcfct"
 								></sbux-select>
@@ -200,7 +200,7 @@
 							</td>
 							<th scope="row" class="th_bg">운송회사</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="dtl-slt-trsprtCoCd" name="dtl-slt-trsprtCoCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComTrsprtCoCd"></sbux-select>
+								<sbux-select id="dtl-slt-trsprtCoCd" name="dtl-slt-trsprtCoCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComTrsprtCoCd"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
 						</tr>
@@ -307,8 +307,8 @@
 			}
 		}
 		SBUxMethod.set("srch-slt-itemCd", itemCd);
-		await gfn_setApcSpcfctsSBSelect('srch-slt-spcfct', 	jsonComSpcfct, 	gv_apcCd, itemCd)		// 포장구분
-		await gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 	jsonGrdSpmtPckgUnit, 	gv_apcCd, itemCd, vrtyCd),		// 포장구분
+		await gfn_setApcSpcfctsSBSelect('srch-slt-spcfct', 	jsonComSpcfct, 	gv_apcCd, itemCd)					// 규격
+		await gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 	jsonGrdSpmtPckgUnit, 	gv_apcCd, itemCd, vrtyCd),	// 포장구분
 		grdGdsInvntr.refresh({"combo":true})
 		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
 	}
@@ -534,11 +534,19 @@
 			let invntrWght = grdGdsInvntr.getRowData(nRow).invntrWght;
 			let spmtQntt = grdGdsInvntr.getRowData(nRow).spmtQntt;
 			let spmtWght = grdGdsInvntr.getRowData(nRow).spmtWght;
+			let cmndQntt = grdGdsInvntr.getRowData(nRow).cmndQntt;
+			let cmndWght = grdGdsInvntr.getRowData(nRow).cmndWght;
 
 
 			if((spmtQntt == 0 && spmtWght == 0) || (gfn_isEmpty(spmtQntt) && gfn_isEmpty(spmtWght))){
-				grdGdsInvntr.setCellData(nRow, 12, invntrQntt);
-				grdGdsInvntr.setCellData(nRow, 13, invntrWght);
+				if(cmndQntt > 0){
+					grdGdsInvntr.setCellData(nRow, 12, cmndQntt);
+					grdGdsInvntr.setCellData(nRow, 13, cmndWght);
+				}else{
+					grdGdsInvntr.setCellData(nRow, 12, invntrQntt);
+					grdGdsInvntr.setCellData(nRow, 13, invntrWght);
+				}
+
 			}
     	}
     }
