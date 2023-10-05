@@ -29,7 +29,7 @@
 							<tr>
 								<th scope="row" style="border-bottom:1px solid white " >APC명</th>
 								<td colspan= "3" class="td_input" style="border-right:hidden;">
-									<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
+									<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
 									<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
 								</td>
 								<td>
@@ -37,7 +37,7 @@
 								</td>
 								<th scope="row">대상연도</th>
 								<td class="td_input"  style="border-right: hidden;">
-									<sbux-input id="srch-inp-trgtYr" name="srch-inp-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+									<sbux-input id="srch-inp-trgtYr" name="srch-inp-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm" readonly></sbux-input>
 								</td>
 								<td colspan="5"></td>
 							</tr>
@@ -227,7 +227,42 @@
 		let date = new Date();
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
+		//SBUxMethod.set("inp-apcCd", gv_apcCd);
+		SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
+		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
+		selectFcltOperInfo();
 	})
+
+
+
+	const selectFcltOperInfo = async function(){
+		let date = new Date();
+		let apcCd = gv_apcCd;
+		let trgtYr  =  date.getFullYear();
+    	let postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltOperInfoList.do", {apcCd : apcCd, trgtYr : trgtYr });
+
+        let data = await postJsonPromise;
+        if(data.resultList.length > 0){
+			let resultVO = data.resultList[0];
+	        try{
+	        	SBUxMethod.set("srch-inp-opera1", resultVO.psnOgnzNm);
+	        	SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);
+// 	        	SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);
+// 	        	SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);
+// 	        	SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);
+// 	        	SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);
+// 	        	SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);
+// 	        	SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);
+	        }catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+        }
+	}
+
+
 	//등록
 	const fn_save = async function() {
     	console.log("******************fn_save**********************************");
@@ -293,6 +328,7 @@
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		alert("처리 되었습니다.");
+        		selectFcltOperInfo();
         		//fn_search();
         	} else {
         		alert(data.resultMessage);
