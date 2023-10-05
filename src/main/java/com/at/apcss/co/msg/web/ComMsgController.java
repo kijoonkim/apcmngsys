@@ -41,60 +41,56 @@ public class ComMsgController extends BaseController{
 	@Resource(name= "comMsgService")
 	private ComMsgService comMsgService;
 
-	@RequestMapping("/co/msg/msgMng.do")
-	public String doMsg() {
-		return "apcss/co/msg/comMsgMng";
-	}
-	
+
 	// 메시지 조회
 	@PostMapping(value = "/co/msg/selectComMsgList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody ComMsgVO comMsgVO, HttpServletRequest request) throws Exception{
-		
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<ComMsgVO> resultList = new ArrayList<>();
-		
+
 		try {
 			 resultList = comMsgService.selectComMsgList(comMsgVO);
-			 
+
 			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
 			 for (ComMsgVO msg : resultList ) {
 				 logger.debug("msgCn : {}", msg.getMsgCn());
 			 }
-			 
+
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		
+
 		return getSuccessResponseEntity(resultMap);
-	}	
-	
+	}
+
 	// 메시지 등록
 	@PostMapping(value = "/co/msg/insertComMsg.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertComMsg(@RequestBody ComMsgVO comMsgVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
-		
+
 		// audit 항목
 		comMsgVO.setSysFrstInptUserId(getUserId());
 		comMsgVO.setSysFrstInptPrgrmId(getPrgrmId());
 		comMsgVO.setSysLastChgUserId(getUserId());
 		comMsgVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int insertedCnt = 0;
-		
+
 		try {
 			insertedCnt = comMsgService.insertComMsg(comMsgVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -104,22 +100,22 @@ public class ComMsgController extends BaseController{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
-		
+
 		// audit 항목
 		comMsgVO.setSysLastChgUserId(getUserId());
 		comMsgVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int updatedCnt = 0;
-		
+
 		try {
 			updatedCnt = comMsgService.updateComMsg(comMsgVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -129,49 +125,49 @@ public class ComMsgController extends BaseController{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
-				
+
 		// audit 항목
 		comMsgVO.setSysLastChgUserId(getUserId());
 		comMsgVO.setSysLastChgPrgrmId(getPrgrmId());
-		
+
 		int deletedCnt = 0;
-		
+
 		try {
 			deletedCnt = comMsgService.deleteComMsg(comMsgVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 메시지 목록 삭제
 	@PostMapping(value = "/co/msg/deleteComMsgList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteComMsgList(@RequestBody List<ComMsgVO> comMsgList, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
-				
+
 		// audit 항목
 		for ( ComMsgVO comMsgVO : comMsgList ) {
 			comMsgVO.setSysLastChgUserId(getUserId());
 			comMsgVO.setSysLastChgPrgrmId(getPrgrmId());
 		}
-				
+
 		int deletedCnt = 0;
-		
+
 		try {
 			deletedCnt = comMsgService.deleteComMsgList(comMsgList);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
 }

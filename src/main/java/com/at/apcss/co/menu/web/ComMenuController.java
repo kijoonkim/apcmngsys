@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.at.apcss.co.constants.ComConstants;
@@ -26,10 +27,7 @@ import com.at.apcss.co.menu.vo.ComMenuVO;
 import com.at.apcss.co.menu.vo.ComUiJsonVO;
 import com.at.apcss.co.menu.vo.ComUiVO;
 import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.co.sys.vo.LoginVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import egovframework.com.cmm.util.EgovUserDetailsHelper;
 
 @Controller
 public class ComMenuController extends BaseController {
@@ -37,7 +35,7 @@ public class ComMenuController extends BaseController {
 	@Resource(name = "comMenuService")
 	private ComMenuService comMenuService;
 
-	@RequestMapping("/co/menu/openPage.do/{menuId}")
+	@RequestMapping(value = "/co/menu/openPage.do/{menuId}", method = RequestMethod.GET)
 	public String doOpenPage(Model model, @PathVariable String menuId, HttpServletRequest request) throws Exception {
 
 		String pageUrl = ComConstants.CON_BLANK;
@@ -69,10 +67,14 @@ public class ComMenuController extends BaseController {
 		} catch( Exception e) {
 		}
 
+
+//		if ("AM_003_002".equals(menuId)) {
+//			return "apcss/am/sort/sortPrfmnc";
+//		}
 		return "apcss/" + pageUrl;
 	}
 
-	@RequestMapping("/report/openClipReport.do")
+	@RequestMapping(value="/report/openClipReport.do", method = RequestMethod.GET)
 	public String doOpenClipReport(Model model, @RequestParam String title, HttpServletRequest request) throws Exception {
 
 		try {
@@ -103,6 +105,15 @@ public class ComMenuController extends BaseController {
 		return "apcss/am/popup/openClipReportPopup";
 	}
 
+	@RequestMapping(value="/report/serverTo.do", method = RequestMethod.POST)
+	public String doServerTo(Model model, HttpServletRequest request) throws Exception {
+		return "apcss/am/popup/report_serverTo";
+	}
+
+	@RequestMapping(value="/report/reportTo.do", method = RequestMethod.POST)
+	public String doReportTo(Model model, HttpServletRequest request) throws Exception {
+		return "apcss/am/popup/reportTo";
+	}
 
 
 	// 메뉴 목록 조회

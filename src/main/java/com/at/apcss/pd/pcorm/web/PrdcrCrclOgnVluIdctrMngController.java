@@ -11,18 +11,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.at.apcss.am.apc.service.ApcEvrmntStngService;
-import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.fm.dashboard.service.DashboardService;
-import com.at.apcss.fm.dashboard.vo.DashboardVO;
-import com.at.apcss.fm.fclt.service.FcltOperInfoClctAgreInfoService;
-import com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO;
 import com.at.apcss.pd.pcorm.service.PrdcrCrclOgnVluIdctrMngService;
 import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO;
 
@@ -33,7 +28,7 @@ public class PrdcrCrclOgnVluIdctrMngController extends BaseController{
 	private PrdcrCrclOgnVluIdctrMngService prdcrCrclOgnVluIdctrMngService;
 
 //화면이동
-	@RequestMapping(value = "/pd/pcorm/PrdcrCrclOgnVluIdctrMng.do")
+	@GetMapping(value = "/pd/pcorm/PrdcrCrclOgnVluIdctrMng.do")
 	public String PrdcrCrclOgnVluIdctrMng() {
 		return "apcss/pd/pcorm/PrdcrCrclOgnVluIdctrMng";
 	}
@@ -112,7 +107,7 @@ public class PrdcrCrclOgnVluIdctrMngController extends BaseController{
 
 			int result = 0;
 			try {
-				result =+ prdcrCrclOgnVluIdctrMngService.deletePrdcrCrclOgnVluIdctrMng(prdcrCrclOgnVluIdctrMngVO);
+				result += prdcrCrclOgnVluIdctrMngService.deletePrdcrCrclOgnVluIdctrMng(prdcrCrclOgnVluIdctrMngVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}

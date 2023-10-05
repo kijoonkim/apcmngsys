@@ -151,7 +151,7 @@ public class StdGrdServiceImpl implements StdGrdService {
 		String errMsg = cmnsValidationService.selectChkCdDelible(stdGrdVO.getApcCd(), "GRD_KND", stdGrdVO.getGrdKnd());
 
 		if(errMsg == null ) {
-			deletedCnt =+ stdGrdMapper.deleteStdGrd(stdGrdVO);
+			deletedCnt += stdGrdMapper.deleteStdGrd(stdGrdVO);
 			resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 		}else {
 			resultMap.put("errMsg", errMsg);
