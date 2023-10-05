@@ -40,13 +40,7 @@ public class ClclnPrfmncController extends BaseController {
 	// 정산실적조회
 	@Resource(name = "clclnPrfmncService")
 	private ClclnPrfmncService clclnPrfmncService;
-	
-	// 정산실적조회
-	@RequestMapping(value = "/am/clcln/clclnPrfmnc.do")
-	public String doClclnPrfmnc() {
-		return "apcss/am/clcln/clclnPrfmnc";
-	}
-	
+
 	// 정산실적 조회
 	@PostMapping(value = "/am/clcln/selectClclnPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectClclnPrfmncList(@RequestBody ClclnPrfmncVO ClclnPrfmncVO, HttpServletRequest request) throws Exception {
@@ -64,10 +58,5 @@ public class ClclnPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 정산자료등록
-	@RequestMapping(value = "/am/clcln/regClclnPrfmnc.do")
-	public String doRegFormClclnPrfmnc() {
-		return "apcss/am/clcln/regClclnPrfmnc";
-	}
 }
 

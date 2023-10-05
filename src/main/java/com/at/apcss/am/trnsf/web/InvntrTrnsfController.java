@@ -1,8 +1,6 @@
 package com.at.apcss.am.trnsf.web;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -22,17 +20,5 @@ import com.at.apcss.co.sys.controller.BaseController;
  */
 @Controller
 public class InvntrTrnsfController extends BaseController {
-
-	// 재고이송등록
-	@RequestMapping(value = "/am/trnsf/regInvntrTrnsf.do")
-	public String doRegFormInvntrTrnsf() {
-		return "apcss/am/trnsf/regInvntrTrnsf";
-	}
-
-	// 재고이송조회
-	@RequestMapping(value = "/am/trnsf/invntrTrnsf.do")
-	public String doInvntrTrnsf() {
-		return "apcss/am/trnsf/invntrTrnsf";
-	}
 
 }

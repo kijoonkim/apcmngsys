@@ -1,11 +1,15 @@
 package com.at.apcss.co.menu.vo;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ComApcJsonVO {
+public class ComApcJsonVO implements Serializable {
+
+	private static final long serialVersionUID = -3721801760237359425L;
 
 	private String apcCd;
 	private String apcNm;

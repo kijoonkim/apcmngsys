@@ -12,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.at.apcss.co.log.service.ComLogService;
 import com.at.apcss.co.log.vo.ComLogVO;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -36,17 +34,12 @@ import com.at.apcss.co.constants.ComConstants;
  */
 @Controller
 public class ComLogController extends BaseController {
-	
+
 	// 이력조회
 	@Resource(name = "comLogService")
 	private ComLogService comLogService;
-	
-	// 이력조회
-	@RequestMapping(value = "/co/log/comLogHstry.do")
-	public String doComLogHstry() {
-		return "apcss/co/log/comLogHstry";
-	}
-	
+
+
 	// 접속이력 조회
 	@PostMapping(value = "/co/log/selectCntnHstryList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectCntnHstryList(@RequestBody ComLogVO comLogVO, HttpServletRequest request) throws Exception {
@@ -63,7 +56,7 @@ public class ComLogController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-		
+
 	// 화면열람이력 조회
 	@PostMapping(value = "/co/log/selectMenuHstryList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectMenuHstryList(@RequestBody ComLogVO comLogVO, HttpServletRequest request) throws Exception {
@@ -80,7 +73,7 @@ public class ComLogController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 송수신이력 조회
 	@PostMapping(value = "/co/log/selectTrsmHstryList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectTrsmHstryList(@RequestBody ComLogVO comLogVO, HttpServletRequest request) throws Exception {
@@ -97,7 +90,7 @@ public class ComLogController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 배치실행이력 조회
 	@PostMapping(value = "/co/log/selectBatchHstryList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectBatchHstryList(@RequestBody ComLogVO comLogVO, HttpServletRequest request) throws Exception {

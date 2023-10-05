@@ -26,8 +26,11 @@ import org.apache.poi.xssf.usermodel.extensions.XSSFCellBorder.BorderSide;
 import org.json.simple.parser.ContainerFactory;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.yaml.snakeyaml.constructor.BaseConstructor;
 
 import com.softbowl.poi.LZString;
@@ -38,8 +41,9 @@ import com.tmax.tibero.Debug;
 @Controller
 public class ExcelController extends BaseConstructor{
 
-	@SuppressWarnings({ "unchecked", "unused" })
-	@RequestMapping(value= "/saveExcel.do")
+	public final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@RequestMapping(value= "/saveExcel.do", method = RequestMethod.POST)
 	public void SBExcelSave(HttpServletRequest request, HttpServletResponse response) throws Exception{
 
 		Debug.log("호출 ??? ");
@@ -250,7 +254,7 @@ public class ExcelController extends BaseConstructor{
 		        			cellStyleData0.setBorderColor(BorderSide.RIGHT, cHeader);
 		        			cellStyleData0.setBorderColor(BorderSide.BOTTOM, cHeader);
 		        		}
-		        		if(j>1&&cell0.getCellType()==1){
+		        		if(j>1&&cell0.getCellType()==1 && cellStyleData0 != null){
 		        			cellStyleData0.setDataFormat(workbook.createDataFormat().getFormat("#,##0"));
 		        			Double temp0 = Double.parseDouble(cell0.getStringCellValue());
 		        			cell0.setCellStyle(cellStyleData0);
@@ -398,7 +402,7 @@ public class ExcelController extends BaseConstructor{
 		            			cellStyleData.setBorderColor(BorderSide.BOTTOM, cHeader);
 	            			 }
 
-	 	            		if(j>1&&cell.getCellType()==1){
+	 	            		if(j>1&&cell.getCellType()==1 && cellStyleData != null){
 		            			cellStyleData.setDataFormat(workbook.createDataFormat().getFormat("#,##0"));
 
 	            				Double temp = Double.parseDouble(cell.getStringCellValue());
@@ -463,16 +467,18 @@ public class ExcelController extends BaseConstructor{
 			excel.clear();
 
 		} catch (ParseException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.error(e.getMessage());
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.error(e.getMessage());
 		} catch (IOException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 	};
 
-	@SuppressWarnings({ "unchecked", "unused" })
-	@RequestMapping(value= "/am/excel/saveMultiExcel")
+	@RequestMapping(value= "/am/excel/saveMultiExcel", method = RequestMethod.POST)
 	public void saveMultiExcel(HttpServletRequest request, HttpServletResponse response) throws Exception{
 
 		boolean bCompressMode = false;
@@ -675,7 +681,7 @@ public class ExcelController extends BaseConstructor{
 		        			//cellStyleData0.setBorderColor(BorderSide.BOTTOM, cHeader);
 		        		}
 
-		        		if ( j > 1 && cell0.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+		        		if ( j > 1 && cell0.getCellType() == Cell.CELL_TYPE_NUMERIC && cellStyleData0 != null) {
 		        			cellStyleData0.setDataFormat(workbook.createDataFormat().getFormat("#,##0"));
 		        			cell0.setCellStyle(cellStyleData0);
 		        		}
@@ -795,7 +801,7 @@ public class ExcelController extends BaseConstructor{
 	        				   cellStyleData.setBorderColor(BorderSide.BOTTOM, cHeader);
 	        			   }
 
-	        			   if (j > 1 && cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+	        			   if (j > 1 && cell.getCellType() == Cell.CELL_TYPE_NUMERIC && cellStyleData != null) {
 	        				   cellStyleData.setDataFormat(workbook.createDataFormat().getFormat("#,###"));
 	        			   }
 
@@ -824,11 +830,14 @@ public class ExcelController extends BaseConstructor{
 	       excel.clear();
 
 		} catch (ParseException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.error(e.getMessage());
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.error(e.getMessage());
 		} catch (IOException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 	};
 

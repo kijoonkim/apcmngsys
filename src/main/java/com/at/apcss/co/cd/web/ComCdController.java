@@ -53,7 +53,7 @@ public class ComCdController extends BaseController {
 				comCdVO.setSysFrstInptUserId(getUserId());
 				comCdVO.setSysLastChgPrgrmId(getPrgrmId());
 				comCdVO.setSysLastChgUserId(getUserId());
-				result =+ comCdService.insertComCd(comCdVO);
+				result += comCdService.insertComCd(comCdVO);
 			}
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -76,7 +76,7 @@ public class ComCdController extends BaseController {
 			for (ComCdVO comCdVO : comCdList) {
 				comCdVO.setSysLastChgPrgrmId(getPrgrmId());
 				comCdVO.setSysLastChgUserId(getUserId());
-				result =+ comCdService.updateComCd(comCdVO);
+				result += comCdService.updateComCd(comCdVO);
 			}
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -96,7 +96,7 @@ public class ComCdController extends BaseController {
 		int result = 0;
 		try {
 			for (ComCdVO comCdVO : comCdList) {
-				result =+ comCdService.deleteComCd(comCdVO);
+				result += comCdService.deleteComCd(comCdVO);
 			}
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -120,7 +120,7 @@ public class ComCdController extends BaseController {
 				comCdVO.setSysFrstInptUserId(getUserId());
 				comCdVO.setSysLastChgPrgrmId(getPrgrmId());
 				comCdVO.setSysLastChgUserId(getUserId());
-				result =+ comCdService.insertComCdDtl(comCdVO);
+				result += comCdService.insertComCdDtl(comCdVO);
 			}
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -142,7 +142,7 @@ public class ComCdController extends BaseController {
 			for (ComCdVO comCdVO : comCdList) {
 				comCdVO.setSysLastChgPrgrmId(getPrgrmId());
 				comCdVO.setSysLastChgUserId(getUserId());
-				result =+ comCdService.updateComCdDtl(comCdVO);
+				result += comCdService.updateComCdDtl(comCdVO);
 			}
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -162,7 +162,7 @@ public class ComCdController extends BaseController {
 		int result = 0;
 		try {
 			for (ComCdVO comCdVO : comCdList) {
-				result =+ comCdService.deleteComCdDtl(comCdVO);
+				result += comCdService.deleteComCdDtl(comCdVO);
 			}
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -180,7 +180,7 @@ public class ComCdController extends BaseController {
 
 		int result = 0;
 		try {
-			result =+ comCdService.deleteComCdDtl(comCdVO);
+			result += comCdService.deleteComCdDtl(comCdVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

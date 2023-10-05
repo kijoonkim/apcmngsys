@@ -3,6 +3,7 @@ package com.at.apcss.co.publishing.web;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
@@ -14,554 +15,554 @@ public class PublishingPdController extends BaseController{
 	@Resource(name = "apcEvrmntStngService")
 	private ApcEvrmntStngService apcEvrmntStngService;
 
-	@RequestMapping(value = "/co/publishingPd/pd01.do")
+	@GetMapping(value = "/co/publishingPd/pd01.do")
 	public String pd01() {
 		return "apcss/co/publishingPd/pd01";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd02.do")
+	@GetMapping(value = "/co/publishingPd/pd02.do")
 	public String pd02() {
 		return "apcss/co/publishingPd/pd02";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd03.do")
+	@GetMapping(value = "/co/publishingPd/pd03.do")
 	public String pd03() {
 		return "apcss/co/publishingPd/pd03";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd04.do")
+	@GetMapping(value = "/co/publishingPd/pd04.do")
 	public String pd04() {
 		return "apcss/co/publishingPd/pd04";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd05.do")
+	@GetMapping(value = "/co/publishingPd/pd05.do")
 	public String pd05() {
 		return "apcss/co/publishingPd/pd05";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd06.do")
+	@GetMapping(value = "/co/publishingPd/pd06.do")
 	public String pd06() {
 		return "apcss/co/publishingPd/pd06";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd07.do")
+	@GetMapping(value = "/co/publishingPd/pd07.do")
 	public String pd07() {
 		return "apcss/co/publishingPd/pd07";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd08.do")
+	@GetMapping(value = "/co/publishingPd/pd08.do")
 	public String pd08() {
 		return "apcss/co/publishingPd/pd08";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd09.do")
+	@GetMapping(value = "/co/publishingPd/pd09.do")
 	public String pd09() {
 		return "apcss/co/publishingPd/pd09";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd10.do")
+	@GetMapping(value = "/co/publishingPd/pd10.do")
 	public String pd10() {
 		return "apcss/co/publishingPd/pd10";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd11.do")
+	@GetMapping(value = "/co/publishingPd/pd11.do")
 	public String pd11() {
 		return "apcss/co/publishingPd/pd11";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd12.do")
+	@GetMapping(value = "/co/publishingPd/pd12.do")
 	public String pd12() {
 		return "apcss/co/publishingPd/pd12";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd13.do")
+	@GetMapping(value = "/co/publishingPd/pd13.do")
 	public String pd13() {
 		return "apcss/co/publishingPd/pd13";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd14.do")
+	@GetMapping(value = "/co/publishingPd/pd14.do")
 	public String pd14() {
 		return "apcss/co/publishingPd/pd14";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd15.do")
+	@GetMapping(value = "/co/publishingPd/pd15.do")
 	public String pd15() {
 		return "apcss/co/publishingPd/pd15";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd16.do")
+	@GetMapping(value = "/co/publishingPd/pd16.do")
 	public String pd16() {
 		return "apcss/co/publishingPd/pd16";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd17.do")
+	@GetMapping(value = "/co/publishingPd/pd17.do")
 	public String pd17() {
 		return "apcss/co/publishingPd/pd17";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd18.do")
+	@GetMapping(value = "/co/publishingPd/pd18.do")
 	public String pd18() {
 		return "apcss/co/publishingPd/pd18";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd19.do")
+	@GetMapping(value = "/co/publishingPd/pd19.do")
 	public String pd19() {
 		return "apcss/co/publishingPd/pd19";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd20.do")
+	@GetMapping(value = "/co/publishingPd/pd20.do")
 	public String pd20() {
 		return "apcss/co/publishingPd/pd20";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd21.do")
+	@GetMapping(value = "/co/publishingPd/pd21.do")
 	public String pd21() {
 		return "apcss/co/publishingPd/pd21";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd22.do")
+	@GetMapping(value = "/co/publishingPd/pd22.do")
 	public String pd22() {
 		return "apcss/co/publishingPd/pd22";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd23.do")
+	@GetMapping(value = "/co/publishingPd/pd23.do")
 	public String pd23() {
 		return "apcss/co/publishingPd/pd23";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd24.do")
+	@GetMapping(value = "/co/publishingPd/pd24.do")
 	public String pd24() {
 		return "apcss/co/publishingPd/pd24";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd25.do")
+	@GetMapping(value = "/co/publishingPd/pd25.do")
 	public String pd25() {
 		return "apcss/co/publishingPd/pd25";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd26.do")
+	@GetMapping(value = "/co/publishingPd/pd26.do")
 	public String pd26() {
 		return "apcss/co/publishingPd/pd26";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd27.do")
+	@GetMapping(value = "/co/publishingPd/pd27.do")
 	public String pd27() {
 		return "apcss/co/publishingPd/pd27";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd28.do")
+	@GetMapping(value = "/co/publishingPd/pd28.do")
 	public String pd28() {
 		return "apcss/co/publishingPd/pd28";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd29.do")
+	@GetMapping(value = "/co/publishingPd/pd29.do")
 	public String pd29() {
 		return "apcss/co/publishingPd/pd29";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd30.do")
+	@GetMapping(value = "/co/publishingPd/pd30.do")
 	public String pd30() {
 		return "apcss/co/publishingPd/pd30";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd31.do")
+	@GetMapping(value = "/co/publishingPd/pd31.do")
 	public String pd31() {
 		return "apcss/co/publishingPd/pd31";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd32.do")
+	@GetMapping(value = "/co/publishingPd/pd32.do")
 	public String pd32() {
 		return "apcss/co/publishingPd/pd32";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd33.do")
+	@GetMapping(value = "/co/publishingPd/pd33.do")
 	public String pd33() {
 		return "apcss/co/publishingPd/pd33";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd34.do")
+	@GetMapping(value = "/co/publishingPd/pd34.do")
 	public String pd34() {
 		return "apcss/co/publishingPd/pd34";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd35.do")
+	@GetMapping(value = "/co/publishingPd/pd35.do")
 	public String pd35() {
 		return "apcss/co/publishingPd/pd35";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd36.do")
+	@GetMapping(value = "/co/publishingPd/pd36.do")
 	public String pd36() {
 		return "apcss/co/publishingPd/pd36";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd37.do")
+	@GetMapping(value = "/co/publishingPd/pd37.do")
 	public String pd37() {
 		return "apcss/co/publishingPd/pd37";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd38.do")
+	@GetMapping(value = "/co/publishingPd/pd38.do")
 	public String pd38() {
 		return "apcss/co/publishingPd/pd38";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd39.do")
+	@GetMapping(value = "/co/publishingPd/pd39.do")
 	public String pd39() {
 		return "apcss/co/publishingPd/pd39";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd40.do")
+	@GetMapping(value = "/co/publishingPd/pd40.do")
 	public String pd40() {
 		return "apcss/co/publishingPd/pd40";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd41.do")
+	@GetMapping(value = "/co/publishingPd/pd41.do")
 	public String pd41() {
 		return "apcss/co/publishingPd/pd41";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd41_1.do")
+	@GetMapping(value = "/co/publishingPd/pd41_1.do")
 	public String pd41_1() {
 		return "apcss/co/publishingPd/pd41_1";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd41_2.do")
+	@GetMapping(value = "/co/publishingPd/pd41_2.do")
 	public String pd41_2() {
 		return "apcss/co/publishingPd/pd41_2";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd41_3.do")
+	@GetMapping(value = "/co/publishingPd/pd41_3.do")
 	public String pd41_3() {
 		return "apcss/co/publishingPd/pd41_3";
 	}
 
 
 
-	@RequestMapping(value = "/co/publishingPd/pd42.do")
+	@GetMapping(value = "/co/publishingPd/pd42.do")
 	public String pd42() {
 		return "apcss/co/publishingPd/pd42";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd42_1.do")
+	@GetMapping(value = "/co/publishingPd/pd42_1.do")
 	public String pd42_1() {
 		return "apcss/co/publishingPd/pd42_1";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd42_2.do")
+	@GetMapping(value = "/co/publishingPd/pd42_2.do")
 	public String pd42_2() {
 		return "apcss/co/publishingPd/pd42_2";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd42_3.do")
+	@GetMapping(value = "/co/publishingPd/pd42_3.do")
 	public String pd42_3() {
 		return "apcss/co/publishingPd/pd42_3";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd43.do")
+	@GetMapping(value = "/co/publishingPd/pd43.do")
 	public String pd43() {
 		return "apcss/co/publishingPd/pd43";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd44.do")
+	@GetMapping(value = "/co/publishingPd/pd44.do")
 	public String pd44() {
 		return "apcss/co/publishingPd/pd44";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd45.do")
+	@GetMapping(value = "/co/publishingPd/pd45.do")
 	public String pd45() {
 		return "apcss/co/publishingPd/pd45";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd46.do")
+	@GetMapping(value = "/co/publishingPd/pd46.do")
 	public String pd46() {
 		return "apcss/co/publishingPd/pd46";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd47.do")
+	@GetMapping(value = "/co/publishingPd/pd47.do")
 	public String pd47() {
 		return "apcss/co/publishingPd/pd47";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd48.do")
+	@GetMapping(value = "/co/publishingPd/pd48.do")
 	public String pd48() {
 		return "apcss/co/publishingPd/pd48";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd49.do")
+	@GetMapping(value = "/co/publishingPd/pd49.do")
 	public String pd49() {
 		return "apcss/co/publishingPd/pd49";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd50.do")
+	@GetMapping(value = "/co/publishingPd/pd50.do")
 	public String pd50() {
 		return "apcss/co/publishingPd/pd50";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd51.do")
+	@GetMapping(value = "/co/publishingPd/pd51.do")
 	public String pd51() {
 		return "apcss/co/publishingPd/pd51";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd52.do")
+	@GetMapping(value = "/co/publishingPd/pd52.do")
 	public String pd52() {
 		return "apcss/co/publishingPd/pd52";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd53.do")
+	@GetMapping(value = "/co/publishingPd/pd53.do")
 	public String pd53() {
 		return "apcss/co/publishingPd/pd53";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd54.do")
+	@GetMapping(value = "/co/publishingPd/pd54.do")
 	public String pd54() {
 		return "apcss/co/publishingPd/pd54";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd55.do")
+	@GetMapping(value = "/co/publishingPd/pd55.do")
 	public String pd55() {
 		return "apcss/co/publishingPd/pd55";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd56.do")
+	@GetMapping(value = "/co/publishingPd/pd56.do")
 	public String pd56() {
 		return "apcss/co/publishingPd/pd56";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd57.do")
+	@GetMapping(value = "/co/publishingPd/pd57.do")
 	public String pd57() {
 		return "apcss/co/publishingPd/pd57";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd58.do")
+	@GetMapping(value = "/co/publishingPd/pd58.do")
 	public String pd58() {
 		return "apcss/co/publishingPd/pd58";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd59.do")
+	@GetMapping(value = "/co/publishingPd/pd59.do")
 	public String pd59() {
 		return "apcss/co/publishingPd/pd59";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd60.do")
+	@GetMapping(value = "/co/publishingPd/pd60.do")
 	public String pd60() {
 		return "apcss/co/publishingPd/pd60";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd61.do")
+	@GetMapping(value = "/co/publishingPd/pd61.do")
 	public String pd61() {
 		return "apcss/co/publishingPd/pd61";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd62.do")
+	@GetMapping(value = "/co/publishingPd/pd62.do")
 	public String pd62() {
 		return "apcss/co/publishingPd/pd62";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd63.do")
+	@GetMapping(value = "/co/publishingPd/pd63.do")
 	public String pd63() {
 		return "apcss/co/publishingPd/pd63";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd64.do")
+	@GetMapping(value = "/co/publishingPd/pd64.do")
 	public String pd64() {
 		return "apcss/co/publishingPd/pd64";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd65.do")
+	@GetMapping(value = "/co/publishingPd/pd65.do")
 	public String pd65() {
 		return "apcss/co/publishingPd/pd65";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd66.do")
+	@GetMapping(value = "/co/publishingPd/pd66.do")
 	public String pd66() {
 		return "apcss/co/publishingPd/pd66";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd67.do")
+	@GetMapping(value = "/co/publishingPd/pd67.do")
 	public String pd67() {
 		return "apcss/co/publishingPd/pd67";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd68.do")
+	@GetMapping(value = "/co/publishingPd/pd68.do")
 	public String pd68() {
 		return "apcss/co/publishingPd/pd68";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd68_1.do")
+	@GetMapping(value = "/co/publishingPd/pd68_1.do")
 	public String pd68_1() {
 		return "apcss/co/publishingPd/pd68_1";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd68_2.do")
+	@GetMapping(value = "/co/publishingPd/pd68_2.do")
 	public String pd68_2() {
 		return "apcss/co/publishingPd/pd68_2";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd68_3.do")
+	@GetMapping(value = "/co/publishingPd/pd68_3.do")
 	public String pd68_3() {
 		return "apcss/co/publishingPd/pd68_3";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd69.do")
+	@GetMapping(value = "/co/publishingPd/pd69.do")
 	public String pd69() {
 		return "apcss/co/publishingPd/pd69";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd70.do")
+	@GetMapping(value = "/co/publishingPd/pd70.do")
 	public String pd70() {
 		return "apcss/co/publishingPd/pd70";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd71.do")
+	@GetMapping(value = "/co/publishingPd/pd71.do")
 	public String pd71() {
 		return "apcss/co/publishingPd/pd71";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd72.do")
+	@GetMapping(value = "/co/publishingPd/pd72.do")
 	public String pd72() {
 		return "apcss/co/publishingPd/pd72";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd73.do")
+	@GetMapping(value = "/co/publishingPd/pd73.do")
 	public String pd73() {
 		return "apcss/co/publishingPd/pd73";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd74.do")
+	@GetMapping(value = "/co/publishingPd/pd74.do")
 	public String pd74() {
 		return "apcss/co/publishingPd/pd74";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd75.do")
+	@GetMapping(value = "/co/publishingPd/pd75.do")
 	public String pd75() {
 		return "apcss/co/publishingPd/pd75";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd76.do")
+	@GetMapping(value = "/co/publishingPd/pd76.do")
 	public String pd76() {
 		return "apcss/co/publishingPd/pd76";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd77.do")
+	@GetMapping(value = "/co/publishingPd/pd77.do")
 	public String pd77() {
 		return "apcss/co/publishingPd/pd77";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd78.do")
+	@GetMapping(value = "/co/publishingPd/pd78.do")
 	public String pd78() {
 		return "apcss/co/publishingPd/pd78";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd79.do")
+	@GetMapping(value = "/co/publishingPd/pd79.do")
 	public String pd79() {
 		return "apcss/co/publishingPd/pd79";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd80.do")
+	@GetMapping(value = "/co/publishingPd/pd80.do")
 	public String pd80() {
 		return "apcss/co/publishingPd/pd80";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd81.do")
+	@GetMapping(value = "/co/publishingPd/pd81.do")
 	public String pd81() {
 		return "apcss/co/publishingPd/pd81";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd82.do")
+	@GetMapping(value = "/co/publishingPd/pd82.do")
 	public String pd82() {
 		return "apcss/co/publishingPd/pd82";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd83.do")
+	@GetMapping(value = "/co/publishingPd/pd83.do")
 	public String pd83() {
 		return "apcss/co/publishingPd/pd83";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd84.do")
+	@GetMapping(value = "/co/publishingPd/pd84.do")
 	public String pd84() {
 		return "apcss/co/publishingPd/pd84";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd85.do")
+	@GetMapping(value = "/co/publishingPd/pd85.do")
 	public String pd85() {
 		return "apcss/co/publishingPd/pd85";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd86.do")
+	@GetMapping(value = "/co/publishingPd/pd86.do")
 	public String pd86() {
 		return "apcss/co/publishingPd/pd86";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd87.do")
+	@GetMapping(value = "/co/publishingPd/pd87.do")
 	public String pd87() {
 		return "apcss/co/publishingPd/pd87";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd88.do")
+	@GetMapping(value = "/co/publishingPd/pd88.do")
 	public String pd88() {
 		return "apcss/co/publishingPd/pd88";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd89.do")
+	@GetMapping(value = "/co/publishingPd/pd89.do")
 	public String pd89() {
 		return "apcss/co/publishingPd/pd89";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd90.do")
+	@GetMapping(value = "/co/publishingPd/pd90.do")
 	public String pd90() {
 		return "apcss/co/publishingPd/pd90";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd91.do")
+	@GetMapping(value = "/co/publishingPd/pd91.do")
 	public String pd91() {
 		return "apcss/co/publishingPd/pd91";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd92.do")
+	@GetMapping(value = "/co/publishingPd/pd92.do")
 	public String pd92() {
 		return "apcss/co/publishingPd/pd92";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd93.do")
+	@GetMapping(value = "/co/publishingPd/pd93.do")
 	public String pd93() {
 		return "apcss/co/publishingPd/pd93";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd94.do")
+	@GetMapping(value = "/co/publishingPd/pd94.do")
 	public String pd94() {
 		return "apcss/co/publishingPd/pd94";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd95.do")
+	@GetMapping(value = "/co/publishingPd/pd95.do")
 	public String pd95() {
 		return "apcss/co/publishingPd/pd95";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd96.do")
+	@GetMapping(value = "/co/publishingPd/pd96.do")
 	public String pd96() {
 		return "apcss/co/publishingPd/pd96";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd97.do")
+	@GetMapping(value = "/co/publishingPd/pd97.do")
 	public String pd97() {
 		return "apcss/co/publishingPd/pd97";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd98.do")
+	@GetMapping(value = "/co/publishingPd/pd98.do")
 	public String pd98() {
 		return "apcss/co/publishingPd/pd98";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd99.do")
+	@GetMapping(value = "/co/publishingPd/pd99.do")
 	public String pd99() {
 		return "apcss/co/publishingPd/pd99";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/pd100.do")
+	@GetMapping(value = "/co/publishingPd/pd100.do")
 	public String pd100() {
 		return "apcss/co/publishingPd/pd100";
 	}
 
-	@RequestMapping(value = "/co/publishingPd/ui_guide.do")
+	@GetMapping(value = "/co/publishingPd/ui_guide.do")
 	public String ui_guide() {
 		return "apcss/co/publishingPd/ui_guide";
 	}

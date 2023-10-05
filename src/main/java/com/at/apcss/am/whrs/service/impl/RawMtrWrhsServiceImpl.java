@@ -20,7 +20,6 @@ import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper;
 import com.at.apcss.am.whrs.service.RawMtrWrhsService;
 import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
-import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
@@ -94,13 +93,8 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 			rawMtrWrhsVO.setPltno(wrhsno);
 		}
 
-		int insertedCnt = 0;
 		if (needsWrhsInsert) {
 			rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
-		}
-
-		if (insertedCnt != 0) {
-
 		}
 
 		RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();

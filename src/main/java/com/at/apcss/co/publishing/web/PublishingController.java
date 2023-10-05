@@ -1,16 +1,12 @@
 package com.at.apcss.co.publishing.web;
 
-import javax.annotation.Resource;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.at.apcss.am.apc.service.ApcEvrmntStngService;
 import com.at.apcss.co.sys.controller.BaseController;
 
 @Controller
 public class PublishingController extends BaseController{
 
+	/*
 	@Resource(name = "apcEvrmntStngService")
 	private ApcEvrmntStngService apcEvrmntStngService;
 
@@ -944,7 +940,7 @@ public class PublishingController extends BaseController{
 
 
 
-
+	*/
 
 
 

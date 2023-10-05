@@ -1,8 +1,6 @@
 package com.at.apcss.am.pckg.web;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -23,9 +21,4 @@ import com.at.apcss.co.sys.controller.BaseController;
 @Controller
 public class PckgInptController extends BaseController {
 
-	// 상품코드조회
-	@RequestMapping(value = "/am/pckg/gdsCd.do")
-	public String doGdsCd() {
-		return "apcss/am/pckg/gdsCd";
-	}
 }

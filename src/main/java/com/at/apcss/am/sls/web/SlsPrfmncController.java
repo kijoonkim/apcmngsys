@@ -12,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.at.apcss.am.sls.service.SlsPrfmncService;
 import com.at.apcss.am.sls.vo.SlsPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -40,12 +38,7 @@ public class SlsPrfmncController extends BaseController {
 	// 매출실적조회
 	@Resource(name = "slsPrfmncService")
 	private SlsPrfmncService slsPrfmncService;
-	
-	// 매출조회
-	@RequestMapping(value = "/am/sls/slsPrfmnc.do")
-	public String doSlsPrfmnc() {
-		return "apcss/am/sls/slsPrfmnc";
-	}
+
 
 	// 매출실적 조회
 	@PostMapping(value = "/am/sls/selectSlsPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
@@ -63,10 +56,5 @@ public class SlsPrfmncController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	// 매출등록
-	@RequestMapping(value = "/am/sls/regSlsPrfmnc.do")
-	public String doRegFormSlsPrfmnc() {
-		return "apcss/am/sls/regSlsPrfmnc";
-	}
+
 }

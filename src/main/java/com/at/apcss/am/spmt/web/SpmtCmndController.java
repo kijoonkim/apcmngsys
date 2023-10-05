@@ -12,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.am.spmt.service.SpmtCmndService;
@@ -44,18 +42,7 @@ public class SpmtCmndController extends BaseController {
 	// 출하지시조회
 	@Resource(name = "spmtCmndService")
 	private SpmtCmndService spmtCmndService;
-	
-	// 출하지시등록
-	@RequestMapping(value = "/am/spmt/regSpmtCmnd.do")
-	public String doRegFormSpmtCmnd() {
-		return "apcss/am/spmt/regSpmtCmnd";
-	}
 
-	// 출하지시조회
-	@RequestMapping(value = "/am/spmt/spmtCmnd.do")
-	public String doSpmtCmnd() {
-		return "apcss/am/spmt/spmtCmnd";
-	}
 
 	// 출하대상내역 조회
 	@PostMapping(value = "/am/spmt/selectSpmtCmndTrgList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
@@ -73,7 +60,7 @@ public class SpmtCmndController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 출하지시 조회
 	@PostMapping(value = "/am/spmt/selectSpmtCmndList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectSpmtCmndList(@RequestBody SpmtCmndVO SpmtCmndVO, HttpServletRequest request) throws Exception {
@@ -90,7 +77,7 @@ public class SpmtCmndController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 출하지시번호 조회
 	@PostMapping(value = "/am/spmt/selectSpmtCmndnoList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectSpmtCmndnoList(@RequestBody SpmtCmndVO SpmtCmndVO, HttpServletRequest request) throws Exception {
@@ -107,7 +94,7 @@ public class SpmtCmndController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 출하지시 내역 조회
 	@PostMapping(value = "/am/spmt/selectSpmtCmndList2.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectSpmtCmndList2(@RequestBody SpmtCmndVO SpmtCmndVO, HttpServletRequest request) throws Exception {
@@ -153,7 +140,7 @@ public class SpmtCmndController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 출고지시 삭제
 	@PostMapping(value = "/am/spmt/deleteSpmtCmnd.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteSpmtCmnd(@RequestBody SpmtCmndVO SpmtCmndVO, HttpServletRequest request) throws Exception {

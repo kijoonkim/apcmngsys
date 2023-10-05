@@ -124,7 +124,7 @@ public class SpmtPckgUnitServiceImpl implements SpmtPckgUnitService{
 				spmtPckgUnitVO.setSpmtPckgUnitCd(spmtPckgUnitCd);
 
 				insertedCnt = insertSpmtPckgUnit(spmtPckgUnitVO);
-				savedCnt =+ insertedCnt;
+				savedCnt += insertedCnt;
 				if(insertedCnt > 0) {
 					SpmtSlsUntprcRegVO spmtSlsUntprcRegVO = new SpmtSlsUntprcRegVO();
 
