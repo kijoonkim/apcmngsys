@@ -12,12 +12,15 @@ public class PrdcrCrclOgnVluIdctrMngVO extends ComVO{
 	private String aa;
 	private String bb;
 	private String cc;
+	private String ccCode;
 	private String dd;
+	private String ddCode;
 	private String ee;
 	private String ff;
 	private String gg;
 	private String hh;
 	private String ii;
+	private String iiCode;
 	private String jj;
 	private String kk;
 	private String ll;
