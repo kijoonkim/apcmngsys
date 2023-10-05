@@ -239,8 +239,8 @@
 		let ccCode = SBUxMethod.get("srch-inp-itemCd1");//전문품목
 		let iiCode = SBUxMethod.get("srch-inp-apcCd2");//통합조직
 		//let apcCd = SBUxMethod.get("inp-apcCd");
-    	//let postJsonPromise = gfn_postJSON("/pd/pcorm/selectPrdcrOgnGenalTblMng.do", {apcCd : apcCd});
-    	let postJsonPromise = gfn_postJSON("/pd/pcorm/selectPrdcrOgnGenalTblMngList.do", {
+    	//let postJsonPromise = gfn_postJSON("/pd/pom/selectPrdcrOgnGenalTblMng.do", {apcCd : apcCd});
+    	let postJsonPromise = gfn_postJSON("/pd/pom/selectPrdcrOgnGenalTblMngList.do", {
     		ccCode : ccCode
     		,iiCode : iiCode
 		});
@@ -329,7 +329,7 @@
 		if(confirm(regMsg)){
 
 			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
-			let postJsonPromise = gfn_postJSON("/pd/pcorm/multiSavePrdcrOgnGenalTblMngList.do", saveList);
+			let postJsonPromise = gfn_postJSON("/pd/pom/multiSavePrdcrOgnGenalTblMngList.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
@@ -375,7 +375,7 @@
     }
 
 	async function fn_deleteRsrc(PrdcrOgnGenalTblMngVO){
-		let postJsonPromise = gfn_postJSON("/pd/pcorm/deletePrdcrOgnGenalTblMng.do", PrdcrOgnGenalTblMngVO);
+		let postJsonPromise = gfn_postJSON("/pd/pom/deletePrdcrOgnGenalTblMng.do", PrdcrOgnGenalTblMngVO);
         let data = await postJsonPromise;
 
         try{

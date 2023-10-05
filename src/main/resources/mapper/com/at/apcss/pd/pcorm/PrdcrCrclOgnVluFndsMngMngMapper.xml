@@ -10,7 +10,7 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMngMapper">
+<mapper namespace="com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper">
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
@@ -20,10 +20,9 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-
-    <select id="selectPrdcrCrclOgnSpItmPurSalNMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
+    <select id="selectPrdcrCrclOgnVluFndsMng" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMng.selectPrdcrCrclOgnSpItmPurSalNMng */
+			SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectPrdcrCrclOgnVluFndsMng */
 				  CM.TEST_NO
 				, CM.AA
 				, CM.BB
@@ -88,9 +87,9 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectPrdcrCrclOgnSpItmPurSalNMngList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
+    <select id="selectPrdcrCrclOgnVluFndsMngList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMng.selectPrdcrCrclOgnSpItmPurSalNMngList */
+			SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectPrdcrCrclOgnVluFndsMngList */
 				  CM.TEST_NO
 				, CM.AA
 				, CM.BB
@@ -147,9 +146,9 @@
     </select>
 
 
-	<insert id="insertPrdcrCrclOgnSpItmPurSalNMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
+	<insert id="insertPrdcrCrclOgnVluFndsMng" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMng.insertPrdcrCrclOgnSpItmPurSalNMng */
+	    	INSERT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.insertPrdcrCrclOgnVluFndsMng */
 	    	  INTO TB_PD_PrdcrCrclOgnVluIdctrMng
 	    		(
 	    			TEST_NO
@@ -230,9 +229,9 @@
 	   			)
     	]]>
     </insert>
-	<update id="updatePrdcrCrclOgnSpItmPurSalNMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
+	<update id="updatePrdcrCrclOgnVluFndsMng" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMng.upatePrdcrCrclOgnSpItmPurSalNMng */
+	    	UPDATE /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.upatePrdcrCrclOgnVluFndsMng */
 	    		TB_PD_PrdcrCrclOgnVluIdctrMng
 			   SET
 			 	  AA	= #{aa}
@@ -279,7 +278,7 @@
     </update>
 
 
-	<delete id="deletePrdcrCrclOgnSpItmPurSalNMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
+	<delete id="deletePrdcrCrclOgnVluFndsMng" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
 		<![CDATA[
 		DELETE FROM TB_PD_PrdcrCrclOgnVluIdctrMng
 		 WHERE TEST_NO 	= #{testNo}
