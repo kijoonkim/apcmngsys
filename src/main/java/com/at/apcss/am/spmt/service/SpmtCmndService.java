@@ -20,7 +20,7 @@ import com.at.apcss.am.spmt.vo.SpmtCmndVO;
  * </pre>
  */
 public interface SpmtCmndService {
-	
+
 	/**
 	 * 출고지시 단건 조회
 	 * @param spmtCmndVO
@@ -36,7 +36,7 @@ public interface SpmtCmndService {
 	 * @throws Exception
 	 */
 	public List<SpmtCmndVO> selectSpmtCmndList(SpmtCmndVO spmtCmndVO) throws Exception;
-	
+
 	/**
 	 * 출하지시번호 목록 조회
 	 * @param spmtCmndVO
@@ -46,17 +46,17 @@ public interface SpmtCmndService {
 	public List<SpmtCmndVO> selectSpmtCmndnoList(SpmtCmndVO spmtCmndVO) throws Exception;
 
 	/**
-	 * 출고하지시 내역 조회
-	 * 
+	 * 출하지시 등록 내역 조회
+	 *
 	 * @param spmtCmndVO
 	 * @return
 	 * @throws Exception
 	 */
-	public List<SpmtCmndVO> selectSpmtCmndList2(SpmtCmndVO spmtCmndVO) throws Exception;
+	public List<SpmtCmndVO> selectRegSpmtCmndList(SpmtCmndVO spmtCmndVO) throws Exception;
 
 	/**
 	 * 출고지시대상내역 조회
-	 * 
+	 *
 	 * @param spmtCmndVO
 	 * @return
 	 * @throws Exception
@@ -70,6 +70,14 @@ public interface SpmtCmndService {
 	 * @throws Exception
 	 */
 	public int insertSpmtCmnd(SpmtCmndVO spmtCmndVO) throws Exception;
+
+	/**
+	 * 출고지시 목록 등록
+	 * @param spmtCmndVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSpmtCmndList(List<SpmtCmndVO> spmtCmndList) throws Exception;
 
 	/**
 	 * 출고지시 변경
@@ -89,10 +97,10 @@ public interface SpmtCmndService {
 
 	/**
 	 * 출고지시 삭제
-	 * 
+	 *
 	 * @param spmtCmndVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteSpmtCmnd2(SpmtCmndVO spmtCmndVO) throws Exception;
+	public int deleteSpmtCmndList(List<SpmtCmndVO> spmtCmndList) throws Exception;
 }

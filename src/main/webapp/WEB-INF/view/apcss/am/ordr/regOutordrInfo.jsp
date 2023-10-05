@@ -320,7 +320,9 @@
           				outordrUntprc	: item.outordrUntprc,
           				regYmd			: item.regYmd,
           				regUserNm		: item.regUserNm,
-          				dldtn			: item.dldtn
+          				dldtn			: item.dldtn,
+          				gdsCd			: item.gdsCd,
+          				gdsNm			: item.gdsNm
   				}
           		jsonOrdr.push(ordr);
   			});
@@ -408,9 +410,6 @@
 		let gdsNm 		= SBUxMethod.get("srch-inp-gdsNm");
 		let rcptnSeCd 	= "99";
 
-		console.log(apcSeCd);
-
-
 		if(gfn_isEmpty(outordrType)){
 			gfn_comAlert("W0001", "발주형태");		//	W0001	{0}을/를 선택하세요.
 			return;
@@ -480,8 +479,6 @@
 				gdsNm			: gdsNm
 		}
 
-		console.log(ordr);
-
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
 			const postJsonPromise = gfn_postJSON("/am/ordr/insertOrdr.do", ordr);
@@ -545,15 +542,16 @@
 	 * @name fn_modalGds
 	 * @description 상풍선택팝업 호출
 	 */
-	const fn_modalGds = function() {
-    	popGds.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-gdsNm"), fn_setGdsNm);
+	const fn_modalGds = async function() {
+		let gdsNm = SBUxMethod.get("srch-inp-gdsNm");
+    	popGds.init(gv_selectedApcCd, gv_selectedApcNm, gdsNm, fn_setGdsNm);
 	}
 
 	/**
 	 * @name fn_setGdsNm
 	 * @description 상풍 선택 callback
 	 */
-	const fn_setGdsNm = function(gds) {
+	const fn_setGdsNm = async function(gds) {
 		if (!gfn_isEmpty(gds)) {
 			SBUxMethod.set('srch-inp-gdsNm', gds.gdsNm);
 			SBUxMethod.set('srch-inp-gdsCd', gds.gdsCd);

@@ -142,13 +142,15 @@ public class LoginController extends BaseController {
 
 			List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
 			for ( ApcInfoVO apc : apcInfoList ) {
-				if (StringUtils.hasText(resultVO.getApcCd())
-						&& resultVO.getApcCd().equals(apc.getApcCd())) {
-					request.getSession().setAttribute("apcVO", apc);
-				}
 
 				ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
 				BeanUtils.copyProperties(apc, comApcJsonVO);
+
+				if (StringUtils.hasText(resultVO.getApcCd())
+						&& resultVO.getApcCd().equals(apc.getApcCd())) {
+					request.getSession().setAttribute("apcVO", comApcJsonVO);
+				}
+
 				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
 				logger.debug(objMapper.writeValueAsString(comApcJsonVO));
 

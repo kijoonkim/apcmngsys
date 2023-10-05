@@ -23,7 +23,7 @@ import com.at.apcss.am.spmt.vo.SpmtCmndVO;
  */
 @Mapper
 public interface SpmtCmndMapper {
-	
+
 	/**
 	 * 출고지시 단건 조회
 	 * @param spmtCmndVO
@@ -39,7 +39,7 @@ public interface SpmtCmndMapper {
 	 * @throws Exception
 	 */
 	public List<SpmtCmndVO> selectSpmtCmndList(SpmtCmndVO spmtCmndVO) throws Exception;
-	
+
 	/**
 	 * 출하지시번호 목록 조회
 	 * @param spmtCmndVO
@@ -50,16 +50,16 @@ public interface SpmtCmndMapper {
 
 	/**
 	 * 출하지시 내역 조회
-	 * 
+	 *
 	 * @param spmtCmndVO
 	 * @return
 	 * @throws Exception
 	 */
-	public List<SpmtCmndVO> selectSpmtCmndList2(SpmtCmndVO spmtCmndVO) throws Exception;
+	public List<SpmtCmndVO> selectRegSpmtCmndList(SpmtCmndVO spmtCmndVO) throws Exception;
 
 	/**
 	 * 출고지시대상내역 조회
-	 * 
+	 *
 	 * @param spmtCmndVO
 	 * @return
 	 * @throws Exception
@@ -93,7 +93,7 @@ public interface SpmtCmndMapper {
 
 	/**
 	 * 출고지시 삭제
-	 * 
+	 *
 	 * @param spmtCmndVO
 	 * @return
 	 * @throws Exception

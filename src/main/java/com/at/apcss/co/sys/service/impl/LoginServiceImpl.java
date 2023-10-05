@@ -2,8 +2,6 @@ package com.at.apcss.co.sys.service.impl;
 
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +12,6 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.mapper.LoginMapper;
 import com.at.apcss.co.sys.service.LoginService;
 import com.at.apcss.co.sys.vo.LoginVO;
-import com.at.apcss.co.user.service.ComUserService;
-import com.at.apcss.co.user.vo.ComUserVO;
-
 import egovframework.let.utl.fcc.service.EgovNumberUtil;
 import egovframework.let.utl.fcc.service.EgovStringUtil;
 import egovframework.let.utl.sim.service.EgovFileScrty;

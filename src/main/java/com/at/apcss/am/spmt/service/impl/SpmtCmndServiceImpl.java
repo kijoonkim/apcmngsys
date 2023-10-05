@@ -2,9 +2,12 @@ package com.at.apcss.am.spmt.service.impl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.am.spmt.mapper.SpmtCmndMapper;
 import com.at.apcss.am.spmt.service.SpmtCmndService;
@@ -30,12 +33,15 @@ public class SpmtCmndServiceImpl implements SpmtCmndService {
 
 	@Autowired
 	private SpmtCmndMapper spmtCmndMapper;
-	
+
+	@Resource(name = "cmnsTaskNoService")
+	private CmnsTaskNoService cmnsTaskNoService;
+
 	@Override
 	public SpmtCmndVO selectSpmtCmnd(SpmtCmndVO spmtCmndVO) throws Exception {
 
 		SpmtCmndVO resultVO = spmtCmndMapper.selectSpmtCmnd(spmtCmndVO);
-		
+
 		return resultVO;
 	}
 
@@ -43,22 +49,22 @@ public class SpmtCmndServiceImpl implements SpmtCmndService {
 	public List<SpmtCmndVO> selectSpmtCmndList(SpmtCmndVO spmtCmndVO) throws Exception {
 
 		List<SpmtCmndVO> resultList = spmtCmndMapper.selectSpmtCmndList(spmtCmndVO);
-		
+
 		return resultList;
 	}
-	
+
 	@Override
 	public List<SpmtCmndVO> selectSpmtCmndnoList(SpmtCmndVO spmtCmndVO) throws Exception {
 
 		List<SpmtCmndVO> resultList = spmtCmndMapper.selectSpmtCmndnoList(spmtCmndVO);
-		
+
 		return resultList;
 	}
 
 	@Override
-	public List<SpmtCmndVO> selectSpmtCmndList2(SpmtCmndVO spmtCmndVO) throws Exception {
+	public List<SpmtCmndVO> selectRegSpmtCmndList(SpmtCmndVO spmtCmndVO) throws Exception {
 
-		List<SpmtCmndVO> resultList = spmtCmndMapper.selectSpmtCmndList2(spmtCmndVO);
+		List<SpmtCmndVO> resultList = spmtCmndMapper.selectRegSpmtCmndList(spmtCmndVO);
 
 		return resultList;
 	}
@@ -74,7 +80,7 @@ public class SpmtCmndServiceImpl implements SpmtCmndService {
 	public int insertSpmtCmnd(SpmtCmndVO spmtCmndVO) throws Exception {
 
 		int insertedCnt = spmtCmndMapper.insertSpmtCmnd(spmtCmndVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -82,7 +88,7 @@ public class SpmtCmndServiceImpl implements SpmtCmndService {
 	public int updateSpmtCmnd(SpmtCmndVO spmtCmndVO) throws Exception {
 
 		int updatedCnt = spmtCmndMapper.updateSpmtCmnd(spmtCmndVO);
-		
+
 		return updatedCnt;
 	}
 
@@ -90,15 +96,34 @@ public class SpmtCmndServiceImpl implements SpmtCmndService {
 	public int deleteSpmtCmnd(SpmtCmndVO spmtCmndVO) throws Exception {
 
 		int deletedCnt = spmtCmndMapper.deleteSpmtCmnd(spmtCmndVO);
-		
+
 		return deletedCnt;
 	}
 
 	@Override
-	public int deleteSpmtCmnd2(SpmtCmndVO spmtCmndVO) throws Exception {
+	public int deleteSpmtCmndList(List<SpmtCmndVO> spmtCmndList) throws Exception {
+		int deletedCnt = 0;
 
-		int deletedCnt = spmtCmndMapper.deleteSpmtCmnd2(spmtCmndVO);
+		for (SpmtCmndVO spmtCmndVO : spmtCmndList) {
+			deletedCnt += deleteSpmtCmnd(spmtCmndVO);
+		}
 
 		return deletedCnt;
+	}
+
+	@Override
+	public int insertSpmtCmndList(List<SpmtCmndVO> spmtCmndList) throws Exception {
+
+		int insertedCnt = 0;
+		String spmtCmndno = cmnsTaskNoService.selectSpmtCmndno(spmtCmndList.get(0).getApcCd(), spmtCmndList.get(0).getCmndYmd());
+		int sn = 1;
+
+		for (SpmtCmndVO spmtCmndVO : spmtCmndList) {
+			spmtCmndVO.setSpmtCmndno(spmtCmndno);
+			spmtCmndVO.setSpmtCmndSn(sn);
+			insertedCnt += insertSpmtCmnd(spmtCmndVO);
+			sn++;
+		}
+		return insertedCnt;
 	}
 }

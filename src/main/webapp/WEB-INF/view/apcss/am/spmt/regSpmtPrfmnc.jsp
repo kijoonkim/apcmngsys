@@ -307,8 +307,8 @@
 			}
 		}
 		SBUxMethod.set("srch-slt-itemCd", itemCd);
-		await gfn_setApcSpcfctsSBSelect('srch-slt-spcfct', 	jsonComSpcfct, 	gv_apcCd, itemCd)		// 포장구분
-		await gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 	jsonGrdSpmtPckgUnit, 	gv_apcCd, itemCd, vrtyCd),		// 포장구분
+		await gfn_setApcSpcfctsSBSelect('srch-slt-spcfct', 	jsonComSpcfct, 	gv_apcCd, itemCd)					// 규격
+		await gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 	jsonGrdSpmtPckgUnit, 	gv_apcCd, itemCd, vrtyCd),	// 포장구분
 		grdGdsInvntr.refresh({"combo":true})
 		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
 	}
@@ -534,11 +534,19 @@
 			let invntrWght = grdGdsInvntr.getRowData(nRow).invntrWght;
 			let spmtQntt = grdGdsInvntr.getRowData(nRow).spmtQntt;
 			let spmtWght = grdGdsInvntr.getRowData(nRow).spmtWght;
+			let cmndQntt = grdGdsInvntr.getRowData(nRow).cmndQntt;
+			let cmndWght = grdGdsInvntr.getRowData(nRow).cmndWght;
 
 
 			if((spmtQntt == 0 && spmtWght == 0) || (gfn_isEmpty(spmtQntt) && gfn_isEmpty(spmtWght))){
-				grdGdsInvntr.setCellData(nRow, 12, invntrQntt);
-				grdGdsInvntr.setCellData(nRow, 13, invntrWght);
+				if(cmndQntt > 0){
+					grdGdsInvntr.setCellData(nRow, 12, cmndQntt);
+					grdGdsInvntr.setCellData(nRow, 13, cmndWght);
+				}else{
+					grdGdsInvntr.setCellData(nRow, 12, invntrQntt);
+					grdGdsInvntr.setCellData(nRow, 13, invntrWght);
+				}
+
 			}
     	}
     }

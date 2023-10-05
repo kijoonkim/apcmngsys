@@ -57,11 +57,12 @@
 		   		 , GC.SPMT_PCKG_UNIT_CD		AS SPMT_PCKG_UNIT_CD
 		   		 , GC.BX_GDS_QNTT           AS BX_GDS_QNTT
 		   		 , GC.WGHT            		AS WGHT
+		   		 , GC.GDS_CD				AS GDS_CD
 			  FROM TB_GDS_CD GC
 			 WHERE GC.DEL_YN = 'N'
 		]]>
 		<if test='apcCd != null and apcCd !=""'>
-		   	   AND GC.GDS_NM = #{apcCd}
+		   	   AND GC.APC_CD = #{apcCd}
 		</if>
 		<if test='gdsNm != null and gdsNm !=""'>
 		   	   AND GC.GDS_NM LIKE '%' || #{gdsNm} || '%'

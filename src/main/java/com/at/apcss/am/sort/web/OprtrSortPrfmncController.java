@@ -1,8 +1,6 @@
 package com.at.apcss.am.sort.web;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -22,11 +20,5 @@ import com.at.apcss.co.sys.controller.BaseController;
  */
 @Controller
 public class OprtrSortPrfmncController extends BaseController {
-
-	// 작업자실적등록
-	@RequestMapping(value = "/am/sort/regOprtrSortPrfmnc.do")
-	public String doRegFormOprtrSortPrfmnc() {
-		return "apcss/am/sort/regOprtrSortPrfmnc";
-	}
 
 }
