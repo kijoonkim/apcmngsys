@@ -128,8 +128,8 @@
 							<td colspan="3" class="td_input" style="border-right:hidden;">
 									<sbux-input
 									uitype="text"
-									id="dtl-inp-rmrk"
-									name="dtl-inp-rmrk"
+									id="dtl-inp-id"
+									name="dtl-inp-id"
 									class="form-control input-sm"
 									autocomplete="off"
 								></sbux-input>
@@ -191,6 +191,183 @@
 				<div id="wrap-grdWghPrfmnc" class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:370px;"></div>
 				</div>
+				<table class="table table-bordered tbl_fixed">
+					<caption>사용자관리 수정 화면</caption>
+					<colgroup>
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 2%">
+						<col style="width: 5%">
+						<col style="width: 2%">
+
+						<col style="width: 7%">
+						<col style="width: 4%">
+						<col style="width: 2%">
+						<col style="width: 3%">
+						<col style="width: 3%">
+						<col style="width: 3%">
+
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 3%">
+						<col style="width: 3%">
+						<col style="width: 3%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row" class="th_bg" >아이디</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;" >
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-id2"
+									name="dtl-inp-id2"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="2" style="border-right: hidden;"></td>
+							<th scope="row" class="th_bg" >이름</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-Nm2"
+									name="dtl-inp-Nm2"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="3" class="td_input" style="border-right: hidden;" >
+							</td>
+							<th scope="row" class="th_bg">관할기관</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-slt-orgNm2"
+									name="dtl-slt-orgNm2"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" >
+							</td>
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>권한</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-select
+									id="dtl-slt-athrt2"
+									name="dtl-slt-athrt2"
+									uitype="single"
+									jsondata-ref="jsonDSA"
+									unselected-text="전체"
+									class="form-control input-sm"
+									onchange="fn_onChangeSrchItemCd(this)"
+								></sbux-select>
+							</td>
+							<td colspan="2" class="td_input" style="border-right: hidden;" >
+							</td>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>사업자번호</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
+									<sbux-input
+									uitype="text"
+									id="dtl-inp-bsnssNb2"
+									name="dtl-inp-bsnssNb2"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" style="border-right: hidden;" >
+							</td>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>법인명</th>
+							<td colspan="2"  class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-crprtNm2"
+									name="dtl-inp-crprtNm2"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="2" class="td_input">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg">전화번호</th>
+							<td colspan="4" class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-phoneNm1"
+									name="dtl-inp-phoneNm2"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="6" class="td_input"  style="border-right: hidden;">
+							</td>
+							<th scope="row" class="th_bg">핸드폰번호</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;" >
+								<sbux-input
+									uitype="text"
+									id="dtl-inp-phoneNm2"
+									name="dtl-inp-phoneNm2"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td style="border-right: hidden;"></td>
+						</tr><tr>
+							<th scope="row" class="th_bg">1차승인여부</th>
+							<td colspan="4" class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-slt-frstApprv2"
+									name="dtl-slt-frstApprv2"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td colspan="6" class="td_input"  style="border-right: hidden;">
+							</td>
+							<th scope="row" class="th_bg">1차승인일자</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;" >
+								<sbux-input
+									uitype="text"
+									id="dtl-slt-frstApprvDay"
+									name="dtl-slt-frstApprvDay"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td style="border-right: hidden;"></td>
+						</tr><tr>
+							<th scope="row" class="th_bg">2차승인여부</th>
+							<td colspan="4" class="td_input" style="border-right: hidden;">
+								<sbux-input
+									uitype="text"
+									id="dtl-slt-scndApprv2"
+									name="dtl-slt-scndApprv2"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+								*1차승인여부가 '승인' 상태여야 2차승인여부 변경이 가능합니다.
+							</td>
+							<td colspan="6" class="td_input"  style="border-right: hidden;">
+							</td>
+							<th scope="row" class="th_bg">2차승인일자</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;" >
+								<sbux-input
+									uitype="text"
+									id="dtl-slt-scndApprv2"
+									name="dtl-slt-scndApprv2"
+									class="form-control input-sm"
+									autocomplete="off"
+								></sbux-input>
+							</td>
+							<td style="border-right: hidden;"></td>
+						</tr>
+
+					</tbody>
+				</table>
 			</div>
 				<!--[pp] //검색결과 -->
 		</div>
@@ -245,6 +422,7 @@
     <div id="body-modal-wrhsPltBx">
     	<jsp:include page="../../am/popup/wrhsPltBxPopup.jsp"></jsp:include>
     </div>
+
 
 </body>
 <script type="text/javascript">
@@ -318,6 +496,11 @@
 
 		gfn_setComCdSBSelect(
     			'dtl-slt-athrt',
+    			jsonDSA,
+			'IOPD_ATHRT');
+
+		gfn_setComCdSBSelect(
+    			'dtl-slt-athrt2',
     			jsonDSA,
 			'IOPD_ATHRT');
 

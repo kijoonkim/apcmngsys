@@ -238,9 +238,10 @@
 	const fn_searchFcltList = async function(){
 		let ccCode = SBUxMethod.get("srch-inp-itemCd1");//전문품목
 		let iiCode = SBUxMethod.get("srch-inp-apcCd2");//통합조직
+		//let apcCd = SBUxMethod.get("inp-apcCd");
     	//let postJsonPromise = gfn_postJSON("/pd/pcorm/selectPrdcrCrclOgnVluIdctrMng.do", {apcCd : apcCd});
     	let postJsonPromise = gfn_postJSON("/pd/pcorm/selectPrdcrCrclOgnVluIdctrMngList.do", {
-    		 ccCode : ccCode
+    		ccCode : ccCode
     		,iiCode : iiCode
 		});
         let data = await postJsonPromise;
