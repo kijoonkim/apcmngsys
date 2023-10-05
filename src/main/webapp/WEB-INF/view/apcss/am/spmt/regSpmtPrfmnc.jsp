@@ -69,7 +69,7 @@
 
 							<th scope="row" class="th_bg">창고구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComWarehouse"></sbux-select>
+								<sbux-select uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComWarehouse"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input"></td>
 
@@ -118,7 +118,7 @@
 								<sbux-select id="srch-slt-spcfct"
 									name="srch-slt-spcfct"
 									uitype="single"
-									unselected-text="선택"
+									unselected-text="전체"
 									class="form-control input-sm"
 									jsondata-ref="jsonComSpcfct"
 								></sbux-select>
@@ -184,7 +184,7 @@
 							<td class="td_input" style="border-right: hidden;"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">출하일자</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>출하일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="dtl-dtp-spmtYmd" name="dtl-dtp-spmtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast"></sbux-datepicker>
 							</td>
@@ -200,7 +200,7 @@
 							</td>
 							<th scope="row" class="th_bg">운송회사</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="dtl-slt-trsprtCoCd" name="dtl-slt-trsprtCoCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComTrsprtCoCd"></sbux-select>
+								<sbux-select id="dtl-slt-trsprtCoCd" name="dtl-slt-trsprtCoCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComTrsprtCoCd"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
 						</tr>

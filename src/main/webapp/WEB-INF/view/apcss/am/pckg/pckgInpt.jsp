@@ -76,7 +76,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">포장일자</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>포장일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
 									id="srch-dtp-pckgYmdFrom"
@@ -133,7 +133,7 @@
 											id="srch-slt-fcltCd"
 											name="srch-slt-fcltCd"
 											uitype="single"
-											unselected-text="선택"
+											unselected-text="전체"
 											class="form-control input-sm"
 											jsondata-ref="jsonComFcltCd"
 										></sbux-select>
@@ -152,7 +152,7 @@
 											name="srch-slt-warehouseSeCd"
 											uitype="single"
 											class="form-control input-sm"
-											unselected-text="선택"
+											unselected-text="전체"
 											jsondata-ref="jsonComWarehouse"
 										></sbux-select>
 									</div>
@@ -168,7 +168,7 @@
 											name="srch-slt-spcfctCd"
 											uitype="single"
 											class="form-control input-sm"
-											unselected-text="선택"
+											unselected-text="전체"
 											jsondata-ref="jsonApcSpcfct"
 										></sbux-select>
 									</div>

@@ -66,7 +66,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-outordrType" name="srch-slt-outordrType" uitype="single" unselected-text="선택" jsondata-ref="jsonComOutordrType" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-outordrType" name="srch-slt-outordrType" uitype="single" unselected-text="전체" jsondata-ref="jsonComOutordrType" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -78,7 +78,7 @@
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select
-											unselected-text="선택"
+											unselected-text="전체"
 											uitype="single"
 											id="srch-slt-itemCd"
 											name="srch-slt-itemCd"
@@ -137,7 +137,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-fcltCd" name="srch-slt-fcltCd" uitype="single" jsondata-ref="jsonComFcltCd" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-fcltCd" name="srch-slt-fcltCd" uitype="single" jsondata-ref="jsonComFcltCd" unselected-text="전체" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>

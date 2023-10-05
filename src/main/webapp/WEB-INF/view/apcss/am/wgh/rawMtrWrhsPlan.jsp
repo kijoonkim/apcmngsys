@@ -116,7 +116,7 @@
 									uitype="text"
 									id="dtl-inp-prdcrNm"
 									name="dtl-inp-prdcrNm"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocompleteDtl"
 									autocomplete-text="name"
