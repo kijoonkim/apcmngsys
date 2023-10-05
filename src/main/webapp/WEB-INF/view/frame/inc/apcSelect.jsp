@@ -25,7 +25,6 @@
 	<c:choose>
 		<c:when test="${comApcList != null}">
 		var cjsonApcList = ${comApcList};
-		console.log(cjsonApcList);
 		</c:when>
 		<c:otherwise>
 		var cjsonApcList = {};
@@ -50,10 +49,6 @@
 				gv_selectedApcNm = apc.apcNm;
 				gv_selectedApcSeCd = apc.apcSeCd;
 
-				console.log("gv_selectedApcCd", gv_selectedApcCd);
-				console.log("gv_selectedApcNm", gv_selectedApcNm);
-				console.log("gv_selectedApcSeCd", gv_selectedApcSeCd);
-
 				return false;
 			});
 
@@ -63,9 +58,6 @@
 
 		}
 
-		console.log("gv_selectedApcCd", gv_selectedApcCd);
-		console.log("gv_selectedApcNm", gv_selectedApcNm);
-		console.log("gv_selectedApcSeCd", gv_selectedApcSeCd);
 	</script>
 	<c:choose>
 		<c:when test="${loginVO != null && loginVO.apcAdminType != null}">

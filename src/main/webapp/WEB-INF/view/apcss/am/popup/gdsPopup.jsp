@@ -78,11 +78,10 @@
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
-		init: async function(_apcCd, _apcNm, _callbackFnc) {
+		init: async function(_apcCd, _apcNm, _gdsNm, _callbackFnc) {
 			// set param
 			SBUxMethod.set("gds-inp-apcCd", _apcCd);
 			SBUxMethod.set("gds-inp-apcNm", _apcNm);
-
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;
 			}
@@ -97,6 +96,7 @@
 			}
 
 			this.prvApcCd = _apcCd;
+			SBUxMethod.set("gds-inp-gdsNm", _gdsNm)
 		},
 		close: function(_gds) {
 			gfn_closeModal(this.modalId, this.callbackFnc, _gds);
@@ -183,7 +183,8 @@
 // 						plorNm 			: item.plorNm,
 						spmtPckgUnitNm	: item.spmtPckgUnitNm,
 						bxGdsQntt 		: item.bxGdsQntt,
-						wght 			: item.wght
+						wght 			: item.wght,
+						gdsCd 			: item.gdsCd
 					}
 					jsonGdsPop.push(gds);
 

@@ -77,6 +77,8 @@ public class OrdrVO extends ComVO {
 	 * 발주일자
 	 * */
 	private String outordrYmd;
+	private String outordrYmdFrom;
+	private String outordrYmdTo;
 	/*
 	 * 주문자
 	 * */
@@ -256,4 +258,35 @@ public class OrdrVO extends ComVO {
 	 * 등록자
 	 * */
 	private String regUserNm;
+
+	/*
+	 * 재고수량
+	 * */
+	private int invntrQntt;
+	/*
+	 * 재고중량
+	 * */
+	private int invntrWght;
+	/*
+	 * 출하수량
+	 * */
+	private int spmtQntt;
+	/*
+	 * 출하중량
+	 * */
+	private int spmtWght;
+	/*
+	 * 창고코드
+	 * */
+	private String warehouseSeCd;
+	private String warehouseSeNm;
+	/*
+	 * 단위중량
+	 * */
+	private int wght;
+	/*
+	 * 출하지시수량
+	 * */
+	private int cmndQntt;
+
 }

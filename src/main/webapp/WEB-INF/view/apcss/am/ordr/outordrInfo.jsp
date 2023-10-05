@@ -146,7 +146,7 @@
 					</tbody>
 				</table>
 				<!--[pp] //검색 -->
-				
+
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
@@ -161,7 +161,7 @@
 					<div id="sb-area-grdOutordrInfo" style="width:100%;height:450px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
-				
+
 			</div>
 		</div>
 	</section>
@@ -182,15 +182,15 @@
 </body>
 <script type="text/javascript">
 	var jsonOutordrInfo 	= [];
-	
+
 	var jsonApcItem			= [];															// 품목
 	var jsonApcVrty			= [];															// 품종
 	var jsonComFcltCd		= [];															// 설비
 	var jsonRcptYn			= [];															// 접수여부
 	var jsonComOutordrType	= [];															// 발주유형
-	
+
 	var comboGridRcpYn 		= [{label: "접수", value: "Y"}, {label: "미접수", value: "N"}];	// 접수여부 (그리드)
-	
+
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
@@ -202,7 +202,7 @@
 			SBUxMethod.refresh('grdOutordrInfo')																		// 접수여부 (그리드)
 		]);
 	}
-	
+
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("srch-dtp-outordrYmdFrom", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-outordrYmdTo", gfn_dateToYmd(new Date()));
@@ -294,16 +294,16 @@
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
         grdOutordrInfo.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
     }
-	
+
 	// 출하지시 목록 조회 (조회 버튼)
     async function fn_search() {
     	let recordCountPerPage = grdOutordrInfo.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdOutordrInfo.movePaging(currentPageNo);
     }
-	
+
 	let newJsonOutordrInfo = [];
-	
+
 	// 출하지시 목록 조회 호출
 	async function fn_callSelectOutordrInfoList(recordCountPerPage, currentPageNo){
 		jsonOutordrInfo = [];
@@ -425,19 +425,19 @@
     		console.error("failed", e.message);
         }
 	}
-	
+
 	// 페이징
     async function fn_pagingSmptCmnd(){
     	let recordCountPerPage = grdOutordrInfo.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdOutordrInfo.getSelectPageIndex(); 
+    	let currentPageNo = grdOutordrInfo.getSelectPageIndex();
     	fn_callSelectOutordrInfoList(recordCountPerPage, currentPageNo);
     }
-	
+
 	// 일괄 접수
     async function btn_receiptBndl(){
     	let allData = grdOutordrInfo.getGridDataAll();
 		const rcptOrdrAllList = [];
-		
+
 		for ( let i=1; i<=allData.length; i++ ){
 			const rowData = grdOutordrInfo.getRowData(i);
 			const rowSts = grdOutordrInfo.getRowStatus(i);
@@ -456,7 +456,7 @@
 				}
 			}
 		}
-		
+
 		if (rcptOrdrAllList.length == 0){
 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
             return;
@@ -464,9 +464,9 @@
 		if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-    	
+
     	const postJsonPromise = gfn_postJSON("/am/ordr/multiOrdrList.do", rcptOrdrAllList, this.prgrmId);	// 프로그램id 추가
-		const data = await postJsonPromise;	    
+		const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
@@ -475,7 +475,7 @@
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-        } catch(e) {        	
+        } catch(e) {
         }
     }
 
@@ -485,7 +485,7 @@
 // 		let pckgCmndYmd = SBUxMethod.get("srch-dtp-pckgCmndYmd");
 // 		let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
 // 		const regPckgCmndOrdrList = [];
-		
+
 // 		for ( let i=1; i<=allData.length; i++ ){
 // 			const rowData = grdOutordrInfo.getRowData(i);
 // 			const rowSts = grdOutordrInfo.getRowStatus(i);
@@ -499,7 +499,7 @@
 // 				continue;
 // 			}
 // 		}
-		
+
 // 		if (regPckgCmndOrdrList.length == 0){
 // 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
 //             return;
@@ -507,9 +507,9 @@
 // 		if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
 //     		return;
 //     	}
-		
+
 //     	const postJsonPromise = gfn_postJSON("/am/pckg/insertPckgCmnd.do", regPckgCmndOrdrList, this.prgrmId);	// 프로그램id 추가
-// 		const data = await postJsonPromise;	    
+// 		const data = await postJsonPromise;
 //         try {
 //         	if (_.isEqual("S", data.resultStatus)) {
 //         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
@@ -518,10 +518,10 @@
 //         	} else {
 //         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 //         	}
-//         } catch(e) {        	
+//         } catch(e) {
 //         }
     }
-	
+
 	// 접수여부 콤보박스 (검색 조건)
 	async function setRcptYnSBSelect(_targetIds, _jsondataRef) {
 		let sourceJson = [{cmnsNm: "접수", cmnsCd: "Y"}, {cmnsNm: "미접수", cmnsCd: "N"}];
@@ -534,7 +534,7 @@
 			fn_initSBSelect()
 		]);
 	}
-	
+
 	/**
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
@@ -562,23 +562,23 @@
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
 	}
-	
+
 	// 거래처 선택 팝업 호출
 	const fn_modalCnpt = function() {
     	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnptNm"), fn_setCnpt);
 	}
-	
+
 	const fn_setCnpt = function(cnpt) {
 		if (!gfn_isEmpty(cnpt)) {
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
 		}
 	}
-	
+
 	// 상품 선택 팝업 호출
 	const fn_modalGds = function() {
     	popGds.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-gdsNm"), fn_setGdsNm);
 	}
-	
+
 	const fn_setGdsNm = function(gds) {
 		if (!gfn_isEmpty(gds)) {
 			SBUxMethod.set('srch-inp-gdsNm', gds.gdsNm);

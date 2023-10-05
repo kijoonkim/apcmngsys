@@ -13,10 +13,6 @@ import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper;
 import com.at.apcss.am.spmt.service.SpmtPrfmncService;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.tmax.tibero.Debug;
-
-import ch.qos.logback.classic.Logger;
 
 /**
  * @Class Name : SpmtPrfmncServiceImpl.java
@@ -115,7 +111,7 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 
 		for ( var i=0; i<spmtPrfmnc.size(); i++ ) {
 			insertedCnt += insertSpmtPrfmncDtl(spmtPrfmnc.get(i));
-			
+
 			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
 			gdsInvntrVO.setApcCd(spmtPrfmnc.get(i).getApcCd());
 			gdsInvntrVO.setPckgno(spmtPrfmnc.get(i).getPckgno());
@@ -148,7 +144,7 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 			deleteSpmtPrfmncCom(spmtPrfmnc.get(i));
 
 			deleteList = selectSpmtPrfmncDtl(spmtPrfmnc.get(i));
-			
+
 			for ( var j=0; j<deleteList.size(); j++ ) {
 				deleteList.get(i).setSysLastChgPrgrmId(spmtPrfmnc.get(i).getSysLastChgPrgrmId());
 				deleteList.get(i).setSysLastChgUserId(spmtPrfmnc.get(i).getSysLastChgUserId());
