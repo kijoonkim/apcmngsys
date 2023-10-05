@@ -58,18 +58,18 @@
 					</colgroup>
 					<tbody>
 						<tr>
-						<th scope="row" class="th_bg">입고일자</th>
+						<th scope="row" class="th_bg"><span class="data_required" ></span>입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
-							<th scope="row" class="th_bg">품목/품종</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
-									unselected-text="선택"
+									unselected-text="전체"
 									uitype="single"
 									id="srch-slt-itemCd"
 									name="srch-slt-itemCd"
@@ -80,7 +80,7 @@
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
-									unselected-text="전체"
+									unselected-text="선택"
 									uitype="single"
 									id="srch-slt-vrtyCd"
 									name="srch-slt-vrtyCd"
@@ -163,12 +163,12 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">선별일자</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>선별일자</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="dtl-dtp-inptYmd" name="dtl-dtp-inptYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-inptYmd" name="dtl-dtp-inptYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"></sbux-datepicker>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg">설비</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>설비</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="dtl-slt-fcltCd"

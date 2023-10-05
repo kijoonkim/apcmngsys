@@ -55,7 +55,7 @@
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select
-											unselected-text="선택"
+											unselected-text="전체"
 											uitype="single"
 											id="srch-slt-itemCd"
 											name="srch-slt-itemCd"

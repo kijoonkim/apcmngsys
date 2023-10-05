@@ -62,23 +62,23 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-cfmtnYn" name="srch-slt-cfmtnYn" uitype="single" jsondata-ref="jsonCfmtnYn" unselected-text="선택" class="form-control input-sm""></sbux-select>
+										<sbux-select id="srch-slt-cfmtnYn" name="srch-slt-cfmtnYn" uitype="single" jsondata-ref="jsonCfmtnYn" unselected-text="전체" class="form-control input-sm""></sbux-select>
 									</div>
 								</div>
 							</td>
 							<td></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">품목/품종</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select
-											unselected-text="선택"
+											unselected-text="전체"
 											uitype="single"
 											id="srch-slt-itemCd"
 											name="srch-slt-itemCd"
-											class="form-control input-sm"
+											class="form-control input-sm input-sm-ast"
 											jsondata-ref="jsonApcItem"
 											onchange="fn_onChangeSrchItemCd(this)"
 										/>
@@ -93,7 +93,7 @@
 											uitype="single"
 											id="srch-slt-vrtyCd"
 											name="srch-slt-vrtyCd"
-											class="form-control input-sm"
+											class="form-control input-sm input-sm-ast inpt_data_reqed"
 											jsondata-ref="jsonApcVrty"
 											onchange="fn_onChangeSrchVrtyCd(this)"
 										/>

@@ -51,7 +51,7 @@
 						<td colspan="8"></td>
 					</tr>
 					<tr>
-						<th scope="row" class="th_bg">매출일자</th>
+						<th scope="row" class="th_bg"><span class="data_required" ></span>매출일자</th>
 						<td class="td_input" style="border-right: hidden;">
 							<sbux-datepicker id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 						</td>
@@ -61,12 +61,12 @@
 						<td class="td_input" style="border-right: hidden;"></td>
 						<th scope="row" class="th_bg">확정여부</th>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-select id="srch-slt-useYn" name="srch-slt-useYn" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComUseYn"></sbux-select>
+							<sbux-select id="srch-slt-useYn" name="srch-slt-useYn" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComUseYn"></sbux-select>
 						</td>
 						<td colspan="2"></td>
 						<th scope="row" class="th_bg">품목/품종</th>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComItem"></sbux-select>
+							<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComItem"></sbux-select>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
 							<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComVrty"></sbux-select>

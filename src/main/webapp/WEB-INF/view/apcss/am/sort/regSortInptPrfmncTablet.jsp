@@ -46,9 +46,9 @@
 							<td colspan="2" class="td_input"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">선별기명</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>선별기명</th>
 							<td colspan= "2" class="td_input"  style="border-right:hidden ;">
-								<sbux-select id="slt-fcltNm" name="slt-fcltNm" uitype="single" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="slt-fcltNm" name="slt-fcltNm" uitype="single" class="form-control input-sm input-sm-ast inpt_data_reqed" unselected-text="선택"></sbux-select>
 							</td>
 							<td colspan="2" style="border-right:hidden ;">
 								<p class="ad_input_row">
@@ -58,9 +58,9 @@
 							<td class="td_input"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">팔레트번호</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>팔레트번호</th>
 							<td colspan="2" class="td_input" style="border-right:hidden ;">
-								<sbux-input id="inp-plt" name="inp-plt" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="inp-plt" name="inp-plt" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-input>
 							<td class="td_input" colspan="2" style="border-right:hidden ;">
 								<sbux-button id="btn-plt" name="btn-plt" uitype="normal" text="조회" class="btn btn-xs btn-outline-dark"></sbux-button>
 						    </td>
@@ -77,20 +77,20 @@
 						    <td class="td_input"></td>
 					    </tr>
 						<tr>
-							<th scope="row" class="th_bg">투입일자</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>투입일자</th>
 							<td class="td_input" colspan="2" style="border-right:hidden ;">
-								<sbux-datepicker id="srch-dtp-inptYmd" name="srch-dtp-inptYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc" style="width:100%;"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-inptYmd" name="srch-dtp-inptYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" style="width:100%;"></sbux-datepicker>
 						    </td>
 							<td colspan="2" style="border-right:hidden;"></td>
 							<td class="td_input"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">투입수량/중량</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>투입수량/중량</th>
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-input id="srch-inp-inptQntt" name="input_text" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-input id="srch-inp-inptSortWght" name="inp-inptSortWght" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="srch-inp-inptSortWght" name="inp-inptSortWght" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" placeholder="" title=""></sbux-input>
 							</td>
 							<td style="border-right:hidden ;"><label class="bold">Kg</label></td>
 							<td colspan="2"></td>

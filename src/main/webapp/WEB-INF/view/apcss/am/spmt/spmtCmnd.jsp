@@ -64,7 +64,7 @@
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-trsprtCoCd" name="srch-slt-trsprtCoCd" uitype="single" jsondata-ref="jsonTrsprtCoCd" class="form-control input-sm" unselected-text="선택"></sbux-select>
+										<sbux-select id="srch-slt-trsprtCoCd" name="srch-slt-trsprtCoCd" uitype="single" jsondata-ref="jsonTrsprtCoCd" class="form-control input-sm" unselected-text="전체"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -76,7 +76,7 @@
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select
-											unselected-text="선택"
+											unselected-text="전체"
 											uitype="single"
 											id="srch-slt-itemCd"
 											name="srch-slt-itemCd"
@@ -107,7 +107,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" jsondata-ref="jsonApcSpcfct" class="form-control input-sm" unselected-text="선택"></sbux-select>
+										<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" jsondata-ref="jsonApcSpcfct" class="form-control input-sm" unselected-text="전체"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -116,7 +116,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-spmtPckgUnitCd" name="srch-slt-spmtPckgUnitCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonSpmtPckgUnitCd"></sbux-select>
+										<sbux-select id="srch-slt-spmtPckgUnitCd" name="srch-slt-spmtPckgUnitCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonSpmtPckgUnitCd"></sbux-select>
 									</div>
 								</div>
 							</td>

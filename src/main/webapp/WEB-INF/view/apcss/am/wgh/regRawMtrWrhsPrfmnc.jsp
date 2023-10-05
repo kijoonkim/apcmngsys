@@ -135,7 +135,7 @@
 							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
-									unselected-text="선택"
+									unselected-text="전체"
 									uitype="single"
 									id="srch-slt-itemCd"
 									name="srch-slt-itemCd"
@@ -296,7 +296,7 @@
 							<th scope="row" class="th_bg">박스종류</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
-									unselected-text="선택"
+									unselected-text="전체"
 									uitype="single"
 									id="srch-slt-bxKnd"
 									name="srch-slt-bxKnd"

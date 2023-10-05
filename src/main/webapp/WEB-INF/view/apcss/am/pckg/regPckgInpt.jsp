@@ -57,7 +57,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">선별일자</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>선별일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-sortYmdFrom" name="srch-dtp-sortYmdFrom" uitype="popup" class="form-control input-sm"></sbux-datepicker>
 							</td>
@@ -68,7 +68,7 @@
 							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
-									unselected-text="선택"
+									unselected-text="전체"
 									uitype="single"
 									id="srch-slt-itemCd"
 									name="srch-slt-itemCd"
@@ -92,11 +92,11 @@
 							<th scope="row"  class="th_bg">규격</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
-									unselected-text="선택"
+									unselected-text="전체"
 									uitype="single"
 									id="srch-slt-spcfctCd"
 									name="srch-slt-spcfctCd"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm"
 									jsondata-ref="jsonApcSpcfct"
 									jsondata-text="spcfctNm"
 									jsondata-value="spcfctCd"
@@ -138,7 +138,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">포장일자</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>포장일자</th>
 				          	<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
 									id="dtl-dtp-pckgYmd"
@@ -148,7 +148,7 @@
 								></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
-							<th scope="row" class="th_bg">포장기</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>포장기</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="dtl-slt-fcltCd"

@@ -74,7 +74,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">선별일자</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>선별일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
 									id="srch-dtp-inptYmdFrom"
@@ -98,8 +98,8 @@
 									id="srch-slt-itemCd"
 									name="srch-slt-itemCd"
 									uitype="single"
-									class="form-control input-sm"
-									unselected-text="선택"
+									class="form-control input-sm input-sm-ast"
+									unselected-text="전체"
 									jsondata-ref="jsonApcItem"
 									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
@@ -112,7 +112,7 @@
 									uitype="text"
 									id="srch-inp-vrtyCd"
 									name="srch-inp-vrtyCd"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 								></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -134,7 +134,7 @@
 									name="srch-slt-fcltCd"
 									uitype="single"
 									class="form-control input-sm"
-									unselected-text="선택"
+									unselected-text="전체"
 									jsondata-ref="jsonComFcltCd"
 								></sbux-select>
 							</td>
@@ -148,7 +148,7 @@
 									name="srch-slt-warehouseSeCd"
 									uitype="single"
 									class="form-control input-sm"
-									unselected-text="선택"
+									unselected-text="전체"
 									jsondata-ref="jsonComWarehouse"
 								></sbux-select>
 							</td>
@@ -161,7 +161,7 @@
 									name="srch-slt-spcfctCd"
 									uitype="single"
 									class="form-control input-sm"
-									unselected-text="선택"
+									unselected-text="전체"
 									jsondata-ref="jsonApcSpcfct"
 								></sbux-select>
 							</td>

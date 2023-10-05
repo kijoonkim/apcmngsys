@@ -87,19 +87,19 @@
 							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입출고구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-wrhsSpmtSe" name="srch-slt-wrhsSpmtSe" uitype="single" jsondata-ref="jsonWrhsSpmtSe" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-wrhsSpmtSe" name="srch-slt-wrhsSpmtSe" uitype="single" jsondata-ref="jsonWrhsSpmtSe" class="form-control input-sm input-sm-ast inpt_data_reqed" unselected-text="선택"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-pltBxSe" name="srch-slt-pltBxSe" uitype="single" jsondata-ref="jsonPltBxSe" class="form-control input-sm" unselected-text="선택" onchange="fn_selectPltBxSe()"></sbux-select>
+								<sbux-select id="srch-slt-pltBxSe" name="srch-slt-pltBxSe" uitype="single" jsondata-ref="jsonPltBxSe" class="form-control input-sm input-sm-ast inpt_data_reqed" unselected-text="선택" onchange="fn_selectPltBxSe()"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input"  style="border-left: hidden;"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>명칭</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-pltBxNm" name="srch-slt-pltBxNm" uitype="single" jsondata-ref="jsonPltBxNm" class="form-control input-sm" unselected-text="선택"></sbux-select>
+								<sbux-select id="srch-slt-pltBxNm" name="srch-slt-pltBxNm" uitype="single" jsondata-ref="jsonPltBxNm" class="form-control input-sm input-sm-ast inpt_data_reqed" unselected-text="선택"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
 						    <th scope="row" class="th_bg">생산자</th>
@@ -133,7 +133,7 @@
 								<sbux-input id="srch-inp-Qntt" name="srch-inp-Qntt" uitype="text" class="form-control input-sm" placeholder="" title="" onchange="fn_onChangeQntt(this)"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-Wght" name=""srch-inp-Wght"" uitype="text" class="form-control input-sm" placeholder="" title="" disabled></sbux-input>
+								<sbux-input id="srch-inp-Wght" name="srch-inp-Wght" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" placeholder="" title="" disabled></sbux-input>
 							</td>
 							<td class="td_input" style="border-left: hidden;">
 									<sbux-label uitype="normal" id="lbl-kg" name="lbl-chc" text="Kg"/>

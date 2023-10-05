@@ -184,7 +184,7 @@
 							<td class="td_input" style="border-right: hidden;"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">출하일자</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>출하일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="dtl-dtp-spmtYmd" name="dtl-dtp-spmtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast"></sbux-datepicker>
 							</td>

@@ -143,7 +143,7 @@
 								<sbux-input id="srch-inp-outordrQntt" name="srch-inp-outordrQntt" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" onkeyup="fn_calculate"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-bxGdsQntt" name="srch-inp-bxGdsQntt" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" onkeyup="fn_calculate"></sbux-input>
+								<sbux-input id="srch-inp-bxGdsQntt" name="srch-inp-bxGdsQntt" uitype="text" class="form-control input-sm input-sm-ast" onkeyup="fn_calculate"></sbux-input>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">낱개수량</th>

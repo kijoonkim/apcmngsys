@@ -50,15 +50,15 @@
 							<td class="td_input" colspan="8" style="border-left: hidden;">&nbsp;</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">작업일자</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>작업일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-jobYmd" name="srch-inp-jobYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td colspan="2" style="border-right: hidden;"></td>
 
-							<th scope="row" class="th_bg">작업구분</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>작업구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-jobSe" name="srch-slt-jobSe" class="form-control input-sm"></sbux-select>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-jobSe" name="srch-slt-jobSe" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
 							</td>
 							<td colspan="6" class="td_input" style="border-left: hidden;">&nbsp;</td>
 						</tr>
