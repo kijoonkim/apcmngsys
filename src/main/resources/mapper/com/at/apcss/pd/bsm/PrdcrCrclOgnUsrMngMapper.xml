@@ -62,7 +62,7 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_PD_PrdcrCrclOgnUsrMng CM
+			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
 			 WHERE 1=1
 			 AND CM.TEST_NO = #{testNo}
 			 ORDER BY CM.SYS_LAST_CHG_DT DESC
@@ -122,7 +122,7 @@
 				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_PD_PrdcrCrclOgnUsrMng CM
+			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
     	]]>
     </select>
 
@@ -130,7 +130,7 @@
 	<insert id="insertPrdcrCrclOgnUsrMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.insertPrdcrCrclOgnUsrMng */
-	    	  INTO TB_PD_PrdcrCrclOgnUsrMng
+	    	  INTO TB_PD_PrdcrCrclOgnVluIdctrMng
 	    		(
 	    			TEST_NO
 	    		  , AA
@@ -171,7 +171,7 @@
 	    		)
 	   		VALUES
 	   			(
-	   			    (SELECT NVL(MAX(TEST_NO),0)+1 FROM TB_PD_PrdcrCrclOgnUsrMng)
+	   			    (SELECT NVL(MAX(TEST_NO),0)+1 FROM TB_PD_PrdcrCrclOgnVluIdctrMng)
 	   			  , #{aa}
 	   			  , #{bb}
 	   			  , #{cc}
@@ -213,7 +213,7 @@
 	<update id="updatePrdcrCrclOgnUsrMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.upatePrdcrCrclOgnUsrMng */
-	    		TB_PD_PrdcrCrclOgnUsrMng
+	    		TB_PD_PrdcrCrclOgnVluIdctrMng
 			   SET
 			 	  AA	= #{aa}
 			 	, BB 	= #{bb}
@@ -261,7 +261,7 @@
 
 	<delete id="deletePrdcrCrclOgnUsrMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
 		<![CDATA[
-		DELETE FROM TB_PD_PrdcrCrclOgnUsrMng
+		DELETE FROM TB_PD_PrdcrCrclOgnVluIdctrMng
 		 WHERE TEST_NO 	= #{testNo}
 		]]>
 	</delete>

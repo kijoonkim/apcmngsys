@@ -871,8 +871,8 @@
 	/* Grid Row 조회 기능*/
 	const fn_searchFcltList = async function(){
 		//let apcCd = SBUxMethod.get("inp-apcCd");
-    	//let postJsonPromise = gfn_postJSON("/pd/pcorm/selectPrdcrCrclOgnUsrMngMng.do", {apcCd : apcCd});
-    	let postJsonPromise = gfn_postJSON("/pd/pcorm/selectPrdcrCrclOgnUsrMngMngList.do", {
+    	//let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnUsrMngMng.do", {apcCd : apcCd});
+    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnUsrMngMngList.do", {
     		ccCode : ccCode
     		,iiCode : iiCode
 		});
@@ -961,7 +961,7 @@
 		if(confirm(regMsg)){
 
 			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
-			let postJsonPromise = gfn_postJSON("/pd/pcorm/multiSavePrdcrCrclOgnUsrMngMngList.do", saveList);
+			let postJsonPromise = gfn_postJSON("/pd/bsm/multiSavePrdcrCrclOgnUsrMngMngList.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
@@ -1007,7 +1007,7 @@
     }
 
 	async function fn_deleteRsrc(PrdcrCrclOgnUsrMngMngVO){
-		let postJsonPromise = gfn_postJSON("/pd/pcorm/deletePrdcrCrclOgnUsrMngMng.do", PrdcrCrclOgnUsrMngMngVO);
+		let postJsonPromise = gfn_postJSON("/pd/bsm/deletePrdcrCrclOgnUsrMngMng.do", PrdcrCrclOgnUsrMngMngVO);
         let data = await postJsonPromise;
 
         try{

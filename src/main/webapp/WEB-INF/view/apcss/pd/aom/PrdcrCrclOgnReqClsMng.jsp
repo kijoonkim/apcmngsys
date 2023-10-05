@@ -239,8 +239,8 @@
 		let ccCode = SBUxMethod.get("srch-inp-itemCd1");//전문품목
 		let iiCode = SBUxMethod.get("srch-inp-apcCd2");//통합조직
 		//let apcCd = SBUxMethod.get("inp-apcCd");
-    	//let postJsonPromise = gfn_postJSON("/pd/pcorm/selectPrdcrCrclOgnReqClsMng.do", {apcCd : apcCd});
-    	let postJsonPromise = gfn_postJSON("/pd/pcorm/selectPrdcrCrclOgnReqClsMngList.do", {
+    	//let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqClsMng.do", {apcCd : apcCd});
+    	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqClsMngList.do", {
     		ccCode : ccCode
     		,iiCode : iiCode
 		});
@@ -329,7 +329,7 @@
 		if(confirm(regMsg)){
 
 			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
-			let postJsonPromise = gfn_postJSON("/pd/pcorm/multiSavePrdcrCrclOgnReqClsMngList.do", saveList);
+			let postJsonPromise = gfn_postJSON("/pd/aom/multiSavePrdcrCrclOgnReqClsMngList.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
@@ -375,7 +375,7 @@
     }
 
 	async function fn_deleteRsrc(PrdcrCrclOgnReqClsMngVO){
-		let postJsonPromise = gfn_postJSON("/pd/pcorm/deletePrdcrCrclOgnReqClsMng.do", PrdcrCrclOgnReqClsMngVO);
+		let postJsonPromise = gfn_postJSON("/pd/aom/deletePrdcrCrclOgnReqClsMng.do", PrdcrCrclOgnReqClsMngVO);
         let data = await postJsonPromise;
 
         try{

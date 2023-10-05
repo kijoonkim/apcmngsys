@@ -10,7 +10,7 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMngMapper">
+<mapper namespace="com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper">
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
@@ -20,10 +20,9 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-
-    <select id="selectPrdcrCrclOgnSpItmPurSalNMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
+    <select id="selectPrdcrCrclOgnMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO" resultType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMng.selectPrdcrCrclOgnSpItmPurSalNMng */
+			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMng */
 				  CM.TEST_NO
 				, CM.AA
 				, CM.BB
@@ -65,18 +64,9 @@
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
 			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
 			 WHERE 1=1
-
+			 AND CM.TEST_NO = #{testNo}
+			 ORDER BY CM.SYS_LAST_CHG_DT DESC
     	]]>
-    		<if test='ccCode != null and ccCode != ""'>
-				AND CM.CC_CODE LIKE #{ccCode} || '%'
-			</if>
-			<if test='iiCode != null and iiCode != ""'>
-				AND CM.II_CODE LIKE '%' || #{iiCode} || '%'
-			</if>
-			<if test='testNo != null and testNo != ""'>
-				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
-			</if>
-		ORDER BY CM.SYS_LAST_CHG_DT DESC
     </select>
 
 
@@ -88,9 +78,9 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectPrdcrCrclOgnSpItmPurSalNMngList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
+    <select id="selectPrdcrCrclOgnMngList" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO" resultType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMng.selectPrdcrCrclOgnSpItmPurSalNMngList */
+			SELECT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMngList */
 				  CM.TEST_NO
 				, CM.AA
 				, CM.BB
@@ -133,23 +123,13 @@
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
 			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
-			  WHERE 1=1
     	]]>
-    		<if test='ccCode != null and ccCode != ""'>
-				AND CM.CC_CODE LIKE #{ccCode} || '%'
-			</if>
-			<if test='iiCode != null and iiCode != ""'>
-				AND CM.II_CODE LIKE '%' || #{iiCode} || '%'
-			</if>
-			<if test='testNo != null and testNo != ""'>
-				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
-			</if>
     </select>
 
 
-	<insert id="insertPrdcrCrclOgnSpItmPurSalNMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
+	<insert id="insertPrdcrCrclOgnMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMng.insertPrdcrCrclOgnSpItmPurSalNMng */
+	    	INSERT /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.insertPrdcrCrclOgnMng */
 	    	  INTO TB_PD_PrdcrCrclOgnVluIdctrMng
 	    		(
 	    			TEST_NO
@@ -230,9 +210,9 @@
 	   			)
     	]]>
     </insert>
-	<update id="updatePrdcrCrclOgnSpItmPurSalNMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
+	<update id="updatePrdcrCrclOgnMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMng.upatePrdcrCrclOgnSpItmPurSalNMng */
+	    	UPDATE /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnMngMapper.upatePrdcrCrclOgnMng */
 	    		TB_PD_PrdcrCrclOgnVluIdctrMng
 			   SET
 			 	  AA	= #{aa}
@@ -279,7 +259,7 @@
     </update>
 
 
-	<delete id="deletePrdcrCrclOgnSpItmPurSalNMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
+	<delete id="deletePrdcrCrclOgnMng" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO">
 		<![CDATA[
 		DELETE FROM TB_PD_PrdcrCrclOgnVluIdctrMng
 		 WHERE TEST_NO 	= #{testNo}
