@@ -46,18 +46,21 @@
 			             , OI.WRHS_YMD 				AS WRHS_YMD
 			             , OI.SPMT_PCKG_UNIT_CD     AS SPMT_PCKG_UNIT_CD
                          , OI.GRD_CD                AS GRD_CD
+                         , OI.SPMT_PCKG_UNIT_CD		AS SPMT_PCKG_UNIT_CD
 			             , (SELECT MAX(WAREHOUSE_SE_CD)
 			                  FROM TB_GDS_INVNTR X
 			                 WHERE X.APC_CD = OI.APC_CD
 			                   AND X.ITEM_CD = OI.ITEM_CD
 			                   AND X.VRTY_CD = OI.VRTY_CD
 			                   AND X.SPCFCT_CD = OI.SPCFCT_CD
+			                   AND X.DEL_YN = 'N'
 			               ) AS WAREHOUSE_SE_CD
 			             , (SELECT WGHT
                               FROM TB_APC_SPCFCT_CRTR X
                              WHERE X.APC_CD = OI.APC_CD
 			                   AND X.ITEM_CD = OI.ITEM_CD
 			                   AND X.SPCFCT_CD = OI.SPCFCT_CD
+			                   AND X.DEL_YN = 'N'
                            ) AS WGHT
 			             , (SELECT SUM(INVNTR_QNTT)
 			                  FROM TB_GDS_INVNTR X
@@ -65,6 +68,7 @@
 			                   AND X.ITEM_CD = OI.ITEM_CD
 			                   AND X.VRTY_CD = OI.VRTY_CD
 			                   AND X.SPCFCT_CD = OI.SPCFCT_CD
+			                   AND X.DEL_YN = 'N'
 			               ) AS INVNTR_QNTT
 			             , (SELECT SUM(INVNTR_WGHT)
 			                  FROM TB_GDS_INVNTR X
@@ -72,26 +76,31 @@
 			                   AND X.ITEM_CD = OI.ITEM_CD
 			                   AND X.VRTY_CD = OI.VRTY_CD
 			                   AND X.SPCFCT_CD = OI.SPCFCT_CD
+			                   AND X.DEL_YN = 'N'
 			               ) AS INVNTR_WGHT
 			             , (SELECT SUM(SPMT_QNTT)
 			                  FROM TB_SPMT_PRFMNC_DTL X
 			                 WHERE X.APC_CD = OI.APC_CD
 			                   AND X.OUTORDRNO = OI.OUTORDRNO
+			                   AND X.DEL_YN = 'N'
 			               ) AS SPMT_QNTT
 			             , (SELECT SUM(SPMT_WGHT)
 			                  FROM TB_SPMT_PRFMNC_DTL X
 			                 WHERE X.APC_CD = OI.APC_CD
 			                   AND X.OUTORDRNO = OI.OUTORDRNO
+			                   AND X.DEL_YN = 'N'
 			               ) AS SPMT_WGHT
                         , (SELECT SUM(CMND_QNTT)
                              FROM TB_SPMT_CMND X
                             WHERE X.APC_CD = OI.APC_CD
                               AND X.OUTORDRNO = OI.OUTORDRNO
+                              AND X.DEL_YN = 'N'
                           ) AS CMND_QNTT
                         , (SELECT SUM(CMND_WGHT)
                              FROM TB_SPMT_CMND X
                             WHERE X.APC_CD = OI.APC_CD
                               AND X.OUTORDRNO = OI.OUTORDRNO
+                              AND X.DEL_YN = 'N'
                           ) AS CMND_WGHT
 			        FROM TB_OUTORDR_INFO OI
 			       WHERE OI.DEL_YN = 'N'
@@ -158,6 +167,12 @@
 			            , SC.SPCFCT_CD          AS SPCFCT_CD
 			            , SC.GDS_CD             AS GDS_CD
 			            , MAX(SC.RMRK)          AS RMRK
+			            , (SELECT WRHS_YMD
+			                 FROM TB_OUTORDR_INFO X
+			                WHERE X.APC_CD = SC.APC_CD
+			                  AND X.OUTORDRNO = SC.OUTORDRNO
+			                  AND X.DEL_YN = 'N'
+			              ) AS WRHS_YMD
 			        FROM TB_SPMT_CMND SC
 			       WHERE SC.DEL_YN = 'N'
 		]]>
@@ -188,6 +203,7 @@
 					 , SC.VRTY_CD
 					 , SC.SPCFCT_CD
 					 , SC.GDS_CD
+					 , SC.OUTORDRNO
 		 	) pt0
 		]]>
     </select>
@@ -376,12 +392,6 @@
 				 , MAX(SC.OUTORDRNO)    			AS OUTORDRNO
 				 , SC.DEL_YN   						AS DEL_YN
 			  FROM TB_SPMT_CMND SC
-			  LEFT OUTER JOIN(
-				  		SELECT APC_CD, CNPT_CD, CNPT_NM
-				  		FROM TB_CNPT_INFO
-				  		WHERE DEL_YN = 'N') CI
-				ON CI.APC_CD = SC.APC_CD
-			   AND CI.CNPT_CD = SC.CNPT_CD
 			 WHERE SC.DEL_YN = 'N'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
@@ -542,7 +552,7 @@
     		 , RMRK						= #{rmrk}
     		 , DEL_YN					= #{delYn}
 		 WHERE APC_CD 					= #{apcCd}
-		   AND SPMT_CMNDNO 				= #{spmtCmndNo}
+		   AND SPMT_CMNDNO 				= #{spmtCmndno}
 		   AND SPMT_CMND_SN 			= #{spmtCmndSn}
 		]]>
 	</update>
@@ -561,9 +571,9 @@
 		   SET SYS_LAST_CHG_DT 			= SYSDATE
     		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
     		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-    		 , DEL_YN					= #{delYn}
+    		 , DEL_YN					= 'Y'
 		 WHERE APC_CD 					= #{apcCd}
-		   AND SPMT_CMNDNO 				= #{spmtCmndNo}
+		   AND SPMT_CMNDNO 				= #{spmtCmndno}
 		   AND SPMT_CMND_SN 			= #{spmtCmndSn}
 		]]>
 	</delete>

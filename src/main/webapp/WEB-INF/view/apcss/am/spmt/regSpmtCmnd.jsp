@@ -18,8 +18,7 @@
 				<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="발주조회" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
+				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 			</div>
 		</div>
@@ -285,7 +284,8 @@
         SBGridPropertiesSpmtCmnd.columns = [
         	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
-            {caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '120px', type: 'output', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+            {caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '100px', type: 'output', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+            {caption: ['납기일자'], 	ref: 'wrhsYmd', 		width: '100px', type: 'output', style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['거래처'], 		ref: 'cnptNm', 			width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['상품명'], 		ref: 'gdsNm', 			width: '140px', type: 'output', style: 'text-align:center'},
             {caption: ['운송회사'], 	ref: 'trsprtCoNm', 		width: '140px', type: 'output', style: 'text-align:center'},
@@ -498,7 +498,8 @@
           				invntrWght		: item.invntrWght,
           				cmndQntt		: item.cmndQntt,
           				wght			: item.wght,
-          				gdsGrd			: item.gdsGrd
+          				gdsGrd			: item.gdsGrd,
+          				spmtPckgUnitCd	: item.spmtPckgUnitCd
 				}
       			jsonSpmtCmndTrg.push(ordr);
   			});
@@ -555,6 +556,7 @@
           				gdsGrdNm	: item.gdsGrdNm,
           				cnptNm		: item.cnptNm,
           				trsprtCoNm	: item.trsprtCoNm,
+          				wrhsYmd		: item.wrhsYmd
 				}
       			jsonSpmtCmnd.push(spmtCmnd);
   			});
@@ -673,8 +675,13 @@
 			}
 		}
 	}
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
+	const fn_reset = function(){
+		SBUxMethod.set("dtl-inp-cmndYmd", "");
+		SBUxMethod.set("dtl-slt-trsprtCo", "");
+		SBUxMethod.set("dtl-inp-rmrk", "");
+		SBUxMethod.set("dtl-inp-apcCnptCd", "");
+		SBUxMethod.set("dtl-inp-apcCnptNm", "");
+		SBUxMethod.set("dtl-inp-dldtn", "");
 	}
 
  	const fn_modalCnpt = function() {

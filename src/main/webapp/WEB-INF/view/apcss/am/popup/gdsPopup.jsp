@@ -174,17 +174,19 @@
 	    		jsonGdsPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const gds = {
+						gdsCd 			: item.gdsCd,
 						gdsNm 			: item.gdsNm,
+						itemCd			: item.itemCd,
 						itemNm 			: item.itemNm,
+						vrtyCd			: item.vrtyCd,
 						vrtyNm 			: item.vrtyNm,
+						spcfctCd		: item.spcfctCd,
 						spcfctNm 		: item.spcfctNm,
 						gdsGrdNm 		: item.gdsGrdNm,
-// 						brndNm 			: item.brndNm,
-// 						plorNm 			: item.plorNm,
 						spmtPckgUnitNm	: item.spmtPckgUnitNm,
+						spmtPckgUnitCd	: item.spmtPckgUnitCd,
 						bxGdsQntt 		: item.bxGdsQntt,
-						wght 			: item.wght,
-						gdsCd 			: item.gdsCd
+						wght 			: item.wght
 					}
 					jsonGdsPop.push(gds);
 
