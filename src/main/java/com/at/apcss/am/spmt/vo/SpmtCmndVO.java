@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SpmtCmndVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -38,7 +38,7 @@ public class SpmtCmndVO extends ComVO {
 	 * 출하지시순번
 	 */
 	private int spmtCmndSn;
-	
+
 	/**
 	 * 지시일자
 	 */
@@ -48,7 +48,7 @@ public class SpmtCmndVO extends ComVO {
 	 * 지시일자 시작일
 	 */
 	private String cmndYmdFrom;
-	
+
 	/**
 	 * 지시일자 종료일
 	 */
@@ -58,7 +58,7 @@ public class SpmtCmndVO extends ComVO {
 	 * 거래처코드
 	 */
 	private String cnptCd;
-	
+
 	/**
 	 * 거래처명
 	 */
@@ -83,7 +83,7 @@ public class SpmtCmndVO extends ComVO {
 	 * 상품등급
 	 */
 	private String gdsGrd;
-	
+
 	/**
 	 * 등급명
 	 */
@@ -103,12 +103,12 @@ public class SpmtCmndVO extends ComVO {
 	 * 지시중량
 	 */
 	private int cmndWght;
-	
+
 	/**
 	 * 포장단위코드
 	 */
 	private int pckgSeCd;
-	
+
 	/**
 	 * 포장단위
 	 */
@@ -122,7 +122,7 @@ public class SpmtCmndVO extends ComVO {
 	 * 출하포장단위명
 	 */
 	private String spmtPckgUnitNm;
-	
+
 	/**
 	 * 발주번호
 	 */
@@ -132,7 +132,7 @@ public class SpmtCmndVO extends ComVO {
 	 * 품목코드
 	 */
 	private String itemCd;
-	
+
 	/**
 	 * 품목명
 	 */
@@ -142,7 +142,7 @@ public class SpmtCmndVO extends ComVO {
 	 * 품종코드
 	 */
 	private String vrtyCd;
-	
+
 	/**
 	 * 품종명
 	 */
@@ -152,7 +152,7 @@ public class SpmtCmndVO extends ComVO {
 	 * 규격코드
 	 */
 	private String spcfctCd;
-	
+
 	/**
 	 * 규격명
 	 */
@@ -172,4 +172,8 @@ public class SpmtCmndVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
+	/**
+	 * 납기일자
+	 */
+	private String wrhsYmd;
 }

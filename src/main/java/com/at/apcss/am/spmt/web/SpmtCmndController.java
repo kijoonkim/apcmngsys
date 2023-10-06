@@ -43,7 +43,7 @@ public class SpmtCmndController extends BaseController {
 
 	// 출하대상내역 조회
 	@PostMapping(value = "/am/spmt/selectSpmtCmndTrgList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectSpmtCmndList(@RequestBody OrdrVO ordrVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectSpmtCmndTrgList(@RequestBody OrdrVO ordrVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<OrdrVO> resultList = new ArrayList<>();

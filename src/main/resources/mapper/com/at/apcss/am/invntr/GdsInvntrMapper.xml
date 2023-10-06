@@ -105,24 +105,7 @@
 			    , GI.INVNTR_WGHT	AS INVNTR_WGHT
 			    , GI.PLOR_CD 		AS PLOR_CD
 			    , GI.DEL_YN			AS DEL_YN
-			    , NVL(
-			           (SELECT CMND_QNTT
-			              FROM TB_SPMT_CMND X
-			             WHERE X.APC_CD = GI.APC_CD
-			               AND X.ITEM_CD = GI.ITEM_CD
-			               AND X.VRTY_CD = GI.VRTY_CD
-			               AND X.SPCFCT_CD = GI.SPCFCT_CD
-			               AND X.GDS_GRD = GI.GDS_GRD
-			            ), 0) AS CMND_QNTT
-			    , NVL(
-			           (SELECT CMND_WGHT
-			             FROM TB_SPMT_CMND X
-			            WHERE X.APC_CD = GI.APC_CD
-			              AND X.ITEM_CD = GI.ITEM_CD
-			              AND X.VRTY_CD = GI.VRTY_CD
-			              AND X.SPCFCT_CD = GI.SPCFCT_CD
-			              AND X.GDS_GRD = GI.GDS_GRD
-			            ), 0) AS CMND_WGHT
+			    , GI.RMRK			AS RMRK
 			  FROM TB_GDS_INVNTR GI
 			 WHERE 1=1
 			   AND GI.APC_CD = #{apcCd}
@@ -230,24 +213,6 @@
 			    , GI.INVNTR_WGHT	AS INVNTR_WGHT
 			    , GI.PLOR_CD 		AS PLOR_CD
 			    , GI.DEL_YN			AS DEL_YN
-			    , NVL(
-			           (SELECT CMND_QNTT
-			              FROM TB_SPMT_CMND X
-			             WHERE X.APC_CD = GI.APC_CD
-			               AND X.ITEM_CD = GI.ITEM_CD
-			               AND X.VRTY_CD = GI.VRTY_CD
-			               AND X.SPCFCT_CD = GI.SPCFCT_CD
-			               AND X.GDS_GRD = GI.GDS_GRD
-			            ), 0) AS CMND_QNTT
-			    , NVL(
-			           (SELECT CMND_WGHT
-			             FROM TB_SPMT_CMND X
-			            WHERE X.APC_CD = GI.APC_CD
-			              AND X.ITEM_CD = GI.ITEM_CD
-			              AND X.VRTY_CD = GI.VRTY_CD
-			              AND X.SPCFCT_CD = GI.SPCFCT_CD
-			              AND X.GDS_GRD = GI.GDS_GRD
-			            ), 0) AS CMND_WGHT
 			  FROM TB_GDS_INVNTR GI
 			 WHERE 1=1
 			   AND GI.APC_CD = #{apcCd}
