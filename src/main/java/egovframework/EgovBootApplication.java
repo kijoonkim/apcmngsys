@@ -4,12 +4,13 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @ServletComponentScan
-@SpringBootApplication
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 //@Import({EgovWebApplicationInitializer.class})
 public class EgovBootApplication extends SpringBootServletInitializer {
 
@@ -25,7 +26,7 @@ public class EgovBootApplication extends SpringBootServletInitializer {
 		//springApplication.setLogStartupInfo(false);
 		springApplication.setWebApplicationType(WebApplicationType.SERVLET);
 		springApplication.run(args);
-		
+
 		System.out.println("##### EgovBootApplication End #####");
 	}
 
@@ -33,7 +34,7 @@ public class EgovBootApplication extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(EgovBootApplication.class);
 	}
-	
+
 	/*
 	public EgovBootApplication() {
 		super();
@@ -41,5 +42,5 @@ public class EgovBootApplication extends SpringBootServletInitializer {
 		// ErrorPageFilter disable
 	}
 	*/
-	
+
 }

@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,12 +29,12 @@ public class DashboardController extends BaseController{
 
 	@Resource(name = "apcEvrmntStngService")
 	private ApcEvrmntStngService apcEvrmntStngService;
-	
+
 	@Resource(name= "dashboardService")
 	private DashboardService dashboardService;
-	
 
-	@RequestMapping(value = "/fm/dashboard/mapchart.do")
+
+	@GetMapping(value = "/fm/dashboard/mapchart.do")
 	public String mapchart() {
 		return "apcss/fm/dashboard/mapchart";
 	}
@@ -67,10 +68,10 @@ public class DashboardController extends BaseController{
 
 			return getSuccessResponseEntity(resultMap);
 		}
-		
+
 		@PostMapping(value = "/fm/dashboard/selectDashboardInfoListCnt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 		public ResponseEntity<HashMap<String, Object>> selectDashboardInfoListCnt(Model model, @RequestBody DashboardVO dashboardVO, HttpServletRequest request) throws Exception{
-			
+
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 			List<DashboardVO> resultList = new ArrayList<>();
 			List<DashboardVO> resultListCnt = new ArrayList<>();
@@ -81,20 +82,20 @@ public class DashboardController extends BaseController{
 			try {
 				//resultList = dashboardService.selectDashboardInfoList(dashboardVO);
 				resultList = dashboardService.selectDashboardInfoListCnt(dashboardVO);
-				
+
 //				logger.debug("$$$$$$$$$$$$$$$$$$$$$");
 //				for (DashboardVO msg : resultListCnt ) {
 //					logger.debug("getMainCnt : {}", msg.getMainCnt());
 //				}
-				
+
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
 			}
-			
+
 			//resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-			
+
 			return getSuccessResponseEntity(resultMap);
 		}
 

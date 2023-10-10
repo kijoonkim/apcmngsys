@@ -230,7 +230,7 @@ public class ComMenuController extends BaseController {
 				comUiVO.setSysFrstInptPrgrmId(getPrgrmId());
 				comUiVO.setSysLastChgUserId(getUserId());
 				comUiVO.setSysLastChgPrgrmId(getPrgrmId());
-				insertdCnt =+  comMenuService.insertComUi(comUiVO);
+				insertdCnt +=  comMenuService.insertComUi(comUiVO);
 			}
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -267,7 +267,7 @@ public class ComMenuController extends BaseController {
 		int deletetCnt = 0;
 		try {
 			for(ComUiVO comUiVO : comUiList) {
-				deletetCnt =+ comMenuService.deleteComUi(comUiVO);
+				deletetCnt += comMenuService.deleteComUi(comUiVO);
 			}
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);

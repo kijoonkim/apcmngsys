@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,7 @@ public class FcltOperInfoClctAgreInfoController extends BaseController {
 	private FcltOperInfoClctAgreInfoService fcltOperInfoClctAgreInfoService;
 
 	// 개인정보이용동의 화면이동
-	@RequestMapping("/fm/fclt/fcltOperInfoClctAgreInfo.do")
+	@GetMapping("/fm/fclt/fcltOperInfoClctAgreInfo.do")
 	public String doFcltOperInfoClctAgreInfo() {
 		return "apcss/fm/fclt/fcltOperInfoClctAgreInfo";
 	}
