@@ -108,6 +108,7 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 품목코드
 	 */
 	private String itemCd;
+	private String itemNm;
 
 	/**
 	 * 품종코드

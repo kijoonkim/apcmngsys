@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>	<!-- 출하실적조회 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
@@ -44,15 +44,6 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">창고</th>
-							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComWarehouse"></sbux-select>
-									</div>
-								</div>
-							</td>
-							<td colspan="2"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>출하일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-spmtYmdFrom" name="srch-dtp-spmtYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
@@ -75,8 +66,6 @@
 							<td class="td_input">
 								<sbux-button id="btnSrchVrty" name="btnSrchVrty" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"></sbux-button>
 							</td>
-						</tr>
-						<tr>
 							<th scope="row" class="th_bg" style="border-right: hidden;">거래처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
@@ -84,6 +73,8 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
+						</tr>
+						<tr>
 							<th scope="row" class="th_bg">배송지</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
 								<sbux-input id="srch-inp-dldtn" name="srch-inp-dldtn" uitype="text" maxlength="100" class="form-control input-sm"></sbux-input>
@@ -98,8 +89,6 @@
 								</div>
 							</td>
 							<td colspan="2"></td>
-						</tr>
-						<tr>
 							<th scope="row" class="th_bg">차량번호</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-vhclno" name="srch-inp-vhclno" uitype="text" maxlength="8" class="form-control pull-right input-sm"></sbux-input>
@@ -197,15 +186,16 @@
             {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd',		width: '100px',	type: 'output',	style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['상품명','상품명'], 		ref: 'gdsNm', 		width: '140px',	type: 'output',	style:'text-align: center', hidden:true},
+            {caption: ['품목','품목'],			ref: 'itemNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
             {caption: ['품종','품종'],			ref: 'vrtyNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
-            {caption: ['규격','규격'], 		ref: 'spcfctNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
+            {caption: ['규격','규격'], 			ref: 'spcfctNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['브랜드','브랜드'], 		ref: 'brndCd', 		width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '150px',	type: 'output',	style:'text-align: center'},
             {caption: ['배송지','배송지'], 		ref: 'dldtn', 		width: '150px',	type: 'output',	style:'text-align: center'},
             {caption: ['운송사','운송사'], 		ref: 'trsprtCoNm', 	width: '150px',	type: 'output',	style:'text-align: center'},
             {caption: ['차량번호','차량번호'], 	ref: 'vhclno',		width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['운반비','운반비'], 		ref: 'trsprtCst', 	width: '100px',	type: 'output',	style:'text-align: right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
             {caption: ['출하','수량'], 		ref: 'spmtQntt', 	width: '80px',	type: 'output',	style:'text-align: right',
             	format : {type:'number', rule:'#,###'}},
             {caption: ['출하','중량'], 		ref: 'spmtWght', 	width: '100px',	type: 'output',	style:'text-align: right',
@@ -273,6 +263,7 @@
 				let spmtPrfmnc = {
 					spmtYmd 		: item.spmtYmd
 				  , gdsNm 			: item.gdsNm
+				  , itemNm 			: item.itemNm
 				  , vrtyNm 			: item.vrtyNm
 				  , spcfctNm 		: item.spcfctNm
 				  , brndCd 			: item.brndCd

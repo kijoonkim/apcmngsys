@@ -28,6 +28,7 @@
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
     			, pt0.*
     			, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)						AS GDS_NM
+    			, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 					AS ITEM_NM
     			, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)		AS VRTY_NM
     		 	, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)	AS SPCFCT_NM
     		 	, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)					AS CNPT_NM
@@ -40,6 +41,7 @@
     		SELECT
     			  pt0.*
     			, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)						AS GDS_NM
+    			, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 					AS ITEM_NM
     			, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)		AS VRTY_NM
     		 	, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)	AS SPCFCT_NM
     		 	, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)					AS CNPT_NM
@@ -51,44 +53,28 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncList */
-	    		   PC.APC_CD						AS APC_CD
-	    		 , PC.SPMT_YMD						AS SPMT_YMD
-	    		 , PD.BRND_CD						AS BRND_CD
-	    		 , PD.GDS_CD						AS GDS_CD
-	    		 , VC.ITEM_CD						AS ITEM_CD
-	    		 , PD.VRTY_CD						AS VRTY_CD
-	    		 , PD.SPCFCT_CD						AS SPCFCT_CD
-	    		 , MAX(PC.CNPT_CD)					AS CNPT_CD
-	    		 , MAX(PC.DLDTN)					AS DLDTN
-	    		 , MAX(PC.TRSPRT_CO_CD)				AS TRSPRT_CO_CD
-	    		 , MAX(PC.VHCLNO)					AS VHCLNO
-	    		 , MAX(PC.TRSPRT_CST)				AS TRSPRT_CST
-	    		 , SUM(PD.SPMT_QNTT)				AS SPMT_QNTT
-	    		 , SUM(PD.SPMT_WGHT)				AS SPMT_WGHT
-                 , MAX(PC.RMRK)                     AS RMRK
-			  FROM
-				   TB_SPMT_PRFMNC_COM		PC
-				 , TB_SPMT_PRFMNC_DTL		PD
-				 , TB_APC_VRTY_CRTR			VC
-				 , TB_GDS_INVNTR			GI
-				 , TB_CNPT_INFO 			CI
+			       PC.APC_CD						AS APC_CD
+			     , PC.SPMT_YMD						AS SPMT_YMD
+			     , PD.BRND_CD						AS BRND_CD
+			     , PD.GDS_CD						AS GDS_CD
+			     , PD.ITEM_CD						AS ITEM_CD
+			     , PD.VRTY_CD						AS VRTY_CD
+			     , PD.SPCFCT_CD						AS SPCFCT_CD
+			     , PC.CNPT_CD						AS CNPT_CD
+			     , MAX(PC.DLDTN)					AS DLDTN
+			     , MAX(PC.TRSPRT_CO_CD)				AS TRSPRT_CO_CD
+			     , MAX(PC.VHCLNO)					AS VHCLNO
+			     , MAX(PC.TRSPRT_CST)				AS TRSPRT_CST
+			     , SUM(PD.SPMT_QNTT)				AS SPMT_QNTT
+			     , SUM(PD.SPMT_WGHT)				AS SPMT_WGHT
+			     , MAX(PC.RMRK)                     AS RMRK
+
+			  FROM TB_SPMT_PRFMNC_COM		PC
+			     , TB_SPMT_PRFMNC_DTL		PD
 			 WHERE PC.APC_CD = PD.APC_CD
-			   AND PC.APC_CD = VC.APC_CD
-			   AND PC.APC_CD = GI.APC_CD
-			   AND PC.APC_CD = CI.APC_CD
 			   AND PC.SPMTNO = PD.SPMTNO
-	    	   AND PC.CNPT_CD = CI.CNPT_CD
-			   AND PD.VRTY_CD = VC.VRTY_CD
-			   AND PD.VRTY_CD = GI.VRTY_CD
-			   AND PD.SPCFCT_CD = GI.SPCFCT_CD
-			   AND VC.ITEM_CD = GI.ITEM_CD
-			   AND PD.PCKGNO = GI.PCKGNO
-			   AND PD.PCKG_SN = GI.PCKG_SN
 			   AND PC.DEL_YN = 'N'
 			   AND PD.DEL_YN = 'N'
-			   AND VC.DEL_YN = 'N'
-			   AND GI.DEL_YN = 'N'
-	    	   AND CI.DEL_YN = 'N'
 
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
@@ -101,19 +87,22 @@
 		   	   AND #{spmtYmdTo} >= PC.SPMT_YMD
 		</if>
 		<if test='cnptNm != null and cnptNm != ""'>
-		       AND CI.CNPT_NM LIKE '%' ||  #{cnptNm} || '%'
+			   AND (SELECT FN_GET_CNPT_NM(PC.CNPT_CD, PC.APC_CD) FROM DUAL) LIKE '%' ||  #{cnptNm} || '%'
+		</if>
+		<if test='cnptCd != null and cnptCd != ""'>
+			   AND PC.CNPT_CD = #{cnptCd}
 		</if>
 		<if test='trsprtCoCd != null and trsprtCoCd != ""'>
 		       AND PC.TRSPRT_CO_CD = #{trsprtCoCd}
 		</if>
 		<if test='itemCd != null and itemCd != ""'>
-		       AND VC.ITEM_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{itemCd})))
+		       AND PD.ITEM_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{itemCd})))
 		</if>
 		<if test='vrtyNm != null and vrtyNm != ""'>
 			   AND PD.VRTY_NM in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyNm})))
 		</if>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
-		       AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+		       -- AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
 		</if>
 		<if test='dldtn != null and dldtn != ""'>
 		       AND PC.DLDTN LIKE '%' ||  #{dldtn} || '%'
@@ -122,16 +111,17 @@
 		       AND PC.VHCLNO LIKE '%' ||  #{vhclno} || '%'
 		</if>
 		<![CDATA[
-		 	 GROUP BY PC.SPMTNO
-	    		 	, PC.SPMT_YMD
-	    		 	, PD.PCKGNO
-	    		 	, PD.PCKG_SN
-	    		 	, PD.BRND_CD
-	    		 	, PD.GDS_CD
-	    		 	, VC.ITEM_CD
-	    		 	, PD.VRTY_CD
-	    		 	, PD.SPCFCT_CD
-	    		 	, PC.APC_CD
+		 	GROUP BY PC.SPMTNO
+		        , PC.SPMT_YMD
+		        , PD.PCKGNO
+		        , PD.PCKG_SN
+		        , PD.BRND_CD
+		        , PD.GDS_CD
+		        , PD.ITEM_CD
+		        , PD.VRTY_CD
+		        , PD.SPCFCT_CD
+		        , PC.APC_CD
+		        , PC.CNPT_CD
 		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -161,6 +151,7 @@
 		     , PD.PCKGNO            AS PCKGNO
 		     , PD.PCKG_SN           AS PCKG_SN
 		     , PD.VRTY_CD           AS VRTY_CD
+		     , PD.ITEM_CD           AS ITEM_CD
 		     , PD.GDS_GRD           AS GDS_GRD
 		     , PD.SPCFCT_CD         AS SPCFCT_CD
 		     , PD.SPMT_QNTT         AS SPMT_QNTT
@@ -249,6 +240,7 @@
     		  ,	SPMTNO
     		  ,	PCKGNO
     		  ,	PCKG_SN
+    		  ,	ITEM_CD
     		  ,	VRTY_CD
     		  ,	GDS_GRD
     		  ,	SPCFCT_CD
@@ -273,6 +265,7 @@
     		  ,	#{spmtno}
     		  ,	#{pckgno}
     		  ,	#{pckgSn}
+    		  ,	#{itemCd}
     		  ,	#{vrtyCd}
     		  ,	#{gdsGrd}
     		  ,	#{spcfctCd}
@@ -344,48 +337,45 @@
 	<select id="selectSpmtPrfmncDtlList" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
 		<![CDATA[
 		SELECT pt0.*  /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmnDtlcList */
-		     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
-		     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
-		     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL )  AS SPCFCT_NM
-		     , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) AS GDS_GRD_NM
-		     , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)     AS SPMT_PCKG_UNIT_NM
-		     , (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL) AS CNPT_NM
-		     , (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL) AS TRSPRT_CO_NM
+		     , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
+		     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 			AS VRTY_NM
+		     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 		AS SPCFCT_NM
+		     , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 					AS GDS_GRD_NM
+		     , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)   AS SPMT_PCKG_UNIT_NM
+		     , (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL) 						AS CNPT_NM
+		     , (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL) 			AS TRSPRT_CO_NM
 		 FROM (SELECT PD.APC_CD                 AS APC_CD
-				    , PD.SPMTNO                 AS SPMTNO
-				    , PC.SPMT_YMD               AS SPMT_YMD
-				    , GI.ITEM_CD                AS ITEM_CD
-				    , GI.VRTY_CD                AS VRTY_CD
-				    , GI.SPCFCT_CD              AS SPCFCT_CD
-				    , PD.GDS_GRD                AS GDS_GRD
-				    , PD.SPMT_PCKG_UNIT_CD      AS SPMT_PCKG_UNIT_CD
-				    , MAX(PC.CNPT_CD)           AS CNPT_CD
-				    , MAX(PC.TRSPRT_CO_CD)      AS TRSPRT_CO_CD
-				    , MAX(PC.RMRK)              AS RMRK
-				    , MAX(PC.DEL_YN)            AS DEL_YN
-				    , MAX(PC.VHCLNO)            AS VHCLNO
-				    , MAX(PC.DLDTN)             AS DLDTN
-				    , MAX(PC.TRSPRT_CST)        AS TRSPRT_CST
-				    , MAX(PC.SPMT_SE_CD)        AS SPMT_SE_CD
-				    , MAX(PC.SPMT_PRSN_DCLRNLO) AS SPMT_PRSN_DCLRNLO
-				    , MAX(PC.PLOR_CD)           AS PLOR_CD
-				    , MAX(PD.PCKGNO)            AS PCKGNO
-				    , MAX(PD.PCKG_SN)           AS PCKG_SN
-				    , MAX(PD.BRND_CD)           AS BRND_CD
-				    , MAX(PD.GDS_CD)            AS GDS_CD
-				    , MAX(PD.PRDCR_CD)          AS PRDCR_CD
-				    , MAX(PD.SPMT_CMNDNO)       AS SPMT_CMNDNO
-				    , SUM(PD.SPMT_QNTT) AS SPMT_QNTT
-				    , SUM(PD.SPMT_WGHT) AS SPMT_WGHT
-			     FROM TB_SPMT_PRFMNC_COM PC
-				    , TB_SPMT_PRFMNC_DTL PD
-				    , TB_GDS_INVNTR GI
-			    WHERE PD.APC_CD = GI.APC_CD
-			      AND PD.PCKGNO = GI.PCKGNO
-				  AND PC.SPMTNO = PD.SPMTNO
-				  AND PC.DEL_YN = 'N'
-				  AND PD.DEL_YN = 'N'
-				  AND GI.DEL_YN = 'N'
+		            , PD.SPMTNO                 AS SPMTNO
+		            , PC.SPMT_YMD               AS SPMT_YMD
+		            , PD.ITEM_CD                AS ITEM_CD
+		            , PD.VRTY_CD                AS VRTY_CD
+		            , PD.SPCFCT_CD              AS SPCFCT_CD
+		            , PD.GDS_GRD                AS GDS_GRD
+		            , PD.SPMT_PCKG_UNIT_CD      AS SPMT_PCKG_UNIT_CD
+		            , MAX(PC.CNPT_CD)           AS CNPT_CD
+		            , MAX(PC.TRSPRT_CO_CD)      AS TRSPRT_CO_CD
+		            , MAX(PC.RMRK)              AS RMRK
+		            , MAX(PC.DEL_YN)            AS DEL_YN
+		            , MAX(PC.VHCLNO)            AS VHCLNO
+		            , MAX(PC.DLDTN)             AS DLDTN
+		            , MAX(PC.TRSPRT_CST)        AS TRSPRT_CST
+		            , MAX(PC.SPMT_SE_CD)        AS SPMT_SE_CD
+		            , MAX(PC.SPMT_PRSN_DCLRNLO) AS SPMT_PRSN_DCLRNLO
+		            , MAX(PC.PLOR_CD)           AS PLOR_CD
+		            , MAX(PD.PCKGNO)            AS PCKGNO
+		            , MAX(PD.PCKG_SN)           AS PCKG_SN
+		            , MAX(PD.BRND_CD)           AS BRND_CD
+		            , MAX(PD.GDS_CD)            AS GDS_CD
+		            , MAX(PD.PRDCR_CD)          AS PRDCR_CD
+		            , MAX(PD.SPMT_CMNDNO)       AS SPMT_CMNDNO
+		            , SUM(PD.SPMT_QNTT) AS SPMT_QNTT
+		            , SUM(PD.SPMT_WGHT) AS SPMT_WGHT
+		         FROM TB_SPMT_PRFMNC_COM PC
+		            , TB_SPMT_PRFMNC_DTL PD
+		        WHERE PC.APC_CD = PD.APC_CD
+		          AND PC.SPMTNO = PD.SPMTNO
+		          AND PC.DEL_YN = 'N'
+		          AND PD.DEL_YN = 'N'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 		   	   AND PD.APC_CD = #{apcCd}
@@ -394,10 +384,10 @@
 		   	   AND PC.SPMT_YMD = #{spmtYmd}
 		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
-		   	   AND GI.VRTY_CD = #{vrtyCd}
+		   	   AND PD.VRTY_CD = #{vrtyCd}
 		</if>
 		<![CDATA[
-		 		 GROUP BY PD.APC_CD, PD.SPMTNO, PC.SPMT_YMD , GI.VRTY_CD, GI.SPCFCT_CD, PD.GDS_GRD, PD.SPMT_PCKG_UNIT_CD, GI.ITEM_CD
+		 		 GROUP BY PD.APC_CD, PD.SPMTNO, PC.SPMT_YMD , PD.ITEM_CD, PD.VRTY_CD, PD.SPCFCT_CD, PD.GDS_GRD, PD.SPMT_PCKG_UNIT_CD
 		 	) pt0
 		]]>
 	</select>
