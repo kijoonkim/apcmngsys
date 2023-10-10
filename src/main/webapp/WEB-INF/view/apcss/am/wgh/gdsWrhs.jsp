@@ -82,7 +82,7 @@
 									/>
 								</p>
 							</td>
-							<th scope="row" class="th_bg"><span class="data_required"></span>매입처</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>거래처</th>
 						    <td class="td_input" style="border-right:hidden ;">
 						    	<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" class="form-control input-sm-ast inpt_data_reqed input-sm" maxlength="33"></sbux-input>
 						    </td>
@@ -272,19 +272,100 @@
 	        {caption: ["비고"],		ref: 'rmrk',      	type:'output',  width:'105px'},
 	    ];
 	    grdGdsWrhs = _SBGrid.create(SBGridProperties);
-	    //grdGdsWrhs.bind( "afterpagechanged" , "fn_pagingGdsWrhs" );
+	    grdGdsWrhs.bind( "afterpagechanged" , "fn_pagingGdsWrhs" );
 	}
 	
-	// APC 선택 변경
-	const fn_onChangeApc = async function() {
-		let result = await Promise.all([
-			fn_initSBSelect(),
-			fn_initSBRadio()
-		]);
+	// 출하실적 목록 조회 (조회 버튼)
+    async function fn_search() {
+    	let recordCountPerPage = grdGdsWrhs.getPageSize();  		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = 1;
+    	grdGdsWrhs.movePaging(currentPageNo);
+    }
+
+	let newJsonGdsWrhs = [];
+
+	// 출하실적 목록 조회 호출
+	async function fn_callSelectGdsWrhsList(recordCountPerPage, currentPageNo){
+		jsonGdsWrhs = [];
+		let apcCd = gv_selectedApcCd;
+		let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");
+		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
+		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
+		let itemCd = SBUxMethod.get("srch-inp-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
+		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+		let bx = SBUxMethod.get("srch-slt-bx");
+		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
 		
-		fn_reset();
+		if (gfn_isEmpty(spmtYmdFrom)){
+			gfn_comAlert("W0002", "출하일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		
+		let VO = {apcCd 				: apcCd
+						  , wrhsYmd 			: wrhsYmd
+						  , gdsSeCd 			: gdsSeCd
+						  , cnptNm 				: cnptNm
+						  , itemCd 				: itemCd
+						  , vrtyCd 				: vrtyCd
+						  , spcfctCd 			: spcfctCd
+						  , bx 					: bx
+						  , warehouseSeCd 		: warehouseSeCd
+						  , pagingYn 			: 'Y'
+						  , currentPageNo 		: currentPageNo
+						  , recordCountPerPage 	: recordCountPerPage};
+    	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncList.do", VO);
+        let data = await postJsonPromise;
+        newJsonGdsWrhs = [];
+        try{
+        	data.resultList.forEach((item, index) => {
+				let gdsWrhs = {
+					wrhsYmd 		: item.wrhsYmd
+				  , gdsSe 			: item.gdsSe
+				  , itemNm 			: item.itemNm
+				  , itemNm 			: item.itemNm
+				  , itemNm 			: item.itemNm
+				  , itemNm 			: item.itemNm
+				  , wrhsYmd 		: item.wrhsYmd
+				  , gdsSe 			: item.gdsSe
+				  , itemNm 			: item.itemNm
+				  , vrtyNm 			: item.vrtyNm
+				  , cnptNm 			: item.cnptNm
+				  , qntt 			: item.qntt
+				  , wght 			: item.wght
+				  , bxKnd 			: item.bxKnd
+				  , warehouseSe	 	: item.warehouseSe
+				  , rmrk			: item.rmrk
+				}
+				jsonGdsWrhs.push(Object.assign({}, gdsWrhs));
+				newJsonGdsWrhs.push(Object.assign({}, gdsWrhs));
+			});
+        	if(jsonGdsWrhs.length > 0){
+				if(grdGdsWrhs.getPageTotalCount() != data.resultList[0].totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdGdsWrhs.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdGdsWrhs.rebuild();
+				}else{
+					grdGdsWrhs.refresh();
+				}
+			}else{
+				grdGdsWrhs.setPageTotalCount(0);
+				grdGdsWrhs.rebuild();
+			}
+        }catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        }
 	}
 
+	// 페이징
+    async function fn_pagingGdsWrhs(){
+    	let recordCountPerPage = grdGdsWrhs.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdGdsWrhs.getSelectPageIndex();
+    	fn_callSelectGdsWrhsList(recordCountPerPage, currentPageNo);
+    }
+ 	
 	// 초기화
 	const fn_reset = function() {
  		// 입고일자
@@ -315,6 +396,16 @@
  		fn_onChangeSrchItemCd({value: null});
  	}
 	
+	// APC 선택 변경
+	const fn_onChangeApc = async function() {
+		let result = await Promise.all([
+			fn_initSBSelect(),
+			fn_initSBRadio()
+		]);
+		
+		fn_reset();
+	}
+
 	const fn_onChangeQnttWght = function() {
 		let qntt = parseInt(SBUxMethod.get("srch-inp-qntt")) || 0;
 		let wght = parseInt(SBUxMethod.get("srch-inp-wght")) || 0;

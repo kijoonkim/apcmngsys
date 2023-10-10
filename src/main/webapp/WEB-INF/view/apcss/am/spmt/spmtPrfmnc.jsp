@@ -218,7 +218,6 @@
 	// 출하실적 목록 조회 호출
 	async function fn_callSelectSpmtPrfmncList(recordCountPerPage, currentPageNo){
 		jsonSpmtPrfmnc = [];
-		let searchList = [];
 		let apcCd = gv_selectedApcCd;
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
 		let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
@@ -234,6 +233,7 @@
 		let vrtyNm = SBUxMethod.get("srch-inp-vrtyNm");
 		let dldtn = SBUxMethod.get("srch-inp-dldtn");
 		let vhclno = SBUxMethod.get("srch-inp-vhclno");
+		
 		if (gfn_isEmpty(spmtYmdFrom)){
 			gfn_comAlert("W0002", "출하일자");		//	W0002	{0}을/를 입력하세요.
             return;
@@ -242,6 +242,7 @@
 			gfn_comAlert("W0002", "출하일자");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
+		
 		let SpmtPrfmncVO = {apcCd 				: apcCd
 						  , spmtYmdFrom 		: spmtYmdFrom
 						  , spmtYmdTo 			: spmtYmdTo
