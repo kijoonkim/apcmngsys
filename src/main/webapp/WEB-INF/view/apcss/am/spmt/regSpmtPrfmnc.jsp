@@ -38,7 +38,7 @@
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<!--[APC] START -->
-				<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>

@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> ▶ 재고이송조회</h3>
+					<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3><!-- 재고이송조회 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_selectGridList"></sbux-button>
@@ -23,6 +23,9 @@
 			</div>
 
 			<div class="box-body">
+			<!--[APC] START -->
+				<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+			<!--[APC] END -->
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -41,12 +44,6 @@
 						<col style="width: 3%">
 					</colgroup>
 					<tbody>
-						<tr>
-							<th scope="row" class="th_bg">APC명</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled></sbux-input>
-							</td>
-						</tr>
 						<tr>
 							<th scope="row" class="th_bg">이송일자</th>
 							<td class="td_input" style="border-right: hidden;">
