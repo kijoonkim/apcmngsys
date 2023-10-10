@@ -1,5 +1,6 @@
 package com.at.apcss.am.pckg.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.at.apcss.am.invntr.service.SortInvntrService;
+import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.pckg.service.PckgCmndService;
 import com.at.apcss.am.pckg.vo.PckgCmndVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -37,6 +40,9 @@ public class PckgCmndController extends BaseController {
 
 	@Resource(name = "pckgCmndService")
 	private PckgCmndService pckgCmndService;
+
+	@Resource(name = "sortInvntrService")
+	private SortInvntrService sortInvntrService;
 
 	/**
 	 * 포장지시 목록 조회
@@ -123,6 +129,20 @@ public class PckgCmndController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/pckg/selectPckgCmndTrgetList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectPckgCmndTrgetList(@RequestBody SortInvntrVO sortInvntrVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SortInvntrVO> resultList = new ArrayList<>();
+		try {
+			resultList = sortInvntrService.selectPckgCmndTrgetList(sortInvntrVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 
 		return getSuccessResponseEntity(resultMap);
 	}

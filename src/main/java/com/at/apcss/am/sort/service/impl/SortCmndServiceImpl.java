@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.sort.mapper.SortCmndMapper;
 import com.at.apcss.am.sort.service.SortCmndService;
 import com.at.apcss.am.sort.vo.SortCmndVO;
@@ -75,14 +74,6 @@ public class SortCmndServiceImpl implements SortCmndService {
 		int deletedCnt = sortCmndMapper.deleteSortCmnd(sortCmndVO);
 
 		return deletedCnt;
-	}
-
-	@Override
-	public List<SortInvntrVO> selectPckgCmndTrgetList(SortCmndVO sortCmndVO) throws Exception {
-
-		List<SortInvntrVO> resultList = sortCmndMapper.selectPckgCmndTrgetList(sortCmndVO);
-
-		return resultList;
 	}
 
 	@Override
