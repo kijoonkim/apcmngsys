@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;">▶ ${comMenuVO.menuNm}</h3>
+					<h3 class="box-title" style="line-height: 30px;">▶ ${comMenuVO.menuNm}</h3><!-- 출하실적등록 태블릿 -->
 				</div>
 				<div style="margin-left: auto;">
 					<p class="ad_input_row">
@@ -27,6 +27,9 @@
 				</div>
 			</div>
 			<div class="box-body">
+			<!--[APC] START -->
+				<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+			<!--[APC] END -->
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -42,14 +45,6 @@
 						<col style="width: 10%">
 					</colgroup>
 					<tbody>
-						<tr>
-							<th scope="row" class="th_bg">APC명</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
-								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden"></sbux-input>
-							</td>
-							<td colspan="6"></td>
-						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>출하지시번호</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">

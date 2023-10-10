@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title" style="line-height: 30px;"> ▶ 매출확정등록</h3>
+					<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3><!-- 매출확정등록 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
@@ -25,6 +25,9 @@
 				</div>
 			</div>
 			<div class="box-body">
+			<!--[APC] START -->
+				<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+			<!--[APC] END -->
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -43,13 +46,6 @@
 						<col style="width: 3%">
 					</colgroup>
 					<tbody>
-					<tr>
-						<th scope="row"  class="th_bg" style="border-bottom:1px solid white " >APC명</th>
-						<td colspan= "3" class="td_input" style="border-right:hidden;">
-							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-						</td>
-						<td colspan="8"></td>
-					</tr>
 					<tr>
 						<th scope="row" class="th_bg"><span class="data_required" ></span>매출일자</th>
 						<td class="td_input" style="border-right: hidden;">

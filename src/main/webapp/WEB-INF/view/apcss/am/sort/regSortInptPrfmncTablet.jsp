@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-				<h3 class="box-title" style="line-height: 30px;">▶선별투입등록(태블릿)</h3>
+				<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3><!-- 선별투입등록(태블릿) -->
 				</div>
 				<div style="margin-left: auto;">
 						<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset()"></sbux-button>
@@ -26,6 +26,9 @@
 				</div>
 			</div>
 			<div class="box-body">
+			<!--[APC] START -->
+				<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+			<!--[APC] END -->
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -38,13 +41,6 @@
 						<col style="width: auto">
 					</colgroup>
 					<tbody>
-						<tr>
-							<th scope="row" class="th_bg">APC명</th>
-							<td colspan="3" class="td_input"  style="border-right:hidden ;">
-								<sbux-input id="inp-apcCd" name="inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							</td>
-							<td colspan="2" class="td_input"></td>
-						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>선별기명</th>
 							<td colspan= "2" class="td_input"  style="border-right:hidden ;">
