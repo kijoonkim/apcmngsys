@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,7 @@ public class FcltSortMchnOperInfoController extends BaseController {
 	private FcltSortMchnOperInfoService fcltSortMchnOperInfoService;
 
 	// 선별기운영기간 화면이동
-	@RequestMapping("/fm/fclt/fcltSortMchnOperInfo.do")
+	@GetMapping("/fm/fclt/fcltSortMchnOperInfo.do")
 	public String doFcltSortMchnOperInfo() {
 		return "apcss/fm/fclt/fcltSortMchnOperInfo";
 	}

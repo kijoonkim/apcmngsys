@@ -62,10 +62,10 @@ public class EgovProperties {
 	// /target/classes/egovframework
 	public static final String RELATIVE_PATH_PREFIX = "classpath:" + FILE_SEPARATOR + "egovframework";
 
-	// 프로퍼티 파일의 위치 
+	// 프로퍼티 파일의 위치
 	// /target/classes/egovframework/egovProps/globals.properties
 	//public static final String GLOBALS_PROPERTIES_FILE = RELATIVE_PATH_PREFIX + FILE_SEPARATOR +"egovProps"+ FILE_SEPARATOR + "globals.properties";
-		
+
 	// /target/classes/application.properties
 	public static final String GLOBALS_PROPERTIES_FILE = "classpath:" + FILE_SEPARATOR + "application.properties";
 
@@ -111,14 +111,14 @@ public class EgovProperties {
 	public static String getProperty(String keyName) {
 		String value = ERR_CODE;
 		value = "99";
-		
+
         Resource resources = ResourcePatternUtils.getResourcePatternResolver(new DefaultResourceLoader())
 			    .getResource(GLOBALS_PROPERTIES_FILE);
-		
+
         debug(GLOBALS_PROPERTIES_FILE + " : " + keyName);
-		
+
 		try (InputStream in = resources.getInputStream()) {
-			Properties props = new Properties(); 
+			Properties props = new Properties();
 			props.load(new java.io.BufferedInputStream(in));
 			value = props.getProperty(keyName).trim();
 		} catch (FileNotFoundException fne) {
@@ -128,7 +128,7 @@ public class EgovProperties {
 		}
 		return value;
 	}
-	
+
 	/**  주석해제 : 신정철
 	 * 주어진 파일에서 인자로 주어진 문자열을 Key값으로 하는 프로퍼티 상대 경로값을 절대 경로값으로 반환한다
 	 * @param fileName String
@@ -141,7 +141,7 @@ public class EgovProperties {
 			java.util.Properties props = new java.util.Properties();
 			fis  = new FileInputStream(fileName);
 			props.load(new java.io.BufferedInputStream(fis));
-			fis.close();
+			//fis.close();
 
 			String value = props.getProperty(key);
 			value = RELATIVE_PATH_PREFIX + "egovProps" + System.getProperty("file.separator") + value;
@@ -154,11 +154,11 @@ public class EgovProperties {
 			try {
 				if (fis != null) fis.close();
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				//ex.printStackTrace();
 			}
 		}
 	}
-	
+
 
 	/**
 	 * 주어진 파일에서 인자로 주어진 문자열을 Key값으로 하는 프로퍼티 값을 반환한다

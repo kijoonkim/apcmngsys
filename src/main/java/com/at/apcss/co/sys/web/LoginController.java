@@ -12,9 +12,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import com.at.apcss.co.apc.service.ApcInfoService;
 import com.at.apcss.co.apc.vo.ApcInfoVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -56,7 +56,7 @@ public class LoginController extends BaseController {
 	private ApcInfoService apcInfoService;
 
 
-	@RequestMapping("/login.do")
+	@GetMapping("/login.do")
 	public String doLoginView(@ModelAttribute("loginVO") LoginVO loginVO,
 			HttpServletRequest request,
 			HttpServletResponse response,
@@ -86,7 +86,7 @@ public class LoginController extends BaseController {
 		return "main/login";
 	}
 
-	@RequestMapping(value = "/actionLogin.do")
+	@PostMapping(value = "/actionLogin.do")
 	public String actionLogin(
 			@RequestBody LoginVO loginVO,
 			HttpServletRequest request,
@@ -190,7 +190,7 @@ public class LoginController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = "/actionSSOLogin.do")
+	@GetMapping(value = "/actionSSOLogin.do")
 	public String actionSSOLogin(HttpServletRequest request) throws Exception {
 
 		String id = request.getParameter("id");
@@ -257,7 +257,7 @@ public class LoginController extends BaseController {
 	 * @return redirect url
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/actionMain.do")
+	@GetMapping(value = "/actionMain.do")
 	public String actionMain(HttpServletRequest request, ModelMap model) throws Exception {
 
 		// 1. Spring Security 사용자 권한처리
@@ -268,7 +268,7 @@ public class LoginController extends BaseController {
 			return "redirect:/login.do";
 		}
 
-		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		//LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 
 		// 2. 메뉴조회
 
@@ -283,7 +283,7 @@ public class LoginController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = "/actionLogout.do")
+	@GetMapping(value = "/actionLogout.do")
 	public String actionLogout(HttpServletRequest request, ModelMap model) throws Exception {
 
 		// 1. Security 연도

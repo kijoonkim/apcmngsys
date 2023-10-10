@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,7 @@ public class BbsController extends BaseController {
 	private BbsService bbsService;
 
 	// 게시판 화면이동
-	@RequestMapping("/fm/bbs/bbs.do")
+	@GetMapping("/fm/bbs/bbs.do")
 	public String doBbs() {
 		return "apcss/fm/bbs/bbs";
 	}
