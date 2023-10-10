@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-				<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3><!-- 선별투입등록(태블릿) -->
+				<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3><!-- 선별투입등록 태블릿 -->
 				</div>
 				<div style="margin-left: auto;">
 						<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset()"></sbux-button>
