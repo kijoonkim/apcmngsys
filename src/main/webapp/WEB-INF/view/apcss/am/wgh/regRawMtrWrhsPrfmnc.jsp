@@ -379,7 +379,7 @@
 				</div>
 				<div class="sbt-wrap-body">
 					<div class="sbt-grid">
-						<div id="sb-area-grdRawMtrWrhs" style="height:380px;"></div>
+						<div id="sb-area-grdRawMtrWrhs" style="height:410px;"></div>
 					</div>
 				</div>
 				<!-- <div class="exp-div-excel" style="display: none;width: 2000px;"> none block-->
@@ -573,7 +573,7 @@
     	<jsp:include page="../../am/popup/rawMtrWrhsPrfmncPopup.jsp"></jsp:include>
     </div>
     <sbux-button id="btnRawMtrWrhsfmncPopup" name="btnRawMtrWrhsfmncPopup" uitype="modal" text="엑셀등록" style="width:100%; display:none" class="btn btn-sm btn-outline-dark" target-id="modal-excel" onclick="fn_modal('btnSpmtSlsUntprcReg')"></sbux-button>
-importExcelPopup
+	<!-- importExcelPopup -->
 </body>
 
 <script type="text/javascript">

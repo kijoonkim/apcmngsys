@@ -69,7 +69,7 @@
 							<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComItem"></sbux-select>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComVrty"></sbux-select>
+							<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComVrty"></sbux-select>
 						</td>
 						<td class="td_input">
 						</td>
@@ -111,7 +111,7 @@
 				</div>
 			</div>
 			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-slsDsctn" style="height:450px;"></div>
+				<div id="sb-area-slsDsctn" style="height:500px;"></div>
 			</div>
 				<!--[pp] //검색결과 -->
 			</div>
