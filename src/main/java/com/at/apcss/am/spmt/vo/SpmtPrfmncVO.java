@@ -82,12 +82,12 @@ public class SpmtPrfmncVO extends ComVO {
 	/**
 	 * 운임비용
 	 */
-	private double trsprtCst;
+	private String trsprtCst;
 
 	/**
 	 * 운임비용합계
 	 */
-	private double totTrsprtCst;
+	private String totTrsprtCst;
 
 	/**
 	 * 비고

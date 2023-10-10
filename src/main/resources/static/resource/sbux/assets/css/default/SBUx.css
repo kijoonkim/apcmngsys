@@ -244,10 +244,11 @@ nav.sbux-meu-wrap {
   z-index: 1030;
   margin: 0 auto;
 }
-nav.sbux-meu-wrap .sbux-meu-fluid {
-  margin: 0 auto;
-  padding: 0 15px;
-}
+/*메인상단 로고 여백 제거*/
+/* nav.sbux-meu-wrap .sbux-meu-fluid { */
+/*   margin: 0 auto; */
+/*   padding: 0 15px; */
+/* } */
 nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap {
   margin: 0;
   height: 60px;
@@ -260,10 +261,11 @@ nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap .sbux-meu-brand {
   margin-left: 0;
   color: #777;
 }
-nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap .sbux-meu-brand img {
-  display: block;
-  margin-top: 15px;
-}
+/*메인상단 로고 이미지 여백 제거*/
+/* nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap .sbux-meu-brand img { */
+/*   display: block; */
+/*   margin-top: 15px; */
+/* } */
 nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap .sbux-meu-brand span {
   display: inline-block;
   color: #fff;

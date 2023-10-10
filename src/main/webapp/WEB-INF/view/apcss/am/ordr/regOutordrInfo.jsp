@@ -83,6 +83,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-gdsNm" name="srch-inp-gdsNm" uitype="text" class="form-control input-sm"></sbux-input>
 								<sbux-input id="srch-inp-gdsCd" name="srch-inp-gdsCd" uitype="hidden" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-spmtPckgUnitCd" name="srch-inp-spmtPckgUnitCd" uitype="hidden" class="form-control input-sm"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchGdsNm" name="btnSrchGdsNm" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-gds" onclick="fn_modalGds" text="찾기"></sbux-button>
@@ -143,7 +144,7 @@
 								<sbux-input id="srch-inp-outordrQntt" name="srch-inp-outordrQntt" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" onkeyup="fn_calculate"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-bxGdsQntt" name="srch-inp-bxGdsQntt" uitype="text" class="form-control input-sm input-sm-ast" onkeyup="fn_calculate"></sbux-input>
+								<sbux-input id="srch-inp-bxGdsQntt" name="srch-inp-bxGdsQntt" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" onkeyup="fn_calculate"></sbux-input>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">낱개수량</th>
@@ -405,9 +406,10 @@
 		let bxGdsQntt 	= SBUxMethod.get("srch-inp-bxGdsQntt");
 		let pieceQntt 	= SBUxMethod.get("srch-inp-pieceQntt");
 		let bxUntprc 	= SBUxMethod.get("srch-inp-bxUntprc");
-		let outordrUntprc = SBUxMethod.get("srch-inp-outordrUntprc");
+		let outordrUntprc 	= SBUxMethod.get("srch-inp-outordrUntprc");
 		let gdsCd 		= SBUxMethod.get("srch-inp-gdsCd");
 		let gdsNm 		= SBUxMethod.get("srch-inp-gdsNm");
+		let spmtPckgUnitCd 	= SBUxMethod.get("srch-inp-spmtPckgUnitCd");
 		let rcptnSeCd 	= "99";
 
 		if(gfn_isEmpty(outordrType)){
@@ -476,7 +478,8 @@
 				outordrUntprc 	: outordrUntprc,
 				rcptnSeCd 		: rcptnSeCd,
 				gdsCd			: gdsCd,
-				gdsNm			: gdsNm
+				gdsNm			: gdsNm,
+				spmtPckgUnitCd	: spmtPckgUnitCd
 		}
 
 		let regMsg = "저장 하시겠습니까?";
@@ -553,8 +556,14 @@
 	 */
 	const fn_setGdsNm = async function(gds) {
 		if (!gfn_isEmpty(gds)) {
+			console.log(gds);
 			SBUxMethod.set('srch-inp-gdsNm', gds.gdsNm);
 			SBUxMethod.set('srch-inp-gdsCd', gds.gdsCd);
+			SBUxMethod.set('srch-inp-spmtPckgUnitCd', gds.spmtPckgUnitCd);
+			SBUxMethod.set("srch-slt-itemCd", gds.itemCd);
+			SBUxMethod.set("srch-slt-vrtyCd", gds.vrtyCd);
+			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, 	gv_apcCd, gds.itemCd)		// 규격
+			SBUxMethod.set("srch-slt-spcfctCd", gds.spcfctCd);
 		}
 	}
 	/* End */
