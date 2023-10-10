@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,7 @@ public class SpmtEnggtRsltMngController extends BaseController {
 	private SpmtEnggtRsltMngService spmtEnggtRsltMngService;
 
 	// 출하약정관리 화면이동
-	@RequestMapping("/fm/spmt/spmtEnggtRsltMng.do")
+	@GetMapping("/fm/spmt/spmtEnggtRsltMng.do")
 	public String doSpmtEnggtRsltMng() {
 		return "apcss/fm/spmt/spmtEnggtRsltMng";
 	}

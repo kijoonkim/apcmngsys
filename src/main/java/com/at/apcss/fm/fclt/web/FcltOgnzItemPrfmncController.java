@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,7 @@ public class FcltOgnzItemPrfmncController extends BaseController {
 	private FcltOgnzItemPrfmncService fcltOgnzItemPrfmncService;
 
 	// 유통품목처리실적 화면이동
-	@RequestMapping("/fm/fclt/fcltOgnzItemPrfmnc.do")
+	@GetMapping("/fm/fclt/fcltOgnzItemPrfmnc.do")
 	public String doFcltOgnzItemPrfmnc() {
 		return "apcss/fm/fclt/fcltOgnzItemPrfmnc";
 	}

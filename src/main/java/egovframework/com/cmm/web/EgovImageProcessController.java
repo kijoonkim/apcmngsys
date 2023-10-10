@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -53,7 +54,7 @@ public class EgovImageProcessController extends HttpServlet {
 	private EgovFileMngService fileService;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovImageProcessController.class);
-	
+
 	/** 암호화서비스 */
     @Resource(name="egovARIACryptoService")
     EgovCryptoService cryptoService;
@@ -68,8 +69,7 @@ public class EgovImageProcessController extends HttpServlet {
 	 * @param response
 	 * @throws Exception
 	 */
-	@SuppressWarnings("resource")
-	@RequestMapping("/cmm/fms/getImage.do")
+	@PostMapping("/cmm/fms/getImage.do")
 	public void getImageInf(SessionVO sessionVO, ModelMap model, @RequestParam Map<String, Object> commandMap,
 		HttpServletResponse response) throws Exception {
 

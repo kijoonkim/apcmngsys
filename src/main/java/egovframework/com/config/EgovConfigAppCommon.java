@@ -24,7 +24,7 @@ import com.at.apcss.co.msg.mapper.ComMessageSource;
 import com.at.apcss.co.msg.service.ComMsgService;
 import com.at.apcss.co.msg.vo.ComMsgVO;
 
-import ch.qos.logback.classic.Logger;
+//import ch.qos.logback.classic.Logger;
 import egovframework.com.cmm.EgovComTraceHandler;
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.ImagePaginationRenderer;
@@ -98,10 +98,10 @@ public class EgovConfigAppCommon {
 		ComMessageSource comMessageSource = new ComMessageSource();
 		System.out.println(messageSource().toString());
 		comMessageSource.setReloadableResourceBundleMessageSource(messageSource());
-		
+
 		return comMessageSource;
 	}
-	
+
 	/**
 	 * @return [Resource 설정] 메세지 소스 등록
 	 */
@@ -170,8 +170,8 @@ public class EgovConfigAppCommon {
 	@Bean
 	public CommonsMultipartResolver springRegularCommonsMultipartResolver() {
 		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-		commonsMultipartResolver.setMaxUploadSize(100000000);
-		commonsMultipartResolver.setMaxInMemorySize(100000000);
+		commonsMultipartResolver.setMaxUploadSize(8388608);	// 8388608	100000000 104857600
+		commonsMultipartResolver.setMaxInMemorySize(104857600);
 		return commonsMultipartResolver;
 	}
 
@@ -182,16 +182,16 @@ public class EgovConfigAppCommon {
 	@Bean
 	public EgovMultipartResolver localMultiCommonsMultipartResolver() {
 		EgovMultipartResolver egovMultipartResolver = new EgovMultipartResolver();
-		egovMultipartResolver.setMaxUploadSize(100000000);
-		egovMultipartResolver.setMaxInMemorySize(100000000);
+		egovMultipartResolver.setMaxUploadSize(8388608);	// 8388608	100000000 104857600
+		egovMultipartResolver.setMaxInMemorySize(104857600);
 		return egovMultipartResolver;
 	}
-	
+
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
 		return localMultiCommonsMultipartResolver();
 	}
-	
+
 	/**
 	 * 암복호화
 	 * @return [EgovPasswordEncoder 설정] EgovPasswordEncoder 등록
@@ -203,7 +203,7 @@ public class EgovConfigAppCommon {
 		egovPasswordEncoder.setHashedPassword("gdyYs/IZqY86VcWhT8emCYfqY1ahw2vtLG+/FzNqtrQ=");
 		return egovPasswordEncoder;
 	}
-	
+
 	/**
 	 * 암복호화
 	 * @return [EgovARIACryptoServiceImpl 설정] EgovARIACryptoServiceImpl 등록

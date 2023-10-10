@@ -7,9 +7,9 @@ package egovframework.com.cmm.service;
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -344,14 +344,14 @@ public class FileSystemUtils {
 		tok.nextToken(); // Ignore 1K-blocks
 		tok.nextToken(); // Ignore Used
 		String freeSpace = tok.nextToken();
-		
+
 		return parseBytes(freeSpace, path);
 	}
 
 	//-----------------------------------------------------------------------
 	/**
 	 * Parses the bytes from a string.
-	 * 
+	 *
 	 * @param freeSpace  the free space string
 	 * @param path  the path
 	 * @return the number of bytes
@@ -425,7 +425,7 @@ public class FileSystemUtils {
 			IOUtils.closeQuietly(out);
 			IOUtils.closeQuietly(err);
 			IOUtils.closeQuietly(inr);
-			
+
 			if (proc != null) {
 				proc.destroy();
 			}
@@ -438,8 +438,8 @@ public class FileSystemUtils {
 	 * @param cmdAttribs  the command line parameters
 	 * @return the process
 	 * @throws IOException if an error occurs
-	 * 
-	 * 2022.11.11 김혜준 시큐어코딩 처리 
+	 *
+	 * 2022.11.11 김혜준 시큐어코딩 처리
 	 */
 	private Process openProcess(String[] cmdAttribs) throws IOException {
 		//return Runtime.getRuntime().exec(cmdAttribs);
@@ -452,11 +452,11 @@ public class FileSystemUtils {
 
 	/**
 	 * Opens the process to the operating system.
-	 * 
+	 *
 	 * @param cmdAttribs  the command line parameters
 	 * @throws IOException if an error occurs
-	 * 
-	 * 2022.11.11 김혜준 시큐어코딩 처리 
+	 *
+	 * 2022.11.11 김혜준 시큐어코딩 처리
 	 */
 	public Process processOperate(String clsssName, String cmdAttribs) throws IOException {
 		String[] sourceClassName = {"BatchShellScriptJob", "EgovAdministCodeRecptnService", "EgovInsttCodeRecptnService", "EgovNetworkState", "ProcessMonChecker"};
