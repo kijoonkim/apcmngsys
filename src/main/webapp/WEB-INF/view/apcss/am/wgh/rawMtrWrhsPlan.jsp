@@ -224,7 +224,7 @@
 				</div>
 				<div class="sbt-wrap-body">
 					<div class="sbt-grid">
-						<div id="sb-area-wrhsPlan" style="height:434px;"></div>
+						<div id="sb-area-wrhsPlan" style="height:405px;"></div>
 					</div>
 				</div>
 

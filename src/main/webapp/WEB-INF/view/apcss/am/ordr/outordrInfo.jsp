@@ -93,7 +93,7 @@
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select
-											unselected-text="선택"
+											unselected-text="전체"
 											uitype="single"
 											id="srch-slt-vrtyCd"
 											name="srch-slt-vrtyCd"
@@ -158,7 +158,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdOutordrInfo" style="width:100%;height:450px;"></div>
+					<div id="sb-area-grdOutordrInfo" style="width:100%;height:460px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 

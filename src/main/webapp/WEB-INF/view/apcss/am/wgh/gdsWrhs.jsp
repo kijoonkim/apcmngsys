@@ -82,12 +82,11 @@
 									<sbux-radio id="srch-rdo-gds4" name="srch-rdo-gds" uitype="normal" class="radio_label" text="유기농"/>
 								</p>
 							</td>
-
 							<th scope="row" class="th_bg"><span class="data_required"></span>매입처</th>
 						    <td class="td_input" style="border-right:hidden ;">
 								<sbux-input uitype="text" id="srch-inp-cnpt" name="srch-inp-cnpt" class="form-control input-sm-ast inpt_data_reqed input-sm"/>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"/>
+								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark input-sm-ast inpt_data_reqed" text="찾기" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"/>
 							</td>
 							<td>&nbsp;</td>
 						</tr>
@@ -146,12 +145,12 @@
 						<tr>
 							<th scope="row" class="th_bg">박스종류</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-bx" name="srch-slt-bx" class="form-control input-sm" jsondata-ref="jsonComBx"></sbux-select>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-bx" name="srch-slt-bx" class="form-control input-sm" jsondata-ref="jsonComBx"></sbux-select>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row" class="th_bg">창고</th>
 							<td colspan="6" class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" jsondata-ref="jsonComWarehouseSeCd"></sbux-select>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" jsondata-ref="jsonComWarehouseSeCd"></sbux-select>
 							</td>
 							<td colspan="9">&nbsp;</td>
 							<th scope="row" class="th_bg">비고</th>
@@ -169,7 +168,7 @@
 				</div>
                 <div class="sbt-wrap-body">
                     <div class="sbt-grid">
-                        <div id="inptCmndDsctnGridArea" style="height:340px;"></div>
+                        <div id="inptCmndDsctnGridArea" style="height:500px;"></div>
                     </div>
                	</div>
 			</div>
