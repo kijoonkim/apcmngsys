@@ -656,7 +656,7 @@
 
     	var grdRows = grdGdsInvntr.getCheckedRows(0);
     	var insertList = [];
-    	var spmtQntt;
+    	var spmtQntt = 0;
 
     	let spmtYmd		= SBUxMethod.get("dtl-dtp-spmtYmd");
     	let cnptCd		= SBUxMethod.get("dtl-inp-cnptCd");
@@ -737,6 +737,7 @@
 			let spmtPckgUnit = SBUxMethod.get("dtl-slt-spmtPckgUnit");
 
 			if(spmtQntt != cmndQntt ){
+
 	    		gfn_comAlert("W0006", "지시수량", "실적수량");			// W0006 {0}와/과 {1}이/가 서로 다릅니다.
 	    		return
 	    	}
