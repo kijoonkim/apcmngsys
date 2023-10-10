@@ -77,10 +77,10 @@
 							<td scope="row"  align="right">입금은행</td>
 							<td class="td_input" >
 								<sbux-select id="slt-bankCd" name="slt-bankCd"
-								uitype="single"
+								uitype="singleExt"
 								filtering="true"
 								jsondata-ref="jsonComboBankNm"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+								unselected-text="선택" class=""></sbux-select>
 							</td>
 
 							<td scope="row" align="right">예금주명</td>
