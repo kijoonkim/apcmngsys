@@ -36,7 +36,7 @@ public interface SortInvntrService {
 	 * @throws Exception
 	 */
 	public List<SortInvntrVO> selectSortInvntrList(SortInvntrVO sortInvntrVO) throws Exception;
-	
+
 	/**
 	 * 선별재고 목록 조회
 	 * @param sortInvntrVO
@@ -68,7 +68,7 @@ public interface SortInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
-	
+
 	/**
 	 * 선별재고내역 변경
 	 * @param sortInvntrVO
@@ -91,4 +91,13 @@ public interface SortInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateInvntrPckgPrfmnc(SortInvntrVO sortInvntrVO) throws Exception;
+
+	/**
+	 * 포장지시등록 선별재고 내역 목록 조회
+	 *
+	 * @param SortCmndVO
+	 * @return List<SortInvntrVO>
+	 * @throws Exception
+	 */
+	public List<SortInvntrVO> selectPckgCmndTrgetList(SortInvntrVO sortInvntrVO) throws Exception;
 }

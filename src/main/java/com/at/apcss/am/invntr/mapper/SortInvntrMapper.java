@@ -71,7 +71,7 @@ public interface SortInvntrMapper {
 	 * @throws Exception
 	 */
 	public int updateSortInvntrDsctnList(SortInvntrVO sortInvntrVO) throws Exception;
-	
+
 	/**
 	 * 선별재고 삭제
 	 * @param sortInvntrVO
@@ -96,5 +96,14 @@ public interface SortInvntrMapper {
 	 * @throws Exception
 	 */
 	public int insertSortStdGrd(SortStdGrdVO sortStdGrdVO) throws Exception;
+
+	/**
+	 * 포장지시대상 내역 조회
+	 *
+	 * @param sortCmndVO
+	 * @return List<SortInvntrVO>
+	 * @throws Exception
+	 */
+	public List<SortInvntrVO> selectPckgCmndTrgetList(SortInvntrVO sortInvntrVO) throws Exception;
 
 }

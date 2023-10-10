@@ -47,12 +47,12 @@ public class PckgCmndVO extends ComVO {
 	/**
 	 * 포장지시시작일자
 	 */
-	private String pckgCmndFromYmd;
+	private String pckgCmndYmdFrom;
 
 	/**
 	 * 포장지시종료일자
 	 */
-	private String pckgCmndToYmd;
+	private String pckgCmndYmdTo;
 
 	/**
 	 * 설비코드

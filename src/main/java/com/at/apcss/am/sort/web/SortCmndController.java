@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.sort.service.SortCmndService;
 import com.at.apcss.am.sort.vo.SortCmndVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -96,19 +95,4 @@ public class SortCmndController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
-	@PostMapping(value = "/am/sort/selectPckgCmndTrgetList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectPckgCmndTrgetList(@RequestBody SortCmndVO sortCmndVO, HttpServletRequest request) throws Exception {
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<SortInvntrVO> resultList = new ArrayList<>();
-		try {
-			resultList = sortCmndService.selectPckgCmndTrgetList(sortCmndVO);
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
-		return getSuccessResponseEntity(resultMap);
-	}
-
 }
