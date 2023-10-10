@@ -768,13 +768,13 @@
 					<li class="blue_b">
 						<div class="line01">
 							<span>출하실적</span>
-							<p class="arrow_b2">출하실적 결과를 등록합니다.<br> 필수 선택항목 입니다.</p>
+							<p class="arrow_b3">출하실적 결과를 등록합니다.<br> 필수 선택항목 입니다.</p>
 						</div>
 					</li>
 					<li class="wh_b">
 						<div class="x">
 							<span>발주등록</span>
-							<p class="arrow_b2">거래처의 발주정보를 관리합니다.<br> 발주정보를 기준으로 자동으로 <br>작업지시를 편성할 수 있습니다.</p>
+							<p class="arrow_b4">거래처의 발주정보를 관리합니다.<br> 발주정보를 기준으로 자동으로 <br>작업지시를 편성할 수 있습니다.</p>
 						</div>
 					</li>
 				</ul>
