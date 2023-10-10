@@ -17,7 +17,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 상품입고등록 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
@@ -29,7 +29,7 @@
 
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<!--[APC] START -->			
+				<!--[APC] START -->	
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">

@@ -18,7 +18,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-					<h3 class="box-title">▶ 원물입고 팔레트/박스 관리</h3>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 원물입고팔레트/박스관리 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
@@ -26,6 +26,9 @@
 				</div>
 			</div>
 			<div class="box-body">
+			<!--[APC] START -->
+				<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+			<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -42,14 +45,6 @@
 						<col style="width: 6%">
 						<col style="width: 3%">
 					</colgroup>
-					<tbody>
-						<tr>
-							<th scope="row" class="th_bg">APC명</th>
-							<td colspan= "3" class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-apcNm" name="srch-inp-apcNm" class="form-control input-sm" disabled/>
-							</td>
-						</tr>
-					</tbody>
 				</table>
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">

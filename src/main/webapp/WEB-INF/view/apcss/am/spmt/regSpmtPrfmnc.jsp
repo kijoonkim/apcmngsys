@@ -38,7 +38,7 @@
 			<div class="box-body">
 				<!--[pp] 검색 -->
 				<!--[APC] START -->
-				<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -376,7 +376,8 @@
         	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-        	{caption: ['품종'], 		ref: 'vrtyNm', 		width: '100px', type: 'output', style: 'text-align:center'},
+            {caption: ['품목'], 		ref: 'itemNm', 		width: '80px', type: 'output', style: 'text-align:center'},
+        	{caption: ['품종'], 		ref: 'vrtyNm', 		width: '80px', type: 'output', style: 'text-align:center'},
             {caption: ['상품구분'],		ref: 'gdsSeNm', 	width: '80px', type: 'output', style: 'text-align:center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 	width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['생산일자'], 	ref: 'pckgYmd', 	width: '150px', type: 'output', style: 'text-align:center',
@@ -422,6 +423,7 @@
             {caption: ['출하일자'], 	ref: 'spmtYmd', 	width: '100px', type: 'output', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['거래처'],		ref: 'cnptNm', 		width: '120px', type: 'output', style: 'text-align:center'},
+            {caption: ['품목'], 		ref: 'itemNm', 		width: '80px', type: 'output', style: 'text-align:center'},
             {caption: ['품종'], 		ref: 'vrtyNm', 		width: '80px', type: 'output', style: 'text-align:center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 	width: '80px', type: 'output', style: 'text-align:center'},
             {caption: ['상품'], 		ref: 'gdsCd', 		width: '100px', type: 'output', style: 'text-align:center', hidden:true},
@@ -550,10 +552,10 @@
 		let nCol = grdGdsInvntr.getCol();
 
 		switch (nCol) {
-		case 10:	// checkbox
+		case 11:	// checkbox
 			fn_checkInptQntt();
 			break;
-		case 11:
+		case 12:
 			//check qntt
 			fn_checkInptWght();
 			break;
@@ -579,11 +581,11 @@
 
 			if((spmtQntt == 0 && spmtWght == 0) || (gfn_isEmpty(spmtQntt) && gfn_isEmpty(spmtWght))){
 				if(cmndQntt > 0){
-					grdGdsInvntr.setCellData(nRow, 10, cmndQntt);
-					grdGdsInvntr.setCellData(nRow, 11, cmndWght);
+					grdGdsInvntr.setCellData(nRow, 11, cmndQntt);
+					grdGdsInvntr.setCellData(nRow, 12, cmndWght);
 				}else{
-					grdGdsInvntr.setCellData(nRow, 10, invntrQntt);
-					grdGdsInvntr.setCellData(nRow, 11, invntrWght);
+					grdGdsInvntr.setCellData(nRow, 11, invntrQntt);
+					grdGdsInvntr.setCellData(nRow, 12, invntrWght);
 				}
 
 			}
@@ -592,8 +594,8 @@
 
     const fn_delValue = async function(){
     	var nRow = grdGdsInvntr.getRow();
-    	grdGdsInvntr.setCellData(nRow, 10, 0);
     	grdGdsInvntr.setCellData(nRow, 11, 0);
+    	grdGdsInvntr.setCellData(nRow, 12, 0);
     }
 
     const fn_checkInptWght = async function(){
@@ -611,11 +613,11 @@
             return;
 		}
 		if(invntrWght == spmtWght && invntrQntt > 0){
-			grdGdsInvntr.setCellData(nRow, 10, invntrQntt);
+			grdGdsInvntr.setCellData(nRow, 11, invntrQntt);
 		}
 
 		if(invntrWght % spmtWght == 0){
-			grdGdsInvntr.setCellData(nRow, 10, (spmtWght / invntrWght * invntrQntt));
+			grdGdsInvntr.setCellData(nRow, 11, (spmtWght / invntrWght * invntrQntt));
 		}
 
 		if(spmtWght > 0){
@@ -641,16 +643,14 @@
 		}
 
 		if(invntrQntt > 0 && spmtQntt > 0){
-			grdGdsInvntr.setCellData(nRow, 11, Math.round(invntrWght / invntrQntt) * spmtQntt);
+			grdGdsInvntr.setCellData(nRow, 12, Math.round(invntrWght / invntrQntt) * spmtQntt);
 			grdGdsInvntr.setCellData(nRow, 0, "Y");
 		}
 		if(spmtQntt == 0 && invntrQntt > 0){
-			grdGdsInvntr.setCellData(nRow, 11, 0);
+			grdGdsInvntr.setCellData(nRow, 12, 0);
 			grdGdsInvntr.setCellData(nRow, 0, "N");
 		}
-
     }
-
 
 	const fn_save = async function() {
 
@@ -718,15 +718,15 @@
     			}
     		}
 
-    		grdGdsInvntr.setCellData(nRow, 13, spmtYmd);
-    		grdGdsInvntr.setCellData(nRow, 14, cnptCd);
-    		grdGdsInvntr.setCellData(nRow, 15, trsprtCoCd);
-    		grdGdsInvntr.setCellData(nRow, 16, trsprtCoNm);
-    		grdGdsInvntr.setCellData(nRow, 17, vhclno);
-    		grdGdsInvntr.setCellData(nRow, 18, dldtn);
-    		grdGdsInvntr.setCellData(nRow, 19, trsprtCst);
-    		grdGdsInvntr.setCellData(nRow, 20, rmrk);
-    		grdGdsInvntr.setCellData(nRow, 21, spmtCmndno);
+    		grdGdsInvntr.setCellData(nRow, 14, spmtYmd);
+    		grdGdsInvntr.setCellData(nRow, 15, cnptCd);
+    		grdGdsInvntr.setCellData(nRow, 16, trsprtCoCd);
+    		grdGdsInvntr.setCellData(nRow, 17, trsprtCoNm);
+    		grdGdsInvntr.setCellData(nRow, 18, vhclno);
+    		grdGdsInvntr.setCellData(nRow, 19, dldtn);
+    		grdGdsInvntr.setCellData(nRow, 20, trsprtCst);
+    		grdGdsInvntr.setCellData(nRow, 21, rmrk);
+    		grdGdsInvntr.setCellData(nRow, 22, spmtCmndno);
     		insertList.push(grdGdsInvntr.getRowData(nRow));
     	}
 
@@ -765,15 +765,12 @@
 
     }
 
-
-
 	const fn_setGrdSmptPrfmnc = async function(){
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
 		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
 		let spmtYmd = SBUxMethod.get("dtl-dtp-spmtYmd");
-
 
 		const postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncDtlList.do", {
 			apcCd		: gv_selectedApcCd,
@@ -788,37 +785,39 @@
       		jsonSpmtPrfmnc.length = 0;
           	data.resultList.forEach((item, index) => {
           		const gdsSpmtPrfmnc = {
-          				apcCd: item.apcCd,
-          				spmtno: item.spmtno,
-          				spmtYmd: item.spmtYmd,
-          				vrtyCd: item.vrtyCd,
-          				vrtyNm: item.vrtyNm,
-          				spcfctCd: item.spcfctCd,
-          				spcfctNm: item.spcfctNm,
-          				gdsGrd: item.gdsGrd,
-          				gdsGrdNm: item.gdsGrdNm,
-          				cnptCd: item.cnptCd,
-          				cnptNm: item.cnptNm,
-          				trsprtCoCd: item.trsprtCoCd,
-          				trsprtCoNm: item.trsprtCoNm,
-          				delYn: item.delYn,
-          				vhclno: item.vhclno,
-          				dldtn: item.dldtn,
-          				trsprtCst: item.trsprtCst,
-          				spmtSeCd: item.spmtSeCd,
-          				spmtPrsnDclrnlo: item.spmtPrsnDclrnlo,
-          				plorCd: item.plorCd,
-          				pckgno: item.pckgno,
-          				pckgSn: item.pckgSn,
-          				brndCd: item.brndCd,
-          				gdsCd: item.gdsCd,
-          				prdcrCd: item.prdcrCd,
-          				spmtCmndno: item.spmtCmndno,
-          				spmtPckgUnitCd: item.spmtPckgUnitCd,
-          				spmtPckgUnitNm: item.spmtPckgUnitNm,
-          				spmtQntt: item.spmtQntt,
-          				spmtWght: item.spmtWght,
-          				rmrk:item.rmrk
+          				apcCd			: item.apcCd,
+          				spmtno			: item.spmtno,
+          				spmtYmd			: item.spmtYmd,
+          				itemCd			: item.itemCd,
+          				itemNm			: item.itemNm,
+          				vrtyCd			: item.vrtyCd,
+          				vrtyNm			: item.vrtyNm,
+          				spcfctCd		: item.spcfctCd,
+          				spcfctNm		: item.spcfctNm,
+          				gdsGrd			: item.gdsGrd,
+          				gdsGrdNm		: item.gdsGrdNm,
+          				cnptCd			: item.cnptCd,
+          				cnptNm			: item.cnptNm,
+          				trsprtCoCd		: item.trsprtCoCd,
+          				trsprtCoNm		: item.trsprtCoNm,
+          				delYn			: item.delYn,
+          				vhclno			: item.vhclno,
+          				dldtn			: item.dldtn,
+          				trsprtCst		: item.trsprtCst,
+          				spmtSeCd		: item.spmtSeCd,
+          				spmtPrsnDclrnlo	: item.spmtPrsnDclrnlo,
+          				plorCd			: item.plorCd,
+          				pckgno			: item.pckgno,
+          				pckgSn			: item.pckgSn,
+          				brndCd			: item.brndCd,
+          				gdsCd			: item.gdsCd,
+          				prdcrCd			: item.prdcrCd,
+          				spmtCmndno		: item.spmtCmndno,
+          				spmtPckgUnitCd	: item.spmtPckgUnitCd,
+          				spmtPckgUnitNm	: item.spmtPckgUnitNm,
+          				spmtQntt		: item.spmtQntt,
+          				spmtWght		: item.spmtWght,
+          				rmrk			: item.rmrk
 
   				}
           		jsonSpmtPrfmnc.push(gdsSpmtPrfmnc);
