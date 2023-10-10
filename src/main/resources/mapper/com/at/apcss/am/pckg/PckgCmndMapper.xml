@@ -85,11 +85,11 @@
 		<if test='pckgCmndYmd != null and pckgCmndYmd != ""'>
 			 AND PC.PCKG_CMND_YMD = #{pckgCmndYmd}
 		</if>
-		<if test='pckgCmndFromYmd != null and pckgCmndFromYmd != ""'>
-			 AND PC.PCKG_CMND_YMD <![CDATA[>=]]> #{pckgCmndFromYmd}
+		<if test='pckgCmndYmdFrom != null and pckgCmndYmdFrom != ""'>
+			 AND PC.PCKG_CMND_YMD <![CDATA[>=]]> #{pckgCmndYmdFrom}
 		</if>
-		<if test='pckgCmndToYmd != null and pckgCmndToYmd != ""'>
-			 AND PC.PCKG_CMND_YMD <![CDATA[<=]]> #{pckgCmndToYmd}
+		<if test='pckgCmndYmdTo != null and pckgCmndYmdTo != ""'>
+			 AND PC.PCKG_CMND_YMD <![CDATA[<=]]> #{pckgCmndYmdTo}
 		</if>
 		<if test='fcltCd != null and fcltCd != ""'>
 			 AND PC.FCLT_CD = #{fcltCd}

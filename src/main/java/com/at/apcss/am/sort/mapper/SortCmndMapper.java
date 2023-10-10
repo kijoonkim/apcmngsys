@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.sort.vo.SortCmndVO;
 
 /**
@@ -64,12 +63,4 @@ public interface SortCmndMapper {
 	 */
 	public int deleteSortCmnd(SortCmndVO sortCmndVO) throws Exception;
 
-	/**
-	 * 포장지시대상 내역 조회
-	 *
-	 * @param sortCmndVO
-	 * @return List<SortInvntrVO>
-	 * @throws Exception
-	 */
-	public List<SortInvntrVO> selectPckgCmndTrgetList(SortCmndVO sortCmndVO) throws Exception;
 }
