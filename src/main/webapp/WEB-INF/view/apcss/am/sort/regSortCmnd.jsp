@@ -108,7 +108,7 @@
 				</div>
 				<div class="sbt-wrap-body">
 					<div class="sbt-grid">
-						<div id="sb-area-grdRawMtrInvntr" style="height:260px;"></div>
+						<div id="sb-area-grdRawMtrInvntr" style="height:250px;"></div>
 					</div>
 				</div>
 				<br/>
@@ -149,7 +149,7 @@
 				</div>
                 <div class="sbt-wrap-body">
                     <div class="sbt-grid">
-                        <div id="sb-area-grdSortCmnd" style="height:238px;"></div>
+                        <div id="sb-area-grdSortCmnd" style="height:230px;"></div>
                     </div>
                	</div>
 			</div>

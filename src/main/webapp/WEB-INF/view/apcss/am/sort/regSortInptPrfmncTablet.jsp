@@ -142,7 +142,7 @@
 							<li><span>선별투입 내역</span></li>
 						</ul>
 					</div>
-					<div id="sb-area-grdSortInptDsctn" style="height:340px;"></div>
+					<div id="sb-area-grdSortInptDsctn" style="height:250px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>

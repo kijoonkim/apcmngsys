@@ -55,7 +55,7 @@
 								<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm input-sm" unselected-text="전체" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrtyNm" name="srch-slt-vrtyNm" class="form-control input-sm" jsondata-ref="jsonComVrty"/>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-vrtyNm" name="srch-slt-vrtyNm" class="form-control input-sm" jsondata-ref="jsonComVrty"/>
 								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td>&nbsp;</td>
@@ -129,7 +129,7 @@
 							<sbux-button uitype="normal" id="srch-btn-gdsInvntrDsctn" name="srch-btn-gdsInvntrDsctn" class="btn btn-sm btn-outline-danger" text="상품재고 내역" onclick="fn_sample3()"></sbux-button>
 					</div>
                     <div class="sbt-grid">
-                        <div id="inptCmndDsctnGridArea" style="height:300px;"></div>
+                        <div id="inptCmndDsctnGridArea" style="height:540px;"></div>
                     </div>
                	</div>
 				</div>

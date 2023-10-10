@@ -68,12 +68,12 @@
 
 
 						<tr>
-							<th scope="row" class="th_bg">입고일자</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" class="form-control pull-right input-sm"/>
 							</td>
 							<td colspan="2">&nbsp;</td>
-							<th scope="row" class="th_bg">상품구분</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>상품구분</th>
 							<td colspan="15" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="srch-rdo-gds1" name="srch-rdo-gds" uitype="normal" class="radio_label" text="일반" checked/>
@@ -89,41 +89,41 @@
 								</p>
 							</td>
 
-							<th scope="row" class="th_bg">매입처</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>매입처</th>
 						    <td class="td_input" style="border-right:hidden ;">
 								<sbux-input uitype="text" id="srch-inp-cnpt" name="srch-inp-cnpt" class="form-control input-sm"/>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"/>
+								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark input-sm-ast inpt_data_reqed" text="찾기" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"/>
 							</td>
 							<td>&nbsp;</td>
 						</tr>
 
 
 						<tr>
-							<th scope="row" class="th_bg">품목/품종</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm input-sm-ast" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" class="form-control input-sm" jsondata-ref="jsonComVrty" ></sbux-select>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" class="form-control input-sm input-sm-ast inpt_data_reqed" jsondata-ref="jsonComVrty" ></sbux-select>
 							</td>
 							<td>&nbsp;</td>
-							<th scope="row" class="th_bg">수량/중량</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>수량/중량</th>
 							<td colspan="4" class="td_input"style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-qntt" name="srch-inp-qntt" class="form-control input-sm"/>
+								<sbux-input uitype="text" id="srch-inp-qntt" name="srch-inp-qntt" class="form-control input-sm input-sm-ast inpt_data_reqed"/>
 							</td>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-qnttAvg" name="srch-inp-qnttAvg" class="form-control input-sm" placeholder="평균" disabled/>
 							</td>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-wght" name="srch-inp-wght" class="form-control input-sm"/>
+								<sbux-input uitype="text" id="srch-inp-wght" name="srch-inp-wght" class="form-control input-sm input-sm-ast inpt_data_reqed" input-sm-ast inpt_data_reqed/>
 							</td>
 							<td colspan="3">
 								<sbux-label uitype="normal" id="lbl-chc" name="lbl-chc" class="blod" text="Kg"/>
 							</td>
 							<th scope="row" class="th_bg">규격</th>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" class="form-control input-sm" jsondata-ref="jsonComSpcfct"></sbux-select>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" class="form-control input-sm" jsondata-ref="jsonComSpcfct"></sbux-select>
 							</td>
 							<td colspan="2">&nbsp;</td>
 						</tr>
@@ -131,12 +131,12 @@
 						<tr>
 							<th scope="row" class="th_bg">박스종류</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-bx" name="srch-slt-bx" class="form-control input-sm" jsondata-ref="jsonComBx"></sbux-select>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-bx" name="srch-slt-bx" class="form-control input-sm" jsondata-ref="jsonComBx"></sbux-select>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row" class="th_bg">창고</th>
 							<td colspan="6" class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" jsondata-ref="jsonComWarehouseSeCd"></sbux-select>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" jsondata-ref="jsonComWarehouseSeCd"></sbux-select>
 							</td>
 							<td colspan="9">&nbsp;</td>
 							<th scope="row" class="th_bg">비고</th>
@@ -154,7 +154,7 @@
 				</div>
                 <div class="sbt-wrap-body">
                     <div class="sbt-grid">
-                        <div id="inptCmndDsctnGridArea" style="height:340px;"></div>
+                        <div id="inptCmndDsctnGridArea" style="height:500px;"></div>
                     </div>
                	</div>
 			</div>
