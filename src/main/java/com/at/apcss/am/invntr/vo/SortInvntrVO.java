@@ -55,6 +55,8 @@ public class SortInvntrVO extends ComVO {
 	 * 투입일자
 	 */
 	private String inptYmd;
+	private String inptYmdFrom;
+	private String inptYmdTo;
 
 	/**
 	 * 설비코드

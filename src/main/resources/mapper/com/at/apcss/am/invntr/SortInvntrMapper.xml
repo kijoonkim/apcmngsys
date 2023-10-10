@@ -524,4 +524,71 @@
     	]]>
     </insert>
 
+    <!-- =============================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectPckgCmndTrgetList	-->
+	<!-- DESC : 포장지시대상 내역 목록 조회.	                                       			-->
+	<!-- =============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	==============================================	-->
+	<!-- 2023.09.05  	정희운        	Initial Creation                        		-->
+	<!-- =============================================================================	-->
+    <select id="selectPckgCmndTrgetList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    		SELECT
+    			  pt0.*
+    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) 							AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 									AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 						AS VRTY_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) 				AS FCLT_NM
+                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 					AS SPCFCT_NM
+    		  FROM (
+    	<!-- End 페이징 -->
+    	<![CDATA[
+		    		SELECT /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectPckgCmndTrgetList */
+					      SI.APC_CD             AS APC_CD
+					    , SI.SORTNO             AS SORTNO
+					    , SI.GRD_CD             AS GRD_CD
+					    , SI.INPT_YMD           AS INPT_YMD
+					    , SI.FCLT_CD            AS FCLT_CD
+					    , SI.RPRS_PRDCR_CD      AS RPRS_PRDCR_CD
+					    , SI.ITEM_CD            AS ITEM_CD
+					    , SI.VRTY_CD            AS VRTY_CD
+					    , SI.SPCFCT_CD          AS SPCFCT_CD
+					    , SI.GDS_SE_CD          AS GDS_SE_CD
+					    , SI.WRHS_SE_CD         AS WRHS_SE_CD
+					    , SI.WAREHOUSE_SE_CD    AS WAREHOUSE_SE_CD
+					    , SI.SORT_QNTT          AS SORT_QNTT
+					    , SI.SORT_WGHT          AS SORT_WGHT
+					    , SI.PCKG_QNTT          AS PCKG_QNTT
+					    , SI.PCKG_WGHT          AS PCKG_WGHT
+					    , SI.INVNTR_QNTT        AS INVNTR_QNTT
+					    , SI.INVNTR_WGHT        AS INVNTR_WGHT
+					    , SI.DEL_YN             AS DEL_YN
+					    , SI.PRDCTN_YR          AS PRDCTN_YR
+					    , SI.SORT_SN            AS SORT_SN
+					    , SI.RMRK               AS RMRK
+
+					 FROM TB_SORT_INVNTR SI
+					WHERE SI.APC_CD = #{apcCd}
+					  AND SI.INVNTR_WGHT > 0
+					  AND SI.DEL_YN = 'N'
+		]]>
+		<if test='inptYmdFrom != null and inptYmdFrom != ""'>
+					 AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+		</if>
+		<if test='inptYmdTo != null and inptYmdTo != ""'>
+					 AND SI.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+					 AND SI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+					 AND SI.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
+		</if>
+		<if test='prdcrCd != null and prdcrCd != ""'>
+					 AND SI.RPRS_PRDCR_CD = #{prdcrCd}
+		</if>
+    		  ) pt0
+    </select>
+
 </mapper>

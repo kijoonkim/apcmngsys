@@ -177,4 +177,12 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 		return null;
 	}
 
+	@Override
+	public List<SortInvntrVO> selectPckgCmndTrgetList(SortInvntrVO sortInvntrVO) throws Exception {
+
+		List<SortInvntrVO> resultList = sortInvntrMapper.selectPckgCmndTrgetList(sortInvntrVO);
+
+		return resultList;
+	}
+
 }
