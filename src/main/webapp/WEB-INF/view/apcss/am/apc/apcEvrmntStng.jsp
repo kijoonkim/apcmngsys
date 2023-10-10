@@ -626,8 +626,9 @@
 			gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000"),
 			gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000"),
             gfn_setComCdGridSelect('grdPlt', comboGridPltCnptJsData, "PLT_CNPT", "0000"),
-			selectApcEvrmntStng()
 		])
+
+		selectApcEvrmntStng();
 
 		jsonComGdsSeCd.forEach((item) => {
 			let value = item.value;
@@ -655,9 +656,10 @@
     	let postJsonPromise = gfn_postJSON("/am/apc/selectApcEvrmntStng.do", {apcCd : apcCd});
 
         let data = await postJsonPromise;
+        console.log(data);
 		let resultVO = data.resultVO;
         try{
-
+			console.log("bankCd", resultVO.bankCd)
         	SBUxMethod.set("inp-apcNm", resultVO.apcNm);
         	SBUxMethod.set("inp-telno", resultVO.telno);
         	SBUxMethod.set("inp-addr", resultVO.addr);
@@ -1150,6 +1152,7 @@
     	  , clclnCrtr				: SBUxMethod.get("rdo-clclnCrtr")
     	  , cdVls					: cdVls
     	}
+    	console.log("apcEvrmntStng", apcEvrmntStng);
     	let postJsonPromise = gfn_postJSON("/am/apc/updateApcEvrmntStng.do", apcEvrmntStng);
         let data = await postJsonPromise;
 
@@ -1226,11 +1229,6 @@
     		}
     		console.error("failed", e.message);
         }
-
-
-
-
-
 
 	}
 
