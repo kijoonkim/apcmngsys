@@ -189,7 +189,7 @@
             {caption: ['품목','품목'],			ref: 'itemNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
             {caption: ['품종','품종'],			ref: 'vrtyNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
             {caption: ['규격','규격'], 			ref: 'spcfctNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['브랜드','브랜드'], 		ref: 'brndCd', 		width: '100px',	type: 'output',	style:'text-align: center'},
+            {caption: ['브랜드','브랜드'], 		ref: 'brndNm', 		width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '150px',	type: 'output',	style:'text-align: center'},
             {caption: ['배송지','배송지'], 		ref: 'dldtn', 		width: '150px',	type: 'output',	style:'text-align: center'},
             {caption: ['운송사','운송사'], 		ref: 'trsprtCoNm', 	width: '150px',	type: 'output',	style:'text-align: center'},
@@ -266,7 +266,7 @@
 				  , itemNm 			: item.itemNm
 				  , vrtyNm 			: item.vrtyNm
 				  , spcfctNm 		: item.spcfctNm
-				  , brndCd 			: item.brndCd
+				  , brndNm 			: item.brndNm
 				  , cnptNm 			: item.cnptNm
 				  , dldtn 			: item.dldtn
 				  , trsprtCoNm 		: item.trsprtCoNm

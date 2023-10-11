@@ -55,7 +55,7 @@
 	    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncList */
 			       PC.APC_CD						AS APC_CD
 			     , PC.SPMT_YMD						AS SPMT_YMD
-			     , PD.BRND_CD						AS BRND_CD
+			     , PD.BRND_NM						AS BRND_NM
 			     , PD.GDS_CD						AS GDS_CD
 			     , PD.ITEM_CD						AS ITEM_CD
 			     , PD.VRTY_CD						AS VRTY_CD
@@ -115,7 +115,7 @@
 		        , PC.SPMT_YMD
 		        , PD.PCKGNO
 		        , PD.PCKG_SN
-		        , PD.BRND_CD
+		        , PD.BRND_NM
 		        , PD.GDS_CD
 		        , PD.ITEM_CD
 		        , PD.VRTY_CD
@@ -156,7 +156,7 @@
 		     , PD.SPCFCT_CD         AS SPCFCT_CD
 		     , PD.SPMT_QNTT         AS SPMT_QNTT
 		     , PD.SPMT_WGHT         AS SPMT_WGHT
-		     , PD.BRND_CD           AS BRND_CD
+		     , PD.BRND_NM           AS BRND_NM
 		     , PD.GDS_CD            AS GDS_CD
 		     , PD.PRDCR_CD          AS PRDCR_CD
 		     , PD.DEL_YN            AS DEL_YN
@@ -246,7 +246,7 @@
     		  ,	SPCFCT_CD
     		  ,	SPMT_QNTT
     		  ,	SPMT_WGHT
-    		  ,	BRND_CD
+    		  ,	BRND_NM
     		  ,	GDS_CD
     		  ,	PRDCR_CD
     		  ,	SPMT_CMNDNO
@@ -271,7 +271,7 @@
     		  ,	#{spcfctCd}
     		  ,	#{spmtQntt}
     		  ,	#{spmtWght}
-    		  ,	#{brndCd}
+    		  ,	#{brndNm}
     		  ,	#{gdsCd}
     		  ,	#{prdcrCd}
     		  ,	#{spmtCmndno}
@@ -364,7 +364,7 @@
 		            , MAX(PC.PLOR_CD)           AS PLOR_CD
 		            , MAX(PD.PCKGNO)            AS PCKGNO
 		            , MAX(PD.PCKG_SN)           AS PCKG_SN
-		            , MAX(PD.BRND_CD)           AS BRND_CD
+		            , MAX(PD.BRND_NM)           AS BRND_NM
 		            , MAX(PD.GDS_CD)            AS GDS_CD
 		            , MAX(PD.PRDCR_CD)          AS PRDCR_CD
 		            , MAX(PD.SPMT_CMNDNO)       AS SPMT_CMNDNO
