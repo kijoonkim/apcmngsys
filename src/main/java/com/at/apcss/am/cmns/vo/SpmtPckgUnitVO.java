@@ -70,5 +70,9 @@ public class SpmtPckgUnitVO extends ComVO{
 	 * 등급명
 	 */
 	private String gdsGrdNm;
-	
+	/**
+	 * 브랜드명
+	 */
+	private String brndNm;
+
 }

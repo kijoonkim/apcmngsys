@@ -175,7 +175,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdOutordrInfo" style="width:100%;height:446px;"></div>
+					<div id="sb-area-grdOutordrInfo" style="width:100%;height:434px;"></div>
 				</div>
 				<!--[pp] 검색결과 -->
 			</div>

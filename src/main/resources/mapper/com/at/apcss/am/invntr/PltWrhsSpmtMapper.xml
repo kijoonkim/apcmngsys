@@ -14,7 +14,7 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.whrs.mapper.PltWrhsMapper.selectPltBxMngList					-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.selectPltBxMngList					-->
 	<!-- DESC : 팔레트/박스 재고 목록 조회.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -63,7 +63,7 @@
     
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.whrs.mapper.PltWrhsMapper.insertPltWrhsSpmt				-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.insertPltWrhsSpmt				-->
 	<!-- DESC : 팔레트/박스 입출 내역 등록.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -124,7 +124,7 @@
     </insert>
     
    	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.whrs.mapper.PltWrhsMapper.selectPltWrhsSpmtList		-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.selectPltWrhsSpmtList		-->
 	<!-- DESC : 팔레트/박스 입출 목록 조회.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->

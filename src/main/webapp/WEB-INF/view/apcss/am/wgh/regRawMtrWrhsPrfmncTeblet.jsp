@@ -198,7 +198,7 @@
 							<td style="border-right: hidden;">&nbsp;</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<p class="ad_input_row">
-									<sbux-checkbox uitype="normal"id="chk-whrsWarehouseFxng" name="chk-whrsWarehouseFxng" uitype="normal" class="form-control input-sm" text="고정"/>
+									<sbux-checkbox uitype="normal"id="chk-wrhsWarehouseFxng" name="chk-wrhsWarehouseFxng" uitype="normal" class="form-control input-sm" text="고정"/>
 								</p>
 							</td>
 							<td colspan="7">&nbsp;</td>

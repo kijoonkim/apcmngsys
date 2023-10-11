@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,7 @@ public class CltvtnEngttSptMngController extends BaseController {
 	private CltvtnEngttSptMngService cltvtnEngttSptMngService;
 
 	// 재배약정현장관리에 화면이동
-	@RequestMapping("/fm/clt/cltvtnEngttSptMng.do")
+	@GetMapping("/fm/clt/cltvtnEngttSptMng.do")
 	public String doCltvtnEngttSptMng() {
 		return "apcss/fm/clt/cltvtnEngttSptMng";
 	}

@@ -194,6 +194,21 @@ public class GdsInvntrVO extends ComVO {
 	 * 상품코드
 	 */
 	private String gdsCd;
+	
+	/**
+	 * 매입처명
+	 */
+	private String prchsptNm;
+	
+	/**
+	 * 입고구분코드
+	 */
+	private String wrhsSeCd;
+	
+	/**
+	 * 운송구분코드
+	 */
+	private String trsprtSeCd;
 
 
 	/*

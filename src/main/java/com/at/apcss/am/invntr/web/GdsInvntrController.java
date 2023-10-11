@@ -56,6 +56,7 @@ public class GdsInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 		
 	}
+	
 	@PostMapping(value = "/am/invntr/selectUpdateGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectUpdateGdsInvntrList(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
 		

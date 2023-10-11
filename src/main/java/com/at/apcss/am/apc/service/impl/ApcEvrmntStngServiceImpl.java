@@ -530,7 +530,16 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			apcEvrmntStngVO.setClclnMngYn(ComConstants.CON_YES);			// 정산관리유무
 			apcEvrmntStngVO.setTrsmMngYn(ComConstants.CON_YES);				// 전송관리유무
 
-		} else {
+		} else if (ApcConstants.AUTHRT_CASE_11.equals(authrtCaseId)) {
+			apcEvrmntStngVO.setSpmtCmndMngYn(ComConstants.CON_YES);			// 출하지시관리유무
+			apcEvrmntStngVO.setSpmtCmndDocPblcnYn(ComConstants.CON_YES);	// 출하지시서발행유무
+			apcEvrmntStngVO.setSpmtMngYn(ComConstants.CON_YES);				// 출하관리유무
+			apcEvrmntStngVO.setSpmtMblUseYn(ComConstants.CON_YES);			// 출하테블릿사용유무
+			apcEvrmntStngVO.setSpmtDocPblcnYn(ComConstants.CON_YES);		// 송품장발행유무
+			apcEvrmntStngVO.setOutordrMngYn(ComConstants.CON_YES);			// 발주정보관리유무
+			apcEvrmntStngVO.setOutordrPckgCmndLnkgYn(ComConstants.CON_YES);	// 발주정보포장지시연결유무
+
+		}else {
 			logger.error("Error on ApcEvrmntStngService#insertApcSimpleAuthrt");
 			logger.error(getMessageForMap(ComUtil.getResultMap("W0005", "CASE ID")));
 			return ComUtil.getResultMap("W0005", "CASE ID");

@@ -52,7 +52,7 @@
 		   		 , GC.VRTY_CD            	AS VRTY_CD
 		   		 , GC.SPCFCT_CD            	AS SPCFCT_CD
 		   		 , GC.GDS_GRD            	AS GDS_GRD
-		   		 , GC.BRND_CD            	AS BRND_CD
+		   		 , GC.BRND_NM            	AS BRND_NM
 		   		 , GC.PLOR_CD            	AS PLOR_CD
 		   		 , GC.SPMT_PCKG_UNIT_CD		AS SPMT_PCKG_UNIT_CD
 		   		 , GC.BX_GDS_QNTT           AS BX_GDS_QNTT
@@ -127,7 +127,7 @@
     		  , VRTY_CD
     		  , SPCFCT_CD
     		  , GDS_GRD
-    		  , BRND_CD
+    		  , BRND_NM
     		  , PLOR_CD
     		  , SPMT_PCKG_UNIT_CD
     		  , BX_GDS_QNTT
@@ -149,7 +149,7 @@
     		  , #{vrtyCd}
 			  , #{spcfctCd}
     		  , #{gdsGrd}
-    		  , #{brndCd}
+    		  , #{brndNm}
     		  , #{plorCd}
     		  , #{spmtPckgUnitCd}
     		  , #{bxGdsQntt}
@@ -184,7 +184,7 @@
     		 , VRTY_CD 					= #{vrtyCd}
     		 , SPCFCT_CD 				= #{spcfctCd}
     		 , GDS_GRD 					= #{gdsGrd}
-    		 , BRND_CD 					= #{brndCd}
+    		 , BRND_NM 					= #{brndNm}
     		 , PLOR_CD 					= #{plorCd}
     		 , SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
     		 , BX_GDS_QNTT 				= #{bxGdsQntt}

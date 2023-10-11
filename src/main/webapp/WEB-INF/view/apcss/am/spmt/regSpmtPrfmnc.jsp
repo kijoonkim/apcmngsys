@@ -809,7 +809,7 @@
           				plorCd			: item.plorCd,
           				pckgno			: item.pckgno,
           				pckgSn			: item.pckgSn,
-          				brndCd			: item.brndCd,
+          				brndNm			: item.brndNm,
           				gdsCd			: item.gdsCd,
           				prdcrCd			: item.prdcrCd,
           				spmtCmndno		: item.spmtCmndno,

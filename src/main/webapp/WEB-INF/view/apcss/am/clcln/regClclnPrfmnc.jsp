@@ -22,7 +22,7 @@
 			</div>
 
 			<div class="box-body">
-				<!--[APC] START -->			
+				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
 				<!--[pp] 검색 -->
@@ -93,12 +93,12 @@
 								<sbux-input id="srch-inp-prdcrNm" name="srch-inp-prdcrNm" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-button 
-									id="btnSrchPrdcrCd" 
-									name="btnSrchPrdcrCD" 
-									uitype="modal" 
-									class="btn btn-xs btn-outline-dark" 
-									text="찾기" target-id="modal-prdcr" 
+								<sbux-button
+									id="btnSrchPrdcrCd"
+									name="btnSrchPrdcrCD"
+									uitype="modal"
+									class="btn btn-xs btn-outline-dark"
+									text="찾기" target-id="modal-prdcr"
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
@@ -182,7 +182,7 @@
             {caption: ['품목'], ref: 'itemCd', width: '100px', type: 'output'},
             {caption: ['품종'], ref: 'vrtyCd', width: '100px', type: 'output'},
             {caption: ['규격'], ref: 'spcfctCd', width: '100px', type: 'output'},
-            {caption: ['브랜드'], ref: 'brndCd', width: '100px', type: 'output'},
+            {caption: ['브랜드'], ref: 'brndNm', width: '100px', type: 'output'},
             {caption: ['등급'], ref: 'grdCd', width: '100px', type: 'output'},
             {caption: ['수량'], ref: 'qntt', width: '100px', type: 'output'},
             {caption: ['중량'], ref: 'wght', width: '100px', type: 'output'},
@@ -196,11 +196,11 @@
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
-	
+
 	const fn_choicePrdcr = function() {
 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
 	}
-	
+
 	const fn_setPrdcr = function(prdcr) {
 		if (!gfn_isEmpty(prdcr)) {
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
@@ -208,6 +208,6 @@
 			//SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 		}
 	}
-	
+
 </script>
 </html>

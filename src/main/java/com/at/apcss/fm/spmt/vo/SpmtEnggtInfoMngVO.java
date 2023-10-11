@@ -25,6 +25,7 @@ public class SpmtEnggtInfoMngVO extends ComVO{
 	private int    spmtWght;
 	private String pckgSeCd;
 	private String brndCd;
+	private String brndNm;
 	private String gdsCd;
 	private String prdcrCd;
 	private String prdcrNm;

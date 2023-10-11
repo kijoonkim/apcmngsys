@@ -189,7 +189,7 @@
             {caption: ['품목','품목'],			ref: 'itemNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
             {caption: ['품종','품종'],			ref: 'vrtyNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
             {caption: ['규격','규격'], 			ref: 'spcfctNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['브랜드','브랜드'], 		ref: 'brndCd', 		width: '100px',	type: 'output',	style:'text-align: center'},
+            {caption: ['브랜드','브랜드'], 		ref: 'brndNm', 		width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '150px',	type: 'output',	style:'text-align: center'},
             {caption: ['배송지','배송지'], 		ref: 'dldtn', 		width: '150px',	type: 'output',	style:'text-align: center'},
             {caption: ['운송사','운송사'], 		ref: 'trsprtCoNm', 	width: '150px',	type: 'output',	style:'text-align: center'},
@@ -218,7 +218,6 @@
 	// 출하실적 목록 조회 호출
 	async function fn_callSelectSpmtPrfmncList(recordCountPerPage, currentPageNo){
 		jsonSpmtPrfmnc = [];
-		let searchList = [];
 		let apcCd = gv_selectedApcCd;
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
 		let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
@@ -234,6 +233,7 @@
 		let vrtyNm = SBUxMethod.get("srch-inp-vrtyNm");
 		let dldtn = SBUxMethod.get("srch-inp-dldtn");
 		let vhclno = SBUxMethod.get("srch-inp-vhclno");
+		
 		if (gfn_isEmpty(spmtYmdFrom)){
 			gfn_comAlert("W0002", "출하일자");		//	W0002	{0}을/를 입력하세요.
             return;
@@ -242,6 +242,7 @@
 			gfn_comAlert("W0002", "출하일자");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
+		
 		let SpmtPrfmncVO = {apcCd 				: apcCd
 						  , spmtYmdFrom 		: spmtYmdFrom
 						  , spmtYmdTo 			: spmtYmdTo
@@ -266,7 +267,7 @@
 				  , itemNm 			: item.itemNm
 				  , vrtyNm 			: item.vrtyNm
 				  , spcfctNm 		: item.spcfctNm
-				  , brndCd 			: item.brndCd
+				  , brndNm 			: item.brndNm
 				  , cnptNm 			: item.cnptNm
 				  , dldtn 			: item.dldtn
 				  , trsprtCoNm 		: item.trsprtCoNm

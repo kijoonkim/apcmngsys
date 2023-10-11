@@ -148,7 +148,8 @@
 				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	displayui : false, 	itemcount: 10, label:'label', value:'value', filtering: {usemode : true, uppercol : 0, attrname : 'mastervalue'}}},
 	        {caption: ["등급"], 			ref: 'gdsGrd',   	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGdsGrd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
-	        {caption: ["출하 포장단위 명"], ref: 'spmtPckgUnitNm',  type:'input',  width:'300px',    style:'text-align:center'},
+	        {caption: ["출하 포장단위 명"], ref: 'spmtPckgUnitNm',  type:'input',  width:'200px',    style:'text-align:center'},
+	        {caption: ["브랜드 명"], ref: 'brndNm',  	type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["판매단가"],     	ref: 'ntslUntprc',  type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
 	        {caption: ["변경"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if((grdSpmtPckgUnit.getRowStatus(nRow) == 0 || grdSpmtPckgUnit.getRowStatus(nRow) == 2) && !(strValue== null || strValue == "")){
@@ -193,6 +194,7 @@
 				  , spcfctCd		: item.spcfctCd
 				  , spmtPckgUnitNm	: item.spmtPckgUnitNm
 				  , ntslUntprc		: item.ntslUntprc
+				  , brndNm			: item.brndNm
 				  , delYn			: item.delYn
 				  , apcCd			: item.apcCd
 				  , spmtPckgUnitCd	: item.spmtPckgUnitCd
@@ -228,6 +230,7 @@
 			let spcfctCd = rowData.spcfctCd;
 			let spmtPckgUnitNm = rowData.spmtPckgUnitNm;
 			let ntslUntprc = rowData.ntslUntprc;
+			let brndNm  = rowData.brndNm;
 			if(delYn == 'N'){
 				if (gfn_isEmpty(itemCd)) {
 		  			gfn_comAlert("W0001", "품목");		//	W0001	{0}을/를 선택하세요.
@@ -249,7 +252,6 @@
 		  			gfn_comAlert("W0002", "단가");		//	W0002	{0}을/를 입력하세요.
 		            return;
 		  		}
-
 				if (rowSts === 3){
 					rowData.rowSts = "I";
 					saveList.push(rowData);
@@ -266,7 +268,6 @@
 			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
-		console.log("saveList", saveList);
 
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){

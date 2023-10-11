@@ -36,6 +36,7 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public List<GdsInvntrVO> selectGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
 	/**
 	 * 상품재고 목록 조회
 	 * @param gdsInvntrVO
@@ -43,7 +44,7 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public List<GdsInvntrVO> selectUpdateGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
-
+	
 	/**
 	 * 상품재고 등록
 	 * @param gdsInvntrVO

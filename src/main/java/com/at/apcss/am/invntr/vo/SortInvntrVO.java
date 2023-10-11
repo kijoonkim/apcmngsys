@@ -62,6 +62,10 @@ public class SortInvntrVO extends ComVO {
 	 * 설비코드
 	 */
 	private String fcltCd;
+	/**
+	 * 지시설비코드
+	 */
+	private String pckgFcltCd;
 
 	/**
 	 * 대표생산자코드
@@ -161,6 +165,8 @@ public class SortInvntrVO extends ComVO {
 	private String wghYmd;
 	/*설비*/
 	private String fcltNm;
+	/*지시설비*/
+	private String pckgFcltNm;
 	/*생산자*/
 	private String prdcrCd;
 	private String prdcrNm;

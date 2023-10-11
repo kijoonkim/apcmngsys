@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +48,7 @@ public class CltvtnEnggtAplyMngController extends BaseController {
 	private CltvtnEnggtAplyMngService cltvtnEnggtAplyMngService;
 
 	// 재배약정신청관리 화면이동
-	@RequestMapping("/fm/clt/cltvtnEnggtAplyMng.do")
+	@GetMapping("/fm/clt/cltvtnEnggtAplyMng.do")
 	public String doCltvtnEnggtAplyMng() {
 		return "apcss/fm/clt/cltvtnEnggtAplyMng";
 	}

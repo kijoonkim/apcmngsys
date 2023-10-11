@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -81,10 +77,10 @@
 							<td scope="row"  align="right">입금은행</td>
 							<td class="td_input" >
 								<sbux-select id="slt-bankCd" name="slt-bankCd"
-								uitype="single"
+								uitype="singleExt"
 								filtering="true"
 								jsondata-ref="jsonComboBankNm"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+								unselected-text="선택" class=""></sbux-select>
 							</td>
 
 							<td scope="row" align="right">예금주명</td>
@@ -630,8 +626,9 @@
 			gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000"),
 			gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000"),
             gfn_setComCdGridSelect('grdPlt', comboGridPltCnptJsData, "PLT_CNPT", "0000"),
-			selectApcEvrmntStng()
 		])
+
+		selectApcEvrmntStng();
 
 		jsonComGdsSeCd.forEach((item) => {
 			let value = item.value;
@@ -661,7 +658,6 @@
         let data = await postJsonPromise;
 		let resultVO = data.resultVO;
         try{
-
         	SBUxMethod.set("inp-apcNm", resultVO.apcNm);
         	SBUxMethod.set("inp-telno", resultVO.telno);
         	SBUxMethod.set("inp-addr", resultVO.addr);
@@ -764,7 +760,6 @@
         let data = await postJsonPromise;
 
         try{
-        	console.log("data >>> "+ data.result);
        		return data.result;
 
         }catch (e) {
@@ -915,7 +910,7 @@
             	}
             }else if(grid === "grdSmptPckgUnit"){
            		grdSpmtPckgUnit.setCellData(nRow, nCol, "N", true);
-           		grdSpmtPckgUnit.setCellData(nRow, 9, gv_apcCd, true);
+           		grdSpmtPckgUnit.setCellData(nRow, 10, gv_apcCd, true);
            		grdSpmtPckgUnit.addRow(true);
             }else if(grid === "grdSpmtSlsUntprcReg"){
             	grdSpmtSlsUntprcReg.setCellData(nRow, nCol, "N", true);
@@ -963,7 +958,6 @@
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
             			var pltBxVO = grdPlt.getRowData(nRow);
-            			console.log(pltBxVO);
             			fn_deletepltBx(pltBxVO);
             			grdPlt.deleteRow(nRow);
             		}
@@ -1098,8 +1092,6 @@
 
     // 정희운. 두 List<Object>가 동일한지 비교하는 함수.
 	async function chkEqualObj(obj1, obj2){
-		console.log("obj1", obj1);
-		console.log("obj2", obj2);
 
 		var obj1Len = obj1.length == 0 ? 0 : obj1.filter(e => e["delYn"] == "N").length;
 		var obj2Len = obj2.length == 0 ? 0 : obj2.filter(e => e["delYn"] == "N").length;
@@ -1212,7 +1204,6 @@
 	  	  //, oprtrPckgPrfmncTrsmYn 			: SBUxMethod.get("chk-oprtrPckgPrfmncTrsmYn")
 
 		}
-		console.log("apcEvrmntStng", apcEvrmntStng);
 
 		let postJsonPromise = gfn_postJSON("/am/apc/updateApcMenuAuthrt.do", apcEvrmntStng);
         let data = await postJsonPromise;
@@ -1230,11 +1221,6 @@
     		}
     		console.error("failed", e.message);
         }
-
-
-
-
-
 
 	}
 

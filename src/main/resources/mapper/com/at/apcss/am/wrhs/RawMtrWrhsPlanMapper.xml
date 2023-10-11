@@ -10,20 +10,20 @@
 <!-- 2023.08.08  	김 호        		Initial Creation                        -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.whrs.mapper.RawMtrWrhsPlanMapper">
+<mapper namespace="com.at.apcss.am.wrhs.mapper.RawMtrWrhsPlanMapper">
 
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.whrs.mapper.RawMtrWrhsPlanMapper.selectRawMtrWrhsPlan		-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsPlanMapper.selectRawMtrWrhsPlan		-->
 	<!-- DESC : 계량입고계획 단건 조회.	                                       				-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2023.08.08  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-    <select id="selectRawMtrWrhsPlan" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsPlanVO" resultType="com.at.apcss.am.whrs.vo.RawMtrWrhsPlanVO">
+    <select id="selectRawMtrWrhsPlan" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsPlanVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsPlanVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.whrs.mapper.RawMtrWrhsPlanMapper.selectRawMtrWrhsPlan */
+	    	SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsPlanMapper.selectRawMtrWrhsPlan */
 			       WP.APC_CD            AS APC_CD
 			     , WP.PLANNO            AS PLANNO
 			     , WP.PLAN_YMD          AS PLAN_YMD
@@ -53,14 +53,14 @@
     </select>
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.whrs.mapper.RawMtrWrhsPlanMapper.selectRawMtrWrhsPlanList	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsPlanMapper.selectRawMtrWrhsPlanList	-->
 	<!-- DESC : 계량입고계획 목록 조회.	                                       				-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2023.08.08  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-    <select id="selectRawMtrWrhsPlanList" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsPlanVO" resultType="com.at.apcss.am.whrs.vo.RawMtrWrhsPlanVO">
+    <select id="selectRawMtrWrhsPlanList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsPlanVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsPlanVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -71,7 +71,7 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.whrs.mapper.RawMtrWrhsPlanMapper.selectRawMtrWrhsPlanList */
+	    	SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsPlanMapper.selectRawMtrWrhsPlanList */
 			       WP.APC_CD            AS APC_CD
 			     , WP.PLANNO            AS PLANNO
 			     , WP.PLAN_YMD          AS PLAN_YMD
@@ -120,16 +120,16 @@
 
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.whrs.mapper.RawMtrWrhsPlanMapper.selectRawMtrWrhsPlanList	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsPlanMapper.selectRawMtrWrhsPlanList	-->
 	<!-- DESC : 계량입고계획 등록.	                                       					-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2023.08.22  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-    <insert id="insertRawMtrWrhsPlan" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsPlanVO">
+    <insert id="insertRawMtrWrhsPlan" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsPlanVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.whrs.mapper.RawMtrWrhsPlanMapper.insertRawMtrWrhsPlan */
+	    	INSERT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsPlanMapper.insertRawMtrWrhsPlan */
 	    		INTO TB_RAW_MTR_WRHS_PLAN
 				(
 					  APC_CD
@@ -182,16 +182,16 @@
     </insert>
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.whrs.mapper.RawMtrWrhsPlanMapper.deleteRawMtrWrhsPlan		-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsPlanMapper.deleteRawMtrWrhsPlan		-->
 	<!-- DESC : 계량입고계획 삭제.	                                       					-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2023.08.22  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-	<delete id="deleteRawMtrWrhsPlan" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO">
+	<delete id="deleteRawMtrWrhsPlan" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
 		<![CDATA[
-			UPDATE TB_RAW_MTR_WRHS_PLAN /* com.at.apcss.am.whrs.mapper.RawMtrWrhsPlanMapper.deleteRawMtrWrhsPlan */
+			UPDATE TB_RAW_MTR_WRHS_PLAN /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsPlanMapper.deleteRawMtrWrhsPlan */
 			   SET DEL_YN 					= 'Y'
 			   	 , SYS_LAST_CHG_DT			= SYSDATE
 		    	 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}

@@ -139,7 +139,7 @@
     		  , VRTY_CD
     		  , SPCFCT_CD
     		  , GRD_CD
-    		  , BRND_CD
+    		  , BRND_NM
     		  , SPMT_YMD
     		  , SLS_UNTPRC
     		  , RKNG_AMT
@@ -166,7 +166,7 @@
     		  , #{vrtyCd}
     		  , #{spcfctCd}
     		  , #{grdCd}
-    		  , #{brndCd}
+    		  , #{brndNm}
     		  , #{spmtYmd}
     		  , #{slsUntprc}
     		  , #{rkngAmt}
@@ -205,7 +205,7 @@
     		 , VRTY_CD 					= #{vrtyCd}
     		 , SPCFCT_CD 				= #{spcfctCd}
     		 , GRD_CD 					= #{grdCd}
-    		 , BRND_CD 					= #{brndCd}
+    		 , BRND_NM 					= #{brndNm}
     		 , SPMT_YMD 				= #{spmtYmd}
     		 , SLS_UNTPRC 				= #{slsUntprc}
     		 , RKNG_AMT 				= #{rkngAmt}

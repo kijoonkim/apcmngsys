@@ -35,6 +35,7 @@ public class ApcConstants {
     public final static String AUTHRT_CASE_08 = "CASE_08";
     public final static String AUTHRT_CASE_09 = "CASE_09";
     public final static String AUTHRT_CASE_10 = "CASE_10";
+    public final static String AUTHRT_CASE_11 = "CASE_11";
 
 
     /* APC CODE */
