@@ -128,16 +128,16 @@
 </body>
 <script type="text/javascript">
 
-	var jsonComUnitCd 		= [];
-	var jsonComPltNm		= [];
+	var jsonComUnitCd 	= [];
+	var jsonComPltNm	= [];
 	var jsonComBxNm		= [];
-	
-	var jsonPlt = [];
-	var jsonBx = [];
-	var pltBxList = []
-	var grdPlt = null;
-	var grdBx = null;
-	
+
+	var jsonPlt 	= [];
+	var jsonBx 		= [];
+	var pltBxList 	= []
+	var grdPlt 		= null;
+	var grdBx 		= null;
+
 
 	const popPltBx = {
 			prgrmId: 'pltBxPopup',
@@ -149,17 +149,17 @@
 				this.apcCd = _apcCd;
 				SBUxMethod.set("pltBx-inp-apcNm", gv_apcNm);
 				await this.initSBSelectPltBx();
-				
+
 				if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
-					this.callbackFnc = _callbackFnc;	
+					this.callbackFnc = _callbackFnc;
 				}
 				this.createPltGrid();
 				this.createBxGrid();
-				
+
 				this.search(_pltBxData);
 			},
 			confirm: function() {
-			
+
 			},
 			close: function() {
 				pltBxData = {
@@ -185,10 +185,10 @@
 			        {caption: ["팔레트","대여업체"], 		ref: 'pltCnptNm',  	type:'input',  width:'100px',    style:'text-align:center'},
 			        {caption: ["팔레트","수량"], 		ref: 'qntt',  	type:'input',  width:'70px',    style:'text-align:center'},
 			        {caption: ["팔레트","단중"], 		ref: 'unitWght',   		type:'input',  width:'70px',    style:'text-align:center'},
-			        {caption: ["팔레트","중량"], 		ref: 'wght',   		type:'output',  width:'70px',    style:'text-align:center'},
+			        {caption: ["팔레트","중량"], 		ref: 'wght',   			type:'output',  width:'70px',    style:'text-align:center'},
 			        {caption: ["팔레트","단위"], 		ref: 'unitCd',   		type:'combo',  width:'50px',    style:'text-align:center',
 							typeinfo : {ref:'jsonComUnitCd', label:'label', value:'value', displayui : true}},
-					{caption: ["팔레트","처리"], 		ref: 'delYn',   	type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+					{caption: ["팔레트","처리"], 		ref: 'delYn',   		type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 		            	if (gfn_isEmpty(strValue)){
 		            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popPltBx.add(\"grdPlt\", " + nRow + ", " + nCol + ")'>추가</button>";
 		            	} else {
@@ -283,18 +283,18 @@
 				if(!gfn_isEmpty(pltBxData)){
 					if(!gfn_isEmpty(pltBxData.jsonPlt))
 						jsonPlt = pltBxData.jsonPlt;
-					
+
 					if(!gfn_isEmpty(pltBxData.jsonBx))
 						jsonBx = pltBxData.jsonBx;
 				}
-				
+
 				grdPlt.rebuild();
 				grdBx.rebuild();
 			},
 		    initSBSelectPltBx: async function() {
 			 	gfn_setComCdGridSelect('grdPlt', jsonComUnitCd, 'UNIT_CD', '0000');			// 단위
 			 	gfn_setComCdGridSelect('grdBx', jsonComUnitCd, 'UNIT_CD', '0000');			// 단위
-			 	
+
 		 		// 팔레트 SB select
 			 	jsonComPltNm = [];
 				var postJsonPromise = gfn_postJSON("/am/cmns/pltBxInfos", {apcCd: this.apcCd, pltBxSeCd: 'P', delYn: "N"});
@@ -308,8 +308,8 @@
 					jsonComPltNm.push(pltBx);
 				});
 		 		SBUxMethod.refresh('grdPlt');
-		 		
-		 		
+
+
 		 		// 박스 SB select
 		 		jsonComBxNm = [];
 				postJsonPromise = gfn_postJSON("/am/cmns/pltBxInfos", {apcCd: this.apcCd, pltBxSeCd: 'B', delYn: "N"});
@@ -356,7 +356,7 @@
 				for(var i=0; i<jsonPlt.length; i++){
 					let qntt = gfn_isEmpty(jsonPlt[i].qntt) ? 0 : jsonPlt[i].qntt;
 					totalQntt += Number(qntt);
-					
+
 					if (jsonPlt[i].unitCd == 1)
 						totalWght += qntt * jsonPlt[i].unitWght / 1000
 					else if(jsonPlt[i].unitCd == 3)
@@ -367,14 +367,14 @@
 				SBUxMethod.set("plt-inp-qntt", totalQntt);
 				SBUxMethod.set("plt-inp-wght", totalWght);
 		    },
-		    
+
 		    setBxTotal: function() {
 				var totalQntt = Number(0);
 				var totalWght = 0;
 				for(var i=0; i<jsonPlt.length; i++){
 					let qntt = gfn_isEmpty(jsonBx[i].qntt) ? 0 : jsonBx[i].qntt;
 					totalQntt += Number(qntt);
-					
+
 					if (jsonBx[i].unitCd == 1)
 						totalWght += qntt * jsonBx[i].unitWght / 1000
 					else if(jsonBx[i].unitCd == 3)

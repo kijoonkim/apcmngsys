@@ -361,39 +361,38 @@ let lv_sortSn = -1;
 				userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["선별일자","선별일자"],		ref: 'inptYmd',     	type:'output',  width:'120px',    style:'text-align:center',
+            {caption: ["선별일자","선별일자"],		ref: 'inptYmd',     	type:'output',  width:'90px',    style:'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
             },
-            {caption: ["설비명","설비명"], 		ref: 'fcltNm',     		type:'output',  width:'120px',  style:'text-align:center'},
-            {caption: ["입고구분","입고구분"], 	ref: 'wrhsSeNm',    	type:'output',  width:'80px',   style:'text-align:center'},
-            {caption: ["상품구분","상품구분"],    	ref: 'gdsSeNm',       	type:'output',  width:'80px',   style:'text-align:center'},
-            {caption: ["품목","품목"],	    	ref: 'itemNm', 			type:'output',  width:'80px',   style:'text-align:center'},
-            {caption: ["품종","품종"],	    	ref: 'vrtyNm', 			type:'output',  width:'80px',   style:'text-align:center'},
-            {caption: ["규격","규격"],  		ref: 'spcfctNm',   		type:'output',  width:'80px',   style:'text-align:center'},
-            {caption: ["등급","등급"],  		ref: 'grdNm', 			type:'output',  width:'80px',   style:'text-align:center'},
-            {caption: ["투입","수량"],  		ref: 'inptQntt',   		type:'output',  width:'60px',   style:'text-align:right',
+            {caption: ["설비명","설비명"], 			ref: 'fcltNm',     		type:'output',  width:'120px',  style:'text-align:center'},
+            {caption: ["입고구분","입고구분"], 		ref: 'wrhsSeNm',    	type:'output',  width:'60px',   style:'text-align:center'},
+            {caption: ["상품구분","상품구분"],  	ref: 'gdsSeNm',       	type:'output',  width:'60px',   style:'text-align:center'},
+            {caption: ["품목","품목"],	    		ref: 'itemNm', 			type:'output',  width:'80px',   style:'text-align:center'},
+            {caption: ["품종","품종"],	    		ref: 'vrtyNm', 			type:'output',  width:'80px',   style:'text-align:center'},
+            {caption: ["규격","규격"],  			ref: 'spcfctNm',   		type:'output',  width:'80px',   style:'text-align:center'},
+            {caption: ["등급","등급"],  			ref: 'grdNm', 			type:'output',  width:'80px',   style:'text-align:center'},
+            {caption: ["투입","수량"],  			ref: 'inptQntt',   		type:'output',  width:'60px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["투입","중량"],  		ref: 'inptWght',   		type:'output',  width:'60px',   style:'text-align:right',
+            {caption: ["투입","중량"],  			ref: 'inptWght',   		type:'output',  width:'80px',   style:'text-align:right',
+            	format : {type:'number', rule:'#,### kg'}
+            },
+            {caption: ["선별","수량"],  			ref: 'sortQntt', 		type:'output',  width:'60px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["선별","수량"],  		ref: 'sortQntt', 		type:'output',  width:'60px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,###'}
-            },
-            {caption: ["선별","중량"],  		ref: 'sortWght', 		type:'output',  width:'60px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,###'}
+            {caption: ["선별","중량"],  			ref: 'sortWght', 		type:'output',  width:'80px',   style:'text-align:right',
+            	format : {type:'number', rule:'#,### Kg'}
             },
             {caption: ["대표생산자","대표생산자"], 	ref: 'rprsPrdcrNm',  	type:'output',  width:'80px',   style:'text-align:center'},
-            {caption: ["투입창고","투입창고"],		ref: 'inptWarehouseSeNm', type:'output',  width:'80px',   style:'text-align:center'},
-            {caption: ["저장창고","저장창고"], 	ref: 'warehouseSeNm', 	type:'output',  width:'80px',	style:'text-align:center'},
-            {caption: ["비고","비고"], 			ref: 'rmrk',  			type:'output',  width:'200px',  style:'text-align:center'},
+            {caption: ["저장창고","저장창고"], 		ref: 'warehouseSeNm', 	type:'output',  width:'80px',	style:'text-align:center'},
+            {caption: ["비고","비고"], 				ref: 'rmrk',  			type:'output',  width:'200px',  style:'text-align:center'},
 
-            {caption: ["선별번호"],				ref: 'sortno', 			type:'output',  hidden: true},
-            {caption: ["선별순번"],				ref: 'sortSn', 			type:'output',  hidden: true},
-            {caption: ["선별순번"],				ref: 'wrhsSeCd', 			type:'output',  hidden: true},
+            {caption: ["선별번호"],					ref: 'sortno', 			type:'output',  hidden: true},
+            {caption: ["선별순번"],					ref: 'sortSn', 			type:'output',  hidden: true},
+            {caption: ["선별순번"],					ref: 'wrhsSeCd', 			type:'output',  hidden: true},
             {caption: ["대표생산자코드"],			ref: 'rprsPrdcrCd', 			type:'output',  hidden: true},
-            {caption: ["투입창고코드"],			ref: 'inptWarehouseSeCd', 			type:'output',  hidden: true},
-            {caption: ["저장창고코드"],			ref: 'warehouseSeCd', 			type:'output',  hidden: true},
+            {caption: ["투입창고코드"],				ref: 'inptWarehouseSeCd', 			type:'output',  hidden: true},
+            {caption: ["저장창고코드"],				ref: 'warehouseSeCd', 			type:'output',  hidden: true},
 	        //{caption: [" "," "],			ref: '_',				type:'output',  width:'1px'},
         ];
 

@@ -22,22 +22,26 @@
 	<!-- ==========================================================================	-->
     <select id="selectSpmtPckgUnit" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnit */
-				   SPU.APC_CD               AS APC_CD
-			     , SPU.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
-			     , SPU.SPMT_PCKG_UNIT_NM    AS SPMT_PCKG_UNIT_NM
-			     , SPU.ITEM_CD				AS ITEM_CD
-			     , (SELECT FN_GET_ITEM_NM(SPU.ITEM_CD, SPU.APC_CD) FROM DUAL) AS ITEM_NM
-			     , SPU.VRTY_CD              AS VRTY_CD
-                 , (SELECT FN_GET_VRTY_NM(SPU.ITEM_CD, SPU.VRTY_CD, SPU.APC_CD) FROM DUAL) AS VRTY_NM
-			     , SPU.SPCFCT_CD            AS SPCFCT_CD
-                 , (SELECT FN_GET_SPCFCT_NM(SPU.ITEM_CD, SPU.SPCFCT_CD, SPU.APC_CD) FROM DUAL) AS SPCFCT_NM
-			     , SPU.NTSL_UNTPRC          AS NTSL_UNTPRC
-			     , SPU.DEL_YN               AS DEL_YN
-			     , SPU.GDS_GRD				AS GDS_GRD
-			     , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', SPU.GDS_GRD) FROM DUAL) AS GDS_GRD_NM
-			  FROM TB_SPMT_PCKG_UNIT SPU
-		     WHERE SPU.APC_CD = #{apcCd}
+    		SELECT pt0.*
+    		     , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 					AS ITEM_NM
+    		     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 		AS VRTY_NM
+    		     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 	AS SPCFCT_NM
+    		     , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 				AS GDS_GRD_NM
+    		 FROM (
+			    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnit */
+						   SPU.APC_CD               AS APC_CD
+					     , SPU.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
+					     , SPU.SPMT_PCKG_UNIT_NM    AS SPMT_PCKG_UNIT_NM
+					     , SPU.ITEM_CD				AS ITEM_CD
+					     , SPU.VRTY_CD              AS VRTY_CD
+					     , SPU.SPCFCT_CD            AS SPCFCT_CD
+					     , SPU.NTSL_UNTPRC          AS NTSL_UNTPRC
+					     , SPU.DEL_YN               AS DEL_YN
+					     , SPU.GDS_GRD				AS GDS_GRD
+					     , SPU.BRND_NM				AS BRND_NM
+					  FROM TB_SPMT_PCKG_UNIT SPU
+				     WHERE SPU.APC_CD = #{apcCd}
+		     	) pt0
 		]]>
     </select>
 
@@ -51,26 +55,30 @@
 	<!-- ==============================================================================	-->
     <select id="selectSpmtPckgUnitList" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectCmnsSpmtPckgUnitList */
-				   SPU.APC_CD               AS APC_CD
-			     , SPU.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
-			     , SPU.SPMT_PCKG_UNIT_NM    AS SPMT_PCKG_UNIT_NM
-			     , SPU.ITEM_CD				AS ITEM_CD
-			     , (SELECT FN_GET_ITEM_NM(SPU.ITEM_CD, SPU.APC_CD) FROM DUAL) AS ITEM_NM
-			     , SPU.VRTY_CD              AS VRTY_CD
-                 , (SELECT FN_GET_VRTY_NM(SPU.ITEM_CD, SPU.VRTY_CD, SPU.APC_CD) FROM DUAL) AS VRTY_NM
-			     , SPU.SPCFCT_CD            AS SPCFCT_CD
-                 , (SELECT FN_GET_SPCFCT_NM(SPU.ITEM_CD, SPU.SPCFCT_CD, SPU.APC_CD) FROM DUAL) AS SPCFCT_NM
-			     , (SELECT MAX(X.SPMT_SLS_UNTPRC) KEEP (DENSE_RANK LAST ORDER BY X.APLCN_CRTR_YMD)
-                      FROM TB_SPMT_SLS_UNTPRC_REG X
-                     WHERE X.APC_CD = SPU.APC_CD
-                       AND X.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
-                       AND X.APLCN_CRTR_YMD <= TO_CHAR(SYSDATE, 'YYYYMMDD')) AS NTSL_UNTPRC
-			     , SPU.DEL_YN               AS DEL_YN
-			     , SPU.GDS_GRD				AS GDS_GRD
-			     , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', SPU.GDS_GRD) FROM DUAL) AS GDS_GRD_NM
-			  FROM TB_SPMT_PCKG_UNIT SPU
-		     WHERE SPU.APC_CD = #{apcCd}
+    		SELECT pt0.*
+    		     , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 					AS ITEM_NM
+    		     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 		AS VRTY_NM
+    		     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 	AS SPCFCT_NM
+    		     , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 				AS GDS_GRD_NM
+    		 FROM (
+
+			    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectCmnsSpmtPckgUnitList */
+						   SPU.APC_CD               AS APC_CD
+					     , SPU.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
+					     , SPU.SPMT_PCKG_UNIT_NM    AS SPMT_PCKG_UNIT_NM
+					     , SPU.BRND_NM				AS BRND_NM
+					     , SPU.ITEM_CD				AS ITEM_CD
+					     , SPU.VRTY_CD              AS VRTY_CD
+					     , SPU.SPCFCT_CD            AS SPCFCT_CD
+					     , (SELECT MAX(X.SPMT_SLS_UNTPRC) KEEP (DENSE_RANK LAST ORDER BY X.APLCN_CRTR_YMD)
+					          FROM TB_SPMT_SLS_UNTPRC_REG X
+					         WHERE X.APC_CD = SPU.APC_CD
+					           AND X.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
+					           AND X.APLCN_CRTR_YMD <= TO_CHAR(SYSDATE, 'YYYYMMDD')) AS NTSL_UNTPRC
+					     , SPU.DEL_YN               AS DEL_YN
+					     , SPU.GDS_GRD				AS GDS_GRD
+					  FROM TB_SPMT_PCKG_UNIT SPU
+				     WHERE SPU.APC_CD = #{apcCd}
 		]]>
 		<if test='itemCd != null and itemCd != ""'>
 			   AND SPU.ITEM_CD		= #{itemCd}
@@ -81,6 +89,9 @@
 		<if test='spcfctCd != null and spcfctCd != ""'>
 			   AND SPU.SPCFCT_CD	= #{spcfctCd}
 		</if>
+		<![CDATA[
+			) pt0
+		]]>
     </select>
 
     <!-- ==========================================================================	-->
@@ -99,6 +110,7 @@
 					  APC_CD
 					, SPMT_PCKG_UNIT_CD
 					, SPMT_PCKG_UNIT_NM
+					, BRND_NM
 					, ITEM_CD
 					, VRTY_CD
 					, SPCFCT_CD
@@ -116,6 +128,7 @@
 	   				  #{apcCd}
 					, #{spmtPckgUnitCd}
 		    		, #{spmtPckgUnitNm}
+		    		, #{brndNm}
 		    		, #{itemCd}
 					, #{vrtyCd}
 					, #{spcfctCd}
@@ -148,6 +161,7 @@
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 				, SPMT_PCKG_UNIT_NM			= #{spmtPckgUnitNm}
+				, BRND_NM					= #{brndNm}
 				, ITEM_CD					= #{itemCd}
 				, VRTY_CD					= #{vrtyCd}
 				, SPCFCT_CD					= #{spcfctCd}
