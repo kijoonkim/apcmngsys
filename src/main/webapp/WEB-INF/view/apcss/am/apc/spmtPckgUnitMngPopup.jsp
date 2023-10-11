@@ -252,11 +252,6 @@
 		  			gfn_comAlert("W0002", "단가");		//	W0002	{0}을/를 입력하세요.
 		            return;
 		  		}
-				if (gfn_isEmpty(brndNm)) {
-		  			gfn_comAlert("W0002", "단가");		//	W0002	{0}을/를 입력하세요.
-		            return;
-		  		}
-
 				if (rowSts === 3){
 					rowData.rowSts = "I";
 					saveList.push(rowData);
