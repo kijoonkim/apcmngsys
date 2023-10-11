@@ -75,7 +75,7 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 		String apcCd = pckgMngVO.getApcCd();
 
 		if (!StringUtils.hasText(apcCd)) {
-			return ComUtil.getResultMap("W0005", "APC코드");
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
 		}
 
 		String pckgno = pckgMngVO.getPckgno();
@@ -144,7 +144,7 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 			String wrhsSeCd = inv.getWrhsSeCd();
 
 			// 지정 투입수량, 투입중량
-			int inptQntt = inv.getInptQntt();
+			//int inptQntt = inv.getInptQntt();
 			double inptWght = inv.getInptWght();
 
 			int pckgQntt = inv.getPckgQntt();
