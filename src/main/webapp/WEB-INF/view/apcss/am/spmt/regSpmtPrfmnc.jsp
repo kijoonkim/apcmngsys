@@ -675,7 +675,7 @@
 
     	var grdRows = grdGdsInvntr.getCheckedRows(0);
     	var insertList = [];
-    	var spmtQntt = 0;
+    	var totSpmtQntt = 0;
 
     	let spmtYmd		= SBUxMethod.get("dtl-dtp-spmtYmd");
     	let cnptCd		= SBUxMethod.get("dtl-inp-cnptCd");
@@ -704,11 +704,13 @@
     	for(var i=0; i< grdRows.length; i++){
     		let nRow = grdRows[i];
     		let rowData = grdGdsInvntr.getRowData(nRow)
+    		let spmtQntt = rowData.spmtQntt
     		let smptWght = rowData.smptWght;
     		let spmtPckgUnitCd = rowData.spmtPckgUnitCd;
     		let gdsGrd = rowData.gdsGrd;
     		let brndNm = rowData.brndNm;
-    		spmtQntt += rowData.spmtQntt;
+    		totSpmtQntt = totSpmtQntt + Number(spmtQntt);
+
     		if(smptWght == 0){
     			gfn_comAlert("W0001", "출하중량");		//	W0001	{0}이/가 없습니다.
     			return;
@@ -757,8 +759,7 @@
 			let gdsGrd = SBUxMethod.get("dtl-slt-gdsGrd");
 			let spmtPckgUnit = SBUxMethod.get("dtl-slt-spmtPckgUnit");
 
-			if(spmtQntt != cmndQntt ){
-
+			if(totSpmtQntt != cmndQntt ){
 	    		gfn_comAlert("W0006", "지시수량", "실적수량");			// W0006 {0}와/과 {1}이/가 서로 다릅니다.
 	    		return
 	    	}
