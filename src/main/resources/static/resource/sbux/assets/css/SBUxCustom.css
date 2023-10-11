@@ -51,3 +51,16 @@ select.form-control.input-sm.inpt_data_reqed {
 .form-control[readonly].inpt_data_reqed{
 	background-color:#FFF8DC !important;
 }
+.sbux-sel-form-wrap {
+    margin-left: 4px !important;
+    border-radius : 0px !important;
+}
+.sbux-sel-form-input{
+	padding-right : 50px !important;
+	padding-left : 5px !important;
+	margin-left : 5px !important;
+}
+.sbux-sel-form .sbux-sel-form-list{
+	margin-left: 4px !important;
+	width: 98% !important;
+}
