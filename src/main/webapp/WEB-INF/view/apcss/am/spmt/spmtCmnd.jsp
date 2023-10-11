@@ -91,7 +91,7 @@
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
 										<sbux-select
-											unselected-text="선택"
+											unselected-text="전체"
 											uitype="single"
 											id="srch-slt-vrtyCd"
 											name="srch-slt-vrtyCd"
@@ -125,7 +125,7 @@
 					</tbody>
 				</table>
 				<!--[pp] //검색 -->
-				
+
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
@@ -136,7 +136,7 @@
 					<div id="sb-area-grdSpmtCmnd" style="width:100%;height:540px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
-				
+
 			</div>
 		</div>
 	</section>
@@ -154,7 +154,7 @@
 	var jsonApcVrty			= [];	// 품종 		vrtyCd			검색
 	var jsonApcSpcfct		= [];	// 규격 		spcfct			검색
 	var jsonSpmtPckgUnitCd	= [];	// 포장단위 	spmtPckgUnitCd	검색
-	
+
 	var jsonSmptCmnd		= [];
 
 	const fn_initSBSelect = async function() {
@@ -172,7 +172,7 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
-		
+
 		fn_createSpmtCmndGrid();
 		fn_initSBSelect();
 	})
@@ -196,17 +196,17 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
-            {caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '120px',	type: 'output',	style:'text-align: center'},
-            {caption: ['거래처'], 	ref: 'cnptNm', 			width: '120px',	type: 'output',	style:'text-align: center'},
-            {caption: ['상품명'], 	ref: 'gdsNm', 			width: '120px',	type: 'output',	style:'text-align: center'},
-            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 		width: '120px',	type: 'output',	style:'text-align: center'},
-            {caption: ['배송처'], 	ref: 'dldtn', 			width: '120px',	type: 'output',	style:'text-align: center'},
+            {caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '120px',	type: 'output',	style:'text-align: center',
+            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+            {caption: ['거래처'], 	ref: 'cnptNm', 			width: '200px',	type: 'output',	style:'text-align: center'},
+            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 		width: '140px',	type: 'output',	style:'text-align: center'},
+            {caption: ['배송처'], 	ref: 'dldtn', 			width: '200px',	type: 'output',	style:'text-align: center'},
             {caption: ['수량'], 		ref: 'cmndQntt', 		width: '120px',	type: 'output',	style:'text-align: right',
             	format : {type:'number', rule:'#,###'}},
             {caption: ['중량'], 		ref: 'cmndWght', 		width: '120px',	type: 'output',	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '120px',	type: 'output',	style:'text-align: center'},
-            {caption: ['포장단위'], 	ref: 'spmtPckgUnitNm', 	width: '120px',	type: 'output',	style:'text-align: center'},
+            {caption: ['포장단위'], 	ref: 'spmtPckgUnitNm', 	width: '160px',	type: 'output',	style:'text-align: center'},
             {caption: ['품종'], 		ref: 'vrtyNm', 			width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 		width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['비고'], 		ref: 'rmrk', 			width: '200px',	type: 'output'}
@@ -214,16 +214,16 @@
         grdSmptCmnd = _SBGrid.create(SBGridProperties);
         grdSmptCmnd.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
     }
-	
+
 	// 출하지시 목록 조회 (조회 버튼)
     async function fn_search() {
     	let recordCountPerPage = grdSmptCmnd.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdSmptCmnd.movePaging(currentPageNo);
     }
-	
+
 	let newJsonSmptCmnd = [];
-	
+
 	// 출하지시 목록 조회 호출
 	async function fn_callSelectSpmtCmndList(recordCountPerPage, currentPageNo){
 		jsonSmptCmnd = [];
@@ -296,19 +296,19 @@
     		console.error("failed", e.message);
         }
 	}
-	
+
 	// 페이징
     async function fn_pagingSmptCmnd(){
     	let recordCountPerPage = grdSmptCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdSmptCmnd.getSelectPageIndex(); 
+    	let currentPageNo = grdSmptCmnd.getSelectPageIndex();
     	fn_callSelectSpmtCmndList(recordCountPerPage, currentPageNo);
     }
-	
+
 	// 출하지시서
     async function fn_cmndDocSpmt(){
-    	
+
     }
-	
+
  	// APC 선택 변경
 	const fn_onChangeApc = async function() {
 		let result = await Promise.all([
@@ -346,12 +346,12 @@
 		}
 		gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd, vrtyCd);
 	}
-	
+
 	// 거래처 선택 팝업 호출
 	const fn_modalCnpt = function() {
     	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnptNm"), fn_setCnpt);
 	}
-	
+
 	const fn_setCnpt = function(cnpt) {
 		if (!gfn_isEmpty(cnpt)) {
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
