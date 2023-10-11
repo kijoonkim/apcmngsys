@@ -18,6 +18,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 상품입고등록 -->
+					<sbux-label id="lbl-pckgno" name="lbl-pckgno" uitype="normal" text=""></sbux-label>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
@@ -32,6 +33,8 @@
 				<!--[APC] START -->	
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
+				<sbux-input id="srch-inp-pckgno" name="srch-inp-pckgno" uitype="hidden"></sbux-input>
+				<sbux-input id="srch-inp-pckgSn" name="srch-inp-pckgSn" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -211,7 +214,6 @@
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),									// 품목
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd)									// 품종
 		]);
-        //fn_search();
 	}
 	
 	const fn_init = async function() {
@@ -229,6 +231,7 @@
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
+        fn_search();
 	});
 
 	function fn_createGdsWrhsGrid() {
@@ -250,18 +253,18 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	        {caption: ["입고번호"],	ref: 'pckgno',      	type: 'output',  width: '105px',    style: 'text-align: center'},
+	        {caption: ["입고번호"],	ref: 'pckgno',      	type: 'output',  width: '110px',    style: 'text-align: center'},
 	        {caption: ["입고일자"],	ref: 'pckgYmd',     	type: 'output',  width: '105px',    style: 'text-align: center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	        {caption: ["상품구분"],	ref: 'gdsSeNm',      	type: 'output',  width: '105px',    style: 'text-align: center'},
+	        {caption: ["상품구분"],	ref: 'gdsSeNm',      	type: 'output',  width: '80px',    	style: 'text-align: center'},
 	        {caption: ["품목"],		ref: 'itemNm',      	type: 'output',  width: '105px',    style: 'text-align: center'},
 	        {caption: ["품종"],		ref: 'vrtyNm',      	type: 'output',  width: '105px',    style: 'text-align: center'},
-	        {caption: ["거래처"],		ref: 'prchsptNm',		type: 'output',  width: '105px',    style: 'text-align: center'},
-	        {caption: ["수량"],		ref: 'pckgQntt',		type: 'output',  width: '105px',    style: 'text-align: right',
+	        {caption: ["매입처"],		ref: 'prchsptNm',		type: 'output',  width: '140px',    style: 'text-align: center'},
+	        {caption: ["수량"],		ref: 'pckgQntt',		type: 'output',  width: '80px',    	style: 'text-align: right',
 	        	format : {type:'number', rule:'#,###'}},
-	        {caption: ["중량"],		ref: 'pckgWght',		type: 'output',  width: '105px',    style: 'text-align: right',
-	        	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###Kg'}},
-	        {caption: ["창고"],		ref: 'warehouseSeNm',	type: 'output',  width: '105px',    style: 'text-align: center'},
+	        {caption: ["중량"],		ref: 'pckgWght',		type: 'output',  width: '80px',    	style: 'text-align: right',
+	        	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+	        {caption: ["창고"],		ref: 'warehouseSeNm',	type: 'output',  width: '80px',    style: 'text-align: center'},
 	        {caption: ["비고"],		ref: 'rmrk',      		type: 'output',  width: '105px'},
 	        {caption: ["순번"],		ref: 'pckgSn',			hidden: true},
 	        {caption: ["상품구분코드"],	ref: 'pckgSeCd',		hidden: true},
@@ -273,6 +276,7 @@
 	    ];
 	    grdGdsWrhs = _SBGrid.create(SBGridProperties);
 	    grdGdsWrhs.bind( "afterpagechanged" , "fn_pagingGdsWrhs" );
+	    grdGdsWrhs.bind( "click", "fn_view" );
 	}
 	
 	// 출하실적 목록 조회 (조회 버튼)
@@ -297,7 +301,7 @@
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
 		
 		if (gfn_isEmpty(pckgYmd)){
-			gfn_comAlert("W0002", "출하일자");		//	W0002	{0}을/를 입력하세요.
+			gfn_comAlert("W0002", "입고일자");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
 		
@@ -308,7 +312,7 @@
 						 , pagingYn 			: 'Y'
 						 , currentPageNo 		: currentPageNo
 						 , recordCountPerPage 	: recordCountPerPage};
-    	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncList.do", gdsInvntrVO);
+    	let postJsonPromise = gfn_postJSON("/am/invntr/selectGdsWrhsList.do", gdsInvntrVO);
         let data = await postJsonPromise;
         newJsonGdsWrhs = [];
         try{
@@ -362,8 +366,50 @@
     	fn_callSelectGdsWrhsList(recordCountPerPage, currentPageNo);
     }
  	
+	// 그리드 클릭 이벤트
+    const fn_view = async function() {
+
+		let nRow = grdGdsWrhs.getRow();
+        if (nRow < 1) {
+            return;
+        }
+
+        let rowData = grdGdsWrhs.getRowData(nRow);
+
+     	// 입고번호
+		SBUxMethod.set("lbl-pckgno", "입고번호 : " + rowData.pckgno);
+		SBUxMethod.set("srch-inp-pckgno", rowData.pckgno);
+
+		SBUxMethod.set("srch-inp-pckgSn", rowData.pckgSn);					// 순번
+		SBUxMethod.set("srch-dtp-pckgYmd", rowData.pckgYmd);				// 입고일자
+ 		SBUxMethod.set("srch-rdo-gdsSeCd", rowData.gdsSeCd);				// 상품구분
+ 		SBUxMethod.set("srch-inp-prchsptNm", rowData.prchsptNm);			// 매입처
+ 		SBUxMethod.set("srch-slt-itemCd", rowData.itemCd);					// 품목
+ 		SBUxMethod.set("srch-slt-vrtyCd", rowData.vrtyCd);					// 품종
+ 		SBUxMethod.set("srch-inp-pckgQntt", rowData.pckgQntt);				// 수량
+ 		SBUxMethod.set("srch-inp-pckgWght", rowData.pckgWght);				// 중량
+ 		fn_onChangeQnttWght();
+
+ 		SBUxMethod.set("srch-slt-spcfctCd", rowData.spcfctCd);				// 규격
+ 		SBUxMethod.set("srch-slt-warehouseSeCd", rowData.warehouseSeCd);	// 창고
+ 		SBUxMethod.set("srch-inp-rmrk", rowData.rmrk);						// 비고
+ 		console.log(rowData.rmrk, SBUxMethod.get("srch-inp-rmrk"));
+//  		if (gfn_isEmpty(rowData.rmrk)) {
+//  			SBUxMethod.set("srch-inp-rmrk", "");							// 비고
+//  		}
+
+//  		await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
+// 		SBUxMethod.set("srch-slt-vrtyCd", rowData.vrtyCd);
+// 		await fn_onChangeSrchVrtyCd({value: rowData.vrtyCd});
+    }
+	
 	// 초기화
 	const fn_reset = function() {
+		// 입고번호
+		SBUxMethod.set("lbl-pckgno", "");
+		SBUxMethod.set("srch-inp-pckgno", "");
+		// 순번
+		SBUxMethod.set("srch-inp-pckgSn", "");
  		// 입고일자
  		SBUxMethod.set("srch-dtp-pckgYmd", gfn_dateToYmd(new Date()));
  		// 상품구분
