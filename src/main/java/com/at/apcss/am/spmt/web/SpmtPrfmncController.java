@@ -87,7 +87,7 @@ public class SpmtPrfmncController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 출하대상내역 등록
 	@PostMapping(value = "/am/spmt/insertSpmtTrgtDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertSpmtTrgtDsctnList(@RequestBody List<SpmtPrfmncVO> SpmtPrfmncList, HttpServletRequest request) throws Exception {
@@ -141,11 +141,12 @@ public class SpmtPrfmncController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int deletedCnt = 0;
 		try {
-			for ( var i=0; i<SpmtPrfmncList.size(); i++ ) {
-				SpmtPrfmncList.get(i).setSysFrstInptUserId(getUserId());
-				SpmtPrfmncList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
-				SpmtPrfmncList.get(i).setSysLastChgUserId(getUserId());
-				SpmtPrfmncList.get(i).setSysLastChgPrgrmId(getPrgrmId());
+
+			for (SpmtPrfmncVO spmtPrfmncVO : SpmtPrfmncList) {
+				spmtPrfmncVO.setSysFrstInptUserId(getUserId());
+				spmtPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+				spmtPrfmncVO.setSysLastChgUserId(getUserId());
+				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
 			deletedCnt = spmtPrfmncService.deleteSpmtPrfmnc(SpmtPrfmncList);
