@@ -1,4 +1,4 @@
-package com.at.apcss.am.whrs.mapper;
+package com.at.apcss.am.wrhs.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

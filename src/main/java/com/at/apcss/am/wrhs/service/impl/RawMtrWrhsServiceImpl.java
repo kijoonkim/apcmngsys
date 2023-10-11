@@ -1,4 +1,4 @@
-package com.at.apcss.am.whrs.service.impl;
+package com.at.apcss.am.wrhs.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,9 +17,9 @@ import com.at.apcss.am.cmns.service.PrdcrService;
 import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
-import com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper;
-import com.at.apcss.am.whrs.service.RawMtrWrhsService;
-import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
+import com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper;
+import com.at.apcss.am.wrhs.service.RawMtrWrhsService;
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;

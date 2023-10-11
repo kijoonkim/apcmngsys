@@ -271,8 +271,7 @@
 	        {caption: ["품목코드"],	ref: 'itemCd',			hidden: true},
 	        {caption: ["품종코드"],	ref: 'vrtyCd',			hidden: true},
 	        {caption: ["규격코드"],	ref: 'spcfctCd',		hidden: true},
-	        {caption: ["창고구분코드"],	ref: 'warehouseSeCd',	hidden: true},
-	        {caption: ["처리"],		ref: 'delYn',			hidden: true}
+	        {caption: ["창고구분코드"],	ref: 'warehouseSeCd',	hidden: true}
 	    ];
 	    grdGdsWrhs = _SBGrid.create(SBGridProperties);
 	    grdGdsWrhs.bind( "afterpagechanged" , "fn_pagingGdsWrhs" );
@@ -281,6 +280,8 @@
 	
 	// 출하실적 목록 조회 (조회 버튼)
     async function fn_search() {
+    	fn_clearInptForm();
+		
     	let recordCountPerPage = grdGdsWrhs.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdGdsWrhs.movePaging(currentPageNo);
@@ -312,7 +313,7 @@
 						 , pagingYn 			: 'Y'
 						 , currentPageNo 		: currentPageNo
 						 , recordCountPerPage 	: recordCountPerPage};
-    	let postJsonPromise = gfn_postJSON("/am/invntr/selectGdsWrhsList.do", gdsInvntrVO);
+    	let postJsonPromise = gfn_postJSON("/am/wrhs/selectGdsWrhsList.do", gdsInvntrVO);
         let data = await postJsonPromise;
         newJsonGdsWrhs = [];
         try{
@@ -335,7 +336,6 @@
 				  , warehouseSeCd	: item.warehouseSeCd
 				  , rmrk			: item.rmrk
 				  , pckgSn			: item.pckgSn
-				  , delYn			: item.delYn
 				}
 				jsonGdsWrhs.push(Object.assign({}, gdsWrhs));
 				newJsonGdsWrhs.push(Object.assign({}, gdsWrhs));
@@ -366,6 +366,86 @@
     	fn_callSelectGdsWrhsList(recordCountPerPage, currentPageNo);
     }
  	
+    const fn_save = async function() {
+		let apcCd = gv_selectedApcCd;
+		let pckgno = SBUxMethod.get("srch-inp-pckgno");
+		let pckgSn = SBUxMethod.get("srch-inp-pckgSn");
+		let pckgYmd = SBUxMethod.get("srch-dtp-pckgYmd");
+		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
+		let prchsptNm = SBUxMethod.get("srch-inp-prchsptNm");
+		let itemCd = SBUxMethod.get("srch-inp-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
+		let pckgQntt = SBUxMethod.get("srch-inp-pckgQntt");
+		let pckgWght = SBUxMethod.get("srch-inp-pckgWght");
+		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
+		
+		if (gfn_isEmpty(pckgYmd)){
+			gfn_comAlert("W0002", "입고일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		if (gfn_isEmpty(gdsSeCd)){
+			gfn_comAlert("W0002", "상품구분");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		if (gfn_isEmpty(prchsptNm)){
+			gfn_comAlert("W0002", "매입처");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		if (gfn_isEmpty(itemCd)){
+			gfn_comAlert("W0002", "품목");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		if (gfn_isEmpty(vrtyCd)){
+			gfn_comAlert("W0002", "품종");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		if (gfn_isEmpty(pckgYmd)){
+			gfn_comAlert("W0002", "수량");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		if (gfn_isEmpty(pckgWght)){
+			gfn_comAlert("W0002", "중량");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		
+    	if (!gfn_comConfirm("Q0001", "저장")) {
+    		return;
+    	}
+
+    	const gdsWrhs = {
+    		apcCd			: gv_selectedApcCd
+		  , pckgno 			: pckgno
+		  , pckgYmd 		: pckgYmd
+		  , gdsSeCd 		: gdsSeCd
+		  , itemCd 			: itemCd
+		  , vrtyCd 			: vrtyCd
+		  , spcfctCd 		: spcfctCd
+		  , prchsptNm 		: prchsptNm
+		  , pckgQntt 		: pckgQntt
+		  , pckgWght 		: pckgWght
+		  , warehouseSeCd	: warehouseSeCd
+		  , rmrk			: rmrk
+		  , pckgSn			: pckgSn
+    	}
+
+    	let postUrl = gfn_isEmpty(pckgno) ? "/am/wrhs/insertGdsInvntr.do" : "/am/wrhs/updateGdsInvntr.do";
+
+    	const postJsonPromise = gfn_postJSON(postUrl, gdsWrhs);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
+        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        }
+	}
+	
 	// 그리드 클릭 이벤트
     const fn_view = async function() {
 
@@ -393,7 +473,6 @@
  		SBUxMethod.set("srch-slt-spcfctCd", rowData.spcfctCd);				// 규격
  		SBUxMethod.set("srch-slt-warehouseSeCd", rowData.warehouseSeCd);	// 창고
  		SBUxMethod.set("srch-inp-rmrk", rowData.rmrk);						// 비고
- 		console.log(rowData.rmrk, SBUxMethod.get("srch-inp-rmrk"));
 //  		if (gfn_isEmpty(rowData.rmrk)) {
 //  			SBUxMethod.set("srch-inp-rmrk", "");							// 비고
 //  		}
@@ -405,13 +484,17 @@
 	
 	// 초기화
 	const fn_reset = function() {
+ 		// 입고일자
+ 		SBUxMethod.set("srch-dtp-pckgYmd", gfn_dateToYmd(new Date()));
+ 		fn_clearInptForm();
+ 	}
+	
+	const fn_clearInptForm = function() {
 		// 입고번호
 		SBUxMethod.set("lbl-pckgno", "");
 		SBUxMethod.set("srch-inp-pckgno", "");
 		// 순번
 		SBUxMethod.set("srch-inp-pckgSn", "");
- 		// 입고일자
- 		SBUxMethod.set("srch-dtp-pckgYmd", gfn_dateToYmd(new Date()));
  		// 상품구분
  		SBUxMethod.set("srch-rdo-gdsSeCd", "1");
  		// 매입처

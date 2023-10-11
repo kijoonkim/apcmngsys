@@ -1,8 +1,8 @@
-package com.at.apcss.am.whrs.service.impl;
+package com.at.apcss.am.wrhs.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.whrs.service.PltWrhsService;
+import com.at.apcss.am.wrhs.service.PltWrhsService;
 
 /**
  * @Class Name : PltWrhsServiceImpl.java

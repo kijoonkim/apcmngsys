@@ -1,10 +1,10 @@
-package com.at.apcss.am.whrs.mapper;
+package com.at.apcss.am.wrhs.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 
 /**
  * 원물입고 Mapper 인터페이스

@@ -1,4 +1,4 @@
-package com.at.apcss.am.whrs.web;
+package com.at.apcss.am.wrhs.web;
 
 import org.springframework.stereotype.Controller;
 

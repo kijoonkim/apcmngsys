@@ -1,8 +1,13 @@
-package com.at.apcss.am.whrs.service.impl;
+package com.at.apcss.am.wrhs.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.whrs.service.GdsWrhsService;
+import com.at.apcss.am.wrhs.mapper.GdsWrhsMapper;
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
+import com.at.apcss.am.wrhs.service.GdsWrhsService;
 
 /**
  * @Class Name : GdsWrhsServiceImpl.java
@@ -21,5 +26,16 @@ import com.at.apcss.am.whrs.service.GdsWrhsService;
  */
 @Service("gdsWrhsService")
 public class GdsWrhsServiceImpl implements GdsWrhsService {
-
+	
+	@Autowired
+	private GdsWrhsMapper gdsWrhsMapper;
+	
+	@Override
+	public List<GdsInvntrVO> selectGdsWrhsList(GdsInvntrVO gdsInvntrVO) throws Exception {
+		
+		List<GdsInvntrVO> resultList = gdsWrhsMapper.selectGdsWrhsList(gdsInvntrVO);
+		
+		return resultList;
+	}
+	
 }

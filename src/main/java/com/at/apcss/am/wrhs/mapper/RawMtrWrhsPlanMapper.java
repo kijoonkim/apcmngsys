@@ -1,10 +1,10 @@
-package com.at.apcss.am.whrs.mapper;
+package com.at.apcss.am.wrhs.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.at.apcss.am.whrs.vo.RawMtrWrhsPlanVO;
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsPlanVO;
 
 
 /**

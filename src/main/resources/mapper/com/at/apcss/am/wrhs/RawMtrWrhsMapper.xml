@@ -10,20 +10,20 @@
 <!-- 2023.07.28  	신정철        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper">
+<mapper namespace="com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper">
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.selectRawMtrWrhs		-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhs		-->
 	<!-- DESC : 입고실적 단건 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRawMtrWrhs" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO" resultType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO">
+    <select id="selectRawMtrWrhs" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.selectRawMtrWrhs */
+	    	SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhs */
 				  WP.APC_CD		AS APC_CD
 				, WP.WRHSNO		AS WRHSNO
 				, WP.WGHNO		AS WGHNO
@@ -42,14 +42,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsList	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsList	-->
 	<!-- DESC : 입고실적 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRawMtrWrhsList" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO" resultType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO">
+    <select id="selectRawMtrWrhsList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
     	<![CDATA[
     		SELECT
 		]]>
@@ -76,7 +76,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
     		  FROM (
 
-	    	SELECT /* com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsList */
+	    	SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsList */
 				  WP.APC_CD         AS APC_CD
 				, WP.WRHSNO         AS WRHSNO
 				, WP.WGHNO          AS WGHNO
@@ -173,16 +173,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.insertRawMtrWrhs		-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.insertRawMtrWrhs		-->
 	<!-- DESC : 입고실적 등록.		                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertRawMtrWrhs" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO">
+    <insert id="insertRawMtrWrhs" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.insertRawMtrWrhs */
+	    	INSERT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.insertRawMtrWrhs */
 	    		INTO TB_RAW_MTR_WRHS_PRFMNC
 				(
 					  APC_CD
@@ -225,16 +225,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.updateRawMtrWrhs		-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.updateRawMtrWrhs		-->
 	<!-- DESC : 입고실적 변경.		                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateRawMtrWrhs" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO">
+    <update id="updateRawMtrWrhs" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.updateRawMtrWrhs */
+			UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.updateRawMtrWrhs */
 				TB_RAW_MTR_WRHS_PRFMNC
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -255,16 +255,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.deleteRawMtrWrhs		-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.deleteRawMtrWrhs		-->
 	<!-- DESC : 입고실적 삭제.		                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteRawMtrWrhs" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO">
+	<delete id="deleteRawMtrWrhs" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.deleteRawMtrWrhs */
+			DELETE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.deleteRawMtrWrhs */
 			  FROM TB_RAW_MTR_WRHS_PRFMNC
 			 WHERE APC_CD = #{apcCd}
 			   AND WRHSNO = #{wrhsno}
@@ -272,16 +272,16 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.updateRawMtrWrhsDelY	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.updateRawMtrWrhsDelY	-->
 	<!-- DESC : 입고실적 삭제 : delYn Y		                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateRawMtrWrhsDelY" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO">
+    <update id="updateRawMtrWrhsDelY" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.updateRawMtrWrhsDelY */
+			UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.updateRawMtrWrhsDelY */
 				TB_RAW_MTR_WRHS_PRFMNC
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -295,17 +295,17 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsPrfmncList	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsPrfmncList	-->
 	<!-- DESC : 입고실적 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.16  	정희운        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRawMtrWrhsPrfmncList" parameterType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO" resultType="com.at.apcss.am.whrs.vo.RawMtrWrhsVO">
+    <select id="selectRawMtrWrhsPrfmncList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT  /* com.at.apcss.am.whrs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsPrfmncList */
+    		SELECT  /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectRawMtrWrhsPrfmncList */
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
     			, pt0.*

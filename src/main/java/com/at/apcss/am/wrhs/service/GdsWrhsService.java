@@ -1,4 +1,8 @@
-package com.at.apcss.am.whrs.service;
+package com.at.apcss.am.wrhs.service;
+
+import java.util.List;
+
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 
 /**
  * 상품입고 Service 인터페이스
@@ -15,5 +19,13 @@ package com.at.apcss.am.whrs.service;
  * </pre>
  */
 public interface GdsWrhsService {
+	
+	/**
+	 * 상품입고등록 목록 조회
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<GdsInvntrVO> selectGdsWrhsList(GdsInvntrVO gdsInvntrVO) throws Exception;
 
 }
