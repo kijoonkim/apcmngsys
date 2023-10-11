@@ -106,8 +106,16 @@
 			    , GI.PLOR_CD 		AS PLOR_CD
 			    , GI.DEL_YN			AS DEL_YN
 			    , GI.RMRK			AS RMRK
+			    , (SELECT BRND_NM
+                     FROM TB_GDS_CD X
+                    WHERE X.APC_CD = GI.APC_CD
+                      AND X.ITEM_CD = GI.ITEM_CD
+                      AND X.VRTY_CD = GI.VRTY_CD
+                      AND X.SPCFCT_CD = GI.SPCFCT_CD
+                      AND X.DEL_YN = 'N'
+                  ) AS BRND_NM
 			  FROM TB_GDS_INVNTR GI
-			 WHERE 1=1
+			 WHERE GI.DEL_YN = 'N'
 			   AND GI.APC_CD = #{apcCd}
 			   AND GI.INVNTR_WGHT > 0
 		]]>
