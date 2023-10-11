@@ -123,9 +123,16 @@
 									jsondata-ref="jsonComSpcfct"
 								></sbux-select>
 							</td>
-							<td style="border-right: hidden;">
-							<td style="border-right: hidden;">
+							<td style="border-right: hidden;"></td>
+							<td style="border-right: hidden;"></td>
+							<th scope="row" class="th_bg">지시번호</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="dtl-inp-spmtCmndno" name="dtl-inp-spmtCmndno" uitype="text" class="form-control input-sm" readOnly></sbux-input>
 							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="dtl-btn-spmtCmndno" name="dtl-btn-spmtCmndno" uitype="modal" target-id="modal-spmtCmnd" onclick="fn_choiceSpmtCmnd" text="찾기"  class="btn btn-xs btn-outline-dark"></sbux-button>
+							</td>
+							<td class="td_input" style="border-right: hidden;"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -163,14 +170,6 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">지시번호</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-spmtCmndno" name="dtl-inp-spmtCmndno" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="dtl-btn-spmtCmndno" name="dtl-btn-spmtCmndno" uitype="modal" target-id="modal-spmtCmnd" onclick="fn_choiceSpmtCmnd" text="찾기"  class="btn btn-xs btn-outline-dark"></sbux-button>
-							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg">지시수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-cmndQntt" name="dtl-inp-cmndQntt" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
@@ -181,10 +180,34 @@
 							<td class="td_input" style="border-right: hidden;">
 								Kg
 							</td>
+							<th scope="row" class="th_bg">등급</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="dtl-slt-gdsGrd"
+									name="dtl-slt-gdsGrd"
+									uitype="single"
+									class="form-control input-sm"
+									unselected-text="지시선택"
+									jsondata-ref="jsonDtlGdsGrd"
+									disabled
+								></sbux-select>
+							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input"></td>
+							<th scope="row" class="th_bg">포장단위</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="dtl-slt-spmtPckgUnit"
+									name="dtl-slt-spmtPckgUnit"
+									uitype="single"
+									class="form-control input-sm"
+									unselected-text="지시선택"
+									jsondata-ref="jsonDtlSpmtPckgUnit"
+									disabled
+								></sbux-select>
+							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
-							<td class="td_input" style="border-right: hidden;"></td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>출하일자</th>
@@ -229,36 +252,9 @@
 							<td colspan="2" class="td_input"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">등급</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select
-									id="dtl-slt-gdsGrd"
-									name="dtl-slt-gdsGrd"
-									uitype="single"
-									class="form-control input-sm"
-									unselected-text="지시선택"
-									jsondata-ref="jsonDtlGdsGrd"
-									disabled
-								></sbux-select>
-							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
-							<td class="td_input"></td>
-							<th scope="row" class="th_bg">포장단위</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select
-									id="dtl-slt-spmtPckgUnit"
-									name="dtl-slt-spmtPckgUnit"
-									uitype="single"
-									class="form-control input-sm"
-									unselected-text="지시선택"
-									jsondata-ref="jsonDtlSpmtPckgUnit"
-									disabled
-								></sbux-select>
-							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
-							<td class="td_input"></td>
+
 							<th scope="row" class="th_bg">비고</th>
-							<td colspan="3" class="td_input" ">
+							<td colspan="3" class="td_input">
 								<sbux-input id="dtl-inp-rmrk" name="dtl-inp-rmrk" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 						</tr>
@@ -402,7 +398,8 @@
             {caption: ["배송지"],		ref: 'dldtn',   	type:'output',  hidden: true},
             {caption: ["운임"],			ref: 'trsprtCst',   type:'output',  hidden: true},
             {caption: ["비고"],			ref: 'rmrk',   		type:'output',  hidden: true},
-            {caption: ["지시번호"],		ref: 'spmtCmndno',   		type:'output',  hidden: true},
+            {caption: ["지시번호"],		ref: 'spmtCmndno',  type:'output',  hidden: true},
+            {caption: ["브랜드명"],		ref: 'brndNm',  	type:'output',  hidden: true},
         ];
 
         grdGdsInvntr = _SBGrid.create(SBGridPropertiesGdsInvntr);
@@ -529,7 +526,8 @@
 	          				plorCd 		: item.plorCd,
 	          				spmtPckgUnitCd: item.spmtPckgUnitCd,
 	          				spmtPckgUnitNm: item.spmtPckgUnitNm,
-	          				rmrk		: item.rmrk
+	          				rmrk		: item.rmrk,
+	          				brndNm		: item.brndNm
 	  				}
 					jsonGdsInvntr.push(gdsInvntr);
           		}
@@ -578,16 +576,23 @@
 			let cmndQntt = grdGdsInvntr.getRowData(nRow).cmndQntt;
 			let cmndWght = grdGdsInvntr.getRowData(nRow).cmndWght;
 
-
 			if((spmtQntt == 0 && spmtWght == 0) || (gfn_isEmpty(spmtQntt) && gfn_isEmpty(spmtWght))){
 				if(cmndQntt > 0){
 					grdGdsInvntr.setCellData(nRow, 11, cmndQntt);
 					grdGdsInvntr.setCellData(nRow, 12, cmndWght);
 				}else{
+
 					grdGdsInvntr.setCellData(nRow, 11, invntrQntt);
 					grdGdsInvntr.setCellData(nRow, 12, invntrWght);
 				}
 
+				let spmtPckgUnit = SBUxMethod.get("dtl-slt-spmtPckgUnit");
+				let gdsGrdCd = SBUxMethod.get("dtl-slt-gdsGrd");
+				let spmtCmndno = SBUxMethod.get("dtl-inp-spmtCmndno");
+				if(!gfn_isEmpty(spmtCmndno)){
+					grdGdsInvntr.setCellData(nRow, 9, spmtPckgUnit, true);
+					grdGdsInvntr.setCellData(nRow, 10, gdsGrdCd, true);
+				}
 			}
     	}
     }
@@ -622,6 +627,13 @@
 
 		if(spmtWght > 0){
 			grdGdsInvntr.setCellData(nRow, 0, "Y")
+			let spmtPckgUnitCd = SBUxMethod.get("dtl-slt-spmtPckgUnit");
+			let gdsGrdCd = SBUxMethod.get("dtl-slt-gdsGrd");
+			let spmtCmndno = SBUxMethod.get("dtl-inp-spmtCmndno");
+			if(!gfn_isEmpty(spmtCmndno)){
+				grdGdsInvntr.setCellData(nRow, 9, spmtPckgUnit, true);
+				grdGdsInvntr.setCellData(nRow, 10, gdsGrdCd, true);
+			}
 		}else{
 			grdGdsInvntr.setCellData(nRow, 0, "N")
 		}
@@ -643,6 +655,13 @@
 		}
 
 		if(invntrQntt > 0 && spmtQntt > 0){
+			let spmtPckgUnitCd = SBUxMethod.get("dtl-slt-spmtPckgUnit");
+			let gdsGrdCd = SBUxMethod.get("dtl-slt-gdsGrd");
+			let spmtCmndno = SBUxMethod.get("dtl-inp-spmtCmndno");
+			if(!gfn_isEmpty(spmtCmndno)){
+				grdGdsInvntr.setCellData(nRow, 9, spmtPckgUnit, true);
+				grdGdsInvntr.setCellData(nRow, 10, gdsGrdCd, true);
+			}
 			grdGdsInvntr.setCellData(nRow, 12, Math.round(invntrWght / invntrQntt) * spmtQntt);
 			grdGdsInvntr.setCellData(nRow, 0, "Y");
 		}
@@ -688,6 +707,7 @@
     		let smptWght = rowData.smptWght;
     		let spmtPckgUnitCd = rowData.spmtPckgUnitCd;
     		let gdsGrd = rowData.gdsGrd;
+    		let brndNm = rowData.brndNm;
     		spmtQntt += rowData.spmtQntt;
     		if(smptWght == 0){
     			gfn_comAlert("W0001", "출하중량");		//	W0001	{0}이/가 없습니다.
@@ -727,6 +747,7 @@
     		grdGdsInvntr.setCellData(nRow, 20, trsprtCst);
     		grdGdsInvntr.setCellData(nRow, 21, rmrk);
     		grdGdsInvntr.setCellData(nRow, 22, spmtCmndno);
+    		grdGdsInvntr.setCellData(nRow, 23, brndNm);
     		insertList.push(grdGdsInvntr.getRowData(nRow));
     	}
 
@@ -929,6 +950,7 @@
 			SBUxMethod.set("dtl-inp-cnptCd", cmnd.cnptCd);
 			SBUxMethod.set("dtl-inp-cnptNm", cmnd.cnptNm);
 			SBUxMethod.set("dtl-inp-dldtn", cmnd.dldtn);
+			SBUxMethod.set("dtl-inp-rmrk", cmnd.rmrk);
 			SBUxMethod.set("dtl-slt-gdsGrd", cmnd.gdsGrd);
 			SBUxMethod.set("srch-slt-itemCd", cmnd.itemCd);
 			SBUxMethod.set("srch-slt-vrtyCd", cmnd.vrtyCd);

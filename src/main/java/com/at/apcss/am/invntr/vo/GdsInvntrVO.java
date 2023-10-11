@@ -189,22 +189,26 @@ public class GdsInvntrVO extends ComVO {
 	 * 대표생산자명
 	 * */
 	private String rprsPrdcrNm;
+	/*
+	 * 브랜드명
+	 * */
+	private String brndNm;
 
 	/**
 	 * 상품코드
 	 */
 	private String gdsCd;
-	
+
 	/**
 	 * 매입처명
 	 */
 	private String prchsptNm;
-	
+
 	/**
 	 * 입고구분코드
 	 */
 	private String wrhsSeCd;
-	
+
 	/**
 	 * 운송구분코드
 	 */

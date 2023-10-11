@@ -89,6 +89,9 @@
 		<if test='spcfctCd != null and spcfctCd != ""'>
 			   AND SPU.SPCFCT_CD	= #{spcfctCd}
 		</if>
+		<if test='spmtPckgUnitNm != null and spmtPckgUnitNm != ""'>
+			   AND SPU.SPMT_PCKG_UNIT_NM LIKE '%' ||  #{spmtPckgUnitNm} || '%'
+		</if>
 		<![CDATA[
 			) pt0
 		]]>
