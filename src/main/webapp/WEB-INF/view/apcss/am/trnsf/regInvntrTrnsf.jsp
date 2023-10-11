@@ -174,6 +174,11 @@ const fn_initSBSelect = async function() {
 	fn_getPrdcrs();
 	fn_getComData();
 }
+
+const fn_getWarehouse = async function() {
+	jsonComWarehouse = await gfn_getComCdDtls('WAREHOUSE_SE_CD', gv_selectedApcCd);
+}
+
 const fn_getComData = async function() {
 	let result = await Promise.all([
 		gfn_getComCdDtls('WAREHOUSE_SE_CD', gv_selectedApcCd),
@@ -259,26 +264,25 @@ const fn_getComData = async function() {
 	    };
 	    SBGridProperties.columns = [
 	    	{caption: ["선택","선택"],				ref: 'checkBox',      		type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
-	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      		type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',      			type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      		type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      		type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["품목","품목"],				ref: 'itemNm',      		type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["품종","품종"],				ref: 'vrtyNm',      		type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["상품","상품"],				ref: 'gdsSeNm',      		type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["입고","입고"],				ref: 'wrhsSeNm',     		type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["운송","운송"],				ref: 'trsprtSeNm',      	type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',      	type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["재고","수량"],				ref: 'invntrQntt',      	type:'output',  width:'55px',    style:'text-align:center'},
-	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'55px',    style:'text-align:center',
+	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      		type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',      			type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      		type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      		type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["품목","품목"],				ref: 'itemNm',      		type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["품종","품종"],				ref: 'vrtyNm',      		type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["상품","상품"],				ref: 'gdsSeNm',      		type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["입고","입고"],				ref: 'wrhsSeNm',     		type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["운송","운송"],				ref: 'trsprtSeNm',      	type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',      	type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["재고","수량"],				ref: 'invntrQntt',      	type:'output',  width:'73px',    style:'text-align:center'},
+	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'73px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,### Kg'}
 	        },
-	        {caption: ["이송창고","이송창고"],		ref: 'trnsfWarehouse',      type:'combo',  width:'105px',    style:'text-align:center',
-	        	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}
-// 	        	typeinfo: {ref:'jsonComWarehouse', label:'warehouseSeNm', value:'warehouseSeNm', oneclickedit: true}
+	        {caption: ["이송창고","이송창고"],		ref: 'trnsfWarehouse',      type:'combo',  width:'139px',    style:'text-align:center',
+	        	typeinfo: {ref:'jsonComWarehouse', label:'label', value:'value', oneclickedit: true}
 	        },
-	        {caption: ["이송","수량"],				ref: 'mvmnQntt',      		type:'input',  width:'55px',    style:'text-align:center'},
-	        {caption: ["이송","중량"],				ref: 'mvmnWght',      		type:'input',  width:'55px',    style:'text-align:center',
+	        {caption: ["이송","수량"],				ref: 'mvmnQntt',      		type:'input',  width:'73px',    style:'text-align:center'},
+	        {caption: ["이송","중량"],				ref: 'mvmnWght',      		type:'input',  width:'73px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,### Kg'}
 	        },
 	    ];
@@ -322,10 +326,10 @@ const fn_getComData = async function() {
 	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',      		type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["재고","수량"],				ref: 'invntrQntt',      	type:'output',  width:'55px',    style:'text-align:center'},
 	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'55px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}	
+	        	format : {type:'number', rule:'#,### Kg'}
 	        },
-	        {caption: ["이송창고","이송창고"],		ref: 'trnsfWarehouse',      type:'input',  width:'105px',    style:'text-align:center',
-	        	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}	
+	        {caption: ["이송창고","이송창고"],		ref: 'trnsfWarehouse',      type:'combo',  width:'105px',    style:'text-align:center',
+	        	typeinfo: {ref:'jsonComWarehouse', label:'label', value:'value', oneclickedit: true}
 	        },
 	        {caption: ["이송","수량"],				ref: 'mvmnQntt',      		type:'input',  width:'55px',    style:'text-align:center'},
 	        {caption: ["이송","중량"],				ref: 'mvmnWght',      		type:'input',  width:'55px',    style:'text-align:center',
@@ -361,26 +365,26 @@ const fn_getComData = async function() {
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	    	{caption: ["선택","선택"],		ref: 'checkBox',      type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
-	        {caption: ["포장번호","포장번호"],		ref: 'pckgno',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["순번","순번"],		ref: 'pckgSn',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["포장일자","포장일자"],		ref: 'pckgYmd',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["설비","설비"],		ref: 'fcltNm',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["생산자","생산자"],		ref: 'rprsPrdcrNm',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["품목","품목"],		ref: 'itemNm',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["품종","품종"],		ref: 'vrtyNm',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["규격","규격"],		ref: 'spcfctNm',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["등급","등급"],		ref: 'grdNm',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',      		type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["재고","수량"],				ref: 'invntrQntt',      	type:'combo',  width:'55px',    style:'text-align:center'},
-	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'55px',    style:'text-align:center',
+	    	{caption: ["선택","선택"],				ref: 'checkBox',      		type:'checkbox',width:'50px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	        {caption: ["포장번호","포장번호"],		ref: 'pckgno',      		type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["순번","순번"],				ref: 'pckgSn',      		type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["포장일자","포장일자"],		ref: 'pckgYmd',      		type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["설비","설비"],				ref: 'fcltNm',      		type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["생산자","생산자"],			ref: 'rprsPrdcrNm',      	type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["품목","품목"],				ref: 'itemNm',      		type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["품종","품종"],				ref: 'vrtyNm',      		type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["규격","규격"],				ref: 'spcfctNm',      		type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["등급","등급"],				ref: 'grdNm',      			type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',      	type:'output',  width:'139px',    style:'text-align:center'},
+	        {caption: ["재고","수량"],				ref: 'invntrQntt',      	type:'output',  	width:'73px',    style:'text-align:center'},
+	        {caption: ["재고","중량"],				ref: 'invntrWght',      	type:'output',  width:'73px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,### Kg'}	
 	        },
-	        {caption: ["이송창고","이송창고"],		ref: 'trnsfWarehouse',      type:'input',  width:'105px',    style:'text-align:center',
-	        	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}
+	        {caption: ["이송창고","이송창고"],		ref: 'trnsfWarehouse',      type:'combo',  width:'139px',    style:'text-align:center',
+	        	typeinfo: {ref:'jsonComWarehouse', label:'label', value:'value', oneclickedit: true}
 	        },
-	        {caption: ["이송","수량"],				ref: 'mvmnQntt',      		type:'input',  width:'55px',    style:'text-align:center'},
-	        {caption: ["이송","중량"],				ref: 'mvmnWght',      		type:'input',  width:'55px',    style:'text-align:center',
+	        {caption: ["이송","수량"],				ref: 'mvmnQntt',      		type:'input',  width:'73px',    style:'text-align:center'},
+	        {caption: ["이송","중량"],				ref: 'mvmnWght',      		type:'input',  width:'73px',    style:'text-align:center',
 	        	format : {type:'number', rule:'#,### Kg'}	
 	        },
 	    ];

@@ -119,11 +119,11 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrInvntr	-->
-	<!-- DESC : 원물재고내역 변경.		                                       				-->
+	<!-- DESC : 원물재고내역 변경.                                    				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.09.04  	김현호        		Initial Creation                            -->
+	<!-- 2023.09.04  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <update id="updateTrnsfRawMtrInvntrList" parameterType="com.at.apcss.am.trnsf.vo.TrnsfRawMtrInvntrVO">
 		<![CDATA[

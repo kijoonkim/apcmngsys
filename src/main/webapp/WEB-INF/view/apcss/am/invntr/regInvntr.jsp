@@ -52,8 +52,7 @@
 								<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm input-sm" unselected-text="전체" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-vrtyNm" name="srch-slt-vrtyNm" class="form-control input-sm" jsondata-ref="jsonComVrty"/>
-								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" class="form-control input-sm" jsondata-ref="jsonComVrty"/>
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">규격</th>
@@ -271,8 +270,10 @@ const fn_initSBSelect = async function() {
 	        {caption: ["입고","입고"],				ref: 'wrhsSeNm',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["운송","운송"],				ref: 'trsprtSeNm',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'input',  width:'55px',    style:'text-align:center'},
-	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'input',  width:'55px',    style:'text-align:center'},
+	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'input',  width:'85px',    style:'text-align:center'},
+	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'input',  width:'85px',    style:'text-align:center'
+	        	, format : {type:'number', rule:'#,### Kg'}	
+	        },
 	        {caption: ["변경사항","변경사항"],		ref: 'chgPo',      type:'input',  width:'105px',    style:'text-align:center'},
 	        {caption: ["창고구분코드","창고구분코드"],		ref: 'warehouseSeCd', 	type:'output',	hidden: true}
 	    ];
@@ -314,8 +315,10 @@ const fn_initSBSelect = async function() {
 	        {caption: ["품종","품종"],			ref: 'vrtyNm',      	type:'output',  	width:'105px',    style:'text-align:center'},
 	        {caption: ["규격","규격"],			ref: 'spcfctNm',      	type:'output',  	width:'105px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],			ref: 'warehouseSeNm',   type:'output',  	width:'105px',    style:'text-align:center'},
-	        {caption: ["현 재고","수량"],		ref: 'invntrQntt',      type:'input',  		width:'55px',    style:'text-align:center'},
-	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'input', 		width:'55px',    style:'text-align:center'},
+	        {caption: ["현 재고","수량"],		ref: 'invntrQntt',      type:'input',  		width:'85px',    style:'text-align:center'},
+	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'input', 		width:'85px',    style:'text-align:center'
+	        	, format : {type:'number', rule:'#,### Kg'}	
+	        },
 	        {caption: ["변경사항","변경사항"],	ref: 'chgPo',      		type:'input',  		width:'105px',    	style:'text-align:center'},
 // 	        hidden으로 창고구분코드 추가해주기
 // 	        {caption: ["창고구분코드","창고구분코드"],		ref: 'warehouseSeCd', 	type:'output',	hidden: true}
@@ -351,7 +354,7 @@ const fn_initSBSelect = async function() {
 	    SBGridProperties.columns = [
 	    	{caption: ["선택","선택"],		ref: 'checkBox',      type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
 	        {caption: ["포장번호","포장번호"],		ref: 'pckgno',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["순번","순번"],		ref: 'pckgSn',      type:'output',  width:'105px',    style:'text-align:center'},
+	        {caption: ["순번","순번"],		ref: 'pckgSn',      type:'output',  width:'85px',    style:'text-align:center'},
 	        {caption: ["포장일자","포장일자"],		ref: 'pckgYmd',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["설비","설비"],		ref: 'fcltNm',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["생산자","생산자"],		ref: 'rprsPrdcrNm',      type:'output',  width:'105px',    style:'text-align:center'},
@@ -360,8 +363,10 @@ const fn_initSBSelect = async function() {
 	        {caption: ["규격","규격"],		ref: 'spcfctNm',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["등급","등급"],		ref: 'grdNm',      type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["창고","창고"],		ref: 'warehouseSeNm',      type:'output',  width:'105px',    style:'text-align:center'},
-	        {caption: ["현 재고","수량"],		ref: 'invntrQntt',      type:'input',  width:'55px',    style:'text-align:center'},
-	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'input',  width:'55px',    style:'text-align:center'},
+	        {caption: ["현 재고","수량"],		ref: 'invntrQntt',      type:'input',  width:'85px',    style:'text-align:center'},
+	        {caption: ["현 재고","중량"],		ref: 'invntrWght',      type:'input',  width:'85px',    style:'text-align:center'
+	        	, format : {type:'number', rule:'#,### Kg'}	
+	        },
 	        {caption: ["변경사항","변경사항"],	ref: 'chgPo',      	type:'input',  		width:'105px',    	style:'text-align:center'},
 	        {caption: ["창고구분코드","창고구분코드"],		ref: 'warehouseSeCd', 	type:'output',	hidden: true}
 	    ];
@@ -697,7 +702,6 @@ const fn_initSBSelect = async function() {
 			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateRawMtrInvntrList.do", updateList);	// 프로그램id 추가
     		const data = await postJsonPromise_udpate;
 
-// 			console.log('_.isEqual("S", data.resultStatus)',_.isEqual("S", data.resultStatus));
     		if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         	} else {
@@ -709,7 +713,6 @@ const fn_initSBSelect = async function() {
 			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateSortInvntrDsctnList.do", updateList);	// 프로그램id 추가
     		const data = await postJsonPromise_udpate;
 
-// 			console.log('_.isEqual("S", data.resultStatus)',_.isEqual("S", data.resultStatus));
     		if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         	} else {
@@ -721,7 +724,6 @@ const fn_initSBSelect = async function() {
 			postJsonPromise_udpate = gfn_postJSON("/am/invntr/updateGdsInvntrList.do", updateList);	// 프로그램id 추가
     		const data = await postJsonPromise_udpate;
 
-// 			console.log('_.isEqual("S", data.resultStatus)',_.isEqual("S", data.resultStatus));
     		if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         	} else {
