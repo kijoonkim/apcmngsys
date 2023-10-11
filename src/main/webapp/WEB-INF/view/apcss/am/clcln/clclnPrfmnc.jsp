@@ -20,7 +20,7 @@
 
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<!--[APC] START -->			
+				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
 				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
@@ -130,7 +130,7 @@
 					</tbody>
 				</table>
 				<!--[pp] //검색 -->
-				
+
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
@@ -141,7 +141,7 @@
 					<div id="sb-area-clclnPrfmnc" style="width:100%;height:550px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
-				
+
 			</div>
 		</div>
 	</section>
@@ -158,7 +158,7 @@
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonComClclnCrtr	= [];	// 정산기준 	clclnCrtr	검색
 	var jsonCfmtnYn			= [];	// 확정여부 	cfmtnYn		검색
-	
+
 	var jsonClclnPrfmnc		= [];
 
 	const fn_initSBSelect = async function() {
@@ -170,7 +170,7 @@
 			gfn_setComCdSBSelect('srch-slt-clclnCrtr', 	jsonComClclnCrtr, 	'CLCLN_CRTR', 		gv_selectedApcCd)	// 정산기준
 		]);
 	}
-	
+
 	/**
 	 * @name fn_getPrdcrs
      * @description 생산자 자동완성 JSON 설정
@@ -183,11 +183,11 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateToYmd(new Date()));
-		
+
 		fn_createClclnPrfmncGrid();
 		fn_initSBSelect();
 	})
-	
+
 	function fn_createClclnPrfmncGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-clclnPrfmnc';
@@ -229,22 +229,22 @@
         grdClclnPrfmnc = _SBGrid.create(SBGridProperties);
         grdClclnPrfmnc.bind( "afterpagechanged" , "fn_pagingClclnPrfmnc" );
     }
-	
+
 	// 확정여부 콤보박스 (검색 조건)
 	async function setCfmtnYnSBSelect(_targetIds, _jsondataRef) {
 		let sourceJson = [{cmnsNm: "Y", cmnsCd: "Y"}, {cmnsNm: "N", cmnsCd: "N"}];
 		gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 	}
-	
+
 	// 출하지시 목록 조회 (조회 버튼)
     async function fn_search() {
     	let recordCountPerPage = grdClclnPrfmnc.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdClclnPrfmnc.movePaging(currentPageNo);
     }
-	
+
 	let newJsonClclnPrfmnc = [];
-	
+
 	// 출하지시 목록 조회 호출
 	async function fn_callSelectClclnPrfmncList(recordCountPerPage, currentPageNo){
 		jsonClclnPrfmnc = [];
@@ -292,7 +292,7 @@
 				  , itemNm 		: item.itemNm
 				  , vrtyNm		: item.vrtyNm
 				  , spcfctNm 	: item.spcfctNm
-				  , brndCd 		: item.brndCd
+				  , brndNm 		: item.brndNm
 				  , grdCd 		: item.grdCd
 				  , qntt		: item.qntt
 				  , wght		: item.wght
@@ -324,21 +324,21 @@
     		console.error("failed", e.message);
         }
 	}
-	
+
 	// 페이징
     async function fn_pagingClclnPrfmnc(){
     	let recordCountPerPage = grdClclnPrfmnc.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdClclnPrfmnc.getSelectPageIndex(); 
+    	let currentPageNo = grdClclnPrfmnc.getSelectPageIndex();
     	fn_callSelectClclnPrfmncList(recordCountPerPage, currentPageNo);
     }
-	
+
 	// APC 선택 변경
 	const fn_onChangeApc = async function() {
 		fn_clearPrdcr();
 		fn_initSBSelect();
 		fn_getPrdcrs();
 	}
-	
+
 	/**
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
@@ -366,7 +366,7 @@
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
 	}
-	
+
 	/*
 	*
 	* @name fn_onKeyUpPrdcrNm

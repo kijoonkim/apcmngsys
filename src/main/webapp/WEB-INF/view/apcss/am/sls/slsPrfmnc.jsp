@@ -108,7 +108,7 @@
 					</div>
 				</div>
 				<!--[pp] //검색결과 -->
-				
+
 			</div>
 		</div>
 	</section>
@@ -169,7 +169,7 @@
             {caption: ['상품코드','상품코드'],	ref: 'gdsCd', 		width: '100px', 	type: 'output',		style:'text-align: center'},
             {caption: ['품종','품종'], 		ref: 'vrtyNm', 		width: '100px', 	type: 'output',		style:'text-align: center'},
             {caption: ['규격','규격'], 		ref: 'spcfctNm',	width: '100px', 	type: 'output',		style:'text-align: center'},
-            {caption: ['브랜드','브랜드'], 		ref: 'brndCd',		width: '100px', 	type: 'output',		style:'text-align: center'},
+            {caption: ['브랜드','브랜드'], 		ref: 'brndNm',		width: '100px', 	type: 'output',		style:'text-align: center'},
             {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd', 	width: '100px', 	type: 'output',		style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['단가','단가'], 		ref: 'slsUntprc', 	width: '100px', 	type: 'output',		style:'text-align: right',
@@ -234,7 +234,7 @@
 				  , gdsCd 		: item.gdsCd
 				  , vrtyNm 		: item.vrtyNm
 				  , spcfctNm 	: item.spcfctNm
-				  , brndCd		: item.brndCd
+				  , brndNm		: item.brndNm
 				  , spmtYmd 	: item.spmtYmd
 				  , slsUntprc 	: item.slsUntprc
 				  , qntt		: item.qntt

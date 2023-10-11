@@ -154,7 +154,7 @@
 					 SPMT_QNTT,
 					 SPMT_WGHT,
 					 PCKG_SE_CD,
-					 BRND_CD,
+					 BRND_NM,
 					 GDS_CD,
 					 PRDCR_CD,
 					 SPMT_CMNDNO,
@@ -196,7 +196,7 @@
 	   			  , #{spmtQntt}
 	   			  , #{spmtWght}
 	   			  , #{pckgSeCd}
-	   			  , #{brndCd}
+	   			  , #{brndNm}
 	   			  , #{gdsCd}
 	   			  , #{prdcrCd}
 	   			  , #{spmtCmndno}

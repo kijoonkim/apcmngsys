@@ -42,11 +42,7 @@
 			             , OI.SPCFCT_CD   	 		AS SPCFCT_CD
 			             , OI.OUTORDR_QNTT          AS OUTORDR_QNTT
 			             , OI.SPMT_PCKG_UNIT_CD     AS SPMT_PCKG_UNIT_CD
-			             , OI.GRD_CD                AS GRD_CD
 			             , OI.WRHS_YMD 				AS WRHS_YMD
-			             , OI.SPMT_PCKG_UNIT_CD     AS SPMT_PCKG_UNIT_CD
-                         , OI.GRD_CD                AS GRD_CD
-                         , OI.SPMT_PCKG_UNIT_CD		AS SPMT_PCKG_UNIT_CD
 			             , (SELECT MAX(WAREHOUSE_SE_CD)
 			                  FROM TB_GDS_INVNTR X
 			                 WHERE X.APC_CD = OI.APC_CD

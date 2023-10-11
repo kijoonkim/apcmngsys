@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClclnPrfmncVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -100,6 +100,7 @@ public class ClclnPrfmncVO extends ComVO {
 	 * 브랜드
 	 */
 	private String brndCd;
+	private String brndNm;
 	/**
 	 * 등급코드
 	 */
