@@ -56,10 +56,19 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		return resultList;
 	}
+	
 	@Override
 	public List<GdsInvntrVO> selectUpdateGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
 		
 		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectUpdateGdsInvntrList(gdsInvntrVO);
+		
+		return resultList;
+	}
+	
+	@Override
+	public List<GdsInvntrVO> selectGdsWrhsList(GdsInvntrVO gdsInvntrVO) throws Exception {
+		
+		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectGdsWrhsList(gdsInvntrVO);
 		
 		return resultList;
 	}

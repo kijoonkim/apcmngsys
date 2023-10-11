@@ -250,19 +250,26 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	        {caption: ["입고번호"],	ref: 'pckgno',      type:'output',  width:'105px',    style:'text-align: center'},
-	        {caption: ["입고일자"],	ref: 'pckgYmd',     type:'output',  width:'105px',    style:'text-align: center',
+	        {caption: ["입고번호"],	ref: 'pckgno',      	type: 'output',  width: '105px',    style: 'text-align: center'},
+	        {caption: ["입고일자"],	ref: 'pckgYmd',     	type: 'output',  width: '105px',    style: 'text-align: center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	        {caption: ["상품구분"],	ref: 'gdsSe',      	type:'output',  width:'105px',    style:'text-align: center'},
-	        {caption: ["품목"],		ref: 'itemNm',      type:'output',  width:'105px',    style:'text-align: center'},
-	        {caption: ["품종"],		ref: 'vrtyNm',      type:'output',  width:'105px',    style:'text-align: center'},
-	        {caption: ["거래처"],		ref: 'prchsptNm',	type:'output',  width:'105px',    style:'text-align: center'},
-	        {caption: ["수량"],		ref: 'pckgQntt',	type:'output',  width:'105px',    style:'text-align: right',
+	        {caption: ["상품구분"],	ref: 'gdsSeNm',      	type: 'output',  width: '105px',    style: 'text-align: center'},
+	        {caption: ["품목"],		ref: 'itemNm',      	type: 'output',  width: '105px',    style: 'text-align: center'},
+	        {caption: ["품종"],		ref: 'vrtyNm',      	type: 'output',  width: '105px',    style: 'text-align: center'},
+	        {caption: ["거래처"],		ref: 'prchsptNm',		type: 'output',  width: '105px',    style: 'text-align: center'},
+	        {caption: ["수량"],		ref: 'pckgQntt',		type: 'output',  width: '105px',    style: 'text-align: right',
 	        	format : {type:'number', rule:'#,###'}},
-	        {caption: ["중량"],		ref: 'pckgWght',	type:'output',  width:'105px',    style:'text-align: right',
+	        {caption: ["중량"],		ref: 'pckgWght',		type: 'output',  width: '105px',    style: 'text-align: right',
 	        	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###Kg'}},
-	        {caption: ["창고"],		ref: 'warehouseSe',	type:'output',  width:'105px',    style:'text-align: center'},
-	        {caption: ["비고"],		ref: 'rmrk',      	type:'output',  width:'105px'},
+	        {caption: ["창고"],		ref: 'warehouseSeNm',	type: 'output',  width: '105px',    style: 'text-align: center'},
+	        {caption: ["비고"],		ref: 'rmrk',      		type: 'output',  width: '105px'},
+	        {caption: ["순번"],		ref: 'pckgSn',			hidden: true},
+	        {caption: ["상품구분코드"],	ref: 'pckgSeCd',		hidden: true},
+	        {caption: ["품목코드"],	ref: 'itemCd',			hidden: true},
+	        {caption: ["품종코드"],	ref: 'vrtyCd',			hidden: true},
+	        {caption: ["규격코드"],	ref: 'spcfctCd',		hidden: true},
+	        {caption: ["창고구분코드"],	ref: 'warehouseSeCd',	hidden: true},
+	        {caption: ["처리"],		ref: 'delYn',			hidden: true}
 	    ];
 	    grdGdsWrhs = _SBGrid.create(SBGridProperties);
 	    grdGdsWrhs.bind( "afterpagechanged" , "fn_pagingGdsWrhs" );
@@ -293,45 +300,15 @@
 			gfn_comAlert("W0002", "출하일자");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
-		if (gfn_isEmpty(gdsSeCd)){
-			gfn_comAlert("W0002", "상품구분");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(prchsptNm)){
-			gfn_comAlert("W0002", "매입처");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(itemCd)){
-			gfn_comAlert("W0002", "품목");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(vrtyCd)){
-			gfn_comAlert("W0002", "품종");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(pckgQntt)){
-			gfn_comAlert("W0002", "수량");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(pckgWght)){
-			gfn_comAlert("W0002", "중량");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
 		
-		let VO = {apcCd 				: apcCd
-						  , pckgYmd 			: pckgYmd
-						  , gdsSeCd 			: gdsSeCd
-						  , prchsptNm 			: prchsptNm
-						  , itemCd 				: itemCd
-						  , vrtyCd 				: vrtyCd
-						  , pckgQntt 			: pckgQntt
-						  , pckgWght 			: pckgWght
-						  , spcfctCd 			: spcfctCd
-						  , warehouseSeCd 		: warehouseSeCd
-						  , pagingYn 			: 'Y'
-						  , currentPageNo 		: currentPageNo
-						  , recordCountPerPage 	: recordCountPerPage};
-    	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncList.do", VO);
+		let gdsInvntrVO = {apcCd 				: apcCd
+						 , pckgYmd 				: pckgYmd
+						 , itemCd 				: itemCd
+						 , vrtyCd 				: vrtyCd
+						 , pagingYn 			: 'Y'
+						 , currentPageNo 		: currentPageNo
+						 , recordCountPerPage 	: recordCountPerPage};
+    	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncList.do", gdsInvntrVO);
         let data = await postJsonPromise;
         newJsonGdsWrhs = [];
         try{
@@ -339,14 +316,22 @@
 				let gdsWrhs = {
 					pckgno 			: item.pckgno
 				  , pckgYmd 		: item.pckgYmd
-				  , gdsSe 			: item.gdsSe
+				  , gdsSeNm 		: item.gdsSeNm
 				  , itemNm 			: item.itemNm
 				  , vrtyNm 			: item.vrtyNm
+				  , spcfctNm 		: item.spcfctNm
+				  , gdsSeCd 		: item.gdsSeCd
+				  , itemCd 			: item.itemCd
+				  , vrtyCd 			: item.vrtyCd
+				  , spcfctCd 		: item.spcfctCd
 				  , prchsptNm 		: item.prchsptNm
 				  , pckgQntt 		: item.pckgQntt
 				  , pckgWght 		: item.pckgWght
-				  , warehouseSe		: item.warehouseSe
+				  , warehouseSeNm	: item.warehouseSeNm
+				  , warehouseSeCd	: item.warehouseSeCd
 				  , rmrk			: item.rmrk
+				  , pckgSn			: item.pckgSn
+				  , delYn			: item.delYn
 				}
 				jsonGdsWrhs.push(Object.assign({}, gdsWrhs));
 				newJsonGdsWrhs.push(Object.assign({}, gdsWrhs));
