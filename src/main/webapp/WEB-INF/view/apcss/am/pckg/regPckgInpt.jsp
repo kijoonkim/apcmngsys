@@ -620,7 +620,7 @@
             {caption: ["포장기"], 	ref: 'fcltCd',		type:'combo',  	width:'100px', style: 'text-align:center',
             	typeinfo: {ref:'jsonComPckgFclt', label:'label', value:'value', displayui : false}
             },
-            {caption: ["규격"],		ref: 'spcfctCd',	type:'combo',  	width:'100px', style: 'text-align:center',
+            {caption: ["선별규격"],		ref: 'spcfctCd',	type:'combo',  	width:'100px', style: 'text-align:center',
             	userattr: {colNm: "spcfctCd"},
             	typeinfo: {ref:'jsonApcSpcfct', label:'spcfctNm', value:'spcfctCd', displayui : false, unselect: {label : '선택', value: 'notSelect'}}
             },
@@ -669,6 +669,10 @@
 		}
 
         const columns2 = [
+            {caption: ["포장규격"],		ref: 'spmtPckgUnitCd',	type:'combo',  	width:'200px', style: 'text-align:center;background-color:#FFF8DC;',
+            	userattr: {colNm: "spmtPckgUnitCd"},
+            	typeinfo: {ref:'jsonSpmtPckgUnit', label:'spmtPckgUnitNm', value:'spmtPckgUnitCd', displayui : false, unselect: {label : '선택', value: 'notSelect'}}
+            },
             {caption: ["포장수량"], 			ref: 'pckgQntt',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "pckgQntt"},
             	typeinfo: {
@@ -687,10 +691,6 @@
 				},
 				format : {type:'number', rule:'#,### Kg'}
          	},
-            {caption: ["포장단위"],		ref: 'spmtPckgUnitCd',	type:'combo',  	width:'200px', style: 'text-align:center',
-            	userattr: {colNm: "spmtPckgUnitCd"},
-            	typeinfo: {ref:'jsonSpmtPckgUnit', label:'spmtPckgUnitNm', value:'spmtPckgUnitCd', displayui : false, unselect: {label : '선택', value: 'notSelect'}}
-            },
             {caption: ["창고"],	ref: 'warehouseSeCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
            	 	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true, unselect: {label : '선택', value: 'notSelect'}}
             },
@@ -751,6 +751,7 @@
     			sortInvntrList.push({
     				sortno: item.sortno,
     				sortSn: item.sortSn,
+    				pckgCmndno: item.pckgCmndno,
     				inptQntt: inptQntt,
     				inptWght: inptWght
     			});
@@ -782,7 +783,7 @@
 			const spcfctCd = allPckgData[i].spcfctCd;
 			const spmtPckgUnitCd = allPckgData[i].spmtPckgUnitCd;
 			const warehouseSeCd = allPckgData[i].warehouseSeCd;
-			const pckgCmndno = allPckgData[i].pckgCmndno;
+			//const pckgCmndno = allPckgData[i].pckgCmndno;
 
 			const pckgQntt = parseInt(allPckgData[i].pckgQntt) || 0;
 			const pckgWght = parseInt(allPckgData[i].pckgWght) || 0;
@@ -812,6 +813,11 @@
 				gfn_comAlert("W0005", "창고");		//	W0005	{0}이/가 없습니다.
 				return;
 			}
+			if (gfn_isEmpty(spmtPckgUnitCd) || spmtPckgUnitCd === "notSelect") {
+				gfn_comAlert("W0005", "포장규격");		//	W0005	{0}이/가 없습니다.
+				return;
+			}
+
 			if (pckgQntt <= 0) {
 				gfn_comAlert("W0005", "포장수량");		//	W0005	{0}이/가 없습니다.
 				return;
@@ -869,7 +875,7 @@
 	    			gdsGrd: gdsGrd,
 	    			spmtPckgUnitCd: spmtPckgUnitCd,
 	    			warehouseSeCd: warehouseSeCd,
-	    			pckgCmndno: pckgCmndno,
+	    			//pckgCmndno: pckgCmndno,
 	    			pckgQntt: pckgQntt,
 	    			pckgWght: pckgWght,
     				stdGrdList: stdGrdList
@@ -1024,6 +1030,7 @@
 		editableRow.itemCd = itemCd;
 		editableRow.vrtyCd = vrtyCd;
 		editableRow.spcfctCd = spcfctCd;
+		editableRow.spmtPckgUnitCd = "notSelect";
 
 
 		// 규격중량(단중) set
