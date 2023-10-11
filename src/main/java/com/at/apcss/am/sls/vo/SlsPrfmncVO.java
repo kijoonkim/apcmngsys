@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SlsPrfmncVO extends ComVO {
-	
+
 	/**
 	 * APC코드
 	 */
@@ -33,12 +33,12 @@ public class SlsPrfmncVO extends ComVO {
 	 * 매출일자
 	 */
 	private String slsYmd;
-	
+
 	/**
 	 * 매출시작일자
 	 */
 	private String slsYmdFrom;
-	
+
 	/**
 	 * 매출종료일자
 	 */
@@ -78,7 +78,7 @@ public class SlsPrfmncVO extends ComVO {
 	 * 품종코드
 	 */
 	private String vrtyCd;
-	
+
 	/**
 	 * 품종명
 	 */
@@ -88,7 +88,7 @@ public class SlsPrfmncVO extends ComVO {
 	 * 규격코드
 	 */
 	private String spcfctCd;
-	
+
 	/**
 	 * 규격명
 	 */
@@ -103,6 +103,7 @@ public class SlsPrfmncVO extends ComVO {
 	 * 브랜드코드
 	 */
 	private String brndCd;
+	private String brndNm;
 
 	/**
 	 * 출하일자
@@ -118,7 +119,7 @@ public class SlsPrfmncVO extends ComVO {
 	 * 중량
 	 */
 	private double wght;
-	
+
 	/**
 	 * 총수량
 	 */
@@ -143,7 +144,7 @@ public class SlsPrfmncVO extends ComVO {
 	 * 확정금액
 	 */
 	private double cfmtnAmt;
-	
+
 	/**
 	 * 확정금액합계
 	 */

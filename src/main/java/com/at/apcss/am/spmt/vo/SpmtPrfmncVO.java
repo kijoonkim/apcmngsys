@@ -170,9 +170,9 @@ public class SpmtPrfmncVO extends ComVO {
 	private String spmtPckgUnitNm;
 
 	/**
-	 * 브랜드코드
+	 * 브랜드명
 	 */
-	private String brndCd;
+	private String brndNm;
 
 	/**
 	 * 상품코드
