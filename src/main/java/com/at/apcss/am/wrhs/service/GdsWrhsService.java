@@ -1,5 +1,6 @@
 package com.at.apcss.am.wrhs.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
@@ -27,5 +28,29 @@ public interface GdsWrhsService {
 	 * @throws Exception
 	 */
 	public List<GdsInvntrVO> selectGdsWrhsList(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
+	/**
+	 * 상품입고등록 등록
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
+	/**
+	 * 상품입고등록 수정
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
+	/**
+	 * 상품입고등록 삭제
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
 
 }

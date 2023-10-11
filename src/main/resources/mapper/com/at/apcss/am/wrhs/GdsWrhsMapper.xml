@@ -69,7 +69,7 @@
 			   AND GI.VRTY_CD = #{vrtyCd}
 		</if>
     	<![CDATA[
-			 ORDER BY PCKG_YMD, PCKGNO, PCKG_SN
+			 ORDER BY PCKGNO, PCKG_SN
     		  ) pt0
 		]]>
 		<!-- Start 페이징 -->
@@ -157,13 +157,13 @@
 
 				, PCKG_YMD 				= #{pckgYmd}
 				, GDS_SE_CD 			= #{gdsSeCd}
+				, PRCHSPT_NM 			= #{prchsptNm}
 				, ITEM_CD 				= #{itemCd}
 				, VRTY_CD 				= #{vrtyCd}
-				, SPCFCT_CD 			= #{spcfctCd}
-				, PRCHSPT_NM 			= #{prchsptNm}
-				, WAREHOUSE_SE_CD 		= #{warehouseSeCd}
 				, PCKG_QNTT 			= #{pckgQntt}
 				, PCKG_WGHT 			= #{pckgWght}
+				, SPCFCT_CD 			= #{spcfctCd}
+				, WAREHOUSE_SE_CD 		= #{warehouseSeCd}
 				, RMRK 					= #{rmrk}
 			 WHERE APC_CD 				= #{apcCd}
 			   AND PCKGNO 				= #{pckgno}

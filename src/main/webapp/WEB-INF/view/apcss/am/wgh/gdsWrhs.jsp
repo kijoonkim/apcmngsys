@@ -18,7 +18,6 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 상품입고등록 -->
-					<sbux-label id="lbl-pckgno" name="lbl-pckgno" uitype="normal" text=""></sbux-label>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
@@ -278,7 +277,7 @@
 	    grdGdsWrhs.bind( "click", "fn_view" );
 	}
 	
-	// 출하실적 목록 조회 (조회 버튼)
+	// 상품입고 목록 조회 (조회 버튼)
     async function fn_search() {
     	fn_clearInptForm();
 		
@@ -289,7 +288,7 @@
 
 	let newJsonGdsWrhs = [];
 
-	// 출하실적 목록 조회 호출
+	// 상품입고 목록 조회 호출
 	async function fn_callSelectGdsWrhsList(recordCountPerPage, currentPageNo){
 		jsonGdsWrhs = [];
 		let apcCd = gv_selectedApcCd;
@@ -366,6 +365,7 @@
     	fn_callSelectGdsWrhsList(recordCountPerPage, currentPageNo);
     }
  	
+	// 상품입고 저장 (저장 버튼)
     const fn_save = async function() {
 		let apcCd = gv_selectedApcCd;
 		let pckgno = SBUxMethod.get("srch-inp-pckgno");
@@ -379,6 +379,7 @@
 		let pckgWght = SBUxMethod.get("srch-inp-pckgWght");
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
+		let rmrk = SBUxMethod.get("srch-inp-rmrk");
 		
 		if (gfn_isEmpty(pckgYmd)){
 			gfn_comAlert("W0002", "입고일자");		//	W0002	{0}을/를 입력하세요.
@@ -416,6 +417,7 @@
     	const gdsWrhs = {
     		apcCd			: gv_selectedApcCd
 		  , pckgno 			: pckgno
+		  , pckgSn			: pckgSn
 		  , pckgYmd 		: pckgYmd
 		  , gdsSeCd 		: gdsSeCd
 		  , itemCd 			: itemCd
@@ -426,12 +428,47 @@
 		  , pckgWght 		: pckgWght
 		  , warehouseSeCd	: warehouseSeCd
 		  , rmrk			: rmrk
-		  , pckgSn			: pckgSn
     	}
 
     	let postUrl = gfn_isEmpty(pckgno) ? "/am/wrhs/insertGdsInvntr.do" : "/am/wrhs/updateGdsInvntr.do";
 
     	const postJsonPromise = gfn_postJSON(postUrl, gdsWrhs);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
+        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        }
+	}
+	
+ 	// 상품입고 삭제 (삭제 버튼)
+    const fn_delete = async function() {
+		let apcCd = gv_selectedApcCd;
+		let pckgno = SBUxMethod.get("srch-inp-pckgno");
+		let pckgSn = SBUxMethod.get("srch-inp-pckgSn");
+		
+		if (gfn_isEmpty(pckgno)){
+			gfn_comAlert("선택된 데이터가 없습니다.");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		
+    	if (!gfn_comConfirm("Q0001", "삭제")) {
+    		return;
+    	}
+
+    	const gdsWrhs = {
+    		apcCd			: gv_selectedApcCd
+		  , pckgno 			: pckgno
+		  , pckgSn			: pckgSn
+    	}
+
+    	const postJsonPromise = gfn_postJSON("/am/wrhs/deleteGdsInvntr.do", gdsWrhs);
 		const data = await postJsonPromise;
 
         try {
@@ -456,10 +493,7 @@
 
         let rowData = grdGdsWrhs.getRowData(nRow);
 
-     	// 입고번호
-		SBUxMethod.set("lbl-pckgno", "입고번호 : " + rowData.pckgno);
-		SBUxMethod.set("srch-inp-pckgno", rowData.pckgno);
-
+		SBUxMethod.set("srch-inp-pckgno", rowData.pckgno);					// 입고번호
 		SBUxMethod.set("srch-inp-pckgSn", rowData.pckgSn);					// 순번
 		SBUxMethod.set("srch-dtp-pckgYmd", rowData.pckgYmd);				// 입고일자
  		SBUxMethod.set("srch-rdo-gdsSeCd", rowData.gdsSeCd);				// 상품구분
@@ -491,7 +525,6 @@
 	
 	const fn_clearInptForm = function() {
 		// 입고번호
-		SBUxMethod.set("lbl-pckgno", "");
 		SBUxMethod.set("srch-inp-pckgno", "");
 		// 순번
 		SBUxMethod.set("srch-inp-pckgSn", "");

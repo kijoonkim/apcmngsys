@@ -1,10 +1,14 @@
 package com.at.apcss.am.wrhs.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.wrhs.mapper.GdsWrhsMapper;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.wrhs.service.GdsWrhsService;
@@ -30,12 +34,42 @@ public class GdsWrhsServiceImpl implements GdsWrhsService {
 	@Autowired
 	private GdsWrhsMapper gdsWrhsMapper;
 	
+	@Resource(name = "cmnsTaskNoService")
+	private CmnsTaskNoService cmnsTaskNoService;
+	
 	@Override
 	public List<GdsInvntrVO> selectGdsWrhsList(GdsInvntrVO gdsInvntrVO) throws Exception {
 		
 		List<GdsInvntrVO> resultList = gdsWrhsMapper.selectGdsWrhsList(gdsInvntrVO);
 		
 		return resultList;
+	}
+	
+	@Override
+	public HashMap<String, Object> insertGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
+		
+		String pckgno = cmnsTaskNoService.selectPckgno(gdsInvntrVO.getApcCd(), gdsInvntrVO.getPckgYmd());
+		gdsInvntrVO.setPckgno(pckgno);
+		
+		gdsWrhsMapper.insertGdsInvntr(gdsInvntrVO);
+		
+		return null;
+	}
+	
+	@Override
+	public HashMap<String, Object> updateGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
+		
+		gdsWrhsMapper.updateGdsInvntr(gdsInvntrVO);
+		
+		return null;
+	}
+	
+	@Override
+	public HashMap<String, Object> deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
+		
+		gdsWrhsMapper.deleteGdsInvntr(gdsInvntrVO);
+		
+		return null;
 	}
 	
 }
