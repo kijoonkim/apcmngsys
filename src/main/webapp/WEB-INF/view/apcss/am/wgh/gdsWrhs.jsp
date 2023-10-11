@@ -373,14 +373,14 @@
 		let pckgYmd = SBUxMethod.get("srch-dtp-pckgYmd");
 		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
 		let prchsptNm = SBUxMethod.get("srch-inp-prchsptNm");
-		let itemCd = SBUxMethod.get("srch-inp-itemCd");
-		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 		let pckgQntt = SBUxMethod.get("srch-inp-pckgQntt");
 		let pckgWght = SBUxMethod.get("srch-inp-pckgWght");
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
 		let rmrk = SBUxMethod.get("srch-inp-rmrk");
-		
+
 		if (gfn_isEmpty(pckgYmd)){
 			gfn_comAlert("W0002", "입고일자");		//	W0002	{0}을/를 입력하세요.
             return;
@@ -507,9 +507,9 @@
  		SBUxMethod.set("srch-slt-spcfctCd", rowData.spcfctCd);				// 규격
  		SBUxMethod.set("srch-slt-warehouseSeCd", rowData.warehouseSeCd);	// 창고
  		SBUxMethod.set("srch-inp-rmrk", rowData.rmrk);						// 비고
-//  		if (gfn_isEmpty(rowData.rmrk)) {
-//  			SBUxMethod.set("srch-inp-rmrk", "");							// 비고
-//  		}
+ 		if (gfn_isEmpty(rowData.rmrk)) {
+ 			SBUxMethod.set("srch-inp-rmrk", "");							// 비고
+ 		}
 
 //  		await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
 // 		SBUxMethod.set("srch-slt-vrtyCd", rowData.vrtyCd);
