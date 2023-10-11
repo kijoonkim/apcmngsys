@@ -656,10 +656,8 @@
     	let postJsonPromise = gfn_postJSON("/am/apc/selectApcEvrmntStng.do", {apcCd : apcCd});
 
         let data = await postJsonPromise;
-        console.log(data);
 		let resultVO = data.resultVO;
         try{
-			console.log("bankCd", resultVO.bankCd)
         	SBUxMethod.set("inp-apcNm", resultVO.apcNm);
         	SBUxMethod.set("inp-telno", resultVO.telno);
         	SBUxMethod.set("inp-addr", resultVO.addr);
@@ -762,7 +760,6 @@
         let data = await postJsonPromise;
 
         try{
-        	console.log("data >>> "+ data.result);
        		return data.result;
 
         }catch (e) {
@@ -961,7 +958,6 @@
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
             			var pltBxVO = grdPlt.getRowData(nRow);
-            			console.log(pltBxVO);
             			fn_deletepltBx(pltBxVO);
             			grdPlt.deleteRow(nRow);
             		}
@@ -1096,8 +1092,6 @@
 
     // 정희운. 두 List<Object>가 동일한지 비교하는 함수.
 	async function chkEqualObj(obj1, obj2){
-		console.log("obj1", obj1);
-		console.log("obj2", obj2);
 
 		var obj1Len = obj1.length == 0 ? 0 : obj1.filter(e => e["delYn"] == "N").length;
 		var obj2Len = obj2.length == 0 ? 0 : obj2.filter(e => e["delYn"] == "N").length;
@@ -1152,7 +1146,6 @@
     	  , clclnCrtr				: SBUxMethod.get("rdo-clclnCrtr")
     	  , cdVls					: cdVls
     	}
-    	console.log("apcEvrmntStng", apcEvrmntStng);
     	let postJsonPromise = gfn_postJSON("/am/apc/updateApcEvrmntStng.do", apcEvrmntStng);
         let data = await postJsonPromise;
 
@@ -1211,7 +1204,6 @@
 	  	  //, oprtrPckgPrfmncTrsmYn 			: SBUxMethod.get("chk-oprtrPckgPrfmncTrsmYn")
 
 		}
-		console.log("apcEvrmntStng", apcEvrmntStng);
 
 		let postJsonPromise = gfn_postJSON("/am/apc/updateApcMenuAuthrt.do", apcEvrmntStng);
         let data = await postJsonPromise;
