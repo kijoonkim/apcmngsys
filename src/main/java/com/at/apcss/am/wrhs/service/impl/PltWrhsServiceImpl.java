@@ -1,12 +1,12 @@
-package com.at.apcss.am.whrs.service.impl;
+package com.at.apcss.am.wrhs.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.whrs.service.GdsWrhsService;
+import com.at.apcss.am.wrhs.service.PltWrhsService;
 
 /**
- * @Class Name : GdsWrhsServiceImpl.java
- * @Description : 상품입고 서비스를 정의하기 위한 서비스 구현 클래스
+ * @Class Name : PltWrhsServiceImpl.java
+ * @Description : 팔레트/박스 입고 서비스를 정의하기 위한 서비스 구현 클래스
  * @author 신정철
  * @since 2023.06.21
  * @version 1.0
@@ -19,7 +19,7 @@ import com.at.apcss.am.whrs.service.GdsWrhsService;
  * 2023.06.21  신정철        최초 생성
  * </pre>
  */
-@Service("gdsWrhsService")
-public class GdsWrhsServiceImpl implements GdsWrhsService {
+@Service("pltWrhsService")
+public class PltWrhsServiceImpl implements PltWrhsService {
 
 }

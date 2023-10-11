@@ -1,9 +1,7 @@
-package com.at.apcss.am.whrs.mapper;
-
-import org.apache.ibatis.annotations.Mapper;
+package com.at.apcss.am.wrhs.service;
 
 /**
- * 팔레트/박스 입고 Mapper 인터페이스
+ * 팔레트/박스 입고 Service 인터페이스
  * @author 신정철
  * @since 2023.06.21
  * @version 1.0
@@ -16,7 +14,6 @@ import org.apache.ibatis.annotations.Mapper;
  * 2023.06.21  신정철        최초 생성
  * </pre>
  */
-@Mapper
-public interface PltWrhsMapper {
+public interface PltWrhsService {
 
 }

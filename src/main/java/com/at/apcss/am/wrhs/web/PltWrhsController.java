@@ -1,12 +1,12 @@
-package com.at.apcss.am.whrs.web;
+package com.at.apcss.am.wrhs.web;
 
 import org.springframework.stereotype.Controller;
 
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
- * @Class Name : GdsWrhsController.java
- * @Description : 상품입고에 대한 Controller 클래스
+ * @Class Name : PltWrhsController.java
+ * @Description : 팔레트/박스 입고에 대한 Controller 클래스
  * @author 신정철
  * @since 2023.06.21
  * @version 1.0
@@ -20,6 +20,6 @@ import com.at.apcss.co.sys.controller.BaseController;
  * </pre>
  */
 @Controller
-public class GdsWrhsController extends BaseController {
+public class PltWrhsController extends BaseController {
 
 }

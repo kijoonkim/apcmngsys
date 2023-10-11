@@ -1,4 +1,4 @@
-package com.at.apcss.am.whrs.vo;
+package com.at.apcss.am.wrhs.vo;
 
 import java.util.List;
 import java.util.stream.Collectors;

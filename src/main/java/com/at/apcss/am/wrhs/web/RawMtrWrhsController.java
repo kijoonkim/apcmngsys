@@ -1,4 +1,4 @@
-package com.at.apcss.am.whrs.web;
+package com.at.apcss.am.wrhs.web;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.whrs.service.RawMtrWrhsService;
-import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
+import com.at.apcss.am.wrhs.service.RawMtrWrhsService;
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 

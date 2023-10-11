@@ -1,13 +1,12 @@
-package com.at.apcss.am.whrs.mapper;
+package com.at.apcss.am.wrhs.service;
 
+import java.util.HashMap;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
-
-import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 
 /**
- * 원물입고 Mapper 인터페이스
+ * 원물입고 Service 인터페이스
  * @author 신정철
  * @since 2023.06.21
  * @version 1.0
@@ -20,8 +19,7 @@ import com.at.apcss.am.whrs.vo.RawMtrWrhsVO;
  * 2023.06.21  신정철        최초 생성
  * </pre>
  */
-@Mapper
-public interface RawMtrWrhsMapper {
+public interface RawMtrWrhsService {
 
 	/**
 	 * 원물입고 단건 조회
@@ -45,7 +43,23 @@ public interface RawMtrWrhsMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	public HashMap<String, Object> insertRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 원물입고 등록
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertRawMtrWrhsList(List<RawMtrWrhsVO> rawMtrWrhsList) throws Exception;
+
+	/**
+	 * 계량번호를 통한 원물입고 등록
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertRawMtrWrhsByWghno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
 	/**
 	 * 원물입고 변경
@@ -53,7 +67,7 @@ public interface RawMtrWrhsMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	public HashMap<String, Object> updateRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
 	/**
 	 * 원물입고 삭제
@@ -61,15 +75,16 @@ public interface RawMtrWrhsMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	public HashMap<String, Object> deleteRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
 	/**
-	 * 원물입고 삭제 UPDATE DEL_YN Y
+	 * 원물입고 삭제 - by 계량번호
 	 * @param rawMtrWrhsVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateRawMtrWrhsDelY(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+	public HashMap<String, Object> deleteRawMtrWrhsByWghno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
 
 	/**
 	 * 입고실적 목록 조회
@@ -79,4 +94,5 @@ public interface RawMtrWrhsMapper {
 	 * @throws Exception
 	 */
 	public List<RawMtrWrhsVO> selectRawMtrWrhsPrfmncList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
 }

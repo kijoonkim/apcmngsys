@@ -1,4 +1,4 @@
-package com.at.apcss.am.whrs.service.impl;
+package com.at.apcss.am.wrhs.service.impl;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
-import com.at.apcss.am.whrs.mapper.RawMtrWrhsPlanMapper;
-import com.at.apcss.am.whrs.service.RawMtrWrhsPlanService;
-import com.at.apcss.am.whrs.vo.RawMtrWrhsPlanVO;
+import com.at.apcss.am.wrhs.mapper.RawMtrWrhsPlanMapper;
+import com.at.apcss.am.wrhs.service.RawMtrWrhsPlanService;
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsPlanVO;
 /**
  * @Class Name : RawMtrWrhsPlanServiceImpl.java
  * @Description : 원물입고계획등록 서비스를 정의하기 위한 서비스 구현 클래스

@@ -1,11 +1,14 @@
-package com.at.apcss.am.whrs.service;
+package com.at.apcss.am.wrhs.mapper;
 
 import java.util.List;
 
-import com.at.apcss.am.whrs.vo.RawMtrWrhsPlanVO;
+import org.apache.ibatis.annotations.Mapper;
+
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsPlanVO;
+
 
 /**
- * 원물입고계획등록 Service 인터페이스
+ * 원물입고계획등록 Mapper 인터페이스
  * @author
  * @since 2023.08.08
  * @version 1.0
@@ -18,7 +21,8 @@ import com.at.apcss.am.whrs.vo.RawMtrWrhsPlanVO;
  * 2023.08.08     김호         최초 생성
  * </pre>
  */
-public interface RawMtrWrhsPlanService {
+@Mapper
+public interface RawMtrWrhsPlanMapper {
 	/**
 	 * 원물입고계획 단건 조회
 	 * @param rawMtrWrhsPlanVO
@@ -58,12 +62,4 @@ public interface RawMtrWrhsPlanService {
 	 * @throws Exception
 	 */
 	public int deleteRawMtrWrhsPlan(RawMtrWrhsPlanVO rawMtrWrhsPlanVO) throws Exception;
-
-	/**
-	 * 원물입고계획 등록
-	 * @param List<RawMtrWrhsPlanVO>
-	 * @return Integer
-	 * @throws Exception
-	 */
-	public int insertRawMtrWrhsPlanList(List<RawMtrWrhsPlanVO> rawMtrWrhsPlanList) throws Exception;
 }

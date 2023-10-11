@@ -1,4 +1,4 @@
-package com.at.apcss.am.whrs.vo;
+package com.at.apcss.am.wrhs.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
