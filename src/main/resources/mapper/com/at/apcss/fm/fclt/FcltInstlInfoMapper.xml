@@ -26,6 +26,7 @@
 
 					FCLT.TRGT_YR                   AS 	TRGT_YR
 				,	FCLT.APC_CD                    AS 	APC_CD
+				,  (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
 				,	FCLT.SN                    	   AS 	SN
 				,	FCLT.BIZ_YR                    AS 	BIZ_YR
 				,	FCLT.BIZ_SPRT_CD               AS 	BIZ_SPRT_CD
@@ -38,13 +39,15 @@
 			FROM  TB_FCLT_INSTL_INFO FCLT
 
  			 WHERE 1=1
+ 			 AND BIZ_YR IS NOT NULL
 		     		]]>
-        		<if test='trgtYr != null and !trgtYr.equals("")'>
+        	<if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  TRGT_YR = #{trgtYr}
 		   </if>
 		   <if test='apcCd != null and !apcCd.equals("")'>
 		     AND  APC_CD = #{apcCd}
 		   </if>
+		   ORDER BY FCLT.SN
     </select>
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.selectFcltInstlInfoList			-->
@@ -68,6 +71,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.selectFcltInstlInfoList */
 					FCLT.TRGT_YR                   AS 	TRGT_YR
 				,	FCLT.APC_CD                    AS 	APC_CD
+				,  (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
 				,	FCLT.SN                    	   AS 	SN
 				,	FCLT.BIZ_YR                    AS 	BIZ_YR
 				,	FCLT.BIZ_SPRT_CD               AS 	BIZ_SPRT_CD
@@ -80,13 +84,15 @@
 		   FROM  TB_FCLT_INSTL_INFO FCLT
 
  		   WHERE 1=1
-  ]]>
+ 		   AND BIZ_YR IS NOT NULL
+ 			 ]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
 		   </if>
 		   <if test='apcCd != null and !apcCd.equals("")'>
 		     AND  FCLT.APC_CD = #{apcCd}
 		   </if>
+		   ORDER BY FCLT.SN
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -161,9 +167,7 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.updateFcltInstlInfo */
 	    		TB_FCLT_INSTL_INFO FCLT
 			   SET
-			 	  TRGT_YR         = 	#{trgtYr}
-			 	, APC_CD          = 	#{apcCd}
-			 	, BIZ_YR          = 	#{bizYr}
+			 	 BIZ_YR           = 	#{bizYr}
 			 	, BIZ_SPRT_CD     = 	#{bizSprtCd}
 			 	, BIZ_CN          = 	#{bizCn}
                 , BIZ_AMT         =     #{bizAmt}

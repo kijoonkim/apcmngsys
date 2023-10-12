@@ -18,7 +18,9 @@
 				<h3 class="box-title" style="line-height: 30px;"> ▶ 저온저장고운영</h3>
 			</div>
 			<div style="margin-left: auto;">
+				<!--
 				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
+				 -->
 				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
@@ -26,86 +28,35 @@
 		</div>
 		<div class="box-body">
 			<!--[pp] 검색 -->
-			<div>
-						<table class="table table-bordered tbl_row tbl_fixed">
+			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
 					<col style="width: 6%">
 					<col style="width: 10%">
 					<col style="width: 6%">
-					<col style="width: 15%">
-					<col style="width: 63%">
+					<col style="width: 10%">
+					<col style="width: 10%">
+					<col style="width: 58%">
 				</colgroup>
 				<tbody>
 					<tr>
 						<th class="th_bg" scope="row">대상연도</th>
-						<td class="td_input" style="border-right: hidden;">
+						<td class="td_input"   style="border-right: hidden;">
 							<sbux-input id="srch-input-trgtYr" name="srch-input-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
-
-
-							<th scope="row" style="border-bottom:1px solid white " class="th_bg" >APC명</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
-								<script type="text/javascript">
-								<c:choose>
-									<c:when test="${comApcList != null}">
-									var cjsonApcList = ${comApcList};
-									</c:when>
-									<c:otherwise>
-									var cjsonApcList = {};
-									</c:otherwise>
-								</c:choose>
-								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
-									gv_selectedApcCd = null;
-									gv_selectedApcNm = null;
-								</c:if>
-									/**
-									 * @name
-									 * @description
-									 * @function
-									 * @param {string} _apcCd
-									 */
-									const cfn_onChangeApc = function(obj) {
-										gv_selectedApcCd = obj.value;
-
-										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
-										apcInfo.forEach( (apc) => {
-											gv_selectedApcNm = apc.apcNm;
-											return false;
-										});
-
-										if (typeof fn_onChangeApc === "function") {
-											fn_onChangeApc();
-										}
-
-									}
-
-								</script>
-								<c:choose>
-									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
-										<sbux-select
-											id="gsb-slt-apcCd"
-											name="gsb-slt-apcCd"
-											uitype="single"
-											jsondata-ref="cjsonApcList"
-											unselected-text="전체"
-											class="form-control input-sm"
-											onchange="cfn_onChangeApc(this)"
-											style="max-width:150px;"
-										></sbux-select>
-									</c:when>
-									<c:otherwise>
-										<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td></td>
-
+						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
+						<td class="td_input" style="border-right:hidden;">
+							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						</td>
+						<td style="border-right:hidden;">
+							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+						</td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
-
-			</div>
+			<br>
 			<!--[pp] //검색 -->
 			<!--[pp] 검색결과 -->
 			<br>
@@ -145,12 +96,18 @@
 						</th>
 					</tr>
 					<tr>
-						<td class="td_input"><sbux-input id="dtl-inp-fcltCd" name="dtl-inp-fcltCd" uitype="text" class="form-control input-sm" placeholder="저온저장고" ></sbux-input></td>
-						<td class="td_input"><sbux-input id="dtl-inp-fcltHldYn" name="dtl-inp-fcltHldYn" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input></td>
-						<td class="td_input"><sbux-input id="dtl-inp-opera3" name="dtl-inp-oper3" uitype="text" class="form-control input-sm" placeholder="1,000" ></sbux-input></td>
-						<td class="td_input"><sbux-input id="dtl-inp-opera4" name="dtl-inp-oper4" uitype="text" class="form-control input-sm" placeholder="100" ></sbux-input></td>
-						<td class="td_input"><sbux-input id="dtl-inp-opera5" name="dtl-inp-oper5" uitype="text" class="form-control input-sm" placeholder="2,000" ></sbux-input></td>
-						<td class="td_input"><sbux-input id="dtl-inp-opera6" name="dtl-inp-oper6" uitype="text" class="form-control input-sm" placeholder="210" ></sbux-input></td>
+						<td style="text-align: center;"><p>저온저장고</p></td>
+						<td class="td_input">
+							<sbux-select id="dtl-input-fcltHldYn" name="dtl-input-fcltHldYn"
+								uitype="single"
+								filtering="true"
+								jsondata-ref="selectYnData"
+								unselected-text="선택" class="form-control input-sm"></sbux-select>
+						</td>
+						<td class="td_input"><sbux-input id="dtl-input-storCap" name="dtl-input-storCap" uitype="text" class="form-control input-sm" placeholder="1,000" ></sbux-input></td>
+						<td class="td_input"><sbux-input id="dtl-input-stStorPerfm" name="dtl-input-stStorPerfm" uitype="text" class="form-control input-sm" placeholder="100" ></sbux-input></td>
+						<td class="td_input"><sbux-input id="dtl-input-ltStorPerfm" name="dtl-input-ltStorPerfm" uitype="text" class="form-control input-sm" placeholder="2,000" ></sbux-input></td>
+						<td class="td_input"><sbux-input id="dtl-input-storOpRate" name="dtl-input-storOpRate" uitype="text" class="form-control input-sm" placeholder="210" ></sbux-input></td>
 
 					</tr>
 					<tr>
@@ -161,65 +118,14 @@
 						<td colspan="4" style="border-left: hidden;"></td>
 					</tr>
 					<tr>
-						<th class="th_bg">APC 코드</th>
-						<td class="td_input" colspan="1" style="border-bottom: solid;">
-							<script type="text/javascript">
-								<c:choose>
-									<c:when test="${comApcList != null}">
-									var cjsonApcList = ${comApcList};
-									</c:when>
-									<c:otherwise>
-									var cjsonApcList = {};
-									</c:otherwise>
-								</c:choose>
-								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
-									gv_selectedApcCd = null;
-									gv_selectedApcNm = null;
-								</c:if>
-									/**
-									 * @name
-									 * @description
-									 * @function
-									 * @param {string} _apcCd
-									 */
-									const cfn_onChangeApc = function(obj) {
-										gv_selectedApcCd = obj.value;
-
-										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
-										apcInfo.forEach( (apc) => {
-											gv_selectedApcNm = apc.apcNm;
-											return false;
-										});
-
-										if (typeof fn_onChangeApc === "function") {
-											fn_onChangeApc();
-										}
-
-									}
-
-								</script>
-								<c:choose>
-									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
-										<sbux-select
-											id="dtl-input-apcCd"
-											name="dtl-input-apcCd"
-											uitype="single"
-											jsondata-ref="cjsonApcList"
-											unselected-text="선택"
-											class="form-control input-sm"
-											onchange="cfn_onChangeApc(this)"
-											style="max-width:150px;"
-										></sbux-select>
-									</c:when>
-									<c:otherwise>
-										<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
-									</c:otherwise>
-								</c:choose>
+						<th class="th_bg">apc명</th>
+						<td class="td_input" style="border-right:hidden;">
+							<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="dtl-input-apcNm" name="dtl-input-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
-						<td colspan="4" style="border-left: hidden;"></td>
+						<td colspan="4">
+						</td>
 					</tr>
-
-
 				</tbody>
 				</table>
 				</div>
@@ -227,19 +133,12 @@
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
-	<!-- 거래처 선택 Modal -->
+    <!-- apc 선택 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="body-modal-cnpt">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
-    </div>
-        <!-- 품종 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
-    </div>
-    <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    <div id="body-modal-apcSelect">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -257,6 +156,14 @@
     var grdLtMcIfList; // 그리드를 담기위한 객체 선언
     var jsonLtMcIfList = []; // 그리드의 참조 데이터 주소 선언
 
+	var selectYnData = [
+		{'text': 'Y','label': 'Y', 'value': '1'},
+		{'text': 'N','label': 'N', 'value': '0'}
+	]
+	var comboYnData = [
+		{'label': 'Y', 'value': '1'},
+		{'label': 'N', 'value': '0'}
+	]
 
     //그리드 생성 설정
     function fn_createGrid() {
@@ -268,27 +175,26 @@
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.rowheader = 'seq';
-		SBGridProperties.rowheadercaption = {seq: 'sn'};
+		SBGridProperties.rowheadercaption = {seq: 'No'};
         SBGridProperties.rowheaderwidth = {seq: '60'};
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-
+			/*
             {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
                 ref: 'checked', type: 'checkbox',   style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["보유현황"],	    	ref: 'fcltHldYn',      type:'output',  width:'23%',    			style:'text-align:center'},
-            {caption: ["저장능력(톤)"], 		ref: 'operOgnzTrmtItemCn',     	type:'output',  width:'23%',    style:'text-align:center'},
-            {caption: ["단기저장실적(톤)"],  		ref: 'oper1',    type:'output',  width:'23%',    			style:'text-align:center'},
-            {caption: ["장기저장실적(톤)"],   		ref: 'oper2',    type:'output',  width:'23%',    			style:'text-align:center'},
-            {caption: ["저장가동률(%)"],			ref: 'oper3',           type:'output',  width:'23%',   		style:'text-align:center'},
-            {caption: ["APCCD"],		ref: 'apcCd',           type:'output',  hidden: false},
-            {caption: ["떄쌍년또"],		ref: 'trgtYr',          type:'output',  hidden:false},
-            {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
-            {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},
-            {caption: ["최종변경자ID"],	ref: 'updUserId',   type:'output',  hidden: true},
-            {caption: ["최종변경일시"], ref: 'updDateTime', type:'output',  hidden: true},
+            */
+            {caption: ["보유현황"],	    	ref: 'fcltHldYn',      type:'combo',  width:'23%',    			style:'text-align:center'
+            	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
+            {caption: ["저장능력(톤)"],  			ref: 'storCap',    type:'output',  width:'23%',    			style:'text-align:center'},
+            {caption: ["단기저장실적(톤)"],   		ref: 'stStorPerfm',    type:'output',  width:'23%',    			style:'text-align:center'},
+            {caption: ["장기저장실적(톤)"],			ref: 'ltStorPerfm',    type:'output',  width:'23%',   		style:'text-align:center'},
+            {caption: ["저장가동률(%)"],			ref: 'storOpRate',    type:'output',  width:'23%',   		style:'text-align:center'},
+            {caption: ["APCCD"],		ref: 'apcCd',           type:'output',  hidden: true},
+            {caption: ["APC명"],		ref: 'apcNm',           type:'output',  hidden: false},
+            {caption: ["대상년도"],		ref: 'trgtYr',          type:'output',  hidden: true},
             {caption: ["등록프로그램"], ref: 'creProgram',  type:'output',  hidden: true},
             {caption: ["변경프로그램"], ref: 'updProgram',  type:'output',  hidden: true}
 
@@ -333,7 +239,7 @@
 
 		grdLtMcIfList.clearStatus();
 
-		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
 
 		var chk = {
@@ -372,23 +278,14 @@
         	jsonLtMcIfList.length = 0;
         	data.resultList.forEach((item, index) => {
 				const msg = {
-				trgtYr: item.trgtYr,	 		                   //대상연도
-				apcCd: item.apcCd, 	 			                   //apc코드
-				sn : item.sn,      				                   // 순번
-				fcltCd : item.fcltCd,                              //설비 코드
-				fcltHldYn : item.fcltHldYn,                        //설비 보유 유무
-				fcltPrcsCd : item.fcltPrcsCd,                      //설비 처리 코드
-				fcltPrcsHr : item.fcltPrcsHr,     			       //설비 처리 시간
-				delYn: item.delYn,                  	     		//삭제유무
-	            sysFrstInptDt: item.sysFrstInptDt,       			//시스템최초입력일시
-		        sysFrstInptUserId: item.sysFrstInptUserId,          //시스템최초입력사용자id
-		        sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,     	//시스템최초입력프로그램id
-		        sysLastChgDt: item.sysLastChgDt,    				//시스템최종변경일시
-		        sysLastChgUserId: item.sysLastChgUserId,  			//시스템최종변경사용자id
-		        sysLastChgPrgrmId: item.sysLastChgPrgrmId   		//시스템최종변경프로그램id
-											      		    		//운영조직 대표자
-											                		//운영조직 주소
-											                		//운영조직 조직유형
+					trgtYr: item.trgtYr,	 		                   //대상연도
+					apcCd: item.apcCd, 	 			                   //apc코드
+					apcNm: item.apcNm, 	 			                   //apc명
+					fcltHldYn : item.fcltHldYn,                        //보유현황
+					storCap : item.storCap,                        	   //저장능력
+					stStorPerfm : item.stStorPerfm,                    //단기저장실적
+					ltStorPerfm : item.ltStorPerfm,     			   //장기저장실적
+					storOpRate : item.storOpRate,     			       //저장가동률
 				}
 
 				jsonLtMcIfList.push(msg);
@@ -430,42 +327,38 @@
     	console.log("******************fn_create**********************************");
     	SBUxMethod.set("dtl-input-trgtYr", null);                    //  대상연도
 		SBUxMethod.set("dtl-input-apcCd", null);                     //  APC코드
-    	SBUxMethod.set("dtl-input-sn", null);                     //  순번
-    	SBUxMethod.set("dtl-input-fcltCd", null);                     // 설비 코드
-    	SBUxMethod.set("dtl-input-fcltHldYn", null);                     //  설비 보유 유무
-    	SBUxMethod.set("dtl-input-fcltPrcsCd", null);                     //  설비 처리 코드
-    	SBUxMethod.set("dtl-input-fcltPrcsHr", null);                     // 설비 처리 시간
-    	SBUxMethod.set("dtl-input-delYn", null);                  	 //  삭제유무
-    	SBUxMethod.set("dtl-input-sysFrstInptDt", null);       		 //	 시스템최초입력일시
-    	SBUxMethod.set("dtl-input-sysFrstInptUserId", null);      	 //  시스템최초입력사용자id
-    	SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);     	 //  시스템최초입력프로그램id
-    	SBUxMethod.set("dtl-input-sysLastChgDt", null);      		 //  시스템최종변경일시
-    	SBUxMethod.set("dtl-input-sysLastChgUserId", null);   	 	 //  시스템최종변경사용자id
-    	SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);  	 	 //  시스템최종변경프로그램id
-
+		SBUxMethod.set("dtl-input-apcNm", null);                     //  APC명
+    	SBUxMethod.set("dtl-input-fcltHldYn", null);                     //  보유현황
+    	SBUxMethod.set("dtl-input-storCap", null);                     // 저장능력
+    	SBUxMethod.set("dtl-input-stStorPerfm", null);                     //  단기저장실적
+    	SBUxMethod.set("dtl-input-ltStorPerfm", null);                     //  장기저장실적
+    	SBUxMethod.set("dtl-input-storOpRate", null);                     // 저장가동률
 
     }
 
      const fn_clearForm = function() {
     	 console.log("******************fn_clearForm**********************************");
-       	SBUxMethod.set("dtl-input-sn", null);
-    	SBUxMethod.set("dtl-input-fcltCd", null);
-    	SBUxMethod.set("dtl-input-fcltHldYn", null);
-    	SBUxMethod.set("dtl-input-fcltPrcsCd", null);
-        SBUxMethod.set("dtl-input-fcltPrcsHr", null);
+     	SBUxMethod.set("dtl-input-trgtYr", null);                    //  대상연도
+		SBUxMethod.set("dtl-input-apcCd", null);                     //  APC코드
+		SBUxMethod.set("dtl-input-apcNm", null);                     //  APC명
+    	SBUxMethod.set("dtl-input-fcltHldYn", null);                     //  보유현황
+    	SBUxMethod.set("dtl-input-storCap", null);                     // 저장능력
+    	SBUxMethod.set("dtl-input-stStorPerfm", null);                     //  단기저장실적
+    	SBUxMethod.set("dtl-input-ltStorPerfm", null);                     //  장기저장실적
+    	SBUxMethod.set("dtl-input-storOpRate", null);                     // 저장가동률
 
     }
-    //저장
 
 
 
 
+   //저장
     const fn_save = async function() {
     	console.log("******************fn_save**********************************");
 
-		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
-
+		/*
     	if (!SBUxMethod.get("gsb-slt-apcCd")) {
             alert("조회 항목의 APC 코드를 선택하세요.");
             return;
@@ -475,7 +368,7 @@
             alert("조회 항목의 대상년도를 선택하세요.");
             return;
         }
-
+		*/
 
     	if (gfn_isEmpty(trgtYr)) {
     		// 신규 등록
@@ -499,16 +392,14 @@
     	const postJsonPromise = gfn_postJSON('/fm/fclt/insertFcltLwtpStrgMchnInfo.do', {
     	 	trgtYr: SBUxMethod.get('srch-input-trgtYr') , // 상단 조회 조건의 대상연도 SBUxMethod.get("srch-input-trgtYr")
         	apcCd: SBUxMethod.get('gsb-slt-apcCd'), // 상단 조회 조건의 APC코드 SBUxMethod.get("gsb-slt-apcCd")
-        	sn: SBUxMethod.get('dtl-input-sn'),                           	   //  순번
-        	fcltCd: SBUxMethod.get('dtl-input-fcltCd'),                        //설비 코드
-        	fcltHldYn:  SBUxMethod.get('dtl-input-fcltHldYn'),           	   //설비 보유 유무
-        	fcltPrcsCd: SBUxMethod.get('dtl-input-fcltPrcsCd'),                //설비 처리 코드
-        	fcltPrcsHr: SBUxMethod.get('dtl-input-fcltPrcsHr'),                //설비 처리 시간
-			daddr:1
+        	fcltHldYn: SBUxMethod.get('dtl-input-fcltHldYn'),                           	   // 보유현황
+        	storCap: SBUxMethod.get('dtl-input-storCap'),                        //저장능력
+        	stStorPerfm:  SBUxMethod.get('dtl-input-stStorPerfm'),           	   //단기저장실적
+        	ltStorPerfm: SBUxMethod.get('dtl-input-ltStorPerfm'),                //장기저장실적
+        	storOpRate: SBUxMethod.get('dtl-input-storOpRate')                //저장가동률
 		});
 
 
-	console.log(postVal);
 	console.log("----------------------------");
         const data = await postJsonPromise;
 
@@ -532,20 +423,13 @@
 		if (!isConfirmed) return;
 
     	const postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltLwtpStrgMchnInfo.do", {
-    	 	trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
-        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
-        ,	sn: SBUxMethod.get('dtl-input-sn')                          		 //  순번
-        ,	fcltCd: SBUxMethod.get('dtl-input-fcltCd')                           //  설비 코드
-        ,	fcltHldYn: SBUxMethod.get('dtl-input-fcltHldYn')                  	 //  설비 보유 유무
-        ,	fcltPrcsCd: SBUxMethod.get('dtl-input-fcltPrcsCd')                   //  설비 처리 코드
-        ,	fcltPrcsHr: SBUxMethod.get('dtl-input-fcltPrcsHr')                   //  설비 처리 시간
-        ,	delYn: SBUxMethod.get('dtl-input-delYn')                  			 //	 삭제유무
-        ,	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt')      	  	 //	 시스템최초입력일시
-        ,	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId')     //	 시스템최초입력사용자id
-        ,	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId')   //	 시스템최초입력프로그램id
-        ,	sysLastChgDt: SBUxMethod.get('dtl-input-sysLastChgDt')     		 	 //	 시스템최종변경일시
-        ,	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId')  	 //	 시스템최종변경사용자id
-        ,	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')   	 //	 시스템최종변경프로그램id
+	    	 	trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
+		        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
+		        ,	fcltHldYn: SBUxMethod.get('dtl-input-fcltHldYn')                          		 //  보유현황
+		        ,	storCap: SBUxMethod.get('dtl-input-storCap')                           //  저장능력
+		        ,	stStorPerfm: SBUxMethod.get('dtl-input-stStorPerfm')                  	 //  단기저장실적
+		        ,	ltStorPerfm: SBUxMethod.get('dtl-input-ltStorPerfm')                   // 장기저장실적
+		        ,	storOpRate: SBUxMethod.get('dtl-input-storOpRate')                   //  저장가동률
     		});
 
         const data = await postJsonPromise;
@@ -622,10 +506,10 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltLwtpStrgMchnInfoList.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltLwtpStrgMchnInfo.do", list);
 
          const data = await postJsonPromise;
-//예외처리
+		//예외처리
          try {
          	if (_.isEqual("S", data.resultStatus)) {
          		alert("처리 되었습니다.");
@@ -654,15 +538,16 @@
 		}
 			//서치폼에서 클릭시 디테일폼에 데이터출력
         let rowData = grdLtMcIfList.getRowData(nRow);
-
+        rowData = fn_emptyString(rowData);
 
     	SBUxMethod.set("dtl-input-trgtYr", rowData.trgtYr);                     //대상연도
 		SBUxMethod.set("dtl-input-apcCd", rowData.apcCd);                       //apc코드
-    	SBUxMethod.set("dtl-input-sn", rowData.sn);                       		//순번
-    	SBUxMethod.set("dtl-input-fcltCd", rowData.fcltCd);                  	//설비 코드
-    	SBUxMethod.set("dtl-input-fcltHldYn", rowData.fcltHldYn);               //설비 보유 유무
-        SBUxMethod.set("dtl-input-fcltPrcsCd", rowData.fcltPrcsCd);             //설비 처리 코드
-        SBUxMethod.set("dtl-input-fcltPrcsHr", rowData.fcltPrcsHr);             //설비 처리 시간
+		SBUxMethod.set("dtl-input-apcNm", rowData.apcNm);                       //apc명
+    	SBUxMethod.set("dtl-input-fcltHldYn", rowData.fcltHldYn);               //순번
+    	SBUxMethod.set("dtl-input-storCap", rowData.storCap);                  	//설비 코드
+    	SBUxMethod.set("dtl-input-stStorPerfm", rowData.stStorPerfm);           //설비 보유 유무
+        SBUxMethod.set("dtl-input-ltStorPerfm", rowData.ltStorPerfm);           //설비 처리 코드
+        SBUxMethod.set("dtl-input-storOpRate", rowData.storOpRate);             //설비 처리 시간
     }
 
 
@@ -678,5 +563,39 @@
         	grdLtMcIfList.setCellData(i+1, 1, checkedYn, true, false);
         }
     }
+
+
+ 	// apc 선택 팝업 호출
+	const fn_modalApcSelect = function() {
+		popApcSelect.init(fn_setApc);
+	}
+	// apc 선택 팝업 콜백 함수
+	const fn_setApc = function(apc) {
+		if (!gfn_isEmpty(apc)) {
+			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
+			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
+		}
+	}
+
+	// "null" 로 들어가는 경우 방지
+	function fn_emptyString(obj) {
+		console.log("==========fn_emptyString=============");
+	    if (Array.isArray(obj)) {
+	        // 배열의 경우
+	        for (var i = 0; i < obj.length; i++) {
+	        	if (data[i] === "null" || data[i] === null) {
+	                obj[i] = "";
+	            }
+	        }
+	    } else if (typeof obj === "object") {
+	        // 객체의 경우
+	        for (var key in obj) {
+	        	if (obj[key] === "null" || obj[key] === null) {
+	                obj[key] = "";
+	            }
+	        }
+	    }
+	    return obj;
+	}
 </script>
 </html>

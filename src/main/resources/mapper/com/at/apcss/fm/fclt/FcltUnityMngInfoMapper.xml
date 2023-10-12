@@ -25,6 +25,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.selectFcltUnityMngInfo */
 				  FCLT.TRGT_YR                 AS TRGT_YR
 				, FCLT.APC_CD                  AS APC_CD
+				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
 				, FCLT.FCLT_SYS_HLD_YN         AS FCLT_SYS_HLD_YN
 			    , FCLT.FCLT_SYS_HLD_YN2        AS FCLT_SYS_HLD_YN2
 			    , FCLT.FCLT_SYS_HLD_YN3        AS FCLT_SYS_HLD_YN3
@@ -66,6 +67,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.selectFcltUnityMngInfoList */
 				  FCLT.TRGT_YR                 AS TRGT_YR
 				, FCLT.APC_CD                  AS APC_CD
+				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
 				, FCLT.FCLT_SYS_HLD_YN         AS FCLT_SYS_HLD_YN
 			    , FCLT.FCLT_SYS_HLD_YN2       AS  FCLT_SYS_HLD_YN2
 			    , FCLT.FCLT_SYS_HLD_YN3       AS  FCLT_SYS_HLD_YN3
@@ -75,7 +77,7 @@
 			    , FCLT.FCLT_SYS_HLD_YN7       AS  FCLT_SYS_HLD_YN7
 			 FROM TB_FCLT_UNTY_MNG_INFO FCLT
 			 WHERE 1=1
-	  ]]>
+	  		]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
 		   </if>
