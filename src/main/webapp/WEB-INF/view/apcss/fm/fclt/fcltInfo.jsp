@@ -97,7 +97,7 @@
 							<sbux-input id="dtl-input-fcltAreaTot" name="dtl-input-fcltAreaTot" uitype="text" class="form-control input-sm" placeholder="5000㎡ " disabled></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltRmrkTot" name="dtl-input-fcltRmrkTot" uitype="text" class="form-control input-sm" placeholder="1개 동"  disabled></sbux-input>
+							<sbux-input id="dtl-input-fcltRmrkTot" name="dtl-input-fcltRmrkTot" uitype="text" class="form-control input-sm" placeholder="1개 동"></sbux-input>
 						</td>
 						<td></td>
 					</tr>
@@ -105,7 +105,7 @@
 
 						<th class="th_bg">집하선별포장장</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea01" name="dtl-input-fcltArea01" uitype="text" class="form-control input-sm" placeholder="2,500㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea01" name="dtl-input-fcltArea01" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="2,500㎡"></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk01" name="dtl-input-fcltRmrk01" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
@@ -115,7 +115,7 @@
 					<tr>
 						<th class="th_bg">세척․가공 등 처리</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea02" name="dtl-input-fcltArea02" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea02" name="dtl-input-fcltArea02" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="-" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk02" name="dtl-input-fcltRmrk02" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
@@ -125,7 +125,7 @@
 					<tr>
 						<th class="th_bg">비상품화시설</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea03" name="dtl-input-fcltArea03" uitype="text" class="form-control input-sm" placeholder="300㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea03" name="dtl-input-fcltArea03" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="300㎡" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk03" name="dtl-input-fcltRmrk03" uitype="text" class="form-control input-sm" placeholder="사무실,회의실,화장실 등" ></sbux-input>
@@ -135,7 +135,7 @@
 					<tr>
 						<th class="th_bg">폐기물 처리</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea04" name="dtl-input-fcltArea04" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea04" name="dtl-input-fcltArea04" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="-" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk04" name="dtl-input-fcltRmrk04" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
@@ -145,7 +145,7 @@
 					<tr>
 						<th class="th_bg">예냉고</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea05" name="dtl-input-fcltArea05" uitype="text" class="form-control input-sm" placeholder="300㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea05" name="dtl-input-fcltArea05" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="300㎡" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk05" name="dtl-input-fcltRmrk05" uitype="text" class="form-control input-sm" placeholder="3칸×100㎡" ></sbux-input>
@@ -155,7 +155,7 @@
 					<tr>
 						<th class="th_bg">저온저장</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea06" name="dtl-input-fcltArea06" uitype="text" class="form-control input-sm" placeholder="700㎡
+							<sbux-input id="dtl-input-fcltArea06" name="dtl-input-fcltArea06" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="700㎡
 							" ></sbux-input>
 						</td>
 						<td class="td_input">
@@ -167,7 +167,7 @@
 					<tr>
 						<th class="th_bg">CA저장고</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea07" name="dtl-input-fcltArea07" uitype="text" class="form-control input-sm" placeholder="300㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea07" name="dtl-input-fcltArea07" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="300㎡" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk07" name="dtl-input-fcltRmrk07" uitype="text" class="form-control input-sm" placeholder="3칸×100㎡" ></sbux-input>
@@ -177,7 +177,7 @@
 					<tr>
 						<th class="th_bg">큐어링</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea08" name="dtl-input-fcltArea08" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea08" name="dtl-input-fcltArea08" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="-" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk08" name="dtl-input-fcltRmrk08" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
@@ -187,7 +187,7 @@
 					<tr>
 						<th class="th_bg">일반저장</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea09" name="dtl-input-fcltArea09" uitype="text" class="form-control input-sm" placeholder="500㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea09" name="dtl-input-fcltArea09" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="500㎡" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk09" name="dtl-input-fcltRmrk09" uitype="text" class="form-control input-sm" placeholder="5칸×100㎡" ></sbux-input>
@@ -198,7 +198,7 @@
 					<tr>
 						<th class="th_bg">기타사항</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea10" name="dtl-input-fcltArea10" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea10" name="dtl-input-fcltArea10" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="-" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk10" name="dtl-input-fcltRmrk10" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
@@ -322,7 +322,7 @@
 
             {caption: ["APC명"],		ref: 'apcNm',       type:'output',  	hidden: false},
             {caption: ["APCCD"],		ref: 'apcCd',       type:'output',  	hidden: true},
-            {caption: ["대상연도"],			ref: 'trgtYr',          type:'output',  hidden: false}
+            {caption: ["대상연도"],			ref: 'trgtYr',          type:'output',  hidden: true}
         ];
 
         grdFcltInfoList = _SBGrid.create(SBGridProperties);
@@ -404,9 +404,9 @@
 				const msg = {
 				trgtYr: item.trgtYr,	 	 //대상연도
 				apcCd: item.apcCd, 	 		 //apc코드
-		     	fcltCd: item.fcltCd,     	 //apc코드
-		    	fcltNm: item.fcltNm,     	 //시설 코드
-		    	apcNm: item.apcNm,         	 //시설 명
+				apcNm: item.apcNm,      	 //apc명
+				fcltCd: item.fcltCd,     	 //시설 코드
+		    	fcltNm: item.fcltNm,          	 //시설 명
 		        fcltAreaTot: item.fcltAreaTot,     //시설 면적 총면적
 		        fcltRmrkTot: item.fcltRmrkTot,    			 //비고
 		        fcltArea01: item.fcltArea01,     //시설 면적 집하선별포장장
@@ -470,6 +470,7 @@
     	console.log("******************fn_create**********************************");
     	SBUxMethod.set("dtl-input-trgtYr", null);                    //  대상연도
 		SBUxMethod.set("dtl-input-apcCd", null);                     //  APC코드
+		SBUxMethod.set("dtl-input-apcNm", null);                     //  APC코드
     	SBUxMethod.set("dtl-input-fcltCd", null);      				 //  시설 코드
     	SBUxMethod.set("dtl-input-fcltNm", null); 				     //  시설 명
         SBUxMethod.set("dtl-input-fcltAreaTot", null);					   //시설 면적 총면적
@@ -498,9 +499,11 @@
     }
 
      const fn_clearForm = function() {
-    	 console.log("******************fn_clearForm**********************************");
+    	console.log("******************fn_clearForm**********************************");
+
      	SBUxMethod.set("dtl-input-fcltCd", null);
      	SBUxMethod.set("dtl-input-fcltNm", null);
+     	SBUxMethod.set("dtl-input-apcCd", null);
     	SBUxMethod.set("dtl-input-apcNm", null);
         SBUxMethod.set("dtl-input-fcltAreaTot", null);           //시설 면적 총면적
         SBUxMethod.set("dtl-input-fcltRmrkTot", null);          			 //비고
@@ -524,6 +527,7 @@
         SBUxMethod.set("dtl-input-fcltRmrk09", null);         			 //비고
         SBUxMethod.set("dtl-input-fcltArea10", null);           //시설 면적 기타사항
         SBUxMethod.set("dtl-input-fcltRmrk10", null);          			 //비고
+
     }
     //저장
     const fn_save = async function() {
@@ -571,9 +575,10 @@
     	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltInfo.do", {
 	    	 	trgtYr: SBUxMethod.get("srch-input-trgtYr")  // 상단 조회 조건의 대상연도 SBUxMethod.get("srch-input-trgtYr")
     	    ,	apcCd: SBUxMethod.get("srch-inp-apcCd") // 상단 조회 조건의 APC코드 SBUxMethod.get("srch-inp-apcCd")
-            ,	fcltCd: SBUxMethod.get('dtl-input-fcltCd')   	                     //  apc코드
-            ,	fcltNm: SBUxMethod.get('dtl-input-fcltNm')   	                     //  시설 코드
-            ,	apcNm: SBUxMethod.get('dtl-input-apcNm')    	                     //  시설 명
+    	    ,	apcNm: SBUxMethod.get('dtl-input-apcNm')								//  apc명
+            ,	fcltCd: SBUxMethod.get('dtl-input-fcltCd')   	                     //  시설 코드
+            ,	fcltNm: SBUxMethod.get('dtl-input-fcltNm')   	                      //  시설 명
+
             ,	fcltAreaTot: SBUxMethod.get('dtl-input-fcltAreaTot')      	                 //시설 면적 총면적
             ,	fcltRmrkTot: SBUxMethod.get('dtl-input-fcltRmrkTot')      	                 //시설 면적 총면적 비고
             ,	fcltArea01: SBUxMethod.get('dtl-input-fcltArea01')                          //시설 면적 집하선별포장장
@@ -623,39 +628,6 @@
     	console.log("******************fn_subUpdate**********************************");
 		if (!isConfirmed) return;
 
-		var updateValue = {
-				trgtYr: SBUxMethod.get('dtl-input-trgtYr')   	                     //  대상연도
-		        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')     	                     //  apc코드
-		        ,	fcltCd: SBUxMethod.get('dtl-input-fcltCd')   	                     //  시설 코드
-		        ,	fcltNm: SBUxMethod.get('dtl-input-fcltNm')   	                     //  시설 명
-		        ,	fcltAreaTot: SBUxMethod.get('dtl-input-fcltAreaTot')      	             //	시설 면적 총면적
-		        ,	fcltRmrkTot: SBUxMethod.get('dtl-input-fcltRmrkTot')      	             //	시설 면적 총면적 비고
-		        ,	fcltArea01: SBUxMethod.get('dtl-input-fcltArea01')                      //	시설 면적 집하선별포장장
-		        ,	fcltRmrk01: SBUxMethod.get('dtl-input-fcltRmrk01')      	             //	비고
-		        ,	fcltArea02: SBUxMethod.get('dtl-input-fcltArea02')                     //	시설 면적 세척,가공 등 처리
-		        ,	fcltRmrk02: SBUxMethod.get('dtl-input-fcltRmrk02')      	             //	비고
-		        ,	fcltArea03: SBUxMethod.get('dtl-input-fcltArea03')                     //	시설 면적 비 상품화시설
-		        ,	fcltRmrk03: SBUxMethod.get('dtl-input-fcltRmrk03')      	             //	비고
-		        ,	fcltArea04: SBUxMethod.get('dtl-input-fcltArea04')                     //	시설 면적 폐기물처리
-		        ,	fcltRmrk04: SBUxMethod.get('dtl-input-fcltRmrk04')      	             //	비고
-		        ,	fcltArea05: SBUxMethod.get('dtl-input-fcltArea05')                     //	시설 면적 예냉고
-		        ,	fcltRmrk05: SBUxMethod.get('dtl-input-fcltRmrk05')      	             //	비고
-		        ,	fcltArea06: SBUxMethod.get('dtl-input-fcltArea06')                     //	시설 면적 저온저장
-		        ,	fcltRmrk06: SBUxMethod.get('dtl-input-fcltRmrk06')      	             //	비고
-		        ,	fcltArea07: SBUxMethod.get('dtl-input-fcltArea07')                     //	시설 면적 CA저장고
-		        ,	fcltRmrk07: SBUxMethod.get('dtl-input-fcltRmrk07')      	             //	비고
-		        ,	fcltArea08: SBUxMethod.get('dtl-input-fcltArea08')                     //	시설 면적 큐어링
-		        ,	fcltRmrk08: SBUxMethod.get('dtl-input-fcltRmrk08')      	             //	비고
-		        ,	fcltArea09: SBUxMethod.get('dtl-input-fcltArea09')                     //	시설 면적 일반저장
-		        ,	fcltRmrk09: SBUxMethod.get('dtl-input-fcltRmrk09')      	             //	비고
-		        ,	fcltArea10: SBUxMethod.get('dtl-input-fcltArea10')                   //	시설 면적 기타사항
-		        ,	fcltRmrk10: SBUxMethod.get('dtl-input-fcltRmrk10')                   //	비고
-
-		}
-
-		console.log("========updateValue============");
-		console.log(updateValue);
-
     	const postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltInfo.do", {
         	trgtYr: SBUxMethod.get('dtl-input-trgtYr')   	                     //  대상연도
 	        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')     	                     //  apc코드
@@ -684,6 +656,7 @@
 	        ,	fcltArea10: SBUxMethod.get('dtl-input-fcltArea10')                   //	시설 면적 기타사항
 	        ,	fcltRmrk10: SBUxMethod.get('dtl-input-fcltRmrk10')                   //	비고
     		});
+
         const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
@@ -791,17 +764,27 @@
 			nRow = 1;
 		}
 			//서치폼에서 클릭시 디테일폼에 데이터출력
-        let rowData = grdFcltInfoList.getRowData(nRow);
+		let rowData = grdFcltInfoList.getRowData(nRow);
+		//console.log(rowData);
 
+		//"null"로 들어가는 경우 방지
+		rowData = fn_emptyString(rowData);
 
+		//console.log(rowData);
+		//console.log(rowData.fcltRmrk01);
+		//console.log(typeof(rowData.fcltRmrk01));
     	SBUxMethod.set("dtl-input-trgtYr", rowData.trgtYr);       //대상연도
 		SBUxMethod.set("dtl-input-apcCd", rowData.apcCd);         //apc코드
+		SBUxMethod.set("dtl-input-apcNm", rowData.apcNm);         //apc코드
     	SBUxMethod.set("dtl-input-fcltCd", rowData.fcltCd);      //apc코드
     	SBUxMethod.set("dtl-input-fcltNm", rowData.fcltNm);     //시설 코드
         SBUxMethod.set("dtl-input-fcltAreaTot", rowData.fcltAreaTot);    //시설 면적
         SBUxMethod.set("dtl-input-fcltRmrkTot", rowData.fcltRmrkTot);      //비고
         SBUxMethod.set("dtl-input-fcltArea01", rowData.fcltArea01);    //시설 면적
         SBUxMethod.set("dtl-input-fcltRmrk01", rowData.fcltRmrk01);      //비고
+        //let cval = SBUxMethod.get('dtl-input-fcltRmrk01')
+        //console.log(cval);
+        //console.log(typeof(cval));
         SBUxMethod.set("dtl-input-fcltArea02", rowData.fcltArea02);    //시설 면적
         SBUxMethod.set("dtl-input-fcltRmrk02", rowData.fcltRmrk02);      //비고
         SBUxMethod.set("dtl-input-fcltArea03", rowData.fcltArea03);    //시설 면적
@@ -845,6 +828,59 @@
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
 	}
+
+
+	//총면적 합산
+	function fn_areaSum(){
+		extractNumbers();
+		var totVal = 0;
+		for (var i = 1; i <= 10; i++) {
+			var num = i.toString().padStart(2, '0');
+			console.log(num);
+			totVal += parseInt(SBUxMethod.get("dtl-input-fcltArea"+num));
+		}
+		SBUxMethod.set("dtl-input-fcltAreaTot", totVal);
+	}
+
+	//면적 합산
+	function fn_sumNumbers(e) {
+        extractNumbers2(e);
+
+        let sum = 0;
+
+        document.querySelectorAll("input.sum").forEach(e =>{
+        	sum += e.value/1;
+        });
+        console.log(sum.toFixed(1));
+        SBUxMethod.set("dtl-input-fcltAreaTot", sum.toFixed(1));
+    }
+
+	// 숫자(소숫점 가능)만 입력
+	function fn_extractNumbers2(e) {
+		let chkVal = $(e).val().replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+		$(e).val(chkVal);
+	}
+	// "null" 로 들어가는 경우 방지
+	function fn_emptyString(obj) {
+		console.log("==========fn_emptyString=============");
+	    if (Array.isArray(obj)) {
+	        // 배열의 경우
+	        for (var i = 0; i < obj.length; i++) {
+	        	if (data[i] === "null" || data[i] === null) {
+	                obj[i] = "";
+	            }
+	        }
+	    } else if (typeof obj === "object") {
+	        // 객체의 경우
+	        for (var key in obj) {
+	        	if (obj[key] === "null" || obj[key] === null) {
+	                obj[key] = "";
+	            }
+	        }
+	    }
+	    return obj;
+	}
+
 
 </script>
 </html>
