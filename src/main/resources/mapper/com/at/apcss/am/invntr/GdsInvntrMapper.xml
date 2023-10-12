@@ -107,11 +107,13 @@
 			    , GI.DEL_YN			AS DEL_YN
 			    , GI.RMRK			AS RMRK
 			    , (SELECT BRND_NM
-                     FROM TB_GDS_CD X
+                     FROM TB_SPMT_PCKG_UNIT X
                     WHERE X.APC_CD = GI.APC_CD
                       AND X.ITEM_CD = GI.ITEM_CD
                       AND X.VRTY_CD = GI.VRTY_CD
                       AND X.SPCFCT_CD = GI.SPCFCT_CD
+                      AND X.GDS_GRD = GI.GDS_GRD
+                      AND X.SPMT_PCKG_UNIT_CD = GI.SPMT_PCKG_UNIT_CD
                       AND X.DEL_YN = 'N'
                   ) AS BRND_NM
 			  FROM TB_GDS_INVNTR GI
@@ -424,7 +426,7 @@
 			   AND PCKG_SN = #{pckgSn}
 		]]>
 	</update>
-	
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateGdsInvntrSpmtPrfmnc		-->
 	<!-- DESC : 변경재고 등록 - 출하처리                                    				-->
