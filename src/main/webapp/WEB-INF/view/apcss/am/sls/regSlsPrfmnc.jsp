@@ -91,7 +91,8 @@
 			 			<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: auto">
-						<col style="width: 400px">
+						<col style="width: 180px">
+						<col style="width: 180px">
 						<col style="width: 62px">
 						<col style="width: 62px">
 					</colgroup>
@@ -99,7 +100,10 @@
 						<tr>
 							<td style="border-left:hidden"></td>
 							<td class="td_input" style="border-right:hidden; border-left:hidden" >
-								<sbux-datepicker id="srch-dtp-slsYmdTo" name="srch-dtp-slsYmd" uitype="range" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-slsYmdFrom" name="dtl-dtp-slsYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+							</td>
+							<td class="td_input" style="border-right:hidden; border-left:hidden" >
+								<sbux-datepicker id="dtl-dtp-slsYmdTo" name="dtl-dtp-slsYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-button
@@ -249,6 +253,10 @@
 				let slsPrfmnc = {
 					slsYmd 		: item.slsYmd
 				  , cnptNm 		: item.cnptNm
+				  , itemCd		: item.itemCd
+				  , itemNm		: item.itemNm
+				  , grdCd		: item.grdCd
+				  , grdNm		: item.grdNm
 				  , gdsNm 		: item.gdsNm
 				  , gdsCd 		: item.gdsCd
 				  , vrtyNm 		: item.vrtyNm
@@ -277,8 +285,8 @@
 
 
 	const fn_slsCreate = async function (){
-		let slsYmdFrom = SBUxMethod.get("srch-dtp-slsYmd_from")
-		let slsYmdTo = SBUxMethod.get("srch-dtp-slsYmd_to")
+		let slsYmdFrom = SBUxMethod.get("dtl-dtp-slsYmdFrom")
+		let slsYmdTo = SBUxMethod.get("dtl-dtp-slsYmdTo")
 
 		const postJsonPromise = gfn_postJSON("/am/sls/insertSlsPrfmncCrt.do", {
 			apcCd			: gv_selectedApcCd,
@@ -290,7 +298,7 @@
 		try{
 
        		if(gfn_isEmpty(data.rtnCd)){
-       			//fn_search();
+       			fn_search();
        			gfn_comAlert("I0001");						// I0001 처리 되었습니다.
        		}else{
        			gfn_comAlert("E0000", data.rtnMsg);			// E0001 오류가 발생하였습니다.

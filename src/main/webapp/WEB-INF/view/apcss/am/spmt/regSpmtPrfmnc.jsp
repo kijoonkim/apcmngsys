@@ -631,7 +631,7 @@
 			let gdsGrdCd = SBUxMethod.get("dtl-slt-gdsGrd");
 			let spmtCmndno = SBUxMethod.get("dtl-inp-spmtCmndno");
 			if(!gfn_isEmpty(spmtCmndno)){
-				grdGdsInvntr.setCellData(nRow, 9, spmtPckgUnit, true);
+				grdGdsInvntr.setCellData(nRow, 9, spmtPckgUnitCd, true);
 				grdGdsInvntr.setCellData(nRow, 10, gdsGrdCd, true);
 			}
 		}else{
@@ -659,7 +659,7 @@
 			let gdsGrdCd = SBUxMethod.get("dtl-slt-gdsGrd");
 			let spmtCmndno = SBUxMethod.get("dtl-inp-spmtCmndno");
 			if(!gfn_isEmpty(spmtCmndno)){
-				grdGdsInvntr.setCellData(nRow, 9, spmtPckgUnit, true);
+				grdGdsInvntr.setCellData(nRow, 9, spmtPckgUnitCd, true);
 				grdGdsInvntr.setCellData(nRow, 10, gdsGrdCd, true);
 			}
 			grdGdsInvntr.setCellData(nRow, 12, Math.round(invntrWght / invntrQntt) * spmtQntt);
@@ -709,6 +709,7 @@
     		let spmtPckgUnitCd = rowData.spmtPckgUnitCd;
     		let gdsGrd = rowData.gdsGrd;
     		let brndNm = rowData.brndNm;
+    		console.log(brndNm)
     		totSpmtQntt = totSpmtQntt + Number(spmtQntt);
 
     		if(smptWght == 0){
@@ -752,6 +753,8 @@
     		grdGdsInvntr.setCellData(nRow, 23, brndNm);
     		insertList.push(grdGdsInvntr.getRowData(nRow));
     	}
+
+    	console.log(insertList)
 
 
 		if(cmndYn){
