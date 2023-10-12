@@ -139,9 +139,9 @@
 							<td colspan="3">
 								<sbux-label uitype="normal" id="srch-lbl-chc" name="srch-lbl-chc" class="blod" text="Kg"/>
 							</td>
-							<th scope="row" class="th_bg">규격</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>규격</th>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" class="form-control input-sm" jsondata-ref="jsonApcSpcfct"></sbux-select>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" class="form-control input-sm-ast inpt_data_reqed input-sm" jsondata-ref="jsonApcSpcfct"></sbux-select>
 							</td>
 							<td colspan="2"></td>
 						</tr>
@@ -407,6 +407,10 @@
 		}
 		if (gfn_isEmpty(pckgWght)){
 			gfn_comAlert("W0002", "중량");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		if (gfn_isEmpty(spcfctCd)){
+			gfn_comAlert("W0002", "규격");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
 		
