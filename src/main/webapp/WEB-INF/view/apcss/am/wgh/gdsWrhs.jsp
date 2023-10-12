@@ -259,11 +259,11 @@
 	        {caption: ["품목"],		ref: 'itemNm',      	type: 'output',  width: '105px',    style: 'text-align: center'},
 	        {caption: ["품종"],		ref: 'vrtyNm',      	type: 'output',  width: '105px',    style: 'text-align: center'},
 	        {caption: ["매입처"],		ref: 'prchsptNm',		type: 'output',  width: '140px',    style: 'text-align: center'},
-	        {caption: ["수량"],		ref: 'pckgQntt',		type: 'output',  width: '80px',    	style: 'text-align: right',
+	        {caption: ["수량"],		ref: 'pckgQntt',		type: 'output',  width: '60px',    	style: 'text-align: right',
 	        	format : {type:'number', rule:'#,###'}},
 	        {caption: ["중량"],		ref: 'pckgWght',		type: 'output',  width: '80px',    	style: 'text-align: right',
 	        	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-	        {caption: ["창고"],		ref: 'warehouseSeNm',	type: 'output',  width: '80px',    style: 'text-align: center'},
+	        {caption: ["창고"],		ref: 'warehouseSeNm',	type: 'output',  width: '140px',    style: 'text-align: center'},
 	        {caption: ["비고"],		ref: 'rmrk',      		type: 'output',  width: '105px'},
 	        {caption: ["순번"],		ref: 'pckgSn',			hidden: true},
 	        {caption: ["상품구분코드"],	ref: 'pckgSeCd',		hidden: true},
@@ -380,6 +380,9 @@
 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
 		let rmrk = SBUxMethod.get("srch-inp-rmrk");
+ 		if (gfn_isEmpty(rmrk)) {
+ 			rmrk = "";
+ 		}
 
 		if (gfn_isEmpty(pckgYmd)){
 			gfn_comAlert("W0002", "입고일자");		//	W0002	{0}을/를 입력하세요.
@@ -467,9 +470,9 @@
     	}
 
     	const gdsWrhs = {
-    		apcCd			: gv_selectedApcCd
-		  , pckgno 			: pckgno
-		  , pckgSn			: pckgSn
+    		apcCd	: gv_selectedApcCd
+		  , pckgno 	: pckgno
+		  , pckgSn	: pckgSn
     	}
 
     	const postJsonPromise = gfn_postJSON("/am/wrhs/deleteGdsInvntr.do", gdsWrhs);
@@ -514,10 +517,6 @@
  		if (gfn_isEmpty(rowData.rmrk)) {
  			SBUxMethod.set("srch-inp-rmrk", "");							// 비고
  		}
-
-//  		await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
-// 		SBUxMethod.set("srch-slt-vrtyCd", rowData.vrtyCd);
-// 		await fn_onChangeSrchVrtyCd({value: rowData.vrtyCd});
     }
 	
 	// 초기화
