@@ -67,5 +67,5 @@ public interface PckgInptService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deletePckgInpt(PckgInptVO pckgInptVO) throws Exception;
+	public HashMap<String, Object> deletePckgInpt(PckgInptVO pckgInptVO) throws Exception;
 }

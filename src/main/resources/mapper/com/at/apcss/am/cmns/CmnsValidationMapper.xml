@@ -31,4 +31,21 @@
 		]]>
     </select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsValidationMapper.selectChkDdlnYn	-->
+	<!-- DESC : APC별 마감등록 여부 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.11  	신정철        	Initial Creation                           	-->
+	<!-- ==========================================================================	-->
+    <select id="selectChkDdlnYn" parameterType="com.at.apcss.am.cmns.vo.CmnsValidationVO" resultType="com.at.apcss.am.cmns.vo.CmnsValidationVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.selectChkDdlnYn */
+	    		  #{apcCd} 	AS APC_CD
+	    		, #{ymd} 	AS YMD
+	    		, FN_CHK_DDLN_YN(#{apcCd}, #{ymd}) AS DDLN_YN
+			  FROM DUAL
+		]]>
+    </select>
 </mapper>

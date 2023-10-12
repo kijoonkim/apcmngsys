@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.invntr.service.SortInvntrService;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.pckg.service.PckgCmndService;
@@ -59,6 +60,9 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 
 	@Resource(name = "cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;	// 포장번호 발번용
+
+	@Resource(name = "cmnsValidationService")
+	private CmnsValidationService cmnsValidationService;	// 마감여부 확인용
 
 
 	@Override
@@ -185,8 +189,8 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 			PckgInptVO pckgInptVO = new PckgInptVO();
 			BeanUtils.copyProperties(inv, pckgInptVO);
 
-			// pckgInptVO.setQntt(inv.getInptQntt());
-			// pckgInptVO.setWght(inv.getInptWght());
+			pckgInptVO.setQntt(inv.getInptQntt());
+			pckgInptVO.setWght(inv.getInptWght());
 
 			// 투입실적 항목 set
 			pckgInptVOList.add(pckgInptVO);
@@ -200,8 +204,8 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 
 		// 선별재고정보 update
 		for ( SortInvntrVO inv : sortInvntrVOList ) {
-			HashMap<String, Object> rtnMap = sortInvntrService.updateInvntrPckgPrfmnc(inv);
-			if (rtnMap != null) {
+			rtnObj = sortInvntrService.updateInvntrPckgPrfmnc(inv);
+			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
@@ -241,7 +245,141 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 		return null;
 	}
 
+	
+	@Override
+	public HashMap<String, Object> deletePckgPrfmnc(PckgMngVO pckgMngVO) throws Exception {
+		
+		// apc 코드와 포장번호로 포장실적, 투입실적, 상품재고 삭제 : delYn 'Y'
+		
+		HashMap<String, Object> rtnObj = new HashMap<>();
+		
+		// validation check
+		String apcCd = pckgMngVO.getApcCd();
+		if (!StringUtils.hasText(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+		
+		String pckgno = pckgMngVO.getPckgno();
+		if (!StringUtils.hasText(pckgno)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "포장번호");
+		}
+		
+		PckgPrfmncVO prfmncParamVO = new PckgPrfmncVO();
+		prfmncParamVO.setApcCd(apcCd);
+		prfmncParamVO.setPckgno(pckgno);
+		
+		List<PckgPrfmncVO> prfmncList = pckgPrfmncService.selectPckgPrfmncList(prfmncParamVO);
+		
+		if (prfmncList == null || prfmncList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "포장실적");
+		}
+		
+		// 투입실적 확인
+		PckgInptVO pckgInptParamVO = new PckgInptVO();
+		pckgInptParamVO.setApcCd(apcCd);
+		pckgInptParamVO.setPckgno(pckgno);
+		
+		List<PckgInptVO> inptList = pckgInptService.selectPckgInptList(pckgInptParamVO);
+		if (inptList == null || inptList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "투입실적");
+		}
+		
+		List<PckgPrfmncVO> pckgPrfmncVOList = new ArrayList<>();
+		for ( PckgPrfmncVO pckg : prfmncList ) {
 
+			// 마감확인
+			String pckgYmd = pckg.getPckgYmd();
+			String ddlnYn = cmnsValidationService.selectChkDdlnYn(apcCd, pckgYmd);
+			if (!ComConstants.CON_NONE.equals(ddlnYn)) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "상품재고");
+			}
+			
+			// 포장량 재고량 변경 확인
+			if (pckg.getInvntrQntt() < pckg.getPckgQntt()) {
+				return ComUtil.getResultMap("W0008", "포장량||재고량");		// W0008	{0} 보다 {1}이/가 큽니다.
+			}
+			
+			PckgPrfmncVO prfmncVO = new PckgPrfmncVO();
+			BeanUtils.copyProperties(pckgMngVO, prfmncVO);
+			BeanUtils.copyProperties(pckg, prfmncVO,
+					ApcConstants.PROP_APC_CD,
+					ComConstants.PROP_SYS_FRST_INPT_DT,
+					ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+					ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+					ComConstants.PROP_SYS_LAST_CHG_DT,
+					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+
+			pckgPrfmncVOList.add(prfmncVO);
+		}
+
+		// 처리
+		
+		// 재고삭제 + 포장실적 삭제
+		rtnObj = pckgPrfmncService.deletePckgPrfmncList(pckgPrfmncVOList);
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+		
+		// 투입실적 삭제 + 선별재고 갱신
+		for ( PckgInptVO inpt : inptList ) {
+
+			// 투입실적 삭제
+			PckgInptVO pckgInptVO = new PckgInptVO();
+			BeanUtils.copyProperties(pckgMngVO, pckgInptVO);
+			pckgInptVO.setSortno(inpt.getSortno());
+			pckgInptVO.setSortSn(inpt.getSortSn());
+
+			rtnObj = pckgInptService.deletePckgInpt(pckgInptVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+			
+			// 선별재고 갱신
+			SortInvntrVO invntrVO = new SortInvntrVO();
+			BeanUtils.copyProperties(pckgMngVO, invntrVO);
+			invntrVO.setSortno(inpt.getSortno());
+			invntrVO.setSortSn(inpt.getSortSn());
+			
+			invntrVO.setInptQntt(inpt.getQntt());
+			invntrVO.setInptWght(inpt.getWght());
+			
+			rtnObj = sortInvntrService.updateInvntrPckgPrfmncCncl(invntrVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+				
+		return null;
+	}
+
+
+	@Override
+	public HashMap<String, Object> deletePckgPrfmncList(PckgMngVO pckgMngVO) throws Exception {
+		
+		HashMap<String, Object> rtnObj = new HashMap<>();
+		
+		List<PckgPrfmncVO> pckgList = pckgMngVO.getPckgPrfmncList();
+		
+		if (pckgList == null || pckgList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "삭제대상");
+		}
+		
+		for ( PckgPrfmncVO pckg : pckgList ) {
+			
+			PckgMngVO cnclVO = new PckgMngVO();
+			BeanUtils.copyProperties(pckgMngVO, cnclVO);
+			cnclVO.setPckgno(pckg.getPckgno());
+			rtnObj = deletePckgPrfmnc(cnclVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+		
+		return null;
+	}
 
 
 	@Override
@@ -262,11 +400,7 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 		return null;
 	}
 
-	@Override
-	public HashMap<String, Object> deletePckgPrfmnc(PckgMngVO pckgMngVO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 
 }

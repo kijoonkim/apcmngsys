@@ -102,11 +102,16 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 	}
 
 	@Override
-	public int deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
+	public HashMap<String, Object> deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
 
-		int deletedCnt = gdsInvntrMapper.deleteGdsInvntr(gdsInvntrVO);
-
-		return deletedCnt;
+        //int deletedCnt = gdsInvntrMapper.deleteGdsInvntr(gdsInvntrVO);
+        gdsInvntrMapper.updateGdsInvntrForDelY(gdsInvntrVO);
+        
+        GdsStdGrdVO gdsStdGrdVO = new GdsStdGrdVO();
+        BeanUtils.copyProperties(gdsInvntrVO, gdsStdGrdVO);
+        gdsInvntrMapper.updateGdsStdGrdForDelY(gdsStdGrdVO);
+        
+        return null;
 	}
 
 	@Override

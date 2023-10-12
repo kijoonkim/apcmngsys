@@ -71,6 +71,7 @@ public class AmConstants {
      */
     public final static String CON_CD_ID_GDS_SE_CD = "GDS_SE_CD";
 
+    
     /**
      * 등급구분코드 : 입고등급 01
      */
@@ -85,4 +86,14 @@ public class AmConstants {
     public final static String CON_CD_ID_GRD_SE_CD_GDS = "03";
 
 
+    /**
+     * 상품등급
+     */
+    public final static String CON_CD_ID_GDS_GRD = "GDS_GRD";
+    
+    /**
+     * 표준등급
+     */
+    public final static String CON_CD_ID_STD_GRD = "STD_GRD";
+    
 }

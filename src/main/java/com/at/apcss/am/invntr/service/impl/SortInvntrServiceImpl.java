@@ -106,7 +106,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 	@Override
 	public HashMap<String, Object> updateSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
 
-		int updatedCnt = sortInvntrMapper.updateSortInvntr(sortInvntrVO);
+		sortInvntrMapper.updateSortInvntr(sortInvntrVO);
 
 		return null;
 	}
@@ -114,24 +114,21 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 	@Override
 	public HashMap<String, Object> deleteSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
 
-		int deletedCnt = sortInvntrMapper.deleteSortInvntr(sortInvntrVO);
+		sortInvntrMapper.deleteSortInvntr(sortInvntrVO);
 
 		return null;
 	}
 
 	@Override
 	public HashMap<String, Object> updateInvntrPckgPrfmnc(SortInvntrVO sortInvntrVO) throws Exception {
-		// TODO Auto-generated method stub
 
 		SortInvntrVO invntrInfo = sortInvntrMapper.selectSortInvntr(sortInvntrVO);
 
 		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getSortno())) {
-			logger.debug("선별재고 없음");
-			return ComUtil.getResultMap("W0005", "선별재고");
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별재고");
 		}
 
 		if (sortInvntrVO.getPckgWght() > invntrInfo.getInvntrWght()) {
-			logger.debug("선별재고 대비 포장량 over");
 			return ComUtil.getResultMap("W0008", "재고량||포장량");		// W0008	{0} 보다 {1}이/가 큽니다.
 		}
 
@@ -153,10 +150,44 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 		}
 
-
 		return null;
 	}
 
+
+	@Override
+	public HashMap<String, Object> updateInvntrPckgPrfmncCncl(SortInvntrVO sortInvntrVO) throws Exception {
+
+		SortInvntrVO invntrInfo = sortInvntrMapper.selectSortInvntr(sortInvntrVO);
+
+		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getSortno())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별재고");
+		}
+
+		if (sortInvntrVO.getInptQntt() > invntrInfo.getPckgQntt()) {
+			return ComUtil.getResultMap("W0008", "취소량||포장량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		}
+
+		// 재고량
+		int invntrQntt = invntrInfo.getInvntrQntt() + sortInvntrVO.getInptQntt();
+		double invntrWght = invntrInfo.getInvntrWght() + sortInvntrVO.getInptWght();
+		sortInvntrVO.setInvntrQntt(invntrQntt);
+		sortInvntrVO.setInvntrWght(invntrWght);
+
+		// 포장량
+		int pckgQntt = invntrInfo.getPckgQntt() - sortInvntrVO.getInptQntt();
+		double pckgWght = invntrInfo.getPckgWght() - sortInvntrVO.getInptWght();
+		sortInvntrVO.setPckgQntt(pckgQntt);
+		sortInvntrVO.setPckgWght(pckgWght);
+
+		int updatedCnt = sortInvntrMapper.updateInvntrPckgPrfmnc(sortInvntrVO);
+
+		if (updatedCnt != 1) {
+
+		}
+		
+		return null;
+	}
+	
 	@Override
 	public HashMap<String, Object> updateSortInvntrDsctnList(List<SortInvntrVO> sortInvntrList) throws Exception {
 		List<SortInvntrVO> updateList = new ArrayList<>();
@@ -184,5 +215,6 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 		return resultList;
 	}
+
 
 }

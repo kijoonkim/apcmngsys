@@ -49,6 +49,14 @@ public interface StdGrdService {
 	public int insertStdGrd(StdGrdVO stdGrdVO) throws Exception;
 
 	/**
+	 * APC 등급 자동 등록 : 입고, 상품 (품목등록 시)
+	 * @param stdGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertStdGrdAuto(StdGrdVO stdGrdVO) throws Exception;
+	
+	/**
 	 * APC 등급 정보 변경
 	 * @param cmnsGrdVO
 	 * @return
