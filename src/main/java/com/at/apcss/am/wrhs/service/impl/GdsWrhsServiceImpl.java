@@ -47,9 +47,17 @@ public class GdsWrhsServiceImpl implements GdsWrhsService {
 	
 	@Override
 	public HashMap<String, Object> insertGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
-		
+		int sn = 3;
+		String wrhsSeCd = "4";
+		String trsprtSeCd = "3";
+		String delYn = "N";
 		String pckgno = cmnsTaskNoService.selectPckgno(gdsInvntrVO.getApcCd(), gdsInvntrVO.getPckgYmd());
+		
 		gdsInvntrVO.setPckgno(pckgno);
+		gdsInvntrVO.setPckgSn(sn);
+		gdsInvntrVO.setWrhsSeCd(wrhsSeCd);
+		gdsInvntrVO.setTrsprtSeCd(trsprtSeCd);
+		gdsInvntrVO.setDelYn(delYn);
 		
 		gdsWrhsMapper.insertGdsInvntr(gdsInvntrVO);
 		
@@ -66,6 +74,9 @@ public class GdsWrhsServiceImpl implements GdsWrhsService {
 	
 	@Override
 	public HashMap<String, Object> deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
+		String delYn = "Y";
+		
+		gdsInvntrVO.setDelYn(delYn);
 		
 		gdsWrhsMapper.deleteGdsInvntr(gdsInvntrVO);
 		

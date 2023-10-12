@@ -104,6 +104,9 @@ public class GdsWrhsController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
+			gdsInvntrVO.setSysLastChgUserId(getUserId());
+			gdsInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+			
 			HashMap<String, Object> rtnObj = gdsWrhsService.deleteGdsInvntr(gdsInvntrVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);

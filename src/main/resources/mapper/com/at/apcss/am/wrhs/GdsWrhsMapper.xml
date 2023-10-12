@@ -105,7 +105,10 @@
 					, WAREHOUSE_SE_CD
 					, PCKG_QNTT
 					, PCKG_WGHT
+					, WRHS_SE_CD
+					, TRSPRT_SE_CD
 					, RMRK
+					, DEL_YN
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -127,7 +130,10 @@
 					, #{warehouseSeCd}
 					, #{pckgQntt}
 					, #{pckgWght}
+					, #{wrhsSeCd}
+					, #{trsprtSeCd}
 					, #{rmrk}
+					, #{delYn}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}
