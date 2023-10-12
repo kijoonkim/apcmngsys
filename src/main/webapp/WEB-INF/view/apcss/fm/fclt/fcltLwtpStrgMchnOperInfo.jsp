@@ -9,39 +9,6 @@
     <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
-		<script type="text/javascript">
-		<c:choose>
-			<c:when test="${comApcList != null}">
-				var cjsonApcList = ${comApcList};
-			</c:when>
-			<c:otherwise>
-				var cjsonApcList = {};
-			</c:otherwise>
-		</c:choose>
-		<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
-			gv_selectedApcCd = null;
-			gv_selectedApcNm = null;
-		</c:if>
-		/**
-		 * @name
-		 * @description
-		 * @function
-		 * @param {string} _apcCd
-		 */
-		const cfn_onChangeApc = function(obj) {
-			gv_selectedApcCd = obj.value;
-
-			const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
-			apcInfo.forEach( (apc) => {
-				gv_selectedApcNm = apc.apcNm;
-				return false;
-			});
-
-			if (typeof fn_onChangeApc === "function") {
-				fn_onChangeApc();
-			}
-		}
-	</script>
 </head>
 <body>
 	<section class="content container-fluid">
@@ -51,7 +18,9 @@
 				<h3 class="box-title" style="line-height: 30px;"> ▶ 저온저장고 운영기간</h3>
 			</div>
 			<div style="margin-left: auto;">
+				<!--
 				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
+				 -->
 				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary"  onclick="fn_save"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
@@ -59,49 +28,35 @@
 		</div>
 		<div class="box-body">
 			<!--[pp] 검색 -->
-			<div>
-<table class="table table-bordered tbl_row tbl_fixed">
+			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
 					<col style="width: 6%">
 					<col style="width: 10%">
 					<col style="width: 6%">
-					<col style="width: 15%">
-					<col style="width: 63%">
+					<col style="width: 10%">
+					<col style="width: 10%">
+					<col style="width: 58%">
 				</colgroup>
 				<tbody>
 					<tr>
 						<th class="th_bg" scope="row">대상연도</th>
-						<td class="td_input"  style="border-right: hidden;">
+						<td class="td_input"   style="border-right: hidden;">
 							<sbux-input id="srch-input-trgtYr" name="srch-input-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
-
-
-							<th class="th_bg" scope="row" style="border-bottom:1px solid white " class="th_bg" >APC명</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
-								<c:choose>
-									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
-										<sbux-select
-											id="gsb-slt-apcCd"
-											name="gsb-slt-apcCd"
-											uitype="single"
-											jsondata-ref="cjsonApcList"
-											unselected-text="전체"
-											class="form-control input-sm"
-											onchange="cfn_onChangeApc(this)"
-											style="max-width:150px;"
-										></sbux-select>
-									</c:when>
-									<c:otherwise>
-										<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td></td>
+						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
+						<td class="td_input" style="border-right:hidden;">
+							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						</td>
+						<td style="border-right:hidden;">
+							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+						</td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
-			</div>
+			<br>
 			<!--[pp] //검색 -->
 			<!--[pp] 검색결과 -->
 			<br>
@@ -152,151 +107,99 @@
 						</th>
 						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="dtl-chk-fcltOperYn0" name="warehouseSeCd-chk-fcltOperYn0" uitype="normal" ></sbux-checkbox>
+								<sbux-checkbox id="dtl-input-fcltOperYn" name="dtl-input-fcltOperYn" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="dtl-chk-fcltOperYn" name="warehouseSeCd-chk-fcltOperYn" uitype="normal" ></sbux-checkbox>
+								<sbux-checkbox id="dtl-input-fcltOperYn1" name="dtl-input-fcltOperYn1" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="warehouseSeCd-chk-fcltOperYn2" name="warehouseSeCd-chk-fcltOperYn2" uitype="normal" ></sbux-checkbox>
+								<sbux-checkbox id="dtl-input-fcltOperYn2" name="dtl-input-fcltOperYn2" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="warehouseSeCd-chk-fcltOperYn3" name="warehouseSeCd-chk-fcltOperYn3" uitype="normal" ></sbux-checkbox>
+								<sbux-checkbox id="dtl-input-fcltOperYn3" name="dtl-input-fcltOperYn3" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="warehouseSeCd-chk-fcltOperYn4" name="warehouseSeCd-chk-fcltOperYn4" uitype="normal" ></sbux-checkbox>
+								<sbux-checkbox id="dtl-input-fcltOperYn4" name="dtl-input-fcltOperYn4" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="warehouseSeCd-chk-fcltOperYn5" name="warehouseSeCd-chk-fcltOperYn5" uitype="normal" ></sbux-checkbox>
+								<sbux-checkbox id="dtl-input-fcltOperYn5" name="dtl-input-fcltOperYn5" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="warehouseSeCd-chk-fcltOperYn6" name="warehouseSeCd-chk-fcltOperYn6" uitype="normal" ></sbux-checkbox>
+								<sbux-checkbox id="dtl-input-fcltOperYn6" name="dtl-input-fcltOperYn6" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="warehouseSeCd-chk-fcltOperYn7" name="warehouseSeCd-chk-fcltOperYn7" uitype="normal" ></sbux-checkbox>
+								<sbux-checkbox id="dtl-input-fcltOperYn7" name="dtl-input-fcltOperYn7" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="warehouseSeCd-chk-fcltOperYn8" name="warehouseSeCd-chk-fcltOperYn8" uitype="normal" ></sbux-checkbox>
+								<sbux-checkbox id="dtl-input-fcltOperYn8" name="dtl-input-fcltOperYn8" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="warehouseSeCd-chk-fcltOperYn9" name="warehouseSeCd-chk-fcltOperYn9" uitype="normal" ></sbux-checkbox>
+								<sbux-checkbox id="dtl-input-fcltOperYn9" name="dtl-input-fcltOperYn9" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="warehouseSeCd-chk-fcltOperYn10" name="warehouseSeCd-chk-fcltOperYn10" uitype="normal" ></sbux-checkbox>
+								<sbux-checkbox id="dtl-input-fcltOperYn10" name="dtl-input-fcltOperYn10" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="warehouseSeCd-chk-fcltOperYn11" name="warehouseSeCd-chk-fcltOperYn11" uitype="normal" ></sbux-checkbox>
+								<sbux-checkbox id="dtl-input-fcltOperYn11" name="dtl-input-fcltOperYn11" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="warehouseSeCd-chk-fcltOperYn12" name="warehouseSeCd-chk-fcltOperYn12" uitype="normal" ></sbux-checkbox>
+								<sbux-checkbox id="dtl-input-fcltOperYn12" name="dtl-input-fcltOperYn12" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 
 					</tr>
 					<tr>
-						<th>대상년도</th>
-						<td colspan="7" class="td_input">
-							<sbux-input id="dtl-input-trgtYr" name="dtl-input-trgtYr" uitype="text" class="form-control input-sm" placeholder="trgtYr" ></sbux-input>
+						<th class="th_bg">대상연도</th>
+						<td class="td_input" colspan="2">
+							<sbux-input  id="dtl-input-trgtYr" name="dtl-input-trgtYr" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
-						<td colspan="7" class="td_input">
-						</td>
+						<td colspan="11" style="border-left: hidden;"></td>
 					</tr>
 					<tr>
-						<th>APC코드</th>
-						<td colspan="7" class="td_input">
-						<script type="text/javascript">
-								<c:choose>
-									<c:when test="${comApcList != null}">
-									var cjsonApcList = ${comApcList};
-									</c:when>
-									<c:otherwise>
-									var cjsonApcList = {};
-									</c:otherwise>
-								</c:choose>
-								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
-									gv_selectedApcCd = null;
-									gv_selectedApcNm = null;
-								</c:if>
-									/**
-									 * @name
-									 * @description
-									 * @function
-									 * @param {string} _apcCd
-									 */
-									const cfn_onChangeApc = function(obj) {
-										gv_selectedApcCd = obj.value;
-
-										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
-										apcInfo.forEach( (apc) => {
-											gv_selectedApcNm = apc.apcNm;
-											return false;
-										});
-
-										if (typeof fn_onChangeApc === "function") {
-											fn_onChangeApc();
-										}
-
-									}
-
-								</script>
-								<c:choose>
-									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
-										<sbux-select
-											id="gsb-slt-apcCd"
-											name="gsb-slt-apcCd"
-											uitype="single"
-											jsondata-ref="cjsonApcList"
-											unselected-text="선택"
-											class="form-control input-sm"
-											onchange="cfn_onChangeApc(this)"
-											style="max-width:150px;"
-										></sbux-select>
-									</c:when>
-									<c:otherwise>
-										<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td colspan="7"></td>
+						<th class="th_bg">apc명</th>
+						<td class="td_input" colspan="2">
+							<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="dtl-input-apcNm" name="dtl-input-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						</td>
+						<td colspan="11" style="border-left: hidden;"></td>
 					</tr>
-
 				</tbody>
 			</table>
 			</div>
@@ -304,19 +207,13 @@
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
-	<!-- 거래처 선택 Modal -->
+
+    <!-- apc 선택 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="body-modal-cnpt">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
-    </div>
-        <!-- 품종 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
-    </div>
-    <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    <div id="body-modal-apcSelect">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -345,17 +242,13 @@
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.rowheader = 'seq';
-		SBGridProperties.rowheadercaption = {seq: 'sn'};
+		SBGridProperties.rowheadercaption = {seq: 'No'};
         SBGridProperties.rowheaderwidth = {seq: '60'};
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["1월"],	    	ref: 'fcltOperYn',      type:'output',  width:'8%',    		style:'text-align:center'},
+        	{caption: ["없음"],	    	ref: 'fcltOperYn',      type:'output',  width:'8%',    		style:'text-align:center'},
+            {caption: ["1월"],	    	ref: 'fcltOperYn1',      type:'output',  width:'8%',    		style:'text-align:center'},
             {caption: ["2월"], 			ref: 'fcltOperYn2',     	type:'output',  width:'8%',    style:'text-align:center'},
             {caption: ["3월"],  			ref: 'fcltOperYn3',    type:'output',  width:'8%',    				style:'text-align:center'},
             {caption: ["4월"],   		ref: 'fcltOperYn4',    type:'output',  width:'8%',    			style:'text-align:center'},
@@ -367,14 +260,11 @@
             {caption: ["10월"],			ref: 'fcltOperYn10',           type:'output',  width:'8%',   		style:'text-align:center'},
             {caption: ["11월"],			ref: 'fcltOperYn11',           type:'output',  width:'8%',   		style:'text-align:center'},
             {caption: ["12월"],			ref: 'fcltOperYn12',           type:'output',  width:'8%',   		style:'text-align:center'},
-            {caption: ["APCCD"],		ref: 'apcCd',           type:'output',  hidden: false},
-            {caption: ["대상년도"],		ref: 'trgtYr',          type:'output',  hidden:false},
-            {caption: ["최초등록자ID"],	ref: 'creUserId',   type:'output',  hidden: true},
-            {caption: ["최초등록일시"],	ref: 'creDateTime', type:'output',  hidden: true},
-            {caption: ["최종변경자ID"],	ref: 'updUserId',   type:'output',  hidden: true},
-            {caption: ["최종변경일시"], ref: 'updDateTime', type:'output',  hidden: true},
-            {caption: ["등록프로그램"], ref: 'creProgram',  type:'output',  hidden: true},
-            {caption: ["변경프로그램"], ref: 'updProgram',  type:'output',  hidden: true}
+            {caption: ["APCCD"],		ref: 'apcCd',           type:'output',  hidden: true},
+            {caption: ["APC명"],			ref: 'apcNm',           type:'output',  hidden: false},
+            {caption: ["대상년도"],		ref: 'trgtYr',          type:'output',  hidden: true},
+            {caption: ["등록프로그램"], 	ref: 'creProgram',  type:'output',  hidden: true},
+            {caption: ["변경프로그램"], 	ref: 'updProgram',  type:'output',  hidden: true}
 
 
         ];
@@ -418,7 +308,7 @@
 
 		grdLtMcOpIfList.clearStatus();
 
-		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
 
 		var chk = {
@@ -457,37 +347,24 @@
         	jsonLtMOpcIfList.length = 0;
         	data.resultList.forEach((item, index) => {
 				const msg = {
-				trgtYr: item.trgtYr,	 		                   //대상연도
-				apcCd: item.apcCd, 	 			                   //apc코드
-				sn : item.sn,      				                   // 순번
-				fcltCd : item.fcltCd,                              //설비 코드
-				fcltOperCd : item.fcltOperCd,                       //설비 보유 유무
-				fcltOperYn : item.fcltOperYn,                      //설비 처리 코드
-				fcltOperYn2 : item.fcltOperYn2,                      //설비 처리 코드
-				fcltOperYn3 : item.fcltOperYn3,                      //설비 처리 코드
-				fcltOperYn4 : item.fcltOperYn4,                      //설비 처리 코드
-				fcltOperYn5 : item.fcltOperYn5,                      //설비 처리 코드
-				fcltOperYn6 : item.fcltOperYn6,                      //설비 처리 코드
-				fcltOperYn7 : item.fcltOperYn7,                      //설비 처리 코드
-				fcltOperYn8 : item.fcltOperYn8,                      //설비 처리 코드
-				fcltOperYn9 : item.fcltOperYn9,                      //설비 처리 코드
-				fcltOperYn10 : item.fcltOperYn10,                      //설비 처리 코드
-				fcltOperYn11 : item.fcltOperYn11,                      //설비 처리 코드
-				fcltOperYn12 : item.fcltOperYn12,                      //설비 처리 코드
-				delYn: item.delYn,                  	     		//삭제유무
-	            sysFrstInptDt: item.sysFrstInptDt,       			//시스템최초입력일시
-		        sysFrstInptUserId: item.sysFrstInptUserId,          //시스템최초입력사용자id
-		        sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,     	//시스템최초입력프로그램id
-		        sysLastChgDt: item.sysLastChgDt,    				//시스템최종변경일시
-		        sysLastChgUserId: item.sysLastChgUserId,  			//시스템최종변경사용자id
-		        sysLastChgPrgrmId: item.sysLastChgPrgrmId   		//시스템최종변경프로그램id
+					trgtYr: item.trgtYr,	 		                   //대상연도
+					apcCd: item.apcCd, 	 			                   //apc코드
+					apcNm: item.apcNm,      				                   // 순번
+					fcltOperYn : item.fcltOperYn,
+					fcltOperYn : item.fcltOperYn1,
+					fcltOperYn2 : item.fcltOperYn2,
+					fcltOperYn3 : item.fcltOperYn3,
+					fcltOperYn4 : item.fcltOperYn4,
+					fcltOperYn5 : item.fcltOperYn5,
+					fcltOperYn6 : item.fcltOperYn6,
+					fcltOperYn7 : item.fcltOperYn7,
+					fcltOperYn8 : item.fcltOperYn8,
+					fcltOperYn9 : item.fcltOperYn9,
+					fcltOperYn10 : item.fcltOperYn10,
+					fcltOperYn11 : item.fcltOperYn11,
+					fcltOperYn12 : item.fcltOperYn12
 				}
 
-			    sn //순번
-		   	    fcltCd //설비 코드
-		   	    fcltOperCd //설비 운영 코드
-		   	    fcltOperYn //설비 운영 유무
-		   	     -->
 
 				jsonLtMOpcIfList.push(msg);
 
@@ -528,36 +405,29 @@
     	console.log("******************fn_create**********************************");
     	SBUxMethod.set("dtl-input-trgtYr", null);                    //  대상연도
 		SBUxMethod.set("dtl-input-apcCd", null);                     //  APC코드
-    	SBUxMethod.set("dtl-input-sn", null);                     	 //  순번
-    	SBUxMethod.set("dtl-input-fcltCd", null);                    //  설비 코드
-    	SBUxMethod.set("dtl-input-fcltOperCd", null);                //  설비 운영 코드
-    	SBUxMethod.set("dtl-input-fcltOperYn", null);                //  설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn2", null);                //  설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn3", null);                //  설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn4", null);                //  설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn5", null);                //  설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn6", null);                //  설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn7", null);                //  설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn8", null);                //  설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn9", null);                //  설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn10", null);                //  설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn11", null);                //  설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn12", null);                //  설비 운영 유무
-    	SBUxMethod.set("dtl-input-delYn", null);                  	 //  삭제유무
-    	SBUxMethod.set("dtl-input-sysFrstInptDt", null);       		 //	 시스템최초입력일시
-    	SBUxMethod.set("dtl-input-sysFrstInptUserId", null);      	 //  시스템최초입력사용자id
-    	SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);     	 //  시스템최초입력프로그램id
-    	SBUxMethod.set("dtl-input-sysLastChgDt", null);      		 //  시스템최종변경일시
-    	SBUxMethod.set("dtl-input-sysLastChgUserId", null);   	 	 //  시스템최종변경사용자id
-    	SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);  	 	 //  시스템최종변경프로그램id
+		SBUxMethod.set("dtl-input-apcNm", null);                     //  APC명
+    	SBUxMethod.set("dtl-input-fcltOperYn", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn1", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn2", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn3", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn4", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn5", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn6", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn7", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn8", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn9", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn10", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn11", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn12", null);
     }
 
      const fn_clearForm = function() {
     	 console.log("******************fn_clearForm**********************************");
-       	SBUxMethod.set("dtl-input-sn", null);
-    	SBUxMethod.set("dtl-input-fcltCd", null);
-    	SBUxMethod.set("dtl-input-fcltOperCd", null);
+     	SBUxMethod.set("dtl-input-trgtYr", null);                    //  대상연도
+		SBUxMethod.set("dtl-input-apcCd", null);                     //  APC코드
+		SBUxMethod.set("dtl-input-apcNm", null);                     //  APC명
     	SBUxMethod.set("dtl-input-fcltOperYn", null);
+    	SBUxMethod.set("dtl-input-fcltOperYn1", null);
     	SBUxMethod.set("dtl-input-fcltOperYn2", null);
     	SBUxMethod.set("dtl-input-fcltOperYn3", null);
     	SBUxMethod.set("dtl-input-fcltOperYn4", null);
@@ -582,9 +452,9 @@
     const fn_save = async function() {
     	console.log("******************fn_save**********************************");
 
-		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
-
+		/*
     	if (!SBUxMethod.get("gsb-slt-apcCd")) {
             alert("조회 항목의 APC 코드를 선택하세요.");
             return;
@@ -594,7 +464,7 @@
             alert("조회 항목의 대상년도를 선택하세요.");
             return;
         }
-
+		*/
 
     	if (gfn_isEmpty(trgtYr)) {
     		// 신규 등록
@@ -618,27 +488,22 @@
     	const postJsonPromise = gfn_postJSON('/fm/fclt/insertFcltLwtpStrgMchnOperInfo.do', {
     	 	trgtYr: SBUxMethod.get('srch-input-trgtYr') , // 상단 조회 조건의 대상연도 SBUxMethod.get("srch-input-trgtYr")
         	apcCd: SBUxMethod.get('gsb-slt-apcCd'), // 상단 조회 조건의 APC코드 SBUxMethod.get("gsb-slt-apcCd")
-        	sn: SBUxMethod.get('dtl-input-sn'),                           	   //  순번
-        	fcltCd: SBUxMethod.get('dtl-input-fcltCd'),                        //설비 코드
-        	fcltOperCd:  SBUxMethod.get('dtl-input-fcltOperCd'),           	   //설비 운영 코드
-        	fcltOperYn: SBUxMethod.get('dtl-input-fcltOperYn'),               //설비 운영 유무
-        	fcltOperYn2: SBUxMethod.get('dtl-input-fcltOperYn2'),               //설비 운영 유무
-        	fcltOperYn3: SBUxMethod.get('dtl-input-fcltOperYn3'),               //설비 운영 유무
-        	fcltOperYn4: SBUxMethod.get('dtl-input-fcltOperYn4'),               //설비 운영 유무
-        	fcltOperYn5: SBUxMethod.get('dtl-input-fcltOperYn5'),               //설비 운영 유무
-        	fcltOperYn6: SBUxMethod.get('dtl-input-fcltOperYn6'),               //설비 운영 유무
-        	fcltOperYn7: SBUxMethod.get('dtl-input-fcltOperYn7'),               //설비 운영 유무
-        	fcltOperYn8: SBUxMethod.get('dtl-input-fcltOperYn8'),               //설비 운영 유무
-        	fcltOperYn9: SBUxMethod.get('dtl-input-fcltOperYn9'),               //설비 운영 유무
-        	fcltOperYn10: SBUxMethod.get('dtl-input-fcltOperYn10'),               //설비 운영 유무
-        	fcltOperYn11: SBUxMethod.get('dtl-input-fcltOperYn11'),               //설비 운영 유무
-        	fcltOperYn12: SBUxMethod.get('dtl-input-fcltOperYn12'),               //설비 운영 유무
+        	fcltOperYn: SBUxMethod.get('dtl-input-fcltOperYn'),
+        	fcltOperYn1: SBUxMethod.get('dtl-input-fcltOperYn1'),
+        	fcltOperYn2: SBUxMethod.get('dtl-input-fcltOperYn2'),
+        	fcltOperYn3: SBUxMethod.get('dtl-input-fcltOperYn3'),
+        	fcltOperYn4: SBUxMethod.get('dtl-input-fcltOperYn4'),
+        	fcltOperYn5: SBUxMethod.get('dtl-input-fcltOperYn5'),
+        	fcltOperYn6: SBUxMethod.get('dtl-input-fcltOperYn6'),
+        	fcltOperYn7: SBUxMethod.get('dtl-input-fcltOperYn7'),
+        	fcltOperYn8: SBUxMethod.get('dtl-input-fcltOperYn8'),
+        	fcltOperYn9: SBUxMethod.get('dtl-input-fcltOperYn9'),
+        	fcltOperYn10: SBUxMethod.get('dtl-input-fcltOperYn10'),
+        	fcltOperYn11: SBUxMethod.get('dtl-input-fcltOperYn11'),
+        	fcltOperYn12: SBUxMethod.get('dtl-input-fcltOperYn12'),
 			daddr:1
 		});
-    	   <!--
 
-	console.log(postVal);
-	console.log("----------------------------");
         const data = await postJsonPromise;
 
         try {
@@ -661,30 +526,21 @@
 		if (!isConfirmed) return;
 
     	const postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltLwtpStrgMchnOperInfo.do", {
-    	 	trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
-        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
-        ,	sn: SBUxMethod.get('dtl-input-sn')                          		 //  순번
-        ,	fcltCd: SBUxMethod.get('dtl-input-fcltCd')                           //  설비 코드
-        ,	fcltOperCd: SBUxMethod.get('dtl-input-fcltOperCd')                  	 //  설비 보유 유무
-        ,	fcltOperYn: SBUxMethod.get('dtl-input-fcltOperYn')                   //  설비 처리 코드
-        ,	fcltOperYn2: SBUxMethod.get('dtl-input-fcltOperYn2')                   //  설비 처리 코드
-        ,	fcltOperYn3: SBUxMethod.get('dtl-input-fcltOperYn3')                   //  설비 처리 코드
-        ,	fcltOperYn4: SBUxMethod.get('dtl-input-fcltOperYn4')                   //  설비 처리 코드
-        ,	fcltOperYn5: SBUxMethod.get('dtl-input-fcltOperYn5')                   //  설비 처리 코드
-        ,	fcltOperYn6: SBUxMethod.get('dtl-input-fcltOperYn6')                   //  설비 처리 코드
-        ,	fcltOperYn7: SBUxMethod.get('dtl-input-fcltOperYn7')                   //  설비 처리 코드
-        ,	fcltOperYn8: SBUxMethod.get('dtl-input-fcltOperYn8')                   //  설비 처리 코드
-        ,	fcltOperYn9: SBUxMethod.get('dtl-input-fcltOperYn9')                   //  설비 처리 코드
-        ,	fcltOperYn10: SBUxMethod.get('dtl-input-fcltOperYn10')                   //  설비 처리 코드
-        ,	fcltOperYn11: SBUxMethod.get('dtl-input-fcltOperYn11')                   //  설비 처리 코드
-        ,	fcltOperYn12: SBUxMethod.get('dtl-input-fcltOperYn12')                   //  설비 처리 코드
-        ,	delYn: SBUxMethod.get('dtl-input-delYn')                  			 //	 삭제유무
-        ,	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt')      	  	 //	 시스템최초입력일시
-        ,	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId')     //	 시스템최초입력사용자id
-        ,	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId')   //	 시스템최초입력프로그램id
-        ,	sysLastChgDt: SBUxMethod.get('dtl-input-sysLastChgDt')     		 	 //	 시스템최종변경일시
-        ,	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId')  	 //	 시스템최종변경사용자id
-        ,	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')   	 //	 시스템최종변경프로그램id
+		    	 	trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
+		        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
+		        ,	fcltOperYn: $('#dtl-input-fcltOperYn').val()
+		        ,	fcltOperYn1: $('#dtl-input-fcltOperYn1').val()
+		        ,	fcltOperYn2: $('#dtl-input-fcltOperYn2').val()
+		        ,	fcltOperYn3: $('#dtl-input-fcltOperYn3').val()
+		        ,	fcltOperYn4: $('#dtl-input-fcltOperYn4').val()
+		        ,	fcltOperYn5: $('#dtl-input-fcltOperYn5').val()
+		        ,	fcltOperYn6: $('#dtl-input-fcltOperYn6').val()
+		        ,	fcltOperYn7: $('#dtl-input-fcltOperYn7').val()
+		        ,	fcltOperYn8: $('#dtl-input-fcltOperYn8').val()
+		        ,	fcltOperYn9: $('#dtl-input-fcltOperYn9').val()
+		        ,	fcltOperYn10: $('#dtl-input-fcltOperYn10').val()
+		        ,	fcltOperYn11: $('#dtl-input-fcltOperYn11').val()
+		        ,	fcltOperYn12: $('#dtl-input-fcltOperYn12').val()
     		});
 
         const data = await postJsonPromise;
@@ -761,7 +617,7 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltLwtpStrgMchnOperInfoList.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltLwtpStrgMchnOperInfo.do", list);
 
          const data = await postJsonPromise;
 //예외처리
@@ -797,21 +653,29 @@
 
     	SBUxMethod.set("dtl-input-trgtYr", rowData.trgtYr);                     //대상연도
 		SBUxMethod.set("dtl-input-apcCd", rowData.apcCd);                       //apc코드
-    	SBUxMethod.set("dtl-input-sn", rowData.sn);                       		//순번
-    	SBUxMethod.set("dtl-input-fcltCd", rowData.fcltCd);                  	//설비 코드
-        SBUxMethod.set("dtl-input-fcltOperCd", rowData.fcltOperCd);             //설비 운영 코드
-    	SBUxMethod.set("dtl-input-fcltOperYn", rowData.fcltOperYn);             //설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn2", rowData.fcltOperYn2);             //설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn3", rowData.fcltOperYn3);             //설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn4", rowData.fcltOperYn4);             //설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn5", rowData.fcltOperYn5);             //설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn6", rowData.fcltOperYn6);             //설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn7", rowData.fcltOperYn7);             //설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn8", rowData.fcltOperYn8);             //설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn9", rowData.fcltOperYn9);             //설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn10", rowData.fcltOperYn10);             //설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn11", rowData.fcltOperYn11);             //설비 운영 유무
-    	SBUxMethod.set("dtl-input-fcltOperYn12", rowData.fcltOperYn12);             //설비 운영 유무
+		SBUxMethod.set("dtl-input-apcNm", rowData.apcNm);                       //apc코드
+    	SBUxMethod.set("dtl-input-fcltOperYn", fn_checkChk(rowData.fcltOperYn));
+    	SBUxMethod.set("dtl-input-fcltOperYn1", fn_checkChk(rowData.fcltOperYn));
+    	SBUxMethod.set("dtl-input-fcltOperYn2", fn_checkChk(rowData.fcltOperYn2));
+    	SBUxMethod.set("dtl-input-fcltOperYn3", fn_checkChk(rowData.fcltOperYn3));
+    	SBUxMethod.set("dtl-input-fcltOperYn4", fn_checkChk(rowData.fcltOperYn4));
+    	SBUxMethod.set("dtl-input-fcltOperYn5", fn_checkChk(rowData.fcltOperYn5));
+    	SBUxMethod.set("dtl-input-fcltOperYn6", fn_checkChk(rowData.fcltOperYn6));
+    	SBUxMethod.set("dtl-input-fcltOperYn7", fn_checkChk(rowData.fcltOperYn7));
+    	SBUxMethod.set("dtl-input-fcltOperYn8", fn_checkChk(rowData.fcltOperYn8));
+    	SBUxMethod.set("dtl-input-fcltOperYn9", fn_checkChk(rowData.fcltOperYn9));
+    	SBUxMethod.set("dtl-input-fcltOperYn10", fn_checkChk(rowData.fcltOperYn10));
+    	SBUxMethod.set("dtl-input-fcltOperYn11", fn_checkChk(rowData.fcltOperYn11));
+    	SBUxMethod.set("dtl-input-fcltOperYn12", fn_checkChk(rowData.fcltOperYn12));
+    }
+
+    function fn_checkChk(value){
+
+        if (value === null || value === "0") {
+            return "0";
+        } else {
+            return "1";
+        }
     }
 
     //그리드 체크박스 전체 선택
@@ -823,6 +687,39 @@
         	grdLtMcOpIfList.setCellData(i+1, 1, checkedYn, true, false);
         }
     }
+
+ 	// apc 선택 팝업 호출
+	const fn_modalApcSelect = function() {
+		popApcSelect.init(fn_setApc);
+	}
+	// apc 선택 팝업 콜백 함수
+	const fn_setApc = function(apc) {
+		if (!gfn_isEmpty(apc)) {
+			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
+			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
+		}
+	}
+
+	// "null" 로 들어가는 경우 방지
+	function fn_emptyString(obj) {
+		console.log("==========fn_emptyString=============");
+	    if (Array.isArray(obj)) {
+	        // 배열의 경우
+	        for (var i = 0; i < obj.length; i++) {
+	        	if (data[i] === "null" || data[i] === null) {
+	                obj[i] = "";
+	            }
+	        }
+	    } else if (typeof obj === "object") {
+	        // 객체의 경우
+	        for (var key in obj) {
+	        	if (obj[key] === "null" || obj[key] === null) {
+	                obj[key] = "";
+	            }
+	        }
+	    }
+	    return obj;
+	}
 
 </script>
 
