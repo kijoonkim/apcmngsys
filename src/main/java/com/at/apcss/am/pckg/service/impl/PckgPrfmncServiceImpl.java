@@ -17,15 +17,10 @@ import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.cmns.vo.CmnsGdsVO;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.pckg.mapper.PckgPrfmncMapper;
 import com.at.apcss.am.pckg.service.PckgInptService;
 import com.at.apcss.am.pckg.service.PckgPrfmncService;
-import com.at.apcss.am.pckg.vo.PckgInptVO;
 import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
-import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
-import com.at.apcss.am.sort.vo.SortPrfmncVO;
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
 
@@ -81,7 +76,7 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 	@Override
 	public HashMap<String, Object> insertPckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception {
 
-		int insertedCnt = pckgPrfmncMapper.insertPckgPrfmnc(pckgPrfmncVO);
+		pckgPrfmncMapper.insertPckgPrfmnc(pckgPrfmncVO);
 
 		return null;
 	}
@@ -144,7 +139,7 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 	@Override
 	public HashMap<String, Object> updatePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception {
 
-		int updatedCnt = pckgPrfmncMapper.updatePckgPrfmnc(pckgPrfmncVO);
+		pckgPrfmncMapper.updatePckgPrfmnc(pckgPrfmncVO);
 
 		return null;
 	}
@@ -152,7 +147,30 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 	@Override
 	public HashMap<String, Object> deletePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception {
 
-		int deletedCnt = pckgPrfmncMapper.deletePckgPrfmnc(pckgPrfmncVO);
+		//pckgPrfmncMapper.deletePckgPrfmnc(pckgPrfmncVO);
+		pckgPrfmncMapper.updatePckgPrfmncForDelY(pckgPrfmncVO);
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deletePckgPrfmncList(List<PckgPrfmncVO> pckgPrfmncList) throws Exception {
+		
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		for ( PckgPrfmncVO pckgPrfmncVO : pckgPrfmncList ) {
+
+			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+			BeanUtils.copyProperties(pckgPrfmncVO, gdsInvntrVO);			
+			
+			// 상품재고 삭제
+			rtnObj = gdsInvntrService.deleteGdsInvntr(gdsInvntrVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+			
+			pckgPrfmncMapper.updatePckgPrfmncForDelY(pckgPrfmncVO);
+		}
 
 		return null;
 	}

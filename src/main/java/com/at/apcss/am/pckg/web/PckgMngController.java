@@ -1,9 +1,6 @@
 package com.at.apcss.am.pckg.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,10 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.pckg.service.PckgMngService;
-import com.at.apcss.am.pckg.service.PckgPrfmncService;
 import com.at.apcss.am.pckg.vo.PckgMngVO;
-import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
@@ -42,11 +36,9 @@ public class PckgMngController extends BaseController {
 	private PckgMngService pckgMngService;
 
 	@PostMapping(value = "/am/pckg/insertPckgPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectPckgPrfmncList(@RequestBody PckgMngVO pckgMngVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> insertPckgPrfmnc(@RequestBody PckgMngVO pckgMngVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-		logger.debug("param info {}", pckgMngVO.toString());
 
 		try {
 			pckgMngVO.setSysFrstInptUserId(getUserId());
@@ -55,6 +47,30 @@ public class PckgMngController extends BaseController {
 			pckgMngVO.setSysLastChgPrgrmId(getPrgrmId());
 
 			HashMap<String,Object> rtnObj = pckgMngService.insertPckgPrfmnc(pckgMngVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		} catch(Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
+	@PostMapping(value = "/am/pckg/deletePckgPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deletePckgPrfmnc(@RequestBody PckgMngVO pckgMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			pckgMngVO.setSysFrstInptUserId(getUserId());
+			pckgMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			pckgMngVO.setSysLastChgUserId(getUserId());
+			pckgMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String,Object> rtnObj = pckgMngService.deletePckgPrfmncList(pckgMngVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

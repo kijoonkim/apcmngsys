@@ -139,7 +139,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 		String apcCd = sortMngVO.getApcCd();
 
 		if (!StringUtils.hasText(apcCd)) {
-			return ComUtil.getResultMap("W0005", "APC코드");
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
 		}
 
 		String sortno = sortMngVO.getSortno();

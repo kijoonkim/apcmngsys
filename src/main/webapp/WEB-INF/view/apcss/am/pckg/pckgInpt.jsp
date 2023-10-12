@@ -47,7 +47,22 @@
 						onclick="fn_lblGds"
 					></sbux-button>
 
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+					<sbux-button 
+						id="btnSearch" 
+						name="btnSearch" 
+						uitype="normal" 
+						class="btn btn-sm btn-outline-danger" 
+						text="조회" 
+						onclick="fn_search"
+					></sbux-button>
+					<sbux-button 
+						id="btnSave" 
+						name="btnSave" 
+						uitype="normal" 
+						class="btn btn-sm btn-outline-danger" 
+						text="삭제" 
+						onclick="fn_delete"
+					></sbux-button>
 				</div>
 			</div>
 
@@ -540,6 +555,60 @@
           }
     }
 
+	const fn_delete = async function() {
+		
+		
+		const allData = grdPckgPrfmnc.getGridDataAll();
+		
+		const pckgPrfmncList = [];		
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+				
+				if (!pckgPrfmncList.some(function(pckg) {
+					return pckg.pckgno === item.pckgno;
+				})) {
+					pckgPrfmncList.push({
+						pckgno: item.pckgno
+	    			});
+				}
+    		}
+		});
+				
+		console.log("pckgPrfmncList");
+		console.log(pckgPrfmncList);
+		
+		if (pckgPrfmncList.length == 0) {
+			gfn_comAlert("W0005", "삭제대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+		
+		// comConfirm
+		if (!gfn_comConfirm("Q0001", "포장실적삭제")) {	//	Q0001	{0} 하시겠습니까?
+	    	return;
+	    }
+		
+		const pckgMng = {
+	    		apcCd: gv_selectedApcCd,
+	    		pckgPrfmncList: pckgPrfmncList
+	    	}
+
+    	const postJsonPromise = gfn_postJSON("/am/pckg/deletePckgPrfmnc.do", pckgMng);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        }
+		
+	}
+     
+     
  	/** ui event */
  	/**
  	 * @name fn_onChangeApc
