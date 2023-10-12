@@ -181,20 +181,20 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["일련번호"], 		ref: 'testNo',   	type:'input',  hidden : false},
-	    	{caption: ["구분"], 	ref: 'aa',   	type:'combo',  width:'100px',    style:'text-align:center;',
+	    	{caption: ["구분","구분"], 		ref: 'testNo',   	type:'input',  hidden : false},
+	    	{caption: ["출자출하조직명","출자출하조직명"], 	ref: 'aa',   	type:'combo',  width:'100px',    style:'text-align:center;',
 				typeinfo : {ref:'jsonComFcltGubun', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 // 	        {caption: ["사업자등록번호"], 	ref: 'bb',   type:'input',  width:'250px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
-	        {caption: ["통합조직"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["사업자등록번호"], 	ref: 'iiCode',   	type:'input',  width:'80px',    style:'text-align:center' ,  editable : false},
-	        {caption: ["전문품목"], 		ref: 'cc',   type:'output',  width:'200px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
-	        {caption: ["전문품목 코드"], 	ref: 'ccCode',   	type:'input', width:'80px', style:'text-align:center' ,  editable : false},
-	        {caption: ["육성품목"], 	ref: 'dd',   	type:'output',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["육성품목 코드"], 	ref: 'ddCode',   	type:'input',width:'80px', style:'text-align:center' ,  editable : false},
-	        {caption: ["선정여부"], 	ref: 'ee',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["탈락사유"], 	ref: 'ff',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["신청액"], 	ref: 'gg',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["적용금리"], 	ref: 'hh',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+	        {caption: ["통합조직 판매위임액","생산자조직 출하(A)"], 	ref: 'ii',   	type:'output',  width:'180px',    style:'text-align:center'},
+	        {caption: ["통합조직 판매위임액","생산자조직 외 출하(B)"], 	ref: 'iiCode',   	type:'input',  width:'80px',    style:'text-align:center' ,  editable : false},
+	        {caption: ["자체판매액","생산자조직 출하(C)"], 		ref: 'cc',   type:'output',  width:'200px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
+	        {caption: ["자체판매액","생산자조직 출하(D)"], 	ref: 'ccCode',   	type:'input', width:'80px', style:'text-align:center' ,  editable : false},
+	        {caption: ["출자출하조직 총판매액(E=A+B+C+D)","출자출하조직 총판매액(E=A+B+C+D)"], 	ref: 'dd',   	type:'output',  width:'200px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+	        {caption: ["출자출하조직의 통합조직 판매위임비율","생산자조직 출하[A/(A+C)]"], 	ref: 'ddCode',   	type:'input',width:'180px', style:'text-align:center' ,  editable : false},
+	        {caption: ["출자출하조직의 통합조직 판매위임비율","전체출하[(A+B)/E]"], 	ref: 'ee',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+//	        {caption: ["탈락사유"], 	ref: 'ff',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+//	        {caption: ["신청액"], 	ref: 'gg',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+//	        {caption: ["적용금리"], 	ref: 'hh',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 // 	        {caption: ["통합조직"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
 // 	        {caption: ["통합조직 코드"], 	ref: 'iiCode',   	type:'input', hidden:true},
 	        /*
@@ -212,7 +212,7 @@
 	        	}
 	        }},
 	        */
-	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        {caption: ["처리","처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdInvShipOgnGenalTblMng\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
