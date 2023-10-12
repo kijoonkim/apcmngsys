@@ -25,6 +25,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrcsPrfmncMapper.selectFcltPrcsPrfmnc */
 				  FCLT.TRGT_YR                AS TRGT_YR
 				, FCLT.APC_CD                 AS APC_CD
+				,  (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
 				, FCLT.FCLT_PRCS_SE_CD        AS FCLT_PRCS_SE_CD
 				, FCLT.FCLT_PRCS_TRMT_CD      AS FCLT_PRCS_TRMT_CD
 				, FCLT.FCLT_PRCS_TRMT_AMT     AS FCLT_PRCS_TRMT_AMT
@@ -66,6 +67,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrcsPrfmncMapper.selectFcltPrcsPrfmncList */
 				  FCLT.TRGT_YR                AS TRGT_YR
 				, FCLT.APC_CD                 AS APC_CD
+				,  (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
 				, FCLT.FCLT_PRCS_SE_CD        AS FCLT_PRCS_SE_CD
 				, FCLT.FCLT_PRCS_TRMT_CD      AS FCLT_PRCS_TRMT_CD
 				, FCLT.FCLT_PRCS_TRMT_AMT     AS FCLT_PRCS_TRMT_AMT
@@ -74,9 +76,7 @@
                 , FCLT.FCLT_PRCS_TRMT_AMT4 	AS FCLT_PRCS_TRMT_AMT4
 			  FROM TB_FCLT_PRCS_PRFMNC FCLT
 			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-  ]]>
+  		]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
 		   </if>

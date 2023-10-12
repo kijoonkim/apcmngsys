@@ -170,12 +170,12 @@
 
 	       SBGridProperties.columns = [
 
+		            {caption: ["APC명"],			ref: 'apcNm',       type:'output',  	width:'10%',    style:'text-align:center'},
 		            {caption: ["내국인정규직"], 	ref: 'hireNope',   type:'output',  	width:'20%',    style:'text-align:center'},
 		            {caption: ["내국인일용직"], 	ref: 'hireNope2',   type:'output',  	width:'20%',    style:'text-align:center'},
 		            {caption: ["외국인정규직"],	  	ref: 'hireNope3',    type:'output',  	width:'20%',    style:'text-align:center'},
 		            {caption: ["외국인일용직"],	  	ref: 'hireNope4',    type:'output',  	width:'20%',    style:'text-align:center'},
 		            {caption: ["APCCD"],		ref: 'apcCd',       type:'output',  	hidden: true},
-		            {caption: ["APC명"],			ref: 'apcNm',       type:'output',  	hidden: false},
 		            {caption: ["대상연도"],			ref: 'trgtYr',          type:'output',  hidden: true}
 	            ];
 

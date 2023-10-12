@@ -328,11 +328,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
+            {caption: ["APCNM"],		ref: 'apcNm',            		type:'output',  width:'10%',    style:'text-align:center'},
             {caption: ["품목1 보유여부"],  	ref: 'sortMchnHldYn11',     	type:'combo',  width:'15%',    style:'text-align:center'
             	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
             {caption: ["품목1 규격"],  		ref: 'sortMchnSpcfct1',     	type:'output',  width:'15%',    style:'text-align:center'},
@@ -366,10 +362,7 @@
             {caption: ["기타 가공설비"],  	ref: 'sortMchnHldYn45',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
 
             {caption: ["APCCD"],		ref: 'apcCd',            		type:'output',  hidden: true},
-            {caption: ["APCNM"],		ref: 'apcNm',            		type:'output',  hidden: false},
-            {caption: ["대상연도"],			ref: 'trgtYr',      		    type:'output',  hidden: false},
-            {caption: ["등록프로그램"], 		ref: 'creProgram',  			type:'output',  hidden: true},
-            {caption: ["변경프로그램"], 		ref: 'updProgram',  			type:'output',  hidden: true}
+            {caption: ["대상연도"],			ref: 'trgtYr',      		    type:'output',  hidden: true}
 
         ];
 
