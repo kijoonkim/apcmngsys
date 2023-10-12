@@ -18,9 +18,7 @@
 				<h3 class="box-title" style="line-height: 30px;"> ▶ 유통조직품목처리실적</h3>
 			</div>
 			<div style="margin-left: auto;">
-				<!--
 				<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
-				 -->
 				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
@@ -28,35 +26,84 @@
 		</div>
 		<div class="box-body">
 			<!--[pp] 검색 -->
-			<table class="table table-bordered tbl_row tbl_fixed">
+			<div>
+						<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
 					<col style="width: 6%">
 					<col style="width: 10%">
 					<col style="width: 6%">
-					<col style="width: 10%">
-					<col style="width: 10%">
-					<col style="width: 58%">
+					<col style="width: 15%">
+					<col style="width: 63%">
 				</colgroup>
 				<tbody>
 					<tr>
 						<th class="th_bg" scope="row">대상연도</th>
-						<td class="td_input"   style="border-right: hidden;">
+						<td class="td_input" style="border-right: hidden;">
 							<sbux-input id="srch-input-trgtYr" name="srch-input-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
-						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
-						<td class="td_input" style="border-right:hidden;">
-							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-						</td>
-						<td style="border-right:hidden;">
-							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
-						</td>
-						<td></td>
+
+
+							<th scope="row" style="border-bottom:1px solid white " class="th_bg" >APC명</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
+								<script type="text/javascript">
+								<c:choose>
+									<c:when test="${comApcList != null}">
+									var cjsonApcList = ${comApcList};
+									</c:when>
+									<c:otherwise>
+									var cjsonApcList = {};
+									</c:otherwise>
+								</c:choose>
+								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
+									gv_selectedApcCd = null;
+									gv_selectedApcNm = null;
+								</c:if>
+									/**
+									 * @name
+									 * @description
+									 * @function
+									 * @param {string} _apcCd
+									 */
+									const cfn_onChangeApc = function(obj) {
+										gv_selectedApcCd = obj.value;
+
+										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
+										apcInfo.forEach( (apc) => {
+											gv_selectedApcNm = apc.apcNm;
+											return false;
+										});
+
+										if (typeof fn_onChangeApc === "function") {
+											fn_onChangeApc();
+										}
+
+									}
+
+								</script>
+								<c:choose>
+									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
+										<sbux-select
+											id="gsb-slt-apcCd"
+											name="gsb-slt-apcCd"
+											uitype="single"
+											jsondata-ref="cjsonApcList"
+											unselected-text="전체"
+											class="form-control input-sm"
+											onchange="cfn_onChangeApc(this)"
+											style="max-width:150px;"
+										></sbux-select>
+									</c:when>
+									<c:otherwise>
+										<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td></td>
 					</tr>
 				</tbody>
 			</table>
-			<br>
+			</div>
 			<!--[pp] //검색 -->
 			<!--[pp] 검색결과 -->
 			<br>
@@ -76,70 +123,74 @@
 					</colgroup>
 						<tbody>
 							<tr>
-								<th>구분</th>
-								<th>취급액(백만원)</th>
-								<th>취급물량(톤)</th>
+								<th class="th_bg">구분</th>
+								<th class="th_bg">취급액(백만원)</th>
+								<th class="th_bg">취급물량(톤)</th>
 							</tr>
 							<tr>
-								<td>품목1</td>
-								<td>
-									<sbux-input id="srch-inp-opera1" name="srch-inp-opera1" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera1',1)"></sbux-input>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzItemCd" name="dtl-input-fcltOgnzItemCd" uitype="text" class="form-control input-sm" placeholder="품목1" ></sbux-input>
 								</td>
-								<td>
-									<sbux-input id="srch-inp-opera2" name="srch-inp-opera2" uitype="text" class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera2',2)"></sbux-input>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzTrmtAmt" name="dtl-input-fcltOgnzTrmtAmt" uitype="text" class="form-control input-sm" placeholder="6,500" ></sbux-input>
 								</td>
-							</tr>
-							<tr>
-								<td>품목2</td>
-								<td>
-									<sbux-input id="srch-inp-opera3" name="srch-inp-opera3" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera3',1)"></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera4" name="srch-inp-opera4" uitype="text" class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera4',2)"></sbux-input>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzTrmtVlm" name="dtl-input-fcltOgnzTrmtVlm" uitype="text" class="form-control input-sm" placeholder="6,000" ></sbux-input>
 								</td>
 							</tr>
 							<tr>
-								<td>품목3</td>
-								<td>
-									<sbux-input id="srch-inp-opera5" name="srch-inp-opera5" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera5',1)"></sbux-input>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzItemCd2" name="dtl-input-fcltOgnzItemCd2" uitype="text" class="form-control input-sm" placeholder="품목2" ></sbux-input>
 								</td>
-								<td>
-									<sbux-input id="srch-inp-opera6" name="srch-inp-opera6" uitype="text" class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera6',2)"></sbux-input>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzTrmtAmt2" name="dtl-input-fcltOgnzTrmtAmt2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 								</td>
-							</tr>
-							<tr>
-								<td>기타</td>
-								<td>
-									<sbux-input id="srch-inp-opera7" name="srch-inp-opera7" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera7',1)"></sbux-input>
-								</td>
-								<td>
-									<sbux-input id="srch-inp-opera8" name="srch-inp-opera8" uitype="text" class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera8',2)"></sbux-input>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzTrmtVlm2" name="dtl-input-fcltOgnzTrmtVlm2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 								</td>
 							</tr>
 							<tr>
-								<td>합계</td>
-								<td>
-									<sbux-input id="srch-inp-opera9" name="srch-inp-opera9" uitype="text" class="form-control input-sm" placeholder="상기수치합계" readonly></sbux-input>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzItemCd3" name="dtl-input-fcltOgnzItemCd3" uitype="text" class="form-control input-sm" placeholder="품목3" ></sbux-input>
 								</td>
-								<td>
-									<sbux-input id="srch-inp-opera10" name="srch-inp-opera10" uitype="text" class="form-control input-sm" placeholder="상기수치합계" readonly></sbux-input>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzTrmtAmt3" name="dtl-input-fcltOgnzTrmtAmt3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+								</td>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzTrmtVlm3" name="dtl-input-fcltOgnzTrmtVlm3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 								</td>
 							</tr>
 							<tr>
-								<th class="th_bg">대상연도</th>
-								<td class="td_input" colspan="1">
-									<sbux-input  id="dtl-input-trgtYr" name="dtl-input-trgtYr" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzItemCd4" name="dtl-input-fcltOgnzItemCd4" uitype="text" class="form-control input-sm" placeholder="기타" ></sbux-input>
 								</td>
-								<td colspan="4" style="border-left: hidden;"></td>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzTrmtAmt4" name="dtl-input-fcltOgnzTrmtAmt4" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+								</td>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzTrmtVlm4" name="dtl-input-fcltOgnzTrmtVlm4" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+								</td>
 							</tr>
 							<tr>
-								<th class="th_bg">apc명</th>
-								<td class="td_input" style="border-right:hidden;">
-									<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
-									<sbux-input id="dtl-input-apcNm" name="dtl-input-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzItemCd5" name="dtl-input-fcltOgnzItemCd5" uitype="text" class="form-control input-sm" placeholder="합계" ></sbux-input>
 								</td>
-								<td colspan="4"  style="border-left: hidden;"></td>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzTrmtAmt5" name="dtl-input-fcltOgnzTrmtAmt5" uitype="text" class="form-control input-sm" placeholder="상기수치합계" ></sbux-input>
+								</td>
+								<td class="td_input">
+									<sbux-input id="dtl-input-fcltOgnzTrmtVlm5" name="dtl-input-fcltOgnzTrmtVlm5" uitype="text" class="form-control input-sm" placeholder="상기수치합계" ></sbux-input>
+								</td>
 							</tr>
+						<tr>
+							<td colspan="2" class="td_input">
+								<sbux-input id="dtl-input-trgtYr" name="dtl-input-trgtYr" uitype="text" class="form-control input-sm" placeholder="TrgtYr" ></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="text" class="form-control input-sm" placeholder="apcCd" ></sbux-input>
+							</td>
+						</tr>
+
 						</tbody>
 					</table>
 				</div>
@@ -147,12 +198,19 @@
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
-    <!-- apc 선택 Modal -->
+	<!-- 거래처 선택 Modal -->
     <div>
-        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="body-modal-apcSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+    <div id="body-modal-cnpt">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
+        <!-- 품종 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
+    </div>
+    <div id="body-modal-vrtyCrtr">
+    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -583,39 +641,6 @@
         	grdOgItmPrfList.setCellData(i+1, 1, checkedYn, true, false);
         }
     }
-
- 	// apc 선택 팝업 호출
-	const fn_modalApcSelect = function() {
-		popApcSelect.init(fn_setApc);
-	}
-	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
-		if (!gfn_isEmpty(apc)) {
-			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
-			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
-		}
-	}
-
-	// "null" 로 들어가는 경우 방지
-	function fn_emptyString(obj) {
-		console.log("==========fn_emptyString=============");
-	    if (Array.isArray(obj)) {
-	        // 배열의 경우
-	        for (var i = 0; i < obj.length; i++) {
-	        	if (data[i] === "null" || data[i] === null) {
-	                obj[i] = "";
-	            }
-	        }
-	    } else if (typeof obj === "object") {
-	        // 객체의 경우
-	        for (var key in obj) {
-	        	if (obj[key] === "null" || obj[key] === null) {
-	                obj[key] = "";
-	            }
-	        }
-	    }
-	    return obj;
-	}
 
 
 </script>

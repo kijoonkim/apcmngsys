@@ -247,10 +247,6 @@
 		let date = new Date();
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
-		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
-			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
-			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		}
 
 		SBUxMethod.changeGroupAttr('group1','disabled','true');
 		SBUxMethod.changeGroupAttr('group2','disabled','true');

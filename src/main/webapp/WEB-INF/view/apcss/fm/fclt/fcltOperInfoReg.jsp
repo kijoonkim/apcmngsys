@@ -227,10 +227,6 @@
 		let date = new Date();
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
-		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
-			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
-			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		}
 	})
 	//등록
 	const fn_save = async function() {
@@ -278,18 +274,17 @@
          	operOgnzNm : SBUxMethod.get("srch-inp-opera3") , //운영조직명
          	operOgnzBrno : SBUxMethod.get("srch-inp-opera4") , //운영조직 사업자번호
          	operOgnzPic : SBUxMethod.get("srch-inp-opera5") , //운영조직 대표자
-         	operOgnzAddr1 : SBUxMethod.get("srch-inp-opera6") ,	//운영조직 주소
-         	//operOgnzAddr2 : SBUxMethod.get("srch-inp-opera6") ,	//운영조직 주소
+         	daddr : SBUxMethod.get("srch-inp-opera6") ,	//운영조직 주소
          	operOgnzDeptCd : SBUxMethod.get("srch-inp-opera7") , //운영조직 조직유형
-         	operOgnzTrmtItemCn : SBUxMethod.get("srch-inp-itemNm1") , //운영조직 취급 대표품목1
-         	operOgnzTrmtItemCn2 : SBUxMethod.get("srch-inp-itemNm2") , //운영조직 취급 대표품목2
-         	operOgnzTrmtItemCn3 : SBUxMethod.get("srch-inp-itemNm3") , //운영조직 취급 대표품목3
+         	operOgnzTrmtItemCn : SBUxMethod.get("srch-inp-itemCd1") , //운영조직 취급 대표품목1
+         	operOgnzTrmtItemCn2 : SBUxMethod.get("srch-inp-itemCd2") , //운영조직 취급 대표품목2
+         	operOgnzTrmtItemCn3 : SBUxMethod.get("srch-inp-itemCd3") , //운영조직 취급 대표품목3
          	operOgnzTrmtItemCn4 : SBUxMethod.get("srch-inp-opera11") , //운영조직 취급 기타품목
          	apcBrno : SBUxMethod.get("srch-inp-opera13") ,  //APC 사업자번호
          	apcAddr : SBUxMethod.get("srch-inp-opera14") ,	//APC 주소
-         	apcTrmtItemCn : SBUxMethod.get("srch-inp-itemNm4") , // APC 처리 대표품목1
-         	apcTrmtItemCn2 : SBUxMethod.get("srch-inp-itemNm5") , // APC 처리 대표품목2
-         	apcTrmtItemCn3 : SBUxMethod.get("srch-inp-itemNm6") , // APC 처리 대표품목3
+         	apcTrmtItemCn : SBUxMethod.get("srch-inp-itemCd4") , // APC 처리 대표품목1
+         	apcTrmtItemCn2 : SBUxMethod.get("srch-inp-itemCd5") , // APC 처리 대표품목2
+         	apcTrmtItemCn3 : SBUxMethod.get("srch-inp-itemCd6") , // APC 처리 대표품목3
          	apcTrmtItemCn4 : SBUxMethod.get("srch-inp-opera18")  //  APC 처리 기타품목
  		});
 

@@ -15,8 +15,7 @@ public class FcltOperInfoVO extends ComVO{
 	private String msgCn;
 	private String msgKnd;
 	private String msgKndNm;
-	private String operOgnzAddr1;
-	private String operOgnzAddr2;
+	private String daddr;
 	private String apcBrno;
 	private String apcRgnCd;
 	private String apcNm;

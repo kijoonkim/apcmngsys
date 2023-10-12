@@ -14,7 +14,7 @@ public class FcltPrcsNtslInfoVO extends ComVO{
 	private String apcCd;
 	private int sn;
 	private String fcltStrCd;
-	private String fcltNtslCd;
+	private int fcltNtslCd;
 	private String msgKey;
 	private String msgCn;
 	private String msgKnd;

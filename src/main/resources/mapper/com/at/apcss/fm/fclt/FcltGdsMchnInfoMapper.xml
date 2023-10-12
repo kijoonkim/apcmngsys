@@ -25,7 +25,6 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.selectFcltGdsMchnInfo */
 				  FCLT.TRGT_YR                AS TRGT_YR
 				, FCLT.APC_CD                 AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
 				, FCLT.SORT_MCHN_ITEM_CD      AS SORT_MCHN_ITEM_CD
 				, FCLT.SORT_MCHN_CD           AS SORT_MCHN_CD
 				, FCLT.SORT_MCHN_HLD_YN       AS SORT_MCHN_HLD_YN
@@ -88,9 +87,8 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.selectFcltGdsMchnInfoList */
-				FCLT.TRGT_YR                AS TRGT_YR
+								  FCLT.TRGT_YR                AS TRGT_YR
 				, FCLT.APC_CD                 AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
 				, FCLT.SORT_MCHN_ITEM_CD      AS SORT_MCHN_ITEM_CD
 				, FCLT.SORT_MCHN_CD           AS SORT_MCHN_CD
 				, FCLT.SORT_MCHN_HLD_YN       AS SORT_MCHN_HLD_YN

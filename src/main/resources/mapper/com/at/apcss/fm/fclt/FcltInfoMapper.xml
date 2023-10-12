@@ -29,7 +29,6 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo */
 	             FCLT.TRGT_YR                  		AS TRGT_YR
 				, FCLT.APC_CD               		AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
 				, FCLT.FCLT_CD                		AS FCLT_CD
 				, FCLT.FCLT_NM                 		AS FCLT_NM
 				, FCLT.FCLT_AREA_TOT				AS FCLT_AREA_TOT
@@ -81,7 +80,6 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfoList */
 	             FCLT.TRGT_YR                  		AS TRGT_YR
 				, FCLT.APC_CD               		AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
 				, FCLT.FCLT_CD                		AS FCLT_CD
 				, FCLT.FCLT_NM                 		AS FCLT_NM
 				, FCLT.FCLT_AREA_TOT				AS FCLT_AREA_TOT

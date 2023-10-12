@@ -78,15 +78,15 @@
 								<td>
 									<sbux-select name="srch-inp-opera1" id="srch-inp-opera1">
 		                                <option>(선택)</option>
-		                                <option value="1">Y</option>
-		                                <option value="2">N</option>
+		                                <option value="Y">O</option>
+		                                <option value="N">X</option>
 		                            </sbux-select>
 								</td>
 								<td>
 									<sbux-select name="srch-inp-opera2" id="srch-inp-opera2">
 		                                <option>(선택)</option>
-		                                <option value="1">시스템</option>
-		                                <option value="2">수기</option>
+		                                <option value="sys">시스템</option>
+		                                <option value="hand">수기</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -95,15 +95,15 @@
 								<td>
 									<sbux-select name="srch-inp-opera3" id="srch-inp-opera3">
 		                                <option>(선택)</option>
-		                                <option value="1">Y</option>
-		                                <option value="2">N</option>
+		                                <option value="Y">O</option>
+		                                <option value="N">X</option>
 		                            </sbux-select>
 								</td>
 								<td>
 									<sbux-select name="srch-inp-opera4" id="srch-inp-opera4">
 		                                <option>(선택)</option>
-		                                <option value="1">시스템</option>
-		                                <option value="2">수기</option>
+		                                <option value="sys">시스템</option>
+		                                <option value="hand">수기</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -112,15 +112,15 @@
 								<td>
 									<sbux-select name="srch-inp-opera5" id="srch-inp-opera5">
 		                                <option>(선택)</option>
-		                                <option value="1">Y</option>
-		                                <option value="2">N</option>
+		                                <option value="Y">O</option>
+		                                <option value="N">X</option>
 		                            </sbux-select>
 								</td>
 								<td>
 									<sbux-select name="srch-inp-opera6" id="srch-inp-opera6">
 		                                <option>(선택)</option>
-		                                <option value="1">시스템</option>
-		                                <option value="2">수기</option>
+		                                <option value="sys">시스템</option>
+		                                <option value="hand">수기</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -129,15 +129,15 @@
 								<td>
 									<sbux-select name="srch-inp-opera7" id="srch-inp-opera7">
 		                                <option>(선택)</option>
-		                                <option value="1">Y</option>
-		                                <option value="2">N</option>
+		                                <option value="Y">O</option>
+		                                <option value="N">X</option>
 		                            </sbux-select>
 								</td>
 								<td>
 									<sbux-select name="srch-inp-opera8" id="srch-inp-opera8">
 		                                <option>(선택)</option>
-		                                <option value="1">시스템</option>
-		                                <option value="2">수기</option>
+		                                <option value="sys">시스템</option>
+		                                <option value="hand">수기</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -146,15 +146,15 @@
 								<td>
 									<sbux-select name="srch-inp-opera9" id="srch-inp-opera9">
 		                                <option>(선택)</option>
-		                                <option value="1">Y</option>
-		                                <option value="2">N</option>
+		                                <option value="Y">O</option>
+		                                <option value="N">X</option>
 		                            </sbux-select>
 								</td>
 								<td>
 									<sbux-select name="srch-inp-opera10" id="srch-inp-opera10">
 		                                <option>(선택)</option>
-		                                <option value="1">시스템</option>
-		                                <option value="2">수기</option>
+		                                <option value="sys">시스템</option>
+		                                <option value="hand">수기</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -163,15 +163,15 @@
 								<td>
 									<sbux-select name="srch-inp-opera11" id="srch-inp-opera11">
 		                                <option>(선택)</option>
-		                                <option value="1">Y</option>
-		                                <option value="2">N</option>
+		                                <option value="Y">O</option>
+		                                <option value="N">X</option>
 		                            </sbux-select>
 								</td>
 								<td>
 									<sbux-select name="srch-inp-opera12" id="srch-inp-opera12">
 		                                <option>(선택)</option>
-		                                <option value="1">시스템</option>
-		                                <option value="2">수기</option>
+		                                <option value="sys">시스템</option>
+		                                <option value="hand">수기</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -199,10 +199,6 @@
 		let date = new Date();
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
-		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
-			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
-			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		}
 	})
 
 	//등록

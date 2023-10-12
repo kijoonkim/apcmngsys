@@ -25,11 +25,15 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfo */
 				  FCLT.TRGT_YR                AS TRGT_YR
 				, FCLT.APC_CD                 AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
+				, FCLT.SN                     AS SN
+				, FCLT.HIRE_SE_CD             AS HIRE_SE_CD
+				, FCLT.CTZN_FRGNR_SE_CD       AS CTZN_FRGNR_SE_CD
 				, FCLT.HIRE_NOPE              AS HIRE_NOPE
 				, FCLT.HIRE_NOPE2              AS HIRE_NOPE2
 				, FCLT.HIRE_NOPE3              AS HIRE_NOPE3
 				, FCLT.HIRE_NOPE4              AS HIRE_NOPE4
+				, (HIRE_NOPE+HIRE_NOPE2+HIRE_NOPE3+HIRE_NOPE4)  AS HIRE_NOPE0
+
 			 FROM TB_FCLT_OPER_HF_INFO FCLT
  			 WHERE 1=1
 		     		]]>
@@ -63,11 +67,14 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfo */
 				  FCLT.TRGT_YR                AS TRGT_YR
 				, FCLT.APC_CD                 AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
+				, FCLT.SN                     AS SN
+				, FCLT.HIRE_SE_CD             AS HIRE_SE_CD
+				, FCLT.CTZN_FRGNR_SE_CD       AS CTZN_FRGNR_SE_CD
 				, FCLT.HIRE_NOPE              AS HIRE_NOPE
 				, FCLT.HIRE_NOPE2              AS HIRE_NOPE2
 				, FCLT.HIRE_NOPE3              AS HIRE_NOPE3
 				, FCLT.HIRE_NOPE4              AS HIRE_NOPE4
+				, (HIRE_NOPE+HIRE_NOPE2+HIRE_NOPE3+HIRE_NOPE4)  AS HIRE_NOPE0
 			 FROM TB_FCLT_OPER_HF_INFO FCLT
  			 WHERE 1=1
   ]]>

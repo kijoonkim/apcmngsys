@@ -150,7 +150,7 @@
 						<th class="th_bg">APC 명</th>
 						<td class="td_input" style="border-right:hidden;">
 							<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							<sbux-input id="dtl-input-sn" name="dtl-input-sn" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="dtl-input-sn" name="dtl-input-sn" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							<sbux-input id="dtl-input-apcNm" name="dtl-input-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
 						<td colspan="1" style="border-left: hidden;"></td>
@@ -191,40 +191,26 @@
 </body>
 <script type="text/javascript">
 
-	//var jsonApcItem			= [];	// 품목 		itemCd		검색
-	//var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
-	//var comboBizSprtCd			= [];	// 지원유형 		bizSprtCd		검색
-	var comboBizSprtCdData = [
-		{'label': '정부사업', 'value': '1'},
-		{'label': '시도사업', 'value': '2'},
-		{'label': '시군사업', 'value': '3'},
-		{'label': '자부담', 'value': '4'}
-	]
+	var jsonApcItem			= [];	// 품목 		itemCd		검색
+	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 	let date = new Date();
 	let year  = date.getFullYear();
     //화면 초기 로딩
     window.addEventListener('DOMContentLoaded', function(e) {
     	SBUxMethod.set("srch-input-trgtYr", year);
-		/*
+
     	gfn_setComCdSBSelect(
     			['dtl-input-operOgnzTrmtItemCn', 'dtl-input-operOgnzTrmtItemCn2','dtl-input-operOgnzTrmtItemCn3','dtl-input-operOgnzTrmtItemCn4',
     			 'dtl-input-apcTrmtItemCn', 'dtl-input-apcTrmtItemCn2','dtl-input-apcTrmtItemCn3','dtl-input-apcTrmtItemCn4','dtl-input-operOgnzDeptCd'
     			],
     			jsonApcItem,
 			'MSG_KND');
-		*/
+
      	//gfn_setApcItemSBSelect('dtl-input-operOgnzTrmtItemCn2', jsonApcItem),	// 품목
     	fn_createGrid();//그리드 생성 설정 함수
-		//fn_initSBSelect();
 
     });
-	/*
-    const fn_initSBSelect = async function() {
-		let rst = await Promise.all([
-			gfn_setComCdGridSelect("grdFcltInstlInfoList", comboBizSprtCd, "BIZ_SPRT_CD",'0000')
-		]);
-	}
-	*/
+
     //grid 초기화
     var grdFcltInstlInfoList; // 그리드를 담기위한 객체 선언
     var jsonFcltInstlInfoList = []; // 그리드의 참조 데이터 주소 선언
@@ -247,22 +233,20 @@
         SBGridProperties.columns = [
 
             {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>","<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center', width:'3%',
+                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
 
             {caption: ["사업연도","사업연도"],	    	ref: 'bizYr',      type:'output',  width:'14%',    style:'text-align:center'},
-            {caption: ["지원유형","지원유형"], 		ref: 'bizSprtCd',   type:'combo',  width:'14%',    style:'text-align:center' ,
-            	typeinfo : {ref:'comboBizSprtCdData', label:'label', value:'value' ,displayui : true}},
-            {caption: ["사업내용","사업내용"],  		ref: 'bizCn',       type:'output',      style:'text-align:center'},
+            {caption: ["지원유형","지원유형"], 		ref: 'bizSprtCd',     	type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["사업내용","사업내용"],  		ref: 'bizCn',       type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["투자 사업비(백만원)","계"],   	ref: 'bizAmt4',     type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["투자 사업비(백만원)","국고"],   	ref: 'bizAmt',     type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["투자 사업비(백만원)","지자체"],   ref: 'bizAmt2',     type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["투자 사업비(백만원)","자부담"],   ref: 'bizAmt3',     type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["APCCD"],				ref: 'apcCd',       type:'output',  hidden: true},
-            {caption: ["APCNM"],				ref: 'apcNm',       type:'output',  hidden: true},
-            {caption: ["대상년도"],					ref: 'trgtYr',      type:'output',  hidden: true},
-            {caption: ["순번"],					ref: 'sn',      	type:'output',  hidden: true},
+            {caption: ["APCCD"],				ref: 'apcCd',       type:'output',  hidden: false},
+            {caption: ["대상년도"],					ref: 'trgtYr',      type:'output',  hidden:false},
+            {caption: ["순번"],					ref: 'sn',      type:'output',  hidden:false},
             {caption: ["등록프로그램"], 				ref: 'creProgram',  type:'output',  hidden: true},
             {caption: ["변경프로그램"],		 		ref: 'updProgram',  type:'output',  hidden: true}
 
@@ -621,14 +605,11 @@
 			nRow = 1;
 		}
 
-		//서치폼에서 클릭시 디테일폼에 데이터출력
+			//서치폼에서 클릭시 디테일폼에 데이터출력
         let rowData = grdFcltInstlInfoList.getRowData(nRow);
-        rowData = fn_emptyString(rowData);
 
     	SBUxMethod.set("dtl-input-trgtYr", rowData.trgtYr);                           //  대상연도
 		SBUxMethod.set("dtl-input-apcCd", rowData.apcCd);                             //  APC코드
-		SBUxMethod.set("dtl-input-sn", rowData.sn);                             	  //  sn 순서
-		SBUxMethod.set("dtl-input-apcNm", rowData.apcNm);                             //  APC명
     	SBUxMethod.set("dtl-input-bizYr", rowData.bizYr);                        	  //  사업연도
     	SBUxMethod.set("dtl-input-bizSprtCd", rowData.bizSprtCd);                     //  사업지원코드
     	SBUxMethod.set("dtl-input-bizCn", rowData.bizCn);                             //  사업내용
@@ -658,26 +639,6 @@
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
-	}
-	// "null" 로 들어가는 경우 방지
-	function fn_emptyString(obj) {
-		console.log("==========fn_emptyString=============");
-	    if (Array.isArray(obj)) {
-	        // 배열의 경우
-	        for (var i = 0; i < obj.length; i++) {
-	        	if (data[i] === "null" || data[i] === null) {
-	                obj[i] = "";
-	            }
-	        }
-	    } else if (typeof obj === "object") {
-	        // 객체의 경우
-	        for (var key in obj) {
-	        	if (obj[key] === "null" || obj[key] === null) {
-	                obj[key] = "";
-	            }
-	        }
-	    }
-	    return obj;
 	}
 
 </script>

@@ -24,8 +24,8 @@
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnOperInfoMapper.selectFcltLwtpStrgMchnOperInfo */
 				  FCLT.TRGT_YR                AS TRGT_YR
-				, FCLT.APC_CD                 AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
+				, FCLT.SN                     AS SN
+				, FCLT.FCLT_CD                AS FCLT_CD
 				, FCLT.FCLT_OPER_CD			  AS FCLT_OPER_CD
 				, FCLT.FCLT_OPER_YN      	  AS FCLT_OPER_YN
 				, FCLT.FCLT_OPER_YN1      	  AS FCLT_OPER_YN1
@@ -73,8 +73,8 @@
     	<![CDATA[
 				SELECT /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnOperInfoMapper.selectFcltLwtpStrgMchnOperInfo */
 				  FCLT.TRGT_YR                AS TRGT_YR
-				, FCLT.APC_CD                 AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
+				, FCLT.SN                     AS SN
+				, FCLT.FCLT_CD                AS FCLT_CD
 				, FCLT.FCLT_OPER_CD      	  AS FCLT_OPER_CD
 				, FCLT.FCLT_OPER_YN      	  AS FCLT_OPER_YN
 				, FCLT.FCLT_OPER_YN1      	  AS FCLT_OPER_YN1

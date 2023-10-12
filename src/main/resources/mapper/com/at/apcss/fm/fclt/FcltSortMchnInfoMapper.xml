@@ -25,7 +25,6 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfo */
 				 FCLT.TRGT_YR                AS TRGT_YR
 				,FCLT.APC_CD                 AS APC_CD
-				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
 				,FCLT.SORT_MCHN_HLD_YN1      AS SORT_MCHN_HLD_YN1
 				,FCLT.SORT_MCHN_HLD_YN2      AS SORT_MCHN_HLD_YN2
 				,FCLT.SORT_MCHN_HLD_YN3      AS SORT_MCHN_HLD_YN3
@@ -81,9 +80,9 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfoList */
+					SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfo */
 				 FCLT.TRGT_YR                AS TRGT_YR
 				,FCLT.APC_CD                 AS APC_CD
-				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
 				,FCLT.SORT_MCHN_HLD_YN1      AS SORT_MCHN_HLD_YN1
 				,FCLT.SORT_MCHN_HLD_YN2      AS SORT_MCHN_HLD_YN2
 				,FCLT.SORT_MCHN_HLD_YN3      AS SORT_MCHN_HLD_YN3
@@ -106,7 +105,9 @@
                 ,AVG_OPER_DAY4               AS AVG_OPER_DAY4
 			  FROM TB_FCLT_SORT_MCHN_INFO FCLT
 			 WHERE 1=1
-  		]]>
+		     AND TRGT_YR = #{trgtYr}
+		     AND  APC_CD = #{apcCd}
+  ]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
 		   </if>
@@ -212,10 +213,7 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.updateFcltSortMchnInfo */
 	    		TB_FCLT_SORT_MCHN_INFO FCLT
 			   SET
-                  SORT_MCHN_HLD_YN1       =  #{sortMchnHldYn1}
-                  , SORT_MCHN_HLD_YN2       =  #{sortMchnHldYn2}
-                  , SORT_MCHN_HLD_YN3       =  #{sortMchnHldYn3}
-                  , SORT_MCHN_HLD_YN4       =  #{sortMchnHldYn4}
+                  SORT_MCHN_HLD_YN       =  #{sortMchnHldYn}
 				  , PRC_CAP1             =  #{prcCap1}
 				  , PRC_CAP2             =  #{prcCap2}
 				  , PRC_CAP3             =  #{prcCap3}

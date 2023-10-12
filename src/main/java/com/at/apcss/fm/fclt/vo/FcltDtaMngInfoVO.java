@@ -11,7 +11,6 @@ public class FcltDtaMngInfoVO extends ComVO{
 
 	private String trgtYr;
 	private String apcCd;
-	private String apcNm;
 	private int sn;
 	private String fcltSysInstlCd;
 	private String fcltSysHldYn;

@@ -90,38 +90,19 @@
 					<tr>
 						<th class="th_bg">품목1</th>
 						<td class="td_input">
-						<!--
 							<sbux-input id="dtl-input-sortMchnHldYn11" name="dtl-input-sortMchnHldYn11" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
-						 -->
-							<sbux-select id="dtl-input-sortMchnHldYn11" name="dtl-input-sortMchnHldYn11"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-sortMchnSpcfct1" name="dtl-input-sortMchnSpcfct1" uitype="text" class="form-control input-sm" placeholder="2대x1조 32등급" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn12" name="dtl-input-sortMchnHldYn12"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn12" name="dtl-input-sortMchnHldYn12" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn13" name="dtl-input-sortMchnHldYn13"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn13" name="dtl-input-sortMchnHldYn13" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn14" name="dtl-input-sortMchnHldYn14"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn14" name="dtl-input-sortMchnHldYn14" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-sortMchnHldYn15" name="dtl-input-sortMchnHldYn15" uitype="text" class="form-control input-sm" placeholder="착즙기, 커팅기 등" ></sbux-input>
@@ -130,35 +111,19 @@
 					<tr>
 						<th class="th_bg">품목2</th>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn21" name="dtl-input-sortMchnHldYn21"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn21" name="dtl-input-sortMchnHldYn21" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-sortMchnSpcfct2" name="dtl-input-sortMchnSpcfct2" uitype="text" class="form-control input-sm" placeholder="2대x1조 32등급" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn22" name="dtl-input-sortMchnHldYn22"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn22" name="dtl-input-sortMchnHldYn22" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn23" name="dtl-input-sortMchnHldYn23"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn23" name="dtl-input-sortMchnHldYn23" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn24" name="dtl-input-sortMchnHldYn24"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn24" name="dtl-input-sortMchnHldYn24" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-sortMchnHldYn25" name="dtl-input-sortMchnHldYn25" uitype="text" class="form-control input-sm" placeholder="착즙기, 커팅기 등" ></sbux-input>
@@ -167,35 +132,19 @@
 					<tr>
 						<th class="th_bg">품목3</th>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn31" name="dtl-input-sortMchnHldYn31"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn31" name="dtl-input-sortMchnHldYn31" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-sortMchnSpcfct3" name="dtl-input-sortMchnSpcfct3" uitype="text" class="form-control input-sm" placeholder="2대x1조 32등급" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn32" name="dtl-input-sortMchnHldYn32"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn32" name="dtl-input-sortMchnHldYn32" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn33" name="dtl-input-sortMchnHldYn33"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn33" name="dtl-input-sortMchnHldYn33" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn34" name="dtl-input-sortMchnHldYn34"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn34" name="dtl-input-sortMchnHldYn34" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-sortMchnHldYn35" name="dtl-input-sortMchnHldYn35" uitype="text" class="form-control input-sm" placeholder="착즙기, 커팅기 등" ></sbux-input>
@@ -204,35 +153,19 @@
 					<tr>
 						<th class="th_bg">기타</th>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn41" name="dtl-input-sortMchnHldYn41"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn41" name="dtl-input-sortMchnHldYn41" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-sortMchnSpcfct4" name="dtl-input-sortMchnSpcfct4" uitype="text" class="form-control input-sm" placeholder="2대x1조 32등급" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn42" name="dtl-input-sortMchnHldYn42"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn42" name="dtl-input-sortMchnHldYn42" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn43" name="dtl-input-sortMchnHldYn43"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn43" name="dtl-input-sortMchnHldYn43" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn44" name="dtl-input-sortMchnHldYn34"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+							<sbux-input id="dtl-input-sortMchnHldYn44" name="dtl-input-sortMchnHldYn44" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-sortMchnHldYn45" name="dtl-input-sortMchnHldYn45" uitype="text" class="form-control input-sm" placeholder="착즙기, 커팅기 등" ></sbux-input>
@@ -290,9 +223,6 @@
 
 	let date = new Date();
 	let year  = date.getFullYear();
-
-
-
     //화면 초기 로딩
     window.addEventListener('DOMContentLoaded', function(e) {
     	SBUxMethod.set("srch-input-trgtYr", year);
@@ -304,14 +234,6 @@
     var grdGdsMcList; // 그리드를 담기위한 객체 선언
     var jsonGdsMcList = []; // 그리드의 참조 데이터 주소 선언
 
-	var selectYnData = [
-		{'text': 'Y','label': 'Y', 'value': '1'},
-		{'text': 'N','label': 'N', 'value': '0'}
-	]
-	var comboYnData = [
-		{'label': 'Y', 'value': '1'},
-		{'label': 'N', 'value': '0'}
-	]
 
     //그리드 생성 설정
     function fn_createGrid() {
@@ -333,40 +255,35 @@
                 ref: 'checked', type: 'checkbox',   style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["품목1 보유여부"],  	ref: 'sortMchnHldYn11',     	type:'combo',  width:'15%',    style:'text-align:center'
-            	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
+            {caption: ["품목1 보유여부"],  	ref: 'sortMchnHldYn11',     	type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["품목1 규격"],  		ref: 'sortMchnSpcfct1',     	type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["품목1 당도기"],  	ref: 'sortMchnHldYn12',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
             {caption: ["품목1 색택선별"],  	ref: 'sortMchnHldYn13',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
             {caption: ["품목1 형상선별"],  	ref: 'sortMchnHldYn14',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
             {caption: ["품목1 가공설비"],  	ref: 'sortMchnHldYn15',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
 
-            {caption: ["품목2 보유여부"],	    ref: 'sortMchnHldYn21',    		type:'combo',  width:'15%',    style:'text-align:center'
-            	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
+            {caption: ["품목2 보유여부"],	    ref: 'sortMchnHldYn21',    		type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["품목2 규격"],  		ref: 'sortMchnSpcfct2',     	type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["품목2 당도기"],  	ref: 'sortMchnHldYn22',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
             {caption: ["품목2 색택선별"],  	ref: 'sortMchnHldYn23',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
             {caption: ["품목2 형상선별"],  	ref: 'sortMchnHldYn24',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
             {caption: ["품목2 가공설비"],  	ref: 'sortMchnHldYn25',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
 
-            {caption: ["품목3 보유여부"],		ref: 'sortMchnHldYn31',         type:'combo',  width:'15%',    style:'text-align:center'
-            	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
+            {caption: ["품목3 보유여부"],		ref: 'sortMchnHldYn31',         type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["품목3 규격"],  		ref: 'sortMchnSpcfct3',     	type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["품목3 당도기"],  	ref: 'sortMchnHldYn32',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
             {caption: ["품목3 색택선별"],  	ref: 'sortMchnHldYn33',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
             {caption: ["품목3 형상선별"],  	ref: 'sortMchnHldYn34',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
             {caption: ["품목3 가공설비"],  	ref: 'sortMchnHldYn35',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
 
-            {caption: ["기타 보유여부"],   	ref: 'sortMchnHldYn41', 	 	type:'combo',  width:'15%',    style:'text-align:center'
-            	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
+            {caption: ["기타 보유여부"],   	ref: 'sortMchnHldYn41', 	 	type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["기타 규격"],  		ref: 'sortMchnSpcfct4',     	type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["기타 당도기"],  		ref: 'sortMchnHldYn42',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
             {caption: ["기타 색택선별"],  	ref: 'sortMchnHldYn43',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
             {caption: ["기타 형상선별"],  	ref: 'sortMchnHldYn44',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
             {caption: ["기타 가공설비"],  	ref: 'sortMchnHldYn45',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
 
-            {caption: ["APCCD"],		ref: 'apcCd',            		type:'output',  hidden: true},
-            {caption: ["APCNM"],		ref: 'apcNm',            		type:'output',  hidden: false},
+            {caption: ["APCCD"],		ref: 'apcCd',            		type:'output',  hidden: false},
             {caption: ["대상연도"],			ref: 'trgtYr',      		    type:'output',  hidden: false},
             {caption: ["등록프로그램"], 		ref: 'creProgram',  			type:'output',  hidden: true},
             {caption: ["변경프로그램"], 		ref: 'updProgram',  			type:'output',  hidden: true}
@@ -453,7 +370,6 @@
 				const msg = {
 			  	trgtYr: item.trgtYr	 	//대상연도
 		   		,	apcCd: item.apcCd  //APC
-		   		,	apcNm: item.apcNm  //APC명
 				,	sortMchnHldYn11: item.sortMchnHldYn11  //품목1 보유여부
 			    , 	sortMchnSpcfct1: item.sortMchnSpcfct1 //품목1 규격
 			    ,	sortMchnHldYn12: item.sortMchnHldYn12  //품목1 당도기
@@ -523,7 +439,6 @@
     	console.log("******************fn_create**********************************");
     	SBUxMethod.set('dtl-input-trgtYr', null);            //  대상연도
         SBUxMethod.set('dtl-input-apcCd', null); 			//apc코드
-        SBUxMethod.set('dtl-input-apcNm', null); 			//apc명
 	    SBUxMethod.set("dtl-input-sortMchnHldYn11", null);  //품목1 보유여부
 	    SBUxMethod.set("dtl-input-sortMchnSpcfct1", null); //품목1 규격
 	    SBUxMethod.set("dtl-input-sortMchnHldYn12", null);  //품목1 당도기
@@ -557,7 +472,6 @@
 		console.log("******************fn_clearForm**********************************");
 		SBUxMethod.set('dtl-input-trgtYr', null);            //  대상연도
         SBUxMethod.set('dtl-input-apcCd', null); 			//apc코드
-        SBUxMethod.set('dtl-input-apcNm', null); 			//apc명
 	    SBUxMethod.set("dtl-input-sortMchnHldYn11", null);  //품목1 보유여부
 	    SBUxMethod.set("dtl-input-sortMchnSpcfct1", null); //품목1 규격
 	    SBUxMethod.set("dtl-input-sortMchnHldYn12", null);  //품목1 당도기
@@ -589,9 +503,9 @@
     //저장
     const fn_save = async function() {
     	console.log("******************fn_save**********************************");
+		/*
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
-		/*
 
     	if (!SBUxMethod.get("srch-inp-apcCd")) {
             alert("조회 항목의 APC 코드를 선택하세요.");
@@ -630,6 +544,7 @@
     	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltGdsMchnInfo.do", {
     			trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
             ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
+
         	,	sortMchnHldYn11: SBUxMethod.get("dtl-input-sortMchnHldYn11")  //품목1 보유여부
 		    , 	sortMchnSpcfct1: SBUxMethod.get("dtl-input-sortMchnSpcfct1") //품목1 규격
 		    ,	sortMchnHldYn12: SBUxMethod.get("dtl-input-sortMchnHldYn12")  //품목1 당도기
@@ -823,10 +738,9 @@
 		}
 			//서치폼에서 클릭시 디테일폼에 데이터출력
         let rowData = grdGdsMcList.getRowData(nRow);
-        rowData = fn_emptyString(rowData);
+
     	SBUxMethod.set("dtl-input-trgtYr", rowData.trgtYr);                 //대상연도
 		SBUxMethod.set("dtl-input-apcCd", rowData.apcCd);                   //apc코드
-		SBUxMethod.set("dtl-input-apcNm", rowData.apcNm);                   //apc명
 		SBUxMethod.set("dtl-input-sortMchnHldYn11", rowData.sortMchnHldYn11);  //품목1 보유여부
 		SBUxMethod.set("dtl-input-sortMchnSpcfct1", rowData.sortMchnSpcfct1); //품목1 규격
 		SBUxMethod.set("dtl-input-sortMchnHldYn12", rowData.sortMchnHldYn12);  //품목1 당도기
@@ -877,27 +791,6 @@
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
-	}
-
-	// "null" 로 들어가는 경우 방지
-	function fn_emptyString(obj) {
-		console.log("==========fn_emptyString=============");
-	    if (Array.isArray(obj)) {
-	        // 배열의 경우
-	        for (var i = 0; i < obj.length; i++) {
-	        	if (data[i] === "null" || data[i] === null) {
-	                obj[i] = "";
-	            }
-	        }
-	    } else if (typeof obj === "object") {
-	        // 객체의 경우
-	        for (var key in obj) {
-	        	if (obj[key] === "null" || obj[key] === null) {
-	                obj[key] = "";
-	            }
-	        }
-	    }
-	    return obj;
 	}
 </script>
 </html>

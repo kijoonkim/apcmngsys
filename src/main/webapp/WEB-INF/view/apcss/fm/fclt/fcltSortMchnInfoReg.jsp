@@ -186,10 +186,6 @@
 		let date = new Date();
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
-		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
-			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
-			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		}
 
 		SBUxMethod.changeGroupAttr('group1','disabled','true');
 		SBUxMethod.changeGroupAttr('group2','disabled','true');
@@ -231,7 +227,6 @@
             , prcCap2 :  SBUxMethod.get('srch-inp-opera2_2')
             , prcCap3 :  SBUxMethod.get('srch-inp-opera3_2')
             , prcCap4 :  SBUxMethod.get('srch-inp-opera4_2')
-
             , prcVol1 :  SBUxMethod.get('srch-inp-opera1_3')
             , prcVol2 :  SBUxMethod.get('srch-inp-opera2_3')
             , prcVol3 :  SBUxMethod.get('srch-inp-opera3_3')

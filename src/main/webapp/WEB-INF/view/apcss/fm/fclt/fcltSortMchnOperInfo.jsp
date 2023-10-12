@@ -18,9 +18,7 @@
 				<h3 class="box-title" style="line-height: 30px;"> ▶ 선별기운영기간</h3>
 			</div>
 			<div style="margin-left: auto;">
-				<!--
 				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
-				 -->
 				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
@@ -40,29 +38,77 @@
 					<col style="width: 6%">
 					<col style="width: 10%">
 					<col style="width: 6%">
-					<col style="width: 10%">
-					<col style="width: 10%">
-					<col style="width: 58%">
+					<col style="width: 15%">
+					<col style="width: 63%">
 				</colgroup>
 				<tbody>
 					<tr>
 						<th class="th_bg" scope="row">대상연도</th>
-						<td class="td_input"   style="border-right: hidden;">
+						<td class="td_input" style="border-right: hidden;">
 							<sbux-input id="srch-input-trgtYr" name="srch-input-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
-						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
-						<td class="td_input" style="border-right:hidden;">
-							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
-						</td>
-						<td style="border-right:hidden;">
-							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
-						</td>
-						<td></td>
+
+
+							<th scope="row" style="border-bottom:1px solid white " class="th_bg" >APC명</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
+								<script type="text/javascript">
+								<c:choose>
+									<c:when test="${comApcList != null}">
+									var cjsonApcList = ${comApcList};
+									</c:when>
+									<c:otherwise>
+									var cjsonApcList = {};
+									</c:otherwise>
+								</c:choose>
+								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
+									gv_selectedApcCd = null;
+									gv_selectedApcNm = null;
+								</c:if>
+									/**
+									 * @name
+									 * @description
+									 * @function
+									 * @param {string} _apcCd
+									 */
+									const cfn_onChangeApc = function(obj) {
+										gv_selectedApcCd = obj.value;
+
+										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
+										apcInfo.forEach( (apc) => {
+											gv_selectedApcNm = apc.apcNm;
+											return false;
+										});
+
+										if (typeof fn_onChangeApc === "function") {
+											fn_onChangeApc();
+										}
+
+									}
+
+								</script>
+								<c:choose>
+									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
+										<sbux-select
+											id="gsb-slt-apcCd"
+											name="gsb-slt-apcCd"
+											uitype="single"
+											jsondata-ref="cjsonApcList"
+											unselected-text="전체"
+											class="form-control input-sm"
+											onchange="cfn_onChangeApc(this)"
+											style="max-width:150px;"
+										></sbux-select>
+									</c:when>
+									<c:otherwise>
+										<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td></td>
 					</tr>
 				</tbody>
 			</table>
-			<br>
+			</div>
 			<!--[pp] //검색 -->
 			<!--[pp] 검색결과 -->
 			<br>
@@ -76,389 +122,436 @@
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
-					<col style="width: 22%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-
-
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 6%">
-					<col style="width: 6%">
+					<col style="width: 9%">
+					<col style="width: 8%">
+					<col style="width: 7%">
+					<col style="width: 7%">
+					<col style="width: 7%">
+					<col style="width: 7%">
+					<col style="width: 7%">
+					<col style="width: 7%">
+					<col style="width: 7%">
+					<col style="width: 7%">
+					<col style="width: 7%">
+					<col style="width: 7%">
+					<col style="width: 7%">
+					<col style="width: 7%">
 				</colgroup>
 				<tbody>
 					<tr>
-						<th>선별기운영기간</th>
-						<th class="text-center">연중</th>
-						<th class="text-center">1</th>
-						<th class="text-center">2</th>
-						<th class="text-center">3</th>
-						<th class="text-center">4</th>
-						<th class="text-center">5</th>
-						<th class="text-center">6</th>
-						<th class="text-center">7</th>
-						<th class="text-center">8</th>
-						<th class="text-center">9</th>
-						<th class="text-center">10</th>
-						<th class="text-center">11</th>
-						<th class="text-center">12</th>
+						<th class="th_bg">선별기운영기간</th>
+						<th class="th_bg">연중</th>
+						<th class="th_bg">1</th>
+						<th class="th_bg">2</th>
+						<th class="th_bg">3</th>
+						<th class="th_bg">4</th>
+						<th class="th_bg">5</th>
+						<th class="th_bg">6</th>
+						<th class="th_bg">7</th>
+						<th class="th_bg">8</th>
+						<th class="th_bg">9</th>
+						<th class="th_bg">10</th>
+						<th class="th_bg">11</th>
+						<th class="th_bg">12</th>
 					</tr>
 					<tr>
-						<th>품목1<br>
+						<th class="th_bg">품목1<br>
 							운영기간<br>
 						</th>
-						<td class="text-center">
-							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYnAyr1" name="sortMchnHldYnAyr1"  true-value = "1" false-value = "0"></sbux-checkbox>
+						<td class="td_input"  style="margin-left: auto; !important;">
+							<p class="ad_input_row"  style="margin-left: auto; !important;">
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn1" name="warehouseSeCd-chk-sortMchnOperYn1" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn101" name="sortMchnHldYn101" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn2" name="warehouseSeCd-chk-sortMchnOperYn2" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn102" name="sortMchnHldYn102" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn3" name="warehouseSeCd-chk-sortMchnOperYn3" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn103" name="sortMchnHldYn103" uitype="normal" true-value = "1" false-value = "0" ></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn4" name="warehouseSeCd-chk-sortMchnOperYn4" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn104" name="sortMchnHldYn104" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn5" name="warehouseSeCd-chk-sortMchnOperYn5" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn105" name="sortMchnHldYn105" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn6" name="warehouseSeCd-chk-sortMchnOperYn6" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn106" name="sortMchnHldYn106" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn7" name="warehouseSeCd-chk-sortMchnOperYn7" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn107" name="sortMchnHldYn107" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn8" name="warehouseSeCd-chk-sortMchnOperYn8" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn108" name="sortMchnHldYn108" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn9" name="warehouseSeCd-chk-sortMchnOperYn9" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn109" name="sortMchnHldYn109" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn10" name="warehouseSeCd-chk-sortMchnOperYn10" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn110" name="sortMchnHldYn110" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn11" name="warehouseSeCd-chk-sortMchnOperYn11" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn111" name="sortMchnHldYn111" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn12" name="warehouseSeCd-chk-sortMchnOperYn12" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn112" name="sortMchnHldYn112" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
-								<label class="check_label" for="check_default" ></label>
-							</p>
-						</td>
-					</tr>
-					<tr>
-						<th>품목2<br>
-							운영기간<br>
-						</th>
-						<td class="text-center">
-							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYnAyr2" name="sortMchnHldYnAyr2" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
-								<label class="check_label" for="check_default" ></label>
-							</p>
-						</td>
-						<td class="text-center">
-							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn201" name="sortMchnHldYn201" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
-								<label class="check_label" for="check_default" ></label>
-							</p>
-						</td>
-						<td class="text-center">
-							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn202" name="sortMchnHldYn202" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
-								<label class="check_label" for="check_default" ></label>
-							</p>
-						</td>
-						<td class="text-center">
-							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn203" name="sortMchnHldYn203" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
-								<label class="check_label" for="check_default" ></label>
-							</p>
-						</td>
-						<td class="text-center">
-							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn204" name="sortMchnHldYn204" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
-								<label class="check_label" for="check_default" ></label>
-							</p>
-						</td>
-						<td class="text-center">
-							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn205" name="sortMchnHldYn205" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
-								<label class="check_label" for="check_default" ></label>
-							</p>
-						</td>
-						<td class="text-center">
-							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn206" name="sortMchnHldYn206" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
-								<label class="check_label" for="check_default" ></label>
-							</p>
-						</td>
-						<td class="text-center">
-							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn207" name="sortMchnHldYn207" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
-								<label class="check_label" for="check_default" ></label>
-							</p>
-						</td>
-						<td class="text-center">
-							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn208" name="sortMchnHldYn208" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
-								<label class="check_label" for="check_default" ></label>
-							</p>
-						</td>
-						<td class="text-center">
-							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn209" name="sortMchnHldYn209" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
-								<label class="check_label" for="check_default" ></label>
-							</p>
-						</td>
-						<td class="text-center">
-							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn210" name="sortMchnHldYn210" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
-								<label class="check_label" for="check_default" ></label>
-							</p>
-						</td>
-						<td class="text-center">
-							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn211" name="sortMchnHldYn211" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
-								<label class="check_label" for="check_default" ></label>
-							</p>
-						</td>
-						<td class="text-center">
-							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn212" name="sortMchnHldYn212" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn13" name="warehouseSeCd-chk-sortMchnOperYn13" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 					</tr>
 					<tr>
-						<th>품목3<br>
+						<th class="th_bg">품목2<br>
 							운영기간<br>
 						</th>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYnAyr3" name="sortMchnHldYnAyr3" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn42" name="warehouseSeCd-chk-sortMchnOperYn42" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn301" name="sortMchnHldYn301" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn43" name="warehouseSeCd-chk-sortMchnOperYn43" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn302" name="sortMchnHldYn302" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn44" name="warehouseSeCd-chk-sortMchnOperYn44" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn303" name="sortMchnHldYn303" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn45" name="warehouseSeCd-chk-sortMchnOperYn45" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn304" name="sortMchnHldYn304" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn46" name="warehouseSeCd-chk-sortMchnOperYn46" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn305" name="sortMchnHldYn305" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn47" name="warehouseSeCd-chk-sortMchnOperYn47" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn306" name="sortMchnHldYn306" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn48" name="warehouseSeCd-chk-sortMchnOperYn48" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn307" name="sortMchnHldYn307" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn49" name="warehouseSeCd-chk-sortMchnOperYn49" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn308" name="sortMchnHldYn308" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn50" name="warehouseSeCd-chk-sortMchnOperYn50" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn309" name="sortMchnHldYn309" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn51" name="warehouseSeCd-chk-sortMchnOperYn51" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn310" name="sortMchnHldYn310" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn52" name="warehouseSeCd-chk-sortMchnOperYn52" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn311" name="sortMchnHldYn311" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn53" name="warehouseSeCd-chk-sortMchnOperYn53" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn312" name="sortMchnHldYn312" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn54" name="warehouseSeCd-chk-sortMchnOperYn54" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 					</tr>
 					<tr>
-						<th>기타품목<br>
+						<th class="th_bg">품목3<br>
 							운영기간<br>
 						</th>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYnAyr4" name="sortMchnHldYnAyr4" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn14" name="warehouseSeCd-chk-sortMchnOperYn14" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn401" name="sortMchnHldYn401" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn15" name="warehouseSeCd-chk-sortMchnOperYn15" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn402" name="sortMchnHldYn402" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn16" name="warehouseSeCd-chk-sortMchnOperYn16" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn403" name="sortMchnHldYn403" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn17" name="warehouseSeCd-chk-sortMchnOperYn17" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn404" name="sortMchnHldYn404" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn18" name="warehouseSeCd-chk-sortMchnOperYn18" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn405" name="sortMchnHldYn405" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn19" name="warehouseSeCd-chk-sortMchnOperYn19" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn406" name="sortMchnHldYn406" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn20" name="warehouseSeCd-chk-sortMchnOperYn20" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn407" name="sortMchnHldYn407" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn21" name="warehouseSeCd-chk-fxng" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn408" name="sortMchnHldYn408" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn24" name="warehouseSeCd-chk-sortMchnOperYn24" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn409" name="sortMchnHldYn409" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn25" name="warehouseSeCd-chk-sortMchnOperYn25" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn410" name="sortMchnHldYn410" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn26" name="warehouseSeCd-chk-sortMchnOperYn26" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn411" name="sortMchnHldYn411" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn27" name="warehouseSeCd-chk-sortMchnOperYn27" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
-						<td class="text-center">
+						<td class="td_input">
 							<p class="ad_input_row">
-								<sbux-checkbox id="sortMchnHldYn412" name="sortMchnHldYn412" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn28" name="warehouseSeCd-chk-sortMchnOperYn28" uitype="normal" ></sbux-checkbox>
+								<label class="check_label" for="check_default" ></label>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th class="th_bg">기타품목<br>
+							운영기간<br>
+						</th>
+						<td class="td_input">
+							<p class="ad_input_row">
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn29" name="warehouseSeCd-chk-sortMchnOperYn29" uitype="normal" ></sbux-checkbox>
+								<label class="check_label" for="check_default" ></label>
+							</p>
+						</td>
+						<td class="td_input">
+							<p class="ad_input_row">
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn30" name="warehouseSeCd-chk-sortMchnOperYn30" uitype="normal" ></sbux-checkbox>
+								<label class="check_label" for="check_default" ></label>
+							</p>
+						</td>
+						<td class="td_input">
+							<p class="ad_input_row">
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn31" name="warehouseSeCd-chk-sortMchnOperYn31" uitype="normal" ></sbux-checkbox>
+								<label class="check_label" for="check_default" ></label>
+							</p>
+						</td>
+						<td class="td_input">
+							<p class="ad_input_row">
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn32" name="warehouseSeCd-chk-sortMchnOperYn32" uitype="normal" ></sbux-checkbox>
+								<label class="check_label" for="check_default" ></label>
+							</p>
+						</td>
+						<td class="td_input">
+							<p class="ad_input_row">
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn33" name="warehouseSeCd-chk-sortMchnOperYn33" uitype="normal" ></sbux-checkbox>
+								<label class="check_label" for="check_default" ></label>
+							</p>
+						</td>
+						<td class="td_input">
+							<p class="ad_input_row">
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn34" name="warehouseSeCd-chk-sortMchnOperYn34" uitype="normal" ></sbux-checkbox>
+								<label class="check_label" for="check_default" ></label>
+							</p>
+						</td>
+						<td class="td_input">
+							<p class="ad_input_row">
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn35" name="warehouseSeCd-chk-sortMchnOperYn35" uitype="normal" ></sbux-checkbox>
+								<label class="check_label" for="check_default" ></label>
+							</p>
+						</td>
+						<td class="td_input">
+							<p class="ad_input_row">
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn36" name="warehouseSeCd-chk-sortMchnOperYn36" uitype="normal" ></sbux-checkbox>
+								<label class="check_label" for="check_default" ></label>
+							</p>
+						</td>
+						<td class="td_input">
+							<p class="ad_input_row">
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn37" name="warehouseSeCd-chk-sortMchnOperYn37" uitype="normal" ></sbux-checkbox>
+								<label class="check_label" for="check_default" ></label>
+							</p>
+						</td>
+						<td class="td_input">
+							<p class="ad_input_row">
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn38" name="warehouseSeCd-chk-sortMchnOperYn38" uitype="normal" ></sbux-checkbox>
+								<label class="check_label" for="check_default" ></label>
+							</p>
+						</td>
+						<td class="td_input">
+							<p class="ad_input_row">
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn39" name="warehouseSeCd-chk-sortMchnOperYn39" uitype="normal" ></sbux-checkbox>
+								<label class="check_label" for="check_default" ></label>
+							</p>
+						</td>
+						<td class="td_input">
+							<p class="ad_input_row">
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn40" name="warehouseSeCd-chk-sortMchnOperYn40" uitype="normal" ></sbux-checkbox>
+								<label class="check_label" for="check_default" ></label>
+							</p>
+						</td>
+						<td class="td_input">
+							<p class="ad_input_row">
+								<sbux-checkbox id="warehouseSeCd-chk-sortMchnOperYn41" name="warehouseSeCd-chk-sortMchnOperYn41" uitype="normal" ></sbux-checkbox>
 								<label class="check_label" for="check_default" ></label>
 							</p>
 						</td>
 					</tr>
 					<tr>
 						<th class="th_bg">대상연도</th>
-						<td class="td_input" colspan="3">
+						<td class="td_input" colspan="1">
 							<sbux-input  id="dtl-input-trgtYr" name="dtl-input-trgtYr" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
-						<td colspan="8" style="border-left: hidden;"></td>
+						<td colspan="12" style="border-left: hidden;"></td>
 					</tr>
 					<tr>
-						<th class="th_bg">apc명</th>
-						<td class="td_input" colspan="3">
-							<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							<sbux-input id="dtl-input-apcNm" name="dtl-input-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						<th class="th_bg">APC 코드</th>
+						<td class="td_input" colspan="1" style="border-bottom: solid;">
+							<script type="text/javascript">
+								<c:choose>
+									<c:when test="${comApcList != null}">
+									var cjsonApcList = ${comApcList};
+									</c:when>
+									<c:otherwise>
+									var cjsonApcList = {};
+									</c:otherwise>
+								</c:choose>
+								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
+									gv_selectedApcCd = null;
+									gv_selectedApcNm = null;
+								</c:if>
+									/**
+									 * @name
+									 * @description
+									 * @function
+									 * @param {string} _apcCd
+									 */
+									const cfn_onChangeApc = function(obj) {
+										gv_selectedApcCd = obj.value;
+
+										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
+										apcInfo.forEach( (apc) => {
+											gv_selectedApcNm = apc.apcNm;
+											return false;
+										});
+
+										if (typeof fn_onChangeApc === "function") {
+											fn_onChangeApc();
+										}
+
+									}
+
+								</script>
+								<c:choose>
+									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
+										<sbux-select
+											id="dtl-input-apcCd"
+											name="dtl-input-apcCd"
+											uitype="single"
+											jsondata-ref="cjsonApcList"
+											unselected-text="선택"
+											class="form-control input-sm"
+											onchange="cfn_onChangeApc(this)"
+											style="max-width:150px;"
+										></sbux-select>
+									</c:when>
+									<c:otherwise>
+										<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
+									</c:otherwise>
+								</c:choose>
 						</td>
-						<td colspan="8" style="border-left: hidden;">
-						</td>
+						<td colspan="12" style="border-left: hidden;"></td>
 					</tr>
+
 				</tbody>
 			</table>
 			</div>
@@ -479,13 +572,6 @@
     </div>
     <div id="body-modal-vrtyCrtr">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
-    </div>
-    <!-- apc 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-apcSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
     </div>
 </body>
     <script type="text/javascript">
@@ -520,67 +606,19 @@
 
         SBGridProperties.columns = [
 
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>","<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',width:'3%',
+            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
+                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-
-            {caption: ["품목1","연중"], ref: 'sortMchnHldYnAyr1', type:'output', width:'3%', style:'text-align:center'},
-            {caption: ["품목1","1"], ref: 'sortMchnHldYn101', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목1","2"], ref: 'sortMchnHldYn102', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목1","3"], ref: 'sortMchnHldYn103', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목1","4"], ref: 'sortMchnHldYn104', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목1","5"], ref: 'sortMchnHldYn105', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목1","6"], ref: 'sortMchnHldYn106', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목1","7"], ref: 'sortMchnHldYn107', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목1","8"], ref: 'sortMchnHldYn108', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목1","9"], ref: 'sortMchnHldYn109', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목1","10"], ref: 'sortMchnHldYn110', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목1","11"], ref: 'sortMchnHldYn111', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목1","12"], ref: 'sortMchnHldYn112', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목2","연중"], ref: 'sortMchnHldYnAyr2', type:'output', width:'3%', style:'text-align:center'},
-            {caption: ["품목2","1"], ref: 'sortMchnHldYn201', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목2","2"], ref: 'sortMchnHldYn202', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목2","3"], ref: 'sortMchnHldYn203', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목2","4"], ref: 'sortMchnHldYn204', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목2","5"], ref: 'sortMchnHldYn205', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목2","6"], ref: 'sortMchnHldYn206', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목2","7"], ref: 'sortMchnHldYn207', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목2","8"], ref: 'sortMchnHldYn208', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목2","9"], ref: 'sortMchnHldYn209', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목2","10"], ref: 'sortMchnHldYn210', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목2","11"], ref: 'sortMchnHldYn211', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목2","12"], ref: 'sortMchnHldYn212', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목3","연중"], ref: 'sortMchnHldYnAyr3', type:'output', width:'3%', style:'text-align:center'},
-            {caption: ["품목3","1"], ref: 'sortMchnHldYn301', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목3","2"], ref: 'sortMchnHldYn302', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목3","3"], ref: 'sortMchnHldYn303', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목3","4"], ref: 'sortMchnHldYn304', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목3","5"], ref: 'sortMchnHldYn305', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목3","6"], ref: 'sortMchnHldYn306', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목3","7"], ref: 'sortMchnHldYn307', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목3","8"], ref: 'sortMchnHldYn308', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목3","9"], ref: 'sortMchnHldYn309', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목3","10"], ref: 'sortMchnHldYn310', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목3","11"], ref: 'sortMchnHldYn311', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["품목3","12"], ref: 'sortMchnHldYn312', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["기타품목","연중"], ref: 'sortMchnHldYnAyr4', type:'output', width:'3%', style:'text-align:center'},
-            {caption: ["기타품목","1"], ref: 'sortMchnHldYn401', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["기타품목","2"], ref: 'sortMchnHldYn402', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["기타품목","3"], ref: 'sortMchnHldYn403', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["기타품목","4"], ref: 'sortMchnHldYn404', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["기타품목","5"], ref: 'sortMchnHldYn405', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["기타품목","6"], ref: 'sortMchnHldYn406', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["기타품목","7"], ref: 'sortMchnHldYn407', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["기타품목","8"], ref: 'sortMchnHldYn408', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["기타품목","9"], ref: 'sortMchnHldYn409', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["기타품목","10"], ref: 'sortMchnHldYn410', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["기타품목","11"], ref: 'sortMchnHldYn411', type:'output', width:'2%', style:'text-align:center'},
-            {caption: ["기타품목","12"], ref: 'sortMchnHldYn412', type:'output', width:'2%', style:'text-align:center'},
-
-            {caption: ["APCCD"],		ref: 'apcCd',       		type:'output',  	hidden: true},
-            {caption: ["APCNM"],		ref: 'apcNm',       		type:'output',  	hidden: false},
-            {caption: ["대상연도"],			ref: 'trgtYr',          	type:'output',  hidden: true},
+            {caption: ["선별기 품목"],	    ref: 'sortMchnItemCd',    		type:'output',  	width:'33%',    style:'text-align:center'},
+            {caption: ["선별기품목 코드"], 		ref: 'sortMchnItemCd',   		type:'output',  	width:'33%',    style:'text-align:center'},
+            {caption: ["선별기운영여부"],  		ref: 'sortMchnOperYn',  			type:'output',  	width:'33%',    style:'text-align:center'},
+            {caption: ["APCCD"],		ref: 'apcCd',       		type:'output',  	hidden: false},
+            {caption: ["대상연도"],			ref: 'trgtYr',          	type:'output',  hidden:false},
+            {caption: ["최초등록자ID"],		ref: 'creUserId',  			type:'output',  hidden: true},
+            {caption: ["최초등록일시"],		ref: 'creDateTime',			type:'output',  hidden: true},
+            {caption: ["최종변경자ID"],		ref: 'updUserId',   		type:'output',  hidden: true},
+            {caption: ["최종변경일시"], 		ref: 'updDateTime', 		type:'output',  hidden: true},
             {caption: ["등록프로그램"], 		ref: 'creProgram',  		type:'output',  hidden: true},
             {caption: ["변경프로그램"], 		ref: 'updProgram',  		type:'output',  hidden: true}
 
@@ -620,7 +658,7 @@
 
 		grdStMcOpIfList.clearStatus();
 
-		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
 
 		var chk = {
@@ -637,7 +675,7 @@
 
         //비동기 포스트타입 url 데이터연결 페이징처리 글로벌
         //gfn_postJSON 는 ajax고 post통신의 데이터를 json 타입으로 보내는것이다
-		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltSortMchnOperInfoList.do", {
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltAtmtcMchnInfoList.do", {
 			apcCd: apcCd,
         	trgtYr: trgtYr,
         	// pagination
@@ -647,10 +685,10 @@
         });
 		console.log("a11111111111111");
         const data = await postJsonPromise;
-		//await 오류시 확인
+//await 오류시 확인
         console.log("---------------------------")
         console.log(data)
-		//예외처리
+//예외처리
         try {
 
         	/** @type {number} **/
@@ -659,62 +697,18 @@
         	jsonStMcOpIfList.length = 0;
         	data.resultList.forEach((item, index) => {
 				const msg = {
-					trgtYr: item.trgtYr						 	    //대상연도
-					,apcCd: item.apcCd 	 		 						//apc코드
-					,apcNm: item.apcNm 	 		 						//apc코드
-					,sortMchnHldYnAyr1 : item.sortMchnHldYnAyr1
-					,sortMchnHldYn101 : item.sortMchnHldYn101
-					,sortMchnHldYn102 : item.sortMchnHldYn102
-					,sortMchnHldYn103 : item.sortMchnHldYn103
-					,sortMchnHldYn104 : item.sortMchnHldYn104
-					,sortMchnHldYn105 : item.sortMchnHldYn105
-					,sortMchnHldYn106 : item.sortMchnHldYn106
-					,sortMchnHldYn107 : item.sortMchnHldYn107
-					,sortMchnHldYn108 : item.sortMchnHldYn108
-					,sortMchnHldYn109 : item.sortMchnHldYn109
-					,sortMchnHldYn110 : item.sortMchnHldYn110
-					,sortMchnHldYn111 : item.sortMchnHldYn111
-					,sortMchnHldYn112 : item.sortMchnHldYn112
-					,sortMchnHldYnAyr2 : item.sortMchnHldYnAyr2
-					,sortMchnHldYn201 : item.sortMchnHldYn201
-					,sortMchnHldYn202 : item.sortMchnHldYn202
-					,sortMchnHldYn203 : item.sortMchnHldYn203
-					,sortMchnHldYn204 : item.sortMchnHldYn204
-					,sortMchnHldYn205 : item.sortMchnHldYn205
-					,sortMchnHldYn206 : item.sortMchnHldYn206
-					,sortMchnHldYn207 : item.sortMchnHldYn207
-					,sortMchnHldYn208 : item.sortMchnHldYn208
-					,sortMchnHldYn209 : item.sortMchnHldYn209
-					,sortMchnHldYn210 : item.sortMchnHldYn210
-					,sortMchnHldYn211 : item.sortMchnHldYn211
-					,sortMchnHldYn212 : item.sortMchnHldYn212
-					,sortMchnHldYnAyr3 : item.sortMchnHldYnAyr3
-					,sortMchnHldYn301 : item.sortMchnHldYn301
-					,sortMchnHldYn302 : item.sortMchnHldYn302
-					,sortMchnHldYn303 : item.sortMchnHldYn303
-					,sortMchnHldYn304 : item.sortMchnHldYn304
-					,sortMchnHldYn305 : item.sortMchnHldYn305
-					,sortMchnHldYn306 : item.sortMchnHldYn306
-					,sortMchnHldYn307 : item.sortMchnHldYn307
-					,sortMchnHldYn308 : item.sortMchnHldYn308
-					,sortMchnHldYn309 : item.sortMchnHldYn309
-					,sortMchnHldYn310 : item.sortMchnHldYn310
-					,sortMchnHldYn311 : item.sortMchnHldYn311
-					,sortMchnHldYn312 : item.sortMchnHldYn312
-					,sortMchnHldYnAyr4 : item.sortMchnHldYnAyr4
-					,sortMchnHldYn401 : item.sortMchnHldYn401
-					,sortMchnHldYn402 : item.sortMchnHldYn402
-					,sortMchnHldYn403 : item.sortMchnHldYn403
-					,sortMchnHldYn404 : item.sortMchnHldYn404
-					,sortMchnHldYn405 : item.sortMchnHldYn405
-					,sortMchnHldYn406 : item.sortMchnHldYn406
-					,sortMchnHldYn407 : item.sortMchnHldYn407
-					,sortMchnHldYn408 : item.sortMchnHldYn408
-					,sortMchnHldYn409 : item.sortMchnHldYn409
-					,sortMchnHldYn410 : item.sortMchnHldYn410
-					,sortMchnHldYn411 : item.sortMchnHldYn411
-					,sortMchnHldYn412 : item.sortMchnHldYn412
-
+				trgtYr: item.trgtYr,						 	    //대상연도
+				apcCd: item.apcCd, 	 		 						//apc코드
+				sortMchnItemCd: item.sortMchnItemCd,     	 		//선별기 품목코드
+				sortMchnOperCd: item.sortMchnOperCd,    			//선별기 운영코드
+				sortMchnOperYn: item.sortMchnOperYn,     			//선별기 운영여부
+				delYn: item.delYn,                  				//삭제유무
+	            sysFrstInptDt: item.sysFrstInptDt,       			//시스템최초입력일시
+		        sysFrstInptUserId: item.sysFrstInptUserId,   	   //시스템최초입력사용자id
+		        sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,     	//시스템최초입력프로그램id
+		        sysLastChgDt: item.sysLastChgDt,    				//시스템최종변경일시
+		        sysLastChgUserId: item.sysLastChgUserId,  			//시스템최종변경사용자id
+		        sysLastChgPrgrmId: item.sysLastChgPrgrmId   		//시스템최종변경프로그램id
 				}
 
 
@@ -757,117 +751,24 @@
     	console.log("******************fn_create**********************************");
     	SBUxMethod.set("dtl-input-trgtYr", null);                    //  대상연도
 		SBUxMethod.set("dtl-input-apcCd", null);                     //  APC코드
-		SBUxMethod.set("sortMchnHldYnAyr1",null)
-		SBUxMethod.set("sortMchnHldYn101",null)
-		SBUxMethod.set("sortMchnHldYn102",null)
-		SBUxMethod.set("sortMchnHldYn103",null)
-		SBUxMethod.set("sortMchnHldYn104",null)
-		SBUxMethod.set("sortMchnHldYn105",null)
-		SBUxMethod.set("sortMchnHldYn106",null)
-		SBUxMethod.set("sortMchnHldYn107",null)
-		SBUxMethod.set("sortMchnHldYn108",null)
-		SBUxMethod.set("sortMchnHldYn109",null)
-		SBUxMethod.set("sortMchnHldYn110",null)
-		SBUxMethod.set("sortMchnHldYn111",null)
-		SBUxMethod.set("sortMchnHldYn112",null)
-		SBUxMethod.set("sortMchnHldYnAyr2",null)
-		SBUxMethod.set("sortMchnHldYn201",null)
-		SBUxMethod.set("sortMchnHldYn202",null)
-		SBUxMethod.set("sortMchnHldYn203",null)
-		SBUxMethod.set("sortMchnHldYn204",null)
-		SBUxMethod.set("sortMchnHldYn205",null)
-		SBUxMethod.set("sortMchnHldYn206",null)
-		SBUxMethod.set("sortMchnHldYn207",null)
-		SBUxMethod.set("sortMchnHldYn208",null)
-		SBUxMethod.set("sortMchnHldYn209",null)
-		SBUxMethod.set("sortMchnHldYn210",null)
-		SBUxMethod.set("sortMchnHldYn211",null)
-		SBUxMethod.set("sortMchnHldYn212",null)
-		SBUxMethod.set("sortMchnHldYnAyr3",null)
-		SBUxMethod.set("sortMchnHldYn301",null)
-		SBUxMethod.set("sortMchnHldYn302",null)
-		SBUxMethod.set("sortMchnHldYn303",null)
-		SBUxMethod.set("sortMchnHldYn304",null)
-		SBUxMethod.set("sortMchnHldYn305",null)
-		SBUxMethod.set("sortMchnHldYn306",null)
-		SBUxMethod.set("sortMchnHldYn307",null)
-		SBUxMethod.set("sortMchnHldYn308",null)
-		SBUxMethod.set("sortMchnHldYn309",null)
-		SBUxMethod.set("sortMchnHldYn310",null)
-		SBUxMethod.set("sortMchnHldYn311",null)
-		SBUxMethod.set("sortMchnHldYn312",null)
-		SBUxMethod.set("sortMchnHldYnAyr4",null)
-		SBUxMethod.set("sortMchnHldYn401",null)
-		SBUxMethod.set("sortMchnHldYn402",null)
-		SBUxMethod.set("sortMchnHldYn403",null)
-		SBUxMethod.set("sortMchnHldYn404",null)
-		SBUxMethod.set("sortMchnHldYn405",null)
-		SBUxMethod.set("sortMchnHldYn406",null)
-		SBUxMethod.set("sortMchnHldYn407",null)
-		SBUxMethod.set("sortMchnHldYn408",null)
-		SBUxMethod.set("sortMchnHldYn409",null)
-		SBUxMethod.set("sortMchnHldYn410",null)
-		SBUxMethod.set("sortMchnHldYn411",null)
-		SBUxMethod.set("sortMchnHldYn412",null)
+    	SBUxMethod.set("dtl-input-sortMchnItemCd", null);   		 //선별기 품목코드
+        SBUxMethod.set("dtl-input-sortMchnOperCd", null);   		 // 선별기 운영 코드
+        SBUxMethod.set("dtl-input-sortMchnOperYn", null);  			  //선별기 운영 유무
+    	SBUxMethod.set("dtl-input-delYn", null);                  	 //  삭제유무
+    	SBUxMethod.set("dtl-input-sysFrstInptDt", null);       		 //	 시스템최초입력일시
+    	SBUxMethod.set("dtl-input-sysFrstInptUserId", null);      	 //  시스템최초입력사용자id
+    	SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);     	 //  시스템최초입력프로그램id
+    	SBUxMethod.set("dtl-input-sysLastChgDt", null);      		 //  시스템최종변경일시
+    	SBUxMethod.set("dtl-input-sysLastChgUserId", null);   	 	 //  시스템최종변경사용자id
+    	SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);  	 	 //  시스템최종변경프로그램id
 
     }
 
      const fn_clearForm = function() {
     	 console.log("******************fn_clearForm**********************************");
-     	SBUxMethod.set("dtl-input-trgtYr", null);                    //  대상연도
-		SBUxMethod.set("dtl-input-apcCd", null);                     //  APC코드
-		SBUxMethod.set("sortMchnHldYnAyr1",null)
-		SBUxMethod.set("sortMchnHldYn101",null)
-		SBUxMethod.set("sortMchnHldYn102",null)
-		SBUxMethod.set("sortMchnHldYn103",null)
-		SBUxMethod.set("sortMchnHldYn104",null)
-		SBUxMethod.set("sortMchnHldYn105",null)
-		SBUxMethod.set("sortMchnHldYn106",null)
-		SBUxMethod.set("sortMchnHldYn107",null)
-		SBUxMethod.set("sortMchnHldYn108",null)
-		SBUxMethod.set("sortMchnHldYn109",null)
-		SBUxMethod.set("sortMchnHldYn110",null)
-		SBUxMethod.set("sortMchnHldYn111",null)
-		SBUxMethod.set("sortMchnHldYn112",null)
-		SBUxMethod.set("sortMchnHldYnAyr2",null)
-		SBUxMethod.set("sortMchnHldYn201",null)
-		SBUxMethod.set("sortMchnHldYn202",null)
-		SBUxMethod.set("sortMchnHldYn203",null)
-		SBUxMethod.set("sortMchnHldYn204",null)
-		SBUxMethod.set("sortMchnHldYn205",null)
-		SBUxMethod.set("sortMchnHldYn206",null)
-		SBUxMethod.set("sortMchnHldYn207",null)
-		SBUxMethod.set("sortMchnHldYn208",null)
-		SBUxMethod.set("sortMchnHldYn209",null)
-		SBUxMethod.set("sortMchnHldYn210",null)
-		SBUxMethod.set("sortMchnHldYn211",null)
-		SBUxMethod.set("sortMchnHldYn212",null)
-		SBUxMethod.set("sortMchnHldYnAyr3",null)
-		SBUxMethod.set("sortMchnHldYn301",null)
-		SBUxMethod.set("sortMchnHldYn302",null)
-		SBUxMethod.set("sortMchnHldYn303",null)
-		SBUxMethod.set("sortMchnHldYn304",null)
-		SBUxMethod.set("sortMchnHldYn305",null)
-		SBUxMethod.set("sortMchnHldYn306",null)
-		SBUxMethod.set("sortMchnHldYn307",null)
-		SBUxMethod.set("sortMchnHldYn308",null)
-		SBUxMethod.set("sortMchnHldYn309",null)
-		SBUxMethod.set("sortMchnHldYn310",null)
-		SBUxMethod.set("sortMchnHldYn311",null)
-		SBUxMethod.set("sortMchnHldYn312",null)
-		SBUxMethod.set("sortMchnHldYnAyr4",null)
-		SBUxMethod.set("sortMchnHldYn401",null)
-		SBUxMethod.set("sortMchnHldYn402",null)
-		SBUxMethod.set("sortMchnHldYn403",null)
-		SBUxMethod.set("sortMchnHldYn404",null)
-		SBUxMethod.set("sortMchnHldYn405",null)
-		SBUxMethod.set("sortMchnHldYn406",null)
-		SBUxMethod.set("sortMchnHldYn407",null)
-		SBUxMethod.set("sortMchnHldYn408",null)
-		SBUxMethod.set("sortMchnHldYn409",null)
-		SBUxMethod.set("sortMchnHldYn410",null)
-		SBUxMethod.set("sortMchnHldYn411",null)
-		SBUxMethod.set("sortMchnHldYn412",null)
+    	SBUxMethod.set("dtl-input-sortMchnItemCd", null);    //선별기 품목코드
+        SBUxMethod.set("dtl-input-sortMchnOperCd", null);    // 선별기 운영 코드
+        SBUxMethod.set("dtl-input-sortMchnOperYn", null);    //선별기 운영 유무
 
     }
     //저장
@@ -876,7 +777,7 @@
 
 		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
-		/*
+
     	if (!SBUxMethod.get("gsb-slt-apcCd")) {
             alert("조회 항목의 APC 코드를 선택하세요.");
             return;
@@ -886,7 +787,7 @@
             alert("조회 항목의 대상년도를 선택하세요.");
             return;
         }
-		*/
+
 
 
     	if (gfn_isEmpty(trgtYr)) {
@@ -907,61 +808,20 @@
     	 console.log("******************fn_subInsert**********************************");
     	 if (!isConfirmed) return;
 
-    	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltSortMchnOperInfo.do", {
-    		trgtYr: SBUxMethod.set('dtl-input-trgtYr')   	                     //  대상연도
-    		,apcCd: SBUxMethod.set('dtl-input-apcCd')   	                     //  apc
-			,sortMchnHldYnAyr1 : $('#sortMchnHldYnAyr1').val()
-    		,sortMchnHldYn101 : $('#sortMchnHldYn101').val()
-    		,sortMchnHldYn102 : $('#sortMchnHldYn102').val()
-    		,sortMchnHldYn103 : $('#sortMchnHldYn103').val()
-    		,sortMchnHldYn104 : $('#sortMchnHldYn104').val()
-    		,sortMchnHldYn105 : $('#sortMchnHldYn105').val()
-    		,sortMchnHldYn106 : $('#sortMchnHldYn106').val()
-    		,sortMchnHldYn107 : $('#sortMchnHldYn107').val()
-    		,sortMchnHldYn108 : $('#sortMchnHldYn108').val()
-    		,sortMchnHldYn109 : $('#sortMchnHldYn109').val()
-    		,sortMchnHldYn110 : $('#sortMchnHldYn110').val()
-    		,sortMchnHldYn111 : $('#sortMchnHldYn111').val()
-    		,sortMchnHldYn112 : $('#sortMchnHldYn112').val()
-    		,sortMchnHldYnAyr2 : $('#sortMchnHldYnAyr2').val()
-    		,sortMchnHldYn201 : $('#sortMchnHldYn201').val()
-    		,sortMchnHldYn202 : $('#sortMchnHldYn202').val()
-    		,sortMchnHldYn203 : $('#sortMchnHldYn203').val()
-    		,sortMchnHldYn204 : $('#sortMchnHldYn204').val()
-    		,sortMchnHldYn205 : $('#sortMchnHldYn205').val()
-    		,sortMchnHldYn206 : $('#sortMchnHldYn206').val()
-    		,sortMchnHldYn207 : $('#sortMchnHldYn207').val()
-    		,sortMchnHldYn208 : $('#sortMchnHldYn208').val()
-    		,sortMchnHldYn209 : $('#sortMchnHldYn209').val()
-    		,sortMchnHldYn210 : $('#sortMchnHldYn210').val()
-    		,sortMchnHldYn211 : $('#sortMchnHldYn211').val()
-    		,sortMchnHldYn212 : $('#sortMchnHldYn212').val()
-    		,sortMchnHldYnAyr3 : $('#sortMchnHldYnAyr3').val()
-    		,sortMchnHldYn301 : $('#sortMchnHldYn301').val()
-    		,sortMchnHldYn302 : $('#sortMchnHldYn302').val()
-    		,sortMchnHldYn303 : $('#sortMchnHldYn303').val()
-    		,sortMchnHldYn304 : $('#sortMchnHldYn304').val()
-    		,sortMchnHldYn305 : $('#sortMchnHldYn305').val()
-    		,sortMchnHldYn306 : $('#sortMchnHldYn306').val()
-    		,sortMchnHldYn307 : $('#sortMchnHldYn307').val()
-    		,sortMchnHldYn308 : $('#sortMchnHldYn308').val()
-    		,sortMchnHldYn309 : $('#sortMchnHldYn309').val()
-    		,sortMchnHldYn310 : $('#sortMchnHldYn310').val()
-    		,sortMchnHldYn311 : $('#sortMchnHldYn311').val()
-    		,sortMchnHldYn312 : $('#sortMchnHldYn312').val()
-    		,sortMchnHldYnAyr4 : $('#sortMchnHldYnAyr4').val()
-    		,sortMchnHldYn401 : $('#sortMchnHldYn401').val()
-    		,sortMchnHldYn402 : $('#sortMchnHldYn402').val()
-    		,sortMchnHldYn403 : $('#sortMchnHldYn403').val()
-    		,sortMchnHldYn404 : $('#sortMchnHldYn404').val()
-    		,sortMchnHldYn405 : $('#sortMchnHldYn405').val()
-    		,sortMchnHldYn406 : $('#sortMchnHldYn406').val()
-    		,sortMchnHldYn407 : $('#sortMchnHldYn407').val()
-    		,sortMchnHldYn408 : $('#sortMchnHldYn408').val()
-    		,sortMchnHldYn409 : $('#sortMchnHldYn409').val()
-    		,sortMchnHldYn410 : $('#sortMchnHldYn410').val()
-    		,sortMchnHldYn411 : $('#sortMchnHldYn411').val()
-    		,sortMchnHldYn412 : $('#sortMchnHldYn412').val()
+    	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltAtmtcMchnInfo.do", {
+        		trgtYr: SBUxMethod.set('dtl-input-trgtYr')   	                     //  상단 조회 조건의 대상연도 SBUxMethod.get("srch-input-trgtYr")
+            ,	apcCd: SBUxMethod.set('dtl-input-apcCd')     	                     //  상단 조회 조건의 APC코드 SBUxMethod.get("gsb-slt-apcCd")
+            ,	sn: SBUxMethod.set('dtl-input-sortMchnItemCd')      		         //	 선별기 품목코드
+            ,	fcltCd: SBUxMethod.set('dtl-input-sortMchnOperCd')   	             //	 선별기 운영 코드
+            ,	fcltNm: SBUxMethod.set('dtl-input-sortMchnOperYn')   	             //	 선별기 운영 유무
+            ,	delYn: SBUxMethod.get('dtl-input-delYn')                  			 //	 삭제유무
+            ,	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt')      	  	 //	 시스템최초입력일시
+            ,	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId')     //	 시스템최초입력사용자id
+            ,	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId')   //	 시스템최초입력프로그램id
+            ,	sysLastChgDt: SBUxMethod.get('dtl-input-sysLastChgDt')     		 	 //	 시스템최종변경일시
+            ,	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId')  	 //	 시스템최종변경사용자id
+            ,	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')   	 //	 시스템최종변경프로그램id
+			,	daddr:1
 		});
 
 
@@ -990,61 +850,18 @@
     	 console.log("******************fn_subUpdate**********************************");
 		if (!isConfirmed) return;
 
-    	const postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltSortMchnOperInfo.do", {
-        		trgtYr: SBUxMethod.get('dtl-input-trgtYr')   	                     //  대상연도
-        		,apcCd: SBUxMethod.get('dtl-input-apcCd')   	                     //  apc
-				,sortMchnHldYnAyr1 : $('#sortMchnHldYnAyr1').val()
-	    		,sortMchnHldYn101 : $('#sortMchnHldYn101').val()
-	    		,sortMchnHldYn102 : $('#sortMchnHldYn102').val()
-	    		,sortMchnHldYn103 : $('#sortMchnHldYn103').val()
-	    		,sortMchnHldYn104 : $('#sortMchnHldYn104').val()
-	    		,sortMchnHldYn105 : $('#sortMchnHldYn105').val()
-	    		,sortMchnHldYn106 : $('#sortMchnHldYn106').val()
-	    		,sortMchnHldYn107 : $('#sortMchnHldYn107').val()
-	    		,sortMchnHldYn108 : $('#sortMchnHldYn108').val()
-	    		,sortMchnHldYn109 : $('#sortMchnHldYn109').val()
-	    		,sortMchnHldYn110 : $('#sortMchnHldYn110').val()
-	    		,sortMchnHldYn111 : $('#sortMchnHldYn111').val()
-	    		,sortMchnHldYn112 : $('#sortMchnHldYn112').val()
-	    		,sortMchnHldYnAyr2 : $('#sortMchnHldYnAyr2').val()
-	    		,sortMchnHldYn201 : $('#sortMchnHldYn201').val()
-	    		,sortMchnHldYn202 : $('#sortMchnHldYn202').val()
-	    		,sortMchnHldYn203 : $('#sortMchnHldYn203').val()
-	    		,sortMchnHldYn204 : $('#sortMchnHldYn204').val()
-	    		,sortMchnHldYn205 : $('#sortMchnHldYn205').val()
-	    		,sortMchnHldYn206 : $('#sortMchnHldYn206').val()
-	    		,sortMchnHldYn207 : $('#sortMchnHldYn207').val()
-	    		,sortMchnHldYn208 : $('#sortMchnHldYn208').val()
-	    		,sortMchnHldYn209 : $('#sortMchnHldYn209').val()
-	    		,sortMchnHldYn210 : $('#sortMchnHldYn210').val()
-	    		,sortMchnHldYn211 : $('#sortMchnHldYn211').val()
-	    		,sortMchnHldYn212 : $('#sortMchnHldYn212').val()
-	    		,sortMchnHldYnAyr3 : $('#sortMchnHldYnAyr3').val()
-	    		,sortMchnHldYn301 : $('#sortMchnHldYn301').val()
-	    		,sortMchnHldYn302 : $('#sortMchnHldYn302').val()
-	    		,sortMchnHldYn303 : $('#sortMchnHldYn303').val()
-	    		,sortMchnHldYn304 : $('#sortMchnHldYn304').val()
-	    		,sortMchnHldYn305 : $('#sortMchnHldYn305').val()
-	    		,sortMchnHldYn306 : $('#sortMchnHldYn306').val()
-	    		,sortMchnHldYn307 : $('#sortMchnHldYn307').val()
-	    		,sortMchnHldYn308 : $('#sortMchnHldYn308').val()
-	    		,sortMchnHldYn309 : $('#sortMchnHldYn309').val()
-	    		,sortMchnHldYn310 : $('#sortMchnHldYn310').val()
-	    		,sortMchnHldYn311 : $('#sortMchnHldYn311').val()
-	    		,sortMchnHldYn312 : $('#sortMchnHldYn312').val()
-	    		,sortMchnHldYnAyr4 : $('#sortMchnHldYnAyr4').val()
-	    		,sortMchnHldYn401 : $('#sortMchnHldYn401').val()
-	    		,sortMchnHldYn402 : $('#sortMchnHldYn402').val()
-	    		,sortMchnHldYn403 : $('#sortMchnHldYn403').val()
-	    		,sortMchnHldYn404 : $('#sortMchnHldYn404').val()
-	    		,sortMchnHldYn405 : $('#sortMchnHldYn405').val()
-	    		,sortMchnHldYn406 : $('#sortMchnHldYn406').val()
-	    		,sortMchnHldYn407 : $('#sortMchnHldYn407').val()
-	    		,sortMchnHldYn408 : $('#sortMchnHldYn408').val()
-	    		,sortMchnHldYn409 : $('#sortMchnHldYn409').val()
-	    		,sortMchnHldYn410 : $('#sortMchnHldYn410').val()
-	    		,sortMchnHldYn411 : $('#sortMchnHldYn411').val()
-	    		,sortMchnHldYn412 : $('#sortMchnHldYn412').val()
+    	const postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltAtmtcMchnInfo.do", {
+        	trgtYr: SBUxMethod.set('dtl-input-trgtYr')   	                     //  대상연도
+        ,	sortMchnItemCd: SBUxMethod.set('dtl-input-sortMchnItemCd')   	     //	 선별기 품목코드
+        ,	sortMchnOperCd: SBUxMethod.set('dtl-input-sortMchnOperCd')    	     //	 선별기 운영 코드
+        ,	sortMchnOperYn: SBUxMethod.set('dtl-input-sortMchnOperYn')           //	 선별기 운영 유무
+        ,	delYn: SBUxMethod.get('dtl-input-delYn')                  			 //	 삭제유무
+        ,	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt')      	  	 //	 시스템최초입력일시
+        ,	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId')     //	 시스템최초입력사용자id
+        ,	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId')   //	 시스템최초입력프로그램id
+        ,	sysLastChgDt: SBUxMethod.get('dtl-input-sysLastChgDt')     		 	 //	 시스템최종변경일시
+        ,	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId')  	 //	 시스템최종변경사용자id
+        ,	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')   	 //	 시스템최종변경프로그램id
     		});
 
         const data = await postJsonPromise;
@@ -1152,79 +969,16 @@
 		}
 			//서치폼에서 클릭시 디테일폼에 데이터출력
         let rowData = grdStMcOpIfList.getRowData(nRow);
-			console.log("=========rowData=======");
-		console.log(rowData.sortMchnHldYnAyr1);
-		console.log(rowData.sortMchnHldYn101);
-		console.log(rowData.sortMchnHldYn102);
-		console.log(rowData.sortMchnHldYn103);
-		console.log(rowData.sortMchnHldYn104);
-		console.log(rowData.sortMchnHldYn105);
+
 
     	SBUxMethod.set("dtl-input-trgtYr", rowData.trgtYr);       //대상연도
 		SBUxMethod.set("dtl-input-apcCd", rowData.apcCd);         //apc코드
-		SBUxMethod.set("dtl-input-apcNm", rowData.apcNm);         //apc코드
-		SBUxMethod.set("sortMchnHldYnAyr1",fn_checkChk(rowData.sortMchnHldYnAyr1));
-		SBUxMethod.set("sortMchnHldYn101",fn_checkChk(rowData.sortMchnHldYn101));
-		SBUxMethod.set("sortMchnHldYn102",fn_checkChk(rowData.sortMchnHldYn102));
-		SBUxMethod.set("sortMchnHldYn103",fn_checkChk(rowData.sortMchnHldYn103));
-		SBUxMethod.set("sortMchnHldYn104",fn_checkChk(rowData.sortMchnHldYn104));
-		SBUxMethod.set("sortMchnHldYn105",fn_checkChk(rowData.sortMchnHldYn105));
-		SBUxMethod.set("sortMchnHldYn106",fn_checkChk(rowData.sortMchnHldYn106));
-		SBUxMethod.set("sortMchnHldYn107",fn_checkChk(rowData.sortMchnHldYn107));
-		SBUxMethod.set("sortMchnHldYn108",fn_checkChk(rowData.sortMchnHldYn108));
-		SBUxMethod.set("sortMchnHldYn109",fn_checkChk(rowData.sortMchnHldYn109));
-		SBUxMethod.set("sortMchnHldYn110",fn_checkChk(rowData.sortMchnHldYn110));
-		SBUxMethod.set("sortMchnHldYn111",fn_checkChk(rowData.sortMchnHldYn111));
-		SBUxMethod.set("sortMchnHldYn112",fn_checkChk(rowData.sortMchnHldYn112));
-		SBUxMethod.set("sortMchnHldYnAyr2",fn_checkChk(rowData.sortMchnHldYnAyr2));
-		SBUxMethod.set("sortMchnHldYn201",fn_checkChk(rowData.sortMchnHldYn201));
-		SBUxMethod.set("sortMchnHldYn202",fn_checkChk(rowData.sortMchnHldYn202));
-		SBUxMethod.set("sortMchnHldYn203",fn_checkChk(rowData.sortMchnHldYn203));
-		SBUxMethod.set("sortMchnHldYn204",fn_checkChk(rowData.sortMchnHldYn204));
-		SBUxMethod.set("sortMchnHldYn205",fn_checkChk(rowData.sortMchnHldYn205));
-		SBUxMethod.set("sortMchnHldYn206",fn_checkChk(rowData.sortMchnHldYn206));
-		SBUxMethod.set("sortMchnHldYn207",fn_checkChk(rowData.sortMchnHldYn207));
-		SBUxMethod.set("sortMchnHldYn208",fn_checkChk(rowData.sortMchnHldYn208));
-		SBUxMethod.set("sortMchnHldYn209",fn_checkChk(rowData.sortMchnHldYn209));
-		SBUxMethod.set("sortMchnHldYn210",fn_checkChk(rowData.sortMchnHldYn210));
-		SBUxMethod.set("sortMchnHldYn211",fn_checkChk(rowData.sortMchnHldYn211));
-		SBUxMethod.set("sortMchnHldYn212",fn_checkChk(rowData.sortMchnHldYn212));
-		SBUxMethod.set("sortMchnHldYnAyr3",fn_checkChk(rowData.sortMchnHldYnAyr3));
-		SBUxMethod.set("sortMchnHldYn301",fn_checkChk(rowData.sortMchnHldYn301));
-		SBUxMethod.set("sortMchnHldYn302",fn_checkChk(rowData.sortMchnHldYn302));
-		SBUxMethod.set("sortMchnHldYn303",fn_checkChk(rowData.sortMchnHldYn303));
-		SBUxMethod.set("sortMchnHldYn304",fn_checkChk(rowData.sortMchnHldYn304));
-		SBUxMethod.set("sortMchnHldYn305",fn_checkChk(rowData.sortMchnHldYn305));
-		SBUxMethod.set("sortMchnHldYn306",fn_checkChk(rowData.sortMchnHldYn306));
-		SBUxMethod.set("sortMchnHldYn307",fn_checkChk(rowData.sortMchnHldYn307));
-		SBUxMethod.set("sortMchnHldYn308",fn_checkChk(rowData.sortMchnHldYn308));
-		SBUxMethod.set("sortMchnHldYn309",fn_checkChk(rowData.sortMchnHldYn309));
-		SBUxMethod.set("sortMchnHldYn310",fn_checkChk(rowData.sortMchnHldYn310));
-		SBUxMethod.set("sortMchnHldYn311",fn_checkChk(rowData.sortMchnHldYn311));
-		SBUxMethod.set("sortMchnHldYn312",fn_checkChk(rowData.sortMchnHldYn312));
-		SBUxMethod.set("sortMchnHldYnAyr4",fn_checkChk(rowData.sortMchnHldYnAyr4));
-		SBUxMethod.set("sortMchnHldYn401",fn_checkChk(rowData.sortMchnHldYn401));
-		SBUxMethod.set("sortMchnHldYn402",fn_checkChk(rowData.sortMchnHldYn402));
-		SBUxMethod.set("sortMchnHldYn403",fn_checkChk(rowData.sortMchnHldYn403));
-		SBUxMethod.set("sortMchnHldYn404",fn_checkChk(rowData.sortMchnHldYn404));
-		SBUxMethod.set("sortMchnHldYn405",fn_checkChk(rowData.sortMchnHldYn405));
-		SBUxMethod.set("sortMchnHldYn406",fn_checkChk(rowData.sortMchnHldYn406));
-		SBUxMethod.set("sortMchnHldYn407",fn_checkChk(rowData.sortMchnHldYn407));
-		SBUxMethod.set("sortMchnHldYn408",fn_checkChk(rowData.sortMchnHldYn408));
-		SBUxMethod.set("sortMchnHldYn409",fn_checkChk(rowData.sortMchnHldYn409));
-		SBUxMethod.set("sortMchnHldYn410",fn_checkChk(rowData.sortMchnHldYn410));
-		SBUxMethod.set("sortMchnHldYn411",fn_checkChk(rowData.sortMchnHldYn411));
-		SBUxMethod.set("sortMchnHldYn412",fn_checkChk(rowData.sortMchnHldYn412));
+    	SBUxMethod.set("dtl-input-sortMchnItemCd", rowData.fcltCd);      //선별기 품목코드
+    	SBUxMethod.set("dtl-input-sortMchnOperCd", rowData.fcltNm);     //선별기 운영 코드
+    	SBUxMethod.set("dtl-input-sortMchnOperYn", rowData.apcNm);         //선별기 운영 유무
     }
 
-    function fn_checkChk(value){
 
-        if (value === null || value === "0") {
-            return "0";
-        } else {
-            return "1";
-        }
-    }
 
 
     //그리드 체크박스 전체 선택
@@ -1236,39 +990,6 @@
         	grdStMcOpIfList.setCellData(i+1, 1, checkedYn, true, false);
         }
     }
-
- 	// apc 선택 팝업 호출
-	const fn_modalApcSelect = function() {
-		popApcSelect.init(fn_setApc);
-	}
-	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
-		if (!gfn_isEmpty(apc)) {
-			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
-			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
-		}
-	}
-
-	// "null" 로 들어가는 경우 방지
-	function fn_emptyString(obj) {
-		console.log("==========fn_emptyString=============");
-	    if (Array.isArray(obj)) {
-	        // 배열의 경우
-	        for (var i = 0; i < obj.length; i++) {
-	        	if (data[i] === "null" || data[i] === null) {
-	                obj[i] = "";
-	            }
-	        }
-	    } else if (typeof obj === "object") {
-	        // 객체의 경우
-	        for (var key in obj) {
-	        	if (obj[key] === "null" || obj[key] === null) {
-	                obj[key] = "";
-	            }
-	        }
-	    }
-	    return obj;
-	}
 
 </script>
 </html>
