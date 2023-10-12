@@ -250,8 +250,7 @@
             {caption: ['납기일자'], 	ref: 'wrhsYmd', 		width: '100px', type: 'output', style: 'text-align:center',
                 	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['거래처'], 		ref: 'apcCnptNm', 		width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['상품명'], 		ref: 'gdsNm', 			width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['상품코드'], 	ref: 'gdsCd', 			width: '100px', type: 'output', style: 'text-align:center'},
+            {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['배송처'], 		ref: 'dldtn', 			width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['품목'], 		ref: 'itemNm', 			width: '80px', type: 'output', style: 'text-align:center'},
             {caption: ['품종'], 		ref: 'vrtyNm', 			width: '80px', type: 'output', style: 'text-align:center'},
@@ -323,7 +322,9 @@
           				regUserNm		: item.regUserNm,
           				dldtn			: item.dldtn,
           				gdsCd			: item.gdsCd,
-          				gdsNm			: item.gdsNm
+          				gdsNm			: item.gdsNm,
+          				spmtPckgUnitNm	: item.spmtPckgUnitNm,
+          				spmtPckgUnitCd	: item.spmtPckgUnitCd
   				}
           		jsonOrdr.push(ordr);
   			});
@@ -557,7 +558,7 @@
 	const fn_setGdsNm = async function(gds) {
 		if (!gfn_isEmpty(gds)) {
 			console.log(gds);
-			SBUxMethod.set('srch-inp-gdsNm', gds.gdsNm);
+			SBUxMethod.set('srch-inp-gdsNm', gds.spmtPckgUnitNm);
 			SBUxMethod.set('srch-inp-gdsCd', gds.gdsCd);
 			SBUxMethod.set('srch-inp-spmtPckgUnitCd', gds.spmtPckgUnitCd);
 			SBUxMethod.set("srch-slt-itemCd", gds.itemCd);

@@ -135,33 +135,37 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 	}
 
 	@Override
-	public int deleteSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception {
+	public int deleteSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
 		int deletedCnt = 0;
 
 		List<SpmtPrfmncVO> deleteList = new ArrayList<>();
 
-		for ( var i=0; i<spmtPrfmnc.size(); i++ ) {
-			deleteSpmtPrfmncCom(spmtPrfmnc.get(i));
 
-			deleteList = selectSpmtPrfmncDtl(spmtPrfmnc.get(i));
+		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
 
-			for ( var j=0; j<deleteList.size(); j++ ) {
-				deleteList.get(i).setSysLastChgPrgrmId(spmtPrfmnc.get(i).getSysLastChgPrgrmId());
-				deleteList.get(i).setSysLastChgUserId(spmtPrfmnc.get(i).getSysLastChgUserId());
+			deleteSpmtPrfmncCom(spmtPrfmncVO);
 
-				deletedCnt += deleteSpmtPrfmncDtl(deleteList.get(i));
+			deleteList = selectSpmtPrfmncDtl(spmtPrfmncVO);
+
+			for (SpmtPrfmncVO spmtPrfmnc : deleteList) {
+
+				spmtPrfmnc.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+				spmtPrfmnc.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+
+				deletedCnt += deleteSpmtPrfmncDtl(spmtPrfmnc);
 
 				GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
-				gdsInvntrVO.setApcCd(deleteList.get(i).getApcCd());
-				gdsInvntrVO.setPckgno(deleteList.get(i).getPckgno());
-				gdsInvntrVO.setPckgSn(deleteList.get(i).getPckgSn());
-				gdsInvntrVO.setSpmtQntt(deleteList.get(i).getSpmtQntt());
-				gdsInvntrVO.setSpmtWght(deleteList.get(i).getSpmtWght());
-				gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmnc.get(i).getSysLastChgPrgrmId());
-				gdsInvntrVO.setSysLastChgUserId(spmtPrfmnc.get(i).getSysLastChgUserId());
+				gdsInvntrVO.setApcCd(spmtPrfmnc.getApcCd());
+				gdsInvntrVO.setPckgno(spmtPrfmnc.getPckgno());
+				gdsInvntrVO.setPckgSn(spmtPrfmnc.getPckgSn());
+				gdsInvntrVO.setSpmtQntt(spmtPrfmnc.getSpmtQntt());
+				gdsInvntrVO.setSpmtWght(spmtPrfmnc.getSpmtWght());
+				gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+				gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
 				gdsInvntrService.updateGdsInvntrSpmtPrfmncCncl(gdsInvntrVO);
 			}
+
 		}
 		return deletedCnt;
 	}

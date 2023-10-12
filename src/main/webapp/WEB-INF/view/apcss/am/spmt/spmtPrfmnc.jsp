@@ -175,6 +175,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.explorerbar = 'sortmove';
+		SBGridProperties.mergecells = 'byrestriccol';
     	SBGridProperties.paging = {
     			'type' : 'page',
     		  	'count' : 5,
@@ -183,12 +184,9 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
+        	{caption: ['출하번호','출하번호'], 		ref: 'spmtno', 	width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd',		width: '100px',	type: 'output',	style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
-            {caption: ['상품명','상품명'], 		ref: 'gdsNm', 		width: '140px',	type: 'output',	style:'text-align: center', hidden:true},
-            {caption: ['품목','품목'],			ref: 'itemNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
-            {caption: ['품종','품종'],			ref: 'vrtyNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
-            {caption: ['규격','규격'], 			ref: 'spcfctNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['브랜드','브랜드'], 		ref: 'brndNm', 		width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['거래처','거래처'], 		ref: 'cnptNm', 		width: '150px',	type: 'output',	style:'text-align: center'},
             {caption: ['배송지','배송지'], 		ref: 'dldtn', 		width: '150px',	type: 'output',	style:'text-align: center'},
@@ -196,6 +194,9 @@
             {caption: ['차량번호','차량번호'], 	ref: 'vhclno',		width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['운반비','운반비'], 		ref: 'trsprtCst', 	width: '100px',	type: 'output',	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
+            {caption: ['품목','품목'],			ref: 'itemNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
+            {caption: ['품종','품종'],			ref: 'vrtyNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
+            {caption: ['규격','규격'], 			ref: 'spcfctNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['출하','수량'], 		ref: 'spmtQntt', 	width: '80px',	type: 'output',	style:'text-align: right',
             	format : {type:'number', rule:'#,###'}},
             {caption: ['출하','중량'], 		ref: 'spmtWght', 	width: '100px',	type: 'output',	style:'text-align: right',
@@ -233,7 +234,7 @@
 		let vrtyNm = SBUxMethod.get("srch-inp-vrtyNm");
 		let dldtn = SBUxMethod.get("srch-inp-dldtn");
 		let vhclno = SBUxMethod.get("srch-inp-vhclno");
-		
+
 		if (gfn_isEmpty(spmtYmdFrom)){
 			gfn_comAlert("W0002", "출하일자");		//	W0002	{0}을/를 입력하세요.
             return;
@@ -242,7 +243,7 @@
 			gfn_comAlert("W0002", "출하일자");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
-		
+
 		let SpmtPrfmncVO = {apcCd 				: apcCd
 						  , spmtYmdFrom 		: spmtYmdFrom
 						  , spmtYmdTo 			: spmtYmdTo
@@ -279,6 +280,7 @@
 				  , totSpmtQntt		: item.totSpmtQntt
 				  , totSpmtWght 	: item.totSpmtWght
 				  , rmrk			: item.rmrk
+				  , spmtno			: item.spmtno
 				}
 				jsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));
 				newJsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));
