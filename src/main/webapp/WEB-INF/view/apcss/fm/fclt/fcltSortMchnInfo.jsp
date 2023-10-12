@@ -251,11 +251,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>","<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',width:'6%',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
+            {caption: ["APCNM"],		ref: 'apcNm',            		type:'output',  width:'10%',    style:'text-align:center'},
             {caption: ["선별기 보유 유무","품목1"],	ref: 'sortMchnHldYn1',    		type:'combo',  width:'6%',    style:'text-align:center'
             	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
             {caption: ["선별기 보유 유무","품목2"],	ref: 'sortMchnHldYn2',    		type:'combo',  width:'6%',    style:'text-align:center'
@@ -286,10 +282,7 @@
             {caption: ["평균가동일수","기타품목"],		ref: 'avgOperDay4',       type:'output',  width:'6%',    style:'text-align:center'},
 
             {caption: ["APCCD"],		ref: 'apcCd',            		type:'output',  hidden: true},
-            {caption: ["APCNM"],		ref: 'apcNm',            		type:'output',  hidden: false},
-            {caption: ["대상연도"],			ref: 'trgtYr',      		    type:'output',  hidden: true},
-            {caption: ["등록프로그램"], 		ref: 'creProgram',  			type:'output',  hidden: true},
-            {caption: ["변경프로그램"], 		ref: 'updProgram',  			type:'output',  hidden: true}
+            {caption: ["대상연도"],			ref: 'trgtYr',      		    type:'output',  hidden: true}
 
         ];
         grdStMcInfList = _SBGrid.create(SBGridProperties);
@@ -341,7 +334,7 @@
 			currentPageNo : pageNo,
  		  	recordCountPerPage : pageSize
         });
-		
+
         const data = await postJsonPromise;
 		//await 오류시 확인
 
@@ -390,7 +383,7 @@
 					totalRecordCount = item.totalRecordCount;
 				}
 			});
-        	
+
         	console.log("totalRecordCount*************", totalRecordCount);
 
         	if (jsonStMcInfList.length > 0) {
@@ -415,7 +408,7 @@
     		//console.error("failed", e.message);
         }
     }
-   
+
 
 
     //신규 작성 dtl 내부의 값을 null로

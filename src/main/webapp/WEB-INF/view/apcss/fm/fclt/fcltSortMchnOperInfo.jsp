@@ -519,12 +519,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>","<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',width:'3%',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-
+            {caption: ["APCNM"],		ref: 'apcNm',       		type:'output',  	width:'10%',    style:'text-align:center'},
             {caption: ["품목1","연중"], ref: 'sortMchnHldYnAyr1', type:'output', width:'3%', style:'text-align:center'},
             {caption: ["품목1","1"], ref: 'sortMchnHldYn101', type:'output', width:'2%', style:'text-align:center'},
             {caption: ["품목1","2"], ref: 'sortMchnHldYn102', type:'output', width:'2%', style:'text-align:center'},
@@ -579,7 +574,6 @@
             {caption: ["기타품목","12"], ref: 'sortMchnHldYn412', type:'output', width:'2%', style:'text-align:center'},
 
             {caption: ["APCCD"],		ref: 'apcCd',       		type:'output',  	hidden: true},
-            {caption: ["APCNM"],		ref: 'apcNm',       		type:'output',  	hidden: false},
             {caption: ["대상연도"],			ref: 'trgtYr',          	type:'output',  hidden: true},
             {caption: ["등록프로그램"], 		ref: 'creProgram',  		type:'output',  hidden: true},
             {caption: ["변경프로그램"], 		ref: 'updProgram',  		type:'output',  hidden: true}

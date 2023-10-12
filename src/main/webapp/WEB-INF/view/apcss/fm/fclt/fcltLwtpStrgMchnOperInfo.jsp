@@ -247,6 +247,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
+            {caption: ["APC명"],			ref: 'apcNm',           type:'output',  width:'10%',    style:'text-align:center'},
         	{caption: ["없음"],	    	ref: 'fcltOperYn',      type:'output',  width:'8%',    		style:'text-align:center'},
             {caption: ["1월"],	    	ref: 'fcltOperYn1',      type:'output',  width:'8%',    		style:'text-align:center'},
             {caption: ["2월"], 			ref: 'fcltOperYn2',     	type:'output',  width:'8%',    style:'text-align:center'},
@@ -261,7 +262,6 @@
             {caption: ["11월"],			ref: 'fcltOperYn11',           type:'output',  width:'8%',   		style:'text-align:center'},
             {caption: ["12월"],			ref: 'fcltOperYn12',           type:'output',  width:'8%',   		style:'text-align:center'},
             {caption: ["APCCD"],		ref: 'apcCd',           type:'output',  hidden: true},
-            {caption: ["APC명"],			ref: 'apcNm',           type:'output',  hidden: false},
             {caption: ["대상년도"],		ref: 'trgtYr',          type:'output',  hidden: true},
             {caption: ["등록프로그램"], 	ref: 'creProgram',  type:'output',  hidden: true},
             {caption: ["변경프로그램"], 	ref: 'updProgram',  type:'output',  hidden: true}

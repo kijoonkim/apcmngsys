@@ -312,11 +312,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
+            {caption: ["APC","APC명"],			ref: 'apcNm',           type:'output',  width:'23%',    style:'text-align:center'},
             {caption: ["","소유조직"],	    	ref: 'psnOgnzNm',      type:'output',  width:'23%',    style:'text-align:center'},
             {caption: ["","소유조직 사업자번호"],   		ref: 'psnOgnzBrno',    type:'output',  hidden: true},
             {caption: ["운영조직","운영조직명"],		ref: 'operOgnzNm',   	type:'output',  width:'23%',    style:'text-align:center'},
@@ -328,7 +324,6 @@
             {caption: ["운영조직","주소(시도)"],   		ref: 'operOgnzAddr1',    type:'output',  hidden: true},
             {caption: ["운영조직","주소(시군구)"],   		ref: 'operOgnzAddr2',    type:'output',  hidden: true},
             {caption: ["운영조직","조직유형"],   		ref: 'operOgnzDeptCd',    type:'output',  hidden: true},
-            {caption: ["APC","APC명"],			ref: 'apcNm',           type:'output',  width:'23%',    style:'text-align:center'},
             {caption: ["APC","대표품목1"],	ref: 'apcTrmtItemCn',   type:'output',  width:'23%',    style:'text-align:center'},
             {caption: ["APC","대표품목2"],	ref: 'apcTrmtItemCn2',   type:'output',  width:'23%',    style:'text-align:center'},
             {caption: ["APC","대표품목3"],	ref: 'apcTrmtItemCn3',   type:'output',  width:'23%',    style:'text-align:center'},
@@ -336,9 +331,7 @@
             {caption: ["APC","주소"],	ref: 'apcAddr',   type:'output',  hidden: true},
             {caption: ["APC","사업자번호"],	ref: 'apcBrno',   type:'output',  hidden: true},
             {caption: ["APC CD"],		ref: 'apcCd',           type:'output',  hidden: true},
-            {caption: ["대상년도"],			ref: 'trgtYr',          type:'output',  hidden: true},
-            {caption: ["등록프로그램"], 		ref: 'creProgram',  type:'output',  hidden: true},
-            {caption: ["변경프로그램"], 		ref: 'updProgram',  type:'output',  hidden: true}
+            {caption: ["대상년도"],			ref: 'trgtYr',          type:'output',  hidden: true}
 
         ];
 

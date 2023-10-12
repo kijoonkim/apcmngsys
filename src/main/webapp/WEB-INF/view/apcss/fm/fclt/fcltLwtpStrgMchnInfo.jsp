@@ -186,6 +186,7 @@
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             */
+            {caption: ["APC명"],		ref: 'apcNm',           type:'output',  width:'10%',    style:'text-align:center'},
             {caption: ["보유현황"],	    	ref: 'fcltHldYn',      type:'combo',  width:'23%',    			style:'text-align:center'
             	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
             {caption: ["저장능력(톤)"],  			ref: 'storCap',    type:'output',  width:'23%',    			style:'text-align:center'},
@@ -193,7 +194,6 @@
             {caption: ["장기저장실적(톤)"],			ref: 'ltStorPerfm',    type:'output',  width:'23%',   		style:'text-align:center'},
             {caption: ["저장가동률(%)"],			ref: 'storOpRate',    type:'output',  width:'23%',   		style:'text-align:center'},
             {caption: ["APCCD"],		ref: 'apcCd',           type:'output',  hidden: true},
-            {caption: ["APC명"],		ref: 'apcNm',           type:'output',  hidden: false},
             {caption: ["대상년도"],		ref: 'trgtYr',          type:'output',  hidden: true},
             {caption: ["등록프로그램"], ref: 'creProgram',  type:'output',  hidden: true},
             {caption: ["변경프로그램"], ref: 'updProgram',  type:'output',  hidden: true}
