@@ -154,4 +154,14 @@ public class SlsPrfmncVO extends ComVO {
 	 * 확정여부
 	 */
 	private String cfmtnYn;
+
+	/*
+	 * 프로시저 실패 리턴 결과
+	 * */
+	private String rtnCd;
+
+	/*
+	 * 프로시저 실패 리턴 메시지
+	 * */
+	private String rtnMsg;
 }

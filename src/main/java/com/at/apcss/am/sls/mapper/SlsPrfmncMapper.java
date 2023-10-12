@@ -22,7 +22,7 @@ import com.at.apcss.am.sls.vo.SlsPrfmncVO;
  */
 @Mapper
 public interface SlsPrfmncMapper {
-	
+
 	/**
 	 * 매출실적 단건 조회
 	 * @param slsPrfmncVO
@@ -38,6 +38,14 @@ public interface SlsPrfmncMapper {
 	 * @throws Exception
 	 */
 	public List<SlsPrfmncVO> selectSlsPrfmncList(SlsPrfmncVO slsPrfmncVO) throws Exception;
+
+	/**
+	 * 매출실적 대상 목록 조회
+	 * @param SlsPrfmncVO
+	 * @return List<SlsPrfmncVO>
+	 * @throws Exception
+	 */
+	public List<SlsPrfmncVO> selectRegSlsPrfmncList(SlsPrfmncVO slsPrfmncVO) throws Exception;
 
 	/**
 	 * 매출실적 등록
@@ -62,4 +70,12 @@ public interface SlsPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int deleteSlsPrfmnc(SlsPrfmncVO slsPrfmncVO) throws Exception;
+
+	/**
+	 * 매출실적 생성
+	 * @param slsPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public void insertSlsPrfmncCrt(SlsPrfmncVO slsPrfmncVO) throws Exception;
 }
