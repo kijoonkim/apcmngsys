@@ -200,13 +200,16 @@
 				<!--[pp] 검색결과 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
+						<li>
+							<span>원물계량 내역</span>
+							<span style="font-size:12px">(조회건수 <span id="cnt-wgh">0</span>건)</span>
+						</li>
 					</ul>
 				</div>
-				<div id="wrap-grdWghPrfmnc" class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdPrdcrCrclOgnMng" style="width:100%;height:370px;"></div>
-				</div>
+				<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdPrdcrCrclOgnUsrMng" style="height:350px; width: 100%;"></div>
 				<table class="table table-bordered tbl_fixed">
-					<caption>사용자관리 수정 화면</caption>
+					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 5%">
 						<col style="width: 7%">
@@ -662,6 +665,7 @@
 
 					</tbody>
 				</table>
+
 			</div>
 				<!--[pp] //검색결과 -->
 		</div>
@@ -716,7 +720,6 @@
     <div id="body-modal-wrhsPltBx">
     	<jsp:include page="../../am/popup/wrhsPltBxPopup.jsp"></jsp:include>
     </div>
-
 
 </body>
 <script type="text/javascript">
@@ -774,30 +777,9 @@
 		fn_init();
 
 		gfn_setComCdSBSelect(
-    			'dtl-slt-frstApprv',
-    			jsonDSFA,
-			'IOPD_COFM_CD');
-
-		gfn_setComCdSBSelect(
-    			'dtl-slt-scndApprv',
-    			jsonDSSA,
-			'IOPD_SED_COFM_CD');
-
-		gfn_setComCdSBSelect(
     			'dtl-slt-orgNm',
     			jsonDSON,
 			'IOPD_CMPTNT_ORG');
-
-		gfn_setComCdSBSelect(
-    			'dtl-slt-athrt',
-    			jsonDSA,
-			'IOPD_ATHRT');
-
-		gfn_setComCdSBSelect(
-    			'dtl-slt-athrt2',
-    			jsonDSA,
-			'IOPD_ATHRT');
-
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
 		for (let i = 0; i < elements.length; i++) {
@@ -812,19 +794,7 @@
 		}
 	})
 
-	//설비 등록
-	var jsonPrdcrCrclOgnVluIdctrMng = []; // 그리드의 참조 데이터 주소 선언
-	var jsonComFcltGubun = [];
-
-	const fn_initSBSelectFclt = async function() {
-
-		let rst = await Promise.all([
-			gfn_setComCdSBSelect('grdPrdcrCrclOgnVluIdctrMng', 		jsonComFcltGubun, 	'FCLT_GUBUN') 		// 설비구분
-		])
-
-	}
-
-/* 초기화면 로딩 기능*/
+	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		fn_fcltMngCreateGrid();
 	}
@@ -837,9 +807,9 @@
 		SBUxMethod.set("fclt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdPrdcrCrclOgnMng';
-	    SBGridProperties.id = 'grdPrdcrCrclOgnMng';
-	    SBGridProperties.jsonref = 'jsonPrdcrCrclOgnMng';
+	    SBGridProperties.parentid = 'sb-area-grdPrdcrCrclOgnUsrMng';
+	    SBGridProperties.id = 'grdPrdcrCrclOgnUsrMng';
+	    SBGridProperties.jsonref = 'jsonPrdcrCrclOgnUsrMng';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -866,33 +836,33 @@
 	        	console.log(strValue);
 	        	if(strValue== null || strValue == ""){
 	        		console.log("통합조직 값없음");
-	        		return "<sbux-button type='button' uitype='modal' target-id='modal-itemSelect' class='btn btn-xs btn-outline-danger' text='찾기'  onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnMng\", " + nRow + ", " + nCol + ")'></sbux-button>"
-	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnMng\", " + nRow + ", " + nCol + ")'>찾기</button>";
-	        		//return " <sbux-button type='button' uitype='modal' target-id='modal-itemSelect'  text='찾기'  onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnMng\", " + nRow + ", " + nCol + ")'></sbux-button>";
+	        		return "<sbux-button type='button' uitype='modal' target-id='modal-itemSelect' class='btn btn-xs btn-outline-danger' text='찾기'  onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnUsrMng\", " + nRow + ", " + nCol + ")'></sbux-button>"
+	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnUsrMng\", " + nRow + ", " + nCol + ")'>찾기</button>";
+	        		//return " <sbux-button type='button' uitype='modal' target-id='modal-itemSelect'  text='찾기'  onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnUsrMng\", " + nRow + ", " + nCol + ")'></sbux-button>";
 	        	}else{
 	        		console.log("통합조직 값있음");
-	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnMng\", " + nRow + ", " + nCol + ")'>찾기</button>";
-	        		return "<sbux-button type='button' uitype='modal' target-id='modal-itemSelect' class='btn btn-xs btn-outline-danger' text='찾기'  onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnMng\", " + nRow + ", " + nCol + ")'></sbux-button>";
+	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnUsrMng\", " + nRow + ", " + nCol + ")'>찾기</button>";
+	        		return "<sbux-button type='button' uitype='modal' target-id='modal-itemSelect' class='btn btn-xs btn-outline-danger' text='찾기'  onClick='fn_GridPop(\"pop\", \"grdPrdcrCrclOgnUsrMng\", " + nRow + ", " + nCol + ")'></sbux-button>";
 	        	}
 	        }},
 	        */
 	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdPrdcrCrclOgnMng\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdPrdcrCrclOgnUsrMng\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdPrdcrCrclOgnMng\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdPrdcrCrclOgnUsrMng\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }}
 	    ];
 
-	    grdPrdcrCrclOgnMng = _SBGrid.create(SBGridProperties);
+	    grdPrdcrCrclOgnUsrMng = _SBGrid.create(SBGridProperties);
 	    let rst = await Promise.all([
 	    	fn_initSBSelectFclt(),
 		    fn_searchFcltList()
 		])
-		grdPrdcrCrclOgnMng.refresh({"combo":true});
+		grdPrdcrCrclOgnUsrMng.refresh({"combo":true});
 	  	//클릭 이벤트 바인드
-	    grdPrdcrCrclOgnMng.bind('click','gridClick');
+	    grdPrdcrCrclOgnUsrMng.bind('click','gridClick');
 
 	}
 
@@ -900,19 +870,18 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_searchFcltList = async function(){
-		let ccCode = SBUxMethod.get("srch-inp-itemCd1");//전문품목
-		let iiCode = SBUxMethod.get("srch-inp-apcCd2");//통합조직
-    	//let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnMng.do", {apcCd : apcCd});
-    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnMngList.do", {
-    		 ccCode : ccCode
+		//let apcCd = SBUxMethod.get("inp-apcCd");
+    	//let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnUsrMng.do", {apcCd : apcCd});
+    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnUsrMngList.do", {
+    		ccCode : ccCode
     		,iiCode : iiCode
 		});
         let data = await postJsonPromise;
         try{
-        	jsonPrdcrCrclOgnMng.length = 0;
+        	jsonPrdcrCrclOgnUsrMng.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-				let PrdcrCrclOgnMngVO = {
+				let PrdcrCrclOgnUsrMngVO = {
 					testNo 		: item.testNo
 				  , aa 		: item.aa
 				  , bb 		: item.bb
@@ -928,15 +897,15 @@
 				  , iiCode 		: item.iiCode
 				  , delYn 		: item.delYn
 				}
-				jsonPrdcrCrclOgnMng.push(PrdcrCrclOgnMngVO);
+				jsonPrdcrCrclOgnUsrMng.push(PrdcrCrclOgnUsrMngVO);
 			});
 
 
 
-        	grdPrdcrCrclOgnMng.rebuild();
+        	grdPrdcrCrclOgnUsrMng.rebuild();
 
         	//비어 있는 마지막 줄 추가용도?
-        	grdPrdcrCrclOgnMng.addRow();
+        	grdPrdcrCrclOgnUsrMng.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -949,13 +918,13 @@
 
 	/* Grid Row 저장 기능*/
 	const fn_saveFmList = async function(){
-		let gridData = grdPrdcrCrclOgnMng.getGridDataAll();
+		let gridData = grdPrdcrCrclOgnUsrMng.getGridDataAll();
 		let saveList = [];
 
 		for(var i=1; i<=gridData.length; i++ ){
 
-			let rowData = grdPrdcrCrclOgnMng.getRowData(i);
-			let rowSts = grdPrdcrCrclOgnMng.getRowStatus(i);
+			let rowData = grdPrdcrCrclOgnUsrMng.getRowData(i);
+			let rowSts = grdPrdcrCrclOgnUsrMng.getRowStatus(i);
 			let bb = rowData.bb;
 			let aa = rowData.aa;
 			let delYn = rowData.delYn;
@@ -992,7 +961,7 @@
 		if(confirm(regMsg)){
 
 			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
-			let postJsonPromise = gfn_postJSON("/pd/bsm/multiSavePrdcrCrclOgnMngList.do", saveList);
+			let postJsonPromise = gfn_postJSON("/pd/bsm/multiSavePrdcrCrclOgnUsrMngList.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
@@ -1015,30 +984,30 @@
 	/* Grid Row 추가 및 삭제 기능*/
     function fn_procRow(gubun, grid, nRow, nCol) {
         if (gubun === "ADD") {
-            if (grid === "grdPrdcrCrclOgnMng") {
-            	grdPrdcrCrclOgnMng.setCellData(nRow, nCol, "N", true);
-            	//grdPrdcrCrclOgnMng.setCellData(nRow, 5, gv_apcCd, true);
-            	grdPrdcrCrclOgnMng.addRow(true);
+            if (grid === "grdPrdcrCrclOgnUsrMng") {
+            	grdPrdcrCrclOgnUsrMng.setCellData(nRow, nCol, "N", true);
+            	//grdPrdcrCrclOgnUsrMng.setCellData(nRow, 5, gv_apcCd, true);
+            	grdPrdcrCrclOgnUsrMng.addRow(true);
             }
         }
         else if (gubun === "DEL") {
-            if (grid === "grdPrdcrCrclOgnMng") {
-            	if(grdPrdcrCrclOgnMng.getRowStatus(nRow) == 0 || grdPrdcrCrclOgnMng.getRowStatus(nRow) == 2){
+            if (grid === "grdPrdcrCrclOgnUsrMng") {
+            	if(grdPrdcrCrclOgnUsrMng.getRowStatus(nRow) == 0 || grdPrdcrCrclOgnUsrMng.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
-            			var PrdcrCrclOgnMngVO = grdPrdcrCrclOgnMng.getRowData(nRow);
-            			fn_deleteRsrc(PrdcrCrclOgnMngVO);
-            			grdPrdcrCrclOgnMng.deleteRow(nRow);
+            			var PrdcrCrclOgnUsrMngVO = grdPrdcrCrclOgnUsrMng.getRowData(nRow);
+            			fn_deleteRsrc(PrdcrCrclOgnUsrMngVO);
+            			grdPrdcrCrclOgnUsrMng.deleteRow(nRow);
             		}
             	}else{
-            		grdPrdcrCrclOgnMng.deleteRow(nRow);
+            		grdPrdcrCrclOgnUsrMng.deleteRow(nRow);
             	}
             }
         }
     }
 
-	async function fn_deleteRsrc(PrdcrCrclOgnMngVO){
-		let postJsonPromise = gfn_postJSON("/pd/bsm/deletePrdcrCrclOgnMng.do", PrdcrCrclOgnMngVO);
+	async function fn_deleteRsrc(PrdcrCrclOgnUsrMngVO){
+		let postJsonPromise = gfn_postJSON("/pd/bsm/deletePrdcrCrclOgnUsrMng.do", PrdcrCrclOgnUsrMngVO);
         let data = await postJsonPromise;
 
         try{
@@ -1093,9 +1062,9 @@
     function fn_GridPop(gubun, grid, nRow, nCol) {
     	console.log("================fn_GridPop================");
         if (gubun === "pop") {
-            if (grid === "grdPrdcrCrclOgnMng") {
+            if (grid === "grdPrdcrCrclOgnUsrMng") {
             	//부른 선택된 그리드 셀의 값을 N 으로 변경
-            	grdPrdcrCrclOgnMng.setCellData(nRow, nCol, "N", true);
+            	grdPrdcrCrclOgnUsrMng.setCellData(nRow, nCol, "N", true);
             }
         }
     }
@@ -1107,13 +1076,13 @@
     //그리드 클릭이벤트
     function gridClick(){
 		console.log("================gridClick================");
-		//grdPrdcrCrclOgnMng 그리드 객체
-        selGridRow = grdPrdcrCrclOgnMng.getRow();
-        selGridCol = grdPrdcrCrclOgnMng.getCol();
+		//grdPrdcrCrclOgnUsrMng 그리드 객체
+        selGridRow = grdPrdcrCrclOgnUsrMng.getRow();
+        selGridCol = grdPrdcrCrclOgnUsrMng.getCol();
 
 
-        let delYnCol = grdPrdcrCrclOgnMng.getColRef('delYn');
-        let delYnValue = grdPrdcrCrclOgnMng.getCellData(selGridRow,delYnCol);
+        let delYnCol = grdPrdcrCrclOgnUsrMng.getColRef('delYn');
+        let delYnValue = grdPrdcrCrclOgnUsrMng.getCellData(selGridRow,delYnCol);
 
         //임력할 데이터 인지 확인
         //추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
@@ -1123,9 +1092,9 @@
         }
 
         //cc 전문 품목 dd 육성 품목
-        let ccCol = grdPrdcrCrclOgnMng.getColRef('cc');
-        let ddCol = grdPrdcrCrclOgnMng.getColRef('dd');
-        let iiCol = grdPrdcrCrclOgnMng.getColRef('ii');
+        let ccCol = grdPrdcrCrclOgnUsrMng.getColRef('cc');
+        let ddCol = grdPrdcrCrclOgnUsrMng.getColRef('dd');
+        let iiCol = grdPrdcrCrclOgnUsrMng.getColRef('ii');
 
         if(selGridRow == '-1'){
 			return;
@@ -1157,12 +1126,12 @@
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridRow 선택된 행 값
 			//getColRef(ref) ref의 인덱스 값 가져오기
-			let colRefIdx1 = grdPrdcrCrclOgnMng.getColRef('ii');//ii 통합조직 인덱스
-			let colRefIdx2 = grdPrdcrCrclOgnMng.getColRef('iiCode');//ii 통합조직 코드 인덱스
+			let colRefIdx1 = grdPrdcrCrclOgnUsrMng.getColRef('ii');//ii 통합조직 인덱스
+			let colRefIdx2 = grdPrdcrCrclOgnUsrMng.getColRef('iiCode');//ii 통합조직 코드 인덱스
 
 			//그리드 값 세팅
-			grdPrdcrCrclOgnMng.setCellData(selGridRow,colRefIdx1,rowData.mainCodeNm,true);
-			grdPrdcrCrclOgnMng.setCellData(selGridRow,colRefIdx2,rowData.mainCode,true);
+			grdPrdcrCrclOgnUsrMng.setCellData(selGridRow,colRefIdx1,rowData.mainCodeNm,true);
+			grdPrdcrCrclOgnUsrMng.setCellData(selGridRow,colRefIdx2,rowData.mainCode,true);
 		}
 	}
 
@@ -1174,15 +1143,15 @@
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridRow : 선택된 행 값		selGridCol : 선택된 열 값
 			//getColRef(ref) ref의 인덱스 값 가져오기
-			let selRef = grdPrdcrCrclOgnMng.getRefOfCol(selGridCol);
+			let selRef = grdPrdcrCrclOgnUsrMng.getRefOfCol(selGridCol);
 
 			//구분하기 편하기 위해 ref 값이 cc라면 코드값은 ccCode 로 설정
-			let colRefIdx1 = grdPrdcrCrclOgnMng.getColRef(selRef);//품목명 인덱스
-			let colRefIdx2 = grdPrdcrCrclOgnMng.getColRef(selRef+"Code");//품목코드 인덱스
+			let colRefIdx1 = grdPrdcrCrclOgnUsrMng.getColRef(selRef);//품목명 인덱스
+			let colRefIdx2 = grdPrdcrCrclOgnUsrMng.getColRef(selRef+"Code");//품목코드 인덱스
 
 			//그리드 값 세팅
-			grdPrdcrCrclOgnMng.setCellData(selGridRow,colRefIdx1,rowData.itemNm,true);
-			grdPrdcrCrclOgnMng.setCellData(selGridRow,colRefIdx2,rowData.itemCd,true);
+			grdPrdcrCrclOgnUsrMng.setCellData(selGridRow,colRefIdx1,rowData.itemNm,true);
+			grdPrdcrCrclOgnUsrMng.setCellData(selGridRow,colRefIdx2,rowData.itemCd,true);
 		}
 	}
 

@@ -183,8 +183,6 @@
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li>
-							<span>원물계량 내역</span>
-							<span style="font-size:12px">(조회건수 <span id="cnt-wgh">0</span>건)</span>
 						</li>
 					</ul>
 				</div>
@@ -590,7 +588,7 @@
 	        	}
 	        }}
 	    ];
-
+	    grdFcltOperInfoClctAgreInfoList.bind('click', 'fn_view');
 	    grdPrdcrCrclOgnUsrMng = _SBGrid.create(SBGridProperties);
 	    let rst = await Promise.all([
 	    	fn_initSBSelectFclt(),
@@ -650,6 +648,36 @@
     		console.error("failed", e.message);
         }
 	}
+
+	 //상세정보 보기 클릭 이벤트
+    function fn_view() {
+		console.log('====click event fn_view====');
+    	var nCol = grdFcltOperInfoClctAgreInfoList.getCol();
+    	console.log("nCol = "+ nCol);
+        //특정 열 부터 이벤트 적용
+        if (nCol < 1) {
+            return;
+        }
+        var nRow = grdFcltOperInfoClctAgreInfoList.getRow();
+        console.log("nRow = "+ nRow);
+		if (nRow < 1) {
+            return;
+		}
+//클릭시 상세내역에 데이터입력
+        let rowData = grdPrdcrCrclOgnUsrMng.getRowData(nRow);
+        console.log('rowData');
+		console.log(rowData);
+        SBUxMethod.set("dtl-inp-id2", rowData.testNo); //운영조직명
+  		SBUxMethod.set("dtl-inp-Nm2", rowData.aa); //운영조직사업자번호
+		SBUxMethod.set("dtl-slt-orgNm2", rowData.bb); //운영조직명
+		SBUxMethod.set("dtl-slt-athrt2", rowData.cc); //운영조직사업자번호
+		SBUxMethod.set("dtl-inp-bsnssNb2", rowData.ccCode); //apc보유여부
+		SBUxMethod.set("dtl-input-apcNm", rowData.apcNm); //apc명
+		SBUxMethod.set("dtl-input-operOgnzPic", rowData.operOgnzPic); //담당자
+		SBUxMethod.set("dtl-input-operOgnzJbps", rowData.operOgnzJbps); //담당자직위
+		SBUxMethod.set("dtl-input-operOgnzTelno", rowData.operOgnzTelno); //담당자연락처
+		SBUxMethod.set("dtl-input-operOgnzEml", rowData.operOgnzEml); //담당자이메일
+    }
 
 
 
