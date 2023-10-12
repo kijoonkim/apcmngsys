@@ -115,7 +115,7 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 							);	// {0} 시 오류가 발생하였습니다.
 				}
 
-				pckgPrfmncVO.setGrdCd(cmnsGdsVO.getNewGdsCd());
+				pckgPrfmncVO.setGdsCd(cmnsGdsVO.getNewGdsCd());
 			}
 
 			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
