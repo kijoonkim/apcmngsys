@@ -107,6 +107,7 @@
 					, PCKG_WGHT
 					, WRHS_SE_CD
 					, TRSPRT_SE_CD
+					, GDS_CD
 					, RMRK
 					, DEL_YN
 		    		, SYS_FRST_INPT_DT
@@ -132,6 +133,7 @@
 					, #{pckgWght}
 					, #{wrhsSeCd}
 					, #{trsprtSeCd}
+					, #{gdsCd}
 					, #{rmrk}
 					, #{delYn}
 		    		, SYSDATE
