@@ -80,6 +80,14 @@ public interface GdsInvntrMapper {
 	public int deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
 
 	/**
+	 * 상품재고 삭제 : set delYn Y
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateGdsInvntrForDelY(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
+	/**
 	 * 상품재고 변경 : 출하실적 처리
 	 * @param gdsInvntrVO
 	 * @return
@@ -94,5 +102,13 @@ public interface GdsInvntrMapper {
 	 * @throws Exception
 	 */
 	public int insertGdsStdGrd(GdsStdGrdVO gdsStdGrdVO) throws Exception;
+	
+	/**
+	 * 상품재고 표준등급 삭제 : set delyn Y
+	 * @param gdsStdGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateGdsStdGrdForDelY(GdsStdGrdVO gdsStdGrdVO) throws Exception;
 
 }

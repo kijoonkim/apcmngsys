@@ -69,5 +69,20 @@ public class CmnsValidationServiceImpl extends BaseServiceImpl implements CmnsVa
 		return resultVO;
 	}
 
+	@Override
+	public String selectChkDdlnYn(String apcCd, String ymd) throws Exception {
+		
+		CmnsValidationVO paramVO = new CmnsValidationVO();
+		paramVO.setApcCd(apcCd);
+		paramVO.setYmd(ymd);
+		
+		CmnsValidationVO resultVO = cmnsValidationMapper.selectChkDdlnYn(paramVO);
+		
+		if (resultVO != null) {
+			return resultVO.getDdlnYn();
+		} else {
+			return null;
+		}
+	}
 
 }

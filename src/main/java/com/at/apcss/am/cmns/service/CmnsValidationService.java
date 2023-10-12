@@ -30,4 +30,14 @@ public interface CmnsValidationService {
 	public String selectChkCdDelible(String apcCd, String cdId, String cdVl, String extrArgs) throws Exception;
 
 	public CmnsValidationVO selectChkCdDelible(CmnsValidationVO cmnsValidationVO) throws Exception;
+	
+	/**
+	 * 마감등록 여부 확인
+	 * @param apcCd
+	 * @param ymd
+	 * @return
+	 * @throws Exception
+	 */
+	public String selectChkDdlnYn(String apcCd, String ymd) throws Exception;
+	
 }

@@ -64,11 +64,11 @@ public class PckgInptServiceImpl implements PckgInptService {
 	}
 
 	@Override
-	public int deletePckgInpt(PckgInptVO pckgInptVO) throws Exception {
+	public HashMap<String, Object> deletePckgInpt(PckgInptVO pckgInptVO) throws Exception {
 
-		int deletedCnt = pckgInptMapper.deletePckgInpt(pckgInptVO);
+		pckgInptMapper.deletePckgInpt(pckgInptVO);
 
-		return deletedCnt;
+		return null;
 	}
 
 	@Override

@@ -83,7 +83,7 @@ public interface GdsInvntrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
+	public HashMap<String, Object> deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
 
 	/**
 	 * 상품재고 변경 : 출하처리

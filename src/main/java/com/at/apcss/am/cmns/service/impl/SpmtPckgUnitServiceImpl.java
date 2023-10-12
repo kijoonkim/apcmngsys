@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper;
+import com.at.apcss.am.cmns.service.CmnsGdsService;
 import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.cmns.service.SpmtPckgUnitService;
 import com.at.apcss.am.cmns.service.SpmtSlsUntprcRegService;
+import com.at.apcss.am.cmns.vo.CmnsGdsVO;
 import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
 import com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -43,6 +45,9 @@ public class SpmtPckgUnitServiceImpl implements SpmtPckgUnitService{
 	@Resource(name = "cmnsValidationService")
 	private CmnsValidationService cmnsValidationService;
 
+	@Resource(name = "cmnsGdsService")
+	private CmnsGdsService cmnsGdsService;
+	
 	@Override
 	public SpmtPckgUnitVO selectSpmtPckgUnit(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception {
 		SpmtPckgUnitVO resultVO = spmtPckgUnitMapper.selectSpmtPckgUnit(spmtPckgUnitVO);
@@ -139,6 +144,12 @@ public class SpmtPckgUnitServiceImpl implements SpmtPckgUnitService{
 
 					savedCnt += spmtSlsUntprcRegService.insertSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
 				}
+				
+				// 상품코드 발번 추가
+				CmnsGdsVO cmnsGdsVO = new CmnsGdsVO();
+				BeanUtils.copyProperties(spmtPckgUnitVO, cmnsGdsVO);
+				cmnsGdsService.insertCheckGdsCd(cmnsGdsVO);
+				
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(spmtPckgUnitVO.getRowSts())) {
 				savedCnt += updateSpmtPckgUnit(spmtPckgUnitVO);
