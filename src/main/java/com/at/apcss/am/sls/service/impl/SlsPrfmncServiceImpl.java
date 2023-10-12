@@ -1,13 +1,16 @@
 package com.at.apcss.am.sls.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.sls.mapper.SlsPrfmncMapper;
 import com.at.apcss.am.sls.service.SlsPrfmncService;
 import com.at.apcss.am.sls.vo.SlsPrfmncVO;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : SlsPrfmncServiceImpl.java
@@ -29,12 +32,12 @@ public class SlsPrfmncServiceImpl implements SlsPrfmncService {
 
 	@Autowired
 	private SlsPrfmncMapper slsPrfmncMapper;
-	
+
 	@Override
 	public SlsPrfmncVO selectSlsPrfmnc(SlsPrfmncVO slsPrfmncVO) throws Exception {
-		
+
 		SlsPrfmncVO resultVO = slsPrfmncMapper.selectSlsPrfmnc(slsPrfmncVO);
-		
+
 		return resultVO;
 	}
 
@@ -42,7 +45,7 @@ public class SlsPrfmncServiceImpl implements SlsPrfmncService {
 	public List<SlsPrfmncVO> selectSlsPrfmncList(SlsPrfmncVO slsPrfmncVO) throws Exception {
 
 		List<SlsPrfmncVO> resultList = slsPrfmncMapper.selectSlsPrfmncList(slsPrfmncVO);
-		
+
 		return resultList;
 	}
 
@@ -50,7 +53,7 @@ public class SlsPrfmncServiceImpl implements SlsPrfmncService {
 	public int insertSlsPrfmnc(SlsPrfmncVO slsPrfmncVO) throws Exception {
 
 		int insertedCnt = slsPrfmncMapper.insertSlsPrfmnc(slsPrfmncVO);
-		
+
 		return insertedCnt;
 	}
 
@@ -58,7 +61,7 @@ public class SlsPrfmncServiceImpl implements SlsPrfmncService {
 	public int updateSlsPrfmnc(SlsPrfmncVO slsPrfmncVO) throws Exception {
 
 		int updatedCnt = slsPrfmncMapper.updateSlsPrfmnc(slsPrfmncVO);
-		
+
 		return updatedCnt;
 	}
 
@@ -66,8 +69,27 @@ public class SlsPrfmncServiceImpl implements SlsPrfmncService {
 	public int deleteSlsPrfmnc(SlsPrfmncVO slsPrfmncVO) throws Exception {
 
 		int deletedCnt = slsPrfmncMapper.deleteSlsPrfmnc(slsPrfmncVO);
-		
+
 		return deletedCnt;
+	}
+
+	@Override
+	public HashMap<String, Object> insertSlsPrfmncCrt(SlsPrfmncVO slsPrfmncVO) throws Exception {
+
+		slsPrfmncMapper.insertSlsPrfmncCrt(slsPrfmncVO);
+		if (StringUtils.hasText(slsPrfmncVO.getRtnCd())) {
+			return ComUtil.getResultMap(slsPrfmncVO.getRtnCd(), slsPrfmncVO.getRtnMsg());
+		}
+
+		return null;
+	}
+
+	@Override
+	public List<SlsPrfmncVO> selectRegSlsPrfmncList(SlsPrfmncVO slsPrfmncVO) throws Exception {
+
+		List<SlsPrfmncVO> resultList = slsPrfmncMapper.selectRegSlsPrfmncList(slsPrfmncVO);
+
+		return resultList;
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper;
@@ -37,6 +38,9 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 
 	@Resource(name= "gdsInvntrService")
 	private GdsInvntrService gdsInvntrService;
+
+	@Resource(name= "cmnsTaskNoService")
+	private CmnsTaskNoService cmnsTaskNoService;
 
 	@Override
 	public SpmtPrfmncVO selectSpmtPrfmnc(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
@@ -103,23 +107,28 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 	}
 
 	@Override
-	public int insertSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception {
+	public int insertSpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
 
 		int insertedCnt = 0;
 
-		insertSpmtPrfmncCom(spmtPrfmnc.get(0));
+		String spmtno = cmnsTaskNoService.selectSpmtno(spmtPrfmncList.get(0).getApcCd(), spmtPrfmncList.get(0).getSpmtYmd());
 
-		for ( var i=0; i<spmtPrfmnc.size(); i++ ) {
-			insertedCnt += insertSpmtPrfmncDtl(spmtPrfmnc.get(i));
+		spmtPrfmncList.get(0).setSpmtno(spmtno);
+
+		insertSpmtPrfmncCom(spmtPrfmncList.get(0));
+
+		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
+			spmtPrfmncVO.setSpmtno(spmtno);
+			insertedCnt += insertSpmtPrfmncDtl(spmtPrfmncVO);
 
 			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
-			gdsInvntrVO.setApcCd(spmtPrfmnc.get(i).getApcCd());
-			gdsInvntrVO.setPckgno(spmtPrfmnc.get(i).getPckgno());
-			gdsInvntrVO.setPckgSn(spmtPrfmnc.get(i).getPckgSn());
-			gdsInvntrVO.setSpmtQntt(spmtPrfmnc.get(i).getSpmtQntt());
-			gdsInvntrVO.setSpmtWght(spmtPrfmnc.get(i).getSpmtWght());
-			gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmnc.get(i).getSysLastChgPrgrmId());
-			gdsInvntrVO.setSysLastChgUserId(spmtPrfmnc.get(i).getSysLastChgUserId());
+			gdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
+			gdsInvntrVO.setPckgno(spmtPrfmncVO.getPckgno());
+			gdsInvntrVO.setPckgSn(spmtPrfmncVO.getPckgSn());
+			gdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
+			gdsInvntrVO.setSpmtWght(spmtPrfmncVO.getSpmtWght());
+			gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+			gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
 			gdsInvntrService.updateGdsInvntrSpmtPrfmnc(gdsInvntrVO);
 		}
