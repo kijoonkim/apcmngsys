@@ -187,28 +187,26 @@
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.rowheader = 'seq';
-		SBGridProperties.rowheadercaption = {seq: 'sn'};
+		SBGridProperties.rowheadercaption = {seq: 'No'};
         SBGridProperties.rowheaderwidth = {seq: '60'};
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
+            {caption: ["품목1","취급액(백만원)"],	ref: 'fcltOgnzTrmtAmt',    		type:'output',  width:'25%',    style:'text-align:center'},
+            {caption: ["품목1","취급물량(톤)"],		ref: 'fcltOgnzTrmtVlm',       type:'output',  width:'25%',    style:'text-align:center'},
 
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["구분"],  			ref: 'fcltOgnzItemCd',     		type:'output',  width:'25%',    style:'text-align:center'},
-            {caption: ["취급액(백만원)"],		ref: 'fcltOgnzTrmtAmt',    		type:'output',  width:'25%',    style:'text-align:center'},
-            {caption: ["취급물량(톤)"],		ref: 'fcltOgnzTrmtVlm',       type:'output',  width:'25%',    style:'text-align:center'},
-            {caption: ["비고"],   		ref: 'rmrk', 		type:'output',  width:'25%',    style:'text-align:center'},
-            {caption: ["APCCD"],		ref: 'apcCd',            		type:'output',  hidden: false},
-            {caption: ["대상연도"],			ref: 'trgtYr',      		    type:'output',  hidden: false},
-            {caption: ["최초등록자ID"],		ref: 'creUserId',  		 		type:'output',  hidden: true},
-            {caption: ["최초등록일시"],		ref: 'creDateTime', 			type:'output',  hidden: true},
-            {caption: ["최종변경자ID"],		ref: 'updUserId',               type:'output',  hidden: true},
-            {caption: ["최종변경일시"], 		ref: 'updDateTime', 		 	type:'output',  hidden: true},
-            {caption: ["등록프로그램"], 		ref: 'creProgram',  			type:'output',  hidden: true},
-            {caption: ["변경프로그램"], 		ref: 'updProgram',  			type:'output',  hidden: true}
+            {caption: ["품목2","취급액(백만원)"],	ref: 'fcltOgnzTrmtAmt2',    		type:'output',  width:'25%',    style:'text-align:center'},
+            {caption: ["품목2","취급물량(톤)"],		ref: 'fcltOgnzTrmtVlm2',       type:'output',  width:'25%',    style:'text-align:center'},
+
+            {caption: ["품목3","취급액(백만원)"],	ref: 'fcltOgnzTrmtAmt3',    		type:'output',  width:'25%',    style:'text-align:center'},
+            {caption: ["품목3","취급물량(톤)"],		ref: 'fcltOgnzTrmtVlm3',       type:'output',  width:'25%',    style:'text-align:center'},
+
+            {caption: ["기타품목","취급액(백만원)"],	ref: 'fcltOgnzTrmtAmt4',    		type:'output',  width:'25%',    style:'text-align:center'},
+            {caption: ["기타품목","취급물량(톤)"],		ref: 'fcltOgnzTrmtVlm4',       type:'output',  width:'25%',    style:'text-align:center'},
+
+            {caption: ["APCCD"],		ref: 'apcCd',            		type:'output',  hidden: true},
+            {caption: ["APC명"],			ref: 'apcNm',            		type:'output',  hidden: false},
+            {caption: ["대상연도"],		ref: 'trgtYr',      		    type:'output',  hidden: true}
 
         ];
         grdOgItmPrfList = _SBGrid.create(SBGridProperties);
@@ -247,20 +245,9 @@
 
 		grdOgItmPrfList.clearStatus();
 
-		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
 
-		var chk = {
-				trgtYr: trgtYr,
-	        	apcCd: apcCd,
-	        	// pagination
-		  		pagingYn : 'N',
-				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
-
-		}
-		console.log('=============chk==================');
-		console.log(chk);
 
         //비동기 포스트타입 url 데이터연결 페이징처리 글로벌
         //gfn_postJSON 는 ajax고 post통신의 데이터를 json 타입으로 보내는것이다
@@ -274,10 +261,10 @@
         });
 		console.log("a11111111111111");
         const data = await postJsonPromise;
-//await 오류시 확인
+		//await 오류시 확인
         console.log("---------------------------")
         console.log(data)
-//예외처리
+		//예외처리
         try {
 
         	/** @type {number} **/
@@ -286,20 +273,19 @@
         	jsonOgItmPrfList.length = 0;
         	data.resultList.forEach((item, index) => {
 				const msg = {
-			  trgtYr: item.trgtYr	 	//대상연도
-		   	, apcCd: item.apcCd  //APC
-		   	, sn: item.sn  //순번
-		   	, fcltOgnzItemCd: item.fcltOgnzItemCd 			//시설 조직 상품코드
-			, fcltOgnzTrmtAmt: item.fcltOgnzTrmtAmt 		//시설 조직 취급금액
-			, fcltOgnzTrmtVlm: item.fcltOgnzTrmtVlm  // 시설 조직 취급물량
-			, delYn: item.delYn                  			 //	 삭제유무
-		    , sysFrstInptDt: item.sysFrstInptDt      	  	 //	 시스템최초입력일시
-		    , sysFrstInptUserId: item.sysFrstInptUserId     //	 시스템최초입력사용자id
-		    , sysFrstInptPrgrmId: item.sysFrstInptPrgrmId   //	 시스템최초입력프로그램id
-		    , sysLastChgDt: item.sysLastChgDt     		 	 //	 시스템최종변경일시
-		    , sysLastChgUserId: item.sysLastChgUserId  	 //	 시스템최종변경사용자id
-		    , sysLastChgPrgrmId: item.sysLastChgPrgrmId   	 //	 시스템최종변경프로그램id
+					  trgtYr: item.trgtYr	 	//대상연도
+				   	, apcCd: item.apcCd  //APC
+				   	, apcNm: item.apcNm  //APC
 
+					, fcltOgnzTrmtAmt: item.fcltOgnzTrmtAmt
+					, fcltOgnzTrmtAmt2: item.fcltOgnzTrmtAmt2
+					, fcltOgnzTrmtAmt3: item.fcltOgnzTrmtAmt3
+					, fcltOgnzTrmtAmt4: item.fcltOgnzTrmtAmt4
+
+					, fcltOgnzTrmtVlm: item.fcltOgnzTrmtVlm
+					, fcltOgnzTrmtVlm2: item.fcltOgnzTrmtVlm2
+					, fcltOgnzTrmtVlm3: item.fcltOgnzTrmtVlm3
+					, fcltOgnzTrmtVlm4: item.fcltOgnzTrmtVlm4
 				}
 
 				jsonOgItmPrfList.push(msg);
@@ -308,8 +294,6 @@
 					totalRecordCount = item.totalRecordCount;
 				}
 			});
-        	console.log("c33333333333333333333");
-        	console.log("totalRecordCount*************", totalRecordCount);
 
         	if (jsonOgItmPrfList.length > 0) {
 
@@ -333,34 +317,39 @@
     		//console.error("failed", e.message);
         }
     }
-   	console.log("d4444444444444444444444444444");
 
     //신규 작성 dtl 내부의 값을 null로
     function fn_create() {
     	console.log("******************fn_create**********************************");
    	    SBUxMethod.set("dtl-input-trgtYr", null);  //대상연도
    	    SBUxMethod.set("dtl-input-apcCd", null);  //APC
-    	SBUxMethod.set("dtl-input-sn", null);                         //순번
-    	SBUxMethod.set("dtl-input-fcltOgnzItemCd")         	//시설 조직 상품코드
-    	SBUxMethod.set("dtl-input-fcltOgnzTrmtAmt", null);      	   //     시설 조직 취급금액
-    	SBUxMethod.set("dtl-input-fcltOgnzTrmtVlm", null); 			 //     시설 조직 취급물량
-        SBUxMethod.set("dtl-input-delYn", null);                  			 //	 삭제유무
-        SBUxMethod.set("dtl-input-sysFrstInptDt", null);      	  	 //	 시스템최초입력일시
-        SBUxMethod.set("dtl-input-sysFrstInptUserId", null);     //	 시스템최초입력사용자id
-        SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);   //	 시스템최초입력프로그램id
-        SBUxMethod.set("dtl-input-sysLastChgDt", null);     		 	 //	 시스템최종변경일시
-        SBUxMethod.set("dtl-input-sysLastChgUserId", null);  	 //	 시스템최종변경사용자id
-        SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);   	 //	 시스템최종변경프로그램id
+   	 	SBUxMethod.set("dtl-input-apcNm", null);  //APC
+
+    	SBUxMethod.set("srch-inp-opera1", null);
+    	SBUxMethod.set("srch-inp-opera2", null);
+    	SBUxMethod.set("srch-inp-opera3", null);
+    	SBUxMethod.set("srch-inp-opera4", null);
+    	SBUxMethod.set("srch-inp-opera5", null);
+    	SBUxMethod.set("srch-inp-opera6", null);
+    	SBUxMethod.set("srch-inp-opera7", null);
+    	SBUxMethod.set("srch-inp-opera8", null);
 
     }
 
      const fn_clearForm = function() {
     	 console.log("******************fn_clearForm**********************************");
-    	SBUxMethod.set("dtl-input-sn", null);                         //순번
-    	SBUxMethod.set("dtl-input-fcltOgnzTrmtAmt", null);            //     시설 조직 취급금액
-    	SBUxMethod.set("dtl-input-fcltOgnzTrmtVlm", null);            //     시설 조직 취급물량
+    	    SBUxMethod.set("dtl-input-trgtYr", null);  //대상연도
+       	    SBUxMethod.set("dtl-input-apcCd", null);  //APC
+       	 	SBUxMethod.set("dtl-input-apcNm", null);  //APC
 
-
+        	SBUxMethod.set("srch-inp-opera1", null);
+        	SBUxMethod.set("srch-inp-opera2", null);
+        	SBUxMethod.set("srch-inp-opera3", null);
+        	SBUxMethod.set("srch-inp-opera4", null);
+        	SBUxMethod.set("srch-inp-opera5", null);
+        	SBUxMethod.set("srch-inp-opera6", null);
+        	SBUxMethod.set("srch-inp-opera7", null);
+        	SBUxMethod.set("srch-inp-opera8", null);
      }
     //저장
     const fn_save = async function() {
@@ -399,20 +388,18 @@
     	 if (!isConfirmed) return;
 
     	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOgnzItemPrfmnc.do", {
-	   			trgtYr: SBUxMethod.get('dtl-input-trgtYr')                 			//대상연도
-   	        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')               			    //apc코드
-   	        ,	sn: SBUxMethod.get('dtl-input-sn')                         			//순번
-   	     	,	fcltOgnzItemCd: SBUxMethod.get('dtl-input-fcltOgnzItemCd')         	//시설 조직 상품코드
-   	        ,	fcltOgnzTrmtAmt: SBUxMethod.get('dtl-input-fcltOgnzTrmtAmt')         	//선별기 품목코드
-   	        ,	fcltOgnzTrmtVlm: SBUxMethod.get('dtl-input-fcltOgnzTrmtVlm')  			//선별기 보유 유무
-   	        ,	delYn: SBUxMethod.get('dtl-input-delYn')                  			 //	 삭제유무
-   	        ,	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt')      	  	 //	 시스템최초입력일시
-   	        ,	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId')     //	 시스템최초입력사용자id
-   	        ,	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId')   //	 시스템최초입력프로그램id
-   	        ,	sysLastChgDt: SBUxMethod.get('dtl-input-sysLastChgDt')     		 	 //	 시스템최종변경일시
-   	        ,	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId')  	 //	 시스템최종변경사용자id
-   	        ,	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')   	 //	 시스템최종변경프로그램id
-			,	daddr:1
+   			trgtYr: SBUxMethod.get('dtl-input-trgtYr')                 			//대상연도
+	        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')               			    //apc코드
+
+	        ,	fcltOgnzTrmtAmt: SBUxMethod.get('srch-inp-opera1')
+	        ,	fcltOgnzTrmtAmt2: SBUxMethod.get('srch-inp-opera3')
+	        ,	fcltOgnzTrmtAmt3: SBUxMethod.get('srch-inp-opera5')
+	        ,	fcltOgnzTrmtAmt4: SBUxMethod.get('srch-inp-opera7')
+
+	        ,	fcltOgnzTrmtVlm: SBUxMethod.get('srch-inp-opera2')
+	        ,	fcltOgnzTrmtVlm2: SBUxMethod.get('srch-inp-opera4')
+	        ,	fcltOgnzTrmtVlm3: SBUxMethod.get('srch-inp-opera6')
+	        ,	fcltOgnzTrmtVlm4: SBUxMethod.get('srch-inp-opera8')
 
 		});
 
@@ -440,19 +427,18 @@
 		if (!isConfirmed) return;
 
     	const postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltOgnzItemPrfmnc.do", {
-   			trgtYr: SBUxMethod.get('dtl-input-trgtYr')                 			//대상연도
-        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')               			    //apc코드
-        ,	sn: SBUxMethod.get('dtl-input-sn')                         			//순번
-        ,	fcltOgnzItemCd: SBUxMethod.get('dtl-input-fcltOgnzItemCd')         	//시설 조직 상품코드
-        ,	fcltOgnzTrmtAmt: SBUxMethod.get('dtl-input-fcltOgnzTrmtAmt')         	//시설 조직 취급금액
-        ,	fcltOgnzTrmtVlm: SBUxMethod.get('dtl-input-fcltOgnzTrmtVlm') 		//시설 조직 취급물량
-        ,	delYn: SBUxMethod.get('dtl-input-delYn')                  			 //	 삭제유무
-        ,	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt')      	  	 //	 시스템최초입력일시
-        ,	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId')     //	 시스템최초입력사용자id
-        ,	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId')   //	 시스템최초입력프로그램id
-        ,	sysLastChgDt: SBUxMethod.get('dtl-input-sysLastChgDt')     		 	 //	 시스템최종변경일시
-        ,	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId')  	 //	 시스템최종변경사용자id
-        ,	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')   	 //	 시스템최종변경프로그램id
+		   			trgtYr: SBUxMethod.get('dtl-input-trgtYr')                 			//대상연도
+		        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')               			    //apc코드
+
+		        ,	fcltOgnzTrmtAmt: SBUxMethod.get('srch-inp-opera1')
+		        ,	fcltOgnzTrmtAmt2: SBUxMethod.get('srch-inp-opera3')
+		        ,	fcltOgnzTrmtAmt3: SBUxMethod.get('srch-inp-opera5')
+		        ,	fcltOgnzTrmtAmt4: SBUxMethod.get('srch-inp-opera7')
+
+		        ,	fcltOgnzTrmtVlm: SBUxMethod.get('srch-inp-opera2')
+		        ,	fcltOgnzTrmtVlm2: SBUxMethod.get('srch-inp-opera4')
+		        ,	fcltOgnzTrmtVlm3: SBUxMethod.get('srch-inp-opera6')
+		        ,	fcltOgnzTrmtVlm4: SBUxMethod.get('srch-inp-opera8')
     		});
 
 
@@ -568,9 +554,20 @@
 
     	SBUxMethod.set("dtl-input-trgtYr", rowData.trgtYr);                 //대상연도
 		SBUxMethod.set("dtl-input-apcCd", rowData.apcCd);                   //apc코드
-    	SBUxMethod.set("dtl-input-sn", rowData.sn);                         //순번
-    	SBUxMethod.set("dtl-input-fcltOgnzTrmtAmt", rowData.fcltOgnzTrmtAmt);         //선별기 품목코드
-    	SBUxMethod.set("dtl-input-fcltOgnzTrmtVlm", rowData.fcltOgnzTrmtVlm); //선별기 처리 구분 코드
+		SBUxMethod.set("dtl-input-apcNm", rowData.apcNm);                   //apc코드
+
+    	SBUxMethod.set("srch-inp-opera1", rowData.fcltOgnzTrmtAmt);
+    	SBUxMethod.set("srch-inp-opera3", rowData.fcltOgnzTrmtAmt2);
+    	SBUxMethod.set("srch-inp-opera5", rowData.fcltOgnzTrmtAmt3);
+    	SBUxMethod.set("srch-inp-opera7", rowData.fcltOgnzTrmtAmt4);
+
+    	SBUxMethod.set("srch-inp-opera2", rowData.fcltOgnzTrmtVlm);
+    	SBUxMethod.set("srch-inp-opera4", rowData.fcltOgnzTrmtVlm2);
+    	SBUxMethod.set("srch-inp-opera6", rowData.fcltOgnzTrmtVlm3);
+    	SBUxMethod.set("srch-inp-opera8", rowData.fcltOgnzTrmtVlm4);
+
+    	sum('srch-inp-opera1',1);
+    	sum('srch-inp-opera2',2);
     }
 
 
@@ -617,6 +614,62 @@
 	    return obj;
 	}
 
+	function fn_CalcSum1(objGrid, nRow, nCol) {
+	    let value1 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('fcltOgnzTrmtAmt')));
+	    let value2 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('fcltOgnzTrmt2Amt')));
+	    let sum1 = value1 + value2;
+	    return sum1.toString();
+	}
 
+	//국고 지자체 자부담 합계
+    function sum(name, idx){
+    	extractNumbers2(name);
+
+    	if(idx == 1 ){
+    		let sum = convertToNumberOrZero(SBUxMethod.get('srch-inp-opera1'))
+    					+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera3'))
+    					+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera5'))
+    					+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera7'));
+    		SBUxMethod.set('srch-inp-opera9',sum);
+    	}else if (idx == 2){
+    		let sum = convertToNumberOrZero(SBUxMethod.get('srch-inp-opera2'))
+						+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera4'))
+						+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera6'))
+						+ convertToNumberOrZero(SBUxMethod.get('srch-inp-opera8'));
+			SBUxMethod.set('srch-inp-opera10',sum);
+    	}
+    }
+
+	// 숫자(소숫점 가능)만 입력
+	function extractNumbers2(input) {
+		let inputValue = SBUxMethod.get(input);
+		if(!inputValue === null || !inputValue === undefined || !inputValue === ''){
+			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+		}
+	}
+    // 숫자만 입력
+	function extractNumbers(input) {
+		//document.querySelector("sbux-input[name='"+input+"']").value = document.querySelector("sbux-input[name='"+input+"']").value.replace(/\D/g, "");
+		let inputValue = SBUxMethod.get(input);
+		if(!inputValue === null || !inputValue === undefined || !inputValue === ''){
+			SBUxMethod.set(input,inputValue.replace(/\D/g, ""));
+		}
+	}
+
+	//값이 없는 경우 0 있는 경우 숫자로 반환
+	function convertToNumberOrZero(value) {
+	  // 값이 없는 경우 0으로 설정
+	  if (value === undefined || value === null) {
+	    return 0;
+	  }
+
+	  // 값이 있는 경우 숫자로 변환하고 반환
+	  const numericValue = Number(value);
+	  if (isNaN(numericValue)) {
+	    return 0; // 변환 실패 시 0 반환
+	  } else {
+	    return numericValue;
+	  }
+	}
 </script>
 </html>
