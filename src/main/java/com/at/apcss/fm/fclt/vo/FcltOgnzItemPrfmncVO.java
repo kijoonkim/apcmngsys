@@ -11,6 +11,7 @@ public class FcltOgnzItemPrfmncVO extends ComVO{
 
 	private String trgtYr;
 	private String apcCd;
+	private String apcNm;
 	private int sn;
 	private String fcltOgnzItemCd;
 	private int fcltOgnzTrmtAmt;

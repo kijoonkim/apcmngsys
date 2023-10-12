@@ -53,7 +53,8 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncList */
-			       PC.APC_CD						AS APC_CD
+	    	       PC.SPMTNO						AS SPMTNO
+ 			     , PC.APC_CD						AS APC_CD
 			     , PC.SPMT_YMD						AS SPMT_YMD
 			     , PD.BRND_NM						AS BRND_NM
 			     , PD.GDS_CD						AS GDS_CD

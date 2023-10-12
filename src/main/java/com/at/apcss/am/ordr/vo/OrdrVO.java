@@ -249,6 +249,11 @@ public class OrdrVO extends ComVO {
 	 * */
 	private String grdCd;
 	private String grdNm;
+	/*
+	 * 공통등급코드
+	 * */
+	private String gdsGrd;
+	private String gdsGrdNm;
 
 	/*
 	 * 등록일자

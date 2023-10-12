@@ -43,6 +43,12 @@
 			             , OI.OUTORDR_QNTT          AS OUTORDR_QNTT
 			             , OI.SPMT_PCKG_UNIT_CD     AS SPMT_PCKG_UNIT_CD
 			             , OI.WRHS_YMD 				AS WRHS_YMD
+			             , (SELECT GDS_GRD
+                             FROM TB_SPMT_PCKG_UNIT X
+                            WHERE X.APC_CD = OI.APC_cD
+                              AND X.SPMT_PCKG_UNIT_CD = OI.SPMT_PCKG_UNIT_CD
+                              AND X.DEL_YN = 'N'
+                           ) AS GDS_GRD
 			             , (SELECT MAX(WAREHOUSE_SE_CD)
 			                  FROM TB_GDS_INVNTR X
 			                 WHERE X.APC_CD = OI.APC_CD
