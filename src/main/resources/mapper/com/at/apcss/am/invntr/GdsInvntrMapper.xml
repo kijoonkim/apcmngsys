@@ -93,6 +93,7 @@
 			    , GI.VRTY_CD		AS VRTY_CD
 			    , GI.SPCFCT_CD		AS SPCFCT_CD
 			    , GI.GDS_GRD		AS GDS_GRD
+			    , GI.GDS_CD		    AS GDS_CD
 			    , GI.GDS_SE_CD      AS GDS_SE_CD
 			    , GI.PRDCTN_YR      AS PRDCTN_YR
 			    , GI.SPMT_PCKG_UNIT_CD  AS SPMT_PCKG_UNIT_CD
@@ -112,7 +113,6 @@
                       AND X.ITEM_CD = GI.ITEM_CD
                       AND X.VRTY_CD = GI.VRTY_CD
                       AND X.SPCFCT_CD = GI.SPCFCT_CD
-                      AND X.GDS_GRD = GI.GDS_GRD
                       AND X.SPMT_PCKG_UNIT_CD = GI.SPMT_PCKG_UNIT_CD
                       AND X.DEL_YN = 'N'
                   ) AS BRND_NM
