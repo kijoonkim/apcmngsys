@@ -78,4 +78,21 @@ public interface SlsPrfmncService {
 	public HashMap<String, Object> insertSlsPrfmncCrt(SlsPrfmncVO slsPrfmncVO) throws Exception;
 
 
+	/**
+	 * 매출 금액 및 확정 저장
+	 * @param SlsPrfmncVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int saveSlsPrfmncCrtList(List<SlsPrfmncVO> slsPrfmncList) throws Exception;
+
+	/**
+	 * 매출 금액 및 확정 저장
+	 * @param SlsPrfmncVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int deleteSlsPrfmncCrtList(List<SlsPrfmncVO> slsPrfmncList) throws Exception;
+
+
 }

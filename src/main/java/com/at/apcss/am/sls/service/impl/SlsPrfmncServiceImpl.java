@@ -92,4 +92,27 @@ public class SlsPrfmncServiceImpl implements SlsPrfmncService {
 		return resultList;
 	}
 
+	@Override
+	public int saveSlsPrfmncCrtList(List<SlsPrfmncVO> slsPrfmncList) throws Exception {
+
+		int updatedCnt = 0;
+
+		for (SlsPrfmncVO slsPrfmncVO : slsPrfmncList) {
+			updatedCnt =+ updateSlsPrfmnc(slsPrfmncVO);
+		}
+
+		return updatedCnt;
+	}
+
+	@Override
+	public int deleteSlsPrfmncCrtList(List<SlsPrfmncVO> slsPrfmncList) throws Exception {
+
+		int deletedCnt = 0;
+		for (SlsPrfmncVO slsPrfmncVO : slsPrfmncList) {
+			deletedCnt += deleteSlsPrfmnc(slsPrfmncVO);
+		}
+
+		return deletedCnt;
+	}
+
 }
