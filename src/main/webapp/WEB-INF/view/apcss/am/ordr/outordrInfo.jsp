@@ -235,7 +235,7 @@
         		typeinfo : {ignoreupdate: true}},
             {caption: ['접수일자'], 		ref: 'rcptCfmtnYmd', 	width: '100px', 	type: 'output',			style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
-            {caption: ['발주유형'], 		ref: 'outordrType', 	width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['발주유형'], 		ref: 'outordrTypeNm', 	width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['접수여부'], 		ref: 'rcptYn', 			width: '70px', 		type: 'combo',			style:'text-align: center',
             	typeinfo : {ref:'comboGridRcpYn', label:'label', value:'value'}},
             {caption: ['발주번호'], 		ref: 'outordrno', 		width: '200px', 	type: 'output',			style:'text-align: center'},
@@ -257,12 +257,12 @@
 				format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
             {caption: ['낱개수량'], 		ref: 'pieceQntt', 		width: '70px', 		type: 'input',			style:'text-align: right',
 				format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
-            {caption: ['단위'], 			ref: 'unit', 			width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['단위'], 			ref: 'unitCd', 			width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['박스단가'], 		ref: 'bxUntprc', 		width: '100px', 	type: 'output',			style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
             {caption: ['발주단가'], 		ref: 'outordrUntprc', 	width: '100px', 	type: 'output',			style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-            {caption: ['발주단위'], 		ref: 'outordrUnit', 	width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['발주단위'], 		ref: 'outordrUnitCd', 	width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['LOT'], 			ref: 'lot', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['세액'], 			ref: 'txAmt', 			width: '100px', 	type: 'input',			style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}, validate : gfn_chkByte.bind({byteLimit: 18})},
@@ -289,7 +289,11 @@
             {caption: ['거래처코드'], 		ref: 'apcCnptCd', 		hidden: true},
             {caption: ['품목코드'], 		ref: 'itemCd', 			hidden: true},
             {caption: ['품종코드'], 		ref: 'vrtyCd', 			hidden: true},
-            {caption: ['규격코드'], 		ref: 'spcfctCd', 		hidden: true}
+            {caption: ['규격코드'], 		ref: 'spcfctCd', 		hidden: true},
+            {caption: ['주문자코드'], 		ref: 'outordrPrsnCd', 	hidden: true},
+            {caption: ['발주유형'], 		ref: 'outordrType', 	hidden: true},
+            {caption: ['센터코드'], 		ref: 'cntrCd', 			hidden: true},
+            {caption: ['배송지코드'], 		ref: 'dldtnCd', 		hidden: true}
         ];
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
         grdOutordrInfo.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
@@ -317,8 +321,6 @@
 		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
 		let dudtYmd = SBUxMethod.get("srch-dtp-dudtYmd");
 		let gdsNm = SBUxMethod.get("srch-inp-gdsNm");
-		let pckgCmndYmd = SBUxMethod.get("srch-dtp-pckgCmndYmd");
-		let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
 // 		let apcSeCd = ;
 		if (gfn_isEmpty(outordrYmdFrom)){
 			gfn_comAlert("W0002", "발주일자");		//	W0002	{0}을/를 입력하세요.
@@ -339,8 +341,6 @@
 					, apcCnptNm 			: cnptNm
 					, wrhsYmd 				: dudtYmd
 					, gdsNm 				: gdsNm
-					, pckgCmndYmd 			: pckgCmndYmd
-					, fcltCd 				: fcltCd
 					, pagingYn 				: 'Y'
 					, currentPageNo 		: currentPageNo
 					, recordCountPerPage 	: recordCountPerPage};
@@ -353,6 +353,7 @@
 					  checked 				: "false"
 					, rcptCfmtnYmd 			: item.rcptCfmtnYmd
 					, outordrType 			: item.outordrType
+					, outordrTypeNm 		: item.outordrTypeNm
 					, rcptYn 				: null
 					, outordrno 			: item.outordrno
 					, apcCnptNm	 			: item.apcCnptNm
@@ -369,10 +370,10 @@
 					, bxGdsQntt 			: item.bxGdsQntt
 					, outordrQntt			: item.outordrQntt
 					, pieceQntt				: item.pieceQntt
-					, unit					: item.unit
+					, unitCd				: item.unitCd
 					, bxUntprc				: item.bxUntprc
 					, outordrUntprc			: item.outordrUntprc
-					, outordrUnit			: item.outordrUnit
+					, outordrUnitCd			: item.outordrUnitCd
 					, lot					: item.lot
 					, txAmt					: item.txAmt
 					, outordrAmt			: item.outordrAmt
@@ -394,6 +395,9 @@
 					, itemCd 				: item.itemCd
 					, vrtyCd 				: item.vrtyCd
 					, spcfctCd 				: item.spcfctCd
+					, outordrPrsnCd 		: item.outordrPrsnCd
+					, cntrCd				: item.cntrCd
+					, dldtnCd				: item.dldtnCd
 				}
 				if(ordr.rcptCfmtnYmd != null && ordr.rcptCfmtnYmd != ""){
 					ordr.rcptYn = 'Y';

@@ -77,10 +77,10 @@
 			   AND CP.APC_CD = #{apcCd}
 		</if>
 		<if test='clclnYmdFrom != null and clclnYmdFrom != ""'>
-		   	   AND CP.CLCLN_YMD >= #{clclnYmdFrom}
+		   	   AND CP.CLCLN_YMD <![CDATA[>=]]> #{clclnYmdFrom}
 		</if>
 		<if test='clclnYmdTo != null and clclnYmdTo != ""'>
-		       AND #{clclnYmdTo} >= CP.CLCLN_YMD
+		       AND CP.CLCLN_YMD <![CDATA[<=]]> #{clclnYmdTo}
 		</if>
 		<if test='clclnCrtr != null and clclnCrtr != ""'>
 		       AND PI.CLCLN_CRTR = #{clclnCrtr}

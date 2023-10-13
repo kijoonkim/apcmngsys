@@ -82,10 +82,10 @@
 			   AND PC.APC_CD = #{apcCd}
 		</if>
 		<if test='spmtYmdFrom != null and spmtYmdFrom != ""'>
-		   	   AND PC.SPMT_YMD >= #{spmtYmdFrom}
+		   	   AND PC.SPMT_YMD <![CDATA[>=]]> #{spmtYmdFrom}
 		</if>
 		<if test='spmtYmdTo != null and spmtYmdTo != ""'>
-		   	   AND #{spmtYmdTo} >= PC.SPMT_YMD
+		   	   AND PC.SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
 		</if>
 		<if test='cnptNm != null and cnptNm != ""'>
 			   AND (SELECT FN_GET_CNPT_NM(PC.CNPT_CD, PC.APC_CD) FROM DUAL) LIKE '%' ||  #{cnptNm} || '%'
