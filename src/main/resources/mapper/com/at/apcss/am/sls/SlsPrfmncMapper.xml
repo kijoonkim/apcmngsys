@@ -63,6 +63,7 @@
 			     , TB_CNPT_INFO CI
 			 WHERE SP.APC_CD = CI.APC_CD
 	    	   AND SP.CNPT_CD = CI.CNPT_CD
+	    	   AND SP.CFMTN_YN = 'Y'
 			   AND SP.DEL_YN = 'N'
 	    	   AND CI.DEL_YN = 'N'
 		]]>
