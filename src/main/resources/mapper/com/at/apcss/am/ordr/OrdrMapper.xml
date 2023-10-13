@@ -316,6 +316,7 @@
     	      , UNIT_WGHT
     	      , SPMT_PCKG_UNIT_CD
     	      , GRD_CD
+    	      , DEL_YN
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -378,6 +379,7 @@
     	      , #{unitWght}
     	      , #{spmtPckgUnitCd}
     	      , #{grdCd}
+    	      , #{delYn}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
