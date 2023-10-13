@@ -185,7 +185,7 @@
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.sls.mapper.SlsPrfmncMapper.updateSlsPrfmnc			-->
-	<!-- DESC : 매출실적조회 목록 수정.	                         	             	 	-->
+	<!-- DESC : 매출실적조회 목록 수정.	                         	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -197,21 +197,8 @@
 		   SET SYS_LAST_CHG_DT 			= SYSDATE
     		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
     		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-    		 , CNPT_CD 					= #{cnptCd}
-    		 , GDS_CD 					= #{gdsCd}
-    		 , QNTT 					= #{qntt}
-    		 , WGHT 					= #{wght}
-    		 , ITEM_CD 					= #{itemCd}
-    		 , VRTY_CD 					= #{vrtyCd}
-    		 , SPCFCT_CD 				= #{spcfctCd}
-    		 , GRD_CD 					= #{grdCd}
-    		 , BRND_NM 					= #{brndNm}
-    		 , SPMT_YMD 				= #{spmtYmd}
-    		 , SLS_UNTPRC 				= #{slsUntprc}
-    		 , RKNG_AMT 				= #{rkngAmt}
     		 , CFMTN_AMT 				= #{cfmtnAmt}
     		 , CFMTN_YN 				= #{cfmtnYn}
-    		 , DEL_YN					= #{delYn}
 		 WHERE APC_CD 					= #{apcCd}
 		   AND SLS_YMD 					= #{slsYmd}
 		   AND SLS_SN 					= #{slsSn}
@@ -220,7 +207,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.sls.mapper.SlsPrfmncMapper.deleteSlsPrfmnc			-->
-	<!-- DESC : 매출실적조회 목록 삭제.	                         	             	 	-->
+	<!-- DESC : 매출실적 삭제.	                         	             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -297,6 +284,16 @@
 					     , SP.CFMTN_AMT             AS CFMTN_AMT
 					     , SP.CFMTN_YN              AS CFMTN_YN
 					     , SP.DEL_YN                AS DEL_YN
+					     , CASE WHEN
+                                    (SELECT COUNT(*)
+                                      FROM TB_SPMT_PRFMNC_DTL X
+                                     WHERE X.APC_CD = SP.APC_CD
+                                       AND X.SPMTNO = SP.SPMTNO
+                                       AND X.PCKGNO = SP.PCKGNO
+                                       AND X.PCKG_SN = SP.PCKG_SN) = 1
+                                THEN 'Y'
+                                ELSE 'N'
+                            END AS CFMTN_PSBLTY_YN
   					  FROM TB_SLS_PRFMNC SP
   					 WHERE SP.DEL_YN = 'N'
 		]]>

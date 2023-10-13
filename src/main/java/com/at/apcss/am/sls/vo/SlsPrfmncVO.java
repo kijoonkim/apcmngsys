@@ -33,6 +33,18 @@ public class SlsPrfmncVO extends ComVO {
 	 * 매출일자
 	 */
 	private String slsYmd;
+	/**
+	 * 출하번호
+	 */
+	private String spmtno;
+	/**
+	 * 포장번호
+	 */
+	private String pckgno;
+	/**
+	 * 포장순번
+	 */
+	private String pckgSn;
 
 	/**
 	 * 매출시작일자
@@ -135,22 +147,22 @@ public class SlsPrfmncVO extends ComVO {
 	/**
 	 * 매출단가
 	 */
-	private double slsUntprc;
+	private int slsUntprc;
 
 	/**
 	 * 계산금액
 	 */
-	private double rkngAmt;
+	private int rkngAmt;
 
 	/**
 	 * 확정금액
 	 */
-	private double cfmtnAmt;
+	private int cfmtnAmt;
 
 	/**
 	 * 확정금액합계
 	 */
-	private double totCfmtnAmt;
+	private int totCfmtnAmt;
 
 	/**
 	 * 확정여부
@@ -166,4 +178,9 @@ public class SlsPrfmncVO extends ComVO {
 	 * 프로시저 실패 리턴 메시지
 	 * */
 	private String rtnMsg;
+
+	/*
+	 * 매출확정 가능 여부
+	 * */
+	private String cfmtnPsbltyYn;
 }

@@ -467,7 +467,6 @@
 			apcCnptNm: apcCnptNm
   		});
         const data = await postJsonPromise;
-        console.log("data",data)
 		try{
      		jsonSpmtCmndTrg.length = 0;
           	data.resultList.forEach((item, index) => {
