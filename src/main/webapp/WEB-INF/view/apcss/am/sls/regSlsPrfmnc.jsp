@@ -20,8 +20,8 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"></sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -91,6 +91,7 @@
 			 			<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: auto">
+						<col style="width: 95px">
 						<col style="width: 180px">
 						<col style="width: 180px">
 						<col style="width: 62px">
@@ -99,6 +100,9 @@
 					<tbody>
 						<tr>
 							<td style="border-left:hidden"></td>
+							<td style="border-left:hidden">
+								<h5 style="float:left; color:black;">매출생성일자</h5>
+							</td>
 							<td class="td_input" style="border-right:hidden; border-left:hidden" >
 								<sbux-datepicker id="dtl-dtp-slsYmdFrom" name="dtl-dtp-slsYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</td>
@@ -158,6 +162,10 @@
 	var jsonComItem			= [];	// 품목 		itemCd		검색
 	var jsonComVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonComUseYn		= [];	// 창고 		useYn		검색
+	var jsonComCfmtnYn		= [
+		{ label : "미확정", value : "N"},
+		{ label : "확정", value : "Y"}
+	];
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-slt-useYn', 		jsonComUseYn, 	'USE_YN'),	// 사용유무
@@ -196,7 +204,7 @@
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['거래처','거래처'],		ref: 'cnptNm', 		width: '160px', type: 'output', style: 'text-align:center'},
             {caption: ['상품명','상품명'], 		ref: 'gdsNm', 		width: '120px', type: 'output', style: 'text-align:center'},
-            {caption: ['상품코드','상품코드'], 	ref: 'gdsSeNm', 	width: '100px', type: 'output', style: 'text-align:center'},
+            {caption: ['상품코드','상품코드'], 	ref: 'gdsCd', 		width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['품목','품목'], 			ref: 'itemNm', 		width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['품종','품종'], 			ref: 'vrtyNm', 		width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['규격','규격'], 			ref: 'spcfctNm', 	width: '100px', type: 'output', style: 'text-align:center'},
@@ -210,13 +218,16 @@
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['단가','단가'], 			ref: 'slsUntprc', 	width: '80px', type: 'output', style: 'text-align:right',
         		typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
-            {caption: ['금액','금액'], 			ref: 'rkngAmt', 	width: '80px', type: 'output', style: 'text-align:right',
+            {caption: ['금액','금액'], 			ref: 'rkngAmt', 	width: '80px', type: 'input', style: 'text-align:right; background:#FFF8DC;',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
-            {caption: ['확정금액','확정금액'], 	ref: 'cfmtnAmt', 	width: '80px', type: 'output', style: 'text-align:right',
+            {caption: ['확정금액','확정금액'], 	ref: 'cfmtnAmt', 	width: '80px', type: 'input', style: 'text-align:right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
-            {caption: ['확정여부','확정여부'], 	ref: 'cfmtnYn', 	width: '60px', type: 'output', style: 'text-align:center'}
+            {caption: ['확정여부','확정여부'], 		ref: 'cfmtnYn',   		width:'100px',  type:'combo',    style:'text-align:center; background:#FFF8DC;',
+				typeinfo : {ref:'jsonComCfmtnYn', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
         ];
         grdSlsPrfmnc = _SBGrid.create(SBGridProperties);
+        grdSlsPrfmnc.bind('select', 'fn_setValue');
+        grdSlsPrfmnc.bind('deselect', 'fn_delValue');
     }
 
 	const fn_search = async function(){
@@ -246,12 +257,13 @@
 		}
 		let postJsonPromise = gfn_postJSON("/am/sls/selectRegSlsPrfmncList.do", SlsPrfmncVO);
         let data = await postJsonPromise;
-
         try{
         	jsonSlsPrfmnc.length = 0;
         	data.resultList.forEach((item, index) => {
 				let slsPrfmnc = {
-					slsYmd 		: item.slsYmd
+				    apcCd		: item.apcCd
+			      , slsYmd 		: item.slsYmd
+				  , slsSn		: item.slsSn
 				  , cnptNm 		: item.cnptNm
 				  , itemCd		: item.itemCd
 				  , itemNm		: item.itemNm
@@ -266,10 +278,12 @@
 				  , slsUntprc 	: item.slsUntprc
 				  , qntt		: item.qntt
 				  , wght 		: item.wght
+				  , rkngAmt		: item.rkngAmt
 				  , cfmtnAmt 	: item.cfmtnAmt
-				  , totQntt		: item.totQntt
-				  , totWght 	: item.totWght
-				  , totCfmtnAmt : item.totCfmtnAmt
+				  , cfmtnYn		: item.cfmtnYn
+				  , cfmtnPsbltyYn	: item.cfmtnPsbltyYn
+
+
 				}
 				jsonSlsPrfmnc.push(slsPrfmnc);
 			});
@@ -282,11 +296,129 @@
         }
 	}
 
+	const fn_setValue = function(){
+
+    	let nRow = grdSlsPrfmnc.getRow();
+    	let nCol = grdSlsPrfmnc.getCol();
+
+    	if(nCol == 0){
+    		let cfmtnPsbltyYn = grdSlsPrfmnc.getRowData(nRow).cfmtnPsbltyYn;
+    		if(cfmtnPsbltyYn == "N"){
+    			gfn_comAlert("E0000", "출하실적이 없습니다. 매출생성을 다시 진행하세요.");		//	E0000	{0}
+    			grdSlsPrfmnc.setCellData(nRow, 0, "N");
+    			return;
+    		}
+
+	    	let rkngAmt = grdSlsPrfmnc.getRowData(nRow).rkngAmt;
+	    	grdSlsPrfmnc.setCellData(nRow, 15, rkngAmt);
+	    	grdSlsPrfmnc.setCellData(nRow, 16, "Y");
+    	}
+
+    }
+
+    const fn_delValue = async function(){
+    	var nRow = grdSlsPrfmnc.getRow();
+    	grdSlsPrfmnc.setCellData(nRow, 15, 0);
+    }
+
+    const fn_save = async function(){
+
+    	var grdRows = grdSlsPrfmnc.getCheckedRows(0);
+
+    	if(grdRows.length == 0){
+    		gfn_comAlert("W0003", "저장");			// W0003	{0}할 대상이 없습니다.
+    		return;
+    	}
+
+		var saveList = [];
+    	for(var i=0; i< grdRows.length; i++){
+    		let nRow = grdRows[i];
+    		let rowData = grdSlsPrfmnc.getRowData(nRow)
+    		let rkngAmt = rowData.rkngAmt;
+
+			if(gfn_isEmpty(rkngAmt)){
+				gfn_comAlert("W0001", "확정금액");		//	W0001	{0}을/를 입력하세요.
+				return;
+			}
+
+			saveList.push(rowData);
+    	}
+
+    	let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+			const postJsonPromise = gfn_postJSON("/am/sls/saveSlsPrfmncCrtList.do", saveList);
+	    	const data = await postJsonPromise;
+
+	    	try{
+	       		if(data.savedCnt > 0){
+	       			fn_search();
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	       		}else{
+	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
+	       		}
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
+    }
+
+    const fn_del = async function(){
+    	var grdRows = grdSlsPrfmnc.getCheckedRows(0);
+
+    	if(grdRows.length == 0){
+    		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
+    		return;
+    	}
+
+		var delList = [];
+    	for(var i=0; i< grdRows.length; i++){
+    		let nRow = grdRows[i];
+    		let rowData = grdSlsPrfmnc.getRowData(nRow)
+
+			delList.push(rowData);
+    	}
+
+    	console.log(delList);
+
+    	let regMsg = "삭제 하시겠습니까?";
+		if(confirm(regMsg)){
+			const postJsonPromise = gfn_postJSON("/am/sls/deleteSlsPrfmncCrtList.do", delList);
+	    	const data = await postJsonPromise;
+
+	    	try{
+	       		if(data.deletedCnt > 0){
+	       			fn_search();
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	       		}else{
+	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
+	       		}
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
+    }
+
+
 
 
 	const fn_slsCreate = async function (){
 		let slsYmdFrom = SBUxMethod.get("dtl-dtp-slsYmdFrom")
 		let slsYmdTo = SBUxMethod.get("dtl-dtp-slsYmdTo")
+
+		if(gfn_isEmpty(slsYmdFrom)){
+			gfn_comAlert("W0002", "매출생성시작일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+		if(gfn_isEmpty(slsYmdTo)){
+			gfn_comAlert("W0002", "매출생성종료일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
 
 		const postJsonPromise = gfn_postJSON("/am/sls/insertSlsPrfmncCrt.do", {
 			apcCd			: gv_selectedApcCd,
@@ -298,6 +430,7 @@
 		try{
 
        		if(gfn_isEmpty(data.rtnCd)){
+       			console.log(data.trnCd)
        			fn_search();
        			gfn_comAlert("I0001");						// I0001 처리 되었습니다.
        		}else{
