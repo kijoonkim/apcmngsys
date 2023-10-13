@@ -30,7 +30,7 @@
 	    		, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL)						AS ITEM_NM
 	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
-	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+	    		, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)	AS SPMT_PCKG_UNIT_NM
 	    		, (SELECT FN_GET_COM_CD_VL_NM('OUTORDR_TYPE', pt0.OUTORDR_TYPE) FROM DUAL)          AS OUTORDR_TYPE_NM
     		 FROM (
     	</if>
@@ -40,7 +40,7 @@
 	    		, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL)						AS ITEM_NM
 	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
-	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+	    		, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)	AS SPMT_PCKG_UNIT_NM
 	    		, (SELECT FN_GET_COM_CD_VL_NM('OUTORDR_TYPE', pt0.OUTORDR_TYPE) FROM DUAL)          AS OUTORDR_TYPE_NM
     		 FROM (
     	</if>
@@ -59,7 +59,7 @@
     		  	 , OI.OUTORDR_PRSN						AS OUTORDR_PRSN
     		  	 , OI.OUTORDR_PRSN_CD					AS OUTORDR_PRSN_CD
     		  	 , OI.SPLY_PRSN							AS SPLY_PRSN
-    		  	 , OI.GDS_CD							AS GDS_CD
+    		  	 , OI.SPMT_PCKG_UNIT_CD					AS SPMT_PCKG_UNIT_CD
     		  	 , OI.DLDTN								AS DLDTN
     		  	 , OI.DLDTN_CD							AS DLDTN_CD
     		  	 , OI.ITEM_CD							AS ITEM_CD
@@ -91,16 +91,20 @@
 			  FROM TB_OUTORDR_INFO OI
 			     , TB_SPMT_PRFMNC_COM SC
 			     , TB_SPMT_PRFMNC_DTL SD
+			     , TB_SPMT_PCKG_UNIT  PU
 			 WHERE OI.APC_CD = SC.APC_CD
 			   AND OI.APC_CD = SD.APC_CD
+			   AND OI.APC_CD = PU.APC_CD
 			   AND OI.VRTY_CD = SD.VRTY_CD
 			   AND OI.SPCFCT_CD = SD.SPCFCT_CD
-			   AND OI.GDS_CD = SD.GDS_CD
+			   AND OI.SPMT_PCKG_UNIT_CD = SD.SPMT_PCKG_UNIT_CD
+			   AND OI.SPMT_PCKG_UNIT_CD = PU.SPMT_PCKG_UNIT_CD
 			   AND SC.SPMTNO = SD.SPMTNO
 			   AND OI.APC_CNPT_CD = SC.CNPT_CD
 			   AND OI.DEL_YN = 'N'
 			   AND SC.DEL_YN = 'N'
 			   AND SD.DEL_YN = 'N'
+			   AND PU.DEL_YN = 'N'
 		]]>
 		<if test='rcptYn != null and rcptYn == "Y"'>
 			   AND ((
@@ -115,6 +119,19 @@
          				OR
          				(OI.APC_SE_CD = '2' AND OI.APC_CD = #{apcCd}))
       				AND OI.RCPT_CFMTN_YMD IS NULL)
+		</if>
+		<if test='rcptYn == null or rcptYn == ""'>
+			   AND (((
+						(OI.APC_SE_CD = '1' AND OI.APC_CD = '0000')
+         				OR
+         				(OI.APC_SE_CD = '2' AND OI.APC_CD = #{apcCd}))
+      				AND OI.RCPT_CFMTN_YMD IS NULL)
+      				OR
+      				((
+						(OI.APC_SE_CD = '1' AND OI.APC_CD = '0000' AND OI.RCPT_CFMTN_APC_CD = #{apcCd})
+	         			OR
+	         			(OI.APC_SE_CD = '2' AND OI.APC_CD = #{apcCd}))
+      				AND OI.RCPT_CFMTN_YMD IS NOT NULL))
 		</if>
 		<if test='outordrYmdFrom != null and outordrYmdFrom != ""'>
 		   	   AND OI.OUTORDR_YMD <![CDATA[>=]]> #{outordrYmdFrom}
@@ -137,8 +154,8 @@
 		<if test='wrhsYmd != null and wrhsYmd != ""'>
 		   	   AND OI.WRHS_YMD = #{wrhsYmd}
 		</if>
-		<if test='gdsNm != null and gdsNm != ""'>
-		   	   AND SP.SLS_YMD <![CDATA[>=]]> #{gdsNm}
+		<if test='spmtPckgUnitNm != null and spmtPckgUnitNm != ""'>
+		   	   AND PU.SPMT_PCKG_UNIT_NM LIKE '%' ||  #{spmtPckgUnitNm} || '%'
 		</if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
