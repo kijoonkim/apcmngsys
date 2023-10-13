@@ -45,11 +45,11 @@
 					</colgroup>
 					<tbody>
 						<tr>
-					        <th scope="row" class="th_bg"><span class="data_required"></span>접수여부</th>
+					        <th scope="row" class="th_bg">접수여부</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-rcptYn" name="srch-slt-rcptYn" uitype="single" unselected-text="선택" jsondata-ref="jsonRcptYn" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
+										<sbux-select id="srch-slt-rcptYn" name="srch-slt-rcptYn" uitype="single" unselected-text="전체" jsondata-ref="jsonRcptYn" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -154,7 +154,7 @@
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnRcptOrdrAll" name="btnReceiptBndl" uitype="normal" onclick="btn_receiptBndl" class="btn btn-sm btn-outline-dark" text="일괄 접수"></sbux-button>
-						<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" onclick="fn_dummyData" class="btn btn-sm btn-outline-dark" text="포장지시 등록"></sbux-button>
+						<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" onclick="fn_dummyData" class="btn btn-sm btn-outline-dark" text="출하지시 등록"></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -320,10 +320,6 @@
 		let pckgCmndYmd = SBUxMethod.get("srch-dtp-pckgCmndYmd");
 		let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
 // 		let apcSeCd = ;
-		if (gfn_isEmpty(rcptYn)){
-			gfn_comAlert("W0002", "접수여부");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
 		if (gfn_isEmpty(outordrYmdFrom)){
 			gfn_comAlert("W0002", "발주일자");		//	W0002	{0}을/를 입력하세요.
             return;
