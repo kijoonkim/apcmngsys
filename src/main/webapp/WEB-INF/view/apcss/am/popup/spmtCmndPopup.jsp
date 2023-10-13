@@ -179,6 +179,7 @@
 						  , spcfctNm 		: item.spcfctNm
 						  , rmrk			: item.rmrk
 						  , itemCd			: item.itemCd
+						  , outordrno		: item.outordrno
 					}
 					jsonSpmtCmndPop.push(spmtCmnd);
 
