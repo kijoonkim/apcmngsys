@@ -427,7 +427,7 @@
     		 , BX_GDS_QNTT 				= #{bxGdsQntt}
     		 , OUTORDR_QNTT 			= #{outordrQntt}
     		 , PIECE_QNTT 				= #{pieceQntt}
-    		 , UNIT 					= #{unit}
+    		 , UNIT_CD 					= #{unitCd}
     		 , BX_UNTPRC 				= #{bxUntprc}
     		 , OUTORDR_UNTPRC 			= #{outordrUntprc}
     		 , OUTORDR_UNIT_CD 			= #{outordrUnitCd}
@@ -447,6 +447,11 @@
     		 , DLVGDS_SE_CD 			= #{dlvgdsSeCd}
     		 , ETC 						= #{etc}
     		 , BUYER_NM 				= #{buyerNm}
+    		 , OUTORDR_WGHT 			= #{outordrWght}
+    		 , PIECE_WGHT 				= #{pieceWght}
+    		 , UNIT_WGHT 				= #{unitWght}
+    		 , SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
+    		 , GRD_CD 					= #{grdCd}
     		 , DEL_YN					= #{delYn}
 		 WHERE APC_CD 					= #{apcCd}
 		   AND APC_SE_CD 				= #{apcSeCd}
@@ -456,7 +461,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.deleteOrdr					-->
-	<!-- DESC : 발주정보 삭제.	                         	             		 	-->
+	<!-- DESC : 발주정보 삭제.	                         	             		 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
