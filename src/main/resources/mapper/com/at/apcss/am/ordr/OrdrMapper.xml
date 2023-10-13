@@ -57,9 +57,11 @@
     		  	 , OI.WRHS_YMD							AS WRHS_YMD
     		  	 , OI.OUTORDR_YMD						AS OUTORDR_YMD
     		  	 , OI.OUTORDR_PRSN						AS OUTORDR_PRSN
+    		  	 , OI.OUTORDR_PRSN_CD					AS OUTORDR_PRSN_CD
     		  	 , OI.SPLY_PRSN							AS SPLY_PRSN
     		  	 , OI.GDS_CD							AS GDS_CD
     		  	 , OI.DLDTN								AS DLDTN
+    		  	 , OI.DLDTN_CD							AS DLDTN_CD
     		  	 , OI.ITEM_CD							AS ITEM_CD
     		  	 , OI.VRTY_CD							AS VRTY_CD
     		  	 , OI.SPCFCT_CD							AS SPCFCT_CD
@@ -80,6 +82,7 @@
     		  	 , OI.BUYER_NM							AS BUYER_NM
     		  	 , OI.CNTR_RCVD_WRHS_YMD				AS CNTR_RCVD_WRHS_YMD
     		  	 , OI.CNTR_NM							AS CNTR_NM
+    		  	 , OI.CNTR_CD							AS CNTR_CD
     		  	 , OI.DLVGDS_SE_CD						AS DLVGDS_SE_CD
     		  	 , OI.ETC								AS ETC
     		  	 , OI.RCPT_CFMTN_APC_CD					AS RCPT_CFMTN_APC_CD
@@ -114,10 +117,10 @@
       				AND OI.RCPT_CFMTN_YMD IS NULL)
 		</if>
 		<if test='outordrYmdFrom != null and outordrYmdFrom != ""'>
-		   	   AND OI.OUTORDR_YMD >= #{outordrYmdFrom}
+		   	   AND OI.OUTORDR_YMD <![CDATA[>=]]> #{outordrYmdFrom}
 		</if>
 		<if test='outordrYmdTo != null and outordrYmdTo != ""'>
-		       AND #{outordrYmdTo} >= OI.OUTORDR_YMD
+		       AND OI.OUTORDR_YMD <![CDATA[<=]]> #{outordrYmdTo}
 		</if>
 		<if test='outordrType != null and outordrType != ""'>
 		   	   AND OI.OUTORDR_TYPE = #{outordrType}
@@ -135,48 +138,8 @@
 		   	   AND OI.WRHS_YMD = #{wrhsYmd}
 		</if>
 		<if test='gdsNm != null and gdsNm != ""'>
-		   	   AND SP.SLS_YMD >= #{gdsNm}
+		   	   AND SP.SLS_YMD <![CDATA[>=]]> #{gdsNm}
 		</if>
-    	<![CDATA[
-		 	 GROUP BY OI.RCPT_CFMTN_YMD
-    		  	 	, OI.OUTORDR_TYPE
-			  	 	, OI.OUTORDRNO
-    		  	 	, OI.APC_CNPT_NM
-    		  	 	, OI.APC_CNPT_CD
-    		  	 	, OI.WRHS_YMD
-    		  	 	, OI.OUTORDR_YMD
-    		  	 	, OI.OUTORDR_PRSN
-    		  	 	, OI.SPLY_PRSN
-    		  	 	, OI.GDS_CD
-    		  	 	, OI.DLDTN
-    		  	 	, OI.ITEM_CD
-    		  	 	, OI.VRTY_CD
-    		  	 	, OI.SPCFCT_CD
-    		  	 	, OI.BX_GDS_QNTT
-    		  	 	, OI.OUTORDR_QNTT
-    	   	  	 	, OI.PIECE_QNTT
-    	 	  	 	, OI.UNIT_CD
-    		  	 	, OI.BX_UNTPRC
-    		  	 	, OI.OUTORDR_UNTPRC
-    		  	 	, OI.OUTORDR_UNIT_CD
-    		  	 	, OI.LOT
-    		  	 	, OI.TX_AMT
-    		  	 	, OI.OUTORDR_AMT
-    		  	 	, OI.WRHS_TYPE
-    		  	 	, OI.DOCNO
-    		  	 	, OI.DOCK_INFO
-    		  	 	, OI.CNTR_SE
-    		  	 	, OI.BUYER_NM
-    		  	 	, OI.CNTR_RCVD_WRHS_YMD
-    		  	 	, OI.CNTR_NM
-    		  	 	, OI.DLVGDS_SE_CD
-    		  	 	, OI.ETC
-    		  	 	, OI.RCPT_CFMTN_APC_CD
-    		  	 	, OI.PCKG_CMNDNO
-    		  	 	, OI.APC_CD
-    		  	 	, OI.APC_SE_CD
-    		  	 	, SC.SPMT_YMD
-		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0

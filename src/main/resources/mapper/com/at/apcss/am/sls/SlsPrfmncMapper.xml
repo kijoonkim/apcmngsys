@@ -70,10 +70,10 @@
 			   AND SP.APC_CD = #{apcCd}
 		</if>
 		<if test='slsYmdFrom != null and slsYmdFrom != ""'>
-		   	   AND SP.SLS_YMD >= #{slsYmdFrom}
+		   	   AND SP.SLS_YMD <![CDATA[>=]]> #{slsYmdFrom}
 		</if>
 		<if test='slsYmdTo != null and slsYmdTo != ""'>
-		       AND #{slsYmdTo} >= SP.SLS_YMD
+		       AND SP.SLS_YMD <![CDATA[<=]]> #{slsYmdTo}
 		</if>
 		<if test='cnptNm != null and cnptNm != ""'>
 		       AND CI.CNPT_NM LIKE '%' ||  #{cnptNm} || '%'
@@ -307,7 +307,7 @@
 		   	   AND SP.SLS_YMD <![CDATA[>=]]> #{slsYmdFrom}
 		</if>
 		<if test='slsYmdTo != null and slsYmdTo != ""'>
-		       AND #{slsYmdTo} <![CDATA[>=]]> SP.SLS_YMD
+		       AND SP.SLS_YMD <![CDATA[<=]]> #{slsYmdTo}
 		</if>
 		<if test='cnptCd != null and cnptCd != ""'>
 		       AND SP.CNPT_CD = #{cnptCd}

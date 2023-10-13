@@ -110,7 +110,7 @@
 
 		]]>
 		<if test='outordrYmdFrom != null and outordrYmdFrom != ""'>
-		   	   AND OI.OUTORDR_YMD >= #{outordrYmdFrom}
+		   	   AND OI.OUTORDR_YMD <![CDATA[>=]]> #{outordrYmdFrom}
 		</if>
 		<if test='outordrYmdTo != null and outordrYmdTo != ""'>
 		       AND OI.OUTORDR_YMD <![CDATA[<=]]> #{outordrYmdTo}
@@ -186,7 +186,7 @@
 		   	   		AND SC.CMND_YMD = #{cmndYmd}
 			</when>
 			<otherwise>
-					AND SC.CMND_YMD <![CDATA[ >= ]]> TO_CHAR(SYSDATE, 'YYYYMMDD')
+					AND SC.CMND_YMD <![CDATA[>=]]> TO_CHAR(SYSDATE, 'YYYYMMDD')
 			</otherwise>
 		</choose>
 		<if test='itemCd != null and itemCd != ""'>
@@ -289,7 +289,7 @@
 			   AND CI.DEL_YN = 'N'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
-		   	   AND SC.APC_CD >= #{apcCd}
+		   	   AND SC.APC_CD <![CDATA[>=]]> #{apcCd}
 		</if>
 		<if test='cmndYmd != null and cmndYmd != ""'>
 		   	   AND SC.CMND_YMD = #{cmndYmd}
@@ -403,10 +403,10 @@
 		   	   AND SC.CMND_YMD = #{cmndYmd}
 		</if>
 		<if test='cmndYmdFrom != null and cmndYmdFrom != ""'>
-		   	   AND SC.CMND_YMD >= #{cmndYmdFrom}
+		   	   AND SC.CMND_YMD <![CDATA[>=]]> #{cmndYmdFrom}
 		</if>
 		<if test='cmndYmdTo != null and cmndYmdTo != ""'>
-		       AND #{cmndYmdTo} >= SC.CMND_YMD
+		       AND SC.CMND_YMD <![CDATA[<=]]> #{cmndYmdTo}
 		</if>
 		<if test='cnptNm != null and cnptNm != ""'>
 		       AND CI.CNPT_NM LIKE '%' ||  #{cnptNm} || '%'
