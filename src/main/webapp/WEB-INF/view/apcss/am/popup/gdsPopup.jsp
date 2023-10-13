@@ -137,9 +137,9 @@
 	            {caption: ['품종'], 		ref: 'vrtyNm', 			width: '100px', 	type: 'output', 	style: 'text-align: center'},
 	            {caption: ['규격'], 		ref: 'spcfctNm', 		width: '100px', 	type: 'output', 	style: 'text-align: center'},
 	            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '100px', 	type: 'output', 	style: 'text-align: center'},
-	            {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '200px', 	type: 'output', 	style: 'text-align: center'},
-	            {caption: ['브랜드'], 		ref: 'brndNm', 			width: '100px', 	type: 'output', 	style: 'text-align: center'},
-	            {caption: ["판매단가"],     ref: 'ntslUntprc',  	width:'100px',      type: 'output',		style: 'text-align:center',
+	            {caption: ['상품명'], 	ref: 'spmtPckgUnitNm', 	width: '200px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['브랜드'], 	ref: 'brndNm', 			width: '100px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ["판매단가"],   	ref: 'ntslUntprc',  	width: '100px',     type: 'output',		style: 'text-align:center',
 	            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}}
 		    ];
 		    grdGds = _SBGrid.create(SBGridProperties);
