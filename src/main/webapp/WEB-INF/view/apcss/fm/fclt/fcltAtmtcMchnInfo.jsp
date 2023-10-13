@@ -271,10 +271,7 @@
 
         SBGridProperties.columns = [
 
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
+            {caption: ["APC명"],			ref: 'apcNm',       		type:'output',  	width:'10%',    style:'text-align:center'},
             {caption: ["규격"], 			ref: 'specs',   		type:'output',  	width:'8%',    style:'text-align:center'},
             {caption: ["티팔렛타이져"], 	ref: 'fcltHldYn',   		type:'combo',  	width:'8%',    style:'text-align:center'
             	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
@@ -299,8 +296,7 @@
             {caption: ["팔렛타이져"],  	ref: 'fcltHldYn11',  			type:'combo',  	width:'8%',    style:'text-align:center'
             	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
             {caption: ["기타 가공설비"],  	ref: 'OTHER_FCLT',  			type:'output',  	width:'8%',    style:'text-align:center'},
-            {caption: ["APCCD"],		ref: 'apcCd',       		type:'output',  	hidden: false},
-            {caption: ["APC명"],			ref: 'apcNm',       		type:'output',  	hidden: false},
+            {caption: ["APCCD"],		ref: 'apcCd',       		type:'output',  	hidden: true},
             {caption: ["대상연도"],			ref: 'trgtYr',          	type:'output',  hidden: true}
 
         ];

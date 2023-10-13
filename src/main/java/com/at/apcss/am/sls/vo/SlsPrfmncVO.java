@@ -73,6 +73,7 @@ public class SlsPrfmncVO extends ComVO {
 	 * 품목코드
 	 */
 	private String itemCd;
+	private String itemNm;
 
 	/**
 	 * 품종코드
@@ -98,6 +99,7 @@ public class SlsPrfmncVO extends ComVO {
 	 * 등급코드
 	 */
 	private String grdCd;
+	private String grdNm;
 
 	/**
 	 * 브랜드코드
@@ -154,4 +156,14 @@ public class SlsPrfmncVO extends ComVO {
 	 * 확정여부
 	 */
 	private String cfmtnYn;
+
+	/*
+	 * 프로시저 실패 리턴 결과
+	 * */
+	private String rtnCd;
+
+	/*
+	 * 프로시저 실패 리턴 메시지
+	 * */
+	private String rtnMsg;
 }

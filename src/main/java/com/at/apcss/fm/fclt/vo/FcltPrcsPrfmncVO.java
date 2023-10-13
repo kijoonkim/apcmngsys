@@ -11,6 +11,7 @@ public class FcltPrcsPrfmncVO extends ComVO{
 
 	private String trgtYr;
 	private String apcCd;
+	private String apcNm;
 	private int sn;
 	private String fcltPrcsSeCd;
 	private String fcltPrcsTrmtCd;
@@ -24,6 +25,7 @@ public class FcltPrcsPrfmncVO extends ComVO{
 	private String fcltPrcsTrmtAmt3;
 	private String fcltPrcsTrmtAmt4;
 }
+
 
 
 

@@ -291,11 +291,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
+            {caption: ["APC명"],		ref: 'apcNm',       type:'output',  	width:'10%',    style:'text-align:center'},
             {caption: ["총 건축면적"],	    ref: 'fcltAreaTot',  type:'output',  	width:'25%',    style:'text-align:center'},
             {caption: ["집하선포장장"], 		ref: 'fcltArea01',   type:'output',  	width:'25%',    style:'text-align:center'},
             {caption: ["세척․가공 등 처리"],  	ref: 'fcltArea02',   type:'output',  	width:'25%',    style:'text-align:center'},
@@ -320,7 +316,6 @@
             {caption: ["일반저장 비고"],			ref: 'fcltRmrk09',   type:'output', hidden: true},
             {caption: ["기타사항 비고"],			ref: 'fcltRmrk10',   type:'output', hidden: true},
 
-            {caption: ["APC명"],		ref: 'apcNm',       type:'output',  	hidden: false},
             {caption: ["APCCD"],		ref: 'apcCd',       type:'output',  	hidden: true},
             {caption: ["대상연도"],			ref: 'trgtYr',          type:'output',  hidden: true}
         ];

@@ -85,6 +85,12 @@ public class CmnsItemServiceImpl implements CmnsItemService {
 	public int insertCmnsItem(CmnsItemVO cmnsItemVO) throws Exception {
 
 		int insertedCnt = cmnsItemMapper.insertCmnsItem(cmnsItemVO);
+		
+		StdGrdVO stdGrdVO = new StdGrdVO();
+		BeanUtils.copyProperties(cmnsItemVO, stdGrdVO);
+		stdGrdService.insertStdGrdAuto(stdGrdVO);
+		
+		/*
 		ComCdVO comCdVO = new ComCdVO();
 		comCdVO.setCdId("GDS_GRD");
 
@@ -114,7 +120,7 @@ public class CmnsItemServiceImpl implements CmnsItemService {
 			stdGrdService.insertStdGrd(stdGrdVO);
 			gdsGrdSn++;
 		}
-
+		 */
 		return insertedCnt;
 	}
 

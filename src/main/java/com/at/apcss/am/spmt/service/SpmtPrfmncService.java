@@ -90,7 +90,7 @@ public interface SpmtPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception;
+	public int insertSpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception;
 
 	/**
 	 * 출하실적 삭제

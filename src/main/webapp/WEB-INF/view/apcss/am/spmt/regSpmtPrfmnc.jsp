@@ -128,6 +128,7 @@
 							<th scope="row" class="th_bg">지시번호</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-spmtCmndno" name="dtl-inp-spmtCmndno" uitype="text" class="form-control input-sm" readOnly></sbux-input>
+								<sbux-input id="dtl-inp-outordrno" name="dtl-inp-outordrno" uitype="hidden" class="form-control input-sm" readOnly></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="dtl-btn-spmtCmndno" name="dtl-btn-spmtCmndno" uitype="modal" target-id="modal-spmtCmnd" onclick="fn_choiceSpmtCmnd" text="찾기"  class="btn btn-xs btn-outline-dark"></sbux-button>
@@ -400,6 +401,8 @@
             {caption: ["비고"],			ref: 'rmrk',   		type:'output',  hidden: true},
             {caption: ["지시번호"],		ref: 'spmtCmndno',  type:'output',  hidden: true},
             {caption: ["브랜드명"],		ref: 'brndNm',  	type:'output',  hidden: true},
+            {caption: ["발주번호"],		ref: 'outordrno',  	type:'output',  hidden: true},
+            {caption: ["상품코드"],		ref: 'gdsCd',  	type:'output',  hidden: true}
         ];
 
         grdGdsInvntr = _SBGrid.create(SBGridPropertiesGdsInvntr);
@@ -488,6 +491,7 @@
 			spcfctCd		: spcfctCd
   		});
         const data = await postJsonPromise;
+        console.log(data);
         try {
           	/** @type {number} **/
       		jsonGdsInvntr.length = 0;
@@ -631,7 +635,7 @@
 			let gdsGrdCd = SBUxMethod.get("dtl-slt-gdsGrd");
 			let spmtCmndno = SBUxMethod.get("dtl-inp-spmtCmndno");
 			if(!gfn_isEmpty(spmtCmndno)){
-				grdGdsInvntr.setCellData(nRow, 9, spmtPckgUnit, true);
+				grdGdsInvntr.setCellData(nRow, 9, spmtPckgUnitCd, true);
 				grdGdsInvntr.setCellData(nRow, 10, gdsGrdCd, true);
 			}
 		}else{
@@ -659,7 +663,7 @@
 			let gdsGrdCd = SBUxMethod.get("dtl-slt-gdsGrd");
 			let spmtCmndno = SBUxMethod.get("dtl-inp-spmtCmndno");
 			if(!gfn_isEmpty(spmtCmndno)){
-				grdGdsInvntr.setCellData(nRow, 9, spmtPckgUnit, true);
+				grdGdsInvntr.setCellData(nRow, 9, spmtPckgUnitCd, true);
 				grdGdsInvntr.setCellData(nRow, 10, gdsGrdCd, true);
 			}
 			grdGdsInvntr.setCellData(nRow, 12, Math.round(invntrWght / invntrQntt) * spmtQntt);
@@ -686,6 +690,7 @@
     	let trsprtCst	= SBUxMethod.get("dtl-inp-trsprtCst");
     	let rmrk		= SBUxMethod.get("dtl-inp-rmrk");
     	let spmtCmndno	= SBUxMethod.get("dtl-inp-spmtCmndno");
+    	let outordrno	= SBUxMethod.get("dtl-inp-outordrno");
 
     	if(gfn_isEmpty(spmtYmd)){
     		gfn_comAlert("W0001", "출하일자");			//	W0001	{0}을/를 선택하세요.
@@ -709,6 +714,7 @@
     		let spmtPckgUnitCd = rowData.spmtPckgUnitCd;
     		let gdsGrd = rowData.gdsGrd;
     		let brndNm = rowData.brndNm;
+    		let gdsCd = rowData.gdsCd;
     		totSpmtQntt = totSpmtQntt + Number(spmtQntt);
 
     		if(smptWght == 0){
@@ -750,9 +756,10 @@
     		grdGdsInvntr.setCellData(nRow, 21, rmrk);
     		grdGdsInvntr.setCellData(nRow, 22, spmtCmndno);
     		grdGdsInvntr.setCellData(nRow, 23, brndNm);
+    		grdGdsInvntr.setCellData(nRow, 24, outordrno);
+    		grdGdsInvntr.setCellData(nRow, 25, gdsCd);
     		insertList.push(grdGdsInvntr.getRowData(nRow));
     	}
-
 
 		if(cmndYn){
 			let cmndQntt = SBUxMethod.get("dtl-inp-cmndQntt");
@@ -902,6 +909,7 @@
 		SBUxMethod.set("dtl-inp-cnptNm", "");
 		SBUxMethod.set("dtl-inp-dldtn", "");
 		SBUxMethod.set("dtl-slt-gdsGrd", "");
+		SBUxMethod.set("dtl-slt-outordrno", "");
 		SBUxMethod.set("srch-slt-itemCd", "");
 		SBUxMethod.set("srch-slt-vrtyCd", "");
 		SBUxMethod.set("srch-slt-spcfctCd", "");
@@ -952,6 +960,7 @@
 			SBUxMethod.set("dtl-inp-cnptNm", cmnd.cnptNm);
 			SBUxMethod.set("dtl-inp-dldtn", cmnd.dldtn);
 			SBUxMethod.set("dtl-inp-rmrk", cmnd.rmrk);
+			SBUxMethod.set("dtl-inp-outordrno", cmnd.outordrno);
 			SBUxMethod.set("dtl-slt-gdsGrd", cmnd.gdsGrd);
 			SBUxMethod.set("srch-slt-itemCd", cmnd.itemCd);
 			SBUxMethod.set("srch-slt-vrtyCd", cmnd.vrtyCd);

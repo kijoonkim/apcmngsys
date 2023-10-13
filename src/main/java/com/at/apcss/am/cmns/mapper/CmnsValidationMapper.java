@@ -2,7 +2,6 @@ package com.at.apcss.am.cmns.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.at.apcss.am.cmns.vo.CmnsTaskNoVO;
 import com.at.apcss.am.cmns.vo.CmnsValidationVO;
 
 /**
@@ -29,4 +28,14 @@ public interface CmnsValidationMapper {
 	 * @throws Exception
 	 */
 	public CmnsValidationVO selectChkCdDelible(CmnsValidationVO cmnsValidationVO) throws Exception;
+	
+	/**
+	 * APC별 마감등록 여부 조회
+	 * @param cmnsValidationVO
+	 * @return
+	 * @throws Exception
+	 */
+	public CmnsValidationVO selectChkDdlnYn(CmnsValidationVO cmnsValidationVO) throws Exception;
+	
+	
 }

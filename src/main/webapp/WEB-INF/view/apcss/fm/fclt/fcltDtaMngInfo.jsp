@@ -271,6 +271,7 @@
 
         SBGridProperties.columns = [
 
+            {caption: ["APC명"],			ref: 'apcNm',       			type:'output',  	width:'10%',    style:'text-align:center'},
             {caption: ["생산정보","연계현황"], 			ref: 'fcltSysHldYn',   			type:'combo',  	width:'10%',    style:'text-align:center'
             	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
             {caption: ["생산정보","관리방법"],  		ref: 'fcltMng',  			type:'combo',  	width:'10%',    style:'text-align:center'
@@ -302,7 +303,6 @@
             	,typeinfo : {ref:'comboMngData', label:'label', value:'value' ,displayui : true}, disabled: true},
 
             {caption: ["APCCD"],		ref: 'apcCd',       		type:'output',  	hidden: true},
-            {caption: ["APC명"],			ref: 'apcNm',       			type:'output',  	hidden: false},
             {caption: ["대상연도"],		ref: 'trgtYr',          	type:'output',  hidden: true}
 
         ];

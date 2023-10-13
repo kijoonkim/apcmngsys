@@ -169,6 +169,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
+            {caption: ["APC명"],			ref: 'apcNm',       		type:'output',  width:'10%',    style:'text-align:center'},
             {caption: ["총취급액","총취급액"],  	ref: 'fcltOgnzTrmtAmtTot',  			type:'output',  width:'14%',    style:'text-align:center',calc : 'fn_Calctot'},
             {caption: ["일반취급","계"],  		ref: 'fcltOgnzTrmtAmtSum1',  			type:'output',  width:'14%',    style:'text-align:center',calc : 'fn_CalcSum1'},
             {caption: ["일반취급","단순수탁"],  	ref: 'fcltOgnzTrmtAmt',  			type:'output',  width:'14%',    style:'text-align:center' },
@@ -177,7 +178,6 @@
             {caption: ["조직화취급","단순수탁"],  	ref: 'fcltOgnzTrmt3Amt',  			type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["조직화취급","단순매취"],  	ref: 'fcltOgnzTrmt4Amt',  			type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["APCCD"],		ref: 'apcCd',       		type:'output',  hidden: true},
-            {caption: ["APC명"],			ref: 'apcNm',       		type:'output',  hidden: false},
             {caption: ["대상연도"],		ref: 'trgtYr',          	type:'output',  hidden: true},
             {caption: ["등록프로그램"], 		ref: 'creProgram',  		type:'output',  hidden: true},
             {caption: ["변경프로그램"], 		ref: 'updProgram',  		type:'output',  hidden: true}

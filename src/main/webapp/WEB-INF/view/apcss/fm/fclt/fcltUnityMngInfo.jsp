@@ -197,6 +197,7 @@
 
         SBGridProperties.columns = [
 
+            {caption: ["APC명"],		ref: 'apcNm',       		type:'output',  width:'10%',    style:'text-align:center'},
             {caption: ["생산정보"], 	ref: 'fcltSysHldYn',   		type:'output',  	width:'14%',    style:'text-align:center'},
             {caption: ["입고정보"],  	ref: 'fcltSysHldYn2',  			type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["선별정보"],  	ref: 'fcltSysHldYn3',  			type:'output',  width:'14%',    style:'text-align:center'},
@@ -205,7 +206,6 @@
             {caption: ["출고정보"],  	ref: 'fcltSysHldYn6',  			type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["정산정보"],  	ref: 'fcltSysHldYn7',  			type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["APCCD"],	ref: 'apcCd',       		type:'output',  hidden: true},
-            {caption: ["APC명"],		ref: 'apcNm',       		type:'output',  hidden: false},
             {caption: ["대상연도"],	ref: 'trgtYr',          	type:'output',  hidden: true}
 
         ];

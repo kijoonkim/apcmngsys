@@ -245,12 +245,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>","<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center', width:'3%',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-
+            {caption: ["APCNM"],				ref: 'apcNm',       type:'output',  width:'10%',    style:'text-align:center'},
             {caption: ["사업연도","사업연도"],	    	ref: 'bizYr',      type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["지원유형","지원유형"], 		ref: 'bizSprtCd',   type:'combo',  width:'14%',    style:'text-align:center' ,
             	typeinfo : {ref:'comboBizSprtCdData', label:'label', value:'value' ,displayui : true}},
@@ -260,7 +255,6 @@
             {caption: ["투자 사업비(백만원)","지자체"],   ref: 'bizAmt2',     type:'output',  width:'14%',    style:'text-align:center'},
             {caption: ["투자 사업비(백만원)","자부담"],   ref: 'bizAmt3',     type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["APCCD"],				ref: 'apcCd',       type:'output',  hidden: true},
-            {caption: ["APCNM"],				ref: 'apcNm',       type:'output',  hidden: true},
             {caption: ["대상년도"],					ref: 'trgtYr',      type:'output',  hidden: true},
             {caption: ["순번"],					ref: 'sn',      	type:'output',  hidden: true},
             {caption: ["등록프로그램"], 				ref: 'creProgram',  type:'output',  hidden: true},

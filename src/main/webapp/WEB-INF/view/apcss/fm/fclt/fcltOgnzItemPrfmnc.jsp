@@ -192,6 +192,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
+            {caption: ["APC명"],			ref: 'apcNm',            		type:'output',  width:'10%',    style:'text-align:center'},
             {caption: ["품목1","취급액(백만원)"],	ref: 'fcltOgnzTrmtAmt',    		type:'output',  width:'25%',    style:'text-align:center'},
             {caption: ["품목1","취급물량(톤)"],		ref: 'fcltOgnzTrmtVlm',       type:'output',  width:'25%',    style:'text-align:center'},
 
@@ -205,7 +206,6 @@
             {caption: ["기타품목","취급물량(톤)"],		ref: 'fcltOgnzTrmtVlm4',       type:'output',  width:'25%',    style:'text-align:center'},
 
             {caption: ["APCCD"],		ref: 'apcCd',            		type:'output',  hidden: true},
-            {caption: ["APC명"],			ref: 'apcNm',            		type:'output',  hidden: false},
             {caption: ["대상연도"],		ref: 'trgtYr',      		    type:'output',  hidden: true}
 
         ];

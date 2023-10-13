@@ -25,6 +25,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.selectFcltItemPrfmnc */
 				  FCLT.TRGT_YR                 AS TRGT_YR
 				, FCLT.APC_CD                  AS APC_CD
+				,  (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
 				, FCLT.FCLT_ITEM_CD            AS FCLT_ITEM_CD
 				, FCLT.FCLT_ITEM_TRMT_AMT      AS FCLT_ITEM_TRMT_AMT
 				, FCLT.FCLT_ITEM_SPMT_RT       AS FCLT_ITEM_SPMT_RT
@@ -48,7 +49,7 @@
 				, FCLT.FCLT_ITEM_MRKT_AMT5     AS FCLT_ITEM_MRKT_AMT5
 			 FROM TB_FCLT_ITEM_PRFMNC FCLT
  			 WHERE 1=1
-		     		]]>
+		     ]]>
         		<if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  TRGT_YR = #{trgtYr}
 		   </if>
@@ -80,6 +81,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.selectFcltItemPrfmncList */
 				  FCLT.TRGT_YR                 AS TRGT_YR
 				, FCLT.APC_CD                  AS APC_CD
+				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
 				, FCLT.FCLT_ITEM_CD            AS FCLT_ITEM_CD
 				, FCLT.FCLT_ITEM_TRMT_AMT      AS FCLT_ITEM_TRMT_AMT
 				, FCLT.FCLT_ITEM_SPMT_RT       AS FCLT_ITEM_SPMT_RT
@@ -103,7 +105,7 @@
 				, FCLT.FCLT_ITEM_MRKT_AMT5     AS FCLT_ITEM_MRKT_AMT5
 			 FROM TB_FCLT_ITEM_PRFMNC FCLT
  			 WHERE 1=1
-  ]]>
+ 		 ]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
 		   </if>
