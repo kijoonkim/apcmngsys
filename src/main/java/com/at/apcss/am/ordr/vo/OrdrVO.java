@@ -293,5 +293,13 @@ public class OrdrVO extends ComVO {
 	 * 출하지시수량
 	 * */
 	private int cmndQntt;
+	/*
+	 * 출하일자
+	 * */
+	private String spmtYmd;
+	/*
+	 * 접수여부
+	 * */
+	private String rcptYn;
 
 }
