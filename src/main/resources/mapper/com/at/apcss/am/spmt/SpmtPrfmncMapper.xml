@@ -53,7 +53,7 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncList */
-	    	       PC.SPMTNO						AS SPMTNO
+	    	       PD.SPMTNO						AS SPMTNO
  			     , PC.APC_CD						AS APC_CD
 			     , PC.SPMT_YMD						AS SPMT_YMD
 			     , PD.BRND_NM						AS BRND_NM
@@ -69,7 +69,19 @@
 			     , SUM(PD.SPMT_QNTT)				AS SPMT_QNTT
 			     , SUM(PD.SPMT_WGHT)				AS SPMT_WGHT
 			     , MAX(PC.RMRK)                     AS RMRK
-
+				 , (SELECT DDLN_YN
+                      FROM TB_DDLN_MNG X
+                     WHERE X.APC_CD = PC.APC_CD
+                       AND SUBSTR(PC.SPMT_YMD, 1,4) = X.CRTR_YR
+                       AND SUBSTR(PC.SPMT_YMD, 5,2) = X.CRTR_MM
+                   ) AS DDLN_YN
+                 , (SELECT CFMTN_YN
+                      FROM TB_SLS_PRFMNC X
+                     WHERE X.APC_CD = PC.APC_CD
+                       AND X.SPMTNO = PD.SPMTNO
+                       AND X.PCKGNO = PD.PCKGNO
+                       AND X.PCKG_SN = PD.PCKG_SN
+                   ) AS CFMTN_YN
 			  FROM TB_SPMT_PRFMNC_COM		PC
 			     , TB_SPMT_PRFMNC_DTL		PD
 			 WHERE PC.APC_CD = PD.APC_CD
@@ -112,7 +124,7 @@
 		       AND PC.VHCLNO LIKE '%' ||  #{vhclno} || '%'
 		</if>
 		<![CDATA[
-		 	GROUP BY PC.SPMTNO
+		 	GROUP BY PD.SPMTNO
 		        , PC.SPMT_YMD
 		        , PD.PCKGNO
 		        , PD.PCKG_SN

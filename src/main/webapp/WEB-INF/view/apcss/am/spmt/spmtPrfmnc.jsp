@@ -19,6 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -108,7 +109,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtPrfmnc" style="height:500px;"></div>
+					<div id="sb-area-spmtPrfmnc" style="height:538px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 
@@ -157,7 +158,7 @@
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		SBUxMethod.set("srch-dtp-spmtYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-spmtYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
 
 		fn_createSpmtPrfmncGrid();
@@ -176,6 +177,7 @@
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.explorerbar = 'sortmove';
 		SBGridProperties.mergecells = 'byrestriccol';
+		SBGridProperties.datamergefalseskip = true;
     	SBGridProperties.paging = {
     			'type' : 'page',
     		  	'count' : 5,
@@ -184,6 +186,10 @@
     		  	'showgoalpageui' : true
     	    };
         SBGridProperties.columns = [
+        	{caption: ['출하번호','출하번호'], 		ref: 'spmtno', 	hidden:true},
+        	{caption: ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
         	{caption: ['출하번호','출하번호'], 		ref: 'spmtno', 	width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['출하일자','출하일자'], 	ref: 'spmtYmd',		width: '100px',	type: 'output',	style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
@@ -198,9 +204,9 @@
             {caption: ['품종','품종'],			ref: 'vrtyNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
             {caption: ['규격','규격'], 			ref: 'spcfctNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
             {caption: ['출하','수량'], 		ref: 'spmtQntt', 	width: '80px',	type: 'output',	style:'text-align: right',
-            	format : {type:'number', rule:'#,###'}},
+            	format : {type:'number', rule:'#,###'}, merge: false},
             {caption: ['출하','중량'], 		ref: 'spmtWght', 	width: '100px',	type: 'output',	style:'text-align: right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+            	typeinfo : {mask : {alias : 'numeric'}, merge: false}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['비고','비고'], 	ref: 'rmrk',		width: '250px',	type: 'output',	style:'text-align: center'}
         ];
         grdSpmtPrfmnc = _SBGrid.create(SBGridProperties);
@@ -281,6 +287,8 @@
 				  , totSpmtWght 	: item.totSpmtWght
 				  , rmrk			: item.rmrk
 				  , spmtno			: item.spmtno
+				  , cfmtnYn			: item.cfmtnYn
+				  , ddlnYn			: item.ddlnYn
 				}
 				jsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));
 				newJsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));
@@ -344,7 +352,56 @@
 		}
 	}
 
+	const fn_del = async function(){
+		let grdRows = grdSpmtPrfmnc.getCheckedRows(1);
+    	let deleteList = [];
 
+    	for(var i=0; i< grdRows.length; i++){
+    		let nRow = grdRows[i];
+    		let rowData  = grdSpmtPrfmnc.getRowData(nRow);
+    		let cfmtnYn	= rowData.cfmtnYn;
+			let ddlnYn = rowData.ddlnYn;
+
+			if(ddlnYn =="Y"){
+				gfn_comAlert("W0012", "출하실적")				// W0012 마감등록 된 {0} 입니다.
+				return;
+			}
+			if(cfmtnYn == "Y"){
+				gfn_comAlert("W0010", "매출확정", "출하실적")	// W0010 이미 {0}된 {1} 입니다.
+				return;
+			}
+
+    		deleteList.push(grdSpmtPrfmnc.getRowData(nRow));
+
+    	}
+
+    	if(grdRows.length == 0){
+    		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
+    		return;
+    	}
+
+    	let regMsg = "삭제 하시겠습니까?";
+		if(confirm(regMsg)){
+			const postJsonPromise = gfn_postJSON("/am/spmt/deleteSpmtPrfmncList.do", deleteList);
+	    	const data = await postJsonPromise;
+
+	    	try{
+	       		if(data.errCd != null){
+	       			gfn_comAlert(data.errCd, "출하실적");	// 마감등록 된 {0} 입니다.
+	       		}else if(data.deletedCnt > 0){
+	       			fn_search();
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	       		}else{
+	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
+	       		}
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
+	}
 
 	// 거래처 선택 팝업 호출
 	const fn_modalCnpt = function() {
