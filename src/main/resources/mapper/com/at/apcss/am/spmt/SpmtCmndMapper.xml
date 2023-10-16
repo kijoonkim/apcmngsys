@@ -231,6 +231,7 @@
 	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
 		     	, (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 					AS GDS_GRD_NM
 		        , (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL) 				AS TRSPRT_CO_NM
+    		 	, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)						AS CNPT_NM
     		 FROM (
     	</if>
     	<if test='pagingYn == null or pagingYn.equals("N")'>
@@ -242,11 +243,12 @@
 	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
 		     	, (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 					AS GDS_GRD_NM
 		        , (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL) 				AS TRSPRT_CO_NM
+    		 	, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)						AS CNPT_NM
     		 FROM (
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndList */
+	    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndnoList */
 	    		   SC.APC_CD						AS APC_CD
 	    		 , SC.SPMT_CMNDNO					AS SPMT_CMNDNO
 	    		 , MAX(SC.CMND_YMD)					AS CMND_YMD
@@ -255,8 +257,7 @@
 	    		 , SC.VRTY_CD						AS VRTY_CD
 	    		 , SC.SPCFCT_CD						AS SPCFCT_CD
 	    		 , SC.GDS_CD						AS GDS_CD
-	    		 , MAX(CI.CNPT_NM)				 	AS CNPT_NM
-	    		 , CI.CNPT_CD						AS CNPT_CD
+	    		 , SC.CNPT_CD						AS CNPT_CD
 	    		 , SC.DLDTN							AS DLDTN
 	    		 , MAX(SC.TRSPRT_CO_CD)				AS TRSPRT_CO_CD
 	    		 , PC.VHCLNO						AS VHCLNO
@@ -267,12 +268,9 @@
 			  FROM TB_SPMT_CMND 		SC
 			  	 , TB_SPMT_PRFMNC_COM	PC
 				 , TB_SPMT_PRFMNC_DTL	PD
-				 , TB_CNPT_INFO			CI
 			 WHERE SC.APC_CD = PC.APC_CD
 			   AND SC.APC_CD = PD.APC_CD
-			   AND SC.APC_CD = CI.APC_CD
 			   AND SC.CNPT_CD = PC.CNPT_CD
-			   AND SC.CNPT_CD = CI.CNPT_CD
 			   AND SC.TRSPRT_CO_CD = PC.TRSPRT_CO_CD
 			   AND SC.DLDTN = PC.DLDTN
 			   AND SC.VRTY_CD = PD.VRTY_CD
@@ -286,10 +284,9 @@
 			   AND SC.DEL_YN = 'N'
 			   AND PC.DEL_YN = 'N'
 			   AND PD.DEL_YN = 'N'
-			   AND CI.DEL_YN = 'N'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
-		   	   AND SC.APC_CD <![CDATA[>=]]> #{apcCd}
+		   	   AND SC.APC_CD = #{apcCd}
 		</if>
 		<if test='cmndYmd != null and cmndYmd != ""'>
 		   	   AND SC.CMND_YMD = #{cmndYmd}
@@ -315,8 +312,7 @@
 	    		 	, SC.VRTY_CD
 	    		 	, SC.SPCFCT_CD
 	    		 	, SC.GDS_CD
-	    		 	, CI.CNPT_NM
-	    		 	, CI.CNPT_CD
+	    		 	, SC.CNPT_CD
 	    		 	, SC.DLDTN
 	    		 	, SC.TRSPRT_CO_CD
 	    		 	, PC.VHCLNO
