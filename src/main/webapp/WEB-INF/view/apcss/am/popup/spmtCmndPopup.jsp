@@ -157,31 +157,36 @@
 		    	let totalRecordCount = 0;
 		    	jsonSpmtCmndPop.length = 0;
 		    	data.resultList.forEach((item, index) => {
-					let spmtCmnd = {
-							spmtCmndno		: item.spmtCmndno
-						  ,	cmndYmd 		: item.cmndYmd
-						  , cnptCd 			: item.cnptCd
-						  , cnptNm 			: item.cnptNm
-						  , gdsCd 			: item.gdsCd
-						  , gdsNm 			: item.gdsNm
-						  , trsprtCoCd 		: item.trsprtCoCd
-						  , trsprtCoNm 		: item.trsprtCoNm
-						  , dldtn 			: item.dldtn
-						  , cmndQntt		: item.cmndQntt
-						  , cmndWght 		: item.cmndWght
-						  , gdsGrd 			: item.gdsGrd
-						  , gdsGrdNm 		: item.gdsGrdNm
-						  , spmtPckgUnitCd 	: item.spmtPckgUnitCd
-						  , spmtPckgUnitNm 	: item.spmtPckgUnitNm
-						  , vrtyNm 			: item.vrtyNm
-						  , vrtyCd 			: item.vrtyCd
-						  , spcfctCd 		: item.spcfctCd
-						  , spcfctNm 		: item.spcfctNm
-						  , rmrk			: item.rmrk
-						  , itemCd			: item.itemCd
-						  , outordrno		: item.outordrno
-					}
-					jsonSpmtCmndPop.push(spmtCmnd);
+		    		let cmndQntt = item.cmndQntt;
+		    		let spmtQntt = item.spmtQntt;
+		    		if(cmndQntt - spmtQntt > 0){
+
+						let spmtCmnd = {
+								spmtCmndno		: item.spmtCmndno
+							  ,	cmndYmd 		: item.cmndYmd
+							  , cnptCd 			: item.cnptCd
+							  , cnptNm 			: item.cnptNm
+							  , gdsCd 			: item.gdsCd
+							  , gdsNm 			: item.gdsNm
+							  , trsprtCoCd 		: item.trsprtCoCd
+							  , trsprtCoNm 		: item.trsprtCoNm
+							  , dldtn 			: item.dldtn
+							  , cmndQntt		: item.cmndQntt
+							  , cmndWght 		: item.cmndWght
+							  , gdsGrd 			: item.gdsGrd
+							  , gdsGrdNm 		: item.gdsGrdNm
+							  , spmtPckgUnitCd 	: item.spmtPckgUnitCd
+							  , spmtPckgUnitNm 	: item.spmtPckgUnitNm
+							  , vrtyNm 			: item.vrtyNm
+							  , vrtyCd 			: item.vrtyCd
+							  , spcfctCd 		: item.spcfctCd
+							  , spcfctNm 		: item.spcfctNm
+							  , rmrk			: item.rmrk
+							  , itemCd			: item.itemCd
+							  , outordrno		: item.outordrno
+						}
+						jsonSpmtCmndPop.push(spmtCmnd);
+		    		}
 
 					if (index === 0) {
 						totalRecordCount = item.totalRecordCount;
