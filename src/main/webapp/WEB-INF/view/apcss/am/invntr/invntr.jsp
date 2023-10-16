@@ -609,11 +609,11 @@
 
 		let url = "";
 		if(crtrYmd == gfn_dateToYmd(new Date())){
-			url = "/am/invntr/selectSortInvntrDsctnList.do";
+			url = "/am/invntr/selectGdsInvntrList.do";
 			crtrYmd = "";
 		}else{
 			// 재고 이력 테이블
-			url = "/am/invntr/selectSortInvntrDsctnList.do";
+			url = "/am/invntr/selectGdsInvntrList.do";
 		}
 // 		selectUpdateGdsInvntrList
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
@@ -644,7 +644,7 @@
        				pckgSn: item.pckgSn,
        				pckgYmd: item.pckgYmd,
        				fcltNm: item.fcltNm,
-       				rprsPrdcrNm: item.rprsPrdcrNm,
+//        				rprsPrdcrNm: item.rprsPrdcrNm,
        				itemNm: item.itemNm,
        				vrtyNm: item.vrtyNm,
        				spcfctNm: item.spcfctNm,
