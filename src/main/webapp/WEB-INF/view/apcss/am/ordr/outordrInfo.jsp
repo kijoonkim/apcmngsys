@@ -239,7 +239,7 @@
             {caption: ['발주유형'], 		ref: 'outordrTypeNm', 	width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['접수여부'], 		ref: 'rcptYn', 			width: '70px', 		type: 'combo',			style:'text-align: center',
             	typeinfo : {ref:'comboGridRcpYn', label:'label', value:'value'}},
-            {caption: ['발주번호'], 		ref: 'outordrno', 		width: '200px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['발주번호'], 		ref: 'outordrno', 		width: '140px', 	type: 'output',			style:'text-align: center'},
             {caption: ['거래처명'], 		ref: 'apcCnptNm', 		width: '200px', 	type: 'output',			style:'text-align: center'},
             {caption: ['납기일자'], 		ref: 'wrhsYmd', 		width: '100px', 	type: 'output',			style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
@@ -247,7 +247,7 @@
         		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['주문자'], 		ref: 'outordrPrsn', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['공급자명'], 		ref: 'splyPrsn', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '150px', 	type: 'output',			style:'text-align: center'},
             {caption: ['상품코드'], 		ref: 'spmtPckgUnitCd', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['배송지'], 		ref: 'dldtn', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['품목'], 			ref: 'itemNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
@@ -279,7 +279,7 @@
             {caption: ['센터명'], 		ref: 'cntrNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['납품구분'], 		ref: 'dlvgdsSeCd', 		width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['기타'], 			ref: 'etc', 			width: '300px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['접수APC (농협)'], ref: 'rcptCfmtnApcCd', 	width: '200px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['접수APC (농협)'], ref: 'rcptCfmtnApcNm', 	width: '200px', 	type: 'output',			style:'text-align: center'},
             {caption: ['포장지시번호'], 	ref: 'pckgCmndno', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', 	type: 'output',			style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
@@ -294,7 +294,9 @@
             {caption: ['주문자코드'], 		ref: 'outordrPrsnCd', 	hidden: true},
             {caption: ['발주유형'], 		ref: 'outordrType', 	hidden: true},
             {caption: ['센터코드'], 		ref: 'cntrCd', 			hidden: true},
-            {caption: ['배송지코드'], 		ref: 'dldtnCd', 		hidden: true}
+            {caption: ['배송지코드'], 		ref: 'dldtnCd', 		hidden: true},
+            {caption: ['접수APC 코드'], 	ref: 'rcptCfmtnApcCd', 	hidden: true},
+            {caption: ['삭제유무'], 		ref: 'delYn', 			hidden: true}
         ];
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
         grdOutordrInfo.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
@@ -387,7 +389,7 @@
 					, cntrNm				: item.cntrNm
 					, dlvgdsSeCd			: item.dlvgdsSeCd
 					, etc					: item.etc
-					, rcptCfmtnApcCd		: item.rcptCfmtnApcCd
+					, rcptCfmtnApcNm		: item.rcptCfmtnApcNm
 					, pckgCmndno			: item.pckgCmndno
 					, spmtYmd				: item.spmtYmd
 					, apcCd 				: item.apcCd
@@ -399,6 +401,8 @@
 					, outordrPrsnCd 		: item.outordrPrsnCd
 					, cntrCd				: item.cntrCd
 					, dldtnCd				: item.dldtnCd
+					, rcptCfmtnApcCd		: item.rcptCfmtnApcCd
+					, delYn					: item.delYn
 				}
 				if(ordr.rcptCfmtnYmd != null && ordr.rcptCfmtnYmd != ""){
 					ordr.rcptYn = 'Y';
@@ -474,6 +478,7 @@
         		fn_callSelectOutordrInfoList();
         		fn_search();
         	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
         } catch(e) {

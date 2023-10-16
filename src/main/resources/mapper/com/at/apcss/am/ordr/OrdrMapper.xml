@@ -32,6 +32,7 @@
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
 	    		, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)	AS SPMT_PCKG_UNIT_NM
 	    		, (SELECT FN_GET_COM_CD_VL_NM('OUTORDR_TYPE', pt0.OUTORDR_TYPE) FROM DUAL)          AS OUTORDR_TYPE_NM
+	    		, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL)          							AS RCPT_CFMTN_APC_NM
     		 FROM (
     	</if>
     	<if test='pagingYn == null or pagingYn.equals("N")'>
@@ -42,6 +43,7 @@
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
 	    		, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)	AS SPMT_PCKG_UNIT_NM
 	    		, (SELECT FN_GET_COM_CD_VL_NM('OUTORDR_TYPE', pt0.OUTORDR_TYPE) FROM DUAL)          AS OUTORDR_TYPE_NM
+	    		, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL)          							AS RCPT_CFMTN_APC_NM
     		 FROM (
     	</if>
     	<!-- End 페이징 -->
@@ -88,6 +90,7 @@
     		  	 , OI.RCPT_CFMTN_APC_CD					AS RCPT_CFMTN_APC_CD
     		  	 , OI.PCKG_CMNDNO						AS PCKG_CMNDNO
     		  	 , SC.SPMT_YMD							AS SPMT_YMD
+    		  	 , OI.DEL_YN							AS DEL_YN
 			  FROM TB_OUTORDR_INFO OI
 			     , TB_SPMT_PRFMNC_COM SC
 			     , TB_SPMT_PRFMNC_DTL SD
@@ -95,10 +98,12 @@
 			 WHERE OI.APC_CD = SC.APC_CD
 			   AND OI.APC_CD = SD.APC_CD
 			   AND OI.APC_CD = PU.APC_CD
+			   AND OI.ITEM_CD = SD.ITEM_CD
 			   AND OI.VRTY_CD = SD.VRTY_CD
 			   AND OI.SPCFCT_CD = SD.SPCFCT_CD
 			   AND OI.SPMT_PCKG_UNIT_CD = SD.SPMT_PCKG_UNIT_CD
 			   AND OI.SPMT_PCKG_UNIT_CD = PU.SPMT_PCKG_UNIT_CD
+			   AND OI.OUTORDRNO = SD.OUTORDRNO
 			   AND SC.SPMTNO = SD.SPMTNO
 			   AND OI.APC_CNPT_CD = SC.CNPT_CD
 			   AND OI.DEL_YN = 'N'
@@ -157,6 +162,50 @@
 		<if test='spmtPckgUnitNm != null and spmtPckgUnitNm != ""'>
 		   	   AND PU.SPMT_PCKG_UNIT_NM LIKE '%' ||  #{spmtPckgUnitNm} || '%'
 		</if>
+    	<![CDATA[
+		  GROUP BY OI.APC_CD
+		         , OI.APC_SE_CD
+		         , OI.RCPT_CFMTN_YMD
+		       	 , OI.OUTORDR_TYPE
+		       	 , OI.OUTORDRNO
+		         , OI.APC_CNPT_NM
+		         , OI.APC_CNPT_CD
+		         , OI.WRHS_YMD
+		         , OI.OUTORDR_YMD
+		         , OI.OUTORDR_PRSN
+		         , OI.OUTORDR_PRSN_CD
+		         , OI.SPLY_PRSN
+		         , OI.SPMT_PCKG_UNIT_CD
+		         , OI.DLDTN
+		         , OI.DLDTN_CD
+		         , OI.ITEM_CD
+		         , OI.VRTY_CD
+		         , OI.SPCFCT_CD
+		         , OI.BX_GDS_QNTT
+		         , OI.OUTORDR_QNTT
+		         , OI.PIECE_QNTT
+		         , OI.UNIT_CD
+		         , OI.BX_UNTPRC
+		         , OI.OUTORDR_UNTPRC
+		         , OI.OUTORDR_UNIT_CD
+		         , OI.LOT
+		         , OI.TX_AMT
+		         , OI.OUTORDR_AMT
+		         , OI.WRHS_TYPE
+		         , OI.DOCNO
+		         , OI.DOCK_INFO
+		         , OI.CNTR_SE
+		         , OI.BUYER_NM
+		         , OI.CNTR_RCVD_WRHS_YMD
+		         , OI.CNTR_NM
+		         , OI.CNTR_CD
+		         , OI.DLVGDS_SE_CD
+		         , OI.ETC
+		         , OI.RCPT_CFMTN_APC_CD
+		         , OI.PCKG_CMNDNO
+		         , SC.SPMT_YMD
+		         , OI.DEL_YN
+		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -316,6 +365,7 @@
     	      , UNIT_WGHT
     	      , SPMT_PCKG_UNIT_CD
     	      , GRD_CD
+    	      , DEL_YN
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -378,6 +428,7 @@
     	      , #{unitWght}
     	      , #{spmtPckgUnitCd}
     	      , #{grdCd}
+    	      , #{delYn}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
@@ -427,7 +478,7 @@
     		 , BX_GDS_QNTT 				= #{bxGdsQntt}
     		 , OUTORDR_QNTT 			= #{outordrQntt}
     		 , PIECE_QNTT 				= #{pieceQntt}
-    		 , UNIT 					= #{unit}
+    		 , UNIT_CD 					= #{unitCd}
     		 , BX_UNTPRC 				= #{bxUntprc}
     		 , OUTORDR_UNTPRC 			= #{outordrUntprc}
     		 , OUTORDR_UNIT_CD 			= #{outordrUnitCd}
@@ -447,6 +498,11 @@
     		 , DLVGDS_SE_CD 			= #{dlvgdsSeCd}
     		 , ETC 						= #{etc}
     		 , BUYER_NM 				= #{buyerNm}
+    		 , OUTORDR_WGHT 			= #{outordrWght}
+    		 , PIECE_WGHT 				= #{pieceWght}
+    		 , UNIT_WGHT 				= #{unitWght}
+    		 , SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
+    		 , GRD_CD 					= #{grdCd}
     		 , DEL_YN					= #{delYn}
 		 WHERE APC_CD 					= #{apcCd}
 		   AND APC_SE_CD 				= #{apcSeCd}
@@ -456,7 +512,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.deleteOrdr					-->
-	<!-- DESC : 발주정보 삭제.	                         	             		 	-->
+	<!-- DESC : 발주정보 삭제.	                         	             		 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->

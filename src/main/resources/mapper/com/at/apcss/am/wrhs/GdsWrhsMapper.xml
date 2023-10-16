@@ -97,17 +97,28 @@
 					, PCKGNO
 					, PCKG_SN
 					, PCKG_YMD
-					, GDS_SE_CD
+					, FCLT_CD
+					, RPRS_PRDCR_CD
 					, ITEM_CD
 					, VRTY_CD
 					, SPCFCT_CD
-					, PRCHSPT_NM
+					, GDS_GRD
+					, PCKG_SE_CD
 					, WAREHOUSE_SE_CD
+					, GDS_SE_CD
+					, PRDCTN_YR
+					, SPMT_PCKG_UNIT_CD
+					, PLOR_CD
+					, GDS_CD
 					, PCKG_QNTT
 					, PCKG_WGHT
+					, SPMT_QNTT
+					, SPMT_WGHT
+					, INVNTR_QNTT
+					, INVNTR_WGHT
+					, PRCHSPT_NM
 					, WRHS_SE_CD
 					, TRSPRT_SE_CD
-					, GDS_CD
 					, RMRK
 					, DEL_YN
 		    		, SYS_FRST_INPT_DT
@@ -123,17 +134,28 @@
 					, #{pckgno}
 					, #{pckgSn}
 					, #{pckgYmd}
-					, #{gdsSeCd}
+					, #{fcltCd}
+					, #{rprsPrdcrCd}
 					, #{itemCd}
 					, #{vrtyCd}
 					, #{spcfctCd}
-					, #{prchsptNm}
+					, #{gdsGrd}
+					, #{pckgSeCd}
 					, #{warehouseSeCd}
+					, #{gdsSeCd}
+					, #{prdctnYr}
+					, #{spmtPckgUnitCd}
+					, #{plorCd}
+					, #{gdsCd}
 					, #{pckgQntt}
 					, #{pckgWght}
+					, #{spmtQntt}
+					, #{spmtWght}
+					, #{invntrQntt}
+					, #{invntrWght}
+					, #{prchsptNm}
 					, #{wrhsSeCd}
 					, #{trsprtSeCd}
-					, #{gdsCd}
 					, #{rmrk}
 					, #{delYn}
 		    		, SYSDATE
@@ -164,15 +186,30 @@
 	    		, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
 
 				, PCKG_YMD 				= #{pckgYmd}
-				, GDS_SE_CD 			= #{gdsSeCd}
-				, PRCHSPT_NM 			= #{prchsptNm}
+				, FCLT_CD 				= #{fcltCd}
+				, RPRS_PRDCR_CD 		= #{rprsPrdcrCd}
 				, ITEM_CD 				= #{itemCd}
 				, VRTY_CD 				= #{vrtyCd}
+				, SPCFCT_CD 			= #{spcfctCd}
+				, GDS_GRD 				= #{gdsGrd}
+				, PCKG_SE_CD 			= #{pckgSeCd}
+				, WAREHOUSE_SE_CD 		= #{warehouseSeCd}
+				, GDS_SE_CD 			= #{gdsSeCd}
+				, PRDCTN_YR 			= #{prdctnYr}
+				, SPMT_PCKG_UNIT_CD 	= #{spmtPckgUnitCd}
+				, PLOR_CD 				= #{plorCd}
+				, GDS_CD 				= #{gdsCd}
 				, PCKG_QNTT 			= #{pckgQntt}
 				, PCKG_WGHT 			= #{pckgWght}
-				, SPCFCT_CD 			= #{spcfctCd}
-				, WAREHOUSE_SE_CD 		= #{warehouseSeCd}
+				, SPMT_QNTT 			= #{spmtQntt}
+				, SPMT_WGHT 			= #{spmtWght}
+				, INVNTR_QNTT 			= #{invntrQntt}
+				, INVNTR_WGHT 			= #{invntrWght}
+				, PRCHSPT_NM 			= #{prchsptNm}
+				, WRHS_SE_CD 			= #{wrhsSeCd}
+				, TRSPRT_SE_CD 			= #{trsprtSeCd}
 				, RMRK 					= #{rmrk}
+				, DEL_YN 				= #{delYn}
 			 WHERE APC_CD 				= #{apcCd}
 			   AND PCKGNO 				= #{pckgno}
 			   AND PCKG_SN 				= #{pckgSn}

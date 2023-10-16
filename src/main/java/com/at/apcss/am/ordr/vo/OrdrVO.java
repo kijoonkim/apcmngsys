@@ -49,6 +49,10 @@ public class OrdrVO extends ComVO {
 	 * */
 	private String rcptCfmtnApcCd;
 	/*
+	 * 접수확정APC명
+	 * */
+	private String rcptCfmtnApcNm;
+	/*
 	 * 접수확정일자
 	 * */
 	private String rcptCfmtnYmd;

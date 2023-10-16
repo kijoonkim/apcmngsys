@@ -400,7 +400,7 @@
 	
 	// 출하지시번호 선택 팝업 호출
 	const fn_modalSpmtCmndno = function() {
-    	popSpmtCmndno.init(gv_apcCd, gv_apcNm, fn_setSpmtCmndno);
+    	popSpmtCmndno.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmndno);
 	}
 	
 	const fn_setSpmtCmndno = function(spmtCmndno) {
