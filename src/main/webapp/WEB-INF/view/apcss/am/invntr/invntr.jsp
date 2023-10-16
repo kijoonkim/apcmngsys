@@ -144,7 +144,7 @@
 							<sbux-button uitype="normal" id="srch-btn-gdsInvntrDsctn" name="srch-btn-gdsInvntrDsctn" class="btn btn-sm btn-outline-danger" text="상품재고 내역" onclick="fn_sample3()"></sbux-button>
 					</div>
                     <div class="sbt-grid">
-                        <div id="inptCmndDsctnGridArea" style="height:488px;"></div>
+                        <div id="inptCmndDsctnGridArea" style="height:505px;"></div>
                     </div>
                	</div>
 			</div>
