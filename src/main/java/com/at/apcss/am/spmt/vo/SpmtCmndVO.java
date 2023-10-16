@@ -95,6 +95,14 @@ public class SpmtCmndVO extends ComVO {
 	private String gdsGrdNm;
 
 	/**
+	 * 출하수량
+	 */
+	private int spmtQntt;
+	/**
+	 * 출하중량
+	 */
+	private int spmtWght;
+	/**
 	 * 지시수량
 	 */
 	private int cmndQntt;

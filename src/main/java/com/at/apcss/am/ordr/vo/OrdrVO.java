@@ -59,7 +59,7 @@ public class OrdrVO extends ComVO {
 	/*
 	 * 포장지시번호
 	 * */
-	private String pckgCmndno;
+	private String spmtCmndno;
 	/*
 	 * 문서번호
 	 * */

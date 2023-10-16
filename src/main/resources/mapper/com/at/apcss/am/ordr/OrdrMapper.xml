@@ -88,7 +88,7 @@
     		  	 , OI.DLVGDS_SE_CD						AS DLVGDS_SE_CD
     		  	 , OI.ETC								AS ETC
     		  	 , OI.RCPT_CFMTN_APC_CD					AS RCPT_CFMTN_APC_CD
-    		  	 , OI.PCKG_CMNDNO						AS PCKG_CMNDNO
+    		  	 , OI.SPMT_CMNDNO						AS SPMT_CMNDNO
     		  	 , SC.SPMT_YMD							AS SPMT_YMD
     		  	 , OI.DEL_YN							AS DEL_YN
 			  FROM TB_OUTORDR_INFO OI
@@ -202,7 +202,7 @@
 		         , OI.DLVGDS_SE_CD
 		         , OI.ETC
 		         , OI.RCPT_CFMTN_APC_CD
-		         , OI.PCKG_CMNDNO
+		         , OI.SPMT_CMNDNO
 		         , SC.SPMT_YMD
 		         , OI.DEL_YN
 		]]>
@@ -319,7 +319,7 @@
     	      , RCPTNNO
     	      , RCPT_CFMTN_APC_CD
     	      , RCPT_CFMTN_YMD
-    	      , PCKG_CMNDNO
+    	      , SPMT_CMNDNO
     	      , DOCNO
     	      , CNPT_ORDRNO
     	      , OUTORDR_TYPE
@@ -365,7 +365,6 @@
     	      , UNIT_WGHT
     	      , SPMT_PCKG_UNIT_CD
     	      , GRD_CD
-    	      , DEL_YN
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -382,7 +381,7 @@
     		  , #{rcptnno}
     		  , #{rcptCfmtnApcCd}
     		  , #{rcptCfmtnYmd}
-    		  , #{pckgCmndno}
+    		  , #{spmtCmndno}
     		  , #{docno}
     		  , #{cnptOrdrno}
     		  , #{outordrType}
@@ -428,7 +427,6 @@
     	      , #{unitWght}
     	      , #{spmtPckgUnitCd}
     	      , #{grdCd}
-    	      , #{delYn}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
@@ -457,7 +455,7 @@
     		 , RCPTNNO 					= #{rcptnno}
     		 , RCPT_CFMTN_APC_CD 		= #{rcptCfmtnApcCd}
     		 , RCPT_CFMTN_YMD 			= #{rcptCfmtnYmd}
-    		 , PCKG_CMNDNO 				= #{pckgCmndno}
+    		 , SPMT_CMNDNO 				= #{spmtCmndno}
     		 , DOCNO 					= #{docno}
     		 , CNPT_ORDRNO 				= #{cnptOrdrno}
     		 , OUTORDR_TYPE 			= #{outordrType}
