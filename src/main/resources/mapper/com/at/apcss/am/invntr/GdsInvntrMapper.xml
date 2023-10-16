@@ -93,6 +93,7 @@
 			    , GI.VRTY_CD		AS VRTY_CD
 			    , GI.SPCFCT_CD		AS SPCFCT_CD
 			    , GI.GDS_GRD		AS GDS_GRD
+			    , GI.GDS_CD		    AS GDS_CD
 			    , GI.GDS_SE_CD      AS GDS_SE_CD
 			    , GI.PRDCTN_YR      AS PRDCTN_YR
 			    , GI.SPMT_PCKG_UNIT_CD  AS SPMT_PCKG_UNIT_CD
@@ -106,8 +107,17 @@
 			    , GI.PLOR_CD 		AS PLOR_CD
 			    , GI.DEL_YN			AS DEL_YN
 			    , GI.RMRK			AS RMRK
+			    , (SELECT BRND_NM
+                     FROM TB_SPMT_PCKG_UNIT X
+                    WHERE X.APC_CD = GI.APC_CD
+                      AND X.ITEM_CD = GI.ITEM_CD
+                      AND X.VRTY_CD = GI.VRTY_CD
+                      AND X.SPCFCT_CD = GI.SPCFCT_CD
+                      AND X.SPMT_PCKG_UNIT_CD = GI.SPMT_PCKG_UNIT_CD
+                      AND X.DEL_YN = 'N'
+                  ) AS BRND_NM
 			  FROM TB_GDS_INVNTR GI
-			 WHERE 1=1
+			 WHERE GI.DEL_YN = 'N'
 			   AND GI.APC_CD = #{apcCd}
 			   AND GI.INVNTR_WGHT > 0
 		]]>
@@ -393,6 +403,30 @@
 		]]>
 	</delete>
 
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateGdsInvntrForDelY-->
+	<!-- DESC : 변경재고 삭제: set delyn Y	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateGdsInvntrForDelY" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateGdsInvntrForDelY */
+				TB_GDS_INVNTR
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, DEL_YN					= 'Y'
+			 WHERE APC_CD = #{apcCd}
+			   AND PCKGNO = #{pckgno}
+			   AND PCKG_SN = #{pckgSn}
+		]]>
+	</update>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateGdsInvntrSpmtPrfmnc		-->
 	<!-- DESC : 변경재고 등록 - 출하처리                                    				-->
@@ -497,5 +531,27 @@
     	]]>
     </insert>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateGdsStdGrdForDelY-->
+	<!-- DESC : 상품재고 표준등급 삭제 : set delyn Y										-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.28  	신정철        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <update id="updateGdsStdGrdForDelY" parameterType="com.at.apcss.am.invntr.vo.GdsStdGrdVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateGdsStdGrdForDelY */
+				TB_GDS_STD_GRD
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, DEL_YN					= 'Y'
+			 WHERE APC_CD = #{apcCd}
+			   AND PCKGNO = #{pckgno}
+			   AND PCKG_SN = #{pckgSn}
+		]]>
+    </update>
 
 </mapper>

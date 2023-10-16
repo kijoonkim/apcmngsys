@@ -18,7 +18,6 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 상품입고등록 -->
-					<sbux-label id="lbl-pckgno" name="lbl-pckgno" uitype="normal" text=""></sbux-label>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
@@ -140,9 +139,9 @@
 							<td colspan="3">
 								<sbux-label uitype="normal" id="srch-lbl-chc" name="srch-lbl-chc" class="blod" text="Kg"/>
 							</td>
-							<th scope="row" class="th_bg">규격</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>규격</th>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" class="form-control input-sm" jsondata-ref="jsonApcSpcfct"></sbux-select>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" class="form-control input-sm-ast inpt_data_reqed input-sm" jsondata-ref="jsonApcSpcfct"></sbux-select>
 							</td>
 							<td colspan="2"></td>
 						</tr>
@@ -260,11 +259,11 @@
 	        {caption: ["품목"],		ref: 'itemNm',      	type: 'output',  width: '105px',    style: 'text-align: center'},
 	        {caption: ["품종"],		ref: 'vrtyNm',      	type: 'output',  width: '105px',    style: 'text-align: center'},
 	        {caption: ["매입처"],		ref: 'prchsptNm',		type: 'output',  width: '140px',    style: 'text-align: center'},
-	        {caption: ["수량"],		ref: 'pckgQntt',		type: 'output',  width: '80px',    	style: 'text-align: right',
+	        {caption: ["수량"],		ref: 'pckgQntt',		type: 'output',  width: '60px',    	style: 'text-align: right',
 	        	format : {type:'number', rule:'#,###'}},
 	        {caption: ["중량"],		ref: 'pckgWght',		type: 'output',  width: '80px',    	style: 'text-align: right',
 	        	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-	        {caption: ["창고"],		ref: 'warehouseSeNm',	type: 'output',  width: '80px',    style: 'text-align: center'},
+	        {caption: ["창고"],		ref: 'warehouseSeNm',	type: 'output',  width: '140px',    style: 'text-align: center'},
 	        {caption: ["비고"],		ref: 'rmrk',      		type: 'output',  width: '105px'},
 	        {caption: ["순번"],		ref: 'pckgSn',			hidden: true},
 	        {caption: ["상품구분코드"],	ref: 'pckgSeCd',		hidden: true},
@@ -278,7 +277,7 @@
 	    grdGdsWrhs.bind( "click", "fn_view" );
 	}
 	
-	// 출하실적 목록 조회 (조회 버튼)
+	// 상품입고 목록 조회 (조회 버튼)
     async function fn_search() {
     	fn_clearInptForm();
 		
@@ -289,7 +288,7 @@
 
 	let newJsonGdsWrhs = [];
 
-	// 출하실적 목록 조회 호출
+	// 상품입고 목록 조회 호출
 	async function fn_callSelectGdsWrhsList(recordCountPerPage, currentPageNo){
 		jsonGdsWrhs = [];
 		let apcCd = gv_selectedApcCd;
@@ -366,85 +365,130 @@
     	fn_callSelectGdsWrhsList(recordCountPerPage, currentPageNo);
     }
  	
-    const fn_save = async function() {
-		let apcCd = gv_selectedApcCd;
-		let pckgno = SBUxMethod.get("srch-inp-pckgno");
-		let pckgSn = SBUxMethod.get("srch-inp-pckgSn");
-		let pckgYmd = SBUxMethod.get("srch-dtp-pckgYmd");
-		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
-		let prchsptNm = SBUxMethod.get("srch-inp-prchsptNm");
-		let itemCd = SBUxMethod.get("srch-inp-itemCd");
-		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
-		let pckgQntt = SBUxMethod.get("srch-inp-pckgQntt");
-		let pckgWght = SBUxMethod.get("srch-inp-pckgWght");
-		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
-		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
+	// 상품입고 저장 (저장 버튼)
+//     const fn_save = async function() {
+// 		let apcCd = gv_selectedApcCd;
+// 		let pckgno = SBUxMethod.get("srch-inp-pckgno");
+// 		let pckgSn = SBUxMethod.get("srch-inp-pckgSn");
+// 		let pckgYmd = SBUxMethod.get("srch-dtp-pckgYmd");
+// 		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
+// 		let prchsptNm = SBUxMethod.get("srch-inp-prchsptNm");
+// 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+// 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+// 		let pckgQntt = SBUxMethod.get("srch-inp-pckgQntt");
+// 		let pckgWght = SBUxMethod.get("srch-inp-pckgWght");
+// 		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+// 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
+// 		let rmrk = SBUxMethod.get("srch-inp-rmrk");
+//  		if (gfn_isEmpty(rmrk)) {
+//  			rmrk = "";
+//  		}
+
+// 		if (gfn_isEmpty(pckgYmd)){
+// 			gfn_comAlert("W0002", "입고일자");		//	W0002	{0}을/를 입력하세요.
+//             return;
+// 		}
+// 		if (gfn_isEmpty(gdsSeCd)){
+// 			gfn_comAlert("W0002", "상품구분");		//	W0002	{0}을/를 입력하세요.
+//             return;
+// 		}
+// 		if (gfn_isEmpty(prchsptNm)){
+// 			gfn_comAlert("W0002", "매입처");		//	W0002	{0}을/를 입력하세요.
+//             return;
+// 		}
+// 		if (gfn_isEmpty(itemCd)){
+// 			gfn_comAlert("W0002", "품목");		//	W0002	{0}을/를 입력하세요.
+//             return;
+// 		}
+// 		if (gfn_isEmpty(vrtyCd)){
+// 			gfn_comAlert("W0002", "품종");		//	W0002	{0}을/를 입력하세요.
+//             return;
+// 		}
+// 		if (gfn_isEmpty(pckgYmd)){
+// 			gfn_comAlert("W0002", "수량");		//	W0002	{0}을/를 입력하세요.
+//             return;
+// 		}
+// 		if (gfn_isEmpty(pckgWght)){
+// 			gfn_comAlert("W0002", "중량");		//	W0002	{0}을/를 입력하세요.
+//             return;
+// 		}
+// 		if (gfn_isEmpty(spcfctCd)){
+// 			gfn_comAlert("W0002", "규격");		//	W0002	{0}을/를 입력하세요.
+//             return;
+// 		}
 		
-		if (gfn_isEmpty(pckgYmd)){
-			gfn_comAlert("W0002", "입고일자");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(gdsSeCd)){
-			gfn_comAlert("W0002", "상품구분");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(prchsptNm)){
-			gfn_comAlert("W0002", "매입처");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(itemCd)){
-			gfn_comAlert("W0002", "품목");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(vrtyCd)){
-			gfn_comAlert("W0002", "품종");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(pckgYmd)){
-			gfn_comAlert("W0002", "수량");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
-		if (gfn_isEmpty(pckgWght)){
-			gfn_comAlert("W0002", "중량");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
+//     	if (!gfn_comConfirm("Q0001", "저장")) {
+//     		return;
+//     	}
+
+//     	const gdsWrhs = {
+//     		apcCd			: gv_selectedApcCd
+// 		  , pckgno 			: pckgno
+// 		  , pckgSn			: pckgSn
+// 		  , pckgYmd 		: pckgYmd
+// 		  , gdsSeCd 		: gdsSeCd
+// 		  , itemCd 			: itemCd
+// 		  , vrtyCd 			: vrtyCd
+// 		  , spcfctCd 		: spcfctCd
+// 		  , prchsptNm 		: prchsptNm
+// 		  , pckgQntt 		: pckgQntt
+// 		  , pckgWght 		: pckgWght
+// 		  , warehouseSeCd	: warehouseSeCd
+// 		  , rmrk			: rmrk
+//     	}
+
+//     	let postUrl = gfn_isEmpty(pckgno) ? "/am/wrhs/insertGdsInvntr.do" : "/am/wrhs/updateGdsInvntr.do";
+
+//     	const postJsonPromise = gfn_postJSON(postUrl, gdsWrhs);
+// 		const data = await postJsonPromise;
+
+//         try {
+//         	if (_.isEqual("S", data.resultStatus)) {
+//         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+//         		fn_search();
+//         	} else {
+//         		gfn_comAlert(data.resultCode, data.resultMessage);
+//         		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+//         	}
+//         } catch(e) {
+//         }
+// 	}
+	
+ 	// 상품입고 삭제 (삭제 버튼)
+//     const fn_delete = async function() {
+// 		let apcCd = gv_selectedApcCd;
+// 		let pckgno = SBUxMethod.get("srch-inp-pckgno");
+// 		let pckgSn = SBUxMethod.get("srch-inp-pckgSn");
 		
-    	if (!gfn_comConfirm("Q0001", "저장")) {
-    		return;
-    	}
+// 		if (gfn_isEmpty(pckgno)){
+// 			gfn_comAlert("선택된 데이터가 없습니다.");		//	W0002	{0}을/를 입력하세요.
+//             return;
+// 		}
+		
+//     	if (!gfn_comConfirm("Q0001", "삭제")) {
+//     		return;
+//     	}
 
-    	const gdsWrhs = {
-    		apcCd			: gv_selectedApcCd
-		  , pckgno 			: pckgno
-		  , pckgYmd 		: pckgYmd
-		  , gdsSeCd 		: gdsSeCd
-		  , itemCd 			: itemCd
-		  , vrtyCd 			: vrtyCd
-		  , spcfctCd 		: spcfctCd
-		  , prchsptNm 		: prchsptNm
-		  , pckgQntt 		: pckgQntt
-		  , pckgWght 		: pckgWght
-		  , warehouseSeCd	: warehouseSeCd
-		  , rmrk			: rmrk
-		  , pckgSn			: pckgSn
-    	}
+//     	const gdsWrhs = {
+//     		apcCd	: gv_selectedApcCd
+// 		  , pckgno 	: pckgno
+// 		  , pckgSn	: pckgSn
+//     	}
 
-    	let postUrl = gfn_isEmpty(pckgno) ? "/am/wrhs/insertGdsInvntr.do" : "/am/wrhs/updateGdsInvntr.do";
+//     	const postJsonPromise = gfn_postJSON("/am/wrhs/deleteGdsInvntr.do", gdsWrhs);
+// 		const data = await postJsonPromise;
 
-    	const postJsonPromise = gfn_postJSON(postUrl, gdsWrhs);
-		const data = await postJsonPromise;
-
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		fn_search();
-        	} else {
-        		gfn_comAlert(data.resultCode, data.resultMessage);
-        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        	}
-        } catch(e) {
-        }
-	}
+//         try {
+//         	if (_.isEqual("S", data.resultStatus)) {
+//         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+//         		fn_search();
+//         	} else {
+//         		gfn_comAlert(data.resultCode, data.resultMessage);
+//         		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+//         	}
+//         } catch(e) {
+//         }
+// 	}
 	
 	// 그리드 클릭 이벤트
     const fn_view = async function() {
@@ -456,10 +500,7 @@
 
         let rowData = grdGdsWrhs.getRowData(nRow);
 
-     	// 입고번호
-		SBUxMethod.set("lbl-pckgno", "입고번호 : " + rowData.pckgno);
-		SBUxMethod.set("srch-inp-pckgno", rowData.pckgno);
-
+		SBUxMethod.set("srch-inp-pckgno", rowData.pckgno);					// 입고번호
 		SBUxMethod.set("srch-inp-pckgSn", rowData.pckgSn);					// 순번
 		SBUxMethod.set("srch-dtp-pckgYmd", rowData.pckgYmd);				// 입고일자
  		SBUxMethod.set("srch-rdo-gdsSeCd", rowData.gdsSeCd);				// 상품구분
@@ -473,13 +514,9 @@
  		SBUxMethod.set("srch-slt-spcfctCd", rowData.spcfctCd);				// 규격
  		SBUxMethod.set("srch-slt-warehouseSeCd", rowData.warehouseSeCd);	// 창고
  		SBUxMethod.set("srch-inp-rmrk", rowData.rmrk);						// 비고
-//  		if (gfn_isEmpty(rowData.rmrk)) {
-//  			SBUxMethod.set("srch-inp-rmrk", "");							// 비고
-//  		}
-
-//  		await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
-// 		SBUxMethod.set("srch-slt-vrtyCd", rowData.vrtyCd);
-// 		await fn_onChangeSrchVrtyCd({value: rowData.vrtyCd});
+ 		if (gfn_isEmpty(rowData.rmrk)) {
+ 			SBUxMethod.set("srch-inp-rmrk", "");							// 비고
+ 		}
     }
 	
 	// 초기화
@@ -491,7 +528,6 @@
 	
 	const fn_clearInptForm = function() {
 		// 입고번호
-		SBUxMethod.set("lbl-pckgno", "");
 		SBUxMethod.set("srch-inp-pckgno", "");
 		// 순번
 		SBUxMethod.set("srch-inp-pckgSn", "");

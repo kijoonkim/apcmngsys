@@ -50,7 +50,7 @@
 	    		 , SP.SPCFCT_CD						AS SPCFCT_CD
 	    		 , SP.GDS_CD						AS GDS_CD
 	    		 , CI.CNPT_NM				 		AS CNPT_NM
-	    		 , SP.BRND_CD						AS BRND_CD
+	    		 , SP.BRND_NM						AS BRND_NM
 	    		 , SP.SPMT_YMD						AS SPMT_YMD
 	    		 , SP.SLS_UNTPRC					AS SLS_UNTPRC
 	    		 , SP.QNTT							AS QNTT
@@ -63,6 +63,7 @@
 			     , TB_CNPT_INFO CI
 			 WHERE SP.APC_CD = CI.APC_CD
 	    	   AND SP.CNPT_CD = CI.CNPT_CD
+	    	   AND SP.CFMTN_YN = 'Y'
 			   AND SP.DEL_YN = 'N'
 	    	   AND CI.DEL_YN = 'N'
 		]]>
@@ -70,10 +71,10 @@
 			   AND SP.APC_CD = #{apcCd}
 		</if>
 		<if test='slsYmdFrom != null and slsYmdFrom != ""'>
-		   	   AND SP.SLS_YMD >= #{slsYmdFrom}
+		   	   AND SP.SLS_YMD <![CDATA[>=]]> #{slsYmdFrom}
 		</if>
 		<if test='slsYmdTo != null and slsYmdTo != ""'>
-		       AND #{slsYmdTo} >= SP.SLS_YMD
+		       AND SP.SLS_YMD <![CDATA[<=]]> #{slsYmdTo}
 		</if>
 		<if test='cnptNm != null and cnptNm != ""'>
 		       AND CI.CNPT_NM LIKE '%' ||  #{cnptNm} || '%'
@@ -185,7 +186,7 @@
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.sls.mapper.SlsPrfmncMapper.updateSlsPrfmnc			-->
-	<!-- DESC : 매출실적조회 목록 수정.	                         	             	 	-->
+	<!-- DESC : 매출실적조회 목록 수정.	                         	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -197,21 +198,8 @@
 		   SET SYS_LAST_CHG_DT 			= SYSDATE
     		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
     		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-    		 , CNPT_CD 					= #{cnptCd}
-    		 , GDS_CD 					= #{gdsCd}
-    		 , QNTT 					= #{qntt}
-    		 , WGHT 					= #{wght}
-    		 , ITEM_CD 					= #{itemCd}
-    		 , VRTY_CD 					= #{vrtyCd}
-    		 , SPCFCT_CD 				= #{spcfctCd}
-    		 , GRD_CD 					= #{grdCd}
-    		 , BRND_NM 					= #{brndNm}
-    		 , SPMT_YMD 				= #{spmtYmd}
-    		 , SLS_UNTPRC 				= #{slsUntprc}
-    		 , RKNG_AMT 				= #{rkngAmt}
     		 , CFMTN_AMT 				= #{cfmtnAmt}
     		 , CFMTN_YN 				= #{cfmtnYn}
-    		 , DEL_YN					= #{delYn}
 		 WHERE APC_CD 					= #{apcCd}
 		   AND SLS_YMD 					= #{slsYmd}
 		   AND SLS_SN 					= #{slsSn}
@@ -220,7 +208,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.sls.mapper.SlsPrfmncMapper.deleteSlsPrfmnc			-->
-	<!-- DESC : 매출실적조회 목록 삭제.	                         	             	 	-->
+	<!-- DESC : 매출실적 삭제.	                         	             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -234,6 +222,104 @@
 		   AND SLS_SN 		= #{slsSn}
 		]]>
 	</delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sls.mapper.SlsPrfmncMapper.insertSlsPrfmncCrt		-->
+	<!-- DESC : 매출생성 프로시저 호출.	                         	             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.12  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertSlsPrfmncCrt" statementType="CALLABLE" parameterType="com.at.apcss.am.sls.vo.SlsPrfmncVO">
+    	<![CDATA[
+			{call /* com.at.apcss.am.sls.mapper.SlsPrfmncMapper.insertSlsPrfmncCrt */
+				SP_SLS_PRFMNC_CRT (
+					  #{sysLastChgUserId}
+	   		  		, #{sysLastChgPrgrmId}
+	   		  		, #{apcCd}
+					, #{slsYmdFrom}
+					, #{slsYmdTo}
+					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+				)
+			}
+		]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sls.mapper.SlsPrfmncMapper.selectRegSlsPrfmncList	-->
+	<!-- DESC : 매출실적조회 목록 조회.	                         	             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.12  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectRegSlsPrfmncList" parameterType="com.at.apcss.am.sls.vo.SlsPrfmncVO" resultType="com.at.apcss.am.sls.vo.SlsPrfmncVO">
+    	<![CDATA[
+    		SELECT
+    			  pt0.*
+    			, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+    			, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
+	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
+	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
+	    		, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)						AS CNPT_NM
+	    		, (SELECT FN_GET_GRD_NM_GDS(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL)         AS GRD_NM
+    		 FROM (
+			    	SELECT
+					       SP.APC_CD                AS APC_CD
+					     , SP.SLS_YMD               AS SLS_YMD
+					     , SP.SLS_SN                AS SLS_SN
+					     , SP.CNPT_CD               AS CNPT_CD
+					     , SP.GDS_CD                AS GDS_CD
+					     , SP.ITEM_CD               AS ITEM_CD
+					     , SP.VRTY_CD               AS VRTY_CD
+					     , SP.SPCFCT_CD             AS SPCFCT_CD
+					     , SP.GRD_CD                AS GRD_CD
+					     , SP.BRND_NM               AS BRND_NM
+					     , SP.SPMT_YMD              AS SPMT_YMD
+					     , SP.QNTT                  AS QNTT
+					     , SP.WGHT                  AS WGHT
+					     , SP.SLS_UNTPRC            AS SLS_UNTPRC
+					     , SP.RKNG_AMT              AS RKNG_AMT
+					     , SP.CFMTN_AMT             AS CFMTN_AMT
+					     , SP.CFMTN_YN              AS CFMTN_YN
+					     , SP.DEL_YN                AS DEL_YN
+					     , CASE WHEN
+                                    (SELECT COUNT(*)
+                                      FROM TB_SPMT_PRFMNC_DTL X
+                                     WHERE X.APC_CD = SP.APC_CD
+                                       AND X.SPMTNO = SP.SPMTNO
+                                       AND X.PCKGNO = SP.PCKGNO
+                                       AND X.PCKG_SN = SP.PCKG_SN) = 1
+                                THEN 'Y'
+                                ELSE 'N'
+                            END AS CFMTN_PSBLTY_YN
+  					  FROM TB_SLS_PRFMNC SP
+  					 WHERE SP.DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND SP.APC_CD = #{apcCd}
+		</if>
+		<if test='slsYmdFrom != null and slsYmdFrom != ""'>
+		   	   AND SP.SLS_YMD <![CDATA[>=]]> #{slsYmdFrom}
+		</if>
+		<if test='slsYmdTo != null and slsYmdTo != ""'>
+		       AND SP.SLS_YMD <![CDATA[<=]]> #{slsYmdTo}
+		</if>
+		<if test='cnptCd != null and cnptCd != ""'>
+		       AND SP.CNPT_CD = #{cnptCd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+		       AND SP.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+		       AND SP.VRTY_CD = #{vrtyCd}
+		</if>
+    	<![CDATA[
+    		  ) pt0
+		]]>
+    </select>
 
 </mapper>
 

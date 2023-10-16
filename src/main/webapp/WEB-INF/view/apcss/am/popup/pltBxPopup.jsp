@@ -180,7 +180,7 @@
 			    SBGridProperties.selectmode = 'byrow';
 			    SBGridProperties.extendlastcol = 'scroll';
 			    SBGridProperties.columns = [
-			        {caption: ["팔레트","종류"], 		ref: 'pltBxCd',   		type:'combo',  width:'140px',    style:'text-align:center',
+			        {caption: ["팔레트","종류"], 		ref: 'pltBxCd',   		type:'combo',  width:'150px',    style:'text-align:center',
 						typeinfo : {ref:'jsonComPltNm', label:'label', value:'value', displayui : true}},
 			        {caption: ["팔레트","대여업체"], 		ref: 'pltCnptNm',  	type:'input',  width:'100px',    style:'text-align:center'},
 			        {caption: ["팔레트","수량"], 		ref: 'qntt',  	type:'input',  width:'70px',    style:'text-align:center'},

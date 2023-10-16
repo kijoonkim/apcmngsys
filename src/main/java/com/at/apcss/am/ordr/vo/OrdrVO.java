@@ -49,6 +49,10 @@ public class OrdrVO extends ComVO {
 	 * */
 	private String rcptCfmtnApcCd;
 	/*
+	 * 접수확정APC명
+	 * */
+	private String rcptCfmtnApcNm;
+	/*
 	 * 접수확정일자
 	 * */
 	private String rcptCfmtnYmd;
@@ -249,6 +253,11 @@ public class OrdrVO extends ComVO {
 	 * */
 	private String grdCd;
 	private String grdNm;
+	/*
+	 * 공통등급코드
+	 * */
+	private String gdsGrd;
+	private String gdsGrdNm;
 
 	/*
 	 * 등록일자
@@ -288,5 +297,13 @@ public class OrdrVO extends ComVO {
 	 * 출하지시수량
 	 * */
 	private int cmndQntt;
+	/*
+	 * 출하일자
+	 * */
+	private String spmtYmd;
+	/*
+	 * 접수여부
+	 * */
+	private String rcptYn;
 
 }

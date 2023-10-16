@@ -91,6 +91,14 @@ public interface SortInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateInvntrPckgPrfmnc(SortInvntrVO sortInvntrVO) throws Exception;
+	
+	/**
+	 * 선별재고 포장취소
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateInvntrPckgPrfmncCncl(SortInvntrVO sortInvntrVO) throws Exception;
 
 	/**
 	 * 포장지시등록 선별재고 내역 목록 조회

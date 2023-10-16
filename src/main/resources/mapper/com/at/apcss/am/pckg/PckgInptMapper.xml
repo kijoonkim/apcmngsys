@@ -54,19 +54,27 @@
 	    	SELECT /* com.at.apcss.am.pckg.mapper.PckgInptMapper.selectPckgInptList */
 				  PI.APC_CD			AS APC_CD
 				, PI.SORTNO			AS SORTNO
-				, PI.GRD_CD			AS GRD_CD
+				, PI.SORT_SN		AS SORT_SN
+				, PI.PCKGNO			AS PCKGNO
+				, PI.PCKG_CMNDNO	AS PCKG_CMNDNO
 				, PI.INPT_YMD		AS INPT_YMD
 				, PI.QNTT			AS QNTT
 				, PI.WGHT			AS WGHT
-				, PI.PCKGNO			AS PCKGNO
-				, PI.PCKG_CMNDNO	AS PCKG_CMNDNO
 				, PI.RMRK			AS RMRK
 				, PI.DEL_YN			AS DEL_YN
 			  FROM TB_PCKG_INPT_PRFMNC PI
 			 WHERE PI.APC_CD = #{apcCd}
-			   AND PI.SORTNO = #{sortno}
-			   AND PI.GRD_CD = #{grdCd}
+			   AND PI.DEL_YN = 'N'
 		]]>
+			<if test='sortno != null and sortno != ""'>
+			   AND PI.SORTNO = #{sortno}
+			</if>
+			<if test='sortSn != null and sortSn != ""'>
+			   AND PI.SORT_SN = #{sortSn}
+			</if>
+			<if test='pckgno != null and pckgno != ""'>
+			   AND PI.PCKGNO = #{pckgno}
+			</if>
     </select>
 
 	<!-- ==========================================================================	-->
@@ -137,7 +145,6 @@
 				, INPT_YMD 		= #{inptYmd}
 				, QNTT 			= #{qntt}
 				, WGHT 			= #{wght}
-				, PCKGNO 		= #{pckgno}
 				, PCKG_CMNDNO 	= #{pckgCmndno}
 				, RMRK 			= #{rmrk}
 		]]>
@@ -147,7 +154,8 @@
 		<![CDATA[
 			 WHERE APC_CD = #{apcCd}
 			   AND SORTNO = #{sortno}
-			   AND GRD_CD = #{grdCd}
+			   AND SORT_SN = #{sortSn}
+			   AND PCKGNO = #{pckgno}
 		]]>
 	</update>
 
@@ -165,7 +173,8 @@
 			  FROM TB_PCKG_INPT_PRFMNC
 			 WHERE APC_CD = #{apcCd}
 			   AND SORTNO = #{sortno}
-			   AND GRD_CD = #{grdCd}
+			   AND SORT_SN = #{sortSn}
+			   AND PCKGNO = #{pckgno}
 		]]>
 	</delete>
 

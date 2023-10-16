@@ -34,6 +34,15 @@ public interface StdGrdMapper {
 	 */
 	public StdGrdVO selectStdGrd(StdGrdVO stdGrdVO) throws Exception;
 
+
+	/**
+	 * APC 표준등급 등급종류 발번
+	 * @param stdGrdVO
+	 * @return
+	 * @throws Exception
+	 */
+	public StdGrdVO selectNewGrdKnd(StdGrdVO stdGrdVO) throws Exception;
+
 	/**
 	 * APC 등급 정보 목록 조회
 	 * @param StdGrdVO

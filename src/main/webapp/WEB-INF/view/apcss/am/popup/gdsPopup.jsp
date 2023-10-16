@@ -20,12 +20,12 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 100px">
-						<col style="width: 200px">
-						<col style="width: 100px">
-						<col style="width: 200px">
-						<col style="width: 100px">
-						<col style="width: 200px">
+						<col style="width: 80px">
+						<col style="width: 180px">
+						<col style="width: 80px">
+						<col style="width: 180px">
+						<col style="width: 80px">
+						<col style="width: 180px">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -34,12 +34,21 @@
 								<sbux-input id="gds-inp-apcNm" name="gds-inp-apcNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 								<sbux-input id="gds-inp-apcCd" name="gds-inp-apcCd" uitype="hidden"></sbux-input>
 							</th>
+							<th scope="row"><span class="data_required"></span>품목명</th>
+							<th style="border-right-style: hidden;">
+								<sbux-select id="gds-slt-itemCd"
+								name="gds-slt-itemCd"
+								style="background-color:#ffffff;"
+								uitype="single"
+								jsondata-ref="jsonGdsItemCd"
+								unselected-text="선택"
+								class="form-control input-sm input-sm-ast inpt_data_reqed"
+								onchange="fn_selectItem"></sbux-select>
+							</th>
 							<th scope="row">상품명</th>
 							<th class="td_input">
-								<sbux-input id="gds-inp-gdsNm" name="gds-inp-gdsNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="gds-inp-gdsNm" name="gds-inp-spmtPckgUnitNm" uitype="text" class="form-control input-sm" ></sbux-input>
 							</th>
-							<th></th>
-							<th></th>
 						</tr>
 					</tbody>
 				</table>
@@ -64,6 +73,7 @@
 <script type="text/javascript">
 	var grdGds = null;
 	var jsonGdsPop = [];
+	var jsonGdsItemCd = [];
 
 	/**
 	 * @description 차량 선택 팝업
@@ -78,7 +88,7 @@
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
-		init: async function(_apcCd, _apcNm, _gdsNm, _callbackFnc) {
+		init: async function(_apcCd, _apcNm, _spmtPckgUnitNm, _callbackFnc) {
 			// set param
 			SBUxMethod.set("gds-inp-apcCd", _apcCd);
 			SBUxMethod.set("gds-inp-apcNm", _apcNm);
@@ -88,6 +98,7 @@
 
 			if (grdGds === null || this.prvApcCd != _apcCd) {
 				let rst = await Promise.all([
+					gfn_setApcItemSBSelect("gds-slt-itemCd", jsonGdsItemCd, _apcCd), 	// APC 품목(검색)
 				]);
 				this.createGrid();
 				this.search();
@@ -96,7 +107,7 @@
 			}
 
 			this.prvApcCd = _apcCd;
-			SBUxMethod.set("gds-inp-gdsNm", _gdsNm)
+			SBUxMethod.set("gds-inp-spmtPckgUnitNm", _spmtPckgUnitNm)
 		},
 		close: function(_gds) {
 			gfn_closeModal(this.modalId, this.callbackFnc, _gds);
@@ -122,18 +133,14 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-	            {caption: ['상품명'], 	ref: 'gdsNm', 			width: '200px', 	type: 'output', 	style: 'text-align: center'},
 	            {caption: ['품목'], 		ref: 'itemNm', 			width: '100px', 	type: 'output', 	style: 'text-align: center'},
 	            {caption: ['품종'], 		ref: 'vrtyNm', 			width: '100px', 	type: 'output', 	style: 'text-align: center'},
 	            {caption: ['규격'], 		ref: 'spcfctNm', 		width: '100px', 	type: 'output', 	style: 'text-align: center'},
 	            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '100px', 	type: 'output', 	style: 'text-align: center'},
+	            {caption: ['상품명'], 	ref: 'spmtPckgUnitNm', 	width: '200px', 	type: 'output', 	style: 'text-align: center'},
 	            {caption: ['브랜드'], 	ref: 'brndNm', 			width: '100px', 	type: 'output', 	style: 'text-align: center'},
-	            {caption: ['산지'], 		ref: 'plorNm', 			width: '80px', 		type: 'output', 	style: 'text-align: center'},
-	            {caption: ['포장단위'], 	ref: 'spmtPckgUnitNm', 	width: '130px', 	type: 'output', 	style: 'text-align: center'},
-	            {caption: ['입수'], 		ref: 'bxGdsQntt', 		width: '80px', 		type: 'output', 	style: 'text-align: right',
-	            	format : {type:'number', rule:'#,###'}},
-	            {caption: ['중량'], 		ref: 'wght', 			width: '80px', 		type: 'output', 	style: 'text-align: right',
-	    			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}}
+	            {caption: ["판매단가"],   	ref: 'ntslUntprc',  	width: '100px',     type: 'output',		style: 'text-align:center',
+	            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}}
 		    ];
 		    grdGds = _SBGrid.create(SBGridProperties);
 		    grdGds.bind('dblclick', popGds.choice);
@@ -155,11 +162,12 @@
 		},
 		setGrid: async function(pageSize, pageNo) {
 	    	let apcCd = SBUxMethod.get("gds-inp-apcCd");
-			let gdsNm = SBUxMethod.get("gds-inp-gdsNm");
-
-	        const postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsGdsList.do", {
+			let spmtPckgUnitNm = SBUxMethod.get("gds-inp-spmtPckgUnitNm");
+			let itemCd = SBUxMethod.get("gds-slt-itemCd");
+	        const postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtPckgUnitList.do", {
 	        	apcCd				: apcCd,
-	        	gdsNm				: gdsNm,
+	        	spmtPckgUnitNm		: spmtPckgUnitNm,
+	        	itemCd				: itemCd,
 	        	// pagination
 		  		pagingYn 			: 'Y',
 				currentPageNo 		: pageNo,
@@ -174,8 +182,6 @@
 	    		jsonGdsPop.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const gds = {
-						gdsCd 			: item.gdsCd,
-						gdsNm 			: item.gdsNm,
 						itemCd			: item.itemCd,
 						itemNm 			: item.itemNm,
 						vrtyCd			: item.vrtyCd,
@@ -183,10 +189,10 @@
 						spcfctCd		: item.spcfctCd,
 						spcfctNm 		: item.spcfctNm,
 						gdsGrdNm 		: item.gdsGrdNm,
+						brndNm 			: item.brndNm,
 						spmtPckgUnitNm	: item.spmtPckgUnitNm,
 						spmtPckgUnitCd	: item.spmtPckgUnitCd,
-						bxGdsQntt 		: item.bxGdsQntt,
-						wght 			: item.wght
+						ntslUntprc		: item.ntslUntprc
 					}
 					jsonGdsPop.push(gds);
 

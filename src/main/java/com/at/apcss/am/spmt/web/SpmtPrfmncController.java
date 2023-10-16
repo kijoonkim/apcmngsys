@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.spmt.service.SpmtPrfmncService;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -40,9 +39,6 @@ public class SpmtPrfmncController extends BaseController {
 	@Resource(name= "spmtPrfmncService")
 	private SpmtPrfmncService spmtPrfmncService;
 
-	@Resource(name= "cmnsTaskNoService")
-	private CmnsTaskNoService cmnsTaskNoService;
-
 
 	// 출하실적 조회
 	@PostMapping(value = "/am/spmt/selectSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
@@ -68,45 +64,15 @@ public class SpmtPrfmncController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int insertedCnt = 0;
 		try {
-			String spmtno = cmnsTaskNoService.selectSpmtno(SpmtPrfmncList.get(0).getApcCd(), SpmtPrfmncList.get(0).getSpmtYmd());
 
-			for ( var i=0; i<SpmtPrfmncList.size(); i++ ) {
-				SpmtPrfmncList.get(i).setSpmtno(spmtno);
-				SpmtPrfmncList.get(i).setSysFrstInptUserId(getUserId());
-				SpmtPrfmncList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
-				SpmtPrfmncList.get(i).setSysLastChgUserId(getUserId());
-				SpmtPrfmncList.get(i).setSysLastChgPrgrmId(getPrgrmId());
+			for (SpmtPrfmncVO spmtPrfmncVO : SpmtPrfmncList) {
+				spmtPrfmncVO.setSysFrstInptUserId(getUserId());
+				spmtPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+				spmtPrfmncVO.setSysLastChgUserId(getUserId());
+				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			insertedCnt = spmtPrfmncService.insertSpmtPrfmnc(SpmtPrfmncList);
-			resultMap.put(ComConstants.PROP_INSERTED_CNT,  insertedCnt);
-
-		}catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
-			return getErrorResponseEntity(e);
-		}
-		return getSuccessResponseEntity(resultMap);
-	}
-	
-	// 출하대상내역 등록
-	@PostMapping(value = "/am/spmt/insertSpmtTrgtDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertSpmtTrgtDsctnList(@RequestBody List<SpmtPrfmncVO> SpmtPrfmncList, HttpServletRequest request) throws Exception {
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int insertedCnt = 0;
-		try {
-			String spmtno = cmnsTaskNoService.selectSpmtno(SpmtPrfmncList.get(0).getApcCd(), SpmtPrfmncList.get(0).getSpmtYmd());
-
-			for ( var i=0; i<SpmtPrfmncList.size(); i++ ) {
-				SpmtPrfmncList.get(i).setSpmtno(spmtno);
-				SpmtPrfmncList.get(i).setSysFrstInptUserId(getUserId());
-				SpmtPrfmncList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
-				SpmtPrfmncList.get(i).setSysLastChgUserId(getUserId());
-				SpmtPrfmncList.get(i).setSysLastChgPrgrmId(getPrgrmId());
-				insertedCnt = spmtPrfmncService.insertSpmtPrfmncCom(SpmtPrfmncList.get(i));
-				insertedCnt = spmtPrfmncService.insertSpmtPrfmncDtl(SpmtPrfmncList.get(i));
-			}
-
+			insertedCnt = spmtPrfmncService.insertSpmtPrfmncList(SpmtPrfmncList);
 			resultMap.put(ComConstants.PROP_INSERTED_CNT,  insertedCnt);
 
 		}catch (Exception e) {
@@ -141,11 +107,12 @@ public class SpmtPrfmncController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int deletedCnt = 0;
 		try {
-			for ( var i=0; i<SpmtPrfmncList.size(); i++ ) {
-				SpmtPrfmncList.get(i).setSysFrstInptUserId(getUserId());
-				SpmtPrfmncList.get(i).setSysFrstInptPrgrmId(getPrgrmId());
-				SpmtPrfmncList.get(i).setSysLastChgUserId(getUserId());
-				SpmtPrfmncList.get(i).setSysLastChgPrgrmId(getPrgrmId());
+
+			for (SpmtPrfmncVO spmtPrfmncVO : SpmtPrfmncList) {
+				spmtPrfmncVO.setSysFrstInptUserId(getUserId());
+				spmtPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+				spmtPrfmncVO.setSysLastChgUserId(getUserId());
+				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
 			deletedCnt = spmtPrfmncService.deleteSpmtPrfmnc(SpmtPrfmncList);

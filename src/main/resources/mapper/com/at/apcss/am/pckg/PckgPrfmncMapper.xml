@@ -110,6 +110,10 @@
 		<if test='apcCd != null and apcCd != ""'>
 			   AND GI.APC_CD = #{apcCd}
 		</if>
+		<if test='pckgno != null and pckgno != ""'>
+			   AND GI.PCKGNO = #{pckgno}
+		</if>
+		
 		<if test='pckgYmd != null and pckgYmd != ""'>
 			   AND GI.PCKG_YMD = #{pckgYmd}
 		</if>
@@ -243,6 +247,29 @@
 				, DEL_YN			= #{delYn}
 			</if>
 		<![CDATA[
+			 WHERE APC_CD = #{apcCd}
+			   AND PCKGNO = #{pckgno}
+			   AND PCKG_SN = #{pckgSn}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.updatePckgPrfmncForDelY-->
+	<!-- DESC : 포장실적 삭제 : delyn Y 변경.                               				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updatePckgPrfmncForDelY" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.updatePckgPrfmncForDelY */
+				TB_PCKG_PRFMNC
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, DEL_YN					= 'Y'
 			 WHERE APC_CD = #{apcCd}
 			   AND PCKGNO = #{pckgno}
 			   AND PCKG_SN = #{pckgSn}

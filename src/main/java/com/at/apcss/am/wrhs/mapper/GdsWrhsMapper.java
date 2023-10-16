@@ -54,4 +54,5 @@ public interface GdsWrhsMapper {
 	 * @throws Exception
 	 */
 	public int deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
 }

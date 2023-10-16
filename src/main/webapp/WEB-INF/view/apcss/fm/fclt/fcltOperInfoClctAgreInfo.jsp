@@ -225,17 +225,12 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-
-            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
+            {caption: ["apc명"],   ref: 'apcNm',    type:'output',  width:'26%',    style:'text-align:center'},
             {caption: ["운영조직명"], 	ref: 'operOgnzNm',     	type:'output',  width:'26%',    style:'text-align:center'},
             {caption: ["운영조직담당자"],  	ref: 'operOgnzPic',    type:'output',  width:'26%',    style:'text-align:center'},
             {caption: ["운영조직직위"],   ref: 'operOgnzJbps',    type:'output',  width:'26%',    style:'text-align:center'},
             {caption: ["운영조직 이메일"],	    ref: 'operOgnzEml',   type:'output',  width:'26%',    style:'text-align:center'},
             {caption: ["대상년도"],	    ref: 'trgtYr',   type:'output',  width:'26%',    style:'text-align:center'},
-            {caption: ["apc명"],   ref: 'apcNm',    type:'output',  width:'26%',    style:'text-align:center'},
             {caption: ["apcCd"],  ref: 'apcCd',  type:'output',  hidden: true},
             {caption: ["등록프로그램"],  ref: 'creProgram',  type:'output',  hidden: true},
             {caption: ["변경프로그램"],  ref: 'updProgram',  type:'output',  hidden: true}

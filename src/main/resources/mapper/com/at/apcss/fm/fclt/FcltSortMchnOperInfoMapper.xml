@@ -25,9 +25,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfo */
 					 FCLT.TRGT_YR                AS   TRGT_YR
 				,	 FCLT.APC_CD                 AS   APC_CD
-				,	 FCLT.SORT_MCHN_ITEM_CD      AS   SORT_MCHN_ITEM_CD
-				,	 FCLT.SORT_MCHN_OPER_CD      AS   SORT_MCHN_OPER_CD
-				,	 FCLT.SORT_MCHN_OPER_YN      AS   SORT_MCHN_OPER_YN
+				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
 				,    FCLT.SORT_MCHN_HLD_YN_AYR1  AS	   SORT_MCHN_HLD_YN_AYR1
 				,    FCLT.SORT_MCHN_HLD_YN_101   AS	   SORT_MCHN_HLD_YN101
 				,    FCLT.SORT_MCHN_HLD_YN_102   AS    SORT_MCHN_HLD_YN_102
@@ -116,9 +114,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfoList */
 					 FCLT.TRGT_YR                AS   TRGT_YR
 				,	 FCLT.APC_CD                 AS   APC_CD
-				,	 FCLT.SORT_MCHN_ITEM_CD      AS   SORT_MCHN_ITEM_CD
-				,	 FCLT.SORT_MCHN_OPER_CD      AS   SORT_MCHN_OPER_CD
-				,	 FCLT.SORT_MCHN_OPER_YN      AS   SORT_MCHN_OPER_YN
+				,	(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
 				,    FCLT.SORT_MCHN_HLD_YN_AYR1  AS	   SORT_MCHN_HLD_YN_AYR1
 				,    FCLT.SORT_MCHN_HLD_YN_101   AS	   SORT_MCHN_HLD_YN101
 				,    FCLT.SORT_MCHN_HLD_YN_102   AS    SORT_MCHN_HLD_YN_102

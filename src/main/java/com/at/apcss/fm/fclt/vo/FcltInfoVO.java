@@ -11,6 +11,7 @@ public class FcltInfoVO extends ComVO{
 
 	private String trgtYr;
 	private String apcCd;
+	private String apcNm;
 	private String fcltCd;
 	private String fcltNm;
 	private String fcltAreaTot;

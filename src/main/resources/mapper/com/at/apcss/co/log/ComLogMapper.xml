@@ -62,10 +62,10 @@
 		]]>
     	<where>
 			<if test='logYmdFrom != null and logYmdFrom != ""'>
-				AND pt0.PRSL_DT >= (SELECT TO_DATE(#{logYmdFrom}, 'YYYY/MM/DD') FROM dual)
+				AND pt0.PRSL_DT <![CDATA[>=]]> (SELECT TO_DATE(#{logYmdFrom}, 'YYYY/MM/DD') FROM dual)
 			</if>
 			<if test='logYmdTo != null and logYmdTo != ""'>
-				AND (SELECT TO_DATE(#{logYmdTo}, 'YYYY/MM/DD') FROM dual) >= pt0.PRSL_DT
+				AND pt0.PRSL_DT <![CDATA[<=]]> (SELECT TO_DATE(#{logYmdTo}, 'YYYY/MM/DD') FROM dual)
 			</if>
 		</where>
 		<!-- Start 페이징 -->
@@ -111,10 +111,10 @@
 			   AND AI.DEL_YN = 'N'
 		]]>
 		<if test='logYmdFrom != null and logYmdFrom != ""'>
-		   	   AND ML.PRSL_DT >= (SELECT TO_DATE(#{logYmdFrom}, 'YYYY/MM/DD') FROM dual)
+		   	   AND ML.PRSL_DT <![CDATA[>=]]> (SELECT TO_DATE(#{logYmdFrom}, 'YYYY/MM/DD') FROM dual)
 		</if>
 		<if test='logYmdTo != null and logYmdTo != ""'>
-		       AND (SELECT TO_DATE(#{logYmdTo}, 'YYYY/MM/DD') FROM dual) >= ML.PRSL_DT
+		       AND ML.PRSL_DT <![CDATA[<=]]> (SELECT TO_DATE(#{logYmdTo}, 'YYYY/MM/DD') FROM dual)
 		</if>
 		<if test='menuNm != null and menuNm != ""'>
 		       AND ML.MENU_NM LIKE '%' ||  #{menuNm} || '%'
@@ -165,10 +165,10 @@
 			 WHERE CL.DEL_YN = 'N'
 		]]>
 		<if test='logYmdFrom != null and logYmdFrom != ""'>
-		   	   AND CL.LOG_YMD >= (SELECT TO_DATE(#{logYmdFrom}, 'YYYY/MM/DD') FROM dual)
+		   	   AND CL.LOG_YMD <![CDATA[>=]]> (SELECT TO_DATE(#{logYmdFrom}, 'YYYY/MM/DD') FROM dual)
 		</if>
 		<if test='logYmdTo != null and logYmdTo != ""'>
-		       AND (SELECT TO_DATE(#{logYmdTo}, 'YYYY/MM/DD') FROM dual) >= CL.LOG_YMD
+		       AND CL.LOG_YMD <![CDATA[<=]]> (SELECT TO_DATE(#{logYmdTo}, 'YYYY/MM/DD') FROM dual)
 		</if>
 		<if test='sendRcptnSeCd != null and sendRcptnSeCd != ""'>
 		   	   AND CL.SEND_RCPTN_SE_CD = #{sendRcptnSeCd}
@@ -221,10 +221,10 @@
 			 WHERE CL.DEL_YN = 'N'
 		]]>
 		<if test='logYmdFrom != null and logYmdFrom != ""'>
-		   	   AND CL.LOG_YMD >= (SELECT TO_DATE(#{logYmdFrom}, 'YYYY/MM/DD') FROM dual)
+		   	   AND CL.LOG_YMD <![CDATA[>=]]> (SELECT TO_DATE(#{logYmdFrom}, 'YYYY/MM/DD') FROM dual)
 		</if>
 		<if test='logYmdTo != null and logYmdTo != ""'>
-		       AND (SELECT TO_DATE(#{logYmdTo}, 'YYYY/MM/DD') FROM dual) >= CL.LOG_YMD
+		       AND CL.LOG_YMD <![CDATA[<=]]> (SELECT TO_DATE(#{logYmdTo}, 'YYYY/MM/DD') FROM dual)
 		</if>
 		<if test='prgrmNm != null and prgrmNm != ""'>
 		       AND CL.PRGRM_NM LIKE '%' ||  #{prgrmNm} || '%'

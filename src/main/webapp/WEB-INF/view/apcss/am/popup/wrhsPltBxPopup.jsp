@@ -192,7 +192,7 @@
 			        	},
 			        	userattr: {colNm: "button"},
 				    },
-			    	{caption: ["팔레트","팔레트"],	ref: 'pltKnd',		type:'combo',  width:'100px',   style:'text-align:center;background-color:#FFF8DC;',
+			    	{caption: ["팔레트","팔레트"],	ref: 'pltKnd',		type:'combo',  width:'140px',   style:'text-align:center;background-color:#FFF8DC;',
 						typeinfo : {
 							ref:'jsonApcPltWrhsPltBxPop',
 							label:'pltBxNm',
@@ -214,7 +214,7 @@
 			        	format : {type:'number', rule:'#,###'},
 			        	datatype: 'number',
 			        },
-				    {caption: ["박스","종류"], 		ref: 'bxKnd',   	type:'combo',	width:'120px',	style:'text-align:center;background-color:#FFF8DC;',
+				    {caption: ["박스","종류"], 		ref: 'bxKnd',   	type:'combo',	width:'140px',	style:'text-align:center;background-color:#FFF8DC;',
 						typeinfo : {
 							ref:'jsonApcBxWrhsPltBxPop',
 							label:'pltBxNm',

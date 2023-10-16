@@ -181,20 +181,21 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["일련번호"], 		ref: 'testNo',   	type:'input',  hidden : false},
-	    	{caption: ["구분"], 	ref: 'aa',   	type:'combo',  width:'100px',    style:'text-align:center;',
+	    	{caption: ["번호","번호"], 		ref: 'testNo',   	type:'input',  hidden : false},
+	    	{caption: ["조직원명","조직원명"], 	ref: 'aa',   	type:'combo',  width:'100px',    style:'text-align:center;',
 				typeinfo : {ref:'jsonComFcltGubun', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 // 	        {caption: ["사업자등록번호"], 	ref: 'bb',   type:'input',  width:'250px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
-	        {caption: ["통합조직"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["사업자등록번호"], 	ref: 'iiCode',   	type:'input',  width:'80px',    style:'text-align:center' ,  editable : false},
-	        {caption: ["전문품목"], 		ref: 'cc',   type:'output',  width:'200px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
-	        {caption: ["전문품목 코드"], 	ref: 'ccCode',   	type:'input', width:'80px', style:'text-align:center' ,  editable : false},
-	        {caption: ["육성품목"], 	ref: 'dd',   	type:'output',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["육성품목 코드"], 	ref: 'ddCode',   	type:'input',width:'80px', style:'text-align:center' ,  editable : false},
-	        {caption: ["선정여부"], 	ref: 'ee',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["탈락사유"], 	ref: 'ff',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["신청액"], 	ref: 'gg',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["적용금리"], 	ref: 'hh',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+	        {caption: ["재배지주소","재배지주소"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
+	        {caption: ["재배면적(㎡)","홍로"], 	ref: 'iiCode',   	type:'input',  width:'80px',    style:'text-align:center' ,  editable : false},
+	        {caption: ["재배면적(㎡)","부사"], 		ref: 'cc',   type:'output',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
+	        {caption: ["재배면적(㎡)",""], 	ref: 'ccCode',   	type:'input', width:'80px', style:'text-align:center' ,  editable : false},
+	        {caption: ["재배면적(㎡)","계"], 	ref: 'dd',   	type:'output',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+	        {caption: ["(평년)생산량(톤)","홍로"], 	ref: 'ddCode',   	type:'input',width:'80px', style:'text-align:center' ,  editable : false},
+	        {caption: ["(평년)생산량(톤)","부사"], 	ref: 'ee',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+	        {caption: ["(평년)생산량(톤)",""], 	ref: 'ff',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+	        {caption: ["(평년)생산량(톤)","계"], 	ref: 'gg',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+	        {caption: ["가입일(탈퇴일)","가입일(탈퇴일)"], 	ref: 'hh',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+	        {caption: ["비고","비고"], 	ref: 'hh',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 // 	        {caption: ["통합조직"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
 // 	        {caption: ["통합조직 코드"], 	ref: 'iiCode',   	type:'input', hidden:true},
 	        /*
@@ -212,7 +213,7 @@
 	        	}
 	        }},
 	        */
-	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        {caption: ["처리","처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdPrdcrOgnCurntMng\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{

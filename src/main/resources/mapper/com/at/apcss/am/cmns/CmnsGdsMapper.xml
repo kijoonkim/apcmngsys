@@ -58,6 +58,7 @@
 		   		 , GC.BX_GDS_QNTT           AS BX_GDS_QNTT
 		   		 , GC.WGHT            		AS WGHT
 		   		 , GC.GDS_CD				AS GDS_CD
+		   		 , GC.PLOR_CD               AS PLOR_CD
 			  FROM TB_GDS_CD GC
 			 WHERE GC.DEL_YN = 'N'
 		]]>
@@ -66,6 +67,9 @@
 		</if>
 		<if test='gdsNm != null and gdsNm !=""'>
 		   	   AND GC.GDS_NM LIKE '%' || #{gdsNm} || '%'
+		</if>
+		<if test='brndNm != null and brndNm !=""'>
+		   	   AND GC.BRND_NM LIKE '%' || #{brndNm} || '%'
 		</if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>

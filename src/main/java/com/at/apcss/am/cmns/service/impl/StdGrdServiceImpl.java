@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.cmns.mapper.StdGrdMapper;
 import com.at.apcss.am.cmns.service.CmnsValidationService;
@@ -15,7 +17,12 @@ import com.at.apcss.am.cmns.vo.StdGrdDtlVO;
 import com.at.apcss.am.cmns.vo.StdGrdJgmtVO;
 import com.at.apcss.am.cmns.vo.StdGrdListVO;
 import com.at.apcss.am.cmns.vo.StdGrdVO;
+import com.at.apcss.am.constants.AmConstants;
+import com.at.apcss.co.cd.service.ComCdService;
+import com.at.apcss.co.cd.vo.ComCdVO;
+import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : StdGrdServiceImpl.java
@@ -41,6 +48,9 @@ public class StdGrdServiceImpl implements StdGrdService {
 	@Resource(name = "cmnsValidationService")
 	private CmnsValidationService cmnsValidationService;
 
+	@Resource(name ="comCdService")
+	private ComCdService comCdService;
+	
 	@Override
 	public StdGrdVO selectStdGrd(StdGrdVO StdGrdVO) throws Exception {
 		StdGrdVO resultVO = stdGrdMapper.selectStdGrd(StdGrdVO);
@@ -55,10 +65,85 @@ public class StdGrdServiceImpl implements StdGrdService {
 
 	@Override
 	public int insertStdGrd(StdGrdVO stdGrdVO) throws Exception {
+		
+		if (stdGrdVO != null && !StringUtils.hasText(stdGrdVO.getGrdKnd())) {
+			StdGrdVO returnVO = stdGrdMapper.selectNewGrdKnd(stdGrdVO);
+			stdGrdVO.setGrdKnd(returnVO.getGrdKnd());
+		}
+		
 		int insertedCnt = stdGrdMapper.insertStdGrd(stdGrdVO);
 		return insertedCnt;
 	}
 
+	@Override
+	public HashMap<String, Object> insertStdGrdAuto(StdGrdVO stdGrdVO) throws Exception {
+		
+		ComCdVO comCdVO = new ComCdVO();
+		comCdVO.setApcCd(ApcConstants.APC_CD_SYSTEM);
+		
+		// 상품등급
+		comCdVO.setCdId(AmConstants.CON_CD_ID_GDS_GRD);
+
+		ComCdVO gdsGrdInfo = comCdService.selectComCd(comCdVO);
+		if (gdsGrdInfo == null || !StringUtils.hasText(gdsGrdInfo.getCdId())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기본등급정보");
+		}
+		
+		stdGrdVO.setGrdSeCd(AmConstants.CON_CD_ID_GRD_SE_CD_GDS);		
+		
+		StdGrdVO returnVO = stdGrdMapper.selectNewGrdKnd(stdGrdVO);
+		String gdsGrdKnd = returnVO.getGrdKnd();
+		
+		StdGrdVO gdsGrdVO = new StdGrdVO();
+		BeanUtils.copyProperties(stdGrdVO, gdsGrdVO);
+		gdsGrdVO.setGrdKnd(gdsGrdKnd);
+		gdsGrdVO.setGrdKndNm(gdsGrdInfo.getCdNm());
+		gdsGrdVO.setGrdSeCd(AmConstants.CON_CD_ID_GRD_SE_CD_GDS);
+		gdsGrdVO.setSn(1);
+		
+		// insert master
+		insertStdGrd(gdsGrdVO);
+		
+		int sn = 0;
+		List<ComCdVO> gdsGrdDtlList = comCdService.selectComCdDtlList(comCdVO);
+		for ( ComCdVO gdsGrdDtlInfo : gdsGrdDtlList ) {
+			
+			sn++;
+			
+			StdGrdDtlVO gdsGrdDtlVO = new StdGrdDtlVO();
+			BeanUtils.copyProperties(gdsGrdVO, gdsGrdDtlVO);
+			
+			gdsGrdDtlVO.setGrdNm(gdsGrdDtlInfo.getCdVlNm());
+			gdsGrdDtlVO.setSn(sn);
+
+			insertStdGrdDtl(gdsGrdDtlVO);
+		}
+		
+
+		// 입고등급
+		comCdVO.setCdId(AmConstants.CON_CD_ID_STD_GRD);
+		List<ComCdVO> stdGrdList = comCdService.selectComCdDtlList(comCdVO);
+		
+		sn = 0;
+		for ( ComCdVO stdGrd : stdGrdList ) {
+			
+			sn++;
+			
+			StdGrdVO wrhsGrdVO = new StdGrdVO();
+			BeanUtils.copyProperties(stdGrdVO, wrhsGrdVO);
+			wrhsGrdVO.setGrdKnd(stdGrd.getCdVl());
+			wrhsGrdVO.setGrdKndNm(stdGrd.getCdVlNm());
+			wrhsGrdVO.setGrdSeCd(AmConstants.CON_CD_ID_GRD_SE_CD_WRHS);
+			wrhsGrdVO.setSn(sn);
+			
+			insertStdGrd(wrhsGrdVO);
+		}
+		
+		return null;
+	}
+	
+	
+	
 	@Override
 	public int updateStdGrd(StdGrdVO stdGrdVO) throws Exception {
 		int updatedCnt = stdGrdMapper.updateStdGrd(stdGrdVO);
@@ -263,5 +348,7 @@ public class StdGrdServiceImpl implements StdGrdService {
 		int deletedCnt = stdGrdMapper.deleteStdGrdJgmtAll(StdGrdJgmtVO);
 		return deletedCnt;
 	}
+
+
 
 }

@@ -62,10 +62,10 @@
 			  AND PID.MENU_ID 	= #{menuId}
 		</if>
 		<if test='dmndYmdFrom != null and dmndYmdFrom != ""'>
-		   	   AND PID.DMND_YMD >= #{dmndYmdFrom}
+		   	   AND PID.DMND_YMD <![CDATA[>=]]> #{dmndYmdFrom}
 		</if>
 		<if test='dmndYmdTo != null and dmndYmdTo != ""'>
-		       AND #{dmndYmdTo} >= PID.DMND_YMD
+		       AND PID.DMND_YMD <![CDATA[<=]]> #{dmndYmdTo}
 		</if>
 			 ORDER BY PID.DMND_YMD DESC, PID.SN DESC
 		<!-- Start 페이징 -->

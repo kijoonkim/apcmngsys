@@ -42,12 +42,12 @@ public class SlsPrfmncController extends BaseController {
 
 	// 매출실적 조회
 	@PostMapping(value = "/am/sls/selectSlsPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectSlsPrfmncList(@RequestBody SlsPrfmncVO SlsPrfmncVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectSlsPrfmncList(@RequestBody SlsPrfmncVO slsPrfmncVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<SlsPrfmncVO> resultList = new ArrayList<>();
 		try {
-			resultList = slsPrfmncService.selectSlsPrfmncList(SlsPrfmncVO);
+			resultList = slsPrfmncService.selectSlsPrfmncList(slsPrfmncVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -56,5 +56,100 @@ public class SlsPrfmncController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// 매출생성
+	@PostMapping(value = "/am/sls/insertSlsPrfmncCrt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertSlsPrfmncCrt(@RequestBody SlsPrfmncVO slsPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			slsPrfmncVO.setSysFrstInptUserId(getUserId());
+			slsPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+			slsPrfmncVO.setSysLastChgUserId(getUserId());
+			slsPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+			resultMap = slsPrfmncService.insertSlsPrfmncCrt(slsPrfmncVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 매출실적 대상목록 조회
+	@PostMapping(value = "/am/sls/selectRegSlsPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectRegSlsPrfmncList(@RequestBody SlsPrfmncVO slsPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SlsPrfmncVO> resultList = new ArrayList<>();
+		try {
+			resultList = slsPrfmncService.selectRegSlsPrfmncList(slsPrfmncVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 매출 금액 및 확정 저장
+	@PostMapping(value = "/am/sls/saveSlsPrfmncCrtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> saveSlsPrfmncCrtList(@RequestBody List<SlsPrfmncVO> slsPrfmncList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		int savedCnt = 0;
+		try {
+
+			for (SlsPrfmncVO slsPrfmncVO : slsPrfmncList) {
+
+				slsPrfmncVO.setSysFrstInptUserId(getUserId());
+				slsPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+				slsPrfmncVO.setSysLastChgUserId(getUserId());
+				slsPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			savedCnt = slsPrfmncService.saveSlsPrfmncCrtList(slsPrfmncList);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 매출 금액 및 확정 저장
+	@PostMapping(value = "/am/sls/deleteSlsPrfmncCrtList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteSlsPrfmncCrtList(@RequestBody List<SlsPrfmncVO> slsPrfmncList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		int deletedCnt = 0;
+		try {
+
+			for (SlsPrfmncVO slsPrfmncVO : slsPrfmncList) {
+
+				slsPrfmncVO.setSysFrstInptUserId(getUserId());
+				slsPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+				slsPrfmncVO.setSysLastChgUserId(getUserId());
+				slsPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			deletedCnt = slsPrfmncService.deleteSlsPrfmncCrtList(slsPrfmncList);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
 
 }

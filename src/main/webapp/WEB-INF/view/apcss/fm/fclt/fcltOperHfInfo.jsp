@@ -22,7 +22,9 @@
 				<h3 class="box-title" style="line-height: 30px;"> ▶ 시설고용인력</h3>
 			</div>
 			<div style="margin-left: auto;">
+				<!--
 				<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
+				 -->
 				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
@@ -30,84 +32,35 @@
 		</div>
 		<div class="box-body">
 			<!--[pp] 검색 -->
-			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
 					<col style="width: 6%">
 					<col style="width: 10%">
 					<col style="width: 6%">
-					<col style="width: 15%">
-					<col style="width: 63%">
+					<col style="width: 10%">
+					<col style="width: 10%">
+					<col style="width: 58%">
 				</colgroup>
 				<tbody>
 					<tr>
 						<th class="th_bg" scope="row">대상연도</th>
-						<td class="td_input"  style="border-right: hidden;">
+						<td class="td_input"   style="border-right: hidden;">
 							<sbux-input id="srch-input-trgtYr" name="srch-input-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>
-
-
-							<th scope="row" style="border-bottom:1px solid white " class="th_bg" >APC명</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
-								<script type="text/javascript">
-								<c:choose>
-									<c:when test="${comApcList != null}">
-									var cjsonApcList = ${comApcList};
-									</c:when>
-									<c:otherwise>
-									var cjsonApcList = {};
-									</c:otherwise>
-								</c:choose>
-								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
-									gv_selectedApcCd = null;
-									gv_selectedApcNm = null;
-								</c:if>
-									/**
-									 * @name
-									 * @description
-									 * @function
-									 * @param {string} _apcCd
-									 */
-									const cfn_onChangeApc = function(obj) {
-										gv_selectedApcCd = obj.value;
-
-										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
-										apcInfo.forEach( (apc) => {
-											gv_selectedApcNm = apc.apcNm;
-											return false;
-										});
-
-										if (typeof fn_onChangeApc === "function") {
-											fn_onChangeApc();
-										}
-
-									}
-
-								</script>
-								<c:choose>
-									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
-										<sbux-select
-											id="gsb-slt-apcCd"
-											name="gsb-slt-apcCd"
-											uitype="single"
-											jsondata-ref="cjsonApcList"
-											unselected-text="전체"
-											class="form-control input-sm"
-											onchange="cfn_onChangeApc(this)"
-											style="max-width:150px;"
-										></sbux-select>
-									</c:when>
-									<c:otherwise>
-										<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td></td>
+						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
+						<td class="td_input" style="border-right:hidden;">
+							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						</td>
+						<td style="border-right:hidden;">
+							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+						</td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
-			</div>
+			<br>
 			<!--[pp] //검색 -->
 			<!--[pp] 검색결과 -->
 			<br>
@@ -154,67 +107,18 @@
 					</tr>
 					<tr>
 						<th class="th_bg">대상연도</th>
-						<td colspan="2" class="td_input">
-							<sbux-input id="dtl-input-trgtYr" name="dtl-input-trgtYr" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						<td class="td_input" colspan="1">
+							<sbux-input  id="dtl-input-trgtYr" name="dtl-input-trgtYr" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
-
+						<td style="border-left: hidden;"></td>
 					</tr>
 					<tr>
-						<th class="th_bg">APC명</th>
-						<td class="td_input" colspan="1" style="border-bottom: solid;">
-							<script type="text/javascript">
-								<c:choose>
-									<c:when test="${comApcList != null}">
-									var cjsonApcList = ${comApcList};
-									</c:when>
-									<c:otherwise>
-									var cjsonApcList = {};
-									</c:otherwise>
-								</c:choose>
-								<c:if test="${loginVO != null && loginVO.apcAdminType != null}">
-									gv_selectedApcCd = null;
-									gv_selectedApcNm = null;
-								</c:if>
-									/**
-									 * @name
-									 * @description
-									 * @function
-									 * @param {string} _apcCd
-									 */
-									const cfn_onChangeApc = function(obj) {
-										gv_selectedApcCd = obj.value;
-
-										const apcInfo = gfn_getJsonFilter(cjsonApcList, 'apcCd', gv_selectedApcCd);
-										apcInfo.forEach( (apc) => {
-											gv_selectedApcNm = apc.apcNm;
-											return false;
-										});
-
-										if (typeof fn_onChangeApc === "function") {
-											fn_onChangeApc();
-										}
-
-									}
-								</script>
-								<c:choose>
-									<c:when test="${loginVO != null && loginVO.apcAdminType != null}">
-										<sbux-select
-											id="dtl-input-apcCd"
-											name="dtl-input-apcCd"
-											uitype="single"
-											jsondata-ref="cjsonApcList"
-											unselected-text="선택"
-											class="form-control input-sm"
-											onchange="cfn_onChangeApc(this)"
-											style="max-width:150px;"
-										></sbux-select>
-									</c:when>
-									<c:otherwise>
-										<sbux-input id="gsb-slt-apcCd" name="gsb-slt-apcCd" uitype="text"  class="form-control input-sm" disabled >${loginVO.apcNm}</sbux-input>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td></td>
+						<th class="th_bg">apc명</th>
+						<td class="td_input" style="border-right:hidden;">
+							<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="dtl-input-apcNm" name="dtl-input-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						</td>
+						<td style="border-left: hidden;"></td>
 					</tr>
 
 				</tbody>
@@ -224,39 +128,22 @@
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
-	<!-- 거래처 선택 Modal -->
+	<!-- apc 선택 Modal -->
     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="body-modal-cnpt">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
-    </div>
-        <!-- 품종 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
-    </div>
-    <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    <div id="body-modal-apcSelect">
+    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
 
-	var jsonApcItem			= [];	// 품목 		itemCd		검색
-	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 	let date = new Date();
 	let year  = date.getFullYear();
+
     //화면 초기 로딩
     window.addEventListener('DOMContentLoaded', function(e) {
     	SBUxMethod.set("srch-input-trgtYr", year);
-
-    	gfn_setComCdSBSelect(
-    			['dtl-input-operOgnzTrmtItemCn', 'dtl-input-operOgnzTrmtItemCn2','dtl-input-operOgnzTrmtItemCn3','dtl-input-operOgnzTrmtItemCn4',
-    			 'dtl-input-apcTrmtItemCn', 'dtl-input-apcTrmtItemCn2','dtl-input-apcTrmtItemCn3','dtl-input-apcTrmtItemCn4','dtl-input-operOgnzDeptCd'
-    			],
-    			jsonApcItem,
-			'MSG_KND');
-
-     	//gfn_setApcItemSBSelect('dtl-input-operOgnzTrmtItemCn2', jsonApcItem),	// 품목
     	fn_createGrid();//그리드 생성 설정 함수
 
     });
@@ -283,24 +170,13 @@
 
 	       SBGridProperties.columns = [
 
-	            {caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
-	                ref: 'checked', type: 'checkbox',   style: 'text-align:center',
-	                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-	            },
-	            {caption: ["내국인정규직"], 		ref: 'hireNope',   type:'output',  	width:'20%',    style:'text-align:center'},
-	            {caption: ["내국인일용직"], 		ref: 'hireNope2',   type:'output',  	width:'20%',    style:'text-align:center'},
-	            {caption: ["외국인정규직"],	  	ref: 'hireNope3',    type:'output',  	width:'20%',    style:'text-align:center'},
-	            {caption: ["외국인일용직"],	  	ref: 'hireNope4',    type:'output',  	width:'20%',    style:'text-align:center'},
-	            {caption: ["계"],  			ref: 'hireNope0',   type:'output',  	width:'20%',    style:'text-align:center'},
-	            {caption: ["APCCD"],		ref: 'apcCd',       type:'output',  	hidden: false},
-	            {caption: ["대상연도"],			ref: 'trgtYr',          type:'output',  hidden:false},
-	            {caption: ["최초등록자ID"],		ref: 'creUserId',  		type:'output',  hidden: true},
-	            {caption: ["최초등록일시"],		ref: 'creDateTime',		type:'output',  hidden: true},
-	            {caption: ["최종변경자ID"],		ref: 'updUserId',   	type:'output',  hidden: true},
-	            {caption: ["최종변경일시"], 		ref: 'updDateTime', 		type:'output',  hidden: true},
-	            {caption: ["등록프로그램"], 		ref: 'creProgram',  		type:'output',  hidden: true},
-	            {caption: ["변경프로그램"], 		ref: 'updProgram',  		type:'output',  hidden: true}
-
+		            {caption: ["APC명"],			ref: 'apcNm',       type:'output',  	width:'10%',    style:'text-align:center'},
+		            {caption: ["내국인정규직"], 	ref: 'hireNope',   type:'output',  	width:'20%',    style:'text-align:center'},
+		            {caption: ["내국인일용직"], 	ref: 'hireNope2',   type:'output',  	width:'20%',    style:'text-align:center'},
+		            {caption: ["외국인정규직"],	  	ref: 'hireNope3',    type:'output',  	width:'20%',    style:'text-align:center'},
+		            {caption: ["외국인일용직"],	  	ref: 'hireNope4',    type:'output',  	width:'20%',    style:'text-align:center'},
+		            {caption: ["APCCD"],		ref: 'apcCd',       type:'output',  	hidden: true},
+		            {caption: ["대상연도"],			ref: 'trgtYr',          type:'output',  hidden: true}
 	            ];
 
         grdHireInfoList = _SBGrid.create(SBGridProperties);
@@ -342,20 +218,8 @@
 
 		grdHireInfoList.clearStatus();
 
-		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
-
-		var chk = {
-				trgtYr: trgtYr,
-	        	apcCd: apcCd,
-	        	// pagination
-		  		pagingYn : 'N',
-				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
-
-		}
-		console.log('=============chk==================');
-		console.log(chk);
 
         //비동기 포스트타입 url 데이터연결 페이징처리 글로벌
         //gfn_postJSON 는 ajax고 post통신의 데이터를 json 타입으로 보내는것이다
@@ -367,12 +231,12 @@
 			currentPageNo : pageNo,
  		  	recordCountPerPage : pageSize
         });
-		console.log("a11111111111111");
+
         const data = await postJsonPromise;
-//await 오류시 확인
-        console.log("---------------------------")
-        console.log(data)
-//예외처리
+		//await 오류시 확인
+
+
+		//예외처리
         try {
 
         	/** @type {number} **/
@@ -381,26 +245,14 @@
         	jsonHireInfoList.length = 0;
         	data.resultList.forEach((item, index) => {
 				const msg = {
-				trgtYr: item.trgtYr,	 	//대상연도
-				apcCd: item.apcCd, 	 		//apc코드
-				sn: item.sn,                      	//순번
-				hireSeCd: item.hireSeCd,                    	//사업연도
-				ctznFrgnrSeCd: item.ctznFrgnrSeCd,             //사업지원코드
-				hireNope: item.hireNope,        //사업비코드
-				hireNope2: item.hireNope2,        //고용인력(내국인정규직)
-				hireNope3: item.hireNope3,        //고용인력(내국인일용직)
-				hireNope4: item.hireNope4,        //고용인력(외국인정규직)
-				hireNope0: item.hireNope0,        //고용인력(외국인일용직)
-				delYn: item.delYn,                  				 //삭제유무
-	            sysFrstInptDt: item.sysFrstInptDt,       			//시스템최초입력일시
-	            sysFrstInptUserId: item.sysFrstInptUserId,   	   //시스템최초입력사용자id
-		        sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,     	//시스템최초입력프로그램id
-		        sysLastChgDt: item.sysLastChgDt,    				//시스템최종변경일시
-		        sysLastChgUserId: item.sysLastChgUserId,  			//시스템최종변경사용자id
-		        sysLastChgPrgrmId: item.sysLastChgPrgrmId   		//시스템최종변경프로그램id
-											      		    		//운영조직 대표자
-											                		//운영조직 주소
-											                		//운영조직 조직유형
+					trgtYr: item.trgtYr,	 	//대상연도
+					apcCd: item.apcCd, 	 		//apc코드
+					apcNm: item.apcNm, 	 		//apc명
+					hireNope: item.hireNope,        //고용인력(내국인정규직)
+					hireNope2: item.hireNope2,        //고용인력(내국인일용직)
+					hireNope3: item.hireNope3,        //고용인력(외국인정규직)
+					hireNope4: item.hireNope4,        //고용인력(외국인일용직)
+
 				}
 
 				jsonHireInfoList.push(msg);
@@ -409,8 +261,6 @@
 					totalRecordCount = item.totalRecordCount;
 				}
 			});
-        	console.log("c33333333333333333333");
-        	console.log("totalRecordCount", totalRecordCount);
 
         	if (jsonHireInfoList.length > 0) {
 
@@ -435,7 +285,6 @@
     		//console.error("failed", e.message);
         }
     }
-   	console.log("d4444444444444444444444444444");
 
 
     //신규 작성 dtl 내부의 값을 null로
@@ -443,42 +292,33 @@
     	console.log("******************fn_create**********************************");
     	SBUxMethod.set("dtl-input-trgtYr", null);                    //  대상연도
 		SBUxMethod.set("dtl-input-apcCd", null);                     //  APC코드
-		SBUxMethod.set("dtl-input-sn", null);                     //  순번
-    	SBUxMethod.set("dtl-input-hireSeCd", null);                   //  고용구분코드
-    	SBUxMethod.set("dtl-input-ctznFrgnrSeCd", null);                   //  내외국인코드
+		SBUxMethod.set("dtl-input-apcNm", null);                     //  APC명
     	SBUxMethod.set("dtl-input-hireNope", null);                   //  내국인정규고용
     	SBUxMethod.set("dtl-input-hireNope2", null);                   //  내국인일용고용
     	SBUxMethod.set("dtl-input-hireNope3", null);                   //  외국인정규고용
     	SBUxMethod.set("dtl-input-hireNope4", null);                   //  외국인일용고용
-     	SBUxMethod.set("dtl-input-delYn", null);                  	 //  삭제유무
-    	SBUxMethod.set("dtl-input-sysFrstInptDt", null);       		 //	 시스템최초입력일시
-    	SBUxMethod.set("dtl-input-sysFrstInptUserId", null);      	 //  시스템최초입력사용자id
-    	SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);     	 //  시스템최초입력프로그램id
-    	SBUxMethod.set("dtl-input-sysLastChgDt", null);      		 //  시스템최종변경일시
-    	SBUxMethod.set("dtl-input-sysLastChgUserId", null);   	 	 //  시스템최종변경사용자id
-    	SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);  	 	 //  시스템최종변경프로그램id
-																	//apc addr
+
 
     }
      const fn_clearForm = function() {
     	 console.log("******************fn_clearForm**********************************");
      	SBUxMethod.set("dtl-input-trgtYr", null);                    //  대상연도
 		SBUxMethod.set("dtl-input-apcCd", null);                     //  APC코드
-        SBUxMethod.set("dtl-input-hireNope", null);					//고용인수
-        SBUxMethod.set("dtl-input-hireNope2", null);					//고용인수2
-        SBUxMethod.set("dtl-input-hireNope3", null);					//고용인수3
-        SBUxMethod.set("dtl-input-hireNope4", null);    				//고용인수4
+		SBUxMethod.set("dtl-input-apcNm", null);                     //  APC명
+    	SBUxMethod.set("dtl-input-hireNope", null);                   //  내국인정규고용
+    	SBUxMethod.set("dtl-input-hireNope2", null);                   //  내국인일용고용
+    	SBUxMethod.set("dtl-input-hireNope3", null);                   //  외국인정규고용
+    	SBUxMethod.set("dtl-input-hireNope4", null);                   //  외국인일용고용
     }
     //저장
     const fn_save = async function() {
     	console.log("******************fn_save**********************************");
 
-		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
-		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
-		let apcCdUpd = SBUxMethod.get("dtl-input-apcCd");
+		let apcCd = SBUxMethod.get("dtl-input-apcCd");
+		let trgtYr = SBUxMethod.get("dtl-input-trgtYr");
 
-
-/*     	if (!SBUxMethod.get("dtl-input-bizSprtCd")) {
+		/*
+     	if (!SBUxMethod.get("dtl-input-bizSprtCd")) {
             alert("사업지원코드를 작성해주세요.");
             return;
         }
@@ -489,15 +329,7 @@
         } */
 
 
-    	if (gfn_isEmpty(apcCdUpd)) {
-    		if (!SBUxMethod.get("srch-input-trgtYr")) {
-                alert("대상년도를 선택하세요.");
-                return;
-            }
-     		if (!SBUxMethod.get("gsb-slt-apcCd")) {
-                alert("APC명을 선택하세요.");
-                return;
-            }
+    	if (gfn_isEmpty(trgtYr)) {
     		// 신규 등록
 			fn_subInsert(confirm("등록 하시겠습니까?"));
     	} else {
@@ -518,17 +350,12 @@
     	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperHfInfo.do", {
     	 	trgtYr: SBUxMethod.get("srch-input-trgtYr") , // 상단 조회 조건의 대상연도 SBUxMethod.get("srch-input-trgtYr")
         	apcCd: SBUxMethod.get("gsb-slt-apcCd"), // 상단 조회 조건의 APC코드 SBUxMethod.get("gsb-slt-apcCd")
-        	sn: SBUxMethod.get('dtl-input-sn'),                             	 // 사업연도
-        	hireSeCd: 1,                        // 사업지원코드
-        	ctznFrgnrSeCd:  2,               				 // 사업내용
         	hireNope: SBUxMethod.get('dtl-input-hireNope'),                          // 고용인수
         	hireNope2: SBUxMethod.get('dtl-input-hireNope2'),                        		 // 고용인수
         	hireNope3: SBUxMethod.get('dtl-input-hireNope3'),                     		 // 고용인수
         	hireNope4: SBUxMethod.get('dtl-input-hireNope4')                     		 // 고용인수
 		});
 
-	console.log(gfn_postJSON);
-	console.log("----------------------------");
         const data = await postJsonPromise;
 
         try {
@@ -553,20 +380,10 @@
     	const postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltOperHfInfo.do", {
     	 	trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
         ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
-        ,	sn: SBUxMethod.get('dtl-input-sn')                         			 //  순번
-        ,	hireSeCd: SBUxMethod.get('dtl-input-hireSeCd')                       //  고용구분코드
-        ,	ctznFrgnrSeCd: SBUxMethod.get('dtl-input-ctznFrgnrSeCd')             //  내외국인구분코드
         ,	hireNope: SBUxMethod.get('dtl-input-hireNope')                             //  사업내용
         ,	hireNope2: SBUxMethod.get('dtl-input-hireNope2')                       // 사업비코드
         ,	hireNope3: SBUxMethod.get('dtl-input-hireNope3')                     		 //   사업비(국고)
         ,	hireNope4: SBUxMethod.get('dtl-input-hireNope4')                 		 //  사업비2(지자체)
-        ,	delYn: SBUxMethod.get('dtl-input-delYn')                  			 //	 삭제유무
-        ,	sysFrstInptDt: SBUxMethod.get('dtl-input-sysFrstInptDt')      	  	 //	 시스템최초입력일시
-        ,	sysFrstInptUserId: SBUxMethod.get('dtl-input-sysFrstInptUserId')     //	 시스템최초입력사용자id
-        ,	sysFrstInptPrgrmId: SBUxMethod.get('dtl-input-sysFrstInptPrgrmId')   //	 시스템최초입력프로그램id
-        ,	sysLastChgDt: SBUxMethod.get('dtl-input-sysLastChgDt')     		 	 //	 시스템최종변경일시
-        ,	sysLastChgUserId: SBUxMethod.get('dtl-input-sysLastChgUserId')  	 //	 시스템최종변경사용자id
-        ,	sysLastChgPrgrmId: SBUxMethod.get('dtl-input-sysLastChgPrgrmId')   	 //	 시스템최종변경프로그램id
     		});
 
         const data = await postJsonPromise;
@@ -646,7 +463,7 @@
      	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltOperHfInfoList.do", list);
 
          const data = await postJsonPromise;
-//예외처리
+		//예외처리
          try {
          	if (_.isEqual("S", data.resultStatus)) {
          		alert("처리 되었습니다.");
@@ -680,11 +497,11 @@
 
 			//서치폼에서 클릭시 디테일폼에 데이터출력
         let rowData = grdHireInfoList.getRowData(nRow);
+        rowData = fn_emptyString(rowData);
 
     	SBUxMethod.set("dtl-input-trgtYr", rowData.trgtYr);                           //  대상연도
 		SBUxMethod.set("dtl-input-apcCd", rowData.apcCd);                             //  APC코드
-    	SBUxMethod.set("dtl-input-hireSeCd", rowData.hireSeCd);                        	  //  고용구분코드
-    	SBUxMethod.set("dtl-input-ctznFrgnrSeCd", rowData.ctznFrgnrSeCd);                     //  내외국인구분코드
+		SBUxMethod.set("dtl-input-apcNm", rowData.apcNm);                             //  APC명
     	SBUxMethod.set("dtl-input-hireNope", rowData.hireNope);                             //  고용인원수
     	SBUxMethod.set("dtl-input-hireNope2", rowData.hireNope2);                             //  고용인원수
     	SBUxMethod.set("dtl-input-hireNope3", rowData.hireNope3);                             //  고용인원수
@@ -700,6 +517,39 @@
         	grdHireInfoList.setCellData(i+1, 1, checkedYn, true, false);
         }
     }
+
+ 	// apc 선택 팝업 호출
+	const fn_modalApcSelect = function() {
+		popApcSelect.init(fn_setApc);
+	}
+	// apc 선택 팝업 콜백 함수
+	const fn_setApc = function(apc) {
+		if (!gfn_isEmpty(apc)) {
+			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
+			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
+		}
+	}
+
+	// "null" 로 들어가는 경우 방지
+	function fn_emptyString(obj) {
+		console.log("==========fn_emptyString=============");
+	    if (Array.isArray(obj)) {
+	        // 배열의 경우
+	        for (var i = 0; i < obj.length; i++) {
+	        	if (data[i] === "null" || data[i] === null) {
+	                obj[i] = "";
+	            }
+	        }
+	    } else if (typeof obj === "object") {
+	        // 객체의 경우
+	        for (var key in obj) {
+	        	if (obj[key] === "null" || obj[key] === null) {
+	                obj[key] = "";
+	            }
+	        }
+	    }
+	    return obj;
+	}
 
 
 

@@ -45,11 +45,11 @@
 					</colgroup>
 					<tbody>
 						<tr>
-					        <th scope="row" class="th_bg"><span class="data_required"></span>접수여부</th>
+					        <th scope="row" class="th_bg">접수여부</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-rcptYn" name="srch-slt-rcptYn" uitype="single" unselected-text="선택" jsondata-ref="jsonRcptYn" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
+										<sbux-select id="srch-slt-rcptYn" name="srch-slt-rcptYn" uitype="single" unselected-text="전체" jsondata-ref="jsonRcptYn" class="form-control input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -121,7 +121,7 @@
 						<tr>
 							<th scope="row" class="th_bg">상품명</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-gdsNm" name="srch-inp-gdsNm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-spmtPckgUnitNm" name="srch-inp-spmtPckgUnitNm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchGdsNm" name="btnSrchGdsNm" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-gds" onclick="fn_modalGds" text="찾기"></sbux-button>
@@ -154,7 +154,7 @@
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnRcptOrdrAll" name="btnReceiptBndl" uitype="normal" onclick="btn_receiptBndl" class="btn btn-sm btn-outline-dark" text="일괄 접수"></sbux-button>
-						<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" onclick="fn_dummyData" class="btn btn-sm btn-outline-dark" text="포장지시 등록"></sbux-button>
+						<sbux-button id="btnRegPrdctnCmnd" name="btnRegPrdctnCmnd" uitype="normal" onclick="fn_dummyData" class="btn btn-sm btn-outline-dark" text="출하지시 등록"></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -210,6 +210,7 @@
 
 		fn_createOutordrInfoGrid();
 		fn_initSBSelect();
+		fn_search();
 	})
 
 	function fn_createOutordrInfoGrid() {
@@ -235,10 +236,10 @@
         		typeinfo : {ignoreupdate: true}},
             {caption: ['접수일자'], 		ref: 'rcptCfmtnYmd', 	width: '100px', 	type: 'output',			style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
-            {caption: ['발주유형'], 		ref: 'outordrType', 	width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['발주유형'], 		ref: 'outordrTypeNm', 	width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['접수여부'], 		ref: 'rcptYn', 			width: '70px', 		type: 'combo',			style:'text-align: center',
             	typeinfo : {ref:'comboGridRcpYn', label:'label', value:'value'}},
-            {caption: ['발주번호'], 		ref: 'outordrno', 		width: '200px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['발주번호'], 		ref: 'outordrno', 		width: '140px', 	type: 'output',			style:'text-align: center'},
             {caption: ['거래처명'], 		ref: 'apcCnptNm', 		width: '200px', 	type: 'output',			style:'text-align: center'},
             {caption: ['납기일자'], 		ref: 'wrhsYmd', 		width: '100px', 	type: 'output',			style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
@@ -246,8 +247,8 @@
         		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['주문자'], 		ref: 'outordrPrsn', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['공급자명'], 		ref: 'splyPrsn', 		width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['상품명'], 		ref: 'gdsNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['상품코드'], 		ref: 'gdsCd', 			width: '100px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '150px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['상품코드'], 		ref: 'spmtPckgUnitCd', 	width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['배송지'], 		ref: 'dldtn', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['품목'], 			ref: 'itemNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['품종'], 			ref: 'vrtyNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
@@ -257,12 +258,12 @@
 				format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
             {caption: ['낱개수량'], 		ref: 'pieceQntt', 		width: '70px', 		type: 'input',			style:'text-align: right',
 				format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
-            {caption: ['단위'], 			ref: 'unit', 			width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['단위'], 			ref: 'unitCd', 			width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['박스단가'], 		ref: 'bxUntprc', 		width: '100px', 	type: 'output',			style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
             {caption: ['발주단가'], 		ref: 'outordrUntprc', 	width: '100px', 	type: 'output',			style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-            {caption: ['발주단위'], 		ref: 'outordrUnit', 	width: '70px', 		type: 'output',			style:'text-align: center'},
+            {caption: ['발주단위'], 		ref: 'outordrUnitCd', 	width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['LOT'], 			ref: 'lot', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['세액'], 			ref: 'txAmt', 			width: '100px', 	type: 'input',			style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}, validate : gfn_chkByte.bind({byteLimit: 18})},
@@ -278,7 +279,7 @@
             {caption: ['센터명'], 		ref: 'cntrNm', 			width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['납품구분'], 		ref: 'dlvgdsSeCd', 		width: '70px', 		type: 'output',			style:'text-align: center'},
             {caption: ['기타'], 			ref: 'etc', 			width: '300px', 	type: 'output',			style:'text-align: center'},
-            {caption: ['접수APC (농협)'], ref: 'rcptCfmtnApcCd', 	width: '200px', 	type: 'output',			style:'text-align: center'},
+            {caption: ['접수APC (농협)'], ref: 'rcptCfmtnApcNm', 	width: '200px', 	type: 'output',			style:'text-align: center'},
             {caption: ['포장지시번호'], 	ref: 'pckgCmndno', 		width: '100px', 	type: 'output',			style:'text-align: center'},
             {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', 	type: 'output',			style:'text-align: center',
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
@@ -289,7 +290,13 @@
             {caption: ['거래처코드'], 		ref: 'apcCnptCd', 		hidden: true},
             {caption: ['품목코드'], 		ref: 'itemCd', 			hidden: true},
             {caption: ['품종코드'], 		ref: 'vrtyCd', 			hidden: true},
-            {caption: ['규격코드'], 		ref: 'spcfctCd', 		hidden: true}
+            {caption: ['규격코드'], 		ref: 'spcfctCd', 		hidden: true},
+            {caption: ['주문자코드'], 		ref: 'outordrPrsnCd', 	hidden: true},
+            {caption: ['발주유형'], 		ref: 'outordrType', 	hidden: true},
+            {caption: ['센터코드'], 		ref: 'cntrCd', 			hidden: true},
+            {caption: ['배송지코드'], 		ref: 'dldtnCd', 		hidden: true},
+            {caption: ['접수APC 코드'], 	ref: 'rcptCfmtnApcCd', 	hidden: true},
+            {caption: ['삭제유무'], 		ref: 'delYn', 			hidden: true}
         ];
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
         grdOutordrInfo.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
@@ -316,14 +323,8 @@
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
 		let dudtYmd = SBUxMethod.get("srch-dtp-dudtYmd");
-		let gdsNm = SBUxMethod.get("srch-inp-gdsNm");
-		let pckgCmndYmd = SBUxMethod.get("srch-dtp-pckgCmndYmd");
-		let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
+		let spmtPckgUnitNm = SBUxMethod.get("srch-inp-spmtPckgUnitNm");
 // 		let apcSeCd = ;
-		if (gfn_isEmpty(rcptYn)){
-			gfn_comAlert("W0002", "접수여부");		//	W0002	{0}을/를 입력하세요.
-            return;
-		}
 		if (gfn_isEmpty(outordrYmdFrom)){
 			gfn_comAlert("W0002", "발주일자");		//	W0002	{0}을/를 입력하세요.
             return;
@@ -342,9 +343,7 @@
 					, vrtyCd 				: vrtyCd
 					, apcCnptNm 			: cnptNm
 					, wrhsYmd 				: dudtYmd
-					, gdsNm 				: gdsNm
-					, pckgCmndYmd 			: pckgCmndYmd
-					, fcltCd 				: fcltCd
+					, spmtPckgUnitNm 		: spmtPckgUnitNm
 					, pagingYn 				: 'Y'
 					, currentPageNo 		: currentPageNo
 					, recordCountPerPage 	: recordCountPerPage};
@@ -357,6 +356,7 @@
 					  checked 				: "false"
 					, rcptCfmtnYmd 			: item.rcptCfmtnYmd
 					, outordrType 			: item.outordrType
+					, outordrTypeNm 		: item.outordrTypeNm
 					, rcptYn 				: null
 					, outordrno 			: item.outordrno
 					, apcCnptNm	 			: item.apcCnptNm
@@ -364,8 +364,8 @@
 					, outordrYmd 			: item.outordrYmd
 					, outordrPrsn 			: item.outordrPrsn
 					, splyPrsn 				: item.splyPrsn
-					, gdsNm 				: item.gdsNm
-					, gdsCd					: item.gdsCd
+					, spmtPckgUnitNm 		: item.spmtPckgUnitNm
+					, spmtPckgUnitCd		: item.spmtPckgUnitCd
 					, dldtn 				: item.dldtn
 					, itemNm 				: item.itemNm
 					, vrtyNm 				: item.vrtyNm
@@ -373,10 +373,10 @@
 					, bxGdsQntt 			: item.bxGdsQntt
 					, outordrQntt			: item.outordrQntt
 					, pieceQntt				: item.pieceQntt
-					, unit					: item.unit
+					, unitCd				: item.unitCd
 					, bxUntprc				: item.bxUntprc
 					, outordrUntprc			: item.outordrUntprc
-					, outordrUnit			: item.outordrUnit
+					, outordrUnitCd			: item.outordrUnitCd
 					, lot					: item.lot
 					, txAmt					: item.txAmt
 					, outordrAmt			: item.outordrAmt
@@ -389,7 +389,7 @@
 					, cntrNm				: item.cntrNm
 					, dlvgdsSeCd			: item.dlvgdsSeCd
 					, etc					: item.etc
-					, rcptCfmtnApcCd		: item.rcptCfmtnApcCd
+					, rcptCfmtnApcNm		: item.rcptCfmtnApcNm
 					, pckgCmndno			: item.pckgCmndno
 					, spmtYmd				: item.spmtYmd
 					, apcCd 				: item.apcCd
@@ -398,6 +398,11 @@
 					, itemCd 				: item.itemCd
 					, vrtyCd 				: item.vrtyCd
 					, spcfctCd 				: item.spcfctCd
+					, outordrPrsnCd 		: item.outordrPrsnCd
+					, cntrCd				: item.cntrCd
+					, dldtnCd				: item.dldtnCd
+					, rcptCfmtnApcCd		: item.rcptCfmtnApcCd
+					, delYn					: item.delYn
 				}
 				if(ordr.rcptCfmtnYmd != null && ordr.rcptCfmtnYmd != ""){
 					ordr.rcptYn = 'Y';
@@ -473,6 +478,7 @@
         		fn_callSelectOutordrInfoList();
         		fn_search();
         	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
         } catch(e) {
@@ -576,12 +582,12 @@
 
 	// 상품 선택 팝업 호출
 	const fn_modalGds = function() {
-    	popGds.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-gdsNm"), fn_setGdsNm);
+    	popGds.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-spmtPckgUnitNm"), fn_setGdsNm);
 	}
 
 	const fn_setGdsNm = function(gds) {
 		if (!gfn_isEmpty(gds)) {
-			SBUxMethod.set('srch-inp-gdsNm', gds.gdsNm);
+			SBUxMethod.set('srch-inp-spmtPckgUnitNm', gds.spmtPckgUnitNm);
 		}
 	}
 </script>

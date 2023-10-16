@@ -25,6 +25,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltDtaMngInfo */
 				  FCLT.TRGT_YR                       AS TRGT_YR
 				, FCLT.APC_CD                        AS APC_CD
+				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
 				, FCLT.FCLT_SYS_HLD_YN               AS FCLT_SYS_HLD_YN
 				, FCLT.FCLT_SYS_HLD_YN2              AS FCLT_SYS_HLD_YN2
 				, FCLT.FCLT_SYS_HLD_YN3              AS FCLT_SYS_HLD_YN3
@@ -72,7 +73,7 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltDtaMngInfoList */
 				  FCLT.TRGT_YR                       AS TRGT_YR
 				, FCLT.APC_CD                        AS APC_CD
-				, FCLT.SN                            AS SN
+				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
 				, FCLT.FCLT_SYS_HLD_YN               AS FCLT_SYS_HLD_YN
 				, FCLT.FCLT_SYS_HLD_YN2              AS FCLT_SYS_HLD_YN2
 				, FCLT.FCLT_SYS_HLD_YN3              AS FCLT_SYS_HLD_YN3

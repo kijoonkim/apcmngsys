@@ -69,4 +69,15 @@ public interface PckgPrfmncService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deletePckgPrfmnc(PckgPrfmncVO pckgPrfmncVO) throws Exception;
+	
+	/**
+	 * 포장실적 목록 삭제
+	 * @param pckgPrfmncList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deletePckgPrfmncList(List<PckgPrfmncVO> pckgPrfmncList) throws Exception;
+	
+	
+	
 }

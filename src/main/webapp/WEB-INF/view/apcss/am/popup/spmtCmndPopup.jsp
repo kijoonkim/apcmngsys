@@ -101,21 +101,20 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		    	{caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '70px',	type: 'output',	style:'text-align: center',
+		    	{caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '80px',	type: 'output',	style:'text-align: center',
 	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	            {caption: ['거래처'], 		ref: 'cnptNm', 			width: '110px',	type: 'output',	style:'text-align: center'},
-	            {caption: ['상품명'], 		ref: 'gdsNm', 			width: '110px',	type: 'output',	style:'text-align: center'},
 	            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 		width: '100px',	type: 'output',	style:'text-align: center'},
-	            {caption: ['배송처'], 		ref: 'dldtn', 			width: '100px',	type: 'output',	style:'text-align: center'},
+	            {caption: ['배송처'], 		ref: 'dldtn', 			width: '120px',	type: 'output',	style:'text-align: center'},
 	            {caption: ['수량'], 		ref: 'cmndQntt', 		width: '40px',	type: 'output',	style:'text-align: right',
 	            	format : {type:'number', rule:'#,###'}},
 	            {caption: ['중량'], 		ref: 'cmndWght', 		width: '60px',	type: 'output',	style:'text-align: right',
 	            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
 	            {caption: ['등급'], 		ref: 'gdsGrdNm', 		width: '50px',	type: 'output',	style:'text-align: center'},
-	            {caption: ['포장단위'], 	ref: 'spmtPckgUnitNm', 	width: '110px',	type: 'output',	style:'text-align: center'},
+	            {caption: ['포장단위'], 	ref: 'spmtPckgUnitNm', 	width: '140px',	type: 'output',	style:'text-align: center'},
 	            {caption: ['품종'], 		ref: 'vrtyNm', 			width: '60px',	type: 'output',	style:'text-align: center'},
 	            {caption: ['규격'], 		ref: 'spcfctNm', 		width: '60px',	type: 'output',	style:'text-align: center'},
-	            {caption: ['비고'], 		ref: 'rmrk', 			width: '100px',	type: 'output'}
+	            {caption: ['비고'], 		ref: 'rmrk', 			width: '150px',	type: 'output'}
 		    ];
 		    grdSpmtCmndPop = _SBGrid.create(SBGridProperties);
 		    grdSpmtCmndPop.bind('dblclick', popSpmtCmnd.choice);
@@ -180,6 +179,7 @@
 						  , spcfctNm 		: item.spcfctNm
 						  , rmrk			: item.rmrk
 						  , itemCd			: item.itemCd
+						  , outordrno		: item.outordrno
 					}
 					jsonSpmtCmndPop.push(spmtCmnd);
 
