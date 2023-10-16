@@ -194,12 +194,12 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonApcItem, 		gv_selectedApcCd),							// 품목
-		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonApcVrty, 		gv_selectedApcCd),							// 품종
-			gfn_setComCdSBSelect('srch-slt-fcltCd', 	jsonComFcltCd, 		'FCLT_CD', 			gv_selectedApcCd),		// 창고
-			gfn_setComCdSBSelect('srch-slt-fcltCd', 	jsonComOutordrType, 'OUTORDR_TYPE', 	gv_selectedApcCd),		// 발주유형
-			setRcptYnSBSelect('srch-slt-rcptYn', 		jsonRcptYn),													// 접수여부
-			SBUxMethod.refresh('grdOutordrInfo')																		// 접수여부 (그리드)
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 	 jsonApcItem, 			gv_selectedApcCd),							// 품목
+		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	 jsonApcVrty, 			gv_selectedApcCd),							// 품종
+			gfn_setComCdSBSelect('srch-slt-fcltCd', 	 jsonComFcltCd, 		'PCKG_FCLT_CD', 	gv_selectedApcCd),		// 창고
+			gfn_setComCdSBSelect('srch-slt-outordrType', jsonComOutordrType,	'OUTORDR_TYPE'),							// 발주유형
+			setRcptYnSBSelect('srch-slt-rcptYn', 		 jsonRcptYn),														// 접수여부
+			SBUxMethod.refresh('grdOutordrInfo')																			// 접수여부 (그리드)
 		]);
 	}
 
