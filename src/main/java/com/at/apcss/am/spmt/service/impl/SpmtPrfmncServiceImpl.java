@@ -1,6 +1,7 @@
 package com.at.apcss.am.spmt.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper;
 import com.at.apcss.am.spmt.service.SpmtPrfmncService;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
+import com.at.apcss.co.constants.ComConstants;
 
 /**
  * @Class Name : SpmtPrfmncServiceImpl.java
@@ -41,6 +44,9 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 
 	@Resource(name= "cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
+
+	@Resource(name = "cmnsValidationService")
+	private CmnsValidationService cmnsValidationService;
 
 	@Override
 	public SpmtPrfmncVO selectSpmtPrfmnc(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
@@ -144,7 +150,10 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 	}
 
 	@Override
-	public int deleteSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
+	public HashMap<String, Object> deleteSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
 		int deletedCnt = 0;
 
 		List<SpmtPrfmncVO> deleteList = new ArrayList<>();
@@ -152,31 +161,39 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 
 		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
 
-			deleteSpmtPrfmncCom(spmtPrfmncVO);
+			String result = cmnsValidationService.selectChkDdlnYn(spmtPrfmncVO.getApcCd(), spmtPrfmncVO.getSpmtYmd());
 
-			deleteList = selectSpmtPrfmncDtl(spmtPrfmncVO);
+			if(result == null) {
+				deleteSpmtPrfmncCom(spmtPrfmncVO);
 
-			for (SpmtPrfmncVO spmtPrfmnc : deleteList) {
+				deleteList = selectSpmtPrfmncDtl(spmtPrfmncVO);
 
-				spmtPrfmnc.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
-				spmtPrfmnc.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+				for (SpmtPrfmncVO spmtPrfmnc : deleteList) {
 
-				deletedCnt += deleteSpmtPrfmncDtl(spmtPrfmnc);
+					spmtPrfmnc.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+					spmtPrfmnc.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
-				GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
-				gdsInvntrVO.setApcCd(spmtPrfmnc.getApcCd());
-				gdsInvntrVO.setPckgno(spmtPrfmnc.getPckgno());
-				gdsInvntrVO.setPckgSn(spmtPrfmnc.getPckgSn());
-				gdsInvntrVO.setSpmtQntt(spmtPrfmnc.getSpmtQntt());
-				gdsInvntrVO.setSpmtWght(spmtPrfmnc.getSpmtWght());
-				gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
-				gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+					deletedCnt += deleteSpmtPrfmncDtl(spmtPrfmnc);
 
-				gdsInvntrService.updateGdsInvntrSpmtPrfmncCncl(gdsInvntrVO);
+					GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+					gdsInvntrVO.setApcCd(spmtPrfmnc.getApcCd());
+					gdsInvntrVO.setPckgno(spmtPrfmnc.getPckgno());
+					gdsInvntrVO.setPckgSn(spmtPrfmnc.getPckgSn());
+					gdsInvntrVO.setSpmtQntt(spmtPrfmnc.getSpmtQntt());
+					gdsInvntrVO.setSpmtWght(spmtPrfmnc.getSpmtWght());
+					gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+					gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+
+					gdsInvntrService.updateGdsInvntrSpmtPrfmncCncl(gdsInvntrVO);
+				}
+			}else {
+				resultMap.put("errCd", ComConstants.MSGCD_ALEADY_CLOSE);
+				return resultMap;
 			}
 
 		}
-		return deletedCnt;
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		return resultMap;
 	}
 
 	@Override

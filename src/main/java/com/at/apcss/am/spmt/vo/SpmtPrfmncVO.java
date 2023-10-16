@@ -218,4 +218,12 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 상품등급먕
 	 */
 	private String gdsGrdNm;
+	/**
+	 * 마감여부
+	 */
+	private String ddlnYn;
+	/**
+	 * 매출확정여부
+	 */
+	private String cfmtnYn;
 }
