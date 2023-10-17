@@ -115,7 +115,7 @@
 					   AND SI.SORTNO = PC.SORTNO(+)
 					   AND SI.SORT_SN = PC.SORT_SN(+)
 					   AND SI.DEL_YN = 'N'
-					   AND PC.DEL_YN = 'N'
+					   AND PC.DEL_YN(+) = 'N'
 					   AND SI.INVNTR_WGHT > 0
 		]]>
 

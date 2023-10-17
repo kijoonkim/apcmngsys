@@ -1,5 +1,6 @@
 package com.at.apcss.am.spmt.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
@@ -98,7 +99,7 @@ public interface SpmtPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception;
+	public HashMap<String, Object> deleteSpmtPrfmnc(List<SpmtPrfmncVO> spmtPrfmnc) throws Exception;
 
 	/**
 	 * 출하실적 등록 내역 목록 조회

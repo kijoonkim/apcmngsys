@@ -19,6 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnCmndDocSpmt" name="btnCmndDocSpmt" uitype="normal" class="btn btn-sm btn-primary" text="출하지시서" onclick="fn_cmndDocSpmt"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
@@ -93,7 +94,7 @@
 											name="srch-slt-vrtyCd"
 											class="form-control input-sm"
 											jsondata-ref="jsonApcVrty"
-											onchange="fn_onChangeSrchVrtyCd(this)"
+											onchange="fn_selectVrty(this)"
 										/>
 									</div>
 								</div>
@@ -156,13 +157,29 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-			gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', jsonTrsprtCoCd, gv_selectedApcCd),				// 운송회사
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),						// 품목
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),						// 품종
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd),				// 규격
+			gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', 	jsonTrsprtCoCd, gv_selectedApcCd),				// 운송회사
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),						// 품목
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonApcVrty, gv_selectedApcCd),						// 품종
 			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd)	// 포장단위
 		]);
         fn_search();
+	}
+
+	const fn_selectVrty = async function(){
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let itemCd = "";
+		for(i=0;i<jsonApcVrty.length;i++){
+			if(jsonApcVrty[i].value == vrtyCd){
+				itemCd = jsonApcVrty[i].mastervalue;
+			}
+		}
+		SBUxMethod.set("srch-slt-itemCd", itemCd);
+		let rst = await Promise.all([
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonApcSpcfct, 		gv_selectedApcCd, itemCd),					// 규격
+			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmnd', 		jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd, vrtyCd)	// 포장구분
+		])
+		grdSpmtCmnd.refresh({"combo":true})
+		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -176,7 +193,7 @@
 	function fn_createSpmtCmndGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdSpmtCmnd';
-	    SBGridProperties.id = 'grdSmptCmnd';
+	    SBGridProperties.id = 'grdSpmtCmnd';
 	    SBGridProperties.jsonref = 'jsonSmptCmnd';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
@@ -192,6 +209,8 @@
 		  	'showgoalpageui' : true
 	    };
         SBGridProperties.columns = [
+        	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
             {caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '120px',	type: 'output',	style:'text-align: center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['거래처'], 	ref: 'cnptNm', 			width: '200px',	type: 'output',	style:'text-align: center'},
@@ -207,18 +226,16 @@
             {caption: ['규격'], 		ref: 'spcfctNm', 		width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['비고'], 		ref: 'rmrk', 			width: '200px',	type: 'output'}
         ];
-        grdSmptCmnd = _SBGrid.create(SBGridProperties);
-        grdSmptCmnd.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
+        grdSpmtCmnd = _SBGrid.create(SBGridProperties);
+        grdSpmtCmnd.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
     }
 
 	// 출하지시 목록 조회 (조회 버튼)
     async function fn_search() {
-    	let recordCountPerPage = grdSmptCmnd.getPageSize();  		// 몇개의 데이터를 가져올지 설정
+    	let recordCountPerPage = grdSpmtCmnd.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
-    	grdSmptCmnd.movePaging(currentPageNo);
+    	grdSpmtCmnd.movePaging(currentPageNo);
     }
-
-	let newJsonSmptCmnd = [];
 
 	// 출하지시 목록 조회 호출
 	async function fn_callSelectSpmtCmndList(recordCountPerPage, currentPageNo){
@@ -240,7 +257,8 @@
 			gfn_comAlert("W0002", "지시일자");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
-		let SpmtCmndVO = {apcCd 				: apcCd
+
+		let spmtCmndVO = {apcCd 				: apcCd
 						, cmndYmdFrom 			: cmndYmdFrom
 						, cmndYmdTo 			: cmndYmdTo
 						, cnptNm 				: cnptNm
@@ -252,10 +270,11 @@
 						, pagingYn 				: 'Y'
 						, currentPageNo 		: currentPageNo
 						, recordCountPerPage 	: recordCountPerPage};
-    	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", SpmtCmndVO);
+		console.log(spmtCmndVO)
+    	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", spmtCmndVO);
         let data = await postJsonPromise;
-        newJsonSmptCmnd = [];
         try{
+        	jsonSmptCmnd.length = 0;
         	data.resultList.forEach((item, index) => {
 				let spmtCmnd = {
 				    cmndYmd 		: item.cmndYmd
@@ -270,20 +289,24 @@
 				  , vrtyNm 			: item.vrtyNm
 				  , spcfctNm 		: item.spcfctNm
 				  , rmrk			: item.rmrk
+				  , spmtQntt		: item.spmtQntt
+				  , spmtWght		: item.spmtWght
+				  , apcCd			: item.apcCd
+				  , spmtCmndno		: item.spmtCmndno
+				  , spmtCmndSn		: item.spmtCmndSn
 				}
-				jsonSmptCmnd.push(Object.assign({}, spmtCmnd));
-				newJsonSmptCmnd.push(Object.assign({}, spmtCmnd));
+				jsonSmptCmnd.push(spmtCmnd);
 			});
         	if(jsonSmptCmnd.length > 0){
-				if(grdSmptCmnd.getPageTotalCount() != data.resultList[0].totalRecordCount){   	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-					grdSmptCmnd.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-					grdSmptCmnd.rebuild();
+				if(grdSpmtCmnd.getPageTotalCount() != data.resultList[0].totalRecordCount){   	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdSpmtCmnd.setPageTotalCount(data.resultList[0].totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdSpmtCmnd.rebuild();
 				}else{
-					grdSmptCmnd.refresh();
+					grdSpmtCmnd.refresh();
 				}
 			}else{
-				grdSmptCmnd.setPageTotalCount(0);
-				grdSmptCmnd.rebuild();
+				grdSpmtCmnd.setPageTotalCount(0);
+				grdSpmtCmnd.rebuild();
 			}
         }catch (e) {
     		if (!(e instanceof Error)) {
@@ -295,10 +318,52 @@
 
 	// 페이징
     async function fn_pagingSmptCmnd(){
-    	let recordCountPerPage = grdSmptCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdSmptCmnd.getSelectPageIndex();
+    	let recordCountPerPage = grdSpmtCmnd.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = grdSpmtCmnd.getSelectPageIndex();
     	fn_callSelectSpmtCmndList(recordCountPerPage, currentPageNo);
     }
+
+    const fn_del = async function(){
+		let grdRows = grdSpmtCmnd.getCheckedRows(0);
+    	let deleteList = [];
+
+    	for(var i=0; i< grdRows.length; i++){
+    		let nRow = grdRows[i];
+    		let rowData = grdSpmtCmnd.getRowData(nRow);
+    		let spmtQntt = rowData.spmtQntt;
+
+    		if(spmtQntt > 0){
+	    		gfn_comAlert("W0009", "출하실적");			// W0009	{0}이/가 있습니다.
+    			return;
+    		}
+
+    		deleteList.push(rowData);
+    	}
+    	if(grdRows.length == 0){
+    		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
+    		return;
+    	}
+
+    	let regMsg = "삭제 하시겠습니까?";
+		if(confirm(regMsg)){
+			const postJsonPromise = gfn_postJSON("/am/spmt/deleteSpmtCmndList.do", deleteList);
+	    	const data = await postJsonPromise;
+
+	    	try{
+	       		if(data.deletedCnt > 0){
+	       			fn_search();
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	       		}else{
+	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
+	       		}
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
+	}
 
 	// 출하지시서
     async function fn_cmndDocSpmt(){
@@ -340,7 +405,11 @@
 			await fn_onChangeSrchItemCd({value: itemCd});
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
-		gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd, vrtyCd);
+		let rst = await Promise.all([
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 			jsonApcSpcfct, 		gv_selectedApcCd, itemCd),			// 규격		(조회)
+			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', 	jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd, vrtyCd)	// 포장단위	(그리드)
+		])
+
 	}
 
 	// 거래처 선택 팝업 호출

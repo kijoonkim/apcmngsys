@@ -39,7 +39,6 @@ public class SpmtPrfmncController extends BaseController {
 	@Resource(name= "spmtPrfmncService")
 	private SpmtPrfmncService spmtPrfmncService;
 
-
 	// 출하실적 조회
 	@PostMapping(value = "/am/spmt/selectSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncList(@RequestBody SpmtPrfmncVO SpmtPrfmncVO, HttpServletRequest request) throws Exception {
@@ -105,7 +104,6 @@ public class SpmtPrfmncController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> deleteSpmtPrfmncList(@RequestBody List<SpmtPrfmncVO> SpmtPrfmncList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int deletedCnt = 0;
 		try {
 
 			for (SpmtPrfmncVO spmtPrfmncVO : SpmtPrfmncList) {
@@ -115,8 +113,7 @@ public class SpmtPrfmncController extends BaseController {
 				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			deletedCnt = spmtPrfmncService.deleteSpmtPrfmnc(SpmtPrfmncList);
-			resultMap.put(ComConstants.PROP_DELETED_CNT,  deletedCnt);
+			resultMap = spmtPrfmncService.deleteSpmtPrfmnc(SpmtPrfmncList);
 
 		}catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
