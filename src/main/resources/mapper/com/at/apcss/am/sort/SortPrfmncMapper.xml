@@ -78,8 +78,8 @@
 				, SP.GRD_CD			AS GRD_CD
 				, SP.INPT_YMD		AS INPT_YMD
 				, SP.FCLT_CD		AS FCLT_CD
-				, SP.QNTT			AS SORT_QNTT
-				, SP.WGHT			AS SORT_WGHT
+				, SP.SORT_QNTT		AS SORT_QNTT
+				, SP.SORT_WGHT		AS SORT_WGHT
 				, SP.RMRK			AS RMRK
 				, SI.RPRS_PRDCR_CD	AS RPRS_PRDCR_CD
 				, SI.ITEM_CD		AS ITEM_CD
@@ -331,8 +331,8 @@
 					, GRD_CD
 					, INPT_YMD
 					, FCLT_CD
-					, QNTT
-					, WGHT
+					, SORT_QNTT
+					, SORT_WGHT
 					, RMRK
 					, SORT_CMNDNO
 		    		, SYS_FRST_INPT_DT
@@ -350,8 +350,8 @@
 					, #{grdCd}
 					, #{inptYmd}
 					, #{fcltCd}
-					, #{qntt}
-					, #{wght}
+					, #{sortQntt}
+					, #{sortWght}
 					, #{rmrk}
 					, #{sortCmndno}
 		    		, SYSDATE
@@ -383,8 +383,8 @@
 				, GRD_CD 		= #{grdCd}
 				, INPT_YMD 		= #{inptYmd}
 				, FCLT_CD		= #{fcltCd}
-				, QNTT 			= #{qntt}
-				, WGHT 			= #{wght}
+				, SORT_QNTT 	= #{sortQntt}
+				, SORT_WGHT 	= #{sortWght}
 				, RMRK 			= #{rmrk}
 				, SORT_CMNDNO 	= #{sortCmndno}
 		]]>
