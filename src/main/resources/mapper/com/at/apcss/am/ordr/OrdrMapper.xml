@@ -50,7 +50,7 @@
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectOrdrList */
 	    		   OI.APC_CD							AS APC_CD
-    		  	 , OI.APC_SE_CD							AS APC_SE_CD
+    		  	 , MAX(OI.APC_SE_CD)					AS APC_SE_CD
     		  	 , OI.RCPT_CFMTN_YMD					AS RCPT_CFMTN_YMD
     		  	 , OI.OUTORDR_TYPE						AS OUTORDR_TYPE
 			  	 , OI.OUTORDRNO							AS OUTORDRNO
@@ -85,8 +85,8 @@
     		  	 , OI.DLVGDS_SE_CD						AS DLVGDS_SE_CD
     		  	 , OI.ETC								AS ETC
     		  	 , OI.RCPT_CFMTN_APC_CD					AS RCPT_CFMTN_APC_CD
-    		  	 , OI.SPMT_CMNDNO						AS SPMT_CMNDNO
-    		  	 , SC.SPMT_YMD							AS SPMT_YMD
+    		  	 , MIN(SC.SPMT_CMNDNO)					AS SPMT_CMNDNO
+    		  	 , MAX(SP.SPMT_YMD)						AS SPMT_YMD
 	             , (SELECT GDS_GRD
                       FROM TB_SPMT_PCKG_UNIT X
                      WHERE X.APC_CD = OI.APC_CD
@@ -102,20 +102,36 @@
                    ) 									AS WGHT
     		  	 , OI.DEL_YN							AS DEL_YN
 			  FROM TB_OUTORDR_INFO OI
-			     , TB_SPMT_PRFMNC_COM SC
-			     , TB_SPMT_PRFMNC_DTL SD
-			 WHERE OI.APC_CD = SC.APC_CD
-			   AND OI.APC_CD = SD.APC_CD
-			   AND OI.ITEM_CD = SD.ITEM_CD
-			   AND OI.VRTY_CD = SD.VRTY_CD
-			   AND OI.SPCFCT_CD = SD.SPCFCT_CD
-			   AND OI.SPMT_PCKG_UNIT_CD = SD.SPMT_PCKG_UNIT_CD
-			   AND OI.OUTORDRNO = SD.OUTORDRNO
-			   AND SC.SPMTNO = SD.SPMTNO
-			   AND OI.APC_CNPT_CD = SC.CNPT_CD
+			     , TB_SPMT_CMND SC
+			     , (SELECT PC.APC_CD
+			     		 , PC.SPMTNO
+			     		 , PD.ITEM_CD
+			     		 , PD.VRTY_CD
+			     		 , PD.SPCFCT_CD
+			     		 , PD.SPMT_PCKG_UNIT_CD
+			     		 , PC.CNPT_CD
+			     		 , MIN(PC.SPMT_YMD) AS SPMT_YMD
+			     		 , MIN(PD.OUTORDRNO) AS OUTORDRNO
+			     	  FROM TB_SPMT_PRFMNC_COM PC
+			     	     , TB_SPMT_PRFMNC_DTL PD
+			     	 WHERE PC.APC_CD = PD.APC_CD
+			     	   AND PC.SPMTNO = PD.SPMTNO
+			           AND PC.DEL_YN = 'N'
+			           AND PD.DEL_YN = 'N'
+			         GROUP BY PC.APC_CD
+			         		, PC.SPMTNO
+			         		, PD.ITEM_CD
+			         		, PD.VRTY_CD
+			         		, PD.SPCFCT_CD
+			         		, PD.SPMT_PCKG_UNIT_CD
+			         		, PC.CNPT_CD
+			       ) SP
+			 WHERE OI.APC_CD = SC.APC_CD(+)
+			   AND OI.APC_CD = SP.APC_CD(+)
+			   AND OI.OUTORDRNO = SC.OUTORDRNO(+)
+			   AND OI.OUTORDRNO = SP.OUTORDRNO(+)
 			   AND OI.DEL_YN = 'N'
-			   AND SC.DEL_YN = 'N'
-			   AND SD.DEL_YN = 'N'
+			   AND SC.DEL_YN(+) = 'N'
 		]]>
 		<if test='rcptYn != null and rcptYn == "Y"'>
 			   AND ((
@@ -170,7 +186,6 @@
 		</if>
     	<![CDATA[
 		  GROUP BY OI.APC_CD
-		         , OI.APC_SE_CD
 		         , OI.RCPT_CFMTN_YMD
 		       	 , OI.OUTORDR_TYPE
 		       	 , OI.OUTORDRNO
@@ -208,8 +223,6 @@
 		         , OI.DLVGDS_SE_CD
 		         , OI.ETC
 		         , OI.RCPT_CFMTN_APC_CD
-		         , OI.SPMT_CMNDNO
-		         , SC.SPMT_YMD
 		         , OI.DEL_YN
 		]]>
 		<!-- Start 페이징 -->
