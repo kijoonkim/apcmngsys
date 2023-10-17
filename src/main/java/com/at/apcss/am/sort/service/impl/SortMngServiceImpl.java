@@ -156,8 +156,8 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 		List<RawMtrInvntrVO> rawMtrInvntrVOList = new ArrayList<>();
 
 		for ( SortPrfmncVO sort : prfmncList ) {
-			sort.setRmnQntt(sort.getQntt());
-			sort.setRmnWght(sort.getWght());
+			sort.setRmnQntt(sort.getSortQntt());
+			sort.setRmnWght(sort.getSortWght());
 		}
 
 		// 포장자동등록 대상
@@ -335,8 +335,8 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				SortInvntrVO invntrVO = new SortInvntrVO();
 				BeanUtils.copyProperties(sortVO, invntrVO);
 
-				invntrVO.setInptQntt(sortVO.getQntt());
-				invntrVO.setInptWght(sortVO.getWght());
+				invntrVO.setInptQntt(sortVO.getSortQntt());
+				invntrVO.setInptWght(sortVO.getSortWght());
 				invntrVO.setQntt(0);
 				invntrVO.setWght(0);
 
@@ -346,8 +346,8 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				BeanUtils.copyProperties(invntrVO, pckgVO);
 				pckgVO.setInptYmd(sortVO.getInptYmd());
 				pckgVO.setPckgYmd(sortVO.getInptYmd());
-				pckgVO.setPckgQntt(sortVO.getQntt());
-				pckgVO.setPckgWght(sortVO.getWght());
+				pckgVO.setPckgQntt(sortVO.getSortQntt());
+				pckgVO.setPckgWght(sortVO.getSortWght());
 				pckgVO.setGdsGrd(sortVO.getGrdCd());
 				pckgPrfmncList.add(pckgVO);
 			}

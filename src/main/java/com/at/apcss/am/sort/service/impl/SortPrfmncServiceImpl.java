@@ -18,7 +18,6 @@ import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.sort.mapper.SortPrfmncMapper;
 import com.at.apcss.am.sort.service.SortInptPrfmncService;
 import com.at.apcss.am.sort.service.SortPrfmncService;
-import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
@@ -112,10 +111,10 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 
 			SortInvntrVO sortInvntrVO = new SortInvntrVO();
 			BeanUtils.copyProperties(sortPrfmncVO, sortInvntrVO);
-			sortInvntrVO.setSortQntt(sortPrfmncVO.getQntt());
-			sortInvntrVO.setSortWght(sortPrfmncVO.getWght());
-			sortInvntrVO.setInvntrQntt(sortPrfmncVO.getQntt());
-			sortInvntrVO.setInvntrWght(sortPrfmncVO.getWght());
+			sortInvntrVO.setSortQntt(sortPrfmncVO.getSortQntt());
+			sortInvntrVO.setSortWght(sortPrfmncVO.getSortWght());
+			sortInvntrVO.setInvntrQntt(sortPrfmncVO.getSortQntt());
+			sortInvntrVO.setInvntrWght(sortPrfmncVO.getSortWght());
 
 			sortInvntrList.add(sortInvntrVO);
 		}

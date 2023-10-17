@@ -587,12 +587,12 @@
 		const columns2 = [
 			{
 				caption: ["수량"],
-				ref: 'qntt',
+				ref: 'sortQntt',
 				datatype: 'number',
 				type:'input',
 				width:'80px',
 				style: 'text-align:right;background-color:#FFF8DC',
-				userattr: {colNm: "qntt"},
+				userattr: {colNm: "sortQntt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
 	                maxlength: 6,
@@ -602,12 +602,12 @@
 			},
 			{
 				caption: ["중량"],
-				ref: 'wght',
+				ref: 'sortWght',
 				datatype: 'number',
 				type:'input',
 				width:'80px',
 				style: 'text-align:right;background-color:#FFF8DC',
-				userattr: {colNm: "wght"},
+				userattr: {colNm: "sortWght"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
 	                maxlength: 6,
@@ -818,8 +818,8 @@
 			const spcfctCd = allSortData[i].spcfctCd;
 			const warehouseSeCd = allSortData[i].warehouseSeCd;
 			const spcfctWght = parseInt(allSortData[i].spcfctWght) || 0;
-			const qntt = parseInt(allSortData[i].qntt) || 0;
-			const wght = parseInt(allSortData[i].wght) || 0;
+			const sortQntt = parseInt(allSortData[i].sortQntt) || 0;
+			const sortWght = parseInt(allSortData[i].sortWght) || 0;
 
 			if (gfn_isEmpty(inptYmd)) {
 				gfn_comAlert("W0005", "선별일자");		//	W0005	{0}이/가 없습니다.
@@ -841,11 +841,11 @@
 				gfn_comAlert("W0005", "창고");		//	W0005	{0}이/가 없습니다.
 				return;
 			}
-			if (qntt <= 0) {
+			if (sortQntt <= 0) {
 				gfn_comAlert("W0005", "선별수량");		//	W0005	{0}이/가 없습니다.
 				return;
 			}
-			if (wght <= 0) {
+			if (sortWght <= 0) {
 				gfn_comAlert("W0005", "선별중량");		//	W0005	{0}이/가 없습니다.
 				return;
 			}
@@ -866,8 +866,8 @@
 				const warehouseSeCd = item.warehouseSeCd;
 				const spcfctWght = parseInt(item.spcfctWght) || 0;
 
-				const qntt = parseInt(item.qntt) || 0;
-				const wght = parseInt(item.wght) || 0;
+				const sortQntt = parseInt(item.sortQntt) || 0;
+				const sortWght = parseInt(item.sortWght) || 0;
 
 				const stdGrdList = [];
 
@@ -908,14 +908,14 @@
     				spcfctCd: spcfctCd,
     				warehouseSeCd: warehouseSeCd,
     				grdCd: jgmtGrdCd,
-    				qntt: qntt,
-    				wght: wght,
+    				sortQntt: sortQntt,
+    				sortWght: sortWght,
     				autoPckgInptYn: autoPckgInptYn,
     				stdGrdList: stdGrdList
 				}
 
 				sortPrfmncList.push(sortPrfmnc);
-    			sortInptWght += wght;
+    			sortInptWght += sortWght;
     		}
 		});
 
@@ -1161,11 +1161,11 @@
 					// 규격중량(단중) set
 	    			rowData.spcfctWght = spcfctInfo.wght;
 
-				case "qntt":
+				case "sortQntt":
 					let spcfctWght = parseInt(rowData.spcfctWght) || 0;
 
-					const wght = rowData.qntt * spcfctWght;
-					rowData.wght = wght;
+					const wght = rowData.sortQntt * spcfctWght;
+					rowData.sortWght = wght;
 
 					grdSortPrfmnc.refresh();
 
@@ -1174,7 +1174,7 @@
 					const allSortData = grdSortPrfmnc.getGridDataAll();
 					allSortData.forEach((item, index) => {
 						if (!gfn_isEmpty(item.inptYmd)) {
-							sortWght += parseInt(item.wght) || 0;
+							sortWght += parseInt(item.sortWght) || 0;
 						}
 					});
 
