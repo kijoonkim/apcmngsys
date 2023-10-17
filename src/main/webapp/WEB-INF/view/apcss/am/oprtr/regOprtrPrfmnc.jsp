@@ -54,7 +54,14 @@
 
 							<th scope="row" class="th_bg"><span class="data_required" ></span>작업구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-jobSe" name="srch-slt-jobSe" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
+								<sbux-select
+									unselected-text="선택"
+									uitype="single"
+									id="srch-slt-jobSe"
+									name="srch-slt-jobSe"
+									jsondata-ref="jsonComPrfmncSeCd"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+								></sbux-select>
 							</td>
 							<td colspan="6" class="td_input" style="border-left: hidden;">&nbsp;</td>
 						</tr>
@@ -86,65 +93,69 @@
 	</section>
 </body>
 <script type="text/javascript">
+	var jsonComPrfmncSeCd
+
+	const fn_initSBSelect = async function() {
+		let rst = await Promise.all([
+			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComPrfmncSeCd, 	'PRFMNC_SE_CD'),	// 작업구분
+		])
+	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_createWghPrfmncGrid();
-	
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2);
-		let day = ('0' + today.getDate()).slice(-2);
-		SBUxMethod.set("srch-inp-jobYmd", year+month+day);
-		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
+		fn_initSBSelect();
+		fn_createPrfmncGrid();
+		SBUxMethod.set("srch-inp-jobYmd", gfn_dateToYmd(new Date()));
 	})
-	
-	function fn_createWghPrfmncGrid() {
-	    var SBGridProperties1 = {};
-		    SBGridProperties1.parentid = 'sb-area-grdWrtrPrfmncDsctn';
-		    SBGridProperties1.id = 'grdJobPrfmnc';
-		    SBGridProperties1.jsonref = 'jsonJobPrfmnc';
-		    SBGridProperties1.emptyrecords = '데이터가 없습니다.';
-		    SBGridProperties1.selectmode = 'byrow';
-		    SBGridProperties1.extendlastcol = 'scroll';
-		    SBGridProperties1.columns = [
-		         {caption: ["작업구분"],	ref: 'msgKey',      type:'output',  width:'120px'},
-		         {caption: ["작업일자"], 	ref: 'msgCn',     	type:'output',  width:'120px'},
-		         {caption: ["설비"], 	 	ref: 'msgKndNm',    type:'output',  width:'120px'},
-		         {caption: ["규격"],    	ref: 'rmrk',        type:'output',  width:'120px'},
-		         {caption: ["수량"],	    ref: 'creUserId',   type:'output',  width:'120px'},
-		         {caption: ["중량"],	    ref: 'creDateTime', type:'output',  width:'120px'},
-		         {caption: ["작업자수"],  	ref: 'updUserId',   type:'output',  width:'120px'},
-		         {caption: ["비고"],  	ref: 'updUserId',   type:'output',  width:'120px'}
+
+	function fn_createPrfmncGrid() {
+
+	    var fn_createPrfmncGrid = {};
+	    SBGridPrfmncProperties.parentid = 'sb-area-grdWrtrPrfmncDsctn';
+	    SBGridPrfmncProperties.id = 'grdPrfmnc';
+	    SBGridPrfmncProperties.jsonref = 'jsonJobPrfmnc';
+	    SBGridPrfmncProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridPrfmncProperties.selectmode = 'byrow';
+	    SBGridPrfmncProperties.extendlastcol = 'scroll';
+	    SBGridPrfmncProperties.columns = [
+	         {caption: ["작업구분"],	ref: 'msgKey',      type:'output',  width:'120px'},
+	         {caption: ["작업일자"], 	ref: 'msgCn',     	type:'output',  width:'120px'},
+	         {caption: ["설비"], 	 	ref: 'msgKndNm',    type:'output',  width:'120px'},
+	         {caption: ["규격"],    	ref: 'rmrk',        type:'output',  width:'120px'},
+	         {caption: ["수량"],	    ref: 'creUserId',   type:'output',  width:'120px'},
+	         {caption: ["중량"],	    ref: 'creDateTime', type:'output',  width:'120px'},
+	         {caption: ["작업자수"],  	ref: 'oprtrQntt',   type:'output',  width:'120px'},
+	         {caption: ["비고"],  		ref: 'rmrk',   type:'output',  width:'120px'}
 	    ];
-	
-	    var SBGridProperties2 = {};
-		    SBGridProperties2.parentid = 'sb-area-grdWrtrPrfmncDsctn2';
-		    SBGridProperties2.id = 'grdOptrtPrfmnc';
-		    SBGridProperties2.jsonref = 'jsonOptrtPrfmnc';
-		    SBGridProperties2.emptyrecords = '데이터가 없습니다.';
-		    SBGridProperties2.selectmode = 'byrow';
-		    SBGridProperties2.extendlastcol = 'scroll';
-		    SBGridProperties2.columns = [
-				{caption: ["작업구분"],		ref: 'msgKey',      type:'output',  width:'120px'},
-				{caption: ["작업일자"], 		ref: 'msgCn',     	type:'output',  width:'120px'},
-				{caption: ["설비"], 	 		ref: 'msgKndNm',    type:'output',  width:'120px'},
-				{caption: ["작업자명"],    	ref: 'rmrk',        type:'input',   width:'120px'},
-				{caption: ["시작시간"],		ref: 'creUserId',   type:'output',  width:'120px'},
-				{caption: ["종료시간"],		ref: 'creDateTime', type:'output',  width:'120px'},
-				{caption: ["작업시간"],  		ref: 'updUserId',   type:'output',  width:'120px'},
-				{caption: ["비고"], 	 		ref: 'updUserId',   type:'output',  width:'120px'},
-				{caption: ["처리"],  			ref: 'updDateTime', type:'output',  width:'120px'}
-	
+	    grdPrfmnc = _SBGrid.create(SBGridPrfmncProperties);
+
+
+	    var SBGridOptrtProperties = {};
+	    SBGridOptrtProperties.parentid = 'sb-area-grdWrtrPrfmncDsctn2';
+	    SBGridOptrtProperties.id = 'grdOptrtPrfmnc';
+	    SBGridOptrtProperties.jsonref = 'jsonOptrtPrfmnc';
+	    SBGridOptrtProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridOptrtProperties.selectmode = 'byrow';
+	    SBGridOptrtProperties.extendlastcol = 'scroll';
+	    SBGridOptrtProperties.columns = [
+			{caption: ["작업구분"],		ref: 'msgKey',      type:'output',  width:'120px'},
+			{caption: ["작업일자"], 	ref: 'msgCn',     	type:'output',  width:'120px'},
+			{caption: ["설비"], 	 	ref: 'msgKndNm',    type:'output',  width:'120px'},
+			{caption: ["작업자명"],    	ref: 'rmrk',        type:'input',   width:'120px'},
+			{caption: ["시작시간"],		ref: 'creUserId',   type:'output',  width:'120px'},
+			{caption: ["종료시간"],		ref: 'creDateTime', type:'output',  width:'120px'},
+			{caption: ["작업시간"],  	ref: 'updUserId',   type:'output',  width:'120px'},
+			{caption: ["비고"], 	 	ref: 'updUserId',   type:'output',  width:'120px'},
+			{caption: ["처리"],  		ref: 'updDateTime', type:'output',  width:'120px'}
+
 	    ];
-	    grdJobPrfmnc = _SBGrid.create(SBGridProperties1);
-	    grdOptrtPrfmnc = _SBGrid.create(SBGridProperties2);
+	    grdOptrtPrfmnc = _SBGrid.create(SBGridOptrtProperties);
 	}
-	
+
 	const fn_setGrdSortCmnd = async function(pageSize, pageNo){
 		let jobYmd = SBUxMethod.get("srch-dtp-jobYmd");
 		let jobSe = SBUxMethod.get("srch-slt-jobSe");
 
-			
+
 		if(gfn_isEmpty(jobYmd) || gfn_isEmpty(sortCmndToYmd)){
 			gfn_comAlert("W0001", "작업일자");		//	W0002	{0}을/를 선택하세요.
 			return;
@@ -167,7 +178,7 @@
 			try {
 	      	/** @type {number} **/
 	  		let totalRecordCount = 0;
-	
+
 	  		jsonJobPrfmnc.length = 0;
 	      	data.resultList.forEach((item, index) => {
 	      		const sortCmnd = {
@@ -179,7 +190,7 @@
 
 				}
 	      		jsonJobPrfmnc.push(sortCmnd);
-	
+
 				if (index === 0) {
 					totalRecordCount = item.totalRecordCount;
 				}
