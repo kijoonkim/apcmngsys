@@ -62,11 +62,7 @@
 							</td>
 							<th scope="row" class="th_bg" style="border-right: hidden;">운송회사</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-trsprtCoCd" name="srch-slt-trsprtCoCd" uitype="single" jsondata-ref="jsonTrsprtCoCd" class="form-control input-sm" unselected-text="전체"></sbux-select>
-									</div>
-								</div>
+								<sbux-select id="srch-slt-trsprtCoCd" name="srch-slt-trsprtCoCd" uitype="single" jsondata-ref="jsonTrsprtCoCd" class="form-control input-sm" unselected-text="전체"></sbux-select>
 							</td>
 							<td></td>
 						</tr>

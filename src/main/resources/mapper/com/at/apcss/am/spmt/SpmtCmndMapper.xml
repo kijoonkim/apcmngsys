@@ -45,7 +45,7 @@
 			             , OI.WRHS_YMD 				AS WRHS_YMD
 			             , (SELECT GDS_GRD
                              FROM TB_SPMT_PCKG_UNIT X
-                            WHERE X.APC_CD = OI.APC_cD
+                            WHERE X.APC_CD = OI.APC_CD
                               AND X.SPMT_PCKG_UNIT_CD = OI.SPMT_PCKG_UNIT_CD
                               AND X.DEL_YN = 'N'
                            ) AS GDS_GRD

@@ -57,9 +57,9 @@ public class OrdrVO extends ComVO {
 	 * */
 	private String rcptCfmtnYmd;
 	/*
-	 * 포장지시번호
+	 * 출하지시번호
 	 * */
-	private String pckgCmndno;
+	private String spmtCmndno;
 	/*
 	 * 문서번호
 	 * */
@@ -298,6 +298,10 @@ public class OrdrVO extends ComVO {
 	 * */
 	private int cmndQntt;
 	/*
+	 * 출하지시중량
+	 * */
+	private int cmndWght;
+	/*
 	 * 출하일자
 	 * */
 	private String spmtYmd;
@@ -305,5 +309,17 @@ public class OrdrVO extends ComVO {
 	 * 접수여부
 	 * */
 	private String rcptYn;
+	/*
+	 * 출하지시일자
+	 * */
+	private String cmndYmd;
+	/*
+	 * 운송회사코드
+	 * */
+	private String trsprtCoCd;
+	/*
+	 * 비고
+	 * */
+	private String rmrk;
 
 }
