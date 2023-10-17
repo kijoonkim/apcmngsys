@@ -128,17 +128,17 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span><sbux-label id="srch-lbl-cmndYmd" name="srch-lbl-cmndYmd" uitype="normal" text="지시일자" class="bold"></sbux-label></th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
-							<th scope="row" class="th_bg" style="border-right: hidden;"><span class="data_required"></span>운송회사</th>
+							<th scope="row" class="th_bg" style="border-right: hidden;"><span class="data_required"></span></span><sbux-label id="srch-lbl-trsprtCoCd" name="srch-lbl-trsprtCoCd" uitype="normal" text="운송회사" class="bold"></sbux-label></th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-trsprtCoCd" name="srch-slt-trsprtCoCd" uitype="single" jsondata-ref="jsonTrsprtCoCd" class="form-control input-sm-ast inpt_data_reqed input-sm" unselected-text="전체"></sbux-select>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg" style="border-right: hidden;">비고</th>
+							<th scope="row" class="th_bg" style="border-right: hidden;"></span><sbux-label id="srch-lbl-rmrk" name="srch-lbl-rmrk" uitype="normal" text="비고" class="bold"></sbux-label></th>
 							<td colspan="3" class="td_input">
 								<sbux-input id="srch-inp-rmrk" name="srch-inp-rmrk" uitype="text" maxlength="333" class="form-control input-sm"></sbux-input>
 							</td>
