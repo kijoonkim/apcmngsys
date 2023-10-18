@@ -15,7 +15,7 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchApc" name="btnSearchApc" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popApc.search" onkeyup="enterKey();"></sbux-button>
+					<sbux-button id="btnSearchApc" name="btnSearchApc" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popApc.search"></sbux-button>
 					<sbux-button id="btnEditApc" name="btnEditApc" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="popApc.edit"></sbux-button>
 					<sbux-button id="btnCancelApc" name="btnCancelApc" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" onclick="popApc.cancel"></sbux-button>
 					<sbux-button id="btnSaveApc" name="btnSaveApc" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popApc.save" disabled></sbux-button>
