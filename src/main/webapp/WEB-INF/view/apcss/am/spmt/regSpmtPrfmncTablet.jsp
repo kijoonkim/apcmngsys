@@ -51,7 +51,7 @@
 								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="text" maxlength="20" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchSpmtCmndNo" name="btnSrchSpmtCmndNo" uitype="modal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-spmtCmndno" onclick="fn_modalSpmtCmndno"></sbux-button>
+								<sbux-button id="btnSrchSpmtCmndNo" name="btnSrchSpmtCmndNo" uitype="modal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-spmtCmnd" onclick="fn_choiceSpmtCmnd"></sbux-button>
 								<p class="ad_input_row">
 									<sbux-checkbox id="srch-chk-spmtCmndno" name="srch-chk-spmtCmndno" uitype="normal" text="고정" class="check"></sbux-checkbox>
 								</p>
@@ -168,10 +168,10 @@
 	</section>
 	<!-- 출하지시번호 선택 Modal -->
     <div>
-        <sbux-modal id="modal-spmtCmndno" name="modal-spmtCmndno" uitype="middle" header-title="출하지시번호 선택" body-html-id="body-modal-spmtCmndno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-spmtCmnd" name="modal-spmtCmnd" uitype="middle" header-title="출하지시번호 선택" body-html-id="body-modal-spmtCmnd" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="body-modal-spmtCmndno">
-    	<jsp:include page="../../am/popup/spmtCmndnoPopup.jsp"></jsp:include>
+    <div id="body-modal-spmtCmnd">
+    	<jsp:include page="../../am/popup/spmtCmndPopup.jsp"></jsp:include>
     </div>
 	<!-- 차량 선택 Modal -->
     <div>
@@ -400,7 +400,7 @@
 	
 	// 출하지시번호 선택 팝업 호출
 	const fn_modalSpmtCmndno = function() {
-    	popSpmtCmndno.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmndno);
+    	popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmndno);
 	}
 	
 	const fn_setSpmtCmndno = function(spmtCmndno) {
@@ -422,6 +422,50 @@
 			SBUxMethod.set('srch-inp-trsprtCoCd', spmtCmndno.trsprtCoCd);
 		}
 	}
+	
+	/**
+	 * 출하지시 팝업 필수 함수
+	 * 시작
+	 */
+	const fn_choiceSpmtCmnd = function() {
+		let cmndno = SBUxMethod.get("dtl-inp-spmtCmndno");
+		popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, cmndno, fn_setSpmtCmnd);
+	}
+	const fn_setSpmtCmnd = async function(cmnd) {
+		if (!gfn_isEmpty(cmnd)) {
+			SBUxMethod.set("dtl-inp-spmtCmndno", cmnd.spmtCmndno);
+			SBUxMethod.set("dtl-inp-cmndQntt", cmnd.cmndQntt);
+			SBUxMethod.set("dtl-inp-cmndWght", cmnd.cmndWght);
+			SBUxMethod.set("dtl-slt-trsprtCoCd", cmnd.trsprtCoCd);
+			SBUxMethod.set("dtl-inp-cnptCd", cmnd.cnptCd);
+			SBUxMethod.set("dtl-inp-cnptNm", cmnd.cnptNm);
+			SBUxMethod.set("dtl-inp-dldtn", cmnd.dldtn);
+			SBUxMethod.set("dtl-inp-rmrk", cmnd.rmrk);
+			SBUxMethod.set("dtl-inp-outordrno", cmnd.outordrno);
+			SBUxMethod.set("dtl-slt-gdsGrd", cmnd.gdsGrd);
+			SBUxMethod.set("srch-slt-itemCd", cmnd.itemCd);
+			SBUxMethod.set("srch-slt-vrtyCd", cmnd.vrtyCd);
+
+			let rst = await Promise.all([
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',			jsonComSpcfct, 			gv_apcCd, cmnd.itemCd), 				// 규격
+				gfn_setSpmtPckgUnitSBSelect('dtl-slt-spmtPckgUnit', 	jsonDtlSpmtPckgUnit, 	gv_apcCd, cmnd.itemCd, cmnd.vrtyCd),	// 포장구분
+				gfn_setSpmtPckgUnitSBSelect('grdGdsInvntr', 			jsonGrdSpmtPckgUnit, 	gv_apcCd, cmnd.itemCd, cmnd.vrtyCd)		// 포장구분(그리드)
+			])
+			grdGdsInvntr.refresh({"combo":true})
+			SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
+
+			SBUxMethod.set("srch-slt-spcfctCd", cmnd.spcfctCd);
+			SBUxMethod.set("dtl-slt-spmtPckgUnit", cmnd.spmtPckgUnitCd);
+
+			fn_search();
+
+			cmndYn = true;
+		}
+	}
+	/*
+	 * 출하지시 팝업 필수 함수
+	 * 종료
+	 */
 	
 	// 포장번호 선택 팝업 호출
 	const fn_modalPckgno = function() {

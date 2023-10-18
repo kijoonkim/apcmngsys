@@ -11,7 +11,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span style="font-weight:bold;">출하지시를 선택합니다.</span>
+						<span style="font-weight:bold;">출하지시번호를 선택합니다.</span>
 					</p>
 					<p>
 						<span style="color:black; font-weight:bold;"></span>
@@ -31,7 +31,8 @@
 						<col style="width: 24%">
 						<col style="width: 12%">
 						<col style="width: 24%">
-						<col style="width: auto">
+						<col style="width: 12%">
+						<col style="width: 24%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -40,11 +41,44 @@
 								<sbux-input id="spmtCmnd-inp-apcCd" name="spmtCmnd-inp-apcCd" uitype="hidden"></sbux-input>
 								<sbux-input id="spmtCmnd-inp-apcNm" name="spmtCmnd-inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
 							</th>
-							<th scope="row">거래처명</th>
+							<th scope="row">출하지시일자</th>
 							<th class="td_input">
-								<sbux-input id="cnpt-inp-cnptNm" name="cnpt-inp-cnptNm" uitype="text" class="form-control input-sm" onkeyenter="fn_searchCnpt()" maxlength="30"></sbux-input>
+								<sbux-datepicker id="spmtCmnd-dtp-cmndYmd" name="spmtCmnd-dtp-cmndYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
 							</th>
-							<th>&nbsp;</th>
+							<th scope="row">규격</th>
+							<th>
+								<sbux-select id="spmtCmnd-slt-spcfctCd" name="spmtCmnd-slt-spcfctCd" uitype="single" class="form-control input-sm" style="background-color:#FFFFFF;" jsondata-ref="jsonApcSpcfct" unselected-text="선택"></sbux-select>
+							</th>
+						</tr>
+						<tr>
+							<th scope="row">품목</th>
+							<th>
+								<sbux-select
+									unselected-text="선택"
+									uitype="single"
+									id="spmtCmnd-slt-itemCd"
+									name="spmtCmnd-slt-itemCd"
+									class="form-control input-sm"
+									jsondata-ref="jsonApcItem"
+									onchange="popSpmtCmnd.srchItemCd(this)"
+									style="background-color:#FFFFFF;"
+								/>
+							</th>
+							<th scope="row">품종</th>
+							<th>
+								<sbux-select
+									unselected-text="선택"
+									uitype="single"
+									id="spmtCmnd-slt-vrtyCd"
+									name="spmtCmnd-slt-vrtyCd"
+									class="form-control input-sm"
+									jsondata-ref="jsonApcVrty"
+									onchange="popSpmtCmnd.srchVrtyCd(this)"
+									style="background-color:#FFFFFF;"
+								/>
+							</th>
+							<th></th>
+							<th></th>
 						</tr>
 					</tbody>
 				</table>
@@ -59,8 +93,13 @@
 	</section>
 </body>
 <script type="text/javascript">
+	/* grid 내 select json */
+	var jsonApcItem			= [];	// 품목 		itemCd			검색
+	var jsonApcVrty			= [];	// 품종 		vrtyCd			검색
+	var jsonApcSpcfct		= [];	// 규격 		spcfct			검색
 
-	var jsonCnptPopUp = [];
+	var grdSpmtCmndPop = null;
+	
 	const popSpmtCmnd = {
 		modalId: 'modal-spmtCmnd',
 		gridId: 'grdSpmtCmndPop',
@@ -71,15 +110,28 @@
 		gridJson: [],
 		callbackSelectFnc: function() {},
 		init: async function(_apcCd, _apcNm, _spmtCmnd, _callbackChoiceFnc) {
-			this.prvApcCd = _apcCd;
+			SBUxMethod.set("spmtCmnd-inp-apcCd", _apcCd);
 			SBUxMethod.set("spmtCmnd-inp-apcNm", _apcNm);
 
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
 				this.callbackSelectFnc = _callbackChoiceFnc;
 			}
-			this.createGrid();
-			this.search();
+			
+			if (grdSpmtCmndPop === null || this.prvApcCd != _apcCd) {
+				SBUxMethod.set("spmtCmnd-dtp-cmndYmd", gfn_dateToYmd(new Date()));
+				
+				let rst = await Promise.all([
+				 	gfn_setApcItemSBSelect('spmtCmnd-slt-itemCd', jsonApcItem, _apcCd),						// 품목
+					gfn_setApcVrtySBSelect('spmtCmnd-slt-vrtyCd', jsonApcVrty, _apcCd),						// 품종
+					gfn_setApcSpcfctsSBSelect('spmtCmnd-slt-spcfctCd', jsonApcSpcfct, _apcCd),				// 규격
+				]);
+				this.createGrid();
+				this.search();
+			} else {
+				this.search();
+			}
 
+			this.prvApcCd = _apcCd;
 		},
 		close: function(_spmtCmnd) {
 			gfn_closeModal(this.modalId, this.callbackSelectFnc, _spmtCmnd);
@@ -93,6 +145,10 @@
 		    SBGridProperties.selectmode = 'byrow';
 		    SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.extendlastcol = 'scroll';
+		    SBGridProperties.oneclickedit = true;
+		    SBGridProperties.allowcopy = true;
+		    SBGridProperties.scrollbubbling = false;
+		    SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 		    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -126,7 +182,6 @@
 		},
 
 		search: async function() {
-			//console.log('search');
 			let apcCd = this.prvApcCd;
 
 			grdSpmtCmndPop.rebuild();
@@ -142,14 +197,21 @@
 			jsonSpmtCmndPop = [];
 
 			let apcCd = this.prvApcCd;
+			let cmndYmd = SBUxMethod.get("spmtCmnd-dtp-cmndYmd");
+			let itemCd = SBUxMethod.get("spmtCmnd-slt-itemCd");
+			let vrtyCd = SBUxMethod.get("spmtCmnd-slt-vrtyCd");
+			let spcfctCd = SBUxMethod.get("spmtCmnd-slt-spcfctCd");
 			let spmtCmnd = {
-					apcCd : apcCd,
+					apcCd 				: apcCd,
+					cmndYmd 			: cmndYmd,
+					itemCd 				: itemCd,
+					vrtyCd 				: vrtyCd,
+					spcfctCd 			: spcfctCd,
 					// pagination
-			  		pagingYn : 'Y',
-					currentPageNo : pageNo,
-		 		  	recordCountPerPage : pageSize
+			  		pagingYn 			: 'Y',
+					currentPageNo 		: pageNo,
+		 		  	recordCountPerPage	: pageSize
 			}
-			console.log(spmtCmnd);
 			let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", spmtCmnd);
 		    let data = await postJsonPromise;
 
@@ -214,7 +276,29 @@
 				}
 		 		console.error("failed", e.message);
 		    }
-	    }
+	    },
+		srchItemCd: async function(obj) {
+	    	let apcCd = SBUxMethod.get("spmtCmnd-inp-apcCd");
+			let itemCd = obj.value;
+
+			let result = await Promise.all([
+				gfn_setApcVrtySBSelect('spmtCmnd-slt-vrtyCd', jsonApcVrty, apcCd, itemCd),					// 품종
+				gfn_setApcSpcfctsSBSelect('spmtCmnd-slt-spcfctCd', jsonApcSpcfct, apcCd, itemCd)			// 규격
+			]);
+		},
+		srchVrtyCd: async function(obj) {
+	    	let apcCd = SBUxMethod.get("spmtCmnd-inp-apcCd");
+			let vrtyCd = obj.value;
+			const itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
+
+			const prvItemCd = SBUxMethod.get("spmtCmnd-slt-itemCd");
+			if (itemCd != prvItemCd) {
+				SBUxMethod.set("spmtCmnd-slt-itemCd", itemCd);
+				await this.srchItemCd({value: itemCd});
+				SBUxMethod.set("spmtCmnd-slt-vrtyCd", vrtyCd);
+			}
+			gfn_setApcSpcfctsSBSelect('spmtCmnd-slt-spcfctCd', jsonApcSpcfct, apcCd, itemCd)
+		}
 	}
 </script>
 </html>

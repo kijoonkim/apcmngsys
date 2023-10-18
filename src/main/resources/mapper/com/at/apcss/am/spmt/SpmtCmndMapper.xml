@@ -404,13 +404,13 @@
 			     , SC.DEL_YN                AS DEL_YN
 			     , (SELECT SUM(SPMT_QNTT)
 			         FROM TB_SPMT_PRFMNC_DTL X
-			        WHERE X.APC_CD = SC.APC_cD
+			        WHERE X.APC_CD = SC.APC_CD
 			          AND X.SPMT_CMNDNO = SC.SPMT_CMNDNO
 			          AND X.DEL_YN = 'N'
 			       ) AS SPMT_QNTT
 			     , (SELECT SUM(SPMT_WGHT)
 			         FROM TB_SPMT_PRFMNC_DTL X
-			        WHERE X.APC_CD = SC.APC_cD
+			        WHERE X.APC_CD = SC.APC_CD
 			          AND X.SPMT_CMNDNO = SC.SPMT_CMNDNO
 			          AND X.DEL_YN = 'N'
 			       ) AS SPMT_WGHT

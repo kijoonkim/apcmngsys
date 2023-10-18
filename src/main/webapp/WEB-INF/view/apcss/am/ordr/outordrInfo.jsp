@@ -254,7 +254,7 @@
             {caption: ['품종'], 			ref: 'vrtyNm', 			width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
             {caption: ['규격'], 			ref: 'spcfctNm', 		width: '70px', 		type: 'output',			style:'text-align: center', sortable: false},
             {caption: ['입수'], 			ref: 'bxGdsQntt', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
-            {caption: ['발주수량'], 		ref: 'outordrQntt', 	width: '70px', 		type: 'input',			style:'text-align: right',  sortable: false,
+            {caption: ['발주수량'], 		ref: 'outordrQntt', 	width: '70px', 		type: 'output',			style:'text-align: right',  sortable: false,
 				format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
             {caption: ['낱개수량'], 		ref: 'pieceQntt', 		width: '70px', 		type: 'output',			style:'text-align: right',  sortable: false,
 				format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
@@ -570,7 +570,7 @@
 		let itemCd = obj.value;
 
 		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),			// 품종
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd)			// 품종
 		]);
 	}
 

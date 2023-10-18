@@ -285,9 +285,9 @@
     <div id="body-modal-cnpt">
     	<jsp:include page="../../am/popup/cnptPopup.jsp"></jsp:include>
     </div>
-	<!-- 출하지시 선택 Modal -->
+	<!-- 출하지시번호 선택 Modal -->
     <div>
-        <sbux-modal id="modal-spmtCmnd" name="modal-spmtCmnd" uitype="middle" header-title="출하지시 선택" body-html-id="body-modal-spmtCmnd" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-spmtCmnd" name="modal-spmtCmnd" uitype="middle" header-title="출하지시번호 선택" body-html-id="body-modal-spmtCmnd" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-spmtCmnd">
     	<jsp:include page="../../am/popup/spmtCmndPopup.jsp"></jsp:include>
