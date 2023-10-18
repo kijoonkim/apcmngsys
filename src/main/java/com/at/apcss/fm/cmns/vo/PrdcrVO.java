@@ -1,0 +1,117 @@
+package com.at.apcss.fm.cmns.vo;
+
+import com.at.apcss.co.sys.vo.ComVO;
+
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * @Class Name : PrdcrVO.java
+ * @Description : 생산자 정보에 대한 VO 클래스
+ * @author 신정철
+ * @since 2023.06.21
+ * @version 1.0
+ * @see
+ *
+ * <pre>
+ * << 개정이력(Modification Information) >>
+ * 수정일        수정자        수정내용
+ * ----------  ----------  ---------------------------
+ * 2023.06.21  신정철        최초 생성
+ * </pre>
+ */
+@Getter
+@Setter
+public class PrdcrVO extends ComVO {
+
+	/**
+	 * APC코드
+	 */
+	private String apcCd;
+	/**
+	 * APC명
+	 */
+	private String apcNm;
+	/**
+	 * 생산자코드
+	 */
+	private String prdcrCd;
+	/**
+	 * 생산자명
+	 */
+	private String prdcrNm;
+	/**
+	 * 생산자초성
+	 */
+	private String prdcrFrstNm;
+	/**
+	 * 대표품목코드
+	 */
+	private String rprsItemCd;
+	/**
+	 * 대표품목명
+	 */
+	private String rprsItemNm;
+	/**
+	 * 대표품종코드
+	 */
+	private String rprsVrtyCd;
+	/**
+	 * 대표품종명
+	 */
+	private String rprsVrtyNm;
+	/**
+	 * 상품구분코드
+	 */
+	private String gdsSeCd;
+	/**
+	 * 상품구분명
+	 */
+	private String gdsSeNm;
+	/**
+	 * 입고구분코드
+	 */
+	private String wrhsSeCd;
+	/**
+	 * 입고구분명
+	 */
+	private String wrhsSeNm;
+	/**
+	 * 운송구분코드
+	 */
+	private String trsprtSeCd;
+	/**
+	 * 운송구분명
+	 */
+	private String trsprtSeNm;
+	/**
+	 * 차량번호
+	 */
+	private String vhclno;
+	/**
+	 * 전화번호
+	 */
+	private String telno;
+	/**
+	 * 생산자연계코드
+	 */
+	private String prdcrLinkCd;
+	/**
+	 * 생산자인식번호
+	 */
+	private int prdcrIdentno;
+	/**
+	 * 비고
+	 */
+	private String rmrk;
+
+	/**
+	 * 정산기준
+	 */
+	private String clclnCrtr;
+	/**
+	 * 정산기준명
+	 */
+	private String clclnCrtrNm;
+
+}
