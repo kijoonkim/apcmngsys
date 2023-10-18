@@ -109,24 +109,36 @@
 		objGrid: null,
 		gridJson: [],
 		callbackSelectFnc: function() {},
-		init: async function(_apcCd, _apcNm, _callbackChoiceFnc) {
+		init: async function(_apcCd, _apcNm, _spmtCmnd, _callbackChoiceFnc) {
 			SBUxMethod.set("spmtCmnd-inp-apcCd", _apcCd);
 			SBUxMethod.set("spmtCmnd-inp-apcNm", _apcNm);
-			SBUxMethod.set("spmtCmnd-dtp-cmndYmd", gfn_dateToYmd(new Date()));
 
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
 				this.callbackSelectFnc = _callbackChoiceFnc;
 			}
 			
 			if (grdSpmtCmndPop === null || this.prvApcCd != _apcCd) {
+
+				SBUxMethod.set("spmtCmnd-dtp-cmndYmd", gfn_dateToYmd(new Date()));
+				
 				let rst = await Promise.all([
 				 	gfn_setApcItemSBSelect('spmtCmnd-slt-itemCd', jsonApcItem, _apcCd),						// 품목
 					gfn_setApcVrtySBSelect('spmtCmnd-slt-vrtyCd', jsonApcVrty, _apcCd),						// 품종
-					gfn_setApcSpcfctsSBSelect('spmtCmnd-slt-spcfctCd', jsonApcSpcfct, _apcCd),				// 규격
+					gfn_setApcSpcfctsSBSelect('spmtCmnd-slt-spcfctCd', jsonApcSpcfct, _apcCd)				// 규격
 				]);
+				if (!gfn_isEmpty(_spmtCmnd)){
+					SBUxMethod.set("spmtCmnd-slt-itemCd", _spmtCmnd.itemCd);
+					SBUxMethod.set("spmtCmnd-slt-vrtyCd", _spmtCmnd.vrtyCd);
+					SBUxMethod.set("spmtCmnd-slt-spcfctCd", _spmtCmnd.spcfctCd);
+				}
 				this.createGrid();
 				this.search();
 			} else {
+				if (!gfn_isEmpty(_spmtCmnd)){
+					SBUxMethod.set("spmtCmnd-slt-itemCd", _spmtCmnd.itemCd);
+					SBUxMethod.set("spmtCmnd-slt-vrtyCd", _spmtCmnd.vrtyCd);
+					SBUxMethod.set("spmtCmnd-slt-spcfctCd", _spmtCmnd.spcfctCd);
+				}
 				this.search();
 			}
 
