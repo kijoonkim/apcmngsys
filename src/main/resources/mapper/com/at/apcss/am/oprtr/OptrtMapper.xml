@@ -36,6 +36,9 @@
 		  FROM TB_OPRTR_MNG OM
 		 WHERE OM.APC_CD = #{apcCd}
 		]]>
+		<if test='flnm != null and flnm != ""'>
+		   AND OM.FLNM LIKE '%' ||  #{flnm} || '%'
+		</if>
     </select>
 
     <!-- ==========================================================================	-->
