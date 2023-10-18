@@ -180,7 +180,6 @@
 			let rowData = grdSpmtCmndPop.getRowData(nRow);
 			popSpmtCmnd.close(rowData);
 		},
-
 		search: async function() {
 			let apcCd = this.prvApcCd;
 

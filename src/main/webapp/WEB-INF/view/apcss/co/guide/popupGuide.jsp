@@ -169,6 +169,14 @@
 								<sbux-button id="btnSrchGdsNm" name="btnSrchGdsNm" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-gds" onclick="fn_modalGds" text="찾기"></sbux-button>
 							</td>
 							<td></td>
+							<th scope="row" >생산작업자선택</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-flnm" name="srch-inp-flnm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchOprtr" name="btnSrchOprtr" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-oprtr" onclick="fn_modalOprtr" text="찾기"></sbux-button>
+							</td>
+							<td></td>
 							<th scope="row" >입고일자</th>
 							<td class="td_input">
 								<sbux-datepicker id="srch-dtp-trsprtYmd" name="srch-dtp-trsprtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm"></sbux-datepicker>
@@ -260,6 +268,14 @@
     </div>
     <div id="body-modal-gds">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/gdsPopup.jsp"></jsp:include>
+    </div>
+    
+     <!-- 생산작업자 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산작업자 선택" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-oprtr">
+    	<jsp:include page="../../am/popup/oprtrPopup.jsp"></jsp:include>
     </div>
 
 <script type="text/javascript">
@@ -515,11 +531,11 @@
 	/* End */
 
 
-	/* 상풍선택팝업 호출 필수 function  */
+	/* 상품선택팝업 호출 필수 function  */
 	/* Start */
 	/**
 	 * @name fn_modalGds
-	 * @description 상풍선택팝업 호출
+	 * @description 상품선택팝업 호출
 	 */
 	const fn_modalGds = function() {
     	popGds.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-gdsNm"), fn_setGdsNm);
@@ -527,7 +543,7 @@
 
 	/**
 	 * @name fn_setGdsNm
-	 * @description 상풍 선택 callback
+	 * @description 상품 선택 callback
 	 */
 	const fn_setGdsNm = function(gds) {
 		if (!gfn_isEmpty(gds)) {
@@ -536,6 +552,26 @@
 	}
 	/* End */
 
+	/* 생산작업자 선택 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_modalOprtr
+	 * @description 생산작업자선택팝업 호출
+	 */
+	const fn_modalOprtr = function() {
+		popOprtr.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-flnm"), fn_setFlnm);
+	}
+
+	/**
+	 * @name fn_setFlnm
+	 * @description 생산작업자 선택 callback
+	 */
+	const fn_setFlnm = function(oprtr) {
+		if (!gfn_isEmpty(oprtr)) {
+			SBUxMethod.set('srch-inp-flnm', oprtr.flnm);
+		}
+	}
+	/* End */
 
 	/* 생산자 팝업 호출 필수 json  */
 	/* Start */
