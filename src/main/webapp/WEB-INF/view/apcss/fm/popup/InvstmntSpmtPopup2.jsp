@@ -16,38 +16,38 @@
 				</div>
 				<div style="margin-left: auto;">
 					<!-- 팝업창이 어려개 include 하는 경우 중복 id,name 쓰면 안됨 변경 필수 -->
-					<sbux-button id="btnSearchInvstmntSpmt" name="btnSearchInvstmntSpmt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popInvstmntSpmt.search"></sbux-button>
-					<sbux-button id="btnEndInvstmntSpmt" name="btnEndInvstmntSpmt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popInvstmntSpmt.close"></sbux-button>
+					<sbux-button id="btnSearchInvstmntSpmt2" name="btnSearchInvstmntSpmt2" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popInvstmntSpmt2.search"></sbux-button>
+					<sbux-button id="btnEndInvstmntSpmt2" name="btnEndInvstmntSpmt2" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popInvstmntSpmt2.close"></sbux-button>
 				</div>
 			</div>
 
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<sbux-input id="invstmnt-inp-apcCd" name="invstmnt-inp-apcCd" uitype="hidden"></sbux-input>
+				<sbux-input id="invstmnt-inp-apcCd2" name="invstmnt-inp-apcCd2" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<tbody>
 						<tr>
 							<th scope="row">사업자번호</th>
 							<td colspan="2">
-								<sbux-input id="srch-inp-code" name="srch-inp-code" uitype="text" class="form-control input-sm" onkeyenter="enterKey2();"></sbux-input>
+								<sbux-input id="srch-inp-code2" name="srch-inp-code2" uitype="text" class="form-control input-sm" onkeyenter="enterKey3();"></sbux-input>
 							</td>
 							<th scope="row">조직명</th>
 							<td colspan="2">
-								<sbux-input id="srch-inp-codeNm" name="srch-inp-codeNm" uitype="text" class="form-control input-sm" onkeyenter="enterKey2();"></sbux-input>
+								<sbux-input id="srch-inp-codeNm2" name="srch-inp-codeNm2" uitype="text" class="form-control input-sm" onkeyenter="enterKey3();"></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">생산유통통합조직여부</th>
 							<td>
-								<sbux-select id="srch-slt-mainGbn" name="srch-slt-mainGbn" uitype="single" class="form-control input-sm" unselected-text="선택">
+								<sbux-select id="srch-slt-mainGbn2" name="srch-slt-mainGbn2" uitype="single" class="form-control input-sm" unselected-text="선택">
 									<option-item value="Y">Y</option-item>
 									<option-item value="N">N</option-item>
 								</sbux-select>
 							</td>
 							<th scope="row">출자출하조직여부</th>
 							<td>
-								<sbux-select id="srch-slt-subGbn" name="srch-slt-subGbn" uitype="single" class="form-control input-sm" unselected-text="선택">
+								<sbux-select id="srch-slt-subGbn2" name="srch-slt-subGbn2" uitype="single" class="form-control input-sm" unselected-text="선택">
 									<option-item value="Y">Y</option-item>
 									<option-item value="N">N</option-item>
 								</sbux-select>
@@ -63,13 +63,13 @@
 						<ul class="ad_tbl_count">
 							<li>
 								<span style="color: black;">통합조직,출자출하조직 목록</span>
-								<span style="font-size:12px">(조회건수 <span id="apc-pop-cnt">0</span>건)</span>
+								<span style="font-size:12px">(조회건수 <span id="apc-pop-cnt2">0</span>건)</span>
 							</li>
 						</ul>
 					 	<div class="ad_tbl_toplist">
 						</div>
 					</div>
-					<div id="sb-area-grdInvstmntSpmtPop" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdInvstmntSpmtPop2" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -78,25 +78,25 @@
 </body>
 <script type="text/javascript">
 
-	var grdInvstmntSpmtPop = null;
-	var jsonInvstmntSpmtPop = [];
+	var grdInvstmntSpmtPop2 = null;
+	var jsonInvstmntSpmtPop2 = [];
 
 	/**
 	 * @description 권한 사용자 선택 팝업
 	 */
-	const popInvstmntSpmt = {
-		prgrmId: 'InvstmntSpmtPopup',
-		modalId: 'modal-invstmntSpmt',
-		gridId: 'grdInvstmntSpmtPop',
-		jsonId: 'jsonInvstmntSpmtPop',
-		areaId: "sb-area-grdInvstmntSpmtPop",
+	const popInvstmntSpmt2 = {
+		prgrmId: 'InvstmntSpmtPopup2',
+		modalId: 'modal-invstmntSpmt2',
+		gridId: 'grdInvstmntSpmtPop2',
+		jsonId: 'jsonInvstmntSpmtPop2',
+		areaId: "sb-area-grdInvstmntSpmtPop2",
 		prvApcCd: "",
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
 		init: async function(_apcCd, _apcNm, _callbackFnc) {
 
-			SBUxMethod.set("invstmnt-inp-apcCd", _apcCd);
+			SBUxMethod.set("invstmnt-inp-apcCd2", _apcCd);
 			SBUxMethod.attr('btnSearchApc', 'disabled', false);
 
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
@@ -109,15 +109,15 @@
 			gfn_closeModal(this.modalId, this.callbackFnc, rowData);
 		},
 		choice: function() {
-			let nRow = grdInvstmntSpmtPop.getRow();
-			let rowData = grdInvstmntSpmtPop.getRowData(nRow);
-			popInvstmntSpmt.close(rowData);
+			let nRow = grdInvstmntSpmtPop2.getRow();
+			let rowData = grdInvstmntSpmtPop2.getRowData(nRow);
+			popInvstmntSpmt2.close(rowData);
 		},
 		createGrid: function(/** {boolean} */ isEditable) {
 			var SBGridProperties = {};
 		    SBGridProperties.parentid = this.areaId;	//'sb-area-grdComAuthUserPop';	//this.sbGridArea;	//'sb-area-grdComAuthUserPop';
-		    SBGridProperties.id = this.gridId;			//'grdInvstmntSpmtPop';					//'grdInvstmntSpmtPop';
-		    SBGridProperties.jsonref = this.jsonId;		//'jsonInvstmntSpmtPop';		//'jsonInvstmntSpmtPop';
+		    SBGridProperties.id = this.gridId;			//'grdInvstmntSpmtPop2';					//'grdInvstmntSpmtPop2';
+		    SBGridProperties.jsonref = this.jsonId;		//'jsonInvstmntSpmtPop2';		//'jsonInvstmntSpmtPop2';
 		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 		    SBGridProperties.selectmode = 'byrow';
 		    SBGridProperties.explorerbar = 'sortmove';
@@ -143,29 +143,29 @@
 		        {caption: ['계약형태'], ref: 'gbnNmRemark', width: '300px', type: 'input', style: 'text-align:center'},
 		    ];
 
-		    grdInvstmntSpmtPop = _SBGrid.create(SBGridProperties);
-		    grdInvstmntSpmtPop.bind('beforepagechanged', this.paging);
-		    grdInvstmntSpmtPop.bind('dblclick', popInvstmntSpmt.choice);	//'popInvstmntSpmtChoice');
+		    grdInvstmntSpmtPop2 = _SBGrid.create(SBGridProperties);
+		    grdInvstmntSpmtPop2.bind('beforepagechanged', this.paging);
+		    grdInvstmntSpmtPop2.bind('dblclick', popInvstmntSpmt2.choice);	//'popInvstmntSpmt2Choice');
 		    //this.search();
 		},
 		search: async function(/** {boolean} */ isEditable) {
 			// set pagination
-			grdInvstmntSpmtPop.rebuild();
-	    	let pageSize = grdInvstmntSpmtPop.getPageSize();
+			grdInvstmntSpmtPop2.rebuild();
+	    	let pageSize = grdInvstmntSpmtPop2.getPageSize();
 	    	let pageNo = 1;
 
 	    	// grid clear
-	    	jsonInvstmntSpmtPop.length = 0;
-	    	grdInvstmntSpmtPop.refresh();
-	    	//grdInvstmntSpmtPop.clearStatus();
+	    	jsonInvstmntSpmtPop2.length = 0;
+	    	grdInvstmntSpmtPop2.refresh();
+	    	//grdInvstmntSpmtPop2.clearStatus();
 	    	this.setGrid(pageSize, pageNo, isEditable);
 		},
 		setGrid: async function(pageSize, pageNo, isEditable) {
 
-	    	var code = SBUxMethod.get("srch-inp-code");			//사업자 번호
-	    	var codeNm = SBUxMethod.get("srch-inp-codeNm");		//조직명
-	    	var mainGbn = SBUxMethod.get("srch-slt-mainGbn");	//생산유통통합조직여부
-	    	var subGbn = SBUxMethod.get("srch-slt-subGbn");		//출자출하조직여부
+	    	var code = SBUxMethod.get("srch-inp-code2");			//사업자 번호
+	    	var codeNm = SBUxMethod.get("srch-inp-codeNm2");		//조직명
+	    	var mainGbn = SBUxMethod.get("srch-slt-mainGbn2");	//생산유통통합조직여부
+	    	var subGbn = SBUxMethod.get("srch-slt-subGbn2");		//출자출하조직여부
 
 	        const postJsonPromise = gfn_postJSON("/fm/popup/selectInvstmntSpmtList.do", {
 	        	searchCode : code,
@@ -184,7 +184,7 @@
 	        	/** @type {number} **/
 	    		let totalRecordCount = 0;
 
-	    		jsonInvstmntSpmtPop.length = 0;
+	    		jsonInvstmntSpmtPop2.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const apc = {
 						mainCode	: item.mainCode,
@@ -195,34 +195,34 @@
 						subGbn		: item.subGbn,
 						gbnNmRemark	: item.gbnNmRemark,
 					}
-					jsonInvstmntSpmtPop.push(apc);
+					jsonInvstmntSpmtPop2.push(apc);
 					if (index === 0) {
 						totalRecordCount = item.totalRecordCount;
 					}
 				});
 
-	        	if (jsonInvstmntSpmtPop.length > 0) {
-	        		if(grdInvstmntSpmtPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdInvstmntSpmtPop.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdInvstmntSpmtPop.rebuild();
+	        	if (jsonInvstmntSpmtPop2.length > 0) {
+	        		if(grdInvstmntSpmtPop2.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+	        			grdInvstmntSpmtPop2.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+	        			grdInvstmntSpmtPop2.rebuild();
 					}else{
-						grdInvstmntSpmtPop.refresh();
+						grdInvstmntSpmtPop2.refresh();
 					}
 	        	} else {
-	        		grdInvstmntSpmtPop.setPageTotalCount(totalRecordCount);
-	        		grdInvstmntSpmtPop.rebuild();
+	        		grdInvstmntSpmtPop2.setPageTotalCount(totalRecordCount);
+	        		grdInvstmntSpmtPop2.rebuild();
 	        	}
 
 	        	if (isEditable) {
-	        		grdInvstmntSpmtPop.setCellDisabled(0, 0, grdInvstmntSpmtPop.getRows() - 1, grdInvstmntSpmtPop.getCols() - 1, false);
-	        		let nRow = grdInvstmntSpmtPop.getRows();
-					grdInvstmntSpmtPop.addRow(true);
-					grdInvstmntSpmtPop.setCellDisabled(nRow, 0, nRow, grdInvstmntSpmtPop.getCols() - 1, true);
+	        		grdInvstmntSpmtPop2.setCellDisabled(0, 0, grdInvstmntSpmtPop2.getRows() - 1, grdInvstmntSpmtPop2.getCols() - 1, false);
+	        		let nRow = grdInvstmntSpmtPop2.getRows();
+					grdInvstmntSpmtPop2.addRow(true);
+					grdInvstmntSpmtPop2.setCellDisabled(nRow, 0, nRow, grdInvstmntSpmtPop2.getCols() - 1, true);
 	        	} else {
-	        		grdInvstmntSpmtPop.setCellDisabled(0, 0, grdInvstmntSpmtPop.getRows() - 1, grdInvstmntSpmtPop.getCols() - 1, true);
+	        		grdInvstmntSpmtPop2.setCellDisabled(0, 0, grdInvstmntSpmtPop2.getRows() - 1, grdInvstmntSpmtPop2.getCols() - 1, true);
 	        	}
 
-	        	document.querySelector('#apc-pop-cnt').innerText = totalRecordCount;
+	        	document.querySelector('#apc-pop-cnt2').innerText = totalRecordCount;
 
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
@@ -232,16 +232,16 @@
 	        }
 	    },
 	    paging: function() {
-	    	let recordCountPerPage = grdInvstmntSpmtPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdInvstmntSpmtPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+	    	let recordCountPerPage = grdInvstmntSpmtPop2.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	    	let currentPageNo = grdInvstmntSpmtPop2.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-	    	popInvstmntSpmt.setGrid(recordCountPerPage, currentPageNo);
+	    	popInvstmntSpmt2.setGrid(recordCountPerPage, currentPageNo);
 	    }
 	}
 
-function enterKey2() {
+function enterKey3() {
 		if(window.event.keyCode == 13) {
-			popInvstmntSpmt.search();
+			popInvstmntSpmt2.search();
 		}
 	}
 
