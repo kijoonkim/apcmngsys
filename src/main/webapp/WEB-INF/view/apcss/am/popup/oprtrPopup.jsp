@@ -123,6 +123,7 @@
 		        {caption: ["예금주명"], 	ref: 'dpstr',   type: 'output',  width:'90px',	style:'text-align:center'}
 		    ];
 		    grdOprtrPop = _SBGrid.create(SBGridProperties);
+		    grdOprtrPop.bind('afterpagechanged', this.paging);
 		    grdOprtrPop.bind('dblclick', popOprtr.choice);
 		},
 		choice: function() {
@@ -188,7 +189,13 @@
 	    		}
 	    		console.error("failed", e.message);
 	        }
-		}
+		},
+	    paging: function() {
+	    	let recordCountPerPage = grdVhclPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	    	let currentPageNo = grdVhclPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+
+	    	popOprtr.setGrid(recordCountPerPage, currentPageNo);
+	    }
 	}
 
 	const fnCustomOprtr = function(strValue) {
