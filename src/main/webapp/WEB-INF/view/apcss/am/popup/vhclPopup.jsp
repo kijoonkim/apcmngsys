@@ -177,8 +177,8 @@
 			    {caption: ['APC코드'], 	ref: 'apcCd', 			hidden : true},
 			    {caption: ['은행명'], 	ref: 'bankNm', 			hidden : true}
 		    ];
-
 		    grdVhclPop = _SBGrid.create(SBGridProperties);
+		    grdVhclPop.bind('afterpagechanged', this.paging);
 		    grdVhclPop.bind('dblclick', popVhcl.choice);
 		},
 		choice: function() {
@@ -376,10 +376,10 @@
 	        }
 	    },
 	    paging: function() {
-	    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+	    	let recordCountPerPage = grdVhclPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	    	let currentPageNo = grdVhclPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+	    	popVhcl.setGrid(recordCountPerPage, currentPageNo);
 	    },
 	    searchInEdit: async function() {
 	    	this.createGrid();

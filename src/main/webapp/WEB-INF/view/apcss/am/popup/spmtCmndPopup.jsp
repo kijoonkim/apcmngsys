@@ -173,6 +173,7 @@
 	            {caption: ['비고'], 		ref: 'rmrk', 			width: '150px',	type: 'output'}
 		    ];
 		    grdSpmtCmndPop = _SBGrid.create(SBGridProperties);
+		    grdSpmtCmndPop.bind('afterpagechanged', this.paging);
 		    grdSpmtCmndPop.bind('dblclick', popSpmtCmnd.choice);
 		},
 		choice: function() {
@@ -297,7 +298,13 @@
 				SBUxMethod.set("spmtCmnd-slt-vrtyCd", vrtyCd);
 			}
 			gfn_setApcSpcfctsSBSelect('spmtCmnd-slt-spcfctCd', jsonApcSpcfct, apcCd, itemCd)
-		}
+		},
+	    paging: function() {
+	    	let recordCountPerPage = grdSpmtCmndPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	    	let currentPageNo = grdSpmtCmndPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+
+	    	popSpmtCmnd.setGrid(recordCountPerPage, currentPageNo);
+	    }
 	}
 </script>
 </html>

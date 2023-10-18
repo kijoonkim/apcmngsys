@@ -200,8 +200,8 @@
 		        {caption: ['생산자코드'], ref: 'prdcrCd', hidden : true},
 		        {caption: ['ROW STATUS'], ref: 'rowSts', hidden : true},
 		    ];
-
 		    grdPrdcrPop = _SBGrid.create(SBGridProperties);
+		    grdPrdcrPop.bind('afterpagechanged', this.paging);
 		    grdPrdcrPop.bind('dblclick', popPrdcr.choice);
 		},
 		choice: function() {
@@ -421,10 +421,10 @@
 	        }
 	    },
 	    paging: function() {
-	    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+	    	let recordCountPerPage = grdPrdcrPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	    	let currentPageNo = grdPrdcrPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+	    	popPrdcr.setGrid(recordCountPerPage, currentPageNo);
 	    }
 	}
 

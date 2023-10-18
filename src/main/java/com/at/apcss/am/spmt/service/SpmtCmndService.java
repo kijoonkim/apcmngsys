@@ -38,14 +38,6 @@ public interface SpmtCmndService {
 	public List<SpmtCmndVO> selectSpmtCmndList(SpmtCmndVO spmtCmndVO) throws Exception;
 
 	/**
-	 * 출하지시번호 목록 조회
-	 * @param spmtCmndVO
-	 * @return
-	 * @throws Exception
-	 */
-	public List<SpmtCmndVO> selectSpmtCmndnoList(SpmtCmndVO spmtCmndVO) throws Exception;
-
-	/**
 	 * 출하지시 등록 내역 조회
 	 *
 	 * @param spmtCmndVO

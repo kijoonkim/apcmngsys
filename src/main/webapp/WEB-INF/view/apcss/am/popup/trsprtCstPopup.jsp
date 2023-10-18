@@ -230,6 +230,7 @@
 
 		    ];
 		    grdTrsprtCstPop = _SBGrid.create(SBGridProperties);
+		    grdTrsprtCstPop.bind('afterpagechanged', this.paging);
 		    grdTrsprtCstPop.bind('dblclick', popTrsrptCst.choice);
 		    grdTrsprtCstPop.bind('valuechanged', this.setTrsprtCst);
 		},
@@ -416,10 +417,10 @@
 	        }
 	    },
 	    paging: function() {
-	    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+	    	let recordCountPerPage = grdTrsprtCstPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	    	let currentPageNo = grdTrsprtCstPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+	    	popTrsrptCst.setGrid(recordCountPerPage, currentPageNo);
 	    },
 	    callSelectRgnTsprtCstList: async function() {
 			const apcCd = SBUxMethod.get("trsprtCst-inp-apcCd");
