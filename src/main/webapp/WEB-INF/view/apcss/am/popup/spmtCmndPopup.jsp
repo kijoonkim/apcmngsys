@@ -109,7 +109,7 @@
 		objGrid: null,
 		gridJson: [],
 		callbackSelectFnc: function() {},
-		init: async function(_apcCd, _apcNm, _spmtCmnd, _callbackChoiceFnc) {
+		init: async function(_apcCd, _apcNm, _callbackChoiceFnc) {
 			SBUxMethod.set("spmtCmnd-inp-apcCd", _apcCd);
 			SBUxMethod.set("spmtCmnd-inp-apcNm", _apcNm);
 

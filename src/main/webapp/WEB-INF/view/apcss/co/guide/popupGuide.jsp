@@ -156,7 +156,7 @@
 								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-button id="btnSrchSpmtCmndNo" name="btnSrchSpmtCmndNo" uitype="modal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-spmtCmndno" onclick="fn_modalSpmtCmndno"></sbux-button>
+								<sbux-button id="btnSrchSpmtCmndNo" name="btnSrchSpmtCmndNo" uitype="modal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-spmtCmnd" onclick="fn_choiceSpmtCmnd"></sbux-button>
 							</td>
 							<td></td>
 						</tr>
@@ -256,10 +256,10 @@
 
     <!-- 출하지시번호 선택 Modal -->
     <div>
-        <sbux-modal id="modal-spmtCmndno" name="modal-spmtCmndno" uitype="middle" header-title="출하지시번호 선택" body-html-id="body-modal-spmtCmndno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-spmtCmnd" name="modal-spmtCmnd" uitype="middle" header-title="출하지시번호 선택" body-html-id="body-modal-spmtCmnd" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="body-modal-spmtCmndno">
-    	<jsp:include page="../../am/popup/spmtCmndnoPopup.jsp"></jsp:include>
+    <div id="body-modal-spmtCmnd">
+    	<jsp:include page="../../am/popup/spmtCmndPopup.jsp"></jsp:include>
     </div>
 
      <!-- 상품 선택 Modal -->
@@ -512,20 +512,20 @@
 	/* 출하지시번호선택팝업 호출 필수 function  */
 	/* Start */
 	/**
-	 * @name fn_modalSpmtCmndno
+	 * @name fn_choiceSpmtCmnd
 	 * @description 출하지시번호선택팝업 호출
 	 */
-	const fn_modalSpmtCmndno = function() {
-    	popSpmtCmndno.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmndno);
-	}
+	 const fn_choiceSpmtCmnd = function() {
+	    	popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmnd);
+		}
 
 	/**
-	 * @name fn_setSpmtCmndno
+	 * @name fn_setSpmtCmnd
 	 * @description 출하지시번호 선택 callback
 	 */
-	const fn_setSpmtCmndno = function(spmtCmndno) {
-		if (!gfn_isEmpty(spmtCmndno)) {
-			SBUxMethod.set('srch-inp-spmtCmndno', spmtCmndno.spmtCmndno);
+	const fn_setSpmtCmnd = function(spmtCmnd) {
+		if (!gfn_isEmpty(spmtCmnd)) {
+			SBUxMethod.set('srch-inp-spmtCmndno', spmtCmnd.spmtCmndno);
 		}
 	}
 	/* End */
