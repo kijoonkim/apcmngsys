@@ -109,7 +109,7 @@
 		objGrid: null,
 		gridJson: [],
 		callbackSelectFnc: function() {},
-		init: async function(_apcCd, _apcNm, _callbackChoiceFnc) {
+		init: async function(_apcCd, _apcNm, _spmtCmnd, _callbackChoiceFnc) {
 			SBUxMethod.set("spmtCmnd-inp-apcCd", _apcCd);
 			SBUxMethod.set("spmtCmnd-inp-apcNm", _apcNm);
 
@@ -118,16 +118,27 @@
 			}
 			
 			if (grdSpmtCmndPop === null || this.prvApcCd != _apcCd) {
+
 				SBUxMethod.set("spmtCmnd-dtp-cmndYmd", gfn_dateToYmd(new Date()));
 				
 				let rst = await Promise.all([
 				 	gfn_setApcItemSBSelect('spmtCmnd-slt-itemCd', jsonApcItem, _apcCd),						// 품목
 					gfn_setApcVrtySBSelect('spmtCmnd-slt-vrtyCd', jsonApcVrty, _apcCd),						// 품종
-					gfn_setApcSpcfctsSBSelect('spmtCmnd-slt-spcfctCd', jsonApcSpcfct, _apcCd),				// 규격
+					gfn_setApcSpcfctsSBSelect('spmtCmnd-slt-spcfctCd', jsonApcSpcfct, _apcCd)				// 규격
 				]);
+				if (!gfn_isEmpty(_spmtCmnd)){
+					SBUxMethod.set("spmtCmnd-slt-itemCd", _spmtCmnd.itemCd);
+					SBUxMethod.set("spmtCmnd-slt-vrtyCd", _spmtCmnd.vrtyCd);
+					SBUxMethod.set("spmtCmnd-slt-spcfctCd", _spmtCmnd.spcfctCd);
+				}
 				this.createGrid();
 				this.search();
 			} else {
+				if (!gfn_isEmpty(_spmtCmnd)){
+					SBUxMethod.set("spmtCmnd-slt-itemCd", _spmtCmnd.itemCd);
+					SBUxMethod.set("spmtCmnd-slt-vrtyCd", _spmtCmnd.vrtyCd);
+					SBUxMethod.set("spmtCmnd-slt-spcfctCd", _spmtCmnd.spcfctCd);
+				}
 				this.search();
 			}
 
@@ -182,7 +193,7 @@
 			popSpmtCmnd.close(rowData);
 		},
 		search: async function() {
-			let apcCd = this.prvApcCd;
+			let apcCd = SBUxMethod.get("spmtCmnd-inp-apcCd");
 
 			grdSpmtCmndPop.rebuild();
 	    	let pageSize = grdSpmtCmndPop.getPageSize();
@@ -196,7 +207,7 @@
 		setGrid: async function(pageSize, pageNo) {
 			jsonSpmtCmndPop = [];
 
-			let apcCd = this.prvApcCd;
+			let apcCd = SBUxMethod.get("spmtCmnd-inp-apcCd");
 			let cmndYmd = SBUxMethod.get("spmtCmnd-dtp-cmndYmd");
 			let itemCd = SBUxMethod.get("spmtCmnd-slt-itemCd");
 			let vrtyCd = SBUxMethod.get("spmtCmnd-slt-vrtyCd");
