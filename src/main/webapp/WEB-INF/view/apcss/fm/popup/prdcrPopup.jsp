@@ -200,8 +200,8 @@
 		        {caption: ['생산자코드'], ref: 'prdcrCd', hidden : true},
 		        {caption: ['ROW STATUS'], ref: 'rowSts', hidden : true},
 		    ];
+
 		    grdPrdcrPop = _SBGrid.create(SBGridProperties);
-		    grdPrdcrPop.bind('afterpagechanged', this.paging);
 		    grdPrdcrPop.bind('dblclick', popPrdcr.choice);
 		},
 		choice: function() {
@@ -254,7 +254,7 @@
 					apcCd: apcCd,
 					prdcrCd: rowData.prdcrCd
 				}
-				const postJsonPromise = gfn_postJSON("/am/cmns/deletePrdcr.do", {
+				const postJsonPromise = gfn_postJSON("/fm/cmns/deletePrdcr.do", {
 					apcCd: apcCd,
 					prdcrCd: rowData.prdcrCd
 				}, this.prgrmId);
@@ -317,7 +317,7 @@
 	    		return;
 	    	}
 
-	    	const postJsonPromise = gfn_postJSON("/am/cmns/multiPrdcrList.do", prdcrList, this.prgrmId);
+	    	const postJsonPromise = gfn_postJSON("/fm/cmns/multiPrdcrList.do", prdcrList, this.prgrmId);
 
 			const data = await postJsonPromise;
 	        try {
@@ -347,7 +347,7 @@
 	    	let apcCd = SBUxMethod.get("prdcr-inp-apcCd");
 			let prdcrNm = SBUxMethod.get("prdcr-inp-prdcrNm");
 
-	        const postJsonPromise = gfn_postJSON("/am/cmns/selectPrdcrList.do", {
+	        const postJsonPromise = gfn_postJSON("/fm/cmns/selectPrdcrList.do", {
 	        	apcCd: apcCd,
 	        	prdcrNm: prdcrNm,
 	        	// pagination
@@ -421,10 +421,10 @@
 	        }
 	    },
 	    paging: function() {
-	    	let recordCountPerPage = grdPrdcrPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdPrdcrPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+	    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-	    	popPrdcr.setGrid(recordCountPerPage, currentPageNo);
+	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
 	    }
 	}
 

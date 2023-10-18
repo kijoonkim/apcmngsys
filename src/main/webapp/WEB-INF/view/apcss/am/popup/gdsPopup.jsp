@@ -143,6 +143,7 @@
 	            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}}
 		    ];
 		    grdGds = _SBGrid.create(SBGridProperties);
+		    grdGds.bind('afterpagechanged', this.paging);
 		    grdGds.bind('dblclick', popGds.choice);
 		},
 		choice: function() {
@@ -225,10 +226,10 @@
 	        }
 	    },
 	    paging: function() {
-	    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+	    	let recordCountPerPage = grdGds.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	    	let currentPageNo = grdGds.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-	    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+	    	popGds.setGrid(recordCountPerPage, currentPageNo);
 	    }
 	}
 

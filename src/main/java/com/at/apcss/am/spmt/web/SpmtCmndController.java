@@ -75,23 +75,6 @@ public class SpmtCmndController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 출하지시번호 조회
-	@PostMapping(value = "/am/spmt/selectSpmtCmndnoList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectSpmtCmndnoList(@RequestBody SpmtCmndVO SpmtCmndVO, HttpServletRequest request) throws Exception {
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<SpmtCmndVO> resultList = new ArrayList<>();
-		try {
-			resultList = spmtCmndService.selectSpmtCmndnoList(SpmtCmndVO);
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
-		return getSuccessResponseEntity(resultMap);
-	}
-
 	// 출하지시 등록 내역 조회
 	@PostMapping(value = "/am/spmt/selectRegSpmtCmndList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectRegSpmtCmndList(@RequestBody SpmtCmndVO SpmtCmndVO, HttpServletRequest request) throws Exception {

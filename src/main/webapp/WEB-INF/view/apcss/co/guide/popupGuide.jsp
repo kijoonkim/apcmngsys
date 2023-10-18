@@ -156,7 +156,7 @@
 								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-button id="btnSrchSpmtCmndNo" name="btnSrchSpmtCmndNo" uitype="modal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-spmtCmndno" onclick="fn_modalSpmtCmndno"></sbux-button>
+								<sbux-button id="btnSrchSpmtCmndNo" name="btnSrchSpmtCmndNo" uitype="modal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-spmtCmnd" onclick="fn_choiceSpmtCmnd"></sbux-button>
 							</td>
 							<td></td>
 						</tr>
@@ -167,6 +167,14 @@
 							</td>
 							<td class="td_input">
 								<sbux-button id="btnSrchGdsNm" name="btnSrchGdsNm" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-gds" onclick="fn_modalGds" text="찾기"></sbux-button>
+							</td>
+							<td></td>
+							<th scope="row" >생산작업자선택</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-flnm" name="srch-inp-flnm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchOprtr" name="btnSrchOprtr" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-oprtr" onclick="fn_modalOprtr" text="찾기"></sbux-button>
 							</td>
 							<td></td>
 							<th scope="row" >입고일자</th>
@@ -248,10 +256,10 @@
 
     <!-- 출하지시번호 선택 Modal -->
     <div>
-        <sbux-modal id="modal-spmtCmndno" name="modal-spmtCmndno" uitype="middle" header-title="출하지시번호 선택" body-html-id="body-modal-spmtCmndno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-spmtCmnd" name="modal-spmtCmnd" uitype="middle" header-title="출하지시번호 선택" body-html-id="body-modal-spmtCmnd" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
-    <div id="body-modal-spmtCmndno">
-    	<jsp:include page="../../am/popup/spmtCmndnoPopup.jsp"></jsp:include>
+    <div id="body-modal-spmtCmnd">
+    	<jsp:include page="../../am/popup/spmtCmndPopup.jsp"></jsp:include>
     </div>
 
      <!-- 상품 선택 Modal -->
@@ -260,6 +268,14 @@
     </div>
     <div id="body-modal-gds">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/gdsPopup.jsp"></jsp:include>
+    </div>
+    
+     <!-- 생산작업자 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산작업자 선택" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-oprtr">
+    	<jsp:include page="../../am/popup/oprtrPopup.jsp"></jsp:include>
     </div>
 
 <script type="text/javascript">
@@ -496,30 +512,32 @@
 	/* 출하지시번호선택팝업 호출 필수 function  */
 	/* Start */
 	/**
-	 * @name fn_modalSpmtCmndno
+	 * @name fn_choiceSpmtCmnd
 	 * @description 출하지시번호선택팝업 호출
 	 */
-	const fn_modalSpmtCmndno = function() {
-    	popSpmtCmndno.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmndno);
-	}
+	 const fn_choiceSpmtCmnd = function() {
+			let _spmtCmnd = null;
+			//let _spmtCmnd = {itemCd : itemCd, vrtyCd : vrtyCd, spcfctCd : spcfctCd};
+	    	popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, _spmtCmnd, fn_setSpmtCmnd);
+		}
 
 	/**
-	 * @name fn_setSpmtCmndno
+	 * @name fn_setSpmtCmnd
 	 * @description 출하지시번호 선택 callback
 	 */
-	const fn_setSpmtCmndno = function(spmtCmndno) {
-		if (!gfn_isEmpty(spmtCmndno)) {
-			SBUxMethod.set('srch-inp-spmtCmndno', spmtCmndno.spmtCmndno);
+	const fn_setSpmtCmnd = function(spmtCmnd) {
+		if (!gfn_isEmpty(spmtCmnd)) {
+			SBUxMethod.set('srch-inp-spmtCmndno', spmtCmnd.spmtCmndno);
 		}
 	}
 	/* End */
 
 
-	/* 상풍선택팝업 호출 필수 function  */
+	/* 상품선택팝업 호출 필수 function  */
 	/* Start */
 	/**
 	 * @name fn_modalGds
-	 * @description 상풍선택팝업 호출
+	 * @description 상품선택팝업 호출
 	 */
 	const fn_modalGds = function() {
     	popGds.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-gdsNm"), fn_setGdsNm);
@@ -527,7 +545,7 @@
 
 	/**
 	 * @name fn_setGdsNm
-	 * @description 상풍 선택 callback
+	 * @description 상품 선택 callback
 	 */
 	const fn_setGdsNm = function(gds) {
 		if (!gfn_isEmpty(gds)) {
@@ -536,6 +554,26 @@
 	}
 	/* End */
 
+	/* 생산작업자 선택 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_modalOprtr
+	 * @description 생산작업자선택팝업 호출
+	 */
+	const fn_modalOprtr = function() {
+		popOprtr.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-flnm"), fn_setFlnm);
+	}
+
+	/**
+	 * @name fn_setFlnm
+	 * @description 생산작업자 선택 callback
+	 */
+	const fn_setFlnm = function(oprtr) {
+		if (!gfn_isEmpty(oprtr)) {
+			SBUxMethod.set('srch-inp-flnm', oprtr.flnm);
+		}
+	}
+	/* End */
 
 	/* 생산자 팝업 호출 필수 json  */
 	/* Start */
