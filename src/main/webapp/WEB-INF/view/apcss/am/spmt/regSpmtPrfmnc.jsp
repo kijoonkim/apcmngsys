@@ -910,7 +910,7 @@
 	 */
 	const fn_choiceSpmtCmnd = function() {
 		let cmndno = SBUxMethod.get("dtl-inp-spmtCmndno");
-		popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, cmndno, fn_setSpmtCmnd);
+		popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmnd);
 	}
 	const fn_setSpmtCmnd = async function(cmnd) {
 		if (!gfn_isEmpty(cmnd)) {
