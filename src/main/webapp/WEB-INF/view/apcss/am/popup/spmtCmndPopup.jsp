@@ -112,14 +112,13 @@
 		init: async function(_apcCd, _apcNm, _callbackChoiceFnc) {
 			SBUxMethod.set("spmtCmnd-inp-apcCd", _apcCd);
 			SBUxMethod.set("spmtCmnd-inp-apcNm", _apcNm);
+			SBUxMethod.set("spmtCmnd-dtp-cmndYmd", gfn_dateToYmd(new Date()));
 
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
 				this.callbackSelectFnc = _callbackChoiceFnc;
 			}
 			
 			if (grdSpmtCmndPop === null || this.prvApcCd != _apcCd) {
-				SBUxMethod.set("spmtCmnd-dtp-cmndYmd", gfn_dateToYmd(new Date()));
-				
 				let rst = await Promise.all([
 				 	gfn_setApcItemSBSelect('spmtCmnd-slt-itemCd', jsonApcItem, _apcCd),						// 품목
 					gfn_setApcVrtySBSelect('spmtCmnd-slt-vrtyCd', jsonApcVrty, _apcCd),						// 품종
@@ -182,7 +181,7 @@
 			popSpmtCmnd.close(rowData);
 		},
 		search: async function() {
-			let apcCd = this.prvApcCd;
+			let apcCd = SBUxMethod.get("spmtCmnd-inp-apcCd");
 
 			grdSpmtCmndPop.rebuild();
 	    	let pageSize = grdSpmtCmndPop.getPageSize();
@@ -196,7 +195,7 @@
 		setGrid: async function(pageSize, pageNo) {
 			jsonSpmtCmndPop = [];
 
-			let apcCd = this.prvApcCd;
+			let apcCd = SBUxMethod.get("spmtCmnd-inp-apcCd");
 			let cmndYmd = SBUxMethod.get("spmtCmnd-dtp-cmndYmd");
 			let itemCd = SBUxMethod.get("spmtCmnd-slt-itemCd");
 			let vrtyCd = SBUxMethod.get("spmtCmnd-slt-vrtyCd");
