@@ -47,7 +47,22 @@
 						class="btn btn-sm btn-success"
 						onclick="fn_lblSort"
 					></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-dark" onclick="fn_search"></sbux-button>
+					<sbux-button
+						id="btnSearch"
+						name="btnSearch"
+						uitype="normal"
+						text="조회"
+						class="btn btn-sm btn-outline-dark"
+						onclick="fn_search"
+					></sbux-button>
+					<sbux-button
+						id="btnDelete"
+						name="btnDelete"
+						uitype="normal"
+						text="삭제"
+						class="btn btn-sm btn-outline-dark"
+						onclick="fn_delete"
+					></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -509,8 +524,6 @@ let lv_sortSn = -1;
 
           		grdSortPrfmnc.setRow(2);
           		fn_viewSortInpt();
-
-
           	} else {
           		grdSortPrfmnc.setPageTotalCount(totalRecordCount);
           		grdSortPrfmnc.rebuild();
@@ -526,6 +539,61 @@ let lv_sortSn = -1;
 		}
 	}
 
+    /**
+     * @name fn_delete
+     * @description 선별실적 삭제
+     */
+	const fn_delete = async function() {
+
+		const allData = grdSortPrfmnc.getGridDataAll();
+
+		const sortPrfmncList = [];
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+
+				if (!sortPrfmncList.some(function(sort) {
+					return sort.sortno === item.sortno;
+				})) {
+					sortPrfmncList.push({
+						sortno: item.sortno
+	    			});
+				}
+    		}
+		});
+
+		console.log("sortPrfmncList");
+		console.log(sortPrfmncList);
+
+		if (sortPrfmncList.length == 0) {
+			gfn_comAlert("W0005", "삭제대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+
+		// comConfirm
+		if (!gfn_comConfirm("Q0001", "선별실적삭제")) {	//	Q0001	{0} 하시겠습니까?
+	    	return;
+	    }
+
+		const sortMng = {
+	    		apcCd: gv_selectedApcCd,
+	    		sortPrfmncList: sortPrfmncList
+	    	}
+
+    	const postJsonPromise = gfn_postJSON("/am/sort/deleteSortPrfmnc.do", sortMng);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        }
+
+	}
 
 	const fn_createInptGrid = function() {
 		var SBGridProperties = {};
@@ -572,7 +640,7 @@ let lv_sortSn = -1;
         	}
         }
 
-        if (_.isEqual(rowData.sortno, lv_sortno) && _.isEqual(rowData.sortSn, lv_sortSn)) {
+        if (_.isEqual(rowData.sortno, lv_sortno)) {
         	return;
         }
 

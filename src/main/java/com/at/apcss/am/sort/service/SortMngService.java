@@ -42,8 +42,8 @@ public interface SortMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSortPrfmnc(SortMngVO sortMngVO) throws Exception;
-	
-	
+
+
 	/**
 	 * 선별지시 변경
 	 * @param sortMngVO
@@ -65,8 +65,8 @@ public interface SortMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateSortPrfmnc(SortMngVO sortMngVO) throws Exception;
-	
-	
+
+
 	/**
 	 * 선별지시 삭제
 	 * @param sortMngVO
@@ -81,6 +81,7 @@ public interface SortMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteSortInptPrfmnc(SortMngVO sortMngVO) throws Exception;
+
 	/**
 	 * 선별실적 삭제
 	 * @param sortMngVO
@@ -88,5 +89,5 @@ public interface SortMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteSortPrfmnc(SortMngVO sortMngVO) throws Exception;
-	
+
 }

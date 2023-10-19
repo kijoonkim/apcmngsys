@@ -220,5 +220,40 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	}
 
 
+	@Override
+	public HashMap<String, Object> updateInvntrSortPrfmncCncl(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+
+		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
+
+		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
+		}
+
+		if (rawMtrInvntrVO.getInptWght() > invntrInfo.getSortWght()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "취소량||선별량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		}
+
+		// 재고량
+		int invntrQntt = invntrInfo.getInvntrQntt() + rawMtrInvntrVO.getInptQntt();
+		double invntrWght = invntrInfo.getInvntrWght() + rawMtrInvntrVO.getInptWght();
+		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
+		rawMtrInvntrVO.setInvntrWght(invntrWght);
+
+		// 선별량
+		int sortQntt = invntrInfo.getSortQntt() - rawMtrInvntrVO.getInptQntt();
+		double sortWght = invntrInfo.getSortWght() - rawMtrInvntrVO.getInptWght();
+		rawMtrInvntrVO.setInptQntt(sortQntt);
+		rawMtrInvntrVO.setInptWght(sortWght);
+
+		int updatedCnt = rawMtrInvntrMapper.updateInvntrSortPrfmnc(rawMtrInvntrVO);
+
+		if (updatedCnt != 1) {
+
+		}
+
+		return null;
+	}
+
+
 
 }

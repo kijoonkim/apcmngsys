@@ -195,6 +195,22 @@ public class SortPrfmncVO extends ComVO {
 	 * 원물창고
 	 */
 	private String rawMtrWarehouseSeCd;
+
+	/**
+	 * 선별일자
+	 */
+	private String sortYmd;
+
+
+	/**
+	 * 재고수량
+	 */
+	private int invntrQntt;
+	/**
+	 * 재고중량
+	 */
+	private double invntrWght;
+
 	/**
 	 * 선별수량
 	 */

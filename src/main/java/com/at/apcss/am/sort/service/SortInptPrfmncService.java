@@ -20,7 +20,7 @@ import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
  * </pre>
  */
 public interface SortInptPrfmncService {
-	
+
 	/**
 	 * 선별투입실적 단건 조회
 	 * @param sortInptPrfmncVO
@@ -38,6 +38,15 @@ public interface SortInptPrfmncService {
 	public List<SortInptPrfmncVO> selectSortInptPrfmncList(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
 
 	/**
+	 * 선별투입실적 (취소대상)목록 조회
+	 * @param sortInptPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortInptPrfmncVO> selectSortInptCnclList(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+
+
+	/**
 	 * 선별투입실적 등록
 	 * @param sortInptPrfmncVO
 	 * @return
@@ -53,7 +62,7 @@ public interface SortInptPrfmncService {
 	 */
 	public HashMap<String, Object> insertSortInptPrfmncList(List<SortInptPrfmncVO> sortInptPrfmncList) throws Exception;
 
-	
+
 	/**
 	 * 선별투입실적 변경
 	 * @param sortInptPrfmncVO

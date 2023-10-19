@@ -68,6 +68,17 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	}
 
 	@Override
+	public List<SortPrfmncVO> selectSortCnclList(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+		List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortCnclList(sortPrfmncVO);
+
+		return resultList;
+	}
+
+
+
+
+	@Override
 	public List<SortPrfmncVO> selectSortInptPrfmncList(SortPrfmncVO sortPrfmncVO) throws Exception {
 
 		List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortInptPrfmncList(sortPrfmncVO);
@@ -147,7 +158,29 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> deleteSortPrfmncList(List<SortPrfmncVO> sortPrfmncList) throws Exception {
 
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		for ( SortPrfmncVO sort : sortPrfmncList ) {
+
+			// 선별재고 삭제
+			SortInvntrVO invntrVO = new SortInvntrVO();
+			BeanUtils.copyProperties(sort, invntrVO);
+
+			rtnObj = sortInvntrService.deleteSortInvntr(invntrVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+			// 선별실적.delYn set 'Y'
+			sortPrfmncMapper.deleteSortPrfmnc(sort);
+
+		}
+
+		return null;
+	}
 
 
 }
