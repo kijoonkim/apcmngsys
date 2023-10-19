@@ -244,7 +244,7 @@
             {caption: ['납기일자'], 		ref: 'wrhsYmd', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false,
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['발주일자'], 		ref: 'outordrYmd', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false,
-        		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
+        		format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['주문자'], 		ref: 'outordrPrsn', 	width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
             {caption: ['공급자명'], 		ref: 'splyPrsn', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
             {caption: ['상품명'], 		ref: 'spmtPckgUnitNm', 	width: '150px', 	type: 'output',			style:'text-align: center', sortable: false},
@@ -255,9 +255,9 @@
             {caption: ['규격'], 			ref: 'spcfctNm', 		width: '70px', 		type: 'output',			style:'text-align: center', sortable: false},
             {caption: ['입수'], 			ref: 'bxGdsQntt', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
             {caption: ['발주수량'], 		ref: 'outordrQntt', 	width: '70px', 		type: 'output',			style:'text-align: right',  sortable: false,
-				format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
+				format : {type:'number', rule:'#,###'}},
             {caption: ['낱개수량'], 		ref: 'pieceQntt', 		width: '70px', 		type: 'output',			style:'text-align: right',  sortable: false,
-				format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
+				format : {type:'number', rule:'#,###'}},
             {caption: ['단위'], 			ref: 'unitCd', 			width: '70px', 		type: 'output',			style:'text-align: center', sortable: false},
             {caption: ['박스단가'], 		ref: 'bxUntprc', 		width: '100px', 	type: 'output',			style:'text-align: right',  sortable: false,
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
@@ -266,9 +266,19 @@
             {caption: ['발주단위'], 		ref: 'outordrUnitCd', 	width: '70px', 		type: 'output',			style:'text-align: center', sortable: false},
             {caption: ['LOT'], 			ref: 'lot', 			width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
             {caption: ['세액'], 			ref: 'txAmt', 			width: '100px', 	type: 'output',			style:'text-align: right',  sortable: false,
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}, validate : gfn_chkByte.bind({byteLimit: 18})},
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
             {caption: ['발주금액'], 		ref: 'outordrAmt', 		width: '100px', 	type: 'output',			style:'text-align: right',  sortable: false,
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}, validate : gfn_chkByte.bind({byteLimit: 18})},
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+  	        {caption: ['재고수량'], 		ref: 'invntrQntt', 		width: '100px', 	type: 'output', 		style:'text-align:right',   sortable: false,
+  				format : {type:'number', rule:'#,###'}},
+            {caption: ['출하수량'], 		ref: 'spmtQntt',		width: '100px', 	type: 'output', 		style:'text-align:right',   sortable: false,
+  				format : {type:'number', rule:'#,###'}},
+            {caption: ['출하지시수량'], 	ref: 'cmndQntt',		width: '100px', 	type: 'output', 		style:'text-align:right',   sortable: false,
+  				format : {type:'number', rule:'#,###'}},
+            {caption: ['지시수량'], 		ref: 'inptCmndQntt', 	width: '80px', 		type: 'input', 			style:'text-align:right; background:#FFF8DC;',	sortable: false,
+				format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
+            {caption: ['지시중량'], 		ref: 'inptCmndWght', 	width: '100px', 	type: 'output', 		style:'text-align:right',   sortable: false,
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['입고형태'], 		ref: 'wrhsType', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
             {caption: ['문서번호'], 		ref: 'docno', 			width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
             {caption: ['도크정보'], 		ref: 'dockInfo', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},
@@ -298,6 +308,9 @@
         ];
         grdOutordrInfo = _SBGrid.create(SBGridProperties);
         grdOutordrInfo.bind( "afterpagechanged" , "fn_pagingOutordrInfoList" );
+        grdOutordrInfo.bind('valuechanged', 'fn_grdCmndQnttValueChanged');
+        grdOutordrInfo.bind('select', 'fn_setValue');
+        grdOutordrInfo.bind('deselect', 'fn_delValue');
     }
 
 	// 출하지시 목록 조회 (조회 버튼)
@@ -389,6 +402,12 @@
 					, rcptCfmtnApcNm		: item.rcptCfmtnApcNm
 					, spmtCmndno			: item.spmtCmndno
 					, spmtYmd				: item.spmtYmd
+					, invntrQntt			: item.invntrQntt
+					, invntrWght			: item.invntrWght
+					, spmtQntt				: item.spmtQntt
+					, spmtWght				: item.spmtWght
+					, cmndQntt				: item.cmndQntt
+					, cmndWght				: item.cmndWght
 					, gdsGrd 				: item.gdsGrd
 					, wght	 				: item.wght
 					, apcCd 				: item.apcCd
@@ -486,6 +505,97 @@
         } catch(e) {
         }
     }
+	
+    const fn_grdCmndQnttValueChanged = async function(){
+
+    	let nRow = grdOutordrInfo.getRow();
+		let nCol = grdOutordrInfo.getCol();
+		let inptCmndQnttCol = grdOutordrInfo.getColRef("inptCmndQntt");
+		switch (nCol) {
+		case inptCmndQnttCol:	// checkbox
+			fn_checkInptQntt();
+			break;
+		default:
+			return;
+		}
+    }
+    
+    const fn_checkInptQntt = async function(){
+
+    	let nRow = grdOutordrInfo.getRow();
+		let nCol = grdOutordrInfo.getCol();
+
+		let invntrQntt 		= grdOutordrInfo.getRowData(nRow).invntrQntt;
+		let spmtQntt 		= grdOutordrInfo.getRowData(nRow).spmtQntt;
+		let outordrQntt 	= grdOutordrInfo.getRowData(nRow).outordrQntt;
+		let cmndQntt 		= grdOutordrInfo.getRowData(nRow).cmndQntt;
+		let inptCmndQntt 	= grdOutordrInfo.getRowData(nRow).inptCmndQntt;
+		let psbltyCmndQntt 	= outordrQntt - spmtQntt - cmndQntt;
+		let wght 			= grdOutordrInfo.getRowData(nRow).wght;
+		let inptCmndQnttCol = grdOutordrInfo.getColRef("inptCmndQntt");
+		let inptCmndWghtCol = grdOutordrInfo.getColRef("inptCmndWght");
+		let checkedCol 		= grdOutordrInfo.getColRef("checked");
+
+		// 지시가능한수량 > 입력한지시수량
+		if(inptCmndQntt > psbltyCmndQntt){
+			gfn_comAlert("W0008", "지시가능수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+			grdOutordrInfo.setCellData(nRow, inptCmndQnttCol , "");
+			grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, "");
+			grdOutordrInfo.setCellData(nRow, checkedCol, "false");
+            return;
+		}
+		if(invntrQntt >= inptCmndQntt){
+			grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, inptCmndQntt*wght);
+			grdOutordrInfo.setCellData(nRow, checkedCol, "true");
+		}else{
+			gfn_comAlert("W0008", "재고수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+			grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, "");
+			grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, "");
+			grdOutordrInfo.setCellData(nRow, checkedCol, "false");
+			return;
+		}
+		if(inptCmndQntt == 0){
+			grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, "");
+			grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, "");
+			grdOutordrInfo.setCellData(nRow, checkedCol, "false");
+		}
+    }
+    
+    const fn_setValue = function(){
+
+    	let nRow = grdOutordrInfo.getRow();
+    	let nCol = grdOutordrInfo.getCol();
+    	if(nCol == 0){
+    		// 발주수량 - 출하수량 - 출하지시수량 = 가능한 지시수량
+	    	let invntrQntt 		= grdOutordrInfo.getRowData(nRow).invntrQntt;
+			let spmtQntt 		= grdOutordrInfo.getRowData(nRow).spmtQntt;
+			let outordrQntt 	= grdOutordrInfo.getRowData(nRow).outordrQntt;
+			let cmndQntt 		= grdOutordrInfo.getRowData(nRow).cmndQntt;
+			let psbltyCmndQntt 	= outordrQntt - spmtQntt - cmndQntt;
+			let wght 			= grdOutordrInfo.getRowData(nRow).wght;
+			let inptCmndQnttCol = grdOutordrInfo.getColRef("inptCmndQntt");
+			let inptCmndWghtCol = grdOutordrInfo.getColRef("inptCmndWght");
+			let checkedCol 		= grdOutordrInfo.getColRef("checked");
+
+			if(psbltyCmndQntt > 0 && invntrQntt > 0){
+				if(psbltyCmndQntt > invntrQntt) {
+					grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, invntrQntt);
+					grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, invntrQntt*wght);
+				}else {
+					grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, psbltyCmndQntt);
+					grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, psbltyCmndQntt*wght);
+				}
+			}
+    	}
+    }
+
+    const fn_delValue = async function(){
+    	var nRow = grdOutordrInfo.getRow();
+    	let inptCmndQnttCol = grdOutordrInfo.getColRef("inptCmndQntt");
+		let inptCmndWghtCol = grdOutordrInfo.getColRef("inptCmndWght");
+    	grdOutordrInfo.setCellData(nRow, inptCmndQnttCol, "");
+    	grdOutordrInfo.setCellData(nRow, inptCmndWghtCol, "");
+    }
 
 	// 출하지시 등록
     async function fn_regSpmtCmnd(){
@@ -507,13 +617,17 @@
 		for ( let i=1; i<=allData.length; i++ ){
 			const rowData = grdOutordrInfo.getRowData(i);
 			const rowSts = grdOutordrInfo.getRowStatus(i);
-			console.log(grdOutordrInfo.getRowData(i).checked, rowData.checked);
 			if (rowData.checked == "true"){
+				if (gfn_isEmpty(rowData.inptCmndQntt)){
+					break;
+					gfn_comAlert("W0002", "지시수량");		//	W0002	{0}을/를 선택하세요.
+					return;
+				}
 				rowData.cmndYmd = cmndYmd;
 				rowData.trsprtCoCd = trsprtCoCd;
 				rowData.rmrk = rmrk;
-				rowData.cmndQntt = rowData.outordrQntt;
-				rowData.cmndWght = rowData.outordrQntt * rowData.wght;
+				rowData.cmndQntt = rowData.inptCmndQntt;
+				rowData.cmndWght = rowData.inptCmndWght;
 				if (gfn_isEmpty(rowData.rcptCfmtnYmd)){
 					rowData.rcptCfmtnApcCd = gv_selectedApcCd;
 					rowData.rcptCfmtnYmd = gfn_dateToYmd(new Date());
