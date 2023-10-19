@@ -103,15 +103,15 @@
 							<td scope="row" align="right">정산기준</td>
 							<td class="td_input">
 								<p class="ad_input_row">
-									<sbux-radio id="rdo-clclnCrtr1" name="rdo-clclnCrtr" uitype="normal" value="1"  class="radio_label"></sbux-radio>
+									<sbux-radio id="rdo-clclnCrtrCd1" name="rdo-clclnCrtrCd" uitype="normal" value="1"  class="radio_label"></sbux-radio>
 									<label class="radio_label" for="radio1">입고</label>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="rdo-clclnCrtr2" name="rdo-clclnCrtr" uitype="normal" value="2" class="radio_label" checked></sbux-radio>
+									<sbux-radio id="rdo-clclnCrtrCd2" name="rdo-clclnCrtrCd" uitype="normal" value="2" class="radio_label" checked></sbux-radio>
 									<label class="radio_label" for="radio1">선별</label>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="rdo-clclnCrtr3" name="rdo-clclnCrtr" uitype="normal" value="4"  class="radio_label"></sbux-radio>
+									<sbux-radio id="rdo-clclnCrtrCd3" name="rdo-clclnCrtrCd" uitype="normal" value="4"  class="radio_label"></sbux-radio>
 									<label class="radio_label" for="radio1">출하</label>
 								</p>
 							</td>
@@ -666,7 +666,7 @@
         	SBUxMethod.set("slt-bankCd", resultVO.bankCd);
         	SBUxMethod.set("inp-dpstr", resultVO.dpstr);
         	SBUxMethod.set("inp-brno", resultVO.brno);
-        	SBUxMethod.set("rdo-clclnCrtr", resultVO.clclnCrtr);
+        	SBUxMethod.set("rdo-clclnCrtrCd", resultVO.clclnCrtrCd);
         	SBUxMethod.set("rdo-apcSeCd", resultVO.apcSeCd);
         	SBUxMethod.set("chk-wghMngYn", resultVO.wghMngYn);
         	SBUxMethod.set("chk-wghMblUseYn", resultVO.wghMblUseYn);
@@ -1143,7 +1143,7 @@
     	  , dpstr 					: SBUxMethod.get("inp-dpstr")
     	  , brno 					: SBUxMethod.get("inp-brno")
     	  , apcSeCd					: SBUxMethod.get("rdo-apcSeCd")
-    	  , clclnCrtr				: SBUxMethod.get("rdo-clclnCrtr")
+    	  , clclnCrtrCd				: SBUxMethod.get("rdo-clclnCrtrCd")
     	  , cdVls					: cdVls
     	}
     	let postJsonPromise = gfn_postJSON("/am/apc/updateApcEvrmntStng.do", apcEvrmntStng);

@@ -196,7 +196,7 @@
 					, #{gdsSeCd}
 					, #{wrhsSeCd}
 					, #{trsprtSeCd}
-					, #{clclnCrtr}
+					, #{clclnCrtrCd}
 					, #{vhclno}
 					, #{telno}
 					, #{prdcrLinkCd}
