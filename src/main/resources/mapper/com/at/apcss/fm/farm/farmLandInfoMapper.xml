@@ -131,83 +131,77 @@
 	<insert id="insertfarmLandInfo" parameterType="com.at.apcss.fm.farm.vo.farmLandInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.farm.mapper.farmLandInfoMapper.insertfarmLandInfo */
-	    	  INTO TB_PD_PrdcrCrclOgnVluIdctrMng
+	    	  INTO TB_FARM_LAND_INFO
 	    		(
-	    			TEST_NO
-	    		  , AA
-	    		  , BB
-	    		  , CC
-	    		  , CC_CODE
-	    		  , DD
-	    		  , DD_CODE
-	    		  , EE
-	    		  , FF
-	    		  , GG
-	    		  , HH
-	    		  , II
-	    		  , II_CODE
-	    		  , JJ
-	    		  , KK
-	    		  , LL
-	    		  , MM
-	    		  , NN
-	    		  , OO
-	    		  , PP
-	    		  , QQ
-	    		  , RR
-	    		  , SS
-	    		  , TT
-	    		  , UU
-	    		  , VV
-	    		  , WW
-	    		  , XX
-	    		  , YY
-	    		  , ZZ
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		FRMER_SN
+				, BZOB_RGNO
+				, FRLND_SN
+				, LEGALDONG_CODE
+				, FRLND_MNNM
+				, COPERTN_CLVT_AT
+				, FRLND_SLNO
+				, FRLND_ADRES
+				, CLVT_STLE
+				, FRLND_OWNER_NM
+				, OFACT_LNDCGR
+				, REAL_LNDCGR
+				, OFACT_FRLND_AR
+				, REAL_FRLND_AR
+				, NUSE_CLMG_AR
+				, NUSE_QTMG_AR
+				, PRDLST_CODE
+				, PREDLST_NM
+				, EQPT_FCLTYSE
+				, CTVT_AR
+				, LDGR_DVCD
+				, EQPT_SEQ
+				, EQPT_STLE
+				, EQPT_KND
+				, FCLTY_ARA
+				, INSTL_YEAR
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+				, DEL_YN
 	    		)
 	   		VALUES
 	   			(
-	   			    (SELECT NVL(MAX(TEST_NO),0)+1 FROM TB_PD_PrdcrCrclOgnVluIdctrMng)
-	   			  , #{aa}
-	   			  , #{bb}
-	   			  , #{cc}
-	   			  , #{ccCode}
-	   			  , #{dd}
-	   			  , #{ddCode}
-	   			  , #{ee}
-	   			  , #{ff}
-	   			  , #{gg}
-	   			  , #{hh}
-	   			  , #{ii}
-	   			  , #{iiCode}
-	   			  , #{jj}
-	   			  , #{kk}
-	   			  , #{ll}
-	   			  , #{mm}
-	   			  , #{nn}
-	   			  , #{oo}
-	   			  , #{pp}
-	   			  , #{qq}
-	   			  , #{rr}
-	   			  , #{ss}
-	   			  , #{tt}
-	   			  , #{uu}
-	   			  , #{vv}
-	   			  , #{ww}
-	   			  , #{xx}
-	   			  , #{yy}
-	   			  , #{zz}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
+	   			  #{frmerSn}
+					,#{bzobRgno}
+					,#{frlndSn}
+					,#{legaldongCode}
+					,#{frlndMnnm}
+					,#{copertnClvtAt}
+					,#{frlndSlno}
+					,#{frlndAdres}
+					,#{clvtStle}
+					,#{frlndOwnerNm}
+					,#{ofactLndcgr}
+					,#{realLndcgr}
+					,#{ofactFrlndAr}
+					,#{realFrlndAr}
+					,#{nuseClmgAr}
+					,#{nuseQtmgAr}
+					,#{prdlstCode}
+					,#{predlstNm}
+					,#{eqptFcltyse}
+					,#{ctvtAr}
+					,#{ldgrDvcd}
+					,#{eqptSeq}
+					,#{eqptStle}
+					,#{eqptKnd}
+					,#{fcltyAra}
+					,#{instlYear}
+					,#{sysFrstInptDt}
+					,#{sysFrstInptUserId}
+					,#{sysFrstInptPrgrmId}
+					,#{sysLastChgDt}
+					,#{sysLastChgUserId}
+					,#{sysLastChgPrgrmId}
+					,#{delYn}
 	   			)
     	]]>
     </insert>
