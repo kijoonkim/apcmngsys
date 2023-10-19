@@ -39,6 +39,14 @@ public interface SortPrfmncMapper {
 	 */
 	public List<SortPrfmncVO> selectSortPrfmncList(SortPrfmncVO sortPrfmncVO) throws Exception;
 
+	/**
+	 * 선별실적 목록 조회 (취소대상)
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortPrfmncVO> selectSortCnclList(SortPrfmncVO sortPrfmncVO) throws Exception;
+
 
 	/**
 	 * 선별투입실적 목록 조회
@@ -80,6 +88,14 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int deleteSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+	/**
+	 * 선별실적 삭제
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateSortPrfmncForDelY(SortPrfmncVO sortPrfmncVO) throws Exception;
 
 
 	/**

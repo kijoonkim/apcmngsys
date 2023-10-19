@@ -245,45 +245,45 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 		return null;
 	}
 
-	
+
 	@Override
 	public HashMap<String, Object> deletePckgPrfmnc(PckgMngVO pckgMngVO) throws Exception {
-		
+
 		// apc 코드와 포장번호로 포장실적, 투입실적, 상품재고 삭제 : delYn 'Y'
-		
+
 		HashMap<String, Object> rtnObj = new HashMap<>();
-		
+
 		// validation check
 		String apcCd = pckgMngVO.getApcCd();
 		if (!StringUtils.hasText(apcCd)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
 		}
-		
+
 		String pckgno = pckgMngVO.getPckgno();
 		if (!StringUtils.hasText(pckgno)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "포장번호");
 		}
-		
+
 		PckgPrfmncVO prfmncParamVO = new PckgPrfmncVO();
 		prfmncParamVO.setApcCd(apcCd);
 		prfmncParamVO.setPckgno(pckgno);
-		
+
 		List<PckgPrfmncVO> prfmncList = pckgPrfmncService.selectPckgPrfmncList(prfmncParamVO);
-		
+
 		if (prfmncList == null || prfmncList.isEmpty()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "포장실적");
 		}
-		
+
 		// 투입실적 확인
 		PckgInptVO pckgInptParamVO = new PckgInptVO();
 		pckgInptParamVO.setApcCd(apcCd);
 		pckgInptParamVO.setPckgno(pckgno);
-		
+
 		List<PckgInptVO> inptList = pckgInptService.selectPckgInptList(pckgInptParamVO);
 		if (inptList == null || inptList.isEmpty()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "투입실적");
 		}
-		
+
 		List<PckgPrfmncVO> pckgPrfmncVOList = new ArrayList<>();
 		for ( PckgPrfmncVO pckg : prfmncList ) {
 
@@ -293,12 +293,12 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 			if (!ComConstants.CON_NONE.equals(ddlnYn)) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "상품재고");
 			}
-			
+
 			// 포장량 재고량 변경 확인
 			if (pckg.getInvntrQntt() < pckg.getPckgQntt()) {
-				return ComUtil.getResultMap("W0008", "포장량||재고량");		// W0008	{0} 보다 {1}이/가 큽니다.
+				return ComUtil.getResultMap("W0008", "재고량||포장량");		// W0008	{0} 보다 {1}이/가 큽니다.
 			}
-			
+
 			PckgPrfmncVO prfmncVO = new PckgPrfmncVO();
 			BeanUtils.copyProperties(pckgMngVO, prfmncVO);
 			BeanUtils.copyProperties(pckg, prfmncVO,
@@ -314,14 +314,14 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 		}
 
 		// 처리
-		
+
 		// 재고삭제 + 포장실적 삭제
 		rtnObj = pckgPrfmncService.deletePckgPrfmncList(pckgPrfmncVOList);
 		if (rtnObj != null) {
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		// 투입실적 삭제 + 선별재고 갱신
 		for ( PckgInptVO inpt : inptList ) {
 
@@ -336,39 +336,39 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 				// error throw exception;
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
-			
+
 			// 선별재고 갱신
 			SortInvntrVO invntrVO = new SortInvntrVO();
 			BeanUtils.copyProperties(pckgMngVO, invntrVO);
 			invntrVO.setSortno(inpt.getSortno());
 			invntrVO.setSortSn(inpt.getSortSn());
-			
+
 			invntrVO.setInptQntt(inpt.getQntt());
 			invntrVO.setInptWght(inpt.getWght());
-			
+
 			rtnObj = sortInvntrService.updateInvntrPckgPrfmncCncl(invntrVO);
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
-				
+
 		return null;
 	}
 
 
 	@Override
 	public HashMap<String, Object> deletePckgPrfmncList(PckgMngVO pckgMngVO) throws Exception {
-		
+
 		HashMap<String, Object> rtnObj = new HashMap<>();
-		
+
 		List<PckgPrfmncVO> pckgList = pckgMngVO.getPckgPrfmncList();
-		
+
 		if (pckgList == null || pckgList.isEmpty()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "삭제대상");
 		}
-		
+
 		for ( PckgPrfmncVO pckg : pckgList ) {
-			
+
 			PckgMngVO cnclVO = new PckgMngVO();
 			BeanUtils.copyProperties(pckgMngVO, cnclVO);
 			cnclVO.setPckgno(pckg.getPckgno());
@@ -377,7 +377,7 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
-		
+
 		return null;
 	}
 
