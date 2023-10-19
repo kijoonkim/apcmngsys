@@ -64,9 +64,18 @@
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
 			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
 			 WHERE 1=1
-			 AND CM.TEST_NO = #{testNo}
-			 ORDER BY CM.SYS_LAST_CHG_DT DESC
+
     	]]>
+    		<if test='ccCode != null and ccCode != ""'>
+				AND CM.CC_CODE LIKE #{ccCode} || '%'
+			</if>
+			<if test='iiCode != null and iiCode != ""'>
+				AND CM.II_CODE LIKE '%' || #{iiCode} || '%'
+			</if>
+			<if test='testNo != null and testNo != ""'>
+				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
+			</if>
+		ORDER BY CM.SYS_LAST_CHG_DT DESC
     </select>
 
 
@@ -123,7 +132,17 @@
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
 				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
 			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
+			  WHERE 1=1
     	]]>
+    		<if test='ccCode != null and ccCode != ""'>
+				AND CM.CC_CODE LIKE #{ccCode} || '%'
+			</if>
+			<if test='iiCode != null and iiCode != ""'>
+				AND CM.II_CODE LIKE '%' || #{iiCode} || '%'
+			</if>
+			<if test='testNo != null and testNo != ""'>
+				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
+			</if>
     </select>
 
 
