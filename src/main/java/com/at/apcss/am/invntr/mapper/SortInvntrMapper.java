@@ -80,6 +80,22 @@ public interface SortInvntrMapper {
 	 */
 	public int deleteSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
 
+	/**
+	 * 선별재고 삭제 : set delYn 'Y'
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateSortInvntrForDelY(SortInvntrVO sortInvntrVO) throws Exception;
+
+	/**
+	 * 선별재고 등급 삭제 : set delYn 'Y'
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateSortStdGrdForDelY(SortInvntrVO sortInvntrVO) throws Exception;
+
 
 	/**
 	 * 선별재고 포장처리
