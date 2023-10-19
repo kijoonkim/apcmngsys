@@ -1,5 +1,7 @@
 package com.at.apcss.fm.bbs.web;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +22,19 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.fm.bbs.service.BbsService;
 import com.at.apcss.fm.bbs.vo.BbsVO;
+
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 
 /**
@@ -179,4 +194,100 @@ public class BbsController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+
+	// 게시판 화면이동
+	@GetMapping("/fm/bbs/xmlParshing.do")
+	public String xmlParshing(@RequestBody List<BbsVO> bbsList, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+
+		String urlstr = "https://uni.agrix.go.kr/api/srvc/farmerInfo?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY&version=1.0&responseType=xml&frmerSn=\r\n"
+				+ "AGUN47";
+		URL url = new URL(urlstr);
+
+		HttpURLConnection urlconnection  = (HttpURLConnection)url.openConnection();
+
+		// xml 파싱 빌드업
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+
+
+		// xml 파일을 document로 파싱하기
+		//Document document = builder.parse("xml/sample.xml");
+		Document document = builder.parse(urlconnection.getInputStream());
+
+
+		// root 요소 가져오기
+		Element root = document.getDocumentElement();
+		// root 요소 확인 : 첫 태그 sample , items
+		System.out.println(root.getNodeName());
+		// root 요소의 첫번째 노드는 #Text
+		Node firstNode = root.getFirstChild();
+		// 다음 노드는 customer , item
+		Node customer = firstNode.getNextSibling();
+		// customer 요소 안의 노드 리스트
+		NodeList childList = customer.getChildNodes();
+
+
+		for(int i = 0; i < childList.getLength(); i++) {
+			Node item = childList.item(i);
+			if(item.getNodeType() == Node.ELEMENT_NODE) { // 노드의 타입이 Element일 경우(공백이 아닌 경우)
+				System.out.println("item.getNodeName()========="+item.getNodeName());
+				System.out.println("item.getTextContent()========="+item.getTextContent());
+			} else {
+				System.out.println("공백 입니다.");
+			}
+		}
+
+		/* xml예시 파일
+		 * <?xml version="1.0" encoding="UTF-8"?>
+				<sample>
+					<customer>
+						<name>한국이</name>
+						<age>25</age>
+						<address>서울</address>
+					</customer>
+				</sample>
+		 */
+		/*
+		 * <data>
+				<script/>
+				<code>200</code>
+				<message>클라이언트 요청에 대해 정상 처리한 경우</message>
+				<version>1.0</version>
+				<updateDate>2023-10-19 16:49:08</updateDate>
+				<totCnt/>
+				<items>
+					<item>
+						<frmerSn>AGUN47</frmerSn>
+						<bzobRgno>1001334324</bzobRgno>
+						<mngerRelate>경영주</mngerRelate>
+						<bzmCorpNm>박찬웅</bzmCorpNm>
+						<addr>전라북도 순창군 쌍치면 운암리 375</addr>
+						<rrsdAddr>전라북도 순창군 쌍치면 운암리 375</rrsdAddr>
+						<rdnmAddr>전라북도 순창군 쌍치면 운암길 92-12</rdnmAddr>
+						<twNm>운암</twNm>
+						<perCorpDvcdNm>개인</perCorpDvcdNm>
+						<nafoDvcdNm>내국인</nafoDvcdNm>
+						<telno>0636522193</telno>
+						<mblTelno>01088772193</mblTelno>
+						<emailAddr>@</emailAddr>
+						<famgStrYmd>19790101</famgStrYmd>
+						<farmngBeginStleCdNm>전 생애 농업에 종사</farmngBeginStleCdNm>
+						<farmngEngageStleCdNm>전업</farmngEngageStleCdNm>
+						<reprAddr> </reprAddr>
+						<brthdy>19510525</brthdy>
+						<sexdstn>남성</sexdstn>
+						<rgsde>20110120</rgsde>
+						<updde>20220419</updde>
+					</item>
+				</items>
+			</data>
+		 */
+		return "apcss/fm/bbs/xmlParshing";
+	}
+
+
+
 }
