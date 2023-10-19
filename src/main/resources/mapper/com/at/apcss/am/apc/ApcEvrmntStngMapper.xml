@@ -128,7 +128,7 @@
 				, ACTNO
 				, DPSTR
 				, APC_SE_CD
-				, CLCLN_CRTR
+				, CLCLN_CRTR_CD
 				, WGH_MNG_YN
 				, WGH_MBL_USE_YN
 				, WGH_IDNTY_DOC_PBLCN_YN
@@ -253,7 +253,7 @@
 				, APC.ACTNO						AS ACTNO
 				, APC.DPSTR						AS DPSTR
 				, APC.APC_SE_CD					AS APC_SE_CD
-				, APC.CLCLN_CRTR				AS CLCLN_CRTR
+				, APC.CLCLN_CRTR_CD				AS CLCLN_CRTR_CD
 				, APC.WGH_MNG_YN				AS WGH_MNG_YN
 				, APC.WGH_MBL_USE_YN			AS WGH_MBL_USE_YN
 				, APC.WGH_IDNTY_DOC_PBLCN_YN	AS WGH_IDNTY_DOC_PBLCN_YN
@@ -374,7 +374,7 @@
 				, ACTNO						= #{actno}
 				, DPSTR						= #{dpstr}
 				, APC_SE_CD					= #{apcSeCd}
-				, CLCLN_CRTR 				= #{clclnCrtr}
+				, CLCLN_CRTR_CD 			= #{clclnCrtrCd}
 			 WHERE APC_CD = #{apcCd}
 		]]>
     </update>

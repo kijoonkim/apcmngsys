@@ -82,8 +82,8 @@
 		<if test='clclnYmdTo != null and clclnYmdTo != ""'>
 		       AND CP.CLCLN_YMD <![CDATA[<=]]> #{clclnYmdTo}
 		</if>
-		<if test='clclnCrtr != null and clclnCrtr != ""'>
-		       AND PI.CLCLN_CRTR = #{clclnCrtr}
+		<if test='clclnCrtrCd != null and clclnCrtrCd != ""'>
+		       AND PI.CLCLN_CRTR_CD = #{clclnCrtrCd}
 		</if>
 		<if test='itemCd != null and itemCd != ""'>
 		       AND CP.ITEM_CD = #{itemCd}

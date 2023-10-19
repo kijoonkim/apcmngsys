@@ -99,7 +99,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 
 
 		apcEvrmntStngVO.setApcSeCd(AmConstants.CON_APC_SE_CD_CORP);		// APC구분코드	2:농업법인
-		apcEvrmntStngVO.setClclnCrtr(AmConstants.CON_CLCLN_CRTR_SORT);	// 정산기준 2:선별완료
+		apcEvrmntStngVO.setClclnCrtrCd(AmConstants.CON_CLCLN_CRTR_SORT);	// 정산기준 2:선별완료
 
 		// 기본사용메뉴 set
 		apcEvrmntStngVO.setRawMtrWrhsMngYn(ComConstants.CON_YES);			// 원물입고관리유무

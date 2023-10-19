@@ -167,7 +167,7 @@
 			gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonApcItem, 		gv_selectedApcCd),						// 품목
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonApcVrty, 		gv_selectedApcCd),						// 품종
 			setCfmtnYnSBSelect('srch-slt-cfmtnYn', 		jsonCfmtnYn),												// 확정여부
-			gfn_setComCdSBSelect('srch-slt-clclnCrtr', 	jsonComClclnCrtr, 	'CLCLN_CRTR', 		gv_selectedApcCd)	// 정산기준
+			gfn_setComCdSBSelect('srch-slt-clclnCrtr', 	jsonComClclnCrtr, 	'CLCLN_CRTR_CD', 		gv_selectedApcCd)	// 정산기준
 		]);
 	}
 

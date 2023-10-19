@@ -31,7 +31,7 @@ public class ClclnPrfmncVO extends ComVO {
 	/**
 	 * 정산기준
 	 */
-	private String clclnCrtr;
+	private String clclnCrtrCd;
 	/**
 	 * 정산일자
 	 */
