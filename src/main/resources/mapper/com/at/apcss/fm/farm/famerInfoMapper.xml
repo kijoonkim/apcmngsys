@@ -169,83 +169,71 @@
 	<insert id="insertfarmerInfo" parameterType="com.at.apcss.fm.farm.vo.farmerInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.farm.mapper.farmerInfoMapper.insertfarmerInfo */
-	    	  INTO TB_PD_PrdcrCrclOgnVluIdctrMng
+	    	  INTO TB_FARMER_INFO
 	    		(
-	    			TEST_NO
-	    		  , AA
-	    		  , BB
-	    		  , CC
-	    		  , CC_CODE
-	    		  , DD
-	    		  , DD_CODE
-	    		  , EE
-	    		  , FF
-	    		  , GG
-	    		  , HH
-	    		  , II
-	    		  , II_CODE
-	    		  , JJ
-	    		  , KK
-	    		  , LL
-	    		  , MM
-	    		  , NN
-	    		  , OO
-	    		  , PP
-	    		  , QQ
-	    		  , RR
-	    		  , SS
-	    		  , TT
-	    		  , UU
-	    		  , VV
-	    		  , WW
-	    		  , XX
-	    		  , YY
-	    		  , ZZ
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		  FRMER_SN
+				, BZOB_RGNO
+				, MNGER_RELATE
+				, BZM_CORP_NM
+				, ADDR
+				, RRSD_ADDR
+			    , RDNM_ADDR
+				, TW_NM
+				, PER_CORP_DVCD_NM
+				, NAFO_DVCD_NM
+				, TELNO
+				, MBL_TELNO
+				, FAX_TELNO
+				, EMAIL_ADDR
+				, FAMG_STR_YMD
+				, FARMNG_BEGIN_STLE_CD_NM
+				, FARMNG_ENGAGE_STLE_CD_NM
+				, FNDT_YR
+				, BZM_RGNO
+				, REPR_NM
+				, REPR_ADDR
+				, BRTHDY
+				, SEXDSTN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+				, DEL_YN
 	    		)
 	   		VALUES
 	   			(
-	   			    (SELECT NVL(MAX(TEST_NO),0)+1 FROM TB_PD_PrdcrCrclOgnVluIdctrMng)
-	   			  , #{aa}
-	   			  , #{bb}
-	   			  , #{cc}
-	   			  , #{ccCode}
-	   			  , #{dd}
-	   			  , #{ddCode}
-	   			  , #{ee}
-	   			  , #{ff}
-	   			  , #{gg}
-	   			  , #{hh}
-	   			  , #{ii}
-	   			  , #{iiCode}
-	   			  , #{jj}
-	   			  , #{kk}
-	   			  , #{ll}
-	   			  , #{mm}
-	   			  , #{nn}
-	   			  , #{oo}
-	   			  , #{pp}
-	   			  , #{qq}
-	   			  , #{rr}
-	   			  , #{ss}
-	   			  , #{tt}
-	   			  , #{uu}
-	   			  , #{vv}
-	   			  , #{ww}
-	   			  , #{xx}
-	   			  , #{yy}
-	   			  , #{zz}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
+	   			    #{frmerSn}
+					,#{bzobRgno}
+					,#{mngerRelate}
+					,#{bzmCorpNm}
+					,#{addr}
+					,#{rrsdAddr}
+					,#{rdnmAddr}
+					,#{twNm}
+					,#{perCorpDvcdNm}
+					,#{nafoDvcdNm}
+					,#{telno}
+					,#{mblTelno}
+					,#{faxTelno}
+					,#{emailAddr}
+					,#{famgStrYmd}
+					,#{farmngBeginStleCdNm}
+					,#{farmngEngageStleCdNm}
+					,#{fndtYr}
+					,#{bzmRgno}
+					,#{reprNm}
+					,#{reprAddr}
+					,#{brthdy}
+					,#{sexdstn}
+					,#{sysFrstInptDt}
+					,#{sysFrstInptUserId}
+					,#{sysFrstInptPrgrmId}
+					,#{sysLastChgDt}
+					,#{sysLastChgUserId}
+					,#{sysLastChgPrgrmId}
+					,#{delYn}
 	   			)
     	]]>
     </insert>

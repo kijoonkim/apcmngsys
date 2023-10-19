@@ -212,9 +212,9 @@
 	        {caption: ["시스템최종변경프로그램ID"], 	ref: 'sysLastChgPrgrmId',   	type:'input',     style:'text-align:center'},
 	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdInvShipOgnReqMng\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdfarmerInfo\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdInvShipOgnReqMng\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdfarmerInfo\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }}
 
@@ -330,10 +330,10 @@
 
 			if(delYn == 'N'){
 
-				if (gfn_isEmpty(aa)) {
-		  			gfn_comAlert("W0002", "설비명");		//	W0002	{0}을/를 입력하세요.
-		            return;
-		  		}
+// 				if (gfn_isEmpty(aa)) {
+// 		  			gfn_comAlert("W0002", "설비명");		//	W0002	{0}을/를 입력하세요.
+// 		            return;
+// 		  		}
 
 				/* if (gfn_isEmpty(bb)) {
 		  			gfn_comAlert("W0001", "설비구분");		//	W0001	{0}을/를 선택하세요.
