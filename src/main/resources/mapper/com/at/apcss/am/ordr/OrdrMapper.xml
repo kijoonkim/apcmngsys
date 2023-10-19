@@ -85,7 +85,7 @@
     		  	 , OI.DLVGDS_SE_CD						AS DLVGDS_SE_CD
     		  	 , OI.ETC								AS ETC
     		  	 , OI.RCPT_CFMTN_APC_CD					AS RCPT_CFMTN_APC_CD
-    		  	 , MIN(SC.SPMT_CMNDNO)					AS SPMT_CMNDNO
+    		  	 , MAX(SC.SPMT_CMNDNO)					AS SPMT_CMNDNO
     		  	 , MAX(SP.SPMT_YMD)						AS SPMT_YMD
 	             , (SELECT GDS_GRD
                       FROM TB_SPMT_PCKG_UNIT X
