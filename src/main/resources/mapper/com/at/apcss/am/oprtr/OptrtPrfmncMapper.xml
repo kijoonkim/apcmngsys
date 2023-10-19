@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : OprtrPrfmncMapper.xml                                   			-->
+<!-- DESC : 작업자실적등록  mapper                                    			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.10.17  	김 호         	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.selectRegPrfmncList	-->
+	<!-- DESC : 작업 실적 목록 조회.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.17  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectRegPrfmncList" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO" resultType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+    	<choose>
+    		<when test='prfmncSeCd != null and prfmncSeCd !=""'>
+    			<if test='"2".equals(prfmncSeCd)'>
+    				<![CDATA[
+				    	SELECT pt0.*
+						     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)	    AS SPCFCT_NM
+						     , (SELECT FN_GET_COM_CD_VL_NM('PRFMNC_SE_CD', pt0.PRFMNC_SE_CD) FROM DUAL)         AS PRFMNC_SE_NM
+						     , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL)  AS FCLT_NM
+						  FROM (
+						        SELECT /* com.at.apcss.am.oprtr.mapper.OprtrMapper.selectRegPrfmncList */
+						               SP.APC_CD                AS APC_CD
+						             , SP.SORTNO                AS PRFMNCNO
+						             , '2'                      AS PRFMNC_SE_CD
+						             , MAX(SP.INPT_YMD)         AS PRFMNC_YMD
+						             , MAX(SP.FCLT_CD)          AS FCLT_CD
+						             , SUM(SP.SORT_QNTT)        AS QNTT
+						             , SUM(SP.SORT_WGHT)        AS WGHT
+						             , MAX(SI.SPCFCT_CD)        AS SPCFCT_CD
+						             , MAX(SI.ITEM_CD)          AS ITEM_CD
+						             , MAX(SP.RMRK)             AS RMRK
+						             , MAX(SP.DEL_YN)           AS DEL_YN
+						             , (SELECT COUNT(*)
+						                  FROM TB_OPRTR_SORT_PRFMNC X
+						                 WHERE X.APC_CD = SP.APC_CD
+						                   AND X.SORTNO = SP.SORTNO
+						                   AND X.DEL_YN = 'N'
+						               ) OPRTR_QNTT
+						         FROM TB_SORT_PRFMNC SP
+						            , TB_SORT_INVNTR SI
+						        WHERE SP.APC_CD = SI.APC_CD
+						          AND SP.SORTNO = SI.SORTNO
+						          AND SP.DEL_YN = 'N'
+						          AND SI.DEL_YN = 'N'
+						          AND SP.APC_CD = #{apcCd}
+								  AND SP.INPT_YMD = #{prfmncYmd}
+						        GROUP BY SP.APC_CD, SP.SORTNO
+						        ) pt0
+					]]>
+    			</if>
+    			<if test='"3".equals(prfmncSeCd)'>
+			    	<![CDATA[
+			    		SELECT pt0.*
+						     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)	    AS SPCFCT_NM
+						     , (SELECT FN_GET_COM_CD_VL_NM('PRFMNC_SE_CD', pt0.PRFMNC_SE_CD) FROM DUAL)         AS PRFMNC_SE_NM
+						     , (SELECT FN_GET_COM_CD_VL_NM('PCKG_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL)  AS FCLT_NM
+						  FROM (
+						        SELECT /* com.at.apcss.am.oprtr.mapper.OprtrMapper.selectRegPrfmncList */
+						               PP.APC_CD                AS APC_CD
+						             , PP.PCKGNO                AS PRFMNCNO
+						             , '3'                      AS PRFMNC_SE_CD
+						             , MAX(PP.PCKG_YMD)         AS PRFMNC_YMD
+						             , MAX(GI.FCLT_CD)          AS FCLT_CD
+						             , SUM(PP.PCKG_QNTT)        AS QNTT
+						             , SUM(PP.PCKG_WGHT)        AS WGHT
+						             , MAX(GI.SPCFCT_CD)        AS SPCFCT_CD
+						             , MAX(GI.ITEM_CD)          AS ITEM_CD
+						             , MAX(PP.RMRK)             AS RMRK
+						             , MAX(PP.DEL_YN)           AS DEL_YN
+						             , (SELECT COUNT(*)
+						                  FROM TB_OPRTR_PCKG_PRFMNC X
+						                 WHERE X.APC_CD = PP.APC_CD
+						                   AND X.PCKGNO = PP.PCKGNO
+						                   AND X.DEL_YN = 'N'
+						               ) OPRTR_QNTT
+						         FROM TB_PCKG_PRFMNC PP
+						            , TB_GDS_INVNTR GI
+						        WHERE PP.APC_CD = GI.APC_CD
+						          AND PP.PCKGNO = GI.PCKGNO
+						          AND PP.DEL_YN = 'N'
+						          AND GI.DEL_YN = 'N'
+						          AND PP.APC_CD = #{apcCd}
+								  AND PP.PCKG_YMD = #{prfmncYmd}
+				    			GROUP BY PP.APC_CD, PP.PCKGNO
+						        ) pt0
+					]]>
+    			</if>
+    		</when>
+    	</choose>
+    </select>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.selectRegPrfmncList	-->
+	<!-- DESC : 실적 작업자 목록 조회.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.17  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectOprtrPrfmncList" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO" resultType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+		<![CDATA[
+		]]>
+    	<choose>
+    		<when test='prfmncSeCd != null and prfmncSeCd !=""'>
+    			<if test='prfmncSeCd == "2"'>
+						SELECT OP.SORTNO				AS PRFMNCNO
+							 , (SELECT FN_GET_COM_CD_VL_NM('PRFMNC_SE_CD', '2') FROM DUAL)         AS PRFMNC_SE_NM
+							 , '2'						AS PRFMNC_SE_CD
+							 , (SELECT FN_GET_COM_CD_VL_NM(
+							 	   'SORT_FCLT_CD'
+								 , (SELECT FCLT_CD
+							          FROM TB_SORT_PRFMNC X
+							         WHERE X.APC_CD = OP.APC_CD
+							           AND X.SORTNO = OP.SORTNO
+						       		)
+						          , OP.APC_CD)
+						       FROM DUAL)  AS FCLT_NM
+    			</if>
+    			<if test='prfmncSeCd == "3"'>
+						SELECT OP.PCKGNO				AS PRFMNCNO
+							 , (SELECT FN_GET_COM_CD_VL_NM('PRFMNC_SE_CD', '3') FROM DUAL)         AS PRFMNC_SE_NM
+							 , '3'						AS PRFMNC_SE_CD
+							 , (SELECT FN_GET_COM_CD_VL_NM(
+									'PCKG_FCLT_CD'
+								  , (SELECT MAX(FCLT_CD)
+									   FROM TB_GDS_INVNTR X
+									  WHERE X.APC_CD = OP.APC_CD
+										AND X.PCKGNO = OP.PCKGNO
+									 )
+								 , OP.APC_CD)
+								 FROM DUAL)  AS FCLT_NM
+				</if>
+    		</when>
+    	</choose>
+		<![CDATA[
+				    		 , OP.APC_CD            AS APC_CD
+						     , OP.PRFMNC_SN         AS PRFMNC_SN
+						     , OP.BRDT              AS BRDT
+						     , OP.FLNM              AS FLNM
+						     , OP.JOB_YMD           AS JOB_YMD
+						     , OP.JOB_BGNG_HR       AS JOB_BGNG_HR
+						     , OP.JOB_END_HR        AS JOB_END_HR
+						     , OP.JOB_HR            AS JOB_HR
+						     , OP.RMRK              AS RMRK
+						     , OP.DEL_YN            AS DEL_YN
+		]]>
+    	<choose>
+    		<when test='prfmncSeCd != null and prfmncSeCd != ""'>
+    			<if test='prfmncSeCd == "2"'>
+						  FROM TB_OPRTR_SORT_PRFMNC OP
+    			</if>
+    			<if test='prfmncSeCd == "3"'>
+						  FROM TB_OPRTR_PCKG_PRFMNC OP
+				</if>
+    		</when>
+    	</choose>
+	    <![CDATA[
+						 WHERE OP.APC_CD = #{apcCd}
+						   AND OP.DEL_YN = 'N'
+						   AND OP.JOB_YMD = #{jobYmd}
+
+		]]>
+		<choose>
+    		<when test='prfmncSeCd != null and prfmncSeCd != ""'>
+    			<if test='prfmncSeCd == "2"'>
+						  AND OP.SORTNO = #{prfmncno}
+    			</if>
+    			<if test='prfmncSeCd == "3"'>
+						  AND OP.PCKGNO = #{prfmncno}
+				</if>
+    		</when>
+    	</choose>
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.insertOprtrPrfmnc	-->
+	<!-- DESC : 실적 작업자 등록.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.17  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertOprtrPrfmnc" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+    	<![CDATA[
+    		INSERT /* com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.insertOprtrPrfmnc */
+    	]]>
+    	<choose>
+    		<when test='prfmncSeCd != null and prfmncSeCd !=""'>
+    			<if test='prfmncSeCd == "2"'>
+			     INTO TB_OPRTR_SORT_PRFMNC
+			  	    ( SORTNO
+    			</if>
+    			<if test='prfmncSeCd == "3"'>
+			     INTO TB_OPRTR_PCKG_PRFMNC
+			  	    ( PCKGNO
+			  	</if>
+			</when>
+		</choose>
+    	<![CDATA[	, APC_CD
+			        , PRFMNC_SN
+			        , BRDT
+			        , FLNM
+			        , JOB_YMD
+			        , JOB_BGNG_HR
+			        , JOB_END_HR
+			        , JOB_HR
+			        , RMRK
+			        , SYS_FRST_INPT_DT
+			        , SYS_FRST_INPT_USER_ID
+			        , SYS_FRST_INPT_PRGRM_ID
+			        , SYS_LAST_CHG_DT
+			        , SYS_LAST_CHG_USER_ID
+			        , SYS_LAST_CHG_PRGRM_ID
+			        )
+			 VALUES
+			        (
+			          #{prfmncno}
+			        , #{apcCd}
+			        , #{prfmncSn}
+			        , #{brdt}
+			        , #{flnm}
+			        , #{jobYmd}
+			        , #{jobBgngHr}
+			        , #{jobEndHr}
+			        , #{jobHr}
+			        , #{rmrk}
+			        , SYSDATE
+			        , #{sysFrstInptUserId}
+			        , #{sysFrstInptPrgrmId}
+			        , SYSDATE
+			        , #{sysLastChgUserId}
+			        , #{sysLastChgPrgrmId}
+			        )
+    	]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.updateOprtrPrfmnc	-->
+	<!-- DESC : 실적 작업자 변경.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.17  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateOprtrPrfmnc" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+		<![CDATA[
+			UPDATE
+		]]>
+	    	<choose>
+	    	  <when test='prfmncSeCd != null and prfmncSeCd != ""'>
+	    		<if test='prfmncSeCd == "2"'>
+				   TB_OPRTR_SORT_PRFMNC
+	    		</if>
+	    		<if test='prfmncSeCd == "3"'>
+				   TB_OPRTR_PCKG_PRFMNC
+				</if>
+			  </when>
+			</choose>
+    	<![CDATA[
+			   SET SYS_LAST_CHG_DT 			= SYSDATE
+	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    		 , BRDT						= #{brdt}
+		         , FLNM						= #{flnm}
+		         , JOB_YMD					= #{jobYmd}
+		         , JOB_BGNG_HR				= #{jobBgngHr}
+		         , JOB_END_HR				= #{jobEndHr}
+		         , JOB_HR					= #{jobHr}
+		         , RMRK						= #{rmrk}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND PRFMNC_SN 				= #{prfmncSn}
+		]]>
+			<choose>
+	    	  <when test='prfmncSeCd != null and prfmncSeCd != ""'>
+	    		<if test='prfmncSeCd == "2"'>
+			   AND SORTNO					= #{prfmncno}
+	    		</if>
+	    		<if test='prfmncSeCd == "3"'>
+			   AND PCKGNO					= #{prfmncno}
+				</if>
+			  </when>
+			</choose>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.deleteOprtrPrfmnc	-->
+	<!-- DESC : 실적 작업자 삭제.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.17  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteOprtrPrfmnc" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+		<![CDATA[
+			DELETE FROM
+		]]>
+			<choose>
+	    	  <when test='prfmncSeCd != null and prfmncSeCd !=""'>
+	    		<if test='prfmncSeCd == "2"'>
+				   TB_OPRTR_SORT_PRFMNC
+			 WHERE SORTNO			= #{prfmncno}
+	    		</if>
+	    		<if test='prfmncSeCd == "3"'>
+				   TB_OPRTR_PCKG_PRFMNC
+			 WHERE PCKGNO			= #{prfmncno}
+				</if>
+			  </when>
+			</choose>
+		<![CDATA[
+			   AND APC_CD 			= #{apcCd}
+			   AND PRFMNC_SN 		= #{prfmncSn}
+		]]>
+	</delete>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.getoprtrPrfmncno		-->
+	<!-- DESC : 실적 작업자 삭제.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.17  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="getoprtrPrfmncno" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO" resultType="_int">
+		<![CDATA[
+			SELECT
+				   FN_GET_ID_OPRTR_PRFMNC_SN(
+				   						     #{apcCd}
+				   						   , #{prfmncSeCd}
+				   						   , #{prfmncno}
+				   						   ) AS PRFMNC_SN
+			  FROM DUAL
+		]]>
+
+	</select>
+
+</mapper>
+
+
