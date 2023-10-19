@@ -457,7 +457,6 @@
 			gfn_comAlert("W0002", "입수");		//	W0002	{0}을/를 입력하세요.
 			return;
 		}
-
 		let ordr = {
 				apcCd 			: apcCd,
 				apcSeCd			: apcSeCd,
@@ -480,7 +479,9 @@
 				rcptnSeCd 		: rcptnSeCd,
 				gdsCd			: gdsCd,
 				gdsNm			: gdsNm,
-				spmtPckgUnitCd	: spmtPckgUnitCd
+				spmtPckgUnitCd	: spmtPckgUnitCd,
+				rcptCfmtnApcCd 	: apcCd,
+				rcptCfmtnYmd	: outordrYmd
 		}
 
 		let regMsg = "저장 하시겠습니까?";

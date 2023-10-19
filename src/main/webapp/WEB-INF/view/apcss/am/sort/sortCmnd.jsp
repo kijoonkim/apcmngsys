@@ -31,9 +31,9 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnDocSortCmnd" name="btnDocSortCmnd" uitype="normal" text="선별지시서" class="btn btn-sm btn-primary" onclick="fn_docSortCmnd"></sbux-button>
-					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화"class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화"class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제"class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-					<!-- <sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제"class="btn btn-sm btn-outline-danger"></sbux-button> -->
 				</div>
 			</div>
 			<div class="box-body">
@@ -331,7 +331,7 @@
 	}
 
 
-    const fn_delete = async function(){
+    const fn_del = async function(){
     	var grdRows = grdSortCmnd.getCheckedRows(0);
     	var deleteList = [];
 
@@ -359,8 +359,6 @@
 	    		console.error("failed", e.message);
 			}
 		}
-
-
     }
 
 	function fn_closeModal(modalId){

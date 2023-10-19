@@ -778,6 +778,18 @@
 
 	    	try{
 	       		if(data.insertedCnt > 0){
+	       			if(cmndYn){
+	       				SBUxMethod.set("dtl-inp-spmtCmndno", "");
+	       				SBUxMethod.set("dtl-inp-cmndQntt", "");
+	       				SBUxMethod.set("dtl-inp-cmndWght", "");
+	       				SBUxMethod.set("dtl-slt-trsprtCoCd", "");
+	       				SBUxMethod.set("dtl-inp-cnptCd", "");
+	       				SBUxMethod.set("dtl-inp-cnptNm", "");
+	       				SBUxMethod.set("dtl-inp-dldtn", "");
+	       				SBUxMethod.set("dtl-slt-gdsGrd", "");
+	       				SBUxMethod.set("dtl-slt-outordrno", "");
+	       				SBUxMethod.set("dtl-slt-spmtPckgUnit", "");
+	       			}
 	       			fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 	       		}else{

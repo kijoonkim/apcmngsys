@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
-					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -289,6 +289,10 @@
 				  , spmtno			: item.spmtno
 				  , cfmtnYn			: item.cfmtnYn
 				  , ddlnYn			: item.ddlnYn
+				  , pckgno			: item.pckgno
+				  , pckgSn			: item.pckgSn
+				  , apcCd			: item.apcCd
+
 				}
 				jsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));
 				newJsonSpmtPrfmnc.push(Object.assign({}, spmtPrfmnc));
@@ -352,7 +356,7 @@
 		}
 	}
 
-	const fn_delete = async function(){
+	const fn_del = async function(){
 		let grdRows = grdSpmtPrfmnc.getCheckedRows(1);
     	let deleteList = [];
 

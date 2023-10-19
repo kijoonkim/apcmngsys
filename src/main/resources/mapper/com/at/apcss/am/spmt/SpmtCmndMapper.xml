@@ -106,7 +106,7 @@
                           ) AS CMND_WGHT
 			        FROM TB_OUTORDR_INFO OI
 			       WHERE OI.DEL_YN = 'N'
-			         AND OI.APC_CD = #{apcCd}
+			         AND OI.RCPT_CFMTN_APC_CD  = #{apcCd}
 
 		]]>
 		<if test='outordrYmdFrom != null and outordrYmdFrom != ""'>
