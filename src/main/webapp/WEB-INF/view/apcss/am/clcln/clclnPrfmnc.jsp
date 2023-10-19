@@ -45,7 +45,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-clclnCrtr" name="srch-slt-clclnCrtr" uitype="single" jsondata-ref="jsonComClclnCrtr" unselected-text="선택" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-select>
+										<sbux-select id="srch-slt-clclnCrtrCd" name="srch-slt-clclnCrtrCd" uitype="single" jsondata-ref="jsonComClclnCrtr" unselected-text="선택" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -156,7 +156,7 @@
 <script type="text/javascript">
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
-	var jsonComClclnCrtr	= [];	// 정산기준 	clclnCrtr	검색
+	var jsonComClclnCrtrCd	= [];	// 정산기준 	clclnCrtr	검색
 	var jsonCfmtnYn			= [];	// 확정여부 	cfmtnYn		검색
 
 	var jsonClclnPrfmnc		= [];
@@ -164,10 +164,10 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-			gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonApcItem, 		gv_selectedApcCd),						// 품목
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonApcVrty, 		gv_selectedApcCd),						// 품종
-			setCfmtnYnSBSelect('srch-slt-cfmtnYn', 		jsonCfmtnYn),												// 확정여부
-			gfn_setComCdSBSelect('srch-slt-clclnCrtr', 	jsonComClclnCrtr, 	'CLCLN_CRTR', 		gv_selectedApcCd)	// 정산기준
+			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, 		gv_selectedApcCd),						// 품목
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonApcVrty, 		gv_selectedApcCd),						// 품종
+			setCfmtnYnSBSelect('srch-slt-cfmtnYn', 			jsonCfmtnYn),												// 확정여부
+			gfn_setComCdSBSelect('srch-slt-clclnCrtrCd', 	jsonComClclnCrtr, 	'CLCLN_CRTR_CD', 		gv_selectedApcCd)	// 정산기준
 		]);
 	}
 
@@ -249,14 +249,14 @@
 	async function fn_callSelectClclnPrfmncList(recordCountPerPage, currentPageNo){
 		jsonClclnPrfmnc = [];
 		let apcCd = gv_selectedApcCd;
-		let clclnCrtr = SBUxMethod.get("srch-slt-clclnCrtr");
+		let clclnCrtrCd = SBUxMethod.get("srch-slt-clclnCrtrCd");
 		let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
 		let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");
 		let cfmtnYn = SBUxMethod.get("srch-slt-cfmtnYn");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
-		if (gfn_isEmpty(clclnCrtr)){
+		if (gfn_isEmpty(clclnCrtrCd)){
 			gfn_comAlert("W0002", "정산기준");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
@@ -271,7 +271,7 @@
 		let ClclnPrfmncVO = {apcCd 					: apcCd
 						   , clclnYmdFrom 			: clclnYmdFrom
 						   , clclnYmdTo 			: clclnYmdTo
-						   , clclnCrtr 				: clclnCrtr
+						   , clclnCrtrCd 			: clclnCrtrCd
 						   , cfmtnYn 				: cfmtnYn
 						   , itemCd 				: itemCd
 						   , vrtyCd 				: vrtyCd

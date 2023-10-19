@@ -54,6 +54,8 @@
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncList */
 	    	       PD.SPMTNO						AS SPMTNO
+	    	     , PD.PCKG_SN                       AS PCKG_SN
+                 , PD.PCKGNO                        AS PCKGNO
  			     , PC.APC_CD						AS APC_CD
 			     , PC.SPMT_YMD						AS SPMT_YMD
 			     , PD.BRND_NM						AS BRND_NM
@@ -308,7 +310,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.21  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteSpmtPrfmncCom" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
+	<update id="deleteSpmtPrfmncCom" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
 		<![CDATA[
 		UPDATE TB_SPMT_PRFMNC_COM
 		   SET SYS_LAST_CHG_DT			= SYSDATE
@@ -318,7 +320,7 @@
 		 WHERE APC_CD 	= #{apcCd}
 		   AND SPMTNO	= #{spmtno}
 		]]>
-	</delete>
+	</update>
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.deleteSpmtPrfmncCom	-->
 	<!-- DESC : 출하실적 상세 삭제.	                         	             	 	-->
@@ -327,7 +329,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.21  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteSpmtPrfmncDtl" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
+	<update id="deleteSpmtPrfmncDtl" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
 		<![CDATA[
 		UPDATE TB_SPMT_PRFMNC_DTL
 		   SET SYS_LAST_CHG_DT			= SYSDATE
@@ -338,7 +340,7 @@
 		   AND SPMTNO	= #{spmtno}
 		   AND PCKGNO   = #{pckgno}
 		]]>
-	</delete>
+	</update>
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmnDtlcList-->
 	<!-- DESC : 출하실적 등록 내역.	                         	             	 	-->

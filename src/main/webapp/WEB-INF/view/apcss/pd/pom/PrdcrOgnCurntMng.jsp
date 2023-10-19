@@ -140,7 +140,7 @@
 			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),			// 창고
 		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),	// 품목
 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', 		jsonApcVrty, gv_selectedApcCd),	// 품종
-			gfn_setComCdSBSelect('dtl-rdo-gdsSeCd', 		jsonComGdsSeCd,  	'GDS_SE_CD', gv_selectedApcCd), 		// 상품구분 등록
+			gfn_setComCdSBSelect('dtl-rdo-gdsSeCd', 		jsonComGdsSeCd,  	'GDS_SE_CD', gv_selectedApcCd)		// 상품구분 등록
 		]);
 
 		SBUxMethod.set("dtl-rdo-gdsSeCd", '1');
@@ -150,11 +150,13 @@
 	//설비 등록
 	var jsonPrdcrOgnCurntMng = []; // 그리드의 참조 데이터 주소 선언
 	var jsonComFcltGubun = [];
+	var jsonPocmItem = [];
 
 	const fn_initSBSelectFclt = async function() {
 
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 		jsonComFcltGubun, 	'FCLT_GUBUN') 		// 설비구분
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 		jsonComFcltGubun, 	'FCLT_GUBUN'),// 설비구분,
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng',  jsonPocmItem, 	'LCLSF_CD', gv_selectedApcCd)//품목(면적)
 		])
 
 	}
@@ -186,12 +188,13 @@
 				typeinfo : {ref:'jsonComFcltGubun', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 // 	        {caption: ["사업자등록번호"], 	ref: 'bb',   type:'input',  width:'250px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
 	        {caption: ["재배지주소","재배지주소"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["재배면적(㎡)","홍로"], 	ref: 'iiCode',   	type:'input',  width:'80px',    style:'text-align:center' ,  editable : false},
-	        {caption: ["재배면적(㎡)","부사"], 		ref: 'cc',   type:'output',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
+	        {caption: ["재배면적(㎡)","품목"], 	ref: 'iiCode',   	type:'inputcombo',  width:'80px',    style:'text-align:center;' ,
+	        	typeinfo : {ref:'jsonPocmItem', itemcount: 20, label: 'label', value: 'value'}},
+	        {caption: ["재배면적(㎡)","면적"], 		ref: 'cc',   type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["재배면적(㎡)",""], 	ref: 'ccCode',   	type:'input', width:'80px', style:'text-align:center' ,  editable : false},
-	        {caption: ["재배면적(㎡)","계"], 	ref: 'dd',   	type:'output',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["(평년)생산량(톤)","홍로"], 	ref: 'ddCode',   	type:'input',width:'80px', style:'text-align:center' ,  editable : false},
-	        {caption: ["(평년)생산량(톤)","부사"], 	ref: 'ee',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+	        {caption: ["재배면적(㎡)","계"], 	ref: 'ee',   	type:'output',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+	        {caption: ["(평년)생산량(톤)","품목"], 	ref: 'dd',   	type:'input',width:'80px', style:'text-align:center' ,  editable : false},
+	        {caption: ["(평년)생산량(톤)","부사"], 	ref: 'ddCode',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["(평년)생산량(톤)",""], 	ref: 'ff',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["(평년)생산량(톤)","계"], 	ref: 'gg',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["가입일(탈퇴일)","가입일(탈퇴일)"], 	ref: 'hh',   	type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},

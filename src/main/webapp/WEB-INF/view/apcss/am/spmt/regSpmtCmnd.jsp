@@ -327,7 +327,7 @@
 
     	let nRow = grdSpmtCmndTrg.getRow();
 		let nCol = grdSpmtCmndTrg.getCol();
-		let inptCmndQnttCol = grdSpmtCmndTrg.getColRef("inptCmnd");
+		let inptCmndQnttCol = grdSpmtCmndTrg.getColRef("inptCmndQntt");
 		switch (nCol) {
 		case inptCmndQnttCol:	// checkbox
 			fn_checkInptQntt();

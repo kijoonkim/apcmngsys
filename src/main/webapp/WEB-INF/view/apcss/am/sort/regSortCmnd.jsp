@@ -630,39 +630,6 @@
 			console.error("failed", e.message);
 		}
     }
-
-
-    const fn_delete = async function(){
-    	var grdRows = grdSortCmnd.getCheckedRows(0);
-    	var deleteList = [];
-
-    	for(i=0; i< grdRows.length; i++){
-    		var nRow = grdRows[i];
-    		deleteList.push(grdSortCmnd.getRowData(nRow));
-    	}
-
-    	var delMsg = "삭제 하시겠습니까?";
-		if(confirm(delMsg)){
-			const postJsonPromise = gfn_postJSON("/am/sort/deleteSortCmndList.do", deleteList);
-	    	const data = await postJsonPromise;
-
-	    	try{
-	       		if(data.deletedCnt > 0){
-	       			fn_search();
-	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-	       		}else{
-	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
-	       		}
-	        }catch (e) {
-	        	if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-			}
-		}
-
-
-    }
     /*
 	* @name fn_getPrdcrs
 	* @description 생산자 자동완성 목록 가져오기

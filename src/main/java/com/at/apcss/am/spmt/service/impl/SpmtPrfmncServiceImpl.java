@@ -161,9 +161,9 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 
 		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
 
-			String result = cmnsValidationService.selectChkDdlnYn(spmtPrfmncVO.getApcCd(), spmtPrfmncVO.getSpmtYmd());
+			String ddlnYn = cmnsValidationService.selectChkDdlnYn(spmtPrfmncVO.getApcCd(), spmtPrfmncVO.getSpmtYmd());
 
-			if(result == null) {
+			if("N".equals(ddlnYn)) {
 				deleteSpmtPrfmncCom(spmtPrfmncVO);
 
 				deleteList = selectSpmtPrfmncDtl(spmtPrfmncVO);

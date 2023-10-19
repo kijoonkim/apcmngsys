@@ -48,7 +48,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-clclnCrtr" name="srch-slt-clclnCrtr" uitype="single" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
+										<sbux-select id="srch-slt-clclnCrtrCd" name="srch-slt-clclnCrtrCd" uitype="single" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
 									</div>
 								</div>
 							</td>

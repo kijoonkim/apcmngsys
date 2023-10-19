@@ -84,7 +84,7 @@
 	var jsonComGdsSeCdPrdcrPop		= [];	// 상품구분 gdsSeCd		Grid
 	var jsonComWrhsSeCdPrdcrPop		= [];	// 입고구분 wrhsSeCd	Grid
 	var jsonComTrsprtSeCdPrdcrPop	= [];	// 운송구분 trsprtSeCd	Grid
-	var jsonComClclnCrtrPrdcrPop	= [];	// 정산기준 clclnCrtr	Grid
+	var jsonComClclnCrtrCdPrdcrPop	= [];	// 정산기준 clclnCrtrCd	Grid
 
 	var grdPrdcrPop = null;
 	var jsonPrdcrPop = [];
@@ -124,7 +124,7 @@
 					gfn_setComCdSBSelect('grdPrdcr', jsonComGdsSeCdPrdcrPop, 'GDS_SE_CD',_apcCd),			// 상품구분
 					gfn_setComCdSBSelect('grdPrdcr', jsonComWrhsSeCdPrdcrPop, 'WRHS_SE_CD'),		// 입고구분
 					gfn_setComCdSBSelect('grdPrdcr', jsonComTrsprtSeCdPrdcrPop, 'TRSPRT_SE_CD'),	// 운송구분
-					gfn_setComCdSBSelect('grdPrdcr', jsonComClclnCrtrPrdcrPop, 'CLCLN_CRTR')		// 정산기준
+					gfn_setComCdSBSelect('grdPrdcr', jsonComClclnCrtrCdPrdcrPop, 'CLCLN_CRTR_CD')		// 정산기준
 				]);
 				this.createGrid();
 				this.search();
@@ -185,8 +185,8 @@
 					typeinfo: {ref:'jsonComWrhsSeCdPrdcrPop', 	label:'label', value:'value', itemcount: 10}},
 		        {caption: ['운송구분'], 		ref: 'trsprtSeCd', 		type: 'combo', 	width: '60px', 	style: 'text-align:center', sortable: false,
 					typeinfo: {ref:'jsonComTrsprtSeCdPrdcrPop', label:'label', value:'value', itemcount: 10}},
-		        {caption: ['정산기준'], 		ref: 'clclnCrtr', 		type: 'combo', 	width: '60px', 	style: 'text-align:center', sortable: false,
-					typeinfo: {ref:'jsonComClclnCrtrPrdcrPop', 	label:'label', value:'value', itemcount: 10}},
+		        {caption: ['정산기준'], 		ref: 'clclnCrtrCd', 	type: 'combo', 	width: '60px', 	style: 'text-align:center', sortable: false,
+					typeinfo: {ref:'jsonComClclnCrtrCdPrdcrPop', label:'label', value:'value', itemcount: 10}},
 		        {caption: ['차량번호'], 		ref: 'vhclno', 			type: 'input', 	width: '90px', style: 'text-align:center', sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 40})},
 		        {caption: ['전화번호'], 		ref: 'telno', 			type: 'input', 	width: '90px', style: 'text-align:center', sortable: false,
@@ -374,7 +374,7 @@
 					    gdsSeCd 		: item.gdsSeCd,
 					    wrhsSeCd 		: item.wrhsSeCd,
 					    trsprtSeCd 		: item.trsprtSeCd,
-					    clclnCrtr 		: item.clclnCrtr,
+					    clclnCrtrCd 	: item.clclnCrtrCd,
 					    vhclno 			: item.vhclno,
 					    telno			: item.telno,
 					    prdcrLinkCd		: item.prdcrLinkCd,
