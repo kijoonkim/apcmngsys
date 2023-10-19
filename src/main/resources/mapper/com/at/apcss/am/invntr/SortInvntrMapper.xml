@@ -433,6 +433,51 @@
 		]]>
 	</delete>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrForDelY	-->
+	<!-- DESC : 선별재고 삭제 set delyn 'Y'.		                           				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.18  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateSortInvntrForDelY" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrForDelY */
+				TB_SORT_INVNTR
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    		, DEL_YN = 'Y'
+			 WHERE APC_CD = #{apcCd}
+			   AND SORTNO = #{sortno}
+			   AND SORT_SN = #{sortSn}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortStdGrdForDelY	-->
+	<!-- DESC : 선별재고 등급 삭제 set delyn 'Y'.		                           				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.18  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateSortStdGrdForDelY" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortStdGrdForDelY */
+				TB_SORT_STD_GRD
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    		, DEL_YN = 'Y'
+			 WHERE APC_CD = #{apcCd}
+			   AND SORTNO = #{sortno}
+			   AND SORT_SN = #{sortSn}
+		]]>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrPckgPrfmnc		-->

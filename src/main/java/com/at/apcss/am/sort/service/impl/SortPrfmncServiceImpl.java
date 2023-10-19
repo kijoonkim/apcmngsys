@@ -175,7 +175,8 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 			}
 
 			// 선별실적.delYn set 'Y'
-			sortPrfmncMapper.deleteSortPrfmnc(sort);
+			//sortPrfmncMapper.deleteSortPrfmnc(sort);
+			sortPrfmncMapper.updateSortPrfmncForDelY(sort);
 
 		}
 

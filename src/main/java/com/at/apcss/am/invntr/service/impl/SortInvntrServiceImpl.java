@@ -83,7 +83,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 					ComConstants.PROP_SYS_LAST_CHG_DT,
 					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-
+			logger.debug("sortSn : {}", sortStdGrdVO.getSortSn());
 			sortInvntrMapper.insertSortStdGrd(sortStdGrdVO);
 		}
 
@@ -114,7 +114,9 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 	@Override
 	public HashMap<String, Object> deleteSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
 
-		sortInvntrMapper.deleteSortInvntr(sortInvntrVO);
+		sortInvntrMapper.updateSortInvntrForDelY(sortInvntrVO);
+
+		sortInvntrMapper.updateSortStdGrdForDelY(sortInvntrVO);
 
 		return null;
 	}
@@ -184,10 +186,10 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 		if (updatedCnt != 1) {
 
 		}
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public HashMap<String, Object> updateSortInvntrDsctnList(List<SortInvntrVO> sortInvntrList) throws Exception {
 		List<SortInvntrVO> updateList = new ArrayList<>();
