@@ -19,6 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnCmndDocPckg" name="btnCmndDocPckg" uitype="button" class="btn btn-sm btn-primary">포장지시서</sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
@@ -179,6 +180,7 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
+	    	{caption: ["선택"], 				ref: 'checked', 	type:'checkbox', 	width:'40px',	style: 'text-align:center'},
  	        {caption: ["순번","순번"],			ref: 'pckgCmndSn',	type:'output',  width:'40px',    style:'text-align:center'},
 	        {caption: ["지시번호","지시번호"],	ref: 'pckgCmndno',  type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["생산설비","생산설비"],	ref: 'fcltNm',      type:'output',  width:'100px',    style:'text-align:center'},
@@ -305,6 +307,39 @@
 	 		console.error("failed", e.message);
 		}
     }
+
+	const fn_del = async function(){
+
+	   	var grdRows = grdPckgCmnd.getCheckedRows(0);
+    	var deleteList = [];
+
+    	for(i=0; i< grdRows.length; i++){
+    		var nRow = grdRows[i];
+    		deleteList.push(grdPckgCmnd.getRowData(nRow));
+    	}
+
+
+    	var delMsg = "삭제 하시겠습니까?";
+		if(confirm(delMsg)){
+			const postJsonPromise = gfn_postJSON("/am/pckg/deletePckgCmndList.do", deleteList);
+	    	const data = await postJsonPromise;
+
+	    	try{
+	       		if(data.deletedCnt > 0){
+	       			fn_search();
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	       		}else{
+	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
+	       		}
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
+	}
+
 
  	const fn_modalCnpt = function() {
      	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);

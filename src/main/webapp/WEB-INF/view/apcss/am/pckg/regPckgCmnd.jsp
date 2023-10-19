@@ -156,7 +156,6 @@
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-						<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
 					</div>
 				</div>
 				<div class="sbt-wrap-body">
@@ -356,7 +355,6 @@
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-            {caption: ["선택"], 		ref: 'checked', 	type:'checkbox', 	width:'40px',	style: 'text-align:center'},
 	        {caption: ["지시번호"],		ref: 'pckgCmndno',  type:'output',  	width:'130px',  style:'text-align:center'},
 	        {caption: ["생산설비"],		ref: 'fcltNm',      type:'output',  	width:'120px',  style:'text-align:center'},
 	        {caption: ["납기일자"],		ref: 'dudtYmd',     type:'output',  	width:'100px',  style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -594,38 +592,6 @@
         	}
         } catch(e) {
         }
-	}
-
-	const fn_del = async function(){
-
-	   	var grdRows = grdPckgCmnd.getCheckedRows(0);
-    	var deleteList = [];
-
-    	for(i=0; i< grdRows.length; i++){
-    		var nRow = grdRows[i];
-    		deleteList.push(grdPckgCmnd.getRowData(nRow));
-    	}
-
-
-    	var delMsg = "삭제 하시겠습니까?";
-		if(confirm(delMsg)){
-			const postJsonPromise = gfn_postJSON("/am/pckg/deletePckgCmndList.do", deleteList);
-	    	const data = await postJsonPromise;
-
-	    	try{
-	       		if(data.deletedCnt > 0){
-	       			fn_search();
-	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-	       		}else{
-	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
-	       		}
-	        }catch (e) {
-	        	if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-			}
-		}
 	}
 
 	/*
