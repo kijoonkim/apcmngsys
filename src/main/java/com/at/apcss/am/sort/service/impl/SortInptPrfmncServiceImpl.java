@@ -30,28 +30,39 @@ public class SortInptPrfmncServiceImpl implements SortInptPrfmncService {
 
 	@Autowired
 	private SortInptPrfmncMapper sortInptPrfmncMapper;
-	
+
 	@Override
 	public SortInptPrfmncVO selectSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
-		
+
 		SortInptPrfmncVO resultVO = sortInptPrfmncMapper.selectSortInptPrfmnc(sortInptPrfmncVO);
-		
+
 		return resultVO;
 	}
 
 	@Override
 	public List<SortInptPrfmncVO> selectSortInptPrfmncList(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
-		
+
 		List<SortInptPrfmncVO> resultList = sortInptPrfmncMapper.selectSortInptPrfmncList(sortInptPrfmncVO);
-		
+
 		return resultList;
 	}
 
+
+	@Override
+	public List<SortInptPrfmncVO> selectSortInptCnclList(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
+
+		List<SortInptPrfmncVO> resultList = sortInptPrfmncMapper.selectSortInptCnclList(sortInptPrfmncVO);
+
+		return resultList;
+	}
+
+
+
 	@Override
 	public HashMap<String, Object> insertSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
-		
+
 		int insertedCnt = sortInptPrfmncMapper.insertSortInptPrfmnc(sortInptPrfmncVO);
-		
+
 		return null;
 	}
 
@@ -61,26 +72,24 @@ public class SortInptPrfmncServiceImpl implements SortInptPrfmncService {
 		for ( SortInptPrfmncVO sortInptPrfmncVO : sortInptPrfmncList ) {
 			sortInptPrfmncMapper.insertSortInptPrfmnc(sortInptPrfmncVO);
 		}
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public HashMap<String, Object> updateSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
-		
+
 		int updatedCnt = sortInptPrfmncMapper.updateSortInptPrfmnc(sortInptPrfmncVO);
-		
+
 		return null;
 	}
 
 	@Override
 	public HashMap<String, Object> deleteSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
-		
+
 		int deletedCnt = sortInptPrfmncMapper.deleteSortInptPrfmnc(sortInptPrfmncVO);
-		
+
 		return null;
 	}
-
-
 
 }

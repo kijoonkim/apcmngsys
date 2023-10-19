@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
@@ -67,7 +68,8 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 	@Resource(name="pckgMngService")
 	private PckgMngService pckgMngService;
 
-
+	@Resource(name="cmnsValidationService")
+	private CmnsValidationService cmnsValidationService;
 
 
 	@Override
@@ -399,9 +401,117 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 	@Override
 	public HashMap<String, Object> deleteSortPrfmnc(SortMngVO sortMngVO) throws Exception {
-		// TODO Auto-generated method stub
+
+		// apc 코드와 선별번호로 선별실적, 투입실적, 선별재고 삭제 : delYn 'Y'
+		HashMap<String, Object> rtnObj = new HashMap<>();
+		// validation check
+		String apcCd = sortMngVO.getApcCd();
+		if (!StringUtils.hasText(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+
+		List<SortPrfmncVO> sortList = sortMngVO.getSortPrfmncList();
+
+		if (sortList == null || sortList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "삭제대상");
+		}
+
+		for ( SortPrfmncVO cncl : sortList ) {
+
+			String sortno = cncl.getSortno();
+			if (!StringUtils.hasText(sortno)) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별번호");
+			}
+
+			SortPrfmncVO sortPrfmncParamVO = new SortPrfmncVO();
+			sortPrfmncParamVO.setApcCd(apcCd);
+			sortPrfmncParamVO.setSortno(sortno);
+
+			List<SortPrfmncVO> prfmncList = sortPrfmncService.selectSortCnclList(sortPrfmncParamVO);
+			if (prfmncList == null || prfmncList.isEmpty()) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별실적");
+			}
+
+			// 투입실적 확인
+			SortInptPrfmncVO sortInptParamVO = new SortInptPrfmncVO();
+			sortInptParamVO.setApcCd(apcCd);
+			sortInptParamVO.setSortno(sortno);
+
+			List<SortInptPrfmncVO> inptList = sortInptPrfmncService.selectSortInptCnclList(sortInptParamVO);
+			if (inptList == null || inptList.isEmpty()) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "투입실적");
+			}
+
+			List<SortPrfmncVO> sortPrfmncVOList = new ArrayList<>();
+			for ( SortPrfmncVO sort : prfmncList ) {
+
+				// 마감확인
+				String sortYmd = sort.getInptYmd();
+				String ddlnYn = cmnsValidationService.selectChkDdlnYn(apcCd, sortYmd);
+				if (!ComConstants.CON_NONE.equals(ddlnYn)) {
+					return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "선별재고");
+				}
+
+				// 선별량 재고량 변경 확인
+				if (sort.getInvntrQntt() < sort.getSortQntt()) {
+					return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||선별량");		// W0008	{0} 보다 {1}이/가 큽니다.
+				}
+
+				SortPrfmncVO prfmncVO = new SortPrfmncVO();
+				BeanUtils.copyProperties(sortMngVO, prfmncVO);
+				BeanUtils.copyProperties(sort, prfmncVO,
+						ApcConstants.PROP_APC_CD,
+						ComConstants.PROP_SYS_FRST_INPT_DT,
+						ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+						ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+						ComConstants.PROP_SYS_LAST_CHG_DT,
+						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+
+				sortPrfmncVOList.add(prfmncVO);
+			}
+
+			// 처리
+
+			// 재고삭제 + 선별실적 삭제
+			rtnObj = sortPrfmncService.deleteSortPrfmncList(sortPrfmncVOList);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+			// 투입실적 삭제 + 원물재고 갱신
+			for ( SortInptPrfmncVO inpt : inptList ) {
+
+				// 투입실적 삭제
+				SortInptPrfmncVO sortInptVO = new SortInptPrfmncVO();
+				BeanUtils.copyProperties(sortMngVO, sortInptVO);
+				sortInptVO.setWrhsno(inpt.getWrhsno());
+
+				rtnObj = sortInptPrfmncService.deleteSortInptPrfmnc(sortInptVO);
+				if (rtnObj != null) {
+					// error throw exception;
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+
+				// 원물재고 갱신
+				RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+				BeanUtils.copyProperties(sortMngVO, invntrVO);
+				invntrVO.setWrhsno(inpt.getWrhsno());
+
+				invntrVO.setInptQntt(inpt.getQntt());
+				invntrVO.setInptWght(inpt.getWght());
+
+				rtnObj = rawMtrInvntrService.updateInvntrSortPrfmncCncl(invntrVO);
+				if (rtnObj != null) {
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+			}
+		}
+
 		return null;
 	}
+
 
 
 

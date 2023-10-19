@@ -55,6 +55,8 @@ public class ComConstants {
 	/* MSG CODE */
 	public final static String MSGCD_REQ_SELECT = "W0001";		// W0001	{0}을/를 선택하세요.
 	public final static String MSGCD_NOT_FOUND = "W0005";		// W0005	{0}이/가 없습니다.
+	public final static String MSGCD_GREATER_THAN = "W0008";	// W0008	{0} 보다 {1}이/가 큽니다.
+
 	public final static String MSGCD_ALEADY_CLOSE = "W0012";	// W0012	마감등록 된 {0} 입니다.
 
 	/* CODE 정보 */

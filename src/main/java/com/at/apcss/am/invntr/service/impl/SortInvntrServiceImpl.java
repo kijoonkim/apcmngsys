@@ -164,7 +164,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 		}
 
 		if (sortInvntrVO.getInptQntt() > invntrInfo.getPckgQntt()) {
-			return ComUtil.getResultMap("W0008", "취소량||포장량");		// W0008	{0} 보다 {1}이/가 큽니다.
+			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "취소량||포장량");		// W0008	{0} 보다 {1}이/가 큽니다.
 		}
 
 		// 재고량
