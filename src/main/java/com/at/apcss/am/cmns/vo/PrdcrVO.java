@@ -67,7 +67,7 @@ public class PrdcrVO extends ComVO {
 	/**
 	 * 상품구분명
 	 */
-	private String gdsSeNm;	
+	private String gdsSeNm;
 	/**
 	 * 입고구분코드
 	 */
@@ -108,10 +108,10 @@ public class PrdcrVO extends ComVO {
 	/**
 	 * 정산기준
 	 */
-	private String clclnCrtr;
+	private String clclnCrtrCd;
 	/**
 	 * 정산기준명
 	 */
 	private String clclnCrtrNm;
-	
+
 }

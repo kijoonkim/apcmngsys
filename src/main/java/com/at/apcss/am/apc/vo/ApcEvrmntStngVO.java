@@ -44,7 +44,7 @@ public class ApcEvrmntStngVO extends ComVO{
 	/**
 	 * 정산기준
 	 */
-	private String clclnCrtr;
+	private String clclnCrtrCd;
 
 	private String wghMngYn;	// 계량정보관리유무			AM_001_001
 	private String wghMblUseYn;	// 계량테블릿사용유무			AM_001_007

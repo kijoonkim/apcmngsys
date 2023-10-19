@@ -129,7 +129,7 @@
 			    , AE.BANK_CD        AS BANK_CD
 			    , AE.ACTNO          AS ACTNO
 			   	, AE.DPSTR          AS DPSTR
-			    , AE.CLCLN_CRTR		AS CLCLN_CRTR
+			    , AE.CLCLN_CRTR_CD	AS CLCLN_CRTR_CD
 
 				, AE.APC_SE_CD		AS APC_SE_CD
 		  	  FROM TB_APC_INFO AI

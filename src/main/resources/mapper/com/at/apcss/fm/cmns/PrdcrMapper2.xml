@@ -33,7 +33,7 @@
 			     , PR.GDS_SE_CD     AS GDS_SE_CD
 			     , PR.WRHS_SE_CD    AS WRHS_SE_CD
 			     , PR.TRSPRT_SE_CD  AS TRSPRT_SE_CD
-			     , PR.CLCLN_CRTR	AS CLCLN_CRTR
+			     , PR.CLCLN_CRTR_CD	AS CLCLN_CRTR_CD
 			     , PR.VHCLNO        AS VHCLNO
 			     , PR.TELNO        	AS TELNO
 			     , PR.PRDCR_LINK_CD	AS PRDCR_LINK_CD
@@ -77,7 +77,7 @@
 			     , PR.GDS_SE_CD     AS GDS_SE_CD
 			     , PR.WRHS_SE_CD    AS WRHS_SE_CD
 			     , PR.TRSPRT_SE_CD  AS TRSPRT_SE_CD
-			     , PR.CLCLN_CRTR	AS CLCLN_CRTR
+			     , PR.CLCLN_CRTR_CD	AS CLCLN_CRTR_CD
 			     , PR.VHCLNO        AS VHCLNO
 			     , PR.TELNO        	AS TELNO
 			     , PR.PRDCR_LINK_CD	AS PRDCR_LINK_CD
@@ -119,8 +119,8 @@
 		<if test=' trsprtSeCd != null and trsprtSeCd !=""'>
 			   AND PR.TRSPRT_SE_CD = #{trsprtSeCd}
 		</if>
-		<if test=' clclnCrtr != null and clclnCrtr !=""'>
-			   AND PR.CLCLN_CRTR = #{trsprtSeCd}
+		<if test=' clclnCrtrCd != null and clclnCrtrCd !=""'>
+			   AND PR.CLCLN_CRTR_CD = #{clclnCrtrCd}
 		</if>
 		<if test=' vhclno != null and vhclno !=""'>
 			   AND PR.VHCLNO LIKE '%' || #{vhclno} || '%'
@@ -174,7 +174,7 @@
 					, GDS_SE_CD
 					, WRHS_SE_CD
 					, TRSPRT_SE_CD
-					, CLCLN_CRTR
+					, CLCLN_CRTR_CD
 					, VHCLNO
 			     	, TELNO
 			     	, PRDCR_LINK_CD
@@ -233,7 +233,7 @@
 				, GDS_SE_CD = #{gdsSeCd}
 				, WRHS_SE_CD = #{wrhsSeCd}
 				, TRSPRT_SE_CD = #{trsprtSeCd}
-				, CLCLN_CRTR = #{clclnCrtr}
+				, CLCLN_CRTR_CD = #{clclnCrtrCd}
 				, VHCLNO = #{vhclno}
 				, TELNO = #{telno}
 				, PRDCR_LINK_CD = #{prdcrLinkCd}

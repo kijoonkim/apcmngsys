@@ -124,7 +124,7 @@
 					gfn_setComCdSBSelect('grdPrdcr', jsonComGdsSeCdPrdcrPop, 'GDS_SE_CD',_apcCd),			// 상품구분
 					gfn_setComCdSBSelect('grdPrdcr', jsonComWrhsSeCdPrdcrPop, 'WRHS_SE_CD'),		// 입고구분
 					gfn_setComCdSBSelect('grdPrdcr', jsonComTrsprtSeCdPrdcrPop, 'TRSPRT_SE_CD'),	// 운송구분
-					gfn_setComCdSBSelect('grdPrdcr', jsonComClclnCrtrPrdcrPop, 'CLCLN_CRTR')		// 정산기준
+					gfn_setComCdSBSelect('grdPrdcr', jsonComClclnCrtrPrdcrPop, 'CLCLN_CRTR_CD')		// 정산기준
 				]);
 				this.createGrid();
 				this.search();
