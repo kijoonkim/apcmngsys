@@ -115,6 +115,11 @@ public class SpmtCmndVO extends ComVO {
 	 * 지시중량
 	 */
 	private int cmndWght;
+	
+	/**
+	 * 단위중량
+	 */
+	private int wght;
 
 	/**
 	 * 포장단위코드

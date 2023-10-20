@@ -61,12 +61,12 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>포장번호/순번</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-pckgnoSn" name="srch-inp-pckgnoSn" uitype="text" maxlength="25" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
+								<sbux-input id="srch-inp-pckgnoIndct" name="srch-inp-pckgnoIndct" uitype="text" maxlength="25" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
 								<sbux-input id="srch-inp-pckgno" name="srch-inp-pckgno" uitype="hidden"></sbux-input>
 								<sbux-input id="srch-inp-pckgSn" name="srch-inp-pckgSn" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchPckgno" name="btnSrchPckgno" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-pckgno" onclick="fn_modalPckgno"></sbux-button>
+								<sbux-button id="btnSrchPckgno" name="btnSrchPckgno" uitype="modal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-pckgno" onclick="fn_modalPckgno"></sbux-button>
 							</td>
 							<td colspan="5"></td>
 						</tr>
@@ -98,8 +98,8 @@
 						<tr>
 							<th scope="row" class="th_bg">상품명</th>
 							<td style="border-right: hidden;" colspan="2" class="td_input">
-								<sbux-input id="srch-inp-gdsNm" name="srch-inp-gdsNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
-								<sbux-input id="srch-inp-gdsCd" name="srch-inp-gdsCd" uitype="hidden"></sbux-input>
+								<sbux-input id="srch-inp-spmtPckgUnitNm" name="srch-inp-spmtPckgUnitNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
+								<sbux-input id="srch-inp-spmtPckgUnitCd" name="srch-inp-spmtPckgUnitCd" uitype="hidden"></sbux-input>
 							</td>
 							<td colspan="6"></td>
 						</tr>
@@ -108,14 +108,6 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-gdsGrdNm" name="srch-inp-gdsGrdNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 								<sbux-input id="srch-inp-gdsGrd" name="srch-inp-gdsGrd" uitype="hidden"></sbux-input>
-							</td>
-							<td colspan="7"></td>
-						</tr>
-						<tr>
-							<th scope="row" class="th_bg">포장구분</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-spmtPckgUnitNm" name="srch-inp-spmtPckgUnitNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
-								<sbux-input id="srch-inp-spmtPckgUnitCd" name="srch-inp-spmtPckgUnitCd" uitype="hidden"></sbux-input>
 							</td>
 							<td colspan="7"></td>
 						</tr>
@@ -215,14 +207,13 @@
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption: ['지시번호'], 	ref: 'spmtCmndno',		width: '15%',	type: 'output', 	style: 'text-align: center'},
-            {caption: ['포장번호'], 	ref: 'pckgnoSn', 		width: '15%', 	type: 'output', 	style: 'text-align: center'},
+            {caption: ['포장번호'], 	ref: 'pckgnoIndct', 	width: '15%', 	type: 'output', 	style: 'text-align: center'},
             {caption: ['수량'],		ref: 'spmtQntt', 		width: '15%', 	type: 'output', 	style: 'text-align: right'},
             {caption: ['중량'], 		ref: 'spmtWght', 		width: '15%', 	type: 'output', 	style: 'text-align: right'},
             {caption: ['품종'], 		ref: 'vrtyNm', 			width: '15%', 	type: 'output', 	style: 'text-align: center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 		width: '15%', 	type: 'output', 	style: 'text-align: center'},
-            {caption: ['상품명'], 	ref: 'gdsNm', 			width: '15%', 	type: 'output', 	style: 'text-align: center'},
+            {caption: ['상품명'], 	ref: 'spmtPckgUnitNm', 	width: '15%', 	type: 'output', 	style: 'text-align: center'},
             {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '15%', 	type: 'output', 	style: 'text-align: center'},
-            {caption: ['포장단위'], 	ref: 'spmtPckgUnitNm',	width: '15%', 	type: 'output', 	style: 'text-align: center'},
             {caption: ['거래처'], 	ref: 'cnptNm', 			width: '15%', 	type: 'output', 	style: 'text-align: center'},
             {caption: ['운송회사'], 	ref: 'trsprtCoNm',		width: '15%', 	type: 'output', 	style: 'text-align: center'},
             {caption: ['차량번호'], 	ref: 'vhclno', 			width: '15%', 	type: 'output', 	style: 'text-align: center'},
@@ -236,9 +227,8 @@
             {caption: ['포장순번'], 	ref: 'pckgSn', 			hidden: true},
             {caption: ['품종코드'], 	ref: 'vrtyCd', 			hidden: true},
             {caption: ['규격코드'], 	ref: 'spcfctCd', 		hidden: true},
-            {caption: ['상품코드'], 	ref: 'gdsCd', 			hidden: true},
-            {caption: ['상품등급'], 	ref: 'gdsGrd', 			hidden: true},
             {caption: ['포장단위코드'],	ref: 'spmtPckgUnitCd',	hidden: true},
+            {caption: ['상품등급'], 	ref: 'gdsGrd', 			hidden: true},
             {caption: ['거래처코드'], 	ref: 'cnptCd', 			hidden: true},
             {caption: ['운송회사코드'],	ref: 'trsprtCoCd',		hidden: true}
         ];
@@ -255,12 +245,11 @@
 	function addSpmtTrgtDsctn() {
 		addData = {
 				  spmtCmndno		: SBUxMethod.get('srch-inp-spmtCmndno')
-				, pckgnoSn			: SBUxMethod.get('srch-inp-pckgnoSn')
+				, pckgnoIndct		: SBUxMethod.get('srch-inp-pckgnoIndct')
 				, spmtQntt 			: SBUxMethod.get('srch-inp-spmtQntt')
 				, spmtWght 			: SBUxMethod.get('srch-inp-spmtWght')
 				, vrtyNm 			: SBUxMethod.get('srch-inp-vrtyNm')
 				, spcfctNm 			: SBUxMethod.get('srch-inp-spcfctNm')
-				, gdsNm 			: SBUxMethod.get('srch-inp-gdsNm')
 				, gdsGrdNm 			: SBUxMethod.get('srch-inp-gdsGrdNm')
 				, spmtPckgUnitNm 	: SBUxMethod.get('srch-inp-spmtPckgUnitNm')
 				, cnptNm 			: SBUxMethod.get('srch-inp-cnptNm')
@@ -273,7 +262,6 @@
 				, pckgSn			: SBUxMethod.get('srch-inp-pckgSn')
 				, vrtyCd 			: SBUxMethod.get('srch-inp-vrtyCd')
 				, spcfctCd 			: SBUxMethod.get('srch-inp-spcfctCd')
-				, gdsCd 			: SBUxMethod.get('srch-inp-gdsCd')
 				, gdsGrd 			: SBUxMethod.get('srch-inp-gdsGrd')
 				, spmtPckgUnitCd 	: SBUxMethod.get('srch-inp-spmtPckgUnitCd')
 				, cnptCd 			: SBUxMethod.get('srch-inp-cnptCd')
@@ -365,12 +353,11 @@
 	}
 	
 	async function fn_resetUnchecked() {
-		SBUxMethod.set('srch-inp-pckgnoSn', "");
+		SBUxMethod.set('srch-inp-pckgnoIndct', "");
 		SBUxMethod.set('srch-inp-spmtQntt', "");
 		SBUxMethod.set('srch-inp-spmtWght', "");
 		SBUxMethod.set('srch-inp-vrtyNm', "");
 		SBUxMethod.set('srch-inp-spcfctNm', "");
-		SBUxMethod.set('srch-inp-gdsNm', "");
 		SBUxMethod.set('srch-inp-gdsGrdNm', "");
 		SBUxMethod.set('srch-inp-spmtPckgUnitNm', "");
 		SBUxMethod.set('srch-inp-cnptNm', "");
@@ -379,7 +366,6 @@
 		SBUxMethod.set('srch-inp-pckgSn', "");
 		SBUxMethod.set('srch-inp-vrtyCd', "");
 		SBUxMethod.set('srch-inp-spcfctCd', "");
-		SBUxMethod.set('srch-inp-gdsCd', "");
 		SBUxMethod.set('srch-inp-gdsGrd', "");
 		SBUxMethod.set('srch-inp-spmtPckgUnitCd', "");
 		SBUxMethod.set('srch-inp-cnptCd', "");
@@ -411,39 +397,36 @@
 	}
 	
 	const fn_setSpmtCmnd = function(spmtCmnd) {
+		wght = 0;
 		if (!gfn_isEmpty(spmtCmnd)) {
 			SBUxMethod.set('srch-inp-spmtCmndno', spmtCmnd.spmtCmndno);
 			SBUxMethod.set('srch-inp-vrtyNm', spmtCmnd.vrtyNm);
 			SBUxMethod.set('srch-inp-spcfctNm', spmtCmnd.spcfctNm);
-			SBUxMethod.set('srch-inp-gdsNm', spmtCmnd.gdsNm);
-			SBUxMethod.set('srch-inp-gdsGrdNm', spmtCmnd.gdsGrdNm);
 			SBUxMethod.set('srch-inp-spmtPckgUnitNm', spmtCmnd.spmtPckgUnitNm);
+			SBUxMethod.set('srch-inp-gdsGrdNm', spmtCmnd.gdsGrdNm);
 			SBUxMethod.set('srch-inp-cnptNm', spmtCmnd.cnptNm);
 			SBUxMethod.set('srch-inp-trsprtCoNm', spmtCmnd.trsprtCoNm);
 			SBUxMethod.set('srch-inp-vrtyCd', spmtCmnd.vrtyCd);
 			SBUxMethod.set('srch-inp-spcfctCd', spmtCmnd.spcfctCd);
-			SBUxMethod.set('srch-inp-gdsCd', spmtCmnd.gdsCd);
 			SBUxMethod.set('srch-inp-gdsGrd', spmtCmnd.gdsGrd);
 			SBUxMethod.set('srch-inp-spmtPckgUnitCd', spmtCmnd.spmtPckgUnitCd);
 			SBUxMethod.set('srch-inp-cnptCd', spmtCmnd.cnptCd);
 			SBUxMethod.set('srch-inp-trsprtCoCd', spmtCmnd.trsprtCoCd);
+			wght = spmtCmnd.wght;
 		}
 	}
 	
 	// 포장번호 선택 팝업 호출
 	const fn_modalPckgno = function() {
-    	//popPckgno.init(gv_apcCd, gv_apcNm, SBUxMethod.get("srch-inp-pckgno"), fn_setPckgno);
+    	popPckgno.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPckgno);
 	}
 	
-// 	const fn_setPckgno = function(pckgno) {
-// 		wght = 0;
-// 		if (!gfn_isEmpty(pckgno)) {
-// 			SBUxMethod.set('srch-inp-pckgnoSn', pckgno.pckgno+'-'+pckgno.pckgSn);
-// 			SBUxMethod.set('srch-inp-pckgno', pckgno.pckgno);
-// 			SBUxMethod.set('srch-inp-pckgSn', pckgno.pckgSn);
-// 			SBUxMethod.set('srch-inp-spmtQntt', "");
-// 			wght = pckgno.pckgWght;
-// 		}
-// 	}
+	const fn_setPckgno = function(pckgno) {
+		if (!gfn_isEmpty(pckgno)) {
+			SBUxMethod.set('srch-inp-pckgnoIndct', pckgno.pckgnoIndct);
+			SBUxMethod.set('srch-inp-pckgno', pckgno.pckgno);
+			SBUxMethod.set('srch-inp-pckgSn', pckgno.pckgSn);
+		}
+	}
 </script>
 </html>
