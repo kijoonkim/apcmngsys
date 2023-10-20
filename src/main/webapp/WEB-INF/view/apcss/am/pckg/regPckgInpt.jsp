@@ -694,7 +694,9 @@
             {caption: ["창고"],	ref: 'warehouseSeCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
            	 	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true, unselect: {label : '선택', value: 'notSelect'}}
             },
-            {caption: ["비고"], ref: 'rmrk', width: '400px', type: 'input'},
+            {caption: ["비고"], ref: 'rmrk', width: '400px', type: 'input',
+            	typeinfo: {oneclickedit: true},	
+            },
 	        {caption: ["규격단중"], ref: 'spcfctWght', 	type:'output',	hidden: true},
 		];
 		columns2.forEach((item, index) => {
@@ -784,6 +786,7 @@
 			const spmtPckgUnitCd = allPckgData[i].spmtPckgUnitCd;
 			const warehouseSeCd = allPckgData[i].warehouseSeCd;
 			//const pckgCmndno = allPckgData[i].pckgCmndno;
+			const rmrk = allPckgData[i].rmrk;
 
 			const pckgQntt = parseInt(allPckgData[i].pckgQntt) || 0;
 			const pckgWght = parseInt(allPckgData[i].pckgWght) || 0;
@@ -876,6 +879,7 @@
 	    			spmtPckgUnitCd: spmtPckgUnitCd,
 	    			warehouseSeCd: warehouseSeCd,
 	    			//pckgCmndno: pckgCmndno,
+	    			rmrk: rmrk,
 	    			pckgQntt: pckgQntt,
 	    			pckgWght: pckgWght,
     				stdGrdList: stdGrdList
