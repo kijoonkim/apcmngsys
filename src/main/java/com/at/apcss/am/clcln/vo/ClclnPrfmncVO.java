@@ -32,6 +32,9 @@ public class ClclnPrfmncVO extends ComVO {
 	 * 정산기준
 	 */
 	private String clclnCrtrCd;
+	private String clclnCrtrNm;
+	
+	
 	/**
 	 * 정산일자
 	 */
@@ -60,6 +63,7 @@ public class ClclnPrfmncVO extends ComVO {
 	 * 입고구분코드
 	 */
 	private String wrhsSeCd;
+	private String wrhsSeNm;
 	/**
 	 * 입고구분
 	 */
@@ -68,6 +72,7 @@ public class ClclnPrfmncVO extends ComVO {
 	 * 상품구분코드
 	 */
 	private String gdsSeCd;
+	private String gdsSeNm;
 	/**
 	 * 상품구분
 	 */
@@ -105,6 +110,7 @@ public class ClclnPrfmncVO extends ComVO {
 	 * 등급코드
 	 */
 	private String grdCd;
+	private String grdNm;
 	/**
 	 * 수량
 	 */

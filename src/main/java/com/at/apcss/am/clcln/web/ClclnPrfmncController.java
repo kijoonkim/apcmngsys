@@ -57,6 +57,9 @@ public class ClclnPrfmncController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	
+	
 
 }
 
