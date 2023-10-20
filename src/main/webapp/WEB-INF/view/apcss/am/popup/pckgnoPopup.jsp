@@ -158,7 +158,7 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-	            {caption: ["포장일자","포장일자"], 	ref: 'pckgYmd', 			width: '120px', type: 'output', style:'text-align:center',
+	            {caption: ["포장일자","포장일자"], 		ref: 'pckgYmd', 		width: '120px', type: 'output', style:'text-align:center',
 	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        	{caption: ["포장번호","포장번호"],		ref: 'pckgnoIndct',     width: '120px',	type: 'output',	style: 'text-align:center'},
 	            {caption: ['지시번호','지시번호'], 		ref: 'pckgCmndno', 		width: '120px', type: 'output', style:'text-align:center'},
