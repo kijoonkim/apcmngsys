@@ -19,6 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchSpmtCmnd" name="btnSearchSpmtCmnd" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popSpmtCmnd.search"></sbux-button>
+					<sbux-button id="btnChoiceSpmtCmnd" name="btnChoiceSpmtCmnd" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popSpmtCmnd.choice"></sbux-button>
 					<sbux-button id="btnEndSpmtCmnd" name="btnEndSpmtCmnd" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-spmtCmnd')"></sbux-button>
 				</div>
 			</div>
@@ -47,14 +48,14 @@
 							</th>
 							<th scope="row">규격</th>
 							<th>
-								<sbux-select id="spmtCmnd-slt-spcfctCd" name="spmtCmnd-slt-spcfctCd" uitype="single" class="form-control input-sm" style="background-color:#FFFFFF;" jsondata-ref="jsonApcSpcfct" unselected-text="선택"></sbux-select>
+								<sbux-select id="spmtCmnd-slt-spcfctCd" name="spmtCmnd-slt-spcfctCd" uitype="single" class="form-control input-sm" style="background-color:#FFFFFF;" jsondata-ref="jsonApcSpcfct" unselected-text="전체"></sbux-select>
 							</th>
 						</tr>
 						<tr>
 							<th scope="row">품목</th>
 							<th>
 								<sbux-select
-									unselected-text="선택"
+									unselected-text="전체"
 									uitype="single"
 									id="spmtCmnd-slt-itemCd"
 									name="spmtCmnd-slt-itemCd"
@@ -67,7 +68,7 @@
 							<th scope="row">품종</th>
 							<th>
 								<sbux-select
-									unselected-text="선택"
+									unselected-text="전체"
 									uitype="single"
 									id="spmtCmnd-slt-vrtyCd"
 									name="spmtCmnd-slt-vrtyCd"
@@ -178,8 +179,13 @@
 		},
 		choice: function() {
 			let nRow = grdSpmtCmndPop.getRow();
-			let rowData = grdSpmtCmndPop.getRowData(nRow);
-			popSpmtCmnd.close(rowData);
+			if (nRow == -1) {
+				gfn_comAlert("W0003", "선택");		//	W0003	{0}할 대상이 없습니다.
+				return;
+			} else {
+				let rowData = grdSpmtCmndPop.getRowData(nRow);
+				popSpmtCmnd.close(rowData);
+			}
 		},
 		search: async function() {
 			let apcCd = SBUxMethod.get("spmtCmnd-inp-apcCd");

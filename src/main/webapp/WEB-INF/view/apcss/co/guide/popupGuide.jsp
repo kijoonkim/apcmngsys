@@ -177,12 +177,21 @@
 								<sbux-button id="btnSrchOprtr" name="btnSrchOprtr" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-oprtr" onclick="fn_modalOprtr" text="찾기"></sbux-button>
 							</td>
 							<td></td>
+							<th scope="row" >포장번호선택</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-pckgno" name="srch-inp-pckgno" uitype="text" maxlength="25" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchPckgno" name="btnSrchPckgno" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-pckgno" onclick="fn_modalPckgno" text="찾기"></sbux-button>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
 							<th scope="row" >입고일자</th>
 							<td class="td_input">
 								<sbux-datepicker id="srch-dtp-trsprtYmd" name="srch-dtp-trsprtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td></td>
-							<td></td>
+							<td colspan="10"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -276,6 +285,14 @@
     </div>
     <div id="body-modal-oprtr">
     	<jsp:include page="../../am/popup/oprtrPopup.jsp"></jsp:include>
+    </div>
+    
+    <!-- 포장번호 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-pckgno" name="modal-pckgno" uitype="middle" header-title="포장번호 선택" body-html-id="body-modal-pckgno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-pckgno">
+    	<jsp:include page="../../am/popup/pckgnoPopup.jsp"></jsp:include>
     </div>
 
 <script type="text/javascript">
@@ -569,6 +586,27 @@
 	const fn_setFlnm = function(oprtr) {
 		if (!gfn_isEmpty(oprtr)) {
 			SBUxMethod.set('srch-inp-flnm', oprtr.flnm);
+		}
+	}
+	/* End */
+	
+	/* 포장번호 선택 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_modalPckgno
+	 * @description 포장번호선택팝업 호출
+	 */
+	 const fn_modalPckgno = function() {
+		popPckgno.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPckgno);
+	}
+
+	/**
+	 * @name fn_setPckgno
+	 * @description 포장번호 선택 callback
+	 */
+	 const fn_setPckgno = function(pckgno) {
+		if (!gfn_isEmpty(pckgno)) {
+			SBUxMethod.set('srch-inp-pckgno', pckgno.pckgnoIndct);
 		}
 	}
 	/* End */

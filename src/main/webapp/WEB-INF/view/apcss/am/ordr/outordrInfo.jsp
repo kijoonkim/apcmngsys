@@ -530,7 +530,7 @@
 		let outordrQntt 	= grdOutordrInfo.getRowData(nRow).outordrQntt;
 		let cmndQntt 		= grdOutordrInfo.getRowData(nRow).cmndQntt;
 		let inptCmndQntt 	= grdOutordrInfo.getRowData(nRow).inptCmndQntt;
-		let psbltyCmndQntt 	= outordrQntt - spmtQntt - cmndQntt;
+		let psbltyCmndQntt 	= outordrQntt - cmndQntt;
 		let wght 			= grdOutordrInfo.getRowData(nRow).wght;
 		let inptCmndQnttCol = grdOutordrInfo.getColRef("inptCmndQntt");
 		let inptCmndWghtCol = grdOutordrInfo.getColRef("inptCmndWght");
@@ -571,7 +571,7 @@
 			let spmtQntt 		= grdOutordrInfo.getRowData(nRow).spmtQntt;
 			let outordrQntt 	= grdOutordrInfo.getRowData(nRow).outordrQntt;
 			let cmndQntt 		= grdOutordrInfo.getRowData(nRow).cmndQntt;
-			let psbltyCmndQntt 	= outordrQntt - spmtQntt - cmndQntt;
+			let psbltyCmndQntt 	= outordrQntt - cmndQntt;
 			let wght 			= grdOutordrInfo.getRowData(nRow).wght;
 			let inptCmndQnttCol = grdOutordrInfo.getColRef("inptCmndQntt");
 			let inptCmndWghtCol = grdOutordrInfo.getColRef("inptCmndWght");
