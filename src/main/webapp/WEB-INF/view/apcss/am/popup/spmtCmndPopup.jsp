@@ -85,7 +85,7 @@
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<div class="ad_section_top">
-					<div id="sb-area-grdSpmtCmnd" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdSpmtCmndPop" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -104,7 +104,7 @@
 		modalId: 'modal-spmtCmnd',
 		gridId: 'grdSpmtCmndPop',
 		jsonId: 'jsonSpmtCmndPop',
-		areaId: "sb-area-grdSpmtCmnd",
+		areaId: "sb-area-grdSpmtCmndPop",
 		prvApcCd: "",
 		objGrid: null,
 		gridJson: [],
@@ -122,9 +122,9 @@
 				SBUxMethod.set("spmtCmnd-dtp-cmndYmd", gfn_dateToYmd(new Date()));
 				
 				let rst = await Promise.all([
-				 	gfn_setApcItemSBSelect('spmtCmnd-slt-itemCd', jsonApcItem, _apcCd),						// 품목
-					gfn_setApcVrtySBSelect('spmtCmnd-slt-vrtyCd', jsonApcVrty, _apcCd),						// 품종
-					gfn_setApcSpcfctsSBSelect('spmtCmnd-slt-spcfctCd', jsonApcSpcfct, _apcCd)				// 규격
+				 	gfn_setApcItemSBSelect('spmtCmnd-slt-itemCd', jsonApcItem, _apcCd),								// 품목
+					gfn_setApcVrtySBSelect('spmtCmnd-slt-vrtyCd', jsonApcVrty, _apcCd),								// 품종
+					gfn_setApcSpcfctsSBSelect('spmtCmnd-slt-spcfctCd', jsonApcSpcfct, _apcCd, _spmtCmnd.itemCd)		// 규격
 				]);
 				if (!gfn_isEmpty(_spmtCmnd)){
 					SBUxMethod.set("spmtCmnd-slt-itemCd", _spmtCmnd.itemCd);
