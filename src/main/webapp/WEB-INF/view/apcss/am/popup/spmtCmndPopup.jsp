@@ -85,7 +85,7 @@
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<div class="ad_section_top">
-					<div id="sb-area-grdSpmtCmnd" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdSpmtCmndPop" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -104,7 +104,7 @@
 		modalId: 'modal-spmtCmnd',
 		gridId: 'grdSpmtCmndPop',
 		jsonId: 'jsonSpmtCmndPop',
-		areaId: "sb-area-grdSpmtCmnd",
+		areaId: "sb-area-grdSpmtCmndPop",
 		prvApcCd: "",
 		objGrid: null,
 		gridJson: [],
