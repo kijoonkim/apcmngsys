@@ -66,7 +66,7 @@
 								<sbux-input id="srch-inp-pckgSn" name="srch-inp-pckgSn" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="btnSrchPckgno" name="btnSrchPckgno" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark" onclick="fn_modalPckgno"></sbux-button>
+								<sbux-button id="btnSrchPckgno" name="btnSrchPckgno" uitype="normal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-pckgno" onclick="fn_modalPckgno"></sbux-button>
 							</td>
 							<td colspan="5"></td>
 						</tr>
@@ -172,6 +172,13 @@
     </div>
     <div id="body-modal-spmtCmnd">
     	<jsp:include page="../../am/popup/spmtCmndPopup.jsp"></jsp:include>
+    </div>
+    <!-- 포장번호 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-pckgno" name="modal-pckgno" uitype="middle" header-title="포장번호 선택" body-html-id="body-modal-pckgno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-pckgno">
+    	<jsp:include page="../../am/popup/pckgnoPopup.jsp"></jsp:include>
     </div>
 	<!-- 차량 선택 Modal -->
     <div>
@@ -400,7 +407,7 @@
 	
 	// 출하지시번호 선택 팝업 호출
 	const fn_choiceSpmtCmnd = function() {
-    	popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, null, fn_setSpmtCmnd);
+    	popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmnd);
 	}
 	
 	const fn_setSpmtCmnd = function(spmtCmnd) {

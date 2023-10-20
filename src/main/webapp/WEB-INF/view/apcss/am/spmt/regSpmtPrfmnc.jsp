@@ -921,11 +921,7 @@
 	 * 시작
 	 */
 	const fn_choiceSpmtCmnd = function() {
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
-		let _spmtCmnd = {itemCd : itemCd, vrtyCd : vrtyCd, spcfctCd : spcfctCd};
-		popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, _spmtCmnd, fn_setSpmtCmnd);
+		popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmnd);
 	}
 	const fn_setSpmtCmnd = async function(cmnd) {
 		if (!gfn_isEmpty(cmnd)) {
