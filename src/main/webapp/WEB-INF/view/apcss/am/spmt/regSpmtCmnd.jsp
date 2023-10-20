@@ -348,7 +348,8 @@
 			let spmtQntt 		= grdSpmtCmndTrg.getRowData(nRow).spmtQntt;
 			let outordrQntt 	= grdSpmtCmndTrg.getRowData(nRow).outordrQntt;
 			let cmndQntt 		= grdSpmtCmndTrg.getRowData(nRow).cmndQntt;
-			let psbltyCmndQntt 	= outordrQntt - spmtQntt - cmndQntt;
+			let psbltyCmndQntt = outordrQntt - cmndQntt;
+
 			let wght 			= grdSpmtCmndTrg.getRowData(nRow).wght;
 			let apcCnptNm 		= grdSpmtCmndTrg.getRowData(nRow).apcCnptNm;
 			let apcCnptCd 		= grdSpmtCmndTrg.getRowData(nRow).apcCnptCd;
@@ -403,7 +404,7 @@
 		let outordrQntt 	= grdSpmtCmndTrg.getRowData(nRow).outordrQntt;
 		let cmndQntt 		= grdSpmtCmndTrg.getRowData(nRow).cmndQntt;
 		let inptCmndQntt 	= grdSpmtCmndTrg.getRowData(nRow).inptCmndQntt;
-		let psbltyCmndQntt 	= outordrQntt - spmtQntt - cmndQntt;
+		let psbltyCmndQntt 	= outordrQntt - cmndQntt;
 		let wght 			= grdSpmtCmndTrg.getRowData(nRow).wght;
 		let apcCnptNm 		= grdSpmtCmndTrg.getRowData(nRow).apcCnptNm;
 		let apcCnptCd 		= grdSpmtCmndTrg.getRowData(nRow).apcCnptCd;
@@ -430,6 +431,8 @@
 		if(inptCmndQntt > psbltyCmndQntt){
 			gfn_comAlert("W0008", "지시가능수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 			grdSpmtCmndTrg.setCellData(nRow, nCol , 0);
+			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol , 0);
+			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
             return;
 		}
 
@@ -439,6 +442,7 @@
 		}else{
 			gfn_comAlert("W0008", "재고수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol, 0);
+			grdSpmtCmndTrg.setCellData(nRow, inptCmndWghtCol , 0);
 			grdSpmtCmndTrg.setCellData(nRow, checkedYnCol, "N");
 			return;
 		}
