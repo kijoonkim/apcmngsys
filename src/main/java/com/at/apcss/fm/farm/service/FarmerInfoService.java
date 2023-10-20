@@ -1,0 +1,48 @@
+package com.at.apcss.fm.farm.service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.at.apcss.co.cd.vo.ComCdVO;
+import com.at.apcss.fm.bbs.vo.BbsVO;
+import com.at.apcss.fm.farm.vo.FarmerInfoVO;
+
+
+/**
+ * 평가등록결과 Service 인터페이스
+ * @author 김동제
+ * @since 2023.10.01
+ * @version 1.0
+ * @see
+ *
+ * <pre>
+ * << 개정이력(Modification Information) >>
+ * 수정일        수정자        수정내용
+ * ----------  ----------  ---------------------------
+ * 2023.10.01  김동제        최초 생성
+ * </pre>
+ */
+public interface FarmerInfoService {
+
+	/**
+	 * 정보를 조회한다.
+	 * @param farmerInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	public FarmerInfoVO selectfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+
+	public List<FarmerInfoVO> selectfarmerInfoList(FarmerInfoVO farmerInfoVO) throws Exception;
+
+	public int insertfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+
+	public int updatefarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+
+	public int multiSavefarmerInfoList(List<FarmerInfoVO> farmerInfoVOList) throws Exception;
+	public int insertMegerfarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
+	public int insertMegerLogfarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
+	public int updateMegerfarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
+
+	public int deletefarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+
+}

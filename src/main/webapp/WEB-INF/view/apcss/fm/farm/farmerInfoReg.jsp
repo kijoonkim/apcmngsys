@@ -459,21 +459,21 @@
 
 			let rowData = grdFarmerInfoReg.getRowData(i);
 			let rowSts = grdFarmerInfoReg.getRowStatus(i);
-			let bb = rowData.bb;
-			let aa = rowData.aa;
+			let frmerSn = rowData.bb;
+			let bzobRgno = rowData.aa;
 			let delYn = rowData.delYn;
 
 			if(delYn == 'N'){
 
-				if (gfn_isEmpty(aa)) {
-		  			gfn_comAlert("W0002", "설비명");		//	W0002	{0}을/를 입력하세요.
+				if (gfn_isEmpty(frmerSn)) {
+		  			gfn_comAlert("W0002", "농업인 번호");		//	W0002	{0}을/를 입력하세요.
 		            return;
 		  		}
 
-				/* if (gfn_isEmpty(bb)) {
-		  			gfn_comAlert("W0001", "설비구분");		//	W0001	{0}을/를 선택하세요.
+				if (gfn_isEmpty(bzobRgno)) {
+		  			gfn_comAlert("W0001", "경영체 등록번호");		//	W0001	{0}을/를 선택하세요.
 		            return;
-		  		} */
+		  		}
 
 				if (rowSts === 3){
 					rowData.rowSts = "I";

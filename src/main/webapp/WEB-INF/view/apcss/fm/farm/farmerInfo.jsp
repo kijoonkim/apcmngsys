@@ -22,6 +22,7 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
+					<sbux-button id="btnSaveFrm" name="btnSaveFrm" uitype="normal" text="연계 등록" class="btn btn-sm btn-outline-danger" onclick="fn_saveFrmerSn"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -31,21 +32,13 @@
 
 					<tbody>
 						<tr>
-							<th scope="row">생산유통통합조직</th>
+							<th scope="row">농업인 번호</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd2" name="srch-inp-apcCd2" uitype="hidden" ></sbux-input>
-								<sbux-input id="srch-inp-apcNm2" name="srch-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+								<sbux-input id="srch-inp-frmerSn" name="srch-inp-frmerSn" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
-							<td>
-								<sbux-button id="srch-btn-apc2" name="srch-btn-apc2" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceInvstmntSpmt" />
-							</td>
-							<th class="th_bg">전문품목</th>
+							<th class="th_bg">경영체 등록번호</th>
 							<td class="td_input" style="border-right:hidden;">
-							    	<sbux-input id="srch-inp-itemCd1" name="srch-inp-itemCd1" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
-									<sbux-input id="srch-inp-itemNm1" name="srch-inp-itemNm1" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
-							</td>
-							<td>
-									<sbux-button id="srch-btn-item1" name="srch-btn-item1" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(1)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+									<sbux-input id="srch-inp-bzobRgno" name="srch-inp-bzobRgno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 							<td colspan="2" style="border-left: hidden;"></td>
 						</tr>
@@ -63,32 +56,6 @@
 		</div>
 	</section>
 
-    <!-- 통합조직,출자출하조직 선택 Modal -->
-    <!-- 2023 09 22 ljw 통합조직 출자출하조직 리스트 팝업 생성 -->
-    <div>
-        <sbux-modal
-        	id="modal-invstmntSpmt"
-        	name="modal-invstmntSpmt"
-        	uitype="middle"
-        	header-title="통합조직,출자출하조직 선택"
-        	body-html-id="body-modal-invstmntSpmt"
-        	footer-is-close-button="false"
-        	style="width:1000px"
-       	></sbux-modal>
-    </div>
-    <div id="body-modal-invstmntSpmt">
-<%--     	<jsp:include page="../popup/InvstmntSpmtPopup.jsp"></jsp:include> --%>
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/InvstmntSpmtPopup.jsp"></jsp:include>
-    </div>
-
-
-    <!-- 품목 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px"></sbux-modal>
-    </div>
-    <div id="body-modal-itemSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemSelectPopup.jsp"></jsp:include>
-    </div>
 
 </body>
 <script type="text/javascript">
@@ -252,13 +219,13 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_searchFcltList = async function(){
-		let ccCode = SBUxMethod.get("srch-inp-itemCd1");//전문품목
-		let iiCode = SBUxMethod.get("srch-inp-apcCd2");//통합조직
+		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");//
+		let bzobRgno = SBUxMethod.get("srch-inp-bzobRgno");//
 		//let apcCd = SBUxMethod.get("inp-apcCd");
     	//let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerInfo.do", {apcCd : apcCd});
     	let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerInfoList.do", {
-    		ccCode : ccCode
-    		,iiCode : iiCode
+    		 frmerSn : frmerSn
+    		,bzobRgno : bzobRgno
 		});
         let data = await postJsonPromise;
         try{
@@ -324,21 +291,21 @@
 
 			let rowData = grdfarmerInfo.getRowData(i);
 			let rowSts = grdfarmerInfo.getRowStatus(i);
-			let bb = rowData.bb;
-			let aa = rowData.aa;
+			let frmerSn = rowData.frmerSn;
+			let bzobRgno = rowData.bzobRgno;
 			let delYn = rowData.delYn;
 
 			if(delYn == 'N'){
 
-// 				if (gfn_isEmpty(aa)) {
-// 		  			gfn_comAlert("W0002", "설비명");		//	W0002	{0}을/를 입력하세요.
-// 		            return;
-// 		  		}
-
-				/* if (gfn_isEmpty(bb)) {
-		  			gfn_comAlert("W0001", "설비구분");		//	W0001	{0}을/를 선택하세요.
+				if (gfn_isEmpty(frmerSn)) {
+		  			gfn_comAlert("W0002", "농업인 번호");		//	W0002	{0}을/를 입력하세요.
 		            return;
-		  		} */
+		  		}
+
+				 if (gfn_isEmpty(bzobRgno)) {
+		  			gfn_comAlert("W0001", "경영체 등록번호");		//	W0001	{0}을/를 선택하세요.
+		            return;
+		  		}
 
 				if (rowSts === 3){
 					rowData.rowSts = "I";
@@ -553,6 +520,56 @@
 			grdfarmerInfo.setCellData(selGridRow,colRefIdx2,rowData.itemCd,true);
 		}
 	}
+
+
+
+
+
+
+
+
+
+
+
+	/* 농업인 일련번호 연계 저장*/
+	const fn_saveFrmerSn= async function(){
+		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");
+
+		if (gfn_isEmpty(frmerSn)) {
+  			gfn_comAlert("W0002", "농업인 번호");		//	W0002	{0}을/를 입력하세요.
+            return;
+  		}
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
+			let postJsonPromise = gfn_postJSON("/fm/farm/SavefarmerSnList.do", {
+	    		 frmerSn : frmerSn
+	 		});
+	        let data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_searchFcltList();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+
+		}
+	}
+
+
+
+
+
+
 
 </script>
 </html>

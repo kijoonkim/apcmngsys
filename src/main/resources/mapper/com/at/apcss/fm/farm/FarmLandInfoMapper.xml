@@ -10,7 +10,7 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.farm.mapper.farmLandInfoRegMapper">
+<mapper namespace="com.at.apcss.fm.farm.mapper.FarmLandInfoMapper">
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
@@ -20,9 +20,9 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectfarmLandInfoReg" parameterType="com.at.apcss.fm.farm.vo.farmLandInfoRegVO" resultType="com.at.apcss.fm.farm.vo.farmLandInfoRegVO">
+    <select id="selectfarmLandInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.farmLandInfoRegMapper.selectfarmLandInfoReg */
+			SELECT /* com.at.apcss.fm.farm.mapper.farmLandInfoMapper.selectfarmLandInfo */
 				  CM.TEST_NO
 				, CM.AA
 				, CM.BB
@@ -87,9 +87,9 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectfarmLandInfoRegList" parameterType="com.at.apcss.fm.farm.vo.farmLandInfoRegVO" resultType="com.at.apcss.fm.farm.vo.farmLandInfoRegVO">
+    <select id="selectfarmLandInfoList" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.farmLandInfoRegMapper.selectfarmLandInfoRegList */
+			SELECT /* com.at.apcss.fm.farm.mapper.farmLandInfoMapper.selectfarmLandInfoList */
 				  CM.FRMER_SN
 				, CM.BZOB_RGNO
 				, CM.FRLND_SN
@@ -128,92 +128,86 @@
     </select>
 
 
-	<insert id="insertfarmLandInfoReg" parameterType="com.at.apcss.fm.farm.vo.farmLandInfoRegVO">
+	<insert id="insertfarmLandInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.farm.mapper.farmLandInfoRegMapper.insertfarmLandInfoReg */
-	    	  INTO TB_PD_PrdcrCrclOgnVluIdctrMng
+	    	INSERT /* com.at.apcss.fm.farm.mapper.farmLandInfoMapper.insertfarmLandInfo */
+	    	  INTO TB_FARM_LAND_INFO
 	    		(
-	    			TEST_NO
-	    		  , AA
-	    		  , BB
-	    		  , CC
-	    		  , CC_CODE
-	    		  , DD
-	    		  , DD_CODE
-	    		  , EE
-	    		  , FF
-	    		  , GG
-	    		  , HH
-	    		  , II
-	    		  , II_CODE
-	    		  , JJ
-	    		  , KK
-	    		  , LL
-	    		  , MM
-	    		  , NN
-	    		  , OO
-	    		  , PP
-	    		  , QQ
-	    		  , RR
-	    		  , SS
-	    		  , TT
-	    		  , UU
-	    		  , VV
-	    		  , WW
-	    		  , XX
-	    		  , YY
-	    		  , ZZ
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		FRMER_SN
+				, BZOB_RGNO
+				, FRLND_SN
+				, LEGALDONG_CODE
+				, FRLND_MNNM
+				, COPERTN_CLVT_AT
+				, FRLND_SLNO
+				, FRLND_ADRES
+				, CLVT_STLE
+				, FRLND_OWNER_NM
+				, OFACT_LNDCGR
+				, REAL_LNDCGR
+				, OFACT_FRLND_AR
+				, REAL_FRLND_AR
+				, NUSE_CLMG_AR
+				, NUSE_QTMG_AR
+				, PRDLST_CODE
+				, PREDLST_NM
+				, EQPT_FCLTYSE
+				, CTVT_AR
+				, LDGR_DVCD
+				, EQPT_SEQ
+				, EQPT_STLE
+				, EQPT_KND
+				, FCLTY_ARA
+				, INSTL_YEAR
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+				, DEL_YN
 	    		)
 	   		VALUES
 	   			(
-	   			    (SELECT NVL(MAX(TEST_NO),0)+1 FROM TB_PD_PrdcrCrclOgnVluIdctrMng)
-	   			  , #{aa}
-	   			  , #{bb}
-	   			  , #{cc}
-	   			  , #{ccCode}
-	   			  , #{dd}
-	   			  , #{ddCode}
-	   			  , #{ee}
-	   			  , #{ff}
-	   			  , #{gg}
-	   			  , #{hh}
-	   			  , #{ii}
-	   			  , #{iiCode}
-	   			  , #{jj}
-	   			  , #{kk}
-	   			  , #{ll}
-	   			  , #{mm}
-	   			  , #{nn}
-	   			  , #{oo}
-	   			  , #{pp}
-	   			  , #{qq}
-	   			  , #{rr}
-	   			  , #{ss}
-	   			  , #{tt}
-	   			  , #{uu}
-	   			  , #{vv}
-	   			  , #{ww}
-	   			  , #{xx}
-	   			  , #{yy}
-	   			  , #{zz}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
+	   			  #{frmerSn}
+					,#{bzobRgno}
+					,#{frlndSn}
+					,#{legaldongCode}
+					,#{frlndMnnm}
+					,#{copertnClvtAt}
+					,#{frlndSlno}
+					,#{frlndAdres}
+					,#{clvtStle}
+					,#{frlndOwnerNm}
+					,#{ofactLndcgr}
+					,#{realLndcgr}
+					,#{ofactFrlndAr}
+					,#{realFrlndAr}
+					,#{nuseClmgAr}
+					,#{nuseQtmgAr}
+					,#{prdlstCode}
+					,#{predlstNm}
+					,#{eqptFcltyse}
+					,#{ctvtAr}
+					,#{ldgrDvcd}
+					,#{eqptSeq}
+					,#{eqptStle}
+					,#{eqptKnd}
+					,#{fcltyAra}
+					,#{instlYear}
+					,#{sysFrstInptDt}
+					,#{sysFrstInptUserId}
+					,#{sysFrstInptPrgrmId}
+					,#{sysLastChgDt}
+					,#{sysLastChgUserId}
+					,#{sysLastChgPrgrmId}
+					,#{delYn}
 	   			)
     	]]>
     </insert>
-	<update id="updatefarmLandInfoReg" parameterType="com.at.apcss.fm.farm.vo.farmLandInfoRegVO">
+	<update id="updatefarmLandInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.farm.mapper.farmLandInfoRegMapper.upatefarmLandInfoReg */
+	    	UPDATE /* com.at.apcss.fm.farm.mapper.farmLandInfoMapper.upatefarmLandInfo */
 	    		TB_PD_PrdcrCrclOgnVluIdctrMng
 			   SET
 			 	  AA	= #{aa}
@@ -260,7 +254,7 @@
     </update>
 
 
-	<delete id="deletefarmLandInfoReg" parameterType="com.at.apcss.fm.farm.vo.farmLandInfoRegVO">
+	<delete id="deletefarmLandInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
 		<![CDATA[
 		DELETE FROM TB_PD_PrdcrCrclOgnVluIdctrMng
 		 WHERE TEST_NO 	= #{testNo}

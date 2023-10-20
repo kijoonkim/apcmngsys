@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class farmerInfoRegVO extends ComVO{
+public class FarmerInfoVO extends ComVO{
 	private String frmerSn;
 	private String bzobRgno;
 	private String mngerRelate;
@@ -38,5 +38,8 @@ public class farmerInfoRegVO extends ComVO{
 	private String sysLastChgUserId;
 	private String sysLastChgPrgrmId;
 	private String delYn;
+	private String rgsde;
+	private String updde;
+	private String saveCd;
 
 }
