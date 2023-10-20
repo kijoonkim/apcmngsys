@@ -10,7 +10,7 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper">
+<mapper namespace="com.at.apcss.fm.farm.mapper.FarmerInfoLogMapper">
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
@@ -21,9 +21,9 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
  <!--
-    <select id="selectfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+    <select id="selectfarmerInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.selectfarmerInfoReg */
+			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoLogMapper.selectfarmerInfoLog */
 				  CM.TEST_NO
 				, CM.AA
 				, CM.BB
@@ -80,10 +80,11 @@
     </select>
 	  -->
 
-	   <select id="selectfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+	   <select id="selectfarmerInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.selectfarmerInfoReg */
-				  CM.FRMER_SN
+			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoLogMapper.selectfarmerInfoLog */
+				  CM.SEQ
+				, CM.FRMER_SN
 				, CM.BZOB_RGNO
 				, CM.MNGER_RELATE
 				, CM.BZM_CORP_NM
@@ -112,7 +113,7 @@
 				, CM.SYS_LAST_CHG_DT
 				, CM.SYS_LAST_CHG_USER_ID
 				, CM.SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_FARMER_INFO CM
+			  FROM TB_FARMER_INFO_LOG CM
 			 WHERE 1=1
 
     	]]>
@@ -133,10 +134,11 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectfarmerInfoRegList" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+    <select id="selectfarmerInfoLogList" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.selectfarmerInfoRegList */
-				  CM.FRMER_SN
+			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoLogMapper.selectfarmerInfoLogList */
+				  CM.SEQ
+				, CM.FRMER_SN
 				, CM.BZOB_RGNO
 				, CM.MNGER_RELATE
 				, CM.BZM_CORP_NM
@@ -167,7 +169,7 @@
 				, CM.SYS_LAST_CHG_PRGRM_ID
 				, CM.DEL_YN
 				, CM.SAVE_CD
-			  FROM TB_FARMER_INFO CM
+			  FROM TB_FARMER_INFO_LOG CM
 			 WHERE 1=1
 
     	]]>
@@ -181,10 +183,10 @@
     </select>
 
 
-	<insert id="insertfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+	<insert id="insertfarmerInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.insertfarmerInfoReg */
-	    	  INTO TB_FARMER_INFO
+	    	INSERT /* com.at.apcss.fm.farm.mapper.farmerInfoLogMapper.insertfarmerInfoLog */
+	    	  INTO TB_FARMER_INFO_LOG
 	    		(
 	    		  FRMER_SN
 				, BZOB_RGNO
@@ -258,15 +260,15 @@
 
 
 
-    <insert id="insertMegerfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+    <insert id="insertMegerfarmerInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO">
 	<![CDATA[
-    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+    	MERGE INTO TB_FARMER_INFO_LOG CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoLogMapper.insertMegerfarmerInfoLog */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
 				   )
 		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+			UPDATE /* com.at.apcss.fm.farm.mapper.FarmerInfoLogMapper.insertMegerfarmerInfoLog */
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
 				, BZM_CORP_NM 	= #{bzmCorpNm}
@@ -291,7 +293,7 @@
 				, SEXDSTN 	= #{sexdstn}
 				, SAVE_CD 	= #{saveCd}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+			 INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoLogMapper.insertMegerfarmerInfoLog */
 	    		(
 	    		  FRMER_SN
 				, BZOB_RGNO
@@ -363,10 +365,10 @@
 	</insert>
 
 
-    <insert id="insertMegerLogfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+    <insert id="insertMegerLogfarmerInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO">
 	<![CDATA[
-    	INSERT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.insertMegerLogfarmerInfoReg */
-	    	  INTO TB_FARMER_INFO_LOG
+    	INSERT /* com.at.apcss.fm.farm.mapper.farmerInfoLogMapper.insertMegerLogfarmerInfoLog */
+	    	  INTO TB_FARMER_INFO_LOG_LOG
 	    		(
 	    		  SEQ
 	    		 ,FRMER_SN
@@ -403,7 +405,7 @@
 	    		)
 	   		VALUES
 	   			(
-	   			      (SELECT NVL(MAX(SEQ),0)+1 FROM TB_FARMER_INFO_LOG)
+	   			      (SELECT NVL(MAX(SEQ),0)+1 FROM TB_FARMER_INFO_LOG_LOG)
 	   			    ,#{frmerSn}
 					,#{bzobRgno}
 					,#{mngerRelate}
@@ -439,10 +441,10 @@
     	]]>
 	</insert>
 
-	<update id="updatefarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+	<update id="updatefarmerInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.upatefarmerInfoReg */
-	    		TB_FARMER_INFO
+	    	UPDATE /* com.at.apcss.fm.farm.mapper.farmerInfoLogMapper.upatefarmerInfoLog */
+	    		TB_FARMER_INFO_LOG
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
 				, BZM_CORP_NM 	= #{bzmCorpNm}
@@ -481,15 +483,15 @@
     	]]>
     </update>
 
-    <update id="updateMegerfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+    <update id="updateMegerfarmerInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO">
     	<![CDATA[
-	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+	    	MERGE INTO TB_FARMER_INFO_LOG CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoLogMapper.insertMegerfarmerInfoLog */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
 				   )
 		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+			UPDATE /* com.at.apcss.fm.farm.mapper.FarmerInfoLogMapper.insertMegerfarmerInfoLog */
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
 				, BZM_CORP_NM 	= #{bzmCorpNm}
@@ -514,7 +516,7 @@
 				, SEXDSTN 	= #{sexdstn}
 				, SAVE_CD 	= #{saveCd}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+			 INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoLogMapper.insertMegerfarmerInfoLog */
 	    		(
 	    		  FRMER_SN
 				, BZOB_RGNO
@@ -586,9 +588,9 @@
     </update>
 
 
-	<delete id="deletefarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+	<delete id="deletefarmerInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoLogVO">
 		<![CDATA[
-		DELETE FROM TB_FARMER_INFO
+		DELETE FROM TB_FARMER_INFO_LOG
 		 WHERE 1=1
 		      AND FRMER_SN 	    = #{frmerSn}
 		      AND BZOB_RGNO 	= #{bzobRgno}
