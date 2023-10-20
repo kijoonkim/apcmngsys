@@ -387,7 +387,7 @@
             {caption: ["등급"], 			ref: 'gdsGrd',   	type:'combo',  width:'100px',    style:'text-align:center; background:#FFF8DC;',
     					typeinfo : {ref:'jsonGrdGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['출하수량'], 	ref: 'spmtQntt', 	width: '80px', type: 'input', style: 'text-align:right; background:#FFF8DC;' },
-            {caption: ['출하중량'], 	ref: 'spmtWght', 	width: '100px', type: 'input', style: 'text-align:right; background:#FFF8DC;',
+            {caption: ['출하중량'], 	ref: 'spmtWght', 	width: '100px', type: 'output', style: 'text-align:right',
             			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
 			{caption: ['비고'], 		ref: 'rmrk', 		width: '300px', type: 'output', style: 'text-align:center'},
             {caption: ["출하일자"],		ref: 'spmtYmd',   	type:'output',  hidden: true},
@@ -586,9 +586,6 @@
 			let spmtWght = grdGdsInvntr.getRowData(nRow).spmtWght;
 			let cmndQntt = grdGdsInvntr.getRowData(nRow).cmndQntt;
 			let cmndWght = grdGdsInvntr.getRowData(nRow).cmndWght;
-
-
-
 
 			if(cmndYn){
 
@@ -807,6 +804,7 @@
 			}
 
 		}else{
+
 			if(invntrQntt - spmtQntt < 0){
 				gfn_comAlert("W0008", "재고수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
 				grdGdsInvntr.setCellData(nRow, nCol , 0);
@@ -815,6 +813,7 @@
 
 			if(invntrQntt > 0 && spmtQntt > 0){
 				grdGdsInvntr.setCellData(nRow, spmtWghtCol, Math.round(invntrWght / invntrQntt) * spmtQntt);
+				grdGdsInvntr.setCellData(nRow, spmtQnttCol, spmtQntt);
 				grdGdsInvntr.setCellData(nRow, checkedYnCol, "Y");
 			}
 			if(spmtQntt == 0 && invntrQntt > 0){
@@ -931,6 +930,7 @@
 	    	try{
 	       		if(data.insertedCnt > 0){
 	       			if(cmndYn){
+	       				cmndYn = false;
 	       				SBUxMethod.set("dtl-inp-spmtCmndno", "");
 	       				SBUxMethod.set("dtl-inp-cmndQntt", "");
 	       				SBUxMethod.set("dtl-inp-cmndWght", "");
