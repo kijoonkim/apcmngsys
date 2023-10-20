@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.fm.bbs.vo.BbsVO;
-import com.at.apcss.fm.farm.vo.farmerInfoVO;
+import com.at.apcss.fm.farm.vo.FarmerInfoVO;
 
 /**
  * 게시판 Mapper 인터페이스
@@ -23,7 +23,7 @@ import com.at.apcss.fm.farm.vo.farmerInfoVO;
  * </pre>
  */
 @Mapper
-public interface farmerInfoMapper {
+public interface FarmerInfoMapper {
 
 
 	/**
@@ -31,13 +31,17 @@ public interface farmerInfoMapper {
 	 * @param bbsVO
 	 * @return
 	 */
-	public farmerInfoVO selectfarmerInfo(farmerInfoVO farmerInfoVO);
+	public FarmerInfoVO selectfarmerInfo(FarmerInfoVO farmerInfoVO);
 
-	public List<farmerInfoVO> selectfarmerInfoList(farmerInfoVO farmerInfoVO);
+	public List<FarmerInfoVO> selectfarmerInfoList(FarmerInfoVO farmerInfoVO);
 
-	public int insertfarmerInfo(farmerInfoVO farmerInfoVO);
+	public int insertfarmerInfo(FarmerInfoVO farmerInfoVO);
 
-	public int updatefarmerInfo(farmerInfoVO farmerInfoVO);
+	public int updatefarmerInfo(FarmerInfoVO farmerInfoVO);
 
-	public int deletefarmerInfo(farmerInfoVO farmerInfoVO) throws Exception;
+	public int insertMegerfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+	public int insertMegerLogfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+	public int updateMegerfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+
+	public int deletefarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 }

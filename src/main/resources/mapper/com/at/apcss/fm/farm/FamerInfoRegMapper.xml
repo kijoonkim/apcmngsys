@@ -10,7 +10,7 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.farm.mapper.farmerInfoRegMapper">
+<mapper namespace="com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper">
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
@@ -21,7 +21,7 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
  <!--
-    <select id="selectfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.farmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.farmerInfoRegVO">
+    <select id="selectfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.selectfarmerInfoReg */
 				  CM.TEST_NO
@@ -80,7 +80,7 @@
     </select>
 	  -->
 
-	   <select id="selectfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.farmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.farmerInfoRegVO">
+	   <select id="selectfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.selectfarmerInfoReg */
 				  CM.FRMER_SN
@@ -126,7 +126,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectfarmerInfoRegList" parameterType="com.at.apcss.fm.farm.vo.farmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.farmerInfoRegVO">
+    <select id="selectfarmerInfoRegList" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.selectfarmerInfoRegList */
 				  CM.FRMER_SN
@@ -166,7 +166,7 @@
     </select>
 
 
-	<insert id="insertfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.farmerInfoRegVO">
+	<insert id="insertfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.insertfarmerInfoReg */
 	    	  INTO TB_PD_PrdcrCrclOgnVluIdctrMng
@@ -249,7 +249,7 @@
 	   			)
     	]]>
     </insert>
-	<update id="updatefarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.farmerInfoRegVO">
+	<update id="updatefarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.upatefarmerInfoReg */
 	    		TB_PD_PrdcrCrclOgnVluIdctrMng
@@ -298,7 +298,7 @@
     </update>
 
 
-	<delete id="deletefarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.farmerInfoRegVO">
+	<delete id="deletefarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
 		<![CDATA[
 		DELETE FROM TB_PD_PrdcrCrclOgnVluIdctrMng
 		 WHERE TEST_NO 	= #{testNo}

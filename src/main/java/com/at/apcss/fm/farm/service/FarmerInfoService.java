@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.fm.bbs.vo.BbsVO;
-import com.at.apcss.fm.farm.vo.farmerInfoVO;
+import com.at.apcss.fm.farm.vo.FarmerInfoVO;
 
 
 /**
@@ -22,7 +22,7 @@ import com.at.apcss.fm.farm.vo.farmerInfoVO;
  * 2023.10.01  김동제        최초 생성
  * </pre>
  */
-public interface farmerInfoService {
+public interface FarmerInfoService {
 
 	/**
 	 * 정보를 조회한다.
@@ -30,16 +30,19 @@ public interface farmerInfoService {
 	 * @return
 	 * @throws Exception
 	 */
-	public farmerInfoVO selectfarmerInfo(farmerInfoVO farmerInfoVO) throws Exception;
+	public FarmerInfoVO selectfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
-	public List<farmerInfoVO> selectfarmerInfoList(farmerInfoVO farmerInfoVO) throws Exception;
+	public List<FarmerInfoVO> selectfarmerInfoList(FarmerInfoVO farmerInfoVO) throws Exception;
 
-	public int insertfarmerInfo(farmerInfoVO farmerInfoVO) throws Exception;
+	public int insertfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
-	public int updatefarmerInfo(farmerInfoVO farmerInfoVO) throws Exception;
+	public int updatefarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
-	public int multiSavefarmerInfoList(List<farmerInfoVO> farmerInfoVOList) throws Exception;
+	public int multiSavefarmerInfoList(List<FarmerInfoVO> farmerInfoVOList) throws Exception;
+	public int insertMegerfarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
+	public int insertMegerLogfarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
+	public int updateMegerfarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
 
-	public int deletefarmerInfo(farmerInfoVO farmerInfoVO) throws Exception;
+	public int deletefarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
 }

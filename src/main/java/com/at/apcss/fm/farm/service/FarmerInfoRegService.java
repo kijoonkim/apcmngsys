@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.fm.bbs.vo.BbsVO;
-import com.at.apcss.fm.farm.vo.farmerInfoRegVO;
+import com.at.apcss.fm.farm.vo.FarmerInfoRegVO;
 
 
 /**
@@ -22,7 +22,7 @@ import com.at.apcss.fm.farm.vo.farmerInfoRegVO;
  * 2023.10.01  김동제        최초 생성
  * </pre>
  */
-public interface farmerInfoRegService {
+public interface FarmerInfoRegService {
 
 	/**
 	 * 정보를 조회한다.
@@ -30,16 +30,16 @@ public interface farmerInfoRegService {
 	 * @return
 	 * @throws Exception
 	 */
-	public farmerInfoRegVO selectfarmerInfoReg(farmerInfoRegVO farmerInfoRegVO) throws Exception;
+	public FarmerInfoRegVO selectfarmerInfoReg(FarmerInfoRegVO farmerInfoRegVO) throws Exception;
 
-	public List<farmerInfoRegVO> selectfarmerInfoRegList(farmerInfoRegVO farmerInfoRegVO) throws Exception;
+	public List<FarmerInfoRegVO> selectfarmerInfoRegList(FarmerInfoRegVO farmerInfoRegVO) throws Exception;
 
-	public int insertfarmerInfoReg(farmerInfoRegVO farmerInfoRegVO) throws Exception;
+	public int insertfarmerInfoReg(FarmerInfoRegVO farmerInfoRegVO) throws Exception;
 
-	public int updatefarmerInfoReg(farmerInfoRegVO farmerInfoRegVO) throws Exception;
+	public int updatefarmerInfoReg(FarmerInfoRegVO farmerInfoRegVO) throws Exception;
 
-	public int multiSavefarmerInfoRegList(List<farmerInfoRegVO> farmerInfoRegVOList) throws Exception;
+	public int multiSavefarmerInfoRegList(List<FarmerInfoRegVO> farmerInfoRegVOList) throws Exception;
 
-	public int deletefarmerInfoReg(farmerInfoRegVO farmerInfoRegVO) throws Exception;
+	public int deletefarmerInfoReg(FarmerInfoRegVO farmerInfoRegVO) throws Exception;
 
 }

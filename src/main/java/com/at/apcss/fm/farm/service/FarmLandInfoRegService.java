@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.fm.bbs.vo.BbsVO;
-import com.at.apcss.fm.farm.vo.farmLandInfoRegVO;
+import com.at.apcss.fm.farm.vo.FarmLandInfoRegVO;
 
 
 /**
@@ -22,7 +22,7 @@ import com.at.apcss.fm.farm.vo.farmLandInfoRegVO;
  * 2023.10.01  김동제        최초 생성
  * </pre>
  */
-public interface farmLandInfoRegService {
+public interface FarmLandInfoRegService {
 
 	/**
 	 * 정보를 조회한다.
@@ -30,16 +30,16 @@ public interface farmLandInfoRegService {
 	 * @return
 	 * @throws Exception
 	 */
-	public farmLandInfoRegVO selectfarmLandInfoReg(farmLandInfoRegVO farmLandInfoRegVO) throws Exception;
+	public FarmLandInfoRegVO selectfarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
 
-	public List<farmLandInfoRegVO> selectfarmLandInfoRegList(farmLandInfoRegVO farmLandInfoRegVO) throws Exception;
+	public List<FarmLandInfoRegVO> selectfarmLandInfoRegList(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
 
-	public int insertfarmLandInfoReg(farmLandInfoRegVO farmLandInfoRegVO) throws Exception;
+	public int insertfarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
 
-	public int updatefarmLandInfoReg(farmLandInfoRegVO farmLandInfoRegVO) throws Exception;
+	public int updatefarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
 
-	public int multiSavefarmLandInfoRegList(List<farmLandInfoRegVO> farmLandInfoRegVOList) throws Exception;
+	public int multiSavefarmLandInfoRegList(List<FarmLandInfoRegVO> farmLandInfoRegVOList) throws Exception;
 
-	public int deletefarmLandInfoReg(farmLandInfoRegVO farmLandInfoRegVO) throws Exception;
+	public int deletefarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
 
 }
