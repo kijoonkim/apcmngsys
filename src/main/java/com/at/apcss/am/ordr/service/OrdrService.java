@@ -84,4 +84,20 @@ public interface OrdrService {
 	 * @throws Exception
 	 */
 	public int deleteOrdrList(List<OrdrVO> ordrList) throws Exception;
+
+	/**
+	 * 발주정보 출하지시번호 확인
+	 * @param ordrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectOrdrCheck(OrdrVO ordrVO) throws Exception;
+
+	/**
+	 * 발주정보 출하지시번호 저장
+	 * @param ordrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public void updateCmndno(OrdrVO ordrVO) throws Exception;
 }

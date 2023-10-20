@@ -274,6 +274,7 @@
 		console.log(spmtCmndVO)
     	let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", spmtCmndVO);
         let data = await postJsonPromise;
+        console.log(data);
         try{
         	jsonSmptCmnd.length = 0;
         	data.resultList.forEach((item, index) => {
@@ -295,6 +296,8 @@
 				  , apcCd			: item.apcCd
 				  , spmtCmndno		: item.spmtCmndno
 				  , spmtCmndSn		: item.spmtCmndSn
+				  , apcSeCd			: gv_selectedApcSeCd
+				  , outordrno		: item.outordrno
 				}
 				jsonSmptCmnd.push(spmtCmnd);
 			});

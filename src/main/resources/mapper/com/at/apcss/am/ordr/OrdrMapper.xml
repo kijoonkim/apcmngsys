@@ -585,6 +585,46 @@
 		   AND OUTORDRNO 	= #{outordrno}
 		]]>
 	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.deleteOrdr					-->
+	<!-- DESC : 발주정보 출하지시번호 저장.	                         	            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.24  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateCmndno" parameterType="com.at.apcss.am.ordr.vo.OrdrVO" >
+		<![CDATA[
+			UPDATE TB_OUTORDR_INFO	/* com.at.apcss.am.ordr.mapper.OrdrMapper.deleteOrdr */
+			   SET SYS_LAST_CHG_DT 			= SYSDATE
+	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    		 , SPMT_CMNDNO				= #{spmtCmndno}
+			 WHERE APC_CD 		= #{apcCd}
+			   AND APC_SE_CD 	= #{apcSeCd}
+			   AND OUTORDRNO 	= #{outordrno}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.deleteOrdr					-->
+	<!-- DESC : 발주정보 출하지시번호 확인.	                         	            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.24  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectOrdrCheck" parameterType="com.at.apcss.am.ordr.vo.OrdrVO" resultType="_int">
+		<![CDATA[
+			SELECT COUNT(*)
+			  FROM TB_OUTORDR_INFO
+			 WHERE APC_CD 		= #{apcCd}
+			   AND APC_SE_CD 	= #{apcSeCd}
+			   AND OUTORDRNO 	= #{outordrno}
+			   AND SPMT_CMNDNO	= #{spmtCmndno}
+		]]>
+	</select>
 </mapper>
 
 

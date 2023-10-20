@@ -132,4 +132,14 @@ public class OrdrServiceImpl implements OrdrService {
 		return deletedCnt;
 	}
 
+	@Override
+	public int selectOrdrCheck(OrdrVO ordrVO) throws Exception {
+		return ordrMapper.selectOrdrCheck(ordrVO);
+	}
+
+	@Override
+	public void updateCmndno(OrdrVO ordrVO) throws Exception {
+		ordrMapper.updateCmndno(ordrVO);
+	}
+
 }
