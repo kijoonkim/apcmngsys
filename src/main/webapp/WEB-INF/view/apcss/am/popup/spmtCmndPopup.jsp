@@ -85,7 +85,7 @@
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<div class="ad_section_top">
-					<div id="sb-area-grdSpmtCmnd" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdSpmtCmndPop" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -104,12 +104,12 @@
 		modalId: 'modal-spmtCmnd',
 		gridId: 'grdSpmtCmndPop',
 		jsonId: 'jsonSpmtCmndPop',
-		areaId: "sb-area-grdSpmtCmnd",
+		areaId: "sb-area-grdSpmtCmndPop",
 		prvApcCd: "",
 		objGrid: null,
 		gridJson: [],
 		callbackSelectFnc: function() {},
-		init: async function(_apcCd, _apcNm, _spmtCmnd, _callbackChoiceFnc) {
+		init: async function(_apcCd, _apcNm, _callbackChoiceFnc) {
 			SBUxMethod.set("spmtCmnd-inp-apcCd", _apcCd);
 			SBUxMethod.set("spmtCmnd-inp-apcNm", _apcNm);
 
@@ -122,23 +122,12 @@
 				SBUxMethod.set("spmtCmnd-dtp-cmndYmd", gfn_dateToYmd(new Date()));
 				
 				let rst = await Promise.all([
-				 	gfn_setApcItemSBSelect('spmtCmnd-slt-itemCd', jsonApcItem, _apcCd),						// 품목
-					gfn_setApcVrtySBSelect('spmtCmnd-slt-vrtyCd', jsonApcVrty, _apcCd),						// 품종
-					gfn_setApcSpcfctsSBSelect('spmtCmnd-slt-spcfctCd', jsonApcSpcfct, _apcCd)				// 규격
+				 	gfn_setApcItemSBSelect('spmtCmnd-slt-itemCd', jsonApcItem, _apcCd),								// 품목
+					gfn_setApcVrtySBSelect('spmtCmnd-slt-vrtyCd', jsonApcVrty, _apcCd)								// 품종
 				]);
-				if (!gfn_isEmpty(_spmtCmnd)){
-					SBUxMethod.set("spmtCmnd-slt-itemCd", _spmtCmnd.itemCd);
-					SBUxMethod.set("spmtCmnd-slt-vrtyCd", _spmtCmnd.vrtyCd);
-					SBUxMethod.set("spmtCmnd-slt-spcfctCd", _spmtCmnd.spcfctCd);
-				}
 				this.createGrid();
 				this.search();
 			} else {
-				if (!gfn_isEmpty(_spmtCmnd)){
-					SBUxMethod.set("spmtCmnd-slt-itemCd", _spmtCmnd.itemCd);
-					SBUxMethod.set("spmtCmnd-slt-vrtyCd", _spmtCmnd.vrtyCd);
-					SBUxMethod.set("spmtCmnd-slt-spcfctCd", _spmtCmnd.spcfctCd);
-				}
 				this.search();
 			}
 

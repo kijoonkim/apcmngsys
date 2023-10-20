@@ -387,7 +387,7 @@
             {caption: ["등급"], 			ref: 'gdsGrd',   	type:'combo',  width:'100px',    style:'text-align:center; background:#FFF8DC;',
     					typeinfo : {ref:'jsonGrdGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['출하수량'], 	ref: 'spmtQntt', 	width: '80px', type: 'input', style: 'text-align:right; background:#FFF8DC;' },
-            {caption: ['출하중량'], 	ref: 'spmtWght', 	width: '100px', type: 'input', style: 'text-align:right; background:#FFF8DC;',
+            {caption: ['출하중량'], 	ref: 'spmtWght', 	width: '100px', type: 'output', style: 'text-align:right',
             			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
 			{caption: ['비고'], 		ref: 'rmrk', 		width: '300px', type: 'output', style: 'text-align:center'},
             {caption: ["출하일자"],		ref: 'spmtYmd',   	type:'output',  hidden: true},
@@ -490,7 +490,6 @@
 			spcfctCd		: spcfctCd
   		});
         const data = await postJsonPromise;
-        console.log(data);
         try {
           	/** @type {number} **/
       		jsonGdsInvntr.length = 0;
@@ -551,12 +550,15 @@
 
     	let nRow = grdGdsInvntr.getRow();
 		let nCol = grdGdsInvntr.getCol();
+		let spmtQnttCol = grdGdsInvntr.getColRef("spmtQntt")
+		let spmtWghtCol = grdGdsInvntr.getColRef("spmtWght")
+
 
 		switch (nCol) {
-		case 11:	// checkbox
+		case spmtQnttCol:	// checkbox
 			fn_checkInptQntt();
 			break;
-		case 12:
+		case spmtWghtCol:
 			//check qntt
 			fn_checkInptWght();
 			break;
@@ -570,6 +572,12 @@
 
     	let nRow = grdGdsInvntr.getRow();
     	let nCol = grdGdsInvntr.getCol();
+    	let spmtQnttCol = grdGdsInvntr.getColRef("spmtQntt")
+		let spmtWghtCol = grdGdsInvntr.getColRef("spmtWght")
+		let spmtPckgUnitCdCol = grdGdsInvntr.getColRef("spmtPckgUnitCd")
+		let gdsGrdCol = grdGdsInvntr.getColRef("gdsGrd")
+		let checkedYnCol = grdGdsInvntr.getColRef("checkedYn")
+
     	if(nCol == 0){
 
 	    	let invntrQntt = grdGdsInvntr.getRowData(nRow).invntrQntt;
@@ -579,31 +587,61 @@
 			let cmndQntt = grdGdsInvntr.getRowData(nRow).cmndQntt;
 			let cmndWght = grdGdsInvntr.getRowData(nRow).cmndWght;
 
-			if((spmtQntt == 0 && spmtWght == 0) || (gfn_isEmpty(spmtQntt) && gfn_isEmpty(spmtWght))){
-				if(cmndQntt > 0){
-					grdGdsInvntr.setCellData(nRow, 11, cmndQntt);
-					grdGdsInvntr.setCellData(nRow, 12, cmndWght);
-				}else{
+			if(cmndYn){
 
-					grdGdsInvntr.setCellData(nRow, 11, invntrQntt);
-					grdGdsInvntr.setCellData(nRow, 12, invntrWght);
+				let totSpmtQntt = 0;
+				let totSpmtWght = 0;
+				let gridData = grdGdsInvntr.getGridDataAll();
+
+				for(var i=1; i<=gridData.length; i++ ){
+
+					let rowData = grdGdsInvntr.getRowData(i);
+					if(!gfn_isEmpty(rowData.spmtQntt)){
+						totSpmtQntt += parseInt(rowData.spmtQntt);
+						totSpmtWght += parseInt(rowData.spmtWght);
+					}
 				}
 
 				let spmtPckgUnit = SBUxMethod.get("dtl-slt-spmtPckgUnit");
 				let gdsGrdCd = SBUxMethod.get("dtl-slt-gdsGrd");
 				let spmtCmndno = SBUxMethod.get("dtl-inp-spmtCmndno");
-				if(!gfn_isEmpty(spmtCmndno)){
-					grdGdsInvntr.setCellData(nRow, 9, spmtPckgUnit, true);
-					grdGdsInvntr.setCellData(nRow, 10, gdsGrdCd, true);
+				let spmtCmndQntt = SBUxMethod.get("dtl-inp-cmndQntt");
+				let spmtCmndWght = SBUxMethod.get("dtl-inp-cmndWght");
+
+				if(totSpmtQntt == spmtCmndQntt){
+
+					gfn_comAlert("W0008", "지시수량", "선택수량");	// W0008 {0} 보다 {1}이/가 큽니다.
+					grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
+					return;
+				}else if(totSpmtQntt < spmtCmndQntt){
+
+					if(spmtCmndQntt - totSpmtQntt <  invntrQntt){
+						grdGdsInvntr.setCellData(nRow, spmtQnttCol, spmtCmndQntt - totSpmtQntt);
+						grdGdsInvntr.setCellData(nRow, spmtWghtCol, spmtCmndWght - totSpmtWght);
+						grdGdsInvntr.setCellData(nRow, spmtPckgUnitCdCol, spmtPckgUnit, true);
+						grdGdsInvntr.setCellData(nRow, gdsGrdCol, gdsGrdCd, true);
+					}else{
+						grdGdsInvntr.setCellData(nRow, spmtQnttCol, invntrQntt);
+						grdGdsInvntr.setCellData(nRow, spmtWghtCol, invntrWght);
+						grdGdsInvntr.setCellData(nRow, spmtPckgUnitCdCol, spmtPckgUnit, true);
+						grdGdsInvntr.setCellData(nRow, gdsGrdCol, gdsGrdCd, true);
+					}
 				}
+			}else{
+
+				grdGdsInvntr.setCellData(nRow, spmtQnttCol, invntrQntt);
+				grdGdsInvntr.setCellData(nRow, spmtWghtCol, invntrWght);
 			}
-    	}
+		}
     }
 
     const fn_delValue = async function(){
     	var nRow = grdGdsInvntr.getRow();
-    	grdGdsInvntr.setCellData(nRow, 11, 0);
-    	grdGdsInvntr.setCellData(nRow, 12, 0);
+    	let spmtQnttCol = grdGdsInvntr.getColRef("spmtQntt")
+		let spmtWghtCol = grdGdsInvntr.getColRef("spmtWght")
+
+    	grdGdsInvntr.setCellData(nRow, spmtQnttCol, 0);
+    	grdGdsInvntr.setCellData(nRow, spmtWghtCol, 0);
     }
 
     const fn_checkInptWght = async function(){
@@ -614,6 +652,11 @@
 		let invntrQntt = grdGdsInvntr.getRowData(nRow).invntrQntt;
 		let invntrWght = grdGdsInvntr.getRowData(nRow).invntrWght;
 		let spmtWght = grdGdsInvntr.getRowData(nRow).spmtWght;
+		let spmtQnttCol = grdGdsInvntr.getColRef("spmtQntt")
+		let spmtWghtCol = grdGdsInvntr.getColRef("spmtWght")
+		let spmtPckgUnitCdCol = grdGdsInvntr.getColRef("spmtPckgUnitCd")
+		let gdsGrdCol = grdGdsInvntr.getColRef("gdsGrd")
+		let checkedYnCol = grdGdsInvntr.getColRef("checkedYn")
 
 		if(invntrWght - spmtWght < 0){
 			gfn_comAlert("W0008", "재고중량", "출하중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
@@ -621,11 +664,11 @@
             return;
 		}
 		if(invntrWght == spmtWght && invntrQntt > 0){
-			grdGdsInvntr.setCellData(nRow, 11, invntrQntt);
+			grdGdsInvntr.setCellData(nRow, spmtQnttCol, invntrQntt);
 		}
 
 		if(invntrWght % spmtWght == 0){
-			grdGdsInvntr.setCellData(nRow, 11, (spmtWght / invntrWght * invntrQntt));
+			grdGdsInvntr.setCellData(nRow, spmtQnttCol, (spmtWght / invntrWght * invntrQntt));
 		}
 
 		if(spmtWght > 0){
@@ -634,44 +677,152 @@
 			let gdsGrdCd = SBUxMethod.get("dtl-slt-gdsGrd");
 			let spmtCmndno = SBUxMethod.get("dtl-inp-spmtCmndno");
 			if(!gfn_isEmpty(spmtCmndno)){
-				grdGdsInvntr.setCellData(nRow, 9, spmtPckgUnitCd, true);
-				grdGdsInvntr.setCellData(nRow, 10, gdsGrdCd, true);
+				grdGdsInvntr.setCellData(nRow, spmtPckgUnitCdCol, spmtPckgUnitCd, true);
+				grdGdsInvntr.setCellData(nRow, gdsGrdCol, gdsGrdCd, true);
 			}
 		}else{
-			grdGdsInvntr.setCellData(nRow, 0, "N")
+			grdGdsInvntr.setCellData(nRow, checkedYnCol, "N")
 		}
     }
 
     const fn_checkInptQntt = async function(){
 
     	let nRow = grdGdsInvntr.getRow();
-		let nCol = grdGdsInvntr.getCol();
+    	let nCol = grdGdsInvntr.getCol();
 
 		let invntrQntt = grdGdsInvntr.getRowData(nRow).invntrQntt;
 		let invntrWght = grdGdsInvntr.getRowData(nRow).invntrWght;
 		let spmtQntt = grdGdsInvntr.getRowData(nRow).spmtQntt;
+		let spmtQnttCol = grdGdsInvntr.getColRef("spmtQntt")
+		let spmtWghtCol = grdGdsInvntr.getColRef("spmtWght")
+		let spmtPckgUnitCdCol = grdGdsInvntr.getColRef("spmtPckgUnitCd")
+		let gdsGrdCol = grdGdsInvntr.getColRef("gdsGrd")
+		let checkedYnCol = grdGdsInvntr.getColRef("checkedYn")
 
-		if(invntrQntt - spmtQntt < 0){
-			gfn_comAlert("W0008", "재고수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
-			grdGdsInvntr.setCellData(nRow, nCol , 0);
-            return;
-		}
+		grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
 
-		if(invntrQntt > 0 && spmtQntt > 0){
-			let spmtPckgUnitCd = SBUxMethod.get("dtl-slt-spmtPckgUnit");
+		if(cmndYn){
+
+			var grdRows = grdGdsInvntr.getCheckedRows(0);
+
+			let spmtPckgUnit = SBUxMethod.get("dtl-slt-spmtPckgUnit");
 			let gdsGrdCd = SBUxMethod.get("dtl-slt-gdsGrd");
 			let spmtCmndno = SBUxMethod.get("dtl-inp-spmtCmndno");
-			if(!gfn_isEmpty(spmtCmndno)){
-				grdGdsInvntr.setCellData(nRow, 9, spmtPckgUnitCd, true);
-				grdGdsInvntr.setCellData(nRow, 10, gdsGrdCd, true);
+			let spmtCmndQntt = SBUxMethod.get("dtl-inp-cmndQntt");
+			let spmtCmndWght = SBUxMethod.get("dtl-inp-cmndWght");
+
+			let totSpmtQntt = 0;
+			let totSpmtWght = 0;
+			let gridData = grdGdsInvntr.getGridDataAll();
+
+			if(grdRows.length > 0){
+				for(var i=0; i<grdRows.length; i++ ){
+
+					let nRow = grdRows[i];
+					let rowData = grdGdsInvntr.getRowData(nRow);
+
+					totSpmtQntt += parseInt(rowData.spmtQntt);
+					totSpmtWght += parseInt(rowData.spmtWght);
+				}
+
+				if(totSpmtQntt == spmtCmndQntt){
+
+					gfn_comAlert("W0013", "출하수량", "등록");			// W0013 더 이상 {0} 을/를 {1} 할 수 없습니다.
+					grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
+					return;
+
+				}else if(totSpmtQntt < spmtCmndQntt){
+
+					if(spmtCmndQntt - totSpmtQntt < spmtQntt){
+						gfn_comAlert("W0008", "지시수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+						grdGdsInvntr.setCellData(nRow, nCol , 0);
+						grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
+						return;
+					}
+
+					if(spmtCmndQntt - totSpmtQntt <  invntrQntt){
+
+						if(invntrQntt >= spmtQntt){
+							grdGdsInvntr.setCellData(nRow, spmtQnttCol, spmtQntt);
+							grdGdsInvntr.setCellData(nRow, spmtWghtCol, Math.round(invntrWght / invntrQntt) * spmtQntt);
+							grdGdsInvntr.setCellData(nRow, spmtPckgUnitCdCol, spmtPckgUnit, true);
+							grdGdsInvntr.setCellData(nRow, gdsGrdCol, gdsGrdCd, true);
+							grdGdsInvntr.setCellData(nRow, checkedYnCol, "Y");
+						}else{
+							grdGdsInvntr.setCellData(nRow, spmtQnttCol, spmtCmndQntt - totSpmtQntt);
+							grdGdsInvntr.setCellData(nRow, spmtWghtCol, spmtCmndWght - totSpmtWght);
+							grdGdsInvntr.setCellData(nRow, spmtPckgUnitCdCol, spmtPckgUnit, true);
+							grdGdsInvntr.setCellData(nRow, gdsGrdCol, gdsGrdCd, true);
+							grdGdsInvntr.setCellData(nRow, checkedYnCol, "Y");
+						}
+
+					}
+					if(spmtCmndQntt - totSpmtQntt > invntrQntt){
+						grdGdsInvntr.setCellData(nRow, spmtQnttCol, invntrQntt);
+						grdGdsInvntr.setCellData(nRow, spmtWghtCol, invntrWght);
+						grdGdsInvntr.setCellData(nRow, spmtPckgUnitCdCol, spmtPckgUnit, true);
+						grdGdsInvntr.setCellData(nRow, gdsGrdCol, gdsGrdCd, true);
+						grdGdsInvntr.setCellData(nRow, checkedYnCol, "Y");
+					}
+					if(spmtCmndQntt - totSpmtQntt == invntrQntt){
+						grdGdsInvntr.setCellData(nRow, spmtQnttCol, invntrQntt);
+						grdGdsInvntr.setCellData(nRow, spmtWghtCol, invntrWght);
+						grdGdsInvntr.setCellData(nRow, spmtPckgUnitCdCol, spmtPckgUnit, true);
+						grdGdsInvntr.setCellData(nRow, gdsGrdCol, gdsGrdCd, true);
+						grdGdsInvntr.setCellData(nRow, checkedYnCol, "Y");
+					}
+
+				}else{
+
+					gfn_comAlert("W0008", "지시수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+					grdGdsInvntr.setCellData(nRow, nCol , 0);
+					grdGdsInvntr.setCellData(nRow, spmtWghtCol , 0);
+					grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
+					return;
+				}
+			}else{
+
+
+				if(invntrQntt > spmtCmndQntt && spmtCmndQntt > spmtQntt ){
+					grdGdsInvntr.setCellData(nRow, spmtWghtCol, Math.round(invntrWght / invntrQntt) * spmtQntt);
+					grdGdsInvntr.setCellData(nRow, checkedYnCol, "Y");
+				}else if(invntrQntt < spmtQntt){
+					gfn_comAlert("W0008", "재고수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+					grdGdsInvntr.setCellData(nRow, nCol , 0);
+					grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
+					return;
+				}else if(spmtCmndQntt < spmtQntt){
+					gfn_comAlert("W0008", "지시수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+					grdGdsInvntr.setCellData(nRow, nCol , 0);
+					grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
+					return;
+				}else{
+					grdGdsInvntr.setCellData(nRow, spmtWghtCol, Math.round(invntrWght / invntrQntt) * spmtQntt);
+					grdGdsInvntr.setCellData(nRow, checkedYnCol, "Y");
+				}
+
 			}
-			grdGdsInvntr.setCellData(nRow, 12, Math.round(invntrWght / invntrQntt) * spmtQntt);
-			grdGdsInvntr.setCellData(nRow, 0, "Y");
+
+		}else{
+
+			if(invntrQntt - spmtQntt < 0){
+				gfn_comAlert("W0008", "재고수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+				grdGdsInvntr.setCellData(nRow, nCol , 0);
+	            return;
+			}
+
+			if(invntrQntt > 0 && spmtQntt > 0){
+				grdGdsInvntr.setCellData(nRow, spmtWghtCol, Math.round(invntrWght / invntrQntt) * spmtQntt);
+				grdGdsInvntr.setCellData(nRow, spmtQnttCol, spmtQntt);
+				grdGdsInvntr.setCellData(nRow, checkedYnCol, "Y");
+			}
+			if(spmtQntt == 0 && invntrQntt > 0){
+				grdGdsInvntr.setCellData(nRow, spmtWghtCol, 0);
+				grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
+			}
 		}
-		if(spmtQntt == 0 && invntrQntt > 0){
-			grdGdsInvntr.setCellData(nRow, 12, 0);
-			grdGdsInvntr.setCellData(nRow, 0, "N");
-		}
+
+
     }
 
 	const fn_save = async function() {
@@ -779,6 +930,7 @@
 	    	try{
 	       		if(data.insertedCnt > 0){
 	       			if(cmndYn){
+	       				cmndYn = false;
 	       				SBUxMethod.set("dtl-inp-spmtCmndno", "");
 	       				SBUxMethod.set("dtl-inp-cmndQntt", "");
 	       				SBUxMethod.set("dtl-inp-cmndWght", "");
@@ -921,11 +1073,7 @@
 	 * 시작
 	 */
 	const fn_choiceSpmtCmnd = function() {
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
-		let _spmtCmnd = {itemCd : itemCd, vrtyCd : vrtyCd, spcfctCd : spcfctCd};
-		popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, _spmtCmnd, fn_setSpmtCmnd);
+        popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmnd);
 	}
 	const fn_setSpmtCmnd = async function(cmnd) {
 		if (!gfn_isEmpty(cmnd)) {

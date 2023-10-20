@@ -200,7 +200,7 @@ public class SpmtPrfmncVO extends ComVO {
 	/**
 	 * 출하자신고번호
 	 */
-	private String spmtPrsnDclrnlo;
+	private String spmtPrsnDclrno;
 	/**
 	 * 산지코드
 	 */

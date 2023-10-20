@@ -21,55 +21,58 @@
 	<!-- 2023.08.18  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectClclnPrfmncList" parameterType="com.at.apcss.am.clcln.vo.ClclnPrfmncVO" resultType="com.at.apcss.am.clcln.vo.ClclnPrfmncVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper.selectClclnPrfmncList */
+		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-	    		, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL)						AS ITEM_NM
-	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
-	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
-    		 	, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD, pt0.APC_CD) FROM DUAL)	AS WRHS_SE
-    		 	, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD, pt0.APC_CD) FROM DUAL)	AS GDS_SE
-    		 FROM (
+    			,
     	</if>
-    	<if test='pagingYn == null or pagingYn.equals("N")'>
-    		SELECT
+    	<!-- End 페이징 -->
+    	<![CDATA[
     			  pt0.*
 	    		, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL)						AS ITEM_NM
 	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
-    		 	, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD, pt0.APC_CD) FROM DUAL)	AS WRHS_SE
-    		 	, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD, pt0.APC_CD) FROM DUAL)	AS GDS_SE
+    		 	, (SELECT FN_GET_COM_CD_VL_NM('CLCLN_CRTR_CD', pt0.CLCLN_CRTR_CD) FROM DUAL)		AS CLCLN_CRTR_NM
+    		 	, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL)				AS WRHS_SE_NM
+    		 	, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD, pt0.APC_CD) FROM DUAL)	AS GDS_SE_NM
+    		 	, CASE
+    		 		WHEN pt0.CLCLN_CRTR_CD = '1' THEN
+    		 			(SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL)    		 			
+    		 		WHEN pt0.CLCLN_CRTR_CD = '2' THEN
+    		 			(SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL)
+    		 		WHEN pt0.CLCLN_CRTR_CD IN ('3', '4') THEN
+    		 			(SELECT FN_GET_GRD_NM_GDS(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL)
+    		 		ELSE NULL
+    		 	  END	AS GRD_NM    		 	
     		 FROM (
-    	</if>
-    	<!-- End 페이징 -->
-    	<![CDATA[
-	    	SELECT /* com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper.selectClclnPrfmncList */
-	    		   CP.APC_CD						AS APC_CD
-	    		 , CP.CLCLN_YMD						AS CLCLN_YMD
-	    		 , CP.PRDCR_NM						AS PRDCR_NM
-	    		 , CP.ITEM_CD						AS ITEM_CD
-	    		 , CP.VRTY_CD						AS VRTY_CD
-	    		 , CP.SPCFCT_CD						AS SPCFCT_CD
-	    		 , CP.WRHS_SE_CD					AS WRHS_SE_CD
-	    		 , CP.GDS_SE_CD						AS GDS_SE_CD
-	    		 , CP.QNTT							AS QNTT
-	    		 , CP.WGHT							AS WGHT
-	    		 , CP.RKNG_AMT						AS RKNG_AMT
-	    		 , CP.CFMTN_AMT						AS CFMTN_AMT
-	    		 , SUM(CP.QNTT)	OVER()				AS TOT_QNTT
-	    		 , SUM(CP.WGHT)	OVER()				AS TOT_WGHT
-	    		 , SUM(CP.RKNG_AMT)	OVER()			AS TOT_RKNG_AMT
-	    		 , SUM(CP.CFMTN_AMT) OVER()			AS TOT_CFMTN_AMT
+	    	SELECT 
+	    		   CP.APC_CD		AS APC_CD
+	    		 , CP.CLCLN_YMD		AS CLCLN_YMD
+	    		 , CP.CLCLN_CRTR_CD	AS CLCLN_CRTR_CD
+	    		 , CP.PRDCR_CD		AS PRDCR_CD
+	    		 , PI.PRDCR_NM		AS PRDCR_NM
+	    		 , CP.ITEM_CD		AS ITEM_CD
+	    		 , CP.VRTY_CD		AS VRTY_CD
+	    		 , CP.SPCFCT_CD		AS SPCFCT_CD
+	    		 , CP.GRD_CD		AS GRD_CD
+	    		 , CP.WRHS_SE_CD	AS WRHS_SE_CD
+	    		 , CP.GDS_SE_CD		AS GDS_SE_CD
+	    		 , CP.QNTT			AS QNTT
+	    		 , CP.WGHT			AS WGHT
+	    		 , CP.RKNG_AMT				AS RKNG_AMT
+	    		 , CP.CFMTN_AMT				AS CFMTN_AMT
+	    		 --, SUM(CP.QNTT)	OVER()		AS TOT_QNTT
+	    		 --, SUM(CP.WGHT)	OVER()		AS TOT_WGHT
+	    		 --, SUM(CP.RKNG_AMT)	OVER()	AS TOT_RKNG_AMT
+	    		 --, SUM(CP.CFMTN_AMT) OVER()	AS TOT_CFMTN_AMT
 			  FROM TB_CLCLN_PRFMNC CP
 			     , TB_PRDCR_INFO PI
 			 WHERE CP.APC_CD = PI.APC_CD
 			   AND CP.PRDCR_CD = PI.PRDCR_CD
-			   AND CP.PRDCR_NM = PI.PRDCR_NM
-			   AND CP.GDS_SE_CD = PI.GDS_SE_CD
-			   AND CP.WRHS_SE_CD = PI.WRHS_SE_CD
 			   AND CP.DEL_YN = 'N'
 			   AND PI.DEL_YN = 'N'
 		]]>
@@ -83,7 +86,7 @@
 		       AND CP.CLCLN_YMD <![CDATA[<=]]> #{clclnYmdTo}
 		</if>
 		<if test='clclnCrtrCd != null and clclnCrtrCd != ""'>
-		       AND PI.CLCLN_CRTR_CD = #{clclnCrtrCd}
+		       AND CP.CLCLN_CRTR_CD = #{clclnCrtrCd}
 		</if>
 		<if test='itemCd != null and itemCd != ""'>
 		       AND CP.ITEM_CD = #{itemCd}
@@ -98,28 +101,16 @@
 		       AND CP.CFMTN_YN = #{cfmtnYn}
 		</if>
 		<![CDATA[
-		 	 GROUP BY CP.APC_CD
+		 	 ORDER BY
+		 	 		  CP.APC_CD
 	    		 	, CP.CLCLN_YMD
-	    		 	, CP.PRDCR_NM
 	    		 	, CP.CLCLN_SN
-	    		 	, CP.ITEM_CD
-	    		 	, CP.VRTY_CD
-	    		 	, CP.SPCFCT_CD
-	    		 	, CP.WRHS_SE_CD
-	    		 	, CP.GDS_SE_CD
-	    		 	, CP.QNTT
-	    		 	, CP.WGHT
-	    		 	, CP.RKNG_AMT
-	    		 	, CP.CFMTN_AMT
+    		  ) pt0
 		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<if test='pagingYn == null or pagingYn.equals("N")'>
-    		  ) pt0
     	</if>
     	<!-- End 페이징 -->
     </select>

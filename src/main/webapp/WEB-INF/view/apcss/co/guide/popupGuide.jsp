@@ -516,9 +516,7 @@
 	 * @description 출하지시번호선택팝업 호출
 	 */
 	 const fn_choiceSpmtCmnd = function() {
-			let _spmtCmnd = null;
-			//let _spmtCmnd = {itemCd : itemCd, vrtyCd : vrtyCd, spcfctCd : spcfctCd};
-	    	popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, _spmtCmnd, fn_setSpmtCmnd);
+	    	popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmnd);
 		}
 
 	/**

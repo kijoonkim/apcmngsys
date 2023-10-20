@@ -331,10 +331,10 @@
 
 			if(delYn == 'N'){
 
-				if (gfn_isEmpty(aa)) {
-		  			gfn_comAlert("W0002", "설비명");		//	W0002	{0}을/를 입력하세요.
-		            return;
-		  		}
+// 				if (gfn_isEmpty(aa)) {
+// 		  			gfn_comAlert("W0002", "설비명");		//	W0002	{0}을/를 입력하세요.
+// 		            return;
+// 		  		}
 
 				/* if (gfn_isEmpty(bb)) {
 		  			gfn_comAlert("W0001", "설비구분");		//	W0001	{0}을/를 선택하세요.

@@ -510,11 +510,10 @@
 	      	jsonOptrtPrfmnc.push(prfmncVO);
 
 		});
-      	grdOptrtPrfmnc.refresh();
       	grdOptrtPrfmnc.setCellDisabled(0, grdOptrtPrfmnc.getRows() -1, 0, grdOptrtPrfmnc.getCols() - 1, false);
       	grdOptrtPrfmnc.addRow(true);
-      	let gridData = grdOptrtPrfmnc.getGridDataAll();
-      	grdOptrtPrfmnc.setCellDisabled(gridData.length, 0, gridData.length, grdOptrtPrfmnc.getCols() - 1, true);
+      	grdOptrtPrfmnc.rebuild();
+      	grdOptrtPrfmnc.setCellDisabled(grdOptrtPrfmnc.getRows()-1, 0, grdOptrtPrfmnc.getRows()-1, grdOptrtPrfmnc.getCols() - 1, true);
 	    } catch (e) {
 	 		if (!(e instanceof Error)) {
 	 			e = new Error(e);
@@ -554,8 +553,8 @@
 			grdOptrtPrfmnc.setCellData(nRow, jobYmdCol, jobYmd, true);
 			grdOptrtPrfmnc.setCellData(nRow, fcltNmCol, fcltNm, true);
 
+			grdOptrtPrfmnc.rebuild();
 			grdOptrtPrfmnc.addRow(true);
-			grdOptrtPrfmnc.setCellDisabled(nRow, 0, nRow, grdOptrtPrfmnc.getCols() - 1, false);
 			grdOptrtPrfmnc.setCellDisabled(nRow+1, 0, nRow+1, grdOptrtPrfmnc.getCols() - 1, true);
 		}else if(gubun == "DEL"){
 

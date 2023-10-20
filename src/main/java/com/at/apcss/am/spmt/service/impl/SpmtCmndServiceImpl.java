@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.ordr.service.OrdrService;
 import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.am.spmt.mapper.SpmtCmndMapper;
 import com.at.apcss.am.spmt.service.SpmtCmndService;
@@ -36,6 +37,9 @@ public class SpmtCmndServiceImpl implements SpmtCmndService {
 
 	@Resource(name = "cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
+
+	@Resource(name = "ordrService")
+	private OrdrService ordrService;
 
 	@Override
 	public SpmtCmndVO selectSpmtCmnd(SpmtCmndVO spmtCmndVO) throws Exception {
@@ -97,7 +101,23 @@ public class SpmtCmndServiceImpl implements SpmtCmndService {
 		int deletedCnt = 0;
 
 		for (SpmtCmndVO spmtCmndVO : spmtCmndList) {
-			deletedCnt += deleteSpmtCmnd(spmtCmndVO);
+
+			int resultCnt = deleteSpmtCmnd(spmtCmndVO);
+			if(resultCnt == 1) {
+
+
+				OrdrVO ordrVO = new OrdrVO();
+				ordrVO.setApcCd(spmtCmndVO.getApcCd());
+				ordrVO.setOutordrno(spmtCmndVO.getOutordrno());
+				ordrVO.setSpmtCmndno("");
+				ordrVO.setApcSeCd(spmtCmndVO.getApcSeCd());
+				ordrVO.setSysLastChgPrgrmId(spmtCmndVO.getSysLastChgPrgrmId());
+				ordrVO.setSysLastChgUserId(spmtCmndVO.getSysLastChgUserId());
+
+				ordrService.updateCmndno(ordrVO);
+			}
+
+			deletedCnt += resultCnt;
 		}
 
 		return deletedCnt;
@@ -113,7 +133,22 @@ public class SpmtCmndServiceImpl implements SpmtCmndService {
 		for (SpmtCmndVO spmtCmndVO : spmtCmndList) {
 			spmtCmndVO.setSpmtCmndno(spmtCmndno);
 			spmtCmndVO.setSpmtCmndSn(sn);
-			insertedCnt += insertSpmtCmnd(spmtCmndVO);
+			int insertResult = insertSpmtCmnd(spmtCmndVO);
+			if(insertResult == 1) {
+				OrdrVO ordrVO = new OrdrVO();
+				ordrVO.setApcCd(spmtCmndVO.getApcCd());
+				ordrVO.setOutordrno(spmtCmndVO.getOutordrno());
+				ordrVO.setSpmtCmndno(spmtCmndno);
+				ordrVO.setApcSeCd(spmtCmndVO.getApcSeCd());
+				ordrVO.setSysLastChgPrgrmId(spmtCmndVO.getSysLastChgPrgrmId());
+				ordrVO.setSysLastChgUserId(spmtCmndVO.getSysLastChgUserId());
+				int check = ordrService.selectOrdrCheck(ordrVO);
+
+				if(check == 0) {
+					ordrService.updateCmndno(ordrVO);
+				}
+			}
+			insertedCnt += insertResult;
 			sn++;
 		}
 		return insertedCnt;
