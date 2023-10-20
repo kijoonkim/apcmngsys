@@ -160,9 +160,9 @@
 		    SBGridProperties.columns = [
 		    	{caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '80px',	type: 'output',	style:'text-align: center',
 	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	            {caption: ['거래처'], 		ref: 'cnptNm', 			width: '110px',	type: 'output',	style:'text-align: center'},
+	            {caption: ['거래처'], 	ref: 'cnptNm', 			width: '110px',	type: 'output',	style:'text-align: center'},
 	            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 		width: '100px',	type: 'output',	style:'text-align: center'},
-	            {caption: ['배송처'], 		ref: 'dldtn', 			width: '120px',	type: 'output',	style:'text-align: center'},
+	            {caption: ['배송처'], 	ref: 'dldtn', 			width: '120px',	type: 'output',	style:'text-align: center'},
 	            {caption: ['수량'], 		ref: 'cmndQntt', 		width: '40px',	type: 'output',	style:'text-align: right',
 	            	format : {type:'number', rule:'#,###'}},
 	            {caption: ['중량'], 		ref: 'cmndWght', 		width: '60px',	type: 'output',	style:'text-align: right',
@@ -252,6 +252,7 @@
 							  , rmrk			: item.rmrk
 							  , itemCd			: item.itemCd
 							  , outordrno		: item.outordrno
+							  , wght			: item.wght
 						}
 						jsonSpmtCmndPop.push(spmtCmnd);
 		    		}
@@ -272,7 +273,7 @@
 	        		grdSpmtCmndPop.setPageTotalCount(totalRecordCount);
 	        		grdSpmtCmndPop.rebuild();
 	        	}
-
+		    	
 	        	//document.querySelector('#spmtCmnd-pop-cnt').innerText = totalRecordCount;
 
 	        	grdSpmtCmndPop.rebuild();
