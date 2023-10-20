@@ -276,7 +276,7 @@
             {caption: ['출하지시수량'], 	ref: 'cmndQntt',		width: '100px', 	type: 'output', 		style:'text-align:right',   sortable: false,
   				format : {type:'number', rule:'#,###'}},
             {caption: ['지시수량'], 		ref: 'inptCmndQntt', 	width: '80px', 		type: 'input', 			style:'text-align:right; background:#FFF8DC;',	sortable: false,
-				format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, validate : gfn_chkByte.bind({byteLimit: 10})},
             {caption: ['지시중량'], 		ref: 'inptCmndWght', 	width: '100px', 	type: 'output', 		style:'text-align:right',   sortable: false,
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['입고형태'], 		ref: 'wrhsType', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false},

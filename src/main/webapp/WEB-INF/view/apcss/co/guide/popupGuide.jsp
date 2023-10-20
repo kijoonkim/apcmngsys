@@ -195,11 +195,19 @@
 								<sbux-button id="btnSrchPckgCmndno" name="btnSrchPckgCmndno" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-pckgCmndno" onclick="fn_modalPckgCmndno" text="찾기"></sbux-button>
 							</td>
 							<td></td>
+							<th scope="row" >선별재고선택</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-sortInvntr" name="srch-inp-sortInvntr" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchSortInvntr" name="btnSrchSortInvntr" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-sortInvntr" onclick="fn_modalSortInvntr" text="찾기"></sbux-button>
+							</td>
+							<td></td>
 							<th scope="row" >입고일자</th>
 							<td class="td_input">
 								<sbux-datepicker id="srch-dtp-trsprtYmd" name="srch-dtp-trsprtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td colspan="6"></td>
+							<td colspan="2"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -309,6 +317,14 @@
     </div>
     <div id="body-modal-pckgCmndno">
     	<jsp:include page="../../am/popup/pckgCmndPopup.jsp"></jsp:include>
+    </div>
+    
+    <!-- 선별재고 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-sortInvntr" name="modal-sortInvntr" uitype="middle" header-title="선별재고 선택" body-html-id="body-modal-sortInvntr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-sortInvntr">
+    	<jsp:include page="../../am/popup/sortInvntrPopup.jsp"></jsp:include>
     </div>
 
 <script type="text/javascript">
@@ -644,6 +660,27 @@
 	 const fn_setPckgCmnd = function(pckgCmnd) {
 		if (!gfn_isEmpty(pckgCmnd)) {
 			SBUxMethod.set('srch-inp-pckgCmndno', pckgCmnd.pckgCmndno);
+		}
+	}
+	/* End */
+	
+	/* 선별재고 선택 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_modalSortInvntr
+	 * @description 선별재고선택팝업 호출
+	 */
+	 const fn_modalSortInvntr = function() {
+		popSortInvntr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSortInvntr);
+	}
+
+	/**
+	 * @name fn_setSortInvntr
+	 * @description 선별재고 선택 callback
+	 */
+	 const fn_setSortInvntr = function(SortInvntr) {
+		if (!gfn_isEmpty(SortInvntr)) {
+			SBUxMethod.set('srch-inp-sortInvntr', SortInvntr.sortno);
 		}
 	}
 	/* End */

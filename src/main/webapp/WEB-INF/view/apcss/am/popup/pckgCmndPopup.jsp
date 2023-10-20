@@ -170,11 +170,11 @@
 		        {caption: ["지시","수량"],			ref: 'cmndQntt',    type:'output',  width:'60px',	style:'text-align:right',
 		        	format : {type:'number', rule:'#,###'}},
 		        {caption: ["지시","중량"],			ref: 'cmndWght',    type:'output',  width:'70px',	style:'text-align:right',
-		        	format : {type:'number', rule:'#,### Kg'}},
+		        	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
 		        {caption: ["실적","수량"],			ref: 'pckgQntt',    type:'output',  width:'60px',	style:'text-align:right',
 		        	format : {type:'number', rule:'#,###'}},
 		        {caption: ["실적","중량"],			ref: 'pckgWght',    type:'output',  width:'70px',	style:'text-align:right',
-		        	format : {type:'number', rule:'#,### Kg'}},
+		        	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
 		        {caption: ["비고","비고"],			ref: 'rmrk',      	type:'output',  width:'250px',	style:'text-align:center'},
 		    ];
 		    grdPckgCmndPop = _SBGrid.create(SBGridProperties);
