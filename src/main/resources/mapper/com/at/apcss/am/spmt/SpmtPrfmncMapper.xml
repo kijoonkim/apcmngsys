@@ -206,7 +206,7 @@
     		  ,	DLDTN
     		  ,	TRSPRT_CST
     		  ,	SPMT_SE_CD
-    		  ,	SPMT_PRSN_DCLRNLO
+    		  ,	SPMT_PRSN_DCLRNO
     		  ,	PLOR_CD
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
@@ -227,7 +227,7 @@
     		  ,	#{dldtn}
     		  ,	#{trsprtCst}
     		  ,	#{spmtSeCd}
-    		  ,	#{spmtPrsnDclrnlo}
+    		  ,	#{spmtPrsnDclrno}
     		  ,	#{plorCd}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
@@ -375,7 +375,7 @@
 		            , MAX(PC.DLDTN)             AS DLDTN
 		            , MAX(PC.TRSPRT_CST)        AS TRSPRT_CST
 		            , MAX(PC.SPMT_SE_CD)        AS SPMT_SE_CD
-		            , MAX(PC.SPMT_PRSN_DCLRNLO) AS SPMT_PRSN_DCLRNLO
+		            , MAX(PC.SPMT_PRSN_DCLRNO) AS SPMT_PRSN_DCLRNO
 		            , MAX(PC.PLOR_CD)           AS PLOR_CD
 		            , MAX(PD.PCKGNO)            AS PCKGNO
 		            , MAX(PD.PCKG_SN)           AS PCKG_SN

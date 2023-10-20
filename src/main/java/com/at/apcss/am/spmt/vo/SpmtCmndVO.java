@@ -28,6 +28,10 @@ public class SpmtCmndVO extends ComVO {
 	 * APC코드
 	 */
 	private String apcCd;
+	/**
+	 * APC구분코드
+	 */
+	private String apcSeCd;
 
 	/**
 	 * 출하지시번호
