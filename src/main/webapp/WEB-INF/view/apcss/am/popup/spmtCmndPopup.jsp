@@ -122,9 +122,9 @@
 				SBUxMethod.set("spmtCmnd-dtp-cmndYmd", gfn_dateToYmd(new Date()));
 				
 				let rst = await Promise.all([
-				 	gfn_setApcItemSBSelect('spmtCmnd-slt-itemCd', jsonApcItem, _apcCd),						// 품목
-					gfn_setApcVrtySBSelect('spmtCmnd-slt-vrtyCd', jsonApcVrty, _apcCd),						// 품종
-					gfn_setApcSpcfctsSBSelect('spmtCmnd-slt-spcfctCd', jsonApcSpcfct, _apcCd)				// 규격
+				 	gfn_setApcItemSBSelect('spmtCmnd-slt-itemCd', jsonApcItem, _apcCd),								// 품목
+					gfn_setApcVrtySBSelect('spmtCmnd-slt-vrtyCd', jsonApcVrty, _apcCd),								// 품종
+					gfn_setApcSpcfctsSBSelect('spmtCmnd-slt-spcfctCd', jsonApcSpcfct, _apcCd, _spmtCmnd.itemCd)		// 규격
 				]);
 				if (!gfn_isEmpty(_spmtCmnd)){
 					SBUxMethod.set("spmtCmnd-slt-itemCd", _spmtCmnd.itemCd);
