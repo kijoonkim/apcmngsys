@@ -70,10 +70,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><sbux-label id="srch-lbl-pckgCmndno" name="srch-lbl-pckgCmndno" uitype="normal" text="포장지시번호" class="bold"></sbux-label></th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-pckgCmndno" name="srch-inp-pckgCmndno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-pckgCmndno" name="srch-inp-pckgCmndno" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-button id="btnSrchPckgCmndno" name="btnSrchPckgCmndno" uitype="normal" class="btn btn-xs btn-outline-dark" text="찾기" onclick="fn_search"></sbux-button>
+								<sbux-button id="btnSrchPckgCmndno" name="btnSrchPckgCmndno" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-pckgCmndno" text="찾기" onclick="fn_modalPckgCmndno"></sbux-button>
 						    </td>
 						</tr>
 						<tr>
@@ -150,6 +150,13 @@
 			</div>
 		</div>
 	</section>
+	<!-- 포장지시번호 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-pckgCmndno" name="modal-pckgCmndno" uitype="middle" header-title="포장지시번호 선택" body-html-id="body-modal-pckgCmndno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-pckgCmndno">
+    	<jsp:include page="../../am/popup/pckgCmndPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 
@@ -192,5 +199,16 @@
         ];
         grdPckgInptTablet = _SBGrid.create(SBGridProperties);
     }
+	
+	// 포장지시번호 선택 팝업 호출
+	const fn_modalPckgCmndno = function() {
+		popPckgCmnd.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPckgCmnd);
+	}
+
+	const fn_setPckgCmnd = function(pckgCmnd) {
+		if (!gfn_isEmpty(pckgCmnd)) {
+			SBUxMethod.set('srch-inp-pckgCmndno', pckgCmnd.pckgCmndno);
+		}
+	}
 </script>
 </html>

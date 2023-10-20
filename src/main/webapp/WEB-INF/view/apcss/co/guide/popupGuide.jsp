@@ -187,11 +187,19 @@
 							<td></td>
 						</tr>
 						<tr>
+							<th scope="row" >포장지시번호선택</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-pckgCmndno" name="srch-inp-pckgCmndno" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchPckgCmndno" name="btnSrchPckgCmndno" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-pckgCmndno" onclick="fn_modalPckgCmndno" text="찾기"></sbux-button>
+							</td>
+							<td></td>
 							<th scope="row" >입고일자</th>
 							<td class="td_input">
 								<sbux-datepicker id="srch-dtp-trsprtYmd" name="srch-dtp-trsprtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td colspan="10"></td>
+							<td colspan="6"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -293,6 +301,14 @@
     </div>
     <div id="body-modal-pckgno">
     	<jsp:include page="../../am/popup/pckgnoPopup.jsp"></jsp:include>
+    </div>
+    
+    <!-- 포장지시번호 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-pckgCmndno" name="modal-pckgCmndno" uitype="middle" header-title="포장지시번호 선택" body-html-id="body-modal-pckgCmndno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-pckgCmndno">
+    	<jsp:include page="../../am/popup/pckgCmndPopup.jsp"></jsp:include>
     </div>
 
 <script type="text/javascript">
@@ -607,6 +623,27 @@
 	 const fn_setPckgno = function(pckgno) {
 		if (!gfn_isEmpty(pckgno)) {
 			SBUxMethod.set('srch-inp-pckgno', pckgno.pckgnoIndct);
+		}
+	}
+	/* End */
+	
+	/* 포장지시번호 선택 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_modalPckgCmndno
+	 * @description 포장지시번호선택팝업 호출
+	 */
+	 const fn_modalPckgCmndno = function() {
+		popPckgCmnd.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPckgCmnd);
+	}
+
+	/**
+	 * @name fn_setPckgCmnd
+	 * @description 포장지시번호 선택 callback
+	 */
+	 const fn_setPckgCmnd = function(pckgCmnd) {
+		if (!gfn_isEmpty(pckgCmnd)) {
+			SBUxMethod.set('srch-inp-pckgCmndno', pckgCmnd.pckgCmndno);
 		}
 	}
 	/* End */
