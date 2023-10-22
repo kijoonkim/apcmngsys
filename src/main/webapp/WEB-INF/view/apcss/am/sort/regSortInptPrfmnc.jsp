@@ -1623,8 +1623,8 @@
 		        id: "grdExpSpcfct",
 		        jsonref: "jsonExpSpcfct",
 				columns: [
-			    	{caption: ["규격코드"],   	ref: 'value',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["규격코드명"],  	ref: 'text',  	type:'output',  width:'100px',    style:'text-align:center'}
+			    	{caption: ["규격코드"],   	ref: 'spcfctCd',  	type:'output',  width:'100px',    style:'text-align:center'},
+			    	{caption: ["규격코드명"],  	ref: 'spcfctNm',  	type:'output',  width:'100px',    style:'text-align:center'}
 				],
 		        sheetName: "규격",
 		        title: "",
@@ -1635,8 +1635,8 @@
 		        id: "grdExpWarehouseSeCd",
 		        jsonref: "jsonExpWarehouseSeCd",
 				columns: [
-			    	{caption: ["창고코드"],   	ref: 'value',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["창고코드명"],  	ref: 'text',  	type:'output',  width:'100px',    style:'text-align:center'}
+			    	{caption: ["창고코드"],   	ref: 'warehouseSeCd',  	type:'output',  width:'100px',    style:'text-align:center'},
+			    	{caption: ["창고코드명"],  	ref: 'warehouseSeNm',  	type:'output',  width:'100px',    style:'text-align:center'}
 				],
 		        sheetName: "창고",
 		        title: "",
