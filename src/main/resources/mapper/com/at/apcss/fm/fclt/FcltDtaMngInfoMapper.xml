@@ -113,6 +113,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	jeongyd        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<!--
     <insert id="insertFcltDtaMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltDtaMngInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.insertFcltDtaMngInfo */
@@ -164,6 +165,79 @@
 	   			)
     	]]>
     </insert>
+     -->
+
+     <update id="insertFcltDtaMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltDtaMngInfoVO">
+     	MERGE INTO TB_FCLT_DTA_MNG_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.insertFcltDtaMngInfo */
+		USING DUAL
+		ON (
+			FCLT.TRGT_YR = #{trgtYr}
+			AND FCLT.APC_CD = #{apcCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				  FCLT_SYS_HLD_YN       =     #{fcltSysHldYn}
+			        , FCLT_SYS_HLD_YN2    =     #{fcltSysHldYn2}
+			        , FCLT_SYS_HLD_YN3    =     #{fcltSysHldYn3}
+			        , FCLT_SYS_HLD_YN4    =     #{fcltSysHldYn4}
+			        , FCLT_SYS_HLD_YN5    =     #{fcltSysHldYn5}
+			        , FCLT_SYS_HLD_YN6    =     #{fcltSysHldYn6}
+			        , FCLT_MNG            =     #{fcltMng}
+			        , FCLT_MNG2           =     #{fcltMng2}
+			        , FCLT_MNG3           =     #{fcltMng3}
+			        , FCLT_MNG4           =     #{fcltMng4}
+			        , FCLT_MNG5           =     #{fcltMng5}
+			        , FCLT_MNG6           =     #{fcltMng6}
+				  , SYS_LAST_CHG_DT		= SYSDATE
+	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  TRGT_YR
+	    		  , APC_CD
+	    		  , FCLT_SYS_HLD_YN
+	    		  , FCLT_SYS_HLD_YN2
+	    		  , FCLT_SYS_HLD_YN3
+	    		  , FCLT_SYS_HLD_YN4
+	    		  , FCLT_SYS_HLD_YN5
+	    		  , FCLT_SYS_HLD_YN6
+	    		  , FCLT_MNG
+	    		  , FCLT_MNG2
+	    		  , FCLT_MNG3
+	    		  , FCLT_MNG4
+	    		  , FCLT_MNG5
+	    		  , FCLT_MNG6
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   	VALUES
+	   		    (
+	   			  #{trgtYr}
+	    		, #{apcCd}
+	    		, #{fcltSysHldYn}
+                , #{fcltSysHldYn2}
+                , #{fcltSysHldYn3}
+                , #{fcltSysHldYn4}
+                , #{fcltSysHldYn5}
+                , #{fcltSysHldYn6}
+                , #{fcltMng}
+                , #{fcltMng2}
+                , #{fcltMng3}
+                , #{fcltMng4}
+                , #{fcltMng5}
+                , #{fcltMng6}
+				, SYSDATE
+	    		, #{sysFrstInptUserId}
+	    		, #{sysFrstInptPrgrmId}
+	    		, SYSDATE
+	    		, #{sysLastChgUserId}
+	    		, #{sysLastChgPrgrmId}
+		     	)
+     </update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.updateFcltDtaMngInfo				-->

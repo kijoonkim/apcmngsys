@@ -130,6 +130,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	jeongyd        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<!--
     <insert id="insertFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.insertFcltSortMchnInfo */
@@ -198,6 +199,102 @@
 	   			)
     	]]>
     </insert>
+     -->
+	<update id="insertFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
+     	MERGE INTO TB_FCLT_SORT_MCHN_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.insertFcltSortMchnInfo */
+		USING DUAL
+		ON (
+			FCLT.TRGT_YR = #{trgtYr}
+			AND FCLT.APC_CD = #{apcCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				  SORT_MCHN_HLD_YN1       =  #{sortMchnHldYn1}
+                  , SORT_MCHN_HLD_YN2       =  #{sortMchnHldYn2}
+                  , SORT_MCHN_HLD_YN3       =  #{sortMchnHldYn3}
+                  , SORT_MCHN_HLD_YN4       =  #{sortMchnHldYn4}
+				  , PRC_CAP1             =  #{prcCap1}
+				  , PRC_CAP2             =  #{prcCap2}
+				  , PRC_CAP3             =  #{prcCap3}
+				  , PRC_CAP4             =  #{prcCap4}
+				  , PRC_VOL1             =  #{prcVol1}
+				  , PRC_VOL2             =  #{prcVol2}
+				  , PRC_VOL3             =  #{prcVol3}
+				  , PRC_VOL4             =  #{prcVol4}
+				  , ANN_OPER_TIME1       =  #{annOperTime1}
+				  , ANN_OPER_TIME2       =  #{annOperTime2}
+				  , ANN_OPER_TIME3       =  #{annOperTime3}
+				  , ANN_OPER_TIME4       =  #{annOperTime4}
+				  , AVG_OPER_DAY1        =  #{avgOperDay1}
+				  , AVG_OPER_DAY2        =  #{avgOperDay2}
+				  , AVG_OPER_DAY3        =  #{avgOperDay3}
+				  , AVG_OPER_DAY4        =  #{avgOperDay4}
+				  , SYS_LAST_CHG_DT		= SYSDATE
+	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  TRGT_YR
+				   , APC_CD
+				   , SORT_MCHN_HLD_YN1
+				   , SORT_MCHN_HLD_YN2
+				   , SORT_MCHN_HLD_YN3
+				   , SORT_MCHN_HLD_YN4
+                   , PRC_CAP1
+                   , PRC_CAP2
+                   , PRC_CAP3
+                   , PRC_CAP4
+                   , PRC_VOL1
+                   , PRC_VOL2
+                   , PRC_VOL3
+                   , PRC_VOL4
+                   , ANN_OPER_TIME1
+                   , ANN_OPER_TIME2
+                   , ANN_OPER_TIME3
+                   , ANN_OPER_TIME4
+                   , AVG_OPER_DAY1
+                   , AVG_OPER_DAY2
+                   , AVG_OPER_DAY3
+                   , AVG_OPER_DAY4
+				   , SYS_FRST_INPT_DT
+				   , SYS_FRST_INPT_USER_ID
+	    		   , SYS_FRST_INPT_PRGRM_ID
+	    		   , SYS_LAST_CHG_DT
+	    		   , SYS_LAST_CHG_USER_ID
+	    		   , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   	VALUES
+	   		    (
+	   			  #{trgtYr}
+					, #{apcCd}
+					, #{sortMchnHldYn1}
+					, #{sortMchnHldYn2}
+					, #{sortMchnHldYn3}
+					, #{sortMchnHldYn4}
+                    , #{prcCap1}
+                    , #{prcCap2}
+                    , #{prcCap3}
+                    , #{prcCap4}
+                    , #{prcVol1}
+                    , #{prcVol2}
+                    , #{prcVol3}
+                    , #{prcVol4}
+                    , #{annOperTime1}
+                    , #{annOperTime2}
+                    , #{annOperTime3}
+                    , #{annOperTime4}
+                    , #{avgOperDay1}
+                    , #{avgOperDay2}
+                    , #{avgOperDay3}
+                    , #{avgOperDay4}
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+		     	)
+     </update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.updateFcltSortMchnInfo				-->

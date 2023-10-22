@@ -228,38 +228,56 @@
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
 		//SBUxMethod.set("inp-apcCd", gv_apcCd);
+		//SBUxMethod.set("srch-inp-apcCd", '0122');//test
 		SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		selectFcltOperInfo();
-	})
+		fn_selectFcltOperInfo();
+	});
 
 
 
-	const selectFcltOperInfo = async function(){
+	const fn_selectFcltOperInfo = async function(){
 		let date = new Date();
-		let apcCd = gv_apcCd;
+		//let apcCd = gv_apcCd;
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr  =  date.getFullYear();
-    	let postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltOperInfoList.do", {apcCd : apcCd, trgtYr : trgtYr });
+    	let postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltOperInfoList.do", {
+    		apcCd : apcCd
+    		,trgtYr : trgtYr
+    	});
 
         let data = await postJsonPromise;
-        if(data.resultList.length > 0){
-			let resultVO = data.resultList[0];
-	        try{
-	        	SBUxMethod.set("srch-inp-opera1", resultVO.psnOgnzNm);
-	        	SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);
-// 	        	SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);
-// 	        	SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);
-// 	        	SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);
-// 	        	SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);
-// 	        	SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);
-// 	        	SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);
-	        }catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
+	    try{
+	        if(data.resultList.length > 0){
+				let resultVO = data.resultList[0];
+				console.log(resultVO);
+				SBUxMethod.set("srch-inp-opera1", resultVO.psnOgnzNm);//소유조직명
+				SBUxMethod.set("srch-inp-opera2", resultVO.psnOgnzBrno);//소유조직 사업자번호
+				SBUxMethod.set("srch-inp-opera3", resultVO.operOgnzNm);//운영조직명
+				SBUxMethod.set("srch-inp-opera4", resultVO.operOgnzBrno);//운영조직 사업자번호
+				SBUxMethod.set("srch-inp-opera5", resultVO.operOgnzPic);//운영조직 대표자
+				SBUxMethod.set("srch-inp-opera6", resultVO.daddr);//운영조직 주소
+				SBUxMethod.set("srch-inp-opera7", resultVO.operOgnzDeptCd);//운영조직 조직유형
+				SBUxMethod.set("srch-inp-opera13", resultVO.apcBrno);//APC 사업자번호
+				SBUxMethod.set("srch-inp-opera14", resultVO.apcAddr);//APC 주소
+
+				SBUxMethod.set("srch-inp-opera11", resultVO.operOgnzTrmtItemCn4);//운영조직 취급 기타품목
+				SBUxMethod.set("srch-inp-opera18", resultVO.apcTrmtItemCn4);//  APC 처리 기타품목
+
+				//아이템 코드가 없어서 보류
+				//SBUxMethod.set("srch-inp-itemNm1", resultVO.operOgnzTrmtItemCn);//운영조직 취급 대표품목1
+				//SBUxMethod.set("srch-inp-itemNm2", resultVO.operOgnzTrmtItemCn2);//운영조직 취급 대표품목2
+				//SBUxMethod.set("srch-inp-itemNm3", resultVO.operOgnzTrmtItemCn3);//운영조직 취급 대표품목3
+				//SBUxMethod.set("srch-inp-itemNm4", resultVO.apcTrmtItemCn);// APC 처리 대표품목1
+				//SBUxMethod.set("srch-inp-itemNm5", resultVO.apcTrmtItemCn2);// APC 처리 대표품목2
+				//SBUxMethod.set("srch-inp-itemNm6", resultVO.apcTrmtItemCn3);// APC 처리 대표품목3
 	        }
-        }
+	    }catch (e) {
+		   	if (!(e instanceof Error)) {
+		   		e = new Error(e);
+		   	}
+		   	console.error("failed", e.message);
+	    }
 	}
 
 
@@ -311,16 +329,22 @@
          	operOgnzPic : SBUxMethod.get("srch-inp-opera5") , //운영조직 대표자
          	daddr : SBUxMethod.get("srch-inp-opera6") ,	//운영조직 주소
          	operOgnzDeptCd : SBUxMethod.get("srch-inp-opera7") , //운영조직 조직유형
-         	operOgnzTrmtItemCn : SBUxMethod.get("srch-inp-itemCd1") , //운영조직 취급 대표품목1
-         	operOgnzTrmtItemCn2 : SBUxMethod.get("srch-inp-itemCd2") , //운영조직 취급 대표품목2
-         	operOgnzTrmtItemCn3 : SBUxMethod.get("srch-inp-itemCd3") , //운영조직 취급 대표품목3
+         	operOgnzTrmtItemCn : SBUxMethod.get("srch-inp-itemNm1") , //운영조직 취급 대표품목1
+         	operOgnzTrmtItemCn2 : SBUxMethod.get("srch-inp-itemNm2") , //운영조직 취급 대표품목2
+         	operOgnzTrmtItemCn3 : SBUxMethod.get("srch-inp-itemNm3") , //운영조직 취급 대표품목3
          	operOgnzTrmtItemCn4 : SBUxMethod.get("srch-inp-opera11") , //운영조직 취급 기타품목
+         	operOgnzTrmtItemCd : SBUxMethod.get("srch-inp-itemCd1") , //운영조직 취급 대표품목1
+         	operOgnzTrmtItemCd2 : SBUxMethod.get("srch-inp-itemCd2") , //운영조직 취급 대표품목2
+         	operOgnzTrmtItemCd3 : SBUxMethod.get("srch-inp-itemCd3") , //운영조직 취급 대표품목3
          	apcBrno : SBUxMethod.get("srch-inp-opera13") ,  //APC 사업자번호
          	apcAddr : SBUxMethod.get("srch-inp-opera14") ,	//APC 주소
-         	apcTrmtItemCn : SBUxMethod.get("srch-inp-itemCd4") , // APC 처리 대표품목1
-         	apcTrmtItemCn2 : SBUxMethod.get("srch-inp-itemCd5") , // APC 처리 대표품목2
-         	apcTrmtItemCn3 : SBUxMethod.get("srch-inp-itemCd6") , // APC 처리 대표품목3
-         	apcTrmtItemCn4 : SBUxMethod.get("srch-inp-opera18")  //  APC 처리 기타품목
+         	apcTrmtItemCn : SBUxMethod.get("srch-inp-itemNm4") , // APC 처리 대표품목1
+         	apcTrmtItemCn2 : SBUxMethod.get("srch-inp-itemNm5") , // APC 처리 대표품목2
+         	apcTrmtItemCn3 : SBUxMethod.get("srch-inp-itemNm6") , // APC 처리 대표품목3
+         	apcTrmtItemCn4 : SBUxMethod.get("srch-inp-opera18") , //  APC 처리 기타품목
+         	apcTrmtItemCd : SBUxMethod.get("srch-inp-itemCd4") , // APC 처리 대표품목1
+         	apcTrmtItemCd2 : SBUxMethod.get("srch-inp-itemCd5") , // APC 처리 대표품목2
+         	apcTrmtItemCd3 : SBUxMethod.get("srch-inp-itemCd6")  // APC 처리 대표품목3
  		});
 
         const data = await postJsonPromise;

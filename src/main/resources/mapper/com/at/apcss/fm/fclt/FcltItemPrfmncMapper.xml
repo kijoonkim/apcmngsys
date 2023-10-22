@@ -129,6 +129,8 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<!--
+
     <insert id="insertFcltItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.insertFcltItemPrfmnc */
@@ -199,6 +201,107 @@
 	   			)
     	]]>
     </insert>
+     -->
+
+     <update id="insertFcltItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
+     	MERGE INTO TB_FCLT_ITEM_PRFMNC FCLT /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.insertFcltItemPrfmnc */
+		USING DUAL
+		ON (
+			FCLT.TRGT_YR = #{trgtYr}
+			AND FCLT.APC_CD = #{apcCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				  FCLT_ITEM_CD         =  #{fcltItemCd}
+    	        , FCLT_ITEM_TRMT_AMT   =  #{fcltItemTrmtAmt}
+    	        , FCLT_ITEM_SPMT_RT    =  #{fcltItemSpmtRt}
+
+    	        , FCLT_ITEM_SPMT_AMT   =  #{fcltItemSpmtAmt}
+		    	, FCLT_ITEM_SPMT_AMT2  =  #{fcltItemSpmtAmt2}
+		    	, FCLT_ITEM_SPMT_AMT3  =  #{fcltItemSpmtAmt3}
+		    	, FCLT_ITEM_SPMT_AMT4  =  #{fcltItemSpmtAmt4}
+		    	, FCLT_ITEM_SPMT_AMT5  =  #{fcltItemSpmtAmt5}
+
+    	        , FCLT_ITEM_TRMT_VLM   =  #{fcltItemTrmtVlm}
+		    	, FCLT_ITEM_TRMT_VLM2  =  #{fcltItemTrmtVlm2}
+		    	, FCLT_ITEM_TRMT_VLM3  =  #{fcltItemTrmtVlm3}
+		    	, FCLT_ITEM_TRMT_VLM4  =  #{fcltItemTrmtVlm4}
+		    	, FCLT_ITEM_TRMT_VLM5  =  #{fcltItemTrmtVlm5}
+
+		    	, FCLT_ITEM_MRKT_AMT   =  #{fcltItemMrktAmt}
+		    	, FCLT_ITEM_MRKT_AMT2  =  #{fcltItemMrktAmt2}
+		    	, FCLT_ITEM_MRKT_AMT3  =  #{fcltItemMrktAmt3}
+		    	, FCLT_ITEM_MRKT_AMT4  =  #{fcltItemMrktAmt4}
+		    	, FCLT_ITEM_MRKT_AMT5  =  #{fcltItemMrktAmt5}
+				  , SYS_LAST_CHG_DT		= SYSDATE
+	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  TRGT_YR
+	    		  , APC_CD
+	    		  , FCLT_ITEM_CD
+	    		  , FCLT_ITEM_TRMT_AMT
+	    		  , FCLT_ITEM_SPMT_RT
+
+	    		  , FCLT_ITEM_SPMT_AMT
+			      , FCLT_ITEM_SPMT_AMT2
+				  , FCLT_ITEM_SPMT_AMT3
+				  , FCLT_ITEM_SPMT_AMT4
+				  , FCLT_ITEM_SPMT_AMT5
+
+	    		  , FCLT_ITEM_TRMT_VLM
+				  , FCLT_ITEM_TRMT_VLM2
+				  , FCLT_ITEM_TRMT_VLM3
+				  , FCLT_ITEM_TRMT_VLM4
+				  , FCLT_ITEM_TRMT_VLM5
+
+				  , FCLT_ITEM_MRKT_AMT
+				  , FCLT_ITEM_MRKT_AMT2
+				  , FCLT_ITEM_MRKT_AMT3
+				  , FCLT_ITEM_MRKT_AMT4
+				  , FCLT_ITEM_MRKT_AMT5
+
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   	VALUES
+	   		    (
+	   			  #{trgtYr}
+	   			  , #{apcCd}
+	   			  , #{fcltItemCd}
+	   			  , #{fcltItemSpmtRt}
+	   			  , #{fcltItemTrmtAmt}
+
+	   			  , #{fcltItemSpmtAmt}
+	   			  , #{fcltItemSpmtAmt2}
+			   	  , #{fcltItemSpmtAmt3}
+			   	  , #{fcltItemSpmtAmt4}
+			   	  , #{fcltItemSpmtAmt5}
+
+	   			  , #{fcltItemTrmtVlm}
+			   	  , #{fcltItemTrmtVlm2}
+			   	  , #{fcltItemTrmtVlm3}
+			   	  , #{fcltItemTrmtVlm4}
+			   	  , #{fcltItemTrmtVlm5}
+
+			   	  , #{fcltItemMrktAmt}
+			   	  , #{fcltItemMrktAmt2}
+			   	  , #{fcltItemMrktAmt3}
+			   	  , #{fcltItemMrktAmt4}
+			   	  , #{fcltItemMrktAmt5}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysLastChgUserId}
+	   			  , #{sysLastChgPrgrmId}
+		     	)
+     </update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.updateFcltItemPrfmnc				-->
@@ -213,7 +316,7 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.updateFcltItemPrfmnc */
 	    		TB_FCLT_ITEM_PRFMNC FCLT
 			   SET
-    	        , FCLT_ITEM_CD         =  #{fcltItemCd}
+    	        FCLT_ITEM_CD         =  #{fcltItemCd}
     	        , FCLT_ITEM_TRMT_AMT   =  #{fcltItemTrmtAmt}
     	        , FCLT_ITEM_SPMT_RT    =  #{fcltItemSpmtRt}
 

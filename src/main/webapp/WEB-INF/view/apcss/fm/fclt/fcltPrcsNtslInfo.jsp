@@ -227,15 +227,13 @@
     	console.log("******************pageNo**********************************"+grdItmPrfList.getPageSize());
     	fn_pagingItmPrfList(pageSize, pageNo);
     }
-    /**
-     *
-     */
+
+
 
     /**
      * @param {number} pageSize
      * @param {number} pageNo
      */
-
     const fn_pagingItmPrfList = async function(pageSize, pageNo) {
     	 console.log("******************fn_pagingItmPrfList**********************************");
     	// form clear
@@ -246,9 +244,6 @@
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
 
-
-        //비동기 포스트타입 url 데이터연결 페이징처리 글로벌
-        //gfn_postJSON 는 ajax고 post통신의 데이터를 json 타입으로 보내는것이다
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltPrcsNtslInfoList.do", {
 			apcCd: apcCd,
         	trgtYr: trgtYr,
@@ -257,11 +252,10 @@
 			currentPageNo : pageNo,
  		  	recordCountPerPage : pageSize
         });
-		console.log("a11111111111111");
+
         const data = await postJsonPromise;
 		//await 오류시 확인
-        console.log("---------------------------")
-        console.log(data)
+
 		//예외처리
         try {
 
@@ -294,7 +288,6 @@
 				}
 
 			});
-        	console.log("totalRecordCount", totalRecordCount);
 
         	if (jsonItmPrfList.length > 0) {
 
@@ -318,6 +311,7 @@
     		//console.error("failed", e.message);
         }
     }
+
 
     //신규 작성 dtl 내부의 값을 null로
     function fn_create() {

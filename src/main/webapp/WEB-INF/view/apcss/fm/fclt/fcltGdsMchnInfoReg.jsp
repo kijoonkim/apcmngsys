@@ -248,15 +248,88 @@
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
+			//SBUxMethod.set("srch-inp-apcCd", '0122');
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		}
+		};
+
+		fn_setGrdGdsMcList();
 
 		SBUxMethod.changeGroupAttr('group1','disabled','true');
 		SBUxMethod.changeGroupAttr('group2','disabled','true');
 		SBUxMethod.changeGroupAttr('group3','disabled','true');
 		SBUxMethod.changeGroupAttr('group4','disabled','true');
+
 	})
+
+	    /**
+     * @param {number} pageSize
+     * @param {number} pageNo
+     */
+    const fn_setGrdGdsMcList = async function(pageSize, pageNo) {
+    	 console.log("******************fn_setGrdGdsMcList**********************************");
+
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltGdsMchnInfoList.do", {
+			apcCd: apcCd,
+        	trgtYr: trgtYr,
+        	// pagination
+	  		pagingYn : 'N',
+			currentPageNo : pageNo,
+ 		  	recordCountPerPage : pageSize
+        });
+
+        const data = await postJsonPromise;
+		//await 오류시 확인
+
+		//예외처리
+        try {
+			console.log(data);
+        	data.resultList.forEach((item, index) => {
+        		SBUxMethod.set('srch-inp-opera1_1',item.sortMchnHldYn11);
+        		SBUxMethod.set('srch-inp-opera1_2',item.sortMchnSpcfct1);
+        		SBUxMethod.set('srch-inp-opera1_3',item.sortMchnHldYn12);
+        		SBUxMethod.set('srch-inp-opera1_4',item.sortMchnHldYn13);
+        		SBUxMethod.set('srch-inp-opera1_5',item.sortMchnHldYn14);
+        		SBUxMethod.set('srch-inp-opera1_6',item.sortMchnHldYn15);
+        		SBUxMethod.set('srch-inp-opera2_1',item.sortMchnHldYn21);
+        		SBUxMethod.set('srch-inp-opera2_2',item.sortMchnSpcfct2);
+        		SBUxMethod.set('srch-inp-opera2_3',item.sortMchnHldYn22);
+        		SBUxMethod.set('srch-inp-opera2_4',item.sortMchnHldYn23);
+        		SBUxMethod.set('srch-inp-opera2_5',item.sortMchnHldYn24);
+        		SBUxMethod.set('srch-inp-opera2_6',item.sortMchnHldYn25);
+        		SBUxMethod.set('srch-inp-opera3_1',item.sortMchnHldYn31);
+        		SBUxMethod.set('srch-inp-opera3_2',item.sortMchnSpcfct3);
+        		SBUxMethod.set('srch-inp-opera3_3',item.sortMchnHldYn32);
+        		SBUxMethod.set('srch-inp-opera3_4',item.sortMchnHldYn33);
+        		SBUxMethod.set('srch-inp-opera3_5',item.sortMchnHldYn34);
+        		SBUxMethod.set('srch-inp-opera3_6',item.sortMchnHldYn35);
+        		SBUxMethod.set('srch-inp-opera4_1',item.sortMchnHldYn41);
+        		SBUxMethod.set('srch-inp-opera4_2',item.sortMchnSpcfct4);
+        		SBUxMethod.set('srch-inp-opera4_3',item.sortMchnHldYn42);
+        		SBUxMethod.set('srch-inp-opera4_4',item.sortMchnHldYn43);
+        		SBUxMethod.set('srch-inp-opera4_5',item.sortMchnHldYn44);
+        		SBUxMethod.set('srch-inp-opera4_6',item.sortMchnHldYn45);
+
+        		if(item.sortMchnHldYn11 == '1'){SBUxMethod.changeGroupAttr('group1','disabled','false');}
+        		if(item.sortMchnHldYn21 == '1'){SBUxMethod.changeGroupAttr('group2','disabled','false');}
+        		if(item.sortMchnHldYn31 == '1'){SBUxMethod.changeGroupAttr('group3','disabled','false');}
+        		if(item.sortMchnHldYn41 == '1'){SBUxMethod.changeGroupAttr('group4','disabled','false');}
+			});
+
+
+
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		//console.error("failed", e.message);
+        }
+    }
+
 
 	//등록
 	const fn_save = async function() {

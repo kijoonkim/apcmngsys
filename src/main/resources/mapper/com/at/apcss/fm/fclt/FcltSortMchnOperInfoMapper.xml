@@ -193,6 +193,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<!--
     <insert id="insertFcltSortMchnOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.insertFcltSortMchnOperInfo */
@@ -324,6 +325,200 @@
 	   			)
     	]]>
     </insert>
+     -->
+
+
+     <update id="insertFcltSortMchnOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
+     	MERGE INTO TB_FCLT_SORT_MCHN_OPER_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.insertFcltSortMchnOperInfo */
+		USING DUAL
+		ON (
+			FCLT.TRGT_YR = #{trgtYr}
+			AND FCLT.APC_CD = #{apcCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				  SORT_MCHN_HLD_YN_AYR1 = #{sortMchnHldYnAyr1}
+    			,	SORT_MCHN_HLD_YN_101  = #{sortMchnHldYn101}
+				,   SORT_MCHN_HLD_YN_102  = #{sortMchnHldYn102}
+				,   SORT_MCHN_HLD_YN_103  = #{sortMchnHldYn103}
+				,   SORT_MCHN_HLD_YN_104  = #{sortMchnHldYn104}
+				,   SORT_MCHN_HLD_YN_105  = #{sortMchnHldYn105}
+				,   SORT_MCHN_HLD_YN_106  = #{sortMchnHldYn106}
+				,   SORT_MCHN_HLD_YN_107  = #{sortMchnHldYn107}
+				,   SORT_MCHN_HLD_YN_108  = #{sortMchnHldYn108}
+				,   SORT_MCHN_HLD_YN_109  = #{sortMchnHldYn109}
+				,   SORT_MCHN_HLD_YN_110  = #{sortMchnHldYn110}
+				,   SORT_MCHN_HLD_YN_111  = #{sortMchnHldYn111}
+				,   SORT_MCHN_HLD_YN_112  = #{sortMchnHldYn112}
+				,	SORT_MCHN_HLD_YN_AYR2 = #{sortMchnHldYnAyr2}
+				,   SORT_MCHN_HLD_YN_201  = #{sortMchnHldYn201}
+				,   SORT_MCHN_HLD_YN_202  = #{sortMchnHldYn202}
+				,   SORT_MCHN_HLD_YN_203  = #{sortMchnHldYn203}
+				,   SORT_MCHN_HLD_YN_204  = #{sortMchnHldYn204}
+				,   SORT_MCHN_HLD_YN_205  = #{sortMchnHldYn205}
+				,   SORT_MCHN_HLD_YN_206  = #{sortMchnHldYn206}
+				,   SORT_MCHN_HLD_YN_207  = #{sortMchnHldYn207}
+				,   SORT_MCHN_HLD_YN_208  = #{sortMchnHldYn208}
+				,   SORT_MCHN_HLD_YN_209  = #{sortMchnHldYn209}
+				,   SORT_MCHN_HLD_YN_210  = #{sortMchnHldYn210}
+				,   SORT_MCHN_HLD_YN_211  = #{sortMchnHldYn211}
+				,   SORT_MCHN_HLD_YN_212  = #{sortMchnHldYn212}
+				,	SORT_MCHN_HLD_YN_AYR3 = #{sortMchnHldYnAyr3}
+				,   SORT_MCHN_HLD_YN_301  = #{sortMchnHldYn301}
+				,   SORT_MCHN_HLD_YN_302  = #{sortMchnHldYn302}
+				,   SORT_MCHN_HLD_YN_303  = #{sortMchnHldYn303}
+				,   SORT_MCHN_HLD_YN_304  = #{sortMchnHldYn304}
+				,   SORT_MCHN_HLD_YN_305  = #{sortMchnHldYn305}
+				,   SORT_MCHN_HLD_YN_306  = #{sortMchnHldYn306}
+				,   SORT_MCHN_HLD_YN_307  = #{sortMchnHldYn307}
+				,   SORT_MCHN_HLD_YN_308  = #{sortMchnHldYn308}
+				,   SORT_MCHN_HLD_YN_309  = #{sortMchnHldYn309}
+				,   SORT_MCHN_HLD_YN_310  = #{sortMchnHldYn310}
+				,   SORT_MCHN_HLD_YN_311  = #{sortMchnHldYn311}
+				,   SORT_MCHN_HLD_YN_312  = #{sortMchnHldYn312}
+				,	SORT_MCHN_HLD_YN_AYR4 = #{sortMchnHldYnAyr4}
+				,   SORT_MCHN_HLD_YN_401  = #{sortMchnHldYn401}
+				,   SORT_MCHN_HLD_YN_402  = #{sortMchnHldYn402}
+				,   SORT_MCHN_HLD_YN_403  = #{sortMchnHldYn403}
+				,   SORT_MCHN_HLD_YN_404  = #{sortMchnHldYn404}
+				,   SORT_MCHN_HLD_YN_405  = #{sortMchnHldYn405}
+				,   SORT_MCHN_HLD_YN_406  = #{sortMchnHldYn406}
+				,   SORT_MCHN_HLD_YN_407  = #{sortMchnHldYn407}
+				,   SORT_MCHN_HLD_YN_408  = #{sortMchnHldYn408}
+				,   SORT_MCHN_HLD_YN_409  = #{sortMchnHldYn409}
+				,   SORT_MCHN_HLD_YN_410  = #{sortMchnHldYn410}
+				,   SORT_MCHN_HLD_YN_411  = #{sortMchnHldYn411}
+				,   SORT_MCHN_HLD_YN_412  = #{sortMchnHldYn412}
+				  , SYS_LAST_CHG_DT		= SYSDATE
+	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  TRGT_YR
+	    		,	APC_CD
+	    		,	SORT_MCHN_HLD_YN_AYR1
+	    		,	SORT_MCHN_HLD_YN_101
+				,   SORT_MCHN_HLD_YN_102
+				,   SORT_MCHN_HLD_YN_103
+				,   SORT_MCHN_HLD_YN_104
+				,   SORT_MCHN_HLD_YN_105
+				,   SORT_MCHN_HLD_YN_106
+				,   SORT_MCHN_HLD_YN_107
+				,   SORT_MCHN_HLD_YN_108
+				,   SORT_MCHN_HLD_YN_109
+				,   SORT_MCHN_HLD_YN_110
+				,   SORT_MCHN_HLD_YN_111
+				,   SORT_MCHN_HLD_YN_112
+				,	SORT_MCHN_HLD_YN_AYR2
+				,   SORT_MCHN_HLD_YN_201
+				,   SORT_MCHN_HLD_YN_202
+				,   SORT_MCHN_HLD_YN_203
+				,   SORT_MCHN_HLD_YN_204
+				,   SORT_MCHN_HLD_YN_205
+				,   SORT_MCHN_HLD_YN_206
+				,   SORT_MCHN_HLD_YN_207
+				,   SORT_MCHN_HLD_YN_208
+				,   SORT_MCHN_HLD_YN_209
+				,   SORT_MCHN_HLD_YN_210
+				,   SORT_MCHN_HLD_YN_211
+				,   SORT_MCHN_HLD_YN_212
+				,	SORT_MCHN_HLD_YN_AYR3
+				,   SORT_MCHN_HLD_YN_301
+				,   SORT_MCHN_HLD_YN_302
+				,   SORT_MCHN_HLD_YN_303
+				,   SORT_MCHN_HLD_YN_304
+				,   SORT_MCHN_HLD_YN_305
+				,   SORT_MCHN_HLD_YN_306
+				,   SORT_MCHN_HLD_YN_307
+				,   SORT_MCHN_HLD_YN_308
+				,   SORT_MCHN_HLD_YN_309
+				,   SORT_MCHN_HLD_YN_310
+				,   SORT_MCHN_HLD_YN_311
+				,   SORT_MCHN_HLD_YN_312
+				,	SORT_MCHN_HLD_YN_AYR4
+				,   SORT_MCHN_HLD_YN_401
+				,   SORT_MCHN_HLD_YN_402
+				,   SORT_MCHN_HLD_YN_403
+				,   SORT_MCHN_HLD_YN_404
+				,   SORT_MCHN_HLD_YN_405
+				,   SORT_MCHN_HLD_YN_406
+				,   SORT_MCHN_HLD_YN_407
+				,   SORT_MCHN_HLD_YN_408
+				,   SORT_MCHN_HLD_YN_409
+				,   SORT_MCHN_HLD_YN_410
+				,   SORT_MCHN_HLD_YN_411
+				,   SORT_MCHN_HLD_YN_412
+	    		,	SYS_FRST_INPT_DT
+	    		,	SYS_FRST_INPT_USER_ID
+	    		,	SYS_FRST_INPT_PRGRM_ID
+	    		,	SYS_LAST_CHG_DT
+	    		,	SYS_LAST_CHG_USER_ID
+	    		,	SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   	VALUES
+	   		    (
+	   			  #{trgtYr}
+				,	#{apcCd}
+				,	#{sortMchnHldYnAyr1}
+				,	#{sortMchnHldYn101}
+				,   #{sortMchnHldYn102}
+				,   #{sortMchnHldYn103}
+				,   #{sortMchnHldYn104}
+				,   #{sortMchnHldYn105}
+				,   #{sortMchnHldYn106}
+				,   #{sortMchnHldYn107}
+				,   #{sortMchnHldYn108}
+				,   #{sortMchnHldYn109}
+				,   #{sortMchnHldYn110}
+				,   #{sortMchnHldYn111}
+				,   #{sortMchnHldYn112}
+				,	#{sortMchnHldYnAyr2}
+				,   #{sortMchnHldYn201}
+				,   #{sortMchnHldYn202}
+				,   #{sortMchnHldYn203}
+				,   #{sortMchnHldYn204}
+				,   #{sortMchnHldYn205}
+				,   #{sortMchnHldYn206}
+				,   #{sortMchnHldYn207}
+				,   #{sortMchnHldYn208}
+				,   #{sortMchnHldYn209}
+				,   #{sortMchnHldYn210}
+				,   #{sortMchnHldYn211}
+				,   #{sortMchnHldYn212}
+				,	#{sortMchnHldYnAyr3}
+				,   #{sortMchnHldYn301}
+				,   #{sortMchnHldYn302}
+				,   #{sortMchnHldYn303}
+				,   #{sortMchnHldYn304}
+				,   #{sortMchnHldYn305}
+				,   #{sortMchnHldYn306}
+				,   #{sortMchnHldYn307}
+				,   #{sortMchnHldYn308}
+				,   #{sortMchnHldYn309}
+				,   #{sortMchnHldYn310}
+				,   #{sortMchnHldYn311}
+				,   #{sortMchnHldYn312}
+				,	#{sortMchnHldYnAyr4}
+				,   #{sortMchnHldYn401}
+				,   #{sortMchnHldYn402}
+				,   #{sortMchnHldYn403}
+				,   #{sortMchnHldYn404}
+				,   #{sortMchnHldYn405}
+				,   #{sortMchnHldYn406}
+				,   #{sortMchnHldYn407}
+				,   #{sortMchnHldYn408}
+				,   #{sortMchnHldYn409}
+				,   #{sortMchnHldYn410}
+				,   #{sortMchnHldYn411}
+				,   #{sortMchnHldYn412}
+				,	SYSDATE
+				,	#{sysFrstInptUserId}
+				,	#{sysFrstInptPrgrmId}
+				,	SYSDATE
+				,	#{sysLastChgUserId}
+				,	#{sysLastChgPrgrmId}
+		     	)
+     </update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.updateFcltSortMchnOperInfo				-->
@@ -338,9 +533,7 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.updateFcltSortMchnOperInfo */
 	    		TB_FCLT_SORT_MCHN_OPER_INFO FCLT
 			   SET
-					 TRGT_YR              =  #{trgtYr}
-				,	 APC_CD               =  #{apcCd}
-				,	SORT_MCHN_HLD_YN_AYR1 = #{sortMchnHldYnAyr1}
+				SORT_MCHN_HLD_YN_AYR1 = #{sortMchnHldYnAyr1}
     			,	SORT_MCHN_HLD_YN_101  = #{sortMchnHldYn101}
 				,   SORT_MCHN_HLD_YN_102  = #{sortMchnHldYn102}
 				,   SORT_MCHN_HLD_YN_103  = #{sortMchnHldYn103}

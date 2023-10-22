@@ -148,6 +148,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	jeongyd        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<!--
     <insert id="insertFcltGdsMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.insertFcltGdsMchnInfo */
@@ -230,6 +231,125 @@
 	   			)
     	]]>
     </insert>
+     -->
+
+	<update id="insertFcltGdsMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO">
+     	MERGE INTO TB_FCLT_GDS_MCHN_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.insertFcltGdsMchnInfo */
+		USING DUAL
+		ON (
+			FCLT.TRGT_YR = #{trgtYr}
+			AND FCLT.APC_CD = #{apcCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				  SORT_MCHN_HLD_YN11 = #{sortMchnHldYn11}
+	    		  , SORT_MCHN_SPCFCT1 =  #{sortMchnSpcfct1}
+				  , SORT_MCHN_HLD_YN12 = #{sortMchnHldYn12}
+				  , SORT_MCHN_HLD_YN13 = #{sortMchnHldYn13}
+				  , SORT_MCHN_HLD_YN14 = #{sortMchnHldYn14}
+				  , SORT_MCHN_HLD_YN15 = #{sortMchnHldYn15}
+
+				  , SORT_MCHN_HLD_YN21 = #{sortMchnHldYn21}
+				  , SORT_MCHN_SPCFCT2  = #{sortMchnSpcfct2}
+				  , SORT_MCHN_HLD_YN22 = #{sortMchnHldYn22}
+				  , SORT_MCHN_HLD_YN23 = #{sortMchnHldYn23}
+				  , SORT_MCHN_HLD_YN24 = #{sortMchnHldYn24}
+				  , SORT_MCHN_HLD_YN25 = #{sortMchnHldYn25}
+
+				  , SORT_MCHN_HLD_YN31 = #{sortMchnHldYn31}
+				  , SORT_MCHN_SPCFCT3  = #{sortMchnSpcfct3}
+				  , SORT_MCHN_HLD_YN32 = #{sortMchnHldYn32}
+				  , SORT_MCHN_HLD_YN33 = #{sortMchnHldYn33}
+				  , SORT_MCHN_HLD_YN34 = #{sortMchnHldYn34}
+				  , SORT_MCHN_HLD_YN35 = #{sortMchnHldYn35}
+
+				  , SORT_MCHN_HLD_YN41 = #{sortMchnHldYn41}
+				  , SORT_MCHN_SPCFCT4  = #{sortMchnSpcfct4}
+				  , SORT_MCHN_HLD_YN42 = #{sortMchnHldYn42}
+				  , SORT_MCHN_HLD_YN43 = #{sortMchnHldYn43}
+				  , SORT_MCHN_HLD_YN44 = #{sortMchnHldYn44}
+				  , SORT_MCHN_HLD_YN45 = #{sortMchnHldYn45}
+				  , SYS_LAST_CHG_DT		= SYSDATE
+	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  TRGT_YR
+	    		  , APC_CD
+
+           		  , SORT_MCHN_HLD_YN11
+           		  , SORT_MCHN_SPCFCT1
+           		  , SORT_MCHN_HLD_YN12
+           		  , SORT_MCHN_HLD_YN13
+           		  , SORT_MCHN_HLD_YN14
+           		  , SORT_MCHN_HLD_YN15
+
+           		  , SORT_MCHN_HLD_YN21
+           		  , SORT_MCHN_SPCFCT2
+           		  , SORT_MCHN_HLD_YN22
+           		  , SORT_MCHN_HLD_YN23
+           		  , SORT_MCHN_HLD_YN24
+           		  , SORT_MCHN_HLD_YN25
+
+           		  , SORT_MCHN_HLD_YN31
+           		  , SORT_MCHN_SPCFCT3
+           		  , SORT_MCHN_HLD_YN32
+           		  , SORT_MCHN_HLD_YN33
+           		  , SORT_MCHN_HLD_YN34
+           		  , SORT_MCHN_HLD_YN35
+
+           		  , SORT_MCHN_HLD_YN41
+           		  , SORT_MCHN_SPCFCT4
+           		  , SORT_MCHN_HLD_YN42
+           		  , SORT_MCHN_HLD_YN43
+           		  , SORT_MCHN_HLD_YN44
+           		  , SORT_MCHN_HLD_YN45
+           		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   	VALUES
+	   		    (
+	   			  #{trgtYr}
+	    		  , #{apcCd}
+	   		      , #{sortMchnHldYn11}
+	   		      , #{sortMchnSpcfct1}
+	   		      , #{sortMchnHldYn12}
+	   		      , #{sortMchnHldYn13}
+	   		      , #{sortMchnHldYn14}
+	   		      , #{sortMchnHldYn15}
+
+	   		      , #{sortMchnHldYn21}
+	   		      , #{sortMchnSpcfct2}
+	   		      , #{sortMchnHldYn22}
+	   		      , #{sortMchnHldYn23}
+	   		      , #{sortMchnHldYn24}
+	   		      , #{sortMchnHldYn25}
+
+	   		      , #{sortMchnHldYn31}
+	   		      , #{sortMchnSpcfct3}
+	   		      , #{sortMchnHldYn32}
+	   		      , #{sortMchnHldYn33}
+	   		      , #{sortMchnHldYn34}
+	   		      , #{sortMchnHldYn35}
+
+	   		      , #{sortMchnHldYn41}
+	   		      , #{sortMchnSpcfct4}
+	   		      , #{sortMchnHldYn42}
+	   		      , #{sortMchnHldYn43}
+	   		      , #{sortMchnHldYn44}
+	   		      , #{sortMchnHldYn45}
+	   		      , SYSDATE
+	    		  , #{sysFrstInptUserId}
+	    		  , #{sysFrstInptPrgrmId}
+	    		  , SYSDATE
+	    		  , #{sysLastChgUserId}
+	    		  , #{sysLastChgPrgrmId}
+		     	)
+     </update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.updateFcltGdsMchnInfo				-->
@@ -244,10 +364,7 @@
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.updateFcltGdsMchnInfo */
 	    		TB_FCLT_GDS_MCHN_INFO FCLT
 			   SET
-	    			TRGT_YR          =  #{trgtYr}
-	    		  , APC_CD           =  #{apcCd}
-
-				  , SORT_MCHN_HLD_YN11 = #{sortMchnHldYn11}
+				  SORT_MCHN_HLD_YN11 = #{sortMchnHldYn11}
 	    		  , SORT_MCHN_SPCFCT1 =  #{sortMchnSpcfct1}
 				  , SORT_MCHN_HLD_YN12 = #{sortMchnHldYn12}
 				  , SORT_MCHN_HLD_YN13 = #{sortMchnHldYn13}

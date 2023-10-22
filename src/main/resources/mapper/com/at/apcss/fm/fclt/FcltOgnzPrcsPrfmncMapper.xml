@@ -94,6 +94,8 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<!--
+
     <insert id="insertFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.insertFcltOgnzPrcsPrfmnc */
@@ -129,6 +131,55 @@
 	   			)
     	]]>
     </insert>
+     -->
+
+     <update id="insertFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
+     	MERGE INTO TB_FCLT_OGNZ_PRCS_PRFMNC FCLT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.insertFcltOgnzPrcsPrfmnc */
+		USING DUAL
+		ON (
+			FCLT.TRGT_YR = #{trgtYr}
+			AND FCLT.APC_CD = #{apcCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				  FCLT_OGNZ_TRMT_AMT = #{fcltOgnzTrmtAmt}
+				, FCLT_OGNZ_TRMT2_AMT =  #{fcltOgnzTrmt2Amt}
+				, FCLT_OGNZ_TRMT3_AMT =  #{fcltOgnzTrmt3Amt}
+				, FCLT_OGNZ_TRMT4_AMT =  #{fcltOgnzTrmt4Amt}
+				  , SYS_LAST_CHG_DT		= SYSDATE
+	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  TRGT_YR
+	    		  , APC_CD
+	    		  , FCLT_OGNZ_TRMT_AMT
+	    		  , FCLT_OGNZ_TRMT2_AMT
+	    		  , FCLT_OGNZ_TRMT3_AMT
+	    		  , FCLT_OGNZ_TRMT4_AMT
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   	VALUES
+	   		    (
+	   			  #{trgtYr}
+	   			  , #{apcCd}
+	   			  , #{fcltOgnzTrmtAmt}
+	   			  , #{fcltOgnzTrmt2Amt}
+	   			  , #{fcltOgnzTrmt3Amt}
+	   			  , #{fcltOgnzTrmt4Amt}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysLastChgUserId}
+	   			  , #{sysLastChgPrgrmId}
+		     	)
+     </update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.updateFcltOgnzPrcsPrfmnc				-->
@@ -147,9 +198,6 @@
 				, FCLT_OGNZ_TRMT2_AMT =  #{fcltOgnzTrmt2Amt}
 				, FCLT_OGNZ_TRMT3_AMT =  #{fcltOgnzTrmt3Amt}
 				, FCLT_OGNZ_TRMT4_AMT =  #{fcltOgnzTrmt4Amt}
-
-
-
 
     	]]>
 		<if test='delYn != null and delYn != ""'>
