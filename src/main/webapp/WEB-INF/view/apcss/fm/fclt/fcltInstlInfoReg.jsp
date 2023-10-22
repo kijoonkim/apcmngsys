@@ -422,10 +422,59 @@
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
+			//SBUxMethod.set("srch-inp-apcCd", '0122');
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		}
-	})
+		};
+		fn_selectFcltInstlInfoList();
+	});
+
+	/**
+     * @param {number} pageSize
+     * @param {number} pageNo
+	*/
+    const fn_selectFcltInstlInfoList = async function(pageSize, pageNo) {
+		console.log("******************fn_setGrdFcltInstlInfoList**********************************");
+
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+
+
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltInstlInfoList.do", {
+			apcCd: apcCd,
+        	trgtYr: trgtYr,
+        	// pagination
+	  		pagingYn : 'N',
+			currentPageNo : pageNo,
+ 		  	recordCountPerPage : pageSize
+        });
+        const data = await postJsonPromise;
+		//await 오류시 확인
+
+		//예외처리
+        try {
+
+        	data.resultList.forEach((item, index) => {
+				console.log(item);
+				SBUxMethod.set('q2_'+item.sn+'1',item.bizYr);
+				SBUxMethod.set('q2_'+item.sn+'2',item.bizSprtCd);
+				SBUxMethod.set('q2_'+item.sn+'3',item.bizCn);
+				SBUxMethod.set('q2_'+item.sn+'5',item.bizAmt);
+				SBUxMethod.set('q2_'+item.sn+'6',item.bizAmt2);
+				SBUxMethod.set('q2_'+item.sn+'7',item.bizAmt3);
+				sum('q2_'+item.sn+'5',item.sn);
+			});
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		//console.error("failed", e.message);
+        }
+    }
+
+
+
 	//등록
 	const fn_save = async function() {
     	console.log("******************fn_save**********************************");

@@ -174,10 +174,71 @@
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
+			//SBUxMethod.set("srch-inp-apcCd", '0122');
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		}
-	})
+		};
+		fn_selectItmPrfList();
+	});
+
+
+    /**
+     * @param {number} pageSize
+     * @param {number} pageNo
+     */
+    const fn_selectItmPrfList = async function(pageSize, pageNo) {
+    	 console.log("******************fn_pagingItmPrfList**********************************");
+
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltItemPrfmncList.do", {
+			apcCd: apcCd,
+        	trgtYr: trgtYr,
+        	// pagination
+	  		pagingYn : 'N',
+			currentPageNo : pageNo,
+ 		  	recordCountPerPage : pageSize
+        });
+
+        const data = await postJsonPromise;
+		//await 오류시 확인
+
+		//예외처리
+        try {
+        	data.resultList.forEach((item, index) => {
+        		SBUxMethod.set('srch-inp-opera1',item.fcltItemSpmtAmt);
+        		SBUxMethod.set('srch-inp-opera5',item.fcltItemSpmtAmt2);
+        		SBUxMethod.set('srch-inp-opera9',item.fcltItemSpmtAmt3);
+        		SBUxMethod.set('srch-inp-opera13',item.fcltItemSpmtAmt4);
+        		SBUxMethod.set('srch-inp-opera17',item.fcltItemSpmtAmt5);
+
+        		SBUxMethod.set('srch-inp-opera2',item.fcltItemTrmtVlm);
+        		SBUxMethod.set('srch-inp-opera6',item.fcltItemTrmtVlm2);
+        		SBUxMethod.set('srch-inp-opera10',item.fcltItemTrmtVlm3);
+        		SBUxMethod.set('srch-inp-opera14',item.fcltItemTrmtVlm4);
+        		SBUxMethod.set('srch-inp-opera18',item.fcltItemTrmtVlm5);
+
+        		SBUxMethod.set('srch-inp-opera3',item.fcltItemMrktAmt);
+        		SBUxMethod.set('srch-inp-opera7',item.fcltItemMrktAmt2);
+        		SBUxMethod.set('srch-inp-opera11',item.fcltItemMrktAmt3);
+        		SBUxMethod.set('srch-inp-opera15',item.fcltItemMrktAmt4);
+        		SBUxMethod.set('srch-inp-opera19',item.fcltItemMrktAmt5);
+
+        		sum('srch-inp-opera1',1,1);
+        		sum('srch-inp-opera2',2);
+        		sum('srch-inp-opera5',1,2);
+        		sum('srch-inp-opera9',1,3);
+        		sum('srch-inp-opera13',1,4);
+			});
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		//console.error("failed", e.message);
+        }
+    }
 
 	//등록
 	const fn_save = async function() {

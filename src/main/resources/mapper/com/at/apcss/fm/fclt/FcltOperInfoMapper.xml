@@ -121,6 +121,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<!--
     <insert id="insertFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertFcltOperInfo */
@@ -186,6 +187,121 @@
 		     	)
     	]]>
     </insert>
+     -->
+
+     <update id="insertFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+     	MERGE INTO TB_FCLT_OPER_INFO FCLT
+		USING DUAL
+		ON (
+			FCLT.TRGT_YR = #{trgtYr}
+			AND FCLT.APC_CD = #{apcCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+		    	OPER_OGNZ_ADDR1             =  #{operOgnzAddr1}
+				, OPER_OGNZ_ADDR2             =  #{operOgnzAddr2}
+				, APC_BRNO                 	  =  #{apcBrno}
+				, APC_RGN_CD               	  =  #{apcRgnCd}
+				, APC_NM                   	  =  #{apcNm}
+				, APC_ADDR                 	  =  #{apcAddr}
+				, PSN_OGNZ_NM              	  =  #{psnOgnzNm}
+				, PSN_OGNZ_BRNO            	  =  #{psnOgnzBrno}
+				, OPER_OGNZ_CD             	  =  #{operOgnzCd}
+				, OPER_OGNZ_NM             	  =  #{operOgnzNm}
+				, OPER_OGNZ_BRNO           	  =  #{operOgnzBrno}
+				, OPER_OGNZ_PIC           	  =  #{operOgnzPic}
+				, OPER_OGNZ_DEPT_CD        	  =  #{operOgnzDeptCd}
+				, OPER_OGNZ_DEPT_NM        	  =  #{operOgnzDeptNm}
+				, OPER_OGNZ_TRMT_ITEM_CN   	  =  #{operOgnzTrmtItemCn}
+				, OPER_OGNZ_TRMT_ITEM_CN2     =  #{operOgnzTrmtItemCn2}
+				, OPER_OGNZ_TRMT_ITEM_CN3     =  #{operOgnzTrmtItemCn3}
+				, OPER_OGNZ_TRMT_ITEM_CN4     =  #{operOgnzTrmtItemCn4}
+				, APC_TRMT_ITEM_CN			  =  #{apcTrmtItemCn}
+				, APC_TRMT_ITEM_CN2			  =  #{apcTrmtItemCn2}
+				, APC_TRMT_ITEM_CN3			  =  #{apcTrmtItemCn3}
+				, APC_TRMT_ITEM_CN4			  =  #{apcTrmtItemCn4}
+				, OPER_OGNZ_TRMT_ITEM_CD   	  =  #{operOgnzTrmtItemCd}
+				, OPER_OGNZ_TRMT_ITEM_CD2     =  #{operOgnzTrmtItemCd2}
+				, OPER_OGNZ_TRMT_ITEM_CD3     =  #{operOgnzTrmtItemCd3}
+				, APC_TRMT_ITEM_CD			  =  #{apcTrmtItemCd}
+				, APC_TRMT_ITEM_CD2			  =  #{apcTrmtItemCd2}
+				, APC_TRMT_ITEM_CD3			  =  #{apcTrmtItemCd3}
+				, SYS_LAST_CHG_DT			  =  SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		  =  #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID		  =  #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  TRGT_YR
+				, APC_CD
+		     	, OPER_OGNZ_ADDR1
+		     	, OPER_OGNZ_ADDR2
+		     	, APC_BRNO
+		     	, APC_NM
+		     	, APC_ADDR
+		     	, PSN_OGNZ_NM
+		     	, PSN_OGNZ_BRNO
+		     	, OPER_OGNZ_NM
+		     	, OPER_OGNZ_BRNO
+		     	, OPER_OGNZ_DEPT_CD
+		     	, OPER_OGNZ_PIC
+		     	, OPER_OGNZ_TRMT_ITEM_CN
+		     	, OPER_OGNZ_TRMT_ITEM_CN2
+		     	, OPER_OGNZ_TRMT_ITEM_CN3
+		     	, OPER_OGNZ_TRMT_ITEM_CN4
+		   		, APC_TRMT_ITEM_CN
+		     	, APC_TRMT_ITEM_CN2
+		     	, APC_TRMT_ITEM_CN3
+		     	, APC_TRMT_ITEM_CN4
+		     	, OPER_OGNZ_TRMT_ITEM_CD
+		     	, OPER_OGNZ_TRMT_ITEM_CD2
+		     	, OPER_OGNZ_TRMT_ITEM_CD3
+		   		, APC_TRMT_ITEM_CD
+		     	, APC_TRMT_ITEM_CD2
+		     	, APC_TRMT_ITEM_CD3
+		     	, SYS_FRST_INPT_DT
+		     	, SYS_FRST_INPT_USER_ID
+		     	, SYS_FRST_INPT_PRGRM_ID
+		     	, SYS_LAST_CHG_DT
+		     	, SYS_LAST_CHG_USER_ID
+		     	, SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   	VALUES
+	   		    (
+	   			  #{trgtYr}
+				, #{apcCd}
+	   			, #{operOgnzAddr1}
+	   			, #{operOgnzAddr2}
+		     	, #{apcBrno}
+		     	, #{apcNm}
+		     	, #{apcAddr}
+		     	, #{psnOgnzNm}
+		     	, #{psnOgnzBrno}
+		     	, #{operOgnzNm}
+		     	, #{operOgnzBrno}
+		     	, #{operOgnzDeptCd}
+		     	, #{operOgnzPic}
+		     	, #{operOgnzTrmtItemCn}
+		     	, #{operOgnzTrmtItemCn2}
+		     	, #{operOgnzTrmtItemCn3}
+		     	, #{operOgnzTrmtItemCn4}
+		     	, #{apcTrmtItemCn}
+		     	, #{apcTrmtItemCn2}
+		     	, #{apcTrmtItemCn3}
+		     	, #{apcTrmtItemCn4}
+		     	, #{operOgnzTrmtItemCd}
+		     	, #{operOgnzTrmtItemCd2}
+		     	, #{operOgnzTrmtItemCd3}
+		     	, #{apcTrmtItemCd}
+		     	, #{apcTrmtItemCd2}
+		     	, #{apcTrmtItemCd3}
+		     	,  SYSDATE
+		     	, #{sysFrstInptUserId}
+		     	, #{sysFrstInptPrgrmId}
+		     	,  SYSDATE
+		     	, #{sysLastChgUserId}
+		     	, #{sysLastChgPrgrmId}
+		     	)
+     </update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateFcltOperInfo				-->
@@ -201,39 +317,38 @@
 	    		TB_FCLT_OPER_INFO FCLT
 
 			   SET
-			  TRGT_YR               	  =  #{trgtYr}
-			, APC_CD                	  =  #{apcCd}
-			, OPER_OGNZ_ADDR1             =  #{operOgnzAddr1}
-			, OPER_OGNZ_ADDR2             =  #{operOgnzAddr2}
-			, APC_BRNO                 	  =  #{apcBrno}
-			, APC_RGN_CD               	  =  #{apcRgnCd}
-			, APC_NM                   	  =  #{apcNm}
-			, APC_ADDR                 	  =  #{apcAddr}
-			, PSN_OGNZ_NM              	  =  #{psnOgnzNm}
-			, PSN_OGNZ_BRNO            	  =  #{psnOgnzBrno}
-			, OPER_OGNZ_CD             	  =  #{operOgnzCd}
-			, OPER_OGNZ_NM             	  =  #{operOgnzNm}
-			, OPER_OGNZ_BRNO           	  =  #{operOgnzBrno}
-			, OPER_OGNZ_PIC           	  =  #{operOgnzPic}
-			, OPER_OGNZ_DEPT_CD        	  =  #{operOgnzDeptCd}
-			, OPER_OGNZ_DEPT_NM        	  =  #{operOgnzDeptNm}
-			, OPER_OGNZ_TRMT_ITEM_CN2     =  #{operOgnzTrmtItemCn2}
-			, OPER_OGNZ_TRMT_ITEM_CN3     =  #{operOgnzTrmtItemCn3}
-			, OPER_OGNZ_TRMT_ITEM_CN4     =  #{operOgnzTrmtItemCn4}
-			, OPER_OGNZ_TRMT_ITEM_CN   	  =  #{operOgnzTrmtItemCn}
+				OPER_OGNZ_ADDR1             =  #{operOgnzAddr1}
+				, OPER_OGNZ_ADDR2             =  #{operOgnzAddr2}
+				, APC_BRNO                 	  =  #{apcBrno}
+				, APC_RGN_CD               	  =  #{apcRgnCd}
+				, APC_NM                   	  =  #{apcNm}
+				, APC_ADDR                 	  =  #{apcAddr}
+				, PSN_OGNZ_NM              	  =  #{psnOgnzNm}
+				, PSN_OGNZ_BRNO            	  =  #{psnOgnzBrno}
+				, OPER_OGNZ_CD             	  =  #{operOgnzCd}
+				, OPER_OGNZ_NM             	  =  #{operOgnzNm}
+				, OPER_OGNZ_BRNO           	  =  #{operOgnzBrno}
+				, OPER_OGNZ_PIC           	  =  #{operOgnzPic}
+				, OPER_OGNZ_DEPT_CD        	  =  #{operOgnzDeptCd}
+				, OPER_OGNZ_DEPT_NM        	  =  #{operOgnzDeptNm}
+				, OPER_OGNZ_TRMT_ITEM_CN   	  =  #{operOgnzTrmtItemCn}
+				, OPER_OGNZ_TRMT_ITEM_CN2     =  #{operOgnzTrmtItemCn2}
+				, OPER_OGNZ_TRMT_ITEM_CN3     =  #{operOgnzTrmtItemCn3}
+				, OPER_OGNZ_TRMT_ITEM_CN4     =  #{operOgnzTrmtItemCn4}
+				, APC_TRMT_ITEM_CN			  =  #{apcTrmtItemCn}
+				, APC_TRMT_ITEM_CN2			  =  #{apcTrmtItemCn2}
+				, APC_TRMT_ITEM_CN3			  =  #{apcTrmtItemCn3}
+				, APC_TRMT_ITEM_CN4			  =  #{apcTrmtItemCn4}
+				, OPER_OGNZ_TRMT_ITEM_CD   	  =  #{operOgnzTrmtItemCd}
+				, OPER_OGNZ_TRMT_ITEM_CD2     =  #{operOgnzTrmtItemCd2}
+				, OPER_OGNZ_TRMT_ITEM_CD3     =  #{operOgnzTrmtItemCd3}
+				, APC_TRMT_ITEM_CD			  =  #{apcTrmtItemCd}
+				, APC_TRMT_ITEM_CD2			  =  #{apcTrmtItemCd2}
+				, APC_TRMT_ITEM_CD3			  =  #{apcTrmtItemCd3}
 			]]>
 			<if test='delYn != null and delYn != ""'>
-			, DEL_YN 	= #{delYn}
+				, DEL_YN 	= #{delYn}
 		    </if>
-		    <![CDATA[
-			, APC_TRMT_ITEM_CN2           =  #{apcTrmtItemCn2}
-			, APC_TRMT_ITEM_CN3           =  #{apcTrmtItemCn3}
-			, APC_TRMT_ITEM_CN4           =  #{apcTrmtItemCn4}
-			, APC_TRMT_ITEM_CN         	  =  #{apcTrmtItemCn}
-    	]]>
-		<if test='delYn != null and delYn != ""'>
-				, DEL_YN 	=  #{delYn}
-		</if>
     	<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}

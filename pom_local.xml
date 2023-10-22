@@ -309,6 +309,50 @@
 		    <version>1.16</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/rhino/js -->
+		<dependency>
+		    <groupId>rhino</groupId>
+		    <artifactId>js</artifactId>
+		    <version>1.6R2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>3.11</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml-schemas</artifactId>
+		    <version>3.11</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>3.11</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.softbowl.poi</groupId>
+			<artifactId>sbexcel</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.softbowl.poi</groupId>
+			<artifactId>sbloadexcel</artifactId>
+			<version>1.23</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

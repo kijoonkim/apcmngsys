@@ -131,6 +131,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<!--
     <insert id="insertFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.insertFcltInfo */
@@ -202,6 +203,110 @@
 	   			)
     	]]>
     </insert>
+    -->
+
+
+     <update id="insertFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+     	MERGE INTO TB_FCLT_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.insertFcltInfo */
+		USING DUAL
+		ON (
+			FCLT.TRGT_YR = #{trgtYr}
+			AND FCLT.APC_CD = #{apcCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				FCLT_AREA_TOT   =  #{fcltAreaTot}
+			 	, FCLT_AREA01   =  #{fcltArea01}
+			 	, FCLT_AREA02  =  #{fcltArea02}
+			 	, FCLT_AREA03  =  #{fcltArea03}
+			 	, FCLT_AREA04  =  #{fcltArea04}
+			 	, FCLT_AREA05  =  #{fcltArea05}
+			 	, FCLT_AREA06  =  #{fcltArea06}
+			 	, FCLT_AREA07  =  #{fcltArea07}
+			 	, FCLT_AREA08  =  #{fcltArea08}
+			 	, FCLT_AREA09  =  #{fcltArea09}
+			 	, FCLT_AREA10  =  #{fcltArea10}
+			 	, FCLT_RMRK_TOT  =  #{fcltRmrkTot}
+			 	, FCLT_RMRK01  =  #{fcltRmrk01}
+			 	, FCLT_RMRK02  =  #{fcltRmrk02}
+			 	, FCLT_RMRK03  =  #{fcltRmrk03}
+			 	, FCLT_RMRK04  =  #{fcltRmrk04}
+			 	, FCLT_RMRK05  =  #{fcltRmrk05}
+			 	, FCLT_RMRK06  =  #{fcltRmrk06}
+			 	, FCLT_RMRK07  =  #{fcltRmrk07}
+			 	, FCLT_RMRK08  =  #{fcltRmrk08}
+			 	, FCLT_RMRK09  =  #{fcltRmrk09}
+			 	, FCLT_RMRK10  =  #{fcltRmrk10}
+				, SYS_LAST_CHG_DT		= SYSDATE
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				TRGT_YR
+				, APC_CD
+				, FCLT_AREA_TOT
+				, FCLT_RMRK_TOT
+				, FCLT_AREA01
+				, FCLT_RMRK01
+				, FCLT_AREA02
+				, FCLT_RMRK02
+				, FCLT_AREA03
+				, FCLT_RMRK03
+				, FCLT_AREA04
+				, FCLT_RMRK04
+				, FCLT_AREA05
+				, FCLT_RMRK05
+				, FCLT_AREA06
+				, FCLT_RMRK06
+				, FCLT_AREA07
+				, FCLT_RMRK07
+				, FCLT_AREA08
+				, FCLT_RMRK08
+				, FCLT_AREA09
+				, FCLT_RMRK09
+				, FCLT_AREA10
+				, FCLT_RMRK10
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   	VALUES
+	   		    (
+	   			#{trgtYr}
+				, #{apcCd}
+				, #{fcltAreaTot}
+				, #{fcltRmrkTot}
+				, #{fcltArea01}
+				, #{fcltRmrk01}
+				, #{fcltArea02}
+				, #{fcltRmrk02}
+				, #{fcltArea03}
+				, #{fcltRmrk03}
+				, #{fcltArea04}
+				, #{fcltRmrk04}
+				, #{fcltArea05}
+				, #{fcltRmrk05}
+				, #{fcltArea06}
+				, #{fcltRmrk06}
+				, #{fcltArea07}
+				, #{fcltRmrk07}
+				, #{fcltArea08}
+				, #{fcltRmrk08}
+				, #{fcltArea09}
+				, #{fcltRmrk09}
+				, #{fcltArea10}
+				, #{fcltRmrk10}
+				, SYSDATE
+				, #{sysFrstInptUserId}
+				, #{sysFrstInptPrgrmId}
+				, SYSDATE
+				, #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
+		     	)
+     </update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInfoMapper.updateFcltInfo				-->

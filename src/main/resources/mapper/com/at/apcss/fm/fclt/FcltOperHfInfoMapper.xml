@@ -93,6 +93,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<!--
     <insert id="insertFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.insertFcltOperHfInfo */
@@ -128,6 +129,54 @@
     			)
     	]]>
     </insert>
+     -->
+	<update id="insertFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
+     	MERGE INTO TB_FCLT_OPER_HF_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.insertFcltOperHfInfo */
+		USING DUAL
+		ON (
+			FCLT.TRGT_YR = #{trgtYr}
+			AND FCLT.APC_CD = #{apcCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				  HIRE_NOPE        = #{hireNope}
+			 	, HIRE_NOPE2        = #{hireNope2}
+			 	, HIRE_NOPE3        = #{hireNope3}
+			 	, HIRE_NOPE4        = #{hireNope4}
+				  , SYS_LAST_CHG_DT		= SYSDATE
+	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  TRGT_YR
+	    		  , APC_CD
+	    		  , HIRE_NOPE
+	    		  , HIRE_NOPE2
+	    		  , HIRE_NOPE3
+	    		  , HIRE_NOPE4
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    	      , SYS_LAST_CHG_DT
+	    	      , SYS_LAST_CHG_USER_ID
+	    	      , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   	VALUES
+	   		    (
+	   			  #{trgtYr}
+	   			  , #{apcCd}
+	   			  , #{hireNope}
+	   			  , #{hireNope2}
+	   			  , #{hireNope3}
+	   			  , #{hireNope4}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+    	          , #{sysLastChgUserId}
+    	          , #{sysLastChgPrgrmId}
+		     	)
+     </update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.updateFcltOperHfInfo				-->

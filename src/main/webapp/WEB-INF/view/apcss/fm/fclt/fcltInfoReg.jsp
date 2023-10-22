@@ -188,10 +188,72 @@
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
+			//SBUxMethod.set("srch-inp-apcCd", '0122');
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		}
+		};
+		fn_selectFcltInfoList();
 	});
+
+    /**
+     * @param {number} pageSize
+     * @param {number} pageNo
+     */
+    const fn_selectFcltInfoList = async function(pageSize, pageNo) {
+    	 console.log("******************fn_pagingFcltInfoList**********************************");
+
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
+
+        //비동기 포스트타입 url 데이터연결 페이징처리 글로벌
+        //gfn_postJSON 는 ajax고 post통신의 데이터를 json 타입으로 보내는것이다
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltInfoList.do", {
+			apcCd: apcCd,
+        	trgtYr: trgtYr,
+        	// pagination
+	  		pagingYn : 'N',
+			currentPageNo : pageNo,
+ 		  	recordCountPerPage : pageSize
+        });
+
+        const data = await postJsonPromise;
+		//await 오류시 확인
+		//예외처리
+        try {
+			console.log(data);
+        	data.resultList.forEach((item, index) => {
+        		SBUxMethod.set('srch-inp-opera1',item.fcltAreaTot);
+        		SBUxMethod.set('srch-inp-opera2',item.fcltRmrkTot);
+        		SBUxMethod.set('srch-inp-opera3',item.fcltArea01);
+        		SBUxMethod.set('srch-inp-opera4',item.fcltRmrk01);
+        		SBUxMethod.set('srch-inp-opera5',item.fcltArea02);
+        		SBUxMethod.set('srch-inp-opera6',item.fcltRmrk02);
+        		SBUxMethod.set('srch-inp-opera7',item.fcltArea03);
+        		SBUxMethod.set('srch-inp-opera8',item.fcltRmrk03);
+        		SBUxMethod.set('srch-inp-opera9',item.fcltArea04);
+        		SBUxMethod.set('srch-inp-opera10',item.fcltRmrk04);
+        		SBUxMethod.set('srch-inp-opera11',item.fcltArea05);
+        		SBUxMethod.set('srch-inp-opera12',item.fcltRmrk05);
+        		SBUxMethod.set('srch-inp-opera13',item.fcltArea06);
+        		SBUxMethod.set('srch-inp-opera14',item.fcltRmrk06);
+        		SBUxMethod.set('srch-inp-opera15',item.fcltArea07);
+        		SBUxMethod.set('srch-inp-opera16',item.fcltRmrk07);
+        		SBUxMethod.set('srch-inp-opera17',item.fcltArea08);
+        		SBUxMethod.set('srch-inp-opera18',item.fcltRmrk08);
+        		SBUxMethod.set('srch-inp-opera19',item.fcltArea09);
+        		SBUxMethod.set('srch-inp-opera20',item.fcltRmrk09);
+        		SBUxMethod.set('srch-inp-opera21',item.fcltArea10);
+        		SBUxMethod.set('srch-inp-opera22',item.fcltRmrk10);
+			});
+
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		//console.error("failed", e.message);
+        }
+    }
 
 	//등록
 	const fn_save = async function() {
@@ -220,6 +282,8 @@
 
     	fn_subInsert(confirm("등록 하시겠습니까?"));
     }
+
+
 
 
     //신규등록

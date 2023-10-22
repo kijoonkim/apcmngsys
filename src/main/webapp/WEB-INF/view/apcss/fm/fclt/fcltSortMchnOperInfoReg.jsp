@@ -448,10 +448,100 @@
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
+			SBUxMethod.set("srch-inp-apcCd", '0122');
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		}
+		};
+		fn_selectStMcOpIfList();
 	})
+
+	    /**
+     * @param {number} pageSize
+     * @param {number} pageNo
+     */
+    const fn_selectStMcOpIfList = async function(pageSize, pageNo) {
+    	 console.log("******************fn_selectStMcOpIfList**********************************");
+
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltSortMchnOperInfoList.do", {
+			apcCd: apcCd,
+        	trgtYr: trgtYr,
+        	// pagination
+	  		pagingYn : 'N',
+			currentPageNo : pageNo,
+ 		  	recordCountPerPage : pageSize
+        });
+
+        const data = await postJsonPromise;
+		//await 오류시 확인
+
+		//예외처리
+        try {
+
+        	data.resultList.forEach((item, index) => {
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_1',item.sortMchnHldYnAyr1);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_2',item.sortMchnHldYn101);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_3',item.sortMchnHldYn102);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_4',item.sortMchnHldYn103);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_5',item.sortMchnHldYn104);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_6',item.sortMchnHldYn105);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_7',item.sortMchnHldYn106);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_8',item.sortMchnHldYn107);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_9',item.sortMchnHldYn108);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_10',item.sortMchnHldYn109);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_11',item.sortMchnHldYn110);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_12',item.sortMchnHldYn111);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_13',item.sortMchnHldYn112);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_2_1',item.sortMchnHldYnAyr2);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_2_2',item.sortMchnHldYn201);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_2_3',item.sortMchnHldYn202);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_2_4',item.sortMchnHldYn203);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_2_5',item.sortMchnHldYn204);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_2_6',item.sortMchnHldYn205);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_2_7',item.sortMchnHldYn206);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_2_8',item.sortMchnHldYn207);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_2_9',item.sortMchnHldYn208);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_2_10',item.sortMchnHldYn209);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_2_11',item.sortMchnHldYn210);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_2_12',item.sortMchnHldYn211);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_2_13',item.sortMchnHldYn212);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_3_1',item.sortMchnHldYnAyr3);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_3_2',item.sortMchnHldYn301);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_3_3',item.sortMchnHldYn302);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_3_4',item.sortMchnHldYn303);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_3_5',item.sortMchnHldYn304);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_3_6',item.sortMchnHldYn305);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_3_7',item.sortMchnHldYn306);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_3_8',item.sortMchnHldYn307);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_3_9',item.sortMchnHldYn308);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_3_10',item.sortMchnHldYn309);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_3_11',item.sortMchnHldYn310);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_3_12',item.sortMchnHldYn311);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_3_13',item.sortMchnHldYn312);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_4_1',item.sortMchnHldYnAyr4);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_4_2',item.sortMchnHldYn401);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_4_3',item.sortMchnHldYn402);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_4_4',item.sortMchnHldYn403);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_4_5',item.sortMchnHldYn404);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_4_6',item.sortMchnHldYn405);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_4_7',item.sortMchnHldYn406);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_4_8',item.sortMchnHldYn407);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_4_9',item.sortMchnHldYn408);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_4_10',item.sortMchnHldYn409);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_4_11',item.sortMchnHldYn410);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_4_12',item.sortMchnHldYn411);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_4_13',item.sortMchnHldYn412);
+			});
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		//console.error("failed", e.message);
+        }
+    }
 
 	//등록
 	const fn_save = async function() {

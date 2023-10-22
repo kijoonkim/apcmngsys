@@ -330,15 +330,12 @@
     	console.log("******************pageNo**********************************"+grdAtMcIfList.getPageSize());
     	fn_pagingAtMcIfList(pageSize, pageNo);
     }
-    /**
-     *
-     */
+
 
     /**
      * @param {number} pageSize
      * @param {number} pageNo
      */
-
     const fn_pagingAtMcIfList = async function(pageSize, pageNo) {
     	 console.log("******************fn_pagingAtMcIfList**********************************");
     	// form clear
@@ -349,20 +346,6 @@
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
 
-		var chk = {
-				trgtYr: trgtYr,
-	        	apcCd: apcCd,
-	        	// pagination
-		  		pagingYn : 'N',
-				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
-
-		}
-		console.log('=============chk==================');
-		console.log(chk);
-
-        //비동기 포스트타입 url 데이터연결 페이징처리 글로벌
-        //gfn_postJSON 는 ajax고 post통신의 데이터를 json 타입으로 보내는것이다
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltDtaMngInfoList.do", {
 			apcCd: apcCd,
         	trgtYr: trgtYr,
@@ -371,12 +354,11 @@
 			currentPageNo : pageNo,
  		  	recordCountPerPage : pageSize
         });
-		console.log("a11111111111111");
+
         const data = await postJsonPromise;
-//await 오류시 확인
-        console.log("---------------------------")
-        console.log(data)
-//예외처리
+		//await 오류시 확인
+
+		//예외처리
         try {
 
         	/** @type {number} **/
@@ -410,7 +392,6 @@
 					totalRecordCount = item.totalRecordCount;
 				}
 			});
-        	console.log("totalRecordCount", totalRecordCount);
 
         	if (jsonAtMcIfList.length > 0) {
 
