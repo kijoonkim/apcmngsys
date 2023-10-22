@@ -31,21 +31,13 @@
 
 					<tbody>
 						<tr>
-							<th scope="row">생산유통통합조직</th>
+							<th scope="row">농업인 번호</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd2" name="srch-inp-apcCd2" uitype="hidden" ></sbux-input>
-								<sbux-input id="srch-inp-apcNm2" name="srch-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+								<sbux-input id="srch-inp-frmerSn" name="srch-inp-frmerSn" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
-							<td>
-								<sbux-button id="srch-btn-apc2" name="srch-btn-apc2" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceInvstmntSpmt" />
-							</td>
-							<th class="th_bg">전문품목</th>
+							<th class="th_bg">경영체 등록번호</th>
 							<td class="td_input" style="border-right:hidden;">
-							    	<sbux-input id="srch-inp-itemCd1" name="srch-inp-itemCd1" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
-									<sbux-input id="srch-inp-itemNm1" name="srch-inp-itemNm1" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
-							</td>
-							<td>
-									<sbux-button id="srch-btn-item1" name="srch-btn-item1" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(1)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+									<sbux-input id="srch-inp-bzobRgno" name="srch-inp-bzobRgno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 							<td colspan="2" style="border-left: hidden;"></td>
 						</tr>
@@ -316,7 +308,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["농업인 번호"], 		ref: 'frmerSn',   	type:'input',  hidden : false},
+	    	{caption: ["농업인 번호"], 		ref: 'frmerSn',   	type:'output',  hidden : false},
 	        {caption: ["경영체 등록번호"], 	ref: 'bzobRgno',   	type:'output',     style:'text-align:center'},
 	        {caption: ["경영주 및 경영주와 의 관계"], 	ref: 'mngerRelate',   	type:'output',     style:'text-align:center'},
 	        {caption: ["경영주 법인 명"], 	ref: 'bzmCorpNm',   	type:'output',     style:'text-align:center'},
@@ -386,13 +378,13 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_searchFcltList = async function(){
-		let ccCode = SBUxMethod.get("srch-inp-itemCd1");//전문품목
-		let iiCode = SBUxMethod.get("srch-inp-apcCd2");//통합조직
+		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");//
+		let bzobRgno = SBUxMethod.get("srch-inp-bzobRgno");//
 		//let apcCd = SBUxMethod.get("inp-apcCd");
-    	//let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerInfoReg.do", {apcCd : apcCd});
+    	//let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerInfo.do", {apcCd : apcCd});
     	let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerInfoRegList.do", {
-    		ccCode : ccCode
-    		,iiCode : iiCode
+    		 frmerSn : frmerSn
+    		,bzobRgno : bzobRgno
 		});
         let data = await postJsonPromise;
         try{
@@ -459,21 +451,21 @@
 
 			let rowData = grdFarmerInfoReg.getRowData(i);
 			let rowSts = grdFarmerInfoReg.getRowStatus(i);
-			let bb = rowData.bb;
-			let aa = rowData.aa;
+			let frmerSn = rowData.bb;
+			let bzobRgno = rowData.aa;
 			let delYn = rowData.delYn;
 
 			if(delYn == 'N'){
 
-				if (gfn_isEmpty(aa)) {
-		  			gfn_comAlert("W0002", "설비명");		//	W0002	{0}을/를 입력하세요.
+				if (gfn_isEmpty(frmerSn)) {
+		  			gfn_comAlert("W0002", "농업인 번호");		//	W0002	{0}을/를 입력하세요.
 		            return;
 		  		}
 
-				/* if (gfn_isEmpty(bb)) {
-		  			gfn_comAlert("W0001", "설비구분");		//	W0001	{0}을/를 선택하세요.
+				if (gfn_isEmpty(bzobRgno)) {
+		  			gfn_comAlert("W0001", "경영체 등록번호");		//	W0001	{0}을/를 선택하세요.
 		            return;
-		  		} */
+		  		}
 
 				if (rowSts === 3){
 					rowData.rowSts = "I";

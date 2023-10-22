@@ -23,14 +23,14 @@ import com.at.apcss.fm.dashboard.service.DashboardService;
 import com.at.apcss.fm.dashboard.vo.DashboardVO;
 import com.at.apcss.fm.fclt.service.FcltOperInfoClctAgreInfoService;
 import com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO;
-import com.at.apcss.fm.farm.service.farmerInfoRegService;
-import com.at.apcss.fm.farm.vo.farmerInfoRegVO;
+import com.at.apcss.fm.farm.service.FarmerInfoRegService;
+import com.at.apcss.fm.farm.vo.FarmerInfoRegVO;
 
 @Controller
-public class farmerInfoRegController extends BaseController{
+public class FarmerInfoRegController extends BaseController{
 
 	@Resource(name= "farmerInfoRegService")
-	private farmerInfoRegService farmerInfoRegService;
+	private FarmerInfoRegService farmerInfoRegService;
 
 //화면이동
 	@RequestMapping(value = "/fm/farm/farmerInfoReg.do")
@@ -40,9 +40,9 @@ public class farmerInfoRegController extends BaseController{
 
 // 조회
 		@PostMapping(value = "/fm/farm/selectfarmerInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> selectfarmerInfoRegList(Model model, @RequestBody farmerInfoRegVO farmerInfoRegVO, HttpServletRequest request) throws Exception{
+		public ResponseEntity<HashMap<String, Object>> selectfarmerInfoRegList(Model model, @RequestBody FarmerInfoRegVO farmerInfoRegVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-			List<farmerInfoRegVO> resultList = new ArrayList<>();
+			List<FarmerInfoRegVO> resultList = new ArrayList<>();
 			try {
 				 resultList = farmerInfoRegService.selectfarmerInfoRegList(farmerInfoRegVO);
 			} catch (Exception e) {
@@ -57,7 +57,7 @@ public class farmerInfoRegController extends BaseController{
 
 		//등록
 		@PostMapping(value = "/fm/farm/insertfarmerInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertfarmerInfoReg(@RequestBody farmerInfoRegVO farmerInfoRegVO, HttpServletRequest requset) throws Exception{
+		public ResponseEntity<HashMap<String, Object>> insertfarmerInfoReg(@RequestBody FarmerInfoRegVO farmerInfoRegVO, HttpServletRequest requset) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			// validation check
@@ -84,13 +84,13 @@ public class farmerInfoRegController extends BaseController{
 
 
 		@PostMapping(value = "/fm/farm/multiSavefarmerInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSavefarmerInfoRegList(@RequestBody List<farmerInfoRegVO> farmerInfoRegVOList, HttpServletRequest request) throws Exception {
+		public ResponseEntity<HashMap<String, Object>> multiSavefarmerInfoRegList(@RequestBody List<FarmerInfoRegVO> farmerInfoRegVOList, HttpServletRequest request) throws Exception {
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			int savedCnt = 0;
 			try {
-				for (farmerInfoRegVO farmerInfoRegVO : farmerInfoRegVOList) {
+				for (FarmerInfoRegVO farmerInfoRegVO : farmerInfoRegVOList) {
 					farmerInfoRegVO.setSysFrstInptPrgrmId(getPrgrmId());
 					farmerInfoRegVO.setSysFrstInptUserId(getUserId());
 					farmerInfoRegVO.setSysLastChgPrgrmId(getPrgrmId());
@@ -107,7 +107,7 @@ public class farmerInfoRegController extends BaseController{
 		}
 
 		@PostMapping(value = "/fm/farm/deletefarmerInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deletefarmerInfoReg(@RequestBody farmerInfoRegVO farmerInfoRegVO, HttpServletRequest request) throws Exception {
+		public ResponseEntity<HashMap<String, Object>> deletefarmerInfoReg(@RequestBody FarmerInfoRegVO farmerInfoRegVO, HttpServletRequest request) throws Exception {
 			logger.debug("/fm/farm/deletefarmerInfoReg >>> 호출 >>> ");
 
 			int result = 0;

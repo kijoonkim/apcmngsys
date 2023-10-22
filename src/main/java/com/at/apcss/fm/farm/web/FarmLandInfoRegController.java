@@ -23,14 +23,14 @@ import com.at.apcss.fm.dashboard.service.DashboardService;
 import com.at.apcss.fm.dashboard.vo.DashboardVO;
 import com.at.apcss.fm.fclt.service.FcltOperInfoClctAgreInfoService;
 import com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO;
-import com.at.apcss.fm.farm.service.farmLandInfoRegService;
-import com.at.apcss.fm.farm.vo.farmLandInfoRegVO;
+import com.at.apcss.fm.farm.service.FarmLandInfoRegService;
+import com.at.apcss.fm.farm.vo.FarmLandInfoRegVO;
 
 @Controller
-public class farmLandInfoRegController extends BaseController{
+public class FarmLandInfoRegController extends BaseController{
 
 	@Resource(name= "farmLandInfoRegService")
-	private farmLandInfoRegService farmLandInfoRegService;
+	private FarmLandInfoRegService farmLandInfoRegService;
 
 //화면이동
 	@RequestMapping(value = "/fm/farm/farmLandInfoReg.do")
@@ -40,9 +40,9 @@ public class farmLandInfoRegController extends BaseController{
 
 // 조회
 		@PostMapping(value = "/fm/farm/selectfarmLandInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> selectfarmLandInfoRegList(Model model, @RequestBody farmLandInfoRegVO farmLandInfoRegVO, HttpServletRequest request) throws Exception{
+		public ResponseEntity<HashMap<String, Object>> selectfarmLandInfoRegList(Model model, @RequestBody FarmLandInfoRegVO farmLandInfoRegVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
-			List<farmLandInfoRegVO> resultList = new ArrayList<>();
+			List<FarmLandInfoRegVO> resultList = new ArrayList<>();
 			try {
 				 resultList = farmLandInfoRegService.selectfarmLandInfoRegList(farmLandInfoRegVO);
 			} catch (Exception e) {
@@ -57,7 +57,7 @@ public class farmLandInfoRegController extends BaseController{
 
 		//등록
 		@PostMapping(value = "/fm/farm/insertfarmLandInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertfarmLandInfoReg(@RequestBody farmLandInfoRegVO farmLandInfoRegVO, HttpServletRequest requset) throws Exception{
+		public ResponseEntity<HashMap<String, Object>> insertfarmLandInfoReg(@RequestBody FarmLandInfoRegVO farmLandInfoRegVO, HttpServletRequest requset) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			// validation check
@@ -84,13 +84,13 @@ public class farmLandInfoRegController extends BaseController{
 
 
 		@PostMapping(value = "/fm/farm/multiSavefarmLandInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSavefarmLandInfoRegList(@RequestBody List<farmLandInfoRegVO> farmLandInfoRegVOList, HttpServletRequest request) throws Exception {
+		public ResponseEntity<HashMap<String, Object>> multiSavefarmLandInfoRegList(@RequestBody List<FarmLandInfoRegVO> farmLandInfoRegVOList, HttpServletRequest request) throws Exception {
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			int savedCnt = 0;
 			try {
-				for (farmLandInfoRegVO farmLandInfoRegVO : farmLandInfoRegVOList) {
+				for (FarmLandInfoRegVO farmLandInfoRegVO : farmLandInfoRegVOList) {
 					farmLandInfoRegVO.setSysFrstInptPrgrmId(getPrgrmId());
 					farmLandInfoRegVO.setSysFrstInptUserId(getUserId());
 					farmLandInfoRegVO.setSysLastChgPrgrmId(getPrgrmId());
@@ -107,7 +107,7 @@ public class farmLandInfoRegController extends BaseController{
 		}
 
 		@PostMapping(value = "/fm/farm/deletefarmLandInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deletefarmLandInfoReg(@RequestBody farmLandInfoRegVO farmLandInfoRegVO, HttpServletRequest request) throws Exception {
+		public ResponseEntity<HashMap<String, Object>> deletefarmLandInfoReg(@RequestBody FarmLandInfoRegVO farmLandInfoRegVO, HttpServletRequest request) throws Exception {
 			logger.debug("/fm/farm/deletefarmLandInfoReg >>> 호출 >>> ");
 
 			int result = 0;

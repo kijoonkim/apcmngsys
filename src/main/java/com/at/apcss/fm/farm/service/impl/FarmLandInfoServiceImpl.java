@@ -9,9 +9,9 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.fm.bbs.mapper.BbsMapper;
 import com.at.apcss.fm.bbs.service.BbsService;
 import com.at.apcss.fm.bbs.vo.BbsVO;
-import com.at.apcss.fm.farm.mapper.farmLandInfoMapper;
-import com.at.apcss.fm.farm.service.farmLandInfoService;
-import com.at.apcss.fm.farm.vo.farmLandInfoVO;
+import com.at.apcss.fm.farm.mapper.FarmLandInfoMapper;
+import com.at.apcss.fm.farm.service.FarmLandInfoService;
+import com.at.apcss.fm.farm.vo.FarmLandInfoVO;
 
 
 /**
@@ -30,28 +30,28 @@ import com.at.apcss.fm.farm.vo.farmLandInfoVO;
  * </pre>
  */
 @Service("farmLandInfoService")
-public class farmLandInfoServiceImpl implements farmLandInfoService{
+public class FarmLandInfoServiceImpl implements FarmLandInfoService{
 
 	@Autowired
-	private farmLandInfoMapper farmLandInfoMapper;
+	private FarmLandInfoMapper farmLandInfoMapper;
 
 	@Override
-	public farmLandInfoVO selectfarmLandInfo(farmLandInfoVO farmLandInfoVO) throws Exception {
+	public FarmLandInfoVO selectfarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception {
 
-		farmLandInfoVO resultVO = farmLandInfoMapper.selectfarmLandInfo(farmLandInfoVO);
+		FarmLandInfoVO resultVO = farmLandInfoMapper.selectfarmLandInfo(farmLandInfoVO);
 
 		return resultVO;
 	}
 
 	@Override
-	public List<farmLandInfoVO> selectfarmLandInfoList(farmLandInfoVO farmLandInfoVO) throws Exception {
+	public List<FarmLandInfoVO> selectfarmLandInfoList(FarmLandInfoVO farmLandInfoVO) throws Exception {
 
-		List<farmLandInfoVO> resultList = farmLandInfoMapper.selectfarmLandInfoList(farmLandInfoVO);
+		List<FarmLandInfoVO> resultList = farmLandInfoMapper.selectfarmLandInfoList(farmLandInfoVO);
 		return resultList;
 	}
 
 	@Override
-	public int insertfarmLandInfo(farmLandInfoVO farmLandInfoVO) throws Exception {
+	public int insertfarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception {
 
 		int insertedCnt = farmLandInfoMapper.insertfarmLandInfo(farmLandInfoVO);
 
@@ -59,7 +59,7 @@ public class farmLandInfoServiceImpl implements farmLandInfoService{
 	}
 
 	@Override
-	public int updatefarmLandInfo(farmLandInfoVO farmLandInfoVO) throws Exception {
+	public int updatefarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception {
 
 		int updatedCnt = farmLandInfoMapper.updatefarmLandInfo(farmLandInfoVO);
 
@@ -67,9 +67,9 @@ public class farmLandInfoServiceImpl implements farmLandInfoService{
 	}
 
 	@Override
-	public int multiSavefarmLandInfoList(List<farmLandInfoVO> farmLandInfoVOList) throws Exception {
+	public int multiSavefarmLandInfoList(List<FarmLandInfoVO> farmLandInfoVOList) throws Exception {
 		int savedCnt = 0;
-		for (farmLandInfoVO farmLandInfoVO : farmLandInfoVOList) {
+		for (FarmLandInfoVO farmLandInfoVO : farmLandInfoVOList) {
 			if(ComConstants.ROW_STS_INSERT.equals(farmLandInfoVO.getRowSts())) {
 				savedCnt += insertfarmLandInfo(farmLandInfoVO);
 			}
@@ -81,7 +81,7 @@ public class farmLandInfoServiceImpl implements farmLandInfoService{
 	}
 
 	@Override
-	public int deletefarmLandInfo(farmLandInfoVO farmLandInfoVO) throws Exception {
+	public int deletefarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception {
 		return farmLandInfoMapper.deletefarmLandInfo(farmLandInfoVO);
 	}
 
