@@ -205,7 +205,7 @@
 							<td></td>
 							<th scope="row" >선별지시번호선택</th>
 							<td class="td_input">
-								<sbux-input id="srch-inp-sortCmndno" name="srch-inp-SortCmndno" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-sortCmndno" name="srch-inp-sortCmndno" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button id="btnSrchSortCmndno" name="btnSrchSortCmndno" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-sortCmndno" onclick="fn_modalSortCmndno" text="찾기"></sbux-button>
@@ -213,11 +213,27 @@
 							<td></td>
 						</tr>
 						<tr>
+							<th scope="row" >원물재고선택</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-rawMtrInvntr" name="srch-inp-rawMtrInvntr" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchRawMtrInvntr" name="btnSrchRawMtrInvntr" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-rawMtrInvntr" onclick="fn_modalRawMtrInvntr" text="찾기"></sbux-button>
+							</td>
+							<td></td>
+							<th scope="row" >상품재고선택</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-gdsInvntr" name="srch-inp-gdsInvntr" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchGdsInvntr" name="btnSrchGdsInvntr" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-gdsInvntr" onclick="fn_modalGdsInvntr" text="찾기"></sbux-button>
+							</td>
+							<td></td>
 							<th scope="row" >입고일자</th>
 							<td class="td_input">
 								<sbux-datepicker id="srch-dtp-trsprtYmd" name="srch-dtp-trsprtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td colspan="10"></td>
+							<td colspan="2"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -343,6 +359,22 @@
     </div>
     <div id="body-modal-sortCmndno">
     	<jsp:include page="../../am/popup/sortCmndnoPopup.jsp"></jsp:include>
+    </div>
+    
+    <!-- 원물재고 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-rawMtrInvntr" name="modal-rawMtrInvntr" uitype="middle" header-title="원물재고 선택" body-html-id="body-modal-rawMtrInvntr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-rawMtrInvntr">
+    	<jsp:include page="../../am/popup/rawMtrInvntrPopup.jsp"></jsp:include>
+    </div>
+    
+    <!-- 상품재고 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-gdsInvntr" name="modal-gdsInvntr" uitype="middle" header-title="상품재고 선택" body-html-id="body-modal-gdsInvntr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-gdsInvntr">
+    	<jsp:include page="../../am/popup/gdsInvntrPopup.jsp"></jsp:include>
     </div>
 
 <script type="text/javascript">
@@ -719,7 +751,49 @@
 	 */
 	 const fn_setSortCmndno = function(sortCmndno) {
 		if (!gfn_isEmpty(sortCmndno)) {
-			SBUxMethod.set('srch-inp-SortCmndno', sortCmndno.sortCmndno);
+			SBUxMethod.set('srch-inp-sortCmndno', sortCmndno.sortCmndno);
+		}
+	}
+	/* End */
+	
+	/* 원물재고 선택 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_modalRawMtrInvntr
+	 * @description 원물재고선택팝업 호출
+	 */
+	 const fn_modalRawMtrInvntr = function() {
+		 popRawMtrInvntr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setRawMtrInvntr);
+	}
+
+	/**
+	 * @name fn_setRawMtrInvntr
+	 * @description 원물재고 선택 callback
+	 */
+	 const fn_setRawMtrInvntr = function(rawMtrInvntr) {
+		if (!gfn_isEmpty(rawMtrInvntr)) {
+			SBUxMethod.set('srch-inp-rawMtrInvntr', rawMtrInvntr.pltno);
+		}
+	}
+	/* End */
+	
+	/* 상품재고 선택 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_modalGdsInvntr
+	 * @description 상품재고선택팝업 호출
+	 */
+	 const fn_modalGdsInvntr = function() {
+		 popGdsInvntr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setGdsInvntr);
+	}
+
+	/**
+	 * @name fn_setGdsInvntr
+	 * @description 상품재고 선택 callback
+	 */
+	 const fn_setGdsInvntr = function(gdsInvntr) {
+		if (!gfn_isEmpty(gdsInvntr)) {
+			SBUxMethod.set('srch-inp-gdsInvntr', gdsInvntr.pckgno);
 		}
 	}
 	/* End */
@@ -728,7 +802,6 @@
 	/* Start */
 	var pltBxData = null;
 	/* End */
-
 
 	/* 원물입고 팔레트/박스 입고등록팝업 호출 필수 function  */
 	/* Start */
