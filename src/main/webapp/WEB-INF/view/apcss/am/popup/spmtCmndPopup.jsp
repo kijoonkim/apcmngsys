@@ -252,7 +252,6 @@
 							  , rmrk			: item.rmrk
 							  , itemCd			: item.itemCd
 							  , outordrno		: item.outordrno
-							  , wght			: item.wght
 						}
 						jsonSpmtCmndPop.push(spmtCmnd);
 		    		}
