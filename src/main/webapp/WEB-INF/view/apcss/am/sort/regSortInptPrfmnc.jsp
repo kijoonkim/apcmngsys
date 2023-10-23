@@ -1397,7 +1397,7 @@
 				typeinfo : {ref:'jsonExpSltGdsSeCd', 	displayui : false,	itemcount: 10, label:'cdVlNm', value:'cdVl'}},
 	        {caption: ["운송구분"], 	ref: 'trsprtSeCd',   	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonExpSltTrsprtSeCd', 	displayui : false,	itemcount: 10, label:'cdVlNm', value:'cdVl'}},
-	        {caption: ["보관창고"],		ref: 'warehouseSeCd',	type:'combo',  width:'80px',    style:'text-align:center',
+	        {caption: ["창고"],		ref: 'warehouseSeCd',	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonExpSltWarehouseSeCd', 	displayui : false,	itemcount: 10, label:'warehouseSeNm', value:'warehouseSeCd'}},
 	        {caption: ["박스"],		ref: 'pltBxCd ',	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonExpSltBxKnd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
@@ -1635,8 +1635,8 @@
 		        id: "grdExpWarehouseSeCd",
 		        jsonref: "jsonExpWarehouseSeCd",
 				columns: [
-			    	{caption: ["창고코드"],   	ref: 'warehouseSeCd',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["창고코드명"],  	ref: 'warehouseSeNm',  	type:'output',  width:'100px',    style:'text-align:center'}
+			    	{caption: ["창고코드"],   	ref: 'value',  	type:'output',  width:'100px',    style:'text-align:center'},
+			    	{caption: ["창고코드명"],  	ref: 'text',  	type:'output',  width:'100px',    style:'text-align:center'}
 				],
 		        sheetName: "창고",
 		        title: "",
