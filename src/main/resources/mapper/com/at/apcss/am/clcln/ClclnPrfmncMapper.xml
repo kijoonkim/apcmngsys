@@ -52,6 +52,7 @@
 	    	SELECT 
 	    		   CP.APC_CD		AS APC_CD
 	    		 , CP.CLCLN_YMD		AS CLCLN_YMD
+	    		 , CP.CLCLN_SN		AS CLCLN_SN
 	    		 , CP.CLCLN_CRTR_CD	AS CLCLN_CRTR_CD
 	    		 , CP.PRDCR_CD		AS PRDCR_CD
 	    		 , PI.PRDCR_NM		AS PRDCR_NM
@@ -63,8 +64,9 @@
 	    		 , CP.GDS_SE_CD		AS GDS_SE_CD
 	    		 , CP.QNTT			AS QNTT
 	    		 , CP.WGHT			AS WGHT
-	    		 , CP.RKNG_AMT				AS RKNG_AMT
-	    		 , CP.CFMTN_AMT				AS CFMTN_AMT
+	    		 , CP.RKNG_AMT		AS RKNG_AMT
+	    		 , CP.CFMTN_AMT		AS CFMTN_AMT
+	    		 , CP.CFMTN_YN 		AS CFMTN_YN
 	    		 --, SUM(CP.QNTT)	OVER()		AS TOT_QNTT
 	    		 --, SUM(CP.WGHT)	OVER()		AS TOT_WGHT
 	    		 --, SUM(CP.RKNG_AMT)	OVER()	AS TOT_RKNG_AMT
@@ -188,6 +190,33 @@
     	]]>
     </insert>
 
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper.insertSpClclnPrfmncCrt-->
+	<!-- DESC : 정산실적 생성.	                         	             	 			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.18  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertSpClclnPrfmncCrt" statementType="CALLABLE" parameterType="com.at.apcss.am.clcln.vo.ClclnPrfmncVO">
+    	<![CDATA[
+			{call /* com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper.insertSpClclnPrfmncCrt */
+				SP_CLCLN_PRFMNC_CRT (
+					  #{sysLastChgUserId}
+	   		  		, #{sysLastChgPrgrmId}
+					, #{apcCd}
+					, #{clclnYmd}
+					, #{prfmncYmdFrom}
+					, #{prfmncYmdTo}
+					, #{clclnCrtrCd}
+					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+				)
+			}
+		]]>
+    </insert>
+
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper.updateClclnPrfmnc	-->
 	<!-- DESC : 정산정보조회 목록 수정.	                         	             	 	-->
@@ -198,31 +227,16 @@
 	<!-- ==========================================================================	-->
 	<update id="updateClclnPrfmnc" parameterType="com.at.apcss.am.clcln.vo.ClclnPrfmncVO">
 		<![CDATA[
-		UPDATE TB_CLCLN_PRFMNC
-		   SET SYS_LAST_CHG_DT 			= SYSDATE
-    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
-    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-    		 , PRDCR_CD 				= #{prdcrCd}
-    		 , PRDCR_NM 				= #{prdcrNm}
-    		 , WRHS_SE_CD 				= #{wrhsSeCd}
-    		 , GDS_SE_CD 				= #{gdsSeCd}
-    		 , QNTT 					= #{qntt}
-    		 , WGHT 					= #{wght}
-    		 , ITEM_CD 					= #{itemCd}
-    		 , VRTY_CD 					= #{vrtyCd}
-    		 , SPCFCT_CD 				= #{spcfctCd}
-    		 , GRD_1 					= #{grd1}
-    		 , GRD_2 					= #{grd2}
-    		 , GRD_3 					= #{grd3}
-    		 , GRD_4 					= #{grd4}
-    		 , GRD_5 					= #{grd5}
-    		 , RKNG_AMT 				= #{rkngAmt}
-    		 , CFMTN_AMT 				= #{cfmtnAmt}
-    		 , CFMTN_YN 				= #{cfmtnYn}
-    		 , DEL_YN					= #{delYn}
-		 WHERE APC_CD 					= #{apcCd}
-		   AND CLCLN_YMD 				= #{clclnYmd}
-		   AND CLCLN_SN 				= #{clclnSn}
+			UPDATE /* com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper.updateClclnPrfmnc */
+				TB_CLCLN_PRFMNC
+			   SET SYS_LAST_CHG_DT 			= SYSDATE
+	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    		 , CFMTN_AMT 				= #{cfmtnAmt}
+	    		 , CFMTN_YN 				= #{cfmtnYn}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND CLCLN_YMD 				= #{clclnYmd}
+			   AND CLCLN_SN 				= #{clclnSn}
 		]]>
 	</update>
 
