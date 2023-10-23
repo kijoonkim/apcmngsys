@@ -1379,7 +1379,7 @@
 // 		jsonExpSltGdsSeCd = gfn_cloneJson(jsonComGdsSeCd);
 		// 운송구분
 // 		jsonExpSltTrsprtSeCd = gfn_cloneJson(jsonComTrsprtSeCd);
-		// 보관창고
+// 		보관창고
 // 		jsonExpSltWarehouseSeCd = gfn_cloneJson(jsonComWarehouse);
 		// 박스
 // 		jsonExpSltBxKnd = gfn_cloneJson(jsonApcBx);
@@ -1394,9 +1394,9 @@
 // 		jsonExpWrhsSeCd = gfn_cloneJson(jsonComWrhsSeCd);
 // 		jsonExpGdsSeCd = gfn_cloneJson(jsonComGdsSeCd);
 // 		jsonExpTrsprtSeCd = gfn_cloneJson(jsonComTrsprtSeCd);
-// 		jsonExpWarehouseSeCd = gfn_cloneJson(jsonComWarehouse);
+		jsonExpWarehouseSeCd = gfn_cloneJson(jsonComWarehouse);
 // 		jsonExpBxKnd = gfn_cloneJson(jsonApcBx);
-// 		jsonExpStdGrd = gfn_cloneJson(gjsonStdGrdObjKnd);
+		jsonExpStdGrd = gfn_cloneJson(gjsonStdGrdObjKnd);
 // 		jsonExpStdGrdDtl = gfn_cloneJson(gjsonStdGrdObjDtl);
 		jsonExpSpcfct = gfn_cloneJson(jsonApcSpcfct);                                                
 		jsonExpPckgFclt = gfn_cloneJson(jsonComPckgFclt);
@@ -1540,15 +1540,15 @@
 		        title: "",
 		        unit: ""
 		    },{
-		        sbGrid: grdExpSpmtPckgUnit,
-		        parentid: "sbexp-area-grdExpSpmtPckgUnit",
-		        id: "grdExpSpmtPckgUnit",
-		        jsonref: "jsonExpSpmtPckgUnit",
+		        sbGrid: grdExpWarehouseSeCd,
+		        parentid: "sbexp-area-grdExpWarehouseSeCd",
+		        id: "grdExpWarehouseSeCd",
+		        jsonref: "jsonExpWarehouseSeCd",
 				columns: [
-			    	{caption: ["포장규격코드"],   	ref: 'spmtPckgUnitCd',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["포장규격코드명"],    	ref: 'spmtPckgUnitNm',  	type:'output',  width:'100px',    style:'text-align:center'}
+			    	{caption: ["창고코드"],   	ref: 'cdVl',  	type:'output',  width:'100px',    style:'text-align:center'},
+			    	{caption: ["창고코드명"],  	ref: 'cdVlNm',  	type:'output',  width:'100px',    style:'text-align:center'}
 				],
-		        sheetName: "포장규격",
+		        sheetName: "창고",
 		        title: "",
 		        unit: ""
 		    }
