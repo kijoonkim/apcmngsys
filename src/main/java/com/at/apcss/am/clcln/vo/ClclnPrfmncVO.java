@@ -147,4 +147,11 @@ public class ClclnPrfmncVO extends ComVO {
 	 * 확정금액합계
 	 */
 	private double totCfmtnAmt;
+	
+	private String prfmncYmdFrom;
+	private String prfmncYmdTo;
+	
+	private String rtnCd;
+	
+	private String rtnMsg;
 }

@@ -48,6 +48,13 @@ public interface ClclnPrfmncMapper {
 	public int insertClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
 	
 	/**
+	 * 정산실적 생성 (Call procedure)
+	 * @param clclnPrfmncVO
+	 * @throws Exception
+	 */
+	public void insertSpClclnPrfmncCrt(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
+	
+	/**
 	 * 정산실적 수정
 	 * @param clclnPrfmncVO
 	 * @return

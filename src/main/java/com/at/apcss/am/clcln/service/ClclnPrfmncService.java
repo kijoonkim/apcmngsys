@@ -1,5 +1,6 @@
 package com.at.apcss.am.clcln.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.clcln.vo.ClclnPrfmncVO;
@@ -42,7 +43,15 @@ public interface ClclnPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
+	public HashMap<String, Object> insertClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
+	
+	/**
+	 * 정산실적 등록
+	 * @param clclnPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertClclnPrfmncCrt(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
 	
 	/**
 	 * 정산실적 수정
@@ -50,7 +59,16 @@ public interface ClclnPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
+	public HashMap<String, Object> updateClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
+	
+	/**
+	 * 정산실적 수정
+	 * @param clclnPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateClclnPrfmncList(List<ClclnPrfmncVO> clclnPrfmncList) throws Exception;
+	
 	
 	/**
 	 * 정산실적 삭제
