@@ -348,7 +348,7 @@
 				type:'input',
 				width:'100px',
 				style: 'text-align:right;background-color:#FFF8DC',
-				userattr: {colNm: "sortQntt"},
+				userattr: {colNm: "cfmtnAmt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
 	                maxlength: 14,
@@ -361,6 +361,7 @@
             	typeinfo: {ref:'jsonCfmtnYn', label: 'label', value: 'value', oneclickedit: true, displayui : false}
             },
             {caption: [""], ref: '_', type:'output', width:'1px'},
+            {caption: ["정산순번"], ref: 'clclnSn', type:'output', hidden: true},
             {caption: ["생산자코드"], ref: 'prdcrCd', type:'output', hidden: true},
             {caption: ["정산기준코드"], ref: 'clclnCrtrCd', type:'output', hidden: true},
             {caption: ["입고구분코드"], ref: 'wrhsSeCd', type:'output', hidden: true},
@@ -386,36 +387,19 @@
 
 		const usrAttr = grdClclnPrfmnc.getColUserAttr(nCol);
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
-			/*
+
 			const rowData = grdClclnPrfmnc.getRowData(nRow, false);	// deep copy
 
 			switch (usrAttr.colNm) {
-				case "sortQntt":
-					let spcfctWght = parseInt(rowData.spcfctWght) || 0;
-
-					const wght = rowData.sortQntt * spcfctWght;
-					rowData.sortWght = wght;
-
-					grdSortPrfmnc.refresh();
-
-					let inptWght = parseInt(SBUxMethod.get("dtl-inp-inptWght")) || 0;
-					let sortWght = 0;
-					const allSortData = grdSortPrfmnc.getGridDataAll();
-					allSortData.forEach((item, index) => {
-						if (!gfn_isEmpty(item.inptYmd)) {
-							sortWght += parseInt(item.sortWght) || 0;
-						}
-					});
-
-					SBUxMethod.set("dtl-inp-sortWght", sortWght);
-					let actlWght = parseInt(SBUxMethod.get("dtl-inp-actlWght")) || 0;
-					SBUxMethod.set("dtl-inp-lossWght", actlWght - sortWght);
+				case "cfmtnAmt":
+				case "cfmtnYn":
+					rowData.checkedYn = "Y";
+					grdClclnPrfmnc.refresh();
 					break;
 
 				default:
 					return;
 			}
-			*/
 		}
 	}
 
@@ -459,6 +443,48 @@
      * @description 저장 버튼
      */
     const fn_save = async function() {
+    	
+		const allData = grdClclnPrfmnc.getGridDataAll();
+
+		const clclnPrfmncList = [];
+		
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+				
+				clclnPrfmncList.push({
+					apcCd: item.apcCd,
+					clclnYmd: item.clclnYmd,
+					clclnSn: item.clclnSn,
+					cfmtnAmt: item.cfmtnAmt,
+					cfmtnYn: item.cfmtnYn
+    			});
+    		}
+		});
+
+		if (clclnPrfmncList.length == 0) {
+			gfn_comAlert("W0005", "변경대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+
+		// comConfirm
+		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+
+		console.log(clclnPrfmncList);
+    	const postJsonPromise = gfn_postJSON("/am/clcln/updateClclnPrfmncList.do", clclnPrfmncList);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
 
     }
 
@@ -511,6 +537,7 @@
           		const clclnPrfmnc = {
   						apcCd: item.apcCd,
   						clclnYmd: item.clclnYmd,
+  						clclnSn: item.clclnSn,
   						clclnCrtrCd: item.clclnCrtrCd,
   						prdcrCd: item.prdcrCd,
   						prdcrNm: item.prdcrNm,
@@ -523,6 +550,7 @@
   						wght: item.wght,
   						rkngAmt: item.rkngAmt,
   						cfmtnAmt: item.cfmtnAmt,
+  						cfmtnYn: item.cfmtnYn,
   						itemNm: item.itemNm,
   						vrtyNm: item.vrtyNm,
   						spcfctNm: item.spcfctNm,
@@ -558,10 +586,36 @@
      * @function
 	 */
 	const fn_insertClclnData = async function() {
-		srch-dtp-clclnYmd
 		
-	}
+		let clclnYmd = SBUxMethod.get("srch-dtp-clclnYmd");
+		let clclnCrtrCd = SBUxMethod.get("srch-slt-clclnCrtrCd")
+		
+		
+		if(gfn_isEmpty(clclnYmd)){
+			gfn_comAlert("W0002", "정산일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
 
+		const postJsonPromise = gfn_postJSON("/am/clcln/insertClclnPrfmncCrt.do", {
+			apcCd			: gv_selectedApcCd,
+			clclnYmd		: clclnYmd,
+			prfmncYmdFrom	: clclnYmd,
+			prfmncYmdTo		: clclnYmd,
+			clclnCrtrCd		: clclnCrtrCd
+  		});
+		const data = await postJsonPromise;
+
+		try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+	}
 
 
  	/**

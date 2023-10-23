@@ -12,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.at.apcss.am.clcln.service.ClclnPrfmncService;
 import com.at.apcss.am.clcln.vo.ClclnPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -43,12 +41,12 @@ public class ClclnPrfmncController extends BaseController {
 
 	// 정산실적 조회
 	@PostMapping(value = "/am/clcln/selectClclnPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectClclnPrfmncList(@RequestBody ClclnPrfmncVO ClclnPrfmncVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectClclnPrfmncList(@RequestBody ClclnPrfmncVO clclnPrfmncVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<ClclnPrfmncVO> resultList = new ArrayList<>();
 		try {
-			resultList = clclnPrfmncService.selectClclnPrfmncList(ClclnPrfmncVO);
+			resultList = clclnPrfmncService.selectClclnPrfmncList(clclnPrfmncVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -60,6 +58,59 @@ public class ClclnPrfmncController extends BaseController {
 	
 	
 	
+	// 정산실적 생성
+	@PostMapping(value = "/am/clcln/insertClclnPrfmncCrt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertClclnPrfmnc(@RequestBody ClclnPrfmncVO clclnPrfmncVO, HttpServletRequest request) throws Exception {
+		logger.debug("insertApcCmnsItem 호출 <><><><> ");
 
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			clclnPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+			clclnPrfmncVO.setSysFrstInptUserId(getUserId());
+			clclnPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+			clclnPrfmncVO.setSysLastChgUserId(getUserId());
+			HashMap<String, Object> rtnObj = clclnPrfmncService.insertClclnPrfmncCrt(clclnPrfmncVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	// 정산실적 생성
+	@PostMapping(value = "/am/clcln/updateClclnPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateClclnPrfmncList(@RequestBody List<ClclnPrfmncVO> clclnPrfmncList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			
+			for ( ClclnPrfmncVO clcln : clclnPrfmncList ) {
+				clcln.setSysFrstInptPrgrmId(getPrgrmId());
+				clcln.setSysFrstInptUserId(getUserId());
+				clcln.setSysLastChgPrgrmId(getPrgrmId());
+				clcln.setSysLastChgUserId(getUserId());
+			}
+			
+			HashMap<String, Object> rtnObj = clclnPrfmncService.updateClclnPrfmncList(clclnPrfmncList);
+			
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 }
 
