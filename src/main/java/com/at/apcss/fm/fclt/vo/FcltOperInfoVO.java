@@ -30,15 +30,21 @@ public class FcltOperInfoVO extends ComVO{
 	private String operOgnzDeptCd;
     private String operOgnzDeptNm;
     private String operOgnzTrmtItemCd;
+    private String operOgnzTrmtItemCd2;
+    private String operOgnzTrmtItemCd3;
+    private String operOgnzTrmtItemCd4;
+    private String operOgnzTrmtItemCn;
     private String operOgnzTrmtItemCn2;
     private String operOgnzTrmtItemCn3;
     private String operOgnzTrmtItemCn4;
-    private String operOgnzTrmtItemCn;
     private String apcTrmtItemCd;
+    private String apcTrmtItemCd2;
+    private String apcTrmtItemCd3;
+    private String apcTrmtItemCd4;
+    private String apcTrmtItemCn;
     private String apcTrmtItemCn2;
     private String apcTrmtItemCn3;
     private String apcTrmtItemCn4;
-    private String apcTrmtItemCn;
 
 }
 

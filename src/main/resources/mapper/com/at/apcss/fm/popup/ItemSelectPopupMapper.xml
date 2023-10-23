@@ -37,6 +37,7 @@
 			     , IC.ITEM_NM
 			  FROM TB_ITEM_CRTR IC
 			 WHERE IC.DEL_YN = 'N'
+			   AND ITEM_NM != '기타'
 		]]>
 
 		<if test='itemNm != null and itemNm != ""'>

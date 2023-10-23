@@ -107,6 +107,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<!--
     <insert id="insertFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.insertFcltPrcsNtslInfo */
@@ -154,6 +155,74 @@
 	   			)
     	]]>
     </insert>
+     -->
+
+     <update id="insertFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
+     	MERGE INTO TB_FCLT_PRCS_NTSL_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.insertFcltPrcsNtslInfo */
+		USING DUAL
+		ON (
+			FCLT.TRGT_YR = #{trgtYr}
+			AND FCLT.APC_CD = #{apcCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				  FCLT_STR_CD    = #{fcltStrCd}
+    	        , FCLT_NTSL_CD   = #{fcltNtslCd}
+    			, FCLT_NTSL_CD2	 = #{fcltNtslCd2}
+    	        , FCLT_NTSL_CD3  = #{fcltNtslCd3}
+    	        , FCLT_NTSL_CD4  = #{fcltNtslCd4}
+    	        , FCLT_NTSL_CD5  = #{fcltNtslCd5}
+    	        , FCLT_NTSL_CD6  = #{fcltNtslCd6}
+    	        , FCLT_NTSL_CD7  = #{fcltNtslCd7}
+    	        , FCLT_NTSL_CD8  = #{fcltNtslCd8}
+    	        , FCLT_NTSL_CD9  = #{fcltNtslCd9}
+				  , SYS_LAST_CHG_DT		= SYSDATE
+	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  TRGT_YR
+	    		  , APC_CD
+	    		  , FCLT_STR_CD
+	    		  , FCLT_NTSL_CD
+	    		  , FCLT_NTSL_CD2
+				  , FCLT_NTSL_CD3
+				  , FCLT_NTSL_CD4
+				  , FCLT_NTSL_CD5
+				  , FCLT_NTSL_CD6
+				  , FCLT_NTSL_CD7
+				  , FCLT_NTSL_CD8
+				  , FCLT_NTSL_CD9
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   	VALUES
+	   		    (
+	   			  #{trgtYr}
+	   			  , #{apcCd}
+	   			  , #{fcltStrCd}
+	   			  , #{fcltNtslCd}
+	   			  , #{fcltNtslCd2}
+	   			  , #{fcltNtslCd3}
+	   			  , #{fcltNtslCd4}
+	   			  , #{fcltNtslCd5}
+	   			  , #{fcltNtslCd6}
+	   			  , #{fcltNtslCd7}
+	   			  , #{fcltNtslCd8}
+	   			  , #{fcltNtslCd9}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysLastChgUserId}
+	   			  , #{sysLastChgPrgrmId}
+		     	)
+     </update>
+
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.updateFcltPrcsNtslInfo				-->
@@ -167,10 +236,7 @@
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.updateFcltPrcsNtslInfo */
 	    		TB_FCLT_PRCS_NTSL_INFO FCLTT
-			 	  TRGT_YR        = #{trgtYr}
-			 	, APC_CD         = #{apcCd}
-			 	, SN             = #{sn}
-    	        , FCLT_STR_CD    = #{fcltStrCd}
+			 	  FCLT_STR_CD    = #{fcltStrCd}
     	        , FCLT_NTSL_CD   = #{fcltNtslCd}
     			, FCLT_NTSL_CD2	 = #{fcltNtslCd2}
     	        , FCLT_NTSL_CD3  = #{fcltNtslCd3}

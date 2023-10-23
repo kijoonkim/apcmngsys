@@ -81,43 +81,43 @@
 							<tr>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="srch-inp-opera1" name="srch-inp-opera1" uitype="normal" ></sbux-checkbox>
+										<sbux-checkbox id="srch-inp-opera1" name="srch-inp-opera1" uitype="normal"   true-value = "1" false-value = "0"></sbux-checkbox>
 										<label class="check_label" for="check_default" ></label>
 									</p>
 								</td>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="srch-inp-opera2" name="srch-inp-opera2" uitype="normal" ></sbux-checkbox>
+										<sbux-checkbox id="srch-inp-opera2" name="srch-inp-opera2" uitype="normal"   true-value = "1" false-value = "0"></sbux-checkbox>
 										<label class="check_label" for="check_default" ></label>
 									</p>
 								</td>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="srch-inp-opera3" name="srch-inp-opera3" uitype="normal" ></sbux-checkbox>
+										<sbux-checkbox id="srch-inp-opera3" name="srch-inp-opera3" uitype="normal"   true-value = "1" false-value = "0"></sbux-checkbox>
 										<label class="check_label" for="check_default" ></label>
 									</p>
 								</td>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="srch-inp-opera4" name="srch-inp-opera4" uitype="normal" ></sbux-checkbox>
+										<sbux-checkbox id="srch-inp-opera4" name="srch-inp-opera4" uitype="normal"   true-value = "1" false-value = "0"></sbux-checkbox>
 										<label class="check_label" for="check_default" ></label>
 									</p>
 								</td>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="srch-inp-opera5" name="srch-inp-opera5" uitype="normal" ></sbux-checkbox>
+										<sbux-checkbox id="srch-inp-opera5" name="srch-inp-opera5" uitype="normal"   true-value = "1" false-value = "0"></sbux-checkbox>
 										<label class="check_label" for="check_default" ></label>
 									</p>
 								</td>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="srch-inp-opera6" name="srch-inp-opera6" uitype="normal" ></sbux-checkbox>
+										<sbux-checkbox id="srch-inp-opera6" name="srch-inp-opera6" uitype="normal"   true-value = "1" false-value = "0"></sbux-checkbox>
 										<label class="check_label" for="check_default" ></label>
 									</p>
 								</td>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="srch-inp-opera7" name="srch-inp-opera7" uitype="normal" ></sbux-checkbox>
+										<sbux-checkbox id="srch-inp-opera7" name="srch-inp-opera7" uitype="normal"   true-value = "1" false-value = "0"></sbux-checkbox>
 										<label class="check_label" for="check_default" ></label>
 									</p>
 								</td>
@@ -147,10 +147,54 @@
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
-			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
+			SBUxMethod.set("srch-inp-apcCd", '0122');
+			//SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		}
+		};
+		fn_selectUniMnIfList();
 	})
+
+	/**
+     * @param {number} pageSize
+     * @param {number} pageNo
+     */
+    const fn_selectUniMnIfList = async function(pageSize, pageNo) {
+    	 console.log("******************fn_pagingUniMnIfList**********************************");
+
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltUnityMngInfoList.do", {
+			apcCd: apcCd,
+        	trgtYr: trgtYr,
+        	// pagination
+	  		pagingYn : 'N',
+			currentPageNo : pageNo,
+ 		  	recordCountPerPage : pageSize
+        });
+
+        const data = await postJsonPromise;
+		//await 오류시 확인
+		//예외처리
+        try {
+
+        	data.resultList.forEach((item, index) => {
+        		SBUxMethod.set('srch-inp-opera1',item.fcltSysHldYn);
+        		SBUxMethod.set('srch-inp-opera2',item.fcltSysHldYn2);
+        		SBUxMethod.set('srch-inp-opera3',item.fcltSysHldYn3);
+        		SBUxMethod.set('srch-inp-opera4',item.fcltSysHldYn4);
+        		SBUxMethod.set('srch-inp-opera5',item.fcltSysHldYn5);
+        		SBUxMethod.set('srch-inp-opera6',item.fcltSysHldYn6);
+        		SBUxMethod.set('srch-inp-opera7',item.fcltSysHldYn7);
+			});
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		//console.error("failed", e.message);
+        }
+    }
 
 	//등록
 	const fn_save = async function() {

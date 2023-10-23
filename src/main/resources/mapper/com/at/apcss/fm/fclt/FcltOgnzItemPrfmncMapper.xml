@@ -111,6 +111,8 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<!--
+
     <insert id="insertFcltOgnzItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzItemPrfmncVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltOgnzItemPrfmncMapper.insertFcltOgnzItemPrfmnc */
@@ -154,6 +156,68 @@
 	   			)
     	]]>
     </insert>
+     -->
+
+     <update id="insertFcltOgnzItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzItemPrfmncVO">
+     	MERGE INTO TB_FCLT_OGNZ_ITEM_PRFMNC FCLT /* com.at.apcss.fm.fclt.mapper.FcltOgnzItemPrfmncMapper.insertFcltOgnzItemPrfmnc */
+		USING DUAL
+		ON (
+			FCLT.TRGT_YR = #{trgtYr}
+			AND FCLT.APC_CD = #{apcCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				  FCLT_OGNZ_TRMT_AMT  = #{fcltOgnzTrmtAmt}
+    	        , FCLT_OGNZ_TRMT_AMT2  = #{fcltOgnzTrmtAmt2}
+    	        , FCLT_OGNZ_TRMT_AMT3  = #{fcltOgnzTrmtAmt3}
+    	        , FCLT_OGNZ_TRMT_AMT4  = #{fcltOgnzTrmtAmt4}
+			    , FCLT_OGNZ_TRMT_VLM  = #{fcltOgnzTrmtVlm}
+    	        , FCLT_OGNZ_TRMT_VLM2  = #{fcltOgnzTrmtVlm2}
+    	        , FCLT_OGNZ_TRMT_VLM3  = #{fcltOgnzTrmtVlm3}
+    	        , FCLT_OGNZ_TRMT_VLM4  = #{fcltOgnzTrmtVlm4}
+				  , SYS_LAST_CHG_DT		= SYSDATE
+	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  TRGT_YR
+	    		  , APC_CD
+	    		  , FCLT_OGNZ_TRMT_AMT
+	    		  , FCLT_OGNZ_TRMT_AMT2
+				  , FCLT_OGNZ_TRMT_AMT3
+				  , FCLT_OGNZ_TRMT_AMT4
+	    		  , FCLT_OGNZ_TRMT_VLM
+				  , FCLT_OGNZ_TRMT_VLM2
+				  , FCLT_OGNZ_TRMT_VLM3
+				  , FCLT_OGNZ_TRMT_VLM4
+				  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   	VALUES
+	   		    (
+	   			  #{trgtYr}
+	   			  , #{apcCd}
+	   			  , #{fcltOgnzTrmtAmt}
+          	   	  , #{fcltOgnzTrmtAmt2}
+          		  , #{fcltOgnzTrmtAmt3}
+          		  , #{fcltOgnzTrmtAmt4}
+	   			  , #{fcltOgnzTrmtVlm}
+          		  , #{fcltOgnzTrmtVlm2}
+          		  , #{fcltOgnzTrmtVlm3}
+          		  , #{fcltOgnzTrmtVlm4}
+          		  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+                  , SYSDATE
+                  , #{sysLastChgUserId}
+                  , #{sysLastChgPrgrmId}
+		     	)
+     </update>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOgnzItemPrfmncMapper.updateFcltOgnzItemPrfmnc				-->
 	<!-- DESC : 유통조직품목처리실적 변경                                             				-->

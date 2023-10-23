@@ -100,6 +100,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<!--
     <insert id="insertFcltPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsPrfmncVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltPrcsPrfmncMapper.insertFcltPrcsPrfmnc */
@@ -139,6 +140,61 @@
 	   			)
     	]]>
     </insert>
+     -->
+
+     <update id="insertFcltPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsPrfmncVO">
+     	MERGE INTO TB_FCLT_PRCS_PRFMNC FCLT /* com.at.apcss.fm.fclt.mapper.FcltPrcsPrfmncMapper.insertFcltPrcsPrfmnc */
+		USING DUAL
+		ON (
+			FCLT.TRGT_YR = #{trgtYr}
+			AND FCLT.APC_CD = #{apcCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				  FCLT_PRCS_SE_CD     = #{fcltPrcsSeCd}
+			 	, FCLT_PRCS_TRMT_CD   = #{fcltPrcsTrmtCd}
+			 	, FCLT_PRCS_TRMT_AMT  = #{fcltPrcsTrmtAmt}
+		    	, FCLT_PRCS_TRMT_AMT2 = #{fcltPrcsTrmtAmt2}
+		    	, FCLT_PRCS_TRMT_AMT3 = #{fcltPrcsTrmtAmt3}
+		    	, FCLT_PRCS_TRMT_AMT4 = #{fcltPrcsTrmtAmt4}
+				  , SYS_LAST_CHG_DT		= SYSDATE
+	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  TRGT_YR
+	    		  , APC_CD
+	    		  , FCLT_PRCS_SE_CD
+	    		  , FCLT_PRCS_TRMT_CD
+	    		  , FCLT_PRCS_TRMT_AMT
+		    	  ,	FCLT_PRCS_TRMT_AMT2
+		    	  ,	FCLT_PRCS_TRMT_AMT3
+		    	  ,	FCLT_PRCS_TRMT_AMT4
+		    	  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	              , SYS_LAST_CHG_DT
+	              , SYS_LAST_CHG_USER_ID
+	              , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   	VALUES
+	   		    (
+	   			  #{trgtYr}
+	   			  , #{apcCd}
+	   			  , #{fcltPrcsSeCd}
+	   			  , #{fcltPrcsTrmtCd}
+	   			  , #{fcltPrcsTrmtAmt}
+	   			  ,	#{fcltPrcsTrmtAmt2}
+		    	  , #{fcltPrcsTrmtAmt3}
+		    	  , #{fcltPrcsTrmtAmt4}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysLastChgUserId}
+	   			  , #{sysLastChgPrgrmId}
+		     	)
+     </update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltPrcsPrfmncMapper.updateFcltPrcsPrfmnc				-->

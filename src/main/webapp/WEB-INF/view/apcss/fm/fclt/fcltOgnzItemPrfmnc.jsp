@@ -233,11 +233,11 @@
     	fn_setGrdOgItmPrfList(recordCountPerPage, currentPageNo);
     }
 
+
     /**
      * @param {number} pageSize
      * @param {number} pageNo
      */
-
     const fn_setGrdOgItmPrfList = async function(pageSize, pageNo) {
     	 console.log("******************fn_setGrdOgItmPrfList**********************************");
     	// form clear
@@ -248,9 +248,6 @@
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
 
-
-        //비동기 포스트타입 url 데이터연결 페이징처리 글로벌
-        //gfn_postJSON 는 ajax고 post통신의 데이터를 json 타입으로 보내는것이다
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltOgnzItemPrfmncList.do", {
 			apcCd: apcCd,
         	trgtYr: trgtYr,
@@ -259,11 +256,9 @@
 			currentPageNo : pageNo,
  		  	recordCountPerPage : pageSize
         });
-		console.log("a11111111111111");
+
         const data = await postJsonPromise;
 		//await 오류시 확인
-        console.log("---------------------------")
-        console.log(data)
 		//예외처리
         try {
 

@@ -104,6 +104,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<!--
     <insert id="insertFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.insertFcltLwtpStrgMchnInfo */
@@ -145,6 +146,63 @@
 	   			)
     	]]>
     </insert>
+	-->
+
+     <update id="insertFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
+     	MERGE INTO TB_FCLT_LWTP_STRG_MCHN_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.insertFcltLwtpStrgMchnInfo */
+		USING DUAL
+		ON (
+			FCLT.TRGT_YR = #{trgtYr}
+			AND FCLT.APC_CD = #{apcCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				  FCLT_CD      = #{fcltCd}
+    	          , FCLT_HLD_YN  = #{fcltHldYn}
+    	          , FCLT_PRCS_CD = #{fcltPrcsCd}
+    	          , FCLT_PRCS_HR = #{fcltPrcsHr}
+ 				  , STOR_CAP      =  #{storCap}
+	    		  , ST_STOR_PERFM =  #{stStorPerfm}
+	    		  , LT_STOR_PERFM =  #{ltStorPerfm}
+	    		  , STOR_OP_RATE  =  #{storOpRate}
+				  , SYS_LAST_CHG_DT		= SYSDATE
+	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  TRGT_YR
+	    		  , APC_CD
+	    		  , FCLT_CD
+	    		  , FCLT_HLD_YN
+	    		  , STOR_CAP
+	    		  , ST_STOR_PERFM
+	    		  , LT_STOR_PERFM
+	    		  , STOR_OP_RATE
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   	VALUES
+	   		    (
+	   			  #{trgtYr}
+	   			  , #{apcCd}
+	   			  , #{fcltCd}
+	   			  , #{fcltHldYn}
+	   			  , #{storCap}
+	   			  , #{stStorPerfm}
+	   			  , #{ltStorPerfm}
+	   			  , #{storOpRate}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   	          , #{sysFrstInptPrgrmId}
+	   	          , SYSDATE
+	   	          , #{sysLastChgUserId}
+	   	          , #{sysLastChgPrgrmId}
+		     	)
+     </update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.updateFcltLwtpStrgMchnInfo				-->

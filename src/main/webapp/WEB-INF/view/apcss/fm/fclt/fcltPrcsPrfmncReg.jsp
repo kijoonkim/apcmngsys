@@ -129,10 +129,51 @@
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
-			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
+			SBUxMethod.set("srch-inp-apcCd", '0122');
+			//SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		}
-	})
+		};
+		fn_selectAtMcIfList();
+	});
+
+    /**
+     * @param {number} pageSize
+     * @param {number} pageNo
+     */
+    const fn_selectAtMcIfList = async function(pageSize, pageNo) {
+    	 console.log("******************fn_pagingAtMcIfList**********************************");
+
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltPrcsPrfmncList.do", {
+			apcCd: apcCd,
+        	trgtYr: trgtYr,
+        	// pagination
+	  		pagingYn : 'N',
+			currentPageNo : pageNo,
+ 		  	recordCountPerPage : pageSize
+        });
+
+        const data = await postJsonPromise;
+		//await 오류시 확인
+
+		//예외처리
+        try {
+        	data.resultList.forEach((item, index) => {
+        		SBUxMethod.set('srch-inp-opera1',item.fcltPrcsTrmtAmt);
+        		SBUxMethod.set('srch-inp-opera2',item.fcltPrcsTrmtAmt2);
+        		SBUxMethod.set('srch-inp-opera3',item.fcltPrcsTrmtAmt3);
+        		SBUxMethod.set('srch-inp-opera4',item.fcltPrcsTrmtAmt4);
+			});
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		//console.error("failed", e.message);
+        }
+    }
 
 	//등록
 	const fn_save = async function() {

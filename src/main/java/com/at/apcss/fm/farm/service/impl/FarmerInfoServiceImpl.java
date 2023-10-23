@@ -9,9 +9,9 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.fm.bbs.mapper.BbsMapper;
 import com.at.apcss.fm.bbs.service.BbsService;
 import com.at.apcss.fm.bbs.vo.BbsVO;
-import com.at.apcss.fm.farm.mapper.farmerInfoMapper;
-import com.at.apcss.fm.farm.service.farmerInfoService;
-import com.at.apcss.fm.farm.vo.farmerInfoVO;
+import com.at.apcss.fm.farm.mapper.FarmerInfoMapper;
+import com.at.apcss.fm.farm.service.FarmerInfoService;
+import com.at.apcss.fm.farm.vo.FarmerInfoVO;
 
 
 /**
@@ -30,28 +30,28 @@ import com.at.apcss.fm.farm.vo.farmerInfoVO;
  * </pre>
  */
 @Service("farmerInfoService")
-public class farmerInfoServiceImpl implements farmerInfoService{
+public class FarmerInfoServiceImpl implements FarmerInfoService{
 
 	@Autowired
-	private farmerInfoMapper farmerInfoMapper;
+	private FarmerInfoMapper farmerInfoMapper;
 
 	@Override
-	public farmerInfoVO selectfarmerInfo(farmerInfoVO farmerInfoVO) throws Exception {
+	public FarmerInfoVO selectfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
 
-		farmerInfoVO resultVO = farmerInfoMapper.selectfarmerInfo(farmerInfoVO);
+		FarmerInfoVO resultVO = farmerInfoMapper.selectfarmerInfo(farmerInfoVO);
 
 		return resultVO;
 	}
 
 	@Override
-	public List<farmerInfoVO> selectfarmerInfoList(farmerInfoVO farmerInfoVO) throws Exception {
+	public List<FarmerInfoVO> selectfarmerInfoList(FarmerInfoVO farmerInfoVO) throws Exception {
 
-		List<farmerInfoVO> resultList = farmerInfoMapper.selectfarmerInfoList(farmerInfoVO);
+		List<FarmerInfoVO> resultList = farmerInfoMapper.selectfarmerInfoList(farmerInfoVO);
 		return resultList;
 	}
 
 	@Override
-	public int insertfarmerInfo(farmerInfoVO farmerInfoVO) throws Exception {
+	public int insertfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
 
 		int insertedCnt = farmerInfoMapper.insertfarmerInfo(farmerInfoVO);
 
@@ -59,7 +59,7 @@ public class farmerInfoServiceImpl implements farmerInfoService{
 	}
 
 	@Override
-	public int updatefarmerInfo(farmerInfoVO farmerInfoVO) throws Exception {
+	public int updatefarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
 
 		int updatedCnt = farmerInfoMapper.updatefarmerInfo(farmerInfoVO);
 
@@ -67,9 +67,9 @@ public class farmerInfoServiceImpl implements farmerInfoService{
 	}
 
 	@Override
-	public int multiSavefarmerInfoList(List<farmerInfoVO> farmerInfoVOList) throws Exception {
+	public int multiSavefarmerInfoList(List<FarmerInfoVO> farmerInfoVOList) throws Exception {
 		int savedCnt = 0;
-		for (farmerInfoVO farmerInfoVO : farmerInfoVOList) {
+		for (FarmerInfoVO farmerInfoVO : farmerInfoVOList) {
 			if(ComConstants.ROW_STS_INSERT.equals(farmerInfoVO.getRowSts())) {
 				savedCnt += insertfarmerInfo(farmerInfoVO);
 			}
@@ -81,7 +81,20 @@ public class farmerInfoServiceImpl implements farmerInfoService{
 	}
 
 	@Override
-	public int deletefarmerInfo(farmerInfoVO farmerInfoVO) throws Exception {
+	public int insertMegerfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
+		return farmerInfoMapper.insertMegerfarmerInfo(farmerInfoVO);
+	}
+	@Override
+	public int insertMegerLogfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
+		return farmerInfoMapper.insertMegerLogfarmerInfo(farmerInfoVO);
+	}
+	@Override
+	public int updateMegerfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
+		return farmerInfoMapper.updateMegerfarmerInfo(farmerInfoVO);
+	}
+
+	@Override
+	public int deletefarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
 		return farmerInfoMapper.deletefarmerInfo(farmerInfoVO);
 	}
 

@@ -57,8 +57,8 @@
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
-					<col style="width: 9%">
-					<col style="width: 7%">
+					<col style="width: 8%">
+					<col style="width: 8%">
 					<col style="width: 21%">
 					<col style="width: 21%">
 					<col style="width: 21%">
@@ -244,10 +244,92 @@
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
+			//SBUxMethod.set("srch-inp-apcCd", '0122');
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		}
+		};
+		fn_setGrdLtMcIfList();
 	})
+
+	/**
+     * @param {number} pageSize
+     * @param {number} pageNo
+     */
+    const fn_setGrdLtMcIfList = async function(pageSize, pageNo) {
+    	 console.log("******************fn_setGrdLtMcIfList**********************************");
+
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltLwtpStrgMchnInfoList.do", {
+			apcCd: apcCd,
+        	trgtYr: trgtYr,
+        	// pagination
+	  		pagingYn : 'N',
+			currentPageNo : pageNo,
+ 		  	recordCountPerPage : pageSize
+        });
+
+        const data = await postJsonPromise;
+		//await 오류시 확인
+
+		//예외처리
+        try {
+
+        	data.resultList.forEach((item, index) => {
+        		SBUxMethod.set('srch-inp-opera1',item.fcltHldYn);
+        		SBUxMethod.set('srch-inp-opera2',item.storCap);
+        		SBUxMethod.set('srch-inp-opera3',item.stStorPerfm);
+        		SBUxMethod.set('srch-inp-opera4',item.ltStorPerfm);
+        		SBUxMethod.set('srch-inp-opera5',item.storOpRate);
+			});
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		//console.error("failed", e.message);
+        }
+
+
+		const postJsonPromise1 = gfn_postJSON("/fm/fclt/selectFcltLwtpStrgMchnOperInfoList.do", {
+			apcCd: apcCd,
+        	trgtYr: trgtYr,
+        	// pagination
+	  		pagingYn : 'N',
+			currentPageNo : pageNo,
+ 		  	recordCountPerPage : pageSize
+        });
+
+        const data1 = await postJsonPromise1;
+		//await 오류시 확인
+
+		//예외처리
+        try {
+        	data1.resultList.forEach((item, index) => {
+        		SBUxMethod.set('srch-inp-opera1',item.fcltHldYn);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_1',item.fcltOperYn);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_2',item.fcltOperYn1);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_3',item.fcltOperYn2);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_4',item.fcltOperYn3);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_5',item.fcltOperYn4);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_6',item.fcltOperYn5);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_7',item.fcltOperYn6);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_8',item.fcltOperYn7);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_9',item.fcltOperYn8);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_10',item.fcltOperYn9);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_11',item.fcltOperYn10);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_12',item.fcltOperYn11);
+        		SBUxMethod.set('warehouseSeCd-chk-mon_1_13',item.fcltOperYn12);
+			});
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		//console.error("failed", e.message);
+        }
+    }
 
 	//등록
 	const fn_save = async function() {
@@ -265,7 +347,9 @@
         }
 
     	fn_subInsert(confirm("등록 하시겠습니까?"));
-    }
+    };
+
+
 
     //신규등록
     const fn_subInsert = async function (isConfirmed){
@@ -288,19 +372,19 @@
 			trgtYr : SBUxMethod.get('srch-inp-trgtYr')
 			,apcCd : SBUxMethod.get('srch-inp-apcCd')
 			,fcltHldYn: SBUxMethod.get('srch-inp-opera1')
-			,FCLT_OPER_YN : $('#warehouseSeCd-chk-mon_1_1').val()
-	 		,FCLT_OPER_YN1 : $('#warehouseSeCd-chk-mon_1_2').val()
-	 		,FCLT_OPER_YN2 : $('#warehouseSeCd-chk-mon_1_3').val()
-	 		,FCLT_OPER_YN3 : $('#warehouseSeCd-chk-mon_1_4').val()
-	 		,FCLT_OPER_YN4 : $('#warehouseSeCd-chk-mon_1_5').val()
-	 		,FCLT_OPER_YN5 : $('#warehouseSeCd-chk-mon_1_6').val()
-	 		,FCLT_OPER_YN6 : $('#warehouseSeCd-chk-mon_1_7').val()
-	 		,FCLT_OPER_YN7 : $('#warehouseSeCd-chk-mon_1_8').val()
-	 		,FCLT_OPER_YN8 : $('#warehouseSeCd-chk-mon_1_9').val()
-	 		,FCLT_OPER_YN9 : $('#warehouseSeCd-chk-mon_1_10').val()
-	 		,FCLT_OPER_YN10 : $('#warehouseSeCd-chk-mon_1_11').val()
-	 		,FCLT_OPER_YN11 : $('#warehouseSeCd-chk-mon_1_12').val()
-	 		,FCLT_OPER_YN12 : $('#warehouseSeCd-chk-mon_1_13').val()
+			,fcltOperYn : $('#warehouseSeCd-chk-mon_1_1').val()
+	 		,fcltOperYn1 : $('#warehouseSeCd-chk-mon_1_2').val()
+	 		,fcltOperYn2 : $('#warehouseSeCd-chk-mon_1_3').val()
+	 		,fcltOperYn3 : $('#warehouseSeCd-chk-mon_1_4').val()
+	 		,fcltOperYn4 : $('#warehouseSeCd-chk-mon_1_5').val()
+	 		,fcltOperYn5 : $('#warehouseSeCd-chk-mon_1_6').val()
+	 		,fcltOperYn6 : $('#warehouseSeCd-chk-mon_1_7').val()
+	 		,fcltOperYn7 : $('#warehouseSeCd-chk-mon_1_8').val()
+	 		,fcltOperYn8 : $('#warehouseSeCd-chk-mon_1_9').val()
+	 		,fcltOperYn9 : $('#warehouseSeCd-chk-mon_1_10').val()
+	 		,fcltOperYn10 : $('#warehouseSeCd-chk-mon_1_11').val()
+	 		,fcltOperYn11 : $('#warehouseSeCd-chk-mon_1_12').val()
+	 		,fcltOperYn12 : $('#warehouseSeCd-chk-mon_1_13').val()
 		});
 
    	 	const data1 = await postJsonPromise1;

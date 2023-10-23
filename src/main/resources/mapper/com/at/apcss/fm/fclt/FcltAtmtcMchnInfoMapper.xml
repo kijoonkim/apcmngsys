@@ -114,6 +114,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<!--
     <insert id="insertFcltAtmtcMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.insertFcltAtmtcMchnInfo */
@@ -167,6 +168,83 @@
 	   			)
     	]]>
     </insert>
+     -->
+
+     <update id="insertFcltAtmtcMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
+     	MERGE INTO TB_FCLT_ATMTC_MCHN_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.insertFcltAtmtcMchnInfo */
+		USING DUAL
+		ON (
+			FCLT.TRGT_YR = #{trgtYr}
+			AND FCLT.APC_CD = #{apcCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				  SPECS				= #{specs}
+    	        , FCLT_HLD_YN		= #{fcltHldYn}
+				, FCLT_HLD_YN2		= #{fcltHldYn2}
+				, FCLT_HLD_YN3		= #{fcltHldYn3}
+				, FCLT_HLD_YN4		= #{fcltHldYn4}
+				, FCLT_HLD_YN5		= #{fcltHldYn5}
+				, FCLT_HLD_YN6		= #{fcltHldYn6}
+				, FCLT_HLD_YN7		= #{fcltHldYn7}
+				, FCLT_HLD_YN8		= #{fcltHldYn8}
+				, FCLT_HLD_YN9		= #{fcltHldYn9}
+				, FCLT_HLD_YN10		= #{fcltHldYn10}
+				, FCLT_HLD_YN11		= #{fcltHldYn11}
+				, OTHER_FCLT		= #{otherFclt}
+				  , SYS_LAST_CHG_DT		= SYSDATE
+	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  TRGT_YR
+	    		  , APC_CD
+	    		  , SPECS
+	    		  , FCLT_HLD_YN
+	    		  , FCLT_HLD_YN2
+	    		  , FCLT_HLD_YN3
+	    		  , FCLT_HLD_YN4
+	    		  , FCLT_HLD_YN5
+	    		  , FCLT_HLD_YN6
+	    		  , FCLT_HLD_YN7
+	    		  , FCLT_HLD_YN8
+	    		  , FCLT_HLD_YN9
+	    		  , FCLT_HLD_YN10
+	    		  , FCLT_HLD_YN11
+	    		  , OTHER_FCLT
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   	VALUES
+	   		    (
+	   			  #{trgtYr}
+	   			  , #{apcCd}
+	   			  , #{specs}
+	   			  , #{fcltHldYn}
+	   			  , #{fcltHldYn2}
+	   			  , #{fcltHldYn3}
+	   			  , #{fcltHldYn4}
+	   			  , #{fcltHldYn5}
+	   			  , #{fcltHldYn6}
+	   			  , #{fcltHldYn7}
+	   			  , #{fcltHldYn8}
+	   			  , #{fcltHldYn9}
+	   			  , #{fcltHldYn10}
+	   			  , #{fcltHldYn11}
+	   			  , #{otherFclt}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysLastChgUserId}
+	   			  , #{sysLastChgPrgrmId}
+		     	)
+     </update>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.updateFcltAtmtcMchnInfo				-->
 	<!-- DESC : 스마트자동화 변경                                             				-->

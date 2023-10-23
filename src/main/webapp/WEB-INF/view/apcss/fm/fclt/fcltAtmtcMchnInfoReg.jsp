@@ -76,8 +76,8 @@
 								<td>
 									<sbux-select name="srch-inp-opera2" id="srch-inp-opera2">
 		                                <option>(선택)</option>
-		                                <option value="Y">있음</option>
-		                                <option value="N">없음</option>
+		                                <option value="1">있음</option>
+		                                <option value="2">없음</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -86,8 +86,8 @@
 								<td>
 									<sbux-select name="srch-inp-opera3" id="srch-inp-opera3">
 		                                <option>(선택)</option>
-		                                <option value="Y">있음</option>
-		                                <option value="N">없음</option>
+		                                <option value="1">있음</option>
+		                                <option value="2">없음</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -96,8 +96,8 @@
 								<td>
 									<sbux-select name="srch-inp-opera4" id="srch-inp-opera4">
 		                                <option>(선택)</option>
-		                                <option value="Y">있음</option>
-		                                <option value="N">없음</option>
+		                                <option value="1">있음</option>
+		                                <option value="2">없음</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -106,8 +106,8 @@
 								<td>
 									<sbux-select name="srch-inp-opera5" id="srch-inp-opera5">
 		                                <option>(선택)</option>
-		                                <option value="Y">있음</option>
-		                                <option value="N">없음</option>
+		                                <option value="1">있음</option>
+		                                <option value="2">없음</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -116,8 +116,8 @@
 								<td>
 									<sbux-select name="srch-inp-opera6" id="srch-inp-opera6">
 		                                <option>(선택)</option>
-		                                <option value="Y">있음</option>
-		                                <option value="N">없음</option>
+		                                <option value="1">있음</option>
+		                                <option value="2">없음</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -126,8 +126,8 @@
 								<td>
 									<sbux-select name="srch-inp-opera7" id="srch-inp-opera7">
 		                                <option>(선택)</option>
-		                                <option value="Y">있음</option>
-		                                <option value="N">없음</option>
+		                                <option value="1">있음</option>
+		                                <option value="2">없음</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -136,8 +136,8 @@
 								<td>
 									<sbux-select name="srch-inp-opera8" id="srch-inp-opera8">
 		                                <option>(선택)</option>
-		                                <option value="Y">있음</option>
-		                                <option value="N">없음</option>
+		                                <option value="1">있음</option>
+		                                <option value="2">없음</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -146,8 +146,8 @@
 								<td>
 									<sbux-select name="srch-inp-opera9" id="srch-inp-opera9">
 		                                <option>(선택)</option>
-		                                <option value="Y">있음</option>
-		                                <option value="N">없음</option>
+		                                <option value="1">있음</option>
+		                                <option value="2">없음</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -156,8 +156,8 @@
 								<td>
 									<sbux-select name="srch-inp-opera10" id="srch-inp-opera10">
 		                                <option>(선택)</option>
-		                                <option value="Y">있음</option>
-		                                <option value="N">없음</option>
+		                                <option value="1">있음</option>
+		                                <option value="2">없음</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -166,8 +166,8 @@
 								<td>
 									<sbux-select name="srch-inp-opera11" id="srch-inp-opera11">
 		                                <option>(선택)</option>
-		                                <option value="Y">있음</option>
-		                                <option value="N">없음</option>
+		                                <option value="1">있음</option>
+		                                <option value="2">없음</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -176,8 +176,8 @@
 								<td>
 									<sbux-select name="srch-inp-opera12" id="srch-inp-opera12">
 		                                <option>(선택)</option>
-		                                <option value="Y">있음</option>
-		                                <option value="N">없음</option>
+		                                <option value="1">있음</option>
+		                                <option value="2">없음</option>
 		                            </sbux-select>
 								</td>
 							</tr>
@@ -209,10 +209,61 @@
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-trgtYr", year);
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
+			//SBUxMethod.set("srch-inp-apcCd", '0122');
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		}
+		};
+		fn_selectAtMcIfList();
 	})
+
+	    /**
+     * @param {number} pageSize
+     * @param {number} pageNo
+     */
+    const fn_selectAtMcIfList = async function(pageSize, pageNo) {
+    	 console.log("******************fn_pagingAtMcIfList**********************************");
+
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltAtmtcMchnInfoList.do", {
+			apcCd: apcCd,
+        	trgtYr: trgtYr,
+        	// pagination
+	  		pagingYn : 'N',
+			currentPageNo : pageNo,
+ 		  	recordCountPerPage : pageSize
+        });
+
+        const data = await postJsonPromise;
+		//await 오류시 확인
+
+		//예외처리
+        try {
+
+        	data.resultList.forEach((item, index) => {
+        		SBUxMethod.set('srch-inp-opera1',item.specs);
+        		SBUxMethod.set('srch-inp-opera2',item.fcltHldYn);
+        		SBUxMethod.set('srch-inp-opera3',item.fcltHldYn2);
+        		SBUxMethod.set('srch-inp-opera4',item.fcltHldYn3);
+        		SBUxMethod.set('srch-inp-opera5',item.fcltHldYn4);
+        		SBUxMethod.set('srch-inp-opera6',item.fcltHldYn5);
+        		SBUxMethod.set('srch-inp-opera7',item.fcltHldYn6);
+        		SBUxMethod.set('srch-inp-opera8',item.fcltHldYn7);
+        		SBUxMethod.set('srch-inp-opera9',item.fcltHldYn8);
+        		SBUxMethod.set('srch-inp-opera10',item.fcltHldYn9);
+        		SBUxMethod.set('srch-inp-opera11',item.fcltHldYn10);
+        		SBUxMethod.set('srch-inp-opera12',item.fcltHldYn11);
+        		SBUxMethod.set('srch-inp-opera13',item.otherFclt);
+			});
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		//console.error("failed", e.message);
+        }
+    }
 
 	//등록
 	const fn_save = async function() {
