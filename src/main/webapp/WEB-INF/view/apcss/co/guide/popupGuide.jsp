@@ -679,7 +679,13 @@
 	 * @description 포장번호선택팝업 호출
 	 */
 	 const fn_modalPckgno = function() {
-		popPckgno.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPckgno);
+// 		let data = {
+// 			itemCd 		: SBUxMethod.get('srch-inp-itemCd'),
+// 			vrtyCd 		: SBUxMethod.get('srch-inp-vrtyCd'),
+// 			spcfctCd	: SBUxMethod.get('srch-inp-spcfctCd')
+// 		}
+		
+		popPckgno.init(gv_selectedApcCd, gv_selectedApcNm, null, fn_setPckgno);
 	}
 
 	/**

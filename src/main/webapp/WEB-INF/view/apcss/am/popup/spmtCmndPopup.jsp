@@ -231,6 +231,7 @@
 
 						let spmtCmnd = {
 								spmtCmndno		: item.spmtCmndno
+							  , spmtCmndSn 		: item.spmtCmndSn
 							  ,	cmndYmd 		: item.cmndYmd
 							  , cnptCd 			: item.cnptCd
 							  , cnptNm 			: item.cnptNm

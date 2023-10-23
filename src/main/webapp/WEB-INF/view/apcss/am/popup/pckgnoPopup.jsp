@@ -25,6 +25,10 @@
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
+				<sbux-input id="pckgno-inp-itemCd" name="pckgno-inp-itemCd" uitype="hidden"></sbux-input>
+				<sbux-input id="pckgno-inp-vrtyCd" name="pckgno-inp-vrtyCd" uitype="hidden"></sbux-input>
+				<sbux-input id="pckgno-inp-spcfctCd" name="pckgno-inp-spcfctCd" uitype="hidden"></sbux-input>
+				<sbux-input id="pckgno-inp-gdsGrd" name="pckgno-inp-gdsGrd" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -45,38 +49,6 @@
 							<th scope="row">포장일자</th>
 							<th class="td_input">
 								<sbux-datepicker id="pckgno-dtp-pckgYmd" name="pckgno-dtp-pckgYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
-							</th>
-							<th scope="row">규격</th>
-							<th>
-								<sbux-select id="pckgno-slt-spcfctCd" name="pckgno-slt-spcfctCd" uitype="single" class="form-control input-sm" style="background-color:#FFFFFF;" jsondata-ref="jsonApcSpcfct" unselected-text="전체"></sbux-select>
-							</th>
-						</tr>
-						<tr>
-							<th scope="row">품목</th>
-							<th>
-								<sbux-select
-									unselected-text="전체"
-									uitype="single"
-									id="pckgno-slt-itemCd"
-									name="pckgno-slt-itemCd"
-									class="form-control input-sm"
-									jsondata-ref="jsonApcItem"
-									onchange="popPckgno.srchItemCd(this)"
-									style="background-color:#FFFFFF;"
-								/>
-							</th>
-							<th scope="row">품종</th>
-							<th>
-								<sbux-select
-									unselected-text="전체"
-									uitype="single"
-									id="pckgno-slt-vrtyCd"
-									name="pckgno-slt-vrtyCd"
-									class="form-control input-sm"
-									jsondata-ref="jsonApcVrty"
-									onchange="popPckgno.srchVrtyCd(this)"
-									style="background-color:#FFFFFF;"
-								/>
 							</th>
 							<th></th>
 							<th></th>
@@ -110,9 +82,13 @@
 		objGrid: null,
 		gridJson: [],
 		callbackSelectFnc: function() {},
-		init: async function(_apcCd, _apcNm, _callbackChoiceFnc) {
+		init: async function(_apcCd, _apcNm, _pckgno, _callbackChoiceFnc) {
 			SBUxMethod.set("pckgno-inp-apcCd", _apcCd);
 			SBUxMethod.set("pckgno-inp-apcNm", _apcNm);
+			SBUxMethod.set("pckgno-inp-itemCd", _pckgno.itemCd);
+			SBUxMethod.set("pckgno-inp-vrtyCd", _pckgno.vrtyCd);
+			SBUxMethod.set("pckgno-inp-spcfctCd", _pckgno.spcfctCd);
+			SBUxMethod.set("pckgno-inp-gdsGrd", _pckgno.gdsGrd);
 
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
 				this.callbackSelectFnc = _callbackChoiceFnc;
@@ -122,10 +98,6 @@
 
 				SBUxMethod.set("pckgno-dtp-pckgYmd", gfn_dateToYmd(new Date()));
 				
-				let rst = await Promise.all([
-				 	gfn_setApcItemSBSelect('pckgno-slt-itemCd', jsonApcItem, _apcCd),							// 품목
-					gfn_setApcVrtySBSelect('pckgno-slt-vrtyCd', jsonApcVrty, _apcCd)							// 품종
-				]);
 				this.createGrid();
 				this.search();
 			} else {
@@ -189,8 +161,6 @@
 			}
 		},
 		search: async function() {
-			let apcCd = SBUxMethod.get("pckgno-inp-apcCd");
-
 			grdPckgnoPop.rebuild();
 	    	let pageSize = grdPckgnoPop.getPageSize();
 	    	let pageNo = 1;
@@ -205,15 +175,17 @@
 
 			let apcCd = SBUxMethod.get("pckgno-inp-apcCd");
 			let pckgYmd = SBUxMethod.get("pckgno-dtp-pckgYmd");
-			let itemCd = SBUxMethod.get("pckgno-slt-itemCd");
-			let vrtyCd = SBUxMethod.get("pckgno-slt-vrtyCd");
-			let spcfctCd = SBUxMethod.get("pckgno-slt-spcfctCd");
+			let itemCd = SBUxMethod.get("pckgno-inp-itemCd");
+			let vrtyCd = SBUxMethod.get("pckgno-inp-vrtyCd");
+			let spcfctCd = SBUxMethod.get("pckgno-inp-spcfctCd");
+			let gdsGrd = SBUxMethod.get("pckgno-inp-gdsGrd");
 			let pckgno = {
 					apcCd 				: apcCd,
 					pckgYmd 			: pckgYmd,
 					itemCd 				: itemCd,
 					vrtyCd 				: vrtyCd,
 					spcfctCd 			: spcfctCd,
+					gdsGrd 				: gdsGrd,
 					// pagination
 			  		pagingYn 			: 'Y',
 					currentPageNo 		: pageNo,
@@ -288,28 +260,6 @@
 		 		console.error("failed", e.message);
 		    }
 	    },
-		srchItemCd: async function(obj) {
-	    	let apcCd = SBUxMethod.get("pckgno-inp-apcCd");
-			let itemCd = obj.value;
-
-			let result = await Promise.all([
-				gfn_setApcVrtySBSelect('pckgno-slt-vrtyCd', jsonApcVrty, apcCd, itemCd),					// 품종
-				gfn_setApcSpcfctsSBSelect('pckgno-slt-spcfctCd', jsonApcSpcfct, apcCd, itemCd)			// 규격
-			]);
-		},
-		srchVrtyCd: async function(obj) {
-	    	let apcCd = SBUxMethod.get("pckgno-inp-apcCd");
-			let vrtyCd = obj.value;
-			const itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
-
-			const prvItemCd = SBUxMethod.get("pckgno-slt-itemCd");
-			if (itemCd != prvItemCd) {
-				SBUxMethod.set("pckgno-slt-itemCd", itemCd);
-				await this.srchItemCd({value: itemCd});
-				SBUxMethod.set("pckgno-slt-vrtyCd", vrtyCd);
-			}
-			gfn_setApcSpcfctsSBSelect('pckgno-slt-spcfctCd', jsonApcSpcfct, apcCd, itemCd)
-		},
 	    paging: function() {
 	    	let recordCountPerPage = grdPckgnoPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
 	    	let currentPageNo = grdPckgnoPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
