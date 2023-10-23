@@ -74,11 +74,9 @@
 							<th scope="row" class="th_bg">출하수량/중량</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-spmtQntt" name="srch-inp-spmtQntt" uitype="text" class="form-control input-sm" maxlength="13" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}" readonly></sbux-input>
-								<sbux-input id="srch-inp-cmndQntt" name="srch-inp-cmndQntt" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-spmtWght" name="srch-inp-spmtWght" uitype="text" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}" readonly></sbux-input>
-								<sbux-input id="srch-inp-cmndWght" name="srch-inp-cmndWght" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-label id="srch-lbl-spmtQnttWght" name="srch-lbl-spmtQnttWght" uitype="normal" text="Kg" class="bold"></sbux-label>
@@ -363,8 +361,6 @@
 		SBUxMethod.set('srch-inp-pckgnoIndct', "");
 		SBUxMethod.set('srch-inp-spmtQntt', "");
 		SBUxMethod.set('srch-inp-spmtWght', "");
-		SBUxMethod.set('srch-inp-cmndQntt', "");
-		SBUxMethod.set('srch-inp-cmndWght', "");
 		SBUxMethod.set('srch-inp-vrtyNm', "");
 		SBUxMethod.set('srch-inp-spcfctNm', "");
 		SBUxMethod.set('srch-inp-gdsGrdNm', "");
@@ -409,8 +405,8 @@
 	const fn_setSpmtCmnd = function(spmtCmnd) {
 		if (!gfn_isEmpty(spmtCmnd)) {
 			SBUxMethod.set('srch-inp-spmtCmndno', spmtCmnd.spmtCmndno);
-			SBUxMethod.set('srch-inp-cmndQntt', spmtCmnd.cmndQntt);
-			SBUxMethod.set('srch-inp-cmndWght', spmtCmnd.cmndWght);
+			SBUxMethod.set('srch-inp-spmtQntt', spmtCmnd.cmndQntt);
+			SBUxMethod.set('srch-inp-spmtWght', spmtCmnd.cmndWght);
 			SBUxMethod.set('srch-inp-vrtyNm', spmtCmnd.vrtyNm);
 			SBUxMethod.set('srch-inp-spcfctNm', spmtCmnd.spcfctNm);
 			SBUxMethod.set('srch-inp-spmtPckgUnitNm', spmtCmnd.spmtPckgUnitNm);
@@ -442,12 +438,22 @@
 	
 	const fn_setPckgno = function(pckgno) {
 		if (!gfn_isEmpty(pckgno)) {
-			if (SBUxMethod.get('srch-inp-cmndQntt') <= pckgno.invntrQntt) {
+			let spmtCmndno = SBUxMethod.get('srch-inp-spmtCmndno');
+			let allData = grdSpmtTrgtDsctn.getGridDataAll();
+			let qntt = 0;
+			
+			for ( let i=1; i<=allData.length; i++ ){
+				const rowData = grdSpmtTrgtDsctn.getRowData(i);
+				if (rowData.spmtCmndno == spmtCmndno){
+					qntt += rowData.spmtQntt;
+				}
+			}
+			let totalSpmtQntt = qntt + SBUxMethod.get('srch-inp-spmtQntt');
+			
+			if (totalSpmtQntt <= pckgno.invntrQntt) {
 				SBUxMethod.set('srch-inp-pckgnoIndct', pckgno.pckgnoIndct);
 				SBUxMethod.set('srch-inp-pckgno', pckgno.pckgno);
 				SBUxMethod.set('srch-inp-pckgSn', pckgno.pckgSn);
-				SBUxMethod.set('srch-inp-spmtQntt', SBUxMethod.get('srch-inp-cmndQntt'));
-				SBUxMethod.set('srch-inp-spmtWght', SBUxMethod.get('srch-inp-cmndWght'));
 			} else {
 // 				SBUxMethod.set('srch-inp-spmtQntt', pckgno.invntrQntt);
 // 				SBUxMethod.set('srch-inp-spmtWght', pckgno.invntrWght);
