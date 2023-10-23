@@ -64,7 +64,7 @@
 								<sbux-input id="srch-inp-sortnoGrd" name="srch-inp-sortnoGrd" uitype="text" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-button id="btnSrchSortnoGrd" name="btnSrchSortnoGrd" uitype="normal" class="btn btn-xs btn-outline-dark" text=" 조회 " onclick="fn_search"></sbux-button>
+								<sbux-button id="btnSrchSortnoGrd" name="btnSrchSortnoGrd" uitype="modal" class="btn btn-xs btn-outline-dark" text=" 조회 " target-id="modal-sortCmndno" onclick="fn_modalSortCmndno"></sbux-button>
 						  	</td>
 				        </tr>
 						<tr>
@@ -150,6 +150,13 @@
 			</div>
 		</div>
 	</section>
+	<!-- 선별지시번호 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-sortCmndno" name="modal-sortCmndno" uitype="middle" header-title="선별지시번호 선택" body-html-id="body-modal-sortCmndno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-modal-sortCmndno">
+    	<jsp:include page="../../am/popup/sortCmndnoPopup.jsp"></jsp:include>
+    </div>
 	<!-- 포장지시번호 선택 Modal -->
     <div>
         <sbux-modal id="modal-pckgCmndno" name="modal-pckgCmndno" uitype="middle" header-title="포장지시번호 선택" body-html-id="body-modal-pckgCmndno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -161,13 +168,10 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_createPckgInptTabletGrid();
+		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
+		SBUxMethod.set("srch-dtp-inptYmd", gfn_dateToYmd(new Date()));
 
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2)
-		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-inptYmd", year+month+day);
+		fn_createPckgInptTabletGrid();
 	})
 
 	function fn_createPckgInptTabletGrid() {
@@ -200,11 +204,20 @@
         grdPckgInptTablet = _SBGrid.create(SBGridProperties);
     }
 	
+	// 선별지시번호 선택 팝업 호출
+	 const fn_modalSortCmndno = function() {
+		 popSortCmndno.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSortCmndno);
+	}
+	 const fn_setSortCmndno = function(sortCmndno) {
+		if (!gfn_isEmpty(sortCmndno)) {
+			SBUxMethod.set('srch-inp-sortnoGrd', sortCmndno.sortCmndno);
+		}
+	}
+	
 	// 포장지시번호 선택 팝업 호출
 	const fn_modalPckgCmndno = function() {
 		popPckgCmnd.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPckgCmnd);
 	}
-
 	const fn_setPckgCmnd = function(pckgCmnd) {
 		if (!gfn_isEmpty(pckgCmnd)) {
 			SBUxMethod.set('srch-inp-pckgCmndno', pckgCmnd.pckgCmndno);

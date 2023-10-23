@@ -11,7 +11,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<p>
-						<span style="font-weight:bold;">포장지시번호를 선택합니다.</span>
+						<span style="font-weight:bold;">선별재고를 선택합니다.</span>
 					</p>
 					<p>
 						<span style="color:black; font-weight:bold;"></span>
