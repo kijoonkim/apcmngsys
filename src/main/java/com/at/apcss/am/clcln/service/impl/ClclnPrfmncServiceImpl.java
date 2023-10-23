@@ -1,13 +1,18 @@
 package com.at.apcss.am.clcln.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper;
 import com.at.apcss.am.clcln.service.ClclnPrfmncService;
 import com.at.apcss.am.clcln.vo.ClclnPrfmncVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : ClclnPrfmncServiceImpl.java
@@ -25,7 +30,7 @@ import com.at.apcss.am.clcln.vo.ClclnPrfmncVO;
  * </pre>
  */
 @Service("clclnPrfmncService")
-public class ClclnPrfmncServiceImpl implements ClclnPrfmncService {
+public class ClclnPrfmncServiceImpl extends BaseServiceImpl implements ClclnPrfmncService {
 
 	@Autowired
 	private ClclnPrfmncMapper clclnPrfmncMapper;
@@ -47,19 +52,41 @@ public class ClclnPrfmncServiceImpl implements ClclnPrfmncService {
 	}
 
 	@Override
-	public int insertClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
+	public HashMap<String, Object> insertClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
+
+		return null;
+	}
+	
+
+	@Override
+	public HashMap<String, Object> insertClclnPrfmncCrt(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
 		
-		int insertedCnt = clclnPrfmncMapper.insertClclnPrfmnc(clclnPrfmncVO);
+		clclnPrfmncMapper.insertSpClclnPrfmncCrt(clclnPrfmncVO);
 		
-		return insertedCnt;
+		if (StringUtils.hasText(clclnPrfmncVO.getRtnCd())) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(clclnPrfmncVO.getRtnCd(), clclnPrfmncVO.getRtnMsg()))); 
+		}
+		
+		return null;
 	}
 	
 	@Override
-	public int updateClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
+	public HashMap<String, Object> updateClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
 		
-		int updatedCnt = clclnPrfmncMapper.updateClclnPrfmnc(clclnPrfmncVO);
+		clclnPrfmncMapper.updateClclnPrfmnc(clclnPrfmncVO);
 		
-		return updatedCnt;
+		return null;
+	}
+	
+
+	@Override
+	public HashMap<String, Object> updateClclnPrfmncList(List<ClclnPrfmncVO> clclnPrfmncList) throws Exception {
+		
+		for ( ClclnPrfmncVO clclnPrfmncVO : clclnPrfmncList ) {
+			clclnPrfmncMapper.updateClclnPrfmnc(clclnPrfmncVO);
+		}
+		
+		return null;
 	}
 	
 	@Override
@@ -69,4 +96,6 @@ public class ClclnPrfmncServiceImpl implements ClclnPrfmncService {
 		
 		return deletedCnt;
 	}
+
+
 }
