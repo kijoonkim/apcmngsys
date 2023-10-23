@@ -219,6 +219,7 @@
 					<div id="sbexp-area-grdExpSpcfct" style="height:1px; width: 100%;"></div>
 					<div id="sbexp-area-grdExpPckgFclt" style="height:1px; width: 100%;"></div>
 					<div id="sbexp-area-grdExpGdsGrd" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpSpmtPckgUnit" style="height:1px; width: 100%;"></div>
 					<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
 				</div>
 			</div>
@@ -1281,6 +1282,7 @@
 	var grdExpSpcfct;
 	var grdExpPckgFclt;
 	var grdExpGdsGrd;
+	var grdExpSpmtPckgUnit;
 
 	// exp grid json
 	var jsonExpRawMtrWrhs = [];
@@ -1297,6 +1299,7 @@
 	var jsonExpSpcfct = [];
 	var jsonExpPckgFclt = [];
 	var jsonExpGdsGrd = [];
+	var jsonExpSpmtPckgUnit = [];
 
 	const fn_getExpColumns = function() {
 		const _columns = []
@@ -1395,9 +1398,10 @@
 // 		jsonExpBxKnd = gfn_cloneJson(jsonApcBx);
 // 		jsonExpStdGrd = gfn_cloneJson(gjsonStdGrdObjKnd);
 // 		jsonExpStdGrdDtl = gfn_cloneJson(gjsonStdGrdObjDtl);
-		jsonExpSpcfct = gfn_cloneJson(jsonApcSpcfct);
+		jsonExpSpcfct = gfn_cloneJson(jsonApcSpcfct);                                                
 		jsonExpPckgFclt = gfn_cloneJson(jsonComPckgFclt);
 		jsonExpGdsGrd = gfn_cloneJson(jsonComGdsGrd);
+		jsonExpSpmtPckgUnit = gfn_cloneJson(jsonSpmtPckgUnit);
 	}
 
 	const fn_createExpGrid = async function(_expObjList) {
@@ -1458,7 +1462,7 @@
 		        id: "grdExpRawMtrWrhs",
 		        jsonref: "jsonExpRawMtrWrhs",
 				columns: expColumns,
-		        sheetName: "원물입고목록",
+		        sheetName: "포장실적목록",
 		        title: "",
 		        unit: ""
 		    }, {
@@ -1517,10 +1521,34 @@
 		        id: "grdExpGdsGrd",
 		        jsonref: "jsonExpGdsGrd",
 				columns: [
-			    	{caption: ["상품등급코드"],   		ref: 'grdKnd',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["상품등급코드명"],    	ref: 'grdKndNm',  	type:'output',  width:'100px',    style:'text-align:center'}
+			    	{caption: ["상품등급코드"],   	ref: 'cdVl',  	type:'output',  width:'100px',    style:'text-align:center'},
+			    	{caption: ["상품등급코드명"],    	ref: 'cdVlNm',  	type:'output',  width:'100px',    style:'text-align:center'}
 				],
 		        sheetName: "상품등급",
+		        title: "",
+		        unit: ""
+		    },{
+		        sbGrid: grdExpSpmtPckgUnit,
+		        parentid: "sbexp-area-grdExpSpmtPckgUnit",
+		        id: "grdExpSpmtPckgUnit",
+		        jsonref: "jsonExpSpmtPckgUnit",
+				columns: [
+			    	{caption: ["포장규격코드"],   	ref: 'spmtPckgUnitCd',  	type:'output',  width:'100px',    style:'text-align:center'},
+			    	{caption: ["포장규격코드명"],    	ref: 'spmtPckgUnitNm',  	type:'output',  width:'100px',    style:'text-align:center'}
+				],
+		        sheetName: "포장규격",
+		        title: "",
+		        unit: ""
+		    },{
+		        sbGrid: grdExpSpmtPckgUnit,
+		        parentid: "sbexp-area-grdExpSpmtPckgUnit",
+		        id: "grdExpSpmtPckgUnit",
+		        jsonref: "jsonExpSpmtPckgUnit",
+				columns: [
+			    	{caption: ["포장규격코드"],   	ref: 'spmtPckgUnitCd',  	type:'output',  width:'100px',    style:'text-align:center'},
+			    	{caption: ["포장규격코드명"],    	ref: 'spmtPckgUnitNm',  	type:'output',  width:'100px',    style:'text-align:center'}
+				],
+		        sheetName: "포장규격",
 		        title: "",
 		        unit: ""
 		    }
