@@ -218,6 +218,7 @@
 					<div id="sbexp-area-grdExpStdGrdDtl" style="height:1px; width: 100%;"></div>
 					<div id="sbexp-area-grdExpSpcfct" style="height:1px; width: 100%;"></div>
 					<div id="sbexp-area-grdExpPckgFclt" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpGdsGrd" style="height:1px; width: 100%;"></div>
 					<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
 				</div>
 			</div>
@@ -1279,6 +1280,7 @@
 	var grdExpStdGrdDtl;
 	var grdExpSpcfct;
 	var grdExpPckgFclt;
+	var grdExpGdsGrd;
 
 	// exp grid json
 	var jsonExpRawMtrWrhs = [];
@@ -1294,6 +1296,7 @@
 	var jsonExpStdGrdDtl = [];
 	var jsonExpSpcfct = [];
 	var jsonExpPckgFclt = [];
+	var jsonExpGdsGrd = [];
 
 	const fn_getExpColumns = function() {
 		const _columns = []
@@ -1394,6 +1397,7 @@
 // 		jsonExpStdGrdDtl = gfn_cloneJson(gjsonStdGrdObjDtl);
 		jsonExpSpcfct = gfn_cloneJson(jsonApcSpcfct);
 		jsonExpPckgFclt = gfn_cloneJson(jsonComPckgFclt);
+		jsonExpGdsGrd = gfn_cloneJson(jsonComGdsGrd);
 	}
 
 	const fn_createExpGrid = async function(_expObjList) {
@@ -1501,10 +1505,22 @@
 		        id: "grdExpPckgFclt",
 		        jsonref: "jsonExpPckgFclt",
 				columns: [
-			    	{caption: ["포장기코드"],   		ref: 'pckgFcltCd',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["포장기코드명"],    	ref: 'pckgFcltNm',  	type:'output',  width:'100px',    style:'text-align:center'}
+			    	{caption: ["포장기코드"],   		ref: 'value',  	type:'output',  width:'100px',    style:'text-align:center'},
+			    	{caption: ["포장기코드명"],    	ref: 'text',  	type:'output',  width:'100px',    style:'text-align:center'}
 				],
 		        sheetName: "포장기",
+		        title: "",
+		        unit: ""
+		    },{
+		        sbGrid: grdExpGdsGrd,
+		        parentid: "sbexp-area-grdExpGdsGrd",
+		        id: "grdExpGdsGrd",
+		        jsonref: "jsonExpGdsGrd",
+				columns: [
+			    	{caption: ["상품등급코드"],   		ref: 'grdKnd',  	type:'output',  width:'100px',    style:'text-align:center'},
+			    	{caption: ["상품등급코드명"],    	ref: 'grdKndNm',  	type:'output',  width:'100px',    style:'text-align:center'}
+				],
+		        sheetName: "상품등급",
 		        title: "",
 		        unit: ""
 		    }
