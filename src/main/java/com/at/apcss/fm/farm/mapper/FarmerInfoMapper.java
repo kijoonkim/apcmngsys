@@ -1,6 +1,7 @@
 package com.at.apcss.fm.farm.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -41,6 +42,10 @@ public interface FarmerInfoMapper {
 
 	public int insertMegerfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 	public int insertMegerLogfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+
+	public int insertMegerfarmerInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerLogfarmerInfoMap(Map<String, String> MapList) throws Exception;
+
 	public int updateMegerfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
 	public int deletefarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;

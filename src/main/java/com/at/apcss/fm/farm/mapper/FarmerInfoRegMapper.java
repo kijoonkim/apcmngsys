@@ -37,7 +37,7 @@ public interface FarmerInfoRegMapper {
 
 	public int insertfarmerInfoReg(FarmerInfoRegVO farmerInfoRegVO);
 
-	public int updatefarmerInfoReg(FarmerInfoRegVO farmerInfoRegVO);
+	public int updateFarmerInfoReg(FarmerInfoRegVO farmerInfoRegVO);
 
 	public int deletefarmerInfoReg(FarmerInfoRegVO farmerInfoRegVO) throws Exception;
 }
