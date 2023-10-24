@@ -21,7 +21,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.WebClientResponseException.InternalServerError;
+//import org.springframework.web.reactive.function.client.WebClientResponseException.InternalServerError;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -183,9 +183,9 @@ public class RestFulService {
 			this.responseData = this.jsonNoResult;
 			e.printStackTrace();
 		} catch (HttpClientErrorException e) {
-			//	this.responseData = e.getResponseBodyAsString();
-		} catch ( InternalServerError e) {
-				this.responseData = e.getResponseBodyAsString();
+			   this.responseData = e.getResponseBodyAsString();
+//		} catch ( InternalServerError e) {
+//				this.responseData = e.getResponseBodyAsString();
 		}
 
 		return this;

@@ -41,24 +41,24 @@ public class TrnsfGdsInvntrController extends BaseController {
 
 	@PostMapping(value = "/am/invntr/selectUpdateTrnsfGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectUpdateTrnsfGdsInvntrList(@RequestBody TrnsfGdsInvntrVO trnsfGdsInvntrVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<TrnsfGdsInvntrVO> resultList = new ArrayList<>();
 		try {
-			resultList = trnsfGdsInvntrService.selectUpdateTrnsfGdsInvntrList(trnsfGdsInvntrVO);			
+			resultList = trnsfGdsInvntrService.selectUpdateTrnsfGdsInvntrList(trnsfGdsInvntrVO);
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		
+
 		return getSuccessResponseEntity(resultMap);
-		
+
 	}
-	
-	@PostMapping(value = "/am/invntr/updateTrnsfGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> updateTrnsfGdsInvntrList(@RequestBody List<TrnsfGdsInvntrVO> trnsfGdsInvntrList, HttpServletRequest request) throws Exception {
+
+	@PostMapping(value = "/am/invntr/trnsfGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> trnsfGdsInvntrList(@RequestBody List<TrnsfGdsInvntrVO> trnsfGdsInvntrList, HttpServletRequest request) throws Exception {
 
 		logger.debug("updateSortInvntrDsctnList 호출 <><><><> ");
 
@@ -66,11 +66,13 @@ public class TrnsfGdsInvntrController extends BaseController {
 
 		try {
 			for ( TrnsfGdsInvntrVO trnsfGdsInvntrVO : trnsfGdsInvntrList ) {
+				trnsfGdsInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				trnsfGdsInvntrVO.setSysFrstInptUserId(getUserId());
 				trnsfGdsInvntrVO.setSysLastChgUserId(getUserId());
 				trnsfGdsInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			HashMap<String, Object> rtnObj = trnsfGdsInvntrService.updateTrnsfGdsInvntrList(trnsfGdsInvntrList); //updateSortInvntrDsctnList
+			HashMap<String, Object> rtnObj = trnsfGdsInvntrService.trnsfGdsInvntrList(trnsfGdsInvntrList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

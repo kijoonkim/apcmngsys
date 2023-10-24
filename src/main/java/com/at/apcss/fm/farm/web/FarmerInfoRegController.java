@@ -21,8 +21,7 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.fm.dashboard.service.DashboardService;
 import com.at.apcss.fm.dashboard.vo.DashboardVO;
-import com.at.apcss.fm.fclt.service.FcltOperInfoClctAgreInfoService;
-import com.at.apcss.fm.fclt.vo.FcltOperInfoClctAgreInfoVO;
+import com.at.apcss.fm.farm.vo.FarmerInfoRegVO;
 import com.at.apcss.fm.farm.service.FarmerInfoRegService;
 import com.at.apcss.fm.farm.vo.FarmerInfoRegVO;
 
@@ -71,7 +70,7 @@ public class FarmerInfoRegController extends BaseController{
 			int insertedCnt = 0;
 
 			try {
-				insertedCnt = farmerInfoRegService.insertfarmerInfoReg(farmerInfoRegVO);
+				insertedCnt = farmerInfoRegService.insertFarmerInfoReg(farmerInfoRegVO);
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -119,6 +118,31 @@ public class FarmerInfoRegController extends BaseController{
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 			resultMap.put("result", result);
+			return getSuccessResponseEntity(resultMap);
+		}
+
+		// 생산농가 상세내역 변경
+		@PostMapping(value = "/fm/Farm/updateFarmerInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> updateFarmerInfoReg(@RequestBody FarmerInfoRegVO farmerInfoRegVO, HttpServletRequest requset) throws Exception{
+
+			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+			// validation check
+
+			// audit 항목
+			farmerInfoRegVO.setSysLastChgUserId(getUserId());
+			farmerInfoRegVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			int updatedCnt = 0;
+
+			try {
+				updatedCnt = farmerInfoRegService.updateFarmerInfoReg(farmerInfoRegVO);
+			} catch (Exception e) {
+				logger.debug(e.getMessage());
+				return getErrorResponseEntity(e);
+			}
+
+			resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
 			return getSuccessResponseEntity(resultMap);
 		}
 

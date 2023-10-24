@@ -11,6 +11,8 @@ public class ApcInfoVO extends ComVO{
 
 	/** APC코드 */
 	private String apcCd;
+	/* 제외APC코드 */
+	private String exclApcCd;
 
 	/** 원본 APC명 */
 	private String regApcNm;

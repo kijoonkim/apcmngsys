@@ -30,7 +30,7 @@ import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
 public class InvShipOgnPurSalMngController extends BaseController{
 
 	@Resource(name= "InvShipOgnPurSalMngService")
-	private InvShipOgnPurSalMngService InvShipOgnPurSalMngService;
+	private InvShipOgnPurSalMngService invShipOgnPurSalMngService;
 
 //화면이동
 	@RequestMapping(value = "/pd/isom/InvShipOgnPurSalMng.do")
@@ -44,7 +44,7 @@ public class InvShipOgnPurSalMngController extends BaseController{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 			List<InvShipOgnPurSalMngVO> resultList = new ArrayList<>();
 			try {
-				 resultList = InvShipOgnPurSalMngService.selectInvShipOgnPurSalMngList(InvShipOgnPurSalMngVO);
+				 resultList = invShipOgnPurSalMngService.selectInvShipOgnPurSalMngList(InvShipOgnPurSalMngVO);
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -71,7 +71,7 @@ public class InvShipOgnPurSalMngController extends BaseController{
 			int insertedCnt = 0;
 
 			try {
-				insertedCnt = InvShipOgnPurSalMngService.insertInvShipOgnPurSalMng(InvShipOgnPurSalMngVO);
+				insertedCnt = invShipOgnPurSalMngService.insertInvShipOgnPurSalMng(InvShipOgnPurSalMngVO);
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -97,7 +97,7 @@ public class InvShipOgnPurSalMngController extends BaseController{
 					InvShipOgnPurSalMngVO.setSysLastChgUserId(getUserId());
 				}
 
-				savedCnt = InvShipOgnPurSalMngService.multiSaveInvShipOgnPurSalMngList(InvShipOgnPurSalMngVOList);
+				savedCnt = invShipOgnPurSalMngService.multiSaveInvShipOgnPurSalMngList(InvShipOgnPurSalMngVOList);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -112,7 +112,7 @@ public class InvShipOgnPurSalMngController extends BaseController{
 
 			int result = 0;
 			try {
-				result =+ InvShipOgnPurSalMngService.deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO);
+				result =+ invShipOgnPurSalMngService.deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}

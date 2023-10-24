@@ -10,6 +10,7 @@
 
 
 .td_input { padding: 3px !important; }
+.td_input_dtl { padding: 3px 3px 3px 0px !important; }
 .th_bg { background-color: #e8f1f9;}
 
 .td_input .input-sm {
