@@ -128,7 +128,7 @@
 									uitype="text"
 									id="srch-inp-vrtyCd"
 									name="srch-inp-vrtyCd"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									class="form-control input-sm"
 								></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">

@@ -180,7 +180,7 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	    	{caption: ["선택"], 				ref: 'checked', 	type:'checkbox', 	width:'40px',	style: 'text-align:center'},
+	    	{caption: ["선택", "선택"], 		ref: 'checked', 	type:'checkbox', 	width:'40px',	style: 'text-align:center'},
  	        {caption: ["순번","순번"],			ref: 'pckgCmndSn',	type:'output',  width:'40px',    style:'text-align:center'},
 	        {caption: ["지시번호","지시번호"],	ref: 'pckgCmndno',  type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["생산설비","생산설비"],	ref: 'fcltNm',      type:'output',  width:'100px',    style:'text-align:center'},
