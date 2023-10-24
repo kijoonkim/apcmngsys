@@ -16,6 +16,7 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSendMail" name="btnSendMail" uitype="normal" class="btn btn-sm btn-primary" text="메일발송" onclick="fn_sendMail"></sbux-button>
 					<sbux-button id="btnSlipDlng" name="btnSlipDlng" uitype="normal" class="btn btn-sm btn-primary" text="거래명세표" onclick="fn_slipDlng"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
@@ -121,12 +122,14 @@
     </div>
 </body>
 <script type="text/javascript">
-	var jsonApcItem			= [];	// 품목 		itemCd		검색
-	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
+	var jsonApcItem			= [];	// 품목 				itemCd		검색
+	var jsonApcVrty			= [];	// 품종 				vrtyCd		검색
+	var jsonComClctmYn		= [];	// 수금여부(사용유무) 	useYn		그리드
 
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
+			gfn_setComCdSBSelect('grdSlsPrfmnc', 		jsonComClctmYn, 	'CLCTM_YN'),	// 완료여부
 			gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonApcItem, 	gv_selectedApcCd),	// 품목
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonApcVrty, 	gv_selectedApcCd)	// 품종
 		]);
@@ -180,6 +183,8 @@
     		    typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['매출금액','매출금액'], 	ref: 'cfmtnAmt', 	width: '100px', 	type: 'output',		style:'text-align: right',
     		    typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+   		    {caption: ['수금여부','수금여부'], 		ref: 'clctmYn',   		width:'80px',  type:'combo',    style:'text-align:center',
+   				typeinfo : {ref:'jsonComClctmYn', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['비고','비고'], 		ref: '__', 			width: '200px', 	type: 'output',		style:'text-align: right'}
         ];
         grdSlsPrfmnc = _SBGrid.create(SBGridProperties);
@@ -227,7 +232,7 @@
         try{
         	data.resultList.forEach((item, index) => {
 				let slsPrfmnc = {
-					checkedYn 	: null
+					apcCd		: item.apcCd
 				  , slsYmd 		: item.slsYmd
 				  , cnptNm 		: item.cnptNm
 				  , gdsNm 		: item.gdsNm
@@ -243,6 +248,8 @@
 				  , totQntt		: item.totQntt
 				  , totWght 	: item.totWght
 				  , totCfmtnAmt : item.totCfmtnAmt
+				  , clctmYn		: item.clctmYn
+				  , cfmtnYn		: item.cfmtnYn
 				}
 				jsonSlsPrfmnc.push(Object.assign({}, slsPrfmnc));
 				newJsonSlsPrfmnc.push(Object.assign({}, slsPrfmnc));
@@ -291,6 +298,53 @@
     		return;
     	}
     }
+
+    const fn_save = async function(){
+		let grdRows = grdSlsPrfmnc.getCheckedRows(0);
+    	let saveList = [];
+
+    	if(grdRows.length == 0){
+    		gfn_comAlert("W0003", "저장");			// W0003	{0}할 대상이 없습니다.
+    		return;
+    	}
+
+    	for(var i=0; i< grdRows.length; i++){
+    		let nRow = grdRows[i];
+    		let rowData  = grdSlsPrfmnc.getRowData(nRow);
+    		let clctmYn = rowData.clctmYn;
+    		if (gfn_isEmpty(clctmYn)){
+    			gfn_comAlert("W0002", "수금여부");		//	W0002	{0}을/를 입력하세요.
+                return;
+    		}
+
+			saveList.push(grdSlsPrfmnc.getRowData(nRow));
+
+    	}
+
+
+    	let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+			const postJsonPromise = gfn_postJSON("/am/sls/saveSlsPrfmncCrtList.do", saveList);
+	    	const data = await postJsonPromise;
+
+	    	try{
+	       		if(data.errCd != null){
+	       			gfn_comAlert(data.errCd, "출하실적");	// 마감등록 된 {0} 입니다.
+	       		}else if(data.deletedCnt > 0){
+	       			fn_search();
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	       		}else{
+	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
+	       		}
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
+	}
+
 
 	// 거래명세표
     async function fn_slipDlng(){

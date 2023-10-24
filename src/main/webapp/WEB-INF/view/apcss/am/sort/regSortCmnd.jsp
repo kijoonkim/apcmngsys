@@ -144,7 +144,6 @@
 					</ul>
 					<div class="ad_tbl_toplist">
 						<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-						<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 					</div>
 				</div>
                 <div class="sbt-wrap-body">
@@ -277,7 +276,6 @@
 	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
-	        {caption: ["선택","선택"],				ref: 'checkedYn',		type:'checkbox',  	width:'50px',     style:'text-align:center'},
 	        {caption: ["지시번호","지시번호"], 		ref: 'sortCmndno',  	type:'output',  	width:'130px',    style:'text-align:center'},
 	        {caption: ["지시일자","지시일자"],  	ref: 'sortCmndYmd', 	type:'output',  	width:'130px',    style:'text-align:center'},
 	        {caption: ["투입설비","투입설비"],  	ref: 'fcltNm',    		type:'output',  	width:'130px',    style:'text-align:center'},

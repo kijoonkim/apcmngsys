@@ -183,4 +183,8 @@ public class SlsPrfmncVO extends ComVO {
 	 * 매출확정 가능 여부
 	 * */
 	private String cfmtnPsbltyYn;
+	/*
+	 * 수금여부
+	 * */
+	private String clctmYn;
 }
