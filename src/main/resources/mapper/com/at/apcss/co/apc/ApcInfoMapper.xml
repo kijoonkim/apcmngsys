@@ -141,6 +141,9 @@
 		<if test='apcCd != null and apcCd != ""'>
 		   	   AND AI.APC_CD = #{apcCd}
 		</if>
+		<if test='exclApcCd != null and exclApcCd != ""'>
+		   	   AND AI.APC_CD =! #{exclApcCd}
+		</if>
     </select>
 
 

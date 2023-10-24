@@ -4,15 +4,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.transaction.TransactionalException;
+
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.invntr.service.RawMtrInvntrService;
+import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper;
+import com.at.apcss.am.trnsf.service.InvntrTrnsfService;
 import com.at.apcss.am.trnsf.service.TrnsfGdsInvntrService;
+import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
 import com.at.apcss.am.trnsf.vo.TrnsfGdsInvntrVO;
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.ibatis.sqlmap.engine.transaction.Transaction;
 
 /**
  * @Class Name : GdsInvntrServiceImpl.java
@@ -36,33 +44,55 @@ public class TrnsfGdsInvntrServiceImpl extends BaseServiceImpl implements TrnsfG
 	@Autowired
 	private TrnsfGdsInvntrMapper trnsfGdsInvntrMapper;
 
+	@Resource(name = "rawMtrInvntrService")
+	private RawMtrInvntrService rawMtrInvntrService;
+
+	@Resource(name = "invntrTrnsfService")
+	private InvntrTrnsfService invntrTrnsfService;
+
 	@Override
 	public List<TrnsfGdsInvntrVO> selectUpdateTrnsfGdsInvntrList(TrnsfGdsInvntrVO trnsfGdsInvntrVO) throws Exception {
-		
+
 		List<TrnsfGdsInvntrVO> resultList = trnsfGdsInvntrMapper.selectUpdateTrnsfGdsInvntrList(trnsfGdsInvntrVO);
-		
+
 		return resultList;
 	}
 
-	
+
 	@Override
-	public HashMap<String, Object> updateTrnsfGdsInvntrList(List<TrnsfGdsInvntrVO> trnsfGdsInvntrList) throws Exception {
-		List<TrnsfGdsInvntrVO> updateList = new ArrayList<>();
+	public HashMap<String, Object> trnsfGdsInvntrList(List<TrnsfGdsInvntrVO> trnsfGdsInvntrList) throws Exception {
+		List<InvntrTrnsfVO> insertList = new ArrayList<>();
+		List<RawMtrInvntrVO> rawMtrInvntrList = new ArrayList<>();
+
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		for (TrnsfGdsInvntrVO trnsfGdsInvntrVO : trnsfGdsInvntrList) {
-			TrnsfGdsInvntrVO vo = new TrnsfGdsInvntrVO();
-			BeanUtils.copyProperties(trnsfGdsInvntrVO, vo);
+			RawMtrInvntrVO rawMtrInvntr = new RawMtrInvntrVO();
+			InvntrTrnsfVO invntrTrnsf = new InvntrTrnsfVO();
+			BeanUtils.copyProperties(trnsfGdsInvntrVO, rawMtrInvntr);
+			BeanUtils.copyProperties(trnsfGdsInvntrVO, invntrTrnsf);
 
-			if (ComConstants.ROW_STS_UPDATE.equals(trnsfGdsInvntrVO.getRowSts())) {
-				updateList.add(vo);
-			}
+			rawMtrInvntrList.add(rawMtrInvntr);
+
+			insertList.add(invntrTrnsf);
+
 		}
 
-		for (TrnsfGdsInvntrVO trnsfGdsInvntrVO : updateList) {
-			trnsfGdsInvntrMapper.updateTrnsfGdsInvntrList(trnsfGdsInvntrVO);
+		resultMap = invntrTrnsfService.insertInvntrTrnsfList(insertList);
+
+		if(resultMap != null) {
+			throw new EgovBizException(getMessageForMap(resultMap));
 		}
 
-		return null;
+
+		resultMap = rawMtrInvntrService.updateRawMtrInvntrList(rawMtrInvntrList);
+
+		if(resultMap != null) {
+			throw new EgovBizException(getMessageForMap(resultMap));
+		}
+
+		return resultMap;
 	}
 
 }

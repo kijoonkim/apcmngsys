@@ -326,17 +326,17 @@
 		]]>
 	</update>
 
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrInvntr	-->
-	<!-- DESC : 원물재고내역 변경.		                                       				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.09.04  	김현호        		Initial Creation                            -->
-	<!-- ==========================================================================	-->
-    <update id="updateRawMtrInvntrList" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrInvntrChg	-->
+	<!-- DESC : 원물재고내역 변경.		                                       			-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	==============================================	-->
+	<!-- 2023.09.04  	김현호        		Initial Creation                        	-->
+	<!-- =============================================================================	-->
+    <update id="updateRawMtrInvntrChg" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrInvntr */
+			UPDATE /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrInvntrChg */
 				TB_RAW_MTR_INVNTR
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE

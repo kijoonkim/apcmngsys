@@ -112,6 +112,15 @@ public class TrnsfSortInvntrVO extends ComVO {
 	 * 선별중량
 	 */
 	private double sortWght;
+	/**
+	 * 이송가능수량
+	 */
+	private int psbltyInvntrQntt;
+
+	/**
+	 * 이송가능중량중량
+	 */
+	private double psbltyInvntrWght;
 
 	/**
 	 * 포장수량
