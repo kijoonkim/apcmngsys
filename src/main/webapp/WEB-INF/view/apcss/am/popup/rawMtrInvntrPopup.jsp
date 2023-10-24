@@ -159,7 +159,8 @@
 		    };
 		    SBGridProperties.columns = [
 		        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',      		type:'output',  width:'130px',   style:'text-align:center'},
-		        {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      	type:'output',  width:'90px',    style:'text-align:center'},
+		        {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      	type:'output',  width:'90px',    style:'text-align:center',
+	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 		        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      	type:'output',  width:'90px',    style:'text-align:center'},
 		        {caption: ["품목","품목"],				ref: 'itemNm',      	type:'output',  width:'90px',    style:'text-align:center'},
 		        {caption: ["품종","품종"],				ref: 'vrtyNm',      	type:'output',  width:'90px',    style:'text-align:center'},

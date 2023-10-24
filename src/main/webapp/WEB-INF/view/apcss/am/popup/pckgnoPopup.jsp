@@ -25,6 +25,10 @@
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
+				<sbux-input id="pckgno-inp-itemCd" name="pckgno-inp-itemCd" uitype="hidden"></sbux-input>
+				<sbux-input id="pckgno-inp-vrtyCd" name="pckgno-inp-vrtyCd" uitype="hidden"></sbux-input>
+				<sbux-input id="pckgno-inp-spcfctCd" name="pckgno-inp-spcfctCd" uitype="hidden"></sbux-input>
+				<sbux-input id="pckgno-inp-gdsGrd" name="pckgno-inp-gdsGrd" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -45,38 +49,6 @@
 							<th scope="row">포장일자</th>
 							<th class="td_input">
 								<sbux-datepicker id="pckgno-dtp-pckgYmd" name="pckgno-dtp-pckgYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
-							</th>
-							<th scope="row">규격</th>
-							<th>
-								<sbux-select id="pckgno-slt-spcfctCd" name="pckgno-slt-spcfctCd" uitype="single" class="form-control input-sm" style="background-color:#FFFFFF;" jsondata-ref="jsonApcSpcfct" unselected-text="전체"></sbux-select>
-							</th>
-						</tr>
-						<tr>
-							<th scope="row">품목</th>
-							<th>
-								<sbux-select
-									unselected-text="전체"
-									uitype="single"
-									id="pckgno-slt-itemCd"
-									name="pckgno-slt-itemCd"
-									class="form-control input-sm"
-									jsondata-ref="jsonApcItem"
-									onchange="popPckgno.srchItemCd(this)"
-									style="background-color:#FFFFFF;"
-								/>
-							</th>
-							<th scope="row">품종</th>
-							<th>
-								<sbux-select
-									unselected-text="전체"
-									uitype="single"
-									id="pckgno-slt-vrtyCd"
-									name="pckgno-slt-vrtyCd"
-									class="form-control input-sm"
-									jsondata-ref="jsonApcVrty"
-									onchange="popPckgno.srchVrtyCd(this)"
-									style="background-color:#FFFFFF;"
-								/>
 							</th>
 							<th></th>
 							<th></th>
@@ -110,9 +82,13 @@
 		objGrid: null,
 		gridJson: [],
 		callbackSelectFnc: function() {},
-		init: async function(_apcCd, _apcNm, _callbackChoiceFnc) {
+		init: async function(_apcCd, _apcNm, _pckgno, _callbackChoiceFnc) {
 			SBUxMethod.set("pckgno-inp-apcCd", _apcCd);
 			SBUxMethod.set("pckgno-inp-apcNm", _apcNm);
+			SBUxMethod.set("pckgno-inp-itemCd", _pckgno.itemCd);
+			SBUxMethod.set("pckgno-inp-vrtyCd", _pckgno.vrtyCd);
+			SBUxMethod.set("pckgno-inp-spcfctCd", _pckgno.spcfctCd);
+			SBUxMethod.set("pckgno-inp-gdsGrd", _pckgno.gdsGrd);
 
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
 				this.callbackSelectFnc = _callbackChoiceFnc;
@@ -122,10 +98,6 @@
 
 				SBUxMethod.set("pckgno-dtp-pckgYmd", gfn_dateToYmd(new Date()));
 				
-				let rst = await Promise.all([
-				 	gfn_setApcItemSBSelect('pckgno-slt-itemCd', jsonApcItem, _apcCd),							// 품목
-					gfn_setApcVrtySBSelect('pckgno-slt-vrtyCd', jsonApcVrty, _apcCd)							// 품종
-				]);
 				this.createGrid();
 				this.search();
 			} else {
@@ -158,47 +130,21 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-	            {caption: ["포장일자","포장일자"], 		ref: 'pckgYmd', 		width: '120px', type: 'output', style:'text-align:center',
+	            {caption: ["포장일자"], 		ref: 'pckgYmd', 		width: '100px', type: 'output', style:'text-align:center',
 	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	        	{caption: ["포장번호","포장번호"],		ref: 'pckgnoIndct',     width: '120px',	type: 'output',	style: 'text-align:center'},
-	            {caption: ['지시번호','지시번호'], 		ref: 'pckgCmndno', 		width: '120px', type: 'output', style:'text-align:center'},
-	            {caption: ['품목','품목'], 			ref: 'itemNm', 			width: '80px',	type: 'output', style:'text-align:center'},
-	            {caption: ['품종','품종'], 			ref: 'vrtyNm', 			width: '80px', 	type: 'output', style:'text-align:center'},
-	            {caption: ['규격','규격'], 			ref: 'spcfctNm', 		width: '80px', 	type: 'output', style:'text-align:center'},
-	            {caption: ['상품등급','상품등급'], 		ref: 'gdsGrdNm', 		width: '80px',	type: 'output', style:'text-align:center'},
-	            {caption: ['재고','수량'], 			ref: 'invntrQntt', 		width: '50px', 	type: 'output', style:'text-align:right',
+	        	{caption: ["포장번호"],		ref: 'pckgnoIndct',     width: '120px',	type: 'output',	style: 'text-align:center'},
+	            {caption: ['품목'], 			ref: 'itemNm', 			width: '80px',	type: 'output', style:'text-align:center'},
+	            {caption: ['품종'], 			ref: 'vrtyNm', 			width: '80px', 	type: 'output', style:'text-align:center'},
+	            {caption: ['규격'], 			ref: 'spcfctNm', 		width: '80px', 	type: 'output', style:'text-align:center'},
+	            {caption: ['상품등급'], 		ref: 'gdsGrdNm', 		width: '80px',	type: 'output', style:'text-align:center'},
+	            {caption: ['재고수량'], 		ref: 'invntrQntt', 		width: '60px', 	type: 'output', style:'text-align:right',
 	            	format : {type:'number', rule:'#,###'}},
-	            {caption: ['재고','중량'], 			ref: 'invntrWght', 		width: '80px', 	type: 'output', style:'text-align:right',
+	            {caption: ['재고중량'], 		ref: 'invntrWght', 		width: '70px', 	type: 'output', style:'text-align:right',
 	            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### kg'}},
-	            {caption: ['포장기','포장기'], 			ref: 'fcltNm', 			width: '100px', type: 'output', style:'text-align:center'},
-	            {caption: ['대표생산자','대표생산자'],	ref: 'rprsPrdcrNm', 	width: '100px', type: 'output', style:'text-align:center'},
-	            {caption: ['창고','창고'], 			ref: 'warehouseSeNm', 	width: '100px', type: 'output', style:'text-align:center'},
-	            {caption: ['포장','수량'], 			ref: 'pckgQntt', 		width: '50px', 	type: 'output', style:'text-align:right',
-	            	format : {type:'number', rule:'#,###'}},
-	            {caption: ['포장','중량'], 			ref: 'pckgWght', 		width: '80px', 	type: 'output', style:'text-align:right',
-	            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### kg'}},
-	            {caption: ['출하','수량'], 			ref: 'spmtQntt', 		width: '50px', 	type: 'output', style:'text-align:right',
-	            	format : {type:'number', rule:'#,###'}},
-	            {caption: ['출하','중량'], 			ref: 'spmtWght', 		width: '80px', 	type: 'output', style:'text-align:right',
-	            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### kg'}},
-	            {caption: ['비고','비고'], 			ref: 'rmrk', 			width: '250px', type: 'output', style:'text-align:center'},
-	 	        {caption: ["APC코드"],				ref: 'apcCd',   		hidden: true},
-	 	        {caption: ["대표생산자코드"],			ref: 'rprsPrdcrCd',   	hidden: true},
-	 	        {caption: ["품목코드"],				ref: 'itemCd',   		hidden: true},
-		        {caption: ["품종코드"],				ref: 'vrtyCd',   		hidden: true},
-		        {caption: ["규격코드"],				ref: 'spcfctCd',   		hidden: true},
-		        {caption: ["창고구분코드"],				ref: 'warehouseSeCd', 	hidden: true},
-		        {caption: ["설비"],					ref: 'fcltCd', 			hidden: true},
-		        {caption: ["상품등급코드"],				ref: 'gdsGrd',   		hidden: true},
-		        {caption: ["상품구분코드"],				ref: 'gdsSeCd',   		hidden: true},
-		        {caption: ["상품구분명"],				ref: 'gdsSeNm',   		hidden: true},
-		        {caption: ["생산연도"],				ref: 'prdctnYr',   		hidden: true},
-		        {caption: ["포장단위"],				ref: 'spmtPckgUnitCd',  hidden: true},
-		        {caption: ["포장단위명"],				ref: 'spmtPckgUnitNm',  hidden: true},
-		        {caption: ["생산연도"],				ref: 'prdctnYr',   		hidden: true},
-		        {caption: ["산지코드"],				ref: 'plorCd',   		hidden: true},
-		        {caption: ["포장번호"],				ref: 'pckgno', 			hidden: true},
-		        {caption: ["포장순번"],				ref: 'pckgSn', 			hidden: true}
+	            {caption: ['창고'], 			ref: 'warehouseSeNm', 	width: '100px', type: 'output', style:'text-align:center'},
+	            {caption: ['비고'], 			ref: 'rmrk', 			width: '250px', type: 'output', style:'text-align:center'},
+		        {caption: ["포장번호"],		ref: 'pckgno', 			hidden: true},
+		        {caption: ["포장순번"],		ref: 'pckgSn', 			hidden: true}
 		    ];
 		    grdPckgnoPop = _SBGrid.create(SBGridProperties);
 		    grdPckgnoPop.bind('afterpagechanged', this.paging);
@@ -215,8 +161,6 @@
 			}
 		},
 		search: async function() {
-			let apcCd = SBUxMethod.get("pckgno-inp-apcCd");
-
 			grdPckgnoPop.rebuild();
 	    	let pageSize = grdPckgnoPop.getPageSize();
 	    	let pageNo = 1;
@@ -231,15 +175,17 @@
 
 			let apcCd = SBUxMethod.get("pckgno-inp-apcCd");
 			let pckgYmd = SBUxMethod.get("pckgno-dtp-pckgYmd");
-			let itemCd = SBUxMethod.get("pckgno-slt-itemCd");
-			let vrtyCd = SBUxMethod.get("pckgno-slt-vrtyCd");
-			let spcfctCd = SBUxMethod.get("pckgno-slt-spcfctCd");
+			let itemCd = SBUxMethod.get("pckgno-inp-itemCd");
+			let vrtyCd = SBUxMethod.get("pckgno-inp-vrtyCd");
+			let spcfctCd = SBUxMethod.get("pckgno-inp-spcfctCd");
+			let gdsGrd = SBUxMethod.get("pckgno-inp-gdsGrd");
 			let pckgno = {
 					apcCd 				: apcCd,
 					pckgYmd 			: pckgYmd,
 					itemCd 				: itemCd,
 					vrtyCd 				: vrtyCd,
 					spcfctCd 			: spcfctCd,
+					gdsGrd 				: gdsGrd,
 					// pagination
 			  		pagingYn 			: 'Y',
 					currentPageNo 		: pageNo,
@@ -314,28 +260,6 @@
 		 		console.error("failed", e.message);
 		    }
 	    },
-		srchItemCd: async function(obj) {
-	    	let apcCd = SBUxMethod.get("pckgno-inp-apcCd");
-			let itemCd = obj.value;
-
-			let result = await Promise.all([
-				gfn_setApcVrtySBSelect('pckgno-slt-vrtyCd', jsonApcVrty, apcCd, itemCd),					// 품종
-				gfn_setApcSpcfctsSBSelect('pckgno-slt-spcfctCd', jsonApcSpcfct, apcCd, itemCd)			// 규격
-			]);
-		},
-		srchVrtyCd: async function(obj) {
-	    	let apcCd = SBUxMethod.get("pckgno-inp-apcCd");
-			let vrtyCd = obj.value;
-			const itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
-
-			const prvItemCd = SBUxMethod.get("pckgno-slt-itemCd");
-			if (itemCd != prvItemCd) {
-				SBUxMethod.set("pckgno-slt-itemCd", itemCd);
-				await this.srchItemCd({value: itemCd});
-				SBUxMethod.set("pckgno-slt-vrtyCd", vrtyCd);
-			}
-			gfn_setApcSpcfctsSBSelect('pckgno-slt-spcfctCd', jsonApcSpcfct, apcCd, itemCd)
-		},
 	    paging: function() {
 	    	let recordCountPerPage = grdPckgnoPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
 	    	let currentPageNo = grdPckgnoPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정

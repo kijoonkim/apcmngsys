@@ -231,6 +231,7 @@
 
 						let spmtCmnd = {
 								spmtCmndno		: item.spmtCmndno
+							  , spmtCmndSn 		: item.spmtCmndSn
 							  ,	cmndYmd 		: item.cmndYmd
 							  , cnptCd 			: item.cnptCd
 							  , cnptNm 			: item.cnptNm
@@ -252,7 +253,6 @@
 							  , rmrk			: item.rmrk
 							  , itemCd			: item.itemCd
 							  , outordrno		: item.outordrno
-							  , wght			: item.wght
 						}
 						jsonSpmtCmndPop.push(spmtCmnd);
 		    		}
