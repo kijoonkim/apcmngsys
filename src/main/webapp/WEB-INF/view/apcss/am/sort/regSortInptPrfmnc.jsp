@@ -1397,8 +1397,8 @@
 				typeinfo : {ref:'jsonExpSltGdsSeCd', 	displayui : false,	itemcount: 10, label:'cdVlNm', value:'cdVl'}},
 	        {caption: ["운송구분"], 	ref: 'trsprtSeCd',   	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonExpSltTrsprtSeCd', 	displayui : false,	itemcount: 10, label:'cdVlNm', value:'cdVl'}},
-	        {caption: ["창고"],		ref: 'warehouseSeCd',	type:'combo',  width:'80px',    style:'text-align:center',
-				typeinfo : {ref:'jsonExpSltWarehouseSeCd', 	displayui : false,	itemcount: 10, label:'warehouseSeNm', value:'warehouseSeCd'}},
+				{caption: ["보관창고"],		ref: 'warehouseSeCd',	type:'combo',  width:'80px',    style:'text-align:center',
+					typeinfo : {ref:'jsonExpSltWarehouseSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["박스"],		ref: 'pltBxCd ',	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonExpSltBxKnd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["생산연도"],		ref: 'prdctnYr',    	type:'output',  width:'80px',    style:'text-align:left'},
@@ -1629,61 +1629,19 @@
 		        sheetName: "규격",
 		        title: "",
 		        unit: ""
-		    }, {
+		    },{
 		        sbGrid: grdExpWarehouseSeCd,
 		        parentid: "sbexp-area-grdExpWarehouseSeCd",
 		        id: "grdExpWarehouseSeCd",
 		        jsonref: "jsonExpWarehouseSeCd",
 				columns: [
-			    	{caption: ["창고코드"],   	ref: 'value',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["창고코드명"],  	ref: 'text',  	type:'output',  width:'100px',    style:'text-align:center'}
+			    	{caption: ["창고코드"],   	ref: 'cdVl',  	type:'output',  width:'100px',    style:'text-align:center'},
+			    	{caption: ["창고코드명"],  	ref: 'cdVlNm',  	type:'output',  width:'100px',    style:'text-align:center'}
 				],
 		        sheetName: "창고",
 		        title: "",
 		        unit: ""
-		    }, {
-		        sbGrid: grdExpBxKnd,
-		        parentid: "sbexp-area-grdExpBxKnd",
-		        id: "grdExpBxKnd",
-		        jsonref: "jsonExpBxKnd",
-				columns: [
-			    	{caption: ["박스코드"],   	ref: 'pltBxCd',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["박스코드명"],  	ref: 'pltBxNm',  	type:'output',  width:'100px',    style:'text-align:center'}
-				],
-		        sheetName: "박스",
-		        title: "",
-		        unit: ""
-		    }, {
-		        sbGrid: grdExpStdGrd,
-		        parentid: "sbexp-area-grdExpStdGrd",
-		        id: "grdExpStdGrd",
-		        jsonref: "jsonExpStdGrd",
-				columns: [
-			    	{caption: ["품목코드"],   	ref: 'itemCd',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["품목명"],   	ref: 'itemNm',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["등급코드"],   	ref: 'grdKnd',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["등급코드명"],  	ref: 'grdKndNm',  	type:'output',  width:'100px',    style:'text-align:center'}
-				],
-		        sheetName: "등급",
-		        title: "",
-		        unit: ""
-		    }, {
-		        sbGrid: grdExpStdGrdDtl,
-		        parentid: "sbexp-area-grdExpStdGrdDtl",
-		        id: "grdExpStdGrdDtl",
-		        jsonref: "jsonExpStdGrdDtl",
-				columns: [
-					{caption: ["품목코드"],		ref: 'itemCd',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["품목명"],   	ref: 'itemNm',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["등급코드"],   	ref: 'grdKnd',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["등급명"],   	ref: 'grdKndNm',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["등급상세코드"], 	ref: 'grdCd',  		type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["등급상세명"],  	ref: 'grdNm',  		type:'output',  width:'100px',    style:'text-align:center'}
-				],
-		        sheetName: "등급상세",
-		        title: "",
-		        unit: ""
-		    },
+		    }
 		];
 
 		await fn_createExpGrid(expObjList);
