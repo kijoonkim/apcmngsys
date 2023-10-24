@@ -34,13 +34,18 @@ public interface FarmerInfoService {
 
 	public List<FarmerInfoVO> selectfarmerInfoList(FarmerInfoVO farmerInfoVO) throws Exception;
 
-	public int insertfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+	public int insertFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
-	public int updatefarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+	public int updateFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
 	public int multiSavefarmerInfoList(List<FarmerInfoVO> farmerInfoVOList) throws Exception;
+
 	public int insertMegerfarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
 	public int insertMegerLogfarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
+
+	public int insertMegerfarmerInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerLogfarmerInfoMap(Map<String, String> MapList) throws Exception;
+
 	public int updateMegerfarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
 
 	public int deletefarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;

@@ -1,6 +1,8 @@
 package com.at.apcss.fm.farm.service.impl;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +53,7 @@ public class FarmerInfoServiceImpl implements FarmerInfoService{
 	}
 
 	@Override
-	public int insertfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
+	public int insertFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
 
 		int insertedCnt = farmerInfoMapper.insertfarmerInfo(farmerInfoVO);
 
@@ -59,7 +61,7 @@ public class FarmerInfoServiceImpl implements FarmerInfoService{
 	}
 
 	@Override
-	public int updatefarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
+	public int updateFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
 
 		int updatedCnt = farmerInfoMapper.updatefarmerInfo(farmerInfoVO);
 
@@ -71,10 +73,10 @@ public class FarmerInfoServiceImpl implements FarmerInfoService{
 		int savedCnt = 0;
 		for (FarmerInfoVO farmerInfoVO : farmerInfoVOList) {
 			if(ComConstants.ROW_STS_INSERT.equals(farmerInfoVO.getRowSts())) {
-				savedCnt += insertfarmerInfo(farmerInfoVO);
+				savedCnt += insertFarmerInfo(farmerInfoVO);
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(farmerInfoVO.getRowSts())) {
-				savedCnt += updatefarmerInfo(farmerInfoVO);
+				savedCnt += updateFarmerInfo(farmerInfoVO);
 			}
 		}
 		return savedCnt;
@@ -88,6 +90,17 @@ public class FarmerInfoServiceImpl implements FarmerInfoService{
 	public int insertMegerLogfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
 		return farmerInfoMapper.insertMegerLogfarmerInfo(farmerInfoVO);
 	}
+
+
+	@Override
+	public int insertMegerfarmerInfoMap(Map<String, String> MapList) throws Exception {
+		return farmerInfoMapper.insertMegerfarmerInfoMap(MapList);
+	}
+	@Override
+	public int insertMegerLogfarmerInfoMap(Map<String, String> MapList) throws Exception {
+		return farmerInfoMapper.insertMegerLogfarmerInfoMap(MapList);
+	}
+
 	@Override
 	public int updateMegerfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
 		return farmerInfoMapper.updateMegerfarmerInfo(farmerInfoVO);
