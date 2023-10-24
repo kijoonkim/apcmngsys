@@ -754,7 +754,7 @@
 // 			gdsGrd		: SBUxMethod.get('srch-inp-gdsGrd')
 // 		}
 		
-		popGdsInvntr.init(gv_apcCd, gv_apcNm, null, fn_setPckgno);
+		popGdsInvntr.init(gv_apcCd, gv_apcNm, null, fn_setGdsInvntr);
 	}
 
 	/**
