@@ -132,19 +132,19 @@
                     </div>
                     
 <!--                     <div class="exp-div-excel" style="display: none; width: 1000px;"> -->
-						<div id="sbexp-area-grdExpRawMtrWrhs" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpItem" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpVrty" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpPrdcr" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpSpcfct" style="height:1000px; width: 1000px;"></div>
+<!-- 						<div id="sbexp-area-grdExpRawMtrWrhs" style="height:1px; width: 100%;"></div> -->
+<!-- 						<div id="sbexp-area-grdExpItem" style="height:1px; width: 100%;"></div> -->
+<!-- 						<div id="sbexp-area-grdExpVrty" style="height:1px; width: 100%;"></div> -->
+<!-- 						<div id="sbexp-area-grdExpPrdcr" style="height:1px; width: 100%;"></div> -->
+<!-- 						<div id="sbexp-area-grdExpSpcfct" style="height:1000px; width: 1000px;"></div> -->
 						<div id="sbexp-area-grdExpWrhsSeCd" style="height:1000px; width: 1000px;"></div>
-						<div id="sbexp-area-grdExpGdsSeCd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpTrsprtSeCd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpWarehouseSeCd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpBxKnd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpStdGrd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpStdGrdDtl" style="height:1px; width: 100%;"></div>
-						<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
+<!-- 						<div id="sbexp-area-grdExpGdsSeCd" style="height:1px; width: 100%;"></div> -->
+<!-- 						<div id="sbexp-area-grdExpTrsprtSeCd" style="height:1px; width: 100%;"></div> -->
+<!-- 						<div id="sbexp-area-grdExpWarehouseSeCd" style="height:1px; width: 100%;"></div> -->
+<!-- 						<div id="sbexp-area-grdExpBxKnd" style="height:1px; width: 100%;"></div> -->
+<!-- 						<div id="sbexp-area-grdExpStdGrd" style="height:1px; width: 100%;"></div> -->
+<!-- 						<div id="sbexp-area-grdExpStdGrdDtl" style="height:1px; width: 100%;"></div> -->
+<!-- 						<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)"> -->
 <!-- 					</div> -->
                	</div>
 
