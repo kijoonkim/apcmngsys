@@ -215,8 +215,18 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="dtl-dtp-spmtYmd" name="dtl-dtp-spmtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast"></sbux-datepicker>
 							</td>
-							<td class="td_input" style="border-right: hidden;"></td>
-							<td class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input" style="border-right: hidden;">
+							<th scope="row" class="th_bg">출하수량/중량</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="dtl-inp-spmtQntt" name="dtl-inp-spmtQntt" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="dtl-inp-spmtWght" name="dtl-inp-spmtWght" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								Kg
+							</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>거래처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-cnptCd" name="dtl-inp-cnptCd" uitype="hidden"></sbux-input>
@@ -225,13 +235,14 @@
 							<td class="td_input">
 								<sbux-button id="dtl-btn-cnpt" name="dtl-btn-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_choiceCnpt" text="찾기"  class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
+
+						</tr>
+						<tr>
 							<th scope="row" class="th_bg">운송회사</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select id="dtl-slt-trsprtCoCd" name="dtl-slt-trsprtCoCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComTrsprtCoCd"></sbux-select>
 							</td>
 							<td class="td_input"></td>
-						</tr>
-						<tr>
 							<th scope="row" class="th_bg">차량번호</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-vhclno" name="dtl-inp-vhclno" uitype="text" class="form-control input-sm"></sbux-input>
@@ -243,6 +254,8 @@
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 							</td>
+						</tr>
+						<tr>
 							<th scope="row" class="th_bg">운임비용</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-trsprtCst" name="dtl-inp-trsprtCst" uitype="text" class="form-control input-sm"
@@ -251,9 +264,6 @@
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"></td>
-						</tr>
-						<tr>
-
 							<th scope="row" class="th_bg">비고</th>
 							<td colspan="3" class="td_input">
 								<sbux-input id="dtl-inp-rmrk" name="dtl-inp-rmrk" uitype="text" class="form-control input-sm"></sbux-input>
@@ -594,6 +604,7 @@
 
     	if(nCol == 0){
 
+
 	    	let invntrQntt = grdGdsInvntr.getRowData(nRow).invntrQntt;
 			let invntrWght = grdGdsInvntr.getRowData(nRow).invntrWght;
 			let spmtQntt = grdGdsInvntr.getRowData(nRow).spmtQntt;
@@ -647,6 +658,24 @@
 				grdGdsInvntr.setCellData(nRow, spmtWghtCol, invntrWght);
 			}
 		}
+    	totspmt();
+    }
+
+    const totspmt = function(){
+    	let totSpmtQntt = 0;
+		let totSpmtWght = 0;
+		let gridData = grdGdsInvntr.getGridDataAll();
+
+		for(var i=1; i<=gridData.length; i++ ){
+
+			let rowData = grdGdsInvntr.getRowData(i);
+			if(!gfn_isEmpty(rowData.spmtQntt)){
+				totSpmtQntt += parseInt(rowData.spmtQntt);
+				totSpmtWght += parseInt(rowData.spmtWght);
+			}
+		}
+		SBUxMethod.set("dtl-inp-spmtQntt", totSpmtQntt)
+		SBUxMethod.set("dtl-inp-spmtWght", totSpmtWght)
     }
 
     const fn_delValue = async function(){
@@ -656,6 +685,7 @@
 
     	grdGdsInvntr.setCellData(nRow, spmtQnttCol, 0);
     	grdGdsInvntr.setCellData(nRow, spmtWghtCol, 0);
+    	totspmt();
     }
 
     const fn_checkInptWght = async function(){
@@ -697,6 +727,7 @@
 		}else{
 			grdGdsInvntr.setCellData(nRow, checkedYnCol, "N")
 		}
+		totspmt();
     }
 
     const fn_checkInptQntt = async function(){
@@ -835,8 +866,7 @@
 				grdGdsInvntr.setCellData(nRow, checkedYnCol, "N");
 			}
 		}
-
-
+		totspmt();
     }
 
 	const fn_save = async function() {

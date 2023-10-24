@@ -396,7 +396,15 @@
 					rowData.checkedYn = "Y";
 					grdClclnPrfmnc.refresh();
 					break;
-
+				
+				case "checkedYn":					
+					if (rowData.checkedYn === "Y"
+							&& rowData.cfmtnYn === "N"
+							&& rowData.cfmtnAmt === 0) {
+						rowData.cfmtnAmt = rowData.rkngAmt;
+						grdClclnPrfmnc.refresh();
+					}
+					
 				default:
 					return;
 			}
