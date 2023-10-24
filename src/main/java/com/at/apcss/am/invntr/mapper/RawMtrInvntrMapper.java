@@ -70,9 +70,7 @@ public interface RawMtrInvntrMapper {
 	 * @return
 	 * @throws Exception
 	 */
-//	public int updateRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception;
-	public int updateRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-//	public HashMap<String, Object> updateRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	public int updateRawMtrInvntrChg(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
 	/**
 	 * 원물재고 삭제

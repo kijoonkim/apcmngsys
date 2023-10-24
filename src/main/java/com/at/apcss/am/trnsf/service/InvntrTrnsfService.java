@@ -1,5 +1,6 @@
 package com.at.apcss.am.trnsf.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
@@ -19,7 +20,7 @@ import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
  * </pre>
  */
 public interface InvntrTrnsfService {
-	
+
 	/**
 	 * 재고이송 단건 조회
 	 * @param invntrTrnsfVO
@@ -59,4 +60,12 @@ public interface InvntrTrnsfService {
 	 * @throws Exception
 	 */
 	public int deleteInvntrTrnsf(InvntrTrnsfVO invntrTrnsfVO) throws Exception;
+
+	/**
+	 * 재고이송 목록 등록
+	 * @param invntrTrnsfVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertInvntrTrnsfList(List<InvntrTrnsfVO> invntrTrnsfList) throws Exception;
 }

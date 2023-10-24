@@ -196,18 +196,32 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	public HashMap<String, Object> updateRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
 
 		List<RawMtrInvntrVO> updateList = new ArrayList<>();
+		List<RawMtrInvntrVO> insertList = new ArrayList<>();
 
 		for (RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList) {
+
 			RawMtrInvntrVO vo = new RawMtrInvntrVO();
 			BeanUtils.copyProperties(rawMtrInvntrVO, vo);
 
+			if (ComConstants.ROW_STS_INSERT.equals(rawMtrInvntrVO.getRowSts())) {
+				insertList.add(vo);
+			}
 			if (ComConstants.ROW_STS_UPDATE.equals(rawMtrInvntrVO.getRowSts())) {
 				updateList.add(vo);
 			}
 		}
 
+		for (RawMtrInvntrVO rawMtrInvntrVO : insertList) {
+			// 재고 등록 부분
+		}
+
 		for (RawMtrInvntrVO rawMtrInvntrVO : updateList) {
-			rawMtrInvntrMapper.updateRawMtrInvntrList(rawMtrInvntrVO);
+
+			// 재고변경 이력 부분 추가 예정
+
+			// 재고 변경
+			rawMtrInvntrMapper.updateRawMtrInvntrChg(rawMtrInvntrVO);
+
 		}
 
 		return null;
