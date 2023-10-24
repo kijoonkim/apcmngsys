@@ -81,10 +81,12 @@
 		init: async function(_apcCd, _apcNm, _gdsInvntr, _callbackChoiceFnc) {
 			SBUxMethod.set("gdsInvntr-inp-apcCd", _apcCd);
 			SBUxMethod.set("gdsInvntr-inp-apcNm", _apcNm);
-			SBUxMethod.set("gdsInvntr-inp-itemCd", _gdsInvntr.itemCd);
-			SBUxMethod.set("gdsInvntr-inp-vrtyCd", _gdsInvntr.vrtyCd);
-			SBUxMethod.set("gdsInvntr-inp-spcfctCd", _gdsInvntr.spcfctCd);
-			SBUxMethod.set("gdsInvntr-inp-gdsGrd", _gdsInvntr.gdsGrd);
+			if(!gfn_isEmpty(_gdsInvntr)){
+				SBUxMethod.set("gdsInvntr-inp-itemCd", _gdsInvntr.itemCd);
+				SBUxMethod.set("gdsInvntr-inp-vrtyCd", _gdsInvntr.vrtyCd);
+				SBUxMethod.set("gdsInvntr-inp-spcfctCd", _gdsInvntr.spcfctCd);
+				SBUxMethod.set("gdsInvntr-inp-gdsGrd", _gdsInvntr.gdsGrd);
+			}
 
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
 				this.callbackSelectFnc = _callbackChoiceFnc;
