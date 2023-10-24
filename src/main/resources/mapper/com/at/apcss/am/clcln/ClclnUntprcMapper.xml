@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ClclnUntprcMapper.xml                                   			-->
+<!-- DESC : 정산단가 mapper                   				                 	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.10.21  	신정철        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.clcln.mapper.ClclnUntprcMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnUntprcMapper.selectClclnUntprc	-->
+	<!-- DESC : 정산단가 단건 조회.	                         	             	 		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.21  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectClclnUntprc" parameterType="com.at.apcss.am.clcln.vo.ClclnUntprcVO" resultType="com.at.apcss.am.clcln.vo.ClclnUntprcVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.clcln.mapper.ClclnUntprcMapper.selectClclnUntprc */
+				  APC_CD
+				, GDS_SE_CD
+				, CLCLN_CRTR_CD
+				, ITEM_CD
+				, VRTY_CD
+				, GRD_CD
+				, CLCLN_UNTPRC
+				, CLCLN_UNIT_WGHT
+				, DEL_YN
+								
+    		  FROM TB_CLCLN_UNTPRC
+			 WHERE APC_CD = #{apcCd}
+			   AND GDS_SE_CD = #{gdsSeCd}
+			   AND CLCLN_CRTR_CD = #{clclnCrtrCd}
+			   AND ITEM_CD = #{itemCd}
+			   AND VRTY_CD = #{vrtyCd}
+			   AND GRD_CD = #{grdCd}
+		]]>
+    </select>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnUntprcMapper.selectClclnUntprcList-->
+	<!-- DESC : 정산단가 목록 조회.	                         	             	 		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.21  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectClclnUntprcList" parameterType="com.at.apcss.am.clcln.vo.ClclnUntprcVO" resultType="com.at.apcss.am.clcln.vo.ClclnUntprcVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.clcln.mapper.ClclnUntprcMapper.selectClclnUntprcList */
+					  MST.APC_CD			AS APC_CD
+					, MST.ITEM_CD			AS ITEM_CD
+					, MST.ITEM_NM			AS ITEM_NM
+					, MST.VRTY_CD			AS VRTY_CD
+					, MST.VRTY_NM			AS VRTY_NM
+					, MST.CLCLN_CRTR_CD	AS CLCLN_CRTR_CD
+					, MST.CLCLN_CRTR_NM	AS CLCLN_CRTR_NM
+					, MST.GRD_CD			AS GRD_CD
+					, MST.GRD_NM			AS GRD_NM
+					, NVL(PRC.GDS_SE_CD, '*')	AS GDS_SE_CD
+					, PRC.CLCLN_UNTPRC		AS CLCLN_UNTPRC
+					, NVL(PRC.CLCLN_UNIT_WGHT, 1)	AS CLCLN_UNIT_WGHT
+			  FROM (
+				SELECT
+					  IC.APC_CD			AS APC_CD
+					, IC.ITEM_CD			AS ITEM_CD
+					, IC.ITEM_NM			AS ITEM_NM
+					, VC.VRTY_CD		AS VRTY_CD
+					, VC.VRTY_NM		AS VRTY_NM
+					, GRD.GRD_SE_CD		AS GRD_SE_CD
+					, GRD.GRD_KND		AS GRD_KND
+					, GRD.GRD_KND_NM	AS GRD_KND_NM
+					, GRD.GRD_CD		AS GRD_CD
+					, GRD.GRD_NM		AS GRD_NM
+					, GRD.SEQ1			AS SEQ1
+					, GRD.SEQ2			AS SEQ2
+					, CD.CLCLN_CRTR_CD	AS CLCLN_CRTR_CD
+					, CD.CLCLN_CRTR_NM	AS CLCLN_CRTR_NM
+					, CD.INDCT_SEQ		AS INDCT_SEQ
+				  FROM
+				  	  TB_APC_ITEM_CRTR 	IC
+				  	, TB_APC_VRTY_CRTR		VC
+				  	, (
+						SELECT
+							  JG.APC_CD			AS APC_CD
+							, JG.GRD_SE_CD		AS GRD_SE_CD
+							, JG.ITEM_CD		AS ITEM_CD
+							, 'JGMT' 			AS GRD_KND
+							, 'JGMT_GRD' 		AS GRD_KND_NM
+							, JG.GRD_CD			AS GRD_CD
+							, JG.GRD_NM			AS GRD_NM
+							, 0 				AS SEQ1
+							, JG.SN				AS SEQ2
+						  FROM TB_APC_STD_GRD_JGMT JG
+						 WHERE JG.DEL_YN = 'N'
+						   AND (
+						   		SELECT COUNT(X.GRD_KND)
+						   		  FROM TB_APC_STD_GRD X
+						   		 WHERE X.APC_CD = JG.APC_CD
+						   		   AND X.GRD_SE_CD = JG.GRD_SE_CD
+						   		   AND X.ITEM_CD = JG.ITEM_CD
+						   		   AND X.DEL_YN = 'N'
+						   ) > 1
+						   AND JG.APC_CD = #{apcCd}
+						UNION ALL
+						SELECT
+							  SG.APC_CD
+							, SG.GRD_SE_CD
+							, SG.ITEM_CD
+							, SG.GRD_KND
+							, SG.GRD_KND_NM
+							, SGD.GRD_CD
+							, SGD.GRD_NM
+							, SG.SN		AS SEQ1
+							, SGD.SN	AS SEQ2
+						  FROM
+						  	  TB_APC_STD_GRD SG
+						  	, TB_APC_STD_GRD_DTL SGD
+						 WHERE SG.APC_CD = SGD.APC_CD
+						   AND SG.GRD_SE_CD = SGD.GRD_SE_CD
+						   AND SG.ITEM_CD = SGD.ITEM_CD
+						   AND SG.GRD_KND = SGD.GRD_KND
+						   AND SG.DEL_YN = 'N'
+						   AND SGD.DEL_YN = 'N'
+						   AND (
+						   		SELECT COUNT(X.GRD_KND)
+						   		  FROM TB_APC_STD_GRD X
+						   		 WHERE X.APC_CD = SG.APC_CD
+						   		   AND X.GRD_SE_CD = SG.GRD_SE_CD
+						   		   AND X.ITEM_CD = SG.ITEM_CD
+						   		   AND X.DEL_YN = 'N'
+						   	) = 1
+						   AND SG.APC_CD = #{apcCd}
+						   AND NOT EXISTS (
+						   		SELECT 1
+						   		  FROM TB_APC_STD_GRD_JGMT X
+						   		 WHERE X.APC_CD = SG.APC_CD
+						   		   AND X.GRD_SE_CD = SG.GRD_SE_CD
+						   		   AND X.ITEM_CD = SG.ITEM_CD
+						   		   AND X.DEL_YN = 'N'
+						   	)
+						 ORDER BY APC_CD, ITEM_CD, GRD_SE_CD, SEQ1, GRD_KND, SEQ2
+				  	) GRD
+					, (
+						SELECT
+							  CD.CD_VL			AS CLCLN_CRTR_CD
+							, CD.CD_VL_NM		AS CLCLN_CRTR_NM
+							, CASE
+								WHEN CD.CD_VL = '1' THEN '01'
+								WHEN CD.CD_VL = '2' THEN '02'
+								WHEN CD.CD_VL IN ('3', '4') THEN '03'
+								ELSE NULL
+							  END					AS GRD_SE_CD
+							, CD.INDCT_SEQ		AS INDCT_SEQ
+						  FROM TB_COM_CD_DTL CD
+						 WHERE CD.CD_ID = 'CLCLN_CRTR_CD'
+						   AND CD.APC_CD = '0000'
+						   AND CD.DEL_YN = 'N'
+					) CD
+					
+				 WHERE IC.APC_CD = VC.APC_CD
+				   AND IC.ITEM_CD = VC.ITEM_CD
+				   AND IC.APC_CD = GRD.APC_CD
+				   AND IC.ITEM_CD = GRD.ITEM_CD
+				   AND GRD.GRD_SE_CD = CD.GRD_SE_CD
+				   AND IC.DEL_YN = 'N'
+				   AND VC.DEL_YN = 'N'
+				   AND IC.APC_CD = #{apcCd}
+		]]>
+				<if test='clclnCrtrCd != null and clclnCrtrCd != ""'>
+				       AND CD.CLCLN_CRTR_CD = #{clclnCrtrCd}
+				</if>
+				<if test='itemCd != null and itemCd != ""'>
+				       AND IC.ITEM_CD = #{itemCd}
+				</if>
+				<if test='vrtyCd != null and vrtyCd != ""'>
+				       AND VC.VRTY_CD = #{vrtyCd}
+				</if>
+    	<![CDATA[
+				 ORDER BY APC_CD, ITEM_CD, VRTY_CD, GRD_SE_CD, INDCT_SEQ, SEQ1, GRD_KND, SEQ2
+			  	) MST
+			  LEFT JOIN TB_CLCLN_UNTPRC PRC
+			    ON PRC.APC_CD = MST.APC_CD
+			   AND PRC.ITEM_CD = MST.ITEM_CD
+			   AND PRC.VRTY_CD = MST.VRTY_CD
+			   AND PRC.CLCLN_CRTR_CD = MST.CLCLN_CRTR_CD
+			   AND PRC.GRD_CD = MST.GRD_CD
+			   AND PRC.DEL_YN = 'N'
+		]]>
+    </select>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnUntprcMapper.insertClclnUntprc	-->
+	<!-- DESC : 정산단가 등록.	                         	             	 			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.21  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertClclnUntprc" parameterType="com.at.apcss.am.clcln.vo.ClclnUntprcVO">
+    	<![CDATA[
+    		INSERT /* com.at.apcss.am.clcln.mapper.ClclnUntprcMapper.insertClclnUntprc */ 
+    			INTO TB_CLCLN_UNTPRC (
+    			  APC_CD
+				, GDS_SE_CD
+				, CLCLN_CRTR_CD
+				, ITEM_CD
+				, VRTY_CD
+				, GRD_CD
+				, CLCLN_UNTPRC
+				, CLCLN_UNIT_WGHT
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+    		) VALUES (
+		 	      #{apcCd}
+				, #{gdsSeCd}
+				, #{clclnCrtrCd}
+				, #{itemCd}
+				, #{vrtyCd}
+				, #{grdCd}
+				, #{clclnUntprc}
+				, #{clclnUnitWght}
+    		    , SYSDATE
+    		    , #{sysFrstInptUserId}
+    		    , #{sysFrstInptPrgrmId}
+    		    , SYSDATE
+    		    , #{sysLastChgUserId}
+    		    , #{sysLastChgPrgrmId}
+			)
+    	]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnUntprcMapper.updateClclnUntprc	-->
+	<!-- DESC : 정산단가 변경.	                         	             	 			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.21  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateClclnUntprc" parameterType="com.at.apcss.am.clcln.vo.ClclnUntprcVO">
+    	<![CDATA[
+    		UPDATE /* com.at.apcss.am.clcln.mapper.ClclnUntprcMapper.updateClclnUntprc */ 
+				TB_CLCLN_UNTPRC
+			SET
+				  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, CLCLN_UNTPRC				= #{clclnUntprc}
+				, CLCLN_UNIT_WGHT			= #{clclnUnitWght}
+			 WHERE APC_CD			= #{apcCd}
+			   AND GDS_SE_CD		= #{gdsSeCd}
+			   AND CLCLN_CRTR_CD	= #{clclnCrtrCd}
+			   AND ITEM_CD			= #{itemCd}
+			   AND VRTY_CD			= #{vrtyCd}
+			   AND GRD_CD			= #{grdCd}
+    	]]>
+    </update>
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnUntprcMapper.deleteClclnUntprc	-->
+	<!-- DESC : 정산단가 삭제.	                         	             	 			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.21  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteClclnUntprc" parameterType="com.at.apcss.am.clcln.vo.ClclnUntprcVO">
+    	<![CDATA[
+    		DELETE /* com.at.apcss.am.clcln.mapper.ClclnUntprcMapper.deleteClclnUntprc */ 
+				TB_CLCLN_UNTPRC
+			 WHERE APC_CD			= #{apcCd}
+			   AND GDS_SE_CD		= #{gdsSeCd}
+			   AND CLCLN_CRTR_CD	= #{clclnCrtrCd}
+			   AND ITEM_CD			= #{itemCd}
+			   AND VRTY_CD			= #{vrtyCd}
+			   AND GRD_CD			= #{grdCd}
+    	]]>
+    </delete>
+    
+</mapper>
+
+

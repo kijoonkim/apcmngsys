@@ -56,6 +56,8 @@
 	    		 , SP.QNTT							AS QNTT
 	    		 , SP.WGHT							AS WGHT
 	    		 , SP.CFMTN_AMT						AS CFMTN_AMT
+	    		 , SP.CFMTN_YN						AS CFMTN_YN
+	    		 , SP.CLCTM_YN						AS CLCTM_YN
 	    		 , SUM(SP.QNTT)	OVER()				AS TOT_QNTT
 	    		 , SUM(SP.WGHT)	OVER()				AS TOT_WGHT
 	    		 , SUM(SP.CFMTN_AMT) OVER()			AS TOT_CFMTN_AMT
@@ -103,6 +105,8 @@
 		 	 		, SP.APC_CD
 	    		 	, CI.CNPT_NM
 	    		 	, SP.DEL_YN
+	    		 	, SP.CLCTM_YN
+	    		 	, SP.CFMTN_YN
 	    		 	*/
 		]]>
 		<!-- Start 페이징 -->
@@ -198,8 +202,17 @@
 		   SET SYS_LAST_CHG_DT 			= SYSDATE
     		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
     		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+		]]>
+		<if test='cfmtnAmt != null and cfmtnAmt != ""'>
     		 , CFMTN_AMT 				= #{cfmtnAmt}
+		</if>
+		<if test='clctmYn != null and clctmYn != ""'>
     		 , CFMTN_YN 				= #{cfmtnYn}
+		</if>
+		<if test='clctmYn != null and clctmYn != ""'>
+			 , CLCTM_YN					= #{clctmYn}
+		</if>
+		<![CDATA[
 		 WHERE APC_CD 					= #{apcCd}
 		   AND SLS_YMD 					= #{slsYmd}
 		   AND SLS_SN 					= #{slsSn}
