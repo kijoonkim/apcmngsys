@@ -131,13 +131,13 @@
                         <div id="inptCmndDsctnGridArea" style="height:540px;"></div>
                     </div>
                     
-                    <div class="exp-div-excel" style="display: none;width: 1000px;">
+<!--                     <div class="exp-div-excel" style="display: none; width: 1000px;"> -->
 						<div id="sbexp-area-grdExpRawMtrWrhs" style="height:1px; width: 100%;"></div>
 						<div id="sbexp-area-grdExpItem" style="height:1px; width: 100%;"></div>
 						<div id="sbexp-area-grdExpVrty" style="height:1px; width: 100%;"></div>
 						<div id="sbexp-area-grdExpPrdcr" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpSpcfct" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpWrhsSeCd" style="height:1px; width: 100%;"></div>
+						<div id="sbexp-area-grdExpSpcfct" style="height:1000px; width: 1000px;"></div>
+						<div id="sbexp-area-grdExpWrhsSeCd" style="height:1000px; width: 1000px;"></div>
 						<div id="sbexp-area-grdExpGdsSeCd" style="height:1px; width: 100%;"></div>
 						<div id="sbexp-area-grdExpTrsprtSeCd" style="height:1px; width: 100%;"></div>
 						<div id="sbexp-area-grdExpWarehouseSeCd" style="height:1px; width: 100%;"></div>
@@ -145,7 +145,7 @@
 						<div id="sbexp-area-grdExpStdGrd" style="height:1px; width: 100%;"></div>
 						<div id="sbexp-area-grdExpStdGrdDtl" style="height:1px; width: 100%;"></div>
 						<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
-					</div>
+<!-- 					</div> -->
                	</div>
 
 				<!--[pp] //검색결과 -->
@@ -1159,6 +1159,8 @@ const fn_initSBSelect = async function() {
 		        id: "grdExpWrhsSeCd",
 		        jsonref: "jsonExpWrhsSeCd",
 				columns: [
+// 			    	{caption: ["입고구분코드"],   	ref: 'wrhsSeCd',  	type:'output',  width:'100px',    style:'text-align:center'},
+// 			    	{caption: ["입고구분코드명"],  	ref: 'wrhsSeNm',  	type:'output',  width:'100px',    style:'text-align:center'}
 			    	{caption: ["입고구분코드"],   	ref: 'cdVl',  	type:'output',  width:'100px',    style:'text-align:center'},
 			    	{caption: ["입고구분코드명"],  	ref: 'cdVlNm',  	type:'output',  width:'100px',    style:'text-align:center'},
 				],
