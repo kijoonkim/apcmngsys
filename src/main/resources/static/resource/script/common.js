@@ -37,6 +37,7 @@ const URL_WRHS_VHCL			= "/am/cmns/wrhsVhcls";		//	입고차량
 const URL_TRSPRT_CO_INFO	= "/am/spmt/spmtTrsprts";	//	운송사
 const URL_TRSPRT_CST_INFO	= "/am/cmns/trsprtCsts";	//	운송지역
 const URL_SPMT_PCKG_UINT	= "/am/cmns/spmtPckgUnits";	//	출하포장단위
+const URL_APC_INFO			= "/am/apc/apcInfos";		//	APC리스트
 /** END URL
  */
 
@@ -710,6 +711,40 @@ const gfn_setSpmtPckgUnitSBSelect = async function (_targetIds, _jsondataRef, _a
 			item.cmnsCd 		= item.spmtPckgUnitCd;
 			item.cmnsNm 		= item.spmtPckgUnitNm;
 			item.mastervalue 	= item.itemCd;
+			sourceJson.push(item);
+		});
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+/** APC 이송목록 */
+/**
+ * @name gfn_getApcInfos
+ * @description get 이송APC목록
+ * @function
+ * @param {string} _exclApcCd	제외APC코드
+ */
+const gfn_getApcInfos = async function (_exclApcCd) {
+	const postJsonPromise = gfn_postJSON(URL_APC_INFO, {exclApcCd : _exclApcCd}, null, true);
+	const data = await postJsonPromise;
+	return data.resultList;
+}
+
+/**
+ * @name gfn_setApcInfoSBSelect
+ * @description set SBUX-select options from 이송APC목록
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _exclApcCd	제외APC코드
+ */
+const gfn_setApcInfoSBSelect = async function (_targetIds, _jsondataRef, _exclApcCd) {
+	const postJsonPromise = gfn_postJSON(URL_APC_INFO, {exclApcCd : _exclApcCd}, null, true);
+	const data = await postJsonPromise;
+
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd 		= item.apcCd;
+			item.cmnsNm 		= item.apcNm;
 			sourceJson.push(item);
 		});
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);

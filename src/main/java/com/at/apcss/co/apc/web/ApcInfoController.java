@@ -40,25 +40,6 @@ public class ApcInfoController extends BaseController{
 	@Resource(name = "apcInfoService")
 	private ApcInfoService apcInfoService;
 
-	// APC 정보 조회
-	/*
-	@PostMapping(value = "/co/apc/selectApcInfoX.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectApcInfo(@RequestBody ApcInfoVO apcInfoVO, HttpServletRequest request) throws Exception {
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		ApcInfoVO resultVO = new ApcInfoVO();
-		try {
-			resultVO = apcInfoService.selectApcInfo(apcInfoVO);
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		}
-
-		resultMap.put("resultVO", resultVO);
-
-		return getSuccessResponseEntity(resultMap);
-	}
-	 */
-	
 	// APC 내역 조회
 	@PostMapping(value = "/co/apc/selectApcInfoList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcInfoList(@RequestBody ApcInfoVO apcInfoVO, HttpServletRequest request) throws Exception {
@@ -79,7 +60,7 @@ public class ApcInfoController extends BaseController{
 	// APC 정보관리 - APC 내역 조회
 	@PostMapping(value = "/co/apc/selectApcDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcDsctnList(@RequestBody ApcInfoVO apcInfoVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<ApcInfoVO> resultList = new ArrayList<>();
 		try {

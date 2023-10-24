@@ -132,7 +132,15 @@ public class TrnsfGdsInvntrVO extends ComVO {
 	 * 창고구분명
 	 */
 	private String warehouseSeNm;
+	/**
+	 * 이송가능수량
+	 */
+	private int psbltyInvntrQntt;
 
+	/**
+	 * 이송가능중량중량
+	 */
+	private double psbltyInvntrWght;
 	/**
 	 * 포장수량
 	 */
@@ -195,7 +203,7 @@ public class TrnsfGdsInvntrVO extends ComVO {
 	 * 산지코드
 	 * */
 	private String plorCd;
-	
+
 	/*비고*/
 	private String rmrk;
 	/*기준일자*/
@@ -209,8 +217,8 @@ public class TrnsfGdsInvntrVO extends ComVO {
 	private String mvmnWght;
 	/*이송창고*/
 	private String trnsfWarehouse;
-	
-	
+
+
 	/**
 	 * 표준등급
 	 */

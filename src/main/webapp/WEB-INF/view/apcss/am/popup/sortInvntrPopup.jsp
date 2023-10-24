@@ -160,7 +160,8 @@
 		    SBGridProperties.columns = [
 		    	{caption: ["선별번호","선별번호"],		ref: 'sortno',      	type:'output',  width:'105px',	style:'text-align:center'},
 		        {caption: ["등급","등급"],				ref: 'grdNm',      		type:'output',  width:'90px',	style:'text-align:center'},
-		        {caption: ["투입일자","투입일자"],		ref: 'inptYmd',      	type:'output',  width:'105px',	style:'text-align:center'},
+		        {caption: ["투입일자","투입일자"],		ref: 'inptYmd',      	type:'output',  width:'105px',	style:'text-align:center',
+	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 		        {caption: ["설비","설비"],				ref: 'fcltNm',      	type:'output',  width:'105px',	style:'text-align:center'},
 		        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      	type:'output',  width:'90px',	style:'text-align:center'},
 		        {caption: ["품목","품목"],				ref: 'itemNm',     		type:'output',  width:'90px',	style:'text-align:center'},

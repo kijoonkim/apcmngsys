@@ -1,5 +1,6 @@
 package com.at.apcss.am.trnsf.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.am.trnsf.mapper.InvntrTrnsfMapper;
 import com.at.apcss.am.trnsf.service.InvntrTrnsfService;
 import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : InvntrTrnsfServiceImpl.java
@@ -25,48 +28,64 @@ import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
  * </pre>
  */
 @Service("invntrTrnsfService")
-public class InvntrTrnsfServiceImpl implements InvntrTrnsfService {
+public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrnsfService {
 
 	@Autowired
 	private InvntrTrnsfMapper invntrTrnsfMapper;
-	
+
 	@Override
 	public InvntrTrnsfVO selectInvntrTrnsf(InvntrTrnsfVO invntrTrnsfVO) throws Exception {
-		
+
 		InvntrTrnsfVO resultVO = invntrTrnsfMapper.selectInvntrTrnsf(invntrTrnsfVO);
-		
+
 		return resultVO;
 	}
 
 	@Override
 	public List<InvntrTrnsfVO> selectInvntrTrnsfList(InvntrTrnsfVO invntrTrnsfVO) throws Exception {
-		
+
 		List<InvntrTrnsfVO> resultList = invntrTrnsfMapper.selectInvntrTrnsfList(invntrTrnsfVO);
-		
+
 		return resultList;
 	}
 
 	@Override
 	public int insertInvntrTrnsf(InvntrTrnsfVO invntrTrnsfVO) throws Exception {
-		
+
 		int insertedCnt = invntrTrnsfMapper.insertInvntrTrnsf(invntrTrnsfVO);
-		
+
 		return insertedCnt;
 	}
 
 	@Override
 	public int updateInvntrTrnsf(InvntrTrnsfVO invntrTrnsfVO) throws Exception {
-		
+
 		int updatedCnt = invntrTrnsfMapper.updateInvntrTrnsf(invntrTrnsfVO);
-		
+
 		return updatedCnt;
 	}
 
 	@Override
 	public int deleteInvntrTrnsf(InvntrTrnsfVO invntrTrnsfVO) throws Exception {
-		
+
 		int deletedCnt = invntrTrnsfMapper.deleteInvntrTrnsf(invntrTrnsfVO);
-		
+
 		return deletedCnt ;
+	}
+
+	@Override
+	public HashMap<String, Object> insertInvntrTrnsfList(List<InvntrTrnsfVO> invntrTrnsfList) throws Exception {
+
+		int insertedCnt = 0;
+
+		for (InvntrTrnsfVO invntrTrnsfVO : invntrTrnsfList) {
+			insertedCnt += insertInvntrTrnsf(invntrTrnsfVO);
+		}
+
+		if(insertedCnt == 0) {
+			return ComUtil.getResultMap("W0005", "재고이송");
+		}
+
+		return null;
 	}
 }

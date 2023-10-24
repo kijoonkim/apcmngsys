@@ -286,7 +286,6 @@
 	const fn_saveFmList = async function(){
 		let gridData = grdfarmerInfo.getGridDataAll();
 		let saveList = [];
-
 		for(var i=1; i<=gridData.length; i++ ){
 
 			let rowData = grdfarmerInfo.getRowData(i);
@@ -294,7 +293,7 @@
 			let frmerSn = rowData.frmerSn;
 			let bzobRgno = rowData.bzobRgno;
 			let delYn = rowData.delYn;
-
+			console.log("================delYn================"+delYn);
 			if(delYn == 'N'){
 
 				if (gfn_isEmpty(frmerSn)) {
@@ -306,7 +305,8 @@
 		  			gfn_comAlert("W0001", "경영체 등록번호");		//	W0001	{0}을/를 선택하세요.
 		            return;
 		  		}
-
+				 console.log("rowData==========="+ rowData );
+				 console.log("================gridClick================");
 				if (rowSts === 3){
 					rowData.rowSts = "I";
 					saveList.push(rowData);
@@ -457,31 +457,7 @@
         	return;
         }
 
-        //cc 전문 품목 dd 육성 품목
-        let ccCol = grdfarmerInfo.getColRef('cc');
-        let ddCol = grdfarmerInfo.getColRef('dd');
-        let iiCol = grdfarmerInfo.getColRef('ii');
 
-        if(selGridRow == '-1'){
-			return;
-        } else {
-        	//선택한 데이터가 통합조직 일떄
-        	if (selGridCol == iiCol){
-        		//통합조직 선택 세팅
-        		//통합조직 팝업 객체 popInvstmntSpmt
-        		popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setGridInvstmntSpmt);
-        		//팝업창 오픈
-        		//통합조직 팝업창 id : modal-invstmntSpmt
-        		SBUxMethod.openModal('modal-invstmntSpmt');
-        	} else if (selGridCol == ccCol || selGridCol == ddCol){
-        		//품목 선택 세팅
-        		//품목 선택 팝업 객체 popItemSelect
-        		popItemSelect.init(selGridRow, fn_setGridItem);
-        		//팝업창 오픈
-        		//품목 팝업창 id : modal-itemSelect
-        		SBUxMethod.openModal('modal-itemSelect');
-        	}
-        }
     }
 
  	// 그리드의 통합조직 선택 팝업 콜백 함수
@@ -544,7 +520,8 @@
 		if(confirm(regMsg)){
 
 			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
-			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyfarmerInfoList.do", {
+			// let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyfarmerInfoList.do", {
+			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyfarmerInfoJsoneList.do", {
 	    		 frmerSn : frmerSn
 	 		});
 	        let data = await postJsonPromise;

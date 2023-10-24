@@ -34,6 +34,6 @@ public interface TrnsfGdsInvntrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> updateTrnsfGdsInvntrList(List<TrnsfGdsInvntrVO> trnsfGdsInvntrList) throws Exception;
+	public HashMap<String, Object> trnsfGdsInvntrList(List<TrnsfGdsInvntrVO> trnsfGdsInvntrList) throws Exception;
 
 }

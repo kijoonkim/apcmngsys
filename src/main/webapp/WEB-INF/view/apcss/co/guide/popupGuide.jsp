@@ -151,12 +151,64 @@
 							</td>
 							<td class="td_input">
 							</td>
+							<th scope="row" >포장번호선택</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-pckgno" name="srch-inp-pckgno" uitype="text" maxlength="25" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchPckgno" name="btnSrchPckgno" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-pckgno" onclick="fn_modalPckgno" text="찾기"></sbux-button>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
 							<th scope="row" >출하지시번호</th>
 							<td class="td_input">
 								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button id="btnSrchSpmtCmndNo" name="btnSrchSpmtCmndNo" uitype="modal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-spmtCmnd" onclick="fn_choiceSpmtCmnd"></sbux-button>
+							</td>
+							<td></td>
+							<th scope="row" >선별지시번호선택</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-sortCmndno" name="srch-inp-sortCmndno" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchSortCmndno" name="btnSrchSortCmndno" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-sortCmndno" onclick="fn_modalSortCmndno" text="찾기"></sbux-button>
+							</td>
+							<td></td>
+							<th scope="row" >포장지시번호선택</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-pckgCmndno" name="srch-inp-pckgCmndno" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchPckgCmndno" name="btnSrchPckgCmndno" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-pckgCmndno" onclick="fn_modalPckgCmndno" text="찾기"></sbux-button>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<th scope="row" >원물재고선택</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-rawMtrInvntr" name="srch-inp-rawMtrInvntr" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchRawMtrInvntr" name="btnSrchRawMtrInvntr" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-rawMtrInvntr" onclick="fn_modalRawMtrInvntr" text="찾기"></sbux-button>
+							</td>
+							<td></td>
+							<th scope="row" >선별재고선택</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-sortInvntr" name="srch-inp-sortInvntr" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchSortInvntr" name="btnSrchSortInvntr" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-sortInvntr" onclick="fn_modalSortInvntr" text="찾기"></sbux-button>
+							</td>
+							<td></td>
+							<th scope="row" >상품재고선택</th>
+							<td class="td_input">
+								<sbux-input id="srch-inp-gdsInvntr" name="srch-inp-gdsInvntr" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
+							</td>
+							<td class="td_input">
+								<sbux-button id="btnSrchGdsInvntr" name="btnSrchGdsInvntr" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-gdsInvntr" onclick="fn_modalGdsInvntr" text="찾기"></sbux-button>
 							</td>
 							<td></td>
 						</tr>
@@ -175,58 +227,6 @@
 							</td>
 							<td class="td_input">
 								<sbux-button id="btnSrchOprtr" name="btnSrchOprtr" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-oprtr" onclick="fn_modalOprtr" text="찾기"></sbux-button>
-							</td>
-							<td></td>
-							<th scope="row" >포장번호선택</th>
-							<td class="td_input">
-								<sbux-input id="srch-inp-pckgno" name="srch-inp-pckgno" uitype="text" maxlength="25" class="form-control input-sm"></sbux-input>
-							</td>
-							<td class="td_input">
-								<sbux-button id="btnSrchPckgno" name="btnSrchPckgno" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-pckgno" onclick="fn_modalPckgno" text="찾기"></sbux-button>
-							</td>
-							<td></td>
-						</tr>
-						<tr>
-							<th scope="row" >포장지시번호선택</th>
-							<td class="td_input">
-								<sbux-input id="srch-inp-pckgCmndno" name="srch-inp-pckgCmndno" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
-							</td>
-							<td class="td_input">
-								<sbux-button id="btnSrchPckgCmndno" name="btnSrchPckgCmndno" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-pckgCmndno" onclick="fn_modalPckgCmndno" text="찾기"></sbux-button>
-							</td>
-							<td></td>
-							<th scope="row" >선별재고선택</th>
-							<td class="td_input">
-								<sbux-input id="srch-inp-sortInvntr" name="srch-inp-sortInvntr" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
-							</td>
-							<td class="td_input">
-								<sbux-button id="btnSrchSortInvntr" name="btnSrchSortInvntr" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-sortInvntr" onclick="fn_modalSortInvntr" text="찾기"></sbux-button>
-							</td>
-							<td></td>
-							<th scope="row" >선별지시번호선택</th>
-							<td class="td_input">
-								<sbux-input id="srch-inp-sortCmndno" name="srch-inp-sortCmndno" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
-							</td>
-							<td class="td_input">
-								<sbux-button id="btnSrchSortCmndno" name="btnSrchSortCmndno" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-sortCmndno" onclick="fn_modalSortCmndno" text="찾기"></sbux-button>
-							</td>
-							<td></td>
-						</tr>
-						<tr>
-							<th scope="row" >원물재고선택</th>
-							<td class="td_input">
-								<sbux-input id="srch-inp-rawMtrInvntr" name="srch-inp-rawMtrInvntr" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
-							</td>
-							<td class="td_input">
-								<sbux-button id="btnSrchRawMtrInvntr" name="btnSrchRawMtrInvntr" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-rawMtrInvntr" onclick="fn_modalRawMtrInvntr" text="찾기"></sbux-button>
-							</td>
-							<td></td>
-							<th scope="row" >상품재고선택</th>
-							<td class="td_input">
-								<sbux-input id="srch-inp-gdsInvntr" name="srch-inp-gdsInvntr" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
-							</td>
-							<td class="td_input">
-								<sbux-button id="btnSrchGdsInvntr" name="btnSrchGdsInvntr" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-gdsInvntr" onclick="fn_modalGdsInvntr" text="찾기"></sbux-button>
 							</td>
 							<td></td>
 							<th scope="row" >입고일자</th>
@@ -679,7 +679,13 @@
 	 * @description 포장번호선택팝업 호출
 	 */
 	 const fn_modalPckgno = function() {
-		popPckgno.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPckgno);
+// 		let data = {
+// 			itemCd 		: SBUxMethod.get('srch-inp-itemCd'),
+// 			vrtyCd 		: SBUxMethod.get('srch-inp-vrtyCd'),
+// 			spcfctCd	: SBUxMethod.get('srch-inp-spcfctCd')
+// 		}
+		
+		popPckgno.init(gv_selectedApcCd, gv_selectedApcNm, null, fn_setPckgno);
 	}
 
 	/**
