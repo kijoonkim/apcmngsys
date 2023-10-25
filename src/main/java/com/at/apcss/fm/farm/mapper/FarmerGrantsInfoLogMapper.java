@@ -31,17 +31,17 @@ public interface FarmerGrantsInfoLogMapper {
 	 * @param bbsVO
 	 * @return
 	 */
-	public FarmerGrantsInfoLogVO selectfarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO);
+	public FarmerGrantsInfoLogVO selectFarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO);
 
-	public List<FarmerGrantsInfoLogVO> selectfarmerGrantsInfoLogList(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO);
+	public List<FarmerGrantsInfoLogVO> selectFarmerGrantsInfoLogList(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO);
 
-	public int insertfarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO);
+	public int insertFarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO);
 
-	public int updatefarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO);
+	public int updateFarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO);
 
-	public int insertMegerfarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO) throws Exception;
-	public int insertMegerLogfarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO) throws Exception;
-	public int updateMegerfarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO) throws Exception;
+	public int insertMegerFarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO) throws Exception;
+	public int insertMegerLogFarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO) throws Exception;
+	public int updateMegerFarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO) throws Exception;
 
-	public int deletefarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO) throws Exception;
+	public int deleteFarmerGrantsInfoLog(FarmerGrantsInfoLogVO farmerGrantsInfoLogVO) throws Exception;
 }

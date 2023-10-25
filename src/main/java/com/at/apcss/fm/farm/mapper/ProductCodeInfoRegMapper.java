@@ -31,13 +31,13 @@ public interface ProductCodeInfoRegMapper {
 	 * @param bbsVO
 	 * @return
 	 */
-	public ProductCodeInfoRegVO selectproductCodeInfoReg(ProductCodeInfoRegVO productCodeInfoRegVO);
+	public ProductCodeInfoRegVO selectProductCodeInfoReg(ProductCodeInfoRegVO productCodeInfoRegVO);
 
-	public List<ProductCodeInfoRegVO> selectproductCodeInfoRegList(ProductCodeInfoRegVO productCodeInfoRegVO);
+	public List<ProductCodeInfoRegVO> selectProductCodeInfoRegList(ProductCodeInfoRegVO productCodeInfoRegVO);
 
-	public int insertproductCodeInfoReg(ProductCodeInfoRegVO productCodeInfoRegVO);
+	public int insertProductCodeInfoReg(ProductCodeInfoRegVO productCodeInfoRegVO);
 
 	public int updateProductCodeInfoReg(ProductCodeInfoRegVO productCodeInfoRegVO);
 
-	public int deleteproductCodeInfoReg(ProductCodeInfoRegVO productCodeInfoRegVO) throws Exception;
+	public int deleteProductCodeInfoReg(ProductCodeInfoRegVO productCodeInfoRegVO) throws Exception;
 }

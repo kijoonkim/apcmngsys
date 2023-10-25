@@ -38,12 +38,12 @@ public class FarmerGrantsInfoRegController extends BaseController{
 	}
 
 // 조회
-		@PostMapping(value = "/fm/farm/selectfarmerGrantsInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> selectfarmerGrantsInfoRegList(Model model, @RequestBody FarmerGrantsInfoRegVO farmerGrantsInfoRegVO, HttpServletRequest request) throws Exception{
+		@PostMapping(value = "/fm/farm/selectFarmerGrantsInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> selectFarmerGrantsInfoRegList(Model model, @RequestBody FarmerGrantsInfoRegVO farmerGrantsInfoRegVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 			List<FarmerGrantsInfoRegVO> resultList = new ArrayList<>();
 			try {
-				 resultList = farmerGrantsInfoRegService.selectfarmerGrantsInfoRegList(farmerGrantsInfoRegVO);
+				 resultList = farmerGrantsInfoRegService.selectFarmerGrantsInfoRegList(farmerGrantsInfoRegVO);
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -55,8 +55,8 @@ public class FarmerGrantsInfoRegController extends BaseController{
 
 
 		//등록
-		@PostMapping(value = "/fm/farm/insertfarmerGrantsInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertfarmerGrantsInfoReg(@RequestBody FarmerGrantsInfoRegVO farmerGrantsInfoRegVO, HttpServletRequest requset) throws Exception{
+		@PostMapping(value = "/fm/farm/insertFarmerGrantsInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> insertFarmerGrantsInfoReg(@RequestBody FarmerGrantsInfoRegVO farmerGrantsInfoRegVO, HttpServletRequest requset) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			// validation check
@@ -82,8 +82,8 @@ public class FarmerGrantsInfoRegController extends BaseController{
 		}
 
 
-		@PostMapping(value = "/fm/farm/multiSavefarmerGrantsInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSavefarmerGrantsInfoRegList(@RequestBody List<FarmerGrantsInfoRegVO> farmerGrantsInfoRegVOList, HttpServletRequest request) throws Exception {
+		@PostMapping(value = "/fm/farm/multiSaveFarmerGrantsInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSaveFarmerGrantsInfoRegList(@RequestBody List<FarmerGrantsInfoRegVO> farmerGrantsInfoRegVOList, HttpServletRequest request) throws Exception {
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -96,7 +96,7 @@ public class FarmerGrantsInfoRegController extends BaseController{
 					farmerGrantsInfoRegVO.setSysLastChgUserId(getUserId());
 				}
 
-				savedCnt = farmerGrantsInfoRegService.multiSavefarmerGrantsInfoRegList(farmerGrantsInfoRegVOList);
+				savedCnt = farmerGrantsInfoRegService.multiSaveFarmerGrantsInfoRegList(farmerGrantsInfoRegVOList);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -105,13 +105,13 @@ public class FarmerGrantsInfoRegController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
-		@PostMapping(value = "/fm/farm/deletefarmerGrantsInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deletefarmerGrantsInfoReg(@RequestBody FarmerGrantsInfoRegVO farmerGrantsInfoRegVO, HttpServletRequest request) throws Exception {
+		@PostMapping(value = "/fm/farm/deleteFarmerGrantsInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> deleteFarmerGrantsInfoReg(@RequestBody FarmerGrantsInfoRegVO farmerGrantsInfoRegVO, HttpServletRequest request) throws Exception {
 			logger.debug("/fm/farm/deletefarmerGrantsInfoReg >>> 호출 >>> ");
 
 			int result = 0;
 			try {
-				result =+ farmerGrantsInfoRegService.deletefarmerGrantsInfoReg(farmerGrantsInfoRegVO);
+				result =+ farmerGrantsInfoRegService.deleteFarmerGrantsInfoReg(farmerGrantsInfoRegVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}

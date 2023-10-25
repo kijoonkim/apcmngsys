@@ -80,7 +80,7 @@
     </select>
 	  -->
 
-	   <select id="selectfarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
+	   <select id="selectFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.selectfarmerInfo */
 				  CM.FRMER_SN
@@ -133,7 +133,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectfarmerInfoList" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
+    <select id="selectFarmerInfoList" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.selectfarmerInfoList */
 				  CM.FRMER_SN
@@ -181,7 +181,7 @@
     </select>
 
 
-	<insert id="insertfarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
+	<insert id="insertFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertfarmerInfo */
 	    	  INTO TB_FARMER_INFO
@@ -258,7 +258,7 @@
 
 
 
-    <insert id="insertMegerfarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
+    <insert id="insertMegerFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
 	<![CDATA[
     	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerfarmerInfo */
 		USING DUAL
@@ -364,7 +364,7 @@
 
 
 
-    <insert id="insertMegerfarmerInfoMap" parameterType="hashmap">
+    <insert id="insertMegerFarmerInfoMap" parameterType="hashmap">
 	<![CDATA[
     	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerfarmerInfoMap */
 		USING DUAL
@@ -469,7 +469,7 @@
 	</insert>
 
 
-    <insert id="insertMegerLogfarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
+    <insert id="insertMegerLogFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
 	<![CDATA[
     	INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerLogfarmerInfo */
 	    	  INTO TB_FARMER_INFO_LOG
@@ -546,7 +546,7 @@
 	</insert>
 
 
-    <insert id="insertMegerLogfarmerInfoMap" parameterType="hashmap">
+    <insert id="insertMegerLogFarmerInfoMap" parameterType="hashmap">
 	<![CDATA[
     	INSERT /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerLogfarmerInfoMap */
 	    	  INTO TB_FARMER_INFO_LOG
@@ -622,7 +622,7 @@
     	]]>
 	</insert>
 
-	<update id="updatefarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
+	<update id="updateFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.upatefarmerInfo */
 	    		TB_FARMER_INFO
@@ -664,7 +664,7 @@
     	]]>
     </update>
 
-    <update id="updateMegerfarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
+    <update id="updateMegerFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
     	<![CDATA[
 	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.insertMegerfarmerInfo */
 		USING DUAL
@@ -770,7 +770,7 @@
 
 
 
-    <update id="updateMegerfarmerInfoMap" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
+    <update id="updateMegerFarmerInfoMap" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
     	<![CDATA[
 	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoMapper.updateMegerfarmerInfoMap */
 		USING DUAL
@@ -874,7 +874,7 @@
     	]]>
     </update>
 
-	<delete id="deletefarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
+	<delete id="deleteFarmerInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoVO">
 		<![CDATA[
 		DELETE FROM TB_FARMER_INFO
 		 WHERE 1=1

@@ -553,5 +553,49 @@
 		]]>
 	</delete>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncComForDelY-->
+	<!-- DESC : 계량실적 공통 변경 : 삭제 delyn 'Y'.                                		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateWghPrfmncComForDelY" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateWghPrfmncComForDelY */
+				TB_WGH_PRFMNC_COM
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, DEL_YN = 'Y'
+			 WHERE APC_CD = #{apcCd}
+			   AND WGHNO = #{wghno}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncDtlForDelY-->
+	<!-- DESC : 계량실적 상세 변경 : 삭제 delYn 'Y'.		                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateWghPrfmncDtlForDelY" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateWghPrfmncDtlForDelY */
+				TB_WGH_PRFMNC_DTL
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, DEL_YN = 'Y'
+			 WHERE APC_CD = #{apcCd}
+			   AND WGHNO = #{wghno}
+			   AND WGH_SN = #{wghSn}
+		]]>
+	</update>
 
 </mapper>

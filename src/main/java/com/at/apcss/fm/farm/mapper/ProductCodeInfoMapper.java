@@ -32,21 +32,21 @@ public interface ProductCodeInfoMapper {
 	 * @param bbsVO
 	 * @return
 	 */
-	public ProductCodeInfoVO selectproductCodeInfo(ProductCodeInfoVO productCodeInfoVO);
+	public ProductCodeInfoVO selectProductCodeInfo(ProductCodeInfoVO productCodeInfoVO);
 
-	public List<ProductCodeInfoVO> selectproductCodeInfoList(ProductCodeInfoVO productCodeInfoVO);
+	public List<ProductCodeInfoVO> selectProductCodeInfoList(ProductCodeInfoVO productCodeInfoVO);
 
-	public int insertproductCodeInfo(ProductCodeInfoVO productCodeInfoVO);
+	public int insertProductCodeInfo(ProductCodeInfoVO productCodeInfoVO);
 
-	public int updateproductCodeInfo(ProductCodeInfoVO productCodeInfoVO);
+	public int updateProductCodeInfo(ProductCodeInfoVO productCodeInfoVO);
 
-	public int insertMegerproductCodeInfo(ProductCodeInfoVO productCodeInfoVO) throws Exception;
-	public int insertMegerLogproductCodeInfo(ProductCodeInfoVO productCodeInfoVO) throws Exception;
+	public int insertMegerProductCodeInfo(ProductCodeInfoVO productCodeInfoVO) throws Exception;
+	public int insertMegerLogProductCodeInfo(ProductCodeInfoVO productCodeInfoVO) throws Exception;
 
-	public int insertMegerproductCodeInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogproductCodeInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerProductCodeInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerLogProductCodeInfoMap(Map<String, String> MapList) throws Exception;
 
-	public int updateMegerproductCodeInfo(ProductCodeInfoVO productCodeInfoVO) throws Exception;
+	public int updateMegerProductCodeInfo(ProductCodeInfoVO productCodeInfoVO) throws Exception;
 
-	public int deleteproductCodeInfo(ProductCodeInfoVO productCodeInfoVO) throws Exception;
+	public int deleteProductCodeInfo(ProductCodeInfoVO productCodeInfoVO) throws Exception;
 }

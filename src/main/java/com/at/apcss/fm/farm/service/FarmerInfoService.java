@@ -30,24 +30,24 @@ public interface FarmerInfoService {
 	 * @return
 	 * @throws Exception
 	 */
-	public FarmerInfoVO selectfarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+	public FarmerInfoVO selectFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
-	public List<FarmerInfoVO> selectfarmerInfoList(FarmerInfoVO farmerInfoVO) throws Exception;
+	public List<FarmerInfoVO> selectFarmerInfoList(FarmerInfoVO farmerInfoVO) throws Exception;
 
 	public int insertFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
 	public int updateFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
-	public int multiSavefarmerInfoList(List<FarmerInfoVO> farmerInfoVOList) throws Exception;
+	public int multiSaveFarmerInfoList(List<FarmerInfoVO> farmerInfoVOList) throws Exception;
 
-	public int insertMegerfarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
-	public int insertMegerLogfarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
+	public int insertMegerFarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
+	public int insertMegerLogFarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
 
-	public int insertMegerfarmerInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogfarmerInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerFarmerInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerLogFarmerInfoMap(Map<String, String> MapList) throws Exception;
 
-	public int updateMegerfarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
+	public int updateMegerFarmerInfo(FarmerInfoVO farmerInfoVOList) throws Exception;
 
-	public int deletefarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+	public int deleteFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
 }

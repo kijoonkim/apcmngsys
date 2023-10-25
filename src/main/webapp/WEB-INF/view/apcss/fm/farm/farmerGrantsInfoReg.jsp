@@ -49,7 +49,7 @@
 				<!--[pp] 검색결과 -->
 				<div class="ad_section_top">
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdFarmerGrantsInfoReg" style="height:150px; width: 100%;"></div>
+					<div id="sb-area-grdFarmerGransInfoReg" style="height:150px; width: 100%;"></div>
 				</div>
 
 				<br>
@@ -273,15 +273,15 @@
 
 
 	//설비 등록
-	var grdFarmerGrantsInfoReg; // 그리드를 담기위한 객체 선언
-	var jsonFarmerGrantsInfoRegList = []; // 그리드의 참조 데이터 주소 선언
-	var jsonfarmerGrantsInfoReg = []; // 그리드의 참조 데이터 주소 선언
+	var grdFarmerGransInfoReg; // 그리드를 담기위한 객체 선언
+	var jsonFarmerGransInfoRegList = []; // 그리드의 참조 데이터 주소 선언
+	var jsonfarmerGransInfoReg = []; // 그리드의 참조 데이터 주소 선언
 	var jsonComfarmGubun = [];
 
 	const fn_initSBSelectfarm = async function() {
 
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('grdFarmerGrantsInfoReg', 		jsonComfarmGubun, 	'farm_GUBUN') 		// 설비구분
+			gfn_setComCdSBSelect('grdFarmerGransInfoReg', 		jsonComfarmGubun, 	'farm_GUBUN') 		// 설비구분
 		])
 
 	}
@@ -300,9 +300,9 @@
 		SBUxMethod.set("farm-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdFarmerGrantsInfoReg';
-	    SBGridProperties.id = 'grdFarmerGrantsInfoReg';
-	    SBGridProperties.jsonref = 'jsonfarmerGrantsInfoReg';
+	    SBGridProperties.parentid = 'sb-area-grdFarmerGransInfoReg';
+	    SBGridProperties.id = 'grdFarmerGransInfoReg';
+	    SBGridProperties.jsonref = 'jsonfarmerGransInfoReg';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
@@ -352,26 +352,26 @@
 	        	console.log(strValue);
 	        	if(strValue== null || strValue == ""){
 	        		console.log("통합조직 값없음");
-	        		return "<sbux-button type='button' uitype='modal' target-id='modal-itemSelect' class='btn btn-xs btn-outline-danger' text='찾기'  onClick='fn_GridPop(\"pop\", \"grdFarmerGrantsInfoReg\", " + nRow + ", " + nCol + ")'></sbux-button>"
-	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdFarmerGrantsInfoReg\", " + nRow + ", " + nCol + ")'>찾기</button>";
-	        		//return " <sbux-button type='button' uitype='modal' target-id='modal-itemSelect'  text='찾기'  onClick='fn_GridPop(\"pop\", \"grdFarmerGrantsInfoReg\", " + nRow + ", " + nCol + ")'></sbux-button>";
+	        		return "<sbux-button type='button' uitype='modal' target-id='modal-itemSelect' class='btn btn-xs btn-outline-danger' text='찾기'  onClick='fn_GridPop(\"pop\", \"grdFarmerGransInfoReg\", " + nRow + ", " + nCol + ")'></sbux-button>"
+	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdFarmerGransInfoReg\", " + nRow + ", " + nCol + ")'>찾기</button>";
+	        		//return " <sbux-button type='button' uitype='modal' target-id='modal-itemSelect'  text='찾기'  onClick='fn_GridPop(\"pop\", \"grdFarmerGransInfoReg\", " + nRow + ", " + nCol + ")'></sbux-button>";
 	        	}else{
 	        		console.log("통합조직 값있음");
-	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdFarmerGrantsInfoReg\", " + nRow + ", " + nCol + ")'>찾기</button>";
-	        		return "<sbux-button type='button' uitype='modal' target-id='modal-itemSelect' class='btn btn-xs btn-outline-danger' text='찾기'  onClick='fn_GridPop(\"pop\", \"grdFarmerGrantsInfoReg\", " + nRow + ", " + nCol + ")'></sbux-button>";
+	        		//return " <button type='button' class='btn btn-xs btn-outline-danger'   onClick='fn_GridPop(\"pop\", \"grdFarmerGransInfoReg\", " + nRow + ", " + nCol + ")'>찾기</button>";
+	        		return "<sbux-button type='button' uitype='modal' target-id='modal-itemSelect' class='btn btn-xs btn-outline-danger' text='찾기'  onClick='fn_GridPop(\"pop\", \"grdFarmerGransInfoReg\", " + nRow + ", " + nCol + ")'></sbux-button>";
 	        	}
 	        }},
 	        */
 	    ];
 
-	    grdFarmerGrantsInfoReg = _SBGrid.create(SBGridProperties);
+	    grdFarmerGransInfoReg = _SBGrid.create(SBGridProperties);
 	    let rst = await Promise.all([
 	    	fn_initSBSelectfarm(),
 		    fn_searchfarmList()
 		])
-		grdFarmerGrantsInfoReg.refresh({"combo":true});
+		grdFarmerGransInfoReg.refresh({"combo":true});
 	  	//클릭 이벤트 바인드
-	    grdFarmerGrantsInfoReg.bind('click', 'fn_view');
+	    grdFarmerGransInfoReg.bind('click', 'fn_view');
 	}
 
 
@@ -381,17 +381,17 @@
 		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");//
 		let bzobRgno = SBUxMethod.get("srch-inp-bzobRgno");//
 		//let apcCd = SBUxMethod.get("inp-apcCd");
-    	//let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerInfo.do", {apcCd : apcCd});
-    	let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerGrantsInfoRegList.do", {
+    	//let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerGransInfo.do", {apcCd : apcCd});
+    	let postJsonPromise = gfn_postJSON("/fm/farm/selectFarmerGransInfoRegList.do", {
     		 frmerSn : frmerSn
     		,bzobRgno : bzobRgno
 		});
         let data = await postJsonPromise;
         try{
-        	jsonfarmerGrantsInfoReg.length = 0;
+        	jsonfarmerGransInfoReg.length = 0;
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
-				let farmerGrantsInfoRegVO = {
+				let farmerGransInfoRegVO = {
 					frmerSn : item.frmerSn
 				  , bzobRgno 		: item.bzobRgno
 				  , mngerRelate 	: item.mngerRelate
@@ -423,15 +423,15 @@
 				  , sysLastChgPrgrmId 		: item.sysLastChgPrgrmId
 				  , delYn 		: item.delYn
 				}
-				jsonfarmerGrantsInfoReg.push(farmerGrantsInfoRegVO);
+				jsonfarmerGransInfoReg.push(farmerGransInfoRegVO);
 			});
 
 
 
-        	grdFarmerGrantsInfoReg.rebuild();
+        	grdFarmerGransInfoReg.rebuild();
 
         	//비어 있는 마지막 줄 추가용도?
-        	grdFarmerGrantsInfoReg.addRow();
+        	grdFarmerGransInfoReg.addRow();
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -478,12 +478,12 @@
 
 	/* Grid Row 저장 기능*/
 // 	const fn_saveFmList = async function(){
-// 		let gridData = grdFarmerGrantsInfoReg.getGridDataAll();
+// 		let gridData = grdFarmerGransInfoReg.getGridDataAll();
 // 		let saveList = [];
 
 // 		for(var i=1; i<=gridData.length; i++ ){
-// 			let rowData = grdFarmerGrantsInfoReg.getRowData(i);
-// 			let rowSts = grdFarmerGrantsInfoReg.getRowStatus(i);
+// 			let rowData = grdFarmerGransInfoReg.getRowData(i);
+// 			let rowSts = grdFarmerGransInfoReg.getRowStatus(i);
 // 			let frmerSn = rowData.bb;
 // 			let bzobRgno = rowData.aa;
 // 			let delYn = rowData.delYn;
@@ -520,7 +520,7 @@
 // 		if(confirm(regMsg)){
 
 // 			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
-// 			let postJsonPromise = gfn_postJSON("/fm/farm/multiSavefarmerGrantsInfoRegList.do", saveList);
+// 			let postJsonPromise = gfn_postJSON("/fm/farm/multiSavefarmerGransInfoRegList.do", saveList);
 // 	        let data = await postJsonPromise;
 // 	        try {
 // 	        	if (_.isEqual("S", data.resultStatus)) {
@@ -544,7 +544,7 @@
     	 console.log("******************fn_subUpdate**********************************");
 		if (!isConfirmed) return;
 
-    	const postJsonPromise2 = gfn_postJSON("/fm/farm/updateFarmerGrantsInfoReg.do", {
+    	const postJsonPromise2 = gfn_postJSON("/fm/farm/updateFarmerGransInfoReg.do", {
     		frmerSn: SBUxMethod.get('dtl-input-frmerSn')                           //  농업인 번호
         ,	bzobRgno: SBUxMethod.get('dtl-input-bzobRgno')                             //  경영체 등록번호
         ,	mngerRelate: SBUxMethod.get('dtl-input-mngerRelate')             //  경영주 및 경영주와 의 관계
@@ -590,30 +590,30 @@
 	/* Grid Row 추가 및 삭제 기능*/
     function fn_procRow(gubun, grid, nRow, nCol) {
         if (gubun === "ADD") {
-            if (grid === "grdFarmerGrantsInfoReg") {
-            	grdFarmerGrantsInfoReg.setCellData(nRow, nCol, "N", true);
-            	//grdFarmerGrantsInfoReg.setCellData(nRow, 5, gv_apcCd, true);
-            	grdFarmerGrantsInfoReg.addRow(true);
+            if (grid === "grdFarmerGransInfoReg") {
+            	grdFarmerGransInfoReg.setCellData(nRow, nCol, "N", true);
+            	//grdFarmerGransInfoReg.setCellData(nRow, 5, gv_apcCd, true);
+            	grdFarmerGransInfoReg.addRow(true);
             }
         }
         else if (gubun === "DEL") {
-            if (grid === "grdFarmerGrantsInfoReg") {
-            	if(grdFarmerGrantsInfoReg.getRowStatus(nRow) == 0 || grdFarmerGrantsInfoReg.getRowStatus(nRow) == 2){
+            if (grid === "grdFarmerGransInfoReg") {
+            	if(grdFarmerGransInfoReg.getRowStatus(nRow) == 0 || grdFarmerGransInfoReg.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
-            			var farmerGrantsInfoRegVO = grdFarmerGrantsInfoReg.getRowData(nRow);
-            			fn_deleteRsrc(farmerGrantsInfoRegVO);
-            			grdFarmerGrantsInfoReg.deleteRow(nRow);
+            			var farmerGransInfoRegVO = grdFarmerGransInfoReg.getRowData(nRow);
+            			fn_deleteRsrc(farmerGransInfoRegVO);
+            			grdFarmerGransInfoReg.deleteRow(nRow);
             		}
             	}else{
-            		grdFarmerGrantsInfoReg.deleteRow(nRow);
+            		grdFarmerGransInfoReg.deleteRow(nRow);
             	}
             }
         }
     }
 
-	async function fn_deleteRsrc(farmerGrantsInfoRegVO){
-		let postJsonPromise = gfn_postJSON("/fm/farm/deletefarmerGrantsInfoReg.do", farmerGrantsInfoRegVO);
+	async function fn_deleteRsrc(farmerGransInfoRegVO){
+		let postJsonPromise = gfn_postJSON("/fm/farm/deleteFarmerGransInfoReg.do", farmerGransInfoRegVO);
         let data = await postJsonPromise;
 
         try{
@@ -668,9 +668,9 @@
     function fn_GridPop(gubun, grid, nRow, nCol) {
     	console.log("================fn_GridPop================");
         if (gubun === "pop") {
-            if (grid === "grdFarmerGrantsInfoReg") {
+            if (grid === "grdFarmerGransInfoReg") {
             	//부른 선택된 그리드 셀의 값을 N 으로 변경
-            	grdFarmerGrantsInfoReg.setCellData(nRow, nCol, "N", true);
+            	grdFarmerGransInfoReg.setCellData(nRow, nCol, "N", true);
             }
         }
     }
@@ -682,12 +682,12 @@
     //상세정보 보기 클릭이벤트
     function fn_view() {
     	console.log("******************fn_view**********************************");
-    	var nCol = grdFarmerGrantsInfoReg.getCol();
+    	var nCol = grdFarmerGransInfoReg.getCol();
         //특정 열 부터 이벤트 적용
         if (nCol < 1) {
             return;
         }
-        var nRow = grdFarmerGrantsInfoReg.getRow();
+        var nRow = grdFarmerGransInfoReg.getRow();
 		if (nRow < 1) {
             return;
 		}
@@ -697,7 +697,7 @@
 		}
 
 			//서치폼에서 클릭시 디테일폼에 데이터출력
-        let rowData = grdFarmerGrantsInfoReg.getRowData(nRow);
+        let rowData = grdFarmerGransInfoReg.getRowData(nRow);
 		console.log(rowData);
 		console.log(rowData.operOgnzTrmtItemCn);
 		console.log(gfn_isEmpty(rowData.operOgnzTrmtItemCn));
@@ -732,13 +732,13 @@
     //그리드 클릭이벤트
     function gridClick(){
 		console.log("================gridClick================");
-		//grdFarmerGrantsInfoReg 그리드 객체
-        selGridRow = grdFarmerGrantsInfoReg.getRow();
-        selGridCol = grdFarmerGrantsInfoReg.getCol();
+		//grdFarmerGransInfoReg 그리드 객체
+        selGridRow = grdFarmerGransInfoReg.getRow();
+        selGridCol = grdFarmerGransInfoReg.getCol();
 
 
-        let delYnCol = grdFarmerGrantsInfoReg.getColRef('delYn');
-        let delYnValue = grdFarmerGrantsInfoReg.getCellData(selGridRow,delYnCol);
+        let delYnCol = grdFarmerGransInfoReg.getColRef('delYn');
+        let delYnValue = grdFarmerGransInfoReg.getCellData(selGridRow,delYnCol);
 
         //임력할 데이터 인지 확인
         //추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
@@ -748,9 +748,9 @@
         }
 
         //cc 전문 품목 dd 육성 품목
-        let ccCol = grdFarmerGrantsInfoReg.getColRef('cc');
-        let ddCol = grdFarmerGrantsInfoReg.getColRef('dd');
-        let iiCol = grdFarmerGrantsInfoReg.getColRef('ii');
+        let ccCol = grdFarmerGransInfoReg.getColRef('cc');
+        let ddCol = grdFarmerGransInfoReg.getColRef('dd');
+        let iiCol = grdFarmerGransInfoReg.getColRef('ii');
 
         if(selGridRow == '-1'){
 			return;
@@ -782,12 +782,12 @@
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridRow 선택된 행 값
 			//getColRef(ref) ref의 인덱스 값 가져오기
-			let colRefIdx1 = grdFarmerGrantsInfoReg.getColRef('ii');//ii 통합조직 인덱스
-			let colRefIdx2 = grdFarmerGrantsInfoReg.getColRef('iiCode');//ii 통합조직 코드 인덱스
+			let colRefIdx1 = grdFarmerGransInfoReg.getColRef('ii');//ii 통합조직 인덱스
+			let colRefIdx2 = grdFarmerGransInfoReg.getColRef('iiCode');//ii 통합조직 코드 인덱스
 
 			//그리드 값 세팅
-			grdFarmerGrantsInfoReg.setCellData(selGridRow,colRefIdx1,rowData.mainCodeNm,true);
-			grdFarmerGrantsInfoReg.setCellData(selGridRow,colRefIdx2,rowData.mainCode,true);
+			grdFarmerGransInfoReg.setCellData(selGridRow,colRefIdx1,rowData.mainCodeNm,true);
+			grdFarmerGransInfoReg.setCellData(selGridRow,colRefIdx2,rowData.mainCode,true);
 		}
 	}
 
@@ -799,15 +799,15 @@
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridRow : 선택된 행 값		selGridCol : 선택된 열 값
 			//getColRef(ref) ref의 인덱스 값 가져오기
-			let selRef = grdFarmerGrantsInfoReg.getRefOfCol(selGridCol);
+			let selRef = grdFarmerGransInfoReg.getRefOfCol(selGridCol);
 
 			//구분하기 편하기 위해 ref 값이 cc라면 코드값은 ccCode 로 설정
-			let colRefIdx1 = grdFarmerGrantsInfoReg.getColRef(selRef);//품목명 인덱스
-			let colRefIdx2 = grdFarmerGrantsInfoReg.getColRef(selRef+"Code");//품목코드 인덱스
+			let colRefIdx1 = grdFarmerGransInfoReg.getColRef(selRef);//품목명 인덱스
+			let colRefIdx2 = grdFarmerGransInfoReg.getColRef(selRef+"Code");//품목코드 인덱스
 
 			//그리드 값 세팅
-			grdFarmerGrantsInfoReg.setCellData(selGridRow,colRefIdx1,rowData.itemNm,true);
-			grdFarmerGrantsInfoReg.setCellData(selGridRow,colRefIdx2,rowData.itemCd,true);
+			grdFarmerGransInfoReg.setCellData(selGridRow,colRefIdx1,rowData.itemNm,true);
+			grdFarmerGransInfoReg.setCellData(selGridRow,colRefIdx2,rowData.itemCd,true);
 		}
 	}
 

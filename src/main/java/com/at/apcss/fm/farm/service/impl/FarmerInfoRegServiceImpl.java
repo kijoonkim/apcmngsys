@@ -36,24 +36,24 @@ public class FarmerInfoRegServiceImpl implements FarmerInfoRegService{
 	private FarmerInfoRegMapper farmerInfoRegMapper;
 
 	@Override
-	public FarmerInfoRegVO selectfarmerInfoReg(FarmerInfoRegVO farmerInfoRegVO) throws Exception {
+	public FarmerInfoRegVO selectFarmerInfoReg(FarmerInfoRegVO farmerInfoRegVO) throws Exception {
 
-		FarmerInfoRegVO resultVO = farmerInfoRegMapper.selectfarmerInfoReg(farmerInfoRegVO);
+		FarmerInfoRegVO resultVO = farmerInfoRegMapper.selectFarmerInfoReg(farmerInfoRegVO);
 
 		return resultVO;
 	}
 
 	@Override
-	public List<FarmerInfoRegVO> selectfarmerInfoRegList(FarmerInfoRegVO farmerInfoRegVO) throws Exception {
+	public List<FarmerInfoRegVO> selectFarmerInfoRegList(FarmerInfoRegVO farmerInfoRegVO) throws Exception {
 
-		List<FarmerInfoRegVO> resultList = farmerInfoRegMapper.selectfarmerInfoRegList(farmerInfoRegVO);
+		List<FarmerInfoRegVO> resultList = farmerInfoRegMapper.selectFarmerInfoRegList(farmerInfoRegVO);
 		return resultList;
 	}
 
 	@Override
 	public int insertFarmerInfoReg(FarmerInfoRegVO farmerInfoRegVO) throws Exception {
 
-		int insertedCnt = farmerInfoRegMapper.insertfarmerInfoReg(farmerInfoRegVO);
+		int insertedCnt = farmerInfoRegMapper.insertFarmerInfoReg(farmerInfoRegVO);
 
 		return insertedCnt;
 	}
@@ -67,7 +67,7 @@ public class FarmerInfoRegServiceImpl implements FarmerInfoRegService{
 	}
 
 	@Override
-	public int multiSavefarmerInfoRegList(List<FarmerInfoRegVO> farmerInfoRegVOList) throws Exception {
+	public int multiSaveFarmerInfoRegList(List<FarmerInfoRegVO> farmerInfoRegVOList) throws Exception {
 		int savedCnt = 0;
 		for (FarmerInfoRegVO farmerInfoRegVO : farmerInfoRegVOList) {
 			if(ComConstants.ROW_STS_INSERT.equals(farmerInfoRegVO.getRowSts())) {
@@ -81,8 +81,8 @@ public class FarmerInfoRegServiceImpl implements FarmerInfoRegService{
 	}
 
 	@Override
-	public int deletefarmerInfoReg(FarmerInfoRegVO farmerInfoRegVO) throws Exception {
-		return farmerInfoRegMapper.deletefarmerInfoReg(farmerInfoRegVO);
+	public int deleteFarmerInfoReg(FarmerInfoRegVO farmerInfoRegVO) throws Exception {
+		return farmerInfoRegMapper.deleteFarmerInfoReg(farmerInfoRegVO);
 	}
 
 }

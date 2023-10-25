@@ -80,9 +80,9 @@
     </select>
 	  -->
 
-	   <select id="selectproductCodeInfoLog" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO" resultType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
+	   <select id="selectProductCodeInfoLog" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO" resultType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.productCodeInfoLogMapper.selectproductCodeInfoLog */
+			SELECT /* com.at.apcss.fm.farm.mapper.productCodeInfoLogMapper.selectProductCodeInfoLog */
 				  CM.SEQ
 				, CM.FRMER_SN
 				, CM.BZOB_RGNO
@@ -134,9 +134,9 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectproductCodeInfoLogList" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO" resultType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
+    <select id="selectProductCodeInfoLogList" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO" resultType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.productCodeInfoLogMapper.selectproductCodeInfoLogList */
+			SELECT /* com.at.apcss.fm.farm.mapper.productCodeInfoLogMapper.selectProductCodeInfoLogList */
 				  CM.SEQ
 				, CM.FRMER_SN
 				, CM.BZOB_RGNO
@@ -183,9 +183,9 @@
     </select>
 
 
-	<insert id="insertproductCodeInfoLog" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
+	<insert id="insertProductCodeInfoLog" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.farm.mapper.productCodeInfoLogMapper.insertproductCodeInfoLog */
+	    	INSERT /* com.at.apcss.fm.farm.mapper.productCodeInfoLogMapper.insertProductCodeInfoLog */
 	    	  INTO TB_FARMER_INFO_LOG
 	    		(
 	    		  FRMER_SN
@@ -260,9 +260,9 @@
 
 
 
-    <insert id="insertMegerproductCodeInfoLog" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
+    <insert id="insertMegerProductCodeInfoLog" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
 	<![CDATA[
-    	MERGE INTO TB_FARMER_INFO_LOG CLT  /* com.at.apcss.fm.farm.mapper.ProductCodeInfoLogMapper.insertMegerproductCodeInfoLog */
+    	MERGE INTO TB_FARMER_INFO_LOG CLT  /* com.at.apcss.fm.farm.mapper.ProductCodeInfoLogMapper.insertMegerProductCodeInfoLog */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
@@ -365,9 +365,9 @@
 	</insert>
 
 
-    <insert id="insertMegerLogproductCodeInfoLog" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
+    <insert id="insertMegerLogProductCodeInfoLog" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
 	<![CDATA[
-    	INSERT /* com.at.apcss.fm.farm.mapper.productCodeInfoLogMapper.insertMegerLogproductCodeInfoLog */
+    	INSERT /* com.at.apcss.fm.farm.mapper.productCodeInfoLogMapper.insertMegerLogProductCodeInfoLog */
 	    	  INTO TB_FARMER_INFO_LOG_LOG
 	    		(
 	    		  SEQ
@@ -441,9 +441,9 @@
     	]]>
 	</insert>
 
-	<update id="updateproductCodeInfoLog" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
+	<update id="updateProductCodeInfoLog" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.farm.mapper.productCodeInfoLogMapper.upateproductCodeInfoLog */
+	    	UPDATE /* com.at.apcss.fm.farm.mapper.productCodeInfoLogMapper.upateProductCodeInfoLog */
 	    		TB_FARMER_INFO_LOG
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
@@ -483,9 +483,9 @@
     	]]>
     </update>
 
-    <update id="updateMegerproductCodeInfoLog" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
+    <update id="updateMegerProductCodeInfoLog" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
     	<![CDATA[
-	    	MERGE INTO TB_FARMER_INFO_LOG CLT  /* com.at.apcss.fm.farm.mapper.ProductCodeInfoLogMapper.insertMegerproductCodeInfoLog */
+	    	MERGE INTO TB_FARMER_INFO_LOG CLT  /* com.at.apcss.fm.farm.mapper.ProductCodeInfoLogMapper.insertMegerProductCodeInfoLog */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
@@ -588,7 +588,7 @@
     </update>
 
 
-	<delete id="deleteproductCodeInfoLog" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
+	<delete id="deleteProductCodeInfoLog" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoLogVO">
 		<![CDATA[
 		DELETE FROM TB_FARMER_INFO_LOG
 		 WHERE 1=1

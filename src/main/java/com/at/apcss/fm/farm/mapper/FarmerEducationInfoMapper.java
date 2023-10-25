@@ -32,21 +32,21 @@ public interface FarmerEducationInfoMapper {
 	 * @param bbsVO
 	 * @return
 	 */
-	public FarmerEducationInfoVO selectfarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO);
+	public FarmerEducationInfoVO selectFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO);
 
-	public List<FarmerEducationInfoVO> selectfarmerEducationInfoList(FarmerEducationInfoVO farmerEducationInfoVO);
+	public List<FarmerEducationInfoVO> selectFarmerEducationInfoList(FarmerEducationInfoVO farmerEducationInfoVO);
 
-	public int insertfarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO);
+	public int insertFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO);
 
-	public int updatefarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO);
+	public int updateFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO);
 
-	public int insertMegerfarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
-	public int insertMegerLogfarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
+	public int insertMegerFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
+	public int insertMegerLogFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
 
-	public int insertMegerfarmerEducationInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogfarmerEducationInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerFarmerEducationInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerLogFarmerEducationInfoMap(Map<String, String> MapList) throws Exception;
 
-	public int updateMegerfarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
+	public int updateMegerFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
 
-	public int deletefarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
+	public int deleteFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
 }

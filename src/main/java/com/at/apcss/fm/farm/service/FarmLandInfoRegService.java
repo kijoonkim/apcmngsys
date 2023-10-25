@@ -30,16 +30,16 @@ public interface FarmLandInfoRegService {
 	 * @return
 	 * @throws Exception
 	 */
-	public FarmLandInfoRegVO selectfarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
+	public FarmLandInfoRegVO selectFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
 
-	public List<FarmLandInfoRegVO> selectfarmLandInfoRegList(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
+	public List<FarmLandInfoRegVO> selectFarmLandInfoRegList(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
 
-	public int insertfarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
+	public int insertFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
 
-	public int updatefarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
+	public int updateFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
 
-	public int multiSavefarmLandInfoRegList(List<FarmLandInfoRegVO> farmLandInfoRegVOList) throws Exception;
+	public int multiSaveFarmLandInfoRegList(List<FarmLandInfoRegVO> farmLandInfoRegVOList) throws Exception;
 
-	public int deletefarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
+	public int deleteFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception;
 
 }

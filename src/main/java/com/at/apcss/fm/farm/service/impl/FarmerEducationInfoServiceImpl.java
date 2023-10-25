@@ -38,24 +38,24 @@ public class FarmerEducationInfoServiceImpl implements FarmerEducationInfoServic
 	private FarmerEducationInfoMapper farmerEducationInfoMapper;
 
 	@Override
-	public FarmerEducationInfoVO selectfarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
+	public FarmerEducationInfoVO selectFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
 
-		FarmerEducationInfoVO resultVO = farmerEducationInfoMapper.selectfarmerEducationInfo(farmerEducationInfoVO);
+		FarmerEducationInfoVO resultVO = farmerEducationInfoMapper.selectFarmerEducationInfo(farmerEducationInfoVO);
 
 		return resultVO;
 	}
 
 	@Override
-	public List<FarmerEducationInfoVO> selectfarmerEducationInfoList(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
+	public List<FarmerEducationInfoVO> selectFarmerEducationInfoList(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
 
-		List<FarmerEducationInfoVO> resultList = farmerEducationInfoMapper.selectfarmerEducationInfoList(farmerEducationInfoVO);
+		List<FarmerEducationInfoVO> resultList = farmerEducationInfoMapper.selectFarmerEducationInfoList(farmerEducationInfoVO);
 		return resultList;
 	}
 
 	@Override
 	public int insertFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
 
-		int insertedCnt = farmerEducationInfoMapper.insertfarmerEducationInfo(farmerEducationInfoVO);
+		int insertedCnt = farmerEducationInfoMapper.insertFarmerEducationInfo(farmerEducationInfoVO);
 
 		return insertedCnt;
 	}
@@ -63,13 +63,13 @@ public class FarmerEducationInfoServiceImpl implements FarmerEducationInfoServic
 	@Override
 	public int updateFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
 
-		int updatedCnt = farmerEducationInfoMapper.updatefarmerEducationInfo(farmerEducationInfoVO);
+		int updatedCnt = farmerEducationInfoMapper.updateFarmerEducationInfo(farmerEducationInfoVO);
 
 		return updatedCnt;
 	}
 
 	@Override
-	public int multiSavefarmerEducationInfoList(List<FarmerEducationInfoVO> farmerEducationInfoVOList) throws Exception {
+	public int multiSaveFarmerEducationInfoList(List<FarmerEducationInfoVO> farmerEducationInfoVOList) throws Exception {
 		int savedCnt = 0;
 		for (FarmerEducationInfoVO farmerEducationInfoVO : farmerEducationInfoVOList) {
 			if(ComConstants.ROW_STS_INSERT.equals(farmerEducationInfoVO.getRowSts())) {
@@ -83,32 +83,32 @@ public class FarmerEducationInfoServiceImpl implements FarmerEducationInfoServic
 	}
 
 	@Override
-	public int insertMegerfarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
-		return farmerEducationInfoMapper.insertMegerfarmerEducationInfo(farmerEducationInfoVO);
+	public int insertMegerFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
+		return farmerEducationInfoMapper.insertMegerFarmerEducationInfo(farmerEducationInfoVO);
 	}
 	@Override
-	public int insertMegerLogfarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
-		return farmerEducationInfoMapper.insertMegerLogfarmerEducationInfo(farmerEducationInfoVO);
-	}
-
-
-	@Override
-	public int insertMegerfarmerEducationInfoMap(Map<String, String> MapList) throws Exception {
-		return farmerEducationInfoMapper.insertMegerfarmerEducationInfoMap(MapList);
-	}
-	@Override
-	public int insertMegerLogfarmerEducationInfoMap(Map<String, String> MapList) throws Exception {
-		return farmerEducationInfoMapper.insertMegerLogfarmerEducationInfoMap(MapList);
+	public int insertMegerLogFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
+		return farmerEducationInfoMapper.insertMegerLogFarmerEducationInfo(farmerEducationInfoVO);
 	}
 
+
 	@Override
-	public int updateMegerfarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
-		return farmerEducationInfoMapper.updateMegerfarmerEducationInfo(farmerEducationInfoVO);
+	public int insertMegerFarmerEducationInfoMap(Map<String, String> MapList) throws Exception {
+		return farmerEducationInfoMapper.insertMegerFarmerEducationInfoMap(MapList);
+	}
+	@Override
+	public int insertMegerLogFarmerEducationInfoMap(Map<String, String> MapList) throws Exception {
+		return farmerEducationInfoMapper.insertMegerLogFarmerEducationInfoMap(MapList);
 	}
 
 	@Override
-	public int deletefarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
-		return farmerEducationInfoMapper.deletefarmerEducationInfo(farmerEducationInfoVO);
+	public int updateMegerFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
+		return farmerEducationInfoMapper.updateMegerFarmerEducationInfo(farmerEducationInfoVO);
+	}
+
+	@Override
+	public int deleteFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception {
+		return farmerEducationInfoMapper.deleteFarmerEducationInfo(farmerEducationInfoVO);
 	}
 
 }

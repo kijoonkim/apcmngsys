@@ -80,7 +80,7 @@
     </select>
 	  -->
 
-	   <select id="selectfarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+	   <select id="selectFarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.selectfarmerGrantsInfo */
 				  CM.FRMER_SN
@@ -133,7 +133,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectfarmerGrantsInfoList" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+    <select id="selectFarmerGrantsInfoList" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.selectfarmerGrantsInfoList */
 				  CM.FRMER_SN
@@ -181,7 +181,7 @@
     </select>
 
 
-	<insert id="insertfarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+	<insert id="insertFarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.insertfarmerGrantsInfo */
 	    	  INTO TB_FARMER_INFO
@@ -258,7 +258,7 @@
 
 
 
-    <insert id="insertMegerfarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+    <insert id="insertMegerFarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
 	<![CDATA[
     	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.insertMegerfarmerGrantsInfo */
 		USING DUAL
@@ -364,7 +364,7 @@
 
 
 
-    <insert id="insertMegerfarmerGrantsInfoMap" parameterType="hashmap">
+    <insert id="insertMegerFarmerGrantsInfoMap" parameterType="hashmap">
 	<![CDATA[
     	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.insertMegerfarmerGrantsInfoMap */
 		USING DUAL
@@ -469,7 +469,7 @@
 	</insert>
 
 
-    <insert id="insertMegerLogfarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+    <insert id="insertMegerLogFarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
 	<![CDATA[
     	INSERT /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.insertMegerLogfarmerGrantsInfo */
 	    	  INTO TB_FARMER_INFO_LOG
@@ -546,7 +546,7 @@
 	</insert>
 
 
-    <insert id="insertMegerLogfarmerGrantsInfoMap" parameterType="hashmap">
+    <insert id="insertMegerLogFarmerGrantsInfoMap" parameterType="hashmap">
 	<![CDATA[
     	INSERT /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.insertMegerLogfarmerGrantsInfoMap */
 	    	  INTO TB_FARMER_INFO_LOG
@@ -622,7 +622,7 @@
     	]]>
 	</insert>
 
-	<update id="updatefarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+	<update id="updateFarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.upatefarmerGrantsInfo */
 	    		TB_FARMER_INFO
@@ -664,7 +664,7 @@
     	]]>
     </update>
 
-    <update id="updateMegerfarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+    <update id="updateMegerFarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
     	<![CDATA[
 	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.insertMegerfarmerGrantsInfo */
 		USING DUAL
@@ -770,7 +770,7 @@
 
 
 
-    <update id="updateMegerfarmerGrantsInfoMap" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+    <update id="updateMegerFarmerGrantsInfoMap" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
     	<![CDATA[
 	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.updateMegerfarmerGrantsInfoMap */
 		USING DUAL
@@ -874,7 +874,7 @@
     	]]>
     </update>
 
-	<delete id="deletefarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+	<delete id="deleteFarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
 		<![CDATA[
 		DELETE FROM TB_FARMER_INFO
 		 WHERE 1=1

@@ -80,7 +80,7 @@
     </select>
 	  -->
 
-	   <select id="selectproductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO" resultType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+	   <select id="selectProductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO" resultType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.selectproductCodeInfo */
 				  CM.FRMER_SN
@@ -133,7 +133,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectproductCodeInfoList" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO" resultType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+    <select id="selectProductCodeInfoList" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO" resultType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.selectproductCodeInfoList */
 				  CM.FRMER_SN
@@ -181,7 +181,7 @@
     </select>
 
 
-	<insert id="insertproductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+	<insert id="insertProductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertproductCodeInfo */
 	    	  INTO TB_FARMER_INFO
@@ -258,7 +258,7 @@
 
 
 
-    <insert id="insertMegerproductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+    <insert id="insertMegerProductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
 	<![CDATA[
     	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
 		USING DUAL
@@ -364,7 +364,7 @@
 
 
 
-    <insert id="insertMegerproductCodeInfoMap" parameterType="hashmap">
+    <insert id="insertMegerProductCodeInfoMap" parameterType="hashmap">
 	<![CDATA[
     	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfoMap */
 		USING DUAL
@@ -469,7 +469,7 @@
 	</insert>
 
 
-    <insert id="insertMegerLogproductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+    <insert id="insertMegerLogProductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
 	<![CDATA[
     	INSERT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerLogproductCodeInfo */
 	    	  INTO TB_FARMER_INFO_LOG
@@ -546,7 +546,7 @@
 	</insert>
 
 
-    <insert id="insertMegerLogproductCodeInfoMap" parameterType="hashmap">
+    <insert id="insertMegerLogProductCodeInfoMap" parameterType="hashmap">
 	<![CDATA[
     	INSERT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerLogproductCodeInfoMap */
 	    	  INTO TB_FARMER_INFO_LOG
@@ -622,7 +622,7 @@
     	]]>
 	</insert>
 
-	<update id="updateproductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+	<update id="updateProductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.upateproductCodeInfo */
 	    		TB_FARMER_INFO
@@ -664,7 +664,7 @@
     	]]>
     </update>
 
-    <update id="updateMegerproductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+    <update id="updateMegerProductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
     	<![CDATA[
 	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
 		USING DUAL
@@ -770,7 +770,7 @@
 
 
 
-    <update id="updateMegerproductCodeInfoMap" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+    <update id="updateMegerProductCodeInfoMap" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
     	<![CDATA[
 	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.updateMegerproductCodeInfoMap */
 		USING DUAL
@@ -874,7 +874,7 @@
     	]]>
     </update>
 
-	<delete id="deleteproductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+	<delete id="deleteProductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
 		<![CDATA[
 		DELETE FROM TB_FARMER_INFO
 		 WHERE 1=1

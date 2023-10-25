@@ -22,6 +22,7 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
+					<sbux-button id="btnSaveFrm" name="btnSaveFrm" uitype="normal" text="연계 등록" class="btn btn-sm btn-outline-danger" onclick="fn_saveFrmerSn"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -31,21 +32,13 @@
 
 					<tbody>
 						<tr>
-							<th scope="row">생산유통통합조직</th>
+							<th scope="row">농업인 번호</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd2" name="srch-inp-apcCd2" uitype="hidden" ></sbux-input>
-								<sbux-input id="srch-inp-apcNm2" name="srch-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
+								<sbux-input id="srch-inp-frmerSn" name="srch-inp-frmerSn" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
-							<td>
-								<sbux-button id="srch-btn-apc2" name="srch-btn-apc2" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceInvstmntSpmt" />
-							</td>
-							<th class="th_bg">전문품목</th>
+							<th class="th_bg">경영체 등록번호</th>
 							<td class="td_input" style="border-right:hidden;">
-							    	<sbux-input id="srch-inp-itemCd1" name="srch-inp-itemCd1" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
-									<sbux-input id="srch-inp-itemNm1" name="srch-inp-itemNm1" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
-							</td>
-							<td>
-									<sbux-button id="srch-btn-item1" name="srch-btn-item1" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(1)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+									<sbux-input id="srch-inp-bzobRgno" name="srch-inp-bzobRgno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 							<td colspan="2" style="border-left: hidden;"></td>
 						</tr>
@@ -63,32 +56,6 @@
 		</div>
 	</section>
 
-    <!-- 통합조직,출자출하조직 선택 Modal -->
-    <!-- 2023 09 22 ljw 통합조직 출자출하조직 리스트 팝업 생성 -->
-    <div>
-        <sbux-modal
-        	id="modal-invstmntSpmt"
-        	name="modal-invstmntSpmt"
-        	uitype="middle"
-        	header-title="통합조직,출자출하조직 선택"
-        	body-html-id="body-modal-invstmntSpmt"
-        	footer-is-close-button="false"
-        	style="width:1000px"
-       	></sbux-modal>
-    </div>
-    <div id="body-modal-invstmntSpmt">
-<%--     	<jsp:include page="../popup/InvstmntSpmtPopup.jsp"></jsp:include> --%>
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/InvstmntSpmtPopup.jsp"></jsp:include>
-    </div>
-
-
-    <!-- 품목 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px"></sbux-modal>
-    </div>
-    <div id="body-modal-itemSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemSelectPopup.jsp"></jsp:include>
-    </div>
 
 </body>
 <script type="text/javascript">
@@ -182,31 +149,41 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	    	{caption: ["농업인 번호"], 		ref: 'frmerSn',   	type:'input',  hidden : false},
-	    	{caption: ["경영체 등록번호"], 		ref: 'bzobRgno',   	type:'input',  hidden : false},
-	    	{caption: ["농지 일련번호"], 		ref: 'frlndSn',   	type:'input',  hidden : false},
-	    	{caption: ["법정동코드"], 		ref: 'legaldongCode',   	type:'input',  hidden : false},
-	    	{caption: ["농지 본번"], 		ref: 'frlndMnnm',   	type:'input',  hidden : false},
-	    	{caption: ["공동 경작 여부"], 		ref: 'copertnClvtAt',   	type:'input',  hidden : false},
-	    	{caption: ["농지 부번"], 		ref: 'frlndSlno',   	type:'input',  hidden : false},
-	    	{caption: ["농지 주소"], 		ref: 'frlndAdres',   	type:'input',  hidden : false},
-	    	{caption: ["경작 형태"], 		ref: 'clvtStle',   	type:'input',  hidden : false},
-	    	{caption: ["농지 소유자명"], 		ref: 'frlndOwnerNm',   	type:'input',  hidden : false},
-	    	{caption: ["공부 지목"], 		ref: 'ofactLndcgr',   	type:'input',  hidden : false},
-	    	{caption: ["실제 지목"], 		ref: 'realLndcgr',   	type:'input',  hidden : false},
-	    	{caption: ["공부 농지 면적"], 		ref: 'ofactFrlndAr',   	type:'input',  hidden : false},
-	    	{caption: ["실제 농지 면적"], 		ref: 'realFrlndAr',   	type:'input',  hidden : false},
-	    	{caption: ["휴경면적"], 		ref: 'nuseClmgAr',   	type:'input',  hidden : false},
-	    	{caption: ["폐경면적"], 		ref: 'nuseQtmgAr',   	type:'input',  hidden : false},
-	    	{caption: ["품목코드"], 		ref: 'prdlstCode',   	type:'input',  hidden : false},
-	    	{caption: ["품목명"], 		ref: 'predlstNm',   	type:'input',  hidden : false},
-	    	{caption: ["노지/시설구분"], 		ref: 'eqptFcltyse',   	type:'input',  hidden : false},
-	    	{caption: ["재배변적"], 		ref: 'ctvtAr',   	type:'input',  hidden : false},
-	    	{caption: ["대장 구분 코드"], 		ref: 'ldgrDvcd',   	type:'input',  hidden : false},
-	    	{caption: ["시설일련번호"], 		ref: 'eqptSeq',   	type:'input',  hidden : false},
-	    	{caption: ["시설형태"], 		ref: 'eqptStle',   	type:'input',  hidden : false},
-	    	{caption: ["시설종류"], 		ref: 'eqptKnd',   	type:'input',  hidden : false},
-	    	{caption: ["시설면적"], 		ref: 'fcltyAra',   	type:'input',  hidden : false},
-	    	{caption: ["시설설치년도"], 		ref: 'instlYear',   	type:'input',  hidden : false},
+	        {caption: ["경영체 등록번호"], 	ref: 'bzobRgno',   	type:'input',     style:'text-align:center'},
+	        {caption: ["경영주 및 경영주와 의 관계"], 	ref: 'mngerRelate',   	type:'input',     style:'text-align:center'},
+	        {caption: ["경영주 법인 명"], 	ref: 'bzmCorpNm',   	type:'input',     style:'text-align:center'},
+	        {caption: ["경영주 주민등록 주소"], 	ref: 'addr',   	type:'input',     style:'text-align:center'},
+	        {caption: ["경영주 실거주 주소"], 	ref: 'rrsdAddr',   	type:'input',     style:'text-align:center'},
+	        {caption: ["경영주 실거주 도로명 주소"], 	ref: 'rdnmAddr',   	type:'input',     style:'text-align:center'},
+	        {caption: ["마을명"], 	ref: 'twNm',   	type:'input',     style:'text-align:center'},
+	        {caption: ["개인 법인 구분코드명"], 	ref: 'perCorpDvcdNm',   	type:'input',     style:'text-align:center'},
+	        {caption: ["내외국인 구분코드명"], 	ref: 'nafoDvcdNm',   	type:'input',     style:'text-align:center'},
+	        {caption: ["전화번호"], 	ref: 'telno',   	type:'input',     style:'text-align:center'},
+	        {caption: ["휴대 전화번호"], 	ref: 'mblTelno',   	type:'input',     style:'text-align:center'},
+	        {caption: ["팩스 전화번호"], 	ref: 'faxTelno',   	type:'input',     style:'text-align:center'},
+	        {caption: ["이메일 주소"], 	ref: 'emailAddr',   	type:'input',     style:'text-align:center'},
+	        {caption: ["영농 시작 일자"], 	ref: 'famgStrYmd',   	type:'input',     style:'text-align:center'},
+	        {caption: ["농업시작형태"], 	ref: 'farmngBeginStleCdNm',   	type:'input',     style:'text-align:center'},
+	        {caption: ["농업종사형태"], 	ref: 'farmngEngageStleCdNm',   	type:'input',     style:'text-align:center'},
+	        {caption: ["설립 년도"], 	ref: 'fndtYr',   	type:'input',     style:'text-align:center'},
+	        {caption: ["사업자 등록 번호"], 	ref: 'bzmRgno',   	type:'input',     style:'text-align:center'},
+	        {caption: ["대표자 명"], 	ref: 'reprNm',   	type:'input',     style:'text-align:center'},
+	        {caption: ["대표자 주소"], 	ref: 'reprAddr',   	type:'input',     style:'text-align:center'},
+	        {caption: ["생년월일"], 	ref: 'brthdy',   	type:'input',     style:'text-align:center'},
+	        {caption: ["성별"], 	ref: 'sexdstn',   	type:'input',     style:'text-align:center'},
+	        {caption: ["시스템최초입력일시"], 	ref: 'sysFrstInptDt',   	type:'input',     style:'text-align:center'},
+	        {caption: ["시스템최초입력사용자ID"], 	ref: 'sysFrstInptUserId',   	type:'input',     style:'text-align:center'},
+	        {caption: ["시스템최초입력프로그램ID"], 	ref: 'sysFrstInptPrgrmId',   	type:'input',     style:'text-align:center'},
+	        {caption: ["시스템최종변경일시"], 	ref: 'sysLastChgDt',   	type:'input',     style:'text-align:center'},
+	        {caption: ["시스템최종변경사용자ID"], 	ref: 'sysLastChgUserId',   	type:'input',     style:'text-align:center'},
+	        {caption: ["시스템최종변경프로그램ID"], 	ref: 'sysLastChgPrgrmId',   	type:'input',     style:'text-align:center'},
+	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        	if(strValue== null || strValue == ""){
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdfarmLandInfo\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdfarmLandInfo\", " + nRow + ")'>삭제</button>";
+	        	}
+	        }}
 
 // 	        {caption: ["통합조직"], 	ref: 'ii',   	type:'output',  width:'80px',    style:'text-align:center'},
 // 	        {caption: ["통합조직 코드"], 	ref: 'iiCode',   	type:'input', hidden:true},
@@ -225,13 +202,6 @@
 	        	}
 	        }},
 	        */
-	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdfarmLandInfo\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdfarmLandInfo\", " + nRow + ")'>삭제</button>";
-	        	}
-	        }}
 	    ];
 
 	    grdfarmLandInfo = _SBGrid.create(SBGridProperties);
@@ -249,13 +219,13 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_searchFcltList = async function(){
-		let ccCode = SBUxMethod.get("srch-inp-itemCd1");//전문품목
-		let iiCode = SBUxMethod.get("srch-inp-apcCd2");//통합조직
+		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");//
+		let bzobRgno = SBUxMethod.get("srch-inp-bzobRgno");//
 		//let apcCd = SBUxMethod.get("inp-apcCd");
     	//let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmLandInfo.do", {apcCd : apcCd});
-    	let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmLandInfoList.do", {
-    		ccCode : ccCode
-    		,iiCode : iiCode
+    	let postJsonPromise = gfn_postJSON("/fm/farm/selectFarmLandInfoList.do", {
+    		 frmerSn : frmerSn
+    		,bzobRgno : bzobRgno
 		});
         let data = await postJsonPromise;
         try{
@@ -263,32 +233,28 @@
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let farmLandInfoVO = {
-					frmerSn 		: item.frmerSn
+					frmerSn : item.frmerSn
 				  , bzobRgno 		: item.bzobRgno
-				  , frlndSn 		: item.frlndSn
-				  , legaldongCode 	: item.legaldongCode
-				  , frlndMnnm 	: item.frlndMnnm
-				  , copertnClvtAt 	: item.copertnClvtAt
-				  , frlndSlno 	: item.frlndSlno
-				  , frlndAdres 		: item.frlndAdres
-				  , clvtStle 		: item.clvtStle
-				  , frlndOwnerNm 		: item.frlndOwnerNm
-				  , ofactLndcgr 		: item.ofactLndcgr
-				  , realLndcgr 		: item.realLndcgr
-				  , ofactFrlndAr 		: item.ofactFrlndAr
-				  , realFrlndAr 		: item.realFrlndAr
-				  , nuseClmgAr 	: item.nuseClmgAr
-				  , nuseQtmgAr 	: item.nuseQtmgAr
-				  , prdlstCode 		: item.prdlstCode
-				  , predlstNm 		: item.predlstNm
-				  , eqptFcltyse 		: item.eqptFcltyse
-				  , ctvtAr 		: item.ctvtAr
-				  , ldgrDvcd 		: item.ldgrDvcd
-				  , eqptSeq 		: item.eqptSeq
-				  , eqptStle 		: item.eqptStle
-				  , eqptKnd 		: item.eqptKnd
-				  , fcltyAra 		: item.fcltyAra
-				  , instlYear 		: item.instlYear
+				  , mngerRelate 	: item.mngerRelate
+				  , bzmCorpNm 	: item.bzmCorpNm
+				  , addr 		: item.addr
+				  , rrsdAddr 		: item.rrsdAddr
+				  , rdnmAddr 		: item.rdnmAddr
+				  , twNm 		: item.twNm
+				  , perCorpDvcdNm 		: item.perCorpDvcdNm
+				  , nafoDvcdNm 		: item.nafoDvcdNm
+				  , telno 		: item.telno
+				  , mblTelno 		: item.mblTelno
+				  , faxTelno 		: item.faxTelno
+				  , emailAddr 		: item.emailAddr
+				  , famgStrYmd 		: item.famgStrYmd
+				  , farmngEngageStleCdNm 		: item.farmngEngageStleCdNm
+				  , fndtYr 		: item.fndtYr
+				  , bzmRgno 		: item.bzmRgno
+				  , reprNm 		: item.reprNm
+				  , reprAddr 		: item.reprAddr
+				  , brthdy 		: item.brthdy
+				  , sexdstn 		: item.sexdstn
 				  , sysFrstInptDt 		: item.sysFrstInptDt
 				  , sysFrstInptUserId 		: item.sysFrstInptUserId
 				  , sysFrstInptPrgrmId 		: item.sysFrstInptPrgrmId
@@ -320,27 +286,27 @@
 	const fn_saveFmList = async function(){
 		let gridData = grdfarmLandInfo.getGridDataAll();
 		let saveList = [];
-
 		for(var i=1; i<=gridData.length; i++ ){
 
 			let rowData = grdfarmLandInfo.getRowData(i);
 			let rowSts = grdfarmLandInfo.getRowStatus(i);
-			let bb = rowData.bb;
-			let aa = rowData.aa;
+			let frmerSn = rowData.frmerSn;
+			let bzobRgno = rowData.bzobRgno;
 			let delYn = rowData.delYn;
-
+			console.log("================delYn================"+delYn);
 			if(delYn == 'N'){
 
-// 				if (gfn_isEmpty(aa)) {
-// 		  			gfn_comAlert("W0002", "설비명");		//	W0002	{0}을/를 입력하세요.
-// 		            return;
-// 		  		}
-
-				/* if (gfn_isEmpty(bb)) {
-		  			gfn_comAlert("W0001", "설비구분");		//	W0001	{0}을/를 선택하세요.
+				if (gfn_isEmpty(frmerSn)) {
+		  			gfn_comAlert("W0002", "농업인 번호");		//	W0002	{0}을/를 입력하세요.
 		            return;
-		  		} */
+		  		}
 
+				 if (gfn_isEmpty(bzobRgno)) {
+		  			gfn_comAlert("W0001", "경영체 등록번호");		//	W0001	{0}을/를 선택하세요.
+		            return;
+		  		}
+				 console.log("rowData==========="+ rowData );
+				 console.log("================gridClick================");
 				if (rowSts === 3){
 					rowData.rowSts = "I";
 					saveList.push(rowData);
@@ -361,7 +327,7 @@
 		if(confirm(regMsg)){
 
 			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
-			let postJsonPromise = gfn_postJSON("/fm/farm/multiSavefarmLandInfoList.do", saveList);
+			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveFarmLandInfoList.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
@@ -407,7 +373,7 @@
     }
 
 	async function fn_deleteRsrc(farmLandInfoVO){
-		let postJsonPromise = gfn_postJSON("/fm/farm/deletefarmLandInfo.do", farmLandInfoVO);
+		let postJsonPromise = gfn_postJSON("/fm/farm/deleteFarmLandInfo.do", farmLandInfoVO);
         let data = await postJsonPromise;
 
         try{
@@ -491,31 +457,7 @@
         	return;
         }
 
-        //cc 전문 품목 dd 육성 품목
-        let ccCol = grdfarmLandInfo.getColRef('cc');
-        let ddCol = grdfarmLandInfo.getColRef('dd');
-        let iiCol = grdfarmLandInfo.getColRef('ii');
 
-        if(selGridRow == '-1'){
-			return;
-        } else {
-        	//선택한 데이터가 통합조직 일떄
-        	if (selGridCol == iiCol){
-        		//통합조직 선택 세팅
-        		//통합조직 팝업 객체 popInvstmntSpmt
-        		popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setGridInvstmntSpmt);
-        		//팝업창 오픈
-        		//통합조직 팝업창 id : modal-invstmntSpmt
-        		SBUxMethod.openModal('modal-invstmntSpmt');
-        	} else if (selGridCol == ccCol || selGridCol == ddCol){
-        		//품목 선택 세팅
-        		//품목 선택 팝업 객체 popItemSelect
-        		popItemSelect.init(selGridRow, fn_setGridItem);
-        		//팝업창 오픈
-        		//품목 팝업창 id : modal-itemSelect
-        		SBUxMethod.openModal('modal-itemSelect');
-        	}
-        }
     }
 
  	// 그리드의 통합조직 선택 팝업 콜백 함수
@@ -554,6 +496,57 @@
 			grdfarmLandInfo.setCellData(selGridRow,colRefIdx2,rowData.itemCd,true);
 		}
 	}
+
+
+
+
+
+
+
+
+
+
+
+	/* 농업인 일련번호 연계 저장*/
+	const fn_saveFrmerSn= async function(){
+		let frmerSn = SBUxMethod.get("srch-inp-frmerSn");
+
+		if (gfn_isEmpty(frmerSn)) {
+  			gfn_comAlert("W0002", "농업인 번호");		//	W0002	{0}을/를 입력하세요.
+            return;
+  		}
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
+			// let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyfarmLandInfoList.do", {
+			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyFarmLandInfoJsoneList.do", {
+	    		 frmerSn : frmerSn
+	 		});
+	        let data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_searchFcltList();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        }
+
+		}
+	}
+
+
+
+
+
+
 
 </script>
 </html>

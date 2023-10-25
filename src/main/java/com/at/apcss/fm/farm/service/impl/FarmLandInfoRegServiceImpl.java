@@ -36,53 +36,53 @@ public class FarmLandInfoRegServiceImpl implements FarmLandInfoRegService{
 	private FarmLandInfoRegMapper farmLandInfoRegMapper;
 
 	@Override
-	public FarmLandInfoRegVO selectfarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception {
+	public FarmLandInfoRegVO selectFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception {
 
-		FarmLandInfoRegVO resultVO = farmLandInfoRegMapper.selectfarmLandInfoReg(farmLandInfoRegVO);
+		FarmLandInfoRegVO resultVO = farmLandInfoRegMapper.selectFarmLandInfoReg(farmLandInfoRegVO);
 
 		return resultVO;
 	}
 
 	@Override
-	public List<FarmLandInfoRegVO> selectfarmLandInfoRegList(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception {
+	public List<FarmLandInfoRegVO> selectFarmLandInfoRegList(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception {
 
-		List<FarmLandInfoRegVO> resultList = farmLandInfoRegMapper.selectfarmLandInfoRegList(farmLandInfoRegVO);
+		List<FarmLandInfoRegVO> resultList = farmLandInfoRegMapper.selectFarmLandInfoRegList(farmLandInfoRegVO);
 		return resultList;
 	}
 
 	@Override
-	public int insertfarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception {
+	public int insertFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception {
 
-		int insertedCnt = farmLandInfoRegMapper.insertfarmLandInfoReg(farmLandInfoRegVO);
+		int insertedCnt = farmLandInfoRegMapper.insertFarmLandInfoReg(farmLandInfoRegVO);
 
 		return insertedCnt;
 	}
 
 	@Override
-	public int updatefarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception {
+	public int updateFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception {
 
-		int updatedCnt = farmLandInfoRegMapper.updatefarmLandInfoReg(farmLandInfoRegVO);
+		int updatedCnt = farmLandInfoRegMapper.updateFarmLandInfoReg(farmLandInfoRegVO);
 
 		return updatedCnt;
 	}
 
 	@Override
-	public int multiSavefarmLandInfoRegList(List<FarmLandInfoRegVO> farmLandInfoRegVOList) throws Exception {
+	public int multiSaveFarmLandInfoRegList(List<FarmLandInfoRegVO> farmLandInfoRegVOList) throws Exception {
 		int savedCnt = 0;
 		for (FarmLandInfoRegVO farmLandInfoRegVO : farmLandInfoRegVOList) {
 			if(ComConstants.ROW_STS_INSERT.equals(farmLandInfoRegVO.getRowSts())) {
-				savedCnt += insertfarmLandInfoReg(farmLandInfoRegVO);
+				savedCnt += insertFarmLandInfoReg(farmLandInfoRegVO);
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(farmLandInfoRegVO.getRowSts())) {
-				savedCnt += updatefarmLandInfoReg(farmLandInfoRegVO);
+				savedCnt += updateFarmLandInfoReg(farmLandInfoRegVO);
 			}
 		}
 		return savedCnt;
 	}
 
 	@Override
-	public int deletefarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception {
-		return farmLandInfoRegMapper.deletefarmLandInfoReg(farmLandInfoRegVO);
+	public int deleteFarmLandInfoReg(FarmLandInfoRegVO farmLandInfoRegVO) throws Exception {
+		return farmLandInfoRegMapper.deleteFarmLandInfoReg(farmLandInfoRegVO);
 	}
 
 }
