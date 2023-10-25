@@ -492,7 +492,7 @@
 		  		//keyCode
 		  	});
 		}
-	})
+	});
 
 	const fn_init = async function() {
 		fn_reset();
@@ -607,10 +607,15 @@
 		const allData = grdWghPrfmnc.getGridDataAll();
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
-				wghPrfmncList.push({
-					apcCd: item.apcCd,
-					wghno: item.wghno
-				});
+				
+				if (!wghPrfmncList.some(function(wgh) {
+					return wgh.wghno === item.wghno;
+				})) {
+					wghPrfmncList.push({
+						apcCd: item.apcCd,
+						wghno: item.wghno
+					});
+				}
     		}
 		});
 

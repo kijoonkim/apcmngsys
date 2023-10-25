@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.cmns.service.PrdcrService;
 import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
@@ -53,6 +54,10 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 
 	@Resource(name="prdcrService")
 	private PrdcrService prdcrService;
+	
+	@Resource(name="cmnsValidationService")
+	private CmnsValidationService cmnsValidationService;
+	
 
 	@Override
 	public RawMtrWrhsVO selectRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
@@ -203,9 +208,7 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 	public HashMap<String, Object> deleteRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
 
 		HashMap<String, Object> rtnObj = new HashMap<>();
-
-		// 마감확인
-
+		
 		// 원물재고 상태 확인
 		RawMtrWrhsVO wrhsInfo = selectRawMtrWrhs(rawMtrWrhsVO);
 		if (wrhsInfo == null
@@ -213,6 +216,15 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 				|| ComConstants.CON_YES.equals(wrhsInfo.getDelYn()) ) {
 			return ComUtil.getResultMap("W0005", "입고정보");	// W0005	{0}이/가 없습니다.
 		}
+		
+		// 마감확인
+		String apcCd = wrhsInfo.getApcCd();
+		String wrhsYmd = wrhsInfo.getWrhsYmd();
+		String ddlnYn = cmnsValidationService.selectChkDdlnYn(apcCd, wrhsYmd);
+		if (!ComConstants.CON_NONE.equals(ddlnYn)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "원물재고");
+		}
+		
 		RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
 		BeanUtils.copyProperties(rawMtrWrhsVO, invntrVO);
 
