@@ -599,8 +599,12 @@
 	 * @description 출하지시번호선택팝업 호출
 	 */
 	 const fn_choiceSpmtCmnd = function() {
-	    	popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmnd);
-		}
+// 		 let searchData = {
+// 			regSpmtList	: regSpmtList
+// 		}
+		
+    	popSpmtCmnd.init(gv_apcCd, gv_apcNm, null, fn_setSpmtCmnd);
+	}
 
 	/**
 	 * @name fn_setSpmtCmnd
