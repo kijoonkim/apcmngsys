@@ -130,26 +130,25 @@
                     <div class="sbt-grid">
                         <div id="inptCmndDsctnGridArea" style="height:540px;"></div>
                     </div>
-                    
-                    <div class="exp-div-excel" style="display: none; width: 1000px;">
-						<div id="sbexp-area-grdExpRawMtrWrhs" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpItem" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpVrty" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpPrdcr" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpSpcfct" style="height:1000px; width: 1000px;"></div>
-						<div id="sbexp-area-grdExpWrhsSeCd" style="height:1000px; width: 1000px;"></div>
-						<div id="sbexp-area-grdExpGdsSeCd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpTrsprtSeCd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpWarehouseSeCd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpBxKnd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpStdGrd" style="height:1px; width: 100%;"></div>
-						<div id="sbexp-area-grdExpStdGrdDtl" style="height:1px; width: 100%;"></div>
-						<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
-					</div>
                	</div>
-
 				<!--[pp] //검색결과 -->
 			</div>
+		</div>
+<!-- 		데이터를 담는 그릇 -->
+		<div class="exp-div-excel" style="display: none;width: 1000px;">
+			<div id="sbexp-area-grdExpRawMtrWrhs" style="height:1px; width: 100%;"></div>
+			<div id="sbexp-area-grdExpItem" style="height:1px; width: 100%;"></div>
+			<div id="sbexp-area-grdExpVrty" style="height:1px; width: 100%;"></div>
+			<div id="sbexp-area-grdExpPrdcr" style="height:1px; width: 100%;"></div>
+			<div id="sbexp-area-grdExpSpcfct" style="height:1px; width: 100%;"></div>
+			<div id="sbexp-area-grdExpWrhsSeCd" style="height:1px; width: 100%;"></div>
+			<div id="sbexp-area-grdExpGdsSeCd" style="height:1px; width: 100%;"></div>
+			<div id="sbexp-area-grdExpTrsprtSeCd" style="height:1px; width: 100%;"></div>
+			<div id="sbexp-area-grdExpWarehouseSeCd" style="height:1px; width: 100%;"></div>
+			<div id="sbexp-area-grdExpBxKnd" style="height:1px; width: 100%;"></div>
+			<div id="sbexp-area-grdExpStdGrd" style="height:1px; width: 100%;"></div>
+			<div id="sbexp-area-grdExpStdGrdDtl" style="height:1px; width: 100%;"></div>
+			<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
 		</div>
 	</section>
 	<!-- 품종 선택 Modal -->
@@ -889,7 +888,7 @@ const fn_initSBSelect = async function() {
  	}
  	/* End */
  	
- 	// 엑셀다운로드
+ 	// 엑셀다운로드 할때 쓰이는 변수들
 	// exp combo
 	var jsonExpSltItem = [];
 	var jsonExpSltVrty = [];
@@ -928,7 +927,7 @@ const fn_initSBSelect = async function() {
 	var jsonExpStdGrdDtl = [];
 	
 	const fn_getExpColumns = function() {
-		const _columns = []
+		const _columns = [];		//첫 시트에 담는 그리드(컬럼들)
 		_columns.push(
 			{caption: ["입고일자"],		ref: 'wrhsYmd',      type:'output',  width:'100px',    style:'text-align:center'},
 			{caption: ["품목"], 		ref: 'itemCd',   	type:'combo',  width:'80px',    style:'text-align:center',
@@ -957,6 +956,7 @@ const fn_initSBSelect = async function() {
 
 		const columnsStdGrd = [];
 	    gjsonStdGrdObjKnd.forEach((item, index) => {
+	    	// gjsonStdGrdObjKnd에 데이터가 있으면 첫 시트에 등급이란 컬럼 추가
 			const grd = {
 				caption: ["등급:" + item.grdKndNm],
 				ref: gStdGrdObj.colPrfx + item.grdKnd,
@@ -970,6 +970,7 @@ const fn_initSBSelect = async function() {
 		});
 
 	    if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
+	    	// gjsonStdGrdObjKnd의 길이가 1 초과하고 gjsonStdGrdObjJgmt의 길이가 0을 초과하면 첫 시트에 판정등급이란 컬럼 추가  
 			const jgmtGrd = {
 				caption: ["판정등급"],
 				ref: "jgmtGrdCd",
@@ -983,17 +984,20 @@ const fn_initSBSelect = async function() {
 		}
 
 	    columnsStdGrd.forEach((item) => {
+	    	// columnsStdGrd이 있을경우 item을 첫 싵트에 추가
 	    	_columns.push(item);
 		});
-
+	    
 	    _columns.push(
+	    	// 첫 시트에 비고 컬럼 추가
 			{caption: ["비고"],		ref: 'rmrk',      	type:'output',  width:'200px',    style:'text-align:left'}
 	    );
-
+		
 	    return _columns;
 	}
 	
 	const fn_setSltJson = async function() {
+		// 첫 시트에서 쓰일 json을 엑셀에서 쓰는 변수에 담는 함수
 		// set exp/imp combo json
 		// 품목
 		jsonExpSltItem = gfn_cloneJson(jsonComItem);
@@ -1011,6 +1015,7 @@ const fn_initSBSelect = async function() {
 		jsonExpSltWarehouseSeCd = gfn_cloneJson(jsonComWarehouse);
 	}
 	const fn_setExpJson = async function() {
+		// 첫 시트가 아닌 다른 시트에서 쓰일 json을 엑셀에서 쓰는 변수에 담는 함수
 		// export grid data
 		jsonExpRawMtrWrhs.length = 0;
 		jsonExpItem = gfn_cloneJson(jsonComItem);
@@ -1024,6 +1029,7 @@ const fn_initSBSelect = async function() {
 		jsonExpStdGrdDtl = gfn_cloneJson(gjsonStdGrdObjDtl);
 	}
 	const fn_createExpGrid = async function(_expObjList) {
+		// _expObjList를 받아와서 만드는 그리드
 		_expObjList.forEach( (exp, idx) => {
 			var SBGridProperties = {};
 			SBGridProperties.parentid = exp.parentid;
@@ -1061,11 +1067,11 @@ const fn_initSBSelect = async function() {
 	}
 
 	const fn_dwnld = async function(){
-
+		
 		await fn_setSltJson();
 		await fn_setExpJson();
 
-		const expColumns = fn_getExpColumns();
+		const expColumns = fn_getExpColumns(); // 첫 시트에서 사용하는 컬럼을 expColumns에 담는 코드
 
 		const expObjList = [
 		    {
@@ -1154,13 +1160,11 @@ const fn_initSBSelect = async function() {
 		        title: "",
 		        unit: ""
 		    }, {
-		    	sbGrid: grdExpWrhsSeCd,
+		        sbGrid: grdExpWrhsSeCd,
 		        parentid: "sbexp-area-grdExpWrhsSeCd",
 		        id: "grdExpWrhsSeCd",
 		        jsonref: "jsonExpWrhsSeCd",
 				columns: [
-// 			    	{caption: ["입고구분코드"],   	ref: 'wrhsSeCd',  	type:'output',  width:'100px',    style:'text-align:center'},
-// 			    	{caption: ["입고구분코드명"],  	ref: 'wrhsSeNm',  	type:'output',  width:'100px',    style:'text-align:center'}
 			    	{caption: ["입고구분코드"],   	ref: 'cdVl',  	type:'output',  width:'100px',    style:'text-align:center'},
 			    	{caption: ["입고구분코드명"],  	ref: 'cdVlNm',  	type:'output',  width:'100px',    style:'text-align:center'},
 				],
@@ -1170,14 +1174,15 @@ const fn_initSBSelect = async function() {
 		    }
 		];
 
-		await fn_createExpGrid(expObjList);
+		await fn_createExpGrid(expObjList); // fn_createExpGrid함수에 expObjList를 담아서 보내주는 코드
 
 		//exportExcel();
-	    gfn_exportExcelMulti("재고정보(샘플).xlsx", expObjList);
+	    gfn_exportExcelMulti("재고정보(샘플).xlsx", expObjList); // gfn_exportExcelMulti함수에 파일 이름, 오브젝트 리스트를 보내주는 코드
 	}
 
 	const gfn_exportExcelMulti = function(_fileName, _objList) {
-
+		
+// 		엑셀 정보를 담는 변수
 		var objExcelInfo = {
 			strFileName : _fileName,
 			//strAction : "/saveExcel.do",
@@ -1194,7 +1199,8 @@ const fn_initSBSelect = async function() {
 		var titleList = [];
 		var unitList = [];
 		var arrAdditionalData = [];
-
+		
+		//넘어온 오브젝트를 이용한 forEach문으로 타이틀리스트에 title을 넣고 unitList에 unit을 넣는 포이치문
 		_objList.forEach((item, index) => {
 			sheetNameList.push(item.sheetName);
 			titleList.push(item.title);
@@ -1217,7 +1223,7 @@ const fn_initSBSelect = async function() {
 		_objList[0].sbGrid.exportExcel(objExcelInfo);
 	}
 
-
+// 	excel모달을 열기위한 함수
 	const importExcelData = function (e){
     	 SBUxMethod.openModal('modal-excel');
     	 fn_createGridPopup();
