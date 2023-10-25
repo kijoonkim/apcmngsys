@@ -116,4 +116,23 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int deleteWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception;
+	
+	
+	/**
+	 * 계량실적 공통 삭제 : set delYn 'Y'
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateWghPrfmncComForDelY(WghPrfmncVO wghPrfmncVO) throws Exception;
+	
+	/**
+	 * 계량실적 상세 삭제 : set delYn 'Y'
+	 * @param wghPrfmncDtlVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateWghPrfmncDtlForDelY(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception;
+	
+	
 }
