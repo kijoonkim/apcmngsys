@@ -493,49 +493,56 @@
 	
 	// 포장번호 선택 팝업 호출
 	const fn_modalGdsInvntr = function() {
-		let data = {
+		let allData = grdSpmtTrgtDsctn.getGridDataAll();
+		let spmtGdsList = [];
+		
+		allData.forEach((item) => {
+			if (!gfn_isEmpty(item.pckgnoIndct)) {
+		    	let spmtGds = {
+		    		  pckgnoIndct	: item.pckgnoIndct
+		    		, spmtQntt		: parseInt(item.spmtQntt)
+		    		, spmtWght		: parseInt(item.spmtWght)
+			    }
+		    	newSpmtGds = spmtGdsList.filter(function(e){ return e.pckgnoIndct === item.pckgnoIndct; })[0];
+		    	
+			    if (gfn_isEmpty(newSpmtGds)) {
+			    	spmtGdsList.push(spmtGds);
+			    } else {
+			    	newSpmtGds.spmtQntt += spmtGds.spmtQntt;
+			    	newSpmtGds.spmtWght += spmtGds.spmtWght;
+			    }
+		    }
+		});
+		
+		let searchData = {
 			itemCd 		: SBUxMethod.get('srch-inp-itemCd'),
 			vrtyCd 		: SBUxMethod.get('srch-inp-vrtyCd'),
 			spcfctCd	: SBUxMethod.get('srch-inp-spcfctCd'),
-			gdsGrd		: SBUxMethod.get('srch-inp-gdsGrd')
+			gdsGrd		: SBUxMethod.get('srch-inp-gdsGrd'),
+			spmtGdsList	: spmtGdsList
 		}
 		
-		popGdsInvntr.init(gv_apcCd, gv_apcNm, data, fn_setGdsInvntr);
+		popGdsInvntr.init(gv_apcCd, gv_apcNm, searchData, fn_setGdsInvntr);
 	}
 	const fn_setGdsInvntr = function(gdsInvntr) {
 		if (!gfn_isEmpty(gdsInvntr)) {
 			// 재고수량, 출하수량 비교
-			let allData = grdSpmtTrgtDsctn.getGridDataAll();
-			
 			let leftSpmtQntt = SBUxMethod.get('srch-inp-cmndQntt') - SBUxMethod.get('srch-inp-regQntt');		// 잔존출하지시수량
 			let leftSpmtWght = SBUxMethod.get('srch-inp-cmndWght') - SBUxMethod.get('srch-inp-regWght');		// 잔존출하지시중량
 			let leftInvntrQntt = gdsInvntr.invntrQntt;															// 잔존재고수량
 			let leftInvntrWght = gdsInvntr.invntrWght;															// 잔존재고중량
 			
-			for ( let i=1; i<=allData.length; i++ ){
-				const rowData = grdSpmtTrgtDsctn.getRowData(i);
-				
-				if (rowData.pckgnoIndct == gdsInvntr.pckgnoIndct){
-					leftInvntrQntt -= rowData.spmtQntt;
-					leftInvntrWght -= rowData.spmtWght;
-				}
-			}
+			SBUxMethod.set('srch-inp-pckgnoIndct', gdsInvntr.pckgnoIndct);
+			SBUxMethod.set('srch-inp-pckgno', gdsInvntr.pckgno);
+			SBUxMethod.set('srch-inp-pckgSn', gdsInvntr.pckgSn);
 			
-			if (leftInvntrQntt == 0) {
-				alert("재고가 없습니다.");
-			} else {
-				SBUxMethod.set('srch-inp-pckgnoIndct', gdsInvntr.pckgnoIndct);
-				SBUxMethod.set('srch-inp-pckgno', gdsInvntr.pckgno);
-				SBUxMethod.set('srch-inp-pckgSn', gdsInvntr.pckgSn);
-				
-				if (leftSpmtQntt <= leftInvntrQntt) {
-					SBUxMethod.set('srch-inp-spmtQntt', leftSpmtQntt);
-					SBUxMethod.set('srch-inp-spmtWght', leftSpmtWght);
-				}
-				if (leftSpmtQntt > leftInvntrQntt) {
-					SBUxMethod.set('srch-inp-spmtQntt', leftInvntrQntt);
-					SBUxMethod.set('srch-inp-spmtWght', leftInvntrWght);
-				}
+			if (leftSpmtQntt <= leftInvntrQntt) {
+				SBUxMethod.set('srch-inp-spmtQntt', leftSpmtQntt);
+				SBUxMethod.set('srch-inp-spmtWght', leftSpmtWght);
+			}
+			if (leftSpmtQntt > leftInvntrQntt) {
+				SBUxMethod.set('srch-inp-spmtQntt', leftInvntrQntt);
+				SBUxMethod.set('srch-inp-spmtWght', leftInvntrWght);
 			}
 		}
 	}
