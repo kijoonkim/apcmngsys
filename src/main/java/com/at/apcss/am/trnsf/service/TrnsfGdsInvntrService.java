@@ -29,11 +29,11 @@ public interface TrnsfGdsInvntrService {
 	public List<TrnsfGdsInvntrVO> selectUpdateTrnsfGdsInvntrList(TrnsfGdsInvntrVO trnsfGdsInvntrVO) throws Exception;
 
 	/**
-	 * 상품재고 내역 변경
+	 * 상품재고 이송 등록
 	 * @param gdsInvntrVO
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> trnsfGdsInvntrList(List<TrnsfGdsInvntrVO> trnsfGdsInvntrList) throws Exception;
+	public HashMap<String, Object> inserttrnsfGdsInvntrList(List<TrnsfGdsInvntrVO> trnsfGdsInvntrList) throws Exception;
 
 }

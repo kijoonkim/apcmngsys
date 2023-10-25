@@ -384,13 +384,13 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrDsctnList	-->
-	<!-- DESC : 원물재고내역 변경.		                                       				-->
+	<!-- DESC : 선별재고내역 변경.		                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.18  	김현호        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateSortInvntrDsctnList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <update id="updateSortInvntrChg" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
 			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrDsctnList */
 				TB_SORT_INVNTR
@@ -410,8 +410,9 @@
 				, INVNTR_Wght			= #{invntrWght}
 			</if>
 		<![CDATA[
-			 WHERE APC_CD = #{apcCd}
-			   AND SORTNO = #{sortno}
+			 WHERE APC_CD 	= #{apcCd}
+			   AND SORTNO 	= #{sortno}
+			   AND SORT_SN 	= #{sortSn}
 		]]>
 	</update>
 

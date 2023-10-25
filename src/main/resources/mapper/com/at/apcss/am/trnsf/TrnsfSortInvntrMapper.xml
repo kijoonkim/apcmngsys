@@ -44,6 +44,7 @@
 	    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList */
 			       SI.APC_CD 				AS APC_CD
 			     , SI.SORTNO 				AS SORTNO
+			     , SI.SORT_SN				AS SORT_SN
 			     , SI.GRD_CD 				AS GRD_CD
 			     , SI.INPT_YMD 				AS INPT_YMD
 			     , SI.FCLT_CD 				AS FCLT_CD

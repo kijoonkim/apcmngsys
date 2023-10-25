@@ -4,14 +4,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 
+import com.at.apcss.am.invntr.service.RawMtrInvntrService;
+import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.trnsf.mapper.TrnsfRawMtrInvntrMapper;
+import com.at.apcss.am.trnsf.service.InvntrTrnsfService;
 import com.at.apcss.am.trnsf.service.TrnsfRawMtrInvntrService;
+import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
 import com.at.apcss.am.trnsf.vo.TrnsfRawMtrInvntrVO;
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
@@ -35,6 +41,12 @@ public class TrnsfRawMtrInvntrServiceImpl extends BaseServiceImpl implements Trn
 	@Autowired
 	private TrnsfRawMtrInvntrMapper trnsfRawMtrInvntrMapper;
 
+	@Resource(name = "rawMtrInvntrService")
+	private RawMtrInvntrService rawMtrInvntrService;
+
+	@Resource(name = "invntrTrnsfService")
+	private InvntrTrnsfService invntrTrnsfService;
+
 
 	@Override
 	public List<TrnsfRawMtrInvntrVO> selectTrnsfRawMtrInvntrList(TrnsfRawMtrInvntrVO trnsfRawMtrInvntrVO) throws Exception {
@@ -45,24 +57,40 @@ public class TrnsfRawMtrInvntrServiceImpl extends BaseServiceImpl implements Trn
 	}
 
 	@Override
-	public HashMap<String, Object> updateTrnsfRawMtrInvntrList(List<TrnsfRawMtrInvntrVO> trnsfRawMtrInvntrList) throws Exception {
+	public HashMap<String, Object> insertTrnsfRawMtrInvntrList(List<TrnsfRawMtrInvntrVO> trnsfRawMtrInvntrList) throws Exception {
 
-		List<TrnsfRawMtrInvntrVO> updateList = new ArrayList<>();
+		List<InvntrTrnsfVO> insertList = new ArrayList<>();
+		List<RawMtrInvntrVO> rawMtrInvntrList = new ArrayList<>();
+
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		for (TrnsfRawMtrInvntrVO trnsfRawMtrInvntrVO : trnsfRawMtrInvntrList) {
-			TrnsfRawMtrInvntrVO vo = new TrnsfRawMtrInvntrVO();
-			BeanUtils.copyProperties(trnsfRawMtrInvntrVO, vo);
+			RawMtrInvntrVO rawMtrInvntr = new RawMtrInvntrVO();
+			InvntrTrnsfVO invntrTrnsf = new InvntrTrnsfVO();
+			BeanUtils.copyProperties(trnsfRawMtrInvntrVO, rawMtrInvntr);
+			BeanUtils.copyProperties(trnsfRawMtrInvntrVO, invntrTrnsf);
 
-			if (ComConstants.ROW_STS_UPDATE.equals(trnsfRawMtrInvntrVO.getRowSts())) {
-				updateList.add(vo);
-			}
+			rawMtrInvntrList.add(rawMtrInvntr);
+
+			insertList.add(invntrTrnsf);
+
 		}
 
-		for (TrnsfRawMtrInvntrVO trnsfRawMtrInvntrVO : updateList) {
-			trnsfRawMtrInvntrMapper.updateTrnsfRawMtrInvntrList(trnsfRawMtrInvntrVO);
+
+		resultMap = invntrTrnsfService.insertInvntrTrnsfList(insertList);
+
+		if(resultMap != null) {
+			throw new EgovBizException(getMessageForMap(resultMap));
 		}
 
-		return null;
+		resultMap = rawMtrInvntrService.updateRawMtrInvntrList(rawMtrInvntrList);
+
+		if(resultMap != null) {
+			throw new EgovBizException(getMessageForMap(resultMap));
+		}
+
+		return resultMap;
 	}
 
 
