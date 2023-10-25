@@ -747,11 +747,12 @@
 	 * @description 상품재고선택팝업 호출
 	 */
 	 const fn_modalGdsInvntr = function() {
-// 		let data = {
+// 		let searchData = {
 // 			itemCd 		: SBUxMethod.get('srch-inp-itemCd'),
 // 			vrtyCd 		: SBUxMethod.get('srch-inp-vrtyCd'),
 // 			spcfctCd	: SBUxMethod.get('srch-inp-spcfctCd'),
-// 			gdsGrd		: SBUxMethod.get('srch-inp-gdsGrd')
+// 			gdsGrd		: SBUxMethod.get('srch-inp-gdsGrd'),
+// 			spmtGdsList	: spmtGdsList
 // 		}
 		
 		popGdsInvntr.init(gv_apcCd, gv_apcNm, null, fn_setGdsInvntr);

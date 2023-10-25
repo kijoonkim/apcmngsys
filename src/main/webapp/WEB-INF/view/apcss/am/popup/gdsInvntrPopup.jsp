@@ -69,6 +69,8 @@
 
 	var grdGdsInvntrPop = null;
 	
+	var spmtGdsList = [];
+	
 	const popGdsInvntr = {
 		modalId: 'modal-gdsInvntr',
 		gridId: 'grdGdsInvntrPop',
@@ -86,6 +88,7 @@
 				SBUxMethod.set("gdsInvntr-inp-vrtyCd", _gdsInvntr.vrtyCd);
 				SBUxMethod.set("gdsInvntr-inp-spcfctCd", _gdsInvntr.spcfctCd);
 				SBUxMethod.set("gdsInvntr-inp-gdsGrd", _gdsInvntr.gdsGrd);
+				spmtGdsList = _gdsInvntr.spmtGdsList;
 			}
 
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
@@ -200,40 +203,55 @@
 		    	let totalRecordCount = 0;
 		    	jsonGdsInvntrPop.length = 0;
 		    	data.resultList.forEach((item, index) => {
-					let gdsInvntr = {
-							pckgnoIndct			: item.pckgnoIndct,
-							pckgno				: item.pckgno,
-		       				pckgSn				: item.pckgSn,
-		       				pckgYmd				: item.pckgYmd,
-		       				fcltNm				: item.fcltNm,
-		        			rprsPrdcrNm			: item.rprsPrdcrNm,
-		       				itemNm				: item.itemNm,
-		       				vrtyNm				: item.vrtyNm,
-		       				spcfctNm			: item.spcfctNm,
-		       				gdsGrdNm			: item.gdsGrdNm,
-		       				warehouseSeNm		: item.warehouseSeNm,
-		       				fcltCd				: item.fcltCd,
-		        			rprsPrdcrCd			: item.rprsPrdcrCd,
-		       				itemCd				: item.itemCd,
-		       				vrtyCd				: item.vrtyCd,
-		       				spcfctCd			: item.spcfctCd,
-		       				gdsGrdCd			: item.gdsGrdCd,
-		       				warehouseSeCd		: item.warehouseSeCd,
-		       				pckgQntt			: item.pckgQntt,
-		       				pckgWght			: item.pckgWght,
-		       				spmtQntt			: item.spmtQntt,
-		       				spmtWght			: item.spmtWght,
-		       				invntrQntt			: item.invntrQntt,
-		       				invntrWght			: item.invntrWght,
-		       				rmrk				: item.rmrk,
-		       				prdcrNm				: item.prdcrNm,
-		       				gdsSeNm				: item.gdsSeNm,
-		       				spmtPckgUnitNm		: item.spmtPckgUnitNm,
-		       				gdsSeCd				: item.gdsSeCd,
-		       				spmtPckgUnitCd		: item.spmtPckgUnitCd,
-		       				brndNm				: item.brndNm
-					}
-					jsonGdsInvntrPop.push(gdsInvntr);
+		    		
+		    		spmtGdsQntt = 0;
+		    		spmtGdsWght = 0;
+		    		
+		    		if (!gfn_isEmpty(spmtGdsList)) {
+		    			for (let i=0; i<spmtGdsList.length; i++) {
+		    				if (spmtGdsList[i].pckgnoIndct == item.pckgnoIndct) {
+		    		    		spmtGdsQntt = spmtGdsList[i].spmtQntt;
+		    		    		spmtGdsWght = spmtGdsList[i].spmtWght;
+		    				}
+		    			}
+		    		}
+		    		
+		    		if (item.invntrQntt > spmtGdsQntt) {
+						let gdsInvntr = {
+								pckgnoIndct			: item.pckgnoIndct,
+								pckgno				: item.pckgno,
+			       				pckgSn				: item.pckgSn,
+			       				pckgYmd				: item.pckgYmd,
+			       				fcltNm				: item.fcltNm,
+			        			rprsPrdcrNm			: item.rprsPrdcrNm,
+			       				itemNm				: item.itemNm,
+			       				vrtyNm				: item.vrtyNm,
+			       				spcfctNm			: item.spcfctNm,
+			       				gdsGrdNm			: item.gdsGrdNm,
+			       				warehouseSeNm		: item.warehouseSeNm,
+			       				fcltCd				: item.fcltCd,
+			        			rprsPrdcrCd			: item.rprsPrdcrCd,
+			       				itemCd				: item.itemCd,
+			       				vrtyCd				: item.vrtyCd,
+			       				spcfctCd			: item.spcfctCd,
+			       				gdsGrdCd			: item.gdsGrdCd,
+			       				warehouseSeCd		: item.warehouseSeCd,
+			       				pckgQntt			: item.pckgQntt,
+			       				pckgWght			: item.pckgWght,
+			       				spmtQntt			: item.spmtQntt,
+			       				spmtWght			: item.spmtWght,
+			       				invntrQntt			: item.invntrQntt - spmtGdsQntt,
+			       				invntrWght			: item.invntrWght - spmtGdsWght,
+			       				rmrk				: item.rmrk,
+			       				prdcrNm				: item.prdcrNm,
+			       				gdsSeNm				: item.gdsSeNm,
+			       				spmtPckgUnitNm		: item.spmtPckgUnitNm,
+			       				gdsSeCd				: item.gdsSeCd,
+			       				spmtPckgUnitCd		: item.spmtPckgUnitCd,
+			       				brndNm				: item.brndNm
+						}
+						jsonGdsInvntrPop.push(gdsInvntr);
+		    		}
 
 					if (index === 0) {
 						totalRecordCount = item.totalRecordCount;
