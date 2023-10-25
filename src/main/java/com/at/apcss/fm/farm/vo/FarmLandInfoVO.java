@@ -42,4 +42,30 @@ public class FarmLandInfoVO extends ComVO{
 	private String sysLastChgPrgrmId;
 	private String delYn;
 
+	private String mngerRelate;
+	private String bzmCorpNm;
+	private String addr;
+	private String rrsdAddr;
+	private String rdnmAddr;
+	private String perCorpDvcdNm;
+	private String nafoDvcdNm;
+	private String telno;
+	private String mblTelno;
+	private String famgStrYmd;
+	private String farmngBeginStleCdNm;
+	private String reprAddr;
+
+	private String brthdy;
+	private String sexdstn;
+	private String rgsde;
+	private String updde;
+	private String saveCd;
+
+
+
+
+
+
+
+
 }
