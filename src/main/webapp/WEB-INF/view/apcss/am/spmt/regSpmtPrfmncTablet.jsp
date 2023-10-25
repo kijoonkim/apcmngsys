@@ -385,6 +385,7 @@
         		fn_reset();
         		jsonSpmtTrgtDsctn = [];
         		grdSpmtTrgtDsctn.rebuild();
+        		grdSpmtTrgtDsctn.addRow();
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
