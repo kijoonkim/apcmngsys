@@ -151,12 +151,12 @@
 							</td>
 							<td class="td_input">
 							</td>
-							<th scope="row" >포장번호선택</th>
+							<th scope="row" class="th_bg">상품명</th>
 							<td class="td_input">
-								<sbux-input id="srch-inp-pckgno" name="srch-inp-pckgno" uitype="text" maxlength="25" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-gdsNm" name="srch-inp-gdsNm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-button id="btnSrchPckgno" name="btnSrchPckgno" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-pckgno" onclick="fn_modalPckgno" text="찾기"></sbux-button>
+								<sbux-button id="btnSrchGdsNm" name="btnSrchGdsNm" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-gds" onclick="fn_modalGds" text="찾기"></sbux-button>
 							</td>
 							<td></td>
 						</tr>
@@ -213,14 +213,6 @@
 							<td></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">상품명</th>
-							<td class="td_input">
-								<sbux-input id="srch-inp-gdsNm" name="srch-inp-gdsNm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
-							</td>
-							<td class="td_input">
-								<sbux-button id="btnSrchGdsNm" name="btnSrchGdsNm" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-gds" onclick="fn_modalGds" text="찾기"></sbux-button>
-							</td>
-							<td></td>
 							<th scope="row" >생산작업자선택</th>
 							<td class="td_input">
 								<sbux-input id="srch-inp-flnm" name="srch-inp-flnm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
@@ -233,7 +225,7 @@
 							<td class="td_input">
 								<sbux-datepicker id="srch-dtp-trsprtYmd" name="srch-dtp-trsprtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm"></sbux-datepicker>
 							</td>
-							<td colspan="2"></td>
+							<td colspan="6"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -327,14 +319,6 @@
     </div>
     <div id="body-modal-oprtr">
     	<jsp:include page="../../am/popup/oprtrPopup.jsp"></jsp:include>
-    </div>
-    
-    <!-- 포장번호 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-pckgno" name="modal-pckgno" uitype="middle" header-title="포장번호 선택" body-html-id="body-modal-pckgno" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-pckgno">
-    	<jsp:include page="../../am/popup/pckgnoPopup.jsp"></jsp:include>
     </div>
     
     <!-- 포장지시번호 선택 Modal -->
@@ -672,33 +656,6 @@
 	}
 	/* End */
 	
-	/* 포장번호 선택 호출 필수 function  */
-	/* Start */
-	/**
-	 * @name fn_modalPckgno
-	 * @description 포장번호선택팝업 호출
-	 */
-	 const fn_modalPckgno = function() {
-// 		let data = {
-// 			itemCd 		: SBUxMethod.get('srch-inp-itemCd'),
-// 			vrtyCd 		: SBUxMethod.get('srch-inp-vrtyCd'),
-// 			spcfctCd	: SBUxMethod.get('srch-inp-spcfctCd')
-// 		}
-		
-		popPckgno.init(gv_selectedApcCd, gv_selectedApcNm, null, fn_setPckgno);
-	}
-
-	/**
-	 * @name fn_setPckgno
-	 * @description 포장번호 선택 callback
-	 */
-	 const fn_setPckgno = function(pckgno) {
-		if (!gfn_isEmpty(pckgno)) {
-			SBUxMethod.set('srch-inp-pckgno', pckgno.pckgnoIndct);
-		}
-	}
-	/* End */
-	
 	/* 포장지시번호 선택 호출 필수 function  */
 	/* Start */
 	/**
@@ -790,7 +747,14 @@
 	 * @description 상품재고선택팝업 호출
 	 */
 	 const fn_modalGdsInvntr = function() {
-		 popGdsInvntr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setGdsInvntr);
+// 		let data = {
+// 			itemCd 		: SBUxMethod.get('srch-inp-itemCd'),
+// 			vrtyCd 		: SBUxMethod.get('srch-inp-vrtyCd'),
+// 			spcfctCd	: SBUxMethod.get('srch-inp-spcfctCd'),
+// 			gdsGrd		: SBUxMethod.get('srch-inp-gdsGrd')
+// 		}
+		
+		popGdsInvntr.init(gv_apcCd, gv_apcNm, null, fn_setGdsInvntr);
 	}
 
 	/**

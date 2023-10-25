@@ -244,6 +244,7 @@
 		     	, (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 					AS GDS_GRD_NM
 		        , (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL) 				AS TRSPRT_CO_NM
     		 	, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)						AS CNPT_NM
+                , pt0.SPMT_CMNDNO || '-' || pt0.SPMT_CMND_SN 										AS SPMT_CMNDNO_INDCT
     		 FROM (
     	</if>
     	<if test='pagingYn == null or pagingYn.equals("N")'>
@@ -256,6 +257,7 @@
 		     	, (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 					AS GDS_GRD_NM
 		        , (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL) 				AS TRSPRT_CO_NM
     		 	, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)						AS CNPT_NM
+                , pt0.SPMT_CMNDNO || '-' || pt0.SPMT_CMND_SN 										AS SPMT_CMNDNO_INDCT
     		 FROM (
     	</if>
     	<!-- End 페이징 -->
