@@ -36,24 +36,24 @@ public class FarmerGrantsInfoRegServiceImpl implements FarmerGrantsInfoRegServic
 	private FarmerGrantsInfoRegMapper farmerGrantsInfoRegMapper;
 
 	@Override
-	public FarmerGrantsInfoRegVO selectfarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception {
+	public FarmerGrantsInfoRegVO selectFarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception {
 
-		FarmerGrantsInfoRegVO resultVO = farmerGrantsInfoRegMapper.selectfarmerGrantsInfoReg(farmerGrantsInfoRegVO);
+		FarmerGrantsInfoRegVO resultVO = farmerGrantsInfoRegMapper.selectFarmerGrantsInfoReg(farmerGrantsInfoRegVO);
 
 		return resultVO;
 	}
 
 	@Override
-	public List<FarmerGrantsInfoRegVO> selectfarmerGrantsInfoRegList(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception {
+	public List<FarmerGrantsInfoRegVO> selectFarmerGrantsInfoRegList(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception {
 
-		List<FarmerGrantsInfoRegVO> resultList = farmerGrantsInfoRegMapper.selectfarmerGrantsInfoRegList(farmerGrantsInfoRegVO);
+		List<FarmerGrantsInfoRegVO> resultList = farmerGrantsInfoRegMapper.selectFarmerGrantsInfoRegList(farmerGrantsInfoRegVO);
 		return resultList;
 	}
 
 	@Override
 	public int insertFarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception {
 
-		int insertedCnt = farmerGrantsInfoRegMapper.insertfarmerGrantsInfoReg(farmerGrantsInfoRegVO);
+		int insertedCnt = farmerGrantsInfoRegMapper.insertFarmerGrantsInfoReg(farmerGrantsInfoRegVO);
 
 		return insertedCnt;
 	}
@@ -67,7 +67,7 @@ public class FarmerGrantsInfoRegServiceImpl implements FarmerGrantsInfoRegServic
 	}
 
 	@Override
-	public int multiSavefarmerGrantsInfoRegList(List<FarmerGrantsInfoRegVO> farmerGrantsInfoRegVOList) throws Exception {
+	public int multiSaveFarmerGrantsInfoRegList(List<FarmerGrantsInfoRegVO> farmerGrantsInfoRegVOList) throws Exception {
 		int savedCnt = 0;
 		for (FarmerGrantsInfoRegVO farmerGrantsInfoRegVO : farmerGrantsInfoRegVOList) {
 			if(ComConstants.ROW_STS_INSERT.equals(farmerGrantsInfoRegVO.getRowSts())) {
@@ -81,8 +81,8 @@ public class FarmerGrantsInfoRegServiceImpl implements FarmerGrantsInfoRegServic
 	}
 
 	@Override
-	public int deletefarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception {
-		return farmerGrantsInfoRegMapper.deletefarmerGrantsInfoReg(farmerGrantsInfoRegVO);
+	public int deleteFarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception {
+		return farmerGrantsInfoRegMapper.deleteFarmerGrantsInfoReg(farmerGrantsInfoRegVO);
 	}
 
 }

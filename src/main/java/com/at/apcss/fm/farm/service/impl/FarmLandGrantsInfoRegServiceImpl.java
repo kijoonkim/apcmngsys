@@ -36,24 +36,24 @@ public class FarmLandGrantsInfoRegServiceImpl implements FarmLandGrantsInfoRegSe
 	private FarmLandGrantsInfoRegMapper farmLandGrantsInfoRegMapper;
 
 	@Override
-	public FarmLandGrantsInfoRegVO selectfarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception {
+	public FarmLandGrantsInfoRegVO selectFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception {
 
-		FarmLandGrantsInfoRegVO resultVO = farmLandGrantsInfoRegMapper.selectfarmLandGrantsInfoReg(farmLandGrantsInfoRegVO);
+		FarmLandGrantsInfoRegVO resultVO = farmLandGrantsInfoRegMapper.selectFarmLandGrantsInfoReg(farmLandGrantsInfoRegVO);
 
 		return resultVO;
 	}
 
 	@Override
-	public List<FarmLandGrantsInfoRegVO> selectfarmLandGrantsInfoRegList(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception {
+	public List<FarmLandGrantsInfoRegVO> selectFarmLandGrantsInfoRegList(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception {
 
-		List<FarmLandGrantsInfoRegVO> resultList = farmLandGrantsInfoRegMapper.selectfarmLandGrantsInfoRegList(farmLandGrantsInfoRegVO);
+		List<FarmLandGrantsInfoRegVO> resultList = farmLandGrantsInfoRegMapper.selectFarmLandGrantsInfoRegList(farmLandGrantsInfoRegVO);
 		return resultList;
 	}
 
 	@Override
 	public int insertFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception {
 
-		int insertedCnt = farmLandGrantsInfoRegMapper.insertfarmLandGrantsInfoReg(farmLandGrantsInfoRegVO);
+		int insertedCnt = farmLandGrantsInfoRegMapper.insertFarmLandGrantsInfoReg(farmLandGrantsInfoRegVO);
 
 		return insertedCnt;
 	}
@@ -67,7 +67,7 @@ public class FarmLandGrantsInfoRegServiceImpl implements FarmLandGrantsInfoRegSe
 	}
 
 	@Override
-	public int multiSavefarmLandGrantsInfoRegList(List<FarmLandGrantsInfoRegVO> farmLandGrantsInfoRegVOList) throws Exception {
+	public int multiSaveFarmLandGrantsInfoRegList(List<FarmLandGrantsInfoRegVO> farmLandGrantsInfoRegVOList) throws Exception {
 		int savedCnt = 0;
 		for (FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO : farmLandGrantsInfoRegVOList) {
 			if(ComConstants.ROW_STS_INSERT.equals(farmLandGrantsInfoRegVO.getRowSts())) {
@@ -81,8 +81,8 @@ public class FarmLandGrantsInfoRegServiceImpl implements FarmLandGrantsInfoRegSe
 	}
 
 	@Override
-	public int deletefarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception {
-		return farmLandGrantsInfoRegMapper.deletefarmLandGrantsInfoReg(farmLandGrantsInfoRegVO);
+	public int deleteFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception {
+		return farmLandGrantsInfoRegMapper.deleteFarmLandGrantsInfoReg(farmLandGrantsInfoRegVO);
 	}
 
 }

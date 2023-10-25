@@ -30,19 +30,19 @@ public interface FarmLandGrantsInfoLogService {
 	 * @return
 	 * @throws Exception
 	 */
-	public FarmLandGrantsInfoLogVO selectfarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
+	public FarmLandGrantsInfoLogVO selectFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
 
-	public List<FarmLandGrantsInfoLogVO> selectfarmLandGrantsInfoLogList(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
+	public List<FarmLandGrantsInfoLogVO> selectFarmLandGrantsInfoLogList(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
 
-	public int insertfarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
+	public int insertFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
 
-	public int updatefarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
+	public int updateFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
 
-	public int multiSavefarmLandGrantsInfoLogList(List<FarmLandGrantsInfoLogVO> farmLandGrantsInfoLogVOList) throws Exception;
-	public int insertMegerfarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVOList) throws Exception;
-	public int insertMegerLogfarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVOList) throws Exception;
-	public int updateMegerfarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVOList) throws Exception;
+	public int multiSaveFarmLandGrantsInfoLogList(List<FarmLandGrantsInfoLogVO> farmLandGrantsInfoLogVOList) throws Exception;
+	public int insertMegerFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVOList) throws Exception;
+	public int insertMegerLogFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVOList) throws Exception;
+	public int updateMegerFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVOList) throws Exception;
 
-	public int deletefarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
+	public int deleteFarmLandGrantsInfoLog(FarmLandGrantsInfoLogVO farmLandGrantsInfoLogVO) throws Exception;
 
 }

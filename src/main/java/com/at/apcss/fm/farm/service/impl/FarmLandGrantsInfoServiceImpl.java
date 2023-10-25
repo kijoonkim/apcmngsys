@@ -38,24 +38,24 @@ public class FarmLandGrantsInfoServiceImpl implements FarmLandGrantsInfoService{
 	private FarmLandGrantsInfoMapper farmLandGrantsInfoMapper;
 
 	@Override
-	public FarmLandGrantsInfoVO selectfarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception {
+	public FarmLandGrantsInfoVO selectFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception {
 
-		FarmLandGrantsInfoVO resultVO = farmLandGrantsInfoMapper.selectfarmLandGrantsInfo(farmLandGrantsInfoVO);
+		FarmLandGrantsInfoVO resultVO = farmLandGrantsInfoMapper.selectFarmLandGrantsInfo(farmLandGrantsInfoVO);
 
 		return resultVO;
 	}
 
 	@Override
-	public List<FarmLandGrantsInfoVO> selectfarmLandGrantsInfoList(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception {
+	public List<FarmLandGrantsInfoVO> selectFarmLandGrantsInfoList(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception {
 
-		List<FarmLandGrantsInfoVO> resultList = farmLandGrantsInfoMapper.selectfarmLandGrantsInfoList(farmLandGrantsInfoVO);
+		List<FarmLandGrantsInfoVO> resultList = farmLandGrantsInfoMapper.selectFarmLandGrantsInfoList(farmLandGrantsInfoVO);
 		return resultList;
 	}
 
 	@Override
 	public int insertFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception {
 
-		int insertedCnt = farmLandGrantsInfoMapper.insertfarmLandGrantsInfo(farmLandGrantsInfoVO);
+		int insertedCnt = farmLandGrantsInfoMapper.insertFarmLandGrantsInfo(farmLandGrantsInfoVO);
 
 		return insertedCnt;
 	}
@@ -63,13 +63,13 @@ public class FarmLandGrantsInfoServiceImpl implements FarmLandGrantsInfoService{
 	@Override
 	public int updateFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception {
 
-		int updatedCnt = farmLandGrantsInfoMapper.updatefarmLandGrantsInfo(farmLandGrantsInfoVO);
+		int updatedCnt = farmLandGrantsInfoMapper.updateFarmLandGrantsInfo(farmLandGrantsInfoVO);
 
 		return updatedCnt;
 	}
 
 	@Override
-	public int multiSavefarmLandGrantsInfoList(List<FarmLandGrantsInfoVO> farmLandGrantsInfoVOList) throws Exception {
+	public int multiSaveFarmLandGrantsInfoList(List<FarmLandGrantsInfoVO> farmLandGrantsInfoVOList) throws Exception {
 		int savedCnt = 0;
 		for (FarmLandGrantsInfoVO farmLandGrantsInfoVO : farmLandGrantsInfoVOList) {
 			if(ComConstants.ROW_STS_INSERT.equals(farmLandGrantsInfoVO.getRowSts())) {
@@ -83,32 +83,32 @@ public class FarmLandGrantsInfoServiceImpl implements FarmLandGrantsInfoService{
 	}
 
 	@Override
-	public int insertMegerfarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception {
-		return farmLandGrantsInfoMapper.insertMegerfarmLandGrantsInfo(farmLandGrantsInfoVO);
+	public int insertMegerFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception {
+		return farmLandGrantsInfoMapper.insertMegerFarmLandGrantsInfo(farmLandGrantsInfoVO);
 	}
 	@Override
-	public int insertMegerLogfarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception {
-		return farmLandGrantsInfoMapper.insertMegerLogfarmLandGrantsInfo(farmLandGrantsInfoVO);
-	}
-
-
-	@Override
-	public int insertMegerfarmLandGrantsInfoMap(Map<String, String> MapList) throws Exception {
-		return farmLandGrantsInfoMapper.insertMegerfarmLandGrantsInfoMap(MapList);
-	}
-	@Override
-	public int insertMegerLogfarmLandGrantsInfoMap(Map<String, String> MapList) throws Exception {
-		return farmLandGrantsInfoMapper.insertMegerLogfarmLandGrantsInfoMap(MapList);
+	public int insertMegerLogFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception {
+		return farmLandGrantsInfoMapper.insertMegerLogFarmLandGrantsInfo(farmLandGrantsInfoVO);
 	}
 
+
 	@Override
-	public int updateMegerfarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception {
-		return farmLandGrantsInfoMapper.updateMegerfarmLandGrantsInfo(farmLandGrantsInfoVO);
+	public int insertMegerFarmLandGrantsInfoMap(Map<String, String> MapList) throws Exception {
+		return farmLandGrantsInfoMapper.insertMegerFarmLandGrantsInfoMap(MapList);
+	}
+	@Override
+	public int insertMegerLogFarmLandGrantsInfoMap(Map<String, String> MapList) throws Exception {
+		return farmLandGrantsInfoMapper.insertMegerLogFarmLandGrantsInfoMap(MapList);
 	}
 
 	@Override
-	public int deletefarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception {
-		return farmLandGrantsInfoMapper.deletefarmLandGrantsInfo(farmLandGrantsInfoVO);
+	public int updateMegerFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception {
+		return farmLandGrantsInfoMapper.updateMegerFarmLandGrantsInfo(farmLandGrantsInfoVO);
+	}
+
+	@Override
+	public int deleteFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception {
+		return farmLandGrantsInfoMapper.deleteFarmLandGrantsInfo(farmLandGrantsInfoVO);
 	}
 
 }

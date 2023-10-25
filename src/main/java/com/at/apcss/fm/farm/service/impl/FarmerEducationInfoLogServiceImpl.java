@@ -36,66 +36,66 @@ public class FarmerEducationInfoLogServiceImpl implements FarmerEducationInfoLog
 	private FarmerEducationInfoLogMapper farmerEducationInfoLogMapper;
 
 	@Override
-	public FarmerEducationInfoLogVO selectfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
+	public FarmerEducationInfoLogVO selectFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
 
-		FarmerEducationInfoLogVO resultVO = farmerEducationInfoLogMapper.selectfarmerEducationInfoLog(farmerEducationInfoLogVO);
+		FarmerEducationInfoLogVO resultVO = farmerEducationInfoLogMapper.selectFarmerEducationInfoLog(farmerEducationInfoLogVO);
 
 		return resultVO;
 	}
 
 	@Override
-	public List<FarmerEducationInfoLogVO> selectfarmerEducationInfoLogList(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
+	public List<FarmerEducationInfoLogVO> selectFarmerEducationInfoLogList(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
 
-		List<FarmerEducationInfoLogVO> resultList = farmerEducationInfoLogMapper.selectfarmerEducationInfoLogList(farmerEducationInfoLogVO);
+		List<FarmerEducationInfoLogVO> resultList = farmerEducationInfoLogMapper.selectFarmerEducationInfoLogList(farmerEducationInfoLogVO);
 		return resultList;
 	}
 
 	@Override
-	public int insertfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
+	public int insertFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
 
-		int insertedCnt = farmerEducationInfoLogMapper.insertfarmerEducationInfoLog(farmerEducationInfoLogVO);
+		int insertedCnt = farmerEducationInfoLogMapper.insertFarmerEducationInfoLog(farmerEducationInfoLogVO);
 
 		return insertedCnt;
 	}
 
 	@Override
-	public int updatefarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
+	public int updateFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
 
-		int updatedCnt = farmerEducationInfoLogMapper.updatefarmerEducationInfoLog(farmerEducationInfoLogVO);
+		int updatedCnt = farmerEducationInfoLogMapper.updateFarmerEducationInfoLog(farmerEducationInfoLogVO);
 
 		return updatedCnt;
 	}
 
 	@Override
-	public int multiSavefarmerEducationInfoLogList(List<FarmerEducationInfoLogVO> farmerEducationInfoLogVOList) throws Exception {
+	public int multiSaveFarmerEducationInfoLogList(List<FarmerEducationInfoLogVO> farmerEducationInfoLogVOList) throws Exception {
 		int savedCnt = 0;
 		for (FarmerEducationInfoLogVO farmerEducationInfoLogVO : farmerEducationInfoLogVOList) {
 			if(ComConstants.ROW_STS_INSERT.equals(farmerEducationInfoLogVO.getRowSts())) {
-				savedCnt += insertfarmerEducationInfoLog(farmerEducationInfoLogVO);
+				savedCnt += insertFarmerEducationInfoLog(farmerEducationInfoLogVO);
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(farmerEducationInfoLogVO.getRowSts())) {
-				savedCnt += updatefarmerEducationInfoLog(farmerEducationInfoLogVO);
+				savedCnt += updateFarmerEducationInfoLog(farmerEducationInfoLogVO);
 			}
 		}
 		return savedCnt;
 	}
 
 	@Override
-	public int insertMegerfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
-		return farmerEducationInfoLogMapper.insertMegerfarmerEducationInfoLog(farmerEducationInfoLogVO);
+	public int insertMegerFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
+		return farmerEducationInfoLogMapper.insertMegerFarmerEducationInfoLog(farmerEducationInfoLogVO);
 	}
 	@Override
-	public int insertMegerLogfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
-		return farmerEducationInfoLogMapper.insertMegerLogfarmerEducationInfoLog(farmerEducationInfoLogVO);
+	public int insertMegerLogFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
+		return farmerEducationInfoLogMapper.insertMegerLogFarmerEducationInfoLog(farmerEducationInfoLogVO);
 	}
 	@Override
-	public int updateMegerfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
-		return farmerEducationInfoLogMapper.updateMegerfarmerEducationInfoLog(farmerEducationInfoLogVO);
+	public int updateMegerFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
+		return farmerEducationInfoLogMapper.updateMegerFarmerEducationInfoLog(farmerEducationInfoLogVO);
 	}
 
 	@Override
-	public int deletefarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
-		return farmerEducationInfoLogMapper.deletefarmerEducationInfoLog(farmerEducationInfoLogVO);
+	public int deleteFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception {
+		return farmerEducationInfoLogMapper.deleteFarmerEducationInfoLog(farmerEducationInfoLogVO);
 	}
 
 }

@@ -55,12 +55,12 @@ public class FarmerGrantsInfoController extends BaseController{
 	}
 
 // 조회
-		@PostMapping(value = "/fm/farm/selectfarmerGrantsInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		@PostMapping(value = "/fm/farm/selectFarmerGrantsInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 		public ResponseEntity<HashMap<String, Object>> selectfarmerGrantsInfoList(Model model, @RequestBody FarmerGrantsInfoVO farmerGrantsInfoVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 			List<FarmerGrantsInfoVO> resultList = new ArrayList<>();
 			try {
-				 resultList = farmerGrantsInfoService.selectfarmerGrantsInfoList(farmerGrantsInfoVO);
+				 resultList = farmerGrantsInfoService.selectFarmerGrantsInfoList(farmerGrantsInfoVO);
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -72,8 +72,8 @@ public class FarmerGrantsInfoController extends BaseController{
 
 
 		//등록
-		@PostMapping(value = "/fm/farm/insertfarmerGrantsInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertfarmerGrantsInfo(@RequestBody FarmerGrantsInfoVO farmerGrantsInfoVO, HttpServletRequest requset) throws Exception{
+		@PostMapping(value = "/fm/farm/insertFarmerGrantsInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> insertFarmerGrantsInfo(@RequestBody FarmerGrantsInfoVO farmerGrantsInfoVO, HttpServletRequest requset) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			// validation check
@@ -118,8 +118,8 @@ public class FarmerGrantsInfoController extends BaseController{
 		}
 
 
-		@PostMapping(value = "/fm/farm/multiSavefarmerGrantsInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSavefarmerGrantsInfoList(@RequestBody List<FarmerGrantsInfoVO> farmerGrantsInfoVOList, HttpServletRequest request) throws Exception {
+		@PostMapping(value = "/fm/farm/multiSaveFarmerGrantsInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSaveFarmerGrantsInfoList(@RequestBody List<FarmerGrantsInfoVO> farmerGrantsInfoVOList, HttpServletRequest request) throws Exception {
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -132,7 +132,7 @@ public class FarmerGrantsInfoController extends BaseController{
 					farmerGrantsInfoVO.setSysLastChgUserId(getUserId());
 				}
 
-				savedCnt = farmerGrantsInfoService.multiSavefarmerGrantsInfoList(farmerGrantsInfoVOList);
+				savedCnt = farmerGrantsInfoService.multiSaveFarmerGrantsInfoList(farmerGrantsInfoVOList);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -168,13 +168,13 @@ public class FarmerGrantsInfoController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
-		@PostMapping(value = "/fm/farm/deletefarmerGrantsInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deletefarmerGrantsInfo(@RequestBody FarmerGrantsInfoVO farmerGrantsInfoVO, HttpServletRequest request) throws Exception {
-			logger.debug("/fm/farm/deletefarmerGrantsInfo >>> 호출 >>> ");
+		@PostMapping(value = "/fm/farm/deleteFarmerGrantsInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> deleteFarmerGrantsInfo(@RequestBody FarmerGrantsInfoVO farmerGrantsInfoVO, HttpServletRequest request) throws Exception {
+			logger.debug("/fm/farm/deleteFarmerGrantsInfo >>> 호출 >>> ");
 
 			int result = 0;
 			try {
-				result =+ farmerGrantsInfoService.deletefarmerGrantsInfo(farmerGrantsInfoVO);
+				result =+ farmerGrantsInfoService.deleteFarmerGrantsInfo(farmerGrantsInfoVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -184,8 +184,8 @@ public class FarmerGrantsInfoController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
-		@PostMapping(value = "/fm/farm/multiSaveReleyfarmerGrantsInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> SavefarmerSnList(@RequestBody FarmerGrantsInfoVO farmerGrantsInfoVO, HttpServletRequest request) throws Exception {
+		@PostMapping(value = "/fm/farm/multiSaveReleyFarmerGrantsInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> SaveFarmerSnList(@RequestBody FarmerGrantsInfoVO farmerGrantsInfoVO, HttpServletRequest request) throws Exception {
 			logger.debug("/fm/farm/SavefarmerSnList >>> 농업인 번호 연계호출 >>> ");
 
 			int savedCnt = 0;
@@ -264,8 +264,8 @@ public class FarmerGrantsInfoController extends BaseController{
 						farmerGrantsInfoVO.setSysLastChgPrgrmId(getPrgrmId());
 						farmerGrantsInfoVO.setSysLastChgUserId(getUserId());
 						farmerGrantsInfoVO.setSaveCd("AGRIX");
-	                    savedCnt = farmerGrantsInfoService.insertMegerfarmerGrantsInfo(farmerGrantsInfoVO);
-	                    result = farmerGrantsInfoService.insertMegerLogfarmerGrantsInfo(farmerGrantsInfoVO);
+	                    savedCnt = farmerGrantsInfoService.insertMegerFarmerGrantsInfo(farmerGrantsInfoVO);
+	                    result = farmerGrantsInfoService.insertMegerLogFarmerGrantsInfo(farmerGrantsInfoVO);
 	                }
 	            }
 	        } catch (Exception ex) {
@@ -305,10 +305,10 @@ public class FarmerGrantsInfoController extends BaseController{
 
 
 
-		@PostMapping(value = "/fm/farm/multiSaveReleyfarmerGrantsInfoJsoneList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		@PostMapping(value = "/fm/farm/multiSaveReleyFarmerGrantsInfoJsoneList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 		public ResponseEntity<HashMap<String, Object>> multiSaveReleyfarmerGrantsInfoJsoneList(@RequestBody FarmerGrantsInfoVO farmerGrantsInfoVO, HttpServletRequest request) throws Exception {
 
-			logger.debug("/fm/farm/SavefarmerSnList >>> 농업인 번호 연계호출 jsone >>> ");
+			logger.debug("/fm/farm/SaveFarmerSnList >>> 농업인 번호 연계호출 jsone >>> ");
 
 			int savedCnt = 0;
 			int result = 0;
@@ -365,8 +365,8 @@ public class FarmerGrantsInfoController extends BaseController{
 							//intser into aaa(a, b,c) values(#{brthdy}, #{brthdy2}, #{brthdy})
 							}
 
-							savedCnt = farmerGrantsInfoService.insertMegerfarmerGrantsInfoMap(mapItem);
-			                 result = farmerGrantsInfoService.insertMegerLogfarmerGrantsInfoMap(mapItem);
+							savedCnt = farmerGrantsInfoService.insertMegerFarmerGrantsInfoMap(mapItem);
+			                 result = farmerGrantsInfoService.insertMegerLogFarmerGrantsInfoMap(mapItem);
 
 						}
 					}

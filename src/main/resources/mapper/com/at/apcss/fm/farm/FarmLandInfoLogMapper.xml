@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : Bfarmapper.xml                                    				-->
+<!-- DESC : 게시판 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.farm.mapper.FarmLandInfoLogMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
+	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+ <!--
+    <select id="selectfarmLandInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO" resultType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.fm.farm.mapper.farmLandInfoLogMapper.selectfarmLandInfoLog */
+				  CM.TEST_NO
+				, CM.AA
+				, CM.BB
+				, CM.CC
+				, CM.DD
+				, CM.EE
+				, CM.FF
+				, CM.GG
+				, CM.HH
+				, CM.II
+				, CM.II_CODE
+				, CM.JJ
+				, CM.KK
+				, CM.LL
+				, CM.MM
+				, CM.NN
+				, CM.OO
+				, CM.PP
+				, CM.QQ
+				, CM.RR
+				, CM.SS
+				, CM.TT
+				, CM.UU
+				, CM.VV
+				, CM.WW
+				, CM.XX
+				, CM.YY
+				, CM.ZZ
+				, CM.DEL_YN		AS DEL_YN
+				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
+				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
+				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
+				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
+				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_PD_PrdcrCrclOgnVluIdctrMng CM
+			 WHERE 1=1
+
+    	]]>
+    		<if test='ccCode != null and ccCode != ""'>
+				AND CM.CC_CODE LIKE #{ccCode} || '%'
+			</if>
+			<if test='iiCode != null and iiCode != ""'>
+				AND CM.II_CODE LIKE '%' || #{iiCode} || '%'
+			</if>
+			<if test='testNo != null and testNo != ""'>
+				AND CM.TEST_NO LIKE '%' || #{testNo} || '%'
+			</if>
+		ORDER BY CM.SYS_LAST_CHG_DT DESC
+    </select>
+	  -->
+
+	   <select id="selectFarmLandInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO" resultType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.fm.farm.mapper.farmLandInfoLogMapper.selectFarmLandInfoLog */
+				  CM.SEQ
+				, CM.FRMER_SN
+				, CM.BZOB_RGNO
+				, CM.MNGER_RELATE
+				, CM.BZM_CORP_NM
+				, CM.ADDR
+				, CM.RRSD_ADDR
+			    , CM.RDNM_ADDR
+				, CM.TW_NM
+				, CM.PER_CORP_DVCD_NM
+				, CM.NAFO_DVCD_NM
+				, CM.TELNO
+				, CM.MBL_TELNO
+				, CM.FAX_TELNO
+				, CM.EMAIL_ADDR
+				, CM.FAMG_STR_YMD
+				, CM.FARMNG_BEGIN_STLE_CD_NM
+				, CM.FARMNG_ENGAGE_STLE_CD_NM
+				, CM.FNDT_YR
+				, CM.BZM_RGNO
+				, CM.REPR_NM
+				, CM.REPR_ADDR
+				, CM.BRTHDY
+				, CM.SEXDSTN
+				, CM.SYS_FRST_INPT_DT
+				, CM.SYS_FRST_INPT_USER_ID
+				, CM.SYS_FRST_INPT_PRGRM_ID
+				, CM.SYS_LAST_CHG_DT
+				, CM.SYS_LAST_CHG_USER_ID
+				, CM.SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_FARMER_INFO_LOG CM
+			 WHERE 1=1
+
+    	]]>
+     		<if test='frmerSn != null and frmerSn != ""'>
+				AND CM.FRMER_SN LIKE #{frmerSn} || '%'
+			</if>
+			<if test='bzobRgno != null and bzobRgno != ""'>
+				AND CM.BZOB_RGNO LIKE '%' || #{bzobRgno} || '%'
+			</if>
+		ORDER BY CM.SYS_LAST_CHG_DT DESC
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
+	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectFarmLandInfoLogList" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO" resultType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.fm.farm.mapper.farmLandInfoLogMapper.selectFarmLandInfoLogList */
+				  CM.SEQ
+				, CM.FRMER_SN
+				, CM.BZOB_RGNO
+				, CM.MNGER_RELATE
+				, CM.BZM_CORP_NM
+				, CM.ADDR
+				, CM.RRSD_ADDR
+			    , CM.RDNM_ADDR
+				, CM.TW_NM
+				, CM.PER_CORP_DVCD_NM
+				, CM.NAFO_DVCD_NM
+				, CM.TELNO
+				, CM.MBL_TELNO
+				, CM.FAX_TELNO
+				, CM.EMAIL_ADDR
+				, CM.FAMG_STR_YMD
+				, CM.FARMNG_BEGIN_STLE_CD_NM
+				, CM.FARMNG_ENGAGE_STLE_CD_NM
+				, CM.FNDT_YR
+				, CM.BZM_RGNO
+				, CM.REPR_NM
+				, CM.REPR_ADDR
+				, CM.BRTHDY
+				, CM.SEXDSTN
+				, CM.SYS_FRST_INPT_DT
+				, CM.SYS_FRST_INPT_USER_ID
+				, CM.SYS_FRST_INPT_PRGRM_ID
+				, CM.SYS_LAST_CHG_DT
+				, CM.SYS_LAST_CHG_USER_ID
+				, CM.SYS_LAST_CHG_PRGRM_ID
+				, CM.DEL_YN
+				, CM.SAVE_CD
+			  FROM TB_FARMER_INFO_LOG CM
+			 WHERE 1=1
+
+    	]]>
+     		<if test='frmerSn != null and frmerSn != ""'>
+				AND CM.FRMER_SN LIKE #{frmerSn} || '%'
+			</if>
+			<if test='bzobRgno != null and bzobRgno != ""'>
+				AND CM.BZOB_RGNO LIKE '%' || #{bzobRgno} || '%'
+			</if>
+		ORDER BY CM.SYS_LAST_CHG_DT DESC
+    </select>
+
+
+	<insert id="insertFarmLandInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.fm.farm.mapper.farmLandInfoLogMapper.insertFarmLandInfoLog */
+	    	  INTO TB_FARMER_INFO_LOG
+	    		(
+	    		  FRMER_SN
+				, BZOB_RGNO
+				, MNGER_RELATE
+				, BZM_CORP_NM
+				, ADDR
+				, RRSD_ADDR
+			    , RDNM_ADDR
+				, TW_NM
+				, PER_CORP_DVCD_NM
+				, NAFO_DVCD_NM
+				, TELNO
+				, MBL_TELNO
+				, FAX_TELNO
+				, EMAIL_ADDR
+				, FAMG_STR_YMD
+				, FARMNG_BEGIN_STLE_CD_NM
+				, FARMNG_ENGAGE_STLE_CD_NM
+				, FNDT_YR
+				, BZM_RGNO
+				, REPR_NM
+				, REPR_ADDR
+				, BRTHDY
+				, SEXDSTN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+				, DEL_YN
+				, SAVE_CD
+	    		)
+	   		VALUES
+	   			(
+	   			    #{frmerSn}
+					,#{bzobRgno}
+					,#{mngerRelate}
+					,#{bzmCorpNm}
+					,#{addr}
+					,#{rrsdAddr}
+					,#{rdnmAddr}
+					,#{twNm}
+					,#{perCorpDvcdNm}
+					,#{nafoDvcdNm}
+					,#{telno}
+					,#{mblTelno}
+					,#{faxTelno}
+					,#{emailAddr}
+					,#{famgStrYmd}
+					,#{farmngBeginStleCdNm}
+					,#{farmngEngageStleCdNm}
+					,#{fndtYr}
+					,#{bzmRgno}
+					,#{reprNm}
+					,#{reprAddr}
+					,#{brthdy}
+					,#{sexdstn}
+					,SYSDATE
+					,#{sysFrstInptUserId}
+					,#{sysFrstInptPrgrmId}
+					,SYSDATE
+					,#{sysLastChgUserId}
+					,#{sysLastChgPrgrmId}
+					,#{delYn}
+					,#{saveCd}
+	   			)
+    	]]>
+    </insert>
+
+
+
+
+    <insert id="insertMegerFarmLandInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO">
+	<![CDATA[
+    	MERGE INTO TB_FARMER_INFO_LOG CLT  /* com.at.apcss.fm.farm.mapper.FarmLandInfoLogMapper.insertMegerFarmLandInfoLog */
+		USING DUAL
+			ON (	         CLT.FRMER_SN      = #{frmerSn}
+				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
+				   )
+		WHEN MATCHED THEN
+			UPDATE /* com.at.apcss.fm.farm.mapper.FarmLandInfoLogMapper.insertMegerfarmLandInfoLog */
+			   SET
+			 	  MNGER_RELATE 	= #{mngerRelate}
+				, BZM_CORP_NM 	= #{bzmCorpNm}
+				, ADDR 	= #{addr}
+				, RRSD_ADDR 	= #{rrsdAddr}
+			    , RDNM_ADDR 	= #{rdnmAddr}
+				, TW_NM 	= #{twNm}
+				, PER_CORP_DVCD_NM 	= #{perCorpDvcdNm}
+				, NAFO_DVCD_NM 	= #{nafoDvcdNm}
+				, TELNO 	= #{telno}
+				, MBL_TELNO 	= #{mblTelno}
+				, FAX_TELNO 	= #{faxTelno}
+				, EMAIL_ADDR 	= #{emailAddr}
+				, FAMG_STR_YMD 	= #{famgStrYmd}
+				, FARMNG_BEGIN_STLE_CD_NM 	= #{farmngBeginStleCdNm}
+				, FARMNG_ENGAGE_STLE_CD_NM 	= #{farmngEngageStleCdNm}
+				, FNDT_YR 	= #{fndtYr}
+				, BZM_RGNO 	= #{bzmRgno}
+				, REPR_NM 	= #{reprNm}
+				, REPR_ADDR 	= #{reprAddr}
+				, BRTHDY 	= #{brthdy}
+				, SEXDSTN 	= #{sexdstn}
+				, SAVE_CD 	= #{saveCd}
+		WHEN NOT MATCHED THEN
+			 INSERT /* com.at.apcss.fm.farm.mapper.FarmLandInfoLogMapper.insertMegerfarmLandInfoLog */
+	    		(
+	    		  FRMER_SN
+				, BZOB_RGNO
+				, MNGER_RELATE
+				, BZM_CORP_NM
+				, ADDR
+				, RRSD_ADDR
+			    , RDNM_ADDR
+				, TW_NM
+				, PER_CORP_DVCD_NM
+				, NAFO_DVCD_NM
+				, TELNO
+				, MBL_TELNO
+				, FAX_TELNO
+				, EMAIL_ADDR
+				, FAMG_STR_YMD
+				, FARMNG_BEGIN_STLE_CD_NM
+				, FARMNG_ENGAGE_STLE_CD_NM
+				, FNDT_YR
+				, BZM_RGNO
+				, REPR_NM
+				, REPR_ADDR
+				, BRTHDY
+				, SEXDSTN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+				, DEL_YN
+				, SAVE_CD
+	    		)
+	   		VALUES
+	   			(
+	   			    #{frmerSn}
+					,#{bzobRgno}
+					,#{mngerRelate}
+					,#{bzmCorpNm}
+					,#{addr}
+					,#{rrsdAddr}
+					,#{rdnmAddr}
+					,#{twNm}
+					,#{perCorpDvcdNm}
+					,#{nafoDvcdNm}
+					,#{telno}
+					,#{mblTelno}
+					,#{faxTelno}
+					,#{emailAddr}
+					,#{famgStrYmd}
+					,#{farmngBeginStleCdNm}
+					,#{farmngEngageStleCdNm}
+					,#{fndtYr}
+					,#{bzmRgno}
+					,#{reprNm}
+					,#{reprAddr}
+					,#{brthdy}
+					,#{sexdstn}
+					,SYSDATE
+					,#{sysFrstInptUserId}
+					,#{sysFrstInptPrgrmId}
+					,SYSDATE
+					,#{sysLastChgUserId}
+					,#{sysLastChgPrgrmId}
+					,#{delYn}
+					,#{saveCd}
+	   			)
+    	]]>
+	</insert>
+
+
+    <insert id="insertMegerLogFarmLandInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO">
+	<![CDATA[
+    	INSERT /* com.at.apcss.fm.farm.mapper.farmLandInfoLogMapper.insertMegerLogFarmLandInfoLog */
+	    	  INTO TB_FARMER_INFO_LOG_LOG
+	    		(
+	    		  SEQ
+	    		 ,FRMER_SN
+				, BZOB_RGNO
+				, MNGER_RELATE
+				, BZM_CORP_NM
+				, ADDR
+				, RRSD_ADDR
+			    , RDNM_ADDR
+				, TW_NM
+				, PER_CORP_DVCD_NM
+				, NAFO_DVCD_NM
+				, TELNO
+				, MBL_TELNO
+				, FAX_TELNO
+				, EMAIL_ADDR
+				, FAMG_STR_YMD
+				, FARMNG_BEGIN_STLE_CD_NM
+				, FARMNG_ENGAGE_STLE_CD_NM
+				, FNDT_YR
+				, BZM_RGNO
+				, REPR_NM
+				, REPR_ADDR
+				, BRTHDY
+				, SEXDSTN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+				, DEL_YN
+				, SAVE_CD
+	    		)
+	   		VALUES
+	   			(
+	   			      (SELECT NVL(MAX(SEQ),0)+1 FROM TB_FARMER_INFO_LOG_LOG)
+	   			    ,#{frmerSn}
+					,#{bzobRgno}
+					,#{mngerRelate}
+					,#{bzmCorpNm}
+					,#{addr}
+					,#{rrsdAddr}
+					,#{rdnmAddr}
+					,#{twNm}
+					,#{perCorpDvcdNm}
+					,#{nafoDvcdNm}
+					,#{telno}
+					,#{mblTelno}
+					,#{faxTelno}
+					,#{emailAddr}
+					,#{famgStrYmd}
+					,#{farmngBeginStleCdNm}
+					,#{farmngEngageStleCdNm}
+					,#{fndtYr}
+					,#{bzmRgno}
+					,#{reprNm}
+					,#{reprAddr}
+					,#{brthdy}
+					,#{sexdstn}
+					,SYSDATE
+					,#{sysFrstInptUserId}
+					,#{sysFrstInptPrgrmId}
+					,SYSDATE
+					,#{sysLastChgUserId}
+					,#{sysLastChgPrgrmId}
+					,#{delYn}
+					,#{saveCd}
+	   			)
+    	]]>
+	</insert>
+
+	<update id="updateFarmLandInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.farm.mapper.farmLandInfoLogMapper.upateFarmLandInfoLog */
+	    		TB_FARMER_INFO_LOG
+			   SET
+			 	  MNGER_RELATE 	= #{mngerRelate}
+				, BZM_CORP_NM 	= #{bzmCorpNm}
+				, ADDR 	= #{addr}
+				, RRSD_ADDR 	= #{rrsdAddr}
+			    , RDNM_ADDR 	= #{rdnmAddr}
+				, TW_NM 	= #{twNm}
+				, PER_CORP_DVCD_NM 	= #{perCorpDvcdNm}
+				, NAFO_DVCD_NM 	= #{nafoDvcdNm}
+				, TELNO 	= #{telno}
+				, MBL_TELNO 	= #{mblTelno}
+				, FAX_TELNO 	= #{faxTelno}
+				, EMAIL_ADDR 	= #{emailAddr}
+				, FAMG_STR_YMD 	= #{famgStrYmd}
+				, FARMNG_BEGIN_STLE_CD_NM 	= #{farmngBeginStleCdNm}
+				, FARMNG_ENGAGE_STLE_CD_NM 	= #{farmngEngageStleCdNm}
+				, FNDT_YR 	= #{fndtYr}
+				, BZM_RGNO 	= #{bzmRgno}
+				, REPR_NM 	= #{reprNm}
+				, REPR_ADDR 	= #{reprAddr}
+				, BRTHDY 	= #{brthdy}
+				, SEXDSTN 	= #{sexdstn}
+				, SAVE_CD 	= #{saveCd}
+    	]]>
+		<if test='delYn != null and delYn != ""'>
+				, DEL_YN 	= #{delYn}
+		</if>
+    	<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			 WHERE 1=1
+			    AND FRMER_SN 	    = #{frmerSn}
+		        AND BZOB_RGNO 	= #{bzobRgno}
+    	]]>
+    </update>
+
+    <update id="updateMegerFarmLandInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO">
+    	<![CDATA[
+	    	MERGE INTO TB_FARMER_INFO_LOG CLT  /* com.at.apcss.fm.farm.mapper.FarmLandInfoLogMapper.insertMegerFarmLandInfoLog */
+		USING DUAL
+			ON (	         CLT.FRMER_SN      = #{frmerSn}
+				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
+				   )
+		WHEN MATCHED THEN
+			UPDATE /* com.at.apcss.fm.farm.mapper.FarmLandInfoLogMapper.insertMegerfarmLandInfoLog */
+			   SET
+			 	  MNGER_RELATE 	= #{mngerRelate}
+				, BZM_CORP_NM 	= #{bzmCorpNm}
+				, ADDR 	= #{addr}
+				, RRSD_ADDR 	= #{rrsdAddr}
+			    , RDNM_ADDR 	= #{rdnmAddr}
+				, TW_NM 	= #{twNm}
+				, PER_CORP_DVCD_NM 	= #{perCorpDvcdNm}
+				, NAFO_DVCD_NM 	= #{nafoDvcdNm}
+				, TELNO 	= #{telno}
+				, MBL_TELNO 	= #{mblTelno}
+				, FAX_TELNO 	= #{faxTelno}
+				, EMAIL_ADDR 	= #{emailAddr}
+				, FAMG_STR_YMD 	= #{famgStrYmd}
+				, FARMNG_BEGIN_STLE_CD_NM 	= #{farmngBeginStleCdNm}
+				, FARMNG_ENGAGE_STLE_CD_NM 	= #{farmngEngageStleCdNm}
+				, FNDT_YR 	= #{fndtYr}
+				, BZM_RGNO 	= #{bzmRgno}
+				, REPR_NM 	= #{reprNm}
+				, REPR_ADDR 	= #{reprAddr}
+				, BRTHDY 	= #{brthdy}
+				, SEXDSTN 	= #{sexdstn}
+				, SAVE_CD 	= #{saveCd}
+		WHEN NOT MATCHED THEN
+			 INSERT /* com.at.apcss.fm.farm.mapper.FarmLandInfoLogMapper.insertMegerfarmLandInfoLog */
+	    		(
+	    		  FRMER_SN
+				, BZOB_RGNO
+				, MNGER_RELATE
+				, BZM_CORP_NM
+				, ADDR
+				, RRSD_ADDR
+			    , RDNM_ADDR
+				, TW_NM
+				, PER_CORP_DVCD_NM
+				, NAFO_DVCD_NM
+				, TELNO
+				, MBL_TELNO
+				, FAX_TELNO
+				, EMAIL_ADDR
+				, FAMG_STR_YMD
+				, FARMNG_BEGIN_STLE_CD_NM
+				, FARMNG_ENGAGE_STLE_CD_NM
+				, FNDT_YR
+				, BZM_RGNO
+				, REPR_NM
+				, REPR_ADDR
+				, BRTHDY
+				, SEXDSTN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+				, DEL_YN
+				, SAVE_CD
+	    		)
+	   		VALUES
+	   			(
+	   			    #{frmerSn}
+					,#{bzobRgno}
+					,#{mngerRelate}
+					,#{bzmCorpNm}
+					,#{addr}
+					,#{rrsdAddr}
+					,#{rdnmAddr}
+					,#{twNm}
+					,#{perCorpDvcdNm}
+					,#{nafoDvcdNm}
+					,#{telno}
+					,#{mblTelno}
+					,#{faxTelno}
+					,#{emailAddr}
+					,#{famgStrYmd}
+					,#{farmngBeginStleCdNm}
+					,#{farmngEngageStleCdNm}
+					,#{fndtYr}
+					,#{bzmRgno}
+					,#{reprNm}
+					,#{reprAddr}
+					,#{brthdy}
+					,#{sexdstn}
+					,SYSDATE
+					,#{sysFrstInptUserId}
+					,#{sysFrstInptPrgrmId}
+					,SYSDATE
+					,#{sysLastChgUserId}
+					,#{sysLastChgPrgrmId}
+					,#{delYn}
+					,#{saveCd}
+	   			)
+    	]]>
+    </update>
+
+
+	<delete id="deleteFarmLandInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO">
+		<![CDATA[
+		DELETE FROM TB_FARMER_INFO_LOG
+		 WHERE 1=1
+		      AND FRMER_SN 	    = #{frmerSn}
+		      AND BZOB_RGNO 	= #{bzobRgno}
+		]]>
+	</delete>
+
+</mapper>

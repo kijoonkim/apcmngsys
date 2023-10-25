@@ -36,24 +36,24 @@ public class FarmerEducationInfoRegServiceImpl implements FarmerEducationInfoReg
 	private FarmerEducationInfoRegMapper farmerEducationInfoRegMapper;
 
 	@Override
-	public FarmerEducationInfoRegVO selectfarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception {
+	public FarmerEducationInfoRegVO selectFarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception {
 
-		FarmerEducationInfoRegVO resultVO = farmerEducationInfoRegMapper.selectfarmerEducationInfoReg(farmerEducationInfoRegVO);
+		FarmerEducationInfoRegVO resultVO = farmerEducationInfoRegMapper.selectFarmerEducationInfoReg(farmerEducationInfoRegVO);
 
 		return resultVO;
 	}
 
 	@Override
-	public List<FarmerEducationInfoRegVO> selectfarmerEducationInfoRegList(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception {
+	public List<FarmerEducationInfoRegVO> selectFarmerEducationInfoRegList(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception {
 
-		List<FarmerEducationInfoRegVO> resultList = farmerEducationInfoRegMapper.selectfarmerEducationInfoRegList(farmerEducationInfoRegVO);
+		List<FarmerEducationInfoRegVO> resultList = farmerEducationInfoRegMapper.selectFarmerEducationInfoRegList(farmerEducationInfoRegVO);
 		return resultList;
 	}
 
 	@Override
 	public int insertFarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception {
 
-		int insertedCnt = farmerEducationInfoRegMapper.insertfarmerEducationInfoReg(farmerEducationInfoRegVO);
+		int insertedCnt = farmerEducationInfoRegMapper.insertFarmerEducationInfoReg(farmerEducationInfoRegVO);
 
 		return insertedCnt;
 	}
@@ -67,7 +67,7 @@ public class FarmerEducationInfoRegServiceImpl implements FarmerEducationInfoReg
 	}
 
 	@Override
-	public int multiSavefarmerEducationInfoRegList(List<FarmerEducationInfoRegVO> farmerEducationInfoRegVOList) throws Exception {
+	public int multiSaveFarmerEducationInfoRegList(List<FarmerEducationInfoRegVO> farmerEducationInfoRegVOList) throws Exception {
 		int savedCnt = 0;
 		for (FarmerEducationInfoRegVO farmerEducationInfoRegVO : farmerEducationInfoRegVOList) {
 			if(ComConstants.ROW_STS_INSERT.equals(farmerEducationInfoRegVO.getRowSts())) {
@@ -81,8 +81,8 @@ public class FarmerEducationInfoRegServiceImpl implements FarmerEducationInfoReg
 	}
 
 	@Override
-	public int deletefarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception {
-		return farmerEducationInfoRegMapper.deletefarmerEducationInfoReg(farmerEducationInfoRegVO);
+	public int deleteFarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception {
+		return farmerEducationInfoRegMapper.deleteFarmerEducationInfoReg(farmerEducationInfoRegVO);
 	}
 
 }

@@ -30,16 +30,16 @@ public interface FarmerEducationInfoRegService {
 	 * @return
 	 * @throws Exception
 	 */
-	public FarmerEducationInfoRegVO selectfarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception;
+	public FarmerEducationInfoRegVO selectFarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception;
 
-	public List<FarmerEducationInfoRegVO> selectfarmerEducationInfoRegList(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception;
+	public List<FarmerEducationInfoRegVO> selectFarmerEducationInfoRegList(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception;
 
 	public int insertFarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception;
 
 	public int updateFarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception;
 
-	public int multiSavefarmerEducationInfoRegList(List<FarmerEducationInfoRegVO> farmerEducationInfoRegVOList) throws Exception;
+	public int multiSaveFarmerEducationInfoRegList(List<FarmerEducationInfoRegVO> farmerEducationInfoRegVOList) throws Exception;
 
-	public int deletefarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception;
+	public int deleteFarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception;
 
 }

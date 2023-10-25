@@ -52,12 +52,12 @@ public class FarmerEducationInfoLogController extends BaseController{
 	}
 
 // 조회
-		@PostMapping(value = "/fm/farm/selectfarmerEducationInfoLogList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> selectfarmerEducationInfoLogList(Model model, @RequestBody FarmerEducationInfoLogVO farmerEducationInfoLogVO, HttpServletRequest request) throws Exception{
+		@PostMapping(value = "/fm/farm/selectFarmerEducationInfoLogList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> selectFarmerEducationInfoLogList(Model model, @RequestBody FarmerEducationInfoLogVO farmerEducationInfoLogVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 			List<FarmerEducationInfoLogVO> resultList = new ArrayList<>();
 			try {
-				 resultList = farmerEducationInfoLogService.selectfarmerEducationInfoLogList(farmerEducationInfoLogVO);
+				 resultList = farmerEducationInfoLogService.selectFarmerEducationInfoLogList(farmerEducationInfoLogVO);
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -69,8 +69,8 @@ public class FarmerEducationInfoLogController extends BaseController{
 
 
 		//등록
-		@PostMapping(value = "/fm/farm/insertfarmerEducationInfoLog.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertfarmerEducationInfoLog(@RequestBody FarmerEducationInfoLogVO farmerEducationInfoLogVO, HttpServletRequest requset) throws Exception{
+		@PostMapping(value = "/fm/farm/insertFarmerEducationInfoLog.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> insertFarmerEducationInfoLog(@RequestBody FarmerEducationInfoLogVO farmerEducationInfoLogVO, HttpServletRequest requset) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			// validation check
@@ -84,7 +84,7 @@ public class FarmerEducationInfoLogController extends BaseController{
 			int insertedCnt = 0;
 
 			try {
-				insertedCnt = farmerEducationInfoLogService.insertfarmerEducationInfoLog(farmerEducationInfoLogVO);
+				insertedCnt = farmerEducationInfoLogService.insertFarmerEducationInfoLog(farmerEducationInfoLogVO);
 
 				String pFrmerSn = "AYTD23";
 				String urlstr = "https://uni.agrix.go.kr/api/srvc/farmerEducationInfoLog?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY&version=1.0&responseType=xml";
@@ -115,8 +115,8 @@ public class FarmerEducationInfoLogController extends BaseController{
 		}
 
 
-		@PostMapping(value = "/fm/farm/multiSavefarmerEducationInfoLogList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSavefarmerEducationInfoLogList(@RequestBody List<FarmerEducationInfoLogVO> farmerEducationInfoLogVOList, HttpServletRequest request) throws Exception {
+		@PostMapping(value = "/fm/farm/multiSaveFarmerEducationInfoLogList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSaveFarmerEducationInfoLogList(@RequestBody List<FarmerEducationInfoLogVO> farmerEducationInfoLogVOList, HttpServletRequest request) throws Exception {
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -129,7 +129,7 @@ public class FarmerEducationInfoLogController extends BaseController{
 					farmerEducationInfoLogVO.setSysLastChgUserId(getUserId());
 				}
 
-				savedCnt = farmerEducationInfoLogService.multiSavefarmerEducationInfoLogList(farmerEducationInfoLogVOList);
+				savedCnt = farmerEducationInfoLogService.multiSaveFarmerEducationInfoLogList(farmerEducationInfoLogVOList);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -138,13 +138,13 @@ public class FarmerEducationInfoLogController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
-		@PostMapping(value = "/fm/farm/deletefarmerEducationInfoLog.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deletefarmerEducationInfoLog(@RequestBody FarmerEducationInfoLogVO farmerEducationInfoLogVO, HttpServletRequest request) throws Exception {
-			logger.debug("/fm/farm/deletefarmerEducationInfoLog >>> 호출 >>> ");
+		@PostMapping(value = "/fm/farm/deleteFarmerEducationInfoLog.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> deleteFarmerEducationInfoLog(@RequestBody FarmerEducationInfoLogVO farmerEducationInfoLogVO, HttpServletRequest request) throws Exception {
+			logger.debug("/fm/farm/deleteFarmerEducationInfoLog >>> 호출 >>> ");
 
 			int result = 0;
 			try {
-				result =+ farmerEducationInfoLogService.deletefarmerEducationInfoLog(farmerEducationInfoLogVO);
+				result =+ farmerEducationInfoLogService.deleteFarmerEducationInfoLog(farmerEducationInfoLogVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -154,9 +154,9 @@ public class FarmerEducationInfoLogController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
-		@PostMapping(value = "/fm/farm/multiSaveReleyfarmerEducationInfoLogList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSaveReleyfarmerEducationInfoLogList(@RequestBody FarmerEducationInfoLogVO farmerEducationInfoLogVO, HttpServletRequest request) throws Exception {
-			logger.debug("/fm/farm/SavefarmerSnList >>> 농업인 번호 연계호출 >>> ");
+		@PostMapping(value = "/fm/farm/multiSaveReleyFarmerEducationInfoLogList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSaveReleyFarmerEducationInfoLogList(@RequestBody FarmerEducationInfoLogVO farmerEducationInfoLogVO, HttpServletRequest request) throws Exception {
+			logger.debug("/fm/farm/SaveFarmerSnList >>> 농업인 번호 연계호출 >>> ");
 
 			int savedCnt = 0;
 			int result = 0;
@@ -234,8 +234,8 @@ public class FarmerEducationInfoLogController extends BaseController{
 						farmerEducationInfoLogVO.setSysLastChgPrgrmId(getPrgrmId());
 						farmerEducationInfoLogVO.setSysLastChgUserId(getUserId());
 						farmerEducationInfoLogVO.setSaveCd("AGRIX");
-	                    savedCnt = farmerEducationInfoLogService.insertMegerfarmerEducationInfoLog(farmerEducationInfoLogVO);
-	                    result = farmerEducationInfoLogService.insertMegerLogfarmerEducationInfoLog(farmerEducationInfoLogVO);
+	                    savedCnt = farmerEducationInfoLogService.insertMegerFarmerEducationInfoLog(farmerEducationInfoLogVO);
+	                    result = farmerEducationInfoLogService.insertMegerLogFarmerEducationInfoLog(farmerEducationInfoLogVO);
 	                }
 	            }
 	        } catch (Exception ex) {

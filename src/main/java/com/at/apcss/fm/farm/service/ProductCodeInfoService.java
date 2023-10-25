@@ -30,24 +30,24 @@ public interface ProductCodeInfoService {
 	 * @return
 	 * @throws Exception
 	 */
-	public ProductCodeInfoVO selectproductCodeInfo(ProductCodeInfoVO productCodeInfoVO) throws Exception;
+	public ProductCodeInfoVO selectProductCodeInfo(ProductCodeInfoVO productCodeInfoVO) throws Exception;
 
-	public List<ProductCodeInfoVO> selectproductCodeInfoList(ProductCodeInfoVO productCodeInfoVO) throws Exception;
+	public List<ProductCodeInfoVO> selectProductCodeInfoList(ProductCodeInfoVO productCodeInfoVO) throws Exception;
 
 	public int insertProductCodeInfo(ProductCodeInfoVO productCodeInfoVO) throws Exception;
 
 	public int updateProductCodeInfo(ProductCodeInfoVO productCodeInfoVO) throws Exception;
 
-	public int multiSaveproductCodeInfoList(List<ProductCodeInfoVO> productCodeInfoVOList) throws Exception;
+	public int multiSaveProductCodeInfoList(List<ProductCodeInfoVO> productCodeInfoVOList) throws Exception;
 
-	public int insertMegerproductCodeInfo(ProductCodeInfoVO productCodeInfoVOList) throws Exception;
-	public int insertMegerLogproductCodeInfo(ProductCodeInfoVO productCodeInfoVOList) throws Exception;
+	public int insertMegerProductCodeInfo(ProductCodeInfoVO productCodeInfoVOList) throws Exception;
+	public int insertMegerLogProductCodeInfo(ProductCodeInfoVO productCodeInfoVOList) throws Exception;
 
-	public int insertMegerproductCodeInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogproductCodeInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerProductCodeInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerLogProductCodeInfoMap(Map<String, String> MapList) throws Exception;
 
-	public int updateMegerproductCodeInfo(ProductCodeInfoVO productCodeInfoVOList) throws Exception;
+	public int updateMegerProductCodeInfo(ProductCodeInfoVO productCodeInfoVOList) throws Exception;
 
-	public int deleteproductCodeInfo(ProductCodeInfoVO productCodeInfoVO) throws Exception;
+	public int deleteProductCodeInfo(ProductCodeInfoVO productCodeInfoVO) throws Exception;
 
 }

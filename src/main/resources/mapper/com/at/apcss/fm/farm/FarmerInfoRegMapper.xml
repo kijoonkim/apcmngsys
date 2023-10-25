@@ -80,9 +80,9 @@
     </select>
 	  -->
 
-	   <select id="selectfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+	   <select id="selectFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.selectfarmerInfoReg */
+			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.selectFarmerInfoReg */
 				  CM.FRMER_SN
 				, CM.BZOB_RGNO
 				, CM.MNGER_RELATE
@@ -133,9 +133,9 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectfarmerInfoRegList" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+    <select id="selectFarmerInfoRegList" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.selectfarmerInfoRegList */
+			SELECT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.selectFarmerInfoRegList */
 				  CM.FRMER_SN
 				, CM.BZOB_RGNO
 				, CM.MNGER_RELATE
@@ -181,9 +181,9 @@
     </select>
 
 
-	<insert id="insertfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+	<insert id="insertFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.insertfarmerInfoReg */
+	    	INSERT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.insertFarmerInfoReg */
 	    	  INTO TB_FARMER_INFO
 	    		(
 	    		  FRMER_SN
@@ -258,9 +258,9 @@
 
 
 
-    <insert id="insertMegerfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+    <insert id="insertMegerFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
 	<![CDATA[
-    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerFarmerInfoReg */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
@@ -363,9 +363,9 @@
 	</insert>
 
 
-    <insert id="insertMegerLogfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+    <insert id="insertMegerLogFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
 	<![CDATA[
-    	INSERT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.insertMegerLogfarmerInfoReg */
+    	INSERT /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.insertMegerLogFarmerInfoReg */
 	    	  INTO TB_FARMER_INFO_LOG
 	    		(
 	    		  SEQ
@@ -441,7 +441,7 @@
 
 	<update id="updateFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.upatefarmerInfoReg */
+	    	UPDATE /* com.at.apcss.fm.farm.mapper.farmerInfoRegMapper.upateFarmerInfoReg */
 	    		TB_FARMER_INFO
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
@@ -481,9 +481,9 @@
     	]]>
     </update>
 
-    <update id="updateMegerfarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+    <update id="updateMegerFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
     	<![CDATA[
-	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerfarmerInfoReg */
+	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerInfoRegMapper.insertMegerFarmerInfoReg */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
@@ -586,7 +586,7 @@
     </update>
 
 
-	<delete id="deletefarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
+	<delete id="deleteFarmerInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerInfoRegVO">
 		<![CDATA[
 		DELETE FROM TB_FARMER_INFO
 		 WHERE 1=1

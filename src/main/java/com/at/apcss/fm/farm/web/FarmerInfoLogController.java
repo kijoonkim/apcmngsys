@@ -52,12 +52,12 @@ public class FarmerInfoLogController extends BaseController{
 	}
 
 // 조회
-		@PostMapping(value = "/fm/farm/selectfarmerInfoLogList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> selectfarmerInfoLogList(Model model, @RequestBody FarmerInfoLogVO farmerInfoLogVO, HttpServletRequest request) throws Exception{
+		@PostMapping(value = "/fm/farm/selectFarmerInfoLogList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> selectFarmerInfoLogList(Model model, @RequestBody FarmerInfoLogVO farmerInfoLogVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 			List<FarmerInfoLogVO> resultList = new ArrayList<>();
 			try {
-				 resultList = farmerInfoLogService.selectfarmerInfoLogList(farmerInfoLogVO);
+				 resultList = farmerInfoLogService.selectFarmerInfoLogList(farmerInfoLogVO);
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -69,8 +69,8 @@ public class FarmerInfoLogController extends BaseController{
 
 
 		//등록
-		@PostMapping(value = "/fm/farm/insertfarmerInfoLog.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertfarmerInfoLog(@RequestBody FarmerInfoLogVO farmerInfoLogVO, HttpServletRequest requset) throws Exception{
+		@PostMapping(value = "/fm/farm/insertFarmerInfoLog.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> insertFarmerInfoLog(@RequestBody FarmerInfoLogVO farmerInfoLogVO, HttpServletRequest requset) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			// validation check
@@ -84,7 +84,7 @@ public class FarmerInfoLogController extends BaseController{
 			int insertedCnt = 0;
 
 			try {
-				insertedCnt = farmerInfoLogService.insertfarmerInfoLog(farmerInfoLogVO);
+				insertedCnt = farmerInfoLogService.insertFarmerInfoLog(farmerInfoLogVO);
 
 				String pFrmerSn = "AYTD23";
 				String urlstr = "https://uni.agrix.go.kr/api/srvc/farmerInfoLog?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY&version=1.0&responseType=xml";
@@ -115,8 +115,8 @@ public class FarmerInfoLogController extends BaseController{
 		}
 
 
-		@PostMapping(value = "/fm/farm/multiSavefarmerInfoLogList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSavefarmerInfoLogList(@RequestBody List<FarmerInfoLogVO> farmerInfoLogVOList, HttpServletRequest request) throws Exception {
+		@PostMapping(value = "/fm/farm/multiSaveFarmerInfoLogList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSaveFarmerInfoLogList(@RequestBody List<FarmerInfoLogVO> farmerInfoLogVOList, HttpServletRequest request) throws Exception {
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -129,7 +129,7 @@ public class FarmerInfoLogController extends BaseController{
 					farmerInfoLogVO.setSysLastChgUserId(getUserId());
 				}
 
-				savedCnt = farmerInfoLogService.multiSavefarmerInfoLogList(farmerInfoLogVOList);
+				savedCnt = farmerInfoLogService.multiSaveFarmerInfoLogList(farmerInfoLogVOList);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -138,13 +138,13 @@ public class FarmerInfoLogController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
-		@PostMapping(value = "/fm/farm/deletefarmerInfoLog.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deletefarmerInfoLog(@RequestBody FarmerInfoLogVO farmerInfoLogVO, HttpServletRequest request) throws Exception {
-			logger.debug("/fm/farm/deletefarmerInfoLog >>> 호출 >>> ");
+		@PostMapping(value = "/fm/farm/deleteFarmerInfoLog.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> deleteFarmerInfoLog(@RequestBody FarmerInfoLogVO farmerInfoLogVO, HttpServletRequest request) throws Exception {
+			logger.debug("/fm/farm/deleteFarmerInfoLog >>> 호출 >>> ");
 
 			int result = 0;
 			try {
-				result =+ farmerInfoLogService.deletefarmerInfoLog(farmerInfoLogVO);
+				result =+ farmerInfoLogService.deleteFarmerInfoLog(farmerInfoLogVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -154,9 +154,9 @@ public class FarmerInfoLogController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
-		@PostMapping(value = "/fm/farm/multiSaveReleyfarmerInfoLogList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSaveReleyfarmerInfoLogList(@RequestBody FarmerInfoLogVO farmerInfoLogVO, HttpServletRequest request) throws Exception {
-			logger.debug("/fm/farm/SavefarmerSnList >>> 농업인 번호 연계호출 >>> ");
+		@PostMapping(value = "/fm/farm/multiSaveReleyFarmerInfoLogList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSaveReleyFarmerInfoLogList(@RequestBody FarmerInfoLogVO farmerInfoLogVO, HttpServletRequest request) throws Exception {
+			logger.debug("/fm/farm/SaveFarmerSnList >>> 농업인 번호 연계호출 >>> ");
 
 			int savedCnt = 0;
 			int result = 0;
@@ -234,8 +234,8 @@ public class FarmerInfoLogController extends BaseController{
 						farmerInfoLogVO.setSysLastChgPrgrmId(getPrgrmId());
 						farmerInfoLogVO.setSysLastChgUserId(getUserId());
 						farmerInfoLogVO.setSaveCd("AGRIX");
-	                    savedCnt = farmerInfoLogService.insertMegerfarmerInfoLog(farmerInfoLogVO);
-	                    result = farmerInfoLogService.insertMegerLogfarmerInfoLog(farmerInfoLogVO);
+	                    savedCnt = farmerInfoLogService.insertMegerFarmerInfoLog(farmerInfoLogVO);
+	                    result = farmerInfoLogService.insertMegerLogFarmerInfoLog(farmerInfoLogVO);
 	                }
 	            }
 	        } catch (Exception ex) {

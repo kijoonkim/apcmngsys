@@ -38,12 +38,12 @@ public class ProductCodeInfoRegController extends BaseController{
 	}
 
 // 조회
-		@PostMapping(value = "/fm/farm/selectproductCodeInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> selectproductCodeInfoRegList(Model model, @RequestBody ProductCodeInfoRegVO productCodeInfoRegVO, HttpServletRequest request) throws Exception{
+		@PostMapping(value = "/fm/farm/selectProductCodeInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> selectProductCodeInfoRegList(Model model, @RequestBody ProductCodeInfoRegVO productCodeInfoRegVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 			List<ProductCodeInfoRegVO> resultList = new ArrayList<>();
 			try {
-				 resultList = productCodeInfoRegService.selectproductCodeInfoRegList(productCodeInfoRegVO);
+				 resultList = productCodeInfoRegService.selectProductCodeInfoRegList(productCodeInfoRegVO);
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -55,8 +55,8 @@ public class ProductCodeInfoRegController extends BaseController{
 
 
 		//등록
-		@PostMapping(value = "/fm/farm/insertproductCodeInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertproductCodeInfoReg(@RequestBody ProductCodeInfoRegVO productCodeInfoRegVO, HttpServletRequest requset) throws Exception{
+		@PostMapping(value = "/fm/farm/insertProductCodeInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> insertProductCodeInfoReg(@RequestBody ProductCodeInfoRegVO productCodeInfoRegVO, HttpServletRequest requset) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			// validation check
@@ -82,8 +82,8 @@ public class ProductCodeInfoRegController extends BaseController{
 		}
 
 
-		@PostMapping(value = "/fm/farm/multiSaveproductCodeInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSaveproductCodeInfoRegList(@RequestBody List<ProductCodeInfoRegVO> productCodeInfoRegVOList, HttpServletRequest request) throws Exception {
+		@PostMapping(value = "/fm/farm/multiSaveProductCodeInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSaveProductCodeInfoRegList(@RequestBody List<ProductCodeInfoRegVO> productCodeInfoRegVOList, HttpServletRequest request) throws Exception {
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -96,7 +96,7 @@ public class ProductCodeInfoRegController extends BaseController{
 					productCodeInfoRegVO.setSysLastChgUserId(getUserId());
 				}
 
-				savedCnt = productCodeInfoRegService.multiSaveproductCodeInfoRegList(productCodeInfoRegVOList);
+				savedCnt = productCodeInfoRegService.multiSaveProductCodeInfoRegList(productCodeInfoRegVOList);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -105,13 +105,13 @@ public class ProductCodeInfoRegController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
-		@PostMapping(value = "/fm/farm/deleteproductCodeInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deleteproductCodeInfoReg(@RequestBody ProductCodeInfoRegVO productCodeInfoRegVO, HttpServletRequest request) throws Exception {
+		@PostMapping(value = "/fm/farm/deleteProductCodeInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> deleteProductCodeInfoReg(@RequestBody ProductCodeInfoRegVO productCodeInfoRegVO, HttpServletRequest request) throws Exception {
 			logger.debug("/fm/farm/deleteproductCodeInfoReg >>> 호출 >>> ");
 
 			int result = 0;
 			try {
-				result =+ productCodeInfoRegService.deleteproductCodeInfoReg(productCodeInfoRegVO);
+				result =+ productCodeInfoRegService.deleteProductCodeInfoReg(productCodeInfoRegVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}

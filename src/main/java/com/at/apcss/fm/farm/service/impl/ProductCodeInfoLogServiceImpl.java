@@ -36,66 +36,66 @@ public class ProductCodeInfoLogServiceImpl implements ProductCodeInfoLogService{
 	private ProductCodeInfoLogMapper productCodeInfoLogMapper;
 
 	@Override
-	public ProductCodeInfoLogVO selectproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
+	public ProductCodeInfoLogVO selectProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
 
-		ProductCodeInfoLogVO resultVO = productCodeInfoLogMapper.selectproductCodeInfoLog(productCodeInfoLogVO);
+		ProductCodeInfoLogVO resultVO = productCodeInfoLogMapper.selectProductCodeInfoLog(productCodeInfoLogVO);
 
 		return resultVO;
 	}
 
 	@Override
-	public List<ProductCodeInfoLogVO> selectproductCodeInfoLogList(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
+	public List<ProductCodeInfoLogVO> selectProductCodeInfoLogList(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
 
-		List<ProductCodeInfoLogVO> resultList = productCodeInfoLogMapper.selectproductCodeInfoLogList(productCodeInfoLogVO);
+		List<ProductCodeInfoLogVO> resultList = productCodeInfoLogMapper.selectProductCodeInfoLogList(productCodeInfoLogVO);
 		return resultList;
 	}
 
 	@Override
-	public int insertproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
+	public int insertProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
 
-		int insertedCnt = productCodeInfoLogMapper.insertproductCodeInfoLog(productCodeInfoLogVO);
+		int insertedCnt = productCodeInfoLogMapper.insertProductCodeInfoLog(productCodeInfoLogVO);
 
 		return insertedCnt;
 	}
 
 	@Override
-	public int updateproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
+	public int updateProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
 
-		int updatedCnt = productCodeInfoLogMapper.updateproductCodeInfoLog(productCodeInfoLogVO);
+		int updatedCnt = productCodeInfoLogMapper.updateProductCodeInfoLog(productCodeInfoLogVO);
 
 		return updatedCnt;
 	}
 
 	@Override
-	public int multiSaveproductCodeInfoLogList(List<ProductCodeInfoLogVO> productCodeInfoLogVOList) throws Exception {
+	public int multiSaveProductCodeInfoLogList(List<ProductCodeInfoLogVO> productCodeInfoLogVOList) throws Exception {
 		int savedCnt = 0;
 		for (ProductCodeInfoLogVO productCodeInfoLogVO : productCodeInfoLogVOList) {
 			if(ComConstants.ROW_STS_INSERT.equals(productCodeInfoLogVO.getRowSts())) {
-				savedCnt += insertproductCodeInfoLog(productCodeInfoLogVO);
+				savedCnt += insertProductCodeInfoLog(productCodeInfoLogVO);
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(productCodeInfoLogVO.getRowSts())) {
-				savedCnt += updateproductCodeInfoLog(productCodeInfoLogVO);
+				savedCnt += updateProductCodeInfoLog(productCodeInfoLogVO);
 			}
 		}
 		return savedCnt;
 	}
 
 	@Override
-	public int insertMegerproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
-		return productCodeInfoLogMapper.insertMegerproductCodeInfoLog(productCodeInfoLogVO);
+	public int insertMegerProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
+		return productCodeInfoLogMapper.insertMegerProductCodeInfoLog(productCodeInfoLogVO);
 	}
 	@Override
-	public int insertMegerLogproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
-		return productCodeInfoLogMapper.insertMegerLogproductCodeInfoLog(productCodeInfoLogVO);
+	public int insertMegerLogProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
+		return productCodeInfoLogMapper.insertMegerLogProductCodeInfoLog(productCodeInfoLogVO);
 	}
 	@Override
-	public int updateMegerproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
-		return productCodeInfoLogMapper.updateMegerproductCodeInfoLog(productCodeInfoLogVO);
+	public int updateMegerProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
+		return productCodeInfoLogMapper.updateMegerProductCodeInfoLog(productCodeInfoLogVO);
 	}
 
 	@Override
-	public int deleteproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
-		return productCodeInfoLogMapper.deleteproductCodeInfoLog(productCodeInfoLogVO);
+	public int deleteProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception {
+		return productCodeInfoLogMapper.deleteProductCodeInfoLog(productCodeInfoLogVO);
 	}
 
 }

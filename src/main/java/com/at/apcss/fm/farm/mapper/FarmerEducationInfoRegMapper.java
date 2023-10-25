@@ -31,13 +31,13 @@ public interface FarmerEducationInfoRegMapper {
 	 * @param bbsVO
 	 * @return
 	 */
-	public FarmerEducationInfoRegVO selectfarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO);
+	public FarmerEducationInfoRegVO selectFarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO);
 
-	public List<FarmerEducationInfoRegVO> selectfarmerEducationInfoRegList(FarmerEducationInfoRegVO farmerEducationInfoRegVO);
+	public List<FarmerEducationInfoRegVO> selectFarmerEducationInfoRegList(FarmerEducationInfoRegVO farmerEducationInfoRegVO);
 
-	public int insertfarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO);
+	public int insertFarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO);
 
 	public int updateFarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO);
 
-	public int deletefarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception;
+	public int deleteFarmerEducationInfoReg(FarmerEducationInfoRegVO farmerEducationInfoRegVO) throws Exception;
 }

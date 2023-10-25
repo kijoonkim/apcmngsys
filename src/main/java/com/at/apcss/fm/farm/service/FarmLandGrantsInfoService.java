@@ -30,24 +30,24 @@ public interface FarmLandGrantsInfoService {
 	 * @return
 	 * @throws Exception
 	 */
-	public FarmLandGrantsInfoVO selectfarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
+	public FarmLandGrantsInfoVO selectFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
 
-	public List<FarmLandGrantsInfoVO> selectfarmLandGrantsInfoList(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
+	public List<FarmLandGrantsInfoVO> selectFarmLandGrantsInfoList(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
 
 	public int insertFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
 
 	public int updateFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
 
-	public int multiSavefarmLandGrantsInfoList(List<FarmLandGrantsInfoVO> farmLandGrantsInfoVOList) throws Exception;
+	public int multiSaveFarmLandGrantsInfoList(List<FarmLandGrantsInfoVO> farmLandGrantsInfoVOList) throws Exception;
 
-	public int insertMegerfarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVOList) throws Exception;
-	public int insertMegerLogfarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVOList) throws Exception;
+	public int insertMegerFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVOList) throws Exception;
+	public int insertMegerLogFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVOList) throws Exception;
 
-	public int insertMegerfarmLandGrantsInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogfarmLandGrantsInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerFarmLandGrantsInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerLogFarmLandGrantsInfoMap(Map<String, String> MapList) throws Exception;
 
-	public int updateMegerfarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVOList) throws Exception;
+	public int updateMegerFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVOList) throws Exception;
 
-	public int deletefarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
+	public int deleteFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
 
 }
