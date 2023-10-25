@@ -22,12 +22,18 @@
 	<!-- 2023.07.28  	김현호        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectTrnsfSortInvntrDsctnList" parameterType="com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO" resultType="com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO">
+   		<![CDATA[
+    		SELECT
+		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+    			  pt0.*
     			, (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) 				AS GRD_NM
     			, (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) 			AS FCLT_NM
     			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) 						AS PRDCR_NM
@@ -38,74 +44,75 @@
     			, (pt0.INVNTR_QNTT - pt0.CMND_QNTT) 														AS PSBLTY_INVNTR_QNTT
      			, (pt0.INVNTR_WGHT - pt0.CMND_QNTT) 														AS PSBLTY_INVNTR_WGHT
     		  FROM (
-    	</if>
-    	<!-- End 페이징 -->
-    	<![CDATA[
-	    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList */
-			       SI.APC_CD 				AS APC_CD
-			     , SI.SORTNO 				AS SORTNO
-			     , SI.SORT_SN				AS SORT_SN
-			     , SI.GRD_CD 				AS GRD_CD
-			     , SI.INPT_YMD 				AS INPT_YMD
-			     , SI.FCLT_CD 				AS FCLT_CD
-			     , SI.RPRS_PRDCR_CD 		AS RPRS_PRDCR_CD
-			     , SI.ITEM_CD 				AS ITEM_CD
-			     , SI.VRTY_CD 				AS VRTY_CD
-			     , SI.SPCFCT_CD 			AS SPCFCT_CD
-			     , SI.GDS_SE_CD 			AS GDS_SE_CD
-			     , SI.WRHS_SE_CD 			AS WRHS_SE_CD
-			     , SI.WAREHOUSE_SE_CD 		AS WAREHOUSE_SE_CD
-			     , SI.SORT_QNTT 			AS SORT_QNTT
-			     , SI.SORT_WGHT 			AS SORT_WGHT
-			     , SI.PCKG_QNTT 			AS PCKG_QNTT
-			     , SI.PCKG_WGHT 			AS PCKG_WGHT
-			     , SI.INVNTR_QNTT 			AS INVNTR_QNTT
-			     , SI.INVNTR_WGHT 			AS INVNTR_WGHT
-			     , SI.DEL_YN 				AS DEL_YN
-			     , SI.PRDCTN_YR 			AS PRDCTN_YR
-			     , (SELECT NVL(SUM(CMND_QNTT), 0)
-			          FROM TB_PCKG_CMND X
-			         WHERE X.SORTNO = SI.SORTNO
-			           AND X.SORT_SN = SI.SORT_SN
-			           AND X.DEL_YN = 'N'
-			       ) AS CMND_QNTT
-			     , (SELECT NVL(SUM(CMND_WGHT), 0)
-			          FROM TB_PCKG_CMND X
-			         WHERE X.SORTNO = SI.SORTNO
-			           AND X.SORT_SN = SI.SORT_SN
-			           AND X.DEL_YN = 'N'
-			       ) AS CMND_WGHT
-			  FROM TB_SORT_INVNTR SI
-			 WHERE SI.DEL_YN = 'N'
-			   AND SI.INVNTR_QNTT > 0
-			   AND SI.APC_CD = #{apcCd}
+			    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList */
+					       SI.APC_CD 				AS APC_CD
+					     , SI.SORTNO 				AS SORTNO
+					     , SI.SORT_SN				AS SORT_SN
+					     , SI.GRD_CD 				AS GRD_CD
+					     , SI.INPT_YMD 				AS INPT_YMD
+					     , SI.FCLT_CD 				AS FCLT_CD
+					     , SI.RPRS_PRDCR_CD 		AS RPRS_PRDCR_CD
+					     , SI.ITEM_CD 				AS ITEM_CD
+					     , SI.VRTY_CD 				AS VRTY_CD
+					     , SI.SPCFCT_CD 			AS SPCFCT_CD
+					     , SI.GDS_SE_CD 			AS GDS_SE_CD
+					     , SI.WRHS_SE_CD 			AS WRHS_SE_CD
+					     , SI.WAREHOUSE_SE_CD 		AS WAREHOUSE_SE_CD
+					     , SI.SORT_QNTT 			AS SORT_QNTT
+					     , SI.SORT_WGHT 			AS SORT_WGHT
+					     , SI.PCKG_QNTT 			AS PCKG_QNTT
+					     , SI.PCKG_WGHT 			AS PCKG_WGHT
+					     , SI.INVNTR_QNTT 			AS INVNTR_QNTT
+					     , SI.INVNTR_WGHT 			AS INVNTR_WGHT
+					     , SI.DEL_YN 				AS DEL_YN
+					     , SI.PRDCTN_YR 			AS PRDCTN_YR
+					     , (SELECT NVL(SUM(CMND_QNTT), 0)
+					          FROM TB_PCKG_CMND X
+					         WHERE X.SORTNO = SI.SORTNO
+					           AND X.SORT_SN = SI.SORT_SN
+					           AND X.DEL_YN = 'N'
+					       ) AS CMND_QNTT
+					     , (SELECT NVL(SUM(CMND_WGHT), 0)
+					          FROM TB_PCKG_CMND X
+					         WHERE X.SORTNO = SI.SORTNO
+					           AND X.SORT_SN = SI.SORT_SN
+					           AND X.DEL_YN = 'N'
+					       ) AS CMND_WGHT
+					  FROM TB_SORT_INVNTR SI
+					 WHERE SI.DEL_YN = 'N'
+					   AND SI.INVNTR_QNTT > 0
+					   AND SI.APC_CD = #{apcCd}
 		]]>
-		<!-- 	 선별재고 내역 검색조건 -->
-		<if test='itemCd != null and itemCd != ""'>
-			   AND SI.ITEM_CD = #{itemCd}
-		</if>
-		<if test='vrtyCd != null and vrtyCd != ""'>
-			   AND SI.VRTY_CD = #{vrtyCd}
-		</if>
+			<!-- 	 선별재고 내역 검색조건 -->
+			<if test='itemCd != null and itemCd != ""'>
+				   	   AND SI.ITEM_CD = #{itemCd}
+			</if>
+			<if test='vrtyCd != null and vrtyCd != ""'>
+				   	   AND SI.VRTY_CD = #{vrtyCd}
+			</if>
 
-		<if test='prdcrCd != null and prdcrCd != ""'>
-			   AND SI.RPRS_PRDCR_CD = #{prdcrCd}
-		</if>
-		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
-			   AND SI.WAREHOUSE_SE_CD = #{warehouseSeCd}
-		</if>
-		<if test='gdsSeCd != null and gdsSeCd != ""'>
-			   AND SI.GDS_SE_CD = #{gdsSeCd}
-		</if>
-		<if test='wrhsSeCd != null and wrhsSeCd != ""'>
-			   AND SI.WRHS_SE_CD = #{wrhsSeCd}
-		</if>
-		<if test='spcfctCd != null and spcfctCd != ""'>
-			   AND SI.SPCFCT_CD = #{spcfctCd}
-		</if>
+			<if test='prdcrCd != null and prdcrCd != ""'>
+				   	   AND SI.RPRS_PRDCR_CD = #{prdcrCd}
+			</if>
+			<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+				   	   AND SI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+			</if>
+			<if test='gdsSeCd != null and gdsSeCd != ""'>
+				   	   AND SI.GDS_SE_CD = #{gdsSeCd}
+			</if>
+			<if test='wrhsSeCd != null and wrhsSeCd != ""'>
+				  	   AND SI.WRHS_SE_CD = #{wrhsSeCd}
+			</if>
+			<if test='spcfctCd != null and spcfctCd != ""'>
+				   	   AND SI.SPCFCT_CD = #{spcfctCd}
+			</if>
+	   		<![CDATA[
+			 	    	ORDER BY APC_CD, INPT_YMD, SORTNO
+	    		  ) pt0
+			]]>
+
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
     	</if>
