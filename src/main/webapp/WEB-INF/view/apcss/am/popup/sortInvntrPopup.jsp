@@ -158,7 +158,7 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		    	{caption: ["선별번호","선별번호"],		ref: 'sortno',      	type:'output',  width:'105px',	style:'text-align:center'},
+		    	{caption: ["선별번호","선별번호"],		ref: 'sortnoIndct',     type:'output',  width:'130px',	style:'text-align:center'},
 		        {caption: ["등급","등급"],				ref: 'grdNm',      		type:'output',  width:'90px',	style:'text-align:center'},
 		        {caption: ["투입일자","투입일자"],		ref: 'inptYmd',      	type:'output',  width:'105px',	style:'text-align:center',
 	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -236,6 +236,8 @@
 		    	data.resultList.forEach((item, index) => {
 					let sortInvntr = {
 						sortno			: item.sortno,
+						sortSn			: item.sortSn,
+						sortnoIndct		: item.sortnoIndct,
 	       				grdNm			: item.grdNm,
 	       				grdCd			: item.grdCd,
 	       				inptYmd			: item.inptYmd,

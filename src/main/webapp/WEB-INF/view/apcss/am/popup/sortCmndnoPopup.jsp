@@ -158,7 +158,7 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		        {caption: ["지시번호","지시번호"],		ref: 'sortCmndno',      type:'output',  width:'130px',	style:'text-align:center'},
+		        {caption: ["지시번호","지시번호"],		ref: 'sortCmndnoIndct', type:'output',  width:'130px',	style:'text-align:center'},
 		        {caption: ["지시일자","지시일자"], 		ref: 'sortCmndYmd',     type:'output',  width:'100px',	style:'text-align:center',
 		        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 		        {caption: ["생산자","생산자"],  		ref: 'prdcrNm',    		type:'output',  width:'100px',	style:'text-align:center'},
@@ -231,6 +231,7 @@
 					let sortCmndno = {
   						sortCmndno		: item.sortCmndno,
   						sortCmndSn		: item.sortCmndSn,
+  						sortCmndnoIndct	: item.sortCmndnoIndct,
   						sortCmndYmd 	: item.sortCmndYmd,
   						fcltCd 			: item.fcltCd,
   						fcltNm 			: item.fcltNm,

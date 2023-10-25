@@ -43,6 +43,11 @@ public class SortCmndVO extends ComVO {
 	 * 선별지시순번
 	 */
 	private int sortCmndSn;
+	
+	/**
+	 * 선별지시번호 표시
+	 */
+	private String sortCmndnoIndct;
 
 	/**
 	 * 선별지시일자
