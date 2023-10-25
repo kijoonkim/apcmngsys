@@ -18,7 +18,8 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3><!-- 재고이송조회 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_selectGridList"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
 				</div>
 			</div>
 
@@ -139,12 +140,8 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createInvntrTrnsfGrid();
 
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2)
-		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-fromTrnsfYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-toTrnsfYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-fromTrnsfYmd", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-toTrnsfYmd", gfn_dateToYmd(new Date()));
 	})
 
 	function fn_createInvntrTrnsfGrid() {
@@ -163,42 +160,49 @@
 		  	'showgoalpageui' : true
 		};
         SBGridProperties.columns = [
-            {caption: ['이송APC','이송APC'], ref: 'trnsfSn', width: '100px', type: 'output'},
-            {caption: ['입고번호','입고번호'], ref: 'wrhsno', width: '100px', type: 'output'},
-            {caption: ['선별번호등급','선별번호등급'], ref: 'sortnoGrd', width: '100px', type: 'output'},
-            {caption: ['포장번호순번','포장번호순번'], ref: 'pckgSn', width: '100px', type: 'output'},
-            {caption: ['입고일자','입고일자'], ref: 'wrhsYmd', width: '100px', type: 'output'},
-            {caption: ['생산자','생산자'], ref: 'prdcrCd', width: '100px', type: 'output'},
-            {caption: ['품종','품종'], ref: 'vrtyCd', width: '100px', type: 'output'},
-            {caption: ['상품구분','상품구분'], ref: 'gdsSeCd', width: '100px', type: 'output'},
-            {caption: ['입고구분','입고구분'], ref: 'wrhsSeCd', width: '100px', type: 'output'},
-            {caption: ['운송구분','운송구분'], ref: 'trsprtSeCd', width: '100px', type: 'output'},
-            {caption: ['현물창고','현물창고'], ref: 'warehouse', width: '100px', type: 'output'},
-            {caption: ['이송창고','이송창고'], ref: 'trnsfWarehouse', width: '100px', type: 'output'},
-            {caption: ['이송','수량'], ref: 'trnsfQntt', width: '100px', type: 'output'},
-            {caption: ['이송','중량'], ref: 'trnsfWght', width: '100px', type: 'output'},
-            {caption: ['금액','금액'], ref: 'amt', width: '100px', type: 'output'},
-            {caption: ['운반비','운반비'], ref: 'trsprtCst', width: '100px', type: 'output'}
+        	{caption : ["선택", "선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            {caption: ['이송APC','이송APC'], 			ref: 'trnsfApcNm', 	width: '150px', type: 'output', style: 'text-align:center'},
+            {caption: ['이송일자','이송일자'], 			ref: 'trnsfYmd', 	width: '110px', type: 'output', style: 'text-align:center',
+            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+            {caption: ['재고구분','재고구분'], 			ref: 'invntrSeNm', 	width: '100px', type: 'output', style: 'text-align:center'},
+            {caption: ['입고번호','입고번호'], 			ref: 'wrhsno', 		width: '120px', type: 'output', style: 'text-align:center'},
+            {caption: ['입고일자','입고일자'], 			ref: 'wrhsYmd', 	width: '110px', type: 'output', style: 'text-align:center',
+            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+            {caption: ['등급','등급'], 					ref: 'grdNm', 		width: '90px', type: 'output', style: 'text-align:center'},
+            {caption: ['생산자','생산자'], 				ref: 'prdcrNm',	 	width: '100px', type: 'output', style: 'text-align:center'},
+            {caption: ['품목','품목'], 					ref: 'itemNm', 		width: '90px', type: 'output', style: 'text-align:center'},
+            {caption: ['품종','품종'], 					ref: 'vrtyNm', 		width: '90px', type: 'output', style: 'text-align:center'},
+            {caption: ['규격','규격'], 					ref: 'spcfctNm', 	width: '90px', type: 'output', style: 'text-align:center'},
+            {caption: ['상품구분','상품구분'], 			ref: 'gdsSeNm', 	width: '80px', type: 'output', style: 'text-align:center'},
+            {caption: ['입고구분','입고구분'], 			ref: 'wrhsSeNm', 	width: '80px', type: 'output', style: 'text-align:center'},
+            {caption: ['운송구분','운송구분'], 			ref: 'trsprtSeNm', 	width: '80px', type: 'output', style: 'text-align:center'},
+            {caption: ['창고','창고'], 					ref: 'warehouseSeNm', width: '100px', type: 'output', style: 'text-align:center'},
+            {caption: ['이송','수량'], 					ref: 'trnsfQntt', 	width: '60px', type: 'output', style: 'text-align:right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ['이송','중량'], 					ref: 'trnsfWght', 	width: '80px', type: 'output', style: 'text-align:right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
+            {caption: ['확정여부','확정여부'], 			ref: 'cfmtnNm', 	width: '100px', type: 'output', style: 'text-align:center'}
         ];
         grdInvntrTrnsf = _SBGrid.create(SBGridProperties);
-        
-        fn_selectGridList();
+
+        fn_search();
     }
-	
+
 	//조회
-    const fn_selectGridList = async function() {
+    const fn_search = async function() {
     	grdInvntrTrnsf.rebuild();
     	let pageSize = grdInvntrTrnsf.getPageSize();
     	let pageNo = 1;
-    	
+
     	fn_callSelectGridList(pageSize, pageNo);
 	}
-	
-const fn_callSelectGridList = async function(pageSize, pageNo) {
-		
+
+	const fn_callSelectGridList = async function(pageSize, pageNo) {
+
 // 		let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
-		
-		const postJsonPromise1 = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
+
+		const postJsonPromise1 = gfn_postJSON("/am/trnsf/selectTrnsfInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
           	// pagination
   	  		pagingYn : 'Y',
@@ -206,7 +210,7 @@ const fn_callSelectGridList = async function(pageSize, pageNo) {
    		  	recordCountPerPage : pageSize
   		});
 
-        let data1 = await postJsonPromise1;
+        let data = await postJsonPromise1;
         newSortInptPrfmncGridData = [];
         sortInptPrfmncGridData = [];
 
@@ -215,28 +219,54 @@ const fn_callSelectGridList = async function(pageSize, pageNo) {
       		let totalRecordCount = 0;
 
       		jsonInvntrTrnsf.length = 0;
-          	data1.resultList.forEach((item, index) => {
+          	data.resultList.forEach((item, index) => {
+          		let wrhsno ="";
+          		if(item.invntrSeCd == "1"){
+          			wrhsno = item.wrhsno
+          		}
+          		if(item.invntrSeCd == "2"){
+          			wrhsno = item.sortno
+          		}
+          		if(item.invntrSeCd == "3"){
+          			wrhsno = item.pckgno
+          		}
           		const invntrTrnsf = {
-       				wrhsno: item.wrhsno,
-       				pltno: item.pltno,
-       				wrhsYmd: item.wrhsYmd,
-       				prdcrNm: item.prdcrNm,
-       				itemNm: item.itemNm,
-       				vrtyNm: item.vrtyNm,
-       				gdsSeNm: item.gdsSeNm,
-       				wrhsSeNm: item.wrhsSeNm,
-       				trsprtSeNm: item.trsprtSeNm,
-       				warehouseSeNm: item.warehouseSeNm,
-       				bxknd: item.bxknd,
-       				grdNm: item.grdNm,
-       				wrhsQntt: item.wrhsQntt,
-       				wrhsWght: item.wrhsWght,
-       				inptQntt: item.inptQntt,
-       				inptWght: item.inptWght,
-       				invntrQntt: item.invntrQntt,
-       				invntrWght: item.invntrWght,
-       				sortcmndNo: item.sortcmndNo,
-       				fcltNm: item.fcltNm
+          			  apcCd				: item.apcCd
+          			, wrhsno			: wrhsno
+          			, sortno			: item.sortno
+          			, sortSn			: item.sortSn
+          			, pckgno			: item.pckgno
+          			, pckgSn			: item.pckgSn
+          			, trnsfYmd			: item.trnsfYmd
+          			, trnsfSn			: item.trnsfSn
+          			, wrhsYmd			: item.wrhsYmd
+          			, grdCd				: item.grdCd
+          			, grdNm				: item.grdNm
+          			, itemNm			: item.itemNm
+          			, itemCd			: item.itemCd
+          			, vrtyNm			: item.vrtyNm
+          			, vrtyCd			: item.vrtyCd
+          			, spcfctCd			: item.spcfctCd
+          			, spcfctNm			: item.spcfctNm
+          			, prdcrCd			: item.prdcrCd
+          			, prdcrNm			: item.prdcrNm
+          			, gdsSeNm			: item.gdsSeNm
+          			, gdsSeCd			: item.gdsSeCd
+          			, wrhsSeNm			: item.wrhsSeNm
+          			, wrhsSeCd			: item.wrhsSeCd
+          			, trsprtSeNm		: item.trsprtSeNm
+          			, invntrSeCd		: item.invntrSeCd
+          			, invntrSeNm		: item.invntrSeNm
+          			, trsprtSeCd		: item.trsprtSeCd
+          			, trsprtSeNm		: item.trsprtSeNm
+          			, warehouseSeNm		: item.warehouseSeNm
+          			, warehouseSeCd		: item.warehouseSeCd
+          			, trnsfQntt			: item.trnsfQntt
+          			, trnsfWght			: item.trnsfWght
+          			, trnsfApcNm		: item.trnsfApcNm
+          			, trnsfApcCd		: item.trnsfApcCd
+          			, cfmtnNm			: item.cfmtnNm
+          			, cfmtnCd			: item.cfmtnCd
   				}
   				jsonInvntrTrnsf.push(invntrTrnsf);
 
@@ -263,5 +293,49 @@ const fn_callSelectGridList = async function(pageSize, pageNo) {
       		console.error("failed", e.message);
           }
     }
+
+	const fn_del = async function(){
+		let grdRows = grdInvntrTrnsf.getCheckedRows(0);
+    	let deleteList = [];
+
+    	for(var i=0; i< grdRows.length; i++){
+    		let nRow = grdRows[i];
+    		let rowData  = grdInvntrTrnsf.getRowData(nRow);
+    		let cfmtnYn	= rowData.cfmtnYn;
+
+			if(cfmtnYn == "Y"){
+				gfn_comAlert("W0010", "이송확정", "이송실적")	// W0010 이미 {0}된 {1} 입니다.
+				return;
+			}
+
+    		deleteList.push(rowData);
+
+    	}
+
+    	if(grdRows.length == 0){
+    		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
+    		return;
+    	}
+
+    	let regMsg = "삭제 하시겠습니까?";
+		if(confirm(regMsg)){
+			const postJsonPromise = gfn_postJSON("/am/trnsf/deleteTrnsfInvntrList.do", deleteList);
+	    	const data = await postJsonPromise;
+
+	    	try{
+	    		if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+	        		fn_search();
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
+	}
 </script>
 </html>

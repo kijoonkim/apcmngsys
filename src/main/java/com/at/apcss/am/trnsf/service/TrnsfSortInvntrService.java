@@ -20,7 +20,7 @@ import com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO;
  * </pre>
  */
 public interface TrnsfSortInvntrService {
-	
+
 	/**
 	 * 선별재고 목록 조회
 	 * @param sortInvntrVO
@@ -29,13 +29,13 @@ public interface TrnsfSortInvntrService {
 	 */
 	public List<TrnsfSortInvntrVO> selectTrnsfSortInvntrDsctnList(TrnsfSortInvntrVO trnsfSortInvntrVO) throws Exception;
 
-	
+
 	/**
-	 * 선별재고내역 변경
+	 * 선별재고 이송 등록
 	 * @param sortInvntrVO
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> updateTrnsfSortInvntrDsctnList(List<TrnsfSortInvntrVO> trnsfSortInvntrList) throws Exception;
+	public HashMap<String, Object> insertTrnsfSortInvntrList(List<TrnsfSortInvntrVO> trnsfSortInvntrList) throws Exception;
 
 }

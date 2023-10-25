@@ -191,20 +191,36 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 	}
 
 	@Override
-	public HashMap<String, Object> updateSortInvntrDsctnList(List<SortInvntrVO> sortInvntrList) throws Exception {
+	public HashMap<String, Object> updateSortInvntrList(List<SortInvntrVO> sortInvntrList) throws Exception {
 		List<SortInvntrVO> updateList = new ArrayList<>();
+		List<SortInvntrVO> insertList = new ArrayList<>();
 
 		for (SortInvntrVO sortInvntrVO : sortInvntrList) {
+
 			SortInvntrVO vo = new SortInvntrVO();
 			BeanUtils.copyProperties(sortInvntrVO, vo);
 
+			if (ComConstants.ROW_STS_INSERT.equals(sortInvntrVO.getRowSts())) {
+				insertList.add(vo);
+			}
 			if (ComConstants.ROW_STS_UPDATE.equals(sortInvntrVO.getRowSts())) {
 				updateList.add(vo);
 			}
 		}
 
+		// 선별 재고 등록
+		for (SortInvntrVO sortInvntrVO : insertList) {
+
+		}
+
+
+		// 선별 재고 변경
 		for (SortInvntrVO sortInvntrVO : updateList) {
-			sortInvntrMapper.updateSortInvntrDsctnList(sortInvntrVO);
+
+			// 선별 재고변경 이력
+
+			// 선별 재고변경
+			sortInvntrMapper.updateSortInvntrChg(sortInvntrVO);
 		}
 
 		return null;

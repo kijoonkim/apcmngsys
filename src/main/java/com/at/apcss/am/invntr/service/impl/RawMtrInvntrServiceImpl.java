@@ -211,15 +211,17 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			}
 		}
 
+		// 원물재고 등록
 		for (RawMtrInvntrVO rawMtrInvntrVO : insertList) {
 			// 재고 등록 부분
 		}
 
+		// 원물재고 변경
 		for (RawMtrInvntrVO rawMtrInvntrVO : updateList) {
 
-			// 재고변경 이력 부분 추가 예정
+			// 원물 재고변경 이력 부분 추가 예정
 
-			// 재고 변경
+			// 원물 재고 변경
 			rawMtrInvntrMapper.updateRawMtrInvntrChg(rawMtrInvntrVO);
 
 		}

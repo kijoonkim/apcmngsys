@@ -44,7 +44,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
                 , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 				AS SPMT_PCKG_UNIT_NM
                 , (pt0.INVNTR_QNTT - pt0.CMND_QNTT) 															AS PSBLTY_INVNTR_QNTT
-     			, (pt0.INVNTR_WGHT - pt0.CMND_QNTT) 															AS PSBLTY_INVNTR_WGHT
+     			, (pt0.INVNTR_WGHT - pt0.CMND_WGHT) 															AS PSBLTY_INVNTR_WGHT
     		  FROM (
 		    	SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectUpdateTrnsfGdsInvntrList */
 				       GI.APC_CD				AS APC_CD

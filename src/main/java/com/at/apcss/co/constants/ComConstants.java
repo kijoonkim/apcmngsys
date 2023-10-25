@@ -79,6 +79,11 @@ public class ComConstants {
 	public final static String CON_USER_STTS_DORMANCY = "02";
 	public final static String CON_USER_STTS_UNUSED = "03";
 
+	/* 재고구분 */
+	public final static String INVNTR_SE_CD_RAWMTR = "1";
+	public final static String INVNTR_SE_CD_SORT = "2";
+	public final static String INVNTR_SE_CD_GDS = "3";
+
 	public final static String ROW_STS_INSERT = "I";
 	public final static String ROW_STS_UPDATE = "U";
 	public final static String ROW_STS_DELETE = "D";

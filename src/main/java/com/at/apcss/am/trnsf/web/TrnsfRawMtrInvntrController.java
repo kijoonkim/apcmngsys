@@ -57,20 +57,20 @@ public class TrnsfRawMtrInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/trnsf/updateTrnsfRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> updateTrnsfRawMtrInvntrList(@RequestBody List<TrnsfRawMtrInvntrVO> trnsfRawMtrInvntrList, HttpServletRequest request) throws Exception {
-
-		logger.debug("updateRawMtrInvntrList 호출 <><><><> ");
+	@PostMapping(value = "/am/trnsf/saveTrnsfRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> saveTrnsfRawMtrInvntrList(@RequestBody List<TrnsfRawMtrInvntrVO> trnsfRawMtrInvntrList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
 			for ( TrnsfRawMtrInvntrVO trnsfRawMtrInvntrVO : trnsfRawMtrInvntrList ) {
+				trnsfRawMtrInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				trnsfRawMtrInvntrVO.setSysFrstInptUserId(getUserId());
 				trnsfRawMtrInvntrVO.setSysLastChgUserId(getUserId());
 				trnsfRawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			HashMap<String, Object> rtnObj = trnsfRawMtrInvntrService.updateTrnsfRawMtrInvntrList(trnsfRawMtrInvntrList); //updateRawMtrInvntrList
+			HashMap<String, Object> rtnObj = trnsfRawMtrInvntrService.insertTrnsfRawMtrInvntrList(trnsfRawMtrInvntrList); //updateRawMtrInvntrList
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

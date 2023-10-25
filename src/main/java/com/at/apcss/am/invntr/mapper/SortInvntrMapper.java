@@ -70,7 +70,7 @@ public interface SortInvntrMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateSortInvntrDsctnList(SortInvntrVO sortInvntrVO) throws Exception;
+	public int updateSortInvntrChg(SortInvntrVO sortInvntrVO) throws Exception;
 
 	/**
 	 * 선별재고 삭제

@@ -4,11 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.at.apcss.am.invntr.service.SortInvntrService;
+import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.trnsf.mapper.TrnsfSortInvntrMapper;
+import com.at.apcss.am.trnsf.service.InvntrTrnsfService;
 import com.at.apcss.am.trnsf.service.TrnsfSortInvntrService;
+import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
 import com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
@@ -34,6 +42,12 @@ public class TrnsfSortInvntrServiceImpl extends BaseServiceImpl implements Trnsf
 	@Autowired
 	private TrnsfSortInvntrMapper trnsfSortInvntrMapper;
 
+	@Resource(name = "sortInvntrService")
+	private SortInvntrService sortInvntrService;
+
+	@Resource(name = "invntrTrnsfService")
+	private InvntrTrnsfService invntrTrnsfService;
+
 	@Override
 	public List<TrnsfSortInvntrVO> selectTrnsfSortInvntrDsctnList(TrnsfSortInvntrVO trnsfSortInvntrVO) throws Exception {
 
@@ -44,22 +58,33 @@ public class TrnsfSortInvntrServiceImpl extends BaseServiceImpl implements Trnsf
 
 
 	@Override
-	public HashMap<String, Object> updateTrnsfSortInvntrDsctnList(List<TrnsfSortInvntrVO> trnsfSortInvntrList) throws Exception {
-		List<TrnsfSortInvntrVO> updateList = new ArrayList<>();
+	public HashMap<String, Object> insertTrnsfSortInvntrList(List<TrnsfSortInvntrVO> trnsfSortInvntrList) throws Exception {
+
+		List<InvntrTrnsfVO> insertList = new ArrayList<>();
+		List<SortInvntrVO> sortInvntrList = new ArrayList<>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		for (TrnsfSortInvntrVO trnsfSortInvntrVO : trnsfSortInvntrList) {
-			TrnsfSortInvntrVO vo = new TrnsfSortInvntrVO();
-			BeanUtils.copyProperties(trnsfSortInvntrVO, vo);
+			SortInvntrVO sortInvntr = new SortInvntrVO();
+			InvntrTrnsfVO invntrTrnsf = new InvntrTrnsfVO();
+			BeanUtils.copyProperties(trnsfSortInvntrVO, sortInvntr);
+			BeanUtils.copyProperties(trnsfSortInvntrVO, invntrTrnsf);
 
-			if (ComConstants.ROW_STS_UPDATE.equals(trnsfSortInvntrVO.getRowSts())) {
-				updateList.add(vo);
-			}
+			// 선별재고 변경 리스트
+			sortInvntrList.add(sortInvntr);
+
+			// 이송등록 리스트
+			insertList.add(invntrTrnsf);
+
 		}
 
-		for (TrnsfSortInvntrVO trnsfSortInvntrVO : updateList) {
-			trnsfSortInvntrMapper.updateTrnsfSortInvntrDsctnList(trnsfSortInvntrVO);
+		resultMap = invntrTrnsfService.insertInvntrTrnsfList(insertList);
+
+		if(resultMap != null) {
+			throw new EgovBizException(getMessageForMap(resultMap));
 		}
 
+		resultMap = sortInvntrService.updateSortInvntrList(sortInvntrList);
 		return null;
 	}
 

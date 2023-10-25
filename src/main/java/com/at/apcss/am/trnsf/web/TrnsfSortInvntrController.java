@@ -57,21 +57,21 @@ public class TrnsfSortInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	
-	@PostMapping(value = "/am/trnsf/updateTrnsfSortInvntrDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> updateTrnsfSortInvntrDsctnList(@RequestBody List<TrnsfSortInvntrVO> trnsfSortInvntrList, HttpServletRequest request) throws Exception {
 
-		logger.debug("updateTrnsfSortInvntrDsctnList 호출 <><><><> ");
+	@PostMapping(value = "/am/trnsf/saveTrnsfSortInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> saveTrnsfSortInvntrList(@RequestBody List<TrnsfSortInvntrVO> trnsfSortInvntrList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
 			for ( TrnsfSortInvntrVO trnsfSortInvntrVO : trnsfSortInvntrList ) {
+				trnsfSortInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				trnsfSortInvntrVO.setSysFrstInptUserId(getUserId());
 				trnsfSortInvntrVO.setSysLastChgUserId(getUserId());
 				trnsfSortInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			HashMap<String, Object> rtnObj = trnsfSortInvntrService.updateTrnsfSortInvntrDsctnList(trnsfSortInvntrList); //updateSortInvntrDsctnList
+			HashMap<String, Object> rtnObj = trnsfSortInvntrService.insertTrnsfSortInvntrList(trnsfSortInvntrList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

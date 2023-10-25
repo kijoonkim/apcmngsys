@@ -56,12 +56,12 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		return resultList;
 	}
-	
+
 	@Override
 	public List<GdsInvntrVO> selectUpdateGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
-		
+
 		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectUpdateGdsInvntrList(gdsInvntrVO);
-		
+
 		return resultList;
 	}
 
@@ -106,11 +106,11 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
         //int deletedCnt = gdsInvntrMapper.deleteGdsInvntr(gdsInvntrVO);
         gdsInvntrMapper.updateGdsInvntrForDelY(gdsInvntrVO);
-        
+
         GdsStdGrdVO gdsStdGrdVO = new GdsStdGrdVO();
         BeanUtils.copyProperties(gdsInvntrVO, gdsStdGrdVO);
         gdsInvntrMapper.updateGdsStdGrdForDelY(gdsStdGrdVO);
-        
+
         return null;
 	}
 
@@ -199,22 +199,36 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		return null;
 	}
-	
+
 	@Override
 	public HashMap<String, Object> updateGdsInvntrList(List<GdsInvntrVO> gdsInvntrList) throws Exception {
 		List<GdsInvntrVO> updateList = new ArrayList<>();
+		List<GdsInvntrVO> insertList = new ArrayList<>();
 
 		for (GdsInvntrVO gdsInvntrVO : gdsInvntrList) {
 			GdsInvntrVO vo = new GdsInvntrVO();
 			BeanUtils.copyProperties(gdsInvntrVO, vo);
 
+			if (ComConstants.ROW_STS_INSERT.equals(gdsInvntrVO.getRowSts())) {
+				insertList.add(vo);
+			}
 			if (ComConstants.ROW_STS_UPDATE.equals(gdsInvntrVO.getRowSts())) {
 				updateList.add(vo);
 			}
 		}
 
+		// 상품재고 등록
+		for (GdsInvntrVO gdsInvntrVO : insertList) {
+
+		}
+
+		// 상품재고 변경
 		for (GdsInvntrVO gdsInvntrVO : updateList) {
-			gdsInvntrMapper.updateGdsInvntrList(gdsInvntrVO);
+
+			// 상품재고 변경 이력
+
+			// 상품재고 변경
+			gdsInvntrMapper.updateGdsInvntrChg(gdsInvntrVO);
 		}
 
 		return null;

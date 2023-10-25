@@ -140,8 +140,8 @@
 										<sbux-select
 											unselected-text="선택"
 											uitype="single"
-											id="dtl-slt-srnsfApcCd"
-											name="dtl-slt-srnsfApcCd"
+											id="dtl-slt-trnsfApcCd"
+											name="dtl-slt-trnsfApcCd"
 											class="form-control input-sm"
 											jsondata-ref="jsonTrnsfApcCd"
 											style="float: right"
@@ -190,7 +190,7 @@
 	const fn_initSBSelect = async function() {
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let rst = await Promise.all([
-			gfn_setApcInfoSBSelect('dtl-slt-srnsfApcCd', 	jsonTrnsfApcCd),	// 이송APC
+			gfn_setApcInfoSBSelect('dtl-slt-trnsfApcCd', 	jsonTrnsfApcCd, gv_selectedApcCd),	// 이송APC
 			gfn_setComCdSBSelect('srch-slt-warehouseSe', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
 			gfn_setComCdSBSelect('srch-slt-wrhsSeCd', 		jsonComWrhsSeCd, 	'WRHS_SE_CD'),							// 입고구분
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd),						// 품목
@@ -225,15 +225,8 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_sample1();
 		checkSection = 1;
-// 		fn_createGrid2();
-// 		fn_createGrid3();
 
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2)
-		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-crtrYmd", year+month+day);
-		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
+		SBUxMethod.set("srch-dtp-crtrYmd", gfn_dateToYmd(new Date()));
 
 		fn_initSBSelect();
 	});
@@ -293,7 +286,8 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	    	{caption: ["선택","선택"],				ref: 'checkBox',      		type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	    	{caption: ["선택","선택"],				ref: 'checkBox',      		type:'checkbox',  width:'50px',    style:'text-align:center',
+	    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
 	        {caption: ["입고번호","입고번호"],		ref: 'wrhsno',      		type:'output',  width:'110px',    style:'text-align:center'},
 	        {caption: ["팔레트번호","팔레트번호"],	ref: 'pltno',      			type:'output',  width:'110px',    style:'text-align:center'},
 	        {caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',      		type:'output',  width:'110px',    style:'text-align:center'},
@@ -392,27 +386,28 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	    	{caption: ["선택","선택"],				ref: 'checkBox',      		type:'checkbox',width:'40px',	style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
-	        {caption: ["포장번호","포장번호"],		ref: 'pckgno',      		type:'output',  width:'110px',	style:'text-align:center'},
-	        {caption: ["순번","순번"],				ref: 'pckgSn',      		type:'output',  width:'50px',   style:'text-align:center'},
-	        {caption: ["포장일자","포장일자"],		ref: 'pckgYmd',      		type:'output',  width:'110px',  style:'text-align:center'},
-	        {caption: ["설비","설비"],				ref: 'fcltNm',      		type:'output',  width:'110px',  style:'text-align:center'},
-	        {caption: ["생산자","생산자"],			ref: 'rprsPrdcrNm',      	type:'output',  width:'80px',   style:'text-align:center'},
-	        {caption: ["품목","품목"],				ref: 'itemNm',      		type:'output',  width:'80px',   style:'text-align:center'},
-	        {caption: ["품종","품종"],				ref: 'vrtyNm',      		type:'output',  width:'80px',   style:'text-align:center'},
-	        {caption: ["규격","규격"],				ref: 'spcfctNm',      		type:'output',  width:'80px',   style:'text-align:center'},
-	        {caption: ["등급","등급"],				ref: 'gdsGrdNm',      		type:'output',  width:'80px',   style:'text-align:center'},
-	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',      	type:'output',  width:'110px',  style:'text-align:center'},
-	        {caption: ["재고","수량"],				ref: 'psbltyInvntrQntt',    type:'output',  width:'60px',   style:'text-align:center'},
-	        {caption: ["재고","중량"],				ref: 'psbltyInvntrWght',    type:'output',  width:'80px',   style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}
-	        },
-	        {caption: ["이송","수량"],				ref: 'trnsfQntt',      		type:'input',  width:'60px',    style:'text-align:center',
+	    	{caption: ["선택","선택"],				ref: 'checkBox',      	type:'checkbox',width:'40px',	style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
+	        {caption: ["포장번호","포장번호"],		ref: 'pckgno',      	type:'output',  width:'110px',	style:'text-align:center'},
+	        {caption: ["순번","순번"],				ref: 'pckgSn',      	type:'output',  width:'50px',   style:'text-align:center'},
+	        {caption: ["포장일자","포장일자"],		ref: 'pckgYmd',      	type:'output',  width:'110px',  style:'text-align:center'},
+	        {caption: ["설비","설비"],				ref: 'fcltNm',      	type:'output',  width:'110px',  style:'text-align:center'},
+	        {caption: ["생산자","생산자"],			ref: 'rprsPrdcrNm',     type:'output',  width:'80px',   style:'text-align:center'},
+	        {caption: ["품목","품목"],				ref: 'itemNm',      	type:'output',  width:'80px',   style:'text-align:center'},
+	        {caption: ["품종","품종"],				ref: 'vrtyNm',      	type:'output',  width:'80px',   style:'text-align:center'},
+	        {caption: ["규격","규격"],				ref: 'spcfctNm',      	type:'output',  width:'80px',   style:'text-align:center'},
+	        {caption: ["등급","등급"],				ref: 'gdsGrdNm',      	type:'output',  width:'80px',   style:'text-align:center'},
+	        {caption: ["현물창고","현물창고"],		ref: 'warehouseSeNm',   type:'output',  width:'110px',  style:'text-align:center'},
+	        {caption: ["재고","수량"],				ref: 'invntrQntt',    	type:'output',  width:'60px',   style:'text-align:center',
 	        	format : {type:'number', rule:'#,###'}},
-	        {caption: ["이송","중량"],				ref: 'trnsfWght',      		type:'input',  width:'80px',    style:'text-align:center',
+	        {caption: ["재고","중량"],				ref: 'invntrWght',    	type:'output',  width:'80px',   style:'text-align:center',
 	        	format : {type:'number', rule:'#,### Kg'}
 	        },
-	        {caption: ["비고","비고"],				ref: 'rmrk',      			type:'output',  width:'110px',  style:'text-align:center'},
+	        {caption: ["이송","수량"],				ref: 'trnsfQntt',      	type:'input',  width:'60px',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["이송","중량"],				ref: 'trnsfWght',      	type:'input',  width:'80px',    style:'text-align:center',
+	        	format : {type:'number', rule:'#,### Kg'}
+	        },
+	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'110px',  style:'text-align:center'},
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
@@ -486,30 +481,32 @@
           	data1.resultList.forEach((item, index) => {
           		if(item.psbltyInvntrQntt > 0){
           			const rawMtrInvntr = {
-              				wrhsno			: item.wrhsno,
-              				pltno			: item.pltno,
-              				wrhsYmd			: item.wrhsYmd,
-              				prdcrNm			: item.prdcrNm,
-              				prdcrCd			: item.prdcrCd,
-              				itemNm			: item.itemNm,
-              				itemCd			: item.itemCd,
-              				vrtyNm			: item.vrtyNm,
-              				vrtyCd			: item.vrtyCd,
-              				gdsSeNm			: item.gdsSeNm,
-              				gdsSeCd			: item.gdsSeCd,
-              				wrhsSeNm		: item.wrhsSeNm,
-              				wrhsSeCd		: item.wrhsSeCd,
-              				trsprtSeNm		: item.trsprtSeNm,
-              				trsprtSeCd		: item.trsprtSeCd,
-              				warehouseSeNm	: item.warehouseSeNm,
-              				warehouseSeCd	: item.warehouseSeCd,
-              				psbltyInvntrQntt: item.psbltyInvntrQntt,
-              				psbltyInvntrWght: item.psbltyInvntrWght,
-              				invntrQntt		: item.invntrQntt,
-              				invntrWght		: item.invntrWght,
-              				trnsfQntt		: item.trnsfQntt,
-              				trnsfWght		: item.trnsfWght,
-              				rmrk			: item.rmrk
+              				  wrhsno			: item.wrhsno
+              				, pltno				: item.pltno
+              				, grdCd				: item.grdCd
+              				, wrhsYmd			: item.wrhsYmd
+              				, prdcrNm			: item.prdcrNm
+              				, prdcrCd			: item.prdcrCd
+              				, itemNm			: item.itemNm
+              				, itemCd			: item.itemCd
+              				, vrtyNm			: item.vrtyNm
+              				, vrtyCd			: item.vrtyCd
+              				, gdsSeNm			: item.gdsSeNm
+              				, gdsSeCd			: item.gdsSeCd
+              				, wrhsSeNm			: item.wrhsSeNm
+              				, wrhsSeCd			: item.wrhsSeCd
+              				, trsprtSeNm		: item.trsprtSeNm
+              				, trsprtSeCd		: item.trsprtSeCd
+              				, warehouseSeNm		: item.warehouseSeNm
+              				, warehouseSeCd		: item.warehouseSeCd
+              				, psbltyInvntrQntt	: item.psbltyInvntrQntt
+              				, psbltyInvntrWght	: item.psbltyInvntrWght
+              				, invntrQntt		: item.invntrQntt
+              				, invntrWght		: item.invntrWght
+              				, trnsfQntt			: item.trnsfQntt
+              				, trnsfWght			: item.trnsfWght
+              				, rmrk				: item.rmrk
+              				, apcCd				: item.apcCd
       				}
 	          		jsoninptCmndDsctnList.push(Object.assign({}, rawMtrInvntr));
           		}
@@ -578,28 +575,31 @@
       		jsoninptCmndDsctnList2.length = 0;
           	data2.resultList.forEach((item, index) => {
           		if(item.psbltyInvntrQntt > 0){
+          			console.log(data2);
 
 	          		const rawMtrInvntr2 = {
-	          				sortno			: item.sortno,
-	          				grdNm			: item.grdNm,
-	          				grdCd			: item.grdCd,
-	          				inptYmd			: item.inptYmd,
-	          				fcltNm			: item.fcltNm,
-	          				fcltCd			: item.fcltCd,
-	          				prdcrNm			: item.prdcrNm,
-	          				prdcrCd			: item.prdcrCd,
-	          				itemNm			: item.itemNm,
-	          				itemCd			: item.itemCd,
-	          				vrtyNm			: item.vrtyNm,
-	          				vrtyCd			: item.vrtyCd,
-	          				spcfctNm		: item.spcfctNm,
-	          				spcfctCd		: item.spcfctCd,
-	          				warehouseSeNm	: item.warehouseSeNm,
-	          				warehouseSeCd	: item.warehouseSeCd,
-	          				invntrQntt		: item.psbltyInvntrQntt,
-	          				invntrWght		: item.psbltyInvntrWght,
-	          				trnsfQntt		: item.trnsfQntt,
-	          				trnsfWght		: item.trnsfWght
+	          				  sortno			: item.sortno
+	          				, sortSn			: item.sortSn
+	          				, grdNm				: item.grdNm
+	          				, grdCd				: item.grdCd
+	          				, inptYmd			: item.inptYmd
+	          				, fcltNm			: item.fcltNm
+	          				, fcltCd			: item.fcltCd
+	          				, prdcrNm			: item.prdcrNm
+	          				, prdcrCd			: item.prdcrCd
+	          				, itemNm			: item.itemNm
+	          				, itemCd			: item.itemCd
+	          				, vrtyNm			: item.vrtyNm
+	          				, vrtyCd			: item.vrtyCd
+	          				, spcfctNm			: item.spcfctNm
+	          				, spcfctCd			: item.spcfctCd
+	          				, warehouseSeNm		: item.warehouseSeNm
+	          				, warehouseSeCd		: item.warehouseSeCd
+	          				, invntrQntt		: item.psbltyInvntrQntt
+	          				, invntrWght		: item.psbltyInvntrWght
+	          				, trnsfQntt			: item.trnsfQntt
+	          				, trnsfWght			: item.trnsfWght
+	          				, apcCd				: item.apcCd
 	  				}
 	          		jsoninptCmndDsctnList2.push(rawMtrInvntr2);
           		}
@@ -638,7 +638,7 @@
 		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSe");
 		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
-		const postJsonPromise3 = gfn_postJSON("/am/invntr/selectUpdateTrnsfGdsInvntrList.do", {
+		const postJsonPromise3 = gfn_postJSON("/am/trnsf/selectUpdateTrnsfGdsInvntrList.do", {
 			apcCd		:  gv_selectedApcCd,
 			itemCd:itemCd,
 			vrtyCd: vrtyCd,
@@ -666,28 +666,29 @@
           		if(item.psbltyInvntrQntt > 0){
 
 	          		const rawMtrInvntr3 = {
-	          				pckgno			: item.pckgno,
-	          				pckgSn			: item.pckgSn,
-	          				pckgYmd			: item.pckgYmd,
-	          				fcltNm			: item.fcltNm,
-	          				fcltCd			: item.fcltCd,
-	          				rprsPrdcrNm		: item.prdcrNm,
-	          				rprsPrdcrCd		: item.rprsPrdcrCd,
-	          				itemNm			: item.itemNm,
-	          				itemCd			: item.itemCd,
-	          				vrtyNm			: item.vrtyNm,
-	          				vrtyCd			: item.vrtyCd,
-	          				spcfctNm		: item.spcfctNm,
-	          				spcfctCd		: item.spcfctCd,
-	          				gdsGrdNm		: item.gdsGrdNm,
-	          				gdsGrd			: item.gdsGrd,
-	          				warehouseSeNm	: item.warehouseSeNm,
-	          				warehouseSeCd	: item.warehouseSeCd,
-	          				invntrQntt		: item.psbltyInvntrQntt,
-	          				invntrWght		: item.psbltyInvntrWght,
-	          				trnsfWarehouse	: item.trnsfWarehouse,
-	          				trnsfQntt		: item.trnsfQntt,
-	          				trnsfWght		: item.trnsfWght
+	          				  pckgno			: item.pckgno
+	          				, pckgSn			: item.pckgSn
+	          				, pckgYmd			: item.pckgYmd
+	          				, fcltNm			: item.fcltNm
+	          				, fcltCd			: item.fcltCd
+	          				, rprsPrdcrNm		: item.prdcrNm
+	          				, rprsPrdcrCd		: item.rprsPrdcrCd
+	          				, itemNm			: item.itemNm
+	          				, itemCd			: item.itemCd
+	          				, vrtyNm			: item.vrtyNm
+	          				, vrtyCd			: item.vrtyCd
+	          				, spcfctNm			: item.spcfctNm
+	          				, spcfctCd			: item.spcfctCd
+	          				, gdsNm				: item.gdsGrdNm
+	          				, gdsCd				: item.gdsGrd
+	          				, warehouseSeNm		: item.warehouseSeNm
+	          				, warehouseSeCd		: item.warehouseSeCd
+	          				, invntrQntt		: item.psbltyInvntrQntt
+	          				, invntrWght		: item.psbltyInvntrWght
+	          				, trnsfWarehouse	: item.trnsfWarehouse
+	          				, trnsfQntt			: item.trnsfQntt
+	          				, trnsfWght			: item.trnsfWght
+	          				, apcCd				: item.apcCd
 	  				}
 	          		jsoninptCmndDsctnList3.push(rawMtrInvntr3);
           		}
@@ -723,9 +724,9 @@
 	const fn_save = async function() {
 		console.log("checkSection", checkSection);
 
-		let exclApcCd = SBUxMethod.get("dtl-slt-srnsfApcCd");
+		let trnsfApcCd = SBUxMethod.get("dtl-slt-trnsfApcCd");
 
-		if(gfn_isEmpty(exclApcCd)){
+		if(gfn_isEmpty(srnsfApcCd)){
 			gfn_comAlert("W0002", "이송APC");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
@@ -757,16 +758,51 @@
 
     		rowData.invntrQntt = invntrQntt - trnsfQntt;
     		rowData.invntrWght = invntrWght - trnsfWght;
-    		rowData.Stts = 'U';
-    		rowData.exclApcCd = exclApcCd;
+    		rowData.rowSts = 'U';
+    		rowData.trnsfApcCd  = trnsfApcCd;
+    		if(checkSection == 1){
+    			rowData.invntrSeCd = "1"
+    		}
+    		if(checkSection == 2){
+    			rowData.invntrSeCd = "2"
+    		}
+    		if(checkSection == 3){
+    			rowData.invntrSeCd = "3"
+    		}
 
     		saveList.push(rowData);
     	}
 
-		console.log(saveList)
+		console.log(saveList);
 
-		if(checkSection == 1){
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+			let postJsonPromise;
+			if(checkSection == 1){
+				postJsonPromise = gfn_postJSON("/am/trnsf/saveTrnsfRawMtrInvntrList.do", saveList);
+			}
+			if(checkSection == 2){
+				postJsonPromise = gfn_postJSON("/am/trnsf/saveTrnsfSortInvntrList.do", saveList);
+    		}
+    		if(checkSection == 3){
+    			postJsonPromise = gfn_postJSON("/am/trnsf/saveTrnsfGdsInvntrList.do", saveList);
+    		}
 
+	    	const data = await postJsonPromise;
+
+	    	try{
+	       		if(data.errMsg == null){
+	       			//fn_search();
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	       		}else{
+	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
+	       		}
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
 		}
 	}
 
