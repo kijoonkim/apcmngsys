@@ -83,6 +83,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD, pt0.APC_CD) FROM DUAL) 				AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) 							AS WRHS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
+                , pt0.SORTNO || '-' || pt0.SORT_SN 																AS SORTNO_INDCT
     		  FROM (
 			    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrList */
 						   SI.APC_CD			AS APC_CD
