@@ -30,19 +30,19 @@ public interface FarmerEducationInfoLogService {
 	 * @return
 	 * @throws Exception
 	 */
-	public FarmerEducationInfoLogVO selectfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
+	public FarmerEducationInfoLogVO selectFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
 
-	public List<FarmerEducationInfoLogVO> selectfarmerEducationInfoLogList(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
+	public List<FarmerEducationInfoLogVO> selectFarmerEducationInfoLogList(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
 
-	public int insertfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
+	public int insertFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
 
-	public int updatefarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
+	public int updateFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
 
-	public int multiSavefarmerEducationInfoLogList(List<FarmerEducationInfoLogVO> farmerEducationInfoLogVOList) throws Exception;
-	public int insertMegerfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVOList) throws Exception;
-	public int insertMegerLogfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVOList) throws Exception;
-	public int updateMegerfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVOList) throws Exception;
+	public int multiSaveFarmerEducationInfoLogList(List<FarmerEducationInfoLogVO> farmerEducationInfoLogVOList) throws Exception;
+	public int insertMegerFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVOList) throws Exception;
+	public int insertMegerLogFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVOList) throws Exception;
+	public int updateMegerFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVOList) throws Exception;
 
-	public int deletefarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
+	public int deleteFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
 
 }

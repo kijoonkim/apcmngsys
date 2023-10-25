@@ -55,12 +55,12 @@ public class ProductCodeInfoController extends BaseController{
 	}
 
 // 조회
-		@PostMapping(value = "/fm/farm/selectproductCodeInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		@PostMapping(value = "/fm/farm/selectProductCodeInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 		public ResponseEntity<HashMap<String, Object>> selectproductCodeInfoList(Model model, @RequestBody ProductCodeInfoVO productCodeInfoVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 			List<ProductCodeInfoVO> resultList = new ArrayList<>();
 			try {
-				 resultList = productCodeInfoService.selectproductCodeInfoList(productCodeInfoVO);
+				 resultList = productCodeInfoService.selectProductCodeInfoList(productCodeInfoVO);
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -72,8 +72,8 @@ public class ProductCodeInfoController extends BaseController{
 
 
 		//등록
-		@PostMapping(value = "/fm/farm/insertproductCodeInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertproductCodeInfo(@RequestBody ProductCodeInfoVO productCodeInfoVO, HttpServletRequest requset) throws Exception{
+		@PostMapping(value = "/fm/farm/insertProductCodeInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> insertProductCodeInfo(@RequestBody ProductCodeInfoVO productCodeInfoVO, HttpServletRequest requset) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			// validation check
@@ -118,8 +118,8 @@ public class ProductCodeInfoController extends BaseController{
 		}
 
 
-		@PostMapping(value = "/fm/farm/multiSaveproductCodeInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSaveproductCodeInfoList(@RequestBody List<ProductCodeInfoVO> productCodeInfoVOList, HttpServletRequest request) throws Exception {
+		@PostMapping(value = "/fm/farm/multiSaveProductCodeInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSaveProductCodeInfoList(@RequestBody List<ProductCodeInfoVO> productCodeInfoVOList, HttpServletRequest request) throws Exception {
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -132,7 +132,7 @@ public class ProductCodeInfoController extends BaseController{
 					productCodeInfoVO.setSysLastChgUserId(getUserId());
 				}
 
-				savedCnt = productCodeInfoService.multiSaveproductCodeInfoList(productCodeInfoVOList);
+				savedCnt = productCodeInfoService.multiSaveProductCodeInfoList(productCodeInfoVOList);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -168,13 +168,13 @@ public class ProductCodeInfoController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
-		@PostMapping(value = "/fm/farm/deleteproductCodeInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deleteproductCodeInfo(@RequestBody ProductCodeInfoVO productCodeInfoVO, HttpServletRequest request) throws Exception {
-			logger.debug("/fm/farm/deleteproductCodeInfo >>> 호출 >>> ");
+		@PostMapping(value = "/fm/farm/deleteProductCodeInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> deleteProductCodeInfo(@RequestBody ProductCodeInfoVO productCodeInfoVO, HttpServletRequest request) throws Exception {
+			logger.debug("/fm/farm/deleteProductCodeInfo >>> 호출 >>> ");
 
 			int result = 0;
 			try {
-				result =+ productCodeInfoService.deleteproductCodeInfo(productCodeInfoVO);
+				result =+ productCodeInfoService.deleteProductCodeInfo(productCodeInfoVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -184,8 +184,8 @@ public class ProductCodeInfoController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
-		@PostMapping(value = "/fm/farm/multiSaveReleyproductCodeInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> SavefarmerSnList(@RequestBody ProductCodeInfoVO productCodeInfoVO, HttpServletRequest request) throws Exception {
+		@PostMapping(value = "/fm/farm/multiSaveReleyProductCodeInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> SaveFarmerSnList(@RequestBody ProductCodeInfoVO productCodeInfoVO, HttpServletRequest request) throws Exception {
 			logger.debug("/fm/farm/SavefarmerSnList >>> 농업인 번호 연계호출 >>> ");
 
 			int savedCnt = 0;
@@ -264,8 +264,8 @@ public class ProductCodeInfoController extends BaseController{
 						productCodeInfoVO.setSysLastChgPrgrmId(getPrgrmId());
 						productCodeInfoVO.setSysLastChgUserId(getUserId());
 						productCodeInfoVO.setSaveCd("AGRIX");
-	                    savedCnt = productCodeInfoService.insertMegerproductCodeInfo(productCodeInfoVO);
-	                    result = productCodeInfoService.insertMegerLogproductCodeInfo(productCodeInfoVO);
+	                    savedCnt = productCodeInfoService.insertMegerProductCodeInfo(productCodeInfoVO);
+	                    result = productCodeInfoService.insertMegerLogProductCodeInfo(productCodeInfoVO);
 	                }
 	            }
 	        } catch (Exception ex) {
@@ -305,10 +305,10 @@ public class ProductCodeInfoController extends BaseController{
 
 
 
-		@PostMapping(value = "/fm/farm/multiSaveReleyproductCodeInfoJsoneList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		@PostMapping(value = "/fm/farm/multiSaveReleyProductCodeInfoJsoneList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 		public ResponseEntity<HashMap<String, Object>> multiSaveReleyproductCodeInfoJsoneList(@RequestBody ProductCodeInfoVO productCodeInfoVO, HttpServletRequest request) throws Exception {
 
-			logger.debug("/fm/farm/SavefarmerSnList >>> 농업인 번호 연계호출 jsone >>> ");
+			logger.debug("/fm/farm/SaveFarmerSnList >>> 농업인 번호 연계호출 jsone >>> ");
 
 			int savedCnt = 0;
 			int result = 0;
@@ -365,8 +365,8 @@ public class ProductCodeInfoController extends BaseController{
 							//intser into aaa(a, b,c) values(#{brthdy}, #{brthdy2}, #{brthdy})
 							}
 
-							savedCnt = productCodeInfoService.insertMegerproductCodeInfoMap(mapItem);
-			                 result = productCodeInfoService.insertMegerLogproductCodeInfoMap(mapItem);
+							savedCnt = productCodeInfoService.insertMegerProductCodeInfoMap(mapItem);
+			                 result = productCodeInfoService.insertMegerLogProductCodeInfoMap(mapItem);
 
 						}
 					}

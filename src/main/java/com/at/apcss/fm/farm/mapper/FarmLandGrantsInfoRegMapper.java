@@ -31,13 +31,13 @@ public interface FarmLandGrantsInfoRegMapper {
 	 * @param bbsVO
 	 * @return
 	 */
-	public FarmLandGrantsInfoRegVO selectfarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO);
+	public FarmLandGrantsInfoRegVO selectFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO);
 
-	public List<FarmLandGrantsInfoRegVO> selectfarmLandGrantsInfoRegList(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO);
+	public List<FarmLandGrantsInfoRegVO> selectFarmLandGrantsInfoRegList(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO);
 
-	public int insertfarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO);
+	public int insertFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO);
 
 	public int updateFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO);
 
-	public int deletefarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception;
+	public int deleteFarmLandGrantsInfoReg(FarmLandGrantsInfoRegVO farmLandGrantsInfoRegVO) throws Exception;
 }

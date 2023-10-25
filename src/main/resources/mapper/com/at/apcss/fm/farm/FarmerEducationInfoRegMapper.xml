@@ -80,9 +80,9 @@
     </select>
 	  -->
 
-	   <select id="selectfarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
+	   <select id="selectFarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.farmerEducationInfoRegMapper.selectfarmerEducationInfoReg */
+			SELECT /* com.at.apcss.fm.farm.mapper.farmerEducationInfoRegMapper.selectFarmerEducationInfoReg */
 				  CM.FRMER_SN
 				, CM.BZOB_RGNO
 				, CM.MNGER_RELATE
@@ -133,9 +133,9 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectfarmerEducationInfoRegList" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
+    <select id="selectFarmerEducationInfoRegList" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.farmerEducationInfoRegMapper.selectfarmerEducationInfoRegList */
+			SELECT /* com.at.apcss.fm.farm.mapper.farmerEducationInfoRegMapper.selectFarmerEducationInfoRegList */
 				  CM.FRMER_SN
 				, CM.BZOB_RGNO
 				, CM.MNGER_RELATE
@@ -181,9 +181,9 @@
     </select>
 
 
-	<insert id="insertfarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
+	<insert id="insertFarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.farm.mapper.farmerEducationInfoRegMapper.insertfarmerEducationInfoReg */
+	    	INSERT /* com.at.apcss.fm.farm.mapper.farmerEducationInfoRegMapper.insertFarmerEducationInfoReg */
 	    	  INTO TB_FARMER_INFO
 	    		(
 	    		  FRMER_SN
@@ -258,9 +258,9 @@
 
 
 
-    <insert id="insertMegerfarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
+    <insert id="insertMegerFarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
 	<![CDATA[
-    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoRegMapper.insertMegerfarmerEducationInfoReg */
+    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoRegMapper.insertMegerFarmerEducationInfoReg */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
@@ -363,9 +363,9 @@
 	</insert>
 
 
-    <insert id="insertMegerLogfarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
+    <insert id="insertMegerLogFarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
 	<![CDATA[
-    	INSERT /* com.at.apcss.fm.farm.mapper.farmerEducationInfoRegMapper.insertMegerLogfarmerEducationInfoReg */
+    	INSERT /* com.at.apcss.fm.farm.mapper.farmerEducationInfoRegMapper.insertMegerLogFarmerEducationInfoReg */
 	    	  INTO TB_FARMER_INFO_LOG
 	    		(
 	    		  SEQ
@@ -441,7 +441,7 @@
 
 	<update id="updateFarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.farm.mapper.farmerEducationInfoRegMapper.upatefarmerEducationInfoReg */
+	    	UPDATE /* com.at.apcss.fm.farm.mapper.farmerEducationInfoRegMapper.upateFarmerEducationInfoReg */
 	    		TB_FARMER_INFO
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
@@ -481,9 +481,9 @@
     	]]>
     </update>
 
-    <update id="updateMegerfarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
+    <update id="updateMegerFarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
     	<![CDATA[
-	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoRegMapper.insertMegerfarmerEducationInfoReg */
+	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoRegMapper.insertMegerFarmerEducationInfoReg */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
@@ -586,7 +586,7 @@
     </update>
 
 
-	<delete id="deletefarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
+	<delete id="deleteFarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
 		<![CDATA[
 		DELETE FROM TB_FARMER_INFO
 		 WHERE 1=1

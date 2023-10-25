@@ -30,16 +30,24 @@ public interface FarmLandInfoService {
 	 * @return
 	 * @throws Exception
 	 */
-	public FarmLandInfoVO selectfarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
+	public FarmLandInfoVO selectFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
 
-	public List<FarmLandInfoVO> selectfarmLandInfoList(FarmLandInfoVO farmLandInfoVO) throws Exception;
+	public List<FarmLandInfoVO> selectFarmLandInfoList(FarmLandInfoVO farmLandInfoVO) throws Exception;
 
-	public int insertfarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
+	public int insertFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
 
-	public int updatefarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
+	public int updateFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
 
-	public int multiSavefarmLandInfoList(List<FarmLandInfoVO> farmLandInfoVOList) throws Exception;
+	public int multiSaveFarmLandInfoList(List<FarmLandInfoVO> farmLandInfoVOList) throws Exception;
 
-	public int deletefarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
+	public int insertMegerFarmLandInfo(FarmLandInfoVO farmLandInfoVOList) throws Exception;
+	public int insertMegerLogFarmLandInfo(FarmLandInfoVO farmLandInfoVOList) throws Exception;
+
+	public int insertMegerFarmLandInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerLogFarmLandInfoMap(Map<String, String> MapList) throws Exception;
+
+	public int updateMegerFarmLandInfo(FarmLandInfoVO farmLandInfoVOList) throws Exception;
+
+	public int deleteFarmLandInfo(FarmLandInfoVO farmLandInfoVO) throws Exception;
 
 }

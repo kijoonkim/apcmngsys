@@ -30,19 +30,19 @@ public interface ProductCodeInfoLogService {
 	 * @return
 	 * @throws Exception
 	 */
-	public ProductCodeInfoLogVO selectproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
+	public ProductCodeInfoLogVO selectProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
 
-	public List<ProductCodeInfoLogVO> selectproductCodeInfoLogList(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
+	public List<ProductCodeInfoLogVO> selectProductCodeInfoLogList(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
 
-	public int insertproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
+	public int insertProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
 
-	public int updateproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
+	public int updateProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
 
-	public int multiSaveproductCodeInfoLogList(List<ProductCodeInfoLogVO> productCodeInfoLogVOList) throws Exception;
-	public int insertMegerproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVOList) throws Exception;
-	public int insertMegerLogproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVOList) throws Exception;
-	public int updateMegerproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVOList) throws Exception;
+	public int multiSaveProductCodeInfoLogList(List<ProductCodeInfoLogVO> productCodeInfoLogVOList) throws Exception;
+	public int insertMegerProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVOList) throws Exception;
+	public int insertMegerLogProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVOList) throws Exception;
+	public int updateMegerProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVOList) throws Exception;
 
-	public int deleteproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
+	public int deleteProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
 
 }

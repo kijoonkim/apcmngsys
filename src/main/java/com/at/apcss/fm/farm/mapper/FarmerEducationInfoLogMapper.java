@@ -31,17 +31,17 @@ public interface FarmerEducationInfoLogMapper {
 	 * @param bbsVO
 	 * @return
 	 */
-	public FarmerEducationInfoLogVO selectfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO);
+	public FarmerEducationInfoLogVO selectFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO);
 
-	public List<FarmerEducationInfoLogVO> selectfarmerEducationInfoLogList(FarmerEducationInfoLogVO farmerEducationInfoLogVO);
+	public List<FarmerEducationInfoLogVO> selectFarmerEducationInfoLogList(FarmerEducationInfoLogVO farmerEducationInfoLogVO);
 
-	public int insertfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO);
+	public int insertFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO);
 
-	public int updatefarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO);
+	public int updateFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO);
 
-	public int insertMegerfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
-	public int insertMegerLogfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
-	public int updateMegerfarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
+	public int insertMegerFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
+	public int insertMegerLogFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
+	public int updateMegerFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
 
-	public int deletefarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
+	public int deleteFarmerEducationInfoLog(FarmerEducationInfoLogVO farmerEducationInfoLogVO) throws Exception;
 }

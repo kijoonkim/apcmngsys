@@ -382,7 +382,7 @@
 		let bzobRgno = SBUxMethod.get("srch-inp-bzobRgno");//
 		//let apcCd = SBUxMethod.get("inp-apcCd");
     	//let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerInfo.do", {apcCd : apcCd});
-    	let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerInfoRegList.do", {
+    	let postJsonPromise = gfn_postJSON("/fm/farm/selectFarmerInfoRegList.do", {
     		 frmerSn : frmerSn
     		,bzobRgno : bzobRgno
 		});
@@ -613,7 +613,7 @@
     }
 
 	async function fn_deleteRsrc(farmerInfoRegVO){
-		let postJsonPromise = gfn_postJSON("/fm/farm/deletefarmerInfoReg.do", farmerInfoRegVO);
+		let postJsonPromise = gfn_postJSON("/fm/farm/deleteFarmerInfoReg.do", farmerInfoRegVO);
         let data = await postJsonPromise;
 
         try{

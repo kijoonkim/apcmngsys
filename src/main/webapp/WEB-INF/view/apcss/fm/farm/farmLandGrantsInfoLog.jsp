@@ -224,7 +224,7 @@
 		let bzobRgno = SBUxMethod.get("srch-inp-bzobRgno");//
 		//let apcCd = SBUxMethod.get("inp-apcCd");
     	//let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmLandGrantsInfoLog.do", {apcCd : apcCd});
-    	let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmLandGrantsInfoLogList.do", {
+    	let postJsonPromise = gfn_postJSON("/fm/farm/selectFarmLandGrantsInfoLogList.do", {
     		 frmerSn : frmerSn
     		,bzobRgno : bzobRgno
 		});
@@ -329,7 +329,7 @@
 		if(confirm(regMsg)){
 
 			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
-			let postJsonPromise = gfn_postJSON("/fm/farm/multiSavefarmLandGrantsInfoLogList.do", saveList);
+			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveFarmLandGrantsInfoLogList.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
@@ -375,7 +375,7 @@
     }
 
 	async function fn_deleteRsrc(farmLandGrantsInfoLogVO){
-		let postJsonPromise = gfn_postJSON("/fm/farm/deletefarmLandGrantsInfoLog.do", farmLandGrantsInfoLogVO);
+		let postJsonPromise = gfn_postJSON("/fm/farm/deleteFarmLandGrantsInfoLog.do", farmLandGrantsInfoLogVO);
         let data = await postJsonPromise;
 
         try{
@@ -546,7 +546,7 @@
 		if(confirm(regMsg)){
 
 			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
-			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyfarmLandGrantsInfoLogList.do", {
+			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyFarmLandGrantsInfoLogList.do", {
 	    		 frmerSn : frmerSn
 	 		});
 	        let data = await postJsonPromise;

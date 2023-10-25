@@ -30,24 +30,24 @@ public interface FarmerEducationInfoService {
 	 * @return
 	 * @throws Exception
 	 */
-	public FarmerEducationInfoVO selectfarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
+	public FarmerEducationInfoVO selectFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
 
-	public List<FarmerEducationInfoVO> selectfarmerEducationInfoList(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
+	public List<FarmerEducationInfoVO> selectFarmerEducationInfoList(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
 
 	public int insertFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
 
 	public int updateFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
 
-	public int multiSavefarmerEducationInfoList(List<FarmerEducationInfoVO> farmerEducationInfoVOList) throws Exception;
+	public int multiSaveFarmerEducationInfoList(List<FarmerEducationInfoVO> farmerEducationInfoVOList) throws Exception;
 
-	public int insertMegerfarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVOList) throws Exception;
-	public int insertMegerLogfarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVOList) throws Exception;
+	public int insertMegerFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVOList) throws Exception;
+	public int insertMegerLogFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVOList) throws Exception;
 
-	public int insertMegerfarmerEducationInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogfarmerEducationInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerFarmerEducationInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerLogFarmerEducationInfoMap(Map<String, String> MapList) throws Exception;
 
-	public int updateMegerfarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVOList) throws Exception;
+	public int updateMegerFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVOList) throws Exception;
 
-	public int deletefarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
+	public int deleteFarmerEducationInfo(FarmerEducationInfoVO farmerEducationInfoVO) throws Exception;
 
 }

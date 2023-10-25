@@ -31,17 +31,17 @@ public interface ProductCodeInfoLogMapper {
 	 * @param bbsVO
 	 * @return
 	 */
-	public ProductCodeInfoLogVO selectproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO);
+	public ProductCodeInfoLogVO selectProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO);
 
-	public List<ProductCodeInfoLogVO> selectproductCodeInfoLogList(ProductCodeInfoLogVO productCodeInfoLogVO);
+	public List<ProductCodeInfoLogVO> selectProductCodeInfoLogList(ProductCodeInfoLogVO productCodeInfoLogVO);
 
-	public int insertproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO);
+	public int insertProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO);
 
-	public int updateproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO);
+	public int updateProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO);
 
-	public int insertMegerproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
-	public int insertMegerLogproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
-	public int updateMegerproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
+	public int insertMegerProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
+	public int insertMegerLogProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
+	public int updateMegerProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
 
-	public int deleteproductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
+	public int deleteProductCodeInfoLog(ProductCodeInfoLogVO productCodeInfoLogVO) throws Exception;
 }

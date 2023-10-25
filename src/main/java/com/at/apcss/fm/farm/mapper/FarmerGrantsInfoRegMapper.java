@@ -31,13 +31,13 @@ public interface FarmerGrantsInfoRegMapper {
 	 * @param bbsVO
 	 * @return
 	 */
-	public FarmerGrantsInfoRegVO selectfarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO);
+	public FarmerGrantsInfoRegVO selectFarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO);
 
-	public List<FarmerGrantsInfoRegVO> selectfarmerGrantsInfoRegList(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO);
+	public List<FarmerGrantsInfoRegVO> selectFarmerGrantsInfoRegList(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO);
 
-	public int insertfarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO);
+	public int insertFarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO);
 
 	public int updateFarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO);
 
-	public int deletefarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception;
+	public int deleteFarmerGrantsInfoReg(FarmerGrantsInfoRegVO farmerGrantsInfoRegVO) throws Exception;
 }

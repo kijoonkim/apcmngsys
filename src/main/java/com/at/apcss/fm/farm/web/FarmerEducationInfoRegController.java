@@ -38,12 +38,12 @@ public class FarmerEducationInfoRegController extends BaseController{
 	}
 
 // 조회
-		@PostMapping(value = "/fm/farm/selectfarmerEducationInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> selectfarmerEducationInfoRegList(Model model, @RequestBody FarmerEducationInfoRegVO farmerEducationInfoRegVO, HttpServletRequest request) throws Exception{
+		@PostMapping(value = "/fm/farm/selectFarmerEducationInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> selectFarmerEducationInfoRegList(Model model, @RequestBody FarmerEducationInfoRegVO farmerEducationInfoRegVO, HttpServletRequest request) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 			List<FarmerEducationInfoRegVO> resultList = new ArrayList<>();
 			try {
-				 resultList = farmerEducationInfoRegService.selectfarmerEducationInfoRegList(farmerEducationInfoRegVO);
+				 resultList = farmerEducationInfoRegService.selectFarmerEducationInfoRegList(farmerEducationInfoRegVO);
 			} catch (Exception e) {
 				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
@@ -55,8 +55,8 @@ public class FarmerEducationInfoRegController extends BaseController{
 
 
 		//등록
-		@PostMapping(value = "/fm/farm/insertfarmerEducationInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> insertfarmerEducationInfoReg(@RequestBody FarmerEducationInfoRegVO farmerEducationInfoRegVO, HttpServletRequest requset) throws Exception{
+		@PostMapping(value = "/fm/farm/insertFarmerEducationInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> insertFarmerEducationInfoReg(@RequestBody FarmerEducationInfoRegVO farmerEducationInfoRegVO, HttpServletRequest requset) throws Exception{
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 			// validation check
@@ -82,8 +82,8 @@ public class FarmerEducationInfoRegController extends BaseController{
 		}
 
 
-		@PostMapping(value = "/fm/farm/multiSavefarmerEducationInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> multiSavefarmerEducationInfoRegList(@RequestBody List<FarmerEducationInfoRegVO> farmerEducationInfoRegVOList, HttpServletRequest request) throws Exception {
+		@PostMapping(value = "/fm/farm/multiSaveFarmerEducationInfoRegList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> multiSaveFarmerEducationInfoRegList(@RequestBody List<FarmerEducationInfoRegVO> farmerEducationInfoRegVOList, HttpServletRequest request) throws Exception {
 
 			HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -96,7 +96,7 @@ public class FarmerEducationInfoRegController extends BaseController{
 					farmerEducationInfoRegVO.setSysLastChgUserId(getUserId());
 				}
 
-				savedCnt = farmerEducationInfoRegService.multiSavefarmerEducationInfoRegList(farmerEducationInfoRegVOList);
+				savedCnt = farmerEducationInfoRegService.multiSaveFarmerEducationInfoRegList(farmerEducationInfoRegVOList);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -105,13 +105,13 @@ public class FarmerEducationInfoRegController extends BaseController{
 			return getSuccessResponseEntity(resultMap);
 		}
 
-		@PostMapping(value = "/fm/farm/deletefarmerEducationInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-		public ResponseEntity<HashMap<String, Object>> deletefarmerEducationInfoReg(@RequestBody FarmerEducationInfoRegVO farmerEducationInfoRegVO, HttpServletRequest request) throws Exception {
+		@PostMapping(value = "/fm/farm/deleteFarmerEducationInfoReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> deleteFarmerEducationInfoReg(@RequestBody FarmerEducationInfoRegVO farmerEducationInfoRegVO, HttpServletRequest request) throws Exception {
 			logger.debug("/fm/farm/deletefarmerEducationInfoReg >>> 호출 >>> ");
 
 			int result = 0;
 			try {
-				result =+ farmerEducationInfoRegService.deletefarmerEducationInfoReg(farmerEducationInfoRegVO);
+				result =+ farmerEducationInfoRegService.deleteFarmerEducationInfoReg(farmerEducationInfoRegVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}

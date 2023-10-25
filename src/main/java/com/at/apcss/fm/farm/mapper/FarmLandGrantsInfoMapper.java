@@ -32,21 +32,21 @@ public interface FarmLandGrantsInfoMapper {
 	 * @param bbsVO
 	 * @return
 	 */
-	public FarmLandGrantsInfoVO selectfarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO);
+	public FarmLandGrantsInfoVO selectFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO);
 
-	public List<FarmLandGrantsInfoVO> selectfarmLandGrantsInfoList(FarmLandGrantsInfoVO farmLandGrantsInfoVO);
+	public List<FarmLandGrantsInfoVO> selectFarmLandGrantsInfoList(FarmLandGrantsInfoVO farmLandGrantsInfoVO);
 
-	public int insertfarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO);
+	public int insertFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO);
 
-	public int updatefarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO);
+	public int updateFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO);
 
-	public int insertMegerfarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
-	public int insertMegerLogfarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
+	public int insertMegerFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
+	public int insertMegerLogFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
 
-	public int insertMegerfarmLandGrantsInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogfarmLandGrantsInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerFarmLandGrantsInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerLogFarmLandGrantsInfoMap(Map<String, String> MapList) throws Exception;
 
-	public int updateMegerfarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
+	public int updateMegerFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
 
-	public int deletefarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
+	public int deleteFarmLandGrantsInfo(FarmLandGrantsInfoVO farmLandGrantsInfoVO) throws Exception;
 }
