@@ -42,6 +42,11 @@ public class SpmtCmndVO extends ComVO {
 	 * 출하지시순번
 	 */
 	private int spmtCmndSn;
+	
+	/**
+	 * 출하지시번호 표시
+	 */
+	private String spmtCmndnoIndct;
 
 	/**
 	 * 지시일자

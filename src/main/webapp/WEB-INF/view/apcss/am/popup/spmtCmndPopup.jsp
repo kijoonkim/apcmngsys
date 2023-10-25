@@ -160,6 +160,7 @@
 		    SBGridProperties.columns = [
 		    	{caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '80px',	type: 'output',	style:'text-align: center',
 	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+		        {caption: ["출하지시번호"],	ref: 'spmtCmndnoIndct', width: '130px',	type: 'output',	style:'text-align: center'},
 	            {caption: ['거래처'], 	ref: 'cnptNm', 			width: '110px',	type: 'output',	style:'text-align: center'},
 	            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 		width: '100px',	type: 'output',	style:'text-align: center'},
 	            {caption: ['배송처'], 	ref: 'dldtn', 			width: '120px',	type: 'output',	style:'text-align: center'},
@@ -232,6 +233,7 @@
 						let spmtCmnd = {
 								spmtCmndno		: item.spmtCmndno
 							  , spmtCmndSn 		: item.spmtCmndSn
+							  , spmtCmndnoIndct : item.spmtCmndnoIndct
 							  ,	cmndYmd 		: item.cmndYmd
 							  , cnptCd 			: item.cnptCd
 							  , cnptNm 			: item.cnptNm

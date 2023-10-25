@@ -25,7 +25,6 @@
 			</div>
 			<div class="box-body">
 				<!--[pp] 검색 -->
-				<sbux-input id="srch-inp-dmndQntt" name="srch-inp-dmndQntt" uitype="hidden"></sbux-input>
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -50,7 +49,8 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>출하지시번호</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="text" maxlength="20" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
+								<sbux-input id="srch-inp-spmtCmndnoIndct" name="srch-inp-spmtCmndnoIndct" uitype="text" maxlength="20" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
+								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchSpmtCmndno" name="btnSrchSpmtCmndno" uitype="modal" text="찾기" class="btn btn-xs btn-outline-dark" target-id="modal-spmtCmnd" onclick="fn_choiceSpmtCmnd"></sbux-button>
@@ -240,7 +240,7 @@
 	            	} else {
 				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='delRow(" + nRow + ")'>삭제</button>";
 	            	}}},
-            {caption: ['지시번호'], 	ref: 'spmtCmndno',		width: '130px',	type: 'output', 	style: 'text-align: center'},
+            {caption: ['지시번호'], 	ref: 'spmtCmndnoIndct',	width: '130px',	type: 'output', 	style: 'text-align: center'},
             {caption: ['포장번호'], 	ref: 'pckgnoIndct', 	width: '130px', type: 'output', 	style: 'text-align: center'},
             {caption: ['수량'],		ref: 'spmtQntt', 		width: '70px', 	type: 'output', 	style: 'text-align: right'},
             {caption: ['중량'], 		ref: 'spmtWght', 		width: '80px', 	type: 'output', 	style: 'text-align: right'},
@@ -253,6 +253,7 @@
             {caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px', type: 'output', 	style: 'text-align: center'},
             {caption: ['APC코드'], 	ref: 'apcCd', 			hidden: true},
             {caption: ['출하일자'], 	ref: 'spmtYmd', 		hidden: true},
+            {caption: ['출하지시번호'],	ref: 'spmtCmndno', 		hidden: true},
             {caption: ['포장번호'], 	ref: 'pckgno', 			hidden: true},
             {caption: ['포장순번'], 	ref: 'pckgSn', 			hidden: true},
             {caption: ['품목코드'], 	ref: 'itemCd', 			hidden: true},
@@ -261,8 +262,7 @@
             {caption: ['포장단위코드'],	ref: 'spmtPckgUnitCd',	hidden: true},
             {caption: ['상품등급'], 	ref: 'gdsGrd', 			hidden: true},
             {caption: ['거래처코드'], 	ref: 'cnptCd', 			hidden: true},
-            {caption: ['운송회사코드'],	ref: 'trsprtCoCd',		hidden: true},
-            {caption: ['부족수량'],	ref: 'dmndQntt',		hidden: true}
+            {caption: ['운송회사코드'],	ref: 'trsprtCoCd',		hidden: true}
         ];
         grdSpmtTrgtDsctn = _SBGrid.create(SBGridProperties);
         grdSpmtTrgtDsctn.addRow();
@@ -271,7 +271,7 @@
 	// 출하대상 데이터 그리드 추가
 	function addSpmtTrgtDsctn(nRow) {
 		addData = {
-				  spmtCmndno		: SBUxMethod.get('srch-inp-spmtCmndno')
+				  spmtCmndnoIndct	: SBUxMethod.get('srch-inp-spmtCmndnoIndct')
 				, pckgnoIndct		: SBUxMethod.get('srch-inp-pckgnoIndct')
 				, spmtQntt 			: SBUxMethod.get('srch-inp-spmtQntt')
 				, spmtWght 			: SBUxMethod.get('srch-inp-spmtWght')
@@ -285,6 +285,7 @@
 				, delYn 			: 'N'
 				, apcCd				: gv_apcCd
 				, spmtYmd			: gfn_dateToYmd(new Date())
+				, spmtCmndno		: SBUxMethod.get('srch-inp-spmtCmndno')
 				, pckgno			: SBUxMethod.get('srch-inp-pckgno')
 				, pckgSn			: SBUxMethod.get('srch-inp-pckgSn')
 				, itemCd 			: SBUxMethod.get('srch-inp-itemCd')
@@ -294,7 +295,6 @@
 				, spmtPckgUnitCd 	: SBUxMethod.get('srch-inp-spmtPckgUnitCd')
 				, cnptCd 			: SBUxMethod.get('srch-inp-cnptCd')
 				, trsprtCoCd 		: SBUxMethod.get('srch-inp-trsprtCoCd')
-				, dmndQntt 			: SBUxMethod.get('srch-inp-dmndQntt')
 		}
 		if (gfn_isEmpty(addData.spmtQntt) || addData.spmtQntt == 0) {
 			gfn_comAlert("W0002", "출하수량");		//	W0002	{0}을/를 입력하세요.
@@ -354,9 +354,9 @@
 					gfn_comAlert("W0002", "포장순번");		//	W0002	{0}을/를 입력하세요.
 		            return;
 				}
-				if (!gfn_isEmpty(rowData.dmndQntt)) {
-					alertList.push("\r\n지시번호: " + rowData.spmtCmndno + "            부족한 수량: " + rowData.dmndQntt);
-				}
+// 				if (!gfn_isEmpty(rowData.dmndQntt)) {
+// 					alertList.push("\r\n지시번호: " + rowData.spmtCmndno + "            부족한 수량: " + rowData.dmndQntt);
+// 				}
 
 				rowData.rowSts = "I";
 				insertList.push(rowData);
@@ -399,6 +399,7 @@
 	}
 	
 	async function fn_resetUnchecked() {
+		SBUxMethod.set('srch-inp-spmtCmndnoIndct', "");
 		SBUxMethod.set('srch-inp-spmtCmndno', "");
 		SBUxMethod.set('srch-inp-cmndQntt', "");
 		SBUxMethod.set('srch-inp-cmndWght', "");
@@ -426,7 +427,6 @@
 		SBUxMethod.set('srch-inp-pckgSn', "");
 		SBUxMethod.set('srch-inp-spmtQntt', "");
 		SBUxMethod.set('srch-inp-spmtWght', "");
-		SBUxMethod.set('srch-inp-dmndQntt', "");
 	}
 	
 	// 차량 선택 팝업 호출
@@ -455,13 +455,14 @@
 			for ( let i=1; i<=allData.length; i++ ){
 				const rowData = grdSpmtTrgtDsctn.getRowData(i);
 				
-				if (rowData.spmtCmndno == spmtCmnd.spmtCmndno){
+				if (rowData.spmtCmndnoIndct == spmtCmnd.spmtCmndnoIndct){
 					regQntt += parseInt(rowData.spmtQntt);
 					regWght += parseInt(rowData.spmtWght);
 				}
 			}
 			
 			if (spmtCmnd.cmndQntt > regQntt) {
+				SBUxMethod.set('srch-inp-spmtCmndnoIndct', spmtCmnd.spmtCmndnoIndct);
 				SBUxMethod.set('srch-inp-spmtCmndno', spmtCmnd.spmtCmndno);
 				SBUxMethod.set('srch-inp-cmndQntt', spmtCmnd.cmndQntt);
 				SBUxMethod.set('srch-inp-cmndWght', spmtCmnd.cmndWght);
@@ -501,7 +502,6 @@
 	const fn_setGdsInvntr = function(gdsInvntr) {
 		if (!gfn_isEmpty(gdsInvntr)) {
 			// 재고수량, 출하수량 비교
-			let spmtCmndno = SBUxMethod.get('srch-inp-spmtCmndno');
 			let allData = grdSpmtTrgtDsctn.getGridDataAll();
 			
 			let leftSpmtQntt = SBUxMethod.get('srch-inp-cmndQntt') - SBUxMethod.get('srch-inp-regQntt');		// 잔존출하지시수량
