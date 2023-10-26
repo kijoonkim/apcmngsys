@@ -240,6 +240,23 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		return null;
 	}
 
+
+	@Override
+	public HashMap<String, Object> deleteRawMtrWrhsList(List<RawMtrWrhsVO> rawMtrWrhsList) throws Exception {
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+		
+		for ( RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList ) {
+			rtnObj = deleteRawMtrWrhs(rawMtrWrhsVO);
+			if (rtnObj != null) {
+				logger.debug("msg: {}", rtnObj.get(ComConstants.PROP_RESULT_MESSAGE));
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+		
+		return null;
+	}
+	
 	@Override
 	public HashMap<String, Object> deleteRawMtrWrhsByWghno(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
 		HashMap<String, Object> rtnObj = new HashMap<>();
@@ -270,5 +287,6 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 
 		return null;
 	}
+
 
 }
