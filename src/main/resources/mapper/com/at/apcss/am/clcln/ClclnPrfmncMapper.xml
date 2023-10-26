@@ -240,6 +240,29 @@
 		]]>
 	</update>
 
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper.updateClclnPrfmncForDelY	-->
+	<!-- DESC : 정산정보조회 삭제 : delYn 'Y'							             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.18  	하민우        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateClclnPrfmncForDelY" parameterType="com.at.apcss.am.clcln.vo.ClclnPrfmncVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper.updateClclnPrfmncForDelY */
+				TB_CLCLN_PRFMNC
+			   SET SYS_LAST_CHG_DT 			= SYSDATE
+	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+	    		 , DEL_YN = 'Y'
+			 WHERE APC_CD 					= #{apcCd}
+			   AND CLCLN_YMD 				= #{clclnYmd}
+			   AND CLCLN_SN 				= #{clclnSn}
+		]]>
+	</update>
+	
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper.deleteClclnPrfmnc	-->
 	<!-- DESC : 정산정보조회 목록 삭제.	                         	             	 	-->
@@ -250,10 +273,11 @@
 	<!-- ==========================================================================	-->
 	<delete id="deleteClclnPrfmnc" parameterType="com.at.apcss.am.clcln.vo.ClclnPrfmncVO">
 		<![CDATA[
-		DELETE FROM TB_CLCLN_PRFMNC
-		 WHERE APC_CD 		= #{apcCd}
-		   AND CLCLN_YMD 	= #{clclnYmd}
-		   AND CLCLN_SN 	= #{clclnSn}
+			DELETE /* com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper.deleteClclnPrfmnc */
+				TB_CLCLN_PRFMNC
+			 WHERE APC_CD 		= #{apcCd}
+			   AND CLCLN_YMD 	= #{clclnYmd}
+			   AND CLCLN_SN 	= #{clclnSn}
 		]]>
 	</delete>
 

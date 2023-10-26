@@ -69,4 +69,13 @@ public interface ClclnPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int deleteClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
+	
+	/**
+	 * 정산실적 삭제 : set delyn 'Y'
+	 * @param clclnPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateClclnPrfmncForDelY(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
+	
 }
