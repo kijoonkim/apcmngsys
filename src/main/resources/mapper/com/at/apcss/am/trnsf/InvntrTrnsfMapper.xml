@@ -127,6 +127,9 @@
 			<if test='trnsfApcCd != null and trnsfApcCd !=""'>
 					   AND TH.TRNSF_APC_CD = #{trnsfApcCd}
 			</if>
+			<if test='invntrSeCd != null and invntrSeCd !=""'>
+					   AND TH.INVNTR_SE_CD = #{invntrSeCd}
+			</if>
 			<if test='trnsfYmdFrom != null and trnsfYmdFrom != ""'>
 		   	   		   AND TH.TRNSF_YMD <![CDATA[>=]]> #{trnsfYmdFrom}
 			</if>

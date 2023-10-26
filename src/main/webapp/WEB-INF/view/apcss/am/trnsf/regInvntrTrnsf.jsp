@@ -813,7 +813,7 @@
 
 		let trnsfApcCd = SBUxMethod.get("dtl-slt-trnsfApcCd");
 
-		if(gfn_isEmpty(srnsfApcCd)){
+		if(gfn_isEmpty(trnsfApcCd)){
 			gfn_comAlert("W0002", "이송APC");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
