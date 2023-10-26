@@ -125,7 +125,7 @@
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>수량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-Qntt" name="srch-inp-Qntt" uitype="text" class="form-control input-sm" placeholder="" title="" onchange="fn_onChangeQntt(this)"></sbux-input>
+								<sbux-input id="srch-inp-qntt" name="srch-inp-qntt" uitype="text" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
 							</td>
 							<td colspan="2"></td>
 						</tr>
@@ -423,7 +423,7 @@
 		let pltBxSeCd = SBUxMethod.get("srch-slt-pltBxSe");
 		let pltBxCd = SBUxMethod.get("srch-slt-pltBxNm");
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
-		let qntt = SBUxMethod.get("srch-inp-Qntt");	
+		let qntt = SBUxMethod.get("srch-inp-qntt");	
 		let rmrk = SBUxMethod.get("srch-inp-rmrk");
 
     	
@@ -443,13 +443,21 @@
 			gfn_comAlert("W0001", "명칭");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
-		if(gfn_isEmpty(qntt)){
+		if(gfn_isEmpty(qntt) || qntt == 0){
 			gfn_comAlert("W0001", "수량");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
+		if(wrhsSpmtSeCd == '2'){
+			let invntrQntt = jsonPltBxMngList.find(e => e.pltBxCd == pltBxCd && e.pltBxSeCd == pltBxSeCd).invntrQntt;
+			if(invntrQntt < qntt){
+				await alert("현재고를 초과하여 수량을 입력할 수 없습니다. 현재고: "+invntrQntt);
+				SBUxMethod.set("srch-inp-qntt", 0);
+				return;
+			}
+		}
 		
 		let pltNm = jsonPltBxNm.find(e => e.value == pltBxCd).text;
-		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, SBUxMethod.get("srch-slt-pltBxSe"));
+		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, pltBxSeCd);
 		let unitWght = pltBxs.find(e => e.pltBxCd == pltBxCd).unitWght;
 		
     	let regMsg = "저장 하시겠습니까?";
@@ -592,23 +600,6 @@
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 		}
 	}
-	
-	const fn_onChangeQntt = async function(obj) {
-		let wrhsSpmtSeCd = SBUxMethod.get("srch-slt-wrhsSpmtSe");
-		let pltBxSeCd = SBUxMethod.get("srch-slt-pltBxSe");
-		let pltBxCd = SBUxMethod.get("srch-slt-pltBxNm");
-		if(wrhsSpmtSeCd == '2'){
-			let invntrQntt = jsonPltBxMngList.find(e => e.pltBxCd == pltBxCd && e.pltBxSeCd == pltBxSeCd).invntrQntt;
-			if(invntrQntt < obj.value){
-				await alert("현재고를 초과하여 수량을 입력할 수 없습니다. 현재고: "+invntrQntt);
-				SBUxMethod.set("srch-inp-Qntt", 0);
-				return;
-			}
-		}
-		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, SBUxMethod.get("srch-slt-pltBxSe"));
-		let unitWght = pltBxs.find(e => e.pltBxCd == pltBxCd).unitWght;
-	}
-	
 	
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
