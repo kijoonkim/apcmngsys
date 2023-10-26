@@ -192,9 +192,9 @@
                         <div id="inptCmndDsctnGridArea" style="height:540px;"></div>
                     </div>
                	</div>
-				</div>
-				<!--[pp] //검색결과 -->
 			</div>
+				<!--[pp] //검색결과 -->
+		</div>
 	</section>
 	<!-- 사용자 선택 Modal -->
     <div>
@@ -877,7 +877,7 @@
 
 	    	try{
 	       		if(data.errMsg == null){
-	       			//fn_search();
+	       			fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 	       		}else{
 	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
