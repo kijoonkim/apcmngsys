@@ -1,5 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : clclnPrfmncReg.jsp
+  * @Description : 정산실적등록 화면
+  * @author SI개발부
+  * @since 2023.10.09
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.10.09   	신정철			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +86,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>정산기준</th>
+							<th scope="row" class="th_bg">정산기준</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -443,7 +458,45 @@
      * @description 삭제 버튼
      */
  	const fn_delete = async function() {
+ 		
+ 		const allData = grdClclnPrfmnc.getGridDataAll();
 
+		const clclnPrfmncList = [];
+		
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+				
+				clclnPrfmncList.push({
+					apcCd: item.apcCd,
+					clclnYmd: item.clclnYmd,
+					clclnSn: item.clclnSn
+    			});
+    		}
+		});
+
+		if (clclnPrfmncList.length == 0) {
+			gfn_comAlert("W0005", "삭제대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+
+		// comConfirm
+		if (!gfn_comConfirm("Q0001", "삭제")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+
+    	const postJsonPromise = gfn_postJSON("/am/clcln/deleteClclnPrfmncList.do", clclnPrfmncList);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
  	}
 
     /**
@@ -672,7 +725,11 @@
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 
 		let vrtyCd = obj.value;
-
+		
+		if (gfn_isEmpty(vrtyCd)) {
+			return;
+		}
+		
 		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
 		const itemCd = vrtyInfo.mastervalue;
 
