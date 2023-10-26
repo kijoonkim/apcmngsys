@@ -215,17 +215,18 @@
 	    SBGridProperties.columns = [
 	        {caption: ["구분"],			ref: 'pltBxSeNm',      	type:'output',  width:'90px',     style:'text-align:center'},
 	        {caption: ["명칭"],			ref: 'pltBxNm',      	type:'output',  width:'170px',    style:'text-align:center'},
-	        {caption: ["대여업체"],		ref: 'pltCnptNm',      	type:'output',  width:'145px',    style:'text-align:center'},
+	        {caption: ["대여업체"],		ref: 'pltCnptNm',      	type:'output',  width:'170px',    style:'text-align:center'},
 	        {caption: ["단중"],			ref: 'unitWght',      	type:'output',  width:'100px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,### Kg'}},
-	        {caption: ["전일재고수량"],		ref: 'bssInvntrQntt',   type:'output',  width:'145px',    style:'text-align:right',
+	        {caption: ["전일재고수량"],		ref: 'bssInvntrQntt',   type:'output',  width:'100px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'}},
-	        {caption: ["입고수량"],		ref: 'wrhsQntt',      	type:'output',  width:'145px',    style:'text-align:right',
+	        {caption: ["입고수량"],		ref: 'wrhsQntt',      	type:'output',  width:'100px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'}},
-	        {caption: ["출고수량"],		ref: 'spmtQntt',      	type:'output',  width:'145px',    style:'text-align:right',
+	        {caption: ["출고수량"],		ref: 'spmtQntt',      	type:'output',  width:'100px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'}},
-	        {caption: ["현재고수량"],		ref: 'invntrQntt',      type:'output',  width:'145px',    style:'text-align:right',
-	        	format : {type:'number', rule:'#,###'}}
+	        {caption: ["현재고수량"],		ref: 'invntrQntt',      type:'output',  width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+			{caption: ["비고"],			ref: 'rmrk',      		type:'output',  width:'170px',    style:'text-align:center'}
 	    ];
 	    pltBxMngList = _SBGrid.create(SBGridProperties);
 	}
@@ -332,17 +333,18 @@
 
 	    SBGridProperties.columns = [
 	        {caption: ["선택"],		ref: 'checkbox',      	type:'checkbox',	width:'70px',     style:'text-align:center'},
-	        {caption: ["작업일자"],	ref: 'jobYmd',      	type:'output',  	width:'160px',    style:'text-align:center',
+	        {caption: ["작업일자"],	ref: 'jobYmd',      	type:'output',  	width:'100px',    style:'text-align:center',
 	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	        {caption: ["입출고구분"],	ref: 'wrhsSpmtSeNm',    type:'output',  	width:'160px',    style:'text-align:center'},
-	        {caption: ["구분"],		ref: 'pltBxSeNm',      	type:'output',  	width:'160px',    style:'text-align:center'},
-	        {caption: ["명칭"],		ref: 'pltNm',      		type:'output',  	width:'170px',    style:'text-align:center'},
+	        {caption: ["입출고구분"],	ref: 'wrhsSpmtSeNm',    type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["구분"],		ref: 'pltBxSeNm',      	type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["명칭"],		ref: 'pltNm',      		type:'output',  	width:'100px',    style:'text-align:center'},
 	        {caption: ["대여업체"],	ref: 'pltCnptNm',      	type:'output',  	width:'170px',    style:'text-align:center'},
-	        {caption: ["단중"],		ref: 'unitWght',      	type:'output',  	width:'160px',    style:'text-align:right',
+	        {caption: ["단중"],		ref: 'unitWght',      	type:'output',  	width:'100px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,### Kg'}},
-	        {caption: ["생산자"],		ref: 'prdcrNm',      	type:'output',  	width:'160px',    style:'text-align:center'},
-	        {caption: ["수량"],		ref: 'qntt',      		type:'output',  	width:'160px',    style:'text-align:right',
-	        	format : {type:'number', rule:'#,###'}}
+	        {caption: ["생산자"],		ref: 'prdcrNm',      	type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["수량"],		ref: 'qntt',      		type:'output',  	width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+		    {caption: ["비고"],		ref: 'rmrk',      		type:'output',  	width:'170px',    style:'text-align:center'}
 	    ];
 
 	    grdPltWrhsSpmt = _SBGrid.create(SBGridProperties);
@@ -459,6 +461,7 @@
 				,pltBxSeCd: pltBxSeCd
 				,pltBxCd: pltBxCd
 				,prdcrCd: prdcrCd
+				,qntt: qntt
 				,pltNm: pltNm
 				,unitWght: unitWght
 				,rmrk: rmrk
