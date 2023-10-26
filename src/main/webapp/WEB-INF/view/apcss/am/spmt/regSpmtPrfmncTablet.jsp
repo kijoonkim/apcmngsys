@@ -343,7 +343,7 @@
 	    	spmtGds.spmtWght += parseInt(addData.spmtWght);
 	    }
 
-	    // 지시번호, 차량 체크박스 체크 여부
+	    // 지시번호 체크박스 체크 여부
 		chkSpmtCmndno = SBUxMethod.get('srch-chk-spmtCmndno');
 		chkVhclno = SBUxMethod.get('srch-chk-vhclno');
 		
@@ -363,6 +363,7 @@
 			SBUxMethod.set('srch-inp-regQntt', regQntt + spmtQntt);
 			SBUxMethod.set('srch-inp-regWght', regWght + spmtWght);
 		}
+	    // 차량 체크박스 체크 여부
 		if(!chkVhclno[Object.keys(chkVhclno)[0]]){
 			SBUxMethod.set('srch-inp-vhclno', "");
 		}
