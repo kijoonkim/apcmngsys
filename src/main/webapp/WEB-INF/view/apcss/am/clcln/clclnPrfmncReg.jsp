@@ -1,7 +1,7 @@
 <%
  /**
-  * @Class Name : clclnPrfmnc.jsp
-  * @Description : 정산실적조회 화면
+  * @Class Name : clclnPrfmncReg.jsp
+  * @Description : 정산실적등록 화면
   * @author SI개발부
   * @since 2023.10.09
   * @version 1.0
@@ -25,7 +25,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 정산실적조회 -->
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 정산자료등록 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
@@ -43,6 +43,22 @@
 						class="btn btn-sm btn-outline-danger"
 						text="조회"
 						onclick="fn_search"
+					></sbux-button>
+					<sbux-button
+						id="btnSave"
+						name="btnSave"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						text="저장"
+						onclick="fn_save"
+					></sbux-button>
+					<sbux-button
+						id="btnDelete"
+						name="btnDelete"
+						uitype="normal"
+						class="btn btn-sm btn-outline-danger"
+						text="삭제"
+						onclick="fn_delete"
 					></sbux-button>
 				</div>
 			</div>
@@ -70,7 +86,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">정산기준</th>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>정산기준</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -189,6 +205,38 @@
 							<span style="font-size:12px">(조회건수 <span id="cnt-clcln">0</span>건)</span>
 						</li>
 					</ul>
+				 	<div class="ad_tbl_toplist_datepk">
+				 		<table class="table table-bordered tbl_fixed">
+				 			<caption>검색 조건 설정</caption>
+						<colgroup>
+							<col style="width: auto">
+							<col style="width: 180px">
+							<col style="width: 82px">
+						</colgroup>
+						<tbody>
+							<tr>
+								<td style="border-left:hidden"></td>
+								<td class="td_input" style="border-right:hidden; border-left:hidden" >
+									<sbux-datepicker
+										id="srch-dtp-clclnYmd"
+										name="srch-dtp-clclnYmd"
+										uitype="popup"
+										class="form-control input-sm sbux-pik-group-apc"
+									></sbux-datepicker></td>
+								<td class="td_input" style="border-right:hidden;">
+									<sbux-button
+										id="btnInsertClclnData"
+										name="btnInsertClclnData"
+										uitype="normal"
+										class="btn btn-xs btn-outline-dark"
+										text="정산자료생성"
+										onclick="fn_insertClclnData"
+									></sbux-button>
+								</td>
+							</tr>
+						</tbody>
+				 		</table>
+					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-grdClclnPrfmnc" style="width:100%;height:540px;"></div>
@@ -216,13 +264,6 @@
 </body>
 <script type="text/javascript">
 
-	const lv_paging = {
-		'type' : 'page',
-	  	'count' : 5,
-	  	'size' : 20,
-	  	'sorttype' : 'page',
-	  	'showgoalpageui' : true
-    };
 
 	/* SB Select */
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
@@ -290,12 +331,10 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.paging = lv_paging;
         SBGridProperties.columns = [
 			{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
 				userattr: {colNm: "checkedYn"},
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-                hidden: true
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
         	{caption: ["정산일자"], ref: 'clclnYmd', type:'output',  width:'120px', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
@@ -317,10 +356,25 @@
             {caption: ["계산금액"], ref: 'rkngAmt', type:'output',  width:'100px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ["확정금액"], ref: 'cfmtnAmt', type:'output',  width:'100px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,###'}
+            {
+				caption: ["확정금액"],
+				ref: 'cfmtnAmt',
+				datatype: 'number',
+				type:'input',
+				width:'100px',
+				style: 'text-align:right;background-color:#FFF8DC',
+				userattr: {colNm: "cfmtnAmt"},
+				typeinfo: {
+	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
+	                maxlength: 14,
+	                oneclickedit: true
+                },
+                format : {type:'number', rule:'#,###'}
+			},
+            {caption: ["확정여부"], ref: 'cfmtnYn', type:'combo',  width:'60px', style: 'text-align:center;',
+            	userattr: {colNm: "cfmtnYn"},
+            	typeinfo: {ref:'jsonCfmtnYn', label: 'label', value: 'value', oneclickedit: true, displayui : false}
             },
-            {caption: ['확정여부'], ref: 'cfmtnYn', width: '60px', type: 'output', style: 'text-align:center'},
             {caption: [""], ref: '_', type:'output', width:'1px'},
             {caption: ["정산순번"], ref: 'clclnSn', type:'output', hidden: true},
             {caption: ["생산자코드"], ref: 'prdcrCd', type:'output', hidden: true},
@@ -334,7 +388,44 @@
         ];
 
         grdClclnPrfmnc = _SBGrid.create(SBGridProperties);
+        grdClclnPrfmnc.bind('valuechanged', fn_grdClclnPrfmncValueChanged);
     }
+
+ 	/**
+     * @name fn_grdClclnPrfmncValueChanged
+     * @description 정산실적 변경 event 처리
+     * @function
+     */
+	const fn_grdClclnPrfmncValueChanged = function() {
+		var nRow = grdClclnPrfmnc.getRow();
+		var nCol = grdClclnPrfmnc.getCol();
+
+		const usrAttr = grdClclnPrfmnc.getColUserAttr(nCol);
+		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
+
+			const rowData = grdClclnPrfmnc.getRowData(nRow, false);	// deep copy
+
+			switch (usrAttr.colNm) {
+				case "cfmtnAmt":
+				case "cfmtnYn":
+					rowData.checkedYn = "Y";
+					grdClclnPrfmnc.refresh();
+					break;
+				
+				case "checkedYn":					
+					if (rowData.checkedYn === "Y"
+							&& rowData.cfmtnYn === "N"
+							&& rowData.cfmtnAmt === 0) {
+						rowData.cfmtnAmt = rowData.rkngAmt;
+						grdClclnPrfmnc.refresh();
+					}
+					
+				default:
+					return;
+			}
+		}
+	}
+
 
 	/**
 	 * common button action
@@ -358,43 +449,128 @@
      * @name fn_reset
      * @description 초기화 버튼
      */
-	const fn_reset = function() {
+     const fn_reset = function() {
 		fn_clearForm();
 	}
+
+ 	/**
+     * @name fn_delete
+     * @description 삭제 버튼
+     */
+ 	const fn_delete = async function() {
+ 		
+ 		const allData = grdClclnPrfmnc.getGridDataAll();
+
+		const clclnPrfmncList = [];
+		
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+				
+				clclnPrfmncList.push({
+					apcCd: item.apcCd,
+					clclnYmd: item.clclnYmd,
+					clclnSn: item.clclnSn
+    			});
+    		}
+		});
+
+		if (clclnPrfmncList.length == 0) {
+			gfn_comAlert("W0005", "삭제대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+
+		// comConfirm
+		if (!gfn_comConfirm("Q0001", "삭제")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+
+    	const postJsonPromise = gfn_postJSON("/am/clcln/deleteClclnPrfmncList.do", clclnPrfmncList);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+ 	}
+
+    /**
+     * @name fn_save
+     * @description 저장 버튼
+     */
+    const fn_save = async function() {
+    	
+		const allData = grdClclnPrfmnc.getGridDataAll();
+
+		const clclnPrfmncList = [];
+		
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+				
+				clclnPrfmncList.push({
+					apcCd: item.apcCd,
+					clclnYmd: item.clclnYmd,
+					clclnSn: item.clclnSn,
+					cfmtnAmt: item.cfmtnAmt,
+					cfmtnYn: item.cfmtnYn
+    			});
+    		}
+		});
+
+		if (clclnPrfmncList.length == 0) {
+			gfn_comAlert("W0005", "변경대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+
+		// comConfirm
+		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+
+		console.log(clclnPrfmncList);
+    	const postJsonPromise = gfn_postJSON("/am/clcln/updateClclnPrfmncList.do", clclnPrfmncList);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+    }
 
 	/**
      * @name fn_search
      * @description 조회 버튼
      */
     const fn_search = async function() {
-    	
-		// set pagination
-    	grdClclnPrfmnc.rebuild();
-    	let pageSize = grdClclnPrfmnc.getPageSize();
-    	let pageNo = 1;
-
-    	// grid clear
-    	jsonClclnPrfmnc.length = 0;
-    	grdClclnPrfmnc.clearStatus();
-    	fn_setGrdClclnPrfmnc(pageSize, pageNo);
+    	fn_setGrdClclnPrfmnc();
 	}
 
     /**
      * @name fn_setGrdClclnPrfmnc
      * @description 정산내역 조회
-     * @param {number} pageSize
-     * @param {number} pageNo
      */
-	const fn_setGrdClclnPrfmnc = async function(pageSize, pageNo) {
+	const fn_setGrdClclnPrfmnc = async function() {
 
    		let clclnCrtrCd = SBUxMethod.get("srch-slt-clclnCrtrCd");	// 정산기준코드
    		let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");	// 정산일자 from
-   		let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");		// 정산일자 to
-   		let cfmtnYn = SBUxMethod.get("srch-slt-cfmtnYn");			// 확정여부
+   		let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");	// 정산일자 to
+   		let cfmtnYn = SBUxMethod.get("srch-slt-cfmtnYn");		// 확정여부
 
-  		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");			// 생산자
-  		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
-  		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
+  		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
+  		let itemCd = SBUxMethod.get("srch-slt-itemCd");	// 품목
+  		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");	// 품종
 
 		const postJsonPromise = gfn_postJSON("/am/clcln/selectClclnPrfmncList.do", {
 			apcCd: gv_selectedApcCd,
@@ -402,14 +578,12 @@
 			clclnYmdFrom: clclnYmdFrom,
 			clclnYmdTo: clclnYmdTo,
 			cfmtnYn: cfmtnYn,
+
 			prdcrCd: prdcrCd,
 			itemCd: itemCd,
 			vrtyCd: vrtyCd,
-			
           	// pagination
-  	  		pagingYn : 'Y',
-  			currentPageNo : pageNo,
-   		  	recordCountPerPage : pageSize
+  	  		pagingYn : 'N',
   		});
 
         const data = await postJsonPromise;
@@ -422,7 +596,6 @@
       		jsonClclnPrfmnc.length = 0;
           	data.resultList.forEach((item, index) => {
           		const clclnPrfmnc = {
-          				rowSeq: item.rowSeq,
   						apcCd: item.apcCd,
   						clclnYmd: item.clclnYmd,
   						clclnSn: item.clclnSn,
@@ -455,27 +628,56 @@
   				}
   			});
 
-          	if (jsonClclnPrfmnc.length > 0) {
-          		if (grdClclnPrfmnc.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			grdClclnPrfmnc.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			grdClclnPrfmnc.rebuild();
-  				} else {
-  					grdClclnPrfmnc.refresh();
-  				}
-          	} else {
-          		grdClclnPrfmnc.setPageTotalCount(totalRecordCount);
-          		grdClclnPrfmnc.rebuild();
-          	}
-          	
+          	totalRecordCount = jsonClclnPrfmnc.length;
+          	grdClclnPrfmnc.refresh();
+
           	document.querySelector('#cnt-clcln').innerText = totalRecordCount;
 
-		} catch (e) {
-			if (!(e instanceof Error)) {
+          } catch (e) {
+      		if (!(e instanceof Error)) {
       			e = new Error(e);
-			}
+      		}
       		console.error("failed", e.message);
-		}
+          }
 	}
+
+	/**
+     * @name fn_insertClclnData
+     * @description 정산실적 생성
+     * @function
+	 */
+	const fn_insertClclnData = async function() {
+		
+		let clclnYmd = SBUxMethod.get("srch-dtp-clclnYmd");
+		let clclnCrtrCd = SBUxMethod.get("srch-slt-clclnCrtrCd")
+		
+		
+		if(gfn_isEmpty(clclnYmd)){
+			gfn_comAlert("W0002", "정산일자");		//	W0002	{0}을/를 입력하세요.
+            return;
+		}
+
+		const postJsonPromise = gfn_postJSON("/am/clcln/insertClclnPrfmncCrt.do", {
+			apcCd			: gv_selectedApcCd,
+			clclnYmd		: clclnYmd,
+			prfmncYmdFrom	: clclnYmd,
+			prfmncYmdTo		: clclnYmd,
+			clclnCrtrCd		: clclnCrtrCd
+  		});
+		const data = await postJsonPromise;
+
+		try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+	}
+
 
  	/**
      * @name fn_clearForm
