@@ -214,12 +214,6 @@
 	
 	var regSpmtList = [];
 
-	const fn_initSBSelect = async function() {
-		let rst = await Promise.all([
-			
-		]);
-	}
-	
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		
@@ -308,46 +302,64 @@
 		grdSpmtTrgtDsctn.addRow(true, null, true);
 		
 		// 출하대상내역에 추가된 출하수량, 중량 계산
-		let allData = grdSpmtTrgtDsctn.getGridDataAll();
-		regSpmtList = [];
+// 		let allData = grdSpmtTrgtDsctn.getGridDataAll();
+// 		regSpmtList = [];
 		
-		allData.forEach((item) => {
-			if (!gfn_isEmpty(item.spmtCmndnoIndct)) {
-		    	let regSpmt = {
-		    		  spmtCmndnoIndct	: item.spmtCmndnoIndct
-		    		, spmtQntt			: parseInt(item.spmtQntt)
-		    		, spmtWght			: parseInt(item.spmtWght)
-		    		, cmndQntt			: parseInt(item.cmndQntt)
-		    		, regOkay			: "N"
-			    }
-		    	newRegSpmt = regSpmtList.filter(function(e){ return e.spmtCmndnoIndct === item.spmtCmndnoIndct; })[0];
+// 		allData.forEach((item) => {
+// 			if (!gfn_isEmpty(item.spmtCmndnoIndct)) {
+// 		    	let regSpmt = {
+// 		    		  spmtCmndnoIndct	: item.spmtCmndnoIndct
+// 		    		, spmtQntt			: parseInt(item.spmtQntt)
+// 		    		, spmtWght			: parseInt(item.spmtWght)
+// 		    		, cmndQntt			: parseInt(item.cmndQntt)
+// 		    		, regOkay			: "N"
+// 			    }
+// 		    	newRegSpmt = regSpmtList.filter(function(e){ return e.spmtCmndnoIndct === item.spmtCmndnoIndct; })[0];
 		    	
-			    if (gfn_isEmpty(newRegSpmt)) {
-			    	if (regSpmt.spmtQntt == regSpmt.cmndQntt) {
-			    		regSpmt.regOkay = "Y";
-			    	}
-			    	regSpmtList.push(regSpmt);
-			    } else {
-			    	newRegSpmt.spmtQntt += regSpmt.spmtQntt;
-			    	newRegSpmt.spmtWght += regSpmt.spmtWght;
-			    	if (newRegSpmt.spmtQntt == newRegSpmt.cmndQntt) {
-			    		newRegSpmt.regOkay = "Y";
-			    	}
-			    }
-		    }
-		});
-	    console.log(regSpmtList);
-		
-		// recreate
-//     	newRegSpmt = regSpmtList.filter(function(e){ return e.spmtCmndnoIndct === addData.spmtCmndnoIndct; })[0];
-    	
-// 	    if (gfn_isEmpty(newRegSpmt)) {
-// 	    	regSpmtList.push({spmtCmndnoIndct : addData.spmtCmndnoIndct, spmtQntt : parseInt(addData.spmtQntt), spmtWght : parseInt(addData.spmtWght)});
-// 	    } else {
-// 	    	newRegSpmt.spmtQntt += addData.spmtQntt;
-// 	    	newRegSpmt.spmtWght += addData.spmtWght;
-// 	    }
+// 			    if (gfn_isEmpty(newRegSpmt)) {
+// 			    	if (regSpmt.spmtQntt == regSpmt.cmndQntt) {
+// 			    		regSpmt.regOkay = "Y";
+// 			    	}
+// 			    	regSpmtList.push(regSpmt);
+// 			    } else {
+// 			    	newRegSpmt.spmtQntt += regSpmt.spmtQntt;
+// 			    	newRegSpmt.spmtWght += regSpmt.spmtWght;
+// 			    	if (newRegSpmt.spmtQntt == newRegSpmt.cmndQntt) {
+// 			    		newRegSpmt.regOkay = "Y";
+// 			    	}
+// 			    }
+// 		    }
+// 		});
 // 	    console.log(regSpmtList);
+		
+		// 추가 시 출하수량, 중량 계산
+		regSpmt = regSpmtList.filter(function(e){ return e.spmtCmndnoIndct === addData.spmtCmndnoIndct; })[0];
+		regOkay = "N";
+    	
+	    if (gfn_isEmpty(regSpmt)) {
+	    	if (addData.spmtQntt == addData.cmndQntt) {
+	    		regOkay = "Y";
+	    	}
+	    	newRegSpmt = {
+	    					  spmtCmndnoIndct 	: addData.spmtCmndnoIndct
+	    					, spmtQntt 			: parseInt(addData.spmtQntt)
+	    					, spmtWght 			: parseInt(addData.spmtWght)
+	    					, cmndQntt 			: parseInt(addData.cmndQntt)
+	    					, regOkay 			: regOkay
+	    				 }
+	    	regSpmtList.push(newRegSpmt);
+	    	console.log("newRegSpmt", newRegSpmt);
+	    	console.log("addData", addData);
+	    } else {
+	    	regSpmt.spmtQntt += parseInt(addData.spmtQntt);
+	    	regSpmt.spmtWght += parseInt(addData.spmtWght);
+		    if (regSpmt.spmtQntt == regSpmt.cmndQntt) {
+		    	regSpmt.regOkay = "Y";
+	    	} else {
+		    	regSpmt.regOkay = "N";
+	    	}
+	    }
+	    console.log(regSpmtList);
 	    // end
 
 		chkSpmtCmndno = SBUxMethod.get('srch-chk-spmtCmndno');
@@ -376,52 +388,52 @@
 	}
 	
 	// 출하대상 데이터 그리드 삭제
-	async function delRow(nRow) {
+	function delRow(nRow) {
+		// 삭제 시 출하수량, 중량 계산
+		delData = grdSpmtTrgtDsctn.getRowData(nRow);
+		regSpmt = regSpmtList.filter(function(e){ return e.spmtCmndnoIndct === delData.spmtCmndnoIndct; })[0];
+    	
+	    if (regSpmt.spmtQntt == delData.spmtQntt) {
+    		regSpmtList = regSpmtList.filter(function(e){ return e.spmtCmndnoIndct != delData.spmtCmndnoIndct; });
+	    } else {
+	    	regSpmt.spmtQntt -= parseInt(delData.spmtQntt);
+	    	regSpmt.spmtWght -= parseInt(delData.spmtWght);
+		    regSpmt.regOkay = "N";
+	    }
+	    // end
+	    
     	grdSpmtTrgtDsctn.deleteRow(nRow);
     	
     	// 출하대상내역에 추가된 출하수량, 중량 계산
-		let allData = grdSpmtTrgtDsctn.getGridDataAll();
-		regSpmtList = [];
+// 		let allData = grdSpmtTrgtDsctn.getGridDataAll();
+// 		regSpmtList = [];
 		
-		allData.forEach((item) => {
-			if (!gfn_isEmpty(item.spmtCmndnoIndct)) {
-		    	let regSpmt = {
-		    		  spmtCmndnoIndct	: item.spmtCmndnoIndct
-		    		, spmtQntt			: parseInt(item.spmtQntt)
-		    		, spmtWght			: parseInt(item.spmtWght)
-		    		, cmndQntt			: parseInt(item.cmndQntt)
-		    		, regOkay			: "N"
-			    }
-		    	newRegSpmt = regSpmtList.filter(function(e){ return e.spmtCmndnoIndct === item.spmtCmndnoIndct; })[0];
+// 		allData.forEach((item) => {
+// 			if (!gfn_isEmpty(item.spmtCmndnoIndct)) {
+// 		    	let regSpmt = {
+// 		    		  spmtCmndnoIndct	: item.spmtCmndnoIndct
+// 		    		, spmtQntt			: parseInt(item.spmtQntt)
+// 		    		, spmtWght			: parseInt(item.spmtWght)
+// 		    		, cmndQntt			: parseInt(item.cmndQntt)
+// 		    		, regOkay			: "N"
+// 			    }
+// 		    	newRegSpmt = regSpmtList.filter(function(e){ return e.spmtCmndnoIndct === item.spmtCmndnoIndct; })[0];
 		    	
-			    if (gfn_isEmpty(newRegSpmt)) {
-			    	if (regSpmt.spmtQntt == regSpmt.cmndQntt) {
-			    		regSpmt.regOkay = "Y";
-			    	}
-			    	regSpmtList.push(regSpmt);
-			    } else {
-			    	newRegSpmt.spmtQntt += regSpmt.spmtQntt;
-			    	newRegSpmt.spmtWght += regSpmt.spmtWght;
-			    	if (newRegSpmt.spmtQntt == newRegSpmt.cmndQntt) {
-			    		newRegSpmt.regOkay = "Y";
-			    	}
-			    }
-		    }
-		});
-	    console.log(regSpmtList);
-		
-		// recreate
-// 		delData = grdSpmtTrgtDsctn.getRowData(nRow);
-//     	newRegSpmt = regSpmtList.filter(function(e){ return e.spmtCmndnoIndct === delData.spmtCmndnoIndct; })[0];
-    	
-// 	    if (gfn_isEmpty(newRegSpmt)) {
-// 	    	regSpmtList.push({spmtCmndnoIndct : delData.spmtCmndnoIndct, spmtQntt : parseInt(delData.spmtQntt), spmtWght : parseInt(delData.spmtWght)});
-// 	    } else {
-// 	    	newRegSpmt.spmtQntt -= delData.spmtQntt;
-// 	    	newRegSpmt.spmtWght -= delData.spmtWght;
-// 	    }
+// 			    if (gfn_isEmpty(newRegSpmt)) {
+// 			    	if (regSpmt.spmtQntt == regSpmt.cmndQntt) {
+// 			    		regSpmt.regOkay = "Y";
+// 			    	}
+// 			    	regSpmtList.push(regSpmt);
+// 			    } else {
+// 			    	newRegSpmt.spmtQntt += regSpmt.spmtQntt;
+// 			    	newRegSpmt.spmtWght += regSpmt.spmtWght;
+// 			    	if (newRegSpmt.spmtQntt == newRegSpmt.cmndQntt) {
+// 			    		newRegSpmt.regOkay = "Y";
+// 			    	}
+// 			    }
+// 		    }
+// 		});
 // 	    console.log(regSpmtList);
-	    // end
 	}
 	
 	// 출하실적 등록 (저장 버튼)
@@ -471,22 +483,22 @@
     		return;
     	}
     	
-    	const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncList.do", insertList, this.prgrmId);
+//     	const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncList.do", insertList, this.prgrmId);
     	
-		const data = await postJsonPromise;	    
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
+// 		const data = await postJsonPromise;	    
+//         try {
+//         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_reset();
         		jsonSpmtTrgtDsctn = [];
         		grdSpmtTrgtDsctn.rebuild();
         		grdSpmtTrgtDsctn.addRow();
-        	} else {
-        		gfn_comAlert(data.resultCode, data.resultMessage);
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        	}
-        } catch(e) {        	
-        }
+//         	} else {
+//         		gfn_comAlert(data.resultCode, data.resultMessage);
+//         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+//         	}
+//         } catch(e) {        	
+//         }
 	}
 	
 	// 초기화
