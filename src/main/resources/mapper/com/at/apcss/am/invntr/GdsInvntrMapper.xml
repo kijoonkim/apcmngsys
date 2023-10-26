@@ -230,7 +230,7 @@
 			    , GI.PLOR_CD 		AS PLOR_CD
 			    , GI.DEL_YN			AS DEL_YN
 			  FROM TB_GDS_INVNTR GI
-			 WHERE 1=1
+			 WHERE GI.DEL_YN = 'N'
 			   AND GI.APC_CD = #{apcCd}
 		]]>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
