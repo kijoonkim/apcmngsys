@@ -117,9 +117,11 @@ public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrn
 		List<GdsInvntrVO> gdsInvntrList = new ArrayList<>();
 		List<InvntrTrnsfVO> updateinvntrTrnsfList = new ArrayList<>();
 
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = null;
 
 		for (InvntrTrnsfVO invntrTrnsfVO : invntrTrnsfList) {
+
+			logger.debug("invntrTrnsfVO.getInvntrSeCd() >>> {} ", invntrTrnsfVO.getInvntrSeCd());
 
 			if("Y".equals(invntrTrnsfVO.getCfmtnYn())) {
 				return ComUtil.getResultMap("E0000", "이송 확정 된 실적 입니다.");	// E0001	{}

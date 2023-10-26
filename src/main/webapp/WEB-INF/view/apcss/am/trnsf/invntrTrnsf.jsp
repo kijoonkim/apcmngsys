@@ -141,6 +141,18 @@
 									jsondata-ref="jsonComWrhsSeCd"
 								/>
 							</td>
+							<td colspan="2"></td>
+							<th scope="row" class="th_bg">재고구분</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select
+									unselected-text="전체"
+									uitype="single"
+									id="srch-slt-invntrSeCd"
+									name="srch-slt-invntrSeCd"
+									class="form-control input-sm"
+									jsondata-ref="jsonComInvntrSeCd"
+								/>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -167,6 +179,7 @@
 	var jsonComWrhsSeCd		= [];	// 창고 	warehouseSeCd	검색
 	var jsonComGdsSeCd		= [];	// 상품구분 gdsSeCd			검색
 	var jsonComWrhsSeCd		= [];	// 입고구분 wrhsSeCd		검색
+	var jsonComInvntrSeCd	= [];	// 재고구분	invntrSeCd	검색
 	var jsonTrnsfApcCd		= [];	// 이송APC  상세
 
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -175,6 +188,8 @@
 
 		SBUxMethod.set("srch-dtp-trnsfYmdFrom", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-trnsfYmdTo", gfn_dateToYmd(new Date()));
+
+		fn_search();
 	})
 
 	const fn_initSBSelect = async function() {
@@ -186,6 +201,7 @@
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd),						// 품목
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 		gv_selectedApcCd),						// 품종
 		 	gfn_setComCdSBSelect('srch-slt-gdsSe', 			jsonComGdsSeCd, 	'GDS_SE_CD', 	gv_selectedApcCd),		// 상품구분
+		 	gfn_setComCdSBSelect('srch-slt-invntrSeCd', 	jsonComInvntrSeCd, 	'INVNTR_SE_CD'),						// 재고구분
 		])
 
 	}
@@ -254,7 +270,6 @@
         ];
         grdInvntrTrnsf = _SBGrid.create(SBGridProperties);
 
-        fn_search();
     }
 
 	//조회
@@ -278,10 +293,11 @@
 		let warehouseSeCd	= SBUxMethod.get("srch-slt-warehouseSe");
 		let gdsSeCd			= SBUxMethod.get("srch-slt-gdsSe");
 		let wrhsSeCd		= SBUxMethod.get("srch-slt-wrhsSeCd");
+		let invntrSeCd		= SBUxMethod.get("srch-slt-invntrSeCd");
 
 
 		const postJsonPromise = gfn_postJSON("/am/trnsf/selectTrnsfInvntrList.do", {
-			  apcCd			:  gv_selectedApcCd
+			  apcCd			: gv_selectedApcCd
 			, trnsfYmdFrom	: trnsfYmdFrom
 			, trnsfYmdTo	: trnsfYmdTo
 			, trnsfApcCd	: trnsfApcCd
@@ -291,6 +307,7 @@
 			, warehouseSeCd	: warehouseSeCd
 			, gdsSeCd		: gdsSeCd
 			, wrhsSeCd		: wrhsSeCd
+			, invntrSeCd	: invntrSeCd
           	// pagination
   	  		, pagingYn : 'Y'
   			, currentPageNo : pageNo
@@ -396,6 +413,8 @@
     		deleteList.push(rowData);
 
     	}
+
+    	console.log("deleteList",deleteList)
 
     	if(grdRows.length == 0){
     		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
