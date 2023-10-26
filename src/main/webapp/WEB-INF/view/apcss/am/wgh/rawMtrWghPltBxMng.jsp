@@ -21,7 +21,7 @@
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 원물입고팔레트/박스분출관리 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
@@ -171,6 +171,7 @@
 			gfn_setComCdSBSelect('srch-slt-wrhsSpmtSe', jsonWrhsSpmtSe, 'WRHS_SPMT_SE'),			// 창고
 			gfn_setComCdSBSelect('srch-slt-pltBxSe', jsonPltBxSe, 'PLT_BX_SE_CD'),			// 창고
 		]);
+		fn_search();
 	}
 	
 	const fn_selectPltBxSe = async function(){
@@ -180,20 +181,11 @@
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
+		SBUxMethod.set("srch-inp-cmndYmd", gfn_dateToYmd(new Date()));
+		
 		fn_createGrid();
 		fn_createGrid2();
-
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2)
-		let day = ('0' + today.getDate()).slice(-2)
-// 		SBUxMethod.set("srch-dtp-strtCrtrYmd", year+month+day);
-// 		SBUxMethod.set("srch-dtp-endCrtrYmd", year+month+day);
-		SBUxMethod.set("srch-inp-cmndYmd", year+month+day);
-
-		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		fn_initSBSelect();
-		fn_search();
 		fn_getPrdcrs();
 	});
 
@@ -528,6 +520,29 @@
 			}
 		}
 	}
+	
+	// 초기화
+	const fn_reset = async function() {
+		SBUxMethod.set("srch-inp-cmndYmd", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-slt-wrhsSpmtSe", "");
+		SBUxMethod.set("srch-slt-pltBxSe", "");
+		SBUxMethod.set("srch-slt-pltBxNm", "");
+		SBUxMethod.set("srch-inp-prdcrNm", "");
+		SBUxMethod.set("srch-inp-prdcrCd", "");
+		SBUxMethod.set("srch-inp-qntt", "");	
+		SBUxMethod.set("srch-inp-rmrk", "");
+	}
+	
+	// APC 선택 변경
+	const fn_onChangeApc = async function() {
+		let result = await Promise.all([
+			fn_initSBSelect(),
+			fn_getPrdcrs()
+		]);
+		
+		fn_reset();
+	}
+	
 	/*
 	* @name fn_getPrdcrs
 	* @description 생산자 자동완성 목록 가져오기
