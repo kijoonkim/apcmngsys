@@ -92,6 +92,7 @@
 			// set param
 			SBUxMethod.set("gds-inp-apcCd", _apcCd);
 			SBUxMethod.set("gds-inp-apcNm", _apcNm);
+			SBUxMethod.set("gds-inp-spmtPckgUnitNm", _spmtPckgUnitNm)
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;
 			}
@@ -107,7 +108,6 @@
 			}
 
 			this.prvApcCd = _apcCd;
-			SBUxMethod.set("gds-inp-spmtPckgUnitNm", _spmtPckgUnitNm)
 		},
 		close: function(_gds) {
 			gfn_closeModal(this.modalId, this.callbackFnc, _gds);

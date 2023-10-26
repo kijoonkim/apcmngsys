@@ -55,7 +55,17 @@
 	<!-- ==============================================================================	-->
     <select id="selectSpmtPckgUnitList" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
     	<![CDATA[
-    		SELECT pt0.*
+    		SELECT
+		]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+    			   pt0.*
     		     , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 					AS ITEM_NM
     		     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 		AS VRTY_NM
     		     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 	AS SPCFCT_NM
@@ -95,6 +105,12 @@
 		<![CDATA[
 			) pt0
 		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
     </select>
 
     <!-- ==========================================================================	-->

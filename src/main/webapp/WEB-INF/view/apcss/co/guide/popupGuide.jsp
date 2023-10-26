@@ -634,7 +634,7 @@
 	 */
 	const fn_setGdsNm = function(gds) {
 		if (!gfn_isEmpty(gds)) {
-			SBUxMethod.set('srch-inp-gdsNm', gds.gdsNm);
+			SBUxMethod.set('srch-inp-gdsNm', gds.spmtPckgUnitNm);
 		}
 	}
 	/* End */
