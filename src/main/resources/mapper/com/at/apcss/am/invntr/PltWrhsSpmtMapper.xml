@@ -163,9 +163,9 @@
     </select>
     
     
-    	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtCmndMapper.deleteSpmtCmnd			-->
-	<!-- DESC : 출하지시조회 목록 삭제.	                         	             	 	-->
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.deletePltWrhsSpmt			-->
+	<!-- DESC : 팔레트/박스 입출 목록 삭제.	                         	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -179,8 +179,10 @@
 		   AND WRHS_SPMT_SE_CD 				= #{wrhsSpmtSeCd}
 		   AND PLT_BX_SE_CD 				= #{pltBxSeCd}
 		   AND PLT_BX_CD 					= #{pltBxCd}
-		   AND PRDCR_CD 					= #{prdcrCd}
 		   AND SEQ_NO 						= #{seqNo}
 		]]>
+		<if test='prdcrCd != null and prdcrCd != ""'>
+		   AND PRDCR_CD 					= #{prdcrCd}
+		</if>
 	</delete>
 </mapper>
