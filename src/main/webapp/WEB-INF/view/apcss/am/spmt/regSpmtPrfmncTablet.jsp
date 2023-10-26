@@ -213,6 +213,7 @@
 	var jsonSpmtTrgtDsctn = [];
 	
 	var regSpmtList = [];
+	var spmtGdsList = [];
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
@@ -317,8 +318,6 @@
 	    					, regOkay 			: regOkay
 	    				 }
 	    	regSpmtList.push(newRegSpmt);
-	    	console.log("newRegSpmt", newRegSpmt);
-	    	console.log("addData", addData);
 	    } else {
 	    	regSpmt.spmtQntt += parseInt(addData.spmtQntt);
 	    	regSpmt.spmtWght += parseInt(addData.spmtWght);
@@ -328,7 +327,23 @@
 		    	regSpmt.regOkay = "N";
 	    	}
 	    }
+	    
+		// 추가 시 재고수량, 중량 계산
+		spmtGds = spmtGdsList.filter(function(e){ return e.pckgnoIndct === addData.pckgnoIndct; })[0];
 
+	    if (gfn_isEmpty(spmtGds)) {
+	    	newSpmtGds = {
+	    					  pckgnoIndct 		: addData.pckgnoIndct
+	    					, spmtQntt 			: parseInt(addData.spmtQntt)
+	    					, spmtWght 			: parseInt(addData.spmtWght)
+	    				 }
+	    	spmtGdsList.push(newSpmtGds);
+	    } else {
+	    	spmtGds.spmtQntt += parseInt(addData.spmtQntt);
+	    	spmtGds.spmtWght += parseInt(addData.spmtWght);
+	    }
+
+	    // 지시번호, 차량 체크박스 체크 여부
 		chkSpmtCmndno = SBUxMethod.get('srch-chk-spmtCmndno');
 		chkVhclno = SBUxMethod.get('srch-chk-vhclno');
 		
@@ -374,6 +389,16 @@
 		    	SBUxMethod.set('srch-inp-regQntt', regSpmt.spmtQntt);
 		    	SBUxMethod.set('srch-inp-regWght', regSpmt.spmtWght);
 		    }
+	    }
+	    
+		// 삭제 시 재고수량, 중량 계산
+		spmtGds = spmtGdsList.filter(function(e){ return e.pckgnoIndct === delData.pckgnoIndct; })[0];
+    	
+		if (spmtGds.spmtQntt == delData.spmtQntt) {
+    		spmtGdsList = spmtGdsList.filter(function(e){ return e.pckgnoIndct != delData.pckgnoIndct; });
+	    } else {
+	    	spmtGds.spmtQntt -= parseInt(delData.spmtQntt);
+	    	spmtGds.spmtWght -= parseInt(delData.spmtWght);
 	    }
 	    
     	grdSpmtTrgtDsctn.deleteRow(nRow);
@@ -549,26 +574,6 @@
 	// 포장번호 선택 팝업 호출
 	const fn_modalGdsInvntr = function() {
 		let allData = grdSpmtTrgtDsctn.getGridDataAll();
-		let spmtGdsList = [];
-		
-		// 출하대상내역에 추가된 재고수량, 중량 계산
-		allData.forEach((item) => {
-			if (!gfn_isEmpty(item.pckgnoIndct)) {
-		    	let spmtGds = {
-		    		  pckgnoIndct	: item.pckgnoIndct
-		    		, spmtQntt		: parseInt(item.spmtQntt)
-		    		, spmtWght		: parseInt(item.spmtWght)
-			    }
-		    	newSpmtGds = spmtGdsList.filter(function(e){ return e.pckgnoIndct === item.pckgnoIndct; })[0];
-		    	
-			    if (gfn_isEmpty(newSpmtGds)) {
-			    	spmtGdsList.push(spmtGds);
-			    } else {
-			    	newSpmtGds.spmtQntt += spmtGds.spmtQntt;
-			    	newSpmtGds.spmtWght += spmtGds.spmtWght;
-			    }
-		    }
-		});
 		
 		let searchData = {
 			itemCd 		: SBUxMethod.get('srch-inp-itemCd'),
