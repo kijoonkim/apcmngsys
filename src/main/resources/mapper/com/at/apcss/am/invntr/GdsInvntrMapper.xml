@@ -230,7 +230,7 @@
 			    , GI.PLOR_CD 		AS PLOR_CD
 			    , GI.DEL_YN			AS DEL_YN
 			  FROM TB_GDS_INVNTR GI
-			 WHERE 1=1
+			 WHERE GI.DEL_YN = 'N'
 			   AND GI.APC_CD = #{apcCd}
 		]]>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
@@ -463,13 +463,13 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrDsctnList	-->
-	<!-- DESC : 원물재고내역 변경.		                                       				-->
+	<!-- DESC : 상품재고내역 변경.		                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.18  	김현호        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateGdsInvntrList" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+    <update id="updateGdsInvntrChg" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
 		<![CDATA[
 			UPDATE /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateGdsInvntrList */
 				TB_GDS_INVNTR
@@ -488,8 +488,9 @@
 				, INVNTR_Wght			= #{invntrWght}
 			</if>
 		<![CDATA[
-			 WHERE APC_CD = #{apcCd}
-			   AND PCKGNO = #{pckgno}
+			 WHERE APC_CD 	= #{apcCd}
+			   AND PCKGNO 	= #{pckgno}
+			   AND PCKG_SN	= #{pckgSn}
 		]]>
 	</update>
 

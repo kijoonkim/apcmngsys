@@ -265,7 +265,7 @@
 			gfn_comAlert("W0002", "매출일자");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
-		let SlsPrfmncVO = {
+		let slsPrfmncVO = {
 				   apcCd 		: gv_selectedApcCd
 				 , slsYmdFrom 	: slsYmdFrom
 				 , slsYmdTo 	: slsYmdTo
@@ -274,7 +274,7 @@
 				 , itemCd 		: itemCd
 				 , vrtyCd 		: vrtyCd
 		}
-		let postJsonPromise = gfn_postJSON("/am/sls/selectRegSlsPrfmncList.do", SlsPrfmncVO);
+		let postJsonPromise = gfn_postJSON("/am/sls/selectRegSlsPrfmncList.do", slsPrfmncVO);
         let data = await postJsonPromise;
         try{
         	jsonSlsPrfmnc.length = 0;

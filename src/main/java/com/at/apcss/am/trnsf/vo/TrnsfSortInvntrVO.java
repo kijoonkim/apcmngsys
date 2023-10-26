@@ -26,7 +26,35 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TrnsfSortInvntrVO extends ComVO {
+	/**
+	 * 이송일자
+	 */
+	private String trnsfYmd;
 
+	/**
+	 * 이송순번
+	 */
+	private int trnsfSn;
+
+	/**
+	 * 재고구분코드
+	 */
+	private String invntrSeCd;
+
+	/**
+	 * 이송APC코드
+	 */
+	private String trnsfApcCd;
+
+	/**
+	 * 이송수량
+	 */
+	private int trnsfQntt;
+
+	/**
+	 * 이송중량
+	 */
+	private double trnsfWght;
 	/**
 	 * APC코드
 	 */
