@@ -363,10 +363,12 @@
 			SBUxMethod.set('srch-inp-regQntt', regQntt + spmtQntt);
 			SBUxMethod.set('srch-inp-regWght', regWght + spmtWght);
 		}
+		
 	    // 차량 체크박스 체크 여부
 		if(!chkVhclno[Object.keys(chkVhclno)[0]]){
 			SBUxMethod.set('srch-inp-vhclno', "");
 		}
+	    
 		fn_resetPckgno();
 	}
 	
