@@ -86,7 +86,7 @@ public class TrnsfGdsInvntrServiceImpl extends BaseServiceImpl implements TrnsfG
 		}
 
 
-		resultMap = gdsInvntrService.updateGdsInvntrList(GdsInvntrList);
+		resultMap = gdsInvntrService.multiGdsInvntrList(GdsInvntrList);
 
 		if(resultMap != null) {
 			throw new EgovBizException(getMessageForMap(resultMap));

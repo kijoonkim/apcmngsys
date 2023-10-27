@@ -202,7 +202,7 @@ public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrn
 		}
 
 		if(gdsInvntrList.size() > 0 ) {
-			resultMap = gdsInvntrService.updateGdsInvntrList(gdsInvntrList);
+			resultMap = gdsInvntrService.multiGdsInvntrList(gdsInvntrList);
 		}
 
 		if(resultMap != null) {

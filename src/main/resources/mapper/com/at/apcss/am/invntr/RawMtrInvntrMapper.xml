@@ -353,6 +353,9 @@
 			<if test='invntrWght != null and invntrWght != ""'>
 				, INVNTR_Wght			= #{invntrWght}
 			</if>
+			<if test='rmrk != null and rmrk != ""'>
+				, RMRK					= #{rmrk}
+			</if>
 		<![CDATA[
 			 WHERE APC_CD = #{apcCd}
 			   AND WRHSNO = #{wrhsno}
