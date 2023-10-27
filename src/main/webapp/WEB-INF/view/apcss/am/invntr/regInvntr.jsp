@@ -936,14 +936,12 @@ const fn_initSBSelect = async function() {
 				typeinfo : {ref:'jsonExpSltVrty', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["생산자"], 		ref: 'prdcrCd',   	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonExpSltPrdcr', 	displayui : false,	itemcount: 10, label:'prdcrNm', value:'prdcrCd'}},
-			{caption: ["규격"], 		ref: 'spcfctCd',   	type:'combo',  width:'80px',    style:'text-align:center',
-				typeinfo : {ref:'jsonExpSltSpcfct', 	displayui : false,	itemcount: 10, label:'SpcfctNm', value:'SpcfctCd'}},
-// 			{caption: ["입고구분"], 	ref: 'wrhsSeCd',   	type:'combo',  width:'80px',    style:'text-align:center',
-// 				typeinfo : {ref:'jsonExpSltWrhsSeCd', 	displayui : false,	itemcount: 10, label:'wrhsSeNm', value:'wrhsSeCd'}},
+	        {caption: ["입고구분"], 	ref: 'wrhsSeCd',   	type:'combo',  width:'80px',    style:'text-align:center',
+				typeinfo : {ref:'jsonExpSltWrhsSeCd', 	displayui : false,	itemcount: 10, label:'cdVlNm', value:'cdVl'}},
 	        {caption: ["상품구분"], 	ref: 'gdsSeCd',   	type:'combo',  width:'80px',    style:'text-align:center',
-				typeinfo : {ref:'jsonExpSltGdsSeCd', 	displayui : false,	itemcount: 10, label:'gdsSeNm', value:'gdsSeCd'}},
+				typeinfo : {ref:'jsonExpSltGdsSeCd', 	displayui : false,	itemcount: 10, label:'cdVlNm', value:'cdVl'}},
 	        {caption: ["운송구분"], 	ref: 'trsprtSeCd',   	type:'combo',  width:'80px',    style:'text-align:center',
-				typeinfo : {ref:'jsonExpSltTrsprtSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+				typeinfo : {ref:'jsonExpSltTrsprtSeCd', 	displayui : false,	itemcount: 10, label:'cdVlNm', value:'cdVl'}},
 	        {caption: ["보관창고"],		ref: 'warehouseSeCd',	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonExpSltWarehouseSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["박스"],		ref: 'pltBxCd ',	type:'combo',  width:'80px',    style:'text-align:center',
@@ -951,7 +949,7 @@ const fn_initSBSelect = async function() {
 	        {caption: ["생산연도"],		ref: 'prdctnYr',    	type:'output',  width:'80px',    style:'text-align:left'},
 	        {caption: ["차량번호"],		ref: 'vhclno',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["박스수량"],		ref: 'bxQntt',      type:'output',  width:'60px',    style:'text-align:right'},
-	        {caption: ["중량 Kg"],	ref: 'wrhsWght',    type:'output',  width:'60px',    style:'text-align:right'}
+	        {caption: ["중량 Kg"],	ref: 'wrhsWght',    type:'output',  width:'60px',    style:'text-align:right'},
 		);
 
 		const columnsStdGrd = [];
@@ -1008,7 +1006,7 @@ const fn_initSBSelect = async function() {
 		//규격
 		jsonExpSltSpcfct = gfn_cloneJson(jsonSpcfct);
 		// 입고구분
-// 		jsonExpSltWrhsSeCd = gfn_cloneJson(jsonComWrhsSeCd);
+		jsonExpSltWrhsSeCd = gfn_cloneJson(jsonComWrhsSeCd);
 		// 상품구분
 		jsonExpSltGdsSeCd = gfn_cloneJson(jsonComGdsSeCd);
 		// 보관창고
@@ -1029,7 +1027,6 @@ const fn_initSBSelect = async function() {
 		jsonExpStdGrdDtl = gfn_cloneJson(gjsonStdGrdObjDtl);
 	}
 	const fn_createExpGrid = async function(_expObjList) {
-		// _expObjList를 받아와서 만드는 그리드
 		_expObjList.forEach( (exp, idx) => {
 			var SBGridProperties = {};
 			SBGridProperties.parentid = exp.parentid;

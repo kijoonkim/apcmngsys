@@ -140,8 +140,12 @@
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGdsCdGrid();
+		fn_search();
 	})
-
+	
+	var grdGdsCd;
+	var jsonGdsCd = [];
+	
 	function fn_createGdsCdGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdGdsCd';
@@ -161,6 +165,7 @@
             {caption: ['상품코드'], ref: 'gdsCd', width: '100px', type: 'output'},
             {caption: ['상품명'], ref: 'gdsNm', width: '100px', type: 'output'},
             {caption: ['품목'], ref: 'itemCd', width: '100px', type: 'output'},
+            {caption: ['품종'], ref: 'vrtyCd', width: '100px', type: 'output'},
             {caption: ['규격'], ref: 'spcfctCd', width: '100px', type: 'output'},
             {caption: ['상품등급'], ref: 'gdsGrd', width: '100px', type: 'output'},
             {caption: ['브랜드'], ref: 'brndCd', width: '100px', type: 'output'},
@@ -170,6 +175,80 @@
             {caption: ['중량'], ref: 'wght', width: '100px', type: 'output'}
         ];
         grdGdsCd = _SBGrid.create(SBGridProperties);
+    }
+	
+	//조회
+    const fn_search = async function() {
+
+    	grdGdsCd.rebuild();
+    	let pageSize = grdGdsCd.getPageSize();
+    	let pageNo = 1;
+
+    	// grid clear
+    	jsonGdsCd.length = 0;
+    	grdGdsCd.clearStatus();
+    	fn_setGrdPckgPrfmnc(pageSize, pageNo);
+    }
+
+	const fn_setGrdPckgPrfmnc = async function(pageSize, pageNo) {
+		//검색조건
+		const postJsonPromise = gfn_postJSON("/am/pckg/selectGdsCd.do", {
+			
+          	// pagination
+  	  		pagingYn : 'Y',
+  			currentPageNo : pageNo,
+   		  	recordCountPerPage : pageSize
+  		});
+
+        let data = await postJsonPromise;
+
+  		try {
+
+          	/** @type {number} **/
+      		let totalRecordCount = 0;
+
+            jsonGdsCd.length = 0;
+          	data.resultList.forEach((item, index) => {
+          		const gdsCd = {
+          			gdsCd: item.gdsCd,
+          			gdsNm: item.gdsNm,
+          			itemCd: item.itemCd,
+          			vrtyCd: item.vrtyCd,
+          			spcfctCd: item.spcfctCd,
+          			gdsGrd: item.gdsGrd,
+          			brndCd: item.brndCd,
+          			plorCd: item.plorCd,
+          			pckgSeCd: item.pckgSeCd,
+          			bxGdsQntt: item.bxGdsQntt,
+        			wght: item.wght
+  				}
+          		jsonGdsCd.push(gdsCd);
+
+  				if (index === 0) {
+  					totalRecordCount = item.totalRecordCount;
+  				}
+  			});
+
+          	if (jsonGdsCd.length > 0) {
+          		if(grdGdsCd.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+          			grdGdsCd.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+          			grdGdsCd.rebuild();
+  				}else{
+  					grdGdsCd.refresh();
+  				}
+          	} else {
+          		grdGdsCd.setPageTotalCount(totalRecordCount);
+          		grdGdsCd.rebuild();
+          	}
+
+          	document.querySelector('#cnt-pckgPrfmnc').innerText = totalRecordCount;
+
+          } catch (e) {
+      		if (!(e instanceof Error)) {
+      			e = new Error(e);
+      		}
+      		console.error("failed", e.message);
+          }
     }
 </script>
 </html>
