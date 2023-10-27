@@ -3,6 +3,8 @@ package com.at.apcss.am.clcln.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,8 @@ import org.springframework.util.StringUtils;
 import com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper;
 import com.at.apcss.am.clcln.service.ClclnPrfmncService;
 import com.at.apcss.am.clcln.vo.ClclnPrfmncVO;
+import com.at.apcss.am.cmns.service.CmnsValidationService;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
 
@@ -34,6 +38,9 @@ public class ClclnPrfmncServiceImpl extends BaseServiceImpl implements ClclnPrfm
 
 	@Autowired
 	private ClclnPrfmncMapper clclnPrfmncMapper;
+	
+	@Resource(name="cmnsValidationService")
+	private CmnsValidationService cmnsValidationService;
 	
 	@Override
 	public ClclnPrfmncVO selectClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
@@ -61,6 +68,22 @@ public class ClclnPrfmncServiceImpl extends BaseServiceImpl implements ClclnPrfm
 	@Override
 	public HashMap<String, Object> insertClclnPrfmncCrt(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
 		
+		// validation check
+		String apcCd = clclnPrfmncVO.getApcCd();
+		if (!StringUtils.hasText(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+		String clclnYmd = clclnPrfmncVO.getClclnYmd();
+		if (!StringUtils.hasText(clclnYmd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "정산일자");
+		}
+
+		// 마감확인
+		String ddlnYn = cmnsValidationService.selectChkDdlnYn(apcCd, clclnYmd);
+		if (!ComConstants.CON_NONE.equals(ddlnYn)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "정산일자");
+		}
+		
 		clclnPrfmncMapper.insertSpClclnPrfmncCrt(clclnPrfmncVO);
 		
 		if (StringUtils.hasText(clclnPrfmncVO.getRtnCd())) {
@@ -73,6 +96,22 @@ public class ClclnPrfmncServiceImpl extends BaseServiceImpl implements ClclnPrfm
 	@Override
 	public HashMap<String, Object> updateClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
 		
+		// validation check
+		String apcCd = clclnPrfmncVO.getApcCd();
+		if (!StringUtils.hasText(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+		String clclnYmd = clclnPrfmncVO.getClclnYmd();
+		if (!StringUtils.hasText(clclnYmd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "정산일자");
+		}
+
+		// 마감확인
+		String ddlnYn = cmnsValidationService.selectChkDdlnYn(apcCd, clclnYmd);
+		if (!ComConstants.CON_NONE.equals(ddlnYn)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "정산일자");
+		}
+		
 		clclnPrfmncMapper.updateClclnPrfmnc(clclnPrfmncVO);
 		
 		return null;
@@ -82,19 +121,57 @@ public class ClclnPrfmncServiceImpl extends BaseServiceImpl implements ClclnPrfm
 	@Override
 	public HashMap<String, Object> updateClclnPrfmncList(List<ClclnPrfmncVO> clclnPrfmncList) throws Exception {
 		
+		HashMap<String, Object> rtnObj = new HashMap<>();
+		
 		for ( ClclnPrfmncVO clclnPrfmncVO : clclnPrfmncList ) {
-			clclnPrfmncMapper.updateClclnPrfmnc(clclnPrfmncVO);
+			rtnObj = updateClclnPrfmnc(clclnPrfmncVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
 		}
 		
 		return null;
 	}
 	
 	@Override
-	public int deleteClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
+	public HashMap<String, Object> deleteClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception {
 		
-		int deletedCnt = clclnPrfmncMapper.updateClclnPrfmnc(clclnPrfmncVO);
+		// validation check
+		String apcCd = clclnPrfmncVO.getApcCd();
+		if (!StringUtils.hasText(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+		String clclnYmd = clclnPrfmncVO.getClclnYmd();
+		if (!StringUtils.hasText(clclnYmd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "정산일자");
+		}
+
+		// 마감확인
+		String ddlnYn = cmnsValidationService.selectChkDdlnYn(apcCd, clclnYmd);
+		if (!ComConstants.CON_NONE.equals(ddlnYn)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "정산실적");
+		}
 		
-		return deletedCnt;
+		clclnPrfmncMapper.updateClclnPrfmncForDelY(clclnPrfmncVO);
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteClclnPrfmncList(List<ClclnPrfmncVO> clclnPrfmncList) throws Exception {
+		
+		HashMap<String, Object> rtnObj = new HashMap<>();
+		
+		for ( ClclnPrfmncVO clclnPrfmncVO : clclnPrfmncList ) {
+			rtnObj = deleteClclnPrfmnc(clclnPrfmncVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+		
+		return null;
 	}
 
 

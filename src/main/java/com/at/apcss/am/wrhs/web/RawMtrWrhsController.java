@@ -113,6 +113,33 @@ public class RawMtrWrhsController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/wrhs/deleteRawMtrWrhsList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteRawMtrWrhsList(@RequestBody List<RawMtrWrhsVO> rawMtrWrhsList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+			for ( RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList ) {
+				rawMtrWrhsVO.setSysFrstInptUserId(getUserId());
+				rawMtrWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
+				rawMtrWrhsVO.setSysLastChgUserId(getUserId());
+				rawMtrWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = rawMtrWrhsService.deleteRawMtrWrhsList(rawMtrWrhsList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 	@PostMapping(value = "/am/wrhs/insertRawMtrWrhsList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertRawMtrWrhsList(@RequestBody List<RawMtrWrhsVO> rawMtrWrhsList, HttpServletRequest request) throws Exception {
 

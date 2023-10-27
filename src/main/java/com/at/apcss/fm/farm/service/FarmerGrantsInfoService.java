@@ -30,24 +30,24 @@ public interface FarmerGrantsInfoService {
 	 * @return
 	 * @throws Exception
 	 */
-	public FarmerGrantsInfoVO selectfarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
+	public FarmerGrantsInfoVO selectFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
 
-	public List<FarmerGrantsInfoVO> selectfarmerGrantsInfoList(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
+	public List<FarmerGrantsInfoVO> selectFarmerGrantsInfoList(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
 
 	public int insertFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
 
 	public int updateFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
 
-	public int multiSavefarmerGrantsInfoList(List<FarmerGrantsInfoVO> farmerGrantsInfoVOList) throws Exception;
+	public int multiSaveFarmerGrantsInfoList(List<FarmerGrantsInfoVO> farmerGrantsInfoVOList) throws Exception;
 
-	public int insertMegerfarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVOList) throws Exception;
-	public int insertMegerLogfarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVOList) throws Exception;
+	public int insertMegerFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVOList) throws Exception;
+	public int insertMegerLogFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVOList) throws Exception;
 
-	public int insertMegerfarmerGrantsInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogfarmerGrantsInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerFarmerGrantsInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerLogFarmerGrantsInfoMap(Map<String, String> MapList) throws Exception;
 
-	public int updateMegerfarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVOList) throws Exception;
+	public int updateMegerFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVOList) throws Exception;
 
-	public int deletefarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
+	public int deleteFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
 
 }

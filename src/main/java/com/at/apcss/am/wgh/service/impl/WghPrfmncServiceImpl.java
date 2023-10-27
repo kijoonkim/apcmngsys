@@ -189,6 +189,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		RawMtrWrhsVO wrhsVO = new RawMtrWrhsVO();
 		BeanUtils.copyProperties(wghPrfmncVO, wrhsVO);
 		rtnObj = rawMtrWrhsService.deleteRawMtrWrhsByWghno(wrhsVO);
+		
 		if (rtnObj != null) {
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
@@ -215,7 +216,6 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 				}
 			}
 		}
-
 
 		rtnObj = insertWghPrfmnc(wghPrfmncVO);
 		if (rtnObj != null) {
@@ -261,13 +261,13 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 							ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 							ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
 						);
-				deletedDtlCnt = wghPrfmncMapper.deleteWghPrfmncDtl(wghPrfmncDtlVO);
+				deletedDtlCnt = wghPrfmncMapper.updateWghPrfmncDtlForDelY(wghPrfmncDtlVO);
 				if (deletedDtlCnt != 1) {
 				}
 			}
 		}
 
-		int deletedCnt = wghPrfmncMapper.deleteWghPrfmncCom(wghPrfmncVO);
+		int deletedCnt = wghPrfmncMapper.updateWghPrfmncComForDelY(wghPrfmncVO);
 
 		if (deletedCnt != 1) {
 		}

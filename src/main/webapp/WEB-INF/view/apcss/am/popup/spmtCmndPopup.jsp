@@ -100,6 +100,7 @@
 	var jsonApcSpcfct		= [];	// 규격 		spcfct			검색
 
 	var grdSpmtCmndPop = null;
+	var regSpmtList = [];
 	
 	const popSpmtCmnd = {
 		modalId: 'modal-spmtCmnd',
@@ -110,9 +111,12 @@
 		objGrid: null,
 		gridJson: [],
 		callbackSelectFnc: function() {},
-		init: async function(_apcCd, _apcNm, _callbackChoiceFnc) {
+		init: async function(_apcCd, _apcNm, _spmtCmnd, _callbackChoiceFnc) {
 			SBUxMethod.set("spmtCmnd-inp-apcCd", _apcCd);
 			SBUxMethod.set("spmtCmnd-inp-apcNm", _apcNm);
+			if(!gfn_isEmpty(_spmtCmnd)){
+				regSpmtList = _spmtCmnd.regSpmtList;
+			}
 
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
 				this.callbackSelectFnc = _callbackChoiceFnc;
@@ -160,6 +164,7 @@
 		    SBGridProperties.columns = [
 		    	{caption: ['지시일자'], 	ref: 'cmndYmd', 		width: '80px',	type: 'output',	style:'text-align: center',
 	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+		        {caption: ["출하지시번호"],	ref: 'spmtCmndnoIndct', width: '130px',	type: 'output',	style:'text-align: center'},
 	            {caption: ['거래처'], 	ref: 'cnptNm', 			width: '110px',	type: 'output',	style:'text-align: center'},
 	            {caption: ['운송회사'], 	ref: 'trsprtCoNm', 		width: '100px',	type: 'output',	style:'text-align: center'},
 	            {caption: ['배송처'], 	ref: 'dldtn', 			width: '120px',	type: 'output',	style:'text-align: center'},
@@ -225,36 +230,51 @@
 		    	let totalRecordCount = 0;
 		    	jsonSpmtCmndPop.length = 0;
 		    	data.resultList.forEach((item, index) => {
+		    		
+		    		regSpmtQntt = 0;
+		    		regSpmtWght = 0;
+		    		
+		    		if (!gfn_isEmpty(regSpmtList)) {
+		    			for (let i=0; i<regSpmtList.length; i++) {
+		    				if (regSpmtList[i].spmtCmndnoIndct == item.spmtCmndnoIndct) {
+		    					regSpmtQntt = regSpmtList[i].spmtQntt;
+		    					regSpmtWght = regSpmtList[i].spmtWght;
+		    				}
+		    			}
+		    		}
+		    		
 		    		let cmndQntt = item.cmndQntt;
 		    		let spmtQntt = item.spmtQntt;
-		    		if(cmndQntt - spmtQntt > 0){
-
-						let spmtCmnd = {
-								spmtCmndno		: item.spmtCmndno
-							  , spmtCmndSn 		: item.spmtCmndSn
-							  ,	cmndYmd 		: item.cmndYmd
-							  , cnptCd 			: item.cnptCd
-							  , cnptNm 			: item.cnptNm
-							  , gdsCd 			: item.gdsCd
-							  , gdsNm 			: item.gdsNm
-							  , trsprtCoCd 		: item.trsprtCoCd
-							  , trsprtCoNm 		: item.trsprtCoNm
-							  , dldtn 			: item.dldtn
-							  , cmndQntt		: item.cmndQntt
-							  , cmndWght 		: item.cmndWght
-							  , gdsGrd 			: item.gdsGrd
-							  , gdsGrdNm 		: item.gdsGrdNm
-							  , spmtPckgUnitCd 	: item.spmtPckgUnitCd
-							  , spmtPckgUnitNm 	: item.spmtPckgUnitNm
-							  , vrtyNm 			: item.vrtyNm
-							  , vrtyCd 			: item.vrtyCd
-							  , spcfctCd 		: item.spcfctCd
-							  , spcfctNm 		: item.spcfctNm
-							  , rmrk			: item.rmrk
-							  , itemCd			: item.itemCd
-							  , outordrno		: item.outordrno
-						}
-						jsonSpmtCmndPop.push(spmtCmnd);
+		    		if (cmndQntt > spmtQntt) {
+		    			if (item.cmndQntt > regSpmtQntt) {
+							let spmtCmnd = {
+									spmtCmndno		: item.spmtCmndno
+								  , spmtCmndSn 		: item.spmtCmndSn
+								  , spmtCmndnoIndct : item.spmtCmndnoIndct
+								  ,	cmndYmd 		: item.cmndYmd
+								  , cnptCd 			: item.cnptCd
+								  , cnptNm 			: item.cnptNm
+								  , gdsCd 			: item.gdsCd
+								  , gdsNm 			: item.gdsNm
+								  , trsprtCoCd 		: item.trsprtCoCd
+								  , trsprtCoNm 		: item.trsprtCoNm
+								  , dldtn 			: item.dldtn
+								  , cmndQntt		: item.cmndQntt
+								  , cmndWght 		: item.cmndWght
+								  , gdsGrd 			: item.gdsGrd
+								  , gdsGrdNm 		: item.gdsGrdNm
+								  , spmtPckgUnitCd 	: item.spmtPckgUnitCd
+								  , spmtPckgUnitNm 	: item.spmtPckgUnitNm
+								  , vrtyNm 			: item.vrtyNm
+								  , vrtyCd 			: item.vrtyCd
+								  , spcfctCd 		: item.spcfctCd
+								  , spcfctNm 		: item.spcfctNm
+								  , rmrk			: item.rmrk
+								  , itemCd			: item.itemCd
+								  , outordrno		: item.outordrno
+							}
+							jsonSpmtCmndPop.push(spmtCmnd);
+			    		}
 		    		}
 
 					if (index === 0) {

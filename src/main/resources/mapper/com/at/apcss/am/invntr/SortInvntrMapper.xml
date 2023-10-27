@@ -83,6 +83,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD, pt0.APC_CD) FROM DUAL) 				AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) 							AS WRHS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
+                , pt0.SORTNO || '-' || pt0.SORT_SN 																AS SORTNO_INDCT
     		  FROM (
 			    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrList */
 						   SI.APC_CD			AS APC_CD
@@ -208,6 +209,7 @@
 	       SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList */
 				  SI.APC_CD 				AS APC_CD
 				, SI.SORTNO 				AS SORTNO
+				, SI.SORT_SN				AS SORT_SN
 				, SI.GRD_CD 				AS GRD_CD
 				, SI.INPT_YMD 				AS INPT_YMD
 				, SI.FCLT_CD 				AS FCLT_CD
@@ -227,7 +229,7 @@
 				, SI.DEL_YN 				AS DEL_YN
 				, SI.PRDCTN_YR 				AS PRDCTN_YR
 			 FROM TB_SORT_INVNTR SI
-			WHERE 1=1
+			WHERE SI.DEL_YN = 'N'
 			  AND SI.APC_CD = #{apcCd}
 			  AND SI.INVNTR_WGHT > 0
 		]]>
@@ -383,13 +385,13 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrDsctnList	-->
-	<!-- DESC : 원물재고내역 변경.		                                       				-->
+	<!-- DESC : 선별재고내역 변경.		                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.18  	김현호        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateSortInvntrDsctnList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <update id="updateSortInvntrChg" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
 			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrDsctnList */
 				TB_SORT_INVNTR
@@ -408,9 +410,13 @@
 			<if test='invntrWght != null and invntrWght != ""'>
 				, INVNTR_Wght			= #{invntrWght}
 			</if>
+			<if test='rmrk != null and rmrk != ""'>
+				, RMRK					= #{rmrk}
+			</if>
 		<![CDATA[
-			 WHERE APC_CD = #{apcCd}
-			   AND SORTNO = #{sortno}
+			 WHERE APC_CD 	= #{apcCd}
+			   AND SORTNO 	= #{sortno}
+			   AND SORT_SN 	= #{sortSn}
 		]]>
 	</update>
 

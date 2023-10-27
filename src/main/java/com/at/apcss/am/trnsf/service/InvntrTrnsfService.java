@@ -63,9 +63,16 @@ public interface InvntrTrnsfService {
 
 	/**
 	 * 재고이송 목록 등록
-	 * @param invntrTrnsfVO
-	 * @return
+	 * @param List<InvntrTrnsfVO>
+	 * @return HashMap<String, Object>
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertInvntrTrnsfList(List<InvntrTrnsfVO> invntrTrnsfList) throws Exception;
+	/**
+	 * 재고이송 목록 삭제
+	 * @param List<InvntrTrnsfVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteInvntrTrnsfList(List<InvntrTrnsfVO> invntrTrnsfList) throws Exception;
 }

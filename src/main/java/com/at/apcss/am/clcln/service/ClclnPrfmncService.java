@@ -62,7 +62,7 @@ public interface ClclnPrfmncService {
 	public HashMap<String, Object> updateClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
 	
 	/**
-	 * 정산실적 수정
+	 * 정산실적 목록 수정(변경, 확정)
 	 * @param clclnPrfmncVO
 	 * @return
 	 * @throws Exception
@@ -76,5 +76,14 @@ public interface ClclnPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
+	public HashMap<String, Object> deleteClclnPrfmnc(ClclnPrfmncVO clclnPrfmncVO) throws Exception;
+	
+	/**
+	 * 정산실적 목록 삭제
+	 * @param clclnPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteClclnPrfmncList(List<ClclnPrfmncVO> clclnPrfmncList) throws Exception;
+	
 }

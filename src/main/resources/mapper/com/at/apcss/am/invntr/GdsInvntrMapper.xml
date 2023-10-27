@@ -81,32 +81,33 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
                 , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) AS SPMT_PCKG_UNIT_NM
+                , pt0.PCKGNO || '-' || pt0.PCKG_SN AS PCKGNO_INDCT
     		  FROM (
 	    	SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntrList */
-			      GI.APC_CD			AS APC_CD
-			    , GI.PCKGNO			AS PCKGNO
-			    , GI.PCKG_SN		AS PCKG_SN
-			    , GI.PCKG_YMD		AS PCKG_YMD
-			    , GI.FCLT_CD		AS FCLT_CD
-			    , GI.RPRS_PRDCR_CD	AS RPRS_PRDCR_CD
-			    , GI.ITEM_CD		AS ITEM_CD
-			    , GI.VRTY_CD		AS VRTY_CD
-			    , GI.SPCFCT_CD		AS SPCFCT_CD
-			    , GI.GDS_GRD		AS GDS_GRD
-			    , GI.GDS_CD		    AS GDS_CD
-			    , GI.GDS_SE_CD      AS GDS_SE_CD
-			    , GI.PRDCTN_YR      AS PRDCTN_YR
-			    , GI.SPMT_PCKG_UNIT_CD  AS SPMT_PCKG_UNIT_CD
-			    , GI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
-			    , GI.PCKG_QNTT		AS PCKG_QNTT
-			    , GI.PCKG_WGHT		AS PCKG_WGHT
-			    , GI.SPMT_QNTT		AS SPMT_QNTT
-			    , GI.SPMT_WGHT		AS SPMT_WGHT
-			    , GI.INVNTR_QNTT	AS INVNTR_QNTT
-			    , GI.INVNTR_WGHT	AS INVNTR_WGHT
-			    , GI.PLOR_CD 		AS PLOR_CD
-			    , GI.DEL_YN			AS DEL_YN
-			    , GI.RMRK			AS RMRK
+			      GI.APC_CD					AS APC_CD
+			    , GI.PCKGNO					AS PCKGNO
+			    , GI.PCKG_SN				AS PCKG_SN
+			    , GI.PCKG_YMD				AS PCKG_YMD
+			    , GI.FCLT_CD				AS FCLT_CD
+			    , GI.RPRS_PRDCR_CD			AS RPRS_PRDCR_CD
+			    , GI.ITEM_CD				AS ITEM_CD
+			    , GI.VRTY_CD				AS VRTY_CD
+			    , GI.SPCFCT_CD				AS SPCFCT_CD
+			    , GI.GDS_GRD				AS GDS_GRD
+			    , GI.GDS_CD		    		AS GDS_CD
+			    , GI.GDS_SE_CD      		AS GDS_SE_CD
+			    , GI.PRDCTN_YR      		AS PRDCTN_YR
+			    , GI.SPMT_PCKG_UNIT_CD  	AS SPMT_PCKG_UNIT_CD
+			    , GI.WAREHOUSE_SE_CD		AS WAREHOUSE_SE_CD
+			    , GI.PCKG_QNTT				AS PCKG_QNTT
+			    , GI.PCKG_WGHT				AS PCKG_WGHT
+			    , GI.SPMT_QNTT				AS SPMT_QNTT
+			    , GI.SPMT_WGHT				AS SPMT_WGHT
+			    , GI.INVNTR_QNTT			AS INVNTR_QNTT
+			    , GI.INVNTR_WGHT			AS INVNTR_WGHT
+			    , GI.PLOR_CD 				AS PLOR_CD
+			    , GI.DEL_YN					AS DEL_YN
+			    , GI.RMRK					AS RMRK
 			    , (SELECT BRND_NM
                      FROM TB_SPMT_PCKG_UNIT X
                     WHERE X.APC_CD = GI.APC_CD
@@ -115,12 +116,14 @@
                       AND X.SPCFCT_CD = GI.SPCFCT_CD
                       AND X.SPMT_PCKG_UNIT_CD = GI.SPMT_PCKG_UNIT_CD
                       AND X.DEL_YN = 'N'
-                  ) AS BRND_NM
+                  ) 						AS BRND_NM
 			  FROM TB_GDS_INVNTR GI
 			 WHERE GI.DEL_YN = 'N'
-			   AND GI.APC_CD = #{apcCd}
 			   AND GI.INVNTR_WGHT > 0
 		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND GI.APC_CD = #{apcCd}
+		</if>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 			   AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
 		</if>
@@ -132,6 +135,9 @@
 		</if>
 		<if test='spcfctCd != null and spcfctCd != ""'>
 			   AND GI.SPCFCT_CD = #{spcfctCd}
+		</if>
+		<if test='gdsGrd != null and gdsGrd != ""'>
+			   AND GI.GDS_GRD = #{gdsGrd}
 		</if>
 		<if test='gdsSeCd != null and gdsSeCd != ""'>
 			   AND GI.GDS_SE_CD = #{gdsSeCd}
@@ -224,7 +230,7 @@
 			    , GI.PLOR_CD 		AS PLOR_CD
 			    , GI.DEL_YN			AS DEL_YN
 			  FROM TB_GDS_INVNTR GI
-			 WHERE 1=1
+			 WHERE GI.DEL_YN = 'N'
 			   AND GI.APC_CD = #{apcCd}
 		]]>
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
@@ -457,13 +463,13 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrDsctnList	-->
-	<!-- DESC : 원물재고내역 변경.		                                       				-->
+	<!-- DESC : 상품재고내역 변경.		                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.18  	김현호        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateGdsInvntrList" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+    <update id="updateGdsInvntrChg" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
 		<![CDATA[
 			UPDATE /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateGdsInvntrList */
 				TB_GDS_INVNTR
@@ -481,9 +487,13 @@
 			<if test='invntrWght != null and invntrWght != ""'>
 				, INVNTR_Wght			= #{invntrWght}
 			</if>
+			<if test='rmrk != null and rmrk != ""'>
+				, RMRK					= #{rmrk}
+			</if>
 		<![CDATA[
-			 WHERE APC_CD = #{apcCd}
-			   AND PCKGNO = #{pckgno}
+			 WHERE APC_CD 	= #{apcCd}
+			   AND PCKGNO 	= #{pckgno}
+			   AND PCKG_SN	= #{pckgSn}
 		]]>
 	</update>
 

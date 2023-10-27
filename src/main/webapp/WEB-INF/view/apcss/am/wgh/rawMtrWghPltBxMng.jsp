@@ -18,11 +18,11 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 원물입고팔레트/박스관리 -->
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 원물입고팔레트/박스불출관리 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
-				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -123,16 +123,11 @@
 								></sbux-button>
 							</td>
 							<td>&nbsp;</td>
-							<th scope="row" class="th_bg"><span class="data_required"></span>수량/중량</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>수량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-Qntt" name="srch-inp-Qntt" uitype="text" class="form-control input-sm" placeholder="" title="" onchange="fn_onChangeQntt(this)"></sbux-input>
+								<sbux-input id="srch-inp-qntt" name="srch-inp-qntt" uitype="text" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-Wght" name="srch-inp-Wght" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" placeholder="" title="" disabled></sbux-input>
-							</td>
-							<td class="td_input" style="border-left: hidden;">
-									<sbux-label uitype="normal" id="lbl-kg" name="lbl-chc" text="Kg"/>
-							</td>
+							<td colspan="2"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -176,6 +171,7 @@
 			gfn_setComCdSBSelect('srch-slt-wrhsSpmtSe', jsonWrhsSpmtSe, 'WRHS_SPMT_SE'),			// 창고
 			gfn_setComCdSBSelect('srch-slt-pltBxSe', jsonPltBxSe, 'PLT_BX_SE_CD'),			// 창고
 		]);
+		fn_search();
 	}
 	
 	const fn_selectPltBxSe = async function(){
@@ -185,20 +181,11 @@
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
+		SBUxMethod.set("srch-inp-cmndYmd", gfn_dateToYmd(new Date()));
+		
 		fn_createGrid();
 		fn_createGrid2();
-
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2)
-		let day = ('0' + today.getDate()).slice(-2)
-// 		SBUxMethod.set("srch-dtp-strtCrtrYmd", year+month+day);
-// 		SBUxMethod.set("srch-dtp-endCrtrYmd", year+month+day);
-		SBUxMethod.set("srch-inp-cmndYmd", year+month+day);
-
-		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		fn_initSBSelect();
-		fn_search();
 		fn_getPrdcrs();
 	});
 
@@ -218,23 +205,22 @@
 	    SBGridProperties.scrollbubbling = false;
 
 	    SBGridProperties.columns = [
-	        {caption: ["구분","구분"],		ref: 'pltBxSeNm',      type:'output',  width:'90px',    style:'text-align:center'},
-	        {caption: ["명칭","명칭"],		ref: 'pltBxNm',      type:'output',  width:'170px',    style:'text-align:center'},
-	        {caption: ["대여업체","대여업체"],		ref: 'pltCnptNm',      type:'output',  width:'145px',    style:'text-align:center'},
-	        {caption: ["단중","단중"],		ref: 'unitWght',      type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
-	        {caption: ["전일재고","수량	"],		ref: 'bssInvntrQntt',      type:'output',  width:'145px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["전일재고","중량"],		ref: 'bssInvntrWght',      type:'output',  width:'145px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
-	        {caption: ["입고","수량	"],		ref: 'wrhsQntt',      type:'output',  width:'145px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["입고","중량"],		ref: 'wrhsWght',      type:'output',  width:'145px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
-	        {caption: ["출고","수량	"],		ref: 'spmtQntt',      type:'output',  width:'145px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["출고","중량"],		ref: 'spmtWght',      type:'output',  width:'145px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
-	        {caption: ["현재고","수량"],		ref: 'invntrQntt',      type:'output',  width:'145px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["현재고","중량"],		ref: 'invntrWght',      type:'output',  width:'145px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
-
+	        {caption: ["구분"],			ref: 'pltBxSeNm',      	type:'output',  width:'90px',     style:'text-align:center'},
+	        {caption: ["명칭"],			ref: 'pltBxNm',      	type:'output',  width:'170px',    style:'text-align:center'},
+	        {caption: ["대여업체"],		ref: 'pltCnptNm',      	type:'output',  width:'170px',    style:'text-align:center'},
+	        {caption: ["단중"],			ref: 'unitWght',      	type:'output',  width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,### Kg'}},
+	        {caption: ["전일재고수량"],		ref: 'bssInvntrQntt',   type:'output',  width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["입고수량"],		ref: 'wrhsQntt',      	type:'output',  width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["출고수량"],		ref: 'spmtQntt',      	type:'output',  width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+	        {caption: ["현재고수량"],		ref: 'invntrQntt',      type:'output',  width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+			{caption: ["비고"],			ref: 'rmrk',      		type:'output',  width:'170px',    style:'text-align:center'}
 	    ];
-
 	    pltBxMngList = _SBGrid.create(SBGridProperties);
-
 	}
 	
 	const fn_search = async function(){
@@ -284,13 +270,9 @@
           				useYn: item.useYn,
           				delYn: item.delYn,
           				bssInvntrQntt: item.bssInvntrQntt,
-          				bssInvntrWght: item.bssInvntrWght,
           				wrhsQntt: item.wrhsQntt,
-          				wrhsWght: item.wrhsWght,
           				spmtQntt: item.spmtQntt,
-          				spmtWght: item.spmtWght,
           				invntrQntt: item.invntrQntt,
-          				invntrWght: item.invntrWght,
           				unitCd: item.unitCd,
           				rmrk: item.rmrk,
           				pltCnptNm: item.pltCnptNm
@@ -342,16 +324,19 @@
 	    SBGridProperties.scrollbubbling = false;
 
 	    SBGridProperties.columns = [
-	        {caption: ["선택"],		ref: 'checkbox',      type:'checkbox',  width:'70px',    style:'text-align:center'},
-	        {caption: ["작업일자"],		ref: 'jobYmd',      type:'output',  width:'160px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-	        {caption: ["입출고구분"],		ref: 'wrhsSpmtSeNm',      type:'output',  width:'160px',    style:'text-align:center'},
-	        {caption: ["구분"],		ref: 'pltBxSeNm',      type:'output',  width:'160px',    style:'text-align:center'},
-	        {caption: ["명칭"],		ref: 'pltNm',      type:'output',  width:'170px',    style:'text-align:center'},
-	        {caption: ["대여업체"],		ref: 'pltCnptNm',      type:'output',  width:'170px',    style:'text-align:center'},
-	        {caption: ["단중"],		ref: 'unitWght',      type:'output',  width:'160px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
-	        {caption: ["생산자"],		ref: 'prdcrNm',      type:'output',  width:'160px',    style:'text-align:center'},
-	        {caption: ["수량"],		ref: 'qntt',      type:'output',  width:'160px',    style:'text-align:right', format : {type:'number', rule:'#,###'}},
-	        {caption: ["중량"],		ref: 'wght',      type:'output',  width:'160px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
+	        {caption: ["선택"],		ref: 'checkbox',      	type:'checkbox',	width:'70px',     style:'text-align:center'},
+	        {caption: ["작업일자"],	ref: 'jobYmd',      	type:'output',  	width:'100px',    style:'text-align:center',
+	        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+	        {caption: ["입출고구분"],	ref: 'wrhsSpmtSeNm',    type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["구분"],		ref: 'pltBxSeNm',      	type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["명칭"],		ref: 'pltNm',      		type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["대여업체"],	ref: 'pltCnptNm',      	type:'output',  	width:'170px',    style:'text-align:center'},
+	        {caption: ["단중"],		ref: 'unitWght',      	type:'output',  	width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,### Kg'}},
+	        {caption: ["생산자"],		ref: 'prdcrNm',      	type:'output',  	width:'100px',    style:'text-align:center'},
+	        {caption: ["수량"],		ref: 'qntt',      		type:'output',  	width:'100px',    style:'text-align:right',
+	        	format : {type:'number', rule:'#,###'}},
+		    {caption: ["비고"],		ref: 'rmrk',      		type:'output',  	width:'170px',    style:'text-align:center'}
 	    ];
 
 	    grdPltWrhsSpmt = _SBGrid.create(SBGridProperties);
@@ -391,7 +376,6 @@
           				pltNm: item.pltNm,
           				unitWght: item.unitWght,
           				qntt: item.qntt,
-          				wght: item.wght,
           				rmrk: item.rmrk,
           				delYn: item.delYn,
           				pltCnptNm: item.pltCnptNm
@@ -431,7 +415,7 @@
 		let pltBxSeCd = SBUxMethod.get("srch-slt-pltBxSe");
 		let pltBxCd = SBUxMethod.get("srch-slt-pltBxNm");
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
-		let qntt = SBUxMethod.get("srch-inp-Qntt");	
+		let qntt = SBUxMethod.get("srch-inp-qntt");	
 		let rmrk = SBUxMethod.get("srch-inp-rmrk");
 
     	
@@ -451,13 +435,21 @@
 			gfn_comAlert("W0001", "명칭");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
-		if(gfn_isEmpty(qntt)){
+		if(gfn_isEmpty(qntt) || qntt == 0){
 			gfn_comAlert("W0001", "수량");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
+		if(wrhsSpmtSeCd == '2'){
+			let invntrQntt = jsonPltBxMngList.find(e => e.pltBxCd == pltBxCd && e.pltBxSeCd == pltBxSeCd).invntrQntt;
+			if(invntrQntt < qntt){
+				await alert("현재고를 초과하여 수량을 입력할 수 없습니다. 현재고: "+invntrQntt);
+				SBUxMethod.set("srch-inp-qntt", 0);
+				return;
+			}
+		}
 		
 		let pltNm = jsonPltBxNm.find(e => e.value == pltBxCd).text;
-		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, SBUxMethod.get("srch-slt-pltBxSe"));
+		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, pltBxSeCd);
 		let unitWght = pltBxs.find(e => e.pltBxCd == pltBxCd).unitWght;
 		
     	let regMsg = "저장 하시겠습니까?";
@@ -469,9 +461,9 @@
 				,pltBxSeCd: pltBxSeCd
 				,pltBxCd: pltBxCd
 				,prdcrCd: prdcrCd
+				,qntt: qntt
 				,pltNm: pltNm
 				,unitWght: unitWght
-				,qntt: qntt
 				,rmrk: rmrk
 				,delYn: 'N'
 				});
@@ -528,6 +520,29 @@
 			}
 		}
 	}
+	
+	// 초기화
+	const fn_reset = async function() {
+		SBUxMethod.set("srch-inp-cmndYmd", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-slt-wrhsSpmtSe", "");
+		SBUxMethod.set("srch-slt-pltBxSe", "");
+		SBUxMethod.set("srch-slt-pltBxNm", "");
+		SBUxMethod.set("srch-inp-prdcrNm", "");
+		SBUxMethod.set("srch-inp-prdcrCd", "");
+		SBUxMethod.set("srch-inp-qntt", "");	
+		SBUxMethod.set("srch-inp-rmrk", "");
+	}
+	
+	// APC 선택 변경
+	const fn_onChangeApc = async function() {
+		let result = await Promise.all([
+			fn_initSBSelect(),
+			fn_getPrdcrs()
+		]);
+		
+		fn_reset();
+	}
+	
 	/*
 	* @name fn_getPrdcrs
 	* @description 생산자 자동완성 목록 가져오기
@@ -600,26 +615,6 @@
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 		}
 	}
-	
-	const fn_onChangeQntt = async function(obj) {
-		let wrhsSpmtSeCd = SBUxMethod.get("srch-slt-wrhsSpmtSe");
-		let pltBxSeCd = SBUxMethod.get("srch-slt-pltBxSe");
-		let pltBxCd = SBUxMethod.get("srch-slt-pltBxNm");
-		if(wrhsSpmtSeCd == '2'){
-			let invntrQntt = jsonPltBxMngList.find(e => e.pltBxCd == pltBxCd && e.pltBxSeCd == pltBxSeCd).invntrQntt;
-			if(invntrQntt < obj.value){
-				await alert("현재고를 초과하여 수량을 입력할 수 없습니다. 현재고: "+invntrQntt);
-				SBUxMethod.set("srch-inp-Qntt", 0);
-				SBUxMethod.set("srch-inp-Wght", 0);
-				return;
-			}
-		}
-		let pltBxs = await gfn_getPltBxs(gv_selectedApcCd, SBUxMethod.get("srch-slt-pltBxSe"));
-		let unitWght = pltBxs.find(e => e.pltBxCd == pltBxCd).unitWght;
-		
-		SBUxMethod.set("srch-inp-Wght", SBUxMethod.get("srch-inp-Qntt") * unitWght);
-	}
-	
 	
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);

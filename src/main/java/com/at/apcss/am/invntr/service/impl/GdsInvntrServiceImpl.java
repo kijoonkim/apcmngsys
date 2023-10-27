@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.invntr.mapper.GdsInvntrMapper;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
@@ -41,6 +44,9 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 	@Autowired
 	private GdsInvntrMapper gdsInvntrMapper;
 
+	@Resource(name= "cmnsTaskNoService")
+	private CmnsTaskNoService cmnsTaskNoService;
+
 	@Override
 	public GdsInvntrVO selectGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
 
@@ -56,12 +62,12 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		return resultList;
 	}
-	
+
 	@Override
 	public List<GdsInvntrVO> selectUpdateGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
-		
+
 		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectUpdateGdsInvntrList(gdsInvntrVO);
-		
+
 		return resultList;
 	}
 
@@ -106,11 +112,11 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
         //int deletedCnt = gdsInvntrMapper.deleteGdsInvntr(gdsInvntrVO);
         gdsInvntrMapper.updateGdsInvntrForDelY(gdsInvntrVO);
-        
+
         GdsStdGrdVO gdsStdGrdVO = new GdsStdGrdVO();
         BeanUtils.copyProperties(gdsInvntrVO, gdsStdGrdVO);
         gdsInvntrMapper.updateGdsStdGrdForDelY(gdsStdGrdVO);
-        
+
         return null;
 	}
 
@@ -199,22 +205,46 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		return null;
 	}
-	
+
 	@Override
-	public HashMap<String, Object> updateGdsInvntrList(List<GdsInvntrVO> gdsInvntrList) throws Exception {
+	public HashMap<String, Object> multiGdsInvntrList(List<GdsInvntrVO> gdsInvntrList) throws Exception {
 		List<GdsInvntrVO> updateList = new ArrayList<>();
+		List<GdsInvntrVO> insertList = new ArrayList<>();
 
 		for (GdsInvntrVO gdsInvntrVO : gdsInvntrList) {
 			GdsInvntrVO vo = new GdsInvntrVO();
 			BeanUtils.copyProperties(gdsInvntrVO, vo);
 
+			if (ComConstants.ROW_STS_INSERT.equals(gdsInvntrVO.getRowSts())) {
+				insertList.add(vo);
+			}
 			if (ComConstants.ROW_STS_UPDATE.equals(gdsInvntrVO.getRowSts())) {
 				updateList.add(vo);
 			}
 		}
 
+		// 상품재고 등록
+		if(insertList.size() > 0) {
+			String pckgno = cmnsTaskNoService.selectPckgno(insertList.get(0).getApcCd(), insertList.get(0).getPckgYmd());
+			int pckgSn = 1;
+			for (GdsInvntrVO gdsInvntrVO : insertList) {
+
+				gdsInvntrVO.setPckgno(pckgno);
+				gdsInvntrVO.setPckgSn(pckgSn);
+
+				// 상품재고 등록 이력 남기기
+
+				insertGdsInvntr(gdsInvntrVO);
+			}
+		}
+
+		// 상품재고 변경
 		for (GdsInvntrVO gdsInvntrVO : updateList) {
-			gdsInvntrMapper.updateGdsInvntrList(gdsInvntrVO);
+
+			// 상품재고 변경 이력
+
+			// 상품재고 변경
+			gdsInvntrMapper.updateGdsInvntrChg(gdsInvntrVO);
 		}
 
 		return null;

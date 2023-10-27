@@ -10,7 +10,7 @@
 <!-- 2023.08.28  	김현호        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.invntr.mapper.InvntrTrnsfMapper">
+<mapper namespace="com.at.apcss.am.trnsf.mapper.InvntrTrnsfMapper">
 
 
 	<!-- ==========================================================================	-->
@@ -28,96 +28,155 @@
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
     			, pt0.*
-    			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
-                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+    			, (SELECT FN_GET_APC_NM(pt0.TRNSF_APC_CD) FROM DUAL) 											AS TRNSF_APC_NM
+    			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) 									AS PRDCR_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) 							AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) 							AS WRHS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) 						AS TRSPRT_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('INVNTR_SE_CD', pt0.INVNTR_SE_CD) FROM DUAL) 						AS INVNTR_SE_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('CFMTN_YN', pt0.CFMTN_YN) FROM DUAL) 								AS CFMTN_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 									AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 						AS VRTY_NM
+                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 					AS SPCFCT_NM
+                , CASE WHEN pt0.INVNTR_SE_CD = '1' THEN (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL)
+                       WHEN pt0.INVNTR_SE_CD = '2' THEN (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL)
+                       WHEN pt0.INVNTR_SE_CD = '3' THEN (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GRD_CD) FROM DUAL)
+                       END AS GRD_NM
     		  FROM (
     	</if>
     	<if test='pagingYn == null or pagingYn.equals("N")'>
     		SELECT
     			  pt0.*
-    			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
-                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
-				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+    			, (SELECT FN_GET_APC_NM(pt0.TRNSF_APC_CD) FROM DUAL) 											AS TRNSF_APC_NM
+    			, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) 									AS PRDCR_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) 							AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) 							AS WRHS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) 						AS TRSPRT_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('INVNTR_SE_CD', pt0.INVNTR_SE_CD) FROM DUAL) 						AS INVNTR_SE_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('CFMTN_YN', pt0.CFMTN_YN) FROM DUAL) 								AS CFMTN_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 									AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 						AS VRTY_NM
+                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 					AS SPCFCT_NM
+                , CASE WHEN pt0.INVNTR_SE_CD = '1' THEN (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL)
+                       WHEN pt0.INVNTR_SE_CD = '2' THEN (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL)
+                       WHEN pt0.INVNTR_SE_CD = '3' THEN (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GRD_CD) FROM DUAL)
+                       END AS GRD_NM
 
     		  FROM (
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-		SELECT -- 원물재고
-			TH.APC_CD AS APC_CD,
-			TH.TRNSF_SN AS TRNSF_SN,
-			TH.WRHSNO AS WRHSNO,
-			TH.PCKGNO AS PCKGNO,
-			TH.TRNSF_YMD AS TRNSF_YMD,
-			MI.PRDCR_CD AS PRDCR_CD,
-			MI.VRTY_CD AS VRTY_CD,
-			MI.GDS_SE_CD AS GDS_SE_CD,
-			MI.WRHS_SE_CD AS WRHS_SE_CD,
-			MI.TRSPRT_SE_CD AS TRSPRT_SE_CD,
-			MI.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD,
-			TH.TRNSF_QNTT AS TRNSF_QNTT,
-			TH.TRNSF_WGHT AS TRNSF_WGHT
-			FROM
-			TB_INVNTR_TRNSF_HSTRY TH,
-			TB_RAW_MTR_INVNTR MI
-			WHERE TH.INVNTR_SE_CD = '1'
-			AND TH.WRHSNO = MI.WRHSNO
-			
-		UNION ALL
-			
-		SELECT -- 선별재고
-			TH.APC_CD AS APC_CD,
-			TH.TRNSF_SN AS TRNSF_SN,
-			TH.WRHSNO AS WRHSNO,
-			TH.PCKGNO AS PCKGNO,
-			TH.TRNSF_YMD AS TRNSF_YMD,
-			SI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD,
-			SI.VRTY_CD AS VRTY_CD,
-			SI.GDS_SE_CD AS GDS_SE_CD,
-			SI.WRHS_SE_CD AS WRHS_SE_CD,
-			--MI.TRSPRT_SE_CD AS TRSPRT_SE_CD,
-			NULL,
-			SI.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD,
-			TH.TRNSF_QNTT AS TRNSF_QNTT,
-			TH.TRNSF_WGHT AS TRNSF_WGHT
-		FROM
-			TB_INVNTR_TRNSF_HSTRY TH,
-			TB_SORT_INVNTR SI
-		WHERE TH.INVNTR_SE_CD = '2'
-			AND TH.SORTNO = SI.SORTNO
-			AND TH.GRD_CD = SI.GRD_CD
-			
-		UNION ALL
-			
-		SELECT -- 상품재고
-			TH.APC_CD AS APC_CD,
-			TH.TRNSF_SN AS TRNSF_SN,
-			TH.WRHSNO AS WRHSNO,
-			TH.PCKGNO AS PCKGNO,
-			TH.TRNSF_YMD AS TRNSF_YMD,
-			GI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD,
-			GI.VRTY_CD AS VRTY_CD,
-			GI.GDS_SE_CD AS GDS_SE_CD,
-			--SI.WRHS_SE_CD AS WRHS_SE_CD,
-			NULL,
-			--MI.TRSPRT_SE_CD AS TRSPRT_SE_CD,
-			NULL,
-			GI.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD,
-			TH.TRNSF_QNTT AS TRNSF_QNTT,
-			TH.TRNSF_WGHT AS TRNSF_WGHT
-		FROM
-			TB_INVNTR_TRNSF_HSTRY TH,
-			TB_GDS_INVNTR GI
-		WHERE TH.INVNTR_SE_CD = '3'
-			AND TH.PCKGNO = GI.PCKGNO
-			AND TH.PCKG_SN = GI.PCKG_SN
-
+					SELECT
+					       TH.APC_CD                AS APC_CD
+					     , TH.TRNSF_YMD             AS TRNSF_YMD
+					     , TH.TRNSF_SN              AS TRNSF_SN
+					     , TH.INVNTR_SE_CD          AS INVNTR_SE_CD
+					     , TH.TRNSF_APC_CD          AS TRNSF_APC_CD
+					     , TH.WRHSNO                AS WRHSNO
+					     , CASE WHEN INVNTR_SE_CD = '1' THEN (SELECT WRHS_YMD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.WRHSNO = TH.WRHSNO)
+                                WHEN INVNTR_SE_CD = '2' THEN (SELECT INPT_YMD FROM TB_SORT_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.SORTNO = TH.SORTNO AND X.SORT_SN = TH.SORT_SN)
+                                WHEN INVNTR_SE_CD = '3' THEN (SELECT PCKG_YMD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+                                END AS WRHS_YMD
+					     , CASE WHEN INVNTR_SE_CD = '1' THEN (SELECT ITEM_CD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.WRHSNO = TH.WRHSNO)
+                                WHEN INVNTR_SE_CD = '2' THEN (SELECT ITEM_CD FROM TB_SORT_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.SORTNO = TH.SORTNO AND X.SORT_SN = TH.SORT_SN)
+                                WHEN INVNTR_SE_CD = '3' THEN (SELECT ITEM_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+                                END AS ITEM_CD
+                         , CASE WHEN INVNTR_SE_CD = '1' THEN (SELECT VRTY_CD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.WRHSNO = TH.WRHSNO)
+                                WHEN INVNTR_SE_CD = '2' THEN (SELECT VRTY_CD FROM TB_SORT_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.SORTNO = TH.SORTNO AND X.SORT_SN = TH.SORT_SN)
+                                WHEN INVNTR_SE_CD = '3' THEN (SELECT VRTY_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+                                END AS VRTY_CD
+                         , CASE WHEN INVNTR_SE_CD = '2' THEN (SELECT SPCFCT_CD FROM TB_SORT_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.SORTNO = TH.SORTNO AND X.SORT_SN = TH.SORT_SN)
+                                WHEN INVNTR_SE_CD = '3' THEN (SELECT SPCFCT_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+                                END AS SPCFCT_CD
+                         , CASE WHEN INVNTR_SE_CD = '1' THEN (SELECT PRDCR_CD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.WRHSNO = TH.WRHSNO)
+                                WHEN INVNTR_SE_CD = '2' THEN (SELECT RPRS_PRDCR_CD FROM TB_SORT_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.SORTNO = TH.SORTNO AND X.SORT_SN = TH.SORT_SN)
+                                WHEN INVNTR_SE_CD = '3' THEN (SELECT RPRS_PRDCR_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+                                END AS PRDCR_CD
+                         , CASE WHEN INVNTR_SE_CD = '1' THEN (SELECT GDS_SE_CD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.WRHSNO = TH.WRHSNO)
+                                WHEN INVNTR_SE_CD = '2' THEN (SELECT GDS_SE_CD FROM TB_SORT_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.SORTNO = TH.SORTNO AND X.SORT_SN = TH.SORT_SN)
+                                WHEN INVNTR_SE_CD = '3' THEN (SELECT GDS_SE_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+                                END AS GDS_SE_CD
+                         , CASE WHEN INVNTR_SE_CD = '1' THEN (SELECT WRHS_SE_CD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.WRHSNO = TH.WRHSNO)
+                                WHEN INVNTR_SE_CD = '2' THEN (SELECT WRHS_SE_CD FROM TB_SORT_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.SORTNO = TH.SORTNO AND X.SORT_SN = TH.SORT_SN)
+                                WHEN INVNTR_SE_CD = '3' THEN (SELECT WRHS_SE_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+                                END AS WRHS_SE_CD
+                         , CASE WHEN INVNTR_SE_CD = '1' THEN (SELECT TRSPRT_SE_CD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.WRHSNO = TH.WRHSNO)
+                                WHEN INVNTR_SE_CD = '3' THEN (SELECT TRSPRT_SE_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+                                END AS TRSPRT_SE_CD
+                         , CASE WHEN INVNTR_SE_CD = '1' THEN (SELECT WAREHOUSE_SE_CD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.WRHSNO = TH.WRHSNO)
+                                WHEN INVNTR_SE_CD = '2' THEN (SELECT WAREHOUSE_SE_CD FROM TB_SORT_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.SORTNO = TH.SORTNO AND X.SORT_SN = TH.SORT_SN)
+                                WHEN INVNTR_SE_CD = '3' THEN (SELECT WAREHOUSE_SE_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+                                END AS WAREHOUSE_SE_CD
+					     , TH.SORTNO                AS SORTNO
+					     , TH.SORT_SN               AS SORT_SN
+					     , TH.GRD_CD                AS GRD_CD
+					     , TH.PCKGNO                AS PCKGNO
+					     , TH.PCKG_SN               AS PCKG_SN
+					     , TH.TRNSF_QNTT            AS TRNSF_QNTT
+					     , TH.TRNSF_WGHT            AS TRNSF_WGHT
+					     , TH.DEL_YN                AS DEL_YN
+					     , TH.CFMTN_YN              AS CFMTN_YN
+					  FROM TB_INVNTR_TRNSF_HSTRY TH
+					 WHERE TH.DEL_YN = 'N'
 		]]>
+			<if test='apcCd != null and apcCd !=""'>
+					   AND TH.APC_CD = #{apcCd}
+			</if>
+			<if test='trnsfApcCd != null and trnsfApcCd !=""'>
+					   AND TH.TRNSF_APC_CD = #{trnsfApcCd}
+			</if>
+			<if test='invntrSeCd != null and invntrSeCd !=""'>
+					   AND TH.INVNTR_SE_CD = #{invntrSeCd}
+			</if>
+			<if test='trnsfYmdFrom != null and trnsfYmdFrom != ""'>
+		   	   		   AND TH.TRNSF_YMD <![CDATA[>=]]> #{trnsfYmdFrom}
+			</if>
+			<if test='trnsfYmdTo != null and trnsfYmdTo != ""'>
+			   	  	   AND TH.TRNSF_YMD <![CDATA[<=]]> #{trnsfYmdTo}
+			</if>
+			<if test='warehouseSeCd != null and warehouseSeCd !=""'>
+					   AND (SELECT CASE WHEN TH.INVNTR_SE_CD = '1' THEN (SELECT WAREHOUSE_SE_CD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.WRHSNO = TH.WRHSNO)
+	                                	WHEN TH.INVNTR_SE_CD = '2' THEN (SELECT WAREHOUSE_SE_CD FROM TB_SORT_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.SORTNO = TH.SORTNO AND X.SORT_SN = TH.SORT_SN)
+	                                	WHEN TH.INVNTR_SE_CD = '3' THEN (SELECT WAREHOUSE_SE_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+	                                	END AS WAREHOUSE_SE_CD FROM DUAL) =  #{warehouseSeCd}
+			</if>
+			<if test='trsprtSeCd != null and trsprtSeCd !=""'>
+					   AND (SELECT CASE WHEN INVNTR_SE_CD = '1' THEN (SELECT TRSPRT_SE_CD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.WRHSNO = TH.WRHSNO)
+                                		WHEN INVNTR_SE_CD = '3' THEN (SELECT TRSPRT_SE_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+                                		END AS TRSPRT_SE_CD FROM DUAL) =  #{trsprtSeCd}
+			</if>
+			<if test='gdsSeCd != null and gdsSeCd !=""'>
+					   AND (SELECT CASE WHEN INVNTR_SE_CD = '1' THEN (SELECT GDS_SE_CD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.WRHSNO = TH.WRHSNO)
+	                                	WHEN INVNTR_SE_CD = '2' THEN (SELECT GDS_SE_CD FROM TB_SORT_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.SORTNO = TH.SORTNO AND X.SORT_SN = TH.SORT_SN)
+	                                	WHEN INVNTR_SE_CD = '3' THEN (SELECT GDS_SE_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+	                                	END AS GDS_SE_CD FROM DUAL) =  #{gdsSeCd}
+			</if>
+			<if test='wrhsSeCd != null and wrhsSeCd !=""'>
+					   AND (SELECT CASE WHEN INVNTR_SE_CD = '1' THEN (SELECT WRHS_SE_CD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.WRHSNO = TH.WRHSNO)
+	                                	WHEN INVNTR_SE_CD = '2' THEN (SELECT WRHS_SE_CD FROM TB_SORT_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.SORTNO = TH.SORTNO AND X.SORT_SN = TH.SORT_SN)
+	                                	WHEN INVNTR_SE_CD = '3' THEN (SELECT WRHS_SE_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+	                                	END AS WRHS_SE_CD FROM DUAL) =  #{wrhsSeCd}
+			</if>
+			<if test='itemCd != null and itemCd !=""'>
+					   AND (SELECT CASE WHEN INVNTR_SE_CD = '1' THEN (SELECT ITEM_CD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.WRHSNO = TH.WRHSNO)
+	                                	WHEN INVNTR_SE_CD = '2' THEN (SELECT ITEM_CD FROM TB_SORT_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.SORTNO = TH.SORTNO AND X.SORT_SN = TH.SORT_SN)
+	                                	WHEN INVNTR_SE_CD = '3' THEN (SELECT ITEM_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+	                                	END AS ITEM_CD FROM DUAL) =  #{itemCd}
+			</if>
+			<if test='vrtyCd != null and vrtyCd !=""'>
+					   AND (SELECT CASE WHEN INVNTR_SE_CD = '1' THEN (SELECT VRTY_CD FROM TB_RAW_MTR_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.WRHSNO = TH.WRHSNO)
+	                                	WHEN INVNTR_SE_CD = '2' THEN (SELECT VRTY_CD FROM TB_SORT_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.SORTNO = TH.SORTNO AND X.SORT_SN = TH.SORT_SN)
+	                                	WHEN INVNTR_SE_CD = '3' THEN (SELECT VRTY_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+	                                	END AS VRTY_CD FROM DUAL) =  #{vrtyCd}
+			</if>
+			<if test='spcfctCd != null and spcfctCd !=""'>
+					   AND (SELECT CASE WHEN INVNTR_SE_CD = '2' THEN (SELECT SPCFCT_CD FROM TB_SORT_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.SORTNO = TH.SORTNO AND X.SORT_SN = TH.SORT_SN)
+	                                	WHEN INVNTR_SE_CD = '3' THEN (SELECT SPCFCT_CD FROM TB_GDS_INVNTR X WHERE X.APC_CD = TH.APC_CD AND X.PCKGNO = TH.PCKGNO AND X.PCKG_SN = TH.PCKG_SN)
+	                                	END AS SPCFCT_CD FROM DUAL) =  #{spcfctCd}
+			</if>
+
 
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -130,4 +189,71 @@
     	</if>
     	<!-- End 페이징 -->
 	</select>
+
+	<insert id="insertInvntrTrnsf" parameterType="com.at.apcss.am.trnsf.vo.InvntrTrnsfVO">
+		<![CDATA[
+			INSERT
+			  INTO TB_INVNTR_TRNSF_HSTRY
+			       (
+			         APC_CD
+			       , TRNSF_YMD
+			       , TRNSF_SN
+			       , INVNTR_SE_CD
+			       , TRNSF_APC_CD
+			       , WRHSNO
+			       , SORTNO
+			       , SORT_SN
+			       , GRD_CD
+			       , PCKGNO
+			       , PCKG_SN
+			       , TRNSF_QNTT
+			       , TRNSF_WGHT
+			       , CFMTN_YN
+			       , SYS_FRST_INPT_DT
+			       , SYS_FRST_INPT_USER_ID
+			       , SYS_FRST_INPT_PRGRM_ID
+			       , SYS_LAST_CHG_DT
+			       , SYS_LAST_CHG_USER_ID
+			       , SYS_LAST_CHG_PRGRM_ID
+			       )
+			 VALUES
+			       (
+			        #{apcCd}
+			      , (SELECT TO_CHAR(SYSDATE, 'YYYYMMDD') FROM DUAL)
+			      , (SELECT FN_GET_TRNSF_SN(#{apcCd}, TO_CHAR(SYSDATE, 'YYYYMMDD')) FROM DUAL)
+			      , #{invntrSeCd}
+			      , #{trnsfApcCd}
+			      , #{wrhsno}
+			      , #{sortno}
+			      , #{sortSn}
+			      , #{grdCd}
+			      , #{pckgno}
+			      , #{pckgSn}
+			      , #{trnsfQntt}
+			      , #{trnsfWght}
+			      , 'N'
+			      , SYSDATE
+			      , #{sysFrstInptUserId}
+			      , #{sysFrstInptPrgrmId}
+			      , SYSDATE
+			      , #{sysLastChgUserId}
+			      , #{sysLastChgPrgrmId}
+			      )
+		]]>
+	</insert>
+
+	<update id="deleteInvntrTrnsf" parameterType="com.at.apcss.am.trnsf.vo.InvntrTrnsfVO">
+		<![CDATA[
+			UPDATE TB_INVNTR_TRNSF_HSTRY
+			   SET SYS_LAST_CHG_DT 			= SYSDATE
+			     , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+			     , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			     , DEL_YN					= 'Y'
+			 WHERE APC_cD					= #{apcCd}
+			   AND TRNSF_YMD				= #{trnsfYmd}
+			   AND TRNSF_SN					= #{trnsfSn}
+		]]>
+	</update>
+
+
 </mapper>

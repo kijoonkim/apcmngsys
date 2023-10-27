@@ -32,21 +32,21 @@ public interface FarmerGrantsInfoMapper {
 	 * @param bbsVO
 	 * @return
 	 */
-	public FarmerGrantsInfoVO selectfarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO);
+	public FarmerGrantsInfoVO selectFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO);
 
-	public List<FarmerGrantsInfoVO> selectfarmerGrantsInfoList(FarmerGrantsInfoVO farmerGrantsInfoVO);
+	public List<FarmerGrantsInfoVO> selectFarmerGrantsInfoList(FarmerGrantsInfoVO farmerGrantsInfoVO);
 
-	public int insertfarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO);
+	public int insertFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO);
 
-	public int updatefarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO);
+	public int updateFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO);
 
-	public int insertMegerfarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
-	public int insertMegerLogfarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
+	public int insertMegerFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
+	public int insertMegerLogFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
 
-	public int insertMegerfarmerGrantsInfoMap(Map<String, String> MapList) throws Exception;
-	public int insertMegerLogfarmerGrantsInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerFarmerGrantsInfoMap(Map<String, String> MapList) throws Exception;
+	public int insertMegerLogFarmerGrantsInfoMap(Map<String, String> MapList) throws Exception;
 
-	public int updateMegerfarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
+	public int updateMegerFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
 
-	public int deletefarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
+	public int deleteFarmerGrantsInfo(FarmerGrantsInfoVO farmerGrantsInfoVO) throws Exception;
 }

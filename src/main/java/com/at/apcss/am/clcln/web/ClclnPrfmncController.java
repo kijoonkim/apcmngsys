@@ -83,7 +83,7 @@ public class ClclnPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 	
-	// 정산실적 생성
+	// 정산실적 변경, 확정
 	@PostMapping(value = "/am/clcln/updateClclnPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateClclnPrfmncList(@RequestBody List<ClclnPrfmncVO> clclnPrfmncList, HttpServletRequest request) throws Exception {
 
@@ -112,5 +112,33 @@ public class ClclnPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 	
+	// 정산실적 삭제
+	@PostMapping(value = "/am/clcln/deleteClclnPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteClclnPrfmncList(@RequestBody List<ClclnPrfmncVO> clclnPrfmncList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			
+			for ( ClclnPrfmncVO clcln : clclnPrfmncList ) {
+				clcln.setSysFrstInptPrgrmId(getPrgrmId());
+				clcln.setSysFrstInptUserId(getUserId());
+				clcln.setSysLastChgPrgrmId(getPrgrmId());
+				clcln.setSysLastChgUserId(getUserId());
+			}
+			
+			HashMap<String, Object> rtnObj = clclnPrfmncService.deleteClclnPrfmncList(clclnPrfmncList);
+			
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
 

@@ -39,7 +39,7 @@ public class TrnsfGdsInvntrController extends BaseController {
 	@Resource(name = "trnsfGdsInvntrService")
 	private TrnsfGdsInvntrService trnsfGdsInvntrService;
 
-	@PostMapping(value = "/am/invntr/selectUpdateTrnsfGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	@PostMapping(value = "/am/trnsf/selectUpdateTrnsfGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectUpdateTrnsfGdsInvntrList(@RequestBody TrnsfGdsInvntrVO trnsfGdsInvntrVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -57,10 +57,8 @@ public class TrnsfGdsInvntrController extends BaseController {
 
 	}
 
-	@PostMapping(value = "/am/invntr/trnsfGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> trnsfGdsInvntrList(@RequestBody List<TrnsfGdsInvntrVO> trnsfGdsInvntrList, HttpServletRequest request) throws Exception {
-
-		logger.debug("updateSortInvntrDsctnList 호출 <><><><> ");
+	@PostMapping(value = "/am/trnsf/saveTrnsfGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> saveTrnsfGdsInvntrList(@RequestBody List<TrnsfGdsInvntrVO> trnsfGdsInvntrList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -72,7 +70,7 @@ public class TrnsfGdsInvntrController extends BaseController {
 				trnsfGdsInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			HashMap<String, Object> rtnObj = trnsfGdsInvntrService.trnsfGdsInvntrList(trnsfGdsInvntrList);
+			HashMap<String, Object> rtnObj = trnsfGdsInvntrService.inserttrnsfGdsInvntrList(trnsfGdsInvntrList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

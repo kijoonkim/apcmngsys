@@ -150,27 +150,13 @@
 	    SBGridProperties.columns = [
 	    	{caption: ["농업인 번호"], 		ref: 'frmerSn',   	type:'input',  hidden : false},
 	        {caption: ["경영체 등록번호"], 	ref: 'bzobRgno',   	type:'input',     style:'text-align:center'},
-	        {caption: ["경영주 및 경영주와 의 관계"], 	ref: 'mngerRelate',   	type:'input',     style:'text-align:center'},
-	        {caption: ["경영주 법인 명"], 	ref: 'bzmCorpNm',   	type:'input',     style:'text-align:center'},
-	        {caption: ["경영주 주민등록 주소"], 	ref: 'addr',   	type:'input',     style:'text-align:center'},
-	        {caption: ["경영주 실거주 주소"], 	ref: 'rrsdAddr',   	type:'input',     style:'text-align:center'},
-	        {caption: ["경영주 실거주 도로명 주소"], 	ref: 'rdnmAddr',   	type:'input',     style:'text-align:center'},
-	        {caption: ["마을명"], 	ref: 'twNm',   	type:'input',     style:'text-align:center'},
-	        {caption: ["개인 법인 구분코드명"], 	ref: 'perCorpDvcdNm',   	type:'input',     style:'text-align:center'},
-	        {caption: ["내외국인 구분코드명"], 	ref: 'nafoDvcdNm',   	type:'input',     style:'text-align:center'},
-	        {caption: ["전화번호"], 	ref: 'telno',   	type:'input',     style:'text-align:center'},
-	        {caption: ["휴대 전화번호"], 	ref: 'mblTelno',   	type:'input',     style:'text-align:center'},
-	        {caption: ["팩스 전화번호"], 	ref: 'faxTelno',   	type:'input',     style:'text-align:center'},
-	        {caption: ["이메일 주소"], 	ref: 'emailAddr',   	type:'input',     style:'text-align:center'},
-	        {caption: ["영농 시작 일자"], 	ref: 'famgStrYmd',   	type:'input',     style:'text-align:center'},
-	        {caption: ["농업시작형태"], 	ref: 'farmngBeginStleCdNm',   	type:'input',     style:'text-align:center'},
-	        {caption: ["농업종사형태"], 	ref: 'farmngEngageStleCdNm',   	type:'input',     style:'text-align:center'},
-	        {caption: ["설립 년도"], 	ref: 'fndtYr',   	type:'input',     style:'text-align:center'},
-	        {caption: ["사업자 등록 번호"], 	ref: 'bzmRgno',   	type:'input',     style:'text-align:center'},
-	        {caption: ["대표자 명"], 	ref: 'reprNm',   	type:'input',     style:'text-align:center'},
-	        {caption: ["대표자 주소"], 	ref: 'reprAddr',   	type:'input',     style:'text-align:center'},
-	        {caption: ["생년월일"], 	ref: 'brthdy',   	type:'input',     style:'text-align:center'},
-	        {caption: ["성별"], 	ref: 'sexdstn',   	type:'input',     style:'text-align:center'},
+	        {caption: ["교육과정코드"], 	ref: 'eduCosCd',   	type:'input',     style:'text-align:center'},
+	        {caption: ["성명"], 	ref: 'name',   	type:'input',     style:'text-align:center'},
+	        {caption: ["교육기관명"], 	ref: 'eduOrgNm',   	type:'input',     style:'text-align:center'},
+	        {caption: ["교육과정명"], 	ref: 'eduCosNm',   	type:'input',     style:'text-align:center'},
+	        {caption: ["교육시작일자"], 	ref: 'eduStrDt',   	type:'input',     style:'text-align:center'},
+	        {caption: ["교육종료일자"], 	ref: 'eduEndDt',   	type:'input',     style:'text-align:center'},
+	        {caption: ["확인여부"], 	ref: 'cnfmYn',   	type:'input',     style:'text-align:center'},
 	        {caption: ["시스템최초입력일시"], 	ref: 'sysFrstInptDt',   	type:'input',     style:'text-align:center'},
 	        {caption: ["시스템최초입력사용자ID"], 	ref: 'sysFrstInptUserId',   	type:'input',     style:'text-align:center'},
 	        {caption: ["시스템최초입력프로그램ID"], 	ref: 'sysFrstInptPrgrmId',   	type:'input',     style:'text-align:center'},
@@ -223,7 +209,7 @@
 		let bzobRgno = SBUxMethod.get("srch-inp-bzobRgno");//
 		//let apcCd = SBUxMethod.get("inp-apcCd");
     	//let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerEducationInfo.do", {apcCd : apcCd});
-    	let postJsonPromise = gfn_postJSON("/fm/farm/selectfarmerEducationInfoList.do", {
+    	let postJsonPromise = gfn_postJSON("/fm/farm/selectFarmerEducationInfoList.do", {
     		 frmerSn : frmerSn
     		,bzobRgno : bzobRgno
 		});
@@ -235,33 +221,20 @@
 				let farmerEducationInfoVO = {
 					frmerSn : item.frmerSn
 				  , bzobRgno 		: item.bzobRgno
-				  , mngerRelate 	: item.mngerRelate
-				  , bzmCorpNm 	: item.bzmCorpNm
-				  , addr 		: item.addr
-				  , rrsdAddr 		: item.rrsdAddr
-				  , rdnmAddr 		: item.rdnmAddr
-				  , twNm 		: item.twNm
-				  , perCorpDvcdNm 		: item.perCorpDvcdNm
-				  , nafoDvcdNm 		: item.nafoDvcdNm
-				  , telno 		: item.telno
-				  , mblTelno 		: item.mblTelno
-				  , faxTelno 		: item.faxTelno
-				  , emailAddr 		: item.emailAddr
-				  , famgStrYmd 		: item.famgStrYmd
-				  , farmngEngageStleCdNm 		: item.farmngEngageStleCdNm
-				  , fndtYr 		: item.fndtYr
-				  , bzmRgno 		: item.bzmRgno
-				  , reprNm 		: item.reprNm
-				  , reprAddr 		: item.reprAddr
-				  , brthdy 		: item.brthdy
-				  , sexdstn 		: item.sexdstn
+				  , eduCosCd 		: item.eduCosCd
+				  , name 		: item.name
+				  , eduOrgNm 	: item.eduOrgNm
+				  , eduCosNm 	: item.eduCosNm
+				  , eduStrDt 		: item.eduStrDt
+				  , eduEndDt 		: item.eduEndDt
+				  , cnfmYn 		: item.cnfmYn
+				  , delYn 		: item.delYn
 				  , sysFrstInptDt 		: item.sysFrstInptDt
 				  , sysFrstInptUserId 		: item.sysFrstInptUserId
 				  , sysFrstInptPrgrmId 		: item.sysFrstInptPrgrmId
 				  , sysLastChgDt 		: item.sysLastChgDt
 				  , sysLastChgUserId 		: item.sysLastChgUserId
 				  , sysLastChgPrgrmId 		: item.sysLastChgPrgrmId
-				  , delYn 		: item.delYn
 				}
 				jsonfarmerEducationInfo.push(farmerEducationInfoVO);
 			});
@@ -327,7 +300,7 @@
 		if(confirm(regMsg)){
 
 			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
-			let postJsonPromise = gfn_postJSON("/fm/farm/multiSavefarmerEducationInfoList.do", saveList);
+			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveFarmerEducationInfoList.do", saveList);
 	        let data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
@@ -373,7 +346,7 @@
     }
 
 	async function fn_deleteRsrc(farmerEducationInfoVO){
-		let postJsonPromise = gfn_postJSON("/fm/farm/deletefarmerEducationInfo.do", farmerEducationInfoVO);
+		let postJsonPromise = gfn_postJSON("/fm/farm/deleteFarmerEducationInfo.do", farmerEducationInfoVO);
         let data = await postJsonPromise;
 
         try{
@@ -521,7 +494,7 @@
 
 			//let postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList);
 			// let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyfarmerEducationInfoList.do", {
-			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyfarmerEducationInfoJsoneList.do", {
+			let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyFarmerEducationInfoJsoneList.do", {
 	    		 frmerSn : frmerSn
 	 		});
 	        let data = await postJsonPromise;

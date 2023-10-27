@@ -80,39 +80,26 @@
     </select>
 	  -->
 
-	   <select id="selectfarmerEducationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
+	   <select id="selectFarmerEducationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.selectfarmerEducationInfo */
 				  CM.FRMER_SN
 				, CM.BZOB_RGNO
-				, CM.MNGER_RELATE
-				, CM.BZM_CORP_NM
-				, CM.ADDR
-				, CM.RRSD_ADDR
-			    , CM.RDNM_ADDR
-				, CM.TW_NM
-				, CM.PER_CORP_DVCD_NM
-				, CM.NAFO_DVCD_NM
-				, CM.TELNO
-				, CM.MBL_TELNO
-				, CM.FAX_TELNO
-				, CM.EMAIL_ADDR
-				, CM.FAMG_STR_YMD
-				, CM.FARMNG_BEGIN_STLE_CD_NM
-				, CM.FARMNG_ENGAGE_STLE_CD_NM
-				, CM.FNDT_YR
-				, CM.BZM_RGNO
-				, CM.REPR_NM
-				, CM.REPR_ADDR
-				, CM.BRTHDY
-				, CM.SEXDSTN
+				, CM.EDU_COS_CD
+				, CM.NAME
+				, CM.EDU_ORG_NM
+				, CM.EDU_COS_NM
+			    , CM.EDU_STR_DT
+				, CM.EDU_END_DT
+				, CM.CNFM_YN
+				, CM.DEL_YN
 				, CM.SYS_FRST_INPT_DT
 				, CM.SYS_FRST_INPT_USER_ID
 				, CM.SYS_FRST_INPT_PRGRM_ID
 				, CM.SYS_LAST_CHG_DT
 				, CM.SYS_LAST_CHG_USER_ID
 				, CM.SYS_LAST_CHG_PRGRM_ID
-			  FROM TB_FARMER_INFO CM
+			  FROM TB_EDU_FNSH_INFO CM
 			 WHERE 1=1
 
     	]]>
@@ -133,41 +120,26 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectfarmerEducationInfoList" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
+    <select id="selectFarmerEducationInfoList" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.selectfarmerEducationInfoList */
 				  CM.FRMER_SN
 				, CM.BZOB_RGNO
-				, CM.MNGER_RELATE
-				, CM.BZM_CORP_NM
-				, CM.ADDR
-				, CM.RRSD_ADDR
-			    , CM.RDNM_ADDR
-				, CM.TW_NM
-				, CM.PER_CORP_DVCD_NM
-				, CM.NAFO_DVCD_NM
-				, CM.TELNO
-				, CM.MBL_TELNO
-				, CM.FAX_TELNO
-				, CM.EMAIL_ADDR
-				, CM.FAMG_STR_YMD
-				, CM.FARMNG_BEGIN_STLE_CD_NM
-				, CM.FARMNG_ENGAGE_STLE_CD_NM
-				, CM.FNDT_YR
-				, CM.BZM_RGNO
-				, CM.REPR_NM
-				, CM.REPR_ADDR
-				, CM.BRTHDY
-				, CM.SEXDSTN
+				, CM.EDU_COS_CD
+				, CM.NAME
+				, CM.EDU_ORG_NM
+				, CM.EDU_COS_NM
+			    , CM.EDU_STR_DT
+				, CM.EDU_END_DT
+				, CM.CNFM_YN
+				, CM.DEL_YN
 				, CM.SYS_FRST_INPT_DT
 				, CM.SYS_FRST_INPT_USER_ID
 				, CM.SYS_FRST_INPT_PRGRM_ID
 				, CM.SYS_LAST_CHG_DT
 				, CM.SYS_LAST_CHG_USER_ID
 				, CM.SYS_LAST_CHG_PRGRM_ID
-				, CM.DEL_YN
-				, CM.SAVE_CD
-			  FROM TB_FARMER_INFO CM
+			  FROM TB_EDU_FNSH_INFO CM
 			 WHERE 1=1
 
     	]]>
@@ -181,76 +153,46 @@
     </select>
 
 
-	<insert id="insertfarmerEducationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
+	<insert id="insertFarmerEducationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
     	<![CDATA[
 	    	INSERT /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.insertfarmerEducationInfo */
-	    	  INTO TB_FARMER_INFO
+	    	  INTO TB_EDU_FNSH_INFO
 	    		(
 	    		  FRMER_SN
-				, BZOB_RGNO
-				, MNGER_RELATE
-				, BZM_CORP_NM
-				, ADDR
-				, RRSD_ADDR
-			    , RDNM_ADDR
-				, TW_NM
-				, PER_CORP_DVCD_NM
-				, NAFO_DVCD_NM
-				, TELNO
-				, MBL_TELNO
-				, FAX_TELNO
-				, EMAIL_ADDR
-				, FAMG_STR_YMD
-				, FARMNG_BEGIN_STLE_CD_NM
-				, FARMNG_ENGAGE_STLE_CD_NM
-				, FNDT_YR
-				, BZM_RGNO
-				, REPR_NM
-				, REPR_ADDR
-				, BRTHDY
-				, SEXDSTN
-				, SYS_FRST_INPT_DT
-				, SYS_FRST_INPT_USER_ID
-				, SYS_FRST_INPT_PRGRM_ID
-				, SYS_LAST_CHG_DT
-				, SYS_LAST_CHG_USER_ID
-				, SYS_LAST_CHG_PRGRM_ID
-				, DEL_YN
-				, SAVE_CD
+				,BZOB_RGNO
+				,EDU_COS_CD
+				,NAME
+				,EDU_ORG_NM
+				,EDU_COS_NM
+			    ,EDU_STR_DT
+				,EDU_END_DT
+				,CNFM_YN
+				,DEL_YN
+				,SYS_FRST_INPT_DT
+				,SYS_FRST_INPT_USER_ID
+				,SYS_FRST_INPT_PRGRM_ID
+				,SYS_LAST_CHG_DT
+				,SYS_LAST_CHG_USER_ID
+				,SYS_LAST_CHG_PRGRM_ID
 	    		)
 	   		VALUES
 	   			(
 	   			    #{frmerSn}
 					,#{bzobRgno}
-					,#{mngerRelate}
-					,#{bzmCorpNm}
-					,#{addr}
-					,#{rrsdAddr}
-					,#{rdnmAddr}
-					,#{twNm}
-					,#{perCorpDvcdNm}
-					,#{nafoDvcdNm}
-					,#{telno}
-					,#{mblTelno}
-					,#{faxTelno}
-					,#{emailAddr}
-					,#{famgStrYmd}
-					,#{farmngBeginStleCdNm}
-					,#{farmngEngageStleCdNm}
-					,#{fndtYr}
-					,#{bzmRgno}
-					,#{reprNm}
-					,#{reprAddr}
-					,#{brthdy}
-					,#{sexdstn}
+					,#{eduCosCd}
+					,#{name}
+					,#{eduOrgNm}
+					,#{eduCosNm}
+					,#{eduStrDt}
+					,#{eduEndDt}
+					,#{cnfmYn}
+					,#{delYn}
 					,SYSDATE
 					,#{sysFrstInptUserId}
 					,#{sysFrstInptPrgrmId}
 					,SYSDATE
 					,#{sysLastChgUserId}
 					,#{sysLastChgPrgrmId}
-					,#{delYn}
-					,#{saveCd}
 	   			)
     	]]>
     </insert>
@@ -258,7 +200,7 @@
 
 
 
-    <insert id="insertMegerfarmerEducationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
+    <insert id="insertMegerFarmerEducationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
 	<![CDATA[
     	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.insertMegerfarmerEducationInfo */
 		USING DUAL
@@ -364,7 +306,7 @@
 
 
 
-    <insert id="insertMegerfarmerEducationInfoMap" parameterType="hashmap">
+    <insert id="insertMegerFarmerEducationInfoMap" parameterType="hashmap">
 	<![CDATA[
     	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.insertMegerfarmerEducationInfoMap */
 		USING DUAL
@@ -469,7 +411,7 @@
 	</insert>
 
 
-    <insert id="insertMegerLogfarmerEducationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
+    <insert id="insertMegerLogFarmerEducationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
 	<![CDATA[
     	INSERT /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.insertMegerLogfarmerEducationInfo */
 	    	  INTO TB_FARMER_INFO_LOG
@@ -546,7 +488,7 @@
 	</insert>
 
 
-    <insert id="insertMegerLogfarmerEducationInfoMap" parameterType="hashmap">
+    <insert id="insertMegerLogFarmerEducationInfoMap" parameterType="hashmap">
 	<![CDATA[
     	INSERT /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.insertMegerLogfarmerEducationInfoMap */
 	    	  INTO TB_FARMER_INFO_LOG
@@ -622,33 +564,19 @@
     	]]>
 	</insert>
 
-	<update id="updatefarmerEducationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
+	<update id="updateFarmerEducationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.upatefarmerEducationInfo */
-	    		TB_FARMER_INFO
+	    		TB_EDU_FNSH_INFO
 			   SET
-			 	  MNGER_RELATE 	= #{mngerRelate}
-				, BZM_CORP_NM 	= #{bzmCorpNm}
-				, ADDR 	= #{addr}
-				, RRSD_ADDR 	= #{rrsdAddr}
-			    , RDNM_ADDR 	= #{rdnmAddr}
-				, TW_NM 	= #{twNm}
-				, PER_CORP_DVCD_NM 	= #{perCorpDvcdNm}
-				, NAFO_DVCD_NM 	= #{nafoDvcdNm}
-				, TELNO 	= #{telno}
-				, MBL_TELNO 	= #{mblTelno}
-				, FAX_TELNO 	= #{faxTelno}
-				, EMAIL_ADDR 	= #{emailAddr}
-				, FAMG_STR_YMD 	= #{famgStrYmd}
-				, FARMNG_BEGIN_STLE_CD_NM 	= #{farmngBeginStleCdNm}
-				, FARMNG_ENGAGE_STLE_CD_NM 	= #{farmngEngageStleCdNm}
-				, FNDT_YR 	= #{fndtYr}
-				, BZM_RGNO 	= #{bzmRgno}
-				, REPR_NM 	= #{reprNm}
-				, REPR_ADDR 	= #{reprAddr}
-				, BRTHDY 	= #{brthdy}
-				, SEXDSTN 	= #{sexdstn}
-				, SAVE_CD 	= #{saveCd}
+			 	  EDU_COS_CD 	= #{mngerRelate}
+				, NAME 	= #{bzmCorpNm}
+				, EDU_ORG_NM 	= #{addr}
+				, EDU_COS_NM 	= #{rrsdAddr}
+			    , EDU_STR_DT 	= #{rdnmAddr}
+				, EDU_END_DT 	= #{twNm}
+				, CNFM_YN 	= #{perCorpDvcdNm}
+				, DEL_YN 	= #{nafoDvcdNm}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
@@ -664,7 +592,7 @@
     	]]>
     </update>
 
-    <update id="updateMegerfarmerEducationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
+    <update id="updateMegerFarmerEducationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
     	<![CDATA[
 	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.insertMegerfarmerEducationInfo */
 		USING DUAL
@@ -770,7 +698,7 @@
 
 
 
-    <update id="updateMegerfarmerEducationInfoMap" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
+    <update id="updateMegerFarmerEducationInfoMap" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
     	<![CDATA[
 	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.updateMegerfarmerEducationInfoMap */
 		USING DUAL
@@ -874,9 +802,9 @@
     	]]>
     </update>
 
-	<delete id="deletefarmerEducationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
+	<delete id="deleteFarmerEducationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoVO">
 		<![CDATA[
-		DELETE FROM TB_FARMER_INFO
+		DELETE FROM TB_EDU_FNSH_INFO
 		 WHERE 1=1
 		      AND FRMER_SN 	    = #{frmerSn}
 		      AND BZOB_RGNO 	= #{bzobRgno}

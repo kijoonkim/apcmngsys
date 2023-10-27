@@ -168,6 +168,11 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 출하포장단위코드
 	 */
 	private String spmtPckgUnitNm;
+	
+	/**
+	 * 출하지시수량
+	 */
+	private String cmndQntt;
 
 	/**
 	 * 브랜드명

@@ -36,66 +36,66 @@ public class FarmerInfoLogServiceImpl implements FarmerInfoLogService{
 	private FarmerInfoLogMapper farmerInfoLogMapper;
 
 	@Override
-	public FarmerInfoLogVO selectfarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
+	public FarmerInfoLogVO selectFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
 
-		FarmerInfoLogVO resultVO = farmerInfoLogMapper.selectfarmerInfoLog(farmerInfoLogVO);
+		FarmerInfoLogVO resultVO = farmerInfoLogMapper.selectFarmerInfoLog(farmerInfoLogVO);
 
 		return resultVO;
 	}
 
 	@Override
-	public List<FarmerInfoLogVO> selectfarmerInfoLogList(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
+	public List<FarmerInfoLogVO> selectFarmerInfoLogList(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
 
-		List<FarmerInfoLogVO> resultList = farmerInfoLogMapper.selectfarmerInfoLogList(farmerInfoLogVO);
+		List<FarmerInfoLogVO> resultList = farmerInfoLogMapper.selectFarmerInfoLogList(farmerInfoLogVO);
 		return resultList;
 	}
 
 	@Override
-	public int insertfarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
+	public int insertFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
 
-		int insertedCnt = farmerInfoLogMapper.insertfarmerInfoLog(farmerInfoLogVO);
+		int insertedCnt = farmerInfoLogMapper.insertFarmerInfoLog(farmerInfoLogVO);
 
 		return insertedCnt;
 	}
 
 	@Override
-	public int updatefarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
+	public int updateFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
 
-		int updatedCnt = farmerInfoLogMapper.updatefarmerInfoLog(farmerInfoLogVO);
+		int updatedCnt = farmerInfoLogMapper.updateFarmerInfoLog(farmerInfoLogVO);
 
 		return updatedCnt;
 	}
 
 	@Override
-	public int multiSavefarmerInfoLogList(List<FarmerInfoLogVO> farmerInfoLogVOList) throws Exception {
+	public int multiSaveFarmerInfoLogList(List<FarmerInfoLogVO> farmerInfoLogVOList) throws Exception {
 		int savedCnt = 0;
 		for (FarmerInfoLogVO farmerInfoLogVO : farmerInfoLogVOList) {
 			if(ComConstants.ROW_STS_INSERT.equals(farmerInfoLogVO.getRowSts())) {
-				savedCnt += insertfarmerInfoLog(farmerInfoLogVO);
+				savedCnt += insertFarmerInfoLog(farmerInfoLogVO);
 			}
 			if(ComConstants.ROW_STS_UPDATE.equals(farmerInfoLogVO.getRowSts())) {
-				savedCnt += updatefarmerInfoLog(farmerInfoLogVO);
+				savedCnt += updateFarmerInfoLog(farmerInfoLogVO);
 			}
 		}
 		return savedCnt;
 	}
 
 	@Override
-	public int insertMegerfarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
-		return farmerInfoLogMapper.insertMegerfarmerInfoLog(farmerInfoLogVO);
+	public int insertMegerFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
+		return farmerInfoLogMapper.insertMegerFarmerInfoLog(farmerInfoLogVO);
 	}
 	@Override
-	public int insertMegerLogfarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
-		return farmerInfoLogMapper.insertMegerLogfarmerInfoLog(farmerInfoLogVO);
+	public int insertMegerLogFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
+		return farmerInfoLogMapper.insertMegerLogFarmerInfoLog(farmerInfoLogVO);
 	}
 	@Override
-	public int updateMegerfarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
-		return farmerInfoLogMapper.updateMegerfarmerInfoLog(farmerInfoLogVO);
+	public int updateMegerFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
+		return farmerInfoLogMapper.updateMegerFarmerInfoLog(farmerInfoLogVO);
 	}
 
 	@Override
-	public int deletefarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
-		return farmerInfoLogMapper.deletefarmerInfoLog(farmerInfoLogVO);
+	public int deleteFarmerInfoLog(FarmerInfoLogVO farmerInfoLogVO) throws Exception {
+		return farmerInfoLogMapper.deleteFarmerInfoLog(farmerInfoLogVO);
 	}
 
 }
