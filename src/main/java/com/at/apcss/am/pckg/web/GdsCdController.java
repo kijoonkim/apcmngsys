@@ -39,7 +39,7 @@ public class GdsCdController extends BaseController {
 	private GdsCdService gdsCdService;
 
 
-	@PostMapping(value = "/am/pckg/selectGdsCd.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	@PostMapping(value = "/am/pckg/selectGdsCdList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectGdsCdList(@RequestBody GdsCdVO gdsCdVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();

@@ -2,8 +2,6 @@ package com.at.apcss.am.pckg.service.impl;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +29,6 @@ import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 public class GdsCdServiceImpl extends BaseServiceImpl implements GdsCdService {
 	@Autowired
 	private GdsCdMapper gdsCdMapper;
-	
-//	@Resource(name="gdsCdService")
-//	private GdsCdService gdsCdService;
 	
 	@Override
 	public List<GdsCdVO> selectGdsCdList(GdsCdVO gdsCdVO) throws Exception {

@@ -33,13 +33,18 @@
     	<!-- End 페이징 -->
     	<![CDATA[
 				  pt0.*
+				 , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+    			 , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+    			 , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)    	AS SPCFCT_NM
+    			 , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 					AS GDS_GRD_NM
+    			 , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 	AS SPMT_PCKG_UNIT_NM
     		  FROM (
 	    	SELECT
 			      GC.APC_CD AS APC_CD
 				, GC.GDS_CD AS GDS_CD
 				, GC.GDS_NM AS GDS_NM
 				, GC.ITEM_CD AS ITEM_CD
-				, GC.VRTY_CD AS VERT_CD
+				, GC.VRTY_CD AS VRTY_CD
 				, GC.SPCFCT_CD AS SPCFCT_CD
 				, GC.GDS_GRD AS GDS_GRD
 				, GC.BRND_NM AS BRND_NM
@@ -54,6 +59,32 @@
 
 			 WHERE 1=1
 		]]>
+		
+		<if test='apcCd != null and apcCd != ""'>
+			 AND GC.APC_CD = #{apcCd}
+		</if>
+		<if test='gdsCd != null and gdsCd != ""'>
+			 AND GC.GDS_CD = #{gdsCd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			 AND GC.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			 AND GC.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='spcfctCd != null and spcfctCd != ""'>
+			 AND GC.SPCFCT_CD = #{spcfctCd}
+		</if>
+		<if test='gdsGrd != null and gdsGrd != ""'>
+			 AND GC.GDS_GRD = #{gdsGrd}
+		</if>
+		<if test='plorCd != null and plorCd != ""'>
+			 AND GC.PLOR_CD = #{plorCd}
+		</if>
+		<if test='pckgSeCd != null and pckgSeCd != ""'>
+			 AND GC.SPMT_PCKG_UNIT_CD = #{pckgSeCd}
+		</if>
+		
     	<![CDATA[
     		  ) pt0
 		]]>

@@ -57,14 +57,14 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" unselected-text="전체" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" unselected-text="전체" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 									</div>
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" unselected-text="전체" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" unselected-text="전체" class="form-control input-sm" jsondata-ref="jsonComVrty" onchange="fn_selectVrty"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -73,7 +73,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" unselected-text="전체" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" unselected-text="전체" class="form-control input-sm" jsondata-ref="jsonSpcfct"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -84,7 +84,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" unselected-text="전체" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-gdsGrd" name="srch-slt-gdsGrd" uitype="single" unselected-text="전체" class="form-control input-sm" jsondata-ref="jsonGdsGrd"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -93,7 +93,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-brndCd" name="srch-slt-brndCd" uitype="single" unselected-text="전체" class="form-control input-sm"></sbux-select>
+										<sbux-input id="srch-inp-brndCd" name="srch-inp-brndCd" uitype="text" class="form-control input-sm"></sbux-input>
 									</div>
 								</div>
 							</td>
@@ -113,7 +113,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-pckgSeCd" name="srch-slt-pckgSeCd" uitype="single" unselected-text="전체" class="form-control input-sm"></sbux-select>
+										<sbux-select id="srch-slt-pckgSeCd" name="srch-slt-pckgSeCd" uitype="single" unselected-text="전체" class="form-control input-sm" jsondata-ref="jsonComSpmtPckgUnit"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -137,8 +137,54 @@
 	</section>
 </body>
 <script type="text/javascript">
+var jsonComItem = 			[];
+var jsonComVrty = 			[];
+var jsonSpcfct = 			[];
+var jsonGdsGrd = 			[];
+var jsonComSpmtPckgUnit =  [];
+
+const fn_initSBSelect = async function() {
+	
+	let itemCd = SBUxMethod.get("srch-slt-itemCd");
+	
+	let rst = await Promise.all([
+	 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd),						// 품목
+	 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 		gv_selectedApcCd),						// 품종
+// 	 	gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonSpcfct, gv_selectedApcCd, itemCd, gv_selectedApcCd),	// 규격
+	 	gfn_setComCdSBSelect('srch-slt-gdsGrd', 		jsonGdsGrd,		'GDS_GRD'),									// 상품등급
+	 	gfn_setSpmtPckgUnitSBSelect('srch-slt-pckgSeCd', 	jsonComSpmtPckgUnit, 	gv_selectedApcCd, itemCd)	// 포장구분
+	])
+	SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true');
+}
+
+const fn_selectItem = async function(){
+	let itemCd = SBUxMethod.get("srch-slt-itemCd");
+	let rst = await Promise.all([
+		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),	// 품종
+		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',			jsonSpcfct, 				gv_selectedApcCd, itemCd),	// 규격
+		stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
+	])
+}
+
+const fn_selectVrty = async function(){
+	let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+	let itemCd = "";
+	for(i=0;i<jsonComVrty.length;i++){
+		if(jsonComVrty[i].value == vrtyCd){
+			itemCd = jsonComVrty[i].mastervalue;
+		}
+	}
+	SBUxMethod.set("srch-slt-itemCd", itemCd);
+	let rst = await Promise.all([
+		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 			jsonSpcfct, 				gv_selectedApcCd, itemCd),	// 규격
+		gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),	// 포장구분
+		stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
+	])
+}
+
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_initSBSelect();
 		fn_createGdsCdGrid();
 		fn_search();
 	})
@@ -162,17 +208,19 @@
 		  	'showgoalpageui' : true
 		};
         SBGridProperties.columns = [
-            {caption: ['상품코드'], ref: 'gdsCd', width: '100px', type: 'output'},
-            {caption: ['상품명'], ref: 'gdsNm', width: '100px', type: 'output'},
-            {caption: ['품목'], ref: 'itemCd', width: '100px', type: 'output'},
-            {caption: ['품종'], ref: 'vrtyCd', width: '100px', type: 'output'},
-            {caption: ['규격'], ref: 'spcfctCd', width: '100px', type: 'output'},
-            {caption: ['상품등급'], ref: 'gdsGrd', width: '100px', type: 'output'},
-            {caption: ['브랜드'], ref: 'brndCd', width: '100px', type: 'output'},
-            {caption: ['산지'], ref: 'plorCd', width: '100px', type: 'output'},
-            {caption: ['포장구분'], ref: 'pckgSeCd', width: '100px', type: 'output'},
-            {caption: ['입수'], ref: 'bxGdsQntt', width: '100px', type: 'output'},
-            {caption: ['중량'], ref: 'wght', width: '100px', type: 'output'}
+            {caption: ['상품코드'], 		ref: 'gdsCd', 			width: '9%', 	type: 'output', style: 'text-align:center'},
+            {caption: ['상품명'], 		ref: 'gdsNm', 			width: '11%', 	type: 'output', style: 'text-align:center'},
+            {caption: ['품목'], 			ref: 'itemNm', 			width: '9%', 	type: 'output', style: 'text-align:center'},
+            {caption: ['품종'], 			ref: 'vrtyNm', 			width: '9%', 	type: 'output', style: 'text-align:center'},
+            {caption: ['규격'], 			ref: 'spcfctNm', 		width: '9%', 	type: 'output', style: 'text-align:center'},
+            {caption: ['상품등급'], 		ref: 'gdsGrdNm', 		width: '9%', 	type: 'output', style: 'text-align:center'},
+            {caption: ['브랜드'], 		ref: 'brndNm', 			width: '9%', 	type: 'output', style: 'text-align:center'},
+            {caption: ['산지'], 			ref: 'plorCd', 			width: '9%', 	type: 'output', style: 'text-align:center'},
+            {caption: ['포장구분'], 		ref: 'spmtPckgUnitNm', 	width: '9%', 	type: 'output', style: 'text-align:center'},
+            {caption: ['입수'], 			ref: 'bxGdsQntt', 		width: '9%', 	type: 'output', style: 'text-align:center'},
+            {caption: ['중량'], 			ref: 'wght', 			width: '8%', 	type: 'output', style: 'text-align:center',
+            	format : {type:'number', rule:'#,### kg'}	
+            }
         ];
         grdGdsCd = _SBGrid.create(SBGridProperties);
     }
@@ -192,8 +240,26 @@
 
 	const fn_setGrdPckgPrfmnc = async function(pageSize, pageNo) {
 		//검색조건
-		const postJsonPromise = gfn_postJSON("/am/pckg/selectGdsCd.do", {
-			
+		let gdsCd = SBUxMethod.get('srch-inp-gdsCd');
+		let itemCd = SBUxMethod.get('srch-slt-itemCd');
+		let vrtyCd = SBUxMethod.get('srch-slt-vrtyCd');
+		let spcfctCd = SBUxMethod.get('srch-slt-spcfctCd');
+		let gdsGrd = SBUxMethod.get('srch-slt-gdsGrd');
+		let brndCd = SBUxMethod.get('srch-slt-brndCd');
+		let plorCd = SBUxMethod.get('srch-slt-plorCd');
+		let pckgSeCd = SBUxMethod.get('srch-slt-pckgSeCd');
+
+
+		const postJsonPromise = gfn_postJSON("/am/pckg/selectGdsCdList.do", {
+			apcCd		:  gv_selectedApcCd,
+			gdsCd		: gdsCd,
+			itemCd		: itemCd,
+			vrtyCd		: vrtyCd,
+			spcfctCd	: spcfctCd,
+			gdsGrd		: gdsGrd,
+			brndCd		: brndCd,
+			plorCd		: plorCd,
+			pckgSeCd	: pckgSeCd,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : pageNo,
@@ -212,13 +278,13 @@
           		const gdsCd = {
           			gdsCd: item.gdsCd,
           			gdsNm: item.gdsNm,
-          			itemCd: item.itemCd,
-          			vrtyCd: item.vrtyCd,
-          			spcfctCd: item.spcfctCd,
-          			gdsGrd: item.gdsGrd,
-          			brndCd: item.brndCd,
+          			itemNm: item.itemNm,
+          			vrtyNm: item.vrtyNm,
+          			spcfctNm: item.spcfctNm,
+          			gdsGrdNm: item.gdsGrdNm,
+          			brndNm: item.brndNm,
           			plorCd: item.plorCd,
-          			pckgSeCd: item.pckgSeCd,
+          			spmtPckgUnitNm: item.spmtPckgUnitNm,
           			bxGdsQntt: item.bxGdsQntt,
         			wght: item.wght
   				}
@@ -241,7 +307,7 @@
           		grdGdsCd.rebuild();
           	}
 
-          	document.querySelector('#cnt-pckgPrfmnc').innerText = totalRecordCount;
+//           	document.querySelector('#cnt-pckgPrfmnc').innerText = totalRecordCount;
 
           } catch (e) {
       		if (!(e instanceof Error)) {
