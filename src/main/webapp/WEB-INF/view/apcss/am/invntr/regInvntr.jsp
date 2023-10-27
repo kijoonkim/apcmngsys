@@ -1153,6 +1153,7 @@
 
 
 	const fn_setSltJson = async function() {
+		// 첫 시트에서 쓰일 json을 엑셀에서 쓰는 변수에 담는 함수
 		// set exp/imp combo json
 		jsonExpSltItem 			= gfn_cloneJson(jsonComItem);				// 품목
 		jsonExpSltVrty 			= gfn_cloneJson(jsonComVrty);				// 품종
@@ -1169,6 +1170,7 @@
 	}
 
 	const fn_setExpJson = async function() {
+		// 첫 시트가 아닌 다른 시트에서 쓰일 json을 엑셀에서 쓰는 변수에 담는 함수
 		// export grid data
 		jsonExpRawMtr.length = 0;
 		jsonExpSort.length = 0;
@@ -1454,14 +1456,15 @@
 		);
 
 
-		await fn_createExpGrid(expObjList);
+		await fn_createExpGrid(expObjList); // fn_createExpGrid함수에 expObjList를 담아서 보내주는 코드
 
 		//exportExcel();
-	    gfn_exportExcelMulti("재고정보(샘플).xlsx", expObjList);
+	    gfn_exportExcelMulti("재고정보(샘플).xlsx", expObjList); // gfn_exportExcelMulti함수에 파일 이름, 오브젝트 리스트를 보내주는 코드
 	}
 
 	const gfn_exportExcelMulti = function(_fileName, _objList) {
-
+		
+// 		엑셀 정보를 담는 변수
 		var objExcelInfo = {
 			strFileName : _fileName,
 			strAction : "/am/excel/saveMultiExcel",
@@ -1477,7 +1480,8 @@
 		var titleList = [];
 		var unitList = [];
 		var arrAdditionalData = [];
-
+		
+		//넘어온 오브젝트를 이용한 forEach문으로 타이틀리스트에 title을 넣고 unitList에 unit을 넣는 포이치문
 		_objList.forEach((item, index) => {
 			sheetNameList.push(item.sheetName);
 			titleList.push(item.title);
@@ -1500,7 +1504,7 @@
 		_objList[0].sbGrid.exportExcel(objExcelInfo);
 	}
 
-
+// 	excel모달을 열기위한 함수
 	const importExcelData = function (e){
 
 		let invntrSeCd = SBUxMethod.get("dtl-slt-invntrSeCd");
