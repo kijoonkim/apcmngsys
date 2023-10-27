@@ -205,6 +205,7 @@
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfctList */
 				  AGC.ITEM_CD		AS ITEM_CD
+				, (SELECT FN_GET_ITEM_NM(AGC.ITEM_CD, AGC.APC_CD) FROM DUAL) AS ITEM_NM
 				, AGC.APC_CD		AS APC_CD
 				, AGC.SPCFCT_CD		AS SPCFCT_CD
 				, AGC.SPCFCT_NM		AS SPCFCT_NM

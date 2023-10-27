@@ -41,42 +41,42 @@ public class GdsInvntrController extends BaseController {
 
 	@PostMapping(value = "/am/invntr/selectGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectGdsInvntrList(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<GdsInvntrVO> resultList = new ArrayList<>();
 		try {
-			resultList = gdsInvntrService.selectGdsInvntrList(gdsInvntrVO);			
+			resultList = gdsInvntrService.selectGdsInvntrList(gdsInvntrVO);
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 
 		return getSuccessResponseEntity(resultMap);
-		
+
 	}
-	
+
 	@PostMapping(value = "/am/invntr/selectUpdateGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectUpdateGdsInvntrList(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<GdsInvntrVO> resultList = new ArrayList<>();
 		try {
-			resultList = gdsInvntrService.selectUpdateGdsInvntrList(gdsInvntrVO);			
+			resultList = gdsInvntrService.selectUpdateGdsInvntrList(gdsInvntrVO);
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		
+
 		return getSuccessResponseEntity(resultMap);
-		
+
 	}
-	
-	@PostMapping(value = "/am/invntr/updateGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> updateGdsInvntrList(@RequestBody List<GdsInvntrVO> gdsInvntrList, HttpServletRequest request) throws Exception {
+
+	@PostMapping(value = "/am/invntr/multiGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiGdsInvntrList(@RequestBody List<GdsInvntrVO> gdsInvntrList, HttpServletRequest request) throws Exception {
 
 		logger.debug("updateSortInvntrDsctnList 호출 <><><><> ");
 
@@ -84,11 +84,13 @@ public class GdsInvntrController extends BaseController {
 
 		try {
 			for ( GdsInvntrVO gdsInvntrVO : gdsInvntrList ) {
+				gdsInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				gdsInvntrVO.setSysFrstInptUserId(getUserId());
 				gdsInvntrVO.setSysLastChgUserId(getUserId());
 				gdsInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			HashMap<String, Object> rtnObj = gdsInvntrService.updateGdsInvntrList(gdsInvntrList); //updateSortInvntrDsctnList
+			HashMap<String, Object> rtnObj = gdsInvntrService.multiGdsInvntrList(gdsInvntrList); //updateSortInvntrDsctnList
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
