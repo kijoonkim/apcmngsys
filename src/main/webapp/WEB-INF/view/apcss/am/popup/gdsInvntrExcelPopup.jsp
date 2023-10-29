@@ -86,14 +86,13 @@
 					typeinfo : {ref:'jsonEGIGdsGrd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["포장구분"], 	ref: 'spmtPckgUnitCd', 	type:'combo',  width:'80px',    style:'text-align:center',
 					typeinfo : {ref:'jsonEGISpmtPckgUnit', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-			{caption: ["생산자"], 		ref: 'prdcrCd',   	type:'combo',  width:'80px',    style:'text-align:center',
+			{caption: ["생산자"], 		ref: 'rprsPrdcrCd',   	type:'combo',  width:'80px',    style:'text-align:center',
 					typeinfo : {ref:'jsonEGIApcPrdcr', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["보관창고"],		ref: 'warehouseSeCd',	type:'combo',  width:'80px',    style:'text-align:center',
 						typeinfo : {ref:'jsonEGIWarehouseSeCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["수량"],			ref: 'invntrQntt',      type:'input',  width:'60px',    style:'text-align:right'},
 	        {caption: ["중량 Kg"],		ref: 'invntrWght',    type:'input',  width:'60px',    style:'text-align:right'},
 	        {caption: ["비고"],			ref: 'rmrk',      	type:'input',  width:'100px',    style:'text-align:left'},
-
 	    ];
 
 		grdExcelGdsInvntrPopup = _SBGrid.create(SBGridPropertiesGdsInvntrPopup);
@@ -115,7 +114,7 @@
 			const vrtyCd = rowData.vrtyCd;
 			const spcfctCd = rowData.spcfctCd;
 			const gdsGrd = rowData.gdsGrd;
-			const prdcrCd = rowData.prdcrCd;
+			const rprsPrdcrCd = rowData.rprsPrdcrCd;
 			const warehouseSeCd	= rowData.warehouseSeCd;
 			const invntrQntt = rowData.invntrQntt;
 			const invntrWght = rowData.invntrWght;
@@ -137,7 +136,7 @@
 					gfn_comAlert("W0005", "등급") 	// W0005	{0}이/가 없습니다.
 					return;
 				}
-				if(gfn_comboValidation(jsonEGIApcPrdcr, prdcrCd) != "Y" || gfn_isEmpty(prdcrCd)){
+				if(gfn_comboValidation(jsonEGIApcPrdcr, rprsPrdcrCd) != "Y" || gfn_isEmpty(rprsPrdcrCd)){
 					gfn_comAlert("W0005", "생산자") 	// W0005	{0}이/가 없습니다.
 					return;
 				}
@@ -171,10 +170,25 @@
 		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}else{
+			const postJsonPromise = gfn_postJSON("/am/invntr/multiGdsInvntrList.do", insertList);
+			const data = await postJsonPromise;
 
+	    	try{
+	       		if(data.errMsg == null){
+	       			gfn_closeModal('modal-excel-gdsInvntr')
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+
+	       		}else{
+	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
+	       		}
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
     	}
 	}
-
 
 </script>
 </html>
