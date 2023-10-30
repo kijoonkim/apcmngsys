@@ -220,14 +220,14 @@
         grdPckgInptTablet.bind('click', fn_choice);
     }
 	
-	// 출하지시 목록 조회 (조회 버튼)
+	// 포장투입 목록 조회 (조회 버튼)
     async function fn_search() {
     	let recordCountPerPage = grdPckgInptTablet.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdPckgInptTablet.movePaging(currentPageNo);
     }
 
-	// 출하지시 목록 조회 호출
+	// 포장투입 목록 조회 호출
 	async function fn_callSelectPckgInptList(recordCountPerPage, currentPageNo){
 		jsonPckgInpt = [];
 		let apcCd = gv_apcCd;
