@@ -219,7 +219,7 @@ const fn_selectVrty = async function(){
             {caption: ['포장구분'], 		ref: 'spmtPckgUnitNm', 	width: '9%', 	type: 'output', style: 'text-align:center'},
             {caption: ['입수'], 			ref: 'bxGdsQntt', 		width: '9%', 	type: 'output', style: 'text-align:center'},
             {caption: ['중량'], 			ref: 'wght', 			width: '8%', 	type: 'output', style: 'text-align:center',
-            	format : {type:'number', rule:'#,### kg'}	
+            	format : {type:'number', rule:'#,### kg'}
             }
         ];
         grdGdsCd = _SBGrid.create(SBGridProperties);
