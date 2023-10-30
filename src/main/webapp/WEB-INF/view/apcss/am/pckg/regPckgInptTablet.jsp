@@ -63,9 +63,11 @@
 							<td colspan="5"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg"><span class="data_required"></span>선별번호/등급</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>선별번호</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-sortnoIndct" name="srch-inp-sortnoIndct" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-input>
+								<sbux-input id="srch-inp-sortnoIndct" name="srch-inp-sortnoIndct" uitype="text" maxlength="25" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-input>
+								<sbux-input id="srch-inp-sortno" name="srch-inp-sortno" uitype="hidden"></sbux-input>
+								<sbux-input id="srch-inp-sortSn" name="srch-inp-sortSn" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchSortInvntr" name="btnSrchSortInvntr" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-sortInvntr" onclick="fn_modalSortInvntr" text="찾기"></sbux-button>
@@ -73,9 +75,11 @@
 							<td colspan="5"></td>
 				        </tr>
 						<tr>
-							<th scope="row" class="th_bg"><sbux-label id="srch-lbl-pckgCmndno" name="srch-lbl-pckgCmndno" uitype="normal" text="포장지시번호" class="bold"></sbux-label></th>
+							<th scope="row" class="th_bg"><sbux-label id="srch-lbl-pckgCmndnoIndct" name="srch-lbl-pckgCmndnoIndct" uitype="normal" text="포장지시번호" class="bold"></sbux-label></th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-pckgCmndno" name="srch-inp-pckgCmndno" uitype="text" maxlength="20" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-pckgCmndnoIndct" name="srch-inp-pckgCmndnoIndct" uitype="text" maxlength="25" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-pckgCmndno" name="srch-inp-pckgCmndno" uitype="hidden"></sbux-input>
+								<sbux-input id="srch-inp-pckgCmndSn" name="srch-inp-pckgCmndSn" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchPckgCmndno" name="btnSrchPckgCmndno" uitype="modal" class="btn btn-xs btn-outline-dark" target-id="modal-pckgCmndno" text="찾기" onclick="fn_modalPckgCmndno"></sbux-button>
@@ -106,9 +110,11 @@
 							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-itemNm" name="srch-inp-itemNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
+								<sbux-input id="srch-inp-itemCd" name="srch-inp-itemCd" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
+								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden"></sbux-input>
 							</td>
 							<td colspan="6"></td>
 						</tr>
@@ -128,7 +134,8 @@
 						<tr>
 							<th scope="row" class="th_bg">규격명</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-							<sbux-input id="srch-inp-spcfctNm" name="srch-inp-spcfctNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
+								<sbux-input id="srch-inp-spcfctNm" name="srch-inp-spcfctNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
+								<sbux-input id="srch-inp-spcfctCd" name="srch-inp-spcfctCd" uitype="hidden"></sbux-input>
 							</td>
 							<td colspan="6"></td>
 						</tr>
@@ -192,6 +199,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.clickeventarea = {fixed: false, empty: false};
 	    SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
@@ -213,7 +221,16 @@
             {caption: ['투입중량'], 		ref: 'inptWght', 		width: '100px', type: 'output', style:'text-align: right',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['규격명'], 		ref: 'spcfctNm', 		width: '100px', type: 'output',	style:'text-align: center'},
-            {caption: ['비고'], 			ref: 'rmrk', 			width: '100px', type: 'output'}
+            {caption: ['비고'], 			ref: 'rmrk', 			width: '200px', type: 'output'},
+            {caption: ['포장기코드'], 		ref: 'fcltCd', 			hidden: true},
+            {caption: ['선별번호'], 		ref: 'sortno', 			hidden: true},
+            {caption: ['선별순번'], 		ref: 'sortSn', 			hidden: true},
+            {caption: ['포장지시번호'], 	ref: 'pckgCmndno', 		hidden: true},
+            {caption: ['포장지시순번'], 	ref: 'pckgCmndSn', 		hidden: true},
+            {caption: ['등급코드'], 		ref: 'grdCd', 			hidden: true},
+            {caption: ['품목코드'], 		ref: 'itemCd', 			hidden: true},
+            {caption: ['품종코드'], 		ref: 'vrtyCd', 			hidden: true},
+            {caption: ['규격코드'], 		ref: 'spcfctCd', 		hidden: true}
         ];
         grdPckgInptTablet = _SBGrid.create(SBGridProperties);
         grdPckgInptTablet.bind('afterpagechanged', fn_pagingRegPckgInptTablet);
@@ -251,6 +268,7 @@
 				let pckgInpt = {
 					inptYmd 		: item.inptYmd
 				  , fcltNm 			: item.fcltNm
+				  , fcltCd 			: item.fcltCd
 				  , sortnoIndct 	: item.sortnoIndct
 				  , pckgCmndnoIndct : item.pckgCmndnoIndct
 				  , grdNm 			: item.grdNm
@@ -291,18 +309,25 @@
 	
 	// 클릭 이벤트
     async function fn_choice() {
-    	grdPckgInptTablet
-		SBUxMethod.set('srch-slt-fcltCd', "");
-		SBUxMethod.set('srch-inp-sortnoIndct', "");
-		SBUxMethod.set('srch-inp-pckgCmndno', "");
-		SBUxMethod.set("srch-dtp-inptYmd", "");
-		SBUxMethod.set('srch-inp-inptQntt', "");
-		SBUxMethod.set('srch-inp-inptWght', "");
-		SBUxMethod.set('srch-inp-itemNm', "");
-		SBUxMethod.set('srch-inp-vrtyNm', "");
-		SBUxMethod.set('srch-inp-sortQntt', "");
-		SBUxMethod.set('srch-inp-sortWght', "");
-		SBUxMethod.set('srch-inp-spcfctNm', "");
+    	rowData = grdPckgInptTablet.getRowData(nRow);
+		SBUxMethod.set('srch-slt-fcltCd', rowData.fcltCd);
+		SBUxMethod.set('srch-inp-sortnoIndct', rowData.sortnoIndct);
+		SBUxMethod.set('srch-inp-sortno', rowData.sortno);
+		SBUxMethod.set('srch-inp-sortSn', rowData.sortSn);
+		SBUxMethod.set('srch-inp-pckgCmndnoIndct', rowData.pckgCmndnoIndct);
+		SBUxMethod.set('srch-inp-pckgCmndno', rowData.pckgCmndno);
+		SBUxMethod.set('srch-inp-pckgCmndSn', rowData.pckgCmndSn);
+		SBUxMethod.set("srch-dtp-inptYmd", rowData.inptYmd);
+		SBUxMethod.set('srch-inp-inptQntt', rowData.inptQntt);
+		SBUxMethod.set('srch-inp-inptWght', rowData.inptWght);
+		SBUxMethod.set('srch-inp-itemNm', rowData.itemNm);
+		SBUxMethod.set('srch-inp-vrtyNm', rowData.vrtyNm);
+		SBUxMethod.set('srch-inp-itemCd', rowData.itemCd);
+		SBUxMethod.set('srch-inp-vrtyCd', rowData.vrtyCd);
+		SBUxMethod.set('srch-inp-sortQntt', rowData.sortQntt);
+		SBUxMethod.set('srch-inp-sortWght', rowData.sortWght);
+		SBUxMethod.set('srch-inp-spcfctNm', rowData.spcfctNm);
+		SBUxMethod.set('srch-inp-spcfctCd', rowData.spcfctCd);
     }
 	
 	// 초기화
@@ -311,15 +336,22 @@
 		SBUxMethod.set('srch-chk-fcltCd', 'false');
 		SBUxMethod.refresh('srch-chk-fcltCd');
 		SBUxMethod.set('srch-inp-sortnoIndct', "");
+		SBUxMethod.set('srch-inp-sortno', "");
+		SBUxMethod.set('srch-inp-sortSn', "");
+		SBUxMethod.set('srch-inp-pckgCmndnoIndct', "");
 		SBUxMethod.set('srch-inp-pckgCmndno', "");
+		SBUxMethod.set('srch-inp-pckgCmndSn', "");
 		SBUxMethod.set("srch-dtp-inptYmd", gfn_dateToYmd(new Date()));
 		SBUxMethod.set('srch-inp-inptQntt', "");
 		SBUxMethod.set('srch-inp-inptWght', "");
 		SBUxMethod.set('srch-inp-itemNm', "");
 		SBUxMethod.set('srch-inp-vrtyNm', "");
+		SBUxMethod.set('srch-inp-itemCd', "");
+		SBUxMethod.set('srch-inp-vrtyCd', "");
 		SBUxMethod.set('srch-inp-sortQntt', "");
 		SBUxMethod.set('srch-inp-sortWght', "");
 		SBUxMethod.set('srch-inp-spcfctNm', "");
+		SBUxMethod.set('srch-inp-spcfctCd', "");
     }
 	
 	// 선별지시번호 선택 팝업 호출
@@ -329,11 +361,16 @@
 	 const fn_setSortInvntr = function(sortInvntr) {
 		if (!gfn_isEmpty(sortInvntr)) {
 			SBUxMethod.set('srch-inp-sortnoIndct', sortInvntr.sortnoIndct);
+			SBUxMethod.set('srch-inp-sortno', sortInvntr.sortno);
+			SBUxMethod.set('srch-inp-sortSn', sortInvntr.sortSn);
 			SBUxMethod.set('srch-inp-itemNm', sortInvntr.itemNm);
 			SBUxMethod.set('srch-inp-vrtyNm', sortInvntr.vrtyNm);
+			SBUxMethod.set('srch-inp-itemCd', sortInvntr.itemCd);
+			SBUxMethod.set('srch-inp-vrtyCd', sortInvntr.vrtyCd);
 			SBUxMethod.set('srch-inp-sortQntt', sortInvntr.invntrQntt);
 			SBUxMethod.set('srch-inp-sortWght', sortInvntr.invntrWght);
 			SBUxMethod.set('srch-inp-spcfctNm', sortInvntr.spcfctNm);
+			SBUxMethod.set('srch-inp-spcfctCd', sortInvntr.spcfctCd);
 		}
 	}
 	
@@ -343,7 +380,9 @@
 	}
 	const fn_setPckgCmnd = function(pckgCmnd) {
 		if (!gfn_isEmpty(pckgCmnd)) {
-			SBUxMethod.set('srch-inp-pckgCmndno', pckgCmnd.pckgCmndnoIndct);
+			SBUxMethod.set('srch-inp-pckgCmndnoIndct', pckgCmnd.pckgCmndnoIndct);
+			SBUxMethod.set('srch-inp-pckgCmndno', pckgCmnd.pckgCmndno);
+			SBUxMethod.set('srch-inp-pckgCmndSn', pckgCmnd.pckgCmndSn);
 		}
 	}
 </script>

@@ -49,7 +49,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>출하지시번호</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-spmtCmndnoIndct" name="srch-inp-spmtCmndnoIndct" uitype="text" maxlength="20" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
+								<sbux-input id="srch-inp-spmtCmndnoIndct" name="srch-inp-spmtCmndnoIndct" uitype="text" maxlength="25" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
 								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
