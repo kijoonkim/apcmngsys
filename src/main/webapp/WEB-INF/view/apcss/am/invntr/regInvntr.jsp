@@ -251,7 +251,7 @@
     <div>
 		<sbux-modal id="modal-excel-gdsInvntr" name="modal-excel-gdsInvntr"
 			uitype="middle"
-			header-title="상품재고등록"
+			header-title="재고등록"
 			body-html-id="body-modal-excelGds" f
 			ooter-is-close-button="false"
 			header-is-close-button="false"
@@ -259,7 +259,7 @@
 		></sbux-modal>
 	</div>
     <div id="body-modal-excelGds">
-    	<jsp:include page="../../am/popup/gdsInvntrExcelPopup.jsp"></jsp:include>
+    	<jsp:include page="../../am/popup/invntrExcelPopup.jsp"></jsp:include>
     </div>
     <sbux-button id="btnGdsInvntrPopup" name="btnGdsInvntrPopup" uitype="modal" text="엑셀등록" style="width:100%; display:none" class="btn btn-sm btn-outline-dark" target-id="modal-excel-gdsInvntr"></sbux-button>
 	<!-- importExcelPopup -->
@@ -1111,19 +1111,6 @@
 				columnsStdGrd.push(grd);
 			});
 
-		    if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
-				const jgmtGrd = {
-					caption: ["판정등급"],
-					ref: "jgmtGrdCd",
-					type:'combo',
-					width:'80px',
-					style: 'text-align:center;',
-					userattr: {colNm: "jgmtGrd"},
-					typeinfo: {ref: gStdGrdObj.jgmtJsonId, label:'grdNm', value:'grdCd', displayui : false}
-				}
-				_columns.push(jgmtGrd);
-			}
-
 		    columnsStdGrd.forEach((item) => {
 		    	_columns.push(item);
 			});
@@ -1463,7 +1450,7 @@
 	}
 
 	const gfn_exportExcelMulti = function(_fileName, _objList) {
-		
+
 // 		엑셀 정보를 담는 변수
 		var objExcelInfo = {
 			strFileName : _fileName,
@@ -1480,7 +1467,7 @@
 		var titleList = [];
 		var unitList = [];
 		var arrAdditionalData = [];
-		
+
 		//넘어온 오브젝트를 이용한 forEach문으로 타이틀리스트에 title을 넣고 unitList에 unit을 넣는 포이치문
 		_objList.forEach((item, index) => {
 			sheetNameList.push(item.sheetName);
@@ -1509,20 +1496,12 @@
 
 		let invntrSeCd = SBUxMethod.get("dtl-slt-invntrSeCd");
 
-		if(invntrSeCd == "1"){
+		SBUxMethod.openModal('modal-excel-gdsInvntr');
+    	fn_createGridGdsPopup();
+    	jsonExcelGdsInvntrPopup = 0;
+    	grdExcelGdsInvntrPopup.rebuild();
 
-		}
-		if(invntrSeCd == "2"){
-
-		}
-		if(invntrSeCd == "3"){
-			SBUxMethod.openModal('modal-excel-gdsInvntr');
-	    	 fn_createGridGdsPopup();
-	    	 jsonExcelGdsInvntrPopup = 0;
-	    	 grdExcelGdsInvntrPopup.rebuild();
-
-	    	 grdExcelGdsInvntrPopup.importExcelData(e);
-		}
+    	grdExcelGdsInvntrPopup.importExcelData(e);
      }
 
     const fn_uld = async function() {
