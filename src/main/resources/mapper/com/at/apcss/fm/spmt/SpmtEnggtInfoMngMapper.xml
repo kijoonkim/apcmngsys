@@ -50,6 +50,9 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+<!-- 	 (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CM.APC_CD2) AS APC_NM2,  -->
+<!-- 				 CM.APC_CD3		AS APC_CD3, -->
+<!-- 				 (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CM.APC_CD3) AS APC_NM3 -->
     <select id="selectSpmtEnggtInfoMngList" parameterType="com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO" resultType="com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
 
     	<![CDATA[
@@ -63,6 +66,8 @@
 				 (SELECT FN_GET_ITEM_NM(CM.ITEM_CD, CM.APC_CD) FROM DUAL) AS ITEM_NM,
 				 CM.VRTY_CD           AS VRTY_CD,
 				 (SELECT FN_GET_VRTY_NM(CM.ITEM_CD, CM.VRTY_CD, CM.APC_CD) FROM DUAL) AS VRTY_NM,
+				  CM.VRTY_CD           AS SPMT_CD,
+				 (SELECT FN_GET_VRTY_NM(CM.ITEM_CD, CM.VRTY_CD, CM.APC_CD) FROM DUAL) AS SPMT_NM,
 				 CM.GDS_SE_CD       AS GDS_SE_CD,
 				 CM.SPCFCT_CD       AS SPCFCT_CD,
 				 CM.PRDCTN_QNTT    AS PRDCTN_QNTT,
@@ -96,9 +101,9 @@
 				 CM.ADVNC_PAY	    AS ADVNC_PAY,
 				 CM.RMRK		    AS RMRK,
 				 CM.APC_CD2		AS APC_CD2,
-				 (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CM.APC_CD2) AS APC_NM2,
+				 CM.APC_NM2 AS APC_NM2, 
 				 CM.APC_CD3		AS APC_CD3,
-				 (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CM.APC_CD3) AS APC_NM3
+				 CM.APC_NM3 AS APC_NM3
 			  FROM TB_SPMT_ENGGT_INFO_MNG CM
 			  WHERE 1=1
 			  AND CM.DEL_YN = 'N'
@@ -180,7 +185,9 @@
 					 ADVNC_PAY,
 					 RMRK,
 					 APC_CD2,
-					 APC_CD3
+					 APC_NM2,
+					 APC_CD3,
+					 APC_NM3
 	    		)
 	   		VALUES
 	   			(
@@ -222,7 +229,9 @@
 	   			  , #{advncPay}
 	   			  , #{rmrk}
 	   			  , #{apcCd2}
+	   			  , #{apcNm2}
 	   			  , #{apcCd3}
+	   			  , #{apcNm3}
 	   			)
     	]]>
     </insert>
@@ -238,11 +247,40 @@
     <update id="updateSpmtEnggtInfoMng" parameterType="com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.updateSpmtEnggtInfoMng */
-	    		TB_COM_MSG
+	    		TB_SPMT_ENGGT_INFO_MNG
 			   SET
-			 	  MSG_CN	= #{msgCn}
-			 	, MSG_KND 	= #{msgKnd}
-			 	, RMRK 		= #{rmrk}
+					  SPMTNO  =#{spmtNo}  
+					 ,PCKGNO  =  #{pckgNo} 
+					 ,ITEM_CD  = #{itemCd} 
+					 ,VRTY_CD  = #{vrtyCd} 
+					 ,GDS_SE_CD  = #{gdsSeCd} 
+					 ,SPCFCT_CD  =#{spcfctCd}  
+					 ,PRDCTN_QNTT  = #{prdctnQntt} 
+					 ,SPMT_QNTT  =  #{spmtQntt} 
+					 ,SPMT_WGHT  = #{spmtWght}  
+					 ,PCKG_SE_CD  =  #{pckgSeCd}
+					 ,BRND_NM  =  #{brndNm}
+					 ,GDS_CD  =  #{gdsCd}
+					 ,PRDCR_CD  =  #{prdcrCd}
+					 ,SPMT_CMNDNO  =#{spmtCmndno}  
+					 ,CLTVTN_AREA  =   #{cltvtnArea}
+					 ,SPMT_TYPE  = #{spmtType} 
+					 ,TRMT_TYPE  =  #{trmtType}
+					 ,SPMT_STR_DT  =  #{spmtStrDt} 
+					 ,SPMT_END_DT  = #{spmtEndDt} 
+					 ,DTL_MTTR  =  #{dtlMttr} 
+					 ,QLT_GRD  =   #{qltGrd}
+					 ,PRC  =   #{prc}
+					 ,PRC_PBLNT  =  #{prcPblnt}
+					 ,UNIT  =  #{unit}
+					 ,PRC_GIVE_DT  =   #{prcGiveDt}
+					 ,SPCL_MTTR  = #{spclMttr} 
+					 ,ADVNC_PAY  =  #{advncPay} 
+					 ,RMRK  =  #{rmrk}
+					 ,APC_CD2  =  #{apcCd2} 
+					 ,APC_NM2  =   #{apcNm2}
+					 ,APC_CD3  =   #{apcCd3}
+					 ,APC_NM3 =  #{apcNm3}
     	]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
@@ -253,8 +291,8 @@
 	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
 			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
+		     AND APC_CD = #{apcCd}
+		     AND  PCKG_SN = #{pckgSn}
     	]]>
     </update>
 
@@ -269,10 +307,10 @@
     <delete id="deleteSpmtEnggtInfoMng" parameterType="com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.deleteSpmtEnggtInfoMng */
-	    		TB_COM_MSG
+	    		TB_SPMT_ENGGT_INFO_MNG
 			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
+		     AND APC_CD = #{apcCd}
+		     AND  PCKG_SN = #{pckgSn}
     	]]>
     </delete>
 

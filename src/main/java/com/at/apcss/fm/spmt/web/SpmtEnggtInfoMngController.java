@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO;
 import com.at.apcss.fm.spmt.service.SpmtEnggtInfoMngService;
 import com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO;
 
@@ -126,21 +127,28 @@ public class SpmtEnggtInfoMngController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	
+	
+	
+
 	// 출하약정관리 삭제
 	@PostMapping(value = "/fm/spmt/deleteSpmtEnggtInfoMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> deleteSpmtEnggtInfoMng(@RequestBody SpmtEnggtInfoMngVO spmtEnggtInfoMngVO, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> deleteSpmtEnggtInfoMng(@RequestBody List<SpmtEnggtInfoMngVO> list, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
 
 		// audit 항목
-		spmtEnggtInfoMngVO.setSysLastChgUserId(getUserId());
-		spmtEnggtInfoMngVO.setSysLastChgPrgrmId(getPrgrmId());
+		for(SpmtEnggtInfoMngVO vo : list) {
+			vo.setDelYn("Y");
+			vo.setSysLastChgUserId(getUserId());
+			vo.setSysLastChgPrgrmId(getPrgrmId());
+		}
 
 		int deletedCnt = 0;
 
 		try {
-			deletedCnt = spmtEnggtInfoMngService.deleteSpmtEnggtInfoMng(spmtEnggtInfoMngVO);
+			deletedCnt = spmtEnggtInfoMngService.deleteSpmtEnggtInfoMng(list);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -177,4 +185,5 @@ public class SpmtEnggtInfoMngController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
 }
