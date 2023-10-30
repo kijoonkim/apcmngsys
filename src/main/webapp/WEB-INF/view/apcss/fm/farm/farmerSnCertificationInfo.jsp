@@ -148,30 +148,17 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	    	{caption: ["농업인 번호"], 		ref: 'frmerSn',   	type:'input',  hidden : false},
-	        {caption: ["경영체 등록번호"], 	ref: 'bzobRgno',   	type:'input',     style:'text-align:center'},
-	        {caption: ["경영주 및 경영주와 의 관계"], 	ref: 'mngerRelate',   	type:'input',     style:'text-align:center'},
-	        {caption: ["경영주 법인 명"], 	ref: 'bzmCorpNm',   	type:'input',     style:'text-align:center'},
-	        {caption: ["경영주 주민등록 주소"], 	ref: 'addr',   	type:'input',     style:'text-align:center'},
-	        {caption: ["경영주 실거주 주소"], 	ref: 'rrsdAddr',   	type:'input',     style:'text-align:center'},
-	        {caption: ["경영주 실거주 도로명 주소"], 	ref: 'rdnmAddr',   	type:'input',     style:'text-align:center'},
-	        {caption: ["마을명"], 	ref: 'twNm',   	type:'input',     style:'text-align:center'},
-	        {caption: ["개인 법인 구분코드명"], 	ref: 'perCorpDvcdNm',   	type:'input',     style:'text-align:center'},
-	        {caption: ["내외국인 구분코드명"], 	ref: 'nafoDvcdNm',   	type:'input',     style:'text-align:center'},
-	        {caption: ["전화번호"], 	ref: 'telno',   	type:'input',     style:'text-align:center'},
-	        {caption: ["휴대 전화번호"], 	ref: 'mblTelno',   	type:'input',     style:'text-align:center'},
-	        {caption: ["팩스 전화번호"], 	ref: 'faxTelno',   	type:'input',     style:'text-align:center'},
-	        {caption: ["이메일 주소"], 	ref: 'emailAddr',   	type:'input',     style:'text-align:center'},
-	        {caption: ["영농 시작 일자"], 	ref: 'famgStrYmd',   	type:'input',     style:'text-align:center'},
-	        {caption: ["농업시작형태"], 	ref: 'farmngBeginStleCdNm',   	type:'input',     style:'text-align:center'},
-	        {caption: ["농업종사형태"], 	ref: 'farmngEngageStleCdNm',   	type:'input',     style:'text-align:center'},
-	        {caption: ["설립 년도"], 	ref: 'fndtYr',   	type:'input',     style:'text-align:center'},
-	        {caption: ["사업자 등록 번호"], 	ref: 'bzmRgno',   	type:'input',     style:'text-align:center'},
-	        {caption: ["대표자 명"], 	ref: 'reprNm',   	type:'input',     style:'text-align:center'},
-	        {caption: ["대표자 주소"], 	ref: 'reprAddr',   	type:'input',     style:'text-align:center'},
-	        {caption: ["생년월일"], 	ref: 'brthdy',   	type:'input',     style:'text-align:center'},
-	        {caption: ["성별"], 	ref: 'sexdstn',   	type:'input',     style:'text-align:center'},
-	        {caption: ["시스템최초입력일시"], 	ref: 'sysFrstInptDt',   	type:'input',     style:'text-align:center'},
+	    	{caption: ["인증번호"], 		ref: 'conNum',   	type:'input',  hidden : false},
+	        {caption: ["인증시작일"], 	ref: 'effectiveStartDt',   	type:'input',     style:'text-align:center'},
+	        {caption: ["인증종료일"], 	ref: 'effectiveEndDt',   	type:'input',     style:'text-align:center'},
+	        {caption: ["인증정보 상태"], 	ref: 'stateNm',   	type:'input',     style:'text-align:center'},
+	        {caption: ["친환경인증구분명"], 	ref: 'congbNm',   	type:'input',     style:'text-align:center'},
+	        {caption: ["친환경인증그룹구분명"], 	ref: 'farmergbNm',   	type:'input',     style:'text-align:center'},
+	        {caption: ["단체명"], 	ref: 'groupreqerNm',   	type:'input',     style:'text-align:center'},
+	        {caption: ["농장주명"], 	ref: 'ownerNm',   	type:'input',     style:'text-align:center'},
+	        {caption: ["인증필지"], 	ref: 'certAddr',   	type:'input',     style:'text-align:center'},
+	        {caption: ["면적"], 	ref: 'landQty',   	type:'input',     style:'text-align:center'},
+	        {caption: ["시스템최초입력일시"], 	ref: 'DEL_YN',   	type:'input',     style:'text-align:center'},
 	        {caption: ["시스템최초입력사용자ID"], 	ref: 'sysFrstInptUserId',   	type:'input',     style:'text-align:center'},
 	        {caption: ["시스템최초입력프로그램ID"], 	ref: 'sysFrstInptPrgrmId',   	type:'input',     style:'text-align:center'},
 	        {caption: ["시스템최종변경일시"], 	ref: 'sysLastChgDt',   	type:'input',     style:'text-align:center'},
@@ -233,28 +220,16 @@
         	console.log("data==="+data);
         	data.resultList.forEach((item, index) => {
 				let farmerSnCertificationInfoVO = {
-					frmerSn : item.frmerSn
-				  , bzobRgno 		: item.bzobRgno
-				  , mngerRelate 	: item.mngerRelate
-				  , bzmCorpNm 	: item.bzmCorpNm
-				  , addr 		: item.addr
-				  , rrsdAddr 		: item.rrsdAddr
-				  , rdnmAddr 		: item.rdnmAddr
-				  , twNm 		: item.twNm
-				  , perCorpDvcdNm 		: item.perCorpDvcdNm
-				  , nafoDvcdNm 		: item.nafoDvcdNm
-				  , telno 		: item.telno
-				  , mblTelno 		: item.mblTelno
-				  , faxTelno 		: item.faxTelno
-				  , emailAddr 		: item.emailAddr
-				  , famgStrYmd 		: item.famgStrYmd
-				  , farmngEngageStleCdNm 		: item.farmngEngageStleCdNm
-				  , fndtYr 		: item.fndtYr
-				  , bzmRgno 		: item.bzmRgno
-				  , reprNm 		: item.reprNm
-				  , reprAddr 		: item.reprAddr
-				  , brthdy 		: item.brthdy
-				  , sexdstn 		: item.sexdstn
+					conNum : item.conNum
+				  , effectiveStartDt 		: item.effectiveStartDt
+				  , effectiveEndDt 	: item.effectiveEndDt
+				  , stateNm 	: item.stateNm
+				  , congbNm 		: item.congbNm
+				  , farmergbNm 		: item.farmergbNm
+				  , groupreqerNm 		: item.groupreqerNm
+				  , ownerNm 		: item.ownerNm
+				  , certAddr 		: item.certAddr
+				  , landQty 		: item.landQty
 				  , sysFrstInptDt 		: item.sysFrstInptDt
 				  , sysFrstInptUserId 		: item.sysFrstInptUserId
 				  , sysFrstInptPrgrmId 		: item.sysFrstInptPrgrmId
@@ -296,15 +271,15 @@
 			console.log("================delYn================"+delYn);
 			if(delYn == 'N'){
 
-				if (gfn_isEmpty(frmerSn)) {
-		  			gfn_comAlert("W0002", "농업인 번호");		//	W0002	{0}을/를 입력하세요.
-		            return;
-		  		}
+// 				if (gfn_isEmpty(frmerSn)) {
+// 		  			gfn_comAlert("W0002", "농업인 번호");		//	W0002	{0}을/를 입력하세요.
+// 		            return;
+// 		  		}
 
-				 if (gfn_isEmpty(bzobRgno)) {
-		  			gfn_comAlert("W0001", "경영체 등록번호");		//	W0001	{0}을/를 선택하세요.
-		            return;
-		  		}
+// 				 if (gfn_isEmpty(bzobRgno)) {
+// 		  			gfn_comAlert("W0001", "경영체 등록번호");		//	W0001	{0}을/를 선택하세요.
+// 		            return;
+// 		  		}
 				 console.log("rowData==========="+ rowData );
 				 console.log("================gridClick================");
 				if (rowSts === 3){
@@ -318,10 +293,10 @@
 				}
 			}
 		}
-		if(saveList.length == 0){
-			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
-			return;
-		}
+// 		if(saveList.length == 0){
+// 			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+// 			return;
+// 		}
 
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){

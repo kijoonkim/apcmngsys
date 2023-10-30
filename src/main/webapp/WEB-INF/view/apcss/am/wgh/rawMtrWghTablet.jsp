@@ -174,7 +174,7 @@
 							<td colspan="4" style="border-right: hidden;"></td>
 						</tr>
 						<tr>
-						<th scope="row" class="th_bg"><span class="data_required"></span>입고구분</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>입고구분</th>
 							<td colspan="15" class="td_input">
 								<sbux-radio 
 									id="dtl-rdo-wrhsSeCd" 
@@ -189,7 +189,7 @@
 							</td>
 						</tr>
 						<tr>
-						<th scope="row" class="th_bg"><span class="data_required"></span>상품구분</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>상품구분</th>
 							<td colspan="15" class="td_input">
 								<sbux-radio 
 									id="dtl-rdo-gdsSeCd" 
@@ -204,7 +204,7 @@
 							</td>
 						</tr>
 						<tr>
-						<th scope="row" class="th_bg"><span class="data_required"></span>운송구분</th>
+							<th scope="row" class="th_bg"><span class="data_required"></span>운송구분</th>
 							<td colspan="15" class="td_input">
 								<sbux-radio 
 									id="dtl-rdo-trsprtSeCd" 

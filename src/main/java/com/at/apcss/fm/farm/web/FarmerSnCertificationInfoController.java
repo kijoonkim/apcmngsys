@@ -196,7 +196,7 @@ public class FarmerSnCertificationInfoController extends BaseController{
                 String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
                 String version = "1.0";
                 String responseType = "xml";
-                String pFrmerSn =  farmerSnCertificationInfoVO.getFrmerSn(); //AGUN47
+                String pFrmerSn =  farmerSnCertificationInfoVO.getConNum(); //AGUN47
 
 				String urlstr = "https://uni.agrix.go.kr/api/srvc/farmerSnCertificationInfo?accessToken="+accessToken+"&version="+version+"&responseType="+responseType+"&frmerSn="+pFrmerSn;
                 System.out.println("urlstr============"+urlstr);
@@ -223,47 +223,30 @@ public class FarmerSnCertificationInfoController extends BaseController{
 
 	                if (node.getNodeType() == Node.ELEMENT_NODE) {
 	                    Element element = (Element) node;
-	                    String frmerSn = getValue("frmerSn", element);
-	                    String bzobRgno = getValue("bzobRgno", element);
-	                    String mngerRelate = getValue("mngerRelate", element);
-	                    String bzmCorpNm = getValue("bzmCorpNm", element);
-	                    String addr = getValue("addr", element);
-	                    String rrsdAddr = getValue("rrsdAddr", element);
-	                    String rdnmAddr = getValue("rdnmAddr", element);
-	                    String perCorpDvcdNm = getValue("perCorpDvcdNm", element);
-	                    String nafoDvcdNm = getValue("nafoDvcdNm", element);
-	                    String telno = getValue("telno", element);
-	                    String mblTelno = getValue("mblTelno", element);
-	                    String famgStrYmd = getValue("famgStrYmd", element);
-	                    String farmngBeginStleCdNm = getValue("farmngBeginStleCdNm", element);
-	                    String reprAddr = getValue("reprAddr", element);
-	                    String brthdy = getValue("brthdy", element);
-	                    String sexdstn = getValue("sexdstn", element);
-	                    String rgsde = getValue("rgsde", element);
-	                    String updde = getValue("updde", element);
-	                    farmerSnCertificationInfoVO.setFrmerSn(frmerSn);
-	                    farmerSnCertificationInfoVO.setBzobRgno(bzobRgno);
-	                    farmerSnCertificationInfoVO.setMngerRelate(mngerRelate);
-	                    farmerSnCertificationInfoVO.setBzmCorpNm(bzmCorpNm);
-	                    farmerSnCertificationInfoVO.setAddr(addr);
-	                    farmerSnCertificationInfoVO.setRrsdAddr(rrsdAddr);
-	                    farmerSnCertificationInfoVO.setRdnmAddr(rdnmAddr);
-	                    farmerSnCertificationInfoVO.setPerCorpDvcdNm(perCorpDvcdNm);
-	                    farmerSnCertificationInfoVO.setNafoDvcdNm(nafoDvcdNm);
-	                    farmerSnCertificationInfoVO.setTelno(telno);
-	                    farmerSnCertificationInfoVO.setMblTelno(mblTelno);
-	                    farmerSnCertificationInfoVO.setFamgStrYmd(famgStrYmd);
-	                    farmerSnCertificationInfoVO.setFarmngBeginStleCdNm(farmngBeginStleCdNm);
-	                    farmerSnCertificationInfoVO.setReprAddr(reprAddr);
-	                    farmerSnCertificationInfoVO.setBrthdy(brthdy);
-	                    farmerSnCertificationInfoVO.setSexdstn(sexdstn);
-	                    farmerSnCertificationInfoVO.setRgsde(rgsde);
-	                    farmerSnCertificationInfoVO.setUpdde(updde);
+	                    String conNum = getValue("conNum", element);
+	                    String effectiveStartDt = getValue("effectiveStartDt", element);
+	                    String effectiveEndDt = getValue("effectiveEndDt", element);
+	                    String stateNm = getValue("stateNm", element);
+	                    String congbNm = getValue("congbNm", element);
+	                    String farmergbNm = getValue("farmergbNm", element);
+	                    String groupreqerNm = getValue("groupreqerNm", element);
+	                    String ownerNm = getValue("ownerNm", element);
+	                    String certAddr = getValue("certAddr", element);
+	                    String landQty = getValue("landQty", element);
+	                    farmerSnCertificationInfoVO.setConNum(conNum);
+	                    farmerSnCertificationInfoVO.setEffectiveStartDt(effectiveStartDt);
+	                    farmerSnCertificationInfoVO.setEffectiveEndDt(effectiveEndDt);
+	                    farmerSnCertificationInfoVO.setStateNm(stateNm);
+	                    farmerSnCertificationInfoVO.setCongbNm(congbNm);
+	                    farmerSnCertificationInfoVO.setFarmergbNm(farmergbNm);
+	                    farmerSnCertificationInfoVO.setGroupreqerNm(groupreqerNm);
+	                    farmerSnCertificationInfoVO.setOwnerNm(ownerNm);
+	                    farmerSnCertificationInfoVO.setCertAddr(certAddr);
+	                    farmerSnCertificationInfoVO.setLandQty(landQty);
 	                    farmerSnCertificationInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
 						farmerSnCertificationInfoVO.setSysFrstInptUserId(getUserId());
 						farmerSnCertificationInfoVO.setSysLastChgPrgrmId(getPrgrmId());
 						farmerSnCertificationInfoVO.setSysLastChgUserId(getUserId());
-						farmerSnCertificationInfoVO.setSaveCd("AGRIX");
 	                    savedCnt = farmerSnCertificationInfoService.insertMegerFarmerSnCertificationInfo(farmerSnCertificationInfoVO);
 	                    result = farmerSnCertificationInfoService.insertMegerLogFarmerSnCertificationInfo(farmerSnCertificationInfoVO);
 	                }
@@ -326,7 +309,7 @@ public class FarmerSnCertificationInfoController extends BaseController{
                 String version = "1.0";
                 //String responseType = "xml";
                 String responseType = "json";
-                String pFrmerSn =  farmerSnCertificationInfoVO.getFrmerSn(); //AGUN47
+                String pFrmerSn =  farmerSnCertificationInfoVO.getConNum(); //AGUN47
 
 				String urlstr = "https://uni.agrix.go.kr/api/srvc/farmerSnCertificationInfo?accessToken="+accessToken+"&version="+version+"&responseType="+responseType+"&frmerSn="+pFrmerSn;
                 System.out.println("urlstr============"+urlstr);

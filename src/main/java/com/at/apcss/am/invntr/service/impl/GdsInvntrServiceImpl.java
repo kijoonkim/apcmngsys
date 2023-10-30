@@ -235,6 +235,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 				// 상품재고 등록 이력 남기기
 
 				insertGdsInvntr(gdsInvntrVO);
+				pckgSn ++;
 			}
 		}
 

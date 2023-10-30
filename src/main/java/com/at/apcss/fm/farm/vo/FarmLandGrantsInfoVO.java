@@ -9,6 +9,28 @@ import lombok.Setter;
 @Setter
 public class FarmLandGrantsInfoVO extends ComVO{
 	private String frmerSn;
+	private String pnuCode;
+	private String bsnsBgnde;
+	private String bsnsEndde;
+	private String bsnsCode;
+	private String bsnsNm;
+	private String sttus;
+	private String applcntNm;
+	private String ldgrfl;
+	private String frlndAdres;
+	private String legaldongCode;
+	private String mnnm;
+	private String slno;
+	private String reqstAr;
+	private String delYn;
+	private String sysFrstInptDt;
+	private String sysFrstInptUserId;
+	private String sysFrstInptPrgrmId;
+	private String sysLastChgDt;
+	private String sysLastChgUserId;
+	private String sysLastChgPrgrmId;
+
+
 	private String bzobRgno;
 	private String mngerRelate;
 	private String bzmCorpNm;
@@ -31,15 +53,7 @@ public class FarmLandGrantsInfoVO extends ComVO{
 	private String reprAddr;
 	private String brthdy;
 	private String sexdstn;
-	private String sysFrstInptDt;
-	private String sysFrstInptUserId;
-	private String sysFrstInptPrgrmId;
-	private String sysLastChgDt;
-	private String sysLastChgUserId;
-	private String sysLastChgPrgrmId;
-	private String delYn;
 	private String rgsde;
 	private String updde;
 	private String saveCd;
-
 }
