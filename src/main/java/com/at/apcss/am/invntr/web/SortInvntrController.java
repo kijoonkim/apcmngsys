@@ -75,18 +75,20 @@ public class SortInvntrController extends BaseController {
 	}
 
 
-	@PostMapping(value = "/am/invntr/updateSortInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> updateSortInvntrList(@RequestBody List<SortInvntrVO> sortInvntrList, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/invntr/multiSaveSortInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiSaveSortInvntrList(@RequestBody List<SortInvntrVO> sortInvntrList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
 			for ( SortInvntrVO sortInvntrVO : sortInvntrList ) {
+				sortInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				sortInvntrVO.setSysFrstInptUserId(getUserId());
 				sortInvntrVO.setSysLastChgUserId(getUserId());
 				sortInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			HashMap<String, Object> rtnObj = sortInvntrService.updateSortInvntrList(sortInvntrList); //updateSortInvntrDsctnList
+			HashMap<String, Object> rtnObj = sortInvntrService.multiSaveSortInvntrList(sortInvntrList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.invntr.mapper.SortInvntrMapper;
 import com.at.apcss.am.invntr.service.SortInvntrService;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
@@ -39,6 +42,9 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 	@Autowired
 	private SortInvntrMapper sortInvntrMapper;
 
+	@Resource(name= "cmnsTaskNoService")
+	private CmnsTaskNoService cmnsTaskNoService;
+
 	@Override
 	public SortInvntrVO selectSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
 
@@ -68,24 +74,31 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 
 		sortInvntrMapper.insertSortInvntr(sortInvntrVO);
 
-		List<SortStdGrdVO> stdGrdList = sortInvntrVO.getStdGrdList();
-		for ( SortStdGrdVO stdGrd : stdGrdList ) {
 
-			SortStdGrdVO sortStdGrdVO = new SortStdGrdVO();
-			BeanUtils.copyProperties(sortInvntrVO, sortStdGrdVO);
-			BeanUtils.copyProperties(stdGrd, sortStdGrdVO,
-					ApcConstants.PROP_APC_CD,
-					ApcConstants.PROP_SORTNO,
-					ApcConstants.PROP_SORT_SN,
-					ComConstants.PROP_SYS_FRST_INPT_DT,
-					ComConstants.PROP_SYS_FRST_INPT_USER_ID,
-					ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
-					ComConstants.PROP_SYS_LAST_CHG_DT,
-					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
-					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-			logger.debug("sortSn : {}", sortStdGrdVO.getSortSn());
-			sortInvntrMapper.insertSortStdGrd(sortStdGrdVO);
+
+		List<SortStdGrdVO> stdGrdList = sortInvntrVO.getStdGrdList();
+
+		if (stdGrdList !=null ) {
+
+			for ( SortStdGrdVO stdGrd : stdGrdList ) {
+
+				SortStdGrdVO sortStdGrdVO = new SortStdGrdVO();
+				BeanUtils.copyProperties(sortInvntrVO, sortStdGrdVO);
+				BeanUtils.copyProperties(stdGrd, sortStdGrdVO,
+						ApcConstants.PROP_APC_CD,
+						ApcConstants.PROP_SORTNO,
+						ApcConstants.PROP_SORT_SN,
+						ComConstants.PROP_SYS_FRST_INPT_DT,
+						ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+						ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+						ComConstants.PROP_SYS_LAST_CHG_DT,
+						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+				logger.debug("sortSn : {}", sortStdGrdVO.getSortSn());
+				sortInvntrMapper.insertSortStdGrd(sortStdGrdVO);
+			}
 		}
+
 
 		return null;
 	}
@@ -191,7 +204,7 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 	}
 
 	@Override
-	public HashMap<String, Object> updateSortInvntrList(List<SortInvntrVO> sortInvntrList) throws Exception {
+	public HashMap<String, Object> multiSaveSortInvntrList(List<SortInvntrVO> sortInvntrList) throws Exception {
 		List<SortInvntrVO> updateList = new ArrayList<>();
 		List<SortInvntrVO> insertList = new ArrayList<>();
 
@@ -208,20 +221,36 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 			}
 		}
 
-		// 선별 재고 등록
-		for (SortInvntrVO sortInvntrVO : insertList) {
+		if(insertList.size() > 0 ){
+			String sortno = cmnsTaskNoService.selectSortno(insertList.get(0).getApcCd(), insertList.get(0).getSortYmd());
+			int sortSn = 0;
+			// 선별 재고 등록
+			for (SortInvntrVO sortInvntrVO : insertList) {
+				sortInvntrVO.setSortno(sortno);
+				sortInvntrVO.setSortSn(sortSn);
 
+				insertSortInvntr(sortInvntrVO);
+
+				sortSn ++;
+
+				// 선별 재고등록 이력
+			}
+		}
+
+		if(updateList.size() > 0) {
+
+			// 선별 재고 변경
+			for (SortInvntrVO sortInvntrVO : updateList) {
+
+				// 선별 재고변경 이력
+
+				// 선별 재고변경
+				sortInvntrMapper.updateSortInvntrChg(sortInvntrVO);
+			}
 		}
 
 
-		// 선별 재고 변경
-		for (SortInvntrVO sortInvntrVO : updateList) {
 
-			// 선별 재고변경 이력
-
-			// 선별 재고변경
-			sortInvntrMapper.updateSortInvntrChg(sortInvntrVO);
-		}
 
 		return null;
 	}

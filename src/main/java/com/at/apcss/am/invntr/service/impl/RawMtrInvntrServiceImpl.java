@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
@@ -40,6 +43,9 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	@Autowired
 	private RawMtrInvntrMapper rawMtrInvntrMapper;
 
+	@Resource(name= "cmnsTaskNoService")
+	private CmnsTaskNoService cmnsTaskNoService;
+
 	@Override
 	public RawMtrInvntrVO selectRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
@@ -67,21 +73,25 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 		rawMtrInvntrMapper.insertRawMtrInvntr(rawMtrInvntrVO);
 		List<RawMtrStdGrdVO> stdGrdList = rawMtrInvntrVO.getStdGrdList();
-		for ( RawMtrStdGrdVO stdGrd : stdGrdList ) {
 
-			RawMtrStdGrdVO rawMtrStdGrdVO = new RawMtrStdGrdVO();
-			BeanUtils.copyProperties(rawMtrInvntrVO, rawMtrStdGrdVO);
-			BeanUtils.copyProperties(stdGrd, rawMtrStdGrdVO,
-					ApcConstants.PROP_APC_CD,
-					ApcConstants.PROP_WRHSNO,
-					ComConstants.PROP_SYS_FRST_INPT_DT,
-					ComConstants.PROP_SYS_FRST_INPT_USER_ID,
-					ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
-					ComConstants.PROP_SYS_LAST_CHG_DT,
-					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
-					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+		if (stdGrdList != null) {
 
-			rawMtrInvntrMapper.insertRawMtrStdGrd(rawMtrStdGrdVO);
+			for ( RawMtrStdGrdVO stdGrd : stdGrdList ) {
+
+				RawMtrStdGrdVO rawMtrStdGrdVO = new RawMtrStdGrdVO();
+				BeanUtils.copyProperties(rawMtrInvntrVO, rawMtrStdGrdVO);
+				BeanUtils.copyProperties(stdGrd, rawMtrStdGrdVO,
+						ApcConstants.PROP_APC_CD,
+						ApcConstants.PROP_WRHSNO,
+						ComConstants.PROP_SYS_FRST_INPT_DT,
+						ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+						ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+						ComConstants.PROP_SYS_LAST_CHG_DT,
+						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+
+				rawMtrInvntrMapper.insertRawMtrStdGrd(rawMtrStdGrdVO);
+			}
 		}
 
 		return null;
@@ -193,7 +203,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	}
 
 	@Override
-	public HashMap<String, Object> updateRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
+	public HashMap<String, Object> multiSaveRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
 
 		List<RawMtrInvntrVO> updateList = new ArrayList<>();
 		List<RawMtrInvntrVO> insertList = new ArrayList<>();
@@ -211,10 +221,25 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			}
 		}
 
-		// 원물재고 등록
-		for (RawMtrInvntrVO rawMtrInvntrVO : insertList) {
-			// 재고 등록 부분
+		if(insertList.size() > 0) {
+
+			// 원물재고 등록
+			for (RawMtrInvntrVO rawMtrInvntrVO : insertList) {
+				// 재고 등록 부분
+				String wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrInvntrVO.getApcCd(), rawMtrInvntrVO.getWrhsYmd());
+				rawMtrInvntrVO.setWrhsno(wrhsno);
+				rawMtrInvntrVO.setPltno(wrhsno);
+
+				for (RawMtrStdGrdVO rawMtrStdGrdVO : rawMtrInvntrVO.getStdGrdList()) {
+					rawMtrStdGrdVO.setWrhsno(wrhsno);;
+				}
+
+				insertRawMtrInvntr(rawMtrInvntrVO);
+				// 원물 재고 등록 이력 부분 추가
+
+			}
 		}
+
 
 		// 원물재고 변경
 		for (RawMtrInvntrVO rawMtrInvntrVO : updateList) {

@@ -75,7 +75,7 @@ public interface GdsInvntrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> multiGdsInvntrList(List<GdsInvntrVO> gdsInvntrList) throws Exception;
+	public HashMap<String, Object> multiSaveGdsInvntrList(List<GdsInvntrVO> gdsInvntrList) throws Exception;
 
 	/**
 	 * 상품재고 삭제

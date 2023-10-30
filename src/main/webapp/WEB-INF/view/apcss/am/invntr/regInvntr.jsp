@@ -373,6 +373,7 @@
 		_SBGrid.destroy('inptCmndDsctnList');
 
 		checkSection = 1;
+		SBUxMethod.set("dtl-slt-invntrSeCd", "1")
 		fn_createGridRawMtr();
 	}
 	const fn_sortInvntr = async function(){
@@ -383,6 +384,7 @@
 		_SBGrid.destroy('inptCmndDsctnList');
 		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
 		checkSection = 2;
+		SBUxMethod.set("dtl-slt-invntrSeCd", "2")
 		fn_createGridSort();
 	}
 	const fn_gdsInvntr = async function(){
@@ -393,6 +395,7 @@
 		_SBGrid.destroy('inptCmndDsctnList');
 		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
 		checkSection = 3;
+		SBUxMethod.set("dtl-slt-invntrSeCd", "3")
 		fn_createGridGds();
 	}
 	const fn_createGridRawMtr = async function () {
@@ -932,13 +935,13 @@
 
 			let postJsonPromise;
 			if(checkSection == 1){
-				postJsonPromise = gfn_postJSON("/am/invntr/updateRawMtrInvntrList.do", updateList);
+				postJsonPromise = gfn_postJSON("/am/invntr/mulitSaveRawMtrInvntrList.do", updateList);
 			}
 			if(checkSection == 2){
-				postJsonPromise = gfn_postJSON("/am/invntr/updateSortInvntrList.do", updateList);
+				postJsonPromise = gfn_postJSON("/am/invntr/multiSaveSortInvntrList.do", updateList);
 			}
 			if(checkSection == 3){
-				postJsonPromise = gfn_postJSON("/am/invntr/multiGdsInvntrList.do", updateList);
+				postJsonPromise = gfn_postJSON("/am/invntr/multiSaveGdsInvntrList.do", updateList);
 			}
 
 	    	const data = await postJsonPromise;
@@ -1115,9 +1118,7 @@
 		    	_columns.push(item);
 			});
 		}
-		if(invntrSeCd == "2"){
-		}
-		if(invntrSeCd == "3"){
+		if(invntrSeCd == "2" || invntrSeCd == "3"){
 			_columns.push(
 					{caption: ["등급"], 		ref: 'gdsGrd',   		type:'combo',  width:'80px',    style:'text-align:center',
 						typeinfo : {ref:'jsonExpSltGdsGrd', displayui : false,	itemcount: 10, label:'SpcfctNm', value:'SpcfctCd'}},
@@ -1380,9 +1381,7 @@
 			)
 
 		}
-		else if(invntrSeCd == "2"){
-
-		}else if(invntrSeCd == "3"){
+		else if(invntrSeCd == "2" || invntrSeCd == "3"){
 			expObjList.push(
 				    {
 				        sbGrid: grdExpGdsGrd,
