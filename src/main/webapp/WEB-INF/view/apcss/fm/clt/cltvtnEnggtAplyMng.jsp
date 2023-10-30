@@ -31,7 +31,8 @@
 
 				<!--[pp] 검색 -->
 				<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden"></sbux-input>
-				<table class="table table-bordered tbl_row tbl_fixed">
+<!-- 				<table class="table table-bordered tbl_row tbl_fixed"> -->
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -53,9 +54,9 @@
 							<th scope="row">약정일자</th>
 							<td colspan="4" class="td_input"  style="border-right: hidden;">
 								<div style="display: flex;">
-									<sbux-datepicker id="srch-inp-enggtSrtYmd" name="srch-inp-enggtSrtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc" style="margin-right:5px;"></sbux-datepicker>
+									<sbux-datepicker id="srch-inp-enggtSrtYmd" name="srch-inp-enggtSrtYmd" uitype="popup" class="form-control input-sm input-sm-ast" style="margin-right:5px;"></sbux-datepicker>
 									<span>~</span>
-									<sbux-datepicker id="srch-inp-enggtEndYmd" name="srch-inp-enggtEndYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc" style="margin-left:5px;"></sbux-datepicker>
+									<sbux-datepicker id="srch-inp-enggtEndYmd" name="srch-inp-enggtEndYmd" uitype="popup" class="form-control input-sm input-sm-ast" style="margin-left:5px;"></sbux-datepicker>
 								</div>
 							</td>
 
@@ -88,7 +89,8 @@
 							<li><span>재배약정계획 상세내역</span></li>
 						</ul>
 					</div>
-				<table class="table table-bordered tbl_row tbl_fixed">
+<!-- 				<table class="table table-bordered tbl_row tbl_fixed"> -->
+				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -138,17 +140,19 @@
 						<tr>
 						    <th scope="row"><span class="data_required" ></span>약정일자</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="dtl-inp-enggtYmd" name="dtl-inp-enggtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="dtl-inp-enggtYmd" name="dtl-inp-enggtYmd" uitype="popup" class="form-control input-sm input-sm-ast"></sbux-datepicker>
 							</td>
 							<td class="td_input"  style="border-right: hidden;"></td>
 							<th scope="row"><span class="data_required" ></span>약정수량</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-enggtVlm" name="dtl-inp-enggtVlm" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="dtl-inp-enggtVlm" name="dtl-inp-enggtVlm" uitype="text" class="form-control input-sm" placeholder="" title=""
+								mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
 							</td>
 							<td colspan="1" scope="row"> &nbsp;</th>
 							<th class="td_input" scope="row"><span class="data_required" ></span>예상수확량</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-expctHrvstQntt" name="dtl-inp-expctHrvstQntt" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="dtl-inp-expctHrvstQntt" name="dtl-inp-expctHrvstQntt" uitype="text" class="form-control input-sm" placeholder="" title=""
+								mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
 							<td class="td_input" style="border-right: hidden;">Kg</td>
 							<td>&nbsp;</td>
 						</tr>
@@ -321,14 +325,16 @@
 
 		grdCltvtnEnggtList.clearStatus();
 
-		var apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		//var apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		//var apcCd = SBUxMethod.get("gv_selectedApcSeCd");
 		var enggtSrtYmd = SBUxMethod.get("srch-inp-enggtSrtYmd");
 		var enggtEndYmd = SBUxMethod.get("srch-inp-enggtEndYmd");
 		var itemCd = SBUxMethod.get("srch-slt-itemCd");
 		var vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-
+//alert(apcCd);
         const postJsonPromise = gfn_postJSON("/fm/clt/selectCltvtnEnggtAplyMngList.do", {
-        	apcCd: apcCd,
+        	//apcCd: apcCd,
+        	apcCd: gv_selectedApcCd,
         	enggtSrtYmd: enggtSrtYmd,
         	enggtEndYmd: enggtEndYmd,
         	itemCd: itemCd,
@@ -407,8 +413,8 @@
     //신규 작성
     function fn_create() {
     	SBUxMethod.set("dtl-input-gbnKey", null);
-        SBUxMethod.set('dtl-inp-apcCd', null),
-        SBUxMethod.set('dtl-inp-apcNm', null),
+        SBUxMethod.set('dtl-inp-apcCd', gv_selectedApcCd),
+        SBUxMethod.set('dtl-inp-apcNm', gv_selectedApcNm),
         SBUxMethod.set('dtl-inp-prdcrCd', null),
         SBUxMethod.set('dtl-inp-prdcrNm', null),
         SBUxMethod.set('dtl-inp-itemCd', null),
@@ -432,8 +438,8 @@
 
     const fn_clearForm = function() {
     	SBUxMethod.set("dtl-input-gbnKey", null);
-    	SBUxMethod.set('dtl-inp-apcCd', null),
-        SBUxMethod.set('dtl-inp-apcNm', null),
+    	SBUxMethod.set('dtl-inp-apcCd', gv_selectedApcCd),
+        SBUxMethod.set('dtl-inp-apcNm', gv_selectedApcNm),
         SBUxMethod.set('dtl-inp-prdcrCd', null),
         SBUxMethod.set('dtl-inp-prdcrNm', null),
         SBUxMethod.set('dtl-inp-itemCd', null),

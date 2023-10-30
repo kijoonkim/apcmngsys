@@ -213,12 +213,12 @@
 							</td>
 
 							<th scope="row">세부사항</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="5" class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-dtlMttr" name="dtl-inp-dtlMttr" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
-							<td colspan="1" class="td_input" style="border-right: hidden;">
-								<sbux-button id="srch-btn-cnpt06" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="첨부" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/>
-							</td>
+<!-- 							<td colspan="1" class="td_input" style="border-right: hidden;"> -->
+<!-- 								<sbux-button id="srch-btn-cnpt06" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="첨부" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/> -->
+<!-- 							</td> -->
 							<td colspan="4" class="td_input"></td>
 						</tr>
 						<tr>
@@ -286,7 +286,7 @@
 				</table>
 
 				<sbux-input id="dtl-input-gbnKey" name="dtl-input-gbnKey" uitype="hidden"></sbux-input>
-
+<!--
 				</div>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -301,7 +301,7 @@
 						<div id="sb-area-grdSpmtCmndTrgtDsctn1" style="height:150px;"></div>
 		               </div>
 		            </div>
-
+ -->
 
 
 
