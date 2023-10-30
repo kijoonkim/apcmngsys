@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : BbsMapper.xml                                    				-->
+<!-- DESC : 게시판 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.bbs.mapper.apcBbsMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.selectBbs				-->
+	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBbs" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO" resultType="com.at.apcss.am.bbs.vo.apcBbsVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.bbs.mapper.apcBbsMapper.selectBbs */
+				  CM.BBS_NO	AS BBS_NO
+				, CM.BBS_TITLE		AS BBS_TITLE
+				, CM.BBS_SE_CD	AS BBS_SE_CD
+				, CM.BBS_SUBJECT		AS BBS_SUBJECT
+				, CM.DEL_YN		AS DEL_YN
+				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
+				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
+				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
+				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
+				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_APC_BBS CM
+			 WHERE 1=1
+			 AND CM.BBS_NO = #{bbsNo}
+			 ORDER BY CM.SYS_LAST_CHG_DT DESC
+    	]]>
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.selectBbsList			-->
+	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBbsList" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO" resultType="com.at.apcss.am.bbs.vo.apcBbsVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.bbs.mapper.apcBbsMapper.selectBbsList */
+				  CM.BBS_NO	AS BBS_NO
+				, CM.BBS_TITLE		AS BBS_TITLE
+				, CM.BBS_SE_CD	AS BBS_SE_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('BBS_SE_CD', CM.BBS_SE_CD) FROM DUAL) AS BBS_SE_CD_NM
+				, CM.BBS_SUBJECT		AS BBS_SUBJECT
+				, CM.DEL_YN		AS DEL_YN
+				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
+				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS ORG_USER_NM
+				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
+				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_ID_NM
+				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+			  FROM TB_APC_BBS CM
+    	]]>
+    	<where>
+			<if test='bbsNo != null and bbsNo != ""'>
+				AND CM.BBS_NO LIKE #{bbsNo} || '%'
+			</if>
+
+			<if test='bbsTitle != null and bbsTitle != ""'>
+				AND CM.BBS_TITLE LIKE '%' || #{bbsTitle} || '%'
+			</if>
+
+			<if test='bbsSeCd != null and bbsSeCd != ""'>
+				AND CM.BBS_SE_CD = #{bbsSeCd}
+			</if>
+
+			<if test='delYn != null and delYn != ""'>
+				AND CM.DEL_YN = #{delYn}
+			</if>
+		</where>
+		<!-- Start 페이징 -->
+		ORDER BY CM.SYS_LAST_CHG_DT DESC
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+
+    	<!-- End 페이징 -->
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs				-->
+	<!-- DESC : 게시판 등록                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertBbs" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs */
+	    	  INTO TB_APC_BBS
+	    		(
+	    			BBS_NO
+	    		  , BBS_TITLE
+	    		  , BBS_SE_CD
+	    		  , BBS_SUBJECT
+	    		  , SYS_FRST_INPT_DT
+	    		  , SYS_FRST_INPT_USER_ID
+	    		  , SYS_FRST_INPT_PRGRM_ID
+	    		  , SYS_LAST_CHG_DT
+	    		  , SYS_LAST_CHG_USER_ID
+	    		  , SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+	   			    (SELECT NVL(MAX(BBS_NO),0)+1 FROM TB_APC_BBS)
+	   			  , #{bbsTitle}
+	   			  , #{bbsSeCd}
+	   			  , #{bbsSubject}
+	   			  , SYSDATE
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysLastChgUserId}
+	   			  , #{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs				-->
+	<!-- DESC : 게시판 댓글 등록                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertBbsCmnt" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs */
+	    	  INTO TB_APC_BBS_CMNT
+	    		(
+	    			BBS_NO
+	    			, CMNT_SE_CD
+	    			, CMNT_NO
+	    			, CMNT_CHILD_NO
+	    			, CMNT_CN
+	    			, SYS_FRST_INPT_USER_ID
+	    			, SYS_FRST_INPT_PRGRM_ID
+	    			, SYS_FRST_INPT_DT
+	    			, SYS_LAST_CHG_USER_ID
+	    			, SYS_LAST_CHG_PRGRM_ID
+	    			, SYS_LAST_CHG_DT
+	    		)
+	   		VALUES
+	   			(
+	   			    #{bbsNo}
+	   			  , #{cmntSeCd}
+	   			  , (select nvl(max(cmnt_no),0)+1 from tb_apc_bbs_cmnt where bbs_no = #{bbsNo})
+	   			  , #{cmntChildNo}
+	   			  , #{cmntCn}
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysLastChgUserId}
+	    		  , #{sysLastChgPrgrmId}
+	    		  , SYSDATE
+	   			)
+    	]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs				-->
+	<!-- DESC : 게시판 대댓글 등록                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertBbsChildCmnt" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs */
+	    	  INTO TB_APC_BBS_CMNT
+	    		(
+	    			BBS_NO
+	    			, CMNT_SE_CD
+	    			, CMNT_NO
+	    			, CMNT_CHILD_NO
+	    			, CMNT_CN
+	    			, SYS_FRST_INPT_USER_ID
+	    			, SYS_FRST_INPT_PRGRM_ID
+	    			, SYS_FRST_INPT_DT
+	    			, SYS_LAST_CHG_USER_ID
+	    			, SYS_LAST_CHG_PRGRM_ID
+	    			, SYS_LAST_CHG_DT
+	    		)
+	   		VALUES
+	   			(
+	   			    #{bbsNo}
+	   			  , #{cmntSeCd}
+	   			  , #{cmntNo}
+	   			  , #{cmntChildNo}
+	   			  , #{cmntCn}
+	   			  , #{sysFrstInptUserId}
+	   			  , #{sysFrstInptPrgrmId}
+	   			  , SYSDATE
+	   			  , #{sysLastChgUserId}
+	    		  , #{sysLastChgPrgrmId}
+	    		  , SYSDATE
+	   			)
+    	]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs				-->
+	<!-- DESC : 게시판 댓글 조회                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectBbsCmntList" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO" resultType="com.at.apcss.am.bbs.vo.apcBbsCmntVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.bbs.mapper.BbsMngMapper.selectBbs */
+				  BBS_NO
+				  , CMNT_SE_CD
+				  , CMNT_NO
+				  , CMNT_CHILD_NO
+				  , CMNT_CN
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_DT
+			  FROM TB_APC_BBS_CMNT CMT
+			 WHERE 1=1
+			 AND CMT.BBS_NO = #{bbsNo}
+			 ORDER BY CMT.SYS_LAST_CHG_DT
+    	]]>
+    </select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.updateBbs				-->
+	<!-- DESC : 게시판 변경                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateBbs" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.am.bbs.mapper.BbsMngMapper.updateBbs */
+	    		TB_APC_BBS
+			   SET
+			 	  BBS_TITLE	= #{bbsTitle}
+			 	, BBS_SE_CD 	= #{bbsSeCd}
+			 	, BBS_SUBJECT 		= #{bbsSubject}
+    	]]>
+		<if test='delYn != null and delYn != ""'>
+				, DEL_YN 	= #{delYn}
+		</if>
+    	<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			 WHERE 1=1
+			   AND BBS_NO	= #{bbsNo}
+    	]]>
+    </update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs				-->
+	<!-- DESC : 게시판 삭제                                            				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteBbs" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO" >
+    	<![CDATA[
+	    	DELETE /* com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs */
+	    		TB_APC_BBS
+			 WHERE 1=1
+			   AND BBS_NO	= #{bbsNo}
+    	]]>
+    </delete>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs				-->
+	<!-- DESC : 게시판 댓글 삭제                                            				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteBbsCmnt" parameterType="com.at.apcss.am.bbs.vo.apcBbsCmntVO" >
+    	<![CDATA[
+	    	DELETE /* com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs */
+	    		TB_APC_BBS_CMNT
+			 WHERE 1=1
+			   AND BBS_NO	= #{bbsNo}
+			   AND CMNT_NO  = #{cmntNo}
+    	]]>
+    </delete>
+     <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs				-->
+	<!-- DESC : 게시판 댓글 전체 삭제                                            				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteBbsAllCmnt" parameterType="com.at.apcss.am.bbs.vo.apcBbsCmntVO" >
+    	<![CDATA[
+	    	DELETE /* com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs */
+	    		TB_APC_BBS_CMNT
+			 WHERE 1=1
+			   AND BBS_NO	= #{bbsNo}
+    	]]>
+    </delete>
+
+
+</mapper>
