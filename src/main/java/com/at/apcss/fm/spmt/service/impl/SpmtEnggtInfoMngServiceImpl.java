@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO;
 import com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper;
 import com.at.apcss.fm.spmt.service.SpmtEnggtInfoMngService;
 import com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO;
@@ -78,10 +79,17 @@ public class SpmtEnggtInfoMngServiceImpl implements SpmtEnggtInfoMngService{
 		return updatedCnt;
 	}
 
+	
 	@Override
-	public int deleteSpmtEnggtInfoMng(SpmtEnggtInfoMngVO spmtEnggtInfoMngVO) throws Exception {
+	public int deleteSpmtEnggtInfoMng(List<SpmtEnggtInfoMngVO> spmtEnggtInfoMngList) throws Exception {
 
-		int deletedCnt = spmtEnggtInfoMngMapper.deleteSpmtEnggtInfoMng(spmtEnggtInfoMngVO);
+		int deletedCnt = 0;
+
+		for ( SpmtEnggtInfoMngVO spmtEnggtInfoMngVO : spmtEnggtInfoMngList ) {
+			//deletedCnt += cltvtnEnggtAplyMngMapper.deleteCltvtnEnggtAplyMng(cltvtnEnggtAplyMngVO);
+			deletedCnt += spmtEnggtInfoMngMapper.deleteSpmtEnggtInfoMng(spmtEnggtInfoMngVO); //delYn 값만 Y로 업데이트
+		}
+		
 
 		return deletedCnt;
 	}

@@ -15,7 +15,7 @@
 		<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
-				<h3 class="box-title" style="line-height: 30px;">▶출하약정계획관리</h3>
+				<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm} </h3> <!-- ▶출하약정계획관리 -->
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button id="btn-srch-inp-outordrInq" name="btn-srch-inp-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
@@ -31,6 +31,15 @@
 
 					<tbody>
 						<tr>
+							<th scope="row">생산유통통합조직</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-apcCd2" name="srch-inp-apcCd2" uitype="hidden" ></sbux-input>
+								<sbux-input id="srch-inp-apcNm2" name="srch-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							</td>
+							<td>
+<!-- 								<sbux-button id="srch-btn-apc2" name="srch-btn-apc2" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc3" /> -->
+								<sbux-button id="srch-btn-apc2" name="srch-btn-apc2" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceApc3" />
+							</td>
 							<th scope="row">출자출하조직</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-apcCd1" name="srch-inp-apcCd1" uitype="hidden" ></sbux-input>
@@ -39,23 +48,15 @@
 							<td>
 								<sbux-button id="srch-btn-apc1" name="srch-btn-apc1" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceInvstmntSpmt" />
 							</td>
-							<th scope="row">생산유통통합조직</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcCd2" name="srch-inp-apcCd2" uitype="hidden" ></sbux-input>
-								<sbux-input id="srch-inp-apcNm2" name="srch-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
-							</td>
-							<td>
-								<sbux-button id="srch-btn-apc2" name="srch-btn-apc2" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc3" />
-							</td>
 							<th scope="row">품목/품종</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" class="form-control input-sm" unselected-text="선택">
+								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" class="form-control input-sm" unselected-text="전체">
 									<option-item value="감자">감자</option-item>
 									<option-item value="고구마">고구마</option-item>
 								</sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="선택">
+								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="전체">
 									<option-item value="히카마">히카마</option-item>
 									<option-item value="당근고구마">당근고구마</option-item>
 									<option-item value="깐고구마">깐고구마</option-item>
@@ -75,7 +76,7 @@
 
 							<th scope="row">출하방법</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-spmtType" name="srch-slt-spmtType" uitype="single" class="form-control input-sm" unselected-text="선택">
+								<sbux-select id="srch-slt-spmtType" name="srch-slt-spmtType" uitype="single" class="form-control input-sm" unselected-text="전체">
 									<option-item value="유형1">유형1</option-item>
 									<option-item value="유형2">유형2</option-item>
 									<option-item value="유형3">유형3</option-item>
@@ -83,7 +84,7 @@
 							</td>
 							<th scope="row">취급방법</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-trmtType" name="srch-slt-trmtType" uitype="single" class="form-control input-sm" unselected-text="선택">
+								<sbux-select id="srch-slt-trmtType" name="srch-slt-trmtType" uitype="single" class="form-control input-sm" unselected-text="전체">
 									<option-item value="유형1">유형1</option-item>
 									<option-item value="유형2">유형2</option-item>
 									<option-item value="유형3">유형3</option-item>
@@ -129,21 +130,24 @@
 					<tbody>
 
 						<tr>
-						<th scope="row">출자출하조직</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-apcCd2" name="dtl-inp-apcCd2" uitype="hidden" ></sbux-input>
-								<sbux-input id="dtl-inp-apcNm2" name="dtl-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
-							</td>
-							<td>
-								<sbux-button id="srch-btn-apc3" name="srch-btn-apc3" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc4"/>
-							</td>
 							<th scope="row">생산유통통합조직</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-apcCd3" name="dtl-inp-apcCd3" uitype="hidden" ></sbux-input>
 								<sbux-input id="dtl-inp-apcNm3" name="dtl-inp-apcNm3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 							<td>
-								<sbux-button id="srch-btn-apc4" name="srch-btn-apc4" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc5"/>
+<!-- 								<sbux-button id="srch-btn-apc4" name="srch-btn-apc4" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc5"/> -->
+								<sbux-button id="srch-btn-apc4" name="srch-btn-apc4" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceApc4"/>
+							</td>
+						    <th scope="row">출자출하조직</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input id="dtl-inp-apcCd2" name="dtl-inp-apcCd2" uitype="hidden" ></sbux-input>
+								<sbux-input id="dtl-inp-apcNm2" name="dtl-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							</td>
+							<td>
+<!-- 								<sbux-button id="srch-btn-apc3" name="srch-btn-apc3" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc4"/> -->
+								<sbux-button id="srch-btn-apc3" name="srch-btn-apc3" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceApc4"/>
+<!-- 							    <sbux-button id="srch-btn-apc1" name="srch-btn-apc1" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceInvstmntSpmt" /> -->
 							</td>
 							<td colspan="4"></td>
 						</tr>
@@ -169,7 +173,8 @@
 							</td>
 							<th scope="row">조직원수</th>
 							<td colspan="3" class="td_input" >
-								<sbux-input id="dtl-inp-prdcrNum" name="dtl-inp-prdcrNum" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<sbux-input id="dtl-inp-prdcrNum" name="dtl-inp-prdcrNum" uitype="text" class="form-control input-sm" placeholder="" 
+								mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
 							</td>
 						</tr>
 
@@ -181,7 +186,8 @@
 							</td>
 								<th scope="row">총재배면적</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-cltvtnArea" name="dtl-inp-cltvtnArea" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+								<sbux-input id="dtl-inp-cltvtnArea" name="dtl-inp-cltvtnArea" uitype="text" class="form-control input-sm" placeholder=""
+								mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
 							</td>
 							<th scope="row">재배품종</th>
 							<td colspan="3" class="td_input">
@@ -195,11 +201,13 @@
 							</td>
 							<th scope="row">생산량</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-prdctnQntt" name="dtl-inp-prdctnQntt" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="dtl-inp-prdctnQntt" name="dtl-inp-prdctnQntt" uitype="text" class="form-control input-sm" placeholder="" title=""
+								mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
 							</td>
 							<th scope="row">출하량</th>
 							<td colspan="3" class="td_input">
-								<sbux-input id="dtl-inp-spmtQntt" name="dtl-inp-spmtQntt" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="dtl-inp-spmtQntt" name="dtl-inp-spmtQntt" uitype="text" class="form-control input-sm" placeholder="" title=""
+								mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -213,13 +221,13 @@
 							</td>
 
 							<th scope="row">세부사항</th>
-							<td colspan="5" class="td_input" style="border-right: hidden;">
+							<td colspan="7" class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-dtlMttr" name="dtl-inp-dtlMttr" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
 							</td>
 <!-- 							<td colspan="1" class="td_input" style="border-right: hidden;"> -->
 <!-- 								<sbux-button id="srch-btn-cnpt06" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="첨부" uitype="modal" target-id="modal-prdcr" onclick="fn_modalPrdcr"/> -->
 <!-- 							</td> -->
-							<td colspan="4" class="td_input"></td>
+<!-- 							<td colspan="4" class="td_input"></td> -->
 						</tr>
 						<tr>
 						    <th scope="row">출하방법</th>
@@ -246,7 +254,8 @@
 						<tr>
 						    <th scope="row">가격</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-prc" name="dtl-inp-prc" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="dtl-inp-prc" name="dtl-inp-prc" uitype="text" class="form-control input-sm" placeholder="" title=""
+								mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
 							</td>
 							<th scope="row">가격공시</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
@@ -258,7 +267,8 @@
 							</td>
 							<th scope="row">단위</th>
 							<td colspan="3" class="td_input" >
-								<sbux-input id="dtl-inp-unit" name="dtl-inp-unit" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="dtl-inp-unit" name="dtl-inp-unit" uitype="text" class="form-control input-sm" placeholder="" title=""
+								mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -272,7 +282,8 @@
 							</td>
 							<th scope="row">선급금</th>
 							<td colspan="3" class="td_input">
-								<sbux-input id="dtl-inp-advncPay" name="dtl-inp-advncPay" uitype="text" class="form-control input-sm" placeholder="" title=""></sbux-input>
+								<sbux-input id="dtl-inp-advncPay" name="dtl-inp-advncPay" uitype="text" class="form-control input-sm" placeholder="" title=""
+								mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -435,6 +446,26 @@
     <div id="body-modal-invstmntSpmt">
     	<jsp:include page="../popup/InvstmntSpmtPopup.jsp"></jsp:include>
     </div>
+    
+    
+    
+     <!-- 통합조직,출자출하조직 선택 Modal -->
+    <!-- 2023 09 22 ljw 통합조직 출자출하조직 리스트 팝업 생성 -->
+    <div>
+        <sbux-modal
+        	id="modal-invstmntSpmt-dtl"
+        	name="modal-invstmntSpmt-dtl"
+        	uitype="middle"
+        	header-title="통합조직,출자출하조직 선택"
+        	body-html-id="body-modal-invstmntSpmt-dtl"
+        	footer-is-close-button="false"
+        	style="width:1000px"
+       	></sbux-modal>
+    </div>
+    <div id="body-modal-invstmntSpmt-dtl">
+    	<jsp:include page="../popup/InvstmntSpmtPopup.jsp"></jsp:include>
+    </div>
+    
 
 </body>
 <script type="text/javascript">
@@ -475,6 +506,14 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
+        	{caption : ["<input type='checkbox' onchange='fn_checkAll(this);'>"],
+                ref: 'checked', type: 'checkbox',  width:'5%',   style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
+            {caption: ["생산유통통합조직"],	 ref: 'apcNm2',      type:'output',  width:'15%',    style:'text-align:center'},
+            {caption: ["출자출하조직"], 	 ref: 'apcNm3',     	type:'output',   width:'15%',    style:'text-align:center'},
+            {caption: ["기초생산자조직"], 	 ref: 'apcNm',     	type:'output',   width:'15%',    style:'text-align:center'},
+            {caption: ["대표자"], 	 ref: 'prdcrNm',     	type:'output',   width:'15%',    style:'text-align:center'},
             {caption: ["출하유형"],	 ref: 'spmtType',      type:'output',  width:'15%',    style:'text-align:center'},
             {caption: ["취급유형"], 	 ref: 'trmtType',     	type:'output',   width:'15%',    style:'text-align:center'},
             {caption: ["품목명"],   	 ref: 'itemNm',    type:'output',  width:'15%',    style:'text-align:center'},
@@ -563,7 +602,9 @@
 		//grdComMsgList.clearStatus();
 
 		var apcCd2 = SBUxMethod.get("srch-inp-apcCd1");
+		var apcNm2 = SBUxMethod.get("srch-inp-apcNm1");
 		var apcCd3 = SBUxMethod.get("srch-inp-apcCd2");
+		var apcNm3 = SBUxMethod.get("srch-inp-apcNm2");
 		var itemCd = SBUxMethod.get("srch-slt-itemCd");
 		var vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 		var spmtStrDt = SBUxMethod.get("srch-inp-spmtStrDt");
@@ -573,7 +614,9 @@
 
         const postJsonPromise = gfn_postJSON("/fm/spmt/selectSpmtEnggtInfoMngList.do", {
         	apcCd2: apcCd2,
+        	apcNm2: apcNm2,
         	apcCd3: apcCd3,
+        	apcNm3: apcNm3,
         	itemCd: itemCd,
         	vrtyCd: vrtyCd,
         	spmtStrDt: spmtStrDt,
@@ -624,7 +667,9 @@
 					spclMttr: item.spclMttr,
 					advncPay: item.advncPay,
 					apcCd2: item.apcCd2,
-					apcCd3: item.apcCd3
+					apcNm2: item.apcNm2,
+					apcCd3: item.apcCd3,
+					apcNm3: item.apcNm3
 				}
 				jsonComMsgList.push(msg);
 
@@ -859,8 +904,11 @@
 			spclMttr: SBUxMethod.get('dtl-inp-spclMttr'),
 			advncPay: SBUxMethod.get('dtl-inp-advncPay'),
 			rmrk: SBUxMethod.get('dtl-inp-rmrk'),
+			
 			apcCd2: SBUxMethod.get('dtl-inp-apcCd2'),
-			apcCd3: SBUxMethod.get('dtl-inp-apcCd3')
+			apcNm2: SBUxMethod.get('dtl-inp-apcNm2'),
+			apcCd3: SBUxMethod.get('dtl-inp-apcCd3'),
+			apcNm3: SBUxMethod.get('dtl-inp-apcNm3')
 		});
 
         const data = await postJsonPromise;
@@ -887,10 +935,8 @@
 		if (!isConfirmed) return;
 
     	const postJsonPromise = gfn_postJSON("/fm/spmt/updateSpmtEnggtInfoMng.do", {
-			msgKey: SBUxMethod.get('dtl-input-orgnMsgKey'),
-			msgKnd: SBUxMethod.get('dtl-select-msgKnd'),
-			msgCn: SBUxMethod.get('dtl-input-msgCn'),
-			rmrk: SBUxMethod.get('dtl-input-rmrk')
+    		apcCd: SBUxMethod.get('dtl-inp-apcCd'),
+    		pckgSn: SBUxMethod.get('dtl-inp-pckgSn')
 		});
 
         const data = await postJsonPromise;
@@ -921,12 +967,21 @@
         /**
          * @type {any[]}
          */
+
+        
         const rows = grdComMsgList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
-        		list.push({msgKey: row.msgKey});
+        		list.push({
+        			apcCd: row.apcCd,
+        			pckgSn: row.pckgSn
+        			});
         	}
         });
+        
+        
+        
+        
 
         if (list.length == 0) {
         	alert("삭제할 대상이 없습니다.");
@@ -989,6 +1044,11 @@
     //상세정보 보기
     function fn_view() {
 
+    	
+    	
+
+    	
+    	
     	var nCol = grdComMsgList.getCol();
         //특정 열 부터 이벤트 적용
         if (nCol < 1) {
@@ -1000,18 +1060,25 @@
 		}
 
         let rowData = grdComMsgList.getRowData(nRow);
-
+        
+        
+        gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, rowData.apcCd);	// 품목
+		gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, rowData.apcCd);	// 품종
+		gfn_setApcVrtySBSelect('dtl-slt-spmtCd', jsonApcVrty, rowData.apcCd);	// 품종
+        
+        SBUxMethod.set("dtl-input-gbnKey", "U");
         SBUxMethod.set("dtl-inp-apcCd", rowData.apcCd);
     	SBUxMethod.set("dtl-inp-apcNm", rowData.apcNm);
     	SBUxMethod.set("dtl-inp-pckgSn", rowData.pckgSn);
         SBUxMethod.set("dtl-inp-prdcrCd", rowData.prdcrCd);
-        SBUxMethod.attr("dtl-inp-prdcrNm", rowData.prdcrNm);
+        SBUxMethod.set("dtl-inp-prdcrNm", rowData.prdcrNm);
         SBUxMethod.set("dtl-slt-itemCd", rowData.itemCd);
         SBUxMethod.set("dtl-slt-itemNm", rowData.itemNm);
         SBUxMethod.set("dtl-inp-cltvtnArea", rowData.cltvtnArea);
         SBUxMethod.set("dtl-slt-vrtyCd", rowData.vrtyCd);
         SBUxMethod.set("dtl-slt-vrtyNm", rowData.vrtyNm);
         SBUxMethod.set("dtl-slt-spmtCd", rowData.spmtCd);
+        SBUxMethod.set("dtl-slt-spmtNm", rowData.spmtNm);
         SBUxMethod.set("dtl-inp-prdctnQntt", rowData.prdctnQntt);
         SBUxMethod.set("dtl-inp-spmtQntt", rowData.spmtQntt);
         SBUxMethod.set("dtl-inp-spmtStrDt", rowData.spmtStrDt);
@@ -1115,13 +1182,18 @@
 	  //APC명 선택 popup
 	  //상단 조회 조건 생산유통통합조직 찾기
 	    const fn_choiceApc3 = function() {
-			popApc.init(gv_selectedApcCd, gv_selectedApcNm, fn_setApc3);
+// 			popApc.init(gv_selectedApcCd, gv_selectedApcNm, fn_setApc3);
+			popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setApc3);
 		}
 
-		const fn_setApc3 = function(apc) {
-			if (!gfn_isEmpty(apc)) {
-				SBUxMethod.set("srch-inp-apcCd2", apc.apcCd);
-				SBUxMethod.set("srch-inp-apcNm2", apc.apcNm);
+		const fn_setApc3 = function(rowData) {
+			if (!gfn_isEmpty(rowData)) {
+				//SBUxMethod.set("srch-inp-apcCd2", apc.apcCd);
+				//SBUxMethod.set("srch-inp-apcNm2", apc.apcNm);
+				SBUxMethod.set("srch-inp-apcCd1", rowData.subCode);
+				SBUxMethod.set("srch-inp-apcNm1", rowData.subCodeNm);
+				SBUxMethod.set("srch-inp-apcCd2", rowData.mainCode);
+				SBUxMethod.set("srch-inp-apcNm2", rowData.mainCodeNm);
 
 				//gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, apc.apcCd),	// 품목
 				//gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, apc.apcCd),	// 품종
@@ -1130,23 +1202,43 @@
 			}
 		}
 
+		
+		
+		
+		
+		
+		
 	  //APC명 선택 popup
 	  //하단 상세내역 출자출하조직 찾기
 	    const fn_choiceApc4 = function() {
-			popApc.init(gv_selectedApcCd, gv_selectedApcNm, fn_setApc4);
+			//popApc.init(gv_selectedApcCd, gv_selectedApcNm, fn_setApc4);
+			//popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setInvstmntSpmt);
+			popInvstmntSpmt.init(gv_selectedApcCd, gv_selectedApcNm, fn_setApc4);
 		}
 
-		const fn_setApc4 = function(apc) {
-			if (!gfn_isEmpty(apc)) {
-				SBUxMethod.set("dtl-inp-apcCd2", apc.apcCd);
-				SBUxMethod.set("dtl-inp-apcNm2", apc.apcNm);
+		const fn_setApc4 = function(rowData) {
+			if (!gfn_isEmpty(rowData)) {
+				//SBUxMethod.set("dtl-inp-apcCd2", apc.apcCd);
+				//SBUxMethod.set("dtl-inp-apcNm2", apc.apcNm);
 
+				SBUxMethod.set("dtl-inp-apcCd2", rowData.subCode);
+				SBUxMethod.set("dtl-inp-apcNm2", rowData.subCodeNm);
+				SBUxMethod.set("dtl-inp-apcCd3", rowData.mainCode);
+				SBUxMethod.set("dtl-inp-apcNm3", rowData.mainCodeNm);
+				
 				//gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, apc.apcCd),	// 품목
 				//gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, apc.apcCd),	// 품종
 				//gfn_setApcVrtySBSelect('dtl-slt-spmtCd', jsonApcVrty, apc.apcCd)	// 품종
 
 			}
 		}
+		
+		
+		
+		
+		
+		
+		
 	  //APC명 선택 popup
 	  //하단 상세내역 생산유통통합조직 찾기
 	    const fn_choiceApc5 = function() {
@@ -1196,6 +1288,6 @@
 			SBUxMethod.set("srch-inp-apcNm2", rowData.mainCodeNm);
 		}
 	}
-
+	
 </script>
 </html>
