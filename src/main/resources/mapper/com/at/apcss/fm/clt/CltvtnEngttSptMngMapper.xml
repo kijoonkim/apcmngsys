@@ -33,7 +33,7 @@
 				, CLT.CLTVTN_AREA            AS CLTVTN_AREA
 				, CLT.ENGGT_VLM              AS ENGGT_VLM
 				, CLT.EXPCT_HRVST_QNTT       AS EXPCT_HRVST_QNTT
-				, CLT.PLOR                   AS PLOR
+				, CLT.PLOR_CD                   AS PLOR
 			    , CLT.CTRT_AMT               AS CTRT_AMT
 			    , CLT.PRTPAY                 AS PRTPAY
 			    , CLT.SRPLS                  AS SRPLS
@@ -91,7 +91,7 @@
 				, CLT.CLTVTN_AREA            AS CLTVTN_AREA
 				, CLT.ENGGT_VLM              AS ENGGT_VLM
 				, CLT.EXPCT_HRVST_QNTT       AS EXPCT_HRVST_QNTT
-				, CLT.PLOR                   AS PLOR
+				, CLT.PLOR_CD                   AS PLOR
 			    , CLT.CTRT_AMT               AS CTRT_AMT
 			    , CLT.PRTPAY                 AS PRTPAY
 			    , CLT.SRPLS                  AS SRPLS
@@ -177,7 +177,7 @@
 		    		  , CLTVTN_AREA
 		    		  , ENGGT_VLM
 		    		  , EXPCT_HRVST_QNTT
-		    		  , PLOR
+		    		  , PLOR_CD
 		    		  , CTRT_AMT
 		    		  , PRTPAY
 		    		  , SRPLS
@@ -300,7 +300,7 @@
 		    		  , CLTVTN_AREA
 		    		  , ENGGT_VLM
 		    		  , EXPCT_HRVST_QNTT
-		    		  , PLOR
+		    		  , PLOR_CD
 		    		  , CTRT_AMT
 		    		  , PRTPAY
 		    		  , SRPLS
