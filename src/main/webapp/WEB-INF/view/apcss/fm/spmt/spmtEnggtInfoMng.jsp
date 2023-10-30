@@ -144,7 +144,7 @@
 								<sbux-input id="dtl-inp-apcCd2" name="dtl-inp-apcCd2" uitype="hidden" ></sbux-input>
 								<sbux-input id="dtl-inp-apcNm2" name="dtl-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
-							<td>
+							<td style="border-right: hidden;">
 <!-- 								<sbux-button id="srch-btn-apc3" name="srch-btn-apc3" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc4"/> -->
 								<sbux-button id="srch-btn-apc3" name="srch-btn-apc3" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceApc4"/>
 <!-- 							    <sbux-button id="srch-btn-apc1" name="srch-btn-apc1" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-invstmntSpmt" onclick="fn_choiceInvstmntSpmt" /> -->
@@ -171,11 +171,11 @@
 							<td style="border-right: hidden;">
 								<sbux-button id="srch-btn-prdcr1" name="srch-btn-prdcr1" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-prdcr" onclick="fn_choicePrdcr"/>
 							</td>
-							<th scope="row">조직원수</th>
-							<td colspan="3" class="td_input" >
-								<sbux-input id="dtl-inp-prdcrNum" name="dtl-inp-prdcrNum" uitype="text" class="form-control input-sm" placeholder="" 
-								mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
-							</td>
+<!-- 							<th scope="row">조직원수</th> -->
+<!-- 							<td colspan="3" class="td_input" > -->
+<!-- 								<sbux-input id="dtl-inp-prdcrNum" name="dtl-inp-prdcrNum" uitype="text" class="form-control input-sm" placeholder=""  -->
+<!-- 								mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input> -->
+<!-- 							</td> -->
 						</tr>
 
 
@@ -1138,7 +1138,7 @@
 		var apcChk = SBUxMethod.get("dtl-inp-apcNm");
 		if(gfn_isEmpty(apcChk)) {
 			SBUxMethod.attr("srch-btn-prdcr1","data-target","");
-			alert('APC명을 선택해주세요.');
+			alert('기초생산자조직을 선택해주세요.');
 			return;
 		} else {
 			var dtlApcCd = SBUxMethod.get("dtl-inp-apcCd");
@@ -1289,5 +1289,29 @@
 		}
 	}
 	
+	
+	
+	
+	/* 
+	var jsonGItemCd 	= [];
+	var jsonGGrdSeCd 	= [];
+	var jsonGJgmtType 	= [];
+
+	var jsonStdGrd = [];
+	var jsonStdGrdDtl = [];
+	var jsonStdGrdDtl = [];
+
+	const fn_initSBSelectStdGrd = async function() {
+		let rst = await Promise.all([
+			gfn_setApcItemSBSelect("grd-slt-itemCd", 	jsonGItemCd, gv_apcCd),			// APC 품목
+			gfn_setComCdSBSelect("grd-rdo-grdSeCd", 	jsonGGrdSeCd, "GRD_SE_CD"),		// 등급구분코드(출하)
+			gfn_setComCdSBSelect("grdStdGrdJgmt", 		jsonGJgmtType, "JGMT_TYPE")		// 등급구분코드(출하)
+
+		]);
+		SBUxMethod.set("grd-rdo-grdSeCd", "01");
+		grdStdGrd.refresh({"combo":true});
+		grdStdGrdDtl.refresh({"combo":true});
+		grdStdGrdJgmt.refresh({"combo":true});
+	}	 */
 </script>
 </html>
