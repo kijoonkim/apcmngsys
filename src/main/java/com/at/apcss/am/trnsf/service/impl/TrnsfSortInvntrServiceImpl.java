@@ -84,7 +84,7 @@ public class TrnsfSortInvntrServiceImpl extends BaseServiceImpl implements Trnsf
 			throw new EgovBizException(getMessageForMap(resultMap));
 		}
 
-		resultMap = sortInvntrService.updateSortInvntrList(sortInvntrList);
+		resultMap = sortInvntrService.multiSaveSortInvntrList(sortInvntrList);
 		return null;
 	}
 
