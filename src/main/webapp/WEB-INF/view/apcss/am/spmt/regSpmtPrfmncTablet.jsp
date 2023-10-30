@@ -239,8 +239,10 @@
 	            	}}},
             {caption: ['지시번호'], 	ref: 'spmtCmndnoIndct',	width: '130px',	type: 'output', 	style: 'text-align: center'},
             {caption: ['포장번호'], 	ref: 'pckgnoIndct', 	width: '130px', type: 'output', 	style: 'text-align: center'},
-            {caption: ['수량'],		ref: 'spmtQntt', 		width: '70px', 	type: 'output', 	style: 'text-align: right'},
-            {caption: ['중량'], 		ref: 'spmtWght', 		width: '80px', 	type: 'output', 	style: 'text-align: right'},
+            {caption: ['수량'],		ref: 'spmtQntt', 		width: '70px', 	type: 'output', 	style: 'text-align: right',
+            	format : {type:'number', rule:'#,###'}},
+            {caption: ['중량'], 		ref: 'spmtWght', 		width: '80px', 	type: 'output', 	style: 'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['품종'], 		ref: 'vrtyNm', 			width: '100px', type: 'output', 	style: 'text-align: center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 		width: '100px', type: 'output', 	style: 'text-align: center'},
             {caption: ['상품명'], 	ref: 'spmtPckgUnitNm', 	width: '100px', type: 'output', 	style: 'text-align: center'},
@@ -475,6 +477,10 @@
 	// 초기화
 	async function fn_reset() {
 		SBUxMethod.set('srch-inp-vhclno', "");
+		SBUxMethod.set('srch-chk-spmtCmndno', 'false');
+		SBUxMethod.refresh('srch-chk-spmtCmndno');
+		SBUxMethod.set('srch-chk-vhclno', 'false');
+		SBUxMethod.refresh('srch-chk-vhclno');
 		fn_resetUnchecked();
 		fn_resetPckgno();
 	}

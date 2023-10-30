@@ -158,24 +158,22 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-	 	        {caption: ["순번","순번"],			ref: 'pckgCmndSn',	type:'output',  width:'40px',	style:'text-align:center'},
-		        {caption: ["지시번호","지시번호"],	ref: 'pckgCmndno',  type:'output',  width:'120px',	style:'text-align:center'},
-		        {caption: ["생산설비","생산설비"],	ref: 'fcltNm',      type:'output',  width:'100px',	style:'text-align:center'},
-		        {caption: ["거래처","거래처"],		ref: 'cnptNm',      type:'output',  width:'120px',	style:'text-align:center'},
-		        {caption: ["품종","품종"],			ref: 'vrtyNm',      type:'output',  width:'100px',	style:'text-align:center'},
-		        {caption: ["규격","규격"],			ref: 'spcfctNm',    type:'output',  width:'100px',	style:'text-align:center'},
-		        {caption: ["납기일자","납기일자"],	ref: 'dudtYmd',     type:'output',  width:'120px',	style:'text-align:center',
+		        {caption: ["지시번호","지시번호"],	ref: 'pckgCmndnoIndct', type:'output',  width:'130px',	style:'text-align:center'},
+		        {caption: ["생산설비","생산설비"],	ref: 'fcltNm',      	type:'output',  width:'100px',	style:'text-align:center'},
+		        {caption: ["거래처","거래처"],		ref: 'cnptNm',      	type:'output',  width:'120px',	style:'text-align:center'},
+		        {caption: ["품종","품종"],			ref: 'vrtyNm',      	type:'output',  width:'100px',	style:'text-align:center'},
+		        {caption: ["규격","규격"],			ref: 'spcfctNm',    	type:'output',  width:'100px',	style:'text-align:center'},
+		        {caption: ["납기일자","납기일자"],	ref: 'dudtYmd',     	type:'output',  width:'120px',	style:'text-align:center',
 		        	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-		        {caption: ["상품명","상품명"],		ref: 'gdsNm',      	type:'output',  width:'130px',	style:'text-align:center'},
-		        {caption: ["지시","수량"],			ref: 'cmndQntt',    type:'output',  width:'60px',	style:'text-align:right',
+		        {caption: ["지시","수량"],			ref: 'cmndQntt',    	type:'output',  width:'60px',	style:'text-align:right',
 		        	format : {type:'number', rule:'#,###'}},
-		        {caption: ["지시","중량"],			ref: 'cmndWght',    type:'output',  width:'70px',	style:'text-align:right',
+		        {caption: ["지시","중량"],			ref: 'cmndWght',    	type:'output',  width:'70px',	style:'text-align:right',
 		        	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-		        {caption: ["실적","수량"],			ref: 'pckgQntt',    type:'output',  width:'60px',	style:'text-align:right',
+		        {caption: ["실적","수량"],			ref: 'pckgQntt',    	type:'output',  width:'60px',	style:'text-align:right',
 		        	format : {type:'number', rule:'#,###'}},
-		        {caption: ["실적","중량"],			ref: 'pckgWght',    type:'output',  width:'70px',	style:'text-align:right',
+		        {caption: ["실적","중량"],			ref: 'pckgWght',    	type:'output',  width:'70px',	style:'text-align:right',
 		        	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-		        {caption: ["비고","비고"],			ref: 'rmrk',      	type:'output',  width:'250px',	style:'text-align:center'},
+		        {caption: ["비고","비고"],			ref: 'rmrk',      		type:'output',  width:'250px',	style:'text-align:center'},
 		    ];
 		    grdPckgCmndPop = _SBGrid.create(SBGridProperties);
 		    grdPckgCmndPop.bind('afterpagechanged', this.paging);
@@ -232,6 +230,7 @@
 					let pckgCmnd = {
 		      				pckgCmndno		: item.pckgCmndno,
 		      				pckgCmndSn		: item.pckgCmndSn,
+		      				pckgCmndnoIndct	: item.pckgCmndnoIndct,
 		      				pckgCmndYmd		: item.pckgCmndYmd,
 		      				fcltCd			: item.fcltCd,
 		      				fcltNm			: item.fcltNm,

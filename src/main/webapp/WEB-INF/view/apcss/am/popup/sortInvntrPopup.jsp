@@ -158,29 +158,29 @@
 			  	'showgoalpageui' : true
 		    };
 		    SBGridProperties.columns = [
-		    	{caption: ["선별번호","선별번호"],		ref: 'sortnoIndct',     type:'output',  width:'130px',	style:'text-align:center'},
-		        {caption: ["등급","등급"],				ref: 'grdNm',      		type:'output',  width:'90px',	style:'text-align:center'},
-		        {caption: ["투입일자","투입일자"],		ref: 'inptYmd',      	type:'output',  width:'105px',	style:'text-align:center',
+		    	{caption: ["선별번호","선별번호"],		ref: 'sortnoIndct',     type:'output',  width:'130px',	style:'text-align: center'},
+		        {caption: ["등급","등급"],				ref: 'grdNm',      		type:'output',  width:'90px',	style:'text-align: center'},
+		        {caption: ["투입일자","투입일자"],		ref: 'inptYmd',      	type:'output',  width:'105px',	style:'text-align: center',
 	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-		        {caption: ["설비","설비"],				ref: 'fcltNm',      	type:'output',  width:'105px',	style:'text-align:center'},
-		        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      	type:'output',  width:'90px',	style:'text-align:center'},
-		        {caption: ["품목","품목"],				ref: 'itemNm',     		type:'output',  width:'90px',	style:'text-align:center'},
-		        {caption: ["품종","품종"],				ref: 'vrtyNm',      	type:'output',  width:'90px',	style:'text-align:center'},
-		        {caption: ["규격","규격"],				ref: 'spcfctNm',      	type:'output',  width:'90px',	style:'text-align:center'},
-		        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'90px',	style:'text-align:center'},
-		        {caption: ["선별","수량"],				ref: 'sortQntt',      	type:'output',  width:'85px',	style:'text-align:center',
+		        {caption: ["설비","설비"],				ref: 'fcltNm',      	type:'output',  width:'105px',	style:'text-align: center'},
+		        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      	type:'output',  width:'90px',	style:'text-align: center'},
+		        {caption: ["품목","품목"],				ref: 'itemNm',     		type:'output',  width:'90px',	style:'text-align: center'},
+		        {caption: ["품종","품종"],				ref: 'vrtyNm',      	type:'output',  width:'90px',	style:'text-align: center'},
+		        {caption: ["규격","규격"],				ref: 'spcfctNm',      	type:'output',  width:'90px',	style:'text-align: center'},
+		        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'90px',	style:'text-align: center'},
+		        {caption: ["선별","수량"],				ref: 'sortQntt',      	type:'output',  width:'85px',	style:'text-align: right',
 		        	format : {type:'number', rule:'#,###'}},
-		        {caption: ["선별","중량"],				ref: 'sortWght',      	type:'output',  width:'85px',	style:'text-align:center',
+		        {caption: ["선별","중량"],				ref: 'sortWght',      	type:'output',  width:'85px',	style:'text-align: right',
 		        	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-		        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'85px',	style:'text-align:center',
+		        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'85px',	style:'text-align: right',
 			        format : {type:'number', rule:'#,###'}},
-		        {caption: ["포장","중량"],				ref: 'pckgWght',     	type:'output',  width:'85px',	style:'text-align:center',
+		        {caption: ["포장","중량"],				ref: 'pckgWght',     	type:'output',  width:'85px',	style:'text-align: right',
 		        	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-		        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'85px',	style:'text-align:center',
+		        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'85px',	style:'text-align: right',
 			        format : {type:'number', rule:'#,###'}},
-		        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'85px',	style:'text-align:center',
+		        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'85px',	style:'text-align: right',
 			        typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-		        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'105px',	style:'text-align:center'}
+		        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'300px',	style:'text-align: center'}
 		    ];
 		    grdSortInvntrPop = _SBGrid.create(SBGridProperties);
 		    grdSortInvntrPop.bind('afterpagechanged', this.paging);
