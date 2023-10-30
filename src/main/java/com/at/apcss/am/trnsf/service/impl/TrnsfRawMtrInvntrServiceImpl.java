@@ -84,7 +84,7 @@ public class TrnsfRawMtrInvntrServiceImpl extends BaseServiceImpl implements Trn
 			throw new EgovBizException(getMessageForMap(resultMap));
 		}
 
-		resultMap = rawMtrInvntrService.updateRawMtrInvntrList(rawMtrInvntrList);
+		resultMap = rawMtrInvntrService.multiSaveRawMtrInvntrList(rawMtrInvntrList);
 
 		if(resultMap != null) {
 			throw new EgovBizException(getMessageForMap(resultMap));
