@@ -1,5 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : rawMtrInvntrPopup.jsp
+  * @Description : 원물재고 선택 Popup 화면
+  * @author SI개발부
+  * @since 2023.08.31
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.08.31   	김호			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,9 +33,30 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchRawMtrInvntr" name="btnSearchRawMtrInvntr" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popRawMtrInvntr.search"></sbux-button>
-					<sbux-button id="btnChoiceRawMtrInvntr" name="btnChoiceRawMtrInvntr" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popRawMtrInvntr.choice"></sbux-button>
-					<sbux-button id="btnEndRawMtrInvntr" name="btnEndRawMtrInvntr" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-rawMtrInvntr')"></sbux-button>
+					<sbux-button 
+						id="btnSearchRawMtrInvntr" 
+						name="btnSearchRawMtrInvntr" 
+						uitype="normal" 
+						text="조회" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="popRawMtrInvntr.search"
+					></sbux-button>
+					<sbux-button 
+						id="btnChoiceRawMtrInvntr" 
+						name="btnChoiceRawMtrInvntr" 
+						uitype="normal" 
+						text="선택" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="popRawMtrInvntr.choice"
+					></sbux-button>
+					<sbux-button 
+						id="btnEndRawMtrInvntr" 
+						name="btnEndRawMtrInvntr" 
+						uitype="normal" 
+						text="종료" 
+						class="btn btn-sm btn-outline-danger" 
+						onclick="gfn_closeModal('modal-rawMtrInvntr')"
+					></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -94,10 +130,11 @@
 	</section>
 </body>
 <script type="text/javascript">
+
 	/* grid 내 select json */
-	var jsonApcItem			= [];	// 품목 		itemCd			검색
-	var jsonApcVrty			= [];	// 품종 		vrtyCd			검색
-	var jsonApcSpcfct		= [];	// 규격 		spcfct			검색
+	var jsonApcItemRawMtrInvntrPop		= [];	// 품목 		itemCd			검색
+	var jsonApcVrtyRawMtrInvntrPop		= [];	// 품종 		vrtyCd			검색
+	var jsonApcSpcfctRawMtrInvntrPop	= [];	// 규격 		spcfct			검색
 
 	var grdRawMtrInvntrPop = null;
 	
@@ -123,9 +160,10 @@
 				SBUxMethod.set("rawMtrInvntr-dtp-crtrYmd", gfn_dateToYmd(new Date()));
 				
 				let rst = await Promise.all([
-				 	gfn_setApcItemSBSelect('rawMtrInvntr-slt-itemCd', jsonApcItem, _apcCd),							// 품목
-					gfn_setApcVrtySBSelect('rawMtrInvntr-slt-vrtyCd', jsonApcVrty, _apcCd)							// 품종
+				 	gfn_setApcItemSBSelect('rawMtrInvntr-slt-itemCd', jsonApcItemRawMtrInvntrPop, _apcCd),							// 품목
+					gfn_setApcVrtySBSelect('rawMtrInvntr-slt-vrtyCd', jsonApcVrtyRawMtrInvntrPop, _apcCd)							// 품종
 				]);
+				
 				this.createGrid();
 				this.search();
 			} else {
@@ -314,6 +352,11 @@
 		srchVrtyCd: async function(obj) {
 	    	let apcCd = SBUxMethod.get("rawMtrInvntr-inp-apcCd");
 			let vrtyCd = obj.value;
+			
+			if (gfn_isEmpty(vrtyCd)) {
+				return;
+			}
+			
 			const itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
 
 			const prvItemCd = SBUxMethod.get("rawMtrInvntr-slt-itemCd");
