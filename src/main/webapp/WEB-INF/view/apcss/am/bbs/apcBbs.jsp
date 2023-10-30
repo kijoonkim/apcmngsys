@@ -83,10 +83,10 @@
             <div id="body-modal-bbsModal">
     			<jsp:include page="bbsPopup.jsp"></jsp:include>
     		</div>
-    		<sbux-modal id="modal-bbsChildCmntModal" name="modal-bbsChildCmntModal" uitype="small" header-title="답글" body-html-id="body-modal-bbsChildCmntModal" footer-is-close-button="false" header-is-close-button="false" style="width:500px"></sbux-modal>
+    		<!--sbux-modal id="modal-bbsChildCmntModal" name="modal-bbsChildCmntModal" uitype="small" header-title="답글" body-html-id="body-modal-bbsChildCmntModal" footer-is-close-button="false" header-is-close-button="false" style="width:500px"></sbux-modal>
          	<div id="body-modal-bbsChildCmntModal">
     			<jsp:include page="bbsChildCmntPopup.jsp"></jsp:include>
-    		</div>
+    		</div-->
     		<sbux-modal id="modal-bbsNewArticlePopup" name="modal-bbsNewArticlePopup" uitype="large" header-title="신규작성" body-html-id="body-modal-bbsNewArticlePopup" footer-is-close-button="false" header-is-close-button="false" callback-after-close="fn_callSearch"></sbux-modal>
          	<div id="body-modal-bbsNewArticlePopup">
     			<jsp:include page="bbsNewArticlePopup.jsp"></jsp:include>
