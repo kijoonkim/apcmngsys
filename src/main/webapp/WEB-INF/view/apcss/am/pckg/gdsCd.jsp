@@ -62,13 +62,12 @@
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" unselected-text="전체" class="form-control input-sm" jsondata-ref="jsonComVrty" onchange="fn_selectVrty"></sbux-select>
-									</div>
-								</div>
+								<sbux-input uitype="text" id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
 							</td>
-							<td></td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"/>
+							</td>
 							<th scope="row" class="th_bg">규격</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -135,6 +134,13 @@
 			</div>
 		</div>
 	</section>
+	<!-- 품종 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
+    </div>
+    <div id="body-modal-vrtyCrtr">
+    	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 var jsonComItem = 			[];
@@ -149,7 +155,7 @@ const fn_initSBSelect = async function() {
 	
 	let rst = await Promise.all([
 	 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd),						// 품목
-	 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 		gv_selectedApcCd),						// 품종
+	 	gfn_setApcVrtySBSelect('srch-inp-vrtyCd', 		jsonComVrty, 		gv_selectedApcCd),						// 품종
 // 	 	gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonSpcfct, gv_selectedApcCd, itemCd, gv_selectedApcCd),	// 규격
 	 	gfn_setComCdSBSelect('srch-slt-gdsGrd', 		jsonGdsGrd,		'GDS_GRD'),									// 상품등급
 	 	gfn_setSpmtPckgUnitSBSelect('srch-slt-pckgSeCd', 	jsonComSpmtPckgUnit, 	gv_selectedApcCd, itemCd)	// 포장구분
@@ -160,26 +166,40 @@ const fn_initSBSelect = async function() {
 const fn_selectItem = async function(){
 	let itemCd = SBUxMethod.get("srch-slt-itemCd");
 	let rst = await Promise.all([
-		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),	// 품종
+		gfn_setApcVrtySBSelect('srch-inp-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),	// 품종
 		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',			jsonSpcfct, 				gv_selectedApcCd, itemCd),	// 규격
 		stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
 	])
 }
-
-const fn_selectVrty = async function(){
-	let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-	let itemCd = "";
-	for(i=0;i<jsonComVrty.length;i++){
-		if(jsonComVrty[i].value == vrtyCd){
-			itemCd = jsonComVrty[i].mastervalue;
-		}
+const fn_modalVrty = function() {
+	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
+}
+const fn_setVrty = function(vrty) {
+	if (!gfn_isEmpty(vrty)) {
+		SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
+		SBUxMethod.setValue('srch-inp-vrtyCd', '');
+		SBUxMethod.setValue('srch-inp-vrtyCd', vrty.vrtyCd);
+		SBUxMethod.set('srch-inp-vrtyNm', '');
+		SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
+		SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyCd);
 	}
-	SBUxMethod.set("srch-slt-itemCd", itemCd);
-	let rst = await Promise.all([
-		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 			jsonSpcfct, 				gv_selectedApcCd, itemCd),	// 규격
-		gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),	// 포장구분
-		stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
-	])
+	console.log('vrty',vrty);
+	console.log('vrty.vrtyCd',vrty.vrtyCd);
+	console.log('vrty.vrtyNm',vrty.vrtyNm);
+}
+const fn_setVrtys = function(vrtys) {
+	 console.log("vrtys", vrtys);
+	if (!gfn_isEmpty(vrtys)) {
+		var _vrtys = [];
+		var _vrtyCds = [];
+		for(var i=0;i<vrtys.length;i++){
+			_vrtys.push(vrtys[i].vrtyNm);
+			_vrtyCds.push(vrtys[i].vrtyCd);
+		}
+		SBUxMethod.set('srch-inp-vrtyCd', '');
+		SBUxMethod.set('srch-inp-vrtyNm', _vrtys.join(','));
+		SBUxMethod.set('srch-inp-vrtyCd', _vrtyCds.join(','));
+	}
 }
 
 
@@ -242,7 +262,8 @@ const fn_selectVrty = async function(){
 		//검색조건
 		let gdsCd = SBUxMethod.get('srch-inp-gdsCd');
 		let itemCd = SBUxMethod.get('srch-slt-itemCd');
-		let vrtyCd = SBUxMethod.get('srch-slt-vrtyCd');
+		let vrtyCd = SBUxMethod.get('srch-inp-vrtyCd');
+		console.log('vrtyCd',vrtyCd);
 		let spcfctCd = SBUxMethod.get('srch-slt-spcfctCd');
 		let gdsGrd = SBUxMethod.get('srch-slt-gdsGrd');
 		let brndCd = SBUxMethod.get('srch-slt-brndCd');
