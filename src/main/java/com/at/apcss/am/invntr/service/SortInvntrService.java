@@ -75,7 +75,7 @@ public interface SortInvntrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> updateSortInvntrList(List<SortInvntrVO> sortInvntrList) throws Exception;
+	public HashMap<String, Object> multiSaveSortInvntrList(List<SortInvntrVO> sortInvntrList) throws Exception;
 	/**
 	 * 선별재고 삭제
 	 * @param sortInvntrVO

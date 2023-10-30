@@ -78,7 +78,6 @@ public class GdsInvntrController extends BaseController {
 	@PostMapping(value = "/am/invntr/multiGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> multiGdsInvntrList(@RequestBody List<GdsInvntrVO> gdsInvntrList, HttpServletRequest request) throws Exception {
 
-		logger.debug("updateSortInvntrDsctnList 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -90,7 +89,7 @@ public class GdsInvntrController extends BaseController {
 				gdsInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			HashMap<String, Object> rtnObj = gdsInvntrService.multiGdsInvntrList(gdsInvntrList); //updateSortInvntrDsctnList
+			HashMap<String, Object> rtnObj = gdsInvntrService.multiSaveGdsInvntrList(gdsInvntrList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

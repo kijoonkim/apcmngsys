@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
+import com.at.apcss.am.invntr.vo.RawMtrStdGrdVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -76,8 +77,8 @@ public class RawMtrInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/invntr/updateRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> updateRawMtrInvntrList(@RequestBody List<RawMtrInvntrVO> rawMtrInvntrList, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/invntr/mulitSaveRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> mulitSaveRawMtrInvntrList(@RequestBody List<RawMtrInvntrVO> rawMtrInvntrList, HttpServletRequest request) throws Exception {
 
 		logger.debug("updateRawMtrInvntrList 호출 <><><><> ");
 
@@ -85,11 +86,19 @@ public class RawMtrInvntrController extends BaseController {
 
 		try {
 			for ( RawMtrInvntrVO rawMtrInvntrVO : rawMtrInvntrList ) {
+				rawMtrInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				rawMtrInvntrVO.setSysFrstInptUserId(getUserId());
 				rawMtrInvntrVO.setSysLastChgUserId(getUserId());
 				rawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+				for (RawMtrStdGrdVO rawMtrStdGrdVO : rawMtrInvntrVO.getStdGrdList()) {
+					rawMtrStdGrdVO.setSysFrstInptPrgrmId(getPrgrmId());
+					rawMtrStdGrdVO.setSysFrstInptUserId(getUserId());
+					rawMtrStdGrdVO.setSysLastChgPrgrmId(getPrgrmId());
+					rawMtrStdGrdVO.setSysLastChgUserId(getPrgrmId());
+				}
 			}
 
-			HashMap<String, Object> rtnObj = rawMtrInvntrService.updateRawMtrInvntrList(rawMtrInvntrList); //updateRawMtrInvntrList
+			HashMap<String, Object> rtnObj = rawMtrInvntrService.multiSaveRawMtrInvntrList(rawMtrInvntrList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

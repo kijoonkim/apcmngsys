@@ -207,7 +207,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 	}
 
 	@Override
-	public HashMap<String, Object> multiGdsInvntrList(List<GdsInvntrVO> gdsInvntrList) throws Exception {
+	public HashMap<String, Object> multiSaveGdsInvntrList(List<GdsInvntrVO> gdsInvntrList) throws Exception {
 		List<GdsInvntrVO> updateList = new ArrayList<>();
 		List<GdsInvntrVO> insertList = new ArrayList<>();
 
