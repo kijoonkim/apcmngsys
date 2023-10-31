@@ -60,10 +60,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>생산일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-pckgYmdFrom" name="srch-dtp-pckgYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-pckgYmdFrom" name="srch-dtp-pckgYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(srch-dtp-pckgYmdFrom)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-pckgYmdTo" name="srch-dtp-pckgYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-pckgYmdTo" name="srch-dtp-pckgYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(srch-dtp-pckgYmdTo)"></sbux-datepicker>
 							</td>
 							<td class="td_input"></td>
 
@@ -430,6 +430,17 @@
 		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 
 	})
+
+	const fn_dtpChange = function(){
+		let pckgYmdFrom = SBUxMethod.get("srch-dtp-pckgYmdFrom");
+		let pckgYmdTo = SBUxMethod.get("srch-dtp-pckgYmdTo");
+		if(gfn_diffDate(pckgYmdFrom, pckgYmdTo) < 0){
+			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+			SBUxMethod.set("srch-dtp-pckgYmdFrom", gfn_dateFirstYmd(new Date()));
+			SBUxMethod.set("srch-dtp-pckgYmdTo", gfn_dateToYmd(new Date()));
+			return;
+		}
+	}
 
 	var jsonGdsInvntr = []; // 상품재고내역 Json
 	var jsonSpmtPrfmnc = []; // 출하내역 Json
