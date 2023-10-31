@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>Integrity properties</comment>
+    <entry key="agent.config">E33E963045AF2A5C643942F51A83D9AE7B9BB41A06416BA4D825293B9F1514B4</entry>
+    <entry key="agent.module">D996A4BFBAECE0A9BAE903083E00291729924BBF5895C0D94B869ED6E618D84C</entry>
+    <entry key="passni.crypto">A83D51160E76CEC708C46D158675EC98464EA6AB1D3AB60CEA3CD7F59F433972</entry>
+</properties>
