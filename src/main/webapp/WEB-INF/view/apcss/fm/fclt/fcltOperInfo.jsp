@@ -91,7 +91,9 @@
 						<tr>
 							<th>소유조직 사업자번호</th>
 							<td>
-								<sbux-input id="dtl-input-psnOgnzBrno" name="dtl-input-psnOgnzBrno" uitype="text" class="form-control input-sm" placeholder="소유자가 지자체로 사업자번호 없을 경우 공란" ></sbux-input>
+								<sbux-input id="dtl-input-psnOgnzBrno" name="dtl-input-psnOgnzBrno" uitype="text"
+								onblur="extractNumbers2('dtl-input-psnOgnzBrno')" onkeyup="extractNumbers2('dtl-input-psnOgnzBrno')" maxlength="10"
+								class="form-control input-sm"  placeholder="소유자가 지자체로 사업자번호 없을 경우 공란" ></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -103,7 +105,9 @@
 						<tr>
 							<th>운영조직 사업자번호</th>
 							<td>
-								<sbux-input id="dtl-input-operOgnzBrno" name="dtl-input-operOgnzBrno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+								<sbux-input id="dtl-input-operOgnzBrno" name="dtl-input-operOgnzBrno" uitype="text"
+								onblur="extractNumbers2('dtl-input-operOgnzBrno')" onkeyup="extractNumbers2('dtl-input-operOgnzBrno')" maxlength="10"
+								class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -193,7 +197,9 @@
 						<tr>
 							<th>APC 사업자번호</th>
 							<td>
-								<sbux-input id="dtl-input-apcBrno" name="dtl-input-apcBrno" uitype="text" class="form-control input-sm" placeholder="사업자번호 없을 경우 공란" ></sbux-input>
+								<sbux-input id="dtl-input-apcBrno" name="dtl-input-apcBrno" uitype="text"
+								onblur="extractNumbers2('dtl-input-psnOgnzBrno')" onkeyup="extractNumbers2('dtl-input-psnOgnzBrno')" maxlength="10"
+								class="form-control input-sm" placeholder="사업자번호 없을 경우 공란" ></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -853,5 +859,12 @@
 		}
 	}
 
+	// 숫자(소숫점 가능)만 입력
+	function extractNumbers2(input) {
+		let inputValue = SBUxMethod.get(input);
+		if(inputValue != null || inputValue != ""){
+			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+		}
+	}
 </script>
 </html>

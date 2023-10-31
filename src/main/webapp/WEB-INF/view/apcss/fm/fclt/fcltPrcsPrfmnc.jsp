@@ -107,13 +107,19 @@
 									<sbux-input id="srch-inp-opera1" name="srch-inp-opera1" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera2" name="srch-inp-opera2" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera2',1)"></sbux-input>
+									<sbux-input id="srch-inp-opera2" name="srch-inp-opera2" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera2')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera2',1)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera3" name="srch-inp-opera3" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera3',1)"></sbux-input>
+									<sbux-input id="srch-inp-opera3" name="srch-inp-opera3" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera3')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera3',1)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera4" name="srch-inp-opera4" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera4',1)"></sbux-input>
+									<sbux-input id="srch-inp-opera4" name="srch-inp-opera4" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera4')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera4',1)"></sbux-input>
 								</td>
 							</tr>
 							<tr>
@@ -577,7 +583,7 @@
 	// 숫자(소숫점 가능)만 입력
 	function extractNumbers2(input) {
 		let inputValue = SBUxMethod.get(input);
-		if(!inputValue === null || !inputValue === undefined || !inputValue === ''){
+		if(inputValue != null || inputValue != ""){
 			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
 		}
 	}
@@ -585,7 +591,7 @@
 	function extractNumbers(input) {
 		//document.querySelector("sbux-input[name='"+input+"']").value = document.querySelector("sbux-input[name='"+input+"']").value.replace(/\D/g, "");
 		let inputValue = SBUxMethod.get(input);
-		if(!inputValue === null || !inputValue === undefined || !inputValue === ''){
+		if(inputValue != null || inputValue != ""){
 			SBUxMethod.set(input,inputValue.replace(/\D/g, ""));
 		}
 	}

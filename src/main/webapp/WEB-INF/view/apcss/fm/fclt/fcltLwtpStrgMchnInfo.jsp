@@ -104,10 +104,18 @@
 								jsondata-ref="selectYnData"
 								unselected-text="선택" class="form-control input-sm"></sbux-select>
 						</td>
-						<td class="td_input"><sbux-input id="dtl-input-storCap" name="dtl-input-storCap" uitype="text" class="form-control input-sm" placeholder="1,000" ></sbux-input></td>
-						<td class="td_input"><sbux-input id="dtl-input-stStorPerfm" name="dtl-input-stStorPerfm" uitype="text" class="form-control input-sm" placeholder="100" ></sbux-input></td>
-						<td class="td_input"><sbux-input id="dtl-input-ltStorPerfm" name="dtl-input-ltStorPerfm" uitype="text" class="form-control input-sm" placeholder="2,000" ></sbux-input></td>
-						<td class="td_input"><sbux-input id="dtl-input-storOpRate" name="dtl-input-storOpRate" uitype="text" class="form-control input-sm" placeholder="210" ></sbux-input></td>
+						<td class="td_input"><sbux-input id="dtl-input-storCap" name="dtl-input-storCap" uitype="text"
+						onkeyup="extractNumbers2('dtl-input-storCap')" onblur="extractNumbers2('dtl-input-storCap')"
+						class="form-control input-sm" placeholder="1,000" ></sbux-input></td>
+						<td class="td_input"><sbux-input id="dtl-input-stStorPerfm" name="dtl-input-stStorPerfm" uitype="text"
+						onkeyup="extractNumbers2('dtl-input-stStorPerfm')" onblur="extractNumbers2('dtl-input-stStorPerfm')"
+						class="form-control input-sm" placeholder="100" ></sbux-input></td>
+						<td class="td_input"><sbux-input id="dtl-input-ltStorPerfm" name="dtl-input-ltStorPerfm" uitype="text"
+						onkeyup="extractNumbers2('dtl-input-ltStorPerfm')" onblur="extractNumbers2('dtl-input-ltStorPerfm')"
+						class="form-control input-sm" placeholder="2,000" ></sbux-input></td>
+						<td class="td_input"><sbux-input id="dtl-input-storOpRate" name="dtl-input-storOpRate" uitype="text"
+						onkeyup="extractNumbers2('dtl-input-storOpRate')" onblur="extractNumbers2('dtl-input-storOpRate')"
+						class="form-control input-sm" placeholder="210" ></sbux-input></td>
 
 					</tr>
 					<tr>
@@ -591,6 +599,13 @@
 	        }
 	    }
 	    return obj;
+	}
+	// 숫자(소숫점 가능)만 입력
+	function extractNumbers2(input) {
+		let inputValue = SBUxMethod.get(input);
+		if(inputValue != null || inputValue != ""){
+			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+		}
 	}
 </script>
 </html>
