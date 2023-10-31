@@ -3,6 +3,7 @@ package com.at.apcss.fm.spmt.service;
 import java.util.List;
 import java.util.Map;
 
+import com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO;
 import com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO;
 
 
@@ -69,14 +70,14 @@ public interface SpmtEnggtInfoMngService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteSpmtEnggtInfoMng(SpmtEnggtInfoMngVO spmtEnggtInfoMngVO) throws Exception;
+	public int deleteSpmtEnggtInfoMng (List<SpmtEnggtInfoMngVO> spmtEnggtInfoMngList) throws Exception; 
 
 	/**
 	 * 메시지 목록을 삭제한다.
 	 * @param spmtEnggtInfoMngList
 	 * @return
 	 * @throws Exception
-	 */
+	 */ 
 	public int deleteSpmtEnggtInfoMngList(List<SpmtEnggtInfoMngVO> spmtEnggtInfoMngList) throws Exception;
 
 }

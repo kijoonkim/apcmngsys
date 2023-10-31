@@ -186,7 +186,7 @@ public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrn
 		}
 
 		if(rawMtrInvntrList.size() > 0 ) {
-			resultMap = rawMtrInvntrService.updateRawMtrInvntrList(rawMtrInvntrList);
+			resultMap = rawMtrInvntrService.multiSaveRawMtrInvntrList(rawMtrInvntrList);
 		}
 
 		if(resultMap != null) {
@@ -194,7 +194,7 @@ public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrn
 		}
 
 		if(sortInvntrList.size() > 0 ) {
-			resultMap = sortInvntrService.updateSortInvntrList(sortInvntrList);
+			resultMap = sortInvntrService.multiSaveSortInvntrList(sortInvntrList);
 		}
 
 		if(resultMap != null) {
@@ -202,7 +202,7 @@ public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrn
 		}
 
 		if(gdsInvntrList.size() > 0 ) {
-			resultMap = gdsInvntrService.multiGdsInvntrList(gdsInvntrList);
+			resultMap = gdsInvntrService.multiSaveGdsInvntrList(gdsInvntrList);
 		}
 
 		if(resultMap != null) {

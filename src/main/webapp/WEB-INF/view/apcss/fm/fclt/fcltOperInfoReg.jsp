@@ -231,7 +231,7 @@
 		//SBUxMethod.set("srch-inp-apcCd", '0122');//test
 		SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
-		fn_selectFcltOperInfo();
+		//fn_selectFcltOperInfo();
 	});
 
 
