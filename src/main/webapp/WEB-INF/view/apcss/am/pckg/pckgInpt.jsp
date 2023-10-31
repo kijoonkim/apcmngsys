@@ -98,6 +98,7 @@
 									name="srch-dtp-pckgYmdFrom"
 									uitype="popup"
 									class="form-control input-sm"
+									onchange="fn_dtpChange(srch-dtp-pckgYmdFrom)"
 								></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -106,6 +107,7 @@
 									 name="srch-dtp-pckgYmdTo"
 									 uitype="popup"
 									 class="form-control input-sm"
+									 onchange="fn_dtpChange(srch-dtp-pckgYmdTo)"
 								 ></sbux-datepicker>
 							</td>
 							<td></td>
@@ -358,6 +360,17 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
 	})
+	
+	const fn_dtpChange = function(){
+		let pckgYmdFrom = SBUxMethod.get("srch-dtp-pckgYmdFrom");
+		let pckgYmdTo = SBUxMethod.get("srch-dtp-pckgYmdTo");
+		if(gfn_diffDate(pckgYmdFrom, pckgYmdTo) < 0){
+			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
+			SBUxMethod.set("srch-dtp-pckgYmdFrom", gfn_dateFirstYmd(new Date()));
+			SBUxMethod.set("srch-dtp-pckgYmdTo", gfn_dateToYmd(new Date()));
+			return;
+		}
+	}
 
 	function fn_createGrid() {
         var SBGridProperties = {};
