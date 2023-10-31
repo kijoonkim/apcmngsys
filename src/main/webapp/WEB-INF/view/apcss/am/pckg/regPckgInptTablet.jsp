@@ -94,19 +94,6 @@
 							<td colspan="7"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>투입수량/중량</th>
-							<td class="td_input"  style="border-right: hidden;">
-								<sbux-input id="srch-inp-inptQntt" name="srch-inp-inptQntt" uitype="text" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-inptWght" name="srch-inp-inptWght" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-label id="srch-lbl-inptQnttWght" name="srch-lbl-inptQnttWght" uitype="normal" text="Kg" class="bold"></sbux-label>
-							</td>
-							<td colspan="5"></td>
-						</tr>
-						<tr>
 							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-itemNm" name="srch-inp-itemNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
@@ -115,6 +102,14 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden"></sbux-input>
+							</td>
+							<td colspan="6"></td>
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg">규격명</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-spcfctNm" name="srch-inp-spcfctNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
+								<sbux-input id="srch-inp-spcfctCd" name="srch-inp-spcfctCd" uitype="hidden"></sbux-input>
 							</td>
 							<td colspan="6"></td>
 						</tr>
@@ -132,12 +127,30 @@
 							<td colspan="5"></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">규격명</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-spcfctNm" name="srch-inp-spcfctNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
-								<sbux-input id="srch-inp-spcfctCd" name="srch-inp-spcfctCd" uitype="hidden"></sbux-input>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>투입수량/중량</th>
+							<td class="td_input"  style="border-right: hidden;">
+								<sbux-input id="srch-inp-inptQntt" name="srch-inp-inptQntt" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
 							</td>
-							<td colspan="6"></td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-inptWght" name="srch-inp-inptWght" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-label id="srch-lbl-inptQnttWght" name="srch-lbl-inptQnttWght" uitype="normal" text="Kg" class="bold"></sbux-label>
+							</td>
+							<td colspan="5"></td>
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg"><span class="data_required" ></span>포장수량/중량</th>
+							<td class="td_input"  style="border-right: hidden;">
+								<sbux-input id="srch-inp-pckgQntt" name="srch-inp-pckgQntt" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-pckgWght" name="srch-inp-pckgWght" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-label id="srch-lbl-pckgQnttWght" name="srch-lbl-pckgQnttWght" uitype="normal" text="Kg" class="bold"></sbux-label>
+							</td>
+							<td colspan="5"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -149,7 +162,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdPckgInptTablet" class="table table-bordered table-hover tbl_col tbl_fixed" style="width:100%;height:300px;"></div>
+					<div id="sb-area-grdPckgInptTablet" class="table table-bordered table-hover tbl_col tbl_fixed" style="width:100%;height:250px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -318,16 +331,18 @@
 		SBUxMethod.set('srch-inp-pckgCmndno', rowData.pckgCmndno);
 		SBUxMethod.set('srch-inp-pckgCmndSn', rowData.pckgCmndSn);
 		SBUxMethod.set("srch-dtp-inptYmd", rowData.inptYmd);
-		SBUxMethod.set('srch-inp-inptQntt', rowData.inptQntt);
-		SBUxMethod.set('srch-inp-inptWght', rowData.inptWght);
 		SBUxMethod.set('srch-inp-itemNm', rowData.itemNm);
 		SBUxMethod.set('srch-inp-vrtyNm', rowData.vrtyNm);
 		SBUxMethod.set('srch-inp-itemCd', rowData.itemCd);
 		SBUxMethod.set('srch-inp-vrtyCd', rowData.vrtyCd);
-		SBUxMethod.set('srch-inp-sortQntt', rowData.sortQntt);
-		SBUxMethod.set('srch-inp-sortWght', rowData.sortWght);
 		SBUxMethod.set('srch-inp-spcfctNm', rowData.spcfctNm);
 		SBUxMethod.set('srch-inp-spcfctCd', rowData.spcfctCd);
+		SBUxMethod.set('srch-inp-sortQntt', rowData.sortQntt);
+		SBUxMethod.set('srch-inp-sortWght', rowData.sortWght);
+		SBUxMethod.set('srch-inp-inptQntt', rowData.inptQntt);
+		SBUxMethod.set('srch-inp-inptWght', rowData.inptWght);
+		SBUxMethod.set('srch-inp-pckgQntt', rowData.pckgQntt);
+		SBUxMethod.set('srch-inp-pckgWght', rowData.pckgWght);
     }
 	
 	// 초기화
@@ -342,16 +357,18 @@
 		SBUxMethod.set('srch-inp-pckgCmndno', "");
 		SBUxMethod.set('srch-inp-pckgCmndSn', "");
 		SBUxMethod.set("srch-dtp-inptYmd", gfn_dateToYmd(new Date()));
-		SBUxMethod.set('srch-inp-inptQntt', "");
-		SBUxMethod.set('srch-inp-inptWght', "");
 		SBUxMethod.set('srch-inp-itemNm', "");
 		SBUxMethod.set('srch-inp-vrtyNm', "");
 		SBUxMethod.set('srch-inp-itemCd', "");
 		SBUxMethod.set('srch-inp-vrtyCd', "");
-		SBUxMethod.set('srch-inp-sortQntt', "");
-		SBUxMethod.set('srch-inp-sortWght', "");
 		SBUxMethod.set('srch-inp-spcfctNm', "");
 		SBUxMethod.set('srch-inp-spcfctCd', "");
+		SBUxMethod.set('srch-inp-sortQntt', "");
+		SBUxMethod.set('srch-inp-sortWght', "");
+		SBUxMethod.set('srch-inp-inptQntt', "");
+		SBUxMethod.set('srch-inp-inptWght', "");
+		SBUxMethod.set('srch-inp-pckgQntt', "");
+		SBUxMethod.set('srch-inp-pckgWght', "");
     }
 	
 	// 선별지시번호 선택 팝업 호출
@@ -383,6 +400,8 @@
 			SBUxMethod.set('srch-inp-pckgCmndnoIndct', pckgCmnd.pckgCmndnoIndct);
 			SBUxMethod.set('srch-inp-pckgCmndno', pckgCmnd.pckgCmndno);
 			SBUxMethod.set('srch-inp-pckgCmndSn', pckgCmnd.pckgCmndSn);
+			SBUxMethod.set('srch-inp-inptQntt', pckgCmnd.cmndQntt);
+			SBUxMethod.set('srch-inp-inptWght', pckgCmnd.cmndWght);
 		}
 	}
 </script>
