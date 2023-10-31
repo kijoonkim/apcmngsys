@@ -16,7 +16,8 @@ import org.springframework.context.annotation.PropertySources;
 	EgovConfigAppTransaction.class,
 	EgovConfigAppValidator.class,
 	EgovConfigAppWhitelist.class,
-	EgovConfigAppReport.class
+	EgovConfigAppReport.class,
+	SSOServletConfig.class
 })
 @PropertySources({
 	@PropertySource("classpath:/application.properties")
