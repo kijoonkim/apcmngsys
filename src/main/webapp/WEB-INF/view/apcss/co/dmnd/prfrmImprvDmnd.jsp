@@ -47,10 +47,10 @@
 						<tr>
 							<th scope="row" class="th_bg">요청일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-dmndYmdFrom" name="srch-dtp-dmndYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-dmndYmdFrom" name="srch-dtp-dmndYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtpChange(srch-dtp-dmndYmdFrom)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-dmndYmdTo" name="srch-dtp-dmndYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-dmndYmdTo" name="srch-dtp-dmndYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtpChange(srch-dtp-dmndYmdTo)"></sbux-datepicker>
 							</td>
 						</tr>
 					</tbody>
@@ -292,5 +292,16 @@
 			fn_initSBSelect()
 		]);
 	}
+ 	
+	const fn_dtpChange = function(){
+  		let dmndYmdFrom = SBUxMethod.get("srch-dtp-dmndYmdFrom");
+  		let dmndYmdTo = SBUxMethod.get("srch-dtp-dmndYmdTo");
+  		if(gfn_diffDate(dmndYmdFrom, dmndYmdTo) < 0){
+  			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+  			SBUxMethod.set("trsm-dtp-dmndYmdFrom", gfn_dateToYmd(new Date()));
+  			SBUxMethod.set("trsm-dtp-dmndYmdTo", gfn_dateToYmd(new Date()));
+  			return;
+  		}
+  	}
 </script>
 </html>

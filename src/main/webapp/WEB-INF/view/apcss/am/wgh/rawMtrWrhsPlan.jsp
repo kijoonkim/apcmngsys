@@ -46,10 +46,10 @@
 						<tr>
 							<th class="ta_r th_bg">조회일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-planYmdFrom" name="srch-dtp-planYmdFrom" date-format="yyyy-mm-dd" class="form-control pull-right input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-planYmdFrom" name="srch-dtp-planYmdFrom" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-planYmdFrom)"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-planYmdTo" name="srch-dtp-planYmdTo" date-format="yyyy-mm-dd" class="form-control pull-right input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-planYmdTo" name="srch-dtp-planYmdTo" date-format="yyyy-mm-dd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-planYmdTo)"/>
 							</td>
 							<td>&nbsp;</td>
 							<th class="ta_r th_bg">생산자</th>
@@ -1201,5 +1201,15 @@
     	 $("#btnFileUpload").click();
      }
 
+     const fn_dtpChange = function(){
+ 		let planYmdFrom = SBUxMethod.get("srch-dtp-planYmdFrom");
+ 		let planYmdTo = SBUxMethod.get("srch-dtp-planYmdTo");
+ 		if(gfn_diffDate(planYmdFrom, planYmdTo) < 0){
+ 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("srch-dtp-planYmdFrom", gfn_dateToYmd(new Date()));
+ 			SBUxMethod.set("srch-dtp-planYmdTo", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
+ 	}
 </script>
 </html>
