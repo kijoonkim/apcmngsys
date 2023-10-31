@@ -59,10 +59,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>선별일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-sortYmdFrom" name="srch-dtp-sortYmdFrom" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-sortYmdFrom" name="srch-dtp-sortYmdFrom" uitype="popup" class="form-control input-sm" onchange="fn_dtpChange(srch-dtp-sortYmdFrom)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-sortYmdTo" name="srch-dtp-sortYmdTo" uitype="popup" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-sortYmdTo" name="srch-dtp-sortYmdTo" uitype="popup" class="form-control input-sm" onchange="fn_dtpChange(srch-dtp-sortYmdTo)"></sbux-datepicker>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
@@ -264,12 +264,9 @@
 	 * @description form init
 	 */
 	const fn_init = async function() {
-
-		let ymd = gfn_dateToYmd(new Date());
-
-		SBUxMethod.set("srch-dtp-sortYmdFrom", ymd.substring(0, 6) + "01");
-		SBUxMethod.set("srch-dtp-sortYmdTo", ymd);
-		SBUxMethod.set("dtl-dtp-pckgYmd", ymd);
+		SBUxMethod.set("srch-dtp-sortYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-sortYmdTo", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("dtl-dtp-pckgYmd", gfn_dateToYmd(new Date()));
 
 		await fn_initSBSelect();
 		fn_createGridSortInvntr();
@@ -1634,5 +1631,16 @@
      const fn_importRawMtrWrhs = async function() {
     	 alert('import data save');
      }
+     
+     const fn_dtpChange = function(){
+  		let sortYmdFrom = SBUxMethod.get("srch-dtp-sortYmdFrom");
+  		let sortYmdTo = SBUxMethod.get("srch-dtp-sortYmdTo");
+  		if(gfn_diffDate(sortYmdFrom, sortYmdTo) < 0){
+  			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+  			SBUxMethod.set("srch-dtp-sortYmdFrom", gfn_dateToYmd(new Date()));
+  			SBUxMethod.set("srch-dtp-sortYmdTo", gfn_dateToYmd(new Date()));
+  			return;
+  		}
+  	}
 </script>
 </html>

@@ -109,6 +109,7 @@
 									name="srch-dtp-clclnYmdFrom"
 									uitype="popup"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(srch-dtp-clclnYmdFrom)"
 								></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -117,6 +118,7 @@
 									name="srch-dtp-clclnYmdTo"
 									uitype="popup"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(srch-dtp-clclnYmdTo)"
 								></sbux-datepicker>
 							</td>
 							<td></td>
@@ -788,6 +790,20 @@
 			}
 		}
 	}
-
+	
+	/**
+ 	 * @name fn_dtpChange
+ 	 * @description 일자 역전 방지
+ 	 */
+	const fn_dtpChange = function(){
+ 		let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
+ 		let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");
+ 		if(gfn_diffDate(clclnYmdFrom, clclnYmdTo) < 0){
+ 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateToYmd(new Date()));
+ 			SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
+ 	}
 </script>
 </html>
