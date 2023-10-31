@@ -38,6 +38,9 @@
 				, FCLT.FCLT_NTSL_CD9          AS FCLT_NTSL_CD9
 
 			 FROM TB_FCLT_PRCS_NTSL_INFO FCLT
+			 WHERE 1=1
+			 AND DEL_YN != 'Y'
+			 AND APC_CD IS NOT NULL
 		]]>
         <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -83,6 +86,8 @@
 				, FCLT.FCLT_NTSL_CD9          AS FCLT_NTSL_CD9
 			 FROM TB_FCLT_PRCS_NTSL_INFO FCLT
 			 WHERE 1=1
+			 AND DEL_YN != 'Y'
+			 AND APC_CD IS NOT NULL
   ]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -236,6 +241,7 @@
     	<![CDATA[
 	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.updateFcltPrcsNtslInfo */
 	    		TB_FCLT_PRCS_NTSL_INFO FCLTT
+	    	SET
 			 	  FCLT_STR_CD    = #{fcltStrCd}
     	        , FCLT_NTSL_CD   = #{fcltNtslCd}
     			, FCLT_NTSL_CD2	 = #{fcltNtslCd2}
@@ -269,6 +275,18 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<update id="deleteFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.deleteFcltPrcsNtslInfo */
+	    		TB_FCLT_PRCS_NTSL_INFO FCLT
+			   SET
+	    		  DEL_YN 	= 'Y'
+			WHERE 1=1
+		      AND TRGT_YR = #{trgtYr}
+		      AND  APC_CD = #{apcCd}
+    	]]>
+    </update>
+    <!--
     <delete id="deleteFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.deleteFcltPrcsNtslInfo */
@@ -278,5 +296,5 @@
 		     AND  APC_CD = #{apcCd}
     	]]>
     </delete>
-
+ -->
 </mapper>
