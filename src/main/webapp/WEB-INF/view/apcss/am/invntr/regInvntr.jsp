@@ -285,7 +285,7 @@
 
 
 	/*생산자 팝업 및 초성검색 */
-	var jsonDataPrdcr = [];
+	var jsonDataPrdcr 		= [];
 	var jsonPrdcr			= [];
 	var jsonPrdcrAutocomplete = [];
 	var autoCompleteDataJson = [];
@@ -1019,6 +1019,7 @@
  		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
  	}
  	/* End */
+
  	// 엑셀다운로드
 	// exp combo
 	var jsonExpSltItem 			= [];	// 품목
@@ -1490,10 +1491,8 @@
 		_objList[0].sbGrid.exportExcel(objExcelInfo);
 	}
 
-// 	excel모달을 열기위한 함수
+	// 	excel모달을 열기위한 함수
 	const importExcelData = function (e){
-
-		let invntrSeCd = SBUxMethod.get("dtl-slt-invntrSeCd");
 
 		SBUxMethod.openModal('modal-excel-gdsInvntr');
     	fn_createGridGdsPopup();
