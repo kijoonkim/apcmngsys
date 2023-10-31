@@ -97,3 +97,22 @@ const gfn_dateLastYmd = function(date, delimiter = "") {
 
 	return gfn_dateToYmd(lastDate, delimiter);
 }
+
+/**
+ * @name gfn_diffDate
+ * @description
+ * @param {Date} date
+ * @param {String} ymdFrom
+ * @param {String} ymdTo
+ * @function
+ * @returns
+ */
+const gfn_diffDate = function(fromDate, toDate) {
+
+	const from = new Date(fromDate.substr(0,4) + "-" + fromDate.substr(4,2) + "-" + fromDate.substr(6,2));
+	const to = new Date(toDate.substr(0,4) + "-" + toDate.substr(4,2) + "-" + toDate.substr(6,2));
+
+	const diffDate = to.getTime() - from.getTime();
+
+	return diffDate;
+}
