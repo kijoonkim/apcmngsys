@@ -69,7 +69,7 @@
 
 							<th scope="row" class="th_bg">창고구분</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComWarehouse"></sbux-select>
+								<sbux-select uitype="single" id="srch-slt-warehouseSeCd" name="srch-slt-warehouseSeCd" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComWarehouseSeCd"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input"></td>
 
@@ -360,6 +360,7 @@
 	var jsonComSpcfct		= [];	// 규격 			spcfctCd		검색
 	var jsonComGdsSeCd		= [];	// 상품구분 		gdsSeCd			검색
 	var jsonComTrsprtCoCd	= [];	// 운송사 			trsprtCo		검색
+	var jsonComWarehouseSeCd	= [];	// 운송사 			trsprtCo		검색
 	var jsonGrdGdsGrd		= [];	// 상품등급			gdsGrd			그리드
 	var jsonGrdSpmtPckgUnit	= [];	// 출하포장단위 	spmtPckgUnit	그리드
 	var jsonDtlGdsGrd		= [];	// 상품등급			gdsGrd			그리드
@@ -372,7 +373,8 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('srch-rdo-gdsSeCd', 		jsonComGdsSeCd, 	'GDS_SE_CD', gv_selectedApcCd), 		// 상품구분 등록
+			gfn_setComCdSBSelect('srch-rdo-gdsSeCd', 		jsonComGdsSeCd, 	'GDS_SE_CD', 		gv_selectedApcCd), 		// 상품구분 등록
+			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouseSeCd, 'WAREHOUSE_SE_CD', 	gv_selectedApcCd), 		// 상품구분 등록
 			gfn_setComCdSBSelect('grdGdsInvntr', 			jsonGrdGdsGrd, 		'GDS_GRD'),				// 상품등급(재고그리드)
 			gfn_setComCdSBSelect('dtl-slt-gdsGrd', 			jsonDtlGdsGrd, 		'GDS_GRD'),				// 상품등급(상세)
 		 	gfn_setTrsprtsSBSelect('dtl-slt-trsprtCoCd', 	jsonComTrsprtCoCd, 	gv_selectedApcCd),		// 운송사
@@ -1033,8 +1035,8 @@
 	    	const data = await postJsonPromise;
 
 	    	try{
-	       		if(data.insertedCnt > 0){
-	       			if(cmndYn){
+	    		if (_.isEqual("S", data.resultStatus)) {
+	    			if(cmndYn){
 	       				cmndYn = false;
 	       				SBUxMethod.set("dtl-inp-spmtCmndno", "");
 	       				SBUxMethod.set("dtl-inp-cmndQntt", "");
@@ -1049,9 +1051,9 @@
 	       			}
 	       			fn_search();
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-	       		}else{
-	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
-	       		}
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
 	        }catch (e) {
 	        	if (!(e instanceof Error)) {
 	    			e = new Error(e);
@@ -1178,7 +1180,7 @@
 	 * 시작
 	 */
 	const fn_choiceSpmtCmnd = function() {
-        popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, fn_setSpmtCmnd);
+        popSpmtCmnd.init(gv_selectedApcCd, gv_selectedApcNm, "", fn_setSpmtCmnd);
 	}
 	const fn_setSpmtCmnd = async function(cmnd) {
 		if (!gfn_isEmpty(cmnd)) {
