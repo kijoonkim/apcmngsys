@@ -38,6 +38,11 @@ public class PckgCmndVO extends ComVO {
 	 * 포장지시순번
 	 */
 	private int pckgCmndSn;
+	
+	/**
+	 * 포장지시번호 표시
+	 */
+	private String pckgCmndnoIndct;
 
 	/**
 	 * 포장지시일자

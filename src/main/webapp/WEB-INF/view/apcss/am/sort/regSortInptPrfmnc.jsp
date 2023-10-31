@@ -60,10 +60,10 @@
 						<tr>
 						<th scope="row" class="th_bg"><span class="data_required" ></span>입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
@@ -367,8 +367,8 @@
 
 		let nowDate = new Date();
 
-		let firstYmd = gfn_dateFirstYmd(nowDate);
-		let lastYmd = gfn_dateLastYmd(nowDate);
+		let firstYmd = gfn_dateToYmd(nowDate);
+		let lastYmd = gfn_dateToYmd(nowDate);
 		let nowYmd = gfn_dateToYmd(nowDate);
 
 		SBUxMethod.set("srch-dtp-wrhsYmdFrom", firstYmd);
@@ -1700,6 +1700,17 @@
 
     	 grdExcelRawMtrWrhsPopup.importExcelData(e);
      }
+	
+	const fn_dtpChange = function(){
+ 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
+ 		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
+ 		if(gfn_diffDate(wrhsYmdFrom, wrhsYmdTo) < 0){
+ 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
+ 			SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
+ 	}
 </script>
 </body>
 </html>

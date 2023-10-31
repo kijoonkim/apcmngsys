@@ -58,10 +58,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" class="form-control pull-right input-sm input-sm-ast">
+								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" class="form-control pull-right input-sm input-sm-ast" onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)">
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" class="form-control pull-right input-sm input-sm-ast">
+								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" class="form-control pull-right input-sm input-sm-ast" onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)">
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>품목/품종</th>
@@ -178,7 +178,7 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createRawMtrInvntr();
 		fn_createSortCmnd();
-		SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-cmndYmd", gfn_dateToYmd(new Date()));
 		fn_initSBSelect();
@@ -700,7 +700,17 @@
 				SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 			}
 		}
-
+	
+	const fn_dtpChange = function(){
+ 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
+ 		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
+ 		if(gfn_diffDate(wrhsYmdFrom, wrhsYmdTo) < 0){
+ 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
+ 			SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
+ 	}
 </script>
 
 </html>

@@ -49,7 +49,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>출하지시번호</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-spmtCmndnoIndct" name="srch-inp-spmtCmndnoIndct" uitype="text" maxlength="20" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
+								<sbux-input id="srch-inp-spmtCmndnoIndct" name="srch-inp-spmtCmndnoIndct" uitype="text" maxlength="25" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-input>
 								<sbux-input id="srch-inp-spmtCmndno" name="srch-inp-spmtCmndno" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -239,8 +239,10 @@
 	            	}}},
             {caption: ['지시번호'], 	ref: 'spmtCmndnoIndct',	width: '130px',	type: 'output', 	style: 'text-align: center'},
             {caption: ['포장번호'], 	ref: 'pckgnoIndct', 	width: '130px', type: 'output', 	style: 'text-align: center'},
-            {caption: ['수량'],		ref: 'spmtQntt', 		width: '70px', 	type: 'output', 	style: 'text-align: right'},
-            {caption: ['중량'], 		ref: 'spmtWght', 		width: '80px', 	type: 'output', 	style: 'text-align: right'},
+            {caption: ['수량'],		ref: 'spmtQntt', 		width: '70px', 	type: 'output', 	style: 'text-align: right',
+            	format : {type:'number', rule:'#,###'}},
+            {caption: ['중량'], 		ref: 'spmtWght', 		width: '80px', 	type: 'output', 	style: 'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['품종'], 		ref: 'vrtyNm', 			width: '100px', type: 'output', 	style: 'text-align: center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 		width: '100px', type: 'output', 	style: 'text-align: center'},
             {caption: ['상품명'], 	ref: 'spmtPckgUnitNm', 	width: '100px', type: 'output', 	style: 'text-align: center'},
@@ -475,6 +477,10 @@
 	// 초기화
 	async function fn_reset() {
 		SBUxMethod.set('srch-inp-vhclno', "");
+		SBUxMethod.set('srch-chk-spmtCmndno', 'false');
+		SBUxMethod.refresh('srch-chk-spmtCmndno');
+		SBUxMethod.set('srch-chk-vhclno', 'false');
+		SBUxMethod.refresh('srch-chk-vhclno');
 		fn_resetUnchecked();
 		fn_resetPckgno();
 	}

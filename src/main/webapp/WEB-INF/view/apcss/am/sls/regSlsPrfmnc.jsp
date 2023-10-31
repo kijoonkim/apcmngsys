@@ -49,10 +49,10 @@
 					<tr>
 						<th scope="row" class="th_bg"><span class="data_required" ></span>매출일자</th>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-datepicker id="srch-dtp-slsYmdFrom" name="srch-dtp-slsYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+							<sbux-datepicker id="srch-dtp-slsYmdFrom" name="srch-dtp-slsYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtpChange(srch-dtp-slsYmdFrom)"></sbux-datepicker>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-datepicker id="srch-dtp-slsYmdTo" name="srch-dtp-slsYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+							<sbux-datepicker id="srch-dtp-slsYmdTo" name="srch-dtp-slsYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtpChange(srch-dtp-slsYmdTo)"></sbux-datepicker>
 						</td>
 						<td class="td_input" style="border-right: hidden;"></td>
 						<th scope="row" class="th_bg">확정여부</th>
@@ -178,7 +178,7 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createSlsPrfmncGrid();
 
-		SBUxMethod.set("srch-dtp-slsYmdFrom", gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("srch-dtp-slsYmdFrom", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-slsYmdTo", gfn_dateToYmd(new Date()));
 
 		fn_initSBSelect();
@@ -486,5 +486,15 @@
 	 * 종료
 	 */
 
+	 const fn_dtpChange = function(){
+ 		let slsYmdFrom = SBUxMethod.get("srch-dtp-slsYmdFrom");
+ 		let slsYmdTo = SBUxMethod.get("srch-dtp-slsYmdTo");
+ 		if(gfn_diffDate(slsYmdFrom, slsYmdTo) < 0){
+ 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("srch-dtp-slsYmdFrom", gfn_dateToYmd(new Date()));
+ 			SBUxMethod.set("srch-dtp-slsYmdTo", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
+ 	}
 </script>
 </html>
