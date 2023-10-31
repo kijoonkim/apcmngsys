@@ -20,11 +20,8 @@
         <org.egovframe.rte.version>4.1.0</org.egovframe.rte.version>
 		<logback.version>1.2.11</logback.version>
 		<java.version>11</java.version>
-
-    	<!--<sonar.projectKey>apcss</sonar.projectKey>-->
+		<!--<sonar.projectKey>apcss</sonar.projectKey>-->
     	<!--<sonar.host.url>http://localhost:9000</sonar.host.url>-->
-
-
 	</properties>
 
 	<repositories>
@@ -488,7 +485,22 @@
 			<version>1.23</version>
 		</dependency>
 
-
+		<!-- SSO Repository -->
+		<dependency>
+			<groupId>com.ubintis</groupId>
+			<artifactId>passni-sso-agent</artifactId>
+			<version>4.0.007</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ubintis</groupId>
+			<artifactId>passni-sso-agent-external-lib</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ubintis</groupId>
+			<artifactId>PniccJNI</artifactId>
+			<version>1.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
