@@ -121,21 +121,27 @@
 					<tr>
 						<th  class="th_bg">사업비1(국고)</th>
 						<td class="td_input" colspan="1">
-							<sbux-input id="dtl-input-bizAmt" name="dtl-input-bizAmt" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-bizAmt" name="dtl-input-bizAmt" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-bizAmt')" onblur="extractNumbers2('dtl-input-bizAmt')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input" colspan="1" style="border-left: hidden;"></td>
 					</tr>
 					<tr>
 						<th  class="th_bg">사업비2(지자체)</th>
 						<td class="td_input" colspan="1">
-							<sbux-input id="dtl-input-bizAmt2" name="dtl-input-bizAmt2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-bizAmt2" name="dtl-input-bizAmt2" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-bizAmt2')" onblur="extractNumbers2('dtl-input-bizAmt2')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input" colspan="1" style="border-left: hidden;"></td>
 					</tr>
 					<tr>
 						<th  class="th_bg">사업비3(자부담)</th>
 						<td class="td_input" colspan="1">
-							<sbux-input id="dtl-input-bizAmt3" name="dtl-input-bizAmt3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-bizAmt3" name="dtl-input-bizAmt3" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-bizAmt3')" onblur="extractNumbers2('dtl-input-bizAmt3')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input" colspan="1" style="border-left: hidden;"></td>
 					</tr>
@@ -661,5 +667,12 @@
 	    return obj;
 	}
 
+	// 숫자(소숫점 가능)만 입력
+	function extractNumbers2(input) {
+		let inputValue = SBUxMethod.get(input);
+		if(inputValue != null || inputValue != ""){
+			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+		}
+	}
 </script>
 </html>

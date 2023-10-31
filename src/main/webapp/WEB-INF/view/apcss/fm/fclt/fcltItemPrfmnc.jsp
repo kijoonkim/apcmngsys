@@ -89,13 +89,19 @@
 							<tr>
 								<td>품목1</td>
 								<td>
-									<sbux-input id="srch-inp-opera1" name="srch-inp-opera1" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera1',1,1)"></sbux-input>
+									<sbux-input id="srch-inp-opera1" name="srch-inp-opera1" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera1')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera1',1,1)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera2" name="srch-inp-opera2" uitype="text" class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera2',2)"></sbux-input>
+									<sbux-input id="srch-inp-opera2" name="srch-inp-opera2" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera2')"
+									class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera2',2)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera3" name="srch-inp-opera3" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera3',3,1)"></sbux-input>
+									<sbux-input id="srch-inp-opera3" name="srch-inp-opera3" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera3')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera3',3,1)"></sbux-input>
 								</td>
 								<td>
 									<sbux-input id="srch-inp-opera4" name="srch-inp-opera4" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
@@ -104,13 +110,19 @@
 							<tr>
 								<td>품목2</td>
 								<td>
-									<sbux-input id="srch-inp-opera5" name="srch-inp-opera5" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera5',1,2)"></sbux-input>
+									<sbux-input id="srch-inp-opera5" name="srch-inp-opera5" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera5')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera5',1,2)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera6" name="srch-inp-opera6" uitype="text" class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera6',2)"></sbux-input>
+									<sbux-input id="srch-inp-opera6" name="srch-inp-opera6" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera6')"
+									class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera6',2)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera7" name="srch-inp-opera7" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera7',3,2)"></sbux-input>
+									<sbux-input id="srch-inp-opera7" name="srch-inp-opera7" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera7')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera7',3,2)"></sbux-input>
 								</td>
 								<td>
 									<sbux-input id="srch-inp-opera8" name="srch-inp-opera8" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
@@ -119,13 +131,19 @@
 							<tr>
 								<td>품목3</td>
 								<td>
-									<sbux-input id="srch-inp-opera9" name="srch-inp-opera9" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera9',1,3)"></sbux-input>
+									<sbux-input id="srch-inp-opera9" name="srch-inp-opera9" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera9')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera9',1,3)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera10" name="srch-inp-opera10" uitype="text" class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera10',2)"></sbux-input>
+									<sbux-input id="srch-inp-opera10" name="srch-inp-opera10" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera10')"
+									class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera10',2)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera11" name="srch-inp-opera11" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera11',3,3)"></sbux-input>
+									<sbux-input id="srch-inp-opera11" name="srch-inp-opera11" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera11')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera11',3,3)"></sbux-input>
 								</td>
 								<td>
 									<sbux-input id="srch-inp-opera12" name="srch-inp-opera12" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
@@ -134,13 +152,19 @@
 							<tr>
 								<td>기타</td>
 								<td>
-									<sbux-input id="srch-inp-opera13" name="srch-inp-opera13" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera13',1,4)"></sbux-input>
+									<sbux-input id="srch-inp-opera13" name="srch-inp-opera13" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera13')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera13',1,4)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera14" name="srch-inp-opera14" uitype="text" class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera14',2)"></sbux-input>
+									<sbux-input id="srch-inp-opera14" name="srch-inp-opera14" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera14')"
+									class="form-control input-sm" placeholder="단위: 톤" onkeyup="sum('srch-inp-opera14',2)"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera15" name="srch-inp-opera15" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera15',3,4)"></sbux-input>
+									<sbux-input id="srch-inp-opera15" name="srch-inp-opera15" uitype="text"
+									onblur="extractNumbers2('srch-inp-opera15')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="sum('srch-inp-opera15',3,4)"></sbux-input>
 								</td>
 								<td>
 									<sbux-input id="srch-inp-opera16" name="srch-inp-opera16" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
@@ -741,7 +765,7 @@
 	// 숫자(소숫점 가능)만 입력
 	function extractNumbers2(input) {
 		let inputValue = SBUxMethod.get(input);
-		if(!inputValue === null || !inputValue === undefined || !inputValue === ''){
+		if(inputValue != null || inputValue != ""){
 			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
 		}
 	}
@@ -750,7 +774,7 @@
 	function extractNumbers(input) {
 		//document.querySelector("sbux-input[name='"+input+"']").value = document.querySelector("sbux-input[name='"+input+"']").value.replace(/\D/g, "");
 		let inputValue = SBUxMethod.get(input);
-		if(!inputValue === null || !inputValue === undefined || !inputValue === ''){
+		if(inputValue != null || inputValue != ""){
 			SBUxMethod.set(input,inputValue.replace(/\D/g, ""));
 		}
 	}

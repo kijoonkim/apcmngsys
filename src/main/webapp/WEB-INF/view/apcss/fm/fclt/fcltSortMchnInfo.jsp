@@ -100,16 +100,24 @@
 								unselected-text="선택" class="form-control input-sm"></sbux-select>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcCap1" name="dtl-input-prcCap1" uitype="text" class="form-control input-sm" placeholder="35  1일(8h)처리능력" ></sbux-input>
+							<sbux-input id="dtl-input-prcCap1" name="dtl-input-prcCap1" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcCap1')" onblur="extractNumbers2('dtl-input-prcCap1')"
+							class="form-control input-sm" placeholder="35  1일(8h)처리능력" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcVol1" name="dtl-input-prcVol1" uitype="text" class="form-control input-sm" placeholder="2,200 연간처리실적" ></sbux-input>
+							<sbux-input id="dtl-input-prcVol1" name="dtl-input-prcVol1" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcVol1')" onblur="extractNumbers2('dtl-input-prcVol1')"
+							class="form-control input-sm" placeholder="2,200 연간처리실적" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-annOperTime1" name="dtl-input-annOperTime1" uitype="text" class="form-control input-sm" placeholder="440" ></sbux-input>
+							<sbux-input id="dtl-input-annOperTime1" name="dtl-input-annOperTime1" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-annOperTime1')" onblur="extractNumbers2('dtl-input-annOperTime1')"
+							class="form-control input-sm" placeholder="440" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-avgOperDay" name="dtl-input-avgOperDay" uitype="text" class="form-control input-sm" placeholder="110" ></sbux-input>
+							<sbux-input id="dtl-input-avgOperDay" name="dtl-input-avgOperDay" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-avgOperDay')" onblur="extractNumbers2('dtl-input-avgOperDay')"
+							class="form-control input-sm" placeholder="110" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
@@ -122,16 +130,24 @@
 								unselected-text="선택" class="form-control input-sm"></sbux-select>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcCap2" name="dtl-input-prcCap2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-prcCap2" name="dtl-input-prcCap2" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcCap2')" onblur="extractNumbers2('dtl-input-prcCap2')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcVol2" name="dtl-input-prcVol2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-prcVol2" name="dtl-input-prcVol2" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcVol2')" onblur="extractNumbers2('dtl-input-prcVol2')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-annOperTime2" name="dtl-input-annOperTime2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-annOperTime2" name="dtl-input-annOperTime2" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-annOperTime2')" onblur="extractNumbers2('dtl-input-annOperTime2')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-avgOperDay2" name="dtl-input-avgOperDay2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-avgOperDay2" name="dtl-input-avgOperDay2" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-avgOperDay2')" onblur="extractNumbers2('dtl-input-avgOperDay2')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
@@ -144,16 +160,24 @@
 								unselected-text="선택" class="form-control input-sm"></sbux-select>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcCap3" name="dtl-input-prcCap3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-prcCap3" name="dtl-input-prcCap3" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcCap3')" onblur="extractNumbers2('dtl-input-prcCap3')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcVol3" name="dtl-input-prcVol3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-prcVol3" name="dtl-input-prcVol3" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcVol3')" onblur="extractNumbers2('dtl-input-prcVol3')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-annOperTime3" name="dtl-input-annOperTime3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-annOperTime3" name="dtl-input-annOperTime3" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-annOperTime3')" onblur="extractNumbers2('dtl-input-annOperTime3')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-avgOperDay3" name="dtl-input-avgOperDay3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-avgOperDay3" name="dtl-input-avgOperDay3" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-avgOperDay3')" onblur="extractNumbers2('dtl-input-avgOperDay3')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
@@ -166,16 +190,24 @@
 								unselected-text="선택" class="form-control input-sm"></sbux-select>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcCap4" name="dtl-input-prcCap4" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-prcCap4" name="dtl-input-prcCap4" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcCap4')" onblur="extractNumbers2('dtl-input-prcCap4')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcVol4" name="dtl-input-prcVol4" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-prcVol4" name="dtl-input-prcVol4" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcVol4')" onblur="extractNumbers2('dtl-input-prcVol4')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-annOperTime4" name="dtl-input-annOperTime4" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-annOperTime4" name="dtl-input-annOperTime4" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-annOperTime4')" onblur="extractNumbers2('dtl-input-annOperTime4')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-avgOperDay4" name="dtl-input-avgOperDay4" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-avgOperDay4" name="dtl-input-avgOperDay4" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-avgOperDay4')" onblur="extractNumbers2('dtl-input-avgOperDay4')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
@@ -784,6 +816,14 @@
 	        }
 	    }
 	    return obj;
+	}
+
+	// 숫자(소숫점 가능)만 입력
+	function extractNumbers2(input) {
+		let inputValue = SBUxMethod.get(input);
+		if(inputValue != null || inputValue != ""){
+			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+		}
 	}
 </script>
 </html>

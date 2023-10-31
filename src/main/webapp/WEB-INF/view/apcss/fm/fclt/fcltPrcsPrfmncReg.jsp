@@ -237,7 +237,7 @@
 	// 숫자(소숫점 가능)만 입력
 	function extractNumbers2(input) {
 		let inputValue = SBUxMethod.get(input);
-		if(!inputValue === null || !inputValue === undefined || !inputValue === ''){
+		if(inputValue != null || inputValue != ""){
 			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
 		}
 	}
@@ -245,7 +245,7 @@
 	function extractNumbers(input) {
 		//document.querySelector("sbux-input[name='"+input+"']").value = document.querySelector("sbux-input[name='"+input+"']").value.replace(/\D/g, "");
 		let inputValue = SBUxMethod.get(input);
-		if(!inputValue === null || !inputValue === undefined || !inputValue === ''){
+		if(inputValue != null || inputValue != ""){
 			SBUxMethod.set(input,inputValue.replace(/\D/g, ""));
 		}
 	}

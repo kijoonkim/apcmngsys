@@ -88,10 +88,14 @@
 							정규직
 						</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-hireNope" name="dtl-input-hireNope" uitype="text" class="form-control input-sm" placeholder="10" ></sbux-input>
+							<sbux-input id="dtl-input-hireNope" name="dtl-input-hireNope" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-hireNope')" onblur="extractNumbers2('dtl-input-hireNope')"
+							class="form-control input-sm" placeholder="10" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-hireNope3" name="dtl-input-hireNope3" uitype="text" class="form-control input-sm" placeholder="1" ></sbux-input>
+							<sbux-input id="dtl-input-hireNope3" name="dtl-input-hireNope3" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-hireNope3')" onblur="extractNumbers2('dtl-input-hireNope3')"
+							class="form-control input-sm" placeholder="1" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
@@ -99,10 +103,14 @@
 							일용직
 						</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-hireNope2" name="dtl-input-hireNope2" uitype="text" class="form-control input-sm" placeholder="5" ></sbux-input>
+							<sbux-input id="dtl-input-hireNope2" name="dtl-input-hireNope2" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-hireNope2')" onblur="extractNumbers2('dtl-input-hireNope2')"
+							class="form-control input-sm" placeholder="5" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-hireNope4" name="dtl-input-hireNope4" uitype="text" class="form-control input-sm" placeholder="10" ></sbux-input>
+							<sbux-input id="dtl-input-hireNope4" name="dtl-input-hireNope4" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-hireNope4')" onblur="extractNumbers2('dtl-input-hireNope4')"
+							class="form-control input-sm" placeholder="10" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
@@ -560,7 +568,13 @@
 	    return obj;
 	}
 
-
+	// 숫자(소숫점 가능)만 입력
+	function extractNumbers2(input) {
+		let inputValue = SBUxMethod.get(input);
+		if(inputValue != null || inputValue != ""){
+			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+		}
+	}
 
 </script>
 </html>
