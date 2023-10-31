@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>SSO Agent properties</comment>
+    <entry key="product">Pass-Ni SSO v4.0.007</entry>
+    <entry key="appliation">Pass-Ni SSO Agent for JAVA v4.0.007</entry>
+    <entry key="server.id">kat-sso-server</entry>
+    <entry key="server.version">4.0.007</entry>
+    <entry key="server.domain">10.30.20.10</entry>
+    <entry key="server.port">20040</entry>
+    <entry key="server.context.root">/sso</entry>
+    <entry key="server.ssl.yn">N</entry>
+    <entry key="server.self.url">D6B60D9673D3A13B698430D40F6FBB6D</entry>
+    <entry key="server.login.url">043793674815C9D36F07EC107EA64862</entry>
+    <entry key="server.logout.url">02F7D40E52248E3C74CB0104C0DC5D529D7DA4716A2C2B790149961DCE05AF3D</entry>
+    <entry key="server.api.url">EE2CF528A9F04EFAF6DB0F925B39EDDB</entry>
+    <entry key="agent.id">kat-apcss</entry>
+    <entry key="agent.version">4.0.007</entry>
+    <entry key="agent.domain">apcss.smartapc.or.kr</entry>
+    <entry key="agent.port">80</entry>
+    <entry key="agent.context.root">/</entry>
+    <entry key="agent.ssl.yn">N</entry>
+    <entry key="agent.proc.url">/passni/sample/loginProc.jsp</entry>
+    <entry key="agent.logout.url">/passni/sample/logout.jsp</entry>
+    <entry key="agent.redirect.url">/passni/sso/spRedirect.jsp</entry>
+    <entry key="agent.error.url">/passni/sample/error.jsp</entry>
+    <entry key="agent.root.path">/APP/APC</entry>
+    <entry key="agent.secky">4903BCD8C68CE80D7D5FC036F0DF41DEFC9DBC303CA8F2448D639CEB7FA24B7D3D067187E85DDDADA788E51EF50AA35C</entry>
+    <entry key="cert.file.path">/APP/sso-pkg/cert/kat-apcss</entry>
+    <entry key="cert.file.server.name">kat-sso-server-cert</entry>
+    <entry key="cert.file.agent.name">kat-apcss-cert</entry>
+    <entry key="cert.pni.type">1</entry>
+    <entry key="logger.file.path">/APP/sso-pkg/logs/kat-apcss</entry>
+    <entry key="logger.file.name">passni_log</entry>
+    <entry key="logger.file.limit">500000</entry>
+    <entry key="logger.file.count">1</entry>
+    <entry key="logger.level">ALL</entry>
+    <entry key="crypto.file.path">/APP/jeus8/lib/system</entry>
+    <entry key="crypto.algorithm">A6340DAE560D0CA201AA8DF1206078E7</entry>
+    <entry key="crypto.algorithm.mode">EF52A5493D1931C780ABE69202749AD5</entry>
+    <entry key="crypto.digest">3EF99905E75AE89ABAFC52638977C99D</entry>
+    <entry key="crypto.rsasize">F4401A1F7FAAAAE2B0A639FA9865EA99</entry>
+    <entry key="crypto.ec.type">AE035B8F68D50E9FB605DC3332986BAE</entry>
+    <entry key="crypto.encoding">UTF-8</entry>
+    <entry key="agent.action.url">/SSOService.do</entry>
+</properties>
