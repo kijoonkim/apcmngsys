@@ -1030,6 +1030,7 @@
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		alert("처리 되었습니다.");
+        		grdStMcOpIfList.refresh();
         		fn_search();
         	} else {
         		alert(data.resultMessage);
@@ -1109,7 +1110,7 @@
      	});
 
          const data = await postJsonPromise;
-//예외처리
+		//예외처리
          try {
          	if (_.isEqual("S", data.resultStatus)) {
          		alert("처리 되었습니다.");
