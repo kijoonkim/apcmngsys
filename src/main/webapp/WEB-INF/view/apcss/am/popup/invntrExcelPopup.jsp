@@ -77,7 +77,7 @@
 		var SBGridPropertiesGdsInvntrPopup = {};
 		SBGridPropertiesGdsInvntrPopup.parentid = 'sb-area-excelGdsInvntrPopup';
 		SBGridPropertiesGdsInvntrPopup.id = 'grdExcelGdsInvntrPopup';
-		SBGridPropertiesGdsInvntrPopup.jsonref = 'jsonExcelGdsInvntropup';
+		SBGridPropertiesGdsInvntrPopup.jsonref = 'jsonExcelGdsInvntrPopup';
 		SBGridPropertiesGdsInvntrPopup.emptyrecords = '데이터가 없습니다.';
 		SBGridPropertiesGdsInvntrPopup.selectmode = 'byrow';
 		SBGridPropertiesGdsInvntrPopup.extendlastcol = 'scroll';

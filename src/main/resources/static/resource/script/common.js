@@ -662,6 +662,51 @@ const gfn_setTrsprtsSBSelect = async function (_targetIds, _jsondataRef, _apcCd)
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 }
 
+/**
+ * @name gfn_setCpntRgnSBSelect
+ * @description set SBUX-select options from APC별 거래처
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd	APC코드
+ */
+const gfn_setCpntRgnSBSelect = async function (_targetIds, _jsondataRef, _apcCd) {
+	const postJsonPromise = gfn_postJSON(URL_CNPT_INFO, {apcCd: _apcCd, delYn: "N"}, null, true);
+	const data = await postJsonPromise;
+
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.cnptCd;
+			item.cmnsNm = item.cnptNm;
+			sourceJson.push(item);
+		});
+
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+/** 거래처 */
+/**
+ * @name gfn_setCpntSBSelect
+ * @description set SBUX-select options from APC별 거래처
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd	APC코드
+ */
+const gfn_setCpntSBSelect = async function (_targetIds, _jsondataRef, _apcCd) {
+	const postJsonPromise = gfn_postJSON(URL_CNPT_INFO, {apcCd: _apcCd, delYn: "N"}, null, true);
+	const data = await postJsonPromise;
+
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+			item.cmnsCd = item.cnptCd;
+			item.cmnsNm = item.cnptNm;
+			sourceJson.push(item);
+		});
+
+	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
 
 /**
  * @name gfn_getPltBxs
