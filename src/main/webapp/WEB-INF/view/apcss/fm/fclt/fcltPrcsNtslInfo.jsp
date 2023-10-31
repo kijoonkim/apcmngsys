@@ -263,31 +263,37 @@
     		let totalRecordCount = 0;
 
     		jsonItmPrfList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const msg = {
-					trgtYr: item.trgtYr,						 	    //대상연도
-					apcCd: item.apcCd, 	 		 						//apc코드
-					apcNm: item.apcNm, 	 		 						//apc명
-					fcltNtslCd: item.fcltNtslCd,
-					fcltNtslCd2: item.fcltNtslCd2,
-					fcltNtslCd3: item.fcltNtslCd3,
-					fcltNtslCd4: item.fcltNtslCd4,
-					fcltNtslCd5: item.fcltNtslCd5,
-					fcltNtslCd6: item.fcltNtslCd6,
-					fcltNtslCd7: item.fcltNtslCd7,
-					fcltNtslCd8: item.fcltNtslCd8,
-					fcltNtslCd9: item.fcltNtslCd9
-				}
+    		//"Index 0 out of bounds for length 0"
+        	//data.resultCode = E0000
+        	//data.resultStatus E , S
+        	if(data.resultCode != "E0000"){
+        		data.resultList.forEach((item, index) => {
+    				const msg = {
+    					trgtYr: item.trgtYr,						 	    //대상연도
+    					apcCd: item.apcCd, 	 		 						//apc코드
+    					apcNm: item.apcNm, 	 		 						//apc명
+    					fcltNtslCd: item.fcltNtslCd,
+    					fcltNtslCd2: item.fcltNtslCd2,
+    					fcltNtslCd3: item.fcltNtslCd3,
+    					fcltNtslCd4: item.fcltNtslCd4,
+    					fcltNtslCd5: item.fcltNtslCd5,
+    					fcltNtslCd6: item.fcltNtslCd6,
+    					fcltNtslCd7: item.fcltNtslCd7,
+    					fcltNtslCd8: item.fcltNtslCd8,
+    					fcltNtslCd9: item.fcltNtslCd9
+    				}
 
 
 
-				jsonItmPrfList.push(msg);
+    				jsonItmPrfList.push(msg);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
+    				if (index === 0) {
+    					totalRecordCount = item.totalRecordCount;
+    				}
 
-			});
+    			});
+        	}
+
 
         	if (jsonItmPrfList.length > 0) {
 
@@ -465,14 +471,18 @@
         /**
          * @type {any[]}
          */
+         /*
         const rows = grdItmPrfList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
         		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
         	}
         });
+        */
 
-        if (list.length == 0) {
+      //console.log(grdItmPrfList.getSelectedRows());
+		const rows = grdItmPrfList.getSelectedRows();
+        if (rows.length == 0) {
         	alert("삭제할 대상이 없습니다.");
         	return;
         }
@@ -512,7 +522,10 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltItemPrfmnc.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltPrcsNtslInfo.do", {
+        	trgtYr: SBUxMethod.get('dtl-input-trgtYr')
+            ,apcCd: SBUxMethod.get('dtl-input-apcCd')
+     	});
 
          const data = await postJsonPromise;
 		//예외처리

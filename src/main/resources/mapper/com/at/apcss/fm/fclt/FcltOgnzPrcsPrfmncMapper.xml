@@ -33,6 +33,8 @@
 
 			 FROM TB_FCLT_OGNZ_PRCS_PRFMNC FCLT
  			 WHERE 1=1
+ 			 AND DEL_YN != 'Y'
+ 			 AND APC_CD IS NOT NULL
 		     		]]>
         		<if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  TRGT_YR = #{trgtYr}
@@ -71,6 +73,8 @@
 				, FCLT.FCLT_OGNZ_TRMT4_AMT     AS  FCLT_OGNZ_TRMT4_AMT
 			 FROM TB_FCLT_OGNZ_PRCS_PRFMNC FCLT
 			 WHERE 1=1
+			 AND DEL_YN != 'Y'
+			 AND APC_CD IS NOT NULL
   ]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -222,6 +226,18 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<update id="deleteFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.deleteFcltOgnzPrcsPrfmnc */
+	    		TB_FCLT_OGNZ_PRCS_PRFMNC FCLT
+			   SET
+	    		  DEL_YN 	= 'Y'
+			WHERE 1=1
+		      AND TRGT_YR = #{trgtYr}
+		      AND  APC_CD = #{apcCd}
+    	]]>
+    </update>
+    <!--
     <delete id="deleteFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.deleteFcltOgnzPrcsPrfmnc */
@@ -231,5 +247,5 @@
 		     AND  APC_CD = #{apcCd}
     	]]>
     </delete>
-
+ -->
 </mapper>

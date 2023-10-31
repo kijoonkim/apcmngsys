@@ -266,29 +266,35 @@
     		let totalRecordCount = 0;
 
         	jsonOgItmPrfList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const msg = {
-					  trgtYr: item.trgtYr	 	//대상연도
-				   	, apcCd: item.apcCd  //APC
-				   	, apcNm: item.apcNm  //APC
+        	//"Index 0 out of bounds for length 0"
+        	//data.resultCode = E0000
+        	//data.resultStatus E , S
+        	if(data.resultCode != "E0000"){
+        		data.resultList.forEach((item, index) => {
+    				const msg = {
+    					  trgtYr: item.trgtYr	 	//대상연도
+    				   	, apcCd: item.apcCd  //APC
+    				   	, apcNm: item.apcNm  //APC
 
-					, fcltOgnzTrmtAmt: item.fcltOgnzTrmtAmt
-					, fcltOgnzTrmtAmt2: item.fcltOgnzTrmtAmt2
-					, fcltOgnzTrmtAmt3: item.fcltOgnzTrmtAmt3
-					, fcltOgnzTrmtAmt4: item.fcltOgnzTrmtAmt4
+    					, fcltOgnzTrmtAmt: item.fcltOgnzTrmtAmt
+    					, fcltOgnzTrmtAmt2: item.fcltOgnzTrmtAmt2
+    					, fcltOgnzTrmtAmt3: item.fcltOgnzTrmtAmt3
+    					, fcltOgnzTrmtAmt4: item.fcltOgnzTrmtAmt4
 
-					, fcltOgnzTrmtVlm: item.fcltOgnzTrmtVlm
-					, fcltOgnzTrmtVlm2: item.fcltOgnzTrmtVlm2
-					, fcltOgnzTrmtVlm3: item.fcltOgnzTrmtVlm3
-					, fcltOgnzTrmtVlm4: item.fcltOgnzTrmtVlm4
-				}
+    					, fcltOgnzTrmtVlm: item.fcltOgnzTrmtVlm
+    					, fcltOgnzTrmtVlm2: item.fcltOgnzTrmtVlm2
+    					, fcltOgnzTrmtVlm3: item.fcltOgnzTrmtVlm3
+    					, fcltOgnzTrmtVlm4: item.fcltOgnzTrmtVlm4
+    				}
 
-				jsonOgItmPrfList.push(msg);
+    				jsonOgItmPrfList.push(msg);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+    				if (index === 0) {
+    					totalRecordCount = item.totalRecordCount;
+    				}
+    			});
+        	}
+
 
         	if (jsonOgItmPrfList.length > 0) {
 
@@ -350,15 +356,15 @@
     const fn_save = async function() {
     	console.log("******************fn_save**********************************");
 
-		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
-		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
+		let apcCd = SBUxMethod.get("dtl-input-trgtYr");
+		let trgtYr = SBUxMethod.get("dtl-input-apcCd");
 
-    	if (!SBUxMethod.get("gsb-slt-apcCd")) {
+    	if (!SBUxMethod.get("dtl-input-trgtYr")) {
             alert("조회 항목의 APC 코드를 선택하세요.");
             return;
         }
 
-    	if (!SBUxMethod.get("srch-input-trgtYr")) {
+    	if (!SBUxMethod.get("dtl-input-apcCd")) {
             alert("조회 항목의 대상년도를 선택하세요.");
             return;
         }
@@ -467,14 +473,18 @@
         /**
          * @type {any[]}
          */
+         /*
         const rows = grdOgItmPrfList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
         		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
         	}
         });
+        */
 
-        if (list.length == 0) {
+      //console.log(grdOgItmPrfList.getSelectedRows());
+		const rows = grdOgItmPrfList.getSelectedRows();
+        if (rows.length == 0) {
         	alert("삭제할 대상이 없습니다.");
         	return;
         }
@@ -514,7 +524,10 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltOgnzItemPrfmncList.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltOgnzItemPrfmnc.do", {
+   			trgtYr: SBUxMethod.get('dtl-input-trgtYr')                 			//대상연도
+	        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')               			    //apc코드
+     	});
 
          const data = await postJsonPromise;
 		//예외처리

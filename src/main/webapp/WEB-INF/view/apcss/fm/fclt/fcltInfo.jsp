@@ -381,43 +381,49 @@
     		let totalRecordCount = 0;
 
         	jsonFcltInfoList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const msg = {
-				trgtYr: item.trgtYr,	 	 //대상연도
-				apcCd: item.apcCd, 	 		 //apc코드
-				apcNm: item.apcNm,      	 //apc명
-				fcltCd: item.fcltCd,     	 //시설 코드
-		    	fcltNm: item.fcltNm,          	 //시설 명
-		        fcltAreaTot: item.fcltAreaTot,     //시설 면적 총면적
-		        fcltRmrkTot: item.fcltRmrkTot,    			 //비고
-		        fcltArea01: item.fcltArea01,     //시설 면적 집하선별포장장
-		        fcltRmrk01: item.fcltRmrk01,    			 //비고
-		        fcltArea02: item.fcltArea02,     //시설 면적 세척,가공 등 처리
-		        fcltRmrk02: item.fcltRmrk02,    			 //비고
-		        fcltArea03: item.fcltArea03,     //시설 면적 비 상품화시설
-		        fcltRmrk03: item.fcltRmrk03,    			 //비고
-		        fcltArea04: item.fcltArea04,     //시설 면적 폐기물처리
-		        fcltRmrk04: item.fcltRmrk04,    			 //비고
-		        fcltArea05: item.fcltArea05,     //시설 면적 예냉고
-		        fcltRmrk05: item.fcltRmrk05,    			 //비고
-		        fcltArea06: item.fcltArea06,     //시설 면적 저온저장
-		        fcltRmrk06: item.fcltRmrk06,    			 //비고
-		        fcltArea07: item.fcltArea07,     //시설 면적 CA저장고
-		        fcltRmrk07: item.fcltRmrk07,    			 //비고
-		        fcltArea08: item.fcltArea08,     //시설 면적 큐어링
-		        fcltRmrk08: item.fcltRmrk08,    			 //비고
-		        fcltArea09: item.fcltArea09,     //시설 면적 일반저장
-		        fcltRmrk09: item.fcltRmrk09,    			 //비고
-		        fcltArea10: item.fcltArea10,     //시설 면적 기타사항
-		        fcltRmrk10: item.fcltRmrk10,    			 //비고
-				}
+        	//"Index 0 out of bounds for length 0"
+        	//data.resultCode = E0000
+        	//data.resultStatus E , S
+        	if(data.resultCode != "E0000"){
+        		data.resultList.forEach((item, index) => {
+    				const msg = {
+    				trgtYr: item.trgtYr,	 	 //대상연도
+    				apcCd: item.apcCd, 	 		 //apc코드
+    				apcNm: item.apcNm,      	 //apc명
+    				fcltCd: item.fcltCd,     	 //시설 코드
+    		    	fcltNm: item.fcltNm,          	 //시설 명
+    		        fcltAreaTot: item.fcltAreaTot,     //시설 면적 총면적
+    		        fcltRmrkTot: item.fcltRmrkTot,    			 //비고
+    		        fcltArea01: item.fcltArea01,     //시설 면적 집하선별포장장
+    		        fcltRmrk01: item.fcltRmrk01,    			 //비고
+    		        fcltArea02: item.fcltArea02,     //시설 면적 세척,가공 등 처리
+    		        fcltRmrk02: item.fcltRmrk02,    			 //비고
+    		        fcltArea03: item.fcltArea03,     //시설 면적 비 상품화시설
+    		        fcltRmrk03: item.fcltRmrk03,    			 //비고
+    		        fcltArea04: item.fcltArea04,     //시설 면적 폐기물처리
+    		        fcltRmrk04: item.fcltRmrk04,    			 //비고
+    		        fcltArea05: item.fcltArea05,     //시설 면적 예냉고
+    		        fcltRmrk05: item.fcltRmrk05,    			 //비고
+    		        fcltArea06: item.fcltArea06,     //시설 면적 저온저장
+    		        fcltRmrk06: item.fcltRmrk06,    			 //비고
+    		        fcltArea07: item.fcltArea07,     //시설 면적 CA저장고
+    		        fcltRmrk07: item.fcltRmrk07,    			 //비고
+    		        fcltArea08: item.fcltArea08,     //시설 면적 큐어링
+    		        fcltRmrk08: item.fcltRmrk08,    			 //비고
+    		        fcltArea09: item.fcltArea09,     //시설 면적 일반저장
+    		        fcltRmrk09: item.fcltRmrk09,    			 //비고
+    		        fcltArea10: item.fcltArea10,     //시설 면적 기타사항
+    		        fcltRmrk10: item.fcltRmrk10,    			 //비고
+    				}
 
-				jsonFcltInfoList.push(msg);
+    				jsonFcltInfoList.push(msg);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+    				if (index === 0) {
+    					totalRecordCount = item.totalRecordCount;
+    				}
+    			});
+        	}
+
 
         	if (jsonFcltInfoList.length > 0) {
 
@@ -661,14 +667,18 @@
         /**
          * @type {any[]}
          */
+         /*
         const rows = grdFcltInfoList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
         		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
         	}
         });
+        */
 
-        if (list.length == 0) {
+        console.log(grdFcltInfoList.getSelectedRows());
+		const rows = grdFcltInfoList.getSelectedRows();
+        if (rows.length == 0) {
         	alert("삭제할 대상이 없습니다.");
         	return;
         }
@@ -708,7 +718,10 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltInfoList.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltInfo.do", {
+        	trgtYr: SBUxMethod.get('dtl-input-trgtYr')   	                     //  대상연도
+	        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')     	                     //  apc코드
+    		});
 
          const data = await postJsonPromise;
 		//예외처리

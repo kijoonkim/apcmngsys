@@ -49,6 +49,8 @@
 				, FCLT.FCLT_ITEM_MRKT_AMT5     AS FCLT_ITEM_MRKT_AMT5
 			 FROM TB_FCLT_ITEM_PRFMNC FCLT
  			 WHERE 1=1
+ 			 AND DEL_YN != 'Y'
+ 			 AND APC_CD IS NOT NULL
 		     ]]>
         		<if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  TRGT_YR = #{trgtYr}
@@ -105,6 +107,8 @@
 				, FCLT.FCLT_ITEM_MRKT_AMT5     AS FCLT_ITEM_MRKT_AMT5
 			 FROM TB_FCLT_ITEM_PRFMNC FCLT
  			 WHERE 1=1
+ 			 AND DEL_YN != 'Y'
+ 			 AND APC_CD IS NOT NULL
  		 ]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -360,6 +364,18 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<update id="deleteFcltItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.deleteFcltItemPrfmnc */
+	    		TB_FCLT_ITEM_PRFMNC FCLT
+			   SET
+	    		  DEL_YN 	= 'Y'
+			WHERE 1=1
+		      AND TRGT_YR = #{trgtYr}
+		      AND  APC_CD = #{apcCd}
+    	]]>
+    </update>
+    <!--
     <delete id="deleteFcltItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.deleteFcltItemPrfmnc */
@@ -369,5 +385,5 @@
 		     AND  APC_CD = #{apcCd}
     	]]>
     </delete>
-
+ -->
 </mapper>

@@ -239,25 +239,31 @@
     		let totalRecordCount = 0;
 
         	jsonAtMcIfList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const msg = {
-					trgtYr: item.trgtYr,						 	    //대상연도
-					apcCd: item.apcCd, 	 		 						//apc코드
-					apcNm: item.apcNm, 	 		 						//apc명
-					fcltPrcsTrmtAmt: item.fcltPrcsTrmtAmt,
-					fcltPrcsTrmtAmt2: item.fcltPrcsTrmtAmt2,
-					fcltPrcsTrmtAmt3: item.fcltPrcsTrmtAmt3,
-					fcltPrcsTrmtAmt4: item.fcltPrcsTrmtAmt4
-				}
+        	//"Index 0 out of bounds for length 0"
+        	//data.resultCode = E0000
+        	//data.resultStatus E , S
+        	if(data.resultCode != "E0000"){
+        		data.resultList.forEach((item, index) => {
+    				const msg = {
+    					trgtYr: item.trgtYr,						 	    //대상연도
+    					apcCd: item.apcCd, 	 		 						//apc코드
+    					apcNm: item.apcNm, 	 		 						//apc명
+    					fcltPrcsTrmtAmt: item.fcltPrcsTrmtAmt,
+    					fcltPrcsTrmtAmt2: item.fcltPrcsTrmtAmt2,
+    					fcltPrcsTrmtAmt3: item.fcltPrcsTrmtAmt3,
+    					fcltPrcsTrmtAmt4: item.fcltPrcsTrmtAmt4
+    				}
 
 
 
-				jsonAtMcIfList.push(msg);
+    				jsonAtMcIfList.push(msg);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+    				if (index === 0) {
+    					totalRecordCount = item.totalRecordCount;
+    				}
+    			});
+        	}
+
 
         	if (jsonAtMcIfList.length > 0) {
 
@@ -402,14 +408,18 @@
         /**
          * @type {any[]}
          */
+         /*
         const rows = grdAtMcIfList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
         		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
         	}
         });
+        */
 
-        if (list.length == 0) {
+      //console.log(grdAtMcIfList.getSelectedRows());
+		const rows = grdAtMcIfList.getSelectedRows();
+        if (rows.length == 0) {
         	alert("삭제할 대상이 없습니다.");
         	return;
         }
@@ -449,7 +459,10 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltSortMchnOperInfo.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltPrcsPrfmnc.do", {
+    		trgtYr: SBUxMethod.get('dtl-input-trgtYr')
+            ,	apcCd: SBUxMethod.get('dtl-input-apcCd')
+     	});
 
          const data = await postJsonPromise;
 		//예외처리
