@@ -442,15 +442,6 @@
 		}
 	}
 
-	const fn_dtpChangeDtl = function (){
-		let spmtYmd = SBUxMethod.get("dtl-dtp-spmtYmd");
-		if(gfn_diffDate(spmtYmd, gfn_dateToYmd(new Date())) > 0){
-			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
-			SBUxMethod.set("dtl-dtp-spmtYmd", gfn_dateToYmd(new Date()));
-			return;
-		}
-	}
-
 	var jsonGdsInvntr = []; // 상품재고내역 Json
 	var jsonSpmtPrfmnc = []; // 출하내역 Json
 	const fn_createSmptPrfmncGrid = async function() {
