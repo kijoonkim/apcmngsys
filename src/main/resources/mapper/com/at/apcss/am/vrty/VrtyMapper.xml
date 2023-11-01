@@ -22,29 +22,41 @@
 	<!-- ==========================================================================	-->
     <select id="selectVrtyList" parameterType="com.at.apcss.am.vrty.vo.VrtyVO" resultType="com.at.apcss.am.vrty.vo.VrtyVO">
     	<![CDATA[
-    	SELECT
-			 AVC.ITEM_CD AS ITEM_CD
-			, (SELECT FN_GET_ITEM_NM(AVC.ITEM_CD,AVC.APC_CD) FROM DUAL) AS ITEM_NM
-			,AVC.VRTY_CD AS VRTY_CD
-			,AVC.VRTY_NM AS VRTY_NM
-		FROM TB_APC_VRTY_CRTR AVC
-    	WHERE 1=1
+	    	SELECT
+	    ]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+				 AVC.ITEM_CD AS ITEM_CD
+			   , (SELECT FN_GET_ITEM_NM(AVC.ITEM_CD,AVC.APC_CD) FROM DUAL) AS ITEM_NM
+			   , AVC.VRTY_CD AS VRTY_CD
+			   , AVC.VRTY_NM AS VRTY_NM
+			FROM TB_APC_VRTY_CRTR AVC
+	       WHERE 1=1
 		]]>
 		<if test='vrtyNm != null and vrtyNm != ""'>
-			AND AVC.VRTY_NM LIKE '%'||#{vrtyNm}||'%'
+			 AND AVC.VRTY_NM LIKE '%' || #{vrtyNm} || '%'
 		</if>
 		<if test='apcCd != null and apcCd != ""'>
-			AND AVC.APC_CD = #{apcCd}
+			 AND AVC.APC_CD = #{apcCd}
 		</if>
-<!-- 		<if test='itemCd != null and itemCd = ""'> -->
-<!-- 			 AND  -->
-<!-- 		</if> -->
-<!-- 		<if test='itemNm != null and itemNm = ""'> -->
-<!-- 			AND ITEM_Nm = #{itemNm} -->
-<!-- 		</if> -->
+		<if test='itemCd != null and itemCd != ""'>
+			 AND AVC.ITEM_CD = #{itemCd}
+		</if>
 		<![CDATA[
-			order by ITEM_CD
+			ORDER BY ITEM_CD
 		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
     </select>
 
 

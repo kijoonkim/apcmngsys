@@ -159,18 +159,16 @@
 	}
     function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		SBUxMethod.set("srch-inp-vrtyNm", "");
+		SBUxMethod.set("srch-inp-vrtyCd", "");
 		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_apcCd, itemCd);		// 규격
 	}
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_createGrid2();
+		fn_createSortCmndGrid();
 		fn_getPrdcrs();
 
-		let today = new Date();
-		let year = today.getFullYear();
-		let month = ('0' + (today.getMonth() + 1)).slice(-2)
-		let day = ('0' + today.getDate()).slice(-2)
 		SBUxMethod.set("srch-dtp-strtCmndYmd", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-endCmndYmd", gfn_dateToYmd(new Date()));
 
@@ -192,7 +190,7 @@
 	var grdSortCmnd; // 그리드를 담기위한 객체 선언
 	var jsonSortCmnd = []; // 그리드의 참조 데이터 주소 선언
 
-	function fn_createGrid2() {
+	function fn_createSortCmndGrid() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
 	    SBGridProperties.id = 'grdSortCmnd';
@@ -467,9 +465,18 @@
 		if (!gfn_isEmpty(vrtys)) {
 			var _vrtyCd = [];
 			var _vrtyNm = [];
+			var diff = false;
 			for(var i=0;i<vrtys.length;i++){
+				if (vrtys[0].itemCd != vrtys[i].itemCd) {
+					diff = true;
+				}
 				_vrtyCd.push(vrtys[i].vrtyCd);
 				_vrtyNm.push(vrtys[i].vrtyNm);
+			}
+			if (diff) {
+				SBUxMethod.set('srch-slt-itemCd', "");
+			} else {
+				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
 			}
 			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCd.join(','));
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNm.join(','));
@@ -498,5 +505,33 @@
  		const sortCmndno = sortCmndnoList.join("','");
  		gfn_popClipReport("선별지시서", "am/sortCmndDoc.crf", {apcCd: gv_selectedApcCd, sortCmndno: sortCmndno});
  	}
+	
+ 	/**
+     * @name fn_reset
+     * @description 검색조건 초기화 버튼
+     */
+	async function fn_reset() {
+		SBUxMethod.set('srch-dtp-strtCmndYmd', gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set('srch-dtp-endCmndYmd', gfn_dateToYmd(new Date()));
+		SBUxMethod.set('srch-slt-itemCd', "");
+		SBUxMethod.set('srch-inp-vrtyNm', "");
+		SBUxMethod.set('srch-inp-vrtyCd', "");
+		SBUxMethod.set('srch-inp-prdcrNm', "");
+		fn_clearPrdcr();
+	}
+ 	
+	/**
+     * @name fn_onChangeApc
+     * @description APC 변경 시 리셋
+     */
+	const fn_onChangeApc = async function() {
+		let result = await Promise.all([
+			fn_clearPrdcr(),
+			fn_initSBSelect(),
+			fn_getPrdcrs(),
+			jsonSortCmnd = [],
+			grdSortCmnd.rebuild()
+		]);
+	}
 </script>
 </html>
