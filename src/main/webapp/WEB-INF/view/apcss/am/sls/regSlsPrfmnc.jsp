@@ -159,6 +159,18 @@
 </body>
 <script type="text/javascript">
 
+	const fn_reset = async function(){
+		SBUxMethod.set("srch-dtp-slsYmdFrom",  gfn_dateFirstYmd(new Date())); // 매출일자 from
+		SBUxMethod.set("srch-dtp-slsYmdTo",  gfn_dateToYmd(new Date())); // 매출일자 to
+		SBUxMethod.set("srch-slt-useYn", ""); // 확정여부
+		SBUxMethod.set("srch-slt-itemCd", ""); // 품목
+		SBUxMethod.set("srch-slt-vrtyCd", ""); // 품종
+		SBUxMethod.set("srch-inp-cnptCd", ""); // 거래처 코드
+		SBUxMethod.set("srch-inp-cnptNm", ""); // 거래처 명
+		SBUxMethod.set("dtl-dtp-slsYmdFrom", ""); // 매출생성일자 from
+		SBUxMethod.set("dtl-dtp-slsYmdTo", ""); // 매출생성일자 to
+	}
+
 	var jsonComItem			= [];	// 품목 		itemCd		검색
 	var jsonComVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonComUseYn		= [];	// 창고 		useYn		검색
@@ -460,17 +472,7 @@
 		}
     }
 
-	const fn_reset = async function(){
-		SBUxMethod.set("srch-dtp-slsYmdFrom",  gfn_dateFirstYmd(new Date())); // 매출일자 from
-		SBUxMethod.set("srch-dtp-slsYmdTo",  gfn_dateToYmd(new Date())); // 매출일자 to
-		SBUxMethod.set("srch-slt-useYn", null); // 확정여부
-		SBUxMethod.set("srch-slt-itemCd", null); // 품목
-		SBUxMethod.set("srch-slt-vrtyCd", null); // 품종
-		SBUxMethod.set("srch-inp-cnptCd", null); // 거래처 코드
-		SBUxMethod.set("srch-inp-cnptNm", null); // 거래처 명
-		SBUxMethod.set("dtl-dtp-slsYmdFrom", null); // 매출생성일자 from
-		SBUxMethod.set("dtl-dtp-slsYmdTo", null); // 매출생성일자 to
-	}
+
 
 	/**
 	 * @name fn_regDDln
