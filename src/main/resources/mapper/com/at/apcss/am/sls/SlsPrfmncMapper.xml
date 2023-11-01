@@ -21,30 +21,27 @@
 	<!-- 2023.08.18  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectSlsPrfmncList" parameterType="com.at.apcss.am.sls.vo.SlsPrfmncVO" resultType="com.at.apcss.am.sls.vo.SlsPrfmncVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.sls.mapper.SlsPrfmncMapper.selectSlsPrfmncList */
+		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
-	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
-	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
-    		 FROM (
-    	</if>
-    	<if test='pagingYn == null or pagingYn.equals("N")'>
-    		SELECT
-    			  pt0.*
-	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
-	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
-	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
-    		 FROM (
+    			, 
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.sls.mapper.SlsPrfmncMapper.selectSlsPrfmncList */
+				  pt0.*
+	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
+	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
+	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+    		 FROM (
+	    	SELECT 
 	    		   SP.APC_CD						AS APC_CD
 	    		 , SP.SLS_YMD						AS SLS_YMD
+	    		 , SP.SLS_SN						AS SLS_SN
+	    		 , SP.SLS_YMD || SP.SLS_SN			AS SLSNO
 	    		 , SP.ITEM_CD						AS ITEM_CD
 	    		 , SP.VRTY_CD						AS VRTY_CD
 	    		 , SP.SPCFCT_CD						AS SPCFCT_CD
@@ -88,35 +85,13 @@
 		       AND SP.VRTY_CD = #{vrtyCd}
 		</if>
     	<![CDATA[
-    	/*
-		 	 GROUP BY SP.SLS_YMD
-	    		 	, SP.SLS_SN
-	    		 	, SP.ITEM_CD
-	    		 	, SP.VRTY_CD
-	    		 	, SP.SPCFCT_CD
-	    		 	, SP.GDS_CD
-	    		 	, SP.BRND_CD
-	    		 	, SP.SPMT_YMD
-	    		 	, SP.SLS_UNTPRC
-	    		 	, SP.QNTT
-	    		 	, SP.WGHT
-	    		 	, SP.CFMTN_AMT
-	    		 	, SP.CNPT_CD
-		 	 		, SP.APC_CD
-	    		 	, CI.CNPT_NM
-	    		 	, SP.DEL_YN
-	    		 	, SP.CLCTM_YN
-	    		 	, SP.CFMTN_YN
-	    		 	*/
+    		  ) pt0
 		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<if test='pagingYn == null or pagingYn.equals("N")'>
-    		  ) pt0
     	</if>
     	<!-- End 페이징 -->
     </select>

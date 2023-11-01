@@ -30,6 +30,11 @@ public class SlsPrfmncVO extends ComVO {
 	private String apcCd;
 
 	/**
+	 * 매출번호
+	 */
+	private String slsno;
+	
+	/**
 	 * 매출일자
 	 */
 	private String slsYmd;
