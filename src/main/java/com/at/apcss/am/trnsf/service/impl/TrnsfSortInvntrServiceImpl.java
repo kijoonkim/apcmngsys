@@ -65,14 +65,8 @@ public class TrnsfSortInvntrServiceImpl extends BaseServiceImpl implements Trnsf
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		for (TrnsfSortInvntrVO trnsfSortInvntrVO : trnsfSortInvntrList) {
-			SortInvntrVO sortInvntr = new SortInvntrVO();
 			InvntrTrnsfVO invntrTrnsf = new InvntrTrnsfVO();
-			BeanUtils.copyProperties(trnsfSortInvntrVO, sortInvntr);
 			BeanUtils.copyProperties(trnsfSortInvntrVO, invntrTrnsf);
-
-			// 선별재고 변경 리스트
-			sortInvntrList.add(sortInvntr);
-
 			// 이송등록 리스트
 			insertList.add(invntrTrnsf);
 
@@ -84,7 +78,6 @@ public class TrnsfSortInvntrServiceImpl extends BaseServiceImpl implements Trnsf
 			throw new EgovBizException(getMessageForMap(resultMap));
 		}
 
-		resultMap = sortInvntrService.multiSaveSortInvntrList(sortInvntrList);
 		return null;
 	}
 

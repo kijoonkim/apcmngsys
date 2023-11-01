@@ -295,6 +295,35 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> updateInvntrTrmsf(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+
+		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
+
+		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
+		}
+
+		if (rawMtrInvntrVO.getTrnsfQntt() > invntrInfo.getInvntrQntt()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "취소량||선별량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		}
+
+
+		// 선별량
+		int invntrQntt = invntrInfo.getInvntrQntt() - rawMtrInvntrVO.getTrnsfQntt();
+		double invntrWght = invntrInfo.getInvntrWght() - rawMtrInvntrVO.getTrnsfWght();
+		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
+		rawMtrInvntrVO.setInvntrWght(invntrWght);
+
+		int updatedCnt = rawMtrInvntrMapper.updateInvntrTrnsf(rawMtrInvntrVO);
+
+		if (updatedCnt != 1) {
+
+		}
+
+		return null;
+	}
+
 
 
 }

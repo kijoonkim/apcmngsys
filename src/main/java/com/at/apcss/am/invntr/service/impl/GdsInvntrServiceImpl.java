@@ -251,4 +251,34 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> updateInvntrTrnsf(GdsInvntrVO gdsInvntrVO) throws Exception {
+
+		GdsInvntrVO invntrInfo = selectGdsInvntr(gdsInvntrVO);
+
+		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getPckgno())) {
+			logger.debug("상품재고정보 없음");
+			return ComUtil.getResultMap("W0005", "상품재고정보");
+		}
+
+		if (gdsInvntrVO.getSpmtWght() > invntrInfo.getSpmtWght()) {
+			logger.debug("상품재고 대비 출하량 over");
+			return ComUtil.getResultMap("W0008", "출하량||취소량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		}
+
+		// 재고 - 이송
+		int invntrQntt = invntrInfo.getInvntrQntt() - gdsInvntrVO.getTrnsfQntt();
+		double invntrWght = invntrInfo.getInvntrWght() - gdsInvntrVO.getTrnsfWght();
+		gdsInvntrVO.setInvntrQntt(invntrQntt);
+		gdsInvntrVO.setInvntrWght(invntrWght);
+
+		int updatedCnt = gdsInvntrMapper.updateInvntrTrnsf(gdsInvntrVO);
+
+		if (updatedCnt != 1) {
+
+		}
+
+		return null;
+	}
+
 }

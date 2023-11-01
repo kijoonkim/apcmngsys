@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.invntr.service.GdsInvntrService;
-import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper;
 import com.at.apcss.am.trnsf.service.InvntrTrnsfService;
 import com.at.apcss.am.trnsf.service.TrnsfGdsInvntrService;
@@ -61,32 +60,19 @@ public class TrnsfGdsInvntrServiceImpl extends BaseServiceImpl implements TrnsfG
 	public HashMap<String, Object> inserttrnsfGdsInvntrList(List<TrnsfGdsInvntrVO> trnsfGdsInvntrList) throws Exception {
 		List<InvntrTrnsfVO> insertList = new ArrayList<>();
 
-		List<GdsInvntrVO> GdsInvntrList = new ArrayList<>();
-
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		for (TrnsfGdsInvntrVO trnsfGdsInvntrVO : trnsfGdsInvntrList) {
 			InvntrTrnsfVO invntrTrnsf = new InvntrTrnsfVO();
-			GdsInvntrVO gdsInvntr = new GdsInvntrVO();
 
-			BeanUtils.copyProperties(trnsfGdsInvntrVO, gdsInvntr);
 			BeanUtils.copyProperties(trnsfGdsInvntrVO, invntrTrnsf);
-
-			GdsInvntrList.add(gdsInvntr);
 
 			insertList.add(invntrTrnsf);
 
 		}
 
 		resultMap = invntrTrnsfService.insertInvntrTrnsfList(insertList);
-
-		if(resultMap != null) {
-			throw new EgovBizException(getMessageForMap(resultMap));
-		}
-
-
-		resultMap = gdsInvntrService.multiSaveGdsInvntrList(GdsInvntrList);
 
 		if(resultMap != null) {
 			throw new EgovBizException(getMessageForMap(resultMap));

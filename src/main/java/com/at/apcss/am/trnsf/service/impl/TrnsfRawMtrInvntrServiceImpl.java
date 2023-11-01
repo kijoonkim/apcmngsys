@@ -60,18 +60,13 @@ public class TrnsfRawMtrInvntrServiceImpl extends BaseServiceImpl implements Trn
 	public HashMap<String, Object> insertTrnsfRawMtrInvntrList(List<TrnsfRawMtrInvntrVO> trnsfRawMtrInvntrList) throws Exception {
 
 		List<InvntrTrnsfVO> insertList = new ArrayList<>();
-		List<RawMtrInvntrVO> rawMtrInvntrList = new ArrayList<>();
-
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		for (TrnsfRawMtrInvntrVO trnsfRawMtrInvntrVO : trnsfRawMtrInvntrList) {
-			RawMtrInvntrVO rawMtrInvntr = new RawMtrInvntrVO();
 			InvntrTrnsfVO invntrTrnsf = new InvntrTrnsfVO();
-			BeanUtils.copyProperties(trnsfRawMtrInvntrVO, rawMtrInvntr);
-			BeanUtils.copyProperties(trnsfRawMtrInvntrVO, invntrTrnsf);
 
-			rawMtrInvntrList.add(rawMtrInvntr);
+			BeanUtils.copyProperties(trnsfRawMtrInvntrVO, invntrTrnsf);
 
 			insertList.add(invntrTrnsf);
 
@@ -79,12 +74,6 @@ public class TrnsfRawMtrInvntrServiceImpl extends BaseServiceImpl implements Trn
 
 
 		resultMap = invntrTrnsfService.insertInvntrTrnsfList(insertList);
-
-		if(resultMap != null) {
-			throw new EgovBizException(getMessageForMap(resultMap));
-		}
-
-		resultMap = rawMtrInvntrService.multiSaveRawMtrInvntrList(rawMtrInvntrList);
 
 		if(resultMap != null) {
 			throw new EgovBizException(getMessageForMap(resultMap));

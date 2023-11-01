@@ -122,4 +122,12 @@ public interface SortInvntrMapper {
 	 */
 	public List<SortInvntrVO> selectPckgCmndTrgetList(SortInvntrVO sortInvntrVO) throws Exception;
 
+	/**
+	 * 선별재고 이송처리
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateInvntrTrnsf(SortInvntrVO sortInvntrVO) throws Exception;
+
 }

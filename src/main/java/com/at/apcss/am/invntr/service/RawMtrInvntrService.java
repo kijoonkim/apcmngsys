@@ -97,6 +97,14 @@ public interface RawMtrInvntrService {
 	public HashMap<String, Object> updateInvntrSortPrfmnc(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
 	/**
+	 * 원물재고 이송처리
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateInvntrTrmsf(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	/**
 	 * 원물재고 선별취소
 	 * @param rawMtrInvntrVO
 	 * @return

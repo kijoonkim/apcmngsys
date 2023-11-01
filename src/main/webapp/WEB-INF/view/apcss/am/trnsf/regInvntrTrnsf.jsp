@@ -877,7 +877,15 @@
 
 	    	try{
 	       		if(data.errMsg == null){
-	       			fn_search();
+	       			if(checkSection == 1){
+	       				fn_sample1()
+	    			}
+	    			if(checkSection == 2){
+	    				fn_sample2()
+	        		}
+	        		if(checkSection == 3){
+	        			fn_sample3()
+	        		}
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 	       		}else{
 	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
@@ -917,6 +925,11 @@
  		if (!gfn_isEmpty(prdcr)) {
  			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);		// callBack input
  			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);		// callBack input
+ 			SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);	// callBack input
+ 			SBUxMethod.set("srch-slt-vrtyCd", prdcr.rprsVrtyCd);	// callBack input
+ 			SBUxMethod.set("srch-slt-gdsSe", prdcr.gdsSeCd);		// callBack input
+ 			SBUxMethod.set("srch-slt-wrhsSeCd", prdcr.trsprtSeCd);	// callBack input
+
  			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");
  		}
  	}

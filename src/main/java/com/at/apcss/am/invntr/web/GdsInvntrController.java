@@ -75,8 +75,8 @@ public class GdsInvntrController extends BaseController {
 
 	}
 
-	@PostMapping(value = "/am/invntr/multiGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> multiGdsInvntrList(@RequestBody List<GdsInvntrVO> gdsInvntrList, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/invntr/multiSaveGdsInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiSaveGdsInvntrList(@RequestBody List<GdsInvntrVO> gdsInvntrList, HttpServletRequest request) throws Exception {
 
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
