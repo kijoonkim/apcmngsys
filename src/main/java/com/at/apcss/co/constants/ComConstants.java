@@ -51,6 +51,8 @@ public class ComConstants {
 	public final static String CON_YES = "Y";
 	public final static String CON_NONE = "N";
 
+	public final static String EXCEL_YES = "Y";
+
 
 	/* MSG CODE */
 	public final static String MSGCD_REQ_SELECT = "W0001";		// W0001	{0}을/를 선택하세요.

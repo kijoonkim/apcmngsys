@@ -126,15 +126,15 @@
 		                                <tr>
 		                                    <th>내용</th>
 		                                    <td colspan="7">
-		                                        <sbux-textarea  rows="25" cols="120"  id="dtl-input-bbsSubject" name="dtl-input-bbsSubject"  uitype="normal"></sbux-textarea>
+		                                        <sbux-textarea  rows="27" cols="120"  id="dtl-input-bbsSubject" name="dtl-input-bbsSubject"  uitype="normal"></sbux-textarea>
 		                                    </td>
 		                                </tr>
-		                                <tr>
+		                                <!-- <tr>
 		                                    <th>첨부</th>
 		                                    <td colspan="7">
 		                                        <sbux-input id="dtl-input-bbsFile" name="dtl-input-bbsFile" uitype="text" required style="width:100%" readonly ></sbux-input>
 		                                    </td>
-		                                </tr>
+		                                </tr> -->
 		                              </table>
 		                            </form>
 		                        </div>

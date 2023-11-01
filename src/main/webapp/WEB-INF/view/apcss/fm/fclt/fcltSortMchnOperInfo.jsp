@@ -633,73 +633,79 @@
     		let totalRecordCount = 0;
 
         	jsonStMcOpIfList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const msg = {
-					trgtYr: item.trgtYr						 	    //대상연도
-					,apcCd: item.apcCd 	 		 						//apc코드
-					,apcNm: item.apcNm 	 		 						//apc코드
-					,sortMchnHldYnAyr1 : item.sortMchnHldYnAyr1
-					,sortMchnHldYn101 : item.sortMchnHldYn101
-					,sortMchnHldYn102 : item.sortMchnHldYn102
-					,sortMchnHldYn103 : item.sortMchnHldYn103
-					,sortMchnHldYn104 : item.sortMchnHldYn104
-					,sortMchnHldYn105 : item.sortMchnHldYn105
-					,sortMchnHldYn106 : item.sortMchnHldYn106
-					,sortMchnHldYn107 : item.sortMchnHldYn107
-					,sortMchnHldYn108 : item.sortMchnHldYn108
-					,sortMchnHldYn109 : item.sortMchnHldYn109
-					,sortMchnHldYn110 : item.sortMchnHldYn110
-					,sortMchnHldYn111 : item.sortMchnHldYn111
-					,sortMchnHldYn112 : item.sortMchnHldYn112
-					,sortMchnHldYnAyr2 : item.sortMchnHldYnAyr2
-					,sortMchnHldYn201 : item.sortMchnHldYn201
-					,sortMchnHldYn202 : item.sortMchnHldYn202
-					,sortMchnHldYn203 : item.sortMchnHldYn203
-					,sortMchnHldYn204 : item.sortMchnHldYn204
-					,sortMchnHldYn205 : item.sortMchnHldYn205
-					,sortMchnHldYn206 : item.sortMchnHldYn206
-					,sortMchnHldYn207 : item.sortMchnHldYn207
-					,sortMchnHldYn208 : item.sortMchnHldYn208
-					,sortMchnHldYn209 : item.sortMchnHldYn209
-					,sortMchnHldYn210 : item.sortMchnHldYn210
-					,sortMchnHldYn211 : item.sortMchnHldYn211
-					,sortMchnHldYn212 : item.sortMchnHldYn212
-					,sortMchnHldYnAyr3 : item.sortMchnHldYnAyr3
-					,sortMchnHldYn301 : item.sortMchnHldYn301
-					,sortMchnHldYn302 : item.sortMchnHldYn302
-					,sortMchnHldYn303 : item.sortMchnHldYn303
-					,sortMchnHldYn304 : item.sortMchnHldYn304
-					,sortMchnHldYn305 : item.sortMchnHldYn305
-					,sortMchnHldYn306 : item.sortMchnHldYn306
-					,sortMchnHldYn307 : item.sortMchnHldYn307
-					,sortMchnHldYn308 : item.sortMchnHldYn308
-					,sortMchnHldYn309 : item.sortMchnHldYn309
-					,sortMchnHldYn310 : item.sortMchnHldYn310
-					,sortMchnHldYn311 : item.sortMchnHldYn311
-					,sortMchnHldYn312 : item.sortMchnHldYn312
-					,sortMchnHldYnAyr4 : item.sortMchnHldYnAyr4
-					,sortMchnHldYn401 : item.sortMchnHldYn401
-					,sortMchnHldYn402 : item.sortMchnHldYn402
-					,sortMchnHldYn403 : item.sortMchnHldYn403
-					,sortMchnHldYn404 : item.sortMchnHldYn404
-					,sortMchnHldYn405 : item.sortMchnHldYn405
-					,sortMchnHldYn406 : item.sortMchnHldYn406
-					,sortMchnHldYn407 : item.sortMchnHldYn407
-					,sortMchnHldYn408 : item.sortMchnHldYn408
-					,sortMchnHldYn409 : item.sortMchnHldYn409
-					,sortMchnHldYn410 : item.sortMchnHldYn410
-					,sortMchnHldYn411 : item.sortMchnHldYn411
-					,sortMchnHldYn412 : item.sortMchnHldYn412
+        	//"Index 0 out of bounds for length 0"
+        	//data.resultCode = E0000
+        	//data.resultStatus E , S
+        	if(data.resultCode != "E0000"){
+        		data.resultList.forEach((item, index) => {
+    				const msg = {
+    					trgtYr: item.trgtYr						 	    //대상연도
+    					,apcCd: item.apcCd 	 		 						//apc코드
+    					,apcNm: item.apcNm 	 		 						//apc코드
+    					,sortMchnHldYnAyr1 : item.sortMchnHldYnAyr1
+    					,sortMchnHldYn101 : item.sortMchnHldYn101
+    					,sortMchnHldYn102 : item.sortMchnHldYn102
+    					,sortMchnHldYn103 : item.sortMchnHldYn103
+    					,sortMchnHldYn104 : item.sortMchnHldYn104
+    					,sortMchnHldYn105 : item.sortMchnHldYn105
+    					,sortMchnHldYn106 : item.sortMchnHldYn106
+    					,sortMchnHldYn107 : item.sortMchnHldYn107
+    					,sortMchnHldYn108 : item.sortMchnHldYn108
+    					,sortMchnHldYn109 : item.sortMchnHldYn109
+    					,sortMchnHldYn110 : item.sortMchnHldYn110
+    					,sortMchnHldYn111 : item.sortMchnHldYn111
+    					,sortMchnHldYn112 : item.sortMchnHldYn112
+    					,sortMchnHldYnAyr2 : item.sortMchnHldYnAyr2
+    					,sortMchnHldYn201 : item.sortMchnHldYn201
+    					,sortMchnHldYn202 : item.sortMchnHldYn202
+    					,sortMchnHldYn203 : item.sortMchnHldYn203
+    					,sortMchnHldYn204 : item.sortMchnHldYn204
+    					,sortMchnHldYn205 : item.sortMchnHldYn205
+    					,sortMchnHldYn206 : item.sortMchnHldYn206
+    					,sortMchnHldYn207 : item.sortMchnHldYn207
+    					,sortMchnHldYn208 : item.sortMchnHldYn208
+    					,sortMchnHldYn209 : item.sortMchnHldYn209
+    					,sortMchnHldYn210 : item.sortMchnHldYn210
+    					,sortMchnHldYn211 : item.sortMchnHldYn211
+    					,sortMchnHldYn212 : item.sortMchnHldYn212
+    					,sortMchnHldYnAyr3 : item.sortMchnHldYnAyr3
+    					,sortMchnHldYn301 : item.sortMchnHldYn301
+    					,sortMchnHldYn302 : item.sortMchnHldYn302
+    					,sortMchnHldYn303 : item.sortMchnHldYn303
+    					,sortMchnHldYn304 : item.sortMchnHldYn304
+    					,sortMchnHldYn305 : item.sortMchnHldYn305
+    					,sortMchnHldYn306 : item.sortMchnHldYn306
+    					,sortMchnHldYn307 : item.sortMchnHldYn307
+    					,sortMchnHldYn308 : item.sortMchnHldYn308
+    					,sortMchnHldYn309 : item.sortMchnHldYn309
+    					,sortMchnHldYn310 : item.sortMchnHldYn310
+    					,sortMchnHldYn311 : item.sortMchnHldYn311
+    					,sortMchnHldYn312 : item.sortMchnHldYn312
+    					,sortMchnHldYnAyr4 : item.sortMchnHldYnAyr4
+    					,sortMchnHldYn401 : item.sortMchnHldYn401
+    					,sortMchnHldYn402 : item.sortMchnHldYn402
+    					,sortMchnHldYn403 : item.sortMchnHldYn403
+    					,sortMchnHldYn404 : item.sortMchnHldYn404
+    					,sortMchnHldYn405 : item.sortMchnHldYn405
+    					,sortMchnHldYn406 : item.sortMchnHldYn406
+    					,sortMchnHldYn407 : item.sortMchnHldYn407
+    					,sortMchnHldYn408 : item.sortMchnHldYn408
+    					,sortMchnHldYn409 : item.sortMchnHldYn409
+    					,sortMchnHldYn410 : item.sortMchnHldYn410
+    					,sortMchnHldYn411 : item.sortMchnHldYn411
+    					,sortMchnHldYn412 : item.sortMchnHldYn412
 
-				}
+    				}
 
 
-				jsonStMcOpIfList.push(msg);
+    				jsonStMcOpIfList.push(msg);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+    				if (index === 0) {
+    					totalRecordCount = item.totalRecordCount;
+    				}
+    			});
+        	}
+
 
         	if (jsonStMcOpIfList.length > 0) {
 
@@ -1024,6 +1030,7 @@
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		alert("처리 되었습니다.");
+        		grdStMcOpIfList.refresh();
         		fn_search();
         	} else {
         		alert(data.resultMessage);
@@ -1046,14 +1053,18 @@
         /**
          * @type {any[]}
          */
+         /*
         const rows = grdStMcOpIfList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
         		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
         	}
         });
+        */
 
-        if (list.length == 0) {
+		//console.log(grdStMcOpIfList.getSelectedRows());
+		const rows = grdStMcOpIfList.getSelectedRows();
+        if (rows.length == 0) {
         	alert("삭제할 대상이 없습니다.");
         	return;
         }
@@ -1093,10 +1104,13 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltAtmtcMchnInfo.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltAtmtcMchnInfo.do", {
+    		trgtYr: SBUxMethod.get('dtl-input-trgtYr')   	                     //  대상연도
+    		,apcCd: SBUxMethod.get('dtl-input-apcCd')   	                     //  apc
+     	});
 
          const data = await postJsonPromise;
-//예외처리
+		//예외처리
          try {
          	if (_.isEqual("S", data.resultStatus)) {
          		alert("처리 되었습니다.");

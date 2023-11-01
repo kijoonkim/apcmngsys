@@ -39,6 +39,7 @@
 			FROM  TB_FCLT_INSTL_INFO FCLT
 
  			 WHERE 1=1
+ 			 AND DEL_YN != 'Y'
  			 AND BIZ_YR IS NOT NULL
 		     		]]>
         	<if test='trgtYr != null and !trgtYr.equals("")'>
@@ -84,6 +85,7 @@
 		   FROM  TB_FCLT_INSTL_INFO FCLT
 
  		   WHERE 1=1
+ 		   AND DEL_YN != 'Y'
  		   AND BIZ_YR IS NOT NULL
  			 ]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
@@ -199,6 +201,19 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<update id="deleteFcltInstlInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.deleteFcltInstlInfo */
+	    		TB_FCLT_INSTL_INFO FCLT
+			   SET
+	    		  DEL_YN 	= 'Y'
+			WHERE 1=1
+			  AND SN 	= #{sn}
+		      AND TRGT_YR = #{trgtYr}
+		      AND  APC_CD = #{apcCd}
+    	]]>
+    </update>
+    <!--
     <delete id="deleteFcltInstlInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.deleteFcltInstlInfo */
@@ -209,5 +224,6 @@
 		     AND  APC_CD = #{apcCd}
     	]]>
     </delete>
+     -->
 
 </mapper>

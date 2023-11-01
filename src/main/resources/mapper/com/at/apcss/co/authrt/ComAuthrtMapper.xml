@@ -356,10 +356,6 @@
 			  	  ON UM.MENU_ID = MN.UP_MENU_ID
 			  	 AND UM.DEL_YN = 'N'
 
-			  	LEFT JOIN TB_COM_UI CU
-			  	  ON CU.MENU_ID = MN.MENU_ID
-			  	 AND CU.DEL_YN = 'N'
-
 			  	LEFT JOIN TB_COM_AUTH CA
 			  	  ON CA.AUTHRT_ID = #{authrtId}
 			  	 AND CA.DEL_YN = 'N'
@@ -367,12 +363,6 @@
 			  	LEFT JOIN TB_COM_AUTH_MENU AM
 			  	  ON AM.MENU_ID = MN.MENU_ID
 			  	 AND AM.AUTHRT_ID = CA.AUTHRT_ID
-
-			  	LEFT JOIN TB_COM_AUTH_UI AU
-			  	  ON AU.AUTHRT_ID = AM.AUTHRT_ID
-			  	 AND AU.MENU_ID = AM.MENU_ID
-			  	 AND AU.ENTY_ID = CU.ENTY_ID
-			  	 AND AU.DEL_YN = 'N'
 
 			 WHERE 1=1
 

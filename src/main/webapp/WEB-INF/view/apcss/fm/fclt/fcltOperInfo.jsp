@@ -91,7 +91,9 @@
 						<tr>
 							<th>소유조직 사업자번호</th>
 							<td>
-								<sbux-input id="dtl-input-psnOgnzBrno" name="dtl-input-psnOgnzBrno" uitype="text" class="form-control input-sm" placeholder="소유자가 지자체로 사업자번호 없을 경우 공란" ></sbux-input>
+								<sbux-input id="dtl-input-psnOgnzBrno" name="dtl-input-psnOgnzBrno" uitype="text"
+								onblur="extractNumbers2('dtl-input-psnOgnzBrno')" onkeyup="extractNumbers2('dtl-input-psnOgnzBrno')" maxlength="10"
+								class="form-control input-sm"  placeholder="소유자가 지자체로 사업자번호 없을 경우 공란" ></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -103,7 +105,9 @@
 						<tr>
 							<th>운영조직 사업자번호</th>
 							<td>
-								<sbux-input id="dtl-input-operOgnzBrno" name="dtl-input-operOgnzBrno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+								<sbux-input id="dtl-input-operOgnzBrno" name="dtl-input-operOgnzBrno" uitype="text"
+								onblur="extractNumbers2('dtl-input-operOgnzBrno')" onkeyup="extractNumbers2('dtl-input-operOgnzBrno')" maxlength="10"
+								class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -193,7 +197,9 @@
 						<tr>
 							<th>APC 사업자번호</th>
 							<td>
-								<sbux-input id="dtl-input-apcBrno" name="dtl-input-apcBrno" uitype="text" class="form-control input-sm" placeholder="사업자번호 없을 경우 공란" ></sbux-input>
+								<sbux-input id="dtl-input-apcBrno" name="dtl-input-apcBrno" uitype="text"
+								onblur="extractNumbers2('dtl-input-psnOgnzBrno')" onkeyup="extractNumbers2('dtl-input-psnOgnzBrno')" maxlength="10"
+								class="form-control input-sm" placeholder="사업자번호 없을 경우 공란" ></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -373,6 +379,7 @@
     	fn_clearForm();
 
 		grdFcltOperInfoList.clearStatus();
+		grdFcltOperInfoList.refresh();
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
@@ -395,42 +402,46 @@
         	/** @type {number} **/
     		let totalRecordCount = 0;
 
+        	console.log(data);
         	jsonFcltOperInfoList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const msg = {
-				trgtYr: item.trgtYr,	 	//대상연도
-				apcCd: item.apcCd, 	 		//apc코드
-				psnOgnzNm: item.psnOgnzNm,                      	//소유조직
-				psnOgnzBrno: item.psnOgnzBrno,                    	//소유조직 사업자번호
-				perOgnzNm: item.perOgnzNm,                  	  	//운영조직
-				operOgnzBrno: item.operOgnzBrno,                    //운영조직 사업자번호
-				operOgnzTrmtItemCn: item.operOgnzTrmtItemCn,        //운영조직 취급 대표품목1
-				operOgnzTrmtItemCn2: item.operOgnzTrmtItemCn2,      //운영조직 취급 대표품목2
-				operOgnzTrmtItemCn3: item.operOgnzTrmtItemCn3,      //운영조직 취급 대표품목3
-				operOgnzTrmtItemCn4: item.operOgnzTrmtItemCn4,      //운영조직 취급 기타품목
-				operOgnzNm: item.operOgnzNm,
-				operOgnzPic: item.operOgnzPic,
-				apcNm: item.apcNm,                  		  		//APC명
-				apcAddr : item.apcAddr,
-				apcBrno: item.apcBrno,                 		  		//APC 사업자번호
-				operOgnzAddr1 : item.operOgnzAddr1, 				//주소(시도)
-				operOgnzAddr2 : item.operOgnzAddr2, 				//주소(시군구)
-				operOgnzDeptCd: item.operOgnzDeptCd,
-				apcTrmtItemCn: item.apcTrmtItemCn,                  //APC 처리 대표품목1
-				apcTrmtItemCn2: item.apcTrmtItemCn2,                //APC 처리 대표품목2
-				apcTrmtItemCn3: item.apcTrmtItemCn3,                //APC 처리 대표품목3
-				apcTrmtItemCn4: item.apcTrmtItemCn4                 //APC 처리 기타품목명
-				}
 
-				jsonFcltOperInfoList.push(msg);
+        	//"Index 0 out of bounds for length 0"
+        	//data.resultCode = E0000
+        	//data.resultStatus E , S
+        	if(data.resultCode != "E0000"){
+	        	data.resultList.forEach((item, index) => {
+					const msg = {
+					trgtYr: item.trgtYr,	 	//대상연도
+					apcCd: item.apcCd, 	 		//apc코드
+					psnOgnzNm: item.psnOgnzNm,                      	//소유조직
+					psnOgnzBrno: item.psnOgnzBrno,                    	//소유조직 사업자번호
+					perOgnzNm: item.perOgnzNm,                  	  	//운영조직
+					operOgnzBrno: item.operOgnzBrno,                    //운영조직 사업자번호
+					operOgnzTrmtItemCn: item.operOgnzTrmtItemCn,        //운영조직 취급 대표품목1
+					operOgnzTrmtItemCn2: item.operOgnzTrmtItemCn2,      //운영조직 취급 대표품목2
+					operOgnzTrmtItemCn3: item.operOgnzTrmtItemCn3,      //운영조직 취급 대표품목3
+					operOgnzTrmtItemCn4: item.operOgnzTrmtItemCn4,      //운영조직 취급 기타품목
+					operOgnzNm: item.operOgnzNm,
+					operOgnzPic: item.operOgnzPic,
+					apcNm: item.apcNm,                  		  		//APC명
+					apcAddr : item.apcAddr,
+					apcBrno: item.apcBrno,                 		  		//APC 사업자번호
+					operOgnzAddr1 : item.operOgnzAddr1, 				//주소(시도)
+					operOgnzAddr2 : item.operOgnzAddr2, 				//주소(시군구)
+					operOgnzDeptCd: item.operOgnzDeptCd,
+					apcTrmtItemCn: item.apcTrmtItemCn,                  //APC 처리 대표품목1
+					apcTrmtItemCn2: item.apcTrmtItemCn2,                //APC 처리 대표품목2
+					apcTrmtItemCn3: item.apcTrmtItemCn3,                //APC 처리 대표품목3
+					apcTrmtItemCn4: item.apcTrmtItemCn4                 //APC 처리 기타품목명
+					}
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
-        	console.log("c33333333333333333333");
-        	console.log("totalRecordCount", totalRecordCount);
+					jsonFcltOperInfoList.push(msg);
 
+					if (index === 0) {
+						totalRecordCount = item.totalRecordCount;
+					}
+				});
+        	}
         	if (jsonFcltOperInfoList.length > 0) {
 
         		if(grdFcltOperInfoList.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
@@ -448,6 +459,7 @@
 
 
         } catch (e) {
+        	console.log("error");
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
@@ -679,14 +691,18 @@
         /**
          * @type {any[]}
          */
+        /*
         const rows = grdFcltOperInfoList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
         		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
         	}
         });
+        */
 
-        if (list.length == 0) {
+        console.log(grdFcltOperInfoList.getSelectedRows());
+		const rows = grdFcltOperInfoList.getSelectedRows();
+        if (rows.length == 0) {
         	alert("삭제할 대상이 없습니다.");
         	return;
         }
@@ -726,10 +742,13 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltOperInfoList.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltOperInfo.do", {
+    	 	trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
+            ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
+        		});
 
          const data = await postJsonPromise;
-//예외처리
+		//예외처리
          try {
          	if (_.isEqual("S", data.resultStatus)) {
          		alert("처리 되었습니다.");
@@ -840,5 +859,12 @@
 		}
 	}
 
+	// 숫자(소숫점 가능)만 입력
+	function extractNumbers2(input) {
+		let inputValue = SBUxMethod.get(input);
+		if(inputValue != null || inputValue != ""){
+			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+		}
+	}
 </script>
 </html>

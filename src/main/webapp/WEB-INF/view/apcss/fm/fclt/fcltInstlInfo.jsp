@@ -121,21 +121,27 @@
 					<tr>
 						<th  class="th_bg">사업비1(국고)</th>
 						<td class="td_input" colspan="1">
-							<sbux-input id="dtl-input-bizAmt" name="dtl-input-bizAmt" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-bizAmt" name="dtl-input-bizAmt" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-bizAmt')" onblur="extractNumbers2('dtl-input-bizAmt')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input" colspan="1" style="border-left: hidden;"></td>
 					</tr>
 					<tr>
 						<th  class="th_bg">사업비2(지자체)</th>
 						<td class="td_input" colspan="1">
-							<sbux-input id="dtl-input-bizAmt2" name="dtl-input-bizAmt2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-bizAmt2" name="dtl-input-bizAmt2" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-bizAmt2')" onblur="extractNumbers2('dtl-input-bizAmt2')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input" colspan="1" style="border-left: hidden;"></td>
 					</tr>
 					<tr>
 						<th  class="th_bg">사업비3(자부담)</th>
 						<td class="td_input" colspan="1">
-							<sbux-input id="dtl-input-bizAmt3" name="dtl-input-bizAmt3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-bizAmt3" name="dtl-input-bizAmt3" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-bizAmt3')" onblur="extractNumbers2('dtl-input-bizAmt3')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input" colspan="1" style="border-left: hidden;"></td>
 					</tr>
@@ -322,28 +328,34 @@
     		let totalRecordCount = 0;
 
         	jsonFcltInstlInfoList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const msg = {
-				trgtYr: item.trgtYr,	 	//대상연도
-				apcCd: item.apcCd, 	 		//apc코드
-				sn: item.sn, 	 		//apc코드
-				bizYr: item.bizYr,                    	//사업연도
-				bizSprtCd: item.bizSprtCd,             //사업지원코드
-				bizCn: item.bizCn,                    //사업내용
-				bizAmtCd: item.bizAmtCd,        //사업비코드
-				bizAmt: item.bizAmt,        //사업비(국고)
-				bizAmt2: item.bizAmt2,        //사업비2(지자체)
-				bizAmt3: item.bizAmt3,        //사업비3(자부담)
-				bizAmt4: item.bizAmt4,        //사업비3(계)
-				apcNm: item.apcNm,                  		  		//APC명
-				}
+        	//"Index 0 out of bounds for length 0"
+        	//data.resultCode = E0000
+        	//data.resultStatus E , S
+        	if(data.resultCode != "E0000"){
+        		data.resultList.forEach((item, index) => {
+    				const msg = {
+    				trgtYr: item.trgtYr,	 	//대상연도
+    				apcCd: item.apcCd, 	 		//apc코드
+    				sn: item.sn, 	 		//apc코드
+    				bizYr: item.bizYr,                    	//사업연도
+    				bizSprtCd: item.bizSprtCd,             //사업지원코드
+    				bizCn: item.bizCn,                    //사업내용
+    				bizAmtCd: item.bizAmtCd,        //사업비코드
+    				bizAmt: item.bizAmt,        //사업비(국고)
+    				bizAmt2: item.bizAmt2,        //사업비2(지자체)
+    				bizAmt3: item.bizAmt3,        //사업비3(자부담)
+    				bizAmt4: item.bizAmt4,        //사업비3(계)
+    				apcNm: item.apcNm,                  		  		//APC명
+    				}
 
-				jsonFcltInstlInfoList.push(msg);
+    				jsonFcltInstlInfoList.push(msg);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+    				if (index === 0) {
+    					totalRecordCount = item.totalRecordCount;
+    				}
+    			});
+        	}
+
 
         	if (jsonFcltInstlInfoList.length > 0) {
 
@@ -514,14 +526,10 @@
         /**
          * @type {any[]}
          */
-        const rows = grdFcltInstlInfoList.getGridDataAll();
-        rows.forEach((row) => {
-        	if (_.isEqual("Y", row.checked)) {
-        		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd , sn: row.sn});
-        	}
-        });
 
-        if (list.length == 0) {
+        console.log(grdFcltInstlInfoList.getSelectedRows());
+		const rows = grdFcltInstlInfoList.getSelectedRows();
+        if (rows.length == 0) {
         	alert("삭제할 대상이 없습니다.");
         	return;
         }
@@ -561,10 +569,14 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltInstlInfoList.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltInstlInfo.do", {
+    	 	trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
+            ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
+            ,	sn: SBUxMethod.get('dtl-input-sn')                             		//  순서
+        		});
 
          const data = await postJsonPromise;
-//예외처리
+		//예외처리
          try {
          	if (_.isEqual("S", data.resultStatus)) {
          		alert("처리 되었습니다.");
@@ -655,5 +667,12 @@
 	    return obj;
 	}
 
+	// 숫자(소숫점 가능)만 입력
+	function extractNumbers2(input) {
+		let inputValue = SBUxMethod.get(input);
+		if(inputValue != null || inputValue != ""){
+			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+		}
+	}
 </script>
 </html>

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ import com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper;
 import com.at.apcss.am.spmt.service.SpmtPrfmncService;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : SpmtPrfmncServiceImpl.java
@@ -34,7 +37,7 @@ import com.at.apcss.co.constants.ComConstants;
  * </pre>
  */
 @Service("spmtPrfmncService")
-public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
+public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmncService {
 
 	@Autowired
 	private SpmtPrfmncMapper spmtPrfmncMapper;
@@ -113,32 +116,138 @@ public class SpmtPrfmncServiceImpl implements SpmtPrfmncService {
 	}
 
 	@Override
-	public int insertSpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
+	public HashMap<String, Object> insertSpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
+		HashMap<String, Object> resultMap;
+
 
 		int insertedCnt = 0;
 
-		String spmtno = cmnsTaskNoService.selectSpmtno(spmtPrfmncList.get(0).getApcCd(), spmtPrfmncList.get(0).getSpmtYmd());
+		if(ComConstants.EXCEL_YES.equals(spmtPrfmncList.get(0).getExcelYn())) {
 
-		spmtPrfmncList.get(0).setSpmtno(spmtno);
+			for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
+				String spmtno = cmnsTaskNoService.selectSpmtno(spmtPrfmncVO.getApcCd(), spmtPrfmncVO.getSpmtYmd());
+				spmtPrfmncVO.setSpmtno(spmtno);
 
-		insertSpmtPrfmncCom(spmtPrfmncList.get(0));
+				GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+				gdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
 
-		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
-			spmtPrfmncVO.setSpmtno(spmtno);
-			insertedCnt += insertSpmtPrfmncDtl(spmtPrfmncVO);
+				gdsInvntrVO.setItemCd(spmtPrfmncVO.getItemCd());
+				gdsInvntrVO.setVrtyCd(spmtPrfmncVO.getVrtyCd());
+				gdsInvntrVO.setSpcfctCd(spmtPrfmncVO.getSpcfctCd());
+				gdsInvntrVO.setGdsGrd(spmtPrfmncVO.getGdsGrd());
+				gdsInvntrVO.setGdsSeCd(spmtPrfmncVO.getGdsSeCd());
 
-			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
-			gdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
-			gdsInvntrVO.setPckgno(spmtPrfmncVO.getPckgno());
-			gdsInvntrVO.setPckgSn(spmtPrfmncVO.getPckgSn());
-			gdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
-			gdsInvntrVO.setSpmtWght(spmtPrfmncVO.getSpmtWght());
-			gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
-			gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+				List<GdsInvntrVO> gdsInvntrList = gdsInvntrService.selectGdsInvntrList(gdsInvntrVO);
+				if(gdsInvntrList.size() > 0) {
 
-			gdsInvntrService.updateGdsInvntrSpmtPrfmnc(gdsInvntrVO);
+					insertSpmtPrfmncCom(spmtPrfmncVO);
+
+					int remainderSpmtQntt = spmtPrfmncVO.getSpmtQntt();
+					Double remainderSpmtWght = spmtPrfmncVO.getSpmtWght();
+
+
+					for (GdsInvntrVO gdsInvntr : gdsInvntrList) {
+
+						if(remainderSpmtQntt == 0) {
+							break;
+						}
+
+						if(remainderSpmtQntt > 0) {
+
+							if(gdsInvntr.getInvntrQntt() - remainderSpmtQntt >= 0) {
+
+								spmtPrfmncVO.setPckgno(gdsInvntr.getPckgno());
+								spmtPrfmncVO.setPckgSn(gdsInvntr.getPckgSn());
+								spmtPrfmncVO.setBrndNm(gdsInvntr.getBrndNm());
+
+								spmtPrfmncVO.setSpmtQntt(remainderSpmtQntt);
+								spmtPrfmncVO.setSpmtWght(remainderSpmtWght);
+
+								insertedCnt = insertSpmtPrfmncDtl(spmtPrfmncVO);
+
+								GdsInvntrVO updateGdsInvntrVO = new GdsInvntrVO();
+								updateGdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
+								updateGdsInvntrVO.setPckgno(spmtPrfmncVO.getPckgno());
+								updateGdsInvntrVO.setPckgSn(spmtPrfmncVO.getPckgSn());
+								updateGdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
+								updateGdsInvntrVO.setSpmtWght(spmtPrfmncVO.getSpmtWght());
+								updateGdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+								updateGdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+
+								resultMap = gdsInvntrService.updateGdsInvntrSpmtPrfmnc(updateGdsInvntrVO);
+
+								if(resultMap != null) {
+									throw new EgovBizException(getMessageForMap(resultMap));
+								}
+								remainderSpmtQntt = remainderSpmtQntt - spmtPrfmncVO.getSpmtQntt();
+								remainderSpmtWght = remainderSpmtWght - spmtPrfmncVO.getSpmtWght();
+
+							}else {
+
+								spmtPrfmncVO.setPckgno(gdsInvntr.getPckgno());
+								spmtPrfmncVO.setPckgSn(gdsInvntr.getPckgSn());
+								spmtPrfmncVO.setBrndNm(gdsInvntr.getBrndNm());
+
+								spmtPrfmncVO.setSpmtQntt(gdsInvntr.getInvntrQntt());
+								spmtPrfmncVO.setSpmtWght(gdsInvntr.getInvntrWght());
+
+								insertedCnt = insertSpmtPrfmncDtl(spmtPrfmncVO);
+
+								GdsInvntrVO updateGdsInvntrVO = new GdsInvntrVO();
+								updateGdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
+								updateGdsInvntrVO.setPckgno(spmtPrfmncVO.getPckgno());
+								updateGdsInvntrVO.setPckgSn(spmtPrfmncVO.getPckgSn());
+								updateGdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
+								updateGdsInvntrVO.setSpmtWght(spmtPrfmncVO.getSpmtWght());
+								updateGdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+								updateGdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+								resultMap = gdsInvntrService.updateGdsInvntrSpmtPrfmnc(updateGdsInvntrVO);
+
+								if(resultMap != null) {
+									throw new EgovBizException(getMessageForMap(resultMap));
+								}
+
+								remainderSpmtQntt = remainderSpmtQntt - spmtPrfmncVO.getSpmtQntt();
+								remainderSpmtWght = remainderSpmtWght - spmtPrfmncVO.getSpmtWght();
+							}
+						}
+					}
+
+					if(remainderSpmtQntt > 0) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0005", "상품재고")));
+					}
+
+				}else {
+					return ComUtil.getResultMap("W0005", "상품재고");
+				}
+			}
+
+		}else {
+			String spmtno = cmnsTaskNoService.selectSpmtno(spmtPrfmncList.get(0).getApcCd(), spmtPrfmncList.get(0).getSpmtYmd());
+
+			spmtPrfmncList.get(0).setSpmtno(spmtno);
+
+			insertSpmtPrfmncCom(spmtPrfmncList.get(0));
+
+			for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
+				spmtPrfmncVO.setSpmtno(spmtno);
+				insertedCnt += insertSpmtPrfmncDtl(spmtPrfmncVO);
+
+				GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+				gdsInvntrVO.setApcCd(spmtPrfmncVO.getApcCd());
+				gdsInvntrVO.setPckgno(spmtPrfmncVO.getPckgno());
+				gdsInvntrVO.setPckgSn(spmtPrfmncVO.getPckgSn());
+				gdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
+				gdsInvntrVO.setSpmtWght(spmtPrfmncVO.getSpmtWght());
+				gdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
+				gdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
+
+				gdsInvntrService.updateGdsInvntrSpmtPrfmnc(gdsInvntrVO);
+			}
+
 		}
-		return insertedCnt;
+
+		return null;
 	}
 
 	@Override

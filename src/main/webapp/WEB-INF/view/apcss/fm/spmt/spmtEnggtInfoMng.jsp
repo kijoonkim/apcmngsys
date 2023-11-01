@@ -132,8 +132,8 @@
 						<tr>
 							<th scope="row">생산유통통합조직</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-apcCd3" name="dtl-inp-apcCd3" uitype="hidden" ></sbux-input>
-								<sbux-input id="dtl-inp-apcNm3" name="dtl-inp-apcNm3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							    <sbux-input id="dtl-inp-apcCd2" name="dtl-inp-apcCd2" uitype="hidden" ></sbux-input>
+								<sbux-input id="dtl-inp-apcNm2" name="dtl-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 							<td>
 <!-- 								<sbux-button id="srch-btn-apc4" name="srch-btn-apc4" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc5"/> -->
@@ -141,8 +141,8 @@
 							</td>
 						    <th scope="row">출자출하조직</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-apcCd2" name="dtl-inp-apcCd2" uitype="hidden" ></sbux-input>
-								<sbux-input id="dtl-inp-apcNm2" name="dtl-inp-apcNm2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+								<sbux-input id="dtl-inp-apcCd3" name="dtl-inp-apcCd3" uitype="hidden" ></sbux-input>
+								<sbux-input id="dtl-inp-apcNm3" name="dtl-inp-apcNm3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
 							<td style="border-right: hidden;">
 <!-- 								<sbux-button id="srch-btn-apc3" name="srch-btn-apc3" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-apc" onclick="fn_choiceApc4"/> -->
@@ -446,9 +446,9 @@
     <div id="body-modal-invstmntSpmt">
     	<jsp:include page="../popup/InvstmntSpmtPopup.jsp"></jsp:include>
     </div>
-    
-    
-    
+
+
+
      <!-- 통합조직,출자출하조직 선택 Modal -->
     <!-- 2023 09 22 ljw 통합조직 출자출하조직 리스트 팝업 생성 -->
     <div>
@@ -465,7 +465,7 @@
     <div id="body-modal-invstmntSpmt-dtl">
     	<jsp:include page="../popup/InvstmntSpmtPopup.jsp"></jsp:include>
     </div>
-    
+
 
 </body>
 <script type="text/javascript">
@@ -904,7 +904,7 @@
 			spclMttr: SBUxMethod.get('dtl-inp-spclMttr'),
 			advncPay: SBUxMethod.get('dtl-inp-advncPay'),
 			rmrk: SBUxMethod.get('dtl-inp-rmrk'),
-			
+
 			apcCd2: SBUxMethod.get('dtl-inp-apcCd2'),
 			apcNm2: SBUxMethod.get('dtl-inp-apcNm2'),
 			apcCd3: SBUxMethod.get('dtl-inp-apcCd3'),
@@ -968,7 +968,7 @@
          * @type {any[]}
          */
 
-        
+
         const rows = grdComMsgList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
@@ -978,10 +978,10 @@
         			});
         	}
         });
-        
-        
-        
-        
+
+
+
+
 
         if (list.length == 0) {
         	alert("삭제할 대상이 없습니다.");
@@ -1041,14 +1041,38 @@
          console.log("update result", data);
     }
 
+
+     function fn_view() {
+
+    	 var nCol = grdComMsgList.getCol();
+         //특정 열 부터 이벤트 적용
+         if (nCol < 1) {
+             return;
+         }
+         var nRow = grdComMsgList.getRow();
+ 		if (nRow < 1) {
+             return;
+ 		}
+
+         let rowData = grdComMsgList.getRowData(nRow);
+
+ 	        gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, rowData.apcCd);	// 품목
+ 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, rowData.apcCd);	// 품종
+ 			gfn_setApcVrtySBSelect('dtl-slt-spmtCd', jsonApcVrty, rowData.apcCd);	// 품종
+
+ 			alert( rowData.apcCd);
+ 			fn_view2() ;
+
+     }
+
     //상세정보 보기
-    function fn_view() {
+    function fn_view2() {
 
-    	
-    	
 
-    	
-    	
+
+
+
+
     	var nCol = grdComMsgList.getCol();
         //특정 열 부터 이벤트 적용
         if (nCol < 1) {
@@ -1060,12 +1084,11 @@
 		}
 
         let rowData = grdComMsgList.getRowData(nRow);
-        
-        
-        gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, rowData.apcCd);	// 품목
-		gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, rowData.apcCd);	// 품종
-		gfn_setApcVrtySBSelect('dtl-slt-spmtCd', jsonApcVrty, rowData.apcCd);	// 품종
-        
+
+// 	        gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, rowData.apcCd);	// 품목
+// 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, rowData.apcCd);	// 품종
+// 			gfn_setApcVrtySBSelect('dtl-slt-spmtCd', jsonApcVrty, rowData.apcCd);	// 품종
+
         SBUxMethod.set("dtl-input-gbnKey", "U");
         SBUxMethod.set("dtl-inp-apcCd", rowData.apcCd);
     	SBUxMethod.set("dtl-inp-apcNm", rowData.apcNm);
@@ -1202,12 +1225,12 @@
 			}
 		}
 
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 	  //APC명 선택 popup
 	  //하단 상세내역 출자출하조직 찾기
 	    const fn_choiceApc4 = function() {
@@ -1225,20 +1248,20 @@
 				SBUxMethod.set("dtl-inp-apcNm2", rowData.subCodeNm);
 				SBUxMethod.set("dtl-inp-apcCd3", rowData.mainCode);
 				SBUxMethod.set("dtl-inp-apcNm3", rowData.mainCodeNm);
-				
+
 				//gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, apc.apcCd),	// 품목
 				//gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, apc.apcCd),	// 품종
 				//gfn_setApcVrtySBSelect('dtl-slt-spmtCd', jsonApcVrty, apc.apcCd)	// 품종
 
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
 	  //APC명 선택 popup
 	  //하단 상세내역 생산유통통합조직 찾기
 	    const fn_choiceApc5 = function() {
@@ -1288,11 +1311,11 @@
 			SBUxMethod.set("srch-inp-apcNm2", rowData.mainCodeNm);
 		}
 	}
-	
-	
-	
-	
-	/* 
+
+
+
+
+	/*
 	var jsonGItemCd 	= [];
 	var jsonGGrdSeCd 	= [];
 	var jsonGJgmtType 	= [];

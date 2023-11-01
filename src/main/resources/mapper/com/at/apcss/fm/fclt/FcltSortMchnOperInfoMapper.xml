@@ -82,6 +82,8 @@
 
 			  FROM TB_FCLT_SORT_MCHN_OPER_INFO FCLT
 	    	 WHERE 1=1
+	    	 AND DEL_YN != 'Y'
+	    	 AND APC_CD IS NOT NULL
 		]]>
         <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -169,6 +171,8 @@
 				,    FCLT.SORT_MCHN_HLD_YN_412   AS    SORT_MCHN_HLD_YN_412
 			  FROM TB_FCLT_SORT_MCHN_OPER_INFO FCLT
 	    	 WHERE 1=1
+	    	 AND DEL_YN != 'Y'
+	    	 AND APC_CD IS NOT NULL
   ]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -609,6 +613,18 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<update id="deleteFcltSortMchnOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.deleteFcltSortMchnOperInfo */
+	    		TB_FCLT_SORT_MCHN_OPER_INFO FCLT
+			   SET
+	    		  DEL_YN 	= 'Y'
+			WHERE 1=1
+		      AND TRGT_YR = #{trgtYr}
+		      AND  APC_CD = #{apcCd}
+    	]]>
+    </update>
+    <!--
     <delete id="deleteFcltSortMchnOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.deleteFcltSortMchnOperInfo */
@@ -618,5 +634,5 @@
 		     AND  APC_CD = #{apcCd}
     	]]>
     </delete>
-
+ -->
 </mapper>

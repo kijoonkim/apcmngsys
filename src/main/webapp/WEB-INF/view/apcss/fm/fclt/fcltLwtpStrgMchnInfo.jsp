@@ -104,10 +104,18 @@
 								jsondata-ref="selectYnData"
 								unselected-text="선택" class="form-control input-sm"></sbux-select>
 						</td>
-						<td class="td_input"><sbux-input id="dtl-input-storCap" name="dtl-input-storCap" uitype="text" class="form-control input-sm" placeholder="1,000" ></sbux-input></td>
-						<td class="td_input"><sbux-input id="dtl-input-stStorPerfm" name="dtl-input-stStorPerfm" uitype="text" class="form-control input-sm" placeholder="100" ></sbux-input></td>
-						<td class="td_input"><sbux-input id="dtl-input-ltStorPerfm" name="dtl-input-ltStorPerfm" uitype="text" class="form-control input-sm" placeholder="2,000" ></sbux-input></td>
-						<td class="td_input"><sbux-input id="dtl-input-storOpRate" name="dtl-input-storOpRate" uitype="text" class="form-control input-sm" placeholder="210" ></sbux-input></td>
+						<td class="td_input"><sbux-input id="dtl-input-storCap" name="dtl-input-storCap" uitype="text"
+						onkeyup="extractNumbers2('dtl-input-storCap')" onblur="extractNumbers2('dtl-input-storCap')"
+						class="form-control input-sm" placeholder="1,000" ></sbux-input></td>
+						<td class="td_input"><sbux-input id="dtl-input-stStorPerfm" name="dtl-input-stStorPerfm" uitype="text"
+						onkeyup="extractNumbers2('dtl-input-stStorPerfm')" onblur="extractNumbers2('dtl-input-stStorPerfm')"
+						class="form-control input-sm" placeholder="100" ></sbux-input></td>
+						<td class="td_input"><sbux-input id="dtl-input-ltStorPerfm" name="dtl-input-ltStorPerfm" uitype="text"
+						onkeyup="extractNumbers2('dtl-input-ltStorPerfm')" onblur="extractNumbers2('dtl-input-ltStorPerfm')"
+						class="form-control input-sm" placeholder="2,000" ></sbux-input></td>
+						<td class="td_input"><sbux-input id="dtl-input-storOpRate" name="dtl-input-storOpRate" uitype="text"
+						onkeyup="extractNumbers2('dtl-input-storOpRate')" onblur="extractNumbers2('dtl-input-storOpRate')"
+						class="form-control input-sm" placeholder="210" ></sbux-input></td>
 
 					</tr>
 					<tr>
@@ -261,24 +269,30 @@
     		let totalRecordCount = 0;
 
         	jsonLtMcIfList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const msg = {
-					trgtYr: item.trgtYr,	 		                   //대상연도
-					apcCd: item.apcCd, 	 			                   //apc코드
-					apcNm: item.apcNm, 	 			                   //apc명
-					fcltHldYn : item.fcltHldYn,                        //보유현황
-					storCap : item.storCap,                        	   //저장능력
-					stStorPerfm : item.stStorPerfm,                    //단기저장실적
-					ltStorPerfm : item.ltStorPerfm,     			   //장기저장실적
-					storOpRate : item.storOpRate,     			       //저장가동률
-				}
+        	//"Index 0 out of bounds for length 0"
+        	//data.resultCode = E0000
+        	//data.resultStatus E , S
+        	if(data.resultCode != "E0000"){
+        		data.resultList.forEach((item, index) => {
+    				const msg = {
+    					trgtYr: item.trgtYr,	 		                   //대상연도
+    					apcCd: item.apcCd, 	 			                   //apc코드
+    					apcNm: item.apcNm, 	 			                   //apc명
+    					fcltHldYn : item.fcltHldYn,                        //보유현황
+    					storCap : item.storCap,                        	   //저장능력
+    					stStorPerfm : item.stStorPerfm,                    //단기저장실적
+    					ltStorPerfm : item.ltStorPerfm,     			   //장기저장실적
+    					storOpRate : item.storOpRate,     			       //저장가동률
+    				}
 
-				jsonLtMcIfList.push(msg);
+    				jsonLtMcIfList.push(msg);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+    				if (index === 0) {
+    					totalRecordCount = item.totalRecordCount;
+    				}
+    			});
+        	}
+
 
         	if (jsonLtMcIfList.length > 0) {
 
@@ -441,14 +455,18 @@
         /**
          * @type {any[]}
          */
+         /*
         const rows = grdLtMcIfList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
         		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
         	}
         });
+        */
 
-        if (list.length == 0) {
+      //console.log(grdLtMcIfList.getSelectedRows());
+		const rows = grdLtMcIfList.getSelectedRows();
+        if (rows.length == 0) {
         	alert("삭제할 대상이 없습니다.");
         	return;
         }
@@ -488,7 +506,10 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltLwtpStrgMchnInfo.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltLwtpStrgMchnInfo.do", {
+    	 	trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
+	        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
+     	});
 
          const data = await postJsonPromise;
 		//예외처리
@@ -578,6 +599,13 @@
 	        }
 	    }
 	    return obj;
+	}
+	// 숫자(소숫점 가능)만 입력
+	function extractNumbers2(input) {
+		let inputValue = SBUxMethod.get(input);
+		if(inputValue != null || inputValue != ""){
+			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+		}
 	}
 </script>
 </html>

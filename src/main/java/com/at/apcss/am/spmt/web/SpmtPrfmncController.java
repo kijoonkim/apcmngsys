@@ -61,7 +61,6 @@ public class SpmtPrfmncController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncList(@RequestBody List<SpmtPrfmncVO> SpmtPrfmncList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		int insertedCnt = 0;
 		try {
 
 			for (SpmtPrfmncVO spmtPrfmncVO : SpmtPrfmncList) {
@@ -71,8 +70,7 @@ public class SpmtPrfmncController extends BaseController {
 				spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			insertedCnt = spmtPrfmncService.insertSpmtPrfmncList(SpmtPrfmncList);
-			resultMap.put(ComConstants.PROP_INSERTED_CNT,  insertedCnt);
+			spmtPrfmncService.insertSpmtPrfmncList(SpmtPrfmncList);
 
 		}catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());

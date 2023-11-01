@@ -105,7 +105,9 @@
 
 						<th class="th_bg">집하선별포장장</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea01" name="dtl-input-fcltArea01" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="2,500㎡"></sbux-input>
+							<sbux-input id="dtl-input-fcltArea01" name="dtl-input-fcltArea01" uitype="text"
+							onblur="fn_sumNumbers('dtl-input-fcltArea01')"
+							class="form-control input-sm sum" onkeyup="fn_sumNumbers('dtl-input-fcltArea01')" placeholder="2,500㎡"></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk01" name="dtl-input-fcltRmrk01" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
@@ -115,7 +117,9 @@
 					<tr>
 						<th class="th_bg">세척․가공 등 처리</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea02" name="dtl-input-fcltArea02" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea02" name="dtl-input-fcltArea02" uitype="text"
+							onblur="fn_sumNumbers('dtl-input-fcltArea02')"
+							class="form-control input-sm sum" onkeyup="fn_sumNumbers('dtl-input-fcltArea02')" placeholder="-" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk02" name="dtl-input-fcltRmrk02" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
@@ -125,7 +129,9 @@
 					<tr>
 						<th class="th_bg">비상품화시설</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea03" name="dtl-input-fcltArea03" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="300㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea03" name="dtl-input-fcltArea03" uitype="text"
+							onblur="fn_sumNumbers('dtl-input-fcltArea03')"
+							class="form-control input-sm sum" onkeyup="fn_sumNumbers('dtl-input-fcltArea03')" placeholder="300㎡" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk03" name="dtl-input-fcltRmrk03" uitype="text" class="form-control input-sm" placeholder="사무실,회의실,화장실 등" ></sbux-input>
@@ -135,7 +141,9 @@
 					<tr>
 						<th class="th_bg">폐기물 처리</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea04" name="dtl-input-fcltArea04" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea04" name="dtl-input-fcltArea04" uitype="text"
+							onblur="fn_sumNumbers('dtl-input-fcltArea04')"
+							class="form-control input-sm sum" onkeyup="fn_sumNumbers('dtl-input-fcltArea04')" placeholder="-" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk04" name="dtl-input-fcltRmrk04" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
@@ -145,7 +153,9 @@
 					<tr>
 						<th class="th_bg">예냉고</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea05" name="dtl-input-fcltArea05" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="300㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea05" name="dtl-input-fcltArea05" uitype="text"
+							onblur="fn_sumNumbers('dtl-input-fcltArea05')"
+							class="form-control input-sm sum" onkeyup="fn_sumNumbers('dtl-input-fcltArea05')" placeholder="300㎡" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk05" name="dtl-input-fcltRmrk05" uitype="text" class="form-control input-sm" placeholder="3칸×100㎡" ></sbux-input>
@@ -155,7 +165,9 @@
 					<tr>
 						<th class="th_bg">저온저장</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea06" name="dtl-input-fcltArea06" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="700㎡
+							<sbux-input id="dtl-input-fcltArea06" name="dtl-input-fcltArea06" uitype="text"
+							onblur="fn_sumNumbers('dtl-input-fcltArea06')"
+							class="form-control input-sm sum" onkeyup="fn_sumNumbers('dtl-input-fcltArea06')" placeholder="700㎡
 							" ></sbux-input>
 						</td>
 						<td class="td_input">
@@ -167,7 +179,9 @@
 					<tr>
 						<th class="th_bg">CA저장고</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea07" name="dtl-input-fcltArea07" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="300㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea07" name="dtl-input-fcltArea07" uitype="text"
+							onblur="fn_sumNumbers('dtl-input-fcltArea07')"
+							class="form-control input-sm sum" onkeyup="fn_sumNumbers('dtl-input-fcltArea07')" placeholder="300㎡" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk07" name="dtl-input-fcltRmrk07" uitype="text" class="form-control input-sm" placeholder="3칸×100㎡" ></sbux-input>
@@ -177,7 +191,9 @@
 					<tr>
 						<th class="th_bg">큐어링</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea08" name="dtl-input-fcltArea08" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea08" name="dtl-input-fcltArea08" uitype="text"
+							onblur="fn_sumNumbers('dtl-input-fcltArea08')"
+							class="form-control input-sm sum" onkeyup="fn_sumNumbers('dtl-input-fcltArea08')" placeholder="-" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk08" name="dtl-input-fcltRmrk08" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
@@ -187,7 +203,9 @@
 					<tr>
 						<th class="th_bg">일반저장</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea09" name="dtl-input-fcltArea09" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="500㎡" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea09" name="dtl-input-fcltArea09" uitype="text"
+							onblur="fn_sumNumbers('dtl-input-fcltArea09')" onkeyup="fn_sumNumbers('dtl-input-fcltArea09')"
+							class="form-control input-sm sum" placeholder="500㎡" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk09" name="dtl-input-fcltRmrk09" uitype="text" class="form-control input-sm" placeholder="5칸×100㎡" ></sbux-input>
@@ -198,7 +216,9 @@
 					<tr>
 						<th class="th_bg">기타사항</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-fcltArea10" name="dtl-input-fcltArea10" uitype="text" class="form-control input-sm sum" onkeyup="fn_sumNumbers(this)" placeholder="-" ></sbux-input>
+							<sbux-input id="dtl-input-fcltArea10" name="dtl-input-fcltArea10" uitype="text"
+							onblur="fn_sumNumbers('dtl-input-fcltArea10')"
+							class="form-control input-sm sum" onkeyup="fn_sumNumbers('dtl-input-fcltArea10')" placeholder="-" ></sbux-input>
 						</td>
 						<td class="td_input">
 							<sbux-input id="dtl-input-fcltRmrk10" name="dtl-input-fcltRmrk10" uitype="text" class="form-control input-sm" placeholder="-" ></sbux-input>
@@ -381,43 +401,49 @@
     		let totalRecordCount = 0;
 
         	jsonFcltInfoList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const msg = {
-				trgtYr: item.trgtYr,	 	 //대상연도
-				apcCd: item.apcCd, 	 		 //apc코드
-				apcNm: item.apcNm,      	 //apc명
-				fcltCd: item.fcltCd,     	 //시설 코드
-		    	fcltNm: item.fcltNm,          	 //시설 명
-		        fcltAreaTot: item.fcltAreaTot,     //시설 면적 총면적
-		        fcltRmrkTot: item.fcltRmrkTot,    			 //비고
-		        fcltArea01: item.fcltArea01,     //시설 면적 집하선별포장장
-		        fcltRmrk01: item.fcltRmrk01,    			 //비고
-		        fcltArea02: item.fcltArea02,     //시설 면적 세척,가공 등 처리
-		        fcltRmrk02: item.fcltRmrk02,    			 //비고
-		        fcltArea03: item.fcltArea03,     //시설 면적 비 상품화시설
-		        fcltRmrk03: item.fcltRmrk03,    			 //비고
-		        fcltArea04: item.fcltArea04,     //시설 면적 폐기물처리
-		        fcltRmrk04: item.fcltRmrk04,    			 //비고
-		        fcltArea05: item.fcltArea05,     //시설 면적 예냉고
-		        fcltRmrk05: item.fcltRmrk05,    			 //비고
-		        fcltArea06: item.fcltArea06,     //시설 면적 저온저장
-		        fcltRmrk06: item.fcltRmrk06,    			 //비고
-		        fcltArea07: item.fcltArea07,     //시설 면적 CA저장고
-		        fcltRmrk07: item.fcltRmrk07,    			 //비고
-		        fcltArea08: item.fcltArea08,     //시설 면적 큐어링
-		        fcltRmrk08: item.fcltRmrk08,    			 //비고
-		        fcltArea09: item.fcltArea09,     //시설 면적 일반저장
-		        fcltRmrk09: item.fcltRmrk09,    			 //비고
-		        fcltArea10: item.fcltArea10,     //시설 면적 기타사항
-		        fcltRmrk10: item.fcltRmrk10,    			 //비고
-				}
+        	//"Index 0 out of bounds for length 0"
+        	//data.resultCode = E0000
+        	//data.resultStatus E , S
+        	if(data.resultCode != "E0000"){
+        		data.resultList.forEach((item, index) => {
+    				const msg = {
+    				trgtYr: item.trgtYr,	 	 //대상연도
+    				apcCd: item.apcCd, 	 		 //apc코드
+    				apcNm: item.apcNm,      	 //apc명
+    				fcltCd: item.fcltCd,     	 //시설 코드
+    		    	fcltNm: item.fcltNm,          	 //시설 명
+    		        fcltAreaTot: item.fcltAreaTot,     //시설 면적 총면적
+    		        fcltRmrkTot: item.fcltRmrkTot,    			 //비고
+    		        fcltArea01: item.fcltArea01,     //시설 면적 집하선별포장장
+    		        fcltRmrk01: item.fcltRmrk01,    			 //비고
+    		        fcltArea02: item.fcltArea02,     //시설 면적 세척,가공 등 처리
+    		        fcltRmrk02: item.fcltRmrk02,    			 //비고
+    		        fcltArea03: item.fcltArea03,     //시설 면적 비 상품화시설
+    		        fcltRmrk03: item.fcltRmrk03,    			 //비고
+    		        fcltArea04: item.fcltArea04,     //시설 면적 폐기물처리
+    		        fcltRmrk04: item.fcltRmrk04,    			 //비고
+    		        fcltArea05: item.fcltArea05,     //시설 면적 예냉고
+    		        fcltRmrk05: item.fcltRmrk05,    			 //비고
+    		        fcltArea06: item.fcltArea06,     //시설 면적 저온저장
+    		        fcltRmrk06: item.fcltRmrk06,    			 //비고
+    		        fcltArea07: item.fcltArea07,     //시설 면적 CA저장고
+    		        fcltRmrk07: item.fcltRmrk07,    			 //비고
+    		        fcltArea08: item.fcltArea08,     //시설 면적 큐어링
+    		        fcltRmrk08: item.fcltRmrk08,    			 //비고
+    		        fcltArea09: item.fcltArea09,     //시설 면적 일반저장
+    		        fcltRmrk09: item.fcltRmrk09,    			 //비고
+    		        fcltArea10: item.fcltArea10,     //시설 면적 기타사항
+    		        fcltRmrk10: item.fcltRmrk10,    			 //비고
+    				}
 
-				jsonFcltInfoList.push(msg);
+    				jsonFcltInfoList.push(msg);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+    				if (index === 0) {
+    					totalRecordCount = item.totalRecordCount;
+    				}
+    			});
+        	}
+
 
         	if (jsonFcltInfoList.length > 0) {
 
@@ -661,14 +687,18 @@
         /**
          * @type {any[]}
          */
+         /*
         const rows = grdFcltInfoList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
         		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
         	}
         });
+        */
 
-        if (list.length == 0) {
+        console.log(grdFcltInfoList.getSelectedRows());
+		const rows = grdFcltInfoList.getSelectedRows();
+        if (rows.length == 0) {
         	alert("삭제할 대상이 없습니다.");
         	return;
         }
@@ -708,7 +738,10 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltInfoList.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltInfo.do", {
+        	trgtYr: SBUxMethod.get('dtl-input-trgtYr')   	                     //  대상연도
+	        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')     	                     //  apc코드
+    		});
 
          const data = await postJsonPromise;
 		//예외처리
@@ -821,23 +854,31 @@
 	}
 
 	//면적 합산
-	function fn_sumNumbers(e) {
-        extractNumbers2(e);
+	function fn_sumNumbers(name) {
+		console.log(name);
+        extractNumbers2(name);
 
         let sum = 0;
 
         document.querySelectorAll("input.sum").forEach(e =>{
-        	sum += e.value/1;
+        	if (!isNaN(e.value)) {
+        		console.log(e.value);
+        		sum += e.value/1;
+        	}
         });
-        console.log(sum.toFixed(1));
+        //console.log(sum.toFixed(1));
         SBUxMethod.set("dtl-input-fcltAreaTot", sum.toFixed(1));
+        extractNumbers2(name);
     }
 
 	// 숫자(소숫점 가능)만 입력
-	function fn_extractNumbers2(e) {
-		let chkVal = $(e).val().replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-		$(e).val(chkVal);
+	function extractNumbers2(input) {
+		let inputValue = SBUxMethod.get(input);
+		if(inputValue != null || inputValue != ""){
+			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+		}
 	}
+
 	// "null" 로 들어가는 경우 방지
 	function fn_emptyString(obj) {
 		console.log("==========fn_emptyString=============");
