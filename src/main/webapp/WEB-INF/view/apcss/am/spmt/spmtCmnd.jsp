@@ -106,7 +106,7 @@
 											name="srch-slt-vrtyCd"
 											class="form-control input-sm"
 											jsondata-ref="jsonApcVrty"
-											onchange="fn_selectVrty(this)"
+											onchange="fn_onChangeSrchVrtyCd(this)"
 										/>
 									</div>
 								</div>
@@ -176,23 +176,6 @@
 			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd)	// 포장단위
 		]);
         fn_search();
-	}
-
-	const fn_selectVrty = async function(){
-		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let itemCd = "";
-		for(i=0;i<jsonApcVrty.length;i++){
-			if(jsonApcVrty[i].value == vrtyCd){
-				itemCd = jsonApcVrty[i].mastervalue;
-			}
-		}
-		SBUxMethod.set("srch-slt-itemCd", itemCd);
-		let rst = await Promise.all([
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonApcSpcfct, 		gv_selectedApcCd, itemCd),					// 규격
-			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmnd', 		jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd, vrtyCd)	// 포장구분
-		])
-		grdSpmtCmnd.refresh({"combo":true})
-		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -425,7 +408,7 @@
  			grdSpmtCmnd.rebuild()
 		]);
 	}
-
+	
 	/**
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
@@ -434,10 +417,14 @@
 		let itemCd = obj.value;
 
 		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),							// 품종
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd),					// 규격
-			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd)		// 포장구분
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),						// 품종
+			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd)	// 포장구분
 		]);
+		if (gfn_isEmpty(itemCd)) {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, "");
+		} else {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd);				// 규격
+		}
 	}
 
 	/**
@@ -446,8 +433,13 @@
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		const itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
-
+		let itemCd = "";
+		if (!gfn_isEmpty(vrtyCd)) {
+			itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
+		} else {
+			itemCd = SBUxMethod.get("srch-slt-itemCd");
+		}
+		
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if (itemCd != prvItemCd) {
 			SBUxMethod.set("srch-slt-itemCd", itemCd);
@@ -455,10 +447,8 @@
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
 		let rst = await Promise.all([
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 			jsonApcSpcfct, 		gv_selectedApcCd, itemCd),			// 규격		(조회)
-			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', 	jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd, vrtyCd)	// 포장단위	(그리드)
-		])
-
+			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', 	jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd, vrtyCd)	// 포장단위
+		]);
 	}
 
 	// 거래처 선택 팝업 호출

@@ -222,16 +222,6 @@
 			gfn_setTrsprtsSBSelect('dtl-slt-trsprtCo', 		jsonTrsprtCo, 		gv_selectedApcCd),						// 운송회사
 		]);
 	}
-
-	const fn_selectItem = async function(){
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 	gv_selectedApcCd, itemCd);		// 품종
-		if (gfn_isEmpty(itemCd)) {
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	"");
-		} else {
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	gv_selectedApcCd, itemCd);		// 규격
-		}
-	}
 	
 	/**
 	 * @name fn_onChangeSrchItemCd
@@ -245,9 +235,9 @@
 			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnit, gv_selectedApcCd, itemCd)		// 포장구분
 		]);
 		if (gfn_isEmpty(itemCd)) {
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	"");
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, "");
 		} else {
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	gv_selectedApcCd, itemCd);		// 규격
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd, itemCd);				// 규격
 		}
 	}
 
@@ -257,8 +247,13 @@
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		const itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
-
+		let itemCd = "";
+		if (!gfn_isEmpty(vrtyCd)) {
+			itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
+		} else {
+			itemCd = SBUxMethod.get("srch-slt-itemCd");
+		}
+		
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if (itemCd != prvItemCd) {
 			SBUxMethod.set("srch-slt-itemCd", itemCd);
@@ -266,8 +261,7 @@
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
 		let rst = await Promise.all([
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, 		gv_selectedApcCd, itemCd),			// 규격		(조회)
-			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmndTrg', 	jsonSpmtPckgUnit, 	gv_selectedApcCd, itemCd, vrtyCd)	// 포장구분	(그리드)
+			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmndTrg', jsonSpmtPckgUnit, gv_selectedApcCd, itemCd, vrtyCd)	// 포장구분	(그리드)
 		]);
 		grdSpmtCmndTrg.refresh({"combo":true});
 		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
@@ -336,12 +330,12 @@
             {caption: ['배송처'], 		ref: 'dldtn', 			width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['품종'], 		ref: 'vrtyNm', 			width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 		width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['수량'], 		ref: 'cmndQntt',		width: '80px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ['중량'], 		ref: 'cmndWght', 		width: '100px', type: 'output', style: 'text-align:right',
+            {caption: ['수량'], 		ref: 'cmndQntt',		width: '70px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['중량'], 		ref: 'cmndWght', 		width: '80px', type: 'output', style: 'text-align:right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '100px', type: 'output', style: 'text-align:center'},
+            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '70px', type: 'output', style: 'text-align:center'},
             {caption: ['포장구분'], 	ref: 'spmtPckgUnitNm', 	width: '140px', type: 'output', style: 'text-align:center'},
-            {caption: ['비고'], 		ref: 'rmrk', 			width: '120px', type: 'output', style: 'text-align:center'}
+            {caption: ['비고'], 		ref: 'rmrk', 			width: '200px', type: 'output', style: 'text-align:center'}
         ];
 
         grdSpmtCmnd = _SBGrid.create(SBGridPropertiesSpmtCmnd);
@@ -762,6 +756,11 @@
   			SBUxMethod.set("srch-dtp-outordrYmdTo", gfn_dateToYmd(new Date()));
   			return;
   		}
+ 		if(gfn_diffDate(gfn_dateToYmd(new Date()), inptYmdFrom) < 0){
+ 			gfn_comAlert("E0000", "시작일자는 금일보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
   	}
      
      const fn_onChangeApc = async function() {

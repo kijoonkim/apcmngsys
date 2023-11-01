@@ -55,10 +55,10 @@
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_onChangeSrchItemCd(this)"></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" class="form-control input-sm input-sm-ast inpt_data_reqed" jsondata-ref="jsonComVrty" onchange="fn_selectVrty"></sbux-select>
+								<sbux-select unselected-text="선택" uitype="single" id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" class="form-control input-sm input-sm-ast inpt_data_reqed" jsondata-ref="jsonComVrty" onchange="fn_onChangeSrchVrtyCd(this)"></sbux-select>
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">생산자</th>
@@ -146,7 +146,6 @@
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-dudtYmd" name="srch-dtp-dudtYmd" class="form-control pull-right input-sm"/>
 							</td>
-							<td>&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -201,26 +200,37 @@
 		 	gfn_setComCdSBSelect('srch-slt-fclt', 			jsonComFclt, 	'PCKG_FCLT_CD', gv_selectedApcCd),	 	// 설비
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 	gv_selectedApcCd),						// 품목
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 	gv_selectedApcCd)						// 품종
-		])
-
+		]);
 	}
 
-	async function fn_selectItem(){
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		let rst = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd, itemCd),					// 품종
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_selectedApcCd, itemCd)				// 규격
+	const fn_onChangeSrchItemCd = async function(obj) {
+		let itemCd = obj.value;
 
-		])
+		let result = await Promise.all([
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd)						// 품종
+		]);
+		if (gfn_isEmpty(itemCd)) {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, "");
+		} else {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd, itemCd);				// 규격
+		}
 	}
 
-	async function fn_selectVrty(){
-		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let itemCd = jsonComVrty.find(e => e.vrtyCd == vrtyCd).itemCd;
-		SBUxMethod.set("srch-slt-itemCd", itemCd);
-		await fn_selectItem();
-		SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-
+	const fn_onChangeSrchVrtyCd = async function(obj) {
+		let vrtyCd = obj.value;
+		let itemCd = "";
+		if (!gfn_isEmpty(vrtyCd)) {
+			itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
+		} else {
+			itemCd = SBUxMethod.get("srch-slt-itemCd");
+		}
+		
+		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+		if (itemCd != prvItemCd) {
+			SBUxMethod.set("srch-slt-itemCd", itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+		}
 	}
 
 	// only document
@@ -230,8 +240,8 @@
 		SBUxMethod.set("srch-dtp-cmndYmd", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		fn_initSBSelect();
-		fn_createGrid();
-		fn_createGrid2();
+		fn_createSortInvntrGrid();
+		fn_createPckgCmndGrid();
 		fn_getPrdcrs();
 
 		grdSortInvntr.refresh({"combo":true});
@@ -241,7 +251,7 @@
 	var grdSortInvntr; // 그리드를 담기위한 객체 선언
 	var jsonSortInvntr = []; // 그리드의 참조 데이터 주소 선언
 
-	function fn_createGrid() {
+	function fn_createSortInvntrGrid() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdSortInvntr';
 	    SBGridProperties.id = 'grdSortInvntr';
@@ -269,7 +279,6 @@
 	        {caption: ["포장지시","중량"],  	ref: 'pckgWght',    	type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
 	        {caption: ["지시비고","지시비고"],  ref: 'rmrk',    		type:'input',  width:'180px',    style:'text-align:center'},
 	    ];
-
 	    grdSortInvntr = _SBGrid.create(SBGridProperties);
 	    grdSortInvntr.bind('valuechanged', 'fn_grdCmndQnttValueChanged');
 	    grdSortInvntr.bind('select','fn_setValue');
@@ -345,7 +354,7 @@
 	var grdPckgCmnd; // 그리드를 담기위한 객체 선언
 	var jsonPckgCmnd = []; // 그리드의 참조 데이터 주소 선언
 
-	function fn_createGrid2() {
+	function fn_createPckgCmndGrid() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPckgCmnd';
 	    SBGridProperties.id = 'grdPckgCmnd';
@@ -367,7 +376,6 @@
 	        {caption: ["비고"],			ref: 'rmrk',      	type:'output',  	width:'200px',  style:'text-align:left'},
 	        {caption: ["순번"],  		ref: 'pckgCmndSn',    hidden:true},
 	    ];
-
 	    grdPckgCmnd = _SBGrid.create(SBGridProperties);
 	}
 
@@ -703,6 +711,11 @@
  			SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
  			return;
  		}
+ 		if(gfn_diffDate(gfn_dateToYmd(new Date()), inptYmdFrom) < 0){
+ 			gfn_comAlert("E0000", "시작일자는 금일보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
  	}
  	
  	 const fn_onChangeApc = async function() {
@@ -711,7 +724,7 @@
  			fn_initSBSelect(),
  			fn_getPrdcrs(),
  			jsonSortInvntr = [],
- 			grdPckgCmnd = [],
+ 			jsonPckgCmnd = [],
  			grdSortInvntr.rebuild(),
  			grdPckgCmnd.rebuild()
  		]);
