@@ -1134,19 +1134,29 @@
 	}
 
 	const fn_reset = function () {
-		SBUxMethod.set("dtl-inp-spmtCmndno", "");
-		SBUxMethod.set("dtl-inp-cmndQntt", "");
-		SBUxMethod.set("dtl-inp-cmndWght", "");
-		SBUxMethod.set("dtl-slt-trsprtCoCd", "");
-		SBUxMethod.set("dtl-inp-cnptCd", "");
-		SBUxMethod.set("dtl-inp-cnptNm", "");
-		SBUxMethod.set("dtl-inp-dldtn", "");
-		SBUxMethod.set("dtl-slt-gdsGrd", "");
-		SBUxMethod.set("dtl-slt-outordrno", "");
-		SBUxMethod.set("srch-slt-itemCd", "");
-		SBUxMethod.set("srch-slt-vrtyCd", "");
-		SBUxMethod.set("srch-slt-spcfctCd", "");
-		SBUxMethod.set("dtl-slt-spmtPckgUnit", "");
+		SBUxMethod.set("srch-dtp-pckgYmdFrom", gfn_dateFirstYmd(new Date())); // 생산일지 from
+		SBUxMethod.set("srch-dtp-pckgYmdTo", gfn_dateToYmd(new Date())); // 생산일지 to
+		SBUxMethod.set("srch-slt-warehouseSeCd", null); // 창고구분
+		SBUxMethod.set("srch-slt-itemCd", null); // 품목
+		SBUxMethod.set("srch-slt-vrtyCd", null); // 품종
+		SBUxMethod.set("srch-rdo-gdsSeCd", "1"); // 상품
+		SBUxMethod.set("srch-slt-spcfctCd", null); // 규격
+		SBUxMethod.set("dtl-inp-spmtCmndno", null); // 지시번호
+		SBUxMethod.set("dtl-inp-outordrno", null); // 지시번호
+		SBUxMethod.set("dtl-inp-cmndQntt", null); // 지시수량
+		SBUxMethod.set("dtl-inp-cmndWght", null); // 지시중량
+		SBUxMethod.set("dtl-slt-gdsGrd", null); // 등급
+		SBUxMethod.set("dtl-slt-spmtPckgUnit", null); // 포장등급
+		SBUxMethod.set("dtl-dtp-spmtYmd",  gfn_dateToYmd(new Date())); // 출하일자
+		SBUxMethod.set("dtl-inp-spmtQntt",  null); // 출하수량
+		SBUxMethod.set("dtl-inp-spmtWght",  null); // 출하중량
+		SBUxMethod.set("dtl-inp-cnptCd",  null); // 거래처 코드
+		SBUxMethod.set("dtl-inp-cnptNm",  null); // 거래처 명
+		SBUxMethod.set("dtl-slt-trsprtCoCd",  null); // 운송회사
+		SBUxMethod.set("dtl-inp-vhclno",  null); // 차량번호
+		SBUxMethod.set("dtl-inp-dldtn",  null); // 배송처
+		SBUxMethod.set("dtl-inp-trsprtCst",  null); // 운임비용
+		SBUxMethod.set("dtl-inp-rmrk",  null); // 비고
 
 		jsonGdsInvntr.length = 0;
 		jsonSpmtPrfmnc.length = 0;
