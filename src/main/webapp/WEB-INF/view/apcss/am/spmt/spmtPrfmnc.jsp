@@ -47,10 +47,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>출하일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-spmtYmdFrom" name="srch-dtp-spmtYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-spmtYmdFrom" name="srch-dtp-spmtYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="fn_dtpChange(srch-dtp-spmtYmdFrom)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-spmtYmdTo" name="srch-dtp-spmtYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-spmtYmdTo" name="srch-dtp-spmtYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="fn_dtpChange(srch-dtp-spmtYmdTo)"></sbux-datepicker>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg" style="border-right: hidden;">품목/품종</th>
@@ -163,7 +163,18 @@
 
 		fn_createSpmtPrfmncGrid();
 		fn_initSBSelect();
-	})
+	});
+	
+	const fn_dtpChange = function(){
+		let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
+		let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
+		if(gfn_diffDate(spmtYmdFrom, spmtYmdTo) < 0){
+			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다."); //W0001{0}
+			SBUxMethod.set("srch-dtp-spmtYmdFrom", gfn_dateFirstYmd(new Date()));
+			SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
+			return;
+		}
+	}
 
 	function fn_createSpmtPrfmncGrid() {
         var SBGridProperties = {};
