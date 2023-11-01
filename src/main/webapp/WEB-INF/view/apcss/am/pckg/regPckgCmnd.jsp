@@ -146,7 +146,6 @@
 							<td class="td_input" style="border-right:hidden ;">
 								<sbux-datepicker uitype="popup" id="srch-dtp-dudtYmd" name="srch-dtp-dudtYmd" class="form-control pull-right input-sm"/>
 							</td>
-							<td>&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -241,8 +240,8 @@
 		SBUxMethod.set("srch-dtp-cmndYmd", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		fn_initSBSelect();
-		fn_createGrid();
-		fn_createGrid2();
+		fn_createSortInvntrGrid();
+		fn_createPckgCmndGrid();
 		fn_getPrdcrs();
 
 		grdSortInvntr.refresh({"combo":true});
@@ -252,7 +251,7 @@
 	var grdSortInvntr; // 그리드를 담기위한 객체 선언
 	var jsonSortInvntr = []; // 그리드의 참조 데이터 주소 선언
 
-	function fn_createGrid() {
+	function fn_createSortInvntrGrid() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdSortInvntr';
 	    SBGridProperties.id = 'grdSortInvntr';
@@ -280,7 +279,6 @@
 	        {caption: ["포장지시","중량"],  	ref: 'pckgWght',    	type:'output',  width:'100px',    style:'text-align:right', format : {type:'number', rule:'#,###Kg'}},
 	        {caption: ["지시비고","지시비고"],  ref: 'rmrk',    		type:'input',  width:'180px',    style:'text-align:center'},
 	    ];
-
 	    grdSortInvntr = _SBGrid.create(SBGridProperties);
 	    grdSortInvntr.bind('valuechanged', 'fn_grdCmndQnttValueChanged');
 	    grdSortInvntr.bind('select','fn_setValue');
@@ -356,7 +354,7 @@
 	var grdPckgCmnd; // 그리드를 담기위한 객체 선언
 	var jsonPckgCmnd = []; // 그리드의 참조 데이터 주소 선언
 
-	function fn_createGrid2() {
+	function fn_createPckgCmndGrid() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPckgCmnd';
 	    SBGridProperties.id = 'grdPckgCmnd';
@@ -378,7 +376,6 @@
 	        {caption: ["비고"],			ref: 'rmrk',      	type:'output',  	width:'200px',  style:'text-align:left'},
 	        {caption: ["순번"],  		ref: 'pckgCmndSn',    hidden:true},
 	    ];
-
 	    grdPckgCmnd = _SBGrid.create(SBGridProperties);
 	}
 
@@ -714,6 +711,11 @@
  			SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
  			return;
  		}
+ 		if(gfn_diffDate(gfn_dateToYmd(new Date()), inptYmdFrom) < 0){
+ 			gfn_comAlert("E0000", "시작일자는 금일보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
  	}
  	
  	 const fn_onChangeApc = async function() {
@@ -722,7 +724,7 @@
  			fn_initSBSelect(),
  			fn_getPrdcrs(),
  			jsonSortInvntr = [],
- 			grdPckgCmnd = [],
+ 			jsonPckgCmnd = [],
  			grdSortInvntr.rebuild(),
  			grdPckgCmnd.rebuild()
  		]);
