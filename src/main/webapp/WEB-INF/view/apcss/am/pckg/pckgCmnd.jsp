@@ -157,6 +157,8 @@
 
 	function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		SBUxMethod.set("srch-inp-vrtyNm", "");
+		SBUxMethod.set("srch-inp-vrtyCd", "");
 		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd,	itemCd);					// 규격
 	}
 	
@@ -453,7 +455,9 @@
   	// APC 선택 변경
  	const fn_onChangeApc = async function() {
  		let result = await Promise.all([
- 			fn_initSBSelect()
+ 			fn_initSBSelect(),
+ 			jsonPckgCmnd = [],
+			grdPckgCmnd.rebuild()
  		]);
  	}
 </script>

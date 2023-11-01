@@ -408,10 +408,15 @@
 	}
 
     const fn_onChangeApc = async function() {
-
-		fn_clearPrdcr();
-		fn_initSBSelect();
-		fn_getPrdcrs();
+		let result = await Promise.all([
+			fn_clearPrdcr(),
+			fn_initSBSelect(),
+			fn_getPrdcrs(),
+			jsonRawMtrInvntr = [],
+			jsonSortCmnd = [],
+			grdRawMtrInvntr.rebuild(),
+			grdSortCmnd.rebuild()
+		]);
 	}
 
     const fn_grdCmndQnttValueChanged = async function(){

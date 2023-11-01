@@ -514,8 +514,19 @@
     }
 
 	const fn_reset = async function(){
-
+		SBUxMethod.set('srch-dtp-inptYmdFrom', gfn_dateToYmd(new Date()));
+		SBUxMethod.set('srch-dtp-inptYmdTo', gfn_dateToYmd(new Date()));
+		SBUxMethod.set('srch-slt-itemCd', "");
+		SBUxMethod.set('srch-slt-vrtyCd', "");
+		SBUxMethod.set('srch-inp-prdcrNm', "");
+		fn_clearPrdcr();
+		SBUxMethod.set('srch-dtp-cmndYmd', gfn_dateToYmd(new Date()));
+		SBUxMethod.set('srch-slt-fclt', "");
+		SBUxMethod.set('srch-inp-cnptCd', "");
+		SBUxMethod.set('srch-inp-cnptNm', "");
+		SBUxMethod.set('srch-dtp-dudtYmd', "");
 	}
+	
 	const fn_save = async function(){
 		let pckgCmndYmd 	= SBUxMethod.get("srch-dtp-cmndYmd"); //포장지시일자
 		let fcltCd  		= SBUxMethod.get("srch-slt-fclt"); //설비코드
@@ -692,6 +703,18 @@
  			SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
  			return;
  		}
+ 	}
+ 	
+ 	 const fn_onChangeApc = async function() {
+ 		let result = await Promise.all([
+ 			fn_clearPrdcr(),
+ 			fn_initSBSelect(),
+ 			fn_getPrdcrs(),
+ 			jsonSortInvntr = [],
+ 			grdPckgCmnd = [],
+ 			grdSortInvntr.rebuild(),
+ 			grdPckgCmnd.rebuild()
+ 		]);
  	}
 </script>
 </html>

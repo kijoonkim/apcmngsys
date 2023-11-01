@@ -159,12 +159,14 @@
 	}
     function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		SBUxMethod.set("srch-inp-vrtyNm", "");
+		SBUxMethod.set("srch-inp-vrtyCd", "");
 		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_apcCd, itemCd);		// 규격
 	}
 
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_createGrid2();
+		fn_createSortCmndGrid();
 		fn_getPrdcrs();
 
 		SBUxMethod.set("srch-dtp-strtCmndYmd", gfn_dateFirstYmd(new Date()));
@@ -188,7 +190,7 @@
 	var grdSortCmnd; // 그리드를 담기위한 객체 선언
 	var jsonSortCmnd = []; // 그리드의 참조 데이터 주소 선언
 
-	function fn_createGrid2() {
+	function fn_createSortCmndGrid() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'inptCmndDsctnGridArea';
 	    SBGridProperties.id = 'grdSortCmnd';
@@ -524,8 +526,11 @@
      */
 	const fn_onChangeApc = async function() {
 		let result = await Promise.all([
+			fn_clearPrdcr(),
 			fn_initSBSelect(),
-			fn_getPrdcrs()
+			fn_getPrdcrs(),
+			jsonSortCmnd = [],
+			grdSortCmnd.rebuild()
 		]);
 	}
 </script>

@@ -420,7 +420,9 @@
  	// APC 선택 변경
 	const fn_onChangeApc = async function() {
 		let result = await Promise.all([
-			fn_initSBSelect()
+			fn_initSBSelect(),
+			jsonSmptCmnd = [],
+ 			grdSpmtCmnd.rebuild()
 		]);
 	}
 
