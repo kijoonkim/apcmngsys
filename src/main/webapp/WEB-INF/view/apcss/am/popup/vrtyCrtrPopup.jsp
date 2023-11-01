@@ -59,7 +59,6 @@
 
 	var jsonVrtyPopUp = [];
 	var grdVrty = null;
-	
 	const popVrty = {
 		prgrmId: 'prdcrPopup',
 		modalId: 'modal-vrty',
@@ -164,8 +163,7 @@
 				currentPageNo : pageNo,
 	 		  	recordCountPerPage : pageSize
 	 		});
-			const data = await postJsonPromise;                
-		    
+			const data = await postJsonPromise;  
 		    try{
 		    	data.resultList.forEach((item, index) => {
 		    		const vrty = {

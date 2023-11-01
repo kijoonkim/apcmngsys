@@ -1,10 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : slsPrfmnc.jsp
+  * @Description : 매출실적조회 화면
+  * @author SI개발부
+  * @since 2023.08.31
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.08.31   	김호			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body>
 	<section>
@@ -197,7 +213,9 @@
     		    typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
    		    {caption: ['수금여부','수금여부'], 		ref: 'clctmYn',   		width:'80px',  type:'combo',    style:'text-align:center',
    				typeinfo : {ref:'jsonComClctmYn', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-            {caption: ['비고','비고'], 		ref: '__', 			width: '200px', 	type: 'output',		style:'text-align: right'}
+            {caption: ['비고','비고'], 		ref: '__', 			width: '200px', 	type: 'output',		style:'text-align: right'},
+            {caption: ["매출순번"],	ref: 'slsSn', 		type:'output',  hidden: true},
+            {caption: ["매출실적key"],	ref: 'slsno', 		type:'output',  hidden: true},
         ];
         grdSlsPrfmnc = _SBGrid.create(SBGridProperties);
         grdSlsPrfmnc.bind( "afterpagechanged" , "fn_pagingSlsPrfmnc" );
@@ -246,6 +264,8 @@
 				let slsPrfmnc = {
 					apcCd		: item.apcCd
 				  , slsYmd 		: item.slsYmd
+				  , slsSn		: item.slsSn
+				  , slsno		: item.slsno
 				  , cnptNm 		: item.cnptNm
 				  , gdsNm 		: item.gdsNm
 				  , gdsCd 		: item.gdsCd
@@ -358,11 +378,29 @@
 	}
 
 
-	// 거래명세표
-    async function fn_slipDlng(){
+	/**
+	 * @name fn_slipDlng
+	 * @description 거래명세표 발행
+	 */
+    const fn_slipDlng = async function() {
+    	
+    	const slsnoList = [];
+		const allData = grdSlsPrfmnc.getGridDataAll();
+		allData.forEach((item) => {
+			if (item.checkedYn === "Y") {
+				slsnoList.push(item.slsno);
+    		}
+		});
 
+ 		if (slsnoList.length === 0) {
+ 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+ 		}
+ 		
+ 		const slsno = slsnoList.join("','");
+ 		gfn_popClipReport("거래명세표", "am/dlngDoc.crf", {apcCd: gv_selectedApcCd, slsno: slsno});
     }
-
+	
 	// APC 선택 변경
 	const fn_onChangeApc = async function() {
 		let result = await Promise.all([

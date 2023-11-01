@@ -111,4 +111,12 @@ public interface GdsInvntrMapper {
 	 */
 	public int updateGdsStdGrdForDelY(GdsStdGrdVO gdsStdGrdVO) throws Exception;
 
+	/**
+	 * 상품재고 이송처리
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateInvntrTrnsf(GdsInvntrVO gdsInvntrVO) throws Exception;
+
 }

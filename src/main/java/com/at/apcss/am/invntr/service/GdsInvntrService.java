@@ -100,5 +100,12 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateGdsInvntrSpmtPrfmncCncl(GdsInvntrVO gdsInvntrVO) throws Exception;
+	/**
+	 * 상품재고 이송처리
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateInvntrTrnsf(GdsInvntrVO gdsInvntrVO) throws Exception;
 
 }

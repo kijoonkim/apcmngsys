@@ -487,6 +487,12 @@
 			<if test='invntrWght != null and invntrWght != ""'>
 				, INVNTR_Wght			= #{invntrWght}
 			</if>
+			<if test='trnsfQntt != null and trnsfQntt != ""'>
+				, TRNSF_QNTT			= #{trnsfQntt}
+			</if>
+			<if test='trnsfWght != null and trnsfWght != ""'>
+				, TRNSF_WGHT			= #{trnsfWght}
+			</if>
 			<if test='rmrk != null and rmrk != ""'>
 				, RMRK					= #{rmrk}
 			</if>
@@ -563,5 +569,34 @@
 			   AND PCKG_SN = #{pckgSn}
 		]]>
     </update>
+
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateInvntrTrnsf		-->
+	<!-- DESC : 상품재고 이송처리                                    				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <update id="updateInvntrTrnsf" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateInvntrTrnsf */
+				TB_GDS_INVNTR
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+				, TRNSF_QNTT = #{trnsfQntt}
+				, TRNSF_WGHT = #{trnsfWght}
+				, INVNTR_QNTT = #{invntrQntt}
+				, INVNTR_WGHT = #{invntrWght}
+
+			 WHERE APC_CD = #{apcCd}
+			   AND PCKGNO = #{pckgno}
+			   AND PCKG_SN = #{pckgSn}
+		]]>
+	</update>
 
 </mapper>

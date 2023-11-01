@@ -263,5 +263,33 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 		return resultList;
 	}
 
+	@Override
+	public HashMap<String, Object> updateInvntrTrnsf(SortInvntrVO sortInvntrVO) throws Exception {
+
+		SortInvntrVO invntrInfo = sortInvntrMapper.selectSortInvntr(sortInvntrVO);
+
+		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getSortno())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별재고");
+		}
+
+		if (sortInvntrVO.getInptQntt() > invntrInfo.getPckgQntt()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "취소량||포장량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		}
+
+		// 재고 - 이송
+		int invntrQntt = invntrInfo.getInvntrQntt() - sortInvntrVO.getTrnsfQntt();
+		double invntrWght = invntrInfo.getInvntrWght() - sortInvntrVO.getTrnsfWght();
+		sortInvntrVO.setInvntrQntt(invntrQntt);
+		sortInvntrVO.setInvntrWght(invntrWght);
+
+		int updatedCnt = sortInvntrMapper.updateInvntrTrnsf(sortInvntrVO);
+
+		if (updatedCnt != 1) {
+
+		}
+
+		return null;
+	}
+
 
 }

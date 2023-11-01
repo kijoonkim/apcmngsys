@@ -498,10 +498,9 @@
 	const fn_clearForm = function() {
 
  		// 일자
-		let ymd = gfn_dateToYmd(new Date());
 		SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateToYmd(new Date()));
-		SBUxMethod.set("srch-dtp-clclnYmd", ymd);
+		SBUxMethod.set("srch-dtp-clclnYmd", gfn_dateToYmd(new Date()));
 
 		// 정산기준
 		SBUxMethod.set("srch-slt-clclnCrtrCd", null);

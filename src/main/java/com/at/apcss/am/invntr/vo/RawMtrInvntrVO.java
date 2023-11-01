@@ -228,6 +228,16 @@ public class RawMtrInvntrVO extends ComVO {
 	private double invntrCmndWght;
 
 	/**
+	 * 이송수량
+	 */
+	private int trnsfQntt;
+
+	/**
+	 * 이송중량
+	 */
+	private double trnsfWght;
+
+	/**
 	 * 설비코드
 	 */
 	private String fcltCd;

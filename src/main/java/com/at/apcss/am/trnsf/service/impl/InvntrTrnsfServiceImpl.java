@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,8 +99,38 @@ public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrn
 
 		int insertedCnt = 0;
 
+		HashMap<String, Object> resultMap;
+
 		for (InvntrTrnsfVO invntrTrnsfVO : invntrTrnsfList) {
 			insertedCnt += insertInvntrTrnsf(invntrTrnsfVO);
+
+			if(ComConstants.INVNTR_SE_CD_RAWMTR.equals(invntrTrnsfVO.getInvntrSeCd())) {
+				RawMtrInvntrVO rawMtrInvntr = new RawMtrInvntrVO();
+				BeanUtils.copyProperties(invntrTrnsfVO, rawMtrInvntr);
+
+				resultMap = rawMtrInvntrService.updateInvntrTrmsf(rawMtrInvntr);
+
+				if(resultMap != null) {
+					throw new EgovBizException(getMessageForMap(resultMap));
+				}
+				// 변경이력 추가
+			}
+			if(ComConstants.INVNTR_SE_CD_SORT.equals(invntrTrnsfVO.getInvntrSeCd())) {
+				SortInvntrVO sortInvntr = new SortInvntrVO();
+				BeanUtils.copyProperties(invntrTrnsfVO, sortInvntr);
+
+				resultMap = sortInvntrService.updateInvntrTrnsf(sortInvntr);
+			}
+			if(ComConstants.INVNTR_SE_CD_GDS.equals(invntrTrnsfVO.getInvntrSeCd())) {
+				GdsInvntrVO gdsInvntr = new GdsInvntrVO();
+
+				BeanUtils.copyProperties(invntrTrnsfVO, gdsInvntr);
+
+				resultMap = gdsInvntrService.updateInvntrTrnsf(gdsInvntr);
+
+			}
+
+
 		}
 
 		if(insertedCnt == 0) {
@@ -140,6 +171,13 @@ public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrn
 				Double wght = rawMtrInvntr.getInvntrWght() + invntrTrnsfVO.getTrnsfWght();
 				rawMtrInvntr.setInvntrQntt(qntt);
 				rawMtrInvntr.setInvntrWght(wght);
+
+				int trnsfQntt = rawMtrInvntr.getTrnsfQntt() - invntrTrnsfVO.getTrnsfQntt();
+				Double trnsfWght = rawMtrInvntr.getTrnsfWght() - invntrTrnsfVO.getTrnsfWght();
+
+				rawMtrInvntr.setTrnsfQntt(trnsfQntt);
+				rawMtrInvntr.setTrnsfWght(trnsfWght);
+
 				rawMtrInvntr.setRowSts(ComConstants.ROW_STS_UPDATE);
 
 				rawMtrInvntrList.add(rawMtrInvntr);
@@ -160,6 +198,12 @@ public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrn
 				sortInvntrVO.setInvntrQntt(qntt);
 				sortInvntrVO.setInvntrWght(wght);
 
+				int trnsfQntt = sortInvntrVO.getTrnsfQntt() - invntrTrnsfVO.getTrnsfQntt();
+				Double trnsfWght = sortInvntrVO.getTrnsfWght() - invntrTrnsfVO.getTrnsfWght();
+
+				sortInvntrVO.setTrnsfQntt(trnsfQntt);
+				sortInvntrVO.setTrnsfWght(trnsfWght);
+
 				sortInvntrVO.setRowSts(ComConstants.ROW_STS_UPDATE);
 				sortInvntrList.add(sortInvntrVO);
 				updateinvntrTrnsfList.add(invntrTrnsfVO);
@@ -178,6 +222,12 @@ public class InvntrTrnsfServiceImpl extends BaseServiceImpl implements InvntrTrn
 
 				gdsInvntrVO.setInvntrQntt(qntt);
 				gdsInvntrVO.setInvntrWght(wght);
+
+				int trnsfQntt = gdsInvntrVO.getTrnsfQntt() - invntrTrnsfVO.getTrnsfQntt();
+				Double trnsfWght = gdsInvntrVO.getTrnsfWght() - invntrTrnsfVO.getTrnsfWght();
+
+				gdsInvntrVO.setTrnsfQntt(trnsfQntt);
+				gdsInvntrVO.setTrnsfWght(trnsfWght);
 
 				gdsInvntrVO.setRowSts(ComConstants.ROW_STS_UPDATE);
 				gdsInvntrList.add(gdsInvntrVO);

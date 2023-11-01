@@ -1,14 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : spmtCmnd.jsp
+  * @Description : 출하지시조회 화면
+  * @author SI개발부
+  * @since 2023.08.31
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.08.31   	김호			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body>
 	<section>
@@ -236,7 +248,9 @@
             {caption: ['포장단위'], 	ref: 'spmtPckgUnitNm', 	width: '160px',	type: 'output',	style:'text-align: center'},
             {caption: ['품종'], 		ref: 'vrtyNm', 			width: '120px',	type: 'output',	style:'text-align: center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 		width: '120px',	type: 'output',	style:'text-align: center'},
-            {caption: ['비고'], 		ref: 'rmrk', 			width: '200px',	type: 'output'}
+            {caption: ['비고'], 		ref: 'rmrk', 			width: '200px',	type: 'output'},
+            {caption: ["출하지시번호"],	ref: 'spmtCmndno', 		type:'output',  hidden: true},
+            {caption: ["출하지시순번"],	ref: 'spmtCmndSn', 		type:'output',  hidden: true},
         ];
         grdSpmtCmnd = _SBGrid.create(SBGridProperties);
         grdSpmtCmnd.bind( "afterpagechanged" , "fn_pagingSmptCmnd" );
@@ -380,9 +394,27 @@
 		}
 	}
 
-	// 출하지시서
-    async function fn_cmndDocSpmt(){
+	/**
+	 * @name fn_cmndDocSpmt
+	 * @description 출하지시서 발행
+	 */
+    const fn_cmndDocSpmt = async function() {
+    	
+    	const cmndNoList = [];
+		const allData = grdSpmtCmnd.getGridDataAll();
+		allData.forEach((item) => {
+			if (item.checkedYn === "Y") {
+				cmndNoList.push(item.spmtCmndno);
+    		}
+		});
 
+ 		if (cmndNoList.length === 0) {
+ 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+ 		}
+
+ 		const spmtCmndno = cmndNoList.join("','");
+ 		gfn_popClipReport("출하지시서", "am/spmtCmndDoc.crf", {apcCd: gv_selectedApcCd, spmtCmndno: spmtCmndno});
     }
 
  	// APC 선택 변경
