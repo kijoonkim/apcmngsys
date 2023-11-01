@@ -18,7 +18,7 @@
 					<h3 class="box-title" style="line-height: 30px;"> ▶ ${comMenuVO.menuNm}</h3><!-- 매출확정등록 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger"></sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
@@ -62,10 +62,10 @@
 						<td colspan="2"></td>
 						<th scope="row" class="th_bg">품목/품종</th>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComItem"></sbux-select>
+							<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComItem" onchange="fn_onChangeSrchItemCd(this)"></sbux-select>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComVrty"></sbux-select>
+							<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComVrty" onchange="fn_onChangeSrchVrtyCd(this)"></sbux-select>
 						</td>
 						<td class="td_input">
 						</td>
@@ -104,10 +104,10 @@
 								<h5 style="float:left; color:black;">매출생성일자</h5>
 							</td>
 							<td class="td_input" style="border-right:hidden; border-left:hidden" >
-								<sbux-datepicker id="dtl-dtp-slsYmdFrom" name="dtl-dtp-slsYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-slsYmdFrom" name="dtl-dtp-slsYmdFrom" uitype="popup" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtlDtpChange(dtl-dtp-slsYmdFrom)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right:hidden; border-left:hidden" >
-								<sbux-datepicker id="dtl-dtp-slsYmdTo" name="dtl-dtp-slsYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-slsYmdTo" name="dtl-dtp-slsYmdTo" uitype="popup" class="form-control input-sm sbux-pik-group-apc" onchange="fn_dtlDtpChange(dtl-dtp-slsYmdTo)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-button
@@ -168,7 +168,7 @@
 	];
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('srch-slt-useYn', 		jsonComUseYn, 	'USE_YN'),	// 사용유무
+			gfn_setComCdSBSelect('srch-slt-useYn', 		jsonComUseYn, 	'USE_YN'),	// 사용유무 
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonComItem, 	gv_apcCd),	// 품목
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonComVrty, 	gv_apcCd)	// 품종
 		])
@@ -178,9 +178,8 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createSlsPrfmncGrid();
 
-		SBUxMethod.set("srch-dtp-slsYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-slsYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-slsYmdTo", gfn_dateToYmd(new Date()));
-
 		fn_initSBSelect();
 	})
 
@@ -248,7 +247,7 @@
         grdSlsPrfmnc.bind('select', 'fn_setValue');
         grdSlsPrfmnc.bind('deselect', 'fn_delValue');
     }
-
+	
 	const fn_search = async function(){
 
 		let slsYmdFrom = SBUxMethod.get("srch-dtp-slsYmdFrom");
@@ -457,6 +456,18 @@
 			}
 		}
     }
+	
+	const fn_reset = async function(){
+		SBUxMethod.set("srch-dtp-slsYmdFrom",  gfn_dateFirstYmd(new Date())); // 매출일자 from
+		SBUxMethod.set("srch-dtp-slsYmdTo",  gfn_dateToYmd(new Date())); // 매출일자 to
+		SBUxMethod.set("srch-slt-useYn", null); // 확정여부
+		SBUxMethod.set("srch-slt-itemCd", null); // 품목
+		SBUxMethod.set("srch-slt-vrtyCd", null); // 품종
+		SBUxMethod.set("srch-inp-cnptCd", null); // 거래처 코드
+		SBUxMethod.set("srch-inp-cnptNm", null); // 거래처 명
+		SBUxMethod.set("dtl-dtp-slsYmdFrom", null); // 매출생성일자 from
+		SBUxMethod.set("dtl-dtp-slsYmdTo", null); // 매출생성일자 to
+	}
 
 	/**
 	 * @name fn_regDDln
@@ -485,14 +496,53 @@
 	 * 거래처 팝업 필수 함수
 	 * 종료
 	 */
+	 
+	/**
+	 * @name fn_onChangeSrchItemCd
+	 * @description 품목 선택 변경 event
+	 */
+	const fn_onChangeSrchItemCd = async function(obj) {
+		let itemCd = obj.value;
 
+		let result = await Promise.all([
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd),			// 품종
+		]);
+	}
+
+	/**
+	 * @name fn_onChangeSrchVrtyCd
+	 * @description 품종 선택 변경 event
+	 */
+	const fn_onChangeSrchVrtyCd = async function(obj) {
+		let vrtyCd = obj.value;
+		const itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
+
+		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+		if (itemCd != prvItemCd) {
+			SBUxMethod.set("srch-slt-itemCd", itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+		}
+	}
+		
 	 const fn_dtpChange = function(){
  		let slsYmdFrom = SBUxMethod.get("srch-dtp-slsYmdFrom");
  		let slsYmdTo = SBUxMethod.get("srch-dtp-slsYmdTo");
  		if(gfn_diffDate(slsYmdFrom, slsYmdTo) < 0){
  			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
- 			SBUxMethod.set("srch-dtp-slsYmdFrom", gfn_dateToYmd(new Date()));
+ 			SBUxMethod.set("srch-dtp-slsYmdFrom", gfn_dateFirstYmd(new Date()));
  			SBUxMethod.set("srch-dtp-slsYmdTo", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
+ 	}
+	 
+	 const fn_dtlDtpChange = function(){
+ 		let slsYmdFrom = SBUxMethod.get("dtl-dtp-slsYmdFrom");
+ 		let slsYmdTo = SBUxMethod.get("dtl-dtp-slsYmdTo");
+ 		if(gfn_diffDate(slsYmdFrom, slsYmdTo) < 0){
+ 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("dtl-dtp-slsYmdFrom", null);
+ 			SBUxMethod.set("dtl-dtp-slsYmdTo", null);
  			return;
  		}
  	}
