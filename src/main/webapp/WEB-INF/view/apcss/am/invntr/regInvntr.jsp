@@ -988,6 +988,8 @@
  		if (!gfn_isEmpty(prdcr)) {
  			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);		// callBack input
  			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);		// callBack input
+ 			SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);		// 대표 품목코드
+ 			SBUxMethod.set("srch-slt-vrtyCd", prdcr.rprsVrtyCd);		// 대표 품종코드
  			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");
  		}
  	}
