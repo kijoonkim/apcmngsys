@@ -1,14 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%
+ /**
+  * @Class Name : pckgCmnd.jsp
+  * @Description : 포장지시조회 화면
+  * @author SI개발부
+  * @since 2023.08.31
+  * @version 1.0
+  * @Modification Information
+  * @
+  * @ 수정일       	수정자      	수정내용
+  * @ ----------	----------	---------------------------
+  * @ 2023.08.31   	김호			최초 생성
+  * @see
+  *
+  */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body>
 	<section>
@@ -18,7 +30,7 @@
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 포장지시조회 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnCmndDocPckg" name="btnCmndDocPckg" uitype="button" class="btn btn-sm btn-primary">포장지시서</sbux-button>
+					<sbux-button id="btnCmndDocPckg" name="btnCmndDocPckg" uitype="normal" class="btn btn-sm btn-primary" text="포장지시서" onclick="fn_cmndDocPckg"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
@@ -191,9 +203,11 @@
 		  	'showgoalpageui' : true
 	    };
 	    SBGridProperties.columns = [
-	    	{caption: ["선택", "선택"], 		ref: 'checked', 	type:'checkbox', 	width:'40px',	style: 'text-align:center'},
- 	        {caption: ["순번","순번"],			ref: 'pckgCmndSn',	type:'output',  width:'40px',    style:'text-align:center'},
-	        {caption: ["지시번호","지시번호"],	ref: 'pckgCmndno',  type:'output',  width:'120px',    style:'text-align:center'},
+	    	{caption : ["선택","선택"], ref: 'checkedYn', type: 'checkbox',  width:'40px', style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+	    	},
+	    	{caption: ["지시번호","지시번호"],	ref: 'pckgCmndno',  type:'output',  width:'120px',    style:'text-align:center'},
+	    	{caption: ["순번","순번"],			ref: 'pckgCmndSn',	type:'output',  width:'40px',    style:'text-align:center'},
 	        {caption: ["생산설비","생산설비"],	ref: 'fcltNm',      type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["거래처","거래처"],		ref: 'cnptNm',      type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["품종","품종"],			ref: 'vrtyNm',      type:'output',  width:'100px',    style:'text-align:center'},
@@ -317,6 +331,31 @@
 	 		}
 	 		console.error("failed", e.message);
 		}
+    }
+
+	/**
+	 * @name fn_cmndDocPckg
+	 * @description 포장지시서 발행
+	 */
+    const fn_cmndDocPckg = async function() {
+    	
+		console.log("xxxxx");
+		
+    	const cmndNoList = [];
+		const allData = grdPckgCmnd.getGridDataAll();
+		allData.forEach((item) => {
+			if (item.checkedYn === "Y") {
+				cmndNoList.push(item.pckgCmndno);
+    		}
+		});
+
+ 		if (cmndNoList.length === 0) {
+ 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+ 		}
+
+ 		const pckgCmndno = cmndNoList.join("','");
+ 		gfn_popClipReport("포장지시서", "am/pckgCmndDoc.crf", {apcCd: gv_selectedApcCd, pckgCmndno: pckgCmndno});
     }
 
 	const fn_del = async function(){
