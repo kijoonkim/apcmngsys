@@ -201,17 +201,15 @@
 		 	gfn_setComCdSBSelect('srch-slt-fclt', 			jsonComFclt, 	'PCKG_FCLT_CD', gv_selectedApcCd),	 	// 설비
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 	gv_selectedApcCd),						// 품목
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 	gv_selectedApcCd)						// 품종
-		])
-
+		]);
 	}
 
 	async function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let rst = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd, itemCd),					// 품종
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_selectedApcCd, itemCd)				// 규격
-
-		])
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 	gv_selectedApcCd, itemCd),				// 품종
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, 	gv_selectedApcCd, itemCd)				// 규격
+		]);
 	}
 
 	async function fn_selectVrty(){

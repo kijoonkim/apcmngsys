@@ -188,7 +188,7 @@
 		}
 		SBUxMethod.set("srch-slt-itemCd", itemCd);
 		let rst = await Promise.all([
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonApcSpcfct, 		gv_selectedApcCd, itemCd),					// 규격
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonApcSpcfct, 		gv_selectedApcCd, itemCd),			// 규격
 			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmnd', 		jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd, vrtyCd)	// 포장구분
 		])
 		grdSpmtCmnd.refresh({"combo":true})
@@ -457,8 +457,7 @@
 		let rst = await Promise.all([
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 			jsonApcSpcfct, 		gv_selectedApcCd, itemCd),			// 규격		(조회)
 			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', 	jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd, vrtyCd)	// 포장단위	(그리드)
-		])
-
+		]);
 	}
 
 	// 거래처 선택 팝업 호출
