@@ -368,23 +368,26 @@
 
 	// 초기화
 	const fn_reset = function(){
-		SBUxMethod.set("srch-slt-outordrType","");
-		SBUxMethod.set("srch-dtp-wrhsYmd","");
-		SBUxMethod.set("srch-inp-apcCnptCd","");
-		SBUxMethod.set("srch-inp-apcCnptNm","");
-		SBUxMethod.set("srch-inp-dldtn","");
-		SBUxMethod.set("srch-slt-itemCd","");
-		SBUxMethod.set("srch-slt-vrtyCd","");
-		SBUxMethod.set("srch-slt-spcfctCd","");
-		SBUxMethod.set("srch-inp-outordrAmt","");
-		SBUxMethod.set("srch-inp-outordrQntt","");
-		SBUxMethod.set("srch-inp-bxGdsQntt","");
-		SBUxMethod.set("srch-inp-txAmt", "");
-		SBUxMethod.set("srch-inp-pieceQntt", "");
-		SBUxMethod.set("srch-inp-bxUntprc", "");
-		SBUxMethod.set("srch-inp-outordrUntprc", "");
-		SBUxMethod.set("srch-inp-gdsCd", "");
-		SBUxMethod.set("srch-inp-gdsNm", "");
+		SBUxMethod.set("srch-slt-outordrType","");								// 발주형태
+		SBUxMethod.set("srch-dtp-outordrYmd", gfn_dateToYmd(new Date()));		// 발주일자 from
+		SBUxMethod.set("srch-dtp-wrhsYmd","");									// 발주일자 to
+		SBUxMethod.set("srch-dtp-wrhsYmd","");									// 납기일자
+		SBUxMethod.set("srch-inp-apcCnptNm","");								// 거래처 명
+		SBUxMethod.set("srch-inp-apcCnptCd","");								// 거래처 코드
+		SBUxMethod.set("srch-inp-gdsNm","");									// 상품명
+		SBUxMethod.set("srch-inp-gdsCd","");									// 상품코드
+		SBUxMethod.set("srch-inp-spmtPckgUnitCd","");							//
+		SBUxMethod.set("srch-inp-dldtn","");									// 배송처
+		SBUxMethod.set("srch-slt-itemCd","");									// 품목
+		SBUxMethod.set("srch-slt-vrtyCd",""); 									// 품종
+		SBUxMethod.set("srch-slt-spcfctCd","");									// 규격
+		SBUxMethod.set("srch-inp-outordrAmt","");								// 발주금액
+		SBUxMethod.set("srch-inp-txAmt","");									// 발주세액
+		SBUxMethod.set("srch-inp-outordrQntt","");								// 발주수량
+		SBUxMethod.set("srch-inp-bxGdsQntt","");								// 발주입수
+		SBUxMethod.set("srch-inp-pieceQntt","");								// 낱개수량
+		SBUxMethod.set("srch-inp-bxUntprc","");									// 박스단가
+		SBUxMethod.set("srch-inp-outordrUntprc","");							// 낱개단가
 	}
 
 	// 저장
