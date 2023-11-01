@@ -67,7 +67,7 @@
 									name="srch-slt-itemCd"
 									class="form-control input-sm"
 									jsondata-ref="jsonComItem"
-									onchange="fn_selectItem"
+									onchange="fn_onChangeSrchItemCd(this)"
 								></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -78,7 +78,7 @@
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									unselected-text="선택"
 									jsondata-ref="jsonComVrty"
-									onchange="fn_selectVrty"
+									onchange="fn_onChangeSrchVrtyCd(this)"
 								></sbux-select>
 							</td>
 							<td class="td_input"></td>
@@ -226,24 +226,50 @@
 	const fn_selectItem = async function(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 	gv_selectedApcCd, itemCd);		// 품종
-		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	gv_selectedApcCd, itemCd);		// 규격
+		if (gfn_isEmpty(itemCd)) {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	"");
+		} else {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	gv_selectedApcCd, itemCd);		// 규격
+		}
+	}
+	
+	/**
+	 * @name fn_onChangeSrchItemCd
+	 * @description 품목 선택 변경 event
+	 */
+	const fn_onChangeSrchItemCd = async function(obj) {
+		let itemCd = obj.value;
 
+		let result = await Promise.all([
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd),						// 품종
+			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnit, gv_selectedApcCd, itemCd)		// 포장구분
+		]);
+		if (gfn_isEmpty(itemCd)) {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	"");
+		} else {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	gv_selectedApcCd, itemCd);		// 규격
+		}
 	}
 
-	const fn_selectVrty = async function(){
-		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let itemCd = "";
-		for(i=0;i<jsonComVrty.length;i++){
-			if(jsonComVrty[i].value == vrtyCd){
-				itemCd = jsonComVrty[i].mastervalue;
-			}
+	/**
+	 * @name fn_onChangeSrchVrtyCd
+	 * @description 품종 선택 변경 event
+	 */
+	const fn_onChangeSrchVrtyCd = async function(obj) {
+		let vrtyCd = obj.value;
+		const itemCd = _.find(jsonComVrty, {value: vrtyCd}).mastervalue;
+
+		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+		if (itemCd != prvItemCd) {
+			SBUxMethod.set("srch-slt-itemCd", itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
-		SBUxMethod.set("srch-slt-itemCd", itemCd);
 		let rst = await Promise.all([
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, 		gv_selectedApcCd, itemCd),			// 규격
-			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmndTrg', 	jsonSpmtPckgUnit, 	gv_selectedApcCd, itemCd, vrtyCd)	// 포장구분
-		])
-		grdSpmtCmndTrg.refresh({"combo":true})
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, 		gv_selectedApcCd, itemCd),			// 규격		(조회)
+			gfn_setSpmtPckgUnitSBSelect('grdSpmtCmndTrg', 	jsonSpmtPckgUnit, 	gv_selectedApcCd, itemCd, vrtyCd)	// 포장구분	(그리드)
+		]);
+		grdSpmtCmndTrg.refresh({"combo":true});
 		SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
 	}
 

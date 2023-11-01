@@ -190,7 +190,7 @@
 	var jsonComItem				= [];	// 품목 		itemCd		검색
 	var jsonComVrty				= [];	// 품종 		vrtyCd		검색
 	var jsonComSpcfct			= [];	// 규격 		spcfcCd		검색
-	var jsonComFclt				= [];	// 설비 			fcltCd		검색
+	var jsonComFclt				= [];	// 설비 		fcltCd		검색
 
 	var jsonPrdcr				= [];	//생산자 목록
     var jsonPrdcrAutocomplete 	= [];	//생산자 자동완성
@@ -199,8 +199,8 @@
 		let rst = await Promise.all([
 			// 검색 SB select
 		 	gfn_setComCdSBSelect('srch-slt-fclt', 			jsonComFclt, 	'PCKG_FCLT_CD', gv_selectedApcCd),	 	// 설비
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 	gv_selectedApcCd),			// 품목
-		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 	gv_selectedApcCd)			// 품종
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 	gv_selectedApcCd),						// 품목
+		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 	gv_selectedApcCd)						// 품종
 		])
 
 	}
@@ -208,8 +208,8 @@
 	async function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let rst = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd, itemCd),			// 품종
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_selectedApcCd, itemCd)		// 규격
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_selectedApcCd, itemCd),					// 품종
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_selectedApcCd, itemCd)				// 규격
 
 		])
 	}
