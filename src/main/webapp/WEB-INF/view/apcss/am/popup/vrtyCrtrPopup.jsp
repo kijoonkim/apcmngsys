@@ -34,6 +34,7 @@
 							<th scope="row">APC명</th>
 							<th>
 								<sbux-input id="vrty-inp-apcNm" name="vrty-inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
+								<sbux-input id="vrty-inp-apcCd" name="vrty-inp-apcCd" uitype="hidden"></sbux-input>
 							</th>
 							<th scope="row">품종명</th>
 							<th class="td_input">
@@ -57,42 +58,41 @@
 
 
 	var jsonVrtyPopUp = [];
-	var callbackChoiceFnc = function(){};
+	var grdVrty = null;
 	
 	const popVrty = {
-// 		prgrmId: 'prdcrPopup',
+		prgrmId: 'prdcrPopup',
 		modalId: 'modal-vrty',
 		gridId: 'grdVrty',
 		jsonId: 'jsonVrtyPopUp',
 		areaId: "sb-area-grdVrty",
 		prvApcCd: "",
+		callbackChoiceFnc: function() {},
 		callbackSelectFnc: function() {},
-		itemNm: "",
-		apcCd: "",
-		init: async function(_apcCd, _apcNm, _itemNm, _callbackChoiceFnc, _callbackSelectFnc) {
-			//console.log("init prdcrPop");
+		itemCd: "",
+		init: async function(_apcCd, _apcNm, _itemCd, _callbackChoiceFnc, _callbackSelectFnc) {
 			// set param
+			SBUxMethod.set("vrty-inp-apcCd", _apcCd);
 			SBUxMethod.set("vrty-inp-apcNm", _apcNm);
-			this.apcCd = _apcCd;
-			this.itemNm = _itemNm;
+			this.itemCd = _itemCd;
 			
-				console.log("Test1",callbackChoiceFnc);
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
-				callbackChoiceFnc = _callbackChoiceFnc;	
-				console.log("Test1",callbackChoiceFnc);
+				this.callbackChoiceFnc = _callbackChoiceFnc;
 			}
 			if (!gfn_isEmpty(_callbackSelectFnc) && typeof _callbackSelectFnc === 'function') {
 				this.callbackSelectFnc = _callbackSelectFnc;
 			}
-
-			this.createGrid();
-			this.search();
+			
+			if (grdVrty === null || this.prvApcCd != _apcCd) {
+				this.createGrid();
+				this.search();
+			} else {
+				this.search();
+			}
+			
 			this.prvApcCd = _apcCd;
-			//console.log("init prdcrPop123456789");
 		},
 		close: function(_callbackFnc, _data) {
-			console.log(_callbackFnc);
-			console.log(_data);
 			gfn_closeModal(this.modalId, _callbackFnc, _data);
 		},
 		createGrid: function() {
@@ -128,10 +128,9 @@
 		    grdVrty.bind('dblclick', popVrty.choice);
 		},
 		choice: function() {
-			console.log(callbackChoiceFnc);
 			let nRow = grdVrty.getRow();
 			let rowData = grdVrty.getRowData(nRow);
-			popVrty.close(callbackChoiceFnc, rowData);
+			popVrty.close(popVrty.callbackChoiceFnc, rowData);
 		},
 		select: function() {
 			var data = [];
@@ -139,39 +138,72 @@
 				if(jsonVrtyPopUp[i].checked == 'true')
 					data.push(jsonVrtyPopUp[i]);
 			}
-			popVrty.close(this.callbackSelectFnc, data);
+			popVrty.close(popVrty.callbackSelectFnc, data);
 		},
-		
 		search: async function() {
-			let apcCd = this.apcCd;
-			let itemNm = this.itemNm;
-			this.setGrid(itemNm, apcCd);
+			// set pagination
+			grdVrty.rebuild();
+	    	let pageSize = grdVrty.getPageSize();
+	    	let pageNo = 1;
+	    	
+	    	// grid clear
+	    	jsonVrtyPopUp.length = 0;
+	    	await this.setGrid(pageSize, pageNo);
 		},
-		setGrid: async function(itemNm, apcCd) {
+		setGrid: async function(pageSize, pageNo) {
 			jsonVrtyPopUp = [];
-	    	let apcNm = SBUxMethod.get("vrty-inp-apcNm");
+	    	let apcCd = SBUxMethod.get("vrty-inp-apcCd");
+			let itemCd = this.itemCd;
 			let vrtyNm = SBUxMethod.get("vrty-inp-vrtyNm");
-			console.log('vrtyNm',vrtyNm);
-			let postJsonPromise = gfn_postJSON("/am/apc/selectVrtyList.do", { apcCd: apcCd, vrtyNm: vrtyNm, itemNm: itemNm });
-		    let data = await postJsonPromise;                
+			const postJsonPromise = gfn_postJSON("/am/apc/selectVrtyList.do", {
+				apcCd: apcCd,
+				vrtyNm: vrtyNm,
+				itemCd: itemCd,
+				// pagination
+		  		pagingYn : 'Y',
+				currentPageNo : pageNo,
+	 		  	recordCountPerPage : pageSize
+	 		});
+			const data = await postJsonPromise;                
 		    
 		    try{
 		    	data.resultList.forEach((item, index) => {
-					let vrty = {
+		    		const vrty = {
 						  itemCd : item.itemCd
 						, itemNm : item.itemNm
 						, vrtyCd : item.vrtyCd
 						, vrtyNm : item.vrtyNm
 					}
 					jsonVrtyPopUp.push(vrty);
+		    		if (index === 0) {
+						totalRecordCount = item.totalRecordCount;
+					}
 				});
-		    	grdVrty.rebuild();
+		    	
+		    	if (jsonVrtyPopUp.length > 0) {
+	        		if(grdVrty.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+	        			grdVrty.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+	        			grdVrty.rebuild();
+					}else{
+						grdVrty.refresh();
+					}
+	        	} else {
+	        		grdVrty.setPageTotalCount(totalRecordCount);
+	        		grdVrty.rebuild();
+	        	}
 		    }catch (e) {
 				if (!(e instanceof Error)) {
 					e = new Error(e);
 				}
+        		gfn_comAlert(data.resultCode, data.resultMessage);
 		 		console.error("failed", e.message);
 		    }
+	    },
+	    paging: function() {
+	    	let recordCountPerPage = grdVrty.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	    	let currentPageNo = grdVrty.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+
+	    	popVrty.setGrid(recordCountPerPage, currentPageNo);
 	    }
 	}
 

@@ -19,6 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnCmndDocPckg" name="btnCmndDocPckg" uitype="button" class="btn btn-sm btn-primary">포장지시서</sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화"class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
@@ -135,24 +136,21 @@
 	var jsonComFclt			= [];	// 설비 		fcltCd		검색
 
 	const fn_initSBSelect = async function() {
-
 		let rst = await Promise.all([
 			// 검색 SB select
-		 	gfn_setComCdSBSelect('srch-slt-fclt', 		jsonComFclt, 	'PCKG_FCLT_CD', gv_selectedApcCd),	// 설비
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonComItem, 	gv_selectedApcCd)		// 품목
-		])
-
-
+		 	gfn_setComCdSBSelect('srch-slt-fclt', 			jsonComFclt,	'PCKG_FCLT_CD',		gv_selectedApcCd),	// 설비
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 	gv_selectedApcCd)						// 품목
+		]);
 	}
 
 	function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		//gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, gv_apcCd, itemCd);			// 품종
-		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_apcCd, itemCd);		// 규격
+		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd,	itemCd);					// 규격
 	}
+	
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_createGrid2();
+		fn_createPckgCmndGrid();
 
 		SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
@@ -174,7 +172,7 @@
 	var grdPckgCmnd; // 그리드를 담기위한 객체 선언
 	var jsonPckgCmnd = []; // 그리드의 참조 데이터 주소 선언
 
-	function fn_createGrid2() {
+	function fn_createPckgCmndGrid() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdPckgCmnd';
 	    SBGridProperties.id = 'grdPckgCmnd';
@@ -372,20 +370,52 @@
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
 			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
 			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyCd);
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd, vrty.itemCd);
 		}
 	}
      const fn_setVrtys = function(vrtys) {
 		if (!gfn_isEmpty(vrtys)) {
 			var _vrtyCd = [];
 			var _vrtyNm = [];
+			var diff = false;
 			for(var i=0;i<vrtys.length;i++){
+				if (vrtys[0].itemCd != vrtys[i].itemCd) {
+					diff = true;
+				}
 				_vrtyCd.push(vrtys[i].vrtyCd);
 				_vrtyNm.push(vrtys[i].vrtyNm);
+			}
+			if (diff) {
+				SBUxMethod.set('srch-slt-itemCd', "");
+				gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd);
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, '');
+			} else {
+				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
 			}
 			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCd.join(','));
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNm.join(','));
 		}
 	}
 
+     async function fn_reset() {
+ 		SBUxMethod.set('srch-dtp-cmndYmdFrom', gfn_dateFirstYmd(new Date()));
+ 		SBUxMethod.set('srch-dtp-cmndYmdTo', gfn_dateToYmd(new Date()));
+ 		SBUxMethod.set('srch-slt-fclt', "");
+ 		SBUxMethod.set('srch-inp-cnptNm', "");
+ 		SBUxMethod.set('srch-inp-cnptCd', "");
+ 		SBUxMethod.set('srch-dtp-dudtYmd', "");
+ 		SBUxMethod.set('srch-slt-itemCd', "");
+ 		SBUxMethod.set('srch-inp-vrtyNm', "");
+ 		SBUxMethod.set('srch-inp-vrtyCd', "");
+ 		SBUxMethod.set('srch-slt-spcfctCd', "");
+		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, '');
+ 	}
+     
+  	// APC 선택 변경
+ 	const fn_onChangeApc = async function() {
+ 		let result = await Promise.all([
+ 			fn_initSBSelect()
+ 		]);
+ 	}
 </script>
 </html>
