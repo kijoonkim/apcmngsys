@@ -268,8 +268,8 @@
 </body>
 <script type="text/javascript">
 
-let lv_sortno = "";
-let lv_sortSn = -1;
+	let lv_sortno = "";
+	let lv_sortSn = -1;
 
 
 	function fn_closeModal(modalId){
@@ -278,13 +278,11 @@ let lv_sortSn = -1;
 
     const fn_modalVrty = function() {
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
-    	//_apcCd, _apcNm, _itemNm, _callbackFnc
 	}
 
 	const fn_setVrty = function(vrty) {
 
 		if (!gfn_isEmpty(vrty)) {
-			console.log("vrty", vrty);
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
 			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyNm);
 		}
@@ -346,7 +344,7 @@ let lv_sortSn = -1;
 		fn_createInptGrid();
 		fn_search();
     }
-    
+
     const fn_dtpChange = function(){
     	let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
     	let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
@@ -574,9 +572,6 @@ let lv_sortSn = -1;
     		}
 		});
 
-		console.log("sortPrfmncList");
-		console.log(sortPrfmncList);
-
 		if (sortPrfmncList.length == 0) {
 			gfn_comAlert("W0005", "삭제대상");		//	W0005	{0}이/가 없습니다.
 			return;
@@ -777,7 +772,6 @@ let lv_sortSn = -1;
 		]);
 
 		jsonSortPrfmnc.length = 0;
-		fn_createGridSortPrfmnc();
 	}
 
 	/**
