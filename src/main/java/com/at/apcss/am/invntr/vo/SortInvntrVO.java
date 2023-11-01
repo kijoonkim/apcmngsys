@@ -41,12 +41,12 @@ public class SortInvntrVO extends ComVO {
 	 * 선별순번
 	 */
 	private int sortSn;
-	
+
 	/**
 	 * 선별번호 표시
 	 */
 	private String sortnoIndct;
-	
+
 	/**
 	 * 등급코드
 	 */
@@ -144,6 +144,15 @@ public class SortInvntrVO extends ComVO {
 	 * 재고중량
 	 */
 	private double invntrWght;
+	/**
+	 * 재고수량
+	 */
+	private int trnsfQntt;
+
+	/**
+	 * 재고중량
+	 */
+	private double trnsfWght;
 
 	/**
 	 * 투입수량

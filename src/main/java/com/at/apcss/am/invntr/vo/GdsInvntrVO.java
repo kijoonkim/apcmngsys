@@ -39,7 +39,7 @@ public class GdsInvntrVO extends ComVO {
 	 * 포장순번
 	 */
 	private int pckgSn;
-	
+
 	/**
 	 * 포장번호 표시
 	 */
@@ -146,6 +146,15 @@ public class GdsInvntrVO extends ComVO {
 	 * 포장중량
 	 */
 	private double pckgWght;
+	/**
+	 * 포장수량
+	 */
+	private int trnsfQntt;
+
+	/**
+	 * 포장중량
+	 */
+	private double trnsfWght;
 
 	/**
 	 * 출하수량
@@ -166,7 +175,7 @@ public class GdsInvntrVO extends ComVO {
 	 * 재고중량
 	 */
 	private double invntrWght;
-	
+
 	/**
 	 * 지시수량
 	 */
