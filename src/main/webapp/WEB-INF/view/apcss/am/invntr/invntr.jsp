@@ -751,9 +751,11 @@
  		if (!gfn_isEmpty(prdcr)) {
  			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);		// callBack input
  			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);		// callBack input
- 			SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);		// 대표 품목코드
- 			SBUxMethod.set("srch-inp-vrtyCd", prdcr.rprsVrtyCd);		// 대표 품종코드
- 			SBUxMethod.set("srch-inp-vrtyNm", prdcr.rprsVrtyNm);		// 대표 품종명
+ 			SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);	// 대표 품목코드
+ 			SBUxMethod.set("srch-inp-vrtyCd", prdcr.rprsVrtyCd);	// 대표 품종코드
+ 			SBUxMethod.set("srch-inp-vrtyNm", prdcr.rprsVrtyNm);	// 대표 품종명
+ 			SBUxMethod.set("srch-slt-gdsSe", prdcr.gdsSeCd);		// 상품구분
+ 			SBUxMethod.set("srch-slt-wrhsSeCd", prdcr.trsprtSeCd);	// 입고구분
  			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");
  		}
  	}
