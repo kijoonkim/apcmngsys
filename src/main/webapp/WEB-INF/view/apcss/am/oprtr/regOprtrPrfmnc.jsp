@@ -218,6 +218,19 @@
 	    grdOptrtPrfmnc.bind('valuechanged', 'fn_grdHrValueChanged');
 	}
 
+	const fn_reset = function(){
+		SBUxMethod.set("srch-dtp-prfmncYmd", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-slt-prfmncSeCd", "");
+		SBUxMethod.set("dtl-spn-jobBgngHr", "");
+		SBUxMethod.set("dtl-spn-jobEndHr", "");
+
+		jsonOptrtPrfmnc.length = 0;
+		jsonPrfmnc.length= 0;
+		grdOptrtPrfmnc.rebuild();
+		grdPrfmnc.rebuild();
+
+	}
+
 	const fn_grdHrValueChanged = function(){
 		let prfmncYmd = SBUxMethod.get("srch-dtp-prfmncYmd");
 		if(gfn_isEmpty(prfmncYmd)){
@@ -344,12 +357,6 @@
 					let delYn = rowData.delYn;
 					if(delYn == "N"){
 
-						if(rowSts === 1 || rowSts === 3){
-							grdOptrtPrfmnc.setRowStatus(i, "insert")
-						}
-						if(rowSts === 0 || rowSts === 2){
-							grdOptrtPrfmnc.setRowStatus(i, "update")
-						}
 						grdOptrtPrfmnc.setCellData(i, jobBgngHrCol, jobBgngHr)
 						grdOptrtPrfmnc.setCellData(i, jobEndHrCol, jobEndHr)
 						grdOptrtPrfmnc.setCellData(i, jobHrCol, jobHr)
@@ -464,7 +471,12 @@
 	}
 
 	const fn_setGrdOprtrPrfmnc = async function(){
+		let prfmncSeCd = SBUxMethod.get("srch-slt-prfmncSeCd");
 
+		if(gfn_isEmpty(prfmncSeCd)){
+			gfn_comAlert("W0001", "작업구분");		//	W0002	{0}을/를 선택하세요.
+			return;
+		}
 		let nRow = grdPrfmnc.getRow();
         if (nRow < 1 ) {
             return;
@@ -474,7 +486,6 @@
         let prfmncno = rowData.prfmncno;
         let apcCd = rowData.apcCd;
         let jobYmd = rowData.prfmncYmd;
-        let prfmncSeCd = SBUxMethod.get("srch-slt-prfmncSeCd");
 
         prfmncVO = {
         		apcCd 		: apcCd
@@ -505,14 +516,14 @@
 	      		  , apcCd		: item.apcCd
 	      		  , brdt		: item.brdt
 	      		  , delYn		: item.delYn
-	      		  , insertYn	: "Y"
+	      		  , insertYn	: "N"
 			}
 	      	jsonOptrtPrfmnc.push(prfmncVO);
 
 		});
       	grdOptrtPrfmnc.setCellDisabled(0, grdOptrtPrfmnc.getRows() -1, 0, grdOptrtPrfmnc.getCols() - 1, false);
-      	grdOptrtPrfmnc.addRow(true);
       	grdOptrtPrfmnc.rebuild();
+      	grdOptrtPrfmnc.addRow(true);
       	grdOptrtPrfmnc.setCellDisabled(grdOptrtPrfmnc.getRows()-1, 0, grdOptrtPrfmnc.getRows()-1, grdOptrtPrfmnc.getCols() - 1, true);
 	    } catch (e) {
 	 		if (!(e instanceof Error)) {
@@ -583,6 +594,7 @@
 			let flnm = rowData.flnm;
 			let jobBgngHr = rowData.jobBgngHr;
 			let jobEndHr = rowData.jobEndHr;
+			let insertYn = rowData.insertYn;
 			if(delYn == 'N'){
 				if (gfn_isEmpty(flnm)) {
 		  			gfn_comAlert("W0001", "작업자");		//	W0001	{0}을/를 선택하세요.
@@ -597,14 +609,12 @@
 		            return;
 		  		}
 
-				if (rowSts === 3 || rowSts === 1){
-					rowData.rowSts = "I";
-					saveList.push(rowData);
-				} else if (rowSts === 2){
+				if (insertYn==="N"){
 					rowData.rowSts = "U";
 					saveList.push(rowData);
 				} else {
-					continue;
+					rowData.rowSts = "I";
+					saveList.push(rowData);
 				}
 			}
 		}
