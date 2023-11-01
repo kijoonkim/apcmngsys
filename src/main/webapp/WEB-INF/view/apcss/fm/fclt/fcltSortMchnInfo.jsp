@@ -100,16 +100,24 @@
 								unselected-text="선택" class="form-control input-sm"></sbux-select>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcCap1" name="dtl-input-prcCap1" uitype="text" class="form-control input-sm" placeholder="35  1일(8h)처리능력" ></sbux-input>
+							<sbux-input id="dtl-input-prcCap1" name="dtl-input-prcCap1" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcCap1')" onblur="extractNumbers2('dtl-input-prcCap1')"
+							class="form-control input-sm" placeholder="35  1일(8h)처리능력" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcVol1" name="dtl-input-prcVol1" uitype="text" class="form-control input-sm" placeholder="2,200 연간처리실적" ></sbux-input>
+							<sbux-input id="dtl-input-prcVol1" name="dtl-input-prcVol1" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcVol1')" onblur="extractNumbers2('dtl-input-prcVol1')"
+							class="form-control input-sm" placeholder="2,200 연간처리실적" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-annOperTime1" name="dtl-input-annOperTime1" uitype="text" class="form-control input-sm" placeholder="440" ></sbux-input>
+							<sbux-input id="dtl-input-annOperTime1" name="dtl-input-annOperTime1" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-annOperTime1')" onblur="extractNumbers2('dtl-input-annOperTime1')"
+							class="form-control input-sm" placeholder="440" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-avgOperDay" name="dtl-input-avgOperDay" uitype="text" class="form-control input-sm" placeholder="110" ></sbux-input>
+							<sbux-input id="dtl-input-avgOperDay" name="dtl-input-avgOperDay" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-avgOperDay')" onblur="extractNumbers2('dtl-input-avgOperDay')"
+							class="form-control input-sm" placeholder="110" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
@@ -122,16 +130,24 @@
 								unselected-text="선택" class="form-control input-sm"></sbux-select>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcCap2" name="dtl-input-prcCap2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-prcCap2" name="dtl-input-prcCap2" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcCap2')" onblur="extractNumbers2('dtl-input-prcCap2')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcVol2" name="dtl-input-prcVol2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-prcVol2" name="dtl-input-prcVol2" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcVol2')" onblur="extractNumbers2('dtl-input-prcVol2')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-annOperTime2" name="dtl-input-annOperTime2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-annOperTime2" name="dtl-input-annOperTime2" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-annOperTime2')" onblur="extractNumbers2('dtl-input-annOperTime2')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-avgOperDay2" name="dtl-input-avgOperDay2" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-avgOperDay2" name="dtl-input-avgOperDay2" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-avgOperDay2')" onblur="extractNumbers2('dtl-input-avgOperDay2')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
@@ -144,16 +160,24 @@
 								unselected-text="선택" class="form-control input-sm"></sbux-select>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcCap3" name="dtl-input-prcCap3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-prcCap3" name="dtl-input-prcCap3" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcCap3')" onblur="extractNumbers2('dtl-input-prcCap3')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcVol3" name="dtl-input-prcVol3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-prcVol3" name="dtl-input-prcVol3" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcVol3')" onblur="extractNumbers2('dtl-input-prcVol3')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-annOperTime3" name="dtl-input-annOperTime3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-annOperTime3" name="dtl-input-annOperTime3" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-annOperTime3')" onblur="extractNumbers2('dtl-input-annOperTime3')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-avgOperDay3" name="dtl-input-avgOperDay3" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-avgOperDay3" name="dtl-input-avgOperDay3" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-avgOperDay3')" onblur="extractNumbers2('dtl-input-avgOperDay3')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
@@ -166,16 +190,24 @@
 								unselected-text="선택" class="form-control input-sm"></sbux-select>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcCap4" name="dtl-input-prcCap4" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-prcCap4" name="dtl-input-prcCap4" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcCap4')" onblur="extractNumbers2('dtl-input-prcCap4')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-prcVol4" name="dtl-input-prcVol4" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-prcVol4" name="dtl-input-prcVol4" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-prcVol4')" onblur="extractNumbers2('dtl-input-prcVol4')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-annOperTime4" name="dtl-input-annOperTime4" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-annOperTime4" name="dtl-input-annOperTime4" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-annOperTime4')" onblur="extractNumbers2('dtl-input-annOperTime4')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-avgOperDay4" name="dtl-input-avgOperDay4" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							<sbux-input id="dtl-input-avgOperDay4" name="dtl-input-avgOperDay4" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-avgOperDay4')" onblur="extractNumbers2('dtl-input-avgOperDay4')"
+							class="form-control input-sm" placeholder="" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
@@ -188,7 +220,7 @@
 					<tr>
 						<th class="th_bg">apc명</th>
 						<td class="td_input" style="border-right:hidden;">
-							<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
+							<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							<sbux-input id="dtl-input-apcNm" name="dtl-input-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
 						<td colspan="4"  style="border-left: hidden;"></td>
@@ -343,44 +375,50 @@
     		let totalRecordCount = 0;
 
         	jsonStMcInfList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const msg = {
-			  		trgtYr: item.trgtYr	 	//대상연도
-				   	, apcCd: item.apcCd  	//APC
-				   	, apcNm: item.apcNm  	//APC명
-					, sortMchnHldYn1: item.sortMchnHldYn1 //선별기 보유 유무
-					, sortMchnHldYn2: item.sortMchnHldYn2 //선별기 보유 유무
-					, sortMchnHldYn3: item.sortMchnHldYn3 //선별기 보유 유무
-					, sortMchnHldYn4: item.sortMchnHldYn4 //선별기 보유 유무
+        	//"Index 0 out of bounds for length 0"
+        	//data.resultCode = E0000
+        	//data.resultStatus E , S
+        	if(data.resultCode != "E0000"){
+        		data.resultList.forEach((item, index) => {
+    				const msg = {
+    			  		trgtYr: item.trgtYr	 	//대상연도
+    				   	, apcCd: item.apcCd  	//APC
+    				   	, apcNm: item.apcNm  	//APC명
+    					, sortMchnHldYn1: item.sortMchnHldYn1 //선별기 보유 유무
+    					, sortMchnHldYn2: item.sortMchnHldYn2 //선별기 보유 유무
+    					, sortMchnHldYn3: item.sortMchnHldYn3 //선별기 보유 유무
+    					, sortMchnHldYn4: item.sortMchnHldYn4 //선별기 보유 유무
 
-					, prcCap1: item.prcCap1 //처리능력(톤)
-					, prcCap2: item.prcCap2 //처리능력(톤)
-					, prcCap3: item.prcCap3 //처리능력(톤)
-					, prcCap4: item.prcCap4 //처리능력(톤)
+    					, prcCap1: item.prcCap1 //처리능력(톤)
+    					, prcCap2: item.prcCap2 //처리능력(톤)
+    					, prcCap3: item.prcCap3 //처리능력(톤)
+    					, prcCap4: item.prcCap4 //처리능력(톤)
 
-					, prcVol1: item.prcVol1  //처리물량(톤)
-					, prcVol2: item.prcVol2  //처리물량(톤)
-					, prcVol3: item.prcVol3  //처리물량(톤)
-					, prcVol4: item.prcVol4  //처리물량(톤)
+    					, prcVol1: item.prcVol1  //처리물량(톤)
+    					, prcVol2: item.prcVol2  //처리물량(톤)
+    					, prcVol3: item.prcVol3  //처리물량(톤)
+    					, prcVol4: item.prcVol4  //처리물량(톤)
 
-					, annOperTime1: item.annOperTime1  //연간가동시간(시간)
-					, annOperTime2: item.annOperTime2  //연간가동시간(시간)
-					, annOperTime3: item.annOperTime3  //연간가동시간(시간)
-					, annOperTime4: item.annOperTime4  //연간가동시간(시간)
+    					, annOperTime1: item.annOperTime1  //연간가동시간(시간)
+    					, annOperTime2: item.annOperTime2  //연간가동시간(시간)
+    					, annOperTime3: item.annOperTime3  //연간가동시간(시간)
+    					, annOperTime4: item.annOperTime4  //연간가동시간(시간)
 
-					, avgOperDay1: item.avgOperDay1  //평균가동일수
-					, avgOperDay2: item.avgOperDay2  //평균가동일수
-					, avgOperDay3: item.avgOperDay3  //평균가동일수
-					, avgOperDay4: item.avgOperDay4  //평균가동일수
+    					, avgOperDay1: item.avgOperDay1  //평균가동일수
+    					, avgOperDay2: item.avgOperDay2  //평균가동일수
+    					, avgOperDay3: item.avgOperDay3  //평균가동일수
+    					, avgOperDay4: item.avgOperDay4  //평균가동일수
 
-				}
+    				}
 
-				jsonStMcInfList.push(msg);
+    				jsonStMcInfList.push(msg);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+    				if (index === 0) {
+    					totalRecordCount = item.totalRecordCount;
+    				}
+    			});
+        	}
+
 
 
         	if (jsonStMcInfList.length > 0) {
@@ -614,14 +652,18 @@
         /**
          * @type {any[]}
          */
+         /*
         const rows = grdStMcInfList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
         		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
         	}
         });
+        */
 
-        if (list.length == 0) {
+        //console.log(grdStMcInfList.getSelectedRows());
+		const rows = grdStMcInfList.getSelectedRows();
+        if (rows.length == 0) {
         	alert("삭제할 대상이 없습니다.");
         	return;
         }
@@ -661,7 +703,10 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltSortMchnInfo.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltSortMchnInfo.do", {
+	   		trgtYr: SBUxMethod.get('dtl-input-trgtYr')                 		//대상연도
+   	        ,apcCd: SBUxMethod.get('dtl-input-apcCd')               		//apc코드
+     	});
 
          const data = await postJsonPromise;
 		//예외처리
@@ -771,6 +816,14 @@
 	        }
 	    }
 	    return obj;
+	}
+
+	// 숫자(소숫점 가능)만 입력
+	function extractNumbers2(input) {
+		let inputValue = SBUxMethod.get(input);
+		if(inputValue != null || inputValue != ""){
+			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+		}
 	}
 </script>
 </html>

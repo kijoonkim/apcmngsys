@@ -34,7 +34,9 @@
 			    , FCLT.FCLT_SYS_HLD_YN6        AS FCLT_SYS_HLD_YN6
 			    , FCLT.FCLT_SYS_HLD_YN7        AS FCLT_SYS_HLD_YN7
 			 FROM TB_FCLT_UNTY_MNG_INFO FCLT
-
+			WHERE 1=1
+			AND DEL_YN != 'Y'
+			AND APC_CD IS NOT NULL
 		]]>
         <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -77,6 +79,8 @@
 			    , FCLT.FCLT_SYS_HLD_YN7       AS  FCLT_SYS_HLD_YN7
 			 FROM TB_FCLT_UNTY_MNG_INFO FCLT
 			 WHERE 1=1
+			 AND DEL_YN != 'Y'
+			 AND APC_CD IS NOT NULL
 	  		]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -247,6 +251,18 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<update id="deleteFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.deleteFcltUnityMngInfo */
+	    		TB_FCLT_UNTY_MNG_INFO FCLT
+			   SET
+	    		  DEL_YN 	= 'Y'
+			WHERE 1=1
+		      AND TRGT_YR = #{trgtYr}
+		      AND  APC_CD = #{apcCd}
+    	]]>
+    </update>
+    <!--
     <delete id="deleteFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.deleteFcltUnityMngInfo */
@@ -256,5 +272,5 @@
 		     AND  APC_CD = #{apcCd}
     	]]>
     </delete>
-
+ -->
 </mapper>

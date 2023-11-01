@@ -65,8 +65,6 @@
 				gfn_setCpntSBSelect('grdExcelSpmtPrfmncPopup', 			jsonEPSCnpt, 			gv_selectedApcCd),						// 거래처
 				gfn_setTrsprtsSBSelect('grdExcelSpmtPrfmncPopup', 		jsonEPSTrsprtCoCd, 		gv_selectedApcCd),						// 운송사
 		]);
-		console.log("jsonEPSCnpt", jsonEPSCnpt);
-		console.log("jsonEPSTrsprtCoCd", jsonEPSTrsprtCoCd);
 		grdExcelSpmtPrfmncPopup.refresh({"combo":true});
 		grdExcelSpmtPrfmncPopup.rebuild();
 	}
@@ -150,7 +148,7 @@
 					gfn_comAlert("W0005", "품목") 	// W0005	{0}이/가 없습니다.
 					return;
 				}
-				if(gfn_comboValidation(jsonEPIApcVrty, vrtyCd) != "Y" || gfn_isEmpty(vrtyCd)){
+				if(gfn_comboValidation(jsonEPSApcVrty, vrtyCd) != "Y" || gfn_isEmpty(vrtyCd)){
 					gfn_comAlert("W0005", "품종") 	// W0005	{0}이/가 없습니다.
 					return;
 				}
@@ -209,13 +207,12 @@
 			const data = await postJsonPromise;
 
 	    	try{
-	       		if(data.errMsg == null){
-	       			gfn_closeModal('modal-excel-gdsInvntr')
+	    		if (_.isEqual("S", data.resultStatus)) {
+	    			gfn_closeModal('modal-excel-spmtPrfmnc')
 	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-
-	       		}else{
-	       			gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
-	       		}
+	        	} else {
+	        		alert(data.resultMessage);
+	        	}
 	        }catch (e) {
 	        	if (!(e instanceof Error)) {
 	    			e = new Error(e);

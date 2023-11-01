@@ -40,6 +40,8 @@
 
 			  FROM TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
  			 WHERE 1=1
+ 			 AND DEL_YN != 'Y'
+ 			 AND APC_CD IS NOT NULL
 		     		]]>
         		<if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  TRGT_YR = #{trgtYr}
@@ -81,6 +83,8 @@
 				, FCLT.STOR_OP_RATE           AS  STOR_OP_RATE
 			  FROM TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
  			 WHERE 1=1
+ 			 AND DEL_YN != 'Y'
+ 			 AND APC_CD IS NOT NULL
   ]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -249,6 +253,18 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<update id="deleteFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.deleteFcltLwtpStrgMchnInfo */
+	    		TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
+			   SET
+	    		  DEL_YN 	= 'Y'
+			WHERE 1=1
+		      AND TRGT_YR = #{trgtYr}
+		      AND  APC_CD = #{apcCd}
+    	]]>
+    </update>
+    <!--
     <delete id="deleteFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.deleteFcltLwtpStrgMchnInfo */
@@ -258,5 +274,5 @@
 		      AND APC_CD = #{apcCd}
     	]]>
     </delete>
-
+ -->
 </mapper>

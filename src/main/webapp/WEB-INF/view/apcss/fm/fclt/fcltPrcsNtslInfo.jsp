@@ -92,19 +92,29 @@
 							</tr>
 							<tr>
 								<td>
-									<sbux-input id="srch-inp-opera1" name="srch-inp-opera1" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera1')"></sbux-input>
+									<sbux-input id="srch-inp-opera1" name="srch-inp-opera1" uitype="text"
+									onblur="fn_extractNumbers2('srch-inp-opera1')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera1')"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera2" name="srch-inp-opera2" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera2')"></sbux-input>
+									<sbux-input id="srch-inp-opera2" name="srch-inp-opera2" uitype="text"
+									onblur="fn_extractNumbers2('srch-inp-opera2')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera2')"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera3" name=""srch-inp-opera3"" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera3')"></sbux-input>
+									<sbux-input id="srch-inp-opera3" name="srch-inp-opera3" uitype="text"
+									onblur="fn_extractNumbers2('srch-inp-opera3')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera3')"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera4" name="srch-inp-opera4" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera4')"></sbux-input>
+									<sbux-input id="srch-inp-opera4" name="srch-inp-opera4" uitype="text"
+									onblur="fn_extractNumbers2('srch-inp-opera4')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera4')"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera5" name="srch-inp-opera5" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera5')"></sbux-input>
+									<sbux-input id="srch-inp-opera5" name="srch-inp-opera5" uitype="text"
+									onblur="fn_extractNumbers2('srch-inp-opera5')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera5')"></sbux-input>
 								</td>
 							</tr>
 							<tr>
@@ -116,16 +126,24 @@
 							</tr>
 							<tr>
 								<td>
-									<sbux-input id="srch-inp-opera6" name="srch-inp-opera6" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera6')"></sbux-input>
+									<sbux-input id="srch-inp-opera6" name="srch-inp-opera6" uitype="text"
+									onblur="fn_extractNumbers2('srch-inp-opera6')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera6')"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera7" name="srch-inp-opera7" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera7')"></sbux-input>
+									<sbux-input id="srch-inp-opera7" name="srch-inp-opera7" uitype="text"
+									onblur="fn_extractNumbers2('srch-inp-opera7')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera7')"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera8" name="srch-inp-opera8" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera8')"></sbux-input>
+									<sbux-input id="srch-inp-opera8" name="srch-inp-opera8" uitype="text"
+									onblur="fn_extractNumbers2('srch-inp-opera8')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera8')"></sbux-input>
 								</td>
 								<td>
-									<sbux-input id="srch-inp-opera9" name="srch-inp-opera9" uitype="text" class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera9')"></sbux-input>
+									<sbux-input id="srch-inp-opera9" name="srch-inp-opera9" uitype="text"
+									onblur="fn_extractNumbers2('srch-inp-opera9')"
+									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera9')"></sbux-input>
 								</td>
 								<td>
 									<sbux-input id="srch-inp-opera10" name="srch-inp-opera10" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
@@ -263,31 +281,37 @@
     		let totalRecordCount = 0;
 
     		jsonItmPrfList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const msg = {
-					trgtYr: item.trgtYr,						 	    //대상연도
-					apcCd: item.apcCd, 	 		 						//apc코드
-					apcNm: item.apcNm, 	 		 						//apc명
-					fcltNtslCd: item.fcltNtslCd,
-					fcltNtslCd2: item.fcltNtslCd2,
-					fcltNtslCd3: item.fcltNtslCd3,
-					fcltNtslCd4: item.fcltNtslCd4,
-					fcltNtslCd5: item.fcltNtslCd5,
-					fcltNtslCd6: item.fcltNtslCd6,
-					fcltNtslCd7: item.fcltNtslCd7,
-					fcltNtslCd8: item.fcltNtslCd8,
-					fcltNtslCd9: item.fcltNtslCd9
-				}
+    		//"Index 0 out of bounds for length 0"
+        	//data.resultCode = E0000
+        	//data.resultStatus E , S
+        	if(data.resultCode != "E0000"){
+        		data.resultList.forEach((item, index) => {
+    				const msg = {
+    					trgtYr: item.trgtYr,						 	    //대상연도
+    					apcCd: item.apcCd, 	 		 						//apc코드
+    					apcNm: item.apcNm, 	 		 						//apc명
+    					fcltNtslCd: item.fcltNtslCd,
+    					fcltNtslCd2: item.fcltNtslCd2,
+    					fcltNtslCd3: item.fcltNtslCd3,
+    					fcltNtslCd4: item.fcltNtslCd4,
+    					fcltNtslCd5: item.fcltNtslCd5,
+    					fcltNtslCd6: item.fcltNtslCd6,
+    					fcltNtslCd7: item.fcltNtslCd7,
+    					fcltNtslCd8: item.fcltNtslCd8,
+    					fcltNtslCd9: item.fcltNtslCd9
+    				}
 
 
 
-				jsonItmPrfList.push(msg);
+    				jsonItmPrfList.push(msg);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
+    				if (index === 0) {
+    					totalRecordCount = item.totalRecordCount;
+    				}
 
-			});
+    			});
+        	}
+
 
         	if (jsonItmPrfList.length > 0) {
 
@@ -465,14 +489,18 @@
         /**
          * @type {any[]}
          */
+         /*
         const rows = grdItmPrfList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
         		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
         	}
         });
+        */
 
-        if (list.length == 0) {
+      //console.log(grdItmPrfList.getSelectedRows());
+		const rows = grdItmPrfList.getSelectedRows();
+        if (rows.length == 0) {
         	alert("삭제할 대상이 없습니다.");
         	return;
         }
@@ -512,7 +540,10 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltItemPrfmnc.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltPrcsNtslInfo.do", {
+        	trgtYr: SBUxMethod.get('dtl-input-trgtYr')
+            ,apcCd: SBUxMethod.get('dtl-input-apcCd')
+     	});
 
          const data = await postJsonPromise;
 		//예외처리
@@ -596,16 +627,22 @@
 
 	// 숫자(소숫점 가능)만 입력
 	function fn_extractNumbers2(input) {
+		console.log("===========================fn_extractNumbers=============");
+		console.log(input);
 		let inputValue = SBUxMethod.get(input);
-		if(!inputValue === null || !inputValue === undefined || !inputValue === ''){
+		console.log(inputValue);
+		console.log(inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+		if(inputValue != null || inputValue != ""){
+			console.log(true);
 			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+			//SBUxMethod.set('srch-inp-opera1','1111111111');
 		}
 	}
     // 숫자만 입력
 	function fn_extractNumbers(input) {
 		//document.querySelector("sbux-input[name='"+input+"']").value = document.querySelector("sbux-input[name='"+input+"']").value.replace(/\D/g, "");
 		let inputValue = SBUxMethod.get(input);
-		if(!inputValue === null || !inputValue === undefined || !inputValue === ''){
+		if(inputValue != null || inputValue != ""){
 			SBUxMethod.set(input,inputValue.replace(/\D/g, ""));
 		}
 	}

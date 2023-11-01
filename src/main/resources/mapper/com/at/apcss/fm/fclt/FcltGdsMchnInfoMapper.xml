@@ -59,6 +59,8 @@
 				, FCLT.SORT_MCHN_HLD_YN45     AS SORT_MCHN_HLD_YN45
 			 FROM TB_FCLT_GDS_MCHN_INFO FCLT
 			WHERE 1=1
+			AND DEL_YN != 'Y'
+			AND APC_CD IS NOT NULL
 ]]>
         <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -124,6 +126,8 @@
 				, FCLT.SORT_MCHN_HLD_YN45     AS SORT_MCHN_HLD_YN45
 			 FROM TB_FCLT_GDS_MCHN_INFO FCLT
 			WHERE 1=1
+			AND DEL_YN != 'Y'
+			AND APC_CD IS NOT NULL
   ]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -415,6 +419,19 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	jeongyd        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<update id="deleteFcltGdsMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.deleteFcltGdsMchnInfo */
+	    		TB_FCLT_GDS_MCHN_INFO FCLT
+			   SET
+	    		  DEL_YN 	= 'Y'
+			WHERE 1=1
+		      AND TRGT_YR = #{trgtYr}
+		      AND  APC_CD = #{apcCd}
+    	]]>
+    </update>
+    <!--
+
     <delete id="deleteFcltGdsMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.deleteFcltGdsMchnInfo */
@@ -424,5 +441,5 @@
 		      AND APC_CD = #{apcCd}
     	]]>
     </delete>
-
+ -->
 </mapper>

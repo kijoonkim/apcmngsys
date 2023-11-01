@@ -345,35 +345,39 @@
     		let totalRecordCount = 0;
 
         	jsonLtMOpcIfList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const msg = {
-					trgtYr: item.trgtYr,	 		                   //대상연도
-					apcCd: item.apcCd, 	 			                   //apc코드
-					apcNm: item.apcNm,      				                   // 순번
-					fcltOperYn : item.fcltOperYn,
-					fcltOperYn : item.fcltOperYn1,
-					fcltOperYn2 : item.fcltOperYn2,
-					fcltOperYn3 : item.fcltOperYn3,
-					fcltOperYn4 : item.fcltOperYn4,
-					fcltOperYn5 : item.fcltOperYn5,
-					fcltOperYn6 : item.fcltOperYn6,
-					fcltOperYn7 : item.fcltOperYn7,
-					fcltOperYn8 : item.fcltOperYn8,
-					fcltOperYn9 : item.fcltOperYn9,
-					fcltOperYn10 : item.fcltOperYn10,
-					fcltOperYn11 : item.fcltOperYn11,
-					fcltOperYn12 : item.fcltOperYn12
-				}
+        	//"Index 0 out of bounds for length 0"
+        	//data.resultCode = E0000
+        	//data.resultStatus E , S
+        	if(data.resultCode != "E0000"){
+        		data.resultList.forEach((item, index) => {
+    				const msg = {
+    					trgtYr: item.trgtYr,	 		                   //대상연도
+    					apcCd: item.apcCd, 	 			                   //apc코드
+    					apcNm: item.apcNm,      				                   // 순번
+    					fcltOperYn : item.fcltOperYn,
+    					fcltOperYn : item.fcltOperYn1,
+    					fcltOperYn2 : item.fcltOperYn2,
+    					fcltOperYn3 : item.fcltOperYn3,
+    					fcltOperYn4 : item.fcltOperYn4,
+    					fcltOperYn5 : item.fcltOperYn5,
+    					fcltOperYn6 : item.fcltOperYn6,
+    					fcltOperYn7 : item.fcltOperYn7,
+    					fcltOperYn8 : item.fcltOperYn8,
+    					fcltOperYn9 : item.fcltOperYn9,
+    					fcltOperYn10 : item.fcltOperYn10,
+    					fcltOperYn11 : item.fcltOperYn11,
+    					fcltOperYn12 : item.fcltOperYn12
+    				}
 
 
-				jsonLtMOpcIfList.push(msg);
+    				jsonLtMOpcIfList.push(msg);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
-        	console.log("c33333333333333333333");
-        	console.log("totalRecordCount", totalRecordCount);
+    				if (index === 0) {
+    					totalRecordCount = item.totalRecordCount;
+    				}
+    			});
+        	}
+
 
         	if (jsonLtMOpcIfList.length > 0) {
 
@@ -570,18 +574,21 @@
         /**
          * @type {any[]}
          */
+         /*
         const rows = grdLtMcOpIfList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
         		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
         	}
         });
+        */
 
-        if (list.length == 0) {
+      	//console.log(grdLtMcOpIfList.getSelectedRows());
+		const rows = grdLtMcOpIfList.getSelectedRows();
+        if (rows.length == 0) {
         	alert("삭제할 대상이 없습니다.");
         	return;
         }
-
         fn_subDelete(confirm("삭제 하시겠습니까?"), list);
 
         /*
@@ -617,7 +624,10 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltLwtpStrgMchnOperInfo.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltLwtpStrgMchnOperInfo.do", {
+    	 	trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
+	        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
+     	});
 
          const data = await postJsonPromise;
 //예외처리

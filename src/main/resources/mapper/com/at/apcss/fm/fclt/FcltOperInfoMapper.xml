@@ -49,6 +49,8 @@
 					, FCLT.APC_TRMT_ITEM_CN4        AS  APC_TRMT_ITEM_CN4
 				FROM   TB_FCLT_OPER_INFO FCLT
 				WHERE 1=1
+				  AND DEL_YN != 'Y'
+				  AND APC_CD IS NOT NULL
 
     	]]>
     		<if test='trgtYr != null and !trgtYr.equals("")'>
@@ -97,6 +99,8 @@
 					, FCLT.APC_TRMT_ITEM_CN4        AS  APC_TRMT_ITEM_CN4
 				FROM   TB_FCLT_OPER_INFO FCLT
 			   WHERE 1=1
+			     AND DEL_YN != 'Y'
+			     AND APC_CD IS NOT NULL
   ]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -264,6 +268,7 @@
 		     	, SYS_LAST_CHG_DT
 		     	, SYS_LAST_CHG_USER_ID
 		     	, SYS_LAST_CHG_PRGRM_ID
+		     	, DEL_YN
 	    		)
 	   	VALUES
 	   		    (
@@ -300,6 +305,7 @@
 		     	,  SYSDATE
 		     	, #{sysLastChgUserId}
 		     	, #{sysLastChgPrgrmId}
+		     	, 'N'
 		     	)
      </update>
 
@@ -367,6 +373,18 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<update id="deleteFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo */
+	    		TB_FCLT_OPER_INFO FCLT
+			   SET
+	    		  DEL_YN 	= 'Y'
+			WHERE 1=1
+		      AND TRGT_YR = #{trgtYr}
+		      AND  APC_CD = #{apcCd}
+    	]]>
+    </update>
+	<!--
     <delete id="deleteFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo */
@@ -376,5 +394,5 @@
 		      AND  APC_CD = #{apcCd}
     	]]>
     </delete>
-
+	 -->
 </mapper>

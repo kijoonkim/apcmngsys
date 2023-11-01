@@ -51,6 +51,8 @@
 
 			  FROM TB_FCLT_SORT_MCHN_INFO FCLT
 			 WHERE 1=1
+			 AND DEL_YN != 'Y'
+			 AND APC_CD IS NOT NULL
 		]]>
 
         <if test='trgtYr != null and !trgtYr.equals("")'>
@@ -106,6 +108,8 @@
                 ,AVG_OPER_DAY4               AS AVG_OPER_DAY4
 			  FROM TB_FCLT_SORT_MCHN_INFO FCLT
 			 WHERE 1=1
+			 AND DEL_YN != 'Y'
+			 AND APC_CD IS NOT NULL
   		]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -353,6 +357,18 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	jeongyd        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<update id="deleteFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.deleteFcltSortMchnInfo */
+	    		TB_FCLT_SORT_MCHN_INFO FCLT
+			   SET
+	    		  DEL_YN 	= 'Y'
+			WHERE 1=1
+		      AND TRGT_YR = #{trgtYr}
+		      AND  APC_CD = #{apcCd}
+    	]]>
+    </update>
+    <!--
     <delete id="deleteFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.deleteFcltSortMchnInfo */
@@ -362,5 +378,5 @@
 		     AND  APC_CD = #{apcCd}
     	]]>
     </delete>
-
+ -->
 </mapper>

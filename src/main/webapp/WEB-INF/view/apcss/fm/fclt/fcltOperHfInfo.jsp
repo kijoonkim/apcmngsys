@@ -88,10 +88,14 @@
 							정규직
 						</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-hireNope" name="dtl-input-hireNope" uitype="text" class="form-control input-sm" placeholder="10" ></sbux-input>
+							<sbux-input id="dtl-input-hireNope" name="dtl-input-hireNope" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-hireNope')" onblur="extractNumbers2('dtl-input-hireNope')"
+							class="form-control input-sm" placeholder="10" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-hireNope3" name="dtl-input-hireNope3" uitype="text" class="form-control input-sm" placeholder="1" ></sbux-input>
+							<sbux-input id="dtl-input-hireNope3" name="dtl-input-hireNope3" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-hireNope3')" onblur="extractNumbers2('dtl-input-hireNope3')"
+							class="form-control input-sm" placeholder="1" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
@@ -99,10 +103,14 @@
 							일용직
 						</th>
 						<td class="td_input">
-							<sbux-input id="dtl-input-hireNope2" name="dtl-input-hireNope2" uitype="text" class="form-control input-sm" placeholder="5" ></sbux-input>
+							<sbux-input id="dtl-input-hireNope2" name="dtl-input-hireNope2" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-hireNope2')" onblur="extractNumbers2('dtl-input-hireNope2')"
+							class="form-control input-sm" placeholder="5" ></sbux-input>
 						</td>
 						<td class="td_input">
-							<sbux-input id="dtl-input-hireNope4" name="dtl-input-hireNope4" uitype="text" class="form-control input-sm" placeholder="10" ></sbux-input>
+							<sbux-input id="dtl-input-hireNope4" name="dtl-input-hireNope4" uitype="text"
+							onkeyup="extractNumbers2('dtl-input-hireNope4')" onblur="extractNumbers2('dtl-input-hireNope4')"
+							class="form-control input-sm" placeholder="10" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
@@ -239,24 +247,30 @@
     		let totalRecordCount = 0;
 
         	jsonHireInfoList.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const msg = {
-					trgtYr: item.trgtYr,	 	//대상연도
-					apcCd: item.apcCd, 	 		//apc코드
-					apcNm: item.apcNm, 	 		//apc명
-					hireNope: item.hireNope,        //고용인력(내국인정규직)
-					hireNope2: item.hireNope2,        //고용인력(내국인일용직)
-					hireNope3: item.hireNope3,        //고용인력(외국인정규직)
-					hireNope4: item.hireNope4,        //고용인력(외국인일용직)
+        	//"Index 0 out of bounds for length 0"
+        	//data.resultCode = E0000
+        	//data.resultStatus E , S
+        	if(data.resultCode != "E0000"){
+        		data.resultList.forEach((item, index) => {
+    				const msg = {
+    					trgtYr: item.trgtYr,	 	//대상연도
+    					apcCd: item.apcCd, 	 		//apc코드
+    					apcNm: item.apcNm, 	 		//apc명
+    					hireNope: item.hireNope,        //고용인력(내국인정규직)
+    					hireNope2: item.hireNope2,        //고용인력(내국인일용직)
+    					hireNope3: item.hireNope3,        //고용인력(외국인정규직)
+    					hireNope4: item.hireNope4,        //고용인력(외국인일용직)
 
-				}
+    				}
 
-				jsonHireInfoList.push(msg);
+    				jsonHireInfoList.push(msg);
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+    				if (index === 0) {
+    					totalRecordCount = item.totalRecordCount;
+    				}
+    			});
+        	}
+
 
         	if (jsonHireInfoList.length > 0) {
 
@@ -409,14 +423,18 @@
         /**
          * @type {any[]}
          */
+         /*
         const rows = grdHireInfoList.getGridDataAll();
         rows.forEach((row) => {
         	if (_.isEqual("Y", row.checked)) {
         		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
         	}
         });
+        */
 
-        if (list.length == 0) {
+      //console.log(grdHireInfoList.getSelectedRows());
+		const rows = grdHireInfoList.getSelectedRows();
+        if (rows.length == 0) {
         	alert("삭제할 대상이 없습니다.");
         	return;
         }
@@ -456,7 +474,10 @@
      	console.log("******************fn_subDelete**********************************");
  		if (!isConfirmed) return;
 
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltOperHfInfoList.do", list);
+     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltOperHfInfoList.do", {
+    	 	trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
+            ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
+     	});
 
          const data = await postJsonPromise;
 		//예외처리
@@ -547,7 +568,13 @@
 	    return obj;
 	}
 
-
+	// 숫자(소숫점 가능)만 입력
+	function extractNumbers2(input) {
+		let inputValue = SBUxMethod.get(input);
+		if(inputValue != null || inputValue != ""){
+			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
+		}
+	}
 
 </script>
 </html>

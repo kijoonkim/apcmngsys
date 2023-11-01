@@ -32,6 +32,8 @@
 				, FCLT.HIRE_NOPE4              AS HIRE_NOPE4
 			 FROM TB_FCLT_OPER_HF_INFO FCLT
  			 WHERE 1=1
+ 			 AND DEL_YN != 'Y'
+ 			 AND APC_CD IS NOT NULL
 		     		]]>
         		<if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  TRGT_YR = #{trgtYr}
@@ -70,6 +72,8 @@
 				, FCLT.HIRE_NOPE4              AS HIRE_NOPE4
 			 FROM TB_FCLT_OPER_HF_INFO FCLT
  			 WHERE 1=1
+ 			 AND DEL_YN != 'Y'
+ 			 AND APC_CD IS NOT NULL
   ]]>
           <if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
@@ -218,6 +222,18 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
+	<update id="deleteFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.deleteFcltOperHfInfo */
+	    		TB_FCLT_OPER_HF_INFO FCLT
+			   SET
+	    		  DEL_YN 	= 'Y'
+			WHERE 1=1
+		      AND TRGT_YR = #{trgtYr}
+		      AND  APC_CD = #{apcCd}
+    	]]>
+    </update>
+    <!--
     <delete id="deleteFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
     	<![CDATA[
 	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.deleteFcltOperHfInfo */
@@ -227,5 +243,5 @@
 		     AND  APC_CD = #{apcCd}
     	]]>
     </delete>
-
+ -->
 </mapper>
