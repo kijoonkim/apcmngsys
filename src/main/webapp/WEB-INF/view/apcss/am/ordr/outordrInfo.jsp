@@ -734,6 +734,8 @@
 	const fn_setGdsNm = function(gds) {
 		if (!gfn_isEmpty(gds)) {
 			SBUxMethod.set('srch-inp-spmtPckgUnitNm', gds.spmtPckgUnitNm);
+			SBUxMethod.set("srch-slt-itemCd", gds.itemCd);
+			SBUxMethod.set("srch-slt-vrtyCd", gds.vrtyCd);
 		}
 	}
 </script>

@@ -57,7 +57,7 @@
 						<td class="td_input" style="border-right: hidden;"></td>
 						<th scope="row" class="th_bg">확정여부</th>
 						<td class="td_input" style="border-right: hidden;">
-							<sbux-select id="srch-slt-useYn" name="srch-slt-useYn" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComUseYn"></sbux-select>
+							<sbux-select id="srch-slt-cfmtnYn" name="srch-slt-cfmtnYn" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComUseYn"></sbux-select>
 						</td>
 						<td colspan="2"></td>
 						<th scope="row" class="th_bg">품목/품종</th>
@@ -74,7 +74,7 @@
 						<th scope="row" class="th_bg">거래처</th>
  						<td colspan="2" class="td_input" style="border-right: hidden;">
 							<sbux-input id="srch-inp-cnptCd" name="srch-inp-cnptCd" uitype="hidden"></sbux-input>
-							<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
+							<sbux-input id="srch-inp-cnptNm" name="srch-inp-cnptNm" uitype="text" class="form-control input-sm" onkeyup="fn_cnptKeyUp(srch-inp-cnptNm)"></sbux-input>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
 							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_choiceCnpt" text="찾기"  class="btn btn-xs btn-outline-dark"></sbux-button>
@@ -162,16 +162,17 @@
 	var jsonComItem			= [];	// 품목 		itemCd		검색
 	var jsonComVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonComUseYn		= [];	// 창고 		useYn		검색
-	var jsonComCfmtnYn		= [
-		{ label : "미확정", value : "N"},
-		{ label : "확정", value : "Y"}
-	];
+	var jsonComCfmtnYn		= [];
+	var jsonGrdCfmtnYn		= [];
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('srch-slt-useYn', 		jsonComUseYn, 	'USE_YN'),	// 사용유무 
+			gfn_setComCdSBSelect('srch-slt-cfmtnYn', 	jsonComUseYn, 	'CFMTN_YN'),	// 사용유무
+			gfn_setComCdSBSelect('grdSlsPrfmnc', 		jsonGrdCfmtnYn, 'CFMTN_YN'),	// 사용유무
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonComItem, 	gv_apcCd),	// 품목
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonComVrty, 	gv_apcCd)	// 품종
 		])
+
+		grdSlsPrfmnc.refresh({"combo":true})
 
 	}
 
@@ -241,13 +242,13 @@
             {caption: ['확정금액','확정금액'], 	ref: 'cfmtnAmt', 	width: '80px', type: 'input', style: 'text-align:right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
             {caption: ['확정여부','확정여부'], 		ref: 'cfmtnYn',   		width:'100px',  type:'combo',    style:'text-align:center; background:#FFF8DC;',
-				typeinfo : {ref:'jsonComCfmtnYn', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+				typeinfo : {ref:'jsonGrdCfmtnYn', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
         ];
         grdSlsPrfmnc = _SBGrid.create(SBGridProperties);
         grdSlsPrfmnc.bind('select', 'fn_setValue');
         grdSlsPrfmnc.bind('deselect', 'fn_delValue');
     }
-	
+
 	const fn_search = async function(){
 
 		let slsYmdFrom = SBUxMethod.get("srch-dtp-slsYmdFrom");
@@ -256,6 +257,7 @@
 		let cnptCd = SBUxMethod.get("srch-inp-cnptCd");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+		let cfmtnYn = SBUxMethod.get("srch-slt-cfmtnYn");
 		if (gfn_isEmpty(slsYmdFrom)){
 			gfn_comAlert("W0002", "매출일자");		//	W0002	{0}을/를 입력하세요.
             return;
@@ -272,6 +274,7 @@
 				 , cnptCd 		: cnptCd
 				 , itemCd 		: itemCd
 				 , vrtyCd 		: vrtyCd
+				 , cfmtnYn		: cfmtnYn
 		}
 		let postJsonPromise = gfn_postJSON("/am/sls/selectRegSlsPrfmncList.do", slsPrfmncVO);
         let data = await postJsonPromise;
@@ -406,7 +409,7 @@
 		try{
 
        		if(gfn_isEmpty(data.rtnCd)){
-       			console.log(data.trnCd)
+       			console.log(data.rtnCd)
        			fn_search();
        			gfn_comAlert("I0001");						// I0001 처리 되었습니다.
        		}else{
@@ -456,7 +459,7 @@
 			}
 		}
     }
-	
+
 	const fn_reset = async function(){
 		SBUxMethod.set("srch-dtp-slsYmdFrom",  gfn_dateFirstYmd(new Date())); // 매출일자 from
 		SBUxMethod.set("srch-dtp-slsYmdTo",  gfn_dateToYmd(new Date())); // 매출일자 to
@@ -496,7 +499,7 @@
 	 * 거래처 팝업 필수 함수
 	 * 종료
 	 */
-	 
+
 	/**
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
@@ -524,7 +527,7 @@
 			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
 	}
-		
+
 	 const fn_dtpChange = function(){
  		let slsYmdFrom = SBUxMethod.get("srch-dtp-slsYmdFrom");
  		let slsYmdTo = SBUxMethod.get("srch-dtp-slsYmdTo");
@@ -535,7 +538,7 @@
  			return;
  		}
  	}
-	 
+
 	 const fn_dtlDtpChange = function(){
  		let slsYmdFrom = SBUxMethod.get("dtl-dtp-slsYmdFrom");
  		let slsYmdTo = SBUxMethod.get("dtl-dtp-slsYmdTo");
@@ -546,5 +549,14 @@
  			return;
  		}
  	}
+
+
+	 const fn_cnptKeyUp = function(){
+		 let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
+
+		 if(cnptNm.length == 0){
+			 SBUxMethod.set("srch-inp-cnptCd", "");
+		 }
+	 }
 </script>
 </html>
