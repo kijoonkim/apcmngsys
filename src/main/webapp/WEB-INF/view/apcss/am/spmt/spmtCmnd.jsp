@@ -48,10 +48,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-cmndYmdFrom" name="srch-dtp-cmndYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-cmndYmdFrom" name="srch-dtp-cmndYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="fn_dtpChange(srch-dtp-cmndYmdFrom)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-cmndYmdTo" name="srch-dtp-cmndYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-cmndYmdTo" name="srch-dtp-cmndYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="fn_dtpChange(srch-dtp-cmndYmdTo)"></sbux-datepicker>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">거래처</th>
@@ -184,12 +184,23 @@
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
 
 		fn_createSpmtCmndGrid();
 		fn_initSBSelect();
-	})
+	});
+	
+	const fn_dtpChange = function(){
+		let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
+		let cmndYmdTo = SBUxMethod.get("srch-dtp-cmndYmdTo");
+		if(gfn_diffDate(cmndYmdFrom, cmndYmdTo) < 0){
+			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
+			SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateFirstYmd(new Date()));
+			SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
+			return;
+		}
+	}
 
 	function fn_createSpmtCmndGrid() {
         var SBGridProperties = {};

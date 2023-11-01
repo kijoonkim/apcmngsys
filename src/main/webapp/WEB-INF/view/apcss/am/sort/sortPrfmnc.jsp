@@ -97,6 +97,7 @@
 									name="srch-dtp-inptYmdFrom"
 									uitype="popup"
 									class="form-control input-sm sbux-pik-group-apc"
+									onchange="fn_dtpChange(srch-dtp-inptYmdFrom)"
 								></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -105,6 +106,7 @@
 									name="srch-dtp-inptYmdTo"
 									uitype="popup"
 									class="form-control input-sm sbux-pik-group-apc"
+									onchange="fn_dtpChange(srch-dtp-inptYmdTo)"
 								></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
@@ -343,6 +345,17 @@ let lv_sortSn = -1;
 		fn_createGrid();
 		fn_createInptGrid();
 		fn_search();
+    }
+    
+    const fn_dtpChange = function(){
+    	let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
+    	let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
+    	if(gfn_diffDate(inptYmdFrom, inptYmdTo) < 0){
+    		gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
+    		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
+    		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
+    		return;
+    	}
     }
 
 

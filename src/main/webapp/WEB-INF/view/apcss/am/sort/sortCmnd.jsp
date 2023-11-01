@@ -62,10 +62,10 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-strtCmndYmd" name="srch-dtp-strtCmndYmd" class="form-control pull-right input-sm">
+								<sbux-datepicker uitype="popup" id="srch-dtp-strtCmndYmd" name="srch-dtp-strtCmndYmd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-strtCmndYmd)">
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-endCmndYmd" name="srch-dtp-endCmndYmd" class="form-control pull-right input-sm">
+								<sbux-datepicker uitype="popup" id="srch-dtp-endCmndYmd" name="srch-dtp-endCmndYmd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-endCmndYmd)">
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">품목/품종</th>
@@ -171,12 +171,23 @@
 		let year = today.getFullYear();
 		let month = ('0' + (today.getMonth() + 1)).slice(-2)
 		let day = ('0' + today.getDate()).slice(-2)
-		SBUxMethod.set("srch-dtp-strtCmndYmd", year+month+day);
-		SBUxMethod.set("srch-dtp-endCmndYmd", year+month+day);
+		SBUxMethod.set("srch-dtp-strtCmndYmd", gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("srch-dtp-endCmndYmd", gfn_dateToYmd(new Date()));
 
 		fn_initSBSelect();
 
 	});
+	
+	const fn_dtpChange = function(){
+		let strtCmndYmd = SBUxMethod.get("srch-dtp-strtCmndYmd");
+		let endCmndYmd = SBUxMethod.get("srch-dtp-endCmndYmd");
+		if(gfn_diffDate(strtCmndYmd, endCmndYmd) < 0){
+			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
+			SBUxMethod.set("srch-dtp-strtCmndYmd", gfn_dateFirstYmd(new Date()));
+			SBUxMethod.set("srch-dtp-endCmndYmd", gfn_dateToYmd(new Date()));
+			return;
+		}
+	}
 
 	var grdSortCmnd; // 그리드를 담기위한 객체 선언
 	var jsonSortCmnd = []; // 그리드의 참조 데이터 주소 선언

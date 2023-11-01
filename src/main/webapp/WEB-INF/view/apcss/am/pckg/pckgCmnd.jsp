@@ -48,10 +48,10 @@
 						<tr>
 							<th scope="row"  class="th_bg"style="border-right:hidden ;"><span class="data_required" ></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmdFrom" name="srch-dtp-cmndYmdFrom" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmdFrom" name="srch-dtp-cmndYmdFrom" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-cmndYmdFrom)"/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmdTo" name="srch-dtp-cmndYmdTo" class="form-control pull-right input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmdTo" name="srch-dtp-cmndYmdTo" class="form-control pull-right input-sm input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-cmndYmdTo)"/>
 							</td>
 							<td>&nbsp;</td>
 							<th scope="row" class="th_bg">생산설비</th>
@@ -154,11 +154,22 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid2();
 
-		SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
 
 		fn_initSBSelect();
 	});
+	
+	const fn_dtpChange = function(){
+		let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
+		let cmndYmdTo = SBUxMethod.get("srch-dtp-cmndYmdTo");
+		if(gfn_diffDate(cmndYmdFrom, cmndYmdTo) < 0){
+			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
+			SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateFirstYmd(new Date()));
+			SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
+			return;
+		}
+	}
 
 	var grdPckgCmnd; // 그리드를 담기위한 객체 선언
 	var jsonPckgCmnd = []; // 그리드의 참조 데이터 주소 선언

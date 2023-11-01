@@ -49,10 +49,10 @@
 						<tr>
 							<th scope="row" class="th_bg">입고일자</th>
 							<td class="td_input"style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" class="form-control pull-right input-sm"></sbux-datepicker>
-
+								<sbux-datepicker uitype="popup" id="srch-dtp-startPrdctnYmd" name="srch-dtp-startPrdctnYmd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-startPrdctnYmd)"></sbux-datepicker>
+							</td>
 							<td class="td_input"style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-endPrdctnYmd" name="srch-dtp-endPrdctnYmd" class="form-control pull-right input-sm"></sbux-datepicker>
+								<sbux-datepicker uitype="popup" id="srch-dtp-endPrdctnYmd" name="srch-dtp-endPrdctnYmd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-endPrdctnYmd)"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg">품목/품종</th>
@@ -270,14 +270,25 @@
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrid();
-		SBUxMethod.set("srch-dtp-startPrdctnYmd", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-startPrdctnYmd", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-endPrdctnYmd", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 
 		fn_initSBSelect();
 		fn_getPrdcrs();
 	});
-
+	
+	const fn_dtpChange = function(){
+		let startPrdctnYmd = SBUxMethod.get("srch-dtp-startPrdctnYmd");
+		let endPrdctnYmd = SBUxMethod.get("srch-dtp-endPrdctnYmd");
+		if(gfn_diffDate(startPrdctnYmd, endPrdctnYmd) < 0){
+			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
+			SBUxMethod.set("srch-dtp-startPrdctnYmd", gfn_dateFirstYmd(new Date()));
+			SBUxMethod.set("srch-dtp-endPrdctnYmd", gfn_dateToYmd(new Date()));
+			return;
+		}
+	}
+	
 	var inptCmndDsctnList; // 그리드를 담기위한 객체 선언
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 

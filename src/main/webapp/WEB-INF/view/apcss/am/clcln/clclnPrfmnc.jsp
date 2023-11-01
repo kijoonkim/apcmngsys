@@ -25,7 +25,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 정산실적조회 -->
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 정산정보조회 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
@@ -93,6 +93,7 @@
 									name="srch-dtp-clclnYmdFrom"
 									uitype="popup"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(srch-dtp-clclnYmdFrom)"
 								></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -101,6 +102,7 @@
 									name="srch-dtp-clclnYmdTo"
 									uitype="popup"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(srch-dtp-clclnYmdTo)"
 								></sbux-datepicker>
 							</td>
 							<td></td>
@@ -280,6 +282,17 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
 	});
+	
+	const fn_dtpChange = function(){
+		let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
+		let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");
+		if(gfn_diffDate(clclnYmdFrom, clclnYmdTo) < 0){
+			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
+			SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
+			SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateToYmd(new Date()));
+			return;
+		}
+	}
 
 
 	function fn_createGrid() {
@@ -486,8 +499,8 @@
 
  		// 일자
 		let ymd = gfn_dateToYmd(new Date());
-		SBUxMethod.set("srch-dtp-clclnYmdFrom", ymd);
-		SBUxMethod.set("srch-dtp-clclnYmdTo", ymd);
+		SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-clclnYmd", ymd);
 
 		// 정산기준
