@@ -28,7 +28,7 @@
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, 
+    			,
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
@@ -37,7 +37,7 @@
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
 	    		, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
     		 FROM (
-	    	SELECT 
+	    	SELECT
 	    		   SP.APC_CD						AS APC_CD
 	    		 , SP.SLS_YMD						AS SLS_YMD
 	    		 , SP.SLS_SN						AS SLS_SN
@@ -83,6 +83,9 @@
 		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
 		       AND SP.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='cfmtnYn != null and cfmtnYn != ""'>
+		       AND SP.CFMTN_YN = #{cfmtnYn}
 		</if>
     	<![CDATA[
     		  ) pt0
@@ -303,6 +306,12 @@
 		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
 		       AND SP.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='cfmtnYn != null and cfmtnYn != ""'>
+		       AND SP.CFMTN_YN = #{cfmtnYn}
+		</if>
+		<if test='cnptNm != null and cnptNm != ""'>
+		       AND (SELECT FN_GET_CNPT_NM(SP.CNPT_CD, SP.APC_CD) FROM DUAL) LIKE '%' ||  #{cnptNm} || '%'
 		</if>
     	<![CDATA[
     		  ) pt0
