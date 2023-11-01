@@ -330,12 +330,12 @@
             {caption: ['배송처'], 		ref: 'dldtn', 			width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['품종'], 		ref: 'vrtyNm', 			width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['규격'], 		ref: 'spcfctNm', 		width: '100px', type: 'output', style: 'text-align:center'},
-            {caption: ['수량'], 		ref: 'cmndQntt',		width: '80px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ['중량'], 		ref: 'cmndWght', 		width: '100px', type: 'output', style: 'text-align:right',
+            {caption: ['수량'], 		ref: 'cmndQntt',		width: '70px', type: 'output', style: 'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ['중량'], 		ref: 'cmndWght', 		width: '80px', type: 'output', style: 'text-align:right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '100px', type: 'output', style: 'text-align:center'},
+            {caption: ['상품등급'], 	ref: 'gdsGrdNm', 		width: '70px', type: 'output', style: 'text-align:center'},
             {caption: ['포장구분'], 	ref: 'spmtPckgUnitNm', 	width: '140px', type: 'output', style: 'text-align:center'},
-            {caption: ['비고'], 		ref: 'rmrk', 			width: '120px', type: 'output', style: 'text-align:center'}
+            {caption: ['비고'], 		ref: 'rmrk', 			width: '200px', type: 'output', style: 'text-align:center'}
         ];
 
         grdSpmtCmnd = _SBGrid.create(SBGridPropertiesSpmtCmnd);
