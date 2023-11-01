@@ -120,4 +120,12 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public int updateRawMtrStdGrdDelY(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	/**
+	 * 원물재고 이송처리
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateInvntrTrnsf(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 }
