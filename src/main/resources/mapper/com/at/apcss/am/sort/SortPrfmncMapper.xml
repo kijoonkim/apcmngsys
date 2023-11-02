@@ -118,7 +118,10 @@
 				AND SI.SPCFCT_CD = #{spcfctCd}
     	</if>
     	<if test='rprsPrdcrCd != null and rprsPrdcrCd != ""'>
-				AND SI.RPRS_PRDCR_CD = #{prdcrCd}
+				AND SI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
+    	</if>
+    	<if test='vrtyCd != null and vrtyCd != ""'>
+				AND SI.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
     	</if>
     	<if test='fcltCd != null and fcltCd != ""'>
 				AND SP.FCLT_CD = #{fcltCd}

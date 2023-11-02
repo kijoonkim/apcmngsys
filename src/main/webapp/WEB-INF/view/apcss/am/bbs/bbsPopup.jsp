@@ -9,6 +9,12 @@
 	table {
 		width:80%
 	}
+
+	#cmntList .cmntHd{
+		text-align:center;
+		border:5px;
+		height:50px;
+	}
 </style>
 <body>
 	<section>
@@ -94,8 +100,7 @@
 			                              <table class="table table-bordered tbl_fixed" id="cmntList" >
 				                              <colgroup>
 			                                    <col style="width:10%">
-			                                    <col style="width:70%">
-			                                    <col style="width:10%">
+			                                    <col style="width:50%">
 			                                    <col style="width:10%">
 				                              </colgroup>
 			                              </table>
@@ -113,15 +118,20 @@
 </body>
 <script type="text/javascript">
 	//창고 등록
-
+	let bbs_info;
 
 	function fn_update(){
 		let check = SBUxMethod.get("btnUpdateBbsPopup");
+
+
 
 		if(check == "수정" || typeof check =="undefined"){
 			SBUxMethod.set("btnUpdateBbsPopup","취소");
 			SBUxMethod.hide("btnUpdateBbsPopup");
 			SBUxMethod.show("btnCancelBbsPopup");
+			SBUxMethod.show("btnSaveBbsPopup");
+			SBUxMethod.hide("dtl-input-cmntCn");
+			SBUxMethod.hide("btnInsertCmnt");
 			SBUxMethod.attr("dtl-select-bbsSeCd","readonly","false");
 			SBUxMethod.attr("dtl-input-bbsTitle","readonly","false");
 			SBUxMethod.attr("dtl-input-bbsSubject","readonly","false");
@@ -130,9 +140,13 @@
 			SBUxMethod.attr("dtl-select-bbsSeCd","readonly","true");
 			SBUxMethod.attr("dtl-input-bbsTitle","readonly","true");
 			SBUxMethod.attr("dtl-input-bbsSubject","readonly","true");
+			SBUxMethod.show("dtl-input-cmntCn");
+			SBUxMethod.show("btnInsertCmnt");
 			SBUxMethod.set("btnUpdateBbsPopup","수정");
 			SBUxMethod.hide("btnCancelBbsPopup");
 			SBUxMethod.show("btnUpdateBbsPopup");
+			SBUxMethod.hide("btnSaveBbsPopup");
+
 		}
 
 	}
@@ -142,30 +156,42 @@
 		const postJsonPromise = gfn_postJSON("/am/bbs/deleteBbs.do", {
 			bbsNo : bbsNo
 		});
+		const data = await postJsonPromise;
 
 		gfn_closeModal('modal-bbsModal','fn_search');
-
 	}
-	async function fn_bbsDetailupdate(){
-		let bbsSecd = SBUxMethod.get("dtl-select-bbsSeCd");
-		let bbsTitle = SBUxMethod.get("dtl-input-bbsTitle");
-		let bbsSubject = SBUxMethod.get("dtl-input-bbsSubject");
-		let bbsNo = SBUxMethod.get("dtl-input-bbsNo");
 
+	async function fn_bbsDetailupdate(){
+		let x = bbs_info;
+		let bbsSeCd = SBUxMethod.get("dtl-select-bbsSeCd");
+		if(bbsSeCd){
+			bbs_info.bbsSecd = bbsSeCd;
+		}
+		if(SBUxMethod.get("dtl-input-bbsTitle")){
+			bbs_info.bbsTitle = SBUxMethod.get("dtl-input-bbsTitle");
+				}
+		if(SBUxMethod.get("dtl-input-bbsSubject")){
+			bbs_info.bbsSubject = SBUxMethod.get("dtl-input-bbsSubject");
+		}
+
+		let bbsNo = SBUxMethod.get("dtl-input-bbsNo");
 		const postJsonPromise = gfn_postJSON("/am/bbs/updateBbs.do", {
-			bbsSeCd : bbsSecd
-			, bbsTitle : bbsTitle
-			, bbsSubject : bbsSubject
+			bbsSeCd : bbs_info.bbsSecd
+			, bbsTitle : bbs_info.bbsTitle
+			, bbsSubject : bbs_info.bbsSubject
 			, bbsNo : bbsNo
 		});
-
+		const data = await postJsonPromise;
 		SBUxMethod.attr("dtl-select-bbsSeCd","readonly","true");
 		SBUxMethod.attr("dtl-input-bbsTitle","readonly","true");
 		SBUxMethod.attr("dtl-input-bbsSubject","readonly","true");
 		SBUxMethod.set("btnUpdateBbsPopup","수정");
 		SBUxMethod.hide("btnCancelBbsPopup");
 		SBUxMethod.show("btnUpdateBbsPopup");
-		fn_callselectComment(bbsNo);
+		SBUxMethod.show("dtl-input-cmntCn");
+		SBUxMethod.show("btnInsertCmnt");
+		gfn_closeModal('modal-bbsModal','fn_search');
+
 	}
 
 	function remove_Comment(){
@@ -177,21 +203,33 @@
 
 	}
 
-
+	async function fn_callInit(){
+		SBUxMethod.hide("btnCancelBbsPopup");
+		SBUxMethod.hide("btnSaveBbsPopup");
+		SBUxMethod.show("btnUpdateBbsPopup");
+		SBUxMethod.attr("dtl-select-bbsSeCd","readonly","true");
+		SBUxMethod.attr("dtl-input-bbsTitle","readonly","true");
+		SBUxMethod.attr("dtl-input-bbsSubject","readonly","true");
+		SBUxMethod.show("dtl-input-cmntCn");
+		SBUxMethod.show("btnInsertCmnt");
+	}
 
 	async function fn_callselectComment(bbsNo){
 		const postJsonPromise = gfn_postJSON("/am/bbs/selectBbsCmntList.do", {
         	bbsNo: bbsNo
 		});
-
-		SBUxMethod.set("dtl-input-cmntCn", "");
 		const data = await postJsonPromise;
+		SBUxMethod.set("dtl-input-cmntCn", "");
+
 		if(data.resultList.length < 0){
 			return;
 		}
 		remove_Comment();
 		const list = data.resultList
 		const classtag = list.bbsNo+list.cmntChildNo;
+		$("#cmntList").append("<tr id=cmnt>");
+		$("#cmntList").append("<td id=cmnt class=cmntHd>사용자명 </td> <td id=cmnt class=cmntHd>내용 </td> <td id=cmnt class=cmntHd>  </td> ");
+		$("#cmntList").append("</tr>");
 		data.resultList.forEach((item, index) => {
 			let bbsCmnt = {
 				bbsNo 		: item.bbsNo
@@ -203,17 +241,17 @@
 			}
 
 			$("#cmntList").append("<tr id=cmnt>");
-			$("#cmntList").append("<td id=cmnt>"+ bbsCmnt.user  +"</td>");
-			$("#cmntList").append("<td id=cmnt>"+bbsCmnt.cmntCn+"</td>");
-			// $("#cmntList").append("<td id=cmnt class="+ bbsCmnt.cmntNo +">"+"<sbux-button id=btnChildCmnt name=btnChildCmnt uitype=modal target-id=modal-bbsChildCmntModal onclick=fn_childComment("+bbsCmnt.cmntNo+") class=btn btn-xs btn-outline-dark style=width:100% >답글</sbux-button></td>");
-			$("#cmntList").append("<td id=cmnt>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs btn-outline-dark style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
+			$("#cmntList").append("<td id=cmnt style=text-align:center>"+ bbsCmnt.user  +"</td>");
+			$("#cmntList").append("<td id=cmnt style=border-left:20px>"+bbsCmnt.cmntCn+"</td>");
+			if('${loginVO.userId}' == item.sysFrstInptUserId){
+				$("#cmntList").append("<td id=cmnt>"+"<button id=btnDeleteCmnt name=btnDeleteCmnt class=btn btn-xs btn-outline-dark style=width:100% onclick=fn_deleteComment("+bbsCmnt.cmntNo+")>삭제</button></td>");
+			}
+
 			$("#cmntList").append("</tr>");
-
-
 		});
-		SBUxMethod.hide("btnCancelBbsPopup");
 
 	}
+
 	async function fn_childComment(childNo){
 		SBUxMethod.openModal('modal-bbsChildCmntModal');
 		SBUxMethod.set("dtl-input-orngChildCmntNo",childNo);
@@ -222,10 +260,9 @@
 	async function fn_deleteComment(cmntNo){
 		let orngbbsNo = SBUxMethod.get("dtl-input-orngBbsNo");
 		let postJsonPromise = gfn_postJSON("/am/bbs/deleteCmntBbs.do", { bbsNo : orngbbsNo, cmntNo : cmntNo});
+		const data = await postJsonPromise;
 		remove_Comment();
-		fn_callselectComment(orngbbsNo);
-		console.log("댓글삭제");
-
+		fn_selectComment(orngbbsNo);
 	}
 
 
@@ -237,15 +274,13 @@
 			cmntCn : cmntCn,
 			cmntChildNo : 1,
 			});
-		fn_callselectComment(orngbbsNo);
-		console.log("댓글등록");
-
+		const data = await postJsonPromise;
+		fn_selectComment(orngbbsNo)
 	}
 
 
-
-
-
-
+	function fn_selectComment(orngbbsNo){
+		fn_callselectComment(orngbbsNo);
+	}
 </script>
 </html>

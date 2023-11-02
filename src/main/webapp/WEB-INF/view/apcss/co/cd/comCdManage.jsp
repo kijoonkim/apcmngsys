@@ -296,7 +296,6 @@
 				}else{
 			    	comCdDtlgrid.refresh()
 				}
-				comCdDtlgrid.setCellDisabled(0, 1, comCdDtlgrid.getRows() - 1, 1, true);
 			}else{
 				comCdDtlgrid.rebuild();
 			}

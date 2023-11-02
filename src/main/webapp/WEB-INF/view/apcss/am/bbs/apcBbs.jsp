@@ -196,7 +196,7 @@
     const fn_setGrdBbsList = async function(pageSize, pageNo) {
 
     	// form clear
-    	fn_clearForm();
+    	//fn_clearForm();
 
 		grdBbsList.clearStatus();
 
@@ -462,9 +462,17 @@
         SBUxMethod.set("dtl-input-bbsSubject", rowData.bbsSubject);
         SBUxMethod.set("dtl-input-sysFrstInptUserIdNm", rowData.sysFrstInptUserIdNm);
         SBUxMethod.set("dtl-input-sysFrstInptDt", rowData.sysFrstInptDt);
+
+        bbs_info = {
+				bbsSecd:rowData.bbsSeCd
+				, bbsTitle : rowData.bbsTitle
+				, bbsSubject : rowData.bbsSubject
+		}
         SBUxMethod.openModal('modal-bbsModal');
+        SBUxMethod.set("dtl-input-orngBbsNo",rowData.bbsNo);
         fn_callselectComment(rowData.bbsNo);
-        let user = '${loginVO.userId}';
+        fn_callInit();
+
 
     }
 

@@ -49,6 +49,14 @@ public interface GdsInvntrMapper {
 	public List<GdsInvntrVO> selectUpdateGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
 
 	/**
+	 * 상품재고 일일재고 목록 조회
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<GdsInvntrVO> selectDailyGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
+
+	/**
 	 * 상품재고 등록
 	 * @param gdsInvntrVO
 	 * @return
