@@ -95,14 +95,6 @@ public class GdsWrhsServiceImpl extends BaseServiceImpl implements GdsWrhsServic
 	}
 	
 	@Override
-	public HashMap<String, Object> updateGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
-		
-		gdsWrhsMapper.updateGdsInvntr(gdsInvntrVO);
-		
-		return null;
-	}
-	
-	@Override
 	public HashMap<String, Object> deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
 		String delYn = "Y";
 		

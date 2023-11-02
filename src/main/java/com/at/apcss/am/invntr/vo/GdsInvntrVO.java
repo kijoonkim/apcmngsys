@@ -232,6 +232,11 @@ public class GdsInvntrVO extends ComVO {
 	 * 운송구분코드
 	 */
 	private String trsprtSeCd;
+	
+	/**
+	 * 생산연도
+	 */
+	private String prdctnYr;
 
 
 	/*

@@ -40,14 +40,6 @@ public interface GdsWrhsMapper {
 	public int insertGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
 	
 	/**
-	 * 상품입고등록 수정
-	 * @param gdsInvntrVO
-	 * @return
-	 * @throws Exception
-	 */
-	public int updateGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
-	
-	/**
 	 * 상품입고등록 삭제
 	 * @param gdsInvntrVO
 	 * @return
