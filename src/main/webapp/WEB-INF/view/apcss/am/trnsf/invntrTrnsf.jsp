@@ -231,8 +231,6 @@
 			SBUxMethod.refresh("srch-slt-spcfctCd");
 		}
 
-
-
 	}
 
 	const fn_selectVrty = async function(){

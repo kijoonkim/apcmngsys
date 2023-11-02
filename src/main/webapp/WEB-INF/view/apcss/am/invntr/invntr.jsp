@@ -78,7 +78,15 @@
 							</td>
 							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm input-sm" unselected-text="전체" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
+								<sbux-select
+									uitype="single"
+									id="srch-slt-itemCd"
+									name="srch-slt-itemCd"
+									class="form-control input-sm input-sm"
+									unselected-text="전체"
+									jsondata-ref="jsonComItem"
+									onchange="fn_selectItem"
+								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" class="form-control input-sm" ></sbux-input>
@@ -715,6 +723,14 @@
 		}
 		SBUxMethod.refresh("srch-slt-spcfctCd");
 		fn_getPrdcrs();
+
+		if(checkSection == 1){
+			jsonComSpcfct.length = 0;
+			SBUxMethod.refresh("srch-slt-spcfctCd");
+			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
+		}else{
+			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
+		}
 	}
 	const fn_modalVrty = async function() {
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
@@ -734,6 +750,13 @@
 			}else{
 				await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_selectedApcCd, itemCd);	// 규격
 			}
+		}
+		if(checkSection == 1){
+			jsonComSpcfct.length = 0;
+			SBUxMethod.refresh("srch-slt-spcfctCd");
+			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
+		}else{
+			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
 		}
 	}
     const fn_setVrtys = function(vrtys) {

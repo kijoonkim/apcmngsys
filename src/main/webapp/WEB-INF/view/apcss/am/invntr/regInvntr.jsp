@@ -323,14 +323,30 @@
 
 	const fn_selectItem = async function(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		let rst = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),	// 품종
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',			jsonComSpcfct, 				gv_selectedApcCd, itemCd),	// 규격
-			gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),	// 포장구분
-			stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
-		])
 
+		if(gfn_isEmpty(itemCd)){
 
+			jsonComSpcfct.length = 0;
+			SBUxMethod.refresh("srch-slt-spcfctCd");
+			let rst = await Promise.all([
+				gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),	// 품종
+				stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
+			])
+		}else{
+			let rst = await Promise.all([
+				gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),	// 품종
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',			jsonComSpcfct, 				gv_selectedApcCd, itemCd),	// 규격
+				stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
+			])
+		}
+
+		if(checkSection == 1){
+			jsonComSpcfct.length = 0;
+			SBUxMethod.refresh("srch-slt-spcfctCd");
+			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
+		}else{
+			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
+		}
 
 	}
 
@@ -348,6 +364,12 @@
 			gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),	// 포장구분
 			stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
 		])
+
+		if(checkSection == 1){
+			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
+		}else{
+			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
+		}
 	}
 
 	const fn_changeInvntrSeCd = async function(){
