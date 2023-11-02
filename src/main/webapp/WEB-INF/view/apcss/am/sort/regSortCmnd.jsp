@@ -516,7 +516,6 @@
 			grdRawMtrInvntr.setCellData(nRow, 11, 0);
 			grdRawMtrInvntr.setCellData(nRow, 0, "N");
 		}
-
     }
 
     const fn_save = async function() {
@@ -568,9 +567,6 @@
 	    		console.error("failed", e.message);
 			}
 		}
-
-
-
     }
 
     const fn_setGrdSortCmnd = async function(){

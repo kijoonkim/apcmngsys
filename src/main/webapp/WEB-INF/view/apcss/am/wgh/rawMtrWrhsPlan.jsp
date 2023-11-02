@@ -1210,11 +1210,6 @@
  			SBUxMethod.set("srch-dtp-planYmdTo", gfn_dateToYmd(new Date()));
  			return;
  		}
- 		if(gfn_diffDate(gfn_dateToYmd(new Date()), planYmdFrom) < 0){
- 			gfn_comAlert("E0000", "시작일자는 금일보다 이후 일자입니다.");		//	W0001	{0}
- 			SBUxMethod.set("srch-dtp-planYmdFrom", gfn_dateToYmd(new Date()));
- 			return;
- 		}
  	}
 </script>
 </html>
