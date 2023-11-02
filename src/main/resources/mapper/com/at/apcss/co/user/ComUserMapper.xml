@@ -92,7 +92,6 @@
 				, CU.RMRK				 	AS RMRK
 				, CU.JBTTL_NM 				AS JBTTL_NM
 				, CU.TKCG_TASK_NM 			AS TKCG_TASK_NM
-				, CU.RMRK 					AS RMRK
 				, CU.DEL_YN                 AS DEL_YN
 				, (SELECT FN_GET_COM_CD_VL_NM('REVERSE_YN',CU.DEL_YN) FROM DUAL) AS REVERSE_YN
 				, CU.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
@@ -116,9 +115,6 @@
 		</if>
 		<if test='userStts != null and userStts != ""'>
 			   AND CU.USER_STTS = #{userStts}
-		</if>
-		<if test='apcCd != null and apcCd != ""'>
-			   AND CU.APC_CD = #{apcCd}
 		</if>
 		<if test='ogdpNm != null and ogdpNm != ""'>
 			   AND CU.OGDP_NM LIKE '%' || #{ogdpNm} || '%'

@@ -18,7 +18,7 @@
 								<h3 class="box-title" style="line-height: 30px;"> ▶ 사용자목록조회</h3>
 							</div>
 							<div style="margin-left: auto;">
-								<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectUserList()"></sbux-button>
+								<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search()"></sbux-button>
 							</div>
 							
 						</div>
@@ -45,14 +45,6 @@
 									<col style="width: 3%">
 								</colgroup>
 								<tbody>
-<!-- 									<tr> -->
-<!-- 										<th scope="row">APC명</th> -->
-<!-- 										<td colspan="3" class="td_input" style="border-right: hidden;"> -->
-<!-- 											<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input> -->
-<!-- 											<sbux-select unselected-text="전체" uitype="single" id="srch-slt-apcCd" name="srch-slt-apcCd" jsondata-ref="jsonComApcCd" class="form-control input-sm" /> -->
-<!-- 										</td> -->
-<!-- 										<td colspan="8" class="td_input"></td> -->
-<!-- 									</tr> -->
 									<tr>
 										<th scope="row">사용자ID</th>
 										<td class="td_input" style="border-right: hidden;">
@@ -84,12 +76,7 @@
 				
 window.addEventListener('DOMContentLoaded', function(e) {
 	fn_createUserListInqGrid();
-
-	let today = new Date();
-	let year = today.getFullYear();
-	let month = ('0' + (today.getMonth() + 1)).slice(-2);
-	let day = ('0' + today.getDate()).slice(-2);
-	
+	fn_search();
 })
 
 var userInfoChgGridData = []; // 그리드의 참조 데이터 주소 선언
@@ -102,6 +89,14 @@ function fn_createUserListInqGrid() {
 	    SBGridProperties1.selectmode = 'byrow';
 	    SBGridProperties1.extendlastcol = 'scroll';
 	    SBGridProperties1.scrollbubbling = false;
+	    SBGridProperties1.explorerbar = 'sortmove';
+    	SBGridProperties1.paging = {
+    			'type' : 'page',
+    		  	'count' : 5,
+    		  	'size' : 20,
+    		  	'sorttype' : 'page',
+    		  	'showgoalpageui' : true
+    	};
 	    SBGridProperties1.columns = [
 	         {caption: ["사용자ID"],			ref: 'userId',      type:'output',	width:'15%', style:'text-align:center'},
 	         {caption: ["사용자명"], 		ref: 'userNm',     	type:'output',  width:'15%', style:'text-align:center'},
@@ -115,22 +110,39 @@ function fn_createUserListInqGrid() {
 	         {caption: ["잠김여부"],  		ref: 'lckYn',   	type:'output',  width:'15%', style:'text-align:center'},
 	         {caption: ["최종접속일시"],  	ref: 'endLgnDt',   	type:'output',  width:'15%'}
     ];
-    window.userListInqGridId= _SBGrid.create(SBGridProperties1);
-    fn_selectUserList();
+//     window.userListInqGridId= _SBGrid.create(SBGridProperties1);
+//     fn_selectUserList();
+	    userListInqGridId = _SBGrid.create(SBGridProperties1);
+	    userListInqGridId.bind( "afterpagechanged" , "fn_pagingUserList" );
 }
 
-async function fn_selectUserList(){
-	fn_callSelectUserList();
+async function fn_search() {
+	let recordCountPerPage = userListInqGridId.getPageSize();  		// 몇개의 데이터를 가져올지 설정
+	let currentPageNo = 1;
+	userListInqGridId.movePaging(currentPageNo);
+}
+
+//페이징
+async function fn_pagingUserList(){
+	console.log('test', 'test');
+	let recordCountPerPage = userListInqGridId.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	let currentPageNo = userListInqGridId.getSelectPageIndex();
+	fn_callSelectUserList(recordCountPerPage, currentPageNo);
 }
 
 var newUserAprvRegGridData = [];
-async function fn_callSelectUserList(){
-	let apcNm  = SBUxMethod.get("srch-inp-apcCd");
+async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
+	
 	let userId = SBUxMethod.get("srch-inp-userId");
 	let userNm = SBUxMethod.get("srch-inp-userNm");
 	
-	var comUserVO = { apcNm: apcNm, userId: userId, userNm: userNm}
-	console.log('apcNm',apcNm);
+	var comUserVO = { 
+			  userId				: userId
+			, userNm				: userNm
+			, pagingYn 				: 'Y'
+			, currentPageNo 		: currentPageNo
+			, recordCountPerPage 	: recordCountPerPage
+	}
 	let postJsonPromise = gfn_postJSON("/co/user/users", comUserVO);
     let data = await postJsonPromise;                
     newUserListInqGridData = [];
@@ -154,8 +166,24 @@ async function fn_callSelectUserList(){
     	
 			userListInqGridData.push(Object.assign({}, userListInq));
 			newUserListInqGridData.push(Object.assign({}, userListInq));
+			
+			if (index === 0) {
+				totalRecordCount = item.totalRecordCount;
+			}
 		});
-		userListInqGridId.rebuild();
+    	if (userListInqGridData.length > 0) {
+      		if(userListInqGridId.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+      			userListInqGridId.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+      			userListInqGridId.rebuild();
+				}else{
+					userListInqGridId.refresh();
+				}
+
+      		userListInqGridId.setRow(2);
+      	} else {
+      		userListInqGridId.setPageTotalCount(totalRecordCount);
+      		userListInqGridId.rebuild();
+      	}
     }catch (e) {
 		if (!(e instanceof Error)) {
 			e = new Error(e);
