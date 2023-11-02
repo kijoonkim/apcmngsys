@@ -18,7 +18,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div>
-					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 원물입고팔레트/박스불출관리 -->
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 팔레트/박스불출관리 -->
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
