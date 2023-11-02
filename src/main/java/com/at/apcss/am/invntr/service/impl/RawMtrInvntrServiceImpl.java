@@ -324,6 +324,12 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		return null;
 	}
 
+	@Override
+	public List<RawMtrInvntrVO> selectDailyRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+		List<RawMtrInvntrVO> resultList = rawMtrInvntrMapper.selectDailyRawMtrInvntrList(rawMtrInvntrVO);
+		return resultList;
+	}
+
 
 
 }

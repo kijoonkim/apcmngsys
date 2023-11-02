@@ -291,5 +291,13 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 		return null;
 	}
 
+	@Override
+	public List<SortInvntrVO> selectDailySortInvntrList(SortInvntrVO sortInvntrVO) throws Exception {
+
+		List<SortInvntrVO> resultList = sortInvntrMapper.selectDailySortInvntrList(sortInvntrVO);
+
+		return resultList;
+	}
+
 
 }
