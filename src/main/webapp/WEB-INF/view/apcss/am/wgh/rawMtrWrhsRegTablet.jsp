@@ -376,7 +376,7 @@
 
 				<div class="sbt-wrap-body">
 					<div class="sbt-grid">
-						<div id="sb-area-grdRawMtrWrhs" style="height:233px;"></div>
+						<div id="sb-area-grdRawMtrWrhs" style="height:220px;"></div>
 					</div>
 				</div>
 			</div>
