@@ -19,7 +19,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset()"></sbux-button>
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_selectUserList()"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search()"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_updataUserList()"></sbux-button>
 				</div>	
 			</div>
@@ -101,13 +101,7 @@ var combofilteringLckYnData = [
 ]
 window.addEventListener('DOMContentLoaded', function(e) {
 	fn_createUserInfoChgGrid();
-
-	let today = new Date();
-	let year = today.getFullYear();
-	let month = ('0' + (today.getMonth() + 1)).slice(-2);
-	let day = ('0' + today.getDate()).slice(-2);
-	
-})
+});
 
 var userInfoChgGridData = []; // 그리드의 참조 데이터 주소 선언
 function fn_createUserInfoChgGrid() {
@@ -120,6 +114,14 @@ function fn_createUserInfoChgGrid() {
 	    SBGridProperties1.extendlastcol = 'scroll';
 	    SBGridProperties1.scrollbubbling = false;
 	    SBGridProperties1.oneclickedit = true;
+	    SBGridProperties1.explorerbar = 'sortmove';
+    	SBGridProperties1.paging = {
+    			'type' : 'page',
+    		  	'count' : 5,
+    		  	'size' : 20,
+    		  	'sorttype' : 'page',
+    		  	'showgoalpageui' : true
+    	};
 	    SBGridProperties1.columns = [
 	         {caption: ["선택"],			ref: 'chc',      	type:'checkbox',width:'55px'},
 	         {caption: ["사용자ID"], 	ref: 'userId',     	type:'output',   width:'105px', style:'text-align:center'},
@@ -144,26 +146,39 @@ function fn_createUserInfoChgGrid() {
 	         },
 	         {caption: ["최종접속일시"], ref: 'endLgnDt',  	type:'output',  width:'105px', style:'text-align:center'}
     ];
-//     grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
-    window.userInfoChgGridId= _SBGrid.create(SBGridProperties1);
-    fn_selectUserList();
-}
-async function fn_selectUserList(){
-	fn_callSelectUserList();
+//     	grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
+// 	    window.userInfoChgGridId= _SBGrid.create(SBGridProperties1);
+// 		fn_pagingSmptPrfmnc();
+	    userInfoChgGridId = _SBGrid.create(SBGridProperties1);
+	    userInfoChgGridId.bind( "afterpagechanged" , "fn_pagingUserList" );
 }
 
-async function fn_callSelectUserList(){
-	let apcNm  = SBUxMethod.get("srch-inp-apcCd");
+async function fn_search() {
+	let recordCountPerPage = userInfoChgGridId.getPageSize();  		// 몇개의 데이터를 가져올지 설정
+	let currentPageNo = 1;
+	userInfoChgGridId.movePaging(currentPageNo);
+}
+
+async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
+	let apcCd  = gv_selectedApcCd;
 	let userId = SBUxMethod.get("srch-inp-userId");
 	let userNm = SBUxMethod.get("srch-inp-userNm");
 	let userType = SBUxMethod.get("srch-slt-userType");
 	
-	var comUserVO = { apcNm: apcNm, userId: userId, userNm: userNm, userType: userType}
-	console.log('apcNm',apcNm);
+	var comUserVO = { 
+		  apcCd					: apcCd
+		, userId				: userId
+		, userNm				: userNm
+		, userType				: userType
+		, pagingYn 				: 'Y'
+		, currentPageNo 		: currentPageNo
+		, recordCountPerPage 	: recordCountPerPage}
+	console.log('comUserVO',comUserVO);
 	let postJsonPromise = gfn_postJSON("/co/user/users", comUserVO);
     let data = await postJsonPromise;                
     newUserInfoChgGridData = [];
     userInfoChgGridData = [];
+    console.log('data', data);
     
     try{
     	data.resultList.forEach((item, index) => {
@@ -195,6 +210,14 @@ async function fn_callSelectUserList(){
 		}
  		console.error("failed", e.message);
     }
+}
+
+//페이징
+async function fn_pagingUserList(){
+	console.log('test', 'test');
+	let recordCountPerPage = userInfoChgGridId.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	let currentPageNo = userInfoChgGridId.getSelectPageIndex();
+	fn_callSelectUserList(recordCountPerPage, currentPageNo);
 }
 
 //초기화 버튼
