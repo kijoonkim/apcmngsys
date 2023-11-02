@@ -435,6 +435,7 @@
 
         grdSortPrfmnc = _SBGrid.create(SBGridProperties);
         grdSortPrfmnc.bind('click', fn_viewSortInpt);
+        grdSortPrfmnc.bind('beforepagechanged', fn_pagingSortPrfmnc);
     }
 
 
@@ -456,6 +457,16 @@
     	fn_setGrdSortPrfmnc(pageSize, pageNo);
 	}
 
+    /**
+     * @name fn_pagingSortPrfmnc
+     * @description 선별실적 페이징
+	 */
+	const fn_pagingSortPrfmnc = async function() {
+		let pageSize = grdSortPrfmnc.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		let pageNo = grdSortPrfmnc.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		fn_setGrdSortPrfmnc(pageSize, pageNo);
+	}
+    
     /**
      * @name fn_setGrdSortPrfmnc
      * @description 선별실적 조회
