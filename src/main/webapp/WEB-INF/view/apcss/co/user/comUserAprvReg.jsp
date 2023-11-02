@@ -130,7 +130,8 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
-	    SBGridProperties.paging = lv_paging,
+	    SBGridProperties.paging = lv_paging;
+	    SBGridProperties.explorerbar = 'sortmove';
 		SBGridProperties.columns = [
 	        {caption: ["선택"],		ref: 'checkedYn',	type:'checkbox', width:'5px',
 	        	typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -214,7 +215,19 @@
   				}
   			});
 
-			grdUserAprv.refresh();
+          	if (jsonUserAprv.length > 0) {
+          		if(grdUserAprv.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+          			grdUserAprv.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+          			grdUserAprv.rebuild();
+    				}else{
+    					grdUserAprv.refresh();
+    				}
+
+          		grdUserAprv.setRow(2);
+          	} else {
+          		grdUserAprv.setPageTotalCount(totalRecordCount);
+          		grdUserAprv.rebuild();
+          	}
           	document.querySelector('#cnt-userAprv').innerText = totalRecordCount;
 
           } catch (e) {
