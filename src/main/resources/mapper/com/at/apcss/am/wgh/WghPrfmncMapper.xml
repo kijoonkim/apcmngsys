@@ -94,7 +94,6 @@
 			   AND WP.DEL_YN = 'N'
 			   AND INV.DEL_YN = 'N'
 		]]>
-
 		<if test='apcCd != null and apcCd != ""'>
 			   AND WC.APC_CD = #{apcCd}
 		</if>
@@ -113,12 +112,28 @@
 		<if test='prdcrCd != null and prdcrCd != ""'>
 			   AND WC.PRDCR_CD = #{prdcrCd}
 		</if>
-
+		<if test='itemCd != null and itemCd != ""'>
+			   AND INV.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			   AND INV.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='wrhsSeCd != null and wrhsSeCd != ""'>
+			   AND INV.WRHS_SE_CD = #{wrhsSeCd}
+		</if>
+		<if test='gdsSeCd != null and gdsSeCd != ""'>
+			   AND INV.GDS_SE_CD = #{gdsSeCd}
+		</if>
+		<if test='trsprtSeCd != null and trsprtSeCd != ""'>
+			   AND INV.TRSPRT_SE_CD = #{trsprtSeCd}
+		</if>
+		<if test='vhclno != null and vhclno != ""'>
+			   AND WC.VHCLNO = #{vhclno}
+		</if>
 		<![CDATA[
 		 	 ORDER BY APC_CD, WGH_YMD, WGHNO, WGH_SN
     		  ) pt0
 		]]>
-
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS

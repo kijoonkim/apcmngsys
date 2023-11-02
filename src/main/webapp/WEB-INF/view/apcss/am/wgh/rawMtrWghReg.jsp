@@ -367,10 +367,6 @@
 							<span style="font-size:12px">(조회건수 <span id="cnt-wgh">0</span>건)</span>
 						</li>
 					</ul>
-				 	<div class="ad_tbl_toplist">
-						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="내려받기" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld" >내려받기</sbux-button>
-						<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-xs btn-outline-danger" onclick="fn_uld">올리기</sbux-button>
-					</div>
 				</div>
 				<div id="wrap-grdWghPrfmnc" class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-grdWghPrfmnc" style="width:100%;height:385px;"></div>
@@ -887,13 +883,26 @@
 
 		prvRowNum = -1;
 
-  		let wghYmd = SBUxMethod.get("dtl-dtp-wghYmd");		// 계량일자
-  		let prdcrCd = SBUxMethod.get("dtl-inp-prdcrCd");	// 생산자
-  		let itemCd = SBUxMethod.get("dtl-slt-itemCd");		// 품목
-  		let vrtyCd = SBUxMethod.get("dtl-slt-vrtyCd");		// 품종
-  		let wrhsSeCd = SBUxMethod.get("dtl-rdo-wrhsSeCd");	// 입고구분
-  		let gdsSeCd = SBUxMethod.get("dtl-rdo-gdsSeCd");	// 상품구분
+  		let wghYmd = SBUxMethod.get("dtl-dtp-wghYmd");			// 계량일자
+  		let prdcrCd = SBUxMethod.get("dtl-inp-prdcrCd");		// 생산자
+  		let itemCd = SBUxMethod.get("dtl-slt-itemCd");			// 품목
+  		let vrtyCd = SBUxMethod.get("dtl-slt-vrtyCd");			// 품종
+  		let wrhsSeCd = SBUxMethod.get("dtl-rdo-wrhsSeCd");		// 입고구분
+  		let gdsSeCd = SBUxMethod.get("dtl-rdo-gdsSeCd");		// 상품구분
   		let trsprtSeCd = SBUxMethod.get("dtl-rdo-trsprtSeCd");	// 운송구분
+  		let vhclno = SBUxMethod.get("dtl-inp-vhclno");			// 차량번호
+  		
+  		console.log("검색인자", {
+			apcCd: gv_selectedApcCd,
+			wghYmd: wghYmd,
+			prdcrCd: prdcrCd,
+			itemCd: itemCd,
+			vrtyCd: vrtyCd,
+			wrhsSeCd: wrhsSeCd,
+			gdsSeCd: gdsSeCd,
+			trsprtSeCd: trsprtSeCd,
+			vhclno: vhclno
+  		});
 
 		const postJsonPromise = gfn_postJSON("/am/wgh/selectWghPrfmncList.do", {
 			apcCd: gv_selectedApcCd,
@@ -901,9 +910,10 @@
 			prdcrCd: prdcrCd,
 			itemCd: itemCd,
 			vrtyCd: vrtyCd,
-			//wrhsSeCd: wrhsSeCd,
-			//gdsSeCd: gdsSeCd,
-			//trsprtSeCd: trsprtSeCd,
+			wrhsSeCd: wrhsSeCd,
+			gdsSeCd: gdsSeCd,
+			trsprtSeCd: trsprtSeCd,
+			vhclno: vhclno,
 
           	// pagination
   	  		pagingYn : 'Y',
