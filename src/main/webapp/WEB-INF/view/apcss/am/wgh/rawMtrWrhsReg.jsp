@@ -87,7 +87,6 @@
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
-
 					</colgroup>
 					<tbody>
 						<tr>
@@ -1167,7 +1166,7 @@
  		// 중량
  		SBUxMethod.set("srch-inp-wrhsWght", "");
  		// 평균
- 		//SBUxMethod.set("srch-inp-wghtAvg", "");
+ 		SBUxMethod.set("srch-inp-wghtAvg", "");
 
  		// 팔레트번호
  		SBUxMethod.set("srch-inp-pltno", "");
@@ -1184,6 +1183,9 @@
  		// 운임비용
  		SBUxMethod.set("srch-inp-trsprtCst", "");
 
+ 		// 생산연도
+ 		SBUxMethod.set("srch-dtp-prdctnYr", gfn_dateToYear(new Date()));
+ 		
  		// 비고
  		SBUxMethod.set("srch-inp-rmrk", "");
 
@@ -1196,6 +1198,7 @@
  		// 생산자
 		SBUxMethod.set("srch-inp-prdcrCd", "");
 		SBUxMethod.set("srch-inp-prdcrNm", "");
+		SBUxMethod.set("srch-inp-prdcrIdentno", "");
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "");	//skyblue
  	}
 
@@ -1209,6 +1212,7 @@
 		fn_clearPrdcr();
 		let result = await Promise.all([
 			fn_initSBSelect(),
+			fn_initSBRadio(),
 			fn_getPrdcrs()
 		]);
 	}
@@ -1221,11 +1225,13 @@
 		let itemCd = obj.value;
 		let result = await Promise.all([
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),			// 품종
-			//gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd),	// 규격
 			//gfn_setApcGrdsSBSelect('srch-slt-grdCd', jsonApcGrd, gv_selectedApcCd, itemCd),
 			stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
 		]);
 
+		if (gfn_isEmpty(itemCd)) {
+			SBUxMethod.set("srch-inp-wghtAvg", "");
+		}
 	}
 
 	/**
@@ -1234,14 +1240,16 @@
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		if (gfn_isEmpty(vrtyCd)) {
-			SBUxMethod.set("srch-inp-wghtAvg", 0);
-			fn_onChangeWghtAvg();
-			return;
-		}
-
+		let itemCd = "";
 		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
-		const itemCd = vrtyInfo.mastervalue;
+		
+		if (!gfn_isEmpty(vrtyCd)) {
+			itemCd = vrtyInfo.mastervalue;
+		} else {
+			itemCd = SBUxMethod.get("srch-slt-itemCd");
+			SBUxMethod.set("srch-inp-wghtAvg", "");
+			fn_onChangeWghtAvg();
+		}
 
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if (itemCd != prvItemCd) {
