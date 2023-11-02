@@ -45,13 +45,6 @@
 						<col style="width: 3%">
 					</colgroup>
 					<tbody>
-<!-- 						<tr> -->
-<!-- 							<th scope="row">APC명</th> -->
-<!-- 							<td colspan="3" class="td_input" style="border-right: hidden;"> -->
-<!-- 								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="text" class="form-control input-sm" placeholder=""></sbux-input> -->
-<!-- 							</td> -->
-<!-- 							<td colspan="8" class="td_input"></td> -->
-<!-- 						</tr> -->
 						<tr>
 							<th scope="row">사용자ID</th>
 							<td td class="td_input" style="border-right: hidden;">
@@ -101,6 +94,7 @@ var combofilteringLckYnData = [
 ]
 window.addEventListener('DOMContentLoaded', function(e) {
 	fn_createUserInfoChgGrid();
+	fn_search();
 });
 
 var userInfoChgGridData = []; // 그리드의 참조 데이터 주소 선언
@@ -129,22 +123,23 @@ function fn_createUserInfoChgGrid() {
 	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  width:'105px', style:'text-align:center', renderer: function() {
 	            return "<button type='button' class='btn btn-xs btn-outline-danger' onClick=''>초기화</button>"
 	         }},
-	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'combo',  width:'105px', style:'text-align:center', 
-// 	        	 typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : true}
-	         },
-// 	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'105px', style:'text-align:center'},
+// 	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'combo',  width:'105px', style:'text-align:center', 
+//				typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : true}
+// 	         },
+	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'105px', style:'text-align:center'},
 	         {caption: ["명칭"],   ref: 'userTypeNm',  type:'output',  width:'105px', style:'text-align:center'},
 	         {caption: ["메일주소"],	    ref: 'eml', 		type:'input',  width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320})},
 	         {caption: ["전화번호"],  	ref: 'telno',   	type:'input',  width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11})},
 	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
 	         {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
 	         {caption: ["사용유무"],  	ref: 'reverseYn',   type:'combo',   width:'105px', style:'text-align:center',
-	        	 typeinfo : {ref:'combofilteringReverseYnData', label:'label', value:'value', displayui : true}
+	        	 typeinfo : {ref:'combofilteringReverseYnData', label:'label', value:'value', displayui : true} 
 	         },
 	         {caption: ["잠김여부"],  	ref: 'lckYn',   	type:'combo',   width:'105px', style:'text-align:center',
 	        	 typeinfo : {ref:'combofilteringLckYnData', label:'label', value:'value', displayui : true}	 
 	         },
-	         {caption: ["최종접속일시"], ref: 'endLgnDt',  	type:'output',  width:'105px', style:'text-align:center'}
+	         {caption: ["최종접속일시"], ref: 'endLgnDt',  	type:'output',  width:'105px', style:'text-align:center'},
+	         {caption: ["사용유무코드"],	ref: 'delYn',   	type:'output', hidden: true}
     ];
 //     	grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
 // 	    window.userInfoChgGridId= _SBGrid.create(SBGridProperties1);
@@ -157,6 +152,14 @@ async function fn_search() {
 	let recordCountPerPage = userInfoChgGridId.getPageSize();  		// 몇개의 데이터를 가져올지 설정
 	let currentPageNo = 1;
 	userInfoChgGridId.movePaging(currentPageNo);
+}
+
+//페이징
+async function fn_pagingUserList(){
+	console.log('test', 'test');
+	let recordCountPerPage = userInfoChgGridId.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+	let currentPageNo = userInfoChgGridId.getSelectPageIndex();
+	fn_callSelectUserList(recordCountPerPage, currentPageNo);
 }
 
 async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
@@ -196,14 +199,33 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 			  , reverseYn	: item.reverseYn
 			  , lckYn		: item.lckYn
 			  , endLgnDt	: item.endLgnDt
+			  , delYn		: item.delYN
 			}
-    	
+    		
 			userInfoChgGridData.push(Object.assign({}, userAprvReg));
 			newUserInfoChgGridData.push(Object.assign({}, userAprvReg));
+			
+			console.log('userInfoChgGridData', userInfoChgGridData);
+			console.log('newUserInfoChgGridData', newUserInfoChgGridData);
+			
+			if (index === 0) {
+					totalRecordCount = item.totalRecordCount;
+			}
 		});
-		console.log("newUserInfoChgGridData", newUserInfoChgGridData);
-		console.log("userInfoChgGridData", userInfoChgGridData);
-		userInfoChgGridId.rebuild();
+    	if (userInfoChgGridData.length > 0) {
+      		if(userInfoChgGridId.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+      			userInfoChgGridId.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+      			userInfoChgGridId.rebuild();
+				}else{
+					userInfoChgGridId.refresh();
+				}
+
+      		userInfoChgGridId.setRow(2);
+      	} else {
+      		userInfoChgGridId.setPageTotalCount(totalRecordCount);
+      		userInfoChgGridId.rebuild();
+      	}
+
     }catch (e) {
 		if (!(e instanceof Error)) {
 			e = new Error(e);
@@ -212,13 +234,7 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
     }
 }
 
-//페이징
-async function fn_pagingUserList(){
-	console.log('test', 'test');
-	let recordCountPerPage = userInfoChgGridId.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	let currentPageNo = userInfoChgGridId.getSelectPageIndex();
-	fn_callSelectUserList(recordCountPerPage, currentPageNo);
-}
+
 
 //초기화 버튼
 async function fn_reset(){
@@ -245,7 +261,7 @@ async function fn_callUpdateUserList(){
 		let postJsonPromise = await gfn_postJSON("/co/user/compareComUserAprv.do", {origin : newUserInfoChgGridData, modified : userInfoChgGridData});
 		alert("등록 되었습니다.");
 	}
-	fn_selectUserList();
+	fn_search();
 
 }
 </script>
