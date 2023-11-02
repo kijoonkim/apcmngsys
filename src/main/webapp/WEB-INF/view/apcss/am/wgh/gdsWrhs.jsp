@@ -523,7 +523,14 @@
 	const fn_reset = function() {
  		// 입고일자
  		SBUxMethod.set("srch-dtp-pckgYmd", gfn_dateToYmd(new Date()));
+ 		// 품목
+ 		SBUxMethod.set("srch-slt-itemCd", null);
+ 		// 품종
+ 		SBUxMethod.set("srch-slt-vrtyCd", null);
+ 		
  		fn_clearInptForm();
+ 		
+ 		fn_onChangeSrchItemCd({value: null});
  	}
 	
 	const fn_clearInptForm = function() {
@@ -534,11 +541,7 @@
  		// 상품구분
  		SBUxMethod.set("srch-rdo-gdsSeCd", "1");
  		// 매입처
- 		SBUxMethod.set("srch-inp-prchsptNm", null);
- 		// 품목
- 		SBUxMethod.set("srch-slt-itemCd", null);
- 		// 품종
- 		SBUxMethod.set("srch-slt-vrtyCd", null);
+ 		SBUxMethod.set("srch-inp-prchsptNm", "");
  		// 수량
  		SBUxMethod.set("srch-inp-pckgQntt", "");
  		// 평균중량
@@ -550,9 +553,7 @@
  		// 창고
  		SBUxMethod.set("srch-slt-warehouseSeCd", null);
  		// 비고
- 		SBUxMethod.set("srch-inp-rmrk", null);
-
- 		fn_onChangeSrchItemCd({value: null});
+ 		SBUxMethod.set("srch-inp-rmrk", "");
  	}
 	
 	// APC 선택 변경
@@ -585,9 +586,13 @@
 		let itemCd = obj.value;
 
 		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),							// 품종
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd),					// 규격
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),						// 품종
 		]);
+		if (gfn_isEmpty(itemCd)) {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, "");
+		} else {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd);				// 규격
+		}
 	}
 
 	/**
@@ -596,8 +601,13 @@
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		const itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
-
+		let itemCd = "";
+		if (!gfn_isEmpty(vrtyCd)) {
+			itemCd = _.find(jsonApcVrty, {value: vrtyCd}).mastervalue;
+		} else {
+			itemCd = SBUxMethod.get("srch-slt-itemCd");
+		}
+		
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if (itemCd != prvItemCd) {
 			SBUxMethod.set("srch-slt-itemCd", itemCd);

@@ -138,10 +138,10 @@
 							<td>&nbsp;</td>
 							<th class="ta_r th_bg"><span class="data_required"></span>품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="dtl-slt-itemCd" name="dtl-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="전체" class="form-control input-sm" onchange="fn_onChangedtlItemCd(this)" ></sbux-select>
+								<sbux-select id="dtl-slt-itemCd" name="dtl-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="전체" class="form-control input-sm" onchange="fn_onChangeSrchItemCd(this)" ></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;" >
-								<sbux-select id="dtl-slt-vrtyCd" name="dtl-slt-vrtyCd" uitype="single" jsondata-ref="jsonApcVrty" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed" onchange="fn_selectVrty"></sbux-select>
+								<sbux-select id="dtl-slt-vrtyCd" name="dtl-slt-vrtyCd" uitype="single" jsondata-ref="jsonApcVrty" unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed" onchange=fn_onChangeSrchVrtyCd(this)></sbux-select>
 							</td>
 						</tr>
 						<tr>
@@ -205,10 +205,9 @@
 									<sbux-label uitype="normal" id="lbl-kg" name="lbl-chc" text="Kg"/>
 							</td>
 							<th class="ta_r th_bg">비고</th>
-							<td colspan="3" class="td_input">
+							<td colspan="7" class="td_input">
 								<sbux-input uitype="text" id="dtl-inp-rmrk" name="dtl-inp-rmrk" class="form-control input-sm" placeholder="" />
 							</td>
-							<td colspan="4">&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -392,17 +391,6 @@
 		SBUxMethod.set('dtl-rdo-trsprtSeCd', '1');
 	}
 
-	const fn_selectVrty = async function(){
-		let vrtyCd = SBUxMethod.get("dtl-slt-vrtyCd");
-		let itemCd = "";
-		for(i=0;i<jsonApcVrty.length;i++){
-			if(jsonApcVrty[i].value == vrtyCd){
-				itemCd = jsonApcVrty[i].mastervalue;
-			}
-		}
-		SBUxMethod.set("dtl-slt-itemCd", itemCd);
-	}
-
 	/**
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
@@ -410,8 +398,31 @@
 	const fn_onChangeSrchItemCd = async function(obj) {
 		let itemCd = obj.value;	//SBUxMethod.get("srch-slt-itemCd");
 		let result = await Promise.all([
-			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),	// 품종
+			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd)	// 품종
 		]);
+	}
+	
+	/**
+	 * @name fn_onChangeSrchVrtyCd
+	 * @description 품종 선택 변경 event
+	 */
+	const fn_onChangeSrchVrtyCd = async function(obj) {
+		let vrtyCd = obj.value;
+		let itemCd = "";
+		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
+		
+		if (!gfn_isEmpty(vrtyCd)) {
+			itemCd = vrtyInfo.mastervalue;
+		} else {
+			itemCd = SBUxMethod.get("dtl-slt-itemCd");
+		}
+
+		const prvItemCd = SBUxMethod.get("dtl-slt-itemCd");
+		if (itemCd != prvItemCd) {
+			SBUxMethod.set("dtl-slt-itemCd", itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("dtl-slt-vrtyCd", vrtyCd);
+		}
 	}
 
 	var jsonWrhsPlan = [];; // 그리드를 담기위한 객체 선언
@@ -708,17 +719,20 @@
 	}
 
 	const fn_reset = function(){
-		SBUxMethod.set("dtl-dtp-planYmd","");
-
-		SBUxMethod.set("dtl-inp-prdcrCd", "");
+		SBUxMethod.set("srch-dtp-planYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-planYmdTo", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("dtl-dtp-planYmd", "");
+		fn_clearPrdcr();
+		SBUxMethod.set("srch-inp-prdcrNm", "");
+		fn_clearPrdcrDtl();
 		SBUxMethod.set("dtl-inp-prdcrNm", "");
 		SBUxMethod.set("dtl-slt-itemCd", "");
 		SBUxMethod.set("dtl-slt-vrtyCd", "");
 		SBUxMethod.set('dtl-rdo-wrhsSeCd', '3');
 		SBUxMethod.set('dtl-rdo-gdsSeCd', '1');
 		SBUxMethod.set('dtl-rdo-trsprtSeCd', '1');
-		SBUxMethod.set("dtl-inp-planQntt", 0);
-		SBUxMethod.set("dtl-inp-planWght", 0);
+		SBUxMethod.set("dtl-inp-planQntt", "");
+		SBUxMethod.set("dtl-inp-planWght", "");
 		SBUxMethod.set("dtl-inp-rmrk", "");
 	}
 
@@ -1210,6 +1224,13 @@
  			SBUxMethod.set("srch-dtp-planYmdTo", gfn_dateToYmd(new Date()));
  			return;
  		}
+ 	}
+     
+     const fn_onChangeApc = async function() {
+ 		fn_clearPrdcr();
+ 		fn_clearPrdcrDtl();
+ 		fn_initSBSelect();
+ 		fn_getPrdcrs();
  	}
 </script>
 </html>
