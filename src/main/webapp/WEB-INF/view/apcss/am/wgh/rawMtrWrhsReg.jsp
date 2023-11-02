@@ -354,7 +354,7 @@
 							</td>
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>등급</th>
-							<td colspan="19" class="td_input" style="border-right: hidden;">
+							<td colspan="19" class="td_input">
 								<jsp:include page="../../am/popup/apcStdGrdSelect.jsp"></jsp:include>
 							</td>
 						</tr>

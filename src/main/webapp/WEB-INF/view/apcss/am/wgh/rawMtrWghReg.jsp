@@ -226,7 +226,7 @@
 									onchange="fn_onChangeEmptVhclWght"
 								></sbux-input>
 							</td>
-							<td colspan="3" style="border-right:hidden;">Kg</td>
+							<td colspan="3">Kg</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">감량률/감량</th>
@@ -241,7 +241,7 @@
 									onchange="fn_onChangeRdcdRt"
 								></sbux-input>
 							</td>
-							<td>%</td>
+							<td style="border-right:hidden;">%</td>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
 									uitype="text"

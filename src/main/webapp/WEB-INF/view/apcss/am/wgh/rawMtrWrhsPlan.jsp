@@ -205,10 +205,9 @@
 									<sbux-label uitype="normal" id="lbl-kg" name="lbl-chc" text="Kg"/>
 							</td>
 							<th class="ta_r th_bg">비고</th>
-							<td colspan="3" class="td_input">
+							<td colspan="7" class="td_input">
 								<sbux-input uitype="text" id="dtl-inp-rmrk" name="dtl-inp-rmrk" class="form-control input-sm" placeholder="" />
 							</td>
-							<td colspan="4">&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
