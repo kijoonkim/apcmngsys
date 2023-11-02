@@ -200,7 +200,6 @@
 		 	gfn_setComCdSBSelect('srch-slt-fcltCd', 		jsonComFcltCd, 		'FCLT_CD',   	gv_selectedApcCd),		// 선벌기
 		 	gfn_setComCdSBSelect('srch-slt-gdsSe', 			jsonComGdsSeCd, 	'GDS_SE_CD', 	gv_selectedApcCd),		// 상품구분
 		 	gfn_setComCdSBSelect('srch-slt-wrhsSe', 		jsonComWrhsSeCd, 	'WRHS_SE_CD',	gv_selectedApcCd),		// 입고구분
-		 	gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonSpcfct, gv_selectedApcCd, itemCd, gv_selectedApcCd)	// 규격
 		])
 		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true');
 
@@ -295,6 +294,7 @@
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
+	    inptCmndDsctnList.bind( "beforepagechanged" , "fn_pagingGrd" );
 
 		fn_selectGridList();
 	}
@@ -332,28 +332,30 @@
 		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSe");
 		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
-
+		console.log(crtrYmd)
 		let url = "";
-		if(crtrYmd == gfn_dateToYmd(new Date())){
+		if(crtrYmd == gfn_dateToYmd(new Date()) || crtrYmd == null){
 			url = "/am/invntr/selectRawMtrInvntrList.do";
 			crtrYmd = "";
 		}else{
 			// 재고 이력 테이블
-			url = "/am/invntr/selectRawMtrInvntrList.do";
+			url = "/am/invntr/selectDailyRawMtrInvntrList.do";
 		}
-		const postJsonPromise1 = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", {
-				apcCd		:  gv_selectedApcCd,
-				crtrYmd: crtrYmd,
-				itemCd:itemCd,
-				vrtyCd: vrtyCd,
-				prdcrCd: prdcrCd,
-				gdsSeCd: gdsSeCd,
-				wrhsSeCd: wrhsSeCd,
-				warehouseSeCd: warehouseSeCd,
-	          	// pagination
-	  	  		pagingYn : 'Y',
-	  			currentPageNo : pageNo,
-	   		  	recordCountPerPage : pageSize
+
+		console.log(url)
+		const postJsonPromise1 = gfn_postJSON(url, {
+			  apcCd					: gv_selectedApcCd
+			, crtrYmd				: crtrYmd
+			, itemCd				: itemCd
+			, vrtyCd				: vrtyCd
+			, prdcrCd				: prdcrCd
+			, gdsSeCd				: gdsSeCd
+			, wrhsSeCd				: wrhsSeCd
+			, warehouseSeCd			: warehouseSeCd
+          	// pagination
+  	  		, pagingYn 				: 'Y'
+  	  		, currentPageNo 		: pageNo
+  	  		, recordCountPerPage 	: pageSize
 
   		});
 
@@ -365,27 +367,25 @@
       		jsonRawMtrInvntr.length = 0;
           	data1.resultList.forEach((item, index) => {
           		const rawMtrInvntr = {
-       				wrhsno: item.wrhsno,
-       				pltno: item.pltno,
-       				wrhsYmd: item.wrhsYmd,
-       				prdcrNm: item.prdcrNm,
-       				itemNm: item.itemNm,
-       				vrtyNm: item.vrtyNm,
-       				gdsSeNm: item.gdsSeNm,
-       				wrhsSeNm: item.wrhsSeNm,
-       				trsprtSeNm: item.trsprtSeNm,
-       				warehouseSeNm: item.warehouseSeNm,
-       				bxknd: item.bxknd,
-       				grdNm: item.grdNm,
-       				wrhsQntt: item.wrhsQntt,
-       				wrhsWght: item.wrhsWght,
-       				inptQntt: item.inptQntt,
-       				inptWght: item.inptWght,
-       				invntrQntt: item.invntrQntt,
-       				invntrWght: item.invntrWght,
-       				sortcmndNo: item.sortcmndNo,
-       				fcltNm: item.fcltNm,
-       				rmrk: item.rmrk,
+       				wrhsno			: item.wrhsno
+       			  , pltno			: item.pltno
+       			  , wrhsYmd			: item.wrhsYmd
+       			  , prdcrNm			: item.prdcrNm
+       			  , itemNm			: item.itemNm
+       			  , vrtyNm			: item.vrtyNm
+       			  , gdsSeNm			: item.gdsSeNm
+       			  , wrhsSeNm		: item.wrhsSeNm
+       			  , trsprtSeNm		: item.trsprtSeNm
+       			  , warehouseSeNm	: item.warehouseSeNm
+       			  , bxknd			: item.bxknd
+       			  , grdNm			: item.grdNm
+       			  , wrhsQntt		: item.wrhsQntt
+       			  , wrhsWght		: item.wrhsWght
+       			  , inptQntt		: item.inptQntt
+       			  , inptWght		: item.inptWght
+       			  , invntrQntt		: item.invntrQntt
+       			  , invntrWght		: item.invntrWght
+       			  , rmrk			: item.rmrk
   				}
           		jsonRawMtrInvntr.push(rawMtrInvntr);
 
@@ -461,6 +461,7 @@
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
+	    inptCmndDsctnList.bind( "beforepagechanged" , "fn_pagingGrd" );
 
 	    fn_selectGridList();
 	}
@@ -480,22 +481,22 @@
 			crtrYmd = "";
 		}else{
 			// 재고 이력 테이블
-			url = "/am/invntr/selectSortInvntrDsctnList.do";
+			url = "/am/invntr/selectDailySortInvntrList.do";
 		}
-		const postJsonPromise2 = gfn_postJSON("/am/invntr/selectSortInvntrDsctnList.do", {
-			apcCd		:  gv_selectedApcCd,
-			inptYmd: crtrYmd,
-			itemCd:itemCd,
-			vrtyCd: vrtyCd,
-			spcfctCd: spcfctCd,
-			prdcrCd: prdcrCd,
-			gdsSeCd: gdsSeCd,
-			wrhsSeCd: wrhsSeCd,
-			warehouseSeCd: warehouseSeCd,
+		const postJsonPromise2 = gfn_postJSON(url, {
+			apcCd				: gv_selectedApcCd
+		  ,	inptYmd				: crtrYmd
+		  ,	itemCd				: itemCd
+		  ,	vrtyCd				: vrtyCd
+		  ,	spcfctCd			: spcfctCd
+		  ,	prdcrCd				: prdcrCd
+		  ,	gdsSeCd				: gdsSeCd
+		  ,	wrhsSeCd			: wrhsSeCd
+		  ,	warehouseSeCd		: warehouseSeCd
           	// pagination
-  	  		pagingYn : 'Y',
-  			currentPageNo : pageNo,
-   		  	recordCountPerPage : pageSize
+  	  	  ,	pagingYn 			: 'Y'
+  	      ,	currentPageNo 		: pageNo
+  	      , recordCountPerPage 	: pageSize
   		});
 
         let data2 = await postJsonPromise2;
@@ -507,22 +508,22 @@
       		jsonSortInvntr.length = 0;
           	data2.resultList.forEach((item, index) => {
           		const sortInvntr = {
-          			sortno: item.sortno,
-       				grdNm: item.grdNm,
-       				inptYmd: item.inptYmd,
-       				fcltNm: item.fcltNm,
-       				prdcrNm: item.prdcrNm,
-       				itemNm: item.itemNm,
-       				vrtyNm: item.vrtyNm,
-       				spcfctNm: item.spcfctNm,
-       				warehouseSeNm: item.warehouseSeNm,
-       				sortQntt: item.sortQntt,
-       				sortWght: item.sortWght,
-       				pckgQntt: item.pckgQntt,
-       				pckgWght: item.pckgWght,
-       				invntrQntt: item.invntrQntt,
-       				invntrWght: item.invntrWght,
-       				rmrk: item.rmrk,
+          			sortno			: item.sortno
+       			  ,	grdNm			: item.grdNm
+       			  ,	inptYmd			: item.inptYmd
+       			  ,	fcltNm			: item.fcltNm
+       			  ,	prdcrNm			: item.prdcrNm
+       			  ,	itemNm			: item.itemNm
+       			  ,	vrtyNm			: item.vrtyNm
+       			  ,	spcfctNm		: item.spcfctNm
+       			  ,	warehouseSeNm	: item.warehouseSeNm
+       			  ,	sortQntt		: item.sortQntt
+       			  ,	sortWght		: item.sortWght
+       			  ,	pckgQntt		: item.pckgQntt
+       			  ,	pckgWght		: item.pckgWght
+       			  ,	invntrQntt		: item.invntrQntt
+       			  ,	invntrWght		: item.invntrWght
+       			  ,	rmrk			: item.rmrk
 
   				}
           		jsonSortInvntr.push(sortInvntr);
@@ -567,12 +568,12 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 20,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
+				'type' : 'page',
+			  	'count' : 5,
+			  	'size' : 20,
+			  	'sorttype' : 'page',
+			  	'showgoalpageui' : true
+		};
 	    SBGridProperties.columns = [
 	        {caption: ["포장번호","포장번호"],		ref: 'pckgno',      	type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["순번","순번"],				ref: 'pckgSn',      	type:'output',  width:'55px',    style:'text-align:center'},
@@ -600,11 +601,13 @@
 	    ];
 
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
+	    inptCmndDsctnList.bind( "beforepagechanged" , "fn_pagingGrd" );
 
 	    fn_selectGridList();
 	}
 
 	const fn_callSelectGrid3List = async function(pageSize, pageNo) {
+
      	let crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
@@ -620,23 +623,26 @@
 			crtrYmd = "";
 		}else{
 			// 재고 이력 테이블
-			url = "/am/invntr/selectGdsInvntrList.do";
+			url = "/am/invntr/selectDailyGdsInvntrList.do";
 		}
+
+		console.log(url)
+
 // 		selectUpdateGdsInvntrList
-		const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
-			apcCd		:  gv_selectedApcCd,
-			pckgYmd: crtrYmd,
-			itemCd:itemCd,
-			vrtyCd: vrtyCd,
-			spcfctCd: spcfctCd,
-			rprsPrdcrCd: prdcrCd,
-			gdsSeCd: gdsSeCd,
-			wrhsSeCd: wrhsSeCd,
-			warehouseSeCd: warehouseSeCd,
+		const postJsonPromise = gfn_postJSON(url, {
+			 apcCd				: gv_selectedApcCd
+		   , itemCd				: itemCd
+		   , vrtyCd				: vrtyCd
+		   , spcfctCd			: spcfctCd
+		   , rprsPrdcrCd		: prdcrCd
+		   , gdsSeCd			: gdsSeCd
+		   , wrhsSeCd			: wrhsSeCd
+		   , warehouseSeCd		: warehouseSeCd
+		   , crtrYmd			: crtrYmd
           	// pagination
-  	  		pagingYn : 'Y',
-  			currentPageNo : pageNo,
-   		  	recordCountPerPage : pageSize
+  	  	   , pagingYn 			: 'Y'
+  	  	   , currentPageNo 		: pageNo
+  	  	   , recordCountPerPage : pageSize
   		});
 
         let data = await postJsonPromise;
@@ -647,24 +653,23 @@
       		jsonGdsInvntr.length = 0;
           	data.resultList.forEach((item, index) => {
           		const gdsInvntr = {
-       				pckgno: item.pckgno,
-       				pckgSn: item.pckgSn,
-       				pckgYmd: item.pckgYmd,
-       				fcltNm: item.fcltNm,
-//        				rprsPrdcrNm: item.rprsPrdcrNm,
-       				itemNm: item.itemNm,
-       				vrtyNm: item.vrtyNm,
-       				spcfctNm: item.spcfctNm,
-       				gdsGrdNm: item.gdsGrdNm,
-       				warehouseSeNm: item.warehouseSeNm,
-       				pckgQntt: item.pckgQntt,
-       				pckgWght: item.pckgWght,
-       				spmtQntt: item.spmtQntt,
-       				spmtWght: item.spmtWght,
-       				invntrQntt: item.invntrQntt,
-       				invntrWght: item.invntrWght,
-       				rmrk: item.rmrk,
-       				prdcrNm : item.prdcrNm
+          				pckgno			: item.pckgno
+          			  , pckgSn			: item.pckgSn
+          			  , pckgYmd			: item.pckgYmd
+       				  , fcltNm			: item.fcltNm
+       				  , itemNm			: item.itemNm
+       				  , vrtyNm			: item.vrtyNm
+       				  , spcfctNm		: item.spcfctNm
+       				  , gdsGrdNm		: item.gdsGrdNm
+       				  , warehouseSeNm	: item.warehouseSeNm
+       				  , pckgQntt		: item.pckgQntt
+       				  , pckgWght		: item.pckgWght
+       				  , spmtQntt		: item.spmtQntt
+       				  , spmtWght		: item.spmtWght
+       				  , invntrQntt		: item.invntrQntt
+       				  , invntrWght		: item.invntrWght
+       				  , rmrk			: item.rmrk
+       				  , prdcrNm 		: item.prdcrNm
   				}
           		jsonGdsInvntr.push(gdsInvntr);
 
@@ -706,7 +711,7 @@
 			jsonComSpcfct.length = 0;
 			SBUxMethod.refresh("srch-slt-spcfctCd");
 		}else{
-			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonSpcfct, gv_selectedApcCd, itemCd);	// 규격
+			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_selectedApcCd, itemCd);	// 규격
 		}
 		SBUxMethod.refresh("srch-slt-spcfctCd");
 		fn_getPrdcrs();
@@ -727,7 +732,7 @@
 				jsonComSpcfct.length = 0;
 				SBUxMethod.refresh("srch-slt-spcfctCd");
 			}else{
-				await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonSpcfct, gv_selectedApcCd, itemCd);	// 규격
+				await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_selectedApcCd, itemCd);	// 규격
 			}
 		}
 	}
@@ -744,6 +749,20 @@
 			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCds.join(','));
 		}
 	}
+
+
+ // 공통코드 페이징
+    const fn_pagingGrd = async function(){
+    	let pageSize = inptCmndDsctnList.getPageSize();   			// 몇개의 데이터를 가져올지 설정
+    	let pageNo = inptCmndDsctnList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+    	if(checkSection == 1 ){
+    		fn_callSelectGrid1List(pageSize, pageNo);
+    	}else if(checkSection == 2){
+    		fn_callSelectGrid2List(pageSize, pageNo);
+    	}else if(checkSection == 3){
+    		fn_callSelectGrid3List(pageSize, pageNo);
+    	}
+    }
 
     /* 생산자 팝업 호출 필수 function  */
  	/* Start */

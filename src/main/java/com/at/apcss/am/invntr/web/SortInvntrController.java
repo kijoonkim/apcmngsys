@@ -74,6 +74,23 @@ public class SortInvntrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/invntr/selectDailySortInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectDailySortInvntrList(@RequestBody SortInvntrVO sortInvntrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SortInvntrVO> resultList =  new ArrayList<>();
+		try {
+			resultList = sortInvntrService.selectDailySortInvntrList(sortInvntrVO);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 
 	@PostMapping(value = "/am/invntr/multiSaveSortInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> multiSaveSortInvntrList(@RequestBody List<SortInvntrVO> sortInvntrList, HttpServletRequest request) throws Exception {

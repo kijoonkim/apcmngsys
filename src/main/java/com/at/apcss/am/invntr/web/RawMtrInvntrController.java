@@ -76,6 +76,24 @@ public class RawMtrInvntrController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	@PostMapping(value = "/am/invntr/selectDailyRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectDailyRawMtrInvntrList(@RequestBody RawMtrInvntrVO rawMtrInvntrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<RawMtrInvntrVO> resultList;
+		try {
+
+			resultList = rawMtrInvntrService.selectDailyRawMtrInvntrList(rawMtrInvntrVO);
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 
 	@PostMapping(value = "/am/invntr/mulitSaveRawMtrInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> mulitSaveRawMtrInvntrList(@RequestBody List<RawMtrInvntrVO> rawMtrInvntrList, HttpServletRequest request) throws Exception {
