@@ -22,6 +22,7 @@
 					<sbux-button id="btnEditVhcl" name="btnEditVhcl" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="popVhcl.edit"></sbux-button>
 					<sbux-button id="btnCancelVhcl" name="btnCancelVhcl" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" onclick="popVhcl.cancel"></sbux-button>
 					<sbux-button id="btnSaveVhcl" name="btnSaveVhcl" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="popVhcl.save" disabled></sbux-button>
+					<sbux-button id="btnChoiceVhcl" name="btnChoiceVhcl" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popVhcl.choice"></sbux-button>
 					<sbux-button id="btnEndVhcl" name="btnEndVhcl" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="popVhcl.close"></sbux-button>
 				</div>
 			</div>
@@ -183,8 +184,13 @@
 		},
 		choice: function() {
 			let nRow = grdVhclPop.getRow();
-			let rowData = grdVhclPop.getRowData(nRow);
-			popVhcl.close(rowData);
+			if (nRow == -1) {
+				gfn_comAlert("W0003", "선택");		//	W0003	{0}할 대상이 없습니다.
+				return;
+			} else {
+				let rowData = grdVhclPop.getRowData(nRow);
+				popVhcl.close(rowData);
+			}
 		},
 		edit: async function() {
 
