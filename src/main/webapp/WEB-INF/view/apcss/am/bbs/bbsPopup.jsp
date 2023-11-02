@@ -206,6 +206,12 @@
 	async function fn_callInit(){
 		SBUxMethod.hide("btnCancelBbsPopup");
 		SBUxMethod.hide("btnSaveBbsPopup");
+		SBUxMethod.show("btnUpdateBbsPopup");
+		SBUxMethod.attr("dtl-select-bbsSeCd","readonly","true");
+		SBUxMethod.attr("dtl-input-bbsTitle","readonly","true");
+		SBUxMethod.attr("dtl-input-bbsSubject","readonly","true");
+		SBUxMethod.show("dtl-input-cmntCn");
+		SBUxMethod.show("btnInsertCmnt");
 	}
 
 	async function fn_callselectComment(bbsNo){
