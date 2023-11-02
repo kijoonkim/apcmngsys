@@ -527,10 +527,9 @@
 		SBUxMethod.set("srch-slt-wrhsSpmtSe", "");
 		SBUxMethod.set("srch-slt-pltBxSe", "");
 		SBUxMethod.set("srch-slt-pltBxNm", "");
+		fn_clearPrdcr();
 		SBUxMethod.set("srch-inp-prdcrNm", "");
-		SBUxMethod.set("srch-inp-prdcrCd", "");
-		SBUxMethod.set("srch-inp-qntt", "");	
-		SBUxMethod.set("srch-inp-rmrk", "");
+		SBUxMethod.set("srch-inp-qntt", "");
 	}
 	
 	// APC 선택 변경

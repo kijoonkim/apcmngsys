@@ -226,7 +226,7 @@
 	<!-- ==========================================================================	-->
 	<update id="deleteGdsInvntr" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.wrhs.mapper.GdsWrhsMapper.updateGdsInvntr */
+			UPDATE /* com.at.apcss.am.wrhs.mapper.GdsWrhsMapper.deleteGdsInvntr */
 				TB_GDS_INVNTR
 			   SET
 			   	  SYS_LAST_CHG_DT 		= SYSDATE
