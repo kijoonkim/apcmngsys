@@ -265,7 +265,9 @@
 
     function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		SBUxMethod.set("srch-inp-vrtyNm", "");
+		if (gfn_isEmpty(itemCd)) {
+			vrtyCds = [];
+		}
 		SBUxMethod.set("srch-inp-vrtyCd", "");
 	}
     
@@ -584,6 +586,7 @@
 		SBUxMethod.set("srch-dtp-endPrdctnYmd", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-slt-itemCd", "");
 		SBUxMethod.set("srch-inp-vrtyCd", "");
+		vrtyCds = [];
 		fn_clearPrdcr();
 		SBUxMethod.set('srch-inp-prdcrNm', "");
 		jsonWrhsSeCd.forEach(e => e.checked = "checked");
