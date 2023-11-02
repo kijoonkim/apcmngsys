@@ -131,10 +131,11 @@
 		            return;
 				}
 
-		        const postJsonPromise = gfn_postJSON("/co/log/selectBatchHstryList.do", {
+		        const postJsonPromise = gfn_postJSON("/co/log/selectTrsmHstryList.do", {
 					    logYmdFrom 			: logYmdFrom
 					  , logYmdTo 			: logYmdTo
 					  , prgrmNm 			: prgrmNm
+					  , logSeCd				: "BT"
 					  , pagingYn 			: 'Y'
 					  , currentPageNo 		: currentPageNo
 					  , recordCountPerPage 	: recordCountPerPage

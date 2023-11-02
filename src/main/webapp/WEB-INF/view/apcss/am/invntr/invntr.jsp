@@ -92,7 +92,14 @@
 						<tr>
 							<th scope="row" class="th_bg">규격</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" class="form-control input-sm" jsondata-ref="jsonSpcfct"/>
+								<sbux-select
+									unselected-text="전체"
+									uitype="single"
+									id="srch-slt-spcfctCd"
+									name="srch-slt-spcfctCd"
+									class="form-control input-sm"
+									jsondata-ref="jsonComSpcfct"
+								/>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row" class="th_bg">창고구분</th>
@@ -170,7 +177,7 @@
 
 	var jsonComItem			= [];	// 품목 	itemCd			검색
 	var jsonComVrty			= [];	// 품종 	vrtyCd			검색
-	var jsonSpcfct			= [];	// 규격 	spcfctCd		검색
+	var jsonComSpcfct			= [];	// 규격 	spcfctCd		검색
 	var jsonComWarehouse	= [];	// 창고 	warehouseSeCd	검색
 	var jsonComWrhsSeCd		= [];	// 창고 	warehouseSeCd	검색
 	var jsonComFcltCd		= [];	// 선별기 	fcltCd		검색
@@ -282,7 +289,7 @@
 	        },
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'85px',    style:'text-align:center'},
 	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}	
+	        	format : {type:'number', rule:'#,### Kg'}
 	        },
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'90px',    style:'text-align:center'}
 	    ];
@@ -440,15 +447,15 @@
 	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'90px',    style:'text-align:center'},
 	        {caption: ["선별","수량"],				ref: 'sortQntt',      	type:'output',  width:'85px',    style:'text-align:center'},
 	        {caption: ["선별","중량"],				ref: 'sortWght',      	type:'output',  width:'85px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}	
+	        	format : {type:'number', rule:'#,### Kg'}
 	        },
 	        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'85px',    style:'text-align:center'},
 	        {caption: ["포장","중량"],				ref: 'pckgWght',     	type:'output',  width:'85px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}	
+	        	format : {type:'number', rule:'#,### Kg'}
 	        },
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'85px',    style:'text-align:center'},
 	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}	
+	        	format : {type:'number', rule:'#,### Kg'}
 	        },
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'105px',    style:'text-align:center'}
 	    ];
@@ -579,15 +586,15 @@
 	        {caption: ["창고","창고"],				ref: 'warehouseSeNm',   type:'output',  width:'105px',    style:'text-align:center'},
 	        {caption: ["포장","수량"],				ref: 'pckgQntt',      	type:'output',  width:'85px',    style:'text-align:center'},
 	        {caption: ["포장","중량"],				ref: 'pckgWght',      	type:'output',  width:'85px',    style:'text-align:center',
-	        	format : {type:'number', 			rule:'#,### Kg'}	
+	        	format : {type:'number', 			rule:'#,### Kg'}
 	        },
 	        {caption: ["출하","수량"],				ref: 'spmtQntt',      	type:'output',  width:'85px',    style:'text-align:center'},
 	        {caption: ["출하","중량"],				ref: 'spmtWght',      	type:'output',  width:'85px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}	
+	        	format : {type:'number', rule:'#,### Kg'}
 	        },
 	        {caption: ["현 재고","수량"],			ref: 'invntrQntt',      type:'output',  width:'85px',    style:'text-align:center'},
 	        {caption: ["현 재고","중량"],			ref: 'invntrWght',      type:'output',  width:'85px',    style:'text-align:center',
-	        	format : {type:'number', rule:'#,### Kg'}	
+	        	format : {type:'number', rule:'#,### Kg'}
 	        },
 	        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'105px',    style:'text-align:center'}
 	    ];
@@ -692,26 +699,39 @@
 
 	//modal
 
-	async function fn_selectItem(){
+	const fn_selectItem = async function(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonSpcfct, gv_selectedApcCd, itemCd);	// 규격
+
+		if(gfn_isEmpty(itemCd)){
+			jsonComSpcfct.length = 0;
+			SBUxMethod.refresh("srch-slt-spcfctCd");
+		}else{
+			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonSpcfct, gv_selectedApcCd, itemCd);	// 규격
+		}
+		SBUxMethod.refresh("srch-slt-spcfctCd");
 		fn_getPrdcrs();
 	}
-	const fn_modalVrty = function() {
+	const fn_modalVrty = async function() {
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
 	}
 
-     const fn_setVrty = function(vrty) {
+     const fn_setVrty = async function(vrty) {
 		if (!gfn_isEmpty(vrty)) {
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
 			SBUxMethod.setValue('srch-inp-vrtyCd', '');
 			SBUxMethod.setValue('srch-inp-vrtyCd', vrty.vrtyCd);
 			SBUxMethod.set('srch-inp-vrtyNm', '');
 			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
+
+			if(gfn_isEmpty(itemCd)){
+				jsonComSpcfct.length = 0;
+				SBUxMethod.refresh("srch-slt-spcfctCd");
+			}else{
+				await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonSpcfct, gv_selectedApcCd, itemCd);	// 규격
+			}
 		}
 	}
-     const fn_setVrtys = function(vrtys) {
-    	 console.log("vrtys", vrtys);
+    const fn_setVrtys = function(vrtys) {
 		if (!gfn_isEmpty(vrtys)) {
 			var _vrtys = [];
 			var _vrtyCds = [];

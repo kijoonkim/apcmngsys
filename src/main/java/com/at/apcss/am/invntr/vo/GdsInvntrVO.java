@@ -50,6 +50,10 @@ public class GdsInvntrVO extends ComVO {
 	 */
 	private String pckgYmd;
 	/**
+	 * 포장일자
+	 */
+	private String CRTR_YMD;
+	/**
 	 * 포장일자From
 	 */
 	private String pckgYmdFrom;

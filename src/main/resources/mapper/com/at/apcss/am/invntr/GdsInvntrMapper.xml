@@ -274,6 +274,110 @@
     	<!-- End 페이징 -->
     </select>
 
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectDailyGdsInvntrList	-->
+	<!-- DESC : 상품재고 목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	김현호      		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectDailyGdsInvntrList" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO" resultType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+    	<![CDATA[
+    		SELECT
+		]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+				  pt0.*
+    			, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) 								AS APC_NM
+    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) 							AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 									AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 						AS VRTY_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('GDS_GRD', pt0.GDS_GRD) FROM DUAL) 								AS GDS_GRD_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('PCKG_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) 				AS FCLT_NM
+                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 					AS SPCFCT_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) 							AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
+                , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 				AS SPMT_PCKG_UNIT_NM
+    		  FROM (
+			    	SELECT /*  */
+					       DGI.APC_CD               AS APC_CD
+					     , DGI.CRTR_YMD             AS CRTR_YMD
+					     , DGI.PCKGNO               AS PCKGNO
+					     , DGI.PCKG_SN              AS PCKG_SN
+					     , DGI.PCKG_YMD             AS PCKG_YMD
+					     , DGI.FCLT_CD              AS FCLT_CD
+					     , DGI.RPRS_PRDCR_CD        AS RPRS_PRDCR_CD
+					     , DGI.ITEM_CD              AS ITEM_CD
+					     , DGI.VRTY_CD              AS VRTY_CD
+					     , DGI.SPCFCT_CD            AS SPCFCT_CD
+					     , DGI.GDS_GRD              AS GDS_GRD
+					     , DGI.PCKG_SE_CD           AS PCKG_SE_CD
+					     , DGI.WAREHOUSE_SE_CD      AS WAREHOUSE_SE_CD
+					     , DGI.GDS_SE_CD            AS GDS_SE_CD
+					     , DGI.PRDCTN_YR            AS PRDCTN_YR
+					     , DGI.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
+					     , DGI.PLOR_CD              AS PLOR_CD
+					     , DGI.RMRK                 AS RMRK
+					     , DGI.GDS_CD               AS GDS_CD
+					     , DGI.PCKG_QNTT            AS PCKG_QNTT
+					     , DGI.PCKG_WGHT            AS PCKG_WGHT
+					     , DGI.SPMT_QNTT            AS SPMT_QNTT
+					     , DGI.SPMT_WGHT            AS SPMT_WGHT
+					     , DGI.INVNTR_QNTT          AS INVNTR_QNTT
+					     , DGI.INVNTR_WGHT          AS INVNTR_WGHT
+					     , DGI.PRCHSPT_NM           AS PRCHSPT_NM
+					     , DGI.WRHS_SE_CD           AS WRHS_SE_CD
+					     , DGI.TRSPRT_SE_CD         AS TRSPRT_SE_CD
+					     , DGI.DEL_YN               AS DEL_YN
+
+					  FROM TB_DAILY_GDS_INVNTR DGI
+					 WHERE INVNTR_QNTT > 0
+			   		   AND DGI.APC_CD = #{apcCd}
+		]]>
+				<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+					   AND DGI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+				</if>
+				<if test='itemCd != null and itemCd != ""'>
+					   AND DGI.ITEM_CD = #{itemCd}
+				</if>
+				<if test='vrtyCd != null and vrtyCd != ""'>
+					   AND DGI.VRTY_CD = #{vrtyCd}
+				</if>
+				<if test='spcfctCd != null and spcfctCd != ""'>
+					   AND DGI.SPCFCT_CD = #{spcfctCd}
+				</if>
+				<if test='gdsSeCd != null and gdsSeCd != ""'>
+					   AND DGI.GDS_SE_CD = #{gdsSeCd}
+				</if>
+				<if test='rprsPrdcrCd != null and rprsPrdcrCd != ""'>
+					   AND DGI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
+				</if>
+				<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
+					   AND DGI.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
+				</if>
+				<if test='wrhsSeCd != null and wrhsSeCd != ""'>
+					   AND DGI.WRHS_SE_CD = #{wrhsSeCd}
+				</if>
+
+    	<![CDATA[
+			 ORDER BY PCKG_YMD, PCKGNO, PCKG_SN
+    		  ) pt0
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.insertGdsInvntr		-->

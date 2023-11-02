@@ -162,6 +162,7 @@
 									<th scope="row" class="th_bg" >변경프로그램</th>
 									<td scope="row" class="th_bg">
 										<sbux-input id="dtl-input-sysLastChgPrgrmId" name="dtl-input-sysLastChgPrgrmId" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
+										<sbux-input id="dtl-input-delYn" name="dtl-input-delYn" class="form-control input-sm" uitype="hidden" style="width:100%" readonly></sbux-input>
 									</td>
 								</tr>
 							</table>
@@ -303,7 +304,8 @@
 					sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,
 					sysLastChgDt: item.sysLastChgDt,
 					sysLastChgUserId: item.sysLastChgUserId,
-					sysLastChgPrgrmId: item.sysLastChgPrgrmId
+					sysLastChgPrgrmId: item.sysLastChgPrgrmId,
+					delYn : item.delYn
 				}
 				jsonComMsgList.push(msg);
 
@@ -312,7 +314,6 @@
 				}
 			});
 
-        	console.log("totalRecordCount", totalRecordCount);
 
         	if (jsonComMsgList.length > 0) {
 
@@ -340,39 +341,42 @@
 
     //신규 작성
     function fn_create() {
-    	SBUxMethod.set("dtl-input-orgnMsgKey", null);
-    	SBUxMethod.set("dtl-select-msgKnd", null);
-        SBUxMethod.set("dtl-input-msgKey", null);
+    	SBUxMethod.set("dtl-input-orgnMsgKey", "");
+    	SBUxMethod.set("dtl-select-msgKnd", "");
+        SBUxMethod.set("dtl-input-msgKey", "");
         SBUxMethod.attr("dtl-input-msgKey", "readonly", false);
-        SBUxMethod.set("dtl-input-msgCn", null);
-        SBUxMethod.set("dtl-input-rmrk", null);
-        SBUxMethod.set("dtl-input-sysFrstInptUserId", null);
-        SBUxMethod.set("dtl-input-sysLastChgUserId", null);
-        SBUxMethod.set("dtl-input-sysFrstInptDt", null);
-        SBUxMethod.set("dtl-input-sysLastChgDt", null);
-        SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);
-        SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);
+        SBUxMethod.set("dtl-input-msgCn", "");
+        SBUxMethod.set("dtl-input-rmrk", "");
+        SBUxMethod.set("dtl-input-sysFrstInptUserId", "");
+        SBUxMethod.set("dtl-input-sysLastChgUserId", "");
+        SBUxMethod.set("dtl-input-sysFrstInptDt", "");
+        SBUxMethod.set("dtl-input-sysLastChgDt", "");
+        SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", "");
+        SBUxMethod.set("dtl-input-sysLastChgPrgrmId", "");
+        SBUxMethod.set("dtl-input-delYn", "");
     }
 
     const fn_clearForm = function() {
-    	SBUxMethod.set("dtl-input-orgnMsgKey", null);
-    	SBUxMethod.set("dtl-select-msgKnd", null);
-        SBUxMethod.set("dtl-input-msgKey", null);
+    	SBUxMethod.set("dtl-input-orgnMsgKey", "");
+    	SBUxMethod.set("dtl-select-msgKnd", "");
+        SBUxMethod.set("dtl-input-msgKey", "");
         SBUxMethod.attr("dtl-input-msgKey", "readonly", true);
-        SBUxMethod.set("dtl-input-msgCn", null);
-        SBUxMethod.set("dtl-input-rmrk", null);
-        SBUxMethod.set("dtl-input-sysFrstInptUserId", null);
-        SBUxMethod.set("dtl-input-sysLastChgUserId", null);
-        SBUxMethod.set("dtl-input-sysFrstInptDt", null);
-        SBUxMethod.set("dtl-input-sysLastChgDt", null);
-        SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", null);
-        SBUxMethod.set("dtl-input-sysLastChgPrgrmId", null);
+        SBUxMethod.set("dtl-input-msgCn", "");
+        SBUxMethod.set("dtl-input-rmrk", "");
+        SBUxMethod.set("dtl-input-sysFrstInptUserId", "");
+        SBUxMethod.set("dtl-input-sysLastChgUserId", "");
+        SBUxMethod.set("dtl-input-sysFrstInptDt", "");
+        SBUxMethod.set("dtl-input-sysLastChgDt", "");
+        SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", "");
+        SBUxMethod.set("dtl-input-sysLastChgPrgrmId", "");
+        SBUxMethod.set("dtl-input-delYn", "");
     }
 
     //저장
     const fn_save = async function() {
 
     	let msgKey = SBUxMethod.get("dtl-input-orgnMsgKey");
+    	let delYn = SBUxMethod.get("dtl-input-delYn");
 
     	if (!SBUxMethod.get("dtl-select-msgKnd")) {
             alert("메시지종류를 선택하세요.");
@@ -389,20 +393,7 @@
             return;
         }
 
-    	/*
-        SBUxMethod.set("dtl-input-orgnMsgKey", rowData.msgKey);
-        SBUxMethod.set("dtl-input-msgKnd", rowData.msgKnd);
-        SBUxMethod.set("dtl-input-msgKey", rowData.msgKey);
-        SBUxMethod.set("dtl-input-msgCn", rowData.msgCn);
-        SBUxMethod.set("dtl-input-rmrk", rowData.rmrk);
-        SBUxMethod.set("dtl-input-sysFrstInptUserId", rowData.sysFrstInptUserId);
-        SBUxMethod.set("dtl-input-sysLastChgUserId", rowData.sysLastChgUserId);
-        SBUxMethod.set("dtl-input-sysFrstInptDt", rowData.sysFrstInptDt);
-        SBUxMethod.set("dtl-input-sysLastChgDt", rowData.sysLastChgDt);
-        SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", rowData.sysFrstInptPrgrmId);
-        SBUxMethod.set("dtl-input-sysLastChgPrgrmId", rowData.sysLastChgPrgrmId);
-    	 */
-    	if (gfn_isEmpty(msgKey)) {
+    	if (gfn_isEmpty(delYn)) {
     		// 신규 등록
 			fn_subInsert(confirm("등록 하시겠습니까?"));
     	} else {
@@ -449,12 +440,21 @@
 
 		if (!isConfirmed) return;
 
-    	const postJsonPromise = gfn_postJSON("/co/msg/updateComMsg.do", {
-			msgKey: SBUxMethod.get('dtl-input-orgnMsgKey'),
+		var nRow = grdComMsgList.getRow();
+ 		if (nRow < 1) {
+             return;
+ 		}
+
+        let rowData = grdComMsgList.getRowData(nRow);
+
+		msgVO = {
+			msgKey: rowData.msgKey,
 			msgKnd: SBUxMethod.get('dtl-select-msgKnd'),
 			msgCn: SBUxMethod.get('dtl-input-msgCn'),
 			rmrk: SBUxMethod.get('dtl-input-rmrk')
-		});
+		}
+
+    	const postJsonPromise = gfn_postJSON("/co/msg/updateComMsg.do", msgVO);
 
         const data = await postJsonPromise;
 
@@ -498,29 +498,6 @@
 
         fn_subDelete(confirm("삭제 하시겠습니까?"), list);
 
-        /*
-        for ( let i = 0; i < gridList.length; i++) {
-            if (gridList[i].checked === "Y") {
-                delList.push(gridList[i].msgKey);
-            }
-        }
-        if (delList.length == 0) {
-            alert("삭제 할 대상이 없습니다.");
-            return;
-        }
-        var delMsg;
-        if (delList.length == 1) {
-            delMsg = delList[0];
-        }
-        else {
-            delMsg = delList.length + "건";
-        }
-        delMsg += "을 삭제 하시겠습니까?";
-        if (confirm(delMsg)) {
-            var params = "delKey=" + delList.join(",");
-            console.log("data ::::: " + params);
-        }
-        */
     }
 
 	/**
@@ -575,6 +552,7 @@
         SBUxMethod.set("dtl-input-sysLastChgDt", rowData.sysLastChgDt);
         SBUxMethod.set("dtl-input-sysFrstInptPrgrmId", rowData.sysFrstInptPrgrmId);
         SBUxMethod.set("dtl-input-sysLastChgPrgrmId", rowData.sysLastChgPrgrmId);
+        SBUxMethod.set("dtl-input-delYn", rowData.delYn);
     }
 
     //그리드 체크박스 전체 선택

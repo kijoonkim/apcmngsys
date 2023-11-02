@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ComLogVO extends ComVO {
-	
+
 	/**
 	 * LOG일자
 	 */
@@ -63,7 +63,7 @@ public class ComLogVO extends ComVO {
 	/**
 	 * 처리일시
 	 */
-	private String prcsYmd;
+	private String prcsDt;
 	/**
 	 * 비고
 	 */
@@ -99,7 +99,7 @@ public class ComLogVO extends ComVO {
 	/**
 	 * 열람일시
 	 */
-	private String prslDt;
+	private String prsCDt;
 	/**
 	 * 최초열람일시
 	 */
