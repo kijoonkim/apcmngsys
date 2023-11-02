@@ -116,9 +116,6 @@
 		<if test='userStts != null and userStts != ""'>
 			   AND CU.USER_STTS = #{userStts}
 		</if>
-		<if test='apcCd != null and apcCd != ""'>
-			   AND CU.APC_CD = #{apcCd}
-		</if>
 		<if test='ogdpNm != null and ogdpNm != ""'>
 			   AND CU.OGDP_NM LIKE '%' || #{ogdpNm} || '%'
 		</if>

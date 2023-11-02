@@ -139,7 +139,8 @@ function fn_createUserInfoChgGrid() {
 	        	 typeinfo : {ref:'combofilteringLckYnData', label:'label', value:'value', displayui : true}	 
 	         },
 	         {caption: ["최종접속일시"], ref: 'endLgnDt',  	type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["사용유무코드"],	ref: 'delYn',   	type:'output', hidden: true}
+	         {caption: ["사용유무코드"],	ref: 'delYn',   	type:'output', hidden: true},
+	         {caption: ["APC코드"],		ref: 'apcCd',   	type:'output', hidden: true}
     ];
 //     	grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
 // 	    window.userInfoChgGridId= _SBGrid.create(SBGridProperties1);
@@ -163,14 +164,12 @@ async function fn_pagingUserList(){
 }
 
 async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
-	let apcCd  = gv_selectedApcCd;
 	let userId = SBUxMethod.get("srch-inp-userId");
 	let userNm = SBUxMethod.get("srch-inp-userNm");
 	let userType = SBUxMethod.get("srch-slt-userType");
 	
 	var comUserVO = { 
-		  apcCd					: apcCd
-		, userId				: userId
+		  userId				: userId
 		, userNm				: userNm
 		, userType				: userType
 		, pagingYn 				: 'Y'
@@ -189,6 +188,7 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 				userId		: item.userId
 			  , userNm		: item.userNm
 			  , pswd		: item.pswd
+			  , apcCd		: item.apcCd
 			  , apcNm		: item.apcNm
 			  , eml			: item.eml            
 			  , userTypeNm	: item.userTypeNm
