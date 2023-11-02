@@ -1165,7 +1165,6 @@
 	 * @description 품목 선택 변경 event
 	 */
 	const fn_onChangeSrchItemCd = async function(obj) {
-
 		let itemCd = obj.value;
 		// 품종은 필터처리
 		let result = await Promise.all([
@@ -1204,10 +1203,6 @@
 			await fn_onChangeSrchItemCd({value: itemCd});
 			SBUxMethod.set("dtl-slt-vrtyCd", vrtyCd);
 		}
-
-		const wghtRkngSeCd = vrtyInfo.wghtRkngSeCd;
-		const unitWght = parseInt(vrtyInfo.unitWght) || 0;
-		//SBUxMethod.set("srch-inp-wghtAvg", unitWght);
 	}
 
 	/**

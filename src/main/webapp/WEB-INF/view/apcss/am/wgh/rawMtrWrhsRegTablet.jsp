@@ -548,6 +548,14 @@
      * @description 초기화 버튼
      */
      const fn_reset = function() {
+    	SBUxMethod.set("srch-chk-fxngItem", "false");
+    	SBUxMethod.set("srch-chk-fxngWghtAvg", "false");
+    	SBUxMethod.set("srch-chk-fxngBxKnd", "false");
+    	SBUxMethod.set("srch-chk-fxngWarehouseSeCd", "false");
+    	SBUxMethod.refresh("srch-chk-fxngItem");
+    	SBUxMethod.refresh("srch-chk-fxngWghtAvg");
+    	SBUxMethod.refresh("srch-chk-fxngBxKnd");
+    	SBUxMethod.refresh("srch-chk-fxngWarehouseSeCd");
 		fn_clearForm();
 	}
 
@@ -873,22 +881,28 @@
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),			// 품종
 			stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
 		]);
+
+		if (gfn_isEmpty(itemCd)) {
+			SBUxMethod.set("srch-inp-wghtAvg", "");
+		}
 	}
 	
 	/**
 	 * @name fn_onChangeSrchVrtyCd
 	 * @description 품종 선택 변경 event
 	 */
-	const fn_onChangeSrchVrtyCd = async function(obj) {
+	 const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		if (gfn_isEmpty(vrtyCd)) {
-			SBUxMethod.set("srch-inp-wghtAvg", 0);
-			fn_onChangeWghtAvg();
-			return;
-		}
-
+		let itemCd = "";
 		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
-		const itemCd = vrtyInfo.mastervalue;
+		
+		if (!gfn_isEmpty(vrtyCd)) {
+			itemCd = vrtyInfo.mastervalue;
+		} else {
+			itemCd = SBUxMethod.get("srch-slt-itemCd");
+			SBUxMethod.set("srch-inp-wghtAvg", "");
+			fn_onChangeWghtAvg();
+		}
 
 		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 		if (itemCd != prvItemCd) {
