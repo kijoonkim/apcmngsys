@@ -521,7 +521,7 @@
 	    SBGridProperties.mergecells = 'byrestriccol';
         SBGridProperties.columns = [
         	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'35px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}, merge: false
             },
             {caption: ['계량번호'], ref: 'wghno', width: '120px', type: 'output', style:'text-align:center'},
         	{caption: ['생산자'], ref: 'prdcrNm', width: '100px', type: 'output', style:'text-align:center'},
@@ -941,6 +941,7 @@
   						rmrk: item.rmrk,
   						apcNm: item.apcNm,
   						prdcrNm: item.prdcrNm,
+  						prdcrIdentno: item.prdcrIdentno,
   						grdCd: item.grdCd,
   						grdNm: item.grdNm,
   						pltWght: item.pltWght,
@@ -1042,6 +1043,7 @@
 			SBUxMethod.set("dtl-inp-prdcrCd", rowData.prdcrCd);
 			SBUxMethod.set("dtl-inp-prdcrNm", rowData.prdcrNm);
 			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			SBUxMethod.set("dtl-inp-prdcrIdentno", rowData.prdcrIdentno);
 
 			// 입고구분
 			SBUxMethod.set("dtl-rdo-wrhsSeCd", rowData.wrhsSeCd);

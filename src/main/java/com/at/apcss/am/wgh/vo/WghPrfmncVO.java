@@ -68,6 +68,11 @@ public class WghPrfmncVO extends ComVO {
 	 * 생산자명
 	 */
 	private String prdcrNm;
+	
+	/**
+	 * 생산자인식번호
+	 */
+	private String prdcrIdentno;
 
 	/**
 	 * 품목코드
