@@ -338,7 +338,8 @@
 					     , DGI.DEL_YN               AS DEL_YN
 
 					  FROM TB_DAILY_GDS_INVNTR DGI
-					 WHERE INVNTR_QNTT > 0
+					 WHERE DGI.INVNTR_QNTT > 0
+					   AND DGI.INVNTR_WGHT > 0
 			   		   AND DGI.APC_CD = #{apcCd}
 		]]>
 				<if test='warehouseSeCd != null and warehouseSeCd != ""'>
@@ -364,6 +365,9 @@
 				</if>
 				<if test='wrhsSeCd != null and wrhsSeCd != ""'>
 					   AND DGI.WRHS_SE_CD = #{wrhsSeCd}
+				</if>
+				<if test='crtrYmd != null and crtrYmd != ""'>
+					   AND DGI.CRTR_YMD = #{crtrYmd}
 				</if>
 
     	<![CDATA[

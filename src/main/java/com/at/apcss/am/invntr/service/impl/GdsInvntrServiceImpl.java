@@ -283,8 +283,10 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 	@Override
 	public List<GdsInvntrVO> selectDailyGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<GdsInvntrVO> resultList = gdsInvntrMapper.selectDailyGdsInvntrList(gdsInvntrVO);
+
+		return resultList;
 	}
 
 }
