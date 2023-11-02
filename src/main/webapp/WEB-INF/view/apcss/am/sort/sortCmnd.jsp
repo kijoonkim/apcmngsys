@@ -161,7 +161,6 @@
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		SBUxMethod.set("srch-inp-vrtyNm", "");
 		SBUxMethod.set("srch-inp-vrtyCd", "");
-		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, gv_apcCd, itemCd);		// 규격
 	}
 
 	// only document
