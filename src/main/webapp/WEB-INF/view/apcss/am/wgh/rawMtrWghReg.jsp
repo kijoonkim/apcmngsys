@@ -891,18 +891,6 @@
   		let gdsSeCd = SBUxMethod.get("dtl-rdo-gdsSeCd");		// 상품구분
   		let trsprtSeCd = SBUxMethod.get("dtl-rdo-trsprtSeCd");	// 운송구분
   		let vhclno = SBUxMethod.get("dtl-inp-vhclno");			// 차량번호
-  		
-  		console.log("검색인자", {
-			apcCd: gv_selectedApcCd,
-			wghYmd: wghYmd,
-			prdcrCd: prdcrCd,
-			itemCd: itemCd,
-			vrtyCd: vrtyCd,
-			wrhsSeCd: wrhsSeCd,
-			gdsSeCd: gdsSeCd,
-			trsprtSeCd: trsprtSeCd,
-			vhclno: vhclno
-  		});
 
 		const postJsonPromise = gfn_postJSON("/am/wgh/selectWghPrfmncList.do", {
 			apcCd: gv_selectedApcCd,
