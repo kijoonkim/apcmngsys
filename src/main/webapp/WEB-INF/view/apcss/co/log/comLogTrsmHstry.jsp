@@ -47,7 +47,7 @@
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<div class="ad_tbl_toplist">
 			<sbux-button id="btnLogCntnHstry3" name="btnLogCntnHstry" uitype="normal" text="접속이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogMenuHstry3" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
@@ -154,6 +154,7 @@
 					    logYmdFrom 			: logYmdFrom
 					  , logYmdTo 			: logYmdTo
 					  , sendRcptnSeCd 		: sendRcptnSeCd
+					  , logSeCd				: "IF"
 					  , prgrmNm 			: prgrmNm
 					  , pagingYn 			: 'Y'
 					  , currentPageNo 		: currentPageNo
@@ -166,6 +167,7 @@
 		    		let totalRecordCount = 0;
 
 		    		jsonLogTrsmHstry.length = 0;
+		    		console.log(data);
 		        	data.resultList.forEach((item, index) => {
 						const log = {
 							prcsDt			: item.prcsDt,

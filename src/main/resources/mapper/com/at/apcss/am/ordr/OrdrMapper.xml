@@ -350,7 +350,7 @@
 					 WHERE OI.DEL_YN 		= 'N'
 					   AND OI.RCPTN_SE_CD 	= '99'
 					   AND OI.APC_CD		= #{apcCd}
-					   AND OI.WRHS_YMD >= TO_CHAR(SYSDATE, 'YYYYMMDD')
+					   AND OI.OUTORDR_YMD  >= TO_CHAR(SYSDATE, 'YYYYMMDD')
 				) pt0
     	]]>
 

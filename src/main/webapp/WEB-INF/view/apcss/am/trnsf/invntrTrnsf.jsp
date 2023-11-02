@@ -84,7 +84,7 @@
 									id="srch-slt-vrtyCd"
 									name="srch-slt-vrtyCd"
 									class="form-control input-sm"
-									unselected-text="선택"
+									unselected-text="전체"
 									jsondata-ref="jsonComVrty"
 									onchange="fn_selectVrty"
 								></sbux-select>
@@ -151,6 +151,7 @@
 									name="srch-slt-invntrSeCd"
 									class="form-control input-sm"
 									jsondata-ref="jsonComInvntrSeCd"
+									onchange="fn_invvntrSeCdChg"
 								/>
 							</td>
 						</tr>
@@ -191,7 +192,7 @@
 
 		fn_search();
 	});
-	
+
 	const fn_dtpChange = function(){
 		let trnsfYmdFrom = SBUxMethod.get("srch-dtp-trnsfYmdFrom");
 		let trnsfYmdTo = SBUxMethod.get("srch-dtp-trnsfYmdTo");
@@ -221,7 +222,16 @@
 	const fn_selectItem = async function(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonComVrty, 	gv_selectedApcCd, itemCd);		// 품종
-		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	gv_selectedApcCd, itemCd);		// 규격
+
+		if(gfn_isEmpty(itemCd)){
+			jsonComSpcfct.length = 0;
+			SBUxMethod.refresh("srch-slt-spcfctCd");
+		}else{
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	gv_selectedApcCd, itemCd);		// 규격
+			SBUxMethod.refresh("srch-slt-spcfctCd");
+		}
+
+
 
 	}
 
@@ -234,10 +244,27 @@
 			}
 		}
 		SBUxMethod.set("srch-slt-itemCd", itemCd);
-		let rst = await Promise.all([
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, 		gv_selectedApcCd, itemCd),					// 규격
-		])
-		SBUxMethod.refresh("srch-slt-spcfctCd");
+
+		if(gfn_isEmpty(itemCd)){
+			jsonComSpcfct.length = 0;
+			SBUxMethod.refresh("srch-slt-spcfctCd");
+		}else{
+			let rst = await Promise.all([
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonComSpcfct, 		gv_selectedApcCd, itemCd),					// 규격
+			])
+			SBUxMethod.refresh("srch-slt-spcfctCd");
+		}
+
+	}
+
+	const fn_invvntrSeCdChg = function(){
+		let invntrSeCd = SBUxMethod.get("srch-slt-invntrSeCd");
+
+		if(invntrSeCd == 1){
+			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true')
+		}else{
+			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false')
+		}
 	}
 
 	function fn_createInvntrTrnsfGrid() {
