@@ -156,13 +156,23 @@
 			grdApcInfoMng.setCellData(grdApcInfoMng.getGridDataAll().length, 0, true);
 		}
 		else{
+			var alertList = [];
+			var deleteList = [];
 			for(var i=0; i<grdApcInfoMng.getGridDataAll().length; i++){
 				if(grdApcInfoMng.getGridDataAll()[i].checked == "true"){
-					if (grdApcInfoMng.getGridDataAll()[i].apcCd == "" || grdApcInfoMng.getGridDataAll()[i].apcCd == null){
-						grdApcInfoMng.deleteRow(i+1);
-						i--;
+					if (gfn_isEmpty(grdApcInfoMng.getGridDataAll()[i].apcCd)){
+						deleteList.push(i+1);
+					} else {
+						var rowData = grdApcInfoMng.getRowData(i+1);
+						alertList.push((i+1) + "행 (APC코드: " + rowData.apcCd + ")");
 					}
 				}
+			}
+			if (alertList.length != 0) {
+				alert(alertList.join(", ") + "은 이미 등록된 데이터입니다.\n\n삭제하시려면 사용유무를 미사용으로 수정하십시오.");
+			}
+			for (var i=deleteList.length; i>0; i--) {
+				grdApcInfoMng.deleteRow(deleteList[i-1]);
 			}
 		}
 	}
