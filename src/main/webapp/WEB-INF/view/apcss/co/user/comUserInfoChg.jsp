@@ -78,7 +78,7 @@
 					<li><span>사용자 내역</span></li>
 				</ul>
 			</div>
-			<div id="sb-area-grdUserInfoChg" style="height:500px;"></div>
+			<div id="sb-area-grdUserInfoChg" style="height:579px;"></div>
 			</div>
 		</div>
 </section>
