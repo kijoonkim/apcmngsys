@@ -37,4 +37,11 @@ public interface ComUserMapper {
 	 */
 	public int updateComUser(ComUserVO comUserVO);
 
+	/**
+	 * 비밀번호 초기화
+	 * @param comUserVO
+	 * @return List<>
+	 */
+	public int updComUserPwd(ComUserVO comUserVO);
+
 }
