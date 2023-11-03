@@ -163,13 +163,13 @@ async function fn_pagingUserList(){
 }
 
 async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
-	let apcNm = SBUxMethod.get("gsb-slt-apcCd");
+	let apcCd = SBUxMethod.get("gsb-slt-apcCd");
 	let userId = SBUxMethod.get("srch-inp-userId");
 	let userNm = SBUxMethod.get("srch-inp-userNm");
 	let userType = SBUxMethod.get("srch-slt-userType");
 	
 	var comUserVO = {
-		  apcNm					: apcNm	
+		  apcCd					: apcCd	
 		, userId				: userId
 		, userNm				: userNm
 		, userType				: userType

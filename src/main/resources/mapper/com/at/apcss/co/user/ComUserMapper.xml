@@ -103,7 +103,9 @@
 			  FROM TB_COM_USER CU
 			  WHERE CU.DEL_YN = 'N'
     	]]>
-
+		<if test='apcCd != null and apcCd != ""'>
+			   AND CU.APC_CD = #{apcCd}
+		</if>
 		<if test='userId != null and userId != ""'>
 			   AND CU.USER_ID = #{userId}
 		</if>
