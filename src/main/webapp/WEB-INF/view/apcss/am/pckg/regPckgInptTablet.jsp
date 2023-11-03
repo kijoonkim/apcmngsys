@@ -139,19 +139,6 @@
 							</td>
 							<td colspan="5"></td>
 						</tr>
-						<tr>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>포장수량/중량</th>
-							<td class="td_input"  style="border-right: hidden;">
-								<sbux-input id="srch-inp-pckgQntt" name="srch-inp-pckgQntt" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-pckgWght" name="srch-inp-pckgWght" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"></sbux-input>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-label id="srch-lbl-pckgQnttWght" name="srch-lbl-pckgQnttWght" uitype="normal" text="Kg" class="bold"></sbux-label>
-							</td>
-							<td colspan="5"></td>
-						</tr>
 					</tbody>
 				</table>
 				<!--[pp] //검색 -->
@@ -162,7 +149,7 @@
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdPckgInptTablet" class="table table-bordered table-hover tbl_col tbl_fixed" style="width:100%;height:250px;"></div>
+					<div id="sb-area-grdPckgInptTablet" class="table table-bordered table-hover tbl_col tbl_fixed" style="width:100%;height:330px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -234,10 +221,6 @@
             	format : {type:'number', rule:'#,###'}},
             {caption: ['투입중량'], 		ref: 'inptWght', 		width: '80px', 	type: 'output', style:'text-align: right',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-            {caption: ['포장수량'], 		ref: 'pckgQntt', 		width: '80px', 	type: 'output', style:'text-align: right',
-            	format : {type:'number', rule:'#,###'}},
-            {caption: ['포장중량'], 		ref: 'pckgWght', 		width: '80px', 	type: 'output', style:'text-align: right',
-                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
             {caption: ['비고'], 			ref: 'rmrk', 			width: '200px', type: 'output'},
             {caption: ['포장기코드'], 		ref: 'fcltCd', 			hidden: true},
             {caption: ['선별번호'], 		ref: 'sortno', 			hidden: true},
@@ -302,8 +285,6 @@
 				  , spcfctCd 		: item.spcfctCd
 				  , inptQntt 		: item.inptQntt
 				  , inptWght 		: item.inptWght
-				  , pckgQntt 		: item.pckgQntt
-				  , pckgWght 		: item.pckgWght
 				  , rmrk			: item.rmrk
 				}
 				jsonPckgInptTablet.push(pckgInpt);
@@ -357,8 +338,6 @@
 		SBUxMethod.set('srch-inp-sortWght', rowData.sortWght);
 		SBUxMethod.set('srch-inp-inptQntt', rowData.inptQntt);
 		SBUxMethod.set('srch-inp-inptWght', rowData.inptWght);
-		SBUxMethod.set('srch-inp-pckgQntt', rowData.pckgQntt);
-		SBUxMethod.set('srch-inp-pckgWght', rowData.pckgWght);
     }
 	
 	// 초기화
@@ -383,8 +362,6 @@
 		SBUxMethod.set('srch-inp-sortWght', "");
 		SBUxMethod.set('srch-inp-inptQntt', "");
 		SBUxMethod.set('srch-inp-inptWght', "");
-		SBUxMethod.set('srch-inp-pckgQntt', "");
-		SBUxMethod.set('srch-inp-pckgWght', "");
     }
 	
 	// 선별지시번호 선택 팝업 호출
