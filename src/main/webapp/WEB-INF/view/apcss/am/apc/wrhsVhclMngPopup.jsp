@@ -58,7 +58,7 @@
 							<li><span>차량정보</span></li>
 						</ul>
 					</div>
-					<div id="wrhsVhclMngGridArea" style="height:157px; width: 100%;"></div>
+					<div id="sb-area-wrhsVhcl" style="height:157px; width: 100%;"></div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
 					<div class="ad_tbl_top">
@@ -66,7 +66,7 @@
 							<li><span>운송지역별 운임비용 등록</span></li>
 						</ul>
 					</div>
-					<div id="rgnTrsprtCstMngGridArea" style="height:157px; width: 100%;"></div>
+					<div id="sb-area-rgnTrsprtCst" style="height:157px; width: 100%;"></div>
 				</div>
 			</div>
 			<!--[pp] //검색결과 -->
@@ -75,21 +75,28 @@
 </body>
 <script type="text/javascript">
 	//입고차량정보 등록
-	var wrhsVhclMngGridData = []; // 그리드의 참조 데이터 주소 선언
+	var jsonWrhsVhcl = []; // 그리드의 참조 데이터 주소 선언
 	async function fn_wrhsVhclMngCreateGrid() {
 		SBUxMethod.set("wrhsVhcl-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 
-		wrhsVhclMngGridData = [];
+		jsonWrhsVhcl = [];
 	    let SBGridProperties = {};
-	    SBGridProperties.parentid = 'wrhsVhclMngGridArea';
-	    SBGridProperties.id = 'wrhsVhclMngDatagrid';
-	    SBGridProperties.jsonref = 'wrhsVhclMngGridData';
+	    SBGridProperties.parentid = 'sb-area-wrhsVhcl';
+	    SBGridProperties.id = 'grdWrhsVhcl';
+	    SBGridProperties.jsonref = 'jsonWrhsVhcl';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.columns = [
+	        {caption: ["처리"], 		ref: 'delYn',   type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        	if(strValue== null || strValue == ""){
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdWrhsVhcl\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdWrhsVhcl\", " + nRow + ")'>삭제</button>";
+	        	}
+		    }},
 	        {caption: ["차량번호"], 	ref: 'vhclno',  type:'input', width:'120px',    style:'text-align:center',
   	            validate : gfn_chkByte.bind({byteLimit: 40}), typeinfo : {mask : {alias : '#'}}},
 	        {caption: ["기사명"], 		ref: 'drvrNm',  type:'input',  width:'80px',    style:'text-align:center',
@@ -102,20 +109,13 @@
 	        	validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'k'}}},
 	        {caption: ["비고"], 		ref: 'rmrk',  	type:'input',  width:'280px',    style:'text-align:center',
 	        	validate : gfn_chkByte.bind({byteLimit: 1000})},
-	        {caption: ["처리"], 		ref: 'delYn',   type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"wrhsVhclMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"wrhsVhclMngDatagrid\", " + nRow + ")'>삭제</button>";
-	        	}
-		    }},
 		    {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
 	    ];
-	    window.wrhsVhclMngDatagrid = _SBGrid.create(SBGridProperties);
+	    grdWrhsVhcl = _SBGrid.create(SBGridProperties);
 	    fn_selectWrhsVhclList();
 
 	}
-	
+
 	async function fn_selectWrhsVhclList(){
 		fn_callSelectWrhsVhclList();
 	}
@@ -124,7 +124,7 @@
 		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        wrhsVhclMngGridData = [];
+        jsonWrhsVhcl.length = 0;
         try{
         	data.resultList.forEach((item, index) => {
 				let wrhsVhcl = {
@@ -137,12 +137,13 @@
 				  , delYn 	: item.delYn
 				  , apcCd	: item.apcCd
 				}
-				wrhsVhclMngGridData.push(Object.assign({}, wrhsVhcl));
+				jsonWrhsVhcl.push(wrhsVhcl);
 			});
-        	wrhsVhclMngDatagrid.rebuild();
-        	wrhsVhclMngDatagrid.setCellDisabled(0, 0, wrhsVhclMngGridData.length, 0, true);
-        	wrhsVhclMngDatagrid.addRow();
-        	
+        	grdWrhsVhcl.rebuild();
+        	grdWrhsVhcl.setCellDisabled(0, 1, grdWrhsVhcl.getRows() -1, 1, true);
+        	grdWrhsVhcl.addRow(true);
+        	grdWrhsVhcl.setCellDisabled(grdWrhsVhcl.getRows() -1, 0, grdWrhsVhcl.getRows() -1, grdWrhsVhcl.getCols() -1, true);
+
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -152,33 +153,33 @@
 	}
 
 	// 운송지역별 운임비용 등록
-    var rgnTrsprtCstMngGridData = []; // 그리드의 참조 데이터 주소 선언
+    var jsonRgnTrsprtCst = []; // 그리드의 참조 데이터 주소 선언
     async function fn_rgnTrsprtCstMngCreateGrid() {
-    	rgnTrsprtCstMngGridData = [];
+    	jsonRgnTrsprtCst.length = 0;
         let SBGridProperties = {};
-	    SBGridProperties.parentid = 'rgnTrsprtCstMngGridArea';
-	    SBGridProperties.id = 'rgnTrsprtCstMngDatagrid';
-	    SBGridProperties.jsonref = 'rgnTrsprtCstMngGridData';
+	    SBGridProperties.parentid = 'sb-area-rgnTrsprtCst';
+	    SBGridProperties.id = 'grdRgnTrsprtCst';
+	    SBGridProperties.jsonref = 'jsonRgnTrsprtCst';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
-            {caption: ["코드"], 			ref: 'trsprtRgnCd',  	type:'output',  width:'100px',     style:'text-align:center', hidden : true},
-            {caption: ["운송지역"], 		ref: 'trsprtRgnNm',  	type:'input',  width:'320px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
-            {caption: ["운송비용(원)"], 	ref: 'trsprtCst',  		type:'input',  width:'260px',    style:'text-align:right', format : {type:'number', rule:'#,### 원'} },
-            {caption: ["비고"], 			ref: 'rmrk',  			type:'input',  width:'280px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
-            {caption: ["처리"], 			ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            {caption: ["처리"], 			ref: 'delYn',   		type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             	if(strValue== null || strValue == ""){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"rgnTrsprtCstMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdRgnTrsprtCst\", " + nRow + ", " + nCol + ")'>추가</button>";
             	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"rgnTrsprtCstMngDatagrid\", " + nRow + ")'>삭제</button>";
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdRgnTrsprtCst\", " + nRow + ")'>삭제</button>";
             	}
 		    }},
+            {caption: ["코드"], 			ref: 'trsprtRgnCd',  	type:'output',  width:'100px',     style:'text-align:center', hidden : true},
+            {caption: ["운송지역"], 		ref: 'trsprtRgnNm',  	type:'input',  width:'150px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
+            {caption: ["운송비용(원)"], 	ref: 'trsprtCst',  		type:'input',  width:'120px',    style:'text-align:right', format : {type:'number', rule:'#,### 원'} },
+            {caption: ["비고"], 			ref: 'rmrk',  			type:'input',  width:'600px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
 		    {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
         ];
-        window.rgnTrsprtCstMngDatagrid = _SBGrid.create(SBGridProperties);
+        grdRgnTrsprtCst = _SBGrid.create(SBGridProperties);
         fn_selectRgnTrsprtCstList();
     }
 
@@ -187,7 +188,7 @@
     	fn_selectRgnTrsprtCstList();
     	fn_selectWrhsVhclList();
     }
-	
+
     async function fn_selectRgnTrsprtCstList(){
 		fn_callSelectRgnTrsprtCstList();
 	}
@@ -196,7 +197,7 @@
 		let apcCd = SBUxMethod.get("inp-apcCd");
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectRgnTrsprtCstList.do", {apcCd : apcCd});
         let data = await postJsonPromise;
-        rgnTrsprtCstMngGridData = [];
+        jsonRgnTrsprtCst.length = 0;
         try{
         	data.resultList.forEach((item, index) => {
 				let rgnTrsprtCst = {
@@ -207,10 +208,11 @@
 				  , delYn 			: item.delYn
 				  , apcCd			: item.apcCd
 				}
-				rgnTrsprtCstMngGridData.push(Object.assign({}, rgnTrsprtCst));
+				jsonRgnTrsprtCst.push(rgnTrsprtCst);
 			});
-        	rgnTrsprtCstMngDatagrid.rebuild();
-        	rgnTrsprtCstMngDatagrid.addRow();
+        	grdRgnTrsprtCst.rebuild();
+        	grdRgnTrsprtCst.addRow(true);
+        	grdRgnTrsprtCst.setCellDisabled(grdRgnTrsprtCst.getRows() -1, 0, grdRgnTrsprtCst.getRows() -1, grdRgnTrsprtCst.getCols() -1, true);
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -227,7 +229,7 @@
 			if(rowData.delYn != 'N')
 				continue;
 			const rowSts = wrhsVhclMngDatagrid.getRowStatus(i);
-			
+
     		if(gfn_isEmpty(rowData.vhclno)){
 				gfn_comAlert("W0002", "차량번호");			//	W0002	{0}을/를 입력하세요.
 				return;
@@ -243,7 +245,7 @@
 				continue;
 			}
 		}
-		
+
 		let rgnTrsprtCstAllData = rgnTrsprtCstMngDatagrid.getGridDataAll();
 		var rgnTrsprtCstList = [];
 		for(var i=1; i<rgnTrsprtCstAllData.length; i++){
@@ -262,7 +264,7 @@
 				continue;
 			}
 		}
-		
+
 		if(wrhsVhclList.length == 0 && rgnTrsprtCstList.length == 0){
 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
 			return;

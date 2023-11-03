@@ -1179,9 +1179,9 @@
 		jsonExpSltGdsSeCd 		= gfn_cloneJson(jsonComGdsSeCd);			// 상품구분
 		jsonExpSltWrhsSeCd 		= gfn_cloneJson(jsonComWrhsSeCd);			// 입고구분
 		jsonExpSltTrsprtSeCd 	= gfn_cloneJson(jsonExeclComTrsprtSeCd);	// 운송구분
-		jsonExpStdGrd 			= gfn_cloneJson(gjsonStdGrdObjKnd);			// 원물등급
-		jsonExpStdGrdDtl 		= gfn_cloneJson(gjsonStdGrdObjDtl);			// 원물등급상세
-		jsonExpSpmtPckgUnit 	= gfn_cloneJson(jsonExeclComSpmtPckgUnit);	// 포장구분
+		jsonExpSltStdGrd 			= gfn_cloneJson(gjsonStdGrdObjKnd);			// 원물등급
+		jsonExpSltStdGrdDtl 		= gfn_cloneJson(gjsonStdGrdObjDtl);			// 원물등급상세
+		jsonExpSltSpmtPckgUnit 	= gfn_cloneJson(jsonExeclComSpmtPckgUnit);	// 포장구분
 	}
 
 	const fn_setExpJson = async function() {

@@ -97,6 +97,7 @@
 			gfn_setApcItemSBSelect("grdSpmtPckgUnit", 		jsonSPUGrdItemCd, gv_apcCd),	// APC 품목(저장)
 			gfn_setComCdSBSelect("grdSpmtPckgUnit", 		jsonSPUGdsGrd, "GDS_GRD")		// 상품등급(출하)
 		]);
+		jsonSpmtPckgUnit.length = 0;
 		grdSpmtPckgUnit.refresh({"combo":true});
 	}
 
@@ -139,6 +140,13 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
+	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        	if(strValue== null || strValue == ""){
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdSmptPckgUnit\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdSmptPckgUnit\", " + nRow + ")'>삭제</button>";
+	        	}
+		    }},
 	        {caption: ["품목"], 			ref: 'itemCd',   	type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGrdItemCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["품종"], 			ref: 'vrtyCd',   	type:'combo',  width:'100px',    style:'text-align:center',
@@ -156,13 +164,6 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_modalClick(" + nRow + ")'>단가</button>";
 	        	}else{
 	        		return ;
-	        	}
-		    }},
-	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdSmptPckgUnit\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdSmptPckgUnit\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
 	        {caption: ["출하포장단위코드"], ref: 'spmtPckgUnitCd',	type:'input',  hidden : true},
@@ -208,6 +209,7 @@
 			});
 	    	grdSpmtPckgUnit.rebuild();
 	    	grdSpmtPckgUnit.addRow(true);
+	    	grdSpmtPckgUnit.setCellDisabled(grdSpmtPckgUnit.getRows() -1, 0, grdSpmtPckgUnit.getRows() -1, grdSpmtPckgUnit.getCols() -1, true);
 	    }catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);

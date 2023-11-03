@@ -109,16 +109,16 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["적용기준일자"], ref: 'aplcnCrtrYmd', 	type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  width:'200px',    style:'text-align:center'},
-	        {caption: ["매출단가"],     ref: 'spmtSlsUntprc',  	type:'input',  width:'150px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-	        {caption: ["비고"],     	ref: 'rmrk',  			type:'input',  width:'500px',    style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'delYn',  			type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["처리"], 		ref: 'delYn',  			type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdSpmtSlsUntprcReg\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdSpmtSlsUntprcReg\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
+	        {caption: ["적용기준일자"], ref: 'aplcnCrtrYmd', 	type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},  width:'200px',    style:'text-align:center'},
+	        {caption: ["매출단가"],     ref: 'spmtSlsUntprc',  	type:'input',  width:'150px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
+	        {caption: ["비고"],     	ref: 'rmrk',  			type:'input',  width:'500px',    style:'text-align:center'},
 	        {caption: ["출하포장단위코드"], ref: 'spmtPckgUnitCd',	type:'input',  hidden : true},
 	        {caption: ["APC코드"], 			ref: 'apcCd',   		type:'input',  hidden : true},
 	        {caption: ["출하매출단가코드"], ref: 'spmtSlsUntprcCd',	type:'input',  hidden : true},
@@ -156,6 +156,7 @@
 			});
 	    	grdSpmtSlsUntprcReg.rebuild();
 	    	grdSpmtSlsUntprcReg.addRow(true);
+	    	grdSpmtSlsUntprcReg.setCellDisabled(grdSpmtSlsUntprcReg.getRows() -1, 0, grdSpmtSlsUntprcReg.getRows() -1, grdSpmtSlsUntprcReg.getCols() -1, true);
 	    }catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);

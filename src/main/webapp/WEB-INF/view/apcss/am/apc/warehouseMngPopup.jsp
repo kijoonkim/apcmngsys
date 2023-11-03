@@ -73,16 +73,16 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-	        {caption: ["창고 명"], 		ref: 'cdVlNm',   		type:'input',  width:'250px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
-	        {caption: ["비고"], 		ref: 'cdVlExpln',   	type:'input',  width:'300px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
-	        {caption: ["표시순서"], 	ref: 'indctSeq',   		type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
-	        {caption: ["처리"], 		ref: 'delYn',   		type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	        {caption: ["처리"], 		ref: 'delYn',   		type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdWarehouse\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdWarehouse\", " + nRow + ")'>삭제</button>";
 	        	}
 	        }},
+	        {caption: ["창고 명"], 		ref: 'cdVlNm',   		type:'input',  width:'250px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
+	        {caption: ["비고"], 		ref: 'cdVlExpln',   	type:'input',  width:'300px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
+	        {caption: ["표시순서"], 	ref: 'indctSeq',   		type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["공통ID"], 		ref: 'cdId',   		type:'input',  hidden : true},
 	        {caption: ["창고 코드"], 	ref: 'cdVlCd',   	type:'input',  hidden:true},
@@ -117,6 +117,7 @@
 	    	jsonWarehouse = newJsonWarehouse;
 	    	grdWarehouse.rebuild();
 	    	grdWarehouse.addRow(true);
+	    	grdWarehouse.setCellDisabled(grdWarehouse.getRows() -1, 0, grdWarehouse.getRows() -1, grdWarehouse.getCols() -1, true);
 	    }catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
