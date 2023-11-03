@@ -191,6 +191,14 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
  		console.error("failed", e.message);
     }
 }
+
+/**
+ * @name fn_onChangeApc
+ * @description APC 선택 변경 event
+ */
+const fn_onChangeApc = async function() {
+	fn_search();
+}
 </script>
 </body>
 </html>

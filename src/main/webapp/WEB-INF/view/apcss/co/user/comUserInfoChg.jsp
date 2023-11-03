@@ -157,30 +157,29 @@ async function fn_search() {
 
 //페이징
 async function fn_pagingUserList(){
-	console.log('test', 'test');
 	let recordCountPerPage = userInfoChgGridId.getPageSize();   		// 몇개의 데이터를 가져올지 설정
 	let currentPageNo = userInfoChgGridId.getSelectPageIndex();
 	fn_callSelectUserList(recordCountPerPage, currentPageNo);
 }
 
 async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
+	let apcNm = SBUxMethod.get("gsb-slt-apcCd");
 	let userId = SBUxMethod.get("srch-inp-userId");
 	let userNm = SBUxMethod.get("srch-inp-userNm");
 	let userType = SBUxMethod.get("srch-slt-userType");
 	
-	var comUserVO = { 
-		  userId				: userId
+	var comUserVO = {
+		  apcNm					: apcNm	
+		, userId				: userId
 		, userNm				: userNm
 		, userType				: userType
 		, pagingYn 				: 'Y'
 		, currentPageNo 		: currentPageNo
 		, recordCountPerPage 	: recordCountPerPage}
-	console.log('comUserVO',comUserVO);
 	let postJsonPromise = gfn_postJSON("/co/user/users", comUserVO);
     let data = await postJsonPromise;                
     newUserInfoChgGridData = [];
     userInfoChgGridData = [];
-    console.log('data', data);
     
     try{
     	data.resultList.forEach((item, index) => {
@@ -205,8 +204,6 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 			userInfoChgGridData.push(Object.assign({}, userAprvReg));
 			newUserInfoChgGridData.push(Object.assign({}, userAprvReg));
 			
-			console.log('userInfoChgGridData', userInfoChgGridData);
-			console.log('newUserInfoChgGridData', newUserInfoChgGridData);
 			
 			if (index === 0) {
 					totalRecordCount = item.totalRecordCount;
@@ -251,8 +248,6 @@ async function fn_updataUserList(){
 
 async function fn_callUpdateUserList(){
 	
-	console.log('newUserInfoChgGridData', newUserInfoChgGridData);
-	console.log('userInfoChgGridData', userInfoChgGridData);
 	
 	let regMsg = "등록 하시겠습니까?";
 	if(confirm(regMsg)){
@@ -263,6 +258,14 @@ async function fn_callUpdateUserList(){
 	}
 	fn_search();
 
+}
+
+/**
+ * @name fn_onChangeApc
+ * @description APC 선택 변경 event
+ */
+const fn_onChangeApc = async function() {
+	fn_search();
 }
 </script>
 

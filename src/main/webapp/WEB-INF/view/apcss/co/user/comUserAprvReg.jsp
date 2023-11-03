@@ -170,12 +170,12 @@
      * @param {number} pageNo
      */
 	const fn_setGrdUserAprv = async function(pageSize, pageNo) {
-
+		let apcNm = SBUxMethod.get("gsb-slt-apcCd");	//	사용자상태
         let userStts = SBUxMethod.get("srch-slt-userStts");	//	사용자상태
         let userNm = SBUxMethod.get("srch-inp-userNm");     // 	사용자명
 
 		const postJsonPromise = gfn_postJSON("/co/user/selectUserAprvList.do", {
-			apcCd: gv_selectedApcCd,
+			apcNm: apcNm,
 			userStts: userStts,
 			userNm: userNm,
           	// pagination
