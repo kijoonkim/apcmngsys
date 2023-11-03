@@ -115,7 +115,6 @@
 
 	var jsonStdGrd = [];
 	var jsonStdGrdDtl = [];
-	var jsonStdGrdDtl = [];
 
 	const fn_initSBSelectStdGrd = async function() {
 		let rst = await Promise.all([
@@ -125,9 +124,14 @@
 
 		]);
 		SBUxMethod.set("grd-rdo-grdSeCd", "01");
+
+		jsonStdGrd.length = 0;
+		jsonStdGrdDtl.length = 0;
+		jsonStdGrdJgmt.length = 0;
 		grdStdGrd.refresh({"combo":true});
 		grdStdGrdDtl.refresh({"combo":true});
 		grdStdGrdJgmt.refresh({"combo":true});
+
 	}
 	const fn_createGrdGrid = async function() {
 
@@ -143,17 +147,17 @@
    		SBGridPropertiesStdGrd.oneclickedit = true;
    		SBGridPropertiesStdGrd.frozenrows = 1
    		SBGridPropertiesStdGrd.columns = [
-	        {caption: ["등급분류명"],     	ref: 'grdKndNm',  type:'input',  width:'180px',    style:'text-align:center',
-	        		typeinfo : {maxlength : 30}},
-	        {caption: ["순번"],     ref: 'sn',  type:'input',  width:'80px',    style:'text-align:center',
-					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}},
-	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdStdGrd\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdStdGrd\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
+	        {caption: ["등급분류명"],     	ref: 'grdKndNm',  type:'input',  width:'180px',    style:'text-align:center',
+	        		typeinfo : {maxlength : 30}},
+	        {caption: ["순번"],     ref: 'sn',  type:'input',  width:'80px',    style:'text-align:center',
+					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}},
 		    {caption: ["상세"], 		ref: 'grdKnd',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(!gfn_isEmpty(strValue)){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_stdGrdDtl(" + nRow + ")'>상세</button>";
@@ -179,19 +183,19 @@
 	    SBGridPropertiesStdGrdDtl.oneclickedit = true;
 	    SBGridPropertiesStdGrdDtl.frozenrows = 1;
 	    SBGridPropertiesStdGrdDtl.columns = [
-	    	{caption: ["등급상세명"],     	ref: 'grdNm',  type:'input',  width:'180px',    style:'text-align:center',
-        			typeinfo : {maxlength : 30}},
-       		{caption: ["점수"],     ref: 'grdVl',  type:'input',  width:'80px',    style:'text-align:center',
-					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-       		{caption: ["순서"],     ref: 'sn',  type:'input',  width:'80px',    style:'text-align:center',
-					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}, format : {type:'number', rule:'#,###'}},
-			{caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+			{caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdStdGrdDtl\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdStdGrdDtl\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
+	    	{caption: ["등급상세명"],     	ref: 'grdNm',  type:'input',  width:'180px',    style:'text-align:center',
+        			typeinfo : {maxlength : 30}},
+       		{caption: ["점수"],     ref: 'grdVl',  type:'input',  width:'80px',    style:'text-align:center',
+					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+       		{caption: ["순서"],     ref: 'sn',  type:'input',  width:'80px',    style:'text-align:center',
+					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}, format : {type:'number', rule:'#,###'}},
 	        {caption: ["APC코드"], 	ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true},
 	        {caption: ["등급구분코드"], ref: 'grdSeCd',   	type:'input',  hidden : true},
@@ -210,6 +214,13 @@
 	    SBGridPropertiesStdGrdJgmt.oneclickedit = true;
 	    SBGridPropertiesStdGrdJgmt.frozenrows = 1;
 	    SBGridPropertiesStdGrdJgmt.columns = [
+			{caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        	if(strValue== null || strValue == ""){
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdStdGrdJgmt\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdStdGrdJgmt\", " + nRow + ")'>삭제</button>";
+	        	}
+		    }},
 	    	{caption: ["등급종류명"],     	ref: 'grdNm',  type:'input',  width:'240px',    style:'text-align:center',
         			typeinfo : {maxlength : 30}},
         	{caption: ["판정유형"], ref: 'jgmtType',   	type:'combo',  width:'220px',    style:'text-align:center',
@@ -222,13 +233,6 @@
 					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 10}, format : {type:'number', rule:'#,###'}, hidden : true},
        		{caption: ["순서"],     ref: 'sn',  type:'input',  width:'100px',    style:'text-align:center',
 					typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}, format : {type:'number', rule:'#,###'}},
-			{caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdStdGrdJgmt\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdStdGrdJgmt\", " + nRow + ")'>삭제</button>";
-	        	}
-		    }},
 	        {caption: ["APC코드"], 	ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true},
 	        {caption: ["등급구분코드"], ref: 'grdSeCd',   	type:'input',  hidden : true},
@@ -283,6 +287,7 @@
 			});
 	    	grdStdGrd.rebuild();
 	    	grdStdGrd.addRow(true);
+	    	grdStdGrd.setCellDisabled(grdStdGrd.getRows() -1, 0, grdStdGrd.getRows() -1, grdStdGrd.getCols() -1, true);
 	    }catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -317,6 +322,7 @@
 			});
 	    	grdStdGrdJgmt.rebuild();
 	    	grdStdGrdJgmt.addRow(true);
+	    	grdStdGrdJgmt.setCellDisabled(grdStdGrdJgmt.getRows() -1, 0, grdStdGrdJgmt.getRows() -1, grdStdGrdJgmt.getCols() -1, true);
 	    }catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -360,6 +366,7 @@
 
 	    	grdStdGrdDtl.rebuild();
 	    	grdStdGrdDtl.addRow(true);
+	    	grdStdGrdDtl.setCellDisabled(grdStdGrdDtl.getRows() -1, 0, grdStdGrdDtl.getRows() -1, grdStdGrdDtl.getCols() -1, true);
 	    }catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -427,7 +434,7 @@
 			let grdNm = rowData.grdNm;
 			if(delYn == 'N'){
 				if (gfn_isEmpty(grdNm)) {
-		  			gfn_comAlert("W0002", "등급명");		//	W0002	{0}을/를 입력하세요.
+		  			gfn_comAlert("W0002", "등급종류명");		//	W0002	{0}을/를 입력하세요.
 		            return;
 		  		}
 				if (rowSts === 3){
@@ -477,6 +484,7 @@
         let data = await postJsonPromise;
         try {
         	if(data.deletedCnt > 0){
+        		gfn_comAlert("I0001");		// I0001	처리 되었습니다.
         		fn_searchStdGrd();
         		return;
         	}else if (data.errMsg != null ){
@@ -498,6 +506,7 @@
         let data = await postJsonPromise;
         try {
         	if(data.deletedCnt > 0){
+        		gfn_comAlert("I0001");		// I0001	처리 되었습니다.
         		fn_stdGrdDtl(grdStdGrd.getRow());
         		return;
         	}else if (data.errMsg != null ){
@@ -519,6 +528,7 @@
         let data = await postJsonPromise;
         try {
         	if(data.deletedCnt > 0){
+        		gfn_comAlert("I0001");		// I0001	처리 되었습니다.
         		fn_searchStdGrd();
         		return;
         	}else if (data.errMsg != null ){

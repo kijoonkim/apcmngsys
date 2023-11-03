@@ -813,110 +813,201 @@
             	cnptMngGridData[nRow-1].delYn = "N";
             	cnptMngDatagrid.addRow(true);
             }else if (grid === "grdFclt") {
+            	let apcCdCol = grdFclt.getColRef("apcCd");
             	grdFclt.setCellData(nRow, nCol, "N", true);
-            	grdFclt.setCellData(nRow, 5, gv_apcCd, true);
+            	grdFclt.setCellData(nRow, apcCdCol, gv_apcCd, true);
             	grdFclt.addRow(true);
+
+            	grdFclt.setCellDisabled(0, 0, grdFclt.getRows() -1, grdFclt.getCols() -1, false);
+            	grdFclt.setCellDisabled(grdFclt.getRows() -1, 0, grdFclt.getRows() -1, grdFclt.getCols() -1, true);
+
             }else if (grid === "grdWarehouse") {
+            	let apcCdCol = grdWarehouse.getColRef("apcCd");
+            	let warehouseSeCdCol = grdWarehouse.getColRef("warehouseSeCd");
+
             	grdWarehouse.setCellData(nRow, nCol, "N", true);
-            	grdWarehouse.setCellData(nRow, 4, gv_apcCd, true);
-            	grdWarehouse.setCellData(nRow, 5, "WAREHOUSE_SE_CD", true);
+            	grdWarehouse.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdWarehouse.setCellData(nRow, warehouseSeCdCol, "WAREHOUSE_SE_CD", true);
             	grdWarehouse.addRow(true);
+
+            	grdWarehouse.setCellDisabled(0, 0, grdWarehouse.getRows() -1, grdWarehouse.getCols() -1, false);
+            	grdWarehouse.setCellDisabled(grdWarehouse.getRows() -1, 0, grdWarehouse.getRows() -1, grdWarehouse.getCols() -1, true);
             }else if(grid === "grdPlt"){
+
+            	let apcCdCol = grdPlt.getColRef("apcCd");
+            	let unitCdCol = grdPlt.getColRef("unitCd");
+            	let useYnCol = grdPlt.getColRef("useYn");
+            	let pltBxSeCdCol = grdPlt.getColRef("pltBxSeCd");
+
             	grdPlt.setCellData(nRow, nCol, "N", true);
-            	grdPlt.setCellData(nRow, 4, "2", true);
-            	grdPlt.setCellData(nRow, 6, "Y", true);
-            	grdPlt.setCellData(nRow, 8, "P", true);
-            	grdPlt.setCellData(nRow, 9, gv_apcCd, true);
+            	grdPlt.setCellData(nRow, unitCdCol, "2", true);
+            	grdPlt.setCellData(nRow, useYnCol, "Y", true);
+            	grdPlt.setCellData(nRow, pltBxSeCdCol, "P", true);
+            	grdPlt.setCellData(nRow, apcCdCol, gv_apcCd, true);
             	grdPlt.addRow(true);
+            	grdPlt.setCellDisabled(0, 0, grdPlt.getRows() -1, grdPlt.getCols() -1, false);
+            	grdPlt.setCellDisabled(grdPlt.getRows() -1, 0, grdPlt.getRows() -1, grdPlt.getCols() -1, true);
             }else if(grid === "grdBx"){
+
+            	let apcCdCol = grdBx.getColRef("apcCd");
+            	let unitCdCol = grdBx.getColRef("unitCd");
+            	let useYnCol = grdBx.getColRef("useYn");
+            	let pltBxSeCdCol = grdBx.getColRef("pltBxSeCd");
+
             	grdBx.setCellData(nRow, nCol, "N", true);
-            	grdBx.setCellData(nRow, 4, "2", true);
-            	grdBx.setCellData(nRow, 6, "Y", true);
-            	grdBx.setCellData(nRow, 8, "B", true);
-            	grdBx.setCellData(nRow, 9, gv_apcCd, true);
+            	grdBx.setCellData(nRow, unitCdCol, "2", true);
+            	grdBx.setCellData(nRow, useYnCol, "Y", true);
+            	grdBx.setCellData(nRow, pltBxSeCdCol, "B", true);
+            	grdBx.setCellData(nRow, apcCdCol, gv_apcCd, true);
             	grdBx.addRow(true);
+
+            	grdBx.setCellDisabled(0, 0, grdBx.getRows() -1, grdBx.getCols() -1, false);
+            	grdBx.setCellDisabled(grdBx.getRows() -1, 0, grdBx.getRows() -1, grdBx.getCols() -1, true);
             }else if(grid === "grdPckg"){
             	grdPckg.setCellData(nRow, nCol, "N", true);
             	grdPckg.setCellData(nRow, 5, gv_apcCd, true);
             	grdPckg.setCellData(nRow, 6, "PCKG_SE_CD", true);
             	grdPckg.addRow(true);
-            }else if(grid === "rgnTrsprtCstMngDatagrid"){
-            	rgnTrsprtCstMngDatagrid.setCellData(nRow, nCol, "N", true);
-            	rgnTrsprtCstMngDatagrid.setCellData(nRow, 5, gv_apcCd, true);
-            	rgnTrsprtCstMngDatagrid.addRow(true);
-            }else if(grid === "wrhsVhclMngDatagrid"){
-            	wrhsVhclMngGridData[nRow-1].delYn = "N";
-            	wrhsVhclMngGridData[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
-				wrhsVhclMngDatagrid.addRow();
+            }else if(grid === "grdRgnTrsprtCst"){
+
+            	let apcCdCol = grdRgnTrsprtCst.getColRef("apcCd");
+
+            	grdRgnTrsprtCst.setCellData(nRow, nCol, "N", true);
+            	grdRgnTrsprtCst.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdRgnTrsprtCst.addRow(true);
+            	grdRgnTrsprtCst.setCellDisabled(0, 0, grdRgnTrsprtCst.getRows() -1, grdRgnTrsprtCst.getCols() -1, false);
+            	grdRgnTrsprtCst.setCellDisabled(grdRgnTrsprtCst.getRows() -1, 0, grdRgnTrsprtCst.getRows() -1, grdRgnTrsprtCst.getCols() -1, true);
+
+            }else if(grid === "grdWrhsVhcl"){
+            	let apcCdCol = grdWrhsVhcl.getColRef("apcCd");
+
+            	grdWrhsVhcl.setCellData(nRow, nCol, "N", true);
+            	grdWrhsVhcl.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdWrhsVhcl.addRow(true);
+            	grdWrhsVhcl.setCellDisabled(grdWrhsVhcl.getRows() -2, 0, grdWrhsVhcl.getRows() -2, grdWrhsVhcl.getCols() -1, false);
+            	grdWrhsVhcl.setCellDisabled(grdWrhsVhcl.getRows() -1, 0, grdWrhsVhcl.getRows() -1, grdWrhsVhcl.getCols() -1, true);
             }else if(grid === "grdSpmtTrsprtCo"){
-            	spmtTrsprtMngGridData[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
-            	spmtTrsprtMngGridData[nRow-1].delYn = "N";
+
+            	let apcCdCol = spmtTrsprtMngGridData.getColRef("apcCd");
+            	spmtTrsprtMngGridData.setCellData(nRow, nCol, "N", true);
+            	spmtTrsprtMngGridData.setCellData(nRow, apcCdCol, gv_apcCd, true);
             	grdSpmtTrsprtCo.addRow(true);
+
+            	spmtTrsprtMngGridData.setCellDisabled(0, 0, spmtTrsprtMngGridData.getRows() -1, spmtTrsprtMngGridData.getCols() -1, false);
+            	spmtTrsprtMngGridData.setCellDisabled(spmtTrsprtMngGridData.getRows() -1, 0, spmtTrsprtMngGridData.getRows() -1, spmtTrsprtMngGridData.getCols() -1, true);
             }else if(grid === "grdOprtr"){
-            	jsonOprtr[nRow-1].apcCd = SBUxMethod.get("inp-apcCd");
-            	jsonOprtr[nRow-1].delYn = "N";
+
+            	let apcCdCol = grdOprtr.getColRef("apcCd");
+            	grdOprtr.setCellData(nRow, nCol, "N", true);
+            	grdOprtr.setCellData(nRow, apcCdCol, gv_apcCd, true);
             	grdOprtr.addRow(true);
+
+            	grdOprtr.setCellDisabled(0, 0, grdOprtr.getRows() -1, grdOprtr.getCols() -1, false);
+            	grdOprtr.setCellDisabled(grdOprtr.getRows() -1, 0, grdOprtr.getRows() -1, grdOprtr.getCols() -1, true);
             }else if(grid === "grdApcVrty"){
+
+            	let apcCdCol = grdApcVrty.getColRef("apcCd");
+            	let itemCdCol = grdApcVrty.getColRef("itemCd");
+
             	grdApcVrty.setCellData(nRow, nCol, "N", true);
-            	grdApcVrty.setCellData(nRow, 6, gv_apcCd, true);
-            	grdApcVrty.setCellData(nRow, 7, SBUxMethod.get("vrty-inp-itemCd"), true);
+            	grdApcVrty.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdApcVrty.setCellData(nRow, itemCdCol, SBUxMethod.get("vrty-inp-itemCd"), true);
             	grdApcVrty.addRow(true);
+
+            	grdApcVrty.setCellDisabled(0, 0, grdApcVrty.getRows() -1, grdApcVrty.getCols() -1, false);
+            	grdApcVrty.setCellDisabled(grdApcVrty.getRows() -1, 0, grdApcVrty.getRows() -1, grdApcVrty.getCols() -1, true);
             }else if(grid === "grdStdGrd"){
             	if(!(SBUxMethod.get("grd-slt-itemCd") == null || SBUxMethod.get("grd-slt-itemCd") == "")){
+
+            		let apcCdCol = grdStdGrd.getColRef("apcCd");
+                	let itemCdCol = grdStdGrd.getColRef("itemCd");
+                	let grdSeCdCol = grdStdGrd.getColRef("grdSeCd");
+
             		grdStdGrd.setCellData(nRow, nCol, "N", true);
-            		grdStdGrd.setCellData(nRow, 4, gv_apcCd, true);
-            		grdStdGrd.setCellData(nRow, 5, SBUxMethod.get("grd-slt-itemCd"), true);
-            		grdStdGrd.setCellData(nRow, 6, SBUxMethod.get("grd-rdo-grdSeCd"), true);
+            		grdStdGrd.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            		grdStdGrd.setCellData(nRow, itemCdCol, SBUxMethod.get("grd-slt-itemCd"), true);
+            		grdStdGrd.setCellData(nRow, grdSeCdCol, SBUxMethod.get("grd-rdo-grdSeCd"), true);
             		grdStdGrd.addRow(true);
+
+            		grdStdGrd.setCellDisabled(0, 0, grdStdGrd.getRows() -1, grdStdGrd.getCols() -1, false);
+            		grdStdGrd.setCellDisabled(grdStdGrd.getRows() -1, 0, grdStdGrd.getRows() -1, grdStdGrd.getCols() -1, true);
             	}else{
             		alert("품목을 선택해주세요.")
             		return;
             	}
             }else if(grid === "grdStdGrdDtl"){
             	if(!(SBUxMethod.get("grd-slt-itemCd") == null || SBUxMethod.get("grd-slt-itemCd") == "")){
+            		let apcCdCol = grdStdGrdDtl.getColRef("apcCd");
+                	let itemCdCol = grdStdGrdDtl.getColRef("itemCd");
+                	let grdSeCdCol = grdStdGrdDtl.getColRef("grdSeCd");
+                	let grdKndCol = grdStdGrdDtl.getColRef("grdKnd");
 
 					let rowData = grdStdGrd.getRowData(grdStdGrd.getRow());
             		grdStdGrdDtl.setCellData(nRow, nCol, "N", true);
-            		grdStdGrdDtl.setCellData(nRow, 4, gv_apcCd, true);
-            		grdStdGrdDtl.setCellData(nRow, 5, rowData.itemCd, true);
-            		grdStdGrdDtl.setCellData(nRow, 6, rowData.grdSeCd, true);
-            		grdStdGrdDtl.setCellData(nRow, 7, rowData.grdKnd, true);
+            		grdStdGrdDtl.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            		grdStdGrdDtl.setCellData(nRow, itemCdCol, rowData.itemCd, true);
+            		grdStdGrdDtl.setCellData(nRow, grdSeCdCol, rowData.grdSeCd, true);
+            		grdStdGrdDtl.setCellData(nRow, grdKndCol, rowData.grdKnd, true);
             		grdStdGrdDtl.addRow(true);
+
+            		grdStdGrdDtl.setCellDisabled(0, 0, grdStdGrdDtl.getRows() -1, grdStdGrdDtl.getCols() -1, false);
+            		grdStdGrdDtl.setCellDisabled(grdStdGrdDtl.getRows() -1, 0, grdStdGrdDtl.getRows() -1, grdStdGrdDtl.getCols() -1, true);
             	}else{
             		alert("품목을 선택해주세요.")
             		return;
             	}
             }else if(grid === "grdStdGrdJgmt"){
             	if(!(SBUxMethod.get("grd-slt-itemCd") == null || SBUxMethod.get("grd-slt-itemCd") == "")){
+            		let apcCdCol = grdStdGrdJgmt.getColRef("apcCd");
+                	let itemCdCol = grdStdGrdJgmt.getColRef("itemCd");
+                	let grdSeCdCol = grdStdGrdJgmt.getColRef("grdSeCd");
 
 					grdStdGrdJgmt.setCellData(nRow, nCol, "N", true);
-					grdStdGrdJgmt.setCellData(nRow, 7, gv_apcCd, true);
-					grdStdGrdJgmt.setCellData(nRow, 8, SBUxMethod.get("grd-slt-itemCd"), true);
-					grdStdGrdJgmt.setCellData(nRow, 9, SBUxMethod.get("grd-rdo-grdSeCd"), true);
+					grdStdGrdJgmt.setCellData(nRow, apcCdCol, gv_apcCd, true);
+					grdStdGrdJgmt.setCellData(nRow, itemCdCol, SBUxMethod.get("grd-slt-itemCd"), true);
+					grdStdGrdJgmt.setCellData(nRow, grdSeCdCol, SBUxMethod.get("grd-rdo-grdSeCd"), true);
 					grdStdGrdJgmt.addRow(true);
+
+					grdStdGrdJgmt.setCellDisabled(0, 0, grdStdGrdJgmt.getRows() -1, grdStdGrdJgmt.getCols() -1, false);
+					grdStdGrdJgmt.setCellDisabled(grdStdGrdJgmt.getRows() -1, 0, grdStdGrdJgmt.getRows() -1, grdStdGrdJgmt.getCols() -1, true);
             	}else{
             		alert("품목을 선택해주세요.")
             		return;
             	}
             }else if(grid === "grdApcSpcfct"){
             	if(!(SBUxMethod.get("spcfct-slt-itemCd") == null || SBUxMethod.get("spcfct-slt-itemCd") == "")){
+
+            		let apcCdCol = grdApcSpcfct.getColRef("apcCd");
+                	let itemCdCol = grdApcSpcfct.getColRef("itemCd");
+
             		grdApcSpcfct.setCellData(nRow, nCol, "N", true);
-            		grdApcSpcfct.setCellData(nRow, 7, gv_apcCd, true);
-            		grdApcSpcfct.setCellData(nRow, 8, SBUxMethod.get("spcfct-slt-itemCd"), true);
+            		grdApcSpcfct.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            		grdApcSpcfct.setCellData(nRow, itemCdCol, SBUxMethod.get("spcfct-slt-itemCd"), true);
             		grdApcSpcfct.addRow(true);
+            		grdApcSpcfct.setCellDisabled(0, 0, grdApcSpcfct.getRows() -1, grdApcSpcfct.getCols() -1, false);
+            		grdApcSpcfct.setCellDisabled(grdApcSpcfct.getRows() -1, 0, grdApcSpcfct.getRows() -1, grdApcSpcfct.getCols() -1, true);
             	}else{
             		alert("품목을 선택해주세요.")
             		return;
             	}
             }else if(grid === "grdSmptPckgUnit"){
+            	let apcCdCol = grdSpmtPckgUnit.getColRef("apcCd");
+
            		grdSpmtPckgUnit.setCellData(nRow, nCol, "N", true);
-           		grdSpmtPckgUnit.setCellData(nRow, 10, gv_apcCd, true);
+           		grdSpmtPckgUnit.setCellData(nRow, apcCdCol, gv_apcCd, true);
            		grdSpmtPckgUnit.addRow(true);
+           		grdSpmtPckgUnit.setCellDisabled(0, 0, grdSpmtPckgUnit.getRows() -1, grdSpmtPckgUnit.getCols() -1, false);
+           		grdSpmtPckgUnit.setCellDisabled(grdSpmtPckgUnit.getRows() -1, 0, grdSpmtPckgUnit.getRows() -1, grdSpmtPckgUnit.getCols() -1, true);
             }else if(grid === "grdSpmtSlsUntprcReg"){
+
+            	let apcCdCol = grdSpmtSlsUntprcReg.getColRef("apcCd");
+            	let spmtPckgUnitCdCol = grdSpmtSlsUntprcReg.getColRef("spmtPckgUnitCd");
             	grdSpmtSlsUntprcReg.setCellData(nRow, nCol, "N", true);
-            	grdSpmtSlsUntprcReg.setCellData(nRow, 4, SBUxMethod.get("spmtSlsUntprcReg-inp-spmtPckgUnitCd"), true);
-            	grdSpmtSlsUntprcReg.setCellData(nRow, 5, gv_apcCd, true);
+            	grdSpmtSlsUntprcReg.setCellData(nRow, spmtPckgUnitCdCol, SBUxMethod.get("spmtSlsUntprcReg-inp-spmtPckgUnitCd"), true);
+            	grdSpmtSlsUntprcReg.setCellData(nRow, apcCdCol, gv_apcCd, true);
             	grdSpmtSlsUntprcReg.addRow(true);
+            	grdSpmtSlsUntprcReg.setCellDisabled(0, 0, grdSpmtSlsUntprcReg.getRows() -1, grdSpmtSlsUntprcReg.getCols() -1, false);
+            	grdSpmtSlsUntprcReg.setCellDisabled(grdSpmtSlsUntprcReg.getRows() -1, 0, grdSpmtSlsUntprcReg.getRows() -1, grdSpmtSlsUntprcReg.getCols() -1, true);
             }
         }
         else if (gubun === "DEL") {
@@ -973,31 +1064,30 @@
             			grdBx.deleteRow(nRow);
             		}
             	}else{
-           		grdBx.deleteRow(nRow);
+           			grdBx.deleteRow(nRow);
             	}
-            }else if (grid === "rgnTrsprtCstMngDatagrid") {
-            	if(rgnTrsprtCstMngDatagrid.getRowStatus(nRow) == 0 || rgnTrsprtCstMngDatagrid.getRowStatus(nRow) == 2){
+            }else if (grid === "grdRgnTrsprtCst") {
+            	if(grdRgnTrsprtCst.getRowStatus(nRow) == 0 || grdRgnTrsprtCst.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
-            			var rgnTrsprtCst = rgnTrsprtCstMngDatagrid.getRowData(nRow);
+            			var rgnTrsprtCst = grdRgnTrsprtCst.getRowData(nRow);
             			fn_deleteRgnTrsprtCstList(rgnTrsprtCst);
-            			rgnTrsprtCstMngDatagrid.deleteRow(nRow);
+            			grdRgnTrsprtCst.deleteRow(nRow);
             		}
             	}else{
-            		rgnTrsprtCstMngDatagrid.deleteRow(nRow);
+            		grdRgnTrsprtCst.deleteRow(nRow);
             	}
-            }else if (grid === "wrhsVhclMngDatagrid") {
-            	if(wrhsVhclMngDatagrid.getRowStatus(nRow) == 0 || wrhsVhclMngDatagrid.getRowStatus(nRow) == 2){
+            }else if (grid === "grdWrhsVhcl") {
+            	if(grdWrhsVhcl.getRowStatus(nRow) == 0 || grdWrhsVhcl.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
             		if(confirm(delMsg)){
-            			var wrhsVhclVo = wrhsVhclMngDatagrid.getRowData(nRow);
+            			var wrhsVhclVo = grdWrhsVhcl.getRowData(nRow);
             			fn_deleteWrhsVhclList(wrhsVhclVo);
-            			wrhsVhclMngDatagrid.deleteRow(nRow);
+            			grdWrhsVhcl.deleteRow(nRow);
             		}
             	}else{
-            		wrhsVhclMngDatagrid.deleteRow(nRow);
+            		grdWrhsVhcl.deleteRow(nRow);
             	}
-            	wrhsVhclMngDatagrid.deleteRow(nRow);
             }else if (grid === "grdSpmtTrsprtCo") {
             	if(grdSpmtTrsprtCo.getRowStatus(nRow) == 0 || grdSpmtTrsprtCo.getRowStatus(nRow) == 2){
             		var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";

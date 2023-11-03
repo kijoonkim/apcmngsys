@@ -141,7 +141,10 @@
 			gfn_setApcItemSBSelect("spcfct-slt-itemCd", 	jsonComItemCd, 			gv_apcCd)					// APC 품목
 		])
 
-		SBUxMethod.set("spcfct-inp-apcNm", gv_apcNm)
+		SBUxMethod.set("spcfct-inp-apcNm", gv_apcNm);
+
+		jsonApcSpcfct.length = 0;
+		grdApcSpcfct.refresh({"combo":true});
 	}
 
 	const fn_createSpcfct = async function() {
@@ -156,6 +159,13 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.frozenrows = 1;
 	    SBGridProperties.columns = [
+			{caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        	if(strValue== null || strValue == ""){
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdApcSpcfct\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdApcSpcfct\", " + nRow + ")'>삭제</button>";
+	        	}
+		    }},
 	        {caption: ["규격명"],   ref: 'spcfctNm',  	type:'input',  width:'300px',    style:'text-align:center'},
 	        {caption: ["중량단위"], ref: 'unitCd',   	type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSpcfctUnitCd', 	itemcount: 3, label:'label', value:'value', displayui : false}},
@@ -165,13 +175,6 @@
 	        {caption: ["단중"],     ref: 'wght',  		type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["사용유무"], 	ref: 'delYn',  type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonUseYn', label:'label', value:'value',  displayui : false}},
-			{caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdApcSpcfct\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdApcSpcfct\", " + nRow + ")'>삭제</button>";
-	        	}
-		    }},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
 	    ];
@@ -248,6 +251,8 @@
 			});
 	    	grdApcSpcfct.rebuild();
 	    	grdApcSpcfct.addRow(true);
+	    	grdApcSpcfct.setCellDisabled(grdApcSpcfct.getRows() -1, 0, grdApcSpcfct.getRows() -1, grdApcSpcfct.getCols() -1, true);
+
 	    }catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
