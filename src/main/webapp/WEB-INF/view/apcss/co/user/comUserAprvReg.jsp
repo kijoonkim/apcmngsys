@@ -82,7 +82,7 @@
 							</li>
 						</ul>
 					</div>
-					<div id="sb-area-grdUserAprv" style="height:500px; margin-top:8px;"></div>
+					<div id="sb-area-grdUserAprv" style="height:576px; margin-top:8px;"></div>
 				</div>
 			</div>
 	</section>

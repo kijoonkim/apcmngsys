@@ -66,7 +66,7 @@
 									<li><span>사용자 내역</span></li>
 								</ul>
 							</div>
-							<div id="sb-area-grdUserListInq" style="height:460px;"></div>
+							<div id="sb-area-grdUserListInq" style="height:579px;"></div>
 							<!--[pp] //검색결과 -->
 					</div>
 				</div>
@@ -124,7 +124,6 @@ async function fn_search() {
 
 //페이징
 async function fn_pagingUserList(){
-	console.log('test', 'test');
 	let recordCountPerPage = userListInqGridId.getPageSize();   		// 몇개의 데이터를 가져올지 설정
 	let currentPageNo = userListInqGridId.getSelectPageIndex();
 	fn_callSelectUserList(recordCountPerPage, currentPageNo);
