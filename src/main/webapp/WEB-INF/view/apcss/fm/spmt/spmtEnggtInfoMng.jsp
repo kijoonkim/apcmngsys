@@ -68,9 +68,9 @@
 							<th scope="row">출하기간</th>
 							<td colspan="3" class="td_input"  style="border-right: hidden;">
 								<div style="display: flex;">
-									<sbux-datepicker id="srch-inp-spmtStrDt" name="srch-inp-spmtStrDt" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+									<sbux-datepicker id="srch-inp-spmtStrDt" name="srch-inp-spmtStrDt" uitype="popup" class="form-control input-sm sbux-pik-group-apc"  onchange="fn_searchChange(srch-inp-spmtStrDt)"></sbux-datepicker>
 									<span>~</span>
-									<sbux-datepicker id="srch-inp-spmtEndDt" name="srch-inp-spmtEndDt" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+									<sbux-datepicker id="srch-inp-spmtEndDt" name="srch-inp-spmtEndDt" uitype="popup" class="form-control input-sm sbux-pik-group-apc"  onchange="fn_searchChange(srch-inp-spmtEndDt)"></sbux-datepicker>
 								</div>
 							</td>
 
@@ -214,9 +214,9 @@
 						    <th scope="row">출하기간</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<div style="display: flex;">
-									<sbux-datepicker id="dtl-inp-spmtStrDt" name="dtl-inp-spmtStrDt" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+									<sbux-datepicker id="dtl-inp-spmtStrDt" name="dtl-inp-spmtStrDt" uitype="popup" class="form-control input-sm sbux-pik-group-apc"  onchange="fn_detailChange(dtl-inp-spmtStrDt)"></sbux-datepicker>
 									<span>~</span>
-									<sbux-datepicker id="dtl-inp-spmtEndDt" name="dtl-inp-spmtEndDt" uitype="popup" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+									<sbux-datepicker id="dtl-inp-spmtEndDt" name="dtl-inp-spmtEndDt" uitype="popup" class="form-control input-sm sbux-pik-group-apc"  onchange="fn_detailChange(dtl-inp-spmtStrDt)"></sbux-datepicker>
 								</div>
 							</td>
 
@@ -1314,6 +1314,37 @@
 
 
 
+	const fn_searchChange = function(){
+ 		let wrhsYmdFrom = SBUxMethod.get("srch-inp-spmtStrDt");
+ 		let wrhsYmdTo = SBUxMethod.get("srch-inp-spmtEndDt");
+ 		if(gfn_diffDate(wrhsYmdFrom, wrhsYmdTo) < 0){
+ 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("srch-inp-spmtStrDt", gfn_dateToYmd(new Date()));
+ 			SBUxMethod.set("srch-inp-spmtEndDt", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
+ 		/*if(gfn_diffDate(gfn_dateToYmd(new Date()), wrhsYmdFrom) < 0){
+ 			gfn_comAlert("E0000", "시작일자는 금일보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("srch-inp-spmtStrDt", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}*/
+ 	}
+
+	const fn_detailChange = function(){
+ 		let wrhsYmdFrom = SBUxMethod.get("dtl-inp-spmtStrDt");
+ 		let wrhsYmdTo = SBUxMethod.get("dtl-inp-spmtEndDt");
+ 		if(gfn_diffDate(wrhsYmdFrom, wrhsYmdTo) < 0){
+ 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("dtl-inp-spmtStrDt", gfn_dateToYmd(new Date()));
+ 			SBUxMethod.set("dtl-inp-spmtEndDt", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
+ 		/*if(gfn_diffDate(gfn_dateToYmd(new Date()), wrhsYmdFrom) < 0){
+ 			gfn_comAlert("E0000", "시작일자는 금일보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("srch-inp-spmtStrDt", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}*/
+ 	}
 
 	/*
 	var jsonGItemCd 	= [];
