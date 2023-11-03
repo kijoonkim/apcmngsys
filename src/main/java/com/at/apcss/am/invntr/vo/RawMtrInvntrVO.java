@@ -152,7 +152,8 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 재고중량
 	 */
 	private double invntrWght;
-
+	
+	
 	/**
 	 * 운송구분
 	 */
@@ -237,6 +238,16 @@ public class RawMtrInvntrVO extends ComVO {
 	 */
 	private double trnsfWght;
 
+	/**
+	 * 투입진행수량
+	 */
+	private int inptPrgrsQntt;
+	/**
+	 * 투입진행중량
+	 */
+	private double inptPrgrsWght;
+	
+	
 	/**
 	 * 설비코드
 	 */

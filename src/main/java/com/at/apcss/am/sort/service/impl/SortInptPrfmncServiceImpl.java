@@ -57,11 +57,18 @@ public class SortInptPrfmncServiceImpl implements SortInptPrfmncService {
 	}
 
 
+	@Override
+	public List<SortInptPrfmncVO> selectSortInptList(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
+		
+		List<SortInptPrfmncVO> resultList = sortInptPrfmncMapper.selectSortInptList(sortInptPrfmncVO);
 
+		return resultList;
+	}
+	
 	@Override
 	public HashMap<String, Object> insertSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
 
-		int insertedCnt = sortInptPrfmncMapper.insertSortInptPrfmnc(sortInptPrfmncVO);
+		sortInptPrfmncMapper.insertSortInptPrfmnc(sortInptPrfmncVO);
 
 		return null;
 	}
@@ -79,7 +86,7 @@ public class SortInptPrfmncServiceImpl implements SortInptPrfmncService {
 	@Override
 	public HashMap<String, Object> updateSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
 
-		int updatedCnt = sortInptPrfmncMapper.updateSortInptPrfmnc(sortInptPrfmncVO);
+		sortInptPrfmncMapper.updateSortInptPrfmnc(sortInptPrfmncVO);
 
 		return null;
 	}
@@ -87,9 +94,18 @@ public class SortInptPrfmncServiceImpl implements SortInptPrfmncService {
 	@Override
 	public HashMap<String, Object> deleteSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
 
-		int deletedCnt = sortInptPrfmncMapper.deleteSortInptPrfmnc(sortInptPrfmncVO);
+		sortInptPrfmncMapper.updateSortInptPrfmncForDelY(sortInptPrfmncVO);
 
 		return null;
 	}
+
+	@Override
+	public HashMap<String, Object> updateSortInptSortno(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
+		
+		sortInptPrfmncMapper.updateSortInptSortno(sortInptPrfmncVO);
+		
+		return null;
+	}
+
 
 }
