@@ -132,12 +132,13 @@ async function fn_pagingUserList(){
 
 var newUserAprvRegGridData = [];
 async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
-	
+	let apcNm = SBUxMethod.get("gsb-slt-apcCd");
 	let userId = SBUxMethod.get("srch-inp-userId");
 	let userNm = SBUxMethod.get("srch-inp-userNm");
 	
 	var comUserVO = { 
-			  userId				: userId
+			  apcNm					: apcNm
+			, userId				: userId
 			, userNm				: userNm
 			, pagingYn 				: 'Y'
 			, currentPageNo 		: currentPageNo
