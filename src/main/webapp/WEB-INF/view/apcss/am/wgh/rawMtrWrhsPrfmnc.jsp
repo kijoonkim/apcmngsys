@@ -14,7 +14,7 @@
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3><!-- 입고실적조회 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnReset" name="btnReset" uitype="button" class="btn btn-sm btn-outline-danger">초기화</sbux-button>
+					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" onclick="fn_rawMtrWrhsPrfmncSearch" text="조회" ></sbux-button>
 
 				</div>
@@ -57,7 +57,7 @@
 							<td style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg">품목/품종</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem"></sbux-select>
+								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" class="form-control input-sm" ></sbux-input>
@@ -214,10 +214,10 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', jsonComWarehouseSeCd, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd),		// 품목
-		 	gfn_setComCdSBSelect('dtl-chk-wrhsSeCd', jsonWrhsSeCd, 'WRHS_SE_CD'),						// 입고구분
-		 	gfn_setComCdSBSelect('dtl-chk-gdsSeCd', jsonGdsSeCd, 'GDS_SE_CD', gv_selectedApcCd),			// 상품구분
-		 	gfn_setComCdSBSelect('dtl-chk-trsprtSeCd', jsonTrsprtSeCd, 'TRSPRT_SE_CD'),						// 운송구분
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd),										// 품목
+		 	gfn_setComCdSBSelect('dtl-chk-wrhsSeCd', jsonWrhsSeCd, 'WRHS_SE_CD'),											// 입고구분
+		 	gfn_setComCdSBSelect('dtl-chk-gdsSeCd', jsonGdsSeCd, 'GDS_SE_CD', gv_selectedApcCd),							// 상품구분
+		 	gfn_setComCdSBSelect('dtl-chk-trsprtSeCd', jsonTrsprtSeCd, 'TRSPRT_SE_CD'),										// 운송구분
 	 	]);
 		jsonWrhsSeCd.forEach(e => e.checked = "checked");
 		SBUxMethod.refresh('dtl-chk-wrhsSeCd');
@@ -231,8 +231,9 @@
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
 	}
 
+	var vrtyCds = [];
+	
     const fn_setVrty = function(vrty) {
-
 		if (!gfn_isEmpty(vrty)) {
 			vrtyCds = [];
 			vrtyCds.push(vrty.vrtyCd);
@@ -240,19 +241,36 @@
 			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyNm);
 		}
 	}
-	var vrtyCds = [];
+	
     const fn_setVrtys = function(vrtys) {
 		if (!gfn_isEmpty(vrtys)) {
 			var _vrtys = [];
 			vrtyCds = [];
+			var diff = false;
 			for(var i=0;i<vrtys.length;i++){
+				if (vrtys[0].itemCd != vrtys[i].itemCd) {
+					diff = true;
+				}
 				_vrtys.push(vrtys[i].vrtyNm);
 				vrtyCds.push(vrtys[i].vrtyCd);
+			}
+			if (diff) {
+				SBUxMethod.set('srch-slt-itemCd', "");
+			} else {
+				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
 			}
 			SBUxMethod.set('srch-inp-vrtyCd', _vrtys.join(','));
 		}
 	}
 
+    function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		if (gfn_isEmpty(itemCd)) {
+			vrtyCds = [];
+		}
+		SBUxMethod.set("srch-inp-vrtyCd", "");
+	}
+    
 	/**
 	 * @name fn_choiceVhcl
 	 * @description 차량번호 선택 popup
@@ -272,7 +290,6 @@
 		fn_createGrid();
 		SBUxMethod.set("srch-dtp-startPrdctnYmd", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-endPrdctnYmd", gfn_dateToYmd(new Date()));
-		SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 
 		fn_initSBSelect();
 		fn_getPrdcrs();
@@ -372,38 +389,38 @@
 	   }
 	}
 	const fn_setGrdRawMtrWrhsPrfmnc = async function(pageSize, pageNo) {
-	   		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-startPrdctnYmd");		// 입고시작일자
-	   		let wrhsYmdTo = SBUxMethod.get("srch-dtp-endPrdctnYmd");		// 입고종료일자
-	  		let wrhsSeCd = fn_getChkbox(jsonWrhsSeCd, SBUxMethod.get("dtl-chk-wrhsSeCd"));
-	  		let gdsSeCd = fn_getChkbox(jsonGdsSeCd, SBUxMethod.get("dtl-chk-gdsSeCd"))
-	  		let trsprtSeCd = fn_getChkbox(jsonTrsprtSeCd, SBUxMethod.get("dtl-chk-trsprtSeCd"))
+		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-startPrdctnYmd");		// 입고시작일자
+   		let wrhsYmdTo = SBUxMethod.get("srch-dtp-endPrdctnYmd");		// 입고종료일자
+  		let wrhsSeCd = fn_getChkbox(jsonWrhsSeCd, SBUxMethod.get("dtl-chk-wrhsSeCd"));
+  		let gdsSeCd = fn_getChkbox(jsonGdsSeCd, SBUxMethod.get("dtl-chk-gdsSeCd"))
+  		let trsprtSeCd = fn_getChkbox(jsonTrsprtSeCd, SBUxMethod.get("dtl-chk-trsprtSeCd"))
 
-	  		// optional
-	  		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
-	  		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
-	  		let vhclno = SBUxMethod.get("srch-inp-vhclno");	// 차량번호
-	  		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-			let vrtyCd = vrtyCds.length > 0 ? vrtyCds.join(',') : "";
-			const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsPrfmncList.do", {
-				apcCd: gv_selectedApcCd,
-				wrhsYmdFrom: wrhsYmdFrom,
-				wrhsYmdTo: wrhsYmdTo,
-				wrhsSeCd: wrhsSeCd,
-				gdsSeCd: gdsSeCd,
-				trsprtSeCd: trsprtSeCd,
-				warehouseSeCd: warehouseSeCd,
-				prdcrCd: prdcrCd,
-				vrtyCd: vrtyCd,
-				itemCd: itemCd,
-				vhclno: vhclno,
-	          	// pagination
-	  	  		pagingYn : 'N',
-	  			currentPageNo : pageNo,
-	   		  	recordCountPerPage : pageSize
-	  		});
+  		// optional
+  		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
+  		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
+  		let vhclno = SBUxMethod.get("srch-inp-vhclno");	// 차량번호
+  		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = vrtyCds.length > 0 ? vrtyCds.join(',') : "";
+		const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsPrfmncList.do", {
+			apcCd: gv_selectedApcCd,
+			wrhsYmdFrom: wrhsYmdFrom,
+			wrhsYmdTo: wrhsYmdTo,
+			wrhsSeCd: wrhsSeCd,
+			gdsSeCd: gdsSeCd,
+			trsprtSeCd: trsprtSeCd,
+			warehouseSeCd: warehouseSeCd,
+			prdcrCd: prdcrCd,
+			vrtyCd: vrtyCd,
+			itemCd: itemCd,
+			vhclno: vhclno,
+          	// pagination
+  	  		pagingYn : 'N',
+  			currentPageNo : pageNo,
+   		  	recordCountPerPage : pageSize
+  		});
 
-	        const data = await postJsonPromise;
-	 	   try{
+        const data = await postJsonPromise;
+ 	    try{
 			/** @type {number} **/
       		let totalRecordCount = 0;
 
@@ -458,13 +475,13 @@
           	} else {
           		inptCmndDsctnList.setPageTotalCount(totalRecordCount);
           		inptCmndDsctnList.rebuild();
-          	}
-       } catch (e) {
+         	}
+        } catch (e) {
      		if (!(e instanceof Error)) {
      			e = new Error(e);
      		}
      		console.error("failed", e.message);
-		}
+     	}
 	}
 
 	function fn_getChkbox(json, result) {
@@ -560,6 +577,27 @@
 		}
     }
 
+	/**
+	 * @name fn_reset
+	 * @description 상단 검색조건 초기화
+	 */
+	const fn_reset = function(){
+		SBUxMethod.set("srch-dtp-startPrdctnYmd", gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("srch-dtp-endPrdctnYmd", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-slt-itemCd", "");
+		SBUxMethod.set("srch-inp-vrtyCd", "");
+		vrtyCds = [];
+		fn_clearPrdcr();
+		SBUxMethod.set('srch-inp-prdcrNm', "");
+		jsonWrhsSeCd.forEach(e => e.checked = "checked");
+		SBUxMethod.refresh('dtl-chk-wrhsSeCd');
+		jsonGdsSeCd.forEach(e => e.checked = "checked");
+		SBUxMethod.refresh('dtl-chk-gdsSeCd');
+		jsonTrsprtSeCd.forEach(e => e.checked = "checked");
+		SBUxMethod.refresh('dtl-chk-trsprtSeCd');
+		SBUxMethod.set("srch-slt-warehouseSeCd", "");
+		SBUxMethod.set("srch-inp-vhclno", "");
+	}
 </script>
 
 </html>

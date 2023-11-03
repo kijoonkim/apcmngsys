@@ -77,27 +77,7 @@ public class GdsWrhsController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-
-	@PostMapping(value = "/am/wrhs/updateGdsInvntr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> updateGdsInvntr(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
-		try {
-			gdsInvntrVO.setSysLastChgUserId(getUserId());
-			gdsInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
-
-			HashMap<String, Object> rtnObj = gdsWrhsService.updateGdsInvntr(gdsInvntrVO);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
-		} catch (Exception e) {
-			logger.debug("error: {}", e.getMessage());
-			return getErrorResponseEntity(e);
-		}
-		return getSuccessResponseEntity(resultMap);
-	}
-
+	
 	@PostMapping(value = "/am/wrhs/deleteGdsInvntr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteGdsInvntr(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request) throws Exception {
 
@@ -117,4 +97,5 @@ public class GdsWrhsController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+	
 }

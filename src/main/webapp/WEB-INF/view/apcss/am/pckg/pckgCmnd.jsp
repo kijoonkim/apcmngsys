@@ -432,7 +432,6 @@
 			}
 			if (diff) {
 				SBUxMethod.set('srch-slt-itemCd', "");
-				gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd);
 				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, '');
 			} else {
 				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);

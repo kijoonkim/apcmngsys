@@ -516,7 +516,6 @@
 			grdRawMtrInvntr.setCellData(nRow, 11, 0);
 			grdRawMtrInvntr.setCellData(nRow, 0, "N");
 		}
-
     }
 
     const fn_save = async function() {
@@ -568,9 +567,6 @@
 	    		console.error("failed", e.message);
 			}
 		}
-
-
-
     }
 
     const fn_setGrdSortCmnd = async function(){
@@ -722,9 +718,9 @@
  			SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
  			return;
  		}
- 		if(gfn_diffDate(gfn_dateToYmd(new Date()), inptYmdFrom) < 0){
+ 		if(gfn_diffDate(gfn_dateToYmd(new Date()), wrhsYmdFrom) < 0){
  			gfn_comAlert("E0000", "시작일자는 금일보다 이후 일자입니다.");		//	W0001	{0}
- 			SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateToYmd(new Date()));
+ 			SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
  			return;
  		}
  	}

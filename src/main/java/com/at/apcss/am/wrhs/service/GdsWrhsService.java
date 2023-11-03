@@ -38,19 +38,11 @@ public interface GdsWrhsService {
 	public HashMap<String, Object> insertGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
 	
 	/**
-	 * 상품입고등록 수정
-	 * @param gdsInvntrVO
-	 * @return
-	 * @throws Exception
-	 */
-	public HashMap<String, Object> updateGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
-	
-	/**
 	 * 상품입고등록 삭제
 	 * @param gdsInvntrVO
 	 * @return
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
-
+	
 }
