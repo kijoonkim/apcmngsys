@@ -298,7 +298,7 @@ async function fn_updatePwd(comUserVO){
 		let postJsonPromise = gfn_postJSON("/co/user/updComUserPwd.do", comUserVO);
         let data = await postJsonPromise;
         try{
-        	if(data.result > 0){
+        	if(data.updatedCnt > 0){
         		alert("비밀번호가 초기화 되었습니다.");
         	}else{
         		alert("비밀번호 초기화 오류가 발생 되었습니다.");
