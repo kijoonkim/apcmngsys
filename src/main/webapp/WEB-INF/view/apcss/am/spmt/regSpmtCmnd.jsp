@@ -150,7 +150,7 @@
 							<td></td>
 						    <th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="dtl-inp-cmndYmd" name="dtl-inp-cmndYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"></sbux-datepicker>
+								<sbux-datepicker id="dtl-inp-cmndYmd" name="dtl-inp-cmndYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(dtl-inp-cmndYmd)"></sbux-datepicker>
 							</td>
 							<td colspan="2" class="td_input"  style="border-right: hidden;"></td>
 						</tr>
@@ -750,15 +750,16 @@
      const fn_dtpChange = function(){
   		let outordrYmdFrom = SBUxMethod.get("srch-dtp-outordrYmdFrom");
   		let outordrYmdTo = SBUxMethod.get("srch-dtp-outordrYmdTo");
+  		let cmndYmd = SBUxMethod.get("dtl-inp-cmndYmd");
   		if(gfn_diffDate(outordrYmdFrom, outordrYmdTo) < 0){
   			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
   			SBUxMethod.set("srch-dtp-outordrYmdFrom", gfn_dateToYmd(new Date()));
   			SBUxMethod.set("srch-dtp-outordrYmdTo", gfn_dateToYmd(new Date()));
   			return;
   		}
- 		if(gfn_diffDate(gfn_dateToYmd(new Date()), outordrYmdFrom) < 0){
- 			gfn_comAlert("E0000", "시작일자는 금일보다 이후 일자입니다.");		//	W0001	{0}
- 			SBUxMethod.set("srch-dtp-outordrYmdFrom", gfn_dateToYmd(new Date()));
+ 		if(gfn_diffDate(gfn_dateToYmd(new Date()), cmndYmd) < 0){
+ 			gfn_comAlert("E0000", "지시일자는 금일보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("dtl-inp-cmndYmd", gfn_dateToYmd(new Date()));
  			return;
  		}
   	}

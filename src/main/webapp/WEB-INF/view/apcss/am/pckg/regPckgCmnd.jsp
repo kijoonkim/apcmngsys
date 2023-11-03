@@ -125,7 +125,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>지시일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" class="form-control pull-right input-sm"></sbux-datepicker>
+								<sbux-datepicker uitype="popup" id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-cmndYmd)"></sbux-datepicker>
 							</td>
 							<td colspan="2">&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>생산설비</th>
@@ -144,7 +144,7 @@
 						<tr>
 							<th scope="row" class="th_bg">납기일자</th>
 							<td class="td_input" style="border-right:hidden ;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-dudtYmd" name="srch-dtp-dudtYmd" class="form-control pull-right input-sm"/>
+								<sbux-datepicker uitype="popup" id="srch-dtp-dudtYmd" name="srch-dtp-dudtYmd" class="form-control pull-right input-sm" onchange="fn_dtpChange(srch-dtp-dudtYmd)"/>
 							</td>
 						</tr>
 					</tbody>
@@ -705,15 +705,22 @@
  	const fn_dtpChange = function(){
  		let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
  		let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
+ 		let cmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
+ 		let dudtYmd = SBUxMethod.get("srch-dtp-dudtYmd");
  		if(gfn_diffDate(inptYmdFrom, inptYmdTo) < 0){
  			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
  			SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateToYmd(new Date()));
  			SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
  			return;
  		}
- 		if(gfn_diffDate(gfn_dateToYmd(new Date()), inptYmdFrom) < 0){
- 			gfn_comAlert("E0000", "시작일자는 금일보다 이후 일자입니다.");		//	W0001	{0}
- 			SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateToYmd(new Date()));
+ 		if(gfn_diffDate(gfn_dateToYmd(new Date()), cmndYmd) < 0){
+ 			gfn_comAlert("E0000", "지시일자는 금일보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("srch-dtp-cmndYmd", gfn_dateToYmd(new Date()));
+ 			return;
+ 		}
+ 		if(gfn_diffDate(gfn_dateToYmd(new Date()), dudtYmd) < 0){
+ 			gfn_comAlert("E0000", "납기일자는 금일보다 이후 일자입니다.");		//	W0001	{0}
+ 			SBUxMethod.set("srch-dtp-dudtYmd", "");
  			return;
  		}
  	}
