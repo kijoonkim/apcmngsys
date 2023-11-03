@@ -82,7 +82,7 @@
 							</li>
 						</ul>
 					</div>
-					<div id="sb-area-grdUserAprv" style="height:500px; margin-top:8px;"></div>
+					<div id="sb-area-grdUserAprv" style="height:576px; margin-top:8px;"></div>
 				</div>
 			</div>
 	</section>
@@ -170,12 +170,12 @@
      * @param {number} pageNo
      */
 	const fn_setGrdUserAprv = async function(pageSize, pageNo) {
-
+		let apcCd = SBUxMethod.get("gsb-slt-apcCd");	//	사용자상태
         let userStts = SBUxMethod.get("srch-slt-userStts");	//	사용자상태
         let userNm = SBUxMethod.get("srch-inp-userNm");     // 	사용자명
 
 		const postJsonPromise = gfn_postJSON("/co/user/selectUserAprvList.do", {
-			apcCd: gv_selectedApcCd,
+			apcCd: apcCd,
 			userStts: userStts,
 			userNm: userNm,
           	// pagination
