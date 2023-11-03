@@ -28,6 +28,24 @@ public interface SortMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSortCmnd(SortMngVO sortMngVO) throws Exception;
+	
+	
+	/**
+	 * 선별투입 등록
+	 * @param sortMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSortInpt(SortMngVO sortMngVO) throws Exception;
+	
+	/**
+	 * 선별투입 삭제
+	 * @param sortMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteSortInpt(SortMngVO sortMngVO) throws Exception;
+	
 	/**
 	 * 선별투입실적 등록
 	 * @param sortMngVO
@@ -35,6 +53,7 @@ public interface SortMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSortInptPrfmnc(SortMngVO sortMngVO) throws Exception;
+	
 	/**
 	 * 선별실적 등록
 	 * @param sortMngVO

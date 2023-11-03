@@ -331,5 +331,67 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	}
 
 
+	@Override
+	public HashMap<String, Object> updateInvntrSortInpt(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+		
+		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
+
+		if (invntrInfo == null
+				|| !StringUtils.hasText(invntrInfo.getWrhsno())
+				|| !ComConstants.CON_NONE.equals(invntrInfo.getDelYn())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
+		}
+
+		if (rawMtrInvntrVO.getInptPrgrsQntt() > invntrInfo.getInvntrQntt()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		}
+
+		int invntrQntt = invntrInfo.getInvntrQntt() - rawMtrInvntrVO.getInptPrgrsQntt();
+		double invntrWght = invntrInfo.getInvntrWght() - rawMtrInvntrVO.getInptPrgrsWght();
+		int inptPrgrsQntt = invntrInfo.getInptPrgrsQntt() + rawMtrInvntrVO.getInptPrgrsQntt();
+		double inptPrgrsWght = invntrInfo.getInptPrgrsWght() + rawMtrInvntrVO.getInptPrgrsWght();
+		
+		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
+		rawMtrInvntrVO.setInvntrWght(invntrWght);
+
+		rawMtrInvntrVO.setInptPrgrsQntt(inptPrgrsQntt);
+		rawMtrInvntrVO.setInptPrgrsWght(inptPrgrsWght);
+		
+		rawMtrInvntrMapper.updateInvntrInptPrgrs(rawMtrInvntrVO);
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteInvntrSortInpt(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+		
+		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
+
+		if (invntrInfo == null
+				|| !StringUtils.hasText(invntrInfo.getWrhsno())
+				|| !ComConstants.CON_NONE.equals(invntrInfo.getDelYn())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고정보");
+		}
+
+		if (rawMtrInvntrVO.getInptPrgrsQntt() > invntrInfo.getInptPrgrsQntt()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "진행량||취소량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		}
+
+		int invntrQntt = invntrInfo.getInvntrQntt() + rawMtrInvntrVO.getInptPrgrsQntt();
+		double invntrWght = invntrInfo.getInvntrWght() + rawMtrInvntrVO.getInptPrgrsWght();
+		int inptPrgrsQntt = invntrInfo.getInptPrgrsQntt() - rawMtrInvntrVO.getInptPrgrsQntt();
+		double inptPrgrsWght = invntrInfo.getInptPrgrsWght() - rawMtrInvntrVO.getInptPrgrsWght();
+		
+		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
+		rawMtrInvntrVO.setInvntrWght(invntrWght);
+		
+		rawMtrInvntrVO.setInptPrgrsQntt(inptPrgrsQntt);
+		rawMtrInvntrVO.setInptPrgrsWght(inptPrgrsWght);
+
+		rawMtrInvntrMapper.updateInvntrInptPrgrs(rawMtrInvntrVO);
+
+		return null;
+	}
+
 
 }

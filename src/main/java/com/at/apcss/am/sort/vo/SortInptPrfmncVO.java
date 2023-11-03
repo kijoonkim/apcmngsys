@@ -35,6 +35,16 @@ public class SortInptPrfmncVO extends ComVO {
 	private String wrhsno;
 
 	/**
+	 * 팔레트 번호
+	 */
+	private String pltno;
+	
+	/**
+	 * 입고일자
+	 */
+	private String wrhsYmd;
+	
+	/**
 	 * 투입순번
 	 */
 	private int inptSn;
@@ -49,15 +59,18 @@ public class SortInptPrfmncVO extends ComVO {
 	 */
 	private String itemCd;
 
+	private String itemNm;
 	/**
 	 * 품종코드
 	 */
 	private String vrtyCd;
+	private String vrtyNm;
 
 	/**
 	 * 생산자코드
 	 */
 	private String prdcrCd;
+	private String prdcrNm;
 
 	/**
 	 * 수량
@@ -83,4 +96,37 @@ public class SortInptPrfmncVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
+	
+	/**
+	 * 설비코드
+	 */
+	private String fcltCd;
+	private String fcltNm;
+	
+	/**
+	 * 박스종류
+	 */
+	private String bxKnd;	
+	private String bxKndNm;
+	
+	/**
+	 * 선별완료유무
+	 */
+	private String sortCmptnYn;
+	
+	/**
+	 * 창고코드
+	 */
+	private String warehouseSeCd;
+	/**
+	 * 창고명
+	 */
+	private String warehouseSeNm;
+	
+	/**
+	 * 등급코드
+	 */
+	private String grdCd;
+	private String grdNm;
+	
 }
