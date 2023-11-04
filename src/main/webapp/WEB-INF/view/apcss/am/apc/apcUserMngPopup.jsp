@@ -100,10 +100,11 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' style='color:red' onClick='fn_updateComUserAprv("+ nRow + ", \"00\")'>승인취소</button>";
             	}
 		    }},
-		    {caption: ["비밀번호"], 	ref: 'lckYn',   type:'button',  width:'100px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-            	if(strValue == "Y"){
-            		return "<button type='button' class='btn btn-xs btn-outline-dark' onClick='fn_pwReSet(" + nRow + ")'>초기화</button>";
-            	}
+		    {caption: ["비밀번호"], 	ref: 'lckYn',   type:'button',  width:'100px',    style:'text-align:center',
+		    	renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	 	        	if(strValue != null && strValue != ""){
+	 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_callUpdateUserPsd(\"UPD\", \"grdUserAuth\", " + nRow + ", " + nCol + ")'>초기화</button>";
+	 	        	}
 		    }},
 		    {caption: ["사용유무"], 	ref: 'delYn',   	type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonUAReverseYn', label:'label', value:'value', displayui : true}},
@@ -209,6 +210,45 @@
     		console.error("failed", e.message);
         }
 	}
+
+	/*
+	 * 비밀번호 초기화 호출
+	 * 2023-11-03
+	 * ysh
+	 */
+	 function fn_callUpdateUserPsd(gubun, grid, nRow, nCol) {
+	     if (gubun === "UPD") {
+	         if (grid === "grdUserAuth") {
+	         		var updMsg = "비밀번호 초기화 하시겠습니까?";
+	         		if(confirm(updMsg)){
+	         			var comUserVO = grdUserAuth.getRowData(nRow);
+	         			fn_updatePwd(comUserVO);
+	         		}
+	         }
+	     }
+	 }
+
+	 /*
+	  * 비밀번호 초기화 업데이트
+	  * 2023-11-03
+	  * ysh
+	  */
+	async function fn_updatePwd(comUserVO){
+			let postJsonPromise = gfn_postJSON("/co/user/updComUserPwd.do", comUserVO);
+	        let data = await postJsonPromise;
+	        try{
+	        	if(data.updatedCnt > 0){
+	        		alert("비밀번호가 초기화 되었습니다.");
+	        	}else{
+	        		alert("비밀번호 초기화 오류가 발생 되었습니다.");
+	        	}
+	        }catch (e) {
+	        	if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+			}
+		}
 
 </script>
 </html>
