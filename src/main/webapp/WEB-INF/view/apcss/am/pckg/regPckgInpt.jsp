@@ -1452,13 +1452,6 @@
 
 	const fn_dwnld = async function(){
 
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-
-		if(gfn_isEmpty(itemCd)){
-    		gfn_comAlert("W0001", "품목");			//	W0001	{0}을/를 선택하세요.
-            return;
-    	}
-
 		await fn_setSltJson();
 		await fn_setExpJson();
 
@@ -1654,8 +1647,6 @@
      }
 
     const fn_uld = async function() {
-
-    	let itemCd = SBUxMethod.get("srch-slt-itemCd");
 
 		$("#btnFileUpload").click();
 
