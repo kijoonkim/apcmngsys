@@ -145,6 +145,7 @@
 									name="dtl-dtp-pckgYmd"
 									uitype="popup"
 									class="form-control input-sm"
+									onchange="fn_dtpChangePckg(dtl-dtp-pckgYmd)"
 								></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
@@ -262,6 +263,22 @@
 			</div>
 		</div>
 	</section>
+
+	<!--  출하실적엑셀 팝업 -->
+    <div>
+		<sbux-modal id="modal-excel-pckgPrfmnc" name="modal-excel-pckgPrfmnc"
+			uitype="middle"
+			header-title="포장실적등록"
+			body-html-id="body-modal-excelPckgPrfmnc"
+			footer-is-close-button="false"
+			header-is-close-button="false"
+			style="width:1000px"
+		></sbux-modal>
+	</div>
+    <div id="body-modal-excelPckgPrfmnc">
+    	<jsp:include page="../../am/popup/pckgPrfmncExcelPopup.jsp"></jsp:include>
+    </div>
+    <sbux-button id="btnPckgPrfmncPopup" name="btnPckgPrfmncPopup" uitype="modal" text="엑셀등록" style="width:100%; display:none" class="btn btn-sm btn-outline-dark" target-id="modal-excel-pckgPrfmnc"></sbux-button>
 </body>
 <script type="text/javascript">
 
@@ -343,6 +360,27 @@
 		]);
 		jsonComWarehouse = result[0];
 		jsonComGdsGrd = result[1];
+	}
+
+	const fn_dtpChange = function(){
+		let sortYmdFrom = SBUxMethod.get("srch-dtp-sortYmdFrom");
+		let sortYmdTo = SBUxMethod.get("srch-dtp-sortYmdTo");
+		if(gfn_diffDate(sortYmdFrom, sortYmdTo) < 0){
+			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+			SBUxMethod.set("srch-dtp-sortYmdFrom", gfn_dateToYmd(new Date()));
+			SBUxMethod.set("srch-dtp-sortYmdTo", gfn_dateToYmd(new Date()));
+			return;
+		}
+	}
+
+	const fn_dtpChangePckg = function(){
+		let sortYmdFrom = SBUxMethod.get("srch-dtp-sortYmdFrom");
+		let pckgYmd = SBUxMethod.get("dtl-dtp-pckgYmd");
+		if(gfn_diffDate(sortYmdFrom, pckgYmd) < 0){
+			gfn_comAlert("E0000", "포장일자는 선별재고일자보다 이전 일 수 없습니다.");		//	W0001	{0}
+			SBUxMethod.set("dtl-dtp-pckgYmd", sortYmdFrom);
+			return;
+		}
 	}
 
 
@@ -1395,10 +1433,6 @@
 		jsonExpSpmtPckgUnit 	= gfn_cloneJson(jsonExeclComSpmtPckgUnit);	// 엑셀 포장구분Json
 		jsonExpPckgFclt 		= gfn_cloneJson(jsonComPckgFclt);			// 엑셀 포장기Json
 
-		console.log("jsonExpGdsGrd",jsonExpGdsGrd)
-		console.log("jsonExpWarehouseSeFrom",jsonExpWarehouseSeFrom)
-		console.log("jsonExpWarehouseSeTo",jsonExpWarehouseSeTo)
-
 	}
 
 	const fn_createExpGrid = async function(_expObjList) {
@@ -1611,23 +1645,17 @@
 	// 	excel모달을 열기위한 함수
 	const importExcelData = function (e){
 
-		SBUxMethod.openModal('modal-excel-gdsInvntr');
-    	fn_createGridGdsPopup();
-    	jsonExcelGdsInvntrPopup = 0;
-    	grdExcelGdsInvntrPopup.rebuild();
+		SBUxMethod.openModal('modal-excel-pckgPrfmnc');
+    	fn_createGridPckgPrfmncPopup();
+    	jsonExcelPckgPrfmncPopup = 0;
+    	grdExcelPckgPrfmncPopup.rebuild();
 
-    	grdExcelGdsInvntrPopup.importExcelData(e);
+    	grdExcelPckgPrfmncPopup.importExcelData(e);
      }
 
     const fn_uld = async function() {
 
     	let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		let invntrSeCd = SBUxMethod.get("dtl-slt-invntrSeCd");
-
-		if(gfn_isEmpty(itemCd)){
-    		gfn_comAlert("W0001", "품목");			//	W0001	{0}을/를 선택하세요.
-            return;
-    	}
 
 		$("#btnFileUpload").click();
 
