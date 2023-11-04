@@ -350,10 +350,20 @@
 					 WHERE OI.DEL_YN 		= 'N'
 					   AND OI.RCPTN_SE_CD 	= '99'
 					   AND OI.APC_CD		= #{apcCd}
-					   AND OI.OUTORDR_YMD  >= TO_CHAR(SYSDATE, 'YYYYMMDD')
-				) pt0
-    	]]>
+					   AND OI.OUTORDR_YMD  >= #{outordrYmd}
+		]]>
 
+
+    	<if test='outordrType != null and outordrType != ""'>
+    		AND OI.OUTORDR_TYPE = #{outordrType}
+    	</if>
+    	<if test='outordrType == null or outordrType == ""'>
+
+    	</if>
+
+    	<![CDATA[
+    	) pt0
+		]]>
 
     </select>
 

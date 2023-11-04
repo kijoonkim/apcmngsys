@@ -114,7 +114,7 @@
 							</td>
 							<th scope="row" class="th_bg">납기일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-dudtYmd" name="srch-dtp-dudtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-dudtYmd" name="srch-dtp-dudtYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm" onchange="fn_dtpChange(srch-dtp-dudtYmd)"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 						</tr>
@@ -130,7 +130,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span><sbux-label id="srch-lbl-cmndYmd" name="srch-lbl-cmndYmd" uitype="normal" text="지시일자" class="bold"></sbux-label></th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm-ast inpt_data_reqed input-sm"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-cmndYmd" name="srch-dtp-cmndYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm-ast inpt_data_reqed input-sm" onchange="fn_dtpChange(srch-dtp-cmndYmd)"></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row" class="th_bg" style="border-right: hidden;"><span class="data_required"></span></span><sbux-label id="srch-lbl-trsprtCoCd" name="srch-lbl-trsprtCoCd" uitype="normal" text="운송회사" class="bold"></sbux-label></th>
@@ -212,8 +212,10 @@
 		fn_initSBSelect();
 		fn_search();
 	});
-	
+
 	const fn_dtpChange = function(){
+		let cmndYmd = SBUxMethod.get("srch-dtp-cmndYmd");
+		let dudtYmd = SBUxMethod.get("srch-dtp-dudtYmd");
 		let outordrYmdFrom = SBUxMethod.get("srch-dtp-outordrYmdFrom");
 		let outordrYmdTo = SBUxMethod.get("srch-dtp-outordrYmdTo");
 		if(gfn_diffDate(outordrYmdFrom, outordrYmdTo) < 0){
@@ -222,6 +224,17 @@
 			SBUxMethod.set("srch-dtp-outordrYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+		if(gfn_diffDate(outordrYmdTo, cmndYmd) < 0){
+			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
+			SBUxMethod.set("srch-dtp-cmndYmd",outordrYmdTo);
+			return;
+		}
+		if(gfn_diffDate(outordrYmdTo, dudtYmd) < 0){
+			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
+			SBUxMethod.set("srch-dtp-dudtYmd",outordrYmdTo);
+			return;
+		}
+
 	}
 
 	function fn_createOutordrInfoGrid() {
@@ -235,6 +248,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.explorerbar = 'sortmove';
+		SBGridProperties.frozencols = 1
     	SBGridProperties.paging = {
     			'type' : 'page',
     		  	'count' : 5,
@@ -516,7 +530,7 @@
         } catch(e) {
         }
     }
-	
+
     const fn_grdCmndQnttValueChanged = async function(){
 
     	let nRow = grdOutordrInfo.getRow();
@@ -530,7 +544,7 @@
 			return;
 		}
     }
-    
+
     const fn_checkInptQntt = async function(){
 
     	let nRow = grdOutordrInfo.getRow();
@@ -571,7 +585,7 @@
 			grdOutordrInfo.setCellData(nRow, checkedCol, "false");
 		}
     }
-    
+
     const fn_setValue = function(){
 
     	let nRow = grdOutordrInfo.getRow();
@@ -624,7 +638,7 @@
 			gfn_comAlert("W0002", "운송회사");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
-		
+
 		for ( let i=1; i<=allData.length; i++ ){
 			const rowData = grdOutordrInfo.getRowData(i);
 			const rowSts = grdOutordrInfo.getRowStatus(i);
