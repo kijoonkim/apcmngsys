@@ -133,18 +133,18 @@
 	    SBGridProperties.paging = lv_paging;
 	    SBGridProperties.explorerbar = 'sortmove';
 		SBGridProperties.columns = [
-	        {caption: ["선택"],		ref: 'checkedYn',	type:'checkbox', width:'5px',
+	        {caption: ["선택"],		ref: 'checkedYn',	type:'checkbox', width:'50px',
 	        	typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
 	        },
-	        {caption: ["상태"], 		ref: 'userSttsNm',	type:'output',  width:'15%', style:'text-align:center'},
-	        {caption: ["사용자ID"],  	ref: 'userId',    	type:'output',	width:'15%', style:'text-align:center'},
-	        {caption: ["사용자명"],   	ref: 'userNm',      type:'output',  width:'15%', style:'text-align:center'},
-	        {caption: ["APC명"],		ref: 'apcNm',   	type:'output',  width:'15%', style:'text-align:center'},
-	        {caption: ["사용자유형"],	ref: 'userTypeNm',	type:'output',  width:'15%', style:'text-align:center'},
-	        {caption: ["메일주소"],  	ref: 'eml',  		type:'output',  width:'15%', style:'text-align:center'},
-	    	{caption: ["전화번호"],  	ref: 'telno',   	type:'output',  width:'15%', style:'text-align:center'},
-	        {caption: ["직책명"],  	ref: 'jbttlNm',   	type:'output',  width:'15%', style:'text-align:center'},
-	        {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'output',  width:'15%', style:'text-align:center'},
+	        {caption: ["상태"], 		ref: 'userSttsNm',	type:'output',  width:'175px', style:'text-align:center'},
+	        {caption: ["사용자ID"],  	ref: 'userId',    	type:'output',	width:'175px', style:'text-align:center'},
+	        {caption: ["사용자명"],   	ref: 'userNm',      type:'output',  width:'175px', style:'text-align:center'},
+	        {caption: ["APC명"],		ref: 'apcNm',   	type:'output',  width:'175px', style:'text-align:center'},
+	        {caption: ["사용자유형"],	ref: 'userTypeNm',	type:'output',  width:'175px', style:'text-align:center'},
+	        {caption: ["메일주소"],  	ref: 'eml',  		type:'output',  width:'175px', style:'text-align:center'},
+	    	{caption: ["전화번호"],  	ref: 'telno',   	type:'output',  width:'175px', style:'text-align:center'},
+	        {caption: ["직책명"],  	ref: 'jbttlNm',   	type:'output',  width:'175px', style:'text-align:center'},
+	        {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'output',  width:'175px', style:'text-align:center'},
 			{caption: ["사용자상태"],	ref: 'userStts',  	type:'output',  hidden: true},
 			{caption: ["사용자유형"],	ref: 'userType',  	type:'output',  hidden: true},
 			{caption: ["apc코드"],	ref: 'apcCd',  		type:'output',  hidden: true}
@@ -246,8 +246,10 @@
 		allUserData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
 				userAprvList.push({
-    				userId: item.userId
+					  userStts : "01"
+    				, userId: item.userId
     			});
+				console.log('userAprvList', userAprvList);
     		}
 		});
 
@@ -259,17 +261,18 @@
 		if (!gfn_comConfirm("Q0001", "승인")) {
 			return;
 		}
-
-    	const postJsonPromise = gfn_postJSON("/co/user/insertUserAprvList.do", userAprvList);
+		
+    	const postJsonPromise = gfn_postJSON("/co/user/updateComUserAprv", userAprvList);
+//     	const postJsonPromise = gfn_postJSON("/co/user/insertUserAprvList.do", userAprvList);
 		const data = await postJsonPromise;
-
+		console.log('postJsonPromise', postJsonPromise);
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_search();
         	} else {
-        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+//         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
         } catch(e) {
         }

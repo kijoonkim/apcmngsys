@@ -20,7 +20,7 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset()"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search()"></sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_updataUserList()"></sbux-button>
+					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save()"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -56,7 +56,7 @@
 								<sbux-input id="srch-inp-userNm" name="srch-inp-userNm" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"></td>
-							<th scope="row">명칭</th>
+							<th scope="row">유형</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-userType" name="srch-slt-userType" uitype="single" class="form-control input-sm" unselected-text="선택" >
 									<option-item value="01">AT관리자</option-item>
@@ -117,21 +117,21 @@ function fn_createUserInfoChgGrid() {
     		  	'showgoalpageui' : true
     	};
 	    SBGridProperties1.columns = [
-	         {caption: ["선택"],			ref: 'chc',      	type:'checkbox',width:'55px'},
-	         {caption: ["사용자ID"], 	ref: 'userId',     	type:'output',   width:'105px', style:'text-align:center'},
+	         {caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'55px', style: 'text-align:center',
+					userattr: {colNm: "checkedYn"},
+	                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+	            },
+	         {caption: ["사용자ID"], 	ref: 'userId',     	type:'output',   width:'180px', style:'text-align:center'},
 	         {caption: ["사용자명"], 	ref: 'userNm',    	type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  width:'105px', style:'text-align:center',
+	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  width:'51px', style:'text-align:center',
 	        	 renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	 	        	if(strValue != null && strValue != ""){
 	 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_callUpdateUserPsd(\"UPD\", \"userInfoChgGridId\", " + nRow + ", " + nCol + ")'>초기화</button>";
 	 	        	}
 	 	        }},
-// 	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'combo',  width:'105px', style:'text-align:center',
-//				typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : true}
-// 	         },
 	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["명칭"],   ref: 'userTypeNm',  type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["메일주소"],	    ref: 'eml', 		type:'input',  width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320})},
+	         {caption: ["사용자유형"],   ref: 'userTypeNm',  type:'output',  width:'105px', style:'text-align:center'},
+	         {caption: ["메일주소"],	    ref: 'eml', 		type:'input',  width:'200px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320})},
 	         {caption: ["전화번호"],  	ref: 'telno',   	type:'input',  width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11})},
 	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
 	         {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
@@ -145,9 +145,6 @@ function fn_createUserInfoChgGrid() {
 	         {caption: ["사용유무코드"],	ref: 'delYn',   	type:'output', hidden: true},
 	         {caption: ["APC코드"],		ref: 'apcCd',   	type:'output', hidden: true}
     ];
-//     	grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
-// 	    window.userInfoChgGridId= _SBGrid.create(SBGridProperties1);
-// 		fn_pagingSmptPrfmnc();
 	    userInfoChgGridId = _SBGrid.create(SBGridProperties1);
 	    userInfoChgGridId.bind( "afterpagechanged" , "fn_pagingUserList" );
 }
@@ -164,7 +161,8 @@ async function fn_pagingUserList(){
 	let currentPageNo = userInfoChgGridId.getSelectPageIndex();
 	fn_callSelectUserList(recordCountPerPage, currentPageNo);
 }
-
+newUserInfoChgGridData = [];
+userInfoChgGridData = [];
 async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 	let apcCd = SBUxMethod.get("gsb-slt-apcCd");
 	let userId = SBUxMethod.get("srch-inp-userId");
@@ -181,6 +179,7 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 		, recordCountPerPage 	: recordCountPerPage}
 	let postJsonPromise = gfn_postJSON("/co/user/users", comUserVO);
     let data = await postJsonPromise;
+
     newUserInfoChgGridData = [];
     userInfoChgGridData = [];
 
@@ -206,8 +205,7 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 
 			userInfoChgGridData.push(Object.assign({}, userAprvReg));
 			newUserInfoChgGridData.push(Object.assign({}, userAprvReg));
-
-
+			
 			if (index === 0) {
 					totalRecordCount = item.totalRecordCount;
 			}
@@ -244,10 +242,11 @@ async function fn_reset(){
 	SBUxMethod.clear("srch-slt-userType");
 }
 
-//저장 버튼
-async function fn_updataUserList(){
-	fn_callUpdateUserList();
-}
+// //저장 버튼
+// async function fn_updataUserList(){
+// 	fn_callUpdateUserList();
+// }
+
 
 async function fn_callUpdateUserList(){
 
@@ -262,6 +261,57 @@ async function fn_callUpdateUserList(){
 	fn_search();
 
 }
+
+    /**
+     * @name fn_save
+     * @description 저장 버튼
+     */
+    const fn_save = async function() {
+    	
+		const allData = userInfoChgGridId.getGridDataAll();
+
+		const userAprvRegGridData = [];
+		
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+				userAprvRegGridData.push({
+					userId: item.userId,
+					eml: item.eml,
+					telno: item.telno,
+					jbttlNm: item.jbttlNm,
+					tkcgTaskNm: item.tkcgTaskNm
+// 					reverseYn: item.reverseYn,
+// 					lckYn: item.lckYn
+    			});
+    		}
+		});
+
+		if (userAprvRegGridData.length == 0) {
+			gfn_comAlert("W0005", "변경대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+
+		// comConfirm
+		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+
+		console.log(userAprvRegGridData);
+    	const postJsonPromise = gfn_postJSON("/co/user/compareComUserAprv.do", userAprvRegGridData);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+    }
 
 /**
  * @name fn_onChangeApc
