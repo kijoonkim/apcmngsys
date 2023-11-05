@@ -56,7 +56,7 @@
 								<sbux-input id="srch-inp-userNm" name="srch-inp-userNm" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"></td>
-							<th scope="row">명칭</th>
+							<th scope="row">유형</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-userType" name="srch-slt-userType" uitype="single" class="form-control input-sm" unselected-text="선택" >
 									<option-item value="01">AT관리자</option-item>
@@ -123,14 +123,14 @@ function fn_createUserInfoChgGrid() {
 	            },
 	         {caption: ["사용자ID"], 	ref: 'userId',     	type:'output',   width:'180px', style:'text-align:center'},
 	         {caption: ["사용자명"], 	ref: 'userNm',    	type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  width:'105px', style:'text-align:center',
+	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  width:'51px', style:'text-align:center',
 	        	 renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	 	        	if(strValue != null && strValue != ""){
 	 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_callUpdateUserPsd(\"UPD\", \"userInfoChgGridId\", " + nRow + ", " + nCol + ")'>초기화</button>";
 	 	        	}
 	 	        }},
 	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["명칭"],   ref: 'userTypeNm',  type:'output',  width:'105px', style:'text-align:center'},
+	         {caption: ["사용자유형"],   ref: 'userTypeNm',  type:'output',  width:'105px', style:'text-align:center'},
 	         {caption: ["메일주소"],	    ref: 'eml', 		type:'input',  width:'200px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320})},
 	         {caption: ["전화번호"],  	ref: 'telno',   	type:'input',  width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11})},
 	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
