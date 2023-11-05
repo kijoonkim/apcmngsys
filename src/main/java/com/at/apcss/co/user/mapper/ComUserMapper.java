@@ -35,6 +35,6 @@ public interface ComUserMapper {
 	 * @param comUserVO
 	 * @return List<>
 	 */
-	public int updateComUser(ComUserVO comUserVO);
+	public int updateComUser(ComUserVO comUserVO) throws Exception;
 
 }

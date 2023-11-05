@@ -20,7 +20,7 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset()"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search()"></sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_updataUserList()"></sbux-button>
+					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save()"></sbux-button>
 				</div>	
 			</div>
 			<div class="box-body">
@@ -117,10 +117,13 @@ function fn_createUserInfoChgGrid() {
     		  	'showgoalpageui' : true
     	};
 	    SBGridProperties1.columns = [
-	         {caption: ["선택"],			ref: 'chc',      	type:'checkbox',width:'55px'},
-	         {caption: ["사용자ID"], 	ref: 'userId',     	type:'output',   width:'105px', style:'text-align:center'},
+	         {caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'55px', style: 'text-align:center',
+					userattr: {colNm: "checkedYn"},
+	                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+	            },
+	         {caption: ["사용자ID"], 	ref: 'userId',     	type:'output',   width:'180px', style:'text-align:center'},
 	         {caption: ["사용자명"], 	ref: 'userNm',    	type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  width:'105px', style:'text-align:center', renderer: function() {
+	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  width:'51px', style:'text-align:center', renderer: function() {
 	            return "<button type='button' class='btn btn-xs btn-outline-danger' onClick=''>초기화</button>"
 	         }},
 // 	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'combo',  width:'105px', style:'text-align:center', 
@@ -128,7 +131,7 @@ function fn_createUserInfoChgGrid() {
 // 	         },
 	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'105px', style:'text-align:center'},
 	         {caption: ["명칭"],   ref: 'userTypeNm',  type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["메일주소"],	    ref: 'eml', 		type:'input',  width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320})},
+	         {caption: ["메일주소"],	    ref: 'eml', 		type:'input',  width:'200px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320})},
 	         {caption: ["전화번호"],  	ref: 'telno',   	type:'input',  width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11})},
 	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
 	         {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
@@ -161,7 +164,8 @@ async function fn_pagingUserList(){
 	let currentPageNo = userInfoChgGridId.getSelectPageIndex();
 	fn_callSelectUserList(recordCountPerPage, currentPageNo);
 }
-
+newUserInfoChgGridData = [];
+userInfoChgGridData = [];
 async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 	let apcCd = SBUxMethod.get("gsb-slt-apcCd");
 	let userId = SBUxMethod.get("srch-inp-userId");
@@ -177,9 +181,7 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 		, currentPageNo 		: currentPageNo
 		, recordCountPerPage 	: recordCountPerPage}
 	let postJsonPromise = gfn_postJSON("/co/user/users", comUserVO);
-    let data = await postJsonPromise;                
-    newUserInfoChgGridData = [];
-    userInfoChgGridData = [];
+    let data = await postJsonPromise;
     
     try{
     	data.resultList.forEach((item, index) => {
@@ -202,7 +204,7 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 			}
     		
 			userInfoChgGridData.push(Object.assign({}, userAprvReg));
-			newUserInfoChgGridData.push(Object.assign({}, userAprvReg));
+// 			newUserInfoChgGridData.push(Object.assign({}, userAprvReg));
 			
 			
 			if (index === 0) {
@@ -241,24 +243,75 @@ async function fn_reset(){
 	SBUxMethod.clear("srch-slt-userType");
 }
 
-//저장 버튼
-async function fn_updataUserList(){
-	fn_callUpdateUserList();
-}
+// //저장 버튼
+// async function fn_updataUserList(){
+// 	fn_callUpdateUserList();
+// }
 
-async function fn_callUpdateUserList(){
+// async function fn_callUpdateUserList(){
 	
 	
-	let regMsg = "등록 하시겠습니까?";
-	if(confirm(regMsg)){
+// 	let regMsg = "등록 하시겠습니까?";
+// 	if(confirm(regMsg)){
 		
-// 		let postJsonPromise = gfn_postJSON("/am/cmns/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
-		let postJsonPromise = await gfn_postJSON("/co/user/compareComUserAprv.do", {origin : newUserInfoChgGridData, modified : userInfoChgGridData});
-		alert("등록 되었습니다.");
-	}
-	fn_search();
+// // 		let postJsonPromise = gfn_postJSON("/am/cmns/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
+// 		let postJsonPromise = await gfn_postJSON("/co/user/compareComUserAprv.do", {origin : newUserInfoChgGridData, modified : userInfoChgGridData});
+// 		alert("등록 되었습니다.");
+// 	}
+// 	fn_search();
 
-}
+// }
+
+    /**
+     * @name fn_save
+     * @description 저장 버튼
+     */
+    const fn_save = async function() {
+    	
+		const allData = userInfoChgGridId.getGridDataAll();
+
+		const userAprvRegGridData = [];
+		
+		allData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+				userAprvRegGridData.push({
+					userId: item.userId,
+					eml: item.eml,
+					telno: item.telno,
+					jbttlNm: item.jbttlNm,
+					tkcgTaskNm: item.tkcgTaskNm
+// 					reverseYn: item.reverseYn,
+// 					lckYn: item.lckYn
+    			});
+    		}
+		});
+
+		if (userAprvRegGridData.length == 0) {
+			gfn_comAlert("W0005", "변경대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+
+		// comConfirm
+		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+
+		console.log(userAprvRegGridData);
+    	const postJsonPromise = gfn_postJSON("/co/user/compareComUserAprv.do", userAprvRegGridData);
+		const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+    }
 
 /**
  * @name fn_onChangeApc

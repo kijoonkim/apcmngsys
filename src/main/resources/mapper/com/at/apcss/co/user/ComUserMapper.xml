@@ -157,6 +157,9 @@
     	   , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
     	   , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
     	]]>
+    	<if test='telno != null and telno != ""'>
+    		 , TELNO 				= #{telno}
+    	</if>
     	<if test='jbttlNm != null and jbttlNm != ""'>
     		 , JBTTL_NM 				= #{jbttlNm}
     	</if>

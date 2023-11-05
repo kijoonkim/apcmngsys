@@ -25,10 +25,16 @@ public interface ComUserService {
 
 	/**
 	 * 사용자 정보를 변경한다.
-	 * @param comUserVO
+	 * @param comUserList
 	 * @return
 	 */
-	public int updateComUser(ComUserVO comUserVO) throws Exception;
+	public HashMap<String, Object> updateComUser(ComUserVO comUserList) throws Exception;
+	/**
+	 * 사용자 정보를 변경한다.
+	 * @param comUserList
+	 * @return
+	 */
+	public HashMap<String, Object> updateComUserList(List<ComUserVO> comUserList) throws Exception;
 
 	/**
 	 * 사용자 승인상태를 변경한다.
@@ -43,5 +49,7 @@ public interface ComUserService {
 	 * @return
 	 */
 	public HashMap<String,Object> insertUserAprvList(List<ComUserVO> comUserList) throws Exception;
+
+	
 
 }
