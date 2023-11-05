@@ -150,6 +150,9 @@
 			gfn_setComCdSBSelect("grdVrty", 		jsonVrtyWghtRkngSeCd, "WGHT_RKNG_SE_CD"),		// 상품등급(출하)
 			gfn_setComCdSBSelect("grdApcVrty", 		jsonApcVrtyWghtRkngSeCd, "WGHT_RKNG_SE_CD")		// 상품등급(출하)
 		]);
+
+		jsonApcVrty.length = 0;
+		jsonVrty.length = 0;
 		grdVrty.refresh({"combo":true});
 		grdApcVrty.refresh({"combo":true});
 
@@ -173,12 +176,12 @@
 		SBGridPropertiesItem.extendlastcol = 'scroll';
 		SBGridPropertiesItem.scrollbubbling = false;
 		SBGridPropertiesItem.columns = [
-	        {caption: ["코드"],     ref: 'itemCd',  type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'itemNm',  type:'output',  width:'200px',    style:'text-align:center'},
-	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'80PX',    style:'text-align:center',
+	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'60px',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_addItem(" + nRow + ")'>선택</button>";
 	        }},
+	        {caption: ["코드"],     ref: 'itemCd',  type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["명칭"],     ref: 'itemNm',  type:'output',  width:'200px',    style:'text-align:center'},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
 
 	    ];
@@ -195,16 +198,16 @@
 	    SBGridPropertiesApcItem.oneclickedit = true;
 	    SBGridPropertiesApcItem.scrollbubbling = false;
 	    SBGridPropertiesApcItem.columns = [
+	        {caption: ["삭제"], 	ref: 'empty',   type:'output',  width:'60px',    style:'text-align:center',
+	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteItem(" + nRow + ")'>삭제</button>";
+	        }},
+	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'130px',    style:'text-align:center'},
 	        {caption: ["품종"],     ref: 'vrtrCnt',  	type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["규격"],     ref: 'spcfctCnt',  	type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["등급"],     ref: 'grdCnt',  	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["삭제"], 	ref: 'empty',   type:'output',  width:'80PX',    style:'text-align:center',
-	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteItem(" + nRow + ")'>삭제</button>";
-	        }},
-	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
 
 	    ];
 	    grdApcItem = _SBGrid.create(SBGridPropertiesApcItem);
@@ -221,12 +224,12 @@
 	    SBGridPropertiesVrty.oneclickedit = true;
 	    SBGridPropertiesVrty.scrollbubbling = false;
 	    SBGridPropertiesVrty.columns = [
-	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'output',  width:'200px',    style:'text-align:center'},
-	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'80PX',    style:'text-align:center',
+	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'60px',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_addVrty(" + nRow + ")'>선택</button>";
 	        }},
+	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'output',  width:'200px',    style:'text-align:center'},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
 
@@ -244,6 +247,14 @@
 	    SBGridPropertiesApcVrty.oneclickedit = true;
 	    SBGridPropertiesApcVrty.scrollbubbling = false;
 	    SBGridPropertiesApcVrty.columns = [
+	        {caption: ["선택"], 	ref: 'delYn',   type:'output',  width:'60px',    style:'text-align:center',
+	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	            	if(strValue== null || strValue == ""){
+		        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdApcVrty\", " + nRow + ", " + nCol + ")'>추가</button>";
+		        	}else{
+		                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteVrty(" + nRow + ")'>삭제</button>";
+		        	}
+	        }},
 	        {caption: ["코드"],     ref: 'vrtyCd',  type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["명칭"],     ref: 'vrtyNm',  type:'input',  	width:'140px',    style:'text-align:center',
 	        	typeinfo : {maxlength : 30}},
@@ -253,14 +264,6 @@
 					typeinfo : {ref:'jsonVrtyWghtRkngSeCd', displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ["순번"],     ref: 'sn',  type:'input',  	width:'80px',    style:'text-align:center',
 						typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}},
-	        {caption: ["선택"], 	ref: 'delYn',   type:'output',  width:'80PX',    style:'text-align:center',
-	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	            	if(strValue== null || strValue == ""){
-		        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdApcVrty\", " + nRow + ", " + nCol + ")'>추가</button>";
-		        	}else{
-		                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteVrty(" + nRow + ")'>삭제</button>";
-		        	}
-	        }},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["품목코드"], 	ref: 'itemCd',   	type:'input',  hidden : true}
 
@@ -415,6 +418,7 @@
         	grdApcVrty.rebuild();
         	grdApcVrty.setCellDisabled(0, 1, grdApcVrty.getRows() - 1, 1, true);
         	grdApcVrty.addRow(true);
+        	grdApcVrty.setCellDisabled(grdApcVrty.getRows() -1, 0, grdApcVrty.getRows() -1, grdApcVrty.getCols() -1, true);
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

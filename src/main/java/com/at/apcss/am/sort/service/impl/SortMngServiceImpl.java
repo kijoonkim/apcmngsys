@@ -78,6 +78,159 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 		return null;
 	}
 
+
+	@Override
+	public HashMap<String, Object> insertSortInpt(SortMngVO sortMngVO) throws Exception {
+		
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		List<SortInptPrfmncVO> inptList = sortMngVO.getSortInptPrfmncList();
+
+		// 선별투입 등록 list
+		List<SortInptPrfmncVO> sortInptList = new ArrayList<>();
+
+		for ( SortInptPrfmncVO inpt : inptList ) {
+
+			// 원료정보 확인
+			RawMtrInvntrVO invntrParam = new RawMtrInvntrVO();
+			invntrParam.setApcCd(sortMngVO.getApcCd());
+			invntrParam.setPltno(inpt.getPltno());
+			invntrParam.setWrhsno(inpt.getWrhsno());
+			
+			RawMtrInvntrVO invntrInfo = rawMtrInvntrService.selectRawMtrInvntr(invntrParam);
+			if (invntrInfo == null
+					|| !StringUtils.hasText(invntrInfo.getWrhsno())
+					|| ComConstants.CON_YES.equals(invntrInfo.getDelYn())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고정보");	// W0005	{0}이/가 없습니다.
+			}
+			
+			if (!StringUtils.hasText(inpt.getFcltCd())) {
+				ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별기");	// W0005	{0}이/가 없습니다.
+			}
+			
+			if (inpt.getQntt() <= 0) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "투입수량");	// W0005	{0}이/가 없습니다.
+			}
+			
+			if (inpt.getQntt() > invntrInfo.getInvntrQntt()) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고수량||투입수량");	// W0008	{0} 보다 {1}이/가 큽니다.
+			}
+
+			SortInptPrfmncVO inptVO = new SortInptPrfmncVO();
+			BeanUtils.copyProperties(sortMngVO, inptVO);
+			BeanUtils.copyProperties(inpt, inptVO,
+					ApcConstants.PROP_APC_CD,
+					ComConstants.PROP_SYS_FRST_INPT_DT,
+					ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+					ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+					ComConstants.PROP_SYS_LAST_CHG_DT,
+					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+
+			// 투입실적 항목 set
+			sortInptList.add(inptVO);
+		}
+		
+		for ( SortInptPrfmncVO inptVO : sortInptList ) {
+			
+			inptVO.setSortno("sssss");
+			
+			// 투입등록
+			rtnObj = sortInptPrfmncService.insertSortInptPrfmnc(inptVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+			
+			// 원물재고 투입진행량 update
+			RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+			BeanUtils.copyProperties(inptVO, invntrVO);
+			invntrVO.setInptPrgrsQntt(inptVO.getQntt());
+			invntrVO.setInptPrgrsWght(inptVO.getWght());
+			
+			rtnObj = rawMtrInvntrService.updateInvntrSortInpt(invntrVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}			
+		}
+
+		return null;
+	}
+
+
+	@Override
+	public HashMap<String, Object> deleteSortInpt(SortMngVO sortMngVO) throws Exception {
+		
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		List<SortInptPrfmncVO> inptList = sortMngVO.getSortInptPrfmncList();
+
+		// 선별투입 삭제 list
+		List<SortInptPrfmncVO> sortInptList = new ArrayList<>();
+
+		for ( SortInptPrfmncVO inpt : inptList ) {
+
+			inpt.setApcCd(sortMngVO.getApcCd());
+			
+			// 투입실적 확인
+			SortInptPrfmncVO sortInptInfo = sortInptPrfmncService.selectSortInptPrfmnc(inpt);
+			if (sortInptInfo == null
+					|| !StringUtils.hasText(sortInptInfo.getWrhsno())
+					|| ComConstants.CON_YES.equals(sortInptInfo.getDelYn())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별투입정보");	// W0005	{0}이/가 없습니다.
+			}
+			
+			if (StringUtils.hasText(sortInptInfo.getSortno())) {
+				// TODO 테이블 ALTER 후 진행
+				//return ComUtil.getResultMap(ComConstants.MSGCD_TARGET_EXIST, "선별투입정보");
+			}
+			
+			inpt.setQntt(sortInptInfo.getQntt());
+			inpt.setWght(sortInptInfo.getWght());
+						
+			SortInptPrfmncVO inptVO = new SortInptPrfmncVO();
+			BeanUtils.copyProperties(sortMngVO, inptVO);
+			BeanUtils.copyProperties(inpt, inptVO,
+					ApcConstants.PROP_APC_CD,
+					ComConstants.PROP_SYS_FRST_INPT_DT,
+					ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+					ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+					ComConstants.PROP_SYS_LAST_CHG_DT,
+					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+
+			// 투입실적 항목 set
+			sortInptList.add(inptVO);
+		}
+		
+		for ( SortInptPrfmncVO inptVO : sortInptList ) {
+
+			// 원물재고 투입진행량 update
+			RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+			BeanUtils.copyProperties(inptVO, invntrVO);
+			invntrVO.setInptPrgrsQntt(inptVO.getQntt());
+			invntrVO.setInptPrgrsWght(inptVO.getWght());
+			
+			rtnObj = rawMtrInvntrService.deleteInvntrSortInpt(invntrVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+			// 투입 취소
+			rtnObj = sortInptPrfmncService.deleteSortInptPrfmnc(inptVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+		return null;
+	}
+	
+	
+	
 	@Override
 	public HashMap<String, Object> insertSortInptPrfmnc(SortMngVO sortMngVO) throws Exception {
 
@@ -511,6 +664,8 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 		return null;
 	}
+
+
 
 
 

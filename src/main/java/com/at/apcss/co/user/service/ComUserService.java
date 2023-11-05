@@ -50,6 +50,11 @@ public interface ComUserService {
 	 */
 	public HashMap<String,Object> insertUserAprvList(List<ComUserVO> comUserList) throws Exception;
 
-	
+	/**
+	 * 비밀번호 초기화
+	 * @param updComUserPwd
+	 * @return
+	 */
+	public int updComUserPwd(ComUserVO comUserVO) throws Exception;
 
 }

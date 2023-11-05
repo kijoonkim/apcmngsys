@@ -33,6 +33,6 @@ const gfn_apcEstmtWght = function(_wght, _apcCd, _param) {
 const gfn_apcEstmtQntt = function(_qntt, _apcCd, _param) {
 
 	// APC별 기준 가져오기
-	return Math.floor(_wght);
+	return Math.floor(_qntt);
 }
 

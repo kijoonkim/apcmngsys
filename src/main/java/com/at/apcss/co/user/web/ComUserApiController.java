@@ -26,9 +26,11 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.user.service.ComUserService;
 import com.at.apcss.co.user.vo.ComUserVO;
+import com.at.apcss.fm.farm.vo.FarmerInfoVO;
 
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.jwt.config.EgovJwtTokenUtil;
+import egovframework.let.utl.sim.service.EgovFileScrty;
 
 /**
  * 일반 로그인을 처리하는 컨트롤러 클래스
@@ -125,11 +127,11 @@ public class ComUserApiController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/co/user/updateComUserAprv", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateComUserAprv(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
 		logger.debug("updateComUserAprv 호출 <><><><> ");
-		
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		int result = 0;
 		try {
@@ -139,12 +141,12 @@ public class ComUserApiController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
-		
+
 		resultMap.put("result", result);
-		
+
 		return getSuccessResponseEntity(resultMap);
 	}
-							
+
 	@PostMapping(value = "/co/user/compareComUserAprv.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateComUserList(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
 		logger.debug("compareComUserAprv.do 호출 <><><><> ");
@@ -165,12 +167,39 @@ public class ComUserApiController extends BaseController {
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
-
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+	/*
+	 * 비밀번호 초기화
+	 */
+	@PostMapping(value = "/co/user/updComUserPwd.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updComUserPwd(@RequestBody ComUserVO comUserVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		logger.info("=============updComUserPwd=========start====");
+		comUserVO.setSysLastChgUserId(getUserId());
+		comUserVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		String enpassword = EgovFileScrty.encryptPassword(comUserVO.getUserId(), comUserVO.getUserId());
+		comUserVO.setPswd(enpassword);
+
+		int updatedCnt = 0;
+
+		try {
+			updatedCnt = comUserService.updComUserPwd(comUserVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+		logger.info("=============updComUserPwd======end=======");
 		return getSuccessResponseEntity(resultMap);
 	}
 }

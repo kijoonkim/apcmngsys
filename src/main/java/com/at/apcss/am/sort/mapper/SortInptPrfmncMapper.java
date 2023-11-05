@@ -47,6 +47,24 @@ public interface SortInptPrfmncMapper {
 	 */
 	public List<SortInptPrfmncVO> selectSortInptCnclList(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
 
+
+	/**
+	 * 선별투입 목록 조회 (진행량)
+	 * @param sortInptPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortInptPrfmncVO> selectSortInptList(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+
+	/**
+	 * 선별투입 등록
+	 * @param sortInptPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSortInpt(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+	
+	
 	/**
 	 * 선별투입실적 등록
 	 * @param sortInptPrfmncVO
@@ -70,4 +88,22 @@ public interface SortInptPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int deleteSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+	
+	/**
+	 * 선별투입실적 삭제 : set delYn 'Y'
+	 * @param sortInptPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateSortInptPrfmncForDelY(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+
+	
+	/**
+	 * 선별투입실적 선별번호 등록
+	 * @param sortInptPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateSortInptSortno(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+	
 }

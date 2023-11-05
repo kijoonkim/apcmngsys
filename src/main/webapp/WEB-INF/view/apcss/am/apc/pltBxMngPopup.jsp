@@ -83,6 +83,13 @@
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.frozenrows = 1;
 	    SBGridProperties.columns = [
+	        {caption: ["팔레트 정보","처리"], 			ref: 'delYn',   			type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        	if(strValue== null || strValue == ""){
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdPlt\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdPlt\", " + nRow + ")'>삭제</button>";
+	        	}
+		    }},
 	        {caption: ["팔레트 정보","코드"], 			ref: 'pltBxCd',  		type:'output',  width:'100px',     style:'text-align:center', hidden : true},
 	        {caption: ["팔레트 정보","팔레트 명"], 		ref: 'pltBxNm',  		type:'input',  width:'230px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
 	        {caption: ["팔레트 정보","대여업체"], 		ref: 'rmrk',  type:'inputcombo',  width:'150px',    style:'text-align:center',
@@ -93,13 +100,6 @@
 	        {caption: ["팔레트 정보","기초재고수량"], 	ref: 'bssInvntrQntt',  	type:'input',  width:'130px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["팔레트 정보","사용유무"], 		ref: 'useYn',   		type:'combo',  width:'130px',    style:'text-align:center',
 	        			typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
-	        {caption: ["팔레트 정보","처리"], 			ref: 'delYn',   			type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdPlt\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdPlt\", " + nRow + ")'>삭제</button>";
-	        	}
-		    }},
 		    {caption: ["팔레트 정보","팔레트/박스 구분코드"], 	ref: 'pltBxSeCd',  	hidden : true},
 		    {caption: ["팔레트 정보","APC코드"], 				ref: 'apcCd',  		hidden : true}
 	    ];
@@ -121,9 +121,15 @@
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.frozenrows = 1;
 	    SBGridProperties.columns = [
+			{caption: ["박스 정보","처리"], 		ref: 'delYn',   	type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        	if(strValue== null || strValue == ""){
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdBx\", " + nRow + ", " + nCol + ")'>추가</button>";
+	        	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdBx\", " + nRow + ")'>삭제</button>";
+	        	}
+		    }},
 	        {caption: ["박스 정보","코드"], 		ref: 'pltBxCd',  		type:'output',  width:'100px',     style:'text-align:center', hidden : true},
 	        {caption: ["박스 정보","박스 명"], 		ref: 'pltBxNm',  		type:'input',  width:'230px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
-// 	        {caption: ["박스 정보","대여업체"], 		ref: 'rmrk',  			type:'input',  width:'150px',    style:'text-align:center'},
 	        {caption: ["박스 정보","대여업체"], 		ref: 'rmrk',  type:'inputcombo',  width:'150px',    style:'text-align:center',
     			typeinfo : {ref:'comboGridPltCnptJsData', displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["박스 정보","단중"], 		ref: 'unitWght',   		type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
@@ -132,13 +138,6 @@
 	        {caption: ["박스 정보","기초재고수량"], ref: 'bssInvntrQntt',  	type:'input',  width:'130px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["박스 정보","사용유무"], 	ref: 'useYn',   		type:'combo',  width:'130px',    style:'text-align:center',
 						typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
-			{caption: ["박스 정보","처리"], 		ref: 'delYn',   	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdBx\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdBx\", " + nRow + ")'>삭제</button>";
-	        	}
-		    }},
 		    {caption: ["박스 정보","팔레트/박스 구분코드"], 	ref: 'pltBxSeCd',  	hidden : true},
 		    {caption: ["박스 정보","APC코드"], 					ref: 'apcCd',  		hidden : true}
 
@@ -170,7 +169,8 @@
 				jsonPlt.push(Object.assign({}, pltBxVO));
 			});
         	grdPlt.rebuild();
-        	grdPlt.addRow();
+        	grdPlt.addRow(true);
+        	grdPlt.setCellDisabled(grdPlt.getRows() -1, 0, grdPlt.getRows() -1, grdPlt.getCols() -1, true);
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -202,7 +202,8 @@
 				jsonBx.push(Object.assign({}, pltBxVO));
 			});
         	grdBx.rebuild();
-        	grdBx.addRow();
+        	grdBx.addRow(true);
+        	grdBx.setCellDisabled(grdBx.getRows() -1, 0, grdBx.getRows() -1, grdBx.getCols() -1, true);
         }catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -220,7 +221,7 @@
 		let pltGridData = grdPlt.getGridDataAll();
 		// 박스 전체 Data
 		let bxGridData = grdBx.getGridDataAll();
-		
+
 		var pltBxList = [];
 
 		// 팔레트 등록 data 분류
@@ -255,7 +256,7 @@
 				continue;
 			}
 		}
-		
+
 		// 박스 등록 data 분류
 		for(var i=2; i<=bxGridData.length+1; i++ ){
 			const rowData = grdBx.getRowData(i);
@@ -285,7 +286,7 @@
 				continue;
 			}
 		}
-		
+
 		if(pltBxList.length == 0){
 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
 			return;

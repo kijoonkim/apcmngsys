@@ -88,6 +88,13 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
+            {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            	if(strValue== null || strValue == ""){
+            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"cnptMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
+            	}else{
+			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"cnptMngDatagrid\", " + nRow + ")'>삭제</button>";
+            	}
+		    }},
             {caption: ["코드"], 		ref: 'cnptCd',  	type:'output', width:'80px',     style:'text-align:center',  hidden : true},
             {caption: ["거래처명"], 	ref: 'cnptNm',  	type:'input',  width:'125px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
             {caption: ["유형"], 		ref: 'cnptType',   	type:'combo',  width:'125px',    style:'text-align:center',
@@ -97,13 +104,6 @@
             {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : '#-', repeat: '*'}}},
             {caption: ["이메일"], 	ref: 'eml',  		type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320})},
             {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
-            {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-            	if(strValue== null || strValue == ""){
-            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"cnptMngDatagrid\", " + nRow + ", " + nCol + ")'>추가</button>";
-            	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"cnptMngDatagrid\", " + nRow + ")'>삭제</button>";
-            	}
-		    }}
         ];
         window.cnptMngDatagrid = _SBGrid.create(SBGridProperties);
         fn_selectCnptList();
@@ -149,7 +149,7 @@
     		console.error("failed", e.message);
         }
 	}
-	
+
 	async function fn_saveCnptList(){
 		let gridData = cnptMngDatagrid.getGridDataAll();
 		let insertList = [];
@@ -163,7 +163,7 @@
 					alert("거래처명은 필수 값 입니다.");
 					return;
 				}
-				
+
 				if(cnptMngDatagrid.getRowData(i).cnptType == null || cnptMngDatagrid.getRowData(i).cnptType == ""){
 					alert("유형을 선택해주세요");
 					return;
@@ -177,7 +177,7 @@
 				}
 			}
 		}
-		
+
 		let gridData2 = lgszMrktMngDatagrid.getGridDataAll();
 		let updateList2 = [];
 		let updateCnt2 = 0;
@@ -186,7 +186,7 @@
 				updateList2.push(lgszMrktMngDatagrid.getRowData(i));
 			}
 		}
-		
+
 		if(insertList.length == 0 && updateList.length == 0 && updateList2.length == 0){
 			alert("저장 할 내용이 없습니다.");
 			return;
@@ -233,7 +233,7 @@
     		console.error("failed", e.message);
 		}
 	}
-	
+
 	async function fn_callUpdateCnptList(updateList){
 		let postJsonPromise = gfn_postJSON("/am/cmns/updateCnptList.do", updateList);
         let data = await postJsonPromise;
@@ -247,7 +247,7 @@
     		console.error("failed", e.message);
 		}
 	}
-	
+
 	async function fn_callUpdateLgszMrktList(updateList){
 		let postJsonPromise = gfn_postJSON("/am/cmns/updateLgszMrktList.do", updateList);
         let data = await postJsonPromise;
@@ -261,12 +261,12 @@
     		console.error("failed", e.message);
 		}
 	}
-	
+
 
 	async function fn_deleteCnptList(cnpt){
 		let postJsonPromise1 = gfn_postJSON("/am/cmns/deleteCnptList.do", cnpt);
 	}
-	
+
     var lgszMrktMngGridData =[];
     function fn_lgszMrktMngCreateGrid() {
         let SBGridProperties = {};
@@ -290,7 +290,7 @@
         window.lgszMrktMngDatagrid = _SBGrid.create(SBGridProperties);
 		fn_callSelectLgszMrktList();
     }
-    
+
     let newLgszMrktMngGridData = [];
 	async function fn_callSelectLgszMrktList(){
 		let apcCd = SBUxMethod.get("inp-apcCd");

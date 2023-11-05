@@ -21,7 +21,7 @@
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset()"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search()"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save()"></sbux-button>
-				</div>	
+				</div>
 			</div>
 			<div class="box-body">
 				<!--[APC] START -->
@@ -70,7 +70,7 @@
 						</tr>
 					</tbody>
 				</table>
-											
+
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 			<div class="ad_tbl_top">
@@ -123,12 +123,12 @@ function fn_createUserInfoChgGrid() {
 	            },
 	         {caption: ["사용자ID"], 	ref: 'userId',     	type:'output',   width:'180px', style:'text-align:center'},
 	         {caption: ["사용자명"], 	ref: 'userNm',    	type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  width:'51px', style:'text-align:center', renderer: function() {
-	            return "<button type='button' class='btn btn-xs btn-outline-danger' onClick=''>초기화</button>"
-	         }},
-// 	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'combo',  width:'105px', style:'text-align:center', 
-//				typeinfo : {ref:'comboUesYnJsData', label:'label', value:'value', displayui : true}
-// 	         },
+	         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  width:'105px', style:'text-align:center',
+	        	 renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	 	        	if(strValue != null && strValue != ""){
+	 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_callUpdateUserPsd(\"UPD\", \"userInfoChgGridId\", " + nRow + ", " + nCol + ")'>초기화</button>";
+	 	        	}
+	 	        }},
 	         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  width:'105px', style:'text-align:center'},
 	         {caption: ["명칭"],   ref: 'userTypeNm',  type:'output',  width:'105px', style:'text-align:center'},
 	         {caption: ["메일주소"],	    ref: 'eml', 		type:'input',  width:'200px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320})},
@@ -136,18 +136,15 @@ function fn_createUserInfoChgGrid() {
 	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
 	         {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
 	         {caption: ["사용유무"],  	ref: 'reverseYn',   type:'combo',   width:'105px', style:'text-align:center',
-	        	 typeinfo : {ref:'combofilteringReverseYnData', label:'label', value:'value', displayui : true} 
+	        	 typeinfo : {ref:'combofilteringReverseYnData', label:'label', value:'value', displayui : true}
 	         },
 	         {caption: ["잠김여부"],  	ref: 'lckYn',   	type:'combo',   width:'105px', style:'text-align:center',
-	        	 typeinfo : {ref:'combofilteringLckYnData', label:'label', value:'value', displayui : true}	 
+	        	 typeinfo : {ref:'combofilteringLckYnData', label:'label', value:'value', displayui : true}
 	         },
 	         {caption: ["최종접속일시"], ref: 'endLgnDt',  	type:'output',  width:'105px', style:'text-align:center'},
 	         {caption: ["사용유무코드"],	ref: 'delYn',   	type:'output', hidden: true},
 	         {caption: ["APC코드"],		ref: 'apcCd',   	type:'output', hidden: true}
     ];
-//     	grdWghPrfmnc1 = _SBGrid.create(SBGridProperties1);
-// 	    window.userInfoChgGridId= _SBGrid.create(SBGridProperties1);
-// 		fn_pagingSmptPrfmnc();
 	    userInfoChgGridId = _SBGrid.create(SBGridProperties1);
 	    userInfoChgGridId.bind( "afterpagechanged" , "fn_pagingUserList" );
 }
@@ -171,9 +168,9 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 	let userId = SBUxMethod.get("srch-inp-userId");
 	let userNm = SBUxMethod.get("srch-inp-userNm");
 	let userType = SBUxMethod.get("srch-slt-userType");
-	
+
 	var comUserVO = {
-		  apcCd					: apcCd	
+		  apcCd					: apcCd
 		, userId				: userId
 		, userNm				: userNm
 		, userType				: userType
@@ -182,7 +179,10 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 		, recordCountPerPage 	: recordCountPerPage}
 	let postJsonPromise = gfn_postJSON("/co/user/users", comUserVO);
     let data = await postJsonPromise;
-    
+
+    newUserInfoChgGridData = [];
+    userInfoChgGridData = [];
+
     try{
     	data.resultList.forEach((item, index) => {
 			let userAprvReg = {
@@ -191,7 +191,7 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 			  , pswd		: item.pswd
 			  , apcCd		: item.apcCd
 			  , apcNm		: item.apcNm
-			  , eml			: item.eml            
+			  , eml			: item.eml
 			  , userTypeNm	: item.userTypeNm
 			  , eml			: item.eml
 			  , telno		: item.telno
@@ -202,10 +202,9 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 			  , endLgnDt	: item.endLgnDt
 			  , delYn		: item.delYN
 			}
-    		
+
 			userInfoChgGridData.push(Object.assign({}, userAprvReg));
-// 			newUserInfoChgGridData.push(Object.assign({}, userAprvReg));
-			
+			newUserInfoChgGridData.push(Object.assign({}, userAprvReg));
 			
 			if (index === 0) {
 					totalRecordCount = item.totalRecordCount;
@@ -248,19 +247,20 @@ async function fn_reset(){
 // 	fn_callUpdateUserList();
 // }
 
-// async function fn_callUpdateUserList(){
-	
-	
-// 	let regMsg = "등록 하시겠습니까?";
-// 	if(confirm(regMsg)){
-		
-// // 		let postJsonPromise = gfn_postJSON("/am/cmns/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
-// 		let postJsonPromise = await gfn_postJSON("/co/user/compareComUserAprv.do", {origin : newUserInfoChgGridData, modified : userInfoChgGridData});
-// 		alert("등록 되었습니다.");
-// 	}
-// 	fn_search();
 
-// }
+async function fn_callUpdateUserList(){
+
+
+	let regMsg = "등록 하시겠습니까?";
+	if(confirm(regMsg)){
+
+// 		let postJsonPromise = gfn_postJSON("/am/cmns/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
+		let postJsonPromise = await gfn_postJSON("/co/user/compareComUserAprv.do", {origin : newUserInfoChgGridData, modified : userInfoChgGridData});
+		alert("등록 되었습니다.");
+	}
+	fn_search();
+
+}
 
     /**
      * @name fn_save
@@ -320,6 +320,47 @@ async function fn_reset(){
 const fn_onChangeApc = async function() {
 	fn_search();
 }
+
+
+/*
+ * 비밀번호 초기화 호출
+ * 2023-11-03
+ * ysh
+ */
+ function fn_callUpdateUserPsd(gubun, grid, nRow, nCol) {
+     if (gubun === "UPD") {
+         if (grid === "userInfoChgGridId") {
+         		var updMsg = "비밀번호 초기화 하시겠습니까?";
+         		if(confirm(updMsg)){
+         			var comUserVO = userInfoChgGridId.getRowData(nRow);
+         			fn_updatePwd(comUserVO);
+         		}
+         }
+     }
+ }
+
+ /*
+  * 비밀번호 초기화 업데이트
+  * 2023-11-03
+  * ysh
+  */
+async function fn_updatePwd(comUserVO){
+		let postJsonPromise = gfn_postJSON("/co/user/updComUserPwd.do", comUserVO);
+        let data = await postJsonPromise;
+        try{
+        	if(data.updatedCnt > 0){
+        		alert("비밀번호가 초기화 되었습니다.");
+        	}else{
+        		alert("비밀번호 초기화 오류가 발생 되었습니다.");
+        	}
+        }catch (e) {
+        	if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+		}
+	}
+
 </script>
 
 </html>

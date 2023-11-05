@@ -182,4 +182,18 @@
     	 WHERE USER_ID 					= #{userId}
     	]]>
     </update>
+
+<!--     비밀번호초기화 -->
+   <update id="updComUserPwd" parameterType="com.at.apcss.co.user.vo.ComUserVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.co.user.ComUserMapper.updComUserPwd */
+	    		TB_COM_USER
+			   SET
+				 PSWD = #{pswd}
+				,SYS_LAST_CHG_DT = SYSDATE
+				,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+				,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+			 WHERE USER_ID	= #{userId}
+    	]]>
+    </update>
 </mapper>

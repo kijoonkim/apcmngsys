@@ -61,12 +61,24 @@
 							<td colspan="2"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>발주일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-outordrYmd" name="srch-dtp-outordrYmd" uitype="popup" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>
+								<sbux-datepicker
+									id="srch-dtp-outordrYmd"
+									name="srch-dtp-outordrYmd"
+									uitype="popup"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(srch-dtp-outordrYmd)"
+									></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>납기일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" uitype="popup" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>
+								<sbux-datepicker
+									 id="srch-dtp-wrhsYmd"
+									 name="srch-dtp-wrhsYmd"
+									 uitype="popup"
+									 class="form-control input-sm input-sm-ast inpt_data_reqed"
+									 onchange="fn_dtpChange(srch-dtp-wrhsYmd)"
+									 ></sbux-datepicker>
 							</td>
 							<td colspan="2"></td>
 						</tr>
@@ -220,6 +232,30 @@
 		])
 
 	}
+	const fn_dtpChange = function(){
+		let outOrdrYmdFrom = SBUxMethod.get("srch-dtp-outordrYmd");
+		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmd");
+		if(gfn_diffDate(outOrdrYmdFrom, wrhsYmdTo) < 0){
+			gfn_comAlert("E0000", "납기일자는 발주일자보다 이후 일자입니다.");//W0001{0}
+			SBUxMethod.set("srch-dtp-outordrYmd", gfn_dateToYmd(new Date()));
+			SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
+			return;
+		}
+	}
+	function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		SBUxMethod.set("srch-inp-vrtyNm", "");
+		SBUxMethod.set("srch-inp-vrtyCd", "");
+		if (gfn_isEmpty(itemCd)) {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	""); 		// 규격
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, "");			// 품종
+
+		} else {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	gv_selectedApcCd, itemCd);		// 규격
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_apcCd, itemCd);			// 품종
+
+		}
+	}
 
 	const fn_selectVrty = async function(){
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
@@ -284,9 +320,12 @@
     }
 
 	const fn_search = async function(){
-
+		const outordrYmd = SBUxMethod.get("srch-dtp-outordrYmd");
+		const outordrType = SBUxMethod.get("srch-slt-outordrType");
 		const postJsonPromise = gfn_postJSON("/am/ordr/selectOrdrHandwritingList.do", {
 			apcCd			: gv_selectedApcCd
+			, outordrYmd : outordrYmd
+			, outordrType : outordrType
   		});
         const data = await postJsonPromise;
         console.log(data);
@@ -347,7 +386,27 @@
 		let outordrQntt = SBUxMethod.get("srch-inp-outordrQntt");
 		let bxGdsQntt = SBUxMethod.get("srch-inp-bxGdsQntt");
 
+		if(outordrAmt.length > 10){
+			SBUxMethod.set("srch-inp-outordrAmt","");
+			gfn_comAlert("E0000", "발주금액 입력값 크기를 초과하였습니다..");//W0001{0}
+			return;
+		}
+		if(outordrQntt.length > 6 ){
+			SBUxMethod.set("srch-inp-outordrQntt","");
+			SBUxMethod.set("srch-inp-bxGdsQntt","");
+			gfn_comAlert("E0000", "발주수량/입수 입력값 크기를 초과하였습니다..");//W0001{0}
+			return;
+		}
+		if(bxGdsQntt.lenght > 6){
+			SBUxMethod.set("srch-inp-outordrQntt","");
+			SBUxMethod.set("srch-inp-bxGdsQntt","");
+			gfn_comAlert("E0000", "발주수량/입수 입력값 크기를 초과하였습니다..");//W0001{0}
+			return;
+		}
+
+
 		if(outordrAmt > 0 && outordrQntt > 0 && bxGdsQntt > 0){
+
 			let txAmt = outordrAmt * 0.1;
 			let pieceQntt = outordrQntt * bxGdsQntt;
 			let bxUntprc = Math.round((outordrAmt*0.9) / outordrQntt);
@@ -504,6 +563,7 @@
 	    			e = new Error(e);
 	    		}
 	    		console.error("failed", e.message);
+	    		gfn_comAlert("E0001");
 			}
 		}
 	}

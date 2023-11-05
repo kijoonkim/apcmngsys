@@ -45,6 +45,13 @@ public interface SortInptPrfmncService {
 	 */
 	public List<SortInptPrfmncVO> selectSortInptCnclList(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
 
+	/**
+	 * 선별투입 내역 목록 조회
+	 * @param sortInptPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortInptPrfmncVO> selectSortInptList(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
 
 	/**
 	 * 선별투입실적 등록
@@ -78,4 +85,13 @@ public interface SortInptPrfmncService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteSortInptPrfmnc(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+	
+	/**
+	 * 
+	 * @param sortInptPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateSortInptSortno(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+	
 }

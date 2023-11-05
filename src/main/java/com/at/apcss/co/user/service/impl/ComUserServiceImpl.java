@@ -176,4 +176,9 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		return null;
 	}
 
+	@Override
+	public int updComUserPwd(ComUserVO comUserVO) throws Exception {
+		return comUserMapper.updComUserPwd(comUserVO);
+	}
+
 }
