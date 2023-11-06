@@ -60,6 +60,7 @@
 </body>
 <script type="text/javascript">
 
+	var grdCnpt = null;
 	var jsonCnptPopUp = [];
 	const popCnpt = {
 		modalId: 'modal-cnpt',
@@ -74,14 +75,21 @@
 		callbackSelectFnc: function() {},
 		init: async function(_apcCd, _apcNm, _cnptNm, _callbackChoiceFnc) {
 			this.apcCd = _apcCd;
+			SBUxMethod.set("cnpt-inp-apcCd", _apcCd);
 			SBUxMethod.set("cnpt-inp-apcNm", _apcNm);
-			this.cnptNm = _cnptNm;
+			SBUxMethod.set("cnpt-inp-cnptNm", _cnptNm);
 			
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
 				this.callbackSelectFnc = _callbackChoiceFnc;	
 			}
-			this.createGrid();
-			this.search();
+			
+			if (grdCnpt === null || this.prvApcCd != _apcCd) {
+				this.createGrid();
+				this.search();
+			} else {
+				this.search();
+			}
+			
 			this.prvApcCd = _apcCd;
 		},
 		close: function(_cnpt) {
@@ -124,17 +132,29 @@
 		},
 		
 		search: async function() {
-			//console.log('search');
-			let apcCd = this.apcCd;
-			let cnptNm = this.cnptNm;
-			this.setGrid(apcCd);
+			// set pagination
+			grdCnpt.rebuild();
+	    	let pageSize = grdCnpt.getPageSize();
+	    	let pageNo = 1;
+
+	    	// grid clear
+	    	jsonCnptPopUp.length = 0;
+	    	await this.setGrid(pageSize, pageNo);
+			this.setGrid(pageSize, pageNo);
 		},
-		setGrid: async function() {
+		setGrid: async function(pageSize, pageNo) {
 			jsonCnptPopUp = [];
 			
 			let cnptNm = SBUxMethod.get("cnpt-inp-cnptNm");
-			let apcCd = this.apcCd;
-			let postJsonPromise = gfn_postJSON("/am/cmns/selectCnptList.do", {apcCd : apcCd, cnptNm : cnptNm});
+			let apcCd = SBUxMethod.get("cnpt-inp-apcCd");
+			let postJsonPromise = gfn_postJSON("/am/cmns/selectCnptList.do", {
+				apcCd : apcCd,
+				cnptNm : cnptNm,
+				// pagination
+		  		pagingYn : 'Y',
+				currentPageNo : pageNo,
+	 		  	recordCountPerPage : pageSize
+	 		});
 		    let data = await postJsonPromise;                
 		    
 		    try{
@@ -152,8 +172,23 @@
 	 				  , apcCd 		: item.apcCd
 					}
 					jsonCnptPopUp.push(cnpt);
+					
+					if (index === 0) {
+						totalRecordCount = item.totalRecordCount;
+					}
 				});
-		    	grdCnpt.rebuild();
+		    	
+	        	if (jsonCnptPopUp.length > 0) {
+	        		if(grdCnpt.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+	        			grdCnpt.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+	        			grdCnpt.rebuild();
+					}else{
+						grdCnpt.refresh();
+					}
+	        	} else {
+	        		grdCnpt.setPageTotalCount(totalRecordCount);
+	        		grdCnpt.rebuild();
+	        	}
 		    }catch (e) {
 				if (!(e instanceof Error)) {
 					e = new Error(e);

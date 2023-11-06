@@ -276,7 +276,7 @@
 	 * @description 차량번호 선택 popup
 	 */
 	const fn_choiceVhcl = function() {
-		popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl);
+		popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl, SBUxMethod.get("srch-inp-vhclno"));
 	}
 
 	const fn_setVhcl = function(vhcl) {
@@ -546,7 +546,7 @@
 	 * @description 생산자 찾기 버튼 클릭
 	 */
     const fn_choicePrdcr = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
 	}
 
 	/**
