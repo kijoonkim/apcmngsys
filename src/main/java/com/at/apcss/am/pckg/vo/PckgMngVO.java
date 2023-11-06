@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
+import com.at.apcss.am.pckg.web.PckgInptController;
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -118,6 +119,8 @@ public class PckgMngVO extends ComVO {
 	 */
 	private String rmrk;
 
+	private List<PckgInptVO> pckgInptList;
+
 	/**
 	 * 선별재고 목록
 	 */
@@ -128,6 +131,12 @@ public class PckgMngVO extends ComVO {
 	 */
 	private List<PckgPrfmncVO> pckgPrfmncList;
 
+	public List<PckgInptVO> getPckgInptList() {
+		return pckgInptList == null ? null : pckgInptList.stream().collect(Collectors.toList());
+	}
+	public void setPckgInptList(List<PckgInptVO> pckgInptList) {
+		this.pckgInptList = pckgInptList == null ? null : pckgInptList.stream().collect(Collectors.toList());
+	}
 
 	public List<SortInvntrVO> getSortInvntrList() {
 		return sortInvntrList == null ? null : sortInvntrList.stream().collect(Collectors.toList());

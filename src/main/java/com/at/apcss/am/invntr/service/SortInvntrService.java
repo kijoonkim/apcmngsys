@@ -124,4 +124,23 @@ public interface SortInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateInvntrTrnsf(SortInvntrVO sortInvntrVO) throws Exception;
+
+	/**
+	 * 선별재고 포장투입처리
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateInvntrPckgInpt(SortInvntrVO sortInvntrVO) throws Exception;
+
+	/**
+	 * 선별재고 포장투입처리 취소
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteInvntrPckgInpt(SortInvntrVO sortInvntrVO) throws Exception;
+
+
+
 }

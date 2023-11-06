@@ -137,4 +137,12 @@ public interface SortInvntrMapper {
 	 */
 	public int updateInvntrTrnsf(SortInvntrVO sortInvntrVO) throws Exception;
 
+	/**
+	 * 선별재고 투입진행
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateInvntrInptPrgrs(SortInvntrVO sortInvntrVO) throws Exception;
+
 }
