@@ -57,12 +57,12 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
+										<sbux-select uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonComItem" onchange="fn_selectItem" ></sbux-select>
 									</div>
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" class="form-control input-sm" maxlength="33" uitype="text"></sbux-input>
+								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" class="form-control input-sm" maxlength="33" uitype="text" readonly></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button id="btnSrchVrty" name="btnSrchVrty" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"></sbux-button>
@@ -78,7 +78,7 @@
 						<tr>
 							<th scope="row" class="th_bg">배송지</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
-								<sbux-input id="srch-inp-dldtn" name="srch-inp-dldtn" uitype="text" maxlength="100" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-dldtn" name="srch-inp-dldtn" uitype="text" maxlength="30" class="form-control input-sm"></sbux-input>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">운송사</th>
@@ -164,7 +164,7 @@
 		fn_createSpmtPrfmncGrid();
 		fn_initSBSelect();
 	});
-	
+
 	const fn_dtpChange = function(){
 		let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
 		let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
