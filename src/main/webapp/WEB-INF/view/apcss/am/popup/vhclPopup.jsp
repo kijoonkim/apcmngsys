@@ -100,10 +100,11 @@
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
-		init: async function(_apcCd, _apcNm, _callbackFnc) {
+		init: async function(_apcCd, _apcNm, _callbackFnc, _vhclno) {
 			// set param
 			SBUxMethod.set("vhcl-inp-apcCd", _apcCd);
 			SBUxMethod.set("vhcl-inp-apcNm", _apcNm);
+			SBUxMethod.set("vhcl-inp-vhclno", _vhclno);
 
 			SBUxMethod.show('btnEditVhcl');
 			SBUxMethod.hide('btnCancelVhcl');

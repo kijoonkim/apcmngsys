@@ -1350,7 +1350,7 @@
 	 * @description 차량번호 선택 popup
 	 */
 	const fn_choiceVhcl = function() {
-		popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl);
+		popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl, SBUxMethod.get("dtl-inp-vhclno"));
 	}
 	 
 	const fn_setVhcl = function(vhcl) {
