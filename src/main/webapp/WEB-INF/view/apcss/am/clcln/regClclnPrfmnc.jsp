@@ -368,7 +368,7 @@
 				userattr: {colNm: "cfmtnAmt"},
 				typeinfo: {
 	                mask : {alias : '#', repeat: '*', unmaskvalue : true},
-	                maxlength: 14,
+	                maxlength: 10,
 	                oneclickedit: true
                 },
                 format : {type:'number', rule:'#,###'}
@@ -413,15 +413,15 @@
 					rowData.checkedYn = "Y";
 					grdClclnPrfmnc.refresh();
 					break;
-				
-				case "checkedYn":					
+
+				case "checkedYn":
 					if (rowData.checkedYn === "Y"
 							&& rowData.cfmtnYn === "N"
 							&& rowData.cfmtnAmt === 0) {
 						rowData.cfmtnAmt = rowData.rkngAmt;
 						grdClclnPrfmnc.refresh();
 					}
-					
+
 				default:
 					return;
 			}
@@ -460,14 +460,14 @@
      * @description 삭제 버튼
      */
  	const fn_delete = async function() {
- 		
+
  		const allData = grdClclnPrfmnc.getGridDataAll();
 
 		const clclnPrfmncList = [];
-		
+
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
-				
+
 				clclnPrfmncList.push({
 					apcCd: item.apcCd,
 					clclnYmd: item.clclnYmd,
@@ -506,14 +506,14 @@
      * @description 저장 버튼
      */
     const fn_save = async function() {
-    	
+
 		const allData = grdClclnPrfmnc.getGridDataAll();
 
 		const clclnPrfmncList = [];
-		
+
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
-				
+
 				clclnPrfmncList.push({
 					apcCd: item.apcCd,
 					clclnYmd: item.clclnYmd,
@@ -649,11 +649,11 @@
      * @function
 	 */
 	const fn_insertClclnData = async function() {
-		
+
 		let clclnYmd = SBUxMethod.get("srch-dtp-clclnYmd");
 		let clclnCrtrCd = SBUxMethod.get("srch-slt-clclnCrtrCd")
-		
-		
+
+
 		if(gfn_isEmpty(clclnYmd)){
 			gfn_comAlert("W0002", "정산일자");		//	W0002	{0}을/를 입력하세요.
             return;
@@ -727,11 +727,11 @@
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 
 		let vrtyCd = obj.value;
-		
+
 		if (gfn_isEmpty(vrtyCd)) {
 			return;
 		}
-		
+
 		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
 		const itemCd = vrtyInfo.mastervalue;
 
@@ -773,7 +773,21 @@
  		SBUxMethod.set("srch-inp-prdcrCd", "");
  		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
  	}
-
+ 	const fn_choicePrdcr = function() {
+ 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+ 	}
+ 	const fn_setPrdcr = function(prdcr) {
+ 		if (!gfn_isEmpty(prdcr)) {
+ 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);		// callBack input
+ 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);		// callBack input
+ 			SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);	// 대표 품목코드
+ 			SBUxMethod.set("srch-inp-vrtyCd", prdcr.rprsVrtyCd);	// 대표 품종코드
+ 			SBUxMethod.set("srch-inp-vrtyNm", prdcr.rprsVrtyNm);	// 대표 품종명
+ 			SBUxMethod.set("srch-slt-gdsSe", prdcr.gdsSeCd);		// 상품구분
+ 			SBUxMethod.set("srch-slt-wrhsSeCd", prdcr.trsprtSeCd);	// 입고구분
+ 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");
+ 		}
+ 	}
 	const fn_setPrdcrForm = async function(prdcr) {
 
 		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
@@ -790,7 +804,7 @@
 			}
 		}
 	}
-	
+
 	/**
  	 * @name fn_dtpChange
  	 * @description 일자 역전 방지
