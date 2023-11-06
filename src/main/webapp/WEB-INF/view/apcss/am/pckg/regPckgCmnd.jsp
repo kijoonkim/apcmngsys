@@ -692,7 +692,7 @@
 
 
  	const fn_modalCnpt = function() {
-     	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
+     	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnptNm"), fn_setCnpt);
  	}
 
  	const fn_setCnpt = function(cnpt) {
