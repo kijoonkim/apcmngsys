@@ -279,9 +279,9 @@ async function fn_callUpdateUserList(){
 					eml: item.eml,
 					telno: item.telno,
 					jbttlNm: item.jbttlNm,
-					tkcgTaskNm: item.tkcgTaskNm
-// 					reverseYn: item.reverseYn,
-// 					lckYn: item.lckYn
+					tkcgTaskNm: item.tkcgTaskNm,
+					reverseYn: item.reverseYn,
+					lckYn: item.lckYn
     			});
     		}
 		});
