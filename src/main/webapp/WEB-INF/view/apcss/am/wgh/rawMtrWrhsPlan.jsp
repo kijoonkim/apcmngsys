@@ -675,7 +675,7 @@
 	 * @description 생산자 팝업 호출
 	 */
 	const fn_choicePrdcr = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
 	}
 
 	/**
@@ -732,7 +732,7 @@
 	 * @description 생산자 팝업 호출
 	 */
 	const fn_choicePrdcrDtl = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcrDtl);
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcrDtl, SBUxMethod.get("dtl-inp-prdcrNm"));
 	}
 
 	/**

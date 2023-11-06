@@ -22,6 +22,15 @@
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectCnptList" parameterType="com.at.apcss.am.cmns.vo.CnptVO" resultType="com.at.apcss.am.cmns.vo.CnptVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
     	<![CDATA[
     	SELECT CT.APC_CD            AS APC_CD
 		     , CT.CNPT_CD           AS CNPT_CD
@@ -40,6 +49,13 @@
 		<if test='cnptNm != null and cnptNm !=""'>
 		   AND CT.CNPT_NM LIKE '%' || #{cnptNm} || '%'
 		</if>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
     </select>
 
     <!-- ==========================================================================	-->
