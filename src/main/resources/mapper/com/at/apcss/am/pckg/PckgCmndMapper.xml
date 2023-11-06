@@ -99,6 +99,9 @@
 		<if test='cnptCd != null and cnptCd != ""'>
 			 AND PC.CNPT_CD = #{cnptCd}
 		</if>
+		<if test='cnptNm != null and cnptNm != ""'>
+		     AND (SELECT FN_GET_CNPT_NM(PC.CNPT_CD, PC.APC_CD) FROM DUAL) LIKE '%' || #{cnptNm} || '%'
+		</if>
 		<if test='dudtYmd != null and dudtYmd != ""'>
 			 AND PC.DUDT_YMD = #{dudtYmd}
 		</if>

@@ -121,7 +121,7 @@
 									autocomplete-ref="jsonPrdcrAutocompleteDtl"
 									autocomplete-text="name"
     								onkeyup="fn_onKeyUpPrdcrNmDtl(dtl-inp-prdcrNm)"
-    								autocomplete-select-callback="fn_onSelectPrdcrNmDtl"
+        							autocomplete-select-callback="fn_onSelectPrdcrNmDtl"
    								></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -668,7 +668,7 @@
 		jsonPrdcr 		= await gfn_getPrdcrs(gv_selectedApcCd);
 		jsonPrdcr 		= gfn_setFrst(jsonPrdcr);
 		jsonPrdcrDtl 	= await gfn_getPrdcrs(gv_selectedApcCd);
-		jsonPrdcrDtl 	= gfn_setFrst(jsonPrdcr);
+		jsonPrdcrDtl 	= gfn_setFrst(jsonPrdcrDtl);
 	}
 	/**
 	 * @name fn_choicePrdcr
@@ -775,7 +775,7 @@
 	 * @name fn_onSelectPrdcrNmDtl
 	 * @description 생산자 autocomplete 선택 callback
 	 */
-	const fn_onSelectPrdcrNmDtl= function(value, label, item) {
+	function fn_onSelectPrdcrNmDtl(value, label, item) {
 		SBUxMethod.set("dtl-inp-prdcrCd", value);
 		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 	}
