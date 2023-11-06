@@ -661,7 +661,7 @@
 	/* 생산자 팝업 호출 필수 function  */
 	/* Start */
 	/**
-	 * @name fn_onKeyUpPrdcrNm
+	 * @name fn_getPrdcrs
 	 * @description 생산자 리스트 호출
 	 */
 	const fn_getPrdcrs = async function() {
@@ -671,7 +671,7 @@
 		jsonPrdcrDtl 	= gfn_setFrst(jsonPrdcr);
 	}
 	/**
-	 * @name fn_onKeyUpPrdcrNm
+	 * @name fn_choicePrdcr
 	 * @description 생산자 팝업 호출
 	 */
 	const fn_choicePrdcr = function() {
@@ -679,7 +679,7 @@
 	}
 
 	/**
-	 * @name fn_onKeyUpPrdcrNm
+	 * @name fn_setPrdcr
 	 * @description 생산자 선택 callback
 	 */
 	const fn_setPrdcr = function(prdcr) {
