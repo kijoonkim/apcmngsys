@@ -282,7 +282,7 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
 	});
-	
+
 	const fn_dtpChange = function(){
 		let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
 		let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");
@@ -380,7 +380,7 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
-    	
+
 		// set pagination
     	grdClclnPrfmnc.rebuild();
     	let pageSize = grdClclnPrfmnc.getPageSize();
@@ -418,7 +418,7 @@
 			prdcrCd: prdcrCd,
 			itemCd: itemCd,
 			vrtyCd: vrtyCd,
-			
+
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : pageNo,
@@ -479,7 +479,7 @@
           		grdClclnPrfmnc.setPageTotalCount(totalRecordCount);
           		grdClclnPrfmnc.rebuild();
           	}
-          	
+
           	document.querySelector('#cnt-clcln').innerText = totalRecordCount;
 
 		} catch (e) {
@@ -535,11 +535,11 @@
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 
 		let vrtyCd = obj.value;
-		
+
 		if (gfn_isEmpty(vrtyCd)) {
 			return;
 		}
-		
+
 		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
 		const itemCd = vrtyInfo.mastervalue;
 
@@ -572,7 +572,26 @@
 		let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
 		fn_setPrdcrForm(prdcr);
 	}
+	/**
+ 	 * @name fn_onKeyUpPrdcrNm
+ 	 * @description 생산자 팝업 호출
+ 	 */
+ 	const fn_choicePrdcr = function() {
+ 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+ 	}
 
+ 	const fn_setPrdcr = function(prdcr) {
+ 		if (!gfn_isEmpty(prdcr)) {
+ 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);		// callBack input
+ 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);		// callBack input
+ 			SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);	// 대표 품목코드
+ 			SBUxMethod.set("srch-inp-vrtyCd", prdcr.rprsVrtyCd);	// 대표 품종코드
+ 			SBUxMethod.set("srch-inp-vrtyNm", prdcr.rprsVrtyNm);	// 대표 품종명
+ 			SBUxMethod.set("srch-slt-gdsSe", prdcr.gdsSeCd);		// 상품구분
+ 			SBUxMethod.set("srch-slt-wrhsSeCd", prdcr.trsprtSeCd);	// 입고구분
+ 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");
+ 		}
+ 	}
  	/**
  	 * @name fn_clearPrdcr
  	 * @description 생산자 폼 clear
