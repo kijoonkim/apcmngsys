@@ -89,10 +89,21 @@ var combofilteringReverseYnData = [
 	{'label': '미사용', 'value': 'N'}
 ]
 var combofilteringLckYnData = [
-	{'label': '사용', 'value': 'Y'},
-	{'label': '미사용', 'value': 'N'}
+	{'label': '예', 'value': 'Y'},
+	{'label': '아니요', 'value': 'N'}
 ]
+
+var jsonUseYn = [];
+var jsonLckYn = [];
+
+const fn_initSBSelectSpcfct = async function() {
+	let rst = await Promise.all([
+		gfn_setComCdGridSelect('userInfoChgGridId', 			jsonUseYn, 				'REVERSE_YN', '0000'),		// 포장구분
+		gfn_setComCdGridSelect('userInfoChgGridId', 			jsonLckYn, 				'LCK_YN', '0000'),		// 포장구분
+	])
+}
 window.addEventListener('DOMContentLoaded', function(e) {
+	fn_initSBSelectSpcfct();
 	fn_createUserInfoChgGrid();
 	fn_search();
 });
@@ -136,10 +147,10 @@ function fn_createUserInfoChgGrid() {
 	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
 	         {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
 	         {caption: ["사용유무"],  	ref: 'reverseYn',   type:'combo',   width:'105px', style:'text-align:center',
-	        	 typeinfo : {ref:'combofilteringReverseYnData', label:'label', value:'value', displayui : true}
+	        	 typeinfo : {ref:'jsonUseYn', label:'label', value:'value', displayui : true}
 	         },
 	         {caption: ["잠김여부"],  	ref: 'lckYn',   	type:'combo',   width:'105px', style:'text-align:center',
-	        	 typeinfo : {ref:'combofilteringLckYnData', label:'label', value:'value', displayui : true}
+	        	 typeinfo : {ref:'jsonLckYn', label:'label', value:'value', displayui : true}
 	         },
 	         {caption: ["최종접속일시"], ref: 'endLgnDt',  	type:'output',  width:'105px', style:'text-align:center'},
 	         {caption: ["사용유무코드"],	ref: 'delYn',   	type:'output', hidden: true},
@@ -200,7 +211,7 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 			  , reverseYn	: item.reverseYn
 			  , lckYn		: item.lckYn
 			  , endLgnDt	: item.endLgnDt
-			  , delYn		: item.delYN
+			  , delYn		: item.delYn
 			}
 
 			userInfoChgGridData.push(Object.assign({}, userAprvReg));
