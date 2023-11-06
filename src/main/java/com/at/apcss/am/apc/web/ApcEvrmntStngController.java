@@ -88,7 +88,7 @@ public class ApcEvrmntStngController extends BaseController{
 			for (ComUserVO comUserVO : comUserList) {
 				comUserVO.setSysLastChgPrgrmId(getUserId());
 				comUserVO.setSysLastChgUserId(getPrgrmId());
-				result += comUserService.updateComUser(comUserVO);
+				resultMap = comUserService.updateComUser(comUserVO);
 			}
 
 		} catch (Exception e) {
