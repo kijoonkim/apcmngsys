@@ -32,7 +32,9 @@
 						<col style="width: 24%">
 						<col style="width: 12%">
 						<col style="width: 24%">
-						<col style="width: 12%">
+						<col style="width: 4%">
+						<col style="width: 4%">
+						<col style="width: 4%">
 						<col style="width: 24%">
 					</colgroup>
 					<tbody>
@@ -42,13 +44,25 @@
 								<sbux-input id="sortInvntr-inp-apcCd" name="sortInvntr-inp-apcCd" uitype="hidden"></sbux-input>
 								<sbux-input id="sortInvntr-inp-apcNm" name="sortInvntr-inp-apcNm" uitype="text" class="form-control input-sm"  disabled></sbux-input>
 							</th>
-							<th scope="row">투입일자</th>
-							<th class="td_input">
-								<sbux-datepicker id="sortInvntr-dtp-crtrYmd" name="sortInvntr-dtp-crtrYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc"></sbux-datepicker>
+							<th scope="row">선별일자</th>
+							<th colspan="2" class="td_input">
+								<sbux-datepicker
+									id="sortInvntr-dtp-sortYmdFrom"
+									name="sortInvntr-dtp-sortYmdFrom"
+									uitype="popup"
+									class="form-control input-sm sbux-pik-group-apc"
+									onchange="sortInvntr.chkSortYmdFrom"
+								></sbux-datepicker>
 							</th>
-							<th scope="row">규격</th>
-							<th>
-								<sbux-select id="sortInvntr-slt-spcfctCd" name="sortInvntr-slt-spcfctCd" uitype="single" class="form-control input-sm" style="background-color:#FFFFFF;" jsondata-ref="jsonApcSpcfct" unselected-text="전체"></sbux-select>
+							<th>~</th>
+							<th colspan="2" class="td_input">
+								<sbux-datepicker
+									id="sortInvntr-dtp-sortYmdTo"
+									name="sortInvntr-dtp-sortYmdTo"
+									uitype="popup"
+									class="form-control input-sm sbux-pik-group-apc"
+									onchange="sortInvntr.chkSortYmdTo"
+								></sbux-datepicker>
 							</th>
 						</tr>
 						<tr>
@@ -60,7 +74,7 @@
 									id="sortInvntr-slt-itemCd"
 									name="sortInvntr-slt-itemCd"
 									class="form-control input-sm"
-									jsondata-ref="jsonApcItem"
+									jsondata-ref="jsonSortInvntrPopApcItem"
 									onchange="popSortInvntr.srchItemCd(this)"
 									style="background-color:#FFFFFF;"
 								/>
@@ -73,13 +87,23 @@
 									id="sortInvntr-slt-vrtyCd"
 									name="sortInvntr-slt-vrtyCd"
 									class="form-control input-sm"
-									jsondata-ref="jsonApcVrty"
+									jsondata-ref="jsonSortInvntrPopApcVrty"
 									onchange="popSortInvntr.srchVrtyCd(this)"
 									style="background-color:#FFFFFF;"
 								/>
 							</th>
-							<th></th>
-							<th></th>
+							<th colspan="3" scope="row">규격</th>
+							<th>
+								<sbux-select
+									id="sortInvntr-slt-spcfctCd"
+									name="sortInvntr-slt-spcfctCd"
+									uitype="single"
+									class="form-control input-sm"
+									style="background-color:#FFFFFF;"
+									jsondata-ref="jsonSortInvntrPopApcSpcfct"
+									unselected-text="전체"
+								></sbux-select>
+							</th>
 						</tr>
 					</tbody>
 				</table>
@@ -95,12 +119,12 @@
 </body>
 <script type="text/javascript">
 	/* grid 내 select json */
-	var jsonApcItem			= [];	// 품목 		itemCd			검색
-	var jsonApcVrty			= [];	// 품종 		vrtyCd			검색
-	var jsonApcSpcfct		= [];	// 규격 		spcfct			검색
+	var jsonSortInvntrPopApcItem			= [];	// 품목 		itemCd			검색
+	var jsonSortInvntrPopApcVrty			= [];	// 품종 		vrtyCd			검색
+	var jsonSortInvntrPopApcSpcfct		= [];	// 규격 		spcfct			검색
 
 	var grdSortInvntrPop = null;
-	
+
 	const popSortInvntr = {
 		modalId: 'modal-sortInvntr',
 		gridId: 'grdSortInvntrPop',
@@ -117,14 +141,14 @@
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
 				this.callbackSelectFnc = _callbackChoiceFnc;
 			}
-			
+
 			if (grdSortInvntrPop === null || this.prvApcCd != _apcCd) {
 
 				SBUxMethod.set("sortInvntr-dtp-crtrYmd", gfn_dateToYmd(new Date()));
-				
+
 				let rst = await Promise.all([
-				 	gfn_setApcItemSBSelect('sortInvntr-slt-itemCd', jsonApcItem, _apcCd),							// 품목
-					gfn_setApcVrtySBSelect('sortInvntr-slt-vrtyCd', jsonApcVrty, _apcCd)							// 품종
+				 	gfn_setApcItemSBSelect('sortInvntr-slt-itemCd', jsonSortInvntrPopApcItem, _apcCd),							// 품목
+					gfn_setApcVrtySBSelect('sortInvntr-slt-vrtyCd', jsonSortInvntrPopApcVrty, _apcCd)							// 품종
 				]);
 				this.createGrid();
 				this.search();
@@ -160,7 +184,7 @@
 		    SBGridProperties.columns = [
 		    	{caption: ["선별번호","선별번호"],		ref: 'sortnoIndct',     type:'output',  width:'130px',	style:'text-align: center'},
 		        {caption: ["등급","등급"],				ref: 'grdNm',      		type:'output',  width:'90px',	style:'text-align: center'},
-		        {caption: ["투입일자","투입일자"],		ref: 'inptYmd',      	type:'output',  width:'105px',	style:'text-align: center',
+		        {caption: ["선별일자","선별일자"],		ref: 'inptYmd',      	type:'output',  width:'105px',	style:'text-align: center',
 	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 		        {caption: ["설비","설비"],				ref: 'fcltNm',      	type:'output',  width:'105px',	style:'text-align: center'},
 		        {caption: ["생산자","생산자"],			ref: 'prdcrNm',      	type:'output',  width:'90px',	style:'text-align: center'},
@@ -175,7 +199,7 @@
 		        {caption: ["비고","비고"],				ref: 'rmrk',      		type:'output',  width:'300px',	style:'text-align: center'}
 		    ];
 		    grdSortInvntrPop = _SBGrid.create(SBGridProperties);
-		    grdSortInvntrPop.bind('afterpagechanged', this.paging);
+		    grdSortInvntrPop.bind('beforepagechanged', this.paging);
 		    grdSortInvntrPop.bind('dblclick', popSortInvntr.choice);
 		},
 		choice: function() {
@@ -204,13 +228,17 @@
 			jsonSortInvntrPop = [];
 
 			let apcCd = SBUxMethod.get("sortInvntr-inp-apcCd");
-			let crtrYmd = SBUxMethod.get("sortInvntr-dtp-crtrYmd");
+			//let crtrYmd = SBUxMethod.get("sortInvntr-dtp-crtrYmd");
+			let sortYmdFrom = SBUxMethod.get("sortInvntr-dtp-sortYmdFrom");
+			let sortYmdTo = SBUxMethod.get("sortInvntr-dtp-sortYmdTo");
 			let itemCd = SBUxMethod.get("sortInvntr-slt-itemCd");
 			let vrtyCd = SBUxMethod.get("sortInvntr-slt-vrtyCd");
 			let spcfctCd = SBUxMethod.get("sortInvntr-slt-spcfctCd");
 			let sortInvntr = {
 					apcCd 				: apcCd,
-					crtrYmd 			: crtrYmd,
+					//crtrYmd 			: crtrYmd,
+					sortYmdFrom 		: sortYmdFrom,
+					sortYmdTo 			: sortYmdTo,
 					itemCd 				: itemCd,
 					vrtyCd 				: vrtyCd,
 					spcfctCd 			: spcfctCd,
