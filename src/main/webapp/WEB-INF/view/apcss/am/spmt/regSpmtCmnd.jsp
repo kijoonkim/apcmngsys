@@ -700,6 +700,7 @@
 		SBUxMethod.set("dtl-slt-warehouseSeCd", "");
 		SBUxMethod.set("srch-slt-itemCd", "");
 		SBUxMethod.set("srch-slt-vrtyCd", "");
+ 		fn_onChangeSrchItemCd({value: null});
 		SBUxMethod.set("srch-inp-cnptNm", "");
 		SBUxMethod.set("srch-inp-cnptCd", "");
 		SBUxMethod.set("srch-slt-spcfctCd", "");

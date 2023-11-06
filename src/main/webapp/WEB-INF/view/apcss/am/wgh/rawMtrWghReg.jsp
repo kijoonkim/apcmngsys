@@ -858,6 +858,8 @@
 		// 비고
 		SBUxMethod.set("dtl-inp-rmrk", "");
 
+ 		fn_onChangeSrchItemCd({value: null});
+
 		fn_clearPltBx();
 	}
 
