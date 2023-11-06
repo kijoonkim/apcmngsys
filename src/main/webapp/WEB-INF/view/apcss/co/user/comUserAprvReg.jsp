@@ -16,7 +16,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="승인" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="승인" class="btn btn-sm btn-outline-danger" onclick="fn_userAprv"></sbux-button>
 				</div>
 
 			</div>
@@ -81,6 +81,9 @@
 								<span style="font-size:12px">(조회건수 <span id="cnt-userAprv">0</span>건)</span>
 							</li>
 						</ul>
+						<div class="ad_tbl_toplist">
+							<sbux-button id="btnAllSave" name="btnAllSave" uitype="normal" text="일괄승인" class="btn btn-sm btn-outline-danger" onclick="fn_allUserAprv()" ></sbux-button>
+						</div>
 					</div>
 					<div id="sb-area-grdUserAprv" style="height:576px; margin-top:8px;"></div>
 				</div>
@@ -133,21 +136,21 @@
 	    SBGridProperties.paging = lv_paging;
 	    SBGridProperties.explorerbar = 'sortmove';
 		SBGridProperties.columns = [
-	        {caption: ["선택"],		ref: 'checkedYn',	type:'checkbox', width:'50px',
+	        {caption: ["선택"],			ref: 'checkedYn',	type:'checkbox', width:'50px',
 	        	typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
 	        },
-	        {caption: ["상태"], 		ref: 'userSttsNm',	type:'output',  width:'175px', style:'text-align:center'},
+	        {caption: ["상태"], 			ref: 'userSttsNm',	type:'output',  width:'175px', style:'text-align:center'},
 	        {caption: ["사용자ID"],  	ref: 'userId',    	type:'output',	width:'175px', style:'text-align:center'},
 	        {caption: ["사용자명"],   	ref: 'userNm',      type:'output',  width:'175px', style:'text-align:center'},
-	        {caption: ["APC명"],		ref: 'apcNm',   	type:'output',  width:'175px', style:'text-align:center'},
+	        {caption: ["APC명"],			ref: 'apcNm',   	type:'output',  width:'175px', style:'text-align:center'},
 	        {caption: ["사용자유형"],	ref: 'userTypeNm',	type:'output',  width:'175px', style:'text-align:center'},
 	        {caption: ["메일주소"],  	ref: 'eml',  		type:'output',  width:'175px', style:'text-align:center'},
 	    	{caption: ["전화번호"],  	ref: 'telno',   	type:'output',  width:'175px', style:'text-align:center'},
-	        {caption: ["직책명"],  	ref: 'jbttlNm',   	type:'output',  width:'175px', style:'text-align:center'},
+	        {caption: ["직책 명"],  		ref: 'jbttlNm',   	type:'output',  width:'175px', style:'text-align:center'},
 	        {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'output',  width:'175px', style:'text-align:center'},
 			{caption: ["사용자상태"],	ref: 'userStts',  	type:'output',  hidden: true},
 			{caption: ["사용자유형"],	ref: 'userType',  	type:'output',  hidden: true},
-			{caption: ["apc코드"],	ref: 'apcCd',  		type:'output',  hidden: true}
+			{caption: ["apc코드"],		ref: 'apcCd',  		type:'output',  hidden: true}
 		];
 	    grdUserAprv = _SBGrid.create(SBGridProperties);
 	}
@@ -194,18 +197,18 @@
       		jsonUserAprv.length = 0;
           	data.resultList.forEach((item, index) => {
           		const userAprv = {
-  						rowSeq: item.rowSeq,
-  						apcCd: item.apcCd,
-  						userId: item.userId,
-  						userNm: item.userNm,
-  						apcNm: item.apcNm,
-  						userStts: item.userStts,
+  						rowSeq: 	item.rowSeq,
+  						apcCd: 		item.apcCd,
+  						userId: 	item.userId,
+  						userNm: 	item.userNm,
+  						apcNm: 		item.apcNm,
+  						userStts: 	item.userStts,
   						userSttsNm: item.userSttsNm,
-  						userType: item.userType,
+  						userType: 	item.userType,
   						userTypeNm: item.userTypeNm,
-  						eml: item.eml,
-  						telno: item.telno,
-  						jbttlNm: item.jbttlNm,
+  						eml: 		item.eml,
+  						telno: 		item.telno,
+  						jbttlNm: 	item.jbttlNm,
   						tkcgTaskNm: item.tkcgTaskNm,
   				}
           		jsonUserAprv.push(userAprv);
@@ -238,7 +241,7 @@
           }
 	}
 
-	const fn_save = async function() {
+	const fn_userAprv = async function() {
 
 		const userAprvList = [];
 		const allUserData = grdUserAprv.getGridDataAll();
@@ -249,7 +252,6 @@
 					  userStts : "01"
     				, userId: item.userId
     			});
-				console.log('userAprvList', userAprvList);
     		}
 		});
 
@@ -262,17 +264,50 @@
 			return;
 		}
 		
-    	const postJsonPromise = gfn_postJSON("/co/user/updateComUserAprv", userAprvList);
-//     	const postJsonPromise = gfn_postJSON("/co/user/insertUserAprvList.do", userAprvList);
+    	const postJsonPromise = gfn_postJSON("/co/user/updateUserStts", userAprvList);
 		const data = await postJsonPromise;
-		console.log('postJsonPromise', postJsonPromise);
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_search();
         	} else {
-//         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+        }
+	}
+	
+	const fn_allUserAprv = async function() {
+
+		const userAprvList = [];
+		const allUserData = grdUserAprv.getGridDataAll();
+
+		allUserData.forEach((item, index) => {
+			if (item.checkedYn === "Y") {
+				userAprvList.push({
+					  userStts : "01"
+    				, userId: item.userId
+    			});
+    		}
+		});
+
+		if (userAprvList.length == 0) {
+			gfn_comAlert("W0001", "승인대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+
+		if (!gfn_comConfirm("Q0001", "승인")) {
+			return;
+		}
+		
+    	const postJsonPromise = gfn_postJSON("/co/user/updateUserStts", userAprvList);
+		const data = await postJsonPromise;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
         } catch(e) {
         }

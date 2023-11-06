@@ -74,6 +74,35 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 	}
 
 	@Override
+	public HashMap<String, Object> updateUserStts(List<ComUserVO> comUserList) throws Exception {
+		HashMap<String, Object> rtnObj = new HashMap<>();
+		
+		for ( ComUserVO comUserVO : comUserList ) {
+			rtnObj = updateComUserStts(comUserVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public HashMap<String, Object> updateComUserStts(ComUserVO comUserVO) throws Exception {
+		
+		// validation check
+		String userId = comUserVO.getUserId();
+		if (!StringUtils.hasText(userId)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "사용자ID");
+		}
+		
+		comUserMapper.updateComUserStts(comUserVO);
+		
+		return null;
+	}
+	
+	@Override
 	public HashMap<String, Object> updateComUserList(List<ComUserVO> comUserList) throws Exception {
 		HashMap<String, Object> rtnObj = new HashMap<>();
 		
