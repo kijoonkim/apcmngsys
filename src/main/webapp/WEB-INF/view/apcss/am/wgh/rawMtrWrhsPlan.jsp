@@ -649,6 +649,7 @@
 		SBUxMethod.set("dtl-inp-prdcrNm", "");
 		SBUxMethod.set("dtl-slt-itemCd", "");
 		SBUxMethod.set("dtl-slt-vrtyCd", "");
+ 		fn_onChangeSrchItemCd({value: null});
 		SBUxMethod.set('dtl-rdo-wrhsSeCd', '3');
 		SBUxMethod.set('dtl-rdo-gdsSeCd', '1');
 		SBUxMethod.set('dtl-rdo-trsprtSeCd', '1');
@@ -660,7 +661,7 @@
 	/* 생산자 팝업 호출 필수 function  */
 	/* Start */
 	/**
-	 * @name fn_onKeyUpPrdcrNm
+	 * @name fn_getPrdcrs
 	 * @description 생산자 리스트 호출
 	 */
 	const fn_getPrdcrs = async function() {
@@ -670,7 +671,7 @@
 		jsonPrdcrDtl 	= gfn_setFrst(jsonPrdcr);
 	}
 	/**
-	 * @name fn_onKeyUpPrdcrNm
+	 * @name fn_choicePrdcr
 	 * @description 생산자 팝업 호출
 	 */
 	const fn_choicePrdcr = function() {
@@ -678,7 +679,7 @@
 	}
 
 	/**
-	 * @name fn_onKeyUpPrdcrNm
+	 * @name fn_setPrdcr
 	 * @description 생산자 선택 callback
 	 */
 	const fn_setPrdcr = function(prdcr) {
@@ -726,12 +727,16 @@
 	* 상세 정보 생산자 팝업 관련 function
 	* Start
 	*/
+	/**
+	 * @name fn_choicePrdcrDtl
+	 * @description 생산자 팝업 호출
+	 */
 	const fn_choicePrdcrDtl = function() {
 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcrDtl);
 	}
 
 	/**
-	 * @name fn_onKeyUpPrdcrNm
+	 * @name fn_setPrdcrDtl
 	 * @description 생산자 선택 callback
 	 */
 	const fn_setPrdcrDtl = function(jsonPrdcrDtl) {
@@ -767,7 +772,7 @@
 	}
 
 	/**
-	 * @name fn_onSelectPrdcrNm
+	 * @name fn_onSelectPrdcrNmDtl
 	 * @description 생산자 autocomplete 선택 callback
 	 */
 	const fn_onSelectPrdcrNmDtl= function(value, label, item) {

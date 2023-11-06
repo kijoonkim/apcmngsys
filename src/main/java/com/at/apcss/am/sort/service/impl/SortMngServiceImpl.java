@@ -133,8 +133,6 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 		
 		for ( SortInptPrfmncVO inptVO : sortInptList ) {
 			
-			inptVO.setSortno("sssss");
-			
 			// 투입등록
 			rtnObj = sortInptPrfmncService.insertSortInptPrfmnc(inptVO);
 			if (rtnObj != null) {

@@ -526,6 +526,7 @@
 		SBUxMethod.set('srch-dtp-inptYmdTo', gfn_dateToYmd(new Date()));
 		SBUxMethod.set('srch-slt-itemCd', "");
 		SBUxMethod.set('srch-slt-vrtyCd', "");
+ 		fn_onChangeSrchItemCd({value: null});
 		SBUxMethod.set('srch-inp-prdcrNm', "");
 		fn_clearPrdcr();
 		SBUxMethod.set('srch-dtp-cmndYmd', gfn_dateToYmd(new Date()));

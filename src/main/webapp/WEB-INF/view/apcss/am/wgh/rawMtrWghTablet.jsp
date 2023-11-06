@@ -668,7 +668,9 @@
 			SBUxMethod.set("dtl-slt-itemCd", null);
 			// 품종
 			SBUxMethod.set("dtl-slt-vrtyCd", null);
-			
+
+	 		fn_onChangeSrchItemCd({value: null});
+	 		
 			// 입고구분
 			SBUxMethod.set("dtl-rdo-wrhsSeCd", "3");
 			
@@ -1014,8 +1016,9 @@
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.mergecells = 'byrestriccol';
         SBGridProperties.columns = [
+        	{caption: ['계량번호'], ref: 'wghno', hidden: true},
         	{caption : ["선택"], ref: 'checkedYn', type: 'checkbox',  width:'50px', style: 'text-align:center', userattr: {colNm: "checkedYn"},
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}, merge: false
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ['계량번호'], ref: 'wghno', width: '120px', type: 'output', style:'text-align:center'},
         	{caption: ['생산자'], ref: 'prdcrNm', width: '100px', type: 'output', style:'text-align:center'},

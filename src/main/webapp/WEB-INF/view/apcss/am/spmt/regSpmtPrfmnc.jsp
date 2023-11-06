@@ -30,7 +30,6 @@
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>	<!-- 출하실적등록 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal" text="송품장" class="btn btn-sm btn-primary" onclick="fn_docSpmt"></sbux-button>
 					<sbux-button id="btnSearchGdsInvnrt" name="btnSearchGdsInvnrt" uitype="normal" text="재고조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
 				</div>
@@ -213,7 +212,7 @@
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>출하일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="dtl-dtp-spmtYmd" name="dtl-dtp-spmtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChangeDtl(dtl-dtp-spmtYmd)"></sbux-datepicker>
+								<sbux-datepicker id="dtl-dtp-spmtYmd" name="dtl-dtp-spmtYmd" uitype="popup" class="form-control input-sm sbux-pik-group-apc input-sm-ast" onchange="fn_dtpChange(dtl-dtp-spmtYmd)"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 							<td class="td_input" style="border-right: hidden;">
@@ -245,7 +244,7 @@
 							<td class="td_input"></td>
 							<th scope="row" class="th_bg">차량번호</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-vhclno" name="dtl-inp-vhclno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="dtl-inp-vhclno" name="dtl-inp-vhclno" uitype="text" class="form-control input-sm" maxlength="10"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" ></td>
 							<th scope="row" class="th_bg">배송처</th>
@@ -261,6 +260,7 @@
 								<sbux-input id="dtl-inp-trsprtCst" name="dtl-inp-trsprtCst" uitype="text" class="form-control input-sm"
 								autocomplete="off"
 								mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
+								maxlength="10"
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"></td>
@@ -276,6 +276,7 @@
 						<li><span>출하 내역</span></li>
 					</ul>
 					<div class="ad_tbl_toplist">
+						<sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal" text="송품장" class="btn btn-sm btn-primary" onclick="fn_docSpmt"></sbux-button>
 						<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="내려받기" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" ></sbux-button>
 						<sbux-button id="btnUp" name="btnUp" uitype="normal" text="올리기" class="btn btn-sm btn-outline-dark" onclick="fn_uld"></sbux-button>
@@ -453,12 +454,21 @@
 	const fn_dtpChange = function(){
 		let pckgYmdFrom = SBUxMethod.get("srch-dtp-pckgYmdFrom");
 		let pckgYmdTo = SBUxMethod.get("srch-dtp-pckgYmdTo");
+		let spmtYmdTo = SBUxMethod.get("dtl-dtp-spmtYmd");
 		if(gfn_diffDate(pckgYmdFrom, pckgYmdTo) < 0){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
 			SBUxMethod.set("srch-dtp-pckgYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("srch-dtp-pckgYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+		if(gfn_diffDate(pckgYmdFrom, spmtYmdTo) < 0){
+			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");		//	W0001	{0}
+			SBUxMethod.set("dtl-dtp-spmtYmd", gfn_dateToYmd(new Date()));
+			return;
+		}
+
+
+
 	}
 
 	var jsonGdsInvntr = []; // 상품재고내역 Json
@@ -538,7 +548,7 @@
             {caption: ['차량번호'], 	ref: 'vhclno', 		width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['배송처'], 		ref: 'dldtn', 		width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['운임비용'], 	ref: 'trsprtCst', 	width: '80px', type: 'output', style: 'text-align:center',
-    			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### 원'}},
+    			typeinfo : {mask : {alias : 'numeric'},maxlength: 10}, format : {type:'number', rule:'#,### 원'}},
             {caption: ['포장구분'], 	ref: 'spmtPckgUnitNm', 	width: '150px', type: 'output', style: 'text-align:center'},
             {caption: ['지시번호'], 	ref: 'spmtCmndno', 	width: '120px', type: 'output', style: 'text-align:center'},
             {caption: ['비고'], 		ref: 'rmrk', 		width: '150px', type: 'output', style: 'text-align:center'}
