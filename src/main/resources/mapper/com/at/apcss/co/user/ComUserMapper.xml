@@ -169,8 +169,8 @@
     	<if test='rmrk != null and rmrk != ""'>
     		 , RMRK 					= #{rmrk}
     	</if>
-    	<if test='delYn != null and delYn != ""'>
-	    	, DEL_YN 					= #{delYn}
+    	<if test='reverseYn != null and reverseYn != ""'>
+	    	, DEL_YN 					= #{reverseYn}
     	</if>
     	<if test='eml != null and eml != ""'>
     		 , EML 						= #{eml}
