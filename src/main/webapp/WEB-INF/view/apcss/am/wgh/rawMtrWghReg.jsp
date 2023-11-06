@@ -1224,6 +1224,7 @@
 	 */
 	const fn_clearPrdcr = function() {
 		SBUxMethod.set("dtl-inp-prdcrCd", "");
+		SBUxMethod.set("dtl-inp-prdcrIdentno", "");
 		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:''");
 	}
 
