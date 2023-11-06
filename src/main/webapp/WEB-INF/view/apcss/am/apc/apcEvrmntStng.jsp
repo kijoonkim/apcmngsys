@@ -992,9 +992,11 @@
             	}
             }else if(grid === "grdSmptPckgUnit"){
             	let apcCdCol = grdSpmtPckgUnit.getColRef("apcCd");
+            	let itemCdCol = grdSpmtPckgUnit.getColRef("itemCd");
 
            		grdSpmtPckgUnit.setCellData(nRow, nCol, "N", true);
            		grdSpmtPckgUnit.setCellData(nRow, apcCdCol, gv_apcCd, true);
+           		grdSpmtPckgUnit.setCellData(nRow, itemCdCol, SBUxMethod.get("spmtPckgUnit-slt-itemCd"), true);
            		grdSpmtPckgUnit.addRow(true);
            		grdSpmtPckgUnit.setCellDisabled(0, 0, grdSpmtPckgUnit.getRows() -1, grdSpmtPckgUnit.getCols() -1, false);
            		grdSpmtPckgUnit.setCellDisabled(grdSpmtPckgUnit.getRows() -1, 0, grdSpmtPckgUnit.getRows() -1, grdSpmtPckgUnit.getCols() -1, true);

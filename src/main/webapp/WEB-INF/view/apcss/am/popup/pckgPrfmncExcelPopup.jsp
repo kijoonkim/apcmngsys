@@ -66,7 +66,7 @@
 		grdExcelPckgPrfmncPopup.refresh({"combo":true});
 		grdExcelPckgPrfmncPopup.rebuild();
 
-		console.log("jsonEPSApcPrdcr",jsonEPSApcPrdcr);
+		console.log("jsonEPSSpcfct",jsonEPSSpcfct);
 	}
 
 
@@ -124,6 +124,7 @@
 		let spcfctCdCol	 		= grdExcelPckgPrfmncPopup.getColRef("spcfctCd");
 		let vrtyCdCol	 		= grdExcelPckgPrfmncPopup.getColRef("vrtyCd");
 		let spmtPckgUnitCdCol 	= grdExcelPckgPrfmncPopup.getColRef("spmtPckgUnitCd");
+		let pckgQnttCol			= grdExcelPckgPrfmncPopup.getColRef("pckgQntt");
 
 		switch (nCol) {
 		case prdcrCdCol:
@@ -135,12 +136,43 @@
 		case spmtPckgUnitCdCol:
 			fn_checkSpmtPckgUnit(nRow);
 			break;
-		case vrtyCd:
+		case vrtyCdCol:
 			fn_checkVrty(nRow);
+			break;
+		case pckgQnttCol:
+			fn_checkQntt(nRow);
 			break;
 		default:
 			return;
 		}
+	}
+
+	const fn_checkQntt = function(nRow){
+
+		let spcfctCdCol = grdExcelPckgPrfmncPopup.getColRef("spcfctCd");
+		let pckgQnttCol = grdExcelPckgPrfmncPopup.getColRef("pckgQntt");
+		let pckgWghtCol = grdExcelPckgPrfmncPopup.getColRef("pckgWght");
+    	let rowData = grdExcelPckgPrfmncPopup.getRowData(nRow);
+    	let spcfctCd = rowData.spcfctCd;
+    	let pckgQntt = rowData.pckgQntt;
+    	let pckgWght = rowData.pckgWght;
+
+    	let choiceWght;
+
+   		for(var i=0; i<jsonEPSSpcfct.length; i++){
+			let row  = jsonEPSSpcfct[i];
+   			if(spcfctCd == row.spcfctCd){
+   				choiceWght = row.wght;
+   			}
+   		}
+
+   		if(pckgQntt > 0){
+   			grdExcelPckgPrfmncPopup.setCellData(nRow, pckgWghtCol, parseInt(pckgQntt) * choiceWght);
+   		}else {
+   			grdExcelPckgPrfmncPopup.setCellData(nRow, pckgQnttCol, 0);
+   			grdExcelPckgPrfmncPopup.setCellData(nRow, pckgWghtCol, 0);
+   		}
+
 	}
 
 	const fn_checkPrdcr = function(nRow){
