@@ -350,6 +350,15 @@
 		<if test='crtrYmd != null and crtrYmd != ""'>
 			   AND SI.INPT_YMD = #{crtrYmd}
 		</if>
+
+		<if test='sortYmdFrom != null and sortYmdFrom != ""'>
+			   AND SI.INPT_YMD <![CDATA[>=]]> #{sortYmdFrom}
+		</if>
+
+		<if test='sortYmdTo != null and sortYmdTo != ""'>
+			   AND SI.INPT_YMD <![CDATA[<=]]> #{sortYmdTo}
+		</if>
+
 		<if test='itemCd != null and itemCd != ""'>
 			   AND SI.ITEM_CD = #{itemCd}
 		</if>

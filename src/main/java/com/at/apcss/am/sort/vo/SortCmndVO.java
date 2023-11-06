@@ -43,7 +43,7 @@ public class SortCmndVO extends ComVO {
 	 * 선별지시순번
 	 */
 	private int sortCmndSn;
-	
+
 	/**
 	 * 선별지시번호 표시
 	 */
@@ -53,6 +53,9 @@ public class SortCmndVO extends ComVO {
 	 * 선별지시일자
 	 */
 	private String sortCmndYmd;
+
+	private String sortCmndYmdFrom;
+	private String sortCmndYmdTo;
 
 	/**
 	 * 선별지시시작일자
@@ -78,6 +81,11 @@ public class SortCmndVO extends ComVO {
 	 * 팔레트번호
 	 */
 	private String pltno;
+
+	/**
+	 * 입고번호
+	 */
+	private String wrhsno;
 
 	/**
 	 * 생산자코드
@@ -108,6 +116,7 @@ public class SortCmndVO extends ComVO {
 	 * 지시중량
 	 */
 	private double cmndWght;
+
 	/**
 	 * 투입수량
 	 */
@@ -117,6 +126,20 @@ public class SortCmndVO extends ComVO {
 	 * 지시중량
 	 */
 	private double inptWght;
+
+	private int invntrQntt;
+
+	private double invntrWght;
+
+	private String wrhsYmd;
+
+	private String grdCd;
+
+	private String grdNm;
+
+	private String bxKnd;
+
+	private String bxKndNm;
 
 	/**
 	 * 비고
