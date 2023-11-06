@@ -668,7 +668,9 @@
 			SBUxMethod.set("dtl-slt-itemCd", null);
 			// 품종
 			SBUxMethod.set("dtl-slt-vrtyCd", null);
-			
+
+	 		fn_onChangeSrchItemCd({value: null});
+	 		
 			// 입고구분
 			SBUxMethod.set("dtl-rdo-wrhsSeCd", "3");
 			

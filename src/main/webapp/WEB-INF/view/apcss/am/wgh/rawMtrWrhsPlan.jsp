@@ -649,6 +649,7 @@
 		SBUxMethod.set("dtl-inp-prdcrNm", "");
 		SBUxMethod.set("dtl-slt-itemCd", "");
 		SBUxMethod.set("dtl-slt-vrtyCd", "");
+ 		fn_onChangeSrchItemCd({value: null});
 		SBUxMethod.set('dtl-rdo-wrhsSeCd', '3');
 		SBUxMethod.set('dtl-rdo-gdsSeCd', '1');
 		SBUxMethod.set('dtl-rdo-trsprtSeCd', '1');

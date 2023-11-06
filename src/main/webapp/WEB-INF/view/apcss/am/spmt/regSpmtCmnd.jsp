@@ -700,6 +700,7 @@
 		SBUxMethod.set("dtl-slt-warehouseSeCd", "");
 		SBUxMethod.set("srch-slt-itemCd", "");
 		SBUxMethod.set("srch-slt-vrtyCd", "");
+ 		fn_onChangeSrchItemCd({value: null});
 		SBUxMethod.set("srch-inp-cnptNm", "");
 		SBUxMethod.set("srch-inp-cnptCd", "");
 		SBUxMethod.set("srch-slt-spcfctCd", "");
@@ -713,13 +714,13 @@
 	}
 
  	const fn_modalCnpt = function() {
-     	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
+     	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("cnptNm"), fn_setCnpt);
  	}
 
  	const fn_setCnpt = function(cnpt) {
  		if (!gfn_isEmpty(cnpt)) {
- 			SBUxMethod.set('srch-inp-apcCnptNm', cnpt.cnptNm);
- 			SBUxMethod.set('srch-inp-apcCnptCd', cnpt.cnptCd);
+ 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
+ 			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
  		}
  	}
 
