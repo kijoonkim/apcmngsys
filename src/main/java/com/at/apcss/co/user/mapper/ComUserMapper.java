@@ -36,6 +36,13 @@ public interface ComUserMapper {
 	 * @return List<>
 	 */
 	public int updateComUser(ComUserVO comUserVO) throws Exception;
+	
+	/**
+	 * 사용자 정보 변경
+	 * @param comUserVO
+	 * @return List<>
+	 */
+	public int updateComUserStts(ComUserVO comUserVO) throws Exception;
 
 	/**
 	 * 비밀번호 초기화
