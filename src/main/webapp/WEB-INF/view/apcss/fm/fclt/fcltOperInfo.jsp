@@ -119,13 +119,13 @@
 						<tr>
 							<th>운영조직 주소(시도)</th>
 							<td>
-								<sbux-input id="dtl-input-operOgnzAddr1" name="dtl-input-operOgnzAddr1" uitype="text" class="form-control input-sm" placeholder="주소 검색하여 작성" ></sbux-input>
+								<sbux-input id="dtl-input-operOgnzAddr1" name="dtl-input-operOgnzAddr1" uitype="text" class="form-control input-sm" placeholder="주소 작성" ></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<th>운영조직 주소(시군구)</th>
 							<td>
-								<sbux-input id="dtl-input-operOgnzAddr2" name="dtl-input-operOgnzAddr2" uitype="text" class="form-control input-sm" placeholder="주소 검색하여 작성" ></sbux-input>
+								<sbux-input id="dtl-input-operOgnzAddr2" name="dtl-input-operOgnzAddr2" uitype="text" class="form-control input-sm" placeholder="주소 작성" ></sbux-input>
 							</td>
 						</tr>
 						<tr>
@@ -205,7 +205,7 @@
 						<tr>
 							<th>APC 주소</th>
 							<td>
-								<sbux-input id="dtl-input-apcAddr" name="dtl-input-apcAddr" uitype="text" class="form-control input-sm" placeholder="주소 검색하여 작성" ></sbux-input>
+								<sbux-input id="dtl-input-apcAddr" name="dtl-input-apcAddr" uitype="text" class="form-control input-sm" placeholder="주소  작성" ></sbux-input>
 							</td>
 						</tr>
 						<tr>
