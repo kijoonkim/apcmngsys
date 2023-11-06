@@ -245,12 +245,12 @@
 							<td class="td_input"></td>
 							<th scope="row" class="th_bg">차량번호</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-vhclno" name="dtl-inp-vhclno" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="dtl-inp-vhclno" name="dtl-inp-vhclno" uitype="text" class="form-control input-sm" maxlength="9"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" ></td>
 							<th scope="row" class="th_bg">배송처</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-dldtn" name="dtl-inp-dldtn" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="dtl-inp-dldtn" name="dtl-inp-dldtn" uitype="text" class="form-control input-sm" maxlength="30"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 							</td>
@@ -260,13 +260,14 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-trsprtCst" name="dtl-inp-trsprtCst" uitype="text" class="form-control input-sm"
 								autocomplete="off"
+								maxlength="10"
 								mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"></td>
 							<th scope="row" class="th_bg">비고</th>
 							<td colspan="3" class="td_input">
-								<sbux-input id="dtl-inp-rmrk" name="dtl-inp-rmrk" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-input id="dtl-inp-rmrk" name="dtl-inp-rmrk" uitype="text" class="form-control input-sm" maxlength="300"></sbux-input>
 							</td>
 						</tr>
 					</tbody>
