@@ -1528,7 +1528,7 @@
 		    }
 		];
 
-		await fn_createExpGrid(expObjList);
+		fn_createExpGrid(expObjList);
 
 		//exportExcel();
 	    gfn_exportExcelMulti("출하실적(샘플).xlsx", expObjList);
@@ -1579,17 +1579,16 @@
 
 // 	excel모달을 열기위한 함수
 	const importExcelData = function (e){
+
 		SBUxMethod.openModal('modal-excel-spmtPrfmnc');
 
 		fn_createGridSpmtPrfmncPopup();
 		jsonExcelSpmtPrfmncPopup = 0;
     	grdExcelSpmtPrfmncPopup.rebuild();
-
     	grdExcelSpmtPrfmncPopup.importExcelData(e);
      }
 
     const fn_uld = async function() {
-
 		$("#btnFileUpload").click();
 
     }

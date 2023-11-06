@@ -268,7 +268,7 @@
     <div>
 		<sbux-modal id="modal-excel-pckgPrfmnc" name="modal-excel-pckgPrfmnc"
 			uitype="middle"
-			header-title="포장실적등록"
+			header-title="선별실적등록"
 			body-html-id="body-modal-excelPckgPrfmnc"
 			footer-is-close-button="false"
 			header-is-close-button="false"
