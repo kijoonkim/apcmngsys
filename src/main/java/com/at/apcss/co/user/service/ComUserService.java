@@ -29,6 +29,21 @@ public interface ComUserService {
 	 * @return
 	 */
 	public HashMap<String, Object> updateComUser(ComUserVO comUserList) throws Exception;
+	
+	/**
+	 * 사용자 상태를 승인한다.
+	 * @param comUserList
+	 * @return
+	 */
+	public HashMap<String, Object> updateUserStts(List<ComUserVO> comUserList) throws Exception;
+	
+	/**
+	 * 사용자 상태를 승인한다.
+	 * @param comUserList
+	 * @return
+	 */
+	public HashMap<String, Object> updateComUserStts(ComUserVO comUserVO) throws Exception;
+	
 	/**
 	 * 사용자 정보를 변경한다.
 	 * @param comUserList
@@ -56,5 +71,6 @@ public interface ComUserService {
 	 * @return
 	 */
 	public int updComUserPwd(ComUserVO comUserVO) throws Exception;
+
 
 }
