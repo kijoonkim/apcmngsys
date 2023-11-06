@@ -150,10 +150,9 @@
 	        {caption: ["품목"], 			ref: 'itemCd',   	type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGrdItemCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["품종"], 			ref: 'vrtyCd',   	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonSPUGrdVrtyCd', 	displayui : false,	itemcount: 10, label:'label', value:'value', filtering: {usemode : true, uppercol : 0, attrname : 'mastervalue'}}
-	        	},
+				typeinfo : {ref:'jsonSPUGrdVrtyCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["규격"], 			ref: 'spcfctCd',   	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	displayui : false, 	itemcount: 10, label:'label', value:'value', filtering: {usemode : true, uppercol : 0, attrname : 'mastervalue'}}},
+				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["등급"], 			ref: 'gdsGrd',   	type:'combo',  width:'80px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGdsGrd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["출하 포장단위 명"], ref: 'spmtPckgUnitNm',  type:'input',  width:'200px',    style:'text-align:center'},
