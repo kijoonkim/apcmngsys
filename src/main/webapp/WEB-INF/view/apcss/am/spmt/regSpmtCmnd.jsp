@@ -87,7 +87,6 @@
 							<th scope="row" class="th_bg">거래처</th>
 						    <td colspan="2"class="td_input" style="border-right:hidden ;">
 								<sbux-input uitype="text" id="srch-inp-cnptNm" name="srch-inp-cnptNm" class="form-control input-sm"></sbux-input>
-								<sbux-input uitype="hidden" id="srch-inp-cnptCd" name="srch-inp-cnptCd" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btn-srch-inp-cnpt" name="btn-srch-inp-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
@@ -491,8 +490,7 @@
 
 		let itemCd  = SBUxMethod.get("srch-slt-itemCd"); //품목코드
 		let vrtyCd  = SBUxMethod.get("srch-slt-vrtyCd"); //품종코드
-		let apcCnptCd  = SBUxMethod.get("srch-inp-apcCnptCd"); //거래처
-		let apcCnptNm  = SBUxMethod.get("srch-inp-apcCnptNm"); //거래처명
+		let apcCnptNm  = SBUxMethod.get("srch-inp-cnptNm"); //거래처명
 		let spcfctCd  = SBUxMethod.get("srch-slt-spcfctCd"); //규격코드
 
 
@@ -517,7 +515,6 @@
 			itemCd: itemCd,
 			vrtyCd: vrtyCd,
 			spcfctCd: spcfctCd,
-			apcCnptCd: apcCnptCd,
 			apcCnptNm: apcCnptNm
   		});
         const data = await postJsonPromise;
@@ -532,6 +529,7 @@
           				outordrYmd		: item.outordrYmd,
           				outordrPrsn		: item.outordrPrsn,
           				outordrPrsnCd	: item.outordrPrsnCd,
+          				warehouseSeCd	: item.warehouseSeCd,
           				dldtn			: item.dldtn,
           				gdsCd			: item.gdsCd,
           				gdsNm			: item.gdsNm,
@@ -702,7 +700,6 @@
 		SBUxMethod.set("srch-slt-vrtyCd", "");
  		fn_onChangeSrchItemCd({value: null});
 		SBUxMethod.set("srch-inp-cnptNm", "");
-		SBUxMethod.set("srch-inp-cnptCd", "");
 		SBUxMethod.set("srch-slt-spcfctCd", "");
 		SBUxMethod.set("dtl-inp-apcCnptNm", "");
 		SBUxMethod.set("dtl-inp-apcCnptCd", "");
@@ -720,7 +717,6 @@
  	const fn_setCnpt = function(cnpt) {
  		if (!gfn_isEmpty(cnpt)) {
  			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
- 			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
  		}
  	}
 
