@@ -135,8 +135,8 @@
 							<td colspan="2">&nbsp;</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>거래처</th>
 						    <td colspan="3" class="td_input" style="border-right:hidden ;">
-						    	<sbux-input uitype="hidden" id="srch-inp-cnptCd" name="srch-inp-cnptCd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-input>
-						    	<sbux-input uitype="text" id="srch-inp-cnptNm" name="srch-inp-cnptNm" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-input>
+						    	<sbux-input uitype="hidden" id="srch-inp-cnptCd" name="srch-inp-cnptCd"></sbux-input>
+						    	<sbux-input uitype="text" id="srch-inp-cnptNm" name="srch-inp-cnptNm" class="form-control input-sm input-sm-ast inpt_data_reqed" onchange="fn_onChangeCnpt(srch-inp-cnptCd)"></sbux-input>
 							<td class="td_input">
 								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"/>
 						    </td>
@@ -697,11 +697,22 @@
 
  	const fn_setCnpt = function(cnpt) {
  		if (!gfn_isEmpty(cnpt)) {
- 			console.log("cnpt", cnpt);
  			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
  			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
  		}
  	}
+ 	
+ 	/**
+	* @name fn_onChangeCnpt
+	* @description 거래처명 입력 시 event : autocomplete
+	*/
+	const fn_onChangeCnpt = function(cnpt){
+		SBUxMethod.set("srch-inp-cnptCd", "");
+		if(getByteLengthOfString(cnpt) > 100){
+			SBUxMethod.set("srch-inp-cnptNm", "");
+			return;
+		}
+    }
 
  	const fn_dtpChange = function(){
  		let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");

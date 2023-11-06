@@ -107,7 +107,6 @@
 			        FROM TB_OUTORDR_INFO OI
 			       WHERE OI.DEL_YN = 'N'
 			         AND OI.RCPT_CFMTN_APC_CD  = #{apcCd}
-
 		]]>
 		<if test='outordrYmdFrom != null and outordrYmdFrom != ""'>
 		   	   AND OI.OUTORDR_YMD <![CDATA[>=]]> #{outordrYmdFrom}
@@ -123,6 +122,13 @@
 		</if>
 		<if test='spcfctCd != null and spcfctCd != ""'>
 		       AND OI.SPCFCT_CD = #{spcfctCd}
+		</if>
+		<if test='apcCnptNm != null and apcCnptNm != ""'>
+		       AND (SELECT FN_GET_CNPT_NM(OI.APC_CNPT_CD, OI.APC_CD) FROM DUAL) LIKE '%' || #{apcCnptNm} || '%'
+		</if>
+		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			   AND (SELECT MAX(WAREHOUSE_SE_CD) FROM TB_GDS_INVNTR X WHERE X.APC_CD = OI.APC_CD
+		       		AND X.ITEM_CD = OI.ITEM_CD AND X.VRTY_CD = OI.VRTY_CD AND X.SPCFCT_CD = OI.SPCFCT_CD AND X.DEL_YN = 'N') = #{warehouseSeCd}
 		</if>
   		  	) pt0
   		  WHERE pt0.OUTORDR_QNTT - NVL(SPMT_QNTT,0) - NVL(CMND_QNTT,0) > 0

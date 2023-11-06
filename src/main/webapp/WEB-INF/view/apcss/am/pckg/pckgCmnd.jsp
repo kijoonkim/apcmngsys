@@ -75,7 +75,6 @@
 							<th scope="row" class="th_bg">거래처</th>
 						    <td colspan="2"class="td_input" style="border-right:hidden ;">
 								<sbux-input uitype="text" id="srch-inp-cnptNm" name="srch-inp-cnptNm" class="form-control input-sm"></sbux-input>
-								<sbux-input uitype="hidden" id="srch-inp-cnptCd" name="srch-inp-cnptCd" class="form-control input-sm"></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt"/>
@@ -244,7 +243,6 @@
     	jsonPckgCmnd.length = 0;
     	grdPckgCmnd.clearStatus();
     	await fn_setGrdPckgCmnd(pageSize, pageNo);
-
 	}
 
 	const fn_setGrdPckgCmnd = async function(pageSize, pageNo){
@@ -257,12 +255,12 @@
 		let vrtyCd  		= SBUxMethod.get("srch-inp-vrtyCd"); //품종코드
 		let spcfctCd  		= SBUxMethod.get("srch-slt-spcfctCd"); //규격코드
 		let ordrNo  		= SBUxMethod.get("srch-inp-gdsNo"); //발주번호
-		let cnptCd  		= SBUxMethod.get("srch-inp-cnptCd");
+		let cnptNm  		= SBUxMethod.get("srch-inp-cnptNm");
     	const postJsonPromise = gfn_postJSON("/am/pckg/selectPckgCmndList.do", {
 			apcCd				: gv_selectedApcCd,
 			pckgCmndYmdFrom		: pckgCmndYmdFrom,
 			pckgCmndYmdTo		: pckgCmndYmdTo,
-			cnptCd				: cnptCd,
+			cnptNm				: cnptNm,
 			fcltCd				: fcltCd,
 			dudtYmd				: dudtYmd,
 			itemCd				: itemCd,
@@ -402,7 +400,6 @@
  	const fn_setCnpt = function(cnpt) {
  		if (!gfn_isEmpty(cnpt)) {
  			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
- 			SBUxMethod.set('srch-inp-cnptCd', cnpt.cnptCd);
  		}
  	}
 
@@ -446,7 +443,6 @@
  		SBUxMethod.set('srch-dtp-cmndYmdTo', gfn_dateToYmd(new Date()));
  		SBUxMethod.set('srch-slt-fclt', "");
  		SBUxMethod.set('srch-inp-cnptNm', "");
- 		SBUxMethod.set('srch-inp-cnptCd', "");
  		SBUxMethod.set('srch-dtp-dudtYmd', "");
  		SBUxMethod.set('srch-slt-itemCd', "");
  		SBUxMethod.set('srch-inp-vrtyNm', "");
