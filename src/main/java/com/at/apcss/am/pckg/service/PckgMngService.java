@@ -1,9 +1,6 @@
 package com.at.apcss.am.pckg.service;
 
 import java.util.HashMap;
-import java.util.List;
-
-import com.at.apcss.am.pckg.vo.PckgInptVO;
 import com.at.apcss.am.pckg.vo.PckgMngVO;
 
 /**
@@ -80,7 +77,7 @@ public interface PckgMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deletePckgPrfmnc(PckgMngVO pckgMngVO) throws Exception;
-	
+
 	/**
 	 * 포장투입실적 삭제
 	 * @param pckgInptVO

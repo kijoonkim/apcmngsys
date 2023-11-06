@@ -40,9 +40,15 @@ public class PckgInptVO extends ComVO {
 	private int sortSn;
 
 	/**
+	 * 투입순번
+	 */
+	private int inptSn;
+
+	/**
 	 * 등급코드
 	 */
 	private String grdCd;
+	private String grdNm;
 
 	/**
 	 * 투입일자
@@ -53,26 +59,31 @@ public class PckgInptVO extends ComVO {
 	 * 설비코드
 	 */
 	private String fcltCd;
+	private String fcltNm;
 
 	/**
 	 * 대표생산자코드
 	 */
 	private String rprsPrdcrCd;
+	private String rprsPrdcrNm;
 
 	/**
 	 * 품목코드
 	 */
 	private String itemCd;
+	private String itemNm;
 
 	/**
 	 * 품종코드
 	 */
 	private String vrtyCd;
+	private String vrtyNm;
 
 	/**
 	 * 규격코드
 	 */
 	private String spcfctCd;
+	private String spcfctNm;
 
 	/**
 	 * 수량
@@ -98,4 +109,16 @@ public class PckgInptVO extends ComVO {
 	 * 비고
 	 */
 	private String rmrk;
+
+	/**
+	 * 창고코드
+	 */
+	private String warehouseSeCd;
+	/**
+	 * 창고명
+	 */
+	private String warehouseSeNm;
+
+	private String pckgCmptnYn;
+
 }

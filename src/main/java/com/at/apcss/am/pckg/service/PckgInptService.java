@@ -43,7 +43,7 @@ public interface PckgInptService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertPckgInpt(PckgInptVO pckgInptVO) throws Exception;
+	public HashMap<String, Object> insertPckgInpt(PckgInptVO pckgInptVO) throws Exception;
 
 	/**
 	 * 포장투입실적 목록 등록

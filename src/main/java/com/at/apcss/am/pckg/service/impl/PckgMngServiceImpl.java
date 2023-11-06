@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.invntr.service.SortInvntrService;
+import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.pckg.service.PckgCmndService;
 import com.at.apcss.am.pckg.service.PckgInptService;
@@ -22,6 +23,7 @@ import com.at.apcss.am.pckg.service.PckgPrfmncService;
 import com.at.apcss.am.pckg.vo.PckgInptVO;
 import com.at.apcss.am.pckg.vo.PckgMngVO;
 import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
+import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
 import com.at.apcss.co.constants.ApcConstants;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
@@ -67,7 +69,78 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 
 	@Override
 	public HashMap<String, Object> insertPckgInpt(PckgMngVO pckgMngVO) throws Exception {
-		// TODO Auto-generated method stub
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		List<PckgInptVO> inptList = pckgMngVO.getPckgInptList();
+
+		// 선별투입 등록 list
+		List<PckgInptVO> pckgInptList = new ArrayList<>();
+
+		for ( PckgInptVO inpt : inptList ) {
+
+			// 선별재고 확인
+			SortInvntrVO invntrParam = new SortInvntrVO();
+			invntrParam.setApcCd(pckgMngVO.getApcCd());
+			invntrParam.setSortno(inpt.getSortno());
+			invntrParam.setSortSn(inpt.getSortSn());
+
+			SortInvntrVO invntrInfo = sortInvntrService.selectSortInvntr(invntrParam);
+			if (invntrInfo == null
+					|| !StringUtils.hasText(invntrInfo.getSortno())
+					|| ComConstants.CON_YES.equals(invntrInfo.getDelYn())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별재고정보");	// W0005	{0}이/가 없습니다.
+			}
+
+			if (!StringUtils.hasText(inpt.getFcltCd())) {
+				ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "포장기");	// W0005	{0}이/가 없습니다.
+			}
+
+			if (inpt.getQntt() <= 0) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "투입수량");	// W0005	{0}이/가 없습니다.
+			}
+
+			if (inpt.getQntt() > invntrInfo.getInvntrQntt()) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고수량||투입수량");	// W0008	{0} 보다 {1}이/가 큽니다.
+			}
+
+			PckgInptVO inptVO = new PckgInptVO();
+			BeanUtils.copyProperties(pckgMngVO, inptVO);
+			BeanUtils.copyProperties(inpt, inptVO,
+					ApcConstants.PROP_APC_CD,
+					ComConstants.PROP_SYS_FRST_INPT_DT,
+					ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+					ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+					ComConstants.PROP_SYS_LAST_CHG_DT,
+					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+
+			// 투입실적 항목 set
+			pckgInptList.add(inptVO);
+		}
+
+		for ( PckgInptVO inptVO : pckgInptList ) {
+
+			// 투입등록
+			rtnObj = pckgInptService.insertPckgInpt(inptVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+			// 원물재고 투입진행량 update
+			SortInvntrVO invntrVO = new SortInvntrVO();
+			BeanUtils.copyProperties(inptVO, invntrVO);
+			invntrVO.setInptPrgrsQntt(inptVO.getQntt());
+			invntrVO.setInptPrgrsWght(inptVO.getWght());
+
+			rtnObj = sortInvntrService.updateInvntrPckgInpt(invntrVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
 		return null;
 	}
 
@@ -330,6 +403,7 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 			BeanUtils.copyProperties(pckgMngVO, pckgInptVO);
 			pckgInptVO.setSortno(inpt.getSortno());
 			pckgInptVO.setSortSn(inpt.getSortSn());
+			pckgInptVO.setInptSn(inpt.getInptSn());
 
 			rtnObj = pckgInptService.deletePckgInpt(pckgInptVO);
 			if (rtnObj != null) {
@@ -396,7 +470,71 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 
 	@Override
 	public HashMap<String, Object> deletePckgInpt(PckgMngVO pckgMngVO) throws Exception {
-		// TODO Auto-generated method stub
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		List<PckgInptVO> inptList = pckgMngVO.getPckgInptList();
+
+		// 선별투입 삭제 list
+		List<PckgInptVO> pckgInptList = new ArrayList<>();
+
+		for ( PckgInptVO inpt : inptList ) {
+
+			inpt.setApcCd(pckgMngVO.getApcCd());
+
+			// 투입실적 확인
+			PckgInptVO pckgInptInfo = pckgInptService.selectPckgInpt(inpt);
+			if (pckgInptInfo == null
+					|| !StringUtils.hasText(pckgInptInfo.getSortno())
+					|| ComConstants.CON_YES.equals(pckgInptInfo.getDelYn())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "포장투입정보");	// W0005	{0}이/가 없습니다.
+			}
+
+			if (StringUtils.hasText(pckgInptInfo.getPckgno())) {
+				// TODO 테이블 ALTER 후 진행
+				return ComUtil.getResultMap(ComConstants.MSGCD_TARGET_EXIST, "포장실적");
+			}
+
+			inpt.setQntt(pckgInptInfo.getQntt());
+			inpt.setWght(pckgInptInfo.getWght());
+
+			PckgInptVO inptVO = new PckgInptVO();
+			BeanUtils.copyProperties(pckgMngVO, inptVO);
+			BeanUtils.copyProperties(inpt, inptVO,
+					ApcConstants.PROP_APC_CD,
+					ComConstants.PROP_SYS_FRST_INPT_DT,
+					ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+					ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+					ComConstants.PROP_SYS_LAST_CHG_DT,
+					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+
+			// 투입실적 항목 set
+			pckgInptList.add(inptVO);
+		}
+
+		for ( PckgInptVO inptVO : pckgInptList ) {
+
+			// 선별재고 투입진행량 update
+			SortInvntrVO invntrVO = new SortInvntrVO();
+			BeanUtils.copyProperties(inptVO, invntrVO);
+			invntrVO.setInptPrgrsQntt(inptVO.getQntt());
+			invntrVO.setInptPrgrsWght(inptVO.getWght());
+
+			rtnObj = sortInvntrService.deleteInvntrPckgInpt(invntrVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+			// 투입 취소
+			rtnObj = pckgInptService.deletePckgInpt(inptVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
 		return null;
 	}
 

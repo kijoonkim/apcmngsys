@@ -26,7 +26,6 @@
 				  PI.APC_CD			AS APC_CD
 				, PI.SORTNO			AS SORTNO
 				, PI.SORT_SN		AS SORT_SN
-				, PI.GRD_CD			AS GRD_CD
 				, PI.INPT_YMD		AS INPT_YMD
 				, PI.QNTT			AS QNTT
 				, PI.WGHT			AS WGHT
@@ -39,6 +38,9 @@
 			   AND PI.SORTNO = #{sortno}
 			   AND PI.SORT_SN = #{sortSn}
 		]]>
+			<if test='inptSn != null and inptSn != ""'>
+			   AND PI.INPT_SN = #{inptSn}
+			</if>
     </select>
 
 	<!-- ==========================================================================	-->
@@ -51,20 +53,56 @@
 	<!-- ==========================================================================	-->
     <select id="selectPckgInptList" parameterType="com.at.apcss.am.pckg.vo.PckgInptVO" resultType="com.at.apcss.am.pckg.vo.PckgInptVO">
     	<![CDATA[
+    		SELECT /* com.at.apcss.am.pckg.mapper.PckgInptMapper.selectPckgInptList */
+		]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+				  pt0.*
+    			, (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) AS APC_NM
+    			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS RPRS_PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+                , (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS GRD_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('PCKG_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) AS FCLT_NM
+                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD, pt0.APC_CD) FROM DUAL) AS GDS_SE_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+    		  FROM (
 	    	SELECT /* com.at.apcss.am.pckg.mapper.PckgInptMapper.selectPckgInptList */
 				  PI.APC_CD			AS APC_CD
 				, PI.SORTNO			AS SORTNO
 				, PI.SORT_SN		AS SORT_SN
+				, PI.INPT_SN		AS INPT_SN
 				, PI.PCKGNO			AS PCKGNO
 				, PI.PCKG_CMNDNO	AS PCKG_CMNDNO
 				, PI.INPT_YMD		AS INPT_YMD
 				, PI.QNTT			AS QNTT
 				, PI.WGHT			AS WGHT
 				, PI.RMRK			AS RMRK
-				, PI.DEL_YN			AS DEL_YN
-			  FROM TB_PCKG_INPT_PRFMNC PI
-			 WHERE PI.APC_CD = #{apcCd}
+			    , PI.FCLT_CD		AS FCLT_CD
+			    , SI.RPRS_PRDCR_CD	AS RPRS_PRDCR_CD
+			    , SI.ITEM_CD		AS ITEM_CD
+			    , SI.VRTY_CD		AS VRTY_CD
+			    , SI.SPCFCT_CD		AS SPCFCT_CD
+			    , SI.GRD_CD			AS GRD_CD
+			    , SI.GDS_SE_CD      AS GDS_SE_CD
+			    , SI.PRDCTN_YR      AS PRDCTN_YR
+			    , SI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+			  FROM
+			  	  TB_PCKG_INPT_PRFMNC PI
+			  	, TB_SORT_INVNTR SI
+			 WHERE PI.APC_CD = SI.APC_CD
+			   AND PI.SORTNO = SI.SORTNO
+			   AND PI.SORT_SN = SI.SORT_SN
+			   AND PI.APC_CD = #{apcCd}
 			   AND PI.DEL_YN = 'N'
+			   AND SI.DEL_YN = 'N'
 		]]>
 			<if test='sortno != null and sortno != ""'>
 			   AND PI.SORTNO = #{sortno}
@@ -75,6 +113,27 @@
 			<if test='pckgno != null and pckgno != ""'>
 			   AND PI.PCKGNO = #{pckgno}
 			</if>
+			<if test='inptYmd != null and inptYmd != ""'>
+			   AND PI.INPT_YMD = #{inptYmd}
+			</if>
+			<if test='fcltCd != null and fcltCd != ""'>
+			   AND PI.FCLT_CD = #{fcltCd}
+			</if>
+			<if test='pckgCmptnYn != null and pckgCmptnYn.equals("N")'>
+			   AND PI.PCKGNO IS NULL
+			</if>
+			<if test='pckgCmptnYn != null and pckgCmptnYn.equals("Y")'>
+			   AND PI.PCKGNO IS NOT NULL
+			</if>
+    	<![CDATA[
+			 ORDER BY INPT_YMD, SORTNO, SORT_SN
+    		  ) pt0
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
     </select>
 
 	<!-- ==========================================================================	-->
@@ -92,9 +151,11 @@
 					  APC_CD
 					, SORTNO
 					, SORT_SN
+					, INPT_SN
 					, INPT_YMD
 					, QNTT
 					, WGHT
+					, FCLT_CD
 					, PCKGNO
 					, PCKG_CMNDNO
 					, RMRK
@@ -110,9 +171,17 @@
 					  #{apcCd}
 					, #{sortno}
 					, #{sortSn}
+					, NVL((
+						SELECT MAX(INPT_SN)
+						  FROM TB_PCKG_INPT_PRFMNC
+						 WHERE APC_CD = #{apcCd}
+						   AND SORTNO = #{sortno}
+						   AND SORT_SN = #{sortSn}
+					  ), 0) + 1
 					, #{inptYmd}
 					, #{qntt}
 					, #{wght}
+					, #{fcltCd}
 					, #{pckgno}
 					, #{pckgCmndno}
 					, #{rmrk}
@@ -178,5 +247,30 @@
 		]]>
 	</delete>
 
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgInptMapper.updatePckgInptForDelY	-->
+	<!-- DESC : 포장투입실적 삭제 : set delYn 'Y'.		                                    -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updatePckgInptForDelY" parameterType="com.at.apcss.am.pckg.vo.PckgInptVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.am.pckg.mapper.PckgInptMapper.updatePckgInptForDelY */
+				TB_PCKG_INPT_PRFMNC
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, DEL_YN = 'Y'
+
+			 WHERE APC_CD = #{apcCd}
+			   AND SORTNO = #{sortno}
+			   AND SORT_SN = #{sortSn}
+			   AND INPT_SN = #{inptSn}
+		]]>
+	</update>
 
 </mapper>
