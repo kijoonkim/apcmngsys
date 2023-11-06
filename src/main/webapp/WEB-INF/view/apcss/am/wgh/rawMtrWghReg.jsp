@@ -1245,7 +1245,7 @@
 	 * @description 생산자 선택 popup
 	 */
 	const fn_choicePrdcr = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("dtl-inp-prdcrNm"));
 	}
 	/**
 	 * @name fn_setPrdcr

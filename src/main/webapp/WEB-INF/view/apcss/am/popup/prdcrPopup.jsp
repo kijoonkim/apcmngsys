@@ -102,11 +102,12 @@
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
-		init: async function(_apcCd, _apcNm, _callbackFnc) {
+		init: async function(_apcCd, _apcNm, _callbackFnc, _prdcrNm) {
 
 			// set param
 			SBUxMethod.set("prdcr-inp-apcCd", _apcCd);
 			SBUxMethod.set("prdcr-inp-apcNm", _apcNm);
+			SBUxMethod.set("prdcr-inp-prdcrNm", _prdcrNm);
 
 			SBUxMethod.show('btnEditPrdcr');
 			SBUxMethod.hide('btnCancelPrdcr');
