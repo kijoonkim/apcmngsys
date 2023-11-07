@@ -318,7 +318,6 @@
 				  , cfmtnYn		: item.cfmtnYn
 				  , cfmtnPsbltyYn	: item.cfmtnPsbltyYn
 
-
 				}
 				jsonSlsPrfmnc.push(slsPrfmnc);
 			});
@@ -419,16 +418,13 @@
 			slsYmdTo		: slsYmdTo
   		});
 		const data = await postJsonPromise;
-
 		try{
-
-       		if(gfn_isEmpty(data.rtnCd)){
-       			console.log(data.rtnCd)
-       			fn_search();
-       			gfn_comAlert("I0001");						// I0001 처리 되었습니다.
-       		}else{
-       			gfn_comAlert("E0000", data.rtnMsg);			// E0001 오류가 발생하였습니다.
-       		}
+			if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		alert(data.resultMessage);
+        	}
         }catch (e) {
         	if (!(e instanceof Error)) {
     			e = new Error(e);
