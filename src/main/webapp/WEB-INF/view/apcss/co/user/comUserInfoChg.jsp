@@ -275,7 +275,6 @@ async function fn_reset(){
     		return;
     	}
 
-		console.log(userAprvRegGridData);
     	const postJsonPromise = gfn_postJSON("/co/user/compareComUserAprv.do", userAprvRegGridData);
 		const data = await postJsonPromise;
 
