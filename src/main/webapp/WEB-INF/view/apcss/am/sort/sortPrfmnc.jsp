@@ -119,7 +119,7 @@
 									class="form-control input-sm input-sm-ast"
 									unselected-text="전체"
 									jsondata-ref="jsonApcItem"
-									onchange="fn_onChangeSrchItemCd(this)"
+									onchange="fn_selectItem"
 								></sbux-select>
 							</td>
 <!-- 							<td class="td_input" style="border-right: hidden;"> -->
@@ -131,6 +131,7 @@
 									id="srch-inp-vrtyNm"
 									name="srch-inp-vrtyNm"
 									class="form-control input-sm"
+									readonly
 								></sbux-input>
 								<sbux-input
 									uitype="hidden"
@@ -201,7 +202,7 @@
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
-    								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
+    								oninput="fn_onInputPrdcrNm(event)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
 							</td>
@@ -287,22 +288,32 @@
 	}
 
 	const fn_setVrty = function(vrty) {
-
 		if (!gfn_isEmpty(vrty)) {
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
 			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyCd);
 			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, vrty.itemCd);
 		}
 	}
 	const fn_setVrtys = function(vrtys) {
 		if (!gfn_isEmpty(vrtys)) {
-			var _vrtys = [];
+			var _vrtyNms = [];
 			var _vrtyCds = [];
+			var diff = false;
 			for(var i=0;i<vrtys.length;i++){
-				_vrtys.push(vrtys[i].vrtyNm);
+				if (vrtys[0].itemCd != vrtys[i].itemCd) {
+					diff = true;
+				}
+				_vrtyNms.push(vrtys[i].vrtyNm);
 				_vrtyCds.push(vrtys[i].vrtyCd);
 			}
-			SBUxMethod.set('srch-inp-vrtyNm', _vrtys.join(','));
+			if (diff) {
+				SBUxMethod.set('srch-slt-itemCd', "");
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, '');
+			} else {
+				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
+			}
+			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNms.join(','));
 			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCds.join(','));
 		}
 	}
@@ -340,7 +351,7 @@
     	let nowDate = new Date();
 
 		let firstYmd = gfn_dateFirstYmd(nowDate);
-		let lastYmd = gfn_dateLastYmd(nowDate);
+		let lastYmd = gfn_dateToYmd(nowDate);
 
 		SBUxMethod.set("srch-dtp-inptYmdFrom", firstYmd);
 		SBUxMethod.set("srch-dtp-inptYmdTo", lastYmd);
@@ -741,22 +752,35 @@
 		}
 	}
 
- 	/**
- 	 * @name fn_onKeyUpPrdcrNm
- 	 * @description 생산자명 입력 시 event : autocomplete
+     /**
+ 	 * @name getByteLengthOfString
+ 	 * @description 글자 byte 크기 계산
  	 */
- 	const fn_onKeyUpPrdcrNm = function(prdcrNm){
+  	const getByteLengthOfString = function (s, b, i, c) {
+		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+		  return b;
+ 	}
+     
+     /**
+ 	* @name fn_onInputPrdcrNm
+ 	* @description 생산자명 입력 시 event : autocomplete
+ 	*/
+ 	const fn_onInputPrdcrNm = function(prdcrNm){
  		fn_clearPrdcr();
- 		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
-     	SBUxMethod.changeAutocompleteData('slt-inp-prdcrNm', true);
-	}
+ 		if(getByteLengthOfString(prdcrNm.target.value) > 100){
+ 			SBUxMethod.set("srch-inp-prdcrNm", "");
+ 			return;
+ 		}
+ 		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
+     	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
+     }
 
  	/**
  	 * @name fn_clearPrdcr
  	 * @description 생산자 폼 clear
  	 */
  	const fn_clearPrdcr = function() {
- 		SBUxMethod.set("srch-inp-prdcrCd", null);
+ 		SBUxMethod.set("srch-inp-prdcrCd", "");
  		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
  	}
 
@@ -764,13 +788,19 @@
 	 * @name fn_onSelectPrdcrNm
 	 * @description 생산자 autocomplete 선택 callback
 	 */
-	function fn_onSelectPrdcrNm(value, label, item) {
-		SBUxMethod.set("srch-inp-prdcrCd", value);
-		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+	 function fn_onSelectPrdcrNm(value, label, item) {
+		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
+		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
+			document.getElementById('btn-srch-prdcr').click();
+		}
+		else{
+			SBUxMethod.set("srch-inp-prdcrCd", value);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		}
 	}
 
     const fn_choicePrdcr = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
 	}
 
 	const fn_setPrdcr = function(prdcr) {
@@ -793,6 +823,17 @@
 		]);
 
 		jsonSortPrfmnc.length = 0;
+	}
+
+	function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		SBUxMethod.set("srch-inp-vrtyNm", "");
+		SBUxMethod.set("srch-inp-vrtyCd", "");
+		if (gfn_isEmpty(itemCd)) {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, 	"");
+		} else {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, 	gv_selectedApcCd, itemCd);		// 규격
+		}
 	}
 
 	/**
