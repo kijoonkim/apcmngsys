@@ -120,7 +120,7 @@
 									class="form-control input-sm input-sm"
 									unselected-text="전체"
 									jsondata-ref="jsonApcItem"
-									onchange="fn_onChangeSrchItemCd(this)"
+									onchange="fn_selectItem"
 								></sbux-select>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -203,7 +203,7 @@
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
-    								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
+    								oninput="fn_onInputPrdcrNm(event)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
 						    </td>
@@ -306,6 +306,17 @@
 		jsonPrdcr = gfn_setFrst(jsonPrdcr);
 	}
 
+    function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		SBUxMethod.set("srch-inp-vrtyNm", "");
+		SBUxMethod.set("srch-inp-vrtyCd", "");
+		if (gfn_isEmpty(itemCd)) {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, 	"");
+		} else {
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, 	gv_selectedApcCd, itemCd);
+		}
+	}
+	
 	const fn_modalVrty = function() {
 		const itemCd = SBUxMethod.get("srch-slt-itemCd");
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, itemCd, fn_setVrty, fn_setVrtys);
@@ -316,6 +327,7 @@
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
 			SBUxMethod.set('srch-inp-vrtyCds', vrty.vrtyCd);
 			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, vrty.itemCd);
 		}
 	}
 
@@ -323,20 +335,24 @@
 		if (!gfn_isEmpty(vrtys)) {
 			const _vrtyCds = [];
 			const _vrtyNms = [];
-
-			vrtys.forEach((item) => {
-				_vrtyCds.push(item.vrtyCd);
-				_vrtyNms.push(item.vrtyNm);
-			});
-
-			SBUxMethod.set('srch-inp-vrtyCds', _vrtyCds.join(','));
+			var diff = false;
+			for(var i=0;i<vrtys.length;i++){
+				if (vrtys[0].itemCd != vrtys[i].itemCd) {
+					diff = true;
+				}
+				_vrtyCds.push(vrtys[i].vrtyCd);
+				_vrtyNms.push(vrtys[i].vrtyNm);
+			}
+			if (diff) {
+				SBUxMethod.set('srch-slt-itemCd', "");
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, '');
+			} else {
+				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, vrtys[0].itemCd);
+			}
+			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCds.join(','));
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNms.join(','));
-		} else {
-			SBUxMethod.set('srch-inp-vrtyCds', "");
-			SBUxMethod.set('srch-inp-vrtyNm', "");
 		}
-		console.log(SBUxMethod.get('srch-inp-vrtyCds'));
-		console.log(SBUxMethod.get('srch-inp-vrtyNm'));
 	}
 
     const fn_init = async function() {
@@ -640,24 +656,6 @@
  		]);
  	}
 
- 	/**
- 	 * @name fn_onChangeSrchItemCd
- 	 * @description 품목 선택 변경 event
- 	 */
- 	const fn_onChangeSrchItemCd = async function(obj) {
- 		let itemCd = obj.value;
-
-		if(gfn_isEmpty(itemCd)){
-			jsonApcSpcfct.length = 0;
-		}else{
-			let rst = await Promise.all([
-				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 			jsonApcSpcfct, 			gv_selectedApcCd, itemCd),	// 규격
-			])
-		}
-		SBUxMethod.refresh("srch-slt-spcfctCd");
-
- 	}
-
     const fn_choicePrdcr = function() {
 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
 	}
@@ -672,12 +670,25 @@
 	}
 
 	/**
-	 * @name fn_onKeyUpPrdcrNm
+	 * @name getByteLengthOfString
+	 * @description 글자 byte 크기 계산
+	 */
+ 	const getByteLengthOfString = function (s, b, i, c) {
+		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+		  return b;
+	}
+	
+	/**
+	 * @name fn_onInputPrdcrNm
 	 * @description 생산자명 입력 시 event : autocomplete
 	 */
-	const fn_onKeyUpPrdcrNm = function(prdcrNm){
+	const fn_onInputPrdcrNm = function(prdcrNm){
 		fn_clearPrdcr();
-		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
+		if(getByteLengthOfString(prdcrNm.target.value) > 100){
+			SBUxMethod.set("srch-inp-prdcrNm", "");
+			return;
+		}
+		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
     	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
 
@@ -687,6 +698,7 @@
 	 */
 	const fn_clearPrdcr = function() {
 		SBUxMethod.set("srch-inp-prdcrCd", "");
+ 		SBUxMethod.set("srch-inp-prdcrIdentno", "");
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
 	}
 
