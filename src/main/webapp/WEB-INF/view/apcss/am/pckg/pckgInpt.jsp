@@ -656,7 +656,7 @@
  	}
 
     const fn_choicePrdcr = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
 	}
 
 	const fn_setPrdcr = function(prdcr) {

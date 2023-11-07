@@ -449,7 +449,7 @@
 
 	// 차량 선택 팝업 호출
 	const fn_choiceVhcl = function() {
-		popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl);
+		popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl, SBUxMethod.get("srch-inp-vhclno"));
 	}
 
 	const fn_setVhcl = function(vhcl) {
