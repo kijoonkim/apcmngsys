@@ -191,7 +191,7 @@
 		        {caption: ['차량번호'], 		ref: 'vhclno', 			type: 'input', 	width: '90px', style: 'text-align:center', sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 40})},
 		        {caption: ['전화번호'], 		ref: 'telno', 			type: 'input', 	width: '90px', style: 'text-align:center', sortable: false,
-					validate : gfn_chkByte.bind({byteLimit: 11}), format : {type:'string', rule:'000-0000-0000'}},
+					validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {mask : {alias : '#-', repeat: '*'}}},
 		        {caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '90px', style: 'text-align:center', sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 20})},
 // 		        {caption: ['참여조직'], 		ref: '', 				type: 'input', 	width: '150px', style: 'text-align:center', sortable: false},
