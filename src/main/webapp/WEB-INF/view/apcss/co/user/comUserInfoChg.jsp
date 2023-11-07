@@ -94,7 +94,6 @@ window.addEventListener('DOMContentLoaded', function(e) {
 	fn_initSBSelectSpcfct();
 	fn_createUserInfoChgGrid();
 	fn_search();
-	console.log('jsonLckYn : ',jsonLckYn);
 });
 
 var userInfoChgGridData = []; // 그리드의 참조 데이터 주소 선언
@@ -235,10 +234,13 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 
 //초기화 버튼
 async function fn_reset(){
+	SBUxMethod.clear("gsb-slt-apcCd");
 	SBUxMethod.clear("srch-inp-apcCd");
 	SBUxMethod.clear("srch-inp-userId");
 	SBUxMethod.clear("srch-inp-userNm");
 	SBUxMethod.clear("srch-slt-userType");
+	
+	fn_search();
 }
 
     /**

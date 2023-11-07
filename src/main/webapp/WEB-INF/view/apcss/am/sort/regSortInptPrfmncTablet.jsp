@@ -593,6 +593,10 @@
 			gfn_comAlert("W0014", "투입수량", "재고수량");		//	W0014	{0}이/가 {1} 보다 큽니다.
 			return;
 		}
+		if (inptWght > invntrWght) {
+			gfn_comAlert("W0014", "투입중량", "재고중량");		//	W0014	{0}이/가 {1} 보다 큽니다.
+			return;
+		}
 
 		sortInptPrfmncList.push({
     		fcltCd: fcltCd,
