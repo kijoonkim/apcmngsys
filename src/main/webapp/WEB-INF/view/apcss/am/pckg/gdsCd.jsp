@@ -140,10 +140,9 @@
 </body>
 <script type="text/javascript">
 	var jsonComItem = 			[];
-	var jsonComVrty = 			[];
 	var jsonComSpcfct = 		[];
 	var jsonGdsGrd = 			[];
-	var jsonComSpmtPckgUnit =  [];
+	var jsonComSpmtPckgUnit =  	[];
 
 	const fn_initSBSelect = async function() {
 
@@ -151,25 +150,23 @@
 
 		let rst = await Promise.all([
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd),						// 품목
-		 	gfn_setApcVrtySBSelect('srch-inp-vrtyCd', 		jsonComVrty, 		gv_selectedApcCd),						// 품종
 		 	gfn_setComCdSBSelect('srch-slt-gdsGrd', 		jsonGdsGrd,		'GDS_GRD'),									// 상품등급
 		])
 	}
 
 	const fn_selectItem = async function(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-
+		SBUxMethod.set("srch-inp-vrtyNm", "");
+		SBUxMethod.set("srch-inp-vrtyCd", "");
 		if(gfn_isEmpty(itemCd)){
-			jsonComSpcfct.length = 0;
-			jsonComSpmtPckgUnit.length=0;
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	"");
+			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnit', jsonComSpmtPckgUnit, "");
 		}else{
 			let rst = await Promise.all([
 				gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnit', 	jsonComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),	// 포장구분
-				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 			jsonComSpcfct, 			gv_selectedApcCd, itemCd),	// 규격
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 			jsonComSpcfct, 			gv_selectedApcCd, itemCd)	// 규격
 			])
 		}
-		SBUxMethod.refresh("srch-slt-spcfctCd");
-		SBUxMethod.refresh("srch-slt-spmtPckgUnit");
 	}
 	const fn_modalVrty = function() {
 		popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
@@ -177,25 +174,35 @@
 	const fn_setVrty = function(vrty) {
 		if (!gfn_isEmpty(vrty)) {
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
-			SBUxMethod.setValue('srch-inp-vrtyCd', '');
-			SBUxMethod.setValue('srch-inp-vrtyCd', vrty.vrtyCd);
-			SBUxMethod.set('srch-inp-vrtyNm', '');
 			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
 			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyCd);
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd, vrty.itemCd);
+			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnit', jsonComSpmtPckgUnit, gv_selectedApcCd, vrty.itemCd, vrty.vrtyCd);
 		}
 	}
 	const fn_setVrtys = function(vrtys) {
 		if (!gfn_isEmpty(vrtys)) {
 			var _vrtys = [];
 			var _vrtyCds = [];
-
+			var diff = false;
 			for(var i=0;i<vrtys.length;i++){
+				if (vrtys[0].itemCd != vrtys[i].itemCd) {
+					diff = true;
+				}
 				_vrtys.push(vrtys[i].vrtyNm);
 				_vrtyCds.push(vrtys[i].vrtyCd);
 			}
-			SBUxMethod.set('srch-inp-vrtyCd', '');
-			SBUxMethod.set('srch-inp-vrtyNm', _vrtys.join(','));
+			if (diff) {
+				SBUxMethod.set('srch-slt-itemCd', "");
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, '');
+				gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnit', jsonComSpmtPckgUnit, "");
+			} else {
+				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd, vrtys[0].itemCd);
+				gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnit', jsonComSpmtPckgUnit, gv_selectedApcCd, vrtys[0].itemCd);
+			}
 			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCds.join(','));
+			SBUxMethod.set('srch-inp-vrtyNm', _vrtys.join(','));
 		}
 	}
 
@@ -272,7 +279,6 @@
 		let brndCd = SBUxMethod.get('srch-slt-brndCd');
 		let plorCd = SBUxMethod.get('srch-slt-plorCd');
 		let pckgSeCd = SBUxMethod.get('srch-slt-pckgSeCd');
-
 
 		const postJsonPromise = gfn_postJSON("/am/pckg/selectGdsCdList.do", {
 			apcCd		: gv_selectedApcCd,

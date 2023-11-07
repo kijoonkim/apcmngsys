@@ -142,7 +142,6 @@
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
 
 	var jsonComItem			= [];	// 품목 		itemCd		검색
-	var jsonComVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonComSpcfct		= [];	// 규격 		spcfct		검색
 	var jsonComFclt			= [];	// 설비 		fcltCd		검색
 

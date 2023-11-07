@@ -320,7 +320,6 @@
 	}
 
 	var jsonApcItem			= [];	// 품목 	itemCd			검색
-	var jsonApcVrty			= [];	// 품종 	vrtyCd			검색
 	var jsonApcSpcfct		= [];	// 규격 	spcfctCd		검색
 	var jsonComWarehouse	= [];	// 창고 	warehouseSeCd	검색
 	var jsonComFcltCd		= [];	// 선별기 	fcltCd			검색

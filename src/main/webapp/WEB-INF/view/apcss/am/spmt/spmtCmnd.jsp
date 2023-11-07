@@ -158,7 +158,6 @@
 <script type="text/javascript">
 	var jsonTrsprtCoCd		= [];	// 운송회사 	trsprtCoCd		검색
 	var jsonApcItem			= [];	// 품목 		itemCd			검색
-	var jsonApcVrty			= [];	// 품종 		vrtyCd			검색
 	var jsonApcSpcfct		= [];	// 규격 		spcfct			검색
 	var jsonSpmtPckgUnitCd	= [];	// 포장단위 	spmtPckgUnitCd	검색
 
