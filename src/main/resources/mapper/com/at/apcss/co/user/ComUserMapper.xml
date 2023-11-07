@@ -108,7 +108,7 @@
 			   AND CU.APC_CD = #{apcCd}
 		</if>
 		<if test='userId != null and userId != ""'>
-			   AND CU.USER_ID = #{userId}
+			   AND CU.USER_ID LIKE '%' || #{userId} || '%'
 		</if>
 		<if test='userNm != null and userNm != ""'>
 			   AND CU.USER_NM LIKE '%' || #{userNm} || '%'
