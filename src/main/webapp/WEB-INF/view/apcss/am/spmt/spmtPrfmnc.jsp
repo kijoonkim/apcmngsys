@@ -62,7 +62,13 @@
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" class="form-control input-sm" maxlength="33" uitype="text" readonly></sbux-input>
+								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm"
+									class="form-control input-sm"
+									maxlength="33"
+									uitype="text"
+									readonly
+									show-clear-button="true"
+								></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button id="btnSrchVrty" name="btnSrchVrty" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"></sbux-button>
@@ -343,7 +349,7 @@
 		}
 		SBUxMethod.set("srch-inp-vrtyNm", "");
 	}
-	
+
 	// 품종 선택 팝업 호출
 	const fn_modalVrty = function() {
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
@@ -451,5 +457,12 @@
 			SBUxMethod.set("srch-inp-vhclno", vhcl.vhclno);   // callBack input
 		}
 	}
+
+	$(function(){
+		$(".glyphicon").on("click", function(){
+			SBUxMethod.set("srch-inp-vrtyNm", "");
+			vrtyCds.length = 0;
+		})
+	})
 </script>
 </html>
