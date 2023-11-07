@@ -25,7 +25,9 @@
 			<div>
 			</div>
 			<div class="box-body">
-				<!--[pp] 검색 -->
+				<!--[APC] START -->
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -42,12 +44,6 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">APC명</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="통합조직" title="입력하세요." disabled></sbux-input>
-							</td>
-						</tr>
-						<tr>
 							<th scope="row" class="th_bg">상품코드</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-gdsCd" name="srch-inp-gdsCd" uitype="text" class="form-control input-sm"></sbux-input>
@@ -62,7 +58,7 @@
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" class="form-control input-sm" ></sbux-input>
+								<sbux-input uitype="text" id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" class="form-control input-sm" readonly></sbux-input>
 								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -72,7 +68,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" unselected-text="전체" class="form-control input-sm" jsondata-ref="jsonSpcfct"></sbux-select>
+										<sbux-select id="srch-slt-spcfctCd" name="srch-slt-spcfctCd" uitype="single" unselected-text="전체" class="form-control input-sm" jsondata-ref="jsonComSpcfct"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -112,7 +108,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
-										<sbux-select id="srch-slt-pckgSeCd" name="srch-slt-pckgSeCd" uitype="single" unselected-text="전체" class="form-control input-sm" jsondata-ref="jsonComSpmtPckgUnit"></sbux-select>
+										<sbux-select id="srch-slt-spmtPckgUnit" name="srch-slt-spmtPckgUnit" uitype="single" unselected-text="전체" class="form-control input-sm" jsondata-ref="jsonComSpmtPckgUnit"></sbux-select>
 									</div>
 								</div>
 							</td>
@@ -143,64 +139,65 @@
     </div>
 </body>
 <script type="text/javascript">
-var jsonComItem = 			[];
-var jsonComVrty = 			[];
-var jsonSpcfct = 			[];
-var jsonGdsGrd = 			[];
-var jsonComSpmtPckgUnit =  [];
+	var jsonComItem = 			[];
+	var jsonComVrty = 			[];
+	var jsonComSpcfct = 		[];
+	var jsonGdsGrd = 			[];
+	var jsonComSpmtPckgUnit =  [];
 
-const fn_initSBSelect = async function() {
-	
-	let itemCd = SBUxMethod.get("srch-slt-itemCd");
-	
-	let rst = await Promise.all([
-	 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd),						// 품목
-	 	gfn_setApcVrtySBSelect('srch-inp-vrtyCd', 		jsonComVrty, 		gv_selectedApcCd),						// 품종
-// 	 	gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 	jsonSpcfct, gv_selectedApcCd, itemCd, gv_selectedApcCd),	// 규격
-	 	gfn_setComCdSBSelect('srch-slt-gdsGrd', 		jsonGdsGrd,		'GDS_GRD'),									// 상품등급
-	 	gfn_setSpmtPckgUnitSBSelect('srch-slt-pckgSeCd', 	jsonComSpmtPckgUnit, 	gv_selectedApcCd, itemCd)	// 포장구분
-	])
-	SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true');
-}
+	const fn_initSBSelect = async function() {
 
-const fn_selectItem = async function(){
-	let itemCd = SBUxMethod.get("srch-slt-itemCd");
-	let rst = await Promise.all([
-		gfn_setApcVrtySBSelect('srch-inp-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),	// 품종
-		gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',			jsonSpcfct, 				gv_selectedApcCd, itemCd),	// 규격
-		stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
-	])
-}
-const fn_modalVrty = function() {
-	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
-}
-const fn_setVrty = function(vrty) {
-	if (!gfn_isEmpty(vrty)) {
-		SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
-		SBUxMethod.setValue('srch-inp-vrtyCd', '');
-		SBUxMethod.setValue('srch-inp-vrtyCd', vrty.vrtyCd);
-		SBUxMethod.set('srch-inp-vrtyNm', '');
-		SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
-		SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyCd);
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+
+		let rst = await Promise.all([
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd),						// 품목
+		 	gfn_setApcVrtySBSelect('srch-inp-vrtyCd', 		jsonComVrty, 		gv_selectedApcCd),						// 품종
+		 	gfn_setComCdSBSelect('srch-slt-gdsGrd', 		jsonGdsGrd,		'GDS_GRD'),									// 상품등급
+		])
 	}
-	console.log('vrty',vrty);
-	console.log('vrty.vrtyCd',vrty.vrtyCd);
-	console.log('vrty.vrtyNm',vrty.vrtyNm);
-}
-const fn_setVrtys = function(vrtys) {
-	 console.log("vrtys", vrtys);
-	if (!gfn_isEmpty(vrtys)) {
-		var _vrtys = [];
-		var _vrtyCds = [];
-		for(var i=0;i<vrtys.length;i++){
-			_vrtys.push(vrtys[i].vrtyNm);
-			_vrtyCds.push(vrtys[i].vrtyCd);
+
+	const fn_selectItem = async function(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+
+		if(gfn_isEmpty(itemCd)){
+			jsonComSpcfct.length = 0;
+			jsonComSpmtPckgUnit.length=0;
+		}else{
+			let rst = await Promise.all([
+				gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnit', 	jsonComSpmtPckgUnit, 	gv_selectedApcCd, itemCd),	// 포장구분
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 			jsonComSpcfct, 			gv_selectedApcCd, itemCd),	// 규격
+			])
 		}
-		SBUxMethod.set('srch-inp-vrtyCd', '');
-		SBUxMethod.set('srch-inp-vrtyNm', _vrtys.join(','));
-		SBUxMethod.set('srch-inp-vrtyCd', _vrtyCds.join(','));
+		SBUxMethod.refresh("srch-slt-spcfctCd");
+		SBUxMethod.refresh("srch-slt-spmtPckgUnit");
 	}
-}
+	const fn_modalVrty = function() {
+		popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
+	}
+	const fn_setVrty = function(vrty) {
+		if (!gfn_isEmpty(vrty)) {
+			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
+			SBUxMethod.setValue('srch-inp-vrtyCd', '');
+			SBUxMethod.setValue('srch-inp-vrtyCd', vrty.vrtyCd);
+			SBUxMethod.set('srch-inp-vrtyNm', '');
+			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
+			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyCd);
+		}
+	}
+	const fn_setVrtys = function(vrtys) {
+		if (!gfn_isEmpty(vrtys)) {
+			var _vrtys = [];
+			var _vrtyCds = [];
+
+			for(var i=0;i<vrtys.length;i++){
+				_vrtys.push(vrtys[i].vrtyNm);
+				_vrtyCds.push(vrtys[i].vrtyCd);
+			}
+			SBUxMethod.set('srch-inp-vrtyCd', '');
+			SBUxMethod.set('srch-inp-vrtyNm', _vrtys.join(','));
+			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCds.join(','));
+		}
+	}
 
 
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -208,10 +205,10 @@ const fn_setVrtys = function(vrtys) {
 		fn_createGdsCdGrid();
 		fn_search();
 	})
-	
+
 	var grdGdsCd;
 	var jsonGdsCd = [];
-	
+
 	function fn_createGdsCdGrid() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdGdsCd';
@@ -243,8 +240,15 @@ const fn_setVrtys = function(vrtys) {
             }
         ];
         grdGdsCd = _SBGrid.create(SBGridProperties);
+        grdGdsCd.bind( "beforepagechanged" , "fn_pagingGrd" );
     }
-	
+
+	const fn_pagingGrd = async function(){
+    	let pageSize = grdGdsCd.getPageSize();   			// 몇개의 데이터를 가져올지 설정
+    	let pageNo = grdGdsCd.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+    	fn_setGrdPckgPrfmnc(pageSize, pageNo);
+    }
+
 	//조회
     const fn_search = async function() {
 
@@ -263,7 +267,6 @@ const fn_setVrtys = function(vrtys) {
 		let gdsCd = SBUxMethod.get('srch-inp-gdsCd');
 		let itemCd = SBUxMethod.get('srch-slt-itemCd');
 		let vrtyCd = SBUxMethod.get('srch-inp-vrtyCd');
-		console.log('vrtyCd',vrtyCd);
 		let spcfctCd = SBUxMethod.get('srch-slt-spcfctCd');
 		let gdsGrd = SBUxMethod.get('srch-slt-gdsGrd');
 		let brndCd = SBUxMethod.get('srch-slt-brndCd');
@@ -272,7 +275,7 @@ const fn_setVrtys = function(vrtys) {
 
 
 		const postJsonPromise = gfn_postJSON("/am/pckg/selectGdsCdList.do", {
-			apcCd		:  gv_selectedApcCd,
+			apcCd		: gv_selectedApcCd,
 			gdsCd		: gdsCd,
 			itemCd		: itemCd,
 			vrtyCd		: vrtyCd,
@@ -297,17 +300,17 @@ const fn_setVrtys = function(vrtys) {
             jsonGdsCd.length = 0;
           	data.resultList.forEach((item, index) => {
           		const gdsCd = {
-          			gdsCd: item.gdsCd,
-          			gdsNm: item.gdsNm,
-          			itemNm: item.itemNm,
-          			vrtyNm: item.vrtyNm,
-          			spcfctNm: item.spcfctNm,
-          			gdsGrdNm: item.gdsGrdNm,
-          			brndNm: item.brndNm,
-          			plorCd: item.plorCd,
-          			spmtPckgUnitNm: item.spmtPckgUnitNm,
-          			bxGdsQntt: item.bxGdsQntt,
-        			wght: item.wght
+          			gdsCd				: item.gdsCd
+          		  ,	gdsNm				: item.gdsNm
+          		  ,	itemNm				: item.itemNm
+          		  ,	vrtyNm				: item.vrtyNm
+          		  ,	spcfctNm			: item.spcfctNm
+          		  ,	gdsGrdNm			: item.gdsGrdNm
+          		  ,	brndNm				: item.brndNm
+          		  ,	plorCd				: item.plorCd
+          		  ,	spmtPckgUnitNm		: item.spmtPckgUnitNm
+          		  ,	bxGdsQntt			: item.bxGdsQntt
+          		  ,	wght				: item.wght
   				}
           		jsonGdsCd.push(gdsCd);
 
@@ -328,7 +331,6 @@ const fn_setVrtys = function(vrtys) {
           		grdGdsCd.rebuild();
           	}
 
-//           	document.querySelector('#cnt-pckgPrfmnc').innerText = totalRecordCount;
 
           } catch (e) {
       		if (!(e instanceof Error)) {
