@@ -327,7 +327,7 @@
 		       AND SC.ITEM_CD = #{itemCd}
 		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
-		       AND SC.VRTY_CD = #{vrtyCd}
+			 AND SC.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
 		</if>
 		<if test='spcfctCd != null and spcfctCd != ""'>
 		       AND SC.SPCFCT_CD = #{spcfctCd}
