@@ -168,8 +168,7 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 			gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', 	jsonTrsprtCoCd, gv_selectedApcCd),				// 운송회사
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),					// 품종
-			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd)	// 포장단위
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, gv_selectedApcCd)					// 품종
 		]);
         fn_search();
 	}
@@ -402,8 +401,10 @@
 		SBUxMethod.set("srch-inp-vrtyCd", "");
 		if (gfn_isEmpty(itemCd)) {
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, 	"");
+			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, "");
 		} else {
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, 	gv_selectedApcCd, itemCd);		// 규격
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, 	gv_selectedApcCd, itemCd);				// 규격
+			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd);	// 포장단위
 		}
 	}
 	
@@ -438,6 +439,7 @@
 			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
 			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyCd);
 			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, vrty.itemCd);
+			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, vrty.itemCd, vrty.vrtyCd);
 		}
 	}
      const fn_setVrtys = function(vrtys) {
@@ -455,8 +457,11 @@
 			if (diff) {
 				SBUxMethod.set('srch-slt-itemCd', "");
 				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, '');
+				gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, "");
 			} else {
 				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, vrtys[0].itemCd);
+				gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, vrtys[0].itemCd);
 			}
 			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCd.join(','));
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNm.join(','));

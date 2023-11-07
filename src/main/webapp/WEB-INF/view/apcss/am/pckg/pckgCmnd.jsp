@@ -432,6 +432,7 @@
 				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, '');
 			} else {
 				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd, vrtys[0].itemCd);
 			}
 			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCd.join(','));
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNm.join(','));
