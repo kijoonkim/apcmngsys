@@ -98,8 +98,8 @@ var jsonLckYn = [];
 
 const fn_initSBSelectSpcfct = async function() {
 	let rst = await Promise.all([
-		gfn_setComCdGridSelect('userInfoChgGridId', 			jsonUseYn, 				'REVERSE_YN', '0000'),		// 포장구분
-		gfn_setComCdGridSelect('userInfoChgGridId', 			jsonLckYn, 				'LCK_YN', '0000'),		// 포장구분
+		gfn_setComCdGridSelect('userInfoChgGridId', 			jsonUseYn, 				'REVERSE_YN', '0000'),		// 사용유무
+		gfn_setComCdSBSelect('userInfoChgGridId', 			jsonLckYn, 				'LCK_YN', '0000')		// 잠김여부
 	])
 }
 window.addEventListener('DOMContentLoaded', function(e) {
@@ -146,14 +146,13 @@ function fn_createUserInfoChgGrid() {
 	         {caption: ["전화번호"],  	ref: 'telno',   	type:'input',  width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11})},
 	         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
 	         {caption: ["담당업무"],  	ref: 'tkcgTaskNm',  type:'input',   width:'105px', style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100})},
-	         {caption: ["사용유무"],  	ref: 'reverseYn',   type:'combo',   width:'105px', style:'text-align:center',
+	         {caption: ["사용유무"],  	ref: 'delYn',   type:'combo',   width:'105px', style:'text-align:center',
 	        	 typeinfo : {ref:'jsonUseYn', label:'label', value:'value', displayui : true}
 	         },
 	         {caption: ["잠김여부"],  	ref: 'lckYn',   	type:'combo',   width:'105px', style:'text-align:center',
 	        	 typeinfo : {ref:'jsonLckYn', label:'label', value:'value', displayui : true}
 	         },
 	         {caption: ["최종접속일시"], ref: 'endLgnDt',  	type:'output',  width:'105px', style:'text-align:center'},
-	         {caption: ["사용유무코드"],	ref: 'delYn',   	type:'output', hidden: true},
 	         {caption: ["APC코드"],		ref: 'apcCd',   	type:'output', hidden: true}
     ];
 	    userInfoChgGridId = _SBGrid.create(SBGridProperties1);
