@@ -159,7 +159,7 @@
     	   , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
     	]]>
     	<if test='telno != null and telno != ""'>
-    		 , TELNO 				= #{telno}
+    		 , TELNO 					= #{telno}
     	</if>
     	<if test='jbttlNm != null and jbttlNm != ""'>
     		 , JBTTL_NM 				= #{jbttlNm}
@@ -170,14 +170,17 @@
     	<if test='rmrk != null and rmrk != ""'>
     		 , RMRK 					= #{rmrk}
     	</if>
-    	<if test='reverseYn != null and reverseYn != ""'>
-	    	, DEL_YN 					= #{reverseYn}
+    	<if test='delYn != null and delYn != ""'>
+	    	, DEL_YN 					= #{delYn}
     	</if>
     	<if test='eml != null and eml != ""'>
     		 , EML 						= #{eml}
     	</if>
     	<if test='lckYn != null and lckYn != ""'>
-    		 , LCK_YN 						= #{lckYn}
+    		 , LCK_YN 					= #{lckYn}
+    	</if>
+    	<if test='lckYn == "N"'>
+    		 , LGN_FAIL_NMTM 			= 0
     	</if>
 		<![CDATA[
     	 WHERE USER_ID 					= #{userId}

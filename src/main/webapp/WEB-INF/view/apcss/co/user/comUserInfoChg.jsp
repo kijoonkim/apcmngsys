@@ -58,13 +58,7 @@
 							<td colspan="2" class="td_input"></td>
 							<th scope="row">유형</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-userType" name="srch-slt-userType" uitype="single" class="form-control input-sm" unselected-text="선택" >
-									<option-item value="01">AT관리자</option-item>
-									<option-item value="10">APC관리자</option-item>
-									<option-item value="11">APC사용자</option-item>
-									<option-item value="20">농가사용자</option-item>
-									<option-item value="30">외부사용자</option-item>
-								</sbux-select>
+								<sbux-select id="srch-slt-userType" name="srch-slt-userType" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonUserType">
 							</td>
 							<td colspan="2" class="td_input"></td>
 						</tr>
@@ -84,22 +78,16 @@
 </section>
 </body>
 <script type="text/javascript">
-var combofilteringReverseYnData = [
-	{'label': '사용', 'value': 'Y'},
-	{'label': '미사용', 'value': 'N'}
-]
-var combofilteringLckYnData = [
-	{'label': '예', 'value': 'Y'},
-	{'label': '아니요', 'value': 'N'}
-]
 
 var jsonUseYn = [];
 var jsonLckYn = [];
+var jsonUserType=[];
 
 const fn_initSBSelectSpcfct = async function() {
 	let rst = await Promise.all([
-		gfn_setComCdGridSelect('userInfoChgGridId', 			jsonUseYn, 				'REVERSE_YN', '0000'),		// 사용유무
-		gfn_setComCdSBSelect('userInfoChgGridId', 			jsonLckYn, 				'LCK_YN')		// 잠김여부
+		gfn_setComCdGridSelect('userInfoChgGridId', 		jsonUseYn, 				'REVERSE_YN', '0000'),	// 사용유무
+		gfn_setComCdSBSelect('userInfoChgGridId', 			jsonLckYn, 				'LCK_YN'),				// 잠김여부
+		gfn_setComCdSBSelect('srch-slt-userType', 			jsonUserType, 			'USER_TYPE','0000'),	// 사용자상태
 	])
 }
 window.addEventListener('DOMContentLoaded', function(e) {
@@ -209,11 +197,11 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 			  , jbttlNm		: item.jbttlNm
 			  , tkcgTaskNm	: item.tkcgTaskNm
 			  , reverseYn	: item.reverseYn
-// 			  , lckYn		: item.lckYn
+			  , lckYn		: item.lckYn
 			  , endLgnDt	: item.endLgnDt
 			  , delYn		: item.delYn
+			  , reverseLckYn: item.reverseLckYn
 			}
-
 			userInfoChgGridData.push(Object.assign({}, userAprvReg));
 			newUserInfoChgGridData.push(Object.assign({}, userAprvReg));
 			
@@ -253,26 +241,6 @@ async function fn_reset(){
 	SBUxMethod.clear("srch-slt-userType");
 }
 
-// //저장 버튼
-// async function fn_updataUserList(){
-// 	fn_callUpdateUserList();
-// }
-
-
-// async function fn_callUpdateUserList(){
-
-
-// 	let regMsg = "등록 하시겠습니까?";
-// 	if(confirm(regMsg)){
-
-// // 		let postJsonPromise = gfn_postJSON("/am/cmns/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
-// 		let postJsonPromise = await gfn_postJSON("/co/user/compareComUserAprv.do", {origin : newUserInfoChgGridData, modified : userInfoChgGridData});
-// 		alert("등록 되었습니다.");
-// 	}
-// 	fn_search();
-
-// }
-
     /**
      * @name fn_save
      * @description 저장 버튼
@@ -291,7 +259,7 @@ async function fn_reset(){
 					telno: item.telno,
 					jbttlNm: item.jbttlNm,
 					tkcgTaskNm: item.tkcgTaskNm,
-					reverseYn: item.reverseYn,
+					delYn: item.delYn,
 					lckYn: item.lckYn
     			});
     		}
