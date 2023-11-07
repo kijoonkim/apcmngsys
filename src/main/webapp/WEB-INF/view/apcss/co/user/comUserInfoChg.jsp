@@ -99,13 +99,14 @@ var jsonLckYn = [];
 const fn_initSBSelectSpcfct = async function() {
 	let rst = await Promise.all([
 		gfn_setComCdGridSelect('userInfoChgGridId', 			jsonUseYn, 				'REVERSE_YN', '0000'),		// 사용유무
-		gfn_setComCdSBSelect('userInfoChgGridId', 			jsonLckYn, 				'LCK_YN', '0000')		// 잠김여부
+		gfn_setComCdSBSelect('userInfoChgGridId', 			jsonLckYn, 				'LCK_YN')		// 잠김여부
 	])
 }
 window.addEventListener('DOMContentLoaded', function(e) {
 	fn_initSBSelectSpcfct();
 	fn_createUserInfoChgGrid();
 	fn_search();
+	console.log('jsonLckYn : ',jsonLckYn);
 });
 
 var userInfoChgGridData = []; // 그리드의 참조 데이터 주소 선언
@@ -208,7 +209,7 @@ async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
 			  , jbttlNm		: item.jbttlNm
 			  , tkcgTaskNm	: item.tkcgTaskNm
 			  , reverseYn	: item.reverseYn
-			  , lckYn		: item.lckYn
+// 			  , lckYn		: item.lckYn
 			  , endLgnDt	: item.endLgnDt
 			  , delYn		: item.delYn
 			}
@@ -258,19 +259,19 @@ async function fn_reset(){
 // }
 
 
-async function fn_callUpdateUserList(){
+// async function fn_callUpdateUserList(){
 
 
-	let regMsg = "등록 하시겠습니까?";
-	if(confirm(regMsg)){
+// 	let regMsg = "등록 하시겠습니까?";
+// 	if(confirm(regMsg)){
 
-// 		let postJsonPromise = gfn_postJSON("/am/cmns/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
-		let postJsonPromise = await gfn_postJSON("/co/user/compareComUserAprv.do", {origin : newUserInfoChgGridData, modified : userInfoChgGridData});
-		alert("등록 되었습니다.");
-	}
-	fn_search();
+// // 		let postJsonPromise = gfn_postJSON("/am/cmns/compareComUserAprv.do", {origin : newUserAprvRegGridData, modified : userAprvRegGridData});
+// 		let postJsonPromise = await gfn_postJSON("/co/user/compareComUserAprv.do", {origin : newUserInfoChgGridData, modified : userInfoChgGridData});
+// 		alert("등록 되었습니다.");
+// 	}
+// 	fn_search();
 
-}
+// }
 
     /**
      * @name fn_save
