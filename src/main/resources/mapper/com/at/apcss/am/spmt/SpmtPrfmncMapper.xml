@@ -110,6 +110,9 @@
 		<if test='trsprtCoCd != null and trsprtCoCd != ""'>
 		       AND PC.TRSPRT_CO_CD = #{trsprtCoCd}
 		</if>
+		<if test='itemCd != null and itemCd != ""'>
+		       AND PD.ITEM_CD = #{itemCd}
+		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
 		       AND PD.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
 		</if>
