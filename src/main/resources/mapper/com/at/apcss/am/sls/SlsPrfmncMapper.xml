@@ -184,7 +184,7 @@
 		<if test='cfmtnAmt != null and cfmtnAmt != ""'>
     		 , CFMTN_AMT 				= #{cfmtnAmt}
 		</if>
-		<if test='clctmYn != null and clctmYn != ""'>
+		<if test='cfmtnYn != null and cfmtnYn != ""'>
     		 , CFMTN_YN 				= #{cfmtnYn}
 		</if>
 		<if test='clctmYn != null and clctmYn != ""'>
