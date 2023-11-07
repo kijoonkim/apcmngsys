@@ -98,7 +98,7 @@
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
-    								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
+    								oninput="fn_onInputPrdcrNm(event)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
    								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
@@ -764,16 +764,16 @@
 	}
 	
 	/**
-	* @name fn_onKeyUpPrdcrNm
+	* @name fn_onInputPrdcrNm
 	* @description 생산자명 입력 시 event : autocomplete
 	*/
-	const fn_onKeyUpPrdcrNm = function(prdcrNm){
+	const fn_onInputPrdcrNm = function(prdcrNm){
 		fn_clearPrdcr();
-		if(getByteLengthOfString(prdcrNm) > 100){
+		if(getByteLengthOfString(prdcrNm.target.value) > 100){
 			SBUxMethod.set("srch-inp-prdcrNm", "");
 			return;
 		}
-		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
+		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
     	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
 
@@ -783,6 +783,7 @@
 	 */
 	const fn_clearPrdcr = function() {
 		SBUxMethod.set("srch-inp-prdcrCd", "");
+ 		SBUxMethod.set("srch-inp-prdcrIdentno", "");
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "");	//skyblue
 	}
 	
@@ -808,7 +809,7 @@
 	 * @description 생산자 찾기 버튼 클릭
 	 */
     const fn_choicePrdcr = function() {
-		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
 	}
 
 	/**
