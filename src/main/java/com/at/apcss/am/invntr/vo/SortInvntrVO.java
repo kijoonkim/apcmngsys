@@ -173,6 +173,15 @@ public class SortInvntrVO extends ComVO {
 	private double wght;
 
 	/**
+	 * 투입진행수량
+	 */
+	private int inptPrgrsQntt;
+	/**
+	 * 투입진행중량
+	 */
+	private double inptPrgrsWght;
+
+	/**
 	 * 선별번호
 	 */
 	private String wghno;

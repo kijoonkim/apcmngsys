@@ -243,8 +243,8 @@
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="내려받기" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld" >내려받기</sbux-button>
-						<sbux-button id="btnUp" name="btnUp" uitype="normal" text="올리기" class="btn btn-xs btn-outline-danger"></sbux-button>
+						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="내려받기" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld" ></sbux-button>
+						<sbux-button id="btnUp" name="btnUp" uitype="normal" text="올리기" class="btn btn-xs btn-outline-danger" onclick="fn_uld"></sbux-button>
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
@@ -258,7 +258,7 @@
 					<div id="sbexp-area-grdExpWarehouseSeFrom" style="height:1px; width: 100%;"></div>
 					<div id="sbexp-area-grdExpWarehouseSeTo" style="height:1px; width: 100%;"></div>
 					<div id="sbexp-area-grdExpSpcfct" style="height:1px; width: 100%;"></div>
-					<div id="sbexp-area-grdExpPckgFclt" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpSortFclt" style="height:1px; width: 100%;"></div>
 					<div id="sbexp-area-grdExpGdsGrd" style="height:1px; width: 100%;"></div>
 					<sbux-select id="excel-slt-prdcr"
 								name="excel-slt-prdcr"
@@ -303,23 +303,21 @@
 		</div>
 	</section>
 
-    <!-- 생산자 선택 Modal -->
+    <!--  출하실적엑셀 팝업 -->
     <div>
-        <sbux-modal
-	        id="modal-prdcr"
-	        name="modal-prdcr"
-	        uitype="middle"
-	        header-title="생산자 선택"
-	        body-html-id="body-modal-prdcr"
-	        header-is-close-button="false"
-	        footer-is-close-button="false"
-	        style="width:1100px"
-        ></sbux-modal>
+		<sbux-modal id="modal-excel-sortPrfmnc" name="modal-excel-sortPrfmnc"
+			uitype="middle"
+			header-title="선별실적등록"
+			body-html-id="body-modal-excelSortPrfmnc"
+			footer-is-close-button="false"
+			header-is-close-button="false"
+			style="width:1000px"
+		></sbux-modal>
+	</div>
+    <div id="body-modal-excelSortPrfmnc">
+    	<jsp:include page="../../am/popup/sortPrfmncExcelPopup.jsp"></jsp:include>
     </div>
-    <div id="body-modal-prdcr">
-    	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
-    </div>
-	<sbux-button id="btnRawMtrWrhsfmncPopup" name="btnRawMtrWrhsfmncPopup" uitype="modal" text="엑셀등록" style="width:100%; display:none" class="btn btn-sm btn-outline-dark" target-id="modal-excel" onclick="fn_modal('btnSpmtSlsUntprcReg')"></sbux-button>
+    <sbux-button id="btnSortPrfmncPopup" name="btnSortPrfmncPopup" uitype="modal" text="엑셀등록" style="width:100%; display:none" class="btn btn-sm btn-outline-dark" target-id="modal-excel-sortPrfmnc"></sbux-button>
 <script type="text/javascript">
 
 	const lv_paging = {
@@ -341,7 +339,6 @@
     var jsonPrdcr			= [];
     var jsonPrdcrAutocomplete = [];
 
-    var jsonExeclComSpmtPckgUnit 	= []; 	// 엑셀 출하포장단위
 	var jsonExeclComWarehouse 		= []; 	// 엑셀 창고
 	var jsonExeclComPrdcr			= [];	// 엑셀 생산자
 	var jsonExeclSpcfct				= [];	// 엑셀 규격
@@ -360,9 +357,14 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let result = await Promise.all([
-		 	gfn_setComCdSBSelect('dtl-slt-fcltCd',		jsonComFclt, 'SORT_FCLT_CD', gv_selectedApcCd),		// 설비
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonApcItem, gv_selectedApcCd),		// 품목
-		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 	jsonApcVrty, gv_selectedApcCd),		// 품종
+		 	gfn_setComCdSBSelect('dtl-slt-fcltCd',					jsonComFclt, 				'SORT_FCLT_CD', 	gv_selectedApcCd),	// 설비
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 				jsonApcItem, 				gv_selectedApcCd),						// 품목
+		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonApcVrty, 				gv_selectedApcCd),						// 품종
+		 	gfn_setComCdSBSelect('excel-slt-warehouse',				jsonExeclComWarehouse, 		'WAREHOUSE_SE_CD', 	gv_selectedApcCd),	// 창고(엑셀)
+		 	gfn_setComCdSBSelect('excel-slt-gdsGrd',				jsonExeclComGdsGrd, 		'GDS_GRD'),								// 등급(엑셀)
+		 	gfn_setPrdcrSBSelect('excel-slt-prdcr', 				jsonExeclComPrdcr, 			gv_selectedApcCd),						// 생산자(엑셀)
+		 	gfn_setApcVrtySBSelect('excel-slt-vrty', 				jsonExeclComVrty, 			gv_selectedApcCd),						// 품종(엑셀)
+		 	gfn_setApcSpcfctsSBSelect('excel-slt-spcfct', 			jsonExeclSpcfct, 			gv_selectedApcCd),						// 규격(엑셀)
 		 	fn_getWarehouse(),
 		 	fn_getApcSpcfct()
 	 	]);
@@ -1455,7 +1457,7 @@
 		jsonExpSltPrdcr 			= gfn_cloneJson(jsonExeclComPrdcr);			// 엑셀 생산자Json
 		jsonExpSltWarehouseSeFrom 	= gfn_cloneJson(jsonExeclComWarehouse);		// 엑셀 창고FromJson
 		jsonExpSltWarehouseSeTo 	= gfn_cloneJson(jsonExeclComWarehouse);		// 엑셀 창고ToJson
-		jsonExpSltSortFclt 			= gfn_cloneJson(jsonComFclt);				// 엑셀 포장기Json
+		jsonExpSltSortFclt 			= gfn_cloneJson(jsonComFclt);				// 엑셀 선별기Json
 	}
 
 	const fn_setExpJson = async function() {
@@ -1470,7 +1472,7 @@
 		jsonExpPrdcr 			= gfn_cloneJson(jsonExeclComPrdcr);			// 엑셀 생산자Json
 		jsonExpWarehouseSeFrom 	= gfn_cloneJson(jsonExeclComWarehouse);		// 엑셀 창고FromJson
 		jsonExpWarehouseSeTo 	= gfn_cloneJson(jsonExeclComWarehouse);		// 엑셀 창고ToJson
-		jsonExpSortFclt 		= gfn_cloneJson(jsonComFclt);				// 엑셀 포장기Json
+		jsonExpSortFclt 		= gfn_cloneJson(jsonComFclt);				// 엑셀 선별기Json
 
 	}
 
@@ -1585,29 +1587,15 @@
 		        title: "",
 		        unit: ""
 		    },{
-		        sbGrid: grdExpGdsGrd,
-		        parentid: "sbexp-area-grdExpSpmtPckgUnit",
-		        id: "grdExpSpmtPckgUnit",
-		        jsonref: "jsonExpSpmtPckgUnit",
+		        sbGrid: grdExpSortFclt,
+		        parentid: "sbexp-area-grdExpSortFclt",
+		        id: "grdExpSortFclt",
+		        jsonref: "jsonExpSortFclt",
 				columns: [
-					{caption: ["품목코드"],		ref: 'itemCd',  		type:'output',  width:'100px',    style:'text-align:center'},
-					{caption: ["품목명"],		ref: 'itemNm',  		type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["포장코드"],   	ref: 'spmtPckgUnitCd',  type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["포장단위명"],   ref: 'spmtPckgUnitNm',  type:'output',  width:'160px',    style:'text-align:center'}
+			    	{caption: ["선별기코드"],   ref: 'value',  	type:'output',  width:'100px',    style:'text-align:center'},
+			    	{caption: ["선별기명"],   	ref: 'text',  	type:'output',  width:'100px',    style:'text-align:center'}
 				],
-		        sheetName: "포장구분",
-		        title: "",
-		        unit: ""
-		    },{
-		        sbGrid: grdExpPckgFclt,
-		        parentid: "sbexp-area-grdExpPckgFclt",
-		        id: "grdExpPckgFclt",
-		        jsonref: "jsonExpPckgFclt",
-				columns: [
-			    	{caption: ["포장기코드"],   ref: 'value',  	type:'output',  width:'100px',    style:'text-align:center'},
-			    	{caption: ["포장기명"],   	ref: 'text',  	type:'output',  width:'100px',    style:'text-align:center'}
-				],
-		        sheetName: "포장기",
+		        sheetName: "선별기",
 		        title: "",
 		        unit: ""
 		    },{
@@ -1629,7 +1617,7 @@
 		await fn_createExpGrid(expObjList); // fn_createExpGrid함수에 expObjList를 담아서 보내주는 코드
 
 		//exportExcel();
-	    gfn_exportExcelMulti("포장실적(샘플).xlsx", expObjList); // gfn_exportExcelMulti함수에 파일 이름, 오브젝트 리스트를 보내주는 코드
+	    gfn_exportExcelMulti("선별실적(샘플).xlsx", expObjList); // gfn_exportExcelMulti함수에 파일 이름, 오브젝트 리스트를 보내주는 코드
 	}
 
 	const gfn_exportExcelMulti = function(_fileName, _objList) {
@@ -1677,12 +1665,12 @@
 	// 	excel모달을 열기위한 함수
 	const importExcelData = function (e){
 
-		SBUxMethod.openModal('modal-excel-pckgPrfmnc');
-    	fn_createGridPckgPrfmncPopup();
-    	jsonExcelPckgPrfmncPopup = 0;
-    	grdExcelPckgPrfmncPopup.rebuild();
+		SBUxMethod.openModal('modal-excel-sortPrfmnc');
+    	fn_createGridSortPrfmncPopup();
+    	jsonExcelSortPrfmncPopup = 0;
+    	grdExcelSortPrfmncPopup.rebuild();
 
-    	grdExcelPckgPrfmncPopup.importExcelData(e);
+    	grdExcelSortPrfmncPopup.importExcelData(e);
      }
 
     const fn_uld = async function() {

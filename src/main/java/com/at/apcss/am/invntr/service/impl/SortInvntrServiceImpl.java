@@ -299,5 +299,73 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 		return resultList;
 	}
 
+	@Override
+	public HashMap<String, Object> updateInvntrPckgInpt(SortInvntrVO sortInvntrVO) throws Exception {
+
+		SortInvntrVO invntrInfo = sortInvntrMapper.selectSortInvntr(sortInvntrVO);
+
+		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getSortno())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별재고");
+		}
+
+		if (sortInvntrVO.getInptPrgrsQntt() > invntrInfo.getInvntrQntt()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "투입량||재고량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		}
+
+		// 재고 - 이송
+		int invntrQntt = invntrInfo.getInvntrQntt() - sortInvntrVO.getInptPrgrsQntt();
+		double invntrWght = invntrInfo.getInvntrWght() - sortInvntrVO.getInptPrgrsWght();
+		sortInvntrVO.setInvntrQntt(invntrQntt);
+		sortInvntrVO.setInvntrWght(invntrWght);
+
+		int inptPrgrsQntt = invntrInfo.getInptPrgrsQntt() + sortInvntrVO.getInptPrgrsQntt();
+		double inptPrgrsWght = invntrInfo.getInptPrgrsWght() + sortInvntrVO.getInptPrgrsWght();
+
+		sortInvntrVO.setInptPrgrsQntt(inptPrgrsQntt);
+		sortInvntrVO.setInptPrgrsWght(inptPrgrsWght);
+
+		int updatedCnt = sortInvntrMapper.updateInvntrInptPrgrs(sortInvntrVO);
+
+		if (updatedCnt != 1) {
+
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteInvntrPckgInpt(SortInvntrVO sortInvntrVO) throws Exception {
+
+		SortInvntrVO invntrInfo = sortInvntrMapper.selectSortInvntr(sortInvntrVO);
+
+		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getSortno())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별재고");
+		}
+
+		if (sortInvntrVO.getInptPrgrsQntt() > invntrInfo.getInptPrgrsQntt()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "투입진행량||취소량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		}
+
+		// 재고 - 이송
+		int invntrQntt = invntrInfo.getInvntrQntt() + sortInvntrVO.getInptPrgrsQntt();
+		double invntrWght = invntrInfo.getInvntrWght() + sortInvntrVO.getInptPrgrsWght();
+		sortInvntrVO.setInvntrQntt(invntrQntt);
+		sortInvntrVO.setInvntrWght(invntrWght);
+
+		int inptPrgrsQntt = invntrInfo.getInptPrgrsQntt() - sortInvntrVO.getInptPrgrsQntt();
+		double inptPrgrsWght = invntrInfo.getInptPrgrsWght() - sortInvntrVO.getInptPrgrsWght();
+
+		sortInvntrVO.setInptPrgrsQntt(inptPrgrsQntt);
+		sortInvntrVO.setInptPrgrsWght(inptPrgrsWght);
+
+		int updatedCnt = sortInvntrMapper.updateInvntrInptPrgrs(sortInvntrVO);
+
+		if (updatedCnt != 1) {
+
+		}
+
+		return null;
+	}
+
 
 }

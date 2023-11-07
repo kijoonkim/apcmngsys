@@ -43,6 +43,8 @@
 				, SI.PCKG_WGHT		AS PCKG_WGHT
 				, SI.INVNTR_QNTT	AS INVNTR_QNTT
 				, SI.INVNTR_WGHT	AS INVNTR_WGHT
+				, SI.INPT_PRGRS_QNTT	AS INPT_PRGRS_QNTT
+				, SI.INPT_PRGRS_WGHT	AS INPT_PRGRS_WGHT
 				, SI.DEL_YN			AS DEL_YN
 			  FROM TB_SORT_INVNTR SI
 			 WHERE SI.APC_CD = #{apcCd}
@@ -750,7 +752,10 @@
 					 AND SI.RPRS_PRDCR_CD = #{prdcrCd}
 		</if>
     		  ) pt0
-    </select><!-- ==================================================================-->
+    </select>
+
+
+    <!-- ==================================================================-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrTrnsf	-->
 	<!-- DESC : 선별재고 이송처리                                    				-->
 	<!-- ==========================================================================	-->
@@ -777,5 +782,36 @@
 			   AND SORT_SN = #{sortSn}
 		]]>
 	</update>
+
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrInptPrgrs	-->
+	<!-- DESC : 선별재고 투입진행처리                                    						-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.01  	김호        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <update id="updateInvntrInptPrgrs" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrInptPrgrs */
+				TB_SORT_INVNTR
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+				, INVNTR_QNTT	= #{invntrQntt}
+				, INVNTR_WGHT	= #{invntrWght}
+				, INPT_PRGRS_QNTT	= #{inptPrgrsQntt}
+				, INPT_PRGRS_WGHT	= #{inptPrgrsWght}
+
+			 WHERE APC_CD = #{apcCd}
+			   AND SORTNO = #{sortno}
+			   AND SORT_SN = #{sortSn}
+		]]>
+	</update>
+
+
 
 </mapper>

@@ -113,7 +113,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
 				, (SELECT FN_GET_PLT_BX_NM('B', pt0.BX_KND, pt0.APC_CD) FROM DUAL) AS BX_KND_NM
-				
+
     		  FROM (
 	    	SELECT
 				  SIP.APC_CD		AS APC_CD
@@ -139,27 +139,27 @@
 			  FROM
 			  	  TB_SORT_INPT_PRFMNC SIP
 			  	, TB_RAW_MTR_INVNTR RM
-			  	
+
 			 WHERE SIP.APC_CD = RM.APC_CD
 			   AND SIP.WRHSNO = RM.WRHSNO
 			   AND SIP.APC_CD = #{apcCd}
 			   AND SIP.DEL_YN = 'N'
-			   
+
 		]]>
 			<if test='inptYmd != null and inptYmd != ""'>
 			   AND SIP.INPT_YMD = #{inptYmd}
-			</if>			
+			</if>
 			<if test='fcltCd != null and fcltCd != ""'>
 			   AND SIP.FCLT_CD = #{fcltCd}
 			</if>
     		<if test='sortCmptnYn != null and sortCmptnYn.equals("N")'>
-			   -- AND SIP.SORTNO IS NULL
-			   AND RM.INPT_PRGRS_QNTT > 0
+			   AND SIP.SORTNO IS NULL
+			   --AND RM.INPT_PRGRS_QNTT > 0
 			</if>
 			<if test='sortCmptnYn != null and sortCmptnYn.equals("Y")'>
 			   AND SIP.SORTNO IS NOT NULL
 			</if>
-			
+
     	<![CDATA[
     		 ORDER BY INPT_YMD, FCLT_CD, WRHSNO
     		  ) pt0

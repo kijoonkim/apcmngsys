@@ -222,13 +222,13 @@
 	}
 
 	async function fn_insertWrhsVhclList(){
-		let wrhsVhclAllData = wrhsVhclMngDatagrid.getGridDataAll();
+		let wrhsVhclAllData = grdWrhsVhcl.getGridDataAll();
 		var wrhsVhclList = [];
 		for(var i=1; i<wrhsVhclAllData.length; i++){
-			const rowData = wrhsVhclMngDatagrid.getRowData(i);
+			const rowData = grdWrhsVhcl.getRowData(i);
 			if(rowData.delYn != 'N')
 				continue;
-			const rowSts = wrhsVhclMngDatagrid.getRowStatus(i);
+			const rowSts = grdWrhsVhcl.getRowStatus(i);
 
     		if(gfn_isEmpty(rowData.vhclno)){
 				gfn_comAlert("W0002", "차량번호");			//	W0002	{0}을/를 입력하세요.
@@ -246,13 +246,13 @@
 			}
 		}
 
-		let rgnTrsprtCstAllData = rgnTrsprtCstMngDatagrid.getGridDataAll();
+		let rgnTrsprtCstAllData = grdRgnTrsprtCst.getGridDataAll();
 		var rgnTrsprtCstList = [];
 		for(var i=1; i<rgnTrsprtCstAllData.length; i++){
-			const rowData = rgnTrsprtCstMngDatagrid.getRowData(i);
+			const rowData = grdRgnTrsprtCst.getRowData(i);
 			if(rowData.delYn != 'N')
 				continue;
-			const rowSts = rgnTrsprtCstMngDatagrid.getRowStatus(i);
+			const rowSts = grdRgnTrsprtCst.getRowStatus(i);
 
 			if (rowSts === 3){
 				rowData.rowSts = "I";

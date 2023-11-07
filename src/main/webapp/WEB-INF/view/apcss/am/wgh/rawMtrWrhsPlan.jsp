@@ -63,7 +63,7 @@
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
-    								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
+    								oninput="fn_onInputPrdcrNm(event)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
 							</td>
@@ -120,7 +120,7 @@
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocompleteDtl"
 									autocomplete-text="name"
-    								onkeyup="fn_onKeyUpPrdcrNmDtl(dtl-inp-prdcrNm)"
+    								oninput="fn_onInputPrdcrNmDtl(event)"
         							autocomplete-select-callback="fn_onSelectPrdcrNmDtl"
    								></sbux-input>
 							</td>
@@ -690,12 +690,16 @@
 		}
 	}
 	/**
-	 * @name fn_onKeyUpPrdcrNm
+	 * @name fn_onInputPrdcrNm
 	 * @description 생산자명 입력 시 event : autocomplete
 	 */
-	const fn_onKeyUpPrdcrNm = function(prdcrNm){
+	const fn_onInputPrdcrNm = function(prdcrNm){
 		fn_clearPrdcr();
-		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
+		if(getByteLengthOfString(prdcrNm.target.value) > 100){
+			SBUxMethod.set("srch-inp-prdcrNm", "");
+			return;
+		}
+		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
     	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
 
@@ -753,12 +757,16 @@
 	}
 
 	/**
-	 * @name fn_onKeyUpPrdcrNmDtl
+	 * @name fn_onInputPrdcrNmDtl
 	 * @description 생산자명 입력 시 event : autocomplete
 	 */
-	const fn_onKeyUpPrdcrNmDtl = function(prdcrNm){
+	const fn_onInputPrdcrNmDtl = function(prdcrNm){
 		fn_clearPrdcrDtl();
-		jsonPrdcrAutocompleteDtl = gfn_filterFrst(prdcrNm, jsonPrdcrDtl);
+		if(getByteLengthOfString(prdcrNm.target.value) > 100){
+			SBUxMethod.set("dtl-inp-prdcrNm", "");
+			return;
+		}
+		jsonPrdcrAutocompleteDtl = gfn_filterFrst(prdcrNm.target.value, jsonPrdcrDtl);
     	SBUxMethod.changeAutocompleteData('dtl-inp-prdcrNm', true);
     }
 

@@ -57,8 +57,8 @@ public class PckgMngController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	
+
+
 	@PostMapping(value = "/am/pckg/deletePckgPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deletePckgPrfmnc(@RequestBody PckgMngVO pckgMngVO, HttpServletRequest request) throws Exception {
 
@@ -82,4 +82,50 @@ public class PckgMngController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+
+	@PostMapping(value = "/am/pckg/insertPckgInpt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertPckgInpt(@RequestBody PckgMngVO pckgMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			pckgMngVO.setSysFrstInptUserId(getUserId());
+			pckgMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			pckgMngVO.setSysLastChgUserId(getUserId());
+			pckgMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String,Object> rtnObj = pckgMngService.insertPckgInpt(pckgMngVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		} catch(Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/pckg/deletePckgInpt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deletePckgInpt(@RequestBody PckgMngVO pckgMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			pckgMngVO.setSysFrstInptUserId(getUserId());
+			pckgMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			pckgMngVO.setSysLastChgUserId(getUserId());
+			pckgMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String,Object> rtnObj = pckgMngService.deletePckgInpt(pckgMngVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		} catch(Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

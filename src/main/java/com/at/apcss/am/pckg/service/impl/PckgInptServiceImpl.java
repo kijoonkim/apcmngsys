@@ -48,11 +48,11 @@ public class PckgInptServiceImpl implements PckgInptService {
 	}
 
 	@Override
-	public int insertPckgInpt(PckgInptVO pckgInptVO) throws Exception {
+	public HashMap<String, Object> insertPckgInpt(PckgInptVO pckgInptVO) throws Exception {
 
-		int insertedCnt = pckgInptMapper.insertPckgInpt(pckgInptVO);
+		pckgInptMapper.insertPckgInpt(pckgInptVO);
 
-		return insertedCnt;
+		return null;
 	}
 
 	@Override
@@ -66,8 +66,8 @@ public class PckgInptServiceImpl implements PckgInptService {
 	@Override
 	public HashMap<String, Object> deletePckgInpt(PckgInptVO pckgInptVO) throws Exception {
 
-		pckgInptMapper.deletePckgInpt(pckgInptVO);
-
+		//pckgInptMapper.deletePckgInpt(pckgInptVO);
+		pckgInptMapper.updatePckgInptForDelY(pckgInptVO);
 		return null;
 	}
 
