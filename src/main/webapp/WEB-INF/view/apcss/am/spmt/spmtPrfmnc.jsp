@@ -140,7 +140,7 @@
 </body>
 <script type="text/javascript">
 	var jsonSpmtPrfmnc		= [];
-	var itemList 			= [];
+	var vrtyCds 			= [];
 
 	var jsonComItem			= [];	// 품목
 	var jsonComVrty			= [];	// 품종
@@ -242,13 +242,8 @@
 		let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
 		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
 		let trsprtCoCd = SBUxMethod.get("srch-slt-trsprtCoCd");
-		let itemCd;
-		if (itemList.length != 0) {
-			itemCd = itemList.join(',');
-		} else {
-			itemCd = SBUxMethod.get("srch-slt-itemCd");
-		}
-		let vrtyNm = SBUxMethod.get("srch-inp-vrtyNm");
+  		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = vrtyCds.length > 0 ? vrtyCds.join(',') : "";
 		let dldtn = SBUxMethod.get("srch-inp-dldtn");
 		let vhclno = SBUxMethod.get("srch-inp-vhclno");
 
@@ -267,7 +262,7 @@
 						  , cnptNm 				: cnptNm
 						  , trsprtCoCd 			: trsprtCoCd
 						  , itemCd 				: itemCd
-						  , vrtyNm 				: vrtyNm
+						  , vrtyCd 				: vrtyCd
 						  , warehouseSeCd 		: warehouseSeCd
 						  , dldtn 				: dldtn
 						  , vhclno 				: vhclno
@@ -341,6 +336,14 @@
 		]);
 	}
 
+	function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		if (gfn_isEmpty(itemCd)) {
+			vrtyCds = [];
+		}
+		SBUxMethod.set("srch-inp-vrtyNm", "");
+	}
+	
 	// 품종 선택 팝업 호출
 	const fn_modalVrty = function() {
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
@@ -348,7 +351,8 @@
 
 	const fn_setVrty = function(vrty) {
 		if (!gfn_isEmpty(vrty)) {
-			itemList = [];
+			vrtyCds = [];
+			vrtyCds.push(vrty.vrtyCd);
 			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
 			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
 		}
@@ -357,12 +361,20 @@
 	const fn_setVrtys = function(vrtys) {
 		if (!gfn_isEmpty(vrtys)) {
 			var _vrtys = [];
-			itemList = [];
+			vrtyCds = [];
+			var diff = false;
 			for(var i=0;i<vrtys.length;i++){
-				itemList.push(vrtys[i].itemCd);
+				if (vrtys[0].itemCd != vrtys[i].itemCd) {
+					diff = true;
+				}
+				vrtyCds.push(vrtys[i].vrtyCd);
 				_vrtys.push(vrtys[i].vrtyNm);
 			}
-			SBUxMethod.set('srch-slt-itemCd', itemList[0]);
+			if (diff) {
+				SBUxMethod.set('srch-slt-itemCd', "");
+			} else {
+				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
+			}
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtys.join(','));
 		}
 	}
