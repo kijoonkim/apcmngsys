@@ -329,8 +329,6 @@
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
-
-
 	    SBGridProperties.columns = [
 	        {caption: ["입고일자"],		ref: 'wrhsYmd',      type:'output',  width:'120px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	        {caption: ["생산자"],		ref: 'prdcrNm',      type:'output',  width:'120px',    style:'text-align:center'},
@@ -349,9 +347,8 @@
 	        {caption: ["팔레트번호"],		ref: 'pltno',      type:'output',  width:'140px',    style:'text-align:center'},
 	        {caption: ["비고"],		ref: 'rmrk',      type:'output',  width:'200px',    style:'text-align:center'},
 	    ];
-
 	    inptCmndDsctnList = _SBGrid.create(SBGridProperties);
-
+	    inptCmndDsctnList.bind( "afterpagechanged" , "fn_pagingInptCmndDsctnList" );
 	}
 
 	function fn_closeModal(modalId){
@@ -382,7 +379,7 @@
 	    	// grid clear
 	    	jsoninptCmndDsctnList.length = 0;
 	    	inptCmndDsctnList.clearStatus();
-	    	fn_setGrdRawMtrWrhsPrfmnc(pageSize, pageNo);
+	    	await fn_setGrdRawMtrWrhsPrfmnc(pageSize, pageNo);
  	   } catch(e){
 		   alert(e);
 		   return;
@@ -392,8 +389,8 @@
 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-startPrdctnYmd");		// 입고시작일자
    		let wrhsYmdTo = SBUxMethod.get("srch-dtp-endPrdctnYmd");		// 입고종료일자
   		let wrhsSeCd = fn_getChkbox(jsonWrhsSeCd, SBUxMethod.get("dtl-chk-wrhsSeCd"));
-  		let gdsSeCd = fn_getChkbox(jsonGdsSeCd, SBUxMethod.get("dtl-chk-gdsSeCd"))
-  		let trsprtSeCd = fn_getChkbox(jsonTrsprtSeCd, SBUxMethod.get("dtl-chk-trsprtSeCd"))
+  		let gdsSeCd = fn_getChkbox(jsonGdsSeCd, SBUxMethod.get("dtl-chk-gdsSeCd"));
+  		let trsprtSeCd = fn_getChkbox(jsonTrsprtSeCd, SBUxMethod.get("dtl-chk-trsprtSeCd"));
 
   		// optional
   		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
@@ -414,7 +411,7 @@
 			itemCd: itemCd,
 			vhclno: vhclno,
           	// pagination
-  	  		pagingYn : 'N',
+  	  		pagingYn : 'Y',
   			currentPageNo : pageNo,
    		  	recordCountPerPage : pageSize
   		});
@@ -484,6 +481,13 @@
      	}
 	}
 
+	// 페이징
+    async function fn_pagingInptCmndDsctnList(){
+    	let recordCountPerPage = inptCmndDsctnList.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+    	let currentPageNo = inptCmndDsctnList.getSelectPageIndex();
+    	fn_setGrdRawMtrWrhsPrfmnc(recordCountPerPage, currentPageNo);
+    }
+	
 	function fn_getChkbox(json, result) {
 		val = [];
 		for(var key in result){

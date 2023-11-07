@@ -142,7 +142,6 @@
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
 
 	var jsonComItem			= [];	// 품목 		itemCd		검색
-	var jsonComVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonComSpcfct		= [];	// 규격 		spcfct		검색
 	var jsonComFclt			= [];	// 설비 		fcltCd		검색
 
@@ -432,6 +431,7 @@
 				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, '');
 			} else {
 				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd, vrtys[0].itemCd);
 			}
 			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCd.join(','));
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNm.join(','));

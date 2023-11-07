@@ -148,7 +148,6 @@
 <script type="text/javascript">
 	var jsonComMsgKnd = [];	// srch.select.comMsgKnd
 	var jsonComItem			= [];	// 품목 		itemCd		검색
-	var jsonComVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonPrdcr			= [];
     var jsonPrdcrAutocomplete = [];
 

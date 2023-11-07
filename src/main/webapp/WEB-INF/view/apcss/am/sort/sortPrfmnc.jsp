@@ -312,6 +312,7 @@
 				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, '');
 			} else {
 				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, vrtys[0].itemCd);
 			}
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNms.join(','));
 			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCds.join(','));
@@ -319,7 +320,6 @@
 	}
 
 	var jsonApcItem			= [];	// 품목 	itemCd			검색
-	var jsonApcVrty			= [];	// 품종 	vrtyCd			검색
 	var jsonApcSpcfct		= [];	// 규격 	spcfctCd		검색
 	var jsonComWarehouse	= [];	// 창고 	warehouseSeCd	검색
 	var jsonComFcltCd		= [];	// 선별기 	fcltCd			검색
@@ -335,7 +335,7 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('srch-slt-fcltCd', 		jsonComFcltCd, 	'SORT_FCLT_CD', gv_selectedApcCd),				// 선별기
+			gfn_setComCdSBSelect('srch-slt-fcltCd', 		jsonComFcltCd, 	'SORT_FCLT_CD', gv_selectedApcCd),			// 선별기
 		 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd',	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 선별기
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, gv_selectedApcCd)								// 품목
 		]);
