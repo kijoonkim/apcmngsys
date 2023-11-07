@@ -85,7 +85,8 @@
 				, CU.OGDP_NM            	AS OGDP_NM
 				, CU.CHRGD_CERT_YN      	AS CHRGD_CERT_YN
 				, CU.CHRGD_CERT_TYPE    	AS CHRGD_CERT_TYPE
-				, (SELECT FN_GET_COM_CD_VL_NM('REVERSE_YN',CU.LCK_YN) FROM DUAL) AS LCK_YN
+				, CU.LCK_YN AS LCK_YN
+				, (SELECT FN_GET_COM_CD_VL_NM('REVERSE_YN',CU.LCK_YN) FROM DUAL) AS REVERSE_LCK_YN
 				, CU.LGN_FAIL_NMTM      	AS LGN_FAIL_NMTM
 				, CU.END_LGN_DT         	AS END_LGN_DT
 				, CU.END_LGN_IP         	AS END_LGN_IP
@@ -158,7 +159,7 @@
     	   , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
     	]]>
     	<if test='telno != null and telno != ""'>
-    		 , TELNO 				= #{telno}
+    		 , TELNO 					= #{telno}
     	</if>
     	<if test='jbttlNm != null and jbttlNm != ""'>
     		 , JBTTL_NM 				= #{jbttlNm}
@@ -169,14 +170,17 @@
     	<if test='rmrk != null and rmrk != ""'>
     		 , RMRK 					= #{rmrk}
     	</if>
-    	<if test='reverseYn != null and reverseYn != ""'>
-	    	, DEL_YN 					= #{reverseYn}
+    	<if test='delYn != null and delYn != ""'>
+	    	, DEL_YN 					= #{delYn}
     	</if>
     	<if test='eml != null and eml != ""'>
     		 , EML 						= #{eml}
     	</if>
     	<if test='lckYn != null and lckYn != ""'>
-    		 , LCK_YN 						= #{lckYn}
+    		 , LCK_YN 					= #{lckYn}
+    	</if>
+    	<if test='lckYn == "N"'>
+    		 , LGN_FAIL_NMTM 			= 0
     	</if>
 		<![CDATA[
     	 WHERE USER_ID 					= #{userId}

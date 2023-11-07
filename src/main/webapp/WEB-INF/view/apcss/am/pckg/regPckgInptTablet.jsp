@@ -169,10 +169,12 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-itemNm" name="srch-inp-itemNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 								<sbux-input id="srch-inp-itemCd" name="srch-inp-itemCd" uitype="hidden"></sbux-input>
+								<sbux-input id="cmnd-inp-itemCd" name="cmnd-inp-itemCd" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden"></sbux-input>
+								<sbux-input id="cmnd-inp-vrtyCd" name="cmnd-inp-vrtyCd" uitype="hidden"></sbux-input>
 							</td>
 							<td colspan="6"></td>
 						</tr>
@@ -403,6 +405,8 @@
 		SBUxMethod.set('srch-inp-sortWght', "");
 		SBUxMethod.set('srch-inp-inptQntt', "");
 		SBUxMethod.set('srch-inp-inptWght', "");
+		SBUxMethod.set('cmnd-inp-itemCd', "");
+		SBUxMethod.set('cmnd-inp-vrtyCd', "");
 	}
 
 	/**
@@ -546,6 +550,23 @@
 
 	const fn_setSortInvntr = function(sortInvntr) {
 		if (!gfn_isEmpty(sortInvntr)) {
+
+			if(!gfn_isEmpty(SBUxMethod.get("cmnd-inp-itemCd"))){
+				let sortItemCd = sortInvntr.itemCd;
+				let sortVrtyCd = sortInvntr.vrtyCd;
+				let cmndItemCd = SBUxMethod.get('cmnd-inp-itemCd');
+				let cmndVrtyCd = SBUxMethod.get('cmnd-inp-vrtyCd');
+
+				if(sortItemCd != cmndItemCd){
+					gfn_comAlert("W0006","지시의 품목","선별재고의 품목") 	// W0006 {0}와/과 {1}이/가 서로 다릅니다.
+					return;
+				}
+				if(sortVrtyCd != cmndVrtyCd){
+					gfn_comAlert("W0006","지시의 품종","선별재고의 품종") 	// W0006 {0}와/과 {1}이/가 서로 다릅니다.
+					return;
+				}
+			}
+
 			SBUxMethod.set('srch-inp-sortnoIndct', sortInvntr.sortnoIndct);
 			SBUxMethod.set('srch-inp-sortno', sortInvntr.sortno);
 			SBUxMethod.set('srch-inp-sortSn', sortInvntr.sortSn);
@@ -557,6 +578,9 @@
 			SBUxMethod.set('srch-inp-sortWght', sortInvntr.invntrWght);
 			SBUxMethod.set('srch-inp-spcfctNm', sortInvntr.spcfctNm);
 			SBUxMethod.set('srch-inp-spcfctCd', sortInvntr.spcfctCd);
+
+
+
 		}
 	}
 
@@ -567,11 +591,31 @@
 
 	const fn_setPckgCmnd = function(pckgCmnd) {
 		if (!gfn_isEmpty(pckgCmnd)) {
+			if(!gfn_isEmpty(SBUxMethod.get("srch-inp-itemCd"))){
+				let sortItemCd = SBUxMethod.get("srch-inp-itemCd");
+				let sortVrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
+				let cmndItemCd = pckgCmnd.itemCd;
+				let cmndVrtyCd = pckgCmnd.vrtyCd;
+
+				if(sortItemCd != cmndItemCd){
+					gfn_comAlert("W0006","지시의 품목","선별재고의 품목") 	// W0006 {0}와/과 {1}이/가 서로 다릅니다.
+					return;
+				}
+				if(sortVrtyCd != cmndVrtyCd){
+					gfn_comAlert("W0006","지시의 품종","선별재고의 품종") 	// W0006 {0}와/과 {1}이/가 서로 다릅니다.
+					return;
+				}
+			}
+
 			SBUxMethod.set('srch-inp-pckgCmndnoIndct', pckgCmnd.pckgCmndnoIndct);
 			SBUxMethod.set('srch-inp-pckgCmndno', pckgCmnd.pckgCmndno);
 			SBUxMethod.set('srch-inp-pckgCmndSn', pckgCmnd.pckgCmndSn);
 			SBUxMethod.set('srch-inp-inptQntt', pckgCmnd.cmndQntt);
 			SBUxMethod.set('srch-inp-inptWght', pckgCmnd.cmndWght);
+			SBUxMethod.set('cmnd-inp-itemCd', pckgCmnd.itemCd);
+			SBUxMethod.set('cmnd-inp-vrtyCd', pckgCmnd.vrtyCd);
+
+
 		}
 	}
 </script>
