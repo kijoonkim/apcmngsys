@@ -112,8 +112,13 @@
 
         var menuInfo = _.find(menuJson, {id: _menuNo});
 
+     // var pMenuId = menuInfo.pid;
+        // var pMenuNm = menuInfo.value;
+         
+         var pMenuId = "";
+         var pMenuNm = "";
        
-       alert(pMenuIdParam);
+//        alert(pMenuIdParam);
        if(firstLaod == 0){
             pMenuId = "CS";
             pMenuNm = "APC전수조사";
@@ -121,7 +126,10 @@
             firstLaod = firstLaod+1;
         	//var pMenuIdParam = ${pMenuIdParam};
        	//var pMenuNmParam = ${pMenuNmParam};
-       }
+	       }else{
+	      	 pMenuId = menuInfo.pid;
+	           pMenuNm = menuInfo.value;
+	      }
        
        
         if (gfn_isEmpty(pMenuId)) {

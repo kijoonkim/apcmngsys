@@ -114,8 +114,11 @@
     async function fn_setLeftMenu(_menuNo, _menuId) {
 
         var menuInfo = _.find(menuJson, {id: _menuNo});
-        var pMenuId = menuInfo.pid;
-        var pMenuNm = menuInfo.value;
+       // var pMenuId = menuInfo.pid;
+       // var pMenuNm = menuInfo.value;
+        
+        var pMenuId = "";
+        var pMenuNm = "";
         
 //         alert(pMenuIdParam);
         if(firstLaod == 0){
@@ -125,6 +128,9 @@
              firstLaod = firstLaod+1;
          	//var pMenuIdParam = ${pMenuIdParam};
         	//var pMenuNmParam = ${pMenuNmParam};
+        }else{
+        	 pMenuId = menuInfo.pid;
+             pMenuNm = menuInfo.value;
         }
         	
         
