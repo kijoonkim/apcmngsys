@@ -41,9 +41,12 @@
 			<sbux-button id="btnLogMenuHstry2" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogTrsmHstry2" name="btnLogTrsmHstry" uitype="normal" text="송수신이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogBatchHstry2" name="btnLogBatchHstry" uitype="normal" text="배치실행이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnRawMtrChgHstry2" name="btnRawMtrChgHstry" uitype="normal" text="원물재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnSortInvntrChgHstry2" name="btnSortInvntrChgHstry" uitype="normal" text="선별재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnGdsInvntrChgHstry2" name="btnGdsInvntrChgHstry" uitype="normal" text="상품재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 		</div>
 		<div class="table-responsive tbl_scroll_sm">
-			<div id="sb-area-logMenuHstry" style="height:600px;"></div>
+			<div id="sb-area-logMenuHstry" style="height:590px;"></div>
 		</div>
 	</section>
 </body>
@@ -66,7 +69,7 @@
 				}
 
 				if (grdLogMenuHstry === null || this.prvApcCd != _apcCd) {
-					SBUxMethod.set("menu-dtp-logYmdFrom", gfn_dateToYmd(new Date()));
+					SBUxMethod.set("menu-dtp-logYmdFrom", gfn_dateFirstYmd(new Date()));
 					SBUxMethod.set("menu-dtp-logYmdTo", gfn_dateToYmd(new Date()));
 					this.createGrid();
 					this.search();
@@ -95,15 +98,15 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		        	{caption: ['화면ID'], 	ref: 'menuId',		width: '260px',		type: 'output',	style:'text-align: center'},
-		            {caption: ['화면명'], 	ref: 'menuNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자ID'],	ref: 'userId', 		width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자명'],	ref: 'userNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['APC명'], 	ref: 'apcNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['열람일시'],	ref: 'prslDt',		width: '260px', 	type: 'output',	style:'text-align: center'}
+		        	{caption: ['화면ID'], 	ref: 'menuId',		width: '200px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['화면명'], 	ref: 'menuNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자ID'],	ref: 'userId', 		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자명'],	ref: 'userNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['APC명'], 	ref: 'apcNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['열람일시'],	ref: 'prslDt',		width: '200px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogMenuHstry = _SBGrid.create(SBGridProperties);
-		        grdLogMenuHstry.bind( "afterpagechanged" , tabLogMenuHstry.setGrid );
+		        grdLogMenuHstry.bind( "afterpagechanged" , tabLogMenuHstry.paging );
 			},
 			search: async function() {
 				// set pagination
@@ -136,7 +139,6 @@
 					  , pagingYn 			: 'Y'
 					  , currentPageNo 		: currentPageNo
 					  , recordCountPerPage 	: recordCountPerPage
-					  , prslType : "M1"
 				});
 
 		        const data = await postJsonPromise;
@@ -180,10 +182,10 @@
 		        }
 		    },
 		    paging: function() {
-		    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-		    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		    	let recordCountPerPage = grdLogMenuHstry.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		    	let currentPageNo = grdLogMenuHstry.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-		    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+		    	tabLogMenuHstry.setGrid(recordCountPerPage, currentPageNo);
 		    }
 		}
 </script>

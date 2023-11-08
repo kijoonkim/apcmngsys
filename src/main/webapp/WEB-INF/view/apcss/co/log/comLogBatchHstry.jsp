@@ -41,9 +41,12 @@
 			<sbux-button id="btnLogMenuHstry4" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogTrsmHstry4" name="btnLogTrsmHstry" uitype="normal" text="송수신이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogBatchHstry4" name="btnLogBatchHstry" uitype="normal" text="배치실행이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnRawMtrChgHstry4" name="btnRawMtrChgHstry" uitype="normal" text="원물재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnSortInvntrChgHstry4" name="btnSortInvntrChgHstry" uitype="normal" text="선별재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnGdsInvntrChgHstry4" name="btnGdsInvntrChgHstry" uitype="normal" text="상품재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 		</div>
 		<div class="table-responsive tbl_scroll_sm">
-			<div id="sb-area-logBatchHstry" style="height:600px;"></div>
+			<div id="sb-area-logBatchHstry" style="height:590px;"></div>
 		</div>
 	</section>
 </body>
@@ -66,7 +69,7 @@
 				}
 
 				if (grdLogBatchHstry === null || this.prvApcCd != _apcCd) {
-					SBUxMethod.set("batch-dtp-logYmdFrom", gfn_dateToYmd(new Date()));
+					SBUxMethod.set("batch-dtp-logYmdFrom", gfn_dateFirstYmd(new Date()));
 					SBUxMethod.set("batch-dtp-logYmdTo", gfn_dateToYmd(new Date()));
 					this.createGrid();
 					this.search();
@@ -104,7 +107,7 @@
 		            {caption: ['처리결과'], 	ref: 'prcsRslt',	width: '260px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogBatchHstry = _SBGrid.create(SBGridProperties);
-		        grdLogBatchHstry.bind( "afterpagechanged" , tabLogBatchHstry.setGrid );
+		        grdLogBatchHstry.bind( "afterpagechanged" , tabLogBatchHstry.paging );
 			},
 			search: async function() {
 				// set pagination
@@ -187,10 +190,10 @@
 		        }
 		    },
 		    paging: function() {
-		    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-		    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		    	let recordCountPerPage = grdLogBatchHstry.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		    	let currentPageNo = grdLogBatchHstry.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-		    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+		    	tabLogBatchHstry.setGrid(recordCountPerPage, currentPageNo);
 		    }
 		}
 </script>

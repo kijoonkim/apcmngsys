@@ -41,9 +41,12 @@
 			<sbux-button id="btnLogMenuHstry1" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogTrsmHstry1" name="btnLogTrsmHstry" uitype="normal" text="송수신이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogBatchHstry1" name="btnLogBatchHstry" uitype="normal" text="배치실행이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnRawMtrChgHstry1" name="btnRawMtrChgHstry" uitype="normal" text="원물재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnSortInvntrChgHstry1" name="btnSortInvntrChgHstry" uitype="normal" text="선별재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnGdsInvntrChgHstry1" name="btnGdsInvntrChgHstry" uitype="normal" text="상품재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 		</div>
 		<div class="table-responsive tbl_scroll_sm">
-			<div id="sb-area-logCntnHstry" style="height:600px;"></div>
+			<div id="sb-area-logCntnHstry" style="height:590px;"></div>
 		</div>
 	</section>
 </body>
@@ -66,7 +69,7 @@
 				}
 
 				if (grdLogCntnHstry === null || this.prvApcCd != _apcCd) {
-					SBUxMethod.set("cntn-dtp-logYmdFrom", gfn_dateToYmd(new Date()));
+					SBUxMethod.set("cntn-dtp-logYmdFrom", gfn_dateFirstYmd(new Date()));
 					SBUxMethod.set("cntn-dtp-logYmdTo", gfn_dateToYmd(new Date()));
 					this.createGrid();
 					this.search();
@@ -95,15 +98,15 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		            {caption: ['사용자ID'], 	ref: 'userId',		width: '260px',		type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자명'], 	ref: 'userNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['APC명'],		ref: 'apcNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['현재상태'],		ref: 'sttsNow', 	width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['접속일시'],		ref: 'sessCrtDt',	width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['최초접속일시'],	ref: 'frstPrslDt',	width: '260px', 	type: 'output',	style:'text-align: center'}
+		            {caption: ['사용자ID'], 	ref: 'userId',		width: '200px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자명'], 	ref: 'userNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['APC명'],		ref: 'apcNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속일시'],	ref: 'prslDt',		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['최초접속일시'],	ref: 'frstPrslDt',	width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['열람유형'],	ref: 'prslTypeNm',	width: '200px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogCntnHstry = _SBGrid.create(SBGridProperties);
-		        grdLogCntnHstry.bind( "afterpagechanged" , tabLogCntnHstry.setGrid );
+		        grdLogCntnHstry.bind( "afterpagechanged" , tabLogCntnHstry.paging );
 			},
 			search: async function() {
 				// set pagination
@@ -137,7 +140,6 @@
 					  , pagingYn 			: 'Y'
 					  , currentPageNo 		: currentPageNo
 					  , recordCountPerPage 	: recordCountPerPage
-					  , prslType : "L1"
 				});
 
 		        const data = await postJsonPromise;
@@ -151,9 +153,9 @@
 							userId			: item.userId
 						  ,	userNm			: item.userNm
 					      , apcNm 			: item.apcNm
-						  ,	sessCrtDt		: item.sessCrtDt
-						  ,	sttsNow 		: null
-						  ,	lastAccessDt	: item.frstPrslDt
+						  ,	prslDt			: item.prslDt
+						  ,	frstPrslDt		: item.frstPrslDt
+						  ,	prslTypeNm		: item.prslTypeNm
 						}
 						jsonLogCntnHstry.push(log);
 
@@ -164,7 +166,7 @@
 
 		        	if (jsonLogCntnHstry.length > 0) {
 		        		if(grdLogCntnHstry.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-		        			grdLogCntnHstry.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+		        			grdLogCntnHstry.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 		        			grdLogCntnHstry.rebuild();
 						}else{
 							grdLogCntnHstry.refresh();
@@ -181,10 +183,10 @@
 		        }
 		    },
 		    paging: function() {
-		    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-		    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		    	let recordCountPerPage = grdLogCntnHstry.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		    	let currentPageNo = grdLogCntnHstry.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-		    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+		    	tabLogCntnHstry.setGrid(recordCountPerPage, currentPageNo);
 		    }
 		}
 </script>

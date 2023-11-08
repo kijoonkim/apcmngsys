@@ -21,35 +21,38 @@
 	<!-- 2023.08.29  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectCntnHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    	<![CDATA[
+    		SELECT
+		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		 FROM (
-    	</if>
-    	<if test='pagingYn == null or pagingYn.equals("N")'>
-    		SELECT
-    			  pt0.*
-    		 FROM (
+    			,
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-			    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectLogMenuHstryList */
+    			  pt0.*
+                , (SELECT FN_GET_COM_CD_VL_NM('PRSL_TYPE', pt0.PRSL_TYPE) FROM DUAL) AS PRSL_TYPE_NM
+    		 FROM (
+			    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectCntnHstryList */
 					       CMH.MENU_ID          AS MENU_ID
 					     , CMH.MENU_NM          AS MENU_NM
 					     , CMH.USER_ID          AS USER_ID
 					     , CMH.USER_NM          AS USER_NM
 					     , CMH.USER_TYPE        AS USER_TYPE
-					     , TO_CHAR(CMH.PRSL_DT, 'YYYY-MM-DD')          AS PRSL_DT
+					     , TO_CHAR(CMH.PRSL_DT, 'YYYY-MM-DD')			AS PRSL_DT
+    		  	 		 , TO_CHAR(MIN(CMH.PRSL_DT), 'YYYY-MM-DD')		AS FRST_PRSL_DT
 					     , CMH.LGN_SCS_YN       AS LGN_SCS_YN
 					     , CMH.PRSL_TYPE        AS PRSL_TYPE
 					     , CMH.USER_IP          AS USER_IP
 					     , CMH.APC_CD           AS APC_CD
-					     , (SELECT FN_GET_APC_NM(CMH.APC_CD) FROM DUAL) AS APC_NM
+					     , CMH.HSTRY_SN         AS HSTRY_SN
+					     , (SELECT FN_GET_APC_NM(CMH.APC_CD) FROM DUAL)	AS APC_NM
 					FROM TB_COM_MENU_LOG_HSTRY CMH
-				   WHERE 1=1
+				   WHERE CMH.PRSL_TYPE = 'L1'
+				   	  OR CMH.PRSL_TYPE = 'L2'
+				   	  OR CMH.PRSL_TYPE = 'L3'
 		]]>
 			<if test='logYmdFrom != null and logYmdFrom != ""'>
 			   	     AND TO_CHAR(CMH.PRSL_DT, 'YYYYMMDD') <![CDATA[>=]]> #{logYmdFrom}
@@ -60,12 +63,20 @@
 			<if test='userNm != null and userNm != ""'>
 			         AND CMH.USER_NM LIKE '%' ||  #{userNm} || '%'
 			</if>
-			<if test='prslType  != null and prslType != ""'>
-			         AND CMH.PRSL_TYPE = #{prslType}
-			</if>
     	<![CDATA[
-					ORDER BY HSTRY_SN DESC
+				GROUP BY CMH.HSTRY_SN
+    		  	 	   , CMH.PRSL_DT
+    		  	 	   , CMH.USER_ID
+				       , CMH.USER_NM
+				       , CMH.MENU_ID
+				       , CMH.MENU_NM
+				       , CMH.USER_TYPE
+				       , CMH.LGN_SCS_YN
+				       , CMH.PRSL_TYPE
+				       , CMH.USER_IP
+				       , CMH.APC_CD
     		 	) pt0
+    		 	ORDER BY pt0.HSTRY_SN DESC
 		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -84,16 +95,19 @@
 	<!-- 2023.08.29  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectMenuHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    	<![CDATA[
+    		SELECT
+		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		 FROM (
+    			, 
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
+    			  pt0.*
+    		 FROM (
 			    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectLogMenuHstryList */
 					       CMH.MENU_ID          AS MENU_ID
 					     , CMH.MENU_NM          AS MENU_NM
@@ -105,25 +119,27 @@
 					     , CMH.PRSL_TYPE        AS PRSL_TYPE
 					     , CMH.USER_IP          AS USER_IP
 					     , CMH.APC_CD           AS APC_CD
+					     , CMH.HSTRY_SN         AS HSTRY_SN
 					     , (SELECT FN_GET_APC_NM(CMH.APC_CD) FROM DUAL) AS APC_NM
-					FROM TB_COM_MENU_LOG_HSTRY CMH
-				   WHERE 1=1
+					  FROM TB_COM_MENU_LOG_HSTRY CMH
+				     WHERE PRSL_TYPE = 'M1'
+				       AND (FLFMT_TASK_SE_CD IS NULL OR FLFMT_TASK_SE_CD = '01')
 		]]>
 			<if test='logYmdFrom != null and logYmdFrom != ""'>
-			   	     AND TO_CHAR(CMH.PRSL_DT, 'YYYYMMDD') <![CDATA[>=]]> #{logYmdFrom}
+			   	       AND TO_CHAR(CMH.PRSL_DT, 'YYYYMMDD') <![CDATA[>=]]> #{logYmdFrom}
 			</if>
 			<if test='logYmdTo != null and logYmdTo != ""'>
-			         AND TO_CHAR(CMH.PRSL_DT, 'YYYYMMDD') <![CDATA[<=]]> #{logYmdTo}
+			           AND TO_CHAR(CMH.PRSL_DT, 'YYYYMMDD') <![CDATA[<=]]> #{logYmdTo}
 			</if>
 			<if test='menuNm != null and menuNm != ""'>
-			         AND CMH.MENU_NM LIKE '%' ||  #{menuNm} || '%'
+			           AND CMH.MENU_NM LIKE '%' ||  #{menuNm} || '%'
 			</if>
-			<if test='prslType != null and prslType != ""'>
-					AND CMH.PRSL_TYPE	 = #{prslType}
-			</if>
+    	<![CDATA[
+    		  ) pt0
+    		  ORDER BY pt0.HSTRY_SN DESC
+		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
     	</if>
