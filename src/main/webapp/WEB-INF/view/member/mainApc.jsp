@@ -126,8 +126,8 @@
         	pMenuNm = menuInfo.text;
         }
 
-        alert(pMenuId);
-        alert(pMenuNm);
+//         alert(pMenuId);
+//         alert(pMenuNm);
         //const postJsonPromise = gfn_postJSON("/co/menu/leftMenu", {upMenuId: pMenuId});
         const postJsonPromise = gfn_postJSON("/co/authrt/selectSideMenuTreeList.do", {upMenuId: pMenuId}, "main", true);
 
