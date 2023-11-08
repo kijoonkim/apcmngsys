@@ -811,20 +811,6 @@
 		}
 	}
 
-	/**
-	 * @name fn_onChangeSrchItemCd
-	 * @description 품목 선택 변경 event
-	 */
-	const fn_onChangeSrchItemCd = async function(obj) {
-
-		let itemCd = obj.value;
-		let result = await Promise.all([
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonApcSpcfct, gv_selectedApcCd, itemCd),			// 품종
-		]);
-
-		jsonSortPrfmnc.length = 0;
-	}
-
 	function fn_selectItem(){
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		SBUxMethod.set("srch-inp-vrtyNm", "");

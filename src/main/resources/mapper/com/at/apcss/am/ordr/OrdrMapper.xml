@@ -216,7 +216,7 @@
 		       AND OI.ITEM_CD = #{itemCd}
 		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
-		       AND OI.VRTY_CD = #{vrtyCd}
+		       AND OI.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
 		</if>
 		<if test='wrhsYmd != null and wrhsYmd != ""'>
 		   	   AND OI.WRHS_YMD = #{wrhsYmd}
