@@ -47,6 +47,8 @@
 				, RI.INVNTR_WGHT		AS INVNTR_WGHT
 				, RI.INPT_PRGRS_QNTT	AS INPT_PRGRS_QNTT
 				, RI.INPT_PRGRS_WGHT	AS INPT_PRGRS_WGHT
+				, RI.TRNSF_QNTT			AS TRNSF_QNTT
+				, RI.TRNSF_WGHT			AS TRNSF_WGHT
 				, (SELECT SUM(X.CMND_QNTT) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS CMND_QNTT
 				, (SELECT SUM(X.CMND_WGHT) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS CMND_WGHT
 				, RI.DEL_YN				AS DEL_YN
@@ -707,5 +709,64 @@
 			   AND WRHSNO = #{wrhsno}
 		]]>
 	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.insertRawMtrChgHstry	-->
+	<!-- DESC : 재고변경이력 등록.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.10.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertRawMtrChgHstry" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.insertRawMtrChgHstry */
+	    		INTO TB_RAW_MTR_CHG_HSTRY
+				(
+					  APC_CD
+					, WRHSNO
+					, CHG_SN
+					, CHG_YMD
+					, CHG_BFR_QNTT
+					, CHG_BFR_WGHT
+					, CHG_AFTR_QNTT
+					, CHG_AFTR_WGHT
+					, WAREHOUSE_SE_CD
+					, CHG_RSN_CD
+					, CHG_RMRK
+		    		, SYS_FRST_INPT_DT
+		    		, SYS_FRST_INPT_USER_ID
+		    		, SYS_FRST_INPT_PRGRM_ID
+		    		, SYS_LAST_CHG_DT
+		    		, SYS_LAST_CHG_USER_ID
+		    		, SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+					  #{apcCd}
+					, #{wrhsno}
+					, NVL((
+						SELECT MAX(CHG_SN)
+						  FROM TB_RAW_MTR_CHG_HSTRY
+						 WHERE APC_CD = #{apcCd}
+						   AND WRHSNO = #{wrhsno}
+						), 0) + 1
+					, TO_CHAR(SYSDATE, 'YYYYMMDD')
+					, #{chgBfrQntt}
+					, #{chgBfrWght}
+					, #{chgAftrQntt}
+					, #{chgAftrWght}
+					, #{warehouseSeCd}
+					, #{chgRsnCd}
+					, #{chgRmrk}
+		    		, SYSDATE
+		    		, #{sysFrstInptUserId}
+		    		, #{sysFrstInptPrgrmId}
+		    		, SYSDATE
+		    		, #{sysLastChgUserId}
+		    		, #{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </insert>
 
 </mapper>

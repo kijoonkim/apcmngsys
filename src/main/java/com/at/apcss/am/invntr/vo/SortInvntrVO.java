@@ -231,6 +231,17 @@ public class SortInvntrVO extends ComVO {
 
 	private String stdGrdCd;
 
+	/*
+	 * 변경이력 
+	 */
+	
+	private int chgBfrQntt;
+	private double chgBfrWght;
+	private int chgAftrQntt;
+	private double chgAftrWght;
+	private String chgRsnCd;
+	private String chgRmrk;
+	
 	/**
 	 * 표준등급
 	 */

@@ -141,6 +141,11 @@ public interface SortInvntrService {
 	 */
 	public HashMap<String, Object> deleteInvntrPckgInpt(SortInvntrVO sortInvntrVO) throws Exception;
 
-
-
+	/**
+	 * 
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSortChgHstry(SortInvntrVO sortInvntrVO) throws Exception;
 }

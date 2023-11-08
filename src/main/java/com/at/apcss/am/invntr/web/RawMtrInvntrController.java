@@ -108,12 +108,6 @@ public class RawMtrInvntrController extends BaseController {
 				rawMtrInvntrVO.setSysFrstInptUserId(getUserId());
 				rawMtrInvntrVO.setSysLastChgUserId(getUserId());
 				rawMtrInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
-				for (RawMtrStdGrdVO rawMtrStdGrdVO : rawMtrInvntrVO.getStdGrdList()) {
-					rawMtrStdGrdVO.setSysFrstInptPrgrmId(getPrgrmId());
-					rawMtrStdGrdVO.setSysFrstInptUserId(getUserId());
-					rawMtrStdGrdVO.setSysLastChgPrgrmId(getPrgrmId());
-					rawMtrStdGrdVO.setSysLastChgUserId(getPrgrmId());
-				}
 			}
 
 			HashMap<String, Object> rtnObj = rawMtrInvntrService.multiSaveRawMtrInvntrList(rawMtrInvntrList);

@@ -136,4 +136,13 @@ public interface RawMtrInvntrService {
 	 */
 	public HashMap<String, Object> deleteInvntrSortInpt(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 	
+	
+	/**
+	 * 원물재고 이력등록
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertRawMtrChgHstry(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	
 }
