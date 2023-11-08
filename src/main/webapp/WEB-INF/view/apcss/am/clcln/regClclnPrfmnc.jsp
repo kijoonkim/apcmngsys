@@ -272,6 +272,7 @@
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonComClclnCrtrCd	= [];	// 정산기준 	clclnCrtr	검색
 	var jsonComCfmtnYn		= [];
+	var jsonGrdCfmtnYn		= [];
 	/* 생산자 자동완성 */
     var jsonPrdcr = [];
     var jsonPrdcrAutocomplete = [];
@@ -697,18 +698,18 @@
 		SBUxMethod.set("srch-dtp-clclnYmd", ymd);
 
 		// 정산기준
-		SBUxMethod.set("srch-slt-clclnCrtrCd", null);
+		SBUxMethod.set("srch-slt-clclnCrtrCd", "");
 		// 품목
-		SBUxMethod.set("srch-slt-itemCd", null);
+		SBUxMethod.set("srch-slt-itemCd", "");
 		// 품종
-		SBUxMethod.set("srch-slt-vrtyCd", null);
+		SBUxMethod.set("srch-slt-vrtyCd", "");
 
 		// 생산자
 		SBUxMethod.set("srch-inp-prdcrCd", "");
 		SBUxMethod.set("srch-inp-prdcrNm", "");
 
 		// 확정여부
-		SBUxMethod.set("srch-slt-cfmtnYn", null);
+		SBUxMethod.set("srch-slt-cfmtnYn", "");
 
 		fn_onChangeSrchItemCd({value: null});
 	}

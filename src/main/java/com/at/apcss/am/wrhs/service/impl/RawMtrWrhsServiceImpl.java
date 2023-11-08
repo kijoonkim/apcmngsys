@@ -133,9 +133,8 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 	@Override
 	public HashMap<String, Object> insertRawMtrWrhsList(List<RawMtrWrhsVO> rawMtrWrhsList) throws Exception {
 
-		List<RawMtrInvntrVO> rawMtrInvntrList = new ArrayList<>();
-
-		int insertedCnt = 0;
+		HashMap<String, Object> rtnObj;
+		
 		for ( RawMtrWrhsVO rawMtrWrhsVO : rawMtrWrhsList ) {
 
 			String wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrWrhsVO.getApcCd(), rawMtrWrhsVO.getWrhsYmd());
@@ -145,23 +144,18 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 				rawMtrWrhsVO.setPltno(wrhsno);
 			}
 
-			insertedCnt = rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
-
-			if (insertedCnt != 0) {
-
-			}
+			rawMtrWrhsMapper.insertRawMtrWrhs(rawMtrWrhsVO);
 
 			RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
 			BeanUtils.copyProperties(rawMtrWrhsVO, rawMtrInvntrVO);
 			rawMtrInvntrVO.setWrhsQntt(rawMtrWrhsVO.getWrhsQntt());
 			rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getWrhsQntt());
 			rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getWrhsWght());
-			rawMtrInvntrList.add(rawMtrInvntrVO);
-		}
-
-		HashMap<String, Object> rtnObj = rawMtrInvntrService.insertRawMtrInvntrList(rawMtrInvntrList);
-		if (rtnObj != null) {
-			throw new EgovBizException(getMessageForMap(rtnObj));
+			
+			rtnObj = rawMtrInvntrService.insertRawMtrInvntr(rawMtrInvntrVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}			
 		}
 
 		return null;
