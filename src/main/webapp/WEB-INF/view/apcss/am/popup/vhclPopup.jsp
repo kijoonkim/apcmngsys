@@ -117,7 +117,7 @@
 
 			if (grdVhclPop === null || this.prvApcCd != _apcCd) {
 				let rst = await Promise.all([
-					gfn_setComCdSBSelect('grdVhcl', jsonComBankCdVhclPop,'BANK_CD'),		// 은행
+					gfn_setComCdSBSelect('grdVhcl', jsonComBankCdVhclPop,'BANK_CD')		// 은행
 				]);
 				this.createGrid();
 				this.search();

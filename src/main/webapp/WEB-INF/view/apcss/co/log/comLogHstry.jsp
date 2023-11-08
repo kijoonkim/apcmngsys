@@ -25,21 +25,33 @@
 			<div class="box-body">
 				<div id="tab_content">
 					<!-- 접속이력 탭 화면 -->
-				    <div id="comLogCntnHstry">
+				    <div id="LogCntnHstry">
 				    	<jsp:include page="../../co/log/comLogCntnHstry.jsp"></jsp:include>
 				    </div>
 					<!-- 화면열람이력 탭 화면 -->
-				    <div id="comLogMenuHstry">
+				    <div id="LogMenuHstry">
 				    	<jsp:include page="../../co/log/comLogMenuHstry.jsp"></jsp:include>
 				    </div>
 					<!-- 송수신이력 탭 화면 -->
-				    <div id="comLogTrsmHstry">
+				    <div id="LogTrsmHstry">
 				    	<jsp:include page="../../co/log/comLogTrsmHstry.jsp"></jsp:include>
 				    </div>
 					<!-- 배치실행이력 탭 화면 -->
-				    <div id="comLogBatchHstry">
+				    <div id="LogBatchHstry">
 				    	<jsp:include page="../../co/log/comLogBatchHstry.jsp"></jsp:include>
 				    </div>
+				    <!-- 원물재고변경이력 탭 화면 -->
+				    <div id="RawMtrChgHstry">
+				    	<jsp:include page="../../co/log/rawMtrChgHstry.jsp"></jsp:include>
+				    </div>
+				    <!-- 선별재고변경이력 탭 화면 -->
+<!-- 				    <div id="SortInvntrChgHstry"> -->
+<%-- 				    	<jsp:include page="../../co/log/sortInvntrChgHstry.jsp"></jsp:include> --%>
+<!-- 				    </div> -->
+				    <!-- 상품재고변경이력 탭 화면 -->
+<!-- 				    <div id="GdsInvntrChgHstry"> -->
+<%-- 				    	<jsp:include page="../../co/log/gdsInvntrChgHstry.jsp"></jsp:include> --%>
+<!-- 				    </div> -->
 				</div>
 			</div>
 		</div>
@@ -52,16 +64,21 @@
 		$('.ad_tbl_toplist button').click(function(){
 			var btnName = $(this).attr('id').slice(0, $(this).attr('id').length-1);
 			$('.ad_tbl_toplist button').css({'background-color':'#FFFFFF', 'border':'1px solid #666666', 'color': '#666666'});
-			$('#comLogCntnHstry').hide();
-		    $('#comLogMenuHstry').hide();
-		    $('#comLogTrsmHstry').hide();
-		    $('#comLogBatchHstry').hide();
-		    $('#com'+btnName.slice(3)).show();
-		    $('#com'+btnName.slice(3)+' [name='+btnName.slice(0)+']').css({'background-color':'#149FFF', 'border':'1px solid #149FFF', 'color': '#FFFFFF'});
+			$('#LogCntnHstry').hide();
+		    $('#LogMenuHstry').hide();
+		    $('#LogTrsmHstry').hide();
+		    $('#LogBatchHstry').hide();
+		    $('#RawMtrChgHstry').hide();
+// 		    $('#SortInvntrChgHstry').hide();
+// 		    $('#GdsInvntrChgHstry').hide();
+			console.log("btnName", btnName);
+			console.log("btnName", btnName.slice(3));
+		    $('#'+btnName.slice(3)).show();
+		    $('#'+btnName.slice(3)+' [name='+btnName+']').css({'background-color':'#149FFF', 'border':'1px solid #149FFF', 'color': '#FFFFFF'});
 		    eval('tab'+btnName.slice(3)+'.init(gv_selectedApcCd, gv_selectedApcNm)');
-		    searchTarget = 'l' + btnName.slice(4);
+		    searchTarget = btnName.slice(3);
 		});
-		$('#comLogCntnHstry [name=btnLogCntnHstry]').click();
+		$('#LogCntnHstry [name=btnLogCntnHstry]').click();
 	});
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -70,14 +87,20 @@
 	
 	// 이력 조회 (조회 버튼)
     async function fn_search() {
-		if(searchTarget == "logCntnHstry"){
+		if(searchTarget == "LogCntnHstry"){
 			tabLogCntnHstry.search();
-		} else if(searchTarget == "logMenuHstry"){
+		} else if(searchTarget == "LogMenuHstry"){
 			tabLogMenuHstry.search();
-		} else if(searchTarget == "logTrsmHstry"){
+		} else if(searchTarget == "LogTrsmHstry"){
 			tabLogTrsmHstry.search();
-		} else if(searchTarget == "logBatchHstry"){
+		} else if(searchTarget == "LogBatchHstry"){
 			tabLogBatchHstry.search();
+		} else if(searchTarget == "RawMtrChgHstry"){
+			tabRawMtrChgHstry.search();
+// 		} else if(searchTarget == "SortInvntrChgHstry"){
+// 			tabSortInvntrChgHstry.search();
+// 		} else if(searchTarget == "GdsInvntrChgHstry"){
+// 			tabGdsInvntrChgHstry.search();
 		}
     }
 </script>

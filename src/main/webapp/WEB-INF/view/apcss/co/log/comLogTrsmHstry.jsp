@@ -53,9 +53,12 @@
 			<sbux-button id="btnLogMenuHstry3" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogTrsmHstry3" name="btnLogTrsmHstry" uitype="normal" text="송수신이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogBatchHstry3" name="btnLogBatchHstry" uitype="normal" text="배치실행이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnRawMtrChgHstry3" name="btnRawMtrChgHstry" uitype="normal" text="원물재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnSortInvntrChgHstry3" name="btnSortInvntrChgHstry" uitype="normal" text="선별재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnGdsInvntrChgHstry3" name="btnGdsInvntrChgHstry" uitype="normal" text="상품재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 		</div>
 		<div class="table-responsive tbl_scroll_sm">
-			<div id="sb-area-logTrsmHstry" style="height:600px;"></div>
+			<div id="sb-area-logTrsmHstry" style="height:590px;"></div>
 		</div>
 	</section>
 </body>
@@ -80,7 +83,7 @@
 				}
 
 				if (grdLogTrsmHstry === null || this.prvApcCd != _apcCd) {
-					SBUxMethod.set("trsm-dtp-logYmdFrom", gfn_dateToYmd(new Date()));
+					SBUxMethod.set("trsm-dtp-logYmdFrom", gfn_dateFirstYmd(new Date()));
 					SBUxMethod.set("trsm-dtp-logYmdTo", gfn_dateToYmd(new Date()));
 					let rst = await Promise.all([
 						gfn_setComCdSBSelect('trsm-slt-sendRcptnSeCd', jsonComSendRcptnSeCd, 'SEND_RCPTN_SE_CD', gv_selectedApcCd),
