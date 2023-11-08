@@ -7,7 +7,7 @@
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
-<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 <!-- ==========================================================================	-->
 
 <mapper namespace="com.at.apcss.am.pckg.mapper.PckgPrfmncMapper">
@@ -18,7 +18,7 @@
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
     <select id="selectPckgPrfmnc" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO" resultType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
@@ -45,7 +45,7 @@
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
     <select id="selectPckgPrfmncList" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO" resultType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
@@ -113,7 +113,6 @@
 		<if test='pckgno != null and pckgno != ""'>
 			   AND GI.PCKGNO = #{pckgno}
 		</if>
-		
 		<if test='pckgYmd != null and pckgYmd != ""'>
 			   AND GI.PCKG_YMD = #{pckgYmd}
 		</if>
@@ -123,33 +122,24 @@
 		<if test='pckgYmdTo != null and pckgYmdTo != ""'>
 			   AND GI.PCKG_YMD <![CDATA[<=]]> #{pckgYmdTo}
 		</if>
-
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 			   AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
 		</if>
-
 		<if test='fcltCd != null and fcltCd != ""'>
 			   AND GI.FCLT_CD = #{fcltCd}
 		</if>
-
 		<if test='rprsPrdcrCd != null and rprsPrdcrCd != ""'>
 			   AND GI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
 		</if>
-
 		<if test='gdsGrd != null and gdsGrd != ""'>
 			   AND GI.GDS_GRD = #{gdsGrd}
 		</if>
-
 		<if test='itemCd != null and itemCd != ""'>
 			   AND GI.ITEM_CD = #{itemCd}
 		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
-			   AND GI.VRTY_CD = #{vrtyCd}
+			   AND GI.VRTY_CD IN (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
 		</if>
-		<if test='vrtyCds != null and vrtyCds != ""'>
-			   AND GI.VRTY_CD IN (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCds})))
-		</if>
-
 		<if test='spcfctCd != null and spcfctCd != ""'>
 			   AND GI.SPCFCT_CD = #{spcfctCd}
 		</if>
@@ -177,7 +167,7 @@
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
     <insert id="insertPckgPrfmnc" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
@@ -226,7 +216,7 @@
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
     <update id="updatePckgPrfmnc" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
@@ -259,7 +249,7 @@
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
     <update id="updatePckgPrfmncForDelY" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
@@ -282,7 +272,7 @@
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
     <delete id="deletePckgPrfmnc" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
@@ -297,11 +287,11 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.updateInptPckgno		-->
-	<!-- DESC : 포장투입실적 변경 - 포장번호 등록												-->
+	<!-- DESC : 포장투입실적 변경 - 포장번호 등록											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
     <update id="updateInptPckgno" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[

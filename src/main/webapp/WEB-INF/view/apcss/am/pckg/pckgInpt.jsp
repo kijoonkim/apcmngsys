@@ -71,7 +71,6 @@
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
 				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
-				<sbux-input id="srch-inp-vrtyCds" name="srch-inp-vrtyCds" uitype="hidden"></sbux-input>
 				<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden"></sbux-input>
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
@@ -130,13 +129,15 @@
 									id="srch-inp-vrtyNm"
 									name="srch-inp-vrtyNm"
 									class="form-control input-sm"
+									maxlength="33"
+									show-clear-button="true"
 									readonly
 								></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button
-									id="srch-btn-vrtySrch"
-									name="srch-btn-vrtySrch"
+									id="btnSrchVrty"
+									name="btnSrchVrty"
 									class="btn btn-xs btn-outline-dark"
 									text="찾기"
 									uitype="modal"
@@ -252,14 +253,14 @@
 	</section>
 	 <!-- 생산자 선택 Modal -->
     <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1100px"></sbux-modal>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" header-is-close-button="false" style="width:1100px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
     <!-- 품종 선택 Modal -->
     <div>
-        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
+        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" header-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="body-modal-vrtyCrtr">
     	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
@@ -298,12 +299,11 @@
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		SBUxMethod.set("srch-inp-vrtyNm", "");
 		SBUxMethod.set("srch-inp-vrtyCd", "");
-		SBUxMethod.set("srch-inp-vrtyCds", "");
 		if(gfn_isEmpty(itemCd)){
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	"");
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, "");
 		}else{
 			let rst = await Promise.all([
-				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', 			jsonComSpcfct, 			gv_selectedApcCd, itemCd)	// 규격
+				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd, itemCd)	// 규격
 			])
 		}
 	}
@@ -319,10 +319,6 @@
 		}
 	}
 	const fn_setVrtys = function(vrtys) {
-		SBUxMethod.set("srch-inp-vrtyNm", "");
-		SBUxMethod.set("srch-inp-vrtyCd", "");
-		SBUxMethod.set("srch-inp-vrtyCds", "");
-
 		if (!gfn_isEmpty(vrtys)) {
 			var _vrtys = [];
 			var _vrtyCds = [];
@@ -341,7 +337,7 @@
 				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
 				gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, gv_selectedApcCd, vrtys[0].itemCd);
 			}
-			SBUxMethod.set('srch-inp-vrtyCds', _vrtyCds.join(','));
+			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCds.join(','));
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtys.join(','));
 		}
 	}
@@ -484,7 +480,6 @@
     	let pckgYmdFrom = SBUxMethod.get("srch-dtp-pckgYmdFrom");
     	let pckgYmdTo = SBUxMethod.get("srch-dtp-pckgYmdTo");
     	let itemCd = SBUxMethod.get("srch-slt-itemCd");
-    	let vrtyCds = SBUxMethod.get("srch-inp-vrtyCds");
     	let vrtyCd = SBUxMethod.get('srch-inp-vrtyCd');
     	let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
     	let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
@@ -498,7 +493,6 @@
 			pckgYmdFrom: pckgYmdFrom,
 			pckgYmdTo: pckgYmdTo,
 			itemCd: itemCd,
-			vrtyCds: vrtyCds,
 			vrtyCd : vrtyCd,
 			spcfctCd: spcfctCd,
 			fcltCd: fcltCd,
@@ -793,5 +787,11 @@
  		gfn_popClipReport("상품라벨", "am/gdsLabel.crf", {apcCd: gv_selectedApcCd, pckgno: pckgno});
  	}
 
+ 	$(function(){
+ 		$(".glyphicon").on("click", function(){
+ 			SBUxMethod.set("srch-inp-vrtyNm", "");
+			SBUxMethod.set("srch-inp-vrtyCd", "");
+ 		})
+ 	})
 </script>
 </html>
