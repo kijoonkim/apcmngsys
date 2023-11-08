@@ -27,11 +27,6 @@
 					<td class="td_input" style="border-right: hidden;">
 						<sbux-datepicker id="rawMtr-dtp-chgYmdTo" name="rawMtr-dtp-chgYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
 					</td>
-					<td></td>
-					<th scope="row" class="th_bg">창구구분</th>
-					<td class="td_input" style="border-right: hidden;">
-						<sbux-select id="rawMtr-slt-warehouseSeCd" name="rawMtr-slt-warehouseSeCd" uitype="single" jsondata-ref="jsonComWarehouse" unselected-text="전체" class="form-control input-sm"></sbux-select>
-					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -106,17 +101,17 @@
 		        	{caption: ['입고번호'], 	ref: 'wrhsno',			width: '120px',		type: 'output',	style:'text-align: center'},
 		            {caption: ['변경일자'], 	ref: 'chgYmd', 			width: '120px', 	type: 'output',	style:'text-align: center',
 		        		format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-		            {caption: ['변경전수량'],	ref: 'chgBfrQntt', 		width: '120px', 	type: 'output',	style:'text-align: center',
+		            {caption: ['변경전수량'],	ref: 'chgBfrQntt', 		width: '120px', 	type: 'output',	style:'text-align: right',
 		            	format : {type:'number', rule:'#,###'}},
-		            {caption: ['변경전중량'],	ref: 'chgBfrWght', 		width: '120px', 	type: 'output',	style:'text-align: center',
+		            {caption: ['변경전중량'],	ref: 'chgBfrWght', 		width: '120px', 	type: 'output',	style:'text-align: right',
 		                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
-		            {caption: ['변경후수량'],	ref: 'chgAftrQntt', 	width: '120px', 	type: 'output',	style:'text-align: center',
+		            {caption: ['변경후수량'],	ref: 'chgAftrQntt', 	width: '120px', 	type: 'output',	style:'text-align: right',
 		            	format : {type:'number', rule:'#,###'}},
-		            {caption: ['변경후중량'],	ref: 'chgAftrWght', 	width: '120px', 	type: 'output',	style:'text-align: center',
+		            {caption: ['변경후중량'],	ref: 'chgAftrWght', 	width: '120px', 	type: 'output',	style:'text-align: right',
 		                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,### Kg'}},
 		            {caption: ['변경사유'], 	ref: 'chgRsnNm', 		width: '120px', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['창고구분'],	ref: 'warehouseSeNm',	width: '120px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['변경비고'],	ref: 'chgRmrk', 		width: '300px', 	type: 'output',	style:'text-align: center'}
+		            {caption: ['변경비고'],	ref: 'chgRmrk', 		width: '300px', 	type: 'output'}
 		        ];
 		        grdRawMtrChgHstry = _SBGrid.create(SBGridProperties);
 		        grdRawMtrChgHstry.bind( "afterpagechanged" , tabRawMtrChgHstry.setGrid );
@@ -135,7 +130,6 @@
 
 				let chgYmdFrom = SBUxMethod.get("rawMtr-dtp-chgYmdFrom");
 				let chgYmdTo = SBUxMethod.get("rawMtr-dtp-chgYmdTo");
-				let warehouseSeCd = SBUxMethod.get("rawMtr-slt-warehouseSeCd");
 				if (gfn_isEmpty(chgYmdFrom)){
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
 		            return;
@@ -145,10 +139,10 @@
 		            return;
 				}
 
-		        const postJsonPromise = gfn_postJSON("/co/log/selectRawMtrHstryList.do", {
-					    chgYmdFrom 			: chgYmdFrom
+		        const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrHstryList.do", {
+		        		apcCd				: gv_selectedApcCd
+					  , chgYmdFrom 			: chgYmdFrom
 					  , chgYmdTo 			: chgYmdTo
-					  , warehouseSeCd 		: warehouseSeCd
 					  , pagingYn 			: 'Y'
 					  , currentPageNo 		: currentPageNo
 					  , recordCountPerPage 	: recordCountPerPage
@@ -161,7 +155,7 @@
 
 		    		jsonRawMtrChgHstry.length = 0;
 		        	data.resultList.forEach((item, index) => {
-						const log = {
+						const hstry = {
 							wrhsno			: item.wrhsno,
 							chgYmd			: item.chgYmd,
 							chgBfrQntt 		: item.chgBfrQntt,
@@ -169,10 +163,10 @@
 							chgAftrQntt 	: item.chgAftrQntt,
 							chgAftrWght	 	: item.chgAftrWght,
 							chgRmrk	 		: item.chgRmrk,
-							chgRsnCd	 	: item.chgRsnCd,
-							warehouseSeCd	: item.warehouseSeCd
+							chgRsnNm	 	: item.chgRsnNm,
+							warehouseSeNm	: item.warehouseSeNm
 						}
-						jsonRawMtrChgHstry.push(log);
+						jsonRawMtrChgHstry.push(hstry);
 
 						if (index === 0) {
 							totalRecordCount = item.totalRecordCount;

@@ -308,11 +308,16 @@ public class RawMtrInvntrVO extends ComVO {
 	/**
 	 * 변경이력
 	 */
+	private String chgYmd;
+	private String chgYmdFrom;
+	private String chgYmdTo;
+	private int chgSn;
 	private int chgBfrQntt;
 	private double chgBfrWght;
 	private int chgAftrQntt;
 	private double chgAftrWght;
 	private String chgRsnCd;
+	private String chgRsnNm;
 	private String chgRmrk;
 	
 	

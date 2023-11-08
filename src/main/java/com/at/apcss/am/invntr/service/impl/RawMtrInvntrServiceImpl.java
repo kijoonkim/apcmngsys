@@ -436,6 +436,15 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		return null;
 	}
 
+	// 이력 조회
+	@Override
+	public List<RawMtrInvntrVO> selectRawMtrHstryList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+
+		List<RawMtrInvntrVO> resultList = rawMtrInvntrMapper.selectRawMtrHstryList(rawMtrInvntrVO);
+
+		return resultList;
+	}
+	
 	@Override
 	public HashMap<String, Object> insertRawMtrChgHstry(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 		

@@ -71,8 +71,6 @@
 		    $('#RawMtrChgHstry').hide();
 // 		    $('#SortInvntrChgHstry').hide();
 // 		    $('#GdsInvntrChgHstry').hide();
-			console.log("btnName", btnName);
-			console.log("btnName", btnName.slice(3));
 		    $('#'+btnName.slice(3)).show();
 		    $('#'+btnName.slice(3)+' [name='+btnName+']').css({'background-color':'#149FFF', 'border':'1px solid #149FFF', 'color': '#FFFFFF'});
 		    eval('tab'+btnName.slice(3)+'.init(gv_selectedApcCd, gv_selectedApcNm)');
