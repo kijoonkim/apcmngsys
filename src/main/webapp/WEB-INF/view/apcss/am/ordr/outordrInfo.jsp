@@ -252,7 +252,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.explorerbar = 'sortmove';
-		SBGridProperties.frozencols = 1
+		SBGridProperties.frozencols = 5;
     	SBGridProperties.paging = {
     			'type' : 'page',
     		  	'count' : 5,
@@ -323,6 +323,7 @@
             {caption: ['출하일자'], 		ref: 'spmtYmd', 		width: '100px', 	type: 'output',			style:'text-align: center', sortable: false,
     		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}},
             {caption: ['지시일자'], 		ref: 'cmndYmd', 		hidden: true},
+            {caption: ['발주유형'], 		ref: 'outordrType', 	hidden: true},
             {caption: ['운송회사코드'], 	ref: 'trsprtCoCd', 		hidden: true},
             {caption: ['비고'],	 		ref: 'rmrk', 			hidden: true},
             {caption: ['상품등급'],	 	ref: 'gdsGrd', 			hidden: true},
@@ -396,6 +397,7 @@
 					  checked 				: "false"
 					, rcptCfmtnYmd 			: item.rcptCfmtnYmd
 					, outordrTypeNm 		: item.outordrTypeNm
+					, outordrType 			: item.outordrType
 					, rcptYn 				: null
 					, outordrno 			: item.outordrno
 					, apcCnptNm	 			: item.apcCnptNm
@@ -718,7 +720,7 @@
 
 	// 상품 선택 팝업 호출
 	const fn_modalGds = function() {
-    	popGds.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-spmtPckgUnitNm"), fn_setGdsNm);
+    	popGds.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-spmtPckgUnitNm"), fn_setGdsNm, SBUxMethod.get("srch-slt-itemCd"));
 	}
 
 	const fn_setGdsNm = function(gds) {
