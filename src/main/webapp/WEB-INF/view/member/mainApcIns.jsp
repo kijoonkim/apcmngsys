@@ -115,10 +115,10 @@
         var pMenuNm = menuInfo.value;
         
         alert(pMenuIdParam);
-        if(pMenuIdParam == "PD"){
+        if(pMenuIdParam == "PD" || pMenuIdParam == "undefined"){
              pMenuId = "PD";
              pMenuNm = "산지유통평가등록";
-             pMenuIdParam = "";
+             pMenuIdParam = "none";
          	//var pMenuIdParam = ${pMenuIdParam};
         	//var pMenuNmParam = ${pMenuNmParam};
         }

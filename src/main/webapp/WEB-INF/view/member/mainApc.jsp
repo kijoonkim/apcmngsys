@@ -116,10 +116,10 @@
         var pMenuNm = menuInfo.value;
         
         alert(pMenuIdParam);
-        if(pMenuIdParam == "FM"){
+        if(pMenuIdParam == "FM" || pMenuIdParam == "undefined"){
              pMenuId = "FM";
              pMenuNm = "생산농가관리";
-             pMenuIdParam = "";
+             pMenuIdParam = "none";
          	//var pMenuIdParam = ${pMenuIdParam};
         	//var pMenuNmParam = ${pMenuNmParam};
         }
