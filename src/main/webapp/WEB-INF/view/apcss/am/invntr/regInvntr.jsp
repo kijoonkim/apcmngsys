@@ -299,7 +299,7 @@
 	var jsonPrdcrAutocomplete = [];
 	var autoCompleteDataJson = [];
 
-	
+
 	const fn_initSBSelect = async function() {
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let rst = await Promise.all([
@@ -319,9 +319,9 @@
 		fn_getPrdcrs();
 	}
 
-	
+
 	var checkSection = 0;
-	
+
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_rawMtrInvntr();
@@ -343,7 +343,7 @@
 				gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),	// 품종
 				stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
 			]);
-			
+
 		}else{
 			let rst = await Promise.all([
 				gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 				jsonComVrty, 				gv_selectedApcCd, itemCd),	// 품종
@@ -720,6 +720,7 @@
        				, wrhsSeNm			: item.wrhsSeNm
        				, trsprtSeNm		: item.trsprtSeNm
        				, originWarehouseSeNm	: item.warehouseSeNm
+       				, originWarehouseSeCd	: item.warehouseSeCd
        				, bxknd				: item.bxknd
        				, grdNm				: item.grdNm
        				, wrhsQntt			: item.wrhsQntt
@@ -732,6 +733,7 @@
        				, fcltNm			: item.fcltNm
        				, originInvntrQntt	: item.invntrQntt
       				, originInvntrWght	: item.invntrWght
+      				, chgRmrk			: ""
   				}
 
           		jsoninptCmndDsctnList.push(Object.assign({}, rawMtrInvntr));
@@ -813,6 +815,7 @@
        				, vrtyNm			: item.vrtyNm
        				, spcfctNm			: item.spcfctNm
        				, originWarehouseSeNm	: item.warehouseSeNm
+       				, originWarehouseSeCd	: item.warehouseSeCd
        				, sortQntt			: item.sortQntt
        				, sortWght			: item.sortWght
        				, pckgQntt			: item.pckgQntt
@@ -821,6 +824,7 @@
        				, invntrWght		: item.invntrWght
        				, originInvntrQntt	: item.invntrQntt
       				, originInvntrWght	: item.invntrWght
+      				, chgRmrk			: ""
   				}
           		jsoninptCmndDsctnList2.push(rawMtrInvntr2);
 
@@ -902,12 +906,14 @@
           				, gdsGrdNm			: item.gdsGrdNm
           				, gdsGrd			: item.gdsGrd
           				, originWarehouseSeNm	: item.warehouseSeNm
+          				, originWarehouseSeCd	: item.warehouseSeCd
           				, invntrQntt		: item.invntrQntt
           				, invntrWght		: item.invntrWght
           				, trnsfWarehouse	: item.trnsfWarehouse
           				, apcCd				: item.apcCd
           				, originInvntrQntt	: item.invntrQntt
           				, originInvntrWght	: item.invntrWght
+          				, chgRmrk			: ""
   				}
           		jsoninptCmndDsctnList3.push(rawMtrInvntr3);
 
@@ -951,16 +957,26 @@
     		let nRow = grdRows[i];
     		let rowData = inptCmndDsctnList.getRowData(nRow)
 			let rowSts = inptCmndDsctnList.getRowStatus(nRow);
+    		let rmrk = rowData.chgRmrk;
+
+    		let originWarehouseSeCd = rowData.originWarehouseSeCd
+    		let warehouseSeCd = rowData.warehouseSeCd;
+
+    		if(originWarehouseSeCd == warehouseSeCd){
+    			gfn_comAlert("W0007", "재고창고", "변경창고");		// W0007 {0}와/과 {1}이/가 같습니다.
+    			return;
+    		}
 
 			if (rowSts === 2){
 				rowData.apcCd = gv_selectedApcCd;
 				rowData.rowSts = "U";
+				rowData.rmrk = rmrk;
 				updateList.push(rowData);
 			} else {
 				continue;
 			}
 		}
-		
+
 		if (updateList.length == 0){
 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
             return;
@@ -969,9 +985,9 @@
 		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
 	    	return;
 	    }
-		
+
 		let postUrl = "";
-		
+
 		switch(checkSection) {
 			case 1:
 				postUrl = "/am/invntr/mulitSaveRawMtrInvntrList.do";
@@ -985,9 +1001,9 @@
 			default:
 				return;
 		}
-		
+
 		let postJsonPromise = gfn_postJSON(postUrl, updateList);
-		
+
     	const data = await postJsonPromise;
 
     	try {

@@ -114,6 +114,7 @@
 					     , PC.FCLT_CD           AS PCKG_FCLT_CD
 					     , PC.CMND_QNTT         AS CMND_QNTT
 					     , PC.CMND_WGHT         AS CMND_WGHT
+					     , PC.RMRK				AS RMRK
 					  FROM TB_SORT_INVNTR SI
 					     , TB_PCKG_CMND PC
 					 WHERE SI.APC_CD = PC.APC_CD(+)
