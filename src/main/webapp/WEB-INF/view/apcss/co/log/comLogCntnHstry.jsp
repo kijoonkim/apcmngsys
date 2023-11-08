@@ -137,6 +137,7 @@
 					  , pagingYn 			: 'Y'
 					  , currentPageNo 		: currentPageNo
 					  , recordCountPerPage 	: recordCountPerPage
+					  , prslType : "L1"
 				});
 
 		        const data = await postJsonPromise;

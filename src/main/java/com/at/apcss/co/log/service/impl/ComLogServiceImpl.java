@@ -27,7 +27,7 @@ import com.at.apcss.co.log.vo.ComLogVO;
  */
 @Service("comLogService")
 public class ComLogServiceImpl implements ComLogService {
-	
+
 	@Autowired
 	private ComLogMapper comLogMapper;
 
@@ -35,7 +35,7 @@ public class ComLogServiceImpl implements ComLogService {
 	public List<ComLogVO> selectCntnHstryList(ComLogVO comLogVO) throws Exception {
 		// TODO Auto-generated method stub
 		List<ComLogVO> resultList = comLogMapper.selectCntnHstryList(comLogVO);
-		
+
 		return resultList;
 	}
 
@@ -43,7 +43,7 @@ public class ComLogServiceImpl implements ComLogService {
 	public List<ComLogVO> selectMenuHstryList(ComLogVO comLogVO) throws Exception {
 		// TODO Auto-generated method stub
 		List<ComLogVO> resultList = comLogMapper.selectMenuHstryList(comLogVO);
-		
+
 		return resultList;
 	}
 
@@ -51,7 +51,7 @@ public class ComLogServiceImpl implements ComLogService {
 	public List<ComLogVO> selectTrsmHstryList(ComLogVO comLogVO) throws Exception {
 		// TODO Auto-generated method stub
 		List<ComLogVO> resultList = comLogMapper.selectTrsmHstryList(comLogVO);
-		
+
 		return resultList;
 	}
 
@@ -59,8 +59,16 @@ public class ComLogServiceImpl implements ComLogService {
 	public List<ComLogVO> selectBatchHstryList(ComLogVO comLogVO) throws Exception {
 		// TODO Auto-generated method stub
 		List<ComLogVO> resultList = comLogMapper.selectBatchHstryList(comLogVO);
-		
+
 		return resultList;
+	}
+
+	@Override
+	public void insertMenuHstry(ComLogVO comLogVO) throws Exception {
+		// TODO Auto-generated method stub
+		comLogMapper.insertMenuHstry(comLogVO);
+
+
 	}
 
 }

@@ -309,6 +309,7 @@
     	     , MENU_TYPE				= #{menuType}
     	     , PAGE_URL					= #{pageUrl}
     	     , DEL_YN					= #{delYn}
+    	     , PRSNA_INFO_YN					=#{prsnaInfoYn}
     	 ]]>
     	<if test='apcCd != null and apcCd != ""'>
     	     , APC_CD 					= #{apcCd}
@@ -348,6 +349,7 @@
 				, MN.APC_CD		AS APC_CD
 				, MN.INDCT_SEQ	AS INDCT_SEQ
 				, MN.DEL_YN 	AS DEL_YN
+				, MN.PRSNA_INFO_YN AS PRSNA_INFO_YN
 			  FROM (
 				SELECT
 					  LEVEL		AS LVL
@@ -362,6 +364,7 @@
 					, MN.APC_CD		AS APC_CD
 					, MN.INDCT_SEQ	AS INDCT_SEQ
 					, MN.DEL_YN		AS DEL_YN
+					, MN.PRSNA_INFO_YN
 				  FROM TB_COM_MENU MN
 				 WHERE 1=1
     	]]>

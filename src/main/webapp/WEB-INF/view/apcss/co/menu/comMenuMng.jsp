@@ -126,6 +126,12 @@
 											<sbux-select id="dtl-select-delYn" name="dtl-select-delYn" uitype="single" jsondata-ref="jsonComDelYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
 										</td>
 									</tr>
+									<tr>
+										<th scope="row" class="th_bg">개인정보 사용유무</th>
+										<td class="td_input">
+										<sbux-select id="dtl-select-flfmtYn" name="dtl-select-flfmtYn" uitype="single" jsondata-ref="jsonComFlfmt" onChange="onSelectMenuTypeChange(this)" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										</td>
+									</tr>
 								</thead>
 							</table>
 						</div>
@@ -147,6 +153,7 @@
     var jsonComMenuType = [];	// 메뉴유형	dtl-select-menuType		MENU_TYPE
     var jsonComUserType = [];	// 사용자유형	dtl-select-userType		USER_TYPE
     var jsonComDelYn 	= [];	// 삭제유무	dtl-select-delYn		REVERSE_YN
+    var jsonComFlfmt = []; //개인정보사용유무 dtl-select-flfmtYn FLFMT_TASK_SE_CD
 
     // grid 초기화
     var grdMenuTreeList; // 그리드를 담기위한 객체 선언
@@ -170,6 +177,7 @@
 	 	gfn_setComCdSBSelect('dtl-select-menuType', jsonComMenuType, 'MENU_TYPE');	// 메뉴유형
 	 	gfn_setComCdSBSelect('dtl-select-userType', jsonComUserType, 'USER_TYPE');	// 사용자유형
 	 	gfn_setComCdSBSelect('dtl-select-delYn', jsonComDelYn, 'REVERSE_YN');		// 삭제유무
+	 	gfn_setComCdSBSelect('dtl-select-flfmtYn', jsonComFlfmt, 'USE_YN');		// 개인정보사용유무
     }
 
 
@@ -295,6 +303,10 @@
     	if (!SBUxMethod.get("dtl-input-upMenuId")) {
     		return;	// 상위메뉴가 없으면 return
     	}
+    	if(!SBUxMethod.get("dtl-select-flfmtYn")){
+    		gfn_comAlert("W0002","개인정보 사용유무");
+    		return; // 개인정보 사용유무 선택
+    	}
 
     	// check 메뉴명
         if (!SBUxMethod.get("dtl-input-menuNm")) {
@@ -394,6 +406,7 @@
 		});
 
         const data = await postJsonPromise;
+        console.log(data,"시스템구분에 맞는 정보");
 
         try {
 
@@ -413,7 +426,8 @@
 					menuType : item.menuType,
 					userType : item.userType,
 					pageUrl : item.pageUrl,
-					delYn : item.delYn
+					delYn : item.delYn,
+					prsnaInfoYn : item.prsnaInfoYn
 				}
 				jsonMenuTreeList.push(menu);
 
@@ -497,6 +511,8 @@
     	let userType 		= SBUxMethod.get('dtl-select-userType');	// 사용자유형
     	let pageUrl 		= SBUxMethod.get('dtl-input-pageUrl');		// 화면URL
     	let delYn 			= SBUxMethod.get('dtl-select-delYn');		// 사용유무
+    	let prsnaInfoYn	 = SBUxMethod.get("dtl-select-flfmtYn"); //개인정보 사용유무
+    	console.log(prsnaInfoYn);
 
     	const postJsonPromise = gfn_postJSON("/co/menu/updateMenu.do", {
 	  		apcCd 		: apcCd,
@@ -507,7 +523,8 @@
   		    userType 	: userType,
   		  	order		: order,
   		  	pageUrl 	: pageUrl,
-  		  	delYn		: delYn
+  		  	delYn		: delYn,
+  		  prsnaInfoYn : prsnaInfoYn
 		});
 
 		const data = await postJsonPromise;
@@ -565,6 +582,7 @@
         }
 
         var rowData = grdMenuTreeList.getRowData(nRow);
+        console.log(rowData);
 
         var sysIdInfo = _.find(jsonComSysId, {value: SBUxMethod.get("srch-slt-sysId")});
         SBUxMethod.set("dtl-input-sysNm", sysIdInfo.text);
@@ -581,6 +599,8 @@
         SBUxMethod.set("dtl-select-userType", rowData.userType);
         SBUxMethod.set("dtl-input-pageUrl", rowData.pageUrl);
         SBUxMethod.set("dtl-select-delYn", rowData.delYn);	// 기본값 사용여부(N)
+        SBUxMethod.set("dtl-select-flfmtYn", rowData.prsnaInfoYn);
+
 
         // 화면유형 : 01 -> 입력불가, 02 -> PAGE_URL 입력
         if(rowData.menuType == "01"){
