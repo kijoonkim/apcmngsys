@@ -132,8 +132,6 @@
 			popOprtr.close(rowData);
 		},
 		search: async function() {
-			let apcCd = this.prvApcCd;
-
 			grdOprtrPop.rebuild();
 	    	let pageSize = grdOprtrPop.getPageSize();
 	    	let pageNo = 1;
@@ -141,14 +139,21 @@
 	    	// grid clear
 	    	jsonOprtrPop.length = 0;
 	    	grdOprtrPop.refresh();
-	    	this.setGrid(pageSize, pageNo);
+	    	await this.setGrid(pageSize, pageNo);
 		},
 		setGrid: async function(pageSize, pageNo) {
 			jsonOprtrPop = [];
 
 			let apcCd = this.prvApcCd;
 			let flnm = SBUxMethod.get("oprtr-inp-flnm");
-	    	let postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrList.do", {apcCd : apcCd, flnm : flnm});
+	    	let postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrList.do", {
+	        	apcCd: apcCd,
+	        	flnm : flnm,
+	        	// pagination
+		  		pagingYn : 'Y',
+				currentPageNo : pageNo,
+	 		  	recordCountPerPage : pageSize
+	 		});
 	        let data = await postJsonPromise;
 	        try{
 	    		let totalRecordCount = 0;

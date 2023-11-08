@@ -36,14 +36,16 @@
 							</th>
 							<th scope="row"><span class="data_required"></span>품목명</th>
 							<th style="border-right-style: hidden;">
-								<sbux-select id="gds-slt-itemCd"
-								name="gds-slt-itemCd"
-								style="background-color:#ffffff;"
-								uitype="single"
-								jsondata-ref="jsonGdsItemCd"
-								unselected-text="선택"
-								class="form-control input-sm input-sm-ast inpt_data_reqed"
-								onchange="fn_selectItem"></sbux-select>
+								<sbux-select
+									id="gds-slt-itemCd"
+									name="gds-slt-itemCd"
+									style="background-color:#ffffff;"
+									uitype="single"
+									jsondata-ref="jsonGdsItemCd"
+									unselected-text="선택"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="fn_selectItem"
+								></sbux-select>
 							</th>
 							<th scope="row">상품명</th>
 							<th class="td_input">
@@ -88,7 +90,7 @@
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
-		init: async function(_apcCd, _apcNm, _spmtPckgUnitNm, _callbackFnc) {
+		init: async function(_apcCd, _apcNm, _spmtPckgUnitNm, _callbackFnc, _itemCd) {
 			// set param
 			SBUxMethod.set("gds-inp-apcCd", _apcCd);
 			SBUxMethod.set("gds-inp-apcNm", _apcNm);
@@ -102,10 +104,10 @@
 					gfn_setApcItemSBSelect("gds-slt-itemCd", jsonGdsItemCd, _apcCd), 	// APC 품목(검색)
 				]);
 				this.createGrid();
-				this.search();
-			} else {
-				this.search();
 			}
+			
+			SBUxMethod.set("gds-slt-itemCd", _itemCd);
+			this.search();
 
 			this.prvApcCd = _apcCd;
 		},
