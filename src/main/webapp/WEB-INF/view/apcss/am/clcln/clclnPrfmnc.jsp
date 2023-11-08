@@ -135,27 +135,18 @@
 											unselected-text="전체"
 											class="form-control input-sm"
 											jsondata-ref="jsonApcItem"
-											onchange="fn_onChangeSrchItemCd(this)"
+											onchange="fn_selectItem"
 										></sbux-select>
 									</div>
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<div class="fl_group fl_rpgroup">
-									<div class="dp_inline wd_180 va_m">
-										<sbux-select
-											id="srch-slt-vrtyCd"
-											name="srch-slt-vrtyCd"
-											uitype="single"
-											unselected-text="전체"
-											class="form-control input-sm"
-											jsondata-ref="jsonApcVrty"
-											onchange="fn_onChangeSrchVrtyCd(this)"
-										></sbux-select>
-									</div>
-								</div>
+								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" uitype="text" class="form-control input-sm" maxlength="33" show-clear-button="true" readonly></sbux-input>
+								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden"></sbux-input>
 							</td>
-							<td></td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="btnSrchVrty" name="btnSrchVrty" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"/>
+							</td>
 							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -166,7 +157,7 @@
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
-    								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
+    								oninput="fn_onInputPrdcrNm(event)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
 								></sbux-input>
 							</td>
@@ -208,12 +199,28 @@
 	        uitype="middle"
 	        header-title="생산자 선택"
 	        body-html-id="body-modal-prdcr"
+	        header-is-close-button="false"
 	        footer-is-close-button="false"
 	        style="width:1100px"
         ></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
+    </div>
+    <!-- 품종 선택 Modal -->
+    <div>
+        <sbux-modal
+	        id="modal-vrty"
+	        name="modal-vrty"
+	        uitype="middle"
+	        header-title="품종 선택"
+	        body-html-id="body-modal-vrtyCrtr"
+	        header-is-close-button="false"
+	        footer-is-close-button="false"
+	        style="width:800px"></sbux-modal>
+    </div>
+    <div id="body-modal-vrtyCrtr">
+    	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
     </div>
 </body>
 <script type="text/javascript">
@@ -249,7 +256,7 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, 		gv_selectedApcCd),						// 품목
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonApcVrty, 		gv_selectedApcCd),						// 품종
+			gfn_setApcVrtySBSelect('srch-inp-vrtyCd', 		jsonApcVrty, 		gv_selectedApcCd),						// 품종
 			gfn_setComCdSBSelect('srch-slt-clclnCrtrCd', 	jsonComClclnCrtrCd, 	'CLCLN_CRTR_CD')	// 정산기준
 		]);
 	}
@@ -294,6 +301,11 @@
 		}
 	}
 
+	function fn_selectItem(){
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		SBUxMethod.set("srch-inp-vrtyNm", "");
+		SBUxMethod.set("srch-inp-vrtyCd", "");
+	}
 
 	function fn_createGrid() {
         var SBGridProperties = {};
@@ -407,7 +419,7 @@
 
   		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");			// 생산자
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
-  		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
+  		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");				// 품종
 
 		const postJsonPromise = gfn_postJSON("/am/clcln/selectClclnPrfmncList.do", {
 			apcCd: gv_selectedApcCd,
@@ -507,7 +519,8 @@
 		// 품목
 		SBUxMethod.set("srch-slt-itemCd", null);
 		// 품종
-		SBUxMethod.set("srch-slt-vrtyCd", null);
+		SBUxMethod.set("srch-inp-vrtyCd", "");
+		SBUxMethod.set("srch-inp-vrtyNm", "");
 
 		// 생산자
 		SBUxMethod.set("srch-inp-prdcrCd", "");
@@ -515,51 +528,30 @@
 
 		// 확정여부
 		SBUxMethod.set("srch-slt-cfmtnYn", null);
-
-		fn_onChangeSrchItemCd({value: null});
 	}
 
 	/**
-	 * @name fn_onChangeSrchItemCd
-	 * @description 품목 선택 변경 event
+	 * @name getByteLengthOfString
+	 * @description 글자 byte 크기 계산
 	 */
-	const fn_onChangeSrchItemCd = async function(obj) {
-		let itemCd = obj.value;
-		await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd);
+ 	const getByteLengthOfString = function (s, b, i, c) {
+		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+		  return b;
 	}
-
+ 	
 	/**
-	 * @name fn_onChangeSrchVrtyCd
-	 * @description 품종 선택 변경 event
-	 */
-	const fn_onChangeSrchVrtyCd = async function(obj) {
-
-		let vrtyCd = obj.value;
-
-		if (gfn_isEmpty(vrtyCd)) {
-			return;
-		}
-
-		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
-		const itemCd = vrtyInfo.mastervalue;
-
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
-			SBUxMethod.set("srch-slt-itemCd", itemCd);
-			await fn_onChangeSrchItemCd({value: itemCd});
-			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
-		}
-	}
-
-	/**
-	 * @name fn_onKeyUpPrdcrNm
+	 * @name fn_onInputPrdcrNm
 	 * @description 생산자명 입력 시 event : autocomplete
 	 */
-	const fn_onKeyUpPrdcrNm = function(prdcrNm){
+	const fn_onInputPrdcrNm = function(prdcrNm){
 		fn_clearPrdcr();
-		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
-    	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
-    }
+		if(getByteLengthOfString(prdcrNm.target.value) > 100){
+			SBUxMethod.set("srch-inp-prdcrNm", "");
+			return;
+		}
+		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
+   		SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
+   }
 
 	/**
 	 * @name fn_onSelectPrdcrNm
@@ -577,7 +569,7 @@
  	 * @description 생산자 팝업 호출
  	 */
  	const fn_choicePrdcr = function() {
- 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr);
+ 		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
  	}
 
  	const fn_setPrdcr = function(prdcr) {
@@ -604,19 +596,57 @@
 	const fn_setPrdcrForm = async function(prdcr) {
 
 		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
-			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
-			SBUxMethod.set("srch-slt-vrtyCd", prdcr.rprsVrtyCd);
-			fn_onChangeSrchVrtyCd({value:prdcr.rprsVrtyCd});
+			await gfn_setApcVrtySBSelect('srch-inp-vrtyCd', jsonApcVrty, gv_selectedApcCd);
+			SBUxMethod.set("srch-inp-vrtyCd", prdcr.rprsVrtyCd);
 		} else {
 			if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
 				const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 				if (prvItemCd != prdcr.rprsItemCd) {
 					SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);
-					fn_onChangeSrchItemCd({value:prdcr.rprsItemCd});
 				}
 			}
 		}
 	}
+	
+	// 품종 선택 팝업 호출
+	const fn_modalVrty = function() {
+    	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
+	}
 
+     const fn_setVrty = function(vrty) {
+		if (!gfn_isEmpty(vrty)) {
+			SBUxMethod.setValue('srch-slt-itemCd', vrty.itemCd);
+			SBUxMethod.set('srch-inp-vrtyNm', vrty.vrtyNm);
+			SBUxMethod.set('srch-inp-vrtyCd', vrty.vrtyCd);
+		}
+	}
+     const fn_setVrtys = function(vrtys) {
+		if (!gfn_isEmpty(vrtys)) {
+			var _vrtyCd = [];
+			var _vrtyNm = [];
+			var diff = false;
+			for(var i=0;i<vrtys.length;i++){
+				if (vrtys[0].itemCd != vrtys[i].itemCd) {
+					diff = true;
+				}
+				_vrtyCd.push(vrtys[i].vrtyCd);
+				_vrtyNm.push(vrtys[i].vrtyNm);
+			}
+			if (diff) {
+				SBUxMethod.set('srch-slt-itemCd', "");
+			} else {
+				SBUxMethod.set('srch-slt-itemCd', vrtys[0].itemCd);
+			}
+			SBUxMethod.set('srch-inp-vrtyCd', _vrtyCd.join(','));
+			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNm.join(','));
+		}
+	}
+
+ 	$(function(){
+ 		$(".glyphicon").on("click", function(){
+ 			SBUxMethod.set("srch-inp-vrtyNm", "");
+			SBUxMethod.set("srch-inp-vrtyCd", "");
+ 		})
+ 	})
 </script>
 </html>

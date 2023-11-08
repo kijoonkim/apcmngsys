@@ -236,6 +236,7 @@
         	header-title="생산자 선택"
         	body-html-id="body-modal-prdcr"
         	footer-is-close-button="false"
+        	header-is-close-button="false"
         	style="width:1000px"
        	></sbux-modal>
     </div>
