@@ -34,6 +34,7 @@
 
 	let prvTabMenuId = "";
 
+	let firstLaod = 0;
 	//const sysPrgrmId = "main";
 	//gfn_setSysPrgrmId(sysPrgrmId);
     //SBUx topmenu 컴포넌트의 json 데이터
@@ -115,10 +116,11 @@
         var pMenuNm = menuInfo.value;
         
         alert(pMenuIdParam);
-        if(pMenuIdParam == "PD" || pMenuIdParam == "undefined"){
+        if(firstLaod == 0){
              pMenuId = "PD";
              pMenuNm = "산지유통평가등록";
              pMenuIdParam = "none";
+             firstLaod = firstLaod+1;
          	//var pMenuIdParam = ${pMenuIdParam};
         	//var pMenuNmParam = ${pMenuNmParam};
         }
