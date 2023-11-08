@@ -39,6 +39,18 @@
 							<td scope="row" style="border-right: hidden;">
 								<sbux-input id="inp-apcCd" name="inp-apcCd" uitype="text" class="form-control input-sm" readonly></sbux-input>
 							</td>
+							<td scope="row" align="right">업태</td>
+							<td scope="row" style="border-right: hidden;">
+								<sbux-input id="inp-bzstat" name="inp-bzstat" uitype="text" class="form-control input-sm" ></sbux-input>
+							</td>
+							<td scope="row" align="right">종목</td>
+							<td scope="row" style="border-right: hidden;">
+								<sbux-input id="inp-cls" name="inp-cls" uitype="text" class="form-control input-sm" ></sbux-input>
+							</td>
+							<td scope="row" align="right">APC대표자명</td>
+							<td scope="row" style="border-right: hidden;">
+								<sbux-input id="inp-apcRprsvNm" name="inp-apcRprsvNm" uitype="text" class="form-control input-sm" ></sbux-input>
+							</td>
 						</tr>
 						<tr>
 							<td scope="row" align="right"><span class="data_required"></span>명칭</td>
@@ -654,7 +666,6 @@
 	const selectApcEvrmntStng = async function(){
 		let apcCd = gv_apcCd;
     	let postJsonPromise = gfn_postJSON("/am/apc/selectApcEvrmntStng.do", {apcCd : apcCd});
-
         let data = await postJsonPromise;
 		let resultVO = data.resultVO;
         try{
@@ -668,6 +679,9 @@
         	SBUxMethod.set("inp-brno", resultVO.brno);
         	SBUxMethod.set("rdo-clclnCrtrCd", resultVO.clclnCrtrCd);
         	SBUxMethod.set("rdo-apcSeCd", resultVO.apcSeCd);
+        	SBUxMethod.set("inp-apcRprsvNm", resultVO.apcRprsvNm);
+        	SBUxMethod.set("inp-cls", resultVO.cls);
+        	SBUxMethod.set("inp-bzstat", resultVO.bzstat);
         	SBUxMethod.set("chk-wghMngYn", resultVO.wghMngYn);
         	SBUxMethod.set("chk-wghMblUseYn", resultVO.wghMblUseYn);
         	SBUxMethod.set("chk-wghIdntyDocPblcnYn", resultVO.wghIdntyDocPblcnYn);
@@ -1236,6 +1250,9 @@
     	  , brno 					: SBUxMethod.get("inp-brno")
     	  , apcSeCd					: SBUxMethod.get("rdo-apcSeCd")
     	  , clclnCrtrCd				: SBUxMethod.get("rdo-clclnCrtrCd")
+    	  , bzstat					: SBUxMethod.get("inp-bzstat")
+    	  , cls						: SBUxMethod.get("inp-cls")
+    	  , apcRprsvNm				: SBUxMethod.get("inp-apcRprsvNm")
     	  , cdVls					: cdVls
     	}
     	let postJsonPromise = gfn_postJSON("/am/apc/updateApcEvrmntStng.do", apcEvrmntStng);
