@@ -116,8 +116,8 @@
 //        var pMenuNm = "APC전수조사";
 
        if(firstLoad == 0){
-      	 var pMenuId = "PD";
-           var pMenuNm = "산지유통평가등록";
+      	 var pMenuId = "CS";
+           var pMenuNm = "APC전수조사";
           firstLoad = firstLoad +1;
         }else{
      	 var pMenuId = menuInfo.pid;
