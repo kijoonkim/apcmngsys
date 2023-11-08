@@ -113,10 +113,10 @@
 
        
        alert(pMenuIdParam);
-       if(pMenuIdParam == "CS"){
+       if(pMenuIdParam == "CS" || pMenuIdParam == "undefined"){
             pMenuId = "CS";
             pMenuNm = "APC전수조사";
-            pMenuIdParam = "";
+            pMenuIdParam = "none";
         	//var pMenuIdParam = ${pMenuIdParam};
        	//var pMenuNmParam = ${pMenuNmParam};
        }
