@@ -33,28 +33,28 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button 
-						id="rawMtrInvntr-btn-search" 
-						name="rawMtrInvntr-btn-search" 
-						uitype="normal" 
-						text="조회" 
-						class="btn btn-sm btn-outline-danger" 
+					<sbux-button
+						id="rawMtrInvntr-btn-search"
+						name="rawMtrInvntr-btn-search"
+						uitype="normal"
+						text="조회"
+						class="btn btn-sm btn-outline-danger"
 						onclick="popRawMtrInvntr.search"
 					></sbux-button>
-					<sbux-button 
-						id="rawMtrInvntr-btn-choice" 
-						name="rawMtrInvntr-btn-choice" 
-						uitype="normal" 
-						text="선택" 
-						class="btn btn-sm btn-outline-danger" 
+					<sbux-button
+						id="rawMtrInvntr-btn-choice"
+						name="rawMtrInvntr-btn-choice"
+						uitype="normal"
+						text="선택"
+						class="btn btn-sm btn-outline-danger"
 						onclick="popRawMtrInvntr.choice"
 					></sbux-button>
-					<sbux-button 
-						id="rawMtrInvntr-btn-close" 
-						name="rawMtrInvntr-btn-close" 
-						uitype="normal" 
-						text="종료" 
-						class="btn btn-sm btn-outline-danger" 
+					<sbux-button
+						id="rawMtrInvntr-btn-close"
+						name="rawMtrInvntr-btn-close"
+						uitype="normal"
+						text="종료"
+						class="btn btn-sm btn-outline-danger"
 						onclick="popRawMtrInvntr.close"
 					></sbux-button>
 				</div>
@@ -98,7 +98,7 @@
 									uitype="popup"
 									class="form-control input-sm sbux-pik-group-apc"
 									onchange="popRawMtrInvntr.chkWrhsYmdTo"
-								></sbux-datepicker>							
+								></sbux-datepicker>
 							</th>
 						</tr>
 						<tr>
@@ -130,13 +130,13 @@
 							</th>
 							<th colspan="3" scope="row">규격</th>
 							<th>
-								<sbux-select 
-									id="rawMtrInvntr-slt-spcfctCd" 
-									name="rawMtrInvntr-slt-spcfctCd" 
-									uitype="single" 
-									class="form-control input-sm" 
-									style="background-color:#FFFFFF;" 
-									jsondata-ref="jsonApcSpcfctRawMtrInvntrPop" 
+								<sbux-select
+									id="rawMtrInvntr-slt-spcfctCd"
+									name="rawMtrInvntr-slt-spcfctCd"
+									uitype="single"
+									class="form-control input-sm"
+									style="background-color:#FFFFFF;"
+									jsondata-ref="jsonApcSpcfctRawMtrInvntrPop"
 									unselected-text="전체"
 								></sbux-select>
 							</th>
@@ -144,7 +144,7 @@
 					</tbody>
 				</table>
 				<!--[pp] //검색 -->
-				<!--[pp] 검색결과 -->				
+				<!--[pp] 검색결과 -->
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -169,7 +169,7 @@
 	var jsonApcSpcfctRawMtrInvntrPop	= [];	// 규격 		spcfct			검색
 
 	var grdRawMtrInvntrPop = null;
-	
+
 	const popRawMtrInvntr = {
 		modalId: 'modal-rawMtrInvntr',
 		gridId: 'grdRawMtrInvntrPop',
@@ -180,26 +180,26 @@
 		gridJson: [],
 		callbackSelectFnc: function() {},
 		init: async function(_param, _callbackChoiceFnc) {
-			
+
 			SBUxMethod.set("rawMtrInvntr-inp-apcCd", _param.apcCd);
 			SBUxMethod.set("rawMtrInvntr-inp-apcNm", _param.apcNm);
-			
+
 			let frstYmd = gfn_dateFirstYmd(new Date());
 			let nowYmd = gfn_dateToYmd(new Date());
 			SBUxMethod.set("rawMtrInvntr-dtp-wrhsYmdFrom", frstYmd);
 			SBUxMethod.set("rawMtrInvntr-dtp-wrhsYmdTo", nowYmd);
-			
+
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
 				this.callbackSelectFnc = _callbackChoiceFnc;
 			}
-			
+
 			if (grdRawMtrInvntrPop === null || this.prvApcCd != _param.apcCd) {
 
 				let rst = await Promise.all([
 				 	gfn_setApcItemSBSelect('rawMtrInvntr-slt-itemCd', jsonApcItemRawMtrInvntrPop, _param.apcCd),							// 품목
 					gfn_setApcVrtySBSelect('rawMtrInvntr-slt-vrtyCd', jsonApcVrtyRawMtrInvntrPop, _param.apcCd)							// 품종
 				]);
-				
+
 				this.createGrid();
 				this.search();
 			} else {
@@ -298,7 +298,7 @@
 			let itemCd = SBUxMethod.get("rawMtrInvntr-slt-itemCd");
 			let vrtyCd = SBUxMethod.get("rawMtrInvntr-slt-vrtyCd");
 			let spcfctCd = SBUxMethod.get("rawMtrInvntr-slt-spcfctCd");
-			
+
 			let rawMtrInvntr = {
 					apcCd: apcCd,
 					wrhsYmdFrom: wrhsYmdFrom,
@@ -311,10 +311,9 @@
 					currentPageNo 		: pageNo,
 		 		  	recordCountPerPage	: pageSize
 			}
-			
+
 			let postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntrList.do", rawMtrInvntr);
 		    let data = await postJsonPromise;
-
 		    try{
 		    	let totalRecordCount = 0;
 		    	jsonRawMtrInvntrPop.length = 0;
@@ -337,8 +336,8 @@
 	       				wrhsSeCd		: item.wrhsSeCd,
 	       				trsprtSeCd		: item.trsprtSeCd,
 	       				warehouseSeCd	: item.warehouseSeCd,
-	       				bxkndNm			: item.bxkndNm,
-	       				bxknd			: item.bxknd,
+	       				bxKndNm			: item.bxKndNm,
+	       				bxKnd			: item.bxKnd,
 	       				grdNm			: item.grdNm,
 	       				grdCd			: item.grdCd,
 	       				wrhsQntt		: item.wrhsQntt,
@@ -377,7 +376,7 @@
 
 	        	document.querySelector('#rawMtrInvntr-pop-cnt').innerText = totalRecordCount;
 	        	grdRawMtrInvntrPop.rebuild();
-	        	
+
 		    } catch (e) {
 				if (!(e instanceof Error)) {
 					e = new Error(e);
@@ -397,11 +396,11 @@
 		onChangedVrtyCd: async function(obj) {
 	    	let apcCd = SBUxMethod.get("rawMtrInvntr-inp-apcCd");
 			let vrtyCd = obj.value;
-			
+
 			if (gfn_isEmpty(vrtyCd)) {
 				return;
 			}
-			
+
 			const itemCd = _.find(jsonApcVrtyRawMtrInvntrPop, {value: vrtyCd}).mastervalue;
 
 			const prvItemCd = SBUxMethod.get("rawMtrInvntr-slt-itemCd");
