@@ -132,7 +132,7 @@
 											uitype="single"
 											unselected-text="전체"
 											class="form-control input-sm"
-											jsondata-ref="jsonCfmtnYn"
+											jsondata-ref="jsonComCfmtnYn"
 										></sbux-select>
 									</div>
 								</div>
@@ -271,11 +271,7 @@
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonComClclnCrtrCd	= [];	// 정산기준 	clclnCrtr	검색
-	var jsonCfmtnYn			= [
-			{text: "Y", value: "Y", label: "Y"},
-			{text: "N", value: "N", label: "N"}
-		];	// 확정여부 	cfmtnYn		검색
-
+	var jsonComCfmtnYn		= [];
 	/* 생산자 자동완성 */
     var jsonPrdcr = [];
     var jsonPrdcrAutocomplete = [];
@@ -289,10 +285,14 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, 		gv_selectedApcCd),						// 품목
-			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonApcVrty, 		gv_selectedApcCd),						// 품종
-			gfn_setComCdSBSelect('srch-slt-clclnCrtrCd', 	jsonComClclnCrtrCd, 	'CLCLN_CRTR_CD')	// 정산기준
+			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, 		gv_selectedApcCd),		// 품목
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonApcVrty, 		gv_selectedApcCd),		// 품종
+			gfn_setComCdSBSelect('srch-slt-clclnCrtrCd', 	jsonComClclnCrtrCd, 'CLCLN_CRTR_CD'),		// 정산기준
+			gfn_setComCdSBSelect('srch-slt-cfmtnYn', 		jsonComCfmtnYn, 	'CFMTN_YN'),			// 확정유무
+			gfn_setComCdSBSelect('grdClclnPrfmnc', 			jsonGrdCfmtnYn, 	'CFMTN_YN'),			// 확정유무
 		]);
+
+		grdClclnPrfmnc.refresh({"combo":true})
 	}
 
 	/**
@@ -356,7 +356,7 @@
             	format : {type:'number', rule:'#,### kg'}
             },
             {caption: ["계산금액"], ref: 'rkngAmt', type:'output',  width:'100px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,###'}
+            	format : {type:'number', rule:'#,###'}, typeinfo : {maxlength : 10}
             },
             {
 				caption: ["확정금액"],
@@ -371,11 +371,13 @@
 	                maxlength: 10,
 	                oneclickedit: true
                 },
-                format : {type:'number', rule:'#,###'}
+                format : {type:'number', rule:'#,###'},
+                typeinfo : {maxlength : 10}
+
 			},
-            {caption: ["확정여부"], ref: 'cfmtnYn', type:'combo',  width:'60px', style: 'text-align:center;',
+            {caption: ["확정여부"], ref: 'cfmtnYn', type:'combo',  width:'80px', style: 'text-align:center;',
             	userattr: {colNm: "cfmtnYn"},
-            	typeinfo: {ref:'jsonCfmtnYn', label: 'label', value: 'value', oneclickedit: true, displayui : false}
+            	typeinfo: {ref:'jsonGrdCfmtnYn', label: 'label', value: 'value', oneclickedit: true, displayui : false}
             },
             {caption: [""], ref: '_', type:'output', width:'1px'},
             {caption: ["정산순번"], ref: 'clclnSn', type:'output', hidden: true},

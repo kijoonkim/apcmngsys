@@ -30,8 +30,8 @@
 					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>	<!-- 출하실적등록 -->
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchGdsInvnrt" name="btnSearchGdsInvnrt" uitype="normal" text="재고조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reset"></sbux-button>
+					<sbux-button id="btnSearchGdsInvnrt" name="btnSearchGdsInvnrt" uitype="normal" text="재고조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -244,7 +244,7 @@
 							<td class="td_input"></td>
 							<th scope="row" class="th_bg">차량번호</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="dtl-inp-vhclno" name="dtl-inp-vhclno" uitype="text" class="form-control input-sm" maxlength="10" onkeyup="fn_vhclCheck"></sbux-input>
+								<sbux-input id="dtl-inp-vhclno" name="dtl-inp-vhclno" uitype="text" class="form-control input-sm" maxlength="8" ></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" ></td>
 							<th scope="row" class="th_bg">배송처</th>
@@ -466,12 +466,6 @@
 			SBUxMethod.set("dtl-dtp-spmtYmd", gfn_dateToYmd(new Date()));
 			return;
 		}
-	}
-
-	const fn_vhclCheck = function(){
-		let vhclno = SBUxMethod.get("dtl-inp-vhclno")
-		const regex = /\d{2,3}[가-힣]{1}\{4}/gm
-
 	}
 
 	var jsonGdsInvntr = []; // 상품재고내역 Json
@@ -987,6 +981,14 @@
     		gfn_comAlert("W0001", "거래처");			//	W0001	{0}을/를 선택하세요.
             return;
     	}
+
+    	if(!gfn_isEmpty(vhclno)){
+    		if(!(/^\d{2,3}[가-힣]\d{4}/.exec(vhclno))){
+	    		gfn_comAlert("W0011", "차량번호");			//	W0001	{0}이/가 아닙니다.
+    			return;
+    		}
+    	}
+
 
     	if(grdRows.length == 0){
     		gfn_comAlert("W0003", "저장");			// W0003	{0}할 대상이 없습니다.

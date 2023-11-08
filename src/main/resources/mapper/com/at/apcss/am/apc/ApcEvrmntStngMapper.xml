@@ -129,6 +129,9 @@
 				, DPSTR
 				, APC_SE_CD
 				, CLCLN_CRTR_CD
+				, APC_RPRSV_NM
+				, CLS
+				, BZSTAT
 				, WGH_MNG_YN
 				, WGH_MBL_USE_YN
 				, WGH_IDNTY_DOC_PBLCN_YN
@@ -185,6 +188,9 @@
 				, #{dpstr}
 				, #{apcSeCd}
 				, #{clclnCrtrCd}
+				, #{apcRprsvNm}
+				, #{cls}
+				, #{bzstat}
 				, #{wghMngYn}
 				, #{wghMblUseYn}
 				, #{wghIdntyDocPblcnYn}
@@ -254,6 +260,9 @@
 				, APC.DPSTR						AS DPSTR
 				, APC.APC_SE_CD					AS APC_SE_CD
 				, APC.CLCLN_CRTR_CD				AS CLCLN_CRTR_CD
+				, APC.BZSTAT					AS BZSTAT
+				, APC.CLS 						AS CLS
+				, APC.APC_RPRSV_NM 				AS APC_RPRSV_NM
 				, APC.WGH_MNG_YN				AS WGH_MNG_YN
 				, APC.WGH_MBL_USE_YN			AS WGH_MBL_USE_YN
 				, APC.WGH_IDNTY_DOC_PBLCN_YN	AS WGH_IDNTY_DOC_PBLCN_YN
@@ -375,6 +384,9 @@
 				, DPSTR						= #{dpstr}
 				, APC_SE_CD					= #{apcSeCd}
 				, CLCLN_CRTR_CD 			= #{clclnCrtrCd}
+				, APC_RPRSV_NM				= #{apcRprsvNm}
+				, CLS						= #{cls}
+				, BZSTAT					= #{bzstat}
 			 WHERE APC_CD = #{apcCd}
 		]]>
     </update>

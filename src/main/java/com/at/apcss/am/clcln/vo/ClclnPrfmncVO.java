@@ -33,8 +33,8 @@ public class ClclnPrfmncVO extends ComVO {
 	 */
 	private String clclnCrtrCd;
 	private String clclnCrtrNm;
-	
-	
+
+
 	/**
 	 * 정산일자
 	 */
@@ -139,6 +139,7 @@ public class ClclnPrfmncVO extends ComVO {
 	 * 확정유무
 	 */
 	private String cfmtnYn;
+	private String cfmtnYnNm;
 	/**
 	 * 확정금액
 	 */
@@ -147,11 +148,11 @@ public class ClclnPrfmncVO extends ComVO {
 	 * 확정금액합계
 	 */
 	private double totCfmtnAmt;
-	
+
 	private String prfmncYmdFrom;
 	private String prfmncYmdTo;
-	
+
 	private String rtnCd;
-	
+
 	private String rtnMsg;
 }

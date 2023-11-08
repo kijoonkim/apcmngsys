@@ -70,7 +70,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>정산기준</th>
+							<th scope="row" class="th_bg">정산기준</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
 									<div class="dp_inline wd_180 va_m">
@@ -296,14 +296,14 @@
      * @description 저장 버튼
      */
     const fn_save = async function() {
-    	
+
 		const allData = grdClclnUntprc.getGridDataAll();
 
 		const clclnUntprcList = [];
-		
+
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
-				
+
 				clclnUntprcList.push({
 					apcCd: item.apcCd,
 					gdsSeCd: item.gdsSeCd,
@@ -351,7 +351,7 @@
     const fn_search = async function() {
     	fn_setGrdClclnUntprc();
 	}
-    
+
     /**
      * @name fn_setGrdClclnUntprc
      * @description 정산내역 조회
@@ -361,7 +361,7 @@
    		let clclnCrtrCd = SBUxMethod.get("srch-slt-clclnCrtrCd");	// 정산기준코드
    		let itemCd = SBUxMethod.get("srch-slt-itemCd");	// 품목
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");	// 품종
-  		
+
 		const postJsonPromise = gfn_postJSON("/am/clcln/selectClclnUntprcList.do", {
 			apcCd: gv_selectedApcCd,
 			clclnCrtrCd: clclnCrtrCd,
@@ -377,7 +377,7 @@
 
           	/** @type {number} **/
       		let totalRecordCount = 0;
-      		
+
       		jsonClclnUntprc.length = 0;
           	data.resultList.forEach((item, index) => {
           		const clclnUntprc = {
@@ -428,11 +428,11 @@
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 
 		let vrtyCd = obj.value;
-		
+
 		if (gfn_isEmpty(vrtyCd)) {
 			return;
 		}
-		
+
 		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
 		const itemCd = vrtyInfo.mastervalue;
 
