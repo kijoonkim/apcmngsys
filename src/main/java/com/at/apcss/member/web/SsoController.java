@@ -247,6 +247,9 @@ public class SsoController extends BaseController {
 		}
 
 		model.addAttribute("topMenuList", menuList);
+		
+		model.addAttribute("pMenuIdParam", "FM");
+		model.addAttribute("pMenuNmParam", "생산농가관리");
 
 		model.addAttribute("reportDbName", getReportDbName());
 		model.addAttribute("reportUrl", getReportUrl());
@@ -452,7 +455,10 @@ public class SsoController extends BaseController {
 		}
 
 		model.addAttribute("topMenuList", menuList);
-
+		
+		model.addAttribute("pMenuIdParam", "PD");
+		model.addAttribute("pMenuNmParam", "산지유통평가등록");
+		
 		model.addAttribute("reportDbName", getReportDbName());
 		model.addAttribute("reportUrl", getReportUrl());
 		model.addAttribute("reportType", getReportType());
@@ -662,6 +668,10 @@ public class SsoController extends BaseController {
 		}
 
 		model.addAttribute("topMenuList", menuList);
+		
+		model.addAttribute("pMenuIdParam", "CS");
+		model.addAttribute("pMenuNmParam", "APC전수조사");
+  
 
 		model.addAttribute("reportDbName", getReportDbName());
 		model.addAttribute("reportUrl", getReportUrl());

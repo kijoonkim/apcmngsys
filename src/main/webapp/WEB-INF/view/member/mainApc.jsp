@@ -33,6 +33,8 @@
 <script type="text/javascript">
 
 	let prvTabMenuId = "";
+	
+	let firstLaod = 0;
 
 	//const sysPrgrmId = "main";
 	//gfn_setSysPrgrmId(sysPrgrmId);
@@ -49,7 +51,12 @@
     */
 
 	var menuJson = ${topMenuList};
+	
+	var pMenuIdParam = ${pMenuIdParam};
+	var pMenuNmParam = ${pMenuNmParam};
 
+
+	
     //SBUx sidemenu 컴포넌트의 json 데이터
     var sideJsonData = [];
     //
@@ -107,11 +114,20 @@
     async function fn_setLeftMenu(_menuNo, _menuId) {
 
         var menuInfo = _.find(menuJson, {id: _menuNo});
-       // var pMenuId = menuInfo.pid;
-       // var pMenuNm = menuInfo.value;
-        var pMenuId = "FM";
-        var pMenuNm = "생산농가관리";
-
+        var pMenuId = menuInfo.pid;
+        var pMenuNm = menuInfo.value;
+        
+//         alert(pMenuIdParam);
+        if(firstLaod == 0){
+             pMenuId = "FM";
+             pMenuNm = "생산농가관리";
+             pMenuIdParam = "none";
+             firstLaod = firstLaod+1;
+         	//var pMenuIdParam = ${pMenuIdParam};
+        	//var pMenuNmParam = ${pMenuNmParam};
+        }
+        	
+        
         if (gfn_isEmpty(pMenuId)) {
         	pMenuId = _menuNo;
         	pMenuNm = menuInfo.text;
