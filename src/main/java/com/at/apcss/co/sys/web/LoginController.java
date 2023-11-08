@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.at.apcss.co.apc.service.ApcInfoService;
 import com.at.apcss.co.apc.vo.ApcInfoVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.log.service.ComLogService;
+import com.at.apcss.co.log.vo.ComLogVO;
 import com.at.apcss.co.menu.vo.ComApcJsonVO;
 import com.at.apcss.co.menu.vo.ComMenuVO;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -54,6 +57,9 @@ public class LoginController extends BaseController {
 	/** ApcInfoService */
 	@Resource(name = "apcInfoService")
 	private ApcInfoService apcInfoService;
+
+	@Autowired
+	ComLogService comLogService;
 
 
 	@GetMapping("/login.do")
@@ -96,12 +102,35 @@ public class LoginController extends BaseController {
 
 		LoginVO resultVO = loginService.actionLogin(loginVO);
 
+		//로그인 이력 저장
+				ComLogVO comLogVo = new ComLogVO();
+				String userId = loginVO.getId();
+				String menuId ="login";
+				comLogVo.setUserId(userId);
+				comLogVo.setUserIp(getUserIp(request));
+				comLogVo.setMenuId(menuId);
+
+				if (getUserId() != null) {
+					comLogVo.setLgnScsYn("Y");
+				}
+
+				comLogVo.setSysFrstInptUserId(userId);
+				comLogVo.setSysLastChgUserId(userId);
+				comLogVo.setSysFrstInptPrgrmId(menuId);
+				comLogVo.setSysLastChgPrgrmId(menuId);
+//				comLogVo.setPrslType("L1");
+
+//				comLogService.insertMenuHstry(comLogVo);
+
 		if (resultVO != null && StringUtils.hasText(resultVO.getId())) {
 
 			// 010. 계정잠김여부
 			if (ComConstants.CON_YES.equals(resultVO.getLckYn())) {		// 잠금상태
 				model.addAttribute("loginCode", ComConstants.ERR_USER_LOCKED);
 				model.addAttribute("loginMessage", null);
+				//실패 이력저장
+				comLogVo.setPrslType("L3");
+				comLogService.insertMenuHstry(comLogVo);
 				return "main/login";
 			}
 
@@ -119,6 +148,9 @@ public class LoginController extends BaseController {
 				} else {
 					loginCode = ComConstants.ERR_USER_INVALID;
 				}
+				//실패 이력저장
+				comLogVo.setPrslType("L3");
+				comLogService.insertMenuHstry(comLogVo);
 
 				model.addAttribute("loginCode", loginCode);
 				model.addAttribute("loginMessage", null);
@@ -172,6 +204,10 @@ public class LoginController extends BaseController {
 
 			model.addAttribute("loginCode", null);
 			model.addAttribute("loginMessage", null);
+			//로그인 이력
+			comLogVo.setUserType(userType);
+			comLogVo.setPrslType("L1");
+			comLogService.insertMenuHstry(comLogVo);
 
 			return "redirect:/actionMain.do";
 		} else {
@@ -185,6 +221,9 @@ public class LoginController extends BaseController {
 
 			model.addAttribute("loginCode", ComConstants.ERR_LOGIN_FAILED);
 			model.addAttribute("loginMessage", messageSource.getMessage("fail.common.login", request.getLocale()));
+			//실패 이력저장
+			comLogVo.setPrslType("L3");
+			comLogService.insertMenuHstry(comLogVo);
 			//return "redirect:/login.do";
 			return "main/login";
 		}
@@ -286,8 +325,28 @@ public class LoginController extends BaseController {
 	@GetMapping(value = "/actionLogout.do")
 	public String actionLogout(HttpServletRequest request, ModelMap model) throws Exception {
 
-		// 1. Security 연도
+		//로그인 이력 저장
+		ComLogVO comLogVo = new ComLogVO();
+		String userId = getUserId();
+		String menuId ="logout";
+		comLogVo.setUserId(userId);
+		comLogVo.setUserIp(getUserIp(request));
+		comLogVo.setMenuId(menuId);
 
+		if (getUserId() != null) {
+			comLogVo.setLgnScsYn("Y");
+		}
+
+		comLogVo.setSysFrstInptUserId(userId);
+		comLogVo.setSysLastChgUserId(userId);
+		comLogVo.setSysFrstInptPrgrmId(menuId);
+		comLogVo.setSysLastChgPrgrmId(menuId);
+
+		comLogVo.setPrslType("L2");
+		comLogService.insertMenuHstry(comLogVo);
+
+
+		// 1. Security 연도
 		request.getSession().setAttribute("loginVO", null);
 		request.getSession().setAttribute("accessUser", null);
 		request.getSession().setAttribute("sysPrgrmId", null);

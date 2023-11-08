@@ -35,7 +35,7 @@
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<div class="ad_tbl_toplist">
 			<sbux-button id="btnLogCntnHstry2" name="btnLogCntnHstry" uitype="normal" text="접속이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogMenuHstry2" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
@@ -139,6 +139,7 @@
 					  , pagingYn 			: 'Y'
 					  , currentPageNo 		: currentPageNo
 					  , recordCountPerPage 	: recordCountPerPage
+					  , prslType : "M1"
 				});
 
 		        const data = await postJsonPromise;

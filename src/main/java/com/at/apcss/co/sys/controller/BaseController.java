@@ -1,12 +1,15 @@
 package com.at.apcss.co.sys.controller;
 
 import java.lang.reflect.Method;
+import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
@@ -93,12 +97,21 @@ public abstract class BaseController {
 
 		return null;
 	}
+	protected String getUserType() {
+		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+
+		if(loginVO != null) {
+			return loginVO.getUserType();
+		}
+		return null;
+	}
 
 	protected String getPrgrmId() {
 
 		String prgrmId = (String) RequestContextHolder.currentRequestAttributes().getAttribute(ComConstants.PROP_SYS_PRGRM_ID, RequestAttributes.SCOPE_SESSION);
 		return prgrmId;
 	}
+
 
 	protected <T> boolean setPaginationInfo(ComPageVO comPageVO, T t) {
 
@@ -213,7 +226,38 @@ public abstract class BaseController {
 	protected List<ComMsgVO> getMessageList() throws Exception {
 		return messageSource.getComMessageList();
 	}
+	protected String getUserIp(HttpServletRequest request) throws Exception{
+		String clientIp = null;
+		boolean isIpInHeader = false;
 
+		List<String> headerList = new ArrayList<>();
+		headerList.add("X-Forwarded-For");
+		headerList.add("HTTP_CLIENT_IP");
+		headerList.add("HTTP_X_FORWARDED_FOR");
+		headerList.add("HTTP_X_FORWAREDE");
+		headerList.add("HTTP_FORWARDED_FOR");
+		headerList.add("HTTP_FORWARDED");
+		headerList.add("Proxy-Client-IP");
+		headerList.add("WL-Proxy-Client-IP");
+		headerList.add("HTTP_VIA");
+		headerList.add("IPV6_ADR");
+
+		for(String header : headerList) {
+			clientIp = request.getHeader(header);
+			if(StringUtils.hasText(clientIp) && !clientIp.equals("unknown")) {
+				isIpInHeader = true;
+				break;
+			}
+		}
+		if(!isIpInHeader) {
+			clientIp = request.getRemoteAddr();
+		}
+		if(clientIp.equals("0:0:0:0:0:0:0:1") || clientIp.equals("127.0.0.1")) {
+			InetAddress address = InetAddress.getLocalHost();
+			clientIp =  address.getHostAddress();
+		}
+		return clientIp;
+	}
 //	@Autowired
 //	protected MessageSource message;
 

@@ -34,6 +34,7 @@ public class ComAuthrtMenuVO extends ComVO {
 	private String authrtType;
 	private String authrtRmrk;
 	private List<String> authrtIdList;
+	private String prsnaInfoYn;
 
 	public List<String> getAuthrtIdList() {
 		return this.authrtIdList == null ? null : authrtIdList.stream().collect(Collectors.toList());

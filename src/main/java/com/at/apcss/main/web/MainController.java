@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.at.apcss.co.authrt.service.ComAuthrtService;
 import com.at.apcss.co.authrt.vo.ComAuthrtMenuVO;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.log.service.ComLogService;
+import com.at.apcss.co.log.vo.ComLogVO;
 import com.at.apcss.co.menu.service.ComMenuService;
 import com.at.apcss.co.menu.vo.ComMenuJsonVO;
 import com.at.apcss.co.menu.vo.ComMenuVO;
@@ -31,6 +34,9 @@ public class MainController extends BaseController {
 
 	@Resource(name = "comAuthrtService")
 	private ComAuthrtService comAuthrtService;
+
+	@Autowired
+	ComLogService comLogService;
 
 
 	@GetMapping("/main.do")
