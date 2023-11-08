@@ -40,7 +40,9 @@
 		     , (SELECT FN_GET_COM_CD_VL_NM('CNPT_TYPE', CT.CNPT_TYPE) FROM DUAL)  AS CNPT_TYPE_NM
 		     , CT.PIC_NM            AS PIC_NM
 		     , CT.TELNO             AS TELNO
-		     , CT.EML             AS EML
+		     , CT.EML             	AS EML
+		     , CT.CLS				AS CLS
+		     , CT.BZSTAT			AS BZSTAT
 		     , CT.RMRK              AS RMRK
 		     , CT.DEL_YN            AS DEL_YN
 		  FROM TB_CNPT_INFO CT
@@ -78,6 +80,8 @@
     		  , PIC_NM
     		  , TELNO
     		  , EML
+    		  , CLS
+		      , BZSTAT
     		  , RMRK
     		  , DEL_YN
     		  , SYS_FRST_INPT_DT
@@ -97,6 +101,8 @@
 			  , #{picNm}
     		  , #{telno}
     		  , #{eml}
+    		  , #{cls}
+		      , #{bzstat}
     		  , #{rmrk}
     		  , #{delYn}
     		  , SYSDATE
@@ -130,6 +136,8 @@
     		 , TELNO					= #{telno}
     		 , EML						= #{eml}
     		 , RMRK						= #{rmrk}
+    		 , CLS 						= #{cls}
+		     , BZSTAT					= #{bzstat}
 		 WHERE APC_CD 					= #{apcCd}
 		   AND CNPT_CD 					= #{cnptCd}
 		]]>
@@ -173,7 +181,7 @@
 		WHERE APC_CD = #{apcCd}
 		]]>
     </select>
-    
+
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.updateLgszMrkt				-->
 	<!-- DESC : 대형마켓정보 변경.	                                       				-->
@@ -196,7 +204,7 @@
   		 AND LGSZ_MRKT_CD 				= #{lgszMrktCd}
 		]]>
 	</update>
-	
+
 </mapper>
 
 

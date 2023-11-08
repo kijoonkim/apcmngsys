@@ -61,9 +61,15 @@ public class CnptVO extends ComVO {
 	 */
 	private String eml;
 	/**
+	 * 종목
+	 */
+	private String cls;
+	/**
+	 * 업태
+	 */
+	private String bzstat;
+	/**
 	 * 비고
 	 */
 	private String rmrk;
-	
-	private String delYN;
 }

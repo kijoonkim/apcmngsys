@@ -102,7 +102,9 @@
             {caption: ["사업자번호"], 	ref: 'brno',  		type:'input',  width:'135px',    style:'text-align:center', typeinfo : {mask : {alias : '#-', repeat: '*'}}, validate : gfn_chkByte.bind({byteLimit: 20})},
             {caption: ["담당자"], 		ref: 'picNm',  		type:'input',  width:'90px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'k'}}},
             {caption: ["전화번호"], 	ref: 'telno',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : '#-', repeat: '*'}}},
-            {caption: ["이메일"], 	ref: 'eml',  		type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320})},
+            {caption: ["이메일"], 		ref: 'eml',  		type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 320})},
+            {caption: ["업태"], 		ref: 'bzstat',  	type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 300})},
+            {caption: ["종목"], 		ref: 'cls',  		type:'input',  width:'140px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 300})},
             {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000})},
         ];
         window.cnptMngDatagrid = _SBGrid.create(SBGridProperties);
@@ -135,6 +137,8 @@
 				  , delYn 		: item.delYn
 				  , apcCd 		: item.apcCd
 				  , eml 		: item.eml
+				  , bzstat		: item.bzstat
+				  , cls			: item.cls
 				}
 				cnptMngGridData.push(Object.assign({}, cnpt));
 				newCnptGridData.push(Object.assign({}, cnpt));

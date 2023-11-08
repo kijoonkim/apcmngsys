@@ -28,6 +28,9 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String zip;
 	private String telno;
 	private String fxno;
+	private String bzstat;
+	private String cls;
+	private String apcRprsvNm;
 
 	private String cdVls;
 
