@@ -83,10 +83,6 @@
 								<span style="font-size:12px">(조회건수 <span id="trsprtCst-pop-cnt">0</span>건)</span>
 							</li>
 						</ul>
-					 	<div class="ad_tbl_toplist">
-							<sbux-button id="btnTrsprtCstDwnld" name="btnTrsprtCstDwnld" uitype="normal" text="내려받기" class="btn btn-sm btn-outline-danger" onclick="popTrsrptCst.dwnld" >내려받기</sbux-button>
-							<sbux-button id="btnTrsprtCstUld" name="btnTrsprtCstUld" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="popTrsrptCst.uld">올리기</sbux-button>
-						</div>
 					</div>
 					<div id="sb-area-grdTrsrptCst" style="width:100%;height:300px;"></div>
 					<!-- 엑셀 시트별 데이터 영역 -->
@@ -115,18 +111,18 @@
 
 	var grdTrsptCstPop = null;
 	isExist = false
-	
+
 	// exp grid json
 	var jsonExpTrsprtCst = [];
 	var jsonExpTrsprtSeCd = [];
 	var jsonExpTrsprtRgnCd = [];
 	var jsonExpBankCd = [];
-	
+
 	var jsonExpSltTrsprtCst = [];
 	var jsonExpSltTrsprtSeCd = [];
 	var jsonExpSltTrsprtRgnCd = [];
 	var jsonExpSltBankCd = [];
-	
+
 	var grdExpTrsprtCst;
 	var grdExpTrsprtSeCd;
 	var grdExpTrsprtRgnCd;
@@ -208,12 +204,12 @@
 			    	}},
 		        {caption: ['운송일자'], 	ref: 'trsprtYmd', 	width:'120px',	type: 'datepicker', 	style: 'text-align: center', sortable: false,
 			    	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-		        {caption: ['운송구분'], 	ref: 'trsprtSeCd',	width: '100px',	type: 'combo',			style: 'text-align: center', sortable: false,		
+		        {caption: ['운송구분'], 	ref: 'trsprtSeCd',	width: '100px',	type: 'combo',			style: 'text-align: center', sortable: false,
 					typeinfo : {ref:'jsonComTrsprtSeCd', label:'label', value:'value', itemcount: 10}},
-		        {caption: ['차량번호'], 	ref: 'vhclno',		width: '100px',	type: 'inputbutton',	style: 'text-align: center', sortable: false,		
+		        {caption: ['차량번호'], 	ref: 'vhclno',		width: '100px',	type: 'inputbutton',	style: 'text-align: center', sortable: false,
 					typeinfo : {callback: fn_grdChoiceVhcl}, validate : gfn_chkByte.bind({byteLimit: 40})},
 		        {caption: ['기사명'], 	ref: 'drvrNm',		width: '100px',	type: 'output', 		style: 'text-align: center', sortable: false},
-		        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', width: '100px', type: 'combo', 			style: 'text-align: center', sortable: false, 	
+		        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', width: '100px', type: 'combo', 			style: 'text-align: center', sortable: false,
 					typeinfo : {ref:'jsonComTrsprtRgnCd', label:'label', value:'value', itemcount: 10}},
 		        {caption: ['중량'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output', 		style: 'text-align: right',	 sortable: false,
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###Kg'}},
@@ -447,7 +443,7 @@
 	    	var nRow = grdTrsprtCstPop.getRow();
 	    	var nCol = grdTrsprtCstPop.getCol();
     		let trsprtRgnCd = grdTrsprtCstPop.getCellData(nRow, nCol);
-	    	
+
 	    	if(nCol == 5 && !gfn_isEmpty(trsprtRgnCd)){
 	    		for(var i=0; i<jsonRgnTrsprtCst.length; i++){
 	    			if(jsonRgnTrsprtCst[i].trsprtRgnCd == trsprtRgnCd){
@@ -519,18 +515,18 @@
 			_columns.push(
 					{caption: ['운송일자'], 	ref: 'trsprtYmd', 	width:'120px',	type: 'output',	style: 'text-align: center',
 				    	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-			        {caption: ['운송구분'], 	ref: 'trsprtSeCd',	width: '100px',	type: 'combo',	style: 'text-align: center',		
+			        {caption: ['운송구분'], 	ref: 'trsprtSeCd',	width: '100px',	type: 'combo',	style: 'text-align: center',
 						typeinfo : {ref:'jsonExpSltTrsprtSeCd', label:'label', value:'value', itemcount: 10}},
-			        {caption: ['차량번호'], 	ref: 'vhclno',		width: '100px',	type: 'output',	style: 'text-align: center',		
+			        {caption: ['차량번호'], 	ref: 'vhclno',		width: '100px',	type: 'output',	style: 'text-align: center',
 						typeinfo : {callback: fn_grdChoiceVhcl}},
 			        {caption: ['기사명'], 	ref: 'drvrNm',		width: '100px',	type: 'output',	style: 'text-align: center'},
-			        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', width: '100px', type: 'combo',	style: 'text-align: center', 	
+			        {caption: ['운송지역'], 	ref: 'trsprtRgnCd', width: '100px', type: 'combo',	style: 'text-align: center',
 						typeinfo : {ref:'jsonExpSltTrsprtRgnCd', label:'label', value:'value', itemcount: 10}},
 			        {caption: ['중량'], 		ref: 'wrhsWght', 	width: '100px',	type: 'output',	style: 'text-align: right',
 						typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###Kg'}},
 			        {caption: ['운임비용'],	ref: 'trsprtCst', 	width: '100px',	type: 'output',	style: 'text-align: right',
 						typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###원'}},
-			        {caption: ['은행'],		ref: 'bankCd', 		width: '100px',	type: 'combo',	style: 'text-align: center',		
+			        {caption: ['은행'],		ref: 'bankCd', 		width: '100px',	type: 'combo',	style: 'text-align: center',
 						typeinfo : {ref:'jsonExpSltBankCd', label:'label', value:'value', itemcount: 10}},
 			        {caption: ['계좌'],		ref: 'actno', 		width: '100px',	type: 'output',	style: 'text-align: center'},
 			        {caption: ['예금주'],	 	ref: 'dpstr', 		width: '80px',	type: 'output',	style: 'text-align: center'},
@@ -586,7 +582,7 @@
 			await this.setExpJson();
 
 			const expColumns = this.getExpColumns();
-			
+
 			const expObjList = [
 			    {
 			        sbGrid: grdExpTrsprtCst,
