@@ -37,19 +37,20 @@
 	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
 	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
     		 	, (SELECT FN_GET_COM_CD_VL_NM('CLCLN_CRTR_CD', pt0.CLCLN_CRTR_CD) FROM DUAL)		AS CLCLN_CRTR_NM
+    		 	, (SELECT FN_GET_COM_CD_VL_NM('CFMTN_YN', pt0.CFMTN_YN) FROM DUAL)					AS CFMTN_YN_NM
     		 	, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL)				AS WRHS_SE_NM
     		 	, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD, pt0.APC_CD) FROM DUAL)	AS GDS_SE_NM
     		 	, CASE
     		 		WHEN pt0.CLCLN_CRTR_CD = '1' THEN
-    		 			(SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL)    		 			
+    		 			(SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL)
     		 		WHEN pt0.CLCLN_CRTR_CD = '2' THEN
     		 			(SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL)
     		 		WHEN pt0.CLCLN_CRTR_CD IN ('3', '4') THEN
     		 			(SELECT FN_GET_GRD_NM_GDS(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL)
     		 		ELSE NULL
-    		 	  END	AS GRD_NM    		 	
+    		 	  END	AS GRD_NM
     		 FROM (
-	    	SELECT 
+	    	SELECT
 	    		   CP.APC_CD		AS APC_CD
 	    		 , CP.CLCLN_YMD		AS CLCLN_YMD
 	    		 , CP.CLCLN_SN		AS CLCLN_SN
@@ -262,7 +263,7 @@
 			   AND CLCLN_SN 				= #{clclnSn}
 		]]>
 	</update>
-	
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper.deleteClclnPrfmnc	-->
 	<!-- DESC : 정산정보조회 목록 삭제.	                         	             	 	-->
