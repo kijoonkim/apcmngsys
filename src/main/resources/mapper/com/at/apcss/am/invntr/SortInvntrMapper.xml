@@ -259,7 +259,7 @@
 					   AND DSI.ITEM_CD = #{itemCd}
 			</if>
 			<if test='vrtyCd != null and vrtyCd != ""'>
-					   AND DSI.VRTY_CD = #{vrtyCd}
+				 	   AND DSI.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
 			</if>
 			<if test='spcfctCd != null and spcfctCd != ""'>
 					   AND DSI.SPCFCT_CD = #{spcfctCd}
@@ -365,9 +365,8 @@
 			   AND SI.ITEM_CD = #{itemCd}
 		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
-			   AND SI.VRTY_CD = #{vrtyCd}
+			 AND SI.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
 		</if>
-
 		<if test='prdcrCd != null and prdcrCd != ""'>
 			   AND SI.RPRS_PRDCR_CD = #{prdcrCd}
 		</if>
