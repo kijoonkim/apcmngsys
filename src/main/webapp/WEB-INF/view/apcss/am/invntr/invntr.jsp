@@ -201,7 +201,7 @@
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-slt-warehouseSe', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
-		 	gfn_setComCdSBSelect('srch-slt-wrhsSeCd', 		jsonComWrhsSeCd, 	'WRHS_SE_CD',	gv_selectedApcCd),		// 입고구분
+		 	gfn_setComCdSBSelect('srch-slt-wrhsSeCd', 		jsonComWrhsSeCd, 	'WRHS_SE_CD'),							// 입고구분
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd),						// 품목
 		 	gfn_setComCdSBSelect('srch-slt-fcltCd', 		jsonComFcltCd, 		'FCLT_CD',   	gv_selectedApcCd),		// 선벌기
 		 	gfn_setComCdSBSelect('srch-slt-gdsSeCd', 		jsonComGdsSeCd, 	'GDS_SE_CD', 	gv_selectedApcCd)		// 상품구분
