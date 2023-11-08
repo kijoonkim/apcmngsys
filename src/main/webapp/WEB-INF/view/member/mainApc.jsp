@@ -112,7 +112,7 @@
         var menuInfo = _.find(menuJson, {id: _menuNo});
        // var pMenuId = menuInfo.pid;
        // var pMenuNm = menuInfo.value;
-       if(firstLoad = 0){
+       if(firstLoad == 0){
          var pMenuId = "FM";
          var pMenuNm = "생산농가관리";
          firstLoad = firstLoad +1;
