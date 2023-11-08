@@ -98,15 +98,15 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		        	{caption: ['화면ID'], 	ref: 'menuId',		width: '260px',		type: 'output',	style:'text-align: center'},
-		            {caption: ['화면명'], 	ref: 'menuNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자ID'],	ref: 'userId', 		width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자명'],	ref: 'userNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['APC명'], 	ref: 'apcNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['열람일시'],	ref: 'prslDt',		width: '260px', 	type: 'output',	style:'text-align: center'}
+		        	{caption: ['화면ID'], 	ref: 'menuId',		width: '200px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['화면명'], 	ref: 'menuNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자ID'],	ref: 'userId', 		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자명'],	ref: 'userNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['APC명'], 	ref: 'apcNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['열람일시'],	ref: 'prslDt',		width: '200px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogMenuHstry = _SBGrid.create(SBGridProperties);
-		        grdLogMenuHstry.bind( "afterpagechanged" , tabLogMenuHstry.setGrid );
+		        grdLogMenuHstry.bind( "afterpagechanged" , tabLogMenuHstry.paging );
 			},
 			search: async function() {
 				// set pagination
@@ -139,7 +139,6 @@
 					  , pagingYn 			: 'Y'
 					  , currentPageNo 		: currentPageNo
 					  , recordCountPerPage 	: recordCountPerPage
-					  , prslType : "M1"
 				});
 
 		        const data = await postJsonPromise;
@@ -183,10 +182,10 @@
 		        }
 		    },
 		    paging: function() {
-		    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-		    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		    	let recordCountPerPage = grdLogMenuHstry.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		    	let currentPageNo = grdLogMenuHstry.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-		    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+		    	tabLogMenuHstry.setGrid(recordCountPerPage, currentPageNo);
 		    }
 		}
 </script>

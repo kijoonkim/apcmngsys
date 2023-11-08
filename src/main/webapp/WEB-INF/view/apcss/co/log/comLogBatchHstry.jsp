@@ -107,7 +107,7 @@
 		            {caption: ['처리결과'], 	ref: 'prcsRslt',	width: '260px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogBatchHstry = _SBGrid.create(SBGridProperties);
-		        grdLogBatchHstry.bind( "afterpagechanged" , tabLogBatchHstry.setGrid );
+		        grdLogBatchHstry.bind( "afterpagechanged" , tabLogBatchHstry.paging );
 			},
 			search: async function() {
 				// set pagination
@@ -190,10 +190,10 @@
 		        }
 		    },
 		    paging: function() {
-		    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-		    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		    	let recordCountPerPage = grdLogBatchHstry.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		    	let currentPageNo = grdLogBatchHstry.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-		    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+		    	tabLogBatchHstry.setGrid(recordCountPerPage, currentPageNo);
 		    }
 		}
 </script>

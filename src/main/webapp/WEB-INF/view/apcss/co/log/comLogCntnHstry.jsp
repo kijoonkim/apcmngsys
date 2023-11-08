@@ -98,14 +98,15 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		            {caption: ['사용자ID'], 	ref: 'userId',		width: '240px',		type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자명'], 	ref: 'userNm', 		width: '240px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['APC명'],		ref: 'apcNm', 		width: '240px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['접속일시'],	ref: 'prslDt',		width: '240px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['최초접속일시'],	ref: 'frstPrslDt',	width: '240px', 	type: 'output',	style:'text-align: center'}
+		            {caption: ['사용자ID'], 	ref: 'userId',		width: '200px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자명'], 	ref: 'userNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['APC명'],		ref: 'apcNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속일시'],	ref: 'prslDt',		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['최초접속일시'],	ref: 'frstPrslDt',	width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['열람유형'],	ref: 'prslTypeNm',	width: '200px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogCntnHstry = _SBGrid.create(SBGridProperties);
-		        grdLogCntnHstry.bind( "afterpagechanged" , tabLogCntnHstry.setGrid );
+		        grdLogCntnHstry.bind( "afterpagechanged" , tabLogCntnHstry.paging );
 			},
 			search: async function() {
 				// set pagination
@@ -139,7 +140,6 @@
 					  , pagingYn 			: 'Y'
 					  , currentPageNo 		: currentPageNo
 					  , recordCountPerPage 	: recordCountPerPage
-					  , prslType : "L1"
 				});
 
 		        const data = await postJsonPromise;
@@ -155,6 +155,7 @@
 					      , apcNm 			: item.apcNm
 						  ,	prslDt			: item.prslDt
 						  ,	frstPrslDt		: item.frstPrslDt
+						  ,	prslTypeNm		: item.prslTypeNm
 						}
 						jsonLogCntnHstry.push(log);
 
@@ -165,7 +166,7 @@
 
 		        	if (jsonLogCntnHstry.length > 0) {
 		        		if(grdLogCntnHstry.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-		        			grdLogCntnHstry.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+		        			grdLogCntnHstry.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 		        			grdLogCntnHstry.rebuild();
 						}else{
 							grdLogCntnHstry.refresh();
@@ -182,10 +183,10 @@
 		        }
 		    },
 		    paging: function() {
-		    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-		    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		    	let recordCountPerPage = grdLogCntnHstry.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		    	let currentPageNo = grdLogCntnHstry.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-		    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+		    	tabLogCntnHstry.setGrid(recordCountPerPage, currentPageNo);
 		    }
 		}
 </script>

@@ -59,6 +59,10 @@ public class ComLogVO extends ComVO {
 	 */
 	private String prgrmNm;
 	/**
+	 * 사용자IP
+	 */
+	private String userIp;
+	/**
 	 * IP주소
 	 */
 	private String ipAddr;
@@ -98,6 +102,10 @@ public class ComLogVO extends ComVO {
 	 * 열람유형
 	 */
 	private String prslType;
+	/**
+	 * 열람유형
+	 */
+	private String prslTypeNm;
 	/**
 	 * 열람일시
 	 */

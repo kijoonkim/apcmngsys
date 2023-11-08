@@ -125,7 +125,7 @@
 		    		    format : {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}}
 		        ];
 		        grdLogTrsmHstry = _SBGrid.create(SBGridProperties);
-		        grdLogTrsmHstry.bind( "afterpagechanged" , tabLogTrsmHstry.setGrid );
+		        grdLogTrsmHstry.bind( "afterpagechanged" , tabLogTrsmHstry.paging );
 			},
 			search: async function() {
 				// set pagination
@@ -211,10 +211,10 @@
 		        }
 		    },
 		    paging: function() {
-		    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-		    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		    	let recordCountPerPage = grdLogTrsmHstry.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		    	let currentPageNo = grdLogTrsmHstry.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-		    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+		    	tabLogTrsmHstry.setGrid(recordCountPerPage, currentPageNo);
 		    }
 		}
 </script>

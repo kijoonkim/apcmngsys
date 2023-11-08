@@ -111,7 +111,7 @@
 		            {caption: ['변경비고'],	ref: 'chgRmrk', 		width: '300px', 	type: 'output'}
 		        ];
 		        grdRawMtrChgHstry = _SBGrid.create(SBGridProperties);
-		        grdRawMtrChgHstry.bind( "afterpagechanged" , tabRawMtrChgHstry.setGrid );
+		        grdRawMtrChgHstry.bind( "afterpagechanged" , tabRawMtrChgHstry.paging );
 			},
 			search: async function() {
 				// set pagination
@@ -189,10 +189,10 @@
 		        }
 		    },
 		    paging: function() {
-		    	let recordCountPerPage = grdComAuthUserPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-		    	let currentPageNo = grdComAuthUserPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		    	let recordCountPerPage = grdRawMtrChgHstry.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		    	let currentPageNo = grdRawMtrChgHstry.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-		    	popComAuthUser.setGrid(recordCountPerPage, currentPageNo);
+		    	tabRawMtrChgHstry.setGrid(recordCountPerPage, currentPageNo);
 		    }
 		}
 </script>
