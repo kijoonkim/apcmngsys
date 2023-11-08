@@ -780,6 +780,8 @@
 		SBUxMethod.set("dtl-lbl-warehouseSeNm", _rawMtrInvntr.warehouseSeNm);
 		SBUxMethod.set("dtl-lbl-bxKndNm", _rawMtrInvntr.bxKndNm);
 
+		console.log("_rawMtrInvntr", _rawMtrInvntr)
+
 		let invntrInfo = " ";
 		invntrInfo += "수량: " + _rawMtrInvntr.invntrQntt
 				+ " 중량: " + _rawMtrInvntr.invntrWght + " kg "
