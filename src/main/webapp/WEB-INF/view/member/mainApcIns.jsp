@@ -112,10 +112,13 @@
 
         var menuInfo = _.find(menuJson, {id: _menuNo});
         
-        var pMenuId = menuInfo.pid;
-        var pMenuNm = menuInfo.value;
+     // var pMenuId = menuInfo.pid;
+        // var pMenuNm = menuInfo.value;
+         
+         var pMenuId = "";
+         var pMenuNm = "";
         
-        alert(pMenuIdParam);
+//         alert(pMenuIdParam);
         if(firstLaod == 0){
              pMenuId = "PD";
              pMenuNm = "산지유통평가등록";
@@ -123,7 +126,10 @@
              firstLaod = firstLaod+1;
          	//var pMenuIdParam = ${pMenuIdParam};
         	//var pMenuNmParam = ${pMenuNmParam};
-        }
+        }else{
+       	 pMenuId = menuInfo.pid;
+         pMenuNm = menuInfo.value;
+      }
         	
         
         
