@@ -12,6 +12,11 @@
     <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style type="text/css">
+       #body-modal-apcSelect_back { width:150px;height:150px;padding:0.5em; }
+     </style>
 </head>
 <body>
 	<section class="content container-fluid">
@@ -264,13 +269,21 @@
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
     </div> --%>
     <!-- apc 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    <div id="body-modal-apcSelect_move" draggable="true" >
+        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle"  header-title="APC 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"  ></sbux-modal>
     </div>
-    <div id="body-modal-apcSelect">
+    <div id="body-modal-apcSelect" draggable="true" >
     	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
     </div>
 </body>
+<script>
+    jQuery(document).ready(function() {
+    	//alert("aaaa"); 
+        jQuery("#body-modal-apcSelect").draggable();
+    	jQuery("#body-modal-apcSelect_move").draggable();
+    	jQuery("#modal-apcSelect").draggable();
+    });
+</script>
 <script type="text/javascript">
 
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
