@@ -145,7 +145,14 @@
 						<tr>
 						    <th scope="row" class="th_bg"><span class="data_required"></span>발주금액/세액</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-outordrAmt" name="srch-inp-outordrAmt" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" onkeyup="fn_calculate"></sbux-input>
+								<sbux-input
+									id="srch-inp-outordrAmt"
+									name="srch-inp-outordrAmt"
+									uitype="text"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
+									maxlength="10"
+									onkeyup="fn_calculate"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-txAmt" name="srch-inp-txAmt" uitype="text" class="form-control input-sm" disabled></sbux-input>
@@ -153,10 +160,24 @@
 							<td></td>
 						    <th scope="row" class="th_bg"><span class="data_required"></span>발주수량/입수</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-outordrQntt" name="srch-inp-outordrQntt" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" onkeyup="fn_calculate"></sbux-input>
+								<sbux-input
+									id="srch-inp-outordrQntt"
+									name="srch-inp-outordrQntt"
+									uitype="text"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
+									maxlength="10"
+									onkeyup="fn_calculate"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-bxGdsQntt" name="srch-inp-bxGdsQntt" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" onkeyup="fn_calculate"></sbux-input>
+								<sbux-input
+									id="srch-inp-bxGdsQntt"
+									name="srch-inp-bxGdsQntt"
+									uitype="text"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
+									maxlength="6"
+									onkeyup="fn_calculate"></sbux-input>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">낱개수량</th>
