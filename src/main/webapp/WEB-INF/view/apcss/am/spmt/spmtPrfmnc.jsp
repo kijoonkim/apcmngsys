@@ -62,7 +62,9 @@
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm"
+								<sbux-input
+									id="srch-inp-vrtyNm"
+									name="srch-inp-vrtyNm"
 									class="form-control input-sm"
 									maxlength="33"
 									uitype="text"

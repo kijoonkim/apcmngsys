@@ -58,11 +58,11 @@
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" class="form-control input-sm" readonly></sbux-input>
-								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden" class="form-control input-sm" ></sbux-input>
+								<sbux-input uitype="text" id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" class="form-control input-sm" maxlength="33" show-clear-button="true" readonly></sbux-input>
+								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"/>
+								<sbux-button id="btnSrchVrty" name="btnSrchVrty" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"/>
 							</td>
 							<th scope="row" class="th_bg">규격</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -132,7 +132,7 @@
 	</section>
 	<!-- 품종 선택 Modal -->
     <div>
-        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
+        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" header-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="body-modal-vrtyCrtr">
     	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
@@ -159,7 +159,7 @@
 		SBUxMethod.set("srch-inp-vrtyNm", "");
 		SBUxMethod.set("srch-inp-vrtyCd", "");
 		if(gfn_isEmpty(itemCd)){
-			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonComSpcfct, 	"");
+			gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonComSpcfct, "");
 			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnit', jsonComSpmtPckgUnit, "");
 		}else{
 			let rst = await Promise.all([
@@ -345,5 +345,12 @@
       		console.error("failed", e.message);
           }
     }
+
+ 	$(function(){
+ 		$(".glyphicon").on("click", function(){
+ 			SBUxMethod.set("srch-inp-vrtyNm", "");
+			SBUxMethod.set("srch-inp-vrtyCd", "");
+ 		})
+ 	})
 </script>
 </html>

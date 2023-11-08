@@ -131,19 +131,20 @@
 									id="srch-inp-vrtyNm"
 									name="srch-inp-vrtyNm"
 									class="form-control input-sm"
+									maxlength="33"
+									show-clear-button="true"
 									readonly
 								></sbux-input>
 								<sbux-input
 									uitype="hidden"
 									id="srch-inp-vrtyCd"
 									name="srch-inp-vrtyCd"
-									class="form-control input-sm"
 								></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button
-									id="srch-btn-vrtySrch"
-									name="srch-btn-vrtySrch"
+									id="btnSrchVrty"
+									name="btnSrchVrty"
 									class="btn btn-xs btn-outline-dark"
 									text="찾기"
 									uitype="modal"
@@ -253,21 +254,21 @@
 	</section>
 	<!-- 사용자 선택 Modal -->
     <div>
-        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" header-is-close-button="false" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-modal-prdcr">
     	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
     </div>
     <!--  품목 선택 Modal -->
    	<div>
-        <sbux-modal id="modal-itemCrtr" name="modal-itemCrtr" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemCrtr" footer-is-close-button="false" style="width:600px"></sbux-modal>
+        <sbux-modal id="modal-itemCrtr" name="modal-itemCrtr" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemCrtr" header-is-close-button="false" footer-is-close-button="false" style="width:600px"></sbux-modal>
     </div>
     <div id="body-modal-itemCrtr">
     	<jsp:include page="/WEB-INF/view/apcss/am/popup/itemCrtrPopup.jsp"></jsp:include>
     </div>
     <!-- 품종 선택 Modal -->
     <div>
-        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
+        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" header-is-close-button="false" footer-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="body-modal-vrtyCrtr">
     	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
@@ -867,5 +868,11 @@
  		gfn_popClipReport("선별확인서", "am/sortLabel.crf", {apcCd: gv_selectedApcCd, sortno: sortno});
  	}
 
+	$(function(){
+		$(".glyphicon").on("click", function(){
+			SBUxMethod.set("srch-inp-vrtyNm", "");
+			SBUxMethod.set("srch-inp-vrtyCd", "");
+		})
+	})
 </script>
 </html>

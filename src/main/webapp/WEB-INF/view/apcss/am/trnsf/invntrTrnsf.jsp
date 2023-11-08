@@ -85,6 +85,8 @@
 									name="srch-inp-vrtyNm"
 									uitype="text"
 									class="form-control input-sm"
+									maxlength="33"
+									show-clear-button="true"
 									readonly
 								></sbux-input>
 								<sbux-input
@@ -95,8 +97,8 @@
 							</td>
 							<td class="td_input">
 								<sbux-button
-									id="srch-btn-vrtySrch"
-									name="srch-btn-vrtySrch"
+									id="btnSrchVrty"
+									name="btnSrchVrty"
 									class="btn btn-xs btn-outline-dark"
 									text="찾기"
 									uitype="modal"
@@ -186,7 +188,7 @@
 	</section>
     <!-- 품종 선택 Modal -->
     <div>
-        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:800px"></sbux-modal>
+        <sbux-modal id="modal-vrty" name="modal-vrty" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" header-is-close-button="false" footer-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="body-modal-vrtyCrtr">
     	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
@@ -510,5 +512,12 @@
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNm.join(','));
 		}
 	}
+
+ 	$(function(){
+ 		$(".glyphicon").on("click", function(){
+ 			SBUxMethod.set("srch-inp-vrtyNm", "");
+			SBUxMethod.set("srch-inp-vrtyCd", "");
+ 		})
+ 	})
 </script>
 </html>

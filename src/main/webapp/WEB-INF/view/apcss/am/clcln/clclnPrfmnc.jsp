@@ -141,11 +141,11 @@
 								</div>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
-								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden" class="form-control input-sm"></sbux-input>
+								<sbux-input id="srch-inp-vrtyNm" name="srch-inp-vrtyNm" uitype="text" class="form-control input-sm" maxlength="33" show-clear-button="true" readonly></sbux-input>
+								<sbux-input id="srch-inp-vrtyCd" name="srch-inp-vrtyCd" uitype="hidden"></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="srch-btn-vrtySrch" name="srch-btn-vrtySrch" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"/>
+								<sbux-button id="btnSrchVrty" name="btnSrchVrty" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"/>
 							</td>
 							<th scope="row" class="th_bg">생산자</th>
 							<td class="td_input" style="border-right: hidden;">
@@ -199,6 +199,7 @@
 	        uitype="middle"
 	        header-title="생산자 선택"
 	        body-html-id="body-modal-prdcr"
+	        header-is-close-button="false"
 	        footer-is-close-button="false"
 	        style="width:1100px"
         ></sbux-modal>
@@ -214,6 +215,7 @@
 	        uitype="middle"
 	        header-title="품종 선택"
 	        body-html-id="body-modal-vrtyCrtr"
+	        header-is-close-button="false"
 	        footer-is-close-button="false"
 	        style="width:800px"></sbux-modal>
     </div>
@@ -526,9 +528,6 @@
 
 		// 확정여부
 		SBUxMethod.set("srch-slt-cfmtnYn", null);
-		
-		// 수정해야 하는 것
-		fn_onChangeSrchItemCd({value: null});
 	}
 
 	/**
@@ -599,14 +598,11 @@
 		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
 			await gfn_setApcVrtySBSelect('srch-inp-vrtyCd', jsonApcVrty, gv_selectedApcCd);
 			SBUxMethod.set("srch-inp-vrtyCd", prdcr.rprsVrtyCd);
-			fn_onChangeSrchVrtyCd({value:prdcr.rprsVrtyCd});
 		} else {
 			if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
 				const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 				if (prvItemCd != prdcr.rprsItemCd) {
 					SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);
-					// 수정해야 하는 것
-					fn_onChangeSrchItemCd({value:prdcr.rprsItemCd});
 				}
 			}
 		}
@@ -645,5 +641,12 @@
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNm.join(','));
 		}
 	}
+
+ 	$(function(){
+ 		$(".glyphicon").on("click", function(){
+ 			SBUxMethod.set("srch-inp-vrtyNm", "");
+			SBUxMethod.set("srch-inp-vrtyCd", "");
+ 		})
+ 	})
 </script>
 </html>
