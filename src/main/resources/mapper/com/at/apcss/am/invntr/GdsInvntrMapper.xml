@@ -42,6 +42,8 @@
 				, GI.SPMT_WGHT		AS SPMT_WGHT
 				, GI.INVNTR_QNTT	AS INVNTR_QNTT
 				, GI.INVNTR_WGHT	AS INVNTR_WGHT
+				, GI.TRNSF_QNTT		AS TRNSF_QNTT
+				, GI.TRNSF_WGHT		AS TRNSF_WGHT
 				, GI.DEL_YN			AS DEL_YN
 			  FROM TB_GDS_INVNTR GI
 			 WHERE GI.APC_CD = #{apcCd}
@@ -229,6 +231,7 @@
 			    , GI.INVNTR_WGHT	AS INVNTR_WGHT
 			    , GI.PLOR_CD 		AS PLOR_CD
 			    , GI.DEL_YN			AS DEL_YN
+			    , GI.RMRK			AS RMRK
 			  FROM TB_GDS_INVNTR GI
 			 WHERE GI.DEL_YN = 'N'
 			   AND GI.APC_CD = #{apcCd}
@@ -707,4 +710,65 @@
 		]]>
 	</update>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.insertGdsInvntrChgHstry-->
+	<!-- DESC : 상품재고 변경이력 등록.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertGdsInvntrChgHstry" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.insertGdsInvntrChgHstry */
+	    		INTO TB_GDS_INVNTR_CHG_HSTRY
+				(
+					  APC_CD
+					, PCKGNO
+					, PCKG_SN
+					, CHG_SN
+					, CHG_YMD
+					, CHG_BFR_QNTT
+					, CHG_BFR_WGHT
+					, CHG_AFTR_QNTT
+					, CHG_AFTR_WGHT
+					, WAREHOUSE_SE_CD
+					, CHG_RSN_CD
+					, CHG_RMRK
+		    		, SYS_FRST_INPT_DT
+		    		, SYS_FRST_INPT_USER_ID
+		    		, SYS_FRST_INPT_PRGRM_ID
+		    		, SYS_LAST_CHG_DT
+		    		, SYS_LAST_CHG_USER_ID
+		    		, SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+					  #{apcCd}
+					, #{pckgno}
+					, #{pckgSn}
+					, NVL((
+						SELECT MAX(CHG_SN)
+						  FROM TB_GDS_INVNTR_CHG_HSTRY
+						 WHERE APC_CD = #{apcCd}
+						   AND PCKGNO = #{pckgno}
+						   AND PCKG_SN = #{pckgSn}
+						), 0) + 1
+					, TO_CHAR(SYSDATE, 'YYYYMMDD')
+					, #{chgBfrQntt}
+					, #{chgBfrWght}
+					, #{chgAftrQntt}
+					, #{chgAftrWght}
+					, #{warehouseSeCd}
+					, #{chgRsnCd}
+					, #{chgRmrk}
+		    		, SYSDATE
+		    		, #{sysFrstInptUserId}
+		    		, #{sysFrstInptPrgrmId}
+		    		, SYSDATE
+		    		, #{sysLastChgUserId}
+		    		, #{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </insert>
 </mapper>

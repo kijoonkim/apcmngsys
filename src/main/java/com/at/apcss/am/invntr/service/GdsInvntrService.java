@@ -116,4 +116,12 @@ public interface GdsInvntrService {
 	 */
 	public HashMap<String, Object> updateInvntrTrnsf(GdsInvntrVO gdsInvntrVO) throws Exception;
 
+	/**
+	 * 상품재고 변경이력 등록
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertGdsInvntrChgHstry(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
 }

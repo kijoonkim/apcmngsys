@@ -145,4 +145,12 @@ public interface SortInvntrMapper {
 	 */
 	public int updateInvntrInptPrgrs(SortInvntrVO sortInvntrVO) throws Exception;
 
+	/**
+	 * 선별재고 변경이력 등록
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSortChgHstry(SortInvntrVO sortInvntrVO) throws Exception;
+	
 }

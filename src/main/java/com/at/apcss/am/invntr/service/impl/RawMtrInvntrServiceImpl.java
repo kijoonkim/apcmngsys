@@ -13,6 +13,7 @@ import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
@@ -193,11 +194,16 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		rawMtrInvntrVO.setInptQntt(inptQntt);
 		rawMtrInvntrVO.setInptWght(inptWght);
 
-		int updatedCnt = rawMtrInvntrMapper.updateInvntrSortPrfmnc(rawMtrInvntrVO);
-
-		if (updatedCnt != 1) {
-
+		// 원물 재고변경 이력 등록 (투입)
+		rawMtrInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_P1);
+		HashMap<String, Object> rtnObj = insertRawMtrChgHstry(rawMtrInvntrVO);
+		
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
+		
+		rawMtrInvntrMapper.updateInvntrSortPrfmnc(rawMtrInvntrVO);
 
 		return null;
 	}
@@ -205,6 +211,8 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	@Override
 	public HashMap<String, Object> multiSaveRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
 
+		HashMap<String, Object> rtnObj;
+		
 		List<RawMtrInvntrVO> updateList = new ArrayList<>();
 		List<RawMtrInvntrVO> insertList = new ArrayList<>();
 
@@ -228,12 +236,10 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 				// 재고 등록 부분
 				String wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrInvntrVO.getApcCd(), rawMtrInvntrVO.getWrhsYmd());
 				rawMtrInvntrVO.setWrhsno(wrhsno);
-				rawMtrInvntrVO.setPltno(wrhsno);
-
-				for (RawMtrStdGrdVO rawMtrStdGrdVO : rawMtrInvntrVO.getStdGrdList()) {
-					rawMtrStdGrdVO.setWrhsno(wrhsno);;
+				if (!StringUtils.hasText(rawMtrInvntrVO.getPltno())) {
+					rawMtrInvntrVO.setPltno(wrhsno);
 				}
-
+				
 				insertRawMtrInvntr(rawMtrInvntrVO);
 				// 원물 재고 등록 이력 부분 추가
 
@@ -244,11 +250,16 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		// 원물재고 변경
 		for (RawMtrInvntrVO rawMtrInvntrVO : updateList) {
 
-			// 원물 재고변경 이력 부분 추가 예정
-
+			// 원물 재고변경 이력 등록
+			rawMtrInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_C1);
+			rtnObj = insertRawMtrChgHstry(rawMtrInvntrVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+			
 			// 원물 재고 변경
 			rawMtrInvntrMapper.updateRawMtrInvntrChg(rawMtrInvntrVO);
-
 		}
 
 		return null;
@@ -286,11 +297,16 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		rawMtrInvntrVO.setInptQntt(sortQntt);
 		rawMtrInvntrVO.setInptWght(sortWght);
 
-		int updatedCnt = rawMtrInvntrMapper.updateInvntrSortPrfmnc(rawMtrInvntrVO);
-
-		if (updatedCnt != 1) {
-
+		// 원물 재고변경 이력 등록 (투입취소)
+		rawMtrInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_P2);
+		HashMap<String, Object> rtnObj = insertRawMtrChgHstry(rawMtrInvntrVO);
+		
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
+		
+		rawMtrInvntrMapper.updateInvntrSortPrfmnc(rawMtrInvntrVO);
 
 		return null;
 	}
@@ -305,21 +321,30 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		}
 
 		if (rawMtrInvntrVO.getTrnsfQntt() > invntrInfo.getInvntrQntt()) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "취소량||선별량");		// W0008	{0} 보다 {1}이/가 큽니다.
+			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "이송량||재고량");		// W0008	{0} 보다 {1}이/가 큽니다.
 		}
 
-
-		// 선별량
+		// 재고량
 		int invntrQntt = invntrInfo.getInvntrQntt() - rawMtrInvntrVO.getTrnsfQntt();
 		double invntrWght = invntrInfo.getInvntrWght() - rawMtrInvntrVO.getTrnsfWght();
 		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
 		rawMtrInvntrVO.setInvntrWght(invntrWght);
 
-		int updatedCnt = rawMtrInvntrMapper.updateInvntrTrnsf(rawMtrInvntrVO);
-
-		if (updatedCnt != 1) {
-
+		int trnsfQntt = invntrInfo.getTrnsfQntt() + rawMtrInvntrVO.getTrnsfQntt();
+		double trnsfWght = invntrInfo.getTrnsfWght() + rawMtrInvntrVO.getTrnsfWght();
+		rawMtrInvntrVO.setTrnsfQntt(trnsfQntt);
+		rawMtrInvntrVO.setTrnsfWght(trnsfWght);
+		
+		// 원물 재고변경 이력 등록 (이송)
+		rawMtrInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_T1);
+		HashMap<String, Object> rtnObj = insertRawMtrChgHstry(rawMtrInvntrVO);
+		
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
+		
+		rawMtrInvntrMapper.updateInvntrTrnsf(rawMtrInvntrVO);
 
 		return null;
 	}
@@ -357,6 +382,15 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		rawMtrInvntrVO.setInptPrgrsQntt(inptPrgrsQntt);
 		rawMtrInvntrVO.setInptPrgrsWght(inptPrgrsWght);
 		
+		// 원물 재고변경 이력 등록 (투입)
+		rawMtrInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_P1);
+		HashMap<String, Object> rtnObj = insertRawMtrChgHstry(rawMtrInvntrVO);
+		
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+		
 		rawMtrInvntrMapper.updateInvntrInptPrgrs(rawMtrInvntrVO);
 
 		return null;
@@ -388,8 +422,44 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		rawMtrInvntrVO.setInptPrgrsQntt(inptPrgrsQntt);
 		rawMtrInvntrVO.setInptPrgrsWght(inptPrgrsWght);
 
+		// 원물 재고변경 이력 등록 (투입취소)
+		rawMtrInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_P2);
+		HashMap<String, Object> rtnObj = insertRawMtrChgHstry(rawMtrInvntrVO);
+		
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+		
 		rawMtrInvntrMapper.updateInvntrInptPrgrs(rawMtrInvntrVO);
 
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertRawMtrChgHstry(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+		
+		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
+
+		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
+		}
+
+		RawMtrInvntrVO chgHstryVO = new RawMtrInvntrVO();
+		BeanUtils.copyProperties(rawMtrInvntrVO, chgHstryVO);
+		chgHstryVO.setChgBfrQntt(invntrInfo.getInvntrQntt());
+		chgHstryVO.setChgBfrWght(invntrInfo.getInvntrWght());
+		chgHstryVO.setChgAftrQntt(rawMtrInvntrVO.getInvntrQntt());
+		chgHstryVO.setChgAftrWght(rawMtrInvntrVO.getInvntrWght());
+		
+		if (!StringUtils.hasText(rawMtrInvntrVO.getWarehouseSeCd())
+				|| rawMtrInvntrVO.getWarehouseSeCd().equals(invntrInfo.getWarehouseSeCd())) {
+			chgHstryVO.setWarehouseSeCd(ComConstants.CON_BLANK);
+		}
+		
+		// 이력 insert
+		rawMtrInvntrMapper.insertRawMtrChgHstry(chgHstryVO);
+		
 		return null;
 	}
 

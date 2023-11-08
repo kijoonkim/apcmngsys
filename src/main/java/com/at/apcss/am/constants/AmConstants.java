@@ -96,4 +96,34 @@ public class AmConstants {
      */
     public final static String CON_CD_ID_STD_GRD = "STD_GRD";
     
+    /**
+     * 재고변경사유코드 : C1 재고보정
+     */
+    public final static String CON_INVNTR_CHG_RSN_CD_C1 = "C1";
+    /**
+     * 재고변경사유코드 : P1 투입
+     */
+    public final static String CON_INVNTR_CHG_RSN_CD_P1 = "P1";
+    /**
+     * 재고변경사유코드 : P2 투입취소
+     */
+    public final static String CON_INVNTR_CHG_RSN_CD_P2 = "P2";
+    /**
+     * 재고변경사유코드 : S1 출고
+     */
+    public final static String CON_INVNTR_CHG_RSN_CD_S1 = "S1";
+    /**
+     * 재고변경사유코드 : S2 출고취소
+     */
+    public final static String CON_INVNTR_CHG_RSN_CD_S2 = "S2";
+    /**
+     * 재고변경사유코드 : T1 이송
+     */
+    public final static String CON_INVNTR_CHG_RSN_CD_T1 = "T1";
+    /**
+     * 재고변경사유코드 : X1 폐기
+     */
+    public final static String CON_INVNTR_CHG_RSN_CD_X1 = "X1";
+    
+    
 }

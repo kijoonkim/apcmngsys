@@ -43,6 +43,8 @@
 				, SI.PCKG_WGHT		AS PCKG_WGHT
 				, SI.INVNTR_QNTT	AS INVNTR_QNTT
 				, SI.INVNTR_WGHT	AS INVNTR_WGHT
+				, SI.TRNSF_QNTT		AS TRNSF_QNTT
+				, SI.TRNSF_WGHT		AS TRNSF_WGHT
 				, SI.INPT_PRGRS_QNTT	AS INPT_PRGRS_QNTT
 				, SI.INPT_PRGRS_WGHT	AS INPT_PRGRS_WGHT
 				, SI.DEL_YN			AS DEL_YN
@@ -112,6 +114,7 @@
 					     , PC.FCLT_CD           AS PCKG_FCLT_CD
 					     , PC.CMND_QNTT         AS CMND_QNTT
 					     , PC.CMND_WGHT         AS CMND_WGHT
+					     , PC.RMRK				AS RMRK
 					  FROM TB_SORT_INVNTR SI
 					     , TB_PCKG_CMND PC
 					 WHERE SI.APC_CD = PC.APC_CD(+)
@@ -812,5 +815,66 @@
 	</update>
 
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortChgHstry	-->
+	<!-- DESC : 선별재고 변경이력 등록.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertSortChgHstry" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    	<![CDATA[
+	    	INSERT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortChgHstry */
+	    		INTO TB_SORT_INVNTR_CHG_HSTRY
+				(
+					  APC_CD
+					, SORTNO
+					, SORT_SN
+					, CHG_SN
+					, CHG_YMD
+					, CHG_BFR_QNTT
+					, CHG_BFR_WGHT
+					, CHG_AFTR_QNTT
+					, CHG_AFTR_WGHT
+					, WAREHOUSE_SE_CD
+					, CHG_RSN_CD
+					, CHG_RMRK
+		    		, SYS_FRST_INPT_DT
+		    		, SYS_FRST_INPT_USER_ID
+		    		, SYS_FRST_INPT_PRGRM_ID
+		    		, SYS_LAST_CHG_DT
+		    		, SYS_LAST_CHG_USER_ID
+		    		, SYS_LAST_CHG_PRGRM_ID
+	    		)
+	   		VALUES
+	   			(
+					  #{apcCd}
+					, #{sortno}
+					, #{sortSn}
+					, NVL((
+						SELECT MAX(CHG_SN)
+						  FROM TB_SORT_INVNTR_CHG_HSTRY
+						 WHERE APC_CD = #{apcCd}
+						   AND SORTNO = #{sortno}
+						   AND SORT_SN = #{sortSn}
+						), 0) + 1
+					, TO_CHAR(SYSDATE, 'YYYYMMDD')
+					, #{chgBfrQntt}
+					, #{chgBfrWght}
+					, #{chgAftrQntt}
+					, #{chgAftrWght}
+					, #{warehouseSeCd}
+					, #{chgRsnCd}
+					, #{chgRmrk}
+		    		, SYSDATE
+		    		, #{sysFrstInptUserId}
+		    		, #{sysFrstInptPrgrmId}
+		    		, SYSDATE
+		    		, #{sysLastChgUserId}
+		    		, #{sysLastChgPrgrmId}
+	   			)
+    	]]>
+    </insert>
 
 </mapper>

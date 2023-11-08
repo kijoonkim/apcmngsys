@@ -127,4 +127,12 @@ public interface GdsInvntrMapper {
 	 */
 	public int updateInvntrTrnsf(GdsInvntrVO gdsInvntrVO) throws Exception;
 
+	/**
+	 * 상품재고 변경이력 등록
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertGdsInvntrChgHstry(GdsInvntrVO gdsInvntrVO) throws Exception;
+	
 }
