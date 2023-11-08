@@ -118,6 +118,9 @@
 			<if test='menuNm != null and menuNm != ""'>
 			         AND CMH.MENU_NM LIKE '%' ||  #{menuNm} || '%'
 			</if>
+			<if test='prslType != null and prslType != ""'>
+					AND CMH.PRSL_TYPE	 = #{prslType}
+			</if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
@@ -182,6 +185,42 @@
     	</if>
     	<!-- End 페이징 -->
     </select>
+
+       <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.insertMenuHstry			-->
+	<!-- DESC : 화면열람이력 생성.                        	           		  	 		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.11.07  손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+
+  <insert id="insertMenuHstry" parameterType="com.at.apcss.co.log.vo.ComLogVO">
+  	<selectKey keyProperty="hstrySn" resultType="String" order="BEFORE">
+  		SELECT SQ_COM_MENU_LOG_HSTRY.NEXTVAL FROM DUAL
+  	</selectKey>
+			INSERT INTO TB_COM_MENU_LOG_HSTRY
+			VALUES (
+			#{menuId}
+			,#{menuNm}
+			,#{userId}
+			,#{userNm}
+			,#{userType}
+			,sysdate
+			,#{lgnScsYn}
+			,#{prslType}
+			,#{userIp}
+			,sysdate
+			,#{sysFrstInptUserId}
+			,#{sysFrstInptPrgrmId}
+			,sysdate
+			,#{sysLastChgUserId}
+			,#{sysLastChgPrgrmId}
+			,#{hstrySn}
+			,#{apcCd}
+			,#{flfmtTaskSeCd})
+    </insert>
+
 </mapper>
 
 

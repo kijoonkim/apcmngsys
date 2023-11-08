@@ -37,6 +37,7 @@ public class ComVO extends ComPageVO {
 	private String checkedYn;
 	private String rowSts;
 	private String excelYn;
+	private String userIp;
 
 
 

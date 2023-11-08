@@ -4,6 +4,7 @@ import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @Class Name : ComLogVO.java
@@ -22,6 +23,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@ToString
 public class ComLogVO extends ComVO {
 
 	/**
@@ -109,10 +111,6 @@ public class ComLogVO extends ComVO {
 	 */
 	private String lgnScsYn;
 	/**
-	 * 사용자IP
-	 */
-	private String userIp;
-	/**
 	 * APC코드
 	 */
 	private String apcCd;
@@ -120,4 +118,8 @@ public class ComLogVO extends ComVO {
 	 * APC명
 	 */
 	private String apcNm;
+	/**
+	 * 수행업무구분코드
+	 */
+	private String flfmtTaskSeCd;
 }
