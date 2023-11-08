@@ -337,7 +337,6 @@
 		let gdsSeCd = SBUxMethod.get("srch-slt-gdsSeCd");
 		let wrhsSeCd = SBUxMethod.get("srch-slt-wrhsSeCd");
 		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSe");
-		console.log(crtrYmd)
 		let url = "";
 		if(crtrYmd == gfn_dateToYmd(new Date()) || crtrYmd == null){
 			url = "/am/invntr/selectRawMtrInvntrList.do";
@@ -346,8 +345,7 @@
 			// 재고 이력 테이블
 			url = "/am/invntr/selectDailyRawMtrInvntrList.do";
 		}
-		console.log(url);
-		
+
 		const postJsonPromise1 = gfn_postJSON(url, {
 			  apcCd					: gv_selectedApcCd
 			, crtrYmd				: crtrYmd
@@ -365,6 +363,7 @@
   		});
 
         let data1 = await postJsonPromise1;
+
   		try {
           	/** @type {number} **/
       		let totalRecordCount = 0;
@@ -818,7 +817,7 @@
  			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");
  		}
  	}
- 	
+
  	/**
 	 * @name getByteLengthOfString
 	 * @description 글자 byte 크기 계산
@@ -827,7 +826,7 @@
 		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
 		  return b;
 	}
- 	
+
  	/**
  	 * @name fn_onInputPrdcrNm
  	 * @description 생산자명 입력 시 event : autocomplete
