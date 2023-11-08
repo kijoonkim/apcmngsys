@@ -10,6 +10,8 @@ let gv_reportUrl;
 let gv_reportType;
 let gv_reportPath;
 
+let gv_dvClipReportPrint = "div-rpt-clipReportPrint";
+
 /**
  * @name gfn_viewClipReport
  * @description 리포트 뷰
@@ -67,6 +69,25 @@ const gfn_getReportKey = async function(fileName, param) {
 	return oof.toString();
 }
 
+/**
+ * @name gfn_printClipReport
+ * @description 클립리포트 출력
+ */
+const gfn_printClipReport = async function(fileName, param) {
+	const reportKey = await gfn_getReportKey(fileName, param);
+	const report = createOOFReport(
+				gv_reportUrl, 
+				reportKey, 
+				document.getElementById(gv_dvClipReportPrint)
+			);
+	report.printPDFDirect();
+	//report.printHTMLDirect();
+}
+
+/**
+ * @name gfn_drawClipReport
+ * @description 클립리포트 View
+ */
 const gfn_drawClipReport = async function(divId, reportKey) {
 	const report = createOOFReport(gv_reportUrl, reportKey, document.getElementById(divId));
 	//report.callHTML5Print();
@@ -78,7 +99,10 @@ const gfn_drawClipReport = async function(divId, reportKey) {
 	report.view();
 }
 
-// 리포트를 팝업 혹은 새창으로 띄움
+/**
+ * @name gfn_popClipReport
+ * @description 리포트를 팝업 혹은 새창으로 띄움
+ */
 const gfn_popClipReport = async function(title, fileName, param) {
 
 	const reportKey = await gfn_getReportKey(fileName, param);

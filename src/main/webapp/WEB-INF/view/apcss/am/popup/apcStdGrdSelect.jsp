@@ -234,6 +234,73 @@ const stdGrdSelect = {
 			});
 		}
 	},
+	getJgmtGrdCd: function(_grdList) {
+		
+		if (gjsonStdGrdObjJgmt.length == 0) {
+			return "";
+		}
+
+		let jgmtGrdVl = 0;
+
+		gjsonStdGrdObjKnd.forEach((item, index) => {
+			const id = gStdGrdObj.idList[index];
+			let grdCd = _grdList[index];
+
+			let jsonObj = gStdGrdObj.getGrdJson(id);
+
+			let grdDtlInfo = _.find(jsonObj, {grdCd: grdCd});
+
+			if (!gfn_isEmpty(grdDtlInfo)) {
+				jgmtGrdVl += parseInt(grdDtlInfo.grdVl) || 0;
+			}
+		});
+
+		let jgmtGrdCd = "";
+		let jgmtGrdNm = "";
+
+		gjsonStdGrdObjJgmt.forEach((item, index) => {
+
+			let jgmtMinVl = parseInt(item.jgmtMinVl) || 0;
+			let jgmtMaxVl = parseInt(item.jgmtMaxVl) || 9999999999;
+
+			switch (item.jgmtType) {
+				case _JGMT_TYPE_VAL:	// 값
+					if (jgmtGrdVl === jgmtMinVl) {
+						jgmtGrdCd = item.grdCd;
+						jgmtGrdNm = item.grdNm;
+					}
+					return false;
+				case _JGMT_TYPE_UEL:	// 이상 미만
+					if (jgmtGrdVl >= jgmtMinVl && jgmtGrdVl < jgmtMaxVl) {
+						jgmtGrdCd = item.grdCd;
+						jgmtGrdNm = item.grdNm;
+					}
+					return false;
+				case _JGMT_TYPE_ULE:	// 초과 이하
+					if (jgmtGrdVl > jgmtMinVl && jgmtGrdVl <= jgmtMaxVl) {
+						jgmtGrdCd = item.grdCd;
+						jgmtGrdNm = item.grdNm;
+					}
+					return false;
+				case _JGMT_TYPE_UELE:	// 이상 이하
+					if (jgmtGrdVl >= jgmtMinVl && jgmtGrdVl <= jgmtMaxVl) {
+						jgmtGrdCd = item.grdCd;
+						jgmtGrdNm = item.grdNm;
+					}
+					return false;
+				case _JGMT_TYPE_UL:		// 초과 미만
+					if (jgmtGrdVl > jgmtMinVl && jgmtGrdVl < jgmtMaxVl) {
+						jgmtGrdCd = item.grdCd;
+						jgmtGrdNm = item.grdNm;
+					}
+					return false;
+				default:
+					break;
+			}
+		});
+		
+		return jgmtGrdCd;
+	},
 	setGrdJgmt: function() {
 
 		if (gjsonStdGrdObjJgmt.length == 0) {
