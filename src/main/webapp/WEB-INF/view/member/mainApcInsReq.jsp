@@ -34,6 +34,9 @@
 
 	let prvTabMenuId = "";
 
+	
+	var firstLoad = 0;
+    var secondLaod = 0;
 	//const sysPrgrmId = "main";
 	//gfn_setSysPrgrmId(sysPrgrmId);
     //SBUx topmenu 컴포넌트의 json 데이터
@@ -109,16 +112,25 @@
         var menuInfo = _.find(menuJson, {id: _menuNo});
        // var pMenuId = menuInfo.pid;
        // var pMenuNm = menuInfo.value;
-        var pMenuId = "CS";
-       var pMenuNm = "APC전수조사";
+//         var pMenuId = "CS";
+//        var pMenuNm = "APC전수조사";
 
+       if(firstLoad == 0){
+      	 var pMenuId = "PD";
+           var pMenuNm = "산지유통평가등록";
+          firstLoad = firstLoad +1;
+        }else{
+     	 var pMenuId = menuInfo.pid;
+          var pMenuNm = menuInfo.value;
+        }
+       
         if (gfn_isEmpty(pMenuId)) {
         	pMenuId = _menuNo;
         	pMenuNm = menuInfo.text;
         }
 
-        alert(pMenuId);
-        alert(pMenuNm);
+//         alert(pMenuId);
+//         alert(pMenuNm);
         //const postJsonPromise = gfn_postJSON("/co/menu/leftMenu", {upMenuId: pMenuId});
         const postJsonPromise = gfn_postJSON("/co/authrt/selectSideMenuTreeList.do", {upMenuId: pMenuId}, "main", true);
 
