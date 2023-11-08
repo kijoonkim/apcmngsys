@@ -143,4 +143,12 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public int updateInvntrInptPrgrs(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	
+	/**
+	 * 원물재고 변경이력 등록
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertRawMtrChgHstry(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 }
