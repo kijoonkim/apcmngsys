@@ -116,7 +116,7 @@
 											uitype="single"
 											unselected-text="전체"
 											class="form-control input-sm"
-											jsondata-ref="jsonCfmtnYn"
+											jsondata-ref="jsonComCfmtnYn"
 										></sbux-select>
 									</div>
 								</div>
@@ -237,10 +237,7 @@
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 	var jsonComClclnCrtrCd	= [];	// 정산기준 	clclnCrtr	검색
-	var jsonCfmtnYn			= [
-			{text: "Y", value: "Y", label: "Y"},
-			{text: "N", value: "N", label: "N"}
-		];	// 확정여부 	cfmtnYn		검색
+	var jsonComCfmtnYn		= [];
 
 	/* 생산자 자동완성 */
     var jsonPrdcr = [];
@@ -255,9 +252,10 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, 		gv_selectedApcCd),						// 품목
-			gfn_setApcVrtySBSelect('srch-inp-vrtyCd', 		jsonApcVrty, 		gv_selectedApcCd),						// 품종
-			gfn_setComCdSBSelect('srch-slt-clclnCrtrCd', 	jsonComClclnCrtrCd, 	'CLCLN_CRTR_CD')	// 정산기준
+			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, 		gv_selectedApcCd),		// 품목
+			gfn_setApcVrtySBSelect('srch-inp-vrtyCd', 		jsonApcVrty, 		gv_selectedApcCd),		// 품종
+			gfn_setComCdSBSelect('srch-slt-clclnCrtrCd', 	jsonComClclnCrtrCd, 'CLCLN_CRTR_CD'),		// 정산기준
+			gfn_setComCdSBSelect('srch-slt-cfmtnYn', 		jsonComCfmtnYn, 	'CFMTN_YN'),			// 확정유무
 		]);
 	}
 
@@ -345,7 +343,7 @@
             {caption: ["확정금액"], ref: 'cfmtnAmt', type:'output',  width:'100px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}
             },
-            {caption: ['확정여부'], ref: 'cfmtnYn', width: '60px', type: 'output', style: 'text-align:center'},
+            {caption: ['확정여부'], ref: 'cfmtnYnNm', width: '80px', type: 'output', style: 'text-align:center'},
             {caption: [""], ref: '_', type:'output', width:'1px'},
             {caption: ["정산순번"], ref: 'clclnSn', type:'output', hidden: true},
             {caption: ["생산자코드"], ref: 'prdcrCd', type:'output', hidden: true},
@@ -471,6 +469,7 @@
   						wrhsSeNm: item.wrhsSeNm,
   						gdsSeNm: item.gdsSeNm,
   						grdNm: item.grdNm,
+  						cfmtnYnNm : item.cfmtnYnNm
   				}
 
           		jsonClclnPrfmnc.push(clclnPrfmnc);
@@ -538,7 +537,7 @@
 		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
 		  return b;
 	}
- 	
+
 	/**
 	 * @name fn_onInputPrdcrNm
 	 * @description 생산자명 입력 시 event : autocomplete
@@ -607,7 +606,7 @@
 			}
 		}
 	}
-	
+
 	// 품종 선택 팝업 호출
 	const fn_modalVrty = function() {
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);
