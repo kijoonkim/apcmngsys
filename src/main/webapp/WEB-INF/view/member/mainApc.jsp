@@ -33,6 +33,9 @@
 <script type="text/javascript">
 
 	let prvTabMenuId = "";
+	
+	var firstLoad = 0;
+    var secondLaod = 0;
 
 	//const sysPrgrmId = "main";
 	//gfn_setSysPrgrmId(sysPrgrmId);
@@ -109,8 +112,14 @@
         var menuInfo = _.find(menuJson, {id: _menuNo});
        // var pMenuId = menuInfo.pid;
        // var pMenuNm = menuInfo.value;
-        var pMenuId = "FM";
-        var pMenuNm = "생산농가관리";
+       if(firstLoad == 0){
+         var pMenuId = "FM";
+         var pMenuNm = "생산농가관리";
+         firstLoad = firstLoad +1;
+       }else{
+    	 var pMenuId = menuInfo.pid;
+         var pMenuNm = menuInfo.value;
+       }
 
         if (gfn_isEmpty(pMenuId)) {
         	pMenuId = _menuNo;
