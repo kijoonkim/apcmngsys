@@ -372,8 +372,8 @@
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="내려받기" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" >내려받기</sbux-button>
-						<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="fn_uld">올리기</sbux-button>
+						<sbux-button id="btnDwnld" name="btnDwnld" uitype="normal" text="서식받기" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld" ></sbux-button>
+						<sbux-button id="btnUld" name="btnUld" uitype="normal" text="올리기" class="btn btn-sm btn-outline-danger" onclick="fn_uld"></sbux-button>
 					</div>
 				</div>
 				<div class="sbt-wrap-body">
@@ -1185,7 +1185,7 @@
 
  		// 생산연도
  		SBUxMethod.set("srch-dtp-prdctnYr", gfn_dateToYear(new Date()));
- 		
+
  		// 비고
  		SBUxMethod.set("srch-inp-rmrk", "");
 
@@ -1242,7 +1242,7 @@
 		let vrtyCd = obj.value;
 		let itemCd = "";
 		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
-		
+
 		if (!gfn_isEmpty(vrtyCd)) {
 			itemCd = vrtyInfo.mastervalue;
 		} else {
@@ -1271,7 +1271,7 @@
 		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
 		  return b;
 	}
-	
+
 	/**
 	 * @name fn_onInputPrdcrNm
 	 * @description 생산자명 입력 시 event : autocomplete
