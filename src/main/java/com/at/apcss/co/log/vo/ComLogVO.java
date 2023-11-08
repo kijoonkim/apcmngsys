@@ -99,7 +99,7 @@ public class ComLogVO extends ComVO {
 	/**
 	 * 열람일시
 	 */
-	private String prsCDt;
+	private String prslDt;
 	/**
 	 * 최초열람일시
 	 */

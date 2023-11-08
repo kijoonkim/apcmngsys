@@ -36,18 +36,19 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-			    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectLogMenuHstryList */
+			    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectCntnHstryList */
 					       CMH.MENU_ID          AS MENU_ID
 					     , CMH.MENU_NM          AS MENU_NM
 					     , CMH.USER_ID          AS USER_ID
 					     , CMH.USER_NM          AS USER_NM
 					     , CMH.USER_TYPE        AS USER_TYPE
-					     , TO_CHAR(CMH.PRSL_DT, 'YYYY-MM-DD')          AS PRSL_DT
+					     , TO_CHAR(CMH.PRSL_DT, 'YYYY-MM-DD')			AS PRSL_DT
+    		  	 		 , TO_CHAR(MIN(CMH.PRSL_DT), 'YYYY-MM-DD')		AS FRST_PRSL_DT
 					     , CMH.LGN_SCS_YN       AS LGN_SCS_YN
 					     , CMH.PRSL_TYPE        AS PRSL_TYPE
 					     , CMH.USER_IP          AS USER_IP
 					     , CMH.APC_CD           AS APC_CD
-					     , (SELECT FN_GET_APC_NM(CMH.APC_CD) FROM DUAL) AS APC_NM
+					     , (SELECT FN_GET_APC_NM(CMH.APC_CD) FROM DUAL)	AS APC_NM
 					FROM TB_COM_MENU_LOG_HSTRY CMH
 				   WHERE 1=1
 		]]>

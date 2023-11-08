@@ -45,13 +45,13 @@
 				    	<jsp:include page="../../co/log/rawMtrChgHstry.jsp"></jsp:include>
 				    </div>
 				    <!-- 선별재고변경이력 탭 화면 -->
-<!-- 				    <div id="SortInvntrChgHstry"> -->
-<%-- 				    	<jsp:include page="../../co/log/sortInvntrChgHstry.jsp"></jsp:include> --%>
-<!-- 				    </div> -->
+				    <div id="SortInvntrChgHstry">
+				    	<jsp:include page="../../co/log/sortInvntrChgHstry.jsp"></jsp:include>
+				    </div>
 				    <!-- 상품재고변경이력 탭 화면 -->
-<!-- 				    <div id="GdsInvntrChgHstry"> -->
-<%-- 				    	<jsp:include page="../../co/log/gdsInvntrChgHstry.jsp"></jsp:include> --%>
-<!-- 				    </div> -->
+				    <div id="GdsInvntrChgHstry">
+				    	<jsp:include page="../../co/log/gdsInvntrChgHstry.jsp"></jsp:include>
+				    </div>
 				</div>
 			</div>
 		</div>
@@ -69,8 +69,8 @@
 		    $('#LogTrsmHstry').hide();
 		    $('#LogBatchHstry').hide();
 		    $('#RawMtrChgHstry').hide();
-// 		    $('#SortInvntrChgHstry').hide();
-// 		    $('#GdsInvntrChgHstry').hide();
+		    $('#SortInvntrChgHstry').hide();
+		    $('#GdsInvntrChgHstry').hide();
 		    $('#'+btnName.slice(3)).show();
 		    $('#'+btnName.slice(3)+' [name='+btnName+']').css({'background-color':'#149FFF', 'border':'1px solid #149FFF', 'color': '#FFFFFF'});
 		    eval('tab'+btnName.slice(3)+'.init(gv_selectedApcCd, gv_selectedApcNm)');
@@ -95,10 +95,10 @@
 			tabLogBatchHstry.search();
 		} else if(searchTarget == "RawMtrChgHstry"){
 			tabRawMtrChgHstry.search();
-// 		} else if(searchTarget == "SortInvntrChgHstry"){
-// 			tabSortInvntrChgHstry.search();
-// 		} else if(searchTarget == "GdsInvntrChgHstry"){
-// 			tabGdsInvntrChgHstry.search();
+		} else if(searchTarget == "SortInvntrChgHstry"){
+			tabSortInvntrChgHstry.search();
+		} else if(searchTarget == "GdsInvntrChgHstry"){
+			tabGdsInvntrChgHstry.search();
 		}
     }
 </script>

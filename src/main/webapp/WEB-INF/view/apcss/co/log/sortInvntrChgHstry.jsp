@@ -22,40 +22,40 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="rawMtr-dtp-chgYmdFrom" name="rawMtr-dtp-chgYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="sortInvntr-dtp-chgYmdFrom" name="sortInvntr-dtp-chgYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="rawMtr-dtp-chgYmdTo" name="rawMtr-dtp-chgYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="sortInvntr-dtp-chgYmdTo" name="sortInvntr-dtp-chgYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		
 		<div class="ad_tbl_toplist">
-			<sbux-button id="btnLogCntnHstry5" name="btnLogCntnHstry" uitype="normal" text="접속이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-			<sbux-button id="btnLogMenuHstry5" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-			<sbux-button id="btnLogTrsmHstry5" name="btnLogTrsmHstry" uitype="normal" text="송수신이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-			<sbux-button id="btnLogBatchHstry5" name="btnLogBatchHstry" uitype="normal" text="배치실행이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-			<sbux-button id="btnRawMtrChgHstry5" name="btnRawMtrChgHstry" uitype="normal" text="원물재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-			<sbux-button id="btnSortInvntrChgHstry5" name="btnSortInvntrChgHstry" uitype="normal" text="선별재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
-			<sbux-button id="btnGdsInvntrChgHstry5" name="btnGdsInvntrChgHstry" uitype="normal" text="상품재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnLogCntnHstry6" name="btnLogCntnHstry" uitype="normal" text="접속이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnLogMenuHstry6" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnLogTrsmHstry6" name="btnLogTrsmHstry" uitype="normal" text="송수신이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnLogBatchHstry6" name="btnLogBatchHstry" uitype="normal" text="배치실행이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnRawMtrChgHstry6" name="btnRawMtrChgHstry" uitype="normal" text="원물재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnSortInvntrChgHstry6" name="btnSortInvntrChgHstry" uitype="normal" text="선별재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
+			<sbux-button id="btnGdsInvntrChgHstry6" name="btnGdsInvntrChgHstry" uitype="normal" text="상품재고변경이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 		</div>
 		<div class="table-responsive tbl_scroll_sm">
-			<div id="sb-area-rawMtrChgHstry" style="height:590px;"></div>
+			<div id="sb-area-sortInvntrChgHstry" style="height:590px;"></div>
 		</div>
 	</section>
 </body>
 <script type="text/javascript">
 	var jsonComWarehouse = [];
 
-	var jsonRawMtrChgHstry = [];
-	var grdRawMtrChgHstry = null;
+	var jsonSortInvntrChgHstry = [];
+	var grdSortInvntrChgHstry = null;
 
-	const tabRawMtrChgHstry = {
-			prgrmId: 'rawMtrChgHstryTab',
-			gridId: 'grdRawMtrChgHstry',
-			jsonId: 'jsonRawMtrChgHstry',
-			areaId: "sb-area-rawMtrChgHstry",
+	const tabSortInvntrChgHstry = {
+			prgrmId: 'sortInvntrChgHstryTab',
+			gridId: 'grdSortInvntrChgHstry',
+			jsonId: 'jsonSortInvntrChgHstry',
+			areaId: "sb-area-sortInvntrChgHstry",
 			prvApcCd: "",
 			objGrid: null,
 			gridJson: [],
@@ -65,9 +65,9 @@
 					this.callbackFnc = _callbackFnc;
 				}
 
-				if (grdRawMtrChgHstry === null || this.prvApcCd != _apcCd) {
-					SBUxMethod.set("rawMtr-dtp-chgYmdFrom", gfn_dateFirstYmd(new Date()));
-					SBUxMethod.set("rawMtr-dtp-chgYmdTo", gfn_dateToYmd(new Date()));
+				if (grdSortInvntrChgHstry === null || this.prvApcCd != _apcCd) {
+					SBUxMethod.set("sortInvntr-dtp-chgYmdFrom", gfn_dateFirstYmd(new Date()));
+					SBUxMethod.set("sortInvntr-dtp-chgYmdTo", gfn_dateToYmd(new Date()));
 					this.createGrid();
 					this.search();
 				} else {
@@ -78,9 +78,9 @@
 			},
 			createGrid: function() {
 				var SBGridProperties = {};
-			    SBGridProperties.parentid = 'sb-area-rawMtrChgHstry';
-			    SBGridProperties.id = 'grdRawMtrChgHstry';
-			    SBGridProperties.jsonref = 'jsonRawMtrChgHstry';
+			    SBGridProperties.parentid = 'sb-area-sortInvntrChgHstry';
+			    SBGridProperties.id = 'grdSortInvntrChgHstry';
+			    SBGridProperties.jsonref = 'jsonSortInvntrChgHstry';
 			    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 			    SBGridProperties.selectmode = 'byrow';
 			    SBGridProperties.extendlastcol = 'scroll';
@@ -110,23 +110,23 @@
 		            {caption: ['창고구분'],	ref: 'warehouseSeNm',	width: '120px', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['변경비고'],	ref: 'chgRmrk', 		width: '300px', 	type: 'output'}
 		        ];
-		        grdRawMtrChgHstry = _SBGrid.create(SBGridProperties);
-		        grdRawMtrChgHstry.bind( "afterpagechanged" , tabRawMtrChgHstry.setGrid );
+		        grdSortInvntrChgHstry = _SBGrid.create(SBGridProperties);
+		        grdSortInvntrChgHstry.bind( "afterpagechanged" , tabSortInvntrChgHstry.setGrid );
 			},
 			search: async function() {
 				// set pagination
-				grdRawMtrChgHstry.rebuild();
-		    	let recordCountPerPage = grdRawMtrChgHstry.getPageSize();
+				grdSortInvntrChgHstry.rebuild();
+		    	let recordCountPerPage = grdSortInvntrChgHstry.getPageSize();
 		    	let currentPageNo = 1;
 
 		    	// grid clear
-		    	jsonRawMtrChgHstry.length = 0;
+		    	jsonSortInvntrChgHstry.length = 0;
 		    	await this.setGrid(recordCountPerPage, currentPageNo);
 			},
 			setGrid: async function(recordCountPerPage, currentPageNo) {
 
-				let chgYmdFrom = SBUxMethod.get("rawMtr-dtp-chgYmdFrom");
-				let chgYmdTo = SBUxMethod.get("rawMtr-dtp-chgYmdTo");
+				let chgYmdFrom = SBUxMethod.get("sortInvntr-dtp-chgYmdFrom");
+				let chgYmdTo = SBUxMethod.get("sortInvntr-dtp-chgYmdTo");
 				if (gfn_isEmpty(chgYmdFrom)){
 					gfn_comAlert("W0002", "조회일자");		//	W0002	{0}을/를 입력하세요.
 		            return;
@@ -136,7 +136,7 @@
 		            return;
 				}
 
-		        const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrHstryList.do", {
+		        const postJsonPromise = gfn_postJSON("/am/invntr/selectSortInvntrHstryList.do", {
 		        		apcCd				: gv_selectedApcCd
 					  , chgYmdFrom 			: chgYmdFrom
 					  , chgYmdTo 			: chgYmdTo
@@ -150,7 +150,7 @@
 				try {
 		    		let totalRecordCount = 0;
 
-		    		jsonRawMtrChgHstry.length = 0;
+		    		jsonSortInvntrChgHstry.length = 0;
 		        	data.resultList.forEach((item, index) => {
 						const hstry = {
 							wrhsno			: item.wrhsno,
@@ -163,23 +163,23 @@
 							chgRsnNm	 	: item.chgRsnNm,
 							warehouseSeNm	: item.warehouseSeNm
 						}
-						jsonRawMtrChgHstry.push(hstry);
+						jsonSortInvntrChgHstry.push(hstry);
 
 						if (index === 0) {
 							totalRecordCount = item.totalRecordCount;
 						}
 					});
 
-		        	if (jsonRawMtrChgHstry.length > 0) {
-		        		if(grdRawMtrChgHstry.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-		        			grdRawMtrChgHstry.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-		        			grdRawMtrChgHstry.rebuild();
+		        	if (jsonSortInvntrChgHstry.length > 0) {
+		        		if(grdSortInvntrChgHstry.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+		        			grdSortInvntrChgHstry.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+		        			grdSortInvntrChgHstry.rebuild();
 						}else{
-							grdRawMtrChgHstry.refresh();
+							grdSortInvntrChgHstry.refresh();
 						}
 		        	} else {
-		        		grdRawMtrChgHstry.setPageTotalCount(totalRecordCount);
-		        		grdRawMtrChgHstry.rebuild();
+		        		grdSortInvntrChgHstry.setPageTotalCount(totalRecordCount);
+		        		grdSortInvntrChgHstry.rebuild();
 		        	}
 		        } catch (e) {
 		    		if (!(e instanceof Error)) {

@@ -98,12 +98,11 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		            {caption: ['사용자ID'], 	ref: 'userId',		width: '260px',		type: 'output',	style:'text-align: center'},
-		            {caption: ['사용자명'], 	ref: 'userNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['APC명'],		ref: 'apcNm', 		width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['현재상태'],		ref: 'sttsNow', 	width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['접속일시'],		ref: 'sessCrtDt',	width: '260px', 	type: 'output',	style:'text-align: center'},
-		            {caption: ['최초접속일시'],	ref: 'frstPrslDt',	width: '260px', 	type: 'output',	style:'text-align: center'}
+		            {caption: ['사용자ID'], 	ref: 'userId',		width: '240px',		type: 'output',	style:'text-align: center'},
+		            {caption: ['사용자명'], 	ref: 'userNm', 		width: '240px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['APC명'],		ref: 'apcNm', 		width: '240px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['접속일시'],	ref: 'prslDt',		width: '240px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['최초접속일시'],	ref: 'frstPrslDt',	width: '240px', 	type: 'output',	style:'text-align: center'}
 		        ];
 		        grdLogCntnHstry = _SBGrid.create(SBGridProperties);
 		        grdLogCntnHstry.bind( "afterpagechanged" , tabLogCntnHstry.setGrid );
@@ -153,9 +152,8 @@
 							userId			: item.userId
 						  ,	userNm			: item.userNm
 					      , apcNm 			: item.apcNm
-						  ,	sessCrtDt		: item.sessCrtDt
-						  ,	sttsNow 		: null
-						  ,	lastAccessDt	: item.frstPrslDt
+						  ,	prslDt			: item.prslDt
+						  ,	frstPrslDt		: item.frstPrslDt
 						}
 						jsonLogCntnHstry.push(log);
 
