@@ -31,6 +31,8 @@
 				, CM.PAGE_URL   AS PAGE_URL
 				, CM.INDCT_SEQ  AS INDCT_SEQ
 				, CM.APC_CD   	AS APC_CD
+				, CM.AUTHRT_TYPE AS AUTHRT_TYPE
+				, CM.PRSNA_INFO_YN AS PRSNA_INFO_YN
 			  FROM TB_COM_MENU CM
 			 WHERE CM.MENU_ID = #{menuId}
     	]]>
@@ -56,6 +58,8 @@
 				, CM.PAGE_URL   AS PAGE_URL
 				, CM.INDCT_SEQ  AS INDCT_SEQ
 				, CM.APC_CD   	AS APC_CD
+				, CM.AUTHRT_TYPE AS AUTHRT_TYPE
+				, CM.PRSNA_INFO_YN AS PRSNA_INFO_YN
 			  FROM TB_COM_MENU CM
 			 WHERE CM.DEL_YN = 'N'
     	]]>
@@ -92,6 +96,8 @@
 				, MN.PAGE_URL	AS PAGE_URL
 				, MN.APC_CD		AS APC_CD
 				, MN.INDCT_SEQ	AS INDCT_SEQ
+				, MN.AUTHRT_TYPE AS AUTHRT_TYPE
+				, MN.PRSNA_INFO_YN AS PRSNA_INFO_YN
 			  FROM (
 				SELECT
 					  LEVEL		AS LVL
@@ -105,6 +111,8 @@
 					, MN.PAGE_URL	AS PAGE_URL
 					, MN.APC_CD		AS APC_CD
 					, MN.INDCT_SEQ	AS INDCT_SEQ
+					, MN.AUTHRT_TYPE AS AUTHRT_TYPE
+					, MN.PRSNA_INFO_YN AS PRSNA_INFO_YN
 				  FROM TB_COM_MENU MN
 				 WHERE MN.DEL_YN = 'N'
     	]]>
@@ -149,6 +157,8 @@
 				, MN.PAGE_URL	AS PAGE_URL
 				, MN.APC_CD		AS APC_CD
 				, MN.INDCT_SEQ	AS INDCT_SEQ
+				, MN.AUTHRT_TYPE AS AUTHRT_TYPE
+				, MN.PRSNA_INFO_YN AS PRSNA_INFO_YN
 
 			  FROM (
 				SELECT
@@ -163,6 +173,8 @@
 					, MN.PAGE_URL	AS PAGE_URL
 					, MN.APC_CD		AS APC_CD
 					, MN.INDCT_SEQ	AS INDCT_SEQ
+					, MN.AUTHRT_TYPE AS AUTHRT_TYPE
+					, MN.PRSNA_INFO_YN AS PRSNA_INFO_YN
 				  FROM TB_COM_MENU MN
 				 WHERE MN.DEL_YN = 'N'
     	]]>
@@ -207,6 +219,8 @@
 				, MN.PAGE_URL	AS PAGE_URL
 				, MN.APC_CD		AS APC_CD
 				, MN.INDCT_SEQ	AS INDCT_SEQ
+				, MN.PRSNA_INFO_YN AS PRSNA_INFO_YN
+				, MN.AUTHRT_TYPE AS AUTHRT_TYPE
 
 			  FROM (
 				SELECT
@@ -221,6 +235,8 @@
 					, MN.PAGE_URL	AS PAGE_URL
 					, MN.APC_CD		AS APC_CD
 					, MN.INDCT_SEQ	AS INDCT_SEQ
+					, MN.PRSNA_INFO_YN AS PRSNA_INFO_YN
+					, MN.AUTHRT_TYPE AS AUTHRT_TYPE
 				  FROM TB_COM_MENU MN
 				 WHERE MN.DEL_YN = 'N'
     	]]>
@@ -262,6 +278,8 @@
     		  , INDCT_SEQ
     		  , USER_TYPE
     		  , PAGE_URL
+    		  , AUTHRT_TYPE
+    		  , PRSNA_INFO_YN
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -280,6 +298,8 @@
    			  , #{indctSeq}
    			  , #{userType}
    			  , #{pageUrl}
+   			  , #{authrtType}
+   			  , #{prsnaInfoYn}
    			  , SYSDATE
    			  , #{sysFrstInptUserId}
    			  , #{sysFrstInptPrgrmId}
@@ -308,8 +328,9 @@
     		 , MENU_NM 					= #{menuNm}
     	     , MENU_TYPE				= #{menuType}
     	     , PAGE_URL					= #{pageUrl}
+    	     , AUTHRT_TYPE 				= #{authrtType}
     	     , DEL_YN					= #{delYn}
-    	     , PRSNA_INFO_YN					=#{prsnaInfoYn}
+    	     , PRSNA_INFO_YN			= #{prsnaInfoYn}
     	 ]]>
     	<if test='apcCd != null and apcCd != ""'>
     	     , APC_CD 					= #{apcCd}
@@ -350,6 +371,7 @@
 				, MN.INDCT_SEQ	AS INDCT_SEQ
 				, MN.DEL_YN 	AS DEL_YN
 				, MN.PRSNA_INFO_YN AS PRSNA_INFO_YN
+				, MN.AUTHRT_TYPE AS AUTHRT_TYPE
 			  FROM (
 				SELECT
 					  LEVEL		AS LVL
@@ -364,7 +386,8 @@
 					, MN.APC_CD		AS APC_CD
 					, MN.INDCT_SEQ	AS INDCT_SEQ
 					, MN.DEL_YN		AS DEL_YN
-					, MN.PRSNA_INFO_YN
+					, MN.PRSNA_INFO_YN AS PRSNA_INFO_YN
+					, MN.AUTHRT_TYPE AS AUTHRT_TYPE
 				  FROM TB_COM_MENU MN
 				 WHERE 1=1
     	]]>
@@ -420,6 +443,8 @@
      		 , CM.MENU_NM               AS MENU_NM
 		     , CM.INDCT_SEQ             AS INDCT_SEQ
 		     , CM.PAGE_URL              AS PAGE_URL
+		     , CM.PRSNA_INFO_YN			AS PRSNA_INFO_YN
+		     , CM.AUTHRT_TYPE			AS AUTHRT_TYPE
 		     , CM.DEL_YN                AS DEL_YN
 		     , DECODE(CM.SYS_FRST_INPT_USER_ID, 'SYS', '관리자', 'admin', '관리자', CM.SYS_FRST_INPT_USER_ID)  AS SYS_FRST_INPT_USER_ID
 		     , CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID

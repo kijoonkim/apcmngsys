@@ -23,4 +23,5 @@ public class ComMenuVO extends ComVO {
 	private int menuSeq;
 	private int menuLvl;
 	private String prsnaInfoYn;
+	private String authrtType;
 }

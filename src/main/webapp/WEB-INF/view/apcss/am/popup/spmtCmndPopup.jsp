@@ -101,7 +101,7 @@
 
 	var grdSpmtCmndPop = null;
 	var regSpmtList = [];
-	
+
 	const popSpmtCmnd = {
 		modalId: 'modal-spmtCmnd',
 		gridId: 'grdSpmtCmndPop',
@@ -114,6 +114,7 @@
 		init: async function(_apcCd, _apcNm, _spmtCmnd, _callbackChoiceFnc) {
 			SBUxMethod.set("spmtCmnd-inp-apcCd", _apcCd);
 			SBUxMethod.set("spmtCmnd-inp-apcNm", _apcNm);
+			SBUxMethod.set("spmtCmnd-dtp-cmndYmd", gfn_dateToYmd(new Date()));
 			if(!gfn_isEmpty(_spmtCmnd)){
 				regSpmtList = _spmtCmnd.regSpmtList;
 			}
@@ -121,11 +122,9 @@
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
 				this.callbackSelectFnc = _callbackChoiceFnc;
 			}
-			
+
 			if (grdSpmtCmndPop === null || this.prvApcCd != _apcCd) {
 
-				SBUxMethod.set("spmtCmnd-dtp-cmndYmd", gfn_dateToYmd(new Date()));
-				
 				let rst = await Promise.all([
 				 	gfn_setApcItemSBSelect('spmtCmnd-slt-itemCd', jsonApcItem, _apcCd),								// 품목
 					gfn_setApcVrtySBSelect('spmtCmnd-slt-vrtyCd', jsonApcVrty, _apcCd)								// 품종
@@ -230,10 +229,10 @@
 		    	let totalRecordCount = 0;
 		    	jsonSpmtCmndPop.length = 0;
 		    	data.resultList.forEach((item, index) => {
-		    		
+
 		    		regSpmtQntt = 0;
 		    		regSpmtWght = 0;
-		    		
+
 		    		if (!gfn_isEmpty(regSpmtList)) {
 		    			for (let i=0; i<regSpmtList.length; i++) {
 		    				if (regSpmtList[i].spmtCmndnoIndct == item.spmtCmndnoIndct) {
@@ -242,7 +241,7 @@
 		    				}
 		    			}
 		    		}
-		    		
+
 		    		let cmndQntt = item.cmndQntt;
 		    		let spmtQntt = item.spmtQntt;
 		    		if (cmndQntt > spmtQntt) {
@@ -293,7 +292,7 @@
 	        		grdSpmtCmndPop.setPageTotalCount(totalRecordCount);
 	        		grdSpmtCmndPop.rebuild();
 	        	}
-		    	
+
 	        	//document.querySelector('#spmtCmnd-pop-cnt').innerText = totalRecordCount;
 
 	        	grdSpmtCmndPop.rebuild();

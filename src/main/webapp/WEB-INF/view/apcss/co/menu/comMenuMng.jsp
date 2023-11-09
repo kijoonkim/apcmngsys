@@ -129,7 +129,11 @@
 									<tr>
 										<th scope="row" class="th_bg">개인정보 사용유무</th>
 										<td class="td_input">
-										<sbux-select id="dtl-select-flfmtYn" name="dtl-select-flfmtYn" uitype="single" jsondata-ref="jsonComFlfmt" onChange="onSelectMenuTypeChange(this)" unselected-text="선택" class="form-control input-sm"></sbux-select>
+											<sbux-select id="dtl-select-flfmtYn" name="dtl-select-flfmtYn" uitype="single" jsondata-ref="jsonComFlfmt" onChange="onSelectMenuTypeChange(this)" unselected-text="선택" class="form-control input-sm"></sbux-select>
+										</td>
+										<th scope="row" class="th_bg">권한유형</th>
+										<td class="td_input">
+											<sbux-select id="dtl-select-authrtType" name="dtl-select-authrtType" uitype="single" jsondata-ref="jsonComAuthrtType" unselected-text="선택" class="form-control input-sm"></sbux-select>
 										</td>
 									</tr>
 								</thead>
@@ -149,11 +153,12 @@
     var grid; // 그리드를 담기위한 객체 선언
     var gridData = []; // 그리드의 참조 데이터 주소 선언
 
-	var jsonComSysId 	= [];	// 시스템유형	srch-select-sysId		SYS_ID
-    var jsonComMenuType = [];	// 메뉴유형	dtl-select-menuType		MENU_TYPE
-    var jsonComUserType = [];	// 사용자유형	dtl-select-userType		USER_TYPE
-    var jsonComDelYn 	= [];	// 삭제유무	dtl-select-delYn		REVERSE_YN
-    var jsonComFlfmt = []; //개인정보사용유무 dtl-select-flfmtYn FLFMT_TASK_SE_CD
+	var jsonComSysId 		= [];	// 시스템유형	srch-select-sysId		SYS_ID
+    var jsonComMenuType 	= [];	// 메뉴유형	dtl-select-menuType			MENU_TYPE
+    var jsonComUserType 	= [];	// 사용자유형	dtl-select-userType		USER_TYPE
+    var jsonComDelYn 		= [];	// 삭제유무	dtl-select-delYn			REVERSE_YN
+    var jsonComFlfmt 		= []; 	// 개인정보사용유무 dtl-select-flfmtYn FLFMT_TASK_SE_CD
+    var jsonComAuthrtType 	= []; 	// 권한유형 dtl-select-authrtType 		AUTHRT_TYPE
 
     // grid 초기화
     var grdMenuTreeList; // 그리드를 담기위한 객체 선언
@@ -174,10 +179,11 @@
 	 	gfn_setComCdSBSelect('srch-slt-sysId', jsonComSysId, 'SYS_ID');	// 시스템유형
 
 	 	// 상세 SB select
-	 	gfn_setComCdSBSelect('dtl-select-menuType', jsonComMenuType, 'MENU_TYPE');	// 메뉴유형
-	 	gfn_setComCdSBSelect('dtl-select-userType', jsonComUserType, 'USER_TYPE');	// 사용자유형
-	 	gfn_setComCdSBSelect('dtl-select-delYn', jsonComDelYn, 'REVERSE_YN');		// 삭제유무
-	 	gfn_setComCdSBSelect('dtl-select-flfmtYn', jsonComFlfmt, 'USE_YN');		// 개인정보사용유무
+	 	gfn_setComCdSBSelect('dtl-select-menuType', 	jsonComMenuType, 	'MENU_TYPE');	// 메뉴유형
+	 	gfn_setComCdSBSelect('dtl-select-userType', 	jsonComUserType, 	'USER_TYPE');	// 사용자유형
+	 	gfn_setComCdSBSelect('dtl-select-authrtType', 	jsonComAuthrtType, 	'AUTHRT_TYPE');	// 권한유형
+	 	gfn_setComCdSBSelect('dtl-select-delYn', 		jsonComDelYn, 		'REVERSE_YN');	// 삭제유무
+	 	gfn_setComCdSBSelect('dtl-select-flfmtYn', 		jsonComFlfmt, 		'USE_YN');		// 개인정보사용유무
     }
 
 
@@ -290,6 +296,7 @@
         SBUxMethod.set("dtl-select-menuType", "");
         SBUxMethod.set("dtl-select-userType", "");
         SBUxMethod.set("dtl-input-pageUrl", "");
+        SBUxMethod.set("dtl-select-authrtType", "");
         SBUxMethod.set("dtl-select-delYn", "N");	// 기본값 사용여부(N)
     }
 
@@ -306,6 +313,10 @@
     	if(!SBUxMethod.get("dtl-select-flfmtYn")){
     		gfn_comAlert("W0002","개인정보 사용유무");
     		return; // 개인정보 사용유무 선택
+    	}
+    	if(!SBUxMethod.get("dtl-select-authrtType")){
+    		gfn_comAlert("W0002","권한유형");
+    		return; // 권한유형 선택
     	}
 
     	// check 메뉴명
@@ -406,8 +417,6 @@
 		});
 
         const data = await postJsonPromise;
-        console.log(data,"시스템구분에 맞는 정보");
-
         try {
 
         	/** @type {number} **/
@@ -427,7 +436,8 @@
 					userType : item.userType,
 					pageUrl : item.pageUrl,
 					delYn : item.delYn,
-					prsnaInfoYn : item.prsnaInfoYn
+					prsnaInfoYn : item.prsnaInfoYn,
+					authrtType : item.authrtType
 				}
 				jsonMenuTreeList.push(menu);
 
@@ -454,12 +464,13 @@
     const fn_insertMenu = async function(isConfirmed) {
 
     	let upMenuId 		= SBUxMethod.get('dtl-input-upMenuId');		// 상위메뉴ID
-    	let menuNm 			= SBUxMethod.get('dtl-input-menuNm');			// 메뉴이름
-    	let apcCd 			= SBUxMethod.get('dtl-input-apcCd');			// APC코드
-    	let order 			= SBUxMethod.get('dtl-input-order');			// 정렬순서
+    	let menuNm 			= SBUxMethod.get('dtl-input-menuNm');		// 메뉴이름
+    	let apcCd 			= SBUxMethod.get('dtl-input-apcCd');		// APC코드
+    	let order 			= SBUxMethod.get('dtl-input-order');		// 정렬순서
     	let menuType 		= SBUxMethod.get('dtl-select-menuType');	// 메뉴유형
     	let userType 		= SBUxMethod.get('dtl-select-userType');	// 사용자유형
     	let pageUrl 		= SBUxMethod.get('dtl-input-pageUrl');		// 화면URL
+    	let authrtType 		= SBUxMethod.get('dtl-input-authrtType');	// 권한유형
 
     	if (gfn_isEmpty(order)){
 	    	let orderArray = [];
@@ -478,7 +489,8 @@
 	  		  	indctSeq 	: order,
 	  		  	menuType 	: menuType,
 	  		    userType 	: userType,
-	  		  	pageUrl 	: pageUrl
+	  		  	pageUrl 	: pageUrl,
+	  		    authrtType  : authrtType
 		});
 
 		const data = await postJsonPromise;
@@ -511,8 +523,8 @@
     	let userType 		= SBUxMethod.get('dtl-select-userType');	// 사용자유형
     	let pageUrl 		= SBUxMethod.get('dtl-input-pageUrl');		// 화면URL
     	let delYn 			= SBUxMethod.get('dtl-select-delYn');		// 사용유무
-    	let prsnaInfoYn	 = SBUxMethod.get("dtl-select-flfmtYn"); //개인정보 사용유무
-    	console.log(prsnaInfoYn);
+    	let prsnaInfoYn	 	= SBUxMethod.get("dtl-select-flfmtYn"); 	// 개인정보 사용유무
+    	let authrtType	 	= SBUxMethod.get("dtl-select-authrtType"); 	// 권한유형
 
     	const postJsonPromise = gfn_postJSON("/co/menu/updateMenu.do", {
 	  		apcCd 		: apcCd,
@@ -523,8 +535,9 @@
   		    userType 	: userType,
   		  	order		: order,
   		  	pageUrl 	: pageUrl,
+  		    authrtType  : authrtType,
   		  	delYn		: delYn,
-  		  prsnaInfoYn : prsnaInfoYn
+  		    prsnaInfoYn : prsnaInfoYn
 		});
 
 		const data = await postJsonPromise;
@@ -600,6 +613,7 @@
         SBUxMethod.set("dtl-input-pageUrl", rowData.pageUrl);
         SBUxMethod.set("dtl-select-delYn", rowData.delYn);	// 기본값 사용여부(N)
         SBUxMethod.set("dtl-select-flfmtYn", rowData.prsnaInfoYn);
+        SBUxMethod.set("dtl-select-authrtType", rowData.authrtType);
 
 
         // 화면유형 : 01 -> 입력불가, 02 -> PAGE_URL 입력
@@ -625,6 +639,7 @@
         SBUxMethod.set("dtl-select-menuType", "");
         SBUxMethod.set("dtl-select-userType", "");
         SBUxMethod.set("dtl-input-pageUrl", "");
+        SBUxMethod.set("dtl-select-authrtType", "");
         SBUxMethod.set("dtl-select-delYn", "");
     }
 

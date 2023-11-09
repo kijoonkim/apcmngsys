@@ -345,8 +345,22 @@
 					, MN.PAGE_URL	AS PAGE_URL
 					, MN.APC_CD		AS APC_CD
 					, MN.INDCT_SEQ	AS INDCT_SEQ
+					, MN.AUTHRT_TYPE AS AUTHRT_TYPE
 				  FROM TB_COM_MENU MN
 				 WHERE MN.DEL_YN = 'N'
+    	]]>
+    	<choose>
+    		<when test='authrtType != null and authrtType != "" and authrtType == "00"'>
+				   AND MN.AUTHRT_TYPE IN ('00','10','20','21','30','40')
+    		</when>
+    		<when test='authrtType != null and authrtType != "" and authrtType == "10"'>
+				   AND MN.AUTHRT_TYPE IN ('10','20','21','30','40')
+    		</when>
+    		<when test='authrtType != null and authrtType != "" and authrtType == "20"'>
+				   AND MN.AUTHRT_TYPE IN ('20')
+    		</when>
+    	</choose>
+    	<![CDATA[
 				 START WITH MN.MENU_ID = #{sysId}
 			    CONNECT BY PRIOR MN.MENU_ID = MN.UP_MENU_ID
 			     ORDER SIBLINGS BY MN.INDCT_SEQ, MN.MENU_ID
