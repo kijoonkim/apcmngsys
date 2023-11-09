@@ -7,210 +7,157 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body>
-
-
-<!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 시작-->
-
-<!-- section============================================================================================================== -->
-<!-- ============================================================================================================== -->
-<!-- ============================================================================================================== -->
-<!-- ============================================================================================================== -->
-<!-- ============================================================================================================== -->
-<!-- ============================================================================================================== -->
-<!-- ============================================================================================================== -->
-
-<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;">
-			<div>
-				<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>
+	<section>
+		<div class="box box-solid">
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div>
+					<h3 class="box-title"> ▶ ${comMenuVO.menuNm}</h3>	<!-- 출하실적등록 -->
+				</div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_insert"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+				</div>
 			</div>
-			<div style="margin-left: auto;">
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-outline-danger" onclick="fn_insert"></sbux-button>
-				<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
-				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
-			</div>
-		</div>
-		<div>
-		</div>
-		<div class="box-body">		
-			<div>
-				<table class="table table-bordered tbl_row tbl_fixed">
-					<caption>검색 조건 설정</caption>
+			<div class="box-body">
+				<!--[pp] 검색 -->
+				<!--[APC] START -->
+					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+				<!--[APC] END -->
+				<table class="table table-bordered tbl_fixed">
+				<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
-						
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 6%">
 						<col style="width: 3%">
-						
+						<col style="width: 3%">
+						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 6%">
 						<col style="width: 3%">
+						<col style="width: 6%">
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">권한그룹명</th>
-							<td colspan="3" class="td_input"style="border-right: hidden;">
+							<th scope="row" class="th_bg">권한그룹명</th>
+							<td class="td_input" colspan="3" style="border-right:hidden;">
 								<sbux-input uitype="text" id="srch-inp-authrtNm" name="srch-inp-authrtNm" class="form-control input-sm" onkeyenter="fn_search"/>
 							</td>
-
-							<th scope="row">APC</th>
-							<td colspan="3" class="td_input"  style="border-right: hidden;">
-								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-apcCd" name="srch-slt-apcCd" jsondata-ref="jsonComApcCd" class="form-control input-sm" />
-							</td>
-							
-							<th scope="row">사용자</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-userNm" name="srch-inp-userNm" class="form-control input-sm"/>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-button id="srch-btn-user" name="srch-btn-user" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-user" onclick="fn_modalUser()" desabled />
-							</td>
-							<td colspan="2">&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
-			</div>
-			
-			<br>				
-			<!--[pp] //검색 -->
-			<!--[pp] 검색결과 -->							
-			<div class ="row h-100">
-				<div class="col-sm-4">
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li>
-								<span style="color: black;">권한그룹목록</span>
-								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-							</li>
-						</ul>
-					 	<div class="ad_tbl_toplist">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="ad_tbl_top"  style="width: 98%;">
+							<ul class="ad_tbl_count">
+								<li><span style="color: black;">권한그룹목록</span>
+									<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span></li>
+							</ul>
+						</div>
+						<div>
+							<div id="sb-area-grdComAuth" style="width:100%;height:576px;"></div>
 						</div>
 					</div>
-                    <div class="sbt-grid-wrap">
-                        <div class="sbt-wrap-body">
-                            <div class="sbt-grid">
-                                <!-- SBGrid를 호출합니다. -->
-                                <div id="sb-area-grdComAuth" style="width:100%;height:500px;"></div>
-                            </div>
-                        </div>
-                    </div>
-				</div>
-				<div class="col-sm-8">
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span style="color: black;">권한그룹정보</span></li>
-						</ul>
-					 	<div class="ad_tbl_toplist">
+					<div class="col-sm-8">
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span style="color: black;">권한그룹정보</span></li>
+							</ul>
+						 	<div class="ad_tbl_toplist">
+							</div>
 						</div>
-					</div>
-					<div>
-						<sbux-input id="dtl-inp-apcCd" name="dtl-inp-apcCd" uitype="hidden"></sbux-input>
-						<table class="table table-bordered table-hover tbl_col tbl_fixed">
-							<colgroup>
-								<col style="width: 20%">
-								<col style="width: 30%">
-								<col style="width: 20%">
-								<col style="width: 30%">
-							</colgroup>
-							<thead>
-								<tr>
-									<th>권한ID</th>									
-									<td>
-										<sbux-input id="dtl-inp-authrtId" name="dtl-inp-authrtId" uitype="text" style="width:100%" readonly ></sbux-input>
-									</td>
-									<th>권한명</th>
-									<td>
-										<sbux-input id="dtl-inp-authrtNm" name="dtl-inp-authrtNm" uitype="text" style="width:100%" readonly ></sbux-input>
-									</td>
-								</tr>
-								<tr>
-									<th>권한유형</th>
-									<td>
-										<sbux-input id="dtl-inp-authrtTypeNm" name="dtl-inp-authrtTypeNm" uitype="text" style="width:100%" readonly></sbux-input>
-									</td>
-									<th>APC명</th>
-									<td>
-										<sbux-input id="dtl-inp-apcNm" name="dtl-inp-apcNm" uitype="text" uitype="text" style="width:100%" readonly ></sbux-input>
-									</td>
-								</tr>								
-							</thead>
-						</table>					
-					</div>
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li>
-								<span style="color: black;">사용자 목록</span>
-								<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
-							</li>
-						</ul>
-					 	<div class="ad_tbl_toplist">
-					 		<sbux-button id="btnAddUser" name="btnAddUser" uitype="modal" text="사용자추가" class="btn btn-xs btn-outline-dark" target-id="modal-comAuthUser" onclick="fn_addUser()" disabled ></sbux-button>
+						<div>
+							<sbux-input id="dtl-inp-apcCd" name="dtl-inp-apcCd" uitype="hidden"></sbux-input>
+							<table class="table table-bordered tbl_fixed">
+								<colgroup>
+									<col style="width: 20%">
+									<col style="width: 30%">
+									<col style="width: 20%">
+									<col style="width: 30%">
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="row" class="th_bg">권한ID</th>
+										<td class="td_input">
+											<sbux-input id="dtl-inp-authrtId" name="dtl-inp-authrtId" uitype="text" class="form-control input-sm" readonly ></sbux-input>
+										</td>
+										<th scope="row" class="th_bg">권한명</th>
+										<td class="td_input">
+											<sbux-input id="dtl-inp-authrtNm" name="dtl-inp-authrtNm" uitype="text" class="form-control input-sm" readonly ></sbux-input>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">권한유형</th>
+										<td class="td_input">
+											<sbux-input id="dtl-inp-authrtTypeNm" name="dtl-inp-authrtTypeNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
+										</td>
+										<th scope="row" class="th_bg">APC명</th>
+										<td class="td_input">
+											<sbux-input id="dtl-inp-apcNm" name="dtl-inp-apcNm" uitype="text" uitype="text" class="form-control input-sm" readonly ></sbux-input>
+										</td>
+									</tr>
+								</thead>
+							</table>
 						</div>
-					</div>
-					<div>
-						<div class="sbt-grid-wrap">
-	                        <div class="sbt-wrap-body">
-	                            <div class="sbt-grid">
-	                                <!-- SBGrid를 호출합니다. -->
-	                                <div id="sb-area-grdComAuthUser" style="width:100%;height:370px;"></div>
-	                            </div>
-	                        </div>
-	                    </div>
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li>
+									<span style="color: black;">사용자 목록</span>
+									<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
+								</li>
+							</ul>
+						 	<div class="ad_tbl_toplist">
+						 		<sbux-button id="btnAddUser" name="btnAddUser" uitype="modal" text="사용자추가" class="btn btn-xs btn-outline-dark" target-id="modal-comAuthUser" onclick="fn_addUser()" disabled ></sbux-button>
+							</div>
+						</div>
+						<div>
+							<div class="sbt-grid-wrap">
+		                        <div class="sbt-wrap-body">
+		                            <div class="sbt-grid">
+		                                <!-- SBGrid를 호출합니다. -->
+		                                <div id="sb-area-grdComAuthUser" style="width:100%;height:370px;"></div>
+		                            </div>
+		                        </div>
+		                    </div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<!--[pp] //검색결과 -->
 		</div>
-	</div>
-</section>
-
-    <div>
+	</section>
+	<!-- 사용자 팝업 -->
+	<div>
         <sbux-modal id="modal-comAuthUser" name="modal-comAuthUser" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-comAuthUser" footer-is-close-button="false" style="width:800px"></sbux-modal>
     </div>
     <div id="body-modal-comAuthUser">
     	<jsp:include page="../../co/popup/comAuthUserPopup.jsp"></jsp:include>
     </div>
-
-<!-- ============================================================================================================== -->
-<!-- ============================================================================================================== -->
-<!-- ============================================================================================================== -->
-<!-- ============================================================================================================== -->
-<!-- ============================================================================================================== -->
-<!-- ============================================================================================================== -->
-<!-- section============================================================================================================== -->
-
-<!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드  영역 완료-->
-
-<!-- inline scripts related to this page -->
 <script type="text/javascript">
-    
+
 	/* 공통코드 */
 	var jsonComApcCd = [];	// APC코드	srch-slt-apcCd	APC_CD
-	
+
     /* SBGrid */
     var grdComAuth;			// 권한그룸 목록
     var grdComAuthUser;		// 권한사용자 목록
-    
+
     /* SBGrid Data (JSON) */
     var jsonComAuth = [];
     var jsonComAuthUser = [];
-    
-    
+
+
 	// only document
-	window.addEventListener('DOMContentLoaded', function(e) {		
+	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_createGrdComAuth();
 		fn_createGrdComAuthUser();
-		
+
 		fn_initSBSelect();
-	});    
-    
+	});
+
     /**
      *
      */
@@ -218,7 +165,7 @@
     	// 조회 SB select
 	 	gfn_setComCdSBSelect('srch-slt-apcCd', jsonComApcCd, 'APC_CD');	// APC코드	srch-slt-apcCd	APC_CD
     }
-    
+
     /**
      * @name fn_createGrdComAuth
      * @description 권한그룹 그리드 초기화
@@ -250,9 +197,9 @@
             {caption: ["APC코드"],	ref: 'apcCd',        	type:'output',  hidden: true},
             {caption: ["권한유형코드"],	ref: 'authrtType',      type:'output',  hidden: true}
         ];
-        
+
         //document.getElementById('sb-area-grdComAuth').style.height = "500px";
-        
+
         grdComAuth = _SBGrid.create(SBGridProperties);
         grdComAuth.bind('click', 'fn_view');
         grdComAuth.bind('beforepagechanged', 'fn_pagingGrdComAuth');
@@ -263,7 +210,7 @@
     	let currentPageNo = grdComAuth.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
     	fn_setGrdComAuth(recordCountPerPage, currentPageNo);
     }
-    
+
     /**
      * @name fn_createGrdComAuthUser
      * @description 권한사용자 그리드 초기화
@@ -297,7 +244,7 @@
             {caption: ["APC코드"],	ref: 'apcCd',        	type:'output',  hidden: true},
             {caption: ["권한ID"],		ref: 'authrtId',      	type:'output',  hidden: true}
         ];
-        
+
         grdComAuthUser = _SBGrid.create(SBGridProperties);
     }
 
@@ -308,7 +255,7 @@
     function fn_insert() {
     	fn_insertComAuthUser();
     }
-    
+
  	/**
      * @name fn_delete
      * @description 삭제
@@ -316,29 +263,29 @@
     function fn_delete() {
     	fn_deleteComAuthUser();
     }
-    
+
  	/**
      * @name fn_search
      * @description 조회 버튼
      */
     const fn_search = async function() {
-		
+
     	// set pagination
     	grdComAuth.rebuild();
     	let pageSize = grdComAuth.getPageSize();
     	let pageNo = 1;
-        
-    	// form clear 
+
+    	// form clear
     	fn_clearForm();
     	// grid clear
     	jsonComAuth.length = 0;
     	jsonComAuthUser.length = 0;
-    	grdComAuthUser.refresh();    	
+    	grdComAuthUser.refresh();
     	SBUxMethod.attr('btnAddUser', 'disabled', true);
-    	
+
     	fn_setGrdComAuth(pageSize, pageNo);
     }
-    
+
     /**
      * @name fn_setGrdComAuth
      * @description 권한그룹 조회
@@ -350,8 +297,8 @@
     	grdComAuth.clearStatus();
 
 		let authrtNm = SBUxMethod.get("srch-inp-authrtNm");
-		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		
+		let apcCd = gv_selectedApcCd;
+
         const postJsonPromise = gfn_postJSON("/co/authrt/selectComAuthrtList.do", {
         	authrtNm: authrtNm,
         	apcCd: apcCd,
@@ -360,14 +307,14 @@
 			currentPageNo : pageNo,
  		  	recordCountPerPage : pageSize
 		});
-        
+
         const data = await postJsonPromise;
-        
+
 		try {
-        	
+
         	/** @type {number} **/
     		let totalRecordCount = 0;
-        	
+
         	jsonComAuth.length = 0;
 
         	data.resultList.forEach((item, index) => {
@@ -383,14 +330,14 @@
 					sysId: item.sysId
 				}
 				jsonComAuth.push(authrt);
-				
+
 				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;	
+					totalRecordCount = item.totalRecordCount;
 				}
 			});
-        	
+
         	if (jsonComAuth.length > 0) {
-        		
+
         		if(grdComAuth.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
         			grdComAuth.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
         			grdComAuth.rebuild();
@@ -401,7 +348,7 @@
         		grdComAuth.setPageTotalCount(totalRecordCount);
         		grdComAuth.rebuild();
         	}
-        	
+
         	document.querySelector('#listCount').innerText = totalRecordCount;
 
         } catch (e) {
@@ -420,9 +367,9 @@
      * @param {string} authrtId	권한그룹id
      */
     const fn_setGrdComAuthUser = async function(pageSize, pageNo, authrtId) {
-     	
+
      	grdComAuthUser.clearStatus();
-		
+
 		const postJsonPromise = gfn_postJSON("/co/authrt/selectComAuthrtUserList.do", {
          	authrtId: authrtId,
         	// pagination
@@ -430,14 +377,14 @@
 			currentPageNo : pageNo,
  		  	recordCountPerPage : pageSize
  		});
-		
+
 		const data = await postJsonPromise;
-         
+
 		try {
-        	
+
         	/** @type {number} **/
     		let totalRecordCount = 0;
-        	
+
         	jsonComAuthUser.length = 0;
         	data.resultList.forEach((item, index) => {
 				const user = {
@@ -449,14 +396,14 @@
 					apcNm: item.apcNm
 				}
 				jsonComAuthUser.push(user);
-				
+
 				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;	
+					totalRecordCount = item.totalRecordCount;
 				}
 			});
-        	
+
         	if (jsonComAuthUser.length > 0) {
-        		
+
         		if(grdComAuth.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
         			grdComAuthUser.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
         			grdComAuthUser.rebuild();
@@ -467,7 +414,7 @@
         		grdComAuthUser.setPageTotalCount(totalRecordCount);
         		grdComAuthUser.rebuild();
         	}
-        	
+
         	document.querySelector('#listCount2').innerText = totalRecordCount;
 
         } catch (e) {
@@ -483,26 +430,26 @@
      * @description 선택메뉴 상세정보 표시
      */
     const fn_view = function () {
-    	
+
         let nRow = grdComAuth.getRow();
         if (nRow < 1) {
             return;
         }
-        
+
         SBUxMethod.attr('btnAddUser', 'disabled', false);
-        
-        let rowData = grdComAuth.getRowData(nRow);        
+
+        let rowData = grdComAuth.getRowData(nRow);
         SBUxMethod.set("dtl-inp-authrtId", rowData.authrtId);
         SBUxMethod.set("dtl-inp-authrtNm", rowData.authrtNm);
         SBUxMethod.set("dtl-inp-authrtTypeNm", rowData.authrtTypeNm);
         SBUxMethod.set("dtl-inp-authrtRmrk", rowData.authrtRmrk);
         SBUxMethod.set("dtl-inp-apcCd", rowData.apcCd);
         SBUxMethod.set("dtl-inp-apcNm", rowData.apcNm);
-        
+
         grdComAuthUser.rebuild();
         fn_setGrdComAuthUser(grdComAuthUser.getPageSize(), 1, rowData.authrtId);
     }
-    
+
     /**
      * @name fn_clearForm
      * @description 상세정보 초기화
@@ -515,14 +462,14 @@
         SBUxMethod.set("dtl-inp-apcCd", null);
         SBUxMethod.set("dtl-inp-apcNm", null);
     }
-    
+
     /**
      * @name fn_insertComAuthUser
      * @description 권한사용자 등록
      * @function
      */
     const fn_insertComAuthUser = async function() {
-    	
+
     	const allUsers = grdComAuthUser.getGridDataAll();
     	const users = [];
     	for ( let i=1; i<=allUsers.length; i++ ) {
@@ -533,24 +480,24 @@
     				userId: rowData.userId
     			});
     		}
-    	} 
-    	
+    	}
+
     	if (users.length == 0) {
     		gfn_comAlert("W0003", "등록");		//	W0003	{0}할 대상이 없습니다.
             return;
     	}
-    	
+
     	if (!gfn_comConfirm("Q0001", "등록")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-    	
+
     	const authrtId = SBUxMethod.get("dtl-inp-authrtId");
     	const postJsonPromise = gfn_postJSON("/co/authrt/insertComAuthrtUserList.do", {
-    		'authrtId': authrtId, 
+    		'authrtId': authrtId,
     		'comAuthrtUserList': users
     	});
-    	
-		const data = await postJsonPromise;	    
+
+		const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
@@ -559,18 +506,18 @@
         		//alert(data.resultMessage);
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-        } catch(e) {        	
+        } catch(e) {
         }
     }
-    
-    
+
+
     /**
      * @name fn_deleteComAuthUser
      * @description 권한사용자 삭제
      * @function
      */
     const fn_deleteComAuthUser = async function() {
-    	
+
     	const allUsers = grdComAuthUser.getGridDataAll();
     	const users = [];
     	for ( let i=1; i<=allUsers.length; i++ ) {
@@ -584,23 +531,23 @@
         			});
     			}
     		}
-    	} 
-    	
+    	}
+
     	if (users.length == 0) {
     		gfn_comAlert("W0003", "삭제");		//	W0003	{0}할 대상이 없습니다.
             return;
     	}
-    	
+
     	if (!gfn_comConfirm("Q0001", "삭제")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-    	
+
     	const postJsonPromise = gfn_postJSON("/co/authrt/deleteComAuthrtUserList.do", {
-    		'authrtId': users[0].authrtId, 
+    		'authrtId': users[0].authrtId,
     		'comAuthrtUserList': users
     	});
-    	
-		const data = await postJsonPromise;	    
+
+		const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
@@ -609,33 +556,33 @@
         		//alert(data.resultMessage);
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
-        } catch(e) {        	
+        } catch(e) {
         }
     }
-    
-    
+
+
 	/**
 	 * @name fn_addUser
 	 * @description 권한 사용자 추가 (popup 호출)
 	 * @function
 	 */
 	const fn_addUser = function() {
-		
+
 		let nRow = grdComAuth.getRow();
         if (nRow < 1) {
             return;
         }
-		
+
         let rowData = grdComAuth.getRowData(nRow);
-		
+
         let authrtId = rowData.authrtId;
         let apcCd = rowData.apcCd;
         let apcNm = rowData.apcNm;
-        
+
 		popComAuthUser.init(authrtId, apcCd, apcNm, fn_setUsers);
 
 	}
-	
+
 	/**
 	 * @name fn_setUsers
 	 * @description 권한등록 대상 사용자 popup 후처리
@@ -647,13 +594,13 @@
 			return;
 		}
 		console.log("111");
-		
+
 		const orgnUsers = [];
 		const allData = grdComAuthUser.getGridDataAll();
 		for ( let i=1; i<=allData.length; i++) {
 			orgnUsers.push(grdComAuthUser.getRowData(i));
 		}
-		
+
 		users.forEach((item, index) => {
 			// userId check
 			let chkData = gfn_getJsonFilter(orgnUsers, "userId", item.userId);
@@ -687,7 +634,7 @@
         	grdComAuthAuth.setCellData(i+1, 1, obj.checked, true, false);
         }
     }
-     
+
 </script>
 
 </body>

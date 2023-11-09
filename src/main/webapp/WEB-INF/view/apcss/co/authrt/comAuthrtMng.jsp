@@ -70,92 +70,98 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>
-			<div class="row">
-				<div class="col-sm-5">
-					<div class="ad_tbl_top"  style="width: 98%;">
-						<ul class="ad_tbl_count">
-							<li><span style="color: black;">권한그룹목록</span>
-								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span></li>
-						</ul>
-					</div>
-					<div>
-						<div id="sb-area-grdComAuth" style="width:100%;height:576px;"></div>
-					</div>
-				</div>
-				<div class="col-sm-7">
-					<div class="ad_tbl_top">
-						<ul class="ad_tbl_count">
-							<li><span style="color: black;">권한그룹정보</span></li>
-						</ul>
-					 	<div class="ad_tbl_toplist">
+				<div class="row">
+					<div class="col-sm-5">
+						<div class="ad_tbl_top"  style="width: 98%;">
+							<ul class="ad_tbl_count">
+								<li><span style="color: black;">권한그룹목록</span>
+									<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span></li>
+							</ul>
+						</div>
+						<div>
+							<div id="sb-area-grdComAuth" style="width:100%;height:576px;"></div>
 						</div>
 					</div>
-					<div>
-						<sbux-input id="dtl-inp-orgnAuthrtId" name="dtl-inp-orgnAuthrtId" uitype="hidden"></sbux-input>
-						<table class="table table-bordered tbl_fixed">
-							<colgroup>
-								<col style="width: 20%">
-								<col style="width: 30%">
-								<col style="width: 20%">
-								<col style="width: 30%">
-							</colgroup>
-							<thead>
-								<tr>
-									<th scope="row" class="th_bg">권한ID</th>
-									<td class="td_input">
-										<sbux-input id="dtl-inp-authrtId" name="dtl-inp-authrtId" uitype="text" class="form-control input-sm" readonly ></sbux-input>
-									</td>
-									<th scope="row" class="th_bg">권한명</th>
-									<td class="td_input">
-										<sbux-input id="dtl-inp-authrtNm" name="dtl-inp-authrtNm" uitype="text" class="form-control input-sm" required style="width:100%"  ></sbux-input>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row" class="th_bg">권한유형</th>
-									<td class="td_input">
-										<sbux-select id="dtl-slt-authrtType" name="dtl-slt-authrtType" class="form-control input-sm" uitype="single" jsondata-ref="jsonComAuthrtType" unselected-text="선택" required style="width:100%"></sbux-select>
-									</td>
-									<th scope="row" class="th_bg">APC코드</th>
-									<td class="td_input">
-										<sbux-input id="dtl-inp-apcCd" name="dtl-inp-apcCd" uitype="text" class="form-control input-sm" readonly required style="width:100%" ></sbux-input>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row" class="th_bg">권한설명</th>
-									<td class="td_input" colspan="3">
-										<sbux-input id="dtl-inp-authrtRmrk" name="dtl-inp-authrtRmrk" class="form-control input-sm" uitype="text" required style="width:100%" ></sbux-input>
-									</td>
-								</tr>
-							</thead>
-						</table>
-					</div>
-					<br />
-					<div class="ad_tbl_top2">
-						<ul class="ad_tbl_count">
-							<li>
-								<span style="color: black;">메뉴목록</span>
-							</li>
-						</ul>
-					 	<div class="ad_tbl_toplist">
-							<sbux-button id="btnSaveMenu" name="btnSaveMenu" uitype="normal" text="메뉴권한저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveMenu"></sbux-button>
+					<div class="col-sm-7">
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span style="color: black;">권한그룹정보</span></li>
+							</ul>
+						 	<div class="ad_tbl_toplist">
+							</div>
 						</div>
-					</div>
-					<div>
-						<div class="sbt-grid-wrap">
-	                        <div class="sbt-wrap-body">
-	                            <div class="sbt-grid">
-	                                <!-- SBGrid를 호출합니다. -->
-	                                <div id="sb-area-grdComAuthMenu" style="width:100%;height:352px;"></div>
-	                            </div>
-	                        </div>
-	                    </div>
+						<div>
+							<sbux-input id="dtl-inp-orgnAuthrtId" name="dtl-inp-orgnAuthrtId" uitype="hidden"></sbux-input>
+							<table class="table table-bordered tbl_fixed">
+								<colgroup>
+									<col style="width: 20%">
+									<col style="width: 30%">
+									<col style="width: 20%">
+									<col style="width: 30%">
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="row" class="th_bg">권한ID</th>
+										<td class="td_input">
+											<sbux-input id="dtl-inp-authrtId" name="dtl-inp-authrtId" uitype="text" class="form-control input-sm" readonly ></sbux-input>
+										</td>
+										<th scope="row" class="th_bg">권한명</th>
+										<td class="td_input">
+											<sbux-input id="dtl-inp-authrtNm" name="dtl-inp-authrtNm" uitype="text" class="form-control input-sm" required style="width:100%"  ></sbux-input>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">권한유형</th>
+										<td class="td_input">
+											<sbux-select id="dtl-slt-authrtType" name="dtl-slt-authrtType" class="form-control input-sm" uitype="single" jsondata-ref="jsonComAuthrtType" unselected-text="선택" required style="width:100%"></sbux-select>
+										</td>
+										<th scope="row" class="th_bg">APC코드</th>
+										<td class="td_input">
+											<sbux-input id="dtl-inp-apcCd" name="dtl-inp-apcCd" uitype="text" class="form-control input-sm" readonly required style="width:100%" ></sbux-input>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">권한설명</th>
+										<td class="td_input" colspan="3">
+											<sbux-input id="dtl-inp-authrtRmrk" name="dtl-inp-authrtRmrk" class="form-control input-sm" uitype="text" required style="width:100%" ></sbux-input>
+										</td>
+									</tr>
+								</thead>
+							</table>
+						</div>
+						<br />
+						<div class="ad_tbl_top2">
+							<ul class="ad_tbl_count">
+								<li>
+									<span style="color: black;">메뉴목록</span>
+								</li>
+							</ul>
+						 	<div class="ad_tbl_toplist">
+								<sbux-button id="btnSaveMenu" name="btnSaveMenu" uitype="normal" text="메뉴권한저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveMenu"></sbux-button>
+							</div>
+						</div>
+						<div>
+							<div class="sbt-grid-wrap">
+		                        <div class="sbt-wrap-body">
+		                            <div class="sbt-grid">
+		                                <!-- SBGrid를 호출합니다. -->
+		                                <div id="sb-area-grdComAuthMenu" style="width:100%;height:352px;"></div>
+		                            </div>
+		                        </div>
+		                    </div>
+						</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</section>
+	<!-- 사용자 팝업 -->
+	<div>
+        <sbux-modal id="modal-comAuthUser" name="modal-comAuthUser" uitype="middle" header-title="사용자 선택" body-html-id="body-modal-comAuthUser" footer-is-close-button="false" style="width:800px"></sbux-modal>
+    </div>
+    <div id="body-modal-comAuthUser">
+    	<jsp:include page="../../co/popup/comAuthUserPopup.jsp"></jsp:include>
+    </div>
 
 <script type="text/javascript">
 
