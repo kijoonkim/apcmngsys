@@ -138,8 +138,6 @@
 			SBUxMethod.set("sortInvntr-inp-apcCd", _apcCd);
 			SBUxMethod.set("sortInvntr-inp-apcNm", _apcNm);
 
-			console.log("asdasd");
-
 			SBUxMethod.set("sortInvntr-dtp-sortYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("sortInvntr-dtp-sortYmdTo", gfn_dateToYmd(new Date()));
 
