@@ -96,17 +96,20 @@
 		const gv_apcCd = '${loginVO.apcCd}';
 		const gv_apcNm = '${loginVO.apcNm}';
 		const gv_apcSeCd = '${loginVO.apcSeCd}';
+		const gv_userType = '${loginVO.userType}';
 		</c:when>
 		<c:otherwise>
 		const gv_apcCd = '';
 		const gv_apcNm = '';
 		const gv_apcSeCd = '';
+		const gv_userType = '';
 		</c:otherwise>
 	</c:choose>
 		// 선택 APC코드 설정
 		gv_selectedApcCd = gv_apcCd;
 		gv_selectedApcNm = gv_apcNm;
 		gv_selectedApcSeCd = gv_apcSeCd;
+		gv_selectedUserType = gv_userType;
 	</script>
 
 
