@@ -1581,6 +1581,8 @@
             return;
     	}
 
+		document.querySelector("#btnFileUpload").value = "";
+
 		$("#btnFileUpload").click();
 
     }
