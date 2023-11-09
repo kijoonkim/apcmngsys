@@ -71,4 +71,28 @@ public class ComLogServiceImpl implements ComLogService {
 
 	}
 
+	// 원물재고 변경 이력 조회
+	@Override
+	public List<ComLogVO> selectRawMtrHstryList(ComLogVO comLogVO) throws Exception {
+
+		List<ComLogVO> resultList = comLogMapper.selectRawMtrHstryList(comLogVO);
+
+		return resultList;
+	}
+
+	// 선별재고 변경 이력 조회
+	@Override
+	public List<ComLogVO> selectSortHstryList(ComLogVO comLogVO) throws Exception {
+		List<ComLogVO> resultList = comLogMapper.selectSortHstryList(comLogVO);
+
+		return resultList;
+	}
+	// 상품재고 변경 이력 조회
+	@Override
+	public List<ComLogVO> selectGdsHstryList(ComLogVO comLogVO) throws Exception {
+		List<ComLogVO> resultList = comLogMapper.selectGdsHstryList(comLogVO);
+
+		return resultList;
+	}
+
 }

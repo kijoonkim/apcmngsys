@@ -22,10 +22,10 @@
 				<tr>
 					<th scope="row" class="th_bg"><span class="data_required"></span>조회일자</th>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="cntn-dtp-logYmdFrom" name="cntn-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="cntn-dtp-logYmdFrom" name="cntn-dtp-logYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="fn_dtpChange"></sbux-datepicker>
 					</td>
 					<td class="td_input" style="border-right: hidden;">
-						<sbux-datepicker id="cntn-dtp-logYmdTo" name="cntn-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
+						<sbux-datepicker id="cntn-dtp-logYmdTo" name="cntn-dtp-logYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc" onchange="fn_dtpChange"></sbux-datepicker>
 					</td>
 					<td></td>
 					<th scope="row" class="th_bg">사용자명</th>
@@ -53,6 +53,18 @@
 <script type="text/javascript">
 	var jsonLogCntnHstry = [];
 	var grdLogCntnHstry = null;
+
+	const fn_dtpChange = function(){
+		let logYmdFrom = SBUxMethod.get("cntn-dtp-logYmdFrom");
+		let logYmdTo = SBUxMethod.get("cntn-dtp-logYmdTo");
+		if(gfn_diffDate(logYmdFrom, logYmdTo) < 0){
+			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다."); //W0001{0}
+			SBUxMethod.set("cntn-dtp-logYmdFrom", gfn_dateFirstYmd(new Date()));
+			SBUxMethod.set("cntn-dtp-logYmdTo", gfn_dateToYmd(new Date()));
+			return;
+		}
+	}
+
 
 	const tabLogCntnHstry = {
 			prgrmId: 'logCntnHstryTab',
@@ -100,6 +112,7 @@
 		        SBGridProperties.columns = [
 		            {caption: ['사용자ID'], 	ref: 'userId',		width: '200px',		type: 'output',	style:'text-align: center'},
 		            {caption: ['사용자명'], 	ref: 'userNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
+		            {caption: ['APC코드'],		ref: 'apcCd', 		width: '200px', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['APC명'],		ref: 'apcNm', 		width: '200px', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['접속일시'],	ref: 'prslDt',		width: '200px', 	type: 'output',	style:'text-align: center'},
 		            {caption: ['최초접속일시'],	ref: 'frstPrslDt',	width: '200px', 	type: 'output',	style:'text-align: center'},
@@ -153,6 +166,7 @@
 							userId			: item.userId
 						  ,	userNm			: item.userNm
 					      , apcNm 			: item.apcNm
+					      , apcCd			: item.apcCd
 						  ,	prslDt			: item.prslDt
 						  ,	frstPrslDt		: item.frstPrslDt
 						  ,	prslTypeNm		: item.prslTypeNm

@@ -160,6 +160,7 @@
 									name="srch-dtp-inptYmd"
 									uitype="popup"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange"
 								></sbux-datepicker>
 							</td>
 							<td colspan="7"></td>
@@ -275,6 +276,16 @@
 
 		fn_init();
 	})
+
+	const fn_dtpChange = function(){
+		let inptYmd = SBUxMethod.get("srch-dtp-inptYmd");
+		let toDayYmd = gfn_dateToYmd(new Date());
+		if(gfn_diffDate(toDayYmd, inptYmd) < 0){
+			gfn_comAlert("E0000", "투입일자는 금일 이전으로 등록 할 수 없습니다."); //W0001{0}
+			SBUxMethod.set("srch-dtp-inptYmd", gfn_dateToYmd(new Date()));
+			return;
+		}
+	}
 
 	function fn_createGrid() {
         var SBGridProperties = {};

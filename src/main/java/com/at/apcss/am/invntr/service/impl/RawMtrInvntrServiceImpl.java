@@ -197,12 +197,12 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		// 원물 재고변경 이력 등록 (투입)
 		rawMtrInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_P1);
 		HashMap<String, Object> rtnObj = insertRawMtrChgHstry(rawMtrInvntrVO);
-		
+
 		if (rtnObj != null) {
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		rawMtrInvntrMapper.updateInvntrSortPrfmnc(rawMtrInvntrVO);
 
 		return null;
@@ -212,7 +212,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	public HashMap<String, Object> multiSaveRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
 
 		HashMap<String, Object> rtnObj;
-		
+
 		List<RawMtrInvntrVO> updateList = new ArrayList<>();
 		List<RawMtrInvntrVO> insertList = new ArrayList<>();
 
@@ -239,7 +239,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 				if (!StringUtils.hasText(rawMtrInvntrVO.getPltno())) {
 					rawMtrInvntrVO.setPltno(wrhsno);
 				}
-				
+
 				insertRawMtrInvntr(rawMtrInvntrVO);
 				// 원물 재고 등록 이력 부분 추가
 
@@ -257,7 +257,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 				// error throw exception;
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
-			
+
 			// 원물 재고 변경
 			rawMtrInvntrMapper.updateRawMtrInvntrChg(rawMtrInvntrVO);
 		}
@@ -300,12 +300,12 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		// 원물 재고변경 이력 등록 (투입취소)
 		rawMtrInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_P2);
 		HashMap<String, Object> rtnObj = insertRawMtrChgHstry(rawMtrInvntrVO);
-		
+
 		if (rtnObj != null) {
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		rawMtrInvntrMapper.updateInvntrSortPrfmnc(rawMtrInvntrVO);
 
 		return null;
@@ -334,16 +334,16 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		double trnsfWght = invntrInfo.getTrnsfWght() + rawMtrInvntrVO.getTrnsfWght();
 		rawMtrInvntrVO.setTrnsfQntt(trnsfQntt);
 		rawMtrInvntrVO.setTrnsfWght(trnsfWght);
-		
+
 		// 원물 재고변경 이력 등록 (이송)
 		rawMtrInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_T1);
 		HashMap<String, Object> rtnObj = insertRawMtrChgHstry(rawMtrInvntrVO);
-		
+
 		if (rtnObj != null) {
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		rawMtrInvntrMapper.updateInvntrTrnsf(rawMtrInvntrVO);
 
 		return null;
@@ -358,7 +358,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 	@Override
 	public HashMap<String, Object> updateInvntrSortInpt(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
-		
+
 		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
 
 		if (invntrInfo == null
@@ -375,22 +375,22 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		double invntrWght = invntrInfo.getInvntrWght() - rawMtrInvntrVO.getInptPrgrsWght();
 		int inptPrgrsQntt = invntrInfo.getInptPrgrsQntt() + rawMtrInvntrVO.getInptPrgrsQntt();
 		double inptPrgrsWght = invntrInfo.getInptPrgrsWght() + rawMtrInvntrVO.getInptPrgrsWght();
-		
+
 		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
 		rawMtrInvntrVO.setInvntrWght(invntrWght);
 
 		rawMtrInvntrVO.setInptPrgrsQntt(inptPrgrsQntt);
 		rawMtrInvntrVO.setInptPrgrsWght(inptPrgrsWght);
-		
+
 		// 원물 재고변경 이력 등록 (투입)
 		rawMtrInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_P1);
 		HashMap<String, Object> rtnObj = insertRawMtrChgHstry(rawMtrInvntrVO);
-		
+
 		if (rtnObj != null) {
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		rawMtrInvntrMapper.updateInvntrInptPrgrs(rawMtrInvntrVO);
 
 		return null;
@@ -398,7 +398,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 	@Override
 	public HashMap<String, Object> deleteInvntrSortInpt(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
-		
+
 		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
 
 		if (invntrInfo == null
@@ -415,39 +415,30 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		double invntrWght = invntrInfo.getInvntrWght() + rawMtrInvntrVO.getInptPrgrsWght();
 		int inptPrgrsQntt = invntrInfo.getInptPrgrsQntt() - rawMtrInvntrVO.getInptPrgrsQntt();
 		double inptPrgrsWght = invntrInfo.getInptPrgrsWght() - rawMtrInvntrVO.getInptPrgrsWght();
-		
+
 		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
 		rawMtrInvntrVO.setInvntrWght(invntrWght);
-		
+
 		rawMtrInvntrVO.setInptPrgrsQntt(inptPrgrsQntt);
 		rawMtrInvntrVO.setInptPrgrsWght(inptPrgrsWght);
 
 		// 원물 재고변경 이력 등록 (투입취소)
 		rawMtrInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_P2);
 		HashMap<String, Object> rtnObj = insertRawMtrChgHstry(rawMtrInvntrVO);
-		
+
 		if (rtnObj != null) {
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		rawMtrInvntrMapper.updateInvntrInptPrgrs(rawMtrInvntrVO);
 
 		return null;
 	}
 
-	// 이력 조회
-	@Override
-	public List<RawMtrInvntrVO> selectRawMtrHstryList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
-
-		List<RawMtrInvntrVO> resultList = rawMtrInvntrMapper.selectRawMtrHstryList(rawMtrInvntrVO);
-
-		return resultList;
-	}
-	
 	@Override
 	public HashMap<String, Object> insertRawMtrChgHstry(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
-		
+
 		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
 
 		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
@@ -460,15 +451,15 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		chgHstryVO.setChgBfrWght(invntrInfo.getInvntrWght());
 		chgHstryVO.setChgAftrQntt(rawMtrInvntrVO.getInvntrQntt());
 		chgHstryVO.setChgAftrWght(rawMtrInvntrVO.getInvntrWght());
-		
+
 		if (!StringUtils.hasText(rawMtrInvntrVO.getWarehouseSeCd())
 				|| rawMtrInvntrVO.getWarehouseSeCd().equals(invntrInfo.getWarehouseSeCd())) {
 			chgHstryVO.setWarehouseSeCd(ComConstants.CON_BLANK);
 		}
-		
+
 		// 이력 insert
 		rawMtrInvntrMapper.insertRawMtrChgHstry(chgHstryVO);
-		
+
 		return null;
 	}
 

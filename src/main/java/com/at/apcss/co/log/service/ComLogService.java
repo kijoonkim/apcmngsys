@@ -37,6 +37,28 @@ public interface ComLogService {
 	 * @throws Exception
 	 */
 	public List<ComLogVO> selectBatchHstryList(ComLogVO comLogVO) throws Exception;
+
+	/**
+	 * 원물재고 이력정보를 조회한다.
+	 * @param comLogVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComLogVO> selectRawMtrHstryList(ComLogVO comLogVO) throws Exception;
+	/**
+	 * 선별재고 변경 이력정보를 조회한다.
+	 * @param comLogVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComLogVO> selectSortHstryList(ComLogVO comLogVO) throws Exception;
+	/**
+	 * 상품재고 변경 이력정보를 조회한다.
+	 * @param comLogVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComLogVO> selectGdsHstryList(ComLogVO comLogVO) throws Exception;
 	/**
 	 *
 	 * 화면열람 이력정보를 생성한다.

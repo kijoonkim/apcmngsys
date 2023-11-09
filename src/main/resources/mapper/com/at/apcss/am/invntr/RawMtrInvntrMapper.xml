@@ -710,65 +710,6 @@
 			   AND WRHSNO = #{wrhsno}
 		]]>
 	</update>
-	
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrHstryList	-->
-	<!-- DESC : 원물재고변경이력 조회.	                                       			-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.11.08  	하민우        	Initial Creation                        	-->
-	<!-- ==========================================================================	-->
-    <select id="selectRawMtrHstryList" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO" resultType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
-    	<![CDATA[
-	    	SELECT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrHstryList */
-		]]>
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    	
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			,
-    	</if>
-    	<!-- End 페이징 -->
-    	<![CDATA[
-    			  pt0.*
-                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
-                , (SELECT FN_GET_COM_CD_VL_NM('INVNTR_CHG_RSN_CD', pt0.CHG_RSN_CD) FROM DUAL) AS CHG_RSN_NM
-                
-    		 FROM (
-   		   SELECT 
-				  RCH.APC_CD			AS APC_CD
-				, RCH.WRHSNO			AS WRHSNO
-				, RCH.CHG_SN			AS CHG_SN
-				, RCH.CHG_YMD			AS CHG_YMD
-				, RCH.CHG_BFR_QNTT		AS CHG_BFR_QNTT
-				, RCH.CHG_BFR_WGHT		AS CHG_BFR_WGHT
-				, RCH.CHG_AFTR_QNTT		AS CHG_AFTR_QNTT
-				, RCH.CHG_AFTR_WGHT		AS CHG_AFTR_WGHT
-				, RCH.CHG_RMRK			AS CHG_RMRK
-				, RCH.CHG_RSN_CD		AS CHG_RSN_CD
-				, RCH.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
-			 FROM TB_RAW_MTR_CHG_HSTRY RCH
-		    WHERE 1=1
-		]]>
-		<if test='chgYmdFrom != null and chgYmdFrom != ""'>
-			  AND RCH.CHG_YMD <![CDATA[>=]]> #{chgYmdFrom}
-		</if>
-		<if test='chgYmdTo != null and chgYmdTo != ""'>
-			  AND RCH.CHG_YMD <![CDATA[<=]]> #{chgYmdTo}
-		</if>
-		<![CDATA[
-		 	 ORDER BY RCH.CHG_YMD, RCH.WRHSNO
-    		  ) pt0
-		]]>
-		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
-			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
-    </select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.insertRawMtrChgHstry	-->

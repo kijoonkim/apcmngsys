@@ -30,7 +30,7 @@
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<div class="ad_tbl_toplist">
 			<sbux-button id="btnLogCntnHstry5" name="btnLogCntnHstry" uitype="normal" text="접속이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogMenuHstry5" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
@@ -136,7 +136,7 @@
 		            return;
 				}
 
-		        const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrHstryList.do", {
+		        const postJsonPromise = gfn_postJSON("/co/log/selectRawMtrHstryList.do", {
 		        		apcCd				: gv_selectedApcCd
 					  , chgYmdFrom 			: chgYmdFrom
 					  , chgYmdTo 			: chgYmdTo

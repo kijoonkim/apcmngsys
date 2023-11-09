@@ -31,6 +31,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnCmndDocSpmt" name="btnCmndDocSpmt" uitype="normal" class="btn btn-sm btn-primary" text="출하지시서" onclick="fn_cmndDocSpmt"></sbux-button>
+					<sbux-button id="btnReSet" name="btnReSet" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger" onclick="fn_reSet"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
 				</div>
@@ -179,7 +180,7 @@
 		fn_createSpmtCmndGrid();
 		fn_initSBSelect();
 	});
-	
+
 	const fn_dtpChange = function(){
 		let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
 		let cmndYmdTo = SBUxMethod.get("srch-dtp-cmndYmdTo");
@@ -371,12 +372,26 @@
 		}
 	}
 
+    const fn_reSet = function(){
+    	SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
+
+		SBUxMethod.set("srch-inp-cnptNm", "");
+		SBUxMethod.set("srch-slt-trsprtCoCd", "");
+		SBUxMethod.set("srch-slt-itemCd", "");
+		SBUxMethod.set("srch-inp-vrtyCd", "");
+		SBUxMethod.set("srch-slt-spcfctCd", "");
+		SBUxMethod.set("srch-slt-spmtPckgUnitCd", "");
+
+    }
+
 	/**
 	 * @name fn_cmndDocSpmt
 	 * @description 출하지시서 발행
 	 */
     const fn_cmndDocSpmt = async function() {
-    	
+
     	const cmndNoList = [];
 		const allData = grdSpmtCmnd.getGridDataAll();
 		allData.forEach((item) => {
@@ -406,7 +421,7 @@
 			gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd);	// 포장단위
 		}
 	}
-	
+
  	// APC 선택 변경
 	const fn_onChangeApc = async function() {
 		let result = await Promise.all([
@@ -426,7 +441,7 @@
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
 		}
 	}
-	
+
 	// 품종 선택 팝업 호출
 	const fn_modalVrty = function() {
     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty, fn_setVrtys);

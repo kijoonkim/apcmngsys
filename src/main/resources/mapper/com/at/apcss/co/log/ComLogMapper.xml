@@ -3,7 +3,7 @@
 
 <!-- ==========================================================================	-->
 <!-- NAME : ComLogMapper.xml                           		        			-->
-<!-- DESC : 이력조회 mapper                   					                 	-->
+<!-- DESC : 이력조회 mapper                   					                -->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
@@ -13,8 +13,8 @@
 <mapper namespace="com.at.apcss.co.log.mapper.ComLogMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.selectCntnHstryList			-->
-	<!-- DESC : 접속이력 목록 조회.             		           	             	 		-->
+	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.selectCntnHstryList			-->
+	<!-- DESC : 접속이력 목록 조회.             		           	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -22,7 +22,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectCntnHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
     	<![CDATA[
-    		SELECT
+    		SELECT	/* com.at.apcss.co.log.mapper.ComLogMapper.selectCntnHstryList */
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -39,10 +39,14 @@
 					       CMH.MENU_ID          AS MENU_ID
 					     , CMH.MENU_NM          AS MENU_NM
 					     , CMH.USER_ID          AS USER_ID
-					     , CMH.USER_NM          AS USER_NM
+					     , CASE
+                                WHEN CMH.USER_NM IS NULL
+                                THEN (SELECT USER_NM FROM TB_COM_USER X WHERE X.USER_ID = CMH.USER_ID)
+                           ELSE CMH.USER_NM
+                           END AS USER_NM
 					     , CMH.USER_TYPE        AS USER_TYPE
-					     , TO_CHAR(CMH.PRSL_DT, 'YYYY-MM-DD')			AS PRSL_DT
-    		  	 		 , TO_CHAR(MIN(CMH.PRSL_DT), 'YYYY-MM-DD')		AS FRST_PRSL_DT
+					     , TO_CHAR(CMH.PRSL_DT, 'YYYY-MM-DD HH24:MI')			AS PRSL_DT
+    		  	 		 , (SELECT TO_CHAR(MIN(X.PRSL_DT), 'YYYY-MM-DD HH24:MI') FROM TB_COM_MENU_LOG_HSTRY X  WHERE X.USER_ID = CMH.USER_ID GROUP BY USER_ID) AS FRST_PRSL_DT
 					     , CMH.LGN_SCS_YN       AS LGN_SCS_YN
 					     , CMH.PRSL_TYPE        AS PRSL_TYPE
 					     , CMH.USER_IP          AS USER_IP
@@ -50,9 +54,7 @@
 					     , CMH.HSTRY_SN         AS HSTRY_SN
 					     , (SELECT FN_GET_APC_NM(CMH.APC_CD) FROM DUAL)	AS APC_NM
 					FROM TB_COM_MENU_LOG_HSTRY CMH
-				   WHERE CMH.PRSL_TYPE = 'L1'
-				   	  OR CMH.PRSL_TYPE = 'L2'
-				   	  OR CMH.PRSL_TYPE = 'L3'
+				   WHERE CMH.PRSL_TYPE IN ('L1', 'L2', 'L2')
 		]]>
 			<if test='logYmdFrom != null and logYmdFrom != ""'>
 			   	     AND TO_CHAR(CMH.PRSL_DT, 'YYYYMMDD') <![CDATA[>=]]> #{logYmdFrom}
@@ -64,17 +66,7 @@
 			         AND CMH.USER_NM LIKE '%' ||  #{userNm} || '%'
 			</if>
     	<![CDATA[
-				GROUP BY CMH.HSTRY_SN
-    		  	 	   , CMH.PRSL_DT
-    		  	 	   , CMH.USER_ID
-				       , CMH.USER_NM
-				       , CMH.MENU_ID
-				       , CMH.MENU_NM
-				       , CMH.USER_TYPE
-				       , CMH.LGN_SCS_YN
-				       , CMH.PRSL_TYPE
-				       , CMH.USER_IP
-				       , CMH.APC_CD
+				ORDER BY CMH.HSTRY_SN
     		 	) pt0
     		 	ORDER BY pt0.HSTRY_SN DESC
 		]]>
@@ -87,8 +79,8 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.selectMenuHstryList			-->
-	<!-- DESC : 화면열람이력 목록 조회.                        	             	 		-->
+	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.selectMenuHstryList			-->
+	<!-- DESC : 화면열람이력 목록 조회.                        	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -96,25 +88,25 @@
 	<!-- ==========================================================================	-->
     <select id="selectMenuHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
     	<![CDATA[
-    		SELECT
+    		SELECT	/* com.at.apcss.co.log.mapper.ComLogMapper.selectMenuHstryList */
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     			  ROWNUM AS ROW_SEQ
     			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, 
+    			,
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
     			  pt0.*
     		 FROM (
-			    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectLogMenuHstryList */
+			    	SELECT
 					       CMH.MENU_ID          AS MENU_ID
 					     , CMH.MENU_NM          AS MENU_NM
 					     , CMH.USER_ID          AS USER_ID
 					     , CMH.USER_NM          AS USER_NM
 					     , CMH.USER_TYPE        AS USER_TYPE
-					     , TO_CHAR(CMH.PRSL_DT, 'YYYY-MM-DD')          AS PRSL_DT
+					     , TO_CHAR(CMH.PRSL_DT, 'YYYY-MM-DD HH24:MI')          AS PRSL_DT
 					     , CMH.LGN_SCS_YN       AS LGN_SCS_YN
 					     , CMH.PRSL_TYPE        AS PRSL_TYPE
 					     , CMH.USER_IP          AS USER_IP
@@ -147,8 +139,8 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.selectTrsmHstryList			-->
-	<!-- DESC : 송수신이력 목록 조회.                        	           		  	 		-->
+	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.selectTrsmHstryList			-->
+	<!-- DESC : 송수신이력 목록 조회.                        	           		  	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -202,20 +194,198 @@
     	<!-- End 페이징 -->
     </select>
 
-       <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.insertMenuHstry			-->
-	<!-- DESC : 화면열람이력 생성.                        	           		  	 		-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
+    <!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.selectRawMtrHstryList			-->
+	<!-- DESC : 원물재고변경이력 조회.	                                       			-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2023.11.08  	하민우        	Initial Creation                        		-->
+	<!-- ==============================================================================	-->
+    <select id="selectRawMtrHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.co.log.mapper.ComLogMapper.selectRawMtrHstryList */
+		]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+    			  pt0.*
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('INVNTR_CHG_RSN_CD', pt0.CHG_RSN_CD) FROM DUAL) AS CHG_RSN_NM
+
+    		 FROM (
+   		   SELECT
+				  RCH.APC_CD			AS APC_CD
+				, RCH.WRHSNO			AS WRHSNO
+				, RCH.CHG_SN			AS CHG_SN
+				, RCH.CHG_YMD			AS CHG_YMD
+				, RCH.CHG_BFR_QNTT		AS CHG_BFR_QNTT
+				, RCH.CHG_BFR_WGHT		AS CHG_BFR_WGHT
+				, RCH.CHG_AFTR_QNTT		AS CHG_AFTR_QNTT
+				, RCH.CHG_AFTR_WGHT		AS CHG_AFTR_WGHT
+				, RCH.CHG_RMRK			AS CHG_RMRK
+				, RCH.CHG_RSN_CD		AS CHG_RSN_CD
+				, RCH.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+			 FROM TB_RAW_MTR_CHG_HSTRY RCH
+		    WHERE 1=1
+		]]>
+		<if test='chgYmdFrom != null and chgYmdFrom != ""'>
+			  AND RCH.CHG_YMD <![CDATA[>=]]> #{chgYmdFrom}
+		</if>
+		<if test='chgYmdTo != null and chgYmdTo != ""'>
+			  AND RCH.CHG_YMD <![CDATA[<=]]> #{chgYmdTo}
+		</if>
+		<![CDATA[
+		 	 ORDER BY RCH.CHG_YMD, RCH.CHG_SN, RCH.WRHSNO
+    		  ) pt0
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+    <!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.selectSortHstryList				-->
+	<!-- DESC : 선별재고변경이력 조회.	                                       			-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2023.11.09  	김호        	Initial Creation                        		-->
+	<!-- ==============================================================================	-->
+    <select id="selectSortHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrHstryList */
+		]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+    			  pt0.*
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('INVNTR_CHG_RSN_CD', pt0.CHG_RSN_CD) FROM DUAL) AS CHG_RSN_NM
+
+    		 FROM (
+				  SELECT
+					      SCH.APC_CD			AS APC_CD
+					    , SCH.SORTNO			AS SORTNO
+					    , SCH.SORT_SN           AS SORT_SN
+					    , SCH.CHG_SN			AS CHG_SN
+					    , SCH.CHG_YMD			AS CHG_YMD
+					    , SCH.CHG_BFR_QNTT		AS CHG_BFR_QNTT
+					    , SCH.CHG_BFR_WGHT		AS CHG_BFR_WGHT
+					    , SCH.CHG_AFTR_QNTT		AS CHG_AFTR_QNTT
+					    , SCH.CHG_AFTR_WGHT		AS CHG_AFTR_WGHT
+					    , SCH.CHG_RMRK			AS CHG_RMRK
+					    , SCH.CHG_RSN_CD		AS CHG_RSN_CD
+					    , SCH.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+					 FROM TB_SORT_INVNTR_CHG_HSTRY SCH
+		    	    WHERE 1=1
+		]]>
+			<if test='chgYmdFrom != null and chgYmdFrom != ""'>
+				  	  AND SCH.CHG_YMD <![CDATA[>=]]> #{chgYmdFrom}
+			</if>
+			<if test='chgYmdTo != null and chgYmdTo != ""'>
+				  	  AND SCH.CHG_YMD <![CDATA[<=]]> #{chgYmdTo}
+			</if>
+		<![CDATA[
+		 	 ORDER BY SCH.CHG_YMD, SCH.CHG_SN, SCH.SORTNO, SCH.SORT_SN
+    		  ) pt0
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+    <!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.selectGdsHstryList				-->
+	<!-- DESC : 상품재고변경이력 조회.	                                       			-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2023.11.09  	김호        	Initial Creation                        		-->
+	<!-- ==============================================================================	-->
+    <select id="selectGdsHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.co.log.mapper.ComLogMapper.selectGdsHstryLis */
+		]]>
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			,
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+    			  pt0.*
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('INVNTR_CHG_RSN_CD', pt0.CHG_RSN_CD) FROM DUAL) AS CHG_RSN_NM
+
+    		 FROM (
+		   		   SELECT
+						  GCH.APC_CD			AS APC_CD
+						, GCH.PCKGNO			AS PCKGNO
+		                , GCH.PCKG_SN           AS PCKG_SN
+						, GCH.CHG_SN			AS CHG_SN
+						, GCH.CHG_YMD			AS CHG_YMD
+						, GCH.CHG_BFR_QNTT		AS CHG_BFR_QNTT
+						, GCH.CHG_BFR_WGHT		AS CHG_BFR_WGHT
+						, GCH.CHG_AFTR_QNTT		AS CHG_AFTR_QNTT
+						, GCH.CHG_AFTR_WGHT		AS CHG_AFTR_WGHT
+						, GCH.CHG_RMRK			AS CHG_RMRK
+						, GCH.CHG_RSN_CD		AS CHG_RSN_CD
+						, GCH.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+					 FROM TB_GDS_INVNTR_CHG_HSTRY GCH
+				    WHERE 1=1
+		]]>
+			<if test='chgYmdFrom != null and chgYmdFrom != ""'>
+				  	  AND GCH.CHG_YMD <![CDATA[>=]]> #{chgYmdFrom}
+			</if>
+			<if test='chgYmdTo != null and chgYmdTo != ""'>
+				  	  AND GCH.CHG_YMD <![CDATA[<=]]> #{chgYmdTo}
+			</if>
+		<![CDATA[
+			 	 ORDER BY GCH.CHG_YMD, GCH.CHG_SN, GCH.PCKGNO, GCH.PCKG_SN
+	    		  ) pt0
+		]]>
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+
+       <!-- ===================================================================	-->
+	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.insertMenuHstry			-->
+	<!-- DESC : 화면열람이력 생성.                        	           		  	-->
+	<!-- ======================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      		-->
+	<!-- ===========  	============  	=======================================	-->
 	<!-- 2023.11.07  손민성        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
+	<!-- ======================================================================	-->
 
   <insert id="insertMenuHstry" parameterType="com.at.apcss.co.log.vo.ComLogVO">
   	<selectKey keyProperty="hstrySn" resultType="String" order="BEFORE">
   		SELECT SQ_COM_MENU_LOG_HSTRY.NEXTVAL FROM DUAL
   	</selectKey>
-			INSERT INTO TB_COM_MENU_LOG_HSTRY
+			INSERT INTO TB_COM_MENU_LOG_HSTRY	/* com.at.apcss.co.log.mapper.ComLogMapper.insertMenuHstry */
 			VALUES (
 			#{menuId}
 			,#{menuNm}
