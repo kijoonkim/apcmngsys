@@ -160,6 +160,8 @@ public class LoginController extends BaseController {
 
 			ApcInfoVO apcInfoVO = new ApcInfoVO();
 
+
+
 			List<String> comApcList = new ArrayList<>();
 			ObjectMapper objMapper = new ObjectMapper();
 
@@ -205,6 +207,8 @@ public class LoginController extends BaseController {
 			model.addAttribute("loginCode", null);
 			model.addAttribute("loginMessage", null);
 			//로그인 이력
+			comLogVo.setApcCd(resultVO.getApcCd());
+			comLogVo.setUserNm(resultVO.getName());
 			comLogVo.setUserType(userType);
 			comLogVo.setPrslType("L1");
 			comLogService.insertMenuHstry(comLogVo);
@@ -343,8 +347,12 @@ public class LoginController extends BaseController {
 		comLogVo.setSysLastChgPrgrmId(menuId);
 
 		comLogVo.setPrslType("L2");
-		comLogService.insertMenuHstry(comLogVo);
+		LoginVO loginVo =(LoginVO) request.getSession().getAttribute("loginVO");
+		comLogVo.setUserNm(loginVo.getName());
+		comLogVo.setUserType(loginVo.getUserType());
+		comLogVo.setApcCd(loginVo.getApcCd());
 
+		comLogService.insertMenuHstry(comLogVo);
 
 		// 1. Security 연도
 		request.getSession().setAttribute("loginVO", null);
