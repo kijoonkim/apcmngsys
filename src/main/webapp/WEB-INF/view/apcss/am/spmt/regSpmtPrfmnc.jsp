@@ -1593,6 +1593,7 @@
      }
 
     const fn_uld = async function() {
+    	document.querySelector("#btnFileUpload").value = "";
 		$("#btnFileUpload").click();
 
     }
