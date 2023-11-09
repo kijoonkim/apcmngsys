@@ -30,7 +30,7 @@
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<div class="ad_tbl_toplist">
 			<sbux-button id="btnLogCntnHstry7" name="btnLogCntnHstry" uitype="normal" text="접속이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
 			<sbux-button id="btnLogMenuHstry7" name="btnLogMenuHstry" uitype="normal" text="화면열람이력" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
@@ -95,7 +95,7 @@
 		    		  	'showgoalpageui' : true
 		    	    };
 		        SBGridProperties.columns = [
-		        	{caption: ['입고번호'], 	ref: 'wrhsno',			width: '120px',		type: 'output',	style:'text-align: center'},
+		        	{caption: ['포장번호'], 	ref: 'pckgno',			width: '120px',		type: 'output',	style:'text-align: center'},
 		            {caption: ['변경일자'], 	ref: 'chgYmd', 			width: '120px', 	type: 'output',	style:'text-align: center',
 		        		format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 		            {caption: ['변경전수량'],	ref: 'chgBfrQntt', 		width: '120px', 	type: 'output',	style:'text-align: right',
@@ -136,7 +136,7 @@
 		            return;
 				}
 
-		        const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrHstryList.do", {
+		        const postJsonPromise = gfn_postJSON("/co/log/selectGdsHstryList.do", {
 		        		apcCd				: gv_selectedApcCd
 					  , chgYmdFrom 			: chgYmdFrom
 					  , chgYmdTo 			: chgYmdTo
@@ -153,7 +153,8 @@
 		    		jsonGdsInvntrChgHstry.length = 0;
 		        	data.resultList.forEach((item, index) => {
 						const hstry = {
-							wrhsno			: item.wrhsno,
+							pckgno			: item.pckgno,
+							pckgSn			: item.pckgSn,
 							chgYmd			: item.chgYmd,
 							chgBfrQntt 		: item.chgBfrQntt,
 							chgBfrWght 		: item.chgBfrWght,

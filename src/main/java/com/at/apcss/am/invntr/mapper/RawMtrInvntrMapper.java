@@ -135,7 +135,7 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public int updateInvntrTrnsf(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
+
 	/**
 	 * 원물재고 투입진행 처리
 	 * @param rawMtrInvntrVO
@@ -143,15 +143,7 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public int updateInvntrInptPrgrs(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
-	/**
-	 * 원물재고 변경이력 조회
-	 * @param rawMtrInvntrVO
-	 * @return
-	 * @throws Exception
-	 */
-	public List<RawMtrInvntrVO> selectRawMtrHstryList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
+
 	/**
 	 * 원물재고 변경이력 등록
 	 * @param rawMtrInvntrVO

@@ -51,7 +51,7 @@
 									name="sortInvntr-dtp-sortYmdFrom"
 									uitype="popup"
 									class="form-control input-sm sbux-pik-group-apc"
-									onchange="sortInvntr.chkSortYmdFrom"
+									onchange="popSortInvntr.dtpChange"
 								></sbux-datepicker>
 							</th>
 							<th>~</th>
@@ -61,7 +61,7 @@
 									name="sortInvntr-dtp-sortYmdTo"
 									uitype="popup"
 									class="form-control input-sm sbux-pik-group-apc"
-									onchange="sortInvntr.chkSortYmdTo"
+									onchange="popSortInvntr.dtpChange"
 								></sbux-datepicker>
 							</th>
 						</tr>
@@ -138,13 +138,16 @@
 			SBUxMethod.set("sortInvntr-inp-apcCd", _apcCd);
 			SBUxMethod.set("sortInvntr-inp-apcNm", _apcNm);
 
+			console.log("asdasd");
+
+			SBUxMethod.set("sortInvntr-dtp-sortYmdFrom", gfn_dateFirstYmd(new Date()));
+			SBUxMethod.set("sortInvntr-dtp-sortYmdTo", gfn_dateToYmd(new Date()));
+
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
 				this.callbackSelectFnc = _callbackChoiceFnc;
 			}
 
 			if (grdSortInvntrPop === null || this.prvApcCd != _apcCd) {
-
-				SBUxMethod.set("sortInvntr-dtp-crtrYmd", gfn_dateToYmd(new Date()));
 
 				let rst = await Promise.all([
 				 	gfn_setApcItemSBSelect('sortInvntr-slt-itemCd', jsonSortInvntrPopApcItem, _apcCd),							// 품목
@@ -228,7 +231,6 @@
 			jsonSortInvntrPop = [];
 
 			let apcCd = SBUxMethod.get("sortInvntr-inp-apcCd");
-			//let crtrYmd = SBUxMethod.get("sortInvntr-dtp-crtrYmd");
 			let sortYmdFrom = SBUxMethod.get("sortInvntr-dtp-sortYmdFrom");
 			let sortYmdTo = SBUxMethod.get("sortInvntr-dtp-sortYmdTo");
 			let itemCd = SBUxMethod.get("sortInvntr-slt-itemCd");
@@ -337,7 +339,17 @@
 	    	let currentPageNo = grdSortInvntrPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
 	    	popSortInvntr.setGrid(recordCountPerPage, currentPageNo);
-	    }
+	    },
+	    dtpChange : function(){
+			let sortYmdFrom = SBUxMethod.get("sortInvntr-dtp-sortYmdFrom");
+			let sortYmdTo = SBUxMethod.get("sortInvntr-dtp-sortYmdTo");
+			if(gfn_diffDate(sortYmdFrom, sortYmdTo) < 0){
+				gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다."); //W0001{0}
+				SBUxMethod.set("sortInvntr-dtp-sortYmdFrom", gfn_dateFirstYmd(new Date()));
+				SBUxMethod.set("sortInvntr-dtp-sortYmdTo", gfn_dateToYmd(new Date()));
+				return;
+			}
+		}
 	}
 </script>
 </html>

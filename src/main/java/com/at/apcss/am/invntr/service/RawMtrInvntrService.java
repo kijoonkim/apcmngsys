@@ -135,15 +135,7 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteInvntrSortInpt(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
-	/**
-	 * 원물재고 변경이력 조회
-	 * @param rawMtrInvntrVO
-	 * @return
-	 * @throws Exception
-	 */
-	public List<RawMtrInvntrVO> selectRawMtrHstryList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
+
 	/**
 	 * 원물재고 변경이력 등록
 	 * @param rawMtrInvntrVO
@@ -151,5 +143,5 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertRawMtrChgHstry(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
-	
+
 }

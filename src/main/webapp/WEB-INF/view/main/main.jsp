@@ -119,7 +119,6 @@
         const postJsonPromise = gfn_postJSON("/co/authrt/selectSideMenuTreeList.do", {upMenuId: pMenuId}, "main", true);
 
         const data = await postJsonPromise;
-        console.log(data);
 
         try {
             sideJsonData.length = 0;
@@ -248,7 +247,6 @@
 
 
         var data = SBUxMethod.get(_id);
-        console.log(data);
 
         if (_target === "TOP" && gfn_isEmpty(data.pid)) {
             return;
@@ -290,7 +288,6 @@
     	var apc_cd = "${loginVO.apcCd}";
     	var prsnaYn = data.customData.prsnaYn;
 
-    	console.log(data);
         fetch("/sys/insertComLog.do",{
             method: "POST",
             headers: {

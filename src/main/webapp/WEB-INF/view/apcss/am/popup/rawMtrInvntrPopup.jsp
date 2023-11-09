@@ -87,7 +87,7 @@
 									name="rawMtrInvntr-dtp-wrhsYmdFrom"
 									uitype="popup"
 									class="form-control input-sm sbux-pik-group-apc"
-									onchange="popRawMtrInvntr.chkWrhsYmdFrom"
+									onchange="popRawMtrInvntr.dtpChange"
 								></sbux-datepicker>
 							</th>
 							<th>~</th>
@@ -97,7 +97,7 @@
 									name="rawMtrInvntr-dtp-wrhsYmdTo"
 									uitype="popup"
 									class="form-control input-sm sbux-pik-group-apc"
-									onchange="popRawMtrInvntr.chkWrhsYmdTo"
+									onchange="popRawMtrInvntr.dtpChange"
 								></sbux-datepicker>
 							</th>
 						</tr>
@@ -415,7 +415,16 @@
 	    	let currentPageNo = grdRawMtrInvntrPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
 	    	popRawMtrInvntr.setGrid(recordCountPerPage, currentPageNo);
-	    }
+	    },dtpChange : function(){
+			let wrhsYmdFrom = SBUxMethod.get("rawMtrInvntr-dtp-wrhsYmdFrom");
+			let wrhsYmdTo = SBUxMethod.get("rawMtrInvntr-dtp-wrhsYmdTo");
+			if(gfn_diffDate(wrhsYmdFrom, wrhsYmdTo) < 0){
+				gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다."); //W0001{0}
+				SBUxMethod.set("rawMtrInvntr-dtp-wrhsYmdFrom", gfn_dateFirstYmd(new Date()));
+				SBUxMethod.set("rawMtrInvntr-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
+				return;
+			}
+		}
 	}
 </script>
 </html>
