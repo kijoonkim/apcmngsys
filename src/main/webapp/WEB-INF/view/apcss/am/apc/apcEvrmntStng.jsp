@@ -376,7 +376,7 @@
 							</td>
 							<td>
 								<p class="ad_input_row">
-									<sbux-checkbox id="chk-sortLabelPblcnYn" name="chk-sortLabelPblcnYn" uitype="normal" text="선별라벨 발행" true-value="Y" false-value="N"></sbux-checkbox>
+									<sbux-checkbox id="chk-sortLblPblcnYn" name="chk-sortLblPblcnYn" uitype="normal" text="선별라벨 발행" true-value="Y" false-value="N"></sbux-checkbox>
 								</p>
 							</td>
 							<td><p class="ad_input_row">
@@ -438,11 +438,23 @@
 									<sbux-checkbox id="chk-spmtDocPblcnYn" name="chk-spmtDocPblcnYn" uitype="normal" text="송품장발행" true-value="Y" false-value="N" checked readonly></sbux-checkbox>
 								</p>
 							</td>
+							<td>
+								<p class="ad_input_row">
+									<sbux-checkbox id="chk-slsMngYn" name="chk-slsMngYn" uitype="normal" text="매출관리" true-value="Y" false-value="N"></sbux-checkbox>
+								</p>
+							</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<th>재고 관리</th>
+							<td><p class="ad_input_row">
+									<sbux-checkbox id="chk-invntrMngYn" name="chk-invntrMngYn" uitype="normal" text="관리유무" true-value="Y" false-value="N" checked readonly></sbux-checkbox>
+								</p>
+							</td>
 							<td><p class="ad_input_row">
 									<sbux-checkbox id="chk-invntrTrnsfYn" name="chk-invntrTrnsfYn" uitype="normal" text="재고이송" true-value="Y" false-value="N"></sbux-checkbox>
 								</p>
 							</td>
-							<td>&nbsp;</td>
 						</tr>
 						<tr>
 							<th>정산 관리</th>
@@ -469,26 +481,6 @@
 								</p>
 							</td>
 							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-						</tr>
-						<tr>
-							<th>농협전송 관리</th>
-							<td>
-								<p class="ad_input_row">
-									<sbux-checkbox id="chk-trsmMngYn" name="chk-trsmMngYn" uitype="normal" text="사용" true-value="Y" false-value="N"></sbux-checkbox>
-								</p>
-							</td>
-							<td>
-								<p class="ad_input_row">
-									<sbux-checkbox id="chk-sortDataTrsmYn" name="chk-sortDataTrsmYn" uitype="normal" text="선별실적 생성" true-value="Y" false-value="N"></sbux-checkbox>
-								</p>
-							</td>
-							<td>
-								<p class="ad_input_row">
-									<sbux-checkbox id="chk-clclnDataTrsmYn" name="chk-clclnDataTrsmYn" uitype="normal" text="정산실적 생성" true-value="Y" false-value="N"></sbux-checkbox>
-								</p>
-							</td>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 						</tr>
@@ -697,7 +689,7 @@
         	SBUxMethod.set("chk-pckgCmndDocPblcnYn", resultVO.pckgCmndDocPblcnYn);
         	SBUxMethod.set("chk-sortMngYn", resultVO.sortMngYn);
         	SBUxMethod.set("chk-sortMblUseYn", resultVO.sortMblUseYn);
-        	SBUxMethod.set("chk-sortLabelPblcnYn", resultVO.sortLabelPblcnYn);
+        	SBUxMethod.set("chk-sortLblPblcnYn", resultVO.sortLblPblcnYn);
         	SBUxMethod.set("chk-sortIdntyDocPblcnYn", resultVO.sortIdntyDocPblcnYn);
         	SBUxMethod.set("chk-pckgMngYn", resultVO.pckgMngYn);
         	SBUxMethod.set("chk-pckgMblUseYn", resultVO.pckgMblUseYn);
@@ -710,11 +702,13 @@
         	SBUxMethod.set("chk-clclnMngYn", resultVO.clclnMngYn);
         	SBUxMethod.set("chk-outordrMngYn", resultVO.outordrMngYn);
         	SBUxMethod.set("chk-outordrAtmtcRcptnYn", resultVO.outordrAtmtcRcptnYn);
-        	SBUxMethod.set("chk-outordrPckgCmndLnkgYn", resultVO.outordrPckgCmndLnkgYn);		// 현재 없음
         	SBUxMethod.set("chk-trsmMngYn", resultVO.trsmMngYn);
         	SBUxMethod.set("chk-sortDataTrsmYn", resultVO.sortDataTrsmYn);
         	SBUxMethod.set("chk-clclnDataTrsmYn", resultVO.clclnDataTrsmYn);
         	SBUxMethod.set("chk-oprtrUseYn", resultVO.oprtrUseYn);
+        	SBUxMethod.set("chk-invntrMngYn", resultVO.invntrMngYn);
+        	SBUxMethod.set("chk-invntrTrnsfYn", resultVO.invntrTrnsfYn);
+        	SBUxMethod.set("chk-outordrPckgCmndLnkgYn", resultVO.outordrPckgCmndLnkgYn);		// 현재 없음
         	SBUxMethod.set("chk-oprtrSortPrfmncTrsmYn", resultVO.oprtrSortPrfmncTrsmYn);		// 현재 없음
         	SBUxMethod.set("chk-oprtrPckgPrfmncTrsmYn", resultVO.oprtrPckgPrfmncTrsmYn);		// 현재 없음
 
@@ -1291,7 +1285,7 @@
 	  	  , pckgCmndDocPblcnYn 		: SBUxMethod.get("chk-pckgCmndDocPblcnYn")["chk-pckgCmndDocPblcnYn"]
 	  	  , sortMngYn 				: SBUxMethod.get("chk-sortMngYn")["chk-sortMngYn"]
 	  	  , sortMblUseYn 			: SBUxMethod.get("chk-sortMblUseYn")["chk-sortMblUseYn"]
-	  	  , sortLabelPblcnYn 		: SBUxMethod.get("chk-sortLabelPblcnYn")["chk-sortLabelPblcnYn"]
+	  	  , sortLblPblcnYn 			: SBUxMethod.get("chk-sortLblPblcnYn")["chk-sortLblPblcnYn"]
 	  	  , sortIdntyDocPblcnYn 	: SBUxMethod.get("chk-sortIdntyDocPblcnYn")["chk-sortIdntyDocPblcnYn"]
 	  	  , pckgMngYn 				: SBUxMethod.get("chk-pckgMngYn")["chk-pckgMngYn"]
 	  	  , pckgMblUseYn 			: SBUxMethod.get("chk-pckgMblUseYn")["chk-pckgMblUseYn"]
@@ -1309,6 +1303,8 @@
 	  	  , sortDataTrsmYn 			: SBUxMethod.get("chk-sortDataTrsmYn")["chk-sortDataTrsmYn"]
 	  	  , clclnDataTrsmYn 		: SBUxMethod.get("chk-clclnDataTrsmYn")["chk-clclnDataTrsmYn"]
 	  	  , oprtrUseYn 				: SBUxMethod.get("chk-oprtrUseYn")["chk-oprtrUseYn"]
+	  	  , invntrMngYn 			: SBUxMethod.get("chk-invntrMngYn")["chk-invntrMngYn"]
+	  	  , invntrTrnsfYn 			: SBUxMethod.get("chk-invntrTrnsfYn")["chk-invntrTrnsfYn"]
 	  	  //, oprtrSortPrfmncTrsmYn 			: SBUxMethod.get("chk-oprtrSortPrfmncTrsmYn")
 	  	  //, oprtrPckgPrfmncTrsmYn 			: SBUxMethod.get("chk-oprtrPckgPrfmncTrsmYn")
 

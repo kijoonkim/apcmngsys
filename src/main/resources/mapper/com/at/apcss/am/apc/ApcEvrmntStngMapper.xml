@@ -147,7 +147,7 @@
 				, PCKG_CMND_DOC_PBLCN_YN
 				, SORT_MNG_YN
 				, SORT_MBL_USE_YN
-				, SORT_LABEL_PBLCN_YN
+				, SORT_LBL_PBLCN_YN
 				, SORT_IDNTY_DOC_PBLCN_YN
 				, PCKG_MNG_YN
 				, PCKG_MBL_USE_YN
@@ -167,7 +167,8 @@
 				, OPRTR_USE_YN
 				, OPRTR_SORT_PRFMNC_TRSM_YN
 				, OPRTR_PCKG_PRFMNC_TRSM_YN
-
+				, INVNTR_MNG_YN
+				, SLS_MNG_YN
 	    		, SYS_FRST_INPT_DT
 	    		, SYS_FRST_INPT_USER_ID
 	    		, SYS_FRST_INPT_PRGRM_ID
@@ -206,7 +207,7 @@
 				, #{pckgCmndDocPblcnYn}
 				, #{sortMngYn}
 				, #{sortMblUseYn}
-				, #{sortLabelPblcnYn}
+				, #{sortLblPblcnYn}
 				, #{sortIdntyDocPblcnYn}
 				, #{pckgMngYn}
 				, #{pckgMblUseYn}
@@ -226,7 +227,8 @@
 				, #{oprtrUseYn}
 				, #{oprtrSortPrfmncTrsmYn}
 				, #{oprtrPckgPrfmncTrsmYn}
-
+				, #{invntrMngYn}
+				, #{slsMngYn}
 	    		, SYSDATE
 	    		, #{sysFrstInptUserId}
 	    		, #{sysFrstInptPrgrmId}
@@ -278,7 +280,7 @@
 				, APC.PCKG_CMND_DOC_PBLCN_YN	AS PCKG_CMND_DOC_PBLCN_YN
 				, APC.SORT_MNG_YN				AS SORT_MNG_YN
 				, APC.SORT_MBL_USE_YN			AS SORT_MBL_USE_YN
-				, APC.SORT_LABEL_PBLCN_YN		AS SORT_LABEL_PBLCN_YN
+				, APC.SORT_LBL_PBLCN_YN			AS SORT_LBL_PBLCN_YN
 				, APC.SORT_IDNTY_DOC_PBLCN_YN	AS SORT_IDNTY_DOC_PBLCN_YN
 				, APC.PCKG_MNG_YN				AS PCKG_MNG_YN
 				, APC.PCKG_MBL_USE_YN			AS PCKG_MBL_USE_YN
@@ -298,6 +300,9 @@
 				, APC.OPRTR_USE_YN				AS OPRTR_USE_YN
 				, APC.OPRTR_SORT_PRFMNC_TRSM_YN	AS OPRTR_SORT_PRFMNC_TRSM_YN
 				, APC.OPRTR_PCKG_PRFMNC_TRSM_YN	AS OPRTR_PCKG_PRFMNC_TRSM_YN
+				, APC.INVNTR_TRNSF_MNG_YN		AS INVNTR_TRNSF_MNG_YN
+				, APC.INVNTR_MNG_YN				AS INVNTR_MNG_YN
+				, APC.SLS_MNG_YN 				AS SLS_MNG_YN
 				, APC.DEL_YN					AS DEL_YN
 			  FROM TB_APC_EVRMNT_STNG APC
 			 WHERE APC.APC_CD = #{apcCd}
@@ -335,7 +340,7 @@
 				, PCKG_CMND_DOC_PBLCN_YN 	= #{pckgCmndDocPblcnYn}
 				, SORT_MNG_YN 				= #{sortMngYn}
 				, SORT_MBL_USE_YN 			= #{sortMblUseYn}
-				, SORT_LABEL_PBLCN_YN 		= #{sortLabelPblcnYn}
+				, SORT_LBL_PBLCN_YN 		= #{sortLblPblcnYn}
 				, SORT_IDNTY_DOC_PBLCN_YN 	= #{sortIdntyDocPblcnYn}
 				, PCKG_MNG_YN 				= #{pckgMngYn}
 				, PCKG_MBL_USE_YN 			= #{pckgMblUseYn}
@@ -355,6 +360,9 @@
 				, OPRTR_USE_YN 				= #{oprtrUseYn}
 				, OPRTR_SORT_PRFMNC_TRSM_YN = #{oprtrSortPrfmncTrsmYn}
 				, OPRTR_PCKG_PRFMNC_TRSM_YN = #{oprtrPckgPrfmncTrsmYn}
+				, INVNTR_TRNSF_MNG_YN		= #{invntrTrnsfMngYn}
+				, INVNTR_MNG_YN				= #{invntrMngYn}
+				, SLS_MNG_YN 				= #{slsMngYn}
 			 WHERE APC_CD = #{apcCd}
 		]]>
     </update>

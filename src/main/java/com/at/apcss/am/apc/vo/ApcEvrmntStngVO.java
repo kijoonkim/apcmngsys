@@ -64,7 +64,7 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String pckgCmndDocPblcnYn;	// 포장지시서발행유무
 	private String sortMngYn;	// 선별관리유무				AM_003_001	AM_003_002
 	private String sortMblUseYn;	// 선별테블릿사용유무			AM_003_003
-	private String sortLabelPblcnYn;	// 선별라벨발행유무
+	private String sortLblPblcnYn;	// 선별라벨발행유무
 	private String sortIdntyDocPblcnYn;	// 선별확인서발행유무
 	private String pckgMngYn;	// 포장관리유무				AM_004_001	AM_004_002
 	private String pckgMblUseYn;	// 포장테블릿사용유무			AM_004_003
@@ -84,4 +84,7 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String oprtrUseYn;	// 생산작업자사용유무			AM_003_004
 	private String oprtrSortPrfmncTrsmYn;	// 생산작업자선별실적전송유무
 	private String oprtrPckgPrfmncTrsmYn;	// 생산작업자포장실적전송유무
+	private String invntrMngYn;
+	private String slsMngYn;
+
 }
