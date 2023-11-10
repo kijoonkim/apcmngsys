@@ -321,7 +321,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			apcEvrmntStngVO.setPckgCmndDocPblcnYn(ComConstants.CON_YES);	// 포장지시서발행유무
 			apcEvrmntStngVO.setSortMngYn(ComConstants.CON_YES);				// 선별관리사용유무
 			apcEvrmntStngVO.setSortMblUseYn(ComConstants.CON_YES);			// 선별테블릿사용유무
-			apcEvrmntStngVO.setSortLabelPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
+			apcEvrmntStngVO.setSortLblPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
 			apcEvrmntStngVO.setSortIdntyDocPblcnYn(ComConstants.CON_YES);	// 선별확인서발행유무
 			apcEvrmntStngVO.setPckgMngYn(ComConstants.CON_YES);				// 포장관리유무
 			apcEvrmntStngVO.setPckgMblUseYn(ComConstants.CON_YES);			// 포장테블릿사용유무
@@ -346,7 +346,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			apcEvrmntStngVO.setPckgCmndDocPblcnYn(ComConstants.CON_YES);	// 포장지시서발행유무
 			apcEvrmntStngVO.setSortMngYn(ComConstants.CON_YES);				// 선별관리사용유무
 			apcEvrmntStngVO.setSortMblUseYn(ComConstants.CON_YES);			// 선별테블릿사용유무
-			apcEvrmntStngVO.setSortLabelPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
+			apcEvrmntStngVO.setSortLblPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
 			apcEvrmntStngVO.setSortIdntyDocPblcnYn(ComConstants.CON_YES);	// 선별확인서발행유무
 			apcEvrmntStngVO.setPckgMngYn(ComConstants.CON_YES);				// 포장관리유무
 			apcEvrmntStngVO.setGdsLblPblcnYn(ComConstants.CON_YES);			// 상품라벨발행유무
@@ -369,7 +369,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			apcEvrmntStngVO.setPckgCmndMngYn(ComConstants.CON_YES);			// 포장지시관리유무
 			apcEvrmntStngVO.setPckgCmndDocPblcnYn(ComConstants.CON_YES);	// 포장지시서발행유무
 			apcEvrmntStngVO.setSortMngYn(ComConstants.CON_YES);				// 선별관리사용유무
-			apcEvrmntStngVO.setSortLabelPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
+			apcEvrmntStngVO.setSortLblPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
 			apcEvrmntStngVO.setSortIdntyDocPblcnYn(ComConstants.CON_YES);	// 선별확인서발행유무
 			apcEvrmntStngVO.setPckgMngYn(ComConstants.CON_YES);				// 포장관리유무
 			apcEvrmntStngVO.setGdsLblPblcnYn(ComConstants.CON_YES);			// 상품라벨발행유무
@@ -390,7 +390,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			apcEvrmntStngVO.setSortCmndMngYn(ComConstants.CON_YES);			// 선별지시관리유무
 			apcEvrmntStngVO.setSortCmndDocPblcnYn(ComConstants.CON_YES);	// 선별지시서발행유무
 			apcEvrmntStngVO.setSortMngYn(ComConstants.CON_YES);				// 선별관리사용유무
-			apcEvrmntStngVO.setSortLabelPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
+			apcEvrmntStngVO.setSortLblPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
 			apcEvrmntStngVO.setSortIdntyDocPblcnYn(ComConstants.CON_YES);	// 선별확인서발행유무
 			apcEvrmntStngVO.setPckgMngYn(ComConstants.CON_YES);				// 포장관리유무
 			apcEvrmntStngVO.setGdsLblPblcnYn(ComConstants.CON_YES);			// 상품라벨발행유무
@@ -409,7 +409,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			apcEvrmntStngVO.setRawMtrIdentTagPblcnYn(ComConstants.CON_YES);	// 원물인식표발행유무
 			apcEvrmntStngVO.setPltBxMngYn(ComConstants.CON_YES);			// 팔레트박스정보관리유무
 			apcEvrmntStngVO.setSortMngYn(ComConstants.CON_YES);				// 선별관리사용유무
-			apcEvrmntStngVO.setSortLabelPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
+			apcEvrmntStngVO.setSortLblPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
 			apcEvrmntStngVO.setSortIdntyDocPblcnYn(ComConstants.CON_YES);	// 선별확인서발행유무
 			apcEvrmntStngVO.setPckgMngYn(ComConstants.CON_YES);				// 포장관리유무
 			apcEvrmntStngVO.setGdsLblPblcnYn(ComConstants.CON_YES);			// 상품라벨발행유무
@@ -428,7 +428,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			apcEvrmntStngVO.setPckgCmndDocPblcnYn(ComConstants.CON_YES);	// 포장지시서발행유무
 			apcEvrmntStngVO.setSortMngYn(ComConstants.CON_YES);				// 선별관리사용유무
 			apcEvrmntStngVO.setSortMblUseYn(ComConstants.CON_YES);			// 선별테블릿사용유무
-			apcEvrmntStngVO.setSortLabelPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
+			apcEvrmntStngVO.setSortLblPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
 			apcEvrmntStngVO.setSortIdntyDocPblcnYn(ComConstants.CON_YES);	// 선별확인서발행유무
 			apcEvrmntStngVO.setPckgMngYn(ComConstants.CON_YES);				// 포장관리유무
 			apcEvrmntStngVO.setPckgMblUseYn(ComConstants.CON_YES);			// 포장테블릿사용유무
@@ -454,7 +454,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			apcEvrmntStngVO.setPckgCmndDocPblcnYn(ComConstants.CON_YES);	// 포장지시서발행유무
 			apcEvrmntStngVO.setSortMngYn(ComConstants.CON_YES);				// 선별관리사용유무
 			apcEvrmntStngVO.setSortMblUseYn(ComConstants.CON_YES);			// 선별테블릿사용유무
-			apcEvrmntStngVO.setSortLabelPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
+			apcEvrmntStngVO.setSortLblPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
 			apcEvrmntStngVO.setSortIdntyDocPblcnYn(ComConstants.CON_YES);	// 선별확인서발행유무
 			apcEvrmntStngVO.setPckgMngYn(ComConstants.CON_YES);				// 포장관리유무
 			apcEvrmntStngVO.setGdsLblPblcnYn(ComConstants.CON_YES);			// 상품라벨발행유무
@@ -478,7 +478,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			apcEvrmntStngVO.setPckgCmndMngYn(ComConstants.CON_YES);			// 포장지시관리유무
 			apcEvrmntStngVO.setPckgCmndDocPblcnYn(ComConstants.CON_YES);	// 포장지시서발행유무
 			apcEvrmntStngVO.setSortMngYn(ComConstants.CON_YES);				// 선별관리사용유무
-			apcEvrmntStngVO.setSortLabelPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
+			apcEvrmntStngVO.setSortLblPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
 			apcEvrmntStngVO.setSortIdntyDocPblcnYn(ComConstants.CON_YES);	// 선별확인서발행유무
 			apcEvrmntStngVO.setPckgMngYn(ComConstants.CON_YES);				// 포장관리유무
 			apcEvrmntStngVO.setGdsLblPblcnYn(ComConstants.CON_YES);			// 상품라벨발행유무
@@ -500,7 +500,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			apcEvrmntStngVO.setSortCmndMngYn(ComConstants.CON_YES);			// 선별지시관리유무
 			apcEvrmntStngVO.setSortCmndDocPblcnYn(ComConstants.CON_YES);	// 선별지시서발행유무
 			apcEvrmntStngVO.setSortMngYn(ComConstants.CON_YES);				// 선별관리사용유무
-			apcEvrmntStngVO.setSortLabelPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
+			apcEvrmntStngVO.setSortLblPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
 			apcEvrmntStngVO.setSortIdntyDocPblcnYn(ComConstants.CON_YES);	// 선별확인서발행유무
 			apcEvrmntStngVO.setPckgMngYn(ComConstants.CON_YES);				// 포장관리유무
 			apcEvrmntStngVO.setGdsLblPblcnYn(ComConstants.CON_YES);			// 상품라벨발행유무
@@ -520,7 +520,7 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 			apcEvrmntStngVO.setRawMtrWrhsPlanMngYn(ComConstants.CON_YES);	// 원물입고계획관리유무
 			apcEvrmntStngVO.setGdsWrhsMngYn(ComConstants.CON_YES);			// 상품입고관리유무
 			apcEvrmntStngVO.setSortMngYn(ComConstants.CON_YES);				// 선별관리사용유무
-			apcEvrmntStngVO.setSortLabelPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
+			apcEvrmntStngVO.setSortLblPblcnYn(ComConstants.CON_YES);		// 선별라벨발행유무
 			apcEvrmntStngVO.setSortIdntyDocPblcnYn(ComConstants.CON_YES);	// 선별확인서발행유무
 			apcEvrmntStngVO.setPckgMngYn(ComConstants.CON_YES);				// 포장관리유무
 			apcEvrmntStngVO.setGdsLblPblcnYn(ComConstants.CON_YES);			// 상품라벨발행유무
