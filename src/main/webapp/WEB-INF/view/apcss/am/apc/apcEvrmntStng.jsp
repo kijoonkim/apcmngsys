@@ -452,7 +452,7 @@
 								</p>
 							</td>
 							<td><p class="ad_input_row">
-									<sbux-checkbox id="chk-invntrTrnsfYn" name="chk-invntrTrnsfYn" uitype="normal" text="재고이송" true-value="Y" false-value="N"></sbux-checkbox>
+									<sbux-checkbox id="chk-invntrTrnsfMngYn" name="chk-invntrTrnsfMngYn" uitype="normal" text="재고이송" true-value="Y" false-value="N"></sbux-checkbox>
 								</p>
 							</td>
 						</tr>
@@ -702,12 +702,13 @@
         	SBUxMethod.set("chk-clclnMngYn", resultVO.clclnMngYn);
         	SBUxMethod.set("chk-outordrMngYn", resultVO.outordrMngYn);
         	SBUxMethod.set("chk-outordrAtmtcRcptnYn", resultVO.outordrAtmtcRcptnYn);
-        	SBUxMethod.set("chk-trsmMngYn", resultVO.trsmMngYn);
-        	SBUxMethod.set("chk-sortDataTrsmYn", resultVO.sortDataTrsmYn);
-        	SBUxMethod.set("chk-clclnDataTrsmYn", resultVO.clclnDataTrsmYn);
+        	// SBUxMethod.set("chk-trsmMngYn", resultVO.trsmMngYn);
+        	// SBUxMethod.set("chk-sortDataTrsmYn", resultVO.sortDataTrsmYn);
+        	// SBUxMethod.set("chk-clclnDataTrsmYn", resultVO.clclnDataTrsmYn);
         	SBUxMethod.set("chk-oprtrUseYn", resultVO.oprtrUseYn);
         	SBUxMethod.set("chk-invntrMngYn", resultVO.invntrMngYn);
-        	SBUxMethod.set("chk-invntrTrnsfYn", resultVO.invntrTrnsfYn);
+        	SBUxMethod.set("chk-invntrTrnsfMngYn", resultVO.invntrTrnsfMngYn);
+        	SBUxMethod.set("chk-slsMngYn", resultVO.slsMngYn);
         	SBUxMethod.set("chk-outordrPckgCmndLnkgYn", resultVO.outordrPckgCmndLnkgYn);		// 현재 없음
         	SBUxMethod.set("chk-oprtrSortPrfmncTrsmYn", resultVO.oprtrSortPrfmncTrsmYn);		// 현재 없음
         	SBUxMethod.set("chk-oprtrPckgPrfmncTrsmYn", resultVO.oprtrPckgPrfmncTrsmYn);		// 현재 없음
@@ -1299,12 +1300,13 @@
 	  	  , outordrMngYn 			: SBUxMethod.get("chk-outordrMngYn")["chk-outordrMngYn"]
 	  	  , outordrAtmtcRcptnYn 	: SBUxMethod.get("chk-outordrAtmtcRcptnYn")["chk-outordrAtmtcRcptnYn"]
 	  	  //, outordrPckgCmndLnkgYn : SBUxMethod.get("chk-outordrPckgCmndLnkgYn")
-	  	  , trsmMngYn 				: SBUxMethod.get("chk-trsmMngYn")["chk-trsmMngYn"]
-	  	  , sortDataTrsmYn 			: SBUxMethod.get("chk-sortDataTrsmYn")["chk-sortDataTrsmYn"]
-	  	  , clclnDataTrsmYn 		: SBUxMethod.get("chk-clclnDataTrsmYn")["chk-clclnDataTrsmYn"]
+	  	  //, trsmMngYn 				: SBUxMethod.get("chk-trsmMngYn")["chk-trsmMngYn"]
+	  	  //, sortDataTrsmYn 			: SBUxMethod.get("chk-sortDataTrsmYn")["chk-sortDataTrsmYn"]
+	  	  //, clclnDataTrsmYn 		: SBUxMethod.get("chk-clclnDataTrsmYn")["chk-clclnDataTrsmYn"]
 	  	  , oprtrUseYn 				: SBUxMethod.get("chk-oprtrUseYn")["chk-oprtrUseYn"]
 	  	  , invntrMngYn 			: SBUxMethod.get("chk-invntrMngYn")["chk-invntrMngYn"]
-	  	  , invntrTrnsfYn 			: SBUxMethod.get("chk-invntrTrnsfYn")["chk-invntrTrnsfYn"]
+	  	  , invntrTrnsfMngYn 		: SBUxMethod.get("chk-invntrTrnsfMngYn")["chk-invntrTrnsfMngYn"]
+	  	  , slsMngYn 				: SBUxMethod.get("chk-slsMngYn")["chk-slsMngYn"]
 	  	  //, oprtrSortPrfmncTrsmYn 			: SBUxMethod.get("chk-oprtrSortPrfmncTrsmYn")
 	  	  //, oprtrPckgPrfmncTrsmYn 			: SBUxMethod.get("chk-oprtrPckgPrfmncTrsmYn")
 

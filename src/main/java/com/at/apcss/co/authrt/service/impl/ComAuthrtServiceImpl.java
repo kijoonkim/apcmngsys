@@ -947,6 +947,17 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				}
 			}
 
+//			slsMngYn 매출관리		MENU_ID_SLS
+			for ( String menuId : ComConstants.MENU_ID_SLS ) {
+
+				authMenu.setMenuId(menuId);
+				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getSlsMngYn())) {
+					insertComAuthrtMenu(authMenu);
+				} else {
+					deleteComAuthrtMenu(authMenu);
+				}
+			}
+
 			//				spmtDocPblcnYn 송품장발행유무
 
 			//	clclnMngYn 정산관리유무		MENU_ID_CLCLN
@@ -965,6 +976,27 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 				authMenu.setMenuId(menuId);
 				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getOutordrMngYn())) {
+					insertComAuthrtMenu(authMenu);
+				} else {
+					deleteComAuthrtMenu(authMenu);
+				}
+			}
+			//	invntrMngYn 재고관리유무		MENU_ID_INVNTR
+			for ( String menuId : ComConstants.MENU_ID_INVNTR ) {
+
+				authMenu.setMenuId(menuId);
+				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getInvntrMngYn())) {
+					insertComAuthrtMenu(authMenu);
+				} else {
+					deleteComAuthrtMenu(authMenu);
+				}
+			}
+
+			//	invntrTrnsfMngYn 재고이송관리유무		MENU_ID_INVNTR_TRNSF
+			for ( String menuId : ComConstants.MENU_ID_INVNTR_TRNSF ) {
+
+				authMenu.setMenuId(menuId);
+				if (ComConstants.CON_YES.equals(apcEvrmntStngVO.getInvntrTrnsfMngYn())) {
 					insertComAuthrtMenu(authMenu);
 				} else {
 					deleteComAuthrtMenu(authMenu);

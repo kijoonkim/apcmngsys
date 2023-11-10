@@ -84,7 +84,8 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String oprtrUseYn;	// 생산작업자사용유무			AM_003_004
 	private String oprtrSortPrfmncTrsmYn;	// 생산작업자선별실적전송유무
 	private String oprtrPckgPrfmncTrsmYn;	// 생산작업자포장실적전송유무
-	private String invntrMngYn;
-	private String slsMngYn;
+	private String invntrTrnsfMngYn;		// 재고이송관리유무
+	private String invntrMngYn;				// 재고관리유무
+	private String slsMngYn;				// 매출관리유무
 
 }
