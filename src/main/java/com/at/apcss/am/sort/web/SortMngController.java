@@ -93,10 +93,34 @@ public class SortMngController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 	
+
+	@PostMapping(value = "/am/sort/insertSortRslt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertSortRslt(@RequestBody SortMngVO sortMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			sortMngVO.setSysFrstInptUserId(getUserId());
+			sortMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			sortMngVO.setSysLastChgUserId(getUserId());
+			sortMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = sortMngService.insertSortRslt(sortMngVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 	
 	
 	@PostMapping(value = "/am/sort/insertSortPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertSortPrfmncList(@RequestBody SortMngVO sortMngVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> insertSortPrfmnc(@RequestBody SortMngVO sortMngVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 

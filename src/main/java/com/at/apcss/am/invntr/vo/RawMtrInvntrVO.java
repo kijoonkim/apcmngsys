@@ -155,6 +155,16 @@ public class RawMtrInvntrVO extends ComVO {
 	
 	
 	/**
+	 * 잔여 수량
+	 */
+	private int rmnQntt;
+	/**
+	 * 잔여 중량
+	 */
+	private double rmnWght;
+	
+	
+	/**
 	 * 운송구분
 	 */
 	private String trsprtSeCd;
@@ -304,6 +314,11 @@ public class RawMtrInvntrVO extends ComVO {
 
 	private String stdGrdCd;
 
+	/**
+	 * 투입순번
+	 */
+	private int inptSn;
+	
 	
 	/**
 	 * 변경이력
@@ -320,6 +335,18 @@ public class RawMtrInvntrVO extends ComVO {
 	private String chgRsnNm;
 	private String chgRmrk;
 	
+	/**
+	 * 제외 입고번호 목록
+	 */
+	private List<String> excldWrhsnoList;
+	
+	public List<String> getExcldWrhsnoList() {
+		return excldWrhsnoList == null ? null : excldWrhsnoList.stream().collect(Collectors.toList());
+	}
+
+	public void setExcldWrhsnoList(List<String> excldWrhsnoList) {
+		this.excldWrhsnoList = stdGrdList == null ? null : excldWrhsnoList.stream().collect(Collectors.toList());
+	}
 	
 	/**
 	 * 표준등급

@@ -38,6 +38,14 @@ public interface RawMtrInvntrService {
 	public List<RawMtrInvntrVO> selectRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
 	/**
+	 * 원물재고 목록 조회 (선별지정대상)
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrInvntrVO> selectRawMtrInvntrListForSort(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	
+	/**
 	 * 원물일일재고 목록 조회
 	 * @param rawMtrInvntrVO
 	 * @return
@@ -77,8 +85,6 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> multiSaveRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception;
-
-//	public HashMap<String, Object> updateRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
 	/**
 	 * 원물재고 삭제

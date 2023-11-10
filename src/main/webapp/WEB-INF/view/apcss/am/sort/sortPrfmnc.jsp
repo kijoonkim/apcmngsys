@@ -466,6 +466,10 @@
     	// grid clear
     	jsonSortPrfmnc.length = 0;
     	grdSortPrfmnc.clearStatus();
+    	
+    	jsonSortInptPrfmnc.length = 0;
+    	grdSortInptPrfmnc.refresh();
+    	
     	fn_setGrdSortPrfmnc(pageSize, pageNo);
 	}
 

@@ -47,6 +47,15 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	public List<RawMtrInvntrVO> selectRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	/**
+	 * 원물재고 목록 조회 : 선별 대상 조회
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrInvntrVO> selectRawMtrInvntrListForSort(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+		
 	/**
 	 * 원물일일재고 목록 조회
 	 * @param rawMtrInvntrVO

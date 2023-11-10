@@ -112,7 +112,7 @@
 						_callbackFnc) {	// return grid
 
 				document.querySelector('#impPop-spn-title').innerText = _title;
-				console.log(_mappingFnc);
+				
 				if (!gfn_isEmpty(_saveFnc) && typeof _saveFnc === 'function') {
 					this.saveFnc = _saveFnc;
 				}
