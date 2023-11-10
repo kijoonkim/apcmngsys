@@ -62,7 +62,23 @@ public interface SortMngService {
 	 */
 	public HashMap<String, Object> insertSortPrfmnc(SortMngVO sortMngVO) throws Exception;
 
-
+	/**
+	 * 선별실적 등록
+	 * @param sortMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSortRslt(SortMngVO sortMngVO) throws Exception;
+	
+	/**
+	 * 선별실적 등록
+	 * @param sortMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSortRsltList(SortMngVO sortMngVO) throws Exception;
+	
+	
 	/**
 	 * 선별지시 변경
 	 * @param sortMngVO

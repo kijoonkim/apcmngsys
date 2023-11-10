@@ -229,6 +229,85 @@
     	</if>
     	<!-- End 페이징 -->
     </select>
+    
+
+	<!-- =============================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntrListForSort	-->
+	<!-- DESC : 원물재고 목록 (선별대상) 조회.	                                       		-->
+	<!-- =============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	==============================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- =============================================================================	-->
+    <select id="selectRawMtrInvntrListForSort" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO" resultType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntrListForSort */
+    			  pt0.*
+    		  FROM (
+
+	    	SELECT
+				  RI.APC_CD         AS APC_CD
+				, RI.WRHSNO         AS WRHSNO
+				, RI.PLTNO          AS PLTNO
+				, RI.WRHS_YMD       AS WRHS_YMD
+				, RI.PRDCR_CD       AS PRDCR_CD
+				, RI.ITEM_CD        AS ITEM_CD
+				, RI.VRTY_CD        AS VRTY_CD
+				, RI.GDS_SE_CD      AS GDS_SE_CD
+				, RI.WRHS_SE_CD     AS WRHS_SE_CD
+				, RI.TRSPRT_SE_CD   AS TRSPRT_SE_CD
+				, RI.WAREHOUSE_SE_CD    AS WAREHOUSE_SE_CD
+				, RI.BX_KND         AS BX_KND
+				, RI.GRD_CD			AS GRD_CD
+				, RI.WRHS_QNTT      AS WRHS_QNTT
+				, RI.WRHS_WGHT      AS WRHS_WGHT
+				, RI.INPT_QNTT      AS INPT_QNTT
+				, RI.INPT_WGHT      AS INPT_WGHT
+				, RI.INVNTR_QNTT    AS INVNTR_QNTT
+				, RI.INVNTR_WGHT    AS INVNTR_WGHT
+				, RI.RMRK			AS RMRK
+				, RI.TRNSF_QNTT		AS TRNSF_QNTT
+				, RI.TRNSF_WGHT		AS TRNSF_WGHT
+				, RI.INPT_PRGRS_QNTT	AS INPT_PRGRS_QNTT
+				, RI.INPT_PRGRS_WGHT	AS INPT_PRGRS_WGHT
+				, RI.PRDCTN_YR		AS PRDCTN_YR
+
+			  FROM TB_RAW_MTR_INVNTR RI
+
+			 WHERE RI.DEL_YN = 'N'
+			   AND RI.INVNTR_WGHT > 0
+			   AND RI.APC_CD = #{apcCd}
+			   AND RI.ITEM_CD = #{itemCd}
+			   AND RI.VRTY_CD = #{vrtyCd}
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND RI.APC_CD = #{apcCd}
+		</if>
+		<if test='prdcrCd != null and prdcrCd != ""'>
+			   AND RI.PRDCR_CD = #{prdcrCd}
+		</if>
+		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			   AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+		</if>
+		<if test='excldWrhsnoList != null and !excldWrhsnoList.isEmpty()'>
+			   AND RI.WRHSNO NOT IN
+				<foreach collection="excldWrhsnoList" item="item" index="index" separator="," open="(" close=")">
+			   		#{item}
+			   	</foreach>
+		</if>
+		<![CDATA[
+		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO
+    		  ) pt0
+		]]>
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+    
 	<!-- =====================================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectDailyRawMtrInvntrList	-->
 	<!-- DESC : 원물일일재고 목록 조회.	                                       					-->

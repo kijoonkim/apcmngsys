@@ -79,7 +79,6 @@ const gStdGrdObj = {
 		jgmtJsonId: "gjsonStdGrdObjJgmt",
 		colPrfx: 'std__',
 		param: {apcCd: null, grdSeCd: null, itemCd: null},
-
 		init: async function(_apcCd, _grdSeCd, _itemCd) {
 
 			this.param.apcCd = _apcCd;

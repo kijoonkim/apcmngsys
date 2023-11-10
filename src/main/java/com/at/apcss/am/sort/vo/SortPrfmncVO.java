@@ -93,6 +93,7 @@ public class SortPrfmncVO extends ComVO {
 	private String warehouseSeCd;
 	private String warehouseSeNm;
 
+	private String warehouseSeCdFrom;
 
 	/**
 	 * 수량
@@ -190,6 +191,11 @@ public class SortPrfmncVO extends ComVO {
 	private String endSortYmd;
 	private String strgWarehouse;
 
+	/**
+	 * 생산연도
+	 */
+	private String prdctnYr;
+	
 
 	/**
 	 * 원물창고
@@ -220,6 +226,7 @@ public class SortPrfmncVO extends ComVO {
 	 * 선별중량
 	 */
 	private double sortWght;
+	
 	/**
 	 * 투입수량
 	 */
@@ -229,8 +236,7 @@ public class SortPrfmncVO extends ComVO {
 	 * 투입중량
 	 */
 	private double inptWght;
-
-
+	
 	/*입고구분*/
 	private String wrhsSe;
 

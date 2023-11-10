@@ -1552,7 +1552,9 @@
 	
 	
 	const fn_getExpColumns = function() {
-		const _columns = []
+		
+		const _columns = [];
+		
 		_columns.push(
 			{caption: ["입고일자"],	ref: 'wrhsYmd',		type:'output',  width:'100px',    style:'text-align:center'},
 			{caption: ["품목"], 		ref: 'itemCd',   	type:'combo',  width:'80px',    style:'text-align:center',
