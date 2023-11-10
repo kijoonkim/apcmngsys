@@ -58,7 +58,7 @@ public class ComConstants {
 	/**
 	 * W0001	{0}을/를 선택하세요.
 	 */
-	public final static String MSGCD_REQ_SELECT = "W0001"; 
+	public final static String MSGCD_REQ_SELECT = "W0001";
 	/**
 	 * W0005	{0}이/가 없습니다.
 	 */
@@ -67,12 +67,12 @@ public class ComConstants {
 	 * W0009	{0}이/가 있습니다.
 	 */
 	public final static String MSGCD_TARGET_EXIST = "W0009";
-	
+
 	/**
 	 * W0008	{0} 보다 {1}이/가 큽니다.
 	 */
-	public final static String MSGCD_GREATER_THAN = "W0008";		// W0008	{0} 보다 {1}이/가 큽니다.		
-	
+	public final static String MSGCD_GREATER_THAN = "W0008";		// W0008	{0} 보다 {1}이/가 큽니다.
+
 	public final static String MSGCD_ALEADY_CLOSE = "W0012";	// W0012	마감등록 된 {0} 입니다.
 
 	/* CODE 정보 */
@@ -139,6 +139,11 @@ public class ComConstants {
 	public final static String[] MENU_ID_SPMT						= {"AM_005_003", "AM_005_005"};	// 출하관리
 	public final static String[] MENU_ID_SPMT_MBL					= {"AM_005_004"};				// 출하태블릿
 	public final static String[] MENU_ID_SPMT_DOC_PBLCN				= {};							// 송품장발행
+
+	public final static String[] MENU_ID_SLS						= {"AM_005_006", "AM_005_007"};	// 매출관리
+
+	public final static String[] MENU_ID_INVNTR						= {"AM_006_001", "AM_006_002"};	// 재고관리
+	public final static String[] MENU_ID_INVNTR_TRNSF				= {"AM_006_003", "AM_006_004"};	// 재고이송관리
 
 	public final static String[] MENU_ID_CLCLN						= {"AM_008_001", "AM_008_002"};	// 정산관리
 
