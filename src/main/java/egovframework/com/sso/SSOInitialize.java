@@ -62,7 +62,7 @@ public class SSOInitialize {
 		 * 1. Agent Properties File Load
 		 */
 		
-		String webinfPath = System.getProperty( "user.dir" );
+		String webinfPath = System.getProperty( "spring.webinf.path" );
 		
 //		String webinfPath = servletContext.getRealPath( "/WEB-INF" );
 		

@@ -1,6 +1,8 @@
 package com.at.apcss.am.invntr.vo;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.at.apcss.co.sys.vo.ComVO;
@@ -182,6 +184,15 @@ public class SortInvntrVO extends ComVO {
 	private double inptPrgrsWght;
 
 	/**
+	 * 잔여수량
+	 */
+	private int rmnQntt;
+	/**
+	 * 잔여중량
+	 */
+	private double rmnWght;
+	
+	/**
 	 * 선별번호
 	 */
 	private String wghno;
@@ -240,7 +251,18 @@ public class SortInvntrVO extends ComVO {
 	private int chgAftrQntt;
 	private double chgAftrWght;
 	private String chgRsnCd;
-	private String chgRmrk;
+	private String chgRmrk;	
+	
+	
+	
+	private List<InvntrDtlVO> excldInvntrList;
+	public List<InvntrDtlVO> getExcldInvntrList() {
+		return excldInvntrList == null ? null : excldInvntrList.stream().collect(Collectors.toList());
+	}
+
+	public void setExcldInvntrList(List<InvntrDtlVO> excldInvntrList) {
+		this.excldInvntrList = excldInvntrList == null ? null : excldInvntrList.stream().collect(Collectors.toList());
+	}
 	
 	/**
 	 * 표준등급

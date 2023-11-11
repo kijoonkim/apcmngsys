@@ -419,6 +419,7 @@
 					, SPMT_WGHT
 					, INVNTR_QNTT
 					, INVNTR_WGHT
+					, PRDCTN_YR
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -448,6 +449,7 @@
 					, #{spmtWght}
 					, #{invntrQntt}
 					, #{invntrWght}
+					, #{prdctnYr}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}

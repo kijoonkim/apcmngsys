@@ -25,11 +25,11 @@ import com.ubintis.app.AppService;
  */
 @Configuration
 public class SSOServletConfig {
-	
-	@Bean
-	public ServletRegistrationBean ssoServiceRegistration() {
 
-		ServletRegistrationBean registrationBean = new ServletRegistrationBean( new AppService() );
+	@Bean
+	public ServletRegistrationBean<AppService> ssoServiceRegistration() {
+
+		ServletRegistrationBean<AppService> registrationBean = new ServletRegistrationBean<AppService>( new AppService() );
 		registrationBean.addUrlMappings( "/SSOService.do" );
 
 		return registrationBean;
