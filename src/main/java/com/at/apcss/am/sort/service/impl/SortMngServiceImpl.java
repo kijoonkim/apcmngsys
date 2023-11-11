@@ -641,7 +641,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 						param.setApcCd(apcCd);
 						param.setItemCd(itemCd);
 						param.setVrtyCd(vrtyCd);
-						param.setPrdcr(prdcrCd);
+						param.setPrdcrCd(prdcrCd);
 						param.setWarehouseSeCd(warehouseSeCdFrom);
 						param.setExcldWrhsnoList(excldWrhsnoList);
 						param.setPagingYn(ComConstants.CON_YES);

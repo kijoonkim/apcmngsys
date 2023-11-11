@@ -112,6 +112,7 @@ public class PckgPrfmncVO extends ComVO {
 	 */
 	private String warehouseSeCd;
 	private String warehouseSeNm;
+	private String warehouseSeCdFrom;
 
 	/**
 	 * 상품구분코드
@@ -163,6 +164,15 @@ public class PckgPrfmncVO extends ComVO {
 	 */
 	private double pckgWght;
 
+	/**
+	 * 잔여수량
+	 */
+	private int rmnQntt;
+	/**
+	 * 잔여중량
+	 */
+	private double rmnWght;
+	
 	/**
 	 * 재고수량
 	 */

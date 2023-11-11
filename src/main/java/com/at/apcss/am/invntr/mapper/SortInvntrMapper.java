@@ -39,6 +39,16 @@ public interface SortInvntrMapper {
 	 * @throws Exception
 	 */
 	public List<SortInvntrVO> selectSortInvntrList(SortInvntrVO sortInvntrVO) throws Exception;
+	
+	
+	/**
+	 * 선별재고 포장대상 목록 조회
+	 * @param sortInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortInvntrVO> selectSortInvntrListForPckg(SortInvntrVO sortInvntrVO) throws Exception;
+	
 	/**
 	 * 선별일일재고 목록 조회
 	 * @param sortInvntrVO

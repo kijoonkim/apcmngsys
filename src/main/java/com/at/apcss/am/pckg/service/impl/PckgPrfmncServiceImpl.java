@@ -104,6 +104,10 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 					&& StringUtils.hasText(pckgPrfmncVO.getSpmtPckgUnitCd())) {
 				CmnsGdsVO cmnsGdsVO = new CmnsGdsVO();
 				BeanUtils.copyProperties(pckgPrfmncVO, cmnsGdsVO);
+				
+				logger.debug("cmnsGdsVO.getSpcfctCd : {}", cmnsGdsVO.getSpcfctCd());
+				logger.debug("cmnsGdsVO.getSpmtPckgUnitCd : {}", cmnsGdsVO.getSpmtPckgUnitCd());
+				
 				rtnObj = cmnsGdsService.insertCheckGdsCd(cmnsGdsVO);
 				if (rtnObj != null) {
 					throw new EgovBizException(getMessageForMap(rtnObj));

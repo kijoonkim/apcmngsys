@@ -28,6 +28,14 @@ public interface PckgMngService {
 	public HashMap<String, Object> insertPckgInpt(PckgMngVO pckgMngVO) throws Exception;
 
 	/**
+	 * 포장실적 처리
+	 * @param pckgInptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertPckgRslt(PckgMngVO pckgMngVO) throws Exception;
+	
+	/**
 	 * 포장실적 등록
 	 * @param pckgInptVO
 	 * @return

@@ -979,7 +979,7 @@
 			let jgmtGrdCd;
 			let gdsGrd;
 
-			jsonStdGrdKnd.forEach((knd, idx) => {
+			gjsonStdGrdObjKnd.forEach((knd, idx) => {
 				let stdGrd = {
 					grdSeCd: _GRD_SE_CD_GDS,
 					itemCd: item.itemCd,
@@ -994,7 +994,7 @@
 				stdGrdList.push(stdGrd);
 			});
 
-			if (jsonStdGrdKnd.length > 1 && jsonStdGrdJgmt.length > 0) {
+			if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
 				jgmtGrdCd = item['jgmtGrdCd'];
 			}
 
@@ -1900,7 +1900,7 @@
  	    	const pckgPrfmnc = {
 				apcCd: gv_selectedApcCd,
 				pckgYmd: rowData.pckgYmd,
-   				fcltCd: rowData.sortFcltCd,
+   				fcltCd: rowData.pckgFcltCd,
    				itemCd: rowData.itemCd,
    				vrtyCd: rowData.vrtyCd,
    				spcfctCd: rowData.spcfctCd,
@@ -1909,6 +1909,7 @@
    				warehouseSeCd: rowData.warehouseSeCdTo,
    				warehouseSeCdFrom: rowData.warehouseSeCdFrom,
    				grdCd: grdCd,
+   				gdsGrd: grdCd,
    				rmrk: rowData.rmrk,
    				pckgQntt: rowData.pckgQntt,
    				pckgWght: rowData.pckgWght,

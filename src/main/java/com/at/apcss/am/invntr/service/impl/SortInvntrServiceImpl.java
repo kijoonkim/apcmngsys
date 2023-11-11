@@ -71,6 +71,17 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 		return resultList;
 	}
 
+
+	@Override
+	public List<SortInvntrVO> selectSortInvntrListForPckg(SortInvntrVO sortInvntrVO) throws Exception {
+		
+		List<SortInvntrVO> resultList = sortInvntrMapper.selectSortInvntrListForPckg(sortInvntrVO);
+
+		return resultList;
+	}
+
+
+	
 	@Override
 	public HashMap<String, Object> insertSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
 
@@ -422,6 +433,5 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 				
 		return null;
 	}
-
 
 }
