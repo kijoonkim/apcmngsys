@@ -216,8 +216,8 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 		apcStngInfo = selectApcEvrmntStng(authStngVO);
 		if (apcInfo == null || !StringUtils.hasText(apcInfo.getApcCd())) {
 			logger.error("Error on ApcEvrmntStngService#insertApcInitInfo call selectApcEvrmntStng");
-			logger.error(getMessageForMap(ComUtil.getResultMap("W0005", "APC설정정보")));
-			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0005", "APC설정정보")));	// W0005	{0}이/가 없습니다.
+			logger.error(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC설정정보")));
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC설정정보")));	// W0005	{0}이/가 없습니다.
 		}
 
 		BeanUtils.copyProperties(apcStngInfo, authStngVO,
@@ -258,8 +258,8 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 		int updatedCnt = apcEvrmntStngMapper.updateApcEvrmntStngAuthrt(apcEvrmntStngVO);
 		if (updatedCnt != 1) {
 			logger.error("Error on ApcEvrmntStngService#updateApcEvrmntStngAuthrt call updateApcEvrmntStngAuthrt");
-			logger.error(getMessageForMap(ComUtil.getResultMap("W0005", "APC설정정보")));
-			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0005", "APC설정정보")));	// W0005	{0}이/가 없습니다.
+			logger.error(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC설정정보")));
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC설정정보")));	// W0005	{0}이/가 없습니다.
 		}
 
 		return null;

@@ -55,6 +55,12 @@ public class ComConstants {
 
 
 	/* MSG CODE */
+	
+	/**
+	 * E0003 {0} 시 오류가 발생하였습니다.
+	 */
+	public final static String MSGCD_ERR_PARAM_ONE = "E0003";
+	
 	/**
 	 * W0001	{0}을/를 선택하세요.
 	 */
@@ -64,14 +70,18 @@ public class ComConstants {
 	 */
 	public final static String MSGCD_NOT_FOUND = "W0005";
 	/**
-	 * W0009	{0}이/가 있습니다.
-	 */
-	public final static String MSGCD_TARGET_EXIST = "W0009";
-
-	/**
 	 * W0008	{0} 보다 {1}이/가 큽니다.
 	 */
 	public final static String MSGCD_GREATER_THAN = "W0008";		// W0008	{0} 보다 {1}이/가 큽니다.
+	/**
+	 * W0009	{0}이/가 있습니다.
+	 */
+	public final static String MSGCD_TARGET_EXIST = "W0009";
+	/**
+	 * W0010	이미 {0}된 {1} 입니다.
+	 */
+	public final static String MSGCD_ALEADY_DONE = "W0010";		// W0010	이미 {0}된 {1} 입니다.
+
 
 	public final static String MSGCD_ALEADY_CLOSE = "W0012";	// W0012	마감등록 된 {0} 입니다.
 
