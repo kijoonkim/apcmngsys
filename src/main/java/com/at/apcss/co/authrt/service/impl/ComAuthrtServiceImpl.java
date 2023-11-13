@@ -435,11 +435,11 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 		// 00. validation check
 		if (!StringUtils.hasText(apcCd)) {
-			return ComUtil.getResultMap("W0005", "APC코드");
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
 		}
 
 		if (!StringUtils.hasText(userId)) {
-			return ComUtil.getResultMap("W0005", "사용자ID");
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "사용자ID");
 		}
 
 		// 사용자 유형 확인
@@ -447,25 +447,23 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		paramUser.setUserId(userId);
 		ComUserVO comUserVO = comUserMapper.selectComUser(paramUser);
 		if (comUserVO == null || !StringUtils.hasText(comUserVO.getUserId())) {
-			return ComUtil.getResultMap("W0005", "사용자정보");
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "사용자정보");
 		}
 
 		if (!ComConstants.CON_USER_STTS_VALID.equals(comUserVO.getUserStts())) {
-			return ComUtil.getResultMap("W0010", "승인||사용자");	// W0010	이미 {0}된 {1} 입니다.
+			return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_DONE, "승인||사용자");	// W0010	이미 {0}된 {1} 입니다.
 		}
 
 		String apcNm = comUserVO.getApcNm();
 		String userType = comUserVO.getUserType();
 		String authrtType = ComConstants.CON_BLANK;
 
-		logger.debug("userType: {}", userType);
-
 		if (ComConstants.CON_USER_TYPE_ADMIN.equals(userType)) {
 			authrtType = ComConstants.CON_AUTHRT_TYPE_ADMIN;
 		} else if (ComConstants.CON_USER_TYPE_USER.equals(userType)) {
 			authrtType = ComConstants.CON_AUTHRT_TYPE_USER;
 		} else {
-			HashMap<String, Object> resultMap = ComUtil.getResultMap("W0005", "사용자유형");
+			HashMap<String, Object> resultMap = ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "사용자유형");
 			return resultMap;
 		}
 		logger.debug("authrtType: {}", authrtType);
@@ -499,7 +497,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				newAuthrtVO.setAuthrtType(ComConstants.CON_AUTHRT_TYPE_ADMIN);
 				int insertedCnt = insertComAuthrt(newAuthrtVO);
 				if (insertedCnt != 1) {
-					throw new EgovBizException(getMessage("E0003", "APC관리자 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+					throw new EgovBizException(getMessage(ComConstants.MSGCD_ERR_PARAM_ONE, "APC관리자 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 				}
 
 				// user
@@ -507,7 +505,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 				newAuthrtVO.setAuthrtType(ComConstants.CON_AUTHRT_TYPE_USER);
 				insertedCnt = insertComAuthrt(newAuthrtVO);
 				if (insertedCnt != 1) {
-					throw new EgovBizException(getMessage("E0003", "APC사용자 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+					throw new EgovBizException(getMessage(ComConstants.MSGCD_ERR_PARAM_ONE, "APC사용자 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 				}
 
 				// 등록 후 권한그룹 재조회
@@ -535,7 +533,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 					newAuthrtMenuVO.setMenuId(ApcConstants.MENU_ID_AM);
 					insertedCnt = insertComAuthrtMenu(newAuthrtMenuVO);
 					if (insertedCnt != 1) {
-						throw new EgovBizException(getMessage("E0003", "업무메뉴 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+						throw new EgovBizException(getMessage(ComConstants.MSGCD_ERR_PARAM_ONE, "업무메뉴 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 					}
 
 					// APC환경설정 메뉴등록
@@ -544,13 +542,12 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 
 					insertedCnt = insertComAuthrtMenu(newAuthrtMenuVO);
 					if (insertedCnt != 1) {
-						throw new EgovBizException(getMessage("E0003", "업무메뉴 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+						throw new EgovBizException(getMessage(ComConstants.MSGCD_ERR_PARAM_ONE, "업무메뉴 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 					}
 				}
 			}
 		}
 
-		logger.debug("@@@ 권한사용자 등록");
 		// 20. 해당 userId 권한사용자 등록
 		String newAuthrtId = ComConstants.CON_BLANK;
 		for ( ComAuthrtVO auth : authrtList ) {
@@ -561,7 +558,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 			}
 		}
 
-		logger.debug("newAuthrtId: {}", newAuthrtId);
+
 		if (StringUtils.hasText(newAuthrtId)) {
 			ComAuthrtUserVO newAuthrtUserVO = new ComAuthrtUserVO();
 			newAuthrtUserVO.setSysFrstInptUserId(sysUserId);
@@ -577,7 +574,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 			if (authrtUserInfo == null || StringUtils.hasText(authrtUserInfo.getUserId())) {
 				int insertedCnt = insertComAuthrtUser(newAuthrtUserVO);
 				if (insertedCnt != 1) {
-					throw new EgovBizException(getMessage("E0003", "사용자 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+					throw new EgovBizException(getMessage(ComConstants.MSGCD_ERR_PARAM_ONE, "사용자 권한등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 				}
 			}
 		}
@@ -600,11 +597,11 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		String apcCd = comAuthrtVO.getApcCd();
 
 		if (!StringUtils.hasText(authrtCaseId)) {
-			HashMap<String, Object> resultMap = ComUtil.getResultMap("W0005", "권한 CASE");
+			HashMap<String, Object> resultMap = ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "권한 CASE");
 			return resultMap;
 		}
 		if (!StringUtils.hasText(apcCd)) {
-			HashMap<String, Object> resultMap = ComUtil.getResultMap("W0005", "APC코드");
+			HashMap<String, Object> resultMap = ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
 			return resultMap;
 		}
 
@@ -638,13 +635,19 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		} else if (ApcConstants.AUTHRT_CASE_10.equals(authrtCaseId)) {
 			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_10_ADMIN;
 			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_10_USER;
+		} else if (ApcConstants.AUTHRT_CASE_11.equals(authrtCaseId)) {
+			refAuthrtIdAdmin = ApcConstants.AUTHRT_ID_CASE_11_ADMIN;
+			refAuthrtIdUser = ApcConstants.AUTHRT_ID_CASE_11_USER;
 		} else {
 			refAuthrtIdAdmin = ComConstants.CON_BLANK;
 			refAuthrtIdUser = ComConstants.CON_BLANK;
 		}
 
+		
+		// 기본 관리자 권한 SETTING 필요
+		
 		if (!StringUtils.hasText(authrtCaseId)) {
-			HashMap<String, Object> resultMap = ComUtil.getResultMap("W0005", "참조 권한ID");
+			HashMap<String, Object> resultMap = ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "참조 권한ID");
 			return resultMap;
 		}
 
@@ -734,7 +737,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		String apcCd = apcEvrmntStngVO.getApcCd();
 
 		if (!StringUtils.hasText(apcCd)) {
-			HashMap<String, Object> resultMap = ComUtil.getResultMap("W0005", "APC코드");
+			HashMap<String, Object> resultMap = ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
 			return resultMap;
 		}
 

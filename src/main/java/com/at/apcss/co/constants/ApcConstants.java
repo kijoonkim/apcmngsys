@@ -23,7 +23,9 @@ public class ApcConstants {
     public final static String AUTHRT_ID_CASE_09_USER = "0000_981";
 	public final static String AUTHRT_ID_CASE_10_ADMIN = "0000_990";
     public final static String AUTHRT_ID_CASE_10_USER = "0000_991";
-
+	public final static String AUTHRT_ID_CASE_11_ADMIN = "0000_993";
+    public final static String AUTHRT_ID_CASE_11_USER = "0000_994";    
+    
     /* APC 메뉴 간편설정 권한 CASE */
     public final static String AUTHRT_CASE_01 = "CASE_01";
     public final static String AUTHRT_CASE_02 = "CASE_02";
