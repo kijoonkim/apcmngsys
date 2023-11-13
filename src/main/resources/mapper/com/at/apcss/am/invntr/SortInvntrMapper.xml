@@ -183,8 +183,8 @@
     	</if>
     	<!-- End 페이징 -->
     </select>
-    
-    
+
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrListForPckg	-->
 	<!-- DESC : 선별재고 목록 조회.	                                       				-->
@@ -198,7 +198,7 @@
     		SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrListForPckg */
     			  pt0.*
     		  FROM (
-	    	SELECT 
+	    	SELECT
 				   SI.APC_CD			AS APC_CD
 			     , SI.SORTNO			AS SORTNO
 			     , SI.SORT_SN			AS SORT_SN
@@ -226,7 +226,7 @@
 			   AND SI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
 			   AND SI.ITEM_CD = #{itemCd}
 			   AND SI.VRTY_CD = #{vrtyCd}
-			   AND SI.SPCFCT_CD = #{spcfctCd}	   
+			   AND SI.SPCFCT_CD = #{spcfctCd}
 		]]>
 		<if test='excldInvntrList != null and !excldInvntrList.isEmpty()'>
 			   AND (SI.SORTNO, SI.SORT_SN) NOT IN
@@ -234,7 +234,7 @@
 			   		(#{item.invntrno}, #{item.invntrSn})
 			   	</foreach>
 		</if>
-		
+
 		<if test='gdsSeCd != null and gdsSeCd != ""'>
 			   AND SI.GDS_SE_CD = #{gdsSeCd}
 		</if>
@@ -260,9 +260,9 @@
     	</if>
     	<!-- End 페이징 -->
     </select>
-    
-    
-    
+
+
+
 	<!-- =================================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectDailySortInvntrList	-->
 	<!-- DESC : 선별일일재고 목록 조회.	                                       				-->
@@ -950,8 +950,8 @@
 					, #{chgRsnCd}
 					, #{chgRmrk}
 		    		, SYSDATE
-		    		, #{sysFrstInptUserId}
-		    		, #{sysFrstInptPrgrmId}
+		    		, #{sysLastChgUserId}
+		    		, #{sysLastChgPrgrmId}
 		    		, SYSDATE
 		    		, #{sysLastChgUserId}
 		    		, #{sysLastChgPrgrmId}

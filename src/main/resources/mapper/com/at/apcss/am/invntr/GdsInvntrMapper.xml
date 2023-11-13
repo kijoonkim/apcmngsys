@@ -765,8 +765,8 @@
 					, #{chgRsnCd}
 					, #{chgRmrk}
 		    		, SYSDATE
-		    		, #{sysFrstInptUserId}
-		    		, #{sysFrstInptPrgrmId}
+		    		, #{sysLastChgUserId}
+		    		, #{sysLastChgPrgrmId}
 		    		, SYSDATE
 		    		, #{sysLastChgUserId}
 		    		, #{sysLastChgPrgrmId}
