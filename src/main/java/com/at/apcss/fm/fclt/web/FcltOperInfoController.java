@@ -177,4 +177,18 @@ public class FcltOperInfoController extends BaseController {
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+
+	/*
+	 * 주소 팝업
+	 */
+	@GetMapping("/fm/popup/jusoPopup.do")
+	public String jusoPopupGet(Model model, HttpServletRequest request) {
+		return "apcss/fm/popup/jusoPopup";
+	}
+
+	@PostMapping("/fm/popup/jusoPopup.do")
+	public String jusoPopupPost(Model model, HttpServletRequest request) {
+		return "apcss/fm/popup/jusoPopup";
+	}
 }
