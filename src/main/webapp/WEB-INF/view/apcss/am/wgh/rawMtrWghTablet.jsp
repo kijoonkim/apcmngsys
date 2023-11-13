@@ -729,8 +729,6 @@
  		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
  		let itemCd = SBUxMethod.get("dtl-slt-itemCd");		// 품목
  		let vrtyCd = SBUxMethod.get("dtl-slt-vrtyCd");		// 품종
- 		let wrhsSeCd = SBUxMethod.get("dtl-rdo-wrhsSeCd");	// 입고구분
- 		let gdsSeCd = SBUxMethod.get("dtl-rdo-gdsSeCd");	// 상품구분
 
 		const postJsonPromise = gfn_postJSON("/am/wgh/selectWghPrfmncList.do", {
 			apcCd: gv_selectedApcCd,
@@ -738,9 +736,6 @@
 			prdcrCd: prdcrCd,
 			itemCd: itemCd,
 			vrtyCd: vrtyCd,
-			wrhsSeCd: wrhsSeCd,
-			gdsSeCd: gdsSeCd,
-// 			trsprtSeCd: trsprtSeCd,
 
          	// pagination
  	  		pagingYn : 'N',

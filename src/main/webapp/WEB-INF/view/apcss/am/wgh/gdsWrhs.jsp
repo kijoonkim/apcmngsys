@@ -293,12 +293,8 @@
 		jsonGdsWrhs = [];
 		let apcCd = gv_selectedApcCd;
 		let pckgYmd = SBUxMethod.get("srch-dtp-pckgYmd");
-		let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");
-		let prchsptNm = SBUxMethod.get("srch-inp-prchsptNm");
 		let itemCd = SBUxMethod.get("srch-inp-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
-		let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
-		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");
 		
 		if (gfn_isEmpty(pckgYmd)){
 			gfn_comAlert("W0002", "입고일자");		//	W0002	{0}을/를 입력하세요.

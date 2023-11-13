@@ -385,28 +385,18 @@
 	const fn_setGrdRawMtrWrhsPrfmnc = async function(pageSize, pageNo) {
 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-startPrdctnYmd");		// 입고시작일자
    		let wrhsYmdTo = SBUxMethod.get("srch-dtp-endPrdctnYmd");		// 입고종료일자
-  		let wrhsSeCd = fn_getChkbox(jsonWrhsSeCd, SBUxMethod.get("dtl-chk-wrhsSeCd"));
-  		let gdsSeCd = fn_getChkbox(jsonGdsSeCd, SBUxMethod.get("dtl-chk-gdsSeCd"));
-  		let trsprtSeCd = fn_getChkbox(jsonTrsprtSeCd, SBUxMethod.get("dtl-chk-trsprtSeCd"));
 
   		// optional
   		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");	// 생산자
-  		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
-  		let vhclno = SBUxMethod.get("srch-inp-vhclno");	// 차량번호
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = vrtyCds.length > 0 ? vrtyCds.join(',') : "";
 		const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsPrfmncList.do", {
 			apcCd: gv_selectedApcCd,
 			wrhsYmdFrom: wrhsYmdFrom,
 			wrhsYmdTo: wrhsYmdTo,
-			wrhsSeCd: wrhsSeCd,
-			gdsSeCd: gdsSeCd,
-			trsprtSeCd: trsprtSeCd,
-			warehouseSeCd: warehouseSeCd,
 			prdcrCd: prdcrCd,
 			vrtyCd: vrtyCd,
 			itemCd: itemCd,
-			vhclno: vhclno,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : pageNo,
