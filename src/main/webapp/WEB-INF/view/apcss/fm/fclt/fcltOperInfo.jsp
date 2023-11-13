@@ -262,18 +262,6 @@
 				</table>
 
 			</div>
-			<div>
-				<input type="text" class="input_05mg" title="우편번호" id="zipCode1" name="zipCode1" value="" readonly />
-		                        <input type="hidden" class="input_05mg" title="우편번호뒷자리" id="zipCode2" name="zipCode2" value="" readonly />
-								<input type="hidden" name="zip"/>
-		                        <input type="hidden" id="zipCodeType" name="zipCodeType" value="" />
-		                        <!--
-		                        <a href="#" onclick="goPopup();" title="우편번호 조회"><img src="/images/members/btn/btn_zipcode.gif" alt="우편번호 검색" title="우편번호 검색" class="pd_top5" /></a><br />
-		                         -->
-		                        <sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="goPopup" text="주소찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
-		                        <input type="text" id="address" class="input_02mg" title="주소" name="addr" /><br />
-		                        <input type="text" id="detailAddress" class="input_02mg" title="상세주소" name="dtlAddr" />
-			</div>
 			</div>
 			<!--[pp] //검색결과 -->
 		</div>
